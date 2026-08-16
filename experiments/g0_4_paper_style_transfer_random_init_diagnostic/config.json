@@ -1,0 +1,47 @@
+{
+  "stage": "G0-4_paper_style_transfer",
+  "smoke": false,
+  "data": "experiments/g0_3_threshold_sensitivity/canonical_8g_no_threshold.csv",
+  "data_sha256": "4cc533b00c4528053c7f033645c50a7d03b35bfff3fcfe4c3f684376ac136203",
+  "rows": 574,
+  "source_checkpoint": "experiments/e0_4g_baseline/checkpoints/best.pt",
+  "source_checkpoint_sha256": "7b9e3d0d4c8036c738ef220802e7ee46bc6ab8261cc541fb7d194e8c17044323",
+  "splits": [
+    "row_seed_42",
+    "row_seed_525",
+    "row_seed_1101",
+    "compound_seed_42",
+    "compound_seed_525",
+    "compound_seed_1101"
+  ],
+  "configs": [
+    "last2_head",
+    "full_finetune",
+    "paper_style"
+  ],
+  "shared": "monotonic softplus head, no-threshold target, source scaler, lr=1e-4, equal V1/V2 loss, validation-best checkpoint",
+  "paper_style": "append diameter/length/packing-density to every Graph-G edge; transfer all compatible 4g weights; initialize a new monotonic output head from source q50/differences; train new column RBF adapters plus last2 GNN layers plus head",
+  "column_features": [
+    "column_dia",
+    "column_len",
+    "column_den"
+  ],
+  "column_spec_4g_repository_values": [
+    1.5,
+    6.6,
+    0.4458
+  ],
+  "column_spec_8g_repository_values": [
+    1.5,
+    13.2,
+    0.4458
+  ],
+  "paper_source": "https://arxiv.org/pdf/2404.09114",
+  "paper_scope_note": "paper specifies new column input, updated output layer and lr=1e-4, but not an exact freeze map; the adapter+last2 range is therefore an explicit minimal implementation choice",
+  "selection": "select paper_style only if mean validation score improves >=2%, it wins >=4/6 paired contexts, and neither split-mode mean worsens >5%; otherwise retain last2+head",
+  "test_role": "final reporting only",
+  "epochs": 500,
+  "patience": 100,
+  "batch_size": 2048,
+  "reused_g03_last2": true
+}

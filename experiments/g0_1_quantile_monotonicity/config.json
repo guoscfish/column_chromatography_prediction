@@ -1,0 +1,55 @@
+{
+  "stage": "G0-1_quantile_monotonicity",
+  "smoke": false,
+  "git_commit": "7d09f9bb9b9edbb240c42aa5971b15a10fcc3f16",
+  "data": "experiments/e0_8g_transfer/canonical_8g.csv",
+  "source_checkpoint": "experiments/e0_4g_baseline/checkpoints/best.pt",
+  "source_checkpoint_sha256": "7b9e3d0d4c8036c738ef220802e7ee46bc6ab8261cc541fb7d194e8c17044323",
+  "splits": {
+    "row_seed_42": {
+      "path": "experiments/e0_3b_controls/splits/row_seed_42.csv",
+      "sha256": "b24ff3974b22c74d9b9b97ffc7ffd01b43af8d39d769e57ec27bc24cdec36169"
+    },
+    "row_seed_525": {
+      "path": "experiments/e0_3b_controls/splits/row_seed_525.csv",
+      "sha256": "58761c840cc845b8266bc4e370c0ba916268e8db8bf13f657b37a7ff0a630f64"
+    },
+    "row_seed_1101": {
+      "path": "experiments/e0_3b_controls/splits/row_seed_1101.csv",
+      "sha256": "046a6ed7f0c7cc7f8c73e8069cf5f7b86c786570bc8cbe6489c4ce821ca71053"
+    },
+    "compound_seed_42": {
+      "path": "experiments/e0_3b_controls/splits/compound_seed_42.csv",
+      "sha256": "66f6f837c1f3f6af317e12bc679e1793dc447658f2c8fbcbb5baf4d801e2288d"
+    },
+    "compound_seed_525": {
+      "path": "experiments/e0_3b_controls/splits/compound_seed_525.csv",
+      "sha256": "b771a031a618dcc230c9984e89c2bafc77b6d6d46f6b597d1c77a6c8eaeb033c"
+    },
+    "compound_seed_1101": {
+      "path": "experiments/e0_3b_controls/splits/compound_seed_1101.csv",
+      "sha256": "f7ebe88ee744c63a4cb3ebb6399c6605ac003f7fdf2ed85907d3518bbd3eb32f"
+    }
+  },
+  "seeds": [
+    42,
+    525,
+    1101
+  ],
+  "split_modes": [
+    "row",
+    "compound"
+  ],
+  "epochs": 500,
+  "patience": 100,
+  "batch_size": 2048,
+  "transfer": "last2_head",
+  "learning_rate": 0.0001,
+  "loss": "L_V1 + L_V2; each target uses q10 pinball + q50 MSE + q90 pinball + crossing penalty",
+  "checkpoint_selection": "validation-only train-variance normalized q50 MSE",
+  "acceptance": {
+    "crossing_rate": 0.0,
+    "max_relative_mean_degradation_normalized_validation": 0.05,
+    "max_relative_mean_degradation_each_validation_rmse": 0.05
+  }
+}

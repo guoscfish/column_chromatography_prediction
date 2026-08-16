@@ -1,0 +1,30 @@
+{
+  "stage": "G0-2_validation_only_interval_calibration",
+  "input_comparison": "experiments/g0_1_quantile_monotonicity/comparison.csv",
+  "input_comparison_sha256": "0ad3c9fc76bf325ce3b11515f1f051ea98e6bcb112d6835c1b963c46dc60e19e",
+  "input_predictions": "experiments/g0_1_quantile_monotonicity/predictions.csv.gz",
+  "input_predictions_sha256": "db26ba078e8e170c31b36d01fdf4e1ec0b70c1e89293b875ccdcffe919fbb7d5",
+  "selected_parameterization": "monotonic_softplus",
+  "g0_1_gate": {
+    "passed": true,
+    "relative_validation_degradation": {
+      "normalized_valid_score": 0.007010465046309422,
+      "valid_V1_rmse": 0.005701775120300123,
+      "valid_V2_rmse": 0.0011065636093419151
+    }
+  },
+  "nominal_coverage": 0.8,
+  "alpha_80_rule": "max(1, split-conformal validation order statistic)",
+  "test_role": "final reporting only; never used to estimate alpha",
+  "auce_levels": [
+    0.1,
+    0.2,
+    0.30000000000000004,
+    0.4,
+    0.5,
+    0.6,
+    0.7000000000000001,
+    0.8,
+    0.9
+  ]
+}

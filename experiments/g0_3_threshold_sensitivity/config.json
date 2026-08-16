@@ -1,0 +1,108 @@
+{
+  "stage": "G0-3_threshold_sensitivity",
+  "smoke": false,
+  "data_source": "experiments/e0_8g_transfer/sample_decisions_8g.csv",
+  "data_source_sha256": "1ff2baddb4f5e5a01a0d1b4504c52cab3984328c2987ec92f72cf42e91ccbc5b",
+  "rows": 574,
+  "legacy_threshold_rows": 552,
+  "tail_rows": 22,
+  "tail_compounds": 19,
+  "source_checkpoint": "experiments/e0_4g_baseline/checkpoints/best.pt",
+  "source_checkpoint_sha256": "7b9e3d0d4c8036c738ef220802e7ee46bc6ab8261cc541fb7d194e8c17044323",
+  "seeds": [
+    42,
+    525,
+    1101
+  ],
+  "split_modes": [
+    "row",
+    "compound"
+  ],
+  "splits": {
+    "row_seed_42": {
+      "path": "experiments/g0_3_threshold_sensitivity/splits/row_seed_42.csv",
+      "sha256": "0f836b8800d1415275a19d072cfab3f139d535da0e585e04757f2b4dffab40e1",
+      "counts": {
+        "test|tail=False": 56,
+        "test|tail=True": 3,
+        "train|tail=False": 441,
+        "train|tail=True": 17,
+        "valid|tail=False": 55,
+        "valid|tail=True": 2
+      }
+    },
+    "row_seed_525": {
+      "path": "experiments/g0_3_threshold_sensitivity/splits/row_seed_525.csv",
+      "sha256": "89d7d54e97e2c064148701fa710ec2c852c5fdb9a0e3aa48622d52bd3efbe000",
+      "counts": {
+        "test|tail=False": 56,
+        "test|tail=True": 3,
+        "train|tail=False": 441,
+        "train|tail=True": 17,
+        "valid|tail=False": 55,
+        "valid|tail=True": 2
+      }
+    },
+    "row_seed_1101": {
+      "path": "experiments/g0_3_threshold_sensitivity/splits/row_seed_1101.csv",
+      "sha256": "52986ebcb2814859ba691a637db954279190b249ae14f242b6691749928e3eb8",
+      "counts": {
+        "test|tail=False": 56,
+        "test|tail=True": 3,
+        "train|tail=False": 441,
+        "train|tail=True": 17,
+        "valid|tail=False": 55,
+        "valid|tail=True": 2
+      }
+    },
+    "compound_seed_42": {
+      "path": "experiments/g0_3_threshold_sensitivity/splits/compound_seed_42.csv",
+      "sha256": "7803aec333514501dee5815d76976b66a0920e3ef4f591c2b4d775d5bfc9455d",
+      "counts": {
+        "test|tail=False": 56,
+        "test|tail=True": 2,
+        "train|tail=False": 441,
+        "train|tail=True": 18,
+        "valid|tail=False": 55,
+        "valid|tail=True": 2
+      }
+    },
+    "compound_seed_525": {
+      "path": "experiments/g0_3_threshold_sensitivity/splits/compound_seed_525.csv",
+      "sha256": "521ebdbb21135bba103460b4af75e242678e6aa3b55f5544da62d80b21b7c8df",
+      "counts": {
+        "test|tail=False": 56,
+        "test|tail=True": 2,
+        "train|tail=False": 441,
+        "train|tail=True": 18,
+        "valid|tail=False": 55,
+        "valid|tail=True": 2
+      }
+    },
+    "compound_seed_1101": {
+      "path": "experiments/g0_3_threshold_sensitivity/splits/compound_seed_1101.csv",
+      "sha256": "77a50f800935ccb1c8afda211ad9daa157c31c5141650b0818de7acfd6da6688",
+      "counts": {
+        "test|tail=False": 56,
+        "test|tail=True": 2,
+        "train|tail=False": 441,
+        "train|tail=True": 18,
+        "valid|tail=False": 55,
+        "valid|tail=True": 2
+      }
+    }
+  },
+  "protocols": [
+    "legacy_threshold",
+    "no_threshold"
+  ],
+  "model": "monotonic_softplus, last2+head, lr=1e-4, equal V1/V2 loss",
+  "checkpoint_selection": "protocol-specific validation only",
+  "calibration": "protocol-specific validation-only per-target split-conformal inflation",
+  "metric_scales": "shared in-threshold train standard deviations within each split/seed",
+  "threshold_selection": "validation-only rule recorded in threshold_decision.json",
+  "test_role": "final reporting only",
+  "epochs": 500,
+  "patience": 100,
+  "batch_size": 2048
+}

@@ -1,15 +1,16 @@
 # QGeoGNN 主动学习与跨柱迁移实验计划
 
-版本：V1.0（结合当前仓库代码与《QGeoGNN 主动学习优化完整实验方案》整理）  
-日期：2026-08-07
+版本：V1.1（结合当前仓库证据与 2026-08-16 最新实验优化方案整理）
 
-依据说明：最初的 Word 实验方案是阶段顺序、Gate 和验收标准的唯一依据；本文件只补充当前仓库的执行状态。若两者冲突，以最初方案为准，未获证据支持的数据规则不得写成既定结论。
+日期：2026-08-16
+
+依据说明：本文件是当前阶段顺序、Gate、验收标准与仓库执行状态的统一入口。最新研究口径优先于旧版阶段编号；未获数据或代码证据支持的规则不得写成既定结论。
 
 ## 0. 阅读导航与当前进度
 
 ### 0.1 一句话路线
 
-先锁定数据版本并复现基线，再证明不确定性信号有效；随后在 4g 跑通真正的逐轮重训，最后把主要结论放在 4g→8g 主动迁移。任何复杂方法都必须通过前一阶段 Gate 才进入。
+先完成 Gate 0 并冻结 Predictor，再证明 acquisition signal 能识别真实高误差样本；随后在 4g 跑通逐轮重训，最后把主要结论放在 4g→8g 主动迁移。任何复杂方法都必须通过前一阶段 Gate 才进入。
 
 ### 0.2 阶段地图
 
@@ -17,7 +18,8 @@
 |---|---|---|---|---|
 | Step 1 / E0-1 | 到底用了哪些数据，过滤后还剩多少？ | manifest、异常明细、口径报告 | 数据版本和过滤规则可追溯 | **当前仓库口径已冻结** |
 | E0-2/E0-3 | 当前代码能否复现 4g 与 4g→8g？ | 固定 split、scaler、best checkpoint、基线表 | Gate 0 | **E0-2、E0-3b、E0-3c、D04完成；保留第一构象主口径，末两层+头/V2等权为暂定候选** |
-| E1 | acquisition signal 是否真的指向高误差？ | UQ-error、校准、risk-coverage 图 | Gate 1 | 待实施 |
+| Gate 0 | Predictor 的分位数、校准、阈值与迁移结构是否可冻结？ | G0-1～G0-4 配对证据、冻结清单 | 冻结 Predictor；此后禁止按 AL test 回调 | **G0-1～G0-4科学对照完成并冻结；10k+推理/索引/resume工程检查待完成** |
+| E1 | acquisition signal 是否真的指向高误差？ | signal-error、hard-error enrichment、risk-coverage 图 | Gate 1 | 待实施 |
 | E2 | 主动选点并重训是否优于 Random？ | 4g 学习曲线与 AULC | Gate 2 | 待实施 |
 | E4 | 能否节省 8g 标签？ | 主结果、paired CI、标签节省 | 主结论成立 | 待实施 |
 | E3/E5 | 为什么有效、在哪里失效、是否改善 SQ？ | 消融、OOD、下游排序 | 机制和边界清楚 | 待实施 |
@@ -36,9 +38,9 @@
 
 ## 1. 研究目标与主结论口径
 
-### 1.1 第一篇工作的主问题
+### 1.1 当前真正研究问题
 
-在已有 4g 数据和 4g 预训练 QGeoGNN 的前提下，能否通过批量主动选择少量 8g 实验，使模型用更少的 8g 标签达到接近全量 8g 迁移训练的性能？
+通过主动学习选择最有价值的新实验标签，逐轮重新训练 QGeoGNN，能否在有限标签预算下提高 V1/V2 预测能力？在已有 4g 预训练模型的前提下，能否通过主动选择少量 8g 数据，比 Random 使用更少的 8g 标签达到接近全量迁移模型的性能？
 
 ### 1.2 主线与边界
 
@@ -75,6 +77,10 @@
 6. 8g 迁移学习率代码为 `1e-5`，方案建议主值为 `1e-4`；必须在 Gate 0 中固定唯一配置并记录依据。
 7. 训练 DataLoader 使用 `shuffle=False`，缺少真正的 early stopping、断点续跑、统一配置和运行级元数据。
 8. 4g 与 8g 的训练/迁移函数高度重复且由全局变量控制，不适合逐轮 AL、paired seeds 和策略公平比较。
+9. legacy 独立 q10/q50/q90 即使加入 crossing penalty 仍有 crossing，不能直接把区间宽度当成合法 acquisition signal。
+10. 80% 区间尤其是 V2 存在 undercoverage；任何 inflation factor 必须只用 validation 估计。
+11. legacy 60/120 mL 阈值可能预先删除主动学习最需要的尾部难例，必须与 no-threshold 做敏感性对照。
+12. 当前 `last2+head` 对照不等于论文描述的“柱规格输入 + 新任务/输出头适配”，需克制地补齐 paper-style transfer 对照。
 
 ### 2.3 E0-1 部分数据审计结果（2026-08-07）
 
@@ -112,7 +118,7 @@
 - 固定test：V1 MAE=1.6040、RMSE=2.9713、R²=0.8669；V2 MAE=2.8682、RMSE=4.9691、R²=0.9029。
 - 与方案引用目标R²(0.859/0.913)相比，V1达到，V2低约0.010；当前本地结果作为后续paired实验基线。
 - test mean pinball loss：V1=0.6736、V2=1.0551；名义80%区间覆盖率：V1=0.8321、V2=0.6163。
-- test quantile crossing rate=0.0504，且V2区间覆盖不足，需在E0-4继续处理，不能直接进入E1。
+- test quantile crossing rate=0.0504，且V2区间覆盖不足；该问题现已分别由G0-1结构性单调输出与G0-2 validation-only校准处理，但Quantile Width仍须通过E1资格测试。
 
 当前状态：已在 conda `fish` 的 RDKit 环境完成4g canonicalization、SMILES parse、3D conformer与图构建审计；8g将在E0-3开始前按同一流程补齐。阈值按当前代码逐数据集复现：4g/8g/25g/DCM/C18/NH2/CN 为60/120 mL，40g为150/200 mL；记录该规则不代表认可其科学合理性。
 
@@ -231,27 +237,56 @@ experiments/
 
 确定后续唯一迁移配置，不在主动学习主实验中继续调参。
 
-E0-3b 已完成 seed=42/525/1101、row-level/compound-group 两种划分下的24组核心配对训练，并在row/seed=42增加4组因素预实验。按跨6个运行的train方差归一化validation score，末两层+预测头、学习率`1e-4`仍为暂定候选（0.619±0.301），优于scratch（0.975±0.532）。compound-group三种子test R²均值为V1=0.901、V2=0.892；row-level均值为0.472、0.637，其中seed=42 test受待复核源行224强烈支配。正式指标保留该行，排除结果仅作敏感性。候选仍不冻结：每种split只有3 seeds，最低能构象、阈值、损失尺度、论文式柱规格输入和分位数单调性尚未完成控制实验。
+E0-3b 已完成 seed=42/525/1101、row-level/compound-group 两种划分下的24组核心配对训练，并在row/seed=42增加4组因素预实验。按跨6个运行的train方差归一化validation score，末两层+预测头、学习率`1e-4`当时为暂定候选（0.619±0.301），优于scratch（0.975±0.532）。compound-group三种子test R²均值为V1=0.901、V2=0.892；row-level均值为0.472、0.637，其中seed=42 test受待复核源行224强烈支配。正式指标保留该行，排除结果仅作敏感性。该段记录E0-3b阶段性证据；后续D04与G0-1～G0-4已完成并在`experiments/PREDICTOR_FREEZE.md`给出最终冻结配置。
 
-E0-3c 已完成3种损失×3 seeds×2 splits共18组。等权损失的跨运行normalized validation最低（0.604），legacy 0.5为0.619，train-SD normalized为0.611；两种改法相对legacy都只赢4/6个split/seed，按3个独立seed计算的paired区间均跨0。操作上将V2等权作为下一阶段暂定候选，但不声称显著优于legacy；standardized loss保留到E0-4 UQ实验，因为它把平均crossing从0.180降至0.080。下一步固定损失候选，优先执行最低能构象对照，再做阈值开/关与paper-style迁移。
+E0-3c 已完成3种损失×3 seeds×2 splits共18组。等权损失的跨运行normalized validation最低（0.604），legacy 0.5为0.619，train-SD normalized为0.611；两种改法相对legacy都只赢4/6个split/seed，按3个独立seed计算的paired区间均跨0。操作上将V2等权作为下一阶段暂定候选，但不声称显著优于legacy；standardized loss曾把平均crossing从0.180降至0.080，但G0-1已证明只有结构性单调参数化能把crossing稳定降为0。损失主口径继续保留V1/V2等权，下一步执行G0-3阈值开/关与G0-4 paper-style迁移。
 
 D04 已完成第一构象与最低能构象对照。217个4g结构中仅19个默认第一构象就是最低能构象，198个图的键长/键角发生变化，descriptor全部不变。最低能4g source的validation和crossing改善，但test点误差略差；4g→8g跨6组validation平均改善0.012，但test MAE平均恶化V1=0.460 mL、V2=0.279 mL，且compound三个seed均恶化、paired区间跨0。最低能构象没有稳定收益，后续主口径继续使用原代码`first_embedded`，最低能结果作为论文口径敏感性保留。
 
-#### Gate 0
+#### Gate 0：Predictor qualification 与冻结
 
-满足以下全部条件才进入 E1/E2：
+Gate 0 必须按 G0-1→G0-2→G0-3→G0-4 的顺序执行；在四项完成前，`first_embedded + last2+head + lr=1e-4 + V1/V2 equal loss`仅是 provisional baseline。
 
-- 数据版本、过滤和单位换算可追溯；
-- 固定 split/seed 的重复运行结果一致；
-- test 不参与 scaler、早停或 checkpoint 选择；
-- 4g 与 8g 迁移基线达到论文结果，或差异已用数据/代码证据解释；
-- 分位数顺序、覆盖率和 10k+ 分块推理通过接口测试。
+**G0-1 Quantile monotonicity**
 
-### E1：不确定性诊断（P0，必做）
+- Legacy：独立输出 q10/q50/q90，并保留 crossing penalty。
+- Monotonic：`q50=m`、`q10=m-softplus(d_low)`、`q90=m+softplus(d_high)`。
+- 固定其他因素，比较 q50 MAE/RMSE/R²、pinball、80% coverage、mean interval width 和 crossing。
+- 预注册冻结标准：monotonic 的平均 validation normalized score 与 V1/V2 RMSE 均不比 legacy 恶化超过 5%，且 validation/test crossing 为 0。
+- 正式结果：3 seeds × row/compound × 2 参数化共12次训练已完成。Monotonic 相对 legacy 的 validation normalized score/V1 RMSE/V2 RMSE 分别变化 +0.70%/+0.57%/+0.11%，均在5%阈值内；crossing 从 validation/test 13.6%/17.7% 降为0。G0-1通过，冻结结构性单调输出。
+
+**G0-2 Validation-only interval calibration**
+
+- 分别在 validation 为 V1/V2 估计 `alpha_V1`、`alpha_V2`，按中位数向两侧缩放区间。
+- test 严禁参与 alpha 选择，只最终报告 coverage、width、AUCE、crossing。
+- G0-1 的 validation/test 逐样本预测必须同时保存，以保证校准可审计。
+- 已完成：平均 test coverage 从 V1/V2=0.709/0.519 校准到0.824/0.854，crossing保持0；alpha中位数为1.396/1.709。row/seed=1101因区间塌缩需要16.11/55.91，说明 Quantile Width 跨seed稳定性不足，必须在E1作为待否证信号而不是默认主 acquisition。
+
+**G0-3 Threshold sensitivity**
+
+- 对照 legacy `V1≤60, V2≤120` 与 no-threshold。
+- 重点报告 tail error、signal-error relationship、calibration 和 high-score 样本分布，不按单个 R² 决策。
+- 阈值结论必须先于正式 AL pool 冻结，防止提前删除最值得查询的样本。
+- 已完成12次配对训练：validation-only规则选择no-threshold；common validation normalized RMSE改善3.4%，tail normalized absolute error改善23.4%。独立test的common RMSE仅恶化1.3%，但tail error平均恶化40.1%且5/6 contexts更差，登记为小tail test高方差与尾部拟合不稳定，不用test反向改选。
+- Tail在test中仅占约4.3%，却在calibrated width最高10%中富集8.1～8.7倍。正式AL pool保留全部574行，不再用60/120 mL阈值提前删除难例；E1必须把tail作为单独失败切片。
+
+**G0-4 Paper-style transfer**
+
+- 只比较 last2+head、full fine-tune 与 paper-style transfer，不做大规模 architecture search。
+- paper-style 必须显式包含柱规格输入、新任务适配与输出头适配，不能用“随机重置同构头”代替。
+- 论文只规定新柱规格输入、更新输出层与 `lr=1e-4` 微调，并未公开逐层冻结图；本项目采用仓库已预留的 `column_dia/column_len/column_den` edge-level RBF 输入，迁移形状兼容的4g权重，将新增线性适配器零初始化以严格保持source初始函数，并训练新增输入适配器、末两层GNN与单调输出头。
+- 预注册选择规则：paper-style 的平均 paired validation normalized score 至少改善2%、至少赢4/6个`split×seed` context，且row或compound任一split-mode均值不恶化超过5%，才替换last2+head；否则保留last2+head。Full fine-tune只作诊断对照，不用于放宽该规则。
+- 已完成：新增适配器随机初始化的首轮诊断破坏source初始函数，结果完整保留但不用于论文方案结论；改为零初始化后按原规则重跑。修正版paper-style平均validation normalized score为0.295，较last2的0.256恶化15.3%，仅赢1/6；full为0.333，较last2恶化29.9%。因此冻结last2+head。独立test上paper-style较last2小幅改善1.3%，但不用于反向选择。
+
+四项科学对照已完成，冻结清单见`experiments/PREDICTOR_FREEZE.md`。主动学习阶段不允许依据 AL test 结果返回调 Predictor。
+
+此外还必须满足：固定 split/seed 可复现；test 不参与 scaler、early stopping、checkpoint 或 calibration 选择；10k+ 分块推理、索引一致性和 round resume 通过接口测试。
+
+### E1：Acquisition Signal Qualification（P0，必做）
 
 | 项目 | 内容 |
 |---|---|
-| 目标 | 判断 acquisition signal 是否与真实、可消除误差相关 |
+| 目标 | 判断候选 signal 是否与真实、可消除误差相关；本阶段不是主动学习主实验 |
 | 输入 | Gate 0 固定模型、ID/OOD tests、3–5个独立模型成员 |
 | 核心执行 | 计算 Quantile width、Ensemble covariance、latent density，并与真实误差逐样本对齐 |
 | 必备产物 | `uq_predictions.parquet`、UQ-error 图、hard-error enrichment、校准与 risk-coverage 图 |
@@ -262,7 +297,8 @@ D04 已完成第一构象与最低能构象对照。217个4g结构中仅19个默
 
 - Quantile width：两个输出先按训练集尺度标准化，再平均 `(q90-q10)`。
 - Deep Ensemble：成员 q50 的双输出经验协方差；主分数为标准化 covariance trace。
-- Latent density：h_graph+conditions 到训练集的 kNN 距离，作为 coverage/UQ 辅助基线。
+- Latent density/distance：`h_graph+conditions` 到训练集的 kNN 距离；它是 representation-based novelty/coverage signal，不称为严格 uncertainty。
+- Random：无信息 sanity baseline。
 
 可选的 MC Dropout/MVE/Evidential 不进入第一轮主比较。
 
@@ -277,13 +313,13 @@ D04 已完成第一构象与最低能构象对照。217个4g结构中仅19个默
 #### 指标
 
 - Spearman(UQ, 标准化绝对误差/平方误差)；
-- Top-10% hard-error AUROC 与 enrichment；
-- risk-coverage AUSE；
+- Top-10% hard-error enrichment：最高 score 10% 中真实最高 error 10% 的富集；
+- risk-coverage：依次删除最高 score 样本后，剩余预测风险是否持续降低，并报告 AUSE；
 - 80% coverage、mean interval width、AUCE/ENCE、crossing rate。
 
 #### Gate 1
 
-若 Ensemble 在多数关键切片上稳定优于 quantile width，且能富集真实高误差样本，则保留纯不确定性和 Hybrid；否则以 Coverage/LCMD 为主线，Ensemble 仅保留为机制对照。
+若 Ensemble 在多数关键切片上稳定识别高误差并优于 quantile width，则保留 Ensemble uncertainty；若 Quantile Width 与误差几乎无相关，只保留为 QGeoGNN legacy UQ baseline；若 latent distance 有效，进入 coverage/diversity 主线。若所有 uncertainty 都弱，不强行做 uncertainty AL，E2 以 Coverage/LCMD 为主线。
 
 ### E2：4g 主动学习闭环（P1，方法验证）
 
@@ -503,11 +539,15 @@ E4 若保留 4 个主动方法，Final 约为 `4 × 5 × 16 × 5 = 1600` 次 8g 
 - [x] 完成E0-2单seed 4g正式复现，并保存row-level及compound-group split。
 - [x] 完成E0-3的8g canonical数据、scratch/zero-shot/三种微调范围与双学习率单种子矩阵。
 - [x] 完成E0-3b三种子×row/compound稳健性实验，以及损失权重、尺度归一化和预测头重置预实验。
-- [ ] 完成E0-4分位数单调性、覆盖率校准和10k+分块推理检查。
+- [x] 完成 G0-1 分位数单调性正式配对实验；按 validation 判据通过并冻结 monotonic softplus 输出。
+- [x] 完成 G0-2 validation-only V1/V2 区间校准与独立 test 的 coverage/width/AUCE/crossing 报告；记录 row/seed=1101 极端 inflation failure mode。
+- [x] 完成 G0-3 legacy threshold vs no-threshold 尾部/UQ敏感性实验；validation-only选择no-threshold，并记录独立tail test未复现改善。
+- [x] 完成 G0-4 last2+head/full/paper-style 克制对照；validation-only冻结last2+head，保留随机初始化诊断与test排序不一致证据。
+- [ ] 完成 10k+ 分块推理、索引一致性和 round resume 检查。
 - [ ] 抽出 `fit/predict` 接口并保存固定 split/L0。
 - [ ] 完成 1 seed、2 rounds、2 members 的 Random smoke test。
 - [ ] 增加 Ensemble 与 Coverage/Hybrid，确认每轮索引、模型和预测都发生预期变化。
 - [x] 完成E0-3c多种子双split损失尺度对照；V2等权为暂定候选，legacy保留为原代码对照。
 - [x] 完成D04最低能构象3-seed双split对照；无稳定收益，保留原代码第一构象主口径。
-- [ ] 完成阈值与paper-style迁移控制实验；单个因素预实验不得作为最终结论。
-- [ ] E0-3/E0-4通过后启动主动学习三 seed pilot；单seed不得作为最终结论。
+- [ ] Gate 0科学Predictor已冻结；完成10k+推理、索引一致性和round resume工程检查后执行E1，不得用最终AL RMSE反向挑选signal。
+- [ ] E1 通过后启动 E2 三 seed pilot；单 seed 不得作为最终结论。

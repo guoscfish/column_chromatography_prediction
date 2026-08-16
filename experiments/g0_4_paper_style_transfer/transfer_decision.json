@@ -1,0 +1,13 @@
+{
+  "selected_transfer": "last2_head",
+  "selection_uses_test": false,
+  "paper_style_mean_validation_relative_change": 0.15281363786805024,
+  "paper_style_validation_wins": 1,
+  "paired_contexts": 6,
+  "split_mode_relative_changes": {
+    "compound": 0.1281223516117851,
+    "row": 0.20688902124935504
+  },
+  "rule": "select paper_style only if mean validation score improves >=2%, it wins >=4/6 paired contexts, and neither split-mode mean worsens >5%; otherwise retain last2+head",
+  "full_finetune_role": "diagnostic control; not used to relax the pre-registered paper-style-versus-last2 rule"
+}
