@@ -1,0 +1,22 @@
+{
+  "source_file": "dataset/dataset_4g.csv",
+  "source_sha256": "d485d3d46a96458d1baac11b2a21cd33374b1be42ba2303e7ae5823cc8ee553a",
+  "source_rows": 4243,
+  "reader_compatible_rows": 4229,
+  "canonical_rows": 4163,
+  "unique_canonical_smiles": 217,
+  "graph_success_smiles": 217,
+  "graph_failed_smiles": 0,
+  "repeated_experiments_policy": "retain",
+  "baseline_data_policy": "reproduce current reader and Construct_dataset legacy thresholds",
+  "quality_warnings_retained": {
+    "negative_label_rows": 1,
+    "t1_gt_t2_rows": 8
+  },
+  "volume_formula": "V_ml = t_raw * Flow_mL_min / 1200",
+  "volume_thresholds_ml": {
+    "V1": 60.0,
+    "V2": 120.0
+  },
+  "rdkit_seed": 42
+}

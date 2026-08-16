@@ -1,0 +1,81 @@
+{
+  "stage": "E0-3b_paired_robustness_and_factor_controls",
+  "execution_script": "scripts/run_e0_8g_controls.py",
+  "data_dir": "experiments/e0_8g_transfer",
+  "data_sha256": "e4e5a8e39094a65dbf6b28385d7f8dccc127612f9ad342be067137bddda33bd8",
+  "source_checkpoint": "experiments/e0_4g_baseline/checkpoints/best.pt",
+  "source_checkpoint_sha256": "7b9e3d0d4c8036c738ef220802e7ee46bc6ab8261cc541fb7d194e8c17044323",
+  "seeds": [
+    42,
+    525,
+    1101
+  ],
+  "split_modes": [
+    "row",
+    "compound"
+  ],
+  "epochs": 500,
+  "patience": 100,
+  "batch_size": 2048,
+  "core_specs": {
+    "scratch_lr1e-3": {
+      "mode": "full",
+      "lr": 0.001,
+      "pretrained": false,
+      "scaler": "target_train"
+    },
+    "head_only_lr1e-4": {
+      "mode": "head_only",
+      "lr": 0.0001,
+      "pretrained": true,
+      "scaler": "source_4g"
+    },
+    "last2_head_lr1e-4": {
+      "mode": "last2_head",
+      "lr": 0.0001,
+      "pretrained": true,
+      "scaler": "source_4g"
+    },
+    "full_lr1e-4": {
+      "mode": "full",
+      "lr": 0.0001,
+      "pretrained": true,
+      "scaler": "source_4g"
+    }
+  },
+  "factor_specs_first_row_seed_only": {
+    "head_reinit_lr1e-4": {
+      "mode": "head_only",
+      "lr": 0.0001,
+      "pretrained": true,
+      "scaler": "source_4g",
+      "reinitialize_head": true
+    },
+    "last2_head_reinit_lr1e-4": {
+      "mode": "last2_head",
+      "lr": 0.0001,
+      "pretrained": true,
+      "scaler": "source_4g",
+      "reinitialize_head": true
+    },
+    "last2_head_equal_v2_lr1e-4": {
+      "mode": "last2_head",
+      "lr": 0.0001,
+      "pretrained": true,
+      "scaler": "source_4g",
+      "v2_weight": 1.0
+    },
+    "last2_head_standardized_loss_lr1e-4": {
+      "mode": "last2_head",
+      "lr": 0.0001,
+      "pretrained": true,
+      "scaler": "source_4g",
+      "v2_weight": 1.0,
+      "loss_scaling": "target_standard_deviation"
+    }
+  },
+  "selection_rule": "lowest mean normalized validation score across core paired runs; test not used",
+  "official_metrics_include_source_row_224": true,
+  "sensitivity_exclusion_is_not_a_data_deletion": true,
+  "smoke": false
+}

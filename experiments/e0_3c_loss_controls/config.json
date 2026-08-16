@@ -1,0 +1,76 @@
+{
+  "stage": "E0-3c_paired_loss_controls",
+  "study": "loss_controls",
+  "data_dir": "experiments/e0_8g_transfer",
+  "data_sha256": "e4e5a8e39094a65dbf6b28385d7f8dccc127612f9ad342be067137bddda33bd8",
+  "source_checkpoint": "experiments/e0_4g_baseline/checkpoints/best.pt",
+  "source_checkpoint_sha256": "7b9e3d0d4c8036c738ef220802e7ee46bc6ab8261cc541fb7d194e8c17044323",
+  "seeds": [
+    42,
+    525,
+    1101
+  ],
+  "split_modes": [
+    "row",
+    "compound"
+  ],
+  "execution_script": "scripts/run_e0_8g_controls.py",
+  "frozen_splits": {
+    "row_seed_42": {
+      "path": "experiments/e0_3b_controls/splits/row_seed_42.csv",
+      "sha256": "b24ff3974b22c74d9b9b97ffc7ffd01b43af8d39d769e57ec27bc24cdec36169"
+    },
+    "row_seed_525": {
+      "path": "experiments/e0_3b_controls/splits/row_seed_525.csv",
+      "sha256": "58761c840cc845b8266bc4e370c0ba916268e8db8bf13f657b37a7ff0a630f64"
+    },
+    "row_seed_1101": {
+      "path": "experiments/e0_3b_controls/splits/row_seed_1101.csv",
+      "sha256": "046a6ed7f0c7cc7f8c73e8069cf5f7b86c786570bc8cbe6489c4ce821ca71053"
+    },
+    "compound_seed_42": {
+      "path": "experiments/e0_3b_controls/splits/compound_seed_42.csv",
+      "sha256": "66f6f837c1f3f6af317e12bc679e1793dc447658f2c8fbcbb5baf4d801e2288d"
+    },
+    "compound_seed_525": {
+      "path": "experiments/e0_3b_controls/splits/compound_seed_525.csv",
+      "sha256": "b771a031a618dcc230c9984e89c2bafc77b6d6d46f6b597d1c77a6c8eaeb033c"
+    },
+    "compound_seed_1101": {
+      "path": "experiments/e0_3b_controls/splits/compound_seed_1101.csv",
+      "sha256": "f7ebe88ee744c63a4cb3ebb6399c6605ac003f7fdf2ed85907d3518bbd3eb32f"
+    }
+  },
+  "epochs": 500,
+  "patience": 100,
+  "batch_size": 2048,
+  "study_specs": {
+    "last2_head_lr1e-4": {
+      "mode": "last2_head",
+      "lr": 0.0001,
+      "pretrained": true,
+      "scaler": "source_4g"
+    },
+    "last2_head_equal_v2_lr1e-4": {
+      "mode": "last2_head",
+      "lr": 0.0001,
+      "pretrained": true,
+      "scaler": "source_4g",
+      "v2_weight": 1.0
+    },
+    "last2_head_standardized_loss_lr1e-4": {
+      "mode": "last2_head",
+      "lr": 0.0001,
+      "pretrained": true,
+      "scaler": "source_4g",
+      "v2_weight": 1.0,
+      "loss_scaling": "target_standard_deviation"
+    }
+  },
+  "factor_specs_first_row_seed_only": null,
+  "reference_config": "last2_head_lr1e-4",
+  "selection_rule": "lowest mean normalized validation score across paired runs; test not used",
+  "official_metrics_include_source_row_224": true,
+  "sensitivity_exclusion_is_not_a_data_deletion": true,
+  "smoke": false
+}

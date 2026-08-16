@@ -35,3 +35,26 @@ conda activate chromatography
 conda install -c conda-forge rdkit==2023.9.2
 pip install torch==2.1.0 pandas==2.1.4 mordred==1.2.0
 ```
+
+## Experiment workflow in this repository
+
+The original model code is kept under `application/`. The reproducible experiment layer is separate:
+
+- `EXPERIMENT_PLAN.md`: stage order, gates, frozen protocol and current progress.
+- `experiments/METHOD_DECISION_REGISTER.md`: evidence, unresolved issues and decisions that must not be inferred from the paper.
+- `experiments/e0_4g_baseline/`: frozen 4g baseline.
+- `experiments/e0_8g_transfer/`: original single-seed 4g→8g transfer matrix.
+- `experiments/e0_3b_controls/`: three-seed robustness and transfer-range controls.
+- `experiments/e0_3c_loss_controls/`: paired loss-weight and target-scaling controls.
+- `experiments/d04_conformer_selection/`: paired first-conformer versus lowest-energy control.
+- `scripts/run_e0_8g_controls.py`: shared entry point for E0-3b/E0-3c controls.
+- `scripts/qgeognn_graphs.py`: the single deterministic conformer/graph implementation used by 4g and 8g.
+- `scripts/run_d04_conformer_selection.py`: the D04 cache, source-training and transfer pipeline.
+
+The current experiments use the conda environment `fish`. Finalized experiment directories are protected from accidental overwrite; use a new output directory for a reproduction run, for example:
+
+```bash
+conda run --no-capture-output -n fish python scripts/run_e0_8g_controls.py \
+  --study loss_controls \
+  --output-dir experiments/reproductions/e0_3c_repeat
+```

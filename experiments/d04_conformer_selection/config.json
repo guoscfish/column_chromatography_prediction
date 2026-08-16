@@ -1,0 +1,52 @@
+{
+  "stage": "D04_conformer_selection",
+  "execution_script": "scripts/run_d04_conformer_selection.py",
+  "data": {
+    "canonical_4g": "experiments/e0_4g_baseline/canonical_4g.csv",
+    "canonical_8g": "experiments/e0_8g_transfer/canonical_8g.csv",
+    "thresholds": "legacy V1<=60 mL and V2<=120 mL",
+    "repeated_experiments": "retain"
+  },
+  "conformer_protocol": {
+    "generator": "RDKit ETKDGv3",
+    "embedded_conformers": 10,
+    "selection": "minimum optimized force-field energy",
+    "force_field": "MMFF94 with recorded UFF fallback",
+    "seed": 42
+  },
+  "source_4g_training": {
+    "loss": "legacy V1 + 0.5*V2",
+    "learning_rate": 0.001,
+    "epochs": 1000,
+    "patience": 100,
+    "batch_size": 2048,
+    "split": "experiments/e0_4g_baseline/split_seed_42.csv",
+    "scaler": "experiments/e0_4g_baseline/scaler.json",
+    "checkpoint_retention": "temporary validation-best; deleted after transfer"
+  },
+  "transfer_8g": {
+    "configuration": "last2_head_equal_v2_lr1e-4",
+    "loss": "V1 + V2",
+    "learning_rate": 0.0001,
+    "epochs": 500,
+    "patience": 100,
+    "seeds": [
+      42,
+      525,
+      1101
+    ],
+    "split_modes": [
+      "row",
+      "compound"
+    ],
+    "frozen_split_directory": "experiments/e0_3b_controls/splits",
+    "frozen_split_hashes": "experiments/e0_3c_loss_controls/config.json#frozen_splits",
+    "selection": "normalized validation score; test not used"
+  },
+  "reference_artifacts": {
+    "legacy_4g_checkpoint_sha256": "7b9e3d0d4c8036c738ef220802e7ee46bc6ab8261cc541fb7d194e8c17044323",
+    "canonical_4g_sha256": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+    "canonical_8g_sha256": "e4e5a8e39094a65dbf6b28385d7f8dccc127612f9ad342be067137bddda33bd8"
+  },
+  "smoke": false
+}

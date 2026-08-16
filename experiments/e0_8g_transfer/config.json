@@ -1,0 +1,25 @@
+{
+  "stage": "E0-3_4g_to_8g_transfer",
+  "source": "dataset/dataset_8g.csv",
+  "source_checkpoint": "experiments/e0_4g_baseline/checkpoints/best.pt",
+  "source_checkpoint_sha256": "7b9e3d0d4c8036c738ef220802e7ee46bc6ab8261cc541fb7d194e8c17044323",
+  "seed": 42,
+  "epochs": 500,
+  "patience": 100,
+  "batch_size": 2048,
+  "training_loss": "legacy L_V1 + 0.5 * L_V2",
+  "checkpoint_selection": "MSE_V1/Var_train_V1 + MSE_V2/Var_train_V2",
+  "pretrained_scaler": "source_4g",
+  "pretrained_scaler_path": "experiments/e0_4g_baseline/scaler.json",
+  "scratch_scaler": "target_train",
+  "row_split_counts": {
+    "train": 441,
+    "test": 56,
+    "valid": 55
+  },
+  "compound_group_split_counts": {
+    "train": 441,
+    "valid": 57,
+    "test": 54
+  }
+}
