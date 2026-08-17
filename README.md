@@ -16,7 +16,7 @@ Gate 0 Predictor qualification
   → E5 downstream SQ utility
 ```
 
-Gate 0 的四项科学对照已经完成。G0-3 按 validation-only 规则选择 no-threshold，保留全部574行8g数据和22条tail难例；G0-4的paper-style在paired validation仅赢1/6，平均比last2+head恶化15.3%，full fine-tune恶化29.9%，因此冻结`last2+head`。Paper-style虽在独立test平均小幅改善1.3%，但test不参与结构选择，不能据此反向改选。科学Predictor配置见 [PREDICTOR_FREEZE.md](experiments/PREDICTOR_FREEZE.md)，完整证据见 [EXPERIMENT_PLAN.md](EXPERIMENT_PLAN.md)、[G0-1](experiments/g0_1_quantile_monotonicity/README.md)、[G0-2](experiments/g0_2_interval_calibration/README.md)、[G0-3](experiments/g0_3_threshold_sensitivity/README.md) 与 [G0-4](experiments/g0_4_paper_style_transfer/README.md)。进入E1前仍需完成10k+分块推理、索引一致性和round-resume工程检查。
+Gate 0 已完全通过。G0-3 冻结no-threshold并保留全部574行8g数据；G0-4冻结`last2+head`；D28已完成统一`fit/predict`、10240候选跨batch/chunk逐值一致、稳定身份、round resume与12份E2/E4 paired partition。冻结合同见 [PREDICTOR_FREEZE.md](experiments/PREDICTOR_FREEZE.md)，工程证据见 [D28](experiments/d28_al_engineering/README.md)。E1也已完成：K=3真独立Ensemble以12/16恰好通过预注册比较门，Latent Distance支持Coverage；Quantile Width虽达到最低资格，但仅保留为secondary/legacy诊断。当前已进入E2并通过Random最小闭环：1 seed×2 rounds×2 members共查询50条，无重复，状态可恢复，checkpoint与固定test预测逐轮变化；该2-epoch smoke不作科学比较。下一步运行Random、Coverage、Ensemble、Hybrid三seed pilot。证据见 [E1](experiments/e1_signal_qualification/README.md) 与 [E2 smoke](experiments/e2_random_smoke/README.md)。
 
 ## Citation
 If you use this work in your research, please cite:
@@ -78,6 +78,12 @@ The original model code is kept under `application/`. The reproducible experimen
 - `experiments/g0_4_paper_style_transfer/`: finalized G0-4 checkpoints, validation-only decision, calibrated predictions and slice metrics.
 - `experiments/g0_4_paper_style_transfer_random_init_diagnostic/`: superseded diagnostic showing why new column adapters must preserve the transferred source function at initialization.
 - `experiments/PREDICTOR_FREEZE.md`: Gate 0 scientific Predictor freeze contract; AL results must not be used to reopen it.
+- `scripts/al_engine.py`: shared frozen `fit/predict`, stable identity and resumable AL-state primitives.
+- `scripts/run_d28_engineering_checks.py`: 10k+ batched-inference, resume and paired-partition qualification.
+- `experiments/d28_al_engineering/`: finalized D28 audit and E2/E4 row/compound L0/U0/test partitions.
+- `experiments/e1_signal_qualification/`: E1 signal qualification, per-sample scores, metrics and figures.
+- `experiments/e2_random_smoke/`: source-free Random reveal/retrain/resume chain smoke; not a scientific AL result.
+- `scripts/run_e2_random_smoke.py`: reproducible E2 source-free Random chain smoke entry point.
 - `scripts/run_e0_8g_controls.py`: shared entry point for E0-3b/E0-3c controls.
 - `scripts/qgeognn_graphs.py`: the single deterministic conformer/graph implementation used by 4g and 8g.
 - `scripts/run_d04_conformer_selection.py`: the D04 cache, source-training and transfer pipeline.

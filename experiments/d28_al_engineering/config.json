@@ -1,0 +1,28 @@
+{
+  "stage": "D28_active_learning_engineering",
+  "stress_candidates": 10240,
+  "fit_smoke_epochs": 2,
+  "canonical_8g": "experiments/g0_3_threshold_sensitivity/canonical_8g_no_threshold.csv",
+  "canonical_8g_sha256": "4cc533b00c4528053c7f033645c50a7d03b35bfff3fcfe4c3f684376ac136203",
+  "source_anchor": "experiments/e0_4g_baseline/checkpoints/best.pt",
+  "source_anchor_sha256": "7b9e3d0d4c8036c738ef220802e7ee46bc6ab8261cc541fb7d194e8c17044323",
+  "frozen_inference_checkpoint": "experiments/g0_4_paper_style_transfer/runs/row_seed_42/last2_head/checkpoints/last2_head.pt",
+  "frozen_inference_checkpoint_sha256": "c9f77c02d58db78d7c17ace5a0c137ed9c1a8f57fbfb52133e25a010d7bbee13",
+  "frozen_train_config": {
+    "learning_rate": 0.0001,
+    "weight_decay": 1e-05,
+    "epochs": 500,
+    "patience": 100,
+    "batch_size": 2048,
+    "transfer_mode": "last2_head",
+    "v1_weight": 1.0,
+    "v2_weight": 1.0,
+    "conformer_policy": "first_embedded",
+    "quantile_parameterization": "monotonic_softplus",
+    "scaler_policy": "source_train",
+    "checkpoint_selection": "validation_normalized_mse"
+  },
+  "frozen_train_config_hash": "799d258ac4e646a5dd7315ae817c1d3025d22a657ad9f22d4034bb2507661dc3",
+  "identity_policy": "sample_id primary; canonical_index frozen-table audit position; source_canonical_index explicit only for repeated stress fixtures",
+  "test_selection_policy": "test never enters fit, validation, checkpoint, calibration or state selection"
+}

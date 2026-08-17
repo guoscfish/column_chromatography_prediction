@@ -1,0 +1,31 @@
+{
+  "stage": "E2_random_chain_smoke",
+  "partition": "experiments/d28_al_engineering/partitions/e2_4g_row_seed_42.csv",
+  "partition_sha256": "fc18f94679ca05e6bd6e6634f22be2c6bb16f9ba8b4e69d0e020263af2c97a12",
+  "train_config": {
+    "learning_rate": 0.0001,
+    "weight_decay": 1e-05,
+    "epochs": 2,
+    "patience": 2,
+    "batch_size": 2048,
+    "transfer_mode": "full_source_free",
+    "v1_weight": 1.0,
+    "v2_weight": 1.0,
+    "conformer_policy": "first_embedded",
+    "quantile_parameterization": "monotonic_softplus",
+    "scaler_policy": "fixed_l0_train",
+    "checkpoint_selection": "validation_normalized_mse",
+    "initialization_policy": "seeded_random"
+  },
+  "train_config_hash": "27d7073331722b95f6b132faafab5f683cb56dc34349fbbf1ed1c40af56e311c",
+  "protocol_config_hash": "1f7b003fc36479fc95375c49879102dc3a502fc1851537f7c1e76e580fdc3b69",
+  "scaler_sha256": "c06c0bb1a7f7c6489dea66b24d3331684fd0be88b7401d7ff06e0a4155fb852b",
+  "evaluation_scales_from": "fixed L0_train only",
+  "evaluation_scales": {
+    "V1": 6.468174489004063,
+    "V2": 14.563224749859518
+  },
+  "selection": "Random with persisted numpy Generator state",
+  "test_role": "reporting only; smoke result cannot select scientific methods",
+  "source_free_protocol": "seeded random QGeoGNN + monotonic head; full model trainable; no full-data 4g checkpoint weights loaded"
+}

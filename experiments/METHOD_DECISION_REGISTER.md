@@ -1,6 +1,6 @@
 # QGeoGNN 方法决策与待验证事项登记表
 
-更新日期：2026-08-16
+更新日期：2026-08-17
 
 本表用于区分三类内容：已经冻结的 legacy 基线、已有证据但尚不能冻结的候选方案、必须通过控制变量实验才能决定的争议项。任何 P0 项未解决前，不进入正式主动学习主实验。
 
@@ -33,12 +33,16 @@
 | D25 | P2 | PE/EA描述编码 | 当前只使用前两种溶剂权重，其他三个槽恒为0；纯EA为0/1 | 遵照原代码 | 与直接比例、log-ratio、可学习溶剂embedding对照 |
 | D26 | P2 | 评价指标稳健性 | 小test的R2被极端点主导 | 保留MAE/RMSE/R2但不单独决策 | 增加median AE、trimmed敏感性、bootstrap CI、分化合物宏平均 |
 | D27 | P2 | 计算确定性 | E0-3c完整重跑legacy 6组，与E0-3b的validation/test/R²/best epoch逐项零差异 | 当前CPU、固定seed和图缓存流程在已检查指标上可复现 | 后续新构象缓存记录torch/RDKit版本与哈希；必要时检查参数级bitwise一致 |
-| D28 | P2 | 10k+推理/AL接口 | 尚未完成分块推理、fit/predict与round resume测试 | Gate 0工程检查未通过 | 在G0-3/G0-4后实现batch inference、索引一致性、断点续跑与内存测试 |
+| D28 | P2 | 10k+推理/AL接口 | 统一`fit/predict`已实现；10240候选在batch64/chunk512与batch257/chunk1024下prediction/embedding最大差均为0，身份顺序一致；2轮连续与resume状态完全一致、重复query=0；12份E2/E4 partition已冻结 | D28通过，Gate 0完全通过；`sample_id`为长期主身份，临时DataFrame行号禁止进入状态 | E1/E2/E4复用`scripts/al_engine.py`；状态必须校验split/config hash，任何接口变更使用新decision ID |
 | D29 | P0 | 论文迁移结构与原代码不一致 | 论文描述新柱规格输入、更新输出层与`lr=1e-4`微调，但未给逐层冻结图；仓库预留直径/柱长/装填密度RBF输入，旧迁移入口却关闭它们。首轮随机初始化适配器使6/6 validation变差（+160.9%），诊断为未保持source初始函数并完整保留 | 零初始化新增线性适配器后按原规则重跑：paper-style validation均值0.295，较last2恶化15.3%，只赢1/6；row/compound分别恶化20.7%/12.8%，故不替换last2。Test虽小幅改善1.3%，不反向选择 | 随机轮保存在`g0_4_paper_style_transfer_random_init_diagnostic`；paper-style作为跨柱输入的负结果保留，不继续做架构搜索 |
 | D30 | P1 | 构象优化非收敛 | D04中21个结构共有50/2170个构象优化返回非收敛；原代码仍保留，论文未说明筛选规则 | D04保持原代码行为并完整记录，不事后删除 | 比较“全部构象最低能”与“仅收敛构象最低能”；若最低能恰为非收敛构象需单列敏感性 |
+| D31 | P0 | E1 acquisition signal资格 | 三seed×row/compound、K=3真独立成员：Ensemble相对Quantile Width赢12/16项，关键切片平均Spearman/enrichment/AUSE为0.481/5.28/0.033；Latent Distance为0.499/5.69/0.033；Quantile Width为0.434/4.44/0.052。Ensemble的胜利集中在row切片，compound/full有3/4指标由Quantile Width更好；tail每run仅2--3例 | Ensemble作为E2唯一主uncertainty，Latent Distance支持Coverage；Quantile Width只作secondary/legacy诊断。E2首轮固定Random/Coverage/Ensemble/Hybrid四种，不因E1 test重开Predictor | 先做1 seed×2 rounds×2 members链路smoke，再做三seed paired pilot；单seed、tail或12/16边界结果均不得包装为稳定优势 |
+| D32 | P0 | E2 4g source-free初始化 | 若复用完整4g baseline checkpoint，U0/test标签已经进入初始化权重，主动学习曲线无效；而随机初始化后只训练last2会冻结随机早期层，同样不合理。最小smoke用seeded-random单调QGeoGNN、全模型训练、固定L0-train scaler与独立config hash，2轮×25条无重复且状态、checkpoint与预测变化审计通过 | E2专用source-free协议冻结为随机初始化+全模型训练+L0-train-only scaler；这不改变E4的4g→8g `last2+head`合同。2-epoch smoke只验链路，不解释RMSE | 四策略必须共享同一outer seed的L0/U0/test、scaler、member seeds和轮预算；正式三seed pilot使用完整训练预算并报告计算成本 |
 
 ## 当前阶段结论
 
 - E0-2 legacy 4g基线保留，用于代码口径可比。
 - E0-3b/E0-3c/D04与G0-1～G0-4科学对照已完成；冻结末两层+头、V1/V2等权、第一构象、no-threshold、单调头和validation-only校准，完整合同见`experiments/PREDICTOR_FREEZE.md`。
-- Gate 0尚欠D28的10k+分块推理、索引一致性与round-resume工程检查；完成后才能进入E1。Quantile Width虽能富集tail，但有极端跨seed inflation和tail test不稳定，必须在E1接受资格测试，不能因平均coverage或enrichment直接成为主acquisition。
+- D28已通过，Gate 0科学与工程配置全部冻结。
+- E1已完成：Ensemble以12/16恰好过门并进入E2主uncertainty，Latent Distance支持Coverage；Quantile Width降为secondary/legacy诊断。
+- E2 Random source-free最小链路已通过；当前进入Random/Coverage/Ensemble/Hybrid三seed pilot，smoke曲线不作科学结论。

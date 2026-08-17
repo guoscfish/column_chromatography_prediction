@@ -1,6 +1,6 @@
 # Gate 0 scientific Predictor freeze
 
-冻结日期：2026-08-16。状态：G0-1～G0-4科学对照完成；D28工程接口检查尚未完成，因此这里冻结的是科学配置，不代表整个Gate 0工程验收已经通过。
+冻结日期：2026-08-16。状态：G0-1～G0-4科学对照与D28工程接口检查均已完成，Gate 0完全通过。后续E1/E2/E4只能复用本合同，不得按主动学习结果反向调节Predictor。
 
 ## 冻结配置
 
@@ -36,9 +36,14 @@ G0-4 validation-only决定文件SHA256为`3ee01b93abe1279b2874a74be9223a384e8b73
 
 进入E1/E2/E4后，不得依据主动学习test RMSE、AULC或某一采样策略表现重新选择threshold、构象、迁移范围、loss权重、分位数参数化或校准方式。若出现新的数据质量证据或模型接口缺陷，应登记新decision ID，并以新实验ID进行前向修正，保留原结果。
 
-## 进入E1前剩余条件
+## D28工程验收
 
-- 10k+候选分块推理通过内存与顺序检查；
-- 预测输出与`sample_id/canonical_index`一一对应且跨batch稳定；
-- AL round状态可中断恢复，已标注集合、pool、checkpoint与RNG状态不漂移；
-- 抽出统一`fit/predict`接口并保存固定split/L0。
+- 统一`fit/predict`接口已落在`scripts/al_engine.py`，冻结配置变更会被拒绝；
+- 10240候选在两套batch/chunk配置下prediction与128维embedding最大绝对差均为0，身份和顺序一致；
+- 连续两轮Random query与round 1落盘后resume的selected/labeled/pool/RNG状态完全一致，重复query为0；
+- E2 4g row/compound与E4 8g Protocol A/B各3 seeds共12份test/L0/U0 partition已冻结；
+- 完整审计见`experiments/d28_al_engineering/README.md`与`d28_decision.json`。
+
+## E2 source-free边界
+
+E2的4g方法验证不得加载用完整4g标签训练的anchor，否则L0/U0/test标签会在初始化时泄漏。为此E2单独使用seeded-random QGeoGNN+单调头并训练全模型；输入scaler只在固定L0-train上拟合一次并跨策略/轮次冻结，配置hash与4g→8g迁移合同分开。这是对计划中“source-free初始化”的落实，不修改E4冻结的4g anchor、`last2+head`、`lr=1e-4`或source scaler协议。最小链路证据见`experiments/e2_random_smoke/`。

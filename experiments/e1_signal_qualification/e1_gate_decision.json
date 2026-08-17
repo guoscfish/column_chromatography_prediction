@@ -1,0 +1,36 @@
+{
+  "selection_uses_predictor_retraining_test": false,
+  "predictor_config_changed": false,
+  "ensemble_wins_vs_quantile": 12,
+  "ensemble_comparisons": 16,
+  "ensemble_enters_e2_main": true,
+  "e2_uncertainty_strategy": "ensemble",
+  "quantile_width": {
+    "positive_spearman_slices": 4,
+    "key_slices": 4,
+    "mean_spearman": 0.43413236467996463,
+    "mean_enrichment": 4.444444444444444,
+    "mean_ause": 0.051587494177645,
+    "qualified": true
+  },
+  "ensemble": {
+    "positive_spearman_slices": 4,
+    "key_slices": 4,
+    "mean_spearman": 0.4810116005576537,
+    "mean_enrichment": 5.277777777777778,
+    "mean_ause": 0.03312173393668033,
+    "qualified": true
+  },
+  "latent_distance": {
+    "positive_spearman_slices": 4,
+    "key_slices": 4,
+    "mean_spearman": 0.49855405331371216,
+    "mean_enrichment": 5.694444444444444,
+    "mean_ause": 0.032936894737129824,
+    "qualified": true
+  },
+  "coverage_enters_e2_main": true,
+  "raw_vs_calibrated_quantile_width": "one ranking only; per-run global conformal inflation is not a second strategy",
+  "tail_role": "failure/mechanism slice only; too small to trigger method selection",
+  "rule": "ensemble needs >=12/16 wins over quantile plus key mean Spearman>0.1 and enrichment>1.5; individual signal needs positive Spearman in >=3/4 key slices, key mean Spearman>0.1 and enrichment>1.5"
+}

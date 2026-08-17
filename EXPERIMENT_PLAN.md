@@ -1,8 +1,8 @@
 # QGeoGNN 主动学习与跨柱迁移实验计划
 
-版本：V1.1（结合当前仓库证据与 2026-08-16 最新实验优化方案整理）
+版本：V1.2（结合当前仓库证据与 2026-08-17 D28/E1/E2-smoke 结果整理）
 
-日期：2026-08-16
+日期：2026-08-17
 
 依据说明：本文件是当前阶段顺序、Gate、验收标准与仓库执行状态的统一入口。最新研究口径优先于旧版阶段编号；未获数据或代码证据支持的规则不得写成既定结论。
 
@@ -17,10 +17,10 @@
 | 阶段 | 核心问题 | 主要产物 | 进入下一阶段的条件 | 当前状态 |
 |---|---|---|---|---|
 | Step 1 / E0-1 | 到底用了哪些数据，过滤后还剩多少？ | manifest、异常明细、口径报告 | 数据版本和过滤规则可追溯 | **当前仓库口径已冻结** |
-| E0-2/E0-3 | 当前代码能否复现 4g 与 4g→8g？ | 固定 split、scaler、best checkpoint、基线表 | Gate 0 | **E0-2、E0-3b、E0-3c、D04完成；保留第一构象主口径，末两层+头/V2等权为暂定候选** |
-| Gate 0 | Predictor 的分位数、校准、阈值与迁移结构是否可冻结？ | G0-1～G0-4 配对证据、冻结清单 | 冻结 Predictor；此后禁止按 AL test 回调 | **G0-1～G0-4科学对照完成并冻结；10k+推理/索引/resume工程检查待完成** |
-| E1 | acquisition signal 是否真的指向高误差？ | signal-error、hard-error enrichment、risk-coverage 图 | Gate 1 | 待实施 |
-| E2 | 主动选点并重训是否优于 Random？ | 4g 学习曲线与 AULC | Gate 2 | 待实施 |
+| E0-2/E0-3 | 当前代码能否复现 4g 与 4g→8g？ | 固定 split、scaler、best checkpoint、基线表 | Gate 0 | **完成；第一构象、末两层+头与V1/V2等权已由后续Gate 0冻结** |
+| Gate 0 | Predictor 的分位数、校准、阈值与迁移结构是否可冻结？ | G0-1～G0-4 配对证据、冻结清单 | 冻结 Predictor；此后禁止按 AL test 回调 | **完全通过：科学配置冻结，D28统一接口/10k+推理/身份/resume/paired partition均通过** |
+| E1 | acquisition signal 是否真的指向高误差？ | signal-error、hard-error enrichment、risk-coverage 图 | Gate 1 | **完成；Ensemble 12/16恰好过门，Latent Distance支持Coverage** |
+| E2 | 主动选点并重训是否优于 Random？ | 4g 学习曲线与 AULC | Gate 2 | **Random最小闭环通过；四策略三seed pilot待实施** |
 | E4 | 能否节省 8g 标签？ | 主结果、paired CI、标签节省 | 主结论成立 | 待实施 |
 | E3/E5 | 为什么有效、在哪里失效、是否改善 SQ？ | 消融、OOD、下游排序 | 机制和边界清楚 | 待实施 |
 | E6 | 是否值得增加方法创新？ | Task-aware/B³AL/跨柱扩展 | 基础链路稳定 | 条件性开展 |
@@ -168,7 +168,7 @@ experiments/
 
 ### 3.3 训练与预测接口约束
 
-- scaler 只在当前训练标签集上拟合，并随 checkpoint 保存；validation/test/pool 只 transform。
+- scaler不得使用validation/test。E2 source-free在固定L0-train上拟合一次并跨轮次/策略冻结；E4迁移复用Gate 0冻结的4g source-train scaler。
 - 每轮从同一 anchor 重启；warm-start 仅作消融。
 - 只用 validation early stopping；禁止按 test 结果选 epoch。
 - `predict()` 返回：两个输出的 q10/q50/q90、128 维 h_graph、sample_id。
@@ -280,7 +280,7 @@ Gate 0 必须按 G0-1→G0-2→G0-3→G0-4 的顺序执行；在四项完成前�
 
 四项科学对照已完成，冻结清单见`experiments/PREDICTOR_FREEZE.md`。主动学习阶段不允许依据 AL test 结果返回调 Predictor。
 
-此外还必须满足：固定 split/seed 可复现；test 不参与 scaler、early stopping、checkpoint 或 calibration 选择；10k+ 分块推理、索引一致性和 round resume 通过接口测试。
+工程验收已完成：固定split/seed可复现；test不参与scaler、early stopping、checkpoint或calibration选择；10240候选跨batch/chunk逐值一致；索引顺序稳定；round resume与连续运行的RNG和集合状态一致。详见`experiments/d28_al_engineering/`。
 
 ### E1：Acquisition Signal Qualification（P0，必做）
 
@@ -321,6 +321,10 @@ Gate 0 必须按 G0-1→G0-2→G0-3→G0-4 的顺序执行；在四项完成前�
 
 若 Ensemble 在多数关键切片上稳定识别高误差并优于 quantile width，则保留 Ensemble uncertainty；若 Quantile Width 与误差几乎无相关，只保留为 QGeoGNN legacy UQ baseline；若 latent distance 有效，进入 coverage/diversity 主线。若所有 uncertainty 都弱，不强行做 uncertainty AL，E2 以 Coverage/LCMD 为主线。
 
+E1预注册工程判据：primary error固定为训练尺度标准化后的V1/V2绝对误差均值；raw与calibrated Quantile Width不拆成两种ranking。关键聚合切片为row/full、row/common、compound/full、compound/common。Ensemble相对Quantile Width在Spearman、AUROC、enrichment（越高越好）与AUSE（越低越好）的16个聚合比较中至少赢12个，且关键切片平均Spearman>0.1、enrichment>1.5，才进入E2主uncertainty策略。Quantile Width或Latent Distance只有在至少3/4关键切片Spearman为正、关键均值Spearman>0.1且enrichment>1.5时才作为主信号；否则降为secondary baseline或仅保留coverage动机。Tail因样本少只作失败/机制切片，不单独触发方法入选。
+
+E1已完成：K=3真独立Ensemble相对Quantile Width在16项聚合比较中赢12项，恰好达到门槛；四个关键切片的平均Spearman/enrichment/AUSE分别为0.481/5.28/0.033。Latent Distance为0.499/5.69/0.033，支持Coverage进入E2。Quantile Width也满足最低资格（0.434/4.44/0.052），但其row seed1101明显失效，且Ensemble已占用唯一主uncertainty入口，因此仅作secondary/legacy诊断。12/16不解释为普遍优势：Ensemble包揽row两个切片8项胜利，但在compound/full的Spearman、AUROC、enrichment均略输Quantile Width。Tail每个run仅2--3个样本，不作方法选择。完整证据见`experiments/e1_signal_qualification/`。
+
 ### E2：4g 主动学习闭环（P1，方法验证）
 
 | 项目 | 内容 |
@@ -338,15 +342,18 @@ Gate 0 必须按 G0-1→G0-2→G0-3→G0-4 的顺序执行；在四项完成前�
 - L0：训练可用池的 10%；初始 validation 从 L0 中固定划出 15%，并计入预算。
 - Batch：B=25，8 轮；总新增标签 200。
 - Seeds：3 paired outer seeds；3 members。
+- Source-free初始化：E2禁止加载用完整4g标签训练的anchor，否则会泄漏U0/test标签。每个member按固定seed随机初始化QGeoGNN与单调头，全模型可训练；其独立配置hash与Gate 0的4g→8g `last2+head`迁移配置分开。输入scaler只用固定L0-train拟合一次，随后跨轮次与策略冻结；validation、U0和test不参与拟合。
 
 #### 方法
 
+第一轮主比较严格限制为四种：
+
 1. Random；
-2. Stratified Random（compound cluster × condition 分层）；
-3. Quantile-Width top-B；
-4. Coverage（h_graph+conditions 上 farthest-first/k-center）；
-5. Ensemble covariance-trace top-B；
-6. Hybrid：先保留 UQ 前 25% 候选，再用 LCMD/farthest-first 选 B。
+2. Coverage（h_graph+conditions 上 farthest-first/k-center）；
+3. Ensemble covariance-trace top-B；
+4. Hybrid：先保留 Ensemble score 前 25% 候选，再用 LCMD/farthest-first 选 B。
+
+Quantile Width保留为secondary/legacy离线诊断，不作为第五个主策略；Stratified Random延后到主链路稳定后的敏感性分析。
 
 #### 目的与 Gate 2
 
@@ -543,11 +550,12 @@ E4 若保留 4 个主动方法，Final 约为 `4 × 5 × 16 × 5 = 1600` 次 8g 
 - [x] 完成 G0-2 validation-only V1/V2 区间校准与独立 test 的 coverage/width/AUCE/crossing 报告；记录 row/seed=1101 极端 inflation failure mode。
 - [x] 完成 G0-3 legacy threshold vs no-threshold 尾部/UQ敏感性实验；validation-only选择no-threshold，并记录独立tail test未复现改善。
 - [x] 完成 G0-4 last2+head/full/paper-style 克制对照；validation-only冻结last2+head，保留随机初始化诊断与test排序不一致证据。
-- [ ] 完成 10k+ 分块推理、索引一致性和 round resume 检查。
-- [ ] 抽出 `fit/predict` 接口并保存固定 split/L0。
-- [ ] 完成 1 seed、2 rounds、2 members 的 Random smoke test。
+- [x] 完成10240候选分块推理、跨batch逐值一致、稳定身份/顺序和round resume检查。
+- [x] 抽出统一`fit/predict`接口，冻结E2/E4共12份paired test/L0/U0 partition。
+- [x] 完成 1 seed、2 rounds、2 members 的Random source-free smoke；50次query无重复，round状态可恢复，checkpoint与固定test预测逐轮变化。
 - [ ] 增加 Ensemble 与 Coverage/Hybrid，确认每轮索引、模型和预测都发生预期变化。
 - [x] 完成E0-3c多种子双split损失尺度对照；V2等权为暂定候选，legacy保留为原代码对照。
 - [x] 完成D04最低能构象3-seed双split对照；无稳定收益，保留原代码第一构象主口径。
-- [ ] Gate 0科学Predictor已冻结；完成10k+推理、索引一致性和round resume工程检查后执行E1，不得用最终AL RMSE反向挑选signal。
-- [ ] E1 通过后启动 E2 三 seed pilot；单 seed 不得作为最终结论。
+- [x] Gate 0科学与工程检查全部通过；进入E1 acquisition-signal qualification，不得用最终AL RMSE反向挑选Predictor或signal定义。
+- [x] 完成E1三seed×双split信号资格测试；Ensemble以12/16恰好过门，Latent Distance支持Coverage，Tail因每run仅2--3例不作选择。
+- [ ] 扩展E2四策略三seed pilot；当前Random smoke只验证工程链路，单seed与2-epoch曲线不得作为科学结论。

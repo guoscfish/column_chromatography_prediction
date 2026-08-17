@@ -1,0 +1,55 @@
+{
+  "stage": "E1_acquisition_signal_qualification",
+  "active_learning_retraining": false,
+  "outer_seeds": [
+    42,
+    525,
+    1101
+  ],
+  "member_seeds": [
+    42,
+    525,
+    1101
+  ],
+  "split_modes": [
+    "row",
+    "compound"
+  ],
+  "signals": [
+    "quantile_width",
+    "ensemble",
+    "latent_distance",
+    "random"
+  ],
+  "slices": [
+    "full",
+    "common",
+    "tail"
+  ],
+  "primary_error": "0.5*(abs(V1-q50)/train_sd_V1 + abs(V2-q50)/train_sd_V2)",
+  "quantile_width": "0.5*(width_V1/train_sd_V1 + width_V2/train_sd_V2), member0 raw intervals",
+  "calibrated_width_policy": "not a separate ranking because per-run global alpha preserves ordering",
+  "ensemble": "sample covariance trace of K=3 standardized q50 predictions; three independently trained 4g source anchors use the same 4g split",
+  "latent_distance": "mean 5NN standardized Euclidean distance in standardized [h_graph; 9D condition] to target train",
+  "random": "deterministic no-information baseline",
+  "bootstrap_iterations": 1000,
+  "source_epochs": 1000,
+  "source_patience": 100,
+  "target_config": {
+    "learning_rate": 0.0001,
+    "weight_decay": 1e-05,
+    "epochs": 500,
+    "patience": 100,
+    "batch_size": 2048,
+    "transfer_mode": "last2_head",
+    "v1_weight": 1.0,
+    "v2_weight": 1.0,
+    "conformer_policy": "first_embedded",
+    "quantile_parameterization": "monotonic_softplus",
+    "scaler_policy": "source_train",
+    "checkpoint_selection": "validation_normalized_mse"
+  },
+  "gate_rule": "ensemble needs >=12/16 wins over quantile plus key mean Spearman>0.1 and enrichment>1.5; individual signal needs positive Spearman in >=3/4 key slices, key mean Spearman>0.1 and enrichment>1.5",
+  "parquet_status": "not written because the frozen fish environment has no pyarrow/fastparquet; lossless per-sample table is csv.gz",
+  "test_role": "E1 signal qualification only; never used to reopen Gate 0 Predictor"
+}
