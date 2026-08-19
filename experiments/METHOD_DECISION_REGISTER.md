@@ -38,6 +38,7 @@
 | D30 | P1 | 构象优化非收敛 | D04中21个结构共有50/2170个构象优化返回非收敛；原代码仍保留，论文未说明筛选规则 | D04保持原代码行为并完整记录，不事后删除 | 比较“全部构象最低能”与“仅收敛构象最低能”；若最低能恰为非收敛构象需单列敏感性 |
 | D31 | P0 | E1 acquisition signal资格 | 三seed×row/compound、K=3真独立成员：Ensemble相对Quantile Width赢12/16项，关键切片平均Spearman/enrichment/AUSE为0.481/5.28/0.033；Latent Distance为0.499/5.69/0.033；Quantile Width为0.434/4.44/0.052。Ensemble的胜利集中在row切片，compound/full有3/4指标由Quantile Width更好；tail每run仅2--3例 | Ensemble作为E2唯一主uncertainty，Latent Distance支持Coverage；Quantile Width只作secondary/legacy诊断。E2首轮固定Random/Coverage/Ensemble/Hybrid四种，不因E1 test重开Predictor | 先做1 seed×2 rounds×2 members链路smoke，再做三seed paired pilot；单seed、tail或12/16边界结果均不得包装为稳定优势 |
 | D32 | P0 | E2 4g source-free初始化 | 若复用完整4g baseline checkpoint，U0/test标签已经进入初始化权重，主动学习曲线无效；而随机初始化后只训练last2会冻结随机早期层，同样不合理。最小smoke用seeded-random单调QGeoGNN、全模型训练、固定L0-train scaler与独立config hash，2轮×25条无重复且状态、checkpoint与预测变化审计通过 | E2专用source-free协议冻结为随机初始化+全模型训练+L0-train-only scaler；这不改变E4的4g→8g `last2+head`合同。2-epoch smoke只验链路，不解释RMSE | 四策略必须共享同一outer seed的L0/U0/test、scaler、member seeds和轮预算；正式三seed pilot使用完整训练预算并报告计算成本 |
+| D33 | P0 | E2 Round-0 regime与Hybrid机制 | source-free L0下Ensemble/Latent/Quantile三seed平均Spearman为0.592/0.436/0.503、enrichment为4.36/3.82/5.04，均3/3为正；Ensemble–Latent Top-10% overlap为0.396/0.396/0.467 | 无regime failure，不调整E1定义；Coverage冻结为标准化`h_graph+conditions` sequential farthest-first，Hybrid冻结Ensemble Top-25%后同一farthest-first。互补性只作机制动机，不预判AULC | 完成row三seed完整paired AULC；若Hybrid未超过单策略，不包装成主方法；Quantile保留给E4 Protocol B legacy baseline |
 
 ## 当前阶段结论
 
@@ -46,3 +47,4 @@
 - D28已通过，Gate 0科学与工程配置全部冻结。
 - E1已完成：Ensemble以12/16恰好过门并进入E2主uncertainty，Latent Distance支持Coverage；Quantile Width降为secondary/legacy诊断。
 - E2 Random source-free最小链路已通过；当前进入Random/Coverage/Ensemble/Hybrid三seed pilot，smoke曲线不作科学结论。
+- E2 Round-0 source-free信号诊断已通过，signal agreement显示Ensemble与Latent中等相关；正式row paired pilot运行中，完成前不作策略胜负结论。

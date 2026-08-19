@@ -1,0 +1,93 @@
+{
+  "stage": "E2_4g_active_learning_row_pilot",
+  "outer_seeds": [
+    42,
+    525,
+    1101
+  ],
+  "strategies": [
+    "random",
+    "coverage",
+    "ensemble",
+    "hybrid"
+  ],
+  "member_count": 3,
+  "member_seed_rule": "outer_seed*100 + member_index",
+  "rounds": 8,
+  "query_size": 25,
+  "budgets": [
+    375,
+    400,
+    425,
+    450,
+    475,
+    500,
+    525,
+    550,
+    575
+  ],
+  "train_config": {
+    "learning_rate": 0.0001,
+    "weight_decay": 1e-05,
+    "epochs": 500,
+    "patience": 100,
+    "batch_size": 2048,
+    "transfer_mode": "full_source_free",
+    "v1_weight": 1.0,
+    "v2_weight": 1.0,
+    "conformer_policy": "first_embedded",
+    "quantile_parameterization": "monotonic_softplus",
+    "scaler_policy": "fixed_l0_train",
+    "checkpoint_selection": "validation_normalized_mse",
+    "initialization_policy": "seeded_random"
+  },
+  "source_free": true,
+  "scaler": "fit fixed L0_train once per outer seed; freeze across rounds and strategies",
+  "performance_primary": "0.5*(RMSE_V1/L0_train_sd_V1 + RMSE_V2/L0_train_sd_V2)",
+  "aulc": "trapezoid over labels; normalized by label range",
+  "round0_primary_error": "member0 mean standardized V1/V2 absolute error, matching E1; ensemble-mean error retained as sensitivity",
+  "coverage": {
+    "representation": "[128D h_graph; 9D conditions]",
+    "normalization": "featurewise z-score of each block fitted on current non-validation labeled train",
+    "distance": "Euclidean",
+    "batch": "sequential farthest-first/k-center",
+    "first_center": "candidate farthest from current labeled train",
+    "tie_breaking": "lexicographically smallest sample_id",
+    "within_batch_update": true
+  },
+  "ensemble": {
+    "score": "trace of sample covariance of L0-train-scale standardized V1/V2 q50",
+    "members": 3,
+    "independence": "separate seeded random initialization; current Lt only"
+  },
+  "hybrid": {
+    "prefilter": "top 25% by frozen ensemble score",
+    "selection": "same farthest-first implementation as Coverage"
+  },
+  "partitions": {
+    "42": {
+      "path": "experiments/d28_al_engineering/partitions/e2_4g_row_seed_42.csv",
+      "sha256": "fc18f94679ca05e6bd6e6634f22be2c6bb16f9ba8b4e69d0e020263af2c97a12"
+    },
+    "525": {
+      "path": "experiments/d28_al_engineering/partitions/e2_4g_row_seed_525.csv",
+      "sha256": "1ea87a4864c19f4b1a23b907d984e561c89275e6a3d8bad58e986b4ede16ebcd"
+    },
+    "1101": {
+      "path": "experiments/d28_al_engineering/partitions/e2_4g_row_seed_1101.csv",
+      "sha256": "33445d71fde56fe2edb77b979959cc014900d2ced26bb9e49057ad3567ce7446"
+    }
+  },
+  "source_files_sha256": {
+    "scripts/al_engine.py": "b9d1a25691a90aa39a4c25799429142ccbc1e7b5eb8003d5ca3eff7d5c924f07",
+    "scripts/al_acquisition.py": "f7d81a720d958b64e77b0f371aeafd15cc896e38b22f245d796d6eac1e90c1df",
+    "scripts/run_e2_4g_active_learning.py": "e1b39c00ff42cb6dc831e0f70dfd7f35ef398395cca97720c4252c3253adb2b9"
+  },
+  "git": {
+    "commit": "a0c0929adcdb38f87faf84e36fc58a3dd2a877b3",
+    "dirty": true
+  },
+  "parquet_status": "csv.gz used because fish environment has no pyarrow/fastparquet",
+  "tail": "not analyzed; absent structurally from legacy-threshold 4g canonical data",
+  "scheduler": "outer-seed workers may run in parallel; each seed directory is isolated and scientific configuration is unchanged"
+}
