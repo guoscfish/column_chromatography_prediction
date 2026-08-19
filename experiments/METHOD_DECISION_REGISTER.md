@@ -1,6 +1,6 @@
 # QGeoGNN 方法决策与待验证事项登记表
 
-更新日期：2026-08-17
+更新日期：2026-08-19
 
 本表用于区分三类内容：已经冻结的 legacy 基线、已有证据但尚不能冻结的候选方案、必须通过控制变量实验才能决定的争议项。任何 P0 项未解决前，不进入正式主动学习主实验。
 
@@ -39,6 +39,8 @@
 | D31 | P0 | E1 acquisition signal资格 | 三seed×row/compound、K=3真独立成员：Ensemble相对Quantile Width赢12/16项，关键切片平均Spearman/enrichment/AUSE为0.481/5.28/0.033；Latent Distance为0.499/5.69/0.033；Quantile Width为0.434/4.44/0.052。Ensemble的胜利集中在row切片，compound/full有3/4指标由Quantile Width更好；tail每run仅2--3例 | Ensemble作为E2唯一主uncertainty，Latent Distance支持Coverage；Quantile Width只作secondary/legacy诊断。E2首轮固定Random/Coverage/Ensemble/Hybrid四种，不因E1 test重开Predictor | 先做1 seed×2 rounds×2 members链路smoke，再做三seed paired pilot；单seed、tail或12/16边界结果均不得包装为稳定优势 |
 | D32 | P0 | E2 4g source-free初始化 | 若复用完整4g baseline checkpoint，U0/test标签已经进入初始化权重，主动学习曲线无效；而随机初始化后只训练last2会冻结随机早期层，同样不合理。最小smoke用seeded-random单调QGeoGNN、全模型训练、固定L0-train scaler与独立config hash，2轮×25条无重复且状态、checkpoint与预测变化审计通过 | E2专用source-free协议冻结为随机初始化+全模型训练+L0-train-only scaler；这不改变E4的4g→8g `last2+head`合同。2-epoch smoke只验链路，不解释RMSE | 四策略必须共享同一outer seed的L0/U0/test、scaler、member seeds和轮预算；正式三seed pilot使用完整训练预算并报告计算成本 |
 | D33 | P0 | E2 Round-0 regime与Hybrid机制 | source-free L0下Ensemble/Latent/Quantile三seed平均Spearman为0.592/0.436/0.503、enrichment为4.36/3.82/5.04，均3/3为正；Ensemble–Latent Top-10% overlap为0.396/0.396/0.467 | 无regime failure，不调整E1定义；Coverage冻结为标准化`h_graph+conditions` sequential farthest-first，Hybrid冻结Ensemble Top-25%后同一farthest-first。互补性只作机制动机，不预判AULC | 完成row三seed完整paired AULC；若Hybrid未超过单策略，不包装成主方法；Quantile保留给E4 Protocol B legacy baseline |
+| D34 | P0 | E2 row正式结果与机制边界 | row三seed平均AULC Hybrid=0.543、Coverage=0.562、Ensemble=0.627、Random=0.645；Coverage/Hybrid对Random均3/3胜，Ensemble仅2/3且CI跨0。Hybrid与更高batch diversity同时出现，但selected set多个属性共同变化 | 冻结row主结论；只说结果与去冗余假设一致，不作因果声称。登记Top-25% uncertainty-filter-random control但本阶段不运行 | 完成row机制审计与compound seed42 preflight；完整compound pilot另行批准 |
+| D35 | P1 | Quantile Width后续采样角色 | E2 source-free Round-0 Quantile mean Spearman=0.503、AUROC=0.849、enrichment=5.04，而正式Ensemble acquisition仅小幅且不稳定优于Random | Quantile仍不属于预注册E2四主策略；允许未来作为明确标记的post-hoc secondary acquisition control，E4 Protocol B继续保留legacy baseline | 本阶段不运行Quantile AL，不修改row primary conclusion |
 
 ## 当前阶段结论
 

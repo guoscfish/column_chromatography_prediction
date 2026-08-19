@@ -16,7 +16,7 @@ Gate 0 Predictor qualification
   → E5 downstream SQ utility
 ```
 
-Gate 0 已完全通过。G0-3 冻结no-threshold并保留全部574行8g数据；G0-4冻结`last2+head`；D28已完成统一`fit/predict`、10240候选跨batch/chunk逐值一致、稳定身份、round resume与12份E2/E4 paired partition。E1也已完成：K=3真独立Ensemble以12/16恰好通过预注册比较门，Latent Distance支持Coverage；Quantile Width仅保留为secondary/legacy诊断。E2 source-free Round-0正式诊断显示Ensemble/Latent/Quantile的跨seed Spearman为0.592/0.436/0.503，均未发生regime failure；Ensemble–Latent Top-10% overlap约0.40–0.47，存在可检验的互补性。Random、Coverage、Ensemble、Hybrid三seed完整row pilot正在按500/100训练预算运行，完成前不作主动学习优劣结论。证据见 [E2正式目录](experiments/e2_4g_active_learning/README.md)。
+Gate 0 与 E1 已完成并冻结。E2 row 三seed正式pilot也已完成：平均normalized AULC为Hybrid 0.543、Coverage 0.562、Ensemble 0.627、Random 0.645；Coverage和Hybrid对Random均3/3 seeds胜出，Ensemble为2/3且paired CI跨0。当前阶段是row机制审计与compound seed42 preflight，完整compound pilot尚未启动；详细证据见 [E2 row](experiments/e2_4g_active_learning/README.md)。
 
 ## Citation
 If you use this work in your research, please cite:
@@ -86,7 +86,8 @@ The original model code is kept under `application/`. The reproducible experimen
 - `scripts/run_e2_random_smoke.py`: reproducible E2 source-free Random chain smoke entry point.
 - `scripts/al_acquisition.py`: deterministic Coverage、Ensemble top-score、Hybrid Top-25%+farthest-first与signal agreement primitives.
 - `scripts/run_e2_4g_active_learning.py`: E2 Round-0 diagnostics、四策略row pilot、paired AULC与绘图入口。
-- `experiments/e2_4g_active_learning/`: formal E2 row outputs; README remains explicitly in-progress until all paired curves finish.
+- `experiments/e2_4g_active_learning/`: finalized E2 row outputs and mechanism audit.
+- `experiments/e2_4g_compound_preflight/`: compound seed42 Round-0 and Round-1 acquisition-only preflight; not a full pilot.
 - `scripts/run_e0_8g_controls.py`: shared entry point for E0-3b/E0-3c controls.
 - `scripts/qgeognn_graphs.py`: the single deterministic conformer/graph implementation used by 4g and 8g.
 - `scripts/run_d04_conformer_selection.py`: the D04 cache, source-training and transfer pipeline.

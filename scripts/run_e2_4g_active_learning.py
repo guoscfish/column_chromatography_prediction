@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run E2 Round-0 diagnostics and the formal 4g row active-learning pilot."""
+"""Run E2 row pilots and bounded compound Round-0/acquisition preflight."""
 
 from __future__ import annotations
 
@@ -65,6 +65,7 @@ SOURCE_DIR = ROOT / "experiments" / "e0_4g_baseline"
 D28_DIR = ROOT / "experiments" / "d28_al_engineering"
 E1_DIR = ROOT / "experiments" / "e1_signal_qualification"
 DEFAULT_OUTPUT = ROOT / "experiments" / "e2_4g_active_learning"
+DEFAULT_COMPOUND_PREFLIGHT_OUTPUT = ROOT / "experiments" / "e2_4g_compound_preflight"
 OUTER_SEEDS = (42, 525, 1101)
 STRATEGIES = ("random", "coverage", "ensemble", "hybrid")
 SIGNALS = ("quantile_width", "ensemble", "latent_distance", "random")
@@ -110,14 +111,16 @@ def make_scaler(
 
 
 def context_for_seed(
-    outer_seed: int, output_dir: Path, config: SourceFreeTrainConfig
+    outer_seed: int, output_dir: Path, config: SourceFreeTrainConfig, split_mode: str = "row"
 ) -> dict[str, Any]:
     data = pd.read_csv(SOURCE_DIR / "canonical_4g.csv")
     graph_cache = torch.load(SOURCE_DIR / "graph_cache_4g.pt", weights_only=False)
-    partition_path = D28_DIR / "partitions" / f"e2_4g_row_seed_{outer_seed}.csv"
+    if split_mode not in {"row", "compound"}:
+        raise ValueError(f"Unsupported E2 split mode: {split_mode}")
+    partition_path = D28_DIR / "partitions" / f"e2_4g_{split_mode}_seed_{outer_seed}.csv"
     partition = pd.read_csv(partition_path)
     scaler = make_scaler(data, graph_cache, partition)
-    seed_dir = output_dir / f"row_seed_{outer_seed}"
+    seed_dir = output_dir / f"{split_mode}_seed_{outer_seed}"
     seed_dir.mkdir(parents=True, exist_ok=True)
     scaler_path = seed_dir / "scaler.json"
     scaler_path.write_text(json.dumps(scaler, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -401,6 +404,7 @@ def round0_for_seed(
     context: dict[str, Any],
     config: SourceFreeTrainConfig,
     outer_seed: int,
+    split_mode: str = "row",
 ) -> tuple[dict[int, Path], pd.DataFrame, list[dict], pd.DataFrame, pd.DataFrame]:
     shared_dir = context["seed_dir"] / "shared_round_0"
     checkpoints, fit_records = fit_ensemble(
@@ -425,7 +429,7 @@ def round0_for_seed(
     pool["random_score"] = random_score(outer_seed, pool["sample_id"].astype(str).tolist())
     pool = add_truth_and_errors(context, pool, primary_member_error=True)
     pool["outer_seed"] = outer_seed
-    pool["split_mode"] = "row"
+    pool["split_mode"] = split_mode
     pool["slice"] = "u0_full"
     pool.to_csv(shared_dir / "round0_pool_signals.csv.gz", index=False)
     np.savez_compressed(
@@ -447,17 +451,17 @@ def round0_for_seed(
             bootstrap_iterations=1000,
             bootstrap_seed=outer_seed * 100 + signal_index,
         )
-        metric.update({"split_mode": "row", "outer_seed": outer_seed, "evaluation_pool": "U0"})
+        metric.update({"split_mode": split_mode, "outer_seed": outer_seed, "evaluation_pool": "U0"})
         metric_rows.append(metric)
         for item in risk:
-            item.update({"split_mode": "row", "outer_seed": outer_seed, "evaluation_pool": "U0"})
+            item.update({"split_mode": split_mode, "outer_seed": outer_seed, "evaluation_pool": "U0"})
             risk_rows.append(item)
     agreement = pd.DataFrame(
         signal_agreement_rows(
             pool,
             {
                 "stage": "E2_source_free_round0",
-                "split": "row",
+                "split": split_mode,
                 "seed": outer_seed,
                 "slice": "u0_full",
                 "n_samples": len(pool),
@@ -719,6 +723,130 @@ def run_strategy(
             ),
             flush=True,
         )
+
+
+def compound_preflight(output_dir: Path, config: SourceFreeTrainConfig) -> None:
+    """Run only compound seed-42 Round-0 and Round-1 acquisition dry-run."""
+    split_mode = "compound"
+    seed = 42
+    context = context_for_seed(seed, output_dir, config, split_mode=split_mode)
+    partition = context["partition"]
+    role_sets = {
+        role: set(partition.loc[partition["role"].eq(role), "canonical_smiles"].astype(str))
+        for role in ("l0_train", "l0_validation", "u0", "test")
+    }
+    leakage = {
+        "l0_train_test_overlap": sorted(role_sets["l0_train"] & role_sets["test"]),
+        "l0_validation_test_overlap": sorted(role_sets["l0_validation"] & role_sets["test"]),
+        "u0_test_overlap": sorted(role_sets["u0"] & role_sets["test"]),
+    }
+    if any(leakage.values()):
+        raise RuntimeError(f"Compound partition leakage detected: {leakage}")
+    counts = partition["role"].value_counts().to_dict()
+    if counts != {"u0": 3375, "test": 413, "l0_train": 318, "l0_validation": 57}:
+        raise RuntimeError(f"Unexpected compound seed42 counts: {counts}")
+    if partition["sample_id"].astype(str).nunique() != len(partition):
+        raise RuntimeError("Compound partition sample_id values are not stable and unique")
+    write_environment(output_dir)
+    (output_dir / "config.json").write_text(
+        json.dumps({
+            "stage": "E2_compound_seed42_preflight",
+            "split_mode": "compound",
+            "outer_seed": 42,
+            "train_config": asdict(config),
+            "member_count": MEMBER_COUNT,
+            "query_size": 25,
+            "stop_after": "Round-0 training and Round-1 acquisition dry-run",
+            "partition_path": str(context["partition_path"].relative_to(ROOT)),
+            "partition_sha256": context["partition_hash"],
+            "scaler_policy": "fixed L0_train only",
+        }, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    checkpoints, pool, fit_records, metrics, agreement = round0_for_seed(
+        context, config, seed, split_mode=split_mode
+    )
+    output_dir.mkdir(parents=True, exist_ok=True)
+    metrics.to_csv(output_dir / "round0_signal_diagnostics.csv", index=False)
+    agreement.to_csv(output_dir / "signal_agreement.csv", index=False)
+    pd.DataFrame(fit_records).to_csv(output_dir / "round0_convergence_audit.csv", index=False)
+    signal_summary = metrics.groupby("signal", as_index=False).agg(
+        mean_spearman=("spearman", "mean"),
+        mean_auroc=("hard_error_auroc", "mean"),
+        mean_enrichment=("enrichment", "mean"),
+        mean_ause=("ause", "mean"),
+    )
+    signal_summary.to_csv(output_dir / "round0_signal_summary.csv", index=False)
+    state = initialize_strategy_state(context, seed, next(iter(checkpoints.values())))
+    labeled_train_ids = context["role_ids"]["l0_train"]
+    pool_h = context["engine"].predict(
+        context["role_ids"]["u0"], next(iter(checkpoints.values())),
+        return_quantiles=False, return_embedding=True, batch_size=256, chunk_size=1024,
+    ).embeddings
+    labeled_repr, pool_repr, latent, representation_audit = representations_and_latent(
+        context, labeled_train_ids, context["role_ids"]["u0"],
+        next(iter(checkpoints.values())), pool_h
+    )
+    pool = pool.copy()
+    pool["latent_distance"] = latent
+    pool["random_score"] = random_score(seed, pool["sample_id"].astype(str).tolist())
+    pool.to_csv(output_dir / "round0_pool_signals.csv.gz", index=False)
+    preflight_rows = []
+    selected_by_strategy = {}
+    test_ids = set(context["role_ids"]["test"])
+    for strategy in STRATEGIES:
+        next_state, selected_ids, subset = select_batch(
+            strategy, state, pool, pool_repr, labeled_repr, 25
+        )
+        diagnostic, selected = queried_diagnostics(
+            context, strategy, seed, next_state, pool, pool_repr, selected_ids, fit_records, subset
+        )
+        if len(selected_ids) != 25 or len(set(selected_ids)) != 25:
+            raise RuntimeError(f"{strategy} dry-run did not select 25 unique samples")
+        if set(selected_ids) & test_ids:
+            raise RuntimeError(f"{strategy} dry-run leaked test sample IDs")
+        if strategy == "hybrid" and not set(selected_ids).issubset(set(subset or [])):
+            raise RuntimeError("Hybrid selection escaped its Top-25% prefilter")
+        selected_by_strategy[strategy] = selected_ids
+        selected.to_csv(output_dir / f"round1_{strategy}_selected.csv", index=False)
+        preflight_rows.append(diagnostic)
+    coverage_repeat, _, _ = select_batch(
+        "coverage", state, pool, pool_repr, labeled_repr, 25
+    )
+    if coverage_repeat.selected_ids != selected_by_strategy["coverage"]:
+        raise RuntimeError("Coverage acquisition is not deterministic")
+    pd.DataFrame(preflight_rows).to_csv(output_dir / "round1_acquisition_dry_run.csv", index=False)
+    (output_dir / "representation_audit.json").write_text(
+        json.dumps(representation_audit, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    (output_dir / "preflight_decision.json").write_text(
+        json.dumps({
+            "stage": "E2_compound_seed42_preflight",
+            "complete": True,
+            "split_mode": "compound",
+            "outer_seed": 42,
+            "round0_training": "K=3 source-free members",
+            "round1_acquisition_only": True,
+            "full_compound_pilot_started": False,
+            "compound_leakage": leakage,
+            "counts": counts,
+            "validation_counted_in_label_budget": True,
+            "l0_total": counts["l0_train"] + counts["l0_validation"],
+            "sample_ids_unique": True,
+            "coverage_deterministic": True,
+            "all_selected_batches_unique": True,
+            "all_selected_batches_test_leakage_free": True,
+            "hybrid_prefilter_valid": True,
+            "next_action": "review preflight before full compound pilot",
+        }, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    (output_dir / "README.md").write_text(
+        "# E2 Compound Seed-42 Preflight\n\n"
+        "This directory contains only source-free Round-0 K=3 diagnostics and a Round-1 "
+        "acquisition dry-run for Random, Coverage, Ensemble and Hybrid. No Round-1 model was "
+        "trained and the full compound pilot was not started.\n",
+        encoding="utf-8",
+    )
+    write_artifact_manifest(output_dir)
 
 
 def collect_outputs(output_dir: Path) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
@@ -1160,10 +1288,11 @@ Round-0 source-free signal diagnostic已完成；它只检验E1信号能否迁�
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT)
+    parser.add_argument("--output-dir", type=Path)
     parser.add_argument(
-        "--phase", choices=("round0", "pilot", "worker", "finalize", "all"), default="all"
+        "--phase", choices=("round0", "pilot", "worker", "finalize", "preflight", "all"), default="all"
     )
+    parser.add_argument("--split-mode", choices=("row", "compound"), default="row")
     parser.add_argument("--worker-seed", type=int)
     parser.add_argument(
         "--worker-strategy",
@@ -1177,11 +1306,20 @@ def main() -> None:
     args = parser.parse_args()
     if args.rounds != 8 or args.query_size != 25:
         raise ValueError("Formal E2 protocol freezes rounds=8 and query_size=25")
-    output_dir = args.output_dir.resolve()
+    output_dir = (
+        args.output_dir
+        or (DEFAULT_COMPOUND_PREFLIGHT_OUTPUT if args.phase == "preflight" else DEFAULT_OUTPUT)
+    ).resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
     write_environment(output_dir)
     config = SourceFreeTrainConfig(epochs=args.epochs, patience=args.patience)
     config.validate_frozen_predictor()
+    if args.phase == "preflight":
+        if args.split_mode != "compound":
+            raise ValueError("--phase preflight requires --split-mode compound")
+        compound_preflight(output_dir, config)
+        print(json.dumps({"preflight_complete": True, "split_mode": "compound", "outer_seed": 42}), flush=True)
+        return
     write_static_config(output_dir, config, args.rounds, args.query_size)
 
     if args.phase == "worker":

@@ -1,3 +1,12 @@
 .DS_Store
 __pycache__/
 *.py[cod]
+
+# Active-learning runtime artifacts (retain aggregate scientific outputs)
+experiments/e2_*/**/checkpoints/
+experiments/e2_*/**/pool_predictions.csv.gz
+experiments/e2_*/**/test_predictions.csv.gz
+experiments/e2_*/**/history.csv
+experiments/e2_*/**/state_after_fit.json
+experiments/e2_*/**/state_after_query.json
+experiments/e2_*/resume_pipeline.log

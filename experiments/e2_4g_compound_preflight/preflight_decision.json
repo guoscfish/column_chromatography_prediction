@@ -1,0 +1,28 @@
+{
+  "stage": "E2_compound_seed42_preflight",
+  "complete": true,
+  "split_mode": "compound",
+  "outer_seed": 42,
+  "round0_training": "K=3 source-free members",
+  "round1_acquisition_only": true,
+  "full_compound_pilot_started": false,
+  "compound_leakage": {
+    "l0_train_test_overlap": [],
+    "l0_validation_test_overlap": [],
+    "u0_test_overlap": []
+  },
+  "counts": {
+    "u0": 3375,
+    "test": 413,
+    "l0_train": 318,
+    "l0_validation": 57
+  },
+  "validation_counted_in_label_budget": true,
+  "l0_total": 375,
+  "sample_ids_unique": true,
+  "coverage_deterministic": true,
+  "all_selected_batches_unique": true,
+  "all_selected_batches_test_leakage_free": true,
+  "hybrid_prefilter_valid": true,
+  "next_action": "review preflight before full compound pilot"
+}

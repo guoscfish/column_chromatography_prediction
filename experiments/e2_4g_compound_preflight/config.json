@@ -1,0 +1,26 @@
+{
+  "stage": "E2_compound_seed42_preflight",
+  "split_mode": "compound",
+  "outer_seed": 42,
+  "train_config": {
+    "learning_rate": 0.0001,
+    "weight_decay": 1e-05,
+    "epochs": 500,
+    "patience": 100,
+    "batch_size": 2048,
+    "transfer_mode": "full_source_free",
+    "v1_weight": 1.0,
+    "v2_weight": 1.0,
+    "conformer_policy": "first_embedded",
+    "quantile_parameterization": "monotonic_softplus",
+    "scaler_policy": "fixed_l0_train",
+    "checkpoint_selection": "validation_normalized_mse",
+    "initialization_policy": "seeded_random"
+  },
+  "member_count": 3,
+  "query_size": 25,
+  "stop_after": "Round-0 training and Round-1 acquisition dry-run",
+  "partition_path": "experiments/d28_al_engineering/partitions/e2_4g_compound_seed_42.csv",
+  "partition_sha256": "14f391f8341e3b7ca22a9f81f9f0550cfecb352be5ac3087fa7af44b1a694a10",
+  "scaler_policy": "fixed L0_train only"
+}

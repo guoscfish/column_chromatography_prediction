@@ -20,7 +20,7 @@
 | E0-2/E0-3 | 当前代码能否复现 4g 与 4g→8g？ | 固定 split、scaler、best checkpoint、基线表 | Gate 0 | **完成；第一构象、末两层+头与V1/V2等权已由后续Gate 0冻结** |
 | Gate 0 | Predictor 的分位数、校准、阈值与迁移结构是否可冻结？ | G0-1～G0-4 配对证据、冻结清单 | 冻结 Predictor；此后禁止按 AL test 回调 | **完全通过：科学配置冻结，D28统一接口/10k+推理/身份/resume/paired partition均通过** |
 | E1 | acquisition signal 是否真的指向高误差？ | signal-error、hard-error enrichment、risk-coverage 图 | Gate 1 | **完成；Ensemble 12/16恰好过门，Latent Distance支持Coverage** |
-| E2 | 主动选点并重训是否优于 Random？ | 4g 学习曲线与 AULC | Gate 2 | **Round-0 source-free信号诊断通过；四策略三seed row pilot运行中** |
+| E2 | 主动选点并重训是否优于 Random？ | 4g 学习曲线与 AULC | Gate 2 | **row三seed正式pilot完成；机制审计进行中；compound完整pilot未启动** |
 | E4 | 能否节省 8g 标签？ | 主结果、paired CI、标签节省 | 主结论成立 | 待实施 |
 | E3/E5 | 为什么有效、在哪里失效、是否改善 SQ？ | 消融、OOD、下游排序 | 机制和边界清楚 | 待实施 |
 | E6 | 是否值得增加方法创新？ | Task-aware/B³AL/跨柱扩展 | 基础链路稳定 | 条件性开展 |
@@ -562,6 +562,6 @@ E4 若保留 4 个主动方法，Final 约为 `4 × 5 × 16 × 5 = 1600` 次 8g 
 - [x] 完成D04最低能构象3-seed双split对照；无稳定收益，保留原代码第一构象主口径。
 - [x] Gate 0科学与工程检查全部通过；进入E1 acquisition-signal qualification，不得用最终AL RMSE反向挑选Predictor或signal定义。
 - [x] 完成E1三seed×双split信号资格测试；Ensemble以12/16恰好过门，Latent Distance支持Coverage，Tail因每run仅2--3例不作选择。
-- [ ] 扩展E2四策略三seed pilot；当前Random smoke只验证工程链路，单seed与2-epoch曲线不得作为科学结论。
+- [x] 完成E2 row四策略三seed正式pilot；Hybrid/Coverage对Random均3/3 seeds胜出，Ensemble仅2/3且paired CI跨0。
 - [x] 完成E2三seed source-free Round-0 signal sanity与E1/E2 signal agreement；Ensemble/Latent无regime failure，Hybrid互补性动机成立。
-- [ ] 完成E2 row四策略×三seed×九预算×K=3正式paired AULC；当前长任务运行中。
+- [x] 完成E2 row四策略×三seed×九预算×K=3正式paired AULC；当前执行机制审计与compound seed42 preflight，完整compound pilot未启动。
