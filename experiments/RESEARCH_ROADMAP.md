@@ -4,6 +4,11 @@
 
 ## A. Near-term deferred controls
 
+## D38/D39 — Current stage (completed design, no E4 training)
+
+- **D38 E2 Compound Failure Audit** is a purely post-hoc audit. It found no implementation, partition, identity, leakage, or evaluator bug; seed42 failure is localized descriptively to a minority of compounds. Coverage and Hybrid reduce fixed test-to-labeled distance, while selected-to-test chemistry/condition relevance and coarse centroid shifts do not establish a causal explanation. Evidence is descriptive (`n=3`) only.
+- **D39 E4 Preregistered Protocol** freezes 8g no-threshold target data, Protocol A/B D28 partitions, last2+head transfer from three hashed independent source checkpoints, L0=50, B=10, 15 rounds, K=3, five acquisition methods, recovery/AULC metrics, tail diagnostics, and pilot expansion gates. The preregistration is a design artifact; formal training is explicitly deferred.
+
 - **Hybrid causal diversity control**：仅当row/compound中Hybrid持续优于Ensemble且fixed common-reference diversity同时更高时，比较Ensemble Top-25%后Random-B与farthest-first-B。
 - **Quantile Width post-hoc acquisition**：仅当row/compound risk ranking持续强但Ensemble AL utility弱或不稳定时，作为secondary control，不改写E2预注册主比较。
 - **Coverage representation ablation**：仅当Coverage/Hybrid在row与compound稳定优于Random时，比较`h_graph`、conditions、联合、block-balanced联合及MorganFP+conditions。

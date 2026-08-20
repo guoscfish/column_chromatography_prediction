@@ -1,0 +1,52 @@
+{
+  "partition_failures": [],
+  "source_members": [
+    {
+      "source_seed": 42,
+      "path": "experiments/e0_4g_baseline/checkpoints/best.pt",
+      "exists": true,
+      "sha256": "7b9e3d0d4c8036c738ef220802e7ee46bc6ab8261cc541fb7d194e8c17044323"
+    },
+    {
+      "source_seed": 525,
+      "path": "experiments/e1_signal_qualification/source_members/member_seed_525/checkpoints/best.pt",
+      "exists": true,
+      "sha256": "719b2eb695e473c024c11eeb070a7835db78a3d5b01b6d50e8c3aa8f694d5916"
+    },
+    {
+      "source_seed": 1101,
+      "path": "experiments/e1_signal_qualification/source_members/member_seed_1101/checkpoints/best.pt",
+      "exists": true,
+      "sha256": "23cdc24472d5458046eebaa20aa743228e55ee3d6f1c4c3730d4ff431ea08a60"
+    }
+  ],
+  "source_hashes_distinct": true,
+  "budget_guard": {
+    "L0": 50,
+    "B": 10,
+    "rounds": 15,
+    "K": 3,
+    "budgets": [
+      50,
+      60,
+      70,
+      80,
+      90,
+      100,
+      110,
+      120,
+      130,
+      140,
+      150,
+      160,
+      170,
+      180,
+      190,
+      200
+    ],
+    "formal_training_started": false
+  },
+  "test_isolation_checked": true,
+  "formal_training_started": false,
+  "preflight_pass": true
+}
