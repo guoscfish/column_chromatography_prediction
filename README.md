@@ -81,6 +81,9 @@ The original model code is kept under `application/`. The reproducible experimen
 - `scripts/al_engine.py`: shared frozen `fit/predict`, stable identity and resumable AL-state primitives.
 - `scripts/run_d28_engineering_checks.py`: 10k+ batched-inference, resume and paired-partition qualification.
 - `experiments/d28_al_engineering/`: finalized D28 audit and E2/E4 row/compound L0/U0/test partitions.
+- `experiments/e2_compound_failure_audit/`: D38R corrected post-hoc audit; compound localization remains inconclusive and does not alter frozen E2 results.
+- `experiments/e4_active_transfer_preregistration/`: E4 partition/source compatibility evidence.
+- `experiments/e4_protocol_a_engineering_smoke/`: Protocol A seed42 engineering-only smoke; no scientific conclusion and no formal pilot.
 - `experiments/e1_signal_qualification/`: E1 signal qualification, per-sample scores, metrics and figures.
 - `experiments/e2_random_smoke/`: source-free Random reveal/retrain/resume chain smoke; not a scientific AL result.
 - `scripts/run_e2_random_smoke.py`: reproducible E2 source-free Random chain smoke entry point.

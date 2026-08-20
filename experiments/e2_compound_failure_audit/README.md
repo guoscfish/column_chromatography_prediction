@@ -4,19 +4,18 @@ This directory is a **purely post-hoc diagnostic**. It does not modify the E2 pr
 
 ## Findings
 
-- Seed42 final test-to-labeled relative coverage gain: {"coverage": 0.05413659366354684, "ensemble": 0.03445608839985518, "hybrid": 0.05946300069126009, "random": 0.05895638869099432}. Positive values mean the held-out test is closer to the labeled set; this is not an acquisition objective.
-- Coverage and Hybrid improve test-to-labeled coverage versus their own Round-0 state, but Random is at least as good on seed42; geometric coverage is not training utility.
-- At the final selected batch (round 7), seed42 Coverage/Hybrid are more test-relevant in fixed latent space than Ensemble and have higher unique-compound coverage. Morgan similarity and condition distance vary by seed/strategy and do not support one mechanism.
-- Seed42 shows mixed compound-wise changes rather than a broad all-compound collapse under the registered minority rule. This is compatible with composition/extreme-compound sensitivity, not proof of it; no universal OOD-shift claim is supported.
-- Coarse centroid shifts show no consistent active-only movement away from test across rounds/seeds (`active_selection_moves_away_from_test_region=False`). Round-0 difficulty versus AULC gain is descriptive (`n=3`) only.
-- Selected-to-test relevance is reported in `selected_test_relevance.csv` using fixed latent distance, Morgan radius-2/2048-bit maximum Tanimoto, and condition distance.
-- `per_compound_error_trajectory.csv` and the four `seed42_*.png` heatmaps separate a few-compound failure from broad degradation. Overall error changes are descriptive and n=3; no significance or generalization claim is made.
-- `strategy_distribution_shift.csv` reports concentration and coarse centroid shifts from fixed reference space. It is not a formal divergence.
+- Seed42 final test-to-labeled relative coverage gain: {"coverage": 0.040007707004080295, "ensemble": 0.02404033896883906, "hybrid": 0.030340732061525877, "random": 0.056320363358239645}. Positive values mean the held-out test is closer to the labeled set; this is not an acquisition objective.
+- `gradient_train_rows` excludes the fixed validation rows. Validation remains part of label budget, but is excluded here because this diagnostic measures the geometry of rows actually used for gradient updates.
+- Selected-to-test relevance uses fixed latent distance, Morgan radius-2/2048-bit maximum Tanimoto, and Euclidean distance in standardized 9D condition space. Normalization is fit only on fixed L0_train; neither U0 nor test contributes.
+- `seed42_compound_paired_effects.csv` pairs each active strategy with Random on the same held-out compound, using the mean of normalized RMSE and normalized MAE. Concentration statistics are {"coverage": {"compounds": 21, "fraction_improved": 0.3333333333333333, "fraction_worsened": 0.6666666666666666, "improved": 7, "top1_worst_contribution": 0.5040419808608411, "top3_worst_contribution": 0.7770153756054404, "total_positive_excess_error": 2.256036370286127, "worsened": 14, "worst20pct_contribution": 0.8751428691679977}, "ensemble": {"compounds": 21, "fraction_improved": 0.42857142857142855, "fraction_worsened": 0.5714285714285714, "improved": 9, "top1_worst_contribution": 0.4041562401059924, "top3_worst_contribution": 0.6481579043000171, "total_positive_excess_error": 3.1975120491819444, "worsened": 12, "worst20pct_contribution": 0.8631535059076325}, "hybrid": {"compounds": 21, "fraction_improved": 0.23809523809523808, "fraction_worsened": 0.7619047619047619, "improved": 5, "top1_worst_contribution": 0.4849584836177675, "top3_worst_contribution": 0.7651970825125636, "total_positive_excess_error": 1.8054803566835602, "worsened": 16, "worst20pct_contribution": 0.8971526119469404}}. Localization remains inconclusive; no favorable localization cutoff was introduced.
+- `strategy_distribution_shift.csv` separates nearest-distance coverage from the actual gradient-train-centroid-to-test-centroid distance. Both are post-hoc descriptive diagnostics.
 - Historical `label_efficiency.csv` remains unchanged; its Random-final threshold interpretation is degenerate when Round-0 is already better than Random final and must not be cited as compound label-saving evidence.
 
 ## Audit boundary
 
-`implementation_bug_found=False`, `data_leakage_found=False`, `evaluation_bug_found=False`. Risk ranking, training utility, and held-out compound OOD utility are separate quantities. All test relevance calculations are post-hoc only; test data never enters acquisition or E2 reruns.
+`implementation_bug_found=False`, `data_leakage_found=False`, `evaluation_bug_found=False`. No implementation/leakage/evaluation bug was found. Global diversity, risk ranking, held-out-test geometric relevance and OOD utility are distinct quantities. The seed42 failure remains partly split-composition dependent and is not fully explained by one post-hoc diagnostic. All test relevance calculations are post-hoc only; test data never enters acquisition or E2 reruns.
+
+Fresh-clone boundary: the aggregate E2 scientific result and compact query history are tracked and self-contained. Regenerating the full historical trajectory additionally requires runtime-only per-round checkpoints and test predictions; their hashes/provenance are recorded in `audit_input_manifest.json`, and they are intentionally not claimed as fresh-clone inputs.
 
 ## Decision
 

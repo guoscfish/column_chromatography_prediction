@@ -1,0 +1,471 @@
+{
+  "tracked_aggregate_inputs": [
+    {
+      "path": "experiments/e2_4g_compound_active_learning/queried_batch_diagnostics.csv",
+      "sha256": "994c52746ca020aaba2c9bb4d77237535742e8bdfd60449bfde52219fa029f60"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/round_metrics.csv",
+      "sha256": "9c728b3a7a4bb993f7de7dfce36a0d910e20d383b54fdbd6c75707f88b562fcd"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/aulc_summary.csv",
+      "sha256": "2dc1a05b11fc763302d327d1de442a470d8f9fa70a814d86d2471e1e30431fec"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/query_history.csv",
+      "sha256": "9fba9ce21ba0143829fb8027d8b3b77c4741b34c7fa1d50f00dc43d7cfd031c8"
+    },
+    {
+      "path": "experiments/d28_al_engineering/partitions/e2_4g_compound_seed_1101.csv",
+      "sha256": "8d0ea82be414b1d884de6bd843576907cd5c13f865a1ce5df951ddac3608aa87"
+    },
+    {
+      "path": "experiments/d28_al_engineering/partitions/e2_4g_compound_seed_42.csv",
+      "sha256": "14f391f8341e3b7ca22a9f81f9f0550cfecb352be5ac3087fa7af44b1a694a10"
+    },
+    {
+      "path": "experiments/d28_al_engineering/partitions/e2_4g_compound_seed_525.csv",
+      "sha256": "8af1c7c7ccf3e0feceab2d168c4892724ec322492ded86f0e63fd4d93fa8643f"
+    }
+  ],
+  "fixed_round0_reference": {
+    "policy": "per outer seed shared_round_0/member_0 fixed checkpoint; L0_train-only normalization",
+    "runtime_only": true
+  },
+  "runtime_only_artifacts_used_for_existing_diagnostics": [
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/coverage/round_0/test_predictions.csv.gz",
+      "sha256": "b9eae1aeff4e166d86c80bbc9f01d0780ce012c5acc3483f64473e0c7e2dd6ba"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/coverage/round_1/test_predictions.csv.gz",
+      "sha256": "a0898d74676c4d676b54bdc755468d53de7d4984761f4467664b4dbb1a8008d5"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/coverage/round_2/test_predictions.csv.gz",
+      "sha256": "e80e2ac7e66c890ef92bdd828b811e35388b278f1fe109e4c5c921e9ea857879"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/coverage/round_3/test_predictions.csv.gz",
+      "sha256": "0e0d4547f856fb143f09fd5d9664533da43c350ea17101704045e9b1b71f20fb"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/coverage/round_4/test_predictions.csv.gz",
+      "sha256": "84de4ee65b4c5ddb4fd47b7993e9a216ca4042ba2eeb6476ea3f84b61b2d158c"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/coverage/round_5/test_predictions.csv.gz",
+      "sha256": "eafa7bcb8a13d109ad4e73244dc2d28a1de27d6972667140a6bd028cca2203bb"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/coverage/round_6/test_predictions.csv.gz",
+      "sha256": "03dd92b2d68010b89ef891e76c1d8008ff2fc5e08754c78e57e1a08ec0a84683"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/coverage/round_7/test_predictions.csv.gz",
+      "sha256": "0c4f4657bc61ff01797922816a8e4bb8ca18cf205c736433e052c6cc0d3db30c"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/coverage/round_8/test_predictions.csv.gz",
+      "sha256": "233f5a92cb0b345b583c4179dd195653a67199a333a111ce3b9723dcd33287a0"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/ensemble/round_0/test_predictions.csv.gz",
+      "sha256": "c9aa56a906928b6a13241b33523968ec4edc1db72a4ffd747086ba826ddf4132"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/ensemble/round_1/test_predictions.csv.gz",
+      "sha256": "a114b02d6f6c4c9a756900ca3f8a2be4c421b662c54b792f630d81916a35cf7c"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/ensemble/round_2/test_predictions.csv.gz",
+      "sha256": "7d7b7627a98b352f5918de3aeaa995a7e18cb532133cfbde4433729a5a891f9a"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/ensemble/round_3/test_predictions.csv.gz",
+      "sha256": "599f18a48699aeee8c734688fdb6e098a8bac4d13f7a578d8f635b4f8d82dbc5"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/ensemble/round_4/test_predictions.csv.gz",
+      "sha256": "98a82252575ee2d898021d6768dd4456e0b8822f58a208a8f719f31beac31043"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/ensemble/round_5/test_predictions.csv.gz",
+      "sha256": "e348fb9e3bb6f7116efaa3f89689bdd03cb41fb04de2219bf83a4d2579981d1e"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/ensemble/round_6/test_predictions.csv.gz",
+      "sha256": "3c73dac6db7cc615bdb34066acd2b830bf31522ca7af28f63298be2c932a41d8"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/ensemble/round_7/test_predictions.csv.gz",
+      "sha256": "12440136b0d93a2e74741582cc65c31b6b89ca439bdd9f1b179e8c2f403a5c16"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/ensemble/round_8/test_predictions.csv.gz",
+      "sha256": "484fb9af97f0295690fe278d7cf2349b58f14192b25eaf544d670ec9e8398c8f"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/hybrid/round_0/test_predictions.csv.gz",
+      "sha256": "f3eaa8d26e4782a234eaf210fdda088a69d1e938bfb18425ac18fc1b918a4e1d"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/hybrid/round_1/test_predictions.csv.gz",
+      "sha256": "4620db11c82ab1dfcf81c4df65f93fc85977b80e92414f143daff9ed08096f2d"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/hybrid/round_2/test_predictions.csv.gz",
+      "sha256": "37506c4a56f822b1f5ebadbeb73960ecad4d330e44374a5a9be5924f93f83c77"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/hybrid/round_3/test_predictions.csv.gz",
+      "sha256": "63879f42519e1223b1c32bc0225ce48d4f3ea32b82c5a9dd7556b4f2757aba9c"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/hybrid/round_4/test_predictions.csv.gz",
+      "sha256": "3f6bb576ba9a57ba860d3f8296b975391c444638297979ca67abf476448e7141"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/hybrid/round_5/test_predictions.csv.gz",
+      "sha256": "388fbb93fd5a8f8ffb8884a1f021548d422a72cde793f69b7254af4f746fc9e6"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/hybrid/round_6/test_predictions.csv.gz",
+      "sha256": "3de24d348dd3d94871dfdb26de8b0c143c506e1c90806573ab1b49647fd09342"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/hybrid/round_7/test_predictions.csv.gz",
+      "sha256": "63233e5d0c3951504c407fb6e443b50a809e5ca0be09c48acf88a425c895a2fb"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/hybrid/round_8/test_predictions.csv.gz",
+      "sha256": "9d17707398c7f569483bd28b82c4691032c842bfc1e4b43812a6b487f3e9df69"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/random/round_0/test_predictions.csv.gz",
+      "sha256": "b5ee45120dabd3b31683e8d916bcf958578cb1652893a90b66d14e2cf446b8a4"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/random/round_1/test_predictions.csv.gz",
+      "sha256": "5e9014808a8de33440ee6a0c4c060c5a04aab384958420ec7daa1dd525c36f9e"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/random/round_2/test_predictions.csv.gz",
+      "sha256": "81abe63e6db22a411a59e42af1fc665ba3270b1ade4ffa43e11fd83f7755d8de"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/random/round_3/test_predictions.csv.gz",
+      "sha256": "ab8511306856dd32df9995a103dae5ad01ee52631e0ffe6db8a296b781e62397"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/random/round_4/test_predictions.csv.gz",
+      "sha256": "13460d70f390a423ba19d8991f12a68f8f3ca7368f572fb28dc131c41127a904"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/random/round_5/test_predictions.csv.gz",
+      "sha256": "5ce35c456a1d7995ecce6f951b553b843bc94a80077ba687277b6ed334ea5b8b"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/random/round_6/test_predictions.csv.gz",
+      "sha256": "b49aff3a52e4a2770b0d0d40ae478a17ef44461f57306982a6e5bf79ad8d651e"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/random/round_7/test_predictions.csv.gz",
+      "sha256": "8143e88657cfbd54e4a305f2eb78c935d9e85f00208f903151a6e50cb41d4168"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_1101/random/round_8/test_predictions.csv.gz",
+      "sha256": "8aeb2807a5e9844a4ea9d4bb30e43bb514268131d8a22bad2655315a5f60e306"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/coverage/round_0/test_predictions.csv.gz",
+      "sha256": "779a5a811b8f864b927f6f563b96bd2fa1915a27490a20a022d597a5e34ad1fa"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/coverage/round_1/test_predictions.csv.gz",
+      "sha256": "12651f22b7cc84e1b0bdd4533eee0621d3f48266df727c90951d93872bbde836"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/coverage/round_2/test_predictions.csv.gz",
+      "sha256": "0a6ff1b524d0b90533fe23afeb17d279ee7895d81de459d5520d45233838ab00"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/coverage/round_3/test_predictions.csv.gz",
+      "sha256": "e30b0b4330ffbfd667866078db4defb63d58b6419fa22121f7551805d3f066cc"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/coverage/round_4/test_predictions.csv.gz",
+      "sha256": "399f84aff04d96ff85d9ae29295f413c56b62dd154f6fa2581dc0ac6c2b23003"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/coverage/round_5/test_predictions.csv.gz",
+      "sha256": "b70ff1b5261f58232c05c2cfd7909c5ca35b5013b00e17a3f38c742f2fc670e2"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/coverage/round_6/test_predictions.csv.gz",
+      "sha256": "71eff5c2da4ef0c0c5fc428883603f3f1450b1840657751149724f48d42f2e0d"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/coverage/round_7/test_predictions.csv.gz",
+      "sha256": "2bcf8c391e6c99ed4a5eb9020abccf1e4d1219082c8f9a2805e9da53b632d224"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/coverage/round_8/test_predictions.csv.gz",
+      "sha256": "1848d97af3e67d377bdb0c99bfb8bbe8f4652bf168515fa05b54d262d1ae6294"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/ensemble/round_0/test_predictions.csv.gz",
+      "sha256": "fb7a41703c2f9d5b856508aab963f4094d154d1a0482f1845000999399c4577e"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/ensemble/round_1/test_predictions.csv.gz",
+      "sha256": "575da232fdb10be0d8fa925874db2e357839a2d4e1814994b064af6038ef79ee"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/ensemble/round_2/test_predictions.csv.gz",
+      "sha256": "bf91aefd170f9809b0815305a2a617074b86fccb1eb2dddc16e011b1336d665d"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/ensemble/round_3/test_predictions.csv.gz",
+      "sha256": "a85052e99e3a41054badaca5eecb7c585d97c521cc1663d26ecbd736fafdfa04"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/ensemble/round_4/test_predictions.csv.gz",
+      "sha256": "9b9569e83e6cfc5eeb54f78cb014b1e526cf0e38833635ce1c700a5f254c8419"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/ensemble/round_5/test_predictions.csv.gz",
+      "sha256": "50fca5dda9637d1ae903479c59094b6c6f29ab8d333bc054003382fbb5be2149"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/ensemble/round_6/test_predictions.csv.gz",
+      "sha256": "b50c462baa1be03a85a6809f635d1e23cfeccd7adfc15c37eda0a83924031a31"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/ensemble/round_7/test_predictions.csv.gz",
+      "sha256": "bcf5b7617f18de242b5b91ef26da42f3f0bb6c4ece0fd40f3748b782515e9534"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/ensemble/round_8/test_predictions.csv.gz",
+      "sha256": "150071305b3551c57338a586572db6f6b74b046f9a1b90e21cc35ac373ddfb55"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/hybrid/round_0/test_predictions.csv.gz",
+      "sha256": "8aa5dd744caed16fe191462482349ddd7da790eb1cb8d7d962ef158662fad188"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/hybrid/round_1/test_predictions.csv.gz",
+      "sha256": "58ec1f352c996f518ba8a19c0b681c4563811c996efabf169caaee15fc4af139"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/hybrid/round_2/test_predictions.csv.gz",
+      "sha256": "ade155e9228cb4bbf2f227d96df99def0c96e336ed5b1f1caff4d1c50b143bb2"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/hybrid/round_3/test_predictions.csv.gz",
+      "sha256": "928e7f8047db82d63fbab2045f20303298da21defd53ce6e4c7dc1069160794f"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/hybrid/round_4/test_predictions.csv.gz",
+      "sha256": "c73535d06f8ba699a0a2ce7a401c3de86d8c1bc50267af2bc2e9be6ca8ea144f"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/hybrid/round_5/test_predictions.csv.gz",
+      "sha256": "68efec75a2b4a177e310af3f7e348813e1f713b2bfc8d99a953931877ba43efd"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/hybrid/round_6/test_predictions.csv.gz",
+      "sha256": "f079d37d5e9530179aa71e071479d6325c66ed7e1aa1edc3ce48e820c5e3b5ab"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/hybrid/round_7/test_predictions.csv.gz",
+      "sha256": "a2ee7ca4f89793721cc9a5ff396cbc8a71045b73566d0569aa079add86ad89a0"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/hybrid/round_8/test_predictions.csv.gz",
+      "sha256": "03e5cc3e7e6c95feae2d0e7af1fce19e8614a80c2285ebea818d2a41c3c5b1d6"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/random/round_0/test_predictions.csv.gz",
+      "sha256": "5f85656d56fe53b09bbd8209ed00978c07085db98c4ea05f1d82e62987e5eda5"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/random/round_1/test_predictions.csv.gz",
+      "sha256": "7cae954194fb14d9ce03363483e83d9f1dd3471ed284cbf686cfdbaf8d9f26af"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/random/round_2/test_predictions.csv.gz",
+      "sha256": "075b953bae4bdcb938b6bdfb61fda83a8a8f7b1e77bcb2cbefb8e4c3c5ba6cef"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/random/round_3/test_predictions.csv.gz",
+      "sha256": "88a32a45c654f0da8a2b8dc5bde385e0c512fdd405d7b2f9e5e04e6064085b11"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/random/round_4/test_predictions.csv.gz",
+      "sha256": "298f210ccc0c795f89c15e2a67c7a6835a85501f11ace91b243c3e4e25c2db98"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/random/round_5/test_predictions.csv.gz",
+      "sha256": "29c96c59bb4caaf4bf3d8894f66895ad5f2cf8ce57a9ea076165c08ac374c541"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/random/round_6/test_predictions.csv.gz",
+      "sha256": "de7c8c9f9c5011045c162e43904516467915a00a2c03e992e9a469c3b965e3fa"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/random/round_7/test_predictions.csv.gz",
+      "sha256": "865ab192f0002e7c4e267df1cb8c9faa2094aa532cdbeab242d926b0d406618d"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_42/random/round_8/test_predictions.csv.gz",
+      "sha256": "9d1a4c8667f7062e3e0a2fa442558450c1099386ad8b6da5714cabe8922da414"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/coverage/round_0/test_predictions.csv.gz",
+      "sha256": "d4700ffd240e8299b878dc0e62a5d4b66ae3ebc435407fc00ce0b4593df8f582"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/coverage/round_1/test_predictions.csv.gz",
+      "sha256": "b5ccf7356ab27d7911dd2597f773e6b11863a5892ea0886c523fcfc626aed948"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/coverage/round_2/test_predictions.csv.gz",
+      "sha256": "fe8c60d634221c7db82a3b8311624d4b83dabf90113e414716b3ddb7c0ba8f1d"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/coverage/round_3/test_predictions.csv.gz",
+      "sha256": "975f20c484bc88958b27faddd9527321d4eb378647b9ba70e8462cb792d5e47a"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/coverage/round_4/test_predictions.csv.gz",
+      "sha256": "d5a64d4e0fef36dcba67eec02461665c2d99a72fc34218e94562bedac2b6bd16"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/coverage/round_5/test_predictions.csv.gz",
+      "sha256": "e5bc040c74e61f464356f1aa722af0576f8b071a06a8f14f3964a61fc47b4d0f"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/coverage/round_6/test_predictions.csv.gz",
+      "sha256": "b0921948f6b2c6b7bb190411ee47c7ecd84733cc13f4d3f8f01ca535a7b82816"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/coverage/round_7/test_predictions.csv.gz",
+      "sha256": "8e719689804fa95fdfa526af36a6159b9e7b17a140d6e92d7708653c539e4c2c"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/coverage/round_8/test_predictions.csv.gz",
+      "sha256": "256d8eec6679fb0b53252c86388b495a218685b4e21604ac458c086c75138aa3"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/ensemble/round_0/test_predictions.csv.gz",
+      "sha256": "7947419af76f088444eccb20cb6ba4d0b2da9901c73b36bc2c4ff9927bc11c70"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/ensemble/round_1/test_predictions.csv.gz",
+      "sha256": "7003f19b24ea99d2ba1f5f5363d33cca3637a7162832098bd0a5c99ace4cb0cf"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/ensemble/round_2/test_predictions.csv.gz",
+      "sha256": "2a1a615f079d6c3f52592220fac0c0f5ab92d4a13504d9b10c5861ea88ffc5b9"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/ensemble/round_3/test_predictions.csv.gz",
+      "sha256": "2ad6393c0115b72cf4c4d278e29be05d9f6a6270b1d434e1a41b13f24e153a6f"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/ensemble/round_4/test_predictions.csv.gz",
+      "sha256": "a902e82bed6ea97665cc828384f85140053990b71e0b793cb7fdbe8d1e3dd1bd"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/ensemble/round_5/test_predictions.csv.gz",
+      "sha256": "abb2a65484e8cd7b9619945698efc4601026c688538403d29b0c061e4f983d77"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/ensemble/round_6/test_predictions.csv.gz",
+      "sha256": "b6ef07dc845322eacb3317163cbc10bae5930e7d43f9259ba1b8cf4e155e7eac"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/ensemble/round_7/test_predictions.csv.gz",
+      "sha256": "fafd6248ca490219f318157ededf20b740d9a08bd75871bb9424d33026a9538f"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/ensemble/round_8/test_predictions.csv.gz",
+      "sha256": "77f38f5f79d9a3fcbbba398eef91853cc0f9a4128f17c1e5892a72a73b0ad8ed"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/hybrid/round_0/test_predictions.csv.gz",
+      "sha256": "24c4b1c82548ba0ba54fbc78c6d613e224de536a7dc1cea8df411ed26aa018cd"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/hybrid/round_1/test_predictions.csv.gz",
+      "sha256": "f71c4e2692aa01e213f610810c734eabc3fce9bd6acd4c7fc27fa7ba7c9050b4"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/hybrid/round_2/test_predictions.csv.gz",
+      "sha256": "d0a1b76ea2ebfda46401f971fc454f00f52fdcd0110a21e44a9535a1d0871476"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/hybrid/round_3/test_predictions.csv.gz",
+      "sha256": "9b9b2da6ed5c5c574e23da5f9a67699fc6f810dcda7f9323eecb1395d90653ab"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/hybrid/round_4/test_predictions.csv.gz",
+      "sha256": "c2850a82e7cfb18f99ec22f56864bb330b67b99b7dedc6ecf195d7d33d9fd861"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/hybrid/round_5/test_predictions.csv.gz",
+      "sha256": "65ddb210587a36f8c30ebf3b07d2f104204276353fa0f0ffad53b1b65b87e4be"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/hybrid/round_6/test_predictions.csv.gz",
+      "sha256": "c29313b86f5c8a7708302c4108908c54eb9781af72f7a73303d88777b8cb4ffe"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/hybrid/round_7/test_predictions.csv.gz",
+      "sha256": "4769968e5675bb4e2d055925ec5300e6e5a9ed05019eea4695779ed029316fc6"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/hybrid/round_8/test_predictions.csv.gz",
+      "sha256": "6f4a5e57db315cd4ae989a74452cdb78779a1110ccb4dc88c9b06bf2a722a5cd"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/random/round_0/test_predictions.csv.gz",
+      "sha256": "59ce006af090bbd2a3edadad48471e8787c3d0d868cba4c4f1d1de400f8c5f0d"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/random/round_1/test_predictions.csv.gz",
+      "sha256": "cacf5325e1c1bc1c3a410036660ef93ca3055fb7a29b48e562a73f010c961bc7"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/random/round_2/test_predictions.csv.gz",
+      "sha256": "fc7081049108f077e993e30380b173f724196a63347060b3c9db5569aac5eaf7"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/random/round_3/test_predictions.csv.gz",
+      "sha256": "5ec7b307c28eedaa06f68748b725bff3918449a98d53aaa7753f06e857d329af"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/random/round_4/test_predictions.csv.gz",
+      "sha256": "61bdb79a4689444654a9feeb3fcb28b3154ed96bfe99c3e45468ae420456a12f"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/random/round_5/test_predictions.csv.gz",
+      "sha256": "f80c87dbfb79b9bc0f7aa850ed6638cdbcb7e08a6ab82dbd57cb3abeb2940115"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/random/round_6/test_predictions.csv.gz",
+      "sha256": "1f1afecfc472491d453dc2ad8606ab28460a7f58db4ac8b5673b70a68024fd54"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/random/round_7/test_predictions.csv.gz",
+      "sha256": "feef01e465e4a4234ddcf77aea5ba807b3579389492fef2899c2ee4a69908994"
+    },
+    {
+      "path": "experiments/e2_4g_compound_active_learning/compound_seed_525/random/round_8/test_predictions.csv.gz",
+      "sha256": "2717170f14bd90469e0f111c5aaa4ed3a30ec974a553c483620b4344dacee75a"
+    }
+  ],
+  "fresh_clone_boundary": "Aggregates and compact query history reproduce primary E2 conclusions and labeled-state reconstruction. Full prediction/embedding diagnostic regeneration requires ignored runtime checkpoints and per-round predictions."
+}

@@ -21,7 +21,7 @@
 | Gate 0 | Predictor 的分位数、校准、阈值与迁移结构是否可冻结？ | G0-1～G0-4 配对证据、冻结清单 | 冻结 Predictor；此后禁止按 AL test 回调 | **完全通过：科学配置冻结，D28统一接口/10k+推理/身份/resume/paired partition均通过** |
 | E1 | acquisition signal 是否真的指向高误差？ | signal-error、hard-error enrichment、risk-coverage 图 | Gate 1 | **完成；Ensemble 12/16恰好过门，Latent Distance支持Coverage** |
 | E2 | 主动选点并重训是否优于 Random？ | 4g 学习曲线与 AULC | Gate 2 | **row与compound三seed正式pilot均完成；compound Gate suggestive（Hybrid/Coverage 2/3胜Random），本阶段STOP** |
-| E4 | 能否节省 8g 标签？ | 主结果、paired CI、标签节省 | 主结论成立 | 待实施 |
+| E4 | 能否节省 8g 标签？ | 主结果、paired CI、标签节省 | 主结论成立 | 工程 smoke 已执行；正式实验待实施 |
 | E3/E5 | 为什么有效、在哪里失效、是否改善 SQ？ | 消融、OOD、下游排序 | 机制和边界清楚 | 待实施 |
 | E6 | 是否值得增加方法创新？ | Task-aware/B³AL/跨柱扩展 | 基础链路稳定 | 条件性开展 |
 

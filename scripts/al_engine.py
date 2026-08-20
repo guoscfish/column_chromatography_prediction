@@ -153,6 +153,12 @@ class FitResult:
     initialization_policy: str
     trainable_scope: str
     scaler_hash: str
+    init_source_checkpoint: str | None
+    init_source_sha256: str | None
+    frozen_parameters_sha256_before: str | None
+    frozen_parameters_sha256_after: str | None
+    trainable_parameters_sha256_before: str | None
+    trainable_parameters_sha256_after: str | None
 
 
 @dataclass
@@ -308,6 +314,13 @@ class QGeoGNNActiveLearningEngine:
         np.random.seed(seed)
         torch.manual_seed(seed)
         source_free = isinstance(train_config, SourceFreeTrainConfig)
+        def parameter_hash(module: torch.nn.Module, trainable: bool) -> str:
+            digest = hashlib.sha256()
+            for name, parameter in module.named_parameters():
+                if parameter.requires_grad == trainable:
+                    digest.update(name.encode()); digest.update(parameter.detach().cpu().contiguous().numpy().tobytes())
+            return digest.hexdigest()
+
         if source_free:
             anchor = None
             model = build_model(self.device)
@@ -318,12 +331,15 @@ class QGeoGNNActiveLearningEngine:
             total = trainable
             initialization_policy = train_config.initialization_policy
             trainable_scope = train_config.transfer_mode
+            frozen_before = None
         else:
             anchor = Path(init_checkpoint or self.init_checkpoint).resolve()
             model = self._load_model(anchor)
             trainable, total = configure_trainable(model, "last2_head")
             initialization_policy = "checkpoint"
             trainable_scope = "last2_head"
+            frozen_before = parameter_hash(model, False)
+        trainable_before = parameter_hash(model, True)
         train_loaders = self._loaders_for_indices(train, train_config.batch_size)
         validation_loaders = self._loaders_for_indices(validation, train_config.batch_size)
         train_labels = self.data.iloc[train][["V1_ml", "V2_ml"]]
@@ -399,6 +415,11 @@ class QGeoGNNActiveLearningEngine:
                 break
 
         pd.DataFrame(history).to_csv(history_path, index=False)
+        best_model = self._load_model(checkpoint_path)
+        if not source_free:
+            configure_trainable(best_model, "last2_head")
+        frozen_after = None if source_free else parameter_hash(best_model, False)
+        trainable_after = parameter_hash(best_model, True)
         result = FitResult(
             checkpoint=str(checkpoint_path),
             checkpoint_sha256=sha256_file(checkpoint_path),
@@ -419,6 +440,12 @@ class QGeoGNNActiveLearningEngine:
             initialization_policy=initialization_policy,
             trainable_scope=trainable_scope,
             scaler_hash=canonical_json_hash(self.scaler),
+            init_source_checkpoint=str(anchor) if anchor is not None else None,
+            init_source_sha256=sha256_file(anchor) if anchor is not None else None,
+            frozen_parameters_sha256_before=frozen_before,
+            frozen_parameters_sha256_after=frozen_after,
+            trainable_parameters_sha256_before=trainable_before,
+            trainable_parameters_sha256_after=trainable_after,
         )
         atomic_write_json(output_dir / "fit_result.json", asdict(result))
         return result
