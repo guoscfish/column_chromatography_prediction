@@ -16,7 +16,7 @@ Gate 0 Predictor qualification
   → E5 downstream SQ utility
 ```
 
-Gate 0 与 E1 已完成并冻结。E2 row 三seed正式pilot也已完成：平均normalized AULC为Hybrid 0.543、Coverage 0.562、Ensemble 0.627、Random 0.645；Coverage和Hybrid对Random均3/3 seeds胜出，Ensemble为2/3且paired CI跨0。当前阶段是row机制审计与compound seed42 preflight，完整compound pilot尚未启动；详细证据见 [E2 row](experiments/e2_4g_active_learning/README.md)。
+Gate 0 与 E1 已完成并冻结。E2 row三seed中Hybrid/Coverage对Random均3/3胜；E2 compound三seed平均AULC为Hybrid 0.761、Coverage 0.777、Random 0.789、Ensemble 0.802，但Hybrid/Coverage仅2/3胜Random，因此compound Gate为suggestive而非stable。三个compound partition均无test compound leakage，macro与primary方向一致，且无convergence problem。本阶段按D37停止，不自动进入后续实验。
 
 ## Citation
 If you use this work in your research, please cite:

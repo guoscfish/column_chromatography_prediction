@@ -1,8 +1,8 @@
 # QGeoGNN 主动学习与跨柱迁移实验计划
 
-版本：V1.3（结合当前仓库证据与 2026-08-18 E2 Round-0 结果整理）
+版本：V1.4（E2 row机制审计完成、compound正式pilot启动）
 
-日期：2026-08-18
+日期：2026-08-19
 
 依据说明：本文件是当前阶段顺序、Gate、验收标准与仓库执行状态的统一入口。最新研究口径优先于旧版阶段编号；未获数据或代码证据支持的规则不得写成既定结论。
 
@@ -20,7 +20,7 @@
 | E0-2/E0-3 | 当前代码能否复现 4g 与 4g→8g？ | 固定 split、scaler、best checkpoint、基线表 | Gate 0 | **完成；第一构象、末两层+头与V1/V2等权已由后续Gate 0冻结** |
 | Gate 0 | Predictor 的分位数、校准、阈值与迁移结构是否可冻结？ | G0-1～G0-4 配对证据、冻结清单 | 冻结 Predictor；此后禁止按 AL test 回调 | **完全通过：科学配置冻结，D28统一接口/10k+推理/身份/resume/paired partition均通过** |
 | E1 | acquisition signal 是否真的指向高误差？ | signal-error、hard-error enrichment、risk-coverage 图 | Gate 1 | **完成；Ensemble 12/16恰好过门，Latent Distance支持Coverage** |
-| E2 | 主动选点并重训是否优于 Random？ | 4g 学习曲线与 AULC | Gate 2 | **row三seed正式pilot完成；机制审计进行中；compound完整pilot未启动** |
+| E2 | 主动选点并重训是否优于 Random？ | 4g 学习曲线与 AULC | Gate 2 | **row与compound三seed正式pilot均完成；compound Gate suggestive（Hybrid/Coverage 2/3胜Random），本阶段STOP** |
 | E4 | 能否节省 8g 标签？ | 主结果、paired CI、标签节省 | 主结论成立 | 待实施 |
 | E3/E5 | 为什么有效、在哪里失效、是否改善 SQ？ | 消融、OOD、下游排序 | 机制和边界清楚 | 待实施 |
 | E6 | 是否值得增加方法创新？ | Task-aware/B³AL/跨柱扩展 | 基础链路稳定 | 条件性开展 |
@@ -333,7 +333,7 @@ E1已完成：K=3真独立Ensemble相对Quantile Width在16项聚合比较中赢
 | 输入 | 固定 4g test/L0/U0、source-free 初始化方案、E1 UQ 结果 |
 | 核心执行 | Random、Coverage、Ensemble、Hybrid 从同一 L0 逐轮 reveal 与重训 |
 | 必备产物 | 每轮索引、pool prediction、checkpoint、学习曲线、AULC、批内相似度 |
-| 通过 | 至少一种主动策略稳定优于 Random；Hybrid 的收益伴随更低批内冗余 |
+| 通过 | 至少一种主动策略稳定优于 Random；机制解释使用固定共同参考系诊断并保持非因果口径 |
 | 失败处理 | 检查模型是否更新、UQ是否有效、L0是否失衡、batch是否过大和标签噪声 |
 
 #### Pilot 配置
@@ -362,7 +362,7 @@ Coverage主实现冻结为：当前非validation已标注训练集拟合`h_graph
 #### 目的与 Gate 2
 
 - 先验证每轮 reveal 后确实重新训练，模型和预测会随 Lt 改变。
-- Hybrid 相比 Ensemble 必须同时降低批内相似度并改善 AULC，才说明收益来自批量去冗余。
+- Hybrid 同时提高 fixed/common-reference batch diversity 并改善 AULC，只能说明结果与去冗余机制一致；只有 uncertainty-filter-random causal control 通过后，才允许把 diversity selection 作为更直接的原因证据。
 - 若所有策略均不稳定优于 Random，先审查 split、UQ、初始集与训练噪声，不进入 B³AL/AGBAL/PBNN。
 
 ### E3：批量与表示消融（P2，有条件开展）
@@ -402,7 +402,7 @@ Coverage主实现冻结为：当前非validation已标注训练集拟合`h_graph
 
 - Source：完整 4g 训练集；每个 outer seed 固定一组 source checkpoints。
 - Target：Gate 0 后的 8g canonical 数据。
-- Test：Protocol A 固定约 10%；Protocol B 按 compound/scaffold 分组固定 15–20%。
+- Test：Protocol A 固定约 10%；Protocol B primary 按 canonical compound 分组固定 15–20%；scaffold OOD 延后到 E5。
 - L0：50 个目标标签，其中固定 8 个作 target validation，全部计入预算。
 - 每轮：B=10，共 15 轮；累计目标域标签从 50 增至 200。
 - 重训：每轮从相同 4g anchor 重新微调当前 Lt。
@@ -422,7 +422,7 @@ Coverage主实现冻结为：当前非validation已标注训练集拟合`h_graph
 #### 两个结论口径
 
 - Protocol A — calibration：test 与 pool 共享化学空间，回答“少量 8g 实验能否校准新柱”。
-- Protocol B — novel-compound：按 compound/scaffold 隔离 test，回答“校准后能否泛化到目标柱新结构”。
+- Protocol B — novel-compound：按 canonical compound 隔离 test，回答“校准后能否泛化到目标柱新化合物”；Bemis–Murcko scaffold OOD 是独立的 E5 分析。
 
 如果只在 Protocol A 有效，结论必须限定为“同类化学空间内的跨柱校准”。
 
@@ -557,11 +557,12 @@ E4 若保留 4 个主动方法，Final 约为 `4 × 5 × 16 × 5 = 1600` 次 8g 
 - [x] 完成10240候选分块推理、跨batch逐值一致、稳定身份/顺序和round resume检查。
 - [x] 抽出统一`fit/predict`接口，冻结E2/E4共12份paired test/L0/U0 partition。
 - [x] 完成 1 seed、2 rounds、2 members 的Random source-free smoke；50次query无重复，round状态可恢复，checkpoint与固定test预测逐轮变化。
-- [ ] 增加 Ensemble 与 Coverage/Hybrid，确认每轮索引、模型和预测都发生预期变化。
+- [x] 增加 Ensemble 与 Coverage/Hybrid，确认每轮索引、模型和预测都发生预期变化。
 - [x] 完成E0-3c多种子双split损失尺度对照；V2等权为暂定候选，legacy保留为原代码对照。
 - [x] 完成D04最低能构象3-seed双split对照；无稳定收益，保留原代码第一构象主口径。
 - [x] Gate 0科学与工程检查全部通过；进入E1 acquisition-signal qualification，不得用最终AL RMSE反向挑选Predictor或signal定义。
 - [x] 完成E1三seed×双split信号资格测试；Ensemble以12/16恰好过门，Latent Distance支持Coverage，Tail因每run仅2--3例不作选择。
 - [x] 完成E2 row四策略三seed正式pilot；Hybrid/Coverage对Random均3/3 seeds胜出，Ensemble仅2/3且paired CI跨0。
 - [x] 完成E2三seed source-free Round-0 signal sanity与E1/E2 signal agreement；Ensemble/Latent无regime failure，Hybrid互补性动机成立。
-- [x] 完成E2 row四策略×三seed×九预算×K=3正式paired AULC；当前执行机制审计与compound seed42 preflight，完整compound pilot未启动。
+- [x] 完成E2 row四策略×三seed×九预算×K=3正式paired AULC与fixed common-reference机制审计。
+- [x] 完成E2 compound seed42 preflight及正式三seedpilot；无test compound leakage，Hybrid平均最好但仅2/3胜Random，Gate为suggestive，按D37停止。

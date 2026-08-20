@@ -6,6 +6,8 @@ Hybrid has lower mean normalized AULC than Ensemble, and its mean within-batch p
 
 This co-occurrence is consistent with the hypothesis that uncertainty filtering followed by diversity selection reduces batch redundancy. It does **not** prove that diversity selection caused the AULC improvement: Hybrid and Ensemble selected sets differ in more than one property.
 
+The fixed common-reference audit uses each outer seed's preselected `shared_round_0/member_0`, with graph and condition z-scores fitted on L0-train only. Hybrid−Ensemble fixed mean pairwise distance is positive in 3/3 seeds (mean difference 2.230), as is Coverage−Ensemble (2.410). Hybrid and Ensemble fixed mean distances are 19.373 and 17.143; their mean unique compounds per batch are 22.17 and 9.79, with compound HHI 0.0504 and 0.1344. Native and fixed-reference directions therefore agree, but this remains consistency evidence rather than causal evidence.
+
 ## Selected Error And Learning Gain
 
 `selected_error_vs_learning_gain.csv` defines next-round improvement as `NRMSE_t - NRMSE_t+1`. Its Spearman summaries are descriptive only: rounds within an outer seed are not independent and the sample is small. The results therefore neither establish causal mediation nor justify a strict claim that prediction risk equals, or fails to equal, training utility.

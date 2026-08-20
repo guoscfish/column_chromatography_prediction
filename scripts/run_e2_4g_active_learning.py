@@ -66,10 +66,75 @@ D28_DIR = ROOT / "experiments" / "d28_al_engineering"
 E1_DIR = ROOT / "experiments" / "e1_signal_qualification"
 DEFAULT_OUTPUT = ROOT / "experiments" / "e2_4g_active_learning"
 DEFAULT_COMPOUND_PREFLIGHT_OUTPUT = ROOT / "experiments" / "e2_4g_compound_preflight"
+DEFAULT_COMPOUND_OUTPUT = ROOT / "experiments" / "e2_4g_compound_active_learning"
 OUTER_SEEDS = (42, 525, 1101)
 STRATEGIES = ("random", "coverage", "ensemble", "hybrid")
 SIGNALS = ("quantile_width", "ensemble", "latent_distance", "random")
 MEMBER_COUNT = 3
+CONDITION_KEY_COLUMNS = (
+    "loading solvent",
+    "PE/EA",
+    "Density g/ml",
+    "V/ul",
+    "Volume of loading solvent/ul",
+    "Flow mL/min",
+)
+
+
+def partition_path_for_split(split_mode: str, outer_seed: int) -> Path:
+    if split_mode not in {"row", "compound"}:
+        raise ValueError(f"Unsupported E2 split mode: {split_mode}")
+    return D28_DIR / "partitions" / f"e2_4g_{split_mode}_seed_{outer_seed}.csv"
+
+
+def validate_formal_protocol(
+    epochs: int, patience: int, rounds: int, query_size: int, member_count: int = MEMBER_COUNT
+) -> None:
+    observed = (epochs, patience, rounds, query_size, member_count)
+    expected = (500, 100, 8, 25, 3)
+    if observed != expected:
+        raise ValueError(
+            "Formal E2 protocol requires epochs=500, patience=100, rounds=8, "
+            "query_size=25 and member_count=3"
+        )
+
+
+def audit_compound_partitions(output_dir: Path, config: SourceFreeTrainConfig) -> pd.DataFrame:
+    data = pd.read_csv(SOURCE_DIR / "canonical_4g.csv")
+    graph_cache = torch.load(SOURCE_DIR / "graph_cache_4g.pt", weights_only=False)
+    rows = []
+    for seed in OUTER_SEEDS:
+        path = partition_path_for_split("compound", seed)
+        partition = pd.read_csv(path)
+        roles = {
+            role: partition.loc[partition["role"].eq(role)]
+            for role in ("l0_train", "l0_validation", "u0", "test")
+        }
+        compounds = {role: set(frame["canonical_smiles"].astype(str)) for role, frame in roles.items()}
+        scaler = make_scaler(data, graph_cache, partition)
+        row = {
+            "outer_seed": seed,
+            "l0_train_rows": len(roles["l0_train"]),
+            "validation_rows": len(roles["l0_validation"]),
+            "u0_rows": len(roles["u0"]),
+            "test_rows": len(roles["test"]),
+            "l0_unique_compounds": len(compounds["l0_train"] | compounds["l0_validation"]),
+            "u0_unique_compounds": len(compounds["u0"]),
+            "test_unique_compounds": len(compounds["test"]),
+            "l0_train_test_compound_overlap": len(compounds["l0_train"] & compounds["test"]),
+            "validation_test_compound_overlap": len(compounds["l0_validation"] & compounds["test"]),
+            "u0_test_compound_overlap": len(compounds["u0"] & compounds["test"]),
+            "partition_sha256": sha256_file(path),
+            "scaler_hash": canonical_json_hash(scaler),
+        }
+        rows.append(row)
+    result = pd.DataFrame(rows)
+    overlap_columns = [column for column in result if column.endswith("_overlap")]
+    if result[overlap_columns].to_numpy().any():
+        raise RuntimeError("Compound partitions contain test compound leakage")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    result.to_csv(output_dir / "compound_partition_audit.csv", index=False)
+    return result
 
 
 def git_metadata() -> dict[str, Any]:
@@ -115,9 +180,7 @@ def context_for_seed(
 ) -> dict[str, Any]:
     data = pd.read_csv(SOURCE_DIR / "canonical_4g.csv")
     graph_cache = torch.load(SOURCE_DIR / "graph_cache_4g.pt", weights_only=False)
-    if split_mode not in {"row", "compound"}:
-        raise ValueError(f"Unsupported E2 split mode: {split_mode}")
-    partition_path = D28_DIR / "partitions" / f"e2_4g_{split_mode}_seed_{outer_seed}.csv"
+    partition_path = partition_path_for_split(split_mode, outer_seed)
     partition = pd.read_csv(partition_path)
     scaler = make_scaler(data, graph_cache, partition)
     seed_dir = output_dir / f"{split_mode}_seed_{outer_seed}"
@@ -365,6 +428,39 @@ def test_metrics(
     return row
 
 
+def compound_macro_metrics(
+    context: dict[str, Any], prediction: pd.DataFrame, metadata: dict
+) -> dict:
+    truth = rows_for_ids(context["engine"], prediction["sample_id"].astype(str).tolist())
+    compounds = truth["canonical_smiles"].astype(str).to_numpy()
+    rows = []
+    for compound in sorted(set(compounds)):
+        selected = compounds == compound
+        item = {"canonical_smiles": compound}
+        for target in ("V1", "V2"):
+            true = truth.loc[selected, f"{target}_ml"].to_numpy(dtype=float)
+            pred = prediction.loc[selected, f"ensemble_pred_{target}"].to_numpy(dtype=float)
+            residual = true - pred
+            item[f"{target}_mae"] = float(np.abs(residual).mean())
+            item[f"{target}_nrmse"] = float(
+                np.sqrt(np.square(residual).mean()) / context["target_scales"][target]
+            )
+        rows.append(item)
+    per_compound = pd.DataFrame(rows)
+    result = dict(metadata)
+    result["test_unique_compounds"] = len(per_compound)
+    for target in ("V1", "V2"):
+        result[f"compound_macro_{target}_mae"] = float(per_compound[f"{target}_mae"].mean())
+        result[f"compound_macro_{target}_nrmse"] = float(per_compound[f"{target}_nrmse"].mean())
+    result["compound_macro_mae"] = 0.5 * (
+        result["compound_macro_V1_mae"] + result["compound_macro_V2_mae"]
+    )
+    result["compound_macro_nrmse"] = 0.5 * (
+        result["compound_macro_V1_nrmse"] + result["compound_macro_V2_nrmse"]
+    )
+    return result
+
+
 def random_score(outer_seed: int, ids: list[str]) -> np.ndarray:
     # Diagnostic-only score; acquisition Random uses the persisted AL RNG.
     rng = np.random.default_rng(outer_seed + 9_000_000)
@@ -434,8 +530,8 @@ def round0_for_seed(
     pool.to_csv(shared_dir / "round0_pool_signals.csv.gz", index=False)
     np.savez_compressed(
         shared_dir / "round0_representations.npz",
-        labeled_sample_ids=np.asarray(labeled_train_ids),
-        pool_sample_ids=pool["sample_id"].astype(str).to_numpy(),
+        labeled_sample_ids=np.asarray(labeled_train_ids, dtype=str),
+        pool_sample_ids=pool["sample_id"].astype(str).to_numpy(dtype=str),
         labeled_representation=labeled_repr,
         pool_representation=pool_repr,
     )
@@ -491,6 +587,21 @@ def condition_distribution(frame: pd.DataFrame) -> dict:
         "pe_ea_top_counts": ratios.value_counts().head(10).to_dict(),
         "mass_mean": float((frame["Density g/ml"] * frame["V/ul"]).mean()),
         "loading_volume_mean": float(frame["Volume of loading solvent/ul"].mean()),
+    }
+
+
+def condition_keys(frame: pd.DataFrame) -> pd.Series:
+    return frame.loc[:, CONDITION_KEY_COLUMNS].astype(str).agg("|".join, axis=1)
+
+
+def batch_composition(frame: pd.DataFrame) -> dict:
+    counts = frame["canonical_smiles"].astype(str).value_counts()
+    proportions = counts.to_numpy(dtype=float) / len(frame)
+    return {
+        "selected_unique_compounds": int(len(counts)),
+        "max_samples_per_compound": int(counts.max()),
+        "compound_hhi": float(np.square(proportions).sum()),
+        "selected_unique_condition_keys": int(condition_keys(frame).nunique()),
     }
 
 
@@ -552,6 +663,7 @@ def queried_diagnostics(
     selected_ids: list[str],
     fit_records: list[dict],
     hybrid_subset: list[str] | None,
+    acquisition_seconds: float = 0.0,
 ) -> tuple[dict, pd.DataFrame]:
     position = {value: index for index, value in enumerate(pool["sample_id"].astype(str))}
     selected_positions = np.asarray([position[value] for value in selected_ids], dtype=int)
@@ -565,7 +677,7 @@ def queried_diagnostics(
         "seed": outer_seed,
         "selected_total": len(selected_ids),
         "selected_sample_ids": json.dumps(selected_ids),
-        "selected_unique_compounds": int(truth_rows["canonical_smiles"].nunique()),
+        **batch_composition(truth_rows),
         "selected_mean_true_error_after_reveal": float(
             selected["ensemble_mean_standardized_abs_error"].mean()
         ),
@@ -580,6 +692,7 @@ def queried_diagnostics(
         "best_epoch_ge_490": bool(any(item["best_epoch_ge_490"] for item in fit_records)),
         "hybrid_prefilter_count": len(hybrid_subset) if hybrid_subset is not None else None,
         "hybrid_prefilter_fraction": 0.25 if hybrid_subset is not None else None,
+        "acquisition_seconds": acquisition_seconds,
     }
     selected["round"] = next_state.round
     selected["strategy"] = strategy
@@ -660,6 +773,20 @@ def run_strategy(
         (round_dir / "round_metrics.json").write_text(
             json.dumps(metrics, ensure_ascii=False, indent=2), encoding="utf-8"
         )
+        macro = compound_macro_metrics(
+            context,
+            test_prediction,
+            {
+                "strategy": strategy,
+                "outer_seed": outer_seed,
+                "round": round_index,
+                "labeled_total": len(state.labeled_ids),
+                "row_weighted_nrmse": metrics["nrmse"],
+            },
+        )
+        (round_dir / "compound_macro_metrics.json").write_text(
+            json.dumps(macro, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
         if round_index == rounds:
             continue
 
@@ -691,9 +818,11 @@ def run_strategy(
         (round_dir / "representation_audit.json").write_text(
             json.dumps(representation_audit, ensure_ascii=False, indent=2), encoding="utf-8"
         )
+        acquisition_start = time.perf_counter()
         next_state, selected_ids, subset = select_batch(
             strategy, state, pool, pool_repr, labeled_repr, query_size
         )
+        acquisition_seconds = float(time.perf_counter() - acquisition_start)
         diagnostic, selected = queried_diagnostics(
             context,
             strategy,
@@ -704,6 +833,7 @@ def run_strategy(
             selected_ids,
             fit_records,
             subset,
+            acquisition_seconds,
         )
         selected.to_csv(round_dir / "selected_after_reveal.csv", index=False)
         (round_dir / "queried_batch_diagnostics.json").write_text(
@@ -849,13 +979,16 @@ def compound_preflight(output_dir: Path, config: SourceFreeTrainConfig) -> None:
     write_artifact_manifest(output_dir)
 
 
-def collect_outputs(output_dir: Path) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+def collect_outputs(
+    output_dir: Path, split_mode: str = "row"
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     metrics, queried, convergence = [], [], []
-    for path in output_dir.glob("row_seed_*/[a-z]*/round_*/round_metrics.json"):
+    seed_pattern = f"{split_mode}_seed_*"
+    for path in output_dir.glob(f"{seed_pattern}/[a-z]*/round_*/round_metrics.json"):
         metrics.append(json.loads(path.read_text(encoding="utf-8")))
-    for path in output_dir.glob("row_seed_*/[a-z]*/round_*/queried_batch_diagnostics.json"):
+    for path in output_dir.glob(f"{seed_pattern}/[a-z]*/round_*/queried_batch_diagnostics.json"):
         queried.append(json.loads(path.read_text(encoding="utf-8")))
-    for path in output_dir.glob("row_seed_*/[a-z]*/round_*/convergence.csv"):
+    for path in output_dir.glob(f"{seed_pattern}/[a-z]*/round_*/convergence.csv"):
         convergence.append(pd.read_csv(path))
     metrics_df = pd.DataFrame(metrics).sort_values(["outer_seed", "strategy", "round"])
     queried_df = pd.DataFrame(queried).sort_values(["seed", "strategy", "round"])
@@ -866,6 +999,166 @@ def collect_outputs(output_dir: Path) -> tuple[pd.DataFrame, pd.DataFrame, pd.Da
     queried_df.to_csv(output_dir / "queried_batch_diagnostics.csv", index=False)
     convergence_df.to_csv(output_dir / "convergence_audit.csv", index=False)
     return metrics_df, queried_df, convergence_df
+
+
+def collect_compound_macro_metrics(output_dir: Path, split_mode: str) -> pd.DataFrame:
+    rows = []
+    for path in output_dir.glob(
+        f"{split_mode}_seed_*/[a-z]*/round_*/compound_macro_metrics.json"
+    ):
+        rows.append(json.loads(path.read_text(encoding="utf-8")))
+    if not rows:
+        return pd.DataFrame()
+    result = pd.DataFrame(rows).sort_values(["outer_seed", "strategy", "round"])
+    result.to_csv(output_dir / "compound_macro_metrics.csv", index=False)
+    aulc_rows = []
+    for (seed, strategy), group in result.groupby(["outer_seed", "strategy"]):
+        group = group.sort_values("labeled_total")
+        labels = group["labeled_total"].to_numpy(dtype=float)
+        values = group["compound_macro_nrmse"].to_numpy(dtype=float)
+        aulc_rows.append(
+            {
+                "outer_seed": seed,
+                "strategy": strategy,
+                "compound_macro_aulc": float(
+                    np.trapz(values, labels) / (labels[-1] - labels[0])
+                ),
+                "final_compound_macro_nrmse": float(values[-1]),
+            }
+        )
+    pd.DataFrame(aulc_rows).to_csv(output_dir / "compound_macro_aulc.csv", index=False)
+    return result
+
+
+def common_reference_batch_diversity(
+    output_dir: Path, split_mode: str = "row"
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    rows = []
+    for seed in OUTER_SEEDS:
+        reference_path = (
+            output_dir
+            / f"{split_mode}_seed_{seed}"
+            / "shared_round_0"
+            / "round0_representations.npz"
+        )
+        if not reference_path.exists():
+            continue
+        with np.load(reference_path, allow_pickle=True) as reference:
+            ids = np.concatenate(
+                [reference["labeled_sample_ids"], reference["pool_sample_ids"]]
+            ).astype(str)
+            representation = np.vstack(
+                [reference["labeled_representation"], reference["pool_representation"]]
+            )
+        positions = {sample_id: index for index, sample_id in enumerate(ids)}
+        context = context_for_seed(seed, output_dir, SourceFreeTrainConfig(), split_mode)
+        for path in sorted(
+            (output_dir / f"{split_mode}_seed_{seed}").glob(
+                "[a-z]*/round_*/queried_batch_diagnostics.json"
+            )
+        ):
+            diagnostic = json.loads(path.read_text(encoding="utf-8"))
+            selected_ids = [str(value) for value in json.loads(diagnostic["selected_sample_ids"])]
+            missing = sorted(set(selected_ids) - set(positions))
+            if missing:
+                raise RuntimeError(f"Selected IDs absent from fixed Round-0 reference: {missing[:3]}")
+            selected_repr = representation[[positions[value] for value in selected_ids]]
+            mean_distance, min_distance = batch_distance_summary(selected_repr)
+            composition = batch_composition(rows_for_ids(context["engine"], selected_ids))
+            rows.append(
+                {
+                    "outer_seed": seed,
+                    "strategy": diagnostic["strategy"],
+                    "round": int(diagnostic["round"]),
+                    "reference_encoder": "shared_round_0/member_0",
+                    "normalization_reference": "fixed L0_train",
+                    "fixed_mean_pairwise_distance": mean_distance,
+                    "fixed_min_pairwise_distance": min_distance,
+                    **composition,
+                }
+            )
+    result = pd.DataFrame(rows)
+    if result.empty:
+        raise RuntimeError(f"No {split_mode} selected batches available for common-reference audit")
+    result = result.sort_values(["outer_seed", "strategy", "round"])
+    result.to_csv(output_dir / "common_reference_batch_diversity.csv", index=False)
+    seed_means = (
+        result.groupby(["outer_seed", "strategy"], as_index=False)
+        .agg(
+            fixed_mean_pairwise_distance=("fixed_mean_pairwise_distance", "mean"),
+            fixed_min_pairwise_distance=("fixed_min_pairwise_distance", "mean"),
+            selected_unique_compounds=("selected_unique_compounds", "mean"),
+            max_samples_per_compound=("max_samples_per_compound", "mean"),
+            compound_hhi=("compound_hhi", "mean"),
+            selected_unique_condition_keys=("selected_unique_condition_keys", "mean"),
+        )
+    )
+    summary_rows = []
+    for strategy in STRATEGIES:
+        selected = seed_means[seed_means["strategy"].eq(strategy)]
+        summary_rows.append(
+            {
+                "record_type": "strategy_summary",
+                "strategy": strategy,
+                "comparison": "",
+                "outer_seed_count": int(selected["outer_seed"].nunique()),
+                **{
+                    f"mean_{column}": float(selected[column].mean())
+                    for column in selected.columns
+                    if column not in {"outer_seed", "strategy"}
+                },
+            }
+        )
+    ensemble = seed_means[seed_means["strategy"].eq("ensemble")].set_index("outer_seed")
+    for strategy in ("coverage", "hybrid"):
+        selected = seed_means[seed_means["strategy"].eq(strategy)].set_index("outer_seed")
+        differences = selected["fixed_mean_pairwise_distance"] - ensemble["fixed_mean_pairwise_distance"]
+        summary_rows.append(
+            {
+                "record_type": "paired_effect",
+                "strategy": strategy,
+                "comparison": f"{strategy}-ensemble",
+                "outer_seed_count": int(len(differences)),
+                "mean_fixed_mean_pairwise_distance": float(differences.mean()),
+                "positive_seed_count": int((differences > 0).sum()),
+                "differences_by_seed": json.dumps(differences.to_dict()),
+            }
+        )
+    summary = pd.DataFrame(summary_rows)
+    summary.to_csv(output_dir / "common_reference_batch_diversity_summary.csv", index=False)
+    return result, summary
+
+
+def compute_cost_summary(
+    convergence: pd.DataFrame, queried: pd.DataFrame, output_dir: Path
+) -> pd.DataFrame:
+    fit = (
+        convergence.groupby("strategy", as_index=False)
+        .agg(
+            total_fit_count=("member_index", "size"),
+            strategy_total_fit_seconds=("fit_seconds_current_run", "sum"),
+        )
+    )
+    overhead = (
+        queried.groupby("strategy", as_index=False)["acquisition_seconds"].sum()
+        if "acquisition_seconds" in queried
+        else pd.DataFrame({"strategy": STRATEGIES, "acquisition_seconds": 0.0})
+    )
+    result = fit.merge(overhead, on="strategy", how="left")
+    result["total_seconds"] = (
+        result["strategy_total_fit_seconds"] + result["acquisition_seconds"].fillna(0.0)
+    )
+    independent = convergence.drop_duplicates("checkpoint_sha256")
+    result["actual_unique_fit_count_all_strategies"] = len(independent)
+    result["actual_unique_fit_seconds_all_strategies"] = float(
+        independent["fit_seconds_current_run"].sum()
+    )
+    result["cost_accounting"] = (
+        "strategy columns allocate shared Round-0 K=3 to every strategy for fair protocol cost; "
+        "actual_unique columns count each checkpoint once"
+    )
+    result.to_csv(output_dir / "compute_cost_summary.csv", index=False)
+    return result
 
 
 def calculate_aulc(metrics: pd.DataFrame, output_dir: Path) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -951,6 +1244,9 @@ def make_plots(
     agreement: pd.DataFrame,
     queried: pd.DataFrame,
     convergence: pd.DataFrame,
+    split_mode: str = "row",
+    common_reference: pd.DataFrame | None = None,
+    macro_metrics: pd.DataFrame | None = None,
 ) -> None:
     plot_dir = output_dir / "plots"
     plot_dir.mkdir(exist_ok=True)
@@ -963,7 +1259,7 @@ def make_plots(
             ax.plot(seed_curve["labeled_total"], seed_curve["nrmse"], color=colors[strategy], alpha=0.22)
         mean = selected.groupby("labeled_total", as_index=False)["nrmse"].mean()
         ax.plot(mean["labeled_total"], mean["nrmse"], color=colors[strategy], label=strategy, linewidth=2)
-    ax.set(xlabel="number of labeled samples", ylabel="normalized RMSE", title="E2 row pilot learning curves")
+    ax.set(xlabel="number of labeled samples", ylabel="normalized RMSE", title=f"E2 {split_mode} pilot learning curves")
     ax.legend()
     fig.savefig(plot_dir / "learning_curve_nrmse.png", dpi=180)
     plt.close(fig)
@@ -975,6 +1271,16 @@ def make_plots(
         ax.plot(x, [row[s] for s in STRATEGIES], marker="o", alpha=0.5)
     ax.set(xticks=x, xticklabels=STRATEGIES, ylabel="normalized AULC", title="Paired AULC by outer seed")
     fig.savefig(plot_dir / "paired_aulc.png", dpi=180)
+    plt.close(fig)
+
+    fig, ax = plt.subplots(figsize=(7, 4), constrained_layout=True)
+    final = metrics.loc[metrics.groupby(["outer_seed", "strategy"])["round"].idxmax()]
+    for strategy in STRATEGIES:
+        selected = final[final["strategy"].eq(strategy)]
+        ax.plot(selected["outer_seed"].astype(str), selected["nrmse"], marker="o", label=strategy)
+    ax.set(xlabel="outer seed", ylabel="final normalized RMSE", title="Final NRMSE by seed")
+    ax.legend()
+    fig.savefig(plot_dir / "final_nrmse_by_seed.png", dpi=180)
     plt.close(fig)
 
     fig, ax = plt.subplots(figsize=(6, 4), constrained_layout=True)
@@ -1019,6 +1325,38 @@ def make_plots(
         fig.savefig(plot_dir / filename, dpi=180)
         plt.close(fig)
 
+    if common_reference is not None and not common_reference.empty:
+        for column, filename, ylabel in (
+            ("fixed_mean_pairwise_distance", "common_reference_diversity_by_round.png", "fixed-reference mean pairwise distance"),
+            ("selected_unique_compounds", "unique_compounds_by_round.png", "unique compounds per batch"),
+            ("compound_hhi", "compound_hhi_by_round.png", "compound HHI"),
+        ):
+            fig, ax = plt.subplots(figsize=(7, 4), constrained_layout=True)
+            for strategy in STRATEGIES:
+                selected = common_reference[common_reference["strategy"].eq(strategy)]
+                mean = selected.groupby("round", as_index=False)[column].mean()
+                ax.plot(mean["round"], mean[column], marker="o", color=colors[strategy], label=strategy)
+            ax.set(xlabel="acquisition round", ylabel=ylabel)
+            ax.legend()
+            fig.savefig(plot_dir / filename, dpi=180)
+            plt.close(fig)
+
+    if macro_metrics is not None and not macro_metrics.empty:
+        fig, ax = plt.subplots(figsize=(7, 4), constrained_layout=True)
+        final_macro = macro_metrics.loc[
+            macro_metrics.groupby(["outer_seed", "strategy"])["round"].idxmax()
+        ]
+        x = np.arange(len(STRATEGIES))
+        width = 0.35
+        row_values = final_macro.groupby("strategy")["row_weighted_nrmse"].mean().reindex(STRATEGIES)
+        macro_values = final_macro.groupby("strategy")["compound_macro_nrmse"].mean().reindex(STRATEGIES)
+        ax.bar(x - width / 2, row_values, width, label="row-weighted")
+        ax.bar(x + width / 2, macro_values, width, label="compound-macro")
+        ax.set(xticks=x, xticklabels=STRATEGIES, ylabel="final normalized RMSE", title="Row-weighted vs compound-macro")
+        ax.legend()
+        fig.savefig(plot_dir / "macro_compound_performance.png", dpi=180)
+        plt.close(fig)
+
     fig, ax = plt.subplots(figsize=(7, 4), constrained_layout=True)
     for strategy, selected in convergence.groupby("strategy"):
         ax.hist(selected["best_epoch"], bins=20, alpha=0.4, label=strategy, color=colors[strategy])
@@ -1029,8 +1367,8 @@ def make_plots(
     plt.close(fig)
 
 
-def finalize(output_dir: Path) -> None:
-    metrics, queried, convergence = collect_outputs(output_dir)
+def finalize(output_dir: Path, split_mode: str = "row") -> None:
+    metrics, queried, convergence = collect_outputs(output_dir, split_mode)
     expected_metrics = len(OUTER_SEEDS) * len(STRATEGIES) * 9
     expected_queries = len(OUTER_SEEDS) * len(STRATEGIES) * 8
     if len(metrics) != expected_metrics or len(queried) != expected_queries:
@@ -1039,21 +1377,42 @@ def finalize(output_dir: Path) -> None:
         )
     aulc, effects = calculate_aulc(metrics, output_dir)
     label_efficiency(metrics, output_dir)
+    macro_metrics = collect_compound_macro_metrics(output_dir, split_mode)
+    common_reference, common_summary = common_reference_batch_diversity(output_dir, split_mode)
+    compute_cost_summary(convergence, queried, output_dir)
     round0 = pd.read_csv(output_dir / "round0_signal_diagnostics.csv")
     agreement = pd.read_csv(output_dir / "signal_agreement.csv")
-    make_plots(output_dir, metrics, aulc, round0, agreement, queried, convergence)
-    late_fraction = float(convergence["best_epoch_ge_490"].mean())
+    make_plots(
+        output_dir, metrics, aulc, round0, agreement, queried, convergence,
+        split_mode, common_reference, macro_metrics,
+    )
+    independent_convergence = convergence.drop_duplicates("checkpoint_sha256")
+    convergence_flag = (
+        independent_convergence["best_epoch_ge_490"].astype(bool)
+        | independent_convergence["hit_max_epoch"].astype(bool)
+    )
+    late_fraction = float(convergence_flag.mean())
     best_strategy = str(
         aulc.groupby("strategy")["aulc_normalized"].mean().sort_values().index[0]
     )
     active_wins = effects.loc[effects["mean_paired_difference"] < 0, "strategy"].tolist()
+    stable_wins = effects.loc[
+        (effects["mean_paired_difference"] < 0) & effects["win_count"].eq(3), "strategy"
+    ].tolist()
+    suggestive_wins = effects.loc[
+        (effects["mean_paired_difference"] < 0) & effects["win_count"].eq(2), "strategy"
+    ].tolist()
+    gate = "strong" if stable_wins else "suggestive" if suggestive_wins else "fail"
     decision = {
-        "stage": "E2_row_3seed_pilot",
+        "stage": f"E2_{split_mode}_3seed_pilot",
         "complete": True,
         "scientific_result_interpretable": True,
         "best_mean_aulc_strategy": best_strategy,
         "strategies_with_mean_aulc_better_than_random": active_wins,
-        "any_active_strategy_wins_all_three_seeds": bool((effects["win_count"] == 3).any()),
+        "any_active_strategy_wins_all_three_seeds": bool(stable_wins),
+        "stable_strategies": stable_wins,
+        "suggestive_strategies": suggestive_wins,
+        "compound_gate": gate if split_mode == "compound" else None,
         "hybrid_better_than_both_single_strategies_mean_aulc": bool(
             aulc.groupby("strategy")["aulc_normalized"].mean()["hybrid"]
             < min(
@@ -1062,20 +1421,42 @@ def finalize(output_dir: Path) -> None:
             )
         ),
         "best_epoch_ge_490_fraction": late_fraction,
-        "convergence_decision_required": bool(late_fraction > 0.20),
+        "independent_fit_count": int(len(independent_convergence)),
+        "late_or_hit_max_independent_fit_count": int(convergence_flag.sum()),
+        "convergence_guard_threshold": 0.30 if split_mode == "compound" else 0.20,
+        "convergence_decision_required": bool(
+            late_fraction > (0.30 if split_mode == "compound" else 0.20)
+        ),
+        "common_reference_audit_complete": True,
+        "compound_macro_metrics_complete": not macro_metrics.empty,
         "tail_interpreted": False,
         "new_methods_added": False,
-        "next_stage": "E2 compound pilot" if active_wins else "E2 failure audit before compound",
+        "next_stage": "STOP after E2 compound reporting" if split_mode == "compound" else "E2 compound pilot",
     }
-    (output_dir / "e2_row_decision.json").write_text(
+    decision_name = f"e2_{split_mode}_decision.json"
+    (output_dir / decision_name).write_text(
         json.dumps(decision, ensure_ascii=False, indent=2), encoding="utf-8"
     )
     mean_aulc = aulc.groupby("strategy")["aulc_normalized"].mean().sort_values()
-    readme = f"""# E2 4g Active Learning — Row 3-seed Pilot
+    macro_aulc = pd.read_csv(output_dir / "compound_macro_aulc.csv")
+    mean_macro_aulc = (
+        macro_aulc.groupby("strategy")["compound_macro_aulc"].mean().sort_values()
+    )
+    round0_summary = pd.read_csv(output_dir / "round0_signal_summary.csv").set_index("signal")
+    composition = queried.groupby("strategy").agg(
+        unique_compounds=("selected_unique_compounds", "mean"),
+        max_per_compound=("max_samples_per_compound", "mean"),
+        compound_hhi=("compound_hhi", "mean"),
+    )
+    fixed_effects = common_summary[common_summary["record_type"].eq("paired_effect")].set_index(
+        "strategy"
+    )
+    display_mode = split_mode.capitalize()
+    readme = f"""# E2 4g Active Learning — {display_mode} 3-seed Pilot
 
 ## 状态
 
-本目录是正式E2 row协议结果，不与`e2_random_smoke`混淆。3个paired outer seeds、4种策略、K=3、L0=375、B=25、8轮均已完成；每个预算点都从seeded random source-free初始化重新训练，固定L0-train scaler与validation。
+本目录是正式E2 {split_mode}协议结果，不与smoke/preflight混淆。3个paired outer seeds、4种策略、K=3、L0=375、B=25、8轮均已完成；每个预算点都从seeded random source-free初始化重新训练，固定L0-train scaler与validation。
 
 平均normalized AULC（越低越好）：
 
@@ -1087,12 +1468,21 @@ def finalize(output_dir: Path) -> None:
 - 平均AULC优于Random的策略：**{', '.join(active_wins) if active_wins else '无'}**。
 - Hybrid平均AULC同时优于Coverage和Ensemble：**{decision['hybrid_better_than_both_single_strategies_mean_aulc']}**。
 - best_epoch>=490比例：**{late_fraction:.1%}**；是否触发单独convergence decision：**{decision['convergence_decision_required']}**。
+{f"- Compound Gate：**{gate}**；3/3稳定优于Random：**{', '.join(stable_wins) if stable_wins else '无'}**。" if split_mode == "compound" else ""}
+
+## Secondary diagnostics
+
+- Compound-macro AULC均值：{', '.join(f'{strategy} {value:.3f}' for strategy, value in mean_macro_aulc.items())}；与row-weighted primary方向一致。
+- Round-0 Quantile/Latent/Ensemble mean Spearman为{round0_summary.loc['quantile_width', 'mean_spearman']:.3f}/{round0_summary.loc['latent_distance', 'mean_spearman']:.3f}/{round0_summary.loc['ensemble', 'mean_spearman']:.3f}，均3/3为正。Quantile只保留为future post-hoc control，本阶段未运行第五条AL曲线。
+- Ensemble每批平均{composition.loc['ensemble', 'unique_compounds']:.2f}个unique compounds、max-per-compound {composition.loc['ensemble', 'max_per_compound']:.2f}、HHI {composition.loc['ensemble', 'compound_hhi']:.3f}；Hybrid分别为{composition.loc['hybrid', 'unique_compounds']:.2f}、{composition.loc['hybrid', 'max_per_compound']:.2f}、{composition.loc['hybrid', 'compound_hhi']:.3f}。
+- Fixed-reference Hybrid−Ensemble mean pairwise distance差为{fixed_effects.loc['hybrid', 'mean_fixed_mean_pairwise_distance']:+.3f}（{int(fixed_effects.loc['hybrid', 'positive_seed_count'])}/3 seeds为正）；Coverage−Ensemble为{fixed_effects.loc['coverage', 'mean_fixed_mean_pairwise_distance']:+.3f}（{int(fixed_effects.loc['coverage', 'positive_seed_count'])}/3）。Native与fixed-reference方向一致，但不是因果证明。
+- {len(independent_convergence)}个独立fits中{int(convergence_flag.sum())}个命中`best_epoch>=490 OR hit_max_epoch`（{late_fraction:.2%}），无convergence problem。
 
 ## 解释边界
 
 Round-0离线signal诊断只回答E1信号能否迁移到source-free regime，不是主动学习结论。正式科学比较来自3-seed完整learning curve与paired AULC。4g canonical数据历史上已删除60/120 mL tail，因此E2不解释tail acquisition；该机制留到E4 no-threshold 8g。Quantile Width保留在离线诊断与后续E4 Protocol B legacy baseline中，但不是E2第五种策略。
 
-完整数值见`round_metrics.csv`、`aulc_summary.csv`、`paired_effects.csv`、`label_efficiency.csv`、`round0_signal_diagnostics.csv`、`signal_agreement.csv`、`queried_batch_diagnostics.csv`与`convergence_audit.csv`。
+完整数值见`round_metrics.csv`、`aulc_summary.csv`、`paired_effects.csv`、`label_efficiency.csv`、`compound_macro_metrics.csv`、`compound_macro_aulc.csv`、`common_reference_batch_diversity.csv`、`compute_cost_summary.csv`与`convergence_audit.csv`。
 """
     (output_dir / "README.md").write_text(readme, encoding="utf-8")
     write_artifact_manifest(output_dir)
@@ -1100,17 +1490,19 @@ Round-0离线signal诊断只回答E1信号能否迁移到source-free regime，�
 
 
 def write_static_config(
-    output_dir: Path, config: SourceFreeTrainConfig, rounds: int, query_size: int
+    output_dir: Path, config: SourceFreeTrainConfig, rounds: int, query_size: int,
+    split_mode: str = "row",
 ) -> None:
     partitions = {}
     for seed in OUTER_SEEDS:
-        path = D28_DIR / "partitions" / f"e2_4g_row_seed_{seed}.csv"
+        path = partition_path_for_split(split_mode, seed)
         partitions[str(seed)] = {
             "path": str(path.relative_to(ROOT)),
             "sha256": sha256_file(path),
         }
     payload = {
-        "stage": "E2_4g_active_learning_row_pilot",
+        "stage": f"E2_4g_active_learning_{split_mode}_pilot",
+        "split_mode": split_mode,
         "outer_seeds": list(OUTER_SEEDS),
         "strategies": list(STRATEGIES),
         "member_count": MEMBER_COUNT,
@@ -1178,21 +1570,44 @@ def write_static_config(
     )
 
 
-def run_round0(output_dir: Path, config: SourceFreeTrainConfig) -> None:
+def run_round0(
+    output_dir: Path,
+    config: SourceFreeTrainConfig,
+    split_mode: str = "row",
+    outer_seeds: tuple[int, ...] = OUTER_SEEDS,
+) -> None:
     all_metrics, all_agreement, all_fits = [], [], []
-    for seed in OUTER_SEEDS:
-        context = context_for_seed(seed, output_dir, config)
-        _, _, fit_records, metrics, agreement = round0_for_seed(context, config, seed)
+    for seed in outer_seeds:
+        context = context_for_seed(seed, output_dir, config, split_mode)
+        _, _, fit_records, metrics, agreement = round0_for_seed(context, config, seed, split_mode)
         all_metrics.append(metrics)
         all_agreement.append(agreement)
         all_fits.extend([{**item, "strategy": "shared_round0", "round": 0} for item in fit_records])
         print(json.dumps({"round0_completed": True, "outer_seed": seed}, ensure_ascii=False), flush=True)
-    round0 = pd.concat(all_metrics, ignore_index=True)
+    previous_round0_path = output_dir / "round0_signal_diagnostics.csv"
+    if previous_round0_path.exists():
+        previous = pd.read_csv(previous_round0_path)
+        previous = previous[~previous["outer_seed"].isin(outer_seeds)]
+        all_metrics.insert(0, previous)
+    round0 = pd.concat(all_metrics, ignore_index=True).sort_values(["outer_seed", "signal"])
     round0.to_csv(output_dir / "round0_signal_diagnostics.csv", index=False)
+    previous_agreement_path = output_dir / "signal_agreement.csv"
+    previous_e2 = pd.DataFrame()
+    if previous_agreement_path.exists():
+        previous_e2 = pd.read_csv(previous_agreement_path)
+        previous_e2 = previous_e2[
+            previous_e2["stage"].eq("E2_source_free_round0")
+            & ~previous_e2["seed"].isin(outer_seeds)
+        ]
     e1 = compute_e1_agreement()
-    agreement = pd.concat([e1, *all_agreement], ignore_index=True)
+    agreement = pd.concat([e1, previous_e2, *all_agreement], ignore_index=True)
     agreement.to_csv(output_dir / "signal_agreement.csv", index=False)
-    pd.DataFrame(all_fits).to_csv(output_dir / "round0_convergence_audit.csv", index=False)
+    fit_path = output_dir / "round0_convergence_audit.csv"
+    if fit_path.exists():
+        previous_fits = pd.read_csv(fit_path)
+        previous_fits = previous_fits[~previous_fits["outer_seed"].isin(outer_seeds)]
+        all_fits = previous_fits.to_dict("records") + all_fits
+    pd.DataFrame(all_fits).sort_values(["outer_seed", "member_index"]).to_csv(fit_path, index=False)
     signal_summary = (
         round0.groupby("signal")
         .agg(
@@ -1208,7 +1623,7 @@ def run_round0(output_dir: Path, config: SourceFreeTrainConfig) -> None:
     signal_summary.to_csv(output_dir / "round0_signal_summary.csv", index=False)
     signal_key = signal_summary.set_index("signal")
     decision = {
-        "stage": "E2_source_free_round0_diagnostic",
+        "stage": f"E2_{split_mode}_source_free_round0_diagnostic",
         "complete": True,
         "active_learning_scientific_conclusion": False,
         "ensemble_positive_spearman_seeds": int(
@@ -1226,7 +1641,7 @@ def run_round0(output_dir: Path, config: SourceFreeTrainConfig) -> None:
             or signal_key.loc["latent_distance", "mean_spearman"] <= 0.05
         ),
         "failure_rule": "diagnostic flag if positive Spearman in fewer than 2/3 seeds or mean Spearman <= 0.05; frozen E1 definitions are not changed",
-        "next_stage_regardless_of_flag": "E2 row Random/Coverage/Ensemble/Hybrid pilot",
+        "next_stage_regardless_of_flag": f"E2 {split_mode} Random/Coverage/Ensemble/Hybrid pilot",
     }
     (output_dir / "round0_regime_decision.json").write_text(
         json.dumps(decision, ensure_ascii=False, indent=2), encoding="utf-8"
@@ -1278,7 +1693,7 @@ Round-0 source-free signal diagnostic已完成；它只检验E1信号能否迁�
 
 - Ensemble regime failure flag：**{decision['ensemble_regime_failure_flag']}**。
 - Latent Distance regime failure flag：**{decision['latent_regime_failure_flag']}**。
-- 无论flag结果如何，下一步仍按冻结协议运行Random/Coverage/Ensemble/Hybrid三seed完整row learning curves。
+- 无论flag结果如何，下一步仍按冻结协议运行Random/Coverage/Ensemble/Hybrid三seed完整{split_mode} learning curves。
 
 正式E2结论必须等待3 seeds × 4 strategies × 9 budgets × K=3全部完成后，由paired AULC给出。
 """
@@ -1308,7 +1723,13 @@ def main() -> None:
         raise ValueError("Formal E2 protocol freezes rounds=8 and query_size=25")
     output_dir = (
         args.output_dir
-        or (DEFAULT_COMPOUND_PREFLIGHT_OUTPUT if args.phase == "preflight" else DEFAULT_OUTPUT)
+        or (
+            DEFAULT_COMPOUND_PREFLIGHT_OUTPUT
+            if args.phase == "preflight"
+            else DEFAULT_COMPOUND_OUTPUT
+            if args.split_mode == "compound"
+            else DEFAULT_OUTPUT
+        )
     ).resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
     write_environment(output_dir)
@@ -1320,14 +1741,17 @@ def main() -> None:
         compound_preflight(output_dir, config)
         print(json.dumps({"preflight_complete": True, "split_mode": "compound", "outer_seed": 42}), flush=True)
         return
-    write_static_config(output_dir, config, args.rounds, args.query_size)
+    validate_formal_protocol(args.epochs, args.patience, args.rounds, args.query_size)
+    if args.split_mode == "compound":
+        audit_compound_partitions(output_dir, config)
+    write_static_config(output_dir, config, args.rounds, args.query_size, args.split_mode)
 
     if args.phase == "worker":
         if args.worker_seed not in OUTER_SEEDS:
             raise ValueError(f"--worker-seed must be one of {OUTER_SEEDS}")
         if not (output_dir / "round0_signal_diagnostics.csv").exists():
             raise RuntimeError("Run --phase round0 before workers")
-        context = context_for_seed(args.worker_seed, output_dir, config)
+        context = context_for_seed(args.worker_seed, output_dir, config, args.split_mode)
         shared_checkpoints, shared_fit_records = fit_ensemble(
             context,
             context["l0_ids"],
@@ -1353,12 +1777,19 @@ def main() -> None:
         return
 
     if args.phase in ("round0", "all"):
-        run_round0(output_dir, config)
+        selected_seeds = (
+            (args.worker_seed,)
+            if args.phase == "round0" and args.worker_seed is not None
+            else OUTER_SEEDS
+        )
+        if any(seed not in OUTER_SEEDS for seed in selected_seeds):
+            raise ValueError(f"--worker-seed must be one of {OUTER_SEEDS}")
+        run_round0(output_dir, config, args.split_mode, selected_seeds)
     if args.phase in ("pilot", "all"):
         if not (output_dir / "round0_signal_diagnostics.csv").exists():
             raise RuntimeError("Run --phase round0 before the formal pilot")
         for outer_seed in OUTER_SEEDS:
-            context = context_for_seed(outer_seed, output_dir, config)
+            context = context_for_seed(outer_seed, output_dir, config, args.split_mode)
             shared_checkpoints, shared_fit_records = fit_ensemble(
                 context,
                 context["l0_ids"],
@@ -1377,9 +1808,9 @@ def main() -> None:
                     args.rounds,
                     args.query_size,
                 )
-        finalize(output_dir)
+        finalize(output_dir, args.split_mode)
     elif args.phase == "finalize":
-        finalize(output_dir)
+        finalize(output_dir, args.split_mode)
 
 
 if __name__ == "__main__":

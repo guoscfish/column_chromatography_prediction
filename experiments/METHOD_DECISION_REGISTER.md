@@ -41,6 +41,8 @@
 | D33 | P0 | E2 Round-0 regime与Hybrid机制 | source-free L0下Ensemble/Latent/Quantile三seed平均Spearman为0.592/0.436/0.503、enrichment为4.36/3.82/5.04，均3/3为正；Ensemble–Latent Top-10% overlap为0.396/0.396/0.467 | 无regime failure，不调整E1定义；Coverage冻结为标准化`h_graph+conditions` sequential farthest-first，Hybrid冻结Ensemble Top-25%后同一farthest-first。互补性只作机制动机，不预判AULC | 完成row三seed完整paired AULC；若Hybrid未超过单策略，不包装成主方法；Quantile保留给E4 Protocol B legacy baseline |
 | D34 | P0 | E2 row正式结果与机制边界 | row三seed平均AULC Hybrid=0.543、Coverage=0.562、Ensemble=0.627、Random=0.645；Coverage/Hybrid对Random均3/3胜，Ensemble仅2/3且CI跨0。Hybrid与更高batch diversity同时出现，但selected set多个属性共同变化 | 冻结row主结论；只说结果与去冗余假设一致，不作因果声称。登记Top-25% uncertainty-filter-random control但本阶段不运行 | 完成row机制审计与compound seed42 preflight；完整compound pilot另行批准 |
 | D35 | P1 | Quantile Width后续采样角色 | E2 source-free Round-0 Quantile mean Spearman=0.503、AUROC=0.849、enrichment=5.04，而正式Ensemble acquisition仅小幅且不稳定优于Random | Quantile仍不属于预注册E2四主策略；允许未来作为明确标记的post-hoc secondary acquisition control，E4 Protocol B继续保留legacy baseline | 本阶段不运行Quantile AL，不修改row primary conclusion |
+| D36 | P0 | E2 batch-diversity坐标可比性 | 后续round的strategy-native latent来自各策略自己的模型，跨策略绝对距离混入representation geometry变化；固定Round-0 member_0、仅以L0-train拟合标准化后，row Hybrid/Ensemble与Coverage/Ensemble的平均距离差均3/3 seeds为正 | 保留native diagnostics，同时以fixed Round-0 common-reference作为跨策略可比机制诊断；不反向修改选样。该结果只与去冗余机制一致，不构成因果证明 | compound正式pilot复用同一审计；causal uncertainty-filter-random control仅登记到roadmap，本阶段不运行 |
+| D37 | P0 | E2 compound正式结果 | 三seed primary AULC均值Hybrid=0.761、Coverage=0.777、Random=0.789、Ensemble=0.802；Hybrid/ Coverage各2/3胜Random，Ensemble仅1/3。macro AULC均值Hybrid=0.587、Coverage=0.605、Ensemble=0.637、Random=0.641，方向一致。Round-0 Quantile/Latent/Ensemble Spearman均值0.591/0.523/0.511且3/3为正。Ensemble每批仅8.5个compound、HHI=0.158；Hybrid fixed-reference distance相对Ensemble 3/3更高。独立fits late/max为16/297=5.39% | Gate定为suggestive而非strong：Hybrid平均最好但没有active策略3/3胜Random，seed42三种active均输Random。保留Coverage在novel-compound场景有2/3改善的有限证据；Quantile只进入roadmap，不运行第五条曲线。无convergence problem | 本阶段STOP；不得自动进入E3/E4、Quantile AL、因果control、表示消融或高级方法 |
 
 ## 当前阶段结论
 
@@ -48,5 +50,5 @@
 - E0-3b/E0-3c/D04与G0-1～G0-4科学对照已完成；冻结末两层+头、V1/V2等权、第一构象、no-threshold、单调头和validation-only校准，完整合同见`experiments/PREDICTOR_FREEZE.md`。
 - D28已通过，Gate 0科学与工程配置全部冻结。
 - E1已完成：Ensemble以12/16恰好过门并进入E2主uncertainty，Latent Distance支持Coverage；Quantile Width降为secondary/legacy诊断。
-- E2 Random source-free最小链路已通过；当前进入Random/Coverage/Ensemble/Hybrid三seed pilot，smoke曲线不作科学结论。
-- E2 Round-0 source-free信号诊断已通过，signal agreement显示Ensemble与Latent中等相关；正式row paired pilot运行中，完成前不作策略胜负结论。
+- E2 row四策略三seed正式pilot已完成：Hybrid/Coverage对Random均3/3胜；fixed common-reference机制审计同样显示Hybrid与Coverage相对Ensemble的batch diversity均3/3更高，但不作因果声称。
+- E2 compound正式三seedpilot已完成：Hybrid平均AULC最低，Hybrid/Coverage均2/3胜Random，Gate为suggestive而非stable；三个partition无test compound leakage，macro结论一致，且无convergence problem。本阶段按D37停止。
