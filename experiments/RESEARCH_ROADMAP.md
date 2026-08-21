@@ -45,3 +45,7 @@ D05、D12、D15–D18、D21–D22、D24–D26与D30记录极端源记录、未�
 ## F. 25g/40g
 
 仅在E4 8g active transfer成立后考虑，用于检验跨柱label-efficiency能否泛化；当前不得启动。
+
+## G. E4 Protocol A status
+
+三seed正式pilot已完成。Pretrained Random平均normalized AULC最低；Coverage、Ensemble、Hybrid与Quantile Width均只在1/3 seed胜Random，证据分类为null。Pretrained Random仍明显优于scratch Random，支持迁移价值但不支持复杂主动采样优势。按预注册停止，Protocol B、E3、E5及25g/40g均未启动。

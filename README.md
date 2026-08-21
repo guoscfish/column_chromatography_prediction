@@ -84,6 +84,7 @@ The original model code is kept under `application/`. The reproducible experimen
 - `experiments/e2_compound_failure_audit/`: D38R corrected post-hoc audit; compound localization remains inconclusive and does not alter frozen E2 results.
 - `experiments/e4_active_transfer_preregistration/`: E4 partition/source compatibility evidence.
 - `experiments/e4_protocol_a_engineering_smoke/`: Protocol A seed42 engineering-only smoke; no scientific conclusion and no formal pilot.
+- `experiments/e4_protocol_a_formal/`: completed three-seed Protocol A formal pilot; pretrained Random had the best mean normalized AULC, so active-acquisition evidence is null.
 - `experiments/e1_signal_qualification/`: E1 signal qualification, per-sample scores, metrics and figures.
 - `experiments/e2_random_smoke/`: source-free Random reveal/retrain/resume chain smoke; not a scientific AL result.
 - `scripts/run_e2_random_smoke.py`: reproducible E2 source-free Random chain smoke entry point.

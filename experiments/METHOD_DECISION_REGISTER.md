@@ -48,6 +48,12 @@
 
 ## 当前阶段结论
 
+### D41 — E4 Protocol A formal pilot
+
+- D40R corrected smoke通过后完成seeds 42/525/1101、K=3、budgets 50–200的五策略正式pilot及zero/full/scratch controls。
+- Mean normalized AULC最低者为pretrained Random（0.8433）；Coverage/Ensemble/Hybrid/Quantile Width相对Random均仅1/3 seed胜出，证据分类为null。
+- Pretrained Random跨预算平均NRMSE较scratch Random低0.5158，支持迁移收益，但不支持复杂active acquisition优势。按预注册停止；Protocol B、E3、E5及其他扩展未启动。
+
 - E0-2 legacy 4g基线保留，用于代码口径可比。
 - E0-3b/E0-3c/D04与G0-1～G0-4科学对照已完成；冻结末两层+头、V1/V2等权、第一构象、no-threshold、单调头和validation-only校准，完整合同见`experiments/PREDICTOR_FREEZE.md`。
 - D28已通过，Gate 0科学与工程配置全部冻结。

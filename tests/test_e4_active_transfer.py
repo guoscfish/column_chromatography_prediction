@@ -3,7 +3,8 @@ from pathlib import Path
 import numpy as np
 
 from scripts.al_engine import initialize_round_state, random_query
-from scripts.run_e4_active_transfer import acquire, partition_context
+from scripts.al_acquisition import fit_standardizer, transform_standardized
+from scripts.run_e4_active_transfer import acquire, ensemble_scores, partition_context, primary_quantile_width, representation_from_primary, validate_dry_run
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -32,6 +33,35 @@ class E4Tests(unittest.TestCase):
             self.assertEqual(len(chosen),10); self.assertEqual(len(set(chosen)),10); self.assertLessEqual(set(chosen),set(ids))
             if strategy=="hybrid": self.assertLessEqual(set(chosen),set(extra["ensemble_top25_candidates"]))
         self.assertEqual(acquire("quantile_width",ids,scores,10,7)[0],ids[:10])
+
+    def test_primary_member_coordinate_system(self):
+        h42_train=np.array([[0.,0.],[2.,2.]]); h42_pool=np.array([[1.,3.],[4.,5.]])
+        h525_pool=h42_pool+100.; h1101_pool=h42_pool-50.
+        conditions_train=np.array([[0.],[2.]]); conditions_pool=np.array([[1.],[3.]])
+        train,pool,audit=representation_from_primary(h42_train,h42_pool,conditions_train,conditions_pool)
+        hmean,hscale=fit_standardizer(h42_train)
+        expected=transform_standardized(h42_pool,hmean,hscale)
+        averaged=transform_standardized(np.mean([h42_pool,h525_pool,h1101_pool],axis=0),hmean,hscale)
+        np.testing.assert_allclose(pool[:,:2],expected)
+        self.assertFalse(np.allclose(pool[:,:2],averaged))
+        self.assertEqual(audit["primary_member_seed"],42); self.assertTrue(audit["no_cross_member_embedding_average"])
+
+    def test_standardized_ensemble_definition(self):
+        q=np.array([[[2.,8.],[1.,2.]],[[4.,4.],[3.,6.]],[[8.,12.],[5.,10.]]])
+        scales={"V1":2.,"V2":4.}
+        expected=np.var(q[:,:,0]/2.,axis=0,ddof=1)+np.var(q[:,:,1]/4.,axis=0,ddof=1)
+        np.testing.assert_allclose(ensemble_scores(q,scales),expected)
+
+    def test_primary_normalized_quantile_width(self):
+        import pandas as pd
+        table=pd.DataFrame({"V1_q10":[1.,2.],"V1_q90":[5.,8.],"V2_q10":[2.,4.],"V2_q90":[10.,12.]})
+        expected=.5*((table.V1_q90-table.V1_q10)/2.+(table.V2_q90-table.V2_q10)/4.)
+        np.testing.assert_allclose(primary_quantile_width(table,{"V1":2.,"V2":4.}),expected)
+
+    def test_non_hybrid_metadata_is_null(self):
+        for strategy in ("random","coverage","ensemble","quantile_width"):
+            row=validate_dry_run(strategy,[str(x) for x in range(10)],{},set(map(str,range(20))),set())
+            self.assertIsNone(row["hybrid_within_ensemble_top25"])
 
     def test_resume_equality(self):
         state=initialize_round_state(["l0"],[f"u{i}" for i in range(30)],"source",42,"split","config")

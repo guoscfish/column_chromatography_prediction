@@ -1,0 +1,61 @@
+{
+  "stage": "E4 Protocol A 3-seed formal pilot",
+  "guard": {
+    "protocol": "A",
+    "outer_seeds": [
+      42,
+      525,
+      1101
+    ],
+    "K": 3,
+    "L0": 50,
+    "L0_train": 42,
+    "validation": 8,
+    "query_batch": 10,
+    "rounds": 15,
+    "budgets": [
+      50,
+      60,
+      70,
+      80,
+      90,
+      100,
+      110,
+      120,
+      130,
+      140,
+      150,
+      160,
+      170,
+      180,
+      190,
+      200
+    ],
+    "epochs": 500,
+    "patience": 100,
+    "learning_rate": 0.0001,
+    "weight_decay": 1e-05,
+    "transfer_mode": "last2_head"
+  },
+  "strategies": [
+    "pretrained_random",
+    "pretrained_coverage",
+    "pretrained_ensemble",
+    "pretrained_hybrid",
+    "pretrained_quantile_width"
+  ],
+  "controls": [
+    "zero_shot",
+    "full_data_pretrained",
+    "scratch_random"
+  ],
+  "source_members": [
+    42,
+    525,
+    1101
+  ],
+  "evaluation_predictor": "K=3 mean q50 for every strategy/control",
+  "test_isolation": "test used only after each completed fit for frozen evaluation",
+  "formal_complete": true,
+  "protocol_b_started": false
+}

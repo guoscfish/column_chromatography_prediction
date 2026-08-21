@@ -1,0 +1,25 @@
+{
+  "primary_member_seed": 42,
+  "representation_coordinate_pass": true,
+  "standardized_ensemble_pass": true,
+  "normalized_quantile_pass": true,
+  "quantile_width_member": 42,
+  "quantile_width_normalization": "frozen_source_target_scales",
+  "source_target_scales": {
+    "V1": 7.775483732938669,
+    "V2": 15.977305247056087,
+    "ddof": 0
+  },
+  "representation_audit": {
+    "embedding_normalization": "featurewise z-score fitted on current labeled train",
+    "condition_normalization": "featurewise z-score fitted on current labeled train",
+    "joint_representation": "concatenate standardized 128D h_graph and 9D conditions",
+    "distance": "euclidean",
+    "primary_member_seed": 42,
+    "no_cross_member_embedding_average": true,
+    "embedding_dimension": 128,
+    "condition_dimension": 9,
+    "joint_dimension": 137
+  },
+  "acquisition_semantics_pass": true
+}
