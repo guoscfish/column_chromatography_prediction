@@ -220,17 +220,17 @@ def main() -> None:
         unique = residual.loc[mask].drop_duplicates("sample_id")
         residual_threshold = unique.source_standardized_abs_residual.quantile(.9)
         extreme_threshold = unique.mean_abs_label_z.quantile(.9)
-        residual.loc[mask, "seed_queried_residual_top_decile_threshold"] = residual_threshold
-        residual.loc[mask, "seed_queried_label_extreme_top_decile_threshold"] = extreme_threshold
-        residual.loc[mask, "source_residual_top_decile"] = residual.loc[mask, "source_standardized_abs_residual"] >= residual_threshold
-        residual.loc[mask, "label_extreme_top_decile"] = residual.loc[mask, "mean_abs_label_z"] >= extreme_threshold
+        residual.loc[mask, "queried_union_top_decile_source_residual_threshold"] = residual_threshold
+        residual.loc[mask, "queried_union_top_decile_label_extremeness_threshold"] = extreme_threshold
+        residual.loc[mask, "queried_union_top_decile_source_residual"] = residual.loc[mask, "source_standardized_abs_residual"] >= residual_threshold
+        residual.loc[mask, "queried_union_top_decile_label_extremeness"] = residual.loc[mask, "mean_abs_label_z"] >= extreme_threshold
     aggregate = residual.groupby(["outer_seed", "strategy"]).agg(
         aggregate_mean_source_residual=("source_standardized_abs_residual", "mean"),
         aggregate_median_source_residual=("source_standardized_abs_residual", "median"),
         aggregate_mean_label_extremeness=("mean_abs_label_z", "mean"),
         aggregate_median_label_extremeness=("mean_abs_label_z", "median"),
-        aggregate_top_decile_residual_fraction=("source_residual_top_decile", "mean"),
-        aggregate_top_decile_label_extreme_fraction=("label_extreme_top_decile", "mean"),
+        aggregate_queried_union_top_decile_source_residual_fraction=("queried_union_top_decile_source_residual", "mean"),
+        aggregate_queried_union_top_decile_label_extremeness_fraction=("queried_union_top_decile_label_extremeness", "mean"),
     ).reset_index()
     residual = residual.merge(aggregate, on=["outer_seed", "strategy"], validate="many_to_one")
 
@@ -306,8 +306,8 @@ def main() -> None:
         "n_outer_splits": 3,
         "headroom_hypothesis_supported_descriptively": headroom_supported,
         "first_round_acquisition_shock_present": shock_present,
-        "source_residual_explains_shock_descriptively": residual_clue,
-        "label_extremeness_explains_shock_descriptively": extreme_clue,
+        "source_residual_associated_with_shock_descriptively": residual_clue,
+        "label_extremeness_associated_with_shock_descriptively": extreme_clue,
         "optimization_difficulty_contributes_descriptively": optimization_clue,
         "protocol_a_primary_result_changed": False,
         "protocol_a_active_evidence": "null",
@@ -327,7 +327,7 @@ def main() -> None:
         "stage": decision["stage"], "source_commit": "205e1981f456c43744e381bbdd52869126ae070f",
         "inputs": [str(FORMAL.relative_to(ROOT)), str(SOURCE_SCALES.relative_to(ROOT)), str(PART.relative_to(ROOT))],
         "scope": "offline post-hoc descriptive audit; frozen source inference only",
-        "source_residual_top_decile_reference": "unique Round1 queried samples within each outer seed",
+        "queried_union_top_decile_reference": "unique Round1 queried samples within each outer seed; not the complete U0 top decile",
         "label_z_reference": "corresponding outer seed L0_train 42 rows; ddof=0",
         "full_data_terminology": "full-data reference, not ceiling",
         "forbidden_actions_respected": ["no QGeoGNN training", "no Protocol B", "no E4-A2", "no new acquisition", "no predictor/acquisition changes"],
@@ -351,9 +351,9 @@ Initial recovery at L0=50 was `{h.loc[42,'initial_recovery']:.3f}` (seed42), `{h
 
 ## First-round and mechanism audit
 
-Largest 50→60 NRMSE degradations were `{shock_rank.to_dict(orient='records')}`. Source-residual clue: `{residual_clue}`; label-extremeness clue: `{extreme_clue}`; optimization-difficulty clue: `{optimization_clue}`. These are descriptive associations among already queried U0 labels, not causal explanations and not method-selection evidence.
+Largest 50→60 NRMSE degradations were `{shock_rank.to_dict(orient='records')}`. Source-residual association: `{residual_clue}`; label-extremeness association: `{extreme_clue}`; optimization-difficulty clue: `{optimization_clue}`. D42 source residual uses truth only after historical reveal and is strictly a post-hoc mechanism diagnostic; it must never be used as an acquisition score. The `queried_union_top_decile_*` thresholds use the union of Round1 queried samples within a seed, not the complete U0 pool. These are descriptive associations, not causal explanations or method-selection evidence.
 
-At seed525 all four active strategies degraded on both V1 and V2. At seed1101 Ensemble, Hybrid, and Quantile Width degraded on both targets; Coverage improved V1 slightly but degraded V2 enough for a positive NRMSE shock. Random improved NRMSE at both high-saturation seeds. Active first batches were consistently more uncertain, more distant, and more diverse than Random in all three seeds, yet seed42 Coverage/Ensemble improved after the first batch. Diversity therefore does not by itself explain the shock. Source residual and label extremeness show the most consistent directional separation from Random. Round1 best-epoch shifts are higher on average for active strategies in the high-saturation seeds, but individual strategies are mixed (for example seed1101 Coverage is easier than Random), so optimization is only a weak contributing clue. Raw nine-dimensional condition summaries are retained; no single condition-shift explanation is established.
+At seed525 all four active strategies degraded on both V1 and V2. At seed1101 Ensemble, Hybrid, and Quantile Width degraded on both targets; Coverage improved V1 slightly but degraded V2 enough for a positive NRMSE shock. Random improved NRMSE at both high-saturation seeds. Active first batches were consistently more uncertain, more distant, and more diverse than Random in all three seeds, yet seed42 Coverage/Ensemble improved after the first batch. Diversity therefore does not by itself explain the shock. Source residual and label extremeness show the most consistent directional association with shock. Round1 best-epoch shifts are higher on average for active strategies in the high-saturation seeds, but individual strategies are mixed (for example seed1101 Coverage is easier than Random), so optimization is only a weak contributing clue. Normalized validation scores are not compared as absolute cross-strategy mechanism evidence because their target-variance denominators come from each strategy/round's current gradient-training labels. Raw nine-dimensional condition summaries are retained; no single condition-shift explanation is established.
 
 ## Decision
 

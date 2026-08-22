@@ -52,4 +52,12 @@ D05、D12、D15–D18、D21–D22、D24–D26与D30记录极端源记录、未�
 
 ## H. D42 — Protocol A Headroom & Acquisition-Shock Audit
 
-D42是纯post-hoc descriptive离线审计，不训练模型、不修改E4方法。Seed42的L0 initial recovery为0.742，明显低于seed525/1101的0.930/0.912；后两者在首次active query前已达到90% reference recovery。高饱和seeds的四种active在50→60均恶化，而Random改善；active首批也一致集中于更高source residual与label extremeness样本。Batch diversity在三个seed都高，不能单独解释shock；convergence只提供混合弱线索。Protocol A primary null保持冻结。允许把低L0 E4-A2登记为独立secondary sensitivity建议，但本阶段未执行；Protocol B当前不建议启动。
+D42是纯post-hoc descriptive离线审计，不训练模型、不修改E4方法。Seed42的L0 initial recovery为0.742，明显低于seed525/1101的0.930/0.912；后两者在首次active query前已达到90% reference recovery。高饱和seeds的四种active在50→60均恶化，而Random改善；reveal后truth显示active首批与更高source residual及label extremeness相关。该truth只能作历史机制分析，绝不能进入acquisition。`queried_union_top_decile_*`仅指首轮已查询样本union，不是完整U0 top decile。Batch diversity不能单独解释shock；convergence仅为混合弱线索，normalized validation score也因train-variance denominator随策略/轮次变化而不作跨策略绝对证据。Protocol A primary null保持冻结。
+
+## I. D43 — Transfer-Aware Acquisition Qualification
+
+D43检验新的secondary hypothesis：“在已有强source prior的active transfer中，样本价值不仅由target uncertainty决定，还可能依赖source→target prediction correction magnitude以及该correction region在target pool中的representativeness。”这不修改E4 Protocol A的confirmatory null，也不把D42的post-hoc结果升级为确认性证据。
+
+三seed、L0=50的unlabeled qualification显示T1 prediction shift提供了不同于Ensemble的ranking，T2也不等同于旧Ensemble/Hybrid proxy。T3的deterministic facility-location在3/3 seeds改善top-25% informative shortlist覆盖，并提高所选点的U0 density；但它在3/3 seeds未同时保留T2至少80%的mean transfer shift与target uncertainty，因此整体representativeness objective未通过。Gate为false，条件式seed42 L0=30 smoke未运行，E4-A2 formal未获批准。该结果只验证方法行为，不含performance结论。
+
+以下方向继续deferred，本阶段未实现：Expected Gradient Length / Expected Model Change、BADGE-style regression gradient embeddings、influence-function acquisition、BALD / fully Bayesian transfer、LCMD / B3AL / MaxDet、learned acquisition policy、cost-aware chromatography acquisition，以及显式`y_8g-y_4g` delta surrogate。任何后续实现都需单独人工批准和新预注册，不能用D42 reveal truth或test回调设计。

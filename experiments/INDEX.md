@@ -20,5 +20,6 @@
 | e4_protocol_a_engineering_smoke | D40 | engineering only | yes | pipeline smoke; no scientific conclusion | — |
 | e4_protocol_a_formal | E4 Protocol A | completed | yes | three-seed formal pilot; active acquisition null, transfer benefit retained | — |
 | e4_protocol_a_headroom_audit | D42 | completed | yes | post-hoc descriptive headroom, first-round shock, and queried-label mechanism audit; primary null unchanged | — |
+| e4_transfer_aware_acquisition_qualification | D43 | completed; gate failed | yes | unlabeled transfer-aware ranking/batch qualification; no performance evidence; low-L0 smoke not run | — |
 
 Directories not listed remain historical support artifacts and are not silently deleted.

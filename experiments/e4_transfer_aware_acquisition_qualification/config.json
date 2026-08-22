@@ -1,0 +1,152 @@
+{
+  "stage": "D43 Transfer-Aware Acquisition Qualification",
+  "source_commit": "7950eb4d0c820cc7c00db79fa096a9cd4eae9e04",
+  "outer_seeds": [
+    42,
+    525,
+    1101
+  ],
+  "L0": 50,
+  "gradient_train": 42,
+  "validation": 8,
+  "U0": 466,
+  "B": 10,
+  "source_members": [
+    42,
+    525,
+    1101
+  ],
+  "target_members": [
+    42,
+    525,
+    1101
+  ],
+  "source_target_scales": {
+    "V1": 7.775483732938669,
+    "V2": 15.977305247056087
+  },
+  "uncertainty": "ddof=1 standardized target-adapted ensemble q50 variance sum",
+  "representation": "member42 128D h_graph + 9D conditions; train-only feature z-score",
+  "representativeness": "negative mean distance to k=10 nearest U0 neighbors",
+  "T2_weights": {
+    "transfer_shift_percentile": 0.5,
+    "target_uncertainty_percentile": 0.5
+  },
+  "T3_shortlist_fraction": 0.25,
+  "T3_batch_rule": "deterministic greedy facility location; lexicographic sample_id ties",
+  "old_hybrid_score_proxy": "0.5 uncertainty percentile + 0.5 latent-distance percentile; diagnostic proxy only, not the historical sequential selector",
+  "T3_gate_maintenance_fraction": 0.8,
+  "checkpoint_weighting_large_variation_threshold_max_over_min": 2.0,
+  "truth_columns_used": [],
+  "test_ids_used": [],
+  "round0_checkpoint_audits": {
+    "42": {
+      "embedding_normalization": "featurewise z-score fitted on current labeled train",
+      "condition_normalization": "featurewise z-score fitted on current labeled train",
+      "joint_representation": "concatenate standardized 128D h_graph and 9D conditions",
+      "distance": "euclidean",
+      "primary_member_seed": 42,
+      "no_cross_member_embedding_average": true,
+      "embedding_dimension": 128,
+      "condition_dimension": 9,
+      "joint_dimension": 137,
+      "source_members": [
+        42,
+        525,
+        1101
+      ],
+      "target_members": [
+        42,
+        525,
+        1101
+      ],
+      "source_checkpoint_sha256": {
+        "42": "7b9e3d0d4c8036c738ef220802e7ee46bc6ab8261cc541fb7d194e8c17044323",
+        "525": "719b2eb695e473c024c11eeb070a7835db78a3d5b01b6d50e8c3aa8f694d5916",
+        "1101": "23cdc24472d5458046eebaa20aa743228e55ee3d6f1c4c3730d4ff431ea08a60"
+      },
+      "target_checkpoint_sha256": {
+        "42": "ac1e739c86f6f223940c82c9ca06f56a3a862c2b9edfa6887ae901268397b04e",
+        "525": "5c6b59b22c55f31db608aa70e4e92f308290acf1ca88c2f9cd16d0dd1fb1c21f",
+        "1101": "fc766f84e8ba6af7ef68e5c78f7962c3b260124c2b90101eeae1bfbcfe331a75"
+      },
+      "representativeness_k": 10,
+      "truth_columns_used": [],
+      "test_ids_used": []
+    },
+    "525": {
+      "embedding_normalization": "featurewise z-score fitted on current labeled train",
+      "condition_normalization": "featurewise z-score fitted on current labeled train",
+      "joint_representation": "concatenate standardized 128D h_graph and 9D conditions",
+      "distance": "euclidean",
+      "primary_member_seed": 42,
+      "no_cross_member_embedding_average": true,
+      "embedding_dimension": 128,
+      "condition_dimension": 9,
+      "joint_dimension": 137,
+      "source_members": [
+        42,
+        525,
+        1101
+      ],
+      "target_members": [
+        42,
+        525,
+        1101
+      ],
+      "source_checkpoint_sha256": {
+        "42": "7b9e3d0d4c8036c738ef220802e7ee46bc6ab8261cc541fb7d194e8c17044323",
+        "525": "719b2eb695e473c024c11eeb070a7835db78a3d5b01b6d50e8c3aa8f694d5916",
+        "1101": "23cdc24472d5458046eebaa20aa743228e55ee3d6f1c4c3730d4ff431ea08a60"
+      },
+      "target_checkpoint_sha256": {
+        "42": "980ae4cbf1a8d25e3193d209b15aee5392b184419504939b4d226130f41d6ae7",
+        "525": "210f800351c47ed6b78664a6bc65379e751e4a2b142c2037a3ad101a7acb8189",
+        "1101": "98cdf614dc0ccd5bcf541049000213ab42a5c903d04ad6a6f85ddfbd3382d927"
+      },
+      "representativeness_k": 10,
+      "truth_columns_used": [],
+      "test_ids_used": []
+    },
+    "1101": {
+      "embedding_normalization": "featurewise z-score fitted on current labeled train",
+      "condition_normalization": "featurewise z-score fitted on current labeled train",
+      "joint_representation": "concatenate standardized 128D h_graph and 9D conditions",
+      "distance": "euclidean",
+      "primary_member_seed": 42,
+      "no_cross_member_embedding_average": true,
+      "embedding_dimension": 128,
+      "condition_dimension": 9,
+      "joint_dimension": 137,
+      "source_members": [
+        42,
+        525,
+        1101
+      ],
+      "target_members": [
+        42,
+        525,
+        1101
+      ],
+      "source_checkpoint_sha256": {
+        "42": "7b9e3d0d4c8036c738ef220802e7ee46bc6ab8261cc541fb7d194e8c17044323",
+        "525": "719b2eb695e473c024c11eeb070a7835db78a3d5b01b6d50e8c3aa8f694d5916",
+        "1101": "23cdc24472d5458046eebaa20aa743228e55ee3d6f1c4c3730d4ff431ea08a60"
+      },
+      "target_checkpoint_sha256": {
+        "42": "58fab1698b994aa1314db29f36e0d5235b06a68b684e36071dabb1b5f652543d",
+        "525": "12a7a110f41b255d54d1107cda84a8aefb5168a79e4c152340db325e83732b9e",
+        "1101": "b6a082bf2eaaeab68b8cb09182c7e0854d9db328d3e6e3d806c7d2ce9d0c707e"
+      },
+      "representativeness_k": 10,
+      "truth_columns_used": [],
+      "test_ids_used": []
+    }
+  },
+  "forbidden_not_run": [
+    "E4-A2 formal",
+    "Protocol B",
+    "new strategies beyond T1/T2/T3",
+    "E4-A2 low-L0 smoke (qualification gate failed)"
+  ]
+}
