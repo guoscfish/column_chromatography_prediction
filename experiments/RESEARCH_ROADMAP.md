@@ -20,7 +20,7 @@ Long-term, after the E4 pilot is stable, move reusable code into `src/qgeognn_al
 ## B. E4 preregistration checklist
 
 - Protocol B primary固定为canonical-compound-held-out；Bemis–Murcko scaffold OOD延后到E5。
-- labels-to-90%-ceiling使用error-gap recovery：`(E_baseline-E_t)/(E_baseline-E_full) >= 0.90`；正式E4前冻结baseline。
+- labels-to-90%-reference使用error-gap recovery：`(E_baseline-E_t)/(E_baseline-E_full) >= 0.90`；`E_full`是full-data reference而非数学ceiling。
 - K个Ensemble成员必须具有独立source checkpoints与target fine-tune mapping，并记录checkpoint hashes。
 - 8g no-threshold协议每轮记录queried tail fraction、tail/common error与tail uncertainty。
 - Pilot候选为3 outer seeds × K=3；Final候选为至少5 seeds × K=5，按E2真实计算成本决定且各策略K一致。
@@ -49,3 +49,7 @@ D05、D12、D15–D18、D21–D22、D24–D26与D30记录极端源记录、未�
 ## G. E4 Protocol A status
 
 三seed正式pilot已完成。Pretrained Random平均normalized AULC最低；Coverage、Ensemble、Hybrid与Quantile Width均只在1/3 seed胜Random，证据分类为null。Pretrained Random仍明显优于scratch Random，支持迁移价值但不支持复杂主动采样优势。按预注册停止，Protocol B、E3、E5及25g/40g均未启动。
+
+## H. D42 — Protocol A Headroom & Acquisition-Shock Audit
+
+D42是纯post-hoc descriptive离线审计，不训练模型、不修改E4方法。Seed42的L0 initial recovery为0.742，明显低于seed525/1101的0.930/0.912；后两者在首次active query前已达到90% reference recovery。高饱和seeds的四种active在50→60均恶化，而Random改善；active首批也一致集中于更高source residual与label extremeness样本。Batch diversity在三个seed都高，不能单独解释shock；convergence只提供混合弱线索。Protocol A primary null保持冻结。允许把低L0 E4-A2登记为独立secondary sensitivity建议，但本阶段未执行；Protocol B当前不建议启动。

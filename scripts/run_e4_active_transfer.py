@@ -230,7 +230,7 @@ def make_formal_plots(out,metrics,aulc,recovery,controls,diagnostics,convergence
             pivot=g.pivot(index="budget",columns="outer_seed",values=value); ax.plot(pivot.index,pivot.mean(axis=1),marker="o",label=strategy); ax.fill_between(pivot.index,pivot.min(axis=1),pivot.max(axis=1),alpha=.12)
         ax.set(xlabel="target labels",ylabel=value,title=title); ax.legend(fontsize=7); fig.tight_layout(); fig.savefig(plot/name,dpi=140); plt.close(fig)
     curves(metrics,"NRMSE","nrmse_learning_curve.png","Protocol A NRMSE")
-    curves(recovery,"recovery","recovery_curve.png","Recovery toward full-data ceiling")
+    curves(recovery,"recovery","recovery_curve.png","Recovery toward full-data reference")
     for target in ("V1_RMSE","V2_RMSE"): curves(metrics,target,f"{target.lower()}.png",target)
     fig,ax=plt.subplots(figsize=(8,4)); means=aulc.groupby("strategy").aulc_normalized.mean().sort_values(); ax.bar(means.index,means); ax.tick_params(axis="x",rotation=35); ax.set(ylabel="normalized AULC"); fig.tight_layout(); fig.savefig(plot/"aulc_comparison.png",dpi=140); plt.close(fig)
     fig,ax=plt.subplots(figsize=(8,4)); convergence.boxplot(column="best_epoch",by="strategy",ax=ax,rot=35); fig.suptitle(""); fig.tight_layout(); fig.savefig(plot/"convergence.png",dpi=140); plt.close(fig)

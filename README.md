@@ -4,7 +4,7 @@
 
 本项目当前研究问题是：在已有 4g 预训练 QGeoGNN 的前提下，通过主动学习选择最有价值的新实验标签并逐轮重新训练模型，是否能在有限标签预算下提高 V1/V2 预测能力；主实验进一步检验主动选择少量 8g 标签能否比 Random 更快接近全量 8g 迁移模型。
 
-主指标不是 SQ，而是 V1/V2 的 normalized RMSE 学习曲线与 AULC；主结论口径是 `labels-to-90%-ceiling` 和相对 Random 的标签节省。SQ 只在最后作为色谱推荐的 downstream utility 验证。
+主指标不是 SQ，而是 V1/V2 的 normalized RMSE 学习曲线与 AULC；主结论口径是 `labels-to-90%-reference` 和相对 Random 的标签节省。SQ 只在最后作为色谱推荐的 downstream utility 验证。
 
 严格执行顺序：
 

@@ -54,7 +54,7 @@
 ### 1.3 预注册主指标
 
 - Primary metric：两个输出分别标准化后的 RMSE 学习曲线下面积（normalized RMSE-AULC，越低越好）。
-- Secondary metrics：labels-to-90%-ceiling、labels-to-95%-ceiling、MAE、R²、UQ 校准、pair-SQ NDCG@K。
+- Secondary metrics：labels-to-90%-reference、labels-to-95%-reference、MAE、R²、UQ 校准、pair-SQ NDCG@K。
 - Primary comparison：Hybrid vs Random transfer。
 - 主结论成立条件：Hybrid 或预注册的最佳主动策略在 paired seeds 下显著降低 AULC，并减少达到全量 8g 迁移上界 90% 性能所需的目标域标签数。
 
@@ -385,7 +385,7 @@ Coverage主实现冻结为：当前非validation已标注训练集拟合`h_graph
 - 多输出 UQ：Trace、Worst-output、LogDet；
 - 可选 LCMD vs B³AL-LCMD/MaxDet。
 
-选择标准不是单个预算点最高，而是 paired AULC、labels-to-90%-ceiling 和跨 seed 方差。
+选择标准不是单个预算点最高，而是 paired AULC、labels-to-90%-reference 和跨 seed 方差。
 
 ### E4：4g→8g 批量主动迁移（P1，主实验）
 
@@ -394,7 +394,7 @@ Coverage主实现冻结为：当前非validation已标注训练集拟合`h_graph
 | 目标 | 用更少 8g 标签达到接近全量 8g transfer 的性能 |
 | 输入 | 固定 4g anchors、8g target pool/test/L0、E2 冻结的方法与超参数 |
 | 核心执行 | Random transfer、Coverage/LCMD、Ensemble、Hybrid 的 paired active transfer |
-| 必备产物 | normalized RMSE-AULC、labels-to-ceiling、paired CI、上下界与计算成本 |
+| 必备产物 | normalized RMSE-AULC、labels-to-reference、paired CI、上下界与计算成本 |
 | 通过 | Hybrid/最佳方法降低 AULC，并减少达到90%上界所需标签数 |
 | 失败处理 | 分解迁移收益与采样收益；按 Protocol A/B 限定结论；检查负迁移 |
 
@@ -527,7 +527,7 @@ E4 若保留 4 个主动方法，Final 约为 `4 × 5 × 16 × 5 = 1600` 次 8g 
 - 4g 真正逐轮重训的 AL 闭环；
 - 4g→8g 的 Random、Coverage/LCMD、Ensemble、Hybrid；
 - Protocol A + compound/scaffold OOD；
-- normalized RMSE-AULC、labels-to-90%-ceiling、paired CI；
+- normalized RMSE-AULC、labels-to-90%-reference、paired CI；
 - held-out pair-SQ 排序或 regret 验证。
 
 ### 第一版不做

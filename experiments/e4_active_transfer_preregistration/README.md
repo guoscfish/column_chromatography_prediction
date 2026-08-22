@@ -8,7 +8,7 @@ Protocol A is shared-chemistry calibration (D28 frozen row partitions). Protocol
 
 The transfer contract is Gate 0 `last2 + head`, monotonic quantile head, Adam `lr=1e-4`, source scaler and validation-selected checkpoints. E2 was source-free random initialization; E4 loads a complete 4g prior and reinitializes target adaptation from the same source anchor at every round. It never warm-starts from the previous round.
 
-Pilot: 3 outer seeds (42, 525, 1101), K=3 source members, L0=50 (42 train + 8 validation), B=10, 15 rounds (50 through 200). Acquisition methods are Pretrained+Random, +Coverage, +Ensemble, +Hybrid, and legacy +Quantile Width. Controls are 4g zero-shot, 8g scratch+Random, pretrained+Random, pretrained full-data ceiling, and optional scratch ceiling.
+Pilot: 3 outer seeds (42, 525, 1101), K=3 source members, L0=50 (42 train + 8 validation), B=10, 15 rounds (50 through 200). Acquisition methods are Pretrained+Random, +Coverage, +Ensemble, +Hybrid, and legacy +Quantile Width. Controls are 4g zero-shot, 8g scratch+Random, pretrained+Random, and pretrained full-data reference. D42 clarified that the full-data value is a reference, not a mathematical ceiling.
 
 Primary metric is normalized target NRMSE and its trapezoidal AULC (lower is better). Recovery is `(E_baseline-E_t)/(E_baseline-E_full)` with zero-shot as the primary baseline; if the denominator is non-positive it is reported undefined, never forced. Labels-to-90%/95% are the first budgets with recovery at or above the threshold.
 

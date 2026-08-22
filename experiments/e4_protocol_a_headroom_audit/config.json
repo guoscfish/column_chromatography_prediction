@@ -1,0 +1,33 @@
+{
+  "stage": "D42 Protocol A Headroom & Acquisition-Shock Audit",
+  "source_commit": "205e1981f456c43744e381bbdd52869126ae070f",
+  "inputs": [
+    "experiments/e4_protocol_a_formal",
+    "experiments/e4_active_transfer_preregistration/source_target_scales.json",
+    "experiments/d28_al_engineering/partitions"
+  ],
+  "scope": "offline post-hoc descriptive audit; frozen source inference only",
+  "source_residual_top_decile_reference": "unique Round1 queried samples within each outer seed",
+  "label_z_reference": "corresponding outer seed L0_train 42 rows; ddof=0",
+  "full_data_terminology": "full-data reference, not ceiling",
+  "forbidden_actions_respected": [
+    "no QGeoGNN training",
+    "no Protocol B",
+    "no E4-A2",
+    "no new acquisition",
+    "no predictor/acquisition changes"
+  ],
+  "integrity": {
+    "d40r_semantic_gate_pass": true,
+    "formal_complete": true,
+    "protocol_b_started": false,
+    "complete_curves": "3 seeds x 5 pretrained strategies x 16 budgets",
+    "fixed_test_rows_per_seed": 58,
+    "fixed_test_id_hashes": {
+      "42": "17c8103ec608dffd8f797bd2dea333a1b3d09ba1e7eb0cfea31fb2856af8b5e5",
+      "525": "a407c8e1336516bc52739bd0a533edd9fe07f11d320cadf5272168e095fba8cc",
+      "1101": "e97857b24ff3e5b0efeb2e2179e31a9b2cf526bc9e0f05e1da6648e4964f470d"
+    },
+    "scratch_random_query_reuse_verified_by_labeled_ids_hash": true
+  }
+}

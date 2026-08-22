@@ -19,5 +19,6 @@
 | e4_active_transfer_preregistration | E4 preflight | passed | yes | protocol, partitions, source compatibility | — |
 | e4_protocol_a_engineering_smoke | D40 | engineering only | yes | pipeline smoke; no scientific conclusion | — |
 | e4_protocol_a_formal | E4 Protocol A | completed | yes | three-seed formal pilot; active acquisition null, transfer benefit retained | — |
+| e4_protocol_a_headroom_audit | D42 | completed | yes | post-hoc descriptive headroom, first-round shock, and queried-label mechanism audit; primary null unchanged | — |
 
 Directories not listed remain historical support artifacts and are not silently deleted.
