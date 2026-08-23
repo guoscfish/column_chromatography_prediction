@@ -3,7 +3,7 @@ import numpy as np
 
 from scripts.transfer_aware_acquisition import (
     facility_location_select, percentile_rank, target_representativeness,
-    transfer_aware_selections, transfer_prediction_shift,
+    soft_representative_score, transfer_aware_selections, transfer_prediction_shift,
 )
 
 
@@ -40,6 +40,16 @@ class TransferAwareAcquisitionTests(unittest.TestCase):
         self.assertEqual(set(selected),{"transfer_shift","transfer_shift_uncertainty","transfer_shift_uncertainty_representative"})
         for values in selected.values(): self.assertEqual(len(values),len(set(values))); self.assertEqual(len(values),10)
         self.assertLessEqual(set(selected["transfer_shift_uncertainty_representative"]),set(audit["shortlist_ids"]))
+
+    def test_soft_representative_zero_is_t2(self):
+        shift=np.array([1.,3.,2.]); uncertainty=np.array([3.,1.,2.]); representative=np.array([2.,1.,3.])
+        score,information,rank_rep=soft_representative_score(shift,uncertainty,representative,0.0)
+        np.testing.assert_allclose(score,information)
+        np.testing.assert_allclose(rank_rep,percentile_rank(representative))
+
+    def test_soft_representative_rejects_unregistered_lambda(self):
+        with self.assertRaises(ValueError):
+            soft_representative_score(np.arange(3.),np.arange(3.),np.arange(3.),0.15)
 
 
 if __name__ == "__main__": unittest.main()

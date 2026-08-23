@@ -21,5 +21,7 @@
 | e4_protocol_a_formal | E4 Protocol A | completed | yes | three-seed formal pilot; active acquisition null, transfer benefit retained | — |
 | e4_protocol_a_headroom_audit | D42 | completed | yes | post-hoc descriptive headroom, first-round shock, and queried-label mechanism audit; primary null unchanged | — |
 | e4_transfer_aware_acquisition_qualification | D43 | completed; gate failed | yes | unlabeled transfer-aware ranking/batch qualification; no performance evidence; low-L0 smoke not run | — |
+| e4_active_learning_suitability_diagnosis | D44 | completed; T3R gate failed | yes | dataset/shift/model-update diagnosis plus no-truth soft-T3R qualification; historical performance links are post-hoc only | — |
+| e4_a2a_low_budget_preregistration | E4-A2a preregistration | preregistered; not run | yes | single-variable Protocol A L0 50→30 headroom sensitivity design | — |
 
 Directories not listed remain historical support artifacts and are not silently deleted.

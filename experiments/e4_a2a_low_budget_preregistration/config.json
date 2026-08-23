@@ -1,0 +1,46 @@
+{
+  "stage": "E4-A2a low-budget preregistration",
+  "status": "preregistered_not_run",
+  "core_hypothesis": "Headroom Hypothesis: generic active acquisition may have more stable label-efficiency benefit under lower target-label headroom.",
+  "protocol": "A",
+  "L0": 30,
+  "gradient_train": 22,
+  "fixed_validation": 8,
+  "B": 10,
+  "budgets": [
+    30,
+    40,
+    50,
+    60,
+    70,
+    80,
+    90,
+    100
+  ],
+  "query_rounds": 7,
+  "K": 3,
+  "outer_seeds": [
+    42,
+    525,
+    1101
+  ],
+  "epochs": 500,
+  "patience": 100,
+  "strategies": [
+    "pretrained_random",
+    "pretrained_coverage",
+    "pretrained_ensemble",
+    "pretrained_hybrid",
+    "pretrained_quantile_width"
+  ],
+  "single_changed_variable": "L0 50 to 30",
+  "T3R_included": false,
+  "test_role": "frozen final evaluation only in a future authorized formal run",
+  "formal_started": false,
+  "forbidden": [
+    "T3R",
+    "Protocol B",
+    "new outer splits",
+    "test-guided tuning"
+  ]
+}

@@ -1,6 +1,6 @@
 # QGeoGNN 方法决策与待验证事项登记表
 
-更新日期：2026-08-22
+更新日期：2026-08-23
 
 本表用于区分三类内容：已经冻结的 legacy 基线、已有证据但尚不能冻结的候选方案、必须通过控制变量实验才能决定的争议项。任何 P0 项未解决前，不进入正式主动学习主实验。
 
@@ -47,6 +47,7 @@
 | D40 | P0 | E4 Protocol A engineering smoke | Protocol A/B partition compatibility、三source真实加载、单调转换、freeze/source-reset、五策略dry-run、Random/Hybrid两轮和resume审计 | 仅记录工程pass/fail，no scientific conclusion；不启动formal pilot | 若无blocking issue，下一阶段仅可人工启动Protocol A 3-seed formal pilot |
 | D42 | P0 | E4 Protocol A headroom与首轮shock | 离线审计重算L0 recovery：seed42=0.742、seed525=0.930、seed1101=0.912；seed525/1101四种active在50→60全部恶化而Random改善。Reveal后truth显示active首批source residual与label extremeness均高于Random；diversity三seed均高却效果方向不同，convergence为混合弱线索 | 仅记录post-hoc association，不称解释或因果；source residual绝不能作acquisition score。Normalized validation score的train-variance denominator随strategy/round变化，不作跨策略绝对机制证据。Protocol A active=null保持冻结 | 可把低L0 E4-A2作为独立secondary sensitivity提案，但本阶段不执行；当前不启动Protocol B |
 | D43 | P0 | Transfer-aware acquisition资格审计 | 三seed L0=50无标签审计中，prediction shift与Ensemble Spearman均值0.633、top10% overlap 0.539；T2与old Ensemble/Hybrid proxy的Spearman均值0.898/0.864。T3在3/3 seeds改善高信息shortlist覆盖和所选点密度，但在3/3未保留T2至少80%的mean shift与uncertainty，故组合行为目标失败。工程、确定性与无truth/test泄漏检查通过 | E4 Protocol A active=null继续冻结；D42仍为post-hoc。Transfer-aware只是new secondary hypothesis，尚无performance evidence。资格gate=false，不运行条件式low-L0 smoke，不批准E4-A2 formal | 若未来人工重设计T3，必须用新的预注册阶段；不得根据当前truth/test调权、调shortlist或回溯批准formal。Checkpoint方差ratio跨策略Round1最大spread为1.37–1.65x，记为potential confound但本阶段不改selection metric |
+| D44 | P0 | AL suitability、模型更新与soft T3R | U0为88 compounds上的高condition-repeat池（466 rows、429 unique condition vectors，平均5.30 rows/compound），k-means-10 silhouette均值0.172；nearest-L0 distance仍主要来自graph block。Shift与density三seedSpearman为-0.683/-0.695/-0.665。历史Round1中shift/uncertainty与gradient norm均3/3正相关；QWidth、Hybrid造成最大参数/函数更新，Random最小；function update与首轮shock post-hoc Spearman=0.568。T3R λ0.1无实质选样/密度变化，λ0.2在seed42/1101未保留85% shift，λ0.3信息损失过大，故无λ通过 | 不修改old T3；T3R资格失败且不运行conditional smoke。模型更新关系只作post-hoc descriptive，不作因果或performance证据。继续冻结E4 Protocol A null；transfer-aware performance test目前不获批准 | E4-A2a low-budget仅预注册，下一阶段如获人工批准应先做单变量L0 50→30 headroom sensitivity；不得同时引入T3R |
 
 ## 当前阶段结论
 

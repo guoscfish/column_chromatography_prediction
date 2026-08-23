@@ -91,3 +91,18 @@ def transfer_aware_selections(
         "transfer_shift_uncertainty_score": t2,
         "shortlist_ids": shortlist_ids,
     }
+
+
+def soft_representative_score(
+    shift: np.ndarray,
+    uncertainty: np.ndarray,
+    representativeness: np.ndarray,
+    lambda_weight: float,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """D44 T3R score using deterministic within-pool percentile ranks only."""
+    if lambda_weight not in (0.0, 0.1, 0.2, 0.3):
+        raise ValueError("lambda_weight must be one of 0.0, 0.1, 0.2, 0.3")
+    information = 0.5 * percentile_rank(shift) + 0.5 * percentile_rank(uncertainty)
+    representative_rank = percentile_rank(representativeness)
+    score = (1.0 - lambda_weight) * information + lambda_weight * representative_rank
+    return score, information, representative_rank

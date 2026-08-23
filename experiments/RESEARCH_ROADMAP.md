@@ -61,3 +61,11 @@ D43检验新的secondary hypothesis：“在已有强source prior的active trans
 三seed、L0=50的unlabeled qualification显示T1 prediction shift提供了不同于Ensemble的ranking，T2也不等同于旧Ensemble/Hybrid proxy。T3的deterministic facility-location在3/3 seeds改善top-25% informative shortlist覆盖，并提高所选点的U0 density；但它在3/3 seeds未同时保留T2至少80%的mean transfer shift与target uncertainty，因此整体representativeness objective未通过。Gate为false，条件式seed42 L0=30 smoke未运行，E4-A2 formal未获批准。该结果只验证方法行为，不含performance结论。
 
 以下方向继续deferred，本阶段未实现：Expected Gradient Length / Expected Model Change、BADGE-style regression gradient embeddings、influence-function acquisition、BALD / fully Bayesian transfer、LCMD / B3AL / MaxDet、learned acquisition policy、cost-aware chromatography acquisition，以及显式`y_8g-y_4g` delta surrogate。任何后续实现都需单独人工批准和新预注册，不能用D42 reveal truth或test回调设计。
+
+## J. D44 — AL Suitability & Model-Update Diagnosis
+
+当前项目采用一条方法设计原则：active-learning strategy应在诊断dataset structure、model uncertainty/error relation、source-target shift和model-update behavior后选择，而不只依据常见benchmark方法；这只是本项目的设计原则，不写成普遍定理。
+
+D44复用E4 Protocol A合法历史状态，发现U0同时包含显著compound coverage缺口与大量同compound condition repeats；137D nearest-L0距离多数由graph block主导。High-shift区域在3/3 seeds均为低density。历史Round1 reveal诊断中，shift与uncertainty都和更大per-sample gradient同向；QWidth/Hybrid的参数与function update最大，Random最小，且首轮function update与shock方向描述性一致。但跨全部225个历史batch时，信息score与下一轮test变化没有稳定单调关系，因此不能把“大梯度”直接等同于“高training utility”。
+
+Soft T3R固定只检查λ=0/0.1/0.2/0.3：λ=0.1基本仍是T2，λ=0.2的density改善以seed42/1101 shift retention失败为代价，λ=0.3信息损失过大。无λ通过预注册gate，conditional smoke未运行，transfer-aware performance继续deferred。E4-A2a只预注册低L0 headroom单变量实验，尚未执行。

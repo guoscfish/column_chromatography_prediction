@@ -1,0 +1,47 @@
+{
+  "lambda_grid": [
+    0.0,
+    0.1,
+    0.2,
+    0.3
+  ],
+  "gate_by_lambda": {
+    "0.0": {
+      "informativeness_retention_3of3": true,
+      "shift_retention_3of3": true,
+      "uncertainty_retention_3of3": true,
+      "density_gain_ge_10pct_at_least_2of3": false,
+      "not_90pct_overlap_in_all_3": false,
+      "pass": false
+    },
+    "0.1": {
+      "informativeness_retention_3of3": true,
+      "shift_retention_3of3": true,
+      "uncertainty_retention_3of3": true,
+      "density_gain_ge_10pct_at_least_2of3": false,
+      "not_90pct_overlap_in_all_3": false,
+      "pass": false
+    },
+    "0.2": {
+      "informativeness_retention_3of3": true,
+      "shift_retention_3of3": false,
+      "uncertainty_retention_3of3": true,
+      "density_gain_ge_10pct_at_least_2of3": true,
+      "not_90pct_overlap_in_all_3": true,
+      "pass": false
+    },
+    "0.3": {
+      "informativeness_retention_3of3": false,
+      "shift_retention_3of3": false,
+      "uncertainty_retention_3of3": false,
+      "density_gain_ge_10pct_at_least_2of3": true,
+      "not_90pct_overlap_in_all_3": true,
+      "pass": false
+    }
+  },
+  "t3r_qualified": false,
+  "selected_lambda": null,
+  "selection_rule": "smallest passing lambda; minimal intervention",
+  "test_or_truth_used_for_lambda_selection": false,
+  "old_T3_modified": false
+}

@@ -1,0 +1,63 @@
+{
+  "stage": "D44 Active-Learning Suitability Diagnosis + Soft Transfer-Aware Representative Acquisition",
+  "source_commit": "c684ff10274e32e523c7fce4b75ec812dad25330",
+  "outer_seeds": [
+    42,
+    525,
+    1101
+  ],
+  "formal_states_reused": "E4 Protocol A Round0/Round1 and all historical pre-query checkpoints",
+  "representation": "member42 128D h_graph + 9D conditions, current gradient-train normalization",
+  "kmeans": {
+    "k": 10,
+    "random_state": 0,
+    "n_init": 20,
+    "diagnostic_only": true
+  },
+  "density": {
+    "k": 10,
+    "truth_used": false
+  },
+  "probe": {
+    "size": 100,
+    "universe": "intersection of all three Protocol A U0 sets",
+    "selection": "SHA256 deterministic"
+  },
+  "gradient": {
+    "states": "Round0",
+    "labels": "historical Round1 reveal only",
+    "parameters": "last2+head",
+    "use": "posthoc mechanism only"
+  },
+  "T3R": {
+    "lambda_grid": [
+      0.0,
+      0.1,
+      0.2,
+      0.3
+    ],
+    "weights": "(1-lambda)*I + lambda*representativeness percentile",
+    "gate": {
+      "informativeness_retention": 0.9,
+      "shift_retention": 0.85,
+      "uncertainty_retention": 0.85,
+      "density_gain": 0.1,
+      "density_seed_count": 2,
+      "overlap_exclusion": 0.9
+    },
+    "test_or_truth_used": false
+  },
+  "decision_thresholds": {
+    "dataset_clustered_mean_silhouette": 0.1,
+    "high_shift_low_density_all_seed_spearman": -0.5,
+    "ranking_redundancy_spearman": 0.95,
+    "ranking_redundancy_top10_overlap": 0.9
+  },
+  "forbidden_respected": [
+    "Protocol B",
+    "E4-A2a formal",
+    "transfer-aware formal",
+    "predictor modification",
+    "test-guided lambda"
+  ]
+}
