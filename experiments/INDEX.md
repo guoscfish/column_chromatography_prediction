@@ -19,7 +19,7 @@
 | e4_active_transfer_preregistration | E4 preflight | passed | yes | protocol, partitions, source compatibility | — |
 | e4_protocol_a_engineering_smoke | D40 | engineering only | yes | pipeline smoke; no scientific conclusion | — |
 | e4_a2a_low_budget_preregistration | E4-A2a | preregistered | yes | low-initial-label sensitivity design | e4_a2a_engineering_smoke |
-| e4_a2a_engineering_smoke | E4-A2a | partition gate passed; fit smoke pending | yes | bounded engineering audit; no scientific conclusion | — |
+| e4_a2a_engineering_smoke | E4-A2a | engineering smoke passed; formal not started | yes | bounded engineering audit; no scientific conclusion | — |
 | e4_protocol_a_formal | E4 Protocol A | completed | yes | three-seed formal pilot; active acquisition null, transfer benefit retained | — |
 | e4_protocol_a_headroom_audit | D42 | completed | yes | post-hoc descriptive headroom, first-round shock, and queried-label mechanism audit; primary null unchanged | — |
 | e4_transfer_aware_acquisition_qualification | D43 | completed; gate failed | yes | unlabeled transfer-aware ranking/batch qualification; no performance evidence; low-L0 smoke not run | — |

@@ -51,6 +51,10 @@
 
 ## 当前阶段结论
 
+### E4-A2a engineering smoke
+
+低初始标签工程 gate 已完成：三份嵌套 partition 的 exact contract、source 初始化/冻结参数、五策略 dry-run、Random/Hybrid 30→40、Round1 source reset 和 resume identity 均通过。该 smoke 不读取 test performance 作为 gate，且 formal training 未启动；下一步必须人工批准后才能运行 formal。
+
 ### D41 — E4 Protocol A formal pilot
 
 - D40R corrected smoke通过后完成seeds 42/525/1101、K=3、budgets 50–200的五策略正式pilot及zero/full/scratch controls。

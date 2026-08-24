@@ -37,3 +37,5 @@
 
 - `e4_preregistration_preflight.py` — partition and real-loading-path source compatibility audit.
 - `run_e4_active_transfer.py` — E4 source-reinitialized active-transfer runner; currently used only for the bounded Protocol A engineering smoke.
+- `run_e4_a2a_low_budget.py` — frozen E4-A2a nested partition generator and exact audit (42/22/8/486/58; seeds 42/525/1101).
+- `run_e4_a2a_engineering_smoke.py` — bounded A2a engineering smoke; only Protocol A/seed 42 is accepted and formal training is not an available action.

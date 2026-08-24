@@ -1,8 +1,23 @@
 {
   "stage": "E4-A2a engineering smoke",
-  "partition_audit_pass": true,
-  "engineering_smoke_pass": false,
+  "partition_exact_count_pass": true,
+  "nested_partition_pass": true,
+  "validation_identity_pass": true,
+  "test_identity_pass": true,
+  "round0_k3_fit_pass": true,
+  "source_initialization_pass": true,
+  "parameter_freeze_pass": true,
+  "trainable_parameter_change_pass": true,
+  "acquisition_semantics_pass": true,
+  "five_strategy_dryrun_pass": true,
+  "determinism_pass": true,
+  "hybrid_prefilter_pass": true,
+  "random_30_to_40_pass": true,
+  "hybrid_30_to_40_pass": true,
+  "source_reset_round1_pass": true,
+  "resume_exact_pass": true,
+  "test_performance_used_for_gate": false,
   "formal_training_started": false,
-  "reason": "Nested partition gate completed; model-fit smoke remains pending in the configured scientific runtime.",
-  "scientific_interpretation": false
+  "engineering_smoke_pass": true,
+  "blocking_reasons": []
 }
