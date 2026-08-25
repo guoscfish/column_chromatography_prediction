@@ -2,7 +2,7 @@
 
 ## 当前研究主线
 
-本项目当前研究问题是：在已有 4g 预训练 QGeoGNN 的前提下，通过主动学习选择最有价值的新实验标签并逐轮重新训练模型，是否能在有限标签预算下提高 V1/V2 预测能力；主实验进一步检验主动选择少量 8g 标签能否比 Random 更快接近全量 8g 迁移模型。
+本项目当前研究问题是：在冻结的 4g→8g active-transfer 协议下，8g candidate label 的真实 single-label marginal training utility 是否存在足够差异，以及当前合法 acquisition score 能否识别高 utility candidate。
 
 主指标不是 SQ，而是 V1/V2 的 normalized RMSE 学习曲线与 AULC；主结论口径是 `labels-to-90%-reference` 和相对 Random 的标签节省。SQ 只在最后作为色谱推荐的 downstream utility 验证。
 
@@ -16,7 +16,7 @@ Gate 0 Predictor qualification
   → E5 downstream SQ utility
 ```
 
-Gate 0 与 E1 已完成并冻结。E2 row三seed中Hybrid/Coverage对Random均3/3胜；E2 compound三seed平均AULC为Hybrid 0.761、Coverage 0.777、Random 0.789、Ensemble 0.802，但Hybrid/Coverage仅2/3胜Random，因此compound Gate为suggestive而非stable。三个compound partition均无test compound leakage，macro与primary方向一致，且无convergence problem。本阶段按D37停止，不自动进入后续实验。
+Gate 0 与 E1 已完成并冻结。E2 row 支持 Hybrid/Coverage，compound split 仅为 suggestive。E4 Protocol A 的 active acquisition 相对 Random 为 null；仅降低 L0 50→30 的 E4-A2a formal 仍为 null，因此 headroom hypothesis 未获支持。D43/D44 的 transfer-aware gates 均失败。当前 D45 只做 post-hoc oracle marginal-utility diagnostic，不改变任何历史正式结论，也不把同一 test partition 继续当作无污染 confirmatory test。
 
 ## Citation
 If you use this work in your research, please cite:
@@ -85,6 +85,9 @@ The original model code is kept under `application/`. The reproducible experimen
 - `experiments/e4_active_transfer_preregistration/`: E4 partition/source compatibility evidence.
 - `experiments/e4_protocol_a_engineering_smoke/`: Protocol A seed42 engineering-only smoke; no scientific conclusion and no formal pilot.
 - `experiments/e4_protocol_a_formal/`: completed three-seed Protocol A formal pilot; pretrained Random had the best mean normalized AULC, so active-acquisition evidence is null.
+- `experiments/e4_a2a_low_budget_formal/`: completed L0=30 sensitivity; evidence is null and the headroom hypothesis is not supported.
+- `scripts/run_d45_oracle_marginal_utility.py`: D45 smoke/bounded post-hoc single-label oracle diagnostic.
+- `experiments/d45_oracle_marginal_utility/`: D45 compact outputs, audits, decision, and figures; no confirmatory evidence.
 - `experiments/e1_signal_qualification/`: E1 signal qualification, per-sample scores, metrics and figures.
 - `experiments/e2_random_smoke/`: source-free Random reveal/retrain/resume chain smoke; not a scientific AL result.
 - `scripts/run_e2_random_smoke.py`: reproducible E2 source-free Random chain smoke entry point.
@@ -96,7 +99,7 @@ The original model code is kept under `application/`. The reproducible experimen
 - `scripts/qgeognn_graphs.py`: the single deterministic conformer/graph implementation used by 4g and 8g.
 - `scripts/run_d04_conformer_selection.py`: the D04 cache, source-training and transfer pipeline.
 
-The current experiments use the conda environment `fish`. Finalized experiment directories are protected from accidental overwrite; use a new output directory for a reproduction run, for example:
+Earlier finalized experiments used the conda environment `fish`; D45 was executed in `chromatography` and records its exact package versions in `environment.json`. Finalized experiment directories are protected from accidental overwrite; use a new output directory for a reproduction run, for example:
 
 ```bash
 conda run --no-capture-output -n fish python scripts/run_e0_8g_controls.py \

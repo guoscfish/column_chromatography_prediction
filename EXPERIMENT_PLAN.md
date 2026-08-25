@@ -567,3 +567,5 @@ E4 若保留 4 个主动方法，Final 约为 `4 × 5 × 16 × 5 = 1600` 次 8g 
 - [x] 完成E2 row四策略×三seed×九预算×K=3正式paired AULC与fixed common-reference机制审计。
 - [x] 完成E2 compound seed42 preflight及正式三seedpilot；无test compound leakage，Hybrid平均最好但仅2/3胜Random，Gate为suggestive，按D37停止。
 - [x] 完成D40R语义纠正、corrected smoke与E4 Protocol A三seed正式pilot；Random平均AULC最佳，主动采样证据为null，按协议停止且未启动Protocol B。
+- [x] 完成E4-A2a L0=30 formal；所有 active strategy 均未通过预注册证据门，evidence=null，headroom hypothesis not supported。
+- [x] 完成D45-A bounded oracle marginal-utility diagnostic；seed42 representative utility 存在描述性差异，但三种合法 score 的 Spearman bootstrap CI 均跨0；结果只供人工判断，不自动开启新方法。

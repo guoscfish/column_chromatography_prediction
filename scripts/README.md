@@ -40,3 +40,5 @@
 - `run_e4_a2a_low_budget.py` — frozen E4-A2a nested partition generator and exact audit (42/22/8/486/58; seeds 42/525/1101).
 - `run_e4_a2a_engineering_smoke.py` — bounded A2a engineering smoke; only Protocol A/seed 42 is accepted and formal training is not an available action.
 - `run_e4_a2a_formal.py` — preregistered A2a Protocol A formal runner; requires explicit `--formal`, runs only the frozen 3-seed × 5-strategy × 30–100 design, and writes aggregate artifacts without opening new methods.
+
+| D45 | `run_d45_oracle_marginal_utility.py` | post-hoc diagnostic (12-candidate engineering smoke or seed42 bounded oracle audit) | direct run requires explicit `--mode`; no confirmatory claim |

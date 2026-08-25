@@ -47,13 +47,14 @@
 | D40 | P0 | E4 Protocol A engineering smoke | Protocol A/B partition compatibility、三source真实加载、单调转换、freeze/source-reset、五策略dry-run、Random/Hybrid两轮和resume审计 | 仅记录工程pass/fail，no scientific conclusion；不启动formal pilot | 若无blocking issue，下一阶段仅可人工启动Protocol A 3-seed formal pilot |
 | D42 | P0 | E4 Protocol A headroom与首轮shock | 离线审计重算L0 recovery：seed42=0.742、seed525=0.930、seed1101=0.912；seed525/1101四种active在50→60全部恶化而Random改善。Reveal后truth显示active首批source residual与label extremeness均高于Random；diversity三seed均高却效果方向不同，convergence为混合弱线索 | 仅记录post-hoc association，不称解释或因果；source residual绝不能作acquisition score。Normalized validation score的train-variance denominator随strategy/round变化，不作跨策略绝对机制证据。Protocol A active=null保持冻结 | 可把低L0 E4-A2作为独立secondary sensitivity提案，但本阶段不执行；当前不启动Protocol B |
 | D43 | P0 | Transfer-aware acquisition资格审计 | 三seed L0=50无标签审计中，prediction shift与Ensemble Spearman均值0.633、top10% overlap 0.539；T2与old Ensemble/Hybrid proxy的Spearman均值0.898/0.864。T3在3/3 seeds改善高信息shortlist覆盖和所选点密度，但在3/3未保留T2至少80%的mean shift与uncertainty，故组合行为目标失败。工程、确定性与无truth/test泄漏检查通过 | E4 Protocol A active=null继续冻结；D42仍为post-hoc。Transfer-aware只是new secondary hypothesis，尚无performance evidence。资格gate=false，不运行条件式low-L0 smoke，不批准E4-A2 formal | 若未来人工重设计T3，必须用新的预注册阶段；不得根据当前truth/test调权、调shortlist或回溯批准formal。Checkpoint方差ratio跨策略Round1最大spread为1.37–1.65x，记为potential confound但本阶段不改selection metric |
-| E4-A2a | P0 | Generic Low-Initial-Label Active Transfer | 预注册secondary sensitivity；唯一主设计变化为Protocol A的L0 50→30，保持同一Predictor、acquisitions、source ensemble、validation/test与三outer seeds。嵌套partition SHA256审计已通过；formal未启动 | 工程smoke完全通过前不得formal；不作scientific interpretation，不引入T3R/transfer-aware acquisition |
+| E4-A2a | P0 | Generic Low-Initial-Label Active Transfer | 预注册secondary sensitivity；唯一主设计变化为Protocol A的L0 50→30，保持同一Predictor、acquisitions、source ensemble、validation/test与三outer seeds。嵌套partition SHA256审计已通过；formal已完成且 evidence = null | 不改变 E4 结论；不引入T3R/transfer-aware acquisition |
+| D45 | P0 | Oracle Marginal Utility Audit | seed42 L0=30 post-hoc single-label audit：representative 48 的combined utility median=0.00333、IQR=0.01671、P10/P90=-0.01358/0.02301；Ensemble/QWidth/Coverage Spearman=-0.037/0.110/0.041且bootstrap 95% CI均跨0。Challenge top8均值均低于representative | test truth已用于oracle utility，故不构成confirmatory evidence，不改变E4/A2a null，不允许用同一test直接调方法；是否开展新分区验证须人工决定 |
 
 ## 当前阶段结论
 
 ### E4-A2a engineering smoke
 
-低初始标签工程 gate 已完成：三份嵌套 partition 的 exact contract、source 初始化/冻结参数、五策略 dry-run、Random/Hybrid 30→40、Round1 source reset 和 resume identity 均通过。该 smoke 不读取 test performance 作为 gate，且 formal training 未启动；下一步必须人工批准后才能运行 formal。
+低初始标签工程 gate 已完成：三份嵌套 partition 的 exact contract、source 初始化/冻结参数、五策略 dry-run、Random/Hybrid 30→40、Round1 source reset 和 resume identity 均通过。该 smoke 不读取 test performance 作为 gate；formal 已完成，结果见下节。
 
 ### E4-A2a formal
 

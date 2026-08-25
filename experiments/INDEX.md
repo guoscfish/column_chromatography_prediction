@@ -25,6 +25,6 @@
 | e4_protocol_a_headroom_audit | D42 | completed | yes | post-hoc descriptive headroom, first-round shock, and queried-label mechanism audit; primary null unchanged | — |
 | e4_transfer_aware_acquisition_qualification | D43 | completed; gate failed | yes | unlabeled transfer-aware ranking/batch qualification; no performance evidence; low-L0 smoke not run | — |
 | e4_active_learning_suitability_diagnosis | D44 | completed; T3R gate failed | yes | dataset/shift/model-update diagnosis plus no-truth soft-T3R qualification; historical performance links are post-hoc only | — |
-| e4_a2a_low_budget_preregistration | E4-A2a preregistration | formal completed | yes | single-variable Protocol A L0 50→30 headroom sensitivity design | e4_a2a_low_budget_formal |
+| d45_oracle_marginal_utility | D45 | bounded diagnostic completed | yes | post-hoc single-label marginal utility audit; test truth consumed; no confirmatory evidence | — |
 
 Directories not listed remain historical support artifacts and are not silently deleted.

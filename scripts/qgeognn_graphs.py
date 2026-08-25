@@ -10,6 +10,12 @@ import numpy as np
 from rdkit import Chem
 from rdkit.Chem import AllChem, Descriptors
 
+# Mordred 1.2.0 still imports NumPy's removed ``product`` alias.  Keep this
+# compatibility shim at the legacy integration boundary; ``prod`` has the
+# same behavior and no model or feature contract changes.
+if not hasattr(np, "product"):
+    np.product = np.prod  # type: ignore[attr-defined]
+
 
 ROOT = Path(__file__).resolve().parents[1]
 APPLICATION_DIR = ROOT / "application"

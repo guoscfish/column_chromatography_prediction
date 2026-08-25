@@ -7,9 +7,9 @@
 ## D38R/D40 — Corrected audit and engineering smoke
 
 - **D38R Corrected E2 Compound Failure Audit** remains purely post-hoc. The seed42 README aggregation, gradient-row label, condition standardization, paired-compound comparison, and split shift decisions were corrected. Concentration metrics show large top-compound contributions but broad worsening counts, so localization remains inconclusive rather than asserted. No implementation, leakage, or evaluation bug was found.
-- **D39 E4 Preregistered Protocol** freezes 8g no-threshold target data, Protocol A/B D28 partitions, last2+head transfer from three hashed independent source checkpoints, L0=50, B=10, 15 rounds, K=3, five acquisition methods, recovery/AULC metrics, tail diagnostics, and pilot expansion gates. The preregistration is a design artifact; formal training is explicitly deferred.
+- **D39 E4 Preregistered Protocol** froze 8g no-threshold target data, Protocol A/B D28 partitions, last2+head transfer from three hashed independent source checkpoints, L0=50, B=10, 15 rounds, K=3, five acquisition methods, recovery/AULC metrics, tail diagnostics, and pilot expansion gates. Protocol A later completed with null active-acquisition evidence; Protocol B remains deferred.
 - **D40 E4 Protocol A Engineering Smoke** checks source loading, partition isolation, five acquisition dry-runs, Random/Hybrid query→reveal→source-reinitialize→retrain, parameter freezing, and resume. It is engineering evidence only and has no scientific conclusion.
-- **E4-A2a Engineering Smoke** is now complete: exact nested L0=30 partitions, K=3 source/freeze checks, five-strategy dry-run, Random/Hybrid 30→40, strict source reset, and resume identity all passed. Formal A2a remains deferred pending manual approval and was not started.
+- **E4-A2a Engineering Smoke** is complete: exact nested L0=30 partitions, K=3 source/freeze checks, five-strategy dry-run, Random/Hybrid 30→40, strict source reset, and resume identity all passed.
 - **E4-A2a Formal** is complete. Across 3 seeds × 5 frozen strategies × budgets 30–100, no active strategy achieved both a mean AULC improvement over Random and at least 2/3 paired wins; evidence is null. Initial L0=30 recovery was mixed (0.748, 0.895, 1.144), and the headroom hypothesis is not supported by A2a.
 
 Long-term, after the E4 pilot is stable, move reusable code into `src/qgeognn_al/{model,features,engine,acquisition,metrics,partitions,artifacts}.py` so reusable core no longer imports `run_*.py`. This refactor is explicitly deferred until then.
@@ -70,4 +70,6 @@ D43检验新的secondary hypothesis：“在已有强source prior的active trans
 
 D44复用E4 Protocol A合法历史状态，发现U0同时包含显著compound coverage缺口与大量同compound condition repeats；137D nearest-L0距离多数由graph block主导。High-shift区域在3/3 seeds均为低density。历史Round1 reveal诊断中，shift与uncertainty都和更大per-sample gradient同向；QWidth/Hybrid的参数与function update最大，Random最小，且首轮function update与shock方向描述性一致。但跨全部225个历史batch时，信息score与下一轮test变化没有稳定单调关系，因此不能把“大梯度”直接等同于“高training utility”。
 
-Soft T3R固定只检查λ=0/0.1/0.2/0.3：λ=0.1基本仍是T2，λ=0.2的density改善以seed42/1101 shift retention失败为代价，λ=0.3信息损失过大。无λ通过预注册gate，conditional smoke未运行，transfer-aware performance继续deferred。E4-A2a只预注册低L0 headroom单变量实验，尚未执行。
+Soft T3R固定只检查λ=0/0.1/0.2/0.3：λ=0.1基本仍是T2，λ=0.2的density改善以seed42/1101 shift retention失败为代价，λ=0.3信息损失过大。无λ通过预注册gate，conditional smoke未运行，transfer-aware performance继续deferred。E4-A2a formal 已完成且 evidence = null；headroom hypothesis not supported by A2a。
+
+D45-A bounded post-hoc audit 已完成。D45-B full oracle trajectory 继续 deferred；只有在人工认为 single-label utility heterogeneity 足以支持额外计算、并明确新的污染隔离与确认性 protocol 后才可启动。当前结果不自动开放新 acquisition method。
