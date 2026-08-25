@@ -1,0 +1,38 @@
+{
+  "stage": "E4-A2a Generic Low-Initial-Label Active Transfer",
+  "protocol": "A",
+  "outer_seeds": [
+    42,
+    525,
+    1101
+  ],
+  "strategies": [
+    "pretrained_random",
+    "pretrained_coverage",
+    "pretrained_ensemble",
+    "pretrained_hybrid",
+    "pretrained_quantile_width"
+  ],
+  "budgets": [
+    30,
+    40,
+    50,
+    60,
+    70,
+    80,
+    90,
+    100
+  ],
+  "L0": 30,
+  "gradient_train": 22,
+  "fixed_validation": 8,
+  "B": 10,
+  "K": 3,
+  "epochs": 500,
+  "patience": 100,
+  "batch_size": 2048,
+  "train_config_hash": "799d258ac4e646a5dd7315ae817c1d3025d22a657ad9f22d4034bb2507661dc3",
+  "formal_training_started": true,
+  "formal_complete": true,
+  "test_isolation": "test only receives frozen post-fit K=3 mean-q50 evaluation"
+}

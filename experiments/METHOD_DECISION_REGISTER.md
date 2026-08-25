@@ -55,6 +55,10 @@
 
 低初始标签工程 gate 已完成：三份嵌套 partition 的 exact contract、source 初始化/冻结参数、五策略 dry-run、Random/Hybrid 30→40、Round1 source reset 和 resume identity 均通过。该 smoke 不读取 test performance 作为 gate，且 formal training 未启动；下一步必须人工批准后才能运行 formal。
 
+### E4-A2a formal
+
+预注册的 L0=30 Protocol A 正式实验已完成（3 outer seeds × 5 frozen strategies × 8 budgets）。所有 324 个 member-round fits 均通过 source-reset、frozen-parameter unchanged 和 trainable-parameter changed 审计；test 仅用于每个预算完成后的 frozen evaluation。Normalized AULC 30–100 的 Random 均值为 0.8753；Coverage/Ensemble/Hybrid/QWidth 均未同时满足“均值优于 Random 且至少 2/3 paired wins”，因此 E4-A2a evidence = null，Headroom Hypothesis = not_supported_by_A2a。
+
 ### D41 — E4 Protocol A formal pilot
 
 - D40R corrected smoke通过后完成seeds 42/525/1101、K=3、budgets 50–200的五策略正式pilot及zero/full/scratch controls。

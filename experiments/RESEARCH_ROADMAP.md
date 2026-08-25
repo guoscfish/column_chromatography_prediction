@@ -10,6 +10,7 @@
 - **D39 E4 Preregistered Protocol** freezes 8g no-threshold target data, Protocol A/B D28 partitions, last2+head transfer from three hashed independent source checkpoints, L0=50, B=10, 15 rounds, K=3, five acquisition methods, recovery/AULC metrics, tail diagnostics, and pilot expansion gates. The preregistration is a design artifact; formal training is explicitly deferred.
 - **D40 E4 Protocol A Engineering Smoke** checks source loading, partition isolation, five acquisition dry-runs, Random/Hybrid query→reveal→source-reinitialize→retrain, parameter freezing, and resume. It is engineering evidence only and has no scientific conclusion.
 - **E4-A2a Engineering Smoke** is now complete: exact nested L0=30 partitions, K=3 source/freeze checks, five-strategy dry-run, Random/Hybrid 30→40, strict source reset, and resume identity all passed. Formal A2a remains deferred pending manual approval and was not started.
+- **E4-A2a Formal** is complete. Across 3 seeds × 5 frozen strategies × budgets 30–100, no active strategy achieved both a mean AULC improvement over Random and at least 2/3 paired wins; evidence is null. Initial L0=30 recovery was mixed (0.748, 0.895, 1.144), and the headroom hypothesis is not supported by A2a.
 
 Long-term, after the E4 pilot is stable, move reusable code into `src/qgeognn_al/{model,features,engine,acquisition,metrics,partitions,artifacts}.py` so reusable core no longer imports `run_*.py`. This refactor is explicitly deferred until then.
 

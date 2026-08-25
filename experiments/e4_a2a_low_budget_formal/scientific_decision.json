@@ -1,0 +1,42 @@
+{
+  "stage": "E4-A2a Generic Low-Initial-Label Active Transfer",
+  "formal_complete": true,
+  "evidence": "null",
+  "headroom_hypothesis": "not_supported_by_A2a",
+  "mean_normalized_AULC_30_100": {
+    "pretrained_coverage": 1.035120304518025,
+    "pretrained_ensemble": 0.909230534230256,
+    "pretrained_hybrid": 0.9590652611726774,
+    "pretrained_quantile_width": 0.9767706640900026,
+    "pretrained_random": 0.8752659327768487
+  },
+  "paired_summary": [
+    {
+      "strategy": "pretrained_coverage",
+      "mean_AULC": 1.035120304518025,
+      "mean_relative_gain": -0.19384066422733492,
+      "wins": 1
+    },
+    {
+      "strategy": "pretrained_ensemble",
+      "mean_AULC": 0.909230534230256,
+      "mean_relative_gain": -0.048646657277675275,
+      "wins": 1
+    },
+    {
+      "strategy": "pretrained_hybrid",
+      "mean_AULC": 0.9590652611726774,
+      "mean_relative_gain": -0.10424037455494621,
+      "wins": 1
+    },
+    {
+      "strategy": "pretrained_quantile_width",
+      "mean_AULC": 0.9767706640900026,
+      "mean_relative_gain": -0.12265229541541722,
+      "wins": 1
+    }
+  ],
+  "test_isolation": "test used only for frozen post-fit evaluation; no test-guided tuning or stopping",
+  "no_mid_run_scientific_changes": true,
+  "recommended_next_action": "model-change-aware acquisition research"
+}
