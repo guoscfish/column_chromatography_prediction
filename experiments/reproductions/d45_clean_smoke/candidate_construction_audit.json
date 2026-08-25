@@ -1,0 +1,53 @@
+{
+  "embedding_normalization": "featurewise z-score fitted on current labeled train",
+  "condition_normalization": "featurewise z-score fitted on current labeled train",
+  "joint_representation": "concatenate standardized 128D h_graph and 9D conditions",
+  "distance": "euclidean",
+  "primary_member_seed": 42,
+  "no_cross_member_embedding_average": true,
+  "embedding_dimension": 128,
+  "condition_dimension": 9,
+  "joint_dimension": 137,
+  "candidate_construction_columns": [
+    "sample_id",
+    "ensemble_score",
+    "quantile_width",
+    "coverage_score"
+  ],
+  "truth_columns_used": [],
+  "diagnostic_seed": 4501,
+  "representative_count": 12,
+  "exact_candidate_count": 12,
+  "challenge_ids": {
+    "ensemble_top8": [
+      "07e9bc7a9d27fdd58c2f",
+      "f95928e2618ed15e654f",
+      "9563dde5c28fb62e4f7e",
+      "7e451fd74af5bfa51ac9",
+      "8837a8a19c37b63d2e48",
+      "4c6a8ef1c87748df99f2",
+      "99dd4a9a47de5c84b7c0",
+      "27b234a05f8c66fd059f"
+    ],
+    "qwidth_top8": [
+      "7ba2cf5e6ca289d9810f",
+      "3d5dc8831f4c74f7b7d1",
+      "d31d42caff135d7154c4",
+      "82fa7e7b3bd183853280",
+      "f95928e2618ed15e654f",
+      "bd0519702a5756bc3c94",
+      "07e9bc7a9d27fdd58c2f",
+      "47404d0982a587f0393e"
+    ],
+    "coverage_top8": [
+      "118d66c0e53f510c51ed",
+      "2cbca950d64fdcd81660",
+      "78b04c44dfa852f4e621",
+      "3b03dfa8ff44ff554734",
+      "937105af8867732c56ec",
+      "ce61c0bd799e65402b75",
+      "07e9bc7a9d27fdd58c2f",
+      "7ba2cf5e6ca289d9810f"
+    ]
+  }
+}
