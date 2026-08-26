@@ -569,3 +569,5 @@ E4 若保留 4 个主动方法，Final 约为 `4 × 5 × 16 × 5 = 1600` 次 8g 
 - [x] 完成D40R语义纠正、corrected smoke与E4 Protocol A三seed正式pilot；Random平均AULC最佳，主动采样证据为null，按协议停止且未启动Protocol B。
 - [x] 完成E4-A2a L0=30 formal；所有 active strategy 均未通过预注册证据门，evidence=null，headroom hypothesis not supported。
 - [x] 完成D45-A bounded oracle marginal-utility diagnostic；seed42 representative utility 存在描述性差异，但三种合法 score 的 Spearman bootstrap CI 均跨0；结果只供人工判断，不自动开启新方法。
+- [x] 完成D46 clean preflight、纯函数/runner实现与3-candidate smoke；24 member fits及resume、source-reset、paired prediction/bootstrap工程检查通过。
+- [ ] 运行冻结的D46-A bounded：18 candidates × 3 repetitions × K=3，连同paired baselines共171 member fits；结果只供人工可靠性判断。

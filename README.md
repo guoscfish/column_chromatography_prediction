@@ -2,7 +2,7 @@
 
 ## 当前研究主线
 
-本项目当前研究问题是：在冻结的 4g→8g active-transfer 协议下，8g candidate label 的真实 single-label marginal training utility 是否存在足够差异，以及当前合法 acquisition score 能否识别高 utility candidate。
+本项目当前研究问题是：D45 测得的 8g single-label oracle marginal utility 究竟是稳定的 candidate 属性，还是显著受到 target fine-tuning stochasticity 与有限 58-row test sampling 的影响。D46-A 只审计 oracle target 的可靠性，不开发新 acquisition。
 
 主指标不是 SQ，而是 V1/V2 的 normalized RMSE 学习曲线与 AULC；主结论口径是 `labels-to-90%-reference` 和相对 Random 的标签节省。SQ 只在最后作为色谱推荐的 downstream utility 验证。
 
@@ -88,6 +88,8 @@ The original model code is kept under `application/`. The reproducible experimen
 - `experiments/e4_a2a_low_budget_formal/`: completed L0=30 sensitivity; evidence is null and the headroom hypothesis is not supported.
 - `scripts/run_d45_oracle_marginal_utility.py`: D45 smoke/bounded post-hoc single-label oracle diagnostic.
 - `experiments/d45_oracle_marginal_utility/`: D45 compact outputs, audits, decision, and figures; no confirmatory evidence.
+- `scripts/run_d46_oracle_utility_reliability.py`: D46-A smoke/bounded oracle-target reliability audit.
+- `experiments/d46_oracle_utility_reliability/`: D46 preflight, reliability outputs, predictions, audits, and decision; post-hoc only.
 - `experiments/e1_signal_qualification/`: E1 signal qualification, per-sample scores, metrics and figures.
 - `experiments/e2_random_smoke/`: source-free Random reveal/retrain/resume chain smoke; not a scientific AL result.
 - `scripts/run_e2_random_smoke.py`: reproducible E2 source-free Random chain smoke entry point.

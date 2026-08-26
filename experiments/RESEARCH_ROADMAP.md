@@ -73,3 +73,5 @@ D44复用E4 Protocol A合法历史状态，发现U0同时包含显著compound co
 Soft T3R固定只检查λ=0/0.1/0.2/0.3：λ=0.1基本仍是T2，λ=0.2的density改善以seed42/1101 shift retention失败为代价，λ=0.3信息损失过大。无λ通过预注册gate，conditional smoke未运行，transfer-aware performance继续deferred。E4-A2a formal 已完成且 evidence = null；headroom hypothesis not supported by A2a。
 
 D45-A bounded post-hoc audit 已完成。D45-B full oracle trajectory 继续 deferred；只有在人工认为 single-label utility heterogeneity 足以支持额外计算、并明确新的污染隔离与确认性 protocol 后才可启动。当前结果不自动开放新 acquisition method。
+
+D46-A bounded reliability audit 当前为唯一获准的近程诊断：工程 smoke 已通过，冻结的18-candidate/3-repetition运行待完成。D45-B、任何utility-aware acquisition及新confirmatory protocol仍继续deferred。

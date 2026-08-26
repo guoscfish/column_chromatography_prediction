@@ -15,6 +15,7 @@ from scripts.al_acquisition import batch_distance_summary, build_joint_represent
 from scripts.run_e0_4g_baseline import sha256_file
 from scripts.run_e0_8g_controls import load_graph_cache
 from scripts.run_e1_signal_qualification import condition_matrix
+from src.qgeognn_al.metrics import regression_metric_row
 
 TARGET = ROOT / "experiments/g0_3_threshold_sensitivity/canonical_8g_no_threshold.csv"
 PART = ROOT / "experiments/d28_al_engineering/partitions"
@@ -167,11 +168,7 @@ def metric_row(engine, ids: list[str], checkpoints: dict[int, Path], scales: dic
     predictions=[]
     for checkpoint in checkpoints.values(): predictions.append(engine.predict(ids,checkpoint,return_quantiles=False,return_embedding=False).table[["V1_q50","V2_q50"]].to_numpy(float))
     pred=np.mean(np.stack(predictions),axis=0); index=dict(zip(engine.data.sample_id.astype(str),range(len(engine.data)))); truth=engine.data.iloc[[index[x] for x in ids]][["V1_ml","V2_ml"]].to_numpy(float)
-    row=dict(metadata)
-    for j,target in enumerate(("V1","V2")):
-        residual=truth[:,j]-pred[:,j]; denom=np.square(truth[:,j]-truth[:,j].mean()).sum()
-        row[f"{target}_MAE"]=float(np.abs(residual).mean()); row[f"{target}_RMSE"]=float(np.sqrt(np.square(residual).mean())); row[f"{target}_R2"]=float(1-np.square(residual).sum()/denom) if denom else float("nan")
-    row["NRMSE"] = .5*(row["V1_RMSE"]/scales["V1"]+row["V2_RMSE"]/scales["V2"]); row["test_rows"]=len(ids); return row
+    row={**metadata,**regression_metric_row(truth,pred,scales)}; row["test_rows"]=len(ids); return row
 
 def fit_scratch_members(engine, labeled: list[str], validation: list[str], config: SourceFreeTrainConfig, seed: int, round_index: int, out: Path, reuse: bool=True, executor=None):
     checkpoints={}; records=[]; pending={}
