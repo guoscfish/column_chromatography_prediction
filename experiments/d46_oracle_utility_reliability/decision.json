@@ -1,13 +1,95 @@
 {
   "experiment": "D46-A",
   "role": "post_hoc_diagnostic",
+  "mode": "bounded",
   "confirmatory_evidence": false,
   "test_truth_used": true,
   "D45_truth_used_for_candidate_selection": true,
   "historical_E4_conclusion_changed": false,
   "new_acquisition_method_opened": false,
   "protocol_B_opened": false,
+  "next_action": "manual_review_required",
   "engineering_smoke_pass": true,
-  "bounded_complete": false,
-  "next_action": "run_frozen_bounded_design"
+  "bounded_complete": true,
+  "exact_member_fits": 171,
+  "scientific_member_fit_records": 171,
+  "actual_new_member_fits_this_invocation": 0,
+  "pairwise_spearman": [
+    {
+      "scope": "all_18",
+      "repetition_seed_A": 4601,
+      "repetition_seed_B": 4602,
+      "n": 18,
+      "spearman": 1.0
+    },
+    {
+      "scope": "all_18",
+      "repetition_seed_A": 4601,
+      "repetition_seed_B": 4603,
+      "n": 18,
+      "spearman": 1.0
+    },
+    {
+      "scope": "all_18",
+      "repetition_seed_A": 4602,
+      "repetition_seed_B": 4603,
+      "n": 18,
+      "spearman": 1.0
+    },
+    {
+      "scope": "high_plus_negative_12",
+      "repetition_seed_A": 4601,
+      "repetition_seed_B": 4602,
+      "n": 12,
+      "spearman": 1.0
+    },
+    {
+      "scope": "high_plus_negative_12",
+      "repetition_seed_A": 4601,
+      "repetition_seed_B": 4603,
+      "n": 12,
+      "spearman": 1.0
+    },
+    {
+      "scope": "high_plus_negative_12",
+      "repetition_seed_A": 4602,
+      "repetition_seed_B": 4603,
+      "n": 12,
+      "spearman": 1.0
+    },
+    {
+      "scope": "representative_only",
+      "repetition_seed_A": 4601,
+      "repetition_seed_B": 4602,
+      "n": 18,
+      "spearman": 1.0
+    },
+    {
+      "scope": "representative_only",
+      "repetition_seed_A": 4601,
+      "repetition_seed_B": 4603,
+      "n": 18,
+      "spearman": 1.0
+    },
+    {
+      "scope": "representative_only",
+      "repetition_seed_A": 4602,
+      "repetition_seed_B": 4603,
+      "n": 18,
+      "spearman": 1.0
+    }
+  ],
+  "reliability_ratio": 1.0,
+  "ICC": 1.0,
+  "mean_sign_consistency": 1.0,
+  "D45_D46_spearman": 1.0,
+  "D45_D46_MAE": 4.905487787774172e-17,
+  "D45_D46_sign_agreement": 1.0,
+  "optimization_variation_detected": false,
+  "max_within_candidate_std": 0.0,
+  "baseline_NRMSE_range": 0.0,
+  "candidate_repetition_bootstrap_CI_excluding_zero_count": 9,
+  "fraction_bootstrap_CI_excluding_zero": 0.16666666666666666,
+  "candidate_mean_bootstrap_CI_excluding_zero_count": 3,
+  "candidate_mean_bootstrap_CI_excluding_zero_fraction": 0.16666666666666666
 }

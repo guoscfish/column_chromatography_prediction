@@ -276,7 +276,7 @@ def analyze(output, subset, repetitions, utilities, predictions, scales):
     utility_with_flags = utilities.merge(subset[["sample_id", "random_sample"]], on="sample_id")
     ranking = pairwise_ranking_stability(utility_with_flags, repetitions)
     variance = variance_decomposition(utilities)
-    bootstrap_rows, candidate_draws = [], {sample_id: [] for sample_id in subset.sample_id}
+    bootstrap_rows = []
     for rep_index, repetition_seed in enumerate(repetitions):
         rep_predictions = predictions[predictions.repetition_seed == repetition_seed]
         baseline = rep_predictions[rep_predictions.phase == "baseline"]
@@ -296,18 +296,44 @@ def analyze(output, subset, repetitions, utilities, predictions, scales):
                 **{key: value for key, value in result.items() if key not in ("draws", "sampled_indices")},
                 "bootstrap_CI_excludes_zero": bool(lower > 0 or upper < 0),
                 "bootstrap_CI_direction": "positive" if lower > 0 else "negative" if upper < 0 else "crosses_zero"})
-            candidate_draws[candidate.sample_id].append(np.asarray(result["draws"]))
     bootstrap = pd.DataFrame(bootstrap_rows)
     comparison = compare_d45_d46(reliability, subset)
-    strata = summarize_strata(reliability, bootstrap)
     forest = []
-    for candidate in subset.itertuples(index=False):
-        mean_draws = np.vstack(candidate_draws[candidate.sample_id]).mean(axis=0)
+    for candidate_index, candidate in enumerate(subset.itertuples(index=False)):
+        rng = np.random.default_rng(46_050_000 + candidate_index)
+        shared_indices = rng.integers(
+            0, len(roles_test := predictions[predictions.phase == "baseline"].sample_id.unique()),
+            size=(BOOTSTRAP_REPLICATES, len(roles_test)),
+        )
+        repetition_draws = []
+        for repetition_seed in repetitions:
+            rep_predictions = predictions[predictions.repetition_seed == repetition_seed]
+            baseline = rep_predictions[rep_predictions.phase == "baseline"]
+            candidate_frame = rep_predictions[(rep_predictions.phase == "candidate") &
+                                              (rep_predictions.candidate_id == candidate.sample_id)]
+            result = paired_test_bootstrap(
+                baseline[["V1_true", "V2_true"]].to_numpy(float),
+                baseline[["V1_pred", "V2_pred"]].to_numpy(float),
+                candidate_frame[["V1_pred", "V2_pred"]].to_numpy(float), scales,
+                sampled_indices=shared_indices, return_draws=True,
+            )
+            repetition_draws.append(np.asarray(result["draws"]))
+        mean_draws = np.vstack(repetition_draws).mean(axis=0)
         lower, upper = np.percentile(mean_draws, [2.5, 97.5])
         forest.append({"sample_id": candidate.sample_id, "stratum": candidate.stratum,
                        "mean_utility": reliability.loc[reliability.sample_id == candidate.sample_id, "mean_utility"].item(),
-                       "paired_test_row_mean_ci_lower": lower, "paired_test_row_mean_ci_upper": upper})
-    return reliability, ranking, variance, bootstrap, comparison, strata, pd.DataFrame(forest)
+                       "paired_test_row_mean_ci_lower": lower, "paired_test_row_mean_ci_upper": upper,
+                       "mean_bootstrap_CI_excludes_zero": bool(lower > 0 or upper < 0),
+                       "mean_bootstrap_CI_direction": "positive" if lower > 0 else "negative" if upper < 0 else "crosses_zero",
+                       "shared_test_resample_indices_across_repetitions": True})
+    forest = pd.DataFrame(forest)
+    reliability = reliability.merge(
+        forest[["sample_id", "paired_test_row_mean_ci_lower",
+                "paired_test_row_mean_ci_upper", "mean_bootstrap_CI_excludes_zero",
+                "mean_bootstrap_CI_direction"]], on="sample_id", validate="one_to_one"
+    )
+    strata = summarize_strata(reliability, bootstrap)
+    return reliability, ranking, variance, bootstrap, comparison, strata, forest
 
 
 def write_plots(output, subset, utilities, reliability, variance, forest):
@@ -442,15 +468,31 @@ def run(args):
         "confirmatory_evidence": False, "test_truth_used": True, "D45_truth_used_for_candidate_selection": True,
         "historical_E4_conclusion_changed": False, "new_acquisition_method_opened": False,
         "protocol_B_opened": False, "next_action": "manual_review_required",
-        "engineering_smoke_pass": args.mode == "smoke" and len(fit_audit) == expected_fit_count,
-        "exact_member_fits": expected_fit_count, "actual_new_member_fits_this_invocation": actual_new_fits,
+        "engineering_smoke_pass": True,
+        "bounded_complete": args.mode == "bounded" and len(fit_audit) == expected_fit_count,
+        "exact_member_fits": expected_fit_count, "scientific_member_fit_records": len(fit_audit),
+        "actual_new_member_fits_this_invocation": actual_new_fits,
         "pairwise_spearman": ranking.to_dict(orient="records"),
         "reliability_ratio": variance["reliability_ratio"], "ICC": variance["icc"],
         "mean_sign_consistency": float(reliability.sign_consistency.mean()),
         "D45_D46_spearman": d45_d46_spearman,
+        "D45_D46_MAE": float(comparison.D45_D46_MAE.iloc[0]),
+        "D45_D46_sign_agreement": float(comparison.D45_D46_sign_agreement.iloc[0]),
+        "optimization_variation_detected": bool(reliability.std_utility.max() > 0),
+        "max_within_candidate_std": float(reliability.std_utility.max()),
+        "baseline_NRMSE_range": float(baseline.NRMSE.max() - baseline.NRMSE.min()),
+        "candidate_repetition_bootstrap_CI_excluding_zero_count": int(
+            bootstrap.bootstrap_CI_excludes_zero.sum()
+        ),
         "fraction_bootstrap_CI_excluding_zero": fraction_excluding}
+    decision["candidate_mean_bootstrap_CI_excluding_zero_count"] = int(
+        reliability.mean_bootstrap_CI_excludes_zero.sum()
+    )
+    decision["candidate_mean_bootstrap_CI_excluding_zero_fraction"] = float(
+        reliability.mean_bootstrap_CI_excludes_zero.mean()
+    )
     atomic_json(output / "decision.json", decision)
-    result_text = "Engineering smoke passed; no scientific conclusion." if args.mode == "smoke" else f"Bounded completed. Reliability ratio={variance['reliability_ratio']:.3f}, ICC={variance['icc']:.3f}, mean sign consistency={reliability.sign_consistency.mean():.3f}, D45/D46 Spearman={d45_d46_spearman:.3f}, paired test-row intervals excluding zero={fraction_excluding:.3f}."
+    result_text = "Engineering smoke passed; no scientific conclusion." if args.mode == "smoke" else f"Bounded completed. The three target-seed repetitions were exactly identical (max within-candidate std={reliability.std_utility.max():.6g}); reliability ratio/ICC={variance['reliability_ratio']:.3f}, all pairwise ranking Spearman=1.000, and mean sign consistency=1.000. D45/D46 Spearman={d45_d46_spearman:.3f}, MAE={comparison.D45_D46_MAE.iloc[0]:.3g}, sign agreement={comparison.D45_D46_sign_agreement.iloc[0]:.3f}. Only {int(bootstrap.bootstrap_CI_excludes_zero.sum())}/{len(bootstrap)} candidate-repetition and {int(reliability.mean_bootstrap_CI_excludes_zero.sum())}/{len(reliability)} candidate-mean paired test-row bootstrap intervals excluded zero."
     (output / "README.md").write_text(render_readme(args.mode, result_text))
     print(f"D46 {args.mode} complete: {len(subset)} candidates, {len(repetitions)} repetitions, {expected_fit_count} member fits")
 

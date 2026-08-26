@@ -236,5 +236,8 @@ def summarize_strata(
         mean_mean_utility=("mean_utility", "mean"),
         mean_std_utility=("std_utility", "mean"),
         mean_sign_consistency=("sign_consistency", "mean"),
+        candidate_mean_bootstrap_CI_excludes_zero_fraction=(
+            "mean_bootstrap_CI_excludes_zero", "mean"
+        ),
     ).join(pair_summary).reset_index()
     return result

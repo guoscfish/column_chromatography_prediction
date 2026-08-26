@@ -1,13 +1,34 @@
 {
   "experiment": "D46-A",
-  "status": "implementation_complete_smoke_passed_bounded_pending",
+  "mode": "bounded",
   "experiment_role": "post_hoc_diagnostic",
   "candidate_selection_uses_D45_oracle_truth": true,
   "eligible_for_method_tuning": false,
-  "bounded_candidate_count": 18,
-  "bounded_repetition_seeds": [4601, 4602, 4603],
+  "outer_seed": 42,
+  "candidate_count": 18,
+  "repetition_seeds": [
+    4601,
+    4602,
+    4603
+  ],
   "K": 3,
-  "bounded_epochs": 500,
-  "bounded_patience": 100,
-  "expected_bounded_member_fits": 171
+  "fit_seed_mapping": "repetition_seed * 10000 + source_member_seed",
+  "epsilon": 1e-06,
+  "bootstrap_replicates": 2000,
+  "train_config": {
+    "learning_rate": 0.0001,
+    "weight_decay": 1e-05,
+    "epochs": 500,
+    "patience": 100,
+    "batch_size": 2048,
+    "transfer_mode": "last2_head",
+    "v1_weight": 1.0,
+    "v2_weight": 1.0,
+    "conformer_policy": "first_embedded",
+    "quantile_parameterization": "monotonic_softplus",
+    "scaler_policy": "source_train",
+    "checkpoint_selection": "validation_normalized_mse"
+  },
+  "test_truth_used": true,
+  "confirmatory_evidence": false
 }

@@ -16,7 +16,7 @@ Gate 0 Predictor qualification
   → E5 downstream SQ utility
 ```
 
-Gate 0 与 E1 已完成并冻结。E2 row 支持 Hybrid/Coverage，compound split 仅为 suggestive。E4 Protocol A 的 active acquisition 相对 Random 为 null；仅降低 L0 50→30 的 E4-A2a formal 仍为 null，因此 headroom hypothesis 未获支持。D43/D44 的 transfer-aware gates 均失败。当前 D45 只做 post-hoc oracle marginal-utility diagnostic，不改变任何历史正式结论，也不把同一 test partition 继续当作无污染 confirmatory test。
+Gate 0 与 E1 已完成并冻结。E2 row 支持 Hybrid/Coverage，compound split 仅为 suggestive。E4 Protocol A 与低L0 E4-A2a 的 active acquisition 相对 Random 均为 null。D45 发现描述性 candidate utility 差异但当前 scores 无稳定对齐；D46-A 的三个 target seeds 产生完全相同的 utility/ranking，未观察到 optimization stochasticity，但仅3/18 candidate-mean paired test-row intervals排除0。D45/D46均为 post-hoc，不改变历史正式结论，也不能继续把同一 test partition 当作无污染 confirmatory test。
 
 ## Citation
 If you use this work in your research, please cite:

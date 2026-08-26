@@ -26,6 +26,6 @@
 | e4_transfer_aware_acquisition_qualification | D43 | completed; gate failed | yes | unlabeled transfer-aware ranking/batch qualification; no performance evidence; low-L0 smoke not run | — |
 | e4_active_learning_suitability_diagnosis | D44 | completed; T3R gate failed | yes | dataset/shift/model-update diagnosis plus no-truth soft-T3R qualification; historical performance links are post-hoc only | — |
 | d45_oracle_marginal_utility | D45 | bounded diagnostic completed | yes | post-hoc single-label marginal utility audit; test truth consumed; no confirmatory evidence | — |
-| d46_oracle_utility_reliability | D46-A | implementation complete; smoke passed; bounded pending | yes | post-hoc optimization/test-row reliability audit of D45 oracle utility | — |
+| d46_oracle_utility_reliability | D46-A | bounded diagnostic completed | yes | post-hoc optimization/test-row reliability audit; no confirmatory evidence | — |
 
 Directories not listed remain historical support artifacts and are not silently deleted.
