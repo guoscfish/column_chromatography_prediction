@@ -3,6 +3,19 @@ __pycache__/
 *.py[cod]
 
 # Active-learning runtime artifacts (retain aggregate scientific outputs)
+experiments/**/runtime/
+experiments/**/progress/
+experiments/**/checkpoints/
+experiments/**/history.csv
+experiments/**/fit_result.json
+experiments/**/*.partial.csv
+experiments/**/state_round_*.json
+experiments/**/state_after_fit.json
+experiments/**/state_after_query.json
+experiments/**/*.pth
+experiments/**/*.ckpt
+# Checkpoints are runtime by default. Protected anchors already tracked remain usable.
+experiments/**/*.pt
 experiments/e2_*/**/checkpoints/
 experiments/e2_*/**/pool_predictions.csv.gz
 experiments/e2_*/**/test_predictions.csv.gz

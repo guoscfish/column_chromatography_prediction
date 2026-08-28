@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "artifacts": [
+    {"path": "experiments/e0_4g_baseline/checkpoints/best.pt", "role": "authoritative_source_checkpoint_seed42"},
+    {"path": "experiments/e1_signal_qualification/source_members/member_seed_525/checkpoints/best.pt", "role": "authoritative_source_checkpoint_seed525"},
+    {"path": "experiments/e1_signal_qualification/source_members/member_seed_1101/checkpoints/best.pt", "role": "authoritative_source_checkpoint_seed1101"},
+    {"path": "experiments/e0_4g_baseline/graph_cache_4g.pt", "role": "active_4g_graph_cache"},
+    {"path": "experiments/e0_8g_transfer/graph_cache_8g_only.pt", "role": "active_8g_graph_cache"},
+    {"path": "experiments/e0_4g_baseline/canonical_4g.csv", "role": "canonical_source_dataset"},
+    {"path": "experiments/g0_3_threshold_sensitivity/canonical_8g_no_threshold.csv", "role": "canonical_target_dataset"},
+    {"path": "experiments/e0_4g_baseline/scaler.json", "role": "frozen_source_scaler"},
+    {"path": "experiments/e1_signal_qualification/source_members/member_seed_525/scaler.json", "role": "source_member_scaler"},
+    {"path": "experiments/e1_signal_qualification/source_members/member_seed_1101/scaler.json", "role": "source_member_scaler"},
+    {"path": "experiments/d28_al_engineering/partitions", "role": "frozen_e2_e4_partitions"},
+    {"path": "experiments/e4_a2a_low_budget_preregistration/partitions", "role": "frozen_low_label_partitions"}
+  ]
+}

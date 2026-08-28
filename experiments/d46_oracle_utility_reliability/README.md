@@ -31,13 +31,15 @@ KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n chromatography python
 Compact metrics/audits, per-test-row predictions, reliability tables, variance JSON, five plots, and a hash-guarded gitignored runtime/progress tree.
 
 ## J. Result
-Bounded completed. The three target-seed repetitions were exactly identical (max within-candidate std=0); reliability ratio/ICC=1.000, all pairwise ranking Spearman=1.000, and mean sign consistency=1.000. D45/D46 Spearman=1.000, MAE=4.91e-17, sign agreement=1.000. Only 9/54 candidate-repetition and 3/18 candidate-mean paired test-row bootstrap intervals excluded zero.
+Bounded completed. The nominal seeds 4601/4602/4603 produced exactly identical predictions and utilities. The primary uncertainty result is that only **3/18 unique candidates** had paired test-row bootstrap intervals excluding zero. The repeated-fit count 9/54 is not a scientific replication count because each candidate's three predictions were identical.
 
 ## K. Interpretation
-Within the exact frozen implementation, utility behaves as a deterministic protocol-specific candidate quantity rather than an optimization-seed-sensitive quantity. However, 15/18 candidate-mean intervals cross zero under paired resampling of the same 58 test rows, and the near-zero stratum has very small magnitude. The result therefore supports optimization reproducibility while retaining substantial finite-test and low-headroom caution; it does not establish a stable property of a future 8g population.
+The protocol is deterministic by construction in this setting: every fit starts from the same frozen checkpoint, the loaders use `shuffle=False`, the 22/23 gradient rows fit in one batch (`batch_size=2048`), the model uses `drop_ratio=0.0`, and no stochastic degree of freedom was observed on CPU. Consequently, the three nominal optimization seeds are not independent stochastic realizations. Zero within-candidate variance makes ICC=1 and pairwise Spearman=1 degenerate; these values cannot support a population-level or stochastic-reliability claim.
+
+The 18 candidates were selected post hoc from D45's same seed42 test-based oracle utility (six positive, six near-zero, six negative). The paired bootstrap therefore remains a post-selection diagnostic on the same 58 test rows. It does not resolve reliability across independent partitions or a future 8g population.
 
 ## L. Limitations
-This is a post-hoc diagnostic on 18 D45-truth-selected candidates and one outer partition. Bootstrap intervals measure sensitivity to resampling the frozen 58 test rows, not uncertainty for a future 8g population.
+Optimization-seed reliability is not identifiable under this deterministic protocol. This is a post-selection diagnostic on one outer partition; 15/18 unique-candidate intervals cross zero, and cross-partition candidate reliability remains unresolved.
 
 ## M. Next decision
 Manual review required. This experiment cannot open a new acquisition method, Protocol B, or D45-B automatically.

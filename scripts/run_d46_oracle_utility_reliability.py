@@ -25,7 +25,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.al_engine import QGeoGNNActiveLearningEngine, TrainConfig, canonical_json_hash
+from src.qgeognn_al.engine import QGeoGNNActiveLearningEngine, TrainConfig, canonical_json_hash
 from scripts.run_e0_4g_baseline import sha256_file
 from scripts.run_e0_8g_controls import load_graph_cache
 from scripts.run_e4_a2a_formal import a2a_partition_context
