@@ -66,7 +66,7 @@ def write_inventory(root: Path, destination: Path) -> dict:
         "history_csv_count": sum(path.name == "history.csv" for path in paths),
         "fit_result_json_count": sum(path.name == "fit_result.json" for path in paths),
         "partial_csv_count": sum(path.name.endswith(".partial.csv") for path in paths),
-        "experiment_directories": sorted({path.relative_to(root).parts[1] for path in experiment_files if len(path.relative_to(root).parts) > 1}),
+        "experiment_directories": sorted({path.relative_to(root).parts[1] for path in experiment_files if len(path.relative_to(root).parts) > 2}),
         "python_files_in_scripts": sum(path.suffix == ".py" and path.relative_to(root).parts[0] == "scripts" for path in paths),
         "python_files_in_src_qgeognn_al": sum(path.suffix == ".py" and path.relative_to(root).parts[:2] == ("src", "qgeognn_al") for path in paths),
     }

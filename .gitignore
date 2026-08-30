@@ -16,6 +16,9 @@ experiments/**/*.pth
 experiments/**/*.ckpt
 # Checkpoints are runtime by default. Protected anchors already tracked remain usable.
 experiments/**/*.pt
+
+# Current-study runtime is always reproducible and never tracked.
+studies/**/runtime/
 experiments/e2_*/**/checkpoints/
 experiments/e2_*/**/pool_predictions.csv.gz
 experiments/e2_*/**/test_predictions.csv.gz

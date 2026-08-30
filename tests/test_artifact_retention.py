@@ -36,6 +36,7 @@ def test_no_tracked_partial_history_fit_or_runtime() -> None:
     assert not [p for p in paths if p.startswith("experiments/") and Path(p).name == "history.csv"]
     assert not [p for p in paths if p.startswith("experiments/") and Path(p).name == "fit_result.json"]
     assert not [p for p in paths if p.startswith("experiments/") and {"runtime", "progress"} & set(Path(p).parts)]
+    assert not [p for p in paths if p.startswith("studies/") and {"runtime", "progress"} & set(Path(p).parts)]
 
 
 def test_all_tracked_checkpoints_are_protected() -> None:
@@ -51,6 +52,18 @@ def test_new_experiments_have_compact_record() -> None:
         if not directory.is_dir() or directory.name in LEGACY_EXPERIMENTS:
             continue
         assert required <= {path.name for path in directory.iterdir()}, directory
+
+
+def test_formal_studies_have_compact_record() -> None:
+    required = {"README.md", "config.json", "environment.json", "decision.json"}
+    for config in (ROOT / "studies").glob("track_*/*/config.json"):
+        assert required <= {path.name for path in config.parent.iterdir()}, config.parent
+
+
+def test_no_new_top_level_study_runner() -> None:
+    allowed = {"__init__.py", "al_acquisition.py", "al_engine.py", "qgeognn_graphs.py"}
+    unexpected = [p for p in (ROOT / "scripts").glob("*.py") if p.name not in allowed and p.name.startswith("run_s")]
+    assert not unexpected
 
 
 def test_no_identical_final_and_partial_pair() -> None:
