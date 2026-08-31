@@ -28,7 +28,11 @@ import torch
 from src.qgeognn_al.acquisition import batch_distance_summary, build_joint_representation, hybrid_select
 from src.qgeognn_al.artifacts import finalize_experiment, sha256_file
 from src.qgeognn_al.data import condition_matrix, eluent_descriptor, load_combined_graph_cache
-from src.qgeognn_al.engine import QGeoGNNActiveLearningEngine, SourceFreeTrainConfig
+from src.qgeognn_al.engine import (
+    QGeoGNNActiveLearningEngine,
+    SourceFreeTrainConfig,
+    canonical_json_hash,
+)
 from src.qgeognn_al.metrics import regression_metric_row
 from src.qgeognn_al.partitions import make_row_partition
 from src.qgeognn_al.resources import ROOT, SOURCE_DATA, SOURCE_GRAPH_CACHE
@@ -111,9 +115,18 @@ def evaluate(engine: QGeoGNNActiveLearningEngine, ids: list[str], prediction: pd
 def fit_members(engine: QGeoGNNActiveLearningEngine, labeled: list[str], validation: list[str], config: SourceFreeTrainConfig, outer_seed: int, output: Path, arm: str) -> tuple[dict[int,Path],list[dict]]:
     checkpoints={}; records=[]
     for member_index,seed in enumerate(member_seeds(outer_seed)):
-        result=engine.fit(labeled,validation,config,None,seed,output/f"member_{member_index}")
-        checkpoints[seed]=Path(result.checkpoint)
-        record=asdict(result); record.update({"outer_seed":outer_seed,"arm":arm,"member_index":member_index,"member_seed":seed})
+        member_dir=output/f"member_{member_index}"; result_path=member_dir/"fit_result.json"; checkpoint_path=member_dir/"best.pt"
+        reused=False
+        if result_path.exists() and checkpoint_path.exists():
+            record=json.loads(result_path.read_text())
+            checkpoint=torch.load(checkpoint_path,map_location="cpu",weights_only=False)
+            compatible=(record.get("train_config_hash")==config.config_hash and record.get("labeled_ids_hash")==canonical_json_hash(sorted(labeled)) and record.get("validation_ids_hash")==canonical_json_hash(sorted(validation)) and record.get("scaler_hash")==canonical_json_hash(engine.scaler) and int(checkpoint.get("seed",-1))==seed and record.get("checkpoint_sha256")==sha256_file(checkpoint_path))
+            if not compatible: raise RuntimeError(f"refusing incompatible completed fit: {member_dir}")
+            reused=True
+        else:
+            result=engine.fit(labeled,validation,config,None,seed,member_dir); record=asdict(result); checkpoint_path=Path(result.checkpoint)
+        checkpoints[seed]=checkpoint_path
+        record.update({"outer_seed":outer_seed,"arm":arm,"member_index":member_index,"member_seed":seed,"reused_after_interruption":reused})
         records.append(record)
     return checkpoints,records
 
