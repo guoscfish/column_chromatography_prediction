@@ -12,7 +12,7 @@ Stop/freeze gate: stable improvement over Random across row and compound/scaffol
 
 Status: `OPEN`.
 
-Next candidate T1 uses Random target labels and compares `current_last2_head`, `target_readout_only`, `source_prediction_residual`, and `frozen_source_feature_target_regressor`. Future deferred topics include multi-fidelity formulations, Bayesian transfer/UQ, 25g/40g, and downstream SQ.
+S1 is completed and stopped. Its exploratory analysis makes simple affine calibration a required T1 baseline; condition-aware residual, target readout, and `current_last2_head` remain candidates. T1 is not started. Future topics remain deferred.
 
 Stop gate: reject a family that fails paired low-label efficiency and stability without using test truth for selection.
 

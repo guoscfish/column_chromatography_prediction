@@ -202,7 +202,7 @@ def run(config_path: Path) -> None:
     for target_name in ("V1", "V2"):
         analysis[f"residual_{target_name}"] = analysis[f"{target_name}_ml"] - analysis[f"source_{target_name}_mean"]
         analysis[f"ratio_{target_name}"] = safe_ratio(analysis[f"{target_name}_ml"].to_numpy(), analysis[f"source_{target_name}_mean"].to_numpy(), float(config["ratio_source_floor_ml"]))
-    overlap = pd.DataFrame({"canonical_smiles": target.canonical_smiles, "sample_id": target.sample_id, "source_row_count": source_counts}).sort_values(["canonical_smiles", "sample_id"])
+    overlap = pd.DataFrame({"canonical_smiles": target.canonical_smiles, "sample_id": target.sample_id, "source_row_count": source_counts}).merge(distance_frame, on="sample_id").sort_values(["canonical_smiles", "sample_id"])
     overlap.to_csv(runtime / "compound_overlap.csv", index=False)
     unique_target = target.canonical_smiles.nunique(); overlapping = sum(compound in source_by_compound for compound in target.canonical_smiles.unique())
     (runtime / "overlap_summary.json").write_text(json.dumps({"target_rows": len(target), "target_unique_compounds": int(unique_target), "overlapping_unique_compounds": int(overlapping), "target_only_unique_compounds": int(unique_target - overlapping), "analysis_rows": len(analysis), "reserved_rows": int((partition.role == "reserved").sum()), "standardization_reference": "4g source only"}, indent=2) + "\n")
@@ -220,7 +220,7 @@ def run(config_path: Path) -> None:
     for seed in [*SOURCE_CHECKPOINTS, "mean"]:
         pred_cols = [f"source_{seed}_V1", f"source_{seed}_V2"] if seed != "mean" else ["source_V1_mean", "source_V2_mean"]
         error = analysis[["V1_ml", "V2_ml"]].to_numpy() - analysis[pred_cols].to_numpy()
-        zero_rows.append({"member": seed, "V1_RMSE": np.sqrt(np.mean(error[:,0]**2)), "V2_RMSE": np.sqrt(np.mean(error[:,1]**2)), "V1_MAE": np.abs(error[:,0]).mean(), "V2_MAE": np.abs(error[:,1]).mean()})
+        zero_rows.append({"member": seed, "V1_RMSE": np.sqrt(np.mean(error[:,0]**2)), "V2_RMSE": np.sqrt(np.mean(error[:,1]**2)), "V1_MAE": np.abs(error[:,0]).mean(), "V2_MAE": np.abs(error[:,1]).mean(), "mean_source_ensemble_std_V1": analysis.source_V1_std.mean() if seed == "mean" else np.nan, "mean_source_ensemble_std_V2": analysis.source_V2_std.mean() if seed == "mean" else np.nan})
     pd.DataFrame(zero_rows).to_csv(runtime / "zero_shot_summary.csv", index=False)
     association_features = {"source_prediction": None, "PE_EA_log_ratio": np.log((analysis["PE/EA"].str.split('/').str[0].astype(float)+1e-6)/(analysis["PE/EA"].str.split('/').str[1].astype(float)+1e-6)), "flow": analysis["Flow mL/min"], "loading_solvent": analysis["loading solvent"].map({"PE":0,"EA":1,"DCM":2}), "loading_amount": analysis["Density g/ml"]*analysis["V/ul"], "loading_solvent_volume": analysis["Volume of loading solvent/ul"], "same_compound_condition_distance": analysis["same_compound_condition_distance"], "global_condition_distance": analysis["global_condition_distance"]}
     association_rows = []

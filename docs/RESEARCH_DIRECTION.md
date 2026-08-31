@@ -66,6 +66,10 @@ Primary sources: https://jmlr.org/papers/volume24/22-0937/22-0937.pdf ; https://
 
 ## Transfer / Active Domain Adaptation Literature Map
 
+### Current 4g→8g shift understanding after S1
+
+S1 used only the analysis role of a truth-blind compound partition. Frozen-source residuals were strongly positive and V1/V2 corrections were correlated. Within-compound variation dominated between-compound clustering, while nearest 4g condition distance had only weak descriptive association with residual. Affine calibration roughly halved mean combined group-CV NRMSE relative to zero-shot; condition-aware Ridge improved zero-shot but did not improve on affine. This makes affine calibration a required T1 baseline, not proof that nonlinear or molecular adaptation is unnecessary. The reserved role remains an S1-unconsumed set, not a globally clean confirmatory test.
+
 | Area | Relevant work/idea | Project implication |
 |---|---|---|
 | Small-data GNN transfer | Adaptive readouts and low-data molecular transfer | Motivates comparing head/readout, residual, and frozen-feature formulations before acquisitions. |

@@ -33,4 +33,4 @@ The validated project environment is conda `fish` (Python 3.11, PyTorch/PyG/RDKi
 conda run --no-capture-output -n fish pytest -q
 ```
 
-Historical runners are reproduction-only and write to a new output directory. Do not overwrite finalized experiment directories. No D47, new AL, Protocol B, or 25g/40g run is authorized by this reset.
+S1 exploratory shift audit is complete: affine calibration captured a large part of the analysis-only 4g→8g correction, while condition-aware Ridge did not improve on affine. T1 remains unstarted and requires manual review. No D47, Protocol B, or 25g/40g run is authorized.

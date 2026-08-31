@@ -20,5 +20,6 @@
 | A3 | Which advanced batch method is compatible with QGeoGNN? | Literature shortlist only | Review relevance, feasibility, compatibility, and novelty before selecting 1–2 methods. |
 | T1 | Which 4g→8g adaptation mechanism is label-efficient? | Proposed, not run | Random target labels only; compare four frozen adaptation families. |
 | C1 | When may active transfer reopen? | Deferred | Only after T1 establishes a stable low-label adaptation baseline. |
+| S1 | What structure dominates 4g→8g correction? | Exploratory audit complete; affine was the strongest simple group-CV correction, condition Ridge did not beat it | Reserved truth unconsumed; T1 must include simple calibration and remains manual-only. |
 
 No item in this register authorizes an experiment. Manual approval is required.

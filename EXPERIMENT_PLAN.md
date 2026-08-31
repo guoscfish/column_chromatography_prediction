@@ -20,7 +20,9 @@ Repository/document reset, dependency-based artifact pruning, behavior-preservin
 
 **A1a — Hybrid causal mechanism control:** Random, Ensemble, uncertainty-top25%-Random, Hybrid(top25%-farthest-first), Coverage. It isolates whether filtering or batch de-redundancy drives Hybrid. A1b may select only 1–2 advanced methods after A1a supports a diversity mechanism.
 
-**T1 — Transfer Adaptation Benchmark:** `current_last2_head`, `target_readout_only`, `source_prediction_residual`, `frozen_source_feature_target_regressor`; Random target labels only.
+**S1 — completed and stopped:** affine calibration substantially improved analysis-only compound GroupKFold; condition-aware Ridge did not add stable improvement. Reserved truth remains unconsumed.
+
+**T1 — manual decision only:** include simple affine calibration alongside condition-aware residual, target readout, and `current_last2_head`; Random target labels only. Not started.
 
 ## Stop and gate conditions
 

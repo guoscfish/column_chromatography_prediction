@@ -1,12 +1,16 @@
 {
   "study": "S1",
-  "status": "PREREGISTERED_NOT_RUN",
+  "status": "COMPLETED_STOPPED",
   "role": "exploratory_shift_audit",
   "confirmatory": false,
-  "target_truth_used": false,
+  "target_truth_used": true,
   "reserved_truth_used": false,
   "new_model_selected": false,
   "T1_started": false,
   "active_learning_started": false,
-  "manual_recommendation_required": true
+  "best_descriptive_simple_model": "S2_affine",
+  "manual_recommendation_required": true,
+  "interpretation_case": "CASE_A_WITH_REMAINING_UNEXPLAINED_VARIATION",
+  "recommended_T1_families": ["simple_affine_calibration", "condition_aware_residual", "target_readout", "current_last2_head"],
+  "reserved_truth_label": "S1-unconsumed reserved set"
 }
