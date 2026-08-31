@@ -33,6 +33,12 @@ MORDRED_INDICES = [153, 278, 884, 885, 1273, 1594, 431, 1768, 1769, 1288, 1521]
 CONFORMER_POLICIES = {"first_embedded", "lowest_energy"}
 ELUENT_SMILES = ["CCCCCC", "CC(OCC)=O", "C(Cl)Cl", "CO", "CCOCC"]
 LOADING_SOLVENT = {"PE": 0.0, "EA": 1.0, "DCM": 2.0}
+CONDITION_FEATURE_NAMES = [
+    "eluent_exact_mol_wt", "eluent_tpsa", "eluent_rotatable_bonds",
+    "eluent_h_donors", "eluent_h_acceptors", "eluent_logp",
+    "loading_solvent_code", "loading_amount_density_x_volume",
+    "loading_solvent_volume_ul",
+]
 
 
 def _keep_only_conformer(mol: Chem.Mol, conformer_id: int) -> Chem.Mol:
@@ -152,6 +158,36 @@ def minmax_transform(values: np.ndarray, scaler: dict[str, list[float]]) -> np.n
     minimum = np.asarray(scaler["min"], dtype=np.float32)
     maximum = np.asarray(scaler["max"], dtype=np.float32)
     return (values - minimum) / (maximum - minimum + 1e-8)
+
+
+def condition_matrix(data: pd.DataFrame, indices: np.ndarray | None = None) -> np.ndarray:
+    """Return the frozen 9D chromatography-condition representation."""
+    rows = data if indices is None else data.iloc[np.asarray(indices, dtype=int)]
+    eluents = np.vstack([eluent_descriptor(value) for value in rows["PE/EA"]]).astype(np.float32)
+    extras = np.column_stack([
+        rows["loading solvent"].map(LOADING_SOLVENT).to_numpy(dtype=np.float32),
+        rows["Density g/ml"].to_numpy(dtype=np.float32) * rows["V/ul"].to_numpy(dtype=np.float32),
+        rows["Volume of loading solvent/ul"].to_numpy(dtype=np.float32),
+    ])
+    return np.column_stack([eluents, extras]).astype(np.float32)
+
+
+def fit_standardizer(reference: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    mean = np.asarray(reference, dtype=float).mean(axis=0)
+    scale = np.asarray(reference, dtype=float).std(axis=0)
+    scale[scale < 1e-8] = 1.0
+    return mean, scale
+
+
+def apply_standardizer(values: np.ndarray, mean: np.ndarray, scale: np.ndarray) -> np.ndarray:
+    return (np.asarray(values, dtype=float) - mean) / scale
+
+
+def load_combined_graph_cache(source_cache: Path, target_cache: Path) -> dict:
+    """Load the frozen 4g cache plus genuinely target-only 8g structures."""
+    cache = dict(torch.load(Path(source_cache), weights_only=False))
+    cache.update(torch.load(Path(target_cache), weights_only=False))
+    return cache
 
 
 def build_model_data(

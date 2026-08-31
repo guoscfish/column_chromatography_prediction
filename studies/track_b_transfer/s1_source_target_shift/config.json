@@ -1,0 +1,47 @@
+{
+  "study": "S1_source_target_shift",
+  "role": "exploratory_shift_audit",
+  "partition_seed": 20260829,
+  "analysis_compound_fraction": 0.7,
+  "partition_inputs": [
+    "sample_id",
+    "canonical_smiles"
+  ],
+  "reserved_truth_policy": "never_read",
+  "condition_representation": "frozen 9D QGeoGNN/AL conditions",
+  "condition_standardization": "4g source mean/std only",
+  "source_members": [
+    42,
+    525,
+    1101
+  ],
+  "ratio_source_floor_ml": 0.5,
+  "outer_group_folds": 5,
+  "inner_group_folds": 4,
+  "ridge_alpha_grid": [
+    0.01,
+    0.1,
+    1.0,
+    10.0,
+    100.0
+  ],
+  "simple_models": [
+    "S0_zero_shot",
+    "S1_global_offset",
+    "S2_affine",
+    "S3_condition_ridge"
+  ],
+  "forbidden": [
+    "target_GNN_training",
+    "T1",
+    "active_learning",
+    "reserved_truth",
+    "hyperparameter_sweep_beyond_grid"
+  ],
+  "partition_sha256": "597b1bebb7b20e429238d8386a66b27f8e88e5d0551725dcb189889407c8f99d",
+  "source_checkpoint_hashes": {
+    "42": "7b9e3d0d4c8036c738ef220802e7ee46bc6ab8261cc541fb7d194e8c17044323",
+    "525": "719b2eb695e473c024c11eeb070a7835db78a3d5b01b6d50e8c3aa8f694d5916",
+    "1101": "23cdc24472d5458046eebaa20aa743228e55ee3d6f1c4c3730d4ff431ea08a60"
+  }
+}
