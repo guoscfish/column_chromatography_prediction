@@ -12,13 +12,13 @@ Two independent branches remain open: whether 4g in-domain AL can become robust 
 - D45/D46: post-hoc only. D46's seeds did not create independent stochastic fits; 3/18 unique-candidate paired test-row intervals excluded zero.
 - Historical scientific results and predictor behavior remain unchanged by repository refactoring.
 
-## Current allowed stage
+## Current stage
 
-Repository/document reset, dependency-based artifact pruning, behavior-preserving extraction into `src/qgeognn_al`, literature mapping, and proposal design only. No new training or acquisition experiment may run.
+S1 and A1a are completed and stopped. No follow-on study is authorized without manual review.
 
 ## Next preregistered candidates
 
-**A1a — Hybrid causal mechanism control:** Random, Ensemble, uncertainty-top25%-Random, Hybrid(top25%-farthest-first), Coverage. It isolates whether filtering or batch de-redundancy drives Hybrid. A1b may select only 1–2 advanced methods after A1a supports a diversity mechanism.
+**A1a — completed and stopped:** the one-step shared-shortlist mechanism gate failed. Hybrid exceeded the same-shortlist random median in 3/5 seeds, the mean Hybrid-minus-control-mean was negative, and only 2/5 seeds reached an 8/10 beat count. A1b is not authorized.
 
 **S1 — completed and stopped:** affine calibration substantially improved analysis-only compound GroupKFold; condition-aware Ridge did not add stable improvement. Reserved truth remains unconsumed.
 
@@ -26,8 +26,8 @@ Repository/document reset, dependency-based artifact pruning, behavior-preservin
 
 ## Stop and gate conditions
 
-- Manual approval selects A1 or T1; neither starts automatically.
+- Manual approval is required for any next study; T1 remains unstarted.
 - Track A cannot freeze a strategy without stable row plus compound/scaffold evidence and more than the current three outer seeds.
 - Track C cannot reopen until T1 establishes a stable low-label transfer formulation.
-- A1b stops if A1a does not support the diversity mechanism.
+- A1b is stopped because A1a did not support the diversity mechanism.
 - Test truth cannot select methods, tune weights, or retroactively change E2/E4 conclusions.

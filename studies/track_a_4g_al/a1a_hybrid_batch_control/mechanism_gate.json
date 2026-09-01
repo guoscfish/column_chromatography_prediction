@@ -1,11 +1,14 @@
 {
-  "status": "PREREGISTERED",
-  "all_conditions_required": true,
+  "diversity_mechanism_supported": false,
   "conditions": {
-    "hybrid_above_control_median_at_least_4_of_5": true,
-    "mean_hybrid_minus_random_mean_positive": true,
+    "hybrid_above_control_median_at_least_4_of_5": false,
+    "mean_hybrid_minus_random_mean_positive": false,
     "median_hybrid_minus_random_median_positive": true,
-    "hybrid_beats_at_least_8_controls_at_least_3_of_5": true
+    "hybrid_beats_at_least_8_controls_at_least_3_of_5": false
   },
+  "independent_replication_unit": "5 outer seeds, not 50 controls",
+  "claim_if_passed": "under a shared Round-0 uncertainty shortlist, farthest-first has stable one-step learning-advantage evidence",
+  "does_not_establish": "all Hybrid advantage is caused uniquely by diversity",
+  "A1b_eligible_for_manual_review": false,
   "A1b_automatic_launch": false
 }

@@ -6,4 +6,4 @@
 - [Track B — 4g→8g transfer](track_b_transfer/README.md)
 - [Track C — active transfer](track_c_active_transfer/README.md)
 
-Current authorized studies are S1 and A1a only. Each study stops after its decision record and requires manual review.
+S1 and A1a are completed and stopped. T1 and A1b were not started; any next study requires manual review.

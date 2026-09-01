@@ -6,7 +6,7 @@
 
 项目不是一条从 E2 到 D46 的线性诊断链，而是三个相关研究分支：
 
-- **Track A — 4g In-domain Active Learning:** `PROMISING_BUT_UNFINISHED`。E2 row-level 有明确正向 pilot 证据，compound-held-out 仅 suggestive；Hybrid 是当前最强 candidate，不是最终策略。
+- **Track A — 4g In-domain Active Learning:** `STOPPED_PENDING_NEW_HYPOTHESIS`。E2 row-level 保留正向 pilot 证据，但 A1a shared-shortlist gate 失败，未支持稳定的 farthest-first one-step 优势，A1b 不获授权。
 - **Track B — 4g→8g Transfer Adaptation:** `OPEN`。`current_last2_head` 是历史 E4 baseline，下一候选是只用 Random target labels 的 T1 benchmark。
 - **Track C — Active Transfer:** `DEFERRED`。只有 Track B 建立稳定 low-label adaptation baseline 后才可重开。
 

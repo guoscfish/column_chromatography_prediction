@@ -2,9 +2,11 @@
 
 ## Track A — 4g In-domain Active Learning
 
-Status: `PROMISING_BUT_UNFINISHED`.
+Status: `STOPPED_PENDING_NEW_HYPOTHESIS`.
 
-Future questions, all unrun: A1 Hybrid causal control; A2 Quantile Width secondary AL; A3 LCMD/B³AL-LCMD/MaxDet shortlist; A4 geometry-aware molecular AL; A5 epistemic-UQ variants; A6 graph/condition representation ablation; A7 row, compound, and Bemis–Murcko scaffold validation. Keep QGeoGNN fixed while comparing acquisitions.
+A1a is completed and stopped: its shared-shortlist farthest-first mechanism gate failed. Historical E2 Hybrid/Coverage pilot evidence remains, but A1b and compound follow-up were not launched.
+
+不再因为当前Hybrid结果自动探索 LCMD / MaxDet / B3AL / geometry-aware diversity。Track A waits for a new independent hypothesis and manual review.
 
 Stop/freeze gate: stable improvement over Random across row and compound/scaffold protocols, adequate seeds/intervals, and an isolated mechanism. A row-only result cannot establish novel-molecule success.
 
