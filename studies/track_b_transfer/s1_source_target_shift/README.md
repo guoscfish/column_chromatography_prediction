@@ -40,4 +40,4 @@ Affine won three of five outer folds; condition Ridge won two. S1 resembles Case
 
 ## Manual implication and limits
 
-T1 should include affine calibration, condition-aware residual, target readout, and current last2-head. S1 does not show that deep transfer is unnecessary, identify a physical mechanism, select a final model, consume reserved truth, alter historical E4/A2a null evidence, or authorize T1/active transfer.
+T1 should include affine calibration, condition-aware residual, `target_head_only`, and current last2-head. Here `target_head_only` means the prediction head; QGeoGNN pooling remains fixed sum pooling. S1 does not show that deep transfer is unnecessary, identify a physical mechanism, select a final model, consume reserved truth, alter historical E4/A2a null evidence, or authorize a formal T1/active-transfer run.

@@ -18,15 +18,15 @@ Track A and Track B are independent but related. Track C depends on Track B; D42
 
 **Effect strength.** Row normalized AULC is Hybrid 0.542938, Coverage 0.562489, Ensemble 0.626849, Random 0.644749. Hybrid and Coverage beat Random in 3/3 outer seeds: promising/strong pilot evidence. Compound AULC is Hybrid 0.761203, Coverage 0.777107, Random 0.788732, Ensemble 0.802149; Hybrid/Coverage win only 2/3 seeds: suggestive only. Overall status is `PROMISING_BUT_UNFINISHED`.
 
-**Why it cannot freeze.** There are only three outer seeds; compound evidence is not 3/3; Hybrid's mechanism lacks causal isolation; advanced batch AL has not been adequately compared; Quantile Width has offline signal but no full E2 AL curve; the Coverage representation concatenates a 128D graph block and 9D conditions after per-dimension z-scoring, allowing graph dimensionality to dominate; scaffold/general OOD is absent; and evidence exists only for the QGeoGNN surrogate.
+**Why it cannot freeze.** There are only three E2 outer seeds; compound evidence is not 3/3; scaffold/general OOD is absent; and evidence exists only for the QGeoGNN surrogate. E2 Random was FullPool-Random. A1a compared farthest-first Hybrid with Random inside the same Top25% ensemble-uncertainty shortlist and failed its diversity gate. That narrows the unsupported mechanism to farthest-first's incremental value; it does not prove uncertainty filtering ineffective. A direct paired Top25%-Random vs FullPool-Random comparison has not been run.
 
-**Is continued 4g AL worthwhile?** Yes, because row evidence is consistent and the Hybrid/Coverage pattern points to batch redundancy as a testable mechanism. The next study should be narrow enough to identify that mechanism rather than add many acquisitions.
+**Current status:** `PAUSED_AFTER_A1A / PROMISING_BUT_UNFINISHED`. Continued 4g AL may be worthwhile under a new independently justified hypothesis, but A1b/LCMD/MaxDet are not authorized from the present evidence.
 
 ## Track A Future Method Map
 
 ### A1. Hybrid mechanism control
 
-`PROPOSED — NOT RUN`. Compare Random, Ensemble, uncertainty-top25%-Random-B, Hybrid(top25%-farthest-first), and Coverage. The random-within-shortlist arm isolates uncertainty filtering from diversity/de-redundancy. A1b is allowed only if A1a supports diversity, and then selects 1–2 advanced methods after relevance, feasibility, QGeoGNN compatibility, and novelty review.
+`COMPLETED — STOPPED`. A1a compared farthest-first Hybrid against Random inside the exact same Top25% uncertainty shortlist. The diversity-mechanism gate failed, so A1b is not authorized. Because both arms shared the uncertainty prefilter, A1a did not isolate Top25% filtering against FullPool-Random.
 
 ### A2. Quantile Width secondary AL
 
@@ -68,7 +68,9 @@ Primary sources: https://jmlr.org/papers/volume24/22-0937/22-0937.pdf ; https://
 
 ### Current 4g→8g shift understanding after S1
 
-S1 used only the analysis role of a truth-blind compound partition. Frozen-source residuals were strongly positive and V1/V2 corrections were correlated. Within-compound variation dominated between-compound clustering, while nearest 4g condition distance had only weak descriptive association with residual. Affine calibration roughly halved mean combined group-CV NRMSE relative to zero-shot; condition-aware Ridge improved zero-shot but did not improve on affine. This makes affine calibration a required T1 baseline, not proof that nonlinear or molecular adaptation is unnecessary. The reserved role remains an S1-unconsumed set, not a globally clean confirmatory test.
+S1 used only the analysis role of a truth-blind compound partition. Zero-shot combined NRMSE was about 0.803; affine was about 0.399 ± 0.130, with V1/V2 RMSE about 7.63/11.45 mL, but affine won only 3/5 folds. Condition-aware Ridge did not improve on affine. This makes affine a strong required T1 baseline, not proof that 4g→8g transfer is solved or neural adaptation unnecessary. The reserved role remains an S1-unconsumed set, not a globally clean confirmatory test.
+
+T1a asks whether the appropriate adaptation capacity changes with scarce-label budget, not which layers to transfer for the first time: G0-4 already retained `last2_head` under richer target data. Its primary ladder is `target_head_only` (prediction head only; pooling remains sum), `last1_head`, and `current_last2_head`, alongside zero-shot, affine, and condition-Ridge residual baselines. Engineering/preregistration is complete; formal execution is not authorized, and active transfer remains deferred.
 
 | Area | Relevant work/idea | Project implication |
 |---|---|---|

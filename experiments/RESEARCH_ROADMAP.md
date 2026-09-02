@@ -2,7 +2,7 @@
 
 ## Track A — 4g In-domain Active Learning
 
-Status: `STOPPED_PENDING_NEW_HYPOTHESIS`.
+Status: `PAUSED_AFTER_A1A / PROMISING_BUT_UNFINISHED`.
 
 A1a is completed and stopped: its shared-shortlist farthest-first mechanism gate failed. Historical E2 Hybrid/Coverage pilot evidence remains, but A1b and compound follow-up were not launched.
 
@@ -14,7 +14,7 @@ Stop/freeze gate: stable improvement over Random across row and compound/scaffol
 
 Status: `OPEN`.
 
-S1 is completed and stopped. Its exploratory analysis makes simple affine calibration a required T1 baseline; condition-aware residual, target readout, and `current_last2_head` remain candidates. T1 is not started. Future topics remain deferred.
+S1 is completed and stopped. T1a engineering/preregistration and smoke are complete; the formal run is not authorized. Primary methods are zero-shot, affine, condition-Ridge residual, `target_head_only`, `last1_head`, and `current_last2_head`. `target_head_only` trains the prediction head while graph pooling remains fixed sum pooling. Future topics and active transfer remain deferred.
 
 Stop gate: reject a family that fails paired low-label efficiency and stability without using test truth for selection.
 

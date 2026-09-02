@@ -1,0 +1,80 @@
+{
+  "study": "T1_low_label_adaptation",
+  "stage": "engineering_preregistration",
+  "formal_authorized": false,
+  "protocol": "row",
+  "master_seed": 20260902,
+  "outer_seed_count": 5,
+  "outer_seeds": [
+    769539383,
+    1425370602,
+    536279090,
+    2767143051,
+    1362771960
+  ],
+  "target_label_budgets": [
+    30,
+    50,
+    70,
+    100
+  ],
+  "fixed_validation": 8,
+  "test_fraction": 0.1,
+  "source_members": [
+    42,
+    525,
+    1101
+  ],
+  "primary_methods": [
+    "zero_shot",
+    "affine",
+    "condition_ridge_residual",
+    "target_head_only",
+    "last1_head",
+    "current_last2_head"
+  ],
+  "neural_modes": {
+    "target_head_only": "head_only",
+    "last1_head": "last1_head",
+    "current_last2_head": "last2_head"
+  },
+  "optional_diagnostics": {
+    "full_finetune": {
+      "enabled": false,
+      "mode": "full"
+    }
+  },
+  "ridge_alpha_grid": [
+    0.01,
+    0.1,
+    1.0,
+    10.0,
+    100.0
+  ],
+  "training": {
+    "learning_rate": 0.0001,
+    "weight_decay": 1e-05,
+    "epochs": 500,
+    "patience": 100,
+    "batch_size": 2048,
+    "quantile_parameterization": "monotonic_softplus",
+    "checkpoint_selection": "validation_normalized_mse"
+  },
+  "forbidden": [
+    "formal_run_without_separate_authorization",
+    "test_truth_in_smoke",
+    "active_acquisition",
+    "protocol_b",
+    "paper_style",
+    "advanced_diversity_methods"
+  ],
+  "partition_sha256": "8418f1127c063e1f771ace3ea9d3705a90bed8a102f4cf08702368ef9422b75a",
+  "schedule_sha256": "0718c2ce0369a4ebf4304aa8a275120db5a8b19ca0c5bc7f4c3462b485dbf922",
+  "target_sha256": "4cc533b00c4528053c7f033645c50a7d03b35bfff3fcfe4c3f684376ac136203",
+  "source_checkpoint_hashes": {
+    "42": "7b9e3d0d4c8036c738ef220802e7ee46bc6ab8261cc541fb7d194e8c17044323",
+    "525": "719b2eb695e473c024c11eeb070a7835db78a3d5b01b6d50e8c3aa8f694d5916",
+    "1101": "23cdc24472d5458046eebaa20aa743228e55ee3d6f1c4c3730d4ff431ea08a60"
+  },
+  "source_target_scales_sha256": "55dc1756ba2d5e4aebcd0b1a1153caed1c1ff90b57f0607e3dc0fdef48088831"
+}

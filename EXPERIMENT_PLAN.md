@@ -14,7 +14,7 @@ Two independent branches remain open: whether 4g in-domain AL can become robust 
 
 ## Current stage
 
-S1 and A1a are completed and stopped. No follow-on study is authorized without manual review.
+S1 and A1a are completed and stopped. T1 engineering implementation, preregistration, prepare, and smoke are authorized; the formal T1 experiment is not authorized.
 
 ## Next preregistered candidates
 
@@ -22,11 +22,11 @@ S1 and A1a are completed and stopped. No follow-on study is authorized without m
 
 **S1 — completed and stopped:** affine calibration substantially improved analysis-only compound GroupKFold; condition-aware Ridge did not add stable improvement. Reserved truth remains unconsumed.
 
-**T1 — manual decision only:** include simple affine calibration alongside condition-aware residual, target readout, and `current_last2_head`; Random target labels only. Not started.
+**T1a — engineering ready, formal run not authorized:** row protocol with fixed Random nested target labels and budgets 30/50/70/100 (8 validation labels included). Primary methods are `zero_shot`, `affine`, `condition_ridge_residual`, `target_head_only`, `last1_head`, and `current_last2_head`. QGeoGNN uses sum pooling; `target_head_only` trains `graph_pred_linear`, not a learnable readout. Full fine-tuning is disabled as an optional diagnostic and `paper_style` is excluded.
 
 ## Stop and gate conditions
 
-- Manual approval is required for any next study; T1 remains unstarted.
+- Separate manual approval setting `formal_authorized=true` is required for the formal T1 run.
 - Track A cannot freeze a strategy without stable row plus compound/scaffold evidence and more than the current three outer seeds.
 - Track C cannot reopen until T1 establishes a stable low-label transfer formulation.
 - A1b is stopped because A1a did not support the diversity mechanism.

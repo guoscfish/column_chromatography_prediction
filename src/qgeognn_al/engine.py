@@ -133,6 +133,52 @@ class SourceFreeTrainConfig(TrainConfig):
             raise ValueError("epochs, patience and batch_size must be positive")
 
 
+@dataclass(frozen=True)
+class AdaptationTrainConfig:
+    """T1-only target-adaptation contract, isolated from frozen E4 configs."""
+
+    learning_rate: float = 1e-4
+    weight_decay: float = 1e-5
+    epochs: int = 500
+    patience: int = 100
+    batch_size: int = 2048
+    transfer_mode: str = "last2_head"
+    v1_weight: float = 1.0
+    v2_weight: float = 1.0
+    conformer_policy: str = "first_embedded"
+    quantile_parameterization: str = "monotonic_softplus"
+    scaler_policy: str = "source_train"
+    checkpoint_selection: str = "validation_normalized_mse"
+
+    def validate(self) -> None:
+        if self.transfer_mode not in {"head_only", "last1_head", "last2_head", "full"}:
+            raise ValueError(f"Unknown target adaptation mode: {self.transfer_mode}")
+        expected = {
+            "learning_rate": 1e-4,
+            "weight_decay": 1e-5,
+            "v1_weight": 1.0,
+            "v2_weight": 1.0,
+            "conformer_policy": "first_embedded",
+            "quantile_parameterization": "monotonic_softplus",
+            "scaler_policy": "source_train",
+            "checkpoint_selection": "validation_normalized_mse",
+        }
+        actual = asdict(self)
+        mismatches = {
+            key: {"expected": value, "actual": actual[key]}
+            for key, value in expected.items()
+            if actual[key] != value
+        }
+        if mismatches:
+            raise ValueError(f"AdaptationTrainConfig changes frozen T1 settings: {mismatches}")
+        if self.epochs < 1 or self.patience < 1 or self.batch_size < 1:
+            raise ValueError("epochs, patience and batch_size must be positive")
+
+    @property
+    def config_hash(self) -> str:
+        return canonical_json_hash(asdict(self))
+
+
 @dataclass
 class FitResult:
     checkpoint: str
@@ -299,6 +345,38 @@ class QGeoGNNActiveLearningEngine:
         """
 
         train_config.validate_frozen_predictor()
+        return self._fit_validated(
+            labeled_indices, validation_indices, train_config, init_checkpoint,
+            seed, output_dir, adaptation_mode=None,
+        )
+
+    def fit_target_adaptation(
+        self,
+        labeled_indices: Sequence[str | int],
+        validation_indices: Sequence[str | int],
+        train_config: AdaptationTrainConfig,
+        init_checkpoint: Path,
+        seed: int,
+        output_dir: Path,
+    ) -> FitResult:
+        """Fit a T1 target adapter without changing the historical E4 fit contract."""
+
+        train_config.validate()
+        return self._fit_validated(
+            labeled_indices, validation_indices, train_config, init_checkpoint,
+            seed, output_dir, adaptation_mode=train_config.transfer_mode,
+        )
+
+    def _fit_validated(
+        self,
+        labeled_indices: Sequence[str | int],
+        validation_indices: Sequence[str | int],
+        train_config: TrainConfig | SourceFreeTrainConfig | AdaptationTrainConfig,
+        init_checkpoint: Path | None,
+        seed: int,
+        output_dir: Path,
+        adaptation_mode: str | None,
+    ) -> FitResult:
         all_labeled = self._resolve_ids(labeled_indices)
         validation = self._resolve_ids(validation_indices)
         if not set(validation).issubset(all_labeled):
@@ -332,9 +410,9 @@ class QGeoGNNActiveLearningEngine:
         else:
             anchor = Path(init_checkpoint or self.init_checkpoint).resolve()
             model = self._load_model(anchor)
-            trainable, total = configure_trainable(model, "last2_head")
+            trainable_scope = adaptation_mode or "last2_head"
+            trainable, total = configure_trainable(model, trainable_scope)
             initialization_policy = "checkpoint"
-            trainable_scope = "last2_head"
             frozen_before = parameter_hash(model, False)
         trainable_before = parameter_hash(model, True)
         train_loaders = self._loaders_for_indices(train, train_config.batch_size)
@@ -414,7 +492,7 @@ class QGeoGNNActiveLearningEngine:
         pd.DataFrame(history).to_csv(history_path, index=False)
         best_model = self._load_model(checkpoint_path)
         if not source_free:
-            configure_trainable(best_model, "last2_head")
+            configure_trainable(best_model, trainable_scope)
         frozen_after = None if source_free else parameter_hash(best_model, False)
         trainable_after = parameter_hash(best_model, True)
         result = FitResult(
@@ -460,6 +538,41 @@ class QGeoGNNActiveLearningEngine:
                 true_values.append(atom_batch.y.cpu().numpy())
                 predictions.append(pred.cpu().numpy())
         return metrics_from_arrays(np.vstack(true_values), np.vstack(predictions))
+
+    def audit_adaptation_initialization(
+        self,
+        indices: Sequence[str | int],
+        checkpoint: Path,
+        mode: str,
+        batch_size: int = 256,
+    ) -> dict[str, Any]:
+        """Prove that selecting a T1 trainable scope does not alter predictions."""
+
+        resolved = self._resolve_ids(indices)
+        loaders = self._loaders_for_indices(resolved, batch_size)
+        model = self._load_model(Path(checkpoint).resolve())
+
+        def arrays() -> np.ndarray:
+            model.eval()
+            chunks = []
+            with torch.no_grad():
+                for atom_batch, angle_batch in zip(*loaders):
+                    pred, _ = model(atom_batch.to(self.device), angle_batch.to(self.device))
+                    chunks.append(pred.cpu().numpy())
+            return np.vstack(chunks)
+
+        before = arrays()
+        trainable, total = configure_trainable(model, mode)
+        after = arrays()
+        maximum = float(np.max(np.abs(before - after)))
+        return {
+            "mode": mode,
+            "rows": len(resolved),
+            "trainable_parameters": trainable,
+            "total_parameters": total,
+            "maximum_absolute_prediction_difference": maximum,
+            "prediction_identical": bool(np.array_equal(before, after)),
+        }
 
     def predict(
         self,

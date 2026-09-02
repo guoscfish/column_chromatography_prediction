@@ -1,0 +1,41 @@
+{
+  "study": "T1_engineering_smoke",
+  "scientific_result": false,
+  "winner_selected": false,
+  "outer_seed": 769539383,
+  "budget": 30,
+  "source_members": [
+    42,
+    525,
+    1101
+  ],
+  "methods_exercised": [
+    "zero_shot",
+    "affine",
+    "condition_ridge_residual",
+    "target_head_only",
+    "last1_head",
+    "current_last2_head"
+  ],
+  "shared_gradient_train_ids_hash": "f6f75db1b351604afaee3e1ae49af6009bed4fa241728dd35f4096bec4d63f26",
+  "shared_validation_ids_hash": "74804d811203b9bc19257241a76875fc8e6901a44a9c2f0758203b6a5e24bf3d",
+  "all_neural_labeled_ids_equal": true,
+  "all_neural_validation_ids_equal": true,
+  "role_overlap_pass": true,
+  "nested_schedule_deterministic_pass": true,
+  "source_checkpoint_hashes_match_protected_audit": true,
+  "initialization_prediction_identity_pass": true,
+  "frozen_parameter_hash_pass": true,
+  "trainable_parameters_changed_pass": true,
+  "neural_k3_validation_ensemble_pass": true,
+  "simple_outputs_finite_pass": true,
+  "test_truth_read": false,
+  "truth_roles_read": [
+    "gradient_train",
+    "validation"
+  ],
+  "neural_epochs": 2,
+  "neural_patience": 2,
+  "fits_completed": 9,
+  "all_checks_pass": true
+}
