@@ -6,4 +6,4 @@
 - [Track B — 4g→8g transfer](track_b_transfer/README.md)
 - [Track C — active transfer](track_c_active_transfer/README.md)
 
-S1 and A1a are completed and stopped. T1a formal execution is complete with no stable winner. T1b-1 engineering/preregistration and smoke are complete, but formal T1b-1, T1b-2, A1b, and active transfer remain unauthorized/deferred.
+S1 and A1a are completed and stopped. T1a formal execution is complete with no stable winner. T1b-1 is preregistered; smoke and truth-free preflight passed, leaving its frozen protocol ready for separate formal authorization. T1b-2, A1b, and active transfer remain unauthorized/deferred.

@@ -53,6 +53,7 @@ def _verify_frozen_inputs(config: dict) -> None:
         "partition_sha256": T1A / "partition_manifest.csv",
         "schedule_sha256": T1A / "schedule_manifest.csv",
         "per_context_metrics_sha256": T1A / "per_context_metrics.csv",
+        "convergence_audit_sha256": T1A / "convergence_audit.csv",
         "source_target_scales_sha256": T1A / "source_target_scales.json",
         "target_sha256": TARGET_DATA,
     }
@@ -168,6 +169,144 @@ def prepare(config_path: Path) -> dict:
         "packages": packages, "device": "cpu",
     }, indent=2) + "\n")
     return plan_audit
+
+
+def preflight(config_path: Path) -> dict:
+    """Verify the frozen formal contract without reading any target label cell."""
+    config = json.loads(config_path.read_text())
+    validate_config(config)
+    if config.get("formal_authorized") is not False:
+        raise RuntimeError("formal preflight requires formal_authorized=false")
+    _verify_frozen_inputs(config)
+    checks: dict[str, bool] = {}
+    checks["outer_seeds"] = config["outer_seeds"] == [769539383, 1425370602, 536279090, 2767143051, 1362771960]
+    checks["budgets"] = config["target_label_budgets"] == [30, 50, 70, 100]
+    checks["fixed_validation"] = config["fixed_validation"] == 8
+    checks["adapter_widths"] = config["bottleneck_widths"] == [8, 16, 32]
+    checks["adapter_structure"] = (
+        config["adapter_type"] == "graph_level_residual"
+        and config["activation"] == "relu"
+        and config["up_projection_initialization"] == "zeros"
+    )
+    checks["primary_reference"] = config["primary_reference"] == "target_head_only"
+    checks["stable_gate"] = config["stable_improvement_gate"] == {
+        "mean_delta_lt": 0, "median_delta_lt": 0,
+        "minimum_wins": 4, "outer_seed_count": 5,
+    }
+    expected_training = {
+        "learning_rate": 1e-4, "weight_decay": 1e-5, "epochs": 500,
+        "patience": 100, "batch_size": 2048, "v1_weight": 1.0,
+        "v2_weight": 1.0, "scaler_policy": "source_train",
+        "quantile_parameterization": "monotonic_softplus",
+        "checkpoint_selection": "validation_normalized_mse",
+    }
+    checks["training_contract"] = config["training"] == expected_training
+
+    schedule = pd.read_csv(T1A / "schedule_manifest.csv")
+    role_counts_pass = True
+    shared_roles_pass = True
+    role_hashes = []
+    for seed in config["outer_seeds"]:
+        for budget in config["target_label_budgets"]:
+            train_ids, validation_ids, test_ids = _context_ids(schedule, int(seed), int(budget))
+            role_counts_pass &= (
+                len(train_ids) == int(budget) - 8
+                and len(validation_ids) == 8 and len(test_ids) == 58
+            )
+            hashes = {
+                "outer_seed": int(seed), "budget": int(budget),
+                "gradient_train_ids_hash": hashlib.sha256(json.dumps(sorted(train_ids)).encode()).hexdigest(),
+                "validation_ids_hash": hashlib.sha256(json.dumps(sorted(validation_ids)).encode()).hexdigest(),
+                "test_ids_hash": hashlib.sha256(json.dumps(sorted(test_ids)).encode()).hexdigest(),
+            }
+            role_hashes.append(hashes)
+            shared_roles_pass &= len(config["adapter_methods"]) == 3
+    checks["role_counts"] = bool(role_counts_pass)
+    checks["same_role_ids_for_all_adapters"] = bool(shared_roles_pass)
+
+    parameter_rows = []
+    base = build_model(torch.device("cpu")); install_monotonic_head(base)
+    detected_dim = graph_representation_dim(base)
+    checks["graph_representation_dim_128"] = detected_dim == config["graph_representation_dim"] == 128
+    for method, width in config["adapter_methods"].items():
+        model = build_model(torch.device("cpu")); install_monotonic_head(model)
+        actual_dim = install_graph_residual_adapter(model, int(width))
+        trainable, total, adapter_parameters, head_parameters = configure_graph_adapter_trainable(model)
+        expected = config["parameter_counts"][method]
+        parameter_rows.append({
+            "method": method, "width": int(width), "input_dim": actual_dim,
+            "adapter_parameters": adapter_parameters, "head_parameters": head_parameters,
+            "trainable_parameters": trainable, "total_parameters": total,
+            "pass": (
+                adapter_parameters == expected["adapter_parameters"]
+                and head_parameters == expected["head_parameters"]
+                and trainable == expected["total_trainable_parameters"]
+                and total == expected["total_model_parameters"]
+            ),
+        })
+        GraphAdapterTrainConfig(bottleneck_width=int(width)).validate()
+    for method, mode in {
+        "target_head_only": "head_only", "last1_head": "last1_head",
+        "current_last2_head": "last2_head",
+    }.items():
+        model = build_model(torch.device("cpu")); install_monotonic_head(model)
+        trainable, total = configure_trainable(model, mode)
+        expected = config["parameter_counts"][method]
+        parameter_rows.append({
+            "method": method, "width": None, "input_dim": detected_dim,
+            "adapter_parameters": 0, "head_parameters": 774,
+            "trainable_parameters": trainable, "total_parameters": total,
+            "pass": trainable == expected["total_trainable_parameters"] and total == expected["total_model_parameters"],
+        })
+    checks["parameter_counts"] = all(row["pass"] for row in parameter_rows)
+
+    target_header = pd.read_csv(TARGET_DATA, nrows=0).columns.tolist()
+    feature_columns = [column for column in target_header if column not in LABEL_COLUMNS]
+    features = pd.read_csv(TARGET_DATA, usecols=feature_columns)
+    placeholders = features.assign(V1_ml=0.0, V2_ml=0.0)
+    cache = load_combined_graph_cache(SOURCE_GRAPH_CACHE, TARGET_GRAPH_CACHE)
+    scaler = json.loads(SOURCE_SCALER.read_text())
+    engine = QGeoGNNActiveLearningEngine(placeholders, cache, scaler, SOURCE_CHECKPOINTS[42], device=torch.device("cpu"))
+    train_ids, validation_ids, _ = _context_ids(schedule, int(config["outer_seeds"][0]), 30)
+    identity_rows = []
+    for method, width in config["adapter_methods"].items():
+        for member in config["source_members"]:
+            row = engine.audit_graph_adapter_initialization(
+                train_ids + validation_ids, SOURCE_CHECKPOINTS[int(member)], int(width)
+            )
+            row.update({"method": method, "source_member": int(member)})
+            identity_rows.append(row)
+    checks["source_function_identity"] = all(
+        row["prediction_identical"] and row["maximum_absolute_prediction_difference"] <= 1e-7
+        for row in identity_rows
+    )
+    plan = build_fit_plan(config)
+    checks["expected_new_adapter_fits_180"] = len(plan) == 180
+    checks["unique_run_keys_180"] = len({item.run_key for item in plan}) == 180
+    checks["duplicate_run_keys_zero"] = len(plan) - len({item.run_key for item in plan}) == 0
+    failed = sorted(key for key, passed in checks.items() if not passed)
+    audit = {
+        "schema_version": 1,
+        "status": "passed" if not failed else "failed",
+        "formal_authorized": False,
+        "test_truth_read": False,
+        "target_columns_read": feature_columns,
+        "checks": checks,
+        "failed_checks": failed,
+        "parameter_audit": parameter_rows,
+        "initialization_identity_audit": identity_rows,
+        "role_hash_contexts": role_hashes,
+        "fit_plan": {
+            "expected": 180, "actual": len(plan),
+            "unique": len({item.run_key for item in plan}),
+            "duplicates": len(plan) - len({item.run_key for item in plan}),
+            "first_run_key": plan[0].run_key, "last_run_key": plan[-1].run_key,
+        },
+    }
+    (STUDY / "formal_preflight_audit.json").write_text(json.dumps(audit, indent=2) + "\n")
+    if failed:
+        raise RuntimeError(f"T1b-1 formal preflight failed: {failed}")
+    return audit
 
 
 def smoke(config_path: Path) -> dict:
@@ -333,9 +472,11 @@ def _run_authorized_formal(config: dict, config_path: Path) -> dict:
                     result = json.loads((fit_dir / "fit_result.json").read_text())
                     convergence.append({
                         "outer_seed": seed, "budget": budget, "method": method, "source_member": member,
+                        "mode": "graph_adapter_head",
                         "best_epoch": result["best_epoch"], "epochs_run": result["epochs_run"],
                         "early_stopped": result["epochs_run"] < 500, "hit_max_epoch": result["epochs_run"] == 500,
                         "normalized_valid_score": result["normalized_valid_score"],
+                        "trainable_parameter_count": result["trainable_parameters"],
                     })
                 values = np.mean(np.stack(members), axis=0)
                 path = runtime / f"predictions/seed_{seed}/budget_{budget}/{method}.csv"
@@ -370,7 +511,12 @@ def _run_authorized_formal(config: dict, config_path: Path) -> dict:
     curve.to_csv(study_dir / "capacity_curve.csv", index=False)
     aulc_summary.to_csv(study_dir / "capacity_aulc_summary.csv", index=False)
     paired_rows.merge(paired_summary, on=["candidate", "reference"]).to_csv(study_dir / "paired_aulc_effects.csv", index=False)
-    pd.DataFrame(convergence).to_csv(study_dir / "convergence_audit.csv", index=False)
+    frozen_convergence = pd.read_csv(T1A / "convergence_audit.csv")
+    frozen_convergence = frozen_convergence.loc[
+        frozen_convergence.method.isin(["target_head_only", "last1_head", "current_last2_head"])
+    ]
+    all_convergence = pd.concat([frozen_convergence, pd.DataFrame(convergence)], ignore_index=True, sort=False)
+    all_convergence.to_csv(study_dir / "convergence_audit.csv", index=False)
     pd.DataFrame(details).to_csv(study_dir / "formal_fit_resume_details.csv", index=False)
     (study_dir / "resume_audit.json").write_text(json.dumps(resume, indent=2) + "\n")
     (study_dir / "formal_run_audit.json").write_text(json.dumps({**gate, "test_truth_read_before_all_predictions_frozen": False}, indent=2) + "\n")
@@ -410,12 +556,15 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     actions = parser.add_mutually_exclusive_group(required=True)
     actions.add_argument("--prepare", action="store_true")
+    actions.add_argument("--preflight", action="store_true")
     actions.add_argument("--smoke", action="store_true")
     actions.add_argument("--run", action="store_true")
     parser.add_argument("--config", type=Path, default=STUDY / "config.json")
     args = parser.parse_args()
     if args.prepare:
         prepare(args.config)
+    elif args.preflight:
+        preflight(args.config)
     elif args.smoke:
         smoke(args.config)
     else:

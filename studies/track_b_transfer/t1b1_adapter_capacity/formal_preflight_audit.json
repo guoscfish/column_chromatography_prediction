@@ -1,0 +1,402 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "formal_authorized": false,
+  "test_truth_read": false,
+  "target_columns_read": [
+    "CAS",
+    "name",
+    "Purity",
+    "Density g/ml",
+    "V/ul",
+    "loading solvent",
+    "Volume of loading solvent/ul",
+    "PE/EA",
+    "Flow mL/min",
+    "Ending time",
+    "column_specs",
+    "t1",
+    "t2",
+    "smiles",
+    "verified t1",
+    "verified t2",
+    "source_row_1based",
+    "sample_id",
+    "decision",
+    "decision_reason",
+    "quality_flags",
+    "reviewer",
+    "canonical_smiles",
+    "threshold_excluded",
+    "over_v1_threshold",
+    "over_v2_threshold"
+  ],
+  "checks": {
+    "outer_seeds": true,
+    "budgets": true,
+    "fixed_validation": true,
+    "adapter_widths": true,
+    "adapter_structure": true,
+    "primary_reference": true,
+    "stable_gate": true,
+    "training_contract": true,
+    "role_counts": true,
+    "same_role_ids_for_all_adapters": true,
+    "graph_representation_dim_128": true,
+    "parameter_counts": true,
+    "source_function_identity": true,
+    "expected_new_adapter_fits_180": true,
+    "unique_run_keys_180": true,
+    "duplicate_run_keys_zero": true
+  },
+  "failed_checks": [],
+  "parameter_audit": [
+    {
+      "method": "graph_adapter_r8",
+      "width": 8,
+      "input_dim": 128,
+      "adapter_parameters": 2184,
+      "head_parameters": 774,
+      "trainable_parameters": 2958,
+      "total_parameters": 777660,
+      "pass": true
+    },
+    {
+      "method": "graph_adapter_r16",
+      "width": 16,
+      "input_dim": 128,
+      "adapter_parameters": 4240,
+      "head_parameters": 774,
+      "trainable_parameters": 5014,
+      "total_parameters": 779716,
+      "pass": true
+    },
+    {
+      "method": "graph_adapter_r32",
+      "width": 32,
+      "input_dim": 128,
+      "adapter_parameters": 8352,
+      "head_parameters": 774,
+      "trainable_parameters": 9126,
+      "total_parameters": 783828,
+      "pass": true
+    },
+    {
+      "method": "target_head_only",
+      "width": null,
+      "input_dim": 128,
+      "adapter_parameters": 0,
+      "head_parameters": 774,
+      "trainable_parameters": 774,
+      "total_parameters": 775476,
+      "pass": true
+    },
+    {
+      "method": "last1_head",
+      "width": null,
+      "input_dim": 128,
+      "adapter_parameters": 0,
+      "head_parameters": 774,
+      "trainable_parameters": 93454,
+      "total_parameters": 775476,
+      "pass": true
+    },
+    {
+      "method": "current_last2_head",
+      "width": null,
+      "input_dim": 128,
+      "adapter_parameters": 0,
+      "head_parameters": 774,
+      "trainable_parameters": 186134,
+      "total_parameters": 775476,
+      "pass": true
+    }
+  ],
+  "initialization_identity_audit": [
+    {
+      "adapter_type": "graph_level_residual",
+      "bottleneck_width": 8,
+      "graph_representation_dim": 128,
+      "rows": 30,
+      "adapter_parameters": 2184,
+      "head_parameters": 774,
+      "trainable_parameters": 2958,
+      "total_parameters": 777660,
+      "maximum_absolute_prediction_difference": 0.0,
+      "tolerance": 1e-07,
+      "prediction_identical": true,
+      "method": "graph_adapter_r8",
+      "source_member": 42
+    },
+    {
+      "adapter_type": "graph_level_residual",
+      "bottleneck_width": 8,
+      "graph_representation_dim": 128,
+      "rows": 30,
+      "adapter_parameters": 2184,
+      "head_parameters": 774,
+      "trainable_parameters": 2958,
+      "total_parameters": 777660,
+      "maximum_absolute_prediction_difference": 0.0,
+      "tolerance": 1e-07,
+      "prediction_identical": true,
+      "method": "graph_adapter_r8",
+      "source_member": 525
+    },
+    {
+      "adapter_type": "graph_level_residual",
+      "bottleneck_width": 8,
+      "graph_representation_dim": 128,
+      "rows": 30,
+      "adapter_parameters": 2184,
+      "head_parameters": 774,
+      "trainable_parameters": 2958,
+      "total_parameters": 777660,
+      "maximum_absolute_prediction_difference": 0.0,
+      "tolerance": 1e-07,
+      "prediction_identical": true,
+      "method": "graph_adapter_r8",
+      "source_member": 1101
+    },
+    {
+      "adapter_type": "graph_level_residual",
+      "bottleneck_width": 16,
+      "graph_representation_dim": 128,
+      "rows": 30,
+      "adapter_parameters": 4240,
+      "head_parameters": 774,
+      "trainable_parameters": 5014,
+      "total_parameters": 779716,
+      "maximum_absolute_prediction_difference": 0.0,
+      "tolerance": 1e-07,
+      "prediction_identical": true,
+      "method": "graph_adapter_r16",
+      "source_member": 42
+    },
+    {
+      "adapter_type": "graph_level_residual",
+      "bottleneck_width": 16,
+      "graph_representation_dim": 128,
+      "rows": 30,
+      "adapter_parameters": 4240,
+      "head_parameters": 774,
+      "trainable_parameters": 5014,
+      "total_parameters": 779716,
+      "maximum_absolute_prediction_difference": 0.0,
+      "tolerance": 1e-07,
+      "prediction_identical": true,
+      "method": "graph_adapter_r16",
+      "source_member": 525
+    },
+    {
+      "adapter_type": "graph_level_residual",
+      "bottleneck_width": 16,
+      "graph_representation_dim": 128,
+      "rows": 30,
+      "adapter_parameters": 4240,
+      "head_parameters": 774,
+      "trainable_parameters": 5014,
+      "total_parameters": 779716,
+      "maximum_absolute_prediction_difference": 0.0,
+      "tolerance": 1e-07,
+      "prediction_identical": true,
+      "method": "graph_adapter_r16",
+      "source_member": 1101
+    },
+    {
+      "adapter_type": "graph_level_residual",
+      "bottleneck_width": 32,
+      "graph_representation_dim": 128,
+      "rows": 30,
+      "adapter_parameters": 8352,
+      "head_parameters": 774,
+      "trainable_parameters": 9126,
+      "total_parameters": 783828,
+      "maximum_absolute_prediction_difference": 0.0,
+      "tolerance": 1e-07,
+      "prediction_identical": true,
+      "method": "graph_adapter_r32",
+      "source_member": 42
+    },
+    {
+      "adapter_type": "graph_level_residual",
+      "bottleneck_width": 32,
+      "graph_representation_dim": 128,
+      "rows": 30,
+      "adapter_parameters": 8352,
+      "head_parameters": 774,
+      "trainable_parameters": 9126,
+      "total_parameters": 783828,
+      "maximum_absolute_prediction_difference": 0.0,
+      "tolerance": 1e-07,
+      "prediction_identical": true,
+      "method": "graph_adapter_r32",
+      "source_member": 525
+    },
+    {
+      "adapter_type": "graph_level_residual",
+      "bottleneck_width": 32,
+      "graph_representation_dim": 128,
+      "rows": 30,
+      "adapter_parameters": 8352,
+      "head_parameters": 774,
+      "trainable_parameters": 9126,
+      "total_parameters": 783828,
+      "maximum_absolute_prediction_difference": 0.0,
+      "tolerance": 1e-07,
+      "prediction_identical": true,
+      "method": "graph_adapter_r32",
+      "source_member": 1101
+    }
+  ],
+  "role_hash_contexts": [
+    {
+      "outer_seed": 769539383,
+      "budget": 30,
+      "gradient_train_ids_hash": "e68ab434c4e070ce21d8a69fe846ac0eae7954cf7dc78f00f940f9a45086e10c",
+      "validation_ids_hash": "961deb95ffc2d66a750028cc47c77a61523c96ffecef3c3418bc4dc7c2a4b2e1",
+      "test_ids_hash": "238dcfa41473e8a1d31f2af81825d4bf27aa3ccc581f2b7a476f569d928f97c3"
+    },
+    {
+      "outer_seed": 769539383,
+      "budget": 50,
+      "gradient_train_ids_hash": "dbccaa5d519b28fe89bdd3ee8ee00cbd50b433ae1de9462b4fe4c4e470e602ff",
+      "validation_ids_hash": "961deb95ffc2d66a750028cc47c77a61523c96ffecef3c3418bc4dc7c2a4b2e1",
+      "test_ids_hash": "238dcfa41473e8a1d31f2af81825d4bf27aa3ccc581f2b7a476f569d928f97c3"
+    },
+    {
+      "outer_seed": 769539383,
+      "budget": 70,
+      "gradient_train_ids_hash": "8d571ff82e1e69a108645830a61327e21aa4be211d2fd2c7cbbd38c3e7bd82fe",
+      "validation_ids_hash": "961deb95ffc2d66a750028cc47c77a61523c96ffecef3c3418bc4dc7c2a4b2e1",
+      "test_ids_hash": "238dcfa41473e8a1d31f2af81825d4bf27aa3ccc581f2b7a476f569d928f97c3"
+    },
+    {
+      "outer_seed": 769539383,
+      "budget": 100,
+      "gradient_train_ids_hash": "39cffb87c6fcae04f499eef3c723da5332ca801955e1f81760298b21b0ff3687",
+      "validation_ids_hash": "961deb95ffc2d66a750028cc47c77a61523c96ffecef3c3418bc4dc7c2a4b2e1",
+      "test_ids_hash": "238dcfa41473e8a1d31f2af81825d4bf27aa3ccc581f2b7a476f569d928f97c3"
+    },
+    {
+      "outer_seed": 1425370602,
+      "budget": 30,
+      "gradient_train_ids_hash": "6eb5c41c9bc7788aaaf25b3964fca067322518afa6f66669f5089eaa24835e5e",
+      "validation_ids_hash": "0c01e45b87d54323317f3cc8c7585bd2cef80cee3120138eb9fd40bec26c82ed",
+      "test_ids_hash": "4d736c15156b419ea597a3d3d4095995bd403f2730a42c909c117c8417911cb7"
+    },
+    {
+      "outer_seed": 1425370602,
+      "budget": 50,
+      "gradient_train_ids_hash": "e28bc0eda881a6a0216625f3bf43b7341494ab1a9691eae5aa7314e7aa3e7638",
+      "validation_ids_hash": "0c01e45b87d54323317f3cc8c7585bd2cef80cee3120138eb9fd40bec26c82ed",
+      "test_ids_hash": "4d736c15156b419ea597a3d3d4095995bd403f2730a42c909c117c8417911cb7"
+    },
+    {
+      "outer_seed": 1425370602,
+      "budget": 70,
+      "gradient_train_ids_hash": "f22e3deb5f4594e16261df57dc87dae5eb1289bd4a385726e79c630996260795",
+      "validation_ids_hash": "0c01e45b87d54323317f3cc8c7585bd2cef80cee3120138eb9fd40bec26c82ed",
+      "test_ids_hash": "4d736c15156b419ea597a3d3d4095995bd403f2730a42c909c117c8417911cb7"
+    },
+    {
+      "outer_seed": 1425370602,
+      "budget": 100,
+      "gradient_train_ids_hash": "0a0f4048b6dbb327df46e4da08f93a8b29880f919945e72f537b4f09735ce7e2",
+      "validation_ids_hash": "0c01e45b87d54323317f3cc8c7585bd2cef80cee3120138eb9fd40bec26c82ed",
+      "test_ids_hash": "4d736c15156b419ea597a3d3d4095995bd403f2730a42c909c117c8417911cb7"
+    },
+    {
+      "outer_seed": 536279090,
+      "budget": 30,
+      "gradient_train_ids_hash": "7953ba47a0a7e3f8dcbd16b49694f6af74427d5bf087f3d0d149cf6e34a53ba5",
+      "validation_ids_hash": "35c0998166af2a676382dc25226c43faddd898f12887d48de8008f4150b343f6",
+      "test_ids_hash": "5b04d6e88d76f4f3a968824817769737420b2a65905b7838fa4ec1d2feb40ae7"
+    },
+    {
+      "outer_seed": 536279090,
+      "budget": 50,
+      "gradient_train_ids_hash": "1983cb1e1c678f351a02a26c580554eacf5a437a3397f21a7a8a85fb6b08b433",
+      "validation_ids_hash": "35c0998166af2a676382dc25226c43faddd898f12887d48de8008f4150b343f6",
+      "test_ids_hash": "5b04d6e88d76f4f3a968824817769737420b2a65905b7838fa4ec1d2feb40ae7"
+    },
+    {
+      "outer_seed": 536279090,
+      "budget": 70,
+      "gradient_train_ids_hash": "44e0e323a294d05f01fdcb1632a533d688c9adfd90959a12b37b3331ffd45f86",
+      "validation_ids_hash": "35c0998166af2a676382dc25226c43faddd898f12887d48de8008f4150b343f6",
+      "test_ids_hash": "5b04d6e88d76f4f3a968824817769737420b2a65905b7838fa4ec1d2feb40ae7"
+    },
+    {
+      "outer_seed": 536279090,
+      "budget": 100,
+      "gradient_train_ids_hash": "1fa498f55ed5a01495f2b3fbe9ae0e3722479d6347764ce6a04b38afe6dd0058",
+      "validation_ids_hash": "35c0998166af2a676382dc25226c43faddd898f12887d48de8008f4150b343f6",
+      "test_ids_hash": "5b04d6e88d76f4f3a968824817769737420b2a65905b7838fa4ec1d2feb40ae7"
+    },
+    {
+      "outer_seed": 2767143051,
+      "budget": 30,
+      "gradient_train_ids_hash": "f6b692b2f20aa1d2c19c77d76c82c64f41e284d3088852037415fb45c5e001bb",
+      "validation_ids_hash": "1c3e1dc20725ea1b5615e0db22c8726ea6849a7414500aa89c1c85be140f75b2",
+      "test_ids_hash": "ff227fce9fdd267fe187c038dad70d97565bb5d5e64fcf79dd4b45a79a6ef68e"
+    },
+    {
+      "outer_seed": 2767143051,
+      "budget": 50,
+      "gradient_train_ids_hash": "318d94fd95817c73101e3ea5ba5739a7b4a9cfdbce70bb685dd1b45119fb0780",
+      "validation_ids_hash": "1c3e1dc20725ea1b5615e0db22c8726ea6849a7414500aa89c1c85be140f75b2",
+      "test_ids_hash": "ff227fce9fdd267fe187c038dad70d97565bb5d5e64fcf79dd4b45a79a6ef68e"
+    },
+    {
+      "outer_seed": 2767143051,
+      "budget": 70,
+      "gradient_train_ids_hash": "45090e7495001a33fdae0a3b9b21430a03f0e99acc587101c11d325ffe10a22e",
+      "validation_ids_hash": "1c3e1dc20725ea1b5615e0db22c8726ea6849a7414500aa89c1c85be140f75b2",
+      "test_ids_hash": "ff227fce9fdd267fe187c038dad70d97565bb5d5e64fcf79dd4b45a79a6ef68e"
+    },
+    {
+      "outer_seed": 2767143051,
+      "budget": 100,
+      "gradient_train_ids_hash": "913ecdbfc008d500a73b32607b21b0471a9eb4eb4141237c82909c1a334a8d6d",
+      "validation_ids_hash": "1c3e1dc20725ea1b5615e0db22c8726ea6849a7414500aa89c1c85be140f75b2",
+      "test_ids_hash": "ff227fce9fdd267fe187c038dad70d97565bb5d5e64fcf79dd4b45a79a6ef68e"
+    },
+    {
+      "outer_seed": 1362771960,
+      "budget": 30,
+      "gradient_train_ids_hash": "de9c434571d8a25593107a8a88f360b606e67720814cedbb52ea027155e6c63e",
+      "validation_ids_hash": "4f7c72d2272c3cb05cdf46f2638c5a7da6f6e15b3fa6b49009c3bc7580055da8",
+      "test_ids_hash": "109e88733292c72f0c338f950159e58eabc27468b4af4db85c6c16a317c36235"
+    },
+    {
+      "outer_seed": 1362771960,
+      "budget": 50,
+      "gradient_train_ids_hash": "ec8df422f9dd73e02da795a1d7ce65ab41e8fafc8c9707a2b26a83fc3bc7b072",
+      "validation_ids_hash": "4f7c72d2272c3cb05cdf46f2638c5a7da6f6e15b3fa6b49009c3bc7580055da8",
+      "test_ids_hash": "109e88733292c72f0c338f950159e58eabc27468b4af4db85c6c16a317c36235"
+    },
+    {
+      "outer_seed": 1362771960,
+      "budget": 70,
+      "gradient_train_ids_hash": "4c6480be6de710a51d8c41b17b1af2a39a4c7f32753c21ce1ce0c9f687608326",
+      "validation_ids_hash": "4f7c72d2272c3cb05cdf46f2638c5a7da6f6e15b3fa6b49009c3bc7580055da8",
+      "test_ids_hash": "109e88733292c72f0c338f950159e58eabc27468b4af4db85c6c16a317c36235"
+    },
+    {
+      "outer_seed": 1362771960,
+      "budget": 100,
+      "gradient_train_ids_hash": "d71094ef70208c58bc6ae2414630852501febee77b97d1d106f0bb71dd9a7311",
+      "validation_ids_hash": "4f7c72d2272c3cb05cdf46f2638c5a7da6f6e15b3fa6b49009c3bc7580055da8",
+      "test_ids_hash": "109e88733292c72f0c338f950159e58eabc27468b4af4db85c6c16a317c36235"
+    }
+  ],
+  "fit_plan": {
+    "expected": 180,
+    "actual": 180,
+    "unique": 180,
+    "duplicates": 0,
+    "first_run_key": "seed_769539383/budget_30/graph_adapter_r8/member_42",
+    "last_run_key": "seed_1362771960/budget_100/graph_adapter_r32/member_1101"
+  }
+}

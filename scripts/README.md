@@ -18,6 +18,6 @@ Current config-driven study-family runners live under `scripts/studies/`:
 - `run_t1_low_label_adaptation.py`
 - `run_t1b1_adapter_capacity.py`
 
-These are current study infrastructure, not historical reproduction-only scripts. Their own frozen configs and authorization gates control which actions may run. T1a has completed its separately authorized formal run; future studies still require their own explicit authorization.
+These are current study infrastructure, not historical reproduction-only scripts. Their own frozen configs and authorization gates control which actions may run. T1a has completed its separately authorized formal run. T1b-1's truth-free preflight has passed and its frozen protocol is ready for a separate authorization commit; no formal T1b-1 result exists at this stage.
 
 Future work should use `scripts/run_experiment.py` or a small protocol-family runner with config/spec differences for partitions, budgets, transfer strategies, and acquisitions. Add a new runner only when the scientific protocol family changes; new code imports `src.qgeognn_al.*`, never another `run_*.py` for scientific core.

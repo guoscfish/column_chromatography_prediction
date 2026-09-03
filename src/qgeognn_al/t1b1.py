@@ -42,7 +42,6 @@ class AdapterFitSpec:
 def validate_config(config: dict[str, Any]) -> None:
     expected = {
         "study": "T1b1_adapter_capacity",
-        "scientific_status": "engineering_preregistered",
         "protocol": "frozen_t1a_row",
         "outer_seeds": OUTER_SEEDS,
         "target_label_budgets": BUDGETS,
@@ -62,6 +61,11 @@ def validate_config(config: dict[str, Any]) -> None:
     }
     if not isinstance(config.get("formal_authorized"), bool):
         mismatches["formal_authorized"] = {"expected": "boolean", "actual": config.get("formal_authorized")}
+    if config.get("scientific_status") not in {"engineering_preregistered", "ready_for_formal_authorization"}:
+        mismatches["scientific_status"] = {
+            "expected": ["engineering_preregistered", "ready_for_formal_authorization"],
+            "actual": config.get("scientific_status"),
+        }
     training = config.get("training", {})
     for key, value in {
         "learning_rate": 1e-4, "weight_decay": 1e-5, "epochs": 500,
@@ -186,14 +190,16 @@ def capacity_summaries(
             "mean_normalized_AULC": float(values.mean()),
             "median_normalized_AULC": float(np.median(values)),
             "std": float(values.std(ddof=1)),
-            "paired_delta_vs_head": 0.0 if method == PRIMARY_REFERENCE else None,
+            "paired_mean_delta_vs_head": 0.0 if method == PRIMARY_REFERENCE else None,
+            "paired_median_delta_vs_head": 0.0 if method == PRIMARY_REFERENCE else None,
             "wins_vs_head": 0 if method == PRIMARY_REFERENCE else None,
             "stable_gate_pass": False,
         }
         match = paired.loc[paired.candidate.eq(method)]
         if not match.empty:
             row.update({
-                "paired_delta_vs_head": float(match.mean_paired_delta_AULC.iloc[0]),
+                "paired_mean_delta_vs_head": float(match.mean_paired_delta_AULC.iloc[0]),
+                "paired_median_delta_vs_head": float(match.median_paired_delta_AULC.iloc[0]),
                 "wins_vs_head": int(match.win_count.iloc[0]),
                 "stable_gate_pass": bool(match["pass"].iloc[0]),
             })

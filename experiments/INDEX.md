@@ -38,4 +38,4 @@ Every current experiment directory has exactly one navigation row above.
 ## Current studies outside `experiments/`
 
 - `studies/track_b_transfer/t1_low_label_adaptation`: T1a formal scientific run complete (180/180 fits, 120/120 contexts); no candidate passed the stable-improvement gate. See `FORMAL_RESULTS.md` and the machine-readable result artifacts.
-- `studies/track_b_transfer/t1b1_adapter_capacity`: post-T1a developmental capacity sweep; engineering/preregistration and 9-fit smoke complete, 180-fit formal run not authorized.
+- `studies/track_b_transfer/t1b1_adapter_capacity`: post-T1a developmental capacity sweep; preregistration, 9-fit smoke, and truth-free formal preflight complete; frozen 180-fit protocol ready for separate authorization.

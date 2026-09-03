@@ -1,6 +1,6 @@
 # Next-stage Decision after A1a: T1 Engineering Gate
 
-T1a formal execution is complete without a stable winner. T1b-1 engineering/preregistration and smoke are complete, but this document does not authorize its formal run, T1b-2, or active transfer.
+T1a formal execution is complete without a stable winner. T1b-1 is preregistered and its smoke plus truth-free formal preflight passed, so the frozen protocol is ready for separate formal authorization. This document does not itself authorize its formal run, T1b-2, or active transfer.
 
 | Criterion | A1-family: 4g AL Method Extension | T1: Transfer Adaptation Benchmark |
 |---|---|---|
@@ -20,7 +20,7 @@ T1a formal execution is complete without a stable winner. T1b-1 engineering/prer
 
 **A1a is complete and stopped.** Its failed diversity gate does not mean 4g AL failed: it narrows the unsupported mechanism to farthest-first's incremental value. Because E2 Random was FullPool-Random while A1a Random was shortlist-conditioned, uncertainty filtering remains plausible but is not causally isolated by a direct paired comparison. A1b remains unauthorized.
 
-**T1a completed its frozen row-protocol schedule without establishing a stable winner.** `target_head_only` led mean performance but won only 3/5 paired AULC seeds. T1b-1 now preregisters only a graph-level residual-adapter capacity sweep at r=8/16/32. It is explicitly post-T1a developmental work on an already-consumed row protocol. Track C stays deferred, and adaptation-location methods remain an unauthorized T1b-2 placeholder.
+**T1a completed its frozen row-protocol schedule without establishing a stable winner.** `target_head_only` led mean performance but won only 3/5 paired AULC seeds. T1b-1 preregisters only a graph-level residual-adapter capacity sweep at r=8/16/32; its truth-free preflight passed and it is ready for a separate authorization commit. It is explicitly post-T1a developmental work on an already-consumed row protocol. Track C stays deferred, and adaptation-location methods remain an unauthorized T1b-2 placeholder.
 
 ## Frozen T1a design
 
