@@ -14,7 +14,7 @@ Two independent branches remain open: whether 4g in-domain AL can become robust 
 
 ## Current stage
 
-S1 and A1a are completed and stopped. T1a formal execution is complete: 180/180 neural fits and 120/120 evaluation contexts passed the completion gate, but no candidate passed the preregistered stable-improvement gate.
+S1 and A1a are completed and stopped. T1a formal execution is complete without a stable winner. T1b-1 engineering, preregistration, capacity audit, and nine-fit smoke are complete; its 180-fit formal capacity sweep is not authorized.
 
 ## Next preregistered candidates
 
@@ -24,9 +24,12 @@ S1 and A1a are completed and stopped. T1a formal execution is complete: 180/180 
 
 **T1a — formal run complete, no stable winner:** row protocol with fixed Random nested target labels and budgets 30/50/70/100 (8 validation labels included). `target_head_only` achieved the best mean normalized AULC (0.6577) and best mean combined NRMSE at every budget, but its favorable mean/median paired delta versus `current_last2_head` came with only 3/5 seed wins, below the required 4/5. `last1_head` also won only 3/5. Historical `target_readout_only` means this fixed-sum, prediction-head-only candidate; no learnable graph readout was tested.
 
+**T1b-1 — engineering/preregistered, formal not authorized:** one fixed graph-level residual adapter is inserted after fixed sum pooling and before the existing head. Widths 8/16/32 provide 2,958/5,014/9,126 trainable adapter-plus-head parameters. The primary comparison is adapter minus `target_head_only`; the frozen gate requires negative mean and median paired normalized AULC plus at least 4/5 wins. Because T1a row test outcomes are already known, this is developmental hypothesis testing rather than independent pristine confirmation.
+
 ## Stop and gate conditions
 
-- Any T1b genuine learnable-readout comparison requires a new preregistration and separate manual authorization; it is not implemented here.
+- T1b-1 formal execution requires separate manual authorization; smoke cannot select a width.
+- T1b-2 is only a future matched-capacity adaptation-location placeholder for graph adapter versus message-passing adapter versus learnable readout; it is not implemented or authorized.
 - Track A cannot freeze a strategy without stable row plus compound/scaffold evidence and more than the current three outer seeds.
 - Track C cannot reopen until T1 establishes a stable low-label transfer formulation.
 - A1b is stopped because A1a did not support the diversity mechanism.

@@ -1,0 +1,82 @@
+{
+  "study": "T1b1_adapter_capacity",
+  "scientific_status": "engineering_preregistered",
+  "formal_authorized": false,
+  "formal_run_started": false,
+  "protocol": "frozen_t1a_row",
+  "developmental_status": "post_t1a_hypothesis_testing_not_pristine_confirmatory",
+  "outer_seeds": [769539383, 1425370602, 536279090, 2767143051, 1362771960],
+  "target_label_budgets": [30, 50, 70, 100],
+  "fixed_validation": 8,
+  "source_members": [42, 525, 1101],
+  "adapter_type": "graph_level_residual",
+  "graph_representation_dim": 128,
+  "activation": "relu",
+  "up_projection_initialization": "zeros",
+  "bottleneck_widths": [8, 16, 32],
+  "adapter_methods": {
+    "graph_adapter_r8": 8,
+    "graph_adapter_r16": 16,
+    "graph_adapter_r32": 32
+  },
+  "primary_reference": "target_head_only",
+  "capacity_methods": [
+    "target_head_only",
+    "graph_adapter_r8",
+    "graph_adapter_r16",
+    "graph_adapter_r32",
+    "last1_head",
+    "current_last2_head"
+  ],
+  "parameter_counts": {
+    "target_head_only": {"adapter_parameters": 0, "head_parameters": 774, "total_trainable_parameters": 774, "total_model_parameters": 775476},
+    "graph_adapter_r8": {"adapter_parameters": 2184, "head_parameters": 774, "total_trainable_parameters": 2958, "total_model_parameters": 777660},
+    "graph_adapter_r16": {"adapter_parameters": 4240, "head_parameters": 774, "total_trainable_parameters": 5014, "total_model_parameters": 779716},
+    "graph_adapter_r32": {"adapter_parameters": 8352, "head_parameters": 774, "total_trainable_parameters": 9126, "total_model_parameters": 783828},
+    "last1_head": {"adapter_parameters": 0, "head_parameters": 774, "total_trainable_parameters": 93454, "total_model_parameters": 775476},
+    "current_last2_head": {"adapter_parameters": 0, "head_parameters": 774, "total_trainable_parameters": 186134, "total_model_parameters": 775476}
+  },
+  "training": {
+    "learning_rate": 0.0001,
+    "weight_decay": 0.00001,
+    "epochs": 500,
+    "patience": 100,
+    "batch_size": 2048,
+    "v1_weight": 1.0,
+    "v2_weight": 1.0,
+    "scaler_policy": "source_train",
+    "quantile_parameterization": "monotonic_softplus",
+    "checkpoint_selection": "validation_normalized_mse"
+  },
+  "stable_improvement_gate": {
+    "mean_delta_lt": 0,
+    "median_delta_lt": 0,
+    "minimum_wins": 4,
+    "outer_seed_count": 5
+  },
+  "failure_policy": {
+    "max_same_config_retry": 1,
+    "poor_scientific_performance_action": "retain_without_rerun"
+  },
+  "t1a_artifacts": {
+    "partition_sha256": "8418f1127c063e1f771ace3ea9d3705a90bed8a102f4cf08702368ef9422b75a",
+    "schedule_sha256": "0718c2ce0369a4ebf4304aa8a275120db5a8b19ca0c5bc7f4c3462b485dbf922",
+    "per_context_metrics_sha256": "93b6f18d75035a7c3a8402cb77ae52afc047f676629b08f560b98918670c7c50",
+    "source_target_scales_sha256": "55dc1756ba2d5e4aebcd0b1a1153caed1c1ff90b57f0607e3dc0fdef48088831",
+    "target_sha256": "4cc533b00c4528053c7f033645c50a7d03b35bfff3fcfe4c3f684376ac136203"
+  },
+  "source_checkpoint_hashes": {
+    "42": "7b9e3d0d4c8036c738ef220802e7ee46bc6ab8261cc541fb7d194e8c17044323",
+    "525": "719b2eb695e473c024c11eeb070a7835db78a3d5b01b6d50e8c3aa8f694d5916",
+    "1101": "23cdc24472d5458046eebaa20aa743228e55ee3d6f1c4c3730d4ff431ea08a60"
+  },
+  "forbidden": [
+    "formal_run_without_separate_authorization",
+    "message_passing_adapter",
+    "adaptive_or_attention_readout",
+    "set_transformer_or_gated_readout",
+    "lora_or_prompt_tuning",
+    "full_finetuning",
+    "active_transfer"
+  ]
+}

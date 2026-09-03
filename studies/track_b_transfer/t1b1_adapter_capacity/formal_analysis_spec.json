@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_formal_results",
+  "formal_authorized": false,
+  "scientific_role": "post_t1a_developmental_hypothesis_testing",
+  "independent_pristine_confirmatory_test": false,
+  "primary_reference": "target_head_only",
+  "primary_metric": "mean_NRMSE_over_budget_interval",
+  "definition": "AULC_30_100 / 70 using combined source-normalized NRMSE",
+  "paired_unit": "outer_seed",
+  "paired_delta": "adapter_minus_target_head_only",
+  "candidate_better_when": "delta < 0",
+  "stable_improvement_gate": {
+    "all_required": ["mean paired delta < 0", "median paired delta < 0", "wins >= 4/5 outer seeds"]
+  },
+  "capacity_curve": {
+    "methods": ["target_head_only", "graph_adapter_r8", "graph_adapter_r16", "graph_adapter_r32", "last1_head", "current_last2_head"],
+    "x": "log10(trainable_parameters)",
+    "y": "mean normalized AULC",
+    "complex_curve_fit": false
+  },
+  "completion_gate": {
+    "expected_new_adapter_fits": 180,
+    "expected_evaluation_contexts": 120,
+    "failed_or_missing_fits_allowed": 0,
+    "incomplete_result_forbids_final_decision": true
+  },
+  "future_validation_requirement": ["compound-level protocol", "another column specification", "new external target data"]
+}

@@ -1,0 +1,26 @@
+{
+  "study": "T1b1_adapter_capacity",
+  "engineering_only": true,
+  "outer_seed": 769539383,
+  "budget": 30,
+  "epochs": 2,
+  "patience": 2,
+  "test_truth_read": false,
+  "checks": {
+    "smoke_fits_9": true,
+    "initialization_identity": true,
+    "maximum_initialization_difference_le_1e_7": true,
+    "graph_representation_dim_128": true,
+    "frozen_gnn_hash_unchanged": true,
+    "adapter_parameters_changed": true,
+    "prediction_head_parameters_changed": true,
+    "same_gradient_ids": true,
+    "same_validation_ids": true,
+    "same_evaluation_ids": true,
+    "k3_inference_finite": true,
+    "no_test_truth": true
+  },
+  "all_checks_pass": true,
+  "scientific_result": null,
+  "winner_selected": false
+}

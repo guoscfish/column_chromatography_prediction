@@ -183,9 +183,10 @@ def inspect_fit_runtime(fit_dir: Path, expected_contract: dict[str, Any]) -> dic
             "expected": expected_contract["expected_trainable_parameters"],
             "actual": result.get("trainable_parameters"),
         }
-    if int(result.get("total_parameters", -1)) != EXPECTED_TOTAL_PARAMETERS:
+    expected_total = int(expected_contract.get("expected_total_parameters", EXPECTED_TOTAL_PARAMETERS))
+    if int(result.get("total_parameters", -1)) != expected_total:
         mismatch["fit_result.total_parameters"] = {
-            "expected": EXPECTED_TOTAL_PARAMETERS, "actual": result.get("total_parameters")
+            "expected": expected_total, "actual": result.get("total_parameters")
         }
     if mismatch:
         return {"status": "stale", "reason": "contract_or_hash_mismatch", "mismatch": mismatch, "present": present}

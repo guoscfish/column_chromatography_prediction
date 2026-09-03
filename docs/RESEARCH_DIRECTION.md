@@ -72,6 +72,8 @@ S1 used only the analysis role of a truth-blind compound partition. Zero-shot co
 
 T1a formally tested `target_head_only` (prediction head only; pooling remains sum), `last1_head`, and `current_last2_head` alongside zero-shot, affine, and condition-Ridge residual baselines. All 180 fits and 120 contexts completed. `target_head_only` led mean normalized AULC (0.6577 versus 0.7634 for `current_last2_head`) but won only 3/5 paired seeds, so no candidate passed the stable gate. A genuine learnable readout is now a distinct T1b hypothesis requiring separate preregistration; active transfer remains deferred.
 
+T1b-1 separates capacity from insertion-location search. It fixes a zero-initialized graph-level residual adapter after sum pooling, trains adapter plus head only, and preregisters widths 8/16/32. Engineering smoke passed, while the 180-fit formal run remains unauthorized. Since it reuses T1a's already-read row test outcomes, it can nominate a capacity region but cannot provide pristine independent confirmation. T1b-2 is reserved for a future approximately matched-capacity comparison of graph-level, message-passing, and learnable-readout locations; none of those additional locations is implemented here.
+
 | Area | Relevant work/idea | Project implication |
 |---|---|---|
 | Small-data GNN transfer | Adaptive readouts and low-data molecular transfer | Motivates comparing head/readout, residual, and frozen-feature formulations before acquisitions. |

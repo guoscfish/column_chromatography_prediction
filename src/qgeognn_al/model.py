@@ -32,11 +32,83 @@ class MonotonicQuantileHead(nn.Module):
         return torch.stack(outputs, dim=1)
 
 
+class ResidualGraphAdapter(nn.Module):
+    """Zero-impact bottleneck adapter applied to the pooled graph representation."""
+
+    def __init__(self, input_dim: int, bottleneck_width: int):
+        super().__init__()
+        if input_dim < 1 or bottleneck_width < 1:
+            raise ValueError("adapter dimensions must be positive")
+        self.input_dim = int(input_dim)
+        self.bottleneck_width = int(bottleneck_width)
+        self.down = nn.Linear(self.input_dim, self.bottleneck_width, bias=True)
+        self.activation = nn.ReLU()
+        self.up = nn.Linear(self.bottleneck_width, self.input_dim, bias=True)
+        nn.init.zeros_(self.up.weight)
+        nn.init.zeros_(self.up.bias)
+
+    def forward(self, h_graph: torch.Tensor) -> torch.Tensor:
+        return h_graph + self.up(self.activation(self.down(h_graph)))
+
+
+class ResidualGraphAdapterHead(nn.Module):
+    """Adapter followed by the existing prediction head."""
+
+    def __init__(self, adapter: ResidualGraphAdapter, head: nn.Module):
+        super().__init__()
+        self.adapter = adapter
+        self.head = head
+
+    def forward(self, h_graph: torch.Tensor) -> torch.Tensor:
+        return self.head(self.adapter(h_graph))
+
+
 def install_monotonic_head(model: nn.Module) -> None:
     legacy_head = model.graph_pred_linear
     if not isinstance(legacy_head, nn.Sequential) or not isinstance(legacy_head[0], nn.Linear):
         raise TypeError("Expected the legacy Sequential(Linear, ReLU) prediction head")
     model.graph_pred_linear = MonotonicQuantileHead(legacy_head[0]).to(next(model.parameters()).device)
+
+
+def graph_representation_dim(model: nn.Module) -> int:
+    """Derive the pooled representation width from the installed prediction head."""
+    head = model.graph_pred_linear
+    if isinstance(head, ResidualGraphAdapterHead):
+        return head.adapter.input_dim
+    if isinstance(head, MonotonicQuantileHead):
+        return int(head.linear.in_features)
+    if isinstance(head, nn.Sequential) and len(head) > 0 and isinstance(head[0], nn.Linear):
+        return int(head[0].in_features)
+    if isinstance(head, nn.Linear):
+        return int(head.in_features)
+    raise TypeError(f"Unsupported prediction head for dimension audit: {type(head).__name__}")
+
+
+def install_graph_residual_adapter(model: nn.Module, bottleneck_width: int) -> int:
+    """Install a zero-up-projection adapter without changing the source function."""
+    if isinstance(model.graph_pred_linear, ResidualGraphAdapterHead):
+        raise TypeError("graph residual adapter is already installed")
+    input_dim = graph_representation_dim(model)
+    adapter = ResidualGraphAdapter(input_dim, int(bottleneck_width))
+    model.graph_pred_linear = ResidualGraphAdapterHead(
+        adapter, model.graph_pred_linear
+    ).to(next(model.parameters()).device)
+    return input_dim
+
+
+def configure_graph_adapter_trainable(model: nn.Module) -> tuple[int, int, int, int]:
+    """Freeze QGeoGNN and train only the residual adapter plus prediction head."""
+    if not isinstance(model.graph_pred_linear, ResidualGraphAdapterHead):
+        raise TypeError("ResidualGraphAdapterHead must be installed first")
+    for parameter in model.parameters():
+        parameter.requires_grad = False
+    for parameter in model.graph_pred_linear.parameters():
+        parameter.requires_grad = True
+    adapter_parameters = sum(p.numel() for p in model.graph_pred_linear.adapter.parameters())
+    head_parameters = sum(p.numel() for p in model.graph_pred_linear.head.parameters())
+    trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    total = sum(p.numel() for p in model.parameters())
+    return trainable, total, adapter_parameters, head_parameters
 
 
 def build_model(device: torch.device) -> nn.Module:

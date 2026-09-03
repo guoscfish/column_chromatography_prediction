@@ -1,0 +1,11 @@
+# T1b-1 — Parameter-efficient Target Adaptation Capacity Sweep
+
+T1b-1 asks only how much target-specific capacity should be adapted between T1a's 774-parameter head-only and 93,454-parameter last-layer settings. It fixes one insertion architecture: after QGeoGNN's fixed sum pooling and before the existing monotonic prediction head, `h'_G = h_G + W_up(ReLU(W_down(h_G)))`. The prediction-head input dimension is derived programmatically and audited as 128. Widths are frozen to 8, 16, and 32; the adapter and prediction head train while all pretrained message-passing parameters remain frozen.
+
+The up projection is zero-initialized, so installing the adapter initially leaves source predictions unchanged. T1a's seeds, budgets, role IDs, source checkpoints, source scaler, normalization, and frozen baseline results are reused without redefining or retuning the baselines. The primary reference is `target_head_only`; adapter-minus-head normalized AULC is favorable when negative, and stable improvement requires negative mean, negative median, and at least 4/5 outer-seed wins.
+
+T1b-1 is a post-T1a developmental / hypothesis-testing extension on the frozen T1a row protocol. Because T1a test outcomes are already known, T1b-1 is not an independent pristine confirmatory test. Any eventual method requires stronger independent validation such as a compound-level protocol, another column specification, or new external target data.
+
+The design is a controlled capacity probe inspired broadly by parameter-efficient molecular GNN adaptation work such as PACIA, Pin-Tuning, and AdapterGNN; it is not a reproduction of those methods. Message-Passing Adapters, Adaptive/Attention/Set-Transformer/Gated Readouts, LoRA, Prompt Tuning, full fine-tuning, and active transfer are excluded. A future `T1b-2 — matched-capacity adaptation-location study` is only a placeholder and is neither implemented nor authorized.
+
+This stage authorizes preparation and a nine-fit engineering smoke only: first outer seed, budget 30, three widths, and three source members, with two epochs and patience two. It does not authorize the 180-fit formal run. Smoke output cannot select a winner.

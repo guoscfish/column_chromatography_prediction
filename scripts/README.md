@@ -16,6 +16,7 @@ Current config-driven study-family runners live under `scripts/studies/`:
 - `run_s1_source_target_shift.py`
 - `run_a1a_hybrid_batch_control.py`
 - `run_t1_low_label_adaptation.py`
+- `run_t1b1_adapter_capacity.py`
 
 These are current study infrastructure, not historical reproduction-only scripts. Their own frozen configs and authorization gates control which actions may run. T1a has completed its separately authorized formal run; future studies still require their own explicit authorization.
 

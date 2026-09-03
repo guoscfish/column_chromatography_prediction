@@ -12,9 +12,9 @@ Stop/freeze gate: stable improvement over Random across row and compound/scaffol
 
 ## Track B — 4g→8g Transfer Adaptation
 
-Status: `T1A_COMPLETE_NO_STABLE_WINNER`.
+Status: `T1B1_ENGINEERING_PREREGISTERED_FORMAL_NOT_AUTHORIZED`.
 
-S1 is completed and stopped. T1a formal execution completed all 180 neural fits and 120 evaluation contexts without failure or missing results. `target_head_only` led mean AULC and every budget's mean NRMSE, but its 3/5 paired seed wins failed the frozen 4/5 stability gate. A separately preregistered T1b may isolate a genuine learnable graph readout against fixed-sum `target_head_only`; it is not implemented or authorized. Active transfer remains deferred.
+S1 is completed and stopped. T1a completed all 180 neural fits and 120 contexts, but no candidate passed its stability gate. T1b-1 now fixes one graph-level residual adapter and varies only r=8/16/32 capacity between head-only and Last1; engineering smoke passed and formal execution is not authorized. This is post-T1a developmental work on known row outcomes. T1b-2 is a future matched-capacity adaptation-location study placeholder only; Message-Passing Adapter and Adaptive/Learnable Readout are not implemented. Active transfer remains deferred.
 
 Stop gate: reject a family that fails paired low-label efficiency and stability without using test truth for selection.
 

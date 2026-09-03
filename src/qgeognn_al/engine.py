@@ -27,7 +27,9 @@ from .artifacts import sha256_file
 from .data import build_model_data, qg
 from .model import (
     build_model,
+    configure_graph_adapter_trainable,
     configure_trainable,
+    install_graph_residual_adapter,
     metrics_from_arrays,
     quantile_target_loss,
     set_training_mode,
@@ -179,6 +181,60 @@ class AdaptationTrainConfig:
         return canonical_json_hash(asdict(self))
 
 
+@dataclass(frozen=True)
+class GraphAdapterTrainConfig:
+    """Frozen T1b-1 graph-level residual-adapter training contract."""
+
+    bottleneck_width: int
+    learning_rate: float = 1e-4
+    weight_decay: float = 1e-5
+    epochs: int = 500
+    patience: int = 100
+    batch_size: int = 2048
+    transfer_mode: str = "graph_adapter_head"
+    adapter_type: str = "graph_level_residual"
+    activation: str = "relu"
+    up_projection_initialization: str = "zeros"
+    v1_weight: float = 1.0
+    v2_weight: float = 1.0
+    conformer_policy: str = "first_embedded"
+    quantile_parameterization: str = "monotonic_softplus"
+    scaler_policy: str = "source_train"
+    checkpoint_selection: str = "validation_normalized_mse"
+
+    def validate(self) -> None:
+        actual = asdict(self)
+        expected = {
+            "learning_rate": 1e-4, "weight_decay": 1e-5,
+            "transfer_mode": "graph_adapter_head",
+            "adapter_type": "graph_level_residual", "activation": "relu",
+            "up_projection_initialization": "zeros", "v1_weight": 1.0,
+            "v2_weight": 1.0, "conformer_policy": "first_embedded",
+            "quantile_parameterization": "monotonic_softplus",
+            "scaler_policy": "source_train",
+            "checkpoint_selection": "validation_normalized_mse",
+        }
+        mismatches = {
+            key: {"expected": value, "actual": actual[key]}
+            for key, value in expected.items() if actual[key] != value
+        }
+        if self.bottleneck_width not in {8, 16, 32}:
+            mismatches["bottleneck_width"] = {
+                "expected": [8, 16, 32], "actual": self.bottleneck_width,
+            }
+        if self.epochs < 1 or self.patience < 1 or self.batch_size < 1:
+            mismatches["training_length"] = {
+                "expected": "positive epochs/patience/batch_size",
+                "actual": [self.epochs, self.patience, self.batch_size],
+            }
+        if mismatches:
+            raise ValueError(f"GraphAdapterTrainConfig changes frozen T1b-1 settings: {mismatches}")
+
+    @property
+    def config_hash(self) -> str:
+        return canonical_json_hash(asdict(self))
+
+
 @dataclass
 class FitResult:
     checkpoint: str
@@ -304,8 +360,12 @@ class QGeoGNNActiveLearningEngine:
         model = build_model(self.device)
         checkpoint = torch.load(checkpoint_path, map_location=self.device, weights_only=False)
         state = checkpoint["model_state_dict"]
-        monotonic = any(key.startswith("graph_pred_linear.linear.") for key in state)
-        if monotonic:
+        adapter_key = "graph_pred_linear.adapter.down.weight"
+        if adapter_key in state:
+            install_monotonic_head(model)
+            install_graph_residual_adapter(model, int(state[adapter_key].shape[0]))
+            model.load_state_dict(state)
+        elif any(key.startswith("graph_pred_linear.linear.") for key in state):
             install_monotonic_head(model)
             model.load_state_dict(state)
         else:
@@ -367,15 +427,33 @@ class QGeoGNNActiveLearningEngine:
             seed, output_dir, adaptation_mode=train_config.transfer_mode,
         )
 
+    def fit_graph_adapter(
+        self,
+        labeled_indices: Sequence[str | int],
+        validation_indices: Sequence[str | int],
+        train_config: GraphAdapterTrainConfig,
+        init_checkpoint: Path,
+        seed: int,
+        output_dir: Path,
+    ) -> FitResult:
+        """Fit only the T1b-1 residual adapter and existing prediction head."""
+        train_config.validate()
+        return self._fit_validated(
+            labeled_indices, validation_indices, train_config, init_checkpoint,
+            seed, output_dir, adaptation_mode=train_config.transfer_mode,
+            adapter_width=train_config.bottleneck_width,
+        )
+
     def _fit_validated(
         self,
         labeled_indices: Sequence[str | int],
         validation_indices: Sequence[str | int],
-        train_config: TrainConfig | SourceFreeTrainConfig | AdaptationTrainConfig,
+        train_config: TrainConfig | SourceFreeTrainConfig | AdaptationTrainConfig | GraphAdapterTrainConfig,
         init_checkpoint: Path | None,
         seed: int,
         output_dir: Path,
         adaptation_mode: str | None,
+        adapter_width: int | None = None,
     ) -> FitResult:
         all_labeled = self._resolve_ids(labeled_indices)
         validation = self._resolve_ids(validation_indices)
@@ -411,7 +489,11 @@ class QGeoGNNActiveLearningEngine:
             anchor = Path(init_checkpoint or self.init_checkpoint).resolve()
             model = self._load_model(anchor)
             trainable_scope = adaptation_mode or "last2_head"
-            trainable, total = configure_trainable(model, trainable_scope)
+            if adapter_width is None:
+                trainable, total = configure_trainable(model, trainable_scope)
+            else:
+                install_graph_residual_adapter(model, adapter_width)
+                trainable, total, _, _ = configure_graph_adapter_trainable(model)
             initialization_policy = "checkpoint"
             frozen_before = parameter_hash(model, False)
         trainable_before = parameter_hash(model, True)
@@ -492,7 +574,10 @@ class QGeoGNNActiveLearningEngine:
         pd.DataFrame(history).to_csv(history_path, index=False)
         best_model = self._load_model(checkpoint_path)
         if not source_free:
-            configure_trainable(best_model, trainable_scope)
+            if adapter_width is None:
+                configure_trainable(best_model, trainable_scope)
+            else:
+                configure_graph_adapter_trainable(best_model)
         frozen_after = None if source_free else parameter_hash(best_model, False)
         trainable_after = parameter_hash(best_model, True)
         result = FitResult(
@@ -572,6 +657,47 @@ class QGeoGNNActiveLearningEngine:
             "total_parameters": total,
             "maximum_absolute_prediction_difference": maximum,
             "prediction_identical": bool(np.array_equal(before, after)),
+        }
+
+    def audit_graph_adapter_initialization(
+        self,
+        indices: Sequence[str | int],
+        checkpoint: Path,
+        bottleneck_width: int,
+        batch_size: int = 256,
+        tolerance: float = 1e-7,
+    ) -> dict[str, Any]:
+        """Verify that zero-up initialization preserves the loaded source function."""
+        resolved = self._resolve_ids(indices)
+        loaders = self._loaders_for_indices(resolved, batch_size)
+        model = self._load_model(Path(checkpoint).resolve())
+
+        def arrays() -> np.ndarray:
+            model.eval()
+            chunks = []
+            with torch.no_grad():
+                for atom_batch, angle_batch in zip(*loaders):
+                    pred, _ = model(atom_batch.to(self.device), angle_batch.to(self.device))
+                    chunks.append(pred.cpu().numpy())
+            return np.vstack(chunks)
+
+        before = arrays()
+        input_dim = install_graph_residual_adapter(model, bottleneck_width)
+        trainable, total, adapter_parameters, head_parameters = configure_graph_adapter_trainable(model)
+        after = arrays()
+        maximum = float(np.max(np.abs(before - after)))
+        return {
+            "adapter_type": "graph_level_residual",
+            "bottleneck_width": int(bottleneck_width),
+            "graph_representation_dim": input_dim,
+            "rows": len(resolved),
+            "adapter_parameters": adapter_parameters,
+            "head_parameters": head_parameters,
+            "trainable_parameters": trainable,
+            "total_parameters": total,
+            "maximum_absolute_prediction_difference": maximum,
+            "tolerance": float(tolerance),
+            "prediction_identical": bool(maximum <= tolerance),
         }
 
     def predict(
