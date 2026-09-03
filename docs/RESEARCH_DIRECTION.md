@@ -70,7 +70,7 @@ Primary sources: https://jmlr.org/papers/volume24/22-0937/22-0937.pdf ; https://
 
 S1 used only the analysis role of a truth-blind compound partition. Zero-shot combined NRMSE was about 0.803; affine was about 0.399 ± 0.130, with V1/V2 RMSE about 7.63/11.45 mL, but affine won only 3/5 folds. Condition-aware Ridge did not improve on affine. This makes affine a strong required T1 baseline, not proof that 4g→8g transfer is solved or neural adaptation unnecessary. The reserved role remains an S1-unconsumed set, not a globally clean confirmatory test.
 
-T1a asks whether the appropriate adaptation capacity changes with scarce-label budget, not which layers to transfer for the first time: G0-4 already retained `last2_head` under richer target data. Its primary ladder is `target_head_only` (prediction head only; pooling remains sum), `last1_head`, and `current_last2_head`, alongside zero-shot, affine, and condition-Ridge residual baselines. Engineering/preregistration is complete; formal execution is not authorized, and active transfer remains deferred.
+T1a formally tested `target_head_only` (prediction head only; pooling remains sum), `last1_head`, and `current_last2_head` alongside zero-shot, affine, and condition-Ridge residual baselines. All 180 fits and 120 contexts completed. `target_head_only` led mean normalized AULC (0.6577 versus 0.7634 for `current_last2_head`) but won only 3/5 paired seeds, so no candidate passed the stable gate. A genuine learnable readout is now a distinct T1b hypothesis requiring separate preregistration; active transfer remains deferred.
 
 | Area | Relevant work/idea | Project implication |
 |---|---|---|

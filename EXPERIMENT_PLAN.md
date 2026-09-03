@@ -14,7 +14,7 @@ Two independent branches remain open: whether 4g in-domain AL can become robust 
 
 ## Current stage
 
-S1 and A1a are completed and stopped. T1 engineering implementation, preregistration, prepare, and smoke are authorized; the formal T1 experiment is not authorized.
+S1 and A1a are completed and stopped. T1a formal execution is complete: 180/180 neural fits and 120/120 evaluation contexts passed the completion gate, but no candidate passed the preregistered stable-improvement gate.
 
 ## Next preregistered candidates
 
@@ -22,11 +22,11 @@ S1 and A1a are completed and stopped. T1 engineering implementation, preregistra
 
 **S1 — completed and stopped:** affine calibration substantially improved analysis-only compound GroupKFold; condition-aware Ridge did not add stable improvement. Reserved truth remains unconsumed.
 
-**T1a — formal infrastructure ready, formal run not authorized:** row protocol with fixed Random nested target labels and budgets 30/50/70/100 (8 validation labels included). Primary methods are `zero_shot`, `affine`, `condition_ridge_residual`, `target_head_only`, `last1_head`, and `current_last2_head`. QGeoGNN uses sum pooling; `target_head_only` trains `graph_pred_linear`, not a learnable readout. Resume-safe execution and paired AULC/capacity analysis are implemented and frozen. Full fine-tuning is disabled as an optional diagnostic and `paper_style` is excluded.
+**T1a — formal run complete, no stable winner:** row protocol with fixed Random nested target labels and budgets 30/50/70/100 (8 validation labels included). `target_head_only` achieved the best mean normalized AULC (0.6577) and best mean combined NRMSE at every budget, but its favorable mean/median paired delta versus `current_last2_head` came with only 3/5 seed wins, below the required 4/5. `last1_head` also won only 3/5. Historical `target_readout_only` means this fixed-sum, prediction-head-only candidate; no learnable graph readout was tested.
 
 ## Stop and gate conditions
 
-- Separate manual approval setting `formal_authorized=true` is required for the formal T1 run.
+- Any T1b genuine learnable-readout comparison requires a new preregistration and separate manual authorization; it is not implemented here.
 - Track A cannot freeze a strategy without stable row plus compound/scaffold evidence and more than the current three outer seeds.
 - Track C cannot reopen until T1 establishes a stable low-label transfer formulation.
 - A1b is stopped because A1a did not support the diversity mechanism.

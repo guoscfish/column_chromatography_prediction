@@ -37,4 +37,4 @@ Every current experiment directory has exactly one navigation row above.
 
 ## Current studies outside `experiments/`
 
-- `studies/track_b_transfer/t1_low_label_adaptation`: preregistered, engineering/formal-runner ready, formal scientific run not performed (`formal_authorized=false`). It is intentionally not represented as a completed experiment row above.
+- `studies/track_b_transfer/t1_low_label_adaptation`: T1a formal scientific run complete (180/180 fits, 120/120 contexts); no candidate passed the stable-improvement gate. See `FORMAL_RESULTS.md` and the machine-readable result artifacts.

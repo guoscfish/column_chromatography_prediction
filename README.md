@@ -7,7 +7,7 @@
 项目不是一条从 E2 到 D46 的线性诊断链，而是三个相关研究分支：
 
 - **Track A — 4g In-domain Active Learning:** `PAUSED_AFTER_A1A / PROMISING_BUT_UNFINISHED`。E2 row-level 保留正向 pilot 证据；A1a 只否定了 shared-shortlist 内 farthest-first 的稳定额外收益，A1b 不获授权。
-- **Track B — 4g→8g Transfer Adaptation:** `T1_ENGINEERING_READY_FORMAL_NOT_AUTHORIZED`。`current_last2_head` 是历史 E4 baseline；T1 已完成预注册、工程 smoke、resume-safe formal runner 与冻结统计实现，但未运行正式实验。
+- **Track B — 4g→8g Transfer Adaptation:** `T1A_FORMAL_COMPLETE_NO_STABLE_WINNER`。180/180 neural fits 与 120/120 evaluation contexts 完整；`target_head_only` 的 mean normalized AULC 最低（0.6577 vs `current_last2_head` 0.7634），但只赢 3/5 paired seeds，未通过预注册稳定门。
 - **Track C — Active Transfer:** `DEFERRED`。只有 Track B 建立稳定 low-label adaptation baseline 后才可重开。
 
 ## Frozen evidence
@@ -33,4 +33,4 @@ The validated project environment is conda `fish` (Python 3.11, PyTorch/PyG/RDKi
 conda run --no-capture-output -n fish pytest -q
 ```
 
-S1 exploratory shift audit is complete: zero-shot combined NRMSE was about 0.803 and affine about 0.399 ± 0.130, with V1/V2 RMSE about 7.63/11.45 mL; affine won only 3/5 folds. It is a strong simple baseline, not a solved 4g→8g transfer. T1 engineering/preregistration is complete with `formal_authorized=false`; no formal T1, active transfer, Protocol B, or 25g/40g run is authorized.
+S1 exploratory shift audit is complete: zero-shot combined NRMSE was about 0.803 and affine about 0.399 ± 0.130, with V1/V2 RMSE about 7.63/11.45 mL; affine won only 3/5 folds. T1a formal results likewise do not establish a stable winner. They favor the fixed-sum 774-parameter `target_head_only` capacity on mean performance, motivating only a separately preregistered genuine learnable-readout T1b. T1b, active transfer, Protocol B, and 25g/40g runs are not authorized.

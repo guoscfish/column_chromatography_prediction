@@ -6,7 +6,7 @@ Primary methods are `zero_shot`, `affine`, `condition_ridge_residual`, `target_h
 
 Historical planning notes used the name `target_readout_only`; in this repository that candidate is implemented and reported as `target_head_only`. It does **not** add or train a learnable graph-readout module: sum pooling is fixed, and the 774 trainable parameters are only those of `graph_pred_linear`. A genuinely learnable target readout is a separate T1b proposal and is not part of T1a.
 
-This directory contains preregistration and compact engineering audits. The resume-safe formal runner and frozen statistical analysis are implemented, but `formal_authorized` remains false, so `--run` must refuse. Runtime checkpoints, histories, predictions, progress, and failure records are gitignored. Engineering smoke results are not scientific evidence and select no winner.
+This directory now contains the preregistration, compact engineering audits, and the completed formal result artifacts. The run completed 180/180 neural fits with no failures or missing fits and all 120 evaluation contexts passed the completion gate. Runtime checkpoints, histories, predictions, progress, and failure records remain gitignored. Engineering smoke results are not scientific evidence; see `FORMAL_RESULTS.md` for the formal analysis.
 
 ## Frozen protocol
 
@@ -25,3 +25,7 @@ Every neural fit has the stable key `seed_<outer>/budget_<budget>/<method>/membe
 Formal evaluation reports V1/V2 MAE, RMSE, and R² plus combined source-normalized NRMSE. For each seed/method, `AULC_30_100` is trapezoidal integration across 30/50/70/100 revealed labels; `mean_NRMSE_over_budget_interval = AULC_30_100 / 70` is the primary overall score. Paired delta is candidate minus `current_last2_head`, so negative favors the candidate.
 
 A candidate may be described as a stable low-label improvement only when all three preregistered conditions hold: mean paired delta is below zero, median paired delta is below zero, and it wins at least 4/5 outer seeds. Capacity crossover is analyzed separately for `target_head_only → last1_head → current_last2_head` at every budget and remains descriptive. No final decision is generated unless all 120 evaluation contexts and all 180 neural fits pass the completion gate without unresolved failure.
+
+## Formal outcome
+
+The completion gate passed, but no candidate passed the stable-improvement gate against `current_last2_head`. `target_head_only` had the best mean normalized AULC (0.6577 versus 0.7634 for the reference) and best mean combined NRMSE at every budget, but won only 3/5 paired AULC seeds. This favors a low-capacity hypothesis without establishing a stable winner. A genuine learnable-readout comparison is recommended only as a separately preregistered T1b; it is not implemented or authorized, and active transfer remains deferred.

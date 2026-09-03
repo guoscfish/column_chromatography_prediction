@@ -1,6 +1,6 @@
 # Next-stage Decision after A1a: T1 Engineering Gate
 
-`formal_authorized = false`. T1 engineering/preregistration is authorized and complete; this document does not authorize the formal experiment.
+T1a formal execution is complete. Its completion gate passed, but no candidate passed the stable-improvement gate; this document does not authorize T1b or active transfer.
 
 | Criterion | A1-family: 4g AL Method Extension | T1: Transfer Adaptation Benchmark |
 |---|---|---|
@@ -20,7 +20,7 @@
 
 **A1a is complete and stopped.** Its failed diversity gate does not mean 4g AL failed: it narrows the unsupported mechanism to farthest-first's incremental value. Because E2 Random was FullPool-Random while A1a Random was shortlist-conditioned, uncertainty filtering remains plausible but is not causally isolated by a direct paired comparison. A1b remains unauthorized.
 
-**T1a now has a clean, isolated engineering interface and frozen row-protocol schedule.** Formal execution remains gated. Track C stays deferred until T1 establishes a stable low-label adaptation formulation.
+**T1a completed its frozen row-protocol schedule without establishing a stable winner.** `target_head_only` led mean performance but won only 3/5 paired AULC seeds. Track C stays deferred. A genuine learnable readout may be evaluated only through a separately preregistered and authorized T1b.
 
 ## Frozen T1a design
 
