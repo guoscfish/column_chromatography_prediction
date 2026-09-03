@@ -60,6 +60,23 @@
     "quantile_parameterization": "monotonic_softplus",
     "checkpoint_selection": "validation_normalized_mse"
   },
+  "failure_policy": {
+    "max_same_config_retry": 1,
+    "technical_failure_action": "retry_identical_contract_then_record_failed",
+    "poor_scientific_performance_action": "retain_without_rerun"
+  },
+  "formal_analysis": {
+    "reference_method": "current_last2_head",
+    "aulc_method": "trapezoidal_30_100",
+    "primary_overall_metric": "mean_NRMSE_over_budget_interval",
+    "paired_delta_definition": "candidate_minus_current_last2_head",
+    "stable_improvement_gate": {
+      "mean_paired_delta_AULC_lt": 0,
+      "median_paired_delta_AULC_lt": 0,
+      "minimum_outer_seed_wins": 4,
+      "outer_seed_count": 5
+    }
+  },
   "forbidden": [
     "formal_run_without_separate_authorization",
     "test_truth_in_smoke",

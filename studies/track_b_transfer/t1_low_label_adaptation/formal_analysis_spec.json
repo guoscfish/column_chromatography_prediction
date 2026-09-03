@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_formal_results",
+  "formal_authorized": false,
+  "protocol": "row",
+  "outer_seeds": [769539383, 1425370602, 536279090, 2767143051, 1362771960],
+  "target_label_budgets": [30, 50, 70, 100],
+  "fixed_validation_labels": 8,
+  "gradient_training_labels": {"30": 22, "50": 42, "70": 62, "100": 92},
+  "primary_methods": [
+    "zero_shot",
+    "affine",
+    "condition_ridge_residual",
+    "target_head_only",
+    "last1_head",
+    "current_last2_head"
+  ],
+  "neural_fit_formula": {
+    "outer_seeds": 5,
+    "budgets": 4,
+    "neural_methods": 3,
+    "source_members": 3,
+    "expected_neural_fits": 180,
+    "implementation_requirement": "computed and asserted from the frozen plan"
+  },
+  "metrics": {
+    "per_target": ["MAE", "RMSE", "R2"],
+    "combined_NRMSE": "0.5 * (V1_RMSE/source_V1_std + V2_RMSE/source_V2_std)",
+    "normalization": "source frozen train split only; ddof=0",
+    "AULC_30_100": "trapezoidal integration over budgets 30,50,70,100",
+    "mean_NRMSE_over_budget_interval": "AULC_30_100 / 70",
+    "direction": "lower_is_better"
+  },
+  "paired_primary_comparison": {
+    "reference": "current_last2_head",
+    "pairing_unit": "outer_seed",
+    "delta": "candidate normalized AULC minus current_last2_head normalized AULC",
+    "candidate_better_when": "delta < 0",
+    "significance_claim": "none; five-seed summaries are descriptive"
+  },
+  "stable_improvement_gate": {
+    "all_conditions_required": [
+      "mean paired delta_AULC < 0",
+      "median paired delta_AULC < 0",
+      "candidate wins at least 4 of 5 outer seeds"
+    ],
+    "failure_wording": "not stably better than current_last2_head"
+  },
+  "capacity_analysis": {
+    "methods": ["target_head_only", "last1_head", "current_last2_head"],
+    "by_budget_outputs": ["mean", "median", "std", "best_by_seed_count", "paired_differences"],
+    "crossover_is_descriptive_only": true
+  },
+  "leakage_contract": {
+    "gradient_train": ["neural gradient update", "affine fit", "ridge fit and GroupKFold alpha selection"],
+    "validation": ["neural early stopping and checkpoint selection only"],
+    "test": ["post-fit evaluation after all fits and predictions are frozen"],
+    "test_truth_read_before_final_evaluation": false
+  },
+  "failure_policy": {
+    "max_same_config_retry": 1,
+    "poor_performance_is_not_a_retry_reason": true,
+    "failed_fit_forbids_final_winner": true
+  },
+  "completion_gate": {
+    "expected_evaluation_contexts": 120,
+    "expected_neural_fits": 180,
+    "requires_all_contexts": true,
+    "requires_no_failed_or_missing_neural_fit": true,
+    "partial_result_scientific_decision_forbidden": true
+  }
+}

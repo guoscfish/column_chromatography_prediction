@@ -4,7 +4,7 @@ T1a is preregistered as a row-protocol benchmark of adaptation capacity under fi
 
 Primary methods are `zero_shot`, `affine`, `condition_ridge_residual`, `target_head_only`, `last1_head`, and `current_last2_head`. `target_head_only` means QGeoGNN `mode="head_only"`: graph pooling remains fixed sum pooling and only `graph_pred_linear` is trained. Full fine-tuning is disabled as an optional diagnostic; `paper_style`, active acquisition, Protocol B, and advanced diversity methods are excluded.
 
-This directory contains preregistration and compact engineering audits. Runtime checkpoints and histories are gitignored. `formal_authorized` remains false, so `--run` must refuse. Engineering smoke results are not scientific evidence and select no winner.
+This directory contains preregistration and compact engineering audits. The resume-safe formal runner and frozen statistical analysis are implemented, but `formal_authorized` remains false, so `--run` must refuse. Runtime checkpoints, histories, predictions, progress, and failure records are gitignored. Engineering smoke results are not scientific evidence and select no winner.
 
 ## Frozen protocol
 
@@ -15,3 +15,11 @@ Zero-shot is the mean q50 prediction of frozen source members 42/525/1101. Affin
 Each neural source member is adapted separately using the source scaler, monotonic-softplus quantile head, equal target weights, learning rate 1e-4, weight decay 1e-5, batch size 2048, 500 epochs, patience 100, validation-best selection, and no test-based early stopping. Final neural predictions use the K=3 q50 mean. Primary metrics are V1 RMSE, V2 RMSE, and combined NRMSE normalized by source-train-only scales (`ddof=0`); MAE, R², paired effects versus `current_last2_head`, across-seed summaries, parameter counts, and convergence/failure rate are secondary. Learning curves/AULC belong only to a separately authorized formal run.
 
 The formal design requires 5 × 4 × 3 × 3 = 180 neural fits. Full fine-tuning remains disabled, `paper_style` is excluded because it confounds capacity with input structure, and Track C active transfer remains deferred.
+
+## Frozen formal analysis and decision gate
+
+Every neural fit has the stable key `seed_<outer>/budget_<budget>/<method>/member_<source>`. Resume reuses a fit only when `best.pt`, `history.csv`, `fit_result.json`, and `formal_contract.json` all exist and the formal config, partition, schedule, source checkpoint, label-ID, checkpoint, adaptation-config, and parameter-count contracts match. Partial or stale single-fit directories are quarantined and only that fit is rerun. A numerical/runtime failure receives at most one identical-contract retry; poor scientific performance is retained and is never a retry reason.
+
+Formal evaluation reports V1/V2 MAE, RMSE, and R² plus combined source-normalized NRMSE. For each seed/method, `AULC_30_100` is trapezoidal integration across 30/50/70/100 revealed labels; `mean_NRMSE_over_budget_interval = AULC_30_100 / 70` is the primary overall score. Paired delta is candidate minus `current_last2_head`, so negative favors the candidate.
+
+A candidate may be described as a stable low-label improvement only when all three preregistered conditions hold: mean paired delta is below zero, median paired delta is below zero, and it wins at least 4/5 outer seeds. Capacity crossover is analyzed separately for `target_head_only → last1_head → current_last2_head` at every budget and remains descriptive. No final decision is generated unless all 120 evaluation contexts and all 180 neural fits pass the completion gate without unresolved failure.

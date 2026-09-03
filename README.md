@@ -7,7 +7,7 @@
 项目不是一条从 E2 到 D46 的线性诊断链，而是三个相关研究分支：
 
 - **Track A — 4g In-domain Active Learning:** `PAUSED_AFTER_A1A / PROMISING_BUT_UNFINISHED`。E2 row-level 保留正向 pilot 证据；A1a 只否定了 shared-shortlist 内 farthest-first 的稳定额外收益，A1b 不获授权。
-- **Track B — 4g→8g Transfer Adaptation:** `T1_ENGINEERING_READY_FORMAL_NOT_AUTHORIZED`。`current_last2_head` 是历史 E4 baseline；T1 已完成预注册与工程 smoke，但未运行正式实验。
+- **Track B — 4g→8g Transfer Adaptation:** `T1_ENGINEERING_READY_FORMAL_NOT_AUTHORIZED`。`current_last2_head` 是历史 E4 baseline；T1 已完成预注册、工程 smoke、resume-safe formal runner 与冻结统计实现，但未运行正式实验。
 - **Track C — Active Transfer:** `DEFERRED`。只有 Track B 建立稳定 low-label adaptation baseline 后才可重开。
 
 ## Frozen evidence

@@ -22,7 +22,7 @@ S1 and A1a are completed and stopped. T1 engineering implementation, preregistra
 
 **S1 — completed and stopped:** affine calibration substantially improved analysis-only compound GroupKFold; condition-aware Ridge did not add stable improvement. Reserved truth remains unconsumed.
 
-**T1a — engineering ready, formal run not authorized:** row protocol with fixed Random nested target labels and budgets 30/50/70/100 (8 validation labels included). Primary methods are `zero_shot`, `affine`, `condition_ridge_residual`, `target_head_only`, `last1_head`, and `current_last2_head`. QGeoGNN uses sum pooling; `target_head_only` trains `graph_pred_linear`, not a learnable readout. Full fine-tuning is disabled as an optional diagnostic and `paper_style` is excluded.
+**T1a — formal infrastructure ready, formal run not authorized:** row protocol with fixed Random nested target labels and budgets 30/50/70/100 (8 validation labels included). Primary methods are `zero_shot`, `affine`, `condition_ridge_residual`, `target_head_only`, `last1_head`, and `current_last2_head`. QGeoGNN uses sum pooling; `target_head_only` trains `graph_pred_linear`, not a learnable readout. Resume-safe execution and paired AULC/capacity analysis are implemented and frozen. Full fine-tuning is disabled as an optional diagnostic and `paper_style` is excluded.
 
 ## Stop and gate conditions
 

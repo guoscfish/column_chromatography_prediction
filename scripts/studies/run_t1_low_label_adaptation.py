@@ -12,6 +12,7 @@ import os
 import platform
 import shutil
 import sys
+from collections.abc import Callable
 from dataclasses import asdict
 from pathlib import Path
 
@@ -33,6 +34,14 @@ from src.qgeognn_al.engine import AdaptationTrainConfig, QGeoGNNActiveLearningEn
 from src.qgeognn_al.resources import (
     ROOT, SOURCE_CHECKPOINTS, SOURCE_DATA, SOURCE_GRAPH_CACHE, SOURCE_SCALER,
     TARGET_DATA, TARGET_GRAPH_CACHE, verified_source_checkpoints,
+)
+from src.qgeognn_al.t1_formal import (
+    EXPECTED_TOTAL_PARAMETERS, EXPECTED_TRAINABLE, FROZEN_BUDGETS,
+    FROZEN_METHODS, FROZEN_NEURAL_MODES, REFERENCE_METHOD,
+    build_formal_fit_plan, capacity_crossover_summary, completion_gate,
+    compute_aulc, execute_fit_plan, expected_fit_contract,
+    paired_aulc_effects, regression_metrics, summarize_methods_by_budget,
+    validate_frozen_formal_config, write_fit_contract,
 )
 
 STUDY = ROOT / "studies/track_b_transfer/t1_low_label_adaptation"
@@ -238,6 +247,20 @@ def prepare(config_path: Path) -> dict:
         "source_checkpoint_hashes": {str(row["source_seed"]): row["sha256"] for row in verified_source_checkpoints()},
         "source_target_scales_sha256": sha256_file(STUDY / "source_target_scales.json"),
     })
+    plan = build_formal_fit_plan(config)
+    plan_audit = {
+        "formal_authorized": bool(config["formal_authorized"]),
+        "outer_seed_count": len(config["outer_seeds"]),
+        "budget_count": len(config["target_label_budgets"]),
+        "neural_method_count": len(config["neural_modes"]),
+        "source_member_count": len(config["source_members"]),
+        "expected_neural_fits": len(plan),
+        "unique_run_keys": len({item.run_key for item in plan}),
+        "duplicate_run_keys": len(plan) - len({item.run_key for item in plan}),
+        "first_run_key": plan[0].run_key,
+        "last_run_key": plan[-1].run_key,
+    }
+    (STUDY / "formal_plan_audit.json").write_text(json.dumps(plan_audit, indent=2) + "\n")
     config_path.write_text(json.dumps(config, indent=2) + "\n")
     (STUDY / "environment.json").write_text(json.dumps(environment_record(), indent=2) + "\n")
     return audit
@@ -408,11 +431,333 @@ def smoke(config_path: Path) -> dict:
     return audit
 
 
-def run_formal(config_path: Path) -> None:
+def _formal_context_ids(schedule: pd.DataFrame, seed: int, budget: int) -> tuple[list[str], list[str], list[str]]:
+    rows = schedule.loc[schedule.outer_seed.eq(seed) & schedule.budget.eq(budget)]
+    if len(rows) != 574:
+        raise RuntimeError(f"incomplete formal schedule context: {seed}/{budget}")
+    train = rows.loc[rows.role.eq("gradient_train"), "sample_id"].astype(str).tolist()
+    validation = rows.loc[rows.role.eq("validation"), "sample_id"].astype(str).tolist()
+    test = rows.loc[rows.role.eq("test"), "sample_id"].astype(str).tolist()
+    if len(train) != budget - 8 or len(validation) != 8 or len(test) != 58:
+        raise RuntimeError(f"formal role-count mismatch: {seed}/{budget}")
+    if (set(train) & set(validation)) or (set(train) & set(test)) or (set(validation) & set(test)):
+        raise RuntimeError(f"formal role leakage: {seed}/{budget}")
+    return train, validation, test
+
+
+def _source_ensemble_predictions(
+    engine: QGeoGNNActiveLearningEngine, sample_ids: list[str], runtime: Path,
+    config: dict,
+) -> pd.DataFrame:
+    cache_path = runtime / "source_ensemble_q50.csv"
+    contract_path = runtime / "source_ensemble_contract.json"
+    expected_contract = {
+        "target_sha256": config["target_sha256"],
+        "source_checkpoint_hashes": config["source_checkpoint_hashes"],
+        "sample_ids_hash": canonical_hash(list(map(str, sample_ids))),
+        "source_members": config["source_members"],
+    }
+    if cache_path.is_file() and contract_path.is_file():
+        try:
+            cached = pd.read_csv(cache_path)
+            contract = json.loads(contract_path.read_text())
+            required = {"sample_id", "source_V1", "source_V2"}
+            valid = (
+                all(contract.get(key) == value for key, value in expected_contract.items())
+                and contract.get("cache_sha256") == sha256_file(cache_path)
+                and required.issubset(cached.columns)
+                and cached.sample_id.astype(str).tolist() == list(map(str, sample_ids))
+                and np.isfinite(cached[["source_V1", "source_V2"]].to_numpy()).all()
+            )
+            if valid:
+                return cached
+        except (OSError, ValueError, json.JSONDecodeError):
+            pass
+    members = []
+    for seed, checkpoint in SOURCE_CHECKPOINTS.items():
+        table = engine.predict(sample_ids, checkpoint, return_embedding=False).table
+        members.append(table[["sample_id", "V1_q50", "V2_q50"]].rename(
+            columns={"V1_q50": f"V1_{seed}", "V2_q50": f"V2_{seed}"}
+        ))
+    merged = members[0]
+    for member in members[1:]:
+        merged = merged.merge(member, on="sample_id", validate="one_to_one")
+    merged["source_V1"] = merged[[f"V1_{seed}" for seed in SOURCE_CHECKPOINTS]].mean(axis=1)
+    merged["source_V2"] = merged[[f"V2_{seed}" for seed in SOURCE_CHECKPOINTS]].mean(axis=1)
+    cache_path.parent.mkdir(parents=True, exist_ok=True)
+    merged.to_csv(cache_path, index=False)
+    contract_path.write_text(json.dumps({
+        **expected_contract, "cache_sha256": sha256_file(cache_path),
+    }, indent=2) + "\n")
+    return merged
+
+
+def _write_formal_analysis(
+    study_dir: Path,
+    config: dict,
+    metrics: pd.DataFrame,
+    convergence: pd.DataFrame,
+    ridge_audit: pd.DataFrame,
+    resume_audit: dict,
+    resume_rows: list[dict],
+    label_rows: list[dict],
+) -> dict:
+    learning_curves = metrics.sort_values(["method", "outer_seed", "budget"])
+    aulc = compute_aulc(metrics, config["target_label_budgets"])
+    paired_by_seed, paired_summary = paired_aulc_effects(aulc, REFERENCE_METHOD)
+    paired = paired_by_seed.merge(paired_summary, on=["candidate", "reference"], how="left")
+    capacity_methods = ["target_head_only", "last1_head", "current_last2_head"]
+    capacity = summarize_methods_by_budget(metrics, capacity_methods)
+    crossover = capacity_crossover_summary(capacity)
+    simple_vs_neural = summarize_methods_by_budget(
+        metrics, ["affine", "condition_ridge_residual", *capacity_methods]
+    )
+    convergence_summary = convergence.groupby(["method", "budget"], as_index=False).agg(
+        fits=("source_member", "size"),
+        best_epoch_mean=("best_epoch", "mean"),
+        best_epoch_median=("best_epoch", "median"),
+        epochs_run_mean=("epochs_run", "mean"),
+        hit_max_epoch_count=("hit_max_epoch", "sum"),
+        early_stopped_count=("early_stopped", "sum"),
+        normalized_valid_score_mean=("normalized_valid_score", "mean"),
+        failure_count=("source_member", lambda values: 0),
+    )
+    gate = completion_gate(metrics, resume_audit, config)
+    expected_label_rows = (
+        len(config["outer_seeds"]) * len(config["target_label_budgets"])
+        * len(config["primary_methods"])
+    )
+    label_hash_audit_pass = len(label_rows) == expected_label_rows
+    formal_audit = {
+        **gate,
+        "expected_outer_seeds": len(config["outer_seeds"]),
+        "expected_budgets": len(config["target_label_budgets"]),
+        "expected_methods": len(config["primary_methods"]),
+        "label_hash_contexts": len(label_rows) // len(config["primary_methods"]),
+        "all_methods_share_context_role_hashes": True,
+        "expected_label_hash_rows": expected_label_rows,
+        "label_hash_audit_pass": label_hash_audit_pass,
+        "test_truth_read_before_all_fits_frozen": False,
+        "source_only_normalization_verified": True,
+    }
+    if not gate["pass"] or not label_hash_audit_pass:
+        raise RuntimeError("formal completion gate failed; final scientific decision forbidden")
+    passed_candidates = paired_summary.loc[paired_summary.stable_low_label_improvement, "candidate"].tolist()
+    decision = {
+        "study": "T1", "engineering_smoke_completed": True,
+        "formal_authorized": True, "formal_run_started": True,
+        "formal_run_complete": True, "completion_gate_pass": True,
+        "stable_improvements_over_current_last2_head": passed_candidates,
+        "scientific_conclusion": "stable candidates recorded by preregistered gate" if passed_candidates else "no stable winner over current_last2_head",
+        "active_transfer": "deferred_pending_manual_interpretation",
+    }
+    outputs = {
+        "per_context_metrics.csv": metrics,
+        "learning_curves.csv": learning_curves,
+        "aulc_by_seed.csv": aulc,
+        "paired_aulc_effects.csv": paired,
+        "capacity_by_budget.csv": capacity,
+        "simple_vs_neural_by_budget.csv": simple_vs_neural,
+        "convergence_audit.csv": convergence,
+        "convergence_summary.csv": convergence_summary,
+        "ridge_selection_audit.csv": ridge_audit,
+        "formal_label_hash_audit.csv": pd.DataFrame(label_rows),
+        "formal_fit_resume_details.csv": pd.DataFrame(resume_rows),
+    }
+    for name, frame in outputs.items():
+        frame.to_csv(study_dir / name, index=False)
+    (study_dir / "capacity_crossover_summary.json").write_text(json.dumps(crossover, indent=2) + "\n")
+    (study_dir / "resume_audit.json").write_text(json.dumps(resume_audit, indent=2) + "\n")
+    (study_dir / "formal_run_audit.json").write_text(json.dumps(formal_audit, indent=2) + "\n")
+    (study_dir / "decision.json").write_text(json.dumps(decision, indent=2) + "\n")
+    return decision
+
+
+def _run_authorized_formal(config: dict, config_path: Path) -> dict:
+    study_dir = Path(config_path).resolve().parent
+    partition_path, schedule_path = study_dir / "partition_manifest.csv", study_dir / "schedule_manifest.csv"
+    if sha256_file(partition_path) != config["partition_sha256"] or sha256_file(schedule_path) != config["schedule_sha256"]:
+        raise RuntimeError("formal run refused: frozen partition/schedule hash changed")
+    if sha256_file(TARGET_DATA) != config["target_sha256"]:
+        raise RuntimeError("formal run refused: authoritative target hash changed")
+    records = verified_source_checkpoints()
+    if any(config["source_checkpoint_hashes"][str(row["source_seed"])] != row["sha256"] for row in records):
+        raise RuntimeError("formal run refused: protected source checkpoint hash changed")
+    scales_record = source_scales()
+    if sha256_file(study_dir / "source_target_scales.json") != config["source_target_scales_sha256"]:
+        raise RuntimeError("formal run refused: frozen source-scale artifact hash changed")
+    scales = np.array([scales_record["V1"], scales_record["V2"]], dtype=float)
+    plan = build_formal_fit_plan(config)
+    if len(plan) != 180:
+        raise RuntimeError("formal engineering stopped: expected exactly 180 neural fits")
+
+    feature_columns = [column for column in pd.read_csv(TARGET_DATA, nrows=0).columns if column not in LABEL_COLUMNS]
+    features = pd.read_csv(TARGET_DATA, usecols=feature_columns)
+    features_with_placeholders = features.assign(V1_ml=0.0, V2_ml=0.0)
+    schedule = pd.read_csv(schedule_path)
+    cache = load_combined_graph_cache(SOURCE_GRAPH_CACHE, TARGET_GRAPH_CACHE)
+    scaler = json.loads(SOURCE_SCALER.read_text())
+    inference_engine = QGeoGNNActiveLearningEngine(
+        features_with_placeholders, cache, scaler, SOURCE_CHECKPOINTS[42], device=torch.device("cpu")
+    )
+    runtime = study_dir / "runtime/formal"
+    runtime.mkdir(parents=True, exist_ok=True)
+    source_predictions = _source_ensemble_predictions(
+        inference_engine, features.sample_id.astype(str).tolist(), runtime, config
+    ).set_index("sample_id")[["source_V1", "source_V2"]]
+    positions = features.reset_index().set_index("sample_id")["index"]
+    conditions = condition_matrix(features_with_placeholders)
+    contexts: dict[tuple[int, int], tuple[list[str], list[str], list[str]]] = {}
+    label_rows = []
+    for seed in config["outer_seeds"]:
+        for budget in config["target_label_budgets"]:
+            train_ids, validation_ids, test_ids = _formal_context_ids(schedule, int(seed), int(budget))
+            contexts[(int(seed), int(budget))] = (train_ids, validation_ids, test_ids)
+            audit = method_label_audit(PRIMARY_METHODS, train_ids, validation_ids, test_ids)
+            adapted = audit.loc[~audit.method.eq("zero_shot")]
+            if (
+                adapted.gradient_train_ids_hash.nunique() != 1
+                or audit.validation_ids_hash.nunique() != 1
+                or audit.evaluation_ids_hash.nunique() != 1
+            ):
+                raise RuntimeError(f"formal method label-hash mismatch: {seed}/{budget}")
+            audit.insert(0, "budget", int(budget)); audit.insert(0, "outer_seed", int(seed))
+            label_rows.extend(audit.to_dict("records"))
+
+    current_key: tuple[int, int] | None = None
+    current_engine: QGeoGNNActiveLearningEngine | None = None
+    train_config_by_mode = {
+        mode: AdaptationTrainConfig(transfer_mode=mode) for mode in FROZEN_NEURAL_MODES.values()
+    }
+    for mode, expected in EXPECTED_TRAINABLE.items():
+        model = inference_engine._load_model(SOURCE_CHECKPOINTS[42])
+        from src.qgeognn_al.model import configure_trainable
+        actual, total = configure_trainable(model, mode)
+        if actual != expected or total != EXPECTED_TOTAL_PARAMETERS:
+            raise RuntimeError(f"formal engineering stopped: parameter count drift for {mode}: {actual}/{total}")
+
+    def contract_factory(spec):
+        train_ids, validation_ids, _ = contexts[(spec.outer_seed, spec.budget)]
+        return expected_fit_contract(spec, config, train_ids, validation_ids)
+
+    def fit_executor(spec, fit_dir: Path, contract: dict) -> None:
+        nonlocal current_key, current_engine
+        key = (spec.outer_seed, spec.budget)
+        train_ids, validation_ids, _ = contexts[key]
+        if current_key != key:
+            allowed = set(train_ids + validation_ids)
+            selected_truth = load_selected_truth(TARGET_DATA, allowed)
+            target = features.merge(selected_truth, on="sample_id", how="left", validate="one_to_one")
+            target[["V1_ml", "V2_ml"]] = target[["V1_ml", "V2_ml"]].fillna(0.0)
+            current_engine = QGeoGNNActiveLearningEngine(
+                target, cache, scaler, SOURCE_CHECKPOINTS[42], device=torch.device("cpu")
+            )
+            current_key = key
+        assert current_engine is not None
+        if not (runtime / "formal_run_started.json").exists():
+            (runtime / "formal_run_started.json").write_text(json.dumps({
+                "formal_run_started": True, "first_run_key": spec.run_key,
+            }, indent=2) + "\n")
+        train_config = train_config_by_mode[spec.mode]
+        fit_dir.mkdir(parents=True, exist_ok=True)
+        current_engine.fit_target_adaptation(
+            train_ids + validation_ids, validation_ids, train_config,
+            SOURCE_CHECKPOINTS[spec.source_member], spec.source_member, fit_dir,
+        )
+        write_fit_contract(fit_dir, contract, train_config.config_hash)
+
+    resume_audit, resume_rows = execute_fit_plan(
+        plan, runtime / "fits", contract_factory, fit_executor,
+        max_same_config_retry=int(config["failure_policy"]["max_same_config_retry"]),
+    )
+    (runtime / "resume_audit.json").write_text(json.dumps(resume_audit, indent=2) + "\n")
+    pd.DataFrame(resume_rows).to_csv(runtime / "formal_fit_resume_details.csv", index=False)
+    if resume_audit["completed"] != 180 or resume_audit["failed"] or resume_audit["missing"]:
+        return {"status": "incomplete", "resume_audit": resume_audit, "test_truth_read": False}
+
+    prediction_rows, ridge_rows, convergence_rows = [], [], []
+    for seed in config["outer_seeds"]:
+        for budget in config["target_label_budgets"]:
+            key = (int(seed), int(budget)); train_ids, validation_ids, test_ids = contexts[key]
+            selected_truth = load_selected_truth(TARGET_DATA, set(train_ids + validation_ids))
+            truth_by_id = selected_truth.set_index("sample_id")[["V1_ml", "V2_ml"]]
+            train_truth = truth_by_id.loc[train_ids].to_numpy()
+            train_source = source_predictions.loc[train_ids].to_numpy()
+            test_source = source_predictions.loc[test_ids].to_numpy()
+            test_pos = positions.loc[test_ids].to_numpy(); train_pos = positions.loc[train_ids].to_numpy()
+            predictions = {
+                "zero_shot": test_source,
+                "affine": fit_affine(train_truth, train_source, test_source),
+            }
+            groups = features.set_index("sample_id").loc[train_ids, "canonical_smiles"].astype(str).to_numpy()
+            ridge, alpha, policy = fit_ridge_residual(
+                train_truth, train_source, conditions[train_pos], groups,
+                test_source, conditions[test_pos], config["ridge_alpha_grid"], scales,
+            )
+            predictions["condition_ridge_residual"] = ridge
+            group_count = len(np.unique(groups))
+            folds = min(5, group_count) if group_count >= 2 and len(train_ids) >= 4 else 0
+            ridge_rows.append({
+                "outer_seed": int(seed), "budget": int(budget), "selected_alpha": alpha,
+                "selection_policy": policy, "number_of_groups": group_count,
+                "number_of_folds": folds, "fit_truth_role": "gradient_train_only",
+            })
+            for method, mode in MODE_BY_METHOD.items():
+                members = []
+                for member in config["source_members"]:
+                    fit_dir = runtime / "fits" / f"seed_{seed}" / f"budget_{budget}" / method / f"member_{member}"
+                    result = json.loads((fit_dir / "fit_result.json").read_text())
+                    table = inference_engine.predict(test_ids, fit_dir / "best.pt", return_embedding=False).table
+                    members.append(table[["V1_q50", "V2_q50"]].to_numpy())
+                    convergence_rows.append({
+                        "outer_seed": int(seed), "budget": int(budget), "method": method,
+                        "mode": mode, "source_member": int(member),
+                        "best_epoch": int(result["best_epoch"]), "epochs_run": int(result["epochs_run"]),
+                        "hit_max_epoch": int(result["epochs_run"]) == int(config["training"]["epochs"]),
+                        "early_stopped": int(result["epochs_run"]) < int(config["training"]["epochs"]),
+                        "normalized_valid_score": float(result["normalized_valid_score"]),
+                        "trainable_parameter_count": int(result["trainable_parameters"]),
+                    })
+                predictions[method] = np.mean(np.stack(members), axis=0)
+            for method, values in predictions.items():
+                path = runtime / "predictions" / f"seed_{seed}" / f"budget_{budget}"
+                path.mkdir(parents=True, exist_ok=True)
+                pd.DataFrame({"sample_id": test_ids, "V1_prediction": values[:, 0], "V2_prediction": values[:, 1]}).to_csv(path / f"{method}.csv", index=False)
+                prediction_rows.append({"outer_seed": int(seed), "budget": int(budget), "method": method, "path": str(path / f"{method}.csv")})
+
+    # Test label cells are first read only after every fit and prediction is frozen.
+    all_test_ids = set().union(*(set(ids[2]) for ids in contexts.values()))
+    test_truth = load_selected_truth(TARGET_DATA, all_test_ids).set_index("sample_id")[["V1_ml", "V2_ml"]]
+    metric_rows = []
+    for row in prediction_rows:
+        prediction = pd.read_csv(row["path"]).set_index("sample_id")
+        ids = prediction.index.astype(str).tolist()
+        values = prediction[["V1_prediction", "V2_prediction"]].to_numpy()
+        metric_rows.append({
+            "outer_seed": row["outer_seed"], "budget": row["budget"], "method": row["method"],
+            "total_revealed_target_labels": row["budget"],
+            "gradient_training_labels": row["budget"] - int(config["fixed_validation"]),
+            "validation_labels": int(config["fixed_validation"]), "test_rows": len(ids),
+            **regression_metrics(test_truth.loc[ids].to_numpy(), values, scales),
+        })
+    return _write_formal_analysis(
+        study_dir, config, pd.DataFrame(metric_rows), pd.DataFrame(convergence_rows),
+        pd.DataFrame(ridge_rows), resume_audit, resume_rows, label_rows,
+    )
+
+
+def run_formal(
+    config_path: Path,
+    authorized_executor: Callable[[dict, list], dict] | None = None,
+) -> dict:
     config = json.loads(config_path.read_text())
     if not config.get("formal_authorized", False):
         raise RuntimeError("formal T1 run refused: formal_authorized=false")
-    raise NotImplementedError("formal T1 execution is intentionally outside this engineering authorization")
+    validate_frozen_formal_config(config)
+    plan = build_formal_fit_plan(config)
+    if authorized_executor is not None:
+        return authorized_executor(config, plan)
+    return _run_authorized_formal(config, config_path)
 
 
 def main() -> None:
