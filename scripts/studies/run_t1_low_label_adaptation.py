@@ -31,6 +31,7 @@ from sklearn.preprocessing import StandardScaler
 from src.qgeognn_al.artifacts import sha256_file
 from src.qgeognn_al.data import condition_matrix, load_combined_graph_cache
 from src.qgeognn_al.engine import AdaptationTrainConfig, QGeoGNNActiveLearningEngine
+from src.qgeognn_al.model import build_model, configure_trainable, install_monotonic_head
 from src.qgeognn_al.resources import (
     ROOT, SOURCE_CHECKPOINTS, SOURCE_DATA, SOURCE_GRAPH_CACHE, SOURCE_SCALER,
     TARGET_DATA, TARGET_GRAPH_CACHE, verified_source_checkpoints,
@@ -263,6 +264,180 @@ def prepare(config_path: Path) -> dict:
     (STUDY / "formal_plan_audit.json").write_text(json.dumps(plan_audit, indent=2) + "\n")
     config_path.write_text(json.dumps(config, indent=2) + "\n")
     (STUDY / "environment.json").write_text(json.dumps(environment_record(), indent=2) + "\n")
+    return audit
+
+
+def preflight(config_path: Path) -> dict:
+    """Audit the frozen formal contract without reading any target label cell."""
+    config = json.loads(config_path.read_text())
+    if config.get("formal_authorized") is not False:
+        raise RuntimeError("preflight must be frozen while formal_authorized=false")
+    validate_frozen_formal_config(config)
+
+    checks: dict[str, bool] = {}
+    generated = generate_outer_seeds(int(config["master_seed"]), int(config["outer_seed_count"]))
+    checks["outer_seed_order"] = generated == list(map(int, config["outer_seeds"]))
+    checks["budget_order"] = list(map(int, config["target_label_budgets"])) == FROZEN_BUDGETS
+    checks["method_order"] = config["primary_methods"] == FROZEN_METHODS
+    checks["neural_mode_mapping"] = config["neural_modes"] == FROZEN_NEURAL_MODES
+
+    target_header = pd.read_csv(TARGET_DATA, nrows=0).columns.tolist()
+    target_identity_columns = [column for column in IDENTITY_INPUTS if column in target_header]
+    identities = pd.read_csv(TARGET_DATA, usecols=target_identity_columns)
+    if "canonical_index" not in identities:
+        identities["canonical_index"] = np.arange(len(identities), dtype=int)
+    identities = identities[IDENTITY_INPUTS]
+    checks["target_rows_574"] = len(identities) == 574
+    checks["target_hash"] = sha256_file(TARGET_DATA) == config["target_sha256"]
+    checks["target_identity_unique"] = bool(
+        identities.sample_id.notna().all() and not identities.sample_id.duplicated().any()
+    )
+
+    partition_path = STUDY / "partition_manifest.csv"
+    schedule_path = STUDY / "schedule_manifest.csv"
+    partition = pd.read_csv(partition_path)
+    schedule = pd.read_csv(schedule_path)
+    manifest_audit = audit_manifests(
+        partition, schedule, config["target_label_budgets"], int(config["fixed_validation"])
+    )
+    checks["partition_hash"] = sha256_file(partition_path) == config["partition_sha256"]
+    checks["schedule_hash"] = sha256_file(schedule_path) == config["schedule_sha256"]
+    checks["partition_rows"] = manifest_audit["partition_rows"] == 2870
+    checks["schedule_rows"] = manifest_audit["schedule_rows"] == 11480
+    checks["role_overlap"] = manifest_audit["role_overlap_pass"]
+    checks["nested_budgets"] = manifest_audit["nested_budget_pass"]
+    target_ids = set(identities.sample_id.astype(str))
+    checks["partition_identity_matches_target"] = (
+        set(partition.sample_id.astype(str)) == target_ids
+    )
+    checks["schedule_identity_matches_target"] = set(schedule.sample_id.astype(str)) == target_ids
+
+    expected_role_counts = {
+        int(budget): {
+            "gradient_train": int(budget) - int(config["fixed_validation"]),
+            "validation": int(config["fixed_validation"]),
+            "test": 58,
+            "unlabeled": 574 - int(budget) - 58,
+        }
+        for budget in config["target_label_budgets"]
+    }
+    role_counts_pass = True
+    label_contract_pass = True
+    context_count = 0
+    for seed in config["outer_seeds"]:
+        for budget in config["target_label_budgets"]:
+            rows = schedule.loc[
+                schedule.outer_seed.eq(int(seed)) & schedule.budget.eq(int(budget))
+            ]
+            observed = rows.role.value_counts().to_dict()
+            role_counts_pass &= observed == expected_role_counts[int(budget)]
+            train_ids = rows.loc[rows.role.eq("gradient_train"), "sample_id"].astype(str).tolist()
+            valid_ids = rows.loc[rows.role.eq("validation"), "sample_id"].astype(str).tolist()
+            test_ids = rows.loc[rows.role.eq("test"), "sample_id"].astype(str).tolist()
+            label_audit = method_label_audit(FROZEN_METHODS, train_ids, valid_ids, test_ids)
+            adapted = label_audit.loc[~label_audit.method.eq("zero_shot")]
+            label_contract_pass &= (
+                adapted.gradient_train_ids_hash.nunique() == 1
+                and label_audit.validation_ids_hash.nunique() == 1
+                and label_audit.evaluation_ids_hash.nunique() == 1
+            )
+            context_count += len(FROZEN_METHODS)
+    checks["role_counts"] = bool(role_counts_pass)
+    checks["shared_label_role_hashes"] = bool(label_contract_pass)
+    checks["evaluation_contexts_120"] = context_count == 120
+
+    checkpoint_records = verified_source_checkpoints()
+    observed_checkpoint_hashes = {
+        str(row["source_seed"]): row["sha256"] for row in checkpoint_records
+    }
+    checks["source_checkpoint_hashes"] = observed_checkpoint_hashes == config["source_checkpoint_hashes"]
+    scale_record = source_scales()
+    frozen_scale_path = STUDY / "source_target_scales.json"
+    frozen_scale_record = json.loads(frozen_scale_path.read_text())
+    checks["source_scale_artifact_hash"] = (
+        sha256_file(frozen_scale_path) == config["source_target_scales_sha256"]
+    )
+    checks["source_scale_recomputed"] = all(
+        np.isclose(scale_record[name], frozen_scale_record[name]) for name in ("V1", "V2")
+    )
+    checks["source_scale_ddof_zero"] = scale_record["ddof"] == 0
+    checks["source_scale_excludes_target"] = scale_record["target_data_used"] is False
+
+    model = build_model(torch.device("cpu"))
+    install_monotonic_head(model)
+    observed_parameters = {}
+    for method, mode in FROZEN_NEURAL_MODES.items():
+        trainable, total = configure_trainable(model, mode)
+        observed_parameters[method] = {
+            "mode": mode, "trainable": trainable, "total": total,
+        }
+    checks["parameter_counts"] = all(
+        row["trainable"] == EXPECTED_TRAINABLE[row["mode"]]
+        and row["total"] == EXPECTED_TOTAL_PARAMETERS
+        for row in observed_parameters.values()
+    )
+    configure_trainable(model, "head_only")
+    checks["head_only_scope"] = all(
+        name.startswith("graph_pred_linear")
+        for name, parameter in model.named_parameters() if parameter.requires_grad
+    )
+
+    training_contracts = {}
+    for mode in FROZEN_NEURAL_MODES.values():
+        train_config = AdaptationTrainConfig(transfer_mode=mode)
+        train_config.validate()
+        training_contracts[mode] = asdict(train_config)
+    checks["training_contract"] = all(
+        contract["learning_rate"] == config["training"]["learning_rate"]
+        and contract["weight_decay"] == config["training"]["weight_decay"]
+        and contract["epochs"] == config["training"]["epochs"]
+        and contract["patience"] == config["training"]["patience"]
+        and contract["batch_size"] == config["training"]["batch_size"]
+        and contract["quantile_parameterization"] == config["training"]["quantile_parameterization"]
+        and contract["checkpoint_selection"] == config["training"]["checkpoint_selection"]
+        for contract in training_contracts.values()
+    )
+
+    plan = build_formal_fit_plan(config)
+    checks["fit_plan_180"] = len(plan) == 180
+    checks["fit_keys_unique"] = len({item.run_key for item in plan}) == 180
+    checks["full_finetune_disabled"] = config["optional_diagnostics"]["full_finetune"]["enabled"] is False
+    checks["retry_policy"] = (
+        config["failure_policy"]["max_same_config_retry"] == 1
+        and config["failure_policy"]["poor_scientific_performance_action"] == "retain_without_rerun"
+    )
+    checks["statistical_gate"] = config["formal_analysis"] == {
+        "reference_method": "current_last2_head",
+        "aulc_method": "trapezoidal_30_100",
+        "primary_overall_metric": "mean_NRMSE_over_budget_interval",
+        "paired_delta_definition": "candidate_minus_current_last2_head",
+        "stable_improvement_gate": {
+            "mean_paired_delta_AULC_lt": 0,
+            "median_paired_delta_AULC_lt": 0,
+            "minimum_outer_seed_wins": 4,
+            "outer_seed_count": 5,
+        },
+    }
+    failed = sorted(name for name, passed in checks.items() if not passed)
+    audit = {
+        "schema_version": 1,
+        "status": "passed" if not failed else "failed",
+        "formal_authorized": False,
+        "test_truth_read": False,
+        "target_columns_read": IDENTITY_INPUTS,
+        "checks": checks,
+        "failed_checks": failed,
+        "fit_plan": {
+            "expected": 180, "actual": len(plan),
+            "first_run_key": plan[0].run_key, "last_run_key": plan[-1].run_key,
+        },
+        "evaluation_contexts": context_count,
+        "parameters": observed_parameters,
+        "source_scales": {"V1": scale_record["V1"], "V2": scale_record["V2"], "ddof": 0},
+    }
+    (STUDY / "formal_preflight_audit.json").write_text(json.dumps(audit, indent=2) + "\n")
+    if failed:
+        raise RuntimeError(f"formal preflight failed: {failed}")
     return audit
 
 
@@ -764,11 +939,13 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     actions = parser.add_mutually_exclusive_group(required=True)
     actions.add_argument("--prepare", action="store_true")
+    actions.add_argument("--preflight", action="store_true")
     actions.add_argument("--smoke", action="store_true")
     actions.add_argument("--run", action="store_true")
     parser.add_argument("--config", type=Path, default=STUDY / "config.json")
     args = parser.parse_args()
     if args.prepare: prepare(args.config)
+    elif args.preflight: preflight(args.config)
     elif args.smoke: smoke(args.config)
     else: run_formal(args.config)
 

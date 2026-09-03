@@ -4,6 +4,8 @@ T1a is preregistered as a row-protocol benchmark of adaptation capacity under fi
 
 Primary methods are `zero_shot`, `affine`, `condition_ridge_residual`, `target_head_only`, `last1_head`, and `current_last2_head`. `target_head_only` means QGeoGNN `mode="head_only"`: graph pooling remains fixed sum pooling and only `graph_pred_linear` is trained. Full fine-tuning is disabled as an optional diagnostic; `paper_style`, active acquisition, Protocol B, and advanced diversity methods are excluded.
 
+Historical planning notes used the name `target_readout_only`; in this repository that candidate is implemented and reported as `target_head_only`. It does **not** add or train a learnable graph-readout module: sum pooling is fixed, and the 774 trainable parameters are only those of `graph_pred_linear`. A genuinely learnable target readout is a separate T1b proposal and is not part of T1a.
+
 This directory contains preregistration and compact engineering audits. The resume-safe formal runner and frozen statistical analysis are implemented, but `formal_authorized` remains false, so `--run` must refuse. Runtime checkpoints, histories, predictions, progress, and failure records are gitignored. Engineering smoke results are not scientific evidence and select no winner.
 
 ## Frozen protocol

@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "formal_authorized": false,
+  "test_truth_read": false,
+  "target_columns_read": [
+    "sample_id",
+    "canonical_index",
+    "canonical_smiles"
+  ],
+  "checks": {
+    "outer_seed_order": true,
+    "budget_order": true,
+    "method_order": true,
+    "neural_mode_mapping": true,
+    "target_rows_574": true,
+    "target_hash": true,
+    "target_identity_unique": true,
+    "partition_hash": true,
+    "schedule_hash": true,
+    "partition_rows": true,
+    "schedule_rows": true,
+    "role_overlap": true,
+    "nested_budgets": true,
+    "partition_identity_matches_target": true,
+    "schedule_identity_matches_target": true,
+    "role_counts": true,
+    "shared_label_role_hashes": true,
+    "evaluation_contexts_120": true,
+    "source_checkpoint_hashes": true,
+    "source_scale_artifact_hash": true,
+    "source_scale_recomputed": true,
+    "source_scale_ddof_zero": true,
+    "source_scale_excludes_target": true,
+    "parameter_counts": true,
+    "head_only_scope": true,
+    "training_contract": true,
+    "fit_plan_180": true,
+    "fit_keys_unique": true,
+    "full_finetune_disabled": true,
+    "retry_policy": true,
+    "statistical_gate": true
+  },
+  "failed_checks": [],
+  "fit_plan": {
+    "expected": 180,
+    "actual": 180,
+    "first_run_key": "seed_769539383/budget_30/target_head_only/member_42",
+    "last_run_key": "seed_1362771960/budget_100/current_last2_head/member_1101"
+  },
+  "evaluation_contexts": 120,
+  "parameters": {
+    "target_head_only": {
+      "mode": "head_only",
+      "trainable": 774,
+      "total": 775476
+    },
+    "last1_head": {
+      "mode": "last1_head",
+      "trainable": 93454,
+      "total": 775476
+    },
+    "current_last2_head": {
+      "mode": "last2_head",
+      "trainable": 186134,
+      "total": 775476
+    }
+  },
+  "source_scales": {
+    "V1": 7.775483732938669,
+    "V2": 15.977305247056087,
+    "ddof": 0
+  }
+}
