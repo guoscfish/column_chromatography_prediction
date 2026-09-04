@@ -67,6 +67,10 @@ def test_clean_schema_hashes_are_deterministic_and_typed() -> None:
     assert len(clean_input_schema_hash()) == len(clean_condition_schema_hash()) == 64
     assert schema["experimental_conditions"]["scope"] == "sample_or_graph_level"
     assert schema["column_context"]["included_in_clean_4g"] is False
+    assert schema["geometry_contract"] == "official_code_first_embedded_for_controlled_comparison"
+    assert schema["molecular_descriptor_contract"] == "official_code_molecular_descriptor_16"
+    assert schema["condition_contract"] == "clean_typed_sample_level_v1"
+    assert schema["paper_method_equivalent"] is False
 
 
 @pytest.mark.parametrize(
@@ -128,11 +132,34 @@ def test_clean_forward_is_finite_ordered_and_deterministic() -> None:
         second = model(atom, angle, conditions)
     assert first.shape == (3, 6)
     assert torch.isfinite(first).all()
+    assert torch.all(first >= 0)
     assert torch.equal(first, second)
     assert torch.all(first[:, 0] <= first[:, 1])
     assert torch.all(first[:, 1] <= first[:, 2])
     assert torch.all(first[:, 3] <= first[:, 4])
     assert torch.all(first[:, 4] <= first[:, 5])
+
+
+def test_clean_quantile_train_and_eval_output_contract() -> None:
+    _, _, atom, angle, conditions, normalization = clean_inputs()
+    torch.manual_seed(101)
+    model = build_clean_model(normalization, torch.device("cpu"))
+    with torch.no_grad():
+        model.quantile_head.linear.weight.zero_()
+        model.quantile_head.linear.bias.copy_(torch.tensor([-20.0, 5.0, 1.0, -20.0, 5.0, 1.0]))
+        train_output = model.train()(atom, angle, conditions)
+        eval_output = model.eval()(atom, angle, conditions)
+    assert torch.isfinite(train_output).all() and torch.isfinite(eval_output).all()
+    assert torch.all(train_output[:, 0] <= train_output[:, 1])
+    assert torch.all(train_output[:, 1] <= train_output[:, 2])
+    assert torch.all(train_output[:, 3] <= train_output[:, 4])
+    assert torch.all(train_output[:, 4] <= train_output[:, 5])
+    assert torch.any(train_output < 0), "training keeps the frozen offset parameterization"
+    assert torch.all(eval_output >= 0)
+    assert torch.all(eval_output[:, 0] <= eval_output[:, 1])
+    assert torch.all(eval_output[:, 1] <= eval_output[:, 2])
+    assert torch.all(eval_output[:, 3] <= eval_output[:, 4])
+    assert torch.all(eval_output[:, 4] <= eval_output[:, 5])
 
 
 def test_every_intended_feature_reaches_its_internal_representation() -> None:

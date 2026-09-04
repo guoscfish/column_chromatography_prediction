@@ -66,6 +66,10 @@ def clean_input_schema() -> dict[str, Any]:
     return {
         "schema_version": 1,
         "model_variant": CLEAN_MODEL_VARIANT,
+        "geometry_contract": "official_code_first_embedded_for_controlled_comparison",
+        "molecular_descriptor_contract": "official_code_molecular_descriptor_16",
+        "condition_contract": "clean_typed_sample_level_v1",
+        "paper_method_equivalent": False,
         "molecular_topology": {
             "atom_features": "legacy categorical atom vocabulary",
             "bond_categorical_features": ["bond_dir", "bond_type", "is_in_ring"],
@@ -73,6 +77,7 @@ def clean_input_schema() -> dict[str, Any]:
         "molecular_geometry_and_descriptors": {
             "bond_continuous_features": ["bond_length"],
             "bond_angle_features": ["bond_angle", "molecular_descriptors"],
+            "molecular_descriptor_schema": "11 Mordred + MolWt + nRotB + HBD + HBA + LogP",
             "dtype": "float32",
         },
         "experimental_conditions": {

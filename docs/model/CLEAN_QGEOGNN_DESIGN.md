@@ -2,7 +2,7 @@
 
 Model variant: `qgeognn_clean_fusion_v1`.
 
-Status: `IMPLEMENTATION_PREFLIGHT_COMPLETE / FORMAL_PERFORMANCE_UNQUALIFIED`. It is distinct from `qgeognn_condition_complete_v2`, which remains a controlled historical ablation.
+Status: `IMPLEMENTATION_PREFLIGHT_REVISION_2_COMPLETE / FORMAL_PERFORMANCE_UNQUALIFIED`. It is distinct from `qgeognn_condition_complete_v2`, which remains a controlled historical ablation, and it is not a paper-faithful reproduction.
 
 ## Architecture
 
@@ -10,7 +10,7 @@ The molecular branch retains the useful QGeoGNN idea: atom/bond topology, bond l
 
 The condition branch consumes the typed sample-level fields `ea_fraction`, `loading_solvent`, `loading_mass_mg`, and `loading_solvent_volume_ul`. The solvent vocabulary is `PE/EA/DCM` with embedding width 4. Three normalized continuous values plus the embedding pass through `Linear(7, 32)`, GELU, `Linear(32, 64)`, and `LayerNorm` to produce `z_cond`.
 
-`concat(z_mol, z_cond)` is a 128D fused representation consumed by a monotonic six-output quantile head for V1 and V2. The head enforces within-target `q10 <= q50 <= q90` but does not enforce `V1 <= V2`.
+`concat(z_mol, z_cond)` is a 128D fused representation consumed by a monotonic six-output quantile head for V1 and V2. Its median is `softplus(raw_median)` and its lower/upper offsets are softplus values. Training preserves that frozen parameterization, so q10 can be negative; evaluation clamps each output to `[0, 1e8]`, matching the current cleaned Legacy inference policy. The head enforces within-target `q10 <= q50 <= q90` but does not enforce `V1 <= V2`.
 
 Conditions are graph/sample-level causes, not chemical properties of individual bonds. They therefore enter once per sample and are not repeated over every bond only to be pooled back to graph level.
 
@@ -24,11 +24,14 @@ The 64/64 projections control representation width, numerical scale, and fusion 
 - condition raw continuous width: 3
 - condition hidden width: 32
 - condition output width: 64
-- activation: GELU
+- molecular message-passing activation: ReLU except after the final node layer
+- condition MLP activation: GELU
 - graph pooling: sum
 - configured target-loss weights: V1 = 1.0, V2 = 1.0
 
 These are fixed implementation defaults, not claims of optimality. No width, activation, learning-rate, optimizer, dropout, or loss sweep is authorized during preflight.
+
+The explicit metadata contracts are `official_code_first_embedded_for_controlled_comparison`, `official_code_molecular_descriptor_16`, and `clean_typed_sample_level_v1`; `paper_method_equivalent` is false. Revision 2 changes only the unnecessary molecular GELU confound and the output contract before formal qualification. It does not switch to lowest-energy conformers or paper-text TPSA.
 
 ## Reachability and diagnostics contract
 

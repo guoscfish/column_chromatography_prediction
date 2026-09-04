@@ -51,6 +51,7 @@ def molecular_architecture_config() -> dict[str, Any]:
         "bond_angle_features": ["bond_angle", "molecular_descriptors"],
         "projection": [GRAPH_HIDDEN_DIM, MOLECULAR_LATENT_DIM],
         "projection_normalization": "layer_norm",
+        "message_passing_activation": "relu_except_final_node_layer",
         "registered_legacy_dead_modules": [],
     }
 
@@ -81,7 +82,9 @@ def quantile_head_config() -> dict[str, Any]:
     return {
         "targets": ["V1_ml", "V2_ml"],
         "quantiles": [0.1, 0.5, 0.9],
-        "within_target_parameterization": "median_plus_softplus_offsets",
+        "within_target_parameterization": "softplus_median_plus_softplus_offsets",
+        "training_output_policy": "ordered; q10 may be negative",
+        "evaluation_output_policy": "clamp_each_quantile_to_[0,1e8]",
         "cross_target_constraint": None,
         "configured_target_weights": {"V1": 1.0, "V2": 1.0},
     }
@@ -137,8 +140,8 @@ class CleanGeometryBackbone(nn.Module):
             updated_bond = updated_bond + self.edge_length_encoders[layer](bond_length)
             angle = self.angle_encoders[layer](bond_angle.edge_attr.to(torch.float32))
             edge = self.edge_convs[layer](updated_bond, bond_angle.edge_index, angle)
-            node = F.gelu(node)
-            edge = F.gelu(edge)
+            node = F.relu(node)
+            edge = F.relu(edge)
         return node
 
 
@@ -166,7 +169,7 @@ class CleanMonotonicQuantileHead(nn.Module):
         raw = self.linear(fused)
         outputs = []
         for offset in (0, 3):
-            median = raw[:, offset]
+            median = F.softplus(raw[:, offset])
             outputs.extend((
                 median - F.softplus(raw[:, offset + 1]),
                 median,
@@ -223,7 +226,10 @@ class CleanQGeoGNN(nn.Module):
         mode: str = "full",
     ) -> torch.Tensor:
         latent = self.representations(atom_bond, bond_angle, conditions, mode=mode)
-        return self.quantile_head(latent["fused"])
+        output = self.quantile_head(latent["fused"])
+        if self.training:
+            return output
+        return torch.clamp(output, min=0, max=1e8)
 
 
 def build_clean_model(normalization: CleanConditionNormalization, device: torch.device) -> CleanQGeoGNN:
