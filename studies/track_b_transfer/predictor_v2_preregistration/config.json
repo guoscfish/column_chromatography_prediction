@@ -1,0 +1,27 @@
+{
+  "study": "predictor_v2_condition_complete",
+  "status": "PREREGISTRATION_ONLY",
+  "implementation_started": false,
+  "implementation_authorized": false,
+  "formal_authorized": false,
+  "formal_training_started": false,
+  "active_transfer": "deferred",
+  "legacy_variant": "legacy_qgeognn_clean_reproduction_v1",
+  "proposed_variant": "qgeognn_condition_complete_v2",
+  "legacy_input_schema_hash": "083178a586ae09de0caa8ad297a6562cc8d8f9ca13f83569fe6fa2d338b1c352",
+  "alternatives": [
+    "direct_clean_full_schema_encoder",
+    "legacy_compatible_residual_condition_completion"
+  ],
+  "recommended_for_preflight": "legacy_compatible_residual_condition_completion",
+  "architecture_locked": false,
+  "test_outcome_architecture_selection_allowed": false,
+  "forbidden": [
+    "formal_training",
+    "target_test_based_design_selection",
+    "legacy_checkpoint_overwrite",
+    "legacy_forward_modification",
+    "t1_or_t1b1_rerun",
+    "active_transfer"
+  ]
+}

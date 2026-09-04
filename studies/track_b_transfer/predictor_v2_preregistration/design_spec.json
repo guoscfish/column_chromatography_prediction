@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "proposed_model_variant": "qgeognn_condition_complete_v2",
+  "architecture_status": "candidate_family_not_locked_pending_implementation_preflight",
+  "intended_inputs": {
+    "categorical_bond_features": ["bond_dir", "bond_type", "is_in_ring"],
+    "graph_continuous_features": ["bond_length"],
+    "eluent_continuous_features": [
+      "eluent_exact_mol_wt",
+      "eluent_tpsa",
+      "eluent_rotatable_bonds",
+      "eluent_h_donors",
+      "eluent_h_acceptors",
+      "eluent_logp"
+    ],
+    "loading_categorical_features": ["loading_solvent"],
+    "loading_continuous_features": [
+      "loading_amount_density_x_volume",
+      "loading_solvent_volume_ul"
+    ]
+  },
+  "typing": {
+    "loading_solvent": "categorical_embedding_or_explicit_one_hot",
+    "all_other_condition_features": "float32_continuous"
+  },
+  "normalization": {
+    "continuous_loading_features": "source_train_only_fitted_scaler",
+    "eluent_descriptors": "explicit_versioned_transform_frozen_from_source_train",
+    "categorical_features": "no_ordinal_continuous_rbf",
+    "persist_statistics_in_checkpoint": true,
+    "forbid_old_unscaled_rbf_centers_for_mass_or_volume": true
+  },
+  "alternatives": {
+    "A_direct_clean_full_schema_encoder": {
+      "legacy_anchor_load": "partial_import_only_subject_to_preflight",
+      "source_function_identity": false,
+      "parameter_count": "TBD_by_implementation_preflight",
+      "initialization": "new_typed_encoders",
+      "confounds": ["rewrites_consumed_and_missing_condition_paths", "requires_new_source_function"]
+    },
+    "B_legacy_compatible_residual_condition_completion": {
+      "legacy_anchor_load": "required_exact_load_before_new_branch_installation",
+      "source_function_identity": true,
+      "parameter_count": "TBD_by_implementation_preflight",
+      "initialization": "new_branch_with_zero_initialized_residual_integration",
+      "confounds": ["new_branch_capacity", "integration_location", "possible_slow_feature_uptake"]
+    }
+  },
+  "recommendation": {
+    "candidate": "B_legacy_compatible_residual_condition_completion",
+    "rationale": "Preserves the audited legacy source function at initialization and isolates completion of previously ignored conditions.",
+    "final_architecture_locked": false
+  },
+  "checkpoint_contract": {
+    "required_fields": [
+      "model_variant",
+      "input_schema",
+      "input_schema_hash",
+      "normalization_statistics",
+      "normalization_fit_role",
+      "legacy_anchor_sha256",
+      "nominal_parameter_count",
+      "gradient_bearing_parameter_count"
+    ],
+    "input_schema_hash_required": true
+  }
+}
