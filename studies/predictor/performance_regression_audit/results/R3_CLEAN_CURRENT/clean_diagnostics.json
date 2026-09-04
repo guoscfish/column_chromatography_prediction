@@ -1,0 +1,247 @@
+{
+  "by_split": {
+    "train": {
+      "representation_l2_mean": {
+        "pooled_molecular_128d_before_projection": 73.73435974121094,
+        "molecular_64d_after_projection_before_layernorm": 72.08098602294922,
+        "molecular_64d_after_layernorm": 10.955517768859863,
+        "condition_64d_after_layernorm": 11.893582344055176
+      },
+      "clamp": {
+        "all_quantiles_clamped_to_zero_rate": 0.07952952952952953,
+        "V1_q50_clamped_to_zero_rate": 0.0,
+        "V2_q50_clamped_to_zero_rate": 0.0
+      },
+      "targets": {
+        "V1": {
+          "truth": {
+            "mean": 8.55200200589659,
+            "std": 7.775483738223577,
+            "min": 0.13333334028720856,
+            "max": 59.58333206176758
+          },
+          "prediction_q50": {
+            "mean": 6.752291758494742,
+            "std": 7.362364837252247,
+            "min": 1.1009185785226805e-09,
+            "max": 32.264102935791016
+          },
+          "raw_median_softplus_input": {
+            "mean": 3.690253691905155,
+            "std": 11.149396114303597,
+            "min": -20.627120971679688,
+            "max": 32.264102935791016
+          },
+          "q50_near_zero_rate_threshold_1e-6": 0.08378378378378379,
+          "prediction_to_truth_std_ratio": 0.9468690752983093,
+          "extremely_low_variance_flag_std_ratio_below_0_1": false
+        },
+        "V2": {
+          "truth": {
+            "mean": 18.106626640289306,
+            "std": 15.977305313350701,
+            "min": -0.10000000149011612,
+            "max": 119.42500305175781
+          },
+          "prediction_q50": {
+            "mean": 15.491212129337166,
+            "std": 13.929213121343942,
+            "min": 6.425303540093241e-13,
+            "max": 60.12060546875
+          },
+          "raw_median_softplus_input": {
+            "mean": 12.743098490769686,
+            "std": 17.736855234088345,
+            "min": -28.073362350463867,
+            "max": 60.12060546875
+          },
+          "q50_near_zero_rate_threshold_1e-6": 0.08438438438438438,
+          "prediction_to_truth_std_ratio": 0.8718124628067017,
+          "extremely_low_variance_flag_std_ratio_below_0_1": false
+        }
+      }
+    },
+    "validation": {
+      "representation_l2_mean": {
+        "pooled_molecular_128d_before_projection": 70.82194519042969,
+        "molecular_64d_after_projection_before_layernorm": 69.04452514648438,
+        "molecular_64d_after_layernorm": 10.829774856567383,
+        "condition_64d_after_layernorm": 11.864068031311035
+      },
+      "clamp": {
+        "all_quantiles_clamped_to_zero_rate": 0.0889423076923077,
+        "V1_q50_clamped_to_zero_rate": 0.0,
+        "V2_q50_clamped_to_zero_rate": 0.0
+      },
+      "targets": {
+        "V1": {
+          "truth": {
+            "mean": 8.16601159882087,
+            "std": 7.416341292123417,
+            "min": 2.3333332538604736,
+            "max": 56.20000076293945
+          },
+          "prediction_q50": {
+            "mean": 6.00497946868569,
+            "std": 7.048998048790247,
+            "min": 7.889944697581086e-09,
+            "max": 26.732410430908203
+          },
+          "raw_median_softplus_input": {
+            "mean": 2.7016349137545776,
+            "std": 10.820658509194837,
+            "min": -18.657676696777344,
+            "max": 26.732410430908203
+          },
+          "q50_near_zero_rate_threshold_1e-6": 0.08173076923076923,
+          "prediction_to_truth_std_ratio": 0.9504683613777161,
+          "extremely_low_variance_flag_std_ratio_below_0_1": false
+        },
+        "V2": {
+          "truth": {
+            "mean": 17.169142635969017,
+            "std": 15.289522067600084,
+            "min": 5.775000095367432,
+            "max": 118.0
+          },
+          "prediction_q50": {
+            "mean": 14.148105557916127,
+            "std": 13.669501089601052,
+            "min": 3.008908443583036e-12,
+            "max": 56.63323211669922
+          },
+          "raw_median_softplus_input": {
+            "mean": 11.23097318649077,
+            "std": 17.446108544781957,
+            "min": -26.529443740844727,
+            "max": 56.63323211669922
+          },
+          "q50_near_zero_rate_threshold_1e-6": 0.09615384615384616,
+          "prediction_to_truth_std_ratio": 0.8940438032150269,
+          "extremely_low_variance_flag_std_ratio_below_0_1": false
+        }
+      }
+    },
+    "test": {
+      "representation_l2_mean": {
+        "pooled_molecular_128d_before_projection": 75.36280059814453,
+        "molecular_64d_after_projection_before_layernorm": 73.0281982421875,
+        "molecular_64d_after_layernorm": 11.044672012329102,
+        "condition_64d_after_layernorm": 11.897050857543945
+      },
+      "clamp": {
+        "all_quantiles_clamped_to_zero_rate": 0.0759392486011191,
+        "V1_q50_clamped_to_zero_rate": 0.0,
+        "V2_q50_clamped_to_zero_rate": 0.0
+      },
+      "targets": {
+        "V1": {
+          "truth": {
+            "mean": 8.838890890423343,
+            "std": 8.145583454336863,
+            "min": 3.3583333492279053,
+            "max": 53.41666793823242
+          },
+          "prediction_q50": {
+            "mean": 6.904719910393933,
+            "std": 7.402868805532732,
+            "min": 6.916221373387543e-09,
+            "max": 29.547529220581055
+          },
+          "raw_median_softplus_input": {
+            "mean": 3.930648532457096,
+            "std": 11.169786140375985,
+            "min": -18.789396286010742,
+            "max": 29.547529220581055
+          },
+          "q50_near_zero_rate_threshold_1e-6": 0.08872901678657075,
+          "prediction_to_truth_std_ratio": 0.9088199734687805,
+          "extremely_low_variance_flag_std_ratio_below_0_1": false
+        },
+        "V2": {
+          "truth": {
+            "mean": 18.607298146620643,
+            "std": 15.944393430137833,
+            "min": 6.116666793823242,
+            "max": 101.44166564941406
+          },
+          "prediction_q50": {
+            "mean": 16.16089095962829,
+            "std": 14.268215618020886,
+            "min": 5.174442905403476e-12,
+            "max": 58.426212310791016
+          },
+          "raw_median_softplus_input": {
+            "mean": 13.537362168822215,
+            "std": 17.92989055549735,
+            "min": -25.987289428710938,
+            "max": 58.426212310791016
+          },
+          "q50_near_zero_rate_threshold_1e-6": 0.07913669064748201,
+          "prediction_to_truth_std_ratio": 0.8948735594749451,
+          "extremely_low_variance_flag_std_ratio_below_0_1": false
+        }
+      }
+    }
+  },
+  "condition_diagnostics_test": {
+    "full": {
+      "V1_rmse": 5.613635063171387,
+      "V1_mae": 4.0438008308410645,
+      "V1_r2": 0.5250543355941772,
+      "V2_rmse": 9.996953964233398,
+      "V2_mae": 7.160453796386719,
+      "V2_r2": 0.6068851947784424,
+      "combined_normalized_rmse": 0.6755486030793918,
+      "all_outputs_finite": true
+    },
+    "condition_disabled": {
+      "V1_rmse": 8.967883110046387,
+      "V1_mae": 6.790894031524658,
+      "V1_r2": -0.2120915651321411,
+      "V2_rmse": 18.1622371673584,
+      "V2_mae": 14.115042686462402,
+      "V2_r2": -0.2975459098815918,
+      "combined_normalized_rmse": 1.1450830567350445,
+      "all_outputs_finite": true,
+      "delta_V1_rmse": 3.354248046875,
+      "delta_V1_mae": 2.7470932006835938,
+      "delta_V1_r2": -0.7371459007263184,
+      "delta_V2_rmse": 8.165283203125,
+      "delta_V2_mae": 6.954588890075684,
+      "delta_V2_r2": -0.9044311046600342
+    },
+    "condition_only": {
+      "V1_rmse": 9.0333833694458,
+      "V1_mae": 6.718765735626221,
+      "V1_r2": -0.22986221313476562,
+      "V2_rmse": 16.405595779418945,
+      "V2_mae": 12.0164794921875,
+      "V2_r2": -0.05868816375732422,
+      "combined_normalized_rmse": 1.0963708966096295,
+      "all_outputs_finite": true,
+      "delta_V1_rmse": 3.419748306274414,
+      "delta_V1_mae": 2.6749649047851562,
+      "delta_V1_r2": -0.7549165487289429,
+      "delta_V2_rmse": 6.408641815185547,
+      "delta_V2_mae": 4.856025695800781,
+      "delta_V2_r2": -0.6655733585357666
+    },
+    "condition_permuted": {
+      "V1_rmse": 10.208394050598145,
+      "V1_mae": 7.355627536773682,
+      "V1_r2": -0.5706174373626709,
+      "V2_rmse": 17.8641300201416,
+      "V2_mae": 13.298540115356445,
+      "V2_r2": -0.2553008794784546,
+      "combined_normalized_rmse": 1.21939077230871,
+      "all_outputs_finite": true,
+      "delta_V1_rmse": 4.594758987426758,
+      "delta_V1_mae": 3.311826705932617,
+      "delta_V1_r2": -1.0956717729568481,
+      "delta_V2_rmse": 7.867176055908203,
+      "delta_V2_mae": 6.138086318969727,
+      "delta_V2_r2": -0.862186074256897
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "scientific_role": "DEVELOPMENTAL_REGRESSION_DIAGNOSTIC",
+  "variant": "R1_LEGACY_CLEAN_TRAINING_PROTOCOL",
+  "architecture": "legacy_qgeognn_executed_path",
+  "seed": 42,
+  "split_path": "experiments/e0_4g_baseline/split_seed_42.csv",
+  "split_sha256": "9a758e115c63cc9de2491d483b224d2e4c4b88fd6aadabaf7a45d4e73263b198",
+  "split_generation_called": false,
+  "source_data": "experiments/e0_4g_baseline/canonical_4g.csv",
+  "source_data_sha256": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+  "graph_cache": "experiments/e0_4g_baseline/graph_cache_4g.pt",
+  "graph_cache_sha256": "a48f8ea1ce4f89c5a1ea6d17466e7c7ffa0439edb8ec79bd8b765bad3a97c3ee",
+  "optimizer": "Adam",
+  "learning_rate": 0.001,
+  "weight_decay": 0.0,
+  "batch_size": 2048,
+  "maximum_epochs": 1000,
+  "patience": 100,
+  "shuffle": "deterministic_each_epoch",
+  "loss_weights": {
+    "V1": 1.0,
+    "V2": 1.0
+  },
+  "checkpoint_selection": "minimum_validation_combined_normalized_RMSE",
+  "normalization_fit_role": "train_only",
+  "validation_rows_used_for_normalization": 0,
+  "test_rows_used_for_normalization": 0,
+  "8g_rows_used": 0,
+  "test_during_training": false,
+  "config_hash": "127746522a3831607d2e837e305006e6cddbb48cd82d00acdbe8b61ec2399da6"
+}
