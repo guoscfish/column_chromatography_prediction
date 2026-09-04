@@ -6,16 +6,16 @@ This repository studies retention-volume prediction for column chromatography, w
 
 | Direction | Status | Boundary |
 |---|---|---|
-| Predictor | `CLEAN_4G_BASELINE_QUALIFICATION_COMPLETE` | Clean-QGeoGNN preflight revision 2 and six-run 4g baseline qualification are complete. It is point-baseline ready, demonstrates learned condition reliance, and still requires UQ qualification. Legacy is frozen historical evidence; V2 is an archived engineering-qualified ablation. |
+| Predictor | `POINT_PREDICTOR_PERFORMANCE_REGRESSION_UNRESOLVED` | The six-run Clean 4g study remains complete as engineering/input-contract evidence, but the frozen E0 regression ladder reproduced Legacy/V2 R2 values near 0.9 and Clean values near 0.5. Point-performance qualification is reopened; Legacy is frozen historical evidence and V2 is an archived diagnostic control. |
 | 4g in-domain active learning | `PAUSED / historical evidence retained` | E2 and A1a results remain measured historical evidence. No new acquisition run is authorized. |
-| 4g -> 8g transfer | `PAUSED_PENDING_UQ_REVIEW` | T1/T1b-1 remain valid under the audited legacy predictor contract. No Clean transfer run has been executed; UQ qualification/calibration is the next gate. |
+| 4g -> 8g transfer | `PAUSED_PENDING_PREDICTOR_REGRESSION_RESOLUTION` | No Clean transfer run has been executed. Transfer and UQ work remain paused until the point-predictor regression is resolved and independently reviewed. |
 | Active transfer | `DEFERRED` | It remains downstream of predictor and transfer qualification. |
 
-The predictor is being requalified because the I0 semantic audit found that the legacy graph builder constructs ten continuous edge features while the legacy encoder consumes only five. It also found a substantial gap between nominal and gradient-bearing parameter counts. These facts narrow the interpretation of historical evidence; they do not erase the measured results.
+The predictor is being requalified because the I0 semantic audit found that the legacy graph builder constructs ten continuous edge features while the legacy encoder consumes only five. The controlled regression audit then confirmed that the first large performance loss appears between Condition Completion V2 and the current Clean architecture on the identical historical E0 split. These facts narrow the interpretation of historical evidence; they do not erase the measured results.
 
 ## Next step
 
-The sole recommended next gate is Clean-QGeoGNN UQ qualification/calibration before transfer or active-learning work. A multi-model predictor benchmark is not required for the current mainline; Legacy/V2/MLP/Paper-ANN comparisons remain optional future architecture-ablation work. No 8g labels or active-learning runs were used in the completed 4g qualification.
+The sole recommended next gate is a human-approved, minimal nonlinear late-fusion diagnostic on the same frozen E0 control. It must not be treated as an automatic architecture search or repair. UQ qualification/calibration, 4g -> 8g transfer, and active-learning work remain paused. No 8g labels or active-learning runs were used in either the completed 4g qualification or the regression audit.
 
 ## Start reading
 
@@ -26,6 +26,7 @@ The sole recommended next gate is Clean-QGeoGNN UQ qualification/calibration bef
 - [`docs/protocols/4G_PREDICTOR_BENCHMARK.md`](docs/protocols/4G_PREDICTOR_BENCHMARK.md): draft benchmark protocol.
 - [`studies/predictor/clean_qgeognn/preflight/`](studies/predictor/clean_qgeognn/preflight/README.md): Clean-QGeoGNN engineering preflight.
 - [`studies/predictor/clean_4g_baseline_qualification/`](studies/predictor/clean_4g_baseline_qualification/QUALIFICATION_REPORT.md): completed formal 4g qualification and next-gate decision.
+- [`studies/predictor/performance_regression_audit/`](studies/predictor/performance_regression_audit/REGRESSION_REPORT.md): controlled Legacy/V2/Clean regression ladder and diagnosis.
 - [`experiments/INDEX.md`](experiments/INDEX.md): frozen historical experiment index.
 
 ## Code and validation

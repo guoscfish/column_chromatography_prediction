@@ -1,4 +1,14 @@
-# Next-stage Decision after T1b-1 Formal Capacity Sweep
+# Next-stage Decision after Predictor Regression Audit and T1b-1
+
+## Current predictor gate
+
+The frozen E0 point-predictor regression ladder is complete and all artifact audits pass. R0 reproduced historical Legacy test R2 values (V1 `0.866943896`, V2 `0.902874589`) within the `0.03` gate. R1 and R2 remained strong, while R3 current Clean reached only V1 `0.525054` and V2 `0.606885`; the first regression is therefore `R2_CONDITION_COMPLETE_V2 -> R3_CLEAN_CURRENT`.
+
+The confirmed finding is a Clean architecture/forward-path package regression with substantial training-set underfit. The leading supported mechanism is removal of Legacy early molecule-condition interaction and replacement with additive late fusion. The 128D -> 64D bottleneck, LayerNorm, and monotonic softplus head are plausible but not individually isolated. The split, Clean training protocol, condition completion, global q50 compression, and q50 clamp are not supported as primary causes.
+
+Current decision: `NO - point-performance qualification reopened`. The six-run Clean qualification remains valid engineering/input-contract evidence, but it is no longer evidence that Clean is a qualified point-prediction baseline. UQ qualification, 4g -> 8g transfer, active learning, and active transfer are paused.
+
+The only recommended next experiment is a human-approved minimal nonlinear late-fusion diagnostic on the same frozen E0 split. It is a proposal, not an authorization; no architecture search, sweep, FiLM test, message-passing repair, or model repair was run in this audit.
 
 T1a and T1b-1 formal execution are complete. T1b-1 found no stable Adapter improvement over `target_head_only`, so this document recommends independent validation before further architecture work. It does not authorize T1b-2 or active transfer.
 

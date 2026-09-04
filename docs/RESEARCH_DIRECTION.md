@@ -3,14 +3,18 @@
 ## Portfolio logic
 
 ```text
-                    ┌─ Track A: 4g in-domain AL
-4g QGeoGNN ─────────┤  promising but unfinished
-                    └─ Track B: 4g→8g transfer adaptation
+                    ┌─ Track A: 4g in-domain AL (paused)
+4g QGeoGNN ─────────┤  predictor regression resolution first
+                    └─ Track B: 4g→8g transfer adaptation (paused)
                                       │
                                       └─ Track C: active transfer (deferred)
 ```
 
-Track A and Track B are independent but related. Track C depends on Track B; D42–D46 do not form an automatic route to another acquisition experiment.
+Track A and Track B are independent but related, but both are currently blocked by the unresolved Clean point-predictor regression. Track C depends on Track B; D42–D46 do not form an automatic route to another acquisition experiment.
+
+## Current Predictor Gate
+
+The developmental E0 regression ladder reproduced the historical Legacy result and localized the first large drop to `R2_CONDITION_COMPLETE_V2 -> R3_CLEAN_CURRENT`. Clean point-performance qualification is reopened. The six-run Clean qualification remains engineering/input-contract evidence; it does not authorize UQ, transfer, or active-learning work. The next proposal is one human-approved minimal nonlinear late-fusion diagnostic, with no sweep or automatic repair.
 
 ## 4g In-domain AL Status
 
@@ -82,7 +86,7 @@ I0 confirmed by code tracing and perturbation that the clean legacy predictor co
 
 Predictor V2 is a separate condition-complete variant. The residual condition-completion candidate has passed implementation preflight: it preserves the legacy path, adds typed encoders for only the five missing conditions, and is zero-output initialized. This establishes clean implementability, not predictive value.
 
-The forward sequence is now `I0 semantic audit -> Predictor V2 implementation preflight -> future 4g source qualification -> future transfer qualification -> future UQ -> future active transfer`. Only the first two stages are complete. Formal source training, target adaptation, UQ claims, and active transfer remain unauthorized.
+The forward sequence is now `I0 semantic audit -> Predictor V2 implementation preflight -> Clean 4g engineering qualification -> predictor regression diagnosis -> future point qualification -> future UQ -> future transfer -> future active transfer`. Point qualification is currently reopened; formal target adaptation, UQ claims, and active transfer remain unauthorized.
 
 | Area | Relevant work/idea | Project implication |
 |---|---|---|

@@ -1,6 +1,6 @@
 # Active-learning roadmap
 
-Status: 4g in-domain active learning is paused with historical evidence retained; active transfer is `DEFERRED`.
+Status: predictor regression unresolved; 4g in-domain active learning is paused with historical evidence retained; active transfer is `DEFERRED`.
 
 ## Known representation issues
 
@@ -14,7 +14,7 @@ These are identified risks, not post-hoc proof of why a historical acquisition d
 
 ## Future direction
 
-If active learning is reopened after predictor qualification, use a non-redundant typed condition representation and preregister block-aware distance. Candidate concepts include:
+If active learning is reopened after predictor regression resolution and qualification, use a non-redundant typed condition representation and preregister block-aware distance. Candidate concepts include:
 
 `d = lambda * d_molecule + (1 - lambda) * d_condition`
 

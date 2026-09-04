@@ -1,10 +1,10 @@
 # Clean-QGeoGNN 4g baseline qualification report
 
-Status: `4G_BASELINE_QUALIFICATION_COMPLETE / POINT_PREDICTOR_BASELINE_READY / UQ_REQUIRES_FURTHER_QUALIFICATION`.
+Status: `4G_ENGINEERING_QUALIFICATION_COMPLETE / POINT_PERFORMANCE_QUALIFICATION_REOPENED / UQ_PAUSED`.
 
 ## A. Protocol
 
-The only trained model was `qgeognn_clean_fusion_v1`, preflight revision 2. The frozen 4g continuity domain was `V1_ml <= 60` and `V2_ml <= 120`, retaining exactly 4,163 rows and 217 canonical compounds. This is a `PROJECT_CONTINUITY_DECISION`, not evidence that the thresholds are physically or scientifically optimal.
+The only trained model was `qgeognn_clean_fusion_v1`, preflight revision 2. The frozen 4g continuity domain was `V1_ml <= 60` and `V2_ml <= 120`, retaining exactly 4,163 rows and 217 canonical compounds. This is a `PROJECT_CONTINUITY_DECISION`, not evidence that the thresholds are physically or scientifically optimal. A subsequent same-split regression audit reopened point-performance qualification; the results below are retained as engineering and input-contract evidence.
 
 Each of the row-interpolation and compound-generalization estimands used seeds 42, 525, and 1101 with fixed approximately 80/10/10 train/validation/test manifests. Training used Adam, learning rate 0.001, batch size 2,048, maximum 1,000 epochs, patience 100, no scheduler, equal V1/V2 weights, and validation-only selection by combined normalized RMSE. Every data-dependent scale was fit on that run's training rows. Validation, test, and 8g rows used in normalization were all zero. Test was evaluated once after the validation-best checkpoint was frozen and reloaded; no test metric appears in training history.
 
@@ -108,7 +108,7 @@ There was no failed seed or catastrophic learning failure: all twelve target-lev
 - It provides usable point predictions for row interpolation and positive-R², weaker but non-catastrophic predictions for unseen compounds.
 - It has consistent learned reliance on experimental conditions across both estimands and all seeds.
 - Its monotonic quantile parameterization preserves within-target order, while empirical interval calibration—especially compound-generalization coverage—requires more work.
-- Clean-QGeoGNN may be designated `4G_BASELINE_QUALIFICATION_COMPLETE` and `POINT_PREDICTOR_BASELINE_READY`, with `UQ_REQUIRES_FURTHER_QUALIFICATION` retained.
+- Clean-QGeoGNN completed the six-run 4g engineering/input-contract qualification, but it cannot currently be designated point-baseline ready because the later frozen E0 regression audit found a large performance gap relative to Legacy/V2.
 
 ### This round does not establish
 
@@ -118,11 +118,12 @@ There was no failed seed or catastrophic learning failure: all twelve target-lev
 - Clean improves 4g→8g transfer.
 - Clean improves active learning or active transfer.
 - The historical 60/120 thresholds are scientifically optimal.
+- The six-run Clean point metrics are comparable to the historical E0 Legacy point metrics without the controlled regression audit.
 
 ## I. Recommended next gate
 
-`NEXT: UQ qualification/calibration before transfer-active-learning work.`
+`NEXT: controlled predictor regression diagnosis before UQ, transfer, or active-learning work.`
 
-This is the sole recommended next gate because point behavior is sufficiently stable for a baseline and condition use is demonstrated, while compound-generalization q10–q90 coverage is systematically below nominal. No UQ tuning, 8g transfer, or active-learning work was executed in this study.
+The subsequent regression audit is the authoritative next-stage decision: R0 reproduced historical Legacy performance, R1 and R2 stayed strong, and R3 Clean regressed on the identical frozen E0 split. Therefore UQ qualification/calibration, 4g -> 8g transfer, and active-learning work are paused. No UQ tuning, 8g transfer, or active-learning work was executed in this study.
 
 Machine-readable support is in `results/aggregate_summary.json`, `formal_run_audit.json`, and the four summary CSV files. Per-run metrics and predictions remain the primary evidence.

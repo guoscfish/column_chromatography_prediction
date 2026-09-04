@@ -1,12 +1,12 @@
 # 4g to 8g transfer roadmap
 
-Status: `PAUSED_PENDING_PREDICTOR_QUALIFICATION`.
+Status: `PAUSED_PENDING_PREDICTOR_REGRESSION_RESOLUTION`.
 
 All routes below are `FUTURE / NOT AUTHORIZED`. The current data should first be described as 4g source and 8g target domains; they are not automatically a rigorous low-/high-fidelity pair.
 
 ## Route A: transfer adaptation
 
-Qualify a Clean 4g source model, then adapt it with limited 8g labels under a new frozen protocol. This is the most immediately realistic route, but it must not begin before formal 4g predictor qualification.
+Qualify a Clean 4g source model, then adapt it with limited 8g labels under a new frozen protocol. This route remains blocked because the controlled E0 audit reopened Clean point-performance qualification; it must not begin until that regression is resolved and reviewed.
 
 ## Route B: multi-column joint modeling
 
