@@ -1,0 +1,57 @@
+{
+  "study": "qgeognn_point_prediction_performance_regression_audit",
+  "scientific_role": "DEVELOPMENTAL_REGRESSION_DIAGNOSTIC",
+  "split": {
+    "path": "experiments/e0_4g_baseline/split_seed_42.csv",
+    "sha256": "9a758e115c63cc9de2491d483b224d2e4c4b88fd6aadabaf7a45d4e73263b198",
+    "generation_allowed": false,
+    "expected_counts": {"train": 3330, "validation": 416, "test": 417},
+    "expected_rows": 4163,
+    "thresholds_ml": {"V1_max_inclusive": 60.0, "V2_max_inclusive": 120.0}
+  },
+  "variants": {
+    "R0_LEGACY_E0_EXACT": {
+      "architecture": "legacy_qgeognn_executed_path",
+      "optimizer": "Adam",
+      "learning_rate": 0.001,
+      "weight_decay": 0.00001,
+      "batch_size": 2048,
+      "shuffle": false,
+      "loss_weights": {"V1": 1.0, "V2": 0.5},
+      "checkpoint_selection": "validation_V1_RMSE_squared_plus_0.5_V2_RMSE_squared",
+      "maximum_epochs": 1000,
+      "patience": 100
+    },
+    "R1_LEGACY_CLEAN_TRAINING_PROTOCOL": {
+      "architecture": "legacy_qgeognn_executed_path",
+      "optimizer": "Adam",
+      "learning_rate": 0.001,
+      "weight_decay": 0.0,
+      "batch_size": 2048,
+      "shuffle": "deterministic_each_epoch",
+      "loss_weights": {"V1": 1.0, "V2": 1.0},
+      "checkpoint_selection": "minimum_validation_combined_normalized_RMSE",
+      "maximum_epochs": 1000,
+      "patience": 100
+    },
+    "R2_CONDITION_COMPLETE_V2": {
+      "architecture": "qgeognn_condition_complete_v2",
+      "initialization_control": "same_seed_random_legacy_backbone_as_R1_plus_zero_output_condition_residual",
+      "training_protocol": "same_as_R1"
+    },
+    "R3_CLEAN_CURRENT": {
+      "architecture": "qgeognn_clean_fusion_v1_preflight_revision_2",
+      "training_protocol": "same_as_R1"
+    }
+  },
+  "seed": 42,
+  "r0_test_r2_reference": {"V1": 0.8669438947363368, "V2": 0.9028746170992146},
+  "r0_absolute_tolerance": 0.03,
+  "r0_failure_policy": "STOP_BEFORE_R1_R2_R3_AND_DIAGNOSE_REPRODUCTION",
+  "metrics": ["V1_r2", "V1_rmse", "V1_mae", "V2_r2", "V2_rmse", "V2_mae", "combined_normalized_rmse"],
+  "metric_splits": ["train", "validation", "test"],
+  "normalization": "training_rows_only_per_variant",
+  "test_during_training": false,
+  "forbidden_data": ["8g"],
+  "forbidden_work": ["UQ_calibration", "4g_to_8g_transfer", "active_learning", "active_transfer", "hyperparameter_sweep", "architecture_search", "model_repair"]
+}
