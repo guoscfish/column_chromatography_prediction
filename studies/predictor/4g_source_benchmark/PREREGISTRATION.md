@@ -1,6 +1,8 @@
 # 4g predictor benchmark preregistration
 
-Version: 1. Status: `PREREGISTERED / FORMAL_UNAUTHORIZED`.
+Version: 1. Status: `SUPERSEDED_FOR_CURRENT_MAINLINE_BY_CLEAN_BASELINE_QUALIFICATION`.
+
+Provenance note: the current research objective is not a predictor-architecture superiority study. Clean-QGeoGNN is first being qualified as the corrected downstream baseline under `studies/predictor/clean_4g_baseline_qualification/`. Legacy/V2/MLP/Paper-ANN comparisons remain optional future architecture-ablation work. This preregistration is retained and was not deleted or rewritten as if it never existed.
 
 ## Scientific status and data definition
 

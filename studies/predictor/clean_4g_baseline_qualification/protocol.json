@@ -1,0 +1,26 @@
+{
+  "study": "clean_4g_baseline_qualification",
+  "protocol_version": 1,
+  "formal_authorized_after_protocol_and_splits_commit_and_tests_pass": true,
+  "model": "qgeognn_clean_fusion_v1",
+  "preflight_revision": 2,
+  "contracts": {
+    "geometry_contract": "official_code_first_embedded_for_controlled_comparison",
+    "molecular_descriptor_contract": "official_code_molecular_descriptor_16",
+    "condition_contract": "clean_typed_sample_level_v1",
+    "paper_method_equivalent": false
+  },
+  "architecture_frozen": true,
+  "data": {"source": "dataset/dataset_4g.csv", "source_sha256": "d485d3d46a96458d1baac11b2a21cd33374b1be42ba2303e7ae5823cc8ee553a", "domain": "LEGACY_THRESHOLD_DOMAIN", "V1_max_inclusive_ml": 60.0, "V2_max_inclusive_ml": 120.0, "expected_rows": 4163, "decision_class": "PROJECT_CONTINUITY_DECISION"},
+  "split_modes": ["row", "compound"],
+  "seeds": [42, 525, 1101],
+  "split_ratio": {"train": 0.8, "validation": 0.1, "test": 0.1},
+  "formal_run_count": 6,
+  "training": {"optimizer": "Adam", "learning_rate": 0.001, "batch_size": 2048, "maximum_epochs": 1000, "patience": 100, "scheduler": null, "checkpoint_selection": "minimum_validation_combined_normalized_RMSE", "test_during_training": false, "V1_weight": 1.0, "V2_weight": 1.0, "dropout": 0.0},
+  "condition_permutation_seed_rule": "900000 + run_seed",
+  "runtime_checkpoint_root": "studies/predictor/clean_4g_baseline_qualification/runtime",
+  "compact_result_root": "studies/predictor/clean_4g_baseline_qualification/results",
+  "forbidden_models": ["legacy_retrain", "condition_completion_v2", "clean_contract_mlp", "paper_reference_ann"],
+  "forbidden_data": ["8g"],
+  "downstream_execution_authorized": false
+}

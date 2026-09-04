@@ -1,6 +1,6 @@
 # 4g source threshold audit
 
-Status: `4G_THRESHOLD_AUDIT_COMPLETE / NO_MODEL_TRAINING`.
+Status: `4G_THRESHOLD_AUDIT_COMPLETE / QUALIFICATION_BLOCKER_CLOSED_BY_PROJECT_CONTINUITY_DECISION`.
 
 This source-only audit starts from `dataset/dataset_4g.csv` (SHA-256 `d485d3d46a96458d1baac11b2a21cd33374b1be42ba2303e7ae5823cc8ee553a`) and reproduces the repository volume conversion `V_ml = t_raw * Flow_mL_min / 1200`. A valid-label row has finite numeric t1, t2, and flow-derived V1/V2 and does not use an explicit `-1` label sentinel.
 
@@ -30,7 +30,7 @@ Removal is not uniform. DCM loading solvent accounts for 61/66 affected rows (2.
 
 The official released `application/QGeoGNN.py::Construct_dataset` hard-codes `V1 <= 60` and `V2 <= 120`. The paper Methods and the official/current repository README/docs inspected for this audit do not provide a physical, instrument-range, censoring, or measurement-validity justification. Conclusion: `NO_CONFIRMED_PAPER_LEVEL_RATIONALE_FOUND`.
 
-This audit does **not** conclude `thresholds_are_wrong` or `thresholds_are_correct`. The unresolved policy must be decided from measurement validity, censoring, instrument range, or an explicit experimental domain—not by comparing model scores with and without the threshold.
+This audit does **not** conclude `thresholds_are_wrong` or `thresholds_are_correct`. For the current Clean 4g baseline qualification, the project fixes the historical `V1 <= 60`, `V2 <= 120` domain solely to preserve continuity with prior predictor, transfer, and active-learning work. This is a `PROJECT_CONTINUITY_DECISION`, not a physical, instrument-limit, optimality, or scientific-truth claim. No 4,163-versus-4,229 model-performance comparison is authorized.
 
 ## Artifacts
 

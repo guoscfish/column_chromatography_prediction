@@ -2,18 +2,18 @@
   "PAPER_CODE_CONTRACT_AUDIT": "COMPLETE",
   "CLEAN_QGEOGNN_PREFLIGHT": "REVISION_2_COMPLETE",
   "4G_THRESHOLD_AUDIT": "COMPLETE",
-  "4G_PREDICTOR_BENCHMARK": "PREREGISTERED",
+  "4G_PREDICTOR_BENCHMARK": "SUPERSEDED_FOR_CURRENT_MAINLINE",
+  "superseded_by": "studies/predictor/clean_4g_baseline_qualification",
   "FORMAL_UNAUTHORIZED": true,
   "formal_authorized": false,
   "4G_TO_8G_TRANSFER": "PAUSED",
   "ACTIVE_TRANSFER": "DEFERRED",
   "formal_models_trained": 0,
-  "remaining_blockers": [
-    "threshold policy requires non-performance measurement-validity, censoring, instrument-range, or explicit-domain decision",
-    "Clean-contract MLP vectorizer and parameter contract require fixture qualification",
-    "paper-reference ANN TPSA versus nRotB ambiguity requires clarification or dual-labeled sensitivity handling",
-    "outer and inner fold manifests must be generated and frozen",
-    "explicit authorization is required"
+  "current_mainline_blockers": [],
+  "optional_future_architecture_ablation_requirements": [
+    "Clean-contract MLP vectorizer and parameter contract fixture qualification",
+    "paper-reference ANN TPSA versus nRotB ambiguity clarification or dual-labeled sensitivity handling",
+    "five-fold manifests only if the optional multi-model benchmark is revived"
   ],
   "stop_after_this_round": true
 }

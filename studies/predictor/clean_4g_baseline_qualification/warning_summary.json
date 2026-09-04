@@ -1,0 +1,12 @@
+{
+  "source_test_report": "studies/predictor/clean_qgeognn/preflight/test_report.json",
+  "total_warnings": 150,
+  "categories": [
+    {"warning_type": "DeprecationWarning", "source": "torch_geometric.llm backend import", "count": 1, "likely_related_to_clean_code": false, "numerical_correctness_impact": false},
+    {"warning_type": "DeprecationWarning", "source": "torch.jit scripting", "count": 2, "likely_related_to_clean_code": false, "numerical_correctness_impact": false},
+    {"warning_type": "DeprecationWarning", "source": "mordred/distutils version parsing", "count": 114, "likely_related_to_clean_code": false, "numerical_correctness_impact": false},
+    {"warning_type": "RequestsDependencyWarning", "source": "requests optional character detector", "count": 1, "likely_related_to_clean_code": false, "numerical_correctness_impact": false},
+    {"warning_type": "UserWarning", "source": "torch_geometric Data num_nodes inference and collate", "count": 32, "likely_related_to_clean_code": "partly exercised by Clean fixtures but also Legacy/V2 tests", "numerical_correctness_impact": false, "reason": "bond-angle graph batches infer node count from edge_index; audited fixture shapes and predictions remain valid"}
+  ],
+  "warnings_requiring_fix_before_qualification": 0
+}
