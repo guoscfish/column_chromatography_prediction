@@ -1,6 +1,8 @@
 # 4g predictor benchmark protocol draft
 
-Status: `PROTOCOL_DRAFTED / FORMAL_RUN_NOT_AUTHORIZED`.
+Status: `SUPERSEDED_BY_PREREGISTRATION / FORMAL_RUN_NOT_AUTHORIZED`.
+
+The frozen preregistration is [`../../studies/predictor/4g_source_benchmark/PREREGISTRATION.md`](../../studies/predictor/4g_source_benchmark/PREREGISTRATION.md). This earlier draft is retained as provenance.
 
 This document defines the next scientific gate. It does not authorize training, architecture selection, or test inspection.
 

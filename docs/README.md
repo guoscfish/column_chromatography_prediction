@@ -10,12 +10,13 @@ Use this page as the documentation entry point. Older documents remain available
 ## Predictor contracts
 
 - [`model/LEGACY_QGEOGNN_AUDIT.md`](model/LEGACY_QGEOGNN_AUDIT.md): confirmed legacy implementation facts and evidence boundary.
+- [`model/PAPER_CODE_CONTRACT_AUDIT.md`](model/PAPER_CODE_CONTRACT_AUDIT.md): paper-method, official-code Legacy, current Legacy, and Clean contract comparison.
 - [`model/INPUT_SCHEMA.md`](model/INPUT_SCHEMA.md): typed input semantics and units.
 - [`model/CLEAN_QGEOGNN_DESIGN.md`](model/CLEAN_QGEOGNN_DESIGN.md): Clean-QGeoGNN engineering design.
 
 ## Protocols and data use
 
-- [`protocols/4G_PREDICTOR_BENCHMARK.md`](protocols/4G_PREDICTOR_BENCHMARK.md): draft benchmark; formal run not authorized.
+- [`protocols/4G_PREDICTOR_BENCHMARK.md`](protocols/4G_PREDICTOR_BENCHMARK.md): retained draft pointing to the frozen preregistration; formal run not authorized.
 - [`protocols/DATA_USAGE_REGISTER.md`](protocols/DATA_USAGE_REGISTER.md): outcome reuse and confirmatory boundaries.
 
 ## Future roadmaps

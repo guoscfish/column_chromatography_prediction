@@ -1,0 +1,36 @@
+{
+  "protocol_version": 1,
+  "status": "PREREGISTERED",
+  "formal_authorized": false,
+  "scientific_status": "CONTROLLED_COMPARATIVE_DEVELOPMENTAL",
+  "datasets": {
+    "source": "dataset/dataset_4g.csv",
+    "threshold_policy": "UNRESOLVED_PENDING_NON_PERFORMANCE_SCIENTIFIC_JUSTIFICATION",
+    "target_8g_allowed": false
+  },
+  "estimands": {
+    "row_interpolation": {"outer_split": "5-fold row-level", "same_compound_may_appear_in_training": true, "claim": "seen_or_similar_molecules_across_conditions"},
+    "compound_generalization": {"outer_split": "5-fold GroupKFold", "group": "canonical_smiles", "same_compound_may_appear_in_training": false, "claim": "compound_absent_from_training"}
+  },
+  "validation": {
+    "fraction_of_outer_training": 0.1,
+    "row_interpolation": "row-level deterministic split",
+    "compound_generalization": "group-aware deterministic split",
+    "checkpoint_selection": "validation_only"
+  },
+  "neural_seeds": [42, 525, 1101],
+  "shared_neural_training": {"optimizer": "Adam", "learning_rate": 0.001, "batch_size": 2048, "maximum_epochs": 1000, "patience": 100, "scheduler": null, "test_during_training": false},
+  "models": [
+    {"role": "legacy_project_baseline", "variant": "current_frozen_cleaned_legacy_qgeognn", "paper_exact": false},
+    {"role": "condition_completion_v2", "variant": "qgeognn_condition_complete_v2", "controlled_ablation": "missing_condition_reachability"},
+    {"role": "clean_qgeognn", "variant": "qgeognn_clean_fusion_v1", "preflight_revision": 2, "paper_method_equivalent": false},
+    {"role": "clean_contract_mlp", "graph_message_passing": false, "implementation_fixture_gate_complete": false},
+    {"role": "paper_reference_ann", "maccs_dimensions": 167, "molecular_descriptor_dimensions": 16, "experimental_parameter_dimensions": 9, "hidden_layers": [50, 50, 50], "activation": "LeakyReLU", "optimizer": "Adam", "learning_rate": 0.001, "maximum_epochs": 10000, "early_stopping": true, "descriptor_schema": "AMBIGUOUS_TPSA_VS_NROTB", "paper_exact_claim_allowed": false}
+  ],
+  "point_metrics": ["V1_RMSE", "V2_RMSE", "V1_MAE", "V2_MAE", "V1_R2", "V2_R2", "combined_training_normalized_RMSE"],
+  "quantile_metrics": ["V1_q10_q90_coverage", "V2_q10_q90_coverage", "V1_interval_width", "V2_interval_width", "mean_pinball_loss", "quantile_crossing_rate", "cross_target_ordering_diagnostic"],
+  "clean_diagnostics": ["molecular_latent_norm", "condition_latent_norm", "molecular_projection_gradient_norm", "condition_encoder_gradient_norm", "V1_gradient_contribution", "V2_gradient_contribution", "condition_permutation_degradation", "molecule_only", "condition_only_or_disabled"],
+  "primary_questions": ["condition_completion_v2_vs_legacy", "clean_vs_legacy", "clean_vs_condition_completion_v2", "clean_vs_clean_contract_mlp"],
+  "statistics": {"seed_treatment": "aggregate_within_outer_fold_before_scientific_pairing", "paired_summaries": ["mean_difference", "median_difference", "per_fold_direction"], "uncertainty": "fold_cluster_bootstrap_if_defensible", "bootstrap_resamples": 10000, "bootstrap_seed": 20260904, "strong_significance_claims": false},
+  "models_trained_this_round": 0
+}
