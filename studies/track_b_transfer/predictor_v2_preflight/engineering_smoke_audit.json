@@ -1,0 +1,45 @@
+{
+  "audit_scope": "forward_backward_and_two_step_engineering_smoke_only",
+  "source_fixture_count": 10,
+  "source_members": [
+    42,
+    525,
+    1101
+  ],
+  "source_identity_max_abs_by_member": {
+    "42": 0.0,
+    "525": 0.0,
+    "1101": 0.0
+  },
+  "identity_tolerance": 1e-07,
+  "ordering_by_member": {
+    "42": {
+      "quantile_crossing_count": 0,
+      "v1_q50_gt_v2_q50_count": 0
+    },
+    "525": {
+      "quantile_crossing_count": 0,
+      "v1_q50_gt_v2_q50_count": 0
+    },
+    "1101": {
+      "quantile_crossing_count": 0,
+      "v1_q50_gt_v2_q50_count": 0
+    }
+  },
+  "quantile_monotonicity_contract_retained": true,
+  "checks": {
+    "legacy_checkpoints_loaded_3_of_3": true,
+    "source_function_identity": true,
+    "all_9_conditions_have_forward_path": true,
+    "all_5_missing_conditions_reach_internal_encoder": true,
+    "all_5_missing_conditions_can_change_diagnostic_prediction": true,
+    "branch_parameters_gradient_reachable_by_step_2": true,
+    "normalization_source_train_only": true,
+    "schema_hash_deterministic": true,
+    "checkpoint_contract_complete": true,
+    "collision_resolvable": true,
+    "no_8g_outcome_used": true,
+    "no_formal_performance_training": true
+  },
+  "all_checks_pass": true
+}

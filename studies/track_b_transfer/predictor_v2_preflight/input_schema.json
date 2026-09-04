@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "model_variant": "qgeognn_condition_complete_v2",
+  "integration": "after_fixed_sum_pooling_before_prediction_head",
+  "legacy_condition_features": [
+    "eluent_exact_mol_wt",
+    "eluent_tpsa",
+    "eluent_rotatable_bonds",
+    "eluent_h_donors"
+  ],
+  "completion_condition_features": [
+    "eluent_h_acceptors",
+    "eluent_logp",
+    "loading_solvent",
+    "loading_amount_density_x_volume",
+    "loading_solvent_volume_ul"
+  ],
+  "all_intended_condition_features": [
+    "eluent_exact_mol_wt",
+    "eluent_tpsa",
+    "eluent_rotatable_bonds",
+    "eluent_h_donors",
+    "eluent_h_acceptors",
+    "eluent_logp",
+    "loading_solvent",
+    "loading_amount_density_x_volume",
+    "loading_solvent_volume_ul"
+  ],
+  "loading_solvent": {
+    "type": "categorical_embedding",
+    "vocabulary": [
+      "PE",
+      "EA",
+      "DCM"
+    ],
+    "embedding_dim": 4
+  },
+  "continuous_completion_features": {
+    "names": [
+      "eluent_h_acceptors",
+      "eluent_logp",
+      "loading_amount_density_x_volume",
+      "loading_solvent_volume_ul"
+    ],
+    "dtype": "float32",
+    "eluent_normalization": "reuse_frozen_source_train_eluent_minmax_dimensions_4_5",
+    "loading_normalization": "source_train_only_minmax"
+  },
+  "condition_branch": {
+    "input_dim": 8,
+    "hidden_dim": 16,
+    "output_dim": 128,
+    "activation": "relu",
+    "output_initialization": "zeros"
+  },
+  "column_specification_features": []
+}

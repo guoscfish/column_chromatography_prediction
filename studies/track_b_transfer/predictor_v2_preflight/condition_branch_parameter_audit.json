@@ -1,0 +1,38 @@
+{
+  "condition_branch_config": {
+    "model_variant": "qgeognn_condition_complete_v2",
+    "completion_features": [
+      "eluent_h_acceptors",
+      "eluent_logp",
+      "loading_solvent",
+      "loading_amount_density_x_volume",
+      "loading_solvent_volume_ul"
+    ],
+    "input_dim": 8,
+    "hidden_dim": 16,
+    "output_dim": 128,
+    "activation": "relu",
+    "output_initialization": "zeros",
+    "solvent_vocabulary": [
+      "PE",
+      "EA",
+      "DCM"
+    ],
+    "solvent_embedding_dim": 4
+  },
+  "condition_branch_config_hash": "ea7a046d56196897a0e6c7d64f86d2af91ddb532b477db3bb2d8de6d4391bc0f",
+  "legacy_nominal_parameters": 775476,
+  "v2_added_parameters": 2332,
+  "v2_total_nominal_parameters": 777808,
+  "v2_total_requires_grad_parameters": 777808,
+  "legacy_multi_fixture_classification": {
+    "structurally_unreachable": 318856,
+    "fixture_dependent_inactive": 0,
+    "gradient_bearing": 456620
+  },
+  "v2_diagnostic_activation_classification": {
+    "structurally_unreachable": 318856,
+    "fixture_dependent_inactive": 0,
+    "gradient_bearing": 458952
+  }
+}
