@@ -1,0 +1,21 @@
+{
+  "model": "qgeognn_clean_fusion_v1",
+  "preflight_revision": 2,
+  "split_mode": "row",
+  "seed": 42,
+  "split_path": "studies/predictor/clean_4g_baseline_qualification/splits/row_seed_42.csv",
+  "split_sha256": "a8a4a322cd9c75253b1a4ed8c5c91ededed74a933df2db2685015c8b3e008008",
+  "optimizer": "Adam",
+  "learning_rate": 0.001,
+  "batch_size": 2048,
+  "maximum_epochs": 1000,
+  "patience": 100,
+  "scheduler": null,
+  "checkpoint_selection": "validation_only_minimum_combined_normalized_rmse",
+  "test_during_training": false,
+  "target_weights": {
+    "V1": 1.0,
+    "V2": 1.0
+  },
+  "device": "cpu"
+}
