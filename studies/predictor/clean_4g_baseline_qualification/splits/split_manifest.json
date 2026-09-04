@@ -1,0 +1,150 @@
+{
+  "dataset_source": "dataset/dataset_4g.csv",
+  "dataset_source_sha256": "d485d3d46a96458d1baac11b2a21cd33374b1be42ba2303e7ae5823cc8ee553a",
+  "canonical_filtered_source": "experiments/e0_4g_baseline/canonical_4g.csv",
+  "canonical_filtered_source_sha256": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+  "qualification_dataset_manifest": "studies/predictor/clean_4g_baseline_qualification/splits/qualification_dataset_manifest.csv",
+  "qualification_dataset_manifest_sha256": "8a291e7cbe0e89659940785a6e957f747cfe37ea2786c4280b654afcd531490b",
+  "retained_rows": 4163,
+  "unique_compounds": 217,
+  "thresholds_ml": {
+    "V1_max_inclusive": 60.0,
+    "V2_max_inclusive": 120.0
+  },
+  "generation_code": "scripts/studies/run_clean_4g_baseline_qualification.py",
+  "generation_code_sha256": "9a22d07cc5a7d9f70995cbd884a7bc8b1a772b525113cb5074243e6e06b808d7",
+  "splits": [
+    {
+      "split_mode": "row",
+      "seed": 42,
+      "path": "studies/predictor/clean_4g_baseline_qualification/splits/row_seed_42.csv",
+      "sha256": "a8a4a322cd9c75253b1a4ed8c5c91ededed74a933df2db2685015c8b3e008008",
+      "row_counts": {
+        "train": 3330,
+        "validation": 416,
+        "test": 417
+      },
+      "compound_counts": {
+        "train": 217,
+        "validation": 182,
+        "test": 181
+      },
+      "compound_overlap_counts": {
+        "train_validation": 182,
+        "train_test": 181,
+        "validation_test": 154
+      },
+      "compound_overlap_assertion": "NOT_REQUIRED_FOR_ROW_INTERPOLATION"
+    },
+    {
+      "split_mode": "row",
+      "seed": 525,
+      "path": "studies/predictor/clean_4g_baseline_qualification/splits/row_seed_525.csv",
+      "sha256": "58876dc5a9033a0584da964e1e52bd0fa5d1aeba8131410060cce947fe11d0a1",
+      "row_counts": {
+        "train": 3330,
+        "validation": 416,
+        "test": 417
+      },
+      "compound_counts": {
+        "train": 217,
+        "validation": 185,
+        "test": 182
+      },
+      "compound_overlap_counts": {
+        "train_validation": 185,
+        "train_test": 182,
+        "validation_test": 157
+      },
+      "compound_overlap_assertion": "NOT_REQUIRED_FOR_ROW_INTERPOLATION"
+    },
+    {
+      "split_mode": "row",
+      "seed": 1101,
+      "path": "studies/predictor/clean_4g_baseline_qualification/splits/row_seed_1101.csv",
+      "sha256": "fb51a225dd2b802b4dbc2982fa45166a7c11962fef9add2015e6637a1a2a6bf1",
+      "row_counts": {
+        "train": 3330,
+        "validation": 416,
+        "test": 417
+      },
+      "compound_counts": {
+        "train": 217,
+        "validation": 178,
+        "test": 185
+      },
+      "compound_overlap_counts": {
+        "train_validation": 178,
+        "train_test": 185,
+        "validation_test": 152
+      },
+      "compound_overlap_assertion": "NOT_REQUIRED_FOR_ROW_INTERPOLATION"
+    },
+    {
+      "split_mode": "compound",
+      "seed": 42,
+      "path": "studies/predictor/clean_4g_baseline_qualification/splits/compound_seed_42.csv",
+      "sha256": "e073d09aa2cfc1d7845f4ef0ec81878489b29f43e4951562ab2700addbd13178",
+      "row_counts": {
+        "train": 3401,
+        "validation": 389,
+        "test": 373
+      },
+      "compound_counts": {
+        "train": 173,
+        "validation": 22,
+        "test": 22
+      },
+      "compound_overlap_counts": {
+        "train_validation": 0,
+        "train_test": 0,
+        "validation_test": 0
+      },
+      "compound_overlap_assertion": "REQUIRED_ZERO_AND_PASS"
+    },
+    {
+      "split_mode": "compound",
+      "seed": 525,
+      "path": "studies/predictor/clean_4g_baseline_qualification/splits/compound_seed_525.csv",
+      "sha256": "6f6e40f7759aa989cba636941a5d8baf3c716c0f1e45fd57d221370b8b4293da",
+      "row_counts": {
+        "train": 3321,
+        "validation": 428,
+        "test": 414
+      },
+      "compound_counts": {
+        "train": 173,
+        "validation": 22,
+        "test": 22
+      },
+      "compound_overlap_counts": {
+        "train_validation": 0,
+        "train_test": 0,
+        "validation_test": 0
+      },
+      "compound_overlap_assertion": "REQUIRED_ZERO_AND_PASS"
+    },
+    {
+      "split_mode": "compound",
+      "seed": 1101,
+      "path": "studies/predictor/clean_4g_baseline_qualification/splits/compound_seed_1101.csv",
+      "sha256": "6dbd64e4619255ad1096efb618f605d79ff533c37858600ed11b6fa801166b16",
+      "row_counts": {
+        "train": 3275,
+        "validation": 430,
+        "test": 458
+      },
+      "compound_counts": {
+        "train": 173,
+        "validation": 22,
+        "test": 22
+      },
+      "compound_overlap_counts": {
+        "train_validation": 0,
+        "train_test": 0,
+        "validation_test": 0
+      },
+      "compound_overlap_assertion": "REQUIRED_ZERO_AND_PASS"
+    }
+  ]
+}

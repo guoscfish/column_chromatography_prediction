@@ -41,7 +41,7 @@ def test_compound_splits_are_reproducible_and_group_disjoint() -> None:
         second = qualification.generate_split_table(data, "compound", seed)
         pd.testing.assert_frame_equal(first, second)
         audit = qualification.split_audit(first)
-        assert audit["compound_counts"] == {"train": 173, "validation": 21, "test": 23}
+        assert audit["compound_counts"] == {"train": 173, "validation": 22, "test": 22}
         assert audit["compound_overlap_counts"] == {"train_validation": 0, "train_test": 0, "validation_test": 0}
         assert audit["compound_overlap_assertion"] == "REQUIRED_ZERO_AND_PASS"
 

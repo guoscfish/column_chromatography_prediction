@@ -1,6 +1,6 @@
 # Clean-QGeoGNN 4g baseline qualification
 
-Status: `PROTOCOL_FROZEN / SPLITS_PENDING / FORMAL_RUN_PENDING`.
+Status: `PROTOCOL_FROZEN / SPLITS_FROZEN / FORMAL_RUN_PENDING`.
 
 This study asks whether `qgeognn_clean_fusion_v1` preflight revision 2 has stable, numerically valid, interpretable 4g behavior suitable for downstream UQ, transfer, and active-learning work. It does not test statistical superiority over Legacy and trains no other model.
 
