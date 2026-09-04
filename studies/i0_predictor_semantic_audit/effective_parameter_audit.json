@@ -1,0 +1,2002 @@
+{
+  "audit_mode": "loaded source checkpoint; eval forward plus backward on one canonical fixture",
+  "nominal_parameters": 775476,
+  "requires_grad_parameters": 775476,
+  "gradient_bearing_parameters": 456620,
+  "forward_unreachable_parameters": 318856,
+  "nn_descriptor_forward_unreachable": true,
+  "outer_geometry_batch_norms_forward_unreachable": true,
+  "by_module_group": {
+    "NN_descriptor": {
+      "nominal_parameters": 250496,
+      "gradient_bearing_parameters": 0,
+      "forward_unreachable_parameters": 250496
+    },
+    "atom_encoder": {
+      "nominal_parameters": 32128,
+      "gradient_bearing_parameters": 32128,
+      "forward_unreachable_parameters": 0
+    },
+    "bond_angle_encoder": {
+      "nominal_parameters": 38406,
+      "gradient_bearing_parameters": 25604,
+      "forward_unreachable_parameters": 12802
+    },
+    "bond_encoder": {
+      "nominal_parameters": 37632,
+      "gradient_bearing_parameters": 31360,
+      "forward_unreachable_parameters": 6272
+    },
+    "bond_float_encoder": {
+      "nominal_parameters": 80670,
+      "gradient_bearing_parameters": 67225,
+      "forward_unreachable_parameters": 13445
+    },
+    "gnn_layers": {
+      "nominal_parameters": 332810,
+      "gradient_bearing_parameters": 299529,
+      "forward_unreachable_parameters": 33281
+    },
+    "outer_batch_norms": {
+      "nominal_parameters": 1280,
+      "gradient_bearing_parameters": 0,
+      "forward_unreachable_parameters": 1280
+    },
+    "outer_batch_norms_ba": {
+      "nominal_parameters": 1280,
+      "gradient_bearing_parameters": 0,
+      "forward_unreachable_parameters": 1280
+    },
+    "prediction_head": {
+      "nominal_parameters": 774,
+      "gradient_bearing_parameters": 774,
+      "forward_unreachable_parameters": 0
+    }
+  },
+  "parameters": [
+    {
+      "parameter_name": "gnn_node.atom_encoder.atom_embedding_list.0.weight",
+      "numel": 15872,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 148.5913543701172,
+      "module_group": "atom_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.atom_encoder.atom_embedding_list.1.weight",
+      "numel": 1792,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 171.177734375,
+      "module_group": "atom_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.atom_encoder.atom_embedding_list.2.weight",
+      "numel": 2176,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 121.33242797851562,
+      "module_group": "atom_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.atom_encoder.atom_embedding_list.3.weight",
+      "numel": 2432,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 113.41309356689453,
+      "module_group": "atom_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.atom_encoder.atom_embedding_list.4.weight",
+      "numel": 2816,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 171.177734375,
+      "module_group": "atom_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.atom_encoder.atom_embedding_list.5.weight",
+      "numel": 1792,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 139.6930389404297,
+      "module_group": "atom_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.atom_encoder.atom_embedding_list.6.weight",
+      "numel": 2432,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 115.32811737060547,
+      "module_group": "atom_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.atom_encoder.atom_embedding_list.7.weight",
+      "numel": 896,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 156.82687377929688,
+      "module_group": "atom_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.atom_encoder.atom_embedding_list.8.weight",
+      "numel": 1920,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 115.32811737060547,
+      "module_group": "atom_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.bond_encoder.bond_embedding_list.0.weight",
+      "numel": 1664,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 97.1603012084961,
+      "module_group": "bond_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.bond_encoder.bond_embedding_list.1.weight",
+      "numel": 3584,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 88.87483215332031,
+      "module_group": "bond_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.bond_encoder.bond_embedding_list.2.weight",
+      "numel": 1024,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 93.7275161743164,
+      "module_group": "bond_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.bond_float_encoder.linear_list.0.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 182.15093994140625,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.bond_float_encoder.linear_list.0.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 126.51603698730469,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.bond_float_encoder.linear_list.1.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 449.7398986816406,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.bond_float_encoder.linear_list.1.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 126.51603698730469,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.bond_float_encoder.linear_list.2.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 450.6818542480469,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.bond_float_encoder.linear_list.2.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 126.51603698730469,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.bond_float_encoder.linear_list.3.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 435.5654602050781,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.bond_float_encoder.linear_list.3.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 126.51603698730469,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.bond_float_encoder.linear_list.4.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 445.2815246582031,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.bond_float_encoder.linear_list.4.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 126.51603698730469,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.bond_float_encoder.rbf_list.0.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 1.2092188596725464,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.bond_float_encoder.rbf_list.1.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 66.38754272460938,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.bond_float_encoder.rbf_list.2.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 19.642627716064453,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.bond_float_encoder.rbf_list.3.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 53.739654541015625,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.bond_float_encoder.rbf_list.4.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 16.01352882385254,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.bond_angle_encoder.linear_list.0.weight",
+      "numel": 4096,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.bond_angle_encoder.linear_list.0.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.bond_angle_encoder.linear_list.1.weight",
+      "numel": 2048,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.bond_angle_encoder.linear_list.1.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.bond_angle_encoder.rbf_list.0.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs.0.eps",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 24.754005432128906,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.0.mlp.0.weight",
+      "numel": 16384,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 2681.952392578125,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.0.mlp.0.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 88.669921875,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.0.mlp.1.weight",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 39.63563537597656,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.0.mlp.1.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 38.956539154052734,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.0.mlp.3.weight",
+      "numel": 16384,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 903.9264526367188,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.0.mlp.3.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 117.97158813476562,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.1.eps",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 1.8482286930084229,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.1.mlp.0.weight",
+      "numel": 16384,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 1672.042724609375,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.1.mlp.0.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 86.1999740600586,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.1.mlp.1.weight",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 52.99113464355469,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.1.mlp.1.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 44.85895538330078,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.1.mlp.3.weight",
+      "numel": 16384,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 871.0740356445312,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.1.mlp.3.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 105.1473388671875,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.2.eps",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 2.2310519218444824,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.2.mlp.0.weight",
+      "numel": 16384,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 1160.517822265625,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.2.mlp.0.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 57.59318542480469,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.2.mlp.1.weight",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 42.18927001953125,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.2.mlp.1.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 32.54935073852539,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.2.mlp.3.weight",
+      "numel": 16384,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 561.4951171875,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.2.mlp.3.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 72.89054107666016,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.3.eps",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 0.16287922859191895,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.3.mlp.0.weight",
+      "numel": 16384,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 758.606201171875,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.3.mlp.0.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 44.09843444824219,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.3.mlp.1.weight",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 23.890016555786133,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.3.mlp.1.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 21.853445053100586,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.3.mlp.3.weight",
+      "numel": 16384,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 308.314208984375,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.3.mlp.3.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 42.367408752441406,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.4.eps",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 14.195416450500488,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.4.mlp.0.weight",
+      "numel": 16384,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 326.2828369140625,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.4.mlp.0.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 25.18755340576172,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.4.mlp.1.weight",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 9.52971363067627,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.4.mlp.1.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 15.47636604309082,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.4.mlp.3.weight",
+      "numel": 16384,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 106.52090454101562,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs.4.mlp.3.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 24.749094009399414,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.0.eps",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 160.1856231689453,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.0.mlp.0.weight",
+      "numel": 16384,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 3859.919677734375,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.0.mlp.0.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 127.13358306884766,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.0.mlp.1.weight",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 35.061405181884766,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.0.mlp.1.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 44.263057708740234,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.0.mlp.3.weight",
+      "numel": 16384,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 584.1293334960938,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.0.mlp.3.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 100.86309051513672,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.1.eps",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 130.24612426757812,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.1.mlp.0.weight",
+      "numel": 16384,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 2473.182373046875,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.1.mlp.0.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 75.374755859375,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.1.mlp.1.weight",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 25.119810104370117,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.1.mlp.1.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 30.420854568481445,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.1.mlp.3.weight",
+      "numel": 16384,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 442.4049072265625,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.1.mlp.3.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 77.9946517944336,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.2.eps",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 24.025426864624023,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.2.mlp.0.weight",
+      "numel": 16384,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 1601.5587158203125,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.2.mlp.0.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 42.18145751953125,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.2.mlp.1.weight",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 16.561140060424805,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.2.mlp.1.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 21.022207260131836,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.2.mlp.3.weight",
+      "numel": 16384,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 285.20416259765625,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.2.mlp.3.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 52.6589469909668,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.3.eps",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 5.708859920501709,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.3.mlp.0.weight",
+      "numel": 16384,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 913.2822875976562,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.3.mlp.0.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 29.013090133666992,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.3.mlp.1.weight",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 12.223889350891113,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.3.mlp.1.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 13.818090438842773,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.3.mlp.3.weight",
+      "numel": 16384,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 188.57664489746094,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.3.mlp.3.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 34.32050323486328,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.4.eps",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.4.mlp.0.weight",
+      "numel": 16384,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.4.mlp.0.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.4.mlp.1.weight",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.4.mlp.1.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.4.mlp.3.weight",
+      "numel": 16384,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_angle.4.mlp.3.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "gnn_layers"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.0.linear_list.0.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 348.1742248535156,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.0.linear_list.0.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 232.4165802001953,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.0.linear_list.1.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 828.4456176757812,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.0.linear_list.1.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 232.4165802001953,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.0.linear_list.2.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 825.9520263671875,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.0.linear_list.2.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 232.4165802001953,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.0.linear_list.3.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 798.9287109375,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.0.linear_list.3.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 232.4165802001953,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.0.linear_list.4.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 817.6838989257812,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.0.linear_list.4.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 232.4165802001953,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.0.rbf_list.0.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 0.3531620502471924,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.0.rbf_list.1.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 35.700294494628906,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.0.rbf_list.2.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 110.6611328125,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.0.rbf_list.3.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 63.88337326049805,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.0.rbf_list.4.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 23.92990493774414,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.1.linear_list.0.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 227.24734497070312,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.1.linear_list.0.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 152.62059020996094,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.1.linear_list.1.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 542.8418579101562,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.1.linear_list.1.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 152.62059020996094,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.1.linear_list.2.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 543.3290405273438,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.1.linear_list.2.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 152.62059020996094,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.1.linear_list.3.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 524.03515625,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.1.linear_list.3.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 152.62059020996094,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.1.linear_list.4.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 536.6013793945312,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.1.linear_list.4.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 152.62059020996094,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.1.rbf_list.0.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 1.0396326780319214,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.1.rbf_list.1.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 33.99512481689453,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.1.rbf_list.2.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 28.660385131835938,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.1.rbf_list.3.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 5.748221397399902,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.1.rbf_list.4.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 20.616043090820312,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.2.linear_list.0.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 119.51495361328125,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.2.linear_list.0.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 79.22566986083984,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.2.linear_list.1.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 282.39990234375,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.2.linear_list.1.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 79.22566986083984,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.2.linear_list.2.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 282.43145751953125,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.2.linear_list.2.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 79.22566986083984,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.2.linear_list.3.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 272.60308837890625,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.2.linear_list.3.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 79.22566986083984,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.2.linear_list.4.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 278.9618835449219,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.2.linear_list.4.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 79.22566986083984,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.2.rbf_list.0.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 0.12871479988098145,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.2.rbf_list.1.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 16.684085845947266,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.2.rbf_list.2.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 10.72944450378418,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.2.rbf_list.3.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 11.42401123046875,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.2.rbf_list.4.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 2.5314342975616455,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.3.linear_list.0.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 78.67964935302734,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.3.linear_list.0.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 53.39237594604492,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.3.linear_list.1.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 190.48989868164062,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.3.linear_list.1.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 53.39237594604492,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.3.linear_list.2.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 190.04403686523438,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.3.linear_list.2.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 53.39237594604492,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.3.linear_list.3.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 183.88552856445312,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.3.linear_list.3.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 53.39237594604492,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.3.linear_list.4.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 187.9738311767578,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.3.linear_list.4.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 53.39237594604492,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.3.rbf_list.0.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 0.08674940466880798,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.3.rbf_list.1.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 13.09618091583252,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.3.rbf_list.2.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 7.342584133148193,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.3.rbf_list.3.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 10.172933578491211,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.3.rbf_list.4.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 17.19961166381836,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.4.linear_list.0.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.4.linear_list.0.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.4.linear_list.1.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.4.linear_list.1.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.4.linear_list.2.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.4.linear_list.2.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.4.linear_list.3.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.4.linear_list.3.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.4.linear_list.4.weight",
+      "numel": 2560,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.4.linear_list.4.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.4.rbf_list.0.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.4.rbf_list.1.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.4.rbf_list.2.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.4.rbf_list.3.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_float.4.rbf_list.4.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_float_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_embeding.0.bond_embedding_list.0.weight",
+      "numel": 1664,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 181.6238250732422,
+      "module_group": "bond_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_embeding.0.bond_embedding_list.1.weight",
+      "numel": 3584,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 181.10516357421875,
+      "module_group": "bond_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_embeding.0.bond_embedding_list.2.weight",
+      "numel": 1024,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 182.72171020507812,
+      "module_group": "bond_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_embeding.1.bond_embedding_list.0.weight",
+      "numel": 1664,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 119.19002532958984,
+      "module_group": "bond_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_embeding.1.bond_embedding_list.1.weight",
+      "numel": 3584,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 103.5989761352539,
+      "module_group": "bond_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_embeding.1.bond_embedding_list.2.weight",
+      "numel": 1024,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 105.93414306640625,
+      "module_group": "bond_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_embeding.2.bond_embedding_list.0.weight",
+      "numel": 1664,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 62.5252685546875,
+      "module_group": "bond_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_embeding.2.bond_embedding_list.1.weight",
+      "numel": 3584,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 55.99514389038086,
+      "module_group": "bond_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_embeding.2.bond_embedding_list.2.weight",
+      "numel": 1024,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 57.015403747558594,
+      "module_group": "bond_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_embeding.3.bond_embedding_list.0.weight",
+      "numel": 1664,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 41.703765869140625,
+      "module_group": "bond_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_embeding.3.bond_embedding_list.1.weight",
+      "numel": 3584,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 32.81843185424805,
+      "module_group": "bond_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_embeding.3.bond_embedding_list.2.weight",
+      "numel": 1024,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 34.246822357177734,
+      "module_group": "bond_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_embeding.4.bond_embedding_list.0.weight",
+      "numel": 1664,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_embeding.4.bond_embedding_list.1.weight",
+      "numel": 3584,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_bond_embeding.4.bond_embedding_list.2.weight",
+      "numel": 1024,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_angle_float.0.linear_list.0.weight",
+      "numel": 4096,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 169.9097137451172,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_angle_float.0.linear_list.0.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 163.59449768066406,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_angle_float.0.linear_list.1.weight",
+      "numel": 2048,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 196.94068908691406,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_angle_float.0.linear_list.1.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 163.59449768066406,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_angle_float.0.rbf_list.0.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 1.2084665298461914,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_angle_float.1.linear_list.0.weight",
+      "numel": 4096,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 111.7349624633789,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_angle_float.1.linear_list.0.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 110.22779083251953,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_angle_float.1.linear_list.1.weight",
+      "numel": 2048,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 132.69602966308594,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_angle_float.1.linear_list.1.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 110.22779083251953,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_angle_float.1.rbf_list.0.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 0.4237373173236847,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_angle_float.2.linear_list.0.weight",
+      "numel": 4096,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 59.296939849853516,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_angle_float.2.linear_list.0.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 57.56483840942383,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_angle_float.2.linear_list.1.weight",
+      "numel": 2048,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 69.29853057861328,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_angle_float.2.linear_list.1.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 57.56483840942383,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_angle_float.2.rbf_list.0.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 0.21827541291713715,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_angle_float.3.linear_list.0.weight",
+      "numel": 4096,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 39.41255187988281,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_angle_float.3.linear_list.0.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 36.829750061035156,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_angle_float.3.linear_list.1.weight",
+      "numel": 2048,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 44.3369255065918,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_angle_float.3.linear_list.1.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 36.829750061035156,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_angle_float.3.rbf_list.0.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 0.05393896996974945,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_angle_float.4.linear_list.0.weight",
+      "numel": 4096,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_angle_float.4.linear_list.0.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_angle_float.4.linear_list.1.weight",
+      "numel": 2048,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_angle_float.4.linear_list.1.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.convs_angle_float.4.rbf_list.0.gamma",
+      "numel": 1,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "bond_angle_encoder"
+    },
+    {
+      "parameter_name": "gnn_node.batch_norms.0.weight",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "outer_batch_norms"
+    },
+    {
+      "parameter_name": "gnn_node.batch_norms.0.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "outer_batch_norms"
+    },
+    {
+      "parameter_name": "gnn_node.batch_norms.1.weight",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "outer_batch_norms"
+    },
+    {
+      "parameter_name": "gnn_node.batch_norms.1.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "outer_batch_norms"
+    },
+    {
+      "parameter_name": "gnn_node.batch_norms.2.weight",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "outer_batch_norms"
+    },
+    {
+      "parameter_name": "gnn_node.batch_norms.2.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "outer_batch_norms"
+    },
+    {
+      "parameter_name": "gnn_node.batch_norms.3.weight",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "outer_batch_norms"
+    },
+    {
+      "parameter_name": "gnn_node.batch_norms.3.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "outer_batch_norms"
+    },
+    {
+      "parameter_name": "gnn_node.batch_norms.4.weight",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "outer_batch_norms"
+    },
+    {
+      "parameter_name": "gnn_node.batch_norms.4.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "outer_batch_norms"
+    },
+    {
+      "parameter_name": "gnn_node.batch_norms_ba.0.weight",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "outer_batch_norms_ba"
+    },
+    {
+      "parameter_name": "gnn_node.batch_norms_ba.0.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "outer_batch_norms_ba"
+    },
+    {
+      "parameter_name": "gnn_node.batch_norms_ba.1.weight",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "outer_batch_norms_ba"
+    },
+    {
+      "parameter_name": "gnn_node.batch_norms_ba.1.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "outer_batch_norms_ba"
+    },
+    {
+      "parameter_name": "gnn_node.batch_norms_ba.2.weight",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "outer_batch_norms_ba"
+    },
+    {
+      "parameter_name": "gnn_node.batch_norms_ba.2.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "outer_batch_norms_ba"
+    },
+    {
+      "parameter_name": "gnn_node.batch_norms_ba.3.weight",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "outer_batch_norms_ba"
+    },
+    {
+      "parameter_name": "gnn_node.batch_norms_ba.3.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "outer_batch_norms_ba"
+    },
+    {
+      "parameter_name": "gnn_node.batch_norms_ba.4.weight",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "outer_batch_norms_ba"
+    },
+    {
+      "parameter_name": "gnn_node.batch_norms_ba.4.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "outer_batch_norms_ba"
+    },
+    {
+      "parameter_name": "graph_pred_linear.linear.weight",
+      "numel": 768,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 239.90628051757812,
+      "module_group": "prediction_head"
+    },
+    {
+      "parameter_name": "graph_pred_linear.linear.bias",
+      "numel": 6,
+      "requires_grad": true,
+      "grad_is_none": false,
+      "grad_norm": 4.592978000640869,
+      "module_group": "prediction_head"
+    },
+    {
+      "parameter_name": "NN_descriptor.0.weight",
+      "numel": 233856,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "NN_descriptor"
+    },
+    {
+      "parameter_name": "NN_descriptor.0.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "NN_descriptor"
+    },
+    {
+      "parameter_name": "NN_descriptor.2.weight",
+      "numel": 16384,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "NN_descriptor"
+    },
+    {
+      "parameter_name": "NN_descriptor.2.bias",
+      "numel": 128,
+      "requires_grad": true,
+      "grad_is_none": true,
+      "grad_norm": null,
+      "module_group": "NN_descriptor"
+    }
+  ]
+}

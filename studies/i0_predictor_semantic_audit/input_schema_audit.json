@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "model_variant": "legacy_qgeognn_clean_reproduction_v1",
+  "categorical_bond_features": [
+    "bond_dir",
+    "bond_type",
+    "is_in_ring"
+  ],
+  "continuous_edge_features": [
+    "bond_length",
+    "eluent_exact_mol_wt",
+    "eluent_tpsa",
+    "eluent_rotatable_bonds",
+    "eluent_h_donors",
+    "eluent_h_acceptors",
+    "eluent_logp",
+    "loading_solvent_code",
+    "loading_amount_density_x_volume",
+    "loading_solvent_volume_ul"
+  ],
+  "legacy_bond_float_names": [
+    "bond_length",
+    "prop",
+    "e",
+    "m",
+    "V_e"
+  ],
+  "constructed_continuous_feature_count": 10,
+  "consumed_continuous_feature_count": 5,
+  "continuous_feature_mapping": [
+    {
+      "continuous_position": 0,
+      "edge_attr_position": 3,
+      "constructed_semantic": "bond_length",
+      "legacy_encoder_name": "bond_length",
+      "consumed_by_legacy_bond_float_rbf": true
+    },
+    {
+      "continuous_position": 1,
+      "edge_attr_position": 4,
+      "constructed_semantic": "eluent_exact_mol_wt",
+      "legacy_encoder_name": "prop",
+      "consumed_by_legacy_bond_float_rbf": true
+    },
+    {
+      "continuous_position": 2,
+      "edge_attr_position": 5,
+      "constructed_semantic": "eluent_tpsa",
+      "legacy_encoder_name": "e",
+      "consumed_by_legacy_bond_float_rbf": true
+    },
+    {
+      "continuous_position": 3,
+      "edge_attr_position": 6,
+      "constructed_semantic": "eluent_rotatable_bonds",
+      "legacy_encoder_name": "m",
+      "consumed_by_legacy_bond_float_rbf": true
+    },
+    {
+      "continuous_position": 4,
+      "edge_attr_position": 7,
+      "constructed_semantic": "eluent_h_donors",
+      "legacy_encoder_name": "V_e",
+      "consumed_by_legacy_bond_float_rbf": true
+    },
+    {
+      "continuous_position": 5,
+      "edge_attr_position": 8,
+      "constructed_semantic": "eluent_h_acceptors",
+      "legacy_encoder_name": null,
+      "consumed_by_legacy_bond_float_rbf": false
+    },
+    {
+      "continuous_position": 6,
+      "edge_attr_position": 9,
+      "constructed_semantic": "eluent_logp",
+      "legacy_encoder_name": null,
+      "consumed_by_legacy_bond_float_rbf": false
+    },
+    {
+      "continuous_position": 7,
+      "edge_attr_position": 10,
+      "constructed_semantic": "loading_solvent_code",
+      "legacy_encoder_name": null,
+      "consumed_by_legacy_bond_float_rbf": false
+    },
+    {
+      "continuous_position": 8,
+      "edge_attr_position": 11,
+      "constructed_semantic": "loading_amount_density_x_volume",
+      "legacy_encoder_name": null,
+      "consumed_by_legacy_bond_float_rbf": false
+    },
+    {
+      "continuous_position": 9,
+      "edge_attr_position": 12,
+      "constructed_semantic": "loading_solvent_volume_ul",
+      "legacy_encoder_name": null,
+      "consumed_by_legacy_bond_float_rbf": false
+    }
+  ],
+  "forward_behavior_changed": false,
+  "schema_sha256": "083178a586ae09de0caa8ad297a6562cc8d8f9ca13f83569fe6fa2d338b1c352",
+  "runtime_categorical_bond_features": [
+    "bond_dir",
+    "bond_type",
+    "is_in_ring"
+  ],
+  "runtime_legacy_bond_float_names": [
+    "bond_length",
+    "prop",
+    "e",
+    "m",
+    "V_e"
+  ],
+  "predictor_consumed_condition_dimensions": 4,
+  "acquisition_condition_dimensions": 9,
+  "acquisition_joint_representation": "128D graph embedding + 9D conditions",
+  "semantic_mismatch": true,
+  "potential_block_dimension_dominance": true
+}
