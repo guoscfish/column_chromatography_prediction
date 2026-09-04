@@ -2,7 +2,7 @@
 
 Model variant: `qgeognn_clean_fusion_v1`.
 
-Status: engineering candidate. It is distinct from `qgeognn_condition_complete_v2`, which remains a controlled historical ablation.
+Status: `IMPLEMENTATION_PREFLIGHT_COMPLETE / FORMAL_PERFORMANCE_UNQUALIFIED`. It is distinct from `qgeognn_condition_complete_v2`, which remains a controlled historical ablation.
 
 ## Architecture
 
