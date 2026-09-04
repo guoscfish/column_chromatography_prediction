@@ -1,0 +1,779 @@
+{
+  "audit_type": "source_only_data_audit_no_model_training",
+  "source_file": "dataset/dataset_4g.csv",
+  "source_sha256": "d485d3d46a96458d1baac11b2a21cd33374b1be42ba2303e7ae5823cc8ee553a",
+  "volume_formula": "V_ml = t_raw * Flow_mL_min / 1200",
+  "thresholds_ml": {
+    "V1": 60.0,
+    "V2": 120.0
+  },
+  "counts": {
+    "raw_rows": 4243,
+    "valid_label_rows": 4229,
+    "unique_compounds_among_valid_labels": 217,
+    "v1_over_60_rows": 60,
+    "v2_over_120_rows": 49,
+    "union_removed_rows": 66,
+    "affected_unique_compounds": 29,
+    "compounds_completely_removed": 0,
+    "retained_rows": 4163
+  },
+  "label_distributions": {
+    "before_filtering": {
+      "V1_ml": {
+        "count": 4229,
+        "min": 0.13333333333333333,
+        "q1": 4.816666666666666,
+        "median": 5.8,
+        "q3": 8.341666666666667,
+        "max": 165.2,
+        "mean": 9.68854417908095,
+        "std": 12.376295952759257
+      },
+      "V2_ml": {
+        "count": 4229,
+        "min": -0.1,
+        "q1": 9.583333333333334,
+        "median": 12.625,
+        "q3": 19.858333333333334,
+        "max": 247.33333333333334,
+        "mean": 20.226426263103967,
+        "std": 23.95071493100452
+      }
+    },
+    "after_filtering": {
+      "V1_ml": {
+        "count": 4163,
+        "min": 0.13333333333333333,
+        "q1": 4.8,
+        "median": 5.766666666666667,
+        "q3": 8.095833333333333,
+        "max": 59.583333333333336,
+        "mean": 8.542167907758827,
+        "std": 7.779858763782931
+      },
+      "V2_ml": {
+        "count": 4163,
+        "min": -0.1,
+        "q1": 9.5375,
+        "median": 12.525,
+        "q3": 19.366666666666667,
+        "max": 119.425,
+        "mean": 18.063097125470417,
+        "std": 15.910096007335156
+      }
+    },
+    "affected_only": {
+      "V1_ml": {
+        "count": 66,
+        "min": 32.05,
+        "q1": 64.24791666666667,
+        "median": 75.125,
+        "q3": 97.46041666666666,
+        "max": 165.2,
+        "mean": 81.99709595959598,
+        "std": 26.18208074325544
+      },
+      "V2_ml": {
+        "count": 66,
+        "min": 98.24166666666666,
+        "q1": 118.78958333333333,
+        "median": 148.62083333333334,
+        "q3": 186.3375,
+        "max": 247.33333333333334,
+        "mean": 156.68005050505047,
+        "std": 43.30108565735036
+      }
+    }
+  },
+  "removed_label_validity": {
+    "affected_rows_with_nan": 0,
+    "affected_rows_with_invalid_sentinel": 0,
+    "affected_rows_nonfinite": 0,
+    "affected_rows_otherwise_finite_numeric": 66,
+    "interpretation": "All threshold-affected labels are finite numeric observations under the repository conversion; this alone does not establish measurement validity or absence of censoring."
+  },
+  "experimental_condition_distributions": {
+    "valid_before_filtering": {
+      "continuous": {
+        "Flow mL/min": {
+          "count": 4229,
+          "min": 4.0,
+          "q1": 10.0,
+          "median": 10.0,
+          "q3": 10.0,
+          "max": 10.0,
+          "mean": 9.533459446677702,
+          "std": 1.4489431156369268
+        },
+        "Density g/ml": {
+          "count": 4229,
+          "min": 0.77,
+          "q1": 1.0,
+          "median": 1.051,
+          "q3": 1.2143,
+          "max": 2.182,
+          "mean": 1.1559317332702765,
+          "std": 0.25294322701738636
+        },
+        "V/ul": {
+          "count": 4229,
+          "min": 30.0,
+          "q1": 50.0,
+          "median": 100.0,
+          "q3": 150.0,
+          "max": 150.0,
+          "mean": 99.1961882884417,
+          "std": 39.975899350040635
+        },
+        "Volume of loading solvent/ul": {
+          "count": 4229,
+          "min": 200.0,
+          "q1": 300.0,
+          "median": 300.0,
+          "q3": 300.0,
+          "max": 2000.0,
+          "mean": 338.3542208559943,
+          "std": 146.8507150414844
+        }
+      },
+      "loading_solvent": [
+        {
+          "value": "DCM",
+          "rows": 2941,
+          "fraction": 0.6954362733506739
+        },
+        {
+          "value": "PE",
+          "rows": 1255,
+          "fraction": 0.29676046346654056
+        },
+        {
+          "value": "EA",
+          "rows": 33,
+          "fraction": 0.007803263182785528
+        }
+      ],
+      "eluent_ratio": [
+        {
+          "value": "1/1",
+          "rows": 655,
+          "fraction": 0.15488295105225822
+        },
+        {
+          "value": "2/1",
+          "rows": 643,
+          "fraction": 0.15204540080397258
+        },
+        {
+          "value": "10/1",
+          "rows": 629,
+          "fraction": 0.14873492551430598
+        },
+        {
+          "value": "5/1",
+          "rows": 626,
+          "fraction": 0.14802553795223458
+        },
+        {
+          "value": "0/1",
+          "rows": 626,
+          "fraction": 0.14802553795223458
+        },
+        {
+          "value": "20/1",
+          "rows": 551,
+          "fraction": 0.13029084890044929
+        },
+        {
+          "value": "50/1",
+          "rows": 464,
+          "fraction": 0.10971860960037834
+        },
+        {
+          "value": "30/1",
+          "rows": 16,
+          "fraction": 0.003783400331047529
+        },
+        {
+          "value": "40/1",
+          "rows": 10,
+          "fraction": 0.0023646252069047056
+        },
+        {
+          "value": "100/1",
+          "rows": 9,
+          "fraction": 0.002128162686214235
+        }
+      ]
+    },
+    "retained_after_filtering": {
+      "continuous": {
+        "Flow mL/min": {
+          "count": 4163,
+          "min": 4.0,
+          "q1": 10.0,
+          "median": 10.0,
+          "q3": 10.0,
+          "max": 10.0,
+          "mean": 9.526062935383138,
+          "std": 1.4591830009938322
+        },
+        "Density g/ml": {
+          "count": 4163,
+          "min": 0.77,
+          "q1": 1.0,
+          "median": 1.051,
+          "q3": 1.2143,
+          "max": 2.182,
+          "mean": 1.156656377612299,
+          "std": 0.25371184609692504
+        },
+        "V/ul": {
+          "count": 4163,
+          "min": 30.0,
+          "q1": 50.0,
+          "median": 100.0,
+          "q3": 150.0,
+          "max": 150.0,
+          "mean": 99.36360323608456,
+          "std": 39.9879729666556
+        },
+        "Volume of loading solvent/ul": {
+          "count": 4163,
+          "min": 200.0,
+          "q1": 300.0,
+          "median": 300.0,
+          "q3": 300.0,
+          "max": 2000.0,
+          "mean": 337.25678597165506,
+          "std": 145.48325997327552
+        }
+      },
+      "loading_solvent": [
+        {
+          "value": "DCM",
+          "rows": 2880,
+          "fraction": 0.6918087917367283
+        },
+        {
+          "value": "PE",
+          "rows": 1250,
+          "fraction": 0.30026423252462164
+        },
+        {
+          "value": "EA",
+          "rows": 33,
+          "fraction": 0.007926975738650012
+        }
+      ],
+      "eluent_ratio": [
+        {
+          "value": "1/1",
+          "rows": 655,
+          "fraction": 0.15733845784290176
+        },
+        {
+          "value": "2/1",
+          "rows": 643,
+          "fraction": 0.1544559212106654
+        },
+        {
+          "value": "0/1",
+          "rows": 626,
+          "fraction": 0.15037232764833053
+        },
+        {
+          "value": "5/1",
+          "rows": 623,
+          "fraction": 0.14965169349027144
+        },
+        {
+          "value": "10/1",
+          "rows": 605,
+          "fraction": 0.1453278885419169
+        },
+        {
+          "value": "20/1",
+          "rows": 533,
+          "fraction": 0.12803266874849867
+        },
+        {
+          "value": "50/1",
+          "rows": 443,
+          "fraction": 0.10641364400672591
+        },
+        {
+          "value": "30/1",
+          "rows": 16,
+          "fraction": 0.003843382176315157
+        },
+        {
+          "value": "40/1",
+          "rows": 10,
+          "fraction": 0.0024021138601969735
+        },
+        {
+          "value": "100/1",
+          "rows": 9,
+          "fraction": 0.002161902474177276
+        }
+      ]
+    },
+    "threshold_affected": {
+      "continuous": {
+        "Flow mL/min": {
+          "count": 66,
+          "min": 10.0,
+          "q1": 10.0,
+          "median": 10.0,
+          "q3": 10.0,
+          "max": 10.0,
+          "mean": 10.0,
+          "std": 0.0
+        },
+        "Density g/ml": {
+          "count": 66,
+          "min": 0.77,
+          "q1": 1.0,
+          "median": 1.056,
+          "q3": 1.169,
+          "max": 1.8573,
+          "mean": 1.1102242424242423,
+          "std": 0.19311840461277544
+        },
+        "V/ul": {
+          "count": 66,
+          "min": 50.0,
+          "q1": 50.0,
+          "median": 100.0,
+          "q3": 100.0,
+          "max": 150.0,
+          "mean": 88.63636363636364,
+          "std": 37.734573955794765
+        },
+        "Volume of loading solvent/ul": {
+          "count": 66,
+          "min": 200.0,
+          "q1": 300.0,
+          "median": 300.0,
+          "q3": 475.0,
+          "max": 1500.0,
+          "mean": 407.57575757575756,
+          "std": 204.72494930235132
+        }
+      },
+      "loading_solvent": [
+        {
+          "value": "DCM",
+          "rows": 61,
+          "fraction": 0.9242424242424242
+        },
+        {
+          "value": "PE",
+          "rows": 5,
+          "fraction": 0.07575757575757576
+        }
+      ],
+      "eluent_ratio": [
+        {
+          "value": "10/1",
+          "rows": 24,
+          "fraction": 0.36363636363636365
+        },
+        {
+          "value": "50/1",
+          "rows": 21,
+          "fraction": 0.3181818181818182
+        },
+        {
+          "value": "20/1",
+          "rows": 18,
+          "fraction": 0.2727272727272727
+        },
+        {
+          "value": "5/1",
+          "rows": 3,
+          "fraction": 0.045454545454545456
+        }
+      ]
+    }
+  },
+  "concentration": {
+    "by_loading_solvent": [
+      {
+        "loading solvent": "DCM",
+        "affected_rows": 61,
+        "valid_rows": 2941,
+        "affected_fraction": 0.02074124447466848
+      },
+      {
+        "loading solvent": "PE",
+        "affected_rows": 5,
+        "valid_rows": 1255,
+        "affected_fraction": 0.00398406374501992
+      },
+      {
+        "loading solvent": "EA",
+        "affected_rows": 0,
+        "valid_rows": 33,
+        "affected_fraction": 0.0
+      }
+    ],
+    "by_eluent_ratio": [
+      {
+        "PE/EA": "10/1",
+        "affected_rows": 24,
+        "valid_rows": 629,
+        "affected_fraction": 0.03815580286168521
+      },
+      {
+        "PE/EA": "50/1",
+        "affected_rows": 21,
+        "valid_rows": 464,
+        "affected_fraction": 0.04525862068965517
+      },
+      {
+        "PE/EA": "20/1",
+        "affected_rows": 18,
+        "valid_rows": 551,
+        "affected_fraction": 0.032667876588021776
+      },
+      {
+        "PE/EA": "5/1",
+        "affected_rows": 3,
+        "valid_rows": 626,
+        "affected_fraction": 0.004792332268370607
+      },
+      {
+        "PE/EA": "1/1",
+        "affected_rows": 0,
+        "valid_rows": 655,
+        "affected_fraction": 0.0
+      },
+      {
+        "PE/EA": "2/1",
+        "affected_rows": 0,
+        "valid_rows": 643,
+        "affected_fraction": 0.0
+      },
+      {
+        "PE/EA": "0/1",
+        "affected_rows": 0,
+        "valid_rows": 626,
+        "affected_fraction": 0.0
+      },
+      {
+        "PE/EA": "30/1",
+        "affected_rows": 0,
+        "valid_rows": 16,
+        "affected_fraction": 0.0
+      },
+      {
+        "PE/EA": "40/1",
+        "affected_rows": 0,
+        "valid_rows": 10,
+        "affected_fraction": 0.0
+      },
+      {
+        "PE/EA": "100/1",
+        "affected_rows": 0,
+        "valid_rows": 9,
+        "affected_fraction": 0.0
+      }
+    ],
+    "by_loading_solvent_and_eluent_ratio": [
+      {
+        "loading solvent": "DCM",
+        "PE/EA": "10/1",
+        "affected_rows": 23,
+        "valid_rows": 424,
+        "affected_fraction": 0.054245283018867926
+      },
+      {
+        "loading solvent": "DCM",
+        "PE/EA": "50/1",
+        "affected_rows": 20,
+        "valid_rows": 319,
+        "affected_fraction": 0.06269592476489028
+      },
+      {
+        "loading solvent": "DCM",
+        "PE/EA": "20/1",
+        "affected_rows": 15,
+        "valid_rows": 371,
+        "affected_fraction": 0.04043126684636118
+      },
+      {
+        "loading solvent": "PE",
+        "PE/EA": "20/1",
+        "affected_rows": 3,
+        "valid_rows": 176,
+        "affected_fraction": 0.017045454545454544
+      },
+      {
+        "loading solvent": "DCM",
+        "PE/EA": "5/1",
+        "affected_rows": 3,
+        "valid_rows": 444,
+        "affected_fraction": 0.006756756756756757
+      },
+      {
+        "loading solvent": "PE",
+        "PE/EA": "50/1",
+        "affected_rows": 1,
+        "valid_rows": 140,
+        "affected_fraction": 0.007142857142857143
+      },
+      {
+        "loading solvent": "PE",
+        "PE/EA": "10/1",
+        "affected_rows": 1,
+        "valid_rows": 199,
+        "affected_fraction": 0.005025125628140704
+      },
+      {
+        "loading solvent": "DCM",
+        "PE/EA": "0/1",
+        "affected_rows": 0,
+        "valid_rows": 462,
+        "affected_fraction": 0.0
+      },
+      {
+        "loading solvent": "DCM",
+        "PE/EA": "1/1",
+        "affected_rows": 0,
+        "valid_rows": 462,
+        "affected_fraction": 0.0
+      },
+      {
+        "loading solvent": "DCM",
+        "PE/EA": "2/1",
+        "affected_rows": 0,
+        "valid_rows": 459,
+        "affected_fraction": 0.0
+      },
+      {
+        "loading solvent": "PE",
+        "PE/EA": "1/1",
+        "affected_rows": 0,
+        "valid_rows": 189,
+        "affected_fraction": 0.0
+      },
+      {
+        "loading solvent": "PE",
+        "PE/EA": "5/1",
+        "affected_rows": 0,
+        "valid_rows": 177,
+        "affected_fraction": 0.0
+      },
+      {
+        "loading solvent": "PE",
+        "PE/EA": "2/1",
+        "affected_rows": 0,
+        "valid_rows": 175,
+        "affected_fraction": 0.0
+      },
+      {
+        "loading solvent": "PE",
+        "PE/EA": "0/1",
+        "affected_rows": 0,
+        "valid_rows": 164,
+        "affected_fraction": 0.0
+      },
+      {
+        "loading solvent": "PE",
+        "PE/EA": "30/1",
+        "affected_rows": 0,
+        "valid_rows": 16,
+        "affected_fraction": 0.0
+      },
+      {
+        "loading solvent": "PE",
+        "PE/EA": "40/1",
+        "affected_rows": 0,
+        "valid_rows": 10,
+        "affected_fraction": 0.0
+      },
+      {
+        "loading solvent": "EA",
+        "PE/EA": "2/1",
+        "affected_rows": 0,
+        "valid_rows": 9,
+        "affected_fraction": 0.0
+      },
+      {
+        "loading solvent": "PE",
+        "PE/EA": "100/1",
+        "affected_rows": 0,
+        "valid_rows": 9,
+        "affected_fraction": 0.0
+      },
+      {
+        "loading solvent": "EA",
+        "PE/EA": "10/1",
+        "affected_rows": 0,
+        "valid_rows": 6,
+        "affected_fraction": 0.0
+      },
+      {
+        "loading solvent": "EA",
+        "PE/EA": "5/1",
+        "affected_rows": 0,
+        "valid_rows": 5,
+        "affected_fraction": 0.0
+      },
+      {
+        "loading solvent": "EA",
+        "PE/EA": "50/1",
+        "affected_rows": 0,
+        "valid_rows": 5,
+        "affected_fraction": 0.0
+      },
+      {
+        "loading solvent": "EA",
+        "PE/EA": "1/1",
+        "affected_rows": 0,
+        "valid_rows": 4,
+        "affected_fraction": 0.0
+      },
+      {
+        "loading solvent": "EA",
+        "PE/EA": "20/1",
+        "affected_rows": 0,
+        "valid_rows": 4,
+        "affected_fraction": 0.0
+      }
+    ],
+    "by_compound_top_20": [
+      {
+        "canonical_smiles": "OCc1ccc2ccccc2c1",
+        "affected_rows": 5,
+        "valid_rows": 17,
+        "affected_fraction": 0.29411764705882354
+      },
+      {
+        "canonical_smiles": "COc1cccc(OC)c1C=O",
+        "affected_rows": 5,
+        "valid_rows": 29,
+        "affected_fraction": 0.1724137931034483
+      },
+      {
+        "canonical_smiles": "CCOC(=O)c1ccc(N)cc1",
+        "affected_rows": 3,
+        "valid_rows": 15,
+        "affected_fraction": 0.2
+      },
+      {
+        "canonical_smiles": "COCCOC(=O)CC(C)=O",
+        "affected_rows": 3,
+        "valid_rows": 15,
+        "affected_fraction": 0.2
+      },
+      {
+        "canonical_smiles": "N#Cc1ccc(N)cc1",
+        "affected_rows": 3,
+        "valid_rows": 15,
+        "affected_fraction": 0.2
+      },
+      {
+        "canonical_smiles": "N#Cc1cccc(N)c1",
+        "affected_rows": 3,
+        "valid_rows": 15,
+        "affected_fraction": 0.2
+      },
+      {
+        "canonical_smiles": "O=S(c1ccccc1)c1ccccc1",
+        "affected_rows": 3,
+        "valid_rows": 16,
+        "affected_fraction": 0.1875
+      },
+      {
+        "canonical_smiles": "C=C(C)C(=O)OCCOC(=O)CC(C)=O",
+        "affected_rows": 3,
+        "valid_rows": 18,
+        "affected_fraction": 0.16666666666666666
+      },
+      {
+        "canonical_smiles": "c1ccc2ncccc2c1",
+        "affected_rows": 3,
+        "valid_rows": 18,
+        "affected_fraction": 0.16666666666666666
+      },
+      {
+        "canonical_smiles": "CC(=O)c1ccc2c(c1)OCO2",
+        "affected_rows": 3,
+        "valid_rows": 20,
+        "affected_fraction": 0.15
+      },
+      {
+        "canonical_smiles": "COC(=O)CC(=O)C1CC1",
+        "affected_rows": 3,
+        "valid_rows": 21,
+        "affected_fraction": 0.14285714285714285
+      },
+      {
+        "canonical_smiles": "O=Cc1ccc([N+](=O)[O-])cc1",
+        "affected_rows": 3,
+        "valid_rows": 21,
+        "affected_fraction": 0.14285714285714285
+      },
+      {
+        "canonical_smiles": "CCOC(=O)/C=C(/C)N",
+        "affected_rows": 3,
+        "valid_rows": 45,
+        "affected_fraction": 0.06666666666666667
+      },
+      {
+        "canonical_smiles": "CC(=O)c1ccc(N)cc1",
+        "affected_rows": 2,
+        "valid_rows": 11,
+        "affected_fraction": 0.18181818181818182
+      },
+      {
+        "canonical_smiles": "CCOC(=O)c1cccnc1",
+        "affected_rows": 2,
+        "valid_rows": 16,
+        "affected_fraction": 0.125
+      },
+      {
+        "canonical_smiles": "Cc1cccc(C)n1",
+        "affected_rows": 2,
+        "valid_rows": 18,
+        "affected_fraction": 0.1111111111111111
+      },
+      {
+        "canonical_smiles": "CC(=O)c1ccc([N+](=O)[O-])cc1",
+        "affected_rows": 2,
+        "valid_rows": 20,
+        "affected_fraction": 0.1
+      },
+      {
+        "canonical_smiles": "O=C1CCc2ccccc2O1",
+        "affected_rows": 2,
+        "valid_rows": 21,
+        "affected_fraction": 0.09523809523809523
+      },
+      {
+        "canonical_smiles": "Oc1ccc(I)cc1",
+        "affected_rows": 2,
+        "valid_rows": 21,
+        "affected_fraction": 0.09523809523809523
+      },
+      {
+        "canonical_smiles": "CCOC(=O)CC(C)=O",
+        "affected_rows": 2,
+        "valid_rows": 31,
+        "affected_fraction": 0.06451612903225806
+      }
+    ]
+  },
+  "rationale_trace": {
+    "official_released_code": "application/QGeoGNN.py::Construct_dataset hard-codes V1<=60 and V2<=120",
+    "paper_methods": "No paper-level physical, instrument-range, censoring, or measurement-validity rationale located",
+    "official_repository_readme_docs": "No rationale for 60/120 located",
+    "current_repository_docs": "Previously recorded as a legacy implementation threshold pending audit; no scientific rationale supplied",
+    "conclusion": "NO_CONFIRMED_PAPER_LEVEL_RATIONALE_FOUND"
+  },
+  "policy_boundary": "The audit neither concludes thresholds_are_wrong nor thresholds_are_correct. Policy must be resolved from measurement validity, censoring, instrument range, or explicit experimental definition—not model performance."
+}

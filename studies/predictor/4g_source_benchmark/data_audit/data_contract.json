@@ -1,0 +1,18 @@
+{
+  "dataset": "4g_source",
+  "source_file": "dataset/dataset_4g.csv",
+  "source_sha256": "d485d3d46a96458d1baac11b2a21cd33374b1be42ba2303e7ae5823cc8ee553a",
+  "raw_row_identity": "source_row_1based plus source-derived sample_id",
+  "compound_identity": "RDKit canonical_smiles",
+  "valid_label_definition": "finite numeric t1, t2, and flow-derived V1/V2, excluding explicit -1 t1/t2 sentinel",
+  "volume_formula": "t_seconds * Flow_mL_min / 1200",
+  "legacy_code_filter": {
+    "V1_ml_max_inclusive": 60.0,
+    "V2_ml_max_inclusive": 120.0
+  },
+  "threshold_scientific_status": "UNRESOLVED_CODE_LEVEL_FILTER",
+  "rationale_status": "NO_CONFIRMED_PAPER_LEVEL_RATIONALE_FOUND",
+  "formal_benchmark_threshold_policy": "UNRESOLVED; no performance-based choice permitted",
+  "models_trained_by_audit": 0,
+  "target_8g_rows_used": 0
+}
