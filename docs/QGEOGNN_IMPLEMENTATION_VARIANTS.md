@@ -2,25 +2,23 @@
 
 This register separates method descriptions, executable behavior, and future proposals. It does not retroactively change any checkpoint or result.
 
-| Contract item | Paper-method description | Original repository behavior (`application/`) | Clean reproduction derived from legacy implementation (`src/`, `scripts/`) | Proposed Predictor V2 |
+| Contract item | Paper-method contract | Official-code Legacy contract (`application/`) | Current Clean research contract | Condition-completion V2 |
 |---|---|---|---|---|
-| Scientific status | QGeoGNN-style geometry-enhanced graph predictor | Legacy implementation evidence | Current historical evidence; frozen for existing comparisons | Engineering candidate; implementation preflight complete, not scientifically qualified |
-| Conformer policy | Molecular 3D geometry | First available embedded conformer in the retained workflow | `first_embedded` | Must be versioned and frozen before training |
-| Molecular descriptor dtype | Molecular descriptors supplement graph features | Min-max descriptors are converted to `torch.int64` | Min-max descriptors remain `float32` | Must state dtype explicitly |
-| Threshold policy | Not an implementation contract | Dataset-specific hard filtering in construction functions | Historical 4g uses the legacy threshold; authoritative 8g transfer uses the validation-selected 574-row no-threshold dataset | Must be preregistered per dataset |
-| Quantile parameterization | Multi-quantile prediction | Independent outputs in the original path | Monotonic softplus within each target: q10 <= q50 <= q90 | Must state both within-target and cross-target contracts |
-| V1/V2 loss weighting | Two retention-volume targets | Legacy objective | Equal target weights in the frozen clean protocols | Must be preregistered without test-based tuning |
-| Column information | Column-specific datasets/functions | Encoded primarily by choosing a dataset-specific construction/training path | No newly learned explicit column-spec input in the frozen predictor | Must define whether column identity/geometry is an input |
-| Constructed continuous edge block | Conditions are attached to graph edges | Ten columns are constructed after three categorical bond columns | Same ten-column construction | Full schema must be machine-readable |
-| Actually consumed condition dimensions | Not specified at code-contract precision | Legacy `BondFloatRBF` reads continuous positions 0-4 | Bond length plus eluent ExactMolWt, TPSA, NRotB, and HBD; HBA, LogP, and all loading fields are ignored | Every intended feature must be empirically forward-reachable |
-| Loading-feature encoding | Not specified at code-contract precision | Loading solvent code, `Density * V`, and loading-solvent volume are constructed but unreachable | Same legacy behavior | PE/EA/DCM 4D categorical embedding; source-train min-max for loading amount and volume |
-| Dead/unused modules | Not a paper-level claim | Modules exist that are absent from the executed forward path | 318,856 of 775,476 nominal requires-grad parameters are forward-unreachable in the audited configuration, including all `NN_descriptor` parameters and outer batch norms | No unused trainable modules permitted by the implementation preflight |
-| Source/target scaler policy | Not a single universal policy | Script/function dependent | Source-train scaler for 4g-to-8g transfer; fixed L0-train scaler for source-free 4g AL | Must be explicit per protocol; loading continuous scalers fit on source train only for the recommended residual design |
-| Legacy checkpoint compatibility | Not applicable | Defines historical checkpoint shapes | Preserved and tested | 3/3 anchors load; zero-output integration gave exact prediction identity on 10 fixtures/member |
+| Scientific status | Published method description | Released implementation evidence, not a complete paper reproduction | `qgeognn_clean_fusion_v1`: redesign candidate, not paper-faithful | Controlled ablation; not scientifically qualified |
+| Conformer policy | ETKDGv3 ensemble -> MMFF94 optimization -> lowest-energy conformer | Multiple conformers optimized; default/first conformer saved, no energy argmin | `first_embedded` for controlled Legacy comparison | Retains Legacy geometry |
+| Molecular descriptor schema | `paper_text_molecular_descriptor_16`: 11 Mordred + MolWt + TPSA + HBD + HBA + LogP | `official_code_molecular_descriptor_16`: 11 Mordred + MolWt + nRotB + HBD + HBA + LogP | Official-code schema, `float32` | Retains Legacy schema |
+| Training epochs | 1500 for 4g | Main loops use 1000 | To be frozen by formal preregistration | No performance run authorized |
+| Test visibility | Validation monitoring; test for final evaluation | Validation and test both evaluated every 50 epochs; test R² logged | Validation-only selection; outer test excluded | Same current-project boundary |
+| Experimental conditions | Full 9D parameter block integrated into graph G | Constructs 9D but only eluent ExactMolWt/TPSA/nRotB/HBD reach forward, alongside bond length | Typed sample-level EA fraction, solvent, mass, and loading volume all reachable | Adds only the five Legacy-missing dimensions |
+| Threshold policy | 60/120 not established as a scientific definition in Methods | Hard-coded 4g filter | Pending source-only validity audit; no performance-based choice | Same benchmark data contract when authorized |
+| Quantile parameterization | Multi-quantile prediction | Independent `Linear -> ReLU`; loss includes crossing penalties; V1 + 0.5 V2 | softplus median + softplus offsets; eval clamp; 1:1 current-project weights | Current cleaned Legacy head and eval clamp |
+| Column information | Transfer narrative integrates new-column specification | Optional branch exists; released default is `Use_column_info=False` | Excluded for constant 4g; 4g→8g is future/not authorized | No new column input |
+| Normalization | Mentioned; fit scope insufficiently specified | Full-data min/max before split | Actual-training-subset only | Source-training-only additions |
+| Architecture constants | 5 GIN layers, sum pooling, hidden 128, batch 2048, Adam 0.001 | Same defaults | 5 layers, sum pooling, 128 molecular hidden, Adam 0.001 frozen for comparison | Retains Legacy backbone |
 
 ## Audited legacy input contract
 
-The executable clean legacy path constructs 3 categorical and 10 continuous edge columns. The ten continuous columns are, in order: bond length; eluent ExactMolWt, TPSA, NRotB, HBD, HBA, and LogP; loading solvent code; `Density * V`; loading-solvent volume. `BondFloatRBF` has five legacy names (`bond_length`, `prop`, `e`, `m`, `V_e`) and reads only positions 0-4. The names therefore do not describe the current dataframe semantics after `bond_length`: they map to ExactMolWt, TPSA, NRotB, and HBD.
+The executable official and current Legacy paths construct 3 categorical and 10 continuous edge columns. The ten continuous columns are, in order: bond length; eluent ExactMolWt, TPSA, NRotB, HBD, HBA, and LogP; loading solvent code; `Density * V`; loading-solvent volume. `BondFloatRBF` has five legacy names (`bond_length`, `prop`, `e`, `m`, `V_e`) and reads only positions 0-4. The names therefore do not describe the dataframe semantics after `bond_length`: they map to ExactMolWt, TPSA, NRotB, and HBD. This is `PAPER_CODE_CONFLICT_CONFIRMED` in the official released code, not a reproduction bug introduced here.
 
 The code trace and perturbation evidence are in `studies/i0_predictor_semantic_audit/`. These are confirmed implementation facts. They do not show that the ignored conditions are scientifically irrelevant, nor do they invalidate historical performance measurements. Historical outputs should be described as **Legacy QGeoGNN evidence** or **clean reproduction derived from the legacy implementation**, depending on the runner used.
 
@@ -37,3 +35,5 @@ For the audited clean legacy model, nominal parameters and nominal requires-grad
 The branch is `4 continuous + 4D solvent embedding -> Linear(8,16) -> ReLU -> Linear(16,128)`. Its zero-initialized output is added after fixed sum pooling and before the existing head. It adds exactly 2,332 parameters: V2 has 777,808 nominal parameters. Under multi-fixture diagnostic activation, 458,952 parameters were gradient-bearing, 318,856 structurally unreachable through the retained legacy path, and none were fixture-dependent inactive in that fixture set.
 
 The implementation and audits are under `studies/track_b_transfer/predictor_v2_preflight/`. Passing this engineering gate does not scientifically qualify V2 or authorize training. It is not a silent correction to the legacy contract.
+
+The full paper/code/current-project comparison, including confirmed matches, protocol conflicts, scheduler non-execution, descriptor-schema names, conformer evidence, and paper-unspecified items, is in [`model/PAPER_CODE_CONTRACT_AUDIT.md`](model/PAPER_CODE_CONTRACT_AUDIT.md).
