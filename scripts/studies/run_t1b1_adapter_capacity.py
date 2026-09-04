@@ -525,9 +525,25 @@ def _run_authorized_formal(config: dict, config_path: Path) -> dict:
     plot = aulc_summary.set_index("method").loc[order]
     fig, ax = plt.subplots(figsize=(7, 4.5))
     ax.plot(np.log10(plot.trainable_parameters), plot.mean_normalized_AULC, marker="o")
+    labels = {
+        "target_head_only": ("Head", (-8, -16)),
+        "graph_adapter_r8": ("r8", (-8, 9)),
+        "graph_adapter_r16": ("r16", (-4, -16)),
+        "graph_adapter_r32": ("r32", (5, 9)),
+        "last1_head": ("Last1", (0, 8)),
+        "current_last2_head": ("Last2", (-28, 8)),
+    }
     for method, row in plot.iterrows():
-        ax.annotate(method, (np.log10(row.trainable_parameters), row.mean_normalized_AULC), fontsize=7)
+        label, offset = labels[method]
+        ax.annotate(
+            label,
+            (np.log10(row.trainable_parameters), row.mean_normalized_AULC),
+            xytext=offset,
+            textcoords="offset points",
+            fontsize=8,
+        )
     ax.set(xlabel="log10(trainable parameters)", ylabel="mean normalized AULC")
+    ax.margins(y=0.1)
     fig.tight_layout(); fig.savefig(study_dir / "t1b1_capacity_curve.png", dpi=180); plt.close(fig)
     winners = paired_summary.loc[paired_summary["pass"], "candidate"].tolist()
     decision = {

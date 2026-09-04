@@ -105,6 +105,12 @@ class AdapterArchitectureTests(unittest.TestCase):
 
 
 class AdapterFormalContractTests(unittest.TestCase):
+    def test_config_rejects_unknown_scientific_status(self) -> None:
+        value = config()
+        value["scientific_status"] = "unknown"
+        with self.assertRaisesRegex(RuntimeError, "scientific_status"):
+            build_fit_plan(value)
+
     def test_plan_has_180_unique_keys(self) -> None:
         plan = build_fit_plan(config())
         self.assertEqual(len(plan), 180)
@@ -112,8 +118,12 @@ class AdapterFormalContractTests(unittest.TestCase):
         self.assertEqual(plan[0].run_key, "seed_769539383/budget_30/graph_adapter_r8/member_42")
 
     def test_formal_refuses_without_authorization(self) -> None:
-        with self.assertRaisesRegex(RuntimeError, "formal_authorized=false"):
-            run_formal(CONFIG)
+        value = config(False)
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "config.json"
+            path.write_text(json.dumps(value))
+            with self.assertRaisesRegex(RuntimeError, "formal_authorized=false"):
+                run_formal(path)
 
     def test_authorized_synthetic_entry_receives_180_fits(self) -> None:
         value = config(True)

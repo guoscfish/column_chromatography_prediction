@@ -7,7 +7,7 @@
 项目不是一条从 E2 到 D46 的线性诊断链，而是三个相关研究分支：
 
 - **Track A — 4g In-domain Active Learning:** `PAUSED_AFTER_A1A / PROMISING_BUT_UNFINISHED`。E2 row-level 保留正向 pilot 证据；A1a 只否定了 shared-shortlist 内 farthest-first 的稳定额外收益，A1b 不获授权。
-- **Track B — 4g→8g Transfer Adaptation:** `T1B1_PREREGISTERED_READY_FOR_FORMAL_AUTHORIZATION`。T1a 的 180/180 fits 与 120/120 contexts 已完成但无稳定赢家；T1b-1 的 r=8/16/32 graph-level residual adapter 容量协议、9-fit smoke 与 truth-free formal preflight 已通过，正式实验尚未授权或运行。
+- **Track B — 4g→8g Transfer Adaptation:** `T1B1_FORMAL_COMPLETE_NO_INTERMEDIATE_CAPACITY_BENEFIT`。T1b-1 的 180/180 Adapter fits 与 120/120 capacity contexts 全部完成；r=8/16/32 均未稳定优于 774-parameter `target_head_only`，因此没有 intermediate-capacity sweet spot。
 - **Track C — Active Transfer:** `DEFERRED`。只有 Track B 建立稳定 low-label adaptation baseline 后才可重开。
 
 ## Frozen evidence
@@ -33,4 +33,4 @@ The validated project environment is conda `fish` (Python 3.11, PyTorch/PyG/RDKi
 conda run --no-capture-output -n fish pytest -q
 ```
 
-S1 exploratory shift audit is complete: zero-shot combined NRMSE was about 0.803 and affine about 0.399 ± 0.130, with V1/V2 RMSE about 7.63/11.45 mL; affine won only 3/5 folds. T1a formal results likewise do not establish a stable winner. T1b-1 now isolates graph-level adapter capacity at 2,958/5,014/9,126 trainable parameters while retaining fixed sum pooling. It reuses already-consumed T1a row outcomes, so it is developmental rather than a pristine confirmatory study. Its frozen protocol is ready for separate formal authorization; T1b-2 location comparison, active transfer, Protocol B, and 25g/40g runs remain unauthorized.
+S1 exploratory shift audit is complete: zero-shot combined NRMSE was about 0.803 and affine about 0.399 ± 0.130, with V1/V2 RMSE about 7.63/11.45 mL; affine won only 3/5 folds. T1a found a low-capacity signal but no stable winner. T1b-1 then isolated graph-level adapter capacity at 2,958/5,014/9,126 trainable parameters while retaining fixed sum pooling. Mean normalized AULC was 0.6577 for Head and 0.6583/0.6587/0.6578 for r8/r16/r32; Adapter wins were 2/5, 2/5, and 3/5, so none passed the frozen gate. The evidence favors retaining output-only correction as the working low-label baseline, without claiming that fewer parameters are universally better. T1b-2, active transfer, Protocol B, and 25g/40g runs remain unauthorized; independent compound-level or external validation is the recommended next step.

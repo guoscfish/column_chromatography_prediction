@@ -14,7 +14,7 @@ Two independent branches remain open: whether 4g in-domain AL can become robust 
 
 ## Current stage
 
-S1 and A1a are completed and stopped. T1a formal execution is complete without a stable winner. T1b-1 engineering, preregistration, capacity audit, nine-fit smoke, and truth-free formal preflight are complete; its frozen 180-fit capacity sweep is ready for separate formal authorization.
+S1 and A1a are completed and stopped. T1a formal execution is complete without a stable winner. T1b-1 is also formal complete: all 180 Adapter fits and 120 six-method evaluation contexts completed, with no failed or missing fits and no test-truth read before predictions were frozen.
 
 ## Next preregistered candidates
 
@@ -24,12 +24,12 @@ S1 and A1a are completed and stopped. T1a formal execution is complete without a
 
 **T1a — formal run complete, no stable winner:** row protocol with fixed Random nested target labels and budgets 30/50/70/100 (8 validation labels included). `target_head_only` achieved the best mean normalized AULC (0.6577) and best mean combined NRMSE at every budget, but its favorable mean/median paired delta versus `current_last2_head` came with only 3/5 seed wins, below the required 4/5. `last1_head` also won only 3/5. Historical `target_readout_only` means this fixed-sum, prediction-head-only candidate; no learnable graph readout was tested.
 
-**T1b-1 — preregistered / ready for formal authorization:** one fixed graph-level residual adapter is inserted after fixed sum pooling and before the existing head. Widths 8/16/32 provide 2,958/5,014/9,126 trainable adapter-plus-head parameters. The primary comparison is adapter minus `target_head_only`; the frozen gate requires negative mean and median paired normalized AULC plus at least 4/5 wins. The truth-free preflight passed with 180 unique fit keys and no target test truth read. Because T1a row test outcomes are already known, this is developmental hypothesis testing rather than independent pristine confirmation.
+**T1b-1 — formal complete, no intermediate-capacity benefit:** T1a raised the narrower question of whether capacity between 774-parameter Head and 93,454-parameter Last1 could improve low-label transfer. One fixed graph-level residual adapter, `h'_G = h_G + W_up(ReLU(W_down(h_G)))`, was inserted after fixed sum pooling and before the monotonic head. Widths 8/16/32 supplied 2,958/5,014/9,126 trainable adapter-plus-head parameters. Mean normalized AULC was 0.6583/0.6587/0.6578 versus 0.6577 for Head. Paired wins were 2/5, 2/5, and 3/5; no Adapter met the frozen negative-mean, negative-median, at-least-4/5 gate. This rejects an intermediate sweet spot in the tested range, not latent adaptation in general or larger/smaller capacity universally. Because T1b-1 reuses the already-consumed T1a row protocol, it remains developmental hypothesis testing rather than independent pristine confirmation.
 
 ## Stop and gate conditions
 
-- T1b-1 formal execution is ready but still requires a separate manual authorization commit; smoke and preflight cannot select a width.
-- T1b-2 is only a future matched-capacity adaptation-location placeholder for graph adapter versus message-passing adapter versus learnable readout; it is not implemented or authorized.
+- T1b-1 is complete and does not authorize an expanded width sweep.
+- T1b-2 remains only a proposed matched-capacity adaptation-location study. Given the null capacity result, independent compound-level, another-column, or new-target validation has higher priority; T1b-2 is not implemented or authorized.
 - Track A cannot freeze a strategy without stable row plus compound/scaffold evidence and more than the current three outer seeds.
 - Track C cannot reopen until T1 establishes a stable low-label transfer formulation.
 - A1b is stopped because A1a did not support the diversity mechanism.

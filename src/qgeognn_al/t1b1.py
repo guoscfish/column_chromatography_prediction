@@ -61,9 +61,14 @@ def validate_config(config: dict[str, Any]) -> None:
     }
     if not isinstance(config.get("formal_authorized"), bool):
         mismatches["formal_authorized"] = {"expected": "boolean", "actual": config.get("formal_authorized")}
-    if config.get("scientific_status") not in {"engineering_preregistered", "ready_for_formal_authorization"}:
+    allowed_statuses = {
+        "engineering_preregistered",
+        "ready_for_formal_authorization",
+        "formal_complete",
+    }
+    if config.get("scientific_status") not in allowed_statuses:
         mismatches["scientific_status"] = {
-            "expected": ["engineering_preregistered", "ready_for_formal_authorization"],
+            "expected": sorted(allowed_statuses),
             "actual": config.get("scientific_status"),
         }
     training = config.get("training", {})

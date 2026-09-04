@@ -1,6 +1,6 @@
-# Next-stage Decision after A1a: T1 Engineering Gate
+# Next-stage Decision after T1b-1 Formal Capacity Sweep
 
-T1a formal execution is complete without a stable winner. T1b-1 is preregistered and its smoke plus truth-free formal preflight passed, so the frozen protocol is ready for separate formal authorization. This document does not itself authorize its formal run, T1b-2, or active transfer.
+T1a and T1b-1 formal execution are complete. T1b-1 found no stable Adapter improvement over `target_head_only`, so this document recommends independent validation before further architecture work. It does not authorize T1b-2 or active transfer.
 
 | Criterion | A1-family: 4g AL Method Extension | T1: Transfer Adaptation Benchmark |
 |---|---|---|
@@ -20,7 +20,7 @@ T1a formal execution is complete without a stable winner. T1b-1 is preregistered
 
 **A1a is complete and stopped.** Its failed diversity gate does not mean 4g AL failed: it narrows the unsupported mechanism to farthest-first's incremental value. Because E2 Random was FullPool-Random while A1a Random was shortlist-conditioned, uncertainty filtering remains plausible but is not causally isolated by a direct paired comparison. A1b remains unauthorized.
 
-**T1a completed its frozen row-protocol schedule without establishing a stable winner.** `target_head_only` led mean performance but won only 3/5 paired AULC seeds. T1b-1 preregisters only a graph-level residual-adapter capacity sweep at r=8/16/32; its truth-free preflight passed and it is ready for a separate authorization commit. It is explicitly post-T1a developmental work on an already-consumed row protocol. Track C stays deferred, and adaptation-location methods remain an unauthorized T1b-2 placeholder.
+**T1b-1 completed its frozen row-protocol schedule without an intermediate-capacity benefit.** Head mean normalized AULC was 0.6577; r8/r16/r32 were 0.6583/0.6587/0.6578. Their paired deltas versus Head were +0.00065/+0.00100/+0.00011, with only 2/5, 2/5, and 3/5 wins. No Adapter passed the frozen stability gate. The practical recommendation is to retain output-only Head correction as the working low-label formulation and seek independent compound-level, another-column, or new-target validation. A matched-capacity T1b-2 location comparison may be reconsidered only with a new rationale; it is not the default next run. Track C remains deferred because no stable transfer baseline was established.
 
 ## Frozen T1a design
 
