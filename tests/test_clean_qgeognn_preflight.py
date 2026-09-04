@@ -267,7 +267,7 @@ def test_clean_checkpoint_contract_is_complete_and_validated(tmp_path: Path) -> 
         validate_clean_checkpoint(payload)
 
 
-def test_navigation_links_resolve_and_formal_artifacts_do_not_exist() -> None:
+def test_navigation_links_resolve_and_benchmark_remains_preregistration_only() -> None:
     markdown_files = [ROOT / "README.md", ROOT / "docs/README.md", ROOT / "studies/README.md"]
     markdown_files.extend((ROOT / "docs/model").glob("*.md"))
     markdown_files.extend((ROOT / "docs/protocols").glob("*.md"))
@@ -287,7 +287,15 @@ def test_navigation_links_resolve_and_formal_artifacts_do_not_exist() -> None:
                 missing.append(f"{markdown.relative_to(ROOT)} -> {target}")
     assert not missing
     benchmark = ROOT / "studies/predictor/4g_source_benchmark"
-    assert sorted(path.name for path in benchmark.iterdir()) == ["README.md"]
+    assert {path.name for path in benchmark.iterdir()} == {
+        "README.md", "PREREGISTRATION.md", "protocol.json", "data_usage.json",
+        "decision.json", "data_audit",
+    }
+    forbidden = {"metrics.json", "predictions.csv", "checkpoints", "training_history.csv"}
+    assert not forbidden.intersection(path.name for path in benchmark.rglob("*"))
+    protocol = json.loads((benchmark / "protocol.json").read_text())
+    assert protocol["formal_authorized"] is False
+    assert protocol["models_trained_this_round"] == 0
 
 
 def test_legacy_history_was_not_overwritten() -> None:
@@ -307,6 +315,7 @@ def test_preflight_record_matches_implementation_and_scientific_boundary() -> No
     features = pd.read_csv(PREFLIGHT / "feature_reachability_audit.csv")
     assert parameters == {
         "audit_mode": "real forward/backward on multi-molecule fixtures spanning PE, EA, and DCM loading solvents; structural objective; no performance evaluation",
+        "preflight_revision": 2,
         "nominal_parameters": 413732,
         "requires_grad_parameters": 413732,
         "gradient_bearing_parameters": 413732,
@@ -322,6 +331,9 @@ def test_preflight_record_matches_implementation_and_scientific_boundary() -> No
     assert checkpoint["input_schema_hash"] == clean_input_schema_hash()
     assert checkpoint["condition_schema_hash"] == clean_condition_schema_hash()
     assert set(checkpoint["required_fields"]) == REQUIRED_CLEAN_CHECKPOINT_FIELDS
+    assert checkpoint["preflight_revision"] == 2
+    assert decision["preflight_revision"] == 2
+    assert features["preflight_revision"].eq(2).all()
     assert features["perturbation_reaches_internal_representation"].all()
     assert decision["implementation_preflight_pass"] is True
     assert decision["formal_performance_qualified"] is False

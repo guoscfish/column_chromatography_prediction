@@ -1,6 +1,9 @@
 {
   "model_variant": "qgeognn_clean_fusion_v1",
   "purpose": "implementation_preflight",
+  "preflight_revision": 2,
+  "supersedes_revision": 1,
+  "revision_reason": "remove_unnecessary_molecular_activation_confound_and_align_output_contract_before_formal_benchmark",
   "formal_training": false,
   "formal_4g_benchmark_authorized": false,
   "8g_transfer_authorized": false,
@@ -10,8 +13,19 @@
   "condition_hidden_dim": 32,
   "condition_latent_dim": 64,
   "solvent_embedding_dim": 4,
-  "activation": "gelu",
+  "molecular_message_passing_activation": "relu_except_final_node_layer",
+  "condition_mlp_activation": "gelu",
   "pooling": "sum",
+  "geometry_contract": "official_code_first_embedded_for_controlled_comparison",
+  "molecular_descriptor_contract": "official_code_molecular_descriptor_16",
+  "condition_contract": "clean_typed_sample_level_v1",
+  "paper_method_equivalent": false,
+  "input_schema_hash": "92a6f595df4287762ddde6c128ce11a3fcb209d4796a567afbcd9e2f717a0e02",
+  "architecture_config_hash": "d4985162320f68a49cffda3a2d76314be9f8cf7bb827e61b3877008251b68db1",
+  "output_contract": {
+    "training": "softplus median with lower/upper softplus offsets; ordered; q10 may be negative",
+    "evaluation": "same parameterization then clamp each output to [0, 1e8]"
+  },
   "configured_target_weights": {
     "V1": 1.0,
     "V2": 1.0

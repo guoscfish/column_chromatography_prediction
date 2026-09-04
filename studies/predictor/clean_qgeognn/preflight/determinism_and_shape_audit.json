@@ -4,6 +4,10 @@
   "output_columns": 6,
   "all_outputs_finite": true,
   "within_target_quantile_ordering": true,
+  "training_parameterization": "softplus_median_plus_softplus_offsets",
+  "training_q10_can_be_negative": true,
+  "evaluation_clamp": "[0, 1e8]",
+  "all_evaluation_outputs_non_negative": true,
   "hard_cross_target_ordering_constraint": false,
   "condition_collision_latent_separable": true,
   "formal_performance_metric_computed": false
