@@ -6,4 +6,4 @@ S1 is complete. T1a formal execution completed without a stable winner. T1b-1 th
 
 T1a primary methods are `zero_shot`, `affine`, `condition_ridge_residual`, `target_head_only`, `last1_head`, and `current_last2_head`. QGeoGNN pooling is fixed sum pooling; `target_head_only` trains the prediction head rather than a learnable graph readout.
 
-I0 documents the legacy predictor's partial condition reachability and nominal-versus-gradient-bearing parameter counts. Predictor V2 is a separate `PREREGISTRATION_ONLY` proposal. Neither finding authorizes retraining T1/T1b-1 or starting active transfer.
+I0 documents the legacy predictor's partial condition reachability and nominal-versus-gradient-bearing parameter counts. The separate `qgeognn_condition_complete_v2` engineering candidate now has `IMPLEMENTATION_PREFLIGHT_COMPLETE`: it preserved all three source members exactly at initialization and passed typed-input, normalization, reachability, gradient, checkpoint, and collision-capability checks. It is not scientifically qualified. Retraining T1/T1b-1, formal V2 training, 8g transfer, and active transfer remain unauthorized.

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "proposed_model_variant": "qgeognn_condition_complete_v2",
-  "architecture_status": "candidate_family_not_locked_pending_implementation_preflight",
+  "architecture_status": "engineering_candidate_implemented_and_preflight_complete_not_scientifically_qualified",
   "intended_inputs": {
     "categorical_bond_features": ["bond_dir", "bond_type", "is_in_ring"],
     "graph_continuous_features": ["bond_length"],
@@ -41,15 +41,16 @@
     "B_legacy_compatible_residual_condition_completion": {
       "legacy_anchor_load": "required_exact_load_before_new_branch_installation",
       "source_function_identity": true,
-      "parameter_count": "TBD_by_implementation_preflight",
-      "initialization": "new_branch_with_zero_initialized_residual_integration",
+      "parameter_count": 2332,
+      "initialization": "4D_solvent_embedding_plus_4_continuous_to_16D_relu_to_zero_initialized_128D_residual",
       "confounds": ["new_branch_capacity", "integration_location", "possible_slow_feature_uptake"]
     }
   },
   "recommendation": {
     "candidate": "B_legacy_compatible_residual_condition_completion",
     "rationale": "Preserves the audited legacy source function at initialization and isolates completion of previously ignored conditions.",
-    "final_architecture_locked": false
+    "final_architecture_locked": false,
+    "engineering_candidate_frozen": true
   },
   "checkpoint_contract": {
     "required_fields": [

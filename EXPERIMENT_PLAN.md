@@ -26,7 +26,9 @@ S1 and A1a are completed and stopped. T1a formal execution is complete without a
 
 **T1b-1 — formal complete, no tested low-capacity graph-adapter benefit:** T1a raised the narrower question of whether added low-capacity adaptation could improve transfer. One fixed graph-level residual adapter, `h'_G = h_G + W_up(ReLU(W_down(h_G)))`, was inserted after fixed sum pooling and before the monotonic head. Widths 8/16/32 supplied 2,958/5,014/9,126 trainable adapter-plus-head parameters. Mean normalized AULC was 0.6583/0.6587/0.6578 versus 0.6577 for Head. Paired wins were 2/5, 2/5, and 3/5; no Adapter met the frozen gate. This is a null result for the tested 3k–9k Adapter range. The large 9k–93k gap, including possible 17k/34k/67k capacities, was not tested, and no expanded sweep is authorized. Because T1b-1 reuses the already-consumed T1a row protocol, it remains developmental hypothesis testing rather than independent pristine confirmation.
 
-**I0 — semantic implementation audit complete:** the frozen clean legacy predictor constructs ten continuous edge features but reads only positions 0–4; the acquisition representation uses all nine condition dimensions. I0 also separates 775,476 nominal requires-grad parameters from 456,620 gradient-bearing parameters. Predictor V2 has been preregistered only; implementation, training, and active transfer remain deferred.
+**I0 — semantic implementation audit complete:** the frozen clean legacy predictor constructs ten continuous edge features but reads only positions 0–4; the acquisition representation uses all nine condition dimensions. I0 also separates 775,476 nominal requires-grad parameters from 456,620 gradient-bearing parameters.
+
+**Predictor V2 — implementation preflight complete:** the versioned residual condition-completion candidate adds only the five previously unreachable conditions after fixed sum pooling. Three source checkpoints retained exact initialized predictions across ten fixtures, all intended features passed reachability, and source-train-only normalization passed leakage checks. This is not performance qualification. Formal 4g training, 8g transfer, UQ qualification, and active transfer remain unauthorized.
 
 ## Stop and gate conditions
 
@@ -36,4 +38,4 @@ S1 and A1a are completed and stopped. T1a formal execution is complete without a
 - Track C cannot reopen until T1 establishes a stable low-label transfer formulation.
 - A1b is stopped because A1a did not support the diversity mechanism.
 - Test truth cannot select methods, tune weights, or retroactively change E2/E4 conclusions.
-- The next Predictor V2 step is an implementation preflight, not a formal run; adoption requires a new explicit authorization after all intended features pass reachability and checkpoint-schema tests.
+- The next Predictor V2 step would be a separately authorized 4g source qualification, not an automatic formal run. No authorization is granted by this plan.

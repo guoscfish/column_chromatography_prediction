@@ -80,7 +80,9 @@ T1b-1 separated capacity from insertion-location search with a zero-initialized 
 
 I0 confirmed by code tracing and perturbation that the clean legacy predictor constructs ten continuous edge features but consumes only positions 0–4. Eluent HBA, eluent LogP, loading solvent, loading mass, and loading volume do not reach the encoder. Acquisition nevertheless uses all nine condition dimensions. The audited model has 775,476 nominal requires-grad parameters, 456,620 gradient-bearing parameters, and 318,856 forward-unreachable parameters. These are implementation facts, not a finding that the historical outcomes are invalid.
 
-Predictor V2 is preregistered as a separate condition-complete variant. The preferred proposal preserves the legacy path and adds an explicit, zero-initialized residual condition-completion branch, subject to an implementation preflight. Implementation, source training, target adaptation, and active transfer are all unauthorized at this point.
+Predictor V2 is a separate condition-complete variant. The residual condition-completion candidate has passed implementation preflight: it preserves the legacy path, adds typed encoders for only the five missing conditions, and is zero-output initialized. This establishes clean implementability, not predictive value.
+
+The forward sequence is now `I0 semantic audit -> Predictor V2 implementation preflight -> future 4g source qualification -> future transfer qualification -> future UQ -> future active transfer`. Only the first two stages are complete. Formal source training, target adaptation, UQ claims, and active transfer remain unauthorized.
 
 | Area | Relevant work/idea | Project implication |
 |---|---|---|

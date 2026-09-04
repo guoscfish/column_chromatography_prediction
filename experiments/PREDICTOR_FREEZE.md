@@ -38,7 +38,7 @@ G0-4 validation-only决定文件SHA256为`3ee01b93abe1279b2874a74be9223a384e8b73
 
 进入E1/E2/E4后，不得依据主动学习test RMSE、AULC或某一采样策略表现重新选择threshold、构象、迁移范围、loss权重、分位数参数化或校准方式。若出现新的数据质量证据或模型接口缺陷，应登记新decision ID，并以新实验ID进行前向修正，保留原结果。
 
-Predictor V2 属于独立版本化 proposal，不得覆盖 legacy checkpoint，也不得与 acquisition 修改同时归因。当前仅完成 preregistration，未授权实现或正式训练。
+Predictor V2 属于独立版本化 candidate，不得覆盖 legacy checkpoint，也不得与 acquisition 修改同时归因。`qgeognn_condition_complete_v2` 已通过 implementation preflight，并在三个 source members 上保持初始化 prediction exact identity；这不改变本 legacy freeze，也不构成 performance qualification。正式4g训练、8g transfer 与 active transfer 均未授权。
 
 ## D28工程验收
 

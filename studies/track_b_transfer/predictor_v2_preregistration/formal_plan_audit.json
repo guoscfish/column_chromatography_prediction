@@ -1,25 +1,26 @@
 {
-  "status": "PREREGISTRATION_ONLY",
-  "implementation_started": false,
+  "status": "IMPLEMENTATION_PREFLIGHT_COMPLETE",
+  "implementation_started": true,
   "formal_authorized": false,
   "formal_training_started": false,
   "formal_fit_plan_created": false,
   "expected_formal_fits": 0,
   "test_truth_read_for_design": false,
-  "preflight_complete": false,
+  "preflight_complete": true,
   "required_preflight_checks": {
     "versioned_variant_name": true,
     "machine_readable_schema_defined": true,
     "checkpoint_input_schema_hash_required": true,
     "categorical_continuous_separation_specified": true,
     "normalization_policy_specified": true,
-    "all_intended_features_forward_reachable": false,
-    "all_intended_features_gradient_reachable": false,
-    "legacy_checkpoint_load_verified": false,
-    "source_function_identity_verified_if_residual": false,
-    "parameter_counts_measured": false,
+    "all_intended_features_forward_reachable": true,
+    "all_intended_features_gradient_reachable": true,
+    "legacy_checkpoint_load_verified": true,
+    "source_function_identity_verified_if_residual": true,
+    "parameter_counts_measured": true,
     "no_target_test_based_selection": true
   },
-  "gate_pass": false,
-  "gate_failure_reason": "Implementation has not started; empirical preflight checks cannot yet pass."
+  "gate_pass": true,
+  "formal_progression_authorized": false,
+  "gate_note": "Engineering preflight passed; formal source qualification requires separate authorization."
 }

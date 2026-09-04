@@ -1,8 +1,8 @@
 # Predictor V2 condition-complete preregistration
 
-Status: `PREREGISTRATION_ONLY`.
+Status: `IMPLEMENTATION_PREFLIGHT_COMPLETE / FORMAL_UNAUTHORIZED`.
 
-This proposal responds prospectively to I0. It does not modify the legacy QGeoGNN, reinterpret historical metrics, implement a new model, train a source predictor, adapt to 8g, or restart active transfer. The current legacy checkpoints and results remain frozen evidence under their recorded input contract.
+This proposal responded prospectively to I0. Its recommended Option B has now been implemented as an engineering candidate and passed the separate preflight under `../predictor_v2_preflight/`. It did not modify the legacy QGeoGNN, reinterpret historical metrics, train a source predictor, adapt to 8g, or restart active transfer. The current legacy checkpoints and results remain frozen evidence under their recorded input contract.
 
 ## Objective and alternatives
 
@@ -13,7 +13,7 @@ Predictor V2 must make every intended chromatography condition explicit, typed, 
 | A: direct clean full-schema encoder | Replace the ambiguous edge condition block with typed encoders for the full schema | New source model; legacy weights may be partially importable but not function-identical | No identity guarantee | Predictor changes are broad, making attribution and migration harder |
 | B: legacy-compatible residual completion | Preserve the legacy graph path and add separate encoders only for previously ignored conditions, integrated through a zero-initialized residual | Loads the legacy anchor without changing its tensors | Must reproduce the legacy source function at initialization within frozen tolerance | New branch may learn slowly or remain underidentified |
 
-Option B is the recommended implementation candidate because it isolates condition completion, preserves the source anchor at initialization, and allows paired ablation against the exact legacy function. This recommendation is not a final architecture lock. The implementation preflight must determine exact encoder widths, integration point, and parameter count without using target test outcomes.
+Option B was implemented for engineering preflight because it isolates condition completion and preserves the exact legacy source function. The preflight fixed a 4D categorical solvent embedding, 16D hidden layer, 128D residual, and 2,332 added parameters without target outcomes or width comparison. It remains an engineering candidate, not the selected final predictor.
 
 ## Required encoding contract
 
@@ -27,7 +27,7 @@ Option B is the recommended implementation candidate because it isolates conditi
 
 ## Preflight gate
 
-Implementation may begin only under a separate authorization. Before any formal training authorization, the implementation preflight must pass schema/type validation, deterministic schema hashing, per-feature forward and gradient reachability, normalization leakage checks, legacy checkpoint loading, and source-function identity for Option B. It must report nominal and gradient-bearing parameter counts separately.
+The implementation preflight passed schema/type validation, deterministic hashes, per-feature forward and gradient reachability, normalization leakage checks, 3/3 legacy checkpoint loading, exact source-function identity, and separate nominal/gradient-bearing counts. Formal training still requires a new explicit authorization.
 
 No 8g test truth may select the architecture, width, normalization, or integration point. Track C remains deferred.
 

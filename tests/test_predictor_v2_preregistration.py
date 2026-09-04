@@ -12,17 +12,18 @@ def read(name: str) -> dict:
     return json.loads((STUDY / name).read_text())
 
 
-def test_predictor_v2_is_preregistration_only_and_unauthorized() -> None:
+def test_predictor_v2_preflight_is_complete_but_formal_run_is_unauthorized() -> None:
     config = read("config.json")
     decision = read("decision.json")
     plan = read("formal_plan_audit.json")
     for artifact in (config, decision, plan):
-        assert artifact["status" if "status" in artifact else "decision"] == "PREREGISTRATION_ONLY"
-        assert artifact["implementation_started"] is False
+        assert artifact["status" if "status" in artifact else "decision"] == "IMPLEMENTATION_PREFLIGHT_COMPLETE"
+        assert artifact["implementation_started"] is True
         assert artifact["formal_authorized"] is False
     assert config["active_transfer"] == "deferred"
     assert plan["expected_formal_fits"] == 0
-    assert plan["gate_pass"] is False
+    assert plan["gate_pass"] is True
+    assert plan["formal_progression_authorized"] is False
 
 
 def test_predictor_v2_design_is_typed_and_condition_complete() -> None:
@@ -47,5 +48,6 @@ def test_residual_recommendation_requires_identity_but_is_not_locked() -> None:
     residual = design["alternatives"]["B_legacy_compatible_residual_condition_completion"]
     assert recommendation["candidate"].startswith("B_")
     assert recommendation["final_architecture_locked"] is False
+    assert recommendation["engineering_candidate_frozen"] is True
     assert residual["source_function_identity"] is True
-    assert residual["parameter_count"] == "TBD_by_implementation_preflight"
+    assert residual["parameter_count"] == 2332
