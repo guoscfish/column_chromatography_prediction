@@ -7,7 +7,7 @@
 项目不是一条从 E2 到 D46 的线性诊断链，而是三个相关研究分支：
 
 - **Track A — 4g In-domain Active Learning:** `PAUSED_AFTER_A1A / PROMISING_BUT_UNFINISHED`。E2 row-level 保留正向 pilot 证据；A1a 只否定了 shared-shortlist 内 farthest-first 的稳定额外收益，A1b 不获授权。
-- **Track B — 4g→8g Transfer Adaptation:** `T1B1_FORMAL_COMPLETE_NO_INTERMEDIATE_CAPACITY_BENEFIT`。T1b-1 的 180/180 Adapter fits 与 120/120 capacity contexts 全部完成；r=8/16/32 均未稳定优于 774-parameter `target_head_only`，因此没有 intermediate-capacity sweet spot。
+- **Track B — 4g→8g Transfer Adaptation:** `T1B1_FORMAL_COMPLETE_NO_TESTED_LOW_CAPACITY_ADAPTER_BENEFIT`。T1b-1 的 180/180 Adapter fits 与 120/120 capacity contexts 全部完成；r=8/16/32 均未稳定优于 774-parameter `target_head_only`，因此在已测试的约 3k–9k Adapter 区间没有支持的收益。9k–93k 区间未测试。
 - **Track C — Active Transfer:** `DEFERRED`。只有 Track B 建立稳定 low-label adaptation baseline 后才可重开。
 
 ## Frozen evidence
@@ -22,6 +22,8 @@ E4 Protocol A 与 A2a 表明，在 `current_last2_head` 下 tested generic activ
 - `scripts/`: historical/reproduction runners and thin compatibility shims. New studies should use a config-driven family runner.
 - `experiments/INDEX.md`: one-row-per-experiment navigation.
 - `docs/RESEARCH_DIRECTION.md`: research reset, literature maps, and future method gaps.
+- `docs/QGEOGNN_IMPLEMENTATION_VARIANTS.md`: legacy、clean reproduction 与 Predictor V2 的实现合同差异。
+- `docs/DATA_CONSUMPTION_REGISTER.md`: dataset/outcome 使用边界与 confirmatory 状态。
 - `docs/ARTIFACT_RETENTION_POLICY.md`: tracked-artifact contract.
 - `docs/NEXT_STAGE_DECISION.md`: A1 versus T1 decision analysis; manual approval required.
 
@@ -33,4 +35,6 @@ The validated project environment is conda `fish` (Python 3.11, PyTorch/PyG/RDKi
 conda run --no-capture-output -n fish pytest -q
 ```
 
-S1 exploratory shift audit is complete: zero-shot combined NRMSE was about 0.803 and affine about 0.399 ± 0.130, with V1/V2 RMSE about 7.63/11.45 mL; affine won only 3/5 folds. T1a found a low-capacity signal but no stable winner. T1b-1 then isolated graph-level adapter capacity at 2,958/5,014/9,126 trainable parameters while retaining fixed sum pooling. Mean normalized AULC was 0.6577 for Head and 0.6583/0.6587/0.6578 for r8/r16/r32; Adapter wins were 2/5, 2/5, and 3/5, so none passed the frozen gate. The evidence favors retaining output-only correction as the working low-label baseline, without claiming that fewer parameters are universally better. T1b-2, active transfer, Protocol B, and 25g/40g runs remain unauthorized; independent compound-level or external validation is the recommended next step.
+S1 exploratory shift audit is complete: zero-shot combined NRMSE was about 0.803 and affine about 0.399 ± 0.130, with V1/V2 RMSE about 7.63/11.45 mL; affine won only 3/5 folds. T1a found a low-capacity signal but no stable winner. T1b-1 then isolated graph-level adapter capacity at 2,958/5,014/9,126 trainable parameters while retaining fixed sum pooling. Mean normalized AULC was 0.6577 for Head and 0.6583/0.6587/0.6578 for r8/r16/r32; Adapter wins were 2/5, 2/5, and 3/5, so none passed the frozen gate. This supports retaining output-only correction as the working baseline over the tested low-capacity graph adapters only; widths corresponding roughly to 17k/34k/67k were not tested. T1b-2, active transfer, Protocol B, and new 25g/40g runs remain unauthorized.
+
+I0 confirmed that the legacy clean predictor constructs ten continuous edge features but consumes only the first five, leaving eluent HBA/LogP and all loading fields unreachable. The audited model has 775,476 nominal requires-grad parameters but 456,620 gradient-bearing parameters. These findings refine the implementation contract; they do not erase historical evidence. Predictor V2 is `PREREGISTRATION_ONLY`, with implementation and formal training both unauthorized.

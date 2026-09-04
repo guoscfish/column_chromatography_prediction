@@ -46,11 +46,13 @@ Partially Bayesian or Bayesian GNNs and ensemble variants are candidates. Allec 
 
 ### A6. Representation ablation
 
-Preregister comparisons among graph-only, conditions-only, naive concat, block-balanced concat, Morgan fingerprint plus conditions, and a geometry-aware representation. Do not run during this reset.
+I0 confirmed a semantic mismatch: the predictor consumes bond length plus only four of the nine condition dimensions, while acquisition uses the full standardized 9D condition matrix. The current joint distance representation concatenates 128D graph and 9D conditions. Per-dimension z-scoring does not by itself remove possible block-dimensionality dominance, so 128:9 is a potential risk, not a demonstrated cause of historical performance.
+
+Preregister at minimum graph-only, conditions-only, naive graph-plus-condition concatenation, and block-balanced concatenation. Morgan fingerprint plus conditions and geometry-aware variants may be secondary comparisons. Do not modify historical E2 acquisition or run a new AL study during this stage.
 
 ### A7. Generalization protocol
 
-Separate row interpolation, compound-held-out, and Bemis–Murcko scaffold OOD. Never extrapolate row-level evidence into a novel-molecule claim.
+Separate row interpolation, target-label compound holdout, source-aware molecule holdout, and Bemis-Murcko scaffold OOD. Current 8g compound splits prevent a target test molecule from appearing in target adaptation labels, but 87/88 unique 8g compounds occur in 4g. They therefore do not establish source-plus-target novel-molecule generalization. A future source-aware protocol must remove held-out molecules from both 4g source training and 8g target adaptation before target evaluation. It is proposed, not authorized.
 
 ## 4g Active Learning Literature Map
 
@@ -72,7 +74,13 @@ S1 used only the analysis role of a truth-blind compound partition. Zero-shot co
 
 T1a formally tested `target_head_only` (prediction head only; pooling remains sum), `last1_head`, and `current_last2_head` alongside zero-shot, affine, and condition-Ridge residual baselines. All 180 fits and 120 contexts completed. `target_head_only` led mean normalized AULC (0.6577 versus 0.7634 for `current_last2_head`) but won only 3/5 paired seeds, so no candidate passed the stable gate. A genuine learnable readout is now a distinct T1b hypothesis requiring separate preregistration; active transfer remains deferred.
 
-T1b-1 separated capacity from insertion-location search with a zero-initialized graph-level residual adapter after sum pooling and widths 8/16/32. All 180 Adapter fits completed. Mean normalized AULC stayed essentially flat but slightly worse than Head (Head 0.6577; r8 0.6583; r16 0.6587; r32 0.6578), and wins versus Head were only 2/5, 2/5, and 3/5. No width passed the frozen gate, so there is no evidence for an intermediate-capacity benefit in the tested range. The result supports output-only correction as the current working low-label baseline more than this particular latent residual correction, but does not prove latent correction is generally ineffective. Since T1b-1 reuses T1a's already-read row outcomes, it is developmental rather than pristine confirmation. Independent compound-level, another-column, or new-target validation is preferred before reconsidering the unimplemented and unauthorized T1b-2 location proposal.
+T1b-1 separated capacity from insertion-location search with a zero-initialized graph-level residual adapter after sum pooling and widths 8/16/32. All 180 Adapter fits completed. Mean normalized AULC stayed essentially flat but slightly worse than Head (Head 0.6577; r8 0.6583; r16 0.6587; r32 0.6578), and wins versus Head were only 2/5, 2/5, and 3/5. No width passed the frozen gate, so there is no tested low-capacity graph-adapter benefit in the 2,958–9,126 parameter range. The 9,126-to-93,454 gap, including possible 17k/34k/67k regions, remains untested. The result supports output-only correction as the current working baseline over these adapters only; it does not prove latent correction generally ineffective. Since T1b-1 reuses T1a's already-read row outcomes, it is developmental rather than pristine confirmation. No additional widths or T1b-2 study are authorized.
+
+## Predictor semantic audit and V2 boundary
+
+I0 confirmed by code tracing and perturbation that the clean legacy predictor constructs ten continuous edge features but consumes only positions 0–4. Eluent HBA, eluent LogP, loading solvent, loading mass, and loading volume do not reach the encoder. Acquisition nevertheless uses all nine condition dimensions. The audited model has 775,476 nominal requires-grad parameters, 456,620 gradient-bearing parameters, and 318,856 forward-unreachable parameters. These are implementation facts, not a finding that the historical outcomes are invalid.
+
+Predictor V2 is preregistered as a separate condition-complete variant. The preferred proposal preserves the legacy path and adds an explicit, zero-initialized residual condition-completion branch, subject to an implementation preflight. Implementation, source training, target adaptation, and active transfer are all unauthorized at this point.
 
 | Area | Relevant work/idea | Project implication |
 |---|---|---|

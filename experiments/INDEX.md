@@ -38,4 +38,6 @@ Every current experiment directory has exactly one navigation row above.
 ## Current studies outside `experiments/`
 
 - `studies/track_b_transfer/t1_low_label_adaptation`: T1a formal scientific run complete (180/180 fits, 120/120 contexts); no candidate passed the stable-improvement gate. See `FORMAL_RESULTS.md` and the machine-readable result artifacts.
-- `studies/track_b_transfer/t1b1_adapter_capacity`: post-T1a developmental capacity sweep formal complete (180/180 Adapter fits, 120/120 contexts); no r=8/16/32 Adapter passed the stability gate versus Head and no intermediate sweet spot was found.
+- `studies/track_b_transfer/t1b1_adapter_capacity`: post-T1a developmental capacity sweep formal complete (180/180 Adapter fits, 120/120 contexts); no r=8/16/32 Adapter passed the stability gate versus Head in the tested 3k–9k range; the 9k–93k gap is untested.
+- `studies/i0_predictor_semantic_audit`: completed engineering/scientific-mechanism audit of input reachability, effective parameters, collisions, and cross-target ordering; no training and no model selection.
+- `studies/track_b_transfer/predictor_v2_preregistration`: condition-complete Predictor V2 proposal only; implementation and formal training are not authorized.

@@ -2,6 +2,8 @@
 
 冻结日期：2026-08-16。状态：G0-1～G0-4科学对照与D28工程接口检查均已完成，Gate 0完全通过。后续E1/E2/E4只能复用本合同，不得按主动学习结果反向调节Predictor。
 
+I0 后的解释边界：本合同冻结的是 clean reproduction derived from the legacy implementation，而非对 `application/QGeoGNN.py` 的逐行完全复刻。原始实现把 min-max molecular descriptors 转为 `torch.int64`，当前 clean reproduction 使用 `float32`。I0 还确认当前 predictor 只消费十列 continuous edge block 的前五列，并存在 forward-unused parameters；完整差异见 `docs/QGEOGNN_IMPLEMENTATION_VARIANTS.md`。这些事实不修改本合同、checkpoint 或历史结果。
+
 ## 冻结配置
 
 | 项目 | 冻结值 |
@@ -35,6 +37,8 @@ G0-4 validation-only决定文件SHA256为`3ee01b93abe1279b2874a74be9223a384e8b73
 ## 不得反向调整
 
 进入E1/E2/E4后，不得依据主动学习test RMSE、AULC或某一采样策略表现重新选择threshold、构象、迁移范围、loss权重、分位数参数化或校准方式。若出现新的数据质量证据或模型接口缺陷，应登记新decision ID，并以新实验ID进行前向修正，保留原结果。
+
+Predictor V2 属于独立版本化 proposal，不得覆盖 legacy checkpoint，也不得与 acquisition 修改同时归因。当前仅完成 preregistration，未授权实现或正式训练。
 
 ## D28工程验收
 

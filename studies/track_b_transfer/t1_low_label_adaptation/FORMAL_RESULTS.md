@@ -54,6 +54,10 @@ The simple baselines remain consequential. Affine is the best of all six methods
 
 All methods shared the same gradient-training, validation, and test ID hashes within every seed/budget context. Gradient labels alone fit affine and Ridge and select Ridge alpha by compound GroupKFold. Validation labels alone select neural checkpoints. Source-only V1/V2 scales (7.7755/15.9773 mL, `ddof=0`) normalize metrics. There were no failed, missing, stale, partial, reused, or retried fits in this first formal execution. The 20 Ridge contexts all used five-fold gradient-only selection; no small-group fallback was needed.
 
+The 22/42/62/92 gradient rows are all below batch size 2048, so one epoch equals one full-batch optimizer step. Reported best epochs and stopping times are therefore step counts, not comparable to epochs over a large multi-batch dataset. The common `lr=1e-4`, weight decay, and early-stopping rule make this a controlled shared-contract comparison, not an intrinsic ranking over method-specific optimal training regimes.
+
+Eight validation labels account for 26.67%/16.00%/11.43%/8.00% of budgets 30/50/70/100. Checkpoint selection from eight rows may be noisy. Neural methods consume this fixed validation allocation; Affine and Ridge do not. The study is paired and controlled but not fully algorithm-aware label-efficiency fair. Cross-fitting plus all-label refit, explicit method-specific validation overhead, and preregistered simple-method all-label refit are future protocol options only.
+
 ## Scientific decision and next step
 
 T1a does not establish a stable winner. It does show a coherent low-capacity signal: fixed-sum `target_head_only` is best by mean AULC and mean combined NRMSE at every budget, while deeper adaptation is not consistently better. Between-seed heterogeneity is substantial, the protocol is row-level only, and five-seed comparisons are descriptive without a significance claim.

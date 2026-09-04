@@ -2,7 +2,7 @@
 
 ## Question and method
 
-T1a showed that deeper adaptation was not advantageous in this low-label row protocol, but it did not establish that 774 trainable parameters were optimal. T1b-1 therefore tested whether a parameter-efficient sweet spot existed between the 774-parameter prediction head and the 93,454-parameter Last1 setting.
+T1a showed that deeper adaptation was not advantageous in this low-label row protocol, but it did not establish that 774 trainable parameters were optimal. T1b-1 tested three low-capacity graph adapters between the 774-parameter prediction head and the 93,454-parameter Last1 endpoint; it did not sample the whole interval.
 
 The frozen intervention was a residual graph adapter after fixed sum pooling and before the monotonic prediction head:
 
@@ -15,6 +15,8 @@ This is distinct from `condition_ridge_residual`: Ridge learns a linear V1/V2 re
 ## Protocol and integrity
 
 Five outer seeds, budgets 30/50/70/100, eight fixed validation labels, and three source members produced 180 new Adapter fits. Training used learning rate 1e-4, weight decay 1e-5, 500 epochs, patience 100, batch size 2048, equal V1/V2 weights, the source scaler, the monotonic-softplus quantile head, and validation normalized MSE checkpoint selection. All six capacity methods shared the frozen T1a gradient-train, validation, and test IDs within each seed/budget context.
+
+Gradient-training counts were 22/42/62/92, so every epoch was one full-batch optimizer step. The shared learning rate, weight decay, and early-stopping rule support a controlled capacity comparison, not a claim that every method used its own optimal optimization regime. The fixed eight validation rows account for 26.67%/16.00%/11.43%/8.00% of the respective total label budgets and may yield noisy checkpoint selection. Simple T1 baselines did not consume these validation rows, while the neural methods did; the reused protocol is paired and controlled but not fully algorithm-aware label-efficiency fair.
 
 The preflight verified frozen T1a and dataset hashes, source checkpoints, exact parameter counts, 180 unique run keys, no duplicates, and 9/9 initialization identity checks without reading test truth. Formal completion was 180/180 Adapter fits, 0 failed, 0 missing, 0 reused, and 0 rerun. All Adapter test predictions were frozen before test truth was read; 120/120 six-method contexts were evaluated.
 
@@ -61,8 +63,8 @@ Validation best epochs generally occurred earlier as trainable capacity increase
 
 ## Scientific decision
 
-No evidence for intermediate-capacity benefit. Head-only retained the best mean normalized AULC, and no Adapter produced a stable improvement. There is therefore no supported sweet spot between 774 and 93,454 trainable parameters in this tested architecture and protocol. T1a's narrower observation should be retained as “deeper adaptation was not advantageous in the tested low-label regime,” not generalized to “fewer parameters are always better.” These results favor shallow output remapping over this particular latent graph-representation correction, but do not rule out every latent adaptation architecture.
+No tested low-capacity graph-adapter benefit was found. Head-only retained the best mean normalized AULC, and no 2,958/5,014/9,126-parameter Adapter produced a stable improvement. This does not establish the absence of a sweet spot across the full 774-to-93,454 interval: the 9,126-to-93,454 gap, including possible 17k/34k/67k regions, was not tested. T1a's narrower observation should be retained as “deeper adaptation was not advantageous in the tested low-label regime,” not generalized to “fewer parameters are always better.” These results favor shallow output remapping over this particular tested latent correction only.
 
-T1b-1 reuses the already-consumed T1a row protocol. It is developmental / hypothesis-testing evidence, not an independent pristine confirmatory study. The recommended next step is independent compound-level validation, another column specification, and/or new target data. A T1b-2 matched-capacity adaptation-location comparison remains a proposal only and is not automatically justified or authorized. Active transfer remains deferred.
+T1b-1 reuses the already-consumed T1a row protocol. It is developmental / hypothesis-testing evidence, not an independent pristine confirmatory study. Current compound splits are target-label holdouts, not source-plus-target molecule OOD. Future source-aware molecule or scaffold holdouts require separate preregistration. Additional widths, T1b-2, and active transfer remain unauthorized.
 
 Machine-readable evidence is retained in `per_context_metrics.csv`, `capacity_curve.csv`, `capacity_aulc_summary.csv`, `paired_aulc_effects.csv`, `convergence_audit.csv`, `formal_fit_resume_details.csv`, `resume_audit.json`, `formal_run_audit.json`, `decision.json`, and `t1b1_capacity_curve.png`. Runtime checkpoints, histories, predictions, and quarantine data remain gitignored under the artifact-retention policy.

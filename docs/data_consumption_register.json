@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "updated": "2026-09-04",
+  "interpretation": {
+    "developmental_available": "The outcomes may be reused for explicitly developmental analysis with prior use disclosed.",
+    "pristine_confirmatory_available": "False once outcomes have been inspected in any repository analysis, even if they were not used for model fitting."
+  },
+  "datasets": [
+    {
+      "dataset_id": "4g",
+      "source_file": "dataset/dataset_4g.csv",
+      "source_sha256": "d485d3d46a96458d1baac11b2a21cd33374b1be42ba2303e7ae5823cc8ee553a",
+      "training_use": true,
+      "validation_model_selection": true,
+      "test_truth_read": true,
+      "outcomes_inspected": true,
+      "experiments": ["data_audit", "E0", "G0", "E1", "E2", "A1a", "I0", "4g source anchors for E4/S1/T1/T1b-1"],
+      "developmental_available": true,
+      "pristine_confirmatory_available": false,
+      "notes": "Extensively consumed source and in-domain AL dataset."
+    },
+    {
+      "dataset_id": "8g",
+      "source_file": "dataset/dataset_8g.csv",
+      "source_sha256": "6bfe9c69ca5b32cb043af9d6cd2809c10bb2a7d27de279784b7e3783d021d5b9",
+      "training_use": true,
+      "validation_model_selection": true,
+      "test_truth_read": true,
+      "outcomes_inspected": true,
+      "experiments": ["data_audit", "E0", "G0", "E1", "E4", "S1", "T1", "T1b-1", "I0"],
+      "developmental_available": true,
+      "pristine_confirmatory_available": false,
+      "notes": "Repeated target-outcome use means further architecture selection is developmental, not independent confirmation."
+    },
+    {
+      "dataset_id": "25g",
+      "source_file": "dataset/dataset_25g.csv",
+      "source_sha256": "6ef36adfa8a73d5b51560cd39776cae78c731a1107b3dfdf2b90661942ac5d06",
+      "training_use": false,
+      "validation_model_selection": false,
+      "test_truth_read": false,
+      "outcomes_inspected": true,
+      "experiments": ["data_audit"],
+      "developmental_available": true,
+      "pristine_confirmatory_available": false,
+      "notes": "Outcome columns were read for repository data audit; no current-study training or held-out test artifact was found. Legacy application functions alone are not evidence of execution."
+    },
+    {
+      "dataset_id": "40g",
+      "source_file": "dataset/dataset_40g.csv",
+      "source_sha256": "2d89921b4c84c720a7b3ae97e76d7a996a8f296c417ac42c29adf68d21574e0e",
+      "training_use": false,
+      "validation_model_selection": false,
+      "test_truth_read": false,
+      "outcomes_inspected": true,
+      "experiments": ["data_audit"],
+      "developmental_available": true,
+      "pristine_confirmatory_available": false,
+      "notes": "Outcome columns were read for repository data audit; no current-study training or held-out test artifact was found."
+    },
+    {
+      "dataset_id": "C18",
+      "source_file": "dataset/dataset_C18.csv",
+      "source_sha256": "ee354cac032043d219f5bef717adb3ebf46ca8a732f425d97ed93e91d9adff01",
+      "training_use": false,
+      "validation_model_selection": false,
+      "test_truth_read": false,
+      "outcomes_inspected": true,
+      "experiments": ["data_audit"],
+      "developmental_available": true,
+      "pristine_confirmatory_available": false,
+      "notes": "Outcome columns were read for repository data audit; no current-study training or held-out test artifact was found."
+    },
+    {
+      "dataset_id": "CN",
+      "source_file": "dataset/dataset_CN.csv",
+      "source_sha256": "6445efc28886812c195f5d13475f2e2f6f9f7f8b46ceb2028963c0502b050be5",
+      "training_use": false,
+      "validation_model_selection": false,
+      "test_truth_read": false,
+      "outcomes_inspected": true,
+      "experiments": ["data_audit"],
+      "developmental_available": true,
+      "pristine_confirmatory_available": false,
+      "notes": "Outcome columns were read for repository data audit; no current-study training or held-out test artifact was found."
+    },
+    {
+      "dataset_id": "NH2",
+      "source_file": "dataset/dataset_NH2.csv",
+      "source_sha256": "4c16bb550fe7e0e865b2f68348b490fda772275e65daf19e4e346ea04c1f6b65",
+      "training_use": false,
+      "validation_model_selection": false,
+      "test_truth_read": false,
+      "outcomes_inspected": true,
+      "experiments": ["data_audit"],
+      "developmental_available": true,
+      "pristine_confirmatory_available": false,
+      "notes": "Outcome columns were read for repository data audit; no current-study training or held-out test artifact was found."
+    },
+    {
+      "dataset_id": "DCM",
+      "source_file": "dataset/dataset_DCM.csv",
+      "source_sha256": "5e66e1344cb086add5308cbe31591b94f488cfb758cab8268dac3cc3dea396f2",
+      "training_use": false,
+      "validation_model_selection": false,
+      "test_truth_read": false,
+      "outcomes_inspected": true,
+      "experiments": ["data_audit"],
+      "developmental_available": true,
+      "pristine_confirmatory_available": false,
+      "notes": "Outcome columns were read for repository data audit; no current-study training or held-out test artifact was found."
+    }
+  ]
+}
