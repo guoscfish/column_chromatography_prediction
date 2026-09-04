@@ -1,9 +1,22 @@
-# Current Studies
+# Studies
 
-`experiments/` is frozen history. New research is organized here without adding top-level historical experiment directories.
+This index organizes research by scientific question rather than experiment ID. Historical study directories remain at their original paths because scripts, tests, hashes, and machine-readable artifacts depend on them. The semantic directories below are navigation layers, not duplicated evidence stores.
 
-- [Track A — 4g in-domain active learning](track_a_4g_al/README.md)
-- [Track B — 4g→8g transfer](track_b_transfer/README.md)
-- [Track C — active transfer](track_c_active_transfer/README.md)
+## Predictor
 
-S1 and A1a are completed and stopped. T1a formal execution is complete with no stable winner. T1b-1 found no benefit for the tested 3k–9k graph adapters; the 9k–93k gap remains untested. Predictor V2 residual condition completion has passed implementation preflight without performance training. Formal V2 source qualification, T1b-2, A1b, and active transfer remain unauthorized/deferred.
+- [`predictor/semantic_input_audit/`](predictor/semantic_input_audit/README.md): legacy input semantics and effective-parameter audit (historical ID I0).
+- [`predictor/condition_completion/`](predictor/condition_completion/README.md): Predictor V2 preregistration and implementation preflight.
+- [`predictor/4g_source_benchmark/`](predictor/4g_source_benchmark/README.md): formal source benchmark status and protocol link.
+
+## Transfer
+
+- [`transfer/source_target_shift/`](transfer/source_target_shift/README.md): exploratory 4g-to-8g shift evidence (S1).
+- [`transfer/low_label_adaptation/`](transfer/low_label_adaptation/README.md): low-label adaptation evidence (T1).
+- [`transfer/adapter_capacity/`](transfer/adapter_capacity/README.md): graph-adapter capacity evidence (T1b-1).
+
+## Active learning
+
+- [`active_learning/4g/hybrid_batch_control/`](active_learning/4g/hybrid_batch_control/README.md): 4g hybrid batch mechanism control (A1a).
+- [`active_learning/transfer/`](active_learning/transfer/README.md): deferred active-transfer direction (Track C).
+
+No historical result artifact was moved, renamed, or rewritten during this navigation refactor.
