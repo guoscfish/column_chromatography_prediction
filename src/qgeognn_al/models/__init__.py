@@ -1,9 +1,5 @@
-"""Predictor implementations with explicit variant contracts."""
-
-from .clean_fusion import (  # noqa: F401
-    CleanQGeoGNN,
-    build_clean_model,
-    clean_checkpoint_payload,
-    load_clean_checkpoint,
-    validate_clean_checkpoint,
+"""The single active predictor API; historical models are not imported here."""
+from .qgeognn_v2 import (
+    QGeoGNNV2, build_predictor, extract_representation, load_predictor_checkpoint,
+    predictor_checkpoint, validate_predictor_checkpoint,
 )
