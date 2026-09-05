@@ -1,0 +1,4058 @@
+{
+  "nominal_parameters": 777808,
+  "requires_grad_parameters": 777808,
+  "gradient_bearing_parameters": 458952,
+  "forward_unreachable_trainable_parameters": 318856,
+  "gradient_definition": "grad is not None; zero-valued gradients remain reachable",
+  "static_trace_sources": {
+    "application/QGeoGNN.py": {
+      "sha256": "d77638e4ad615e4b27dc3435d7f1b175ba8c4f3dc139c5043bb2f9d0d37ba896",
+      "geometry_forward_lines": [
+        1169,
+        1207
+      ],
+      "outer_descriptor_lines": [
+        1296,
+        1317
+      ]
+    },
+    "src/qgeognn_al/condition_complete_v2.py": {
+      "sha256": "4d56fa79637cc9bb6d6bd75b2bfe4591cb973740a3ae5c2758ca80cd20fdf0e9",
+      "trace": "representations discards edge return; sums nodes, adds typed completion; forward applies unchanged head"
+    }
+  },
+  "batches": [
+    {
+      "graphs": 1388,
+      "gradient_parameter_count": 458952
+    },
+    {
+      "graphs": 1388,
+      "gradient_parameter_count": 458952
+    },
+    {
+      "graphs": 1387,
+      "gradient_parameter_count": 458952
+    }
+  ],
+  "parameters": [
+    {
+      "name": "legacy_model.gnn_node.atom_encoder.atom_embedding_list.0.weight",
+      "module": "legacy_model.gnn_node.atom_encoder.atom_embedding_list.0",
+      "parameter_count": 15872,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.atom_encoder.atom_embedding_list.1.weight",
+      "module": "legacy_model.gnn_node.atom_encoder.atom_embedding_list.1",
+      "parameter_count": 1792,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.atom_encoder.atom_embedding_list.2.weight",
+      "module": "legacy_model.gnn_node.atom_encoder.atom_embedding_list.2",
+      "parameter_count": 2176,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.atom_encoder.atom_embedding_list.3.weight",
+      "module": "legacy_model.gnn_node.atom_encoder.atom_embedding_list.3",
+      "parameter_count": 2432,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.atom_encoder.atom_embedding_list.4.weight",
+      "module": "legacy_model.gnn_node.atom_encoder.atom_embedding_list.4",
+      "parameter_count": 2816,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.atom_encoder.atom_embedding_list.5.weight",
+      "module": "legacy_model.gnn_node.atom_encoder.atom_embedding_list.5",
+      "parameter_count": 1792,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.atom_encoder.atom_embedding_list.6.weight",
+      "module": "legacy_model.gnn_node.atom_encoder.atom_embedding_list.6",
+      "parameter_count": 2432,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.atom_encoder.atom_embedding_list.7.weight",
+      "module": "legacy_model.gnn_node.atom_encoder.atom_embedding_list.7",
+      "parameter_count": 896,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.atom_encoder.atom_embedding_list.8.weight",
+      "module": "legacy_model.gnn_node.atom_encoder.atom_embedding_list.8",
+      "parameter_count": 1920,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.bond_encoder.bond_embedding_list.0.weight",
+      "module": "legacy_model.gnn_node.bond_encoder.bond_embedding_list.0",
+      "parameter_count": 1664,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.bond_encoder.bond_embedding_list.1.weight",
+      "module": "legacy_model.gnn_node.bond_encoder.bond_embedding_list.1",
+      "parameter_count": 3584,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.bond_encoder.bond_embedding_list.2.weight",
+      "module": "legacy_model.gnn_node.bond_encoder.bond_embedding_list.2",
+      "parameter_count": 1024,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.bond_float_encoder.linear_list.0.weight",
+      "module": "legacy_model.gnn_node.bond_float_encoder.linear_list.0",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.bond_float_encoder.linear_list.0.bias",
+      "module": "legacy_model.gnn_node.bond_float_encoder.linear_list.0",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.bond_float_encoder.linear_list.1.weight",
+      "module": "legacy_model.gnn_node.bond_float_encoder.linear_list.1",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.bond_float_encoder.linear_list.1.bias",
+      "module": "legacy_model.gnn_node.bond_float_encoder.linear_list.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.bond_float_encoder.linear_list.2.weight",
+      "module": "legacy_model.gnn_node.bond_float_encoder.linear_list.2",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.bond_float_encoder.linear_list.2.bias",
+      "module": "legacy_model.gnn_node.bond_float_encoder.linear_list.2",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.bond_float_encoder.linear_list.3.weight",
+      "module": "legacy_model.gnn_node.bond_float_encoder.linear_list.3",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.bond_float_encoder.linear_list.3.bias",
+      "module": "legacy_model.gnn_node.bond_float_encoder.linear_list.3",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.bond_float_encoder.linear_list.4.weight",
+      "module": "legacy_model.gnn_node.bond_float_encoder.linear_list.4",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.bond_float_encoder.linear_list.4.bias",
+      "module": "legacy_model.gnn_node.bond_float_encoder.linear_list.4",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.bond_float_encoder.rbf_list.0.gamma",
+      "module": "legacy_model.gnn_node.bond_float_encoder.rbf_list.0",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.bond_float_encoder.rbf_list.1.gamma",
+      "module": "legacy_model.gnn_node.bond_float_encoder.rbf_list.1",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.bond_float_encoder.rbf_list.2.gamma",
+      "module": "legacy_model.gnn_node.bond_float_encoder.rbf_list.2",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.bond_float_encoder.rbf_list.3.gamma",
+      "module": "legacy_model.gnn_node.bond_float_encoder.rbf_list.3",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.bond_float_encoder.rbf_list.4.gamma",
+      "module": "legacy_model.gnn_node.bond_float_encoder.rbf_list.4",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.bond_angle_encoder.linear_list.0.weight",
+      "module": "legacy_model.gnn_node.bond_angle_encoder.linear_list.0",
+      "parameter_count": 4096,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "initial bond_angle_encoder registered but never called"
+    },
+    {
+      "name": "legacy_model.gnn_node.bond_angle_encoder.linear_list.0.bias",
+      "module": "legacy_model.gnn_node.bond_angle_encoder.linear_list.0",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "initial bond_angle_encoder registered but never called"
+    },
+    {
+      "name": "legacy_model.gnn_node.bond_angle_encoder.linear_list.1.weight",
+      "module": "legacy_model.gnn_node.bond_angle_encoder.linear_list.1",
+      "parameter_count": 2048,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "initial bond_angle_encoder registered but never called"
+    },
+    {
+      "name": "legacy_model.gnn_node.bond_angle_encoder.linear_list.1.bias",
+      "module": "legacy_model.gnn_node.bond_angle_encoder.linear_list.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "initial bond_angle_encoder registered but never called"
+    },
+    {
+      "name": "legacy_model.gnn_node.bond_angle_encoder.rbf_list.0.gamma",
+      "module": "legacy_model.gnn_node.bond_angle_encoder.rbf_list.0",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "initial bond_angle_encoder registered but never called"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.0.eps",
+      "module": "legacy_model.gnn_node.convs.0",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.0.mlp.0.weight",
+      "module": "legacy_model.gnn_node.convs.0.mlp.0",
+      "parameter_count": 16384,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.0.mlp.0.bias",
+      "module": "legacy_model.gnn_node.convs.0.mlp.0",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.0.mlp.1.weight",
+      "module": "legacy_model.gnn_node.convs.0.mlp.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.0.mlp.1.bias",
+      "module": "legacy_model.gnn_node.convs.0.mlp.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.0.mlp.3.weight",
+      "module": "legacy_model.gnn_node.convs.0.mlp.3",
+      "parameter_count": 16384,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.0.mlp.3.bias",
+      "module": "legacy_model.gnn_node.convs.0.mlp.3",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.1.eps",
+      "module": "legacy_model.gnn_node.convs.1",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.1.mlp.0.weight",
+      "module": "legacy_model.gnn_node.convs.1.mlp.0",
+      "parameter_count": 16384,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.1.mlp.0.bias",
+      "module": "legacy_model.gnn_node.convs.1.mlp.0",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.1.mlp.1.weight",
+      "module": "legacy_model.gnn_node.convs.1.mlp.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.1.mlp.1.bias",
+      "module": "legacy_model.gnn_node.convs.1.mlp.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.1.mlp.3.weight",
+      "module": "legacy_model.gnn_node.convs.1.mlp.3",
+      "parameter_count": 16384,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.1.mlp.3.bias",
+      "module": "legacy_model.gnn_node.convs.1.mlp.3",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.2.eps",
+      "module": "legacy_model.gnn_node.convs.2",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.2.mlp.0.weight",
+      "module": "legacy_model.gnn_node.convs.2.mlp.0",
+      "parameter_count": 16384,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.2.mlp.0.bias",
+      "module": "legacy_model.gnn_node.convs.2.mlp.0",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.2.mlp.1.weight",
+      "module": "legacy_model.gnn_node.convs.2.mlp.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.2.mlp.1.bias",
+      "module": "legacy_model.gnn_node.convs.2.mlp.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.2.mlp.3.weight",
+      "module": "legacy_model.gnn_node.convs.2.mlp.3",
+      "parameter_count": 16384,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.2.mlp.3.bias",
+      "module": "legacy_model.gnn_node.convs.2.mlp.3",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.3.eps",
+      "module": "legacy_model.gnn_node.convs.3",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.3.mlp.0.weight",
+      "module": "legacy_model.gnn_node.convs.3.mlp.0",
+      "parameter_count": 16384,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.3.mlp.0.bias",
+      "module": "legacy_model.gnn_node.convs.3.mlp.0",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.3.mlp.1.weight",
+      "module": "legacy_model.gnn_node.convs.3.mlp.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.3.mlp.1.bias",
+      "module": "legacy_model.gnn_node.convs.3.mlp.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.3.mlp.3.weight",
+      "module": "legacy_model.gnn_node.convs.3.mlp.3",
+      "parameter_count": 16384,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.3.mlp.3.bias",
+      "module": "legacy_model.gnn_node.convs.3.mlp.3",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.4.eps",
+      "module": "legacy_model.gnn_node.convs.4",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.4.mlp.0.weight",
+      "module": "legacy_model.gnn_node.convs.4.mlp.0",
+      "parameter_count": 16384,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.4.mlp.0.bias",
+      "module": "legacy_model.gnn_node.convs.4.mlp.0",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.4.mlp.1.weight",
+      "module": "legacy_model.gnn_node.convs.4.mlp.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.4.mlp.1.bias",
+      "module": "legacy_model.gnn_node.convs.4.mlp.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.4.mlp.3.weight",
+      "module": "legacy_model.gnn_node.convs.4.mlp.3",
+      "parameter_count": 16384,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs.4.mlp.3.bias",
+      "module": "legacy_model.gnn_node.convs.4.mlp.3",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.0.eps",
+      "module": "legacy_model.gnn_node.convs_bond_angle.0",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.0.mlp.0.weight",
+      "module": "legacy_model.gnn_node.convs_bond_angle.0.mlp.0",
+      "parameter_count": 16384,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.0.mlp.0.bias",
+      "module": "legacy_model.gnn_node.convs_bond_angle.0.mlp.0",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.0.mlp.1.weight",
+      "module": "legacy_model.gnn_node.convs_bond_angle.0.mlp.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.0.mlp.1.bias",
+      "module": "legacy_model.gnn_node.convs_bond_angle.0.mlp.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.0.mlp.3.weight",
+      "module": "legacy_model.gnn_node.convs_bond_angle.0.mlp.3",
+      "parameter_count": 16384,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.0.mlp.3.bias",
+      "module": "legacy_model.gnn_node.convs_bond_angle.0.mlp.3",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.1.eps",
+      "module": "legacy_model.gnn_node.convs_bond_angle.1",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.1.mlp.0.weight",
+      "module": "legacy_model.gnn_node.convs_bond_angle.1.mlp.0",
+      "parameter_count": 16384,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.1.mlp.0.bias",
+      "module": "legacy_model.gnn_node.convs_bond_angle.1.mlp.0",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.1.mlp.1.weight",
+      "module": "legacy_model.gnn_node.convs_bond_angle.1.mlp.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.1.mlp.1.bias",
+      "module": "legacy_model.gnn_node.convs_bond_angle.1.mlp.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.1.mlp.3.weight",
+      "module": "legacy_model.gnn_node.convs_bond_angle.1.mlp.3",
+      "parameter_count": 16384,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.1.mlp.3.bias",
+      "module": "legacy_model.gnn_node.convs_bond_angle.1.mlp.3",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.2.eps",
+      "module": "legacy_model.gnn_node.convs_bond_angle.2",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.2.mlp.0.weight",
+      "module": "legacy_model.gnn_node.convs_bond_angle.2.mlp.0",
+      "parameter_count": 16384,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.2.mlp.0.bias",
+      "module": "legacy_model.gnn_node.convs_bond_angle.2.mlp.0",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.2.mlp.1.weight",
+      "module": "legacy_model.gnn_node.convs_bond_angle.2.mlp.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.2.mlp.1.bias",
+      "module": "legacy_model.gnn_node.convs_bond_angle.2.mlp.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.2.mlp.3.weight",
+      "module": "legacy_model.gnn_node.convs_bond_angle.2.mlp.3",
+      "parameter_count": 16384,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.2.mlp.3.bias",
+      "module": "legacy_model.gnn_node.convs_bond_angle.2.mlp.3",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.3.eps",
+      "module": "legacy_model.gnn_node.convs_bond_angle.3",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.3.mlp.0.weight",
+      "module": "legacy_model.gnn_node.convs_bond_angle.3.mlp.0",
+      "parameter_count": 16384,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.3.mlp.0.bias",
+      "module": "legacy_model.gnn_node.convs_bond_angle.3.mlp.0",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.3.mlp.1.weight",
+      "module": "legacy_model.gnn_node.convs_bond_angle.3.mlp.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.3.mlp.1.bias",
+      "module": "legacy_model.gnn_node.convs_bond_angle.3.mlp.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.3.mlp.3.weight",
+      "module": "legacy_model.gnn_node.convs_bond_angle.3.mlp.3",
+      "parameter_count": 16384,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.3.mlp.3.bias",
+      "module": "legacy_model.gnn_node.convs_bond_angle.3.mlp.3",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.4.eps",
+      "module": "legacy_model.gnn_node.convs_bond_angle.4",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.4.mlp.0.weight",
+      "module": "legacy_model.gnn_node.convs_bond_angle.4.mlp.0",
+      "parameter_count": 16384,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.4.mlp.0.bias",
+      "module": "legacy_model.gnn_node.convs_bond_angle.4.mlp.0",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.4.mlp.1.weight",
+      "module": "legacy_model.gnn_node.convs_bond_angle.4.mlp.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.4.mlp.1.bias",
+      "module": "legacy_model.gnn_node.convs_bond_angle.4.mlp.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.4.mlp.3.weight",
+      "module": "legacy_model.gnn_node.convs_bond_angle.4.mlp.3",
+      "parameter_count": 16384,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_angle.4.mlp.3.bias",
+      "module": "legacy_model.gnn_node.convs_bond_angle.4.mlp.3",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.0.linear_list.0.weight",
+      "module": "legacy_model.gnn_node.convs_bond_float.0.linear_list.0",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.0.linear_list.0.bias",
+      "module": "legacy_model.gnn_node.convs_bond_float.0.linear_list.0",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.0.linear_list.1.weight",
+      "module": "legacy_model.gnn_node.convs_bond_float.0.linear_list.1",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.0.linear_list.1.bias",
+      "module": "legacy_model.gnn_node.convs_bond_float.0.linear_list.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.0.linear_list.2.weight",
+      "module": "legacy_model.gnn_node.convs_bond_float.0.linear_list.2",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.0.linear_list.2.bias",
+      "module": "legacy_model.gnn_node.convs_bond_float.0.linear_list.2",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.0.linear_list.3.weight",
+      "module": "legacy_model.gnn_node.convs_bond_float.0.linear_list.3",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.0.linear_list.3.bias",
+      "module": "legacy_model.gnn_node.convs_bond_float.0.linear_list.3",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.0.linear_list.4.weight",
+      "module": "legacy_model.gnn_node.convs_bond_float.0.linear_list.4",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.0.linear_list.4.bias",
+      "module": "legacy_model.gnn_node.convs_bond_float.0.linear_list.4",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.0.rbf_list.0.gamma",
+      "module": "legacy_model.gnn_node.convs_bond_float.0.rbf_list.0",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.0.rbf_list.1.gamma",
+      "module": "legacy_model.gnn_node.convs_bond_float.0.rbf_list.1",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.0.rbf_list.2.gamma",
+      "module": "legacy_model.gnn_node.convs_bond_float.0.rbf_list.2",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.0.rbf_list.3.gamma",
+      "module": "legacy_model.gnn_node.convs_bond_float.0.rbf_list.3",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.0.rbf_list.4.gamma",
+      "module": "legacy_model.gnn_node.convs_bond_float.0.rbf_list.4",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.1.linear_list.0.weight",
+      "module": "legacy_model.gnn_node.convs_bond_float.1.linear_list.0",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.1.linear_list.0.bias",
+      "module": "legacy_model.gnn_node.convs_bond_float.1.linear_list.0",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.1.linear_list.1.weight",
+      "module": "legacy_model.gnn_node.convs_bond_float.1.linear_list.1",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.1.linear_list.1.bias",
+      "module": "legacy_model.gnn_node.convs_bond_float.1.linear_list.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.1.linear_list.2.weight",
+      "module": "legacy_model.gnn_node.convs_bond_float.1.linear_list.2",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.1.linear_list.2.bias",
+      "module": "legacy_model.gnn_node.convs_bond_float.1.linear_list.2",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.1.linear_list.3.weight",
+      "module": "legacy_model.gnn_node.convs_bond_float.1.linear_list.3",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.1.linear_list.3.bias",
+      "module": "legacy_model.gnn_node.convs_bond_float.1.linear_list.3",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.1.linear_list.4.weight",
+      "module": "legacy_model.gnn_node.convs_bond_float.1.linear_list.4",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.1.linear_list.4.bias",
+      "module": "legacy_model.gnn_node.convs_bond_float.1.linear_list.4",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.1.rbf_list.0.gamma",
+      "module": "legacy_model.gnn_node.convs_bond_float.1.rbf_list.0",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.1.rbf_list.1.gamma",
+      "module": "legacy_model.gnn_node.convs_bond_float.1.rbf_list.1",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.1.rbf_list.2.gamma",
+      "module": "legacy_model.gnn_node.convs_bond_float.1.rbf_list.2",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.1.rbf_list.3.gamma",
+      "module": "legacy_model.gnn_node.convs_bond_float.1.rbf_list.3",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.1.rbf_list.4.gamma",
+      "module": "legacy_model.gnn_node.convs_bond_float.1.rbf_list.4",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.2.linear_list.0.weight",
+      "module": "legacy_model.gnn_node.convs_bond_float.2.linear_list.0",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.2.linear_list.0.bias",
+      "module": "legacy_model.gnn_node.convs_bond_float.2.linear_list.0",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.2.linear_list.1.weight",
+      "module": "legacy_model.gnn_node.convs_bond_float.2.linear_list.1",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.2.linear_list.1.bias",
+      "module": "legacy_model.gnn_node.convs_bond_float.2.linear_list.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.2.linear_list.2.weight",
+      "module": "legacy_model.gnn_node.convs_bond_float.2.linear_list.2",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.2.linear_list.2.bias",
+      "module": "legacy_model.gnn_node.convs_bond_float.2.linear_list.2",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.2.linear_list.3.weight",
+      "module": "legacy_model.gnn_node.convs_bond_float.2.linear_list.3",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.2.linear_list.3.bias",
+      "module": "legacy_model.gnn_node.convs_bond_float.2.linear_list.3",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.2.linear_list.4.weight",
+      "module": "legacy_model.gnn_node.convs_bond_float.2.linear_list.4",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.2.linear_list.4.bias",
+      "module": "legacy_model.gnn_node.convs_bond_float.2.linear_list.4",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.2.rbf_list.0.gamma",
+      "module": "legacy_model.gnn_node.convs_bond_float.2.rbf_list.0",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.2.rbf_list.1.gamma",
+      "module": "legacy_model.gnn_node.convs_bond_float.2.rbf_list.1",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.2.rbf_list.2.gamma",
+      "module": "legacy_model.gnn_node.convs_bond_float.2.rbf_list.2",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.2.rbf_list.3.gamma",
+      "module": "legacy_model.gnn_node.convs_bond_float.2.rbf_list.3",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.2.rbf_list.4.gamma",
+      "module": "legacy_model.gnn_node.convs_bond_float.2.rbf_list.4",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.3.linear_list.0.weight",
+      "module": "legacy_model.gnn_node.convs_bond_float.3.linear_list.0",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.3.linear_list.0.bias",
+      "module": "legacy_model.gnn_node.convs_bond_float.3.linear_list.0",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.3.linear_list.1.weight",
+      "module": "legacy_model.gnn_node.convs_bond_float.3.linear_list.1",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.3.linear_list.1.bias",
+      "module": "legacy_model.gnn_node.convs_bond_float.3.linear_list.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.3.linear_list.2.weight",
+      "module": "legacy_model.gnn_node.convs_bond_float.3.linear_list.2",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.3.linear_list.2.bias",
+      "module": "legacy_model.gnn_node.convs_bond_float.3.linear_list.2",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.3.linear_list.3.weight",
+      "module": "legacy_model.gnn_node.convs_bond_float.3.linear_list.3",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.3.linear_list.3.bias",
+      "module": "legacy_model.gnn_node.convs_bond_float.3.linear_list.3",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.3.linear_list.4.weight",
+      "module": "legacy_model.gnn_node.convs_bond_float.3.linear_list.4",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.3.linear_list.4.bias",
+      "module": "legacy_model.gnn_node.convs_bond_float.3.linear_list.4",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.3.rbf_list.0.gamma",
+      "module": "legacy_model.gnn_node.convs_bond_float.3.rbf_list.0",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.3.rbf_list.1.gamma",
+      "module": "legacy_model.gnn_node.convs_bond_float.3.rbf_list.1",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.3.rbf_list.2.gamma",
+      "module": "legacy_model.gnn_node.convs_bond_float.3.rbf_list.2",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.3.rbf_list.3.gamma",
+      "module": "legacy_model.gnn_node.convs_bond_float.3.rbf_list.3",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.3.rbf_list.4.gamma",
+      "module": "legacy_model.gnn_node.convs_bond_float.3.rbf_list.4",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.4.linear_list.0.weight",
+      "module": "legacy_model.gnn_node.convs_bond_float.4.linear_list.0",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.4.linear_list.0.bias",
+      "module": "legacy_model.gnn_node.convs_bond_float.4.linear_list.0",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.4.linear_list.1.weight",
+      "module": "legacy_model.gnn_node.convs_bond_float.4.linear_list.1",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.4.linear_list.1.bias",
+      "module": "legacy_model.gnn_node.convs_bond_float.4.linear_list.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.4.linear_list.2.weight",
+      "module": "legacy_model.gnn_node.convs_bond_float.4.linear_list.2",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.4.linear_list.2.bias",
+      "module": "legacy_model.gnn_node.convs_bond_float.4.linear_list.2",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.4.linear_list.3.weight",
+      "module": "legacy_model.gnn_node.convs_bond_float.4.linear_list.3",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.4.linear_list.3.bias",
+      "module": "legacy_model.gnn_node.convs_bond_float.4.linear_list.3",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.4.linear_list.4.weight",
+      "module": "legacy_model.gnn_node.convs_bond_float.4.linear_list.4",
+      "parameter_count": 2560,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.4.linear_list.4.bias",
+      "module": "legacy_model.gnn_node.convs_bond_float.4.linear_list.4",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.4.rbf_list.0.gamma",
+      "module": "legacy_model.gnn_node.convs_bond_float.4.rbf_list.0",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.4.rbf_list.1.gamma",
+      "module": "legacy_model.gnn_node.convs_bond_float.4.rbf_list.1",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.4.rbf_list.2.gamma",
+      "module": "legacy_model.gnn_node.convs_bond_float.4.rbf_list.2",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.4.rbf_list.3.gamma",
+      "module": "legacy_model.gnn_node.convs_bond_float.4.rbf_list.3",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_float.4.rbf_list.4.gamma",
+      "module": "legacy_model.gnn_node.convs_bond_float.4.rbf_list.4",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_embeding.0.bond_embedding_list.0.weight",
+      "module": "legacy_model.gnn_node.convs_bond_embeding.0.bond_embedding_list.0",
+      "parameter_count": 1664,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_embeding.0.bond_embedding_list.1.weight",
+      "module": "legacy_model.gnn_node.convs_bond_embeding.0.bond_embedding_list.1",
+      "parameter_count": 3584,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_embeding.0.bond_embedding_list.2.weight",
+      "module": "legacy_model.gnn_node.convs_bond_embeding.0.bond_embedding_list.2",
+      "parameter_count": 1024,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_embeding.1.bond_embedding_list.0.weight",
+      "module": "legacy_model.gnn_node.convs_bond_embeding.1.bond_embedding_list.0",
+      "parameter_count": 1664,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_embeding.1.bond_embedding_list.1.weight",
+      "module": "legacy_model.gnn_node.convs_bond_embeding.1.bond_embedding_list.1",
+      "parameter_count": 3584,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_embeding.1.bond_embedding_list.2.weight",
+      "module": "legacy_model.gnn_node.convs_bond_embeding.1.bond_embedding_list.2",
+      "parameter_count": 1024,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_embeding.2.bond_embedding_list.0.weight",
+      "module": "legacy_model.gnn_node.convs_bond_embeding.2.bond_embedding_list.0",
+      "parameter_count": 1664,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_embeding.2.bond_embedding_list.1.weight",
+      "module": "legacy_model.gnn_node.convs_bond_embeding.2.bond_embedding_list.1",
+      "parameter_count": 3584,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_embeding.2.bond_embedding_list.2.weight",
+      "module": "legacy_model.gnn_node.convs_bond_embeding.2.bond_embedding_list.2",
+      "parameter_count": 1024,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_embeding.3.bond_embedding_list.0.weight",
+      "module": "legacy_model.gnn_node.convs_bond_embeding.3.bond_embedding_list.0",
+      "parameter_count": 1664,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_embeding.3.bond_embedding_list.1.weight",
+      "module": "legacy_model.gnn_node.convs_bond_embeding.3.bond_embedding_list.1",
+      "parameter_count": 3584,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_embeding.3.bond_embedding_list.2.weight",
+      "module": "legacy_model.gnn_node.convs_bond_embeding.3.bond_embedding_list.2",
+      "parameter_count": 1024,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_embeding.4.bond_embedding_list.0.weight",
+      "module": "legacy_model.gnn_node.convs_bond_embeding.4.bond_embedding_list.0",
+      "parameter_count": 1664,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_embeding.4.bond_embedding_list.1.weight",
+      "module": "legacy_model.gnn_node.convs_bond_embeding.4.bond_embedding_list.1",
+      "parameter_count": 3584,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_bond_embeding.4.bond_embedding_list.2.weight",
+      "module": "legacy_model.gnn_node.convs_bond_embeding.4.bond_embedding_list.2",
+      "parameter_count": 1024,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_angle_float.0.linear_list.0.weight",
+      "module": "legacy_model.gnn_node.convs_angle_float.0.linear_list.0",
+      "parameter_count": 4096,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_angle_float.0.linear_list.0.bias",
+      "module": "legacy_model.gnn_node.convs_angle_float.0.linear_list.0",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_angle_float.0.linear_list.1.weight",
+      "module": "legacy_model.gnn_node.convs_angle_float.0.linear_list.1",
+      "parameter_count": 2048,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_angle_float.0.linear_list.1.bias",
+      "module": "legacy_model.gnn_node.convs_angle_float.0.linear_list.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_angle_float.0.rbf_list.0.gamma",
+      "module": "legacy_model.gnn_node.convs_angle_float.0.rbf_list.0",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_angle_float.1.linear_list.0.weight",
+      "module": "legacy_model.gnn_node.convs_angle_float.1.linear_list.0",
+      "parameter_count": 4096,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_angle_float.1.linear_list.0.bias",
+      "module": "legacy_model.gnn_node.convs_angle_float.1.linear_list.0",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_angle_float.1.linear_list.1.weight",
+      "module": "legacy_model.gnn_node.convs_angle_float.1.linear_list.1",
+      "parameter_count": 2048,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_angle_float.1.linear_list.1.bias",
+      "module": "legacy_model.gnn_node.convs_angle_float.1.linear_list.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_angle_float.1.rbf_list.0.gamma",
+      "module": "legacy_model.gnn_node.convs_angle_float.1.rbf_list.0",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_angle_float.2.linear_list.0.weight",
+      "module": "legacy_model.gnn_node.convs_angle_float.2.linear_list.0",
+      "parameter_count": 4096,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_angle_float.2.linear_list.0.bias",
+      "module": "legacy_model.gnn_node.convs_angle_float.2.linear_list.0",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_angle_float.2.linear_list.1.weight",
+      "module": "legacy_model.gnn_node.convs_angle_float.2.linear_list.1",
+      "parameter_count": 2048,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_angle_float.2.linear_list.1.bias",
+      "module": "legacy_model.gnn_node.convs_angle_float.2.linear_list.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_angle_float.2.rbf_list.0.gamma",
+      "module": "legacy_model.gnn_node.convs_angle_float.2.rbf_list.0",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_angle_float.3.linear_list.0.weight",
+      "module": "legacy_model.gnn_node.convs_angle_float.3.linear_list.0",
+      "parameter_count": 4096,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_angle_float.3.linear_list.0.bias",
+      "module": "legacy_model.gnn_node.convs_angle_float.3.linear_list.0",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_angle_float.3.linear_list.1.weight",
+      "module": "legacy_model.gnn_node.convs_angle_float.3.linear_list.1",
+      "parameter_count": 2048,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_angle_float.3.linear_list.1.bias",
+      "module": "legacy_model.gnn_node.convs_angle_float.3.linear_list.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_angle_float.3.rbf_list.0.gamma",
+      "module": "legacy_model.gnn_node.convs_angle_float.3.rbf_list.0",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_angle_float.4.linear_list.0.weight",
+      "module": "legacy_model.gnn_node.convs_angle_float.4.linear_list.0",
+      "parameter_count": 4096,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_angle_float.4.linear_list.0.bias",
+      "module": "legacy_model.gnn_node.convs_angle_float.4.linear_list.0",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_angle_float.4.linear_list.1.weight",
+      "module": "legacy_model.gnn_node.convs_angle_float.4.linear_list.1",
+      "parameter_count": 2048,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_angle_float.4.linear_list.1.bias",
+      "module": "legacy_model.gnn_node.convs_angle_float.4.linear_list.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.convs_angle_float.4.rbf_list.0.gamma",
+      "module": "legacy_model.gnn_node.convs_angle_float.4.rbf_list.0",
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": true,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    {
+      "name": "legacy_model.gnn_node.batch_norms.0.weight",
+      "module": "legacy_model.gnn_node.batch_norms.0",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    {
+      "name": "legacy_model.gnn_node.batch_norms.0.bias",
+      "module": "legacy_model.gnn_node.batch_norms.0",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    {
+      "name": "legacy_model.gnn_node.batch_norms.1.weight",
+      "module": "legacy_model.gnn_node.batch_norms.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    {
+      "name": "legacy_model.gnn_node.batch_norms.1.bias",
+      "module": "legacy_model.gnn_node.batch_norms.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    {
+      "name": "legacy_model.gnn_node.batch_norms.2.weight",
+      "module": "legacy_model.gnn_node.batch_norms.2",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    {
+      "name": "legacy_model.gnn_node.batch_norms.2.bias",
+      "module": "legacy_model.gnn_node.batch_norms.2",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    {
+      "name": "legacy_model.gnn_node.batch_norms.3.weight",
+      "module": "legacy_model.gnn_node.batch_norms.3",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    {
+      "name": "legacy_model.gnn_node.batch_norms.3.bias",
+      "module": "legacy_model.gnn_node.batch_norms.3",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    {
+      "name": "legacy_model.gnn_node.batch_norms.4.weight",
+      "module": "legacy_model.gnn_node.batch_norms.4",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    {
+      "name": "legacy_model.gnn_node.batch_norms.4.bias",
+      "module": "legacy_model.gnn_node.batch_norms.4",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    {
+      "name": "legacy_model.gnn_node.batch_norms_ba.0.weight",
+      "module": "legacy_model.gnn_node.batch_norms_ba.0",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    {
+      "name": "legacy_model.gnn_node.batch_norms_ba.0.bias",
+      "module": "legacy_model.gnn_node.batch_norms_ba.0",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    {
+      "name": "legacy_model.gnn_node.batch_norms_ba.1.weight",
+      "module": "legacy_model.gnn_node.batch_norms_ba.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    {
+      "name": "legacy_model.gnn_node.batch_norms_ba.1.bias",
+      "module": "legacy_model.gnn_node.batch_norms_ba.1",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    {
+      "name": "legacy_model.gnn_node.batch_norms_ba.2.weight",
+      "module": "legacy_model.gnn_node.batch_norms_ba.2",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    {
+      "name": "legacy_model.gnn_node.batch_norms_ba.2.bias",
+      "module": "legacy_model.gnn_node.batch_norms_ba.2",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    {
+      "name": "legacy_model.gnn_node.batch_norms_ba.3.weight",
+      "module": "legacy_model.gnn_node.batch_norms_ba.3",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    {
+      "name": "legacy_model.gnn_node.batch_norms_ba.3.bias",
+      "module": "legacy_model.gnn_node.batch_norms_ba.3",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    {
+      "name": "legacy_model.gnn_node.batch_norms_ba.4.weight",
+      "module": "legacy_model.gnn_node.batch_norms_ba.4",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    {
+      "name": "legacy_model.gnn_node.batch_norms_ba.4.bias",
+      "module": "legacy_model.gnn_node.batch_norms_ba.4",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    {
+      "name": "legacy_model.graph_pred_linear.0.weight",
+      "module": "legacy_model.graph_pred_linear.0",
+      "parameter_count": 768,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.graph_pred_linear.0.bias",
+      "module": "legacy_model.graph_pred_linear.0",
+      "parameter_count": 6,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "legacy_model.NN_descriptor.0.weight",
+      "module": "legacy_model.NN_descriptor.0",
+      "parameter_count": 233856,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "GINGraphPooling/ConditionComplete representations never call NN_descriptor"
+    },
+    {
+      "name": "legacy_model.NN_descriptor.0.bias",
+      "module": "legacy_model.NN_descriptor.0",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "GINGraphPooling/ConditionComplete representations never call NN_descriptor"
+    },
+    {
+      "name": "legacy_model.NN_descriptor.2.weight",
+      "module": "legacy_model.NN_descriptor.2",
+      "parameter_count": 16384,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "GINGraphPooling/ConditionComplete representations never call NN_descriptor"
+    },
+    {
+      "name": "legacy_model.NN_descriptor.2.bias",
+      "module": "legacy_model.NN_descriptor.2",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "module_executed": false,
+      "deletion_eligibility": true,
+      "static_trace": "GINGraphPooling/ConditionComplete representations never call NN_descriptor"
+    },
+    {
+      "name": "condition_branch.solvent_embedding.weight",
+      "module": "condition_branch.solvent_embedding",
+      "parameter_count": 12,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "condition_branch.hidden.weight",
+      "module": "condition_branch.hidden",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "condition_branch.hidden.bias",
+      "module": "condition_branch.hidden",
+      "parameter_count": 16,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "condition_branch.output.weight",
+      "module": "condition_branch.output",
+      "parameter_count": 2048,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    {
+      "name": "condition_branch.output.bias",
+      "module": "condition_branch.output",
+      "parameter_count": 128,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "module_executed": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    }
+  ],
+  "modules": {
+    "legacy_model.gnn_node.atom_encoder.atom_embedding_list.0": {
+      "parameter_count": 15872,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.atom_encoder.atom_embedding_list.1": {
+      "parameter_count": 1792,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.atom_encoder.atom_embedding_list.2": {
+      "parameter_count": 2176,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.atom_encoder.atom_embedding_list.3": {
+      "parameter_count": 2432,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.atom_encoder.atom_embedding_list.4": {
+      "parameter_count": 2816,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.atom_encoder.atom_embedding_list.5": {
+      "parameter_count": 1792,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.atom_encoder.atom_embedding_list.6": {
+      "parameter_count": 2432,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.atom_encoder.atom_embedding_list.7": {
+      "parameter_count": 896,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.atom_encoder.atom_embedding_list.8": {
+      "parameter_count": 1920,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.bond_encoder.bond_embedding_list.0": {
+      "parameter_count": 1664,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.bond_encoder.bond_embedding_list.1": {
+      "parameter_count": 3584,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.bond_encoder.bond_embedding_list.2": {
+      "parameter_count": 1024,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.bond_float_encoder.linear_list.0": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.bond_float_encoder.linear_list.1": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.bond_float_encoder.linear_list.2": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.bond_float_encoder.linear_list.3": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.bond_float_encoder.linear_list.4": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.bond_float_encoder.rbf_list.0": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.bond_float_encoder.rbf_list.1": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.bond_float_encoder.rbf_list.2": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.bond_float_encoder.rbf_list.3": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.bond_float_encoder.rbf_list.4": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.bond_angle_encoder.linear_list.0": {
+      "parameter_count": 4224,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "initial bond_angle_encoder registered but never called"
+    },
+    "legacy_model.gnn_node.bond_angle_encoder.linear_list.1": {
+      "parameter_count": 2176,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "initial bond_angle_encoder registered but never called"
+    },
+    "legacy_model.gnn_node.bond_angle_encoder.rbf_list.0": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "initial bond_angle_encoder registered but never called"
+    },
+    "legacy_model.gnn_node.convs.0": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs.0.mlp.0": {
+      "parameter_count": 16512,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs.0.mlp.1": {
+      "parameter_count": 256,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs.0.mlp.3": {
+      "parameter_count": 16512,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs.1": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs.1.mlp.0": {
+      "parameter_count": 16512,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs.1.mlp.1": {
+      "parameter_count": 256,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs.1.mlp.3": {
+      "parameter_count": 16512,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs.2": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs.2.mlp.0": {
+      "parameter_count": 16512,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs.2.mlp.1": {
+      "parameter_count": 256,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs.2.mlp.3": {
+      "parameter_count": 16512,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs.3": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs.3.mlp.0": {
+      "parameter_count": 16512,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs.3.mlp.1": {
+      "parameter_count": 256,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs.3.mlp.3": {
+      "parameter_count": 16512,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs.4": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs.4.mlp.0": {
+      "parameter_count": 16512,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs.4.mlp.1": {
+      "parameter_count": 256,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs.4.mlp.3": {
+      "parameter_count": 16512,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_angle.0": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_angle.0.mlp.0": {
+      "parameter_count": 16512,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_angle.0.mlp.1": {
+      "parameter_count": 256,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_angle.0.mlp.3": {
+      "parameter_count": 16512,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_angle.1": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_angle.1.mlp.0": {
+      "parameter_count": 16512,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_angle.1.mlp.1": {
+      "parameter_count": 256,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_angle.1.mlp.3": {
+      "parameter_count": 16512,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_angle.2": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_angle.2.mlp.0": {
+      "parameter_count": 16512,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_angle.2.mlp.1": {
+      "parameter_count": 256,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_angle.2.mlp.3": {
+      "parameter_count": 16512,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_angle.3": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_angle.3.mlp.0": {
+      "parameter_count": 16512,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_angle.3.mlp.1": {
+      "parameter_count": 256,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_angle.3.mlp.3": {
+      "parameter_count": 16512,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_angle.4": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    "legacy_model.gnn_node.convs_bond_angle.4.mlp.0": {
+      "parameter_count": 16512,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    "legacy_model.gnn_node.convs_bond_angle.4.mlp.1": {
+      "parameter_count": 256,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    "legacy_model.gnn_node.convs_bond_angle.4.mlp.3": {
+      "parameter_count": 16512,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    "legacy_model.gnn_node.convs_bond_float.0.linear_list.0": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.0.linear_list.1": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.0.linear_list.2": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.0.linear_list.3": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.0.linear_list.4": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.0.rbf_list.0": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.0.rbf_list.1": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.0.rbf_list.2": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.0.rbf_list.3": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.0.rbf_list.4": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.1.linear_list.0": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.1.linear_list.1": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.1.linear_list.2": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.1.linear_list.3": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.1.linear_list.4": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.1.rbf_list.0": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.1.rbf_list.1": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.1.rbf_list.2": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.1.rbf_list.3": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.1.rbf_list.4": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.2.linear_list.0": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.2.linear_list.1": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.2.linear_list.2": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.2.linear_list.3": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.2.linear_list.4": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.2.rbf_list.0": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.2.rbf_list.1": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.2.rbf_list.2": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.2.rbf_list.3": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.2.rbf_list.4": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.3.linear_list.0": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.3.linear_list.1": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.3.linear_list.2": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.3.linear_list.3": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.3.linear_list.4": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.3.rbf_list.0": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.3.rbf_list.1": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.3.rbf_list.2": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.3.rbf_list.3": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.3.rbf_list.4": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_float.4.linear_list.0": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    "legacy_model.gnn_node.convs_bond_float.4.linear_list.1": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    "legacy_model.gnn_node.convs_bond_float.4.linear_list.2": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    "legacy_model.gnn_node.convs_bond_float.4.linear_list.3": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    "legacy_model.gnn_node.convs_bond_float.4.linear_list.4": {
+      "parameter_count": 2688,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    "legacy_model.gnn_node.convs_bond_float.4.rbf_list.0": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    "legacy_model.gnn_node.convs_bond_float.4.rbf_list.1": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    "legacy_model.gnn_node.convs_bond_float.4.rbf_list.2": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    "legacy_model.gnn_node.convs_bond_float.4.rbf_list.3": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    "legacy_model.gnn_node.convs_bond_float.4.rbf_list.4": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    "legacy_model.gnn_node.convs_bond_embeding.0.bond_embedding_list.0": {
+      "parameter_count": 1664,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_embeding.0.bond_embedding_list.1": {
+      "parameter_count": 3584,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_embeding.0.bond_embedding_list.2": {
+      "parameter_count": 1024,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_embeding.1.bond_embedding_list.0": {
+      "parameter_count": 1664,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_embeding.1.bond_embedding_list.1": {
+      "parameter_count": 3584,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_embeding.1.bond_embedding_list.2": {
+      "parameter_count": 1024,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_embeding.2.bond_embedding_list.0": {
+      "parameter_count": 1664,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_embeding.2.bond_embedding_list.1": {
+      "parameter_count": 3584,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_embeding.2.bond_embedding_list.2": {
+      "parameter_count": 1024,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_embeding.3.bond_embedding_list.0": {
+      "parameter_count": 1664,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_embeding.3.bond_embedding_list.1": {
+      "parameter_count": 3584,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_embeding.3.bond_embedding_list.2": {
+      "parameter_count": 1024,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_bond_embeding.4.bond_embedding_list.0": {
+      "parameter_count": 1664,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    "legacy_model.gnn_node.convs_bond_embeding.4.bond_embedding_list.1": {
+      "parameter_count": 3584,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    "legacy_model.gnn_node.convs_bond_embeding.4.bond_embedding_list.2": {
+      "parameter_count": 1024,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    "legacy_model.gnn_node.convs_angle_float.0.linear_list.0": {
+      "parameter_count": 4224,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_angle_float.0.linear_list.1": {
+      "parameter_count": 2176,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_angle_float.0.rbf_list.0": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_angle_float.1.linear_list.0": {
+      "parameter_count": 4224,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_angle_float.1.linear_list.1": {
+      "parameter_count": 2176,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_angle_float.1.rbf_list.0": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_angle_float.2.linear_list.0": {
+      "parameter_count": 4224,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_angle_float.2.linear_list.1": {
+      "parameter_count": 2176,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_angle_float.2.rbf_list.0": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_angle_float.3.linear_list.0": {
+      "parameter_count": 4224,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_angle_float.3.linear_list.1": {
+      "parameter_count": 2176,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_angle_float.3.rbf_list.0": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.gnn_node.convs_angle_float.4.linear_list.0": {
+      "parameter_count": 4224,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    "legacy_model.gnn_node.convs_angle_float.4.linear_list.1": {
+      "parameter_count": 2176,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    "legacy_model.gnn_node.convs_angle_float.4.rbf_list.0": {
+      "parameter_count": 1,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "terminal edge update computed after final node update; returned edge representation discarded by R2"
+    },
+    "legacy_model.gnn_node.batch_norms.0": {
+      "parameter_count": 256,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    "legacy_model.gnn_node.batch_norms.1": {
+      "parameter_count": 256,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    "legacy_model.gnn_node.batch_norms.2": {
+      "parameter_count": 256,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    "legacy_model.gnn_node.batch_norms.3": {
+      "parameter_count": 256,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    "legacy_model.gnn_node.batch_norms.4": {
+      "parameter_count": 256,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    "legacy_model.gnn_node.batch_norms_ba.0": {
+      "parameter_count": 256,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    "legacy_model.gnn_node.batch_norms_ba.1": {
+      "parameter_count": 256,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    "legacy_model.gnn_node.batch_norms_ba.2": {
+      "parameter_count": 256,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    "legacy_model.gnn_node.batch_norms_ba.3": {
+      "parameter_count": 256,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    "legacy_model.gnn_node.batch_norms_ba.4": {
+      "parameter_count": 256,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "outer BatchNorm unused in geometry-enhanced forward; internal GIN MLP BatchNorm retained"
+    },
+    "legacy_model.graph_pred_linear.0": {
+      "parameter_count": 774,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "legacy_model.NN_descriptor.0": {
+      "parameter_count": 233984,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "GINGraphPooling/ConditionComplete representations never call NN_descriptor"
+    },
+    "legacy_model.NN_descriptor.2": {
+      "parameter_count": 16512,
+      "requires_grad": true,
+      "gradient_present": false,
+      "output_reachable": false,
+      "deletion_eligibility": true,
+      "static_trace": "GINGraphPooling/ConditionComplete representations never call NN_descriptor"
+    },
+    "condition_branch.solvent_embedding": {
+      "parameter_count": 12,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "condition_branch.hidden": {
+      "parameter_count": 144,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    },
+    "condition_branch.output": {
+      "parameter_count": 2176,
+      "requires_grad": true,
+      "gradient_present": true,
+      "output_reachable": true,
+      "deletion_eligibility": false,
+      "static_trace": "retained prediction dependency confirmed by autograd"
+    }
+  }
+}

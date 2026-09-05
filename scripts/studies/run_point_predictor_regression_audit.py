@@ -381,16 +381,24 @@ def prediction_rows(data, role, positions, truth, prediction):
         }
 
 
-def run_variant(variant: str, device: torch.device) -> dict[str, Any]:
+def run_variant(variant: str, device: torch.device, *, model_factory=None,
+                results_dir=None, runtime_dir=None, config_override=None,
+                run_name=None, progress_callback=None) -> dict[str, Any]:
+    """Run the frozen loop; optional injection reuses it for controlled R2 pruning.
+
+    Default arguments preserve historical R0–R3 behavior and output locations.
+    The injected factory is used both at initialization and checkpoint reload.
+    """
     data, split, indices = load_frozen_inputs()
     atom_data, angle_data, scaler, scaler_match, clean_norm, v2_norm, scales = fit_inputs(data, split, indices)
-    config = variant_config(variant)
-    model = build_variant(variant, clean_norm, v2_norm, device)
+    config = variant_config(variant) if config_override is None else config_override
+    factory = build_variant if model_factory is None else model_factory
+    model = factory(variant, clean_norm, v2_norm, device)
     optimizer = torch.optim.Adam(
         model.parameters(), lr=config["learning_rate"], weight_decay=config["weight_decay"]
     )
-    run_dir = RESULTS / variant
-    runtime_dir = RUNTIME / variant
+    run_dir = (RESULTS if results_dir is None else results_dir) / (run_name or variant)
+    runtime_dir = (RUNTIME if runtime_dir is None else runtime_dir) / (run_name or variant)
     run_dir.mkdir(parents=True, exist_ok=True)
     runtime_dir.mkdir(parents=True, exist_ok=True)
     atomic_json(run_dir / "config.json", config)
@@ -428,6 +436,8 @@ def run_variant(variant: str, device: torch.device) -> dict[str, Any]:
             **{f"validation_{key}": value for key, value in validation.items()},
         }
         history.append(record)
+        if progress_callback is not None:
+            progress_callback(record)
         if score < best_score:
             best_score, best_epoch, stale = score, epoch, 0
             torch.save({
@@ -443,7 +453,7 @@ def run_variant(variant: str, device: torch.device) -> dict[str, Any]:
     pd.DataFrame(history).to_csv(run_dir / "history.csv", index=False)
     checkpoint_path = runtime_dir / "best.pt"
     checkpoint = torch.load(checkpoint_path, map_location=device, weights_only=False)
-    reloaded = build_variant(variant, clean_norm, v2_norm, device)
+    reloaded = factory(variant, clean_norm, v2_norm, device)
     reloaded.load_state_dict(checkpoint["model_state_dict"])
     split_metrics, all_predictions = {}, []
     for role in ("train", "validation", "test"):
@@ -496,7 +506,7 @@ def run_variant(variant: str, device: torch.device) -> dict[str, Any]:
     ], "runtime_checkpoint_committed": False}
     atomic_json(run_dir / "artifact_manifest.json", manifest)
     summary = {
-        "variant": variant, "best_epoch": best_epoch, "epochs_run": len(history),
+        "variant": run_name or variant, "best_epoch": best_epoch, "epochs_run": len(history),
         "metrics": split_metrics, "checkpoint": checkpoint_metadata,
     }
     atomic_json(run_dir / "run_summary.json", summary)
