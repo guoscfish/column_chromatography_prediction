@@ -10,11 +10,11 @@
                                       └─ Track C: active transfer (deferred)
 ```
 
-Track A and Track B are independent but related, but both are currently blocked by the unresolved Clean point-predictor regression. Track C depends on Track B; D42–D46 do not form an automatic route to another acquisition experiment.
+Track A and Track B are independent but related, but both are currently paused pending the R2-pruned quantile-head and UQ qualification gates. Track C depends on Track B; D42–D46 do not form an automatic route to another acquisition experiment.
 
 ## Current Predictor Gate
 
-The developmental E0 regression ladder reproduced the historical Legacy result and localized the first large drop to `R2_CONDITION_COMPLETE_V2 -> R3_CLEAN_CURRENT`. Clean point-performance qualification is reopened. The six-run Clean qualification remains engineering/input-contract evidence; it does not authorize UQ, transfer, or active-learning work. The next proposal is one human-approved minimal nonlinear late-fusion diagnostic, with no sweep or automatic repair.
+The E0 ladder localized the performance failure to R2 → R3 Clean. Function-preserving pruning now removes all 318,856 dead registered parameters from R2 and exactly reproduces the historical R2 checkpoint predictions and controlled retraining. The mainline is `Legacy historical → Condition Completion V2 → R2-pruned candidate baseline`. Clean is `FAILED_POINT_PERFORMANCE_ARCHITECTURE_EXPERIMENT / NOT_BASELINE`, with engineering reachability PASS and performance FAIL. The next separate test changes only the quantile head; no Clean repair, UQ, transfer or AL was run. See [predictor roadmap](roadmap/PREDICTOR.md).
 
 ## 4g In-domain AL Status
 
@@ -84,9 +84,9 @@ T1b-1 separated capacity from insertion-location search with a zero-initialized 
 
 I0 confirmed by code tracing and perturbation that the clean legacy predictor constructs ten continuous edge features but consumes only positions 0–4. Eluent HBA, eluent LogP, loading solvent, loading mass, and loading volume do not reach the encoder. Acquisition nevertheless uses all nine condition dimensions. The audited model has 775,476 nominal requires-grad parameters, 456,620 gradient-bearing parameters, and 318,856 forward-unreachable parameters. These are implementation facts, not a finding that the historical outcomes are invalid.
 
-Predictor V2 is a separate condition-complete variant. The residual condition-completion candidate has passed implementation preflight: it preserves the legacy path, adds typed encoders for only the five missing conditions, and is zero-output initialized. This establishes clean implementability, not predictive value.
+Predictor V2 preserves the Legacy early condition interaction and adds the missing typed condition path. Its frozen E0 test R² is 0.889218 / 0.941563. R2-pruned now preserves that function and every retained initialization value while removing all audited dead registrations; its complete retraining history and point metrics equal R2.
 
-The forward sequence is now `I0 semantic audit -> Predictor V2 implementation preflight -> Clean 4g engineering qualification -> predictor regression diagnosis -> future point qualification -> future UQ -> future transfer -> future active transfer`. Point qualification is currently reopened; formal target adaptation, UQ claims, and active transfer remain unauthorized.
+The predictor sequence is `Legacy historical → Condition Completion V2 → R2-pruned candidate baseline → separate quantile-head controlled test`. The current head remains unchanged. Formal baseline/UQ qualification and any future transfer or AL require separate decisions; the next head experiment has not been executed.
 
 | Area | Relevant work/idea | Project implication |
 |---|---|---|

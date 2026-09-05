@@ -3,7 +3,7 @@
   "formal_runs_completed": 6,
   "formal_runs_expected": 6,
   "gate_a_numerical_validity": "PASS",
-  "gate_b_predictive_usability": "POINT_PERFORMANCE_QUALIFICATION_REOPENED",
+  "gate_b_predictive_usability": "FAILED_POINT_PERFORMANCE_ARCHITECTURE_EXPERIMENT / NOT_BASELINE",
   "gate_c_uncertainty_usability": "UQ_PAUSED",
   "gate_d_condition_usage": "CONDITION_LEARNED_RELIANCE_OBSERVED_6_OF_6",
   "legacy_superiority_claim": false,
@@ -11,7 +11,12 @@
   "multi_model_benchmark_required_for_current_mainline": false,
   "transfer_8g_status": "PAUSED",
   "active_learning_status": "PAUSED",
-  "next_action": "PREDICTOR_REGRESSION_DIAGNOSIS",
+  "next_action": "R2_PRUNED_QUANTILE_HEAD_QUALIFICATION",
   "downstream_work_executed": false,
-  "human_review_required_before_downstream_work": true
+  "human_review_required_before_downstream_work": true,
+  "current_predictor": "qgeognn_condition_complete_v2_pruned",
+  "current_predictor_status": "POINT_PREDICTOR_CANDIDATE_BASELINE",
+  "clean_engineering_reachability": "PASS",
+  "clean_performance": "FAIL",
+  "followup_study": "studies/predictor/r2_pruned_requalification/"
 }

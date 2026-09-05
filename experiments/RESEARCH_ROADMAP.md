@@ -1,5 +1,9 @@
 # Deferred Research Roadmap
 
+## Predictor prerequisite
+
+The current predictor mainline is `Legacy historical → Condition Completion V2 → R2-pruned candidate baseline`. The function-preserving cleanup and frozen E0 retraining succeeded. The next separate step is quantile-head qualification; it has not been run. Clean is a failed point-performance architecture experiment retained for provenance. See the [predictor roadmap](../docs/roadmap/PREDICTOR.md).
+
 ## Track A — 4g In-domain Active Learning
 
 Status: `PAUSED_AFTER_A1A / PROMISING_BUT_UNFINISHED`.

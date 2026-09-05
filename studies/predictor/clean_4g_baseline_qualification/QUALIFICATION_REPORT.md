@@ -1,6 +1,8 @@
 # Clean-QGeoGNN 4g baseline qualification report
 
-Status: `4G_ENGINEERING_QUALIFICATION_COMPLETE / POINT_PERFORMANCE_QUALIFICATION_REOPENED / UQ_PAUSED`.
+Status: `4G_ENGINEERING_QUALIFICATION_COMPLETE / FAILED_POINT_PERFORMANCE_ARCHITECTURE_EXPERIMENT / NOT_BASELINE / UQ_PAUSED`.
+
+Current mainline: [R2-pruned candidate baseline](../r2_pruned_requalification/README.md). Clean engineering reachability PASS; point performance FAIL. The next separate controlled test changes only the R2-pruned quantile head; it has not been run. All measured Clean results below are historical provenance.
 
 ## A. Protocol
 
@@ -62,7 +64,7 @@ Nominal q10–q90 coverage is 0.8. `Cross` is the within-target quantile crossin
 | Compound | 1101 | 0.653 / 9.864 / 1.453 | 0.605 / 15.189 / 2.590 | 0 | 0.000 | 0.707 |
 | Compound | Mean | 0.700 / 9.732 / 1.415 | 0.642 / 16.257 / 2.611 | 0 | 0.000 | 0.820 |
 
-The monotonic head maintained within-target ordering in every prediction. Intervals are non-degenerate, but V2 is under-covered in row interpolation and both targets are materially under-covered in compound generalization. Point-baseline readiness therefore coexists with `UQ_REQUIRES_FURTHER_QUALIFICATION`.
+The monotonic head maintained within-target ordering in every prediction. Intervals are non-degenerate, but V2 is under-covered in row interpolation and both targets are materially under-covered in compound generalization. These historical interval diagnostics do not establish point-baseline readiness; Clean subsequently failed the controlled point-performance gate, and UQ remains unqualified.
 
 ## E. Condition usage
 
@@ -122,8 +124,8 @@ There was no failed seed or catastrophic learning failure: all twelve target-lev
 
 ## I. Recommended next gate
 
-`NEXT: controlled predictor regression diagnosis before UQ, transfer, or active-learning work.`
+`NEXT: R2_PRUNED_QUANTILE_HEAD_QUALIFICATION` (separate controlled test, not executed).
 
-The subsequent regression audit is the authoritative next-stage decision: R0 reproduced historical Legacy performance, R1 and R2 stayed strong, and R3 Clean regressed on the identical frozen E0 split. Therefore UQ qualification/calibration, 4g -> 8g transfer, and active-learning work are paused. No UQ tuning, 8g transfer, or active-learning work was executed in this study.
+The subsequent regression audit established: R0 reproduced historical Legacy performance, R1 and R2 stayed strong, and R3 Clean regressed on the identical frozen E0 split. The later R2-pruned cleanup exactly reproduced R2 and became the current candidate. Its separate quantile-head test is next; UQ qualification/calibration, 4g -> 8g transfer, and active-learning work remain paused. No UQ tuning, 8g transfer, or active-learning work was executed in this study.
 
 Machine-readable support is in `results/aggregate_summary.json`, `formal_run_audit.json`, and the four summary CSV files. Per-run metrics and predictions remain the primary evidence.

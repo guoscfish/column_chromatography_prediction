@@ -9,6 +9,8 @@ Use this page as the documentation entry point. Older documents remain available
 
 ## Predictor contracts
 
+- [`roadmap/PREDICTOR.md`](roadmap/PREDICTOR.md): R2-pruned candidate and the separate next quantile-head gate.
+
 - [`model/LEGACY_QGEOGNN_AUDIT.md`](model/LEGACY_QGEOGNN_AUDIT.md): confirmed legacy implementation facts and evidence boundary.
 - [`model/PAPER_CODE_CONTRACT_AUDIT.md`](model/PAPER_CODE_CONTRACT_AUDIT.md): paper-method, official-code Legacy, current Legacy, and Clean contract comparison.
 - [`model/INPUT_SCHEMA.md`](model/INPUT_SCHEMA.md): typed input semantics and units.

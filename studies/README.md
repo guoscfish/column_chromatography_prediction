@@ -4,6 +4,8 @@ This index organizes research by scientific question rather than experiment ID. 
 
 ## Predictor
 
+- [`predictor/r2_pruned_requalification/`](predictor/r2_pruned_requalification/README.md): current R2-pruned candidate, function-equivalence audits and controlled E0 retrain.
+
 - [`predictor/semantic_input_audit/`](predictor/semantic_input_audit/README.md): legacy input semantics and effective-parameter audit (historical ID I0).
 - [`predictor/condition_completion/`](predictor/condition_completion/README.md): Predictor V2 preregistration and implementation preflight.
 - [`predictor/4g_source_benchmark/`](predictor/4g_source_benchmark/README.md): formal source benchmark status and protocol link.

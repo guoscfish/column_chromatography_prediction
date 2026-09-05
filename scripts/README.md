@@ -1,5 +1,7 @@
 # Scripts
 
+Current R2-pruned study: `studies/run_r2_pruned_requalification.py` runs reachability/equivalence gates before the controlled retrain (`--gates-only` checks without retraining); `studies/summarize_r2_pruned_requalification.py` compares completed artifacts with R2. See [the study](../studies/predictor/r2_pruned_requalification/README.md).
+
 Reusable scientific code now lives in `src/qgeognn_al/`. `al_engine.py`, `al_acquisition.py`, and `qgeognn_graphs.py` are compatibility shims for historical imports.
 
 Historical top-level `run_*.py` files are **historical / reproduction only**:

@@ -2,7 +2,7 @@
 
 Model variant: `qgeognn_clean_fusion_v1`.
 
-Status: `IMPLEMENTATION_PREFLIGHT_REVISION_2_COMPLETE / FORMAL_PERFORMANCE_UNQUALIFIED`. It is distinct from `qgeognn_condition_complete_v2`, which remains a controlled historical ablation, and it is not a paper-faithful reproduction.
+Status: `FAILED_POINT_PERFORMANCE_ARCHITECTURE_EXPERIMENT / NOT_BASELINE`. Engineering reachability = PASS; point performance = FAIL. The frozen E0 regression ladder localized the large drop to R2 → R3. Preserve this design and its results for regression provenance; it is no longer the predictor mainline. The current work returns to `qgeognn_condition_complete_v2` and removes only audited prediction-unreachable parameters. No MLP, FiLM, LayerNorm, or bottleneck repair is scheduled; any future Clean research needs a separate study.
 
 ## Architecture
 

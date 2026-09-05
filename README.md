@@ -6,16 +6,16 @@ This repository studies retention-volume prediction for column chromatography, w
 
 | Direction | Status | Boundary |
 |---|---|---|
-| Predictor | `POINT_PREDICTOR_PERFORMANCE_REGRESSION_UNRESOLVED` | The six-run Clean 4g study remains complete as engineering/input-contract evidence, but the frozen E0 regression ladder reproduced Legacy/V2 R2 values near 0.9 and Clean values near 0.5. Point-performance qualification is reopened; Legacy is frozen historical evidence and V2 is an archived diagnostic control. |
+| Predictor | `POINT_PREDICTOR_CANDIDATE_BASELINE` | R2-pruned removes 318,856 prediction-unreachable parameters and retains 458,952 gradient-bearing parameters. Function gates and frozen E0 retraining exactly reproduce R2 (test R² 0.889218 / 0.941563). Clean is a failed architecture experiment, retained for provenance. |
 | 4g in-domain active learning | `PAUSED / historical evidence retained` | E2 and A1a results remain measured historical evidence. No new acquisition run is authorized. |
-| 4g -> 8g transfer | `PAUSED_PENDING_PREDICTOR_REGRESSION_RESOLUTION` | No Clean transfer run has been executed. Transfer and UQ work remain paused until the point-predictor regression is resolved and independently reviewed. |
+| 4g -> 8g transfer | `PAUSED_PENDING_HEAD_AND_UQ_QUALIFICATION` | No Clean transfer run has been executed. Transfer and UQ work remain paused pending separate quantile-head and uncertainty-contract qualification. |
 | Active transfer | `DEFERRED` | It remains downstream of predictor and transfer qualification. |
 
 The predictor is being requalified because the I0 semantic audit found that the legacy graph builder constructs ten continuous edge features while the legacy encoder consumes only five. The controlled regression audit then confirmed that the first large performance loss appears between Condition Completion V2 and the current Clean architecture on the identical historical E0 split. These facts narrow the interpretation of historical evidence; they do not erase the measured results.
 
 ## Next step
 
-The sole recommended next gate is a human-approved, minimal nonlinear late-fusion diagnostic on the same frozen E0 control. It must not be treated as an automatic architecture search or repair. UQ qualification/calibration, 4g -> 8g transfer, and active-learning work remain paused. No 8g labels or active-learning runs were used in either the completed 4g qualification or the regression audit.
+The predictor mainline is **Legacy historical → Condition Completion V2 → R2-pruned candidate baseline**. The next separate controlled test should compare the current head with a monotonic quantile head, changing only the output head. This round did not execute that test, UQ, 8g transfer, or active learning. See the [R2-pruned comparison](studies/predictor/r2_pruned_requalification/R2_PRUNED_COMPARISON.md) and [predictor roadmap](docs/roadmap/PREDICTOR.md).
 
 ## Start reading
 

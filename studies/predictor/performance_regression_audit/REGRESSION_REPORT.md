@@ -75,13 +75,8 @@ The prior six-run Clean study remains valid evidence for engineering integrity, 
 
 UQ qualification, 4g→8g transfer, active learning, and active transfer are paused.
 
-## Next controlled stage (not executed)
+## Subsequent decision
 
-The smallest recommended modification is Candidate A: replace the single linear late-fusion readout with a small, capacity-bounded nonlinear interaction layer, `concat(z_mol,z_cond) -> MLP -> quantile head`, while freezing every other choice and rerunning the same developmental E0 control. This directly tests the leading supported mechanism with the smallest conceptual change.
+The former Clean MLP/FiLM/message-passing repair proposals are superseded. [R2-pruned requalification](../r2_pruned_requalification/R2_PRUNED_COMPARISON.md) removed only audited dead modules and exactly reproduced R2 checkpoint outputs, all point metrics and the complete retraining history. The current mainline is Legacy historical → Condition Completion V2 → R2-pruned candidate baseline.
 
-If Candidate A fails, at most the following separately preregistered candidates should be considered:
-
-1. Candidate B: FiLM/conditional modulation, `gamma(z_cond) * z_mol + beta(z_cond)`.
-2. Candidate C: condition-aware message passing that restores early molecule–condition interaction.
-
-No candidate was implemented or run in this audit.
+Clean is `FAILED_POINT_PERFORMANCE_ARCHITECTURE_EXPERIMENT / NOT_BASELINE`: engineering reachability PASS, performance FAIL. Its historical measurements above remain intact. The next separate step is `R2_PRUNED_QUANTILE_HEAD_QUALIFICATION`; no head comparison or Clean repair was executed in this round.
