@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "command": "KMP_DUPLICATE_LIB_OK=TRUE /Users/fish/miniforge3/envs/fish/bin/python -m pytest -q",
+  "exit_code": 0,
+  "passed": 211,
+  "failed": 0,
+  "skipped": 0,
+  "warnings": 156,
+  "duration_seconds": 32.8,
+  "historical_test_failures": [],
+  "complete_output": "results/pytest_output.txt",
+  "output_sha256": "a065f75bf65b5caf82363308ca8b9659b9e627ccc9c54f1c80f761c14cfd753f",
+  "warnings_summary": [
+    "Existing requests character-detection dependency warning",
+    "Existing Mordred/distutils deprecations",
+    "Existing torch/PyG deprecations",
+    "Existing PyG graph num_nodes inference warnings, also exercised by new real-batch tests"
+  ],
+  "coverage": [
+    "R2 static and real multi-batch dead inventory",
+    "strict key/shape/dtype conversion and corrupt-state rejection",
+    "retained initialization/RNG/traversal equality",
+    "P0 and trained checkpoint P1 six-output equivalence on all frozen splits",
+    "all pruned registered parameters gradient-bearing",
+    "frozen split hash, training domain and source-only normalization",
+    "test excluded from training and checkpoint selection",
+    "no 8g, AL, transfer, UQ, or Clean 64/64 fusion",
+    "unsupported forward configurations rejected",
+    "complete retraining history and point metrics equal R2; current decisions synchronized"
+  ]
+}

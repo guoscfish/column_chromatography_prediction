@@ -155,3 +155,23 @@ def test_rejects_unqualified_forward_configurations(models, attribute, value):
             PrunedConditionCompleteQGeoGNNV2(original)
     finally:
         setattr(node, attribute, previous)
+
+
+def test_completed_retraining_matches_reference_and_current_decisions():
+    out = study.STUDY
+    result = out / "results/R2_PRUNED"
+    reference = study.r2.RESULTS / study.REFERENCE
+    assert json.loads((result / "metrics.json").read_text()) == json.loads((reference / "metrics.json").read_text())
+    assert study.r2.pd.read_csv(result / "history.csv").equals(study.r2.pd.read_csv(reference / "history.csv"))
+    for filename in ("decision.json",):
+        decision = json.loads((out / filename).read_text())
+        assert decision["status"] == "FUNCTION_PRESERVING_PARAMETER_CLEANUP_SUCCESS"
+        assert decision["qualification_status"] == "POINT_PREDICTOR_CANDIDATE_BASELINE"
+        assert decision["retrained_prediction_max_abs_difference"] == 0
+        assert decision["retrained_retained_checkpoint_max_abs_difference"] == 0
+        assert decision["formal_baseline"] is False
+        assert decision["next_experiment_executed"] is False
+    qualification = json.loads((study.ROOT / "studies/predictor/clean_4g_baseline_qualification/decision.json").read_text())
+    regression = json.loads((study.r2.STUDY / "decision.json").read_text())
+    assert qualification["next_action"] == regression["next_stage"] == decision["next_action"] == "R2_PRUNED_QUANTILE_HEAD_QUALIFICATION"
+    assert qualification["clean_performance"] == regression["clean_performance"] == "FAIL"

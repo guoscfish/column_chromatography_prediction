@@ -1,0 +1,51 @@
+{
+  "status": "FUNCTION_PRESERVING_PARAMETER_CLEANUP_SUCCESS",
+  "model_variant": "qgeognn_condition_complete_v2_pruned",
+  "qualification_status": "POINT_PREDICTOR_CANDIDATE_BASELINE",
+  "function_preserving_gate": "PASS",
+  "training_executed": true,
+  "forward_unreachable_trainable_parameters": 0,
+  "metric_deltas_vs_r2": {
+    "train": {
+      "V1_rmse": 0.0,
+      "V1_mae": 0.0,
+      "V1_r2": 0.0,
+      "V2_rmse": 0.0,
+      "V2_mae": 0.0,
+      "V2_r2": 0.0,
+      "combined_normalized_rmse": 0.0
+    },
+    "validation": {
+      "V1_rmse": 0.0,
+      "V1_mae": 0.0,
+      "V1_r2": 0.0,
+      "V2_rmse": 0.0,
+      "V2_mae": 0.0,
+      "V2_r2": 0.0,
+      "combined_normalized_rmse": 0.0
+    },
+    "test": {
+      "V1_rmse": 0.0,
+      "V1_mae": 0.0,
+      "V1_r2": 0.0,
+      "V2_rmse": 0.0,
+      "V2_mae": 0.0,
+      "V2_r2": 0.0,
+      "combined_normalized_rmse": 0.0
+    }
+  },
+  "history_exactly_equal": true,
+  "retrained_retained_checkpoint_max_abs_difference": 0.0,
+  "retrained_prediction_max_abs_difference": 0.0,
+  "next_action": "R2_PRUNED_QUANTILE_HEAD_QUALIFICATION",
+  "next_experiment_executed": false,
+  "quantile_head_changed": false,
+  "formal_baseline": false,
+  "uq_status": "NOT_QUALIFIED_NOT_EXECUTED",
+  "transfer_8g_executed": false,
+  "active_learning_executed": false,
+  "clean_status": "FAILED_POINT_PERFORMANCE_ARCHITECTURE_EXPERIMENT / NOT_BASELINE",
+  "clean_engineering_reachability": "PASS",
+  "clean_performance": "FAIL",
+  "interpretation": "Dead-module removal needs no Clean architecture redesign; candidate applies to this frozen developmental E0 control only."
+}
