@@ -1,0 +1,26 @@
+{
+  "model_variant": "qgeognn_v2",
+  "optimizer": "Adam",
+  "learning_rate": 0.001,
+  "weight_decay": 0.0,
+  "batch_size": 2048,
+  "maximum_epochs": 1000,
+  "patience": 100,
+  "shuffle": "deterministic_each_epoch",
+  "loss_weights": {
+    "V1": 1.0,
+    "V2": 1.0
+  },
+  "checkpoint_selection": "validation_combined_normalized_rmse",
+  "normalization": "source_train_only",
+  "test_during_training": false,
+  "initialization": "direct_standalone_seeded_construction; no historical initializer used",
+  "8g_rows_used": 0,
+  "head_changed": false,
+  "architecture_search": false,
+  "mode": "compound",
+  "seed": 1101,
+  "split_sha256": "6dbd64e4619255ad1096efb618f605d79ff533c37858600ed11b6fa801166b16",
+  "cpu_threads": 2,
+  "config_hash": "f148c2a95ea21b9efde5d3c70b8ed57cb3a8ac9dbc48a46afaf433c7e6346082"
+}

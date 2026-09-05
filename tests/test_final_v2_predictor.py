@@ -109,5 +109,3 @@ def test_full_domain_engineering_evidence():
     assert gate["status"] == "PASS" and gate["fixture_rows"] == 4163
     assert gate["max_abs_difference"] == 0
     assert gate["metric_max_abs_difference"] == 0
-
-

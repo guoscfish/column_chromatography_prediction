@@ -1,0 +1,39 @@
+{
+  "model_variant": "qgeognn_v2",
+  "optimizer": "Adam",
+  "learning_rate": 0.001,
+  "weight_decay": 0.0,
+  "batch_size": 2048,
+  "maximum_epochs": 1000,
+  "patience": 100,
+  "shuffle": "deterministic_each_epoch",
+  "loss_weights": {
+    "V1": 1.0,
+    "V2": 1.0
+  },
+  "checkpoint_selection": "validation_combined_normalized_rmse",
+  "normalization": "source_train_only",
+  "test_during_training": false,
+  "initialization": "direct_standalone_seeded_construction; no historical initializer used",
+  "8g_rows_used": 0,
+  "head_changed": false,
+  "architecture_search": false,
+  "modes": [
+    "row",
+    "compound"
+  ],
+  "seeds": [
+    42,
+    525,
+    1101
+  ],
+  "rows": 4163,
+  "compounds": 217,
+  "engineering_gate_sha256": "b945e9d6184b38c083f9d74d9498df4ed848a9454edc934db76586f4bb5dc82a",
+  "source_sha256": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+  "graph_cache_sha256": "a48f8ea1ce4f89c5a1ea6d17466e7c7ffa0439edb8ec79bd8b765bad3a97c3ee",
+  "across_seed_std_ddof": 1,
+  "source_selection_for_transfer": "row_seed_42 fixed before qualification results; no best-test selection",
+  "gate": "numerical stability, no training collapse, row predictive signal, interpretable compound generalization and split gaps; no arbitrary R2 cutoff",
+  "uq_audit_nonblocking_for_point_transfer": true
+}

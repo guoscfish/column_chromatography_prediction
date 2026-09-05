@@ -189,5 +189,3 @@ class TypedConditionCompletionBranch(nn.Module):
         typed = self.typed_inputs(batched_atom_bond)
         internal = self.activation(self.hidden(typed))
         return self.output(internal), internal
-
-

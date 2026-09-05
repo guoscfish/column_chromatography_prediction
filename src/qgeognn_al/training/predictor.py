@@ -12,6 +12,7 @@ import pandas as pd
 import torch
 from torch_geometric.loader import DataLoader
 
+from ..evaluation.point import point_metrics
 from ..data import build_model_data, eluent_descriptor, qg
 from ..models import predictor_checkpoint
 from ..schemas.conditions import fit_condition_normalization
@@ -58,18 +59,6 @@ def loader_pair(atom_data, angle_data, indices, batch_size=2048):
     positions = [int(i) for i in indices]
     return (DataLoader([atom_data[i] for i in positions], batch_size=batch_size, shuffle=False),
             DataLoader([angle_data[i] for i in positions], batch_size=batch_size, shuffle=False))
-
-
-def point_metrics(truth, prediction, scales):
-    result = {}
-    for i, target in enumerate(("V1", "V2")):
-        error = truth[:, i] - prediction[:, 3*i+1]
-        total = np.square(truth[:, i] - truth[:, i].mean()).sum()
-        result.update({f"{target}_r2": float(1 - np.square(error).sum()/total) if total else float("nan"),
-                       f"{target}_rmse": float(np.sqrt(np.square(error).mean())), f"{target}_mae": float(np.abs(error).mean())})
-    result["combined_normalized_rmse"] = float(math.sqrt(.5*sum((result[f"{t}_rmse"]/scales[t])**2 for t in ("V1", "V2"))))
-    result["all_outputs_finite"] = bool(np.isfinite(prediction).all())
-    return result
 
 
 def predict(model, atom, angle, indices):

@@ -1,0 +1,17 @@
+{
+  "decision": "4G_POINT_PREDICTOR_QUALIFIED_FOR_TRANSFER_STUDIES",
+  "failed_seed_count": 0,
+  "failed_seed_count_by_mode": {
+    "row": 0,
+    "compound": 0
+  },
+  "all_metrics_finite": true,
+  "no_training_collapse": true,
+  "row_split_predictive_signal": true,
+  "compound_generalization_interpreted_without_posthoc_threshold": true,
+  "scope": "point predictor for transfer studies; not an all-purpose final UQ model",
+  "source_checkpoint_for_transfer": "studies/predictor/final_4g_qualification/runtime/row/seed_42/best.pt",
+  "source_checkpoint_sha256": "fce9edebc294fd179c7c7dc27ab2badea049c77fdad03a6cf0c317c63df544b0",
+  "source_selection": "row seed 42 fixed in preregistration, not chosen by test performance",
+  "next_action": "ORDINARY_4G_TO_8G_TRANSFER_BASELINE"
+}
