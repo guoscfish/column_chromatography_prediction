@@ -1,0 +1,56 @@
+........................................................................ [ 31%]
+........................................................................ [ 63%]
+........................................................................ [ 95%]
+..........                                                               [100%]
+=============================== warnings summary ===============================
+../../../miniforge3/envs/fish/lib/python3.11/site-packages/torch_geometric/llm/utils/backend_utils.py:26
+  /Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/torch_geometric/llm/utils/backend_utils.py:26: DeprecationWarning: `torch_geometric.distributed` has been deprecated since 2.7.0 and will no longer be maintained. For distributed training, refer to our tutorials on distributed training at https://pytorch-geometric.readthedocs.io/en/latest/tutorial/distributed.html or cuGraph examples at https://github.com/rapidsai/cugraph-gnn/tree/main/python/cugraph-pyg/cugraph_pyg/examples
+    from torch_geometric.distributed import (
+
+../../../miniforge3/envs/fish/lib/python3.11/site-packages/torch/jit/_script.py:1480
+../../../miniforge3/envs/fish/lib/python3.11/site-packages/torch/jit/_script.py:1480
+  /Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/torch/jit/_script.py:1480: DeprecationWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+../../../miniforge3/envs/fish/lib/python3.11/site-packages/requests/__init__.py:86
+  /Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/requests/__init__.py:86: RequestsDependencyWarning: Unable to find acceptable character detection dependency (chardet or charset_normalizer).
+    warnings.warn(
+
+../../../miniforge3/envs/fish/lib/python3.11/site-packages/mordred/_base/descriptor.py:46: 111 warnings
+  /Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/mordred/_base/descriptor.py:46: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+    dict["since"] = StrictVersion(dict["since"])
+
+../../../miniforge3/envs/fish/lib/python3.11/site-packages/mordred/AdjacencyMatrix.py:10
+  /Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/mordred/AdjacencyMatrix.py:10: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+    _version_remove_SM1_A = StrictVersion("1.1.0")
+
+../../../miniforge3/envs/fish/lib/python3.11/site-packages/mordred/AtomCount.py:20
+  /Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/mordred/AtomCount.py:20: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+    _version_add_Nhetero = StrictVersion("1.1.0")
+
+../../../miniforge3/envs/fish/lib/python3.11/site-packages/mordred/DistanceMatrix.py:10
+  /Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/mordred/DistanceMatrix.py:10: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+    _version_remove_SM1_D = StrictVersion("1.1.0")
+
+tests/test_clean_qgeognn_preflight.py: 8 warnings
+tests/test_core_compatibility.py: 1 warning
+tests/test_final_v2_predictor.py: 1 warning
+tests/test_final_v2_transfer.py: 1 warning
+tests/test_i0_predictor_semantics.py: 2 warnings
+tests/test_predictor_v2_preflight.py: 5 warnings
+tests/test_r2_pruned_requalification.py: 3 warnings
+  /Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/torch_geometric/data/data.py:187: UserWarning: Unable to accurately infer 'num_nodes' from the attribute set '{'edge_index', 'edge_attr'}'. Please explicitly set 'num_nodes' as an attribute of 'data' to suppress this warning
+    return sum([v.num_nodes for v in self.node_stores])
+
+tests/test_clean_qgeognn_preflight.py: 8 warnings
+tests/test_core_compatibility.py: 1 warning
+tests/test_final_v2_predictor.py: 1 warning
+tests/test_final_v2_transfer.py: 1 warning
+tests/test_i0_predictor_semantics.py: 2 warnings
+tests/test_predictor_v2_preflight.py: 5 warnings
+tests/test_r2_pruned_requalification.py: 3 warnings
+  /Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/torch_geometric/data/collate.py:142: UserWarning: Unable to accurately infer 'num_nodes' from the attribute set '{'edge_index', 'edge_attr'}'. Please explicitly set 'num_nodes' as an attribute of 'data' to suppress this warning
+    repeats = [store.num_nodes or 0 for store in stores]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+226 passed, 160 warnings in 47.94s

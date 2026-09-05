@@ -1,21 +1,7 @@
-# 4g to 8g transfer roadmap
+# 4g→8g transfer roadmap
 
-Status: `PAUSED_PENDING_PREDICTOR_REGRESSION_RESOLUTION`.
+The final standalone source is qualified for ordinary point transfer. [The baseline study](../../studies/transfer/4g_to_8g/TRANSFER_BASELINE_REPORT.md) compares zero-shot, affine, target-head-only, last2 and full fine-tuning. Five frozen T1 partitions, random nested budgets 30/50/70/100 (eight validation labels included), 574 unthresholded target rows and source-train preprocessing are fixed. Test outcomes never select checkpoints or tune methods.
 
-All routes below are `FUTURE / NOT AUTHORIZED`. The current data should first be described as 4g source and 8g target domains; they are not automatically a rigorous low-/high-fidelity pair.
+The source is final 4g row seed 42, chosen in preregistration. The source checkpoint hash and complete protocol are in the study directory. The study reuses split manifests, not historical performance conclusions. T1/T1b/G0/S1 are `HISTORICAL_LEGACY_PREDICTOR_EVIDENCE`.
 
-## Route A: transfer adaptation
-
-Qualify a Clean 4g source model, then adapt it with limited 8g labels under a new frozen protocol. This route remains blocked because the controlled E0 audit reopened Clean point-performance qualification; it must not begin until that regression is resolved and reviewed.
-
-## Route B: multi-column joint modeling
-
-If sufficiently comparable 4g, 8g, 25g, and 40g observations become available, jointly model explicit column context. Prefer measured physical quantities: packing mass, column length, diameter, volume, stationary phase, flow or linear velocity, loading ratio, and other mechanistically meaningful descriptors.
-
-A categorical or numeric `column=4/8/25/40` code is not presumed to be a sufficient physical description.
-
-## Route C: shared representation with domain correction
-
-Use a shared molecular/condition representation with a column- or domain-specific residual, adapter, or correction. Multi-domain and multi-fidelity literature may inform the architecture, but analogy does not establish that current column domains are fidelity levels.
-
-No transfer training, target-label selection, or 8g performance comparison is authorized by this roadmap.
+Next work follows [the measured decision](../NEXT_STAGE_DECISION.md). Independent validation must precede confirmatory transfer claims. UQ/head qualification runs in parallel to ordinary transfer and is required before active acquisition. No acquisition or adapter sweep belongs to this first baseline.

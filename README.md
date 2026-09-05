@@ -1,38 +1,29 @@
 # Column chromatography prediction
 
-This repository studies retention-volume prediction for column chromatography, with emphasis on molecular geometry, experimental conditions, data-efficient source-to-target adaptation, and active learning.
+Retention-volume prediction with molecular geometry and experimental conditions, followed by low-label 4g→8g transfer.
 
-## Current scientific state
+Historical Legacy → condition-complete correction → function-preserving pruning → standalone QGeoGNN-V2 → current predictor.
 
-| Direction | Status | Boundary |
-|---|---|---|
-| Predictor | `POINT_PREDICTOR_CANDIDATE_BASELINE` | R2-pruned removes 318,856 prediction-unreachable parameters and retains 458,952 gradient-bearing parameters. Function gates and frozen E0 retraining exactly reproduce R2 (test R² 0.889218 / 0.941563). Clean is a failed architecture experiment, retained for provenance. |
-| 4g in-domain active learning | `PAUSED / historical evidence retained` | E2 and A1a results remain measured historical evidence. No new acquisition run is authorized. |
-| 4g -> 8g transfer | `PAUSED_PENDING_HEAD_AND_UQ_QUALIFICATION` | No Clean transfer run has been executed. Transfer and UQ work remain paused pending separate quantile-head and uncertainty-contract qualification. |
-| Active transfer | `DEFERRED` | It remains downstream of predictor and transfer qualification. |
+The standalone QGeoGNN-V2 is `4G_POINT_PREDICTOR_QUALIFIED_FOR_TRANSFER_STUDIES`. Predictor architecture is no longer the default research target. Ordinary transfer proceeds independently of UQ qualification; active transfer requires independent transfer validation and an adequate uncertainty contract.
 
-The predictor is being requalified because the I0 semantic audit found that the legacy graph builder constructs ten continuous edge features while the legacy encoder consumes only five. The controlled regression audit then confirmed that the first large performance loss appears between Condition Completion V2 and the current Clean architecture on the identical historical E0 split. These facts narrow the interpretation of historical evidence; they do not erase the measured results.
+The final model has 458,952 parameters, all gradient-bearing. Six-output equivalence to R2-pruned on all 4,163 frozen E0 rows is exact (maximum absolute difference 0). Final 4g qualification completed all six frozen row/compound runs without failures. The existing quantile head is retained for point transfer; its audit motivates a head/UQ control before active transfer.
 
-## Next step
+## Current evidence
 
-The predictor mainline is **Legacy historical → Condition Completion V2 → R2-pruned candidate baseline**. The next separate controlled test should compare the current head with a monotonic quantile head, changing only the output head. This round did not execute that test, UQ, 8g transfer, or active learning. See the [R2-pruned comparison](studies/predictor/r2_pruned_requalification/R2_PRUNED_COMPARISON.md) and [predictor roadmap](docs/roadmap/PREDICTOR.md).
+- [Standalone engineering](studies/predictor/final_v2_engineering/README.md): equivalence, reachability and checkpoint contract.
+- [Final 4g qualification](studies/predictor/final_4g_qualification/FINAL_4G_QUALIFICATION_REPORT.md): all Train/Validation/Test metrics and seed aggregates.
+- [Quantile audit](studies/predictor/final_4g_qualification/QUANTILE_AUDIT.md): descriptive uncertainty assessment, without head retraining.
+- [Final-source 4g→8g baseline](studies/transfer/4g_to_8g/TRANSFER_BASELINE_REPORT.md): five adaptation families, five frozen target partitions, budgets 30/50/70/100.
+- [Next decision](docs/NEXT_STAGE_DECISION.md), [documentation](docs/README.md), [study index](studies/README.md).
 
-## Start reading
+## Active code
 
-- [`docs/README.md`](docs/README.md): documentation map and current contracts.
-- [`studies/README.md`](studies/README.md): semantic navigation for current and historical studies.
-- [`docs/model/LEGACY_QGEOGNN_AUDIT.md`](docs/model/LEGACY_QGEOGNN_AUDIT.md): audited legacy implementation boundary.
-- [`docs/model/INPUT_SCHEMA.md`](docs/model/INPUT_SCHEMA.md): explicit feature semantics and units.
-- [`docs/protocols/4G_PREDICTOR_BENCHMARK.md`](docs/protocols/4G_PREDICTOR_BENCHMARK.md): draft benchmark protocol.
-- [`studies/predictor/clean_qgeognn/preflight/`](studies/predictor/clean_qgeognn/preflight/README.md): Clean-QGeoGNN engineering preflight.
-- [`studies/predictor/clean_4g_baseline_qualification/`](studies/predictor/clean_4g_baseline_qualification/QUALIFICATION_REPORT.md): completed formal 4g qualification and next-gate decision.
-- [`studies/predictor/performance_regression_audit/`](studies/predictor/performance_regression_audit/REGRESSION_REPORT.md): controlled Legacy/V2/Clean regression ladder and diagnosis.
-- [`experiments/INDEX.md`](experiments/INDEX.md): frozen historical experiment index.
+`src/qgeognn_al/models/qgeognn_v2.py` owns `build_predictor`, `load_predictor_checkpoint`, `forward` and `extract_representation`. Shared data, training, transfer, evaluation and uncertainty code lives in the corresponding `src/qgeognn_al/` packages. New studies use this single predictor API.
 
-## Code and validation
-
-Reusable scientific code lives in `src/qgeognn_al/`; historical runners and compatibility shims remain under `scripts/`. The validated environment is conda `fish`:
+Run verification in the validated conda environment:
 
 ```bash
-conda run --no-capture-output -n fish pytest -q
+KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish pytest -q
 ```
+
+[Historical evidence](studies/predictor/historical/README.md) remains at its original paths for provenance. Historical T1/T1b/G0/S1 conclusions do not establish rankings for the corrected predictor.

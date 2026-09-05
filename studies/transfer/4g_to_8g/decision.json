@@ -1,0 +1,41 @@
+{
+  "decision": "TRANSFER_BASELINE_CANDIDATE",
+  "best_method": "affine",
+  "stable_improvement_vs_zero_shot": true,
+  "wins_vs_zero_shot": 5,
+  "source_checkpoint_sha256": "fce9edebc294fd179c7c7dc27ab2badea049c77fdad03a6cf0c317c63df544b0",
+  "parameter_counts": {
+    "zero_shot": {
+      "trainable_parameters": 0,
+      "total_parameters": 458952,
+      "trainable_fraction": 0.0
+    },
+    "affine": {
+      "trainable_parameters": 4,
+      "total_parameters": 458956,
+      "trainable_fraction": 8.715432416179329e-06,
+      "neural_parameters_trainable": 0,
+      "external_affine_coefficients": 4
+    },
+    "target_head_only": {
+      "trainable_parameters": 774,
+      "total_parameters": 458952,
+      "trainable_fraction": 0.0016864508706792866
+    },
+    "last2": {
+      "trainable_parameters": 126735,
+      "total_parameters": 458952,
+      "trainable_fraction": 0.27613998849552895
+    },
+    "full_finetune": {
+      "trainable_parameters": 458952,
+      "total_parameters": 458952,
+      "trainable_fraction": 1.0
+    }
+  },
+  "next_action": "INDEPENDENT_TRANSFER_VALIDATION_WITH_PARALLEL_UQ_QUALIFICATION",
+  "active_transfer_executed": false,
+  "candidate_is_developmental": true,
+  "ranking_estimand": "fixed-source checkpoint, 5 target row partitions, 4 nested random label budgets",
+  "historical_transfer_results_role": "HISTORICAL_LEGACY_PREDICTOR_EVIDENCE"
+}

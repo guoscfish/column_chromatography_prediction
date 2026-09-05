@@ -1,29 +1,15 @@
 # Documentation
 
-Use this page as the documentation entry point. Older documents remain available as historical context, but the directories below own current contracts.
+Current contracts and evidence:
 
-## Repository governance
+- [Predictor roadmap](roadmap/PREDICTOR.md)
+- [Research direction](RESEARCH_DIRECTION.md)
+- [Next-stage decision](NEXT_STAGE_DECISION.md)
+- [Transfer roadmap](roadmap/TRANSFER_4G_TO_8G.md)
+- [Standalone engineering](../studies/predictor/final_v2_engineering/README.md)
+- [Final 4g protocol and results](../studies/predictor/final_4g_qualification/FINAL_4G_QUALIFICATION_REPORT.md)
+- [Transfer protocol and results](../studies/transfer/4g_to_8g/TRANSFER_BASELINE_REPORT.md)
+- [Repository structure](repository/STRUCTURE.md) and [artifact policy](repository/ARTIFACT_POLICY.md)
+- [Data usage register](protocols/DATA_USAGE_REGISTER.md)
 
-- [`repository/STRUCTURE.md`](repository/STRUCTURE.md): code, study, and artifact ownership.
-- [`repository/ARTIFACT_POLICY.md`](repository/ARTIFACT_POLICY.md): provenance and retention rules.
-
-## Predictor contracts
-
-- [`roadmap/PREDICTOR.md`](roadmap/PREDICTOR.md): R2-pruned candidate and the separate next quantile-head gate.
-
-- [`model/LEGACY_QGEOGNN_AUDIT.md`](model/LEGACY_QGEOGNN_AUDIT.md): confirmed legacy implementation facts and evidence boundary.
-- [`model/PAPER_CODE_CONTRACT_AUDIT.md`](model/PAPER_CODE_CONTRACT_AUDIT.md): paper-method, official-code Legacy, current Legacy, and Clean contract comparison.
-- [`model/INPUT_SCHEMA.md`](model/INPUT_SCHEMA.md): typed input semantics and units.
-- [`model/CLEAN_QGEOGNN_DESIGN.md`](model/CLEAN_QGEOGNN_DESIGN.md): Clean-QGeoGNN engineering design.
-
-## Protocols and data use
-
-- [`protocols/4G_PREDICTOR_BENCHMARK.md`](protocols/4G_PREDICTOR_BENCHMARK.md): retained draft pointing to the frozen preregistration; formal run not authorized.
-- [`protocols/DATA_USAGE_REGISTER.md`](protocols/DATA_USAGE_REGISTER.md): outcome reuse and confirmatory boundaries.
-
-## Future roadmaps
-
-- [`roadmap/TRANSFER_4G_TO_8G.md`](roadmap/TRANSFER_4G_TO_8G.md): future transfer routes.
-- [`roadmap/ACTIVE_LEARNING.md`](roadmap/ACTIVE_LEARNING.md): known acquisition-representation issues.
-
-Historical registers including [`RESEARCH_DIRECTION.md`](RESEARCH_DIRECTION.md), [`QGEOGNN_IMPLEMENTATION_VARIANTS.md`](QGEOGNN_IMPLEMENTATION_VARIANTS.md), and [`NEXT_STAGE_DECISION.md`](NEXT_STAGE_DECISION.md) are retained rather than rewritten as new evidence.
+[Historical predictor evidence](../studies/predictor/historical/README.md), legacy model audits and draft benchmarks are retained for reproduction. Their original stage gates describe those historical studies; the current decisions above supersede them.

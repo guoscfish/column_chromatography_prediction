@@ -1,3 +1,7 @@
+# Current study entry points
+
+Use `studies/run_final_v2_engineering.py`, `studies/run_final_4g_qualification.py`, `studies/summarize_final_4g_qualification.py` and `studies/run_final_v2_transfer.py` for the final standalone workflow. Read their study preregistrations before execution. Legacy, Clean and diagnostic runners below are historical reproduction tools.
+
 # Scripts
 
 Current R2-pruned study: `studies/run_r2_pruned_requalification.py` runs reachability/equivalence gates before the controlled retrain (`--gates-only` checks without retraining); `studies/summarize_r2_pruned_requalification.py` compares completed artifacts with R2. See [the study](../studies/predictor/r2_pruned_requalification/README.md).

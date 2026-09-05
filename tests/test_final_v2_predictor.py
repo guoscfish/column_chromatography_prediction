@@ -109,3 +109,37 @@ def test_full_domain_engineering_evidence():
     assert gate["status"] == "PASS" and gate["fixture_rows"] == 4163
     assert gate["max_abs_difference"] == 0
     assert gate["metric_max_abs_difference"] == 0
+
+
+def test_active_preprocessing_ignores_heldout_labels_and_conditions(tmp_path):
+    import pandas as pd
+    from src.qgeognn_al.resources import SOURCE_DATA, SOURCE_GRAPH_CACHE
+    data = pd.read_csv(SOURCE_DATA)
+    split = pd.read_csv(qualification.STUDY / "splits/row_seed_42.csv")
+    cache = torch.load(SOURCE_GRAPH_CACHE, weights_only=False)
+    norm, fitted = training.fit_source_preprocessing(data, split, cache, tmp_path / "first.json")
+    changed = data.copy()
+    heldout = set(split.loc[split["split"].ne("train"), "sample_id"])
+    mask = changed.sample_id.isin(heldout)
+    changed.loc[mask, ["V1_ml", "V2_ml", "Density g/ml", "V/ul", "Volume of loading solvent/ul"]] = 1e8
+    changed.loc[mask, "PE/EA"] = "1/1"
+    changed_norm, changed_fitted = training.fit_source_preprocessing(changed, split, cache, tmp_path / "second.json")
+    assert asdict(norm) == asdict(changed_norm)
+    assert fitted == changed_fitted
+
+
+def test_final_qualification_artifacts_match_frozen_checkpoints():
+    import pandas as pd
+    decision = json.loads((qualification.STUDY / "decision.json").read_text())
+    assert decision["decision"] == "4G_POINT_PREDICTOR_QUALIFIED_FOR_TRANSFER_STUDIES"
+    table = pd.read_csv(qualification.STUDY / "results/all_metrics.csv")
+    assert len(table) == 18 and set(table.split) == {"train", "validation", "test"}
+    for mode in qualification.MODES:
+        for seed in qualification.SEEDS:
+            base = qualification.STUDY / f"results/{mode}/seed_{seed}"
+            summary = json.loads((base / "run_summary.json").read_text())
+            path = old.ROOT / summary["checkpoint_path"]
+            if path.exists():
+                assert qualification.sha256_file(path) == summary["checkpoint_sha256"]
+            normalization = json.loads((base / "normalization.json").read_text())
+            assert normalization["target_rows_used"] == normalization["test_rows_used"] == normalization["validation_rows_used"] == 0

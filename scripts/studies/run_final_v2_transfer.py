@@ -317,7 +317,7 @@ def main():
         prepare()
         partition = pd.read_csv(STUDY / "splits/partition_manifest.csv")
         schedule = pd.read_csv(STUDY / "splits/schedule_manifest.csv")
-        contexts = [(seed, budget) for seed in dict.fromkeys(partition.outer_seed.astype(int))
+        contexts = [(int(seed), int(budget)) for seed in dict.fromkeys(partition.outer_seed.astype(int))
                     for budget in sorted(schedule.budget.astype(int).unique())]
         logdir = STUDY / "runtime/logs"
         logdir.mkdir(parents=True, exist_ok=True)

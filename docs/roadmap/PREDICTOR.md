@@ -1,13 +1,13 @@
 # Predictor roadmap
 
-Current status: `POINT_PREDICTOR_CANDIDATE_BASELINE`.
+Historical Legacy → condition-complete correction → function-preserving pruning → standalone QGeoGNN-V2 → current predictor.
 
-Legacy historical → Condition Completion V2 → R2-pruned candidate baseline.
+The standalone QGeoGNN-V2 is `4G_POINT_PREDICTOR_QUALIFIED_FOR_TRANSFER_STUDIES`. Predictor architecture is no longer the default research target. Ordinary transfer proceeds independently of UQ qualification; active transfer requires independent transfer validation and an adequate uncertainty contract.
 
-[R2-pruned requalification](../../studies/predictor/r2_pruned_requalification/R2_PRUNED_COMPARISON.md) removed 318,856 dead registered parameters, leaving 458,952 trainable and gradient-bearing parameters. Random-init and trained-checkpoint mapping have zero prediction differences. The full 262-epoch retrain reproduces R2 exactly; best epoch 162, test V1/V2 R² 0.889217973 / 0.941562533.
+[Engineering gate](../../studies/predictor/final_v2_engineering/README.md): zero full-E0 six-output difference; 458,952 nominal/trainable/gradient-bearing parameters; zero unreachable. The final model directly constructs its effective network and preserves the R2 output head and preprocessing semantics.
 
-The next separate study is `R2_PRUNED_QUANTILE_HEAD_QUALIFICATION`: current Linear/ReLU head versus a monotonic quantile head, changing only the output head and preserving the effective R2-pruned architecture and controlled protocol. This comparison has not been run. Candidate status is not formal baseline or UQ-contract qualification.
+[Final 4g evidence](../../studies/predictor/final_4g_qualification/FINAL_4G_QUALIFICATION_REPORT.md): 4,163 rows / 217 compounds, V1≤60 and V2≤120; three frozen seeds per row and compound estimand. Row generalization is stronger than novel-compound generalization, without numerical failures or training collapse.
 
-`qgeognn_clean_fusion_v1` is `FAILED_POINT_PERFORMANCE_ARCHITECTURE_EXPERIMENT / NOT_BASELINE`; engineering reachability PASS, performance FAIL. Retain R0/R1/R2/R3 and all historical branches/results for provenance. No Clean MLP/FiLM/LayerNorm/bottleneck repair is on the current roadmap.
+[Quantile audit](../../studies/predictor/final_4g_qualification/QUANTILE_AUDIT.md): `CURRENT_HEAD_RETAINED_FOR_POINT_TRANSFER`; `MONOTONIC_HEAD_CONTROL_REQUIRED_BEFORE_ACTIVE_TRANSFER`. These are separate point and uncertainty decisions. No new head was trained.
 
-UQ, 8g transfer, AL and active transfer remain paused/deferred. This cleanup did not execute any downstream study, head alternative or hyperparameter sweep.
+Clean is `FAILED_POINT_PERFORMANCE_ARCHITECTURE_EXPERIMENT / HISTORICAL_NEGATIVE_RESULT`. Its reproduction implementation is under `src/qgeognn_al/historical/`; old diagnostic V2/pruned files retain their original paths and hashes. No backbone, fusion, adapter or hyperparameter sweep is scheduled.

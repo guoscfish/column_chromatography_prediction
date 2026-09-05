@@ -1,9 +1,11 @@
 # Transfer studies
 
-4g-to-8g transfer is `PAUSED_PENDING_PREDICTOR_QUALIFICATION`.
+[Current final-source baseline](4g_to_8g/TRANSFER_BASELINE_REPORT.md) uses standalone QGeoGNN-V2. See its protocol and decision for the frozen design and measured ranking.
 
-- [`source_target_shift/`](source_target_shift/README.md)
-- [`low_label_adaptation/`](low_label_adaptation/README.md)
-- [`adapter_capacity/`](adapter_capacity/README.md)
+The following are `HISTORICAL_LEGACY_PREDICTOR_EVIDENCE`, retained for design reuse and provenance:
 
-Future routes are documented in [`../../docs/roadmap/TRANSFER_4G_TO_8G.md`](../../docs/roadmap/TRANSFER_4G_TO_8G.md).
+- [Source-target shift / S1](source_target_shift/README.md)
+- [Low-label adaptation / T1](low_label_adaptation/README.md)
+- [Adapter capacity / T1b](adapter_capacity/README.md)
+
+Their measured rankings must not be presented as results for the corrected source. [Current transfer roadmap](../../docs/roadmap/TRANSFER_4G_TO_8G.md).
