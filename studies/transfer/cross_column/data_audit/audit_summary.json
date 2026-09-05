@@ -1,0 +1,257 @@
+{
+  "8g": {
+    "column": "8g",
+    "raw_path": "dataset/dataset_8g.csv",
+    "raw_sha256": "6bfe9c69ca5b32cb043af9d6cd2809c10bb2a7d27de279784b7e3783d021d5b9",
+    "raw_rows": 574,
+    "valid_rows": 574,
+    "unique_canonical_compounds": 88,
+    "target_threshold": null,
+    "label_policy": "verified t1/t2 when finite, otherwise raw t1/t2 fallback",
+    "verified_pair_rows": 574,
+    "raw_fallback_rows": 0,
+    "verified_raw_t1_mismatches": 0,
+    "verified_raw_t2_mismatches": 0,
+    "negative_or_invalid_label_rows": 0,
+    "t1_gt_t2_warning_rows_retained": 2,
+    "volume_formula": "V_ml = selected_time * Flow_mL_min / 1200",
+    "graph_failures": 0,
+    "graphs_reused_from_4g": 87,
+    "graphs_generated_for_target": 1,
+    "canonical_sha256": "c03be607808f242009a25b035f8bd34c5331b7b76cc2a295287780fe763e69b6",
+    "V1_ml": {
+      "count": 574,
+      "mean": 17.390171312427412,
+      "std": 17.717642228742026,
+      "min": 1.7583333333333333,
+      "median": 10.804166666666667,
+      "max": 138.38333333333333
+    },
+    "V2_ml": {
+      "count": 574,
+      "mean": 31.112601626016264,
+      "std": 29.18756324355625,
+      "min": 6.1,
+      "median": 21.924999999999997,
+      "max": 248.90833333333333
+    },
+    "flow": {
+      "count": 574,
+      "mean": 10.0,
+      "std": 0.0,
+      "min": 10.0,
+      "median": 10.0,
+      "max": 10.0
+    },
+    "loading_amount_ul": {
+      "count": 574,
+      "mean": 100.0,
+      "std": 0.0,
+      "min": 100.0,
+      "median": 100.0,
+      "max": 100.0
+    },
+    "loading_solvent_volume_ul": {
+      "count": 574,
+      "mean": 326.30662020905925,
+      "std": 99.49935791178379,
+      "min": 300.0,
+      "median": 300.0,
+      "max": 1000.0
+    },
+    "PE_EA_counts": {
+      "0/1": 90,
+      "1/1": 90,
+      "2/1": 88,
+      "5/1": 86,
+      "10/1": 79,
+      "20/1": 76,
+      "50/1": 65
+    },
+    "loading_solvent_counts": {
+      "DCM": 368,
+      "PE": 206
+    },
+    "column_spec_counts": {
+      "Silica-CS 4g+4g": 574
+    },
+    "repeated_exact_condition_groups": 7,
+    "rows_in_repeated_exact_conditions": 14,
+    "target_compounds_also_in_4g": 87,
+    "target_compounds_absent_from_4g": 1,
+    "target_compounds_absent_from_fixed_source_train": 1,
+    "rows_absent_from_fixed_source_train": 7,
+    "exact_source_condition_overlap_rows": 483,
+    "source_unseen_ood_status": "SOURCE_UNSEEN_MOLECULE_OOD_NOT_ESTIMABLE_WITH_CURRENT_DATA"
+  },
+  "25g": {
+    "column": "25g",
+    "raw_path": "dataset/dataset_25g.csv",
+    "raw_sha256": "6ef36adfa8a73d5b51560cd39776cae78c731a1107b3dfdf2b90661942ac5d06",
+    "raw_rows": 569,
+    "valid_rows": 490,
+    "unique_canonical_compounds": 78,
+    "target_threshold": null,
+    "label_policy": "verified t1/t2 when finite, otherwise raw t1/t2 fallback",
+    "verified_pair_rows": 563,
+    "raw_fallback_rows": 6,
+    "verified_raw_t1_mismatches": 0,
+    "verified_raw_t2_mismatches": 0,
+    "negative_or_invalid_label_rows": 79,
+    "t1_gt_t2_warning_rows_retained": 2,
+    "volume_formula": "V_ml = selected_time * Flow_mL_min / 1200",
+    "graph_failures": 0,
+    "graphs_reused_from_4g": 77,
+    "graphs_generated_for_target": 1,
+    "canonical_sha256": "4e47a0d94cc7df4f733488ff48910561f8fabc31e3b2f42099e2ff04ff82cbfe",
+    "V1_ml": {
+      "count": 490,
+      "mean": 38.68992346938776,
+      "std": 35.101021417574366,
+      "min": 7.2875,
+      "median": 23.85,
+      "max": 240.5875
+    },
+    "V2_ml": {
+      "count": 490,
+      "mean": 63.9477806122449,
+      "std": 55.680048958122036,
+      "min": 22.0375,
+      "median": 42.56875,
+      "max": 371.8125
+    },
+    "flow": {
+      "count": 490,
+      "mean": 15.0,
+      "std": 0.0,
+      "min": 15.0,
+      "median": 15.0,
+      "max": 15.0
+    },
+    "loading_amount_ul": {
+      "count": 490,
+      "mean": 118.87755102040816,
+      "std": 47.166819926360255,
+      "min": 50.0,
+      "median": 100.0,
+      "max": 300.0
+    },
+    "loading_solvent_volume_ul": {
+      "count": 490,
+      "mean": 324.2857142857143,
+      "std": 95.7266900190542,
+      "min": 300.0,
+      "median": 300.0,
+      "max": 900.0
+    },
+    "PE_EA_counts": {
+      "0/1": 80,
+      "1/1": 79,
+      "2/1": 76,
+      "10/1": 70,
+      "20/1": 70,
+      "5/1": 66,
+      "50/1": 49
+    },
+    "loading_solvent_counts": {
+      "DCM": 395,
+      "PE": 95
+    },
+    "column_spec_counts": {
+      "Silica-CS 25g": 490
+    },
+    "repeated_exact_condition_groups": 3,
+    "rows_in_repeated_exact_conditions": 6,
+    "target_compounds_also_in_4g": 77,
+    "target_compounds_absent_from_4g": 1,
+    "target_compounds_absent_from_fixed_source_train": 1,
+    "rows_absent_from_fixed_source_train": 19,
+    "exact_source_condition_overlap_rows": 0,
+    "source_unseen_ood_status": "SOURCE_UNSEEN_MOLECULE_OOD_NOT_ESTIMABLE_WITH_CURRENT_DATA"
+  },
+  "40g": {
+    "column": "40g",
+    "raw_path": "dataset/dataset_40g.csv",
+    "raw_sha256": "2d89921b4c84c720a7b3ae97e76d7a996a8f296c417ac42c29adf68d21574e0e",
+    "raw_rows": 531,
+    "valid_rows": 529,
+    "unique_canonical_compounds": 80,
+    "target_threshold": null,
+    "label_policy": "verified t1/t2 when finite, otherwise raw t1/t2 fallback",
+    "verified_pair_rows": 531,
+    "raw_fallback_rows": 0,
+    "verified_raw_t1_mismatches": 0,
+    "verified_raw_t2_mismatches": 0,
+    "negative_or_invalid_label_rows": 2,
+    "t1_gt_t2_warning_rows_retained": 2,
+    "volume_formula": "V_ml = selected_time * Flow_mL_min / 1200",
+    "graph_failures": 0,
+    "graphs_reused_from_4g": 80,
+    "graphs_generated_for_target": 0,
+    "canonical_sha256": "a0b32392c6c3d30b95489750dbef3f823ee4708c81702117186ec4d65cbb92f4",
+    "V1_ml": {
+      "count": 529,
+      "mean": 76.2890359168242,
+      "std": 75.26089559394622,
+      "min": 21.975,
+      "median": 45.15,
+      "max": 529.7
+    },
+    "V2_ml": {
+      "count": 529,
+      "mean": 112.28993383742912,
+      "std": 105.21691697602954,
+      "min": 34.375,
+      "median": 72.575,
+      "max": 745.025
+    },
+    "flow": {
+      "count": 529,
+      "mean": 30.0,
+      "std": 0.0,
+      "min": 30.0,
+      "median": 30.0,
+      "max": 30.0
+    },
+    "loading_amount_ul": {
+      "count": 529,
+      "mean": 100.0,
+      "std": 0.0,
+      "min": 100.0,
+      "median": 100.0,
+      "max": 100.0
+    },
+    "loading_solvent_volume_ul": {
+      "count": 529,
+      "mean": 331.0018903591682,
+      "std": 109.67901685757407,
+      "min": 200.0,
+      "median": 300.0,
+      "max": 900.0
+    },
+    "PE_EA_counts": {
+      "0/1": 82,
+      "1/1": 82,
+      "2/1": 82,
+      "5/1": 79,
+      "10/1": 76,
+      "20/1": 70,
+      "50/1": 58
+    },
+    "loading_solvent_counts": {
+      "DCM": 426,
+      "PE": 103
+    },
+    "column_spec_counts": {
+      "Silica-CS 40g": 529
+    },
+    "repeated_exact_condition_groups": 7,
+    "rows_in_repeated_exact_conditions": 14,
+    "target_compounds_also_in_4g": 80,
+    "target_compounds_absent_from_4g": 0,
+    "target_compounds_absent_from_fixed_source_train": 0,
+    "rows_absent_from_fixed_source_train": 0,
+    "exact_source_condition_overlap_rows": 0,
+    "source_unseen_ood_status": "SOURCE_UNSEEN_MOLECULE_OOD_NOT_ESTIMABLE_WITH_CURRENT_DATA"
+  }
+}

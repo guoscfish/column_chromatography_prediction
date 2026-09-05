@@ -1,0 +1,85 @@
+{
+  "column": "40g",
+  "raw_path": "dataset/dataset_40g.csv",
+  "raw_sha256": "2d89921b4c84c720a7b3ae97e76d7a996a8f296c417ac42c29adf68d21574e0e",
+  "raw_rows": 531,
+  "valid_rows": 529,
+  "unique_canonical_compounds": 80,
+  "target_threshold": null,
+  "label_policy": "verified t1/t2 when finite, otherwise raw t1/t2 fallback",
+  "verified_pair_rows": 531,
+  "raw_fallback_rows": 0,
+  "verified_raw_t1_mismatches": 0,
+  "verified_raw_t2_mismatches": 0,
+  "negative_or_invalid_label_rows": 2,
+  "t1_gt_t2_warning_rows_retained": 2,
+  "volume_formula": "V_ml = selected_time * Flow_mL_min / 1200",
+  "graph_failures": 0,
+  "graphs_reused_from_4g": 80,
+  "graphs_generated_for_target": 0,
+  "canonical_sha256": "a0b32392c6c3d30b95489750dbef3f823ee4708c81702117186ec4d65cbb92f4",
+  "V1_ml": {
+    "count": 529,
+    "mean": 76.2890359168242,
+    "std": 75.26089559394622,
+    "min": 21.975,
+    "median": 45.15,
+    "max": 529.7
+  },
+  "V2_ml": {
+    "count": 529,
+    "mean": 112.28993383742912,
+    "std": 105.21691697602954,
+    "min": 34.375,
+    "median": 72.575,
+    "max": 745.025
+  },
+  "flow": {
+    "count": 529,
+    "mean": 30.0,
+    "std": 0.0,
+    "min": 30.0,
+    "median": 30.0,
+    "max": 30.0
+  },
+  "loading_amount_ul": {
+    "count": 529,
+    "mean": 100.0,
+    "std": 0.0,
+    "min": 100.0,
+    "median": 100.0,
+    "max": 100.0
+  },
+  "loading_solvent_volume_ul": {
+    "count": 529,
+    "mean": 331.0018903591682,
+    "std": 109.67901685757407,
+    "min": 200.0,
+    "median": 300.0,
+    "max": 900.0
+  },
+  "PE_EA_counts": {
+    "0/1": 82,
+    "1/1": 82,
+    "2/1": 82,
+    "5/1": 79,
+    "10/1": 76,
+    "20/1": 70,
+    "50/1": 58
+  },
+  "loading_solvent_counts": {
+    "DCM": 426,
+    "PE": 103
+  },
+  "column_spec_counts": {
+    "Silica-CS 40g": 529
+  },
+  "repeated_exact_condition_groups": 7,
+  "rows_in_repeated_exact_conditions": 14,
+  "target_compounds_also_in_4g": 80,
+  "target_compounds_absent_from_4g": 0,
+  "target_compounds_absent_from_fixed_source_train": 0,
+  "rows_absent_from_fixed_source_train": 0,
+  "exact_source_condition_overlap_rows": 0,
+  "source_unseen_ood_status": "SOURCE_UNSEEN_MOLECULE_OOD_NOT_ESTIMABLE_WITH_CURRENT_DATA"
+}

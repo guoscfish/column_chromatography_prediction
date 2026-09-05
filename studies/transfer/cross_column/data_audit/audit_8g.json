@@ -1,0 +1,85 @@
+{
+  "column": "8g",
+  "raw_path": "dataset/dataset_8g.csv",
+  "raw_sha256": "6bfe9c69ca5b32cb043af9d6cd2809c10bb2a7d27de279784b7e3783d021d5b9",
+  "raw_rows": 574,
+  "valid_rows": 574,
+  "unique_canonical_compounds": 88,
+  "target_threshold": null,
+  "label_policy": "verified t1/t2 when finite, otherwise raw t1/t2 fallback",
+  "verified_pair_rows": 574,
+  "raw_fallback_rows": 0,
+  "verified_raw_t1_mismatches": 0,
+  "verified_raw_t2_mismatches": 0,
+  "negative_or_invalid_label_rows": 0,
+  "t1_gt_t2_warning_rows_retained": 2,
+  "volume_formula": "V_ml = selected_time * Flow_mL_min / 1200",
+  "graph_failures": 0,
+  "graphs_reused_from_4g": 87,
+  "graphs_generated_for_target": 1,
+  "canonical_sha256": "c03be607808f242009a25b035f8bd34c5331b7b76cc2a295287780fe763e69b6",
+  "V1_ml": {
+    "count": 574,
+    "mean": 17.390171312427412,
+    "std": 17.717642228742026,
+    "min": 1.7583333333333333,
+    "median": 10.804166666666667,
+    "max": 138.38333333333333
+  },
+  "V2_ml": {
+    "count": 574,
+    "mean": 31.112601626016264,
+    "std": 29.18756324355625,
+    "min": 6.1,
+    "median": 21.924999999999997,
+    "max": 248.90833333333333
+  },
+  "flow": {
+    "count": 574,
+    "mean": 10.0,
+    "std": 0.0,
+    "min": 10.0,
+    "median": 10.0,
+    "max": 10.0
+  },
+  "loading_amount_ul": {
+    "count": 574,
+    "mean": 100.0,
+    "std": 0.0,
+    "min": 100.0,
+    "median": 100.0,
+    "max": 100.0
+  },
+  "loading_solvent_volume_ul": {
+    "count": 574,
+    "mean": 326.30662020905925,
+    "std": 99.49935791178379,
+    "min": 300.0,
+    "median": 300.0,
+    "max": 1000.0
+  },
+  "PE_EA_counts": {
+    "0/1": 90,
+    "1/1": 90,
+    "2/1": 88,
+    "5/1": 86,
+    "10/1": 79,
+    "20/1": 76,
+    "50/1": 65
+  },
+  "loading_solvent_counts": {
+    "DCM": 368,
+    "PE": 206
+  },
+  "column_spec_counts": {
+    "Silica-CS 4g+4g": 574
+  },
+  "repeated_exact_condition_groups": 7,
+  "rows_in_repeated_exact_conditions": 14,
+  "target_compounds_also_in_4g": 87,
+  "target_compounds_absent_from_4g": 1,
+  "target_compounds_absent_from_fixed_source_train": 1,
+  "rows_absent_from_fixed_source_train": 7,
+  "exact_source_condition_overlap_rows": 483,
+  "source_unseen_ood_status": "SOURCE_UNSEEN_MOLECULE_OOD_NOT_ESTIMABLE_WITH_CURRENT_DATA"
+}

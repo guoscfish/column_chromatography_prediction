@@ -1,0 +1,106 @@
+{
+  "research_question": "is cross-column transfer primarily a low-dimensional calibration problem",
+  "source_checkpoint": "studies/predictor/final_4g_qualification/runtime/row/seed_42/best.pt",
+  "source_checkpoint_sha256": "fce9edebc294fd179c7c7dc27ab2badea049c77fdad03a6cf0c317c63df544b0",
+  "columns_g": {
+    "8g": 8.0,
+    "25g": 25.0,
+    "40g": 40.0
+  },
+  "protocols": [
+    "row",
+    "compound"
+  ],
+  "outer_seeds": [
+    769539383,
+    1425370602,
+    536279090,
+    2767143051,
+    1362771960
+  ],
+  "planned_budgets": [
+    30,
+    50,
+    70,
+    100
+  ],
+  "methods": {
+    "8g": {
+      "row": [
+        "zero_shot",
+        "column_mass_ratio_scaling",
+        "scale_only",
+        "affine",
+        "affine_condition_residual",
+        "target_head_only"
+      ],
+      "compound": [
+        "zero_shot",
+        "column_mass_ratio_scaling",
+        "scale_only",
+        "affine",
+        "affine_condition_residual",
+        "target_head_only",
+        "last2"
+      ]
+    },
+    "25g": {
+      "row": [
+        "zero_shot",
+        "column_mass_ratio_scaling",
+        "scale_only",
+        "affine",
+        "affine_condition_residual",
+        "target_head_only"
+      ],
+      "compound": [
+        "zero_shot",
+        "column_mass_ratio_scaling",
+        "scale_only",
+        "affine",
+        "affine_condition_residual",
+        "target_head_only"
+      ]
+    },
+    "40g": {
+      "row": [
+        "zero_shot",
+        "column_mass_ratio_scaling",
+        "scale_only",
+        "affine",
+        "affine_condition_residual",
+        "target_head_only"
+      ],
+      "compound": [
+        "zero_shot",
+        "column_mass_ratio_scaling",
+        "scale_only",
+        "affine",
+        "affine_condition_residual",
+        "target_head_only"
+      ]
+    }
+  },
+  "mass_ratio_baseline_role": "DESCRIPTIVE_PHYSICAL_BASELINE_ONLY",
+  "budget_definition": "gradient_train plus validation revealed target rows",
+  "compound_budget_policy": "nearest nested prefix; compound groups are never split",
+  "target_threshold": null,
+  "ridge_alphas": [
+    0.01,
+    0.1,
+    1.0,
+    10.0,
+    100.0
+  ],
+  "neural_selection": "validation only",
+  "simple_fit": "gradient_train only",
+  "test_tuning": false,
+  "schedule_sha256": "b52b937aa750586ec8f2efb2f10f93dfddd2252bb03afaf304556e16b4fab5ee",
+  "canonical_sha256": {
+    "8g": "c03be607808f242009a25b035f8bd34c5331b7b76cc2a295287780fe763e69b6",
+    "25g": "4e47a0d94cc7df4f733488ff48910561f8fabc31e3b2f42099e2ff04ff82cbfe",
+    "40g": "a0b32392c6c3d30b95489750dbef3f823ee4708c81702117186ec4d65cbb92f4"
+  },
+  "source_unseen_ood_claim": "not made unless supported by audit",
+  "active_learning_executed": false
+}

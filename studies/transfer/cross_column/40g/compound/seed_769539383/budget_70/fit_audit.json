@@ -1,0 +1,61 @@
+{
+  "target_head_only": {
+    "best_epoch": 500,
+    "epochs_run": 500,
+    "validation_score": 2.1805711473427456,
+    "trainable_parameters": 774,
+    "total_parameters": 458952,
+    "trainable_fraction": 0.0016864508706792866,
+    "contract": {
+      "protocol_hash": "d409c91de38fadb6426b1d4003b66ec17fdf9bf9dd2fbd35747f1b7bbebfbdd3",
+      "column": "40g",
+      "split_protocol": "compound",
+      "seed": 769539383,
+      "planned_budget": 70,
+      "actual_budget": 69,
+      "method": "target_head_only",
+      "train_ids_hash": "8b4eeafb8e39b10550e04c5cc9793969c52c8110d0c75eba5acd11b853151c2d",
+      "validation_ids_hash": "3d2c2e754b4df1d3f97ad7c62fdac521bcae7c0982afc009c3848306d63368a9"
+    },
+    "checkpoint_sha256": "4c9841614dccb854dfc62465af4a30d4f2b3f73ce620830398fea1e5a1b074bc",
+    "representation_cache": "exact_frozen_backbone"
+  },
+  "scale_only": {
+    "coefficients": [
+      [
+        12.595189928861474
+      ],
+      [
+        8.06553206695973
+      ]
+    ],
+    "fit_role": "gradient_train"
+  },
+  "affine": {
+    "coefficients": [
+      [
+        16.021290470597737,
+        -31.74261691581213
+      ],
+      [
+        9.970127616465383,
+        -41.9466067271009
+      ]
+    ],
+    "fit_role": "gradient_train"
+  },
+  "affine_condition_residual": {
+    "affine_coefficients": [
+      [
+        16.021290470597737,
+        -31.74261691581213
+      ],
+      [
+        9.970127616465383,
+        -41.9466067271009
+      ]
+    ],
+    "selected_alpha": 100.0,
+    "selection": "groupkfold_5_gradient_train_only_refit_affine"
+  }
+}

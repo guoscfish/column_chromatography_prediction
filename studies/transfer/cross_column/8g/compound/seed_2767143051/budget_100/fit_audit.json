@@ -1,0 +1,80 @@
+{
+  "target_head_only": {
+    "best_epoch": 423,
+    "epochs_run": 500,
+    "validation_score": 0.18824353428655255,
+    "trainable_parameters": 774,
+    "total_parameters": 458952,
+    "trainable_fraction": 0.0016864508706792866,
+    "contract": {
+      "protocol_hash": "d409c91de38fadb6426b1d4003b66ec17fdf9bf9dd2fbd35747f1b7bbebfbdd3",
+      "column": "8g",
+      "split_protocol": "compound",
+      "seed": 2767143051,
+      "planned_budget": 100,
+      "actual_budget": 98,
+      "method": "target_head_only",
+      "train_ids_hash": "56697a38a21c6cfc78a3120b19d01db440bbcefc6cdd09b37f0f3115bf337a2c",
+      "validation_ids_hash": "d2ffa7372137a0903a61d6b93070f056d11026b6141b16c2bc049eb4b646fae9"
+    },
+    "checkpoint_sha256": "17968c741f4d4d7e9e88a0b84018da14d06a5fc155045a94af1ba005414941b7"
+  },
+  "last2": {
+    "best_epoch": 18,
+    "epochs_run": 118,
+    "validation_score": 0.39453959660539073,
+    "trainable_parameters": 126735,
+    "total_parameters": 458952,
+    "trainable_fraction": 0.27613998849552895,
+    "contract": {
+      "protocol_hash": "d409c91de38fadb6426b1d4003b66ec17fdf9bf9dd2fbd35747f1b7bbebfbdd3",
+      "column": "8g",
+      "split_protocol": "compound",
+      "seed": 2767143051,
+      "planned_budget": 100,
+      "actual_budget": 98,
+      "method": "last2",
+      "train_ids_hash": "56697a38a21c6cfc78a3120b19d01db440bbcefc6cdd09b37f0f3115bf337a2c",
+      "validation_ids_hash": "d2ffa7372137a0903a61d6b93070f056d11026b6141b16c2bc049eb4b646fae9"
+    },
+    "checkpoint_sha256": "61ee7674e701461cb33da6e80f55c6aa2a6f7d969d14becc8b13fe7db12b4dca"
+  },
+  "scale_only": {
+    "coefficients": [
+      [
+        2.2691484119946805
+      ],
+      [
+        1.7098931688765053
+      ]
+    ],
+    "fit_role": "gradient_train"
+  },
+  "affine": {
+    "coefficients": [
+      [
+        2.5828727889571232,
+        -3.90931873751525
+      ],
+      [
+        1.7610060176939755,
+        -1.472768657509629
+      ]
+    ],
+    "fit_role": "gradient_train"
+  },
+  "affine_condition_residual": {
+    "affine_coefficients": [
+      [
+        2.5828727889571232,
+        -3.90931873751525
+      ],
+      [
+        1.7610060176939755,
+        -1.472768657509629
+      ]
+    ],
+    "selected_alpha": 100.0,
+    "selection": "groupkfold_5_gradient_train_only_refit_affine"
+  }
+}
