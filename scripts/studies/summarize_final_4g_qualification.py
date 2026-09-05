@@ -127,7 +127,7 @@ def main():
                 "The audit is descriptive and non-blocking for ordinary point transfer. No alternative head or calibration was trained. Signed q90-q10 width and negative-width rates are retained; Spearman and the exactly ceil(20%)-sized top subset use width clipped at zero. Ties are resolved stably. Full train/validation/test audits are in the CSV.", "",
                 f"Interval warning flags: `{severity_flags}`. Follow-up: `{'MONOTONIC_HEAD_CONTROL_REQUIRED_BEFORE_ACTIVE_TRANSFER' if needs_control else 'UQ_CALIBRATION_AND_OPTIONAL_HEAD_CONTROL_BEFORE_ACTIVE_TRANSFER'}`.", "",
                 markdown_table(test_uq, index=False), "", "## Test aggregate across three seeds", "", markdown_table(grouped_uq), ""]
-    (STUDY / "QUANTILE_AUDIT.md").write_text("\n".join(uq_lines) + "\n")
+    (STUDY / "QUANTILE_AUDIT.md").write_text("\n".join(uq_lines).rstrip() + "\n")
     print(json.dumps(decision), flush=True)
 
 
