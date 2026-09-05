@@ -1,4 +1,4 @@
-"""Clean molecular/condition fusion model and no-performance diagnostics."""
+"""HISTORICAL_NEGATIVE_RESULT: failed Clean architecture, reproduction only."""
 
 from __future__ import annotations
 
@@ -15,7 +15,7 @@ from torch_geometric.nn import global_add_pool
 
 from ..data import qg
 from ..model import quantile_target_loss
-from ..schemas.clean import (
+from .clean_schema import (
     CLEAN_MODEL_VARIANT,
     SOLVENT_VOCABULARY,
     CleanConditionBatch,

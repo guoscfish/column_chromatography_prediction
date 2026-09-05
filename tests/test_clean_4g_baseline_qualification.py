@@ -9,7 +9,7 @@ import pandas as pd
 import torch
 
 from scripts.studies import run_clean_4g_baseline_qualification as qualification
-from src.qgeognn_al.schemas.clean import CleanConditionBatch, fit_clean_condition_normalization
+from src.qgeognn_al.historical.clean_schema import CleanConditionBatch, fit_clean_condition_normalization
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -57,7 +57,18 @@ def test_committed_split_hashes_and_dataset_manifest() -> None:
     for item in manifest["splits"]:
         assert qualification.sha256_file(ROOT / item["path"]) == item["sha256"]
     assert qualification.sha256_file(ROOT / manifest["qualification_dataset_manifest"]) == manifest["qualification_dataset_manifest_sha256"]
-    assert qualification.sha256_file(ROOT / manifest["generation_code"]) == manifest["generation_code_sha256"]
+    # The frozen manifest records the original generator, before its Clean
+    # imports were moved to the historical namespace. Verify that immutable
+    # source, plus the still-identical split-generation function, without
+    # rewriting historical provenance hashes to today's source.
+    import hashlib
+    import subprocess
+    frozen_source = subprocess.check_output(["git", "show", "433c926:" + manifest["generation_code"]], cwd=ROOT)
+    assert hashlib.sha256(frozen_source).hexdigest() == manifest["generation_code_sha256"]
+    current_source = (ROOT / manifest["generation_code"]).read_text()
+    old_generation = frozen_source.decode().split("def generate_split_table", 1)[1].split("def split_audit", 1)[0]
+    new_generation = current_source.split("def generate_split_table", 1)[1].split("def split_audit", 1)[0]
+    assert new_generation == old_generation
 
 
 def test_normalization_fits_only_each_training_partition() -> None:

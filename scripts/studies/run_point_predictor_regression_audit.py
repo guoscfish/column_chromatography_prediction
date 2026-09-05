@@ -38,9 +38,9 @@ from src.qgeognn_al.condition_complete_v2 import (
 from src.qgeognn_al.data import build_model_data, qg
 from src.qgeognn_al.model import build_model as build_legacy_model
 from src.qgeognn_al.model import quantile_target_loss
-from src.qgeognn_al.models.clean_fusion import build_clean_model
+from src.qgeognn_al.historical.clean_fusion import build_clean_model
 from src.qgeognn_al.resources import SOURCE_DATA, SOURCE_GRAPH_CACHE, SOURCE_SCALER
-from src.qgeognn_al.schemas.clean import (
+from src.qgeognn_al.historical.clean_schema import (
     CleanConditionBatch,
     fit_clean_condition_normalization,
     parse_clean_conditions,

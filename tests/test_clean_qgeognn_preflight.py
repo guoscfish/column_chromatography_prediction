@@ -12,7 +12,7 @@ from torch_geometric.loader import DataLoader
 
 from src.qgeognn_al.artifacts import sha256_file
 from src.qgeognn_al.data import build_model_data
-from src.qgeognn_al.models.clean_fusion import (
+from src.qgeognn_al.historical.clean_fusion import (
     REQUIRED_CLEAN_CHECKPOINT_FIELDS,
     build_clean_model,
     clean_checkpoint_payload,
@@ -23,7 +23,7 @@ from src.qgeognn_al.models.clean_fusion import (
     validate_clean_checkpoint,
 )
 from src.qgeognn_al.resources import SOURCE_DATA, SOURCE_GRAPH_CACHE
-from src.qgeognn_al.schemas.clean import (
+from src.qgeognn_al.historical.clean_schema import (
     CLEAN_MODEL_VARIANT,
     CONTINUOUS_CONDITION_NAMES,
     SOLVENT_VOCABULARY,

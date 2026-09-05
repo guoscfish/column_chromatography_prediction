@@ -27,7 +27,7 @@ if str(ROOT) not in sys.path:
 
 from src.qgeognn_al.artifacts import sha256_file
 from src.qgeognn_al.data import build_model_data, eluent_descriptor
-from src.qgeognn_al.models.clean_fusion import (
+from src.qgeognn_al.historical.clean_fusion import (
     build_clean_model,
     clean_checkpoint_payload,
     latent_l2_norms,
@@ -36,7 +36,7 @@ from src.qgeognn_al.models.clean_fusion import (
 )
 from src.qgeognn_al.model import quantile_target_loss
 from src.qgeognn_al.resources import SOURCE_DATA, SOURCE_GRAPH_CACHE
-from src.qgeognn_al.schemas.clean import (
+from src.qgeognn_al.historical.clean_schema import (
     CleanConditionBatch,
     CleanConditionNormalization,
     fit_clean_condition_normalization,
