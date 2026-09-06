@@ -1,0 +1,27 @@
+{
+  "status": "COMPLETE",
+  "base_commit": "6e10498",
+  "branch": "codex/study-scaling-failure-audit",
+  "training_audit_contexts": 30,
+  "model_contexts": 120,
+  "metric_rows": 960,
+  "test_descriptive_contexts": 30,
+  "directions_run": [
+    "CONDITIONAL_SCALING"
+  ],
+  "test_based_method_additions": 0,
+  "model_failures": 0,
+  "unresolved_failures": 0,
+  "resolved_reporting_attempt_failures": [
+    {
+      "phase": "test-descriptive protocol initialization",
+      "error": "JSONDecodeError reading protocol.json during concurrent identical protocol rewrite by model evaluation",
+      "resolution": "Reran test-descriptive sequentially with identical code, input hashes and model contract after model evaluation completed. No model or selection changes.",
+      "prevention": "Documented sequential phase execution; frozen scientific code retained."
+    }
+  ],
+  "all_model_predictions_frozen_before_target_test_evaluation": true,
+  "target_test_labels_used_for_fit_or_selection": false,
+  "predictor_retrained": false,
+  "final_decision": "STRUCTURED_FAILURE_BUT_NO_MATERIAL_MODEL_GAIN"
+}

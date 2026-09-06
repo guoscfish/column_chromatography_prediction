@@ -1,0 +1,36 @@
+{
+  "selected_directions": [
+    "CONDITIONAL_SCALING"
+  ],
+  "penalties": [
+    0.0,
+    0.1,
+    1.0
+  ],
+  "methods": [
+    "conditional_EA",
+    "additive_EA_control",
+    "conditional_policy",
+    "additive_policy"
+  ],
+  "baselines": [
+    "scale_only",
+    "affine",
+    "local_identity_shrinkage",
+    "target_head_only"
+  ],
+  "feature": "EA_fraction",
+  "contexts": 120,
+  "fit_labels": "gradient_train",
+  "selection_labels": "validation",
+  "test_tuning": false,
+  "model_hashes": {
+    "scripts/studies/run_conditional_scaling_audit_model.py": "fe12a2d979e3c871067f43b39ab517c170071e5bae32aac72fe25ae8ec0493c7",
+    "src/qgeognn_al/transfer/conditional_scaling.py": "56c186b3731d75a69d8716b48ee4d91b7fb1df18172ec147a50d68502d4c065e",
+    "studies/transfer/scaling_failure_audit/MODEL_PREREGISTRATION.md": "6bbd3431bce24f993dd20d7b2c1faf56752257b51ccefde0edfd13db0843bb14",
+    "studies/transfer/scaling_failure_audit/training_audit_frozen.json": "a39ccbf07d47abd8a146603787f6933d7f98e3133e0d040ba0b5fe5483f146f8",
+    "studies/transfer/scaling_failure_audit/features_8g.csv": "c183d0d199a90969d7568ddc6ebf19fdd7efa8d0ab2d54f7467e5f61a3c8bd0e",
+    "studies/transfer/scaling_failure_audit/features_25g.csv": "04983d5ff9a69d8b2738a084266d0f55561ba750bc3ac77699362b40b3f4f577",
+    "studies/transfer/scaling_failure_audit/features_40g.csv": "fdad39c0cc3997a7721b2c672c504b14e7c6daa542aaf7d565997eba3881019d"
+  }
+}

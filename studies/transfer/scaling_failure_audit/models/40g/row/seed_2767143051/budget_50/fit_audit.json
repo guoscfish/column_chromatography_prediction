@@ -1,0 +1,245 @@
+{
+  "fits": {
+    "conditional_EA": {
+      "selected_penalty": 0.0,
+      "candidates": [
+        {
+          "coefficients": [
+            [
+              1.2052057487487275,
+              -0.18760868456161653,
+              -0.17648403016427344
+            ],
+            [
+              0.9401980485575511,
+              -0.268991896674432,
+              0.0017575776688977154
+            ]
+          ],
+          "ea_mean": 0.31587180326676123,
+          "feature_mean": [
+            -0.052272759699399145,
+            -0.08431353709059594
+          ],
+          "feature_std": [
+            0.30386011378463285,
+            0.2967253131768094
+          ],
+          "source_scales": [
+            7.8796590346317394,
+            16.076509553562932
+          ],
+          "mass_ratio": 10.0,
+          "interaction": true,
+          "penalty": 0.0
+        },
+        {
+          "coefficients": [
+            [
+              1.1234803101455664,
+              -0.10680360837755559,
+              -0.18849077670606934
+            ],
+            [
+              0.8872970074686466,
+              -0.19943153793431773,
+              -0.021554338035561997
+            ]
+          ],
+          "ea_mean": 0.31587180326676123,
+          "feature_mean": [
+            -0.052272759699399145,
+            -0.08431353709059594
+          ],
+          "feature_std": [
+            0.30386011378463285,
+            0.2967253131768094
+          ],
+          "source_scales": [
+            7.8796590346317394,
+            16.076509553562932
+          ],
+          "mass_ratio": 10.0,
+          "interaction": true,
+          "penalty": 0.1
+        },
+        {
+          "coefficients": [
+            [
+              1.0489872628436874,
+              -0.026782512583964704,
+              -0.11773252759697092
+            ],
+            [
+              0.9003758912826739,
+              -0.11582085141798895,
+              -0.00870670113519171
+            ]
+          ],
+          "ea_mean": 0.31587180326676123,
+          "feature_mean": [
+            -0.052272759699399145,
+            -0.08431353709059594
+          ],
+          "feature_std": [
+            0.30386011378463285,
+            0.2967253131768094
+          ],
+          "source_scales": [
+            7.8796590346317394,
+            16.076509553562932
+          ],
+          "mass_ratio": 10.0,
+          "interaction": true,
+          "penalty": 1.0
+        }
+      ]
+    },
+    "additive_EA_control": {
+      "selected_penalty": 0.0,
+      "candidates": [
+        {
+          "coefficients": [
+            [
+              1.3644476405509474,
+              -0.32424658488615443,
+              -0.10178365294140714
+            ],
+            [
+              0.9559033355744828,
+              -0.2837222768073292,
+              0.025369206524287754
+            ]
+          ],
+          "ea_mean": 0.31587180326676123,
+          "feature_mean": [
+            0.0,
+            0.0
+          ],
+          "feature_std": [
+            0.3349884862222935,
+            0.3349884862222935
+          ],
+          "source_scales": [
+            7.8796590346317394,
+            16.076509553562932
+          ],
+          "mass_ratio": 10.0,
+          "interaction": false,
+          "penalty": 0.0
+        },
+        {
+          "coefficients": [
+            [
+              1.2343619502323104,
+              -0.19329657779845902,
+              -0.11098424826087801
+            ],
+            [
+              0.913041121749874,
+              -0.22138248923662818,
+              0.013255617692278544
+            ]
+          ],
+          "ea_mean": 0.31587180326676123,
+          "feature_mean": [
+            0.0,
+            0.0
+          ],
+          "feature_std": [
+            0.3349884862222935,
+            0.3349884862222935
+          ],
+          "source_scales": [
+            7.8796590346317394,
+            16.076509553562932
+          ],
+          "mass_ratio": 10.0,
+          "interaction": false,
+          "penalty": 0.1
+        },
+        {
+          "coefficients": [
+            [
+              1.0684949293235741,
+              -0.03515181339380974,
+              -0.0739825677836875
+            ],
+            [
+              0.9035705412430576,
+              -0.11731902232875478,
+              0.006098760498298466
+            ]
+          ],
+          "ea_mean": 0.31587180326676123,
+          "feature_mean": [
+            0.0,
+            0.0
+          ],
+          "feature_std": [
+            0.3349884862222935,
+            0.3349884862222935
+          ],
+          "source_scales": [
+            7.8796590346317394,
+            16.076509553562932
+          ],
+          "mass_ratio": 10.0,
+          "interaction": false,
+          "penalty": 1.0
+        }
+      ]
+    }
+  },
+  "validation_candidates": [
+    {
+      "method": "scale_only",
+      "penalty": null,
+      "validation_score": 6.6877652270752135
+    },
+    {
+      "method": "affine",
+      "penalty": null,
+      "validation_score": 6.325263349123722
+    },
+    {
+      "method": "local_identity_shrinkage",
+      "penalty": null,
+      "validation_score": 6.325263406084857
+    },
+    {
+      "method": "conditional_EA",
+      "penalty": 0.0,
+      "validation_score": 6.070903933148263
+    },
+    {
+      "method": "conditional_EA",
+      "penalty": 0.1,
+      "validation_score": 6.121969516372028
+    },
+    {
+      "method": "conditional_EA",
+      "penalty": 1.0,
+      "validation_score": 6.430097018515599
+    },
+    {
+      "method": "additive_EA_control",
+      "penalty": 0.0,
+      "validation_score": 6.173101169824312
+    },
+    {
+      "method": "additive_EA_control",
+      "penalty": 0.1,
+      "validation_score": 6.29938230188272
+    },
+    {
+      "method": "additive_EA_control",
+      "penalty": 1.0,
+      "validation_score": 6.595373208536329
+    }
+  ],
+  "policy_choices": {
+    "conditional_policy": "conditional_EA",
+    "additive_policy": "additive_EA_control"
+  }
+}

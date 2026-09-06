@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "command": "KMP_DUPLICATE_LIB_OK=TRUE MPLCONFIGDIR=/tmp/transfer-diagnostics-mpl conda run --no-capture-output -n fish pytest -q tests/test_scaling_failure_audit.py tests/test_next_transfer_diagnostics.py tests/test_final_v2_predictor.py tests/test_final_v2_transfer.py tests/test_cross_column_transfer.py",
+  "distinct_tests_passed": 41,
+  "warnings": 124,
+  "seconds": 46.55,
+  "new_tests": 9,
+  "coverage": [
+    "strict matching and source-train-only pairing anchors",
+    "ratio guard and train-only bin definitions",
+    "compound out-of-fold label isolation",
+    "confounding and insufficient support handling",
+    "varying-slope versus additive mathematical control",
+    "frozen design, code, evidence and prediction hashes",
+    "exact train/validation/test roles and equal label budgets",
+    "all 960 metric rows finite",
+    "qualified predictor and preceding transfer regression"
+  ],
+  "warning_note": "Existing dependency deprecations, requests character-detection warning and graph num_nodes inference warnings; no test failures.",
+  "plot_visual_review": {
+    "inspected": [
+      "scale_stability.png",
+      "source_condition_interaction.png",
+      "conditional_model_paired_effects.png"
+    ],
+    "result": "Readable titles, axes, labels, points and reference lines; no visible clipping."
+  },
+  "protected_predictor_and_historical_results_unchanged": true,
+  "git_diff_check": "PASS"
+}
