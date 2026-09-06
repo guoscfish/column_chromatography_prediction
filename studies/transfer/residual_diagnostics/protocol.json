@@ -1,0 +1,87 @@
+{
+  "base_commit": "61f20c9d10e1e5cfbd523ae0cac448f55de74eb2",
+  "protected_hashes": {
+    "studies/predictor/final_4g_qualification/runtime/row/seed_42/best.pt": "fce9edebc294fd179c7c7dc27ab2badea049c77fdad03a6cf0c317c63df544b0",
+    "studies/transfer/cross_column/protocol.json": "2740ac4b57a06a72e968bb7a87c5549687eb4469005dcbf84721ad3845bc795c",
+    "studies/transfer/cross_column/splits/schedule_manifest.csv": "b52b937aa750586ec8f2efb2f10f93dfddd2252bb03afaf304556e16b4fab5ee",
+    "src/qgeognn_al/models/qgeognn_v2.py": "0058ae546ed0aeb84762b1b26f343a9b622f49a2fb45aefb2434e679ba2547e2",
+    "src/qgeognn_al/transfer/calibration.py": "e9f8511cd4e8263f16978527c4330a912f55bffe79b8966a522db9b898a7799d",
+    "src/qgeognn_al/training/predictor.py": "f3e7ff3033a2fa4dcb240ae3f925c4ce13f0efe4effa02c7dfc175f3c5c72144",
+    "src/qgeognn_al/evaluation/point.py": "48b000accf3715ed6c1304ccaa9a346275ed5068ec8d2ffcc217cee72e7fc82e",
+    "studies/transfer/cross_column/data_audit/canonical_8g.csv": "c03be607808f242009a25b035f8bd34c5331b7b76cc2a295287780fe763e69b6",
+    "studies/transfer/cross_column/data_audit/graph_cache_8g_only.pt": "bc8499b5c366fd504cb4d1aa95a7ad95d02d78163fe04cf9d5241b4b64b4c4bc",
+    "studies/transfer/cross_column/data_audit/canonical_25g.csv": "4e47a0d94cc7df4f733488ff48910561f8fabc31e3b2f42099e2ff04ff82cbfe",
+    "studies/transfer/cross_column/data_audit/graph_cache_25g_only.pt": "a5af734cc32dc4d3372a9cc952d098283cd97395d256ea07ef93ddaf2f006191",
+    "studies/transfer/cross_column/data_audit/canonical_40g.csv": "a0b32392c6c3d30b95489750dbef3f823ee4708c81702117186ec4d65cbb92f4",
+    "studies/transfer/cross_column/data_audit/graph_cache_40g_only.pt": "3919c2c5eac2b927c37fce52da4267fa65216d906e53c6edc4d9c044d188acaa"
+  },
+  "design_sha256": "76446d76dff00b9cfdee0c5ba32142341837fce1922571ab5f7ab1bd2732937b",
+  "implementation_sha256": {
+    "scripts/studies/run_next_transfer_diagnostics.py": "2eddb0e587e3ec084ff516082dffc03fee9d9065ffc990bb7c73a7321c4417c7",
+    "src/qgeognn_al/transfer/residual_diagnostics.py": "8d474297d8741b5c0a02899cf5388cd544446a692e8b5618077b15d637e06efa"
+  },
+  "columns": [
+    "8g",
+    "25g",
+    "40g"
+  ],
+  "seeds": [
+    769539383,
+    1425370602,
+    536279090,
+    2767143051,
+    1362771960
+  ],
+  "budgets": [
+    30,
+    50,
+    70,
+    100
+  ],
+  "protocols": [
+    "row",
+    "compound"
+  ],
+  "contexts": 120,
+  "spline_strengths": [
+    0.1,
+    1.0
+  ],
+  "spline_knots": [
+    0.3333333333333333,
+    0.6666666666666666
+  ],
+  "sharing_strengths": [
+    0.0,
+    0.1,
+    1.0
+  ],
+  "selection": "focal validation only; ties prefer simpler",
+  "nonlinear_primary": "nonlinear_policy",
+  "nonlinear_required_references": [
+    "scale_only",
+    "affine",
+    "linear_policy"
+  ],
+  "shared_primary": "shared_column_affine",
+  "shared_required_references": [
+    "scale_only",
+    "affine",
+    "local_identity_shrinkage"
+  ],
+  "gate": "at least two different compound columns: >=5% relative mean AULC gain, negative median delta, >=4/5 wins; row degradation <=5%; 25g/40g also beat head",
+  "shared_additional_gate": "compound equal-column portfolio AULC >=5% better than affine, scale and local shrinkage",
+  "budget": "single-column B for nonlinear; shared vs independent three-column portfolio costs sum(actual budgets), including validation",
+  "compound_donor_purge": "focal validation and test compounds removed from all donor training",
+  "test_tuning": false,
+  "active_learning": false,
+  "adaptive_readout": false,
+  "historically_consumed_test": true,
+  "environment": {
+    "python": "3.11.14",
+    "numpy": "2.4.6",
+    "pandas": "3.0.5",
+    "scipy": "1.17.1",
+    "torch": "2.10.0"
+  }
+}

@@ -10,6 +10,8 @@ The final model has 458,952 parameters, all gradient-bearing. Six-output equival
 
 ## Current evidence
 
+- [Next transfer residual diagnostics](studies/transfer/residual_diagnostics/RESULT_INTERPRETATION.md): two controlled experiments, `NO_COMPLEXITY_JUSTIFIED_BY_CURRENT_DATA`; active learning remains deferred.
+- [Cross-column validation](studies/transfer/cross_column/CROSS_COLUMN_TRANSFER_REPORT.md): matched 8g/25g/40g row and target-compound splits.
 - [Standalone engineering](studies/predictor/final_v2_engineering/README.md): equivalence, reachability and checkpoint contract.
 - [Final 4g qualification](studies/predictor/final_4g_qualification/FINAL_4G_QUALIFICATION_REPORT.md): all Train/Validation/Test metrics and seed aggregates.
 - [Quantile audit](studies/predictor/final_4g_qualification/QUANTILE_AUDIT.md): descriptive uncertainty assessment, without head retraining.

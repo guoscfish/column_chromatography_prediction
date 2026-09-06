@@ -1,5 +1,9 @@
 # Current research decision
 
+The latest [two controlled residual diagnostics](../studies/transfer/residual_diagnostics/RESULT_INTERPRETATION.md), based on cross-column commit `61f20c9`, conclude **`NO_COMPLEXITY_JUSTIFIED_BY_CURRENT_DATA`**. Monotone nonlinear calibration has no stable material benefit. Shared calibration improves compound portfolio AULC by 9.04% versus affine, but only 1.42% versus scale-only and 1.64% versus independent shrinkage. Neither family passes the preregistered cross-seed/cross-column gate. The remaining error cannot yet be attributed uniquely to readout or data limitations. No extra model is appended to obtain a positive result.
+
+This stage does not start Active Learning, ordinary full fine-tuning, an adapter width sweep, Clean, or adaptive readout. The older cross-column report's `ACTIVE_CALIBRATION` proposal is historical, not the current execution instruction. Further mechanism identification would benefit from independent batches/compounds, replication, crossed mass/flow settings and tail coverage. Target-compound holdout is not source-unseen OOD.
+
 The final standalone QGeoGNN-V2 passed exact R2-pruned equivalence and six-run 4g qualification: `4G_POINT_PREDICTOR_QUALIFIED_FOR_TRANSFER_STUDIES`. Predictor architecture is no longer the default research object.
 
 The current quantile head is `CURRENT_HEAD_RETAINED_FOR_POINT_TRANSFER`. Compound-seed-525 V1 crossing is 15.22%, and nominal 80% intervals under-cover, especially on unseen compounds. Width remains positively associated with absolute error. `MONOTONIC_HEAD_CONTROL_REQUIRED_BEFORE_ACTIVE_TRANSFER` therefore applies to future UQ/active-transfer qualification; it does not block ordinary point transfer. No replacement head was trained.

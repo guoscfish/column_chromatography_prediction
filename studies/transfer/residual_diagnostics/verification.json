@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "command": "KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish pytest -q tests/test_next_transfer_diagnostics.py",
+      "phase": "pre-fit mathematical and leakage tests",
+      "passed": 6,
+      "seconds": 1.89
+    },
+    {
+      "command": "KMP_DUPLICATE_LIB_OK=TRUE MPLCONFIGDIR=/tmp/transfer-diagnostics-mpl conda run --no-capture-output -n fish pytest -q tests/test_next_transfer_diagnostics.py tests/test_final_v2_predictor.py tests/test_final_v2_transfer.py tests/test_cross_column_transfer.py",
+      "phase": "diagnostics plus qualified predictor and existing transfer regression",
+      "passed": 30,
+      "warnings": 124,
+      "seconds": 32.67
+    },
+    {
+      "command": "KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish pytest -q tests/test_next_transfer_diagnostics.py",
+      "phase": "expanded completed-artifact, hash and budget-ledger checks",
+      "passed": 8,
+      "seconds": 1.7
+    }
+  ],
+  "distinct_tests_passed": 32,
+  "plot_visual_review": "paired_aulc_effects.png inspected; titles, axes, dots, means and 5% reference readable",
+  "baseline_numerical_reproduction_max_error_ml": 0.00017587811032626632,
+  "source_checkpoint_and_baseline_unchanged": true,
+  "warning_note": "Existing dependency deprecations, requests character-detection warning and graph num_nodes inference warnings; no test failure."
+}

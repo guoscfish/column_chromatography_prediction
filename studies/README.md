@@ -2,6 +2,8 @@
 
 ## Current predictor and transfer
 
+- [Next transfer residual diagnostics](transfer/residual_diagnostics/RESULT_INTERPRETATION.md)
+- [Cross-column validation](transfer/cross_column/CROSS_COLUMN_TRANSFER_REPORT.md)
 - [Standalone engineering](predictor/final_v2_engineering/README.md)
 - [Final 4g qualification](predictor/final_4g_qualification/FINAL_4G_QUALIFICATION_REPORT.md)
 - [Quantile audit](predictor/final_4g_qualification/QUANTILE_AUDIT.md)
