@@ -1,0 +1,19 @@
+{
+  "python": "3.11 (conda fish)",
+  "torch": "2.10.0",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "device": "cpu",
+  "workers": 4,
+  "torch_threads_per_worker": 1,
+  "deterministic_algorithms": true,
+  "KMP_DUPLICATE_LIB_OK": "TRUE",
+  "MPLCONFIGDIR": "/tmp/source-anchor-mpl",
+  "full_regression_tests": {
+    "passed": 265,
+    "warnings": 178,
+    "seconds": 120.22
+  },
+  "new_contract_tests": 13,
+  "peak_workers": 6,
+  "additional_scheduling": "Two single-thread processes for ten 40g budget-30 contexts, started while main queue is in 8g; unchanged frozen runner, completed contexts reused by main queue. After that bounded queue completed and main remained in early 40g row, two untouched late 40g compound budget-100 contexts (seeds 2767143051,1362771960) were scheduled with the same runner; peak concurrency remains six. Once both late budget-100 contexts completed, the same two late compound seeds at budget 70 were scheduled ahead of the main queue, still in 40g row. After the budget-70 batch completed, the same two late compound seeds at budget50 were scheduled while main was only starting the first compound seed; peak remains six."
+}

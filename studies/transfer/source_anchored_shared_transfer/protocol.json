@@ -1,0 +1,89 @@
+{
+  "config": {
+    "learning_rate": 0.0001,
+    "weight_decay": 1e-05,
+    "maximum_epochs": 500,
+    "patience": 100,
+    "batch_size": 2048,
+    "lambda_source": 1.0,
+    "cpu_threads": 1,
+    "target_order_rng": "seed*10000+epoch",
+    "replay_rng": "SeedSequence([seed,epoch,41004])",
+    "source_batch_size": "target_train_count",
+    "source_head_frozen": true,
+    "source_replay_bn": "eval_statistics_with_gradients",
+    "relative_error_floor_ml": 1.0
+  },
+  "methods": {
+    "standard_shallow_finetune": [
+      "shallow",
+      false
+    ],
+    "standard_full_finetune": [
+      "full",
+      false
+    ],
+    "source_anchored_shallow": [
+      "shallow",
+      true
+    ],
+    "source_anchored_full": [
+      "full",
+      true
+    ]
+  },
+  "baselines": [
+    "scale_only",
+    "local_identity_shrinkage",
+    "conditional_EA",
+    "conditional_policy",
+    "target_head_only"
+  ],
+  "columns": [
+    "8g",
+    "25g",
+    "40g"
+  ],
+  "seeds": [
+    769539383,
+    1425370602,
+    536279090,
+    2767143051,
+    1362771960
+  ],
+  "budgets": [
+    30,
+    50,
+    70,
+    100
+  ],
+  "contexts": 120,
+  "new_fits": 480,
+  "developmental_evidence": true,
+  "donor_target_labels": 0,
+  "test_used_for_selection": false,
+  "hashes": {
+    "scripts/studies/run_source_anchored_transfer.py": "faa2f8f9d81807d598b6c1dc1b4389eb394537ed42b97248ebd649f5d2f6a2d9",
+    "src/qgeognn_al/transfer/source_anchored.py": "52b4b74d9d47f5f0853d71ee4ddea44a8d0886ae7a5b873677d8131d77f64d54",
+    "src/qgeognn_al/models/qgeognn_v2.py": "0058ae546ed0aeb84762b1b26f343a9b622f49a2fb45aefb2434e679ba2547e2",
+    "src/qgeognn_al/training/predictor.py": "f3e7ff3033a2fa4dcb240ae3f925c4ce13f0efe4effa02c7dfc175f3c5c72144",
+    "src/qgeognn_al/data.py": "f30a1525370b7da76c6c67c1a50937522d30b4167368a279cbe012de11551978",
+    "src/qgeognn_al/transfer/baseline.py": "2d82a952dc2020f4a519243c667001ee2dd9aeb82e5915e58423848245a5dd7a",
+    "studies/transfer/source_anchored_shared_transfer/MODEL_PREREGISTRATION.md": "051545d5861221db8abf21d3089ee8bf32caa3ac8ea40fce5696cb99a8fc2a66",
+    "studies/transfer/source_anchored_shared_transfer/PRE_EXPERIMENT_AUDIT.md": "a83637c5836699fdbb7cff4b8621c9060eef06864cc14dadd6ba6b1f47196c47",
+    "studies/predictor/final_4g_qualification/runtime/row/seed_42/best.pt": "fce9edebc294fd179c7c7dc27ab2badea049c77fdad03a6cf0c317c63df544b0",
+    "experiments/e0_4g_baseline/canonical_4g.csv": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+    "experiments/e0_4g_baseline/graph_cache_4g.pt": "a48f8ea1ce4f89c5a1ea6d17466e7c7ffa0439edb8ec79bd8b765bad3a97c3ee",
+    "studies/predictor/final_4g_qualification/splits/row_seed_42.csv": "a8a4a322cd9c75253b1a4ed8c5c91ededed74a933df2db2685015c8b3e008008",
+    "studies/transfer/cross_column/splits/schedule_manifest.csv": "b52b937aa750586ec8f2efb2f10f93dfddd2252bb03afaf304556e16b4fab5ee",
+    "studies/transfer/cross_column/data_audit/canonical_8g.csv": "c03be607808f242009a25b035f8bd34c5331b7b76cc2a295287780fe763e69b6",
+    "studies/transfer/cross_column/data_audit/graph_cache_8g_only.pt": "bc8499b5c366fd504cb4d1aa95a7ad95d02d78163fe04cf9d5241b4b64b4c4bc",
+    "studies/transfer/scaling_failure_audit/features_8g.csv": "c183d0d199a90969d7568ddc6ebf19fdd7efa8d0ab2d54f7467e5f61a3c8bd0e",
+    "studies/transfer/cross_column/data_audit/canonical_25g.csv": "4e47a0d94cc7df4f733488ff48910561f8fabc31e3b2f42099e2ff04ff82cbfe",
+    "studies/transfer/cross_column/data_audit/graph_cache_25g_only.pt": "a5af734cc32dc4d3372a9cc952d098283cd97395d256ea07ef93ddaf2f006191",
+    "studies/transfer/scaling_failure_audit/features_25g.csv": "04983d5ff9a69d8b2738a084266d0f55561ba750bc3ac77699362b40b3f4f577",
+    "studies/transfer/cross_column/data_audit/canonical_40g.csv": "a0b32392c6c3d30b95489750dbef3f823ee4708c81702117186ec4d65cbb92f4",
+    "studies/transfer/cross_column/data_audit/graph_cache_40g_only.pt": "3919c2c5eac2b927c37fce52da4267fa65216d906e53c6edc4d9c044d188acaa",
+    "studies/transfer/scaling_failure_audit/features_40g.csv": "fdad39c0cc3997a7721b2c672c504b14e7c6daa542aaf7d565997eba3881019d"
+  }
+}

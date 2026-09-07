@@ -1,6 +1,36 @@
 # Cross-column transfer: evidence and open questions
 
-Updated before the scaling-failure audit, from remote `codex/study-transfer-residual-diagnostics` at `6e10498` (preceding cross-column base `61f20c9`). Historical reports and decision JSONs retain their original provenance.
+Updated after the completed source-anchored representation-transfer stage on
+`codex/study-source-anchored-shared-transfer`, based on scaling-failure audit
+commit `9225cc2`. Historical reports and decision JSONs retain their original
+provenance. The byte-exact status consumed by the scaling-failure protocol is
+preserved in [the historical snapshot](history/CROSS_COLUMN_TRANSFER_STATUS_scaling_failure_audit.md).
+
+## Latest completed representation experiment
+
+**CURRENT_QGEOGNN_REPRESENTATION_NOT_SUFFICIENT_FOR_LOW_LABEL_CROSS_COLUMN_TRANSFER**
+(Outcome D, tested recipe only). All 120 contexts and 480 new fits completed.
+N1/N2 test current-V2 shallow/full target-only FT; M1/M2 add source replay with
+the exact same trainable capacity and a frozen source head. All methods use
+the original focal-column purchased-label ledger, with no donor target labels.
+Source anchoring preserves the source function in all six contexts (5/5
+paired seed wins per context) but does not improve large-column target error.
+
+On 25g/40g compound, N1 AULC is 2.067/3.959 versus frozen conditional EA
+1.479/3.417; M1 is 3.297/6.211, N2 3.172/7.236 and M2 4.402/9.118. All new
+neural arms lose to that fixed calibration reference in 5/5 seeds on both
+columns. Budget100 N1 RMSE is 19.55/26.28 and 37.46/48.27 mL versus shrinkage
+13.95/19.76 and 33.57/40.97. Local low/mid-q50 and high-EA improvements coexist
+with tail/low-EA deterioration. No replicated all-reference material gain or
+joint source-preservation/target-stability gate passes.
+
+Keep scale-only / local identity shrinkage as the main point-transfer baseline
+family; retain frozen conditional and 8g head-only comparators. This does not
+prove an information-theoretic deficit in the latent representation: the
+existing head can represent positive scale-only, so optimization and
+small-sample estimation remain possible limitations. Historical test exposure
+makes this developmental evidence. See [full interpretation](../../studies/transfer/source_anchored_shared_transfer/RESULT_INTERPRETATION.md)
+and [next decision](../../studies/transfer/source_anchored_shared_transfer/NEXT_STAGE_DECISION.md).
 
 ## Qualified predictor and generalization
 
@@ -15,10 +45,12 @@ Always distinguish row interpolation, target-compound holdout (no target trainin
 | zero-shot, descriptive column-mass-ratio scaling, scale-only, affine | Current V2, 8g/25g/40g, row/compound, five seeds and four budgets. Simple calibration removes much systematic shift; scale-only is a strong reference. |
 | affine + condition Ridge residual | Current V2, all six column/protocol contexts. Incremental AULC gains are small; none reaches 5%. |
 | target-head-only | Current V2, all six contexts. Strong on 8g; markedly worse than calibration on 25g/40g. |
-| last1/last2/full fine-tune | Historical Legacy T1/G0 and current final-V2 8g cover shallow/full adaptation. **Current 25g/40g only tested head-only; the conditional last2 trigger did not fire, and full was not run there.** Do not report unperformed 25g/40g last2/full comparisons. Increased capacity has not established a stable cross-column advantage in the experiments actually run. |
+| Historical last1/last2/full fine-tune | Legacy T1/G0 and the earlier current final-V2 8g study cover shallow/full adaptation. At the cross-column/scaling-audit stage, current 25g/40g had only tested head-only: the last2 trigger did not fire. These historical facts remain unchanged. |
+| Current V2 standard shallow/full and source-anchored shallow/full | Now tested in all 120 contexts. Shallow explicitly trains `backbone.convs.4`, condition completion and target head (36,387 parameters); full trains backbone, condition completion and target head (458,952). Anchored controls match capacity exactly. No replicated material advantage over strong calibration; source preservation alone is insufficient. These are not renamed Legacy last1/last2 results. |
 | pooled representation residual adapter | Historical T1b r8/r16/r32 after sum pooling. No stable benefit; this did not test adaptive pooling. Old source/head rankings are not current V2 rankings. |
 | monotone spline, nonlinear policy | Current V2, all 120 frozen contexts. Train-only two-knot monotone q50 calibration, validation choice. No stable material improvement. |
 | shared-column affine, local identity shrinkage | Current V2, equal purchased three-column portfolios and donor compound purging. Shared improves compound AULC 9.04% versus affine, but 1.42% versus scale and 1.64% versus local shrinkage. |
+| Conditional EA / validation-selected conditional policy | Completed scaling-failure study, all 120 contexts. Reproducible EA/V1 structure and local positive signals, but no replicated material gain over strong additive/shrinkage controls. Frozen references only in the representation stage. |
 
 These ideas must not be renamed and repeated. Evidence: [cross-column report](../../studies/transfer/cross_column/CROSS_COLUMN_TRANSFER_REPORT.md), [residual diagnostics](../../studies/transfer/residual_diagnostics/RESULT_INTERPRETATION.md), [pre-experiment method audit](../../NEXT_TRANSFER_MODEL_AUDIT.md).
 
@@ -36,9 +68,9 @@ Historical `NO_COMPLEXITY_JUSTIFIED_BY_CURRENT_DATA` is retained verbatim in its
 
 `V_target = a * V_4g_pred` acts on a learned summary of molecule and chromatography conditions. Targets overlap source molecules strongly; target conditions form structured grids; 8g has many source-condition matches. Mass, flow and specification are confounded (target flow 10/15/30 for 8g/25g/40g). A strong empirical prediction rule is not a universal physical scaling law.
 
-The next question is whether `target/source_q50` and `target-a*source_q50` have reproducible source-range, condition, molecule or pairing structure. Ratio denominators near zero require explicit handling. Matching must be exact on declared fields and distinguish all-source identity matches from source-train label availability. Most apparent repeats are different conditions; sparse genuine repeats cannot identify an irreducible experimental noise floor.
+The completed scaling-failure audit found reproducible EA/V1 structure in `target/source_q50` and `target-a*source_q50`. Ratio denominators near zero require explicit handling. Matching must be exact on declared fields and distinguish all-source identity matches from source-train label availability. Most apparent repeats are different conditions; sparse genuine repeats cannot identify an irreducible experimental noise floor.
 
-The [scaling-failure audit](../../studies/transfer/scaling_failure_audit/SCALING_FAILURE_AUDIT.md) will use frozen predictions, identities and splits, without QGeoGNN retraining. Training-only evidence chooses at most two supported directions among conditional scaling, molecule-dependent scaling and paired/delta learning. Test summaries follow a frozen choice and never drive method iteration. AULC/label-efficiency gains and high-budget absolute accuracy gains must be reported separately.
+The [scaling-failure audit](../../studies/transfer/scaling_failure_audit/SCALING_FAILURE_AUDIT.md) used frozen predictions, identities and splits without QGeoGNN retraining. Training-only evidence selected conditional scaling; molecule-dependent and paired/delta directions did not pass screening. The completed representation study then tested a separate mechanism. No polynomial/MLP calibration, condition sweep or molecule-dependent scalar extension is authorized. AULC/label-efficiency gains and high-budget absolute accuracy gains remain separate endpoints.
 
 ## Future hypotheses / experiment backlog
 
@@ -46,14 +78,14 @@ All items below are `FUTURE_HYPOTHESES / EXPERIMENT_BACKLOG`, not demonstrated c
 
 | Direction | Needed evidence or control |
 | --- | --- |
-| Shared QGeoGNN backbone + column-specific heads | Matched total label budgets; distinguish representation sharing from coefficient regularization. |
+| Column-conditioned shared representation | Next research priority, not launched. Source/target shared backbone with separate heads and frozen source anchoring is now tested and negative under this recipe; explicit column context remains untested. Require matched budgets and independent compound/batch confirmation. |
 | Explicit column context | More specifications and crossed conditions; no causal mass/flow claim from present confounding. |
 | Task / column embedding | Known-column interpolation versus genuinely held-out specifications. |
 | Multi-column multitask training | Global compound isolation and equal acquired-label ledger. |
 | Multi-fidelity joint learning | Source-label provenance, missing-pair controls and fidelity-aware validation. |
 | Adaptive readout | Controlled readout-only intervention; no simultaneous backbone/head/loss redesign. |
 | Paired / delta learning | Strict matching, source-train label availability, duplicate aggregation and unmatched coverage. |
-| Conditional scaling | Reproducible multiplicative or q50×condition failure structure beyond additive Ridge. |
+| Conditional scaling extensions | Closed for this stage: frozen EA experiment completed without replicated material gain. Do not restart as V2/V3, polynomial, MLP or feature sweep. |
 | Experimental noise-floor estimation | Replicated measurements at identical molecule/condition/specification and independent batches. |
 | Source-unseen molecular OOD | Sufficient molecules absent from all source-training labels. |
 | Crossed mass × flow experimental design | Same mass at multiple flows and same flow at multiple masses, with matched conditions. |

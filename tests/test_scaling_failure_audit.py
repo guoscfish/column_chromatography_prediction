@@ -94,7 +94,14 @@ def read_json(path):
 
 def assert_hashes(base, mapping):
     for name, expected in mapping.items():
-        assert hashlib.sha256((base / name).read_bytes()).hexdigest() == expected, name
+        path = base / name
+        # This project-level status is explicitly updated by later research
+        # stages. Verify the byte-exact historical input snapshot, retaining
+        # the original protocol digest, rather than freezing the live status
+        # forever. All other historical inputs/artifacts keep their own paths.
+        if base == ROOT and name == "docs/research/CROSS_COLUMN_TRANSFER_STATUS.md":
+            path = ROOT / "docs/research/history/CROSS_COLUMN_TRANSFER_STATUS_scaling_failure_audit.md"
+        assert hashlib.sha256(path.read_bytes()).hexdigest() == expected, name
 
 
 def test_completed_artifacts_preserve_preregistration_and_prediction_freezes():
