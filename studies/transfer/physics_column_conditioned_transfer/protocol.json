@@ -1,0 +1,60 @@
+{
+  "config": {
+    "learning_rate": 0.0001,
+    "weight_decay": 1e-05,
+    "maximum_epochs": 500,
+    "patience": 100,
+    "source_weight": 0.5,
+    "target_weight": 0.5,
+    "ridge_alpha": 100.0,
+    "batch_norm": "frozen_running_statistics_trainable_affine",
+    "threads": 1
+  },
+  "methods": [
+    "packing_mass_physical_scale",
+    "physics_scale_residual",
+    "raw_column_conditioned",
+    "mass_normalized_column_conditioned"
+  ],
+  "baselines": [
+    "scale_only",
+    "local_identity_shrinkage",
+    "conditional_EA",
+    "conditional_policy",
+    "target_head_only",
+    "standard_shallow_finetune"
+  ],
+  "contexts": 120,
+  "neural_fits": 240,
+  "residual_fits": 120,
+  "hashes": {
+    "scripts/studies/run_physics_column_transfer.py": "a4fb939e3182220b76253cafea2f8ece863144f0f1adccf59424ded93d69f527",
+    "src/qgeognn_al/transfer/column_conditioned.py": "02816147e472fcb885879c8b2d076040e47973a4f37292e0f878af8e2632fb58",
+    "src/qgeognn_al/transfer/column_physics.py": "85030b66be75d3544d8cde953aa52281bde9793684f011b104c91bfa1bb5af00",
+    "scripts/studies/evaluate_physics_column_transfer.py": "df78386ff572e13915fc22280d3e0f5d9248f6d478bb4c32b270466d2800d7f8",
+    "studies/transfer/physics_column_conditioned_transfer/MODEL_PREREGISTRATION.md": "cb83acb8aca0ccfaa0436b8b11566246aef900410d14867f6276f0bc24354b8c",
+    "studies/transfer/physics_column_conditioned_transfer/audit_frozen.json": "37420bec99e241cbf05df0ec9043fb9ea08d39767e72d54d47db94578ea1d90a",
+    "studies/transfer/physics_column_conditioned_transfer/audit_supplement_frozen.json": "8e2810a4939785f8f280ffbc8f47b1eeb64e7d890de8d0c7e9f1f09d6e10d6d6",
+    "scripts/studies/run_source_anchored_transfer.py": "faa2f8f9d81807d598b6c1dc1b4389eb394537ed42b97248ebd649f5d2f6a2d9",
+    "scripts/studies/run_scaling_failure_audit.py": "393192b448fda0f1bd8dca463fdbc682874b664943fa7737c09ad8e174e73440",
+    "scripts/studies/evaluate_source_anchored_transfer.py": "92b90e628e0913ba5c21e3ae2f3303f489da8ae688df60e0f7f074828933feed",
+    "studies/predictor/final_4g_qualification/runtime/row/seed_42/best.pt": "fce9edebc294fd179c7c7dc27ab2badea049c77fdad03a6cf0c317c63df544b0",
+    "experiments/e0_4g_baseline/canonical_4g.csv": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+    "experiments/e0_4g_baseline/graph_cache_4g.pt": "a48f8ea1ce4f89c5a1ea6d17466e7c7ffa0439edb8ec79bd8b765bad3a97c3ee",
+    "studies/predictor/final_4g_qualification/splits/row_seed_42.csv": "a8a4a322cd9c75253b1a4ed8c5c91ededed74a933df2db2685015c8b3e008008",
+    "studies/transfer/cross_column/splits/schedule_manifest.csv": "b52b937aa750586ec8f2efb2f10f93dfddd2252bb03afaf304556e16b4fab5ee",
+    "src/qgeognn_al/models/qgeognn_v2.py": "0058ae546ed0aeb84762b1b26f343a9b622f49a2fb45aefb2434e679ba2547e2",
+    "src/qgeognn_al/training/predictor.py": "f3e7ff3033a2fa4dcb240ae3f925c4ce13f0efe4effa02c7dfc175f3c5c72144",
+    "src/qgeognn_al/data.py": "f30a1525370b7da76c6c67c1a50937522d30b4167368a279cbe012de11551978",
+    "studies/transfer/cross_column/data_audit/canonical_8g.csv": "c03be607808f242009a25b035f8bd34c5331b7b76cc2a295287780fe763e69b6",
+    "studies/transfer/cross_column/data_audit/graph_cache_8g_only.pt": "bc8499b5c366fd504cb4d1aa95a7ad95d02d78163fe04cf9d5241b4b64b4c4bc",
+    "studies/transfer/scaling_failure_audit/features_8g.csv": "c183d0d199a90969d7568ddc6ebf19fdd7efa8d0ab2d54f7467e5f61a3c8bd0e",
+    "studies/transfer/cross_column/data_audit/canonical_25g.csv": "4e47a0d94cc7df4f733488ff48910561f8fabc31e3b2f42099e2ff04ff82cbfe",
+    "studies/transfer/cross_column/data_audit/graph_cache_25g_only.pt": "a5af734cc32dc4d3372a9cc952d098283cd97395d256ea07ef93ddaf2f006191",
+    "studies/transfer/scaling_failure_audit/features_25g.csv": "04983d5ff9a69d8b2738a084266d0f55561ba750bc3ac77699362b40b3f4f577",
+    "studies/transfer/cross_column/data_audit/canonical_40g.csv": "a0b32392c6c3d30b95489750dbef3f823ee4708c81702117186ec4d65cbb92f4",
+    "studies/transfer/cross_column/data_audit/graph_cache_40g_only.pt": "3919c2c5eac2b927c37fce52da4267fa65216d906e53c6edc4d9c044d188acaa",
+    "studies/transfer/scaling_failure_audit/features_40g.csv": "fdad39c0cc3997a7721b2c672c504b14e7c6daa542aaf7d565997eba3881019d"
+  },
+  "developmental_evidence": true
+}
