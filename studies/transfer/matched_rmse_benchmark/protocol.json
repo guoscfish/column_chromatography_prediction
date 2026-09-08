@@ -1,0 +1,104 @@
+{
+  "budget_definition": "gradient_train + validation revealed target rows",
+  "budgets": [
+    30,
+    50,
+    70,
+    100
+  ],
+  "canonical_sha256": {
+    "25g": "4e47a0d94cc7df4f733488ff48910561f8fabc31e3b2f42099e2ff04ff82cbfe",
+    "40g": "a0b32392c6c3d30b95489750dbef3f823ee4708c81702117186ec4d65cbb92f4",
+    "8g": "c03be607808f242009a25b035f8bd34c5331b7b76cc2a295287780fe763e69b6"
+  },
+  "classification": "STRATEGY_MATCHED_ABSOLUTE_ERROR_BENCHMARK",
+  "columns": [
+    "8g",
+    "25g",
+    "40g"
+  ],
+  "decision_rules": {
+    "material_paper_style_gain": "paper_style_current_v2 must improve both B100 combined normalized RMSE and label-efficiency AULC by >=5% versus each preregistered simple reference, with >=4/5 paired seed wins, in both 25g and 40g",
+    "small_incremental_gain": "positive paired mean gain below 5%",
+    "tail_dominance": "a high-tail stratum is called dominant only when its mean share of total target SSE is >=50%; otherwise its contribution is reported without calling it the primary source of total RMSE"
+  },
+  "global_test_evaluation_boundary": "all 120 paper-style predictions freeze before any new test truth is read",
+  "methods": [
+    "zero_shot",
+    "scale_only",
+    "affine",
+    "local_identity_shrinkage",
+    "conditional_EA",
+    "target_head_only",
+    "standard_shallow_finetune",
+    "paper_style_current_v2"
+  ],
+  "neural_fit_labels": "gradient_train; frozen validation only for checkpoint selection",
+  "outer_seeds": [
+    769539383,
+    1425370602,
+    536279090,
+    2767143051,
+    1362771960
+  ],
+  "paper_style_current_v2": {
+    "batch_size": 2048,
+    "column_spec_provenance": "COLUMN_ID_AND_MASS_FROM_CANONICAL_COLUMN_SPEC; no legacy tuple used",
+    "context_dim": 3,
+    "context_formula": "[target_mass_g / 4, 1(column=25g), 1(column=40g)]",
+    "context_names": [
+      "mass_ratio_to_4g",
+      "is_25g",
+      "is_40g"
+    ],
+    "cpu_threads": 1,
+    "learning_rate": 0.0001,
+    "legacy_tuple_status": "REPOSITORY_LEGACY_COLUMN_SPEC_NOT_USED",
+    "maximum_epochs": 500,
+    "patience": 100,
+    "scope": "current_v2_shallow_final_layer_condition_head_plus_column_adapter",
+    "selection": "validation_only_minimum_combined_source_normalized_rmse",
+    "weight_decay": 1e-05
+  },
+  "parent_protocol": "studies/transfer/cross_column/protocol.json",
+  "parent_protocol_sha256": "2740ac4b57a06a72e968bb7a87c5549687eb4469005dcbf84721ad3845bc795c",
+  "preprocessing": "qualified source checkpoint preprocessing; source_train fit only",
+  "primary_metrics": [
+    "V1_rmse",
+    "V1_mae",
+    "V1_r2",
+    "V2_rmse",
+    "V2_mae",
+    "V2_r2",
+    "combined_normalized_rmse",
+    "nrmse",
+    "aulc"
+  ],
+  "protocols": [
+    "row",
+    "compound"
+  ],
+  "schedule": "studies/transfer/cross_column/splits/schedule_manifest.csv",
+  "schedule_sha256": "b52b937aa750586ec8f2efb2f10f93dfddd2252bb03afaf304556e16b4fab5ee",
+  "simple_fit_labels": "gradient_train only",
+  "source_checkpoint": "studies/predictor/final_4g_qualification/runtime/row/seed_42/best.pt",
+  "source_checkpoint_sha256": "fce9edebc294fd179c7c7dc27ab2badea049c77fdad03a6cf0c317c63df544b0",
+  "status": "FROZEN_BEFORE_NEW_TEST_EVALUATION",
+  "study_name": "MATCHED_CROSS_COLUMN_ABSOLUTE_ERROR_BENCHMARK",
+  "tail_definition": {
+    "quantiles": {
+      "q50": 0.5,
+      "q80": 0.8
+    },
+    "strata": {
+      "high_tail": "y > q80",
+      "low": "y <= q50",
+      "mid": "q50 < y <= q80"
+    },
+    "test_truth_used_only_after_freeze": true,
+    "threshold_source": "target gradient_train labels within each seed/budget context"
+  },
+  "target_threshold": null,
+  "test_labels_used_for_fit_or_selection": false,
+  "test_tuning": false
+}

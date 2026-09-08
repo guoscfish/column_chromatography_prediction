@@ -1,0 +1,83 @@
+{
+  "complexity_gate": "A new complex model needs an independently replicated, preregistered paired absolute-error gain; this result does not by itself identify a causal mechanism.",
+  "decision": "SIMPLE_CALIBRATION_REMAINS_COMPETITIVE",
+  "decision_rules": {
+    "material_paper_style_gain": "paper_style_current_v2 must improve both B100 combined normalized RMSE and label-efficiency AULC by >=5% versus each preregistered simple reference, with >=4/5 paired seed wins, in both 25g and 40g",
+    "small_incremental_gain": "positive paired mean gain below 5%",
+    "tail_dominance": "a high-tail stratum is called dominant only when its mean share of total target SSE is >=50%; otherwise its contribution is reported without calling it the primary source of total RMSE"
+  },
+  "decision_tags": [
+    "SIMPLE_CALIBRATION_REMAINS_COMPETITIVE",
+    "TAIL_ERROR_DOMINATES_LARGE_COLUMN_RMSE"
+  ],
+  "evidence_scope": "matched developmental benchmark; reused source-anchored artifacts were historically test-exposed",
+  "large_column_tail_sse_ranges_percent": [
+    {
+      "all_methods_tail_dominant": true,
+      "column": "25g",
+      "maximum_high_tail_sse_percent": 92.83316224318007,
+      "minimum_high_tail_sse_percent": 71.77275298524151,
+      "protocol": "row",
+      "target": "V1"
+    },
+    {
+      "all_methods_tail_dominant": true,
+      "column": "25g",
+      "maximum_high_tail_sse_percent": 88.99669190111715,
+      "minimum_high_tail_sse_percent": 69.70810834901062,
+      "protocol": "row",
+      "target": "V2"
+    },
+    {
+      "all_methods_tail_dominant": true,
+      "column": "25g",
+      "maximum_high_tail_sse_percent": 90.205986029286,
+      "minimum_high_tail_sse_percent": 62.83891108014,
+      "protocol": "compound",
+      "target": "V1"
+    },
+    {
+      "all_methods_tail_dominant": true,
+      "column": "25g",
+      "maximum_high_tail_sse_percent": 87.95726472019338,
+      "minimum_high_tail_sse_percent": 60.43488992083166,
+      "protocol": "compound",
+      "target": "V2"
+    },
+    {
+      "all_methods_tail_dominant": true,
+      "column": "40g",
+      "maximum_high_tail_sse_percent": 87.74668543861681,
+      "minimum_high_tail_sse_percent": 62.36834581260175,
+      "protocol": "row",
+      "target": "V1"
+    },
+    {
+      "all_methods_tail_dominant": true,
+      "column": "40g",
+      "maximum_high_tail_sse_percent": 85.98249302780452,
+      "minimum_high_tail_sse_percent": 58.85229326582717,
+      "protocol": "row",
+      "target": "V2"
+    },
+    {
+      "all_methods_tail_dominant": true,
+      "column": "40g",
+      "maximum_high_tail_sse_percent": 87.6060609492695,
+      "minimum_high_tail_sse_percent": 67.54021089859268,
+      "protocol": "compound",
+      "target": "V1"
+    },
+    {
+      "all_methods_tail_dominant": true,
+      "column": "40g",
+      "maximum_high_tail_sse_percent": 83.90072909012368,
+      "minimum_high_tail_sse_percent": 60.355145850153114,
+      "protocol": "compound",
+      "target": "V2"
+    }
+  ],
+  "paper_style_comparison_rows": 12,
+  "paper_style_material_rule_passed": false,
+  "r2_role": "secondary trend metric only; RMSE/MAE in mL are primary"
+}

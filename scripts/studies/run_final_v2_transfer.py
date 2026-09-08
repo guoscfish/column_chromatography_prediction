@@ -21,10 +21,21 @@ sys.path.insert(0, str(ROOT))
 from src.qgeognn_al.evaluation.reporting import markdown_table
 from src.qgeognn_al.artifacts import sha256_file
 from src.qgeognn_al.data import build_model_data, load_combined_graph_cache
-from src.qgeognn_al.transfer.baseline import configure_trainable, set_training_mode
+from src.qgeognn_al.transfer import (
+    configure_trainable,
+    fit_affine,
+    loader_pair,
+    predict_point,
+    set_training_mode,
+    target_loss,
+)
 from src.qgeognn_al.models import load_predictor_checkpoint, predictor_checkpoint
 from src.qgeognn_al.resources import SOURCE_GRAPH_CACHE, TARGET_DATA, TARGET_GRAPH_CACHE
-from src.qgeognn_al.training.predictor import atomic_json, loader_pair, point_metrics, predict, seed_everything, stable_hash, target_loss
+from src.qgeognn_al.training.predictor import atomic_json, point_metrics, seed_everything, stable_hash
+
+# Historical callers use ``predict``; the implementation now lives in the
+# current transfer package and intentionally has no test-label argument.
+predict = predict_point
 
 STUDY = ROOT / "studies/transfer/4g_to_8g"
 SOURCE = ROOT / "studies/predictor/final_4g_qualification/runtime/row/seed_42/best.pt"
@@ -151,12 +162,7 @@ def train_adaptation(mode, seed, atom, angle, train_idx, valid_idx, preprocessin
 
 
 def affine_fit(train_truth, train_prediction, values):
-    output = np.empty_like(values)
-    for i in range(2):
-        design = np.column_stack([train_prediction[:, i], np.ones(len(train_prediction))])
-        coefficient = np.linalg.lstsq(design, train_truth[:, i], rcond=None)[0]
-        output[:, i] = values[:, i] * coefficient[0] + coefficient[1]
-    return output
+    return fit_affine(train_truth, train_prediction, values).prediction
 
 
 def run_context(seed, budget):

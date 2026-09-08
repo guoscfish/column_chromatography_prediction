@@ -1,36 +1,16 @@
 # Cross-column transfer: evidence and open questions
 
-Updated after the completed source-anchored representation-transfer stage on
-`codex/study-source-anchored-shared-transfer`, based on scaling-failure audit
-commit `9225cc2`. Historical reports and decision JSONs retain their original
-provenance. The byte-exact status consumed by the scaling-failure protocol is
-preserved in [the historical snapshot](history/CROSS_COLUMN_TRANSFER_STATUS_scaling_failure_audit.md).
+Updated after the completed [matched cross-column absolute-error benchmark](../../studies/transfer/matched_rmse_benchmark/MATCHED_RMSE_REPORT.md). Historical reports and decision JSONs retain their original provenance. The byte-exact status consumed by the earlier scaling-failure protocol is preserved in [the historical snapshot](history/CROSS_COLUMN_TRANSFER_STATUS_scaling_failure_audit.md).
 
-## Latest completed representation experiment
+## Latest matched strategy benchmark
 
-**CURRENT_QGEOGNN_REPRESENTATION_NOT_SUFFICIENT_FOR_LOW_LABEL_CROSS_COLUMN_TRANSFER**
-(Outcome D, tested recipe only). All 120 contexts and 480 new fits completed.
-N1/N2 test current-V2 shallow/full target-only FT; M1/M2 add source replay with
-the exact same trainable capacity and a frozen source head. All methods use
-the original focal-column purchased-label ledger, with no donor target labels.
-Source anchoring preserves the source function in all six contexts (5/5
-paired seed wins per context) but does not improve large-column target error.
+**SIMPLE_CALIBRATION_REMAINS_COMPETITIVE** under the current final-source, no-threshold protocol. The benchmark inherits the frozen 8g/25g/40g row and compound schedules, five outer seeds and B=30/50/70/100 revealed-label ledger. It reuses only artifact-verified current baseline predictions, fits the new `paper_style_current_v2` shallow transfer control, freezes all 120 new prediction files before reading test truth, and reports RMSE/MAE in mL as primary outcomes.
 
-On 25g/40g compound, N1 AULC is 2.067/3.959 versus frozen conditional EA
-1.479/3.417; M1 is 3.297/6.211, N2 3.172/7.236 and M2 4.402/9.118. All new
-neural arms lose to that fixed calibration reference in 5/5 seeds on both
-columns. Budget100 N1 RMSE is 19.55/26.28 and 37.46/48.27 mL versus shrinkage
-13.95/19.76 and 33.57/40.97. Local low/mid-q50 and high-EA improvements coexist
-with tail/low-EA deterioration. No replicated all-reference material gain or
-joint source-preservation/target-stability gate passes.
+At B=100, the best matched 25g compound mean RMSE is 13.01/19.76 mL (V1/V2, conditional EA); the best row values are 17.37/25.22 mL (paper-style V1 / affine V2). For 40g, best compound values are 31.84/40.97 mL (conditional EA / affine-shrinkage) and best row values are 29.79/36.19 mL (paper-style V1 / conditional EA V2). The paper-style method fails the preregistered all-reference, both-endpoint replication gate: it is materially worse in compound and its isolated row B=100 gains do not reproduce in AULC.
 
-Keep scale-only / local identity shrinkage as the main point-transfer baseline
-family; retain frozen conditional and 8g head-only comparators. This does not
-prove an information-theoretic deficit in the latent representation: the
-existing head can represent positive scale-only, so optimization and
-small-sample estimation remain possible limitations. Historical test exposure
-makes this developmental evidence. See [full interpretation](../../studies/transfer/source_anchored_shared_transfer/RESULT_INTERPRETATION.md)
-and [next decision](../../studies/transfer/source_anchored_shared_transfer/NEXT_STAGE_DECISION.md).
+High-volume tails dominate B=100 large-column SSE (25g: 60.4%–92.8%; 40g: 58.9%–87.7%). Thus, high R² and large RMSE coexist partly because outcome variance rises with column size, but the result is also a direct tail-extrapolation limitation, not evidence of operationally accurate large-column prediction. Conditional EA / local identity shrinkage remain the point-transfer baseline family. No current result identifies a causal failure mechanism or supports a more complex model; independent compound/batch data and intentional tail coverage are required first.
+
+The matched ranking is developmental because reused source-anchored evidence was historically test-exposed. The [paper-transfer reconstruction](../../studies/transfer/paper_transfer_reproduction/REPRODUCTION_REPORT.md) is historical `PAPER_ALIGNED_RECONSTRUCTED_REPRODUCTION`, not a comparator: it has legacy filtering, a larger label fraction, an old E0 source and another test population.
 
 ## Qualified predictor and generalization
 

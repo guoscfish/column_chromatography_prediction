@@ -13,7 +13,7 @@ This is a paper-aligned reconstructed reproduction, not an exact direct executio
 | 40g | direct | 0.547 +/- 0.232 | 15.93 +/- 3.52 | 10.68 +/- 2.40 | 0.650 +/- 0.122 | 19.36 +/- 2.83 | 13.24 +/- 1.72 |
 | 40g | paper_transfer | 0.697 +/- 0.187 | 12.85 +/- 3.81 | 7.98 +/- 2.16 | 0.789 +/- 0.099 | 14.81 +/- 2.31 | 9.56 +/- 2.23 |
 
-The full seed-level values, medians, minima, and maxima are in `all_metrics.csv` and `PAPER_TRANSFER_RMSE_SUMMARY.csv`.
+The full seed-level values, medians, minima, and maxima are in `all_metrics.csv` and `PAPER_TRANSFER_RMSE_SUMMARY.csv`. Per-run selection metadata and scalar validation/test metrics are retained in `run_summary.csv`; checkpoints, histories and per-sample predictions are reproducible runtime only.
 
 ## Figure 4 R2 sanity check
 

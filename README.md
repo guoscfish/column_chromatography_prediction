@@ -1,6 +1,6 @@
 # Column chromatography prediction
 
-Retention-volume prediction with molecular geometry and experimental conditions, followed by low-label 4g→8g transfer.
+Retention-volume prediction with molecular geometry and experimental conditions, followed by matched low-label cross-column transfer evaluation.
 
 Historical Legacy → condition-complete correction → function-preserving pruning → standalone QGeoGNN-V2 → current predictor.
 
@@ -10,15 +10,11 @@ The final model has 458,952 parameters, all gradient-bearing. Six-output equival
 
 ## Current evidence
 
-- [Scaling failure audit](studies/transfer/scaling_failure_audit/SCALING_FAILURE_AUDIT.md) and [model decision](studies/transfer/scaling_failure_audit/NEXT_MODEL_DECISION.md): reproducible EA/V1 structure, one controlled conditional-scaling experiment, `STRUCTURED_FAILURE_BUT_NO_MATERIAL_MODEL_GAIN`.
-- [Research status and backlog](docs/research/CROSS_COLUMN_TRANSFER_STATUS.md): precise scope of earlier negative results and future hypotheses.
-- [Historical transfer residual diagnostics](studies/transfer/residual_diagnostics/RESULT_INTERPRETATION.md): two controlled experiments; the historical `NO_COMPLEXITY_JUSTIFIED_BY_CURRENT_DATA` applies only to tested calibration extensions. Active learning remains deferred.
-- [Cross-column validation](studies/transfer/cross_column/CROSS_COLUMN_TRANSFER_REPORT.md): matched 8g/25g/40g row and target-compound splits.
-- [Standalone engineering](studies/predictor/final_v2_engineering/README.md): equivalence, reachability and checkpoint contract.
-- [Final 4g qualification](studies/predictor/final_4g_qualification/FINAL_4G_QUALIFICATION_REPORT.md): all Train/Validation/Test metrics and seed aggregates.
-- [Quantile audit](studies/predictor/final_4g_qualification/QUANTILE_AUDIT.md): descriptive uncertainty assessment, without head retraining.
-- [Final-source 4g→8g baseline](studies/transfer/4g_to_8g/TRANSFER_BASELINE_REPORT.md): five adaptation families, five frozen target partitions, budgets 30/50/70/100.
-- [Next decision](docs/NEXT_STAGE_DECISION.md), [documentation](docs/README.md), [study index](studies/README.md).
+The authoritative transfer result is the [matched absolute-error benchmark](studies/transfer/matched_rmse_benchmark/MATCHED_RMSE_REPORT.md). It uses the qualified final 4g source checkpoint (`fce9…544b`), identical no-threshold 8g/25g/40g row and target-compound splits, five fixed seeds, and 30/50/70/100 revealed-label budgets. RMSE/MAE in mL are primary; R² is secondary.
+
+`SIMPLE_CALIBRATION_REMAINS_COMPETITIVE`: at equal budget, paper-style current-V2 adaptation does not meet the preregistered paired B=100-plus-AULC gain rule against scale, affine, and shrinkage controls on both 25g and 40g. Large-column error is tail-dominated, so high R² does not establish operationally small retention-volume error. The current simple baseline family is conditional EA / local identity shrinkage; conclusions remain developmental because reused source-anchored evidence had historical test exposure.
+
+The [paper-transfer reconstruction](studies/transfer/paper_transfer_reproduction/REPRODUCTION_REPORT.md) is a `PAPER_ALIGNED_RECONSTRUCTED_REPRODUCTION`, not a ranked matched comparator: it uses legacy filtering, larger label fractions, an old source checkpoint, and different splits. Historical studies remain available through the [study index](studies/README.md); the current decision and backlog are in [docs/NEXT_STAGE_DECISION.md](docs/NEXT_STAGE_DECISION.md).
 
 ## Active code
 

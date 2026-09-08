@@ -19,6 +19,8 @@ experiments/**/*.pt
 
 # Current-study runtime is always reproducible and never tracked.
 studies/**/runtime/
+# A study that still uses a separate progress directory is equally runtime-only.
+studies/**/progress/
 experiments/e2_*/**/checkpoints/
 experiments/e2_*/**/pool_predictions.csv.gz
 experiments/e2_*/**/test_predictions.csv.gz

@@ -14,6 +14,14 @@ or Active Learning.
 
 Current R2-pruned study: `studies/run_r2_pruned_requalification.py` runs reachability/equivalence gates before the controlled retrain (`--gates-only` checks without retraining); `studies/summarize_r2_pruned_requalification.py` compares completed artifacts with R2. See [the study](../studies/predictor/r2_pruned_requalification/README.md).
 
+The current matched absolute-error study has one thin entry point:
+`studies/run_matched_rmse_benchmark.py`. Use `--prepare` to validate and freeze
+the protocol, `--execute` only for the missing paper-style current-V2 fits, and
+`--summarize` to rebuild reports solely from globally frozen predictions. Its
+[study README](../studies/transfer/matched_rmse_benchmark/README.md) is the
+authority for the no-test-tuning boundary; reusable calibration, adaptation,
+evaluation and protocol APIs live in `src/qgeognn_al/transfer/`.
+
 Reusable scientific code now lives in `src/qgeognn_al/`. `al_engine.py`, `al_acquisition.py`, and `qgeognn_graphs.py` are compatibility shims for historical imports.
 
 Historical top-level `run_*.py` files are **historical / reproduction only**:

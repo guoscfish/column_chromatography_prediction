@@ -1,0 +1,116 @@
+"""Public transfer APIs used by current scientific studies.
+
+Historical ``scripts/run_*`` modules are intentionally not imported here.  A
+study runner can import this package without pulling in a legacy experiment or
+changing its global model configuration.
+"""
+
+from .adaptation import (
+    ADAPTATION_MODES,
+    PAPER_STYLE_CURRENT_V2,
+    PAPER_STYLE_SCOPES,
+    AdaptationFit,
+    PaperStyleCurrentV2,
+    PaperStyleCurrentV2Adapter,
+    attach_column_context,
+    build_paper_style_current_v2,
+    build_paper_style_model,
+    build_paper_style_current_v2_model,
+    configure_trainable,
+    loader_pair,
+    load_paper_style_current_v2,
+    make_loaders,
+    predict_point,
+    quantile_target_loss,
+    set_training_mode,
+    target_loss,
+    train_adaptation,
+    train_target_adaptation,
+)
+from .calibration import (
+    CalibrationFit,
+    fit_affine,
+    fit_affine_condition_residual,
+    fit_scale_only,
+    mass_ratio_prediction,
+)
+from .matched_calibration import fit_local_identity_shrinkage, select_local_identity_shrinkage
+from .conditional_scaling import ConditionalFit, fit_conditional
+from .column_physics import FEATURE_NAMES, FEATURE_UNITS, TrainingNormalizer, context_matrix, packing_mass
+from .column_conditioned import ColumnConditionedQGeoGNN
+from .protocol import (
+    assert_fit_ids_authorized,
+    budget_accounting,
+    validate_label_roles,
+    verify_source_checkpoint,
+)
+from .evaluation import (
+    LabelLedger,
+    TARGETS,
+    STRATA,
+    absolute_error_metrics,
+    compute_aulc,
+    metrics_from_arrays,
+    paired_comparison,
+    point_prediction,
+    regression_metrics,
+    tail_error_metrics,
+    tail_error_rows,
+    validation_scores,
+    volume_strata,
+)
+
+__all__ = [
+    "ADAPTATION_MODES",
+    "PAPER_STYLE_SCOPES",
+    "PAPER_STYLE_CURRENT_V2",
+    "AdaptationFit",
+    "CalibrationFit",
+    "ColumnConditionedQGeoGNN",
+    "ConditionalFit",
+    "FEATURE_NAMES",
+    "FEATURE_UNITS",
+    "LabelLedger",
+    "PaperStyleCurrentV2",
+    "PaperStyleCurrentV2Adapter",
+    "STRATA",
+    "TARGETS",
+    "absolute_error_metrics",
+    "assert_fit_ids_authorized",
+    "attach_column_context",
+    "build_paper_style_current_v2",
+    "build_paper_style_model",
+    "build_paper_style_current_v2_model",
+    "compute_aulc",
+    "configure_trainable",
+    "budget_accounting",
+    "fit_affine",
+    "fit_affine_condition_residual",
+    "fit_local_identity_shrinkage",
+    "fit_conditional",
+    "fit_scale_only",
+    "loader_pair",
+    "load_paper_style_current_v2",
+    "make_loaders",
+    "metrics_from_arrays",
+    "mass_ratio_prediction",
+    "paired_comparison",
+    "point_prediction",
+    "predict_point",
+    "quantile_target_loss",
+    "regression_metrics",
+    "set_training_mode",
+    "select_local_identity_shrinkage",
+    "TrainingNormalizer",
+    "context_matrix",
+    "packing_mass",
+    "tail_error_metrics",
+    "tail_error_rows",
+    "target_loss",
+    "train_adaptation",
+    "train_target_adaptation",
+    "validate_label_roles",
+    "verify_source_checkpoint",
+    "volume_strata",
+    "validation_scores",
+]

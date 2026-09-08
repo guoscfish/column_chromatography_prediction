@@ -5,6 +5,7 @@ Current contracts and evidence:
 - [Predictor roadmap](roadmap/PREDICTOR.md)
 - [Research direction](RESEARCH_DIRECTION.md)
 - [Next-stage decision](NEXT_STAGE_DECISION.md)
+- [Matched cross-column absolute-error benchmark](../studies/transfer/matched_rmse_benchmark/MATCHED_RMSE_REPORT.md) and its [frozen protocol](../studies/transfer/matched_rmse_benchmark/protocol.json)
 - [Transfer roadmap](roadmap/TRANSFER_4G_TO_8G.md)
 - [Standalone engineering](../studies/predictor/final_v2_engineering/README.md)
 - [Final 4g protocol and results](../studies/predictor/final_4g_qualification/FINAL_4G_QUALIFICATION_REPORT.md)
@@ -12,4 +13,4 @@ Current contracts and evidence:
 - [Repository structure](repository/STRUCTURE.md) and [artifact policy](repository/ARTIFACT_POLICY.md)
 - [Data usage register](protocols/DATA_USAGE_REGISTER.md)
 
-[Historical predictor evidence](../studies/predictor/historical/README.md), legacy model audits and draft benchmarks are retained for reproduction. Their original stage gates describe those historical studies; the current decisions above supersede them.
+[Historical predictor evidence](../studies/predictor/historical/README.md), the [paper-aligned reproduction](../studies/transfer/paper_transfer_reproduction/REPRODUCTION_REPORT.md), legacy model audits and draft benchmarks are retained for reproduction. Their original stage gates describe those historical studies; the current decisions above supersede them.

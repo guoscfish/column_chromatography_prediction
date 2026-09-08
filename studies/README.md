@@ -2,6 +2,7 @@
 
 ## Current predictor and transfer
 
+- [Matched cross-column absolute-error benchmark](transfer/matched_rmse_benchmark/MATCHED_RMSE_REPORT.md): the authoritative no-threshold, equal-budget strategy ranking; RMSE/MAE and tail diagnostics are primary.
 - [Scaling failure audit and conditional-scaling decision](transfer/scaling_failure_audit/README.md)
 - [Preceding transfer residual diagnostics](transfer/residual_diagnostics/RESULT_INTERPRETATION.md)
 - [Cross-column validation](transfer/cross_column/CROSS_COLUMN_TRANSFER_REPORT.md)

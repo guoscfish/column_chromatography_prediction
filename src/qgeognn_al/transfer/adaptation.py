@@ -1,0 +1,544 @@
+"""Current-predictor adaptation primitives for matched transfer studies.
+
+This module is intentionally independent of the historical ``scripts/run_*``
+experiments.  It operates on the standalone :class:`QGeoGNNV2` contract and
+keeps test rows out of the fitting API.  Historical runners may continue to
+use their frozen implementations; new studies should use the functions here.
+"""
+
+from __future__ import annotations
+
+from contextlib import contextmanager
+from copy import deepcopy
+from dataclasses import dataclass
+import math
+from pathlib import Path
+from typing import Any, Callable, Mapping, Sequence
+
+import numpy as np
+import torch
+from torch import nn
+from torch_geometric.loader import DataLoader
+
+from ..data import qg
+from ..evaluation.point import point_metrics
+from ..models import build_predictor, load_predictor_checkpoint, predictor_checkpoint
+from .baseline import set_training_mode
+
+
+ADAPTATION_MODES = ("head_only", "last2", "full")
+PAPER_STYLE_SCOPES = ("shallow", "full")
+PAPER_STYLE_CURRENT_V2 = "paper_style_current_v2"
+
+
+def _head_module(model: nn.Module) -> nn.Module:
+    """Return the active output head for current or legacy-shaped modules."""
+
+    for name in ("head", "target_head", "graph_pred_linear"):
+        value = getattr(model, name, None)
+        if isinstance(value, nn.Module):
+            return value
+    raise TypeError("model has no recognized prediction head")
+
+
+def _parameter_prefixes(model: nn.Module, mode: str) -> tuple[str, ...]:
+    mode = {
+        "target_head_only": "head_only",
+        "standard_shallow_finetune": "last2",
+        "standard_full_finetune": "full",
+        "full_finetune": "full",
+        "shallow": "last2",
+    }.get(mode, mode)
+    if mode == "head_only":
+        if hasattr(model, "head"):
+            return ("head.",)
+        if hasattr(model, "target_head"):
+            return ("target_head.",)
+        return ("graph_pred_linear",)
+    if mode == "last2":
+        # The current V2 names are stable; the legacy aliases retain the same
+        # effective scope for callers migrating an old fit.
+        if hasattr(model, "backbone"):
+            return (
+                "head.",
+                "target_head.",
+                "backbone.convs.3.",
+                "backbone.convs.4.",
+                "backbone.convs_bond_angle.3.",
+                "backbone.convs_bond_float.3.",
+                "backbone.convs_bond_embeding.3.",
+                "backbone.convs_angle_float.3.",
+            )
+        return (
+            "graph_pred_linear",
+            "gnn_node.convs.3.",
+            "gnn_node.convs.4.",
+            "gnn_node.convs_bond_angle.3.",
+            "gnn_node.convs_bond_float.3.",
+            "gnn_node.convs_bond_embeding.3.",
+            "gnn_node.convs_angle_float.3.",
+        )
+    if mode == "full":
+        return ("",)
+    raise ValueError(f"unknown adaptation mode: {mode}")
+
+
+def configure_trainable(model: nn.Module, mode: str) -> tuple[int, int]:
+    """Freeze a predictor according to a named adaptation scope.
+
+    The return value is ``(trainable_parameter_count, total_parameter_count)``.
+    No optimizer or data is touched, so this helper is safe to call while
+    constructing a frozen protocol.  ``target_head`` is recognized for the
+    source-anchored wrapper; its source head remains frozen by that wrapper.
+    """
+
+    prefixes = _parameter_prefixes(model, mode)
+    for name, parameter in model.named_parameters():
+        parameter.requires_grad = prefixes == ("",) or name.startswith(prefixes)
+    if mode == "head_only":
+        # ``startswith('graph_pred_linear')`` also covers a Sequential head's
+        # indexed children, while the current head uses ``head.`` names.
+        head = _head_module(model)
+        for parameter in head.parameters():
+            parameter.requires_grad = True
+    trainable = sum(parameter.numel() for parameter in model.parameters() if parameter.requires_grad)
+    total = sum(parameter.numel() for parameter in model.parameters())
+    return trainable, total
+
+
+def quantile_target_loss(true: torch.Tensor, prediction: torch.Tensor) -> torch.Tensor:
+    """Current six-output quantile loss used by target adaptation."""
+
+    if prediction.ndim != 2 or prediction.shape[1] != 3:
+        raise ValueError("prediction must have shape (n, 3)")
+    return (
+        qg.q_loss(0.1, true, prediction[:, 0])
+        + torch.mean((true - prediction[:, 1]) ** 2)
+        + qg.q_loss(0.9, true, prediction[:, 2])
+        + torch.mean(torch.relu(prediction[:, 0] - prediction[:, 1]))
+        + torch.mean(torch.relu(prediction[:, 1] - prediction[:, 2]))
+    )
+
+
+def target_loss(true: torch.Tensor, prediction: torch.Tensor) -> torch.Tensor:
+    """Alias retained for current study runners."""
+
+    return quantile_target_loss(true, prediction)
+
+
+def _model_prediction(model: nn.Module, atom_batch: Any, angle_batch: Any) -> torch.Tensor:
+    output = model(atom_batch, angle_batch)
+    if isinstance(output, (tuple, list)):
+        output = output[0]
+    if not isinstance(output, torch.Tensor) or output.ndim != 2 or output.shape[1] != 6:
+        raise ValueError("current transfer model must return a six-column tensor")
+    return output
+
+
+def loader_pair(
+    atom_data: Sequence[Any],
+    angle_data: Sequence[Any],
+    indices: Sequence[int],
+    batch_size: int = 2048,
+):
+    """Build deterministic, aligned atom/angle loaders for selected rows."""
+
+    positions = [int(index) for index in indices]
+    if len(atom_data) != len(angle_data):
+        raise ValueError("atom and angle data lengths differ")
+    if any(index < 0 or index >= len(atom_data) for index in positions):
+        raise IndexError("loader index outside model data")
+    return (
+        DataLoader([atom_data[index] for index in positions], batch_size=batch_size, shuffle=False),
+        DataLoader([angle_data[index] for index in positions], batch_size=batch_size, shuffle=False),
+    )
+
+
+def make_loaders(
+    atom_data: Sequence[Any],
+    angle_data: Sequence[Any],
+    split: Any,
+    batch_size: int = 2048,
+) -> dict[str, tuple[DataLoader, DataLoader]]:
+    """Build aligned train/valid/test loaders from a split table or mapping."""
+
+    if hasattr(split, "columns") and "split" in split.columns:
+        indices_by_role = {
+            role: [int(index) for index in split.index[split["split"].eq(role)].tolist()]
+            for role in ("train", "valid", "validation", "test")
+        }
+        if not indices_by_role["valid"] and indices_by_role["validation"]:
+            indices_by_role["valid"] = indices_by_role["validation"]
+    elif isinstance(split, Mapping):
+        indices_by_role = {role: list(split.get(role, ())) for role in ("train", "valid", "test")}
+        if not indices_by_role["valid"]:
+            indices_by_role["valid"] = list(split.get("validation", ()))
+    else:
+        raise TypeError("split must be a table with 'split' or a role mapping")
+    if not indices_by_role["train"] or not indices_by_role["valid"] or not indices_by_role["test"]:
+        raise ValueError("split must contain non-empty train, valid and test roles")
+    return {
+        role: loader_pair(atom_data, angle_data, indices_by_role[role], batch_size)
+        for role in ("train", "valid", "test")
+    }
+
+
+def predict_point(
+    model: nn.Module,
+    atom_data: Sequence[Any],
+    angle_data: Sequence[Any],
+    indices: Sequence[int],
+    *,
+    batch_size: int = 2048,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Return ``(truth, six-output prediction, canonical positions)``."""
+
+    model.eval()
+    truths: list[np.ndarray] = []
+    predictions: list[np.ndarray] = []
+    positions: list[np.ndarray] = []
+    with torch.no_grad():
+        for atom_batch, angle_batch in zip(*loader_pair(atom_data, angle_data, indices, batch_size)):
+            prediction = _model_prediction(model, atom_batch, angle_batch)
+            truths.append(atom_batch.y.detach().cpu().numpy())
+            predictions.append(prediction.detach().cpu().numpy())
+            position = getattr(atom_batch, "canonical_position", None)
+            if position is None:
+                positions.append(np.arange(len(truths[-1]), dtype=int))
+            else:
+                positions.append(position.detach().cpu().numpy().reshape(-1))
+    if not truths:
+        return np.empty((0, 2)), np.empty((0, 6)), np.empty((0,), dtype=int)
+    return np.vstack(truths), np.vstack(predictions), np.concatenate(positions)
+
+
+def _seed_everything(seed: int) -> None:
+    import random
+
+    random.seed(int(seed))
+    np.random.seed(int(seed))
+    torch.manual_seed(int(seed))
+
+
+@dataclass(frozen=True)
+class AdaptationFit:
+    """Compact result returned by :func:`train_target_adaptation`."""
+
+    best_epoch: int
+    epochs_run: int
+    validation_score: float
+    trainable_parameters: int
+    total_parameters: int
+    history: tuple[dict[str, float], ...]
+    checkpoint_path: str | None = None
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "best_epoch": self.best_epoch,
+            "epochs_run": self.epochs_run,
+            "validation_score": self.validation_score,
+            "trainable_parameters": self.trainable_parameters,
+            "total_parameters": self.total_parameters,
+            "history": [dict(row) for row in self.history],
+            "checkpoint_path": self.checkpoint_path,
+        }
+
+
+def train_target_adaptation(
+    model: nn.Module,
+    atom_data: Sequence[Any],
+    angle_data: Sequence[Any],
+    train_indices: Sequence[int],
+    validation_indices: Sequence[int],
+    preprocessing: Mapping[str, Any],
+    *,
+    mode: str = "head_only",
+    seed: int = 0,
+    config: Mapping[str, Any] | None = None,
+    checkpoint_path: Path | None = None,
+    checkpoint_builder: Callable[[nn.Module, float, int], dict[str, Any]] | None = None,
+) -> AdaptationFit:
+    """Fit one target adapter with validation-only checkpoint selection.
+
+    The signature intentionally has no test argument.  ``train_indices`` and
+    ``validation_indices`` are the only rows whose labels can reach this
+    routine.  Callers evaluate the returned/frozen checkpoint separately.
+    """
+
+    train = tuple(int(index) for index in train_indices)
+    valid = tuple(int(index) for index in validation_indices)
+    if not train or not valid or set(train) & set(valid):
+        raise ValueError("training and validation indices must be non-empty and disjoint")
+    if len(atom_data) != len(angle_data):
+        raise ValueError("atom and angle data lengths differ")
+    options = {
+        "learning_rate": 1e-4,
+        "weight_decay": 1e-5,
+        "maximum_epochs": 500,
+        "patience": 100,
+        "batch_size": 2048,
+    }
+    if config:
+        options.update(dict(config))
+    if int(options["maximum_epochs"]) < 1 or int(options["patience"]) < 1:
+        raise ValueError("maximum_epochs and patience must be positive")
+    scales = preprocessing.get("target_scales")
+    if not isinstance(scales, Mapping) or any(float(scales[target]) <= 0 for target in ("V1", "V2")):
+        raise ValueError("preprocessing.target_scales must contain positive V1/V2 scales")
+
+    _seed_everything(seed)
+    trainable, total = configure_trainable(model, mode)
+    parameters = [parameter for parameter in model.parameters() if parameter.requires_grad]
+    if not parameters:
+        raise ValueError("adaptation scope has no trainable parameters")
+    optimizer = torch.optim.Adam(parameters, lr=float(options["learning_rate"]), weight_decay=float(options["weight_decay"]))
+    best_score, best_epoch, stale = float("inf"), 0, 0
+    history: list[dict[str, float]] = []
+    for epoch in range(1, int(options["maximum_epochs"]) + 1):
+        set_training_mode(model)
+        order = np.random.default_rng(int(seed) * 10000 + epoch).permutation(train)
+        losses: list[float] = []
+        for atom_batch, angle_batch in zip(*loader_pair(atom_data, angle_data, order, int(options["batch_size"]))):
+            prediction = _model_prediction(model, atom_batch, angle_batch)
+            loss = quantile_target_loss(atom_batch.y[:, 0], prediction[:, :3]) + quantile_target_loss(atom_batch.y[:, 1], prediction[:, 3:])
+            if not torch.isfinite(loss):
+                raise RuntimeError("non-finite target training loss")
+            optimizer.zero_grad(set_to_none=True)
+            loss.backward()
+            optimizer.step()
+            losses.append(float(loss.detach().cpu()))
+        truth, prediction, _ = predict_point(model, atom_data, angle_data, valid, batch_size=int(options["batch_size"]))
+        metrics = point_metrics(truth, prediction, scales)
+        score = float(metrics["combined_normalized_rmse"])
+        if not math.isfinite(score):
+            raise RuntimeError("non-finite target validation score")
+        history.append({"epoch": float(epoch), "train_loss": float(np.mean(losses)), "validation_score": score})
+        if score < best_score:
+            best_score, best_epoch, stale = score, epoch, 0
+            if checkpoint_path is not None:
+                path = Path(checkpoint_path)
+                path.parent.mkdir(parents=True, exist_ok=True)
+                if checkpoint_builder is not None:
+                    payload = checkpoint_builder(model, score, epoch)
+                else:
+                    payload = {"model_state_dict": model.state_dict(), "best_epoch": epoch, "validation_score": score}
+                temporary = path.with_suffix(path.suffix + ".tmp")
+                torch.save(payload, temporary)
+                temporary.replace(path)
+        else:
+            stale += 1
+        if stale >= int(options["patience"]):
+            break
+    if best_epoch == 0:
+        raise RuntimeError("adaptation produced no validation checkpoint")
+    return AdaptationFit(
+        best_epoch=int(best_epoch),
+        epochs_run=len(history),
+        validation_score=float(best_score),
+        trainable_parameters=int(trainable),
+        total_parameters=int(total),
+        history=tuple(history),
+        checkpoint_path=str(checkpoint_path) if checkpoint_path is not None else None,
+    )
+
+
+def _clone_current_predictor(source: nn.Module) -> nn.Module:
+    """Clone a current V2 predictor without deepcopying RBF construction state."""
+
+    normalization = getattr(getattr(source, "condition_branch", None), "normalization", None)
+    if normalization is None:
+        return deepcopy(source)
+    copied = build_predictor(normalization)
+    copied.load_state_dict(source.state_dict(), strict=True)
+    return copied
+
+
+class PaperStyleCurrentV2(nn.Module):
+    """Current-V2 paper-inspired shallow transfer with explicit column context.
+
+    The source backbone and condition branch are copied from the qualified V2
+    checkpoint.  ``column_adapter`` is zero-initialized, so a zero context
+    produces exactly the source representation at initialization.  The source
+    head is retained as a frozen audit reference while ``target_head`` is the
+    transfer head.  Context may be supplied as an ``atom.column_context``
+    tensor or as the third argument to :meth:`forward`.
+    """
+
+    def __init__(self, source: nn.Module, context_dim: int = 3, scope: str = "shallow"):
+        super().__init__()
+        if int(context_dim) < 1:
+            raise ValueError("context_dim must be positive")
+        scope = {"last2": "shallow", "paper_style": "shallow", "full_finetune": "full"}.get(scope, scope)
+        if scope not in PAPER_STYLE_SCOPES:
+            raise ValueError(f"unknown paper-style scope: {scope}")
+        copied = _clone_current_predictor(source)
+        self.backbone = copied.backbone
+        self.condition_branch = copied.condition_branch
+        self.source_head = deepcopy(copied.head)
+        self.target_head = deepcopy(copied.head)
+        head_layers = list(copied.head.modules())
+        first_linear = next((module for module in head_layers if isinstance(module, nn.Linear)), None)
+        representation_dim = int(first_linear.in_features) if first_linear is not None else 128
+        self.column_adapter = nn.Linear(int(context_dim), representation_dim)
+        nn.init.zeros_(self.column_adapter.weight)
+        nn.init.zeros_(self.column_adapter.bias)
+        self.context_dim = int(context_dim)
+        self.representation_dim = representation_dim
+        self.scope = scope
+        self._set_scope(scope)
+        self.eval()
+
+    def _set_scope(self, scope: str) -> None:
+        for parameter in self.parameters():
+            parameter.requires_grad = False
+        if scope == "full":
+            for module in (self.backbone, self.condition_branch, self.target_head, self.column_adapter):
+                for parameter in module.parameters():
+                    parameter.requires_grad = True
+        else:
+            for name, parameter in self.named_parameters():
+                parameter.requires_grad = name.startswith(
+                    ("backbone.convs.4.", "condition_branch.", "target_head.", "column_adapter.")
+                )
+
+    def extract_representation(self, atom: Any, angle: Any, column_context: torch.Tensor | None = None) -> torch.Tensor:
+        if column_context is None:
+            column_context = getattr(atom, "column_context", None)
+        if column_context is None:
+            raise ValueError("missing column context for paper-style current-V2 transfer")
+        context = torch.as_tensor(column_context, dtype=torch.float32, device=atom.x.device)
+        if context.ndim == 1:
+            context = context.unsqueeze(0)
+        num_graphs = getattr(atom, "num_graphs", None)
+        if num_graphs is None:
+            batch = getattr(atom, "batch", None)
+            num_graphs = int(batch.max().item()) + 1 if batch is not None and len(batch) else 1
+        if context.ndim != 2 or context.shape[1] != self.context_dim or context.shape[0] != int(num_graphs):
+            raise ValueError("column context must have shape (num_graphs, context_dim)")
+        if not torch.isfinite(context).all():
+            raise ValueError("column context must be finite")
+        pooled = torch_geometric_global_add_pool(self.backbone(atom, angle), atom.batch)
+        residual, _ = self.condition_branch(atom)
+        return pooled + residual + self.column_adapter(context)
+
+    def forward(self, atom: Any, angle: Any, column_context: torch.Tensor | None = None, task: str = "target") -> torch.Tensor:
+        if task not in ("target", "source"):
+            raise ValueError(task)
+        head = self.target_head if task == "target" else self.source_head
+        output = head(self.extract_representation(atom, angle, column_context))
+        return output if self.training else output.clamp(0, 1e8)
+
+    def training_target(self) -> None:
+        set_training_mode(self)
+        self.source_head.eval()
+
+    @contextmanager
+    def replay_mode(self):
+        """Freeze BatchNorm buffers while retaining source-loss gradients."""
+
+        states = [(module, module.training) for module in self.modules() if isinstance(module, nn.modules.batchnorm._BatchNorm)]
+        try:
+            for module, _ in states:
+                module.eval()
+            yield
+        finally:
+            for module, training in states:
+                module.train(training)
+
+    def parameter_inventory(self) -> dict[str, Any]:
+        selected = {name: parameter.numel() for name, parameter in self.named_parameters() if parameter.requires_grad}
+        return {
+            "trainable_parameters": int(sum(selected.values())),
+            "total_parameters": int(sum(parameter.numel() for parameter in self.parameters())),
+            "trainable_named_parameters": selected,
+            "scope": self.scope,
+            "context_dim": self.context_dim,
+            "representation_dim": self.representation_dim,
+        }
+
+    def source_equivalent_at_zero_context(self, atom: Any, angle: Any) -> bool:
+        """Check the function-preserving initialization on a supplied batch."""
+
+        num_graphs = getattr(atom, "num_graphs", None)
+        if num_graphs is None:
+            batch = getattr(atom, "batch", None)
+            num_graphs = int(batch.max().item()) + 1 if batch is not None and len(batch) else 1
+        context = torch.zeros((int(num_graphs), self.context_dim), dtype=torch.float32, device=atom.x.device)
+        self.eval()
+        with torch.no_grad():
+            adapted = self(atom, angle, context, task="target")
+            source = self(atom, angle, context, task="source")
+        return bool(torch.equal(adapted, source))
+
+
+def build_paper_style_current_v2(
+    source: nn.Module,
+    *,
+    context_dim: int = 3,
+    column_context_dim: int | None = None,
+    scope: str = "shallow",
+) -> PaperStyleCurrentV2:
+    """Construct the current-V2 paper-style adapter from a source model.
+
+    ``column_context_dim`` is accepted as a descriptive alias because it is
+    convenient in JSON protocol files; supplying both names with different
+    values is rejected rather than silently changing the input contract.
+    """
+
+    if column_context_dim is not None:
+        if context_dim != 3 and int(context_dim) != int(column_context_dim):
+            raise ValueError("context_dim and column_context_dim disagree")
+        context_dim = int(column_context_dim)
+    return PaperStyleCurrentV2(source, context_dim=context_dim, scope=scope)
+
+
+def load_paper_style_current_v2(
+    source_checkpoint: Path,
+    *,
+    context_dim: int = 3,
+    column_context_dim: int | None = None,
+    scope: str = "shallow",
+    device: str | torch.device = "cpu",
+) -> PaperStyleCurrentV2:
+    """Load a qualified current-V2 source and build its paper-style adapter."""
+
+    source = load_predictor_checkpoint(Path(source_checkpoint), device=device)
+    return build_paper_style_current_v2(
+        source,
+        context_dim=context_dim,
+        column_context_dim=column_context_dim,
+        scope=scope,
+    )
+
+
+def attach_column_context(atom_data: Sequence[Any], contexts: np.ndarray | Sequence[Sequence[float]]) -> list[Any]:
+    """Return cloned graph rows carrying per-graph ``column_context``."""
+
+    values = np.asarray(contexts, dtype=np.float32)
+    if values.ndim != 2 or len(values) != len(atom_data):
+        raise ValueError("contexts must have one row per atom graph")
+    result = []
+    for item, context in zip(atom_data, values):
+        copied = item.clone() if hasattr(item, "clone") else deepcopy(item)
+        # A leading singleton dimension makes PyG Batch concatenate one row
+        # per graph instead of flattening all context values into one vector.
+        copied.column_context = torch.from_numpy(context.copy()).reshape(1, -1)
+        result.append(copied)
+    return result
+
+
+# Public spelling used by the current study runners.  Keeping the longer name
+# above makes it explicit that this routine is target-only and validation
+# selected; the alias eases migration from the older runner vocabulary.
+train_adaptation = train_target_adaptation
+build_paper_style_model = build_paper_style_current_v2
+PaperStyleCurrentV2Adapter = PaperStyleCurrentV2
+build_paper_style_current_v2_model = build_paper_style_current_v2
+
+
+# Importing global_add_pool lazily keeps module import light for metric-only
+# callers while preserving the same operation as QGeoGNNV2.extract_representation.
+def torch_geometric_global_add_pool(values: torch.Tensor, batch: torch.Tensor) -> torch.Tensor:
+    from torch_geometric.nn import global_add_pool
+
+    return global_add_pool(values, batch)

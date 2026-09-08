@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Reproduce the paper-aligned 4g-to-25g/40g transfer protocol without test tuning."""
+"""Reproduce the paper-aligned 4g-to-25g/40g transfer protocol without test tuning.
+
+The study root retains compact provenance, scalar summaries and the frozen
+split ledger. Checkpoints, histories, per-run result JSON and per-sample
+predictions are reproducible runtime artifacts under ``runtime/``.
+"""
 
 from __future__ import annotations
 
@@ -19,7 +24,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.run_e0_4g_baseline import sha256_file, write_artifact_manifest, write_environment
+from scripts.run_e0_4g_baseline import sha256_file, write_environment
 from scripts.run_e0_8g_controls import load_graph_cache
 from scripts.run_e0_8g_transfer import (
     SOURCE_4G_DIR,
@@ -47,6 +52,17 @@ SEEDS = (42, 525, 1101, 2025, 2026)
 METHODS = ("direct", "paper_transfer")
 TARGETS = ("V1", "V2")
 METRICS = ("V1_r2", "V1_rmse", "V1_mae", "V2_r2", "V2_rmse", "V2_mae")
+RUNTIME_DIRNAME = "runtime"
+RUN_SUMMARY_COLUMNS = (
+    "column", "protocol", "seed", "method", "best_epoch", "epochs_run",
+    "trainable_parameters", "total_parameters", "source_checkpoint",
+    "source_checkpoint_sha256", "source_preprocessing", "selection",
+    "normalized_valid_score", "combined_normalized_valid_rmse",
+    "combined_normalized_test_rmse", "V1_valid_r2", "V1_valid_rmse",
+    "V1_valid_mae", "V2_valid_r2", "V2_valid_rmse", "V2_valid_mae",
+    "V1_test_r2", "V1_test_rmse", "V1_test_mae", "V2_test_r2",
+    "V2_test_rmse", "V2_test_mae", "column_spec_flag",
+)
 PAPER_R2 = {
     "8g": (0.759, 0.752),
     "25g": (0.747, 0.840),
@@ -69,6 +85,54 @@ COLUMN_CONFIG = {
     },
 }
 SHARED_SPEC_FLAG = "25G_AND_40G_SHARE_LEGACY_COLUMN_SPEC_VALUES"
+
+
+def runtime_root(output_dir: Path) -> Path:
+    """Return the ignored location for reconstructible fit artifacts."""
+    return output_dir / RUNTIME_DIRNAME
+
+
+def compact_run_row(result: dict) -> dict:
+    """Preserve run metadata and scalar metrics without retaining fit runtime."""
+    row = {key: result.get(key) for key in RUN_SUMMARY_COLUMNS}
+    for split_name in ("valid", "test"):
+        for target in TARGETS:
+            for metric in ("r2", "rmse", "mae"):
+                row[f"{target}_{split_name}_{metric}"] = result[split_name][f"{target}_{metric}"]
+    return row
+
+
+def write_run_summary(output_dir: Path, results: list[dict]) -> None:
+    """Write the compact, tracked replacement for per-run ``result.json`` files."""
+    rows = [compact_run_row(result) for result in results]
+    summary = pd.DataFrame(rows, columns=RUN_SUMMARY_COLUMNS)
+    summary = summary.sort_values(["column", "protocol", "seed", "method"], kind="stable")
+    summary.to_csv(output_dir / "run_summary.csv", index=False)
+
+
+def write_scientific_artifact_manifest(output_dir: Path) -> None:
+    """Hash only retained compact records, never ignored reproducible runtime."""
+    manifest_path = output_dir / "artifact_manifest.json"
+    artifacts = []
+    for path in sorted(output_dir.rglob("*")):
+        relative = path.relative_to(output_dir)
+        if (
+            not path.is_file()
+            or path == manifest_path
+            or RUNTIME_DIRNAME in relative.parts
+        ):
+            continue
+        artifacts.append(
+            {
+                "path": str(relative),
+                "bytes": path.stat().st_size,
+                "sha256": sha256_file(path),
+            }
+        )
+    manifest_path.write_text(
+        json.dumps({"artifacts": artifacts}, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
 
 
 def target_canonical_path(column: str) -> Path:
@@ -202,7 +266,7 @@ def train_run(
     patience: int,
     batch_size: int,
 ) -> tuple[dict, pd.DataFrame]:
-    run_dir = output_dir / "runs" / protocol / column / f"row_seed_{seed}" / method
+    run_dir = runtime_root(output_dir) / "runs" / protocol / column / f"row_seed_{seed}" / method
     checkpoint_dir = run_dir / "checkpoints"
     history_dir = run_dir / "histories"
     checkpoint_path = checkpoint_dir / "best.pt"
@@ -502,7 +566,7 @@ def write_report(output_dir: Path, summary: pd.DataFrame, comparison: pd.DataFra
             )
     lines.extend([
         "",
-        "The full seed-level values, medians, minima, and maxima are in `all_metrics.csv` and `PAPER_TRANSFER_RMSE_SUMMARY.csv`.",
+        "The full seed-level values, medians, minima, and maxima are in `all_metrics.csv` and `PAPER_TRANSFER_RMSE_SUMMARY.csv`. Per-run selection metadata and scalar validation/test metrics are retained in `run_summary.csv`; checkpoints, histories and per-sample predictions are reproducible runtime only.",
         "",
         "## Figure 4 R2 sanity check",
         "",
@@ -545,19 +609,14 @@ def main() -> None:
     args = parser.parse_args()
     output_dir = args.output_dir.resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
-    (output_dir / "splits").mkdir(parents=True, exist_ok=True)
     write_environment(output_dir)
 
-    metric_rows, prediction_tables, split_tables = [], [], []
-    frozen_data = {}
+    metric_rows, prediction_tables, split_tables, run_results = [], [], [], []
     for protocol in args.protocols:
         for column in args.columns:
             data = read_target_data(column, protocol)
-            frozen_data[(column, protocol)] = data
-            data.to_csv(output_dir / f"canonical_{column}_{protocol}.csv", index=False)
             for seed in args.seeds:
                 split = make_row_split(data, column, protocol, seed)
-                split.to_csv(output_dir / "splits" / f"{column}_{protocol}_row_seed_{seed}.csv", index=False)
                 split_tables.append(split)
                 for method in METHODS:
                     print(json.dumps({"column": column, "protocol": protocol, "seed": seed, "method": method}), flush=True)
@@ -575,6 +634,7 @@ def main() -> None:
                     )
                     metric_rows.extend(flat_metric_rows(result))
                     prediction_tables.append(predictions)
+                    run_results.append(result)
 
     metrics = pd.DataFrame(metric_rows)
     predictions = pd.concat(prediction_tables, ignore_index=True)
@@ -584,8 +644,10 @@ def main() -> None:
     summary = pd.concat([reference_summary(references), summarize_metrics(metrics)], ignore_index=True)
     comparison = paper_r2_comparison(summary)
     combined_metrics.to_csv(output_dir / "all_metrics.csv", index=False)
-    predictions.to_csv(output_dir / "predictions.csv.gz", index=False, compression="gzip")
+    runtime_root(output_dir).mkdir(parents=True, exist_ok=True)
+    predictions.to_csv(runtime_root(output_dir) / "predictions.csv.gz", index=False, compression="gzip")
     splits.to_csv(output_dir / "split_manifest.csv", index=False)
+    write_run_summary(output_dir, run_results)
     summary.to_csv(output_dir / "PAPER_TRANSFER_RMSE_SUMMARY.csv", index=False)
     comparison.to_csv(output_dir / "paper_r2_comparison.csv", index=False)
     write_scale_note(output_dir, summary)
@@ -605,10 +667,13 @@ def main() -> None:
         "column_spec_flag": SHARED_SPEC_FLAG,
         "selection": "validation_only_minimum_combined_normalized_rmse",
         "test_driven_reconstruction": False,
+        "runtime_artifacts": "runtime/ (ignored: checkpoints, histories, per-run results and predictions)",
+        "compact_run_summary": "run_summary.csv",
+        "derived_input_retention": "legacy-filtered canonicals and per-seed split CSVs are rebuilt from canonical inputs, protocol and seeds; split_manifest.csv is retained",
         "smoke": args.smoke,
     }
     (output_dir / "run_config.json").write_text(json.dumps(config, indent=2), encoding="utf-8")
-    write_artifact_manifest(output_dir)
+    write_scientific_artifact_manifest(output_dir)
     print(json.dumps({"completed": len(metric_rows) // 2, "output": str(output_dir)}, ensure_ascii=False))
 
 
