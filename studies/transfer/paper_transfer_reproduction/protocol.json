@@ -1,0 +1,43 @@
+{
+  "study": "paper_transfer_reproduction",
+  "classification": "PAPER_ALIGNED_RECONSTRUCTED_REPRODUCTION",
+  "primary_protocol": "legacy_filtered",
+  "optional_sensitivity_protocol": "no_threshold",
+  "columns": {
+    "25g": {
+      "raw_dataset": "dataset/dataset_25g.csv",
+      "raw_sha256": "6ef36adfa8a73d5b51560cd39776cae78c731a1107b3dfdf2b90661942ac5d06",
+      "legacy_thresholds_ml": {"V1": 60.0, "V2": 120.0},
+      "repository_original_column_spec": [2.15, 15.6, 0.5248]
+    },
+    "40g": {
+      "raw_dataset": "dataset/dataset_40g.csv",
+      "raw_sha256": "2d89921b4c84c720a7b3ae97e76d7a996a8f296c417ac42c29adf68d21574e0e",
+      "legacy_thresholds_ml": {"V1": 150.0, "V2": 200.0},
+      "repository_original_column_spec": [2.15, 15.6, 0.5248]
+    }
+  },
+  "shared_legacy_column_spec_flag": "25G_AND_40G_SHARE_LEGACY_COLUMN_SPEC_VALUES",
+  "source_checkpoint": "experiments/e0_4g_baseline/checkpoints/best.pt",
+  "source_checkpoint_sha256": "7b9e3d0d4c8036c738ef220802e7ee46bc6ab8261cc541fb7d194e8c17044323",
+  "source_scaler": "experiments/e0_4g_baseline/scaler.json",
+  "seeds": [42, 525, 1101, 2025, 2026],
+  "split": {"kind": "random_row", "train": 0.8, "valid": 0.1, "test": 0.1},
+  "transfer": {
+    "learning_rate": 0.0001,
+    "weight_decay": 0.00001,
+    "epochs_cap": 500,
+    "patience": 100,
+    "batch_size": 2048,
+    "pretrained": true,
+    "trainable": ["new_column_adapters", "last2_gnn_layers", "monotonic_output_head"],
+    "column_adapter_initialization": "function_preserving_zero_linear"
+  },
+  "direct_control": {
+    "initialization": "random",
+    "trainable": "all_parameters",
+    "same_split_scaler_loss_and_test_as_transfer": true
+  },
+  "selection": "minimum validation combined normalized RMSE; test evaluated once after checkpoint selection",
+  "test_driven_reconstruction": false
+}

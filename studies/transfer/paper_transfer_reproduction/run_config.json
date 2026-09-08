@@ -1,0 +1,28 @@
+{
+  "classification": "PAPER_ALIGNED_RECONSTRUCTED_REPRODUCTION",
+  "primary_protocol": "legacy_filtered",
+  "run_protocols": [
+    "legacy_filtered"
+  ],
+  "columns": [
+    "25g",
+    "40g"
+  ],
+  "seeds": [
+    42,
+    525,
+    1101,
+    2025,
+    2026
+  ],
+  "epochs": 500,
+  "patience": 100,
+  "batch_size": 2048,
+  "source_checkpoint": "experiments/e0_4g_baseline/checkpoints/best.pt",
+  "source_checkpoint_sha256": "7b9e3d0d4c8036c738ef220802e7ee46bc6ab8261cc541fb7d194e8c17044323",
+  "source_scaler": "experiments/e0_4g_baseline/scaler.json",
+  "column_spec_flag": "25G_AND_40G_SHARE_LEGACY_COLUMN_SPEC_VALUES",
+  "selection": "validation_only_minimum_combined_normalized_rmse",
+  "test_driven_reconstruction": false,
+  "smoke": false
+}
