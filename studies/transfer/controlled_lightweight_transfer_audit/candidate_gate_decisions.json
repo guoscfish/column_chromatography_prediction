@@ -1,0 +1,192 @@
+{
+  "status": "NO_CONTROLLED_LIGHTWEIGHT_CALIBRATION_HEADROOM",
+  "gate": {
+    "reference": "M1_conditional_EA",
+    "min_endpoint_gain": 0.03,
+    "min_endpoints": 3,
+    "min_aggregate_gain": 0.03,
+    "max_context_deterioration": 0.15,
+    "selection": "gradient_train_only_nested_GroupKFold"
+  },
+  "sequential_authorization": [
+    {
+      "stage": 1,
+      "candidate": "M2_MAG",
+      "authorized": true,
+      "passed": false
+    },
+    {
+      "stage": 2,
+      "candidate": "M2_WIDTH",
+      "authorized": true,
+      "passed": false
+    },
+    {
+      "stage": 3,
+      "candidate": "M2_LOADING_SOLVENT",
+      "authorized": true,
+      "passed": false
+    }
+  ],
+  "candidates": {
+    "M2_MAG": {
+      "method": "M2_MAG",
+      "endpoint_results": [
+        {
+          "column": "25g",
+          "target": "V1",
+          "relative_gain": 0.08180268825665982,
+          "wins": 4,
+          "passes": true
+        },
+        {
+          "column": "25g",
+          "target": "V2",
+          "relative_gain": -0.025113177699187528,
+          "wins": 2,
+          "passes": false
+        },
+        {
+          "column": "40g",
+          "target": "V1",
+          "relative_gain": 0.000244376480254771,
+          "wins": 3,
+          "passes": false
+        },
+        {
+          "column": "40g",
+          "target": "V2",
+          "relative_gain": -0.016052406212079928,
+          "wins": 0,
+          "passes": false
+        }
+      ],
+      "improved_endpoints": 1,
+      "aggregate_normalized_rmse": 1.2184077613185127,
+      "reference_aggregate_normalized_rmse": 1.2354849647671613,
+      "aggregate_relative_gain": 0.013822267316597414,
+      "worst_context_gain": -0.015255294644095585,
+      "passes": false
+    },
+    "M2_WIDTH": {
+      "method": "M2_WIDTH",
+      "endpoint_results": [
+        {
+          "column": "25g",
+          "target": "V1",
+          "relative_gain": -0.008613151926897267,
+          "wins": 2,
+          "passes": false
+        },
+        {
+          "column": "25g",
+          "target": "V2",
+          "relative_gain": 0.01249122111423484,
+          "wins": 4,
+          "passes": false
+        },
+        {
+          "column": "40g",
+          "target": "V1",
+          "relative_gain": -0.00795858967751184,
+          "wins": 1,
+          "passes": false
+        },
+        {
+          "column": "40g",
+          "target": "V2",
+          "relative_gain": 0.01453269232924459,
+          "wins": 5,
+          "passes": false
+        }
+      ],
+      "improved_endpoints": 0,
+      "aggregate_normalized_rmse": 1.238131682067443,
+      "reference_aggregate_normalized_rmse": 1.2354849647671613,
+      "aggregate_relative_gain": -0.0021422497041723165,
+      "worst_context_gain": -0.016817261534571193,
+      "passes": false
+    },
+    "M2_LOADING_SOLVENT": {
+      "method": "M2_LOADING_SOLVENT",
+      "endpoint_results": [
+        {
+          "column": "25g",
+          "target": "V1",
+          "relative_gain": 0.012608717391921376,
+          "wins": 4,
+          "passes": false
+        },
+        {
+          "column": "25g",
+          "target": "V2",
+          "relative_gain": 0.010431438963372175,
+          "wins": 4,
+          "passes": false
+        },
+        {
+          "column": "40g",
+          "target": "V1",
+          "relative_gain": 0.002501613711777706,
+          "wins": 3,
+          "passes": false
+        },
+        {
+          "column": "40g",
+          "target": "V2",
+          "relative_gain": -0.004455203016450859,
+          "wins": 0,
+          "passes": false
+        }
+      ],
+      "improved_endpoints": 0,
+      "aggregate_normalized_rmse": 1.2298479835329141,
+      "reference_aggregate_normalized_rmse": 1.2354849647671613,
+      "aggregate_relative_gain": 0.004562565628072668,
+      "worst_context_gain": -0.0031487726482606337,
+      "passes": false
+    },
+    "M3_CENTER_WIDTH": {
+      "method": "M3_CENTER_WIDTH",
+      "endpoint_results": [
+        {
+          "column": "25g",
+          "target": "V1",
+          "relative_gain": 0.03787435179004284,
+          "wins": 5,
+          "passes": true
+        },
+        {
+          "column": "25g",
+          "target": "V2",
+          "relative_gain": -0.008775561728843417,
+          "wins": 3,
+          "passes": false
+        },
+        {
+          "column": "40g",
+          "target": "V1",
+          "relative_gain": 0.049551884174967475,
+          "wins": 5,
+          "passes": true
+        },
+        {
+          "column": "40g",
+          "target": "V2",
+          "relative_gain": 0.021944359160134597,
+          "wins": 5,
+          "passes": false
+        }
+      ],
+      "improved_endpoints": 2,
+      "aggregate_normalized_rmse": 1.191393348672573,
+      "reference_aggregate_normalized_rmse": 1.2354849647671613,
+      "aggregate_relative_gain": 0.035687699447558896,
+      "worst_context_gain": 0.007749946112671657,
+      "passes": false
+    }
+  },
+  "promoted": [],
+  "outer_test_truth_authorized": false,
+  "test_truth_used_for_fit_or_selection": false
+}

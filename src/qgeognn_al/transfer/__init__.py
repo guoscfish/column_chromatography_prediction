@@ -38,6 +38,15 @@ from .matched_calibration import fit_local_identity_shrinkage, select_local_iden
 from .conditional_scaling import ConditionalFit, fit_conditional
 from .varying_coefficient import VaryingCoefficientFit, fit_varying_coefficient
 from .center_width import CenterWidthFit, fit_center_width
+from .controlled_conditional_extension import (
+    ConditionalEANestedExtension,
+    center_width_inverse,
+    center_width_transform,
+    endpoint_magnitude,
+    fit_conditional_nested,
+    fit_scalar_conditional,
+    project_physical,
+)
 from .column_physics import FEATURE_NAMES, FEATURE_UNITS, TrainingNormalizer, context_matrix, packing_mass
 from .column_conditioned import ColumnConditionedQGeoGNN
 from .protocol import (
@@ -82,6 +91,7 @@ __all__ = [
     "ConditionalFit",
     "CenterWidthFit",
     "VaryingCoefficientFit",
+    "ConditionalEANestedExtension",
     "FEATURE_NAMES",
     "FEATURE_UNITS",
     "LabelLedger",
@@ -106,6 +116,12 @@ __all__ = [
     "fit_conditional",
     "fit_center_width",
     "fit_varying_coefficient",
+    "fit_conditional_nested",
+    "fit_scalar_conditional",
+    "endpoint_magnitude",
+    "center_width_transform",
+    "center_width_inverse",
+    "project_physical",
     "fit_scale_only",
     "fit_paper_style_current_v2_full",
     "fit_target_only_full",

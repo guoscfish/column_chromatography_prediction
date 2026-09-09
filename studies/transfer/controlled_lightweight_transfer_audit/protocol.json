@@ -1,0 +1,71 @@
+{
+  "study_name": "CONTROLLED_LIGHTWEIGHT_TRANSFER_AUDIT",
+  "classification": "CORRECTED_TRAIN_ONLY_NESTED_EXTENSION_AUDIT",
+  "status": "FROZEN_BEFORE_OUTER_TEST_TRUTH",
+  "parent_filtered_benchmark": "studies/transfer/filtered_full_data_benchmark/protocol.json",
+  "parent_filtered_benchmark_sha256": "b78f9b69780bce21c093496d8a6f59ccfab94e2934bacc247ce0ec387e6211b4",
+  "source_scales": {
+    "V1": 7.8796590346317394,
+    "V2": 16.076509553562932
+  },
+  "columns": [
+    "25g",
+    "40g"
+  ],
+  "protocols": [
+    "compound",
+    "row"
+  ],
+  "seeds": [
+    769539383,
+    1425370602,
+    536279090,
+    2767143051,
+    1362771960
+  ],
+  "gradient_train_identity_source": "filtered_full_data_benchmark/split_manifest.csv",
+  "gate": {
+    "reference": "M1_conditional_EA",
+    "min_endpoint_gain": 0.03,
+    "min_endpoints": 3,
+    "min_aggregate_gain": 0.03,
+    "max_context_deterioration": 0.15,
+    "selection": "gradient_train_only_nested_GroupKFold"
+  },
+  "regularization": "SSE/n + lambda*((base_slope-1)^2 + intercept^2 + EA_effect^2 + extra_effect^2)",
+  "penalty_grid": [
+    0.0,
+    0.1,
+    1.0
+  ],
+  "test_truth_used_for_fit_or_selection": false,
+  "candidates": {
+    "M1_conditional_EA": {
+      "free_coefficients": 6,
+      "formula": "[base + EA_slope]*source + intercept"
+    },
+    "M2_MAG": {
+      "free_coefficients": 8,
+      "extra": "endpoint-specific log1p(max(source_j,0)/scale_j)"
+    },
+    "M2_WIDTH": {
+      "free_coefficients": 8,
+      "extra": "linear source width, repeated as slope effect"
+    },
+    "M2_LOADING_SOLVENT": {
+      "free_coefficients": 8,
+      "extra": "binary I(loading solvent == DCM)"
+    },
+    "M3_CENTER_WIDTH": {
+      "free_coefficients": 6,
+      "formula": "3-coefficient Conditional EA for center + 3 for width",
+      "width_transform": "linear",
+      "projection": "V1>=0,V2>=V1"
+    }
+  },
+  "historical_correction": [
+    "Previous M2 was not strictly nested because varying_coefficient used base-slope-to-zero and unpenalized intercept semantics.",
+    "Previous M2 used an averaged endpoint magnitude; corrected M2_MAG is endpoint-specific.",
+    "Previous M3 was reported as 8 coefficients although center and width each have 3; corrected count is 6."
+  ]
+}
