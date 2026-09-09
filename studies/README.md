@@ -3,6 +3,7 @@
 ## Current predictor and transfer
 
 - [Matched cross-column absolute-error benchmark](transfer/matched_rmse_benchmark/MATCHED_RMSE_REPORT.md): the authoritative no-threshold, equal-budget strategy ranking; RMSE/MAE and tail diagnostics are primary.
+- [Structured center/width follow-up](transfer/structured_center_width_followup/FINAL_REPORT.md): train-only tests of center magnitude and center-conditioned width; neither passes, and structured calibration expansion is closed.
 - [Controlled lightweight transfer audit](transfer/controlled_lightweight_transfer_audit/FINAL_REPORT.md): corrected Conditional-EA nested variable audit; no candidate passed, no outer truth was read, and calibration-variable expansion is closed.
 - [Scaling failure audit and conditional-scaling decision](transfer/scaling_failure_audit/README.md)
 - [Filtered transfer headroom audit](transfer/filtered_transfer_headroom_audit/FINAL_REPORT.md): superseded preliminary train-only evidence; frozen artifacts retained for provenance.

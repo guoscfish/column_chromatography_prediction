@@ -1,0 +1,30 @@
+{
+  "study_name": "STRUCTURED_CENTER_WIDTH_FOLLOWUP",
+  "classification": "TRAIN_ONLY_HYPOTHESIS_DRIVEN_FOLLOWUP",
+  "status": "FROZEN_BEFORE_CANDIDATE_AND_OUTER_EVALUATION",
+  "parent_study": "studies/transfer/controlled_lightweight_transfer_audit/protocol.json",
+  "columns": ["25g", "40g"],
+  "protocols": ["compound", "row"],
+  "seeds": [769539383, 1425370602, 536279090, 2767143051, 1362771960],
+  "source_scales": {"V1": 7.8796590346317394, "V2": 16.076509553562932},
+  "gradient_train_identity_source": "studies/transfer/filtered_full_data_benchmark/split_manifest.csv",
+  "penalty_grid": [0.0, 0.1, 1.0],
+  "regularization": "SSE/n with base slope prior 1 and all other coefficient priors 0",
+  "normalization": "all center/width scales and effects estimated on fit subset only",
+  "methods": {
+    "M3_CENTER_WIDTH": {"free_coefficients": 6},
+    "CENTER_MAGNITUDE": {"free_coefficients": 7, "extra_branch": "center", "extra_effect": "log1p(max(C_source,0)/fit_center_scale)"},
+    "CENTER_CONDITIONED_WIDTH": {"free_coefficients": 7, "extra_branch": "width", "extra_effect": "fit-standardized C_source"}
+  },
+  "gate": {
+    "reference": "M3_CENTER_WIDTH",
+    "min_aggregate_normalized_rmse_gain": 0.03,
+    "min_positive_endpoints": 3,
+    "min_endpoints_at_3pct": 2,
+    "max_endpoint_mean_deterioration": 0.05,
+    "min_wins_for_positive_endpoint": 3,
+    "max_context_deterioration": 0.10
+  },
+  "outer_test_truth_authorized": false,
+  "runner_outer_stage": "not implemented"
+}

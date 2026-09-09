@@ -1,0 +1,82 @@
+{
+  "status": "NO_STRUCTURED_CENTER_WIDTH_HEADROOM",
+  "reference": "M3_CENTER_WIDTH",
+  "candidates": {
+    "CENTER_MAGNITUDE": {
+      "endpoint_results": [
+        {
+          "column": "25g",
+          "endpoint": "V1",
+          "relative_gain": 0.008094764247730146,
+          "wins": 4
+        },
+        {
+          "column": "25g",
+          "endpoint": "V2",
+          "relative_gain": -0.002746795870145924,
+          "wins": 2
+        },
+        {
+          "column": "40g",
+          "endpoint": "V1",
+          "relative_gain": -0.01342409783814813,
+          "wins": 0
+        },
+        {
+          "column": "40g",
+          "endpoint": "V2",
+          "relative_gain": -0.008628593134967444,
+          "wins": 0
+        }
+      ],
+      "aggregate_normalized_rmse": 1.198780578380526,
+      "reference_aggregate_normalized_rmse": 1.191393348672573,
+      "aggregate_relative_gain": -0.006200496012659373,
+      "positive_endpoints": 1,
+      "endpoints_at_3pct": 0,
+      "worst_endpoint_gain": -0.01342409783814813,
+      "worst_context_gain": -0.07154780532015326,
+      "passes": false
+    },
+    "CENTER_CONDITIONED_WIDTH": {
+      "endpoint_results": [
+        {
+          "column": "25g",
+          "endpoint": "V1",
+          "relative_gain": 0.048102443951234974,
+          "wins": 5
+        },
+        {
+          "column": "25g",
+          "endpoint": "V2",
+          "relative_gain": -0.030902420788602836,
+          "wins": 1
+        },
+        {
+          "column": "40g",
+          "endpoint": "V1",
+          "relative_gain": -0.007460780323438554,
+          "wins": 0
+        },
+        {
+          "column": "40g",
+          "endpoint": "V2",
+          "relative_gain": -0.003051577514974646,
+          "wins": 2
+        }
+      ],
+      "aggregate_normalized_rmse": 1.186878452488778,
+      "reference_aggregate_normalized_rmse": 1.191393348672573,
+      "aggregate_relative_gain": 0.003789593242924605,
+      "positive_endpoints": 1,
+      "endpoints_at_3pct": 1,
+      "worst_endpoint_gain": -0.030902420788602836,
+      "worst_context_gain": -0.009405072270130654,
+      "passes": false
+    }
+  },
+  "promoted": [],
+  "eligible_for_outer_evaluation": false,
+  "outer_test_truth_read": false,
+  "outer_stage_executed": false
+}
