@@ -48,6 +48,12 @@ from .controlled_conditional_extension import (
     project_physical,
 )
 from .structured_center_width import StructuredCenterWidthFit, fit_structured_center_width
+from .shared_center_width import (
+    ALL_CONTEXT,
+    MASS_FLOW_CONTEXT,
+    SharedCenterWidthFit,
+    fit_shared_center_width,
+)
 from .column_physics import FEATURE_NAMES, FEATURE_UNITS, TrainingNormalizer, context_matrix, packing_mass
 from .column_conditioned import ColumnConditionedQGeoGNN
 from .protocol import (
@@ -94,6 +100,9 @@ __all__ = [
     "VaryingCoefficientFit",
     "ConditionalEANestedExtension",
     "StructuredCenterWidthFit",
+    "SharedCenterWidthFit",
+    "ALL_CONTEXT",
+    "MASS_FLOW_CONTEXT",
     "FEATURE_NAMES",
     "FEATURE_UNITS",
     "LabelLedger",
@@ -125,6 +134,7 @@ __all__ = [
     "center_width_inverse",
     "project_physical",
     "fit_structured_center_width",
+    "fit_shared_center_width",
     "fit_scale_only",
     "fit_paper_style_current_v2_full",
     "fit_target_only_full",

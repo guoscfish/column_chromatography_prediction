@@ -1,0 +1,132 @@
+{
+  "study_name": "FULL_DATA_BASELINE_FINALIZATION",
+  "classification": "FILTERED_FULL_DATA_WORKING_BASELINE_SELECTION",
+  "status": "FROZEN_BEFORE_NEW_CANDIDATE_TEST_EVALUATION",
+  "parent_benchmark": "studies/transfer/filtered_full_data_benchmark",
+  "parent_protocol_sha256": "b78f9b69780bce21c093496d8a6f59ccfab94e2934bacc247ce0ec387e6211b4",
+  "parent_prediction_freeze_sha256": "523910edf367c4f5009fa88597acb56eb8a51a55208d2f2058880b97f7ffde28",
+  "parent_schedule_sha256": "b52b937aa750586ec8f2efb2f10f93dfddd2252bb03afaf304556e16b4fab5ee",
+  "source_checkpoint_sha256": "fce9edebc294fd179c7c7dc27ab2badea049c77fdad03a6cf0c317c63df544b0",
+  "source_scales": {
+    "V1": 7.8796590346317394,
+    "V2": 16.076509553562932
+  },
+  "columns_in_shared_fit": [
+    "8g",
+    "25g",
+    "40g"
+  ],
+  "ranked_focal_columns": [
+    "25g",
+    "40g"
+  ],
+  "protocols": [
+    "compound",
+    "row"
+  ],
+  "seeds": [
+    769539383,
+    1425370602,
+    536279090,
+    2767143051,
+    1362771960
+  ],
+  "budget": "FULL",
+  "full_data_definition": "all operationally filtered rows outside inherited frozen validation/test are gradient_train",
+  "thresholds_ml": {
+    "8g": {
+      "V1": 60.0,
+      "V2": 120.0
+    },
+    "25g": {
+      "V1": 60.0,
+      "V2": 120.0
+    },
+    "40g": {
+      "V1": 150.0,
+      "V2": 200.0
+    }
+  },
+  "primary": "compound",
+  "secondary": "row",
+  "references": [
+    "conditional_EA",
+    "scale_only",
+    "paper_style_current_v2"
+  ],
+  "candidates": [
+    "M3_CENTER_WIDTH_FULL",
+    "MASS_FLOW_SHARED",
+    "ALL_CONTEXT_SHARED_CENTER_WIDTH"
+  ],
+  "m3": {
+    "implementation": "fit_structured_center_width(..., M3_CENTER_WIDTH)",
+    "penalty_grid": [
+      0.0,
+      0.1,
+      1.0
+    ],
+    "selection": "focal validation only",
+    "mass_ratio": {
+      "25g": 6.25,
+      "40g": 10.0
+    },
+    "free_coefficients": 6
+  },
+  "shared": {
+    "penalty_grid": [
+      0.1,
+      1.0,
+      10.0
+    ],
+    "selection": "one penalty minimizing equal-column mean validation combined normalized RMSE",
+    "mass_flow_context": [
+      "packing_mass_g",
+      "flow_ml_min"
+    ],
+    "all_context": [
+      "packing_mass_g",
+      "flow_ml_min",
+      "legacy_column_dia",
+      "legacy_column_len",
+      "legacy_column_den"
+    ],
+    "context_values": {
+      "8g": [
+        8.0,
+        10.0,
+        1.5,
+        13.2,
+        0.4458
+      ],
+      "25g": [
+        25.0,
+        15.0,
+        2.15,
+        15.6,
+        0.5248
+      ],
+      "40g": [
+        40.0,
+        30.0,
+        2.15,
+        15.6,
+        0.5248
+      ]
+    },
+    "context_normalization": "authorized shared gradient_train rows only",
+    "donor_truth": "each column current seed/protocol gradient_train only"
+  },
+  "promotion_gate": {
+    "reference": "conditional_EA",
+    "min_aggregate_compound_gain": 0.03,
+    "min_one_column_gain": 0.03,
+    "max_other_column_deterioration": 0.03,
+    "max_endpoint_deterioration": 0.05,
+    "min_combined_seed_wins": 6,
+    "max_aggregate_mae_deterioration": 0.03
+  },
+  "test_labels_for_fit_normalization_or_selection": false,
+  "prediction_freeze_required_before_test_truth": true,
+  "physical_interpretation": "predictive only; context coefficients are confounded and not causal"
+}
