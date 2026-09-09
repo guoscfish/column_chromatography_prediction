@@ -1,0 +1,115 @@
+{
+  "study_name": "FILTERED_FULL_DATA_TRANSFER_PILOT_BENCHMARK",
+  "classification": "FILTERED_OPERATIONAL_DOMAIN_FULL_DATA_TRANSFER_PILOT",
+  "status": "FROZEN_BEFORE_NEW_TEST_EVALUATION",
+  "parent_schedule": "studies/transfer/cross_column/splits/schedule_manifest.csv",
+  "parent_schedule_sha256": "b52b937aa750586ec8f2efb2f10f93dfddd2252bb03afaf304556e16b4fab5ee",
+  "parent_budget_intersection": 100,
+  "columns": [
+    "25g",
+    "40g"
+  ],
+  "protocols": [
+    "row",
+    "compound"
+  ],
+  "outer_seeds": [
+    769539383,
+    1425370602,
+    536279090,
+    2767143051,
+    1362771960
+  ],
+  "threshold_definition": "legacy operational-domain thresholds observed in original Construct_dataset_*; not a physical-law claim",
+  "thresholds_ml": {
+    "25g": {
+      "V1": 60.0,
+      "V2": 120.0
+    },
+    "40g": {
+      "V1": 150.0,
+      "V2": 200.0
+    }
+  },
+  "target_population": "reader-compatible parent canonical rows filtered before role intersection",
+  "split_design": "frozen B100 outer test/validation identities intersected with filtered population; parent gradient_train plus pool become full gradient_train",
+  "full_data_definition": "all filtered rows outside frozen validation and held-out test are gradient-train labels; test is never a training label",
+  "minimum_role_counts_preregistered": {
+    "gradient_train": 300,
+    "validation": 5,
+    "test": 60
+  },
+  "actual_label_accounting_sha256": "9906c2a12678ef3360d92f6f364671b5ac87e5530d9dc429ca36ab19806b5f3d",
+  "filtered_canonical_sha256": {
+    "25g": "fe24a1c17392d744c52e6f484b343ac6ed50cdbda343da8b965c150421c00e0e",
+    "40g": "4dd1ff8d1bd4cfb4388365a86d1439e6015a0d9de75cd6d90aa2ab23d84c5d97"
+  },
+  "filtered_rows": {
+    "25g": 408,
+    "40g": 456
+  },
+  "methods": [
+    "zero_shot",
+    "target_only_full",
+    "scale_only",
+    "conditional_EA",
+    "paper_style_current_v2"
+  ],
+  "zero_shot": "fixed hash-locked qualified 4g source; zero target labels",
+  "scale_only": "per-target through-origin fit on source q50 and gradient-train labels only",
+  "conditional_EA": {
+    "implementation": "src.qgeognn_al.transfer.conditional_scaling.fit_conditional",
+    "source_q50": true,
+    "interaction": true,
+    "penalty_grid": [
+      0.0,
+      0.1,
+      1.0
+    ],
+    "fit_role": "gradient_train",
+    "selection_role": "validation_only",
+    "source_scales": "qualified_4g_source_train"
+  },
+  "target_only_full": {
+    "source_checkpoint_loaded": false,
+    "source_predictions_used": false,
+    "source_replay_used": false,
+    "model": "randomly initialized current QGeoGNN-V2 backbone and six-output formulation",
+    "preprocessing": "target gradient-train only",
+    "config": {
+      "learning_rate": 0.001,
+      "weight_decay": 0.0,
+      "maximum_epochs": 1000,
+      "patience": 100,
+      "batch_size": 2048,
+      "cpu_threads": 1,
+      "selection": "validation_only_minimum_target_train_normalized_rmse",
+      "initialization": "direct_seeded_random_current_v2"
+    }
+  },
+  "paper_style_current_v2": {
+    "source_checkpoint": "studies/predictor/final_4g_qualification/runtime/row/seed_42/best.pt",
+    "source_checkpoint_sha256": "fce9edebc294fd179c7c7dc27ab2badea049c77fdad03a6cf0c317c63df544b0",
+    "config": {
+      "learning_rate": 0.0001,
+      "weight_decay": 1e-05,
+      "maximum_epochs": 500,
+      "patience": 100,
+      "batch_size": 2048,
+      "cpu_threads": 1,
+      "context_dim": 3,
+      "scope": "final message layer + condition branch + target head + zero-initialized column adapter",
+      "selection": "validation_only_minimum_source_normalized_rmse"
+    },
+    "column_context": "[target_mass_g / 4, is_25g, is_40g]",
+    "scope_fixed_before_test": true
+  },
+  "test_labels_used_for_fit_or_selection": false,
+  "global_test_evaluation_boundary": "all 20 context prediction files must hash-verify before test truth is read",
+  "source_preprocessing_for_transfer": "qualified source-train only",
+  "target_only_preprocessing": "target gradient-train only",
+  "compound_split_interpretation": "target-compound generalization; not source-unseen chemistry",
+  "no_threshold_historical_results_modified": false,
+  "paper_reproduction_context": "descriptive only, not a head-to-head matched competitor",
+  "training_context_count": 20
+}

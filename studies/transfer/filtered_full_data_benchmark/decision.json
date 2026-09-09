@@ -1,0 +1,101 @@
+{
+  "study": "FILTERED_FULL_DATA_TRANSFER_PILOT_BENCHMARK",
+  "status": "COMPLETED",
+  "primary_evidence": "target-compound split; row split is secondary paper-context evidence",
+  "compound_primary_metric_winners": [
+    {
+      "column": "25g",
+      "metric": "V1_rmse_mean",
+      "method": "conditional_EA"
+    },
+    {
+      "column": "25g",
+      "metric": "V1_mae_mean",
+      "method": "conditional_EA"
+    },
+    {
+      "column": "25g",
+      "metric": "V2_rmse_mean",
+      "method": "scale_only"
+    },
+    {
+      "column": "25g",
+      "metric": "V2_mae_mean",
+      "method": "scale_only"
+    },
+    {
+      "column": "40g",
+      "metric": "V1_rmse_mean",
+      "method": "paper_style_current_v2"
+    },
+    {
+      "column": "40g",
+      "metric": "V1_mae_mean",
+      "method": "conditional_EA"
+    },
+    {
+      "column": "40g",
+      "metric": "V2_rmse_mean",
+      "method": "scale_only"
+    },
+    {
+      "column": "40g",
+      "metric": "V2_mae_mean",
+      "method": "scale_only"
+    }
+  ],
+  "distinct_primary_winners": [
+    "conditional_EA",
+    "paper_style_current_v2",
+    "scale_only"
+  ],
+  "universal_winner": null,
+  "no_single_universal_winner": true,
+  "paired_transfer_vs_target_only_wins_across_column_metric_contexts": {
+    "conditional_EA": {
+      "V1_rmse_wins": 9,
+      "V1_mae_wins": 9,
+      "V2_rmse_wins": 10,
+      "V2_mae_wins": 10
+    },
+    "paper_style_current_v2": {
+      "V1_rmse_wins": 9,
+      "V1_mae_wins": 8,
+      "V2_rmse_wins": 10,
+      "V2_mae_wins": 10
+    },
+    "scale_only": {
+      "V1_rmse_wins": 9,
+      "V1_mae_wins": 7,
+      "V2_rmse_wins": 10,
+      "V2_mae_wins": 10
+    },
+    "zero_shot": {
+      "V1_rmse_wins": 0,
+      "V1_mae_wins": 0,
+      "V2_rmse_wins": 0,
+      "V2_mae_wins": 0
+    }
+  },
+  "full_data_ceiling_signal": {
+    "25g": {
+      "target_only_V1_rmse_mean": 8.820451904785191,
+      "target_only_V2_rmse_mean": 15.01322089252597,
+      "paper_style_V1_rmse_mean": 8.040766325811578,
+      "paper_style_V2_rmse_mean": 10.95942280570698
+    },
+    "40g": {
+      "target_only_V1_rmse_mean": 20.423015949402107,
+      "target_only_V2_rmse_mean": 29.487731976751167,
+      "paper_style_V1_rmse_mean": 16.239652838100447,
+      "paper_style_V2_rmse_mean": 22.08333889854968
+    }
+  },
+  "active_learning_decision": "NOT_AUTOMATICALLY_ENTERED; this benchmark measures label availability but does not establish acquisition utility",
+  "interpretation_limits": [
+    "Legacy thresholds define an operational benchmark; they are not established chromatographic physical laws.",
+    "Threshold filtering can change condition and compound-row composition; it is not simply outlier removal.",
+    "Compound split holds out target-column compounds but does not make them source-unseen chemistry.",
+    "Filtered full-data and historical B100 differ in both target domain and label count, so their difference is not a threshold-only causal effect."
+  ]
+}

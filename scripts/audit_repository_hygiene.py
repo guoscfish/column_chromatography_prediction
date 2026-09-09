@@ -207,12 +207,29 @@ def branch_audit(root: Path) -> dict[str, object]:
     archive: dict[str, object] = {"tag": ARCHIVE_TAG, "available": ref_exists(root, ARCHIVE_TAG)}
     if archive["available"]:
         archive["commit"] = git_lines(root, "rev-parse", f"{ARCHIVE_TAG}^{{commit}}")[0]
-        archive["contains_paper_tip"] = subprocess.run(
-            ["git", "merge-base", "--is-ancestor", CHAIN[-1], ARCHIVE_TAG],
-            cwd=root,
-            capture_output=True,
-            text=True,
-        ).returncode == 0
+        paper_tip = CHAIN[-1]
+        if ref_exists(root, paper_tip):
+            archive["paper_tip_resolution"] = "live_branch"
+            archive["contains_paper_tip"] = subprocess.run(
+                ["git", "merge-base", "--is-ancestor", paper_tip, ARCHIVE_TAG],
+                cwd=root,
+                capture_output=True,
+                text=True,
+            ).returncode == 0
+        else:
+            # Old study branches can be pruned after their immutable archive
+            # tag is made.  In that expected state, verify the archived tree
+            # itself instead of falsely reporting that a deleted ref is absent
+            # from the archive.
+            archive["paper_tip_resolution"] = "archived_tree_after_branch_prune"
+            archived_paths = set(git_lines(root, "ls-tree", "-r", "--name-only", ARCHIVE_TAG, "--", PAPER_STUDY))
+            required_paper_records = {
+                f"{PAPER_STUDY}/protocol.json",
+                f"{PAPER_STUDY}/PAPER_TRANSFER_RMSE_SUMMARY.csv",
+                f"{PAPER_STUDY}/all_metrics.csv",
+                f"{PAPER_STUDY}/artifact_manifest.json",
+            }
+            archive["contains_paper_tip"] = required_paper_records <= archived_paths
     return {
         "current_branch": current,
         "tips": tips,

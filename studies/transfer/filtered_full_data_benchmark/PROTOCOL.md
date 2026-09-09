@@ -1,0 +1,3 @@
+# Protocol
+
+Primary evidence is target-compound split; row split is secondary. The original B=100 outer validation/test identities are intersected with predeclared thresholds; all remaining filtered rows form gradient-train. Scale fits only gradient-train. Conditional-EA selects a fixed penalty grid on validation. Neural checkpoint selection is validation-only. The target-only arm is randomly initialized, source-free, and target-gradient-train normalized; transfer arms retain the qualified source preprocessing. Test graph labels are zero sentinels during fitting and test truth is read only after global prediction freeze.
