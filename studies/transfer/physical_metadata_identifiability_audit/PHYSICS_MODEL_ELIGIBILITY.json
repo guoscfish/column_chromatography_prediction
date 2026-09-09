@@ -1,0 +1,23 @@
+{
+  "status": "NO_NEW_IDENTIFIABLE_PHYSICAL_CONTEXT",
+  "criteria": {
+    "new_descriptor_unused_by_previous_physics_study": true,
+    "provenance_verified_or_very_strong_semantics": false,
+    "not_equivalent_to_mass_or_flow": true,
+    "adds_target_context_rank_or_new_independent_contrast": false,
+    "not_bare_column_id_encoding": true
+  },
+  "eligibility_pass": false,
+  "model_training_authorized": false,
+  "outer_truth_read": false,
+  "blocking_findings": [
+    "legacy names suggest diameter/length/density but units and measurement provenance are absent",
+    "legacy tuple adds zero rank across the eligible 8g/25g/40g target contexts",
+    "25g and 40g share the exact tuple, so it supplies no contrast between them",
+    "all column-level descriptors are deterministic functions of four column identities in this repository"
+  ],
+  "next_actions": [
+    "verify metadata with experimental staff",
+    "proceed to a separately preregistered filtered random learning curve"
+  ]
+}

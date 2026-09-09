@@ -1,0 +1,14 @@
+feature_name,source,unit_if_known,sample_level_or_column_level,included_in_original_qgeognn,included_in_previous_physics_transfer
+eluent_exact_mol_wt,PE/EA -> RDKit weighted descriptor,g/mol,sample_level,True,base_model_only
+eluent_tpsa,PE/EA -> RDKit weighted descriptor,angstrom^2,sample_level,True,base_model_only
+eluent_rotatable_bonds,PE/EA -> RDKit weighted descriptor,count,sample_level,True,base_model_only
+eluent_h_donors,PE/EA -> RDKit weighted descriptor,count,sample_level,True,base_model_only
+eluent_h_acceptors,PE/EA -> RDKit weighted descriptor,count,sample_level,True,base_model_only
+eluent_logp,PE/EA -> RDKit weighted descriptor,dimensionless,sample_level,True,base_model_only
+loading_solvent_code,"loading solvent mapping PE=0, EA=1, DCM=2",categorical code,sample_level,True,base_model_only
+loading_amount_density_x_volume,Density g/ml * V/ul,mg,sample_level,True,base_model_only
+loading_solvent_volume_ul,Volume of loading solvent/ul,uL,sample_level,True,base_model_only
+flow_ml_min,Flow mL/min,mL/min,sample_level,False,True
+packing_mass_g,parsed from column_specs,g,column_level,False,True
+column_geometry,not in current model,unknown,column_level,False,False
+column_identity,not in current model,not_applicable,column_level,False,False

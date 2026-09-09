@@ -1,0 +1,233 @@
+{
+  "representative_flow_policy": "modal flow; full distributions retained in column_context_identifiability.csv",
+  "records": {
+    "targets_only": {
+      "existing_mass_flow": {
+        "columns": [
+          "8g",
+          "25g",
+          "40g"
+        ],
+        "features": [
+          "packing_mass_g",
+          "flow_ml_min"
+        ],
+        "includes_intercept": true,
+        "observations": 3,
+        "rank": 3,
+        "maximum_possible_rank": 3,
+        "condition_number_standardized_design": 6.254146754906818,
+        "unique_values": {
+          "packing_mass_g": 3,
+          "flow_ml_min": 3
+        },
+        "pairwise_correlation": {
+          "packing_mass_g": {
+            "packing_mass_g": 1.0,
+            "flow_ml_min": 0.9501425320705177
+          },
+          "flow_ml_min": {
+            "packing_mass_g": 0.9501425320705177,
+            "flow_ml_min": 1.0
+          }
+        },
+        "exact_affine_dependencies": []
+      },
+      "existing_plus_legacy": {
+        "columns": [
+          "8g",
+          "25g",
+          "40g"
+        ],
+        "features": [
+          "packing_mass_g",
+          "flow_ml_min",
+          "legacy_column_dia",
+          "legacy_column_len",
+          "legacy_column_den"
+        ],
+        "includes_intercept": true,
+        "observations": 3,
+        "rank": 3,
+        "maximum_possible_rank": 3,
+        "condition_number_standardized_design": 2.9482688828647023,
+        "unique_values": {
+          "packing_mass_g": 3,
+          "flow_ml_min": 3,
+          "legacy_column_dia": 2,
+          "legacy_column_len": 2,
+          "legacy_column_den": 2
+        },
+        "pairwise_correlation": {
+          "packing_mass_g": {
+            "packing_mass_g": 1.0,
+            "flow_ml_min": 0.9501425320705177,
+            "legacy_column_dia": 0.883492596318908,
+            "legacy_column_len": 0.8834925963189083,
+            "legacy_column_den": 0.8834925963189083
+          },
+          "flow_ml_min": {
+            "packing_mass_g": 0.9501425320705177,
+            "flow_ml_min": 1.0,
+            "legacy_column_dia": 0.6933752452815362,
+            "legacy_column_len": 0.6933752452815365,
+            "legacy_column_den": 0.6933752452815366
+          },
+          "legacy_column_dia": {
+            "packing_mass_g": 0.883492596318908,
+            "flow_ml_min": 0.6933752452815362,
+            "legacy_column_dia": 1.0,
+            "legacy_column_len": 1.0000000000000002,
+            "legacy_column_den": 1.0000000000000002
+          },
+          "legacy_column_len": {
+            "packing_mass_g": 0.8834925963189083,
+            "flow_ml_min": 0.6933752452815365,
+            "legacy_column_dia": 1.0000000000000002,
+            "legacy_column_len": 1.0,
+            "legacy_column_den": 0.9999999999999998
+          },
+          "legacy_column_den": {
+            "packing_mass_g": 0.8834925963189083,
+            "flow_ml_min": 0.6933752452815366,
+            "legacy_column_dia": 1.0000000000000002,
+            "legacy_column_len": 0.9999999999999998,
+            "legacy_column_den": 1.0
+          }
+        },
+        "exact_affine_dependencies": [
+          {
+            "dependent_feature": "legacy_column_len",
+            "reference_feature": "legacy_column_dia",
+            "coefficient": 3.692307692307698,
+            "intercept": 7.6615384615384485
+          },
+          {
+            "dependent_feature": "legacy_column_den",
+            "reference_feature": "legacy_column_dia",
+            "coefficient": 0.12153846153846175,
+            "intercept": 0.2634923076923073
+          },
+          {
+            "dependent_feature": "legacy_column_den",
+            "reference_feature": "legacy_column_len",
+            "coefficient": 0.03291666666666668,
+            "intercept": 0.011300000000000126
+          }
+        ]
+      }
+    },
+    "source_and_targets": {
+      "existing_mass_flow": {
+        "columns": [
+          "4g",
+          "8g",
+          "25g",
+          "40g"
+        ],
+        "features": [
+          "packing_mass_g",
+          "flow_ml_min"
+        ],
+        "includes_intercept": true,
+        "observations": 4,
+        "rank": 3,
+        "maximum_possible_rank": 3,
+        "condition_number_standardized_design": 5.875270990558957,
+        "unique_values": {
+          "packing_mass_g": 4,
+          "flow_ml_min": 3
+        },
+        "pairwise_correlation": {
+          "packing_mass_g": {
+            "packing_mass_g": 1.0,
+            "flow_ml_min": 0.9436918059939929
+          },
+          "flow_ml_min": {
+            "packing_mass_g": 0.9436918059939929,
+            "flow_ml_min": 1.0
+          }
+        },
+        "exact_affine_dependencies": []
+      },
+      "existing_plus_legacy": {
+        "columns": [
+          "4g",
+          "8g",
+          "25g",
+          "40g"
+        ],
+        "features": [
+          "packing_mass_g",
+          "flow_ml_min",
+          "legacy_column_dia",
+          "legacy_column_len",
+          "legacy_column_den"
+        ],
+        "includes_intercept": true,
+        "observations": 4,
+        "rank": 4,
+        "maximum_possible_rank": 4,
+        "condition_number_standardized_design": 4.140889844524212,
+        "unique_values": {
+          "packing_mass_g": 4,
+          "flow_ml_min": 3,
+          "legacy_column_dia": 2,
+          "legacy_column_len": 3,
+          "legacy_column_den": 2
+        },
+        "pairwise_correlation": {
+          "packing_mass_g": {
+            "packing_mass_g": 1.0,
+            "flow_ml_min": 0.9436918059939929,
+            "legacy_column_dia": 0.9238722625232013,
+            "legacy_column_len": 0.7773051085577668,
+            "legacy_column_den": 0.9238722625232011
+          },
+          "flow_ml_min": {
+            "packing_mass_g": 0.9436918059939929,
+            "flow_ml_min": 1.0,
+            "legacy_column_dia": 0.7624928516630234,
+            "legacy_column_len": 0.5899710774177326,
+            "legacy_column_den": 0.7624928516630235
+          },
+          "legacy_column_dia": {
+            "packing_mass_g": 0.9238722625232013,
+            "flow_ml_min": 0.7624928516630234,
+            "legacy_column_dia": 1.0,
+            "legacy_column_len": 0.7737398142565998,
+            "legacy_column_den": 0.9999999999999999
+          },
+          "legacy_column_len": {
+            "packing_mass_g": 0.7773051085577668,
+            "flow_ml_min": 0.5899710774177326,
+            "legacy_column_dia": 0.7737398142565998,
+            "legacy_column_len": 1.0,
+            "legacy_column_den": 0.7737398142565999
+          },
+          "legacy_column_den": {
+            "packing_mass_g": 0.9238722625232011,
+            "flow_ml_min": 0.7624928516630235,
+            "legacy_column_dia": 0.9999999999999999,
+            "legacy_column_len": 0.7737398142565999,
+            "legacy_column_den": 1.0
+          }
+        },
+        "exact_affine_dependencies": [
+          {
+            "dependent_feature": "legacy_column_den",
+            "reference_feature": "legacy_column_dia",
+            "coefficient": 0.12153846153846161,
+            "intercept": 0.26349230769230747
+          }
+        ]
+      }
+    }
+  },
+  "target_rank_increment_from_legacy": 0,
+  "source_plus_target_rank_increment_from_legacy": 1,
+  "packing_mass_and_flow_independently_identifiable": false,
+  "reason": "one target flow per column and only three target-column contexts; mass, flow, legacy tuple, and column identity are confounded",
+  "legacy_descriptors_deterministic_by_column_identity": true,
+  "causal_interpretation_supported": false
+}
