@@ -1,0 +1,100 @@
+{
+  "status": "NO_LIGHTWEIGHT_CALIBRATION_HEADROOM_IDENTIFIED",
+  "gate": {
+    "reference": "M1_conditional_EA",
+    "primary_protocol": "compound",
+    "minimum_endpoint_relative_improvement": 0.03,
+    "minimum_improved_endpoints": 3,
+    "minimum_aggregate_relative_improvement": 0.03,
+    "maximum_context_relative_deterioration": 0.15,
+    "catastrophic_context_metric": "combined_normalized_rmse",
+    "selection_scope": "gradient_train_only_nested_groupkfold"
+  },
+  "candidates": {
+    "M2_EA_source_magnitude": {
+      "method": "M2_EA_source_magnitude",
+      "endpoint_results": [
+        {
+          "column": "25g",
+          "target": "V1",
+          "relative_gain": -0.0806522322809291,
+          "mean_delta_rmse": 0.6467940590819443,
+          "wins": 0,
+          "passes_endpoint": false
+        },
+        {
+          "column": "25g",
+          "target": "V2",
+          "relative_gain": -0.13267903272211234,
+          "mean_delta_rmse": 1.4095476852047728,
+          "wins": 0,
+          "passes_endpoint": false
+        },
+        {
+          "column": "40g",
+          "target": "V1",
+          "relative_gain": -0.010491896122323485,
+          "mean_delta_rmse": 0.16068156976796075,
+          "wins": 2,
+          "passes_endpoint": false
+        },
+        {
+          "column": "40g",
+          "target": "V2",
+          "relative_gain": 0.003187160658295829,
+          "mean_delta_rmse": -0.061133583966226014,
+          "wins": 3,
+          "passes_endpoint": false
+        }
+      ],
+      "improved_endpoints": 0,
+      "aggregate_relative_gain": -0.03798612371945698,
+      "worst_context_relative_gain": -0.14008635875282116,
+      "passes": false
+    },
+    "M3_center_width": {
+      "method": "M3_center_width",
+      "endpoint_results": [
+        {
+          "column": "25g",
+          "target": "V1",
+          "relative_gain": 0.05138913433607628,
+          "mean_delta_rmse": -0.4121173816263667,
+          "wins": 5,
+          "passes_endpoint": true
+        },
+        {
+          "column": "25g",
+          "target": "V2",
+          "relative_gain": -0.004048261460914304,
+          "mean_delta_rmse": 0.043007681426854204,
+          "wins": 1,
+          "passes_endpoint": false
+        },
+        {
+          "column": "40g",
+          "target": "V1",
+          "relative_gain": 0.04051294098340774,
+          "mean_delta_rmse": -0.6204486660213899,
+          "wins": 5,
+          "passes_endpoint": true
+        },
+        {
+          "column": "40g",
+          "target": "V2",
+          "relative_gain": 0.01993440636209043,
+          "mean_delta_rmse": -0.38236594756577136,
+          "wins": 5,
+          "passes_endpoint": false
+        }
+      ],
+      "improved_endpoints": 2,
+      "aggregate_relative_gain": 0.03481667666072008,
+      "worst_context_relative_gain": 0.01172014017057188,
+      "passes": false
+    }
+  },
+  "promoted": [],
+  "outer_test_truth_authorized": false,
+  "test_truth_used_for_fit_or_selection": false
+}
