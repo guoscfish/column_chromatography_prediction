@@ -62,6 +62,15 @@ from .architecture_headroom import (
     fit_latent_ridge,
     tiny_adapter_parameter_count,
 )
+from .joint_hierarchical_latent import (
+    DirectLatentFit,
+    HierarchicalCWV2Fit,
+    JointHierLatentFit,
+    endpoint_scales,
+    fit_direct_latent,
+    fit_hierarchical_cw_v2,
+    fit_joint_hier_latent,
+)
 from .column_physics import FEATURE_NAMES, FEATURE_UNITS, TrainingNormalizer, context_matrix, packing_mass
 from .column_conditioned import ColumnConditionedQGeoGNN
 from .protocol import (
@@ -149,6 +158,13 @@ __all__ = [
     "fit_hierarchical_center_width",
     "fit_latent_ridge",
     "tiny_adapter_parameter_count",
+    "DirectLatentFit",
+    "HierarchicalCWV2Fit",
+    "JointHierLatentFit",
+    "endpoint_scales",
+    "fit_direct_latent",
+    "fit_hierarchical_cw_v2",
+    "fit_joint_hier_latent",
     "fit_scale_only",
     "fit_paper_style_current_v2_full",
     "fit_target_only_full",

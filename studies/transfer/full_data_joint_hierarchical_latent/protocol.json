@@ -1,0 +1,69 @@
+{
+  "active_learning_started": false,
+  "classification": "MATCHED_FILTERED_FULL_DATA_MODEL_COMPARISON",
+  "columns": [
+    "25g",
+    "40g"
+  ],
+  "compound_inner_cv": "GroupKFold by canonical_smiles",
+  "delta_grid": [
+    0.1,
+    1.0,
+    10.0,
+    100.0
+  ],
+  "joint_selection_sequence": "select delta_C/delta_W grid first, then latent_C/latent_W grid; both use endpoint-space objective",
+  "latent_grid": [
+    1.0,
+    10.0,
+    100.0,
+    1000.0
+  ],
+  "latent_variants": [
+    "FULL_128D",
+    "PCA_16D"
+  ],
+  "methods": [
+    "paper_style_current_v2",
+    "M3_CENTER_WIDTH_FULL",
+    "HIER_CW_25G_40G",
+    "HIER_CW_V2",
+    "DIRECT_LATENT_RIDGE",
+    "DIRECT_LATENT_PLS",
+    "JOINT_HIER_LATENT_FULL128",
+    "JOINT_HIER_LATENT_PCA16"
+  ],
+  "outer_test_used_for_selection": false,
+  "outer_validation_used_for_selection": false,
+  "parent": "studies/transfer/full_data_baseline_finalization",
+  "pls_grid": [
+    2,
+    4,
+    8,
+    16
+  ],
+  "prediction_freeze_before_test_truth": true,
+  "protocols": [
+    "compound",
+    "row"
+  ],
+  "ridge_grid": [
+    0.1,
+    1.0,
+    10.0,
+    100.0,
+    1000.0
+  ],
+  "row_inner_cv": "shuffled KFold; overlap audited",
+  "seeds": [
+    769539383,
+    1425370602,
+    536279090,
+    2767143051,
+    1362771960
+  ],
+  "selection": "five-fold inner CV wholly inside outer gradient_train; endpoint-space normalized RMSE",
+  "source_checkpoint_sha256": "fce9edebc294fd179c7c7dc27ab2badea049c77fdad03a6cf0c317c63df544b0",
+  "starting_commit": "8cb739da5649251e3ef33008851c9a3709ef20f6",
+  "study_name": "FULL_DATA_JOINT_TRANSFER_IMPROVEMENT"
+}
