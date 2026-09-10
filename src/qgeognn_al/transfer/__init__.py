@@ -54,6 +54,14 @@ from .shared_center_width import (
     SharedCenterWidthFit,
     fit_shared_center_width,
 )
+from .architecture_headroom import (
+    HierarchicalCenterWidthFit,
+    LatentRidgeFit,
+    TinyLatentAdapter,
+    fit_hierarchical_center_width,
+    fit_latent_ridge,
+    tiny_adapter_parameter_count,
+)
 from .column_physics import FEATURE_NAMES, FEATURE_UNITS, TrainingNormalizer, context_matrix, packing_mass
 from .column_conditioned import ColumnConditionedQGeoGNN
 from .protocol import (
@@ -101,6 +109,9 @@ __all__ = [
     "ConditionalEANestedExtension",
     "StructuredCenterWidthFit",
     "SharedCenterWidthFit",
+    "HierarchicalCenterWidthFit",
+    "LatentRidgeFit",
+    "TinyLatentAdapter",
     "ALL_CONTEXT",
     "MASS_FLOW_CONTEXT",
     "FEATURE_NAMES",
@@ -135,6 +146,9 @@ __all__ = [
     "project_physical",
     "fit_structured_center_width",
     "fit_shared_center_width",
+    "fit_hierarchical_center_width",
+    "fit_latent_ridge",
+    "tiny_adapter_parameter_count",
     "fit_scale_only",
     "fit_paper_style_current_v2_full",
     "fit_target_only_full",

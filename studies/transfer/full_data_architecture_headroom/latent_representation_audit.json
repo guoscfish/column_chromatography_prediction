@@ -1,0 +1,13 @@
+{
+  "condition_fusion": "pooled + condition_branch(atom_bond)[0]",
+  "condition_information_fused": true,
+  "dimension": 128,
+  "exact_forward_location": "QGeoGNNV2.extract_representation return pooled + residual",
+  "graph_pooling": "global_add_pool (sum)",
+  "relative_to_pooling": "after graph pooling",
+  "relative_to_prediction_head": "immediately before Sequential(Linear(128,6), ReLU)",
+  "source_checkpoint_sha256": "fce9edebc294fd179c7c7dc27ab2badea049c77fdad03a6cf0c317c63df544b0",
+  "source_lines": "src/qgeognn_al/models/qgeognn_v2.py:64-71",
+  "target_labels_used": false,
+  "tensor_name": "h"
+}

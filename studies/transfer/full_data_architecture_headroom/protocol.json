@@ -1,0 +1,86 @@
+{
+  "active_learning_started": false,
+  "adapter_grid": [
+    {
+      "learning_rate": 0.0001,
+      "weight_decay": 0.001
+    },
+    {
+      "learning_rate": 0.0001,
+      "weight_decay": 0.01
+    },
+    {
+      "learning_rate": 0.0005,
+      "weight_decay": 0.001
+    },
+    {
+      "learning_rate": 0.0005,
+      "weight_decay": 0.01
+    }
+  ],
+  "adapter_max_epochs": 300,
+  "adapter_patience": 40,
+  "budget": "FULL",
+  "columns": [
+    "8g",
+    "25g",
+    "40g"
+  ],
+  "focal_columns": [
+    "25g",
+    "40g"
+  ],
+  "hierarchical_base_m3_penalty": 0.1,
+  "hierarchical_delta_grid": [
+    0.1,
+    1.0,
+    10.0,
+    100.0
+  ],
+  "inner_cv": {
+    "group": "canonical_smiles",
+    "max_folds": 5,
+    "selection_scope": "outer gradient_train only",
+    "type": "GroupKFold"
+  },
+  "methods": [
+    "M3_CENTER_WIDTH_FULL",
+    "HIER_CW_25G_40G",
+    "HIER_CW_8G_25G_40G",
+    "M3_LATENT_RESIDUAL_RIDGE",
+    "M3_LATENT_TINY_ADAPTER"
+  ],
+  "outer_test_used_for_selection": false,
+  "outer_validation_role": "sanity_only",
+  "parent": "studies/transfer/full_data_baseline_finalization",
+  "parent_prediction_freeze_sha256": "d1eaf793c19de63ddcfe2d7c5627d6c054a7031e2536ab74a4dfe9ac45292391",
+  "parent_protocol_sha256": "7dc8fc4664fdfcbbb8b4df3332107c3c1f49d961aeb6fcae53945648f9058272",
+  "prediction_freeze_before_test_truth": true,
+  "primary": "compound",
+  "protocols": [
+    "compound",
+    "row"
+  ],
+  "ridge_alpha_grid": [
+    0.1,
+    1.0,
+    10.0,
+    100.0,
+    1000.0
+  ],
+  "secondary": "row",
+  "seeds": [
+    769539383,
+    1425370602,
+    536279090,
+    2767143051,
+    1362771960
+  ],
+  "source_checkpoint_sha256": "fce9edebc294fd179c7c7dc27ab2badea049c77fdad03a6cf0c317c63df544b0",
+  "source_scales": [
+    7.8796590346317394,
+    16.076509553562932
+  ],
+  "status": "PREREGISTERED",
+  "study_name": "FULL_DATA_ARCHITECTURE_HEADROOM"
+}
