@@ -78,6 +78,14 @@ def _parameter_prefixes(model: nn.Module, mode: str) -> tuple[str, ...]:
             "gnn_node.convs_bond_embeding.3.",
             "gnn_node.convs_angle_float.3.",
         )
+    if mode == "last1":
+        if hasattr(model, "backbone"):
+            return ("head.", "target_head.", "backbone.convs.4.",
+                    "backbone.convs_bond_angle.3.", "backbone.convs_bond_float.3.",
+                    "backbone.convs_bond_embeding.3.", "backbone.convs_angle_float.3.")
+        return ("graph_pred_linear", "gnn_node.convs.4.",
+                "gnn_node.convs_bond_angle.3.", "gnn_node.convs_bond_float.3.",
+                "gnn_node.convs_bond_embeding.3.", "gnn_node.convs_angle_float.3.")
     if mode == "full":
         return ("",)
     raise ValueError(f"unknown adaptation mode: {mode}")
@@ -120,6 +128,63 @@ def quantile_target_loss(true: torch.Tensor, prediction: torch.Tensor) -> torch.
     )
 
 
+def scaled_quantile_target_loss(true: torch.Tensor, prediction: torch.Tensor, scale: float) -> torch.Tensor:
+    """Endpoint-normalized loss while retaining the six-output semantics.
+
+    Scaling the complete endpoint loss (rather than only q50 MSE) keeps the
+    pinball and crossing terms coherent and makes the choice train-fold-only.
+    """
+    if not math.isfinite(float(scale)) or float(scale) <= 0:
+        raise ValueError("scale must be positive and finite")
+    return quantile_target_loss(true, prediction) / float(scale) ** 2
+
+
+def build_discriminative_optimizer(model: nn.Module, *, head_lr: float, late_lr: float,
+                                   early_lr: float, weight_decay: float = 0.0) -> torch.optim.Optimizer:
+    """Build deterministic head/late/early parameter groups for transfer."""
+    groups = {"head": [], "late": [], "early": []}
+    for name, parameter in model.named_parameters():
+        if not parameter.requires_grad:
+            continue
+        if name.startswith(("head.", "target_head.", "column_adapter.")):
+            groups["head"].append(parameter)
+        elif any(token in name for token in ("convs.3.", "convs.4.", "convs_bond_")):
+            groups["late"].append(parameter)
+        else:
+            groups["early"].append(parameter)
+    specs = (("head", head_lr), ("late", late_lr), ("early", early_lr))
+    return torch.optim.Adam([{"params": groups[name], "lr": float(lr), "name": name}
+                             for name, lr in specs if groups[name]], weight_decay=float(weight_decay))
+
+
+def l2_sp_penalty(model: nn.Module, source_state: Mapping[str, torch.Tensor], *, include_prefixes: Sequence[str] | None = None) -> torch.Tensor:
+    """Return source-preserving squared distance for matching trainable tensors."""
+    terms = []
+    prefixes = tuple(include_prefixes or ())
+    for name, parameter in model.named_parameters():
+        if not parameter.requires_grad or name not in source_state:
+            continue
+        if prefixes and not name.startswith(prefixes):
+            continue
+        source = source_state[name].to(device=parameter.device, dtype=parameter.dtype)
+        terms.append(torch.sum((parameter - source) ** 2))
+    if not terms:
+        return next(model.parameters()).new_zeros(())
+    return torch.stack(terms).sum()
+
+
+def parameter_drift(model: nn.Module, source_state: Mapping[str, torch.Tensor], *, trainable_only: bool = True) -> float:
+    """Return global L2 parameter drift from an immutable source snapshot."""
+    total = 0.0
+    for name, parameter in model.named_parameters():
+        if trainable_only and not parameter.requires_grad:
+            continue
+        if name in source_state:
+            source = source_state[name].to(device=parameter.device, dtype=parameter.dtype)
+            total += float(torch.sum((parameter.detach() - source) ** 2).cpu())
+    return math.sqrt(total)
+
+
 def target_loss(true: torch.Tensor, prediction: torch.Tensor) -> torch.Tensor:
     """Alias retained for current study runners."""
 
@@ -152,6 +217,24 @@ def loader_pair(
         DataLoader([atom_data[index] for index in positions], batch_size=batch_size, shuffle=False),
         DataLoader([angle_data[index] for index in positions], batch_size=batch_size, shuffle=False),
     )
+
+
+def fit_target_scales(atom_data: Sequence[Any], train_indices: Sequence[int]) -> dict[str, float]:
+    """Compute endpoint scales from target training rows only."""
+    indices = [int(index) for index in train_indices]
+    if not indices:
+        raise ValueError("train_indices must be non-empty")
+    values = []
+    for index in indices:
+        y = getattr(atom_data[index], "y", None)
+        if y is None:
+            raise ValueError("target graph is missing labels")
+        values.append(torch.as_tensor(y, dtype=torch.float64).reshape(-1)[:2])
+    matrix = torch.stack(values)
+    scales = matrix.std(dim=0, unbiased=False)
+    if not torch.isfinite(scales).all() or bool(torch.any(scales <= 0)):
+        raise ValueError("target training labels must have positive finite scales")
+    return {"V1": float(scales[0]), "V2": float(scales[1])}
 
 
 def make_loaders(
@@ -244,6 +327,57 @@ class AdaptationFit:
         }
 
 
+@dataclass(frozen=True)
+class StagedAdaptationFit:
+    """Validation-selected result for linear-probe then fine-tune transfer."""
+
+    stage_a: AdaptationFit
+    stage_b: AdaptationFit
+
+    @property
+    def best_epoch(self) -> int:
+        return self.stage_b.best_epoch
+
+    def as_dict(self) -> dict[str, Any]:
+        return {"stage_a": self.stage_a.as_dict(), "stage_b": self.stage_b.as_dict()}
+
+
+def train_staged_target_adaptation(
+    model: nn.Module,
+    atom_data: Sequence[Any],
+    angle_data: Sequence[Any],
+    train_indices: Sequence[int],
+    validation_indices: Sequence[int],
+    preprocessing: Mapping[str, Any],
+    *,
+    stage_b_mode: str = "last2",
+    seed: int = 0,
+    stage_a_config: Mapping[str, Any] | None = None,
+    stage_b_config: Mapping[str, Any] | None = None,
+    checkpoint_dir: Path | None = None,
+) -> StagedAdaptationFit:
+    """Run LP->FT with strict validation-only checkpoint selection.
+
+    Stage B starts from Stage A's best in-memory state.  No test indices are
+    accepted, and each stage can independently use normalized loss/L2-SP.
+    """
+    if stage_b_mode not in ("last1", "last2", "full"):
+        raise ValueError("stage_b_mode must be last1, last2, or full")
+    base = deepcopy(model.state_dict())
+    path_a = Path(checkpoint_dir) / "stage_a.pt" if checkpoint_dir is not None else None
+    fit_a = train_target_adaptation(model, atom_data, angle_data, train_indices, validation_indices,
+                                    preprocessing, mode="head_only", seed=seed,
+                                    config=stage_a_config, checkpoint_path=path_a)
+    stage_a_state = deepcopy(model.state_dict())
+    fit_b = train_target_adaptation(model, atom_data, angle_data, train_indices, validation_indices,
+                                    preprocessing, mode=stage_b_mode, seed=seed + 1,
+                                    config=stage_b_config, checkpoint_path=(Path(checkpoint_dir) / "stage_b.pt" if checkpoint_dir is not None else None))
+    # Defensive assertion: stage A must have supplied a real inherited state.
+    if not any(not torch.equal(base[name], stage_a_state[name]) for name in base if torch.is_floating_point(base[name])):
+        raise RuntimeError("stage A did not update target parameters")
+    return StagedAdaptationFit(stage_a=fit_a, stage_b=fit_b)
+
+
 def train_target_adaptation(
     model: nn.Module,
     atom_data: Sequence[Any],
@@ -277,6 +411,12 @@ def train_target_adaptation(
         "maximum_epochs": 500,
         "patience": 100,
         "batch_size": 2048,
+        "head_learning_rate": None,
+        "late_learning_rate": None,
+        "early_learning_rate": None,
+        "normalized_target_loss": False,
+        "l2_sp_lambda": 0.0,
+        "source_state": None,
     }
     if config:
         options.update(dict(config))
@@ -291,16 +431,42 @@ def train_target_adaptation(
     parameters = [parameter for parameter in model.parameters() if parameter.requires_grad]
     if not parameters:
         raise ValueError("adaptation scope has no trainable parameters")
-    optimizer = torch.optim.Adam(parameters, lr=float(options["learning_rate"]), weight_decay=float(options["weight_decay"]))
+    if any(options[key] is not None for key in ("head_learning_rate", "late_learning_rate", "early_learning_rate")):
+        base_lr = float(options["learning_rate"])
+        optimizer = build_discriminative_optimizer(
+            model,
+            head_lr=float(options["head_learning_rate"] if options["head_learning_rate"] is not None else base_lr),
+            late_lr=float(options["late_learning_rate"] if options["late_learning_rate"] is not None else base_lr),
+            early_lr=float(options["early_learning_rate"] if options["early_learning_rate"] is not None else base_lr),
+            weight_decay=float(options["weight_decay"]),
+        )
+    else:
+        optimizer = torch.optim.Adam(parameters, lr=float(options["learning_rate"]), weight_decay=float(options["weight_decay"]))
+    source_state = options.get("source_state")
+    if source_state is not None and not isinstance(source_state, Mapping):
+        raise TypeError("source_state must be a state-dict mapping")
+    l2_lambda = float(options.get("l2_sp_lambda", 0.0))
+    if l2_lambda < 0:
+        raise ValueError("l2_sp_lambda must be non-negative")
+    if l2_lambda and source_state is None:
+        raise ValueError("source_state is required when l2_sp_lambda is non-zero")
     best_score, best_epoch, stale = float("inf"), 0, 0
     history: list[dict[str, float]] = []
+    best_state = None
     for epoch in range(1, int(options["maximum_epochs"]) + 1):
         set_training_mode(model)
         order = np.random.default_rng(int(seed) * 10000 + epoch).permutation(train)
         losses: list[float] = []
         for atom_batch, angle_batch in zip(*loader_pair(atom_data, angle_data, order, int(options["batch_size"]))):
             prediction = _model_prediction(model, atom_batch, angle_batch)
-            loss = quantile_target_loss(atom_batch.y[:, 0], prediction[:, :3]) + quantile_target_loss(atom_batch.y[:, 1], prediction[:, 3:])
+            scales_for_loss = (float(scales["V1"]), float(scales["V2"]))
+            if bool(options["normalized_target_loss"]):
+                loss = (scaled_quantile_target_loss(atom_batch.y[:, 0], prediction[:, :3], scales_for_loss[0])
+                        + scaled_quantile_target_loss(atom_batch.y[:, 1], prediction[:, 3:], scales_for_loss[1]))
+            else:
+                loss = quantile_target_loss(atom_batch.y[:, 0], prediction[:, :3]) + quantile_target_loss(atom_batch.y[:, 1], prediction[:, 3:])
+            if l2_lambda:
+                loss = loss + l2_lambda * l2_sp_penalty(model, source_state)
             if not torch.isfinite(loss):
                 raise RuntimeError("non-finite target training loss")
             optimizer.zero_grad(set_to_none=True)
@@ -325,12 +491,15 @@ def train_target_adaptation(
                 temporary = path.with_suffix(path.suffix + ".tmp")
                 torch.save(payload, temporary)
                 temporary.replace(path)
+            best_state = {name: value.detach().clone() for name, value in model.state_dict().items()}
         else:
             stale += 1
         if stale >= int(options["patience"]):
             break
     if best_epoch == 0:
         raise RuntimeError("adaptation produced no validation checkpoint")
+    if best_state is not None:
+        model.load_state_dict(best_state, strict=True)
     return AdaptationFit(
         best_epoch=int(best_epoch),
         epochs_run=len(history),
