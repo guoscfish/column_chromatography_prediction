@@ -22,7 +22,9 @@ class TinyTransfer(nn.Module):
 def test_scaled_loss_preserves_quantile_contract():
     true = torch.tensor([1.0, 2.0])
     pred = torch.tensor([[0.0, 1.0, 2.0], [1.0, 2.0, 3.0]])
-    assert torch.allclose(scaled_quantile_target_loss(true, pred, 2.0), quantile_target_loss(true, pred) / 4)
+    expected = (quantile_target_loss(true, pred) - torch.mean((true - pred[:, 1]) ** 2)) / 2
+    expected = expected + torch.mean((true - pred[:, 1]) ** 2) / 4
+    assert torch.allclose(scaled_quantile_target_loss(true, pred, 2.0), expected)
 
 
 def test_discriminative_groups_and_l2_sp_are_source_anchored():

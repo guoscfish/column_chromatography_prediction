@@ -129,14 +129,16 @@ def quantile_target_loss(true: torch.Tensor, prediction: torch.Tensor) -> torch.
 
 
 def scaled_quantile_target_loss(true: torch.Tensor, prediction: torch.Tensor, scale: float) -> torch.Tensor:
-    """Endpoint-normalized loss while retaining the six-output semantics.
-
-    Scaling the complete endpoint loss (rather than only q50 MSE) keeps the
-    pinball and crossing terms coherent and makes the choice train-fold-only.
-    """
+    """Dimensionally coherent endpoint-normalized quantile loss."""
     if not math.isfinite(float(scale)) or float(scale) <= 0:
         raise ValueError("scale must be positive and finite")
-    return quantile_target_loss(true, prediction) / float(scale) ** 2
+    s = float(scale)
+    q10 = qg.q_loss(0.1, true, prediction[:, 0]) / s
+    q50 = torch.mean((true - prediction[:, 1]) ** 2) / (s ** 2)
+    q90 = qg.q_loss(0.9, true, prediction[:, 2]) / s
+    crossing = (torch.mean(torch.relu(prediction[:, 0] - prediction[:, 1]))
+                + torch.mean(torch.relu(prediction[:, 1] - prediction[:, 2]))) / s
+    return q10 + q50 + q90 + crossing
 
 
 def build_discriminative_optimizer(model: nn.Module, *, head_lr: float, late_lr: float,
