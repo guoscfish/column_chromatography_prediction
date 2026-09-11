@@ -114,6 +114,7 @@ def _endpoint_solve(
     center_design: np.ndarray, width_design: np.ndarray, truth: np.ndarray,
     ratios: np.ndarray, endpoint_scale: np.ndarray, center_source_scale: float,
     width_source_scale: float, center_penalty: np.ndarray, width_penalty: np.ndarray,
+    row_weights: np.ndarray | None = None,
 ) -> tuple[np.ndarray, np.ndarray]:
     """Solve endpoint-normalized loss with dimensionless C/W coefficients."""
     truth = np.asarray(truth, dtype=float)
@@ -125,8 +126,16 @@ def _endpoint_solve(
     w = width_design * (ratios * width_source_scale)[:, None]
     v1 = np.column_stack([c, -0.5 * w]) / scales[0]
     v2 = np.column_stack([c, +0.5 * w]) / scales[1]
-    design = np.vstack([v1, v2]) / np.sqrt(n)
-    target = np.r_[truth[:, 0] / scales[0], truth[:, 1] / scales[1]] / np.sqrt(n)
+    if row_weights is None:
+        weights = np.ones((n, 2), dtype=float)
+    else:
+        weights = np.asarray(row_weights, dtype=float)
+        if weights.shape != (n, 2) or np.any(weights <= 0) or not np.isfinite(weights).all():
+            raise ValueError("row_weights must be finite positive n x 2")
+    root_weights = np.sqrt(weights)
+    design = np.vstack([v1 * root_weights[:, 0, None], v2 * root_weights[:, 1, None]]) / np.sqrt(n)
+    target = np.r_[truth[:, 0] / scales[0] * root_weights[:, 0],
+                   truth[:, 1] / scales[1] * root_weights[:, 1]] / np.sqrt(n)
     penalty = np.r_[center_penalty, width_penalty]
     prior = np.zeros(center_design.shape[1] + width_design.shape[1], dtype=float)
     prior[0], prior[pc] = 1.0, 1.0
@@ -176,7 +185,7 @@ def _fit_endpoint(
     labels: Sequence[str], columns: Sequence[str], mass_ratios: dict[str, float], *,
     base_penalty: float, lambda_center_deviation: float, lambda_width_deviation: float,
     lambda_center_latent: float | None, lambda_width_latent: float | None,
-    endpoint_scale: np.ndarray | None,
+    endpoint_scale: np.ndarray | None, row_weights: np.ndarray | None = None,
 ) -> EndpointAlignedCorrectedFit:
     source, truth = np.asarray(source, dtype=float), np.asarray(truth, dtype=float)
     labels_array, names = np.asarray(labels, dtype=str), tuple(str(value) for value in columns)
@@ -206,7 +215,7 @@ def _fit_endpoint(
         width_penalty = np.r_[width_penalty, np.repeat(lambda_width_latent, standardized.shape[1])]
     center_coefficients, width_coefficients = _endpoint_solve(
         center, width, truth, ratio, scales, basis.center_scale, basis.width_scale,
-        center_penalty, width_penalty,
+        center_penalty, width_penalty, row_weights,
     )
     return EndpointAlignedCorrectedFit(
         names, {key: float(value) for key, value in mass_ratios.items()}, basis,
@@ -222,7 +231,7 @@ def fit_hierarchical_cw_endpoint_aligned_corrected(
     source: np.ndarray, truth: np.ndarray, ea: np.ndarray, labels: Sequence[str],
     columns: Sequence[str], *, mass_ratios: dict[str, float], base_penalty: float,
     lambda_center_deviation: float, lambda_width_deviation: float,
-    endpoint_scale: np.ndarray | None = None,
+    endpoint_scale: np.ndarray | None = None, row_weights: np.ndarray | None = None,
 ) -> EndpointAlignedCorrectedFit:
     return _fit_endpoint(
         source, truth, ea, None, labels, columns, mass_ratios,
@@ -230,7 +239,7 @@ def fit_hierarchical_cw_endpoint_aligned_corrected(
         lambda_center_deviation=lambda_center_deviation,
         lambda_width_deviation=lambda_width_deviation,
         lambda_center_latent=None, lambda_width_latent=None,
-        endpoint_scale=endpoint_scale,
+        endpoint_scale=endpoint_scale, row_weights=row_weights,
     )
 
 
@@ -239,7 +248,7 @@ def fit_corrected_joint_full128(
     labels: Sequence[str], columns: Sequence[str], *, mass_ratios: dict[str, float],
     base_penalty: float, lambda_center_deviation: float, lambda_width_deviation: float,
     lambda_center_latent: float | None, lambda_width_latent: float | None,
-    endpoint_scale: np.ndarray | None = None,
+    endpoint_scale: np.ndarray | None = None, row_weights: np.ndarray | None = None,
 ) -> EndpointAlignedCorrectedFit:
     """FULL128 joint model; ``None`` latent penalties force exact HIER nesting."""
     return _fit_endpoint(
@@ -249,7 +258,7 @@ def fit_corrected_joint_full128(
         lambda_width_deviation=lambda_width_deviation,
         lambda_center_latent=lambda_center_latent,
         lambda_width_latent=lambda_width_latent,
-        endpoint_scale=endpoint_scale,
+        endpoint_scale=endpoint_scale, row_weights=row_weights,
     )
 
 
