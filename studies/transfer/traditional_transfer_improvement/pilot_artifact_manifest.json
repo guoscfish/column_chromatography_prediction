@@ -1,0 +1,186 @@
+{
+  "status": "COMPLETED_VALIDATION_ONLY",
+  "column": "25g",
+  "protocol": "row",
+  "seed": 42,
+  "methods": {
+    "P0": {
+      "stage": "direct_shallow",
+      "bn_policy": "current",
+      "optimizer": "adam"
+    },
+    "P1": {
+      "stage": "lp_then_shallow",
+      "bn_policy": "current",
+      "optimizer": "adam"
+    },
+    "P2": {
+      "stage": "lp_then_shallow",
+      "bn_policy": "source_stats",
+      "optimizer": "adam"
+    },
+    "P3": {
+      "stage": "lp_then_shallow",
+      "bn_policy": "source_stats",
+      "optimizer": "lbfgs"
+    }
+  },
+  "test_scoring": false,
+  "rows_available_in_graph_cache": 19,
+  "split_counts": {
+    "train": 15,
+    "valid": 1,
+    "test": 3
+  },
+  "split_indices": {
+    "train": [
+      14,
+      9,
+      17,
+      7,
+      12,
+      10,
+      6,
+      18,
+      3,
+      0,
+      15,
+      5,
+      11,
+      2,
+      4
+    ],
+    "valid": [
+      16
+    ],
+    "test": [
+      1,
+      13,
+      8
+    ]
+  },
+  "target_scales": {
+    "V1": 10.594168708813301,
+    "V2": 10.183680372950052
+  },
+  "results": {
+    "P0": {
+      "best_epoch": 1,
+      "epochs_run": 1,
+      "validation_score": 1.7126244261793713,
+      "trainable_parameters": 129067,
+      "total_parameters": 458952,
+      "history": [
+        {
+          "epoch": 1.0,
+          "train_loss": 675.190185546875,
+          "validation_score": 1.7126244261793713
+        }
+      ],
+      "checkpoint_path": null
+    },
+    "P1": {
+      "stage_a": {
+        "best_epoch": 1,
+        "epochs_run": 1,
+        "validation_score": 1.7403246649696533,
+        "trainable_parameters": 774,
+        "total_parameters": 458952,
+        "history": [
+          {
+            "epoch": 1.0,
+            "train_loss": 1218.528564453125,
+            "validation_score": 1.7403246649696533
+          }
+        ],
+        "checkpoint_path": null
+      },
+      "stage_b": {
+        "best_epoch": 1,
+        "epochs_run": 1,
+        "validation_score": 1.7095587058211117,
+        "trainable_parameters": 129067,
+        "total_parameters": 458952,
+        "history": [
+          {
+            "epoch": 1.0,
+            "train_loss": 671.6058959960938,
+            "validation_score": 1.7095587058211117
+          }
+        ],
+        "checkpoint_path": null
+      }
+    },
+    "P2": {
+      "stage_a": {
+        "best_epoch": 1,
+        "epochs_run": 1,
+        "validation_score": 1.7403246649696533,
+        "trainable_parameters": 774,
+        "total_parameters": 458952,
+        "history": [
+          {
+            "epoch": 1.0,
+            "train_loss": 1218.528564453125,
+            "validation_score": 1.7403246649696533
+          }
+        ],
+        "checkpoint_path": null
+      },
+      "stage_b": {
+        "best_epoch": 1,
+        "epochs_run": 1,
+        "validation_score": 1.5733338561605137,
+        "trainable_parameters": 129067,
+        "total_parameters": 458952,
+        "history": [
+          {
+            "epoch": 1.0,
+            "train_loss": 1215.0701904296875,
+            "validation_score": 1.5733338561605137
+          }
+        ],
+        "checkpoint_path": null
+      }
+    },
+    "P3": {
+      "stage_a": {
+        "best_epoch": 1,
+        "epochs_run": 1,
+        "validation_score": 1.7424506483437832,
+        "trainable_parameters": 774,
+        "total_parameters": 458952,
+        "history": [
+          {
+            "epoch": 1.0,
+            "train_loss": 1218.528564453125,
+            "validation_score": 1.7424506483437832
+          }
+        ],
+        "checkpoint_path": null
+      },
+      "stage_b": {
+        "best_epoch": 1,
+        "epochs_run": 1,
+        "validation_score": 1.742375089330661,
+        "trainable_parameters": 129067,
+        "total_parameters": 458952,
+        "history": [
+          {
+            "epoch": 1.0,
+            "train_loss": 1217.4764404296875,
+            "validation_score": 1.742375089330661
+          }
+        ],
+        "checkpoint_path": null
+      }
+    }
+  },
+  "test_indices_recorded_only": true,
+  "source_checkpoint": "studies/predictor/final_4g_qualification/runtime/row/seed_42/best.pt",
+  "source_checkpoint_sha256": "fce9edebc294fd179c7c7dc27ab2badea049c77fdad03a6cf0c317c63df544b0",
+  "maximum_epochs": 1,
+  "wall_time_seconds": 0.3126509189605713,
+  "pilot_selection_basis": "validation_score_only",
+  "test_truth_used": false
+}

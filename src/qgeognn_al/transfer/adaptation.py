@@ -31,6 +31,41 @@ PAPER_STYLE_SCOPES = ("shallow", "full")
 PAPER_STYLE_CURRENT_V2 = "paper_style_current_v2"
 
 
+def configure_bn_policy(model: nn.Module, policy: str = "current") -> dict[str, int]:
+    """Apply an explicit BN running-stat policy and return buffer sizes."""
+    if policy not in ("current", "source_stats"):
+        raise ValueError("policy must be current or source_stats")
+    frozen = 0
+    for module in model.modules():
+        if isinstance(module, nn.modules.batchnorm._BatchNorm):
+            if policy == "source_stats":
+                module.eval()
+                frozen += sum(int(v.numel()) for v in (module.running_mean, module.running_var))
+    return {"policy": policy, "frozen_buffer_values": frozen}
+
+
+def snapshot_bn_buffers(model: nn.Module) -> dict[str, torch.Tensor]:
+    """Clone BatchNorm running buffers for drift diagnostics."""
+    result = {}
+    for name, module in model.named_modules():
+        if isinstance(module, nn.modules.batchnorm._BatchNorm):
+            prefix = f"{name}." if name else ""
+            for attr in ("running_mean", "running_var", "num_batches_tracked"):
+                value = getattr(module, attr, None)
+                if value is not None:
+                    result[prefix + attr] = value.detach().clone()
+    return result
+
+
+def bn_buffer_drift(model: nn.Module, snapshot: Mapping[str, torch.Tensor]) -> float:
+    current = snapshot_bn_buffers(model)
+    total = 0.0
+    for name, before in snapshot.items():
+        if name in current:
+            total += float(torch.sum((current[name].to(before) - before) ** 2).cpu())
+    return math.sqrt(total)
+
+
 def _head_module(model: nn.Module) -> nn.Module:
     """Return the active output head for current or legacy-shaped modules."""
 
@@ -62,6 +97,7 @@ def _parameter_prefixes(model: nn.Module, mode: str) -> tuple[str, ...]:
             return (
                 "head.",
                 "target_head.",
+                "condition_branch.",
                 "backbone.convs.3.",
                 "backbone.convs.4.",
                 "backbone.convs_bond_angle.3.",
@@ -419,6 +455,11 @@ def train_target_adaptation(
         "normalized_target_loss": False,
         "l2_sp_lambda": 0.0,
         "source_state": None,
+        "bn_policy": "current",
+        "optimizer": "adam",
+        "lbfgs_max_iter": 10,
+        "lbfgs_history_size": 10,
+        "lbfgs_line_search_fn": "strong_wolfe",
     }
     if config:
         options.update(dict(config))
@@ -429,6 +470,7 @@ def train_target_adaptation(
         raise ValueError("preprocessing.target_scales must contain positive V1/V2 scales")
 
     _seed_everything(seed)
+    configure_bn_policy(model, str(options["bn_policy"]))
     trainable, total = configure_trainable(model, mode)
     parameters = [parameter for parameter in model.parameters() if parameter.requires_grad]
     if not parameters:
@@ -443,7 +485,14 @@ def train_target_adaptation(
             weight_decay=float(options["weight_decay"]),
         )
     else:
-        optimizer = torch.optim.Adam(parameters, lr=float(options["learning_rate"]), weight_decay=float(options["weight_decay"]))
+        if str(options["optimizer"]).lower() == "lbfgs":
+            optimizer = torch.optim.LBFGS(parameters, lr=float(options["learning_rate"]),
+                max_iter=int(options["lbfgs_max_iter"]), history_size=int(options["lbfgs_history_size"]),
+                line_search_fn=options["lbfgs_line_search_fn"])
+        elif str(options["optimizer"]).lower() == "adam":
+            optimizer = torch.optim.Adam(parameters, lr=float(options["learning_rate"]), weight_decay=float(options["weight_decay"]))
+        else:
+            raise ValueError("optimizer must be adam or lbfgs")
     source_state = options.get("source_state")
     if source_state is not None and not isinstance(source_state, Mapping):
         raise TypeError("source_state must be a state-dict mapping")
@@ -457,24 +506,38 @@ def train_target_adaptation(
     best_state = None
     for epoch in range(1, int(options["maximum_epochs"]) + 1):
         set_training_mode(model)
+        if str(options["bn_policy"]) == "source_stats":
+            configure_bn_policy(model, "source_stats")
         order = np.random.default_rng(int(seed) * 10000 + epoch).permutation(train)
         losses: list[float] = []
-        for atom_batch, angle_batch in zip(*loader_pair(atom_data, angle_data, order, int(options["batch_size"]))):
+        batches = list(zip(*loader_pair(atom_data, angle_data, order, int(options["batch_size"]))))
+        def batch_loss(atom_batch, angle_batch):
             prediction = _model_prediction(model, atom_batch, angle_batch)
-            scales_for_loss = (float(scales["V1"]), float(scales["V2"]))
             if bool(options["normalized_target_loss"]):
-                loss = (scaled_quantile_target_loss(atom_batch.y[:, 0], prediction[:, :3], scales_for_loss[0])
-                        + scaled_quantile_target_loss(atom_batch.y[:, 1], prediction[:, 3:], scales_for_loss[1]))
+                value = scaled_quantile_target_loss(atom_batch.y[:, 0], prediction[:, :3], float(scales["V1"])) + scaled_quantile_target_loss(atom_batch.y[:, 1], prediction[:, 3:], float(scales["V2"]))
             else:
-                loss = quantile_target_loss(atom_batch.y[:, 0], prediction[:, :3]) + quantile_target_loss(atom_batch.y[:, 1], prediction[:, 3:])
-            if l2_lambda:
-                loss = loss + l2_lambda * l2_sp_penalty(model, source_state)
-            if not torch.isfinite(loss):
-                raise RuntimeError("non-finite target training loss")
-            optimizer.zero_grad(set_to_none=True)
-            loss.backward()
-            optimizer.step()
+                value = quantile_target_loss(atom_batch.y[:, 0], prediction[:, :3]) + quantile_target_loss(atom_batch.y[:, 1], prediction[:, 3:])
+            return value + (l2_lambda * l2_sp_penalty(model, source_state) if l2_lambda else 0)
+        def compute_loss():
+            total_loss = 0.0
+            for atom_batch, angle_batch in batches:
+                total_loss = total_loss + batch_loss(atom_batch, angle_batch)
+            return total_loss / max(1, len(batches))
+        if isinstance(optimizer, torch.optim.LBFGS):
+            def closure():
+                optimizer.zero_grad(set_to_none=True)
+                loss = compute_loss()
+                if not torch.isfinite(loss): raise RuntimeError("non-finite target training loss")
+                loss.backward()
+                return loss
+            loss = optimizer.step(closure)
             losses.append(float(loss.detach().cpu()))
+        else:
+            for atom_batch, angle_batch in batches:
+                optimizer.zero_grad(set_to_none=True)
+                loss = batch_loss(atom_batch, angle_batch)
+                if not torch.isfinite(loss): raise RuntimeError("non-finite target training loss")
+                loss.backward(); optimizer.step(); losses.append(float(loss.detach().cpu()))
         truth, prediction, _ = predict_point(model, atom_data, angle_data, valid, batch_size=int(options["batch_size"]))
         metrics = point_metrics(truth, prediction, scales)
         score = float(metrics["combined_normalized_rmse"])
