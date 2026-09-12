@@ -1,5 +1,14 @@
 # Transfer Next Stage Plan
 
+> **2026-09-12 research-record addendum.** The full branch map and the strict
+> distinction between the low-label matched benchmark and filtered FULL-data
+> neural study are in [TRANSFER_RESEARCH_ROADMAP_2026-09-12](research/TRANSFER_RESEARCH_ROADMAP_2026-09-12.md).
+> The immediate neural audit is `traditional_transfer_converged_baseline_v1`:
+> P0/P1 only, five-fold inner compound GroupKFold within outer gradient-train,
+> 500/80 Adam budget, and fixed-epoch full-gradient refits. Outer validation
+> is not an epoch-selection set. New ROW tests are developmental confirmation
+> because their identities are historically exposed.
+
 This plan follows the Stage 2 audit. It is a development plan, not evidence that the listed experiments have been run.
 
 ## Immediate gate

@@ -382,6 +382,29 @@ class StagedAdaptationFit:
         return {"stage_a": self.stage_a.as_dict(), "stage_b": self.stage_b.as_dict()}
 
 
+@dataclass(frozen=True)
+class FixedEpochAdaptationFit:
+    """Result of a train-only, fixed-budget target-adaptation refit.
+
+    Unlike :class:`AdaptationFit`, this object has no validation score or
+    checkpoint-selection epoch.  The model state left in memory after the
+    requested final epoch is deliberately the returned training state.
+    """
+
+    epochs_run: int
+    trainable_parameters: int
+    total_parameters: int
+    history: tuple[dict[str, float], ...]
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "epochs_run": self.epochs_run,
+            "trainable_parameters": self.trainable_parameters,
+            "total_parameters": self.total_parameters,
+            "history": [dict(row) for row in self.history],
+        }
+
+
 def train_staged_target_adaptation(
     model: nn.Module,
     atom_data: Sequence[Any],
@@ -580,6 +603,147 @@ def train_target_adaptation(
         history=tuple(history),
         checkpoint_path=str(checkpoint_path) if checkpoint_path is not None else None,
     )
+
+
+def train_target_adaptation_fixed_epochs(
+    model: nn.Module,
+    atom_data: Sequence[Any],
+    angle_data: Sequence[Any],
+    train_indices: Sequence[int],
+    epochs: int,
+    *,
+    mode: str = "head_only",
+    seed: int = 0,
+    config: Mapping[str, Any] | None = None,
+) -> FixedEpochAdaptationFit:
+    """Refit target adaptation for a pre-selected number of epochs.
+
+    This intentionally accepts neither validation indices nor test indices.
+    It is the only adaptation entry point appropriate after an inner-CV epoch
+    choice has been frozen.  It leaves the final (rather than a selected
+    checkpoint) state in ``model`` so a staged refit can pass Stage A's actual
+    final state directly into Stage B.
+    """
+
+    train = tuple(int(index) for index in train_indices)
+    if not train:
+        raise ValueError("training indices must be non-empty")
+    if int(epochs) < 1:
+        raise ValueError("epochs must be positive")
+    if len(atom_data) != len(angle_data):
+        raise ValueError("atom and angle data lengths differ")
+    options = {
+        "learning_rate": 1e-4,
+        "weight_decay": 1e-5,
+        "batch_size": 2048,
+        "bn_policy": "current",
+        "optimizer": "adam",
+        "normalized_target_loss": False,
+        "target_scales": None,
+        "l2_sp_lambda": 0.0,
+        "source_state": None,
+    }
+    if config:
+        options.update(dict(config))
+    if str(options["optimizer"]).lower() != "adam":
+        raise ValueError("fixed-epoch refit supports the preregistered Adam optimizer only")
+    if bool(options["normalized_target_loss"]):
+        scales = options.get("target_scales")
+        if not isinstance(scales, Mapping) or any(float(scales[name]) <= 0 for name in ("V1", "V2")):
+            raise ValueError("normalized fixed-epoch refit requires positive target_scales in config")
+    else:
+        scales = None
+    source_state = options.get("source_state")
+    l2_lambda = float(options["l2_sp_lambda"])
+    if l2_lambda < 0:
+        raise ValueError("l2_sp_lambda must be non-negative")
+    if l2_lambda and not isinstance(source_state, Mapping):
+        raise ValueError("source_state is required when l2_sp_lambda is non-zero")
+
+    _seed_everything(seed)
+    configure_bn_policy(model, str(options["bn_policy"]))
+    trainable, total = configure_trainable(model, mode)
+    parameters = [parameter for parameter in model.parameters() if parameter.requires_grad]
+    if not parameters:
+        raise ValueError("adaptation scope has no trainable parameters")
+    optimizer = torch.optim.Adam(parameters, lr=float(options["learning_rate"]),
+                                 weight_decay=float(options["weight_decay"]))
+    history: list[dict[str, float]] = []
+    for epoch in range(1, int(epochs) + 1):
+        set_training_mode(model)
+        if str(options["bn_policy"]) == "source_stats":
+            configure_bn_policy(model, "source_stats")
+        order = np.random.default_rng(int(seed) * 10000 + epoch).permutation(train)
+        batches = list(zip(*loader_pair(atom_data, angle_data, order, int(options["batch_size"]))))
+        losses: list[float] = []
+        for atom_batch, angle_batch in batches:
+            optimizer.zero_grad(set_to_none=True)
+            prediction = _model_prediction(model, atom_batch, angle_batch)
+            if scales is None:
+                loss = (quantile_target_loss(atom_batch.y[:, 0], prediction[:, :3])
+                        + quantile_target_loss(atom_batch.y[:, 1], prediction[:, 3:]))
+            else:
+                loss = (scaled_quantile_target_loss(atom_batch.y[:, 0], prediction[:, :3], float(scales["V1"]))
+                        + scaled_quantile_target_loss(atom_batch.y[:, 1], prediction[:, 3:], float(scales["V2"])))
+            if l2_lambda:
+                loss = loss + l2_lambda * l2_sp_penalty(model, source_state)
+            if not torch.isfinite(loss):
+                raise RuntimeError("non-finite target training loss")
+            loss.backward()
+            optimizer.step()
+            losses.append(float(loss.detach().cpu()))
+        # Evaluation-mode loss is diagnostic only and cannot update BN buffers.
+        model.eval()
+        with torch.no_grad():
+            post_losses = []
+            for atom_batch, angle_batch in batches:
+                prediction = _model_prediction(model, atom_batch, angle_batch)
+                if scales is None:
+                    loss = (quantile_target_loss(atom_batch.y[:, 0], prediction[:, :3])
+                            + quantile_target_loss(atom_batch.y[:, 1], prediction[:, 3:]))
+                else:
+                    loss = (scaled_quantile_target_loss(atom_batch.y[:, 0], prediction[:, :3], float(scales["V1"]))
+                            + scaled_quantile_target_loss(atom_batch.y[:, 1], prediction[:, 3:], float(scales["V2"])))
+                if l2_lambda:
+                    loss = loss + l2_lambda * l2_sp_penalty(model, source_state)
+                post_losses.append(float(loss.detach().cpu()))
+        history.append({"epoch": float(epoch), "reported_step_loss": float(np.mean(losses)),
+                        "post_step_train_loss": float(np.mean(post_losses)),
+                        "train_loss": float(np.mean(post_losses))})
+    return FixedEpochAdaptationFit(
+        epochs_run=int(epochs), trainable_parameters=int(trainable),
+        total_parameters=int(total), history=tuple(history),
+    )
+
+
+def train_staged_target_adaptation_fixed_epochs(
+    model: nn.Module,
+    atom_data: Sequence[Any],
+    angle_data: Sequence[Any],
+    train_indices: Sequence[int],
+    stage_a_epochs: int,
+    stage_b_epochs: int,
+    *,
+    stage_b_mode: str = "historical_shallow",
+    seed: int = 0,
+    stage_a_config: Mapping[str, Any] | None = None,
+    stage_b_config: Mapping[str, Any] | None = None,
+) -> tuple[FixedEpochAdaptationFit, FixedEpochAdaptationFit]:
+    """Run fixed head-only warm-up followed by a truly inherited fixed refit."""
+
+    base = deepcopy(model.state_dict())
+    fit_a = train_target_adaptation_fixed_epochs(
+        model, atom_data, angle_data, train_indices, stage_a_epochs, mode="head_only",
+        seed=seed, config=stage_a_config,
+    )
+    stage_a_final = deepcopy(model.state_dict())
+    if not any(not torch.equal(base[name], stage_a_final[name]) for name in base if torch.is_floating_point(base[name])):
+        raise RuntimeError("fixed Stage A did not update target parameters")
+    fit_b = train_target_adaptation_fixed_epochs(
+        model, atom_data, angle_data, train_indices, stage_b_epochs, mode=stage_b_mode,
+        seed=seed + 1, config=stage_b_config,
+    )
+    return fit_a, fit_b
 
 
 def _clone_current_predictor(source: nn.Module) -> nn.Module:

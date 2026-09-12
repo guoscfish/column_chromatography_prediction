@@ -113,13 +113,20 @@ def prepare_context(column: str, seed: int):
     positions = {r: [lookup[s] for s in ids] for r, ids in roles.items()}
     preprocessing = {"scaler": source_pre["scaler"], "source_preprocessing": source_pre,
                      "target_scales": a.fit_target_scales(atoms, positions["gradient_train"]),
-                     "fit_role": "gradient_train", "validation_rows_used": 0, "test_rows_used": 0}
+                     "fit_role": "gradient_train",
+                     "gradient_fit_rows": len(positions["gradient_train"]),
+                     "validation_selection_rows": len(positions["validation"]),
+                     "test_truth_rows_used_for_fit": 0,
+                     "test_truth_rows_used_for_selection": 0}
     audit = {"column": column, "seed": seed, "population_sha256": sha(canonical),
              "split_manifest_sha256": sha(FROZEN / "split_manifest.csv"), "source_checkpoint_sha256": sha(SOURCE),
              "source_preprocessing_hash": digest(source_pre), "scaler_hash": digest(source_pre["scaler"]),
              "roles": {r: {"count": len(v), "ids_hash": digest(sorted(v))} for r, v in roles.items()},
              "target_scales": preprocessing["target_scales"], "graph_coverage": {"expected": len(expected), "actual": len(actual)},
-             "test_truth_used_for_fit": False}
+             "gradient_fit_rows": len(positions["gradient_train"]),
+             "validation_selection_rows": len(positions["validation"]),
+             "test_truth_rows_used_for_fit": 0,
+             "test_truth_rows_used_for_selection": 0}
     return roles, positions, atoms, angles, preprocessing, audit
 
 def fit_context(column: str, seed: int) -> None:

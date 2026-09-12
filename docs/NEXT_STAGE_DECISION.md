@@ -1,5 +1,23 @@
 # Current research decision
 
+## Train-only neural-baseline audit record (2026-09-12)
+
+The historical 150-epoch Adam evidence is not a stable P0/P1 ranking basis.
+The regenerated audit now distinguishes `protocol_max_epoch`, `epochs_run`,
+`best_epoch`, `run_reached_protocol_ceiling`, `best_at_protocol_ceiling`, and
+`best_at_run_end`: the corrected historical fact is still 41/50 Adam stages
+selecting the 150-epoch **protocol ceiling**, while 44/50 actually ran to it.
+
+`traditional_transfer_converged_baseline_v1` is the only authorized neural
+follow-up in this record: P0/P1, current BN, Adam, raw quantile loss,
+historical-shallow Stage B, five-fold inner canonical-smiles GroupKFold, and
+fixed-epoch full-gradient refit. Validation metadata now distinguishes
+gradient-fit rows from validation-selection rows; zero gradient participation
+does not mean validation labels were unused for checkpoint selection. The
+legacy frozen artifacts are preserved; their incorrect zero-validation wording
+is documented by the audit rather than overwritten. See the
+[roadmap](research/TRANSFER_RESEARCH_ROADMAP_2026-09-12.md).
+
 ## Stage 2 audit decision: STOP BEFORE COMPOUND
 
 The latest decision is `STOP_BEFORE_COMPOUND_AND_ACTIVE_LEARNING`. The formal ROW evidence was a pre-existing local run audited and summarized in Stage 1, not 40 newly trained models. Stage 2 found that formal P0-P3 combined NRMSE used per-context gradient-train scales, while historical reference combined NRMSE used fixed qualified 4g source-train scales. The old cross-method normalized ranking is therefore withdrawn. Raw RMSE, MAE, and R2 on matched ROW test IDs remain usable; harmonized metrics are in [row_metric_harmonization](../studies/transfer/row_metric_harmonization/METRIC_COMPARABILITY_AUDIT.md).

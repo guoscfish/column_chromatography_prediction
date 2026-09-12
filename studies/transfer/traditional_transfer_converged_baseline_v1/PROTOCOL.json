@@ -1,0 +1,55 @@
+{
+  "classification": "DEVELOPMENTAL_CONFIRMATION__HISTORIC_OUTER_TEST_EXPOSED",
+  "columns": [
+    "25g",
+    "40g"
+  ],
+  "epoch_selection": {
+    "P0": "median of five inner-fold Stage-B best epochs",
+    "P1": "separate medians of five inner-fold Stage-A and Stage-B best epochs",
+    "median_rounding": "round-half-up"
+  },
+  "filtered_protocol_sha256": "b78f9b69780bce21c093496d8a6f59ccfab94e2934bacc247ce0ec387e6211b4",
+  "final_refit": "fixed epochs; no validation set accepted; P1 Stage B inherits actual Stage-A final state",
+  "freeze_requirement": "all 20 final fits, checkpoints and blind validation/test predictions hash-locked before test truth read",
+  "inner_cv": {
+    "folds": 5,
+    "group": "canonical_smiles",
+    "outer_test_used_for_fit_or_selection": false,
+    "outer_validation_used_for_selection": false,
+    "splitter": "GroupKFold"
+  },
+  "methods": {
+    "P0": "qualified source -> historical_shallow, current BN, Adam",
+    "P1": "qualified source -> head-only -> historical_shallow, current BN, Adam"
+  },
+  "outer_protocol": "row",
+  "outer_seeds": [
+    769539383,
+    1425370602,
+    536279090,
+    2767143051,
+    1362771960
+  ],
+  "scale_authority": "inner-train only for inner CV; outer gradient_train only for final evaluation denominator",
+  "source_checkpoint": "studies/predictor/final_4g_qualification/runtime/row/seed_42/best.pt",
+  "source_checkpoint_sha256": "fce9edebc294fd179c7c7dc27ab2badea049c77fdad03a6cf0c317c63df544b0",
+  "split_manifest_sha256": "33e079a2b7250a82b040605bddb372646ab424684268b5b0c63df6366194a0a3",
+  "study": "CONVERGED_TRADITIONAL_PARAMETER_TRANSFER_BASELINE_V1",
+  "training": {
+    "batch_size": 2048,
+    "bn_policy": "current",
+    "diagnostic_epochs": [
+      150,
+      300,
+      500
+    ],
+    "learning_rate": 0.0001,
+    "loss": "quantile_target_loss",
+    "maximum_epochs": 500,
+    "normalized_target_loss": false,
+    "optimizer": "adam",
+    "patience": 80,
+    "weight_decay": 1e-05
+  }
+}

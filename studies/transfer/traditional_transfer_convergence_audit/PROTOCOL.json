@@ -5,8 +5,10 @@
   ],
   "evidence": {
     "adam_stages": 50,
-    "best_at_max_epoch": 41,
-    "negative_tail_slope": 43
+    "best_at_protocol_ceiling": 41,
+    "best_at_run_end": 41,
+    "negative_tail_slope": 43,
+    "run_reached_protocol_ceiling": 44
   },
   "follow_up_candidate": {
     "diagnostic_budgets": [
@@ -39,6 +41,14 @@
     2767143051,
     1362771960
   ],
+  "semantics": {
+    "best_at_protocol_ceiling": "best_epoch == protocol_max_epoch",
+    "best_at_run_end": "best_epoch == epochs_run",
+    "best_epoch": "validation-selected epoch",
+    "epochs_run": "actual epochs completed",
+    "protocol_max_epoch": "predeclared Adam maximum",
+    "run_reached_protocol_ceiling": "epochs_run == protocol_max_epoch"
+  },
   "source_study": "formal_row_5seed",
   "status": "RETROSPECTIVE_TRAIN_ONLY_AUDIT"
 }
