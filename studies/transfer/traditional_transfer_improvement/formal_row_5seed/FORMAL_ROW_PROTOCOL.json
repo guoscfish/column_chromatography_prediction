@@ -1,0 +1,58 @@
+{
+  "adam_budget": {
+    "batch_size": 2048,
+    "learning_rate": 0.0001,
+    "maximum_epochs": 150,
+    "patience": 40,
+    "weight_decay": 1e-05
+  },
+  "columns": [
+    "25g",
+    "40g"
+  ],
+  "filtered_protocol_sha256": "b78f9b69780bce21c093496d8a6f59ccfab94e2934bacc247ce0ec387e6211b4",
+  "lbfgs_budget": {
+    "batch_size": 2048,
+    "lbfgs_history_size": 10,
+    "lbfgs_line_search_fn": "strong_wolfe",
+    "lbfgs_max_iter": 5,
+    "learning_rate": 0.1,
+    "maximum_epochs": 30,
+    "patience": 12,
+    "weight_decay": 0.0
+  },
+  "methods": {
+    "P0": [
+      "current",
+      "adam"
+    ],
+    "P1": [
+      "current",
+      "adam"
+    ],
+    "P2": [
+      "source_stats",
+      "adam"
+    ],
+    "P3": [
+      "source_stats",
+      "lbfgs"
+    ]
+  },
+  "outer_seeds": [
+    769539383,
+    1425370602,
+    536279090,
+    2767143051,
+    1362771960
+  ],
+  "protocol": "row",
+  "scope": "backbone.convs.4 + condition_branch + head",
+  "selection": "validation combined normalized RMSE; target scales from gradient_train only",
+  "source_checkpoint_seed": 42,
+  "source_checkpoint_sha256": "fce9edebc294fd179c7c7dc27ab2badea049c77fdad03a6cf0c317c63df544b0",
+  "status": "FROZEN_PRE_FIT",
+  "study": "FORMAL_TRADITIONAL_PARAMETER_TRANSFER_5SEED_ROW",
+  "test_truth_rule": "forbidden during fit and freeze; one-shot scoring only after complete prediction freeze",
+  "trainable_parameters": 36387
+}
