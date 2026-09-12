@@ -1,5 +1,5 @@
 {
-  "status": "COMPLETED_VALIDATION_ONLY",
+  "status": "INVALID_PILOT_SUPERSEDED",
   "column": "25g",
   "protocol": "row",
   "seed": 42,
@@ -182,5 +182,12 @@
   "maximum_epochs": 1,
   "wall_time_seconds": 0.3126509189605713,
   "pilot_selection_basis": "validation_score_only",
-  "test_truth_used": false
+  "test_truth_used": false,
+  "invalidation_reasons": [
+    "incomplete graph cache population",
+    "non-frozen random target split",
+    "mismatched shallow scope",
+    "preprocessing contract not source-checkpoint-derived"
+  ],
+  "superseded_by": "pilot_v2/"
 }

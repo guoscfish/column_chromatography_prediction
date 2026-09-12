@@ -1,0 +1,93 @@
+import sys, json, re, shutil
+from pathlib import Path
+import numpy as np
+import pandas as pd
+sys.path.insert(0, '/Users/fish/Documents/GitHub/column_chromatography_prediction')
+from scripts.studies import run_traditional_transfer_recipe_pilot as p
+from src.qgeognn_al.evaluation.point import point_metrics
+out=p.STUDY/'pilot_v2'
+log=Path('/tmp/traditional_full_pytest_final.log').read_text()
+match=re.search(r'(\d+) passed, (\d+) warnings in ([\d.]+)s',log)
+assert match and 'FAILED ' not in log and ' failed,' not in log
+assert int(match[1])>=377
+context, atoms, angles, train, valid, prep, audit=p.prepare_context()
+manifest=json.loads((out/'pilot_artifact_manifest.json').read_text())
+assert manifest['source_checkpoint_sha256']==audit['source_checkpoint_sha256']
+assert manifest['source_preprocessing_hash']==audit['source_preprocessing_hash']
+assert manifest['scaler_hash']==audit['scaler_hash']
+split=pd.read_csv(out/'pilot_split_manifest.csv')
+pd.testing.assert_frame_equal(context,split)
+metrics=pd.read_csv(out/'pilot_validation_metrics.csv')
+history=pd.read_csv(out/'pilot_training_history.csv')
+assert np.isfinite(history.select_dtypes('number')).all().all()
+inventory=pd.read_csv(out/'pilot_parameter_inventory.csv')
+scopes=[]
+truth=np.vstack([atoms[i].y.numpy() for i in valid])
+for method in p.METHODS:
+ selected=inventory.loc[inventory.method.eq(method)&inventory.trainable,['parameter','numel']].reset_index(drop=True)
+ scopes.append(selected)
+ assert selected.numel.sum()==36387
+ pred=np.load(out/f'{method}_validation_predictions.npy')
+ assert pred.shape==(5,6) and np.isfinite(pred).all()
+ score=point_metrics(truth,pred,prep['target_scales'])['combined_normalized_rmse']
+ expected=metrics.loc[metrics.method.eq(method)&metrics.stage.eq('B'),'combined_nrmse'].item()
+ assert np.isclose(score,expected,rtol=1e-7,atol=1e-8)
+for scope in scopes[1:]: pd.testing.assert_frame_equal(scope,scopes[0])
+bn=pd.read_csv(out/'pilot_bn_drift.csv')
+assert (bn.loc[bn.method.isin(['P2','P3']),'bn_buffer_drift']==0).all()
+for rel,expected in manifest['inputs'].items():
+ if rel in ['scripts/studies/run_traditional_transfer_recipe_pilot.py','src/qgeognn_al/transfer/adaptation.py']:
+  continue
+ assert p.sha(p.ROOT/rel)==expected,rel
+shutil.copy('/tmp/traditional_full_pytest_final.log',out/'pytest_full.log')
+shutil.copy(__file__,out/'readiness_gate.py.txt')
+status='TRAINING_READY_FOR_FORMAL_5SEED_ROW'
+gates={
+'A_population_identity':True,'B_graph_coverage_100_percent':True,'C_exact_frozen_ROW_split':True,
+'D_first_frozen_outer_seed':True,'E_historical_shallow_exact_inventory':True,'F_identical_P0_and_stage_B_scope':True,
+'G_checkpoint_derived_scaler':True,'H_BN_tests':True,'I_LBFGS_tests':True,'J_loss_scaling_tests':True,
+'K_no_test_truth_accessed':True,'L_completed_finite_validation_pilot':True,'M_traceable_artifacts':True}
+result=dict(status=status,gates=gates,tests=dict(passed=int(match[1]),warnings=int(match[2]),seconds=float(match[3]),
+ command='KMP_DUPLICATE_LIB_OK=TRUE OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 conda run --no-capture-output -n fish python -m pytest -q',
+ log='pytest_full.log'),formal_training_started=False,
+ validation_metrics_recomputed_from_saved_predictions=True,
+ revisions='Exact executed code snapshots retained. Post-run changes only affect report export, preprocessing bookkeeping, and legacy last2 (unused by this pilot).')
+p.write_json(out/'readiness_gate.json',result)
+with (out/'PILOT_REPORT_VALIDATION_ONLY.md').open('a') as f:
+ f.write(f'\n## Final readiness\n\n**{status}**. All A-M gates pass. Full repository pytest: {match[1]} passed, {match[2]} warnings, {match[3]} seconds. No formal training started.\n')
+(p.STUDY/'TRAINING_READINESS.md').write_text(f'''# Training Readiness
+
+Status: **{status}**
+
+Audited baseline HEAD: b1be9685ae6465d310793959bf1445e9226b4ec8.
+The superseded 19-row pilot remains INVALID_PILOT_SUPERSEDED.
+
+Corrected pilot_v2: 408 graph-covered filtered rows; exact frozen target ROW
+seed 769539383; 320 train / 5 validation / 83 test. Qualified source seed 42
+is separate. All training rows are used, test truth is excluded, and source
+checkpoint preprocessing is inherited with verified hashes.
+
+Historical shallow inventory exactly matches the original wrapper and historical
+36,387-parameter count. Stage-A best inheritance, BN buffers/affine separation,
+L-BFGS closure updates, loss scale invariance and all other readiness contracts
+pass. Full repository tests: **{match[1]} passed**, {match[2]} warnings, {match[3]}s in
+conda fish. See pilot_v2/pytest_full.log and readiness_gate.json.
+
+Validation combined NRMSE: P0 0.840366, P1 0.659585, P2 0.543798, P3 0.301062.
+P2/P3 BN buffer drift is zero. All predictions are finite. P0/P1/P2 have
+quantile crossing; the retained loss is a soft penalty, not hard ordering.
+Five validation rows and unconverged Adam stages limit performance conclusions.
+
+Recommend keeping P0/P1 controls and prioritizing P2/P3 in a separately authorized
+25g + 40g x five-seed ROW run. This readiness result does not launch or authorize
+that run. This task stops at the pilot. Full evidence and execution recovery
+notes are in pilot_v2/PILOT_REPORT_VALIDATION_ONLY.md.
+''')
+manifest.update(status=status,readiness_gate='readiness_gate.json',formal_training_started=False)
+manifest['inputs'].update({rel:p.sha(p.ROOT/rel) for rel in manifest['inputs']})
+manifest['inputs'].update({str(path.relative_to(p.ROOT)):p.sha(path) for path in [p.ROOT/'tests/test_traditional_transfer_pilot.py',p.STUDY/'REVISED_PROTOCOL.md',p.STUDY/'TRAINING_READINESS.md']})
+manifest['executed_code']={'runner':'executed_runner.py.txt','adaptation':'executed_adaptation.py.txt'}
+manifest['artifacts']={path.name:p.sha(path) for path in out.iterdir() if path.is_file() and path.name!='pilot_artifact_manifest.json'}
+p.write_json(out/'pilot_artifact_manifest.json',manifest)
+for name,expected in manifest['artifacts'].items(): assert p.sha(out/name)==expected
+print(json.dumps(result,indent=2))

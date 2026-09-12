@@ -1,0 +1,28 @@
+{
+  "status": "TRAINING_READY_FOR_FORMAL_5SEED_ROW",
+  "gates": {
+    "A_population_identity": true,
+    "B_graph_coverage_100_percent": true,
+    "C_exact_frozen_ROW_split": true,
+    "D_first_frozen_outer_seed": true,
+    "E_historical_shallow_exact_inventory": true,
+    "F_identical_P0_and_stage_B_scope": true,
+    "G_checkpoint_derived_scaler": true,
+    "H_BN_tests": true,
+    "I_LBFGS_tests": true,
+    "J_loss_scaling_tests": true,
+    "K_no_test_truth_accessed": true,
+    "L_completed_finite_validation_pilot": true,
+    "M_traceable_artifacts": true
+  },
+  "tests": {
+    "passed": 377,
+    "warnings": 195,
+    "seconds": 85.48,
+    "command": "KMP_DUPLICATE_LIB_OK=TRUE OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 conda run --no-capture-output -n fish python -m pytest -q",
+    "log": "pytest_full.log"
+  },
+  "formal_training_started": false,
+  "validation_metrics_recomputed_from_saved_predictions": true,
+  "revisions": "Exact executed code snapshots retained. Post-run changes only affect report export, preprocessing bookkeeping, and legacy last2 (unused by this pilot)."
+}

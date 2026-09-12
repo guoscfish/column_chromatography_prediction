@@ -1,0 +1,33 @@
+/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/requests/__init__.py:86: RequestsDependencyWarning: Unable to find acceptable character detection dependency (chardet or charset_normalizer).
+  warnings.warn(
+P0 0.840365846635055
+P1 0.6595846266682924
+P2 0.5437980912168753
+P3 0.30106213953215005
+Traceback (most recent call last):
+  File "/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/pandas/compat/_optional.py", line 158, in import_optional_dependency
+    module = importlib.import_module(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/fish/miniforge3/envs/fish/lib/python3.11/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1140, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'tabulate'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/fish/Documents/GitHub/column_chromatography_prediction/scripts/studies/run_traditional_transfer_recipe_pilot.py", line 154, in <module>
+    main()
+  File "/Users/fish/Documents/GitHub/column_chromatography_prediction/scripts/studies/run_traditional_transfer_recipe_pilot.py", line 146, in main
+    report = '# Validation-only pilot v2\n\n' + pd.DataFrame(metrics).to_markdown(index=False) + '\n\n' + pd.DataFrame(drifts).to_markdown(index=False) + '\n\nNo test truth was loaded. Readiness awaits independent contract tests.\n'
+                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/pandas/core/frame.py", line 2983, in to_markdown
+    tabulate = import_optional_dependency("tabulate")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/pandas/compat/_optional.py", line 161, in import_optional_dependency
+    raise ImportError(msg) from err
+ImportError: `Import tabulate` failed.  Use pip or conda to install the tabulate package.
+ERROR conda.cli.main_run:execute(127): `conda run python scripts/studies/run_traditional_transfer_recipe_pilot.py --run` failed. (See above for error)

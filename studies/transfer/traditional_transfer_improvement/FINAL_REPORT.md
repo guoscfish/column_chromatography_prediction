@@ -1,3 +1,5 @@
+> INVALID_PILOT_SUPERSEDED: the old pilot used incomplete graph coverage, a non-frozen target split, mismatched shallow scope, and unverified scaler provenance. Retained below only as historical evidence. See pilot_v2 for the corrected pilot.
+
 # Traditional transfer improvement: implementation report
 
 Date: 2026-09-11  

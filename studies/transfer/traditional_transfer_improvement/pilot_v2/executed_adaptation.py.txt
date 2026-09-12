@@ -100,6 +100,7 @@ def _parameter_prefixes(model: nn.Module, mode: str) -> tuple[str, ...]:
             return (
                 "head.",
                 "target_head.",
+                "condition_branch.",
                 "backbone.convs.3.",
                 "backbone.convs.4.",
                 "backbone.convs_bond_angle.3.",

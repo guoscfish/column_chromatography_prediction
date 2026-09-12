@@ -70,8 +70,7 @@ def prepare_context():
     atoms, angles = build_model_data(fit_frame, cache, None, source_preprocessing['scaler'])
     train = list(range(len(roles['gradient_train'])))
     valid = list(range(len(train), len(fit_ids)))
-    preprocessing = {'scaler': source_preprocessing['scaler'], 'source_preprocessing': source_preprocessing,
-                     'fit_rows': len(train), 'validation_rows_used': 0, 'test_rows_used': 0}
+    preprocessing = dict(source_preprocessing)
     preprocessing['target_scales'] = a.fit_target_scales(atoms, train)
     preprocessing['fit_role'] = 'gradient_train'
     audit = dict(coverage, column='25g', protocol='row', target_outer_seed=target_outer_seed,
@@ -83,59 +82,15 @@ def prepare_context():
     assert audit['scaler_hash'] == digest(source_preprocessing['scaler'])
     return context, atoms, angles, train, valid, preprocessing, audit
 
-
-def markdown_table(frame):
-    rows = ['| ' + ' | '.join(map(str, frame.columns)) + ' |',
-            '| ' + ' | '.join(['---'] * len(frame.columns)) + ' |']
-    rows.extend('| ' + ' | '.join(map(str, row)) + ' |' for row in frame.itertuples(index=False, name=None))
-    return '\n'.join(rows)
-
-
-def finalize_existing(out):
-    """Recover only a completed training export; never infer missing fits."""
-    protocol = json.loads((out / 'PILOT_PROTOCOL.json').read_text())
-    metrics = pd.read_csv(out / 'pilot_validation_metrics.csv')
-    history = pd.read_csv(out / 'pilot_training_history.csv')
-    drifts = pd.read_csv(out / 'pilot_bn_drift.csv')
-    expected = {('P0','B'), ('P1','A'), ('P1','B'), ('P2','A'), ('P2','B'), ('P3','A'), ('P3','B')}
-    assert set(zip(metrics.method, metrics.stage)) == expected and len(metrics)==7
-    assert np.isfinite(metrics.select_dtypes('number')).all().all()
-    results = {}
-    for row in metrics.itertuples():
-        trajectory = history.loc[history.method.eq(row.method) & history.stage.eq(row.stage)].drop(columns=['method','stage'])
-        assert len(trajectory)==row.epochs_run
-        assert np.isfinite(trajectory.to_numpy()).all()
-        assert np.isclose(trajectory.validation_score.min(), row.combined_nrmse)
-        assert np.isfinite(np.load(out / f'{row.method}_validation_predictions.npy')).all()
-        results.setdefault(row.method,{})[row.stage] = dict(validation_score=row.combined_nrmse, best_epoch=row.best_epoch,
-            epochs_run=row.epochs_run, trainable_parameters=row.trainable_parameters, history=trajectory.to_dict('records'))
-    report = '# Validation-only pilot v2\n\n' + markdown_table(metrics) + '\n\n' + markdown_table(drifts) + '\n'
-    (out / 'PILOT_REPORT_VALIDATION_ONLY.md').write_text(report)
-    inputs = [SOURCE,SOURCE_GRAPH_CACHE,TARGET_CACHE,FROZEN/'protocol.json',FROZEN/'split_manifest.csv',FROZEN/'filtered_canonical_25g.csv',FROZEN/'filtered_features_25g.csv',Path(__file__),ROOT/'src/qgeognn_al/transfer/adaptation.py',ROOT/'src/qgeognn_al/transfer/source_anchored.py']
-    for path in inputs:
-        assert path.exists()
-    assert sha(SOURCE)==protocol['source_checkpoint_sha256']
-    write_json(out / 'pilot_artifact_manifest.json', dict(protocol, status='COMPLETED_VALIDATION_ONLY_PENDING_TEST_GATE',
-        results=results, export_recovery='Training completed; missing optional tabulate caused report failure. Recovered from complete CSV and prediction files without refitting. Executed runner snapshot retained.',
-        inputs={str(p.relative_to(ROOT)):sha(p) for p in inputs},
-        artifacts={p.name:sha(p) for p in out.iterdir() if p.is_file() and p.name!='pilot_artifact_manifest.json'}))
-
-
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--run', action='store_true')
     parser.add_argument('--dry-run', action='store_true')
-    parser.add_argument('--finalize-only', action='store_true', help='Recover report export from completed P0-P3 CSV artifacts without fitting')
     parser.add_argument('--output', type=Path, default=STUDY / 'pilot_v2')
     args = parser.parse_args()
     if args.run and args.dry_run:
         parser.error('choose --run or --dry-run')
     out = args.output
-    if args.finalize_only:
-        if args.run or args.dry_run:
-            parser.error('--finalize-only cannot be combined with fitting/preflight')
-        finalize_existing(out)
-        return
     if (out / 'pilot_artifact_manifest.json').exists():
         raise RuntimeError('output already exists; preserve previous pilot artifacts')
     out.mkdir(parents=True, exist_ok=True)
@@ -188,7 +143,7 @@ def main():
     pd.DataFrame(metrics).to_csv(out / 'pilot_validation_metrics.csv', index=False)
     pd.DataFrame(inventories).to_csv(out / 'pilot_parameter_inventory.csv', index=False)
     pd.DataFrame(drifts).to_csv(out / 'pilot_bn_drift.csv', index=False)
-    report = '# Validation-only pilot v2\n\n' + markdown_table(pd.DataFrame(metrics)) + '\n\n' + markdown_table(pd.DataFrame(drifts)) + '\n\nNo test truth was loaded. Readiness awaits independent contract tests.\n'
+    report = '# Validation-only pilot v2\n\n' + pd.DataFrame(metrics).to_markdown(index=False) + '\n\n' + pd.DataFrame(drifts).to_markdown(index=False) + '\n\nNo test truth was loaded. Readiness awaits independent contract tests.\n'
     (out / 'PILOT_REPORT_VALIDATION_ONLY.md').write_text(report)
     inputs = [SOURCE,SOURCE_GRAPH_CACHE,TARGET_CACHE,FROZEN/'protocol.json',FROZEN/'split_manifest.csv',FROZEN/'filtered_canonical_25g.csv',FROZEN/'filtered_features_25g.csv',Path(__file__),ROOT/'src/qgeognn_al/transfer/adaptation.py',ROOT/'src/qgeognn_al/transfer/source_anchored.py']
     write_json(out / 'pilot_artifact_manifest.json', dict(status='COMPLETED_VALIDATION_ONLY_PENDING_TEST_GATE', **audit,
