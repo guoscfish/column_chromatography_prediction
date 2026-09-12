@@ -1,0 +1,44 @@
+{
+  "columns": [
+    "25g",
+    "40g"
+  ],
+  "evidence": {
+    "adam_stages": 50,
+    "best_at_max_epoch": 41,
+    "negative_tail_slope": 43
+  },
+  "follow_up_candidate": {
+    "diagnostic_budgets": [
+      150,
+      300,
+      500
+    ],
+    "maximum_epochs": 500,
+    "patience": 80
+  },
+  "follow_up_test_status": "developmental_confirmation_only",
+  "formal_budget": {
+    "maximum_epochs": 150,
+    "patience": 40
+  },
+  "inputs": [
+    "runtime/*/training_history.csv",
+    "runtime/*/stage_metrics.csv"
+  ],
+  "methods": [
+    "P0",
+    "P1",
+    "P2"
+  ],
+  "outer_test_truth_used": false,
+  "seeds": [
+    769539383,
+    1425370602,
+    536279090,
+    2767143051,
+    1362771960
+  ],
+  "source_study": "formal_row_5seed",
+  "status": "RETROSPECTIVE_TRAIN_ONLY_AUDIT"
+}
