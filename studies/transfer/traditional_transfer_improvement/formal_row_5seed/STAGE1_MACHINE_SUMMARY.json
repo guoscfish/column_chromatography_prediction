@@ -1,0 +1,29 @@
+{
+  "head_commit": "90879eab13f3e1ece9d44c48d54e4395ea923680",
+  "study": "FORMAL_TRADITIONAL_PARAMETER_TRANSFER_5SEED_ROW",
+  "protocol": "row",
+  "columns": ["25g", "40g"],
+  "outer_seed_count": 5,
+  "fit_count": 40,
+  "fit_complete": true,
+  "prediction_freeze": {"successful": true, "contexts": 10, "method_context_fits": 40},
+  "one_shot_test_score": {"successful": true, "metric_rows": 40},
+  "methods": {
+    "P0": "direct historical_shallow, current BN, Adam",
+    "P1": "head-only Stage A -> historical_shallow Stage B, current BN, Adam",
+    "P2": "head-only Stage A -> historical_shallow Stage B, source BN stats, Adam",
+    "P3": "head-only Stage A -> historical_shallow Stage B, source BN stats, L-BFGS"
+  },
+  "trainable_scope": "backbone.convs.4 + condition_branch + head",
+  "trainable_parameters": 36387,
+  "combined_normalized_rmse_mean": {
+    "25g": {"P0": 0.666, "P1": 0.666, "P2": 0.646, "P3": 0.677},
+    "40g": {"P0": 0.537, "P1": 0.484, "P2": 0.544, "P3": 0.490}
+  },
+  "best_by_mean_combined_normalized_rmse": {"25g": "P2", "40g": "P1"},
+  "bn_drift": {"P2_P3_all_contexts_zero": true, "current_bn_nonzero_expected": true},
+  "quantile_crossings": {"recorded_in": ["summary.csv", "test_metrics.csv", "bn_analysis.csv"]},
+  "adam_convergence": {"stages": 50, "hit_max_epoch": 41, "flag": "TRAINING_BUDGET_POSSIBLY_INSUFFICIENT"},
+  "anomalies": [],
+  "interpretation_deferred_to": "Stage 2"
+}
