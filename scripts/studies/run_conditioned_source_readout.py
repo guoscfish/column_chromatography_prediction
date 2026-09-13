@@ -169,9 +169,18 @@ def prepare() -> dict[str, Any]:
         raise RuntimeError(f"missing qualified source checkpoint: {SOURCE}")
     protocol = _protocol()
     path = STUDY / "protocol.json"
-    if path.exists() and json.loads(path.read_text(encoding="utf-8")) != protocol:
-        raise RuntimeError("conditioned-source-readout protocol drift; refusing to overwrite")
-    write_json(path, protocol)
+    if path.exists():
+        existing = json.loads(path.read_text(encoding="utf-8"))
+        # A study record intentionally preserves the code SHA at the moment it
+        # was prepared. Later commits that add immutable artifacts must not
+        # mutate that provenance field or make every resumable context fail.
+        expected_static = dict(protocol); expected_static.pop("git_sha_at_prepare", None)
+        existing_static = dict(existing); existing_static.pop("git_sha_at_prepare", None)
+        if existing_static != expected_static:
+            raise RuntimeError("conditioned-source-readout protocol drift; refusing to overwrite")
+        protocol = existing
+    else:
+        write_json(path, protocol)
     schedule = pd.read_csv(FROZEN / "split_manifest.csv")
     rows = []
     for column in COLUMNS:
