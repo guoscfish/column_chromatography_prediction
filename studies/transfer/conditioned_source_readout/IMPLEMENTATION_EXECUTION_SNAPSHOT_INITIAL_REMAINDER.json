@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "scope": {
+    "phase": "inner_screen",
+    "outer_protocol": "row",
+    "arms": [
+      "R0",
+      "R1",
+      "R2"
+    ],
+    "contexts": [
+      {"column": "25g", "outer_seed": 536279090},
+      {"column": "40g", "outer_seed": 536279090},
+      {"column": "25g", "outer_seed": 2767143051},
+      {"column": "40g", "outer_seed": 2767143051},
+      {"column": "25g", "outer_seed": 1362771960},
+      {"column": "40g", "outer_seed": 1362771960}
+    ],
+    "worker_launch_contract": "Committed before launch; each persistent screen session is named csr_i_* and may only execute one listed context."
+  },
+  "execution_commit": "67b91b2bac0810c30f920c52e6a0baaf06b61c68",
+  "execution_commit_note": "This snapshot covers the remaining six initial R0/R1/R2 contexts. It is intentionally separate from IMPLEMENTATION_EXECUTION_SNAPSHOT.json because the latter workers started from an earlier byte-identical committed runner snapshot.",
+  "predecessor_execution_snapshot": {
+    "path": "studies/transfer/conditioned_source_readout/IMPLEMENTATION_EXECUTION_SNAPSHOT.json",
+    "sha256": "ba7059d8344f11b5e36b9b7729b25a16e8e66e531b3528fe7064aba60a776c92"
+  },
+  "protocol": {
+    "path": "studies/transfer/conditioned_source_readout/protocol.json",
+    "sha256": "1f8fe1893603138bec06c45ef7133987783e5d04ebf63538df57e4734c3b532a",
+    "prepared_git_sha": "491b95f058694f700bbb40785f01b2af89a02610"
+  },
+  "loss_selection": {
+    "path": "studies/transfer/conditioned_source_readout/loss_selection.json",
+    "sha256": "275aad930f5b3def2dc65e5353d933a1a9ac48873b17e6d434d39fdd24987e8d",
+    "selected_loss_recipe": "raw_quantile"
+  },
+  "implementation_files": {
+    "scripts/studies/run_conditioned_source_readout.py": "3ed94b83a7babd428fc7c5b7ead91eb256680c1dd89c3e59902964c0f26735d5",
+    "src/qgeognn_al/transfer/adaptive_readout.py": "d0c1bf564ec9df1e506d423a7576023814b27dac8c470ded5aeb7fe8ab37e726",
+    "src/qgeognn_al/transfer/source_augmentation.py": "47fa78fed40caeedbcda184411828360172b2a739b44fcba7e22870ef2afb40f",
+    "src/qgeognn_al/transfer/adaptation.py": "79a8a9ce3f30e634f5a3bdcd5a7605e26275656eef1191fc707a74619aa420b4",
+    "tests/test_conditioned_source_readout.py": "4d978c1815d451a6e6dab70c25164cb1c3a2ab8b1d581d8443aad87e3d72fe87"
+  },
+  "outer_validation_or_test_labels_used_for_this_scope": false
+}
