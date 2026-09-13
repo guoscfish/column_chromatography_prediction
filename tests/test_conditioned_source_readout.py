@@ -1243,6 +1243,249 @@ def test_final_report_surfaces_gate_means_wins_and_clustered_ci(tmp_path, monkey
     assert "clustered 95% CI" in report
 
 
+def _loss_screen_values(*, l1_score, l2_score):
+    rows = []
+    for column in runner.COLUMNS:
+        for seed in runner.SEEDS:
+            for fold in range(5):
+                for arm, score in (("L0", 1.0), ("L1", l1_score), ("L2", l2_score)):
+                    rows.append({
+                        "column": column,
+                        "outer_seed": seed,
+                        "inner_fold": fold,
+                        "arm": arm,
+                        "validation_score": score,
+                    })
+    return pd.DataFrame(rows)
+
+
+def test_loss_screen_ties_retain_l0_instead_of_lexically_selecting_l2():
+    # A tie with L0 is ineligible, and a tie between equally qualifying L1/L2
+    # alternatives also returns to the frozen simpler baseline rule.
+    _, equal_eligible, equal_selected = runner._loss_screen_summary(
+        _loss_screen_values(l1_score=1.0, l2_score=1.0)
+    )
+    assert equal_eligible == []
+    assert equal_selected == "L0"
+
+    _, qualifying_eligible, qualifying_selected = runner._loss_screen_summary(
+        _loss_screen_values(l1_score=.98, l2_score=.98)
+    )
+    assert [arm for _, arm in qualifying_eligible] == ["L1", "L2"]
+    assert qualifying_selected == "L0"
+
+
+def _set_candidate_combined_gain(frame, candidate, gain_pct):
+    for column in runner.COLUMNS:
+        for seed in runner.SEEDS:
+            p0 = frame.loc[
+                (frame.column.eq(column)) & (frame.outer_seed.eq(seed)) & (frame.method.eq("P0")),
+                "combined_normalized_rmse",
+            ].iloc[0]
+            frame.loc[
+                (frame.column.eq(column)) & (frame.outer_seed.eq(seed)) & (frame.method.eq(candidate)),
+                "combined_normalized_rmse",
+            ] = p0 * (1.0 - gain_pct / 100.0)
+
+
+def _promotion_fixture(tmp_path, monkeypatch, *, name, row_gain_pct, compound_gain_pct):
+    study = tmp_path / name
+    monkeypatch.setattr(runner, "ROOT", tmp_path)
+    monkeypatch.setattr(runner, "STUDY", study)
+    runner.write_json(study / "protocol.json", {"study": "promotion-test"})
+    runner.write_json(study / "ROW_PREDICTION_FREEZE_MANIFEST.json", {"freeze": "row"})
+    runner.write_json(study / "COMPOUND_PREDICTION_FREEZE_MANIFEST.json", {"freeze": "compound"})
+    monkeypatch.setattr(runner, "_assert_frozen_for_score", lambda *_: None)
+
+    row = _row_gate_results()
+    _set_candidate_combined_gain(row, "R1", row_gain_pct)
+    runner.write_frame(study / "ROW_RESULTS.csv", row)
+    continuation = runner._persist_row_continuation_decision("R1", row)
+    assert continuation["compound_confirmation_authorized"] is True
+
+    compound = row.copy()
+    compound["protocol"] = "compound"
+    _set_candidate_combined_gain(compound, "R1", compound_gain_pct)
+    runner.write_frame(study / "COMPOUND_RESULTS.csv", compound)
+    return study
+
+
+def test_promotion_decision_hash_binds_serialized_scores_continuation_and_freezes(tmp_path, monkeypatch):
+    study = _promotion_fixture(
+        tmp_path, monkeypatch, name="promotion", row_gain_pct=6.0, compound_gain_pct=4.0,
+    )
+    monkeypatch.setattr(
+        runner, "_read_authorized_truth",
+        lambda *_: (_ for _ in ()).throw(AssertionError("promotion must not read endpoint truth")),
+    )
+
+    decision = runner.finalize_promotion_decision("R1")
+    assert decision["status"] == "STRONG_PROMOTION"
+    assert runner._load_promotion_decision("R1") == decision
+    for name in (
+        "row_results", "compound_results", "row_continuation_decision",
+        "row_prediction_freeze_manifest", "compound_prediction_freeze_manifest",
+    ):
+        reference = decision["evidence"][name]
+        assert reference["sha256"] == runner.sha(tmp_path / reference["path"])
+
+    decision_bytes = (study / runner.PROMOTION_DECISION_NAME).read_bytes()
+    compound = pd.read_csv(study / "COMPOUND_RESULTS.csv")
+    compound_original = compound.copy()
+    candidate = compound.method.eq("R1")
+    compound.loc[candidate, "combined_normalized_rmse"] *= 1.1
+    runner.write_frame(study / "COMPOUND_RESULTS.csv", compound)
+    with pytest.raises(RuntimeError, match="promotion decision is mutable"):
+        runner._load_promotion_decision("R1")
+    assert (study / runner.PROMOTION_DECISION_NAME).read_bytes() == decision_bytes
+
+    # Restore the scored bytes, then prove that a freeze-manifest edit is also
+    # detected through the decision's independently recorded digest.
+    runner.write_frame(study / "COMPOUND_RESULTS.csv", compound_original)
+    runner.write_json(study / "COMPOUND_PREDICTION_FREEZE_MANIFEST.json", {"freeze": "changed"})
+    with pytest.raises(RuntimeError, match="promotion decision is mutable"):
+        runner._load_promotion_decision("R1")
+    assert (study / runner.PROMOTION_DECISION_NAME).read_bytes() == decision_bytes
+
+
+def test_promotion_statuses_distinguish_strong_promising_and_compound_degraded(tmp_path, monkeypatch):
+    strong_study = _promotion_fixture(
+        tmp_path, monkeypatch, name="strong", row_gain_pct=6.0, compound_gain_pct=4.0,
+    )
+    assert runner.finalize_promotion_decision("R1")["status"] == "STRONG_PROMOTION"
+
+    promising_study = _promotion_fixture(
+        tmp_path, monkeypatch, name="promising", row_gain_pct=4.0, compound_gain_pct=-1.5,
+    )
+    assert runner.finalize_promotion_decision("R1")["status"] == "PROMISING_ROW_ONLY"
+
+    degraded_study = _promotion_fixture(
+        tmp_path, monkeypatch, name="degraded", row_gain_pct=4.0, compound_gain_pct=-2.1,
+    )
+    assert runner.finalize_promotion_decision("R1")["status"] == "ROW_SPECIFIC_IMPROVEMENT__COMPOUND_DEGRADED"
+    assert strong_study.exists() and promising_study.exists() and degraded_study.exists()
+
+
+def test_final_report_requires_verified_promotion_decision_after_compound(tmp_path, monkeypatch):
+    study = _promotion_fixture(
+        tmp_path, monkeypatch, name="report", row_gain_pct=6.0, compound_gain_pct=4.0,
+    )
+    monkeypatch.setattr(
+        runner, "_read_authorized_truth",
+        lambda *_: (_ for _ in ()).throw(AssertionError("report must not read endpoint truth")),
+    )
+    with pytest.raises(RuntimeError, match="PROMOTION_DECISION"):
+        runner.generate_final_report("R1")
+    assert not (study / "FINAL_REPORT.md").exists()
+
+    decision = runner.finalize_promotion_decision("R1")
+    runner.generate_final_report("R1")
+    report_path = study / "FINAL_REPORT.md"
+    report_bytes = report_path.read_bytes()
+    assert decision["status"] in report_path.read_text(encoding="utf-8")
+    assert "Promotion-decision SHA256" in report_path.read_text(encoding="utf-8")
+
+    compound = pd.read_csv(study / "COMPOUND_RESULTS.csv")
+    compound.loc[compound.method.eq("R1"), "combined_normalized_rmse"] *= 1.1
+    runner.write_frame(study / "COMPOUND_RESULTS.csv", compound)
+    with pytest.raises(RuntimeError, match="promotion decision is mutable"):
+        runner.generate_final_report("R1")
+    assert report_path.read_bytes() == report_bytes
+
+
+def test_score_retry_is_write_once_or_semantically_identical(tmp_path, monkeypatch):
+    study = tmp_path / "score"
+    monkeypatch.setattr(runner, "ROOT", tmp_path)
+    monkeypatch.setattr(runner, "STUDY", study)
+    monkeypatch.setattr(runner, "COLUMNS", ("25g",))
+    monkeypatch.setattr(runner, "SEEDS", (7,))
+    monkeypatch.setattr(runner, "_selected_candidate_provenance", lambda candidate: _candidate_provenance(candidate))
+    monkeypatch.setattr(runner, "_assert_frozen_for_score", lambda *_: None)
+    monkeypatch.setattr(runner, "_row_prediction_freeze_reference", lambda _: {
+        "path": "ROW_PREDICTION_FREEZE_MANIFEST.json", "sha256": "f" * 64,
+    })
+
+    state = {"candidate_q50": .9}
+
+    def prediction(value):
+        return np.full((2, 6), value, dtype=float)
+
+    def preflight(_protocol, _candidate, _references):
+        return [{
+            "column": "25g", "seed": 7, "canonical": tmp_path / "unused.csv",
+            "context": {"outer_scales": {"V1": 1.0, "V2": 1.0}},
+            "test_ids": ["a", "b"],
+            "predictions": {
+                "P0": prediction(1.0), "R1": prediction(state["candidate_q50"]),
+                "paper_style_current_v2": prediction(.8),
+            },
+            "clusters": ["a", "b"],
+        }]
+
+    def metrics(_truth, prediction_values, _scales):
+        value = float(prediction_values[0, 1])
+        return {
+            "V1_r2": 0.0, "V1_rmse": value, "V1_mae": value,
+            "V2_r2": 0.0, "V2_rmse": value, "V2_mae": value,
+            "combined_normalized_rmse": value, "all_outputs_finite": True,
+        }
+
+    monkeypatch.setattr(runner, "_preflight_score_inputs", preflight)
+    monkeypatch.setattr(runner, "_read_authorized_truth", lambda *_: np.zeros((2, 2), dtype=float))
+    monkeypatch.setattr(runner, "_metric_values", metrics)
+    monkeypatch.setattr(runner, "_clustered_bootstrap_delta", lambda *_args, **_kwargs: [{
+        "endpoint": "V1", "metric": "delta_rmse", "estimate": -.1,
+        "ci95_low": -.2, "ci95_high": -.01, "bootstrap_draws": 1, "cluster_count": 2,
+    }])
+
+    runner.score("row", "R1")
+    artifact_paths = [
+        study / "ROW_RESULTS.csv", study / "PAIRED_COMPARISON.csv", study / "BOOTSTRAP_CI.csv",
+    ]
+    initial_bytes = {path: path.read_bytes() for path in artifact_paths}
+    runner.score("row", "R1")
+    assert {path: path.read_bytes() for path in artifact_paths} == initial_bytes
+
+    state["candidate_q50"] = .7
+    with pytest.raises(RuntimeError, match="refusing to replace existing scored artifact"):
+        runner.score("row", "R1")
+    assert {path: path.read_bytes() for path in artifact_paths} == initial_bytes
+
+
+def test_compound_scored_rows_append_without_rewriting_row_evidence(tmp_path):
+    paired_row = pd.DataFrame([{
+        "protocol": "row", "column": "25g", "outer_seed": 7, "candidate": "R1", "reference": "P0",
+        "candidate_minus_reference_V1_rmse": -.1, "candidate_minus_reference_V2_rmse": -.1,
+        "candidate_minus_reference_V1_mae": -.1, "candidate_minus_reference_V2_mae": -.1,
+        "candidate_minus_reference_combined_nrmse": -.1,
+    }], columns=runner.PAIRED_COLUMNS)
+    bootstrap_row = pd.DataFrame([{
+        "protocol": "row", "column": "25g", "outer_seed": 7, "candidate": "R1", "reference": "P0",
+        "endpoint": "V1", "metric": "delta_rmse", "estimate": -.1, "ci95_low": -.2, "ci95_high": -.01,
+        "bootstrap_draws": 10, "cluster_count": 2,
+    }], columns=runner.BOOTSTRAP_COLUMNS)
+    for filename, row_frame, changed_column in (
+        ("PAIRED_COMPARISON.csv", paired_row, "candidate_minus_reference_combined_nrmse"),
+        ("BOOTSTRAP_CI.csv", bootstrap_row, "estimate"),
+    ):
+        path = tmp_path / filename
+        runner._persist_scored_protocol_rows(path, row_frame, "row")
+        row_bytes = path.read_bytes()
+        compound_frame = row_frame.copy()
+        compound_frame["protocol"] = "compound"
+        runner._persist_scored_protocol_rows(path, compound_frame, "compound")
+        combined_bytes = path.read_bytes()
+        assert combined_bytes.startswith(row_bytes)
+
+        runner._persist_scored_protocol_rows(path, compound_frame.sample(frac=1, random_state=7), "compound")
+        assert path.read_bytes() == combined_bytes
+        drifted = compound_frame.copy()
+        drifted.loc[0, changed_column] += .1
+        with pytest.raises(RuntimeError, match="refusing to replace existing scored artifact"):
+            runner._persist_scored_protocol_rows(path, drifted, "compound")
+        assert path.read_bytes() == combined_bytes
+
+
 def test_score_preflight_rejects_reference_before_any_outer_truth_read(tmp_path, monkeypatch):
     study = tmp_path / "study"
     frozen = tmp_path / "frozen"

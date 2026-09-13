@@ -108,9 +108,25 @@ ROW_CONTINUATION_RULE = {
     "comparison": "matched candidate versus P0 over the frozen ROW outer-test contexts",
 }
 
+# Promotion is deliberately a post-confirmation interpretation, not another
+# selector.  These fixed thresholds implement the preregistered research-plan
+# language while keeping the mandatory COMPOUND confirmation distinct from the
+# ROW architecture/loss selection boundary.
+PROMOTION_DECISION_NAME = "PROMOTION_DECISION.json"
+PROMOTION_RULE = {
+    "strong_row_mean_combined_gain_pct_min": 5.0,
+    "strong_row_seed_wins_min": 4,
+    "endpoint_mean_regression_pct_max": ROW_CONTINUATION_RULE["endpoint_mean_regression_pct_max"],
+    "strong_compound_mean_combined_gain_pct_min": 0.0,
+    "compound_target_mean_combined_gain_pct": 3.0,
+    "promising_compound_noninferiority_loss_pct_max": 2.0,
+    "comparison": "matched candidate versus P0 over the serialized frozen ROW and COMPOUND outer-test score tables",
+}
+
 LOSS_SCREEN_EVIDENCE_NAME = "LOSS_SCREEN.csv"
 LOSS_SELECTION_DECISION_NAME = "loss_selection.json"
 LOSS_SCREEN_REPORT_NAME = "LOSS_SCREEN_REPORT.md"
+LOSS_SELECTION_TIE_TOLERANCE = 1e-12
 
 
 def sha(path: Path) -> str:
@@ -608,6 +624,32 @@ def _loss_selection_lock() -> Iterable[None]:
 
     STUDY.mkdir(parents=True, exist_ok=True)
     with (STUDY / ".loss_selection.lock").open("a+", encoding="utf-8") as handle:
+        fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
+        try:
+            yield
+        finally:
+            fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+
+
+@contextmanager
+def _promotion_decision_lock() -> Iterable[None]:
+    """Serialize the terminal, immutable post-COMPOUND decision commit."""
+
+    STUDY.mkdir(parents=True, exist_ok=True)
+    with (STUDY / ".promotion_decision.lock").open("a+", encoding="utf-8") as handle:
+        fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
+        try:
+            yield
+        finally:
+            fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+
+
+@contextmanager
+def _score_artifact_lock() -> Iterable[None]:
+    """Serialize the check-and-commit transaction for scored evidence."""
+
+    STUDY.mkdir(parents=True, exist_ok=True)
+    with (STUDY / ".score_artifact.lock").open("a+", encoding="utf-8") as handle:
         fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
         try:
             yield
@@ -1326,7 +1368,20 @@ def _loss_screen_summary(values: pd.DataFrame) -> tuple[list[dict[str, Any]], li
         )
         if stable:
             eligible.append((float(subset.mean_relative_improvement_pct.mean()), arm))
-    selected_arm = max(eligible)[1] if eligible else "L0"
+    if not eligible:
+        # Equal-to-baseline (or otherwise insufficient) alternatives are not
+        # eligible, so the protocol's "ties retain the simpler L0" rule is
+        # explicit rather than an incidental consequence of ``max``.
+        selected_arm = "L0"
+    else:
+        best_gain = max(gain for gain, _ in eligible)
+        best_arms = [
+            arm for gain, arm in eligible
+            if math.isclose(gain, best_gain, rel_tol=0.0, abs_tol=LOSS_SELECTION_TIE_TOLERANCE)
+        ]
+        # The frozen protocol says ties retain the simpler baseline L0.  This
+        # also avoids treating the lexical order of arm labels as evidence.
+        selected_arm = best_arms[0] if len(best_arms) == 1 else "L0"
     return summary_rows, eligible, selected_arm
 
 
@@ -2109,6 +2164,226 @@ def _assert_row_continuation_authorized(candidate: str) -> dict[str, Any]:
     return decision
 
 
+def _artifact_reference(path: Path) -> dict[str, str]:
+    """Return a path/digest pair for an immutable score-bound input."""
+
+    if not path.exists():
+        raise RuntimeError(f"missing promotion-decision input: {path}")
+    return {"path": str(path.relative_to(ROOT)), "sha256": sha(path)}
+
+
+def _serialized_score_summary(outer_protocol: str, candidate: str, path: Path) -> dict[str, Any]:
+    """Summarize one serialized P0/candidate score table without reading truth.
+
+    The promotion gate intentionally consumes CSV bytes that have already
+    crossed the scoring boundary.  It does not call a prediction or truth
+    reader, and therefore cannot alter the evaluated outcomes.
+    """
+
+    if outer_protocol not in PROTOCOLS:
+        raise ValueError("promotion summary requires a preregistered outer protocol")
+    if candidate not in READOUT_ARMS or candidate == "R0":
+        raise ValueError("promotion summary requires a selected non-R0 candidate")
+    if not path.exists():
+        raise RuntimeError(f"promotion decision requires a completed {outer_protocol.upper()} score table")
+    result = pd.read_csv(path)
+    if list(result.columns) != list(RESULT_COLUMNS):
+        raise RuntimeError(f"promotion decision found a malformed {outer_protocol.upper()} score schema")
+    if result.empty or not result.protocol.astype(str).eq(outer_protocol).all():
+        raise RuntimeError(f"promotion decision requires only completed {outer_protocol.upper()} score rows")
+    required = {
+        "protocol", "column", "outer_seed", "method", "combined_normalized_rmse",
+        "V1_rmse", "V1_mae", "V2_rmse", "V2_mae", "all_outputs_finite",
+    }
+    if missing := sorted(required.difference(result.columns)):
+        raise RuntimeError("promotion score table is missing required columns: " + ", ".join(missing))
+
+    expected_seeds = set(SEEDS)
+    endpoint_metrics = ("V1_rmse", "V1_mae", "V2_rmse", "V2_mae")
+    columns: dict[str, dict[str, Any]] = {}
+    for column in COLUMNS:
+        subset = result.loc[result.column.astype(str).eq(column)]
+        p0 = subset.loc[subset.method.astype(str).eq("P0")].copy()
+        current = subset.loc[subset.method.astype(str).eq(candidate)].copy()
+        for method, frame in (("P0", p0), (candidate, current)):
+            if len(frame) != len(SEEDS) or set(frame.outer_seed.astype(int)) != expected_seeds:
+                raise RuntimeError(
+                    f"promotion decision requires one {method} result for every frozen seed in {column}/{outer_protocol}"
+                )
+            if frame.duplicated("outer_seed").any():
+                raise RuntimeError(f"promotion decision found duplicate {method} seed rows in {column}/{outer_protocol}")
+            if not frame.all_outputs_finite.eq(True).all():
+                raise RuntimeError(f"promotion decision cannot use non-finite {method} outputs in {column}/{outer_protocol}")
+        paired = p0.merge(current, on="outer_seed", suffixes=("_p0", "_candidate"), validate="one_to_one")
+        p0_combined_mean, p0_combined_std = _mean_std(paired["combined_normalized_rmse_p0"])
+        candidate_combined_mean, candidate_combined_std = _mean_std(paired["combined_normalized_rmse_candidate"])
+        mean_gain_pct = -_relative_change_pct(candidate_combined_mean, p0_combined_mean)
+        seed_details = []
+        for value in paired.sort_values("outer_seed").itertuples(index=False):
+            p0_value = float(getattr(value, "combined_normalized_rmse_p0"))
+            candidate_value = float(getattr(value, "combined_normalized_rmse_candidate"))
+            gain_pct = -_relative_change_pct(candidate_value, p0_value)
+            seed_details.append({
+                "outer_seed": int(value.outer_seed),
+                "p0_combined_nrmse": p0_value,
+                "candidate_combined_nrmse": candidate_value,
+                "gain_pct": gain_pct,
+                "candidate_win": bool(candidate_value < p0_value),
+            })
+        endpoint_summary: dict[str, dict[str, float]] = {}
+        for metric in endpoint_metrics:
+            p0_mean, p0_std = _mean_std(paired[f"{metric}_p0"])
+            candidate_mean, candidate_std = _mean_std(paired[f"{metric}_candidate"])
+            endpoint_summary[metric] = {
+                "p0_mean": p0_mean,
+                "p0_std": p0_std,
+                "candidate_mean": candidate_mean,
+                "candidate_std": candidate_std,
+                "mean_relative_regression_pct": _relative_change_pct(candidate_mean, p0_mean),
+            }
+        columns[column] = {
+            "n_seeds": len(SEEDS),
+            "combined_nrmse": {
+                "p0_mean": p0_combined_mean,
+                "p0_std": p0_combined_std,
+                "candidate_mean": candidate_combined_mean,
+                "candidate_std": candidate_combined_std,
+                "mean_gain_pct": mean_gain_pct,
+                "seed_wins": int(sum(item["candidate_win"] for item in seed_details)),
+                "seed_details": seed_details,
+            },
+            "endpoint_metrics": endpoint_summary,
+        }
+    return {
+        "protocol": outer_protocol,
+        "candidate": candidate,
+        "reference": "P0",
+        "columns": columns,
+    }
+
+
+def _prediction_freeze_reference(outer_protocol: str, candidate: str) -> dict[str, str]:
+    """Verify and address the freeze manifest that authorized a score table."""
+
+    _assert_frozen_for_score(outer_protocol, ("R0", candidate))
+    return _artifact_reference(STUDY / f"{outer_protocol.upper()}_PREDICTION_FREEZE_MANIFEST.json")
+
+
+def _promotion_decision_payload(candidate: str) -> dict[str, Any]:
+    """Derive the terminal promotion interpretation from already-scored evidence."""
+
+    row_path = STUDY / "ROW_RESULTS.csv"
+    compound_path = STUDY / "COMPOUND_RESULTS.csv"
+    continuation_path = STUDY / ROW_CONTINUATION_DECISION_NAME
+    row_continuation = _load_row_continuation_decision(candidate)
+    if (row_continuation.get("status") != "ROW_CONTINUATION_PASSED"
+            or not row_continuation.get("compound_confirmation_authorized")):
+        raise RuntimeError("promotion decision is unavailable because the ROW continuation gate did not authorize COMPOUND")
+    row_summary = _serialized_score_summary("row", candidate, row_path)
+    compound_summary = _serialized_score_summary("compound", candidate, compound_path)
+    row_freeze = _prediction_freeze_reference("row", candidate)
+    compound_freeze = _prediction_freeze_reference("compound", candidate)
+
+    row_columns = row_continuation["columns"]
+    strong_row_gain = bool(all(
+        float(row_columns[column]["combined_nrmse"]["mean_gain_pct"])
+        >= PROMOTION_RULE["strong_row_mean_combined_gain_pct_min"]
+        for column in COLUMNS
+    ))
+    strong_row_wins = bool(all(
+        int(row_columns[column]["combined_nrmse"]["seed_wins"])
+        >= PROMOTION_RULE["strong_row_seed_wins_min"]
+        for column in COLUMNS
+    ))
+    row_endpoint_safe = bool(
+        row_continuation["criteria"].get("no_endpoint_mean_rmse_or_mae_regression_above_limit")
+    )
+    compound_gains = {
+        column: float(compound_summary["columns"][column]["combined_nrmse"]["mean_gain_pct"])
+        for column in COLUMNS
+    }
+    compound_positive = bool(all(
+        gain > PROMOTION_RULE["strong_compound_mean_combined_gain_pct_min"]
+        for gain in compound_gains.values()
+    ))
+    compound_target = bool(all(
+        gain >= PROMOTION_RULE["compound_target_mean_combined_gain_pct"]
+        for gain in compound_gains.values()
+    ))
+    compound_noninferior = bool(all(
+        gain >= -PROMOTION_RULE["promising_compound_noninferiority_loss_pct_max"]
+        for gain in compound_gains.values()
+    ))
+    strong = bool(strong_row_gain and strong_row_wins and row_endpoint_safe and compound_positive)
+    if strong:
+        status = "STRONG_PROMOTION"
+    elif compound_noninferior:
+        status = "PROMISING_ROW_ONLY"
+    else:
+        status = "ROW_SPECIFIC_IMPROVEMENT__COMPOUND_DEGRADED"
+
+    return {
+        "schema_version": 1,
+        "decision_kind": "PROMOTION_DECISION",
+        "protocol_sha256": sha(STUDY / "protocol.json"),
+        "candidate": candidate,
+        "reference": "P0",
+        "status": status,
+        "rule": PROMOTION_RULE,
+        "criteria": {
+            "row_continuation_authorized": True,
+            "row_strong_mean_combined_gain_both_columns": strong_row_gain,
+            "row_strong_seed_wins_both_columns": strong_row_wins,
+            "row_endpoint_nonregression": row_endpoint_safe,
+            "compound_positive_gain_both_columns": compound_positive,
+            "compound_target_gain_both_columns": compound_target,
+            "compound_noninferior_within_minus_2pct_both_columns": compound_noninferior,
+            "strong_promotion": strong,
+        },
+        "evidence": {
+            "row_results": _artifact_reference(row_path),
+            "compound_results": _artifact_reference(compound_path),
+            "row_continuation_decision": _artifact_reference(continuation_path),
+            "row_prediction_freeze_manifest": row_freeze,
+            "compound_prediction_freeze_manifest": compound_freeze,
+        },
+        "row_continuation": {
+            "status": row_continuation["status"],
+            "criteria": dict(row_continuation["criteria"]),
+        },
+        "row": row_summary,
+        "compound": compound_summary,
+        "decision_boundary": (
+            "Serialized ROW/COMPOUND score CSVs, the immutable ROW continuation decision, and "
+            "the two verified prediction-freeze manifests only; this action never reads endpoint truth."
+        ),
+    }
+
+
+def finalize_promotion_decision(candidate: str) -> dict[str, Any]:
+    """Commit the one immutable post-COMPOUND promotion interpretation."""
+
+    with _promotion_decision_lock():
+        return _persist_immutable_json(
+            STUDY / PROMOTION_DECISION_NAME,
+            _promotion_decision_payload(candidate),
+            label="promotion decision",
+        )
+
+
+def _load_promotion_decision(candidate: str) -> dict[str, Any]:
+    """Load and recompute-verify the report's sole final-promotion input."""
+
+    path = STUDY / PROMOTION_DECISION_NAME
+    if not path.exists():
+        raise RuntimeError("cannot report a completed COMPOUND confirmation without PROMOTION_DECISION.json")
+    decision = json.loads(path.read_text(encoding="utf-8"))
+    expected = _promotion_decision_payload(candidate)
+    if decision != expected:
+        raise RuntimeError("promotion decision is mutable, unhashed, or inconsistent with its scored evidence")
+    return decision
+
+
 def _clustered_bootstrap_delta(truth: np.ndarray, candidate: np.ndarray, reference: np.ndarray,
                                clusters: Sequence[str], *, seed: int, draws: int = 2000) -> list[dict[str, float | str | int]]:
     """Cluster-resample canonical SMILES for endpoint-wise ΔRMSE/ΔMAE CIs."""
@@ -2146,13 +2421,9 @@ def _clustered_bootstrap_delta(truth: np.ndarray, candidate: np.ndarray, referen
 
 
 def _replace_protocol_rows(path: Path, frame: pd.DataFrame, outer_protocol: str) -> None:
-    """Preserve a completed other-protocol report when writing a later phase."""
+    """Persist one protocol without rewriting a completed other protocol's rows."""
 
-    if path.exists():
-        previous = pd.read_csv(path)
-        if "protocol" in previous.columns:
-            frame = pd.concat([previous.loc[~previous.protocol.eq(outer_protocol)], frame], ignore_index=True)
-    write_frame(path, frame)
+    _persist_scored_protocol_rows(path, frame, outer_protocol)
 
 
 RESULT_COLUMNS = (
@@ -2170,6 +2441,82 @@ BOOTSTRAP_COLUMNS = (
     "protocol", "column", "outer_seed", "candidate", "reference", "endpoint", "metric",
     "estimate", "ci95_low", "ci95_high", "bootstrap_draws", "cluster_count",
 )
+
+
+def _canonical_scored_frame(frame: pd.DataFrame, columns: Sequence[str], *, sort_by: Sequence[str],
+                            path: Path) -> pd.DataFrame:
+    """Normalize a score artifact for semantic equality checks, never for rewrites."""
+
+    expected_columns = list(columns)
+    if list(frame.columns) != expected_columns:
+        raise RuntimeError(f"scored artifact schema mismatch: {path}")
+    return frame.loc[:, expected_columns].sort_values(list(sort_by), kind="mergesort").reset_index(drop=True)
+
+
+def _scored_sort_columns(columns: Sequence[str]) -> tuple[str, ...]:
+    if tuple(columns) == RESULT_COLUMNS:
+        return ("protocol", "column", "outer_seed", "method")
+    if tuple(columns) == PAIRED_COLUMNS:
+        return ("protocol", "column", "outer_seed", "candidate", "reference")
+    if tuple(columns) == BOOTSTRAP_COLUMNS:
+        return ("protocol", "column", "outer_seed", "candidate", "reference", "endpoint", "metric")
+    raise ValueError("unknown scored artifact schema")
+
+
+def _assert_same_scored_frame(actual: pd.DataFrame, expected: pd.DataFrame, *, columns: Sequence[str],
+                              path: Path) -> None:
+    """Accept an idempotent re-score only when its serialized meaning agrees."""
+
+    sort_by = _scored_sort_columns(columns)
+    actual_canonical = _canonical_scored_frame(actual, columns, sort_by=sort_by, path=path)
+    expected_canonical = _canonical_scored_frame(expected, columns, sort_by=sort_by, path=path)
+    try:
+        pd.testing.assert_frame_equal(
+            actual_canonical, expected_canonical,
+            check_dtype=False, check_exact=False, rtol=1e-12, atol=1e-12,
+        )
+    except AssertionError as error:
+        raise RuntimeError(f"refusing to replace existing scored artifact: {path}") from error
+
+
+def _persist_scored_frame(path: Path, frame: pd.DataFrame, columns: Sequence[str], *, dry_run: bool = False) -> None:
+    """Write a score table once, or verify it without changing its existing bytes."""
+
+    canonical = _canonical_scored_frame(frame, columns, sort_by=_scored_sort_columns(columns), path=path)
+    if path.exists():
+        _assert_same_scored_frame(pd.read_csv(path), canonical, columns=columns, path=path)
+        return
+    if not dry_run:
+        write_frame(path, canonical)
+
+
+def _persist_scored_protocol_rows(path: Path, frame: pd.DataFrame, outer_protocol: str, *, dry_run: bool = False) -> None:
+    """Append a new protocol once while preserving prior scored rows byte-for-byte.
+
+    `PAIRED_COMPARISON.csv` and `BOOTSTRAP_CI.csv` are shared ROW/COMPOUND
+    artifacts.  A COMPOUND score is allowed to append after ROW, but a re-score
+    may only verify an existing protocol slice; it can never replace it.
+    """
+
+    columns = PAIRED_COLUMNS if "candidate_minus_reference_combined_nrmse" in frame.columns else BOOTSTRAP_COLUMNS
+    canonical = _canonical_scored_frame(frame, columns, sort_by=_scored_sort_columns(columns), path=path)
+    if not canonical.protocol.astype(str).eq(outer_protocol).all():
+        raise RuntimeError(f"scored protocol rows do not match requested protocol: {path}")
+    if not path.exists():
+        if not dry_run:
+            write_frame(path, canonical)
+        return
+    existing = pd.read_csv(path)
+    # Validate the complete existing schema before deciding whether it can be
+    # extended.  A header-only no-score artifact is safely extended in the
+    # same append-only fashion.
+    _canonical_scored_frame(existing, columns, sort_by=_scored_sort_columns(columns), path=path)
+    existing_protocol = existing.loc[existing.protocol.astype(str).eq(outer_protocol)]
+    if not existing_protocol.empty:
+        _assert_same_scored_frame(existing_protocol, canonical, columns=columns, path=path)
+        return
+    if not canonical.empty and not dry_run:
+        _append_frame_without_rewriting_existing_rows(path, canonical)
 
 
 def _validate_empty_scored_artifact(path: Path, columns: Sequence[str]) -> None:
@@ -2426,11 +2773,22 @@ def score(outer_protocol: str, candidate: str) -> tuple[pd.DataFrame, pd.DataFra
     paired = pd.DataFrame(paired_rows, columns=PAIRED_COLUMNS)
     bootstrap = pd.DataFrame(bootstrap_rows, columns=BOOTSTRAP_COLUMNS)
     target = STUDY / ("ROW_RESULTS.csv" if outer_protocol == "row" else "COMPOUND_RESULTS.csv")
-    write_frame(target, result.sort_values(["column", "outer_seed", "method"]))
-    _replace_protocol_rows(STUDY / "PAIRED_COMPARISON.csv", paired, outer_protocol)
-    _replace_protocol_rows(STUDY / "BOOTSTRAP_CI.csv", bootstrap, outer_protocol)
-    if outer_protocol == "row":
-        _persist_row_continuation_decision(candidate, pd.read_csv(target))
+    with _score_artifact_lock():
+        # Validate every destination before changing any scored artifact.  This
+        # makes a divergent re-score fail as a no-op rather than leave a newly
+        # written result table beside an incompatible paired/bootstrap table.
+        _persist_scored_frame(target, result, RESULT_COLUMNS, dry_run=True)
+        _persist_scored_protocol_rows(STUDY / "PAIRED_COMPARISON.csv", paired, outer_protocol, dry_run=True)
+        _persist_scored_protocol_rows(STUDY / "BOOTSTRAP_CI.csv", bootstrap, outer_protocol, dry_run=True)
+        _persist_scored_frame(target, result, RESULT_COLUMNS)
+        _replace_protocol_rows(STUDY / "PAIRED_COMPARISON.csv", paired, outer_protocol)
+        _replace_protocol_rows(STUDY / "BOOTSTRAP_CI.csv", bootstrap, outer_protocol)
+        if outer_protocol == "row":
+            _persist_row_continuation_decision(candidate, pd.read_csv(target))
+        else:
+            # This is terminal interpretation only.  It receives completed,
+            # serialized score artifacts and never reopens the truth boundary.
+            finalize_promotion_decision(candidate)
     return result, paired, bootstrap
 
 
@@ -2452,6 +2810,7 @@ def generate_final_report(candidate: str) -> None:
     continuation_decision = _load_row_continuation_decision(candidate)
     if not continuation_decision["compound_confirmation_authorized"] and not compound.empty:
         raise RuntimeError("cannot report COMPOUND evidence after a failed ROW continuation gate")
+    promotion_decision: dict[str, Any] | None = None
 
     def mean_std_text(values: pd.Series) -> str:
         numeric = values.to_numpy(float)
@@ -2475,7 +2834,11 @@ def generate_final_report(candidate: str) -> None:
     elif not continuation_decision["compound_confirmation_authorized"]:
         status = "ROW_CONTINUATION_FAILED__COMPOUND_BLOCKED"
     else:
-        status = "COMPOUND_CONFIRMATION_COMPLETE__PROMOTION_REQUIRES_GATE_REVIEW"
+        # The report is intentionally a consumer, never an alternative gate:
+        # this reload recomputes and hash-verifies the immutable decision from
+        # the serialized score/freeze evidence without reading endpoint truth.
+        promotion_decision = _load_promotion_decision(candidate)
+        status = str(promotion_decision["status"])
 
     lines = ["# Final report — conditioned source readout", "", f"## Decision\n\n`{status}`\n",
              "All outer results are developmental confirmation because these frozen outer identities were historically exposed. No score selected the loss, architecture, source feature, or epoch.",
@@ -2484,6 +2847,12 @@ def generate_final_report(candidate: str) -> None:
              "",
              "| column | P0 combined NRMSE (mean ± std) | candidate combined NRMSE (mean ± std) | mean gain (%) | wins / 5 | gain ≥3% | wins ≥4/5 |",
              "| --- | ---: | ---: | ---: | ---: | --- | --- |"]
+    if promotion_decision is not None:
+        lines.extend([
+            "", "## Post-COMPOUND promotion decision", "",
+            f"Outcome: **`{promotion_decision['status']}`**. The immutable decision is bound to both score tables, the ROW continuation decision, and both prediction-freeze manifests.",
+            f"Promotion-decision SHA256: `{sha(STUDY / PROMOTION_DECISION_NAME)}`.",
+        ])
     for column in COLUMNS:
         combined = continuation_decision["columns"][column]["combined_nrmse"]
         lines.append(
@@ -2540,13 +2909,13 @@ def generate_final_report(candidate: str) -> None:
                   "9. Endpoint-level RMSE/MAE are shown above; no aggregate result overrides a material endpoint regression.",
                   f"10. Final promotion status: `{status}`.", "",
                   "## Reproducibility", "",
-                  "See `protocol.json`, `run_manifest.csv`, `source_cache/*_cache_manifest.json`, inner context audits, prediction-freeze manifests, `ROW_CONTINUATION_DECISION.json`, `PAIRED_COMPARISON.csv`, and `BOOTSTRAP_CI.csv`. Clustered bootstrap uses canonical SMILES, not IID rows.", ""])
+                  "See `protocol.json`, `run_manifest.csv`, `source_cache/*_cache_manifest.json`, inner context audits, prediction-freeze manifests, `ROW_CONTINUATION_DECISION.json`, `PROMOTION_DECISION.json`, `PAIRED_COMPARISON.csv`, and `BOOTSTRAP_CI.csv`. Clustered bootstrap uses canonical SMILES, not IID rows.", ""])
     (STUDY / "FINAL_REPORT.md").write_text("\n".join(lines), encoding="utf-8")
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--action", choices=("prepare", "prepare-source-cache", "loss-context", "loss-aggregate", "readout-context", "readout-aggregate", "compound-selection-context", "final-context", "freeze", "score", "report", "finalize-negative"), required=True)
+    parser.add_argument("--action", choices=("prepare", "prepare-source-cache", "loss-context", "loss-aggregate", "readout-context", "readout-aggregate", "compound-selection-context", "final-context", "freeze", "score", "promotion-decision", "report", "finalize-negative"), required=True)
     parser.add_argument("--column", choices=COLUMNS)
     parser.add_argument("--protocol", choices=PROTOCOLS, default="row")
     parser.add_argument("--seed", type=int, choices=SEEDS)
@@ -2586,6 +2955,9 @@ def main() -> None:
     if args.action == "score":
         if args.candidate is None: parser.error("score requires --candidate")
         score(args.protocol, args.candidate); return
+    if args.action == "promotion-decision":
+        if args.candidate is None: parser.error("promotion-decision requires --candidate")
+        finalize_promotion_decision(args.candidate); return
     if args.action == "report":
         if args.candidate is None: parser.error("report requires --candidate")
         generate_final_report(args.candidate); return
