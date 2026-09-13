@@ -8,11 +8,16 @@
       "R1",
       "R2"
     ],
-    "contexts": "25g/40g x five frozen outer seeds x five canonical-SMILES GroupKFold folds",
+    "contexts": [
+      {"column": "25g", "outer_seed": 769539383},
+      {"column": "40g", "outer_seed": 769539383},
+      {"column": "25g", "outer_seed": 1425370602},
+      {"column": "40g", "outer_seed": 1425370602}
+    ],
     "worker_launch_window_local": "2026-09-13T23:04:00+0800 to 2026-09-13T23:05:55+0800"
   },
   "execution_commit": "3eb648f86ca5f8bca01835930500db9c8597e4d4",
-  "execution_commit_note": "The runner bytes were identical at worker launch and at this committed snapshot. protocol.json intentionally retains its earlier preparation SHA and is bound below rather than rewritten.",
+  "execution_commit_note": "The runner bytes were identical at worker launch and at this committed snapshot. The remaining initial-screen contexts are bound by a separate execution snapshot. protocol.json intentionally retains its earlier preparation SHA and is bound below rather than rewritten.",
   "protocol": {
     "path": "studies/transfer/conditioned_source_readout/protocol.json",
     "sha256": "1f8fe1893603138bec06c45ef7133987783e5d04ebf63538df57e4734c3b532a",
