@@ -18,6 +18,24 @@ legacy frozen artifacts are preserved; their incorrect zero-validation wording
 is documented by the audit rather than overwritten. See the
 [roadmap](research/TRANSFER_RESEARCH_ROADMAP_2026-09-12.md).
 
+### Completed result: `NO_UNIVERSAL_STAGED_TRANSFER_GAIN`
+
+The converged ROW developmental confirmation is complete. P0 is not severely
+budget-censored at 500 epochs (25g/40g Stage-B ceiling selections 0/25 and
+1/25); P1 Stage B is also not severe. But P1 head-only Stage A selected epoch
+500 with negative late validation slope in **25/25** inner folds for each
+column. It therefore remains budget-censored and P1 cannot be promoted.
+
+P1 versus P0 shared train-NRMSE is +1.10% on 25g (2/5 wins) and -0.57% on 40g
+(3/5 wins). At 25g, V1 RMSE worsens 2.20%, exceeding the 2% endpoint gate.
+P0 is slightly better than paper-style on both mean 25g endpoint RMSEs
+(-0.137/-0.125 mL for V1/V2), while paper-style remains better on 40g
+(P0 gap +0.636/+0.507 mL). This is developmental confirmation only; it does
+not authorize COMPOUND or Active Learning. The next isolated neural action is
+endpoint-normalized quantile loss using the converged P0 baseline; extending
+P1 Stage A requires a separate preregistered decision rather than silently
+raising its budget.
+
 ## Stage 2 audit decision: STOP BEFORE COMPOUND
 
 The latest decision is `STOP_BEFORE_COMPOUND_AND_ACTIVE_LEARNING`. The formal ROW evidence was a pre-existing local run audited and summarized in Stage 1, not 40 newly trained models. Stage 2 found that formal P0-P3 combined NRMSE used per-context gradient-train scales, while historical reference combined NRMSE used fixed qualified 4g source-train scales. The old cross-method normalized ranking is therefore withdrawn. Raw RMSE, MAE, and R2 on matched ROW test IDs remain usable; harmonized metrics are in [row_metric_harmonization](../studies/transfer/row_metric_harmonization/METRIC_COMPARABILITY_AUDIT.md).

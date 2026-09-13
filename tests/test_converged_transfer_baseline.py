@@ -99,3 +99,10 @@ def test_protocol_carries_correct_validation_metadata_semantics():
     assert '"validation_selection_rows": 0' in source
     assert '"test_truth_rows_used_for_fit": 0' in source
     assert '"test_truth_rows_used_for_selection": 0' in source
+
+
+def test_scored_artifact_finalizer_does_not_read_truth():
+    source = inspect.getsource(runner.finalize_scored_artifacts)
+    assert "_read_authorized_truth" not in source
+    assert "test_metrics.csv" in source
+    assert "TEST_SCORE_MANIFEST.json" in source

@@ -9,6 +9,20 @@
 > is not an epoch-selection set. New ROW tests are developmental confirmation
 > because their identities are historically exposed.
 
+## N1 outcome
+
+N1 is complete with `NO_UNIVERSAL_STAGED_TRANSFER_GAIN`. P0 Stage B is
+adequately converged under the 500/80 protocol; P1 Stage B is also adequate,
+but P1 head-only Stage A is still budget-censored in all 50 inner folds. P1
+loses mean shared train-NRMSE on 25g by 1.10% (2/5 wins) and improves 40g by
+0.57% (3/5 wins), while 25g V1 RMSE worsens 2.20%. It fails the promotion
+gate. Do not extend Stage A automatically and do not choose P1 for only 40g.
+
+The next controlled neural experiment is raw versus endpoint-normalized
+quantile loss on converged P0. Follow only after that with q50/weak-quantile
+loss, normalized L2-SP, then scope/discriminative-LR ablations. COMPOUND and
+Active Learning remain blocked.
+
 This plan follows the Stage 2 audit. It is a development plan, not evidence that the listed experiments have been run.
 
 ## Immediate gate

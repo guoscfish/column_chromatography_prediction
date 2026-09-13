@@ -29,6 +29,15 @@ P0 refits for the round-half-up median of the five Stage-B best epochs. P1 separ
 
 P1 can be called the preferred neural transfer baseline only if it improves mean shared train-NRMSE on both columns, wins at least 3/5 seeds per column, has no endpoint RMSE/MAE mean deterioration above 2%, has no clear systematic R2 reversal, and is not seriously budget-censored. Otherwise the correct result is `NO_UNIVERSAL_STAGED_TRANSFER_GAIN`.
 
+**Completed N1 result:** `NO_UNIVERSAL_STAGED_TRANSFER_GAIN`. P0 Stage B has
+0/25 (25g) and 1/25 (40g) ceiling selections; its late slopes are not a severe
+censoring signal. P1 Stage B is likewise not severe, but head-only Stage A is
+still censored in 25/25 folds per column with a negative late slope. P1 loses
+25g shared NRMSE by 1.10% (2/5 wins) and improves 40g by 0.57% (3/5 wins); its
+25g V1 RMSE worsens 2.20%. P1 is not promoted and the Stage-A budget is not
+automatically extended. N2 should compare raw and endpoint-normalized loss on
+the converged P0 baseline.
+
 ## Neural branch after N1
 
 Run one controlled change at a time, always with inner-CV selection.

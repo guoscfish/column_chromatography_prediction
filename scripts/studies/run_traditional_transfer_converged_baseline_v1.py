@@ -423,7 +423,36 @@ def _convergence_summary(summary: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def _markdown(frame: pd.DataFrame, digits: int = 4) -> str:
+    """Render a compact table without making ``tabulate`` a study dependency."""
+    if frame.empty:
+        return "_No rows._\n"
+    shown = frame.copy()
+    for name in shown.columns:
+        if pd.api.types.is_float_dtype(shown[name]):
+            shown[name] = shown[name].map(lambda value: "" if pd.isna(value) else f"{value:.{digits}f}")
+    names = [str(name) for name in shown.columns]
+    def cell(value: object) -> str:
+        return "" if pd.isna(value) else str(value).replace("|", "\\|").replace("\n", " ")
+    lines = ["| " + " | ".join(names) + " |", "| " + " | ".join("---" for _ in names) + " |"]
+    lines.extend("| " + " | ".join(cell(value) for value in row) + " |" for row in shown.itertuples(index=False, name=None))
+    return "\n".join(lines) + "\n"
+
+
+def _paper_style_gap(summary: pd.DataFrame, reference: pd.DataFrame) -> pd.DataFrame:
+    reference_mean = reference.groupby("column", as_index=False).mean(numeric_only=True)
+    rows = []
+    for _, candidate in summary.iterrows():
+        paper = reference_mean.loc[reference_mean.column.eq(candidate.column)].iloc[0]
+        row = {"column": candidate.column, "method": candidate.method}
+        for metric in ("V1_rmse", "V1_mae", "V1_r2", "V2_rmse", "V2_mae", "V2_r2"):
+            row[f"{metric}_mean_delta_vs_paper_style"] = float(candidate[f"{metric}_mean"] - paper[metric])
+        rows.append(row)
+    return pd.DataFrame(rows)
+
+
 def _write_final_report(summary: pd.DataFrame, paired: pd.DataFrame, convergence: pd.DataFrame, reference: pd.DataFrame) -> None:
+    selected_epochs = pd.read_csv(STUDY / "SELECTED_EPOCHS.csv")
     promoted = []
     for column in COLUMNS:
         comparison = paired.loc[(paired.column.eq(column)) & (paired.metric.eq("combined_normalized_rmse"))].iloc[0]
@@ -436,15 +465,35 @@ def _write_final_report(summary: pd.DataFrame, paired: pd.DataFrame, convergence
     lines = ["# Converged P0/P1 neural-transfer baseline: final report\n",
         "## Design\n",
         "This is a ROW-only developmental confirmation because the frozen outer tests had historical exposure. P0 and P1 use only Adam/current BN/raw quantile loss/historical-shallow scope. Each outer gradient-train population is split by canonical-smiles GroupKFold; no outer validation or test label reached fitting or epoch selection. Final refits use the median inner-fold selected epoch(s) and a fixed-epoch API with no validation input.\n",
-        "## Selected-epoch and convergence result\n", summary.to_markdown(index=False), "\n", convergence.to_markdown(index=False), "\n",
+        "## Selected epochs\n", _markdown(selected_epochs), "\n",
+        "## Developmental test summary and convergence\n", _markdown(summary), "\n", _markdown(convergence), "\n",
         "The convergence adequacy rule marks a stage `STILL_BUDGET_CENSORED` only where at least 40% of folds both selected epoch 500 and retained a negative last-20 validation slope. It does not silently extend the budget.\n",
-        "## P0 vs P1 developmental test comparison\n", paired.to_markdown(index=False), "\n",
-        "## Historical paper-style reference\n", reference.to_markdown(index=False), "\n",
+        "## P0 vs P1 developmental test comparison\n", _markdown(paired), "\n",
+        "## Historical paper-style reference\n", _markdown(reference), "\n",
+        "## P0/P1 raw endpoint gap versus paper-style\n", _markdown(_paper_style_gap(summary, reference)), "\n",
         "## Promotion decision\n",
         f"`{'P1_PREFERRED_NEURAL_TRANSFER_BASELINE' if gate else 'NO_UNIVERSAL_STAGED_TRANSFER_GAIN'}`. The frozen gate requires both columns to improve mean train-normalized NRMSE, at least 3/5 paired seed wins per column, no mean endpoint RMSE/MAE deterioration >2%, no systematic opposite R2 direction, and no serious inner-CV budget censoring. Per-column checks: `{json.dumps(promoted)}`.\n",
         "## Next scientific action\n",
         "If convergence is adequate, the next isolated neural ablation is endpoint-normalized quantile loss; q50-only/weak-quantile loss follows to test point-loss mismatch. Normalized L2-SP must first correct its parameter-count scaling and be selected by inner CV. Scope/discriminative-LR work follows those loss/regularization controls. Structured HIER and measured-4g-anchor are separate structured/domain branches, not additions to this neural comparison. COMPOUND and Active Learning remain blocked by this ROW developmental result alone.\n"]
     (STUDY / "FINAL_REPORT.md").write_text("\n".join(lines))
+
+
+def finalize_scored_artifacts() -> None:
+    """Finish reporting from an already-scored freeze without rereading truth."""
+    manifest = STUDY / "PREDICTION_FREEZE_MANIFEST.json"
+    required = (manifest, STUDY / "test_metrics.csv", STUDY / "summary.csv", STUDY / "paired_comparisons.csv",
+                STUDY / "CONVERGENCE_SUMMARY.csv", STUDY / "paper_style_current_v2_reference.csv")
+    if any(not path.exists() for path in required):
+        raise RuntimeError("cannot finalize: frozen scored artifacts are incomplete")
+    summary = pd.read_csv(STUDY / "summary.csv")
+    paired = pd.read_csv(STUDY / "paired_comparisons.csv")
+    convergence = pd.read_csv(STUDY / "CONVERGENCE_SUMMARY.csv")
+    reference = pd.read_csv(STUDY / "paper_style_current_v2_reference.csv")
+    _paper_style_gap(summary, reference).to_csv(STUDY / "paper_style_comparison.csv", index=False)
+    reference_summary = reference.groupby("column", as_index=False).mean(numeric_only=True).drop(columns=["outer_seed"], errors="ignore")
+    _write_final_report(summary, paired, convergence, reference_summary)
+    write_json(STUDY / "TEST_SCORE_MANIFEST.json", {"prediction_freeze_sha256": sha(manifest),
+        "test_metrics_sha256": sha(STUDY / "test_metrics.csv"), "status": "ONE_SHOT_DEVELOPMENTAL_TEST_SCORED"})
 
 
 def score() -> None:
@@ -480,9 +529,7 @@ def score() -> None:
         ["column", "seed", "V1_rmse", "V1_mae", "V1_r2", "V2_rmse", "V2_mae", "V2_r2", "combined_normalized_rmse"]].copy()
     reference.rename(columns={"seed": "outer_seed", "combined_normalized_rmse": "historical_source_normalized_rmse"}, inplace=True)
     reference.to_csv(STUDY / "paper_style_current_v2_reference.csv", index=False)
-    _write_final_report(summary, paired, convergence, reference.groupby("column", as_index=False).mean(numeric_only=True))
-    write_json(STUDY / "TEST_SCORE_MANIFEST.json", {"prediction_freeze_sha256": sha(STUDY / "PREDICTION_FREEZE_MANIFEST.json"),
-        "test_metrics_sha256": sha(STUDY / "test_metrics.csv"), "status": "ONE_SHOT_DEVELOPMENTAL_TEST_SCORED"})
+    finalize_scored_artifacts()
 
 
 def main() -> None:
@@ -492,6 +539,7 @@ def main() -> None:
     group.add_argument("--fit-context", nargs=2, metavar=("COLUMN", "SEED"))
     group.add_argument("--freeze", action="store_true")
     group.add_argument("--score", action="store_true")
+    group.add_argument("--finalize-scored", action="store_true")
     args = parser.parse_args()
     if args.fit:
         fit()
@@ -499,6 +547,8 @@ def main() -> None:
         fit_context(args.fit_context[0], int(args.fit_context[1]))
     elif args.freeze:
         freeze()
+    elif args.finalize_scored:
+        finalize_scored_artifacts()
     else:
         score()
 
