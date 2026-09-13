@@ -9,14 +9,18 @@ run on independent workers without changing the split or selection boundary.
 from __future__ import annotations
 
 import argparse
+from contextlib import contextmanager
+import fcntl
 import hashlib
 import json
 import math
 import os
 from pathlib import Path
 import platform
+import shutil
 import subprocess
 import sys
+import tempfile
 import time
 from typing import Any, Iterable, Mapping, Sequence
 
@@ -64,6 +68,50 @@ LOSS_ARMS = {
 }
 READOUT_ARMS = ("R0", "R1", "R2", "R3", "R4")
 
+# The readout screen is deliberately a small state machine rather than an
+# open-ended collection of arm names.  R3/R4 reuse the completed R0--R2 rows
+# by staged append, but their launches and aggregations require a persisted,
+# hash-verified predecessor decision.
+INITIAL_READOUT_ARMS = ("R0", "R1", "R2")
+R3_READOUT_ARMS = (*INITIAL_READOUT_ARMS, "R3")
+R4_READOUT_ARMS = (*R3_READOUT_ARMS, "R4")
+READOUT_STAGE_SPECS = {
+    "initial": {
+        "arms": INITIAL_READOUT_ARMS,
+        "results": "INNER_SCREEN_INITIAL_RESULTS.csv",
+        "decision": "INNER_SCREEN_INITIAL_DECISION.json",
+    },
+    "r3": {
+        "arms": R3_READOUT_ARMS,
+        "results": "INNER_SCREEN_R3_RESULTS.csv",
+        "decision": "INNER_SCREEN_R3_DECISION.json",
+    },
+    "r4": {
+        "arms": R4_READOUT_ARMS,
+        "results": "INNER_SCREEN_R4_RESULTS.csv",
+        "decision": "INNER_SCREEN_R4_DECISION.json",
+    },
+}
+FINAL_READOUT_DECISION_NAME = "inner_screen_decision.json"
+READOUT_SELECTION_BOUNDARY = "ROW inner GroupKFold only; no outer validation/test truth"
+
+# This gate is applied only after the frozen ROW predictions have been scored.
+# It is deliberately separate from the inner-CV architecture-selection gate:
+# the latter chooses a candidate without outer endpoint truth, while this one
+# decides whether the already-frozen candidate may proceed to COMPOUND.
+ROW_CONTINUATION_DECISION_NAME = "ROW_CONTINUATION_DECISION.json"
+ROW_CONTINUATION_RULE = {
+    "mean_combined_gain_pct_min": 3.0,
+    "seed_wins_min": 4,
+    "seed_count": len(SEEDS),
+    "endpoint_mean_regression_pct_max": 2.0,
+    "comparison": "matched candidate versus P0 over the frozen ROW outer-test contexts",
+}
+
+LOSS_SCREEN_EVIDENCE_NAME = "LOSS_SCREEN.csv"
+LOSS_SELECTION_DECISION_NAME = "loss_selection.json"
+LOSS_SCREEN_REPORT_NAME = "LOSS_SCREEN_REPORT.md"
+
 
 def sha(path: Path) -> str:
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -79,16 +127,193 @@ def deterministic_seed(*parts: object) -> int:
 
 def write_json(path: Path, payload: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_suffix(path.suffix + ".tmp")
-    temporary.write_text(json.dumps(payload, indent=2, sort_keys=True, allow_nan=False) + "\n", encoding="utf-8")
-    temporary.replace(path)
+    temporary = _atomic_temporary_path(path)
+    try:
+        temporary.write_text(json.dumps(payload, indent=2, sort_keys=True, allow_nan=False) + "\n", encoding="utf-8")
+        temporary.replace(path)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
+def _atomic_temporary_path(path: Path) -> Path:
+    """Reserve a unique same-directory temporary path for an atomic replace.
+
+    Independent outer-context workers all call ``prepare()`` and may write a
+    shared manifest at the same time.  A fixed ``*.tmp`` name lets one worker
+    replace or remove another worker's temporary file before its write finishes.
+    ``mkstemp`` reserves a unique file in the target directory, retaining the
+    same-filesystem guarantee needed by ``Path.replace``.
+    """
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    descriptor, raw_path = tempfile.mkstemp(prefix=f".{path.name}.", suffix=".tmp", dir=path.parent)
+    os.close(descriptor)
+    return Path(raw_path)
 
 
 def write_frame(path: Path, frame: pd.DataFrame) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_name(path.name + ".tmp")
-    frame.to_csv(temporary, index=False)
-    temporary.replace(path)
+    temporary = _atomic_temporary_path(path)
+    # The temporary name deliberately ends in `.tmp` for atomic replacement,
+    # so pandas cannot infer compression from a final `.csv.gz` suffix.  Make
+    # the compression contract explicit or the renamed artifact would be a
+    # plain CSV masquerading as gzip and fail only at score time.
+    compression = "gzip" if path.suffix == ".gz" else None
+    try:
+        frame.to_csv(temporary, index=False, compression=compression)
+        temporary.replace(path)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
+def _normalize_appended_frame(additions: pd.DataFrame, *, existing_columns: Sequence[str]) -> pd.DataFrame:
+    """Require a staged arm's frame to have precisely the completed schema."""
+
+    expected = list(existing_columns)
+    if set(additions.columns) != set(expected):
+        raise RuntimeError("new inner-screen rows do not match the completed CSV schema")
+    return additions.loc[:, expected]
+
+
+def _append_frame_without_rewriting_existing_rows(path: Path, additions: pd.DataFrame) -> None:
+    """Atomically append rows while retaining the completed CSV bytes verbatim.
+
+    A staged R3/R4 screen may extend a completed R0--R2 context.  Re-serializing
+    the old frame could subtly change float formatting despite not retraining it,
+    so copy the completed file and append only the newly fitted arm rows.
+    """
+
+    if additions.empty:
+        return
+    temporary = _atomic_temporary_path(path)
+    try:
+        shutil.copyfile(path, temporary)
+        with path.open("rb") as original:
+            original.seek(-1, os.SEEK_END)
+            needs_newline = original.read(1) not in (b"\n", b"\r")
+        with temporary.open("a", encoding="utf-8", newline="") as handle:
+            if needs_newline:
+                handle.write("\n")
+            additions.to_csv(handle, index=False, header=False)
+        temporary.replace(path)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
+INNER_APPEND_JOURNAL_NAME = ".inner_append_journal.json"
+INNER_APPEND_SNAPSHOT_DIRECTORY = ".inner_append"
+
+
+def _write_appended_snapshot(source: Path, additions: pd.DataFrame, destination: Path) -> None:
+    """Create a full CSV postimage while retaining prior rows' exact bytes."""
+
+    temporary = _atomic_temporary_path(destination)
+    try:
+        shutil.copyfile(source, temporary)
+        if not additions.empty:
+            with source.open("rb") as original:
+                original.seek(-1, os.SEEK_END)
+                needs_newline = original.read(1) not in (b"\n", b"\r")
+            with temporary.open("a", encoding="utf-8", newline="") as handle:
+                if needs_newline:
+                    handle.write("\n")
+                additions.to_csv(handle, index=False, header=False)
+        temporary.replace(destination)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
+def _install_snapshot(snapshot: Path, target: Path) -> None:
+    """Atomically install a journaled postimage without trusting live files."""
+
+    temporary = _atomic_temporary_path(target)
+    try:
+        shutil.copyfile(snapshot, temporary)
+        temporary.replace(target)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
+def _append_journal_path(run: Path) -> Path:
+    return run / INNER_APPEND_JOURNAL_NAME
+
+
+def _journal_snapshot_path(run: Path, record: Mapping[str, Any], *, label: str) -> tuple[Path, str]:
+    raw_path = record.get("path")
+    digest = record.get("sha256")
+    if not isinstance(raw_path, str) or not isinstance(digest, str):
+        raise RuntimeError(f"inner append journal has an invalid {label} snapshot record")
+    snapshot_root = (run / INNER_APPEND_SNAPSHOT_DIRECTORY).resolve()
+    path = (run / raw_path).resolve()
+    if not path.is_relative_to(snapshot_root) or not path.exists() or sha(path) != digest:
+        raise RuntimeError(f"inner append journal {label} snapshot is missing or changed")
+    return path, digest
+
+
+def _recover_pending_inner_append_unlocked(run: Path) -> dict[str, Path] | None:
+    """Finish an interrupted staged append before validating its completion file."""
+
+    journal_path = _append_journal_path(run)
+    if not journal_path.exists():
+        return None
+    journal = json.loads(journal_path.read_text(encoding="utf-8"))
+    if not isinstance(journal, Mapping) or journal.get("schema_version") != 1 or journal.get("kind") != "INNER_APPEND":
+        raise RuntimeError("inner append journal has an invalid schema")
+    base = journal.get("base")
+    snapshots = journal.get("snapshots")
+    if not isinstance(base, Mapping) or not isinstance(snapshots, Mapping):
+        raise RuntimeError("inner append journal is missing base/snapshot records")
+    summary_path = run / "inner_cv_summary.csv"
+    history_path = run / "inner_cv_history.csv"
+    complete_path = run / "context_complete.json"
+    audit_path = run / "context_audit.json"
+    base_hashes = {
+        "summary": base.get("summary_sha256"),
+        "history": base.get("history_sha256"),
+        "completion": base.get("completion_sha256"),
+        "audit": base.get("audit_sha256"),
+    }
+    if not all(isinstance(value, str) for value in base_hashes.values()):
+        raise RuntimeError("inner append journal has invalid base hashes")
+    if not audit_path.exists() or sha(audit_path) != base_hashes["audit"]:
+        raise RuntimeError("inner append journal audit evidence changed")
+    summary_snapshot, summary_digest = _journal_snapshot_path(run, snapshots.get("summary", {}), label="summary")
+    history_snapshot, history_digest = _journal_snapshot_path(run, snapshots.get("history", {}), label="history")
+    completion_snapshot, completion_digest = _journal_snapshot_path(run, snapshots.get("completion", {}), label="completion")
+    completion_payload = json.loads(completion_snapshot.read_text(encoding="utf-8"))
+    if (not isinstance(completion_payload, Mapping)
+            or completion_payload.get("summary_sha256") != summary_digest
+            or completion_payload.get("history_sha256") != history_digest):
+        raise RuntimeError("inner append journal completion snapshot does not bind its postimages")
+
+    def current_digest(path: Path) -> str | None:
+        return sha(path) if path.exists() else None
+
+    state = (
+        current_digest(summary_path),
+        current_digest(history_path),
+        current_digest(complete_path),
+    )
+    allowed_states = {
+        (base_hashes["summary"], base_hashes["history"], base_hashes["completion"]),
+        (summary_digest, base_hashes["history"], base_hashes["completion"]),
+        (summary_digest, history_digest, base_hashes["completion"]),
+        (summary_digest, history_digest, completion_digest),
+    }
+    if state not in allowed_states:
+        raise RuntimeError("inner append journal/live artifact state is inconsistent; refusing recovery")
+    if state != (summary_digest, history_digest, completion_digest):
+        _install_snapshot(summary_snapshot, summary_path)
+        _install_snapshot(history_snapshot, history_path)
+        _install_snapshot(completion_snapshot, complete_path)
+    return {"journal": journal_path, "snapshot_directory": summary_snapshot.parent}
+
+
+def _cleanup_recovered_inner_append(recovery: Mapping[str, Path]) -> None:
+    """Remove only a fully validated transaction's private postimages."""
+
+    recovery["journal"].unlink(missing_ok=True)
+    shutil.rmtree(recovery["snapshot_directory"], ignore_errors=False)
 
 
 def _environment() -> dict[str, str]:
@@ -350,19 +575,223 @@ def _context_dir(phase: str, outer_protocol: str, column: str, seed: int) -> Pat
     return STUDY / "runtime" / phase / outer_protocol / column / f"seed_{seed}"
 
 
-def _inner_fit_context(*, phase: str, column: str, outer_protocol: str, seed: int,
-                       arms: Sequence[str], recipes: Mapping[str, str]) -> Path:
+@contextmanager
+def _inner_context_lock(run: Path) -> Iterable[None]:
+    """Serialize a context's inspect-fit-append transaction across workers."""
+
+    run.mkdir(parents=True, exist_ok=True)
+    lock_path = run / ".inner_context.lock"
+    with lock_path.open("a+", encoding="utf-8") as handle:
+        fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
+        try:
+            yield
+        finally:
+            fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+
+
+@contextmanager
+def _readout_state_lock() -> Iterable[None]:
+    """Serialize immutable readout-stage evidence and decision commits."""
+
+    STUDY.mkdir(parents=True, exist_ok=True)
+    with (STUDY / ".readout_state.lock").open("a+", encoding="utf-8") as handle:
+        fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
+        try:
+            yield
+        finally:
+            fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+
+
+@contextmanager
+def _loss_selection_lock() -> Iterable[None]:
+    """Serialize the immutable loss-screen evidence and decision commit."""
+
+    STUDY.mkdir(parents=True, exist_ok=True)
+    with (STUDY / ".loss_selection.lock").open("a+", encoding="utf-8") as handle:
+        fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
+        try:
+            yield
+        finally:
+            fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+
+
+def _load_completed_inner_context_unlocked(*, run: Path, phase: str, column: str, outer_protocol: str,
+                                           seed: int, requested_arms: Sequence[str],
+                                           requested_recipes: Mapping[str, str],
+                                           protocol_sha256: str) -> dict[str, Any] | None:
+    """Validate a completed context and identify arms that can safely be added.
+
+    Completion artifacts are treated as immutable inputs.  A later staged call
+    can add only arms absent from the completed contract; it cannot alter an
+    arm's loss recipe, rerun an existing arm, or proceed from a damaged summary.
+    """
+
+    recovery = _recover_pending_inner_append_unlocked(run)
+    complete = run / "context_complete.json"
+    if not complete.exists():
+        return None
+    payload = json.loads(complete.read_text(encoding="utf-8"))
+    expected_identity = {
+        "protocol_sha256": protocol_sha256,
+        "phase": phase,
+        "column": column,
+        "outer_protocol": outer_protocol,
+        "outer_seed": int(seed),
+        "outer_validation_or_test_labels_used": False,
+    }
+    for key, expected in expected_identity.items():
+        if payload.get(key) != expected:
+            raise RuntimeError(f"completed context identity mismatch for {key}: {run}")
+    existing_arms = payload.get("arms")
+    existing_recipes = payload.get("recipes")
+    if (not isinstance(existing_arms, list) or not existing_arms or
+            len(existing_arms) != len(set(existing_arms)) or
+            not isinstance(existing_recipes, dict) or set(existing_recipes) != set(existing_arms)):
+        raise RuntimeError(f"completed context has an invalid arm contract: {run}")
+    summary_path = run / "inner_cv_summary.csv"
+    history_path = run / "inner_cv_history.csv"
+    audit_path = run / "context_audit.json"
+    if not (summary_path.exists() and history_path.exists() and audit_path.exists()):
+        raise RuntimeError(f"completed context is missing a required immutable artifact: {run}")
+    if payload.get("summary_sha256") != sha(summary_path) or payload.get("history_sha256") != sha(history_path):
+        raise RuntimeError(f"completed context summary or history digest mismatch: {run}")
+    summary = pd.read_csv(summary_path)
+    history = pd.read_csv(history_path)
+    required_summary = {"phase", "column", "protocol", "outer_seed", "inner_fold", "arm", "loss_recipe"}
+    if not required_summary.issubset(summary.columns):
+        raise RuntimeError(f"completed context summary schema is incomplete: {run}")
+    if len(summary) != 5 * len(existing_arms) or set(summary.arm.astype(str)) != set(existing_arms):
+        raise RuntimeError(f"completed context summary does not contain exactly five folds per arm: {run}")
+    summary_identity = {
+        "phase": phase,
+        "column": column,
+        "protocol": outer_protocol,
+        "outer_seed": int(seed),
+    }
+    if any(set(summary[key].astype(type(expected))) != {expected} for key, expected in summary_identity.items()):
+        raise RuntimeError(f"completed context summary identity does not match its directory: {run}")
+    duplicate_key = summary.duplicated(["phase", "column", "protocol", "outer_seed", "inner_fold", "arm"])
+    if bool(duplicate_key.any()):
+        raise RuntimeError(f"completed context summary has duplicate arm/fold rows: {run}")
+    for arm in existing_arms:
+        rows = summary.loc[summary.arm.astype(str).eq(arm)]
+        if (len(rows) != 5 or set(rows.inner_fold.astype(int)) != set(range(5)) or
+                set(rows.loss_recipe.astype(str)) != {str(existing_recipes[arm])}):
+            raise RuntimeError(f"completed context summary disagrees with its arm contract: {run}")
+    if not history.empty and ("arm" not in history.columns or not set(history.arm.astype(str)).issubset(set(existing_arms))):
+        raise RuntimeError(f"completed context history contains an unknown arm: {run}")
+    overlap = set(existing_arms).intersection(requested_arms)
+    mismatched = sorted(arm for arm in overlap if str(existing_recipes[arm]) != str(requested_recipes[arm]))
+    if mismatched:
+        raise RuntimeError(f"existing completed arms have different loss recipes: {mismatched}")
+    missing_arms = tuple(arm for arm in requested_arms if arm not in set(existing_arms))
+    result = {
+        "payload": payload,
+        "summary": summary,
+        "history": history,
+        "audit": json.loads(audit_path.read_text(encoding="utf-8")),
+        "missing_arms": missing_arms,
+    }
+    if recovery is not None:
+        _cleanup_recovered_inner_append(recovery)
+    return result
+
+
+def _load_completed_inner_context(*, run: Path, phase: str, column: str, outer_protocol: str,
+                                  seed: int, requested_arms: Sequence[str],
+                                  requested_recipes: Mapping[str, str],
+                                  protocol_sha256: str) -> dict[str, Any] | None:
+    """Read a completed context without observing a concurrent append."""
+
+    if not run.exists():
+        return None
+    with _inner_context_lock(run):
+        return _load_completed_inner_context_unlocked(
+            run=run, phase=phase, column=column, outer_protocol=outer_protocol, seed=seed,
+            requested_arms=requested_arms, requested_recipes=requested_recipes,
+            protocol_sha256=protocol_sha256,
+        )
+
+
+def _commit_staged_inner_append_unlocked(*, run: Path, completed: Mapping[str, Any],
+                                         additions_summary: pd.DataFrame, additions_history: pd.DataFrame,
+                                         completion_identity: Mapping[str, Any]) -> dict[str, Any]:
+    """Write-ahead commit for the two CSV postimages and their completion pointer."""
+
+    journal_path = _append_journal_path(run)
+    if journal_path.exists():
+        raise RuntimeError("pending inner append journal was not recovered before a new append")
+    summary_path = run / "inner_cv_summary.csv"
+    history_path = run / "inner_cv_history.csv"
+    complete_path = run / "context_complete.json"
+    audit_path = run / "context_audit.json"
+    snapshot_root = run / INNER_APPEND_SNAPSHOT_DIRECTORY
+    snapshot_root.mkdir(parents=True, exist_ok=True)
+    transaction = Path(tempfile.mkdtemp(prefix="transaction-", dir=snapshot_root))
+    summary_snapshot = transaction / "summary.next.csv"
+    history_snapshot = transaction / "history.next.csv"
+    completion_snapshot = transaction / "context_complete.next.json"
+    try:
+        _write_appended_snapshot(summary_path, additions_summary, summary_snapshot)
+        _write_appended_snapshot(history_path, additions_history, history_snapshot)
+        expected_completion = {
+            **dict(completion_identity),
+            "summary_sha256": sha(summary_snapshot),
+            "history_sha256": sha(history_snapshot),
+        }
+        write_json(completion_snapshot, expected_completion)
+        journal = {
+            "schema_version": 1,
+            "kind": "INNER_APPEND",
+            "base": {
+                "summary_sha256": sha(summary_path),
+                "history_sha256": sha(history_path),
+                "completion_sha256": sha(complete_path),
+                "audit_sha256": sha(audit_path),
+            },
+            "snapshots": {
+                "summary": {"path": str(summary_snapshot.relative_to(run)), "sha256": sha(summary_snapshot)},
+                "history": {"path": str(history_snapshot.relative_to(run)), "sha256": sha(history_snapshot)},
+                "completion": {"path": str(completion_snapshot.relative_to(run)), "sha256": sha(completion_snapshot)},
+            },
+        }
+        write_json(journal_path, journal)
+        _install_snapshot(summary_snapshot, summary_path)
+        _install_snapshot(history_snapshot, history_path)
+        _install_snapshot(completion_snapshot, complete_path)
+        return expected_completion
+    except Exception:
+        if not journal_path.exists():
+            shutil.rmtree(transaction, ignore_errors=True)
+        raise
+
+
+def _run_inner_fit_context(*, phase: str, column: str, outer_protocol: str, seed: int,
+                           arms: Sequence[str], recipes: Mapping[str, str]) -> Path:
     """Run all requested arms' five inner folds inside one outer context."""
 
     run = _context_dir(phase, outer_protocol, column, seed)
-    complete = run / "context_complete.json"
-    if complete.exists():
-        payload = json.loads(complete.read_text(encoding="utf-8"))
-        if payload.get("arms") == list(arms) and payload.get("recipes") == dict(recipes):
-            return run
-        raise RuntimeError(f"existing completed context has a different arm contract: {run}")
+    requested_arms = tuple(arms)
+    if not requested_arms or len(requested_arms) != len(set(requested_arms)):
+        raise ValueError("inner-screen arms must be a non-empty, unique sequence")
+    if set(recipes) != set(requested_arms):
+        raise ValueError("inner-screen recipes must specify exactly one recipe per requested arm")
+    requested_recipes = {arm: str(recipes[arm]) for arm in requested_arms}
+    if any(recipe not in a.LOSS_RECIPES for recipe in requested_recipes.values()):
+        raise ValueError("inner-screen recipes include an unsupported loss recipe")
+    prepare()
+    completed = _load_completed_inner_context_unlocked(
+        run=run, phase=phase, column=column, outer_protocol=outer_protocol, seed=seed,
+        requested_arms=requested_arms, requested_recipes=requested_recipes,
+        protocol_sha256=sha(STUDY / "protocol.json"),
+    )
+    if completed is not None and not completed["missing_arms"]:
+        return run
+    arms_to_fit = requested_arms if completed is None else completed["missing_arms"]
     context = prepare_context(column, outer_protocol, seed)
-    if any(_arm_requires_source_features(arm) for arm in arms):
+    if completed is not None and completed["audit"] != context["audit"]:
+        raise RuntimeError(f"completed context audit does not match the frozen context: {run}")
+    if any(_arm_requires_source_features(arm) for arm in arms_to_fit):
         _ensure_source_features(context)
     positions = np.asarray(context["positions"]["gradient_train"], dtype=int)
     groups = context["frame"].canonical_smiles.astype(str).to_numpy()[positions]
@@ -378,8 +807,8 @@ def _inner_fit_context(*, phase: str, column: str, outer_protocol: str, seed: in
         if set(train_groups) & set(valid_groups):
             raise RuntimeError("canonical smiles leaked across inner GroupKFold roles")
         scales = a.fit_target_scales(context["atoms"], inner_train)
-        for arm in arms:
-            recipe = recipes[arm]
+        for arm in arms_to_fit:
+            recipe = requested_recipes[arm]
             initialized = deterministic_seed("conditioned-source-readout", phase, column, outer_protocol, seed, fold, arm)
             # L0/L1/L2 are loss-only P0 architecture controls; their artifact
             # labels remain L* while their model contract is R0/P0.
@@ -411,144 +840,649 @@ def _inner_fit_context(*, phase: str, column: str, outer_protocol: str, seed: in
                               "inner_fold": int(fold), "arm": arm, "loss_recipe": recipe, **item}
                              for item in fit.history)
     run.mkdir(parents=True, exist_ok=True)
-    write_frame(run / "inner_cv_summary.csv", pd.DataFrame(rows))
-    write_frame(run / "inner_cv_history.csv", pd.DataFrame(histories))
-    write_json(run / "context_audit.json", context["audit"])
-    write_json(complete, {
-        "protocol_sha256": sha(STUDY / "protocol.json"), "phase": phase, "column": column,
-        "outer_protocol": outer_protocol, "outer_seed": int(seed), "arms": list(arms), "recipes": dict(recipes),
-        "summary_sha256": sha(run / "inner_cv_summary.csv"), "history_sha256": sha(run / "inner_cv_history.csv"),
-        "outer_validation_or_test_labels_used": False,
-    })
+    new_summary = pd.DataFrame(rows)
+    new_history = pd.DataFrame(histories)
+    summary_path = run / "inner_cv_summary.csv"
+    history_path = run / "inner_cv_history.csv"
+    complete = run / "context_complete.json"
+    if completed is None:
+        write_frame(summary_path, new_summary)
+        write_frame(history_path, new_history)
+        write_json(run / "context_audit.json", context["audit"])
+        completed_arms = list(requested_arms)
+        completed_recipes = dict(requested_recipes)
+        write_json(complete, {
+            "protocol_sha256": sha(STUDY / "protocol.json"), "phase": phase, "column": column,
+            "outer_protocol": outer_protocol, "outer_seed": int(seed), "arms": completed_arms, "recipes": completed_recipes,
+            "summary_sha256": sha(summary_path), "history_sha256": sha(history_path),
+            "outer_validation_or_test_labels_used": False,
+        })
+    else:
+        # Build and journal both postimages before replacing either live CSV.
+        # Recovery can therefore finish a process interrupted between files
+        # without refitting or accepting a stale completion digest.
+        appended_summary = _normalize_appended_frame(new_summary, existing_columns=completed["summary"].columns)
+        appended_history = _normalize_appended_frame(new_history, existing_columns=completed["history"].columns)
+        completed_arms = [*completed["payload"]["arms"], *arms_to_fit]
+        completed_recipes = {**completed["payload"]["recipes"],
+                             **{arm: requested_recipes[arm] for arm in arms_to_fit}}
+        completion_identity = {
+            "protocol_sha256": sha(STUDY / "protocol.json"), "phase": phase, "column": column,
+            "outer_protocol": outer_protocol, "outer_seed": int(seed), "arms": completed_arms, "recipes": completed_recipes,
+            "outer_validation_or_test_labels_used": False,
+        }
+        _commit_staged_inner_append_unlocked(
+            run=run, completed=completed, additions_summary=appended_summary, additions_history=appended_history,
+            completion_identity=completion_identity,
+        )
+        verified = _load_completed_inner_context_unlocked(
+            run=run, phase=phase, column=column, outer_protocol=outer_protocol, seed=seed,
+            requested_arms=tuple(completed_arms), requested_recipes=completed_recipes,
+            protocol_sha256=sha(STUDY / "protocol.json"),
+        )
+        if verified is None or verified["missing_arms"]:
+            raise RuntimeError("staged inner append did not validate its committed postimages")
     return run
 
 
+def _inner_fit_context(*, phase: str, column: str, outer_protocol: str, seed: int,
+                       arms: Sequence[str], recipes: Mapping[str, str]) -> Path:
+    """Run one context under a cross-worker transaction lock."""
+
+    requested_arms = tuple(arms)
+    if not requested_arms or len(requested_arms) != len(set(requested_arms)):
+        raise ValueError("inner-screen arms must be a non-empty, unique sequence")
+    if set(recipes) != set(requested_arms):
+        raise ValueError("inner-screen recipes must specify exactly one recipe per requested arm")
+    requested_recipes = {arm: str(recipes[arm]) for arm in requested_arms}
+    if any(recipe not in a.LOSS_RECIPES for recipe in requested_recipes.values()):
+        raise ValueError("inner-screen recipes include an unsupported loss recipe")
+    run = _context_dir(phase, outer_protocol, column, seed)
+    with _inner_context_lock(run):
+        return _run_inner_fit_context(
+            phase=phase, column=column, outer_protocol=outer_protocol, seed=seed,
+            arms=requested_arms, recipes=requested_recipes,
+        )
+
+
 def run_loss_context(column: str, seed: int) -> Path:
+    # Once a global loss decision exists, all ten source contexts are immutable
+    # selection evidence.  Recheck the complete frozen decision before allowing
+    # an idempotent resume, rather than silently fitting a newly missing arm.
+    if (STUDY / LOSS_SELECTION_DECISION_NAME).exists():
+        _selected_loss()
     return _inner_fit_context(phase="loss_screen", column=column, outer_protocol="row", seed=seed,
                               arms=tuple(LOSS_ARMS), recipes=LOSS_ARMS)
 
 
 def _selected_loss() -> dict[str, Any]:
-    path = STUDY / "loss_selection.json"
+    return _freeze_loss_selection()
+
+
+def _readout_stage_for_context(arms: Sequence[str]) -> str:
+    requested = tuple(arms)
+    if requested == INITIAL_READOUT_ARMS:
+        return "initial"
+    if requested == ("R3",):
+        return "r3"
+    if requested == ("R4",):
+        return "r4"
+    raise ValueError(
+        "readout context arms must be exactly R0 R1 R2, then staged R3, then staged R4"
+    )
+
+
+def _readout_stage_for_aggregate(arms: Sequence[str]) -> str:
+    requested = tuple(arms)
+    for stage, specification in READOUT_STAGE_SPECS.items():
+        if requested == tuple(specification["arms"]):
+            return stage
+    raise ValueError(
+        "readout aggregation arms must be exactly R0 R1 R2, R0 R1 R2 R3, or R0 R1 R2 R3 R4"
+    )
+
+
+def _readout_stage_path(stage: str, artifact: str) -> Path:
+    try:
+        name = str(READOUT_STAGE_SPECS[stage][artifact])
+    except KeyError as error:
+        raise ValueError(f"unknown readout stage/artifact: {stage}/{artifact}") from error
+    return STUDY / name
+
+
+def _readout_stage_reference(stage: str) -> dict[str, str]:
+    path = _readout_stage_path(stage, "decision")
     if not path.exists():
-        raise RuntimeError("loss screen has not selected one global recipe")
-    return json.loads(path.read_text(encoding="utf-8"))
+        raise RuntimeError(f"missing persisted {stage} readout decision")
+    return {"path": str(path.relative_to(ROOT)), "sha256": sha(path)}
+
+
+def _sorted_screen_values(values: pd.DataFrame, arms: Sequence[str]) -> pd.DataFrame:
+    expected_arms = tuple(arms)
+    expected_count = len(COLUMNS) * len(SEEDS) * 5 * len(expected_arms)
+    subset = values.loc[values.arm.astype(str).isin(expected_arms)].copy()
+    if len(subset) != expected_count or set(subset.arm.astype(str)) != set(expected_arms):
+        raise RuntimeError("readout stage evidence does not contain the exact preregistered arm schedule")
+    key = ["column", "outer_seed", "inner_fold", "arm"]
+    if subset.duplicated(key).any():
+        raise RuntimeError("readout stage evidence has duplicate context/arm rows")
+    return subset.sort_values(key).reset_index(drop=True)
+
+
+def _assert_same_screen_frame(actual: pd.DataFrame, expected: pd.DataFrame, *, path: Path) -> None:
+    if list(actual.columns) != list(expected.columns):
+        raise RuntimeError(f"readout evidence schema drift: {path}")
+    try:
+        pd.testing.assert_frame_equal(
+            actual.reset_index(drop=True), expected.reset_index(drop=True),
+            check_dtype=False, check_exact=False, rtol=1e-12, atol=1e-12,
+        )
+    except AssertionError as error:
+        raise RuntimeError(f"readout evidence no longer matches hash-verified completed contexts: {path}") from error
+
+
+def _persist_screen_evidence(path: Path, values: pd.DataFrame) -> str:
+    if path.exists():
+        _assert_same_screen_frame(pd.read_csv(path), values, path=path)
+    else:
+        write_frame(path, values)
+    return sha(path)
+
+
+def _readout_summary(values: pd.DataFrame, arms: Sequence[str], stage: str) -> tuple[list[dict[str, Any]], dict[str, bool], str | None, str | None]:
+    base = values.loc[values.arm.astype(str).eq("R0"), ["column", "outer_seed", "inner_fold", "validation_score"]]
+    base = base.rename(columns={"validation_score": "R0_score"})
+    rows: list[dict[str, Any]] = []
+    arm_summary: dict[str, list[dict[str, Any]]] = {}
+    for arm in tuple(arms)[1:]:
+        current = values.loc[values.arm.astype(str).eq(arm), ["column", "outer_seed", "inner_fold", "validation_score"]]
+        merged = base.merge(current, on=["column", "outer_seed", "inner_fold"], validate="one_to_one")
+        if len(merged) != len(COLUMNS) * len(SEEDS) * 5:
+            raise RuntimeError(f"readout screen cannot pair R0 with {arm}")
+        merged["relative_improvement_pct"] = 100 * (merged.R0_score - merged.validation_score) / merged.R0_score
+        per_arm: list[dict[str, Any]] = []
+        for column, group in merged.groupby("column", sort=True):
+            seed_mean = group.groupby("outer_seed", as_index=False).relative_improvement_pct.mean()
+            record = {
+                "arm": arm,
+                "column": str(column),
+                "mean_relative_improvement_pct": float(group.relative_improvement_pct.mean()),
+                "std_relative_improvement_pct": float(group.relative_improvement_pct.std(ddof=1)),
+                "fold_wins": int((group.relative_improvement_pct > 0).sum()),
+                "seed_wins": int((seed_mean.relative_improvement_pct > 0).sum()),
+                "n_folds": int(len(group)),
+                "n_seeds": int(len(seed_mean)),
+            }
+            rows.append(record)
+            per_arm.append(record)
+        arm_summary[arm] = per_arm
+    gates = {
+        arm: bool(
+            len(records) == len(COLUMNS)
+            and (pd.DataFrame(records).mean_relative_improvement_pct >= 3.0).all()
+            and (pd.DataFrame(records).seed_wins >= 3).all()
+            and (pd.DataFrame(records).fold_wins >= 13).all()
+        )
+        for arm, records in arm_summary.items()
+    }
+    if stage == "initial":
+        next_arm = "R3" if gates.get("R2", False) else None
+    elif stage == "r3":
+        next_arm = "R4" if gates.get("R3", False) else None
+    elif stage == "r4":
+        next_arm = None
+    else:
+        raise ValueError(f"unknown readout stage: {stage}")
+    selected = None
+    if next_arm is None:
+        eligible = [arm for arm in tuple(arms)[1:] if gates.get(arm, False)]
+        if eligible:
+            # Ties are resolved toward the simpler arm, independent of CLI order.
+            complexity = {arm: index for index, arm in enumerate(READOUT_ARMS)}
+            selected = max(
+                eligible,
+                key=lambda arm: (
+                    float(pd.DataFrame(arm_summary[arm]).mean_relative_improvement_pct.mean()),
+                    -complexity[arm],
+                ),
+            )
+    return rows, gates, next_arm, selected
+
+
+def _stage_parent_references(stage: str) -> dict[str, dict[str, str]]:
+    if stage == "initial":
+        return {}
+    initial = _verify_readout_stage("initial")
+    if not initial["gates"].get("R2", False):
+        raise RuntimeError("R3 is blocked: the persisted initial R2 gate did not pass")
+    references = {"initial": _readout_stage_reference("initial")}
+    if stage == "r3":
+        return references
+    r3 = _verify_readout_stage("r3")
+    if not r3["gates"].get("R3", False):
+        raise RuntimeError("R4 is blocked: the persisted R3 gate did not pass")
+    references["r3"] = _readout_stage_reference("r3")
+    if stage == "r4":
+        return references
+    raise ValueError(f"unknown readout stage: {stage}")
+
+
+def _readout_stage_payload(stage: str, values: pd.DataFrame, selected_loss: Mapping[str, Any],
+                           evidence_sha256: str, parents: Mapping[str, Mapping[str, str]]) -> dict[str, Any]:
+    specification = READOUT_STAGE_SPECS[stage]
+    arms = tuple(specification["arms"])
+    summary, gates, next_arm, candidate = _readout_summary(values, arms, stage)
+    loss_path = STUDY / "loss_selection.json"
+    protocol = json.loads((STUDY / "protocol.json").read_text(encoding="utf-8"))
+    evidence_path = _readout_stage_path(stage, "results")
+    return {
+        "schema_version": 1,
+        "decision_kind": "READOUT_STAGE",
+        "stage": stage,
+        "protocol_sha256": sha(STUDY / "protocol.json"),
+        "loss_selection": {
+            "path": str(loss_path.relative_to(ROOT)),
+            "sha256": sha(loss_path),
+            "selected_loss_arm": str(selected_loss["selected_loss_arm"]),
+            "selected_loss_recipe": str(selected_loss["selected_loss_recipe"]),
+        },
+        "parents": dict(parents),
+        "screened_arms": list(arms),
+        "summary": summary,
+        "gates": gates,
+        "next_arm": next_arm,
+        "selected_candidate_if_screen_stops": candidate,
+        "rule": protocol["architecture_continuation_rule"],
+        "selection_boundary": READOUT_SELECTION_BOUNDARY,
+        "evidence": {
+            "path": str(evidence_path.relative_to(ROOT)),
+            "sha256": evidence_sha256,
+        },
+    }
+
+
+def _verify_readout_stage(stage: str) -> dict[str, Any]:
+    if stage not in READOUT_STAGE_SPECS:
+        raise ValueError(f"unknown readout stage: {stage}")
+    decision_path = _readout_stage_path(stage, "decision")
+    evidence_path = _readout_stage_path(stage, "results")
+    if not decision_path.exists() or not evidence_path.exists():
+        raise RuntimeError(f"missing persisted {stage} readout decision/evidence")
+    decision = json.loads(decision_path.read_text(encoding="utf-8"))
+    parents = _stage_parent_references(stage)
+    selected_loss = _selected_loss()
+    arms = tuple(READOUT_STAGE_SPECS[stage]["arms"])
+    values = _collect_inner(
+        "inner_screen", "row", arms,
+        {arm: selected_loss["selected_loss_recipe"] for arm in arms},
+    )
+    stage_values = _sorted_screen_values(values, arms)
+    _assert_same_screen_frame(pd.read_csv(evidence_path), stage_values, path=evidence_path)
+    evidence_sha256 = sha(evidence_path)
+    expected = _readout_stage_payload(stage, stage_values, selected_loss, evidence_sha256, parents)
+    if decision != expected:
+        raise RuntimeError(f"persisted {stage} readout decision is mutable, unhashed, or inconsistent with its evidence")
+    return decision
+
+
+def _final_readout_payload(stage: str, stage_decision: Mapping[str, Any]) -> dict[str, Any]:
+    stage_reference = _readout_stage_reference(stage)
+    return {
+        "schema_version": 1,
+        "decision_kind": "FINAL_READOUT_CANDIDATE",
+        "protocol_sha256": sha(STUDY / "protocol.json"),
+        "stage": stage,
+        "stage_decision": stage_reference,
+        "loss_selection": dict(stage_decision["loss_selection"]),
+        "screened_arms": list(stage_decision["screened_arms"]),
+        "summary": list(stage_decision["summary"]),
+        "gates": dict(stage_decision["gates"]),
+        "next_arm": stage_decision["next_arm"],
+        "selected_candidate_if_screen_stops": stage_decision["selected_candidate_if_screen_stops"],
+        "selection_boundary": stage_decision["selection_boundary"],
+    }
+
+
+def _persist_immutable_json(path: Path, payload: Mapping[str, Any], *, label: str) -> dict[str, Any]:
+    if path.exists():
+        existing = json.loads(path.read_text(encoding="utf-8"))
+        if existing != payload:
+            raise RuntimeError(f"{label} drift; refusing to overwrite immutable evidence")
+        return existing
+    write_json(path, dict(payload))
+    return dict(payload)
+
+
+def _persist_immutable_text(path: Path, content: str, *, label: str) -> None:
+    if path.exists():
+        if path.read_text(encoding="utf-8") != content:
+            raise RuntimeError(f"{label} drift; refusing to overwrite immutable evidence")
+        return
+    temporary = _atomic_temporary_path(path)
+    try:
+        temporary.write_text(content, encoding="utf-8")
+        temporary.replace(path)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
+def _persist_final_readout_decision(stage: str, stage_decision: Mapping[str, Any]) -> dict[str, Any]:
+    path = STUDY / FINAL_READOUT_DECISION_NAME
+    return _persist_immutable_json(path, _final_readout_payload(stage, stage_decision), label="final readout decision")
+
+
+def _verified_final_readout_decision() -> dict[str, Any]:
+    path = STUDY / FINAL_READOUT_DECISION_NAME
+    if not path.exists():
+        raise RuntimeError("candidate provenance is missing the terminal ROW readout decision")
+    decision = json.loads(path.read_text(encoding="utf-8"))
+    stage = decision.get("stage")
+    if stage not in READOUT_STAGE_SPECS:
+        raise RuntimeError("candidate provenance has an invalid terminal readout stage")
+    stage_decision = _verify_readout_stage(str(stage))
+    expected = _final_readout_payload(str(stage), stage_decision)
+    if decision != expected:
+        raise RuntimeError("terminal ROW readout decision is mutable, unhashed, or inconsistent with its stage evidence")
+    return decision
 
 
 def run_readout_context(column: str, seed: int, arms: Sequence[str]) -> Path:
+    stage = _readout_stage_for_context(arms)
+    if stage == "initial":
+        # Once persisted, an initial decision can only be rechecked/idempotently
+        # resumed; it cannot be replaced by a fresh arm subset.
+        if _readout_stage_path("initial", "decision").exists():
+            _verify_readout_stage("initial")
+    else:
+        if (STUDY / FINAL_READOUT_DECISION_NAME).exists():
+            _verified_final_readout_decision()
+            raise RuntimeError("readout screen is terminal; no later arm may be appended")
+        _stage_parent_references(stage)
     selected = _selected_loss()
     recipe = selected["selected_loss_recipe"]
-    if any(arm not in READOUT_ARMS for arm in arms):
-        raise ValueError("unknown readout arm")
     return _inner_fit_context(phase="inner_screen", column=column, outer_protocol="row", seed=seed,
                               arms=tuple(arms), recipes={arm: recipe for arm in arms})
 
 
-def _collect_inner(phase: str, outer_protocol: str, required_arms: Sequence[str]) -> pd.DataFrame:
+def _collect_inner(phase: str, outer_protocol: str, required_arms: Sequence[str],
+                   recipes: Mapping[str, str]) -> pd.DataFrame:
+    """Collect only hash-verified completed inner contexts.
+
+    The summary CSV is a selection input, so it is never trusted merely because
+    it exists.  `context_complete.json` commits its identity and CSV digests;
+    the same validator used for staged R3/R4 append protects loss/readout
+    aggregation from a later edit or mismatched directory.
+    """
+
+    expected_arms = tuple(required_arms)
+    expected_recipes = {arm: str(recipes[arm]) for arm in expected_arms}
+    if set(recipes) != set(expected_arms):
+        raise ValueError("inner collector recipes must match required arms exactly")
     frames: list[pd.DataFrame] = []
     missing = []
     for column in COLUMNS:
         for seed in SEEDS:
-            path = _context_dir(phase, outer_protocol, column, seed) / "inner_cv_summary.csv"
-            if not path.exists():
-                missing.append(str(path.relative_to(ROOT)))
+            run = _context_dir(phase, outer_protocol, column, seed)
+            completed = _load_completed_inner_context(
+                run=run, phase=phase, column=column, outer_protocol=outer_protocol, seed=seed,
+                requested_arms=expected_arms, requested_recipes=expected_recipes,
+                protocol_sha256=sha(STUDY / "protocol.json"),
+            )
+            if completed is None:
+                missing.append(str((run / "context_complete.json").relative_to(ROOT)))
                 continue
-            frame = pd.read_csv(path)
-            if set(required_arms) - set(frame.arm):
-                missing.append(f"{path.relative_to(ROOT)} missing arms {sorted(set(required_arms) - set(frame.arm))}")
+            frame = completed["summary"]
+            if completed["missing_arms"]:
+                missing.append(f"{(run / 'inner_cv_summary.csv').relative_to(ROOT)} missing arms {sorted(completed['missing_arms'])}")
             frames.append(frame)
     if missing:
         raise RuntimeError("incomplete preregistered inner screen:\n" + "\n".join(missing))
     result = pd.concat(frames, ignore_index=True)
-    expected = len(COLUMNS) * len(SEEDS) * 5 * len(required_arms)
-    if len(result.loc[result.arm.isin(required_arms)]) != expected:
+    expected = len(COLUMNS) * len(SEEDS) * 5 * len(expected_arms)
+    if len(result.loc[result.arm.isin(expected_arms)]) != expected:
         raise RuntimeError("inner screen row count does not equal frozen 2x5x5 schedule")
     return result
 
 
-def aggregate_loss_screen() -> dict[str, Any]:
-    values = _collect_inner("loss_screen", "row", tuple(LOSS_ARMS))
-    write_frame(STUDY / "LOSS_SCREEN.csv", values.sort_values(["column", "outer_seed", "inner_fold", "arm"]))
-    paired_rows: list[dict[str, Any]] = []
+def _sorted_loss_screen_values(values: pd.DataFrame) -> pd.DataFrame:
+    """Return the exact L0/L1/L2 selection schedule in a canonical order."""
+
+    expected_arms = tuple(LOSS_ARMS)
+    expected_count = len(COLUMNS) * len(SEEDS) * 5 * len(expected_arms)
+    subset = values.loc[values.arm.astype(str).isin(expected_arms)].copy()
+    key = ["column", "outer_seed", "inner_fold", "arm"]
+    if (len(subset) != expected_count or set(subset.arm.astype(str)) != set(expected_arms)
+            or bool(subset.duplicated(key).any())):
+        raise RuntimeError("loss screen evidence does not contain the exact preregistered arm schedule")
+    return subset.sort_values(key).reset_index(drop=True)
+
+
+def _assert_same_loss_screen_frame(actual: pd.DataFrame, expected: pd.DataFrame, *, path: Path) -> None:
+    if list(actual.columns) != list(expected.columns):
+        raise RuntimeError(f"loss screen evidence schema drift: {path}")
+    try:
+        pd.testing.assert_frame_equal(
+            actual.reset_index(drop=True), expected.reset_index(drop=True),
+            check_dtype=False, check_exact=False, rtol=1e-12, atol=1e-12,
+        )
+    except AssertionError as error:
+        raise RuntimeError(
+            f"loss screen evidence no longer matches hash-verified completed contexts: {path}"
+        ) from error
+
+
+def _persist_loss_screen_evidence(path: Path, values: pd.DataFrame, *, selection_exists: bool) -> str:
+    """Create the aggregate once, or prove that its existing bytes still agree."""
+
+    if path.exists():
+        _assert_same_loss_screen_frame(pd.read_csv(path), values, path=path)
+    elif selection_exists:
+        raise RuntimeError("frozen loss selection is missing its immutable LOSS_SCREEN.csv evidence")
+    else:
+        write_frame(path, values)
+    return sha(path)
+
+
+def _loss_screen_summary(values: pd.DataFrame) -> tuple[list[dict[str, Any]], list[tuple[float, str]], str]:
+    """Apply the preregistered global L0/L1/L2 choice without outer truth."""
+
     summary_rows: list[dict[str, Any]] = []
-    base = values.loc[values.arm.eq("L0"), ["column", "outer_seed", "inner_fold", "validation_score"]].rename(columns={"validation_score": "L0_score"})
+    base = values.loc[
+        values.arm.astype(str).eq("L0"),
+        ["column", "outer_seed", "inner_fold", "validation_score"],
+    ].rename(columns={"validation_score": "L0_score"})
     for arm in ("L1", "L2"):
-        current = values.loc[values.arm.eq(arm), ["column", "outer_seed", "inner_fold", "validation_score"]]
+        current = values.loc[
+            values.arm.astype(str).eq(arm),
+            ["column", "outer_seed", "inner_fold", "validation_score"],
+        ]
         merged = base.merge(current, on=["column", "outer_seed", "inner_fold"], validate="one_to_one")
+        if len(merged) != len(COLUMNS) * len(SEEDS) * 5:
+            raise RuntimeError(f"loss screen cannot pair L0 with {arm}")
+        if (merged.L0_score == 0).any():
+            raise RuntimeError("loss screen cannot compute relative improvement against a zero L0 score")
         merged["relative_improvement_pct"] = 100 * (merged.L0_score - merged.validation_score) / merged.L0_score
         for column, group in merged.groupby("column", sort=True):
             seed_mean = group.groupby("outer_seed", as_index=False).relative_improvement_pct.mean()
-            row = {"arm": arm, "column": column, "mean_relative_improvement_pct": float(group.relative_improvement_pct.mean()),
-                   "std_relative_improvement_pct": float(group.relative_improvement_pct.std(ddof=1)),
-                   "fold_wins": int((group.relative_improvement_pct > 0).sum()),
-                   "seed_wins": int((seed_mean.relative_improvement_pct > 0).sum()),
-                   "n_folds": int(len(group)), "n_seeds": int(len(seed_mean))}
-            summary_rows.append(row)
-            paired_rows.extend({"arm": arm, **record} for record in merged.loc[merged.column.eq(column)].to_dict("records"))
+            summary_rows.append({
+                "arm": arm,
+                "column": str(column),
+                "mean_relative_improvement_pct": float(group.relative_improvement_pct.mean()),
+                "std_relative_improvement_pct": float(group.relative_improvement_pct.std(ddof=1)),
+                "fold_wins": int((group.relative_improvement_pct > 0).sum()),
+                "seed_wins": int((seed_mean.relative_improvement_pct > 0).sum()),
+                "n_folds": int(len(group)),
+                "n_seeds": int(len(seed_mean)),
+            })
     summary = pd.DataFrame(summary_rows)
-    eligible = []
+    eligible: list[tuple[float, str]] = []
     for arm in ("L1", "L2"):
-        subset = summary.loc[summary.arm.eq(arm)]
-        if len(subset) != 2:
-            continue
-        stable = bool((subset.mean_relative_improvement_pct >= 1.0).all()
-                      and (subset.seed_wins >= 3).all() and (subset.fold_wins >= 13).all())
+        subset = summary.loc[summary.arm.astype(str).eq(arm)]
+        stable = bool(
+            len(subset) == len(COLUMNS)
+            and (subset.mean_relative_improvement_pct >= 1.0).all()
+            and (subset.seed_wins >= 3).all()
+            and (subset.fold_wins >= 13).all()
+        )
         if stable:
             eligible.append((float(subset.mean_relative_improvement_pct.mean()), arm))
     selected_arm = max(eligible)[1] if eligible else "L0"
-    decision = {"selected_loss_arm": selected_arm, "selected_loss_recipe": LOSS_ARMS[selected_arm],
-                "selection_boundary": "ROW inner GroupKFold only; no outer validation/test truth", "summary": summary_rows,
-                "rule": _protocol()["loss_selection_rule"], "eligible_nonbaseline": [arm for _, arm in eligible]}
-    write_json(STUDY / "loss_selection.json", decision)
-    lines = ["# Loss screen report", "", "The three fixed loss recipes were evaluated only in 5-fold canonical-SMILES GroupKFold inside each ROW outer gradient-train context. No outer validation/test endpoint was available to the screen.", "",
-             f"Selected global recipe: **{selected_arm} / `{LOSS_ARMS[selected_arm]}`**.", "", "| arm | column | mean relative improvement (%) | fold wins | seed wins |", "| --- | --- | ---: | ---: | ---: |"]
-    for row in summary_rows:
-        lines.append(f"| {row['arm']} | {row['column']} | {row['mean_relative_improvement_pct']:.3f} | {row['fold_wins']}/25 | {row['seed_wins']}/5 |")
-    lines.extend(["", "A non-L0 recipe required >=1% mean improvement in both columns, >=13/25 fold wins and >=3/5 seed wins in both columns. Otherwise the simpler raw P0 recipe remains selected.", ""])
-    (STUDY / "LOSS_SCREEN_REPORT.md").write_text("\n".join(lines), encoding="utf-8")
+    return summary_rows, eligible, selected_arm
+
+
+def _loss_screen_source_contexts() -> list[dict[str, Any]]:
+    """Bind a frozen selection to every validated context and its audit bytes."""
+
+    protocol_sha256 = sha(STUDY / "protocol.json")
+    sources: list[dict[str, Any]] = []
+    for column in COLUMNS:
+        for seed in SEEDS:
+            run = _context_dir("loss_screen", "row", column, seed)
+            completed = _load_completed_inner_context(
+                run=run, phase="loss_screen", column=column, outer_protocol="row", seed=seed,
+                requested_arms=tuple(LOSS_ARMS), requested_recipes=LOSS_ARMS,
+                protocol_sha256=protocol_sha256,
+            )
+            if completed is None or completed["missing_arms"]:
+                raise RuntimeError(f"loss selection source context is incomplete: {run}")
+            complete_path = run / "context_complete.json"
+            summary_path = run / "inner_cv_summary.csv"
+            history_path = run / "inner_cv_history.csv"
+            audit_path = run / "context_audit.json"
+            sources.append({
+                "column": column,
+                "outer_seed": int(seed),
+                "context_complete": {"path": str(complete_path.relative_to(ROOT)), "sha256": sha(complete_path)},
+                "summary": {"path": str(summary_path.relative_to(ROOT)), "sha256": sha(summary_path)},
+                "history": {"path": str(history_path.relative_to(ROOT)), "sha256": sha(history_path)},
+                "audit": {"path": str(audit_path.relative_to(ROOT)), "sha256": sha(audit_path)},
+            })
+    return sources
+
+
+def _loss_selection_payload(values: pd.DataFrame, *, evidence_sha256: str,
+                            source_contexts: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
+    """Build the one global loss decision from persisted protocol evidence only."""
+
+    protocol_path = STUDY / "protocol.json"
+    protocol = json.loads(protocol_path.read_text(encoding="utf-8"))
+    rule = protocol.get("loss_selection_rule")
+    if not isinstance(rule, str) or not rule:
+        raise RuntimeError("persisted protocol lacks the loss-selection rule")
+    summary, eligible, selected_arm = _loss_screen_summary(values)
+    evidence_path = STUDY / LOSS_SCREEN_EVIDENCE_NAME
+    return {
+        "schema_version": 1,
+        "decision_kind": "LOSS_SELECTION",
+        "protocol_sha256": sha(protocol_path),
+        "selection_boundary": READOUT_SELECTION_BOUNDARY,
+        "screened_arms": list(LOSS_ARMS),
+        "recipes": dict(LOSS_ARMS),
+        "source_contexts": [dict(record) for record in source_contexts],
+        "evidence": {
+            "path": str(evidence_path.relative_to(ROOT)),
+            "sha256": evidence_sha256,
+        },
+        "summary": summary,
+        "rule": rule,
+        "eligible_nonbaseline": [arm for _, arm in eligible],
+        "selected_loss_arm": selected_arm,
+        "selected_loss_recipe": LOSS_ARMS[selected_arm],
+    }
+
+
+def _loss_screen_report_text(decision: Mapping[str, Any]) -> str:
+    lines = [
+        "# Loss screen report",
+        "",
+        "The three fixed loss recipes were evaluated only in 5-fold canonical-SMILES GroupKFold inside each ROW outer gradient-train context. No outer validation/test endpoint was available to the screen.",
+        "",
+        f"Selected global recipe: **{decision['selected_loss_arm']} / `{decision['selected_loss_recipe']}`**.",
+        "",
+        "| arm | column | mean relative improvement (%) | fold wins | seed wins |",
+        "| --- | --- | ---: | ---: | ---: |",
+    ]
+    for row in decision["summary"]:
+        lines.append(
+            f"| {row['arm']} | {row['column']} | {row['mean_relative_improvement_pct']:.3f} | "
+            f"{row['fold_wins']}/25 | {row['seed_wins']}/5 |"
+        )
+    lines.extend([
+        "",
+        "A non-L0 recipe required >=1% mean improvement in both columns, >=13/25 fold wins and >=3/5 seed wins in both columns. Otherwise the simpler raw P0 recipe remains selected.",
+        "",
+    ])
+    return "\n".join(lines)
+
+
+def _freeze_loss_selection_unlocked() -> dict[str, Any]:
+    """Recompute and verify the immutable loss decision under its commit lock."""
+
+    values = _sorted_loss_screen_values(
+        _collect_inner("loss_screen", "row", tuple(LOSS_ARMS), LOSS_ARMS)
+    )
+    decision_path = STUDY / LOSS_SELECTION_DECISION_NAME
+    evidence_sha256 = _persist_loss_screen_evidence(
+        STUDY / LOSS_SCREEN_EVIDENCE_NAME, values, selection_exists=decision_path.exists(),
+    )
+    expected = _loss_selection_payload(
+        values, evidence_sha256=evidence_sha256, source_contexts=_loss_screen_source_contexts(),
+    )
+    decision = _persist_immutable_json(decision_path, expected, label="loss selection")
+    _persist_immutable_text(
+        STUDY / LOSS_SCREEN_REPORT_NAME, _loss_screen_report_text(decision), label="loss screen report",
+    )
+    return decision
+
+
+def _freeze_loss_selection() -> dict[str, Any]:
+    with _loss_selection_lock():
+        return _freeze_loss_selection_unlocked()
+
+
+def aggregate_loss_screen() -> dict[str, Any]:
+    return _freeze_loss_selection()
+
+
+def _aggregate_readout_screen_unlocked(arms: Sequence[str]) -> dict[str, Any]:
+    stage = _readout_stage_for_aggregate(arms)
+    decision_path = _readout_stage_path(stage, "decision")
+    if decision_path.exists():
+        decision = _verify_readout_stage(stage)
+        # A worker can be interrupted after the stage evidence/decision commit
+        # but before the terminal pointer commit below.  Re-running the same
+        # aggregation is therefore a safe recovery action, never a reselection.
+        if decision["next_arm"] is None:
+            _persist_final_readout_decision(stage, decision)
+        return decision
+    if (STUDY / FINAL_READOUT_DECISION_NAME).exists():
+        _verified_final_readout_decision()
+        raise RuntimeError("readout screen is terminal; refusing to aggregate another stage")
+    parents = _stage_parent_references(stage)
+    selected = _selected_loss()
+    required_arms = tuple(READOUT_STAGE_SPECS[stage]["arms"])
+    values = _collect_inner(
+        "inner_screen", "row", required_arms,
+        {arm: selected["selected_loss_recipe"] for arm in required_arms},
+    )
+    stage_values = _sorted_screen_values(values, required_arms)
+    evidence_path = _readout_stage_path(stage, "results")
+    evidence_sha256 = _persist_screen_evidence(evidence_path, stage_values)
+    # This required study artifact is a readable latest-stage rollup. Selection
+    # provenance instead points to the immutable stage-specific evidence above.
+    write_frame(STUDY / "INNER_SCREEN_RESULTS.csv", stage_values)
+    decision = _readout_stage_payload(stage, stage_values, selected, evidence_sha256, parents)
+    decision = _persist_immutable_json(decision_path, decision, label=f"{stage} readout decision")
+    if decision["next_arm"] is None:
+        _persist_final_readout_decision(stage, decision)
     return decision
 
 
 def aggregate_readout_screen(arms: Sequence[str]) -> dict[str, Any]:
-    if "R0" not in arms:
-        raise ValueError("R0 is required for every readout screen comparison")
-    values = _collect_inner("inner_screen", "row", tuple(arms))
-    write_frame(STUDY / "INNER_SCREEN_RESULTS.csv", values.sort_values(["column", "outer_seed", "inner_fold", "arm"]))
-    base = values.loc[values.arm.eq("R0"), ["column", "outer_seed", "inner_fold", "validation_score"]].rename(columns={"validation_score": "R0_score"})
-    rows: list[dict[str, Any]] = []
-    arm_summary: dict[str, list[dict[str, Any]]] = {}
-    for arm in (value for value in arms if value != "R0"):
-        current = values.loc[values.arm.eq(arm), ["column", "outer_seed", "inner_fold", "validation_score"]]
-        merged = base.merge(current, on=["column", "outer_seed", "inner_fold"], validate="one_to_one")
-        merged["relative_improvement_pct"] = 100 * (merged.R0_score - merged.validation_score) / merged.R0_score
-        per_arm = []
-        for column, group in merged.groupby("column", sort=True):
-            seed_mean = group.groupby("outer_seed", as_index=False).relative_improvement_pct.mean()
-            record = {"arm": arm, "column": column, "mean_relative_improvement_pct": float(group.relative_improvement_pct.mean()),
-                      "std_relative_improvement_pct": float(group.relative_improvement_pct.std(ddof=1)),
-                      "fold_wins": int((group.relative_improvement_pct > 0).sum()), "seed_wins": int((seed_mean.relative_improvement_pct > 0).sum()),
-                      "n_folds": int(len(group)), "n_seeds": int(len(seed_mean))}
-            rows.append(record); per_arm.append(record)
-        arm_summary[arm] = per_arm
-    gates = {}
-    for arm, records in arm_summary.items():
-        frame = pd.DataFrame(records)
-        gates[arm] = bool(len(frame) == 2 and (frame.mean_relative_improvement_pct >= 3.0).all()
-                          and (frame.seed_wins >= 3).all() and (frame.fold_wins >= 13).all())
-    r2_gate = gates.get("R2", False)
-    r3_gate = gates.get("R3", False)
-    next_arm = "R3" if set(("R0", "R1", "R2")).issubset(arms) and r2_gate and "R3" not in arms else (
-        "R4" if "R3" in arms and r3_gate and "R4" not in arms else None
-    )
-    eligible = [arm for arm, passed in gates.items() if passed]
-    selection = None
-    if next_arm is None and eligible:
-        selection = max(eligible, key=lambda arm: float(pd.DataFrame(arm_summary[arm]).mean_relative_improvement_pct.mean()))
-    decision = {"screened_arms": list(arms), "summary": rows, "gates": gates, "next_arm": next_arm,
-                "selected_candidate_if_screen_stops": selection, "rule": _protocol()["architecture_continuation_rule"],
-                "selection_boundary": "ROW inner GroupKFold only; no outer validation/test truth"}
-    write_json(STUDY / "inner_screen_decision.json", decision)
-    return decision
+    """Aggregate one state-machine stage under a study-level commit lock."""
+
+    with _readout_state_lock():
+        return _aggregate_readout_screen_unlocked(arms)
 
 
 def _median_epoch(summary: pd.DataFrame, arm: str) -> int:
@@ -560,11 +1494,16 @@ def _median_epoch(summary: pd.DataFrame, arm: str) -> int:
 
 def _formal_selection(column: str, outer_protocol: str, seed: int, arm: str, recipe: str,
                       *, phase: str) -> int:
-    path = _context_dir(phase, outer_protocol, column, seed) / "inner_cv_summary.csv"
-    if not path.exists():
-        raise RuntimeError(f"missing inner selection context: {path}")
-    summary = pd.read_csv(path)
     selection_arm = "L0" if phase == "loss_screen" and arm == "R0" else arm
+    run = _context_dir(phase, outer_protocol, column, seed)
+    completed = _load_completed_inner_context(
+        run=run, phase=phase, column=column, outer_protocol=outer_protocol, seed=seed,
+        requested_arms=(selection_arm,), requested_recipes={selection_arm: recipe},
+        protocol_sha256=sha(STUDY / "protocol.json"),
+    )
+    if completed is None or completed["missing_arms"]:
+        raise RuntimeError(f"missing verified inner selection context: {run}")
+    summary = completed["summary"]
     expected = summary.loc[summary.arm.eq(selection_arm), "loss_recipe"].unique().tolist()
     if expected != [recipe]:
         raise RuntimeError("selected final recipe does not match frozen inner-screen arm")
@@ -572,10 +1511,12 @@ def _formal_selection(column: str, outer_protocol: str, seed: int, arm: str, rec
 
 
 def run_compound_selection_context(column: str, seed: int, candidate: str) -> Path:
-    selected = _selected_loss()
     if candidate not in READOUT_ARMS or candidate == "R0":
         raise ValueError("compound confirmation requires an architecture candidate R1-R4")
-    recipes = {"R0": "raw_quantile", candidate: selected["selected_loss_recipe"]}
+    provenance = _selected_candidate_provenance(candidate)
+    _assert_row_continuation_authorized(candidate)
+    recipe = str(provenance["loss_selection"]["selected_loss_recipe"])
+    recipes = {"R0": recipe, candidate: recipe}
     return _inner_fit_context(phase="compound_selection", column=column, outer_protocol="compound", seed=seed,
                               arms=("R0", candidate), recipes=recipes)
 
@@ -584,16 +1525,152 @@ def _final_dir(outer_protocol: str, column: str, seed: int, arm: str) -> Path:
     return STUDY / "runtime" / "formal" / outer_protocol / column / f"seed_{seed}" / arm
 
 
-def run_final_context(column: str, outer_protocol: str, seed: int, arm: str, recipe: str, *, selection_phase: str) -> Path:
-    """Fixed-epoch final refit and blind prediction freeze for one arm/context."""
+def _selected_candidate_provenance(candidate: str) -> dict[str, Any]:
+    """Return the hash-locked ROW inner-screen decision for one candidate.
+
+    Formal scoring is permitted only for the single candidate selected after
+    the gated ROW screen has stopped.  This check deliberately reads no target
+    endpoint and is shared by prediction freeze and score actions.
+    """
+
+    if candidate not in READOUT_ARMS or candidate == "R0":
+        raise ValueError("candidate provenance requires an R1-R4 arm")
+    path = STUDY / FINAL_READOUT_DECISION_NAME
+    decision = _verified_final_readout_decision()
+    if decision.get("selection_boundary") != READOUT_SELECTION_BOUNDARY:
+        raise RuntimeError("candidate provenance has an invalid selection boundary")
+    if decision.get("next_arm") is not None:
+        raise RuntimeError("candidate provenance is incomplete: the ROW screen authorized a later arm")
+    if decision.get("selected_candidate_if_screen_stops") != candidate:
+        raise RuntimeError("candidate does not match the frozen ROW inner-screen selection")
+    gates = decision.get("gates")
+    if not isinstance(gates, Mapping) or gates.get(candidate) is not True:
+        raise RuntimeError("candidate did not pass its frozen ROW inner-screen gate")
+    screened = decision.get("screened_arms")
+    if not isinstance(screened, list) or "R0" not in screened or candidate not in screened:
+        raise RuntimeError("candidate provenance lacks the matched R0/candidate screen")
+    loss = decision.get("loss_selection")
+    if not isinstance(loss, Mapping) or loss.get("selected_loss_recipe") not in a.LOSS_RECIPES:
+        raise RuntimeError("candidate provenance lacks a hash-verified global loss recipe")
+    return {
+        "candidate": candidate,
+        "inner_screen_decision": str(path.relative_to(ROOT)),
+        "inner_screen_decision_sha256": sha(path),
+        "stage": str(decision["stage"]),
+        "stage_decision": dict(decision["stage_decision"]),
+        "loss_selection": dict(loss),
+    }
+
+
+BLIND_PREDICTION_COLUMNS = ("sample_id", "V1_q10", "V1_q50", "V1_q90", "V2_q10", "V2_q50", "V2_q90")
+FINAL_FREEZE_FILENAMES = ("final.pt", "validation_predictions_blind.csv.gz", "test_predictions_blind.csv.gz")
+
+
+def _expected_final_freeze_files(outer_protocol: str, arms: Sequence[str]) -> set[str]:
+    return {
+        str((_final_dir(outer_protocol, column, seed, arm) / filename).relative_to(ROOT))
+        for column in COLUMNS for seed in SEEDS for arm in arms for filename in FINAL_FREEZE_FILENAMES
+    }
+
+
+def _validate_blind_prediction_file(path: Path, expected_ids: Sequence[str], *, role: str) -> None:
+    """Validate the labels-free prediction artifact before committing its hash."""
+
+    if not path.exists():
+        raise RuntimeError(f"missing final {role} prediction before freeze: {path}")
+    frame = pd.read_csv(path)
+    missing = set(BLIND_PREDICTION_COLUMNS) - set(frame.columns)
+    if missing:
+        raise RuntimeError(f"final {role} prediction has missing columns {sorted(missing)}: {path}")
+    actual_ids = frame.sample_id.astype(str).tolist()
+    required_ids = [str(value) for value in expected_ids]
+    if len(required_ids) != len(set(required_ids)) or actual_ids != required_ids:
+        raise RuntimeError(f"final {role} predictions do not match the frozen role order: {path}")
+    values = frame.loc[:, list(BLIND_PREDICTION_COLUMNS[1:])].to_numpy(float)
+    if not np.isfinite(values).all():
+        raise RuntimeError(f"final {role} predictions contain non-finite values: {path}")
+
+
+def _final_context_provenance(outer_protocol: str, arm: str, recipe: str,
+                              selection_phase: str) -> dict[str, Any]:
+    """Derive the only permitted final-fit contract from the frozen selection."""
+
+    if outer_protocol not in PROTOCOLS:
+        raise ValueError("final context requires a preregistered outer protocol")
+    provenance = _selected_candidate_provenance(
+        # R0 is paired with the selected candidate; all other arms must be it.
+        _verified_final_readout_decision()["selected_candidate_if_screen_stops"]
+        if arm == "R0" else arm
+    )
+    candidate = str(provenance["candidate"])
+    if arm not in ("R0", candidate):
+        raise RuntimeError("final context arm is not the frozen matched P0/candidate pair")
+    expected_recipe = str(provenance["loss_selection"]["selected_loss_recipe"])
+    expected_phase = "inner_screen" if outer_protocol == "row" else "compound_selection"
+    if recipe != expected_recipe:
+        raise RuntimeError("final context loss recipe does not match the hash-verified global loss selection")
+    if selection_phase != expected_phase:
+        raise RuntimeError("final context selection phase does not match the frozen protocol")
+    if outer_protocol == "compound":
+        _assert_row_continuation_authorized(candidate)
+    return provenance
+
+
+def _verify_final_fit_completion(*, column: str, outer_protocol: str, seed: int, arm: str,
+                                 recipe: str, selection_phase: str,
+                                 candidate_provenance: Mapping[str, Any]) -> dict[str, Any]:
+    """Validate an existing final refit before resuming or freezing it."""
 
     run = _final_dir(outer_protocol, column, seed, arm)
     complete = run / "final_fit_complete.json"
+    final_pt = run / "final.pt"
+    validation = run / "validation_predictions_blind.csv.gz"
+    test = run / "test_predictions_blind.csv.gz"
+    if not complete.exists():
+        raise RuntimeError(f"missing final fit completion record before validation: {run}")
+    payload = json.loads(complete.read_text(encoding="utf-8"))
+    identity = {
+        "protocol_sha256": sha(STUDY / "protocol.json"),
+        "selection_phase": selection_phase,
+        "outer_protocol": outer_protocol,
+        "column": column,
+        "outer_seed": int(seed),
+        "arm": arm,
+        "loss_recipe": recipe,
+        "candidate_provenance": dict(candidate_provenance),
+        "outer_validation_or_test_labels_used": False,
+    }
+    if any(payload.get(key) != value for key, value in identity.items()):
+        raise RuntimeError(f"final fit completion identity/label-use assertion failed: {run}")
+    selected_epoch = _formal_selection(column, outer_protocol, seed, arm, recipe, phase=selection_phase)
+    if payload.get("selected_epoch") != selected_epoch:
+        raise RuntimeError(f"final fit completion epoch does not match frozen inner selection: {run}")
+    expected_hashes = {
+        "final_pt_sha256": final_pt,
+        "validation_prediction_sha256": validation,
+        "test_prediction_sha256": test,
+    }
+    for field, artifact in expected_hashes.items():
+        if not artifact.exists() or payload.get(field) != sha(artifact):
+            raise RuntimeError(f"final fit completion digest assertion failed for {field}: {run}")
+    roles = _roles(column, outer_protocol, seed)
+    _validate_blind_prediction_file(validation, roles["validation"], role="validation")
+    _validate_blind_prediction_file(test, roles["test"], role="test")
+    return payload
+
+
+def run_final_context(column: str, outer_protocol: str, seed: int, arm: str, recipe: str, *, selection_phase: str) -> Path:
+    """Fixed-epoch final refit and blind prediction freeze for one arm/context."""
+
+    provenance = _final_context_provenance(outer_protocol, arm, recipe, selection_phase)
+    run = _final_dir(outer_protocol, column, seed, arm)
+    complete = run / "final_fit_complete.json"
     if complete.exists():
-        payload = json.loads(complete.read_text(encoding="utf-8"))
-        if payload.get("arm") == arm and payload.get("loss_recipe") == recipe and payload.get("selection_phase") == selection_phase:
-            return run
-        raise RuntimeError("existing final fit has a different frozen contract")
+        _verify_final_fit_completion(
+            column=column, outer_protocol=outer_protocol, seed=seed, arm=arm,
+            recipe=recipe, selection_phase=selection_phase, candidate_provenance=provenance,
+        )
+        return run
     context = prepare_context(column, outer_protocol, seed)
     if _arm_requires_source_features(arm):
         _ensure_source_features(context)
@@ -623,54 +1700,88 @@ def run_final_context(column: str, outer_protocol: str, seed: int, arm: str, rec
                 "selected_epoch": selected_epoch, "training": _fit_config(recipe=recipe, additional_prefixes=extras),
                 "trainable_parameter_count": int(fit.trainable_parameters), "total_parameter_count": int(fit.total_parameters),
                 "runtime_seconds": float(time.time() - started), "environment": _environment(),
-                "git_sha": git_sha(), "source_cache": source_cache_audit,
+                "git_sha": git_sha(), "source_cache": source_cache_audit, "candidate_provenance": provenance,
                 "outer_validation_or_test_labels_used": False})
     write_json(complete, {"protocol_sha256": sha(STUDY / "protocol.json"), "selection_phase": selection_phase,
                 "outer_protocol": outer_protocol, "column": column, "outer_seed": int(seed), "arm": arm,
                 "loss_recipe": recipe, "selected_epoch": selected_epoch, "final_pt_sha256": sha(run / "final.pt"),
                 "validation_prediction_sha256": sha(run / "validation_predictions_blind.csv.gz"),
                 "test_prediction_sha256": sha(run / "test_predictions_blind.csv.gz"),
+                "candidate_provenance": provenance,
                 "outer_validation_or_test_labels_used": False})
     return run
 
 
 def finalize_prediction_freeze(outer_protocol: str, arms: Sequence[str]) -> dict[str, Any]:
-    files = {}
+    frozen_arms = tuple(arms)
+    if outer_protocol not in PROTOCOLS:
+        raise ValueError("prediction freeze requires a preregistered outer protocol")
+    if len(frozen_arms) != 2 or frozen_arms[0] != "R0" or frozen_arms[1] not in READOUT_ARMS or frozen_arms[1] == "R0":
+        raise ValueError("prediction freeze requires arms in the exact order: R0 then the selected R1-R4 candidate")
+    if outer_protocol == "compound":
+        _assert_row_continuation_authorized(frozen_arms[1])
+    candidate_provenance = _selected_candidate_provenance(frozen_arms[1])
+    expected_recipe = str(candidate_provenance["loss_selection"]["selected_loss_recipe"])
+    expected_selection_phase = "inner_screen" if outer_protocol == "row" else "compound_selection"
+    protocol_sha256 = sha(STUDY / "protocol.json")
+    files: dict[str, str] = {}
     for column in COLUMNS:
         for seed in SEEDS:
-            for arm in arms:
+            for arm in frozen_arms:
                 run = _final_dir(outer_protocol, column, seed, arm)
-                complete = run / "final_fit_complete.json"
-                prediction = run / "test_predictions_blind.csv.gz"
-                if not complete.exists() or not prediction.exists():
-                    raise RuntimeError(f"missing final blind prediction before freeze: {run}")
-                payload = json.loads(complete.read_text(encoding="utf-8"))
-                if payload["test_prediction_sha256"] != sha(prediction) or payload["outer_validation_or_test_labels_used"]:
-                    raise RuntimeError("final prediction hash/label-use assertion failed")
-                files[str(prediction.relative_to(ROOT))] = sha(prediction)
-    payload = {"protocol_sha256": sha(STUDY / "protocol.json"), "outer_protocol": outer_protocol,
-               "arms": list(arms), "files": files, "global_outer_truth_read_before_freeze": False}
-    write_json(STUDY / f"{outer_protocol.upper()}_PREDICTION_FREEZE_MANIFEST.json", payload)
+                final_pt = run / "final.pt"
+                validation = run / "validation_predictions_blind.csv.gz"
+                test = run / "test_predictions_blind.csv.gz"
+                _verify_final_fit_completion(
+                    column=column, outer_protocol=outer_protocol, seed=seed, arm=arm,
+                    recipe=expected_recipe, selection_phase=expected_selection_phase,
+                    candidate_provenance=candidate_provenance,
+                )
+                for artifact in (final_pt, validation, test):
+                    files[str(artifact.relative_to(ROOT))] = sha(artifact)
+    if set(files) != _expected_final_freeze_files(outer_protocol, frozen_arms):
+        raise RuntimeError("final prediction freeze did not enumerate the complete expected artifact set")
+    payload = {"protocol_sha256": protocol_sha256, "outer_protocol": outer_protocol,
+               "arms": list(frozen_arms), "candidate_provenance": candidate_provenance,
+               "files": files, "global_outer_truth_read_before_freeze": False}
     hashes_path = STUDY / "prediction_hashes.json"
     merged = json.loads(hashes_path.read_text(encoding="utf-8")) if hashes_path.exists() else {}
-    merged[outer_protocol] = payload
-    write_json(hashes_path, merged)
+    if "stopping_decision" in merged:
+        raise RuntimeError("prediction freeze is blocked by the terminal no-score stopping decision")
+    existing = merged.get(outer_protocol)
+    if existing is not None and existing != payload:
+        raise RuntimeError(f"{outer_protocol} prediction-freeze hash entry drift; refusing to overwrite immutable evidence")
+    manifest_path = STUDY / f"{outer_protocol.upper()}_PREDICTION_FREEZE_MANIFEST.json"
+    _persist_immutable_json(manifest_path, payload, label=f"{outer_protocol} prediction-freeze manifest")
+    if existing is None:
+        merged[outer_protocol] = payload
+        write_json(hashes_path, merged)
     return payload
 
 
 def _assert_frozen_for_score(outer_protocol: str, arms: Sequence[str]) -> None:
+    frozen_arms = tuple(arms)
     path = STUDY / f"{outer_protocol.upper()}_PREDICTION_FREEZE_MANIFEST.json"
     if not path.exists():
         raise RuntimeError("score refused: no global prediction-freeze manifest")
     manifest = json.loads(path.read_text(encoding="utf-8"))
-    if manifest.get("outer_protocol") != outer_protocol or manifest.get("arms") != list(arms):
+    hashes_path = STUDY / "prediction_hashes.json"
+    if not hashes_path.exists() or json.loads(hashes_path.read_text(encoding="utf-8")).get(outer_protocol) != manifest:
+        raise RuntimeError("score refused: prediction-freeze manifest is not mirrored by the immutable hash record")
+    if manifest.get("protocol_sha256") != sha(STUDY / "protocol.json"):
+        raise RuntimeError("score refused: freeze manifest has a different study protocol")
+    if manifest.get("outer_protocol") != outer_protocol or manifest.get("arms") != list(frozen_arms):
         raise RuntimeError("score refused: freeze manifest has different protocol or arms")
-    expected = len(COLUMNS) * len(SEEDS) * len(arms)
-    if len(manifest.get("files", {})) != expected:
+    if len(frozen_arms) != 2 or frozen_arms[0] != "R0":
+        raise RuntimeError("score refused: freeze manifest does not contain matched P0 and one candidate")
+    if manifest.get("candidate_provenance") != _selected_candidate_provenance(frozen_arms[1]):
+        raise RuntimeError("score refused: freeze manifest candidate provenance changed")
+    expected_files = _expected_final_freeze_files(outer_protocol, frozen_arms)
+    if set(manifest.get("files", {})) != expected_files:
         raise RuntimeError("score refused: incomplete global blind prediction freeze")
     for relative, digest in manifest["files"].items():
         if sha(ROOT / relative) != digest:
-            raise RuntimeError("score refused: frozen prediction file digest changed")
+            raise RuntimeError("score refused: frozen final artifact digest changed")
 
 
 def _final_prediction(column: str, outer_protocol: str, seed: int, arm: str, test_ids: Sequence[str]) -> np.ndarray:
@@ -681,24 +1792,140 @@ def _final_prediction(column: str, outer_protocol: str, seed: int, arm: str, tes
     return frame[["V1_q10", "V1_q50", "V1_q90", "V2_q10", "V2_q50", "V2_q90"]].to_numpy(float)
 
 
+def _historical_json(path: Path, *, label: str) -> Mapping[str, Any]:
+    if not path.exists():
+        raise RuntimeError(f"missing historical {label}: {path}")
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(payload, Mapping):
+        raise RuntimeError(f"historical {label} is not a JSON object: {path}")
+    return payload
+
+
+def _frozen_role_hashes(column: str, outer_protocol: str, seed: int) -> dict[str, str]:
+    roles = _roles(column, outer_protocol, seed)
+    return {role: stable_hash(sorted(ids)) for role, ids in roles.items()}
+
+
+def _verify_full_data_reference_freeze(path: Path, *, column: str, outer_protocol: str, seed: int) -> None:
+    """Verify the two-level freeze chain for paper/M3 reference predictions."""
+
+    study = ROOT / "studies/transfer/full_data_baseline_finalization"
+    manifest_path = study / "prediction_freeze_manifest.json"
+    manifest = _historical_json(manifest_path, label="full-data prediction-freeze manifest")
+    frozen_path = path.parent / "frozen.json"
+    try:
+        frozen_relative = str(frozen_path.relative_to(study))
+    except ValueError as error:
+        raise RuntimeError(f"full-data reference path is outside its frozen study: {path}") from error
+    manifest_files = manifest.get("files")
+    expected_frozen_digest = manifest_files.get(frozen_relative) if isinstance(manifest_files, Mapping) else None
+    if not isinstance(expected_frozen_digest, str) or not frozen_path.exists() or sha(frozen_path) != expected_frozen_digest:
+        raise RuntimeError(f"full-data reference freeze digest mismatch: {frozen_path}")
+    frozen = _historical_json(frozen_path, label="full-data context freeze")
+    contract = frozen.get("contract")
+    role_hashes = _frozen_role_hashes(column, outer_protocol, seed)
+    expected_contract = {
+        "column": column,
+        "protocol": outer_protocol,
+        "seed": int(seed),
+        "train_ids_hash": role_hashes["gradient_train"],
+        "validation_ids_hash": role_hashes["validation"],
+        "test_ids_hash": role_hashes["test"],
+        "test_labels_used_for_fit_normalization_or_selection": 0,
+        "donor_outer_test_rows_used": 0,
+    }
+    if not isinstance(contract, Mapping) or any(contract.get(key) != value for key, value in expected_contract.items()):
+        raise RuntimeError(f"full-data reference freeze contract mismatch: {frozen_path}")
+    frozen_files = frozen.get("files")
+    expected_prediction_digest = frozen_files.get(path.name) if isinstance(frozen_files, Mapping) else None
+    if not isinstance(expected_prediction_digest, str) or not path.exists() or sha(path) != expected_prediction_digest:
+        raise RuntimeError(f"full-data reference prediction digest mismatch: {path}")
+
+
+def _verify_hier_reference_freeze(path: Path, *, column: str, outer_protocol: str, seed: int) -> None:
+    """Verify the direct prediction digest in the corrected-HIER freeze record."""
+
+    study = ROOT / "studies/transfer/hier_cw_semantic_repair"
+    manifest = _historical_json(study / "prediction_freeze_manifest.json", label="corrected-HIER prediction-freeze manifest")
+    try:
+        relative = str(path.relative_to(ROOT))
+    except ValueError as error:
+        raise RuntimeError(f"corrected-HIER reference path is outside the repository: {path}") from error
+    files = manifest.get("files")
+    expected_digest = files.get(relative) if isinstance(files, Mapping) else None
+    if not isinstance(expected_digest, str) or not path.exists() or sha(path) != expected_digest:
+        raise RuntimeError(f"corrected-HIER reference prediction digest mismatch: {path}")
+    # The digest is the primary proof; checking the context location makes a
+    # copied prediction file unable to masquerade as another seed/role.
+    expected_tail = Path("runtime") / "contexts" / column / outer_protocol / f"seed_{seed}" / "predictions_blind.csv.gz"
+    if not str(path).endswith(str(expected_tail)):
+        raise RuntimeError(f"corrected-HIER reference context mismatch: {path}")
+    audit_path = path.with_name("fit_audit.json")
+    audit_relative = str(audit_path.relative_to(ROOT))
+    audit_digest = files.get(audit_relative) if isinstance(files, Mapping) else None
+    if not isinstance(audit_digest, str) or not audit_path.exists() or sha(audit_path) != audit_digest:
+        raise RuntimeError(f"corrected-HIER fit audit digest mismatch: {audit_path}")
+    audit = _historical_json(audit_path, label="corrected-HIER fit audit")
+    combined_gradient_train_ids = [
+        sample_id
+        for focal_column in COLUMNS
+        for sample_id in _roles(focal_column, outer_protocol, seed)["gradient_train"]
+    ]
+    expected_audit = {
+        "column": column,
+        "protocol": outer_protocol,
+        "seed": int(seed),
+        "train_ids_sha256": stable_hash(sorted(combined_gradient_train_ids)),
+        "test_ids_sha256": _frozen_role_hashes(column, outer_protocol, seed)["test"],
+        "outer_validation_used": False,
+        "test_truth_used": False,
+    }
+    if any(audit.get(key) != value for key, value in expected_audit.items()):
+        raise RuntimeError(f"corrected-HIER fit-role contract mismatch: {audit_path}")
+
+
+def _align_historical_prediction_ids(frame: pd.DataFrame, test_ids: Sequence[str], *, path: Path,
+                                     reference: str) -> pd.DataFrame:
+    """Require an exact ID set, then put historical rows in current test order."""
+
+    if "sample_id" not in frame.columns:
+        raise RuntimeError(f"historical {reference} lacks sample_id: {path}")
+    requested = [str(value) for value in test_ids]
+    if not requested or len(requested) != len(set(requested)):
+        raise RuntimeError("frozen test IDs must be non-empty and unique")
+    aligned = frame.copy()
+    aligned["sample_id"] = aligned.sample_id.astype(str)
+    actual = aligned.sample_id.tolist()
+    if len(actual) != len(requested) or len(actual) != len(set(actual)) or set(actual) != set(requested):
+        raise RuntimeError(f"historical {reference} IDs do not match frozen test population: {path}")
+    # Uniqueness was asserted above; avoid pandas' deprecated `verify_integrity`
+    # flag while retaining a deterministic ID-indexed reorder.
+    return aligned.set_index("sample_id", drop=False).loc[requested].reset_index(drop=True)
+
+
 def _reference_prediction(column: str, outer_protocol: str, seed: int, reference: str,
                           test_ids: Sequence[str]) -> np.ndarray:
-    """Read an existing, ID-checked baseline prediction without its metrics."""
+    """Read a frozen, ID-aligned historical baseline without its metrics."""
 
     context = f"contexts/{column}/{outer_protocol}/seed_{seed}"
     if reference in ("paper_style_current_v2", "M3_CENTER_WIDTH_FULL"):
         path = ROOT / "studies/transfer/full_data_baseline_finalization/runtime" / context / "predictions_blind.csv.gz"
+        _verify_full_data_reference_freeze(path, column=column, outer_protocol=outer_protocol, seed=seed)
     elif reference == "HIER_CW_SHARED_LAMBDA_CORRECTED":
         path = ROOT / "studies/transfer/hier_cw_semantic_repair/runtime" / context / "predictions_blind.csv.gz"
+        _verify_hier_reference_freeze(path, column=column, outer_protocol=outer_protocol, seed=seed)
     else:
         raise ValueError(f"unknown historical reference: {reference}")
-    frame = pd.read_csv(path)
-    if frame.sample_id.astype(str).tolist() != list(test_ids):
-        raise RuntimeError(f"historical {reference} IDs do not match frozen test order: {path}")
+    frame = _align_historical_prediction_ids(pd.read_csv(path), test_ids, path=path, reference=reference)
     if reference == "paper_style_current_v2":
-        point = frame[["paper_style_current_v2_V1", "paper_style_current_v2_V2"]].to_numpy(float)
+        columns = ["paper_style_current_v2_V1", "paper_style_current_v2_V2"]
     else:
-        point = frame[[f"{reference}_V1", f"{reference}_V2"]].to_numpy(float)
+        columns = [f"{reference}_V1", f"{reference}_V2"]
+    if set(columns) - set(frame.columns):
+        raise RuntimeError(f"historical {reference} prediction columns are incomplete: {path}")
+    point = frame.loc[:, columns].to_numpy(float)
+    if not np.isfinite(point).all():
+        raise RuntimeError(f"historical {reference} predictions contain non-finite values: {path}")
     # Structured/paper references are point estimators. Repeat q50 into the
     # six-column layout solely for common point-metric bookkeeping.
     return np.column_stack([point[:, 0], point[:, 0], point[:, 0], point[:, 1], point[:, 1], point[:, 1]])
@@ -707,6 +1934,179 @@ def _reference_prediction(column: str, outer_protocol: str, seed: int, reference
 def _metric_values(truth: np.ndarray, prediction: np.ndarray, scales: Mapping[str, float]) -> dict[str, float | bool]:
     metrics = point_metrics(truth, prediction, scales)
     return {key: (float(value) if isinstance(value, (float, np.floating)) else bool(value)) for key, value in metrics.items()}
+
+
+def _relative_change_pct(candidate: float, reference: float) -> float:
+    """Return candidate-minus-reference percent change with an explicit zero rule."""
+
+    if not (math.isfinite(candidate) and math.isfinite(reference)):
+        raise RuntimeError("ROW continuation gate received a non-finite metric")
+    if reference > 0:
+        return float(100.0 * (candidate - reference) / reference)
+    if candidate == reference:
+        return 0.0
+    return math.inf if candidate > reference else -math.inf
+
+
+def _mean_std(values: pd.Series) -> tuple[float, float]:
+    numeric = values.to_numpy(float)
+    if not np.isfinite(numeric).all():
+        raise RuntimeError("ROW continuation gate received a non-finite metric")
+    return float(numeric.mean()), float(numeric.std(ddof=1)) if len(numeric) > 1 else 0.0
+
+
+def evaluate_row_continuation(candidate: str, result: pd.DataFrame) -> dict[str, Any]:
+    """Apply the fixed formal ROW continuation gate to matched P0 scores.
+
+    This function consumes only a completed ROW score table.  It is never used
+    for model/loss/epoch selection and does not access endpoint truth itself.
+    """
+
+    if candidate not in READOUT_ARMS or candidate == "R0":
+        raise ValueError("ROW continuation requires a selected non-R0 candidate")
+    required = {"protocol", "column", "outer_seed", "method", "combined_normalized_rmse",
+                "V1_rmse", "V1_mae", "V2_rmse", "V2_mae", "all_outputs_finite"}
+    if missing := sorted(required.difference(result.columns)):
+        raise RuntimeError("ROW result table is missing continuation-gate columns: " + ", ".join(missing))
+    row = result.loc[result.protocol.astype(str).eq("row")].copy()
+    if row.empty:
+        raise RuntimeError("ROW continuation requires completed ROW scores")
+    columns: dict[str, dict[str, Any]] = {}
+    endpoint_passes: list[bool] = []
+    combined_passes: list[bool] = []
+    seed_win_passes: list[bool] = []
+    endpoint_metrics = ("V1_rmse", "V1_mae", "V2_rmse", "V2_mae")
+    expected_seeds = set(SEEDS)
+    for column in COLUMNS:
+        subset = row.loc[row.column.astype(str).eq(column)]
+        p0 = subset.loc[subset.method.astype(str).eq("P0")].copy()
+        current = subset.loc[subset.method.astype(str).eq(candidate)].copy()
+        for method, frame in (("P0", p0), (candidate, current)):
+            if len(frame) != len(SEEDS) or set(frame.outer_seed.astype(int)) != expected_seeds:
+                raise RuntimeError(f"ROW continuation requires one {method} result for every frozen seed in {column}")
+            if frame.duplicated("outer_seed").any():
+                raise RuntimeError(f"ROW continuation found duplicate {method} seed rows in {column}")
+            if not frame.all_outputs_finite.eq(True).all():
+                raise RuntimeError(f"ROW continuation cannot use non-finite {method} outputs in {column}")
+        paired = p0.merge(current, on="outer_seed", suffixes=("_p0", "_candidate"), validate="one_to_one")
+        p0_combined_mean, p0_combined_std = _mean_std(paired["combined_normalized_rmse_p0"])
+        candidate_combined_mean, candidate_combined_std = _mean_std(paired["combined_normalized_rmse_candidate"])
+        mean_gain_pct = -_relative_change_pct(candidate_combined_mean, p0_combined_mean)
+        seed_details = []
+        for value in paired.sort_values("outer_seed").itertuples(index=False):
+            p0_value = float(getattr(value, "combined_normalized_rmse_p0"))
+            candidate_value = float(getattr(value, "combined_normalized_rmse_candidate"))
+            gain_pct = -_relative_change_pct(candidate_value, p0_value)
+            seed_details.append({
+                "outer_seed": int(value.outer_seed), "p0_combined_nrmse": p0_value,
+                "candidate_combined_nrmse": candidate_value, "gain_pct": gain_pct,
+                "candidate_win": bool(candidate_value < p0_value),
+            })
+        seed_wins = int(sum(item["candidate_win"] for item in seed_details))
+        combined_pass = bool(mean_gain_pct >= ROW_CONTINUATION_RULE["mean_combined_gain_pct_min"])
+        seed_wins_pass = bool(seed_wins >= ROW_CONTINUATION_RULE["seed_wins_min"])
+        combined_passes.append(combined_pass)
+        seed_win_passes.append(seed_wins_pass)
+        endpoint_summary: dict[str, dict[str, float | bool]] = {}
+        for metric in endpoint_metrics:
+            p0_mean, p0_std = _mean_std(paired[f"{metric}_p0"])
+            candidate_mean, candidate_std = _mean_std(paired[f"{metric}_candidate"])
+            regression_pct = _relative_change_pct(candidate_mean, p0_mean)
+            endpoint_pass = bool(regression_pct <= ROW_CONTINUATION_RULE["endpoint_mean_regression_pct_max"])
+            endpoint_passes.append(endpoint_pass)
+            endpoint_summary[metric] = {
+                "p0_mean": p0_mean, "p0_std": p0_std,
+                "candidate_mean": candidate_mean, "candidate_std": candidate_std,
+                "mean_relative_regression_pct": regression_pct,
+                "within_regression_limit": endpoint_pass,
+            }
+        columns[column] = {
+            "n_seeds": len(SEEDS),
+            "combined_nrmse": {
+                "p0_mean": p0_combined_mean, "p0_std": p0_combined_std,
+                "candidate_mean": candidate_combined_mean, "candidate_std": candidate_combined_std,
+                "mean_gain_pct": mean_gain_pct, "seed_wins": seed_wins,
+                "mean_gain_pass": combined_pass, "seed_wins_pass": seed_wins_pass,
+                "seed_details": seed_details,
+            },
+            "endpoint_metrics": endpoint_summary,
+        }
+    criteria = {
+        "mean_combined_gain_both_columns": bool(all(combined_passes)),
+        "seed_wins_both_columns": bool(all(seed_win_passes)),
+        "no_endpoint_mean_rmse_or_mae_regression_above_limit": bool(all(endpoint_passes)),
+    }
+    authorized = bool(all(criteria.values()))
+    return {
+        "schema_version": 1,
+        "protocol": "row",
+        "candidate": candidate,
+        "reference": "P0",
+        "rule": ROW_CONTINUATION_RULE,
+        "columns": columns,
+        "criteria": criteria,
+        "status": "ROW_CONTINUATION_PASSED" if authorized else "ROW_CONTINUATION_FAILED",
+        "compound_confirmation_authorized": authorized,
+        "decision_boundary": "Frozen ROW outer-test scores only; no score selected architecture, loss, source feature, or epoch.",
+    }
+
+
+def _row_prediction_freeze_reference(candidate: str) -> dict[str, str]:
+    """Return the immutable ROW freeze that authorized this score table."""
+
+    _assert_frozen_for_score("row", ("R0", candidate))
+    path = STUDY / "ROW_PREDICTION_FREEZE_MANIFEST.json"
+    return {"path": str(path.relative_to(ROOT)), "sha256": sha(path)}
+
+
+def _persist_row_continuation_decision(candidate: str, _result: pd.DataFrame) -> dict[str, Any]:
+    """Commit the formal ROW gate outcome after the ROW score table is written."""
+
+    path = STUDY / ROW_CONTINUATION_DECISION_NAME
+    row_path = STUDY / "ROW_RESULTS.csv"
+    if not row_path.exists():
+        raise RuntimeError("cannot persist a ROW continuation decision before ROW_RESULTS.csv exists")
+    # Gate evidence must be exactly the serialized, hash-addressed table rather
+    # than an in-memory frame whose CSV round-trip could differ in dtype/format.
+    decision = evaluate_row_continuation(candidate, pd.read_csv(row_path))
+    decision["row_results_sha256"] = sha(row_path)
+    decision["row_prediction_freeze_manifest"] = _row_prediction_freeze_reference(candidate)
+    if path.exists():
+        existing = json.loads(path.read_text(encoding="utf-8"))
+        if existing != decision:
+            raise RuntimeError("ROW continuation decision drift; refusing to replace the formal gate record")
+    else:
+        write_json(path, decision)
+    return decision
+
+
+def _load_row_continuation_decision(candidate: str) -> dict[str, Any]:
+    """Load and integrity-check the sole authorization record for COMPOUND."""
+
+    path = STUDY / ROW_CONTINUATION_DECISION_NAME
+    row_path = STUDY / "ROW_RESULTS.csv"
+    if not path.exists() or not row_path.exists():
+        raise RuntimeError("COMPOUND is blocked until the formal ROW continuation decision is recorded")
+    decision = json.loads(path.read_text(encoding="utf-8"))
+    if decision.get("candidate") != candidate or decision.get("protocol") != "row" or decision.get("reference") != "P0":
+        raise RuntimeError("COMPOUND is blocked by a ROW continuation decision for a different candidate")
+    if decision.get("row_prediction_freeze_manifest") != _row_prediction_freeze_reference(candidate):
+        raise RuntimeError("COMPOUND is blocked because the ROW prediction-freeze evidence changed")
+    if decision.get("row_results_sha256") != sha(row_path):
+        raise RuntimeError("COMPOUND is blocked because the ROW continuation evidence changed")
+    expected = evaluate_row_continuation(candidate, pd.read_csv(row_path))
+    expected["row_results_sha256"] = sha(row_path)
+    expected["row_prediction_freeze_manifest"] = _row_prediction_freeze_reference(candidate)
+    if decision != expected:
+        raise RuntimeError("COMPOUND is blocked because the ROW continuation decision does not match its evidence")
+    return decision
+
+
+def _assert_row_continuation_authorized(candidate: str) -> dict[str, Any]:
+    decision = _load_row_continuation_decision(candidate)
+    if decision.get("status") != "ROW_CONTINUATION_PASSED" or not decision.get("compound_confirmation_authorized"):
+        raise RuntimeError("COMPOUND is blocked: the formal ROW continuation gate did not pass")
+    return decision
 
 
 def _clustered_bootstrap_delta(truth: np.ndarray, candidate: np.ndarray, reference: np.ndarray,
@@ -723,6 +2123,10 @@ def _clustered_bootstrap_delta(truth: np.ndarray, candidate: np.ndarray, referen
     rng = np.random.default_rng(int(seed))
     rows = []
     for target, index in (("V1", 0), ("V2", 1)):
+        full_candidate_error = truth[:, index] - candidate[:, 3 * index + 1]
+        full_reference_error = truth[:, index] - reference[:, 3 * index + 1]
+        observed_rmse_delta = math.sqrt(float(np.mean(full_candidate_error ** 2))) - math.sqrt(float(np.mean(full_reference_error ** 2)))
+        observed_mae_delta = float(np.mean(np.abs(full_candidate_error))) - float(np.mean(np.abs(full_reference_error)))
         rmse_delta = np.empty(draws, dtype=float)
         mae_delta = np.empty(draws, dtype=float)
         for draw in range(draws):
@@ -732,10 +2136,10 @@ def _clustered_bootstrap_delta(truth: np.ndarray, candidate: np.ndarray, referen
             ref_error = truth[take, index] - reference[take, 3 * index + 1]
             rmse_delta[draw] = math.sqrt(float(np.mean(cand_error ** 2))) - math.sqrt(float(np.mean(ref_error ** 2)))
             mae_delta[draw] = float(np.mean(np.abs(cand_error))) - float(np.mean(np.abs(ref_error)))
-        rows.append({"endpoint": target, "metric": "delta_rmse", "estimate": float(np.mean(rmse_delta)),
+        rows.append({"endpoint": target, "metric": "delta_rmse", "estimate": observed_rmse_delta,
                      "ci95_low": float(np.quantile(rmse_delta, .025)), "ci95_high": float(np.quantile(rmse_delta, .975)),
                      "bootstrap_draws": int(draws), "cluster_count": int(len(unique))})
-        rows.append({"endpoint": target, "metric": "delta_mae", "estimate": float(np.mean(mae_delta)),
+        rows.append({"endpoint": target, "metric": "delta_mae", "estimate": observed_mae_delta,
                      "ci95_low": float(np.quantile(mae_delta, .025)), "ci95_high": float(np.quantile(mae_delta, .975)),
                      "bootstrap_draws": int(draws), "cluster_count": int(len(unique))})
     return rows
@@ -751,11 +2155,233 @@ def _replace_protocol_rows(path: Path, frame: pd.DataFrame, outer_protocol: str)
     write_frame(path, frame)
 
 
+RESULT_COLUMNS = (
+    "protocol", "column", "outer_seed", "method", "n_test", "metric_scale_authority",
+    "V1_r2", "V1_rmse", "V1_mae", "V2_r2", "V2_rmse", "V2_mae",
+    "combined_normalized_rmse", "all_outputs_finite",
+)
+PAIRED_COLUMNS = (
+    "protocol", "column", "outer_seed", "candidate", "reference",
+    "candidate_minus_reference_V1_rmse", "candidate_minus_reference_V2_rmse",
+    "candidate_minus_reference_V1_mae", "candidate_minus_reference_V2_mae",
+    "candidate_minus_reference_combined_nrmse",
+)
+BOOTSTRAP_COLUMNS = (
+    "protocol", "column", "outer_seed", "candidate", "reference", "endpoint", "metric",
+    "estimate", "ci95_low", "ci95_high", "bootstrap_draws", "cluster_count",
+)
+
+
+def _validate_empty_scored_artifact(path: Path, columns: Sequence[str]) -> None:
+    """Ensure an optional scored table can safely represent an unscored stop."""
+
+    expected = list(columns)
+    if path.exists():
+        existing = pd.read_csv(path)
+        if not existing.empty or list(existing.columns) != expected:
+            raise RuntimeError(f"refusing to replace existing scored artifact: {path}")
+
+
+def _write_empty_scored_artifact(path: Path, columns: Sequence[str]) -> None:
+    """Create a declared no-score table without replacing scored evidence.
+
+    A failed ROW inner gate is an intentional terminal outcome.  The required
+    report tables still need stable schemas, but inventing rows (or touching
+    outer truth to fill them) would obscure that the score boundary was never
+    crossed.  This helper is deliberately idempotent only for an identical
+    header-only table and otherwise refuses to replace any evidence.
+    """
+
+    _validate_empty_scored_artifact(path, columns)
+    if not path.exists():
+        write_frame(path, pd.DataFrame(columns=list(columns)))
+
+
+def _negative_inner_gate_decision() -> tuple[dict[str, Any], Path]:
+    """Validate that the preregistered ROW screen, not an outer score, stopped."""
+
+    path = STUDY / FINAL_READOUT_DECISION_NAME
+    decision = _verified_final_readout_decision()
+    screened = set(decision.get("screened_arms", ()))
+    gates = decision.get("gates")
+    if not {"R0", "R1", "R2"}.issubset(screened):
+        raise RuntimeError("negative finalization requires the preregistered R0/R1/R2 ROW screen")
+    if not isinstance(gates, dict) or not {"R1", "R2"}.issubset(gates) or any(bool(value) for value in gates.values()):
+        raise RuntimeError("negative finalization is allowed only when no readout arm passed its gate")
+    summary = decision.get("summary")
+    if not isinstance(summary, list) or not {
+        (arm, column) for arm in ("R1", "R2") for column in COLUMNS
+    }.issubset({(str(item.get("arm")), str(item.get("column"))) for item in summary if isinstance(item, dict)}):
+        raise RuntimeError("negative finalization requires two-column inner-screen summaries for R1 and R2")
+    if decision.get("next_arm") is not None or decision.get("selected_candidate_if_screen_stops") is not None:
+        raise RuntimeError("negative finalization refused: the screen selected or authorized a candidate")
+    if decision.get("selection_boundary") != READOUT_SELECTION_BOUNDARY:
+        raise RuntimeError("negative finalization refused: inner-screen selection boundary is not the frozen ROW boundary")
+    return decision, path
+
+
+def _negative_final_report(decision: Mapping[str, Any], stopping: Mapping[str, Any]) -> None:
+    """Write a full, explicitly unscored report for a failed inner gate."""
+
+    summary = decision.get("summary", [])
+    lines = [
+        "# Final report — conditioned source readout", "",
+        "## Decision", "",
+        "`NO_MATERIAL_ARCHITECTURE_GAIN`", "",
+        "The preregistered ROW inner-CV gate found no eligible R1/R2 readout arm. "
+        "Consequently this terminal report was created without reading outer validation/test truth, "
+        "without making new outer predictions, and without running COMPOUND confirmation.", "",
+        "## ROW inner-screen evidence", "",
+        "| arm | column | mean relative improvement (%) | fold wins | seed wins | gate |",
+        "| --- | --- | ---: | ---: | ---: | --- |",
+    ]
+    gates = decision.get("gates", {})
+    for item in summary:
+        lines.append(
+            f"| {item['arm']} | {item['column']} | {item['mean_relative_improvement_pct']:.3f} | "
+            f"{item['fold_wins']}/{item['n_folds']} | {item['seed_wins']}/{item['n_seeds']} | "
+            f"{'pass' if gates.get(item['arm'], False) else 'fail'} |"
+        )
+    lines.extend([
+        "", "## Outer-score artifact status", "",
+        "`ROW_RESULTS.csv`, `COMPOUND_RESULTS.csv`, `PAIRED_COMPARISON.csv`, and `BOOTSTRAP_CI.csv` "
+        "are intentionally header-only. They record no synthetic or partially observed score; the machine-readable "
+        "stopping decision and `prediction_hashes.json` attest that the outer-test score boundary was not crossed.", "",
+        "## Required questions", "",
+        "1. **Is fixed sum pooling a transfer bottleneck?** No qualifying evidence under the preregistered ROW inner screen.",
+        f"2. **Does adaptive readout (R1) improve stably?** {'Yes' if gates.get('R1') else 'No'} under the fixed gate.",
+        f"3. **Does condition-query readout (R2) improve over R1/R0?** {'Yes' if gates.get('R2') else 'No'} under the fixed gate.",
+        "4. **Does source prediction (R3) add benefit?** Not run: R2 did not authorize source-prediction augmentation.",
+        "5. **Does source embedding (R4) add incremental benefit?** Not run: R3 was not authorized.",
+        "6. **Is improvement present in both 25g and 40g?** No arm met the two-column inner-CV rule.",
+        "7. **Is improvement present in both ROW and COMPOUND?** Not assessed; COMPOUND is correctly blocked by the ROW stopping rule.",
+        "8. **Does the new model exceed paper-style/P0/structured baselines?** Not assessed: no outer-test score was read.",
+        "9. **Is any improvement driven by one endpoint?** Not assessed on outer truth; no endpoint-level outer score exists.",
+        "10. **Does the study meet the promotion gate?** No — `NO_MATERIAL_ARCHITECTURE_GAIN`.", "",
+        "## Reproducibility", "",
+        f"Stopping-decision SHA256: `{stopping['inner_screen_decision_sha256']}`. "
+        "The inner screen remains in `INNER_SCREEN_RESULTS.csv`; protocol and frozen split provenance remain in "
+        "`protocol.json` and `run_manifest.csv`. This report action performs no endpoint-data read.", "",
+    ])
+    report_path = STUDY / "FINAL_REPORT.md"
+    content = "\n".join(lines)
+    if report_path.exists():
+        if report_path.read_text(encoding="utf-8") != content:
+            raise RuntimeError("negative finalization refused: final report drift")
+    else:
+        report_path.write_text(content, encoding="utf-8")
+
+
+def finalize_negative_outcome() -> dict[str, Any]:
+    """Materialize required top-level artifacts after an inner gate failure.
+
+    This is the only terminal action that is authorized when the selected
+    candidate is ``None``.  It intentionally never calls context preparation,
+    final refitting, prediction freeze, or score, so outer endpoint truth is
+    unavailable by construction.
+    """
+
+    decision, decision_path = _negative_inner_gate_decision()
+    required = (
+        "PREREGISTRATION.md", "IMPLEMENTATION_AUDIT.md", "LOSS_SCREEN.csv", "LOSS_SCREEN_REPORT.md",
+        "INNER_SCREEN_RESULTS.csv", "protocol.json", "run_manifest.csv",
+    )
+    missing = [name for name in required if not (STUDY / name).exists()]
+    if missing:
+        raise RuntimeError("negative finalization requires completed prerequisite artifacts: " + ", ".join(missing))
+    stopping = {
+        "status": "NO_MATERIAL_ARCHITECTURE_GAIN",
+        "stage": "ROW_INNER_SCREEN",
+        "reason": "No R1/R2 arm satisfied the preregistered two-column 3% / 3-of-5 / 13-of-25 gate.",
+        "screened_arms": decision["screened_arms"],
+        "gates": decision["gates"],
+        "inner_screen_decision": decision_path.name,
+        "inner_screen_decision_sha256": sha(decision_path),
+        "protocol_sha256": sha(STUDY / "protocol.json"),
+        "outer_test_truth_read": False,
+        "outer_predictions_created": False,
+        "compound_confirmation_authorized": False,
+    }
+    scored_artifacts = (
+        (STUDY / "ROW_RESULTS.csv", RESULT_COLUMNS),
+        (STUDY / "COMPOUND_RESULTS.csv", RESULT_COLUMNS),
+        (STUDY / "PAIRED_COMPARISON.csv", PAIRED_COLUMNS),
+        (STUDY / "BOOTSTRAP_CI.csv", BOOTSTRAP_COLUMNS),
+    )
+    # Validate all destinations before creating any terminal artifact, avoiding
+    # a partial stopping record if a user has already placed scored evidence.
+    for artifact_path, columns in scored_artifacts:
+        _validate_empty_scored_artifact(artifact_path, columns)
+    hashes_path = STUDY / "prediction_hashes.json"
+    hashes = json.loads(hashes_path.read_text(encoding="utf-8")) if hashes_path.exists() else {}
+    if any(protocol in hashes for protocol in PROTOCOLS):
+        raise RuntimeError("negative finalization refused: a prediction-freeze manifest already exists")
+    existing_hash_stopping = hashes.get("stopping_decision")
+    if existing_hash_stopping is not None and existing_hash_stopping != stopping:
+        raise RuntimeError("negative finalization refused: prediction-hash stopping decision drift")
+    stopping_path = STUDY / "OUTER_TEST_STOPPING_DECISION.json"
+    if stopping_path.exists():
+        existing_stopping = json.loads(stopping_path.read_text(encoding="utf-8"))
+        if existing_stopping != stopping:
+            raise RuntimeError("negative finalization refused: outer-test stopping decision drift")
+    else:
+        write_json(stopping_path, stopping)
+    hashes["stopping_decision"] = stopping
+    write_json(hashes_path, hashes)
+    for artifact_path, columns in scored_artifacts:
+        _write_empty_scored_artifact(artifact_path, columns)
+    _negative_final_report(decision, stopping)
+    return stopping
+
+
+def _preflight_score_inputs(outer_protocol: str, candidate: str,
+                            references: Sequence[str]) -> list[dict[str, Any]]:
+    """Load every prediction and comparator contract before any truth read."""
+
+    prepared: list[dict[str, Any]] = []
+    for column in COLUMNS:
+        canonical = FROZEN / f"filtered_canonical_{column}.csv"
+        feature = pd.read_csv(FROZEN / f"filtered_features_{column}.csv", usecols=["sample_id", "canonical_smiles"])
+        feature["sample_id"] = feature.sample_id.astype(str)
+        canonical_by_id = feature.set_index("sample_id").canonical_smiles.astype(str).to_dict()
+        for seed in SEEDS:
+            context = prepare_context(column, outer_protocol, seed)
+            test_ids = [str(value) for value in context["roles"]["test"]]
+            predictions: dict[str, np.ndarray] = {
+                "P0": _final_prediction(column, outer_protocol, seed, "R0", test_ids),
+                candidate: _final_prediction(column, outer_protocol, seed, candidate, test_ids),
+            }
+            for reference in references:
+                predictions[reference] = _reference_prediction(column, outer_protocol, seed, reference, test_ids)
+            try:
+                clusters = [canonical_by_id[sample_id] for sample_id in test_ids]
+            except KeyError as error:
+                raise RuntimeError(
+                    f"frozen test IDs are missing canonical-smiles clusters for {column}/{outer_protocol}/seed_{seed}"
+                ) from error
+            prepared.append({
+                "column": column,
+                "seed": seed,
+                "canonical": canonical,
+                "context": context,
+                "test_ids": test_ids,
+                "predictions": predictions,
+                "clusters": clusters,
+            })
+    return prepared
+
+
 def score(outer_protocol: str, candidate: str) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    """Read outer truth only after a global candidate/P0 prediction freeze."""
+    """Read outer truth only after all prediction and comparator preflight checks."""
 
     if outer_protocol not in PROTOCOLS or candidate not in READOUT_ARMS or candidate == "R0":
         raise ValueError("score requires a selected non-R0 candidate and frozen protocol")
+    if outer_protocol == "compound":
+        # This guard executes before the freeze check, context construction, or
+        # any endpoint-data read, so an unsuccessful ROW result cannot be
+        # bypassed by invoking the COMPOUND score action directly.
+        _assert_row_continuation_authorized(candidate)
+    _selected_candidate_provenance(candidate)
     arms = ("R0", candidate)
     _assert_frozen_for_score(outer_protocol, arms)
     result_rows: list[dict[str, Any]] = []
@@ -764,49 +2390,47 @@ def score(outer_protocol: str, candidate: str) -> tuple[pd.DataFrame, pd.DataFra
     references = ["paper_style_current_v2"] if outer_protocol == "row" else [
         "M3_CENTER_WIDTH_FULL", "HIER_CW_SHARED_LAMBDA_CORRECTED"
     ]
-    for column in COLUMNS:
-        canonical = FROZEN / f"filtered_canonical_{column}.csv"
-        feature = pd.read_csv(FROZEN / f"filtered_features_{column}.csv", usecols=["sample_id", "canonical_smiles"])
-        feature["sample_id"] = feature.sample_id.astype(str)
-        canonical_by_id = feature.set_index("sample_id").canonical_smiles.astype(str).to_dict()
-        for seed in SEEDS:
-            context = prepare_context(column, outer_protocol, seed)
-            test_ids = context["roles"]["test"]
-            truth = _read_authorized_truth(canonical, test_ids)
-            predictions: dict[str, np.ndarray] = {
-                "P0": _final_prediction(column, outer_protocol, seed, "R0", test_ids),
-                candidate: _final_prediction(column, outer_protocol, seed, candidate, test_ids),
-            }
-            for reference in references:
-                predictions[reference] = _reference_prediction(column, outer_protocol, seed, reference, test_ids)
-            for method, prediction in predictions.items():
-                metrics = _metric_values(truth, prediction, context["outer_scales"])
-                result_rows.append({"protocol": outer_protocol, "column": column, "outer_seed": int(seed),
-                                    "method": method, "n_test": len(test_ids),
-                                    "metric_scale_authority": "outer_gradient_train_ddof0", **metrics})
-            for reference in ["P0", *references]:
-                candidate_metrics = _metric_values(truth, predictions[candidate], context["outer_scales"])
-                reference_metrics = _metric_values(truth, predictions[reference], context["outer_scales"])
-                paired_rows.append({
-                    "protocol": outer_protocol, "column": column, "outer_seed": int(seed), "candidate": candidate,
-                    "reference": reference, "candidate_minus_reference_V1_rmse": candidate_metrics["V1_rmse"] - reference_metrics["V1_rmse"],
-                    "candidate_minus_reference_V2_rmse": candidate_metrics["V2_rmse"] - reference_metrics["V2_rmse"],
-                    "candidate_minus_reference_V1_mae": candidate_metrics["V1_mae"] - reference_metrics["V1_mae"],
-                    "candidate_minus_reference_V2_mae": candidate_metrics["V2_mae"] - reference_metrics["V2_mae"],
-                    "candidate_minus_reference_combined_nrmse": candidate_metrics["combined_normalized_rmse"] - reference_metrics["combined_normalized_rmse"],
-                })
-                clusters = [canonical_by_id[sample_id] for sample_id in test_ids]
-                for row in _clustered_bootstrap_delta(truth, predictions[candidate], predictions[reference], clusters,
-                                                     seed=deterministic_seed("bootstrap", outer_protocol, column, seed, candidate, reference)):
-                    bootstrap_rows.append({"protocol": outer_protocol, "column": column, "outer_seed": int(seed),
-                                           "candidate": candidate, "reference": reference, **row})
-    result = pd.DataFrame(result_rows)
-    paired = pd.DataFrame(paired_rows)
-    bootstrap = pd.DataFrame(bootstrap_rows)
+    preflight = _preflight_score_inputs(outer_protocol, candidate, references)
+    for item in preflight:
+        column = str(item["column"])
+        seed = int(item["seed"])
+        canonical = Path(item["canonical"])
+        context = item["context"]
+        test_ids = list(item["test_ids"])
+        predictions = item["predictions"]
+        clusters = list(item["clusters"])
+        truth = _read_authorized_truth(canonical, test_ids)
+        for method, prediction in predictions.items():
+            metrics = _metric_values(truth, prediction, context["outer_scales"])
+            result_rows.append({"protocol": outer_protocol, "column": column, "outer_seed": int(seed),
+                                "method": method, "n_test": len(test_ids),
+                                "metric_scale_authority": "outer_gradient_train_ddof0", **metrics})
+        for reference in ["P0", *references]:
+            candidate_metrics = _metric_values(truth, predictions[candidate], context["outer_scales"])
+            reference_metrics = _metric_values(truth, predictions[reference], context["outer_scales"])
+            paired_rows.append({
+                "protocol": outer_protocol, "column": column, "outer_seed": int(seed), "candidate": candidate,
+                "reference": reference, "candidate_minus_reference_V1_rmse": candidate_metrics["V1_rmse"] - reference_metrics["V1_rmse"],
+                "candidate_minus_reference_V2_rmse": candidate_metrics["V2_rmse"] - reference_metrics["V2_rmse"],
+                "candidate_minus_reference_V1_mae": candidate_metrics["V1_mae"] - reference_metrics["V1_mae"],
+                "candidate_minus_reference_V2_mae": candidate_metrics["V2_mae"] - reference_metrics["V2_mae"],
+                "candidate_minus_reference_combined_nrmse": candidate_metrics["combined_normalized_rmse"] - reference_metrics["combined_normalized_rmse"],
+            })
+            for row in _clustered_bootstrap_delta(
+                truth, predictions[candidate], predictions[reference], clusters,
+                seed=deterministic_seed("bootstrap", outer_protocol, column, seed, candidate, reference),
+            ):
+                bootstrap_rows.append({"protocol": outer_protocol, "column": column, "outer_seed": int(seed),
+                                       "candidate": candidate, "reference": reference, **row})
+    result = pd.DataFrame(result_rows, columns=RESULT_COLUMNS)
+    paired = pd.DataFrame(paired_rows, columns=PAIRED_COLUMNS)
+    bootstrap = pd.DataFrame(bootstrap_rows, columns=BOOTSTRAP_COLUMNS)
     target = STUDY / ("ROW_RESULTS.csv" if outer_protocol == "row" else "COMPOUND_RESULTS.csv")
     write_frame(target, result.sort_values(["column", "outer_seed", "method"]))
     _replace_protocol_rows(STUDY / "PAIRED_COMPARISON.csv", paired, outer_protocol)
     _replace_protocol_rows(STUDY / "BOOTSTRAP_CI.csv", bootstrap, outer_protocol)
+    if outer_protocol == "row":
+        _persist_row_continuation_decision(candidate, pd.read_csv(target))
     return result, paired, bootstrap
 
 
@@ -824,57 +2448,105 @@ def generate_final_report(candidate: str) -> None:
     row = pd.read_csv(row_path)
     compound = pd.read_csv(compound_path) if compound_path.exists() else pd.DataFrame()
     paired = pd.read_csv(STUDY / "PAIRED_COMPARISON.csv") if (STUDY / "PAIRED_COMPARISON.csv").exists() else pd.DataFrame()
-    decision = json.loads((STUDY / "inner_screen_decision.json").read_text(encoding="utf-8")) if (STUDY / "inner_screen_decision.json").exists() else {}
+    bootstrap = pd.read_csv(STUDY / "BOOTSTRAP_CI.csv") if (STUDY / "BOOTSTRAP_CI.csv").exists() else pd.DataFrame()
+    continuation_decision = _load_row_continuation_decision(candidate)
+    if not continuation_decision["compound_confirmation_authorized"] and not compound.empty:
+        raise RuntimeError("cannot report COMPOUND evidence after a failed ROW continuation gate")
+
+    def mean_std_text(values: pd.Series) -> str:
+        numeric = values.to_numpy(float)
+        if not np.isfinite(numeric).all():
+            return "non-finite"
+        return f"{numeric.mean():.3f} ± {numeric.std(ddof=1) if len(numeric) > 1 else 0.0:.3f}"
+
     def compact(frame: pd.DataFrame) -> str:
         if frame.empty:
             return "_Not run because the preceding gate did not authorize it._\n"
-        subset = frame.groupby(["column", "method"], as_index=False)[["V1_rmse", "V1_mae", "V1_r2", "V2_rmse", "V2_mae", "V2_r2", "combined_normalized_rmse"]].mean(numeric_only=True)
+        metrics = ("V1_rmse", "V1_mae", "V1_r2", "V2_rmse", "V2_mae", "V2_r2", "combined_normalized_rmse")
         lines = ["| column | method | V1 RMSE | V1 MAE | V1 R² | V2 RMSE | V2 MAE | V2 R² | combined train-NRMSE |",
                  "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |"]
-        for value in subset.itertuples(index=False):
-            lines.append(f"| {value.column} | {value.method} | {value.V1_rmse:.3f} | {value.V1_mae:.3f} | {value.V1_r2:.3f} | {value.V2_rmse:.3f} | {value.V2_mae:.3f} | {value.V2_r2:.3f} | {value.combined_normalized_rmse:.3f} |")
+        for (column, method), group in frame.groupby(["column", "method"], sort=True):
+            summary = [mean_std_text(group[metric]) for metric in metrics]
+            lines.append(f"| {column} | {method} | " + " | ".join(summary) + " |")
         return "\n".join(lines) + "\n"
-    p0_pair = paired.loc[(paired.protocol.eq("row")) & (paired.reference.eq("P0"))] if not paired.empty else pd.DataFrame()
-    row_improvement = {}
-    if not p0_pair.empty:
-        for column, group in p0_pair.groupby("column"):
-            row_improvement[column] = float(100 * (-group.candidate_minus_reference_combined_nrmse.mean()) /
-                                             (row.loc[(row.column.eq(column)) & (row.method.eq("P0")), "combined_normalized_rmse"].mean()))
-    continuation = bool(len(row_improvement) == 2 and all(value >= 3.0 for value in row_improvement.values()))
-    if continuation and compound.empty:
+
+    if continuation_decision["compound_confirmation_authorized"] and compound.empty:
         status = "ROW_CONTINUATION_PASSED__COMPOUND_CONFIRMATION_PENDING"
-    elif not continuation:
-        status = "NO_MATERIAL_ARCHITECTURE_GAIN_OR_ROW_CONTINUATION_FAILURE"
+    elif not continuation_decision["compound_confirmation_authorized"]:
+        status = "ROW_CONTINUATION_FAILED__COMPOUND_BLOCKED"
     else:
         status = "COMPOUND_CONFIRMATION_COMPLETE__PROMOTION_REQUIRES_GATE_REVIEW"
+
     lines = ["# Final report — conditioned source readout", "", f"## Decision\n\n`{status}`\n",
              "All outer results are developmental confirmation because these frozen outer identities were historically exposed. No score selected the loss, architecture, source feature, or epoch.",
-             "", "## ROW results", "", compact(row), "", "## COMPOUND results", "", compact(compound),
-             "", "## Seed-wise matched comparison", ""]
+             "", "## Formal ROW continuation gate", "",
+             f"Outcome: **`{continuation_decision['status']}`**. COMPOUND confirmation authorized: **`{continuation_decision['compound_confirmation_authorized']}`**.",
+             "",
+             "| column | P0 combined NRMSE (mean ± std) | candidate combined NRMSE (mean ± std) | mean gain (%) | wins / 5 | gain ≥3% | wins ≥4/5 |",
+             "| --- | ---: | ---: | ---: | ---: | --- | --- |"]
+    for column in COLUMNS:
+        combined = continuation_decision["columns"][column]["combined_nrmse"]
+        lines.append(
+            f"| {column} | {combined['p0_mean']:.3f} ± {combined['p0_std']:.3f} | "
+            f"{combined['candidate_mean']:.3f} ± {combined['candidate_std']:.3f} | "
+            f"{combined['mean_gain_pct']:.3f} | {combined['seed_wins']}/{continuation_decision['rule']['seed_count']} | "
+            f"{'pass' if combined['mean_gain_pass'] else 'fail'} | {'pass' if combined['seed_wins_pass'] else 'fail'} |"
+        )
+    lines.extend([
+        "", "The gate requires at least 3% mean combined gain in **both** columns, at least 4/5 matched seed wins in **both** columns, and no mean endpoint RMSE/MAE regression above 2%.",
+        "", "| column | endpoint metric | P0 (mean ± std) | candidate (mean ± std) | mean regression (%) | within +2% |",
+        "| --- | --- | ---: | ---: | ---: | --- |",
+    ])
+    for column in COLUMNS:
+        for metric in ("V1_rmse", "V1_mae", "V2_rmse", "V2_mae"):
+            endpoint = continuation_decision["columns"][column]["endpoint_metrics"][metric]
+            lines.append(
+                f"| {column} | {metric} | {endpoint['p0_mean']:.3f} ± {endpoint['p0_std']:.3f} | "
+                f"{endpoint['candidate_mean']:.3f} ± {endpoint['candidate_std']:.3f} | "
+                f"{endpoint['mean_relative_regression_pct']:.3f} | "
+                f"{'pass' if endpoint['within_regression_limit'] else 'fail'} |"
+            )
+    lines.extend(["", "## ROW results", "", compact(row), "", "## COMPOUND results", "", compact(compound),
+                  "", "## Seed-wise matched comparison", ""])
     if paired.empty:
         lines.append("_No paired comparison has been scored._")
     else:
-        lines.extend(["| protocol | column | candidate | reference | Δ combined NRMSE |", "| --- | --- | --- | --- | ---: |"])
-        for value in paired.groupby(["protocol", "column", "candidate", "reference"], as_index=False).candidate_minus_reference_combined_nrmse.mean().itertuples(index=False):
-            lines.append(f"| {value.protocol} | {value.column} | {value.candidate} | {value.reference} | {value.candidate_minus_reference_combined_nrmse:.4f} |")
+        lines.extend(["| protocol | column | candidate | reference | Δ combined NRMSE (mean ± std) | candidate wins / 5 |", "| --- | --- | --- | --- | ---: | ---: |"])
+        for (protocol, column, compared_candidate, reference), group in paired.groupby(["protocol", "column", "candidate", "reference"], sort=True):
+            wins = "—"
+            if protocol == "row" and compared_candidate == candidate and reference == "P0":
+                wins = f"{continuation_decision['columns'][column]['combined_nrmse']['seed_wins']}/5"
+            lines.append(f"| {protocol} | {column} | {compared_candidate} | {reference} | {mean_std_text(group.candidate_minus_reference_combined_nrmse)} | {wins} |")
+    lines.extend(["", "## Canonical-SMILES clustered bootstrap", ""])
+    if bootstrap.empty:
+        lines.append("_No clustered bootstrap intervals have been scored._")
+    else:
+        subset = bootstrap.loc[(bootstrap.candidate.astype(str).eq(candidate)) & (bootstrap.reference.astype(str).eq("P0"))]
+        if subset.empty:
+            lines.append("_No candidate-versus-P0 clustered bootstrap intervals have been scored._")
+        else:
+            lines.extend(["| protocol | column | seed | endpoint | metric | observed full-sample Δ | clustered 95% CI |",
+                          "| --- | --- | ---: | --- | --- | ---: | ---: |"])
+            for value in subset.sort_values(["protocol", "column", "outer_seed", "endpoint", "metric"]).itertuples(index=False):
+                lines.append(f"| {value.protocol} | {value.column} | {value.outer_seed} | {value.endpoint} | {value.metric} | {value.estimate:.4f} | [{value.ci95_low:.4f}, {value.ci95_high:.4f}] |")
     lines.extend(["", "## Required questions", "",
                   f"1. Fixed sum pooling is a transfer bottleneck only if a gated arm passed the inner/ROW gates; current selection: `{candidate}`.",
                   "2. Adaptive readout (R1) is interpreted only from its matched inner summary, not a single outer score.",
                   "3. Condition-query superiority is interpreted only from R2 versus R1/R0 inner evidence.",
                   "4. Source prediction (R3) and 5. source embedding (R4) are reported only if their preceding gates authorized execution.",
-                  f"6. Current ROW P0-relative combined-NRMSE changes: `{row_improvement}`.",
+                  f"6. Formal ROW gate outcome: `{continuation_decision['status']}`.",
                   "7. COMPOUND is mandatory when ROW continuation passes; its table above is never treated as a tuning screen.",
                   "8. Historical paper-style/P0/structured references were ID-checked and re-scored with common outer-train scales.",
                   "9. Endpoint-level RMSE/MAE are shown above; no aggregate result overrides a material endpoint regression.",
                   f"10. Final promotion status: `{status}`.", "",
                   "## Reproducibility", "",
-                  "See `protocol.json`, `run_manifest.csv`, `source_cache/*_cache_manifest.json`, inner context audits, prediction-freeze manifests, `PAIRED_COMPARISON.csv`, and `BOOTSTRAP_CI.csv`. Clustered bootstrap uses canonical SMILES, not IID rows.", ""])
+                  "See `protocol.json`, `run_manifest.csv`, `source_cache/*_cache_manifest.json`, inner context audits, prediction-freeze manifests, `ROW_CONTINUATION_DECISION.json`, `PAIRED_COMPARISON.csv`, and `BOOTSTRAP_CI.csv`. Clustered bootstrap uses canonical SMILES, not IID rows.", ""])
     (STUDY / "FINAL_REPORT.md").write_text("\n".join(lines), encoding="utf-8")
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--action", choices=("prepare", "prepare-source-cache", "loss-context", "loss-aggregate", "readout-context", "readout-aggregate", "compound-selection-context", "final-context", "freeze", "score", "report"), required=True)
+    parser.add_argument("--action", choices=("prepare", "prepare-source-cache", "loss-context", "loss-aggregate", "readout-context", "readout-aggregate", "compound-selection-context", "final-context", "freeze", "score", "report", "finalize-negative"), required=True)
     parser.add_argument("--column", choices=COLUMNS)
     parser.add_argument("--protocol", choices=PROTOCOLS, default="row")
     parser.add_argument("--seed", type=int, choices=SEEDS)
@@ -900,6 +2572,8 @@ def main() -> None:
     if args.action == "readout-aggregate":
         if not args.arms: parser.error("readout-aggregate requires --arms")
         aggregate_readout_screen(args.arms); return
+    if args.action == "finalize-negative":
+        finalize_negative_outcome(); return
     if args.action == "compound-selection-context":
         if args.column is None or args.seed is None or args.candidate is None: parser.error("compound-selection-context requires --column --seed --candidate")
         run_compound_selection_context(args.column, args.seed, args.candidate); return

@@ -1,0 +1,268 @@
+{
+  "decision_kind": "LOSS_SELECTION",
+  "eligible_nonbaseline": [],
+  "evidence": {
+    "path": "studies/transfer/conditioned_source_readout/LOSS_SCREEN.csv",
+    "sha256": "93b0b99e77ec5ba4367c953f75af50a2e41c0e60cd643b59f31627d837dbfa58"
+  },
+  "protocol_sha256": "1f8fe1893603138bec06c45ef7133987783e5d04ebf63538df57e4734c3b532a",
+  "recipes": {
+    "L0": "raw_quantile",
+    "L1": "endpoint_normalized_quantile",
+    "L2": "q50_weak_quantile"
+  },
+  "rule": "A non-L0 recipe is selected only if it improves mean inner validation combined NRMSE by >=1% in both columns, wins >=3/5 outer-seed means and >=13/25 inner folds in both columns; otherwise retain L0. Ties retain the simpler L0.",
+  "schema_version": 1,
+  "screened_arms": [
+    "L0",
+    "L1",
+    "L2"
+  ],
+  "selected_loss_arm": "L0",
+  "selected_loss_recipe": "raw_quantile",
+  "selection_boundary": "ROW inner GroupKFold only; no outer validation/test truth",
+  "source_contexts": [
+    {
+      "audit": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/25g/seed_769539383/context_audit.json",
+        "sha256": "9010e95847a78e709a1b2c92e306f72e5fca6dab6c09998d3b61e414366e1a16"
+      },
+      "column": "25g",
+      "context_complete": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/25g/seed_769539383/context_complete.json",
+        "sha256": "d9cc3465bd1336a0333988b532397b01f95720d84fa16d04e6f580cc76734ba5"
+      },
+      "history": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/25g/seed_769539383/inner_cv_history.csv",
+        "sha256": "85105f55305184fa082f21cdef20a49366afc6af01100a4c9fa5ef4a5387a386"
+      },
+      "outer_seed": 769539383,
+      "summary": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/25g/seed_769539383/inner_cv_summary.csv",
+        "sha256": "f71171b36f143f955ff9ab4d7920072df37fd73c259e768da0eceaf76600c196"
+      }
+    },
+    {
+      "audit": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/25g/seed_1425370602/context_audit.json",
+        "sha256": "a262904ab0a7c4339cc904714c7ac244109f4e047817cb77ffcd5d2b33a96af2"
+      },
+      "column": "25g",
+      "context_complete": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/25g/seed_1425370602/context_complete.json",
+        "sha256": "eb94954dc3b08216dd92b45a985da4d58785469470f87e078261e33707bf3b9e"
+      },
+      "history": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/25g/seed_1425370602/inner_cv_history.csv",
+        "sha256": "3f920ad9c4d26a153f7a98b8f0e776434be4c8fb8143931d64cb887a30787e47"
+      },
+      "outer_seed": 1425370602,
+      "summary": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/25g/seed_1425370602/inner_cv_summary.csv",
+        "sha256": "93ab8ed79bfe8e17cdbcf3037e19bcd170cd9be5d7f15e2cd89b811342c3c388"
+      }
+    },
+    {
+      "audit": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/25g/seed_536279090/context_audit.json",
+        "sha256": "a783adacdbb32b07c46934164870d8b46f568e61e6420a275746c6520045b491"
+      },
+      "column": "25g",
+      "context_complete": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/25g/seed_536279090/context_complete.json",
+        "sha256": "fbc8be833f4e61e7ff12b731c2ec92343475690ac01deb30bc2259b70948712e"
+      },
+      "history": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/25g/seed_536279090/inner_cv_history.csv",
+        "sha256": "e4b3fee70604dcb0c8dc7ee403e31c139f89192fe33b3c94f0c107819d4aea23"
+      },
+      "outer_seed": 536279090,
+      "summary": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/25g/seed_536279090/inner_cv_summary.csv",
+        "sha256": "27ceb127c56d3ca5b0f567d811006f6be12aac9c504964e5f9b1e78d4769feb9"
+      }
+    },
+    {
+      "audit": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/25g/seed_2767143051/context_audit.json",
+        "sha256": "f7d2016cec81db6305aa4c0407a21d80d6f85dc2039697e2ddec6354ad424490"
+      },
+      "column": "25g",
+      "context_complete": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/25g/seed_2767143051/context_complete.json",
+        "sha256": "18f0f8a8ea1b197eca1b7c3cb1b578596d0fa13c120bf36a57466de875bae59c"
+      },
+      "history": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/25g/seed_2767143051/inner_cv_history.csv",
+        "sha256": "b4df2fb6d2bae851ec5501d08366e6ae98d75b60783b4081929648ef59f81486"
+      },
+      "outer_seed": 2767143051,
+      "summary": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/25g/seed_2767143051/inner_cv_summary.csv",
+        "sha256": "bb0d95a9e601016ef581daec989cf6a4ea1cb24352c3335b412bddff01fcc61e"
+      }
+    },
+    {
+      "audit": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/25g/seed_1362771960/context_audit.json",
+        "sha256": "05b854dbdd56f277f9c7457af4c60435b29cd5a11e0e4df934390157eb5dc1b4"
+      },
+      "column": "25g",
+      "context_complete": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/25g/seed_1362771960/context_complete.json",
+        "sha256": "dbac81f44eb07dc53c2ea492563a83bbfe263a4485a69d1c39609727aec7c71d"
+      },
+      "history": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/25g/seed_1362771960/inner_cv_history.csv",
+        "sha256": "f5c2688e63a4b8cdf07fd660adc40d28e6448a59998f8b62e160cef939179198"
+      },
+      "outer_seed": 1362771960,
+      "summary": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/25g/seed_1362771960/inner_cv_summary.csv",
+        "sha256": "a6b375593f37e2f651eba87076b8b187489ceafde9829a65ba1e74ae94e9f291"
+      }
+    },
+    {
+      "audit": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/40g/seed_769539383/context_audit.json",
+        "sha256": "8ed73ca2fc09214e0b5ca8b2c38a05a4ef42b883066515bef403504648598010"
+      },
+      "column": "40g",
+      "context_complete": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/40g/seed_769539383/context_complete.json",
+        "sha256": "071b98af2bd86172b539ceabe362be0002724b8259dc1ca9251c45eed3c1f860"
+      },
+      "history": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/40g/seed_769539383/inner_cv_history.csv",
+        "sha256": "119ed7d38f6d8875342b0444651574ca8b14fb77209e51968c93ec824f1622f9"
+      },
+      "outer_seed": 769539383,
+      "summary": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/40g/seed_769539383/inner_cv_summary.csv",
+        "sha256": "be47519f1d27317e866ccca7e73a694d728950bee920b68c199b54239830e46c"
+      }
+    },
+    {
+      "audit": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/40g/seed_1425370602/context_audit.json",
+        "sha256": "4b046daf782676b9ce51db7f8990c20ef6b19fd3a48d5ac398dbfacf1cec1c79"
+      },
+      "column": "40g",
+      "context_complete": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/40g/seed_1425370602/context_complete.json",
+        "sha256": "730751a3a902293546bfe386983dd34bfa7ad3bda153a5d8044e69df51646858"
+      },
+      "history": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/40g/seed_1425370602/inner_cv_history.csv",
+        "sha256": "9c1665f5c0fc9d96423d96ee03c0c83ea4e5cb2baca75bb8c51201789cd0e1a1"
+      },
+      "outer_seed": 1425370602,
+      "summary": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/40g/seed_1425370602/inner_cv_summary.csv",
+        "sha256": "11468062422b5ece04d684875994772ae5e6aa6fe397047a2b1a4f860d38eb02"
+      }
+    },
+    {
+      "audit": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/40g/seed_536279090/context_audit.json",
+        "sha256": "8c6917d5ca425bd73a5a7450e2a44623f8e03219ce35836002be854a8993909b"
+      },
+      "column": "40g",
+      "context_complete": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/40g/seed_536279090/context_complete.json",
+        "sha256": "534a6f31137965278e00718d5d7ab4b2b0cc284abba407f6ebe00bbabd15f67b"
+      },
+      "history": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/40g/seed_536279090/inner_cv_history.csv",
+        "sha256": "731c884d525190f79350d78a4c390db90bf14fc7008b3952fa7bebb2a5fdef89"
+      },
+      "outer_seed": 536279090,
+      "summary": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/40g/seed_536279090/inner_cv_summary.csv",
+        "sha256": "1186d6503ed50f8808a70a8b98b3cbfb0e5000766e5cc5870dab6ecf948a4d94"
+      }
+    },
+    {
+      "audit": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/40g/seed_2767143051/context_audit.json",
+        "sha256": "d701a0bd5b4d0cd103011e7b734c9b16c2d2de982fb701c374e21ef6f9fd7938"
+      },
+      "column": "40g",
+      "context_complete": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/40g/seed_2767143051/context_complete.json",
+        "sha256": "753f2fce5721c05e6850028ee0a113274a78397f5238ecc0ad932dbc38dec707"
+      },
+      "history": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/40g/seed_2767143051/inner_cv_history.csv",
+        "sha256": "5bd227724b435a28cd3a4324c90e53b52f8863e9ab649db6a207b140ed742331"
+      },
+      "outer_seed": 2767143051,
+      "summary": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/40g/seed_2767143051/inner_cv_summary.csv",
+        "sha256": "607269f307a9e92d7e6fbd2ded862b7e64ac5e0f69fdb31ec1cd82a2ef8c15d7"
+      }
+    },
+    {
+      "audit": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/40g/seed_1362771960/context_audit.json",
+        "sha256": "25fe6380ccaec682af5d6474f77cb2a01b2422575fd2812ba103ec0011ce7377"
+      },
+      "column": "40g",
+      "context_complete": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/40g/seed_1362771960/context_complete.json",
+        "sha256": "23723384b5a0fb72fe80a3b23747eec77babce79f5ab9e7abe907297d992f3eb"
+      },
+      "history": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/40g/seed_1362771960/inner_cv_history.csv",
+        "sha256": "3b8d5ed33b3a99d42e5260c48039774dbad6c0478bb05e99fde8707375be9394"
+      },
+      "outer_seed": 1362771960,
+      "summary": {
+        "path": "studies/transfer/conditioned_source_readout/runtime/loss_screen/row/40g/seed_1362771960/inner_cv_summary.csv",
+        "sha256": "27f816df763cde8eeecc7fce5f4743cead86acb4e9736256f321eb6da8378a5e"
+      }
+    }
+  ],
+  "summary": [
+    {
+      "arm": "L1",
+      "column": "25g",
+      "fold_wins": 21,
+      "mean_relative_improvement_pct": 0.6816762834586954,
+      "n_folds": 25,
+      "n_seeds": 5,
+      "seed_wins": 4,
+      "std_relative_improvement_pct": 0.8404735950267208
+    },
+    {
+      "arm": "L1",
+      "column": "40g",
+      "fold_wins": 21,
+      "mean_relative_improvement_pct": 1.2024391772237806,
+      "n_folds": 25,
+      "n_seeds": 5,
+      "seed_wins": 5,
+      "std_relative_improvement_pct": 1.1785574704169703
+    },
+    {
+      "arm": "L2",
+      "column": "25g",
+      "fold_wins": 21,
+      "mean_relative_improvement_pct": 0.4279613427754214,
+      "n_folds": 25,
+      "n_seeds": 5,
+      "seed_wins": 5,
+      "std_relative_improvement_pct": 0.7246744205436078
+    },
+    {
+      "arm": "L2",
+      "column": "40g",
+      "fold_wins": 15,
+      "mean_relative_improvement_pct": 0.26963399566065294,
+      "n_folds": 25,
+      "n_seeds": 5,
+      "seed_wins": 5,
+      "std_relative_improvement_pct": 0.6033841197651515
+    }
+  ]
+}
