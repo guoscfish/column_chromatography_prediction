@@ -129,7 +129,8 @@ def _parameter_prefixes(model: nn.Module, mode: str) -> tuple[str, ...]:
     raise ValueError(f"unknown adaptation mode: {mode}")
 
 
-def configure_trainable(model: nn.Module, mode: str) -> tuple[int, int]:
+def configure_trainable(model: nn.Module, mode: str, *,
+                        additional_prefixes: Sequence[str] = ()) -> tuple[int, int]:
     """Freeze a predictor according to a named adaptation scope.
 
     The return value is ``(trainable_parameter_count, total_parameter_count)``.
@@ -139,8 +140,11 @@ def configure_trainable(model: nn.Module, mode: str) -> tuple[int, int]:
     """
 
     prefixes = _parameter_prefixes(model, mode)
+    extras = tuple(str(prefix) for prefix in additional_prefixes)
+    if any(not prefix for prefix in extras):
+        raise ValueError("additional trainable prefixes must be non-empty")
     for name, parameter in model.named_parameters():
-        parameter.requires_grad = prefixes == ("",) or name.startswith(prefixes)
+        parameter.requires_grad = prefixes == ("",) or name.startswith(prefixes + extras)
     if mode == "head_only":
         # ``startswith('graph_pred_linear')`` also covers a Sequential head's
         # indexed children, while the current head uses ``head.`` names.
@@ -177,6 +181,52 @@ def scaled_quantile_target_loss(true: torch.Tensor, prediction: torch.Tensor, sc
     crossing = (torch.mean(torch.relu(prediction[:, 0] - prediction[:, 1]))
                 + torch.mean(torch.relu(prediction[:, 1] - prediction[:, 2]))) / s
     return q10 + q50 + q90 + crossing
+
+
+LOSS_RECIPES = ("raw_quantile", "endpoint_normalized_quantile", "q50_weak_quantile")
+
+
+def q50_weak_quantile_target_loss(true: torch.Tensor, prediction: torch.Tensor, scale: float,
+                                  *, quantile_weight: float = 0.1) -> torch.Tensor:
+    """Point-oriented standardized q50 loss with a weak dimensionless tail loss.
+
+    The endpoint scale is fit from the relevant inner-train (or final
+    gradient-train) rows by the caller.  Dividing pinball by the same scale
+    keeps the auxiliary term dimensionless without using target test statistics.
+    """
+
+    if not math.isfinite(float(scale)) or float(scale) <= 0:
+        raise ValueError("scale must be positive and finite")
+    if not math.isfinite(float(quantile_weight)) or float(quantile_weight) < 0:
+        raise ValueError("quantile_weight must be finite and non-negative")
+    s = float(scale)
+    point = torch.mean((true - prediction[:, 1]) ** 2) / (s ** 2)
+    auxiliary = (qg.q_loss(0.1, true, prediction[:, 0]) + qg.q_loss(0.9, true, prediction[:, 2])) / s
+    return point + float(quantile_weight) * auxiliary
+
+
+def target_loss_recipe(true_v1: torch.Tensor, true_v2: torch.Tensor, prediction: torch.Tensor,
+                       scales: Mapping[str, float], *, recipe: str,
+                       weak_quantile_weight: float = 0.1) -> torch.Tensor:
+    """Return one preregistered two-endpoint target loss recipe.
+
+    ``raw_quantile`` exactly preserves the current P0 loss.  The remaining
+    recipes are intended for the small, fixed loss screen and make no test-data
+    accesses themselves.
+    """
+
+    if prediction.ndim != 2 or prediction.shape[1] != 6:
+        raise ValueError("prediction must have shape (n, 6)")
+    if recipe not in LOSS_RECIPES:
+        raise ValueError(f"unknown target loss recipe: {recipe}")
+    if recipe == "raw_quantile":
+        return quantile_target_loss(true_v1, prediction[:, :3]) + quantile_target_loss(true_v2, prediction[:, 3:])
+    if not isinstance(scales, Mapping) or any(float(scales.get(name, 0.0)) <= 0 for name in ("V1", "V2")):
+        raise ValueError("scaled loss recipe requires positive V1/V2 training scales")
+    loss_fn = scaled_quantile_target_loss if recipe == "endpoint_normalized_quantile" else q50_weak_quantile_target_loss
+    kwargs = {} if recipe == "endpoint_normalized_quantile" else {"quantile_weight": weak_quantile_weight}
+    return (loss_fn(true_v1, prediction[:, :3], float(scales["V1"]), **kwargs)
+            + loss_fn(true_v2, prediction[:, 3:], float(scales["V2"]), **kwargs))
 
 
 def build_discriminative_optimizer(model: nn.Module, *, head_lr: float, late_lr: float,
@@ -478,6 +528,9 @@ def train_target_adaptation(
         "late_learning_rate": None,
         "early_learning_rate": None,
         "normalized_target_loss": False,
+        "loss_recipe": None,
+        "weak_quantile_weight": 0.1,
+        "additional_trainable_prefixes": (),
         "l2_sp_lambda": 0.0,
         "source_state": None,
         "bn_policy": "current",
@@ -496,7 +549,14 @@ def train_target_adaptation(
 
     _seed_everything(seed)
     configure_bn_policy(model, str(options["bn_policy"]))
-    trainable, total = configure_trainable(model, mode)
+    configured_recipe = options.get("loss_recipe")
+    if configured_recipe is None:
+        configured_recipe = "endpoint_normalized_quantile" if bool(options["normalized_target_loss"]) else "raw_quantile"
+    if configured_recipe not in LOSS_RECIPES:
+        raise ValueError(f"unsupported loss recipe: {configured_recipe}")
+    trainable, total = configure_trainable(
+        model, mode, additional_prefixes=tuple(options.get("additional_trainable_prefixes", ()))
+    )
     parameters = [parameter for parameter in model.parameters() if parameter.requires_grad]
     if not parameters:
         raise ValueError("adaptation scope has no trainable parameters")
@@ -538,10 +598,10 @@ def train_target_adaptation(
         batches = list(zip(*loader_pair(atom_data, angle_data, order, int(options["batch_size"]))))
         def batch_loss(atom_batch, angle_batch):
             prediction = _model_prediction(model, atom_batch, angle_batch)
-            if bool(options["normalized_target_loss"]):
-                value = scaled_quantile_target_loss(atom_batch.y[:, 0], prediction[:, :3], float(scales["V1"])) + scaled_quantile_target_loss(atom_batch.y[:, 1], prediction[:, 3:], float(scales["V2"]))
-            else:
-                value = quantile_target_loss(atom_batch.y[:, 0], prediction[:, :3]) + quantile_target_loss(atom_batch.y[:, 1], prediction[:, 3:])
+            value = target_loss_recipe(
+                atom_batch.y[:, 0], atom_batch.y[:, 1], prediction, scales,
+                recipe=str(configured_recipe), weak_quantile_weight=float(options["weak_quantile_weight"]),
+            )
             return value + (l2_lambda * l2_sp_penalty(model, source_state) if l2_lambda else 0)
         def compute_loss():
             total_loss = 0.0
@@ -639,6 +699,9 @@ def train_target_adaptation_fixed_epochs(
         "bn_policy": "current",
         "optimizer": "adam",
         "normalized_target_loss": False,
+        "loss_recipe": None,
+        "weak_quantile_weight": 0.1,
+        "additional_trainable_prefixes": (),
         "target_scales": None,
         "l2_sp_lambda": 0.0,
         "source_state": None,
@@ -647,12 +710,19 @@ def train_target_adaptation_fixed_epochs(
         options.update(dict(config))
     if str(options["optimizer"]).lower() != "adam":
         raise ValueError("fixed-epoch refit supports the preregistered Adam optimizer only")
-    if bool(options["normalized_target_loss"]):
-        scales = options.get("target_scales")
+    configured_recipe = options.get("loss_recipe")
+    if configured_recipe is None:
+        configured_recipe = "endpoint_normalized_quantile" if bool(options["normalized_target_loss"]) else "raw_quantile"
+    if configured_recipe not in LOSS_RECIPES:
+        raise ValueError(f"unsupported loss recipe: {configured_recipe}")
+    scales = options.get("target_scales")
+    if configured_recipe != "raw_quantile":
         if not isinstance(scales, Mapping) or any(float(scales[name]) <= 0 for name in ("V1", "V2")):
-            raise ValueError("normalized fixed-epoch refit requires positive target_scales in config")
-    else:
-        scales = None
+            raise ValueError("scaled fixed-epoch refit requires positive target_scales in config")
+    elif not isinstance(scales, Mapping):
+        # The raw objective does not consume these values; retaining a harmless
+        # placeholder keeps the common call below explicit and auditable.
+        scales = {"V1": 1.0, "V2": 1.0}
     source_state = options.get("source_state")
     l2_lambda = float(options["l2_sp_lambda"])
     if l2_lambda < 0:
@@ -662,7 +732,9 @@ def train_target_adaptation_fixed_epochs(
 
     _seed_everything(seed)
     configure_bn_policy(model, str(options["bn_policy"]))
-    trainable, total = configure_trainable(model, mode)
+    trainable, total = configure_trainable(
+        model, mode, additional_prefixes=tuple(options.get("additional_trainable_prefixes", ()))
+    )
     parameters = [parameter for parameter in model.parameters() if parameter.requires_grad]
     if not parameters:
         raise ValueError("adaptation scope has no trainable parameters")
@@ -679,12 +751,10 @@ def train_target_adaptation_fixed_epochs(
         for atom_batch, angle_batch in batches:
             optimizer.zero_grad(set_to_none=True)
             prediction = _model_prediction(model, atom_batch, angle_batch)
-            if scales is None:
-                loss = (quantile_target_loss(atom_batch.y[:, 0], prediction[:, :3])
-                        + quantile_target_loss(atom_batch.y[:, 1], prediction[:, 3:]))
-            else:
-                loss = (scaled_quantile_target_loss(atom_batch.y[:, 0], prediction[:, :3], float(scales["V1"]))
-                        + scaled_quantile_target_loss(atom_batch.y[:, 1], prediction[:, 3:], float(scales["V2"])))
+            loss = target_loss_recipe(
+                atom_batch.y[:, 0], atom_batch.y[:, 1], prediction, scales,
+                recipe=str(configured_recipe), weak_quantile_weight=float(options["weak_quantile_weight"]),
+            )
             if l2_lambda:
                 loss = loss + l2_lambda * l2_sp_penalty(model, source_state)
             if not torch.isfinite(loss):
@@ -698,12 +768,10 @@ def train_target_adaptation_fixed_epochs(
             post_losses = []
             for atom_batch, angle_batch in batches:
                 prediction = _model_prediction(model, atom_batch, angle_batch)
-                if scales is None:
-                    loss = (quantile_target_loss(atom_batch.y[:, 0], prediction[:, :3])
-                            + quantile_target_loss(atom_batch.y[:, 1], prediction[:, 3:]))
-                else:
-                    loss = (scaled_quantile_target_loss(atom_batch.y[:, 0], prediction[:, :3], float(scales["V1"]))
-                            + scaled_quantile_target_loss(atom_batch.y[:, 1], prediction[:, 3:], float(scales["V2"])))
+                loss = target_loss_recipe(
+                    atom_batch.y[:, 0], atom_batch.y[:, 1], prediction, scales,
+                    recipe=str(configured_recipe), weak_quantile_weight=float(options["weak_quantile_weight"]),
+                )
                 if l2_lambda:
                     loss = loss + l2_lambda * l2_sp_penalty(model, source_state)
                 post_losses.append(float(loss.detach().cpu()))

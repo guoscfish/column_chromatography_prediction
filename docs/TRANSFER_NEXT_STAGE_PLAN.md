@@ -1,5 +1,14 @@
 # Transfer Next Stage Plan
 
+> **2026-09-13 conditioned-source-readout addendum.** A separately
+> preregistered ROW-first developmental study now tests a residual adaptive
+> readout, an audited-condition query, and gated source-domain augmentation
+> without changing the frozen population, threshold, or P0 authority. See
+> [ROW_FIRST_CONDITIONED_SOURCE_TRANSFER_PLAN_2026-09-13](research/ROW_FIRST_CONDITIONED_SOURCE_TRANSFER_PLAN_2026-09-13.md)
+> and its [implementation audit](../studies/transfer/conditioned_source_readout/IMPLEMENTATION_AUDIT.md).
+> This addendum does not revise the N1 conclusion below; historical outer tests
+> remain exposed developmental confirmation.
+
 > **2026-09-12 research-record addendum.** The full branch map and the strict
 > distinction between the low-label matched benchmark and filtered FULL-data
 > neural study are in [TRANSFER_RESEARCH_ROADMAP_2026-09-12](research/TRANSFER_RESEARCH_ROADMAP_2026-09-12.md).
