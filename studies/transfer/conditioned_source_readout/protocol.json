@@ -1,0 +1,103 @@
+{
+  "architecture_continuation_rule": "An arm has reasonable signal only if it improves mean inner validation combined NRMSE by >=3% versus R0 in both columns, wins >=3/5 outer-seed means and >=13/25 inner folds in both columns. R3 requires R2 signal; R4 requires R3 signal.",
+  "classification": "DEVELOPMENTAL_CONFIRMATION__HISTORIC_OUTER_TEST_EXPOSED",
+  "columns": [
+    "25g",
+    "40g"
+  ],
+  "compound_secondary": true,
+  "environment_at_prepare": {
+    "device": "cpu",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "python": "3.11.14 | packaged by conda-forge | (main, Oct 22 2025, 22:56:31) [Clang 19.1.7 ]",
+    "torch": "2.10.0"
+  },
+  "git_sha_at_prepare": "06e10cbe1679ee23953eb6c933a5d9c40a8471cd",
+  "inner_cv": {
+    "folds": 5,
+    "group": "canonical_smiles",
+    "scope": "outer gradient_train only",
+    "splitter": "GroupKFold"
+  },
+  "loss_arms": {
+    "L0": "raw_quantile",
+    "L1": "endpoint_normalized_quantile",
+    "L2": "q50_weak_quantile"
+  },
+  "loss_selection_rule": "A non-L0 recipe is selected only if it improves mean inner validation combined NRMSE by >=1% in both columns, wins >=3/5 outer-seed means and >=13/25 inner folds in both columns; otherwise retain L0. Ties retain the simpler L0.",
+  "outer_protocols": [
+    "row",
+    "compound"
+  ],
+  "outer_seeds": [
+    769539383,
+    1425370602,
+    536279090,
+    2767143051,
+    1362771960
+  ],
+  "outer_validation_used_for_selection": false,
+  "parent_protocol": "studies/transfer/filtered_full_data_benchmark/protocol.json",
+  "parent_protocol_sha256": "b78f9b69780bce21c093496d8a6f59ccfab94e2934bacc247ce0ec387e6211b4",
+  "population_sha256": {
+    "25g": "fe24a1c17392d744c52e6f484b343ac6ed50cdbda343da8b965c150421c00e0e",
+    "40g": "4dd1ff8d1bd4cfb4388365a86d1439e6015a0d9de75cd6d90aa2ab23d84c5d97"
+  },
+  "prediction_freeze": "all final blind validation/test predictions and checkpoints hash-locked before score action reads outer truth",
+  "readout": {
+    "base": "global_add_pool(node embeddings) + existing condition residual",
+    "gate_initialization": 0.0,
+    "heads": 4,
+    "hidden_dim": 128
+  },
+  "readout_arms": {
+    "R0": "converged P0 architecture, no readout change",
+    "R1": "P0 + learnable-global-query residual multi-head attention readout",
+    "R2": "P0 + full audited-condition-query residual multi-head attention readout",
+    "R3": "R2 + frozen source q50 residual fusion",
+    "R4": "R3 + frozen source 128D representation residual fusion"
+  },
+  "row_primary": true,
+  "source_augmentation": {
+    "cache": "sample_id + source checkpoint SHA256 + feature-table SHA256",
+    "source_prediction": "source eval q50 columns [1,4], divided only by source-train scales before fusion",
+    "source_representation": "frozen QGeoGNNV2.extract_representation, pre-head, 128D"
+  },
+  "source_checkpoint": "studies/predictor/final_4g_qualification/runtime/row/seed_42/best.pt",
+  "source_checkpoint_sha256": "fce9edebc294fd179c7c7dc27ab2badea049c77fdad03a6cf0c317c63df544b0",
+  "source_model_variant": "qgeognn_v2",
+  "source_target_scales": {
+    "V1": 7.8796590346317394,
+    "V2": 16.076509553562932
+  },
+  "split_manifest": "studies/transfer/filtered_full_data_benchmark/split_manifest.csv",
+  "split_manifest_sha256": "33e079a2b7250a82b040605bddb372646ab424684268b5b0c63df6366194a0a3",
+  "study": "ROW_FIRST_CONDITIONED_SOURCE_READOUT",
+  "test_truth_used_for_fit_or_selection": false,
+  "trainable_scope": {
+    "P0": [
+      "backbone.convs.4.",
+      "condition_branch.",
+      "head."
+    ],
+    "R1_R2": [
+      "P0",
+      "adaptive_readout."
+    ],
+    "R3_R4": [
+      "P0",
+      "adaptive_readout.",
+      "source_augmentation."
+    ]
+  },
+  "training": {
+    "batch_size": 2048,
+    "bn_policy": "current",
+    "learning_rate": 0.0001,
+    "maximum_epochs": 500,
+    "optimizer": "adam",
+    "patience": 80,
+    "weak_quantile_weight": 0.1,
+    "weight_decay": 1e-05
+  }
+}
