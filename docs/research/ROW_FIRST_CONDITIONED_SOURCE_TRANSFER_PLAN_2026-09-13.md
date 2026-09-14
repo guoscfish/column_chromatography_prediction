@@ -13,6 +13,29 @@ confirmation only after a ROW continuation gate; no test result may determine
 which module is appended. All historical outer tests are exposed, so every
 outer score is developmental confirmation rather than independent validation.
 
+## Execution result — 2026-09-14
+
+The preregistered loss screen retained L0 (`raw_quantile`).  The complete
+ROW-inner screen then evaluated R0/R1/R2 for both 25g and 40g across all five
+frozen outer seeds and five inner GroupKFold folds per seed.  No readout arm
+met the required two-column 3% mean-improvement, 3-of-5 seed-win, and 13-of-25
+fold-win gate:
+
+| arm | column | mean relative improvement (%) | fold wins | seed wins |
+| --- | --- | ---: | ---: | ---: |
+| R1 | 25g | -0.019 | 9/25 | 1/5 |
+| R1 | 40g | 0.695 | 22/25 | 5/5 |
+| R2 | 25g | 0.048 | 11/25 | 3/5 |
+| R2 | 40g | 0.717 | 23/25 | 5/5 |
+
+Accordingly the frozen outcome is `NO_MATERIAL_ARCHITECTURE_GAIN`.  R3 and R4
+were not authorized; no outer validation/test truth was read, no outer
+predictions were made, and COMPOUND confirmation was not run.  The
+machine-readable [inner decision](../../studies/transfer/conditioned_source_readout/inner_screen_decision.json),
+[outer stopping decision](../../studies/transfer/conditioned_source_readout/OUTER_TEST_STOPPING_DECISION.json),
+and [final report](../../studies/transfer/conditioned_source_readout/FINAL_REPORT.md)
+record this boundary and the complete evidence.
+
 ## Scientific question and motivation
 
 Can a qualified 4g source model, together with target sample-level

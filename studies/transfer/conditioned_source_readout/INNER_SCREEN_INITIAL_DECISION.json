@@ -1,0 +1,72 @@
+{
+  "decision_kind": "READOUT_STAGE",
+  "evidence": {
+    "path": "studies/transfer/conditioned_source_readout/INNER_SCREEN_INITIAL_RESULTS.csv",
+    "sha256": "06fe8b025a5b6032c0e255efdf007e257d51b13b6fe198aea4becd5636018781"
+  },
+  "gates": {
+    "R1": false,
+    "R2": false
+  },
+  "loss_selection": {
+    "path": "studies/transfer/conditioned_source_readout/loss_selection.json",
+    "selected_loss_arm": "L0",
+    "selected_loss_recipe": "raw_quantile",
+    "sha256": "275aad930f5b3def2dc65e5353d933a1a9ac48873b17e6d434d39fdd24987e8d"
+  },
+  "next_arm": null,
+  "parents": {},
+  "protocol_sha256": "1f8fe1893603138bec06c45ef7133987783e5d04ebf63538df57e4734c3b532a",
+  "rule": "An arm has reasonable signal only if it improves mean inner validation combined NRMSE by >=3% versus R0 in both columns, wins >=3/5 outer-seed means and >=13/25 inner folds in both columns. R3 requires R2 signal; R4 requires R3 signal.",
+  "schema_version": 1,
+  "screened_arms": [
+    "R0",
+    "R1",
+    "R2"
+  ],
+  "selected_candidate_if_screen_stops": null,
+  "selection_boundary": "ROW inner GroupKFold only; no outer validation/test truth",
+  "stage": "initial",
+  "summary": [
+    {
+      "arm": "R1",
+      "column": "25g",
+      "fold_wins": 9,
+      "mean_relative_improvement_pct": -0.019184715618083797,
+      "n_folds": 25,
+      "n_seeds": 5,
+      "seed_wins": 1,
+      "std_relative_improvement_pct": 0.05752777299662733
+    },
+    {
+      "arm": "R1",
+      "column": "40g",
+      "fold_wins": 22,
+      "mean_relative_improvement_pct": 0.6951887644599326,
+      "n_folds": 25,
+      "n_seeds": 5,
+      "seed_wins": 5,
+      "std_relative_improvement_pct": 0.6553625503064829
+    },
+    {
+      "arm": "R2",
+      "column": "25g",
+      "fold_wins": 11,
+      "mean_relative_improvement_pct": 0.0481620425496531,
+      "n_folds": 25,
+      "n_seeds": 5,
+      "seed_wins": 3,
+      "std_relative_improvement_pct": 0.26379110779950254
+    },
+    {
+      "arm": "R2",
+      "column": "40g",
+      "fold_wins": 23,
+      "mean_relative_improvement_pct": 0.7170561219565846,
+      "n_folds": 25,
+      "n_seeds": 5,
+      "seed_wins": 5,
+      "std_relative_improvement_pct": 0.6293825257651309
+    }
+  ]
+}
