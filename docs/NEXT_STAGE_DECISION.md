@@ -1,5 +1,28 @@
 # Current research decision
 
+## Controlled PCGrad mechanism result (2026-09-14)
+
+The isolated [shared-backbone PCGrad study](../studies/transfer/column_conditioned_pcgrad/FINAL_REPORT.md)
+is complete with terminal decision
+**`PCGRAD_REDUCES_CONFLICT_BUT_DOES_NOT_MATERIALLY_IMPROVE_TRANSFER`**.
+Only the completed A2 column-FiLM model's diagnosed late shared-backbone
+gradients were projected; frozen A2-Adam was not retrained.
+
+The intervention worked mechanically: projection triggered on 66.32% of
+directed attempts, mean task-gradient cosine rose from -0.0808 to 0.2662, and
+negative-cosine burden fell 99.28%. Raw gradient magnitudes remained modestly
+imbalanced (median maximum/minimum ratio 2.89). But COMPOUND inner prediction
+did not improve materially: paired-fold NRMSE changed -0.37% on 25g and +0.50%
+on 40g versus frozen A2-Adam. The 25g V2 tail worsened 2.99%, and both columns
+missed the required 2% mean-gain threshold. The primary gate failed, so ROW and
+new outer prediction/scoring were correctly not run; no outer truth was read.
+
+Gradient conflict is real but is not sufficient to explain the observed
+transfer instability. Stop uncontrolled neural architecture and optimizer
+expansion under the current dataset. The next priority is independent/crossed
+compound and batch data with intentional high-volume-tail coverage, not another
+automatic computational method. Active Learning remains unauthorized.
+
 ## Column-conditioned multi-task result (2026-09-14)
 
 The preregistered [column-conditioned multi-task QGeoGNN study](../studies/transfer/column_conditioned_multitask/FINAL_REPORT.md)

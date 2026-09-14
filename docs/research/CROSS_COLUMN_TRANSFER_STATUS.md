@@ -1,6 +1,34 @@
 # Cross-column transfer: evidence and open questions
 
-Updated after the completed [column-conditioned multi-task QGeoGNN study](../../studies/transfer/column_conditioned_multitask/FINAL_REPORT.md). Historical reports and decision JSONs retain their original provenance. The byte-exact status consumed by the earlier scaling-failure protocol is preserved in [the historical snapshot](history/CROSS_COLUMN_TRANSFER_STATUS_scaling_failure_audit.md).
+Updated after the completed [controlled A2-PCGrad mechanism study](../../studies/transfer/column_conditioned_pcgrad/FINAL_REPORT.md). Historical reports and decision JSONs retain their original provenance. The byte-exact status consumed by the earlier scaling-failure protocol is preserved in [the historical snapshot](history/CROSS_COLUMN_TRANSFER_STATUS_scaling_failure_audit.md).
+
+## Latest optimization-mechanism study
+
+**PCGRAD_REDUCES_CONFLICT_BUT_DOES_NOT_MATERIALLY_IMPROVE_TRANSFER.** The sole
+new candidate retained completed A2's architecture, source, data, global
+target-molecule folds, raw loss, balanced batches, Adam settings, and selector.
+Standard deterministic PCGrad replaced gradients only on the 44 late shared
+backbone parameters used by the previous diagnostics; heads, FiLM, task
+embedding, and condition completion retained ordinary mean-loss gradients.
+
+The mechanism was strongly active: 66.32% of directed projections triggered,
+mean cosine moved from -0.0808 to +0.2662, negative-cosine fraction fell from
+66.05% to 4.14%, and negative burden fell 99.28%. The raw median task-gradient
+magnitude ratio was 2.89, so severe magnitude imbalance remains unsupported.
+
+Mechanism correction did not translate into prediction gain. Relative to
+matched frozen A2-Adam, COMPOUND inner paired-fold NRMSE changed -0.37% on 25g
+(3/5 seed, 12/25 fold wins) and +0.50% on 40g (3/5 seed, 14/25 fold wins).
+Neither met the 2% threshold, and 25g V2 tail RMSE worsened 2.99%. The primary
+gate failed; ROW, new outer predictions, and outer scoring were not run, and no
+outer validation/test truth was read.
+
+This isolates a useful negative mechanism result: destructive gradients exist,
+but resolving them is insufficient to explain or repair transfer instability.
+No CAGrad, GradNorm, weighting, architecture change, or post-result candidate is
+authorized. Uncontrolled model/optimizer expansion should stop under the
+current dataset; independent/crossed experimental data and deliberate tail
+coverage are the next priority.
 
 ## Latest representation-level study
 
