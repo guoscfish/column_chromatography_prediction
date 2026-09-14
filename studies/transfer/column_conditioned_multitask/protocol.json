@@ -1,0 +1,95 @@
+{
+  "arms": {
+    "A1": "MULTITASK_SEPARATE_HEADS",
+    "A2": "MULTITASK_COLUMN_FILM"
+  },
+  "batching": "per-task size=min(682,largest target training population); ceil(largest target/size) steps; independent epoch/task-seeded permutation cycles; equal task loss mean; mixed-task BN in a single forward",
+  "bn_policy": "current; early frozen BN eval; late trainable BN mixed-task train",
+  "columns": [
+    "25g",
+    "40g"
+  ],
+  "epoch_refit": "round-half-up median of five joint inner best epochs, per arm and seed",
+  "features_sha256": {
+    "25g": "3733df28f6c14d21563e02d8fc04a37ce4838b17a46303986b6da65719ab07c9",
+    "40g": "e64e09686ebb52b9d1bd276354318d565b15dc7b3910dd65dc60174436ee5720"
+  },
+  "film": {
+    "embedding_dim": 16,
+    "gamma_beta_initialization": "zero",
+    "layers": [
+      3,
+      4
+    ],
+    "meaning": "categorical related task identity only",
+    "placement": "after GIN output, before existing activation"
+  },
+  "freeze": "all A1/A2 predictions for five seeds and both columns within protocol frozen before separate score action; compound first, row second",
+  "gate": {
+    "endpoint_mean_deterioration_max": 0.02,
+    "fold_wins_min": 13,
+    "mean_fold_relative_nrmse_gain_min": 0.03,
+    "required_columns": [
+      "25g",
+      "40g"
+    ],
+    "seed_mean_wins_min": 3,
+    "tail_mean_deterioration_max": 0.02
+  },
+  "historical_baselines": [
+    "P0 (ROW only; no converged COMPOUND artifact)",
+    "paper_style_current_v2",
+    "HIER_CW_SHARED_LAMBDA_CORRECTED"
+  ],
+  "inner_cv": {
+    "folds": 5,
+    "group": "canonical_smiles",
+    "grouping": "GLOBAL across 25g and 40g outer gradient_train",
+    "selector": "equal-column arithmetic mean of inner-train-scaled combined NRMSE",
+    "tie": "earliest epoch"
+  },
+  "interpretation": "DEVELOPMENTAL CONFIRMATION; target-compound holdout is not source-unseen OOD",
+  "no_extra_candidates": true,
+  "outer_seeds": [
+    769539383,
+    1425370602,
+    536279090,
+    2767143051,
+    1362771960
+  ],
+  "outer_validation_or_test_used_for_fit_or_selection": false,
+  "population_sha256": {
+    "25g": "fe24a1c17392d744c52e6f484b343ac6ed50cdbda343da8b965c150421c00e0e",
+    "40g": "4dd1ff8d1bd4cfb4388365a86d1439e6015a0d9de75cd6d90aa2ab23d84c5d97"
+  },
+  "preprocessing": "unchanged qualified source preprocessing; inner metric scales from each task inner_train only",
+  "primary_protocol": "compound",
+  "promotion": "both columns improve vs every available legitimate reference on compound with >=3/5 paired wins; no endpoint or tail mean >2% worse; no ROW mean NRMSE >2% worse; absent compound P0 explicitly reported",
+  "regimes": "outer gradient_train center 1/3 and 2/3 quantiles; descriptive only",
+  "secondary_protocol": "row",
+  "source_checkpoint": "studies/predictor/final_4g_qualification/runtime/row/seed_42/best.pt",
+  "source_data_sha256": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+  "source_graph_cache_sha256": "a48f8ea1ce4f89c5a1ea6d17466e7c7ffa0439edb8ec79bd8b765bad3a97c3ee",
+  "source_sha256": "fce9edebc294fd179c7c7dc27ab2badea049c77fdad03a6cf0c317c63df544b0",
+  "source_split_sha256": "a8a4a322cd9c75253b1a4ed8c5c91ededed74a933df2db2685015c8b3e008008",
+  "source_supervision": "qualified row-seed-42 source_train only; source validation diagnostic only",
+  "source_task": "4g",
+  "split_manifest_sha256": "33e079a2b7250a82b040605bddb372646ab424684268b5b0c63df6366194a0a3",
+  "study": "COLUMN_CONDITIONED_MULTITASK_QGEOGNN",
+  "tail_threshold": "each endpoint outer gradient_train 80th percentile; inner gate compares pooled OOF tail SSE/count within seed then seed means",
+  "target_graph_cache_sha256": {
+    "25g": "a5af734cc32dc4d3372a9cc952d098283cd97395d256ea07ef93ddaf2f006191",
+    "40g": "3919c2c5eac2b927c37fce52da4267fa65216d906e53c6edc4d9c044d188acaa"
+  },
+  "training": {
+    "cpu_threads": 1,
+    "gradient_diagnostic_interval": 10,
+    "loss": "raw_quantile",
+    "maximum_epochs": 500,
+    "new_lr": 0.0003,
+    "patience": 80,
+    "per_task_batch_cap": 682,
+    "pretrained_lr": 0.0001,
+    "weight_decay": 1e-05
+  }
+}

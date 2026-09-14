@@ -1,6 +1,38 @@
 # Cross-column transfer: evidence and open questions
 
-Updated after the completed [matched cross-column absolute-error benchmark](../../studies/transfer/matched_rmse_benchmark/MATCHED_RMSE_REPORT.md). Historical reports and decision JSONs retain their original provenance. The byte-exact status consumed by the earlier scaling-failure protocol is preserved in [the historical snapshot](history/CROSS_COLUMN_TRANSFER_STATUS_scaling_failure_audit.md).
+Updated after the completed [column-conditioned multi-task QGeoGNN study](../../studies/transfer/column_conditioned_multitask/FINAL_REPORT.md). Historical reports and decision JSONs retain their original provenance. The byte-exact status consumed by the earlier scaling-failure protocol is preserved in [the historical snapshot](history/CROSS_COLUMN_TRANSFER_STATUS_scaling_failure_audit.md).
+
+## Latest representation-level study
+
+**INNER_REPRESENTATION_GATE_PASSED_BUT_NO_ROBUST_OUTER_REPRESENTATION_SIGNAL.**
+The only candidates were A1 joint 4g/25g/40g training with separate copied
+heads and A2, which added zero-initialized categorical column FiLM to the final
+two message-passing blocks. The qualified 4g source, raw quantile loss, frozen
+FULL-data identities, globally grouped target-molecule inner folds, equal-task
+batching, and one joint checkpoint selector were fixed before fitting.
+
+A2 passed every COMPOUND inner gate in both columns: 25g improved mean
+paired-fold NRMSE 5.05% with 5/5 seed and 18/25 fold wins; 40g improved 8.18%
+with 5/5 seed and 20/25 fold wins. Endpoint, Center/Width, and high-volume-tail
+inner metrics all improved. ROW inner evidence also favored A2 (5.10% on 25g,
+6.51% on 40g). Shared-layer gradient cosines were frequently negative,
+especially for 4g versus 40g, while median magnitude ratios remained below 10.
+
+After all blind predictions were frozen, developmental outer scoring was less
+supportive. A2 versus A1 improved mean COMPOUND NRMSE by 1.47% on 25g and 2.65%
+on 40g, but worsened ROW by 1.10% and 9.37%. The corrected hierarchical
+Center/Width reference remained stronger on both COMPOUND columns. Therefore
+`REPRESENTATION_SIGNAL=False` under the cross-protocol guard and
+`PROJECT_TRANSFER_GAIN=False`. Learned task embeddings have no physical
+interpretation, target-compound holdout is not source-unseen OOD, and the
+inherited per-column COMPOUND partitions contain limited cross-target donor
+overlap. No architecture expansion, 8g addition, calibration, Active Learning,
+PCGrad, or domain-specific normalization was appended.
+
+The next isolated computational hypothesis, if separately preregistered, is a
+gradient-conflict handling control. Independent/crossed compound and batch data
+with intentional high-volume-tail coverage remains the higher-priority external
+validation need. Uncontrolled neural architecture expansion should stop.
 
 ## Latest matched strategy benchmark
 
@@ -58,10 +90,10 @@ All items below are `FUTURE_HYPOTHESES / EXPERIMENT_BACKLOG`, not demonstrated c
 
 | Direction | Needed evidence or control |
 | --- | --- |
-| Column-conditioned shared representation | Next research priority, not launched. Source/target shared backbone with separate heads and frozen source anchoring is now tested and negative under this recipe; explicit column context remains untested. Require matched budgets and independent compound/batch confirmation. |
+| Column-conditioned shared representation | Completed. A2 column FiLM passed both inner protocols but did not survive the outer cross-protocol guard; no robust representation signal or project transfer gain. Do not expand this architecture without new evidence. |
 | Explicit column context | More specifications and crossed conditions; no causal mass/flow claim from present confounding. |
-| Task / column embedding | Known-column interpolation versus genuinely held-out specifications. |
-| Multi-column multitask training | Global compound isolation and equal acquired-label ledger. |
+| Task / column embedding | Fixed 16D categorical embedding tested in A2; inner-positive but not outer-robust. Future work requires genuinely held-out specifications, not an embedding sweep. |
+| Multi-column multitask training | Equal-task 4g/25g/40g training completed. Any future study needs globally isolated outer compounds and independent data. |
 | Multi-fidelity joint learning | Source-label provenance, missing-pair controls and fidelity-aware validation. |
 | Adaptive readout | Controlled readout-only intervention; no simultaneous backbone/head/loss redesign. |
 | Paired / delta learning | Strict matching, source-train label availability, duplicate aggregation and unmatched coverage. |

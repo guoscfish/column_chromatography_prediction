@@ -1,5 +1,31 @@
 # Current research decision
 
+## Column-conditioned multi-task result (2026-09-14)
+
+The preregistered [column-conditioned multi-task QGeoGNN study](../studies/transfer/column_conditioned_multitask/FINAL_REPORT.md)
+is complete. A2 categorical column FiLM passed the COMPOUND inner continuation
+gate against A1 separate heads in both target columns: mean paired-fold NRMSE
+improved 5.05% on 25g and 8.18% on 40g, with 5/5 seed wins in each. The same
+inner signal appeared under ROW (5.10% and 6.51%). Gradient diagnostics show
+persistent conflict, especially between 4g and 40g, without a greater-than-10x
+median magnitude imbalance.
+
+The developmental outer confirmation does not support promotion. Relative to
+A1, A2 improved COMPOUND mean NRMSE only 1.47% on 25g and 2.65% on 40g, then
+worsened ROW by 1.10% and 9.37%, respectively. It also remained worse than the
+corrected hierarchical Center/Width reference on both COMPOUND columns. The
+current decision is therefore **`INNER_REPRESENTATION_GATE_PASSED_BUT_NO_ROBUST_OUTER_REPRESENTATION_SIGNAL`**
+and **`PROJECT_TRANSFER_GAIN_FALSE`**. These historically exposed outer
+identities are developmental confirmation, not independent validation; the
+inherited COMPOUND partitions also permit limited related-target donor overlap.
+
+Do not expand the column-conditioned architecture, add 8g, or start Active
+Learning from this result. A separately preregistered gradient-conflict control
+is the next isolated computational mechanism if another model study is run;
+independent/crossed compound and batch collection with deliberate tail coverage
+remains the external-validation priority. No next-stage method is authorized by
+the completed study itself.
+
 ## Train-only neural-baseline audit record (2026-09-12)
 
 The historical 150-epoch Adam evidence is not a stable P0/P1 ranking basis.
