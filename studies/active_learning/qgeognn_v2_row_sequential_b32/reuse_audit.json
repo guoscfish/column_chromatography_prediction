@@ -1,0 +1,20 @@
+{
+  "audit_scope": [
+    "studies/active_learning/qgeognn_v2_row_small_batch_benchmark",
+    "studies/active_learning/qgeognn_v2_row_hybrid_extension"
+  ],
+  "existing_results_modified": false,
+  "hybrid": {
+    "reuse": false,
+    "reason": "Prior artifacts lack the sequential Commit-A and ordered current-L_t/current-U_t round contracts."
+  },
+  "lcmd": {
+    "reuse": false,
+    "reason": "Prior artifacts lack the sequential Commit-A and ordered current-L_t/current-U_t round contracts."
+  },
+  "random": {
+    "reuse": false,
+    "reason": "The sequential arm uses its newly preregistered single deterministic original-U0 permutation; no prior control is selected."
+  },
+  "status": "AUDITED_NOT_REUSED"
+}
