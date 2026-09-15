@@ -1,0 +1,139 @@
+{
+  "status": "PASS",
+  "study": "POST-PRIMARY MATCHED EXTENSION",
+  "primary_study": "studies/active_learning/qgeognn_v2_row_small_batch_benchmark",
+  "primary_results_freeze_sha256": "4706b75e02b13b74d839ef8c9b46cb6c58a90fb8519f6072941fc7e7a0f3ae1b",
+  "primary_decision": "BEST_CURRENT_ROW_ACQUISITION",
+  "confirmation_seeds": [
+    157,
+    887,
+    2357,
+    6101,
+    12203
+  ],
+  "B": 32,
+  "ensemble_K": 3,
+  "reuse_old_random": "YES",
+  "reuse_old_lcmd": "YES",
+  "checks": {
+    "confirmation_cohort": true,
+    "row_splits": true,
+    "l0_ids": true,
+    "validation_test_ids": true,
+    "predictor": true,
+    "training_config": true,
+    "evaluation_initialization": true,
+    "target_scales": true,
+    "checkpoint_criterion": true,
+    "b32": true,
+    "primary_freeze": true,
+    "cache_contracts": true
+  },
+  "seeds": [
+    {
+      "outer_seed": 157,
+      "split_sha256": "e1718212472ae86f5ca3f16c4d8e3905c043b06bf4830e87b5a9d0bb64577472",
+      "split_ids_hash": "be96da86803b87f4a54daf238a8b7631bcc8b59ca33adbf1bd17318fc64763af",
+      "l0_ids_hash": "1171988daf4e91eb3d866b44b1ba07f04a36e6f88eb953eda831b9c64c66854d",
+      "u0_ids_hash": "2d5225ceee78487280509f7b1352724a9a87b095ebccf0041d9fe2b5b7e5bf47",
+      "validation_ids_hash": "1c7360ea30a5bb2bbc04c1160ce749a6592ce89a5314acb6d1aa7bd7ce5d6ead",
+      "test_ids_hash": "10a2ef48671c007be63ae19d9203e2af7c5f13b954f505102564aaeabe0ecc19",
+      "initialization_hash": "27933d44c40fa421228312c0940f971cf44564d39c1cf128e0b3b1acf85d75f6",
+      "initialization_seed": 2000160,
+      "training_config_hash": "c7bf44133f21e5e95f63df9a334572426cc72171739d982b58cee8ea8e948ba9",
+      "target_scales_hash": "b815935a22203bf02d1f1feab3b6ac9310685740471b808f2c23c7324e3c2199",
+      "target_scales": {
+        "V1": 6.502957820892334,
+        "V2": 13.158523559570312
+      },
+      "context_contract_hash": "f19153bc938131586ee230fbe34c7903ce2814115a16bbd3b8b6969ca8bc6976",
+      "primary_b32_pre_test_freeze_sha256": "df37981f3904b54b468e6ea603100a49b4e82ae0a01263edb70de2089c306b3f",
+      "random_reusable": true,
+      "lcmd_reusable": true
+    },
+    {
+      "outer_seed": 887,
+      "split_sha256": "0413fb5c356dc14b1d2c056379ef09f1925835e64fa41fa86dc12aa8703a1807",
+      "split_ids_hash": "56f60b7887cec06b2da9ca88d8e614cf8a6d6280926215916ebc054183f00a80",
+      "l0_ids_hash": "7c4a495fbada80f6a2894d232c8e9da2d0fbdb72e36460ec8fad3673097b8eaa",
+      "u0_ids_hash": "d83c4dca60772a94228fffd1612bd1ff826c9a56e2b25300501caf6e60820fb1",
+      "validation_ids_hash": "c9d69291ee84c64472ce3af1a9d4479ba63acacae4993a663d261576a29306c3",
+      "test_ids_hash": "990930f043cb4b5a7327059f853719d8ec62ce21eeaf1756acbc315e6c0a33de",
+      "initialization_hash": "e8b80a6fa0e13af4ceeba87cca4c19aaa0d0938540f1b23a12735ab6b1248e71",
+      "initialization_seed": 2000890,
+      "training_config_hash": "028450c6cae91e91beb2737680db5fe1873489a8200d0e78c0fc3e157ae5cd05",
+      "target_scales_hash": "e293bfb7911393082c769c32dababc3e5727b2d53c3e8169d80ca8cefab1ae64",
+      "target_scales": {
+        "V1": 8.277901649475098,
+        "V2": 17.182220458984375
+      },
+      "context_contract_hash": "2336d28e4b9bbe878d45a6eac4c946862a6e119e748cd9b51e15fa5cbce6181a",
+      "primary_b32_pre_test_freeze_sha256": "e8f798dcf4e41fabac5325bcd5d77371059a0e6827d7dc497bfec1d755798a79",
+      "random_reusable": true,
+      "lcmd_reusable": true
+    },
+    {
+      "outer_seed": 2357,
+      "split_sha256": "360d81a9e239d7bbf6e2f89f5ce7db7e119f0783f5e134df122ac08a6fc1f1e7",
+      "split_ids_hash": "509542aa28f3b8e24cc90353a000df17995d91010ab0c0292df07a8c9a612018",
+      "l0_ids_hash": "d779b85de80af8c7c8ad001710859df64ec813a7b86ffc269dce54b110791e7f",
+      "u0_ids_hash": "3f6b3a1e57ba608e9eae9726b16dc79ceccb489a255ac6cda2df786037a105b9",
+      "validation_ids_hash": "feec528b1659a310aaa38f4d0a01839349e00247504b3b62a3ae3afa021ecf79",
+      "test_ids_hash": "933364fc5a6cba8a09c8cc1e2f97f23b1e9ab62f52b99bb5fb5695c734fe8e20",
+      "initialization_hash": "761e40935fce4cc37fdc21db5be633cb18f6cf02ce4362e6355a055575290877",
+      "initialization_seed": 2002360,
+      "training_config_hash": "e3deaad15def4a879c614ab1a0d5ab4719e04b9cf07815649fc21a4bc897bec7",
+      "target_scales_hash": "6425ba82927d450d02031bc59a08801d42e816b9a2fb60e8ce2b402dec5605db",
+      "target_scales": {
+        "V1": 7.703535079956055,
+        "V2": 15.301406860351562
+      },
+      "context_contract_hash": "ea597bc4ddb9a54779813945cd7920a9c137600393c7a75a65f19155bd3d184a",
+      "primary_b32_pre_test_freeze_sha256": "5fbe207f85fd645071768a674800ff3bc6e6216371bf92c1ba89b2acd817a0ca",
+      "random_reusable": true,
+      "lcmd_reusable": true
+    },
+    {
+      "outer_seed": 6101,
+      "split_sha256": "3c8c809b2b6e63bd0b3d2f28032f0ae60adc66078fafb5e459d4d510d599e338",
+      "split_ids_hash": "19f3ccbd3cf60cedf998d50ac630b433483181522959e6590116330205ab7d2d",
+      "l0_ids_hash": "38793e6f1eda734757c562de4973830b27cf13b2c0e97fbf110c5a1e61fb860e",
+      "u0_ids_hash": "2b9590b3a68506f0c2cab57988232d3bc220911d12e680709ae02259f81aa149",
+      "validation_ids_hash": "247750c1d939b88b0869fc235e77b9db721b357703d85933996189915abaeb8d",
+      "test_ids_hash": "ecb7ff19582c1a90bb1182476e3e3db6c1655216f9521c04acd90ea593b162f5",
+      "initialization_hash": "ef0ea4900be1f13286fc526f0879dd94042983508662334d8032785ced026f7d",
+      "initialization_seed": 2006104,
+      "training_config_hash": "43ebbf0092e79a5a49e3236091eff325278e8d8316c7282beca4c4062b4d3945",
+      "target_scales_hash": "1964ded53348aefc0acd5b0781fe0aaf52cf32b12a1bbf5d2a4d5feb4d2a9a0a",
+      "target_scales": {
+        "V1": 5.462151050567627,
+        "V2": 12.266972541809082
+      },
+      "context_contract_hash": "0c84bd921f2d7f0b4f82fdcdd447bf2c879289ebad2ba08aac09620da58d4751",
+      "primary_b32_pre_test_freeze_sha256": "4a87a18ad4b46d8e877a3ef925145356f503ff7499333a15c8e50d74f51bc6e4",
+      "random_reusable": true,
+      "lcmd_reusable": true
+    },
+    {
+      "outer_seed": 12203,
+      "split_sha256": "48f674a428b2c05d788074753105c3bba9bd3e3764f32c1c633d87d228961d35",
+      "split_ids_hash": "b1a28022eb3c9c94d1a533a8148056ca0fce65b3b615408c34ad21ab422fac69",
+      "l0_ids_hash": "71385392dba35d74a79610ae88dddc15c44ad740e0d34c59466888febddf24cb",
+      "u0_ids_hash": "e29127d3b54cd0668358bc5bf74622fa3967215ce03cda1318bbf8ccbd1e7c78",
+      "validation_ids_hash": "a17378c88592bc6117515c9305a6e9536da627388ce6c275eb143ff3a6d3a491",
+      "test_ids_hash": "6ea79f93fab3ddf63157b5f71569316647c79a10673e6d42c00aaddbf08ac991",
+      "initialization_hash": "55c4f0a50df1a2836d1f1319de2ffe0fb6810d085764fbb6368246d326cd7410",
+      "initialization_seed": 2012206,
+      "training_config_hash": "d7e55999a6d3d4790a51cc1b81eef406a838c04b4ff52c63bf14b84f767ba03b",
+      "target_scales_hash": "92a60d7baa1a7a1927c8005703cf400c261b5e6b8cbdebebc23a6e34ade56431",
+      "target_scales": {
+        "V1": 7.939393997192383,
+        "V2": 16.41832160949707
+      },
+      "context_contract_hash": "49c05e025217e74b674f02c4e8b84a9cc0c0faee3afd8d385ef17360f6ae73b3",
+      "primary_b32_pre_test_freeze_sha256": "ae25bc582b65015c3eaaa5a198cf51fbf83dcf2fbb0d4323e72313ff0136bbff",
+      "random_reusable": true,
+      "lcmd_reusable": true
+    }
+  ]
+}
