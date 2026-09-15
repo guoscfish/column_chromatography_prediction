@@ -18,6 +18,7 @@ from ..models import build_predictor, load_predictor_checkpoint
 from ..schemas.conditions import ConditionNormalization
 from ..training.predictor import atomic_json, loader_pair, seed_everything, train_source
 from .gradient_features import state_dict_hash
+from .cache import array_hash
 from .protocol import ids_hash
 
 
@@ -187,6 +188,17 @@ def fit_from_same_initialization(
         "initialization_hash": initialization_hash,
         "train_ids_hash": ids_hash(str(value) for value in contract["train_sample_ids"]),
         "validation_ids_hash": ids_hash(str(value) for value in contract["validation_sample_ids"]),
+        "training_config": dict(training_config),
+        "preprocessing": dict(preprocessing),
+        "normalization": asdict(normalization),
+        "train_truth_hash": array_hash(np.asarray(train_truth, dtype=np.float32)),
+        "validation_truth_hash": array_hash(np.asarray(validation_truth, dtype=np.float32)),
+        "ordered_train_ids": list(contract["train_sample_ids"]),
+        "ordered_validation_ids": list(contract["validation_sample_ids"]),
+        "ordered_train_indices": [int(i) for i in train_indices],
+        "ordered_validation_indices": [int(i) for i in validation_indices],
+        "prediction_sample_ids": list(prediction_sample_ids),
+        "prediction_indices": [int(i) for i in prediction_indices],
     }
     expected_hash = hashlib_sha(expected)
     if audit_path.exists() and checkpoint_path.exists() and prediction_path.exists():
@@ -236,6 +248,7 @@ def fit_from_same_initialization(
             min(row["validation_selection_score"] for row in history)
         ),
         "checkpoint_sha256": sha256_file(checkpoint_path),
+        "checkpoint_state_hash": state_dict_hash(model),
         "prediction_sha256": prediction_hash,
         "prediction_rows": len(prediction_indices),
         "training_seconds": time.perf_counter() - started,
