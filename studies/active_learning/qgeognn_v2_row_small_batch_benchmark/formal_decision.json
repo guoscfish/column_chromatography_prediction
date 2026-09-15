@@ -1,0 +1,87 @@
+{
+  "preregistration_commit": "a030ed1972615ad1ddfa4a1e4601eb67cce33726",
+  "primary": {
+    "decision": "BEST_CURRENT_ROW_ACQUISITION",
+    "conditions": {
+      "beats_random_mean_and_4_of_5_medians": true,
+      "beats_uncertainty_mean_and_3_of_5": true,
+      "beats_coreset_mean_and_3_of_5": true,
+      "endpoint_deterioration_at_most_2_percent": true
+    },
+    "directional_wins": {
+      "random_median": 4,
+      "uncertainty": 3,
+      "coreset": 3
+    },
+    "endpoint_fractional_change_vs_best_competitor": {
+      "V1": -0.015600943545208357,
+      "V2": -0.02440634926258578
+    },
+    "method_means": {
+      "coreset": {
+        "combined_normalized_RMSE": 0.6738340534972856,
+        "V1_RMSE": 4.985667544729464,
+        "V2_RMSE": 9.150036494620387
+      },
+      "lcmd": {
+        "combined_normalized_RMSE": 0.6631462288249763,
+        "V1_RMSE": 4.907886426828962,
+        "V2_RMSE": 8.894683739681577
+      },
+      "random": {
+        "combined_normalized_RMSE": 0.6949204714385019,
+        "V1_RMSE": 5.1364878121138045,
+        "V2_RMSE": 9.340195565222205
+      },
+      "uncertainty": {
+        "combined_normalized_RMSE": 0.6752747244341606,
+        "V1_RMSE": 5.006651126723406,
+        "V2_RMSE": 9.117201339880003
+      }
+    },
+    "sequential_recommendation_eligible": true,
+    "random_comparisons_are_not_independent_outer_seeds": true
+  },
+  "development_descriptive": {
+    "decision": "LCMD_BEATS_RANDOM_NOT_OTHER_BASELINES",
+    "conditions": {
+      "beats_random_mean_and_4_of_5_medians": true,
+      "beats_uncertainty_mean_and_3_of_5": true,
+      "beats_coreset_mean_and_3_of_5": false,
+      "endpoint_deterioration_at_most_2_percent": true
+    },
+    "directional_wins": {
+      "random_median": 5,
+      "uncertainty": 4,
+      "coreset": 2
+    },
+    "endpoint_fractional_change_vs_best_competitor": {
+      "V1": 0.012448103069717886,
+      "V2": 0.0176626553777679
+    },
+    "method_means": {
+      "coreset": {
+        "combined_normalized_RMSE": 0.6987404484023003,
+        "V1_RMSE": 5.466346538012163,
+        "V2_RMSE": 10.085400607737121
+      },
+      "lcmd": {
+        "combined_normalized_RMSE": 0.708760477694054,
+        "V1_RMSE": 5.534392183132135,
+        "V2_RMSE": 10.263535563018312
+      },
+      "random": {
+        "combined_normalized_RMSE": 0.7569404544983349,
+        "V1_RMSE": 5.933768024105602,
+        "V2_RMSE": 10.937380305729898
+      },
+      "uncertainty": {
+        "combined_normalized_RMSE": 0.7553929182187002,
+        "V1_RMSE": 5.937973064618482,
+        "V2_RMSE": 10.891484180911544
+      }
+    },
+    "sequential_recommendation_eligible": true,
+    "random_comparisons_are_not_independent_outer_seeds": true
+  }
+}
