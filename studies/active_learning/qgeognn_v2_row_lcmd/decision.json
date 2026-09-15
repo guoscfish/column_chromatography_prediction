@@ -1,0 +1,23 @@
+{
+  "decision": "STRONG_POSITIVE",
+  "conditions": {
+    "A_directional_wins_at_least_4_of_5": true,
+    "B_mean_LCMD_minus_Random_mean_gain_positive": true,
+    "C_median_LCMD_minus_Random_median_gain_positive": true,
+    "D_mean_after_batch_NRMSE_improvement_at_least_5_percent": true,
+    "E_no_endpoint_mean_RMSE_deterioration_above_2_percent": true
+  },
+  "directional_wins": 5,
+  "mean_LCMD_minus_Random_mean_gain": 0.20421201661208,
+  "median_LCMD_minus_Random_median_gain": 0.19873876871367474,
+  "mean_LCMD_after_batch_combined_NRMSE": 0.440213130561449,
+  "mean_Random_control_after_batch_combined_NRMSE": 0.6444251471735291,
+  "mean_combined_NRMSE_improvement_percent": 31.68902044058352,
+  "endpoint_mean_RMSE_change_percent_LCMD_vs_Random": {
+    "V1": -30.861826698177566,
+    "V2": -32.38784703377132
+  },
+  "full_learning_curve_recommended": true,
+  "automatic_next_method": null,
+  "study_stops_after_decision": true
+}

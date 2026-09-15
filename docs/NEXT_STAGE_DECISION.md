@@ -1,5 +1,20 @@
 # Current research decision
 
+## QGeoGNN-V2 4g row active-learning result (2026-09-15)
+
+The preregistered [Gradient-LCMD-TP one-step study](../studies/active_learning/qgeognn_v2_row_lcmd/FINAL_REPORT.md)
+is complete with decision **`STRONG_POSITIVE`**. On five new row-split outer
+seeds, LCMD beat the within-seed Random median in 5/5 seeds. Mean after-batch
+combined normalized RMSE was 0.440213 for LCMD and 0.644425 across 25 matched
+Random controls, a 31.69% reduction. Mean V1 and V2 RMSE were respectively
+30.86% and 32.39% lower than Random.
+
+This is current standalone QGeoGNN-V2 evidence and is separate from legacy
+E2/A1a results. It authorizes a separately preregistered 10% → 20% → 30% →
+40% → 50% 4g row learning curve; that follow-up has not started. It does not
+authorize BAIT, Condition-LCMD, UCB/EI/TS, historical Hybrid continuation,
+predictor tuning, or a compound-split promotion claim.
+
 ## Controlled PCGrad mechanism result (2026-09-14)
 
 The isolated [shared-backbone PCGrad study](../studies/transfer/column_conditioned_pcgrad/FINAL_REPORT.md)

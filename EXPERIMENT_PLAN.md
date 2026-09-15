@@ -4,7 +4,11 @@
 
 ## Current question
 
-Two independent branches remain open: whether 4g in-domain AL can become robust beyond row splits (Track A), and which mechanism best adapts 4g knowledge to scarce 8g labels (Track B). Active transfer (Track C) depends on Track B and is deferred.
+The current standalone QGeoGNN-V2 row mechanism test is complete. The next
+eligible Track A question is whether its strong one-step Gradient-LCMD-TP
+signal persists across a separately preregistered 10% → 20% → 30% → 40% →
+50% row learning curve. Robustness beyond row splits remains unanswered.
+Active transfer (Track C) remains deferred.
 
 ## Frozen historical conclusions
 
@@ -16,7 +20,17 @@ Two independent branches remain open: whether 4g in-domain AL can become robust 
 
 ## Current stage
 
-S1 and A1a are completed and stopped. T1a formal execution is complete without a stable winner. T1b-1 is also formal complete: all 180 Adapter fits and 120 six-method evaluation contexts completed, with no failed or missing fits and no test-truth read before predictions were frozen.
+**Current QGeoGNN-V2 Track A — one-step row study complete:** Gradient-LCMD-TP
+beat the matched Random median in 5/5 new outer seeds. Mean after-batch combined
+normalized RMSE was 0.440213 versus 0.644425 for the 25 Random controls, a
+31.69% reduction. The frozen gate returned `STRONG_POSITIVE`. This result
+supports a full row learning curve but does not yet establish compound/scaffold
+robustness or authorize a different acquisition strategy.
+
+S1 and legacy A1a are completed and stopped. T1a formal execution is complete
+without a stable winner. T1b-1 is also formal complete: all 180 Adapter fits
+and 120 six-method evaluation contexts completed, with no failed or missing
+fits and no test-truth read before predictions were frozen.
 
 ## Next preregistered candidates
 
@@ -34,9 +48,13 @@ S1 and A1a are completed and stopped. T1a formal execution is complete without a
 
 ## Stop and gate conditions
 
+- The completed current-V2 one-step study authorizes only a separately
+  preregistered full 4g row learning curve. It does not automatically start it.
 - T1b-1 is complete and does not authorize an expanded width sweep.
 - T1b-2 remains only a proposed matched-capacity adaptation-location study. Given the null capacity result, independent compound-level, another-column, or new-target validation has higher priority; T1b-2 is not implemented or authorized.
-- Track A cannot freeze a strategy without stable row plus compound/scaffold evidence and more than the current three outer seeds.
+- Track A cannot promote a generally robust strategy without stable row plus
+  compound/scaffold evidence. The present 5-seed result is strong row evidence
+  only.
 - Track C cannot reopen until T1 establishes a stable low-label transfer formulation.
 - A1b is stopped because A1a did not support the diversity mechanism.
 - Test truth cannot select methods, tune weights, or retroactively change E2/E4 conclusions.
