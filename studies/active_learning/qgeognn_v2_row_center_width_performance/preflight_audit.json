@@ -1,0 +1,277 @@
+{
+  "seeds": [
+    {
+      "outer_seed": 73,
+      "status": "PASS",
+      "raw_ordered_ids_identical": true,
+      "cw_ordered_ids_identical": true,
+      "initialization_hash": "92a4456433f2dfa9a62808ee0f3c81fe4dc42e1d3e92f0bf6a74175910e9d782",
+      "transform": {
+        "definition": "[(V1+V2)/(2*s_C), (V2-V1)/s_W]",
+        "center_population_std": 11.043390505933148,
+        "width_population_std": 11.611253572627234,
+        "transform_matrix": [
+          [
+            0.04527595032806012,
+            0.04527595032806012
+          ],
+          [
+            -0.08612334523099506,
+            0.08612334523099506
+          ]
+        ],
+        "target_source": "L0_labels_only",
+        "scale_ddof": 0
+      },
+      "label_access": [
+        {
+          "purpose": "initial_fit",
+          "requested_rows": 333,
+          "requested_ids_hash": "40561f1da4da86a3f5b585a0401d7b8b4f3aa38fbacb7f1f909a6c33bb3de800",
+          "roles": "l0",
+          "acquisitions_frozen": false,
+          "predictions_frozen": false
+        }
+      ],
+      "source_files": {
+        "/private/tmp/qgeognn_cw_performance/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/splits/row_seed_73.csv": "31c83f6ca47964f2b65253166fc51e903c99eddd27067057feb89262dbe53e11",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_73/context.json": "a8d11bf4c7f65c49574d04820fab5d349e571bebde02bc03fe2a1ae1a2de24f5",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_73/scrubbed_graphs.pt": "29c2d4c5d9b4b0165c7ef5d400c0d7a5ae53795e10aea67318f68705ec9d9239",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_73/gradient_features.npz": "e8a56b8981cf94549de27d267b5824552d23d701d7aedcca754a38871e6e101a",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_73/b32/pre_test_freeze.json": "c1444b869438b40a86fa73addd80cef523da3a987b722943fcf6fd66a37bcdf3",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_73/scrubbed_graphs.pt.contract.json": "ed995421f48885ab4418655d6db94ba9c82b3b3f0e1e9e58e03c2ee64c5ec5a2",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_73/gradient_features.npz.contract.json": "a7cceb3382cc3b090543d974280c417c5dd353c89745fdc38d47713e7e0e7e19",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_73/b32/selected_batches.csv": "13866122327d614729d72616ba1ae1ae5231f5d6271b138222a67f4a8ca8e2a9",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_73/baseline_l0/best.pt": "229a4324302135f3e8d254a7ef7347a25b8e458609e5c8ede5be51287017d8b3",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_73/baseline_l0/predictions.csv.gz": "f04275e55586f052757ff942581bec1e79bff5388ed36c5d4fd7c81f63d5bc22",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_73/baseline_l0/fit_audit.json": "e9b57d3f8391bf8e61833d8abd43df4ceec93ea0091c94b495890cea58d78cbd",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_73/b32/lcmd/best.pt": "570cb232e98ef9f40f7398d0a2c8a77f0b1a67d4a1e2b57ce6e9ff3d605ee8f8",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_73/b32/lcmd/predictions.csv.gz": "3f3966edea3696af8fc3685d098df674e54de2441a5b0578b96ee0c3ca4993f2",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_73/b32/lcmd/fit_audit.json": "b599db8d5d301f2374dff4c9c39a92edbeab6d448480137c85d7eb15ac2bb3c8",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction_al_innovation/studies/active_learning/qgeognn_v2_row_innovation_screen/runtime/seed_73/center_width_gradient_features.npz": "834b5311afc2c7279d714c4d4c01cc09157b6b9c2373296d431e22e43dc75146",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction_al_innovation/studies/active_learning/qgeognn_v2_row_innovation_screen/runtime/seed_73/center_width_gradient_features.npz.contract.json": "5eef0a985b8e269491612824e42418c9ae1bc62b974bf2f8aaf215c029da7be4",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction_al_innovation/studies/active_learning/qgeognn_v2_row_innovation_screen/results/selected_batches.csv": "0d51f4714e1655b398ad67512346baaa999c42ed2b429c390260413e56f7c3b2"
+      }
+    },
+    {
+      "outer_seed": 311,
+      "status": "PASS",
+      "raw_ordered_ids_identical": true,
+      "cw_ordered_ids_identical": true,
+      "initialization_hash": "2c3eed569f74ffd8fcc3304ece8aef8e4543c53bd91fbfbe07bb03428cdbea13",
+      "transform": {
+        "definition": "[(V1+V2)/(2*s_C), (V2-V1)/s_W]",
+        "center_population_std": 10.94116060384161,
+        "width_population_std": 10.180388649082808,
+        "transform_matrix": [
+          [
+            0.045698991003243504,
+            0.045698991003243504
+          ],
+          [
+            -0.09822807698899531,
+            0.09822807698899531
+          ]
+        ],
+        "target_source": "L0_labels_only",
+        "scale_ddof": 0
+      },
+      "label_access": [
+        {
+          "purpose": "initial_fit",
+          "requested_rows": 333,
+          "requested_ids_hash": "7645e76b4873745a4775da4702605c4535e9acda590a031d3c7d665ac28b8725",
+          "roles": "l0",
+          "acquisitions_frozen": false,
+          "predictions_frozen": false
+        }
+      ],
+      "source_files": {
+        "/private/tmp/qgeognn_cw_performance/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/splits/row_seed_311.csv": "2aa831693be0f4a802a4d002870e52cae5b73191763bb8bf5af5ce18512fdc48",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_311/context.json": "6d51cacfe16c3787e0eb005cdbabb1a9ac4a3388cc951acb8d826f60a86af351",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_311/scrubbed_graphs.pt": "29c2d4c5d9b4b0165c7ef5d400c0d7a5ae53795e10aea67318f68705ec9d9239",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_311/gradient_features.npz": "a64cdd48c6bebab1850a92ef4f17f3033790d536827da18cdb72137d8f20346e",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_311/b32/pre_test_freeze.json": "ba40cc482a1bd512546e17bac44457bf55b4bb3fae643f1cb95bfe2d9e84c8cb",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_311/scrubbed_graphs.pt.contract.json": "dee01c4da695d58e136ce160648a8632bc880e632254213ac569073845abfc50",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_311/gradient_features.npz.contract.json": "fb430fcf86b33a1a7666833db2f65485e41fe5f729c52e1ada11c29df78b40de",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_311/b32/selected_batches.csv": "5ea16ebfdad43d1e277d9d0568d0f3fb3ce8e18146d246150e9684dca7bc2e52",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_311/baseline_l0/best.pt": "099ff06f99c83e065a35c015f56693b06fac83ef30a3cf1686fe9d49ed6d8628",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_311/baseline_l0/predictions.csv.gz": "4bc587bba78a387eecb147e7eeb7f98403f4c999663e1214e3065b9e88b91e55",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_311/baseline_l0/fit_audit.json": "62c97db03820322d5fffc6a769e1ab0c7aa524bb22e9de8039ea6f5a91b1320f",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_311/b32/lcmd/best.pt": "dfc7000755aa1ba7d3b015937b4862d9c3b73bf8e7b1648b179fa960f4ec8948",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_311/b32/lcmd/predictions.csv.gz": "d3a5a1b33707e2e7cbca13e959b1106af55982d37801fcb975b930c9c62aeb57",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_311/b32/lcmd/fit_audit.json": "0ac33515ac85f9631d78a0ab6946443f89d8792c6afe4476b12e5147b5db7196",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction_al_innovation/studies/active_learning/qgeognn_v2_row_innovation_screen/runtime/seed_311/center_width_gradient_features.npz": "1a182e832fc6b791b367bdb9d532a97a07fa728600f41e4af6b0779cbf0c1106",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction_al_innovation/studies/active_learning/qgeognn_v2_row_innovation_screen/runtime/seed_311/center_width_gradient_features.npz.contract.json": "9fb67b66b16208a0cbdc26d7d9e08392087929ff053c48048d272f259665c63d",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction_al_innovation/studies/active_learning/qgeognn_v2_row_innovation_screen/results/selected_batches.csv": "0d51f4714e1655b398ad67512346baaa999c42ed2b429c390260413e56f7c3b2"
+      }
+    },
+    {
+      "outer_seed": 1297,
+      "status": "PASS",
+      "raw_ordered_ids_identical": true,
+      "cw_ordered_ids_identical": true,
+      "initialization_hash": "45e3ab11c1bccc6c041e57d67b023c0042cb04b358c9749cae5d901dbdb7cdbe",
+      "transform": {
+        "definition": "[(V1+V2)/(2*s_C), (V2-V1)/s_W]",
+        "center_population_std": 10.825223055769609,
+        "width_population_std": 9.117159378577137,
+        "transform_matrix": [
+          [
+            0.04618842470257561,
+            0.04618842470257561
+          ],
+          [
+            -0.10968328604079577,
+            0.10968328604079577
+          ]
+        ],
+        "target_source": "L0_labels_only",
+        "scale_ddof": 0
+      },
+      "label_access": [
+        {
+          "purpose": "initial_fit",
+          "requested_rows": 333,
+          "requested_ids_hash": "c3543c5ca4b5bc59df68cc3dbeeacb5f522ce29c53b5adbd226f7ff24882c155",
+          "roles": "l0",
+          "acquisitions_frozen": false,
+          "predictions_frozen": false
+        }
+      ],
+      "source_files": {
+        "/private/tmp/qgeognn_cw_performance/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/splits/row_seed_1297.csv": "a6f960a5fae2e940c8b73568fe56fbbc113a88faeb0f1928fce6bdd7338ee44a",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_1297/context.json": "13f5e480dbe7c5bb72c4c7c9fdcca5fe04c82afcff7b52b27107acfe769e2a3c",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_1297/scrubbed_graphs.pt": "29c2d4c5d9b4b0165c7ef5d400c0d7a5ae53795e10aea67318f68705ec9d9239",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_1297/gradient_features.npz": "08ab8a13af858bad737e575b001a0b0f2ac684efba602f0dde4576e48ff0b415",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_1297/b32/pre_test_freeze.json": "da10c341ecc19a640dd96efbd0fb36f2342aeac001c24b0ed565993bdcd21025",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_1297/scrubbed_graphs.pt.contract.json": "00485787d08eac6b127fa6d1aff4b9300aee61eddc51ab3529d907990c78b8ba",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_1297/gradient_features.npz.contract.json": "0c5813858f54ff2db8302f37d51099f9d876e18ca4474a678a250271b94747dc",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_1297/b32/selected_batches.csv": "0dea6afd72d747b9c4fcac190911eb826a4f12886f4d2d3e67d4acc76bf546fb",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_1297/baseline_l0/best.pt": "df53045e81bde6bbbfac30f9941876cbaaf244fdcbf4c635bac34b32b9ae2fdf",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_1297/baseline_l0/predictions.csv.gz": "c63c364232003933532319615c875ede5077dfb98d1f1dd40530858b5781dc0c",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_1297/baseline_l0/fit_audit.json": "f365e4822996a459b14e68f94b3b4628473b70df189c5dae7ae08df83f1ebe80",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_1297/b32/lcmd/best.pt": "105bb4279e015f66048bd4be80b0099733a9572a93eac533b47a06c62d2a4299",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_1297/b32/lcmd/predictions.csv.gz": "2f15d2323be3869fb95943cd0f8353db521468939ffcb178a87286a4f9bd355c",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_1297/b32/lcmd/fit_audit.json": "be2e3e8e6b59b613b54da9c3624e6c15ba61cabe026b395995edad8372f63351",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction_al_innovation/studies/active_learning/qgeognn_v2_row_innovation_screen/runtime/seed_1297/center_width_gradient_features.npz": "bff894cfcbc39ba97cd1f2b0ffaad1a09009c49c157f8e14389934b2618369bd",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction_al_innovation/studies/active_learning/qgeognn_v2_row_innovation_screen/runtime/seed_1297/center_width_gradient_features.npz.contract.json": "0072e13d2adf0594b8a7647acfba43778537fb559ce0a93a09d15f72a5b795f2",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction_al_innovation/studies/active_learning/qgeognn_v2_row_innovation_screen/results/selected_batches.csv": "0d51f4714e1655b398ad67512346baaa999c42ed2b429c390260413e56f7c3b2"
+      }
+    },
+    {
+      "outer_seed": 4093,
+      "status": "PASS",
+      "raw_ordered_ids_identical": true,
+      "cw_ordered_ids_identical": true,
+      "initialization_hash": "b23f0463c9aab9a9b0cc9b01e25b9a9864e56f46b5d9def5144c7646dc13e91f",
+      "transform": {
+        "definition": "[(V1+V2)/(2*s_C), (V2-V1)/s_W]",
+        "center_population_std": 11.950634672580092,
+        "width_population_std": 9.19281687530186,
+        "transform_matrix": [
+          [
+            0.041838782098093545,
+            0.041838782098093545
+          ],
+          [
+            -0.10878058527269026,
+            0.10878058527269026
+          ]
+        ],
+        "target_source": "L0_labels_only",
+        "scale_ddof": 0
+      },
+      "label_access": [
+        {
+          "purpose": "initial_fit",
+          "requested_rows": 333,
+          "requested_ids_hash": "eb041eee2085ab25f42c0ec5a3668df36ff342335d42151604564d14ff69b3e5",
+          "roles": "l0",
+          "acquisitions_frozen": false,
+          "predictions_frozen": false
+        }
+      ],
+      "source_files": {
+        "/private/tmp/qgeognn_cw_performance/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/splits/row_seed_4093.csv": "2d484eae42888251d6c7e71f925a42b6fda0bad2ef5f64c441b2b408e09bd6fa",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_4093/context.json": "0f854140131070f98c4b88a468c1acb36c8aee6caec417c1eea68fa240261289",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_4093/scrubbed_graphs.pt": "29c2d4c5d9b4b0165c7ef5d400c0d7a5ae53795e10aea67318f68705ec9d9239",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_4093/gradient_features.npz": "acb3f10fad711381755b95a47730dc42fb2f06f5b3e9f8d35ae12b3bc4ccb6fe",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_4093/b32/pre_test_freeze.json": "6e218170d3aa34e33dc7a752acb3dfb10e3b7a9c2733a3e42b4527e8fbcf3c52",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_4093/scrubbed_graphs.pt.contract.json": "c89496998ae0786bacf07f7e3165e997cfc8e20397a675cdf46c3b15a538eecb",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_4093/gradient_features.npz.contract.json": "400031dcb0e920e129df4322633ccb7b8dd7df0c445aa509c9233e6c114470f0",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_4093/b32/selected_batches.csv": "98707553c4cacf4bfc9ae5ea56cb2e12fd6b9c821037ae43822f59a6a88c31e0",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_4093/baseline_l0/best.pt": "ff783861435853c28a52f32f96ad2c6a8fc41f102b7d285da62b52814bce2871",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_4093/baseline_l0/predictions.csv.gz": "c1fb63ba26c5606c1137d2f525edd7e768c74bd8dce6c8580ff9804ecad26c88",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_4093/baseline_l0/fit_audit.json": "d2bcb63c529d94be8054ad6cddd4fcbc2e1f24d2fbda727118c308b66184f1b8",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_4093/b32/lcmd/best.pt": "8e14a88d903f0156873e43e1d01d2f503a176f8c250a78d9332996e4d4a7f3b0",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_4093/b32/lcmd/predictions.csv.gz": "26fb0ebe9226bd46275aa7dece811d50171a5837c9f5052539fe8e5533ca7096",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_4093/b32/lcmd/fit_audit.json": "5c7cd9c837ee2c9a72ceaf5d8856df00e142856bf454bfd0472627b06bc5bdcd",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction_al_innovation/studies/active_learning/qgeognn_v2_row_innovation_screen/runtime/seed_4093/center_width_gradient_features.npz": "25b9c70cd3123699a3306ffd106c54cd4faec2ca35d51df14becc595dead9227",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction_al_innovation/studies/active_learning/qgeognn_v2_row_innovation_screen/runtime/seed_4093/center_width_gradient_features.npz.contract.json": "591e974ff0ef0c679579b2dfaa268de936926c3a733664b274571a8b0292eca1",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction_al_innovation/studies/active_learning/qgeognn_v2_row_innovation_screen/results/selected_batches.csv": "0d51f4714e1655b398ad67512346baaa999c42ed2b429c390260413e56f7c3b2"
+      }
+    },
+    {
+      "outer_seed": 8191,
+      "status": "PASS",
+      "raw_ordered_ids_identical": true,
+      "cw_ordered_ids_identical": true,
+      "initialization_hash": "b9a8df7230992f1376964881b0ae2f70ff476e44e125e823fbfd0fac00bd96a0",
+      "transform": {
+        "definition": "[(V1+V2)/(2*s_C), (V2-V1)/s_W]",
+        "center_population_std": 11.216504476429732,
+        "width_population_std": 9.603601140027813,
+        "transform_matrix": [
+          [
+            0.044577167606066205,
+            0.044577167606066205
+          ],
+          [
+            -0.10412760644879343,
+            0.10412760644879343
+          ]
+        ],
+        "target_source": "L0_labels_only",
+        "scale_ddof": 0
+      },
+      "label_access": [
+        {
+          "purpose": "initial_fit",
+          "requested_rows": 333,
+          "requested_ids_hash": "1984269150c1565a6474f4d86053ea64a975e806feaa96aca5c84a7ee31e6828",
+          "roles": "l0",
+          "acquisitions_frozen": false,
+          "predictions_frozen": false
+        }
+      ],
+      "source_files": {
+        "/private/tmp/qgeognn_cw_performance/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/splits/row_seed_8191.csv": "5f76b18260d7cce0a1a7b218fae88ab90a0763633ec33ec3eef0cba98bb66ded",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_8191/context.json": "3f7975d8e24e0b805db188a18d10181bee36342022cb9b22d06f74beef94e640",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_8191/scrubbed_graphs.pt": "29c2d4c5d9b4b0165c7ef5d400c0d7a5ae53795e10aea67318f68705ec9d9239",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_8191/gradient_features.npz": "cda754dd0381cd64aa866120d57a06193836b0a11c4b55b191730e0a19f6090c",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_8191/b32/pre_test_freeze.json": "83b7064eae6b88bf254d99650aac4c025dcb2f2251a83d63de3a810ff8a1c13d",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_8191/scrubbed_graphs.pt.contract.json": "03dd953f5e651aaef82c7ce17604e979d84ecec341ced04cc660251b87595f56",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_8191/gradient_features.npz.contract.json": "7fa5cc57e3538e97c84b35a20273cf5698a796ff0a765a316c838cdd7f4af972",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_8191/b32/selected_batches.csv": "e5f7d634ac6359c20ef317a6e9529171ace3972b5955bca98fac00c29430b85d",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_8191/baseline_l0/best.pt": "035719654295d1f4dc0ae735f8f0b3045c67389294afe75f953c30d17176cadd",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_8191/baseline_l0/predictions.csv.gz": "dcc0ccfe24831e06015d69c440cbad12df238638ebea488565ef814b60d37d1f",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_8191/baseline_l0/fit_audit.json": "1da67e105d77d51054e8fd235ba5aec858fa37a5d7d60ee05b4e29ef4cdc2eab",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_8191/b32/lcmd/best.pt": "101c4f12086f3b1f793d9af4764cd8d9454e02316947a500265ad5427e83d443",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_8191/b32/lcmd/predictions.csv.gz": "0462e34c1b55aa3d5da29807477bdfc4befa96b36e4ec126ea3cd977e5a41f64",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/runtime/seed_8191/b32/lcmd/fit_audit.json": "3731e1cb39c11fe6136a27c8d483b323b8a9438a194ac3d5cf1bc1659ad01b25",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction_al_innovation/studies/active_learning/qgeognn_v2_row_innovation_screen/runtime/seed_8191/center_width_gradient_features.npz": "9bee463720dfeb3f1dce8684da91b2e59e2db1f22f3aad9a3e2f0ccda1d20720",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction_al_innovation/studies/active_learning/qgeognn_v2_row_innovation_screen/runtime/seed_8191/center_width_gradient_features.npz.contract.json": "5e33f819976a80c9ebf2b33a33e9f3b548d82db3a0197d10174d97a86524dfc4",
+        "/Users/fish/Documents/GitHub/column_chromatography_prediction_al_innovation/studies/active_learning/qgeognn_v2_row_innovation_screen/results/selected_batches.csv": "0d51f4714e1655b398ad67512346baaa999c42ed2b429c390260413e56f7c3b2"
+      }
+    }
+  ],
+  "test_truth_access_count": 0,
+  "archive_files": {
+    "/private/tmp/qgeognn_cw_performance/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/primary_results_freeze.json": "4706b75e02b13b74d839ef8c9b46cb6c58a90fb8519f6072941fc7e7a0f3ae1b",
+    "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/formal_results/all_metrics_b32.csv": "b851eaf9e9970b5306c830ed9f3de823ea53c79b89bb2d2c86fabad954308e99",
+    "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_small_batch_benchmark/formal_results/global_pre_test_freeze_b32.json": "f4e97f3ecce03ef850b1009d12b861719841f53bc6c057014a451f83dbff27ec"
+  },
+  "full_data_reference": "NOT_COMPARABLE",
+  "reason": "existing qualification splits use seeds 42/525/1101"
+}
