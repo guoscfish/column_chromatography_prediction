@@ -4,11 +4,20 @@
 
 ## Current question
 
-The current standalone QGeoGNN-V2 row mechanism test is complete. The next
-eligible Track A question is whether its strong one-step Gradient-LCMD-TP
-signal persists across a separately preregistered 10% → 20% → 30% → 40% →
-50% row learning curve. Robustness beyond row splits remains unanswered.
-Active transfer (Track C) remains deferred.
+The sequential B32 study is complete: LCMD and Hybrid both improve mean AULC
+by approximately 23% versus Random, with 5/5 paired wins. Its formal decision
+remains `NO_CLEAR_SEQUENTIAL_AL_GAIN`, which distinguishes the active methods
+from one another and does not negate their gain over Random.
+
+The user has authorized one exploratory matched Kernel-IVR extension on the
+same five-seed cohort. Its independent protocol is
+`studies/active_learning/qgeognn_v2_row_kernel_ivr_b32/PROTOCOL.md`.
+Implementation preflight passed (36 tests and five real-data round-zero checks).
+The complete five-seed run started on 2026-09-18; no IVR effectiveness result
+exists yet. Its `decision.json` records live execution/completion status.
+Historical Random/LCMD/full-reference artifacts are reused read-only, and all
+new trajectories must freeze before IVR test evaluation. No variant sweep or
+test-triggered budget extension is part of this authorization.
 
 ## Frozen historical conclusions
 
@@ -19,6 +28,10 @@ Active transfer (Track C) remains deferred.
 - Historical scientific results and predictor behavior remain unchanged by I0. They are retained as Legacy QGeoGNN evidence or clean reproduction evidence derived from the legacy implementation, not as a line-by-line reproduction claim.
 
 ## Current stage
+
+**2026-09-17 update:** the active stage is the Kernel-IVR extension described
+above. The one-step result below is retained as historical context; the complete
+sequential B32 study supersedes its pending-learning-curve statement.
 
 **Current QGeoGNN-V2 Track A — one-step row study complete:** Gradient-LCMD-TP
 beat the matched Random median in 5/5 new outer seeds. Mean after-batch combined

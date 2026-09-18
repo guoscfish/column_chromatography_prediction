@@ -1,5 +1,12 @@
 # Current study entry points
 
+- `studies/run_qgeognn_v2_row_kernel_ivr_b32.py`: experiment
+  `qgeognn_v2_row_kernel_ivr_b32`; diagnostic (exploratory matched extension),
+  tests one conditional Kernel-IVR strategy against frozen Random and LCMD.
+  May run directly after `--prepare --test-report PATH` seals the passed preflight;
+  `--run-all` executes/resumes the fixed five-seed matrix and gated final reporting.
+  See [the protocol](../studies/active_learning/qgeognn_v2_row_kernel_ivr_b32/PROTOCOL.md).
+
 Use `studies/run_final_v2_engineering.py`, `studies/run_final_4g_qualification.py`, `studies/summarize_final_4g_qualification.py` and `studies/run_final_v2_transfer.py` for the final standalone workflow. Read their study preregistrations before execution. Legacy, Clean and diagnostic runners below are historical reproduction tools.
 
 The matched representation-transfer study uses

@@ -35,6 +35,10 @@
 
 Every current experiment directory has exactly one navigation row above.
 
+| experiment | stage | status | authoritative? | scientific role | superseded_by |
+|---|---|---|---|---|---|
+| qgeognn_v2_row_kernel_ivr_b32 | 4g row AL extension | running; see study decision.json | yes | exploratory matched Kernel-IVR sequential comparison against frozen Random/LCMD | - |
+
 ## Current studies outside `experiments/`
 
 - `studies/track_b_transfer/t1_low_label_adaptation`: T1a formal scientific run complete (180/180 fits, 120/120 contexts); no candidate passed the stable-improvement gate. See `FORMAL_RESULTS.md` and the machine-readable result artifacts.
