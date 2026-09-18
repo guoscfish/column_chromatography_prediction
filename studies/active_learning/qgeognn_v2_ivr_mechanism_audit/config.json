@@ -1,0 +1,42 @@
+{
+  "study": "qgeognn_v2_ivr_mechanism_audit",
+  "evidence": "exploratory_label_free_mechanism_audit_on_published_trajectories",
+  "outer_seeds": [157, 887, 2357, 6101, 12203],
+  "rounds": [1, 5, 10, 15, 20],
+  "scalar_dimensions": [256, 512, 1024, 2048],
+  "block_dimensions": [512],
+  "sketch_seed_offsets": [0, 10000019, 20000033],
+  "batch_size": 32,
+  "reference": "fixed_3330_outer_training_inputs",
+  "prior_precision": 1.0,
+  "noise": "identity",
+  "endpoint_risk_weights": "identity_after_L0_scaling",
+  "feature_scale": "mean_per_experiment_squared_Frobenius_norm_equals_one",
+  "allowed_labels": "none; reuse stored L0 scales and label-scrubbed graphs",
+  "allowed_new_training_fits": 0,
+  "threads": 2,
+  "stability_gate": {
+    "median_score_spearman_min": 0.95,
+    "p10_score_spearman_min": 0.90,
+    "mean_batch_overlap_fraction_min": 0.75,
+    "p10_batch_overlap_fraction_min": 0.50,
+    "scalar_required_comparisons": ["cross_seed_512", "512_vs_2048_same_seed"],
+    "block_required_comparisons": ["cross_seed_512"],
+    "note": "engineering reproducibility thresholds, not statistical significance or predictive guarantees"
+  },
+  "mechanism_gate": {
+    "multioutput_positive_risk_gain_over_same_state_lcmd_snapshots_min": 20,
+    "fb_median_relative_batch_gain_over_forward_min": 0.01,
+    "fb_positive_gain_snapshots_min": 20,
+    "candidate_priority": ["multioutput_ivr", "scalar_forward_backward"],
+    "multioutput_requires_scalar_stability_as_well": true,
+    "training_requires_one_candidate_passing_both_gates": true
+  },
+  "numerical_checks": {
+    "historical_512_relative_frobenius_error_max": 0.00001,
+    "historical_initial_score_spearman_min": 0.999999,
+    "direct_update_absolute_tolerance": 0.000000001
+  },
+  "expansion": "no automatic dimension, regularization, noise, whitening, phase-switch or budget search",
+  "failure": "complete audits and report; prohibit Gate C if neither candidate passes"
+}

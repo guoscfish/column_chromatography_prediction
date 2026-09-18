@@ -1,0 +1,48 @@
+{
+  "status": "STOP_BEFORE_GATE_C",
+  "candidate": null,
+  "snapshots": 25,
+  "scalar_stability_passed": false,
+  "block_stability_passed": false,
+  "multioutput_positive_snapshots": 25,
+  "fb_positive_snapshots": 7,
+  "fb_median_relative_batch_gain": 0.0,
+  "new_training_fits": 0,
+  "new_label_access": 0,
+  "predictive_effectiveness": "NOT_EVALUATED",
+  "gates": [
+    {
+      "representation": "block",
+      "group": "cross_seed_512",
+      "comparisons": 75,
+      "median_score_spearman": 0.9921298774121178,
+      "p10_score_spearman": 0.9880065088973897,
+      "mean_batch_overlap_fraction": 0.64375,
+      "p10_batch_overlap_fraction": 0.53125,
+      "median_relative_regret": 0.0076009471689919,
+      "passed": false
+    },
+    {
+      "representation": "scalar",
+      "group": "512_vs_2048_same_seed",
+      "comparisons": 75,
+      "median_score_spearman": 0.9945879910894946,
+      "p10_score_spearman": 0.98922607921149,
+      "mean_batch_overlap_fraction": 0.6870833333333334,
+      "p10_batch_overlap_fraction": 0.5625,
+      "median_relative_regret": 0.0040018667976837,
+      "passed": false
+    },
+    {
+      "representation": "scalar",
+      "group": "cross_seed_512",
+      "comparisons": 75,
+      "median_score_spearman": 0.988483727748398,
+      "p10_score_spearman": 0.9793687947781589,
+      "mean_batch_overlap_fraction": 0.5766666666666667,
+      "p10_batch_overlap_fraction": 0.46875,
+      "median_relative_regret": 0.0089511454888466,
+      "passed": false
+    }
+  ]
+}
