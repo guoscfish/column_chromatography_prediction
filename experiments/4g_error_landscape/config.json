@@ -1,0 +1,13 @@
+{
+  "protocol": "frozen_4g_error_landscape_v1",
+  "prediction_source": "studies/predictor/final_4g_qualification/results",
+  "canonical_source": "experiments/e0_4g_baseline/canonical_4g.csv",
+  "uncertainty_source": "experiments/e1_signal_qualification/uq_predictions.csv.gz",
+  "modes": ["row", "compound"],
+  "seeds": [42, 525, 1101],
+  "uses_training": false,
+  "uses_new_labels": false,
+  "test_used_for_strategy_selection": false,
+  "distance_definition": "five RDKit descriptors and five condition fields, standardized on each run's train rows",
+  "local_sensitivity_definition": "EA-fraction neighborhoods conditioned on compound, loading, flow, and column metadata"
+}
