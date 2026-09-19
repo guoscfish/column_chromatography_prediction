@@ -20,4 +20,12 @@ Identical partial/final pairs, smoke/preflight checkpoints, completed comparison
 
 ## Deletion contract
 
-Every candidate is listed in `docs/PRUNE_MANIFEST.csv`. `DELETE` requires `referenced_by_current_code=false` and is forbidden for source data, canonical data, partitions, scalers, authoritative checkpoints, or required graph caches. `REVIEW` is the default when dependency or scientific uniqueness is uncertain. Hygiene tests enforce the contract after every change.
+Every artifact candidate is listed in `docs/PRUNE_MANIFEST.csv`. `DELETE` requires `referenced_by_current_code=false` and is forbidden for source data, canonical data, partitions, scalers, authoritative checkpoints, or required graph caches. `REVIEW` is the default when dependency or scientific uniqueness is uncertain. Hygiene tests enforce the contract after every change.
+
+## Completed code and superseded documents
+
+Closed one-off runners may be removed from the working tree when their scientific records remain, no retained code imports or executes them, and the original implementation is recoverable from Git. Keep reusable scientific modules and their regression tests even if an old runner is retired.
+
+Record each retired source/document in `docs/repository/RETIREMENTS.json` with its original path, recovery commit, SHA-256 and retained result or replacement page. This is the source/document equivalent of the artifact prune manifest. Historical report commands refer to the recorded revision. Frozen protocol inputs and user work in progress are not retirement candidates.
+
+Consolidate mutable project summaries into their canonical pages rather than creating another archive of duplicate roadmaps. Do not rewrite frozen scientific results, hashes or original stage decisions to match the current summary. Active runtime and sealed source files keep their existing paths during execution.

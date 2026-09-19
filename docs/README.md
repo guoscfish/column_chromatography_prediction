@@ -1,16 +1,25 @@
 # Documentation
 
-Current contracts and evidence:
+Use these pages in order; study reports own the detailed measurements.
 
-- [Predictor roadmap](roadmap/PREDICTOR.md)
-- [Research direction](RESEARCH_DIRECTION.md)
-- [Next-stage decision](NEXT_STAGE_DECISION.md)
-- [Matched cross-column absolute-error benchmark](../studies/transfer/matched_rmse_benchmark/MATCHED_RMSE_REPORT.md) and its [frozen protocol](../studies/transfer/matched_rmse_benchmark/protocol.json)
-- [Transfer roadmap](roadmap/TRANSFER_4G_TO_8G.md)
-- [Standalone engineering](../studies/predictor/final_v2_engineering/README.md)
-- [Final 4g protocol and results](../studies/predictor/final_4g_qualification/FINAL_4G_QUALIFICATION_REPORT.md)
-- [Transfer protocol and results](../studies/transfer/4g_to_8g/TRANSFER_BASELINE_REPORT.md)
-- [Repository structure](repository/STRUCTURE.md) and [artifact policy](repository/ARTIFACT_POLICY.md)
-- [Data usage register](protocols/DATA_USAGE_REGISTER.md)
+| Purpose | Canonical page |
+| --- | --- |
+| Current conclusions and next step | [Research status](NEXT_STAGE_DECISION.md) |
+| Results by topic | [Study index](../studies/README.md) |
+| Read the implementation | [Code map](../src/qgeognn_al/README.md) |
+| Run or reproduce a study | [Script index](../scripts/README.md) |
+| Directory ownership and branches | [Repository structure](repository/STRUCTURE.md) |
+| Write and maintain a study | [Conventions](CODEBASE_CONVENTIONS.md) |
+| Keep or retire artifacts | [Retention policy](ARTIFACT_RETENTION_POLICY.md) |
+| Data exposure and split semantics | [Data usage](protocols/DATA_USAGE_REGISTER.md) |
 
-[Historical predictor evidence](../studies/predictor/historical/README.md), the [paper-aligned reproduction](../studies/transfer/paper_transfer_reproduction/REPRODUCTION_REPORT.md), legacy model audits and draft benchmarks are retained for reproduction. Their original stage gates describe those historical studies; the current decisions above supersede them.
+## Research context
+
+- [Transfer evidence and remaining questions](research/CROSS_COLUMN_TRANSFER_STATUS.md)
+- [4g active-learning review](research/4G_ACTIVE_LEARNING_REVIEW_2026-09-17.md)
+- [Current matched-budget experiment and Phase 2 plan](research/4G_ACTIVE_LEARNING_NEXT_EXPERIMENT_2026-09-18.md)
+- [Model implementation variants](QGEOGNN_IMPLEMENTATION_VARIANTS.md) and [input schema](model/INPUT_SCHEMA.md)
+
+Dated reviews provide rationale; the current status and frozen study protocols determine what is complete or still pending. Legacy/Clean design documents under `model/` and the benchmark under `protocols/` are historical contracts, not alternate current roadmaps.
+
+Superseded navigation and plans have been consolidated. [Cleanup status](repository/REPOSITORY_HYGIENE_AUDIT.md) explains retention and branch decisions; [RETIREMENTS.json](repository/RETIREMENTS.json) records the exact recovery commit for each removed file.

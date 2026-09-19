@@ -1,6 +1,6 @@
 # Dataset and outcome consumption register
 
-The machine-readable authority is `docs/data_consumption_register.json`. This page explains how to interpret it; it is not a claim that every function retained under `application/` was executed.
+This is the historical exposure snapshot represented by `docs/data_consumption_register.json`. The 25g/40g entries predate the subsequent transfer studies and must not be read as a current claim that these labels remain unused. Current boundaries and later evidence are in [the data usage register](protocols/DATA_USAGE_REGISTER.md). This page is not a claim that every function retained under `application/` was executed.
 
 | Dataset | Training use found | Validation/model selection found | Held-out test truth read | Other outcome inspection | Developmental reuse | Pristine confirmation |
 |---|---:|---:|---:|---:|---:|---:|

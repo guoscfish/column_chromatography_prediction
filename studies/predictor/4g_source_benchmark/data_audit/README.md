@@ -37,4 +37,4 @@ This audit does **not** conclude `thresholds_are_wrong` or `thresholds_are_corre
 - `threshold_audit.json`: counts, label/condition distributions, concentration tables, and rationale trace.
 - `threshold_affected_rows.csv`: all 66 affected source rows with derived volumes and validity flags.
 - `data_contract.json`: source identity, label/compound definitions, threshold status, and data-use boundary.
-- Generator: [`../../../../scripts/studies/run_4g_threshold_audit.py`](../../../../scripts/studies/run_4g_threshold_audit.py).
+- Original generator: `scripts/studies/run_4g_threshold_audit.py`, now retired. Its exact source and recovery commit are recorded in [the retirement registry](../../../../docs/repository/RETIREMENTS.json).

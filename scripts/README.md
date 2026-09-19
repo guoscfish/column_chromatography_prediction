@@ -1,52 +1,58 @@
-# Current study entry points
+# Script index
 
-- `studies/run_qgeognn_v2_row_kernel_ivr_b32.py`: experiment
-  `qgeognn_v2_row_kernel_ivr_b32`; diagnostic (exploratory matched extension),
-  tests one conditional Kernel-IVR strategy against frozen Random and LCMD.
-  May run directly after `--prepare --test-report PATH` seals the passed preflight;
-  `--run-all` executes/resumes the fixed five-seed matrix and gated final reporting.
-  See [the protocol](../studies/active_learning/qgeognn_v2_row_kernel_ivr_b32/PROTOCOL.md).
+Run from the repository root in the validated Conda `fish` environment. Read the linked protocol before any fitting or test evaluation. A runnable entry point is not authorization to start a new experiment.
 
-Use `studies/run_final_v2_engineering.py`, `studies/run_final_4g_qualification.py`, `studies/summarize_final_4g_qualification.py` and `studies/run_final_v2_transfer.py` for the final standalone workflow. Read their study preregistrations before execution. Legacy, Clean and diagnostic runners below are historical reproduction tools.
+## Current 4g work
 
-The matched representation-transfer study uses
-`studies/run_source_anchored_transfer.py` for blind, resumable fitting,
-`studies/evaluate_source_anchored_transfer.py` for globally gated test evaluation,
-and `studies/summarize_source_anchored_transfer.py` for scientific tables and
-figures. Its [frozen study protocol](../studies/transfer/source_anchored_shared_transfer/README.md)
-controls execution; these entry points do not authorize follow-up model tuning
-or Active Learning.
+| Entry in `studies/` | Role | Study / execution |
+| --- | --- | --- |
+| `run_qgeognn_v2_batch_adaptivity.py` | Formal matched-budget control | [Phase 1](../studies/active_learning/qgeognn_v2_batch_adaptivity/README.md); prepared run/resume, not an independent duplicate launch |
+| `summarize_qgeognn_v2_adaptivity.py` | Reporting | Current adaptivity artifacts; requires complete frozen trajectories |
+| `report_qgeognn_v2_efficiency.py` | Reporting only | [Phase 0](../studies/active_learning/qgeognn_v2_efficiency_review/REPORT.md); retained results, no retraining |
 
-# Scripts
+## Retained workflows
 
-Current R2-pruned study: `studies/run_r2_pruned_requalification.py` runs reachability/equivalence gates before the controlled retrain (`--gates-only` checks without retraining); `studies/summarize_r2_pruned_requalification.py` compares completed artifacts with R2. See [the study](../studies/predictor/r2_pruned_requalification/README.md).
+These are completed studies or reproduction entry points. Follow their frozen configs and use separate reproduction outputs.
 
-The current matched absolute-error study has one thin entry point:
-`studies/run_matched_rmse_benchmark.py`. Use `--prepare` to validate and freeze
-the protocol, `--execute` only for the missing paper-style current-V2 fits, and
-`--summarize` to rebuild reports solely from globally frozen predictions. Its
-[study README](../studies/transfer/matched_rmse_benchmark/README.md) is the
-authority for the no-test-tuning boundary; reusable calibration, adaptation,
-evaluation and protocol APIs live in `src/qgeognn_al/transfer/`.
+| Family | Entries in `studies/` | Role / evidence |
+| --- | --- | --- |
+| Standalone predictor | `run_final_v2_engineering.py`, `run_final_4g_qualification.py`, `summarize_final_4g_qualification.py` | Engineering and formal [qualification](../studies/predictor/final_4g_qualification/README.md) |
+| Current-V2 row AL | `run_qgeognn_v2_4g_row_lcmd_pilot.py`, `run_qgeognn_v2_4g_row_small_batch_benchmark.py`, `run_qgeognn_v2_row_hybrid_extension.py`, `run_qgeognn_v2_row_sequential_b32.py` | Completed formal/diagnostic [row studies](../studies/active_learning/README.md) |
+| IVR | `run_qgeognn_v2_row_kernel_ivr_b32.py`, `run_ivr_mechanism_audit.py`, `report_ivr_mechanism_diagnostics.py` | Completed exploratory and mechanism studies; no automatic follow-up |
+| Transfer baselines | `run_final_v2_transfer.py`, `run_cross_column_transfer.py`, `run_matched_rmse_benchmark.py` | Frozen [matched benchmark](../studies/transfer/matched_rmse_benchmark/README.md) |
+| Source anchoring | `run_source_anchored_transfer.py`, `evaluate_source_anchored_transfer.py`, `summarize_source_anchored_transfer.py` | Blind fit, gated evaluation, report; [protocol](../studies/transfer/source_anchored_shared_transfer/README.md) |
+| Physics control | `run_physics_column_transfer.py`, `evaluate_physics_column_transfer.py`, `summarize_physics_column_transfer.py`, `audit_column_physics.py`, `supplement_column_physics_audit.py` | Completed [physics study](../studies/transfer/physics_column_conditioned_transfer/README.md) |
+| Filtered FULL-data controls | `run_filtered_full_data_benchmark.py`, `run_full_data_baseline_finalization.py`, `run_hier_cw_semantic_repair.py` | Shared record readers and corrected [structural baseline](../studies/transfer/hier_cw_semantic_repair/README.md) |
+| Neural transfer | `run_traditional_transfer_recipe_pilot.py`, `run_traditional_transfer_converged_baseline_v1.py`, `run_conditioned_source_readout.py`, `run_column_conditioned_multitask.py`, `summarize_column_conditioned_multitask.py`, `run_column_conditioned_pcgrad.py` | Completed controlled studies; shared helpers and regression-test consumers remain |
+| Paper reconstruction | `run_paper_transfer_reproduction_25g_40g.py`, `run_paper_transfer_gap_decomposition.py` | Historical distinct-protocol [reproduction](../studies/transfer/paper_transfer_reproduction/REPRODUCTION_REPORT.md) |
 
-Reusable scientific code now lives in `src/qgeognn_al/`. `al_engine.py`, `al_acquisition.py`, and `qgeognn_graphs.py` are compatibility shims for historical imports.
+## Compatibility and reproduction dependencies
 
-Historical top-level `run_*.py` files are **historical / reproduction only**:
+Some old runners still export functions consumed by retained workflows or tests. They stay at their original paths until those consumers and scientific hashes can be migrated together.
 
-- E0/G0/D04: `run_e0_4g_baseline.py`, `run_e0_8g_controls.py`, `run_e0_8g_transfer.py`, `run_g0_1_quantile_monotonicity.py`, `run_g0_2_interval_calibration.py`, `run_g0_3_threshold_sensitivity.py`, `run_g0_4_paper_style_transfer.py`, `run_d04_conformer_selection.py`.
-- D28/E1/E2: `run_d28_engineering_checks.py`, `run_e1_signal_qualification.py`, `run_e2_4g_active_learning.py`, `run_e2_compound_failure_audit.py`, `run_e2_random_smoke.py`.
-- E4 family: `run_e4_active_transfer.py`, `run_e4_a2a_engineering_smoke.py`, `run_e4_a2a_formal.py`, `run_e4_a2a_low_budget.py`.
-- Post-hoc diagnostics: `run_d42_e4_headroom_audit.py`, `run_d43_transfer_aware_qualification.py`, `run_d44_active_learning_suitability.py`, `run_d45_oracle_marginal_utility.py`, `run_d46_oracle_utility_reliability.py`.
+- Predictor controls: `studies/run_clean_4g_baseline_qualification.py`, `studies/run_point_predictor_regression_audit.py`, `studies/run_r2_pruned_requalification.py`.
+- Transfer readers and frozen source contracts: `studies/run_next_transfer_diagnostics.py`, `studies/run_scaling_failure_audit.py`, `studies/run_conditional_scaling_audit_model.py`.
+- Legacy study contracts: `studies/run_s1_source_target_shift.py`, `studies/run_t1_low_label_adaptation.py`, `studies/run_t1b1_adapter_capacity.py`, `studies/run_a1a_hybrid_batch_control.py`.
+- Top-level Legacy dependencies: `run_e0_4g_baseline.py`, `run_e0_8g_controls.py`, `run_e0_8g_transfer.py`, `run_e1_signal_qualification.py`, `run_e2_4g_active_learning.py`, `run_e2_compound_failure_audit.py`, `run_e4_active_transfer.py`, `run_e4_a2a_formal.py`, and `run_g0_1*` through `run_g0_4*`.
+- `al_engine.py`, `al_acquisition.py`, `qgeognn_graphs.py` are compatibility shims; `transfer_aware_acquisition.py` is a Legacy acquisition utility.
 
-No historical top-level runner authorizes a new experiment. Historical reproductions use a new output directory under `experiments/reproductions/`; runtime/checkpoints/history/progress are gitignored.
+New scientific logic belongs in [the package](../src/qgeognn_al/README.md), not these runners.
 
-Current config-driven study-family runners live under `scripts/studies/`:
+## Retired one-off scripts
 
-- `run_s1_source_target_shift.py`
-- `run_a1a_hybrid_batch_control.py`
-- `run_t1_low_label_adaptation.py`
-- `run_t1b1_adapter_capacity.py`
+34 completed audit, smoke, qualification-report and closed-transfer scripts have been removed from the current checkout. Their reports, metrics, protocols and decisions remain at the original study paths. The complete mapping is [RETIREMENTS.json](../docs/repository/RETIREMENTS.json).
 
-These are current study infrastructure, not historical reproduction-only scripts. Their own frozen configs and authorization gates control which actions may run. T1a and T1b-1 have completed separately authorized formal runs. T1b-1 produced 180/180 Adapter fits and the retained compact result artifacts; its runtime checkpoints, histories, and prediction files remain gitignored.
+For example, `run_d45_oracle_marginal_utility.py` and `run_d46_oracle_utility_reliability.py` now have retained scientific records only. Their reusable diagnostic algorithms and tests remain.
 
-Future work should use `scripts/run_experiment.py` or a small protocol-family runner with config/spec differences for partitions, budgets, transfer strategies, and acquisitions. Add a new runner only when the scientific protocol family changes; new code imports `src.qgeognn_al.*`, never another `run_*.py` for scientific core.
+Inspect any retired file at the recorded commit:
+
+```bash
+git show 0e7b2ee940e3f71c6dbc7400c420694855eec597:scripts/run_d45_oracle_marginal_utility.py
+```
+
+For full reproduction, use a separate checkout at that commit and restore the required data/checkpoint anchors. Do not paste an old runner into the current execution pipeline.
+
+## Maintenance
+
+- `audit_repository_hygiene.py`: read-only branch, retention, recovery and scientific-boundary audit.
+- `audit_datasets.py`: dataset inspection; reads label values and is not a blind model preflight.

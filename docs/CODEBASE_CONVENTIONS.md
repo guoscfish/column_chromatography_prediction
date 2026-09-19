@@ -1,40 +1,36 @@
-# Codebase and experiment documentation conventions
+# Repository conventions
 
-## Documentation ownership
+## One owner per document
 
-### `README.md`
+| Information | Owner |
+| --- | --- |
+| Project introduction and starting links | Root `README.md` |
+| Current conclusions and next action | `docs/NEXT_STAGE_DECISION.md` |
+| Topic navigation | `studies/README.md` and its three topic READMEs |
+| Executable entry points | `scripts/README.md` |
+| Code responsibilities | `src/qgeognn_al/README.md` |
+| A study's question, protocol and measured outcome | Its own `studies/<topic>/<study>/` directory |
+| Historical experiment inventory | `experiments/INDEX.md` |
+| Artifact retention and retirement | `docs/ARTIFACT_RETENTION_POLICY.md` |
 
-The top-level README contains only the current research question, current main conclusions, repository structure, primary entry points, and a concise environment guide. Detailed experiment results belong in their experiment directories.
+Update these owners in place. Do not add another project roadmap, dated status dump or duplicate next-stage plan. A substantial literature review can remain separate; link to it from the owner instead of copying its conclusions across pages. Completed work must not remain listed as pending.
 
-### `EXPERIMENT_PLAN.md`
+## Code
 
-This file owns the scientific stage, preregistrations, frozen protocols, gates, and the current next step. A completed experiment must not remain described as pending.
+- Reusable model, training, acquisition and evaluation logic belongs in `src/qgeognn_al/`.
+- New runners belong in `scripts/studies/`, import the scientific package, and handle arguments, protocol checks and execution.
+- Do not copy a full runner for a parameter variant or import a runner as new scientific core.
+- Existing runner-to-runner imports are compatibility debt. Preserve them until their consumers and frozen source hashes have been audited.
+- Add implementation tests for scientific behavior and leakage boundaries. Formal experiments are not unit tests.
 
-### `experiments/INDEX.md`
+## Study records
 
-The index contains exactly one row per experiment key with the fields `experiment`, `stage`, `status`, `authoritative?`, `scientific role`, and `superseded_by`. Add or update the one authoritative row whenever experiment state changes. Never register the same key twice.
+New studies retain a concise README, frozen config/protocol, environment, decision, compact aggregate metrics and artifact hashes. The README covers the question, inputs, data/split, label visibility, method, commands, result, limitations and next decision.
 
-### `experiments/METHOD_DECISION_REGISTER.md`
+A completed closed study may retain only its scientific record and a recovery reference for the original implementation. Do not change historical numerical results or regenerate a freeze solely to match a directory cleanup.
 
-The register records method decisions, rationale, supporting evidence, excluded interpretations, and unresolved questions. It is not an execution log.
+Diagnostic or post-hoc use of test truth must be explicit. Distinguish row interpolation, target-compound holdout and source-unseen OOD; do not combine rankings across filtered/unfiltered populations or incompatible budgets.
 
-### `experiments/RESEARCH_ROADMAP.md`
+## Completion
 
-The roadmap contains deferred hypotheses, conditional experiments, future directions, and their trigger conditions. Completed work may appear only as concise background and must not remain a future task.
-
-### `scripts/README.md`
-
-This is the executable map. Every new `run_*.py` entry records its experiment ID, purpose, scientific role (`engineering`, `diagnostic`, or `formal`), and whether it may be run directly.
-
-## Experiment directory contract
-
-Every new experiment directory contains at least:
-
-- `README.md`
-- `config.json`
-- `environment.json`
-- `decision.json`
-
-Its README contains these sections: A. Scientific question; B. Why this experiment exists; C. Inputs / frozen dependencies; D. Dataset and split; E. What truth is visible at each stage; F. Method; G. Metrics; H. Exact commands; I. Outputs; J. Result; K. Interpretation; L. Limitations; M. Next decision.
-
-Diagnostic experiments must explicitly identify post-hoc or test-truth use, state that they are not confirmatory evidence, and describe the contamination consequence for future validation. Large reproducible fit artifacts belong in gitignored runtime directories; compact metrics, hashes, audits, configuration, and figures are retained.
+Update the existing result and current-status pages, run the relevant checks, and remove abandoned entry points only after dependency review. Keep checkpoints, histories and resume state under ignored `runtime/`. Follow the [retention policy](ARTIFACT_RETENTION_POLICY.md) for recovery records.

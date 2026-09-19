@@ -1,133 +1,62 @@
 # Cross-column transfer: evidence and open questions
 
-Updated after the completed [controlled A2-PCGrad mechanism study](../../studies/transfer/column_conditioned_pcgrad/FINAL_REPORT.md). Historical reports and decision JSONs retain their original provenance. The byte-exact status consumed by the earlier scaling-failure protocol is preserved in [the historical snapshot](history/CROSS_COLUMN_TRANSFER_STATUS_scaling_failure_audit.md).
+This is the consolidated transfer synthesis. [Current project status](../NEXT_STAGE_DECISION.md) owns the next action. Study reports, protocols, splits and measured results remain at their original paths.
 
-## Latest optimization-mechanism study
+## Two different questions
 
-**PCGRAD_REDUCES_CONFLICT_BUT_DOES_NOT_MATERIALLY_IMPROVE_TRANSFER.** The sole
-new candidate retained completed A2's architecture, source, data, global
-target-molecule folds, raw loss, balanced batches, Adam settings, and selector.
-Standard deterministic PCGrad replaced gradients only on the 44 late shared
-backbone parameters used by the previous diagnostics; heads, FiLM, task
-embedding, and condition completion retained ordinary mean-loss gradients.
+| Setting | Population and budget | Retained interpretation |
+| --- | --- | --- |
+| Matched low-label transfer | Unthresholded 8g/25g/40g; row and compound; five seeds; B=30/50/70/100 | Simple calibration remains competitive; prioritize RMSE/MAE in mL, not R2 alone |
+| Filtered FULL-data transfer | Filtered 25g/40g operational domain; roughly 320-360 gradient-train rows | Corrected hierarchical Center/Width is a structural reference; neural training and selection controls have not produced a universal gain |
 
-The mechanism was strongly active: 66.32% of directed projections triggered,
-mean cosine moved from -0.0808 to +0.2662, negative-cosine fraction fell from
-66.05% to 4.14%, and negative burden fell 99.28%. The raw median task-gradient
-magnitude ratio was 2.89, so severe magnitude imbalance remains unsupported.
+Neither setting is pristine external confirmation. Their populations, splits, label budgets and scales differ. The [paper reconstruction](../../studies/transfer/paper_transfer_reproduction/REPRODUCTION_REPORT.md) also uses an older source and separate filtering/splits, so it is not a matched comparator.
 
-Mechanism correction did not translate into prediction gain. Relative to
-matched frozen A2-Adam, COMPOUND inner paired-fold NRMSE changed -0.37% on 25g
-(3/5 seed, 12/25 fold wins) and +0.50% on 40g (3/5 seed, 14/25 fold wins).
-Neither met the 2% threshold, and 25g V2 tail RMSE worsened 2.99%. The primary
-gate failed; ROW, new outer predictions, and outer scoring were not run, and no
-outer validation/test truth was read.
+## Completed evidence
 
-This isolates a useful negative mechanism result: destructive gradients exist,
-but resolving them is insufficient to explain or repair transfer instability.
-No CAGrad, GradNorm, weighting, architecture change, or post-result candidate is
-authorized. Uncontrolled model/optimizer expansion should stop under the
-current dataset; independent/crossed experimental data and deliberate tail
-coverage are the next priority.
+| Tested question | Outcome | Record |
+| --- | --- | --- |
+| Qualified source predictor | Standalone V2 passed exact equivalence and six-run 4g qualification | [Qualification](../../studies/predictor/final_4g_qualification/FINAL_4G_QUALIFICATION_REPORT.md) |
+| Low-label transfer strategy | `SIMPLE_CALIBRATION_REMAINS_COMPETITIVE`; paper-style gains do not replicate across both columns/endpoints and AULC | [Matched RMSE](../../studies/transfer/matched_rmse_benchmark/MATCHED_RMSE_REPORT.md) |
+| Low-capacity monotone curvature and shared affine coefficients | No stable material gain beyond strong scale/shrinkage controls | [Residual diagnostics](../../studies/transfer/residual_diagnostics/RESULT_INTERPRETATION.md) |
+| Conditional scaling | EA/V1 structure exists; no replicated material improvement over the strongest controls | [Scaling decision](../../studies/transfer/scaling_failure_audit/NEXT_MODEL_DECISION.md) |
+| Source-preserving shallow/full fine-tuning | No replicated material advantage over calibration in the frozen 120 contexts | [Source anchoring](../../studies/transfer/source_anchored_shared_transfer/NEXT_STAGE_DECISION.md) |
+| Calibration variables and Center/Width extensions | Corrected nested tests failed their promotion gates; stop expanding this calibration family | [Controlled audit](../../studies/transfer/controlled_lightweight_transfer_audit/FINAL_REPORT.md), [structured follow-up](../../studies/transfer/structured_center_width_followup/FINAL_REPORT.md) |
+| Physical metadata | Mass/flow are confounded; no newly identifiable physical context | [Metadata audit](../../studies/transfer/physical_metadata_identifiability_audit/FINAL_REPORT.md) |
+| FULL-data hierarchical/latent models | Earlier HIER source-scale semantics required repair; corrected shared-lambda HIER is the stable reference | [Semantic repair](../../studies/transfer/hier_cw_semantic_repair/FINAL_REPORT.md) |
+| Converged P0/P1 staged neural fitting | P0 Stage B adequately converged; P1 fails the two-column gate and is not promoted | [N1](../../studies/transfer/traditional_transfer_converged_baseline_v1/FINAL_REPORT.md) |
+| Endpoint-normalized / q50 loss controls | Neither passes the two-column rule; retain L0 raw quantile loss | [Loss screen](../../studies/transfer/conditioned_source_readout/LOSS_SCREEN_REPORT.md) |
+| Adaptive and condition-query readout | R1/R2 fail the ROW inner gate; R3/R4 and outer scoring were not run | [Readout](../../studies/transfer/conditioned_source_readout/FINAL_REPORT.md) |
+| Shared representation and column FiLM | A2 improves inner metrics but does not survive the outer cross-protocol guard | [Multitask](../../studies/transfer/column_conditioned_multitask/FINAL_REPORT.md) |
+| Gradient conflict control | PCGrad reduces conflict but does not materially improve transfer; stops before outer evaluation | [PCGrad](../../studies/transfer/column_conditioned_pcgrad/FINAL_REPORT.md) |
 
-## Latest representation-level study
+## Quantitative anchors
 
-**INNER_REPRESENTATION_GATE_PASSED_BUT_NO_ROBUST_OUTER_REPRESENTATION_SIGNAL.**
-The only candidates were A1 joint 4g/25g/40g training with separate copied
-heads and A2, which added zero-initialized categorical column FiLM to the final
-two message-passing blocks. The qualified 4g source, raw quantile loss, frozen
-FULL-data identities, globally grouped target-molecule inner folds, equal-task
-batching, and one joint checkpoint selector were fixed before fitting.
+- Matched low-label calibration comparisons retain Conditional-EA / local identity shrinkage as baseline families. Large-column B=100 SSE is tail-dominated: 60.4%-92.8% for 25g and 58.9%-87.7% for 40g in the matched benchmark.
+- Converged P1 versus P0 loses mean shared NRMSE by 1.10% on 25g (2/5 wins) and improves 40g by 0.57% (3/5). Its Stage A remains budget-censored; this does not authorize automatically extending it.
+- Readout R1/R2 improvements stay below the material two-column threshold; no outer result is available. Header-only result tables record that stopping decision.
+- FiLM A2 improves COMPOUND inner NRMSE by 5.05%/8.18% on 25g/40g. Outer COMPOUND gains shrink to 1.47%/2.65%, while ROW worsens 1.10%/9.37%.
+- PCGrad raises mean shared-gradient cosine from -0.0808 to +0.2662 and reduces negative burden by 99.28%. Relative inner NRMSE improvement is -0.37% on 25g and +0.50% on 40g, below the 2% threshold.
 
-A2 passed every COMPOUND inner gate in both columns: 25g improved mean
-paired-fold NRMSE 5.05% with 5/5 seed and 18/25 fold wins; 40g improved 8.18%
-with 5/5 seed and 20/25 fold wins. Endpoint, Center/Width, and high-volume-tail
-inner metrics all improved. ROW inner evidence also favored A2 (5.10% on 25g,
-6.51% on 40g). Shared-layer gradient cosines were frequently negative,
-especially for 4g versus 40g, while median magnitude ratios remained below 10.
+These anchors summarize distinct controls; they are not one pooled model leaderboard.
 
-After all blind predictions were frozen, developmental outer scoring was less
-supportive. A2 versus A1 improved mean COMPOUND NRMSE by 1.47% on 25g and 2.65%
-on 40g, but worsened ROW by 1.10% and 9.37%. The corrected hierarchical
-Center/Width reference remained stronger on both COMPOUND columns. Therefore
-`REPRESENTATION_SIGNAL=False` under the cross-protocol guard and
-`PROJECT_TRANSFER_GAIN=False`. Learned task embeddings have no physical
-interpretation, target-compound holdout is not source-unseen OOD, and the
-inherited per-column COMPOUND partitions contain limited cross-target donor
-overlap. No architecture expansion, 8g addition, calibration, Active Learning,
-PCGrad, or domain-specific normalization was appended.
+## What is closed, and what remains open
 
-The next isolated computational hypothesis, if separately preregistered, is a
-gradient-conflict handling control. Independent/crossed compound and batch data
-with intentional high-volume-tail coverage remains the higher-priority external
-validation need. Uncontrolled neural architecture expansion should stop.
+The negative results apply to the tested designs. Additive condition Ridge failing does not mean conditions are irrelevant; affine coefficient sharing is not the same as learning a shared representation; low-capacity monotone calibration does not exclude all nonlinear transfer.
 
-## Latest matched strategy benchmark
+The older blanket wording `NO_COMPLEXITY_JUSTIFIED_BY_CURRENT_DATA` is retained in frozen records. Its scoped interpretation is `NO_ADDITIONAL_COMPLEXITY_JUSTIFIED_FOR_TESTED_CALIBRATION_EXTENSIONS`. Do not rename and rerun the same candidate as a new method.
 
-**SIMPLE_CALIBRATION_REMAINS_COMPETITIVE** under the current final-source, no-threshold protocol. The benchmark inherits the frozen 8g/25g/40g row and compound schedules, five outer seeds and B=30/50/70/100 revealed-label ledger. It reuses only artifact-verified current baseline predictions, fits the new `paper_style_current_v2` shallow transfer control, freezes all 120 new prediction files before reading test truth, and reports RMSE/MAE in mL as primary outcomes.
+Prioritize new evidence before further architecture or optimizer expansion:
 
-At B=100, the best matched 25g compound mean RMSE is 13.01/19.76 mL (V1/V2, conditional EA); the best row values are 17.37/25.22 mL (paper-style V1 / affine V2). For 40g, best compound values are 31.84/40.97 mL (conditional EA / affine-shrinkage) and best row values are 29.79/36.19 mL (paper-style V1 / conditional EA V2). The paper-style method fails the preregistered all-reference, both-endpoint replication gate: it is materially worse in compound and its isolated row B=100 gains do not reproduce in AULC.
+- Independently collected compound/batch validation with deliberate high-volume-tail coverage.
+- Repeated measurements at identical molecule/condition/specification to estimate experimental variability.
+- Crossed mass and flow settings; current 8g/25g/40g flows are fixed by column, preventing causal separation.
+- Source-aware held-out molecules; target-compound holdout alone is not source-unseen OOD.
+- Verified physical metadata and exact source/target pair coverage before a physical or delta-learning claim.
 
-High-volume tails dominate B=100 large-column SSE (25g: 60.4%–92.8%; 40g: 58.9%–87.7%). Thus, high R² and large RMSE coexist partly because outcome variance rises with column size, but the result is also a direct tail-extrapolation limitation, not evidence of operationally accurate large-column prediction. Conditional EA / local identity shrinkage remain the point-transfer baseline family. No current result identifies a causal failure mechanism or supports a more complex model; independent compound/batch data and intentional tail coverage are required first.
+Loss, readout, FiLM and conflict controls have now been tested, so older plans proposing them are no longer the next action. Hard ordered quantiles, normalized anchoring, alternative scope/LR schedules and paired/delta methods remain unexecuted hypotheses, not authorized sweeps or established gains. Active transfer still requires an independently validated transfer baseline and adequate UQ.
 
-The matched ranking is developmental because reused source-anchored evidence was historically test-exposed. The [paper-transfer reconstruction](../../studies/transfer/paper_transfer_reproduction/REPRODUCTION_REPORT.md) is historical `PAPER_ALIGNED_RECONSTRUCTED_REPRODUCTION`, not a comparator: it has legacy filtering, a larger label fraction, an old E0 source and another test population.
+## Historical provenance
 
-## Qualified predictor and generalization
+The exact status hashed by the earlier scaling protocol remains in [the frozen snapshot](history/CROSS_COLUMN_TRANSFER_STATUS_scaling_failure_audit.md). The root [pre-experiment method audit](../../NEXT_TRANSFER_MODEL_AUDIT.md) and the [readout design](ROW_FIRST_CONDITIONED_SOURCE_TRANSFER_PLAN_2026-09-13.md) remain original protocol references.
 
-The final QGeoGNN-V2 includes missing-condition completion and function-preserving removal of dead parameters. Exact six-output equivalence and final 4g qualification are complete. The qualified backbone/readout/head are not default modification targets. Source row test R² averages approximately 0.858/0.879 for V1/V2; compound test averages approximately 0.479/0.487. These are different tasks, not interchangeable estimates.
-
-Always distinguish row interpolation, target-compound holdout (no target training label for that compound), and source-unseen molecular OOD. Most target compounds occurred in source training; source-unseen OOD is currently not reliably estimable. See [qualification](../../studies/predictor/final_4g_qualification/FINAL_4G_QUALIFICATION_REPORT.md) and [target data audit](../../studies/transfer/cross_column/data_audit/DATA_AUDIT.md).
-
-## Actual method coverage
-
-| Tested idea | Scope and conclusion |
-| --- | --- |
-| zero-shot, descriptive column-mass-ratio scaling, scale-only, affine | Current V2, 8g/25g/40g, row/compound, five seeds and four budgets. Simple calibration removes much systematic shift; scale-only is a strong reference. |
-| affine + condition Ridge residual | Current V2, all six column/protocol contexts. Incremental AULC gains are small; none reaches 5%. |
-| target-head-only | Current V2, all six contexts. Strong on 8g; markedly worse than calibration on 25g/40g. |
-| Historical last1/last2/full fine-tune | Legacy T1/G0 and the earlier current final-V2 8g study cover shallow/full adaptation. At the cross-column/scaling-audit stage, current 25g/40g had only tested head-only: the last2 trigger did not fire. These historical facts remain unchanged. |
-| Current V2 standard shallow/full and source-anchored shallow/full | Now tested in all 120 contexts. Shallow explicitly trains `backbone.convs.4`, condition completion and target head (36,387 parameters); full trains backbone, condition completion and target head (458,952). Anchored controls match capacity exactly. No replicated material advantage over strong calibration; source preservation alone is insufficient. These are not renamed Legacy last1/last2 results. |
-| pooled representation residual adapter | Historical T1b r8/r16/r32 after sum pooling. No stable benefit; this did not test adaptive pooling. Old source/head rankings are not current V2 rankings. |
-| monotone spline, nonlinear policy | Current V2, all 120 frozen contexts. Train-only two-knot monotone q50 calibration, validation choice. No stable material improvement. |
-| shared-column affine, local identity shrinkage | Current V2, equal purchased three-column portfolios and donor compound purging. Shared improves compound AULC 9.04% versus affine, but 1.42% versus scale and 1.64% versus local shrinkage. |
-| Conditional EA / validation-selected conditional policy | Completed scaling-failure study, all 120 contexts. Reproducible EA/V1 structure and local positive signals, but no replicated material gain over strong additive/shrinkage controls. Frozen references only in the representation stage. |
-
-These ideas must not be renamed and repeated. Evidence: [cross-column report](../../studies/transfer/cross_column/CROSS_COLUMN_TRANSFER_REPORT.md), [residual diagnostics](../../studies/transfer/residual_diagnostics/RESULT_INTERPRETATION.md), [pre-experiment method audit](../../NEXT_TRANSFER_MODEL_AUDIT.md).
-
-## What the negative controls mean
-
-`ADDITIVE_LINEAR_CONDITION_RESIDUAL_NOT_MATERIALLY_SUPPORTED` is the conclusion for `a*x+b+Ridge(c)`. It is **not** `CONDITION_EFFECT_NOT_SUPPORTED`. Conditions already influence source q50. Residual coefficients may vary multiplicatively with condition/molecule; the 9D matrix omits explicit column mass/geometry; within-column flow is constant; low-label variance may obscure effects; residual mixes source error, transfer shift and experimental variation. The negative result neither proves conditions useless nor proves a varying-coefficient formulation correct.
-
-`LOW_CAPACITY_1D_MONOTONE_CURVATURE_NOT_SUPPORTED` applies only to the tested source-q50 → target-volume spline family and penalties. It does not exclude general nonlinear transfer or interactions.
-
-`AFFINE_PARAMETER_PARTIAL_POOLING_HAS_NO_MATERIAL_GAIN_BEYOND_STRONG_SHRINKAGE_CONTROLS` is the shared-column result. That model shared/shrank slopes and intercepts using a quadratic penalty. It did not learn a transferable molecular representation. Regularization can reduce low-label affine instability; the evidence does not say all shared-column models are ineffective.
-
-Historical `NO_COMPLEXITY_JUSTIFIED_BY_CURRENT_DATA` is retained verbatim in its original decision. Its current project-level interpretation is **`NO_ADDITIONAL_COMPLEXITY_JUSTIFIED_FOR_TESTED_CALIBRATION_EXTENSIONS`**. This restricts the tested extensions and does not close the research space.
-
-## Why scale-only might be strong
-
-`V_target = a * V_4g_pred` acts on a learned summary of molecule and chromatography conditions. Targets overlap source molecules strongly; target conditions form structured grids; 8g has many source-condition matches. Mass, flow and specification are confounded (target flow 10/15/30 for 8g/25g/40g). A strong empirical prediction rule is not a universal physical scaling law.
-
-The completed scaling-failure audit found reproducible EA/V1 structure in `target/source_q50` and `target-a*source_q50`. Ratio denominators near zero require explicit handling. Matching must be exact on declared fields and distinguish all-source identity matches from source-train label availability. Most apparent repeats are different conditions; sparse genuine repeats cannot identify an irreducible experimental noise floor.
-
-The [scaling-failure audit](../../studies/transfer/scaling_failure_audit/SCALING_FAILURE_AUDIT.md) used frozen predictions, identities and splits without QGeoGNN retraining. Training-only evidence selected conditional scaling; molecule-dependent and paired/delta directions did not pass screening. The completed representation study then tested a separate mechanism. No polynomial/MLP calibration, condition sweep or molecule-dependent scalar extension is authorized. AULC/label-efficiency gains and high-budget absolute accuracy gains remain separate endpoints.
-
-## Future hypotheses / experiment backlog
-
-All items below are `FUTURE_HYPOTHESES / EXPERIMENT_BACKLOG`, not demonstrated conclusions or automatic execution instructions.
-
-| Direction | Needed evidence or control |
-| --- | --- |
-| Column-conditioned shared representation | Completed. A2 column FiLM passed both inner protocols but did not survive the outer cross-protocol guard; no robust representation signal or project transfer gain. Do not expand this architecture without new evidence. |
-| Explicit column context | More specifications and crossed conditions; no causal mass/flow claim from present confounding. |
-| Task / column embedding | Fixed 16D categorical embedding tested in A2; inner-positive but not outer-robust. Future work requires genuinely held-out specifications, not an embedding sweep. |
-| Multi-column multitask training | Equal-task 4g/25g/40g training completed. Any future study needs globally isolated outer compounds and independent data. |
-| Multi-fidelity joint learning | Source-label provenance, missing-pair controls and fidelity-aware validation. |
-| Adaptive readout | Controlled readout-only intervention; no simultaneous backbone/head/loss redesign. |
-| Paired / delta learning | Strict matching, source-train label availability, duplicate aggregation and unmatched coverage. |
-| Conditional scaling extensions | Closed for this stage: frozen EA experiment completed without replicated material gain. Do not restart as V2/V3, polynomial, MLP or feature sweep. |
-| Experimental noise-floor estimation | Replicated measurements at identical molecule/condition/specification and independent batches. |
-| Source-unseen molecular OOD | Sufficient molecules absent from all source-training labels. |
-| Crossed mass × flow experimental design | Same mass at multiple flows and same flow at multiple masses, with matched conditions. |
-
-Related literature categories to investigate later include multi-fidelity GNN/adaptive readout, chromatographic parameter vectorization, multi-dataset retention-time learning and multi-condition/multi-column retention prediction. These are research directions, not citations asserting that a specific method will work here.
+Superseded project plans and independent one-off scripts are recoverable through [RETIREMENTS.json](../repository/RETIREMENTS.json); their detailed result tables remain in [the transfer study index](../../studies/transfer/README.md).

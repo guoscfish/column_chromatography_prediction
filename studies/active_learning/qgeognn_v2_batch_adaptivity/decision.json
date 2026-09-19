@@ -1,0 +1,21 @@
+{
+  "evidence": "iterative_development",
+  "endpoint_conditions": {
+    "mean_NRMSE_improves": true,
+    "paired_NRMSE_wins_at_least_4": true,
+    "V1_RMSE_guard": true,
+    "V2_RMSE_guard": true,
+    "V1_R2_nonlower": true,
+    "V2_R2_nonlower": true
+  },
+  "curve_conditions": {
+    "NRMSE_AULC_improves": false,
+    "V1_R2_AULC_nonlower": false,
+    "V2_R2_AULC_nonlower": false
+  },
+  "feedback_signal": true,
+  "curve_efficiency_signal": false,
+  "paired_NRMSE_wins": 4,
+  "oneshot_static_endpoint_identical_by_construction": true,
+  "new_fits": 45
+}

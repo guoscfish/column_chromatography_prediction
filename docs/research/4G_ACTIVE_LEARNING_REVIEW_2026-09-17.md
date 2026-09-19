@@ -1,5 +1,12 @@
 # 4g QGeoGNN 主动学习：代码、实验与近期文献评估
 
+2026-09-18 评价补充：端点、AULC、N80/N90/N95、逐 seed 稳定性和完整训练成本已在
+[Phase 0 报告](../../studies/active_learning/qgeognn_v2_efficiency_review/REPORT.md) 中重新汇总，未重新训练或改写历史指标。
+不同新增标签预算不能隔离 batch-size effect；新的
+[Phase 1 协议](../../studies/active_learning/qgeognn_v2_batch_adaptivity/PROTOCOL.md)
+固定 333+320=653 标签，比较 Static 与 Adaptive。后续策略以
+[Phase 2 方案](4G_PHASE2_IMPLEMENTATION_PLAN_2026-09-18.md) 为准。
+
 研究日期：2026-09-17。预注册代码基线：`a419ea75e7894004aef393cb3734a7ae5e1356a1`；最新正式结果提交：`1e8fe69`，分支 `exp/qgeognn-v2-4g-row-al`。CW 结果另核对本地工作树 `/private/tmp/qgeognn_cw_performance`，提交 `6ac0f9e`。
 
 本次工作是研究评估：阅读已有代码、结果、运行审计与公开文献；没有启动训练、调用 test reveal、修改 frozen protocol 或更换分支。研究期间其他运行任务完成并提交了 sequential 正式结果，本报告已纳入这些已发布结果。以下新实验均为建议，不是已执行结果。
@@ -41,7 +48,7 @@ LCMD/Hybrid 的整段 AULC 比 Random 低约 23%，且两者均在 5/5 seeds 上
 | --- | --- | --- | --- |
 | 大批量 LCMD pilot | development 5 seeds；333→666 | Random 0.644425，LCMD 0.440213；均值相对改善 31.69% | 大批量一次选点存在明显有效信号 |
 | B32 primary confirmation | confirmation 5 seeds；333→365 | Random 0.694920，uncertainty 0.675275，CoreSet 0.673834，LCMD 0.663146 | LCMD 是当前最强的小批量 row acquisition 证据 |
-| B16 sensitivity | 同一 confirmation cohort；333→349 | mean per-seed improvement 为 -0.57% | LCMD 优势依赖预算与模型状态 |
+| B16 sensitivity | 同一 confirmation cohort；333→349 | mean per-seed improvement 为 -0.57% | 本预算下没有稳定优势；与 B32/B333 的预算不匹配，不能隔离 batch-size effect |
 | Hybrid matched extension | confirmation 5 seeds；333→365 | Hybrid 0.672660；仅 3/5 胜 Random median | 均值改善，但未过原定稳健性门槛 |
 | CW performance | development 5 seeds；333→365 | Raw 0.708760，CW 0.728810；CW 胜 2/5 | CW 第一轮即时收益未优于 Raw |
 | sequential | established confirmation 5 seeds；333→1005 | AULC：Random 0.624260，Hybrid 0.479354，LCMD 0.479539；两个主动方法均胜 Random 5/5 | 完整曲线支持标签效率；后期接近全数据仍有瓶颈 |
@@ -266,7 +273,7 @@ MaxDet/BAIT 是既有相关方法。若后续要发表方法学论文，需要�
 
 固定 +32 要 21 次 acquisition。为减少交互，可以后续比较一个预先定义的更大批量日程，例如早期 B32、后期 B64，并保持可比的总标签终点；这个示例是工程假设，不是已有论文或当前结果证明的最优日程。
 
-批次越大，选点过程中模型越陈旧；批次越小，重训和实验往返越频繁。B16 已无优势，说明不能默认“小批更主动就一定更省标签”。应比较到目标时的 `(labels, rounds, compute, lab time)`，展示折中关系，而非强行合为一个随意加权分数。
+批次越大，选点过程中模型越陈旧；批次越小，重训和实验往返越频繁。现有 B16 结果没有优势，但不同新增标签预算不能支持批次大小的因果解释。必须固定总新增标签后比较 feedback 的价值，并报告 `(labels, rounds, compute, lab time)`，而非强行合为一个随意加权分数。
 
 若 batch 有共同换溶剂/准备样品开销，实验成本还可能具有 setup sharing。只有设备时间、耗材和可行约束有数据时，才引入 cost-aware batch design。简单以预测 V2 除 acquisition score，容易系统性回避本来最影响 RMSE 的长保留样本。
 

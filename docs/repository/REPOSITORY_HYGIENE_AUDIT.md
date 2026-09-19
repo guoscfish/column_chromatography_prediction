@@ -1,142 +1,42 @@
-# Repository hygiene audit
+# Repository cleanup status
 
-Status: `AUDIT_COMPLETE / PAPER_RUNTIME_CLEANUP_COMPLETE / BRANCH_CLEANUP_PENDING_MAIN_INTEGRATION`
+Updated 2026-09-18. This page records repository maintenance; scientific results remain in their study reports.
 
-This is a read-only evidence record plus a disposition of the explicitly
-authorized paper-transfer cleanup. It does not authorize deletion of other
-historical studies, protected artifacts, local branches, or remote branches.
-The dependency-free checker can be rerun with:
+## Completed file cleanup
 
-```text
-python scripts/audit_repository_hygiene.py
-```
+- Retired 34 completed one-off runners with no remaining import consumers. The conditional-scaling runner remains because a frozen protocol still verifies its exact source hash.
+- Consolidated 11 superseded project plans and duplicate navigation/policy pages.
+- Rewrote the project and topic indexes around qualified V2, current 4g active learning, and completed transfer evidence.
+- Preserved all scientific result trees, raw/canonical data, splits, protected anchors, source checkpoints and active runtime.
+- Preserved the ongoing uncommitted batch-adaptivity/efficiency work and its code paths.
 
-## Audit snapshot and frozen anchors
+[RETIREMENTS.json](RETIREMENTS.json) is the exact file ledger: original path, SHA-256, size, line count, retained evidence and recovery commit. The source snapshot is `0e7b2ee940e3f71c6dbc7400c420694855eec597`. For reproduction, use the complete code at that revision and its recorded environment, not an isolated old script in a new pipeline.
 
-- Paper-transfer snapshot: `cf219034b02b9252e5eea10f2d741304efbfb51e`
-  on `codex/reproduce-paper-transfer-25g-40g-rmse`.
-- Archive tag: `archive/pre-matched-rmse-cleanup-2026-09-08`, verified to
-  resolve to that snapshot and contain the paper-transfer tip.
-- Current transfer source:
-  `studies/predictor/final_4g_qualification/runtime/row/seed_42/best.pt`.
-  SHA-256: `fce9edebc294fd179c7c7dc27ab2badea049c77fdad03a6cf0c317c63df544b0`.
-- Cross-column schedule SHA-256:
-  `b52b937aa750586ec8f2efb2f10f93dfddd2252bb03afaf304556e16b4fab5ee`.
-- All 15 entries in `docs/PROTECTED_ARTIFACTS.json` existed during the
-  audit. None was a cleanup target.
+The earlier paper-runtime cleanup remains recoverable at tag `archive/pre-matched-rmse-cleanup-2026-09-08`. Its 20-run scalar summary and compact artifact manifest remain in `studies/transfer/paper_transfer_reproduction/`.
 
-The qualified source checkpoint is intentionally an ignored local runtime
-artifact; the final-qualification README documents the required exact restore
-or reproduction step for a fresh clone. Its hash is the transfer contract.
+## Branch disposition
 
-## Branch ancestry
+| Branch | Disposition |
+| --- | --- |
+| `main` | Keep as integrated baseline |
+| `codex/4g-evaluation-adaptivity` | Keep: current checkout with ongoing uncommitted work |
+| `exp/qgeognn-v2-4g-row-al` | Deleted local duplicate of `0e7b2ee`; remote retains the published AL snapshot until integration |
+| `research/matched-rmse-benchmark-cleanup` | Deleted local and remote refs at `ae4b6d4`, already contained in `origin/main` (0 unique commits; main was 31 commits ahead) |
+| `exp/qgeognn-v2-4g-al-innovation-screen` | Keep: separate worktree and research commits outside current ancestry |
+| `exp/qgeognn-v2-4g-cw-lcmd-performance` | Keep: separate worktree with additional CW evidence |
 
-`git merge-base --is-ancestor`, `git branch --contains`, and bidirectional
-`git rev-list --count` establish a single linear research chain. In every
-adjacent pair, the ancestor-only count is zero and the descendant adds one
-commit:
+No history rewrite or forced merge is needed. The independent experiment branches should be integrated or archived through a separate evidence review, not deleted as duplicates.
 
-| ancestor | descendant | ancestor-only commits | descendant-added commits |
-| --- | --- | ---: | ---: |
-| `study/4g-to-8g-transfer` | `study/cross-column-transfer-validation` | 0 | 1 |
-| `study/cross-column-transfer-validation` | `codex/study-transfer-residual-diagnostics` | 0 | 1 |
-| `codex/study-transfer-residual-diagnostics` | `codex/study-scaling-failure-audit` | 0 | 1 |
-| `codex/study-scaling-failure-audit` | `codex/study-source-anchored-shared-transfer` | 0 | 1 |
-| `codex/study-source-anchored-shared-transfer` | `codex/study-physics-column-conditioned-transfer` | 0 | 1 |
-| `codex/study-physics-column-conditioned-transfer` | `codex/reproduce-paper-transfer-25g-40g-rmse` | 0 | 1 |
+## Checks
 
-The preceding six research refs are therefore
-`SUPERSEDED_LINEAR_RESEARCH_BRANCH` candidates. The paper tip is currently
-six commits ahead of `main`; it has not yet been integrated. Its remote and
-all superseded remote branches remain in place. Do not delete any of them
-until the current research branch has merged into `main`, the archive tag and
-main have been pushed, tests pass, and scientific records remain accessible.
-
-## Paper-transfer runtime disposition
-
-At the snapshot, the paper-reproduction study had 107 indexed paths. Eighty-one
-were reproducible runtime objects totaling 71,461,351 bytes:
-
-| class | count | disposition |
-| --- | ---: | --- |
-| `best.pt` checkpoints | 20 | moved to ignored `runtime/runs/` |
-| fit `history.csv` files | 20 | moved to ignored `runtime/runs/` |
-| per-run and aggregate predictions | 21 | moved to ignored `runtime/` |
-| per-run `result.json` files | 20 | moved to ignored `runtime/runs/`; compact fields retained in `run_summary.csv` |
-
-The current index has zero paper-transfer runtime candidates. The local
-ignored runtime still contains all 81 migrated objects, so this cleanup does
-not discard the immediately available reconstruction cache. The historical
-runner now writes all such outputs to `runtime/` automatically. Its compact
-root manifest excludes ignored runtime paths.
-
-`run_summary.csv` retains 20 column/protocol/seed/method records with:
-
-- best epoch and epochs run;
-- trainable and total parameter counts;
-- source checkpoint and SHA-256;
-- validation selection score and normalized validation/test RMSE;
-- V1/V2 validation and test RMSE, MAE, and R2; and
-- protocol, method, seed, and column-spec marker.
-
-This preserves the scientifically useful scalar provenance while keeping
-checkpoints, histories, and per-sample predictions reproducible rather than
-tracked.
-
-## Redundancy and dependency mapping
-
-The dependency scan covered code, tests, docs, and manifests before removal.
-No consumer outside the old paper-study manifest referenced the removed paths.
-That manifest was regenerated from retained compact records only.
-
-| former path(s) | classification and deterministic basis | retained replacement / disposition |
-| --- | --- | --- |
-| `runs/**/{best.pt,history.csv,predictions.csv.gz,result.json}` | reproducible runtime from the historical runner | ignored `runtime/runs/`; scalar metadata in `run_summary.csv` |
-| root `predictions.csv.gz` | concatenation of the per-run prediction tables | ignored `runtime/predictions.csv.gz`; aggregate metrics remain in `all_metrics.csv` and `PAPER_TRANSFER_RMSE_SUMMARY.csv` |
-| `canonical_25g_legacy_filtered.csv`, `canonical_40g_legacy_filtered.csv` | deterministic filter of the frozen cross-column canonical target using the threshold and raw-data hashes recorded in `protocol.json` | regenerated in memory by `read_target_data`; no duplicate tracked copy |
-| ten `splits/*_row_seed_*.csv` files | deterministic `RandomState(seed)` row partition over that named filtered canonical order | one retained compact `split_manifest.csv`, plus protocol, seeds, and `make_row_split` implementation |
-| `artifact_manifest.json` | formerly included runtime and redundant paths | regenerated to hash only 14 retained compact study records |
-
-The retained root record contains protocol/config/environment, implementation
-and provenance audits, filtering caveat, compact split ledger, all scalar
-metrics, summary tables, R2 comparison, reports, and `run_summary.csv`.
-The paper reproduction remains
-`PAPER_ALIGNED_RECONSTRUCTED_REPRODUCTION`, uses `legacy_filtered`, and uses
-the old E0 source SHA
-`7b9e3d0d4c8036c738ef220802e7ee46bc6ab8261cc541fb7d194e8c17044323`.
-It is a historical reference and is never eligible for a matched-strategy
-ranking.
-
-## Protocol and repository guards
-
-The audit validates that the frozen cross-column protocol retains
-`target_threshold: null`, validation-only neural selection,
-gradient-train-only simple fitting, `test_tuning: false`, the expected source
-hash, schedule hash, and a 120-context schedule with no target truth columns
-or role/budget-ledger violations.
-
-The hygiene tests additionally guard public scientific code against imports
-from historical top-level `scripts/run_*.py`, ensure runtime/progress paths
-are ignored and untracked, verify protected entries and hashes, and require
-the paper study's compact manifest/summary boundary. The matched-benchmark
-protocol guard verifies the inherited no-threshold source, schedule, labels,
-columns, seeds, budgets, and no-test-selection declarations once that study is
-materialized.
-
-The wider study scan still reports historical runtime-like file names in
-retained historical result trees. That inventory is diagnostic only, not a
-bulk-deletion list: `experiments/` and unrelated retained study evidence are
-protected by the artifact policy and were not moved or rewritten here.
-
-## Required final checks
-
-```text
-python scripts/audit_repository_hygiene.py
-KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish pytest -q tests/test_repository_hygiene_contracts.py
+```bash
+python3 scripts/audit_repository_hygiene.py
+KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish pytest -q
 git diff --check
-git status --short --branch
 ```
 
-After main integration, separately verify the pushed tag and mainline, then
-delete superseded local and remote research branches only if the branch
-containment audit still shows no ancestor-only commits.
+The dependency audit covers import consumers and literal code references, including uncommitted Python files. Retirement checks verify Git recovery hashes and retained records. Scientific-boundary checks verify the frozen source, schedule, data and existing result manifests.
+
+Validation on 2026-09-18: the full suite ran 560 tests (557 initially passed). One retired-script link, a duplicate index header and a hash-dependent runner were corrected; all 40 relevant follow-up tests passed. Retirement recovery, 367 active-experiment sealed files, protected anchors and `git diff --check` passed. Remote inspection confirmed the merged cleanup ref was removed while main and the published AL snapshot remained.
+
+Large ignored runtime is intentionally retained: the final source checkpoint and current AL study depend on it. This cleanup reduces maintained code and conflicting documentation; it does not claim to reclaim historical Git objects or all local training storage.

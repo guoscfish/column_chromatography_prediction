@@ -9,6 +9,7 @@ scientific Python environment is installed.
 from __future__ import annotations
 
 import argparse
+import ast
 import csv
 import hashlib
 import json
@@ -163,6 +164,22 @@ def branches_containing(root: Path, reference: str) -> dict[str, list[str]]:
     }
 
 
+def current_branch_inventory(root: Path) -> list[dict[str, object]]:
+    """Report live local refs, including worktree ownership and ancestry."""
+    records = []
+    for line in git_lines(root, "for-each-ref", "--format=%(refname:short)\t%(objectname)\t%(worktreepath)", "refs/heads/"):
+        branch, commit, worktree = line.split("\t", 2)
+        records.append({
+            "branch": branch,
+            "commit": commit,
+            "worktree": worktree or None,
+            "commits_only_on_branch_vs_main": int(git_lines(root, "rev-list", "--count", f"main..{branch}")[0])
+            if ref_exists(root, "main") else None,
+            "commits_only_on_branch_vs_current": int(git_lines(root, "rev-list", "--count", f"HEAD..{branch}")[0]),
+        })
+    return records
+
+
 def branch_audit(root: Path) -> dict[str, object]:
     try:
         current = git_lines(root, "symbolic-ref", "--short", "HEAD")[0]
@@ -232,9 +249,57 @@ def branch_audit(root: Path) -> dict[str, object]:
             archive["contains_paper_tip"] = required_paper_records <= archived_paths
     return {
         "current_branch": current,
+        "local_branches": current_branch_inventory(root),
         "tips": tips,
         "adjacent_relations": relations,
         "archive": archive,
+    }
+
+
+def retirement_audit(root: Path) -> dict[str, object]:
+    """Verify recovery and evidence without importing scientific code."""
+    registry = json.loads((root / "docs/repository/RETIREMENTS.json").read_text(encoding="utf-8"))
+    commit = registry["source_commit"]
+    records = registry["records"]
+    paths = [record["path"] for record in records]
+    violations = []
+    if len(paths) != len(set(paths)):
+        violations.append({"reason": "duplicate_retirement_paths"})
+    for record in records:
+        path = record["path"]
+        if (root / path).exists():
+            violations.append({"path": path, "reason": "retired_file_still_present"})
+        if not (root / record["retained_record"]).exists():
+            violations.append({"path": path, "reason": "retained_record_missing"})
+        original = subprocess.run(
+            ["git", "show", f"{commit}:{path}"], cwd=root, capture_output=True,
+        )
+        if original.returncode or hashlib.sha256(original.stdout).hexdigest() != record["sha256"]:
+            violations.append({"path": path, "reason": "recovery_hash_mismatch_or_unavailable"})
+
+    retired_modules = {
+        ".".join(Path(path).with_suffix("").parts): path for path in paths if path.endswith(".py")
+    }
+    candidates = git_lines(root, "ls-files", "--cached", "--others", "--exclude-standard", "--", "*.py")
+    for name in candidates:
+        path = root / name
+        if not path.is_file():
+            continue
+        for node in ast.walk(ast.parse(path.read_text(encoding="utf-8"), filename=name)):
+            modules = []
+            if isinstance(node, ast.Import):
+                modules = [alias.name for alias in node.names]
+            elif isinstance(node, ast.ImportFrom) and node.module:
+                modules = [node.module] + [f"{node.module}.{alias.name}" for alias in node.names]
+            for module in modules:
+                if module in retired_modules:
+                    violations.append({"path": name, "reason": "imports_retired_module", "retired": retired_modules[module]})
+    return {
+        "source_commit": commit,
+        "retired_script_count": sum(record["kind"] == "completed_runner" for record in records),
+        "consolidated_document_count": sum(record["kind"] == "superseded_document" for record in records),
+        "removed_lines": sum(record["lines"] for record in records),
+        "violations": violations,
     }
 
 
@@ -356,9 +421,10 @@ def build_audit(root: Path = ROOT) -> dict[str, object]:
     paper_candidates = paper_runtime_candidates(paths)
     sizes = {path: (root / path).stat().st_size for path in paper_candidates if (root / path).is_file()}
     return {
-        "schema_version": 2,
+        "schema_version": 3,
         "repository": str(root),
         "git": branch_audit(root),
+        "retirements": retirement_audit(root),
         "tracked": {
             "path_count": len(paths),
             "study_runtime_candidates": candidates,

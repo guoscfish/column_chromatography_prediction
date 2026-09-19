@@ -1,5 +1,16 @@
 # 4G 主动学习：下一阶段实验建议
 
+2026-09-18 后续更正：下文保留审计完成前的研究建议。最新
+[IVR mechanism audit](../../studies/active_learning/qgeognn_v2_ivr_mechanism_audit/FINAL_REPORT.md)
+已完成：ranking 相关性较高，未证明主要瓶颈是数值不稳定；BAIT-style forward/backward
+对 surrogate 的中位收益为零，不能把 greedy optimizer 视为主要瓶颈。
+当前 scalar IVR 已属于 regression V-optimal/BAIT-like objective。
+后续优先完成
+[Phase 0 评价重构](../../studies/active_learning/qgeognn_v2_efficiency_review/REPORT.md) 与
+[固定总预算 Static/Adaptive 对照](../../studies/active_learning/qgeognn_v2_batch_adaptivity/PROTOCOL.md)，
+再按 [Phase 2 方案](4G_PHASE2_IMPLEMENTATION_PLAN_2026-09-18.md) 做 matched one-step screen。
+不直接执行下文原建议的完整新 sequential，也不继续扩展维度、prior、noise 网格。
+
 研究日期：2026-09-18。本文基于已冻结的 row sequential 结果、Kernel-IVR exploratory extension，以及不读取新 test truth 的缓存审计。本文不改动既有 protocol，也不把 exploratory 结果当作独立确认。
 
 ## 结论先行

@@ -1,0 +1,15 @@
+{
+  "seeds": [157, 887, 2357, 6101, 12203],
+  "initial_labels": 333,
+  "new_labels": 320,
+  "final_labels": 653,
+  "prefix_step": 32,
+  "methods": ["static_lcmd", "adaptive_lcmd", "random"],
+  "one_shot_endpoint_alias": "static_lcmd@653",
+  "max_workers": 2,
+  "scratch_retrain": true,
+  "endpoint_rmse_guard": 0.02,
+  "paired_nrmse_wins_required": 4,
+  "test_barrier": "all_five_static_trajectories_frozen",
+  "evidence": "iterative_development_on_previously_evaluated_seeds"
+}

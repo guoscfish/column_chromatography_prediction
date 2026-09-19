@@ -1,29 +1,48 @@
-# Column chromatography prediction
+# Column Chromatography Prediction
 
-Retention-volume prediction with molecular geometry and experimental conditions, followed by matched low-label cross-column transfer evaluation.
+用分子几何和实验条件预测柱层析保留体积。当前模型是 **QGeoGNN-V2**；研究分为 4g 主动学习和跨柱迁移两条线。
 
-Historical Legacy → condition-complete correction → function-preserving pruning → standalone QGeoGNN-V2 → current predictor.
+## 从这里开始
 
-The standalone QGeoGNN-V2 is `4G_POINT_PREDICTOR_QUALIFIED_FOR_TRANSFER_STUDIES`. Predictor architecture is no longer the default research target. Ordinary transfer proceeds independently of UQ qualification; active transfer requires independent transfer validation and an adequate uncertainty contract.
+| 要了解什么 | 入口 |
+| --- | --- |
+| 当前结论、正在做什么 | [研究状态](docs/NEXT_STAGE_DECISION.md) |
+| 实验结果与证据 | [研究索引](studies/README.md) |
+| 模型、训练和采样代码 | [代码地图](src/qgeognn_al/README.md) |
+| 可运行的入口 | [脚本索引](scripts/README.md) |
+| 目录、分支和维护规则 | [仓库结构](docs/repository/STRUCTURE.md) |
 
-The final model has 458,952 parameters, all gradient-bearing. Six-output equivalence to R2-pruned on all 4,163 frozen E0 rows is exact (maximum absolute difference 0). Final 4g qualification completed all six frozen row/compound runs without failures. The existing quantile head is retained for point transfer; its audit motivates a head/UQ control before active transfer.
+## 当前结论
 
-## Current evidence
+- **预测器已资格验证**：458,952 个有效参数，完成三个种子的 row / compound 4g 验证。Clean 是历史负结果，不是当前模型。
+- **4g 主动学习有效**：sequential B32 中 LCMD / Hybrid 相对 Random 的平均 AULC 改善约 23%，均为 5/5 种子获胜；两种主动方法之间没有稳定排名。当前在做固定总标签预算的 Static / Adaptive 对照。
+- **跨柱迁移仍有限制**：低标签、无阈值基准中简单校准仍有竞争力。后续 readout、FiLM 和 PCGrad 没有建立稳健的跨场景收益；主动迁移尚未启动。
 
-The authoritative transfer result is the [matched absolute-error benchmark](studies/transfer/matched_rmse_benchmark/MATCHED_RMSE_REPORT.md). It uses the qualified final 4g source checkpoint (`fce9…544b`), identical no-threshold 8g/25g/40g row and target-compound splits, five fixed seeds, and 30/50/70/100 revealed-label budgets. RMSE/MAE in mL are primary; R² is secondary.
+指标的适用范围和原始报告统一见[研究状态](docs/NEXT_STAGE_DECISION.md)，不能将不同数据过滤、标签预算或划分下的数值混合排名。
 
-`SIMPLE_CALIBRATION_REMAINS_COMPETITIVE`: at equal budget, paper-style current-V2 adaptation does not meet the preregistered paired B=100-plus-AULC gain rule against scale, affine, and shrinkage controls on both 25g and 40g. Large-column error is tail-dominated, so high R² does not establish operationally small retention-volume error. The current simple baseline family is conditional EA / local identity shrinkage; conclusions remain developmental because reused source-anchored evidence had historical test exposure.
+## 目录
 
-The [paper-transfer reconstruction](studies/transfer/paper_transfer_reproduction/REPRODUCTION_REPORT.md) is a `PAPER_ALIGNED_RECONSTRUCTED_REPRODUCTION`, not a ranked matched comparator: it uses legacy filtering, larger label fractions, an old source checkpoint, and different splits. Historical studies remain available through the [study index](studies/README.md); the current decision and backlog are in [docs/NEXT_STAGE_DECISION.md](docs/NEXT_STAGE_DECISION.md).
+```text
+src/qgeognn_al/  模型与可复用算法
+scripts/        执行入口、维护工具、仍有依赖的历史入口
+tests/          实现、数据边界和结果完整性检查
+studies/        predictor / active_learning / transfer 的协议与结果
+experiments/    早期实验记录及仍被使用的数据锚点
+docs/           当前状态、契约、维护规则
+dataset/        原始数据
+application/    旧应用及 Legacy 模型
+automation/     旧数据采集工具
+```
 
-## Active code
+已完成且无现存调用依赖的 34 个一次性脚本已退役，结果仍在原目录；具体路径、校验值和恢复提交见[清理记录](docs/repository/RETIREMENTS.json)。需要复现退役实验时使用历史提交的完整环境和代码。
 
-`src/qgeognn_al/models/qgeognn_v2.py` owns `build_predictor`, `load_predictor_checkpoint`, `forward` and `extract_representation`. Shared data, training, transfer, evaluation and uncertainty code lives in the corresponding `src/qgeognn_al/` packages. New studies use this single predictor API.
+## 验证
 
-Run verification in the validated conda environment:
+本机已验证的环境为 Conda `fish`，从仓库根目录执行：
 
 ```bash
 KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish pytest -q
+python3 scripts/audit_repository_hygiene.py
 ```
 
-[Historical evidence](studies/predictor/historical/README.md) remains at its original paths for provenance. Historical T1/T1b/G0/S1 conclusions do not establish rankings for the corrected predictor.
+检查点和训练缓存位于被忽略的 `runtime/`。新克隆不会自动包含这些文件；迁移所需的精确源检查点及恢复说明见[4g 资格验证](studies/predictor/final_4g_qualification/README.md)。根目录 `NEXT_TRANSFER_MODEL_AUDIT.md` 是被哈希引用的历史协议，保留原文与路径。
