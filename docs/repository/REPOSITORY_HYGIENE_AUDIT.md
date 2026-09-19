@@ -38,6 +38,6 @@ git diff --check
 
 The dependency audit covers import consumers and literal code references, including uncommitted Python files. Retirement checks verify Git recovery hashes and retained records. Scientific-boundary checks verify the frozen source, schedule, data and existing result manifests.
 
-Validation on 2026-09-18: the full suite ran 560 tests (557 initially passed). One retired-script link, a duplicate index header and a hash-dependent runner were corrected; all 40 relevant follow-up tests passed. Retirement recovery, 367 active-experiment sealed files, protected anchors and `git diff --check` passed. Remote inspection confirmed the merged cleanup ref was removed while main and the published AL snapshot remained.
+Validation on 2026-09-19: the full suite ran 570 tests and all passed. Retirement recovery, protected anchors, the active-experiment sealed files and `git diff --check` passed. Remote inspection confirmed the integrated main line and the removal of the merged cleanup refs.
 
 Large ignored runtime is intentionally retained: the final source checkpoint and current AL study depend on it. This cleanup reduces maintained code and conflicting documentation; it does not claim to reclaim historical Git objects or all local training storage.
