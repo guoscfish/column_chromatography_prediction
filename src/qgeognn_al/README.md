@@ -24,6 +24,10 @@ Read `active_learning_v2/` in this order:
 
 `benchmark*` and `phase1.py` implement the earlier one-step benchmark; `phase1.py` is not the September batch-adaptivity study. `ivr*` and `block_ivr.py` retain the completed IVR implementation and diagnostics.
 
+The selection-only innovation screen uses `gradient_transforms.py` and `innovation_screen.py`.
+It compares fixed representations and selectors on frozen L0 inputs; it does not retrain a model
+or inspect test labels. Keep this mechanism screen separate from sequential performance claims.
+
 ## Transfer
 
 | Area | Modules under `transfer/` |

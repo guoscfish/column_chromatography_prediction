@@ -19,13 +19,14 @@ The earlier paper-runtime cleanup remains recoverable at tag `archive/pre-matche
 | Branch | Disposition |
 | --- | --- |
 | `main` | Keep as integrated baseline |
-| `codex/4g-evaluation-adaptivity` | Keep: current checkout with ongoing uncommitted work |
+| `codex/4g-evaluation-adaptivity` | Merged into `main` after the batch-adaptivity work was integrated |
 | `exp/qgeognn-v2-4g-row-al` | Deleted local duplicate of `0e7b2ee`; remote retains the published AL snapshot until integration |
 | `research/matched-rmse-benchmark-cleanup` | Deleted local and remote refs at `ae4b6d4`, already contained in `origin/main` (0 unique commits; main was 31 commits ahead) |
-| `exp/qgeognn-v2-4g-al-innovation-screen` | Keep: separate worktree and research commits outside current ancestry |
+| `exp/qgeognn-v2-4g-al-innovation-screen` | Merged into `main`; its worktree was removed after integration |
 | `exp/qgeognn-v2-4g-cw-lcmd-performance` | Keep: separate worktree with additional CW evidence |
 
-No history rewrite or forced merge is needed. The independent experiment branches should be integrated or archived through a separate evidence review, not deleted as duplicates.
+No history rewrite or forced merge is needed. The remaining CW performance branch is retained as a
+separate evidence line; integrated branches are removed only after their worktree is gone.
 
 ## Checks
 

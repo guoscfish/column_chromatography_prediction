@@ -20,14 +20,16 @@ The old `track_a_4g_al`, `track_b_transfer`, and `track_c_active_transfer` direc
 
 `NEXT_TRANSFER_MODEL_AUDIT.md` remains at the root because its exact bytes are hashed by the residual-diagnostics protocol.
 
-## Branches
+## Canonical checkout and branches
 
-- `main`: integrated research baseline.
-- `codex/4g-evaluation-adaptivity`: current working branch; includes ongoing, uncommitted Phase 1 work.
-- `exp/qgeognn-v2-4g-al-innovation-screen` and `exp/qgeognn-v2-4g-cw-lcmd-performance`: separate worktrees with research commits not integrated into the current branch.
-- The local alias of the current tip and the already-integrated matched-RMSE branch were removed; details are in the [cleanup status](REPOSITORY_HYGIENE_AUDIT.md).
+The canonical local checkout is `/Users/fish/Documents/GitHub/column_chromatography_prediction`.
+It tracks `guoscfish/column_chromatography_prediction` and uses `main` as the integrated research
+line. A worktree is a second checkout of the same Git repository, not a second project; remove it
+after its branch is merged or explicitly archived.
 
-Use one branch per independent change. When its commits are integrated and no worktree uses it, delete the redundant branch. Retain an immutable tag when a result still needs a distinct recovery point. Do not merge experimental branches solely to reduce their count.
+Use one branch per independent, reviewable study. When its commits are integrated and no worktree
+uses it, delete the redundant branch. Retain an immutable tag when a result still needs a distinct
+recovery point. Generated `runtime/` directories are local scratch space and must remain ignored.
 
 ## Runtime and retirement
 

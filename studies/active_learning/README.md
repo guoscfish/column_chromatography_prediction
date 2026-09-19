@@ -12,10 +12,13 @@ Current work uses the qualified standalone QGeoGNN-V2. These row experiments con
 | [Small-batch benchmark](qgeognn_v2_row_small_batch_benchmark/FINAL_REPORT.md) | Completed B32/B16 controls; batch-size claims require matched total budgets |
 | [Hybrid extension](qgeognn_v2_row_hybrid_extension/README.md) | Completed matched one-step comparison |
 | [LCMD pilot](qgeognn_v2_row_lcmd/FINAL_REPORT.md) | Completed large-batch pilot; subsequent sequential evidence is above |
+| [Innovation screen](qgeognn_v2_row_innovation_screen/README.md) | Completed selection-only comparison of fixed gradient and latent geometries; no test labels or retraining |
 
 The sequential decision label `NO_CLEAR_SEQUENTIAL_AL_GAIN` does not negate the measured gains over Random. Its frozen classification failed to rank LCMD versus Hybrid; both have `active_gain=true`. Preserve the original classification and explain both facts.
 
-The independent CW/innovation studies remain on their separate worktree branches; they are not silently merged into these results. The [research review](../../docs/research/4G_ACTIVE_LEARNING_REVIEW_2026-09-17.md) discusses their scope.
+The CW and innovation studies are separate evidence records and are not pooled with the sequential
+results. The innovation-screen implementation is now part of the integrated `main` code line; the
+[research review](../../docs/research/4G_ACTIVE_LEARNING_REVIEW_2026-09-17.md) discusses its scope.
 
 ## Historical and deferred
 

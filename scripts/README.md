@@ -9,6 +9,7 @@ Run from the repository root in the validated Conda `fish` environment. Read the
 | `run_qgeognn_v2_batch_adaptivity.py` | Formal matched-budget control | [Phase 1](../studies/active_learning/qgeognn_v2_batch_adaptivity/README.md); prepared run/resume, not an independent duplicate launch |
 | `summarize_qgeognn_v2_adaptivity.py` | Reporting | Current adaptivity artifacts; requires complete frozen trajectories |
 | `report_qgeognn_v2_efficiency.py` | Reporting only | [Phase 0](../studies/active_learning/qgeognn_v2_efficiency_review/REPORT.md); retained results, no retraining |
+| `run_qgeognn_v2_4g_row_innovation_screen.py` | Selection-only mechanism screen | [Innovation screen](../studies/active_learning/qgeognn_v2_row_innovation_screen/README.md); frozen L0 inputs, no test evaluation |
 
 ## Retained workflows
 
@@ -17,7 +18,7 @@ These are completed studies or reproduction entry points. Follow their frozen co
 | Family | Entries in `studies/` | Role / evidence |
 | --- | --- | --- |
 | Standalone predictor | `run_final_v2_engineering.py`, `run_final_4g_qualification.py`, `summarize_final_4g_qualification.py` | Engineering and formal [qualification](../studies/predictor/final_4g_qualification/README.md) |
-| Current-V2 row AL | `run_qgeognn_v2_4g_row_lcmd_pilot.py`, `run_qgeognn_v2_4g_row_small_batch_benchmark.py`, `run_qgeognn_v2_row_hybrid_extension.py`, `run_qgeognn_v2_row_sequential_b32.py` | Completed formal/diagnostic [row studies](../studies/active_learning/README.md) |
+| Current-V2 row AL | `run_qgeognn_v2_4g_row_lcmd_pilot.py`, `run_qgeognn_v2_4g_row_small_batch_benchmark.py`, `run_qgeognn_v2_row_hybrid_extension.py`, `run_qgeognn_v2_row_sequential_b32.py`, `run_qgeognn_v2_4g_row_innovation_screen.py` | Completed formal/diagnostic [row studies](../studies/active_learning/README.md) |
 | IVR | `run_qgeognn_v2_row_kernel_ivr_b32.py`, `run_ivr_mechanism_audit.py`, `report_ivr_mechanism_diagnostics.py` | Completed exploratory and mechanism studies; no automatic follow-up |
 | Transfer baselines | `run_final_v2_transfer.py`, `run_cross_column_transfer.py`, `run_matched_rmse_benchmark.py` | Frozen [matched benchmark](../studies/transfer/matched_rmse_benchmark/README.md) |
 | Source anchoring | `run_source_anchored_transfer.py`, `evaluate_source_anchored_transfer.py`, `summarize_source_anchored_transfer.py` | Blind fit, gated evaluation, report; [protocol](../studies/transfer/source_anchored_shared_transfer/README.md) |

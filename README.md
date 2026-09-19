@@ -12,6 +12,11 @@
 | 可运行的入口 | [脚本索引](scripts/README.md) |
 | 目录、分支和维护规则 | [仓库结构](docs/repository/STRUCTURE.md) |
 
+本地只保留一个工作副本：`/Users/fish/Documents/GitHub/column_chromatography_prediction`。
+此前带 `_al_innovation` 后缀的目录是同一仓库的实验 worktree，创新筛选内容已经合并到
+`main`，该目录不再是独立项目。新的实验请从 `main` 创建临时 worktree，完成后将代码和
+研究记录合并回主线，避免两个目录产生分叉。
+
 ## 当前结论
 
 - **预测器已资格验证**：458,952 个有效参数，完成三个种子的 row / compound 4g 验证。Clean 是历史负结果，不是当前模型。
