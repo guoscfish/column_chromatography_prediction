@@ -20,7 +20,7 @@ The earlier paper-runtime cleanup remains recoverable at tag `archive/pre-matche
 | --- | --- |
 | `main` | Keep as integrated baseline |
 | `codex/4g-evaluation-adaptivity` | Merged into `main` after the batch-adaptivity work was integrated |
-| `exp/qgeognn-v2-4g-row-al` | Deleted local duplicate of `0e7b2ee`; remote retains the published AL snapshot until integration |
+| `exp/qgeognn-v2-4g-row-al` | Merged into `main`; local and remote duplicate refs removed |
 | `research/matched-rmse-benchmark-cleanup` | Deleted local and remote refs at `ae4b6d4`, already contained in `origin/main` (0 unique commits; main was 31 commits ahead) |
 | `exp/qgeognn-v2-4g-al-innovation-screen` | Merged into `main`; its worktree was removed after integration |
 | `exp/qgeognn-v2-4g-cw-lcmd-performance` | Keep: separate worktree with additional CW evidence |
