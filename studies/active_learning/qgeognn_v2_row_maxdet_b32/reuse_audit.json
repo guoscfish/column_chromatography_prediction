@@ -1,0 +1,88 @@
+{
+  "status": "PASS",
+  "interpretation": "Only exact round-zero model/gradient/K3 ensemble artifacts are reusable; later Hybrid states are trajectory-specific and forbidden.",
+  "historical_work_not_retrained": [
+    "random",
+    "gradient_lcmd",
+    "hybrid",
+    "kernel_ivr"
+  ],
+  "seeds": [
+    {
+      "outer_seed": 157,
+      "split_sha256": "e1718212472ae86f5ca3f16c4d8e3905c043b06bf4830e87b5a9d0bb64577472",
+      "l0_ids_hash": "1171988daf4e91eb3d866b44b1ba07f04a36e6f88eb953eda831b9c64c66854d",
+      "u0_ids_hash": "2d5225ceee78487280509f7b1352724a9a87b095ebccf0041d9fe2b5b7e5bf47",
+      "validation_ids_hash": "1c7360ea30a5bb2bbc04c1160ce749a6592ce89a5314acb6d1aa7bd7ce5d6ead",
+      "test_ids_hash": "10a2ef48671c007be63ae19d9203e2af7c5f13b954f505102564aaeabe0ecc19",
+      "member0_checkpoint_sha256": "87e92ccdabc1dd64ecf89a3061624450ce125906c4cbb988d7263b190991b1c0",
+      "member0_checkpoint_state_hash": "4caaf2241a54b172f8cf0cc5069818c21f40db9eb66885f12e62b2c9b7b53683",
+      "gradient_sha256": "80c9a397f0c2d1b7caf8377929b046f24ed324718508ec35f6c6043672854147",
+      "gradient_contract_sha256": "3881663fa3c718b5f6bf7330bbb8673ff2a48cffdc49b49b487207cdeeb68a1d",
+      "ensemble_member1_checkpoint_sha256": "1bc15eeca32757b8fb63ce0a4ce39bc36825164c09f61bd5ca47197594e85571",
+      "ensemble_member2_checkpoint_sha256": "acdc7d0eba8f6df6b7cc61a04c5a3f1fb0e958a77704398a9c7830e96a974a04",
+      "target_scales": {
+        "V1": 6.502957820892334,
+        "V2": 13.158523559570312
+      },
+      "training_config": {
+        "model_variant": "qgeognn_v2",
+        "optimizer": "Adam",
+        "learning_rate": 0.001,
+        "weight_decay": 0.0,
+        "batch_size": 2048,
+        "maximum_epochs": 1000,
+        "patience": 100,
+        "shuffle": "deterministic_each_epoch",
+        "loss_weights": {
+          "V1": 1.0,
+          "V2": 1.0
+        },
+        "checkpoint_selection": "validation_combined_normalized_rmse",
+        "test_during_training": false,
+        "architecture_changed": false,
+        "head_changed": false,
+        "condition_branch_changed": false
+      },
+      "reuse_legal": true
+    },
+    {
+      "outer_seed": 6101,
+      "split_sha256": "3c8c809b2b6e63bd0b3d2f28032f0ae60adc66078fafb5e459d4d510d599e338",
+      "l0_ids_hash": "38793e6f1eda734757c562de4973830b27cf13b2c0e97fbf110c5a1e61fb860e",
+      "u0_ids_hash": "2b9590b3a68506f0c2cab57988232d3bc220911d12e680709ae02259f81aa149",
+      "validation_ids_hash": "247750c1d939b88b0869fc235e77b9db721b357703d85933996189915abaeb8d",
+      "test_ids_hash": "ecb7ff19582c1a90bb1182476e3e3db6c1655216f9521c04acd90ea593b162f5",
+      "member0_checkpoint_sha256": "bcfffa247c3d24c8c74993ddb66cb59741ae14b1e67e8ed9543a8d1af7c6c494",
+      "member0_checkpoint_state_hash": "f317616f55957cd2879553c4f5017c6fcd59e942e0557eb54b6c2f9a3224ed70",
+      "gradient_sha256": "b1e3a748fb37ad2c180fc347e73153d2b011a16d9c9728ab91bbd5ec652e68b5",
+      "gradient_contract_sha256": "22eef4e5d19af6394f7a1663cbe561d80721138aaaf42f8f9998cf9072427312",
+      "ensemble_member1_checkpoint_sha256": "86c488d7cd57ed2c24169600298c637457616835acc3073b6013400b25abd0d0",
+      "ensemble_member2_checkpoint_sha256": "543345d50c9450504760021e7154f964d40dcab3afe84241703ba5f50c26b479",
+      "target_scales": {
+        "V1": 5.462151050567627,
+        "V2": 12.266972541809082
+      },
+      "training_config": {
+        "model_variant": "qgeognn_v2",
+        "optimizer": "Adam",
+        "learning_rate": 0.001,
+        "weight_decay": 0.0,
+        "batch_size": 2048,
+        "maximum_epochs": 1000,
+        "patience": 100,
+        "shuffle": "deterministic_each_epoch",
+        "loss_weights": {
+          "V1": 1.0,
+          "V2": 1.0
+        },
+        "checkpoint_selection": "validation_combined_normalized_rmse",
+        "test_during_training": false,
+        "architecture_changed": false,
+        "head_changed": false,
+        "condition_branch_changed": false
+      },
+      "reuse_legal": true
+    }
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "study": "qgeognn_v2_row_maxdet_b32",
+  "audit_head_commit": "e7f97e9b",
+  "evidence_status": "development_due_to_historical_row_test_exposure",
+  "cohort_status": "two_seed_developmental_subset_of_historical_cohort",
+  "historical_confirmation_seeds": [
+    157,
+    887,
+    2357,
+    6101,
+    12203
+  ],
+  "research_priority": "ROW_SPLIT_PERFORMANCE_FIRST",
+  "compound_split_role": "auxiliary_diagnostic_only_not_an_optimization_target",
+  "confirmation_seeds": [
+    157,
+    6101
+  ],
+  "methods": [
+    "gradient_maxdet",
+    "u50_gradient_maxdet"
+  ],
+  "batch_size": 32,
+  "active_label_budgets": [
+    333,
+    365,
+    397,
+    429,
+    461,
+    493,
+    525,
+    557,
+    589,
+    621,
+    653,
+    685,
+    717,
+    749,
+    781,
+    813,
+    845,
+    877,
+    909,
+    941,
+    973,
+    1005
+  ],
+  "initial_active_labels": 333,
+  "final_active_labels": 1005,
+  "initial_pool_rows": 2997,
+  "outer_train_rows": 3330,
+  "validation_rows": 416,
+  "gradient_sketch_dimension": 512,
+  "gradient_sketch": "authoritative_full_network_q50_CountSketch",
+  "maxdet": {
+    "normalization": "sqrt(mean_L_t(||phi||^2))",
+    "information": "I + sum_L_t psi psi^T",
+    "gain": "log1p(psi_x^T A_inverse psi_x)",
+    "batch": "greedy_conditional_rank_one_updates",
+    "ridge": 1.0,
+    "dtype": "float64",
+    "tie_break": "canonical_current_U_t_order"
+  },
+  "uncertainty_gate": {
+    "fraction": 0.5,
+    "size": "ceil(0.50 * current_U_t_rows)",
+    "signal": "existing_K3_q50_ensemble_disagreement_on_V1_V2_scaled_by_fixed_L0_scales",
+    "tie_break": "canonical_current_U_t_order",
+    "maxdet_candidate_order": "canonical_current_U_t_order_after_gate_membership"
+  },
+  "ensemble_K": 3,
+  "training": {
+    "model_variant": "qgeognn_v2",
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0,
+    "batch_size": 2048,
+    "maximum_epochs": 1000,
+    "patience": 100,
+    "shuffle": "deterministic_each_epoch",
+    "loss_weights": {
+      "V1": 1.0,
+      "V2": 1.0
+    },
+    "checkpoint_selection": "validation_combined_normalized_rmse",
+    "test_during_training": false,
+    "architecture_changed": false,
+    "head_changed": false,
+    "condition_branch_changed": false
+  },
+  "target_scales": "fixed_original_L0_population_std_ddof_0",
+  "row_phases": [
+    {
+      "name": "early",
+      "start": 333,
+      "stop": 525
+    },
+    {
+      "name": "middle",
+      "start": 525,
+      "stop": 653
+    },
+    {
+      "name": "late",
+      "start": 653,
+      "stop": 1005
+    }
+  ],
+  "test_reveal_barrier": "all_2_executed_seeds_x_2_methods_x_22_predictions_and_21_batches_frozen",
+  "historical_baselines": [
+    "random",
+    "hybrid",
+    "lcmd",
+    "kernel_ivr"
+  ],
+  "source_sha256": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+  "graph_cache_sha256": "a48f8ea1ce4f89c5a1ea6d17466e7c7ffa0439edb8ec79bd8b765bad3a97c3ee",
+  "feature_columns": [
+    "sample_id",
+    "canonical_smiles",
+    "Density g/ml",
+    "V/ul",
+    "loading solvent",
+    "Volume of loading solvent/ul",
+    "PE/EA"
+  ],
+  "code_hashes": {
+    "scripts/studies/run_qgeognn_v2_row_maxdet_b32.py": "361756488e1a81e3c2ded9e0979fdf399cf5e3e0cbaec896cdf20295a33f7215",
+    "src/qgeognn_al/active_learning_v2/maxdet.py": "ea8fde846afe418228e510c8e21e4e8f571aba21c188dec4f5d8dfe7bcfe7945",
+    "src/qgeognn_al/active_learning_v2/maxdet_study.py": "c7303acdae74682ffb6e64687eb12d4dd4110ab716cd35b20edd43de536a3b29",
+    "src/qgeognn_al/active_learning_v2/maxdet_runner.py": "358fce35fb556d5b885ca3076bde019dfa77f6b61e18fafc312b3d9a1f725409",
+    "src/qgeognn_al/active_learning_v2/maxdet_reporting.py": "8818412349b6714e9179a6f1291d30db3c797c243867e4a5255ff3719175ad56",
+    "src/qgeognn_al/active_learning_v2/gradient_features.py": "ac0c2d36912efeb97eddeae3484fc601de1b5b3b94dd5e4570699b8d1c53b278",
+    "src/qgeognn_al/active_learning_v2/runner.py": "4f6e7e3b3ac32342366423eb8d7b75159e17da7cb64fa3734db0d7e55f5ebe2b",
+    "src/qgeognn_al/active_learning_v2/uncertainty.py": "7de33df299d5309852174f1f95442625f54d02ae5e5771971722221af4004ca4",
+    "src/qgeognn_al/active_learning_v2/efficiency_reporting.py": "b0179cf4aa67048726cbd91e0f16045081c39d7774873ba7d06b7d7b8177838b"
+  },
+  "packages": {
+    "numpy": "2.4.6",
+    "pandas": "3.0.5",
+    "torch": "2.10.0",
+    "torch-geometric": "2.7.0",
+    "rdkit": "2025.9.3",
+    "scipy": "1.17.1",
+    "scikit-learn": "1.9.0"
+  },
+  "python": "3.11.14"
+}
