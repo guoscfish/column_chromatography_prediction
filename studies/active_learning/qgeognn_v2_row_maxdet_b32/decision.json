@@ -1,3 +1,19 @@
 {
-  "status": "PENDING_COMPLETE_TRAJECTORIES"
+  "status": "COMPLETE_DEVELOPMENT_EVIDENCE",
+  "whole_curve_lowest_mean_NRMSE_AULC": "hybrid",
+  "endpoint_lowest_mean_NRMSE": "gradient_maxdet",
+  "new_methods": [
+    "gradient_maxdet",
+    "u50_gradient_maxdet"
+  ],
+  "historical_baselines_reused_without_retraining": [
+    "random",
+    "hybrid",
+    "lcmd",
+    "kernel_ivr"
+  ],
+  "global_pre_test_freeze_sha256": "22340f5f671f275084248e5e2a95f745365ce3c198dc263e0b1a68913aae0a32",
+  "frozen_prediction_points": 88,
+  "test_truth_access_after_global_barrier": true,
+  "evidence_scope": "row-split development evidence; historical test cohort previously exposed"
 }
