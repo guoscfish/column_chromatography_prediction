@@ -1,8 +1,8 @@
 """Block-normalized gradient/latent features for Fusion-MaxDet.
 
 The representation is deliberately label-free apart from the current labeled
-rows used to estimate the two block scales.  With ``alpha=0.5`` its linear
-kernel is the average of the normalized gradient and latent kernels.
+rows used to estimate the two block scales.  The linear kernel is
+``alpha * K_gradient + (1 - alpha) * K_latent``.
 """
 
 from __future__ import annotations
@@ -14,7 +14,10 @@ from typing import Mapping
 import numpy as np
 
 
-ALPHA = 0.5
+DEFAULT_ALPHA = 0.5
+# Backwards-compatible name used by the frozen alpha=.5 study.  New studies
+# pass alpha explicitly through their study specification.
+ALPHA = DEFAULT_ALPHA
 GRADIENT_DIMENSION = 512
 LATENT_DIMENSION = 128
 FUSED_DIMENSION = GRADIENT_DIMENSION + LATENT_DIMENSION
@@ -97,7 +100,10 @@ def fuse_gradient_latent_features(
         "latent_feature_sha256": _array_hash(h),
         "fused_feature_sha256": _array_hash(fused),
         "normalization": "sqrt(mean_L_t(||block_i||_2^2)); L_t prefix only",
-        "kernel_definition": "0.5*K_gradient_normalized + 0.5*K_latent_normalized",
+        "kernel_definition": (
+            f"{float(alpha):.12g}*K_gradient_normalized + "
+            f"{1.0 - float(alpha):.12g}*K_latent_normalized"
+        ),
         "all_finite": True,
     }
     return FusionResult(fused, g_scale, h_scale, audit)
@@ -128,7 +134,40 @@ def representation_diagnostics(features: np.ndarray) -> Mapping[str, float]:
     return {"effective_rank": rank, "pairwise_kernel_abs_corr": float(off_diagonal.mean()) if len(off_diagonal) else 0.0}
 
 
+def latent_common_mode_diagnostics(
+    latent: np.ndarray,
+    labeled_count: int,
+) -> Mapping[str, float]:
+    """Diagnose a labeled-set mean direction without changing acquisition.
+
+    The mean is estimated only from the current labeled prefix ``L_t``.  The
+    centered effective-rank and kernel-correlation diagnostics are evaluated
+    on all current ``[L_t, U_t]`` rows after subtracting that fixed mean.
+    """
+
+    h = np.asarray(latent, dtype=np.float64)
+    n_labeled = int(labeled_count)
+    if h.ndim != 2 or h.shape[1] != LATENT_DIMENSION or not 0 < n_labeled <= len(h):
+        raise ValueError("latent must be a current 128D matrix with a nonempty labeled prefix")
+    if not np.isfinite(h).all():
+        raise ValueError("latent common-mode diagnostics require finite features")
+    mean = h[:n_labeled].mean(axis=0)
+    denominator = float(np.mean(np.einsum("ij,ij->i", h[:n_labeled], h[:n_labeled])))
+    if not np.isfinite(denominator) or denominator <= 0:
+        raise ValueError("latent labeled mean squared norm must be positive and finite")
+    centered = h - mean
+    centered_diagnostics = representation_diagnostics(centered)
+    return {
+        "latent_mean_direction_ratio": float(mean @ mean) / denominator,
+        "latent_mean_norm_sq": float(mean @ mean),
+        "latent_labeled_mean_norm_sq": denominator,
+        "centered_latent_effective_rank": centered_diagnostics["effective_rank"],
+        "centered_latent_pairwise_kernel_abs_corr": centered_diagnostics["pairwise_kernel_abs_corr"],
+    }
+
+
 __all__ = [
-    "ALPHA", "GRADIENT_DIMENSION", "LATENT_DIMENSION", "FUSED_DIMENSION",
+    "DEFAULT_ALPHA", "ALPHA", "GRADIENT_DIMENSION", "LATENT_DIMENSION", "FUSED_DIMENSION",
     "FusionResult", "fuse_gradient_latent_features", "representation_diagnostics",
+    "latent_common_mode_diagnostics",
 ]

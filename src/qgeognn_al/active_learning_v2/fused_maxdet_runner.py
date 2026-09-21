@@ -20,16 +20,25 @@ from ..training.predictor import atomic_json
 from .benchmark_protocol import initialization_seed, load_features, seed_config, sketch_seed
 from .coverage import extract_representations
 from .fused_features import (
-    ALPHA, FUSED_DIMENSION, fuse_gradient_latent_features, representation_diagnostics,
+    FUSED_DIMENSION,
+    fuse_gradient_latent_features,
+    latent_common_mode_diagnostics,
+    representation_diagnostics,
 )
-from .fused_maxdet_study import CONFIRMATION_SEEDS, METHOD, STUDY, historical_round0, validate_pre_test_manifest
+from .fused_maxdet_study import (
+    DEFAULT_SPEC,
+    FusedMaxDetStudySpec,
+    frozen_a050_round0_paths,
+    historical_round0,
+    validate_pre_test_manifest,
+)
 from .gradient_features import extract_q50_gradient_sketches, state_dict_hash
 from .maxdet import conditional_gradient_maxdet
 from .protocol import RestrictedLabelStore, ids_hash, stable_hash, validate_row_protocol
 from .cache import array_hash
 from .runner import fit_from_same_initialization, predict_outputs
 from .sequential_acquisition import validate_trajectory_transition
-from .sequential_protocol import ACQUISITION_ROUNDS, ACTIVE_LABEL_BUDGETS, BATCH_SIZE, FINAL_ACTIVE_LABELS, INITIAL_ACTIVE_LABELS
+from .sequential_protocol import BATCH_SIZE, INITIAL_ACTIVE_LABELS
 
 
 def _json(path: Path) -> dict:
@@ -74,6 +83,7 @@ class FusedSeedContext:
     partition: pd.DataFrame
     runtime: Path
     protocol_hash: str
+    spec: FusedMaxDetStudySpec = DEFAULT_SPEC
 
     def __post_init__(self) -> None:
         torch.set_num_threads(2)
@@ -95,7 +105,8 @@ class FusedSeedContext:
         store = RestrictedLabelStore(SOURCE_DATA, self.partition)
         self.l0_truth = store.reveal(self.ids(self.roles["l0"]), "initial_fit")
         self.validation_truth = store.reveal(self.ids(self.roles["validation"]), "initial_fit")
-        context = {"study": STUDY.name, "protocol_hash": self.protocol_hash, "outer_seed": self.seed,
+        context = {"study": self.spec.study.name, "method": self.spec.method, "alpha": float(self.spec.alpha),
+                   "protocol_hash": self.protocol_hash, "outer_seed": self.seed,
                    "split_hash": stable_hash(self.partition.to_dict("list")),
                    "l0_ids_hash": ids_hash(self.ids(self.roles["l0"])), "u0_ids_hash": ids_hash(self.ids(self.roles["u0"])),
                    "validation_ids_hash": ids_hash(self.ids(self.roles["validation"])), "test_ids_hash": ids_hash(self.ids(self.roles["test"])),
@@ -122,8 +133,8 @@ class FusedSeedContext:
 
     def fit(self, round_index: int, labeled: np.ndarray, truth: np.ndarray, prediction_indices: np.ndarray, runtime: Path) -> dict[str, object]:
         train_ids = self.ids(labeled)
-        contract = {"study": STUDY.name, "protocol_hash": self.protocol_hash, "outer_seed": self.seed,
-                    "method": METHOD, "round": int(round_index), "member": 0,
+        contract = {"study": self.spec.study.name, "protocol_hash": self.protocol_hash, "outer_seed": self.seed,
+                    "method": self.spec.method, "alpha": float(self.spec.alpha), "round": int(round_index), "member": 0,
                     "train_sample_ids": train_ids, "validation_sample_ids": self.ids(self.roles["validation"]),
                     "L_t_ids_hash": ids_hash(train_ids), "prediction_role": "test_X_without_test_truth", "test_truth_access_count": 0}
         audit = fit_from_same_initialization(atom_base=self.atom, angle=self.angle, normalization=self.normalization,
@@ -132,7 +143,8 @@ class FusedSeedContext:
             prediction_indices=prediction_indices, prediction_sample_ids=self.ids(prediction_indices),
             initialization_seed=initialization_seed(self.seed, 0), training_config=self.training_config(),
             contract=contract, runtime=runtime)
-        return {"outer_seed": self.seed, "method": METHOD, "round": int(round_index), "member": 0,
+        return {"outer_seed": self.seed, "method": self.spec.method, "alpha": float(self.spec.alpha),
+                "round": int(round_index), "member": 0,
                 "reuse_status": "new_fit", **audit, **_phase_budget(len(labeled))}
 
 
@@ -141,7 +153,8 @@ def _round0_evaluation(context: FusedSeedContext) -> tuple[Path, dict[str, objec
     prediction = pd.read_csv(paths["member0_predictions"])
     if prediction.sample_id.astype(str).tolist() != context.ids(context.roles["test"]):
         raise RuntimeError("round-zero prediction identity drift")
-    return paths["member0_model"], {"outer_seed": context.seed, "method": METHOD, "round": 0, "member": 0,
+    return paths["member0_model"], {"outer_seed": context.seed, "method": context.spec.method,
+        "alpha": float(context.spec.alpha), "round": 0, "member": 0,
         "reuse_status": "reused_historical_round0", "source_checkpoint": str(paths["member0_model"]),
         **_json(paths["member0_audit"]), **_phase_budget(INITIAL_ACTIVE_LABELS)}
 
@@ -205,7 +218,8 @@ def _load_or_extract(
     checkpoint_sha = sha256_file(model_path)
     checkpoint_state = state_dict_hash(model)
     ordered_ids = context.ids(current)
-    base = {"study": STUDY.name, "method": METHOD, "outer_seed": context.seed, "round": round_index,
+    base = {"study": context.spec.study.name, "method": context.spec.method,
+            "fusion_alpha": float(context.spec.alpha), "outer_seed": context.seed, "round": round_index,
             "checkpoint_sha256": checkpoint_sha, "checkpoint_state_hash": checkpoint_state,
             "ordered_current_canonical_indices": current.tolist(), "ordered_current_sample_ids": ordered_ids,
             "ordered_current_ids_hash": stable_hash(ordered_ids), "labeled_ids_hash": ids_hash(context.ids(current[:labeled_count])),
@@ -240,18 +254,27 @@ def _load_or_extract(
         _write_json_once(artifacts / "gradient_audit.json", gradient_audit)
 
     latent_path = artifacts / "current_latent_features.npz"
-    latent_contract = {**base, "kind": "current_QGeoGNN_V2_prehead_latent", "batch_size": 2048}
+    latent_contract = {**base, "kind": "current_QGeoGNN_V2_prehead_latent", "batch_size": 2048,
+                       "reuse_status": "reused_frozen_a050_round0" if round_index == 0 else "new_extraction"}
     cached_latent = _load_feature_cache(latent_path, latent_contract, current, 128)
     if cached_latent is None:
-        latent = extract_representations(model, context.atom, context.angle, current).astype(np.float32)
+        if round_index == 0:
+            source = frozen_a050_round0_paths(context.seed)
+            with np.load(source["latent"]) as cached:
+                latent = np.asarray(cached["features"], dtype=np.float32)
+                stored = np.asarray(cached["canonical_indices"], dtype=int)
+            if not np.array_equal(stored, current) or latent.shape != (len(current), 128):
+                raise RuntimeError("frozen alpha=.5 round-zero latent order/shape drift")
+        else:
+            latent = extract_representations(model, context.atom, context.angle, current).astype(np.float32)
         latent_contract["feature_sha256"] = array_hash(latent)
         _cache_features(latent_path, latent_contract, latent, current)
     else:
         latent, latent_contract = cached_latent
 
-    fused = fuse_gradient_latent_features(gradient, latent, labeled_count, alpha=ALPHA)
+    fused = fuse_gradient_latent_features(gradient, latent, labeled_count, alpha=context.spec.alpha)
     fused_path = artifacts / "current_fused_features.npz"
-    fused_contract = {**base, "kind": "gradient_latent_fusion", "alpha": ALPHA,
+    fused_contract = {**base, "kind": "gradient_latent_fusion", "alpha": float(context.spec.alpha),
                       "gradient_feature_sha256": gradient_contract["feature_sha256"], "latent_feature_sha256": latent_contract["feature_sha256"],
                       "gradient_block_scale": fused.gradient_scale, "latent_block_scale": fused.latent_scale,
                       "fused_dimension": FUSED_DIMENSION, "feature_sha256": fused.audit["fused_feature_sha256"]}
@@ -264,13 +287,19 @@ def _load_or_extract(
 
 
 def _historical_batch(seed: int, round_index: int) -> set[str]:
-    path = STUDY.parents[2] / "studies/active_learning/qgeognn_v2_row_maxdet_b32" / "runtime" / f"seed_{seed}" / "gradient_maxdet" / f"round_{round_index:02d}/acquisition/selected_next_batch.csv"
+    path = DEFAULT_SPEC.study.parents[2] / "studies/active_learning/qgeognn_v2_row_maxdet_b32" / "runtime" / f"seed_{seed}" / "gradient_maxdet" / f"round_{round_index:02d}/acquisition/selected_next_batch.csv"
+    return set(pd.read_csv(path).sample_id.astype(str)) if path.exists() else set()
+
+
+def _historical_a050_batch(seed: int, round_index: int) -> set[str]:
+    path = DEFAULT_SPEC.study / "runtime" / f"seed_{seed}" / DEFAULT_SPEC.method / f"round_{round_index:02d}/acquisition_artifacts/selected_batch.csv"
     return set(pd.read_csv(path).sample_id.astype(str)) if path.exists() else set()
 
 
 def _acquire(context: FusedSeedContext, round_index: int, labeled: np.ndarray, unlabeled: np.ndarray, model_path: Path, directory: Path) -> tuple[list[str], dict[str, object]]:
     current = np.r_[labeled, unlabeled]
-    input_contract = {"study": STUDY.name, "method": METHOD, "outer_seed": context.seed, "source_round": round_index,
+    input_contract = {"study": context.spec.study.name, "method": context.spec.method,
+                      "alpha": float(context.spec.alpha), "outer_seed": context.seed, "source_round": round_index,
                       "L_t_ids_hash": ids_hash(context.ids(labeled)), "U_t_ids_hash": ids_hash(context.ids(unlabeled)),
                       "checkpoint_sha256": sha256_file(model_path), "batch_size": BATCH_SIZE, "test_truth_access_count": 0}
     acquisition = directory / "acquisition_artifacts"
@@ -305,7 +334,8 @@ def _acquire(context: FusedSeedContext, round_index: int, labeled: np.ndarray, u
     def nearest(block: np.ndarray) -> np.ndarray:
         q, l = block[len(labeled):][selected_pool].astype(float), block[:len(labeled)].astype(float)
         return np.sqrt(np.maximum(np.sum(q*q, axis=1)[:, None] + np.sum(l*l, axis=1)[None, :] - 2*q@l.T, 0)).min(axis=1)
-    rows = pd.DataFrame({"outer_seed": context.seed, "method": METHOD, "source_round": round_index,
+    rows = pd.DataFrame({"outer_seed": context.seed, "method": context.spec.method,
+        "alpha": float(context.spec.alpha), "source_round": round_index,
         "selection_order": np.arange(BATCH_SIZE), "pool_position": selected_pool, "canonical_index": unlabeled[selected_pool],
         "sample_id": selected_ids, "gradient_norm": g_norm, "latent_norm": h_norm, "fused_norm": f_norm,
         "nearest_L_gradient_distance": nearest(gradient), "nearest_L_latent_distance": nearest(latent), "nearest_L_fused_distance": nearest(fused),
@@ -317,18 +347,29 @@ def _acquire(context: FusedSeedContext, round_index: int, labeled: np.ndarray, u
     _write_csv_once(acquisition / "selected_next_batch.csv", rows, rtol=1e-7)
     _write_csv_once(acquisition / "maxdet_trace.csv", pd.DataFrame(selection.trace))
     old = _historical_batch(context.seed, round_index)
-    profile = {"outer_seed": context.seed, "method": METHOD, "source_round": round_index, "active_label_count": len(labeled),
+    old_a050 = _historical_a050_batch(context.seed, round_index)
+    gradient_diagnostics = representation_diagnostics(gradient)
+    latent_diagnostics = representation_diagnostics(latent)
+    fused_diagnostics = representation_diagnostics(fused)
+    fused_a050 = fuse_gradient_latent_features(gradient, latent, len(labeled), alpha=0.5)
+    fused_a050_diagnostics = representation_diagnostics(fused_a050.features)
+    common_mode = latent_common_mode_diagnostics(latent, len(labeled))
+    profile = {"outer_seed": context.seed, "method": context.spec.method,
+        "alpha": float(context.spec.alpha), "source_round": round_index, "active_label_count": len(labeled),
         "gradient_block_scale": audit["gradient_block_scale"], "latent_block_scale": audit["latent_block_scale"],
         "gradient_feature_mean_norm": float(np.linalg.norm(gradient, axis=1).mean()), "latent_feature_mean_norm": float(np.linalg.norm(latent, axis=1).mean()),
         "fused_feature_mean_norm": float(np.linalg.norm(fused, axis=1).mean()),
-        "gradient_effective_rank": representation_diagnostics(gradient)["effective_rank"], "latent_effective_rank": representation_diagnostics(latent)["effective_rank"],
-        "fused_effective_rank": representation_diagnostics(fused)["effective_rank"],
-        "gradient_pairwise_kernel_abs_corr": representation_diagnostics(gradient)["pairwise_kernel_abs_corr"],
-        "latent_pairwise_kernel_abs_corr": representation_diagnostics(latent)["pairwise_kernel_abs_corr"],
-        "fused_pairwise_kernel_abs_corr": representation_diagnostics(fused)["pairwise_kernel_abs_corr"],
+        "gradient_effective_rank": gradient_diagnostics["effective_rank"], "latent_effective_rank": latent_diagnostics["effective_rank"],
+        "fused_effective_rank": fused_diagnostics["effective_rank"], "fused_a050_counterfactual_effective_rank": fused_a050_diagnostics["effective_rank"],
+        "gradient_pairwise_kernel_abs_corr": gradient_diagnostics["pairwise_kernel_abs_corr"],
+        "latent_pairwise_kernel_abs_corr": latent_diagnostics["pairwise_kernel_abs_corr"],
+        "fused_pairwise_kernel_abs_corr": fused_diagnostics["pairwise_kernel_abs_corr"],
+        "fused_a050_counterfactual_pairwise_kernel_abs_corr": fused_a050_diagnostics["pairwise_kernel_abs_corr"],
+        **common_mode,
         "selected_gradient_norm_mean": float(g_norm.mean()), "selected_latent_norm_mean": float(h_norm.mean()), "selected_fused_norm_mean": float(f_norm.mean()),
         "nearest_L_gradient_distance": float(nearest(gradient).mean()), "nearest_L_latent_distance": float(nearest(latent).mean()), "nearest_L_fused_distance": float(nearest(fused).mean()),
         "gradient_maxdet_overlap_count": len(set(selected_ids) & old), "gradient_maxdet_overlap_fraction": len(set(selected_ids) & old) / BATCH_SIZE,
+        "a050_fusion_overlap_count": len(set(selected_ids) & old_a050), "a050_fusion_overlap_fraction": len(set(selected_ids) & old_a050) / BATCH_SIZE,
         "normalization_scale": selection.normalization_scale, "selector_seconds": selection.audit["elapsed_seconds"],
         "gradient_seconds": audit["gradient_audit"].get("elapsed_seconds", 0.0), "latent_seconds": 0.0, "fusion_seconds": 0.0}
     atomic_json(acquisition / "fusion_profile.json", profile)
@@ -346,11 +387,12 @@ def run_trajectory(context: FusedSeedContext) -> dict[str, object]:
     selected_all: list[str] = []
     fits: list[dict[str, object]] = []
     round_hashes: list[str] = []
-    for round_index in range(ACQUISITION_ROUNDS + 1):
-        directory = context.runtime / METHOD / f"round_{round_index:02d}"
+    for round_index in range(context.spec.acquisition_rounds + 1):
+        directory = context.runtime / context.spec.method / f"round_{round_index:02d}"
         directory.mkdir(parents=True, exist_ok=True)
-        input_contract = {"study": STUDY.name, "protocol_hash": context.protocol_hash, "outer_seed": context.seed,
-            "method": METHOD, "round": round_index, "active_label_count": len(labeled), "L_t_ids_hash": ids_hash(context.ids(labeled)),
+        input_contract = {"study": context.spec.study.name, "protocol_hash": context.protocol_hash, "outer_seed": context.seed,
+            "method": context.spec.method, "alpha": float(context.spec.alpha), "round": round_index,
+            "active_label_count": len(labeled), "L_t_ids_hash": ids_hash(context.ids(labeled)),
             "U_t_ids_hash": ids_hash(context.ids(unlabeled)), "incoming_selected_ids_hash": stable_hash(incoming), "test_truth_access_count": 0}
         _write_json_once(directory / "input_contract.json", input_contract)
         _write_csv_once(directory / "state.csv", pd.DataFrame({"role": ["labeled"] * len(labeled) + ["unlabeled"] * len(unlabeled), "position": list(range(len(labeled))) + list(range(len(unlabeled))), "canonical_index": np.r_[labeled, unlabeled], "sample_id": context.ids(np.r_[labeled, unlabeled])}))
@@ -363,14 +405,14 @@ def run_trajectory(context: FusedSeedContext) -> dict[str, object]:
         fits.append(evaluation)
         outgoing: list[str] = []
         acquisition_contract = None
-        if round_index < ACQUISITION_ROUNDS:
+        if round_index < context.spec.acquisition_rounds:
             outgoing, acquisition_contract = _acquire(context, round_index, labeled, unlabeled, model_path, directory)
         round_contract = {"input": input_contract, "status": "FROZEN_BEFORE_TEST_TRUTH", "checkpoint_path": str(model_path),
             "checkpoint_sha256": sha256_file(model_path), "prediction_path": str(prediction_path), "prediction_sha256": sha256_file(prediction_path),
             "outgoing_selected_ids_hash": stable_hash(outgoing), "acquisition_contract_hash": None if acquisition_contract is None else stable_hash(acquisition_contract), "test_truth_access_count": 0}
         _write_json_once(directory / "round_freeze.json", round_contract)
         round_hashes.append(sha256_file(directory / "round_freeze.json"))
-        if round_index == ACQUISITION_ROUNDS:
+        if round_index == context.spec.acquisition_rounds:
             break
         old_l, old_u = context.ids(labeled), context.ids(unlabeled)
         by_id = {value: i for i, value in enumerate(old_u)}
@@ -382,49 +424,52 @@ def run_trajectory(context: FusedSeedContext) -> dict[str, object]:
         truth = np.vstack([truth, store.reveal(outgoing, "after_acquisition_fit")])
         selected_all.extend(outgoing)
         labeled, unlabeled, incoming = next_labeled, next_unlabeled, outgoing
-    if len(labeled) != FINAL_ACTIVE_LABELS or len(selected_all) != ACQUISITION_ROUNDS * BATCH_SIZE:
-        raise RuntimeError("fusion trajectory did not reach 1005 labels")
-    _write_csv_once(context.runtime / METHOD / "fit_audit.csv", pd.DataFrame(fits))
-    _write_csv_once(context.runtime / METHOD / "label_access_audit.csv", pd.DataFrame(store.audit))
-    trajectory = {"status": "FROZEN_BEFORE_TEST_TRUTH", "outer_seed": context.seed, "method": METHOD,
-        "round_points": ACQUISITION_ROUNDS + 1, "acquisition_rounds": ACQUISITION_ROUNDS, "final_active_labels": len(labeled),
+    if len(labeled) != context.spec.final_active_labels or len(selected_all) != context.spec.acquisition_rounds * BATCH_SIZE:
+        raise RuntimeError(f"fusion trajectory did not reach {context.spec.final_active_labels} labels")
+    _write_csv_once(context.runtime / context.spec.method / "fit_audit.csv", pd.DataFrame(fits))
+    _write_csv_once(context.runtime / context.spec.method / "label_access_audit.csv", pd.DataFrame(store.audit))
+    trajectory = {"status": "FROZEN_BEFORE_TEST_TRUTH", "outer_seed": context.seed, "method": context.spec.method,
+        "alpha": float(context.spec.alpha), "round_points": context.spec.acquisition_rounds + 1,
+        "acquisition_rounds": context.spec.acquisition_rounds, "final_active_labels": len(labeled),
         "selected_ids_ordered_hash": stable_hash(selected_all), "final_L_t_ids_hash": ids_hash(context.ids(labeled)),
         "final_U_t_ids_hash": ids_hash(context.ids(unlabeled)), "round_freeze_sha256": round_hashes,
-        "fit_audit_sha256": sha256_file(context.runtime / METHOD / "fit_audit.csv"), "test_truth_access_count": 0}
-    _write_json_once(context.runtime / METHOD / "trajectory_freeze.json", trajectory)
+        "fit_audit_sha256": sha256_file(context.runtime / context.spec.method / "fit_audit.csv"), "test_truth_access_count": 0}
+    _write_json_once(context.runtime / context.spec.method / "trajectory_freeze.json", trajectory)
     return trajectory
 
 
-def execute_seed(seed: int, study: Path = STUDY) -> dict[str, object]:
-    study = Path(study)
-    validation = validate_pre_test_manifest(study)
-    if int(seed) not in CONFIRMATION_SEEDS:
+def execute_seed(seed: int, study: Path | None = None, *, spec: FusedMaxDetStudySpec = DEFAULT_SPEC) -> dict[str, object]:
+    study = spec.study if study is None else Path(study)
+    validation = validate_pre_test_manifest(study, spec=spec)
+    if int(seed) not in spec.seeds:
         raise ValueError("seed is outside the fusion confirmation cohort")
     freeze = _json(study / "global_pre_test_freeze.json")
     if freeze.get("status") != "PENDING_PRE_TEST_EXECUTION":
         raise RuntimeError("fusion execution is closed after the global barrier")
-    context = FusedSeedContext(int(seed), pd.read_csv(study / "splits" / f"row_seed_{seed}.csv"), study / "runtime" / f"seed_{seed}", validation["protocol_hash"])
-    frozen = _json(context.runtime / METHOD / "trajectory_freeze.json") if (context.runtime / METHOD / "trajectory_freeze.json").exists() else run_trajectory(context)
-    print(json.dumps({"seed": int(seed), "method_frozen": METHOD, "test_truth_access_count": 0}), flush=True)
+    context = FusedSeedContext(int(seed), pd.read_csv(study / "splits" / f"row_seed_{seed}.csv"), study / "runtime" / f"seed_{seed}", validation["protocol_hash"], spec)
+    trajectory_path = context.runtime / spec.method / "trajectory_freeze.json"
+    frozen = _json(trajectory_path) if trajectory_path.exists() else run_trajectory(context)
+    print(json.dumps({"seed": int(seed), "method_frozen": spec.method, "alpha": float(spec.alpha), "test_truth_access_count": 0}), flush=True)
     return {"seed": int(seed), "status": "SEED_FROZEN_BEFORE_TEST_TRUTH", "trajectory": frozen}
 
 
-def build_global_pre_test_freeze(study: Path = STUDY) -> dict[str, object]:
-    study = Path(study)
-    validate_pre_test_manifest(study)
+def build_global_pre_test_freeze(study: Path | None = None, *, spec: FusedMaxDetStudySpec = DEFAULT_SPEC) -> dict[str, object]:
+    study = spec.study if study is None else Path(study)
+    validate_pre_test_manifest(study, spec=spec)
     entries = {}
-    for seed in CONFIRMATION_SEEDS:
-        root = study / "runtime" / f"seed_{seed}" / METHOD
+    for seed in spec.seeds:
+        root = study / "runtime" / f"seed_{seed}" / spec.method
         trajectory = _json(root / "trajectory_freeze.json")
         if trajectory.get("status") != "FROZEN_BEFORE_TEST_TRUTH":
             raise RuntimeError("fusion trajectory is not frozen")
-        for round_index in range(ACQUISITION_ROUNDS + 1):
+        for round_index in range(spec.acquisition_rounds + 1):
             path = root / f"round_{round_index:02d}/round_freeze.json"
             record = _json(path)
             if record.get("test_truth_access_count") != 0 or sha256_file(Path(record["checkpoint_path"])) != record["checkpoint_sha256"]:
                 raise RuntimeError("fusion round escaped or changed before test barrier")
             entries[f"seed_{seed}/round_{round_index:02d}"] = {"round_freeze_sha256": sha256_file(path), "checkpoint_sha256": record["checkpoint_sha256"], "prediction_sha256": record["prediction_sha256"]}
-    freeze = {"status": "FROZEN_BEFORE_TEST_TRUTH", "entries": entries, "frozen_prediction_points": len(entries), "test_truth_access_count": 0}
+    freeze = {"status": "FROZEN_BEFORE_TEST_TRUTH", "alpha": float(spec.alpha), "entries": entries,
+              "frozen_prediction_points": len(entries), "test_truth_access_count": 0}
     atomic_json(study / "global_pre_test_freeze.json", freeze)
     return freeze
 

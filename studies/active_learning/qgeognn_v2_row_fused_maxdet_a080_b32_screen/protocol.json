@@ -1,0 +1,102 @@
+{
+  "study": "qgeognn_v2_row_fused_maxdet_a080_b32_screen",
+  "method": "gradient_latent_fusion_a080_maxdet",
+  "evidence_class": "truncated_developmental_screen",
+  "historical_confirmation_seeds": [
+    157,
+    887,
+    2357,
+    6101,
+    12203
+  ],
+  "confirmation_seeds": [
+    157,
+    6101
+  ],
+  "row_split": true,
+  "initial_active_labels": 333,
+  "initial_pool_rows": 2997,
+  "validation_rows": 416,
+  "batch_size": 32,
+  "acquisition_rounds": 10,
+  "active_label_budgets": [
+    333,
+    365,
+    397,
+    429,
+    461,
+    493,
+    525,
+    557,
+    589,
+    621,
+    653
+  ],
+  "final_active_labels": 653,
+  "gradient_dimension": 512,
+  "latent_dimension": 128,
+  "fused_dimension": 640,
+  "alpha": 0.8,
+  "normalization": "s_g/h=sqrt(mean_L_t(||block||^2)); phi=[sqrt(alpha)g/s_g,sqrt(1-alpha)h/s_h]",
+  "kernel": "0.8*K_gradient_normalized + 0.2*K_latent_normalized",
+  "latent_acquisition_centering": false,
+  "latent_common_mode_diagnostic": "mu_h=mean_L_t(h); r_mean=||mu_h||^2/mean_L_t(||h_i||^2); centered diagnostics use h-mu_h only and never affect acquisition",
+  "selector": "conditional_gradient_maxdet(features=phi), unchanged tested selector",
+  "training": {
+    "model_variant": "qgeognn_v2",
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0,
+    "batch_size": 2048,
+    "maximum_epochs": 1000,
+    "patience": 100,
+    "shuffle": "deterministic_each_epoch",
+    "loss_weights": {
+      "V1": 1.0,
+      "V2": 1.0
+    },
+    "checkpoint_selection": "validation_combined_normalized_rmse",
+    "test_during_training": false,
+    "architecture_changed": false,
+    "head_changed": false,
+    "condition_branch_changed": false
+  },
+  "target_scales": "fixed original L0 population std ddof=0",
+  "test_reveal_barrier": "all 2 seeds x 11 prediction points x 10 batches frozen",
+  "comparators": [
+    "gradient_maxdet",
+    "gradient_latent_fusion_maxdet_alpha_0.5"
+  ],
+  "source_sha256": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+  "graph_cache_sha256": "a48f8ea1ce4f89c5a1ea6d17466e7c7ffa0439edb8ec79bd8b765bad3a97c3ee",
+  "feature_columns": [
+    "sample_id",
+    "canonical_smiles",
+    "Density g/ml",
+    "V/ul",
+    "loading solvent",
+    "Volume of loading solvent/ul",
+    "PE/EA"
+  ],
+  "code_hashes": {
+    "scripts/studies/run_qgeognn_v2_row_fused_maxdet_a080_b32_screen.py": "a221c64d84f07ba1fd5a2418a8bcaf4bc231e3ba1489c8c933a6297cb1093872",
+    "src/qgeognn_al/active_learning_v2/fused_features.py": "b6b37d214b9ed6eb4bc08620d395d75fdb87a17d61a5861aa0704bf8abb3fccc",
+    "src/qgeognn_al/active_learning_v2/fused_maxdet_study.py": "fbead99ba2ac83cfdf525ed4c635968fee9b5059803f4fdb2661195240a4b52d",
+    "src/qgeognn_al/active_learning_v2/fused_maxdet_runner.py": "b4921dd80b979b55b2d486aad1031a56aa6d279d7e68f335dad32b1c27ab2e1f",
+    "src/qgeognn_al/active_learning_v2/fused_maxdet_reporting.py": "242a4bc066f193c9e1c05c55e127d6ddb60153793d4c1cf99e6d5cb702997eae",
+    "src/qgeognn_al/active_learning_v2/gradient_features.py": "ac0c2d36912efeb97eddeae3484fc601de1b5b3b94dd5e4570699b8d1c53b278",
+    "src/qgeognn_al/active_learning_v2/coverage.py": "48aaa70c8be2ef20c12a7dac3e43ecfd031e143c528bfe213f0faa04aaad9b3f",
+    "src/qgeognn_al/active_learning_v2/maxdet.py": "ea8fde846afe418228e510c8e21e4e8f571aba21c188dec4f5d8dfe7bcfe7945",
+    "src/qgeognn_al/active_learning_v2/runner.py": "4f6e7e3b3ac32342366423eb8d7b75159e17da7cb64fa3734db0d7e55f5ebe2b"
+  },
+  "packages": {
+    "numpy": "2.4.6",
+    "pandas": "3.0.5",
+    "torch": "2.10.0",
+    "torch-geometric": "2.7.0",
+    "rdkit": "2025.9.3",
+    "scipy": "1.17.1",
+    "scikit-learn": "1.9.0"
+  },
+  "python": "3.11.14"
+}

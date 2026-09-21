@@ -6,6 +6,7 @@ import pytest
 from src.qgeognn_al.active_learning_v2.fused_features import (
     FUSED_DIMENSION,
     fuse_gradient_latent_features,
+    latent_common_mode_diagnostics,
     representation_diagnostics,
 )
 from src.qgeognn_al.active_learning_v2.maxdet import conditional_gradient_maxdet
@@ -13,19 +14,21 @@ from src.qgeognn_al.active_learning_v2.cache import array_hash
 from src.qgeognn_al.active_learning_v2.fused_maxdet_runner import _cache_features, _load_feature_cache
 
 
-def test_fusion_shape_block_normalization_and_kernel_equivalence():
+def test_a080_fusion_shape_block_normalization_and_kernel_equivalence():
     rng = np.random.default_rng(12)
     gradient = rng.normal(size=(9, 512))
     latent = rng.normal(size=(9, 128))
-    result = fuse_gradient_latent_features(gradient, latent, 4)
+    result = fuse_gradient_latent_features(gradient, latent, 4, alpha=0.8)
     assert result.features.shape == (9, FUSED_DIMENSION)
     assert result.audit["gradient_labeled_mean_norm_sq"] == pytest.approx(1.0)
     assert result.audit["latent_labeled_mean_norm_sq"] == pytest.approx(1.0)
     assert result.audit["fused_labeled_mean_norm_sq"] == pytest.approx(1.0)
     g = gradient / result.gradient_scale
     h = latent / result.latent_scale
-    expected = 0.5 * (g @ g.T) + 0.5 * (h @ h.T)
+    expected = 0.8 * (g @ g.T) + 0.2 * (h @ h.T)
     np.testing.assert_allclose(result.features @ result.features.T, expected, rtol=2e-6, atol=2e-6)
+    assert result.audit["alpha"] == pytest.approx(0.8)
+    assert result.audit["kernel_definition"] == "0.8*K_gradient_normalized + 0.2*K_latent_normalized"
 
 
 def test_labeled_only_scales_and_deterministic_selection():
@@ -60,7 +63,7 @@ def test_feature_constructor_and_selector_do_not_accept_truth_inputs():
 def test_feature_cache_resume_validates_contract_content_and_order(tmp_path):
     features = np.arange(24, dtype=np.float32).reshape(4, 6)
     indices = np.array([8, 3, 5, 1])
-    base = {"checkpoint_sha256": "model-a", "alpha": 0.5}
+    base = {"checkpoint_sha256": "model-a", "alpha": 0.8}
     contract = {**base, "feature_sha256": array_hash(features)}
     path = tmp_path / "features.npz"
     _cache_features(path, contract, features, indices)
@@ -91,3 +94,16 @@ def test_representation_diagnostics_feature_spectrum_matches_gram_definition():
 
     assert result["effective_rank"] == pytest.approx(expected_rank, rel=1e-12)
     assert result["pairwise_kernel_abs_corr"] == pytest.approx(expected_corr, rel=1e-12)
+
+
+def test_latent_common_mode_diagnostic_uses_labeled_prefix_only():
+    latent = np.zeros((6, 128), dtype=float)
+    latent[:3, 0] = 2.0
+    latent[3:, 0] = 50.0
+    latent[:, 1] = np.arange(6)
+    result = latent_common_mode_diagnostics(latent, 3)
+    expected_mean = latent[:3].mean(axis=0)
+    expected_energy = np.mean(np.sum(latent[:3] ** 2, axis=1))
+    assert result["latent_mean_direction_ratio"] == pytest.approx(expected_mean @ expected_mean / expected_energy)
+    assert np.isfinite(result["centered_latent_effective_rank"])
+    assert np.isfinite(result["centered_latent_pairwise_kernel_abs_corr"])

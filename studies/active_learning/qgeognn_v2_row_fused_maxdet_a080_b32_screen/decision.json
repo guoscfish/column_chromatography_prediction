@@ -1,0 +1,23 @@
+{
+  "status": "COMPLETE_TRUNCATED_DEVELOPMENTAL_SCREEN",
+  "evidence_class": "truncated_developmental_screen",
+  "alpha": 0.8,
+  "decision": "WORTH_FULL_TRAJECTORY",
+  "conclusion": "Alpha=.8 remains slightly behind Gradient-MaxDet but recovers loss versus alpha=.5 and has a stable stage/seed gain.",
+  "mean_a080_minus_gradient_nrmse_aulc_333_653": 0.004639948795590598,
+  "mean_a050_minus_gradient_nrmse_aulc_333_653": 0.016212421376531172,
+  "mean_a080_minus_gradient_nrmse_at_653": 0.02819947440570253,
+  "two_seed_inference_only": true,
+  "statistical_significance_claimed": false,
+  "methods": [
+    "gradient_maxdet",
+    "gradient_latent_fusion_maxdet",
+    "gradient_latent_fusion_a080_maxdet"
+  ],
+  "seeds": [
+    157,
+    6101
+  ],
+  "frozen_prediction_points": 22,
+  "test_truth_access_after_barrier": true
+}
