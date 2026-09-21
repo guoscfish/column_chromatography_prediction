@@ -1,0 +1,27 @@
+{
+  "status": "IMPLEMENTATION_ONLY_AMENDMENT_APPLIED_BEFORE_TEST_BARRIER",
+  "protocol_hash_retained": "27dc9444769e87234c1cf634ae6119104301782d5c34fef417f09366b4a31bc6",
+  "test_truth_access_count_at_amendment": 0,
+  "selection_semantics_changed": false,
+  "training_semantics_changed": false,
+  "reasons": [
+    "Allow a fully contracted feature cache to resume by validating its content-derived feature hash after load.",
+    "Recover an interrupted acquisition only when deterministic selected IDs, order, and numeric artifacts match the existing partial files.",
+    "Compute representation effective rank from the identical non-zero spectrum of X^T X instead of X X^T."
+  ],
+  "original_code_sha256": {
+    "src/qgeognn_al/active_learning_v2/fused_features.py": "939add44aceafc902642e36939c91264f62696204b1f4beecbc8ef2797ae27e5",
+    "src/qgeognn_al/active_learning_v2/fused_maxdet_runner.py": "475cf735489e4c9a204818c045b2fe8c189869aa78d1e29eb2272248f04f5281"
+  },
+  "amended_code_sha256": {
+    "src/qgeognn_al/active_learning_v2/fused_features.py": "6e47ed478114cdd07a71d933272a95e550d29d9bec27b82c447931796d66e113",
+    "src/qgeognn_al/active_learning_v2/fused_maxdet_runner.py": "decd2211aaff6feaacd4c86ebd13045d76c440b0cae39020f6510352efc222c2"
+  },
+  "verification": {
+    "focused_tests_passed": 6,
+    "cache_contract_validation": "PASS",
+    "sample_vs_feature_space_spectrum_equivalence": "PASS",
+    "partial_round_11_seed_6101_selected_ids_and_order_equal": true,
+    "partial_round_11_seed_6101_max_numeric_trace_difference": 9.71445146547012e-17
+  }
+}

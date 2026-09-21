@@ -773,7 +773,14 @@ def execute_seed(seed: int, study: Path = STUDY) -> dict[str, object]:
     )
     trajectories = {}
     for method in METHODS:
-        trajectories[method] = run_method(context, method)
+        frozen_path = context.runtime / method / "trajectory_freeze.json"
+        if frozen_path.exists():
+            frozen = _json(frozen_path)
+            if frozen.get("status") != "FROZEN_BEFORE_TEST_TRUTH" or frozen.get("test_truth_access_count") != 0:
+                raise RuntimeError(f"invalid completed MaxDet trajectory: {frozen_path}")
+            trajectories[method] = frozen
+        else:
+            trajectories[method] = run_method(context, method)
         print(json.dumps({"seed": int(seed), "method_frozen": method, "test_truth_access_count": 0}), flush=True)
     _write_pairwise_selection_overlap(context)
     return {"seed": int(seed), "status": "SEED_FROZEN_BEFORE_TEST_TRUTH", "trajectories": trajectories}
