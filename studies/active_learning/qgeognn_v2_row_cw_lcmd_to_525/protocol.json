@@ -1,0 +1,93 @@
+{
+  "study": "qgeognn_v2_row_cw_lcmd_to_525",
+  "evidence_class": "DEVELOPMENTAL_CONTINUATION",
+  "source_study": "studies/active_learning/qgeognn_v2_row_short_sequential_b32",
+  "source_method": "center_width_lcmd",
+  "source_round": 3,
+  "source_active_labels": 429,
+  "method": "center_width_lcmd",
+  "seeds": [
+    157,
+    6101
+  ],
+  "batch_size": 32,
+  "new_acquisition_rounds": [
+    4,
+    5,
+    6
+  ],
+  "active_label_budgets": [
+    333,
+    365,
+    397,
+    429,
+    461,
+    493,
+    525
+  ],
+  "continuation_budgets": [
+    429,
+    461,
+    493,
+    525
+  ],
+  "hard_stop_active_labels": 525,
+  "forbidden_next_budget": 557,
+  "gradient_dimension": 512,
+  "gradient_sketch_seed": "outer_seed + 4_000_037",
+  "center_width": "grad((V1+V2)/(2*s_C)), grad((V2-V1)/s_W); fixed L0 population scales",
+  "selector": "LCMD-TP with all current L_t rows as centers",
+  "retraining": "scratch QGeoGNN-V2 on the CW-specific trajectory; no warm start",
+  "training": {
+    "model_variant": "qgeognn_v2",
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0,
+    "batch_size": 2048,
+    "maximum_epochs": 1000,
+    "patience": 100,
+    "shuffle": "deterministic_each_epoch",
+    "loss_weights": {
+      "V1": 1.0,
+      "V2": 1.0
+    },
+    "checkpoint_selection": "validation_combined_normalized_rmse",
+    "test_during_training": false,
+    "architecture_changed": false,
+    "head_changed": false,
+    "condition_branch_changed": false
+  },
+  "comparators": [
+    "gradient_maxdet",
+    "hybrid",
+    "lcmd",
+    "kernel_ivr"
+  ],
+  "comparator_training": "forbidden; exact historical result reuse only",
+  "primary_metric": "normalized trapezoidal combined-NRMSE AULC over 429--525",
+  "secondary_metric": "normalized trapezoidal combined-NRMSE AULC over 333--525",
+  "test_reveal_barrier": "all 2 seeds x 3 new checkpoints/predictions frozen",
+  "source_sha256": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+  "graph_cache_sha256": "a48f8ea1ce4f89c5a1ea6d17466e7c7ffa0439edb8ec79bd8b765bad3a97c3ee",
+  "feature_columns": [
+    "sample_id",
+    "canonical_smiles",
+    "Density g/ml",
+    "V/ul",
+    "loading solvent",
+    "Volume of loading solvent/ul",
+    "PE/EA"
+  ],
+  "code_hashes": {
+    "scripts/studies/run_qgeognn_v2_row_cw_lcmd_to_525.py": "74843a38b26ebc8238ad75463aad2d634170186bff62d162ba7a18c60aa2f7f8",
+    "src/qgeognn_al/active_learning_v2/cw_lcmd_extension_study.py": "b5aa2d81a24ab93613f4b1c83efe6b101193166df34ad811d5d29af25b0b0d03",
+    "src/qgeognn_al/active_learning_v2/cw_lcmd_extension_runner.py": "f201d2616616f1cdac315f6d7806d201ce188abb5cc4316164e67eb12113e58e",
+    "src/qgeognn_al/active_learning_v2/cw_lcmd_extension_reporting.py": "d607b1c5fdfa7c04edc1c36a0686743a8dff6fa322f94c22200d720f25462463",
+    "src/qgeognn_al/active_learning_v2/gradient_features.py": "ac0c2d36912efeb97eddeae3484fc601de1b5b3b94dd5e4570699b8d1c53b278",
+    "src/qgeognn_al/active_learning_v2/gradient_transforms.py": "0ee6c707c15f3ad519056da27863ed51cfd1e0c260748770626e2536aa185e82",
+    "src/qgeognn_al/active_learning_v2/lcmd.py": "9c0ede83a898394aa501815f7ae3641bc5f16c7c0343e75ac0a72cecf726e67d",
+    "src/qgeognn_al/active_learning_v2/protocol.py": "919f7382544e1f89eeb8381ca1b53bf0a206637580c6019b966348b8fb8777d1",
+    "src/qgeognn_al/active_learning_v2/runner.py": "4f6e7e3b3ac32342366423eb8d7b75159e17da7cb64fa3734db0d7e55f5ebe2b",
+    "src/qgeognn_al/active_learning_v2/sequential_acquisition.py": "412e5b69d61a915da5ea0e3d14eece735dca290bbcc8f9596905fe0969168e1b"
+  }
+}

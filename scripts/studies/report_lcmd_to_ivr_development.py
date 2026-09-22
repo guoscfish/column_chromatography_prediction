@@ -37,7 +37,8 @@ def summarize(curves, full):
     ]:
         random = frame.loc[frame.method.eq("lcmd") & frame.active_label_count.eq(333), METRIC]
         e0 = float(random.iloc[0])
-        targets = {f"T{p}": reference + (1-p/100)*(e0-reference) for p in (80, 90, 95)}
+        targets = {"T_R30": float(frame.loc[frame.method.eq('lcmd') & frame.active_label_count.eq(1005), METRIC].iloc[0]),
+                   **{f"T{p}": reference + (1-p/100)*(e0-reference) for p in (80, 90, 95)}}
         for method in METHODS:
             arm = frame.loc[frame.method.eq(method)].sort_values('active_label_count')
             x, y = arm.active_label_count.to_numpy(), arm[METRIC].to_numpy()

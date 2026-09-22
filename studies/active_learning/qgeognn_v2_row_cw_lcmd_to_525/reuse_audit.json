@@ -1,0 +1,214 @@
+{
+  "status": "AUDITED_BEFORE_CONTINUATION",
+  "source_protocol": {
+    "study": "qgeognn_v2_row_short_sequential_b32",
+    "evidence_class": "TRUNCATED_DEVELOPMENTAL_SCREEN",
+    "research_question": "whether one-step rankings persist across three adaptive retraining rounds",
+    "split": "ROW",
+    "seeds": [
+      157,
+      6101
+    ],
+    "methods": [
+      "center_width_lcmd",
+      "direction_lcmd"
+    ],
+    "explicitly_excluded_method": "ensemble_uncertainty",
+    "batch_size": 32,
+    "acquisition_rounds": 3,
+    "active_label_budgets": [
+      333,
+      365,
+      397,
+      429
+    ],
+    "hard_stop_active_labels": 429,
+    "gradient_dimension": 512,
+    "gradient_sketch_seed": "outer_seed + 4_000_037",
+    "center_width": "grad((V1+V2)/(2*s_C)), grad((V2-V1)/s_W); s_C,s_W are L0 population std",
+    "direction": "power_normalize_gradients(raw_q50_gradient, alpha=0.0); zero rows retained",
+    "selector": "LCMD-TP with all current L_t rows as centers",
+    "retraining": "scratch current-trajectory QGeoGNN-V2 after every frozen batch",
+    "training": {
+      "model_variant": "qgeognn_v2",
+      "optimizer": "Adam",
+      "learning_rate": 0.001,
+      "weight_decay": 0.0,
+      "batch_size": 2048,
+      "maximum_epochs": 1000,
+      "patience": 100,
+      "shuffle": "deterministic_each_epoch",
+      "loss_weights": {
+        "V1": 1.0,
+        "V2": 1.0
+      },
+      "checkpoint_selection": "validation_combined_normalized_rmse",
+      "test_during_training": false,
+      "architecture_changed": false,
+      "head_changed": false,
+      "condition_branch_changed": false
+    },
+    "comparators": [
+      "random",
+      "lcmd",
+      "hybrid",
+      "kernel_ivr",
+      "gradient_maxdet"
+    ],
+    "primary_metric": "trapezoidal mean combined_normalized_RMSE AULC over 333--429",
+    "test_reveal_barrier": "all 2 methods x 2 seeds x 4 prediction points frozen",
+    "source_sha256": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+    "graph_cache_sha256": "a48f8ea1ce4f89c5a1ea6d17466e7c7ffa0439edb8ec79bd8b765bad3a97c3ee",
+    "feature_columns": [
+      "sample_id",
+      "canonical_smiles",
+      "Density g/ml",
+      "V/ul",
+      "loading solvent",
+      "Volume of loading solvent/ul",
+      "PE/EA"
+    ],
+    "code_hashes": {
+      "scripts/studies/run_qgeognn_v2_row_short_sequential_b32.py": "74bf269e8156ff4a2cdf0ea58356fa1773abc7d6ae295e9f604021df089a9d72",
+      "src/qgeognn_al/active_learning_v2/short_sequential_study.py": "129359ff5c74800211488bac66ffb816e39d6ed0e0bc6dc9cab3947860cbd5b9",
+      "src/qgeognn_al/active_learning_v2/short_sequential_runner.py": "0445082171c849463f22a85d5ed1b60877c084418cb7c89cd994f20ff4f6b38f",
+      "src/qgeognn_al/active_learning_v2/short_sequential_reporting.py": "abfaea41cf20a570d0a40bcb2c68346ee73950cd100f0810d4668c24a4b8b19a",
+      "src/qgeognn_al/active_learning_v2/gradient_features.py": "ac0c2d36912efeb97eddeae3484fc601de1b5b3b94dd5e4570699b8d1c53b278",
+      "src/qgeognn_al/active_learning_v2/gradient_transforms.py": "0ee6c707c15f3ad519056da27863ed51cfd1e0c260748770626e2536aa185e82",
+      "src/qgeognn_al/active_learning_v2/lcmd.py": "9c0ede83a898394aa501815f7ae3641bc5f16c7c0343e75ac0a72cecf726e67d",
+      "src/qgeognn_al/active_learning_v2/runner.py": "4f6e7e3b3ac32342366423eb8d7b75159e17da7cb64fa3734db0d7e55f5ebe2b",
+      "src/qgeognn_al/active_learning_v2/protocol.py": "919f7382544e1f89eeb8381ca1b53bf0a206637580c6019b966348b8fb8777d1",
+      "src/qgeognn_al/active_learning_v2/sequential_acquisition.py": "412e5b69d61a915da5ea0e3d14eece735dca290bbcc8f9596905fe0969168e1b"
+    }
+  },
+  "source_anchors": [
+    {
+      "outer_seed": 157,
+      "source_round": 3,
+      "source_active_labels": 429,
+      "source_unlabeled_rows": 2901,
+      "ordered_L429_ids_hash": "1a3d14d70acdd095d0683e7fad551d96135787b77068a06a3ef0e16b12e0684b",
+      "L429_ids_hash": "9e2fd55620478df60cf04856a769d9cf540bd9a653c56f08eddac0445d458c16",
+      "ordered_U429_ids_hash": "8e7f0adac4fd9ced8aa5bed9d6621058dcdb71539b9ebd1e4f7d30cfc336b7ea",
+      "U429_ids_hash": "212084d6d3f11ef2887a7632bfe517cb9c5c4deffd0c45b433b550ed207ab3bc",
+      "selected_lineage_ordered_hash": "c85bc7522514f1632cfe3a71719826573c5fa0696bd5d98738390c74304c13b0",
+      "split_sha256": "e1718212472ae86f5ca3f16c4d8e3905c043b06bf4830e87b5a9d0bb64577472",
+      "split_hash": "04c95c597835cc930f318d0f05177f274aec3112212ea39ab6ab62472cab5969",
+      "source_round_freeze_sha256": "16a551a69f33b19017ed0d3158424a25aeffae1e0e35a929c802e38d0dbfbccb",
+      "checkpoint_sha256": "b6971c619992f1971d1f63feb9973f0a5a43a63c8f94c4ea647cf40400646260",
+      "checkpoint_state_hash": "c4ff2d1971801183a06acc69449aed7c55a6b2ad74095e1d6a26136611bd629f",
+      "prediction_sha256": "95100784e75ac395bf0bdc58dc84865cd2dd260b9ae4b0891a250acf6380ace2",
+      "preprocessing_hash": "b0f620cd116b17e5a79b851119b0a20965087d850a0784eb5835797ad11f86b0",
+      "target_scale_hash": "b815935a22203bf02d1f1feab3b6ac9310685740471b808f2c23c7324e3c2199",
+      "center_width_transform_hash": "79efdef7ecb580b3b45aa3cca4624d5b56830afe7a4dc81eff52b054798f2a45",
+      "source_protocol_sha256": "7bfc76f4dccaa429e745817dd81b892e990b2eeed51e55d027fb05f5088ded7b",
+      "reuse_legal": true
+    },
+    {
+      "outer_seed": 6101,
+      "source_round": 3,
+      "source_active_labels": 429,
+      "source_unlabeled_rows": 2901,
+      "ordered_L429_ids_hash": "7789cb75f5d9c7d52b64d1bfa53643cda1a8d1798ed89453460c6a293e8e403c",
+      "L429_ids_hash": "3ab66f5d22b264049fd249a5b35a613dc3a0f97b635c473cb5496a997127f1f9",
+      "ordered_U429_ids_hash": "c04bed18ed5f4c65ad0907d209c5fb03356ea298cd070aea333cf3132eba5a9e",
+      "U429_ids_hash": "ef45a03b29d3eb4678c0c9afd946f757dab26e3455c2c001802671f14448146b",
+      "selected_lineage_ordered_hash": "48a99b74a35a0f5cbe51e7b8fc8e39f1c0e6a62e32dd0e7165a462c9b2ad67ae",
+      "split_sha256": "3c8c809b2b6e63bd0b3d2f28032f0ae60adc66078fafb5e459d4d510d599e338",
+      "split_hash": "36fe19ff3e173f21046ef4ec8fa3eedfbd8c98f720df23d93ee0a409e6137988",
+      "source_round_freeze_sha256": "daaac21095cbcc824f3ea11f5b5f54d530c9baea7ae3f194a1511dece23e67e6",
+      "checkpoint_sha256": "c66c1b6297b6a7db35d97e41629c30a5020b4021b6e4402a3b738a57cf704eae",
+      "checkpoint_state_hash": "89d1efefc141e30ac5827f80c556beeec6a6e344851acb123635a926c9a04db0",
+      "prediction_sha256": "38f30f767a6932156247a1f0b0be8f9450483565fed408d82b838e72fd405d30",
+      "preprocessing_hash": "b920a59fe5cb1e336da19423a12717d273cada61fdd996157e311ce50c950de9",
+      "target_scale_hash": "1964ded53348aefc0acd5b0781fe0aaf52cf32b12a1bbf5d2a4d5feb4d2a9a0a",
+      "center_width_transform_hash": "85f556e10bcead6a46be9f24566b80a900bc43ee03c4f3afc995b0848a950b0b",
+      "source_protocol_sha256": "7bfc76f4dccaa429e745817dd81b892e990b2eeed51e55d027fb05f5088ded7b",
+      "reuse_legal": true
+    }
+  ],
+  "historical_comparators": [
+    {
+      "method": "gradient_maxdet",
+      "source": "studies/active_learning/qgeognn_v2_row_maxdet_b32/results/learning_curve_metrics.csv",
+      "source_sha256": "329a5701f8b05694ab4e3ffe7173e05cb739df904b5312ce99add1624b832266",
+      "rows": 14,
+      "seeds": [
+        157,
+        6101
+      ],
+      "budgets": [
+        333,
+        365,
+        397,
+        429,
+        461,
+        493,
+        525
+      ],
+      "training_performed_by_extension": false
+    },
+    {
+      "method": "hybrid",
+      "source": "studies/active_learning/qgeognn_v2_row_sequential_b32/results/learning_curve_metrics.csv",
+      "source_sha256": "fa837048480e37e566686fb7d0dd3ea1bec80262b1ab02107957170e8cfe8f05",
+      "rows": 14,
+      "seeds": [
+        157,
+        6101
+      ],
+      "budgets": [
+        333,
+        365,
+        397,
+        429,
+        461,
+        493,
+        525
+      ],
+      "training_performed_by_extension": false
+    },
+    {
+      "method": "lcmd",
+      "source": "studies/active_learning/qgeognn_v2_row_sequential_b32/results/learning_curve_metrics.csv",
+      "source_sha256": "fa837048480e37e566686fb7d0dd3ea1bec80262b1ab02107957170e8cfe8f05",
+      "rows": 14,
+      "seeds": [
+        157,
+        6101
+      ],
+      "budgets": [
+        333,
+        365,
+        397,
+        429,
+        461,
+        493,
+        525
+      ],
+      "training_performed_by_extension": false
+    },
+    {
+      "method": "kernel_ivr",
+      "source": "studies/active_learning/qgeognn_v2_row_kernel_ivr_b32/results/learning_curve_metrics.csv",
+      "source_sha256": "89fef995dc8efc7581e992ca80c51c8398bad0cc4b8f9b465b2a92e0a92b6080",
+      "rows": 14,
+      "seeds": [
+        157,
+        6101
+      ],
+      "budgets": [
+        333,
+        365,
+        397,
+        429,
+        461,
+        493,
+        525
+      ],
+      "training_performed_by_extension": false
+    }
+  ],
+  "other_method_training_authorized": false,
+  "lcmd_to_ivr_read_only_status": "sealed_engineering_checks_passed_formal_execution_not_started"
+}
