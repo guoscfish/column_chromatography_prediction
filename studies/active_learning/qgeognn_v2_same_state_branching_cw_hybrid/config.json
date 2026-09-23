@@ -1,0 +1,13 @@
+{
+  "study": "qgeognn_v2_same_state_branching_cw_hybrid",
+  "seeds": [157, 6101],
+  "source_trajectories": ["center_width_lcmd", "hybrid"],
+  "anchor_budgets": [429, 653],
+  "strategies": ["center_width_lcmd", "hybrid", "kernel_ivr"],
+  "batch_size": 32,
+  "rollout_steps": [1, 2],
+  "planned_new_fits": 48,
+  "primary_metric": "short_AULC_anchor_to_plus64",
+  "controller_trained": false,
+  "test_firewall": "freeze_all_acquisition_checkpoint_prediction_before_unified_reveal"
+}
