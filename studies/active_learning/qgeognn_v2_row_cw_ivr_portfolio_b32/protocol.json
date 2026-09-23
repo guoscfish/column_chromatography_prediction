@@ -1,0 +1,61 @@
+{
+  "study": "qgeognn_v2_row_cw_ivr_portfolio_b32",
+  "evidence": "development / exposed cohort; not independent confirmation",
+  "seeds": [
+    157,
+    6101
+  ],
+  "method": "cw_ivr_portfolio",
+  "budgets": [
+    333,
+    365,
+    397,
+    429,
+    461,
+    493,
+    525,
+    557,
+    589,
+    621,
+    653
+  ],
+  "batch_size": 32,
+  "cw_turns": 16,
+  "ivr_turns": 16,
+  "first_expert": "cw",
+  "new_fits": 20,
+  "anchor_fits": 0,
+  "maximum_active_labels": 653,
+  "training": {
+    "model_variant": "qgeognn_v2",
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0,
+    "batch_size": 2048,
+    "maximum_epochs": 1000,
+    "patience": 100,
+    "shuffle": "deterministic_each_epoch",
+    "loss_weights": {
+      "V1": 1.0,
+      "V2": 1.0
+    },
+    "checkpoint_selection": "validation_combined_normalized_rmse",
+    "test_during_training": false,
+    "architecture_changed": false,
+    "head_changed": false,
+    "condition_branch_changed": false
+  },
+  "tolerance": 0.01,
+  "packages": {
+    "numpy": "2.4.6",
+    "pandas": "3.0.5",
+    "torch": "2.10.0",
+    "torch-geometric": "2.7.0",
+    "rdkit": "2025.9.3",
+    "scipy": "1.17.1",
+    "scikit-learn": "1.9.0"
+  },
+  "source_sha256": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+  "graph_cache_sha256": "a48f8ea1ce4f89c5a1ea6d17466e7c7ffa0439edb8ec79bd8b765bad3a97c3ee",
+  "protocol_markdown_sha256": "f7cb8ab74a46b49dee2fdf159229f2451f89583cac93f88f416808fc4840752f"
+}
