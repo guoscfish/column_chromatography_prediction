@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 os.environ.setdefault("MPLCONFIGDIR", "/tmp/qgeognn_same_state_matplotlib")
 for name in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "VECLIB_MAXIMUM_THREADS"):
-    os.environ.setdefault(name, "2")
+    os.environ.setdefault(name, "2" if name == "OMP_NUM_THREADS" else "1")
 
 from src.qgeognn_al.active_learning_v2 import same_state_branching_cw_hybrid as study  # noqa: E402
 
@@ -23,6 +23,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     action = parser.add_mutually_exclusive_group(required=True)
     action.add_argument("--prepare", type=Path, metavar="JUNIT_XML")
+    action.add_argument("--selector-audit", action="store_true")
     action.add_argument("--validate", action="store_true")
     action.add_argument("--selection-smoke", action="store_true")
     action.add_argument("--execute-seed", type=int)
@@ -32,6 +33,9 @@ def main() -> None:
     args = parser.parse_args()
     if args.prepare:
         result = study.prepare(args.prepare)
+    elif args.selector_audit:
+        from src.qgeognn_al.active_learning_v2.same_state_selector_audit import run
+        result = run()
     elif args.validate:
         result = study.validate_seal()
     elif args.selection_smoke:

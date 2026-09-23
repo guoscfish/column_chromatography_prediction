@@ -1,29 +1,26 @@
-# QGeoGNN-V2 same-state branching CW/Hybrid pilot
+# Same-state CW / IVR / MaxDet pilot
 
-这是一个 development / mechanism pilot，用于检验在 Center/Width-LCMD 已经很强时，state-dependent adaptive acquisition 是否仍有 short-horizon headroom。
+This development pilot compares two-round acquisition returns at eight exact historical CW/Hybrid source states. Source trajectory `hybrid` remains a source label; it is not a primary branch strategy. Primary strategies are exact `center_width_lcmd`, `kernel_ivr`, and `gradient_maxdet`.
 
-冻结设计：
+Seeds 157/6101 × two source trajectories × budgets 429/653 × three strategies × two batches = **24 branches, 48 planned fits**. The current task stops after selector audit; no pilot model has been trained and no test truth has been revealed.
 
-- seeds: `157`, `6101`
-- source trajectories: `center_width_lcmd`, `hybrid`
-- anchor budgets: `429`, `653`
-- branch strategies: `center_width_lcmd`, `hybrid`, `kernel_ivr`
-- 每个 exact `(L_t, U_t, checkpoint)` 连续 scratch rollout `+32`, `+64`
-- 所有 acquisition、checkpoint、prediction 先 freeze，再统一 reveal test truth
+Read `IMPLEMENTATION_AUDIT.md` for the scientific corrections, ordered-ID regression evidence, Hybrid artifact inventory, and cost estimate. `PROTOCOL.md` defines fixed L0 transforms and the test firewall. `decision.json` is the current readiness record. The old seal is invalid and archived under `runtime/deprecated_pre_exact_audit/`.
 
-运行：
+Selection-only maintenance commands (repository root; existing fish environment):
 
 ```bash
-python scripts/studies/run_qgeognn_v2_same_state_branching_cw_hybrid.py --prepare preflight_tests.xml
-python scripts/studies/run_qgeognn_v2_same_state_branching_cw_hybrid.py --validate
-python scripts/studies/run_qgeognn_v2_same_state_branching_cw_hybrid.py --selection-smoke
-python scripts/studies/run_qgeognn_v2_same_state_branching_cw_hybrid.py --execute-seed 157
-python scripts/studies/run_qgeognn_v2_same_state_branching_cw_hybrid.py --stage-check 157
-python scripts/studies/run_qgeognn_v2_same_state_branching_cw_hybrid.py --execute-seed 6101
-python scripts/studies/run_qgeognn_v2_same_state_branching_cw_hybrid.py --stage-check 6101
-python scripts/studies/run_qgeognn_v2_same_state_branching_cw_hybrid.py --freeze
-python scripts/studies/run_qgeognn_v2_same_state_branching_cw_hybrid.py --report
-python scripts/studies/finalize_qgeognn_v2_same_state_branching_cw_hybrid_report.py
+KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish python scripts/studies/run_qgeognn_v2_same_state_branching_cw_hybrid.py --selector-audit
+KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish python -m pytest -q tests/active_learning_v2/test_same_state_branching_cw_hybrid.py tests/active_learning_v2/test_ivr.py tests/active_learning_v2/test_maxdet.py tests/active_learning_v2/test_cw_lcmd_extension.py --junitxml=/tmp/cw_exact_tests.xml
+KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish python scripts/studies/run_qgeognn_v2_same_state_branching_cw_hybrid.py --prepare /tmp/cw_exact_tests.xml
+KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish python scripts/studies/run_qgeognn_v2_same_state_branching_cw_hybrid.py --validate
 ```
 
-历史 Hybrid 的 K=3 ensemble artifact 保持只读并写入 lineage audit。由于 branch pilot 不能为 acquisition 再训练 controller 或额外 ensemble，本研究使用已审计的兼容选择器：当前 gradient-norm top-25% shortlist + current-L farthest-first；该兼容层在报告中明确标注，不能与历史 Hybrid 结果直接等同。
+`--prepare` requires exact-selector evidence and dedicated tests, seals the current inputs, and runs selection-only smoke. It never trains. After a seal exists, code/protocol edits deliberately invalidate it; they require a reviewed new audit/seal, not an automatic override. The OpenMP environment flag follows the existing local repository environment; no dependency was changed by this audit.
+
+The next command **only after separate authorization to train** is:
+
+```bash
+KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish python scripts/studies/run_qgeognn_v2_same_state_branching_cw_hybrid.py --execute-seed 157
+```
+
+Then require `--stage-check 157` before seed 6101. Global freeze and report are separate later actions. No performance, headroom, or controller recommendation can be inferred from selection overlap alone.

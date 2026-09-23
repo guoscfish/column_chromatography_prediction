@@ -28,8 +28,8 @@ from ..training.predictor import atomic_json
 from .benchmark_protocol import initialization_seed, load_features, seed_config, sketch_seed
 from .benchmark_reporting import metric_row
 from .cache import array_hash, seal_cache, verify_cache
-from .gradient_features import extract_q50_gradient_sketches
-from .coverage import extract_representations, coreset_tp_select
+from .gradient_features import extract_q50_gradient_sketches, extract_linear_output_gradient_sketches
+from .gradient_transforms import center_width_transform
 from .ivr import conditional_batch_ivr
 from .lcmd import lcmd_tp_select
 from .maxdet import conditional_gradient_maxdet
@@ -51,7 +51,7 @@ HYBRID_STUDY = ROOT / "studies/active_learning/qgeognn_v2_row_sequential_b32"
 SEEDS = (157, 6101)
 SOURCES = ("center_width_lcmd", "hybrid")
 ANCHOR_BUDGETS = (429, 653)
-STRATEGIES = ("center_width_lcmd", "hybrid", "kernel_ivr")
+STRATEGIES = ("center_width_lcmd", "kernel_ivr", "gradient_maxdet")
 BATCH_SIZE = 32
 SKETCH_DIMENSION = 512
 
@@ -138,23 +138,47 @@ def _source_validation_history(source: str, seed: int, budget: int) -> list[dict
 
 
 def _materialize_anchor_gradient(seed: int, source: str, budget: int, model_dir: Path,
-                                 outer: list[int], preprocessing: dict) -> tuple[Path, str, str]:
+                                 outer: list[int], preprocessing: dict, *, center_width: bool = False) -> tuple[Path, str, str]:
     path = STUDY / "runtime" / "anchor_features" / f"seed_{seed}_{source}_{budget}.npz"
+    if center_width:
+        path = path.with_name(path.stem + "_cw.npz")
     audit_path = path.with_name(path.stem + "_audit.json")
-    contract_path = path.with_suffix(".npz.contract.json")
     path.parent.mkdir(parents=True, exist_ok=True)
-    atom, angle = torch.load(HYBRID_STUDY / f"runtime/seed_{seed}/scrubbed_graphs.pt", weights_only=False)
-    model = load_predictor_checkpoint(model_dir / "best.pt")
-    result = extract_q50_gradient_sketches(
-        model, atom, angle, outer,
-        tuple(preprocessing["target_scales"][key] for key in ("V1", "V2")),
-        dimension=SKETCH_DIMENSION, sketch_seed=sketch_seed(seed),
-    )
-    np.savez_compressed(path, features=result.features, canonical_indices=np.asarray(outer, dtype=int))
-    atomic_json(audit_path, result.audit)
-    seal_cache(path, {"checkpoint_sha256": sha256_file(model_dir / "best.pt"),
+    if center_width:
+        partition = _partition(seed)
+        store = RestrictedLabelStore(SOURCE_DATA, partition)
+        l0 = partition.loc[partition.role.eq("l0"), "canonical_index"].astype(int).tolist()
+        l0_truth = store.reveal(_id_lists(partition, l0, [])[0], "initial_fit")
+        transform, transform_audit = center_width_transform(l0_truth)
+        cw_context = read_json(CW_STUDY / f"runtime/seed_{seed}/context.json")
+        if transform_audit != cw_context["center_width_transform"]:
+            raise RuntimeError("anchor CW transform differs from the frozen L0-only historical transform")
+    cache_contract = {"checkpoint_sha256": sha256_file(model_dir / "best.pt"),
                       "ordered_indices": outer, "dimension": SKETCH_DIMENSION,
-                      "sketch_seed": sketch_seed(seed), "test_truth_access_count": 0})
+                      "sketch_seed": sketch_seed(seed), "representation": "L0_center_width" if center_width else "ordinary_q50",
+                      "endpoint_scales": preprocessing["target_scales"], "test_truth_access_count": 0}
+    if center_width:
+        cache_contract["transform_audit"] = transform_audit
+    if verify_cache(path, cache_contract) and audit_path.exists():
+        with np.load(path) as values:
+            if not np.array_equal(values["canonical_indices"], outer):
+                raise RuntimeError("anchor cache order mismatch")
+            return path, str(path.relative_to(ROOT)), array_hash(values["features"])
+    atom, angle = torch.load(HYBRID_STUDY / f"runtime/seed_{seed}/scrubbed_graphs.pt", weights_only=False)
+    if any(torch.count_nonzero(item.y) for item in atom):
+        raise RuntimeError("anchor graph labels were not scrubbed")
+    model = load_predictor_checkpoint(model_dir / "best.pt")
+    if center_width:
+        result = extract_linear_output_gradient_sketches(
+            model, atom, angle, outer, transform, dimension=SKETCH_DIMENSION, sketch_seed=sketch_seed(seed))
+    else:
+        result = extract_q50_gradient_sketches(
+            model, atom, angle, outer,
+            tuple(preprocessing["target_scales"][key] for key in ("V1", "V2")),
+            dimension=SKETCH_DIMENSION, sketch_seed=sketch_seed(seed))
+    np.savez_compressed(path, features=result.features, canonical_indices=np.asarray(outer, dtype=int))
+    atomic_json(audit_path, {**result.audit, "label_access": store.audit if center_width else []})
+    seal_cache(path, cache_contract)
     return path, str(path.relative_to(ROOT)), array_hash(result.features)
 
 
@@ -190,6 +214,18 @@ def inspect_anchor(seed: int, source: str, budget: int) -> dict:
     fit = read_json(model_dir / "fit_audit.json")
     checkpoint = model_dir / "best.pt"
     prediction = model_dir / "predictions.csv.gz"
+    if (freeze.get("checkpoint_sha256") != sha256_file(checkpoint)
+            or fit["checkpoint_sha256"] != sha256_file(checkpoint)
+            or freeze.get("checkpoint_state_hash") != fit["checkpoint_state_hash"]):
+        raise RuntimeError("historical anchor checkpoint differs from its frozen receipt")
+    source_input = freeze["input"]
+    if (source_input["L_t_ids_hash"] != ids_hash(labeled_ids)
+            or source_input["U_t_ids_hash"] != ids_hash(unlabeled_ids)):
+        raise RuntimeError("historical anchor label state differs from its frozen receipt")
+    if (len(set(labeled + unlabeled)) != len(outer) or set(labeled + unlabeled) != set(outer)
+            or labeled_ids != _id_lists(partition, labeled, unlabeled)[0]
+            or unlabeled_ids != _id_lists(partition, labeled, unlabeled)[1]):
+        raise RuntimeError("anchor must be an exact ordered partition of outer training rows")
     if fit.get("train_rows") != budget or fit.get("test_labels_used_for_fit_or_checkpoint_selection", 0) != 0:
         raise RuntimeError("historical source checkpoint contract mismatch")
     context_path = (CW_STUDY if source == "center_width_lcmd" else HYBRID_STUDY) / f"runtime/seed_{seed}/context.json"
@@ -198,9 +234,18 @@ def inspect_anchor(seed: int, source: str, budget: int) -> dict:
     gradient_path, gradient_rel, gradient_hash = _materialize_anchor_gradient(
         seed, source, budget, model_dir, outer, historical["preprocessing"]
     )
+    cw_gradient_path, cw_gradient_rel, cw_gradient_hash = _materialize_anchor_gradient(
+        seed, source, budget, model_dir, outer, historical["preprocessing"], center_width=True
+    )
     files = [directory / "input_contract.json", directory / "model/best.pt", directory / "model/fit_audit.json",
              directory / "model/predictions.csv.gz", directory / "state.csv", context_path, gradient_path,
-             gradient_path.with_suffix(".npz.contract.json")]
+             gradient_path.with_suffix(".npz.contract.json"), cw_gradient_path,
+             cw_gradient_path.with_suffix(".npz.contract.json")]
+    files += [directory / name for name in ("labeled_indices.npy", "unlabeled_indices.npy", "contract.json", "round_freeze.json")]
+    files += [gradient_path.with_name(gradient_path.stem + "_audit.json"),
+              cw_gradient_path.with_name(cw_gradient_path.stem + "_audit.json"),
+              CW_STUDY / f"runtime/seed_{seed}/context.json",
+              HYBRID_STUDY / f"runtime/seed_{seed}/scrubbed_graphs.pt"]
     files = [item for item in files if item.exists()]
     history = _source_validation_history(source, seed, budget)
     return {
@@ -214,9 +259,11 @@ def inspect_anchor(seed: int, source: str, budget: int) -> dict:
         "checkpoint_sha256": sha256_file(checkpoint), "checkpoint_state_hash": fit["checkpoint_state_hash"],
         "anchor_prediction_path": str(prediction.relative_to(ROOT)),
         "gradient_path": gradient_rel,
+        "cw_gradient_path": cw_gradient_rel,
         "gradient_contract_path": str(gradient_path.with_suffix(".npz.contract.json").relative_to(ROOT)),
         "gradient_audit_path": str(gradient_path.with_name(gradient_path.stem + "_audit.json").relative_to(ROOT)),
         "gradient_file_sha256": sha256_file(gradient_path), "gradient_bank_hash": gradient_hash,
+        "cw_gradient_file_sha256": sha256_file(cw_gradient_path), "cw_gradient_bank_hash": cw_gradient_hash,
         "gradient_order_kind": "outer_L0_then_U0", "gradient_order_hash": stable_hash(outer),
         "recent_validation": history, "source_files": hashes(files), "test_truth_access_count": 0,
     }
@@ -245,6 +292,9 @@ class BranchContext:
         self.outer = np.r_[self.roles["l0"], self.roles["u0"]]
         initial = RestrictedLabelStore(SOURCE_DATA, self.partition)
         self.l0_truth = initial.reveal(self.ids(self.roles["l0"]), "initial_fit")
+        self.cw_transform, self.cw_transform_audit = center_width_transform(self.l0_truth)
+        if self.cw_transform_audit != read_json(CW_STUDY / f"runtime/seed_{self.seed}/context.json")["center_width_transform"]:
+            raise RuntimeError("branch Center/Width transform does not match the fixed L0 transform")
         self.validation_truth = initial.reveal(self.ids(self.roles["validation"]), "initial_fit")
         self.historical_context = historical
 
@@ -288,6 +338,25 @@ def load_anchor_bank(lineage: dict) -> np.ndarray:
     return features[[positions[int(i)] for i in lineage["outer_indices"]]]
 
 
+def load_anchor_banks(lineage: dict) -> dict[str, np.ndarray]:
+    ordinary = load_anchor_bank(lineage)
+    path = ROOT / lineage["cw_gradient_path"]
+    if sha256_file(path) != lineage["cw_gradient_file_sha256"]:
+        raise RuntimeError("anchor CW gradient file changed after lineage freeze")
+    receipt = read_json(path.with_suffix(".npz.contract.json"))
+    if not verify_cache(path, receipt["contract"]):
+        raise RuntimeError("anchor CW gradient cache no longer verifies")
+    with np.load(path) as values:
+        features = values["features"].copy()
+        indices = values["canonical_indices"].astype(int)
+    if array_hash(features) != lineage["cw_gradient_bank_hash"]:
+        raise RuntimeError("anchor CW gradient hash changed")
+    positions = {int(value): i for i, value in enumerate(indices)}
+    if set(positions) != set(lineage["outer_indices"]):
+        raise RuntimeError("anchor CW gradient universe changed")
+    return {"ordinary_q50": ordinary, "center_width": features[[positions[int(i)] for i in lineage["outer_indices"]]]}
+
+
 def _positions(lineage_or_state: dict) -> tuple[np.ndarray, np.ndarray]:
     position = {int(value): i for i, value in enumerate(lineage_or_state["outer_indices"])}
     return (np.asarray([position[int(i)] for i in lineage_or_state["labeled_indices"]], dtype=int),
@@ -324,47 +393,42 @@ def feature_diagnostics(features: np.ndarray, labeled_positions: np.ndarray, can
     }
 
 
-def select_batch(strategy: str, features: np.ndarray, state: dict) -> dict:
-    """Pure label-free dispatch on a shared current gradient representation.
-
-    Historical Hybrid uses a K=3 uncertainty shortlist plus latent k-center. The
-    historical ensemble artifacts are retained as provenance; branch compatibility
-    uses a deterministic gradient-norm shortlist and the same k-center geometry,
-    avoiding any extra fit or test access.
-    """
+def select_batch(strategy: str, features: dict[str, np.ndarray], state: dict) -> dict:
+    """Label-free selectors on a shared state with method-specific representations."""
     if strategy not in STRATEGIES:
         raise ValueError(f"unknown strategy: {strategy}")
+    if not isinstance(features, dict):
+        raise TypeError("explicit method-specific gradient banks are required")
+    banks = features
+    method_features = banks["center_width"] if strategy == "center_width_lcmd" else banks["ordinary_q50"]
     labeled_positions, candidate_positions = _positions(state)
-    pool = np.asarray(features[candidate_positions], dtype=np.float64)
-    centers = np.asarray(features[labeled_positions], dtype=np.float64)
+    pool = np.asarray(method_features[candidate_positions], dtype=np.float64)
+    centers = np.asarray(method_features[labeled_positions], dtype=np.float64)
     if strategy == "center_width_lcmd":
         result = lcmd_tp_select(pool, centers, BATCH_SIZE)
         selected_local = result.selected_pool_positions
         trace = list(result.trace)
         objective = {
-            "definition": "current_full_network_q50_gradient_CountSketch_center_width_LCMD_TP",
+            "definition": "L0_fixed_CW_transform_full_network_linear_output_gradient_CountSketch_LCMD_TP",
             "largest_cluster_score_first": float(trace[0]["largest_cluster_score"]),
         }
     elif strategy == "kernel_ivr":
-        result = conditional_batch_ivr(features, labeled_positions, candidate_positions, BATCH_SIZE)
+        result = conditional_batch_ivr(method_features, labeled_positions, candidate_positions, BATCH_SIZE)
         selected_local = np.asarray(result["selected_candidate_positions"], dtype=int)
         trace = result["trace"]
         before, after = float(trace[0]["integrated_variance_before"]), float(trace[-1]["integrated_variance_after"])
         objective = {"definition": "global_RMS_unit_prior_unit_noise_integrated_variance_reduction",
+                     "raw_mean_squared_norm": result["audit"]["raw_mean_squared_norm"],
                      "integrated_variance_before": before, "integrated_variance_after": after,
                      "predicted_total_reduction": before - after,
                      "predicted_relative_reduction": (before - after) / before}
     else:
-        # Compatibility implementation of historical Hybrid: top-25% current
-        # gradient-norm shortlist followed by current-L farthest-first.
-        scores = np.linalg.norm(pool, axis=1)
-        shortlist_size = max(BATCH_SIZE, int(np.ceil(.25 * len(pool))))
-        shortlist = np.argsort(-scores, kind="stable")[:shortlist_size]
-        selected_local = coreset_tp_select(pool[shortlist], centers, BATCH_SIZE)
-        selected_local = shortlist[selected_local]
-        trace = [{"shortlist_size": shortlist_size, "score_mean": float(scores[shortlist].mean())}]
-        objective = {"definition": "historical_hybrid_compat_gradient_norm_top25_then_current_L_farthest_first",
-                     "shortlist_size": shortlist_size, "shortlist_score_mean": float(scores[shortlist].mean())}
+        result = conditional_gradient_maxdet(method_features, labeled_positions, candidate_positions, BATCH_SIZE)
+        selected_local = result.selected_candidate_positions
+        trace = list(result.trace)
+        objective = {"definition": "historical_q50_gradient_conditional_D_optimal_current_L_conditioning",
+                     "normalization_scale": result.normalization_scale,
+                     "total_marginal_logdet_gain": float(sum(row["marginal_logdet_gain"] for row in result.trace))}
     selected_indices = np.asarray(state["unlabeled_indices"], dtype=int)[selected_local]
     selected_ids = np.asarray(state["unlabeled_ids"], dtype=str)[selected_local].tolist()
     if len(selected_ids) != BATCH_SIZE or len(set(selected_ids)) != BATCH_SIZE:
@@ -398,21 +462,33 @@ def _anchor_runtime(seed: int, source: str, budget: int) -> Path:
     return STUDY / "runtime" / f"seed_{seed}" / source / f"budget_{budget}"
 
 
+def bank_diagnostics(banks: dict[str, np.ndarray], state: dict) -> dict:
+    lpos, upos = _positions(state)
+    result = {"active_label_count": len(lpos), "candidate_pool_size": len(upos)}
+    for bank, prefix in (("ordinary_q50", "raw_gradient"), ("center_width", "cw_gradient")):
+        for name, value in feature_diagnostics(banks[bank], lpos, upos).items():
+            if name in {"active_label_count", "candidate_pool_size"}:
+                continue
+            result[f"{prefix}_{name.removeprefix('gradient_')}"] = value
+    return result
+
+
 def _anchor_selections(lineage: dict, *, persist: bool) -> tuple[dict[str, dict], dict]:
-    features = load_anchor_bank(lineage)
-    lpos, upos = _positions(lineage)
-    diagnostics = {**feature_diagnostics(features, lpos, upos), **_validation_slopes(lineage["recent_validation"]),
+    banks = load_anchor_banks(lineage)
+    diagnostics = {**bank_diagnostics(banks, lineage),
+                   **_validation_slopes(lineage["recent_validation"]),
                    "seed": lineage["seed"], "source_trajectory": lineage["source_trajectory"],
                    "anchor_budget": lineage["anchor_budget"], "state_kind": "anchor",
-                   "gradient_bank_hash": lineage["gradient_bank_hash"]}
-    selections = {strategy: select_batch(strategy, features, lineage) for strategy in STRATEGIES}
+                   "raw_gradient_bank_hash": lineage["gradient_bank_hash"],
+                   "cw_gradient_bank_hash": lineage["cw_gradient_bank_hash"]}
+    selections = {strategy: select_batch(strategy, banks, lineage) for strategy in STRATEGIES}
     # Store all method objectives on the anchor state, before any branch label is revealed.
     diagnostics.update({
         "ivr_integrated_variance_before": selections["kernel_ivr"]["objective"]["integrated_variance_before"],
         "ivr_predicted_total_reduction_B32": selections["kernel_ivr"]["objective"]["predicted_total_reduction"],
         "ivr_predicted_relative_reduction_B32": selections["kernel_ivr"]["objective"]["predicted_relative_reduction"],
-        "hybrid_shortlist_size_B32": selections["hybrid"]["objective"]["shortlist_size"],
-        "lcmd_largest_cluster_score_first": selections["center_width_lcmd"]["objective"]["largest_cluster_score_first"],
+        "maxdet_total_marginal_logdet_gain_B32": selections["gradient_maxdet"]["objective"]["total_marginal_logdet_gain"],
+        "cw_lcmd_largest_cluster_score_first": selections["center_width_lcmd"]["objective"]["largest_cluster_score_first"],
     })
     if persist:
         runtime = _anchor_runtime(lineage["seed"], lineage["source_trajectory"], lineage["anchor_budget"])
@@ -420,7 +496,8 @@ def _anchor_selections(lineage: dict, *, persist: bool) -> tuple[dict[str, dict]
         input_contract = {"lineage_sha256": sha256_file(_lineage_path(lineage["seed"], lineage["source_trajectory"], lineage["anchor_budget"])),
                           "ordered_L_hash": lineage["ordered_L_hash"], "ordered_U_hash": lineage["ordered_U_hash"],
                           "checkpoint_sha256": lineage["checkpoint_sha256"], "checkpoint_state_hash": lineage["checkpoint_state_hash"],
-                          "gradient_bank_hash": lineage["gradient_bank_hash"], "test_truth_access_count": 0}
+                          "gradient_bank_hash": lineage["gradient_bank_hash"],
+                          "cw_gradient_bank_hash": lineage["cw_gradient_bank_hash"], "test_truth_access_count": 0}
         for strategy, selection in selections.items():
             write_json_once(runtime / "anchor_selections" / f"{strategy}.json", {"input": input_contract, **selection})
     return selections, diagnostics
@@ -447,9 +524,18 @@ def prepare(test_report: Path) -> dict:
             raise RuntimeError("cannot seal after branching execution has started")
         root = ET.parse(test_report).getroot()
         cases = list(root.iter("testcase"))
-        if len(cases) < 12 or any(list(root.iter(tag)) for tag in ("failure", "error", "skipped")):
+        if sum("test_same_state_branching_cw_hybrid" in case.get("classname", "") for case in cases) < 12 or any(list(root.iter(tag)) for tag in ("failure", "error", "skipped")):
             raise RuntimeError("at least 12 passing non-skipped preflight tests are required")
-        lineages, source_files = [], {}
+        audit = read_json(STUDY / "selector_audit.json")
+        if (audit.get("status") != "PASSED_EXACT_ORDERED_SELECTOR_AUDIT"
+                or audit.get("strategies") != list(STRATEGIES)
+                or audit.get("test_truth_access_count") != 0 or audit.get("new_fits") != 0
+                or audit.get("cw_exact_states") != 4 or audit.get("hybrid_exact_source_states") != 4
+                or audit.get("ivr_exact_states", 0) < 1 or audit.get("maxdet_exact_states", 0) < 1):
+            raise RuntimeError("complete exact selector regression evidence is required before sealing")
+        assert_hashes(audit["files"])
+        assert_hashes(audit["source_files"])
+        lineages, source_files = [], dict(audit["source_files"])
         for seed in SEEDS:
             for source in SOURCES:
                 for budget in ANCHOR_BUDGETS:
@@ -468,23 +554,43 @@ def prepare(test_report: Path) -> dict:
                       ROOT / "src/qgeognn_al/active_learning_v2/gradient_features.py",
                       ROOT / "src/qgeognn_al/active_learning_v2/runner.py",
                       ROOT / "src/qgeognn_al/active_learning_v2/protocol.py",
-                      ROOT / "tests/active_learning_v2/test_same_state_branching.py", STUDY / "PROTOCOL.md",
+                      ROOT / "tests/active_learning_v2/test_same_state_branching_cw_hybrid.py", STUDY / "PROTOCOL.md",
+                      STUDY / "config.json", STUDY / "selector_audit.json", STUDY / "IMPLEMENTATION_AUDIT.md",
+                      STUDY / "superseded_seal.json", STUDY / "results/planned_compute_cost.json",
+                      STUDY / "README.md",
+                      ROOT / "src/qgeognn_al/active_learning_v2/same_state_selector_audit.py",
+                      ROOT / "src/qgeognn_al/active_learning_v2/gradient_transforms.py",
+                      ROOT / "src/qgeognn_al/active_learning_v2/coverage.py",
+                      ROOT / "src/qgeognn_al/active_learning_v2/sequential_acquisition.py",
+                      ROOT / "src/qgeognn_al/active_learning_v2/uncertainty.py",
+                      ROOT / "scripts/studies/finalize_qgeognn_v2_same_state_branching_cw_hybrid_report.py",
                       STUDY / "anchor_lineage_audit.csv", test_copy, *sorted((STUDY / "lineage").glob("*.json"))]
-        seal = {"status": "SEALED_PENDING_EXECUTION", "created_at": now(),
+        seal = {"status": "READY_FOR_EXECUTION_AFTER_EXACT_SELECTOR_AUDIT", "created_at": now(),
                 "base_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
                 "seeds": list(SEEDS), "sources": list(SOURCES), "anchor_budgets": list(ANCHOR_BUDGETS),
                 "strategies": list(STRATEGIES), "batch_size": BATCH_SIZE, "rollout_rounds": 2,
-                "planned_new_fits": 48, "test_truth_access_count": 0,
+                "planned_new_fits": len(SEEDS) * len(SOURCES) * len(ANCHOR_BUDGETS) * len(STRATEGIES) * 2, "test_truth_access_count": 0,
                 "evidence": "development_mechanism_not_independent_confirmation",
-                "files": hashes(code_paths), "source_files": source_files}
+                "files": {**audit["files"], **hashes(code_paths)}, "source_files": source_files}
         write_json_once(STUDY / "seal.json", seal)
+        selection_smoke()
+        atomic_json(STUDY / "decision.json", {
+            "status": seal["status"], "evidence": seal["evidence"],
+            "planned_new_fits": seal["planned_new_fits"], "actual_new_fits": 0,
+            "branch_count": 24, "strategies": list(STRATEGIES),
+            "test_truth_access_count": 0, "controller_trained": False,
+            "mean_oracle_gain_over_CW": None, "recommendation": "Selector audit complete; execution has not started"})
         return seal
 
 
 def validate_seal() -> dict:
     seal = read_json(STUDY / "seal.json")
-    if seal.get("status") != "SEALED_PENDING_EXECUTION" or seal.get("planned_new_fits") != 48:
+    expected_fits = len(SEEDS) * len(SOURCES) * len(ANCHOR_BUDGETS) * len(STRATEGIES) * 2
+    if seal.get("status") != "READY_FOR_EXECUTION_AFTER_EXACT_SELECTOR_AUDIT" or seal.get("planned_new_fits") != expected_fits:
         raise RuntimeError("invalid same-state study seal")
+    if (seal.get("strategies") != list(STRATEGIES) or seal.get("seeds") != list(SEEDS)
+            or seal.get("sources") != list(SOURCES) or seal.get("anchor_budgets") != list(ANCHOR_BUDGETS)):
+        raise RuntimeError("sealed factorial design differs from the implementation")
     assert_hashes(seal["files"])
     assert_hashes(seal["source_files"])
     if sha256_file(SOURCE_DATA) != read_json(CW_STUDY / "protocol.json")["source_sha256"]:
@@ -509,7 +615,7 @@ def selection_smoke() -> dict:
                                "ordered_L_hash": lineage["ordered_L_hash"], "ordered_U_hash": lineage["ordered_U_hash"],
                                "checkpoint_sha256": lineage["checkpoint_sha256"],
                                "gradient_bank_hash": lineage["gradient_bank_hash"],
-                               "effective_rank": diagnostics["gradient_effective_rank_participation_ratio"],
+                               "effective_rank": diagnostics["raw_gradient_effective_rank_participation_ratio"],
                                "new_fits": 0, "new_label_reveals": 0, "test_truth_access_count": 0})
     result = {"status": "PASSED", "checks": checks, "overlap": overlaps, "new_fits": 0,
               "test_truth_access_count": 0, "seal_sha256": sha256_file(STUDY / "seal.json")}
@@ -517,7 +623,14 @@ def selection_smoke() -> dict:
     return result
 
 
-def _extract_branch_bank(context: BranchContext, checkpoint: Path, directory: Path, state: dict) -> tuple[np.ndarray, dict]:
+def cw_selection_regression_audit() -> pd.DataFrame:
+    from .same_state_selector_audit import cw_regression
+    lineages = [read_json(_lineage_path(seed, "center_width_lcmd", budget))
+                for seed in SEEDS for budget in ANCHOR_BUDGETS]
+    return cw_regression(lineages, [])
+
+
+def _extract_branch_bank(context: BranchContext, checkpoint: Path, directory: Path, state: dict) -> tuple[dict[str, np.ndarray], dict]:
     path = directory / "postfit_gradient_features.npz"
     audit_path = directory / "postfit_gradient_audit.json"
     contract = {"checkpoint_sha256": sha256_file(checkpoint), "checkpoint_state_hash": read_json(checkpoint.parent / "fit_audit.json")["checkpoint_state_hash"],
@@ -538,7 +651,23 @@ def _extract_branch_bank(context: BranchContext, checkpoint: Path, directory: Pa
         if not np.array_equal(values["canonical_indices"], context.outer):
             raise RuntimeError("branch gradient canonical order changed")
         features = values["features"].copy()
-    return features, read_json(audit_path)
+    cw_path = directory / "postfit_cw_gradient_features.npz"
+    cw_audit_path = directory / "postfit_cw_gradient_audit.json"
+    cw_contract = {**contract, "representation": "L0_fixed_center_width",
+                   "transform_audit": context.cw_transform_audit}
+    if not verify_cache(cw_path, cw_contract):
+        cw_result = extract_linear_output_gradient_sketches(
+            load_predictor_checkpoint(checkpoint), context.atom, context.angle, context.outer,
+            context.cw_transform, dimension=SKETCH_DIMENSION, sketch_seed=sketch_seed(context.seed),
+        )
+        np.savez_compressed(cw_path, features=cw_result.features, canonical_indices=context.outer)
+        atomic_json(cw_audit_path, {**cw_result.audit, "transform_audit": context.cw_transform_audit})
+        seal_cache(cw_path, cw_contract)
+    with np.load(cw_path) as values:
+        if not np.array_equal(values["canonical_indices"], context.outer):
+            raise RuntimeError("branch CW gradient canonical order changed")
+        cw_features = values["features"].copy()
+    return {"ordinary_q50": features, "center_width": cw_features}, {"ordinary_q50": read_json(audit_path), "center_width": read_json(cw_audit_path)}
 
 
 def _fit(context: BranchContext, lineage: dict, strategy: str, step: int, labeled: list[int], truth: np.ndarray,
@@ -618,7 +747,7 @@ def _run_branch(context: BranchContext, lineage: dict, strategy: str, anchor_sel
         return _verify_branch(lineage, strategy)
     store, truth, acquired = context.restore_anchor(lineage)
     state = {key: list(lineage[key]) for key in ("outer_indices", "labeled_indices", "unlabeled_indices", "labeled_ids", "unlabeled_ids")}
-    current_features = load_anchor_bank(lineage)
+    current_features = load_anchor_banks(lineage)
     input_checkpoint = ROOT / lineage["checkpoint_path"]
     protected: list[Path] = []
     validations = []
@@ -632,7 +761,8 @@ def _run_branch(context: BranchContext, lineage: dict, strategy: str, anchor_sel
                           "ordered_L_hash": stable_hash(state["labeled_ids"]), "ordered_U_hash": stable_hash(state["unlabeled_ids"]),
                           "checkpoint_sha256": sha256_file(input_checkpoint),
                           "checkpoint_state_hash": read_json(input_checkpoint.parent / "fit_audit.json")["checkpoint_state_hash"],
-                          "gradient_bank_hash": array_hash(current_features), "test_truth_access_count": 0}
+                          "raw_gradient_bank_hash": array_hash(current_features["ordinary_q50"]),
+                          "cw_gradient_bank_hash": array_hash(current_features["center_width"]), "test_truth_access_count": 0}
         write_json_once(directory / "input.json", input_contract)
         selection = anchor_selection if step == 1 else select_batch(strategy, current_features, state)
         selection_record = {"input": input_contract, **selection}
@@ -661,16 +791,26 @@ def _run_branch(context: BranchContext, lineage: dict, strategy: str, anchor_sel
         next_features = None
         if step == 1:
             next_features, gradient_audit = _extract_branch_bank(context, model_dir / "best.pt", directory, state)
-            lpos, upos = _positions(state)
             diagnostics = {"seed": context.seed, "source_trajectory": lineage["source_trajectory"],
                            "anchor_budget": lineage["anchor_budget"], "strategy": strategy,
                            "state_kind": "branch_after_1", "rollout_step": 1,
-                           "gradient_bank_hash": array_hash(next_features), **feature_diagnostics(next_features, lpos, upos),
-                           "gradient_extraction_seconds": float(gradient_audit["elapsed_seconds"])}
+                           "raw_gradient_bank_hash": array_hash(next_features["ordinary_q50"]),
+                           "cw_gradient_bank_hash": array_hash(next_features["center_width"]),
+                           **bank_diagnostics(next_features, state),
+                           "gradient_extraction_seconds": float(sum(x["elapsed_seconds"] for x in gradient_audit.values())),
+                           "current_validation_nrmse": validation["validation_combined_nrmse"],
+                           **_validation_slopes(lineage["recent_validation"][-3:] + [validation])}
+            ivr = select_batch("kernel_ivr", next_features, state)["objective"]
+            maxdet = select_batch("gradient_maxdet", next_features, state)["objective"]
+            diagnostics.update({"ivr_integrated_variance_before": ivr["integrated_variance_before"],
+                                "ivr_predicted_relative_reduction_B32": ivr["predicted_relative_reduction"],
+                                "maxdet_total_marginal_logdet_gain_B32": maxdet["total_marginal_logdet_gain"]})
             write_json_once(directory / "state_diagnostics.json", diagnostics)
             paths += [directory / "postfit_gradient_features.npz",
                       directory / "postfit_gradient_features.npz.contract.json",
-                      directory / "postfit_gradient_audit.json", directory / "state_diagnostics.json"]
+                      directory / "postfit_gradient_audit.json", directory / "postfit_cw_gradient_features.npz",
+                      directory / "postfit_cw_gradient_features.npz.contract.json",
+                      directory / "postfit_cw_gradient_audit.json", directory / "state_diagnostics.json"]
         frozen = {"status": "STEP_FROZEN_BEFORE_TEST_TRUTH", "input_checkpoint_sha256": sha256_file(input_checkpoint),
                   "output_checkpoint_sha256": audit["checkpoint_sha256"],
                   "from_active_labels": lineage["anchor_budget"] + (step - 1) * BATCH_SIZE,
@@ -699,7 +839,8 @@ def execute_seed(seed: int) -> dict:
         raise ValueError("seed outside the frozen development cohort")
     validate_seal()
     smoke = read_json(STUDY / "engineering_smoke.json")
-    if smoke.get("status") != "PASSED" or smoke.get("test_truth_access_count") != 0:
+    if (smoke.get("status") != "PASSED" or smoke.get("test_truth_access_count") != 0
+            or smoke.get("seal_sha256") != sha256_file(STUDY / "seal.json")):
         raise RuntimeError("passing selection-only engineering smoke is required")
     if seed == 6101:
         stage = read_json(STUDY / "runtime/stage_157_check.json")
@@ -913,9 +1054,9 @@ def reveal_test_and_report() -> dict:
     feature_names = [name for name in (
         "recent_validation_nrmse", "recent_validation_last_step_delta",
         "recent_validation_2step_linear_slope_per_label", "recent_validation_3step_linear_slope_per_label",
-        "gradient_norm_mean", "gradient_norm_std", "gradient_norm_p90", "gradient_norm_p95",
-        "gradient_effective_rank_participation_ratio", "coverage_nearest_distance_mean",
-        "coverage_nearest_distance_p90", "ivr_predicted_relative_reduction_B32",
+        "raw_gradient_norm_mean", "raw_gradient_norm_std", "raw_gradient_norm_p90", "raw_gradient_norm_p95",
+        "raw_gradient_effective_rank_participation_ratio", "cw_gradient_coverage_nearest_distance_mean",
+        "cw_gradient_coverage_nearest_distance_p90", "ivr_predicted_relative_reduction_B32",
         "maxdet_total_marginal_logdet_gain_B32") if name in merged]
     correlations = []
     for feature in feature_names:

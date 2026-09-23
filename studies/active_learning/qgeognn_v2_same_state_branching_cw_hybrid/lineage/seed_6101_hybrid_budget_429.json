@@ -10013,10 +10013,13 @@
   "checkpoint_state_hash": "30bc45dec978891208de55647891bbd2783ae25bac41589be0fa02993b19bf5c",
   "anchor_prediction_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/hybrid/round_03/model/predictions.csv.gz",
   "gradient_path": "studies/active_learning/qgeognn_v2_same_state_branching_cw_hybrid/runtime/anchor_features/seed_6101_hybrid_429.npz",
+  "cw_gradient_path": "studies/active_learning/qgeognn_v2_same_state_branching_cw_hybrid/runtime/anchor_features/seed_6101_hybrid_429_cw.npz",
   "gradient_contract_path": "studies/active_learning/qgeognn_v2_same_state_branching_cw_hybrid/runtime/anchor_features/seed_6101_hybrid_429.npz.contract.json",
   "gradient_audit_path": "studies/active_learning/qgeognn_v2_same_state_branching_cw_hybrid/runtime/anchor_features/seed_6101_hybrid_429_audit.json",
   "gradient_file_sha256": "6b322a7991dca3da16369ce4b705f2b7775ed8f7e53724a46315d307df1a4be5",
   "gradient_bank_hash": "3cd3a9c364abc269bff778e1f4258b921cae4655d05737667043fb8baa2c2783",
+  "cw_gradient_file_sha256": "9946abc4589df192a444af9654dedfecc2e7dcfc276f0db06e40a42b83f05b0a",
+  "cw_gradient_bank_hash": "0535885500ffd895f7f92d8581e64bbe90b22da513875629ee8535fc33a865c7",
   "gradient_order_kind": "outer_L0_then_U0",
   "gradient_order_hash": "645827d5e376edb9a851ea000cc5a3e14305380f86799fd0a39ced732a1eab6e",
   "recent_validation": [
@@ -10043,12 +10046,21 @@
   ],
   "source_files": {
     "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/context.json": "08826d3c0e91dad858d9075d6552dc30cc2f8403be29183ef6e3312ac6110d8e",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/hybrid/round_03/contract.json": "4a10749d36d20b101009b5c5c8a1994900c21681dcc1d78bf7bd29247c6e547e",
     "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/hybrid/round_03/input_contract.json": "cc62d3439bbbb9c3342ffc9b567068703e4b6b06d06e68b1cf35534b48e11738",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/hybrid/round_03/labeled_indices.npy": "3e33d7b310d3f2d9f30c0ad89e65ca92a9c25c556ffa78b57fff156d87ed629d",
     "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/hybrid/round_03/model/best.pt": "7fba053a492275e9b2e7aec8cbbbc03406dd45720b42749c4192c6e1fff0aac5",
     "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/hybrid/round_03/model/fit_audit.json": "9c9ed134eeb1b94e12d652afe1526b0552ccb1a4ab369126d613d95a04be4261",
     "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/hybrid/round_03/model/predictions.csv.gz": "96eee3405641b2f1a5c94aaeca643988f8f32c241adb30bafdbe6849ee7b58ce",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/hybrid/round_03/unlabeled_indices.npy": "94f29b236fb64788a1fe0af97cef51a1f345e286322b02cbeebb0b5751528415",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/scrubbed_graphs.pt": "29c2d4c5d9b4b0165c7ef5d400c0d7a5ae53795e10aea67318f68705ec9d9239",
+    "studies/active_learning/qgeognn_v2_row_short_sequential_b32/runtime/seed_6101/context.json": "0f6d78ab55638f078953ce028af0a95dfd98a38dd38dbf5e8837fab8f1cfe62e",
     "studies/active_learning/qgeognn_v2_same_state_branching_cw_hybrid/runtime/anchor_features/seed_6101_hybrid_429.npz": "6b322a7991dca3da16369ce4b705f2b7775ed8f7e53724a46315d307df1a4be5",
-    "studies/active_learning/qgeognn_v2_same_state_branching_cw_hybrid/runtime/anchor_features/seed_6101_hybrid_429.npz.contract.json": "42f51ee8513c18e13115f8253b718e6e5bfa2a47b44e0046b36e6d0c0f257d1d"
+    "studies/active_learning/qgeognn_v2_same_state_branching_cw_hybrid/runtime/anchor_features/seed_6101_hybrid_429.npz.contract.json": "159b7e91a85766eba366f042fb026993e07328621acc306633281aaa4278a719",
+    "studies/active_learning/qgeognn_v2_same_state_branching_cw_hybrid/runtime/anchor_features/seed_6101_hybrid_429_audit.json": "f49ac20f3b441a461edba56fb4e0b22bdadecd54d1415c48f49a5d663595537c",
+    "studies/active_learning/qgeognn_v2_same_state_branching_cw_hybrid/runtime/anchor_features/seed_6101_hybrid_429_cw.npz": "9946abc4589df192a444af9654dedfecc2e7dcfc276f0db06e40a42b83f05b0a",
+    "studies/active_learning/qgeognn_v2_same_state_branching_cw_hybrid/runtime/anchor_features/seed_6101_hybrid_429_cw.npz.contract.json": "6562ae87fe3988907a1e8045d9eab6441d8340531443677b8df2324a330e9f91",
+    "studies/active_learning/qgeognn_v2_same_state_branching_cw_hybrid/runtime/anchor_features/seed_6101_hybrid_429_cw_audit.json": "66c92bac00a98e477afa5c067857613c66bc9b3259b135ecf0b190e15efd14bd"
   },
   "test_truth_access_count": 0
 }

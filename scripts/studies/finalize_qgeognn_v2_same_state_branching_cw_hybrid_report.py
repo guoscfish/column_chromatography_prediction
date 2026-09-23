@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Post-freeze reporting for the CW/Hybrid same-state branching pilot."""
 from __future__ import annotations
-import hashlib, json
+import hashlib, json, itertools, sys
 from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -10,7 +10,9 @@ ROOT=Path(__file__).resolve().parents[2]
 STUDY=ROOT/"studies/active_learning/qgeognn_v2_same_state_branching_cw_hybrid"
 RESULTS=STUDY/"results"
 KEYS=["seed","source_trajectory","anchor_budget"]
-STRATEGIES=["center_width_lcmd","hybrid","kernel_ivr"]
+sys.path.insert(0, str(ROOT))
+from src.qgeognn_al.active_learning_v2 import same_state_branching_cw_hybrid as study
+STRATEGIES=list(study.STRATEGIES)
 
 def digest(path):
     h=hashlib.sha256()
@@ -22,6 +24,8 @@ def table(frame):
     return frame.to_markdown(index=False,floatfmt=".6f") if len(frame) else "(empty)"
 
 def main():
+    study.validate_seal()
+    study._verify_global_branch_freeze()
     branches=pd.read_csv(RESULTS/"branch_results.csv")
     winners=pd.read_csv(RESULTS/"winner_matrix.csv")
     diagnostics=pd.read_csv(RESULTS/"state_diagnostics.csv")
@@ -49,13 +53,13 @@ def main():
               "max_oracle_gain_over_CW":g.oracle_minus_cw.max()})
     pd.DataFrame(rows).to_csv(RESULTS/"headroom_summary.csv",index=False)
     merged=diagnostics[diagnostics.state_kind.eq("anchor")].merge(wide,on=KEYS,validate="one_to_one")
-    features=[c for c in ("gradient_norm_mean","gradient_norm_std","gradient_norm_p90","gradient_norm_p95",
-      "gradient_effective_rank_participation_ratio","coverage_nearest_distance_mean",
-      "coverage_nearest_distance_p90","recent_validation_nrmse",
+    features=[c for c in ("raw_gradient_norm_mean","raw_gradient_norm_std","raw_gradient_norm_p90","raw_gradient_norm_p95",
+      "raw_gradient_effective_rank_participation_ratio","cw_gradient_coverage_nearest_distance_mean",
+      "cw_gradient_coverage_nearest_distance_p90","recent_validation_nrmse",
       "recent_validation_2step_linear_slope_per_label","recent_validation_3step_linear_slope_per_label",
       "ivr_predicted_relative_reduction_B32") if c in merged]
     corr=[]
-    for left,right in (("center_width_lcmd","hybrid"),("center_width_lcmd","kernel_ivr"),("hybrid","kernel_ivr")):
+    for left,right in itertools.combinations(STRATEGIES, 2):
         margin=merged[left]-merged[right]
         for feature in features:
             corr.append({"outcome":left+"_minus_"+right+"_short_AULC","feature":feature,
