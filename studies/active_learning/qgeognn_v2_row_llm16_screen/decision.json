@@ -1,0 +1,28 @@
+{
+  "status": "COMPLETED",
+  "decision": "NO_EXTENSION_SIGNAL",
+  "comparisons": [
+    {
+      "control": "center_width_lcmd",
+      "mean_llm_minus_control": 0.006416418931752432,
+      "wins_of_2": 1,
+      "per_seed": {
+        "157": 0.023606078177374257,
+        "6101": -0.010773240313869392
+      }
+    },
+    {
+      "control": "cw16_random16",
+      "mean_llm_minus_control": -0.028020821979909905,
+      "wins_of_2": 2,
+      "per_seed": {
+        "157": -0.010027137563740518,
+        "6101": -0.04601450639607929
+      }
+    }
+  ],
+  "LLM_failed_rounds": 0,
+  "fallback_picks": 0,
+  "evidence": "two-seed three-round development only; chemical reasoning not isolated",
+  "model_snapshot_reproducible": false
+}

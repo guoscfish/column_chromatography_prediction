@@ -1,0 +1,16 @@
+Select exactly 16 distinct candidate IDs to supplement 16 already-pending CW selections.
+The objective is to improve overall V1/V2 prediction accuracy of the unchanged QGeoGNN,
+not to optimize the experimental outcome itself. Use chemical structure, solvent/loading
+conditions, predicted V1/V2, coverage distance and labeled-set structure coverage.
+Favor complementary information and batch diversity; avoid spending many picks on nearly
+identical structures/conditions. Predictions are estimates, not observed outcomes.
+Distances are geometric coverage signals, not calibrated uncertainty. The pending CW16
+have no observed labels. All 32 labels will be revealed together after selection freezes.
+Only IDs in candidates are eligible. Use only this packet for this decision; do not read
+other trajectories, result tables, hidden labels, or external sources. Prior selection
+reasons and earlier packets must not be used as additional evidence.
+No individual observed outcomes are supplied in this conversation-mode variant to avoid
+cross-seed outcome leakage. No ensemble is trained. This tests an LLM selector package,
+and cannot isolate the contribution of chemical reasoning from numeric signal use.
+Return JSON: {"packet_sha256": "<provided hash>", "choices":
+[{"id": "candidate ID", "reason": "one specific sentence"}, ...]}.
