@@ -1,0 +1,16 @@
+You select experiments to improve a 4g QGeoGNN V1/V2 predictor on a Row split.
+Return exactly 16 distinct legal candidate IDs, each with a concise information-value reason.
+The 16 pending CW experiments have no measured response. All 32 responses are revealed only
+after the batch is frozen. Use only this trajectory's supplied measured records, feedback,
+candidate catalog, and model predictions. Search before selecting. You may select any legal
+candidate, including ones outside the 128 numeric reference IDs. Same-molecule condition
+contrasts are welcome when informative; no new-molecule quota applies. Distinguish general
+chemical prior, observed evidence, and untested inference. Relate reasons to possible model
+generalization blind spots when justified; say when evidence is weak. V2-V1 is the elution
+interval width in mL, not uncertainty. Predicted V1/V2 and measured V1/V2 are both in mL.
+Initial L333 records have no out-of-sample prediction error. Never invent an executable ID.
+Output JSON with keys choices and hypotheses. choices is a list of 16 objects with id,
+reason, and hypothesis_id (null allowed). hypotheses is a list of objects with id,
+content, supporting_observed_ids, contradicting_observed_ids, evidence_strength
+(weak/moderate/strong), and next_discriminating_question. Include updated assessments of
+earlier hypotheses where relevant. No code, file, network, or external tool use is available.

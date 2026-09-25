@@ -1,0 +1,123 @@
+{
+  "study_version": "full_pool_feedback_v1",
+  "status": "FROZEN_BEFORE_NEW_SELECTION",
+  "research_question": "incremental generalization and label efficiency of CW16 plus full-pool response-feedback LLM16",
+  "split": "Row",
+  "seeds": [
+    157,
+    6101
+  ],
+  "methods": [
+    "center_width_lcmd",
+    "cw16_random16_full_pool",
+    "cw16_llm16_full_pool"
+  ],
+  "budgets": [
+    333,
+    365,
+    397,
+    429,
+    461,
+    493,
+    525
+  ],
+  "batch": {
+    "CW": 16,
+    "supplement": 16,
+    "total": 32
+  },
+  "random_scope": "all own current U_t minus pending CW16, uniform without replacement",
+  "llm_scope": "all own current U_t minus pending CW16; 128 numerical IDs are reference only",
+  "llm_model": "gpt-5.4",
+  "reasoning_effort": "medium",
+  "selector_settings": {
+    "prompt_version": "full-pool-response-feedback-v1",
+    "model_calls_max": 16,
+    "catalog_queries_max": 12,
+    "distinct_candidate_views_max": 240,
+    "per_query_limit": 24,
+    "initial_reference_cards": 20,
+    "provider": "OpenAI Responses API",
+    "store": false,
+    "temperature": "provider default",
+    "automatic_model_fallback": false
+  },
+  "training": {
+    "model_variant": "qgeognn_v2",
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0,
+    "batch_size": 2048,
+    "maximum_epochs": 1000,
+    "patience": 100,
+    "shuffle": "deterministic_each_epoch",
+    "loss_weights": {
+      "V1": 1.0,
+      "V2": 1.0
+    },
+    "checkpoint_selection": "validation_combined_normalized_rmse",
+    "test_during_training": false,
+    "architecture_changed": false,
+    "head_changed": false,
+    "condition_branch_changed": false
+  },
+  "retraining": "same initialization, from scratch at each budget",
+  "truth_barrier": "freeze all 32 IDs and their measurement-time predictions before revealing either half",
+  "context_boundary": "fresh stateless request per seed/method/round with only current trajectory L_t, its earlier reasons/hypotheses/feedback and current feature-only candidate catalog; no development chat",
+  "observation_units": {
+    "V1_ml": "mL",
+    "V2_ml": "mL",
+    "pred_V1_ml": "mL",
+    "pred_V2_ml": "mL",
+    "V2_minus_V1": "mL elution width, not uncertainty"
+  },
+  "metric": "combined NRMSE fixed L333 target scales; trapezoidal label-AULC 333-525",
+  "test_barrier": "both new methods x both seeds x all 7 prediction budgets frozen before new test evaluation",
+  "development_evidence": true,
+  "no_statistical_significance_claim": true,
+  "no_posthoc_selector_change": true,
+  "old_failure_standard_preserved": true,
+  "code_hashes": {
+    "src/qgeognn_al/active_learning_v2/full_pool_selector.py": "141790a07f159a9bddac2a03e499420f73e1e722fac7a2610790aedba4896e4f",
+    "src/qgeognn_al/active_learning_v2/full_pool_study.py": "a7b020cd908e0dcdfcb76449f205c5c08e31c8ccb509b872c64be7b5fc18f2db",
+    "scripts/studies/run_qgeognn_v2_row_llm_full_pool.py": "285752df14ea0176e74122421415c6503bb5481d9ee4b35f05875a5a6d7d3e83",
+    "src/qgeognn_al/active_learning_v2/llm_screen.py": "1c2cb06957c8fcade076e4bb79335519ff14037e51f4fddf683aebc4f7eecf83",
+    "src/qgeognn_al/active_learning_v2/short_sequential_runner.py": "0445082171c849463f22a85d5ed1b60877c084418cb7c89cd994f20ff4f6b38f",
+    "src/qgeognn_al/active_learning_v2/runner.py": "4f6e7e3b3ac32342366423eb8d7b75159e17da7cb64fa3734db0d7e55f5ebe2b",
+    "src/qgeognn_al/active_learning_v2/protocol.py": "919f7382544e1f89eeb8381ca1b53bf0a206637580c6019b966348b8fb8777d1",
+    "src/qgeognn_al/active_learning_v2/gradient_features.py": "ac0c2d36912efeb97eddeae3484fc601de1b5b3b94dd5e4570699b8d1c53b278",
+    "src/qgeognn_al/active_learning_v2/gradient_transforms.py": "0ee6c707c15f3ad519056da27863ed51cfd1e0c260748770626e2536aa185e82",
+    "src/qgeognn_al/active_learning_v2/lcmd.py": "9c0ede83a898394aa501815f7ae3641bc5f16c7c0343e75ac0a72cecf726e67d",
+    "src/qgeognn_al/training/predictor.py": "f3e7ff3033a2fa4dcb240ae3f925c4ce13f0efe4effa02c7dfc175f3c5c72144",
+    "src/qgeognn_al/evaluation/point.py": "48b000accf3715ed6c1304ccaa9a346275ed5068ec8d2ffcc217cee72e7fc82e"
+  },
+  "source_hashes": {
+    "experiments/e0_4g_baseline/canonical_4g.csv": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+    "experiments/e0_4g_baseline/graph_cache_4g.pt": "a48f8ea1ce4f89c5a1ea6d17466e7c7ffa0439edb8ec79bd8b765bad3a97c3ee",
+    "studies/active_learning/qgeognn_v2_row_short_sequential_b32/protocol.json": "7bfc76f4dccaa429e745817dd81b892e990b2eeed51e55d027fb05f5088ded7b",
+    "studies/active_learning/qgeognn_v2_row_cw_lcmd_to_525/protocol.json": "9dfadf89e4d990fab7101a3302e95868671855970818bcb0ba73aef0eb6db2cd",
+    "studies/active_learning/qgeognn_v2_row_cw_lcmd_to_525/results/learning_curve_metrics.csv": "03cab5794afe2e442c03842623053e51c768d9ec4e8eb4adc736c9d52ba5cf4a",
+    "studies/active_learning/qgeognn_v2_row_short_sequential_b32/splits/row_seed_157.csv": "e1718212472ae86f5ca3f16c4d8e3905c043b06bf4830e87b5a9d0bb64577472",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_00/model/best.pt": "87e92ccdabc1dd64ecf89a3061624450ce125906c4cbb988d7263b190991b1c0",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_00/model/predictions.csv.gz": "449bcacedb3708db5846031c7a1db5ae7df047fe78b44a58088bf3f34a1b4374",
+    "studies/active_learning/qgeognn_v2_row_short_sequential_b32/runtime/seed_157/center_width_lcmd/round_00/round_freeze.json": "46097fd6b0dfef704eed5facc5890e6c4f9e2cbdc807feba2dbdc85245b1a557",
+    "studies/active_learning/qgeognn_v2_row_short_sequential_b32/runtime/seed_157/center_width_lcmd/round_01/round_freeze.json": "8ab3ed2e5c982ade4f9a8d0feec5279ab5889b2a1947debd31eddcc1bca4433f",
+    "studies/active_learning/qgeognn_v2_row_short_sequential_b32/runtime/seed_157/center_width_lcmd/round_02/round_freeze.json": "0f4b3355cd204460ecce44f2a1421028a69226747f17d1d8c3a9bab50fc1546d",
+    "studies/active_learning/qgeognn_v2_row_short_sequential_b32/runtime/seed_157/center_width_lcmd/round_03/round_freeze.json": "16a551a69f33b19017ed0d3158424a25aeffae1e0e35a929c802e38d0dbfbccb",
+    "studies/active_learning/qgeognn_v2_row_cw_lcmd_to_525/runtime/seed_157/center_width_lcmd/round_03/round_freeze.json": "b231fda879fe59efa6983e443389d82303abe993baa9bb398dc4440560af30d6",
+    "studies/active_learning/qgeognn_v2_row_cw_lcmd_to_525/runtime/seed_157/center_width_lcmd/round_04/round_freeze.json": "7a38fe07d3aeef0e8afba8af797598296400786d1ad5a9392b097f546ed91b84",
+    "studies/active_learning/qgeognn_v2_row_cw_lcmd_to_525/runtime/seed_157/center_width_lcmd/round_05/round_freeze.json": "139970cf5b0a1b4fb34c2a336cb373136612ccc9188eae498dc1c1c9636e5161",
+    "studies/active_learning/qgeognn_v2_row_cw_lcmd_to_525/runtime/seed_157/center_width_lcmd/round_06/round_freeze.json": "17f862be8e2d94941be1009293c3e1f10f6c515499a067f27d18f51070e50a5e",
+    "studies/active_learning/qgeognn_v2_row_short_sequential_b32/splits/row_seed_6101.csv": "3c8c809b2b6e63bd0b3d2f28032f0ae60adc66078fafb5e459d4d510d599e338",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_00/model/best.pt": "bcfffa247c3d24c8c74993ddb66cb59741ae14b1e67e8ed9543a8d1af7c6c494",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_00/model/predictions.csv.gz": "89765310b8808be70c1741341e8aa8bb48d81c8c7b0a0fc4986ea04c3413639c",
+    "studies/active_learning/qgeognn_v2_row_short_sequential_b32/runtime/seed_6101/center_width_lcmd/round_00/round_freeze.json": "64e8f38fcd5752dc9ba7f4c4c3239c53caad253ec1449f5bd35b0795df5b5c94",
+    "studies/active_learning/qgeognn_v2_row_short_sequential_b32/runtime/seed_6101/center_width_lcmd/round_01/round_freeze.json": "51608f706296e42372bba1e8efe5be48078f018b40aca05f85dc73cc9f6300da",
+    "studies/active_learning/qgeognn_v2_row_short_sequential_b32/runtime/seed_6101/center_width_lcmd/round_02/round_freeze.json": "89d5d2d51b92dd331ba9bb15454ac3a0f7f134496e6dc6f6d5d08c26c7c55438",
+    "studies/active_learning/qgeognn_v2_row_short_sequential_b32/runtime/seed_6101/center_width_lcmd/round_03/round_freeze.json": "daaac21095cbcc824f3ea11f5b5f54d530c9baea7ae3f194a1511dece23e67e6",
+    "studies/active_learning/qgeognn_v2_row_cw_lcmd_to_525/runtime/seed_6101/center_width_lcmd/round_03/round_freeze.json": "94f089f4b330c2d346b10db030bc99a47bb954189da8718cb4911edb2374ac60",
+    "studies/active_learning/qgeognn_v2_row_cw_lcmd_to_525/runtime/seed_6101/center_width_lcmd/round_04/round_freeze.json": "0ef261eacfbbc9e492631ec28e06d865ef785ec2a69502d00554b4219c6f7e90",
+    "studies/active_learning/qgeognn_v2_row_cw_lcmd_to_525/runtime/seed_6101/center_width_lcmd/round_05/round_freeze.json": "dbe2699c9da1ffd05fe8d99f7fb919d19caa618660efd1a08537ba5aed09ac78",
+    "studies/active_learning/qgeognn_v2_row_cw_lcmd_to_525/runtime/seed_6101/center_width_lcmd/round_06/round_freeze.json": "72554560d4c4649453d10710c889d3b3cf075dba5e142044487a89733fcca137"
+  }
+}
