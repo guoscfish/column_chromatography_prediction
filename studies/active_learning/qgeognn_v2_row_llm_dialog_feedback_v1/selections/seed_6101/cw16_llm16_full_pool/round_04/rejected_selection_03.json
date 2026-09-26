@@ -1,0 +1,129 @@
+{
+  "type": "selection",
+  "packet_sha256": "ac4c73b2ae2401b8865899ea36e2d0434f969e2cd383da778f09f663e94e695d",
+  "choices": [
+    {
+      "id": "5b7151c95c4e964a121b",
+      "reason": "Ethyl acetoacetate at 20/1 was measured at 24.23/64.37 mL against a premeasurement prediction of 14.95/30.53; 10/1 tests how far that error extends down the solvent-ratio curve.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "60b7eed7a46a03b366b2",
+      "reason": "The methoxyethyl acetoacetate analogue was measured near 43.20/101.44 mL at 5/1; its 1/1 condition probes the steep lower-ratio part of the same chemical family.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "81507d463506a9e65e73",
+      "reason": "A 1/1 measurement of the multifunctional acetoacetate ester tests whether the low-ratio behavior of simpler beta-keto esters transfers to this larger molecule.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "050e2fab4b407ea058cb",
+      "reason": "Acetoxybenzaldehyde at 10/1 was measured at 43.63/75.43 mL, far above its premeasurement prediction. The 5/1 candidate tests the condition slope underlying that observed error.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "80f546c47198fa7c6dbf",
+      "reason": "Observed trifluoromethoxyphenol responses at 1/1 and 10/1 show ratio-dependent prediction errors; 50/1 tests whether that trend persists at the lean end.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "0164f18711777547e68d",
+      "reason": "Nitrobenzophenone has an irregular observed V2 sequence across 10/1, 20/1, and 50/1. A 1/1 point helps characterize the response curve without treating V2−V1 as uncertainty.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "9e3ce3497298084abd83",
+      "reason": "Methylquinoline at 10/1 tests transfer from the previously underpredicted quinoline and other measured aza-aromatics to a close new analogue.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "79cb1738d945317e5bfa",
+      "reason": "Acetophenone oxime was measured at 43.11/119.20 mL at 50/1. The 20/1 candidate constrains its high-retention condition slope while the separate 10/1 CW selection remains unmeasured.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "b4e38c1386009c8311ab",
+      "reason": "Ortho-fluorobenzonitrile was measured at 20.19/43.54 mL at 50/1, above its premeasurement prediction. A 10/1 point tests whether that discrepancy transfers across solvent ratios.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "53d14fe6b27f5c325b09",
+      "reason": "Ortho-tolunitrile at 10/1 adds a substituent contrast to the fluorobenzonitrile ratio probe, testing whether the nitrile response depends on the ortho group.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "905c8843dd27543205a5",
+      "reason": "Salicylaldehyde has measured endpoints at 0/1 and 50/1, including a large V2 error at 0/1. The 20/1 candidate tests the interior of that curve.",
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "68a01853008546de06a1",
+      "reason": "Ortho-isopropylphenol at 50/1 probes whether the phenolic high-ratio behavior seen for salicylaldehyde and trifluoromethoxyphenol transfers to a less oxygenated analogue.",
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "b5aa0bae2967975bdf4b",
+      "reason": "Fluorenone at 10/1 extends the measured aromatic-ketone series to a fused, conformationally constrained scaffold.",
+      "hypothesis_id": "H9"
+    },
+    {
+      "id": "19e5d078bc0eb8a91e1e",
+      "reason": "Bromobenzofuran at 50/1 tests a fused heteroaromatic scaffold with sparse direct feedback and adds a chemical contrast to the aromatic carbonyl probes.",
+      "hypothesis_id": "H9"
+    },
+    {
+      "id": "c5a12771920c4410d921",
+      "reason": "The measured 50/1 ethyl fluorobenzoate and methyl iodobenzoate rows were overpredicted. This tert-butyl-substituted benzoate tests whether that ester-family error transfers.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "id": "96ab5d3f34bf46cba8c0",
+      "reason": "Dibenzyl ether at 50/1 adds an ether-rich aromatic contrast to the ester and ketone selections, checking generalization beyond the measured carbonyl families.",
+      "hypothesis_id": "H10"
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesis_id": "H1",
+      "statement": "Beta-keto ester retention has a condition-dependent error that may transfer across ester substituents and molecular complexity."
+    },
+    {
+      "hypothesis_id": "H2",
+      "statement": "The large observed acetoxybenzaldehyde error at 10/1 reflects a mislearned solvent-ratio response."
+    },
+    {
+      "hypothesis_id": "H3",
+      "statement": "Trifluoromethoxyphenol prediction error changes substantially with PE/EA ratio."
+    },
+    {
+      "hypothesis_id": "H4",
+      "statement": "Nitrobenzophenone's measured V2 response does not follow the model's smooth ratio trend."
+    },
+    {
+      "hypothesis_id": "H5",
+      "statement": "The aza-aromatic underprediction transfers from quinoline to methylquinoline."
+    },
+    {
+      "hypothesis_id": "H6",
+      "statement": "The oxime's large V2 at 50/1 persists into intermediate ratios."
+    },
+    {
+      "hypothesis_id": "H7",
+      "statement": "Ortho-substituted benzonitrile errors depend on both solvent ratio and substituent identity."
+    },
+    {
+      "hypothesis_id": "H8",
+      "statement": "Phenolic compounds share a high-ratio response pattern despite differing second functional groups."
+    },
+    {
+      "hypothesis_id": "H9",
+      "statement": "Fused aromatic scaffolds expose transfer errors not resolved by the measured open-chain aromatic series."
+    },
+    {
+      "hypothesis_id": "H10",
+      "statement": "Observed high-ratio benzoate overprediction may generalize to other lipophilic benzoates, while an ether contrast tests its chemical specificity."
+    }
+  ],
+  "feedback_interpretation": "The latest acquired rows show especially large V2 underprediction for ethyl acetoacetate at 20/1 and large premeasurement errors for acetoxybenzaldehyde at 10/1, alongside ratio-dependent errors in phenols and aromatic carbonyls. The selection emphasizes condition curves and nearby chemical contrasts around those observed failures. Round-4 CW candidates have predictions but no revealed measurements; none is treated as observed feedback."
+}

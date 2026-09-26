@@ -1,0 +1,3715 @@
+{
+  "study_version": "dialog_feedback_v1",
+  "seed": 157,
+  "method": "cw16_llm16_full_pool",
+  "round": 3,
+  "active_label_count": 429,
+  "objective": "reduce fixed-denominator combined V1/V2 NRMSE",
+  "units": {
+    "V1": "mL",
+    "V2": "mL",
+    "V2_minus_V1": "mL elution width, not uncertainty"
+  },
+  "L_t_summary": {
+    "count": 429,
+    "V1_min_max": [
+      0.13333334028720856,
+      57.875
+    ],
+    "V2_min_max": [
+      -0.10000000149011612,
+      119.36666870117188
+    ]
+  },
+  "L_t_example_records": [
+    {
+      "id": "26b3dfccf0d1cfb441c7",
+      "smiles": "CC(C)CCOC(=O)c1ccccc1",
+      "conditions": {
+        "PE/EA": "10/1",
+        "Density g/ml": 0.99,
+        "V/ul": 100.0,
+        "loading solvent": "PE",
+        "Volume of loading solvent/ul": 200
+      },
+      "V1_ml": 5.304999828338623,
+      "V2_ml": 9.0649995803833,
+      "record_kind": "initial_L333",
+      "descriptors": {
+        "MW_g_mol": 192.26,
+        "LogP": 2.89,
+        "TPSA_A2": 26.3,
+        "HBD": 0,
+        "HBA": 2
+      }
+    },
+    {
+      "id": "73d2b61a089521939a3e",
+      "smiles": "CC(C)COC(=O)c1ccccc1",
+      "conditions": {
+        "PE/EA": "20/1",
+        "Density g/ml": 0.996,
+        "V/ul": 150.0,
+        "loading solvent": "PE",
+        "Volume of loading solvent/ul": 200
+      },
+      "V1_ml": 5.349999904632568,
+      "V2_ml": 11.429166793823242,
+      "record_kind": "initial_L333",
+      "descriptors": {
+        "MW_g_mol": 178.23,
+        "LogP": 2.5,
+        "TPSA_A2": 26.3,
+        "HBD": 0,
+        "HBA": 2
+      }
+    },
+    {
+      "id": "920dbde1a4d0fdf60ec7",
+      "smiles": "CC(C)COC(=O)c1ccccc1",
+      "conditions": {
+        "PE/EA": "1/1",
+        "Density g/ml": 0.996,
+        "V/ul": 50.0,
+        "loading solvent": "PE",
+        "Volume of loading solvent/ul": 200
+      },
+      "V1_ml": 4.699999809265137,
+      "V2_ml": 7.987500190734863,
+      "record_kind": "initial_L333",
+      "descriptors": {
+        "MW_g_mol": 178.23,
+        "LogP": 2.5,
+        "TPSA_A2": 26.3,
+        "HBD": 0,
+        "HBA": 2
+      }
+    },
+    {
+      "id": "92bac523bed1042d6a75",
+      "smiles": "O=C(OCc1ccccc1)c1ccccc1",
+      "conditions": {
+        "PE/EA": "30/1",
+        "Density g/ml": 1.097,
+        "V/ul": 50.0,
+        "loading solvent": "PE",
+        "Volume of loading solvent/ul": 200
+      },
+      "V1_ml": 16.66666603088379,
+      "V2_ml": 24.21666717529297,
+      "record_kind": "initial_L333",
+      "descriptors": {
+        "MW_g_mol": 212.25,
+        "LogP": 3.04,
+        "TPSA_A2": 26.3,
+        "HBD": 0,
+        "HBA": 2
+      }
+    },
+    {
+      "id": "34cf0942ff52b1b80385",
+      "smiles": "O=C(OCc1ccccc1)c1ccccc1",
+      "conditions": {
+        "PE/EA": "30/1",
+        "Density g/ml": 1.097,
+        "V/ul": 150.0,
+        "loading solvent": "PE",
+        "Volume of loading solvent/ul": 200
+      },
+      "V1_ml": 16.058332443237305,
+      "V2_ml": 26.995832443237305,
+      "record_kind": "initial_L333",
+      "descriptors": {
+        "MW_g_mol": 212.25,
+        "LogP": 3.04,
+        "TPSA_A2": 26.3,
+        "HBD": 0,
+        "HBA": 2
+      }
+    },
+    {
+      "id": "9b6741031afcd6269be1",
+      "smiles": "O=C(OCc1ccccc1)c1ccccc1",
+      "conditions": {
+        "PE/EA": "10/1",
+        "Density g/ml": 1.097,
+        "V/ul": 100.0,
+        "loading solvent": "PE",
+        "Volume of loading solvent/ul": 200
+      },
+      "V1_ml": 8.800000190734863,
+      "V2_ml": 14.408333778381348,
+      "record_kind": "initial_L333",
+      "descriptors": {
+        "MW_g_mol": 212.25,
+        "LogP": 3.04,
+        "TPSA_A2": 26.3,
+        "HBD": 0,
+        "HBA": 2
+      }
+    },
+    {
+      "id": "d16128891be713f0643d",
+      "smiles": "O=C(OCc1ccccc1)c1ccccc1",
+      "conditions": {
+        "PE/EA": "10/1",
+        "Density g/ml": 1.097,
+        "V/ul": 150.0,
+        "loading solvent": "PE",
+        "Volume of loading solvent/ul": 200
+      },
+      "V1_ml": 8.679166793823242,
+      "V2_ml": 14.966666221618652,
+      "record_kind": "initial_L333",
+      "descriptors": {
+        "MW_g_mol": 212.25,
+        "LogP": 3.04,
+        "TPSA_A2": 26.3,
+        "HBD": 0,
+        "HBA": 2
+      }
+    },
+    {
+      "id": "2635b25bb3c1c37f3b74",
+      "smiles": "CCOC(=O)C(C(=O)OCC)c1ccccc1",
+      "conditions": {
+        "PE/EA": "20/1",
+        "Density g/ml": 1.095,
+        "V/ul": 150.0,
+        "loading solvent": "PE",
+        "Volume of loading solvent/ul": 200
+      },
+      "V1_ml": 20.991666793823242,
+      "V2_ml": 32.53333282470703,
+      "record_kind": "initial_L333",
+      "descriptors": {
+        "MW_g_mol": 236.27,
+        "LogP": 1.9,
+        "TPSA_A2": 52.6,
+        "HBD": 0,
+        "HBA": 4
+      }
+    },
+    {
+      "id": "9603a9567c8b21458d1e",
+      "smiles": "CCOC(=O)C(C(=O)OCC)c1ccccc1",
+      "conditions": {
+        "PE/EA": "10/1",
+        "Density g/ml": 1.095,
+        "V/ul": 50.0,
+        "loading solvent": "PE",
+        "Volume of loading solvent/ul": 200
+      },
+      "V1_ml": 12.233333587646484,
+      "V2_ml": 18.850000381469727,
+      "record_kind": "initial_L333",
+      "descriptors": {
+        "MW_g_mol": 236.27,
+        "LogP": 1.9,
+        "TPSA_A2": 52.6,
+        "HBD": 0,
+        "HBA": 4
+      }
+    },
+    {
+      "id": "e93e08d6bc42e91e2679",
+      "smiles": "COC(=O)C(=O)c1ccccc1",
+      "conditions": {
+        "PE/EA": "1/1",
+        "Density g/ml": 1.155,
+        "V/ul": 100.0,
+        "loading solvent": "EA",
+        "Volume of loading solvent/ul": 200
+      },
+      "V1_ml": 10.241666793823242,
+      "V2_ml": 25.149999618530273,
+      "record_kind": "initial_L333",
+      "descriptors": {
+        "MW_g_mol": 164.16,
+        "LogP": 1.04,
+        "TPSA_A2": 43.37,
+        "HBD": 0,
+        "HBA": 3
+      }
+    },
+    {
+      "id": "9768d61b571fc0c5ce1a",
+      "smiles": "COC(=O)C(=O)c1ccccc1",
+      "conditions": {
+        "PE/EA": "2/1",
+        "Density g/ml": 1.155,
+        "V/ul": 50.0,
+        "loading solvent": "EA",
+        "Volume of loading solvent/ul": 200
+      },
+      "V1_ml": 8.408333778381348,
+      "V2_ml": 17.03333282470703,
+      "record_kind": "initial_L333",
+      "descriptors": {
+        "MW_g_mol": 164.16,
+        "LogP": 1.04,
+        "TPSA_A2": 43.37,
+        "HBD": 0,
+        "HBA": 3
+      }
+    },
+    {
+      "id": "6c1c34b12c66ebcf39a4",
+      "smiles": "COC(=O)C(=O)c1ccccc1",
+      "conditions": {
+        "PE/EA": "5/1",
+        "Density g/ml": 1.155,
+        "V/ul": 150.0,
+        "loading solvent": "EA",
+        "Volume of loading solvent/ul": 200
+      },
+      "V1_ml": 7.141666889190674,
+      "V2_ml": 27.71666717529297,
+      "record_kind": "initial_L333",
+      "descriptors": {
+        "MW_g_mol": 164.16,
+        "LogP": 1.04,
+        "TPSA_A2": 43.37,
+        "HBD": 0,
+        "HBA": 3
+      }
+    },
+    {
+      "id": "ad0ace61c29817c678c2",
+      "smiles": "COC(=O)C(=O)c1ccccc1",
+      "conditions": {
+        "PE/EA": "10/1",
+        "Density g/ml": 1.155,
+        "V/ul": 150.0,
+        "loading solvent": "EA",
+        "Volume of loading solvent/ul": 200
+      },
+      "V1_ml": 8.658333778381348,
+      "V2_ml": 29.54166603088379,
+      "record_kind": "initial_L333",
+      "descriptors": {
+        "MW_g_mol": 164.16,
+        "LogP": 1.04,
+        "TPSA_A2": 43.37,
+        "HBD": 0,
+        "HBA": 3
+      }
+    },
+    {
+      "id": "dc81bc0ec00000b873d8",
+      "smiles": "CCOC(=O)c1ccc(F)cc1",
+      "conditions": {
+        "PE/EA": "1/1",
+        "Density g/ml": 1.146,
+        "V/ul": 50.0,
+        "loading solvent": "PE",
+        "Volume of loading solvent/ul": 200
+      },
+      "V1_ml": 5.650000095367432,
+      "V2_ml": 8.958333015441895,
+      "record_kind": "initial_L333",
+      "descriptors": {
+        "MW_g_mol": 168.17,
+        "LogP": 2.0,
+        "TPSA_A2": 26.3,
+        "HBD": 0,
+        "HBA": 2
+      }
+    },
+    {
+      "id": "c2349adace8ee903700a",
+      "smiles": "CCOC(=O)c1ccc(F)cc1",
+      "conditions": {
+        "PE/EA": "2/1",
+        "Density g/ml": 1.146,
+        "V/ul": 50.0,
+        "loading solvent": "PE",
+        "Volume of loading solvent/ul": 200
+      },
+      "V1_ml": 6.508333206176758,
+      "V2_ml": 10.074999809265137,
+      "record_kind": "initial_L333",
+      "descriptors": {
+        "MW_g_mol": 168.17,
+        "LogP": 2.0,
+        "TPSA_A2": 26.3,
+        "HBD": 0,
+        "HBA": 2
+      }
+    },
+    {
+      "id": "cd7c523e3df961c83524",
+      "smiles": "CCOC(=O)c1ccc(F)cc1",
+      "conditions": {
+        "PE/EA": "50/1",
+        "Density g/ml": 1.146,
+        "V/ul": 50.0,
+        "loading solvent": "PE",
+        "Volume of loading solvent/ul": 200
+      },
+      "V1_ml": 11.458333015441895,
+      "V2_ml": 22.28333282470703,
+      "record_kind": "initial_L333",
+      "descriptors": {
+        "MW_g_mol": 168.17,
+        "LogP": 2.0,
+        "TPSA_A2": 26.3,
+        "HBD": 0,
+        "HBA": 2
+      }
+    },
+    {
+      "id": "3aed7873d2fd1cf48684",
+      "smiles": "CCOC(=O)c1ccccc1N",
+      "conditions": {
+        "PE/EA": "5/1",
+        "Density g/ml": 1.117,
+        "V/ul": 50.0,
+        "loading solvent": "PE",
+        "Volume of loading solvent/ul": 200
+      },
+      "V1_ml": 9.25,
+      "V2_ml": 17.0,
+      "record_kind": "initial_L333",
+      "descriptors": {
+        "MW_g_mol": 165.19,
+        "LogP": 1.45,
+        "TPSA_A2": 52.32,
+        "HBD": 1,
+        "HBA": 3
+      }
+    },
+    {
+      "id": "18186b5d6cc190fc07a3",
+      "smiles": "CCOC(=O)c1ccccc1N",
+      "conditions": {
+        "PE/EA": "5/1",
+        "Density g/ml": 1.117,
+        "V/ul": 150.0,
+        "loading solvent": "PE",
+        "Volume of loading solvent/ul": 200
+      },
+      "V1_ml": 8.516666412353516,
+      "V2_ml": 16.6875,
+      "record_kind": "initial_L333",
+      "descriptors": {
+        "MW_g_mol": 165.19,
+        "LogP": 1.45,
+        "TPSA_A2": 52.32,
+        "HBD": 1,
+        "HBA": 3
+      }
+    },
+    {
+      "id": "902f3082ba7241022d82",
+      "smiles": "COC(=O)c1ccc(CBr)cc1",
+      "conditions": {
+        "PE/EA": "1/1",
+        "Density g/ml": 1.47,
+        "V/ul": 34.01360544,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 200
+      },
+      "V1_ml": 5.4083333015441895,
+      "V2_ml": 11.475000381469727,
+      "record_kind": "initial_L333",
+      "descriptors": {
+        "MW_g_mol": 229.07,
+        "LogP": 2.37,
+        "TPSA_A2": 26.3,
+        "HBD": 0,
+        "HBA": 2
+      }
+    },
+    {
+      "id": "01472a37121478cb82be",
+      "smiles": "COC(=O)c1ccc(CBr)cc1",
+      "conditions": {
+        "PE/EA": "5/1",
+        "Density g/ml": 1.47,
+        "V/ul": 34.01360544,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 200
+      },
+      "V1_ml": 6.954166889190674,
+      "V2_ml": 16.450000762939453,
+      "record_kind": "initial_L333",
+      "descriptors": {
+        "MW_g_mol": 229.07,
+        "LogP": 2.37,
+        "TPSA_A2": 26.3,
+        "HBD": 0,
+        "HBA": 2
+      }
+    },
+    {
+      "id": "7312008fb6a636165c6b",
+      "smiles": "COC(=O)c1ccc(CBr)cc1",
+      "conditions": {
+        "PE/EA": "5/1",
+        "Density g/ml": 1.47,
+        "V/ul": 68.02721088,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 200
+      },
+      "V1_ml": 7.574999809265137,
+      "V2_ml": 15.816666603088379,
+      "record_kind": "initial_L333",
+      "descriptors": {
+        "MW_g_mol": 229.07,
+        "LogP": 2.37,
+        "TPSA_A2": 26.3,
+        "HBD": 0,
+        "HBA": 2
+      }
+    },
+    {
+      "id": "ca6feb29f6758377a65f",
+      "smiles": "CCOC(=O)c1cccc(N)c1",
+      "conditions": {
+        "PE/EA": "2/1",
+        "Density g/ml": 1.107,
+        "V/ul": 100.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 200
+      },
+      "V1_ml": 11.887499809265137,
+      "V2_ml": 21.495832443237305,
+      "record_kind": "initial_L333",
+      "descriptors": {
+        "MW_g_mol": 165.19,
+        "LogP": 1.45,
+        "TPSA_A2": 52.32,
+        "HBD": 1,
+        "HBA": 3
+      }
+    },
+    {
+      "id": "6b38c8782f95c673c809",
+      "smiles": "CCOC(=O)CC(C)=O",
+      "conditions": {
+        "PE/EA": "2/1",
+        "Density g/ml": 1.029,
+        "V/ul": 50.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 200
+      },
+      "V1_ml": 8.975000381469727,
+      "V2_ml": 20.200000762939453,
+      "record_kind": "initial_L333",
+      "descriptors": {
+        "MW_g_mol": 130.14,
+        "LogP": 0.53,
+        "TPSA_A2": 43.37,
+        "HBD": 0,
+        "HBA": 3
+      }
+    },
+    {
+      "id": "3ad8ec5752f3c638e2ff",
+      "smiles": "CCOC(=O)CC(C)=O",
+      "conditions": {
+        "PE/EA": "5/1",
+        "Density g/ml": 1.029,
+        "V/ul": 150.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 200
+      },
+      "V1_ml": 11.416666984558105,
+      "V2_ml": 25.28333282470703,
+      "record_kind": "initial_L333",
+      "descriptors": {
+        "MW_g_mol": 130.14,
+        "LogP": 0.53,
+        "TPSA_A2": 43.37,
+        "HBD": 0,
+        "HBA": 3
+      }
+    }
+  ],
+  "L_t_observed_ids": [
+    "26b3dfccf0d1cfb441c7",
+    "73d2b61a089521939a3e",
+    "920dbde1a4d0fdf60ec7",
+    "92bac523bed1042d6a75",
+    "34cf0942ff52b1b80385",
+    "9b6741031afcd6269be1",
+    "d16128891be713f0643d",
+    "2635b25bb3c1c37f3b74",
+    "9603a9567c8b21458d1e",
+    "e93e08d6bc42e91e2679",
+    "9768d61b571fc0c5ce1a",
+    "6c1c34b12c66ebcf39a4",
+    "ad0ace61c29817c678c2",
+    "dc81bc0ec00000b873d8",
+    "c2349adace8ee903700a",
+    "cd7c523e3df961c83524",
+    "3aed7873d2fd1cf48684",
+    "18186b5d6cc190fc07a3",
+    "902f3082ba7241022d82",
+    "01472a37121478cb82be",
+    "7312008fb6a636165c6b",
+    "ca6feb29f6758377a65f",
+    "6b38c8782f95c673c809",
+    "3ad8ec5752f3c638e2ff",
+    "c4fb44ceb40c73758e28",
+    "94e684031b1076eb7a49",
+    "4f828f86817f7db919d4",
+    "dc73de0bfc725e8cd467",
+    "b98a7974de322ed42ec0",
+    "027bbff1ac308c5dd7a1",
+    "6a53fc46345dc50021ae",
+    "cd638c08f0b730d298e8",
+    "7a686f0aefeefe62a695",
+    "3f4948999956d25c00e0",
+    "3fc05dc2025715e68174",
+    "7387be9709aeda9b4fa4",
+    "a047be17b8ee8bebb29a",
+    "4257dae751590e647fb1",
+    "ae21e5bf088e88892524",
+    "5879dc8ccb560446d54c",
+    "ce11189a0e59d1798306",
+    "8d018e521e8e6bbc53c2",
+    "cd566862a517dd7cdc8d",
+    "a93680d827624e459a39",
+    "04e994913bc43aa60007",
+    "9333d130f52d80332cf0",
+    "a4ed6ac3d69b91c56aca",
+    "23a5d9abd2b0db31a8d6",
+    "a8a8b4ab0ef68c063c29",
+    "c838aaaa480481570d39",
+    "4b3774e7584215592e96",
+    "ce1784be47d6d0869494",
+    "83cd7b4ee3b9b51a0753",
+    "9dd4e8dae2357c6de73e",
+    "a2cf80002cbf3b59eefe",
+    "1cbe45e1a935365bd219",
+    "380a1230c49c0a2225f3",
+    "903811765ba61a8af2b7",
+    "0520aee15336815a25f0",
+    "e2848d4b338b394b93a2",
+    "d5fd33704991a98d5b8f",
+    "234f91a0124d74a359cc",
+    "696b873f81bc442af675",
+    "918504cfbad81b27c08e",
+    "bda6ee6b2ab7b1212866",
+    "c5594361764ec76761e2",
+    "d070dda7bed2b14ceaad",
+    "118d99a579a36d85cc08",
+    "24bf82db0ce55835b608",
+    "c46b86dae7e6845f08cd",
+    "53c1be5b96937954b9fa",
+    "21cfd66397382d7ad042",
+    "fdaa37b02fe0d59d96e9",
+    "7fed5a8c2b8680bf2e42",
+    "d0e8fd2b1d04ee0fd352",
+    "ecd17c7ea435a1e33f6b",
+    "bd2e9fee67bbba1155df",
+    "7582eb861e223c38e3b2",
+    "52144e7fa2b21ace65ff",
+    "c827119f3e13a7eab121",
+    "f25bc3a3b74471e14801",
+    "d86448c8f5aaa8ebcf7f",
+    "6dde3c4535c931ca4092",
+    "0be038db2251642c6862",
+    "c66ddd3f93b84e988e61",
+    "3fa5b3c41fcae218e05b",
+    "278eae367da048448147",
+    "be1d1eac10cca873e4ef",
+    "93bde1825d0cb1cb4305",
+    "a88f1c7eff88c4722032",
+    "7e70e0d2553228179804",
+    "10bf40d15c62324241b0",
+    "c1d0f97d53f585c856ee",
+    "8c5919c128847d433188",
+    "6209df8dd01072ab8a47",
+    "b6229f0445560a4a54ed",
+    "36e3d917ed07cf327a84",
+    "8436939a2a6a91fa470d",
+    "0982d8b0030ea5a271e0",
+    "172c0132e67ab8c19a2a",
+    "a1ea7a9303a5fc7a7b0f",
+    "067260cef0fb89f79291",
+    "859ae738b615cf17b849",
+    "7bdb81ebd10a45bc8ad1",
+    "db9851c0898e1d345de2",
+    "cbe7e55e896b42820ba5",
+    "e09460619a9bf3a79cd4",
+    "ca796e1439984837b964",
+    "f6b05afc9acf85dffb0f",
+    "8de30a7f5764c20b232e",
+    "1c25c350b171450ed58f",
+    "0be315008cf0a051a356",
+    "d0bae432e3ede2ada257",
+    "163f6f0793f0d13950de",
+    "27c21665105a4679a090",
+    "a87c513db4c6ac748d81",
+    "28ade707bfe458664f60",
+    "5af6c421ec2f60487c59",
+    "ebf38d80f4c5674cf120",
+    "d83038f8278f7c0745ee",
+    "208139770ae1a480855b",
+    "1a462e0cc4fc1474a76c",
+    "34b6f9955044e17d887e",
+    "8aeb3c33c4cded8425b9",
+    "a6ea2935fcde0150f1f8",
+    "5695d3c04943153386bb",
+    "eb8b6cf47ad0190aa196",
+    "d1093ff4ef84f3dc68c3",
+    "8fa8d7ec035c6a829dc4",
+    "7edab67bc020beb2b623",
+    "2efbe9ba7cc21641c47c",
+    "6691aaf598ee5504e24b",
+    "0ba43ba29f985985f6d9",
+    "76afed5c6eacb2ec8cd1",
+    "fb031b748f1f5a8cc89e",
+    "e6605c23fb1943a6b848",
+    "5cc672fc502a8346577f",
+    "d67e9d7ab3d31da22c8d",
+    "a9aa61b1ba22e0c6cdbe",
+    "d6b28f60f89677468590",
+    "2f1ff409bb879ae9f62b",
+    "117fb19e55f91e3dffa2",
+    "df118a80070e524e5b67",
+    "2fa282eae76354cf9096",
+    "15e10c24f9edb12543a2",
+    "bb8ba62a93aefa66d0f6",
+    "98f7b4e7c44ba0532e85",
+    "2c843c0ebe8a201b2da1",
+    "4c7a167609de5f3e01c2",
+    "07a069e105eb7739bf7e",
+    "aaf45151a9b4a7a5fa5c",
+    "8d48112406e3064efdbc",
+    "f9564b598f30f816ac19",
+    "3e69cf586f3eb0f0fa8c",
+    "6ae922f63e983b14e320",
+    "11894db76cfa703c36af",
+    "ba56f0e652a97bcee1b2",
+    "4d3b1628cd2311585f50",
+    "96d0f62092b2b6aec96b",
+    "6e07556df6bb6e9df96e",
+    "88d94bacb5a3b54ac7d1",
+    "e71bdbb1d06ba82dc4cc",
+    "bc62be727bf6ded3d86e",
+    "457b3def1714039eadb3",
+    "d6faa7e77464f5f9a34b",
+    "d6f36b5de45565d68603",
+    "8f683baab6101dc15006",
+    "486e498e45d084ced568",
+    "76643e968ecc935c745c",
+    "5b706e17e8412d02342f",
+    "d2f6f26430ab4e0e5123",
+    "072ea9156cf6dd75519a",
+    "6c27c0ab37bb8d812822",
+    "a8ae74aecb3b1e85b73c",
+    "0c24b9414856413c9a67",
+    "e12edd0198c0d750ecd5",
+    "0167d1ccc46bf043be74",
+    "1db0e6b02c58a5022d3e",
+    "36767e257ec2c6a901ce",
+    "9fc58dd991e905ad49bb",
+    "eb151126b40eda411ab7",
+    "15eaa084fa10ccf9c8af",
+    "60ef3e08e4fa789b999c",
+    "ba5381d85ba24754040c",
+    "d456aba90baa6ce0f0fc",
+    "ebb30a10744d1458c592",
+    "6cca869130d41273d6b5",
+    "f8235c550c614221a158",
+    "c627405cf70a0daacc94",
+    "d803316212dc6eb862e9",
+    "8294d63723a29bc21a6b",
+    "ef809aee1c6b06021475",
+    "810b16f35a3a86f451ce",
+    "cb446680f62351d087a9",
+    "0300fa0e76a48bcc6bcd",
+    "752c884154a739045315",
+    "64c9e190e213bb061867",
+    "ad7cc17e8d2615575fe3",
+    "c76d0420b34df595c0c9",
+    "8340b51546d211789a45",
+    "5b5e5053f089dcffd674",
+    "c25aed72c162a62800ce",
+    "5089e714749798908bde",
+    "07f6d8c342b66a49bb4e",
+    "cc1d514fd5a5a55b4569",
+    "941f69aeb5995f34ea50",
+    "ccfa0b9df9a77aeb56f5",
+    "b39965f001aec0e5c1de",
+    "d737499ef6500d57b008",
+    "30456dafbfe681b5af70",
+    "7bbdec21c428010dd67b",
+    "ce88314bea29d27d2423",
+    "db0c62c55a5e55e75173",
+    "41bda518b4b1e6fe001d",
+    "64bb328174ab49136339",
+    "b5e6e9a4b5c6f0f838bd",
+    "d8f34dc388842e55905b",
+    "d2765c48fed3bf3b3143",
+    "616dd888d5b03ea79005",
+    "38e491895ef4f2c5a3ce",
+    "f21a4392bf1613c31212",
+    "6cb3e71e2f29850f39da",
+    "e660f128159183feb41c",
+    "27c0c131e405aa30b00a",
+    "7138b866c4df4a2274f1",
+    "95021ae0c44ec8574e04",
+    "9d5283cf29e9f80d1912",
+    "39f3c918764f1f7fd0fc",
+    "60c07f57327c89c83ae9",
+    "a7adf2acd9c98e468b6a",
+    "8c4e370263f89adb3bc6",
+    "2df9d2f88ac69c5229e5",
+    "42b3b7216aee53ebe1cc",
+    "2bd50654bad989d82c87",
+    "16cee53cbe16b60fb395",
+    "43d0ea8af460a7ac5934",
+    "97f693e8a82af54da0ed",
+    "8532b67875eadcc6397c",
+    "8398d446af24cfce2962",
+    "b94677e12c4d6aa11d9b",
+    "f328cb4a0ebf229b9fe4",
+    "d3a7cf2d3d516c3324c7",
+    "5b2c1366fbc2e7f7fa49",
+    "9400b8c40aaf33ef23d5",
+    "3db682471b6cad60811d",
+    "ea9ef1bc8766196ca96d",
+    "20acd2ae49790ab82053",
+    "a6fd9cae6e0672265c13",
+    "7e981ba02c83f74f5e65",
+    "a44bda1a7abf6efee26c",
+    "af97ce84dc851451ecb5",
+    "7c50b9dc5e2577123b92",
+    "4589cfb6a0563df83dd6",
+    "d2d36d9586f3f49acd5d",
+    "21e09d52eac22fe25e15",
+    "facbcedbecb46072b04c",
+    "761c3f82d640da44966c",
+    "2490762d0471bbb9cc9f",
+    "162ffd9b0db1fd3c1509",
+    "a2f5638c0f2528673e4e",
+    "7d8d7bb22a7cbba9acf6",
+    "7298196b422df81a274a",
+    "16893461897b5955a8a4",
+    "bb387f1af7263b2445fb",
+    "dcd115d5903aa7c38191",
+    "b47cad6d1496e6fdaf2c",
+    "a9a2aa892e7f14756b97",
+    "aabeae950d0d25df651a",
+    "778473c0f5d36fbe8069",
+    "96e2b82e29c0b5205628",
+    "8ecaba7640ab779adfd4",
+    "56e3e54753e1a9275a6f",
+    "74cf50c6ec476a394b01",
+    "1aa8fe1baffeaa6b652a",
+    "f84c3d08ecd96132041d",
+    "bfabf8894907ce140562",
+    "953c36233727e4998c93",
+    "37b8d0f56019b0d4fad3",
+    "b90d0d5fb80689b46cc3",
+    "c260e5193159c51fe828",
+    "649a4655eabbbd320a13",
+    "533e50b0595be82d2716",
+    "1c6a12a8c2cb62f05c80",
+    "7bd353fc307c5af1997e",
+    "852d4f3443a81d662552",
+    "20d4b1612cbdd88b6755",
+    "7ab4e875cad0452c3e13",
+    "d89efcf911f250d9ecf3",
+    "6ddb6596285d680135c6",
+    "cfa75012f38a3f8f45d1",
+    "460257046a150e069416",
+    "9bef8796fc48c4836e6b",
+    "c692f211a6366b2f15c2",
+    "2bb48a2862bf80c30a36",
+    "d36f7b3485a7dead23e2",
+    "211d35ba2d70d66634dc",
+    "6ee03cf62adedf0716b3",
+    "ebdeaba52880c7eade16",
+    "52b9af4df1f1e7cd4d9b",
+    "b0035c08cda3495cb3b2",
+    "122ecf89b68742b1bf36",
+    "bed2f1430d0964e86fcb",
+    "7f03fef6741ddd243d91",
+    "783cf2454912fc14bb80",
+    "b3d9bb5afa82b99f2a11",
+    "7799455820f8a51e59fa",
+    "b7bebdf1c141f2ae938e",
+    "44500edb95a3649adf91",
+    "faea8b8adf639599424e",
+    "8136e1c1c9734ab0048d",
+    "df7a5d9fbf36fc121de6",
+    "ddf2f769007f3d9f75fd",
+    "47328994eb7953d68919",
+    "cf2b5bd61a8fa92f67a8",
+    "3232c07325c3dd8f1e6a",
+    "c219b2fe4227fb602c44",
+    "a97a618319325a403c10",
+    "0037e4cf8cedc4462b44",
+    "73a35f890e678b320073",
+    "03e8372f11ac433be4fa",
+    "43a235b691b6f7b06db4",
+    "3c358af26c2e2988cd46",
+    "9e0497d20614ebedf8ed",
+    "3f6b817d855e67b3b406",
+    "c9bef93a79964dc6ede1",
+    "c4b2566e6fe1d00b20ea",
+    "265b6eb5a10a34c937b1",
+    "ed763ea5943e63a671c9",
+    "b1c5816f929ef59f5a87",
+    "334348368030ba5ce3b6",
+    "c88ecd4aff975383199f",
+    "0b8c7bc2949fb8070c94",
+    "6802f0b28c5a0c7b4c2a",
+    "fe1a34b5975943e8f292",
+    "f7d57d8bb988f7016502",
+    "79ff49052bce33597828",
+    "33ffc69a253a89f15995",
+    "a5f9179bfb146ad70953",
+    "9ffee2813aef5c26f96f",
+    "547923973b121019625f",
+    "51f4126a3aadb3239225",
+    "9249ed2c527f70995033",
+    "5d530b2f228ed39ff952",
+    "d1774335b45258bc173a",
+    "8641d0ec9c4b21727b9a",
+    "59b54ad3a60a52cc2b2c",
+    "6a4e95d2a3cca31094a1",
+    "95d1d257dfea69f178f8",
+    "38e6b8bf0f089fcadd80",
+    "ab66de7edad40236ffd5",
+    "d7b0845793265cab0c33",
+    "33123966b214578291a5",
+    "09f7ce5c473ea7ea5d94",
+    "bbb514661c0a49694d6a",
+    "7b42519983cf93dd7efd",
+    "693a65467095367c8e95",
+    "74541dbf8571f881c454",
+    "5ae7472a4d9ce3fe20d0",
+    "63962b52800b6ead5398",
+    "ca467c94f14b2219503e",
+    "8e7636d7a60a6058305a",
+    "48679ae48dd485ffb7a6",
+    "80f546c47198fa7c6dbf",
+    "4da6e3b93f29af1efa94",
+    "183af335033005f96b97",
+    "9f3b75bc3a2c4004a893",
+    "23ef03f3e75e40b20095",
+    "b51a88b6dc4049704214",
+    "ab887fd709fc1dc0d59b",
+    "8b9a55e63dd5e733dcb0",
+    "7394fdb0a8cd53255d4a",
+    "2d63ab3869184cde52bf",
+    "d035281432e410405550",
+    "f4fb5c03b8e8996e75f6",
+    "ffc70e28db22d1cc1f3f",
+    "de3442604a546992b1e1",
+    "0e1567be6a6ec6d0298e",
+    "5f02dc3c13f7f2daed32",
+    "1c312750e15ff66c6243",
+    "195a292d7c8874415285",
+    "20a5a5008211ea15a65a",
+    "58b3518f48d8340d6ffc",
+    "a17bcdddcf0799baeee2",
+    "0f06772820e6693753e3",
+    "e47aebe2660b9e1528de",
+    "74c8fcd8ac3f6caedcd2",
+    "6f548d72f01fc85debdc",
+    "a2f83665cfe821271b30",
+    "2dbfdf9c2d5defd09f7a",
+    "b4e0e9dc92fca2c88b90",
+    "3fa513c053678904d89c",
+    "8e99350aac88fae9186b",
+    "0ae541927703401945de",
+    "4c3dce39521dcb1793a1",
+    "54f20e9bd23ee1c7b5db",
+    "8925249b7fbe141dbce6",
+    "425fe9dfe0c3f345460b",
+    "44c8b389a6faf44f1f4c",
+    "869ed39b28b73a5de24e",
+    "252c027cf5a42b92c953",
+    "2b97a1e0a6a4b944b760",
+    "c6159dcb5802e62284d1",
+    "75232f4ee5de52a0499e",
+    "5524670e4337370c2ef6",
+    "cf36dbeee8bb51632d84",
+    "07a55cdab65b05f31561",
+    "668279c54bbf75e86496",
+    "946f712a81f3990f568f",
+    "723a7255bbbef8dcad76",
+    "f46da3c00b2199795e4c",
+    "b9682bf3eb345e24a41f",
+    "b6a2baaa0410b39ac474",
+    "e9a7d193dc3d83532c1f",
+    "2feb7d8e0a3566ddf97f",
+    "fd5fa962575144327bf4",
+    "810b065b0b86ff8c9aae",
+    "434e465cfa7e0034f233",
+    "04a2e8ad27ca641a3a12",
+    "a38fee52661fd3e3b7ea",
+    "8a00e449393f9942971d",
+    "ce39d1762993bbbafaca",
+    "a1809a6c4c3ada20bcb0",
+    "327064e6ca2c38d79d76",
+    "471287eecf7b94603e9e",
+    "857ae40d0fdf1c7e387e",
+    "129036e0bccc4ff7e848",
+    "b0f83f107759037eea65",
+    "61764a2e9f71f1caa18e",
+    "3e41bb94c582476b5b6a"
+  ],
+  "L_t_full_record_access": "get_observed/search_observed tools",
+  "trajectory_history": [
+    {
+      "round": 0,
+      "selected_choices": [
+        {
+          "id": "ab66de7edad40236ffd5",
+          "reason": "At 10/1, predicted V1/V2 are 18.5/26.7 mL. Paired with the 20/1 choice, this tests the steep predicted solvent-ratio response of diethyl malonate; same-molecule observed evidence is absent.",
+          "hypothesis_id": "H1"
+        },
+        {
+          "id": "d7b0845793265cab0c33",
+          "reason": "At 20/1, predicted V1/V2 rise to 30.7/49.3 mL with the same loading conditions as the 10/1 choice. This tests a large, currently unmeasured change before the pending 50/1 experiment.",
+          "hypothesis_id": "H1"
+        },
+        {
+          "id": "33123966b214578291a5",
+          "reason": "The 5/1 fluorobenzoate prediction is 5.9/16.8 mL. Its measured 2/1 and 50/1 endpoints bracket this setting, while the paired 10/1 prediction has a slightly lower V2; measuring both tests that possible curve-shape blind spot.",
+          "hypothesis_id": "H2"
+        },
+        {
+          "id": "09f7ce5c473ea7ea5d94",
+          "reason": "At the same 100 \u00b5L loading as the 5/1 choice, predicted V2 falls from 16.8 to 16.0 mL at 10/1. The local reversal is an untested model inference despite the broader measured increase from 2/1 to 50/1.",
+          "hypothesis_id": "H2"
+        },
+        {
+          "id": "bbb514661c0a49694d6a",
+          "reason": "The 20/1 benzoylformate prediction is 9.8/28.7 mL. Same-molecule measurements at 5/1 and 10/1 show similar V2 values, so this probes whether that apparent plateau extends to a weaker eluent.",
+          "hypothesis_id": "H3"
+        },
+        {
+          "id": "7b42519983cf93dd7efd",
+          "reason": "At 50/1, predicted V1/V2 remain near 11.1/29.0 mL. Paired with 20/1, this tests the model's high-ratio plateau for both endpoints; the measured support currently reaches only 10/1.",
+          "hypothesis_id": "H3"
+        },
+        {
+          "id": "693a65467095367c8e95",
+          "reason": "The 10/1 anthranilate prediction is 13.6/25.7 mL versus measured values near 9/17 mL at 5/1. It tests the first step of a predicted rise in this hydrogen-bonding molecule; evidence for the rise is weak.",
+          "hypothesis_id": "H4"
+        },
+        {
+          "id": "74541dbf8571f881c454",
+          "reason": "At the same 100 \u00b5L loading, the 20/1 prediction rises to 21.2/43.0 mL. This checks whether the model's large solvent-ratio response is real before the pending 50/1 result is revealed.",
+          "hypothesis_id": "H4"
+        },
+        {
+          "id": "5ae7472a4d9ce3fe20d0",
+          "reason": "For cyanobenzophenone, the only found measurement is 3.6/8.9 mL at 0/1. The 5/1 prediction of 12.1/33.7 mL bridges that observation and the pending 10/1\u201320/1 experiments, testing a possible extrapolation blind spot.",
+          "hypothesis_id": "H5"
+        },
+        {
+          "id": "63962b52800b6ead5398",
+          "reason": "The 0/1 nitroacetophenone prediction of 4.8/8.6 mL provides a strong-eluent anchor for its pending 10/1 experiment. No same-molecule observed record was found, so the expected contrast is untested.",
+          "hypothesis_id": "H6"
+        },
+        {
+          "id": "ca467c94f14b2219503e",
+          "reason": "At 10/1, this multifunctional ester is predicted at 25.7/47.8 mL, substantially later than its pending 5/1 prediction. The matched molecule and loading conditions isolate a potentially difficult solvent-ratio response; observed evidence is weak.",
+          "hypothesis_id": null
+        },
+        {
+          "id": "8e7636d7a60a6058305a",
+          "reason": "The amino-substituted unsaturated ester has a high 20/1 prediction of 27.8/55.0 mL. Measuring it probes transfer to this polar structural motif at a PE-rich condition; the chemical rationale is a prior, not measured evidence.",
+          "hypothesis_id": null
+        },
+        {
+          "id": "48679ae48dd485ffb7a6",
+          "reason": "Despite two ester groups and a 50/1 eluent, the prediction is relatively early at 11.6/16.5 mL. This tests whether the model handles the acetylenic diester's retention and V2\u2212V1 width; direct evidence is weak.",
+          "hypothesis_id": null
+        },
+        {
+          "id": "80f546c47198fa7c6dbf",
+          "reason": "This phenol is predicted at 20.8/47.3 mL at 50/1. Its hydrogen-bond donor and fluorinated ether test a chemical regime where V2 and the elution width could be difficult to generalize; this is an untested chemical prior.",
+          "hypothesis_id": null
+        },
+        {
+          "id": "4da6e3b93f29af1efa94",
+          "reason": "The ortho-nitrobenzaldehyde prediction is 14.4/33.7 mL at 5/1. It adds a positional and functional-group probe alongside pending para-nitro carbonyl compounds, though differing conditions make that comparison weak.",
+          "hypothesis_id": null
+        },
+        {
+          "id": "183af335033005f96b97",
+          "reason": "The aminoacetophenone prediction is 12.1/26.4 mL with a 900 \u00b5L DCM loading-solvent volume. This probes transfer to an amine-containing molecule and a relatively large loading volume; there is no controlled contrast here, so the evidence is weak.",
+          "hypothesis_id": null
+        }
+      ],
+      "hypotheses": [
+        {
+          "id": "H1",
+          "content": "Diethyl malonate may show a large increase in V1 and V2 between 10/1 and 20/1 PE/EA, as predicted. General chemical prior favors stronger retention under PE-rich conditions. The observed phenyl-substituted malonate rises from 12.2/18.9 mL at 10/1 to 21.0/32.5 mL at 20/1, but that is a different molecule and loading amount.",
+          "supporting_observed_ids": [
+            "9603a9567c8b21458d1e",
+            "2635b25bb3c1c37f3b74"
+          ],
+          "contradicting_observed_ids": [],
+          "evidence_strength": "weak",
+          "next_discriminating_question": "Does matched-loading diethyl malonate actually approach the predicted 30.7/49.3 mL at 20/1?"
+        },
+        {
+          "id": "H2",
+          "content": "Fluorobenzoate V2 may have a local maximum near 5/1: predictions are 16.8 mL at 5/1 and 16.0 mL at 10/1. Measurements show an overall increase from 9.0 mL at 1/1 to 10.1 mL at 2/1 and 22.3 mL at 50/1, but do not resolve the proposed local reversal.",
+          "supporting_observed_ids": [],
+          "contradicting_observed_ids": [],
+          "evidence_strength": "weak",
+          "next_discriminating_question": "At identical 100 \u00b5L loading, is measured V2 at 5/1 greater than at 10/1?"
+        },
+        {
+          "id": "H3",
+          "content": "Methyl benzoylformate V2 may flatten as PE/EA becomes more PE-rich. At 150 \u00b5L loading, observed V2 is 27.7 mL at 5/1 and 29.5 mL at 10/1; predictions at 20/1 and 50/1 remain near 29 mL. Persistence beyond 10/1 is untested.",
+          "supporting_observed_ids": [
+            "6c1c34b12c66ebcf39a4",
+            "ad0ace61c29817c678c2"
+          ],
+          "contradicting_observed_ids": [],
+          "evidence_strength": "moderate",
+          "next_discriminating_question": "Do measured V1 and V2 remain nearly flat between 20/1 and 50/1 under matched loading?"
+        },
+        {
+          "id": "H4",
+          "content": "Anthranilate may become substantially later and wider as the eluent changes from 5/1 to 20/1. The two 5/1 measurements at 50 and 150 \u00b5L are close, but there is no observed higher-ratio response; the steep rise comes from model predictions.",
+          "supporting_observed_ids": [
+            "3aed7873d2fd1cf48684",
+            "18186b5d6cc190fc07a3"
+          ],
+          "contradicting_observed_ids": [],
+          "evidence_strength": "weak",
+          "next_discriminating_question": "At matched 100 \u00b5L loading, how much do measured V1 and V2 increase from 10/1 to 20/1?"
+        },
+        {
+          "id": "H5",
+          "content": "Cyanobenzophenone may shift sharply from its observed early elution at 0/1 to much later, wider elution at 5/1 and beyond. This is a chemically plausible solvent-strength effect, but its magnitude is only predicted.",
+          "supporting_observed_ids": [
+            "6c27c0ab37bb8d812822"
+          ],
+          "contradicting_observed_ids": [],
+          "evidence_strength": "weak",
+          "next_discriminating_question": "Does the 5/1 measurement approach the predicted 12.1/33.7 mL and bridge the pending higher-ratio predictions?"
+        },
+        {
+          "id": "H6",
+          "content": "Nitroacetophenone may move from early elution at 0/1 toward the much later pending 10/1 prediction. This follows a general solvent-strength prior; no same-molecule measured record was found.",
+          "supporting_observed_ids": [],
+          "contradicting_observed_ids": [],
+          "evidence_strength": "weak",
+          "next_discriminating_question": "What V1 and V2 are measured at 0/1, and how large is the eventual contrast with 10/1?"
+        }
+      ],
+      "measured_feedback": [
+        {
+          "candidate_id": "fe1a34b5975943e8f292",
+          "source": "CW",
+          "pred_V1_ml": 19.62790870666504,
+          "pred_V2_ml": 54.53721237182617,
+          "true_V1_ml": 22.866666793823242,
+          "true_V2_ml": 57.46666717529297,
+          "error_V1_ml": -3.238758087158203,
+          "error_V2_ml": -2.929454803466797,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "f7d57d8bb988f7016502",
+          "source": "CW",
+          "pred_V1_ml": 41.07887649536133,
+          "pred_V2_ml": 69.21405792236328,
+          "true_V1_ml": 5.791666507720947,
+          "true_V2_ml": 7.925000190734863,
+          "error_V1_ml": 35.287208557128906,
+          "error_V2_ml": 61.289058685302734,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "79ff49052bce33597828",
+          "source": "CW",
+          "pred_V1_ml": 19.733173370361328,
+          "pred_V2_ml": 48.639259338378906,
+          "true_V1_ml": 7.699999809265137,
+          "true_V2_ml": 31.58333396911621,
+          "error_V1_ml": 12.033173561096191,
+          "error_V2_ml": 17.055925369262695,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "33ffc69a253a89f15995",
+          "source": "CW",
+          "pred_V1_ml": 19.627613067626953,
+          "pred_V2_ml": 41.7764778137207,
+          "true_V1_ml": 27.899999618530273,
+          "true_V2_ml": 57.66666793823242,
+          "error_V1_ml": -8.27238655090332,
+          "error_V2_ml": -15.890190124511719,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "a5f9179bfb146ad70953",
+          "source": "CW",
+          "pred_V1_ml": 24.370201110839844,
+          "pred_V2_ml": 61.28966522216797,
+          "true_V1_ml": 43.16666793823242,
+          "true_V2_ml": 78.53333282470703,
+          "error_V1_ml": -18.796466827392578,
+          "error_V2_ml": -17.243667602539062,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "9ffee2813aef5c26f96f",
+          "source": "CW",
+          "pred_V1_ml": 39.11033248901367,
+          "pred_V2_ml": 82.92239379882812,
+          "true_V1_ml": 43.108333587646484,
+          "true_V2_ml": 119.19999694824219,
+          "error_V1_ml": -3.9980010986328125,
+          "error_V2_ml": -36.27760314941406,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "547923973b121019625f",
+          "source": "CW",
+          "pred_V1_ml": 27.86019515991211,
+          "pred_V2_ml": 58.66317367553711,
+          "true_V1_ml": 34.02916717529297,
+          "true_V2_ml": 75.1624984741211,
+          "error_V1_ml": -6.168972015380859,
+          "error_V2_ml": -16.499324798583984,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "51f4126a3aadb3239225",
+          "source": "CW",
+          "pred_V1_ml": 24.649391174316406,
+          "pred_V2_ml": 45.6230354309082,
+          "true_V1_ml": 43.474998474121094,
+          "true_V2_ml": 118.59166717529297,
+          "error_V1_ml": -18.825607299804688,
+          "error_V2_ml": -72.9686279296875,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "9249ed2c527f70995033",
+          "source": "CW",
+          "pred_V1_ml": 33.21406173706055,
+          "pred_V2_ml": 55.7736930847168,
+          "true_V1_ml": 37.94166564941406,
+          "true_V2_ml": 51.516666412353516,
+          "error_V1_ml": -4.727603912353516,
+          "error_V2_ml": 4.257026672363281,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "5d530b2f228ed39ff952",
+          "source": "CW",
+          "pred_V1_ml": 16.39017105102539,
+          "pred_V2_ml": 32.75551223754883,
+          "true_V1_ml": 17.850000381469727,
+          "true_V2_ml": 43.858333587646484,
+          "error_V1_ml": -1.459829330444336,
+          "error_V2_ml": -11.102821350097656,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "d1774335b45258bc173a",
+          "source": "CW",
+          "pred_V1_ml": 15.38671588897705,
+          "pred_V2_ml": 46.22344207763672,
+          "true_V1_ml": 7.574999809265137,
+          "true_V2_ml": 29.875,
+          "error_V1_ml": 7.811716079711914,
+          "error_V2_ml": 16.34844207763672,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "8641d0ec9c4b21727b9a",
+          "source": "CW",
+          "pred_V1_ml": 22.987546920776367,
+          "pred_V2_ml": 42.565940856933594,
+          "true_V1_ml": 10.883333206176758,
+          "true_V2_ml": 22.866666793823242,
+          "error_V1_ml": 12.10421371459961,
+          "error_V2_ml": 19.69927406311035,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "59b54ad3a60a52cc2b2c",
+          "source": "CW",
+          "pred_V1_ml": 25.443931579589844,
+          "pred_V2_ml": 62.0238151550293,
+          "true_V1_ml": 19.691667556762695,
+          "true_V2_ml": 55.724998474121094,
+          "error_V1_ml": 5.752264022827148,
+          "error_V2_ml": 6.298816680908203,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "6a4e95d2a3cca31094a1",
+          "source": "CW",
+          "pred_V1_ml": 18.924348831176758,
+          "pred_V2_ml": 40.9157600402832,
+          "true_V1_ml": 16.891666412353516,
+          "true_V2_ml": 29.225000381469727,
+          "error_V1_ml": 2.032682418823242,
+          "error_V2_ml": 11.690759658813477,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "95d1d257dfea69f178f8",
+          "source": "CW",
+          "pred_V1_ml": 25.053382873535156,
+          "pred_V2_ml": 48.476356506347656,
+          "true_V1_ml": 52.82500076293945,
+          "true_V2_ml": 97.92500305175781,
+          "error_V1_ml": -27.771617889404297,
+          "error_V2_ml": -49.448646545410156,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "38e6b8bf0f089fcadd80",
+          "source": "CW",
+          "pred_V1_ml": 27.070602416992188,
+          "pred_V2_ml": 66.7900161743164,
+          "true_V1_ml": 25.641666412353516,
+          "true_V2_ml": 55.08333206176758,
+          "error_V1_ml": 1.4289360046386719,
+          "error_V2_ml": 11.706684112548828,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "ab66de7edad40236ffd5",
+          "source": "LLM",
+          "pred_V1_ml": 18.52588653564453,
+          "pred_V2_ml": 26.717727661132812,
+          "true_V1_ml": 5.949999809265137,
+          "true_V2_ml": 7.508333206176758,
+          "error_V1_ml": 12.575886726379395,
+          "error_V2_ml": 19.209394454956055,
+          "reason": "At 10/1, predicted V1/V2 are 18.5/26.7 mL. Paired with the 20/1 choice, this tests the steep predicted solvent-ratio response of diethyl malonate; same-molecule observed evidence is absent.",
+          "hypothesis_id": "H1"
+        },
+        {
+          "candidate_id": "d7b0845793265cab0c33",
+          "source": "LLM",
+          "pred_V1_ml": 30.749963760375977,
+          "pred_V2_ml": 49.29288864135742,
+          "true_V1_ml": 4.608333110809326,
+          "true_V2_ml": 6.316666603088379,
+          "error_V1_ml": 26.141630172729492,
+          "error_V2_ml": 42.97622299194336,
+          "reason": "At 20/1, predicted V1/V2 rise to 30.7/49.3 mL with the same loading conditions as the 10/1 choice. This tests a large, currently unmeasured change before the pending 50/1 experiment.",
+          "hypothesis_id": "H1"
+        },
+        {
+          "candidate_id": "33123966b214578291a5",
+          "source": "LLM",
+          "pred_V1_ml": 5.930788993835449,
+          "pred_V2_ml": 16.809310913085938,
+          "true_V1_ml": 6.449999809265137,
+          "true_V2_ml": 12.708333015441895,
+          "error_V1_ml": -0.5192108154296875,
+          "error_V2_ml": 4.100977897644043,
+          "reason": "The 5/1 fluorobenzoate prediction is 5.9/16.8 mL. Its measured 2/1 and 50/1 endpoints bracket this setting, while the paired 10/1 prediction has a slightly lower V2; measuring both tests that possible curve-shape blind spot.",
+          "hypothesis_id": "H2"
+        },
+        {
+          "candidate_id": "09f7ce5c473ea7ea5d94",
+          "source": "LLM",
+          "pred_V1_ml": 6.423892974853516,
+          "pred_V2_ml": 15.9724760055542,
+          "true_V1_ml": 7.083333492279053,
+          "true_V2_ml": 12.308333396911621,
+          "error_V1_ml": -0.6594405174255371,
+          "error_V2_ml": 3.664142608642578,
+          "reason": "At the same 100 \u00b5L loading as the 5/1 choice, predicted V2 falls from 16.8 to 16.0 mL at 10/1. The local reversal is an untested model inference despite the broader measured increase from 2/1 to 50/1.",
+          "hypothesis_id": "H2"
+        },
+        {
+          "candidate_id": "bbb514661c0a49694d6a",
+          "source": "LLM",
+          "pred_V1_ml": 9.780563354492188,
+          "pred_V2_ml": 28.734973907470703,
+          "true_V1_ml": 13.554166793823242,
+          "true_V2_ml": 33.31666564941406,
+          "error_V1_ml": -3.7736034393310547,
+          "error_V2_ml": -4.581691741943359,
+          "reason": "The 20/1 benzoylformate prediction is 9.8/28.7 mL. Same-molecule measurements at 5/1 and 10/1 show similar V2 values, so this probes whether that apparent plateau extends to a weaker eluent.",
+          "hypothesis_id": "H3"
+        },
+        {
+          "candidate_id": "7b42519983cf93dd7efd",
+          "source": "LLM",
+          "pred_V1_ml": 11.088637351989746,
+          "pred_V2_ml": 29.02676010131836,
+          "true_V1_ml": 19.758333206176758,
+          "true_V2_ml": 61.95000076293945,
+          "error_V1_ml": -8.669695854187012,
+          "error_V2_ml": -32.923240661621094,
+          "reason": "At 50/1, predicted V1/V2 remain near 11.1/29.0 mL. Paired with 20/1, this tests the model's high-ratio plateau for both endpoints; the measured support currently reaches only 10/1.",
+          "hypothesis_id": "H3"
+        },
+        {
+          "candidate_id": "693a65467095367c8e95",
+          "source": "LLM",
+          "pred_V1_ml": 13.597217559814453,
+          "pred_V2_ml": 25.730497360229492,
+          "true_V1_ml": 13.491666793823242,
+          "true_V2_ml": 26.04166603088379,
+          "error_V1_ml": 0.10555076599121094,
+          "error_V2_ml": -0.3111686706542969,
+          "reason": "The 10/1 anthranilate prediction is 13.6/25.7 mL versus measured values near 9/17 mL at 5/1. It tests the first step of a predicted rise in this hydrogen-bonding molecule; evidence for the rise is weak.",
+          "hypothesis_id": "H4"
+        },
+        {
+          "candidate_id": "74541dbf8571f881c454",
+          "source": "LLM",
+          "pred_V1_ml": 21.1951961517334,
+          "pred_V2_ml": 43.025962829589844,
+          "true_V1_ml": 19.866666793823242,
+          "true_V2_ml": 38.22916793823242,
+          "error_V1_ml": 1.3285293579101562,
+          "error_V2_ml": 4.796794891357422,
+          "reason": "At the same 100 \u00b5L loading, the 20/1 prediction rises to 21.2/43.0 mL. This checks whether the model's large solvent-ratio response is real before the pending 50/1 result is revealed.",
+          "hypothesis_id": "H4"
+        },
+        {
+          "candidate_id": "5ae7472a4d9ce3fe20d0",
+          "source": "LLM",
+          "pred_V1_ml": 12.070016860961914,
+          "pred_V2_ml": 33.71859359741211,
+          "true_V1_ml": 5.116666793823242,
+          "true_V2_ml": 21.308332443237305,
+          "error_V1_ml": 6.953350067138672,
+          "error_V2_ml": 12.410261154174805,
+          "reason": "For cyanobenzophenone, the only found measurement is 3.6/8.9 mL at 0/1. The 5/1 prediction of 12.1/33.7 mL bridges that observation and the pending 10/1\u201320/1 experiments, testing a possible extrapolation blind spot.",
+          "hypothesis_id": "H5"
+        },
+        {
+          "candidate_id": "63962b52800b6ead5398",
+          "source": "LLM",
+          "pred_V1_ml": 4.761842727661133,
+          "pred_V2_ml": 8.63293170928955,
+          "true_V1_ml": 3.9000000953674316,
+          "true_V2_ml": 11.699999809265137,
+          "error_V1_ml": 0.8618426322937012,
+          "error_V2_ml": -3.067068099975586,
+          "reason": "The 0/1 nitroacetophenone prediction of 4.8/8.6 mL provides a strong-eluent anchor for its pending 10/1 experiment. No same-molecule observed record was found, so the expected contrast is untested.",
+          "hypothesis_id": "H6"
+        },
+        {
+          "candidate_id": "ca467c94f14b2219503e",
+          "source": "LLM",
+          "pred_V1_ml": 25.680450439453125,
+          "pred_V2_ml": 47.80327606201172,
+          "true_V1_ml": 36.92499923706055,
+          "true_V2_ml": 94.20833587646484,
+          "error_V1_ml": -11.244548797607422,
+          "error_V2_ml": -46.405059814453125,
+          "reason": "At 10/1, this multifunctional ester is predicted at 25.7/47.8 mL, substantially later than its pending 5/1 prediction. The matched molecule and loading conditions isolate a potentially difficult solvent-ratio response; observed evidence is weak.",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "8e7636d7a60a6058305a",
+          "source": "LLM",
+          "pred_V1_ml": 27.84384536743164,
+          "pred_V2_ml": 54.999149322509766,
+          "true_V1_ml": 47.0,
+          "true_V2_ml": 119.36666870117188,
+          "error_V1_ml": -19.15615463256836,
+          "error_V2_ml": -64.36752319335938,
+          "reason": "The amino-substituted unsaturated ester has a high 20/1 prediction of 27.8/55.0 mL. Measuring it probes transfer to this polar structural motif at a PE-rich condition; the chemical rationale is a prior, not measured evidence.",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "48679ae48dd485ffb7a6",
+          "source": "LLM",
+          "pred_V1_ml": 11.591389656066895,
+          "pred_V2_ml": 16.508874893188477,
+          "true_V1_ml": 8.391666412353516,
+          "true_V2_ml": 13.541666984558105,
+          "error_V1_ml": 3.199723243713379,
+          "error_V2_ml": 2.967207908630371,
+          "reason": "Despite two ester groups and a 50/1 eluent, the prediction is relatively early at 11.6/16.5 mL. This tests whether the model handles the acetylenic diester's retention and V2\u2212V1 width; direct evidence is weak.",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "80f546c47198fa7c6dbf",
+          "source": "LLM",
+          "pred_V1_ml": 20.810733795166016,
+          "pred_V2_ml": 47.28541564941406,
+          "true_V1_ml": 30.59166717529297,
+          "true_V2_ml": 85.64167022705078,
+          "error_V1_ml": -9.780933380126953,
+          "error_V2_ml": -38.35625457763672,
+          "reason": "This phenol is predicted at 20.8/47.3 mL at 50/1. Its hydrogen-bond donor and fluorinated ether test a chemical regime where V2 and the elution width could be difficult to generalize; this is an untested chemical prior.",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "4da6e3b93f29af1efa94",
+          "source": "LLM",
+          "pred_V1_ml": 14.386954307556152,
+          "pred_V2_ml": 33.74809646606445,
+          "true_V1_ml": 6.925000190734863,
+          "true_V2_ml": 23.008333206176758,
+          "error_V1_ml": 7.461954116821289,
+          "error_V2_ml": 10.739763259887695,
+          "reason": "The ortho-nitrobenzaldehyde prediction is 14.4/33.7 mL at 5/1. It adds a positional and functional-group probe alongside pending para-nitro carbonyl compounds, though differing conditions make that comparison weak.",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "183af335033005f96b97",
+          "source": "LLM",
+          "pred_V1_ml": 12.065825462341309,
+          "pred_V2_ml": 26.370431900024414,
+          "true_V1_ml": 23.41666603088379,
+          "true_V2_ml": 39.43333435058594,
+          "error_V1_ml": -11.35084056854248,
+          "error_V2_ml": -13.062902450561523,
+          "reason": "The aminoacetophenone prediction is 12.1/26.4 mL with a 900 \u00b5L DCM loading-solvent volume. This probes transfer to an amine-containing molecule and a relatively large loading volume; there is no controlled contrast here, so the evidence is weak.",
+          "hypothesis_id": null
+        }
+      ],
+      "feedback_interpretation": ""
+    },
+    {
+      "round": 1,
+      "selected_choices": [
+        {
+          "id": "58b3518f48d8340d6ffc",
+          "reason": "Diethyl malonate measured only 4.6\u20135.9/6.3\u20137.9 mL at 10/1, 20/1 and 50/1, far earlier than its prior predictions. This 5/1 point tests whether the revised 7.6/12.6 mL prediction captures the low-ratio edge of that blind spot.",
+          "hypothesis_id": "H1"
+        },
+        {
+          "id": "a17bcdddcf0799baeee2",
+          "reason": "Cyanobenzophenone rose from measured 5.1/21.3 mL at 5/1 to 19.7/55.7 mL at 20/1. The 50/1 prediction is 37.7/90.5 mL; measuring it tests the high-ratio continuation after earlier 5/1 and 10/1 predictions were too late.",
+          "hypothesis_id": "H5"
+        },
+        {
+          "id": "0f06772820e6693753e3",
+          "reason": "This phenylpyridine is predicted at 36.3/70.0 mL at 50/1. Two acquired ring-nitrogen compounds eluted substantially later than predicted, so this tests whether that generalization problem extends to a different heteroaromatic scaffold.",
+          "hypothesis_id": "H7"
+        },
+        {
+          "id": "e47aebe2660b9e1528de",
+          "reason": "Quinoline measured 27.9/57.7 mL at 5/1 versus a prior prediction of 19.6/41.8 mL. The 10/1 prediction of 28.3/62.8 mL tests whether the model now captures its solvent-ratio response; the pending methylquinoline is a related but distinct molecule.",
+          "hypothesis_id": "H7"
+        },
+        {
+          "id": "74c8fcd8ac3f6caedcd2",
+          "reason": "Dimethylpyridine measured 43.5/118.6 mL at 20/1, far above its prior prediction. This 5/1 prediction of 26.4/63.7 mL starts a matched-condition pair to locate where the strong retention develops.",
+          "hypothesis_id": "H7"
+        },
+        {
+          "id": "6f548d72f01fc85debdc",
+          "reason": "At matched 150 \u00b5L loading, the 10/1 dimethylpyridine prediction is 34.5/92.2 mL. Together with 5/1 and the measured 20/1 point, it tests the shape of a large V2 and elution-width response.",
+          "hypothesis_id": "H7"
+        },
+        {
+          "id": "a2f83665cfe821271b30",
+          "reason": "The amino-substituted unsaturated ester measured 47.0/119.4 mL at 20/1, greatly exceeding its prior prediction. A 10/1 measurement probes the lower-ratio response, though its DCM loading conditions differ from the measured PE-loaded point.",
+          "hypothesis_id": "H8"
+        },
+        {
+          "id": "2dbfdf9c2d5defd09f7a",
+          "reason": "For this multifunctional ester, measured V2 rose from 43.9 mL at 5/1 to 94.2 mL at 10/1 and was underpredicted at both. The 2/1 prediction of 9.6/21.3 mL tests where the sharp change begins.",
+          "hypothesis_id": "H8"
+        },
+        {
+          "id": "b4e0e9dc92fca2c88b90",
+          "reason": "The 5/1 aminobenzonitrile prediction is 19.7/45.7 mL. An acquired aminoacetophenone was later than predicted, but the structures and conditions differ; this is a weak test of transfer to another amine-bearing aromatic molecule.",
+          "hypothesis_id": null
+        },
+        {
+          "id": "3fa513c053678904d89c",
+          "reason": "The phenolic aldehyde measured 22.9/57.5 mL at 50/1 and was predicted fairly closely. Its 0/1 prediction of 4.4/20.2 mL tests whether V2 remains broad under strong eluent, without assuming the errors seen for other phenols apply here.",
+          "hypothesis_id": "H9"
+        },
+        {
+          "id": "8e99350aac88fae9186b",
+          "reason": "A related bromohydroxybenzaldehyde was earlier than predicted at 20/1. This 0/1 candidate probes the strong-eluent endpoint, but bromine position and loading volume also differ, so the comparison is weak.",
+          "hypothesis_id": "H9"
+        },
+        {
+          "id": "0ae541927703401945de",
+          "reason": "The 2/1 trimethoxybenzene prediction is 12.7/25.8 mL. Paired with the pending 5/1 experiment on the same molecule, it tests whether the model transfers the solvent-ratio effect to a methoxy-rich aromatic; direct measured evidence is absent.",
+          "hypothesis_id": null
+        },
+        {
+          "id": "4c3dce39521dcb1793a1",
+          "reason": "This 20/1 o-tolunitrile prediction of 16.5/26.8 mL bridges to its pending 50/1 experiment. Cyanobenzophenone was overpredicted at 5/1 and 10/1, but that different scaffold provides only weak evidence for a nitrile-wide issue.",
+          "hypothesis_id": null
+        },
+        {
+          "id": "54f20e9bd23ee1c7b5db",
+          "reason": "The 1/1 cyclopropyl \u03b2-ketoester prediction is 4.1/8.4 mL. It supplies a strong-eluent anchor for the pending 20/1 experiment on the same molecule and tests whether the large predicted ratio contrast is real.",
+          "hypothesis_id": "H10"
+        },
+        {
+          "id": "8925249b7fbe141dbce6",
+          "reason": "This bromomethyl benzoate measured 5.4/11.5 mL at 1/1 and 7.0/16.5 mL at 5/1. The 50/1 prediction of 20.2/36.7 mL tests extrapolation of its observed rising response to a PE-rich condition.",
+          "hypothesis_id": "H11"
+        },
+        {
+          "id": "425fe9dfe0c3f345460b",
+          "reason": "The benzyl-substituted \u03b2-ketoester is predicted at 23.8/42.1 mL at 20/1. Measurements on a simpler \u03b2-ketoester cover only 2/1 and 5/1, so this weak chemical-transfer probe tests the effect of substitution at high PE.",
+          "hypothesis_id": "H10"
+        }
+      ],
+      "hypotheses": [
+        {
+          "id": "H1",
+          "content": "The earlier prediction that diethyl malonate becomes much later from 10/1 to 20/1 is contradicted: measured V1/V2 are 5.9/7.5 mL at 10/1, 4.6/6.3 mL at 20/1 and 5.8/7.9 mL at 50/1. These are far earlier than premeasurement predictions; behavior of phenyl-substituted malonate does not transfer directly.",
+          "supporting_observed_ids": [
+            "9603a9567c8b21458d1e",
+            "2635b25bb3c1c37f3b74"
+          ],
+          "contradicting_observed_ids": [
+            "ab66de7edad40236ffd5",
+            "d7b0845793265cab0c33",
+            "f7d57d8bb988f7016502"
+          ],
+          "evidence_strength": "strong",
+          "next_discriminating_question": "Does the 5/1 measurement also remain early, or is there a change below 10/1?"
+        },
+        {
+          "id": "H2",
+          "content": "The proposed local fluorobenzoate V2 reversal was observed at matched 100 \u00b5L loading: V2 is 12.71 mL at 5/1 and 12.31 mL at 10/1. The 0.40 mL difference is small, so the shape should not be generalized confidently; V1 increased over the same contrast.",
+          "supporting_observed_ids": [
+            "33123966b214578291a5",
+            "09f7ce5c473ea7ea5d94"
+          ],
+          "contradicting_observed_ids": [],
+          "evidence_strength": "weak",
+          "next_discriminating_question": "Does the small V2 reversal persist across another loading amount or replicate?"
+        },
+        {
+          "id": "H3",
+          "content": "The earlier high-ratio plateau hypothesis for methyl benzoylformate is contradicted. V2 measured 33.3 mL at 20/1 and 62.0 mL at 50/1, while premeasurement predictions stayed near 29 mL; the high-ratio elution width was substantially underpredicted.",
+          "supporting_observed_ids": [
+            "6c1c34b12c66ebcf39a4",
+            "ad0ace61c29817c678c2"
+          ],
+          "contradicting_observed_ids": [
+            "bbb514661c0a49694d6a",
+            "7b42519983cf93dd7efd"
+          ],
+          "evidence_strength": "strong",
+          "next_discriminating_question": "Where between 20/1 and 50/1 does the large rise in V2 occur?"
+        },
+        {
+          "id": "H4",
+          "content": "The earlier anthranilate solvent-ratio-rise hypothesis is supported: measured V1/V2 progress from about 9/17 mL at 5/1 to 13.5/26.0 at 10/1, 19.9/38.2 at 20/1 and 34.0/75.2 at 50/1. The 10/1 prediction was close, while the 50/1 prediction underestimated both endpoints.",
+          "supporting_observed_ids": [
+            "3aed7873d2fd1cf48684",
+            "18186b5d6cc190fc07a3",
+            "693a65467095367c8e95",
+            "74541dbf8571f881c454",
+            "547923973b121019625f"
+          ],
+          "contradicting_observed_ids": [],
+          "evidence_strength": "strong",
+          "next_discriminating_question": "Does a related anthranilate show the same additional high-ratio rise?"
+        },
+        {
+          "id": "H5",
+          "content": "Cyanobenzophenone shows a measured rise from 3.6/8.9 mL at 0/1 to 19.7/55.7 mL at 20/1, supporting a solvent-strength effect. Its premeasurement predictions were too late at 5/1 and 10/1, so the model misplaced part of the response curve; the 50/1 outcome remains unknown.",
+          "supporting_observed_ids": [
+            "6c27c0ab37bb8d812822",
+            "5ae7472a4d9ce3fe20d0",
+            "79ff49052bce33597828",
+            "59b54ad3a60a52cc2b2c"
+          ],
+          "contradicting_observed_ids": [],
+          "evidence_strength": "moderate",
+          "next_discriminating_question": "Does measured V1/V2 at 50/1 approach the current 37.7/90.5 mL prediction?"
+        },
+        {
+          "id": "H6",
+          "content": "Nitroacetophenone directly supports a large solvent-ratio response: measured V1/V2 change from 3.9/11.7 mL at 0/1 to 25.6/55.1 mL at 10/1. The 10/1 premeasurement V2 prediction of 66.8 mL was too late, so the magnitude remains a model issue.",
+          "supporting_observed_ids": [
+            "63962b52800b6ead5398",
+            "38e6b8bf0f089fcadd80"
+          ],
+          "contradicting_observed_ids": [],
+          "evidence_strength": "strong",
+          "next_discriminating_question": "At an intermediate ratio, does V2 rise smoothly or sharply?"
+        },
+        {
+          "id": "H7",
+          "content": "Some aromatic ring-nitrogen compounds were later and wider than predicted: quinoline measured 27.9/57.7 mL at 5/1 and dimethylpyridine 43.5/118.6 mL at 20/1. This is not universal across nitrogen-containing molecules: ethyl nicotinate V2 was overpredicted at 2/1. Structural context and solvent ratio may matter.",
+          "supporting_observed_ids": [
+            "33ffc69a253a89f15995",
+            "51f4126a3aadb3239225"
+          ],
+          "contradicting_observed_ids": [
+            "6a4e95d2a3cca31094a1"
+          ],
+          "evidence_strength": "moderate",
+          "next_discriminating_question": "Do matched ratio series on quinoline and dimethylpyridine preserve the underpredicted late elution, and does phenylpyridine behave similarly?"
+        },
+        {
+          "id": "H8",
+          "content": "At PE-rich conditions, V2 was substantially underpredicted for the measured multifunctional ester at 5/1 and 10/1 and for the amino-substituted unsaturated ester at 20/1. A shared mechanism is unproven; the observations justify probing lower ratios on each molecule.",
+          "supporting_observed_ids": [
+            "5d530b2f228ed39ff952",
+            "ca467c94f14b2219503e",
+            "8e7636d7a60a6058305a"
+          ],
+          "contradicting_observed_ids": [],
+          "evidence_strength": "moderate",
+          "next_discriminating_question": "At 2/1 for the multifunctional ester and 10/1 for the amino ester, where does measured V2 begin to diverge from predictions?"
+        },
+        {
+          "id": "H9",
+          "content": "Two PE-rich phenols had large V2 underpredictions: trifluoromethoxyphenol measured 85.6 versus predicted 47.3 mL, and iodophenol measured 97.9 versus predicted 48.5 mL. The phenolic aldehyde at 50/1 was predicted closely, so this is a subset-specific observation rather than a general phenol rule.",
+          "supporting_observed_ids": [
+            "80f546c47198fa7c6dbf",
+            "95d1d257dfea69f178f8"
+          ],
+          "contradicting_observed_ids": [
+            "fe1a34b5975943e8f292"
+          ],
+          "evidence_strength": "moderate",
+          "next_discriminating_question": "How do phenolic aldehydes behave under strong eluent, and do their widths remain large?"
+        },
+        {
+          "id": "H10",
+          "content": "\u03b2-Ketoester structure and solvent ratio may jointly affect elution. The simple ethyl acetoacetate measurements give 9.0/20.2 mL at 2/1 and 11.4/25.3 mL at 5/1, but they cannot establish the response of cyclopropyl or benzyl-substituted variants at the selected conditions.",
+          "supporting_observed_ids": [
+            "6b38c8782f95c673c809",
+            "3ad8ec5752f3c638e2ff"
+          ],
+          "contradicting_observed_ids": [],
+          "evidence_strength": "weak",
+          "next_discriminating_question": "How do the cyclopropyl compound's 1/1 and pending 20/1 outcomes compare, and is the benzyl-substituted 20/1 result distinct?"
+        },
+        {
+          "id": "H11",
+          "content": "Bromomethyl benzoate V1/V2 increase from measured 5.4/11.5 mL at 1/1 to 7.0/16.5 mL at 5/1. Extrapolation to 50/1 is an untested model inference; the two observed points establish only the low-ratio direction.",
+          "supporting_observed_ids": [
+            "902f3082ba7241022d82",
+            "01472a37121478cb82be"
+          ],
+          "contradicting_observed_ids": [],
+          "evidence_strength": "weak",
+          "next_discriminating_question": "At 50/1, does measured V1/V2 approach the predicted 20.2/36.7 mL?"
+        }
+      ],
+      "measured_feedback": [
+        {
+          "candidate_id": "9f3b75bc3a2c4004a893",
+          "source": "CW",
+          "pred_V1_ml": 28.695043563842773,
+          "pred_V2_ml": 48.726051330566406,
+          "true_V1_ml": 5.083333492279053,
+          "true_V2_ml": 29.34166717529297,
+          "error_V1_ml": 23.611709594726562,
+          "error_V2_ml": 19.384384155273438,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "23ef03f3e75e40b20095",
+          "source": "CW",
+          "pred_V1_ml": 24.152799606323242,
+          "pred_V2_ml": 55.07872772216797,
+          "true_V1_ml": 51.34166717529297,
+          "true_V2_ml": 108.45833587646484,
+          "error_V1_ml": -27.188867568969727,
+          "error_V2_ml": -53.379608154296875,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "b51a88b6dc4049704214",
+          "source": "CW",
+          "pred_V1_ml": 37.129852294921875,
+          "pred_V2_ml": 79.11239624023438,
+          "true_V1_ml": 7.083333492279053,
+          "true_V2_ml": 19.116666793823242,
+          "error_V1_ml": 30.046518325805664,
+          "error_V2_ml": 59.9957275390625,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "ab887fd709fc1dc0d59b",
+          "source": "CW",
+          "pred_V1_ml": 19.267105102539062,
+          "pred_V2_ml": 29.794279098510742,
+          "true_V1_ml": 8.425000190734863,
+          "true_V2_ml": 12.800000190734863,
+          "error_V1_ml": 10.8421049118042,
+          "error_V2_ml": 16.994277954101562,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "8b9a55e63dd5e733dcb0",
+          "source": "CW",
+          "pred_V1_ml": 14.64083480834961,
+          "pred_V2_ml": 19.72323989868164,
+          "true_V1_ml": 6.791666507720947,
+          "true_V2_ml": 13.441666603088379,
+          "error_V1_ml": 7.849168300628662,
+          "error_V2_ml": 6.281573295593262,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "7394fdb0a8cd53255d4a",
+          "source": "CW",
+          "pred_V1_ml": 23.178810119628906,
+          "pred_V2_ml": 46.88999557495117,
+          "true_V1_ml": 11.383333206176758,
+          "true_V2_ml": 24.22916603088379,
+          "error_V1_ml": 11.795476913452148,
+          "error_V2_ml": 22.660829544067383,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "2d63ab3869184cde52bf",
+          "source": "CW",
+          "pred_V1_ml": 17.569679260253906,
+          "pred_V2_ml": 43.58982849121094,
+          "true_V1_ml": 40.141666412353516,
+          "true_V2_ml": 75.3499984741211,
+          "error_V1_ml": -22.57198715209961,
+          "error_V2_ml": -31.760169982910156,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "d035281432e410405550",
+          "source": "CW",
+          "pred_V1_ml": 12.210240364074707,
+          "pred_V2_ml": 31.401113510131836,
+          "true_V1_ml": 18.524999618530273,
+          "true_V2_ml": 37.03333282470703,
+          "error_V1_ml": -6.314759254455566,
+          "error_V2_ml": -5.632219314575195,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "f4fb5c03b8e8996e75f6",
+          "source": "CW",
+          "pred_V1_ml": 11.213828086853027,
+          "pred_V2_ml": 26.0705509185791,
+          "true_V1_ml": 12.491666793823242,
+          "true_V2_ml": 36.141666412353516,
+          "error_V1_ml": -1.2778387069702148,
+          "error_V2_ml": -10.071115493774414,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "ffc70e28db22d1cc1f3f",
+          "source": "CW",
+          "pred_V1_ml": 26.311710357666016,
+          "pred_V2_ml": 45.323699951171875,
+          "true_V1_ml": 44.45000076293945,
+          "true_V2_ml": 81.19999694824219,
+          "error_V1_ml": -18.138290405273438,
+          "error_V2_ml": -35.87629699707031,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "de3442604a546992b1e1",
+          "source": "CW",
+          "pred_V1_ml": 16.530675888061523,
+          "pred_V2_ml": 29.878694534301758,
+          "true_V1_ml": 5.0,
+          "true_V2_ml": 11.008333206176758,
+          "error_V1_ml": 11.530675888061523,
+          "error_V2_ml": 18.870361328125,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "0e1567be6a6ec6d0298e",
+          "source": "CW",
+          "pred_V1_ml": 13.388072967529297,
+          "pred_V2_ml": 19.454524993896484,
+          "true_V1_ml": 7.558333396911621,
+          "true_V2_ml": 10.908333778381348,
+          "error_V1_ml": 5.829739570617676,
+          "error_V2_ml": 8.546191215515137,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "5f02dc3c13f7f2daed32",
+          "source": "CW",
+          "pred_V1_ml": 13.501607894897461,
+          "pred_V2_ml": 38.24728012084961,
+          "true_V1_ml": 10.566666603088379,
+          "true_V2_ml": 26.83333396911621,
+          "error_V1_ml": 2.934941291809082,
+          "error_V2_ml": 11.413946151733398,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "1c312750e15ff66c6243",
+          "source": "CW",
+          "pred_V1_ml": 27.0387020111084,
+          "pred_V2_ml": 46.1049690246582,
+          "true_V1_ml": 12.425000190734863,
+          "true_V2_ml": 24.325000762939453,
+          "error_V1_ml": 14.613701820373535,
+          "error_V2_ml": 21.77996826171875,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "195a292d7c8874415285",
+          "source": "CW",
+          "pred_V1_ml": 11.132716178894043,
+          "pred_V2_ml": 25.91941261291504,
+          "true_V1_ml": 11.175000190734863,
+          "true_V2_ml": 25.258333206176758,
+          "error_V1_ml": -0.04228401184082031,
+          "error_V2_ml": 0.6610794067382812,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "20a5a5008211ea15a65a",
+          "source": "CW",
+          "pred_V1_ml": 25.316614151000977,
+          "pred_V2_ml": 44.83292007446289,
+          "true_V1_ml": 30.625,
+          "true_V2_ml": 48.766666412353516,
+          "error_V1_ml": -5.308385848999023,
+          "error_V2_ml": -3.933746337890625,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "58b3518f48d8340d6ffc",
+          "source": "LLM",
+          "pred_V1_ml": 7.560218811035156,
+          "pred_V2_ml": 12.563925743103027,
+          "true_V1_ml": 4.141666889190674,
+          "true_V2_ml": 5.8416666984558105,
+          "error_V1_ml": 3.4185519218444824,
+          "error_V2_ml": 6.722259044647217,
+          "reason": "Diethyl malonate measured only 4.6\u20135.9/6.3\u20137.9 mL at 10/1, 20/1 and 50/1, far earlier than its prior predictions. This 5/1 point tests whether the revised 7.6/12.6 mL prediction captures the low-ratio edge of that blind spot.",
+          "hypothesis_id": "H1"
+        },
+        {
+          "candidate_id": "a17bcdddcf0799baeee2",
+          "source": "LLM",
+          "pred_V1_ml": 37.720069885253906,
+          "pred_V2_ml": 90.49839782714844,
+          "true_V1_ml": 57.875,
+          "true_V2_ml": 117.92500305175781,
+          "error_V1_ml": -20.154930114746094,
+          "error_V2_ml": -27.426605224609375,
+          "reason": "Cyanobenzophenone rose from measured 5.1/21.3 mL at 5/1 to 19.7/55.7 mL at 20/1. The 50/1 prediction is 37.7/90.5 mL; measuring it tests the high-ratio continuation after earlier 5/1 and 10/1 predictions were too late.",
+          "hypothesis_id": "H5"
+        },
+        {
+          "candidate_id": "0f06772820e6693753e3",
+          "source": "LLM",
+          "pred_V1_ml": 36.341915130615234,
+          "pred_V2_ml": 70.00029754638672,
+          "true_V1_ml": 46.44166564941406,
+          "true_V2_ml": 103.28333282470703,
+          "error_V1_ml": -10.099750518798828,
+          "error_V2_ml": -33.28303527832031,
+          "reason": "This phenylpyridine is predicted at 36.3/70.0 mL at 50/1. Two acquired ring-nitrogen compounds eluted substantially later than predicted, so this tests whether that generalization problem extends to a different heteroaromatic scaffold.",
+          "hypothesis_id": "H7"
+        },
+        {
+          "candidate_id": "e47aebe2660b9e1528de",
+          "source": "LLM",
+          "pred_V1_ml": 28.28965187072754,
+          "pred_V2_ml": 62.756202697753906,
+          "true_V1_ml": 53.41666793823242,
+          "true_V2_ml": 92.93333435058594,
+          "error_V1_ml": -25.127016067504883,
+          "error_V2_ml": -30.17713165283203,
+          "reason": "Quinoline measured 27.9/57.7 mL at 5/1 versus a prior prediction of 19.6/41.8 mL. The 10/1 prediction of 28.3/62.8 mL tests whether the model now captures its solvent-ratio response; the pending methylquinoline is a related but distinct molecule.",
+          "hypothesis_id": "H7"
+        },
+        {
+          "candidate_id": "74c8fcd8ac3f6caedcd2",
+          "source": "LLM",
+          "pred_V1_ml": 26.421968460083008,
+          "pred_V2_ml": 63.65473937988281,
+          "true_V1_ml": 18.625,
+          "true_V2_ml": 46.5,
+          "error_V1_ml": 7.796968460083008,
+          "error_V2_ml": 17.154739379882812,
+          "reason": "Dimethylpyridine measured 43.5/118.6 mL at 20/1, far above its prior prediction. This 5/1 prediction of 26.4/63.7 mL starts a matched-condition pair to locate where the strong retention develops.",
+          "hypothesis_id": "H7"
+        },
+        {
+          "candidate_id": "6f548d72f01fc85debdc",
+          "source": "LLM",
+          "pred_V1_ml": 34.46820068359375,
+          "pred_V2_ml": 92.21033477783203,
+          "true_V1_ml": 25.633333206176758,
+          "true_V2_ml": 71.8499984741211,
+          "error_V1_ml": 8.834867477416992,
+          "error_V2_ml": 20.360336303710938,
+          "reason": "At matched 150 \u00b5L loading, the 10/1 dimethylpyridine prediction is 34.5/92.2 mL. Together with 5/1 and the measured 20/1 point, it tests the shape of a large V2 and elution-width response.",
+          "hypothesis_id": "H7"
+        },
+        {
+          "candidate_id": "a2f83665cfe821271b30",
+          "source": "LLM",
+          "pred_V1_ml": 30.97415542602539,
+          "pred_V2_ml": 75.41023254394531,
+          "true_V1_ml": 23.054166793823242,
+          "true_V2_ml": 60.454166412353516,
+          "error_V1_ml": 7.919988632202148,
+          "error_V2_ml": 14.956066131591797,
+          "reason": "The amino-substituted unsaturated ester measured 47.0/119.4 mL at 20/1, greatly exceeding its prior prediction. A 10/1 measurement probes the lower-ratio response, though its DCM loading conditions differ from the measured PE-loaded point.",
+          "hypothesis_id": "H8"
+        },
+        {
+          "candidate_id": "2dbfdf9c2d5defd09f7a",
+          "source": "LLM",
+          "pred_V1_ml": 9.647712707519531,
+          "pred_V2_ml": 21.270418167114258,
+          "true_V1_ml": 9.041666984558105,
+          "true_V2_ml": 18.16666603088379,
+          "error_V1_ml": 0.6060457229614258,
+          "error_V2_ml": 3.1037521362304688,
+          "reason": "For this multifunctional ester, measured V2 rose from 43.9 mL at 5/1 to 94.2 mL at 10/1 and was underpredicted at both. The 2/1 prediction of 9.6/21.3 mL tests where the sharp change begins.",
+          "hypothesis_id": "H8"
+        },
+        {
+          "candidate_id": "b4e0e9dc92fca2c88b90",
+          "source": "LLM",
+          "pred_V1_ml": 19.681184768676758,
+          "pred_V2_ml": 45.676578521728516,
+          "true_V1_ml": 40.58333206176758,
+          "true_V2_ml": 98.39167022705078,
+          "error_V1_ml": -20.90214729309082,
+          "error_V2_ml": -52.715091705322266,
+          "reason": "The 5/1 aminobenzonitrile prediction is 19.7/45.7 mL. An acquired aminoacetophenone was later than predicted, but the structures and conditions differ; this is a weak test of transfer to another amine-bearing aromatic molecule.",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "3fa513c053678904d89c",
+          "source": "LLM",
+          "pred_V1_ml": 4.428791522979736,
+          "pred_V2_ml": 20.224477767944336,
+          "true_V1_ml": 3.9833333492279053,
+          "true_V2_ml": 13.666666984558105,
+          "error_V1_ml": 0.44545817375183105,
+          "error_V2_ml": 6.5578107833862305,
+          "reason": "The phenolic aldehyde measured 22.9/57.5 mL at 50/1 and was predicted fairly closely. Its 0/1 prediction of 4.4/20.2 mL tests whether V2 remains broad under strong eluent, without assuming the errors seen for other phenols apply here.",
+          "hypothesis_id": "H9"
+        },
+        {
+          "candidate_id": "8e99350aac88fae9186b",
+          "source": "LLM",
+          "pred_V1_ml": 4.60966682434082,
+          "pred_V2_ml": 19.654970169067383,
+          "true_V1_ml": 4.300000190734863,
+          "true_V2_ml": 16.15833282470703,
+          "error_V1_ml": 0.30966663360595703,
+          "error_V2_ml": 3.4966373443603516,
+          "reason": "A related bromohydroxybenzaldehyde was earlier than predicted at 20/1. This 0/1 candidate probes the strong-eluent endpoint, but bromine position and loading volume also differ, so the comparison is weak.",
+          "hypothesis_id": "H9"
+        },
+        {
+          "candidate_id": "0ae541927703401945de",
+          "source": "LLM",
+          "pred_V1_ml": 12.6832914352417,
+          "pred_V2_ml": 25.790550231933594,
+          "true_V1_ml": 5.9666666984558105,
+          "true_V2_ml": 9.966666221618652,
+          "error_V1_ml": 6.716624736785889,
+          "error_V2_ml": 15.823884010314941,
+          "reason": "The 2/1 trimethoxybenzene prediction is 12.7/25.8 mL. Paired with the pending 5/1 experiment on the same molecule, it tests whether the model transfers the solvent-ratio effect to a methoxy-rich aromatic; direct measured evidence is absent.",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "4c3dce39521dcb1793a1",
+          "source": "LLM",
+          "pred_V1_ml": 16.530445098876953,
+          "pred_V2_ml": 26.796302795410156,
+          "true_V1_ml": 9.991666793823242,
+          "true_V2_ml": 16.774999618530273,
+          "error_V1_ml": 6.538778305053711,
+          "error_V2_ml": 10.021303176879883,
+          "reason": "This 20/1 o-tolunitrile prediction of 16.5/26.8 mL bridges to its pending 50/1 experiment. Cyanobenzophenone was overpredicted at 5/1 and 10/1, but that different scaffold provides only weak evidence for a nitrile-wide issue.",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "54f20e9bd23ee1c7b5db",
+          "source": "LLM",
+          "pred_V1_ml": 4.115811824798584,
+          "pred_V2_ml": 8.410089492797852,
+          "true_V1_ml": 6.258333206176758,
+          "true_V2_ml": 11.858333587646484,
+          "error_V1_ml": -2.142521381378174,
+          "error_V2_ml": -3.448244094848633,
+          "reason": "The 1/1 cyclopropyl \u03b2-ketoester prediction is 4.1/8.4 mL. It supplies a strong-eluent anchor for the pending 20/1 experiment on the same molecule and tests whether the large predicted ratio contrast is real.",
+          "hypothesis_id": "H10"
+        },
+        {
+          "candidate_id": "8925249b7fbe141dbce6",
+          "source": "LLM",
+          "pred_V1_ml": 20.20562171936035,
+          "pred_V2_ml": 36.694801330566406,
+          "true_V1_ml": 22.299999237060547,
+          "true_V2_ml": 43.47083282470703,
+          "error_V1_ml": -2.0943775177001953,
+          "error_V2_ml": -6.776031494140625,
+          "reason": "This bromomethyl benzoate measured 5.4/11.5 mL at 1/1 and 7.0/16.5 mL at 5/1. The 50/1 prediction of 20.2/36.7 mL tests extrapolation of its observed rising response to a PE-rich condition.",
+          "hypothesis_id": "H11"
+        },
+        {
+          "candidate_id": "425fe9dfe0c3f345460b",
+          "source": "LLM",
+          "pred_V1_ml": 23.832983016967773,
+          "pred_V2_ml": 42.129276275634766,
+          "true_V1_ml": 24.108333587646484,
+          "true_V2_ml": 41.724998474121094,
+          "error_V1_ml": -0.27535057067871094,
+          "error_V2_ml": 0.4042778015136719,
+          "reason": "The benzyl-substituted \u03b2-ketoester is predicted at 23.8/42.1 mL at 20/1. Measurements on a simpler \u03b2-ketoester cover only 2/1 and 5/1, so this weak chemical-transfer probe tests the effect of substitution at high PE.",
+          "hypothesis_id": "H10"
+        }
+      ],
+      "feedback_interpretation": "The revealed batch redirected this search toward specific failures: diethyl malonate stayed early despite very late predictions; methyl benzoylformate, multifunctional esters, selected phenols and ring-nitrogen compounds showed large V2 errors; cyanobenzophenone's predicted ratio curve was too late at 5/1 and 10/1. I chose lower-ratio anchors, matched-condition bridges and one higher-ratio extrapolation for those patterns. Anthranilate's 10/1 and 20/1 results were comparatively well predicted, so I did not spend another choice on it."
+    },
+    {
+      "round": 2,
+      "selected_choices": [
+        {
+          "id": "2feb7d8e0a3566ddf97f",
+          "reason": "Aminobenzonitrile measured 40.6/98.4 mL at 5/1, far above its prior prediction. The 2/1 prediction is 17.8/39.0 mL; this locates where the steep response begins under matched loading conditions.",
+          "hypothesis_id": "H13"
+        },
+        {
+          "id": "fd5fa962575144327bf4",
+          "reason": "The 0/1 aminobenzonitrile prediction is 4.4/12.0 mL. Together with the 2/1 choice and measured 5/1 result, it tests whether the large prior error persists under strong eluent.",
+          "hypothesis_id": "H13"
+        },
+        {
+          "id": "810b065b0b86ff8c9aae",
+          "reason": "Phenylpyridine measured 46.4/103.3 mL at 50/1, substantially later than predicted. This 10/1 point uses the same 150 \u00b5L loading and tests the lower-ratio part of that possible model blind spot.",
+          "hypothesis_id": "H7"
+        },
+        {
+          "id": "434e465cfa7e0034f233",
+          "reason": "The 20/1 phenylpyridine prediction is 25.5/47.0 mL. It adds an intermediate ratio before the measured 50/1 endpoint; loading differs, so the ratio comparison has that limitation.",
+          "hypothesis_id": "H7"
+        },
+        {
+          "id": "04a2e8ad27ca641a3a12",
+          "reason": "Methylquinoline measured 51.3/108.5 mL at 10/1 versus a prior prediction of 24.2/55.1 mL. The 5/1 prediction of 34.4/66.6 mL tests whether the error extends to a stronger eluent.",
+          "hypothesis_id": "H7"
+        },
+        {
+          "id": "a38fee52661fd3e3b7ea",
+          "reason": "The oxime measured V2 of 119.2 mL at 50/1, 36.3 mL above its prior prediction. Measuring the 20/1 prediction of 35.5/85.8 mL tests where its large elution interval develops.",
+          "hypothesis_id": "H15"
+        },
+        {
+          "id": "8a00e449393f9942971d",
+          "reason": "Methoxybenzophenone was later than predicted at both 20/1 and 50/1, unlike several methoxy aromatics that were earlier than predicted. Its 5/1 result tests where this molecule's error changes with eluent strength.",
+          "hypothesis_id": "H12"
+        },
+        {
+          "id": "ce39d1762993bbbafaca",
+          "reason": "Trimethoxybenzene was earlier than predicted at 2/1 and 5/1. The 50/1 prediction is 13.3/22.4 mL; measuring it tests whether this error persists into a PE-rich regime.",
+          "hypothesis_id": "H12"
+        },
+        {
+          "id": "a1809a6c4c3ada20bcb0",
+          "reason": "Cyclopropyl \u03b2-ketoester measured 6.3/11.9 mL at 1/1 and 44.5/81.2 mL at 20/1, the latter far above its prior prediction. This 5/1 point helps locate the rise alongside the pending 10/1 result.",
+          "hypothesis_id": "H10"
+        },
+        {
+          "id": "327064e6ca2c38d79d76",
+          "reason": "The tert-butyl \u03b2-ketoester measured only 11.4/24.2 mL at 10/1 versus 23.2/46.9 mL predicted. Its 20/1 prediction of 23.1/48.0 mL tests whether that opposite-signed error persists at higher PE.",
+          "hypothesis_id": "H10"
+        },
+        {
+          "id": "471287eecf7b94603e9e",
+          "reason": "Iodobenzoate measured an unusually early V1 of 5.1 mL but V2 of 29.3 mL at 50/1 and 150 \u00b5L. This 50 \u00b5L experiment tests loading dependence of that wide interval; the current prediction is 12.1/27.0 mL.",
+          "hypothesis_id": "H14"
+        },
+        {
+          "id": "857ae40d0fdf1c7e387e",
+          "reason": "Ortho-nitrobenzaldehyde measured 6.9/23.0 mL at 5/1. The 20/1 prediction of 16.6/41.1 mL tests its solvent-ratio rise; a para isomer at 20/1 eluted much later, but different loading conditions limit that comparison.",
+          "hypothesis_id": null
+        },
+        {
+          "id": "129036e0bccc4ff7e848",
+          "reason": "The brominated carboxylic acid has a 50/1 prediction of 29.9/67.7 mL. It probes a strongly interacting acid motif at high PE; no direct measured support is supplied, so this is an exploratory chemical-prior choice.",
+          "hypothesis_id": null
+        },
+        {
+          "id": "b0f83f107759037eea65",
+          "reason": "Naphthylmethanol is predicted at 4.9/24.8 mL under 0/1 eluent. Its predicted elution width is large; comparison with pending benzyl alcohol measurements can test transfer across aromatic size, though the molecules differ.",
+          "hypothesis_id": null
+        },
+        {
+          "id": "61764a2e9f71f1caa18e",
+          "reason": "Nitrobenzophenone at 1/1 and a 1000 \u00b5L loading-solvent volume is predicted at 7.9/20.7 mL. This tests a polar diaryl ketone under a large loading volume; direct same-molecule evidence is absent.",
+          "hypothesis_id": null
+        },
+        {
+          "id": "3e41bb94c582476b5b6a",
+          "reason": "The oxime's 2/1 prediction is 9.1/19.3 mL. Paired with 20/1 and the measured 50/1 result, it distinguishes a gradual rise from a high-PE increase in V2 and elution width.",
+          "hypothesis_id": "H15"
+        }
+      ],
+      "hypotheses": [
+        {
+          "id": "H1",
+          "content": "The earlier steep-retention prediction for diethyl malonate is contradicted across measured 5/1, 10/1, 20/1 and 50/1 conditions: all V1 values are 4.1\u20135.9 mL and V2 values are 5.8\u20137.9 mL. Its phenyl-substituted analogue is much later under PE-rich eluent, so that analogue did not transfer.",
+          "supporting_observed_ids": [
+            "9603a9567c8b21458d1e",
+            "2635b25bb3c1c37f3b74"
+          ],
+          "contradicting_observed_ids": [
+            "58b3518f48d8340d6ffc",
+            "ab66de7edad40236ffd5",
+            "d7b0845793265cab0c33",
+            "f7d57d8bb988f7016502"
+          ],
+          "evidence_strength": "strong",
+          "next_discriminating_question": "What structural feature separates the early unsubstituted malonate from the retained phenyl-substituted analogue?"
+        },
+        {
+          "id": "H2",
+          "content": "The small fluorobenzoate V2 reversal from 5/1 to 10/1 remains observed: 12.71 versus 12.31 mL at matched loading. Its 0.40 mL size leaves the broader curve shape uncertain.",
+          "supporting_observed_ids": [
+            "33123966b214578291a5",
+            "09f7ce5c473ea7ea5d94"
+          ],
+          "contradicting_observed_ids": [],
+          "evidence_strength": "weak",
+          "next_discriminating_question": "Would another loading amount reproduce this small local V2 difference?"
+        },
+        {
+          "id": "H3",
+          "content": "The earlier methyl benzoylformate high-ratio plateau hypothesis remains contradicted: measured V2 rises from 33.3 mL at 20/1 to 62.0 mL at 50/1, while prior predictions stayed near 29 mL.",
+          "supporting_observed_ids": [
+            "6c1c34b12c66ebcf39a4",
+            "ad0ace61c29817c678c2"
+          ],
+          "contradicting_observed_ids": [
+            "bbb514661c0a49694d6a",
+            "7b42519983cf93dd7efd"
+          ],
+          "evidence_strength": "strong",
+          "next_discriminating_question": "At which intermediate PE/EA ratio does its high-ratio V2 rise accelerate?"
+        },
+        {
+          "id": "H4",
+          "content": "Anthranilate's measured V1/V2 increase from about 9/17 mL at 5/1 to 34.0/75.2 mL at 50/1, supporting the earlier solvent-ratio hypothesis. The premeasurement model captured 10/1 closely but underpredicted 50/1.",
+          "supporting_observed_ids": [
+            "3aed7873d2fd1cf48684",
+            "693a65467095367c8e95",
+            "74541dbf8571f881c454",
+            "547923973b121019625f"
+          ],
+          "contradicting_observed_ids": [],
+          "evidence_strength": "strong",
+          "next_discriminating_question": "Does a related anthranilate exhibit the same high-ratio increase?"
+        },
+        {
+          "id": "H5",
+          "content": "Cyanobenzophenone rises sharply with PE-rich eluent: measured V1/V2 are 5.1/21.3 mL at 5/1, 7.7/31.6 at 10/1, 19.7/55.7 at 20/1 and 57.9/117.9 at 50/1. Prior predictions were too late at 5/1 and 10/1 yet too early at 50/1, showing a misplaced nonlinear response.",
+          "supporting_observed_ids": [
+            "5ae7472a4d9ce3fe20d0",
+            "79ff49052bce33597828",
+            "59b54ad3a60a52cc2b2c",
+            "a17bcdddcf0799baeee2"
+          ],
+          "contradicting_observed_ids": [],
+          "evidence_strength": "strong",
+          "next_discriminating_question": "Where between 20/1 and 50/1 does its measured V2 increase most sharply?"
+        },
+        {
+          "id": "H6",
+          "content": "Nitroacetophenone still directly supports a large ratio response: measured V1/V2 are 3.9/11.7 mL at 0/1 and 25.6/55.1 mL at 10/1. The prior 10/1 V2 prediction was too high.",
+          "supporting_observed_ids": [
+            "63962b52800b6ead5398",
+            "38e6b8bf0f089fcadd80"
+          ],
+          "contradicting_observed_ids": [],
+          "evidence_strength": "strong",
+          "next_discriminating_question": "Does an intermediate ratio show a smooth or abrupt increase?"
+        },
+        {
+          "id": "H7",
+          "content": "Ring-nitrogen effects are strongly structure and condition dependent. Phenylpyridine at 50/1, quinoline at 10/1 and methylquinoline at 10/1 were much later than predicted; dimethylpyridine at 5/1 and 10/1 was earlier than predicted. A blanket ring-nitrogen correction is unsupported.",
+          "supporting_observed_ids": [
+            "0f06772820e6693753e3",
+            "e47aebe2660b9e1528de",
+            "23ef03f3e75e40b20095"
+          ],
+          "contradicting_observed_ids": [
+            "74c8fcd8ac3f6caedcd2",
+            "6f548d72f01fc85debdc"
+          ],
+          "evidence_strength": "strong",
+          "next_discriminating_question": "At intermediate ratios, which ring-nitrogen scaffolds retain the late-elution underprediction?"
+        },
+        {
+          "id": "H8",
+          "content": "The multifunctional ester was predicted fairly closely at 2/1 but its V2 was underpredicted at 5/1 and 10/1. The amino-substituted unsaturated ester was overpredicted at 10/1 under DCM loading but underpredicted at 20/1 under PE loading; that contrast cannot be assigned to PE/EA ratio alone.",
+          "supporting_observed_ids": [
+            "2dbfdf9c2d5defd09f7a",
+            "5d530b2f228ed39ff952",
+            "ca467c94f14b2219503e",
+            "a2f83665cfe821271b30",
+            "8e7636d7a60a6058305a"
+          ],
+          "contradicting_observed_ids": [],
+          "evidence_strength": "moderate",
+          "next_discriminating_question": "Under matched loading solvent and volume, where does each molecule's V2 prediction error change size or sign?"
+        },
+        {
+          "id": "H9",
+          "content": "Large high-PE V2 underpredictions for two phenols remain a subset-specific observation. The phenolic aldehyde at 50/1 was predicted closely, while its measured 0/1 V2 was 13.7 mL versus 20.2 mL predicted; a related bromohydroxybenzaldehyde at 0/1 was also somewhat earlier than predicted.",
+          "supporting_observed_ids": [
+            "80f546c47198fa7c6dbf",
+            "95d1d257dfea69f178f8"
+          ],
+          "contradicting_observed_ids": [
+            "fe1a34b5975943e8f292",
+            "3fa513c053678904d89c",
+            "8e99350aac88fae9186b"
+          ],
+          "evidence_strength": "moderate",
+          "next_discriminating_question": "Which phenol substitutions and eluent ratios produce the large underpredicted V2 values?"
+        },
+        {
+          "id": "H10",
+          "content": "The \u03b2-ketoester results now show opposite error directions across substitutions: cyclopropyl \u03b2-ketoester was underpredicted at 20/1, tert-butyl acetoacetate was overpredicted at 10/1, and the benzyl-substituted \u03b2-ketoester at 20/1 was predicted closely. Structural transfer is therefore uncertain.",
+          "supporting_observed_ids": [
+            "54f20e9bd23ee1c7b5db",
+            "ffc70e28db22d1cc1f3f",
+            "7394fdb0a8cd53255d4a"
+          ],
+          "contradicting_observed_ids": [
+            "425fe9dfe0c3f345460b"
+          ],
+          "evidence_strength": "moderate",
+          "next_discriminating_question": "Do intermediate and higher ratios preserve the opposite error directions for cyclopropyl and tert-butyl variants?"
+        },
+        {
+          "id": "H11",
+          "content": "Bromomethyl benzoate V1/V2 rose from measured 5.4/11.5 mL at 1/1 and 7.0/16.5 at 5/1 to 22.3/43.5 at 50/1. The prior 50/1 prediction of 20.2/36.7 mL was moderately early, so the broad trend transferred better than in several other classes.",
+          "supporting_observed_ids": [
+            "902f3082ba7241022d82",
+            "01472a37121478cb82be",
+            "8925249b7fbe141dbce6"
+          ],
+          "contradicting_observed_ids": [],
+          "evidence_strength": "moderate",
+          "next_discriminating_question": "Does an intermediate-ratio measurement follow a smooth rise?"
+        },
+        {
+          "id": "H12",
+          "content": "Methoxy aromatic prediction errors differ with structure: trimethoxybenzene and dimethoxytoluene were earlier than predicted at 2/1\u20135/1, while methoxybenzophenone was later than predicted at 20/1 and 50/1. A carbonyl-associated difference is plausible but confounded by ratio and scaffold.",
+          "supporting_observed_ids": [
+            "0ae541927703401945de",
+            "ab887fd709fc1dc0d59b",
+            "8b9a55e63dd5e733dcb0",
+            "2d63ab3869184cde52bf",
+            "d035281432e410405550"
+          ],
+          "contradicting_observed_ids": [],
+          "evidence_strength": "moderate",
+          "next_discriminating_question": "At a matched 5/1 ratio, does methoxybenzophenone remain later than predicted while trimethoxybenzene remains earlier?"
+        },
+        {
+          "id": "H13",
+          "content": "The aminobenzonitrile at 5/1 was much later than predicted, whereas non-aminated methylbenzonitriles were earlier than predicted at 10/1\u201350/1. Amino substitution may change retention and interval width, but these observations also differ in ratios and substitution patterns.",
+          "supporting_observed_ids": [
+            "b4e0e9dc92fca2c88b90",
+            "de3442604a546992b1e1",
+            "b51a88b6dc4049704214",
+            "4c3dce39521dcb1793a1"
+          ],
+          "contradicting_observed_ids": [],
+          "evidence_strength": "moderate",
+          "next_discriminating_question": "How early or late is aminobenzonitrile at matched 0/1 and 2/1 settings?"
+        },
+        {
+          "id": "H14",
+          "content": "Iodobenzoate at 50/1 and 150 \u00b5L had an unusually early V1 of 5.1 mL and a later V2 of 29.3 mL, both much earlier than its prior predictions. Whether sample loading amount affects this broad interval is untested.",
+          "supporting_observed_ids": [
+            "9f3b75bc3a2c4004a893"
+          ],
+          "contradicting_observed_ids": [],
+          "evidence_strength": "weak",
+          "next_discriminating_question": "Does the 50 \u00b5L measurement preserve the early V1 and broad V2\u2212V1 interval?"
+        },
+        {
+          "id": "H15",
+          "content": "The oxime at 50/1 measured 43.1/119.2 mL, with V2 substantially later than its prior 82.9 mL prediction. Lower-ratio response is unmeasured, so the onset of its broad interval is unknown.",
+          "supporting_observed_ids": [
+            "9ffee2813aef5c26f96f"
+          ],
+          "contradicting_observed_ids": [],
+          "evidence_strength": "weak",
+          "next_discriminating_question": "At 2/1 and 20/1, how quickly does measured V2 and the V2\u2212V1 interval increase?"
+        }
+      ],
+      "measured_feedback": [
+        {
+          "candidate_id": "44c8b389a6faf44f1f4c",
+          "source": "CW",
+          "pred_V1_ml": 34.90781021118164,
+          "pred_V2_ml": 60.58086395263672,
+          "true_V1_ml": 43.858333587646484,
+          "true_V2_ml": 64.36666870117188,
+          "error_V1_ml": -8.950523376464844,
+          "error_V2_ml": -3.7858047485351562,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "869ed39b28b73a5de24e",
+          "source": "CW",
+          "pred_V1_ml": 28.308107376098633,
+          "pred_V2_ml": 45.720741271972656,
+          "true_V1_ml": 7.441666603088379,
+          "true_V2_ml": 16.950000762939453,
+          "error_V1_ml": 20.866439819335938,
+          "error_V2_ml": 28.770740509033203,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "252c027cf5a42b92c953",
+          "source": "CW",
+          "pred_V1_ml": 16.555646896362305,
+          "pred_V2_ml": 27.275371551513672,
+          "true_V1_ml": 22.066667556762695,
+          "true_V2_ml": 37.18333435058594,
+          "error_V1_ml": -5.511020660400391,
+          "error_V2_ml": -9.907962799072266,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "2b97a1e0a6a4b944b760",
+          "source": "CW",
+          "pred_V1_ml": 39.659576416015625,
+          "pred_V2_ml": 67.6474609375,
+          "true_V1_ml": 56.95833206176758,
+          "true_V2_ml": 97.45833587646484,
+          "error_V1_ml": -17.298755645751953,
+          "error_V2_ml": -29.810874938964844,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "c6159dcb5802e62284d1",
+          "source": "CW",
+          "pred_V1_ml": 15.7959623336792,
+          "pred_V2_ml": 26.579805374145508,
+          "true_V1_ml": 15.391666412353516,
+          "true_V2_ml": 22.90833282470703,
+          "error_V1_ml": 0.4042959213256836,
+          "error_V2_ml": 3.6714725494384766,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "75232f4ee5de52a0499e",
+          "source": "CW",
+          "pred_V1_ml": 16.920223236083984,
+          "pred_V2_ml": 29.19992446899414,
+          "true_V1_ml": 39.391666412353516,
+          "true_V2_ml": 66.35832977294922,
+          "error_V1_ml": -22.47144317626953,
+          "error_V2_ml": -37.15840530395508,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "5524670e4337370c2ef6",
+          "source": "CW",
+          "pred_V1_ml": 22.87412452697754,
+          "pred_V2_ml": 45.4965705871582,
+          "true_V1_ml": 33.54999923706055,
+          "true_V2_ml": 57.71666717529297,
+          "error_V1_ml": -10.675874710083008,
+          "error_V2_ml": -12.220096588134766,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "cf36dbeee8bb51632d84",
+          "source": "CW",
+          "pred_V1_ml": 17.66421127319336,
+          "pred_V2_ml": 37.3594970703125,
+          "true_V1_ml": 20.066667556762695,
+          "true_V2_ml": 34.108333587646484,
+          "error_V1_ml": -2.402456283569336,
+          "error_V2_ml": 3.2511634826660156,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "07a55cdab65b05f31561",
+          "source": "CW",
+          "pred_V1_ml": 19.99271583557129,
+          "pred_V2_ml": 37.5323486328125,
+          "true_V1_ml": 24.316667556762695,
+          "true_V2_ml": 66.91666412353516,
+          "error_V1_ml": -4.323951721191406,
+          "error_V2_ml": -29.384315490722656,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "668279c54bbf75e86496",
+          "source": "CW",
+          "pred_V1_ml": 28.14104652404785,
+          "pred_V2_ml": 49.79970932006836,
+          "true_V1_ml": 21.34166717529297,
+          "true_V2_ml": 45.108333587646484,
+          "error_V1_ml": 6.799379348754883,
+          "error_V2_ml": 4.691375732421875,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "946f712a81f3990f568f",
+          "source": "CW",
+          "pred_V1_ml": 12.202827453613281,
+          "pred_V2_ml": 25.793718338012695,
+          "true_V1_ml": 10.800000190734863,
+          "true_V2_ml": 16.641666412353516,
+          "error_V1_ml": 1.402827262878418,
+          "error_V2_ml": 9.15205192565918,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "723a7255bbbef8dcad76",
+          "source": "CW",
+          "pred_V1_ml": 3.178410768508911,
+          "pred_V2_ml": 19.426118850708008,
+          "true_V1_ml": 5.166666507720947,
+          "true_V2_ml": 8.125,
+          "error_V1_ml": -1.9882557392120361,
+          "error_V2_ml": 11.301118850708008,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "f46da3c00b2199795e4c",
+          "source": "CW",
+          "pred_V1_ml": 23.087886810302734,
+          "pred_V2_ml": 42.552547454833984,
+          "true_V1_ml": 6.7833333015441895,
+          "true_V2_ml": 36.15833282470703,
+          "error_V1_ml": 16.304553985595703,
+          "error_V2_ml": 6.394214630126953,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "b9682bf3eb345e24a41f",
+          "source": "CW",
+          "pred_V1_ml": 13.673961639404297,
+          "pred_V2_ml": 23.264230728149414,
+          "true_V1_ml": 6.074999809265137,
+          "true_V2_ml": 11.199999809265137,
+          "error_V1_ml": 7.59896183013916,
+          "error_V2_ml": 12.064230918884277,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "b6a2baaa0410b39ac474",
+          "source": "CW",
+          "pred_V1_ml": 18.814878463745117,
+          "pred_V2_ml": 39.89883804321289,
+          "true_V1_ml": 4.958333492279053,
+          "true_V2_ml": 14.133333206176758,
+          "error_V1_ml": 13.856544494628906,
+          "error_V2_ml": 25.765504837036133,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "e9a7d193dc3d83532c1f",
+          "source": "CW",
+          "pred_V1_ml": 21.821123123168945,
+          "pred_V2_ml": 51.84843063354492,
+          "true_V1_ml": 6.4083333015441895,
+          "true_V2_ml": 26.79166603088379,
+          "error_V1_ml": 15.412790298461914,
+          "error_V2_ml": 25.056764602661133,
+          "reason": "CW geometric coverage",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "2feb7d8e0a3566ddf97f",
+          "source": "LLM",
+          "pred_V1_ml": 17.7781982421875,
+          "pred_V2_ml": 39.0443115234375,
+          "true_V1_ml": 11.899999618530273,
+          "true_V2_ml": 33.83333206176758,
+          "error_V1_ml": 5.878198623657227,
+          "error_V2_ml": 5.210979461669922,
+          "reason": "Aminobenzonitrile measured 40.6/98.4 mL at 5/1, far above its prior prediction. The 2/1 prediction is 17.8/39.0 mL; this locates where the steep response begins under matched loading conditions.",
+          "hypothesis_id": "H13"
+        },
+        {
+          "candidate_id": "fd5fa962575144327bf4",
+          "source": "LLM",
+          "pred_V1_ml": 4.355834007263184,
+          "pred_V2_ml": 11.999871253967285,
+          "true_V1_ml": 4.75,
+          "true_V2_ml": 11.883333206176758,
+          "error_V1_ml": -0.3941659927368164,
+          "error_V2_ml": 0.11653804779052734,
+          "reason": "The 0/1 aminobenzonitrile prediction is 4.4/12.0 mL. Together with the 2/1 choice and measured 5/1 result, it tests whether the large prior error persists under strong eluent.",
+          "hypothesis_id": "H13"
+        },
+        {
+          "candidate_id": "810b065b0b86ff8c9aae",
+          "source": "LLM",
+          "pred_V1_ml": 19.056882858276367,
+          "pred_V2_ml": 33.16355895996094,
+          "true_V1_ml": 15.658333778381348,
+          "true_V2_ml": 32.108333587646484,
+          "error_V1_ml": 3.3985490798950195,
+          "error_V2_ml": 1.0552253723144531,
+          "reason": "Phenylpyridine measured 46.4/103.3 mL at 50/1, substantially later than predicted. This 10/1 point uses the same 150 \u00b5L loading and tests the lower-ratio part of that possible model blind spot.",
+          "hypothesis_id": "H7"
+        },
+        {
+          "candidate_id": "434e465cfa7e0034f233",
+          "source": "LLM",
+          "pred_V1_ml": 25.489194869995117,
+          "pred_V2_ml": 46.998374938964844,
+          "true_V1_ml": 28.875,
+          "true_V2_ml": 47.56666564941406,
+          "error_V1_ml": -3.385805130004883,
+          "error_V2_ml": -0.5682907104492188,
+          "reason": "The 20/1 phenylpyridine prediction is 25.5/47.0 mL. It adds an intermediate ratio before the measured 50/1 endpoint; loading differs, so the ratio comparison has that limitation.",
+          "hypothesis_id": "H7"
+        },
+        {
+          "candidate_id": "04a2e8ad27ca641a3a12",
+          "source": "LLM",
+          "pred_V1_ml": 34.35335159301758,
+          "pred_V2_ml": 66.6140365600586,
+          "true_V1_ml": 37.66666793823242,
+          "true_V2_ml": 59.82500076293945,
+          "error_V1_ml": -3.3133163452148438,
+          "error_V2_ml": 6.789035797119141,
+          "reason": "Methylquinoline measured 51.3/108.5 mL at 10/1 versus a prior prediction of 24.2/55.1 mL. The 5/1 prediction of 34.4/66.6 mL tests whether the error extends to a stronger eluent.",
+          "hypothesis_id": "H7"
+        },
+        {
+          "candidate_id": "a38fee52661fd3e3b7ea",
+          "source": "LLM",
+          "pred_V1_ml": 35.532737731933594,
+          "pred_V2_ml": 85.80349731445312,
+          "true_V1_ml": 16.433332443237305,
+          "true_V2_ml": 45.70000076293945,
+          "error_V1_ml": 19.09940528869629,
+          "error_V2_ml": 40.10349655151367,
+          "reason": "The oxime measured V2 of 119.2 mL at 50/1, 36.3 mL above its prior prediction. Measuring the 20/1 prediction of 35.5/85.8 mL tests where its large elution interval develops.",
+          "hypothesis_id": "H15"
+        },
+        {
+          "candidate_id": "8a00e449393f9942971d",
+          "source": "LLM",
+          "pred_V1_ml": 10.29401683807373,
+          "pred_V2_ml": 24.683151245117188,
+          "true_V1_ml": 6.525000095367432,
+          "true_V2_ml": 16.625,
+          "error_V1_ml": 3.769016742706299,
+          "error_V2_ml": 8.058151245117188,
+          "reason": "Methoxybenzophenone was later than predicted at both 20/1 and 50/1, unlike several methoxy aromatics that were earlier than predicted. Its 5/1 result tests where this molecule's error changes with eluent strength.",
+          "hypothesis_id": "H12"
+        },
+        {
+          "candidate_id": "ce39d1762993bbbafaca",
+          "source": "LLM",
+          "pred_V1_ml": 13.269586563110352,
+          "pred_V2_ml": 22.42144775390625,
+          "true_V1_ml": 22.941667556762695,
+          "true_V2_ml": 36.11666488647461,
+          "error_V1_ml": -9.672080993652344,
+          "error_V2_ml": -13.69521713256836,
+          "reason": "Trimethoxybenzene was earlier than predicted at 2/1 and 5/1. The 50/1 prediction is 13.3/22.4 mL; measuring it tests whether this error persists into a PE-rich regime.",
+          "hypothesis_id": "H12"
+        },
+        {
+          "candidate_id": "a1809a6c4c3ada20bcb0",
+          "source": "LLM",
+          "pred_V1_ml": 14.94488525390625,
+          "pred_V2_ml": 28.652563095092773,
+          "true_V1_ml": 12.333333015441895,
+          "true_V2_ml": 26.016666412353516,
+          "error_V1_ml": 2.6115522384643555,
+          "error_V2_ml": 2.635896682739258,
+          "reason": "Cyclopropyl \u03b2-ketoester measured 6.3/11.9 mL at 1/1 and 44.5/81.2 mL at 20/1, the latter far above its prior prediction. This 5/1 point helps locate the rise alongside the pending 10/1 result.",
+          "hypothesis_id": "H10"
+        },
+        {
+          "candidate_id": "327064e6ca2c38d79d76",
+          "source": "LLM",
+          "pred_V1_ml": 23.05768585205078,
+          "pred_V2_ml": 47.99845504760742,
+          "true_V1_ml": 22.579166412353516,
+          "true_V2_ml": 40.03333282470703,
+          "error_V1_ml": 0.4785194396972656,
+          "error_V2_ml": 7.965122222900391,
+          "reason": "The tert-butyl \u03b2-ketoester measured only 11.4/24.2 mL at 10/1 versus 23.2/46.9 mL predicted. Its 20/1 prediction of 23.1/48.0 mL tests whether that opposite-signed error persists at higher PE.",
+          "hypothesis_id": "H10"
+        },
+        {
+          "candidate_id": "471287eecf7b94603e9e",
+          "source": "LLM",
+          "pred_V1_ml": 12.148215293884277,
+          "pred_V2_ml": 26.95897674560547,
+          "true_V1_ml": 4.883333206176758,
+          "true_V2_ml": 22.641666412353516,
+          "error_V1_ml": 7.2648820877075195,
+          "error_V2_ml": 4.317310333251953,
+          "reason": "Iodobenzoate measured an unusually early V1 of 5.1 mL but V2 of 29.3 mL at 50/1 and 150 \u00b5L. This 50 \u00b5L experiment tests loading dependence of that wide interval; the current prediction is 12.1/27.0 mL.",
+          "hypothesis_id": "H14"
+        },
+        {
+          "candidate_id": "857ae40d0fdf1c7e387e",
+          "source": "LLM",
+          "pred_V1_ml": 16.56960105895996,
+          "pred_V2_ml": 41.084693908691406,
+          "true_V1_ml": 23.508333206176758,
+          "true_V2_ml": 56.04166793823242,
+          "error_V1_ml": -6.938732147216797,
+          "error_V2_ml": -14.956974029541016,
+          "reason": "Ortho-nitrobenzaldehyde measured 6.9/23.0 mL at 5/1. The 20/1 prediction of 16.6/41.1 mL tests its solvent-ratio rise; a para isomer at 20/1 eluted much later, but different loading conditions limit that comparison.",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "129036e0bccc4ff7e848",
+          "source": "LLM",
+          "pred_V1_ml": 29.94127655029297,
+          "pred_V2_ml": 67.73658752441406,
+          "true_V1_ml": 0.13333334028720856,
+          "true_V2_ml": -0.10000000149011612,
+          "error_V1_ml": 29.80794334411621,
+          "error_V2_ml": 67.83658599853516,
+          "reason": "The brominated carboxylic acid has a 50/1 prediction of 29.9/67.7 mL. It probes a strongly interacting acid motif at high PE; no direct measured support is supplied, so this is an exploratory chemical-prior choice.",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "b0f83f107759037eea65",
+          "source": "LLM",
+          "pred_V1_ml": 4.94143533706665,
+          "pred_V2_ml": 24.817626953125,
+          "true_V1_ml": 6.058333396911621,
+          "true_V2_ml": 11.866666793823242,
+          "error_V1_ml": -1.1168980598449707,
+          "error_V2_ml": 12.950960159301758,
+          "reason": "Naphthylmethanol is predicted at 4.9/24.8 mL under 0/1 eluent. Its predicted elution width is large; comparison with pending benzyl alcohol measurements can test transfer across aromatic size, though the molecules differ.",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "61764a2e9f71f1caa18e",
+          "source": "LLM",
+          "pred_V1_ml": 7.908878803253174,
+          "pred_V2_ml": 20.678003311157227,
+          "true_V1_ml": 4.583333492279053,
+          "true_V2_ml": 13.208333015441895,
+          "error_V1_ml": 3.325545310974121,
+          "error_V2_ml": 7.469670295715332,
+          "reason": "Nitrobenzophenone at 1/1 and a 1000 \u00b5L loading-solvent volume is predicted at 7.9/20.7 mL. This tests a polar diaryl ketone under a large loading volume; direct same-molecule evidence is absent.",
+          "hypothesis_id": null
+        },
+        {
+          "candidate_id": "3e41bb94c582476b5b6a",
+          "source": "LLM",
+          "pred_V1_ml": 9.065887451171875,
+          "pred_V2_ml": 19.338956832885742,
+          "true_V1_ml": 5.766666889190674,
+          "true_V2_ml": 11.366666793823242,
+          "error_V1_ml": 3.299220561981201,
+          "error_V2_ml": 7.9722900390625,
+          "reason": "The oxime's 2/1 prediction is 9.1/19.3 mL. Paired with 20/1 and the measured 50/1 result, it distinguishes a gradual rise from a high-PE increase in V2 and elution width.",
+          "hypothesis_id": "H15"
+        }
+      ],
+      "feedback_interpretation": "Round-one measurements exposed large, opposite-signed errors within broad chemical labels: several ring-nitrogen compounds were later than predicted while dimethylpyridine was earlier; methoxy aromatics were often early while methoxybenzophenone was late; cyclopropyl and tert-butyl \u03b2-ketoesters differed; aminobenzonitrile was very late while methylbenzonitriles were early. I selected matched-molecule ratio points to locate these changes, plus a 50/1 loading contrast for iodobenzoate. The diethyl malonate 5/1 result confirmed consistently early elution, so I did not spend another choice on that saturated series."
+    }
+  ],
+  "pending_CW16": [
+    {
+      "id": "c80022254967f6a925f3",
+      "smiles": "COC(=O)Cc1cccc2ccccc12",
+      "conditions": {
+        "PE/EA": "50/1",
+        "Density g/ml": 1.142,
+        "V/ul": 50.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 300
+      },
+      "pred_V1_ml": 23.767383575439453,
+      "pred_V2_ml": 42.52991485595703,
+      "cw_distance_percentile": 0.99069,
+      "descriptors": {
+        "MW_g_mol": 200.24,
+        "LogP": 2.56,
+        "TPSA_A2": 26.3,
+        "HBD": 0,
+        "HBA": 2
+      }
+    },
+    {
+      "id": "19229d505f75d05a0bcb",
+      "smiles": "CC(C)(O)CCc1ccccc1",
+      "conditions": {
+        "PE/EA": "10/1",
+        "Density g/ml": 0.966,
+        "V/ul": 150.0,
+        "loading solvent": "PE",
+        "Volume of loading solvent/ul": 300
+      },
+      "pred_V1_ml": 22.931499481201172,
+      "pred_V2_ml": 38.36402893066406,
+      "cw_distance_percentile": 0.96415,
+      "descriptors": {
+        "MW_g_mol": 164.25,
+        "LogP": 2.39,
+        "TPSA_A2": 20.23,
+        "HBD": 1,
+        "HBA": 1
+      }
+    },
+    {
+      "id": "54bc75cc4d64dac2ed48",
+      "smiles": "O=C(OCc1ccccc1)c1ccccc1",
+      "conditions": {
+        "PE/EA": "100/1",
+        "Density g/ml": 1.097,
+        "V/ul": 50.0,
+        "loading solvent": "PE",
+        "Volume of loading solvent/ul": 200
+      },
+      "pred_V1_ml": 25.056804656982422,
+      "pred_V2_ml": 41.12046813964844,
+      "cw_distance_percentile": 0.99604,
+      "descriptors": {
+        "MW_g_mol": 212.25,
+        "LogP": 3.04,
+        "TPSA_A2": 26.3,
+        "HBD": 0,
+        "HBA": 2
+      }
+    },
+    {
+      "id": "d54c93a11164b4abac6e",
+      "smiles": "CSc1ccc(C=O)cc1",
+      "conditions": {
+        "PE/EA": "50/1",
+        "Density g/ml": 1.144,
+        "V/ul": 100.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 300
+      },
+      "pred_V1_ml": 28.833147048950195,
+      "pred_V2_ml": 49.51451110839844,
+      "cw_distance_percentile": 0.99966,
+      "descriptors": {
+        "MW_g_mol": 152.22,
+        "LogP": 2.22,
+        "TPSA_A2": 17.07,
+        "HBD": 0,
+        "HBA": 2
+      }
+    },
+    {
+      "id": "7c6e7b244de393e8554d",
+      "smiles": "O=Cc1ccc2ccccc2c1Br",
+      "conditions": {
+        "PE/EA": "50/1",
+        "Density g/ml": 1.552,
+        "V/ul": 100.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 700
+      },
+      "pred_V1_ml": 18.627418518066406,
+      "pred_V2_ml": 40.92675018310547,
+      "cw_distance_percentile": 0.98966,
+      "descriptors": {
+        "MW_g_mol": 235.08,
+        "LogP": 3.41,
+        "TPSA_A2": 17.07,
+        "HBD": 0,
+        "HBA": 1
+      }
+    },
+    {
+      "id": "fea75df17d0bf593243f",
+      "smiles": "COc1cc(OC)cc(OC)c1",
+      "conditions": {
+        "PE/EA": "20/1",
+        "Density g/ml": 1.126,
+        "V/ul": 50.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 300
+      },
+      "pred_V1_ml": 16.290054321289062,
+      "pred_V2_ml": 23.491260528564453,
+      "cw_distance_percentile": 0.96932,
+      "descriptors": {
+        "MW_g_mol": 168.19,
+        "LogP": 1.71,
+        "TPSA_A2": 27.69,
+        "HBD": 0,
+        "HBA": 3
+      }
+    },
+    {
+      "id": "619663c2b3ffb3a6c497",
+      "smiles": "O=Cc1ccccc1O",
+      "conditions": {
+        "PE/EA": "50/1",
+        "Density g/ml": 1.146,
+        "V/ul": 50.0,
+        "loading solvent": "PE",
+        "Volume of loading solvent/ul": 300
+      },
+      "pred_V1_ml": 24.76274299621582,
+      "pred_V2_ml": 59.54098892211914,
+      "cw_distance_percentile": 0.99276,
+      "descriptors": {
+        "MW_g_mol": 122.12,
+        "LogP": 1.2,
+        "TPSA_A2": 37.3,
+        "HBD": 1,
+        "HBA": 2
+      }
+    },
+    {
+      "id": "29db30571b2a1ae59cc7",
+      "smiles": "CCOC(=O)c1cccnc1",
+      "conditions": {
+        "PE/EA": "5/1",
+        "Density g/ml": 1.107,
+        "V/ul": 50.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 300
+      },
+      "pred_V1_ml": 28.58739471435547,
+      "pred_V2_ml": 57.46813201904297,
+      "cw_distance_percentile": 0.99448,
+      "descriptors": {
+        "MW_g_mol": 151.16,
+        "LogP": 1.26,
+        "TPSA_A2": 39.19,
+        "HBD": 0,
+        "HBA": 3
+      }
+    },
+    {
+      "id": "c11cd3254f56bcefba08",
+      "smiles": "Fc1cc(F)c(F)c(F)c1F",
+      "conditions": {
+        "PE/EA": "5/1",
+        "Density g/ml": 1.514,
+        "V/ul": 50.0,
+        "loading solvent": "PE",
+        "Volume of loading solvent/ul": 300
+      },
+      "pred_V1_ml": 5.772186756134033,
+      "pred_V2_ml": 12.692909240722656,
+      "cw_distance_percentile": 0.97932,
+      "descriptors": {
+        "MW_g_mol": 168.06,
+        "LogP": 2.38,
+        "TPSA_A2": 0.0,
+        "HBD": 0,
+        "HBA": 0
+      }
+    },
+    {
+      "id": "bef8e35136c28810eb6b",
+      "smiles": "O=[N+]([O-])c1cccc(Br)c1",
+      "conditions": {
+        "PE/EA": "50/1",
+        "Density g/ml": 1.7,
+        "V/ul": 150.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 400
+      },
+      "pred_V1_ml": 16.21588706970215,
+      "pred_V2_ml": 36.349552154541016,
+      "cw_distance_percentile": 0.98311,
+      "descriptors": {
+        "MW_g_mol": 202.01,
+        "LogP": 2.36,
+        "TPSA_A2": 43.14,
+        "HBD": 0,
+        "HBA": 2
+      }
+    },
+    {
+      "id": "b5aa0bae2967975bdf4b",
+      "smiles": "O=C1c2ccccc2-c2ccccc21",
+      "conditions": {
+        "PE/EA": "10/1",
+        "Density g/ml": 0.9,
+        "V/ul": 150.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 300
+      },
+      "pred_V1_ml": 15.99435806274414,
+      "pred_V2_ml": 31.229713439941406,
+      "cw_distance_percentile": 0.98931,
+      "descriptors": {
+        "MW_g_mol": 180.21,
+        "LogP": 2.9,
+        "TPSA_A2": 17.07,
+        "HBD": 0,
+        "HBA": 1
+      }
+    },
+    {
+      "id": "6c99a9b10569a54b715f",
+      "smiles": "C=CC(=O)OCCOc1ccccc1",
+      "conditions": {
+        "PE/EA": "20/1",
+        "Density g/ml": 1.104,
+        "V/ul": 150.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 300
+      },
+      "pred_V1_ml": 15.722636222839355,
+      "pred_V2_ml": 23.119863510131836,
+      "cw_distance_percentile": 0.97897,
+      "descriptors": {
+        "MW_g_mol": 192.21,
+        "LogP": 1.79,
+        "TPSA_A2": 35.53,
+        "HBD": 0,
+        "HBA": 3
+      }
+    },
+    {
+      "id": "1a55639d058c08a1a06e",
+      "smiles": "COC(=O)CC(C)=O",
+      "conditions": {
+        "PE/EA": "50/1",
+        "Density g/ml": 1.076,
+        "V/ul": 100.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 300
+      },
+      "pred_V1_ml": 37.579959869384766,
+      "pred_V2_ml": 79.58078002929688,
+      "cw_distance_percentile": 0.99207,
+      "descriptors": {
+        "MW_g_mol": 116.12,
+        "LogP": 0.14,
+        "TPSA_A2": 43.37,
+        "HBD": 0,
+        "HBA": 3
+      }
+    },
+    {
+      "id": "9ed7c1fb1c2cc499bbf9",
+      "smiles": "OC1(c2ccccc2)CCCCC1",
+      "conditions": {
+        "PE/EA": "20/1",
+        "Density g/ml": 1.0,
+        "V/ul": 50.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 400
+      },
+      "pred_V1_ml": 21.61502456665039,
+      "pred_V2_ml": 35.11117935180664,
+      "cw_distance_percentile": 0.9969,
+      "descriptors": {
+        "MW_g_mol": 176.26,
+        "LogP": 2.84,
+        "TPSA_A2": 20.23,
+        "HBD": 1,
+        "HBA": 1
+      }
+    },
+    {
+      "id": "29adbc6e2d4e3aeac537",
+      "smiles": "Cc1ccc(I)cc1",
+      "conditions": {
+        "PE/EA": "50/1",
+        "Density g/ml": 1.0,
+        "V/ul": 50.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 300
+      },
+      "pred_V1_ml": 12.931693077087402,
+      "pred_V2_ml": 22.31503677368164,
+      "cw_distance_percentile": 0.98759,
+      "descriptors": {
+        "MW_g_mol": 218.04,
+        "LogP": 2.6,
+        "TPSA_A2": 0.0,
+        "HBD": 0,
+        "HBA": 0
+      }
+    },
+    {
+      "id": "36b4e1b99354c22c07da",
+      "smiles": "O=Cc1ccc2ccccc2c1Br",
+      "conditions": {
+        "PE/EA": "10/1",
+        "Density g/ml": 1.552,
+        "V/ul": 100.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 700
+      },
+      "pred_V1_ml": 14.647420883178711,
+      "pred_V2_ml": 26.90822982788086,
+      "cw_distance_percentile": 0.9314,
+      "descriptors": {
+        "MW_g_mol": 235.08,
+        "LogP": 3.41,
+        "TPSA_A2": 17.07,
+        "HBD": 0,
+        "HBA": 1
+      }
+    }
+  ],
+  "candidate_overview": {
+    "eligible_count": 2885,
+    "eligible_distinct_molecules": 217,
+    "observed_count": 429,
+    "pending_CW_count": 16,
+    "numeric_reference_ids": [
+      "de8ca068ee88300ff9d9",
+      "70cba7a21b5a01fb8e73",
+      "54a23aa9aaa695bdc06b",
+      "eb3bc3fba39e57adbc2f",
+      "0dd38abec3981f296cfb",
+      "b6f1b33a5491968c645e",
+      "e3a799d0fa90b649a157",
+      "c6e78c97267cbb98dc22",
+      "44fcf641ccfa3b10a97c",
+      "a6a0404c3ad65c6d9326",
+      "fe212637596386c24049",
+      "cb79e57eb461a7dcc59a",
+      "cace6f00c46aea69fe39",
+      "2d178efe0181baca2bd5",
+      "f38088920e6edd19a62f",
+      "b7cf293311f83700cd9a",
+      "6ac700cf79bf6e05982e",
+      "8f5acbec0c511bb1ea89",
+      "477241eeda24d5f7e750",
+      "0b8c6c59ae5e24b420e5",
+      "ea3e26fb57b15d196fc0",
+      "409d01129a3e41b32902",
+      "bc3692f55b839d2f2c07",
+      "5a7a5139767fda9f7e9a",
+      "c70b471334f9747d6f98",
+      "4fd617ffb65c4435f9bb",
+      "9b1545dfa05c9439870b",
+      "3163a9b58f1a52a1992c",
+      "87996db5ddb7565fe66f",
+      "a5446977630484ca5fe1",
+      "39dac9377600ed74a554",
+      "8eaf61cc544233320cf2",
+      "c53b8c93f8ee1304dfd0",
+      "716d04ed1943f0708912",
+      "18aafc3a2522f8cc2983",
+      "7d9c7f40bc71ee7c4ef0",
+      "7155ede91e7e3232862a",
+      "8b9ff1a26d840aaa6a49",
+      "17902fa9c7f8ea9b456e",
+      "5d6d4ac0c1dfacbde53d",
+      "b4351e5f05f6d477a6c0",
+      "65723de539453b98b181",
+      "281fe631ac69f68cb898",
+      "1b4be0410f927930d56e",
+      "2f72c334253bbe94a8ab",
+      "c8d43713db33bf820a1d",
+      "2d870d7a88b5d7b7ef47",
+      "f3ee8cbdb15889a1a50d",
+      "3525a4882a3afddd9dad",
+      "85956151bfe869ac5ee6",
+      "c45057c2cab40f4fa2be",
+      "966254b5be3c8ec5edd3",
+      "85591a54c419ed02c5f5",
+      "a60552f4d1a5ced4641f",
+      "00043aebb2540e369a7b",
+      "334f7f55dcbf278e47ec",
+      "cf8ab33c25ad391a584c",
+      "754f1d33b0ed61557754",
+      "a6145bb0c9947f9515df",
+      "fd8b5ea3b704959cd1ab",
+      "c28747d70e7b51a1cc95",
+      "de4e10d3a5d448ffcdda",
+      "2cf4f6424b85ab121943",
+      "ec816522a495dc36b76c",
+      "0dccaa29989ef4956786",
+      "36b77874ca1dec2a4bdb",
+      "485f8bcfb08d6eaf3463",
+      "a191e77d2e2d127e7ad7",
+      "60177694d9cd2c7da064",
+      "942c95c0b3a64c876639",
+      "6f43332e2665523bcccc",
+      "105457e008d11073c7b7",
+      "232aec9a239a600317ab",
+      "781716dc169401e81eb0",
+      "539544adb51a91c9a465",
+      "71d8b719ba209d117b05",
+      "a928362cc115f586e865",
+      "b76d12abc1975ad3ec45",
+      "fa851bcd2cdb1d84b91f",
+      "b7fffd840d208b29776c",
+      "eac4c18cd654841de896",
+      "1668026caa5d708642cf",
+      "449b809e4efaaf2af86a",
+      "76b4150b436d217e5b3e",
+      "bd3435c0f9b14ec7997d",
+      "18eb8ff2b9699bbdb4f1",
+      "25d11f28e27e3f751324",
+      "1395836aef00d6a880b0",
+      "80762b40f399bb68342a",
+      "a19f98569910dc7fd6c4",
+      "79362765eb92377a5970",
+      "06b20e376e3c4ce5bfeb",
+      "5004f7ec0b1a4d127095",
+      "d5234e966aa231be05e5",
+      "309eeb173ec41ccb2df6",
+      "a241f53a141f7c39ed74",
+      "f5d802ca42b1a7226fc0",
+      "d1aea374a88513fdb2ab",
+      "d1e71a8278523e7a10e3",
+      "eed75e5b0d9c27fa754c",
+      "db7f9ffa50eb931613f6",
+      "a01a137fa48c1391b9e7",
+      "e7bf6bd74f8498f1cb11",
+      "31232902f2b6f3a67c60",
+      "8bd97d062735af1ba0aa",
+      "20711ea4080ba078e890",
+      "1b1a9ec85268aa66d327",
+      "fd327bd31cbab5b296a7",
+      "0ca8af12f55d34f0dfd9",
+      "0d588f7534b7a34cb10a",
+      "195ef0093f90d8fd51ad",
+      "afc81e621ecdca2bd686",
+      "7571d4719ffcd43a7258",
+      "4ea178918812712ff767",
+      "b2bf97a1dcb9d6609f7d",
+      "c59ffcab9329339d3e91",
+      "75adc7367152310b089f",
+      "c640425eaf27bc406362",
+      "96710afeabc594baa359",
+      "008b682251848aa83f89",
+      "92a45835ad66971fb432",
+      "b1af54c32bec21b8bee1",
+      "66747ae127e03516ffda",
+      "fe7d7af2c919facfe5f5",
+      "f31b175e4f53cac6ea11",
+      "ad833f34f6b91872362d",
+      "d7603686249e1fb69a60",
+      "0edebff9e3a9a09d147c"
+    ],
+    "condition_summary": {
+      "PE/EA": {
+        "values": [
+          "0/1",
+          "1/1",
+          "10/1",
+          "100/1",
+          "2/1",
+          "20/1",
+          "30/1",
+          "40/1",
+          "5/1",
+          "50/1"
+        ]
+      },
+      "Density g/ml": {
+        "min": 0.77,
+        "max": 2.182
+      },
+      "V/ul": {
+        "min": 30.0,
+        "max": 150.0
+      },
+      "loading solvent": {
+        "values": [
+          "DCM",
+          "EA",
+          "PE"
+        ]
+      },
+      "Volume of loading solvent/ul": {
+        "min": 200.0,
+        "max": 2000.0
+      }
+    },
+    "query_budget": 12,
+    "view_budget": 240,
+    "per_query_limit": 24
+  },
+  "numeric_reference_initial_cards": [
+    {
+      "id": "de8ca068ee88300ff9d9",
+      "smiles": "CCCCCCC(=O)c1ccccc1",
+      "conditions": {
+        "PE/EA": "1/1",
+        "Density g/ml": 0.946,
+        "V/ul": 50.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 300
+      },
+      "pred_V1_ml": 5.490933895111084,
+      "pred_V2_ml": 9.319777488708496,
+      "cw_distance_percentile": 0.43606,
+      "descriptors": {
+        "MW_g_mol": 190.29,
+        "LogP": 3.84,
+        "TPSA_A2": 17.07,
+        "HBD": 0,
+        "HBA": 1
+      }
+    },
+    {
+      "id": "70cba7a21b5a01fb8e73",
+      "smiles": "c1ccc(CNCc2ccccc2)cc1",
+      "conditions": {
+        "PE/EA": "10/1",
+        "Density g/ml": 1.026,
+        "V/ul": 100.0,
+        "loading solvent": "PE",
+        "Volume of loading solvent/ul": 300
+      },
+      "pred_V1_ml": 42.89772415161133,
+      "pred_V2_ml": 74.47000885009766,
+      "cw_distance_percentile": 0.99897,
+      "descriptors": {
+        "MW_g_mol": 197.28,
+        "LogP": 2.98,
+        "TPSA_A2": 12.03,
+        "HBD": 1,
+        "HBA": 1
+      }
+    },
+    {
+      "id": "54a23aa9aaa695bdc06b",
+      "smiles": "N#Cc1ccccc1F",
+      "conditions": {
+        "PE/EA": "20/1",
+        "Density g/ml": 1.116,
+        "V/ul": 150.0,
+        "loading solvent": "PE",
+        "Volume of loading solvent/ul": 300
+      },
+      "pred_V1_ml": 10.997187614440918,
+      "pred_V2_ml": 24.592756271362305,
+      "cw_distance_percentile": 0.95795,
+      "descriptors": {
+        "MW_g_mol": 121.11,
+        "LogP": 1.7,
+        "TPSA_A2": 23.79,
+        "HBD": 0,
+        "HBA": 1
+      }
+    },
+    {
+      "id": "eb3bc3fba39e57adbc2f",
+      "smiles": "CCOC(=O)C(Cc1ccccc1)C(C)=O",
+      "conditions": {
+        "PE/EA": "50/1",
+        "Density g/ml": 1.036,
+        "V/ul": 150.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 300
+      },
+      "pred_V1_ml": 46.32596206665039,
+      "pred_V2_ml": 78.51173400878906,
+      "cw_distance_percentile": 0.19407,
+      "descriptors": {
+        "MW_g_mol": 220.27,
+        "LogP": 2.0,
+        "TPSA_A2": 43.37,
+        "HBD": 0,
+        "HBA": 3
+      }
+    },
+    {
+      "id": "0dd38abec3981f296cfb",
+      "smiles": "CCOC(=O)c1ccc(F)cc1",
+      "conditions": {
+        "PE/EA": "20/1",
+        "Density g/ml": 1.146,
+        "V/ul": 50.0,
+        "loading solvent": "PE",
+        "Volume of loading solvent/ul": 200
+      },
+      "pred_V1_ml": 7.694216728210449,
+      "pred_V2_ml": 16.665069580078125,
+      "cw_distance_percentile": 0.73613,
+      "descriptors": {
+        "MW_g_mol": 168.17,
+        "LogP": 2.0,
+        "TPSA_A2": 26.3,
+        "HBD": 0,
+        "HBA": 2
+      }
+    },
+    {
+      "id": "b6f1b33a5491968c645e",
+      "smiles": "CC(=O)c1ccc([N+](=O)[O-])cc1",
+      "conditions": {
+        "PE/EA": "20/1",
+        "Density g/ml": 1.345,
+        "V/ul": 100.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 400
+      },
+      "pred_V1_ml": 40.27392578125,
+      "pred_V2_ml": 85.91352081298828,
+      "cw_distance_percentile": 0.99483,
+      "descriptors": {
+        "MW_g_mol": 165.15,
+        "LogP": 1.8,
+        "TPSA_A2": 60.21,
+        "HBD": 0,
+        "HBA": 3
+      }
+    },
+    {
+      "id": "e3a799d0fa90b649a157",
+      "smiles": "COC(=O)CC(=O)C1CC1",
+      "conditions": {
+        "PE/EA": "20/1",
+        "Density g/ml": 1.174,
+        "V/ul": 100.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 300
+      },
+      "pred_V1_ml": 33.239524841308594,
+      "pred_V2_ml": 62.06978988647461,
+      "cw_distance_percentile": 0.17029,
+      "descriptors": {
+        "MW_g_mol": 142.15,
+        "LogP": 0.53,
+        "TPSA_A2": 43.37,
+        "HBD": 0,
+        "HBA": 3
+      }
+    },
+    {
+      "id": "c6e78c97267cbb98dc22",
+      "smiles": "N#Cc1ccc(C(=O)c2ccccc2)cc1",
+      "conditions": {
+        "PE/EA": "10/1",
+        "Density g/ml": 1.0,
+        "V/ul": 100.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 400
+      },
+      "pred_V1_ml": 11.587359428405762,
+      "pred_V2_ml": 34.34061050415039,
+      "cw_distance_percentile": 0.06584,
+      "descriptors": {
+        "MW_g_mol": 207.23,
+        "LogP": 2.79,
+        "TPSA_A2": 40.86,
+        "HBD": 0,
+        "HBA": 2
+      }
+    },
+    {
+      "id": "44fcf641ccfa3b10a97c",
+      "smiles": "COc1ccc(C(=O)c2ccccc2)cc1",
+      "conditions": {
+        "PE/EA": "50/1",
+        "Density g/ml": 1.0,
+        "V/ul": 100.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 300
+      },
+      "pred_V1_ml": 38.34097671508789,
+      "pred_V2_ml": 71.52804565429688,
+      "cw_distance_percentile": 0.16132,
+      "descriptors": {
+        "MW_g_mol": 212.25,
+        "LogP": 2.93,
+        "TPSA_A2": 26.3,
+        "HBD": 0,
+        "HBA": 2
+      }
+    },
+    {
+      "id": "a6a0404c3ad65c6d9326",
+      "smiles": "CC(=O)c1ccc2c(c1)OCO2",
+      "conditions": {
+        "PE/EA": "20/1",
+        "Density g/ml": 1.0,
+        "V/ul": 150.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 500
+      },
+      "pred_V1_ml": 36.73700714111328,
+      "pred_V2_ml": 60.80894470214844,
+      "cw_distance_percentile": 0.192,
+      "descriptors": {
+        "MW_g_mol": 164.16,
+        "LogP": 1.62,
+        "TPSA_A2": 35.53,
+        "HBD": 0,
+        "HBA": 3
+      }
+    },
+    {
+      "id": "fe212637596386c24049",
+      "smiles": "N#Cc1ccccc1F",
+      "conditions": {
+        "PE/EA": "50/1",
+        "Density g/ml": 1.116,
+        "V/ul": 50.0,
+        "loading solvent": "PE",
+        "Volume of loading solvent/ul": 300
+      },
+      "pred_V1_ml": 14.761621475219727,
+      "pred_V2_ml": 33.28995895385742,
+      "cw_distance_percentile": 0.97208,
+      "descriptors": {
+        "MW_g_mol": 121.11,
+        "LogP": 1.7,
+        "TPSA_A2": 23.79,
+        "HBD": 0,
+        "HBA": 1
+      }
+    },
+    {
+      "id": "cb79e57eb461a7dcc59a",
+      "smiles": "CC1(C)OB(c2ccc(F)cc2)OC1(C)C",
+      "conditions": {
+        "PE/EA": "1/1",
+        "Density g/ml": 1.05,
+        "V/ul": 50.0,
+        "loading solvent": "PE",
+        "Volume of loading solvent/ul": 300
+      },
+      "pred_V1_ml": 4.419888019561768,
+      "pred_V2_ml": 7.709428310394287,
+      "cw_distance_percentile": 0.70493,
+      "descriptors": {
+        "MW_g_mol": 222.07,
+        "LogP": 2.12,
+        "TPSA_A2": 18.46,
+        "HBD": 0,
+        "HBA": 2
+      }
+    },
+    {
+      "id": "cace6f00c46aea69fe39",
+      "smiles": "CC(=O)c1ccc2c(c1)Cc1ccccc1-2",
+      "conditions": {
+        "PE/EA": "20/1",
+        "Density g/ml": 1.0,
+        "V/ul": 50.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 1000
+      },
+      "pred_V1_ml": 17.939897537231445,
+      "pred_V2_ml": 39.137271881103516,
+      "cw_distance_percentile": 0.98345,
+      "descriptors": {
+        "MW_g_mol": 208.26,
+        "LogP": 3.46,
+        "TPSA_A2": 17.07,
+        "HBD": 0,
+        "HBA": 1
+      }
+    },
+    {
+      "id": "2d178efe0181baca2bd5",
+      "smiles": "COc1ccc(C=O)cc1",
+      "conditions": {
+        "PE/EA": "50/1",
+        "Density g/ml": 1.121,
+        "V/ul": 100.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 300
+      },
+      "pred_V1_ml": 26.63582420349121,
+      "pred_V2_ml": 48.376888275146484,
+      "cw_distance_percentile": 0.99862,
+      "descriptors": {
+        "MW_g_mol": 136.15,
+        "LogP": 1.51,
+        "TPSA_A2": 26.3,
+        "HBD": 0,
+        "HBA": 2
+      }
+    },
+    {
+      "id": "f38088920e6edd19a62f",
+      "smiles": "COc1ccc(C)cc1OC",
+      "conditions": {
+        "PE/EA": "50/1",
+        "Density g/ml": 1.051,
+        "V/ul": 100.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 300
+      },
+      "pred_V1_ml": 8.596012115478516,
+      "pred_V2_ml": 15.596936225891113,
+      "cw_distance_percentile": 0.85178,
+      "descriptors": {
+        "MW_g_mol": 152.19,
+        "LogP": 2.01,
+        "TPSA_A2": 18.46,
+        "HBD": 0,
+        "HBA": 2
+      }
+    },
+    {
+      "id": "b7cf293311f83700cd9a",
+      "smiles": "OCc1ccc2ccccc2c1",
+      "conditions": {
+        "PE/EA": "10/1",
+        "Density g/ml": 1.0,
+        "V/ul": 150.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 300
+      },
+      "pred_V1_ml": 28.512008666992188,
+      "pred_V2_ml": 49.92121887207031,
+      "cw_distance_percentile": 0.99345,
+      "descriptors": {
+        "MW_g_mol": 158.2,
+        "LogP": 2.33,
+        "TPSA_A2": 20.23,
+        "HBD": 1,
+        "HBA": 1
+      }
+    },
+    {
+      "id": "6ac700cf79bf6e05982e",
+      "smiles": "CC(=O)c1ccc(F)cc1",
+      "conditions": {
+        "PE/EA": "20/1",
+        "Density g/ml": 1.143,
+        "V/ul": 50.0,
+        "loading solvent": "PE",
+        "Volume of loading solvent/ul": 300
+      },
+      "pred_V1_ml": 14.284808158874512,
+      "pred_V2_ml": 30.918485641479492,
+      "cw_distance_percentile": 0.20579,
+      "descriptors": {
+        "MW_g_mol": 138.14,
+        "LogP": 2.03,
+        "TPSA_A2": 17.07,
+        "HBD": 0,
+        "HBA": 1
+      }
+    },
+    {
+      "id": "8f5acbec0c511bb1ea89",
+      "smiles": "CCC(=O)c1cccnc1",
+      "conditions": {
+        "PE/EA": "1/1",
+        "Density g/ml": 1.114,
+        "V/ul": 100.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 300
+      },
+      "pred_V1_ml": 11.20315170288086,
+      "pred_V2_ml": 24.350318908691406,
+      "cw_distance_percentile": 0.90624,
+      "descriptors": {
+        "MW_g_mol": 135.17,
+        "LogP": 1.67,
+        "TPSA_A2": 29.96,
+        "HBD": 0,
+        "HBA": 2
+      }
+    },
+    {
+      "id": "477241eeda24d5f7e750",
+      "smiles": "CC(C=O)Cc1ccc2c(c1)OCO2",
+      "conditions": {
+        "PE/EA": "10/1",
+        "Density g/ml": 1.162,
+        "V/ul": 50.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 300
+      },
+      "pred_V1_ml": 17.77263069152832,
+      "pred_V2_ml": 24.933616638183594,
+      "cw_distance_percentile": 0.96553,
+      "descriptors": {
+        "MW_g_mol": 192.21,
+        "LogP": 1.79,
+        "TPSA_A2": 35.53,
+        "HBD": 0,
+        "HBA": 3
+      }
+    },
+    {
+      "id": "0b8c6c59ae5e24b420e5",
+      "smiles": "Oc1ccc(I)cc1",
+      "conditions": {
+        "PE/EA": "20/1",
+        "Density g/ml": 1.8573,
+        "V/ul": 100.0,
+        "loading solvent": "DCM",
+        "Volume of loading solvent/ul": 700
+      },
+      "pred_V1_ml": 41.28565216064453,
+      "pred_V2_ml": 70.41170501708984,
+      "cw_distance_percentile": 0.99793,
+      "descriptors": {
+        "MW_g_mol": 220.01,
+        "LogP": 2.0,
+        "TPSA_A2": 20.23,
+        "HBD": 1,
+        "HBA": 1
+      }
+    }
+  ],
+  "numerical_references_only": true,
+  "observed_validation_test_records": 0,
+  "packet_sha256": "4bd00bfb1859cd8a9c0635db90dcae21f979293dfd5ecfdf11584b32c6bb5b44"
+}

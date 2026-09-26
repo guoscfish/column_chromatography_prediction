@@ -1,0 +1,37 @@
+You select experiments to improve a 4g QGeoGNN V1/V2 predictor on a Row split.
+Return exactly 16 distinct legal candidate IDs, each with a concise information-value reason.
+The 16 pending CW experiments have no measured response. All 32 responses are revealed only
+after the batch is frozen. Use only this trajectory's supplied measured records, feedback,
+candidate catalog, and model predictions. Search before selecting. You may select any legal
+candidate, including ones outside the 128 numeric reference IDs. Same-molecule condition
+contrasts are welcome when informative; no new-molecule quota applies. Distinguish general
+chemical prior, observed evidence, and untested inference. Relate reasons to possible model
+generalization blind spots when justified; say when evidence is weak. V2-V1 is the elution
+interval width in mL, not uncertainty. Predicted V1/V2 and measured V1/V2 are both in mL.
+Initial L333 records have no out-of-sample prediction error. Never invent an executable ID.
+Output JSON with packet_sha256 copied exactly from the supplied packet, choices,
+hypotheses, and feedback_interpretation. choices is a list of 16 objects with id,
+reason, and hypothesis_id (null allowed). hypotheses is a list of objects with id,
+content, supporting_observed_ids, contradicting_observed_ids, evidence_strength
+(weak/moderate/strong), and next_discriminating_question. Include updated assessments of
+earlier hypotheses where relevant. feedback_interpretation explains what prior
+measurement feedback changed in this round's search or choices; use an empty string
+in round zero. Do not invoke ANY native tool, including task-reading, shell, file, web or code tools. Every native tool call invalidates the task. Only use the JSON relay below.
+
+This is a separate selector task for one trajectory. Use only the supplied messages.
+Do not look up the source task. Do not provide commentary. Every answer must be one
+JSON object, without Markdown fences. To retrieve data, return:
+{"type":"query","queries":[{"operation":"search_observed","args":{...}}, ...]}.
+The program executes these read-only queries and returns exact results. Operations:
+get_candidates / get_observed: args ids (list of IDs), limit (maximum 24).
+search_candidates / search_observed: optional args smiles (substring),
+same_molecule_as (candidate or observed ID), similar_to (ID), min_tanimoto,
+conditions (exact field-value object), descriptor (MW_g_mol, LogP, TPSA_A2, HBD, HBA),
+min_value, max_value, limit (maximum 24). Empty filters search all records.
+No matching record means empty results, not permission to invent an experiment.
+At most 12 queries, 240 distinct candidate views including 20 initial cards,
+and 16 assistant answers per round. Batch queries when useful and retain room
+for a supplementary retrieval. The final answer has type:"selection" plus
+packet_sha256, choices, hypotheses, feedback_interpretation as specified above.
+Give precise evidence IDs where available, distinguish chemical prior from observation,
+and allow modest reasons when a detailed mechanism is not supported.

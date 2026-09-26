@@ -1,0 +1,213 @@
+{
+  "choices": [
+    {
+      "id": "61b73b8065ae2ece22eb",
+      "reason": "Methylquinoline at 10/1 was measured at 59.58/106.50 mL versus 36.90/73.97 predicted. The 5/1 point tests how far that observed underprediction extends down the ratio curve.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "2745c6978a8911fc3dda",
+      "reason": "A 2/1 methylquinoline point brackets the lower part of the same curve; its value is an untested inference from the large 10/1 error.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "29b39881584c4fec1c58",
+      "reason": "Trifluoromethoxyphenol at 50/1 had V2 underpredicted by 30.35 mL. The 20/1 point locates where the high-ratio V2 rise begins.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "014a5a6687748dfc0ebf",
+      "reason": "Ortho-isopropylphenol at 50/1 had V2 underpredicted by 19.58 mL. Its 20/1 point tests whether a similar high-ratio error develops in this second phenol.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "bc62be727bf6ded3d86e",
+      "reason": "Iodophenol at 5/1 adds a chemically distinct phenol to test transfer of the observed phenol pattern; direct evidence for this compound is weak.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "5522a1ec1f8e39cedb13",
+      "reason": "Acetoxybenzaldehyde errors differed sharply between measured 5/1 and 10/1 rows. A 2/1 measurement tests the lower end of that nonlinear response.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "1cc3b837c6561b1c0a23",
+      "reason": "The multifunctional acetoacetate ester measured 6.12/19.13 mL at 1/1. Its 5/1 candidate probes the rise toward higher ratios while the 10/1 CW result is already observed.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "5fd0921bbbba1e22abf9",
+      "reason": "Ethyl acetoacetate V2 was underpredicted at 10/1 and 20/1. Methyl acetoacetate at 50/1 tests whether this beta-keto ester error transfers to a related ester at a high ratio.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "7522f965f25a50c9a3bc",
+      "reason": "Para-methylacetophenone at 20/1 provides a condition contrast to the pending CW 50/1 row; CW has no measured response yet.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "696b873f81bc442af675",
+      "reason": "Ortho-methylacetophenone at 5/1 adds a positional-isomer contrast to the aromatic-ketone probes. Direct evidence for its error is weak.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "4b408fbbcfc4c054f284",
+      "reason": "Ortho-methoxyacetophenone at 50/1 had a measured V1 near 1.01 mL against 28.30 predicted. A 10/1 point tests whether that extreme error is localized to high ratios.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "0cf0d36290765378ae8d",
+      "reason": "Anisyl benzophenone at 20/1 measured 18.52/37.03 mL versus 14.90/28.59 predicted. Its 50/1 point tests high-ratio extrapolation for this aromatic ketone.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "0f06772820e6693753e3",
+      "reason": "2-Phenylpyridine was predicted closely at 5/1, whereas methylquinoline was strongly underpredicted at 10/1. Its 50/1 row tests whether aza-aromatic transfer error depends on scaffold and ratio.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "91b6bda771851a5c78ac",
+      "reason": "Measured aromatic alcohols include large underpredictions, including phenylpropanol at 20/1 and naphthylmethanol V2 at 10/1. Naphthylethanol at 2/1 tests transfer to a related alcohol.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "d2b769ab5d49a1bd9378",
+      "reason": "Methyl salicylate at 20/1 contrasts a phenolic ester with measured salicylaldehyde at 20/1. The effect of replacing aldehyde with ester remains an untested chemical inference.",
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "5b706e17e8412d02342f",
+      "reason": "Nitrobenzophenone previously showed a large V2 at 50/1. This lower-load 50/1 candidate tests whether the model's low V1 and V2 predictions persist across sample load.",
+      "hypothesis_id": "H9"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "The large methylquinoline underprediction at 10/1 may extend through intermediate solvent ratios.",
+      "supporting_observed_ids": [
+        "9e3ce3497298084abd83"
+      ],
+      "contradicting_observed_ids": [
+        "292e0342682192a69fce"
+      ],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "How large are the methylquinoline errors at 5/1 and 2/1?"
+    },
+    {
+      "id": "H2",
+      "content": "High-ratio phenol V2 is underpredicted across at least two substituent patterns, but transfer to other phenols is untested.",
+      "supporting_observed_ids": [
+        "80f546c47198fa7c6dbf",
+        "68a01853008546de06a1"
+      ],
+      "contradicting_observed_ids": [
+        "fe7d7af2c919facfe5f5"
+      ],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Where does the V2 error emerge between 10/1 and 50/1, and does iodophenol show a related pattern?"
+    },
+    {
+      "id": "H3",
+      "content": "The acetoxybenzaldehyde V1 error changes direction across the measured 5/1 and 10/1 conditions.",
+      "supporting_observed_ids": [
+        "050e2fab4b407ea058cb",
+        "db7f9ffa50eb931613f6"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "strong",
+      "next_discriminating_question": "What are V1 and V2 at 2/1?"
+    },
+    {
+      "id": "H4",
+      "content": "Beta-keto ester errors grow at higher PE/EA ratios and vary across ester substituents.",
+      "supporting_observed_ids": [
+        "5b7151c95c4e964a121b",
+        "b6bf451b4911ee22d4a4"
+      ],
+      "contradicting_observed_ids": [
+        "60b7eed7a46a03b366b2",
+        "81507d463506a9e65e73"
+      ],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Does the multifunctional ester rise sharply at 5/1, and is methyl acetoacetate underpredicted at 50/1?"
+    },
+    {
+      "id": "H5",
+      "content": "Aromatic-ketone errors depend strongly on substitution and ratio; the earlier single-family trend does not describe all measured ketones.",
+      "supporting_observed_ids": [
+        "c82167c626a1495ef750",
+        "d035281432e410405550",
+        "b5aa0bae2967975bdf4b"
+      ],
+      "contradicting_observed_ids": [
+        "95e11ec70cd7b493e3f8"
+      ],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "How do positional methyl isomers and methoxy substitution change the 5/1-to-50/1 response?"
+    },
+    {
+      "id": "H6",
+      "content": "Aza-aromatic transfer error may depend on scaffold and ratio: methylquinoline at 10/1 was strongly underpredicted, while 2-phenylpyridine at 5/1 was close.",
+      "supporting_observed_ids": [
+        "9e3ce3497298084abd83"
+      ],
+      "contradicting_observed_ids": [
+        "292e0342682192a69fce"
+      ],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Is 2-phenylpyridine underpredicted at 50/1?"
+    },
+    {
+      "id": "H7",
+      "content": "Aromatic-alcohol retention error may transfer to naphthylethanol, but the proposed 2/1 response is uncertain.",
+      "supporting_observed_ids": [
+        "2cf4f6424b85ab121943",
+        "b7cf293311f83700cd9a"
+      ],
+      "contradicting_observed_ids": [
+        "db5dcc7b864e0174fcbd"
+      ],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "Does naphthylethanol show a measurable V1 or V2 error at 2/1?"
+    },
+    {
+      "id": "H8",
+      "content": "Replacing the aldehyde in salicylaldehyde with an ester may change the phenolic condition response.",
+      "supporting_observed_ids": [
+        "905c8843dd27543205a5"
+      ],
+      "contradicting_observed_ids": [
+        "619663c2b3ffb3a6c497"
+      ],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "How does methyl salicylate compare with measured salicylaldehyde at 20/1?"
+    },
+    {
+      "id": "H9",
+      "content": "Nitrobenzophenone's high-ratio V2 and elution interval width may remain poorly predicted at lower sample load.",
+      "supporting_observed_ids": [
+        "76643e968ecc935c745c"
+      ],
+      "contradicting_observed_ids": [
+        "0164f18711777547e68d"
+      ],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "Does the 50/1 lower-load measurement retain the high V2 seen previously?"
+    },
+    {
+      "id": "H10",
+      "content": "The earlier suggestion that high-ratio benzoates share one direction of error is weakened: tert-butylbenzoate was underpredicted while fluorobenzoate and iodobenzoate were overpredicted.",
+      "supporting_observed_ids": [
+        "3f1a96aa336ea0741b5a",
+        "471287eecf7b94603e9e"
+      ],
+      "contradicting_observed_ids": [
+        "c5a12771920c4410d921"
+      ],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Which substituent or loading conditions account for the differing benzoate errors?"
+    }
+  ],
+  "feedback_interpretation": "Round-4 feedback confirmed large methylquinoline underprediction at 10/1 and large high-ratio V2 underprediction for two phenols. Acetoxybenzaldehyde showed opposite V1 error directions at 5/1 and 10/1. The multifunctional ester was closer at 1/1, and oxime errors changed from overprediction at 10/1 and 20/1 to underprediction at 50/1; this batch therefore prioritizes condition transitions and chemical contrasts. The tert-butylbenzoate result weakened the earlier broad benzoate-bias hypothesis, so no benzoate was selected. Current CW rows remain unmeasured. V2\u2212V1 is elution interval width, not uncertainty."
+}

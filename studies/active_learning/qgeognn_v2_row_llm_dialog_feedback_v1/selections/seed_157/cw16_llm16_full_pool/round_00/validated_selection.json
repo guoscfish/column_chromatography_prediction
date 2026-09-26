@@ -1,0 +1,146 @@
+{
+  "choices": [
+    {
+      "id": "ab66de7edad40236ffd5",
+      "reason": "At 10/1, predicted V1/V2 are 18.5/26.7 mL. Paired with the 20/1 choice, this tests the steep predicted solvent-ratio response of diethyl malonate; same-molecule observed evidence is absent.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "d7b0845793265cab0c33",
+      "reason": "At 20/1, predicted V1/V2 rise to 30.7/49.3 mL with the same loading conditions as the 10/1 choice. This tests a large, currently unmeasured change before the pending 50/1 experiment.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "33123966b214578291a5",
+      "reason": "The 5/1 fluorobenzoate prediction is 5.9/16.8 mL. Its measured 2/1 and 50/1 endpoints bracket this setting, while the paired 10/1 prediction has a slightly lower V2; measuring both tests that possible curve-shape blind spot.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "09f7ce5c473ea7ea5d94",
+      "reason": "At the same 100 \u00b5L loading as the 5/1 choice, predicted V2 falls from 16.8 to 16.0 mL at 10/1. The local reversal is an untested model inference despite the broader measured increase from 2/1 to 50/1.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "bbb514661c0a49694d6a",
+      "reason": "The 20/1 benzoylformate prediction is 9.8/28.7 mL. Same-molecule measurements at 5/1 and 10/1 show similar V2 values, so this probes whether that apparent plateau extends to a weaker eluent.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "7b42519983cf93dd7efd",
+      "reason": "At 50/1, predicted V1/V2 remain near 11.1/29.0 mL. Paired with 20/1, this tests the model's high-ratio plateau for both endpoints; the measured support currently reaches only 10/1.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "693a65467095367c8e95",
+      "reason": "The 10/1 anthranilate prediction is 13.6/25.7 mL versus measured values near 9/17 mL at 5/1. It tests the first step of a predicted rise in this hydrogen-bonding molecule; evidence for the rise is weak.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "74541dbf8571f881c454",
+      "reason": "At the same 100 \u00b5L loading, the 20/1 prediction rises to 21.2/43.0 mL. This checks whether the model's large solvent-ratio response is real before the pending 50/1 result is revealed.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "5ae7472a4d9ce3fe20d0",
+      "reason": "For cyanobenzophenone, the only found measurement is 3.6/8.9 mL at 0/1. The 5/1 prediction of 12.1/33.7 mL bridges that observation and the pending 10/1\u201320/1 experiments, testing a possible extrapolation blind spot.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "63962b52800b6ead5398",
+      "reason": "The 0/1 nitroacetophenone prediction of 4.8/8.6 mL provides a strong-eluent anchor for its pending 10/1 experiment. No same-molecule observed record was found, so the expected contrast is untested.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "ca467c94f14b2219503e",
+      "reason": "At 10/1, this multifunctional ester is predicted at 25.7/47.8 mL, substantially later than its pending 5/1 prediction. The matched molecule and loading conditions isolate a potentially difficult solvent-ratio response; observed evidence is weak.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "8e7636d7a60a6058305a",
+      "reason": "The amino-substituted unsaturated ester has a high 20/1 prediction of 27.8/55.0 mL. Measuring it probes transfer to this polar structural motif at a PE-rich condition; the chemical rationale is a prior, not measured evidence.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "48679ae48dd485ffb7a6",
+      "reason": "Despite two ester groups and a 50/1 eluent, the prediction is relatively early at 11.6/16.5 mL. This tests whether the model handles the acetylenic diester's retention and V2\u2212V1 width; direct evidence is weak.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "80f546c47198fa7c6dbf",
+      "reason": "This phenol is predicted at 20.8/47.3 mL at 50/1. Its hydrogen-bond donor and fluorinated ether test a chemical regime where V2 and the elution width could be difficult to generalize; this is an untested chemical prior.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "4da6e3b93f29af1efa94",
+      "reason": "The ortho-nitrobenzaldehyde prediction is 14.4/33.7 mL at 5/1. It adds a positional and functional-group probe alongside pending para-nitro carbonyl compounds, though differing conditions make that comparison weak.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "183af335033005f96b97",
+      "reason": "The aminoacetophenone prediction is 12.1/26.4 mL with a 900 \u00b5L DCM loading-solvent volume. This probes transfer to an amine-containing molecule and a relatively large loading volume; there is no controlled contrast here, so the evidence is weak.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Diethyl malonate may show a large increase in V1 and V2 between 10/1 and 20/1 PE/EA, as predicted. General chemical prior favors stronger retention under PE-rich conditions. The observed phenyl-substituted malonate rises from 12.2/18.9 mL at 10/1 to 21.0/32.5 mL at 20/1, but that is a different molecule and loading amount.",
+      "supporting_observed_ids": [
+        "9603a9567c8b21458d1e",
+        "2635b25bb3c1c37f3b74"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "Does matched-loading diethyl malonate actually approach the predicted 30.7/49.3 mL at 20/1?"
+    },
+    {
+      "id": "H2",
+      "content": "Fluorobenzoate V2 may have a local maximum near 5/1: predictions are 16.8 mL at 5/1 and 16.0 mL at 10/1. Measurements show an overall increase from 9.0 mL at 1/1 to 10.1 mL at 2/1 and 22.3 mL at 50/1, but do not resolve the proposed local reversal.",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "At identical 100 \u00b5L loading, is measured V2 at 5/1 greater than at 10/1?"
+    },
+    {
+      "id": "H3",
+      "content": "Methyl benzoylformate V2 may flatten as PE/EA becomes more PE-rich. At 150 \u00b5L loading, observed V2 is 27.7 mL at 5/1 and 29.5 mL at 10/1; predictions at 20/1 and 50/1 remain near 29 mL. Persistence beyond 10/1 is untested.",
+      "supporting_observed_ids": [
+        "6c1c34b12c66ebcf39a4",
+        "ad0ace61c29817c678c2"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Do measured V1 and V2 remain nearly flat between 20/1 and 50/1 under matched loading?"
+    },
+    {
+      "id": "H4",
+      "content": "Anthranilate may become substantially later and wider as the eluent changes from 5/1 to 20/1. The two 5/1 measurements at 50 and 150 \u00b5L are close, but there is no observed higher-ratio response; the steep rise comes from model predictions.",
+      "supporting_observed_ids": [
+        "3aed7873d2fd1cf48684",
+        "18186b5d6cc190fc07a3"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "At matched 100 \u00b5L loading, how much do measured V1 and V2 increase from 10/1 to 20/1?"
+    },
+    {
+      "id": "H5",
+      "content": "Cyanobenzophenone may shift sharply from its observed early elution at 0/1 to much later, wider elution at 5/1 and beyond. This is a chemically plausible solvent-strength effect, but its magnitude is only predicted.",
+      "supporting_observed_ids": [
+        "6c27c0ab37bb8d812822"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "Does the 5/1 measurement approach the predicted 12.1/33.7 mL and bridge the pending higher-ratio predictions?"
+    },
+    {
+      "id": "H6",
+      "content": "Nitroacetophenone may move from early elution at 0/1 toward the much later pending 10/1 prediction. This follows a general solvent-strength prior; no same-molecule measured record was found.",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "What V1 and V2 are measured at 0/1, and how large is the eventual contrast with 10/1?"
+    }
+  ],
+  "feedback_interpretation": ""
+}

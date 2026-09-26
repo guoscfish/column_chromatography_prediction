@@ -1,0 +1,576 @@
+{
+  "round": 4,
+  "batch_freeze_sha256": "0e83bf0e5d879218ced2c695f35607d01166f2f721c38238e10cd9287c8796d3",
+  "choices": [
+    {
+      "id": "13bfaf03c35b4cff3bd5",
+      "reason": "Measures naphthylmethanol at 2/1 to locate the onset of its steep observed retention rise.",
+      "hypothesis_id": "H_alcohol"
+    },
+    {
+      "id": "614873124b33029a924c",
+      "reason": "Adds a 5/1 naphthylmethanol point between its measured 0/1 and 10/1 responses.",
+      "hypothesis_id": "H_alcohol"
+    },
+    {
+      "id": "319e89d7000731f64e7f",
+      "reason": "Tests whether methoxybenzaldehyde underprediction is already present at 10/1.",
+      "hypothesis_id": "H_methoxy"
+    },
+    {
+      "id": "fc27fa779102c4aeb8ab",
+      "reason": "Tests the 20/1 transition toward methoxybenzaldehyde's large measured 50/1 response.",
+      "hypothesis_id": "H_methoxy"
+    },
+    {
+      "id": "e9e7a737df389d5fcc13",
+      "reason": "Checks iodophenol at 10/1 after opposite prediction-error signs at 20/1 and 50/1.",
+      "hypothesis_id": "H_iodophenol"
+    },
+    {
+      "id": "f4ec546ae74a4b3888df",
+      "reason": "Adds a low-ratio fluorobenzonitrile anchor before its underpredicted 50/1 result.",
+      "hypothesis_id": "H_nitrile"
+    },
+    {
+      "id": "4659b6752f23c0b85f08",
+      "reason": "Tests whether the pyridyl ketone's V2 underprediction grows from 1/1 to 2/1.",
+      "hypothesis_id": "H_ring_n"
+    },
+    {
+      "id": "9ccd4f4f61665ec641fe",
+      "reason": "Adds a 10/1 benzyl \u03b2-ketoester point below its measured 20/1 and 50/1 conditions.",
+      "hypothesis_id": "H_beta_ketoester"
+    },
+    {
+      "id": "fcb9019ffbdb889489f7",
+      "reason": "Locates the ratio where ortho-nitrobenzaldehyde's prediction error changes sign.",
+      "hypothesis_id": "H_nitroaldehyde"
+    },
+    {
+      "id": "5a365a8ac825ce487db4",
+      "reason": "Checks the cyclohexyl acrylate response between its measured 5/1 and 50/1 conditions.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "b05a4e8db42ce35cc958",
+      "reason": "Provides a 2/1 anchor for the acetoxybenzaldehyde whose 10/1 condition is pending CW measurement.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "c449ecc5ee6acf61bddb",
+      "reason": "Tests whether the methoxy-aromatic error transfers from aldehydes to an aromatic ester.",
+      "hypothesis_id": "H_methoxy"
+    },
+    {
+      "id": "b645df00945e594953a6",
+      "reason": "Contrasts a naphthyl ketone with the strongly retained naphthyl alcohol; structural transfer remains untested.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "d9426ef0af1c968f7fae",
+      "reason": "Tests whether the unexpectedly early elution of diethyl malonate transfers to its brominated analogue.",
+      "hypothesis_id": "H_malonate"
+    },
+    {
+      "id": "a6a0404c3ad65c6d9326",
+      "reason": "Probes a methylenedioxy aromatic ketone at 20/1, broadening the test of aromatic substituent effects.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "084212942b840ae3c1c7",
+      "reason": "Anchors fluoroacetophenone at 10/1 while its 50/1 condition awaits CW measurement.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H_alcohol",
+      "content": "Observed aromatic alcohol retention can rise sharply as PE/EA increases; whether naphthylmethanol follows a smooth rise from 0/1 to 10/1 is untested.",
+      "supporting_observed_ids": [
+        "b0f83f107759037eea65",
+        "b7cf293311f83700cd9a",
+        "75232f4ee5de52a0499e"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Where between 0/1 and 10/1 does naphthylmethanol's retention rise most sharply?"
+    },
+    {
+      "id": "H_methoxy",
+      "content": "The observed 50/1 methoxybenzaldehyde and methoxybenzophenone results are much later than their premeasurement predictions; transfer across methoxy-aromatic scaffolds remains uncertain.",
+      "supporting_observed_ids": [
+        "2d178efe0181baca2bd5",
+        "2d63ab3869184cde52bf",
+        "ce39d1762993bbbafaca"
+      ],
+      "contradicting_observed_ids": [
+        "c6159dcb5802e62284d1"
+      ],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "At which ratio does methoxybenzaldehyde depart from prediction, and does an aromatic ester show the same effect?"
+    },
+    {
+      "id": "H_iodophenol",
+      "content": "Iodophenol was overpredicted at 20/1 but underpredicted at 50/1 in prior premeasurement predictions; a ratio-dependent error reversal is plausible.",
+      "supporting_observed_ids": [
+        "0b8c6c59ae5e24b420e5",
+        "95d1d257dfea69f178f8"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Does iodophenol at 10/1 follow the early branch suggested by its measured 20/1 result?"
+    },
+    {
+      "id": "H_nitrile",
+      "content": "Observed methylbenzonitriles eluted earlier than predicted, while fluorobenzonitrile at 50/1 eluted later than predicted; substituent transfer is unreliable.",
+      "supporting_observed_ids": [
+        "de3442604a546992b1e1",
+        "b51a88b6dc4049704214",
+        "fe212637596386c24049"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Does fluorobenzonitrile retain its positive measured-minus-predicted error at 10/1?"
+    },
+    {
+      "id": "H_ring_n",
+      "content": "The pyridyl ketone's measured V2 exceeded prediction at 1/1, consistent with some observed ring-nitrogen underpredictions, but the effect varies by scaffold.",
+      "supporting_observed_ids": [
+        "8f5acbec0c511bb1ea89",
+        "e47aebe2660b9e1528de",
+        "23ef03f3e75e40b20095"
+      ],
+      "contradicting_observed_ids": [
+        "810b065b0b86ff8c9aae"
+      ],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "Does the pyridyl ketone's V2 error persist at 2/1?"
+    },
+    {
+      "id": "H_beta_ketoester",
+      "content": "The benzyl \u03b2-ketoester's measured V2 at 50/1 exceeded prediction at two loading volumes, while its 20/1 result was close; the onset is unmeasured.",
+      "supporting_observed_ids": [
+        "2b97a1e0a6a4b944b760",
+        "eb3bc3fba39e57adbc2f"
+      ],
+      "contradicting_observed_ids": [
+        "425fe9dfe0c3f345460b"
+      ],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Is the benzyl \u03b2-ketoester prediction accurate at 10/1 before the high-ratio V2 error appears?"
+    },
+    {
+      "id": "H_nitroaldehyde",
+      "content": "Ortho-nitrobenzaldehyde's prior prediction error changed direction between measured 5/1 and 20/1 conditions, and V2 remained underpredicted at 50/1.",
+      "supporting_observed_ids": [
+        "4da6e3b93f29af1efa94",
+        "857ae40d0fdf1c7e387e",
+        "0ac58929e586a4da4056"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "At 10/1, which side of the observed error transition does ortho-nitrobenzaldehyde occupy?"
+    },
+    {
+      "id": "H_malonate",
+      "content": "Observed diethyl malonate eluted much earlier than predicted across tested ratios; applying that finding to brominated malonate is an untested structural inference.",
+      "supporting_observed_ids": [
+        "58b3518f48d8340d6ffc",
+        "ab66de7edad40236ffd5",
+        "d7b0845793265cab0c33",
+        "f7d57d8bb988f7016502"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "strong",
+      "next_discriminating_question": "Does bromination preserve the early 5/1 elution of diethyl malonate?"
+    }
+  ],
+  "feedback_interpretation": "Round-three measurements strengthened the high-ratio underprediction signal for naphthylmethanol (55.82/113.21 mL measured at 10/1) and methoxybenzaldehyde (56.20/117.46 mL at 50/1). Iodophenol at 20/1 measured 26.27/49.10 mL against 41.29/70.41 mL predicted, reversing the earlier 50/1 error direction. Fluorobenzonitrile at 50/1 measured 24.86/44.05 mL against 14.76/33.29 mL predicted, unlike the early-eluting methylbenzonitriles. These results motivated matched-ratio probes and structural contrasts. Initial L333 records were used as measured anchors only, without assigning them out-of-sample prediction errors.",
+  "records": [
+    {
+      "candidate_id": "a6145bb0c9947f9515df",
+      "source": "CW",
+      "pred_V1_ml": 27.841543197631836,
+      "pred_V2_ml": 52.43000793457031,
+      "true_V1_ml": 27.799999237060547,
+      "true_V2_ml": 52.06666564941406,
+      "error_V1_ml": 0.04154396057128906,
+      "error_V2_ml": 0.36334228515625,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "72231b208c5287c32d70",
+      "source": "CW",
+      "pred_V1_ml": 19.726747512817383,
+      "pred_V2_ml": 47.38602066040039,
+      "true_V1_ml": 13.475000381469727,
+      "true_V2_ml": 33.83333206176758,
+      "error_V1_ml": 6.251747131347656,
+      "error_V2_ml": 13.552688598632812,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "7954bf73f74c7fbcecb2",
+      "source": "CW",
+      "pred_V1_ml": 22.030853271484375,
+      "pred_V2_ml": 40.95615005493164,
+      "true_V1_ml": 54.516666412353516,
+      "true_V2_ml": 89.71666717529297,
+      "error_V1_ml": -32.48581314086914,
+      "error_V2_ml": -48.76051712036133,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "6998dee6f6e69401798a",
+      "source": "CW",
+      "pred_V1_ml": 18.83976936340332,
+      "pred_V2_ml": 42.48347091674805,
+      "true_V1_ml": 26.5,
+      "true_V2_ml": 53.45000076293945,
+      "error_V1_ml": -7.66023063659668,
+      "error_V2_ml": -10.966529846191406,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "b4351e5f05f6d477a6c0",
+      "source": "CW",
+      "pred_V1_ml": 26.633087158203125,
+      "pred_V2_ml": 37.81956100463867,
+      "true_V1_ml": 35.41666793823242,
+      "true_V2_ml": 47.96666717529297,
+      "error_V1_ml": -8.783580780029297,
+      "error_V2_ml": -10.147106170654297,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "bd3435c0f9b14ec7997d",
+      "source": "CW",
+      "pred_V1_ml": 24.150901794433594,
+      "pred_V2_ml": 56.98680877685547,
+      "true_V1_ml": 18.808332443237305,
+      "true_V2_ml": 51.67499923706055,
+      "error_V1_ml": 5.342569351196289,
+      "error_V2_ml": 5.311809539794922,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "0dccaa29989ef4956786",
+      "source": "CW",
+      "pred_V1_ml": 25.865720748901367,
+      "pred_V2_ml": 51.16645431518555,
+      "true_V1_ml": 38.78333282470703,
+      "true_V2_ml": 80.875,
+      "error_V1_ml": -12.917612075805664,
+      "error_V2_ml": -29.708545684814453,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "3163a9b58f1a52a1992c",
+      "source": "CW",
+      "pred_V1_ml": 25.2202091217041,
+      "pred_V2_ml": 40.09428024291992,
+      "true_V1_ml": 58.25833511352539,
+      "true_V2_ml": 97.57499694824219,
+      "error_V1_ml": -33.038124084472656,
+      "error_V2_ml": -57.480716705322266,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "9b1545dfa05c9439870b",
+      "source": "CW",
+      "pred_V1_ml": 15.206916809082031,
+      "pred_V2_ml": 34.4821662902832,
+      "true_V1_ml": 11.508333206176758,
+      "true_V2_ml": 27.108333587646484,
+      "error_V1_ml": 3.6985836029052734,
+      "error_V2_ml": 7.373832702636719,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "5bad82a6cffd60e7a6c9",
+      "source": "CW",
+      "pred_V1_ml": 21.52336883544922,
+      "pred_V2_ml": 46.77528381347656,
+      "true_V1_ml": 30.70833396911621,
+      "true_V2_ml": 43.07500076293945,
+      "error_V1_ml": -9.184965133666992,
+      "error_V2_ml": 3.7002830505371094,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "cbedf4ab0af735b39b3a",
+      "source": "CW",
+      "pred_V1_ml": 18.82947540283203,
+      "pred_V2_ml": 29.618894577026367,
+      "true_V1_ml": 21.41666603088379,
+      "true_V2_ml": 36.25,
+      "error_V1_ml": -2.587190628051758,
+      "error_V2_ml": -6.631105422973633,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "54a23aa9aaa695bdc06b",
+      "source": "CW",
+      "pred_V1_ml": 16.647048950195312,
+      "pred_V2_ml": 32.87134552001953,
+      "true_V1_ml": 13.824999809265137,
+      "true_V2_ml": 31.816667556762695,
+      "error_V1_ml": 2.822049140930176,
+      "error_V2_ml": 1.054677963256836,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "cdc8c1db00222994a1aa",
+      "source": "CW",
+      "pred_V1_ml": 9.829565048217773,
+      "pred_V2_ml": 28.150123596191406,
+      "true_V1_ml": 30.608333587646484,
+      "true_V2_ml": 70.14167022705078,
+      "error_V1_ml": -20.77876853942871,
+      "error_V2_ml": -41.991546630859375,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "eb383b92fe958c91d272",
+      "source": "CW",
+      "pred_V1_ml": 18.3271541595459,
+      "pred_V2_ml": 41.192230224609375,
+      "true_V1_ml": 10.391666412353516,
+      "true_V2_ml": 34.224998474121094,
+      "error_V1_ml": 7.935487747192383,
+      "error_V2_ml": 6.967231750488281,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "8f5452ff0e84ab2e2057",
+      "source": "CW",
+      "pred_V1_ml": 27.82878303527832,
+      "pred_V2_ml": 49.10234069824219,
+      "true_V1_ml": 32.79166793823242,
+      "true_V2_ml": 61.141666412353516,
+      "error_V1_ml": -4.962884902954102,
+      "error_V2_ml": -12.039325714111328,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "9bc73e0c27d4d6b44abb",
+      "source": "CW",
+      "pred_V1_ml": 21.387231826782227,
+      "pred_V2_ml": 37.67667007446289,
+      "true_V1_ml": 26.799999237060547,
+      "true_V2_ml": 57.06666564941406,
+      "error_V1_ml": -5.41276741027832,
+      "error_V2_ml": -19.389995574951172,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "13bfaf03c35b4cff3bd5",
+      "source": "LLM",
+      "pred_V1_ml": 10.625374794006348,
+      "pred_V2_ml": 21.537214279174805,
+      "true_V1_ml": 11.324999809265137,
+      "true_V2_ml": 22.516666412353516,
+      "error_V1_ml": -0.6996250152587891,
+      "error_V2_ml": -0.9794521331787109,
+      "reason": "Measures naphthylmethanol at 2/1 to locate the onset of its steep observed retention rise.",
+      "hypothesis_id": "H_alcohol"
+    },
+    {
+      "candidate_id": "614873124b33029a924c",
+      "source": "LLM",
+      "pred_V1_ml": 27.83612060546875,
+      "pred_V2_ml": 52.44035720825195,
+      "true_V1_ml": 26.058332443237305,
+      "true_V2_ml": 57.80833435058594,
+      "error_V1_ml": 1.7777881622314453,
+      "error_V2_ml": -5.367977142333984,
+      "reason": "Adds a 5/1 naphthylmethanol point between its measured 0/1 and 10/1 responses.",
+      "hypothesis_id": "H_alcohol"
+    },
+    {
+      "candidate_id": "319e89d7000731f64e7f",
+      "source": "LLM",
+      "pred_V1_ml": 14.897599220275879,
+      "pred_V2_ml": 27.527084350585938,
+      "true_V1_ml": 4.7833333015441895,
+      "true_V2_ml": 36.81666564941406,
+      "error_V1_ml": 10.114265441894531,
+      "error_V2_ml": -9.289581298828125,
+      "reason": "Tests whether methoxybenzaldehyde underprediction is already present at 10/1.",
+      "hypothesis_id": "H_methoxy"
+    },
+    {
+      "candidate_id": "fc27fa779102c4aeb8ab",
+      "source": "LLM",
+      "pred_V1_ml": 27.84868621826172,
+      "pred_V2_ml": 49.24756622314453,
+      "true_V1_ml": 30.16666603088379,
+      "true_V2_ml": 58.30833435058594,
+      "error_V1_ml": -2.3179798126220703,
+      "error_V2_ml": -9.060768127441406,
+      "reason": "Tests the 20/1 transition toward methoxybenzaldehyde's large measured 50/1 response.",
+      "hypothesis_id": "H_methoxy"
+    },
+    {
+      "candidate_id": "e9e7a737df389d5fcc13",
+      "source": "LLM",
+      "pred_V1_ml": 15.339674949645996,
+      "pred_V2_ml": 28.590791702270508,
+      "true_V1_ml": 16.516666412353516,
+      "true_V2_ml": 27.40833282470703,
+      "error_V1_ml": -1.1769914627075195,
+      "error_V2_ml": 1.1824588775634766,
+      "reason": "Checks iodophenol at 10/1 after opposite prediction-error signs at 20/1 and 50/1.",
+      "hypothesis_id": "H_iodophenol"
+    },
+    {
+      "candidate_id": "f4ec546ae74a4b3888df",
+      "source": "LLM",
+      "pred_V1_ml": 13.305052757263184,
+      "pred_V2_ml": 26.487714767456055,
+      "true_V1_ml": 13.25,
+      "true_V2_ml": 22.899999618530273,
+      "error_V1_ml": 0.055052757263183594,
+      "error_V2_ml": 3.5877151489257812,
+      "reason": "Adds a low-ratio fluorobenzonitrile anchor before its underpredicted 50/1 result.",
+      "hypothesis_id": "H_nitrile"
+    },
+    {
+      "candidate_id": "4659b6752f23c0b85f08",
+      "source": "LLM",
+      "pred_V1_ml": 17.163766860961914,
+      "pred_V2_ml": 38.24913787841797,
+      "true_V1_ml": 18.983333587646484,
+      "true_V2_ml": 55.05833435058594,
+      "error_V1_ml": -1.8195667266845703,
+      "error_V2_ml": -16.80919647216797,
+      "reason": "Tests whether the pyridyl ketone's V2 underprediction grows from 1/1 to 2/1.",
+      "hypothesis_id": "H_ring_n"
+    },
+    {
+      "candidate_id": "9ccd4f4f61665ec641fe",
+      "source": "LLM",
+      "pred_V1_ml": 15.452360153198242,
+      "pred_V2_ml": 29.357221603393555,
+      "true_V1_ml": 13.083333015441895,
+      "true_V2_ml": 25.0,
+      "error_V1_ml": 2.3690271377563477,
+      "error_V2_ml": 4.357221603393555,
+      "reason": "Adds a 10/1 benzyl \u03b2-ketoester point below its measured 20/1 and 50/1 conditions.",
+      "hypothesis_id": "H_beta_ketoester"
+    },
+    {
+      "candidate_id": "fcb9019ffbdb889489f7",
+      "source": "LLM",
+      "pred_V1_ml": 14.603049278259277,
+      "pred_V2_ml": 35.49254608154297,
+      "true_V1_ml": 14.899999618530273,
+      "true_V2_ml": 35.71666717529297,
+      "error_V1_ml": -0.2969503402709961,
+      "error_V2_ml": -0.22412109375,
+      "reason": "Locates the ratio where ortho-nitrobenzaldehyde's prediction error changes sign.",
+      "hypothesis_id": "H_nitroaldehyde"
+    },
+    {
+      "candidate_id": "5a365a8ac825ce487db4",
+      "source": "LLM",
+      "pred_V1_ml": 7.339224815368652,
+      "pred_V2_ml": 12.875307083129883,
+      "true_V1_ml": 6.125,
+      "true_V2_ml": 11.041666984558105,
+      "error_V1_ml": 1.2142248153686523,
+      "error_V2_ml": 1.8336400985717773,
+      "reason": "Checks the cyclohexyl acrylate response between its measured 5/1 and 50/1 conditions.",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "b05a4e8db42ce35cc958",
+      "source": "LLM",
+      "pred_V1_ml": 11.411443710327148,
+      "pred_V2_ml": 26.862289428710938,
+      "true_V1_ml": 6.150000095367432,
+      "true_V2_ml": 26.799999237060547,
+      "error_V1_ml": 5.261443614959717,
+      "error_V2_ml": 0.062290191650390625,
+      "reason": "Provides a 2/1 anchor for the acetoxybenzaldehyde whose 10/1 condition is pending CW measurement.",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "c449ecc5ee6acf61bddb",
+      "source": "LLM",
+      "pred_V1_ml": 10.797656059265137,
+      "pred_V2_ml": 20.05014419555664,
+      "true_V1_ml": 4.741666793823242,
+      "true_V2_ml": 13.425000190734863,
+      "error_V1_ml": 6.0559892654418945,
+      "error_V2_ml": 6.625144004821777,
+      "reason": "Tests whether the methoxy-aromatic error transfers from aldehydes to an aromatic ester.",
+      "hypothesis_id": "H_methoxy"
+    },
+    {
+      "candidate_id": "b645df00945e594953a6",
+      "source": "LLM",
+      "pred_V1_ml": 10.982255935668945,
+      "pred_V2_ml": 27.444976806640625,
+      "true_V1_ml": 20.325000762939453,
+      "true_V2_ml": 37.50833511352539,
+      "error_V1_ml": -9.342744827270508,
+      "error_V2_ml": -10.063358306884766,
+      "reason": "Contrasts a naphthyl ketone with the strongly retained naphthyl alcohol; structural transfer remains untested.",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "d9426ef0af1c968f7fae",
+      "source": "LLM",
+      "pred_V1_ml": 8.01928424835205,
+      "pred_V2_ml": 13.703913688659668,
+      "true_V1_ml": 4.5333333015441895,
+      "true_V2_ml": 9.625,
+      "error_V1_ml": 3.4859509468078613,
+      "error_V2_ml": 4.078913688659668,
+      "reason": "Tests whether the unexpectedly early elution of diethyl malonate transfers to its brominated analogue.",
+      "hypothesis_id": "H_malonate"
+    },
+    {
+      "candidate_id": "a6a0404c3ad65c6d9326",
+      "source": "LLM",
+      "pred_V1_ml": 36.72702407836914,
+      "pred_V2_ml": 63.03789138793945,
+      "true_V1_ml": 31.950000762939453,
+      "true_V2_ml": 62.25833511352539,
+      "error_V1_ml": 4.7770233154296875,
+      "error_V2_ml": 0.7795562744140625,
+      "reason": "Probes a methylenedioxy aromatic ketone at 20/1, broadening the test of aromatic substituent effects.",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "084212942b840ae3c1c7",
+      "source": "LLM",
+      "pred_V1_ml": 14.428842544555664,
+      "pred_V2_ml": 30.532276153564453,
+      "true_V1_ml": 11.283333778381348,
+      "true_V2_ml": 21.799999237060547,
+      "error_V1_ml": 3.1455087661743164,
+      "error_V2_ml": 8.732276916503906,
+      "reason": "Anchors fluoroacetophenone at 10/1 while its 50/1 condition awaits CW measurement.",
+      "hypothesis_id": null
+    }
+  ]
+}

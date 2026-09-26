@@ -1,0 +1,236 @@
+{
+  "choices": [
+    {
+      "id": "53c1be5b96937954b9fa",
+      "reason": "The prior model underpredicted this alcohol at 5/1 and 10/1 (45a1b11ae63f2dab2e48, 73502a52708e4f9c2391). Measuring 2/1 tests where its steep retention rise begins; the 1/1 result is pending.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "07933c8c797c30bb0e8e",
+      "reason": "Quinoline measured much later at 5/1 and 10/1 than the prior model predicted (33ffc69a253a89f15995, 9cd02352c2ed7a3e2321). Its 2/1 condition probes the lower-ratio onset of that blind spot.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "5b445b457a8b897a2d6c",
+      "reason": "The prior model underpredicted this cyclopropyl \u03b2-keto ester at 20/1 by 27.74 mL in V1 and 38.74 mL in V2 (ffc70e28db22d1cc1f3f). The 10/1 result tests whether the error persists at stronger eluent.",
+      "hypothesis_id": "H9"
+    },
+    {
+      "id": "b37608f8c4a8ee4b8696",
+      "reason": "This acid's measured V2 varies sharply across 0/1, 1/1, 2/1, and 5/1, and prior predictions missed both directions. Its 10/1 prediction of 99.83 mL tests another high-volume condition; loading-solvent volume differs among existing records.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "10f01f359bc6067d009f",
+      "reason": "The enamine ester measured V2 of 109.68 mL at 20/1, 48.52 mL above its prior prediction (5d6d4ac0c1dfacbde53d). Measuring 5/1 tests the start of its predicted broad elution interval.",
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "a2f83665cfe821271b30",
+      "reason": "Pairing 10/1 with the selected 5/1 enamine ester and observed 20/1 result tests the model's steep predicted V2 progression. The 10/1 response remains unmeasured.",
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "810b065b0b86ff8c9aae",
+      "reason": "Severe underprediction for quinoline suggests a possible basic-heteroaromatic transfer issue (33ffc69a253a89f15995, 9cd02352c2ed7a3e2321). This phenylpyridine at 10/1 pairs with a pending 50/1 result; transfer across molecules is untested.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "2dbfdf9c2d5defd09f7a",
+      "reason": "A different oxygen-rich ester was strongly underpredicted at 5/1 (c6924324ddd95f249df6). This multifunctional ester at 2/1 tests whether that error extends beyond the measured molecule; evidence for transfer is weak.",
+      "hypothesis_id": "H12"
+    },
+    {
+      "id": "b7fffd840d208b29776c",
+      "reason": "The prior model underpredicted this conjugated ketone at 50/1 by 19.01 mL in V1 and 36.63 mL in V2 (c9bef93a79964dc6ede1). Measuring 20/1 tests its condition trend.",
+      "hypothesis_id": "H11"
+    },
+    {
+      "id": "b514312eda7950cdcf1c",
+      "reason": "Nitroacetophenone showed a large prior V1 underprediction at 10/1 (9ae9c8b491a04e429a11). This nitrobenzophenone at 50/1 probes transfer to another nitro aromatic ketone, with substantial scaffold and condition differences.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "id": "7654254c03d9de79740f",
+      "reason": "Naphthyl acetophenone at 50/1 measured later than predicted (c2334ccf8e6788ac6ca2). A naphthaldehyde at the same ratio tests whether this extends to another naphthyl carbonyl; that transfer is unobserved.",
+      "hypothesis_id": "H11"
+    },
+    {
+      "id": "d824f03d11ae777a2d00",
+      "reason": "This methylenedioxy acetophenone tests an oxygenated aromatic ketone at 10/1. Prior aromatic-carbonyl errors vary in direction, so a new scaffold helps locate the boundary of that model behavior.",
+      "hypothesis_id": "H11"
+    },
+    {
+      "id": "9bc73e0c27d4d6b44abb",
+      "reason": "Methyl anthranilate at 50/1 measured 6.84/12.43 mL against a prior 26.50/55.02 mL prediction (302e458c5ed2285ca328). This para-amino ethyl benzoate tests transfer to a related amino ester; position, ester group, and loading volume also differ.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "f17690c586ce5d166eb0",
+      "reason": "The same naphthyl acetate has a pending 50/1 measurement. Selecting 2/1 provides a wide same-molecule eluent contrast for an ester, where prior condition responses have proved molecule-specific.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "ff9bcaab8e95f60d70bc",
+      "reason": "Naphthyl acetophenone measured 38.80/67.99 mL at 50/1, later than its prior prediction (c2334ccf8e6788ac6ca2). Its 20/1 result tests whether aromatic-ketone underprediction spans ratios.",
+      "hypothesis_id": "H11"
+    },
+    {
+      "id": "65f6e8326897810ec715",
+      "reason": "Nitroacetophenone at 10/1 measured 28.69/54.81 mL (9ae9c8b491a04e429a11). The 5/1 result tests its condition curve and whether the updated lower-ratio prediction remains too early.",
+      "hypothesis_id": "H10"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "The cinnamic acid has highly condition-sensitive V2, including a 1/1 peak in the supplied measurements. The earlier simple interpolation idea is weakened: 0/1 measured 31.91 mL versus a prior prediction of 19.89 mL, while 2/1 measured 46.22 mL versus 70.57 mL predicted. Loading-solvent volume differs across some ratios.",
+      "supporting_observed_ids": [
+        "87da8c37b16d810331a2",
+        "f90a5a5a54509c085ebd",
+        "9a32b65bc21fdc5f7286",
+        "1e775e7d8dcbf48fd6f8"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "At the catalogued 1500 \u00b5L loading-solvent volume, does 10/1 produce another large V2 and elution interval?"
+    },
+    {
+      "id": "H2",
+      "content": "Eluent-ratio trends are molecule-specific. Malonate V1/V2 rose across 5/1, 10/1, and 20/1, whereas dibenzoylmethane V1 changed little from 0/1 to 50/1 even as V2 increased. This narrows the earlier general ester-and-diketone trend hypothesis.",
+      "supporting_observed_ids": [
+        "f82f2844c7e27afd32bb",
+        "9603a9567c8b21458d1e",
+        "3726956d81fe3954e5b7",
+        "90eea1593f255ed0107f",
+        "8db24ae10df4095ada47"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "How does the naphthyl acetate shift between its selected 2/1 and pending 50/1 conditions?"
+    },
+    {
+      "id": "H3",
+      "content": "The earlier predicted large 20/1-to-50/1 rise for the trifluorinated diketone was contradicted: measured V1 stayed near 5 mL and V2 near 32 mL at both ratios. Possible tautomerism remains a chemical prior, not an established cause.",
+      "supporting_observed_ids": [
+        "14d7f6fb3dda38f48fb9",
+        "4c2ad10692512e8f23b8",
+        "0b9a59526d7d4ce5f872"
+      ],
+      "contradicting_observed_ids": [
+        "0b9a59526d7d4ce5f872"
+      ],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Do other \u03b2-diketones also show a high-ratio V1 plateau with V2 changes?"
+    },
+    {
+      "id": "H4",
+      "content": "The alcohol's measured V1/V2 rose from 34.58/50.00 mL at 5/1 to 51.71/94.93 mL at 10/1, with substantial prior underprediction at both. The differing V/ul values limit isolation of the ratio effect.",
+      "supporting_observed_ids": [
+        "45a1b11ae63f2dab2e48",
+        "73502a52708e4f9c2391"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Does its 2/1 measurement already show late elution, and how does it compare with the pending 1/1 result?"
+    },
+    {
+      "id": "H5",
+      "content": "The prior model severely underpredicted quinoline at 5/1 and 10/1, and its predicted V2 decrease between those ratios was contradicted by a measured rise from 57.67 to 93.07 mL. Transfer to other basic heteroaromatics is an inference.",
+      "supporting_observed_ids": [
+        "33ffc69a253a89f15995",
+        "9cd02352c2ed7a3e2321"
+      ],
+      "contradicting_observed_ids": [
+        "9cd02352c2ed7a3e2321"
+      ],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Where does quinoline's retention rise begin, and does phenylpyridine show a related effect?"
+    },
+    {
+      "id": "H6",
+      "content": "The boronate remained relatively early at 20/1 and 50/1. Prior V2 predictions overestimated both measurements, weakening the earlier large-rise hypothesis.",
+      "supporting_observed_ids": [
+        "96b9b370ade7a60366fa",
+        "cb79e57eb461a7dcc59a",
+        "4e66505f5d66d4fe37b9",
+        "903811765ba61a8af2b7"
+      ],
+      "contradicting_observed_ids": [
+        "4e66505f5d66d4fe37b9",
+        "903811765ba61a8af2b7"
+      ],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Does this relatively short interval persist for other boronates at weak eluent?"
+    },
+    {
+      "id": "H7",
+      "content": "Methyl anthranilate's measured 50/1 V1/V2 of 6.84/12.43 mL sharply contradicted the prior model's 26.50/55.02 mL extrapolation. Its V2 did not grow beyond the measured 5/1 value; whether this transfers to other amino esters is unknown.",
+      "supporting_observed_ids": [
+        "a2b3a77e1b5200f7c164",
+        "9333d130f52d80332cf0",
+        "302e458c5ed2285ca328"
+      ],
+      "contradicting_observed_ids": [
+        "302e458c5ed2285ca328"
+      ],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Does the related para-amino ethyl benzoate also elute earlier than predicted?"
+    },
+    {
+      "id": "H8",
+      "content": "The enamine ester has an exceptionally wide measured interval at 20/1: 109.68 minus 29.26 mL. The prior model substantially underpredicted V2, while its lower-ratio response remains unobserved.",
+      "supporting_observed_ids": [
+        "5d6d4ac0c1dfacbde53d"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "How do its measured V1, V2, and interval width change at 5/1 and 10/1?"
+    },
+    {
+      "id": "H9",
+      "content": "The prior model substantially underpredicted this cyclopropyl \u03b2-keto ester at 20/1. Whether the same error persists at 10/1 is untested.",
+      "supporting_observed_ids": [
+        "ffc70e28db22d1cc1f3f"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "Is its 10/1 measurement also much later than the current prediction?"
+    },
+    {
+      "id": "H10",
+      "content": "Nitroacetophenone at 10/1 measured much later in V1 than the prior model predicted. Transfer across eluent ratios and to nitrobenzophenone is untested.",
+      "supporting_observed_ids": [
+        "9ae9c8b491a04e429a11"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "What are nitroacetophenone's 5/1 V1/V2, and does nitrobenzophenone show a related discrepancy?"
+    },
+    {
+      "id": "H11",
+      "content": "Several conjugated or fused aromatic carbonyls measured later than prior predictions, including naphthyl acetophenone and dibenzalacetone. Other aromatic ketones did not show the same direction, so this remains a limited scaffold pattern.",
+      "supporting_observed_ids": [
+        "c2334ccf8e6788ac6ca2",
+        "c9bef93a79964dc6ede1",
+        "0c5c35afb3a24375c153"
+      ],
+      "contradicting_observed_ids": [
+        "9f362bfe1dab6e9eac3d"
+      ],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Do 20/1 measurements of the selected conjugated and naphthyl ketones preserve the large prior errors?"
+    },
+    {
+      "id": "H12",
+      "content": "A methoxyethyl acetoacetate had much later measured V1/V2 than predicted at 5/1. Extending this to another oxygen-rich multifunctional ester is a weak, untested inference.",
+      "supporting_observed_ids": [
+        "c6924324ddd95f249df6"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "Does the selected multifunctional ester at 2/1 also elute later than predicted?"
+    }
+  ],
+  "feedback_interpretation": "Round-zero feedback redirected the search toward measured prior-model failures: strong underprediction for quinoline, the alcohol, enamine ester, cyclopropyl \u03b2-keto ester, and several aromatic carbonyls; strong overprediction for methyl anthranilate and the high-ratio trifluorinated diketone; and opposite-direction V2 errors for the acid at 0/1 and 2/1. I selected lower-ratio contrasts and related scaffolds to test where those errors begin and whether they transfer, while retaining the earlier hypotheses with narrower assessments."
+}

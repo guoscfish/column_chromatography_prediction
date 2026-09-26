@@ -1,0 +1,534 @@
+{
+  "round": 0,
+  "batch_freeze_sha256": "c06cc2f5f3b9bbbba3080129934e606c505d1377cd87bbb9e5ed9df1907f26fd",
+  "choices": [
+    {
+      "id": "ab66de7edad40236ffd5",
+      "reason": "At 10/1, predicted V1/V2 are 18.5/26.7 mL. Paired with the 20/1 choice, this tests the steep predicted solvent-ratio response of diethyl malonate; same-molecule observed evidence is absent.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "d7b0845793265cab0c33",
+      "reason": "At 20/1, predicted V1/V2 rise to 30.7/49.3 mL with the same loading conditions as the 10/1 choice. This tests a large, currently unmeasured change before the pending 50/1 experiment.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "33123966b214578291a5",
+      "reason": "The 5/1 fluorobenzoate prediction is 5.9/16.8 mL. Its measured 2/1 and 50/1 endpoints bracket this setting, while the paired 10/1 prediction has a slightly lower V2; measuring both tests that possible curve-shape blind spot.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "09f7ce5c473ea7ea5d94",
+      "reason": "At the same 100 \u00b5L loading as the 5/1 choice, predicted V2 falls from 16.8 to 16.0 mL at 10/1. The local reversal is an untested model inference despite the broader measured increase from 2/1 to 50/1.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "bbb514661c0a49694d6a",
+      "reason": "The 20/1 benzoylformate prediction is 9.8/28.7 mL. Same-molecule measurements at 5/1 and 10/1 show similar V2 values, so this probes whether that apparent plateau extends to a weaker eluent.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "7b42519983cf93dd7efd",
+      "reason": "At 50/1, predicted V1/V2 remain near 11.1/29.0 mL. Paired with 20/1, this tests the model's high-ratio plateau for both endpoints; the measured support currently reaches only 10/1.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "693a65467095367c8e95",
+      "reason": "The 10/1 anthranilate prediction is 13.6/25.7 mL versus measured values near 9/17 mL at 5/1. It tests the first step of a predicted rise in this hydrogen-bonding molecule; evidence for the rise is weak.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "74541dbf8571f881c454",
+      "reason": "At the same 100 \u00b5L loading, the 20/1 prediction rises to 21.2/43.0 mL. This checks whether the model's large solvent-ratio response is real before the pending 50/1 result is revealed.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "5ae7472a4d9ce3fe20d0",
+      "reason": "For cyanobenzophenone, the only found measurement is 3.6/8.9 mL at 0/1. The 5/1 prediction of 12.1/33.7 mL bridges that observation and the pending 10/1\u201320/1 experiments, testing a possible extrapolation blind spot.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "63962b52800b6ead5398",
+      "reason": "The 0/1 nitroacetophenone prediction of 4.8/8.6 mL provides a strong-eluent anchor for its pending 10/1 experiment. No same-molecule observed record was found, so the expected contrast is untested.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "ca467c94f14b2219503e",
+      "reason": "At 10/1, this multifunctional ester is predicted at 25.7/47.8 mL, substantially later than its pending 5/1 prediction. The matched molecule and loading conditions isolate a potentially difficult solvent-ratio response; observed evidence is weak.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "8e7636d7a60a6058305a",
+      "reason": "The amino-substituted unsaturated ester has a high 20/1 prediction of 27.8/55.0 mL. Measuring it probes transfer to this polar structural motif at a PE-rich condition; the chemical rationale is a prior, not measured evidence.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "48679ae48dd485ffb7a6",
+      "reason": "Despite two ester groups and a 50/1 eluent, the prediction is relatively early at 11.6/16.5 mL. This tests whether the model handles the acetylenic diester's retention and V2\u2212V1 width; direct evidence is weak.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "80f546c47198fa7c6dbf",
+      "reason": "This phenol is predicted at 20.8/47.3 mL at 50/1. Its hydrogen-bond donor and fluorinated ether test a chemical regime where V2 and the elution width could be difficult to generalize; this is an untested chemical prior.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "4da6e3b93f29af1efa94",
+      "reason": "The ortho-nitrobenzaldehyde prediction is 14.4/33.7 mL at 5/1. It adds a positional and functional-group probe alongside pending para-nitro carbonyl compounds, though differing conditions make that comparison weak.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "183af335033005f96b97",
+      "reason": "The aminoacetophenone prediction is 12.1/26.4 mL with a 900 \u00b5L DCM loading-solvent volume. This probes transfer to an amine-containing molecule and a relatively large loading volume; there is no controlled contrast here, so the evidence is weak.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Diethyl malonate may show a large increase in V1 and V2 between 10/1 and 20/1 PE/EA, as predicted. General chemical prior favors stronger retention under PE-rich conditions. The observed phenyl-substituted malonate rises from 12.2/18.9 mL at 10/1 to 21.0/32.5 mL at 20/1, but that is a different molecule and loading amount.",
+      "supporting_observed_ids": [
+        "9603a9567c8b21458d1e",
+        "2635b25bb3c1c37f3b74"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "Does matched-loading diethyl malonate actually approach the predicted 30.7/49.3 mL at 20/1?"
+    },
+    {
+      "id": "H2",
+      "content": "Fluorobenzoate V2 may have a local maximum near 5/1: predictions are 16.8 mL at 5/1 and 16.0 mL at 10/1. Measurements show an overall increase from 9.0 mL at 1/1 to 10.1 mL at 2/1 and 22.3 mL at 50/1, but do not resolve the proposed local reversal.",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "At identical 100 \u00b5L loading, is measured V2 at 5/1 greater than at 10/1?"
+    },
+    {
+      "id": "H3",
+      "content": "Methyl benzoylformate V2 may flatten as PE/EA becomes more PE-rich. At 150 \u00b5L loading, observed V2 is 27.7 mL at 5/1 and 29.5 mL at 10/1; predictions at 20/1 and 50/1 remain near 29 mL. Persistence beyond 10/1 is untested.",
+      "supporting_observed_ids": [
+        "6c1c34b12c66ebcf39a4",
+        "ad0ace61c29817c678c2"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Do measured V1 and V2 remain nearly flat between 20/1 and 50/1 under matched loading?"
+    },
+    {
+      "id": "H4",
+      "content": "Anthranilate may become substantially later and wider as the eluent changes from 5/1 to 20/1. The two 5/1 measurements at 50 and 150 \u00b5L are close, but there is no observed higher-ratio response; the steep rise comes from model predictions.",
+      "supporting_observed_ids": [
+        "3aed7873d2fd1cf48684",
+        "18186b5d6cc190fc07a3"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "At matched 100 \u00b5L loading, how much do measured V1 and V2 increase from 10/1 to 20/1?"
+    },
+    {
+      "id": "H5",
+      "content": "Cyanobenzophenone may shift sharply from its observed early elution at 0/1 to much later, wider elution at 5/1 and beyond. This is a chemically plausible solvent-strength effect, but its magnitude is only predicted.",
+      "supporting_observed_ids": [
+        "6c27c0ab37bb8d812822"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "Does the 5/1 measurement approach the predicted 12.1/33.7 mL and bridge the pending higher-ratio predictions?"
+    },
+    {
+      "id": "H6",
+      "content": "Nitroacetophenone may move from early elution at 0/1 toward the much later pending 10/1 prediction. This follows a general solvent-strength prior; no same-molecule measured record was found.",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "What V1 and V2 are measured at 0/1, and how large is the eventual contrast with 10/1?"
+    }
+  ],
+  "feedback_interpretation": "",
+  "records": [
+    {
+      "candidate_id": "fe1a34b5975943e8f292",
+      "source": "CW",
+      "pred_V1_ml": 19.62790870666504,
+      "pred_V2_ml": 54.53721237182617,
+      "true_V1_ml": 22.866666793823242,
+      "true_V2_ml": 57.46666717529297,
+      "error_V1_ml": -3.238758087158203,
+      "error_V2_ml": -2.929454803466797,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "f7d57d8bb988f7016502",
+      "source": "CW",
+      "pred_V1_ml": 41.07887649536133,
+      "pred_V2_ml": 69.21405792236328,
+      "true_V1_ml": 5.791666507720947,
+      "true_V2_ml": 7.925000190734863,
+      "error_V1_ml": 35.287208557128906,
+      "error_V2_ml": 61.289058685302734,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "79ff49052bce33597828",
+      "source": "CW",
+      "pred_V1_ml": 19.733173370361328,
+      "pred_V2_ml": 48.639259338378906,
+      "true_V1_ml": 7.699999809265137,
+      "true_V2_ml": 31.58333396911621,
+      "error_V1_ml": 12.033173561096191,
+      "error_V2_ml": 17.055925369262695,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "33ffc69a253a89f15995",
+      "source": "CW",
+      "pred_V1_ml": 19.627613067626953,
+      "pred_V2_ml": 41.7764778137207,
+      "true_V1_ml": 27.899999618530273,
+      "true_V2_ml": 57.66666793823242,
+      "error_V1_ml": -8.27238655090332,
+      "error_V2_ml": -15.890190124511719,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "a5f9179bfb146ad70953",
+      "source": "CW",
+      "pred_V1_ml": 24.370201110839844,
+      "pred_V2_ml": 61.28966522216797,
+      "true_V1_ml": 43.16666793823242,
+      "true_V2_ml": 78.53333282470703,
+      "error_V1_ml": -18.796466827392578,
+      "error_V2_ml": -17.243667602539062,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "9ffee2813aef5c26f96f",
+      "source": "CW",
+      "pred_V1_ml": 39.11033248901367,
+      "pred_V2_ml": 82.92239379882812,
+      "true_V1_ml": 43.108333587646484,
+      "true_V2_ml": 119.19999694824219,
+      "error_V1_ml": -3.9980010986328125,
+      "error_V2_ml": -36.27760314941406,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "547923973b121019625f",
+      "source": "CW",
+      "pred_V1_ml": 27.86019515991211,
+      "pred_V2_ml": 58.66317367553711,
+      "true_V1_ml": 34.02916717529297,
+      "true_V2_ml": 75.1624984741211,
+      "error_V1_ml": -6.168972015380859,
+      "error_V2_ml": -16.499324798583984,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "51f4126a3aadb3239225",
+      "source": "CW",
+      "pred_V1_ml": 24.649391174316406,
+      "pred_V2_ml": 45.6230354309082,
+      "true_V1_ml": 43.474998474121094,
+      "true_V2_ml": 118.59166717529297,
+      "error_V1_ml": -18.825607299804688,
+      "error_V2_ml": -72.9686279296875,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "9249ed2c527f70995033",
+      "source": "CW",
+      "pred_V1_ml": 33.21406173706055,
+      "pred_V2_ml": 55.7736930847168,
+      "true_V1_ml": 37.94166564941406,
+      "true_V2_ml": 51.516666412353516,
+      "error_V1_ml": -4.727603912353516,
+      "error_V2_ml": 4.257026672363281,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "5d530b2f228ed39ff952",
+      "source": "CW",
+      "pred_V1_ml": 16.39017105102539,
+      "pred_V2_ml": 32.75551223754883,
+      "true_V1_ml": 17.850000381469727,
+      "true_V2_ml": 43.858333587646484,
+      "error_V1_ml": -1.459829330444336,
+      "error_V2_ml": -11.102821350097656,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "d1774335b45258bc173a",
+      "source": "CW",
+      "pred_V1_ml": 15.38671588897705,
+      "pred_V2_ml": 46.22344207763672,
+      "true_V1_ml": 7.574999809265137,
+      "true_V2_ml": 29.875,
+      "error_V1_ml": 7.811716079711914,
+      "error_V2_ml": 16.34844207763672,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "8641d0ec9c4b21727b9a",
+      "source": "CW",
+      "pred_V1_ml": 22.987546920776367,
+      "pred_V2_ml": 42.565940856933594,
+      "true_V1_ml": 10.883333206176758,
+      "true_V2_ml": 22.866666793823242,
+      "error_V1_ml": 12.10421371459961,
+      "error_V2_ml": 19.69927406311035,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "59b54ad3a60a52cc2b2c",
+      "source": "CW",
+      "pred_V1_ml": 25.443931579589844,
+      "pred_V2_ml": 62.0238151550293,
+      "true_V1_ml": 19.691667556762695,
+      "true_V2_ml": 55.724998474121094,
+      "error_V1_ml": 5.752264022827148,
+      "error_V2_ml": 6.298816680908203,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "6a4e95d2a3cca31094a1",
+      "source": "CW",
+      "pred_V1_ml": 18.924348831176758,
+      "pred_V2_ml": 40.9157600402832,
+      "true_V1_ml": 16.891666412353516,
+      "true_V2_ml": 29.225000381469727,
+      "error_V1_ml": 2.032682418823242,
+      "error_V2_ml": 11.690759658813477,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "95d1d257dfea69f178f8",
+      "source": "CW",
+      "pred_V1_ml": 25.053382873535156,
+      "pred_V2_ml": 48.476356506347656,
+      "true_V1_ml": 52.82500076293945,
+      "true_V2_ml": 97.92500305175781,
+      "error_V1_ml": -27.771617889404297,
+      "error_V2_ml": -49.448646545410156,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "38e6b8bf0f089fcadd80",
+      "source": "CW",
+      "pred_V1_ml": 27.070602416992188,
+      "pred_V2_ml": 66.7900161743164,
+      "true_V1_ml": 25.641666412353516,
+      "true_V2_ml": 55.08333206176758,
+      "error_V1_ml": 1.4289360046386719,
+      "error_V2_ml": 11.706684112548828,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "ab66de7edad40236ffd5",
+      "source": "LLM",
+      "pred_V1_ml": 18.52588653564453,
+      "pred_V2_ml": 26.717727661132812,
+      "true_V1_ml": 5.949999809265137,
+      "true_V2_ml": 7.508333206176758,
+      "error_V1_ml": 12.575886726379395,
+      "error_V2_ml": 19.209394454956055,
+      "reason": "At 10/1, predicted V1/V2 are 18.5/26.7 mL. Paired with the 20/1 choice, this tests the steep predicted solvent-ratio response of diethyl malonate; same-molecule observed evidence is absent.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "d7b0845793265cab0c33",
+      "source": "LLM",
+      "pred_V1_ml": 30.749963760375977,
+      "pred_V2_ml": 49.29288864135742,
+      "true_V1_ml": 4.608333110809326,
+      "true_V2_ml": 6.316666603088379,
+      "error_V1_ml": 26.141630172729492,
+      "error_V2_ml": 42.97622299194336,
+      "reason": "At 20/1, predicted V1/V2 rise to 30.7/49.3 mL with the same loading conditions as the 10/1 choice. This tests a large, currently unmeasured change before the pending 50/1 experiment.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "33123966b214578291a5",
+      "source": "LLM",
+      "pred_V1_ml": 5.930788993835449,
+      "pred_V2_ml": 16.809310913085938,
+      "true_V1_ml": 6.449999809265137,
+      "true_V2_ml": 12.708333015441895,
+      "error_V1_ml": -0.5192108154296875,
+      "error_V2_ml": 4.100977897644043,
+      "reason": "The 5/1 fluorobenzoate prediction is 5.9/16.8 mL. Its measured 2/1 and 50/1 endpoints bracket this setting, while the paired 10/1 prediction has a slightly lower V2; measuring both tests that possible curve-shape blind spot.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "09f7ce5c473ea7ea5d94",
+      "source": "LLM",
+      "pred_V1_ml": 6.423892974853516,
+      "pred_V2_ml": 15.9724760055542,
+      "true_V1_ml": 7.083333492279053,
+      "true_V2_ml": 12.308333396911621,
+      "error_V1_ml": -0.6594405174255371,
+      "error_V2_ml": 3.664142608642578,
+      "reason": "At the same 100 \u00b5L loading as the 5/1 choice, predicted V2 falls from 16.8 to 16.0 mL at 10/1. The local reversal is an untested model inference despite the broader measured increase from 2/1 to 50/1.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "bbb514661c0a49694d6a",
+      "source": "LLM",
+      "pred_V1_ml": 9.780563354492188,
+      "pred_V2_ml": 28.734973907470703,
+      "true_V1_ml": 13.554166793823242,
+      "true_V2_ml": 33.31666564941406,
+      "error_V1_ml": -3.7736034393310547,
+      "error_V2_ml": -4.581691741943359,
+      "reason": "The 20/1 benzoylformate prediction is 9.8/28.7 mL. Same-molecule measurements at 5/1 and 10/1 show similar V2 values, so this probes whether that apparent plateau extends to a weaker eluent.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "7b42519983cf93dd7efd",
+      "source": "LLM",
+      "pred_V1_ml": 11.088637351989746,
+      "pred_V2_ml": 29.02676010131836,
+      "true_V1_ml": 19.758333206176758,
+      "true_V2_ml": 61.95000076293945,
+      "error_V1_ml": -8.669695854187012,
+      "error_V2_ml": -32.923240661621094,
+      "reason": "At 50/1, predicted V1/V2 remain near 11.1/29.0 mL. Paired with 20/1, this tests the model's high-ratio plateau for both endpoints; the measured support currently reaches only 10/1.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "693a65467095367c8e95",
+      "source": "LLM",
+      "pred_V1_ml": 13.597217559814453,
+      "pred_V2_ml": 25.730497360229492,
+      "true_V1_ml": 13.491666793823242,
+      "true_V2_ml": 26.04166603088379,
+      "error_V1_ml": 0.10555076599121094,
+      "error_V2_ml": -0.3111686706542969,
+      "reason": "The 10/1 anthranilate prediction is 13.6/25.7 mL versus measured values near 9/17 mL at 5/1. It tests the first step of a predicted rise in this hydrogen-bonding molecule; evidence for the rise is weak.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "candidate_id": "74541dbf8571f881c454",
+      "source": "LLM",
+      "pred_V1_ml": 21.1951961517334,
+      "pred_V2_ml": 43.025962829589844,
+      "true_V1_ml": 19.866666793823242,
+      "true_V2_ml": 38.22916793823242,
+      "error_V1_ml": 1.3285293579101562,
+      "error_V2_ml": 4.796794891357422,
+      "reason": "At the same 100 \u00b5L loading, the 20/1 prediction rises to 21.2/43.0 mL. This checks whether the model's large solvent-ratio response is real before the pending 50/1 result is revealed.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "candidate_id": "5ae7472a4d9ce3fe20d0",
+      "source": "LLM",
+      "pred_V1_ml": 12.070016860961914,
+      "pred_V2_ml": 33.71859359741211,
+      "true_V1_ml": 5.116666793823242,
+      "true_V2_ml": 21.308332443237305,
+      "error_V1_ml": 6.953350067138672,
+      "error_V2_ml": 12.410261154174805,
+      "reason": "For cyanobenzophenone, the only found measurement is 3.6/8.9 mL at 0/1. The 5/1 prediction of 12.1/33.7 mL bridges that observation and the pending 10/1\u201320/1 experiments, testing a possible extrapolation blind spot.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "candidate_id": "63962b52800b6ead5398",
+      "source": "LLM",
+      "pred_V1_ml": 4.761842727661133,
+      "pred_V2_ml": 8.63293170928955,
+      "true_V1_ml": 3.9000000953674316,
+      "true_V2_ml": 11.699999809265137,
+      "error_V1_ml": 0.8618426322937012,
+      "error_V2_ml": -3.067068099975586,
+      "reason": "The 0/1 nitroacetophenone prediction of 4.8/8.6 mL provides a strong-eluent anchor for its pending 10/1 experiment. No same-molecule observed record was found, so the expected contrast is untested.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "candidate_id": "ca467c94f14b2219503e",
+      "source": "LLM",
+      "pred_V1_ml": 25.680450439453125,
+      "pred_V2_ml": 47.80327606201172,
+      "true_V1_ml": 36.92499923706055,
+      "true_V2_ml": 94.20833587646484,
+      "error_V1_ml": -11.244548797607422,
+      "error_V2_ml": -46.405059814453125,
+      "reason": "At 10/1, this multifunctional ester is predicted at 25.7/47.8 mL, substantially later than its pending 5/1 prediction. The matched molecule and loading conditions isolate a potentially difficult solvent-ratio response; observed evidence is weak.",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "8e7636d7a60a6058305a",
+      "source": "LLM",
+      "pred_V1_ml": 27.84384536743164,
+      "pred_V2_ml": 54.999149322509766,
+      "true_V1_ml": 47.0,
+      "true_V2_ml": 119.36666870117188,
+      "error_V1_ml": -19.15615463256836,
+      "error_V2_ml": -64.36752319335938,
+      "reason": "The amino-substituted unsaturated ester has a high 20/1 prediction of 27.8/55.0 mL. Measuring it probes transfer to this polar structural motif at a PE-rich condition; the chemical rationale is a prior, not measured evidence.",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "48679ae48dd485ffb7a6",
+      "source": "LLM",
+      "pred_V1_ml": 11.591389656066895,
+      "pred_V2_ml": 16.508874893188477,
+      "true_V1_ml": 8.391666412353516,
+      "true_V2_ml": 13.541666984558105,
+      "error_V1_ml": 3.199723243713379,
+      "error_V2_ml": 2.967207908630371,
+      "reason": "Despite two ester groups and a 50/1 eluent, the prediction is relatively early at 11.6/16.5 mL. This tests whether the model handles the acetylenic diester's retention and V2\u2212V1 width; direct evidence is weak.",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "80f546c47198fa7c6dbf",
+      "source": "LLM",
+      "pred_V1_ml": 20.810733795166016,
+      "pred_V2_ml": 47.28541564941406,
+      "true_V1_ml": 30.59166717529297,
+      "true_V2_ml": 85.64167022705078,
+      "error_V1_ml": -9.780933380126953,
+      "error_V2_ml": -38.35625457763672,
+      "reason": "This phenol is predicted at 20.8/47.3 mL at 50/1. Its hydrogen-bond donor and fluorinated ether test a chemical regime where V2 and the elution width could be difficult to generalize; this is an untested chemical prior.",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "4da6e3b93f29af1efa94",
+      "source": "LLM",
+      "pred_V1_ml": 14.386954307556152,
+      "pred_V2_ml": 33.74809646606445,
+      "true_V1_ml": 6.925000190734863,
+      "true_V2_ml": 23.008333206176758,
+      "error_V1_ml": 7.461954116821289,
+      "error_V2_ml": 10.739763259887695,
+      "reason": "The ortho-nitrobenzaldehyde prediction is 14.4/33.7 mL at 5/1. It adds a positional and functional-group probe alongside pending para-nitro carbonyl compounds, though differing conditions make that comparison weak.",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "183af335033005f96b97",
+      "source": "LLM",
+      "pred_V1_ml": 12.065825462341309,
+      "pred_V2_ml": 26.370431900024414,
+      "true_V1_ml": 23.41666603088379,
+      "true_V2_ml": 39.43333435058594,
+      "error_V1_ml": -11.35084056854248,
+      "error_V2_ml": -13.062902450561523,
+      "reason": "The aminoacetophenone prediction is 12.1/26.4 mL with a 900 \u00b5L DCM loading-solvent volume. This probes transfer to an amine-containing molecule and a relatively large loading volume; there is no controlled contrast here, so the evidence is weak.",
+      "hypothesis_id": null
+    }
+  ]
+}

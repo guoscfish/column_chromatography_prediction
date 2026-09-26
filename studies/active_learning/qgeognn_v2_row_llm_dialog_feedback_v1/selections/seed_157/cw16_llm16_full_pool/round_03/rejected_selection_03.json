@@ -1,0 +1,307 @@
+{
+  "type": "selection",
+  "packet_sha256": "4bd00bfb1859cd8a9c0635db90dcae21f979293dfd5ecfdf11584b32c6bb5b44",
+  "choices": [
+    {
+      "id": "716d04ed1943f0708912",
+      "reason": "p-Methylbenzyl alcohol measured 5.2/8.1 mL at 0/1 but 39.4/66.4 mL at 10/1. This matched-loading 5/1 point locates the sharp ratio response that the prior 10/1 prediction missed.",
+      "hypothesis_id": "H16"
+    },
+    {
+      "id": "b7cf293311f83700cd9a",
+      "reason": "Naphthylmethanol measured 6.1/11.9 mL at 0/1, with V2 much earlier than predicted. The 10/1 prediction of 28.5/49.9 mL tests transfer of the benzyl-alcohol ratio response to a larger aromatic group; evidence for transfer is weak.",
+      "hypothesis_id": "H16"
+    },
+    {
+      "id": "70cba7a21b5a01fb8e73",
+      "reason": "Dibenzylamine measured 22.1/37.2 mL at 5/1, later than predicted. Its 10/1 prediction of 42.9/74.5 mL tests whether the model captures the next PE-rich step for this amine.",
+      "hypothesis_id": "H17"
+    },
+    {
+      "id": "0ac58929e586a4da4056",
+      "reason": "Ortho-nitrobenzaldehyde measured 6.9/23.0 mL at 5/1 and 23.5/56.0 mL at 20/1. The 50/1 prediction of 33.3/75.1 mL tests whether its V2 continues rising as strongly as observed.",
+      "hypothesis_id": "H18"
+    },
+    {
+      "id": "2d178efe0181baca2bd5",
+      "reason": "Methoxy aromatics showed opposite prediction errors at low and high PE ratios. This 50/1 methoxybenzaldehyde prediction of 26.6/48.4 mL probes whether the high-ratio error transfers to another carbonyl-containing methoxy aromatic; evidence is weak.",
+      "hypothesis_id": "H12"
+    },
+    {
+      "id": "b6f1b33a5491968c645e",
+      "reason": "Nitroacetophenone measured 25.6/55.1 mL at 10/1 after early elution at 0/1. The matched-loading 20/1 prediction of 40.3/85.9 mL tests the continued rise in V2 and elution width.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "fe212637596386c24049",
+      "reason": "Several methylbenzonitriles eluted earlier than predicted at PE-rich ratios. This 50/1 fluorobenzonitrile prediction of 14.8/33.3 mL tests whether that error transfers to a different nitrile substituent; the chemical inference is weak.",
+      "hypothesis_id": "H19"
+    },
+    {
+      "id": "eb3bc3fba39e57adbc2f",
+      "reason": "The benzyl-substituted β-ketoester measured 57.0/97.5 mL at 50/1 and 50 µL, much later than predicted. This 150 µL point at the same ratio probes loading sensitivity of its high V2 and interval width.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "id": "6ac700cf79bf6e05982e",
+      "reason": "This fluorinated aryl ketone is predicted at 14.3/30.9 mL at 20/1. Paired with the 50/1 choice, it tests a solvent-ratio response on one molecule; direct measured support is absent.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "6998dee6f6e69401798a",
+      "reason": "At matched loading, the fluorinated aryl ketone prediction rises to 16.5/37.7 mL at 50/1. The pair tests whether the model transfers the ratio effect across the aryl carbonyl family; evidence is weak.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "0b8c6c59ae5e24b420e5",
+      "reason": "Iodophenol measured 52.8/97.9 mL at 50/1, far above its prior prediction. The 20/1 prediction of 41.3/70.4 mL tests whether that underpredicted PE-rich response is already present at a lower ratio.",
+      "hypothesis_id": "H9"
+    },
+    {
+      "id": "36b45fbdbace5950c108",
+      "reason": "Benzyl benzoate measured roughly 16/24–27 mL at 30/1 across 50 and 150 µL loading. This 100/1, 150 µL experiment pairs with pending 100/1, 50 µL data to probe both the high-ratio rise and loading effect.",
+      "hypothesis_id": "H21"
+    },
+    {
+      "id": "6b8e53d2d8c8a90a7216",
+      "reason": "Ethyl acetoacetate measured V2 of 25.3 mL at 5/1 but 66.9 mL at 20/1, the latter far above prediction. This 10/1 point locates the onset of the wide PE-rich elution interval.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "id": "3c6e7fafcacb87c40668",
+      "reason": "Cyclohexyl acrylate measured only 7.4/17.0 mL at 50/1 versus a much later prior prediction. Its revised 5/1 prediction of 6.7/13.5 mL tests whether it remains early across a large eluent change.",
+      "hypothesis_id": "H22"
+    },
+    {
+      "id": "12aed585647de3f03908",
+      "reason": "Bromobenzofuran measured 5.0/14.1 mL at 50/1 and 100 µL, far earlier than predicted. The 150 µL candidate at the same ratio tests whether that early result persists with a loading change; its revised prediction is 9.4/19.2 mL.",
+      "hypothesis_id": "H23"
+    },
+    {
+      "id": "9ed7c1fb1c2cc499bbf9",
+      "reason": "This tertiary benzylic alcohol is predicted at 21.6/35.1 mL at 20/1. Other aromatic alcohols showed strong ratio dependence, but substitution and conditions differ, so this is a weak structural-transfer probe.",
+      "hypothesis_id": "H16"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "The earlier steep-retention prediction for diethyl malonate remains contradicted: measured 5/1, 10/1, 20/1 and 50/1 outcomes all have V1 below 6 mL and V2 below 8 mL. Its phenyl-substituted analogue is much later; that chemical difference matters.",
+      "supporting_observed_ids": [
+        "9603a9567c8b21458d1e",
+        "2635b25bb3c1c37f3b74"
+      ],
+      "contradicting_observed_ids": [
+        "58b3518f48d8340d6ffc",
+        "ab66de7edad40236ffd5",
+        "d7b0845793265cab0c33",
+        "f7d57d8bb988f7016502"
+      ],
+      "evidence_strength": "strong",
+      "next_discriminating_question": "Which structural distinction causes the phenyl-substituted analogue to retain while diethyl malonate stays early?"
+    },
+    {
+      "id": "H3",
+      "content": "The earlier high-ratio plateau hypothesis for methyl benzoylformate remains contradicted: V2 measured 33.3 mL at 20/1 and 62.0 mL at 50/1 despite near-flat prior predictions.",
+      "supporting_observed_ids": [
+        "6c1c34b12c66ebcf39a4",
+        "ad0ace61c29817c678c2"
+      ],
+      "contradicting_observed_ids": [
+        "bbb514661c0a49694d6a",
+        "7b42519983cf93dd7efd"
+      ],
+      "evidence_strength": "strong",
+      "next_discriminating_question": "Where between 20/1 and 50/1 does V2 rise most sharply?"
+    },
+    {
+      "id": "H5",
+      "content": "Cyanobenzophenone has a strongly nonlinear measured ratio response: V2 rises from 21.3 mL at 5/1 to 117.9 mL at 50/1. Earlier predictions were too late at 5/1 and 10/1 but too early at 50/1.",
+      "supporting_observed_ids": [
+        "5ae7472a4d9ce3fe20d0",
+        "79ff49052bce33597828",
+        "59b54ad3a60a52cc2b2c",
+        "a17bcdddcf0799baeee2"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "strong",
+      "next_discriminating_question": "Which intermediate high-PE ratio captures the curve's steepest section?"
+    },
+    {
+      "id": "H6",
+      "content": "Nitroacetophenone measured 3.9/11.7 mL at 0/1 and 25.6/55.1 mL at 10/1. The large solvent-ratio response is observed, while its predicted size at 20/1 remains untested.",
+      "supporting_observed_ids": [
+        "63962b52800b6ead5398",
+        "38e6b8bf0f089fcadd80"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "strong",
+      "next_discriminating_question": "Does V2 approach the predicted 85.9 mL at 20/1?"
+    },
+    {
+      "id": "H7",
+      "content": "Ring-nitrogen prediction errors remain structure and ratio dependent. Phenylpyridine was predicted closely at 10/1 and 20/1 but underpredicted at 50/1; methylquinoline was fairly close at 2/1 and 5/1 but strongly underpredicted at 10/1. Dimethylpyridine was overpredicted at 5/1 and 10/1.",
+      "supporting_observed_ids": [
+        "810b065b0b86ff8c9aae",
+        "434e465cfa7e0034f233",
+        "0f06772820e6693753e3",
+        "cf36dbeee8bb51632d84",
+        "04a2e8ad27ca641a3a12",
+        "23ef03f3e75e40b20095"
+      ],
+      "contradicting_observed_ids": [
+        "74c8fcd8ac3f6caedcd2",
+        "6f548d72f01fc85debdc"
+      ],
+      "evidence_strength": "strong",
+      "next_discriminating_question": "Which ring-nitrogen structures show abrupt high-ratio increases rather than a smooth shared correction?"
+    },
+    {
+      "id": "H9",
+      "content": "Two phenols had substantially underpredicted V2 at 50/1, including iodophenol. Phenolic aldehydes at 0/1 instead had V2 overpredictions. This supports a condition- and substitution-specific effect, not a universal phenol rule.",
+      "supporting_observed_ids": [
+        "80f546c47198fa7c6dbf",
+        "95d1d257dfea69f178f8"
+      ],
+      "contradicting_observed_ids": [
+        "3fa513c053678904d89c",
+        "8e99350aac88fae9186b"
+      ],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Is iodophenol already later than predicted at 20/1?"
+    },
+    {
+      "id": "H10",
+      "content": "β-Ketoester responses vary by substitution and PE/EA ratio. Cyclopropyl β-ketoester was predicted closely at 5/1, moderately overpredicted at 10/1, and strongly underpredicted at 20/1. Ethyl acetoacetate V2 was strongly underpredicted at 20/1, and a benzyl-substituted β-ketoester was strongly underpredicted at 50/1.",
+      "supporting_observed_ids": [
+        "a1809a6c4c3ada20bcb0",
+        "668279c54bbf75e86496",
+        "ffc70e28db22d1cc1f3f",
+        "07a55cdab65b05f31561",
+        "2b97a1e0a6a4b944b760"
+      ],
+      "contradicting_observed_ids": [
+        "425fe9dfe0c3f345460b"
+      ],
+      "evidence_strength": "strong",
+      "next_discriminating_question": "At matched loadings, where do V2 and its prediction error accelerate between 5/1 and 50/1?"
+    },
+    {
+      "id": "H12",
+      "content": "Methoxy-aromatic error changes with ratio as well as structure. Trimethoxybenzene was earlier than predicted at 2/1 and 5/1 but later at 50/1. Methoxybenzophenone was earlier than predicted at 5/1 but later at 20/1 and 50/1. The crossover location is unmeasured for both.",
+      "supporting_observed_ids": [
+        "0ae541927703401945de",
+        "ab887fd709fc1dc0d59b",
+        "8a00e449393f9942971d",
+        "ce39d1762993bbbafaca",
+        "d035281432e410405550",
+        "2d63ab3869184cde52bf"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "strong",
+      "next_discriminating_question": "Does a different methoxy carbonyl compound at 50/1 also elute later than predicted?"
+    },
+    {
+      "id": "H13",
+      "content": "Aminobenzonitrile was predicted closely at 0/1, too late at 2/1, and much too early at 5/1. The sharp response between 2/1 and 5/1 differs from the early elution of methylbenzonitriles at PE-rich ratios; a general nitrile rule is unsupported.",
+      "supporting_observed_ids": [
+        "fd5fa962575144327bf4",
+        "2feb7d8e0a3566ddf97f",
+        "b4e0e9dc92fca2c88b90",
+        "de3442604a546992b1e1",
+        "b51a88b6dc4049704214"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "strong",
+      "next_discriminating_question": "Does fluorobenzonitrile remain early at 50/1, or does its substitution change the response?"
+    },
+    {
+      "id": "H14",
+      "content": "Iodobenzoate at 50/1 had V1 near 5 mL at both 50 and 150 µL, while V2 increased from 22.6 to 29.3 mL. The broad elution interval and loading effect on V2 are observed, but the cause is uncertain.",
+      "supporting_observed_ids": [
+        "471287eecf7b94603e9e",
+        "9f3b75bc3a2c4004a893"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Would a matched replicate confirm the V2 loading effect?"
+    },
+    {
+      "id": "H15",
+      "content": "Oxime V1/V2 rise from 5.8/11.4 mL at 2/1 to 16.4/45.7 mL at 20/1 and 43.1/119.2 mL at 50/1. The 20/1 prediction was far too late, while 50/1 V2 was underpredicted; the predicted ratio curve had the wrong shape.",
+      "supporting_observed_ids": [
+        "3e41bb94c582476b5b6a",
+        "a38fee52661fd3e3b7ea",
+        "9ffee2813aef5c26f96f"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "strong",
+      "next_discriminating_question": "At which ratio between 20/1 and 50/1 does its elution interval expand most?"
+    },
+    {
+      "id": "H16",
+      "content": "Aromatic alcohols can show strong ratio dependence, but transfer across structures is untested. p-Methylbenzyl alcohol measured 5.2/8.1 mL at 0/1 and 39.4/66.4 at 10/1; naphthylmethanol measured 6.1/11.9 at 0/1. The 10/1 p-methylbenzyl prediction was much too early.",
+      "supporting_observed_ids": [
+        "723a7255bbbef8dcad76",
+        "75232f4ee5de52a0499e",
+        "b0f83f107759037eea65"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "At 5/1, where is p-methylbenzyl alcohol on its steep rise, and does naphthylmethanol respond similarly by 10/1?"
+    },
+    {
+      "id": "H17",
+      "content": "Dibenzylamine measured 22.1/37.2 mL at 5/1, later than its premeasurement 16.6/27.3 mL prediction. A stronger retention response at 10/1 is plausible but untested.",
+      "supporting_observed_ids": [
+        "252c027cf5a42b92c953"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "Does measured 10/1 V1/V2 approach the 42.9/74.5 mL prediction?"
+    },
+    {
+      "id": "H18",
+      "content": "Ortho-nitrobenzaldehyde measured 6.9/23.0 mL at 5/1 and 23.5/56.0 mL at 20/1, with the latter later than predicted. Its 50/1 response is not yet observed; comparison with the para isomer is confounded by other conditions.",
+      "supporting_observed_ids": [
+        "4da6e3b93f29af1efa94",
+        "857ae40d0fdf1c7e387e"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Does 50/1 V2 exceed the current 75.1 mL prediction?"
+    },
+    {
+      "id": "H21",
+      "content": "Benzyl benzoate measured roughly 16/24–27 mL at 30/1 across two loading amounts. The high-ratio 100/1 response and its loading sensitivity remain untested.",
+      "supporting_observed_ids": [
+        "92bac523bed1042d6a75",
+        "34cf0942ff52b1b80385"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "How do V1 and V2 at 100/1 compare across 50 and 150 µL loading?"
+    },
+    {
+      "id": "H22",
+      "content": "Cyclohexyl acrylate measured 7.4/17.0 mL at 50/1, far earlier than its prior 28.3/45.7 mL prediction. After retraining, the 5/1 prediction is early; whether the measured response is nearly flat across ratios is unknown.",
+      "supporting_observed_ids": [
+        "869ed39b28b73a5de24e"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "Does the 5/1 measurement also remain early?"
+    },
+    {
+      "id": "H23",
+      "content": "Bromobenzofuran measured 5.0/14.1 mL at 50/1 and 100 µL, much earlier than its prior prediction. A 150 µL measurement at the same ratio can test persistence and loading sensitivity, but one observation is insufficient for a mechanism.",
+      "supporting_observed_ids": [
+        "b6a2baaa0410b39ac474"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "Does its 50/1 V1 remain near 5 mL at 150 µL?"
+    }
+  ],
+  "feedback_interpretation": "The latest measurements sharpened several ratio-dependent errors: p-methylbenzyl alcohol is early at 0/1 but very late at 10/1; oxime and β-ketoester V2 curves change more sharply than predictions; methoxy aromatics change error sign across ratios. I chose intermediate conditions and matched-loading contrasts to locate those changes. The brominated acid returned V2 = -0.1 mL below V1 = 0.13 mL, so I treated that record as an anomalous measurement rather than evidence for an elution mechanism and made no acid-based selection."
+}

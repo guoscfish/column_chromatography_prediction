@@ -1,0 +1,670 @@
+{
+  "round": 2,
+  "batch_freeze_sha256": "bbc678de7d801cefaa349930e06a13691e1f3e4d12169991c0e2c1009cbcc33f",
+  "choices": [
+    {
+      "id": "2feb7d8e0a3566ddf97f",
+      "reason": "Aminobenzonitrile measured 40.6/98.4 mL at 5/1, far above its prior prediction. The 2/1 prediction is 17.8/39.0 mL; this locates where the steep response begins under matched loading conditions.",
+      "hypothesis_id": "H13"
+    },
+    {
+      "id": "fd5fa962575144327bf4",
+      "reason": "The 0/1 aminobenzonitrile prediction is 4.4/12.0 mL. Together with the 2/1 choice and measured 5/1 result, it tests whether the large prior error persists under strong eluent.",
+      "hypothesis_id": "H13"
+    },
+    {
+      "id": "810b065b0b86ff8c9aae",
+      "reason": "Phenylpyridine measured 46.4/103.3 mL at 50/1, substantially later than predicted. This 10/1 point uses the same 150 \u00b5L loading and tests the lower-ratio part of that possible model blind spot.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "434e465cfa7e0034f233",
+      "reason": "The 20/1 phenylpyridine prediction is 25.5/47.0 mL. It adds an intermediate ratio before the measured 50/1 endpoint; loading differs, so the ratio comparison has that limitation.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "04a2e8ad27ca641a3a12",
+      "reason": "Methylquinoline measured 51.3/108.5 mL at 10/1 versus a prior prediction of 24.2/55.1 mL. The 5/1 prediction of 34.4/66.6 mL tests whether the error extends to a stronger eluent.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "a38fee52661fd3e3b7ea",
+      "reason": "The oxime measured V2 of 119.2 mL at 50/1, 36.3 mL above its prior prediction. Measuring the 20/1 prediction of 35.5/85.8 mL tests where its large elution interval develops.",
+      "hypothesis_id": "H15"
+    },
+    {
+      "id": "8a00e449393f9942971d",
+      "reason": "Methoxybenzophenone was later than predicted at both 20/1 and 50/1, unlike several methoxy aromatics that were earlier than predicted. Its 5/1 result tests where this molecule's error changes with eluent strength.",
+      "hypothesis_id": "H12"
+    },
+    {
+      "id": "ce39d1762993bbbafaca",
+      "reason": "Trimethoxybenzene was earlier than predicted at 2/1 and 5/1. The 50/1 prediction is 13.3/22.4 mL; measuring it tests whether this error persists into a PE-rich regime.",
+      "hypothesis_id": "H12"
+    },
+    {
+      "id": "a1809a6c4c3ada20bcb0",
+      "reason": "Cyclopropyl \u03b2-ketoester measured 6.3/11.9 mL at 1/1 and 44.5/81.2 mL at 20/1, the latter far above its prior prediction. This 5/1 point helps locate the rise alongside the pending 10/1 result.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "id": "327064e6ca2c38d79d76",
+      "reason": "The tert-butyl \u03b2-ketoester measured only 11.4/24.2 mL at 10/1 versus 23.2/46.9 mL predicted. Its 20/1 prediction of 23.1/48.0 mL tests whether that opposite-signed error persists at higher PE.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "id": "471287eecf7b94603e9e",
+      "reason": "Iodobenzoate measured an unusually early V1 of 5.1 mL but V2 of 29.3 mL at 50/1 and 150 \u00b5L. This 50 \u00b5L experiment tests loading dependence of that wide interval; the current prediction is 12.1/27.0 mL.",
+      "hypothesis_id": "H14"
+    },
+    {
+      "id": "857ae40d0fdf1c7e387e",
+      "reason": "Ortho-nitrobenzaldehyde measured 6.9/23.0 mL at 5/1. The 20/1 prediction of 16.6/41.1 mL tests its solvent-ratio rise; a para isomer at 20/1 eluted much later, but different loading conditions limit that comparison.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "129036e0bccc4ff7e848",
+      "reason": "The brominated carboxylic acid has a 50/1 prediction of 29.9/67.7 mL. It probes a strongly interacting acid motif at high PE; no direct measured support is supplied, so this is an exploratory chemical-prior choice.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "b0f83f107759037eea65",
+      "reason": "Naphthylmethanol is predicted at 4.9/24.8 mL under 0/1 eluent. Its predicted elution width is large; comparison with pending benzyl alcohol measurements can test transfer across aromatic size, though the molecules differ.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "61764a2e9f71f1caa18e",
+      "reason": "Nitrobenzophenone at 1/1 and a 1000 \u00b5L loading-solvent volume is predicted at 7.9/20.7 mL. This tests a polar diaryl ketone under a large loading volume; direct same-molecule evidence is absent.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "3e41bb94c582476b5b6a",
+      "reason": "The oxime's 2/1 prediction is 9.1/19.3 mL. Paired with 20/1 and the measured 50/1 result, it distinguishes a gradual rise from a high-PE increase in V2 and elution width.",
+      "hypothesis_id": "H15"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "The earlier steep-retention prediction for diethyl malonate is contradicted across measured 5/1, 10/1, 20/1 and 50/1 conditions: all V1 values are 4.1\u20135.9 mL and V2 values are 5.8\u20137.9 mL. Its phenyl-substituted analogue is much later under PE-rich eluent, so that analogue did not transfer.",
+      "supporting_observed_ids": [
+        "9603a9567c8b21458d1e",
+        "2635b25bb3c1c37f3b74"
+      ],
+      "contradicting_observed_ids": [
+        "58b3518f48d8340d6ffc",
+        "ab66de7edad40236ffd5",
+        "d7b0845793265cab0c33",
+        "f7d57d8bb988f7016502"
+      ],
+      "evidence_strength": "strong",
+      "next_discriminating_question": "What structural feature separates the early unsubstituted malonate from the retained phenyl-substituted analogue?"
+    },
+    {
+      "id": "H2",
+      "content": "The small fluorobenzoate V2 reversal from 5/1 to 10/1 remains observed: 12.71 versus 12.31 mL at matched loading. Its 0.40 mL size leaves the broader curve shape uncertain.",
+      "supporting_observed_ids": [
+        "33123966b214578291a5",
+        "09f7ce5c473ea7ea5d94"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "Would another loading amount reproduce this small local V2 difference?"
+    },
+    {
+      "id": "H3",
+      "content": "The earlier methyl benzoylformate high-ratio plateau hypothesis remains contradicted: measured V2 rises from 33.3 mL at 20/1 to 62.0 mL at 50/1, while prior predictions stayed near 29 mL.",
+      "supporting_observed_ids": [
+        "6c1c34b12c66ebcf39a4",
+        "ad0ace61c29817c678c2"
+      ],
+      "contradicting_observed_ids": [
+        "bbb514661c0a49694d6a",
+        "7b42519983cf93dd7efd"
+      ],
+      "evidence_strength": "strong",
+      "next_discriminating_question": "At which intermediate PE/EA ratio does its high-ratio V2 rise accelerate?"
+    },
+    {
+      "id": "H4",
+      "content": "Anthranilate's measured V1/V2 increase from about 9/17 mL at 5/1 to 34.0/75.2 mL at 50/1, supporting the earlier solvent-ratio hypothesis. The premeasurement model captured 10/1 closely but underpredicted 50/1.",
+      "supporting_observed_ids": [
+        "3aed7873d2fd1cf48684",
+        "693a65467095367c8e95",
+        "74541dbf8571f881c454",
+        "547923973b121019625f"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "strong",
+      "next_discriminating_question": "Does a related anthranilate exhibit the same high-ratio increase?"
+    },
+    {
+      "id": "H5",
+      "content": "Cyanobenzophenone rises sharply with PE-rich eluent: measured V1/V2 are 5.1/21.3 mL at 5/1, 7.7/31.6 at 10/1, 19.7/55.7 at 20/1 and 57.9/117.9 at 50/1. Prior predictions were too late at 5/1 and 10/1 yet too early at 50/1, showing a misplaced nonlinear response.",
+      "supporting_observed_ids": [
+        "5ae7472a4d9ce3fe20d0",
+        "79ff49052bce33597828",
+        "59b54ad3a60a52cc2b2c",
+        "a17bcdddcf0799baeee2"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "strong",
+      "next_discriminating_question": "Where between 20/1 and 50/1 does its measured V2 increase most sharply?"
+    },
+    {
+      "id": "H6",
+      "content": "Nitroacetophenone still directly supports a large ratio response: measured V1/V2 are 3.9/11.7 mL at 0/1 and 25.6/55.1 mL at 10/1. The prior 10/1 V2 prediction was too high.",
+      "supporting_observed_ids": [
+        "63962b52800b6ead5398",
+        "38e6b8bf0f089fcadd80"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "strong",
+      "next_discriminating_question": "Does an intermediate ratio show a smooth or abrupt increase?"
+    },
+    {
+      "id": "H7",
+      "content": "Ring-nitrogen effects are strongly structure and condition dependent. Phenylpyridine at 50/1, quinoline at 10/1 and methylquinoline at 10/1 were much later than predicted; dimethylpyridine at 5/1 and 10/1 was earlier than predicted. A blanket ring-nitrogen correction is unsupported.",
+      "supporting_observed_ids": [
+        "0f06772820e6693753e3",
+        "e47aebe2660b9e1528de",
+        "23ef03f3e75e40b20095"
+      ],
+      "contradicting_observed_ids": [
+        "74c8fcd8ac3f6caedcd2",
+        "6f548d72f01fc85debdc"
+      ],
+      "evidence_strength": "strong",
+      "next_discriminating_question": "At intermediate ratios, which ring-nitrogen scaffolds retain the late-elution underprediction?"
+    },
+    {
+      "id": "H8",
+      "content": "The multifunctional ester was predicted fairly closely at 2/1 but its V2 was underpredicted at 5/1 and 10/1. The amino-substituted unsaturated ester was overpredicted at 10/1 under DCM loading but underpredicted at 20/1 under PE loading; that contrast cannot be assigned to PE/EA ratio alone.",
+      "supporting_observed_ids": [
+        "2dbfdf9c2d5defd09f7a",
+        "5d530b2f228ed39ff952",
+        "ca467c94f14b2219503e",
+        "a2f83665cfe821271b30",
+        "8e7636d7a60a6058305a"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Under matched loading solvent and volume, where does each molecule's V2 prediction error change size or sign?"
+    },
+    {
+      "id": "H9",
+      "content": "Large high-PE V2 underpredictions for two phenols remain a subset-specific observation. The phenolic aldehyde at 50/1 was predicted closely, while its measured 0/1 V2 was 13.7 mL versus 20.2 mL predicted; a related bromohydroxybenzaldehyde at 0/1 was also somewhat earlier than predicted.",
+      "supporting_observed_ids": [
+        "80f546c47198fa7c6dbf",
+        "95d1d257dfea69f178f8"
+      ],
+      "contradicting_observed_ids": [
+        "fe1a34b5975943e8f292",
+        "3fa513c053678904d89c",
+        "8e99350aac88fae9186b"
+      ],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Which phenol substitutions and eluent ratios produce the large underpredicted V2 values?"
+    },
+    {
+      "id": "H10",
+      "content": "The \u03b2-ketoester results now show opposite error directions across substitutions: cyclopropyl \u03b2-ketoester was underpredicted at 20/1, tert-butyl acetoacetate was overpredicted at 10/1, and the benzyl-substituted \u03b2-ketoester at 20/1 was predicted closely. Structural transfer is therefore uncertain.",
+      "supporting_observed_ids": [
+        "54f20e9bd23ee1c7b5db",
+        "ffc70e28db22d1cc1f3f",
+        "7394fdb0a8cd53255d4a"
+      ],
+      "contradicting_observed_ids": [
+        "425fe9dfe0c3f345460b"
+      ],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Do intermediate and higher ratios preserve the opposite error directions for cyclopropyl and tert-butyl variants?"
+    },
+    {
+      "id": "H11",
+      "content": "Bromomethyl benzoate V1/V2 rose from measured 5.4/11.5 mL at 1/1 and 7.0/16.5 at 5/1 to 22.3/43.5 at 50/1. The prior 50/1 prediction of 20.2/36.7 mL was moderately early, so the broad trend transferred better than in several other classes.",
+      "supporting_observed_ids": [
+        "902f3082ba7241022d82",
+        "01472a37121478cb82be",
+        "8925249b7fbe141dbce6"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Does an intermediate-ratio measurement follow a smooth rise?"
+    },
+    {
+      "id": "H12",
+      "content": "Methoxy aromatic prediction errors differ with structure: trimethoxybenzene and dimethoxytoluene were earlier than predicted at 2/1\u20135/1, while methoxybenzophenone was later than predicted at 20/1 and 50/1. A carbonyl-associated difference is plausible but confounded by ratio and scaffold.",
+      "supporting_observed_ids": [
+        "0ae541927703401945de",
+        "ab887fd709fc1dc0d59b",
+        "8b9a55e63dd5e733dcb0",
+        "2d63ab3869184cde52bf",
+        "d035281432e410405550"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "At a matched 5/1 ratio, does methoxybenzophenone remain later than predicted while trimethoxybenzene remains earlier?"
+    },
+    {
+      "id": "H13",
+      "content": "The aminobenzonitrile at 5/1 was much later than predicted, whereas non-aminated methylbenzonitriles were earlier than predicted at 10/1\u201350/1. Amino substitution may change retention and interval width, but these observations also differ in ratios and substitution patterns.",
+      "supporting_observed_ids": [
+        "b4e0e9dc92fca2c88b90",
+        "de3442604a546992b1e1",
+        "b51a88b6dc4049704214",
+        "4c3dce39521dcb1793a1"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "How early or late is aminobenzonitrile at matched 0/1 and 2/1 settings?"
+    },
+    {
+      "id": "H14",
+      "content": "Iodobenzoate at 50/1 and 150 \u00b5L had an unusually early V1 of 5.1 mL and a later V2 of 29.3 mL, both much earlier than its prior predictions. Whether sample loading amount affects this broad interval is untested.",
+      "supporting_observed_ids": [
+        "9f3b75bc3a2c4004a893"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "Does the 50 \u00b5L measurement preserve the early V1 and broad V2\u2212V1 interval?"
+    },
+    {
+      "id": "H15",
+      "content": "The oxime at 50/1 measured 43.1/119.2 mL, with V2 substantially later than its prior 82.9 mL prediction. Lower-ratio response is unmeasured, so the onset of its broad interval is unknown.",
+      "supporting_observed_ids": [
+        "9ffee2813aef5c26f96f"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "At 2/1 and 20/1, how quickly does measured V2 and the V2\u2212V1 interval increase?"
+    }
+  ],
+  "feedback_interpretation": "Round-one measurements exposed large, opposite-signed errors within broad chemical labels: several ring-nitrogen compounds were later than predicted while dimethylpyridine was earlier; methoxy aromatics were often early while methoxybenzophenone was late; cyclopropyl and tert-butyl \u03b2-ketoesters differed; aminobenzonitrile was very late while methylbenzonitriles were early. I selected matched-molecule ratio points to locate these changes, plus a 50/1 loading contrast for iodobenzoate. The diethyl malonate 5/1 result confirmed consistently early elution, so I did not spend another choice on that saturated series.",
+  "records": [
+    {
+      "candidate_id": "44c8b389a6faf44f1f4c",
+      "source": "CW",
+      "pred_V1_ml": 34.90781021118164,
+      "pred_V2_ml": 60.58086395263672,
+      "true_V1_ml": 43.858333587646484,
+      "true_V2_ml": 64.36666870117188,
+      "error_V1_ml": -8.950523376464844,
+      "error_V2_ml": -3.7858047485351562,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "869ed39b28b73a5de24e",
+      "source": "CW",
+      "pred_V1_ml": 28.308107376098633,
+      "pred_V2_ml": 45.720741271972656,
+      "true_V1_ml": 7.441666603088379,
+      "true_V2_ml": 16.950000762939453,
+      "error_V1_ml": 20.866439819335938,
+      "error_V2_ml": 28.770740509033203,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "252c027cf5a42b92c953",
+      "source": "CW",
+      "pred_V1_ml": 16.555646896362305,
+      "pred_V2_ml": 27.275371551513672,
+      "true_V1_ml": 22.066667556762695,
+      "true_V2_ml": 37.18333435058594,
+      "error_V1_ml": -5.511020660400391,
+      "error_V2_ml": -9.907962799072266,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "2b97a1e0a6a4b944b760",
+      "source": "CW",
+      "pred_V1_ml": 39.659576416015625,
+      "pred_V2_ml": 67.6474609375,
+      "true_V1_ml": 56.95833206176758,
+      "true_V2_ml": 97.45833587646484,
+      "error_V1_ml": -17.298755645751953,
+      "error_V2_ml": -29.810874938964844,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "c6159dcb5802e62284d1",
+      "source": "CW",
+      "pred_V1_ml": 15.7959623336792,
+      "pred_V2_ml": 26.579805374145508,
+      "true_V1_ml": 15.391666412353516,
+      "true_V2_ml": 22.90833282470703,
+      "error_V1_ml": 0.4042959213256836,
+      "error_V2_ml": 3.6714725494384766,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "75232f4ee5de52a0499e",
+      "source": "CW",
+      "pred_V1_ml": 16.920223236083984,
+      "pred_V2_ml": 29.19992446899414,
+      "true_V1_ml": 39.391666412353516,
+      "true_V2_ml": 66.35832977294922,
+      "error_V1_ml": -22.47144317626953,
+      "error_V2_ml": -37.15840530395508,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "5524670e4337370c2ef6",
+      "source": "CW",
+      "pred_V1_ml": 22.87412452697754,
+      "pred_V2_ml": 45.4965705871582,
+      "true_V1_ml": 33.54999923706055,
+      "true_V2_ml": 57.71666717529297,
+      "error_V1_ml": -10.675874710083008,
+      "error_V2_ml": -12.220096588134766,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "cf36dbeee8bb51632d84",
+      "source": "CW",
+      "pred_V1_ml": 17.66421127319336,
+      "pred_V2_ml": 37.3594970703125,
+      "true_V1_ml": 20.066667556762695,
+      "true_V2_ml": 34.108333587646484,
+      "error_V1_ml": -2.402456283569336,
+      "error_V2_ml": 3.2511634826660156,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "07a55cdab65b05f31561",
+      "source": "CW",
+      "pred_V1_ml": 19.99271583557129,
+      "pred_V2_ml": 37.5323486328125,
+      "true_V1_ml": 24.316667556762695,
+      "true_V2_ml": 66.91666412353516,
+      "error_V1_ml": -4.323951721191406,
+      "error_V2_ml": -29.384315490722656,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "668279c54bbf75e86496",
+      "source": "CW",
+      "pred_V1_ml": 28.14104652404785,
+      "pred_V2_ml": 49.79970932006836,
+      "true_V1_ml": 21.34166717529297,
+      "true_V2_ml": 45.108333587646484,
+      "error_V1_ml": 6.799379348754883,
+      "error_V2_ml": 4.691375732421875,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "946f712a81f3990f568f",
+      "source": "CW",
+      "pred_V1_ml": 12.202827453613281,
+      "pred_V2_ml": 25.793718338012695,
+      "true_V1_ml": 10.800000190734863,
+      "true_V2_ml": 16.641666412353516,
+      "error_V1_ml": 1.402827262878418,
+      "error_V2_ml": 9.15205192565918,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "723a7255bbbef8dcad76",
+      "source": "CW",
+      "pred_V1_ml": 3.178410768508911,
+      "pred_V2_ml": 19.426118850708008,
+      "true_V1_ml": 5.166666507720947,
+      "true_V2_ml": 8.125,
+      "error_V1_ml": -1.9882557392120361,
+      "error_V2_ml": 11.301118850708008,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "f46da3c00b2199795e4c",
+      "source": "CW",
+      "pred_V1_ml": 23.087886810302734,
+      "pred_V2_ml": 42.552547454833984,
+      "true_V1_ml": 6.7833333015441895,
+      "true_V2_ml": 36.15833282470703,
+      "error_V1_ml": 16.304553985595703,
+      "error_V2_ml": 6.394214630126953,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "b9682bf3eb345e24a41f",
+      "source": "CW",
+      "pred_V1_ml": 13.673961639404297,
+      "pred_V2_ml": 23.264230728149414,
+      "true_V1_ml": 6.074999809265137,
+      "true_V2_ml": 11.199999809265137,
+      "error_V1_ml": 7.59896183013916,
+      "error_V2_ml": 12.064230918884277,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "b6a2baaa0410b39ac474",
+      "source": "CW",
+      "pred_V1_ml": 18.814878463745117,
+      "pred_V2_ml": 39.89883804321289,
+      "true_V1_ml": 4.958333492279053,
+      "true_V2_ml": 14.133333206176758,
+      "error_V1_ml": 13.856544494628906,
+      "error_V2_ml": 25.765504837036133,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "e9a7d193dc3d83532c1f",
+      "source": "CW",
+      "pred_V1_ml": 21.821123123168945,
+      "pred_V2_ml": 51.84843063354492,
+      "true_V1_ml": 6.4083333015441895,
+      "true_V2_ml": 26.79166603088379,
+      "error_V1_ml": 15.412790298461914,
+      "error_V2_ml": 25.056764602661133,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "2feb7d8e0a3566ddf97f",
+      "source": "LLM",
+      "pred_V1_ml": 17.7781982421875,
+      "pred_V2_ml": 39.0443115234375,
+      "true_V1_ml": 11.899999618530273,
+      "true_V2_ml": 33.83333206176758,
+      "error_V1_ml": 5.878198623657227,
+      "error_V2_ml": 5.210979461669922,
+      "reason": "Aminobenzonitrile measured 40.6/98.4 mL at 5/1, far above its prior prediction. The 2/1 prediction is 17.8/39.0 mL; this locates where the steep response begins under matched loading conditions.",
+      "hypothesis_id": "H13"
+    },
+    {
+      "candidate_id": "fd5fa962575144327bf4",
+      "source": "LLM",
+      "pred_V1_ml": 4.355834007263184,
+      "pred_V2_ml": 11.999871253967285,
+      "true_V1_ml": 4.75,
+      "true_V2_ml": 11.883333206176758,
+      "error_V1_ml": -0.3941659927368164,
+      "error_V2_ml": 0.11653804779052734,
+      "reason": "The 0/1 aminobenzonitrile prediction is 4.4/12.0 mL. Together with the 2/1 choice and measured 5/1 result, it tests whether the large prior error persists under strong eluent.",
+      "hypothesis_id": "H13"
+    },
+    {
+      "candidate_id": "810b065b0b86ff8c9aae",
+      "source": "LLM",
+      "pred_V1_ml": 19.056882858276367,
+      "pred_V2_ml": 33.16355895996094,
+      "true_V1_ml": 15.658333778381348,
+      "true_V2_ml": 32.108333587646484,
+      "error_V1_ml": 3.3985490798950195,
+      "error_V2_ml": 1.0552253723144531,
+      "reason": "Phenylpyridine measured 46.4/103.3 mL at 50/1, substantially later than predicted. This 10/1 point uses the same 150 \u00b5L loading and tests the lower-ratio part of that possible model blind spot.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "candidate_id": "434e465cfa7e0034f233",
+      "source": "LLM",
+      "pred_V1_ml": 25.489194869995117,
+      "pred_V2_ml": 46.998374938964844,
+      "true_V1_ml": 28.875,
+      "true_V2_ml": 47.56666564941406,
+      "error_V1_ml": -3.385805130004883,
+      "error_V2_ml": -0.5682907104492188,
+      "reason": "The 20/1 phenylpyridine prediction is 25.5/47.0 mL. It adds an intermediate ratio before the measured 50/1 endpoint; loading differs, so the ratio comparison has that limitation.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "candidate_id": "04a2e8ad27ca641a3a12",
+      "source": "LLM",
+      "pred_V1_ml": 34.35335159301758,
+      "pred_V2_ml": 66.6140365600586,
+      "true_V1_ml": 37.66666793823242,
+      "true_V2_ml": 59.82500076293945,
+      "error_V1_ml": -3.3133163452148438,
+      "error_V2_ml": 6.789035797119141,
+      "reason": "Methylquinoline measured 51.3/108.5 mL at 10/1 versus a prior prediction of 24.2/55.1 mL. The 5/1 prediction of 34.4/66.6 mL tests whether the error extends to a stronger eluent.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "candidate_id": "a38fee52661fd3e3b7ea",
+      "source": "LLM",
+      "pred_V1_ml": 35.532737731933594,
+      "pred_V2_ml": 85.80349731445312,
+      "true_V1_ml": 16.433332443237305,
+      "true_V2_ml": 45.70000076293945,
+      "error_V1_ml": 19.09940528869629,
+      "error_V2_ml": 40.10349655151367,
+      "reason": "The oxime measured V2 of 119.2 mL at 50/1, 36.3 mL above its prior prediction. Measuring the 20/1 prediction of 35.5/85.8 mL tests where its large elution interval develops.",
+      "hypothesis_id": "H15"
+    },
+    {
+      "candidate_id": "8a00e449393f9942971d",
+      "source": "LLM",
+      "pred_V1_ml": 10.29401683807373,
+      "pred_V2_ml": 24.683151245117188,
+      "true_V1_ml": 6.525000095367432,
+      "true_V2_ml": 16.625,
+      "error_V1_ml": 3.769016742706299,
+      "error_V2_ml": 8.058151245117188,
+      "reason": "Methoxybenzophenone was later than predicted at both 20/1 and 50/1, unlike several methoxy aromatics that were earlier than predicted. Its 5/1 result tests where this molecule's error changes with eluent strength.",
+      "hypothesis_id": "H12"
+    },
+    {
+      "candidate_id": "ce39d1762993bbbafaca",
+      "source": "LLM",
+      "pred_V1_ml": 13.269586563110352,
+      "pred_V2_ml": 22.42144775390625,
+      "true_V1_ml": 22.941667556762695,
+      "true_V2_ml": 36.11666488647461,
+      "error_V1_ml": -9.672080993652344,
+      "error_V2_ml": -13.69521713256836,
+      "reason": "Trimethoxybenzene was earlier than predicted at 2/1 and 5/1. The 50/1 prediction is 13.3/22.4 mL; measuring it tests whether this error persists into a PE-rich regime.",
+      "hypothesis_id": "H12"
+    },
+    {
+      "candidate_id": "a1809a6c4c3ada20bcb0",
+      "source": "LLM",
+      "pred_V1_ml": 14.94488525390625,
+      "pred_V2_ml": 28.652563095092773,
+      "true_V1_ml": 12.333333015441895,
+      "true_V2_ml": 26.016666412353516,
+      "error_V1_ml": 2.6115522384643555,
+      "error_V2_ml": 2.635896682739258,
+      "reason": "Cyclopropyl \u03b2-ketoester measured 6.3/11.9 mL at 1/1 and 44.5/81.2 mL at 20/1, the latter far above its prior prediction. This 5/1 point helps locate the rise alongside the pending 10/1 result.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "candidate_id": "327064e6ca2c38d79d76",
+      "source": "LLM",
+      "pred_V1_ml": 23.05768585205078,
+      "pred_V2_ml": 47.99845504760742,
+      "true_V1_ml": 22.579166412353516,
+      "true_V2_ml": 40.03333282470703,
+      "error_V1_ml": 0.4785194396972656,
+      "error_V2_ml": 7.965122222900391,
+      "reason": "The tert-butyl \u03b2-ketoester measured only 11.4/24.2 mL at 10/1 versus 23.2/46.9 mL predicted. Its 20/1 prediction of 23.1/48.0 mL tests whether that opposite-signed error persists at higher PE.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "candidate_id": "471287eecf7b94603e9e",
+      "source": "LLM",
+      "pred_V1_ml": 12.148215293884277,
+      "pred_V2_ml": 26.95897674560547,
+      "true_V1_ml": 4.883333206176758,
+      "true_V2_ml": 22.641666412353516,
+      "error_V1_ml": 7.2648820877075195,
+      "error_V2_ml": 4.317310333251953,
+      "reason": "Iodobenzoate measured an unusually early V1 of 5.1 mL but V2 of 29.3 mL at 50/1 and 150 \u00b5L. This 50 \u00b5L experiment tests loading dependence of that wide interval; the current prediction is 12.1/27.0 mL.",
+      "hypothesis_id": "H14"
+    },
+    {
+      "candidate_id": "857ae40d0fdf1c7e387e",
+      "source": "LLM",
+      "pred_V1_ml": 16.56960105895996,
+      "pred_V2_ml": 41.084693908691406,
+      "true_V1_ml": 23.508333206176758,
+      "true_V2_ml": 56.04166793823242,
+      "error_V1_ml": -6.938732147216797,
+      "error_V2_ml": -14.956974029541016,
+      "reason": "Ortho-nitrobenzaldehyde measured 6.9/23.0 mL at 5/1. The 20/1 prediction of 16.6/41.1 mL tests its solvent-ratio rise; a para isomer at 20/1 eluted much later, but different loading conditions limit that comparison.",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "129036e0bccc4ff7e848",
+      "source": "LLM",
+      "pred_V1_ml": 29.94127655029297,
+      "pred_V2_ml": 67.73658752441406,
+      "true_V1_ml": 0.13333334028720856,
+      "true_V2_ml": -0.10000000149011612,
+      "error_V1_ml": 29.80794334411621,
+      "error_V2_ml": 67.83658599853516,
+      "reason": "The brominated carboxylic acid has a 50/1 prediction of 29.9/67.7 mL. It probes a strongly interacting acid motif at high PE; no direct measured support is supplied, so this is an exploratory chemical-prior choice.",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "b0f83f107759037eea65",
+      "source": "LLM",
+      "pred_V1_ml": 4.94143533706665,
+      "pred_V2_ml": 24.817626953125,
+      "true_V1_ml": 6.058333396911621,
+      "true_V2_ml": 11.866666793823242,
+      "error_V1_ml": -1.1168980598449707,
+      "error_V2_ml": 12.950960159301758,
+      "reason": "Naphthylmethanol is predicted at 4.9/24.8 mL under 0/1 eluent. Its predicted elution width is large; comparison with pending benzyl alcohol measurements can test transfer across aromatic size, though the molecules differ.",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "61764a2e9f71f1caa18e",
+      "source": "LLM",
+      "pred_V1_ml": 7.908878803253174,
+      "pred_V2_ml": 20.678003311157227,
+      "true_V1_ml": 4.583333492279053,
+      "true_V2_ml": 13.208333015441895,
+      "error_V1_ml": 3.325545310974121,
+      "error_V2_ml": 7.469670295715332,
+      "reason": "Nitrobenzophenone at 1/1 and a 1000 \u00b5L loading-solvent volume is predicted at 7.9/20.7 mL. This tests a polar diaryl ketone under a large loading volume; direct same-molecule evidence is absent.",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "3e41bb94c582476b5b6a",
+      "source": "LLM",
+      "pred_V1_ml": 9.065887451171875,
+      "pred_V2_ml": 19.338956832885742,
+      "true_V1_ml": 5.766666889190674,
+      "true_V2_ml": 11.366666793823242,
+      "error_V1_ml": 3.299220561981201,
+      "error_V2_ml": 7.9722900390625,
+      "reason": "The oxime's 2/1 prediction is 9.1/19.3 mL. Paired with 20/1 and the measured 50/1 result, it distinguishes a gradual rise from a high-PE increase in V2 and elution width.",
+      "hypothesis_id": "H15"
+    }
+  ]
+}

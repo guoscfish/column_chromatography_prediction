@@ -1,0 +1,188 @@
+{
+  "choices": [
+    {
+      "id": "13bfaf03c35b4cff3bd5",
+      "reason": "Measures naphthylmethanol at 2/1 to locate the onset of its steep observed retention rise.",
+      "hypothesis_id": "H_alcohol"
+    },
+    {
+      "id": "614873124b33029a924c",
+      "reason": "Adds a 5/1 naphthylmethanol point between its measured 0/1 and 10/1 responses.",
+      "hypothesis_id": "H_alcohol"
+    },
+    {
+      "id": "319e89d7000731f64e7f",
+      "reason": "Tests whether methoxybenzaldehyde underprediction is already present at 10/1.",
+      "hypothesis_id": "H_methoxy"
+    },
+    {
+      "id": "fc27fa779102c4aeb8ab",
+      "reason": "Tests the 20/1 transition toward methoxybenzaldehyde's large measured 50/1 response.",
+      "hypothesis_id": "H_methoxy"
+    },
+    {
+      "id": "e9e7a737df389d5fcc13",
+      "reason": "Checks iodophenol at 10/1 after opposite prediction-error signs at 20/1 and 50/1.",
+      "hypothesis_id": "H_iodophenol"
+    },
+    {
+      "id": "f4ec546ae74a4b3888df",
+      "reason": "Adds a low-ratio fluorobenzonitrile anchor before its underpredicted 50/1 result.",
+      "hypothesis_id": "H_nitrile"
+    },
+    {
+      "id": "4659b6752f23c0b85f08",
+      "reason": "Tests whether the pyridyl ketone's V2 underprediction grows from 1/1 to 2/1.",
+      "hypothesis_id": "H_ring_n"
+    },
+    {
+      "id": "9ccd4f4f61665ec641fe",
+      "reason": "Adds a 10/1 benzyl \u03b2-ketoester point below its measured 20/1 and 50/1 conditions.",
+      "hypothesis_id": "H_beta_ketoester"
+    },
+    {
+      "id": "fcb9019ffbdb889489f7",
+      "reason": "Locates the ratio where ortho-nitrobenzaldehyde's prediction error changes sign.",
+      "hypothesis_id": "H_nitroaldehyde"
+    },
+    {
+      "id": "5a365a8ac825ce487db4",
+      "reason": "Checks the cyclohexyl acrylate response between its measured 5/1 and 50/1 conditions.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "b05a4e8db42ce35cc958",
+      "reason": "Provides a 2/1 anchor for the acetoxybenzaldehyde whose 10/1 condition is pending CW measurement.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "c449ecc5ee6acf61bddb",
+      "reason": "Tests whether the methoxy-aromatic error transfers from aldehydes to an aromatic ester.",
+      "hypothesis_id": "H_methoxy"
+    },
+    {
+      "id": "b645df00945e594953a6",
+      "reason": "Contrasts a naphthyl ketone with the strongly retained naphthyl alcohol; structural transfer remains untested.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "d9426ef0af1c968f7fae",
+      "reason": "Tests whether the unexpectedly early elution of diethyl malonate transfers to its brominated analogue.",
+      "hypothesis_id": "H_malonate"
+    },
+    {
+      "id": "a6a0404c3ad65c6d9326",
+      "reason": "Probes a methylenedioxy aromatic ketone at 20/1, broadening the test of aromatic substituent effects.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "084212942b840ae3c1c7",
+      "reason": "Anchors fluoroacetophenone at 10/1 while its 50/1 condition awaits CW measurement.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H_alcohol",
+      "content": "Observed aromatic alcohol retention can rise sharply as PE/EA increases; whether naphthylmethanol follows a smooth rise from 0/1 to 10/1 is untested.",
+      "supporting_observed_ids": [
+        "b0f83f107759037eea65",
+        "b7cf293311f83700cd9a",
+        "75232f4ee5de52a0499e"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Where between 0/1 and 10/1 does naphthylmethanol's retention rise most sharply?"
+    },
+    {
+      "id": "H_methoxy",
+      "content": "The observed 50/1 methoxybenzaldehyde and methoxybenzophenone results are much later than their premeasurement predictions; transfer across methoxy-aromatic scaffolds remains uncertain.",
+      "supporting_observed_ids": [
+        "2d178efe0181baca2bd5",
+        "2d63ab3869184cde52bf",
+        "ce39d1762993bbbafaca"
+      ],
+      "contradicting_observed_ids": [
+        "c6159dcb5802e62284d1"
+      ],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "At which ratio does methoxybenzaldehyde depart from prediction, and does an aromatic ester show the same effect?"
+    },
+    {
+      "id": "H_iodophenol",
+      "content": "Iodophenol was overpredicted at 20/1 but underpredicted at 50/1 in prior premeasurement predictions; a ratio-dependent error reversal is plausible.",
+      "supporting_observed_ids": [
+        "0b8c6c59ae5e24b420e5",
+        "95d1d257dfea69f178f8"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Does iodophenol at 10/1 follow the early branch suggested by its measured 20/1 result?"
+    },
+    {
+      "id": "H_nitrile",
+      "content": "Observed methylbenzonitriles eluted earlier than predicted, while fluorobenzonitrile at 50/1 eluted later than predicted; substituent transfer is unreliable.",
+      "supporting_observed_ids": [
+        "de3442604a546992b1e1",
+        "b51a88b6dc4049704214",
+        "fe212637596386c24049"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Does fluorobenzonitrile retain its positive measured-minus-predicted error at 10/1?"
+    },
+    {
+      "id": "H_ring_n",
+      "content": "The pyridyl ketone's measured V2 exceeded prediction at 1/1, consistent with some observed ring-nitrogen underpredictions, but the effect varies by scaffold.",
+      "supporting_observed_ids": [
+        "8f5acbec0c511bb1ea89",
+        "e47aebe2660b9e1528de",
+        "23ef03f3e75e40b20095"
+      ],
+      "contradicting_observed_ids": [
+        "810b065b0b86ff8c9aae"
+      ],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "Does the pyridyl ketone's V2 error persist at 2/1?"
+    },
+    {
+      "id": "H_beta_ketoester",
+      "content": "The benzyl \u03b2-ketoester's measured V2 at 50/1 exceeded prediction at two loading volumes, while its 20/1 result was close; the onset is unmeasured.",
+      "supporting_observed_ids": [
+        "2b97a1e0a6a4b944b760",
+        "eb3bc3fba39e57adbc2f"
+      ],
+      "contradicting_observed_ids": [
+        "425fe9dfe0c3f345460b"
+      ],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Is the benzyl \u03b2-ketoester prediction accurate at 10/1 before the high-ratio V2 error appears?"
+    },
+    {
+      "id": "H_nitroaldehyde",
+      "content": "Ortho-nitrobenzaldehyde's prior prediction error changed direction between measured 5/1 and 20/1 conditions, and V2 remained underpredicted at 50/1.",
+      "supporting_observed_ids": [
+        "4da6e3b93f29af1efa94",
+        "857ae40d0fdf1c7e387e",
+        "0ac58929e586a4da4056"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "At 10/1, which side of the observed error transition does ortho-nitrobenzaldehyde occupy?"
+    },
+    {
+      "id": "H_malonate",
+      "content": "Observed diethyl malonate eluted much earlier than predicted across tested ratios; applying that finding to brominated malonate is an untested structural inference.",
+      "supporting_observed_ids": [
+        "58b3518f48d8340d6ffc",
+        "ab66de7edad40236ffd5",
+        "d7b0845793265cab0c33",
+        "f7d57d8bb988f7016502"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "strong",
+      "next_discriminating_question": "Does bromination preserve the early 5/1 elution of diethyl malonate?"
+    }
+  ],
+  "feedback_interpretation": "Round-three measurements strengthened the high-ratio underprediction signal for naphthylmethanol (55.82/113.21 mL measured at 10/1) and methoxybenzaldehyde (56.20/117.46 mL at 50/1). Iodophenol at 20/1 measured 26.27/49.10 mL against 41.29/70.41 mL predicted, reversing the earlier 50/1 error direction. Fluorobenzonitrile at 50/1 measured 24.86/44.05 mL against 14.76/33.29 mL predicted, unlike the early-eluting methylbenzonitriles. These results motivated matched-ratio probes and structural contrasts. Initial L333 records were used as measured anchors only, without assigning them out-of-sample prediction errors."
+}

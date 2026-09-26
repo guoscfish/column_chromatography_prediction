@@ -1,0 +1,518 @@
+{
+  "round": 5,
+  "batch_freeze_sha256": "86736704527513f12aa80e2b54f6cce91793973619d5a08040425ba4e7dfd5f4",
+  "choices": [
+    {
+      "id": "7f4f64cb791c71ba0420",
+      "reason": "Extends observed benzyl benzoate measurements to 100/1, where predicted V1 and V2 are large.",
+      "hypothesis_id": "h_solvent"
+    },
+    {
+      "id": "249b884b29177edb9df5",
+      "reason": "Tests anthranilate at 50/1 against its observed 5/1 behavior and large predicted elution volumes.",
+      "hypothesis_id": "h_solvent"
+    },
+    {
+      "id": "57646b9484b03f4076bb",
+      "reason": "Samples a polar beta-keto ester at 50/1 with a large predicted V2.",
+      "hypothesis_id": "h_polar_width"
+    },
+    {
+      "id": "334f7f55dcbf278e47ec",
+      "reason": "Tests an enamine ester with the largest predicted V2 among these choices.",
+      "hypothesis_id": "h_polar_width"
+    },
+    {
+      "id": "19f19f196ba5787a01b0",
+      "reason": "Checks the unusually large predicted V1 and V2 for a dimethoxybenzaldehyde at 2/1.",
+      "hypothesis_id": "h_polar_width"
+    },
+    {
+      "id": "bfbe491a54086b98874d",
+      "reason": "Adds an acetoxybenzaldehyde with a broad predicted elution interval.",
+      "hypothesis_id": "h_polar_width"
+    },
+    {
+      "id": "cb42a00d7b000827217c",
+      "reason": "Provides a simpler aromatic ketone reference at 50/1 for the high-retention selections.",
+      "hypothesis_id": "h_solvent"
+    },
+    {
+      "id": "b7fffd840d208b29776c",
+      "reason": "Tests an extended aromatic ketone at 20/1 with a large predicted V2.",
+      "hypothesis_id": "h_solvent"
+    },
+    {
+      "id": "70593725787c65a74951",
+      "reason": "Tests a para-aminobenzoate with 500 uL loading solvent, extending the observed aminobenzoate conditions.",
+      "hypothesis_id": "h_loading"
+    },
+    {
+      "id": "5a7a5139767fda9f7e9a",
+      "reason": "Samples a phenol with 700 uL loading solvent to probe loading-volume behavior.",
+      "hypothesis_id": "h_loading"
+    },
+    {
+      "id": "6f827d26c4f82a1bfa90",
+      "reason": "Adds a pyridyl ester to test whether polar heteroaromatic compounds have broad elution.",
+      "hypothesis_id": "h_polar_width"
+    },
+    {
+      "id": "39963f2ef0f22d86beed",
+      "reason": "Adds a phenolic aromatic compound at 20/1 with appreciable predicted retention.",
+      "hypothesis_id": "h_solvent"
+    },
+    {
+      "id": "fd8b5ea3b704959cd1ab",
+      "reason": "Tests a methoxyacetophenone at 2/1, where predicted V2 remains high despite the stronger eluent.",
+      "hypothesis_id": "h_solvent"
+    },
+    {
+      "id": "e8185e062559aff5c99e",
+      "reason": "Adds a fused-ring aldehyde at 1/1 to separate scaffold effects from solvent-ratio effects.",
+      "hypothesis_id": "h_polar_width"
+    },
+    {
+      "id": "4e7e45a513ce579c5ce3",
+      "reason": "Checks a simpler methoxybenzaldehyde alongside the high-volume dimethoxybenzaldehyde prediction.",
+      "hypothesis_id": "h_polar_width"
+    },
+    {
+      "id": "bff992c553be5fcbab99",
+      "reason": "Adds a heavy halogenated ether to broaden chemical coverage at 20/1.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "h_solvent",
+      "content": "For aromatic compounds, changing PE/EA toward PE-rich mixtures can cause large, nonlinear increases in V1 and V2.",
+      "supporting_observed_ids": [
+        "92bac523bed1042d6a75",
+        "34cf0942ff52b1b80385",
+        "9b6741031afcd6269be1",
+        "d16128891be713f0643d",
+        "dc81bc0ec00000b873d8",
+        "cd7c523e3df961c83524"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Do measurements at 50/1 to 100/1 confirm the predicted increase across aromatic scaffolds?"
+    },
+    {
+      "id": "h_polar_width",
+      "content": "Compounds with multiple carbonyl or other polar groups can have especially broad V2-minus-V1 intervals that merit direct measurement.",
+      "supporting_observed_ids": [
+        "e93e08d6bc42e91e2679",
+        "6c1c34b12c66ebcf39a4",
+        "ad0ace61c29817c678c2",
+        "6b38c8782f95c673c809",
+        "3ad8ec5752f3c638e2ff"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Which selected polar scaffolds retain broad measured intervals under their proposed solvent conditions?"
+    },
+    {
+      "id": "h_loading",
+      "content": "Loading conditions may alter V2 and elution width, but the observed 50-to-150 uL comparisons do not show a consistent direction.",
+      "supporting_observed_ids": [
+        "92bac523bed1042d6a75",
+        "34cf0942ff52b1b80385"
+      ],
+      "contradicting_observed_ids": [
+        "3aed7873d2fd1cf48684",
+        "18186b5d6cc190fc07a3"
+      ],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "Do 500-to-700 uL loading-solvent conditions change V2 beyond the variation seen in smaller-volume comparisons?"
+    }
+  ],
+  "feedback_interpretation": "Observed benzyl benzoate and fluorobenzoate records show strong solvent-ratio effects, while several polar carbonyl records have broad measured elution intervals. The available loading comparisons are mixed. This round emphasizes high predicted V1 or V2 values and tests those solvent and scaffold patterns, with two larger loading-volume probes.",
+  "records": [
+    {
+      "candidate_id": "0054790b9c9f40026ebe",
+      "source": "CW",
+      "pred_V1_ml": 9.567113876342773,
+      "pred_V2_ml": 20.242969512939453,
+      "true_V1_ml": 6.058333396911621,
+      "true_V2_ml": 15.116666793823242,
+      "error_V1_ml": 3.5087804794311523,
+      "error_V2_ml": 5.126302719116211,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "4e93e36ab850bab3d594",
+      "source": "CW",
+      "pred_V1_ml": 24.76433563232422,
+      "pred_V2_ml": 47.59081268310547,
+      "true_V1_ml": 37.141666412353516,
+      "true_V2_ml": 67.01667022705078,
+      "error_V1_ml": -12.377330780029297,
+      "error_V2_ml": -19.425857543945312,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "a36291cab664852df5e5",
+      "source": "CW",
+      "pred_V1_ml": 27.953487396240234,
+      "pred_V2_ml": 45.46192932128906,
+      "true_V1_ml": 13.583333015441895,
+      "true_V2_ml": 36.275001525878906,
+      "error_V1_ml": 14.37015438079834,
+      "error_V2_ml": 9.186927795410156,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "18d862fb465d82320e1e",
+      "source": "CW",
+      "pred_V1_ml": 8.495246887207031,
+      "pred_V2_ml": 15.495214462280273,
+      "true_V1_ml": 12.475000381469727,
+      "true_V2_ml": 17.41666603088379,
+      "error_V1_ml": -3.9797534942626953,
+      "error_V2_ml": -1.9214515686035156,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "be82391d6b3e742f1f26",
+      "source": "CW",
+      "pred_V1_ml": 16.484834671020508,
+      "pred_V2_ml": 50.15297317504883,
+      "true_V1_ml": 11.925000190734863,
+      "true_V2_ml": 36.28333282470703,
+      "error_V1_ml": 4.5598344802856445,
+      "error_V2_ml": 13.869640350341797,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "e91423e4955526580753",
+      "source": "CW",
+      "pred_V1_ml": 12.850192070007324,
+      "pred_V2_ml": 22.721342086791992,
+      "true_V1_ml": 6.650000095367432,
+      "true_V2_ml": 10.300000190734863,
+      "error_V1_ml": 6.200191974639893,
+      "error_V2_ml": 12.421341896057129,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "c356230277dfc98406e0",
+      "source": "CW",
+      "pred_V1_ml": 7.202968597412109,
+      "pred_V2_ml": 21.0839900970459,
+      "true_V1_ml": 5.308333396911621,
+      "true_V2_ml": 39.00833511352539,
+      "error_V1_ml": 1.8946352005004883,
+      "error_V2_ml": -17.924345016479492,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "81ac865dd40a21b73e6d",
+      "source": "CW",
+      "pred_V1_ml": 15.04753589630127,
+      "pred_V2_ml": 28.83781623840332,
+      "true_V1_ml": 5.25,
+      "true_V2_ml": 15.641666412353516,
+      "error_V1_ml": 9.79753589630127,
+      "error_V2_ml": 13.196149826049805,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "f73fd2f4c55177304721",
+      "source": "CW",
+      "pred_V1_ml": 2.618382692337036,
+      "pred_V2_ml": 16.269529342651367,
+      "true_V1_ml": 11.791666984558105,
+      "true_V2_ml": 27.883333206176758,
+      "error_V1_ml": -9.173284530639648,
+      "error_V2_ml": -11.61380386352539,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "72113bad4beb4e7b8852",
+      "source": "CW",
+      "pred_V1_ml": 4.893181324005127,
+      "pred_V2_ml": 22.823192596435547,
+      "true_V1_ml": 4.375,
+      "true_V2_ml": 9.383333206176758,
+      "error_V1_ml": 0.518181324005127,
+      "error_V2_ml": 13.439859390258789,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "74292a64ad6203713d6b",
+      "source": "CW",
+      "pred_V1_ml": 5.59298038482666,
+      "pred_V2_ml": 20.349462509155273,
+      "true_V1_ml": 6.300000190734863,
+      "true_V2_ml": 18.08333396911621,
+      "error_V1_ml": -0.7070198059082031,
+      "error_V2_ml": 2.2661285400390625,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "b40d8c452de81f2360b9",
+      "source": "CW",
+      "pred_V1_ml": 8.661548614501953,
+      "pred_V2_ml": 21.611753463745117,
+      "true_V1_ml": 8.558333396911621,
+      "true_V2_ml": 23.15833282470703,
+      "error_V1_ml": 0.10321521759033203,
+      "error_V2_ml": -1.546579360961914,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "7f3a3fa577dc73897305",
+      "source": "CW",
+      "pred_V1_ml": 5.86622953414917,
+      "pred_V2_ml": 15.928954124450684,
+      "true_V1_ml": 7.641666889190674,
+      "true_V2_ml": 10.175000190734863,
+      "error_V1_ml": -1.775437355041504,
+      "error_V2_ml": 5.75395393371582,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "fa6fd34875fdc7acf6c1",
+      "source": "CW",
+      "pred_V1_ml": 10.63591480255127,
+      "pred_V2_ml": 27.362548828125,
+      "true_V1_ml": 5.025000095367432,
+      "true_V2_ml": 22.399999618530273,
+      "error_V1_ml": 5.610914707183838,
+      "error_V2_ml": 4.962549209594727,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "8d79808de7b5a47aefcd",
+      "source": "CW",
+      "pred_V1_ml": 16.983978271484375,
+      "pred_V2_ml": 27.196828842163086,
+      "true_V1_ml": 11.016666412353516,
+      "true_V2_ml": 23.58333396911621,
+      "error_V1_ml": 5.967311859130859,
+      "error_V2_ml": 3.613494873046875,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "30970941542856ce8eb1",
+      "source": "CW",
+      "pred_V1_ml": 16.65563201904297,
+      "pred_V2_ml": 35.30112838745117,
+      "true_V1_ml": 10.133333206176758,
+      "true_V2_ml": 20.96666717529297,
+      "error_V1_ml": 6.522298812866211,
+      "error_V2_ml": 14.334461212158203,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "7f4f64cb791c71ba0420",
+      "source": "LLM",
+      "pred_V1_ml": 34.362449645996094,
+      "pred_V2_ml": 52.562808990478516,
+      "true_V1_ml": 28.649999618530273,
+      "true_V2_ml": 36.45833206176758,
+      "error_V1_ml": 5.71245002746582,
+      "error_V2_ml": 16.104476928710938,
+      "reason": "Extends observed benzyl benzoate measurements to 100/1, where predicted V1 and V2 are large.",
+      "hypothesis_id": "h_solvent"
+    },
+    {
+      "candidate_id": "249b884b29177edb9df5",
+      "source": "LLM",
+      "pred_V1_ml": 32.93665313720703,
+      "pred_V2_ml": 71.177001953125,
+      "true_V1_ml": 41.59166717529297,
+      "true_V2_ml": 69.89167022705078,
+      "error_V1_ml": -8.655014038085938,
+      "error_V2_ml": 1.2853317260742188,
+      "reason": "Tests anthranilate at 50/1 against its observed 5/1 behavior and large predicted elution volumes.",
+      "hypothesis_id": "h_solvent"
+    },
+    {
+      "candidate_id": "57646b9484b03f4076bb",
+      "source": "LLM",
+      "pred_V1_ml": 22.712480545043945,
+      "pred_V2_ml": 42.76868438720703,
+      "true_V1_ml": 5.375,
+      "true_V2_ml": 17.858333587646484,
+      "error_V1_ml": 17.337480545043945,
+      "error_V2_ml": 24.910350799560547,
+      "reason": "Samples a polar beta-keto ester at 50/1 with a large predicted V2.",
+      "hypothesis_id": "h_polar_width"
+    },
+    {
+      "candidate_id": "334f7f55dcbf278e47ec",
+      "source": "LLM",
+      "pred_V1_ml": 44.41055679321289,
+      "pred_V2_ml": 113.78565216064453,
+      "true_V1_ml": 31.75,
+      "true_V2_ml": 118.84166717529297,
+      "error_V1_ml": 12.66055679321289,
+      "error_V2_ml": -5.0560150146484375,
+      "reason": "Tests an enamine ester with the largest predicted V2 among these choices.",
+      "hypothesis_id": "h_polar_width"
+    },
+    {
+      "candidate_id": "19f19f196ba5787a01b0",
+      "source": "LLM",
+      "pred_V1_ml": 33.73923110961914,
+      "pred_V2_ml": 71.76040649414062,
+      "true_V1_ml": 13.725000381469727,
+      "true_V2_ml": 31.375,
+      "error_V1_ml": 20.014230728149414,
+      "error_V2_ml": 40.385406494140625,
+      "reason": "Checks the unusually large predicted V1 and V2 for a dimethoxybenzaldehyde at 2/1.",
+      "hypothesis_id": "h_polar_width"
+    },
+    {
+      "candidate_id": "bfbe491a54086b98874d",
+      "source": "LLM",
+      "pred_V1_ml": 16.46570587158203,
+      "pred_V2_ml": 50.175376892089844,
+      "true_V1_ml": 10.833333015441895,
+      "true_V2_ml": 38.69166564941406,
+      "error_V1_ml": 5.632372856140137,
+      "error_V2_ml": 11.483711242675781,
+      "reason": "Adds an acetoxybenzaldehyde with a broad predicted elution interval.",
+      "hypothesis_id": "h_polar_width"
+    },
+    {
+      "candidate_id": "cb42a00d7b000827217c",
+      "source": "LLM",
+      "pred_V1_ml": 18.745439529418945,
+      "pred_V2_ml": 35.94658660888672,
+      "true_V1_ml": 27.016666412353516,
+      "true_V2_ml": 42.79166793823242,
+      "error_V1_ml": -8.27122688293457,
+      "error_V2_ml": -6.845081329345703,
+      "reason": "Provides a simpler aromatic ketone reference at 50/1 for the high-retention selections.",
+      "hypothesis_id": "h_solvent"
+    },
+    {
+      "candidate_id": "b7fffd840d208b29776c",
+      "source": "LLM",
+      "pred_V1_ml": 19.822242736816406,
+      "pred_V2_ml": 49.19002151489258,
+      "true_V1_ml": 13.350000381469727,
+      "true_V2_ml": 35.71666717529297,
+      "error_V1_ml": 6.47224235534668,
+      "error_V2_ml": 13.47335433959961,
+      "reason": "Tests an extended aromatic ketone at 20/1 with a large predicted V2.",
+      "hypothesis_id": "h_solvent"
+    },
+    {
+      "candidate_id": "70593725787c65a74951",
+      "source": "LLM",
+      "pred_V1_ml": 14.968851089477539,
+      "pred_V2_ml": 25.360631942749023,
+      "true_V1_ml": 10.808333396911621,
+      "true_V2_ml": 22.83333396911621,
+      "error_V1_ml": 4.160517692565918,
+      "error_V2_ml": 2.5272979736328125,
+      "reason": "Tests a para-aminobenzoate with 500 uL loading solvent, extending the observed aminobenzoate conditions.",
+      "hypothesis_id": "h_loading"
+    },
+    {
+      "candidate_id": "5a7a5139767fda9f7e9a",
+      "source": "LLM",
+      "pred_V1_ml": 24.828786849975586,
+      "pred_V2_ml": 46.418235778808594,
+      "true_V1_ml": 31.858333587646484,
+      "true_V2_ml": 49.275001525878906,
+      "error_V1_ml": -7.029546737670898,
+      "error_V2_ml": -2.8567657470703125,
+      "reason": "Samples a phenol with 700 uL loading solvent to probe loading-volume behavior.",
+      "hypothesis_id": "h_loading"
+    },
+    {
+      "candidate_id": "6f827d26c4f82a1bfa90",
+      "source": "LLM",
+      "pred_V1_ml": 11.127358436584473,
+      "pred_V2_ml": 27.770296096801758,
+      "true_V1_ml": 10.183333396911621,
+      "true_V2_ml": 20.933332443237305,
+      "error_V1_ml": 0.9440250396728516,
+      "error_V2_ml": 6.836963653564453,
+      "reason": "Adds a pyridyl ester to test whether polar heteroaromatic compounds have broad elution.",
+      "hypothesis_id": "h_polar_width"
+    },
+    {
+      "candidate_id": "39963f2ef0f22d86beed",
+      "source": "LLM",
+      "pred_V1_ml": 14.287957191467285,
+      "pred_V2_ml": 25.044506072998047,
+      "true_V1_ml": 13.5,
+      "true_V2_ml": 22.941667556762695,
+      "error_V1_ml": 0.7879571914672852,
+      "error_V2_ml": 2.1028385162353516,
+      "reason": "Adds a phenolic aromatic compound at 20/1 with appreciable predicted retention.",
+      "hypothesis_id": "h_solvent"
+    },
+    {
+      "candidate_id": "fd8b5ea3b704959cd1ab",
+      "source": "LLM",
+      "pred_V1_ml": 14.930078506469727,
+      "pred_V2_ml": 32.4678955078125,
+      "true_V1_ml": 4.991666793823242,
+      "true_V2_ml": 11.658333778381348,
+      "error_V1_ml": 9.938411712646484,
+      "error_V2_ml": 20.80956268310547,
+      "reason": "Tests a methoxyacetophenone at 2/1, where predicted V2 remains high despite the stronger eluent.",
+      "hypothesis_id": "h_solvent"
+    },
+    {
+      "candidate_id": "e8185e062559aff5c99e",
+      "source": "LLM",
+      "pred_V1_ml": 5.9355597496032715,
+      "pred_V2_ml": 15.742842674255371,
+      "true_V1_ml": 4.5916666984558105,
+      "true_V2_ml": 27.33333396911621,
+      "error_V1_ml": 1.343893051147461,
+      "error_V2_ml": -11.59049129486084,
+      "reason": "Adds a fused-ring aldehyde at 1/1 to separate scaffold effects from solvent-ratio effects.",
+      "hypothesis_id": "h_polar_width"
+    },
+    {
+      "candidate_id": "4e7e45a513ce579c5ce3",
+      "source": "LLM",
+      "pred_V1_ml": 4.362996578216553,
+      "pred_V2_ml": 19.877580642700195,
+      "true_V1_ml": 7.949999809265137,
+      "true_V2_ml": 12.625,
+      "error_V1_ml": -3.587003231048584,
+      "error_V2_ml": 7.252580642700195,
+      "reason": "Checks a simpler methoxybenzaldehyde alongside the high-volume dimethoxybenzaldehyde prediction.",
+      "hypothesis_id": "h_polar_width"
+    },
+    {
+      "candidate_id": "bff992c553be5fcbab99",
+      "source": "LLM",
+      "pred_V1_ml": 2.8225600719451904,
+      "pred_V2_ml": 16.873706817626953,
+      "true_V1_ml": 6.0916666984558105,
+      "true_V2_ml": 12.324999809265137,
+      "error_V1_ml": -3.26910662651062,
+      "error_V2_ml": 4.548707008361816,
+      "reason": "Adds a heavy halogenated ether to broaden chemical coverage at 20/1.",
+      "hypothesis_id": null
+    }
+  ]
+}

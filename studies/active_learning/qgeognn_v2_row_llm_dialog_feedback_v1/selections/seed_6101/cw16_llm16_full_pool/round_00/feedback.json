@@ -1,0 +1,548 @@
+{
+  "round": 0,
+  "batch_freeze_sha256": "1dc216197acc6c52d71ad47d46fb19812708b8028fdda89dba6b8ec4492b7325",
+  "choices": [
+    {
+      "id": "87da8c37b16d810331a2",
+      "reason": "The acid has measured V2 values of 108.89 mL at 1/1 and 60.92 mL at 5/1 (f90a5a5a54509c085ebd, 1e775e7d8dcbf48fd6f8). Measuring 0/1 tests the unobserved strong-eluent end of this unusual response.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "9a32b65bc21fdc5f7286",
+      "reason": "At 2/1, the predicted V2 is 70.57 mL. This probes interpolation between the acid's measured 1/1 and 5/1 conditions; the different loading-solvent volume limits a clean condition comparison.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "9603a9567c8b21458d1e",
+      "reason": "The malonate's measured V1/V2 rise from 7.04/13.15 mL at 5/1 to 18.43/30.51 mL at 20/1 (f82f2844c7e27afd32bb, 3726956d81fe3954e5b7). The 10/1 measurement tests the predicted intermediate response.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "4c2ad10692512e8f23b8",
+      "reason": "Only a 0/1 measurement exists for this trifluorinated diketone (14d7f6fb3dda38f48fb9). Its 20/1 prediction tests transfer across a large eluent change for a potentially tautomeric compound; that chemical effect remains untested.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "0b9a59526d7d4ce5f872",
+      "reason": "Pairing 50/1 with the selected 20/1 condition tests whether the model's large predicted V1/V2 rise for the same trifluorinated diketone is real. The sole measured anchor is at 0/1 (14d7f6fb3dda38f48fb9).",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "45a1b11ae63f2dab2e48",
+      "reason": "This alcohol has no supplied measurement. Its 5/1 prediction gives a same-molecule anchor for the selected 10/1 condition, testing whether hydroxyl retention changes as predicted.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "73502a52708e4f9c2391",
+      "reason": "The predicted alcohol V1/V2 jump from 16.42/27.70 mL at 5/1 to 31.69/54.72 mL at 10/1 is large. Measuring both conditions tests this unobserved model response.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "33ffc69a253a89f15995",
+      "reason": "Quinoline has no supplied measurement. A 5/1 result provides an anchor for testing the model's unusual 5/1-to-10/1 V2 trend in this basic heteroaromatic molecule.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "9cd02352c2ed7a3e2321",
+      "reason": "For quinoline, predicted V2 falls from 27.42 mL at 5/1 to 25.70 mL at 10/1 while V1 rises. This same-molecule contrast checks a possible model blind spot; no measured quinoline trend is available.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "4e66505f5d66d4fe37b9",
+      "reason": "This boronate has measured V2 near 7\u20138 mL at 0/1 and 1/1 (96b9b370ade7a60366fa, cb79e57eb461a7dcc59a). The 20/1 result tests extrapolation to weaker eluent.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "903811765ba61a8af2b7",
+      "reason": "Pairing 50/1 with the selected 20/1 boronate condition tests the predicted further V2 rise to 24.69 mL. Existing measurements cover only 0/1 and 1/1.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "302e458c5ed2285ca328",
+      "reason": "Methyl anthranilate rose modestly from 4.62/11.86 mL at 2/1 to 5.22/13.75 mL at 5/1 (a2b3a77e1b5200f7c164, 9333d130f52d80332cf0). Its 50/1 prediction tests much longer-range extrapolation for an amino ester.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "b51a88b6dc4049704214",
+      "reason": "The pending CW batch includes the same aromatic nitrile at 20/1, but neither condition has a measured response yet. Selecting 50/1 creates a condition contrast once the batch is revealed; evidence for its predicted width is weak.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "810b16f35a3a86f451ce",
+      "reason": "A methoxy-substituted aromatic ester at 50/1 tests whether ester and ether functionality together follow the model's predicted 17.42/33.27 mL response. The supplied measurements do not establish this molecule's behavior.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "bed2f1430d0964e86fcb",
+      "reason": "This fluoroacetophenone gives a PE-loaded aromatic ketone case at 20/1, complementing the DCM-loaded ketones in the pending CW batch. Its specific response is unmeasured.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "90eea1593f255ed0107f",
+      "reason": "The pending CW batch includes this diketone at 50/1. Measuring 0/1 creates a broad same-molecule eluent contrast and tests the predicted shift from an early, narrow interval; both responses remain unmeasured.",
+      "hypothesis_id": "H2"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "This carboxylic acid may have an unusually large and condition-sensitive V2 and elution width. The supplied 1/1 and 5/1 measurements establish a large difference, but the shape between and beyond them is untested.",
+      "supporting_observed_ids": [
+        "f90a5a5a54509c085ebd",
+        "1e775e7d8dcbf48fd6f8"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "What are its measured V1/V2 at 0/1 and 2/1 with the catalogued 1500 \u00b5L loading-solvent volume?"
+    },
+    {
+      "id": "H2",
+      "content": "For some esters and diketones, reducing eluent strength may raise V1 and V2 substantially. This is supported locally for the malonate and benzyl benzoate, but transfer to the selected diketone is an inference.",
+      "supporting_observed_ids": [
+        "f82f2844c7e27afd32bb",
+        "3726956d81fe3954e5b7",
+        "7abb2cb83395e9b18de1",
+        "7b34ee010f42fdae95b5",
+        "704ba630f25fe7f20166"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Does malonate at 10/1 lie between its measured endpoints, and how much does the selected diketone shift from 0/1 to its pending 50/1 condition?"
+    },
+    {
+      "id": "H3",
+      "content": "The trifluorinated naphthyl diketone may respond strongly to weaker eluent. Its possible tautomerism is a chemical prior, while only its 0/1 V1/V2 is observed.",
+      "supporting_observed_ids": [
+        "14d7f6fb3dda38f48fb9"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "Do measured 20/1 and 50/1 V1/V2 follow the predicted rise from the 0/1 anchor?"
+    },
+    {
+      "id": "H4",
+      "content": "The alcohol's hydroxyl group could make its response to PE/EA changes difficult to generalize, but no measurement for this molecule is supplied.",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "Is the predicted jump between 5/1 and 10/1 present in measured V1 and V2?"
+    },
+    {
+      "id": "H5",
+      "content": "The model predicts a slight V2 decrease for quinoline from 5/1 to 10/1 despite a V1 increase. This is an untested model pattern, with no supplied quinoline measurement.",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "Does measured quinoline V2 decrease between 5/1 and 10/1?"
+    },
+    {
+      "id": "H6",
+      "content": "The boronate has short measured elution intervals at 0/1 and 1/1; a substantial V2 increase at 20/1 and 50/1 is model extrapolation.",
+      "supporting_observed_ids": [
+        "96b9b370ade7a60366fa",
+        "cb79e57eb461a7dcc59a"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "How do its measured V1 and V2 change at 20/1 and 50/1?"
+    },
+    {
+      "id": "H7",
+      "content": "Methyl anthranilate's V1 and V2 increased modestly from 2/1 to 5/1. A much larger 50/1 response is plausible from eluent strength but is untested for this amino ester.",
+      "supporting_observed_ids": [
+        "a2b3a77e1b5200f7c164",
+        "9333d130f52d80332cf0"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "Does its measured 50/1 response approach the model's predicted 26.50/55.02 mL?"
+    }
+  ],
+  "feedback_interpretation": "",
+  "records": [
+    {
+      "candidate_id": "ffc70e28db22d1cc1f3f",
+      "source": "CW",
+      "pred_V1_ml": 16.705970764160156,
+      "pred_V2_ml": 42.46028518676758,
+      "true_V1_ml": 44.45000076293945,
+      "true_V2_ml": 81.19999694824219,
+      "error_V1_ml": -27.744029998779297,
+      "error_V2_ml": -38.73971176147461,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "0c5c35afb3a24375c153",
+      "source": "CW",
+      "pred_V1_ml": 27.559146881103516,
+      "pred_V2_ml": 75.06831359863281,
+      "true_V1_ml": 44.90833282470703,
+      "true_V2_ml": 98.73332977294922,
+      "error_V1_ml": -17.349185943603516,
+      "error_V2_ml": -23.665016174316406,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "5d6d4ac0c1dfacbde53d",
+      "source": "CW",
+      "pred_V1_ml": 27.16832160949707,
+      "pred_V2_ml": 61.1532096862793,
+      "true_V1_ml": 29.262500762939453,
+      "true_V2_ml": 109.67500305175781,
+      "error_V1_ml": -2.094179153442383,
+      "error_V2_ml": -48.521793365478516,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "d3047299bd8817ee87dd",
+      "source": "CW",
+      "pred_V1_ml": 24.832706451416016,
+      "pred_V2_ml": 30.256969451904297,
+      "true_V1_ml": 25.133333206176758,
+      "true_V2_ml": 36.04999923706055,
+      "error_V1_ml": -0.3006267547607422,
+      "error_V2_ml": -5.79302978515625,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "e9d196dc9d1443121cf9",
+      "source": "CW",
+      "pred_V1_ml": 2.727787971496582,
+      "pred_V2_ml": 20.158676147460938,
+      "true_V1_ml": 8.558333396911621,
+      "true_V2_ml": 11.391666412353516,
+      "error_V1_ml": -5.830545425415039,
+      "error_V2_ml": 8.767009735107422,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "832eaa9c6b2f7a68f2a5",
+      "source": "CW",
+      "pred_V1_ml": 20.86669921875,
+      "pred_V2_ml": 28.253124237060547,
+      "true_V1_ml": 16.475000381469727,
+      "true_V2_ml": 23.15833282470703,
+      "error_V1_ml": 4.391698837280273,
+      "error_V2_ml": 5.094791412353516,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "c2334ccf8e6788ac6ca2",
+      "source": "CW",
+      "pred_V1_ml": 33.224945068359375,
+      "pred_V2_ml": 50.96442794799805,
+      "true_V1_ml": 38.79999923706055,
+      "true_V2_ml": 67.99166870117188,
+      "error_V1_ml": -5.575054168701172,
+      "error_V2_ml": -17.027240753173828,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "9f362bfe1dab6e9eac3d",
+      "source": "CW",
+      "pred_V1_ml": 13.836203575134277,
+      "pred_V2_ml": 27.951702117919922,
+      "true_V1_ml": 6.175000190734863,
+      "true_V2_ml": 21.516666412353516,
+      "error_V1_ml": 7.661203384399414,
+      "error_V2_ml": 6.435035705566406,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "b2ac848cc42390b01b9f",
+      "source": "CW",
+      "pred_V1_ml": 6.611546039581299,
+      "pred_V2_ml": 29.582157135009766,
+      "true_V1_ml": 8.850000381469727,
+      "true_V2_ml": 13.283333778381348,
+      "error_V1_ml": -2.2384543418884277,
+      "error_V2_ml": 16.298824310302734,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "8db24ae10df4095ada47",
+      "source": "CW",
+      "pred_V1_ml": 15.738262176513672,
+      "pred_V2_ml": 37.374229431152344,
+      "true_V1_ml": 5.141666889190674,
+      "true_V2_ml": 29.441667556762695,
+      "error_V1_ml": 10.596595764160156,
+      "error_V2_ml": 7.932561874389648,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "0774ceee565be86b891c",
+      "source": "CW",
+      "pred_V1_ml": 5.78936243057251,
+      "pred_V2_ml": 21.15542984008789,
+      "true_V1_ml": 5.150000095367432,
+      "true_V2_ml": 17.316667556762695,
+      "error_V1_ml": 0.6393623352050781,
+      "error_V2_ml": 3.8387622833251953,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "dee5054e9bcc457f0464",
+      "source": "CW",
+      "pred_V1_ml": 9.086957931518555,
+      "pred_V2_ml": 21.287559509277344,
+      "true_V1_ml": 6.483333110809326,
+      "true_V2_ml": 18.441667556762695,
+      "error_V1_ml": 2.6036248207092285,
+      "error_V2_ml": 2.8458919525146484,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "9ae9c8b491a04e429a11",
+      "source": "CW",
+      "pred_V1_ml": 8.673859596252441,
+      "pred_V2_ml": 45.96562194824219,
+      "true_V1_ml": 28.691667556762695,
+      "true_V2_ml": 54.80833435058594,
+      "error_V1_ml": -20.017807006835938,
+      "error_V2_ml": -8.84271240234375,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "c9bef93a79964dc6ede1",
+      "source": "CW",
+      "pred_V1_ml": 9.189177513122559,
+      "pred_V2_ml": 32.04256057739258,
+      "true_V1_ml": 28.200000762939453,
+      "true_V2_ml": 68.67500305175781,
+      "error_V1_ml": -19.010822296142578,
+      "error_V2_ml": -36.632442474365234,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "9ffee2813aef5c26f96f",
+      "source": "CW",
+      "pred_V1_ml": 27.0528621673584,
+      "pred_V2_ml": 65.77055358886719,
+      "true_V1_ml": 43.108333587646484,
+      "true_V2_ml": 119.19999694824219,
+      "error_V1_ml": -16.055471420288086,
+      "error_V2_ml": -53.429443359375,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "c6924324ddd95f249df6",
+      "source": "CW",
+      "pred_V1_ml": 14.285815238952637,
+      "pred_V2_ml": 39.382530212402344,
+      "true_V1_ml": 43.20000076293945,
+      "true_V2_ml": 101.44166564941406,
+      "error_V1_ml": -28.9141845703125,
+      "error_V2_ml": -62.05913543701172,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "87da8c37b16d810331a2",
+      "source": "LLM",
+      "pred_V1_ml": 7.349295616149902,
+      "pred_V2_ml": 19.892690658569336,
+      "true_V1_ml": 3.558333396911621,
+      "true_V2_ml": 31.90833282470703,
+      "error_V1_ml": 3.7909622192382812,
+      "error_V2_ml": -12.015642166137695,
+      "reason": "The acid has measured V2 values of 108.89 mL at 1/1 and 60.92 mL at 5/1 (f90a5a5a54509c085ebd, 1e775e7d8dcbf48fd6f8). Measuring 0/1 tests the unobserved strong-eluent end of this unusual response.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "9a32b65bc21fdc5f7286",
+      "source": "LLM",
+      "pred_V1_ml": 7.877638339996338,
+      "pred_V2_ml": 70.57014465332031,
+      "true_V1_ml": 8.316666603088379,
+      "true_V2_ml": 46.21666717529297,
+      "error_V1_ml": -0.439028263092041,
+      "error_V2_ml": 24.353477478027344,
+      "reason": "At 2/1, the predicted V2 is 70.57 mL. This probes interpolation between the acid's measured 1/1 and 5/1 conditions; the different loading-solvent volume limits a clean condition comparison.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "9603a9567c8b21458d1e",
+      "source": "LLM",
+      "pred_V1_ml": 9.99322509765625,
+      "pred_V2_ml": 16.729122161865234,
+      "true_V1_ml": 12.233333587646484,
+      "true_V2_ml": 18.850000381469727,
+      "error_V1_ml": -2.2401084899902344,
+      "error_V2_ml": -2.120878219604492,
+      "reason": "The malonate's measured V1/V2 rise from 7.04/13.15 mL at 5/1 to 18.43/30.51 mL at 20/1 (f82f2844c7e27afd32bb, 3726956d81fe3954e5b7). The 10/1 measurement tests the predicted intermediate response.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "4c2ad10692512e8f23b8",
+      "source": "LLM",
+      "pred_V1_ml": 7.469515800476074,
+      "pred_V2_ml": 27.90797233581543,
+      "true_V1_ml": 5.041666507720947,
+      "true_V2_ml": 31.34166717529297,
+      "error_V1_ml": 2.427849292755127,
+      "error_V2_ml": -3.433694839477539,
+      "reason": "Only a 0/1 measurement exists for this trifluorinated diketone (14d7f6fb3dda38f48fb9). Its 20/1 prediction tests transfer across a large eluent change for a potentially tautomeric compound; that chemical effect remains untested.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "0b9a59526d7d4ce5f872",
+      "source": "LLM",
+      "pred_V1_ml": 17.83090591430664,
+      "pred_V2_ml": 47.816036224365234,
+      "true_V1_ml": 5.125,
+      "true_V2_ml": 32.18333435058594,
+      "error_V1_ml": 12.70590591430664,
+      "error_V2_ml": 15.632701873779297,
+      "reason": "Pairing 50/1 with the selected 20/1 condition tests whether the model's large predicted V1/V2 rise for the same trifluorinated diketone is real. The sole measured anchor is at 0/1 (14d7f6fb3dda38f48fb9).",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "45a1b11ae63f2dab2e48",
+      "source": "LLM",
+      "pred_V1_ml": 16.417724609375,
+      "pred_V2_ml": 27.697526931762695,
+      "true_V1_ml": 34.57500076293945,
+      "true_V2_ml": 50.0,
+      "error_V1_ml": -18.157276153564453,
+      "error_V2_ml": -22.302473068237305,
+      "reason": "This alcohol has no supplied measurement. Its 5/1 prediction gives a same-molecule anchor for the selected 10/1 condition, testing whether hydroxyl retention changes as predicted.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "candidate_id": "73502a52708e4f9c2391",
+      "source": "LLM",
+      "pred_V1_ml": 31.689218521118164,
+      "pred_V2_ml": 54.72132110595703,
+      "true_V1_ml": 51.70833206176758,
+      "true_V2_ml": 94.93333435058594,
+      "error_V1_ml": -20.019113540649414,
+      "error_V2_ml": -40.212013244628906,
+      "reason": "The predicted alcohol V1/V2 jump from 16.42/27.70 mL at 5/1 to 31.69/54.72 mL at 10/1 is large. Measuring both conditions tests this unobserved model response.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "candidate_id": "33ffc69a253a89f15995",
+      "source": "LLM",
+      "pred_V1_ml": 11.078370094299316,
+      "pred_V2_ml": 27.42400550842285,
+      "true_V1_ml": 27.899999618530273,
+      "true_V2_ml": 57.66666793823242,
+      "error_V1_ml": -16.82162857055664,
+      "error_V2_ml": -30.24266242980957,
+      "reason": "Quinoline has no supplied measurement. A 5/1 result provides an anchor for testing the model's unusual 5/1-to-10/1 V2 trend in this basic heteroaromatic molecule.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "candidate_id": "9cd02352c2ed7a3e2321",
+      "source": "LLM",
+      "pred_V1_ml": 12.907160758972168,
+      "pred_V2_ml": 25.704761505126953,
+      "true_V1_ml": 45.79999923706055,
+      "true_V2_ml": 93.06666564941406,
+      "error_V1_ml": -32.89283752441406,
+      "error_V2_ml": -67.36190795898438,
+      "reason": "For quinoline, predicted V2 falls from 27.42 mL at 5/1 to 25.70 mL at 10/1 while V1 rises. This same-molecule contrast checks a possible model blind spot; no measured quinoline trend is available.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "candidate_id": "4e66505f5d66d4fe37b9",
+      "source": "LLM",
+      "pred_V1_ml": 7.169623374938965,
+      "pred_V2_ml": 17.823564529418945,
+      "true_V1_ml": 6.870833396911621,
+      "true_V2_ml": 10.429166793823242,
+      "error_V1_ml": 0.29878997802734375,
+      "error_V2_ml": 7.394397735595703,
+      "reason": "This boronate has measured V2 near 7\u20138 mL at 0/1 and 1/1 (96b9b370ade7a60366fa, cb79e57eb461a7dcc59a). The 20/1 result tests extrapolation to weaker eluent.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "candidate_id": "903811765ba61a8af2b7",
+      "source": "LLM",
+      "pred_V1_ml": 10.02916145324707,
+      "pred_V2_ml": 24.690458297729492,
+      "true_V1_ml": 8.125,
+      "true_V2_ml": 16.15833282470703,
+      "error_V1_ml": 1.9041614532470703,
+      "error_V2_ml": 8.532125473022461,
+      "reason": "Pairing 50/1 with the selected 20/1 boronate condition tests the predicted further V2 rise to 24.69 mL. Existing measurements cover only 0/1 and 1/1.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "candidate_id": "302e458c5ed2285ca328",
+      "source": "LLM",
+      "pred_V1_ml": 26.50238800048828,
+      "pred_V2_ml": 55.0241813659668,
+      "true_V1_ml": 6.8416666984558105,
+      "true_V2_ml": 12.425000190734863,
+      "error_V1_ml": 19.660720825195312,
+      "error_V2_ml": 42.59918212890625,
+      "reason": "Methyl anthranilate rose modestly from 4.62/11.86 mL at 2/1 to 5.22/13.75 mL at 5/1 (a2b3a77e1b5200f7c164, 9333d130f52d80332cf0). Its 50/1 prediction tests much longer-range extrapolation for an amino ester.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "candidate_id": "b51a88b6dc4049704214",
+      "source": "LLM",
+      "pred_V1_ml": 10.5590238571167,
+      "pred_V2_ml": 36.066009521484375,
+      "true_V1_ml": 7.083333492279053,
+      "true_V2_ml": 19.116666793823242,
+      "error_V1_ml": 3.4756903648376465,
+      "error_V2_ml": 16.949342727661133,
+      "reason": "The pending CW batch includes the same aromatic nitrile at 20/1, but neither condition has a measured response yet. Selecting 50/1 creates a condition contrast once the batch is revealed; evidence for its predicted width is weak.",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "810b16f35a3a86f451ce",
+      "source": "LLM",
+      "pred_V1_ml": 17.423559188842773,
+      "pred_V2_ml": 33.26969909667969,
+      "true_V1_ml": 24.508333206176758,
+      "true_V2_ml": 49.525001525878906,
+      "error_V1_ml": -7.084774017333984,
+      "error_V2_ml": -16.25530242919922,
+      "reason": "A methoxy-substituted aromatic ester at 50/1 tests whether ester and ether functionality together follow the model's predicted 17.42/33.27 mL response. The supplied measurements do not establish this molecule's behavior.",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "bed2f1430d0964e86fcb",
+      "source": "LLM",
+      "pred_V1_ml": 16.364953994750977,
+      "pred_V2_ml": 35.63374328613281,
+      "true_V1_ml": 13.508333206176758,
+      "true_V2_ml": 30.766666412353516,
+      "error_V1_ml": 2.8566207885742188,
+      "error_V2_ml": 4.867076873779297,
+      "reason": "This fluoroacetophenone gives a PE-loaded aromatic ketone case at 20/1, complementing the DCM-loaded ketones in the pending CW batch. Its specific response is unmeasured.",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "90eea1593f255ed0107f",
+      "source": "LLM",
+      "pred_V1_ml": 3.541233539581299,
+      "pred_V2_ml": 11.637150764465332,
+      "true_V1_ml": 4.066666603088379,
+      "true_V2_ml": 11.208333015441895,
+      "error_V1_ml": -0.5254330635070801,
+      "error_V2_ml": 0.4288177490234375,
+      "reason": "The pending CW batch includes this diketone at 50/1. Measuring 0/1 creates a broad same-molecule eluent contrast and tests the predicted shift from an early, narrow interval; both responses remain unmeasured.",
+      "hypothesis_id": "H2"
+    }
+  ]
+}

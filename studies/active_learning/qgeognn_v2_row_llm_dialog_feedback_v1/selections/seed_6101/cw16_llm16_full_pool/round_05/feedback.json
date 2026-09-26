@@ -1,0 +1,601 @@
+{
+  "round": 5,
+  "batch_freeze_sha256": "12c7410026b19d263605e2c80367e47d8ed1d40abca7e8649384324df77c096c",
+  "choices": [
+    {
+      "id": "61b73b8065ae2ece22eb",
+      "reason": "Methylquinoline at 10/1 was measured at 59.58/106.50 mL versus 36.90/73.97 predicted. The 5/1 point tests how far that observed underprediction extends down the ratio curve.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "2745c6978a8911fc3dda",
+      "reason": "A 2/1 methylquinoline point brackets the lower part of the same curve; its value is an untested inference from the large 10/1 error.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "29b39881584c4fec1c58",
+      "reason": "Trifluoromethoxyphenol at 50/1 had V2 underpredicted by 30.35 mL. The 20/1 point locates where the high-ratio V2 rise begins.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "014a5a6687748dfc0ebf",
+      "reason": "Ortho-isopropylphenol at 50/1 had V2 underpredicted by 19.58 mL. Its 20/1 point tests whether a similar high-ratio error develops in this second phenol.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "bc62be727bf6ded3d86e",
+      "reason": "Iodophenol at 5/1 adds a chemically distinct phenol to test transfer of the observed phenol pattern; direct evidence for this compound is weak.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "5522a1ec1f8e39cedb13",
+      "reason": "Acetoxybenzaldehyde errors differed sharply between measured 5/1 and 10/1 rows. A 2/1 measurement tests the lower end of that nonlinear response.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "1cc3b837c6561b1c0a23",
+      "reason": "The multifunctional acetoacetate ester measured 6.12/19.13 mL at 1/1. Its 5/1 candidate probes the rise toward higher ratios while the 10/1 CW result is already observed.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "5fd0921bbbba1e22abf9",
+      "reason": "Ethyl acetoacetate V2 was underpredicted at 10/1 and 20/1. Methyl acetoacetate at 50/1 tests whether this beta-keto ester error transfers to a related ester at a high ratio.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "7522f965f25a50c9a3bc",
+      "reason": "Para-methylacetophenone at 20/1 provides a condition contrast to the pending CW 50/1 row; CW has no measured response yet.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "696b873f81bc442af675",
+      "reason": "Ortho-methylacetophenone at 5/1 adds a positional-isomer contrast to the aromatic-ketone probes. Direct evidence for its error is weak.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "4b408fbbcfc4c054f284",
+      "reason": "Ortho-methoxyacetophenone at 50/1 had a measured V1 near 1.01 mL against 28.30 predicted. A 10/1 point tests whether that extreme error is localized to high ratios.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "0cf0d36290765378ae8d",
+      "reason": "Anisyl benzophenone at 20/1 measured 18.52/37.03 mL versus 14.90/28.59 predicted. Its 50/1 point tests high-ratio extrapolation for this aromatic ketone.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "0f06772820e6693753e3",
+      "reason": "2-Phenylpyridine was predicted closely at 5/1, whereas methylquinoline was strongly underpredicted at 10/1. Its 50/1 row tests whether aza-aromatic transfer error depends on scaffold and ratio.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "91b6bda771851a5c78ac",
+      "reason": "Measured aromatic alcohols include large underpredictions, including phenylpropanol at 20/1 and naphthylmethanol V2 at 10/1. Naphthylethanol at 2/1 tests transfer to a related alcohol.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "d2b769ab5d49a1bd9378",
+      "reason": "Methyl salicylate at 20/1 contrasts a phenolic ester with measured salicylaldehyde at 20/1. The effect of replacing aldehyde with ester remains an untested chemical inference.",
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "5b706e17e8412d02342f",
+      "reason": "Nitrobenzophenone previously showed a large V2 at 50/1. This lower-load 50/1 candidate tests whether the model's low V1 and V2 predictions persist across sample load.",
+      "hypothesis_id": "H9"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "The large methylquinoline underprediction at 10/1 may extend through intermediate solvent ratios.",
+      "supporting_observed_ids": [
+        "9e3ce3497298084abd83"
+      ],
+      "contradicting_observed_ids": [
+        "292e0342682192a69fce"
+      ],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "How large are the methylquinoline errors at 5/1 and 2/1?"
+    },
+    {
+      "id": "H2",
+      "content": "High-ratio phenol V2 is underpredicted across at least two substituent patterns, but transfer to other phenols is untested.",
+      "supporting_observed_ids": [
+        "80f546c47198fa7c6dbf",
+        "68a01853008546de06a1"
+      ],
+      "contradicting_observed_ids": [
+        "fe7d7af2c919facfe5f5"
+      ],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Where does the V2 error emerge between 10/1 and 50/1, and does iodophenol show a related pattern?"
+    },
+    {
+      "id": "H3",
+      "content": "The acetoxybenzaldehyde V1 error changes direction across the measured 5/1 and 10/1 conditions.",
+      "supporting_observed_ids": [
+        "050e2fab4b407ea058cb",
+        "db7f9ffa50eb931613f6"
+      ],
+      "contradicting_observed_ids": [],
+      "evidence_strength": "strong",
+      "next_discriminating_question": "What are V1 and V2 at 2/1?"
+    },
+    {
+      "id": "H4",
+      "content": "Beta-keto ester errors grow at higher PE/EA ratios and vary across ester substituents.",
+      "supporting_observed_ids": [
+        "5b7151c95c4e964a121b",
+        "b6bf451b4911ee22d4a4"
+      ],
+      "contradicting_observed_ids": [
+        "60b7eed7a46a03b366b2",
+        "81507d463506a9e65e73"
+      ],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Does the multifunctional ester rise sharply at 5/1, and is methyl acetoacetate underpredicted at 50/1?"
+    },
+    {
+      "id": "H5",
+      "content": "Aromatic-ketone errors depend strongly on substitution and ratio; the earlier single-family trend does not describe all measured ketones.",
+      "supporting_observed_ids": [
+        "c82167c626a1495ef750",
+        "d035281432e410405550",
+        "b5aa0bae2967975bdf4b"
+      ],
+      "contradicting_observed_ids": [
+        "95e11ec70cd7b493e3f8"
+      ],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "How do positional methyl isomers and methoxy substitution change the 5/1-to-50/1 response?"
+    },
+    {
+      "id": "H6",
+      "content": "Aza-aromatic transfer error may depend on scaffold and ratio: methylquinoline at 10/1 was strongly underpredicted, while 2-phenylpyridine at 5/1 was close.",
+      "supporting_observed_ids": [
+        "9e3ce3497298084abd83"
+      ],
+      "contradicting_observed_ids": [
+        "292e0342682192a69fce"
+      ],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Is 2-phenylpyridine underpredicted at 50/1?"
+    },
+    {
+      "id": "H7",
+      "content": "Aromatic-alcohol retention error may transfer to naphthylethanol, but the proposed 2/1 response is uncertain.",
+      "supporting_observed_ids": [
+        "2cf4f6424b85ab121943",
+        "b7cf293311f83700cd9a"
+      ],
+      "contradicting_observed_ids": [
+        "db5dcc7b864e0174fcbd"
+      ],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "Does naphthylethanol show a measurable V1 or V2 error at 2/1?"
+    },
+    {
+      "id": "H8",
+      "content": "Replacing the aldehyde in salicylaldehyde with an ester may change the phenolic condition response.",
+      "supporting_observed_ids": [
+        "905c8843dd27543205a5"
+      ],
+      "contradicting_observed_ids": [
+        "619663c2b3ffb3a6c497"
+      ],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "How does methyl salicylate compare with measured salicylaldehyde at 20/1?"
+    },
+    {
+      "id": "H9",
+      "content": "Nitrobenzophenone's high-ratio V2 and elution interval width may remain poorly predicted at lower sample load.",
+      "supporting_observed_ids": [
+        "76643e968ecc935c745c"
+      ],
+      "contradicting_observed_ids": [
+        "0164f18711777547e68d"
+      ],
+      "evidence_strength": "weak",
+      "next_discriminating_question": "Does the 50/1 lower-load measurement retain the high V2 seen previously?"
+    },
+    {
+      "id": "H10",
+      "content": "The earlier suggestion that high-ratio benzoates share one direction of error is weakened: tert-butylbenzoate was underpredicted while fluorobenzoate and iodobenzoate were overpredicted.",
+      "supporting_observed_ids": [
+        "3f1a96aa336ea0741b5a",
+        "471287eecf7b94603e9e"
+      ],
+      "contradicting_observed_ids": [
+        "c5a12771920c4410d921"
+      ],
+      "evidence_strength": "moderate",
+      "next_discriminating_question": "Which substituent or loading conditions account for the differing benzoate errors?"
+    }
+  ],
+  "feedback_interpretation": "Round-4 feedback confirmed large methylquinoline underprediction at 10/1 and large high-ratio V2 underprediction for two phenols. Acetoxybenzaldehyde showed opposite V1 error directions at 5/1 and 10/1. The multifunctional ester was closer at 1/1, and oxime errors changed from overprediction at 10/1 and 20/1 to underprediction at 50/1; this batch therefore prioritizes condition transitions and chemical contrasts. The tert-butylbenzoate result weakened the earlier broad benzoate-bias hypothesis, so no benzoate was selected. Current CW rows remain unmeasured. V2\u2212V1 is elution interval width, not uncertainty.",
+  "records": [
+    {
+      "candidate_id": "b0f83f107759037eea65",
+      "source": "CW",
+      "pred_V1_ml": 8.549699783325195,
+      "pred_V2_ml": 28.064823150634766,
+      "true_V1_ml": 6.058333396911621,
+      "true_V2_ml": 11.866666793823242,
+      "error_V1_ml": 2.491366386413574,
+      "error_V2_ml": 16.198156356811523,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "02425f554db74d9809d2",
+      "source": "CW",
+      "pred_V1_ml": 5.007280349731445,
+      "pred_V2_ml": 22.878036499023438,
+      "true_V1_ml": 6.958333492279053,
+      "true_V2_ml": 17.20833396911621,
+      "error_V1_ml": -1.9510531425476074,
+      "error_V2_ml": 5.669702529907227,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "195a292d7c8874415285",
+      "source": "CW",
+      "pred_V1_ml": 12.124826431274414,
+      "pred_V2_ml": 26.27842140197754,
+      "true_V1_ml": 11.175000190734863,
+      "true_V2_ml": 25.258333206176758,
+      "error_V1_ml": 0.9498262405395508,
+      "error_V2_ml": 1.0200881958007812,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "41adc20d963708a187a8",
+      "source": "CW",
+      "pred_V1_ml": 6.852300643920898,
+      "pred_V2_ml": 14.649260520935059,
+      "true_V1_ml": 6.1583333015441895,
+      "true_V2_ml": 13.758333206176758,
+      "error_V1_ml": 0.693967342376709,
+      "error_V2_ml": 0.8909273147583008,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "fdf997fba3a74c11f802",
+      "source": "CW",
+      "pred_V1_ml": 10.651030540466309,
+      "pred_V2_ml": 25.301973342895508,
+      "true_V1_ml": 10.333333015441895,
+      "true_V2_ml": 16.91666603088379,
+      "error_V1_ml": 0.31769752502441406,
+      "error_V2_ml": 8.385307312011719,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "9046ef1d90ff9bb08297",
+      "source": "CW",
+      "pred_V1_ml": 10.209863662719727,
+      "pred_V2_ml": 22.865013122558594,
+      "true_V1_ml": 6.308333396911621,
+      "true_V2_ml": 10.466666221618652,
+      "error_V1_ml": 3.9015302658081055,
+      "error_V2_ml": 12.398346900939941,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "8af7ab6d0c4dde52bba2",
+      "source": "CW",
+      "pred_V1_ml": 20.13825225830078,
+      "pred_V2_ml": 45.957035064697266,
+      "true_V1_ml": 6.741666793823242,
+      "true_V2_ml": 14.241666793823242,
+      "error_V1_ml": 13.396585464477539,
+      "error_V2_ml": 31.715368270874023,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "409d01129a3e41b32902",
+      "source": "CW",
+      "pred_V1_ml": 3.6793737411499023,
+      "pred_V2_ml": 12.661449432373047,
+      "true_V1_ml": 5.183333396911621,
+      "true_V2_ml": 11.216666221618652,
+      "error_V1_ml": -1.5039596557617188,
+      "error_V2_ml": 1.4447832107543945,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "776ee2c1e85ebde75168",
+      "source": "CW",
+      "pred_V1_ml": 32.918128967285156,
+      "pred_V2_ml": 57.454193115234375,
+      "true_V1_ml": 48.0,
+      "true_V2_ml": 77.09166717529297,
+      "error_V1_ml": -15.081871032714844,
+      "error_V2_ml": -19.637474060058594,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "5521fc40da3618079f6a",
+      "source": "CW",
+      "pred_V1_ml": 12.333659172058105,
+      "pred_V2_ml": 25.599714279174805,
+      "true_V1_ml": 7.625,
+      "true_V2_ml": 15.574999809265137,
+      "error_V1_ml": 4.7086591720581055,
+      "error_V2_ml": 10.024714469909668,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "e598b9cf54086c1c64b2",
+      "source": "CW",
+      "pred_V1_ml": 7.636799335479736,
+      "pred_V2_ml": 14.534015655517578,
+      "true_V1_ml": 6.291666507720947,
+      "true_V2_ml": 12.625,
+      "error_V1_ml": 1.345132827758789,
+      "error_V2_ml": 1.9090156555175781,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "98dd7f94e58da879b609",
+      "source": "CW",
+      "pred_V1_ml": 8.429949760437012,
+      "pred_V2_ml": 29.16453742980957,
+      "true_V1_ml": 3.8583333492279053,
+      "true_V2_ml": 8.733333587646484,
+      "error_V1_ml": 4.571616172790527,
+      "error_V2_ml": 20.431203842163086,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "122fbec0df9ecf1c5d89",
+      "source": "CW",
+      "pred_V1_ml": 16.380691528320312,
+      "pred_V2_ml": 32.85764694213867,
+      "true_V1_ml": 24.141666412353516,
+      "true_V2_ml": 48.108333587646484,
+      "error_V1_ml": -7.760974884033203,
+      "error_V2_ml": -15.250686645507812,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "4fb92bd1fab3ba235858",
+      "source": "CW",
+      "pred_V1_ml": 25.095443725585938,
+      "pred_V2_ml": 38.20964813232422,
+      "true_V1_ml": 37.67499923706055,
+      "true_V2_ml": 57.93333435058594,
+      "error_V1_ml": -12.57955551147461,
+      "error_V2_ml": -19.72368621826172,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "a775926fce57b3bf9ec1",
+      "source": "CW",
+      "pred_V1_ml": 19.784454345703125,
+      "pred_V2_ml": 32.428749084472656,
+      "true_V1_ml": 20.875,
+      "true_V2_ml": 30.183332443237305,
+      "error_V1_ml": -1.090545654296875,
+      "error_V2_ml": 2.2454166412353516,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "316b7260106904f99ae8",
+      "source": "CW",
+      "pred_V1_ml": 8.756094932556152,
+      "pred_V2_ml": 28.2336483001709,
+      "true_V1_ml": 13.891666412353516,
+      "true_V2_ml": 38.11666488647461,
+      "error_V1_ml": -5.135571479797363,
+      "error_V2_ml": -9.883016586303711,
+      "reason": "CW geometric coverage",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "61b73b8065ae2ece22eb",
+      "source": "LLM",
+      "pred_V1_ml": 33.02203369140625,
+      "pred_V2_ml": 64.7060317993164,
+      "true_V1_ml": 27.116666793823242,
+      "true_V2_ml": 62.04166793823242,
+      "error_V1_ml": 5.905366897583008,
+      "error_V2_ml": 2.6643638610839844,
+      "reason": "Methylquinoline at 10/1 was measured at 59.58/106.50 mL versus 36.90/73.97 predicted. The 5/1 point tests how far that observed underprediction extends down the ratio curve.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "2745c6978a8911fc3dda",
+      "source": "LLM",
+      "pred_V1_ml": 16.907211303710938,
+      "pred_V2_ml": 38.29259490966797,
+      "true_V1_ml": 16.29166603088379,
+      "true_V2_ml": 33.40833282470703,
+      "error_V1_ml": 0.6155452728271484,
+      "error_V2_ml": 4.8842620849609375,
+      "reason": "A 2/1 methylquinoline point brackets the lower part of the same curve; its value is an untested inference from the large 10/1 error.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "29b39881584c4fec1c58",
+      "source": "LLM",
+      "pred_V1_ml": 19.97881317138672,
+      "pred_V2_ml": 49.99249267578125,
+      "true_V1_ml": 14.425000190734863,
+      "true_V2_ml": 50.82500076293945,
+      "error_V1_ml": 5.5538129806518555,
+      "error_V2_ml": -0.8325080871582031,
+      "reason": "Trifluoromethoxyphenol at 50/1 had V2 underpredicted by 30.35 mL. The 20/1 point locates where the high-ratio V2 rise begins.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "014a5a6687748dfc0ebf",
+      "source": "LLM",
+      "pred_V1_ml": 15.935639381408691,
+      "pred_V2_ml": 26.442859649658203,
+      "true_V1_ml": 11.733333587646484,
+      "true_V2_ml": 23.149999618530273,
+      "error_V1_ml": 4.202305793762207,
+      "error_V2_ml": 3.2928600311279297,
+      "reason": "Ortho-isopropylphenol at 50/1 had V2 underpredicted by 19.58 mL. Its 20/1 point tests whether a similar high-ratio error develops in this second phenol.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "bc62be727bf6ded3d86e",
+      "source": "LLM",
+      "pred_V1_ml": 9.535255432128906,
+      "pred_V2_ml": 21.80626678466797,
+      "true_V1_ml": 9.024999618530273,
+      "true_V2_ml": 16.65833282470703,
+      "error_V1_ml": 0.5102558135986328,
+      "error_V2_ml": 5.1479339599609375,
+      "reason": "Iodophenol at 5/1 adds a chemically distinct phenol to test transfer of the observed phenol pattern; direct evidence for this compound is weak.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "5522a1ec1f8e39cedb13",
+      "source": "LLM",
+      "pred_V1_ml": 6.823811054229736,
+      "pred_V2_ml": 22.08757972717285,
+      "true_V1_ml": 6.266666889190674,
+      "true_V2_ml": 25.116666793823242,
+      "error_V1_ml": 0.5571441650390625,
+      "error_V2_ml": -3.0290870666503906,
+      "reason": "Acetoxybenzaldehyde errors differed sharply between measured 5/1 and 10/1 rows. A 2/1 measurement tests the lower end of that nonlinear response.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "1cc3b837c6561b1c0a23",
+      "source": "LLM",
+      "pred_V1_ml": 17.604230880737305,
+      "pred_V2_ml": 42.97228240966797,
+      "true_V1_ml": 23.899999618530273,
+      "true_V2_ml": 40.099998474121094,
+      "error_V1_ml": -6.295768737792969,
+      "error_V2_ml": 2.872283935546875,
+      "reason": "The multifunctional acetoacetate ester measured 6.12/19.13 mL at 1/1. Its 5/1 candidate probes the rise toward higher ratios while the 10/1 CW result is already observed.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "candidate_id": "5fd0921bbbba1e22abf9",
+      "source": "LLM",
+      "pred_V1_ml": 28.223506927490234,
+      "pred_V2_ml": 63.32102966308594,
+      "true_V1_ml": 18.450000762939453,
+      "true_V2_ml": 75.75833129882812,
+      "error_V1_ml": 9.773506164550781,
+      "error_V2_ml": -12.437301635742188,
+      "reason": "Ethyl acetoacetate V2 was underpredicted at 10/1 and 20/1. Methyl acetoacetate at 50/1 tests whether this beta-keto ester error transfers to a related ester at a high ratio.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "candidate_id": "7522f965f25a50c9a3bc",
+      "source": "LLM",
+      "pred_V1_ml": 10.933455467224121,
+      "pred_V2_ml": 25.044803619384766,
+      "true_V1_ml": 9.841666221618652,
+      "true_V2_ml": 20.70833396911621,
+      "error_V1_ml": 1.0917892456054688,
+      "error_V2_ml": 4.336469650268555,
+      "reason": "Para-methylacetophenone at 20/1 provides a condition contrast to the pending CW 50/1 row; CW has no measured response yet.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "candidate_id": "696b873f81bc442af675",
+      "source": "LLM",
+      "pred_V1_ml": 6.549331188201904,
+      "pred_V2_ml": 15.042325973510742,
+      "true_V1_ml": 6.991666793823242,
+      "true_V2_ml": 10.524999618530273,
+      "error_V1_ml": -0.4423356056213379,
+      "error_V2_ml": 4.517326354980469,
+      "reason": "Ortho-methylacetophenone at 5/1 adds a positional-isomer contrast to the aromatic-ketone probes. Direct evidence for its error is weak.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "candidate_id": "4b408fbbcfc4c054f284",
+      "source": "LLM",
+      "pred_V1_ml": 7.649510383605957,
+      "pred_V2_ml": 17.620498657226562,
+      "true_V1_ml": 6.608333110809326,
+      "true_V2_ml": 21.40833282470703,
+      "error_V1_ml": 1.0411772727966309,
+      "error_V2_ml": -3.7878341674804688,
+      "reason": "Ortho-methoxyacetophenone at 50/1 had a measured V1 near 1.01 mL against 28.30 predicted. A 10/1 point tests whether that extreme error is localized to high ratios.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "candidate_id": "0cf0d36290765378ae8d",
+      "source": "LLM",
+      "pred_V1_ml": 32.57236862182617,
+      "pred_V2_ml": 60.347686767578125,
+      "true_V1_ml": 34.233333587646484,
+      "true_V2_ml": 75.55000305175781,
+      "error_V1_ml": -1.6609649658203125,
+      "error_V2_ml": -15.202316284179688,
+      "reason": "Anisyl benzophenone at 20/1 measured 18.52/37.03 mL versus 14.90/28.59 predicted. Its 50/1 point tests high-ratio extrapolation for this aromatic ketone.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "candidate_id": "0f06772820e6693753e3",
+      "source": "LLM",
+      "pred_V1_ml": 26.048416137695312,
+      "pred_V2_ml": 69.56684112548828,
+      "true_V1_ml": 46.44166564941406,
+      "true_V2_ml": 103.28333282470703,
+      "error_V1_ml": -20.39324951171875,
+      "error_V2_ml": -33.71649169921875,
+      "reason": "2-Phenylpyridine was predicted closely at 5/1, whereas methylquinoline was strongly underpredicted at 10/1. Its 50/1 row tests whether aza-aromatic transfer error depends on scaffold and ratio.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "candidate_id": "91b6bda771851a5c78ac",
+      "source": "LLM",
+      "pred_V1_ml": 20.790302276611328,
+      "pred_V2_ml": 36.052894592285156,
+      "true_V1_ml": 26.058332443237305,
+      "true_V2_ml": 50.983333587646484,
+      "error_V1_ml": -5.268030166625977,
+      "error_V2_ml": -14.930438995361328,
+      "reason": "Measured aromatic alcohols include large underpredictions, including phenylpropanol at 20/1 and naphthylmethanol V2 at 10/1. Naphthylethanol at 2/1 tests transfer to a related alcohol.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "candidate_id": "d2b769ab5d49a1bd9378",
+      "source": "LLM",
+      "pred_V1_ml": 6.571846008300781,
+      "pred_V2_ml": 12.031062126159668,
+      "true_V1_ml": 7.454166889190674,
+      "true_V2_ml": 14.266666412353516,
+      "error_V1_ml": -0.8823208808898926,
+      "error_V2_ml": -2.2356042861938477,
+      "reason": "Methyl salicylate at 20/1 contrasts a phenolic ester with measured salicylaldehyde at 20/1. The effect of replacing aldehyde with ester remains an untested chemical inference.",
+      "hypothesis_id": "H8"
+    },
+    {
+      "candidate_id": "5b706e17e8412d02342f",
+      "source": "LLM",
+      "pred_V1_ml": 0.9944450259208679,
+      "pred_V2_ml": 60.93484878540039,
+      "true_V1_ml": 21.325000762939453,
+      "true_V2_ml": 59.875,
+      "error_V1_ml": -20.330554962158203,
+      "error_V2_ml": 1.0598487854003906,
+      "reason": "Nitrobenzophenone previously showed a large V2 at 50/1. This lower-load 50/1 candidate tests whether the model's low V1 and V2 predictions persist across sample load.",
+      "hypothesis_id": "H9"
+    }
+  ]
+}
