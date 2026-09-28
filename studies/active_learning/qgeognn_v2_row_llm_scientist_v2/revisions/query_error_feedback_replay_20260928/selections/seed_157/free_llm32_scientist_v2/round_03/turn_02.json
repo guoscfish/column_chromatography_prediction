@@ -1,0 +1,35 @@
+{
+  "request_sha256": "f52ee0750346c57cb71d562f5648b6c6683a1c7a87169fc9e0789a6da78b7a9c",
+  "answer": "{\"type\":\"query\",\"queries\":[{\"operation\":\"search_observed\",\"args\":{\"same_molecule_as\":\"0c5c35afb3a24375c153\",\"limit\":24}},{\"operation\":\"search_observed\",\"args\":{\"same_molecule_as\":\"b514312eda7950cdcf1c\",\"limit\":24}},{\"operation\":\"search_observed\",\"args\":{\"same_molecule_as\":\"f7d57d8bb988f7016502\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"same_molecule_as\":\"2d178efe0181baca2bd5\",\"sort_by\":\"pred_V1_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"same_molecule_as\":\"c6924324ddd95f249df6\",\"sort_by\":\"pred_V1_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"same_molecule_as\":\"762190c8d9f5b2d1a89a\",\"sort_by\":\"pred_V2_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"same_molecule_as\":\"51f4126a3aadb3239225\",\"sort_by\":\"pred_V2_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"same_molecule_as\":\"a17bcdddcf0799baeee2\",\"sort_by\":\"pred_V2_ml\",\"order\":\"desc\",\"limit\":24}}]}",
+  "provenance": {
+    "audit": {
+      "turns": [
+        {
+          "model": "gpt-6-sol",
+          "effort": "high"
+        }
+      ],
+      "native_tool_calls": 0,
+      "response_item_types": [
+        "message",
+        "message",
+        "message",
+        "reasoning",
+        "message"
+      ],
+      "configuration_warnings": [],
+      "event_sha256": "eeeac4e9ace07f65608c6e4b0be1581c8c312c68e9c26ec069cfa7b4c068814d",
+      "rollout_sha256": "2d576d0f06f6a6a75458fbcaa98ca528460d97553face57fa8b813f40018cc89"
+    },
+    "usage": [
+      {
+        "input_tokens": 127169,
+        "cached_input_tokens": 4224,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 388,
+        "reasoning_output_tokens": 75
+      }
+    ],
+    "cli_version": "codex-cli 0.157.1"
+  }
+}

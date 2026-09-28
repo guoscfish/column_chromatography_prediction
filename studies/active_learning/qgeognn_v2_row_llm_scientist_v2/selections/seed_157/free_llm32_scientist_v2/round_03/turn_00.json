@@ -1,0 +1,40 @@
+{
+  "request_sha256": "3cb39e63e6aa32643f51a6c4f9d6c2f8513cc1f7b85dd0eb39041a95f95d6abc",
+  "answer": "{\"type\":\"query\",\"queries\":[{\"operation\":\"search_candidates\",\"args\":{\"similar_to\":\"b514312eda7950cdcf1c\",\"min_tanimoto\":0.6,\"sort_by\":\"similarity\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"similar_to\":\"0c5c35afb3a24375c153\",\"min_tanimoto\":0.5,\"sort_by\":\"similarity\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"similar_to\":\"f7d57d8bb988f7016502\",\"min_tanimoto\":0.6,\"sort_by\":\"similarity\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"similar_to\":\"1b1a9ec85268aa66d327\",\"min_tanimoto\":0.55,\"sort_by\":\"similarity\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"sort_by\":\"cw_distance_percentile\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"sort_by\":\"pred_V2_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"signal\":{\"name\":\"molecule_novelty\",\"min_signal\":1},\"sort_by\":\"V1_quantile_width_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_observed\",\"args\":{\"sort_by\":\"historical_abs_error_ml\",\"order\":\"desc\",\"limit\":24}}]}",
+  "provenance": {
+    "audit": {
+      "turns": [
+        {
+          "model": "gpt-6-sol",
+          "effort": "high"
+        }
+      ],
+      "native_tool_calls": 0,
+      "response_item_types": [
+        "message",
+        "message",
+        "message",
+        "message",
+        "message",
+        "reasoning",
+        "message"
+      ],
+      "configuration_warnings": [
+        "Codex is ignoring 2 unrecognized configuration settings. Check for typos or deprecated settings.\n  user (/Users/fish/.codex/config.toml): `disable_response_storage` is ignored.\n  user (/Users/fish/.codex/config.toml): `mcp_servers.computer-use.type` is ignored.",
+        "Codex is ignoring 2 unrecognized configuration settings. Check for typos or deprecated settings.\n  user (/Users/fish/.codex/config.toml): `disable_response_storage` is ignored.\n  user (/Users/fish/.codex/config.toml): `mcp_servers.computer-use.type` is ignored."
+      ],
+      "event_sha256": "0364f887742319d22383171bdebd4960e7df1e7918fe92f3bbbee9f5111c9d09",
+      "rollout_sha256": "331a4d0ba7664d25e3619804cbda24d06e526ceffcebd25412c2c7c3057ea656"
+    },
+    "usage": [
+      {
+        "input_tokens": 35164,
+        "cached_input_tokens": 4224,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 352,
+        "reasoning_output_tokens": 53
+      }
+    ],
+    "cli_version": "codex-cli 0.155.0-alpha.16.4"
+  }
+}

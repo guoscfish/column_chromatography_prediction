@@ -1,0 +1,37 @@
+{
+  "request_sha256": "ebf81e35af1e85612828756319c9ec0b299b6e266350f6f42df6096d936e7a27",
+  "answer": "{\"type\":\"query\",\"queries\":[{\"operation\":\"search_candidates\",\"args\":{\"sort_by\":\"cw_distance_percentile\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"sort_by\":\"V1_quantile_width_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"sort_by\":\"V2_quantile_width_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"sort_by\":\"molecule_novelty\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"similar_to\":\"1cbe45e1a935365bd219\",\"sort_by\":\"similarity\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"similar_to\":\"a047be17b8ee8bebb29a\",\"sort_by\":\"similarity\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"similar_to\":\"76643e968ecc935c745c\",\"sort_by\":\"similarity\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"similar_to\":\"6209df8dd01072ab8a47\",\"sort_by\":\"similarity\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"similar_to\":\"0be038db2251642c6862\",\"sort_by\":\"similarity\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"conditions\":{\"PE/EA\":\"0/1\"},\"sort_by\":\"condition_novelty\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"conditions\":{\"PE/EA\":\"10/1\"},\"sort_by\":\"condition_novelty\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"conditions\":{\"PE/EA\":\"50/1\"},\"sort_by\":\"condition_novelty\",\"order\":\"desc\",\"limit\":24}}]}",
+  "provenance": {
+    "audit": {
+      "turns": [
+        {
+          "model": "gpt-6-sol",
+          "effort": "high"
+        }
+      ],
+      "native_tool_calls": 0,
+      "response_item_types": [
+        "message",
+        "message",
+        "message",
+        "reasoning",
+        "message",
+        "reasoning",
+        "message"
+      ],
+      "configuration_warnings": [],
+      "event_sha256": "15c5fc80ffbf4775028ee804324c3ebce2adb1ab826823a6210fc98ec929ef0a",
+      "rollout_sha256": "af5d2583af12b0b684b86add5dcdb03905bb5fac37ee477a02b585436ce3bceb"
+    },
+    "usage": [
+      {
+        "input_tokens": 25545,
+        "cached_input_tokens": 5888,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 705,
+        "reasoning_output_tokens": 295
+      }
+    ],
+    "cli_version": "codex-cli 0.157.1"
+  }
+}

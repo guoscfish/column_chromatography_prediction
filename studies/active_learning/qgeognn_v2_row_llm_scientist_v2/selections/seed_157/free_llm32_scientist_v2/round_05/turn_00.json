@@ -1,0 +1,37 @@
+{
+  "request_sha256": "0911afb597e96b0560be0e7fe277a793c6f656a59d1d1ebbb20ff99bc99a6ac1",
+  "answer": "{\"type\":\"query\",\"queries\":[{\"operation\":\"search_candidates\",\"args\":{\"signal\":{\"min_signal\":0.9},\"sort_by\":\"cw_distance_percentile\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"signal\":{\"min_signal\":0.9},\"sort_by\":\"V1_quantile_width_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"signal\":{\"min_signal\":0.9},\"sort_by\":\"V2_quantile_width_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"sort_by\":\"molecule_novelty\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"similar_to\":\"c6924324ddd95f249df6\",\"min_tanimoto\":0.35,\"sort_by\":\"similarity\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"similar_to\":\"2d178efe0181baca2bd5\",\"min_tanimoto\":0.35,\"sort_by\":\"similarity\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"similar_to\":\"776ee2c1e85ebde75168\",\"min_tanimoto\":0.35,\"sort_by\":\"similarity\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"similar_to\":\"f7d57d8bb988f7016502\",\"min_tanimoto\":0.35,\"sort_by\":\"similarity\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"conditions\":{\"PE/EA\":\"2/1\"},\"sort_by\":\"condition_novelty\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"conditions\":{\"PE/EA\":\"50/1\"},\"sort_by\":\"condition_novelty\",\"order\":\"desc\",\"limit\":24}}]}",
+  "provenance": {
+    "audit": {
+      "turns": [
+        {
+          "model": "gpt-6-sol",
+          "effort": "high"
+        }
+      ],
+      "native_tool_calls": 0,
+      "response_item_types": [
+        "message",
+        "message",
+        "message",
+        "reasoning",
+        "message",
+        "reasoning",
+        "message"
+      ],
+      "configuration_warnings": [],
+      "event_sha256": "2cf6593e2dabe6e5e19a9b7314061846326fd7fbb74648bcb8ab4524878ab572",
+      "rollout_sha256": "badea43bb4dcca0d3910fd962fb063485fb175871b53ae7a1c99086ec7cbd6c1"
+    },
+    "usage": [
+      {
+        "input_tokens": 29992,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 814,
+        "reasoning_output_tokens": 411
+      }
+    ],
+    "cli_version": "codex-cli 0.157.1"
+  }
+}

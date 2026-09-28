@@ -1,0 +1,179 @@
+{
+  "queries": [
+    {
+      "operation": "search_observed",
+      "args": {
+        "same_molecule_as": "51f4126a3aadb3239225",
+        "limit": 24
+      }
+    },
+    {
+      "operation": "search_observed",
+      "args": {
+        "same_molecule_as": "a6a0404c3ad65c6d9326",
+        "limit": 24
+      }
+    },
+    {
+      "operation": "search_observed",
+      "args": {
+        "same_molecule_as": "249b884b29177edb9df5",
+        "limit": 24
+      }
+    },
+    {
+      "operation": "search_candidates",
+      "args": {
+        "same_molecule_as": "0c5c35afb3a24375c153",
+        "sort_by": "pred_V2_ml",
+        "order": "desc",
+        "limit": 24
+      }
+    }
+  ],
+  "results": [
+    {
+      "matches": [
+        {
+          "id": "8436939a2a6a91fa470d",
+          "smiles": "Cc1cccc(C)n1",
+          "conditions": {
+            "PE/EA": "2/1",
+            "Density g/ml": 0.92,
+            "V/ul": 150.0,
+            "loading solvent": "DCM",
+            "Volume of loading solvent/ul": 300
+          },
+          "V1_ml": 11.591666221618652,
+          "V2_ml": 30.616666793823242,
+          "record_kind": "initial_L333",
+          "descriptors": {
+            "MW_g_mol": 107.16,
+            "LogP": 1.7,
+            "TPSA_A2": 12.89,
+            "HBD": 0,
+            "HBA": 1
+          },
+          "loading_amount_mg": 138.0,
+          "molecule_novelty": 0,
+          "condition_novelty": 0,
+          "max_similarity_to_observed": 1.0,
+          "max_similarity_to_pending": 0.0
+        }
+      ],
+      "total_matches": 1,
+      "returned_count": 1,
+      "next_offset": null,
+      "view_budget_limited": false,
+      "remaining_queries": 3,
+      "remaining_new_candidate_views": 230
+    },
+    {
+      "matches": [
+        {
+          "id": "162ffd9b0db1fd3c1509",
+          "smiles": "CC(=O)c1ccc2c(c1)OCO2",
+          "conditions": {
+            "PE/EA": "1/1",
+            "Density g/ml": 1.0,
+            "V/ul": 100.0,
+            "loading solvent": "DCM",
+            "Volume of loading solvent/ul": 500
+          },
+          "V1_ml": 6.099999904632568,
+          "V2_ml": 15.883333206176758,
+          "record_kind": "initial_L333",
+          "descriptors": {
+            "MW_g_mol": 164.16,
+            "LogP": 1.62,
+            "TPSA_A2": 35.53,
+            "HBD": 0,
+            "HBA": 3
+          },
+          "loading_amount_mg": 100.0,
+          "molecule_novelty": 0,
+          "condition_novelty": 0,
+          "max_similarity_to_observed": 1.0,
+          "max_similarity_to_pending": 0.0
+        }
+      ],
+      "total_matches": 1,
+      "returned_count": 1,
+      "next_offset": null,
+      "view_budget_limited": false,
+      "remaining_queries": 2,
+      "remaining_new_candidate_views": 230
+    },
+    {
+      "matches": [
+        {
+          "id": "18186b5d6cc190fc07a3",
+          "smiles": "CCOC(=O)c1ccccc1N",
+          "conditions": {
+            "PE/EA": "5/1",
+            "Density g/ml": 1.117,
+            "V/ul": 150.0,
+            "loading solvent": "PE",
+            "Volume of loading solvent/ul": 200
+          },
+          "V1_ml": 8.516666412353516,
+          "V2_ml": 16.6875,
+          "record_kind": "initial_L333",
+          "descriptors": {
+            "MW_g_mol": 165.19,
+            "LogP": 1.45,
+            "TPSA_A2": 52.32,
+            "HBD": 1,
+            "HBA": 3
+          },
+          "loading_amount_mg": 167.55,
+          "molecule_novelty": 0,
+          "condition_novelty": 0,
+          "max_similarity_to_observed": 1.0,
+          "max_similarity_to_pending": 0.0
+        },
+        {
+          "id": "3aed7873d2fd1cf48684",
+          "smiles": "CCOC(=O)c1ccccc1N",
+          "conditions": {
+            "PE/EA": "5/1",
+            "Density g/ml": 1.117,
+            "V/ul": 50.0,
+            "loading solvent": "PE",
+            "Volume of loading solvent/ul": 200
+          },
+          "V1_ml": 9.25,
+          "V2_ml": 17.0,
+          "record_kind": "initial_L333",
+          "descriptors": {
+            "MW_g_mol": 165.19,
+            "LogP": 1.45,
+            "TPSA_A2": 52.32,
+            "HBD": 1,
+            "HBA": 3
+          },
+          "loading_amount_mg": 55.85,
+          "molecule_novelty": 0,
+          "condition_novelty": 0,
+          "max_similarity_to_observed": 1.0,
+          "max_similarity_to_pending": 0.0
+        }
+      ],
+      "total_matches": 2,
+      "returned_count": 2,
+      "next_offset": null,
+      "view_budget_limited": false,
+      "remaining_queries": 1,
+      "remaining_new_candidate_views": 230
+    },
+    {
+      "matches": [],
+      "total_matches": 0,
+      "returned_count": 0,
+      "next_offset": null,
+      "view_budget_limited": false,
+      "remaining_queries": 0,
+      "remaining_new_candidate_views": 230
+    }
+  ]
+}

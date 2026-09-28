@@ -1,0 +1,34 @@
+{
+  "request_sha256": "b0b63aeb9f7c26f851b8be5444296a5285ab222c8de6e3f872a35c18b1e20a93",
+  "answer": "{\"type\":\"query\",\"queries\":[{\"operation\":\"search_candidates\",\"args\":{\"sort_by\":\"cw_distance_percentile\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"sort_by\":\"V1_quantile_width_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"sort_by\":\"V2_quantile_width_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"sort_by\":\"molecule_novelty\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"descriptor\":\"TPSA_A2\",\"min_value\":45,\"sort_by\":\"cw_distance_percentile\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"descriptor\":\"LogP\",\"max_value\":0.8,\"sort_by\":\"pred_V2_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"descriptor\":\"LogP\",\"min_value\":2.8,\"sort_by\":\"cw_distance_percentile\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"conditions\":{\"PE/EA\":\"50/1\"},\"sort_by\":\"pred_V2_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"conditions\":{\"PE/EA\":\"0/1\"},\"sort_by\":\"cw_distance_percentile\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_observed\",\"args\":{\"sort_by\":\"historical_abs_error_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_observed\",\"args\":{\"conditions\":{\"PE/EA\":\"50/1\"},\"sort_by\":\"V2_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_observed\",\"args\":{\"descriptor\":\"TPSA_A2\",\"min_value\":45,\"sort_by\":\"V2_ml\",\"order\":\"desc\",\"limit\":24}}]}",
+  "provenance": {
+    "audit": {
+      "turns": [
+        {
+          "model": "gpt-5.5",
+          "effort": "high"
+        }
+      ],
+      "native_tool_calls": 0,
+      "response_item_types": [
+        "message",
+        "message",
+        "message",
+        "reasoning",
+        "message"
+      ],
+      "event_sha256": "7f350b2ff4f3b87c180ec7a04322a516c314b1058c9f258b1da2510535f0c999",
+      "rollout_sha256": "6ab7a397d6392030b14e1eb3f4cbbb06be8c6d554ea65b90de05ebce3f880a1b"
+    },
+    "usage": [
+      {
+        "input_tokens": 16431,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 636,
+        "reasoning_output_tokens": 246
+      }
+    ],
+    "cli_version": "codex-cli 0.155.0-alpha.16.4"
+  }
+}

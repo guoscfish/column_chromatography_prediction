@@ -1,0 +1,38 @@
+{
+  "request_sha256": "b2b1ce79047e7431525fc61c45b511c70413a919fd88c7cb8a6d0707fafdf32e",
+  "answer": "{\"type\":\"query\",\"queries\":[{\"operation\":\"search_candidates\",\"args\":{\"similar_to\":\"e47aebe2660b9e1528de\",\"min_tanimoto\":0.4,\"sort_by\":\"similarity\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"signal\":{\"name\":\"molecule_novelty\",\"min_signal\":1},\"sort_by\":\"V1_quantile_width_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"descriptor\":{\"name\":\"HBD\",\"min_value\":1},\"sort_by\":\"V2_quantile_width_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"descriptor\":{\"name\":\"HBA\",\"min_value\":3},\"sort_by\":\"cw_distance_percentile\",\"order\":\"desc\",\"limit\":24}}]}",
+  "provenance": {
+    "audit": {
+      "turns": [
+        {
+          "model": "gpt-6-sol",
+          "effort": "high"
+        }
+      ],
+      "native_tool_calls": 0,
+      "response_item_types": [
+        "message",
+        "message",
+        "message",
+        "reasoning",
+        "reasoning",
+        "message",
+        "reasoning",
+        "message"
+      ],
+      "configuration_warnings": [],
+      "event_sha256": "f9f3d3d6fb8f85bc084df82ef1382498fdb0b41b25ce379ab7d71df4b4f36935",
+      "rollout_sha256": "c586e2b7d5de0b5667509d474c27745aece1161ab6d7e6202aaa883863fcd98b"
+    },
+    "usage": [
+      {
+        "input_tokens": 96803,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1346,
+        "reasoning_output_tokens": 1106
+      }
+    ],
+    "cli_version": "codex-cli 0.157.1"
+  }
+}

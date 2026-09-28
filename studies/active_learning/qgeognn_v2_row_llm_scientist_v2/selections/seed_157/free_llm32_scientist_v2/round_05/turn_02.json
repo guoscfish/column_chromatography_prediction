@@ -1,0 +1,37 @@
+{
+  "request_sha256": "1261e51e3042b2a0ee6f798caa9314b15044ebec04d2ba44f48256b13ce8e5d0",
+  "answer": "{\"type\":\"query\",\"queries\":[{\"operation\":\"search_candidates\",\"args\":{\"similar_to\":\"4e417c41d918e49abba1\",\"min_tanimoto\":0.9,\"sort_by\":\"pred_V1_ml\",\"order\":\"asc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"similar_to\":\"bae9d67e095423d8edd2\",\"min_tanimoto\":0.9,\"sort_by\":\"pred_V1_ml\",\"order\":\"asc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"similar_to\":\"4fb92bd1fab3ba235858\",\"min_tanimoto\":0.9,\"sort_by\":\"pred_V1_ml\",\"order\":\"asc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"similar_to\":\"8af7ab6d0c4dde52bba2\",\"min_tanimoto\":0.9,\"sort_by\":\"pred_V1_ml\",\"order\":\"asc\",\"limit\":24}}]}",
+  "provenance": {
+    "audit": {
+      "turns": [
+        {
+          "model": "gpt-6-sol",
+          "effort": "high"
+        }
+      ],
+      "native_tool_calls": 0,
+      "response_item_types": [
+        "message",
+        "message",
+        "message",
+        "reasoning",
+        "reasoning",
+        "reasoning",
+        "message"
+      ],
+      "configuration_warnings": [],
+      "event_sha256": "25fda3da044194f6a1ee1c1d4fdadc9bdcb204b1dd5bbc62698f3689877bf960",
+      "rollout_sha256": "4410efeabd93593a1c8334891dc68a4ffbeb567ea5c65fac12d9f523e85cbd71"
+    },
+    "usage": [
+      {
+        "input_tokens": 166316,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1722,
+        "reasoning_output_tokens": 1514
+      }
+    ],
+    "cli_version": "codex-cli 0.157.1"
+  }
+}

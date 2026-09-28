@@ -1,0 +1,40 @@
+{
+  "request_sha256": "7d45e18d337f1075ba1939b228087b69f112df692615b46b93b57167b92bfa87",
+  "answer": "{\"type\":\"query\",\"queries\":[{\"operation\":\"search_observed\",\"args\":{\"sort_by\":\"historical_abs_error_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"same_molecule_as\":\"0c5c35afb3a24375c153\",\"sort_by\":\"pred_V2_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"same_molecule_as\":\"f7d57d8bb988f7016502\",\"sort_by\":\"pred_V2_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"same_molecule_as\":\"23ef03f3e75e40b20095\",\"sort_by\":\"pred_V2_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"same_molecule_as\":\"1b1a9ec85268aa66d327\",\"sort_by\":\"pred_V2_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"same_molecule_as\":\"5d530b2f228ed39ff952\",\"sort_by\":\"pred_V2_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"same_molecule_as\":\"4659b6752f23c0b85f08\",\"sort_by\":\"pred_V2_ml\",\"order\":\"desc\",\"limit\":24}}]}",
+  "provenance": {
+    "audit": {
+      "turns": [
+        {
+          "model": "gpt-6-sol",
+          "effort": "high"
+        }
+      ],
+      "native_tool_calls": 0,
+      "response_item_types": [
+        "message",
+        "message",
+        "message",
+        "message",
+        "message",
+        "reasoning",
+        "message"
+      ],
+      "configuration_warnings": [
+        "Codex is ignoring 2 unrecognized configuration settings. Check for typos or deprecated settings.\n  user (/Users/fish/.codex/config.toml): `disable_response_storage` is ignored.\n  user (/Users/fish/.codex/config.toml): `mcp_servers.computer-use.type` is ignored.",
+        "Codex is ignoring 2 unrecognized configuration settings. Check for typos or deprecated settings.\n  user (/Users/fish/.codex/config.toml): `disable_response_storage` is ignored.\n  user (/Users/fish/.codex/config.toml): `mcp_servers.computer-use.type` is ignored."
+      ],
+      "event_sha256": "0d0d6c8f714c798577aa36ca361b3320049a359874503f6299d012db58a8259a",
+      "rollout_sha256": "cdc04275b342301a77901baa825ec61885cf9fac9f9be56371a886345736a648"
+    },
+    "usage": [
+      {
+        "input_tokens": 88245,
+        "cached_input_tokens": 4224,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 380,
+        "reasoning_output_tokens": 88
+      }
+    ],
+    "cli_version": "codex-cli 0.155.0-alpha.16.4"
+  }
+}

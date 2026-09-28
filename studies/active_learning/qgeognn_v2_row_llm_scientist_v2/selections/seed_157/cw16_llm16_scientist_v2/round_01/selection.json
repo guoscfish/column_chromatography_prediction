@@ -1,0 +1,148 @@
+{
+  "type": "selection",
+  "packet_sha256": "12dba8dd6215b51af255936689315a284ea21894578a02363ef6e90e71c9e44e",
+  "batch_strategy": "Structured same-molecule condition-response measurements with targeted loading contrasts across anomalous ester, heteroaromatic, and donor-containing regimes.",
+  "choices": [
+    {
+      "id": "b813b117f0ebb8d7c853",
+      "reason": "Low-strength anchor for the diethyl succinate curve; its predicted 3.88/6.41 mL can test the early-elution regime seen at 20/1 and 50/1 in 68ca46900cfea89e5164 and 4c469be3d7348703d469.",
+      "hypothesis_id": "H-succinate"
+    },
+    {
+      "id": "9f2784e0f5c807ccfa0f",
+      "reason": "Adds the 1/1 point at matched loading to resolve whether the succinate response rises smoothly from the 0/1 baseline or changes abruptly.",
+      "hypothesis_id": "H-succinate"
+    },
+    {
+      "id": "0b1b7bf04ed8169cd172",
+      "reason": "Intermediate 2/1 point separates solvent-strength response from the loading difference in the observed succinate failures.",
+      "hypothesis_id": "H-succinate"
+    },
+    {
+      "id": "58b3518f48d8340d6ffc",
+      "reason": "Five-to-one condition extends the succinate curve into the model-sensitive transition region while retaining a distinct loading amount.",
+      "hypothesis_id": "H-succinate"
+    },
+    {
+      "id": "08ae0e5f727afabf1e71",
+      "reason": "Ten-to-one point tests whether the predicted V1/V2 increase continues before the unexpectedly early observed 20/1 and 50/1 outcomes.",
+      "hypothesis_id": "H-succinate"
+    },
+    {
+      "id": "d7b0845793265cab0c33",
+      "reason": "Same molecule and 20/1 condition as observed succinate record 4c469be3d7348703d469 but lower loading, directly probing loading dependence versus a condition-specific early-elution regime.",
+      "hypothesis_id": "H-loading"
+    },
+    {
+      "id": "4ff4a4435ab70d96f0bf",
+      "reason": "Low-strength anchor for the methylpyridine response curve; it tests whether the extreme 20/1 retention in 51f4126a3aadb3239225 develops only at stronger eluent.",
+      "hypothesis_id": "H-pyridine-tail"
+    },
+    {
+      "id": "835b5f2641442576de42",
+      "reason": "Matched 1/1 point provides a second low-strength reference for the methylpyridine curve and separates baseline retention from the late-tail anomaly.",
+      "hypothesis_id": "H-pyridine-tail"
+    },
+    {
+      "id": "82d7243f61695e1b94cf",
+      "reason": "The 2/1 point fills the early transition where the model predicts a substantial V1/V2 increase, enabling a test of response curvature.",
+      "hypothesis_id": "H-pyridine-tail"
+    },
+    {
+      "id": "74c8fcd8ac3f6caedcd2",
+      "reason": "Five-to-one measurement tests the predicted broadening before the observed 20/1 result and targets V2 behavior specifically.",
+      "hypothesis_id": "H-pyridine-tail"
+    },
+    {
+      "id": "6f548d72f01fc85debdc",
+      "reason": "Ten-to-one point is the closest unmeasured precursor to the observed 20/1 late-tail failure, making it useful for distinguishing smooth growth from a regime jump.",
+      "hypothesis_id": "H-pyridine-tail"
+    },
+    {
+      "id": "ce8391d5c053e7fad6e4",
+      "reason": "Zero-to-one anchor for the donor-containing amino ester, whose observed 20/1 record 334f7f55dcbf278e47ec had a severe V2 underprediction.",
+      "hypothesis_id": "H-donor-tail"
+    },
+    {
+      "id": "dbb123f97786ebe3c36a",
+      "reason": "Two-to-one point tests the onset of the amino-ester response while retaining a low predicted elution range and distinct loading.",
+      "hypothesis_id": "H-donor-tail"
+    },
+    {
+      "id": "95e342a52004838fd5e0",
+      "reason": "Five-to-one point probes the intermediate regime between baseline and the observed long V2 tail, with a solvent/loading contrast useful for model disentangling.",
+      "hypothesis_id": "H-donor-tail"
+    },
+    {
+      "id": "93bcd806b8dcb8c0cab9",
+      "reason": "Ten-to-one point directly tests whether the model's very broad predicted interval precedes the observed 20/1 tail in 334f7f55dcbf278e47ec.",
+      "hypothesis_id": "H-donor-tail"
+    },
+    {
+      "id": "1b1a9ec85268aa66d327",
+      "reason": "Same amino ester and 20/1 condition as the observed tail failure but lower loading, providing a direct loading-versus-retention comparison.",
+      "hypothesis_id": "H-loading"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H-succinate",
+      "content": "Diethyl succinate follows an unusually early-elution branch at strong PE/EA conditions, contrary to the predictor's late central predictions; its response may be nonlinear or regime-specific.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "68ca46900cfea89e5164",
+        "4c469be3d7348703d469"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "A dense condition curve can teach the model that polar ester retention is not governed by a universal monotonic solvent-strength mapping.",
+      "next_discriminating_question": "Does the succinate response remain early across 0/1 through 20/1, and does reducing loading at 20/1 change V1 or V2 materially?"
+    },
+    {
+      "id": "H-pyridine-tail",
+      "content": "Methylpyridine-like heteroaromatics can enter a strong-silica-retention regime at higher PE/EA ratios, with V2 increasing much more than the current model predicts.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "51f4126a3aadb3239225",
+        "449b809e4efaaf2af86a"
+      ],
+      "contradicting_observed_ids": [
+        "68ca46900cfea89e5164"
+      ],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Intermediate condition labels can repair both the onset and magnitude of late V2 tails in heteroaromatic rows.",
+      "next_discriminating_question": "Is the late retention a smooth condition response from 0/1 to 20/1 or a sharp high-strength transition?"
+    },
+    {
+      "id": "H-donor-tail",
+      "content": "Donor-containing polar compounds may develop disproportionately long V2 tails under stronger PE/EA conditions, even when V1 remains moderately predicted.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "334f7f55dcbf278e47ec",
+        "9ffee2813aef5c26f96f"
+      ],
+      "contradicting_observed_ids": [
+        "68ca46900cfea89e5164"
+      ],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "These labels target the largest observed V2 failures and can improve interval-completion predictions for polar donor-containing chemistry.",
+      "next_discriminating_question": "Does the amino ester show a gradual V2 increase through 10/1, or does the long tail appear only near 20/1?"
+    },
+    {
+      "id": "H-loading",
+      "content": "Loading amount has a smaller or context-dependent effect than mobile-phase composition, but matched condition contrasts are needed to prevent it from absorbing retention-regime errors.",
+      "basis": "chemical_prior",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Paired loading contrasts help separate true loading effects from molecule-condition interactions in retraining features.",
+      "next_discriminating_question": "At fixed molecule, PE/EA, and solvent, do lower and higher loading amounts shift V1 or V2 materially?"
+    }
+  ],
+  "feedback_interpretation": "The feedback weakens the previous assumption of a broadly smooth solvent-strength response. Diethyl succinate was measured unexpectedly early at 20/1 and 50/1, while methylpyridine and the amino ester showed very large late V2 values, so solvent response is strongly molecule-dependent. The V2-tail hypothesis is strengthened for selected heteroaromatic and donor-containing regimes, but the succinate results show that polarity alone is not sufficient to predict late retention.",
+  "batch_rationale": "The batch forms three condition-response panels rather than isolated high-scoring points. Six succinate measurements characterize an observed early-elution anomaly, five methylpyridine measurements resolve the buildup toward a severe heteroaromatic retention tail, and five amino-ester measurements test the onset of a donor-containing V2 failure. Lower-loading points at matched strong conditions provide limited loading contrasts. Together these labels expose nonlinear and molecule-specific condition effects across distinct functional-group regimes, which should improve V1/V2 generalization beyond the currently observed failure examples."
+}

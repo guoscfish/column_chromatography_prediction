@@ -1,0 +1,19 @@
+{
+  "request_sha256": "d67c686196982b2c7bb0aaa0b6676851974e960b996af652893a57a223236a1a",
+  "answer": "{\"type\":\"query\",\"queries\":[{\"operation\":\"search_observed\",\"args\":{\"same_molecule_as\":\"79ff49052bce33597828\",\"limit\":24}},{\"operation\":\"search_observed\",\"args\":{\"same_molecule_as\":\"f7d57d8bb988f7016502\",\"limit\":24}},{\"operation\":\"search_observed\",\"args\":{\"same_molecule_as\":\"38e6b8bf0f089fcadd80\",\"limit\":24}},{\"operation\":\"search_observed\",\"args\":{\"same_molecule_as\":\"96710afeabc594baa359\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"signal\":{\"name\":\"molecule_novelty\",\"min_signal\":1},\"sort_by\":\"cw_distance_percentile\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"signal\":{\"name\":\"molecule_novelty\",\"min_signal\":1},\"sort_by\":\"V2_quantile_width_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"descriptor\":{\"name\":\"HBD\",\"min_value\":1},\"sort_by\":\"cw_distance_percentile\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"descriptor\":{\"name\":\"HBA\",\"min_value\":3},\"sort_by\":\"cw_distance_percentile\",\"order\":\"desc\",\"limit\":24}}]}",
+  "provenance": {
+    "audit": {
+      "model": "gpt-6-sol",
+      "effort": "high",
+      "native_tool_calls": 0,
+      "response_item_types": [
+        "message",
+        "reasoning",
+        "message"
+      ],
+      "rollout_sha256": "7c30d31b570566a3785db8a4ce959bd3d223cf524480d3e8a6ec32f8304bbf17"
+    },
+    "recovered_from_rollout": "/Users/fish/.codex/sessions/2026/09/27/rollout-2026-09-27T22-48-57-01a0e357-311f-7f53-9c1d-709baad52e40.jsonl",
+    "recovered_after_cli_event_parser_failure": true
+  }
+}

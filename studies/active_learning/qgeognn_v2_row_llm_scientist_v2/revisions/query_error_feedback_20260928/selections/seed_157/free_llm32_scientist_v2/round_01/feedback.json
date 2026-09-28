@@ -1,0 +1,495 @@
+{
+  "seed": 157,
+  "method": "free_llm32_scientist_v2",
+  "round": 1,
+  "batch_freeze_sha256": "51638a6f2d68de6fa0bfd89d50b023d8b935be7a41269c902597727fd6f396da",
+  "records": [
+    {
+      "candidate_id": "9cd02352c2ed7a3e2321",
+      "pred_V1_ml": 51.018760681152344,
+      "pred_V2_ml": 90.69925689697266,
+      "source": "LLM",
+      "true_V1_ml": 45.79999923706055,
+      "true_V2_ml": 93.06666564941406,
+      "error_V1_ml": 5.218761444091797,
+      "error_V2_ml": -2.3674087524414062,
+      "reason": "Quinoline at 10/1 has extreme V1 width and high predicted retention; directly extends the large underprediction seen for quinoline in e47aebe2660b9e1528de and 33ffc69a253a89f15995.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "candidate_id": "23ef03f3e75e40b20095",
+      "pred_V1_ml": 37.65333557128906,
+      "pred_V2_ml": 70.54529571533203,
+      "source": "LLM",
+      "true_V1_ml": 51.34166717529297,
+      "true_V2_ml": 108.45833587646484,
+      "error_V1_ml": -13.688331604003906,
+      "error_V2_ml": -37.91304016113281,
+      "reason": "Methylquinoline at 10/1 tests whether the quinoline failure is transferable or substituent-specific, with high CW distance and broad V2 uncertainty.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "candidate_id": "855832bd4005ac7abdc6",
+      "pred_V1_ml": 31.247512817382812,
+      "pred_V2_ml": 64.58621215820312,
+      "source": "LLM",
+      "true_V1_ml": 30.70833396911621,
+      "true_V2_ml": 60.599998474121094,
+      "error_V1_ml": 0.5391788482666016,
+      "error_V2_ml": 3.9862136840820312,
+      "reason": "Pyridine ester at 5/1 probes a second basic heteroaromatic family and compares with the large V2 residuals in b51b5dbcd2a38b174973 and 96710afeabc594baa359.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "candidate_id": "4659b6752f23c0b85f08",
+      "pred_V1_ml": 11.979018211364746,
+      "pred_V2_ml": 26.895536422729492,
+      "source": "LLM",
+      "true_V1_ml": 18.983333587646484,
+      "true_V2_ml": 55.05833435058594,
+      "error_V1_ml": -7.004315376281738,
+      "error_V2_ml": -28.162797927856445,
+      "reason": "Novel pyridyl ketone at 2/1 adds a condition-sensitive heteroaromatic with high CW distance, testing whether response slopes depend on carbonyl substitution.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "candidate_id": "449b809e4efaaf2af86a",
+      "pred_V1_ml": 43.47233963012695,
+      "pred_V2_ml": 76.9612808227539,
+      "source": "LLM",
+      "true_V1_ml": 54.59166717529297,
+      "true_V2_ml": 103.99166870117188,
+      "error_V1_ml": -11.119327545166016,
+      "error_V2_ml": -27.03038787841797,
+      "reason": "Biphenyl-pyridine at 50/1, V=100 uL, is a high-CW loading reference for its V=150 uL counterpart; the near-identical predictions make any measured difference informative.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "0f06772820e6693753e3",
+      "pred_V1_ml": 43.46601867675781,
+      "pred_V2_ml": 76.9691390991211,
+      "source": "LLM",
+      "true_V1_ml": 46.44166564941406,
+      "true_V2_ml": 103.28333282470703,
+      "error_V1_ml": -2.97564697265625,
+      "error_V2_ml": -26.314193725585938,
+      "reason": "Matched biphenyl-pyridine at 50/1, V=150 uL, isolates loading amount from the 449b809e4efaaf2af86a condition while sampling the same heteroaromatic regime.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "c28747d70e7b51a1cc95",
+      "pred_V1_ml": 46.38178253173828,
+      "pred_V2_ml": 96.80670928955078,
+      "source": "LLM",
+      "true_V1_ml": 36.891666412353516,
+      "true_V2_ml": 82.08333587646484,
+      "error_V1_ml": 9.490116119384766,
+      "error_V2_ml": 14.723373413085938,
+      "reason": "Nitrobenzaldehyde at 20/1, V=100 uL, combines extreme CW distance with broad V1/V2 bands and tests polar silica interactions.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "a5f9179bfb146ad70953",
+      "pred_V1_ml": 46.39087677001953,
+      "pred_V2_ml": 96.79643249511719,
+      "source": "LLM",
+      "true_V1_ml": 43.16666793823242,
+      "true_V2_ml": 78.53333282470703,
+      "error_V1_ml": 3.2242088317871094,
+      "error_V2_ml": 18.263099670410156,
+      "reason": "Matched nitrobenzaldehyde at 20/1, V=50 uL, provides a direct loading contrast to c28747d70e7b51a1cc95 where predictions are effectively unchanged.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "0ac58929e586a4da4056",
+      "pred_V1_ml": 40.44287109375,
+      "pred_V2_ml": 86.94445037841797,
+      "source": "LLM",
+      "true_V1_ml": 40.78333282470703,
+      "true_V2_ml": 94.30000305175781,
+      "error_V1_ml": -0.34046173095703125,
+      "error_V2_ml": -7.355552673339844,
+      "reason": "Nitrobenzaldehyde at 50/1 tests whether the high-polarity response shifts monotonically with stronger eluent and whether regioisomeric placement changes the learned slope.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "780b13846ace50ede763",
+      "pred_V1_ml": 40.481346130371094,
+      "pred_V2_ml": 68.66565704345703,
+      "source": "LLM",
+      "true_V1_ml": 42.266666412353516,
+      "true_V2_ml": 69.70833587646484,
+      "error_V1_ml": -1.7853202819824219,
+      "error_V2_ml": -1.0426788330078125,
+      "reason": "Dimethoxybenzaldehyde at 5/1 has very broad V1/V2 quantiles despite moderate descriptors, targeting an underrepresented oxygenated aromatic failure region.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "d9c8c8af50a10bf07765",
+      "pred_V1_ml": 23.74994468688965,
+      "pred_V2_ml": 56.88055419921875,
+      "source": "LLM",
+      "true_V1_ml": 23.125,
+      "true_V2_ml": 51.61666488647461,
+      "error_V1_ml": 0.6249446868896484,
+      "error_V2_ml": 5.263889312744141,
+      "reason": "Hydroxy-methoxy benzaldehyde at 50/1 tests donor-assisted silica retention with high V1 uncertainty and a late-elution prediction.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "72231b208c5287c32d70",
+      "pred_V1_ml": 13.7014799118042,
+      "pred_V2_ml": 37.00764083862305,
+      "source": "LLM",
+      "true_V1_ml": 13.475000381469727,
+      "true_V2_ml": 33.83333206176758,
+      "error_V1_ml": 0.22647953033447266,
+      "error_V2_ml": 3.1743087768554688,
+      "reason": "The same hydroxy-methoxy benzaldehyde at 20/1 forms a solvent-response pair with d9c8c8af50a10bf07765, separating PE/EA effects from donor chemistry.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "5d6d4ac0c1dfacbde53d",
+      "pred_V1_ml": 27.43829345703125,
+      "pred_V2_ml": 57.88481903076172,
+      "source": "LLM",
+      "true_V1_ml": 29.262500762939453,
+      "true_V2_ml": 109.67500305175781,
+      "error_V1_ml": -1.8242073059082031,
+      "error_V2_ml": -51.790184020996094,
+      "reason": "Amino ester at 20/1 and V=150 uL probes a polar donor/acceptor regime with high CW distance and broad uncertainty.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "1b1a9ec85268aa66d327",
+      "pred_V1_ml": 27.44849395751953,
+      "pred_V2_ml": 57.8729362487793,
+      "source": "LLM",
+      "true_V1_ml": 36.42499923706055,
+      "true_V2_ml": 112.07499694824219,
+      "error_V1_ml": -8.976505279541016,
+      "error_V2_ml": -54.20206069946289,
+      "reason": "Matched amino ester at 20/1 and V=50 uL tests loading sensitivity because the model gives nearly identical predictions despite a threefold loading difference.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "9249ed2c527f70995033",
+      "pred_V1_ml": 29.6926326751709,
+      "pred_V2_ml": 48.59455108642578,
+      "source": "LLM",
+      "true_V1_ml": 37.94166564941406,
+      "true_V2_ml": 51.516666412353516,
+      "error_V1_ml": -8.249032974243164,
+      "error_V2_ml": -2.9221153259277344,
+      "reason": "Diethyl phenylmalonate at 50/1 extends the multi-acceptor chemical space with high CW distance and a broad V2 interval.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "5d530b2f228ed39ff952",
+      "pred_V1_ml": 29.134429931640625,
+      "pred_V2_ml": 68.83869171142578,
+      "source": "LLM",
+      "true_V1_ml": 17.850000381469727,
+      "true_V2_ml": 43.858333587646484,
+      "error_V1_ml": 11.284429550170898,
+      "error_V2_ml": 24.980358123779297,
+      "reason": "HBA5 diester at 5/1 probes whether the model's severe polar-compound errors, including f7d57d8bb988f7016502 and 463c07f492870522d9b8, persist at weaker eluent.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "634f21e11a8442494ce3",
+      "pred_V1_ml": 7.06727933883667,
+      "pred_V2_ml": 31.17657470703125,
+      "source": "LLM",
+      "true_V1_ml": 6.241666793823242,
+      "true_V2_ml": 27.450000762939453,
+      "error_V1_ml": 0.8256125450134277,
+      "error_V2_ml": 3.726573944091797,
+      "reason": "Dibenzoylbenzene at 10/1 targets the bulky aromatic region where 0c5c35afb3a24375c153 was underpredicted by 35/62 mL, with broad quantiles.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "17ff889395addf7d6295",
+      "pred_V1_ml": 7.051722049713135,
+      "pred_V2_ml": 25.642139434814453,
+      "source": "LLM",
+      "true_V1_ml": 6.0333333015441895,
+      "true_V2_ml": 18.174999237060547,
+      "error_V1_ml": 1.0183887481689453,
+      "error_V2_ml": 7.467140197753906,
+      "reason": "The same dibenzoylbenzene at 5/1 supplies a lower-strength response point to determine whether the large residual is condition-dependent.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "5d450444eb031c873584",
+      "pred_V1_ml": 7.473664283752441,
+      "pred_V2_ml": 18.206384658813477,
+      "source": "LLM",
+      "true_V1_ml": 5.683333396911621,
+      "true_V2_ml": 13.175000190734863,
+      "error_V1_ml": 1.7903308868408203,
+      "error_V2_ml": 5.031384468078613,
+      "reason": "Dibenzoylbenzene at 2/1 adds an intermediate condition to constrain the nonlinear response curve rather than only measuring an endpoint.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "409d01129a3e41b32902",
+      "pred_V1_ml": 7.307098865509033,
+      "pred_V2_ml": 17.841386795043945,
+      "source": "LLM",
+      "true_V1_ml": 5.183333396911621,
+      "true_V2_ml": 11.216666221618652,
+      "error_V1_ml": 2.123765468597412,
+      "error_V2_ml": 6.624720573425293,
+      "reason": "Dibenzoylbenzene at 1/1 completes a four-point PE/EA series and tests whether early-elution behavior is learned across strong silica retention changes.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "9f362bfe1dab6e9eac3d",
+      "pred_V1_ml": 13.22297477722168,
+      "pred_V2_ml": 36.59919357299805,
+      "source": "LLM",
+      "true_V1_ml": 6.175000190734863,
+      "true_V2_ml": 21.516666412353516,
+      "error_V1_ml": 7.047974586486816,
+      "error_V2_ml": 15.082527160644531,
+      "reason": "High-LogP biphenyl ketone at 50/1 samples a bulky hydrophobic structure with wide V1 uncertainty and tests extrapolation beyond labeled analogs.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "candidate_id": "f1e08c239f1c0950ad36",
+      "pred_V1_ml": 6.287088871002197,
+      "pred_V2_ml": 16.54956817626953,
+      "source": "LLM",
+      "true_V1_ml": 5.925000190734863,
+      "true_V2_ml": 19.59166717529297,
+      "error_V1_ml": 0.362088680267334,
+      "error_V2_ml": -3.0420989990234375,
+      "reason": "The same biphenyl ketone at 10/1 provides a lower-strength response point with high CW distance, enabling slope learning.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "cb534927304d5c892100",
+      "pred_V1_ml": 9.036589622497559,
+      "pred_V2_ml": 26.035612106323242,
+      "source": "LLM",
+      "true_V1_ml": 6.074999809265137,
+      "true_V2_ml": 17.5,
+      "error_V1_ml": 2.961589813232422,
+      "error_V2_ml": 8.535612106323242,
+      "reason": "The 20/1 midpoint for the biphenyl ketone links the 10/1 and 50/1 conditions and tests smoothness of the predicted solvent response.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "8ab3606b0d15babbd1c7",
+      "pred_V1_ml": 10.19898796081543,
+      "pred_V2_ml": 19.414003372192383,
+      "source": "LLM",
+      "true_V1_ml": 4.224999904632568,
+      "true_V2_ml": 10.399999618530273,
+      "error_V1_ml": 5.973988056182861,
+      "error_V2_ml": 9.01400375366211,
+      "reason": "Triphenyl bromide at 50/1 probes an extremely high-LogP, halogenated aromatic with high CW distance and little polar functionality.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "candidate_id": "002ce3d7c637632f0ebe",
+      "pred_V1_ml": 7.057719707489014,
+      "pred_V2_ml": 13.749421119689941,
+      "source": "LLM",
+      "true_V1_ml": 3.566666603088379,
+      "true_V2_ml": 8.583333015441895,
+      "error_V1_ml": 3.4910531044006348,
+      "error_V2_ml": 5.166088104248047,
+      "reason": "The same triphenyl bromide at 20/1 gives a lower-strength counterpart, testing whether solvent composition dominates mass and aromaticity in this regime.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "candidate_id": "cfaabf6bb144f1603460",
+      "pred_V1_ml": 2.9672625064849854,
+      "pred_V2_ml": 9.154922485351562,
+      "source": "LLM",
+      "true_V1_ml": 6.650000095367432,
+      "true_V2_ml": 10.024999618530273,
+      "error_V1_ml": -3.6827375888824463,
+      "error_V2_ml": -0.8700771331787109,
+      "reason": "Bis-trifluoromethyl bromobenzene at 50/1 tests whether very high molecular weight and LogP still produce early elution as suggested by measured chloroiodobenzene behavior d36939d59715910addb2.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "candidate_id": "6fa263d170d8271be944",
+      "pred_V1_ml": 3.436494827270508,
+      "pred_V2_ml": 6.866648197174072,
+      "source": "LLM",
+      "true_V1_ml": 5.016666889190674,
+      "true_V2_ml": 7.891666889190674,
+      "error_V1_ml": -1.580172061920166,
+      "error_V2_ml": -1.0250186920166016,
+      "reason": "The 10/1 counterpart for the bis-trifluoromethyl bromobenzene constrains the condition slope while retaining the same halogenated scaffold.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "candidate_id": "2efa93ea474f798b712a",
+      "pred_V1_ml": 5.500227928161621,
+      "pred_V2_ml": 25.990341186523438,
+      "source": "LLM",
+      "true_V1_ml": 5.066666603088379,
+      "true_V2_ml": 25.808332443237305,
+      "error_V1_ml": 0.4335613250732422,
+      "error_V2_ml": 0.1820087432861328,
+      "reason": "Bromosalicylaldehyde at 50/1 combines an HBD with halogenation and a broad predicted interval, directly probing donor-assisted retention.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "5bf4578bc08db91b5967",
+      "pred_V1_ml": 5.506317615509033,
+      "pred_V2_ml": 25.98347282409668,
+      "source": "LLM",
+      "true_V1_ml": 13.491666793823242,
+      "true_V2_ml": 27.65833282470703,
+      "error_V1_ml": -7.985349178314209,
+      "error_V2_ml": -1.6748600006103516,
+      "reason": "Matched bromosalicylaldehyde at 50/1 and V=50 uL provides a loading contrast to 2efa93ea474f798b712a.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "7d9c7f40bc71ee7c4ef0",
+      "pred_V1_ml": 6.008537769317627,
+      "pred_V2_ml": 26.699726104736328,
+      "source": "LLM",
+      "true_V1_ml": 13.716666221618652,
+      "true_V2_ml": 37.375,
+      "error_V1_ml": -7.708128452301025,
+      "error_V2_ml": -10.675273895263672,
+      "reason": "Positional bromosalicylaldehyde isomer at the same nominal condition tests whether local steric and hydrogen-bond geometry matter beyond descriptor counts.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "80f546c47198fa7c6dbf",
+      "pred_V1_ml": 24.584903717041016,
+      "pred_V2_ml": 58.18196487426758,
+      "source": "LLM",
+      "true_V1_ml": 30.59166717529297,
+      "true_V2_ml": 85.64167022705078,
+      "error_V1_ml": -6.006763458251953,
+      "error_V2_ml": -27.459705352783203,
+      "reason": "Trifluoromethoxy phenol at 50/1 supplies a donor-containing, moderately hydrophobic aromatic with high CW distance and broad V1/V2 uncertainty.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "53dc2340c848330a9220",
+      "pred_V1_ml": 4.43179988861084,
+      "pred_V2_ml": 20.257678985595703,
+      "source": "LLM",
+      "true_V1_ml": 5.258333206176758,
+      "true_V2_ml": 9.091666221618652,
+      "error_V1_ml": -0.826533317565918,
+      "error_V2_ml": 11.16601276397705,
+      "reason": "Benzyl alcohol at 0/1 tests a donor-rich compound predicted to start early but finish unusually late, providing a contrasting tail-width case.",
+      "hypothesis_id": "H5"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "PE/EA changes produce nonlinear, molecule-specific V1/V2 response curves that are insufficiently represented by current labels.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "79ff49052bce33597828",
+        "59b54ad3a60a52cc2b2c",
+        "1395836aef00d6a880b0",
+        "fe1a34b5975943e8f292"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Several selected series now have multiple condition points, allowing the retrained model to learn solvent-strength derivatives and reduce interpolation and extrapolation error.",
+      "next_discriminating_question": "Do the newly measured dibenzoylbenzene, benzaldehyde, and heteroaromatic series show smooth monotonic slopes or abrupt molecule-specific transitions?"
+    },
+    {
+      "id": "H2",
+      "content": "Loading amount may perturb retention less than PE/EA, but the effect can be structure-dependent and is weakly identified.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "74cf50c6ec476a394b01",
+        "761c3f82d640da44966c",
+        "ca467c94f14b2219503e",
+        "9e3f598e00375ec93d9b"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Matched loading pairs can determine whether density-times-volume should have a stronger learned contribution, especially in polar or highly adsorbing structures.",
+      "next_discriminating_question": "At fixed molecule and PE/EA, are V1/V2 shifts reproducible across the paired loading amounts?"
+    },
+    {
+      "id": "H3",
+      "content": "Novel polar, multi-heteroatom, or hydrogen-bonding molecules occupy a model failure region with broad and potentially miscalibrated V2 predictions.",
+      "basis": "model_behavior",
+      "supporting_observed_ids": [
+        "f7d57d8bb988f7016502",
+        "463c07f492870522d9b8",
+        "0c5c35afb3a24375c153",
+        "ca467c94f14b2219503e"
+      ],
+      "contradicting_observed_ids": [
+        "7e834c7b870ef7024d35"
+      ],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The largest observed residuals involve polar and donor/acceptor-rich structures, so targeted labels can repair chemical representation and V2-tail errors.",
+      "next_discriminating_question": "Do new nitro, amino, hydroxy, and multi-ester labels remain systematically late relative to prediction, or does the error depend on functional-group arrangement?"
+    },
+    {
+      "id": "H4",
+      "content": "Halogenated aromatics may retain relatively early despite high molecular weight, with solvent composition dominating over mass.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "d36939d59715910addb2",
+        "8b10a91c2ccd153f2725",
+        "8b51e50fec9dd89974f1",
+        "0ff637bc6dbcc788a2d6"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Halogenated high-LogP examples test whether the network has learned chemically meaningful retention rather than a molecular-weight shortcut.",
+      "next_discriminating_question": "Do the selected highly halogenated aromatics remain early across PE/EA conditions, and is their response slope smaller than that of polar aromatics?"
+    },
+    {
+      "id": "H5",
+      "content": "V2 uncertainty is especially large in high-CW candidates and may reflect systematic tail-width error rather than ordinary experimental variation.",
+      "basis": "model_behavior",
+      "supporting_observed_ids": [
+        "9ffee2813aef5c26f96f",
+        "ca467c94f14b2219503e",
+        "0c5c35afb3a24375c153"
+      ],
+      "contradicting_observed_ids": [
+        "d36939d59715910addb2"
+      ],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Direct V2 supervision in wide-interval regions can improve end-of-elution accuracy independently of V1 and recalibrate overly broad predictions.",
+      "next_discriminating_question": "Are observed V2 values systematically below the predicted centers in high-width polar and bulky aromatic regions?"
+    },
+    {
+      "id": "H6",
+      "content": "Aromatic nitrogen heterocycles show condition-sensitive retention that is not captured solely by LogP or molecular weight.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "b6229f0445560a4a54ed",
+        "c76d0420b34df595c0c9",
+        "33ffc69a253a89f15995",
+        "e47aebe2660b9e1528de"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Quinoline, pyridine ester, and pyridyl ketone measurements broaden learned relationships between basic heteroatoms, polarity, and PE/EA response.",
+      "next_discriminating_question": "Do quinoline, methylquinoline, pyridine ester, and pyridyl ketone exhibit distinct condition slopes despite similar size and heteroatom counts?"
+    }
+  ],
+  "feedback_interpretation": "Previous outcomes revealed strong systematic failures in polar multi-acceptor compounds and bulky aromatics: f7d57d8bb988f7016502 and 463c07f492870522d9b8 substantially overpredicted V1/V2, while 0c5c35afb3a24375c153 and ca467c94f14b2219503e underpredicted late elution. Quinoline also showed severe late-elution underprediction in e47aebe2660b9e1528de. These results strengthen failure-repair priorities for polar and heteroaromatic structures. Matched loading outcomes such as ca467c94f14b2219503e versus 9e3f598e00375ec93d9b leave loading effects unresolved. Conversely, chloroiodobenzene selections d36939d59715910addb2, 8b10a91c2ccd153f2725, and 8b51e50fec9dd89974f1 were close to measured values, supporting targeted tests of the early-eluting halogen hypothesis rather than assuming all high-mass aromatics are difficult.",
+  "batch_rationale": "The batch combines four focused PE/EA response curves, several matched loading pairs, and broad chemical failure repair. Heteroaromatics and donor/acceptor-rich compounds address the largest observed residuals and high V1/V2 widths; bulky high-LogP series test extrapolation and tail behavior; halogenated aromatics provide a chemically distinct control regime where prior measured predictions were accurate. Pairing nearby conditions within the same molecules makes labels useful for learning derivatives and interactions, while novel scaffolds expand coverage of the Row-distribution. The batch therefore supplies both local response information and cross-structure contrasts likely to improve generalization of V1 and V2."
+}

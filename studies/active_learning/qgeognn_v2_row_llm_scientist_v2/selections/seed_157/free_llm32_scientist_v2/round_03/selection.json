@@ -1,0 +1,261 @@
+{
+  "type": "selection",
+  "packet_sha256": "0f50f68bc40698f953e7c45281f0df7e8e6972dca23b242252ef346000e3343d",
+  "batch_strategy": "Resolve the nitrobenzophenone loading anomaly with a small local design, test unsupported solvent-response extrapolations, and expand supervision to related but insufficiently covered structures. Reduce further sampling of recently well-predicted quinoline and amino-ester curves. Use current predictions and CW distance as supporting evidence, not calibrated uncertainty.",
+  "choices": [
+    {
+      "id": "aa43fe84c0d8c825fe58",
+      "reason": "Nitrobenzophenone at 20/1 and 50 uL directly complements measured 150 uL row 5e276c1730fc0a9deba7. Tests whether the striking 50/1 loading discordance extends to another solvent composition despite nearly loading-invariant predictions.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "ce14dd2481560a984aea",
+      "reason": "The 100 uL nitrobenzophenone prediction at 10/1 is 3.01/43.38 mL. Together with its selected 150 uL counterpart, tests whether the exceptionally short interval in measured 4862e2fb71344ce16021 is specific to 50/1.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "aef5cafc63ca445e92fa",
+      "reason": "Completes the matched 10/1 loading comparison and fills the fixed-150-uL curve between measured 76643e968ecc935c745c at 5/1 and 5e276c1730fc0a9deba7 at 20/1. Separates solvent-response learning from the anomalous loading contrast.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "034aaf7715b5ec8bd7ee",
+      "reason": "Diethyl malonate at 5/1 is predicted to finish at 16.26 mL, versus measured 7.60 and 7.93 mL at 20/1 and 50/1 in 463c07f492870522d9b8 and f7d57d8bb988f7016502. Tests the unexpected response maximum at exactly matched loading conditions.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "08ae0e5f727afabf1e71",
+      "reason": "The matched 150-uL malonate point at 10/1 is predicted at 6.20/11.09 mL. With selected 5/1 and measured 20/1, determines whether the predicted decline under weaker eluent reflects the catalog relationship or unsupported interpolation.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "51f4126a3aadb3239225",
+      "reason": "2,6-Lutidine at 20/1 extrapolates far beyond its sole measured 2/1 anchor 8436939a2a6a91fa470d, with identical loading. Tests transfer of heteroaromatic retention learning to a sterically shielded nitrogen environment.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "6f548d72f01fc85debdc",
+      "reason": "Adds a matched 10/1 lutidine point between measured 8436939a2a6a91fa470d and selected 20/1. Distinguishes a scaffold offset from an incorrectly learned solvent slope without further duplicating quinoline coverage.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "8aa79ce56a84843f3849",
+      "reason": "Methylenedioxy acetophenone at 5/1 is predicted at 27.87/48.84 mL, a substantial rise from measured 6.10/15.88 mL at 1/1 in 162ffd9b0db1fd3c1509. Tests this unsupported transition at identical loading.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "1c52010cfa0344fd2b6b",
+      "reason": "The matched 10/1 methylenedioxy ketone point tests whether the model's large initial rise followed by a shallower slope is real. Complements selected 5/1 and measured 162ffd9b0db1fd3c1509.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "b6b8449bda1ec4f0697f",
+      "reason": "Ethyl anthranilate at 20/1 extends measured 18186b5d6cc190fc07a3 at fixed 150-uL loading. Tests whether adjacent amino and ester groups produce a different response from the strongly retained enamine ester.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "547923973b121019625f",
+      "reason": "The matched 50/1 anthranilate point tests the predicted V2 rise from 26.54 to 48.93 mL. Measured 18186b5d6cc190fc07a3 and 3aed7873d2fd1cf48684 show little loading effect at 5/1, favoring solvent-response coverage here.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "319e89d7000731f64e7f",
+      "reason": "Novel para-methoxybenzaldehyde at 10/1 supplies an aromatic ether/aldehyde reference for transfer beyond the nitrobenzaldehyde overpredictions in e99da719af7e2c3e9a93. Provides the stronger-eluent anchor of a matched pair.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "2d178efe0181baca2bd5",
+      "reason": "At unchanged loading, para-methoxybenzaldehyde is predicted to move from 10.85/24.54 mL at 10/1 to 28.52/55.46 mL at 50/1. Tests the solvent slope on an unlabeled molecule rather than assuming structural transfer is accurate.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "d54c93a11164b4abac6e",
+      "reason": "Novel para-methylthiobenzaldehyde provides an O-to-S structural contrast to selected para-methoxybenzaldehyde at 50/1, with similar sample amounts and identical loading solvent volume. Tests heteroatom-specific transfer despite a narrow predicted V2 quantile span.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "351c17dfa8f46a8cb40a",
+      "reason": "Novel para-acetoxybenzaldehyde at 10/1 has low similarity to observed molecules, 0.344, and predicted V2 of 43.51 mL. Contrasts ester and ether substitution in the selected aldehyde series and expands functional-group arrangement coverage.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "143bf510fe2028583763",
+      "reason": "Novel methoxyethyl acetoacetate at 2/1 tests transfer from the oxygen-rich acetoacetate-containing molecule measured in 74ce463c8423fbd22dc4. Establishes a fixed-loading reference for its selected 5/1 point.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "c6924324ddd95f249df6",
+      "reason": "At the same 50-uL loading, the new acetoacetate is predicted to rise to 20.80/38.29 mL at 5/1. Tests whether the condition sensitivity seen in 5d530b2f228ed39ff952 transfers when a terminal ester is replaced by an ether.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "e4fd83fb3852eb354a66",
+      "reason": "Novel para-methoxybenzyl alcohol at 5/1 samples donor/acceptor chemistry outside the recently measured phenol curve. Paired structurally with selected methoxyphenethyl alcohol to test sensitivity to hydroxyl placement.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "776ee2c1e85ebde75168",
+      "reason": "Novel methoxyphenethyl alcohol has the same HBD, HBA and TPSA as selected methoxybenzyl alcohol, with closely similar predicted retention. Their matched solvent conditions test whether an added methylene changes silica interactions beyond descriptor-level similarity.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "efe7c6b0783a33974807",
+      "reason": "Novel para-aminoacetophenone at 1/1 probes an exposed aromatic amine plus ketone, distinct from quinoline and the enamine ester. Supplies a matched reference for testing transfer of nitrogen-containing compound predictions.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "6b7209c2e8154837a8c7",
+      "reason": "The same aminoacetophenone at 2/1 changes only mobile-phase composition. Tests the predicted 6.61/17.30 to 10.62/23.08 mL response and whether relatively narrow V2 quantiles conceal a new-scaffold error.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "551ec1f8caaa42f2e478",
+      "reason": "Novel acetylnaphthalene at 2/1 anchors a fused-aromatic ketone response. Its near-zero V2 quantile span is not evidence of known accuracy; the matched 50/1 point tests structural transfer across solvent regimes.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "8b9ff1a26d840aaa6a49",
+      "reason": "Acetylnaphthalene at 50/1 is predicted at 21.13/48.62 mL and has high CW distance. The matched 2/1 pair tests whether fused aromatic ketones differ from the modest retention measured for dimethylbenzophenone in 60030aa5d07e476f04ec.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "3786b3156365f77c03ce",
+      "reason": "Novel chlorobenzophenone at 10/1 supplies a non-nitro benzophenone reference at 150-uL loading. Helps distinguish substituent-specific behavior from the extreme nitrobenzophenone interval in b514312eda7950cdcf1c.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "975d484a29fb5011f336",
+      "reason": "The matched chlorobenzophenone 50/1 point tests a predicted V2 rise from 18.93 to 32.77 mL. Contrasts modest dimethylbenzophenone behavior with the nitro and nitrile benzophenone failures without assuming all bulky aromatics retain late.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "5ba8cead5a790ba93029",
+      "reason": "Dibenzoylmethane at 50/1 occupies an almost maximal CW-distance region. Its beta-dicarbonyl arrangement contrasts with the separated aromatic carbonyls of measured 0c5c35afb3a24375c153; tests whether carbonyl topology governs the predicted 28.02/53.88 mL retention.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "483022b02f8329c323ac",
+      "reason": "The fluorinated naphthyl beta-diketone at 50/1 directly extends measured 9400b8c40aaf33ef23d5 at 2/1 with identical loading. Tests a large predicted solvent response and broadens beta-dicarbonyl supervision beyond one scaffold.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "63cda70afb5b740e4fa4",
+      "reason": "Dimethylbenzonitrile at 50/1 is predicted at 38.81/77.19 mL despite having only one acceptor; its V2 median also exceeds q90. Tests an unsupported high-CW prediction and whether nitrile effects learned from 1395836aef00d6a880b0 transfer without a ketone.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "f42cc6b0f90fad5c1f7f",
+      "reason": "Salicylaldehyde at 50/1 is predicted at 26.36/67.28 mL, whereas brominated salicylaldehyde c45057c2cab40f4fa2be measured 5.06/26.55 mL under different loading conditions. Tests structural transfer around adjacent donor/acceptor groups while explicitly retaining that loading confound.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "f49d1b5c0b35dbe61bef",
+      "reason": "Novel anisole at 50/1 provides a simple single-ether reference for the methoxy aldehyde, alcohol and ketone selections. Its predicted 8.30/14.02 mL label can constrain overgeneralization of polar-substituent effects into a common early-eluting regime.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "a36291cab664852df5e5",
+      "reason": "The novel fused cyclic ketone has 0.909 similarity to an observed molecule but high CW distance at 50/1. Tests whether close fingerprint similarity supports retention transfer when carbonyl geometry and ring structure change.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "44fcf641ccfa3b10a97c",
+      "reason": "Methoxybenzophenone at 50/1 has CW distance 0.998 and predicted 21.60/49.15 mL. Completes a substituent comparison with chlorobenzophenone and measured dimethylbenzophenone 60030aa5d07e476f04ec, testing scaffold-specific rather than generic bulky-aromatic retention.",
+      "hypothesis_id": "H4"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Solvent-response curves are molecule-specific; unsupported transitions and extrapolations remain useful acquisition targets even after several previously sampled curves became better predicted.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "9e3ce3497298084abd83",
+        "777a87b895af5e6bc380",
+        "89425cdfb228a6ebf75d",
+        "8e7636d7a60a6058305a",
+        "634f21e11a8442494ce3",
+        "0c5c35afb3a24375c153"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched composition contrasts teach V1 and V2 response separately and test interpolation artifacts without repeatedly labeling already-covered curves.",
+      "next_discriminating_question": "Are the predicted malonate response maximum and the sharp methylenedioxy-ketone transition supported by measurements at fixed loading?"
+    },
+    {
+      "id": "H2",
+      "content": "Nitrobenzophenone has a condition-specific loading or record-variability problem, not established evidence for a simple monotonic loading effect.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "4862e2fb71344ce16021",
+        "b514312eda7950cdcf1c",
+        "5b706e17e8412d02342f",
+        "5e276c1730fc0a9deba7"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A small cross-condition design can determine whether loading interactions generalize or whether the model should not propagate one discordant record across the scaffold. Unrecorded variation cannot be identified causally from these fields.",
+      "next_discriminating_question": "Does the 100-versus-150-uL contrast recur at 10/1, and does the 50-versus-150-uL contrast recur at 20/1?"
+    },
+    {
+      "id": "H3",
+      "content": "Functional-group arrangement and solvent regime are more informative than a blanket polar-compound failure category; neither persistent late elution nor a common error direction is established across polar molecules.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "f7d57d8bb988f7016502",
+        "ca467c94f14b2219503e",
+        "857ae40d0fdf1c7e387e",
+        "29b39881584c4fec1c58",
+        "18186b5d6cc190fc07a3"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Related ether, ester, ketone, aldehyde and donor-containing structures can teach transferable local chemical effects while avoiding a uniform upward correction to V2.",
+      "next_discriminating_question": "Do the selected matched chemical contrasts reveal scaffold-dependent errors despite similar acceptor counts or TPSA?"
+    },
+    {
+      "id": "H4",
+      "content": "Bulky aromatic structure alone is insufficient to predict late retention; the previous broad bulky-aromatic failure hypothesis needs restriction to carbonyl arrangement, substituent and solvent regime.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "0c5c35afb3a24375c153",
+        "1395836aef00d6a880b0"
+      ],
+      "contradicting_observed_ids": [
+        "a78f7bae6726f8eb382a",
+        "8c1d858fccc9c7cff5db",
+        "5e4828fe9aca9bb895f2",
+        "60030aa5d07e476f04ec"
+      ],
+      "confidence": "medium",
+      "status": "weakened",
+      "why_it_matters_for_model_learning": "Contrasting fused, cyclic, substituted benzophenone and beta-dicarbonyl structures tests whether the network distinguishes relevant geometry and functional-group context from size or LogP.",
+      "next_discriminating_question": "Which structural changes produce genuinely steep weak-eluent responses, and which remain modest like dimethylbenzophenone?"
+    },
+    {
+      "id": "H6",
+      "content": "Basic aromatic nitrogen compounds retain scaffold-specific solvent responses, but recent quinoline outcomes weaken the claim of continuing systematic V2 underprediction throughout that family.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "8436939a2a6a91fa470d",
+        "e47aebe2660b9e1528de",
+        "23ef03f3e75e40b20095",
+        "9e3ce3497298084abd83",
+        "777a87b895af5e6bc380"
+      ],
+      "contradicting_observed_ids": [
+        "04a2e8ad27ca641a3a12",
+        "56151359aadfa5411fc6"
+      ],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Extending a sparsely observed sterically shielded pyridine tests generalization of the newly learned nitrogen response without spending another batch on quinoline loading variants.",
+      "next_discriminating_question": "Does 2,6-lutidine follow the predicted 2/1-to-10/1-to-20/1 response at fixed loading?"
+    }
+  ],
+  "feedback_interpretation": "Recent acquisition-time errors are much smaller for several previously severe failure families: methylquinoline at 10/1 had V2 error -1.12 mL, quinoline at 10/1 -4.13 mL, and the amino ester at 10/1 +5.24 mL. These are historical errors, not current residuals, but they reduce the case for another dense batch on those same curves. Nitrobenzaldehyde and the 20/1 phenol were overpredicted, weakening a uniform polar-tail underprediction interpretation. Dimethylbenzophenone remained comparatively early and mostly well predicted, weakening the broad bulky-aromatic analogy. Nitrobenzophenone is the main unresolved exception: measured V2 at 50/1 is 59.88, 7.31 and 81.30 mL at 50, 100 and 150 uL, respectively. This nonmonotonic pattern cannot establish a causal loading law. I therefore select limited cross-condition contrasts rather than extrapolate the anomaly. I also correct prior solvent terminology: 0/1 is pure EA, and increasing PE/EA makes the normal-phase eluent weaker. Current quantiles contain crossings and ubiquitous zero V1 q10 values, so their spans are not treated as calibrated epistemic uncertainty.",
+  "batch_rationale": "The 32 rows combine focused anomaly diagnosis, matched solvent contrasts and chemically connected exploration. Repeated molecules are included where they identify a solvent slope or loading contrast; redundant loading variants of recently well-covered quinoline and enamine-ester curves are omitted. New structures connect to measured chemistry through explicit functional-group or scaffold changes, while anisole and stronger-eluent anchors constrain ordinary early-retention behavior. High-CW rows broaden condition coverage, but narrow-quantile candidates are also included when chemistry or sparse observations make their predictions questionable. All selected IDs and their supplied current predictions are fixed before any new label reveal. The intended benefit is transferable supervision of structure-condition relationships for both V1 and V2 across the Row-distribution, not maximization of retention or elution interval width."
+}
