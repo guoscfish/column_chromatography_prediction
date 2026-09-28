@@ -1,0 +1,52 @@
+{
+  "reason": "Bundled gpt-6-sol catalog forced code_mode_only and multi_agent v2 independently of feature toggles; custom per-experiment catalog removes these tool capabilities",
+  "applies_from": {
+    "seed": 157,
+    "method": "free_llm32_scientist_v2",
+    "round": 3,
+    "turn": 1
+  },
+  "model": "gpt-6-sol",
+  "reasoning_effort": "high",
+  "cli_version": "codex-cli 0.157.1",
+  "core_code_protocol_prompt_existing_answers_and_freezes_unchanged": true,
+  "protocol_sha256": "6f400ec3ab7ed6a8c9aae41605d8b6f0a997a7f88cf5b05ef2f1f6addec1b09e",
+  "catalog_manifest": {
+    "source_cli_version": "codex-cli 0.157.1",
+    "source_binary_sha256": "27ceb5f9b957b43a519efe4eaa3816a0bffb0a531a2c89af18840c0a3c016a7d",
+    "source_catalog_sha256": "40613815a90ec48dd1ccef6cdf9ef3e0c94c8594812eccc1bd69afadea02ef14",
+    "catalog_sha256": "18dc0345ab208b8a37c1aae059cc5153ede2b7bab56e47470ed50ba15d826d10",
+    "previous_tool_fields": {
+      "tool_mode": "code_mode_only",
+      "multi_agent_version": "v2",
+      "node_repl_disabled": false,
+      "experimental_supported_tools": [
+        "send_user_message_async",
+        "clock"
+      ],
+      "supports_search_tool": true,
+      "apply_patch_tool_type": "freeform"
+    },
+    "configured_tool_fields": {
+      "tool_mode": null,
+      "multi_agent_version": null,
+      "node_repl_disabled": true,
+      "experimental_supported_tools": [],
+      "supports_search_tool": false,
+      "apply_patch_tool_type": null
+    },
+    "model_identity_unchanged": true
+  },
+  "launcher_sha256": "f627bafaef343dae05064c474bc7729e479afbcfd4e507c2e1987d2749fed5a8",
+  "previous_launcher_snapshot": "execution_support/revisions/desktop-v1/codex",
+  "provider_and_authentication_unchanged": true,
+  "diagnostic_model_reported_tool_names": [
+    "request_user_input"
+  ],
+  "native_calls_still_prohibited_and_audited": true,
+  "rejected_experiment_attempts_so_far": 2,
+  "rejected_attempts_count_towards_28_call_round_budget": true,
+  "explicit_identical_input_retry_after_catalog_fix": 1,
+  "completed_training_batches_preserved": 3,
+  "test_truth_access_count": 0
+}

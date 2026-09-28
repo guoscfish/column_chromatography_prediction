@@ -1,0 +1,24 @@
+{
+  "reason": "Disable the remaining built-in request_user_input tool using tools.experimental_request_user_input.enabled=false from the official v0.157.1 schema",
+  "applies_from": {
+    "seed": 157,
+    "method": "free_llm32_scientist_v2",
+    "round": 3,
+    "turn": 1
+  },
+  "model": "gpt-6-sol",
+  "reasoning_effort": "high",
+  "cli_version": "codex-cli 0.157.1",
+  "core_code_protocol_prompt_existing_answers_and_freezes_unchanged": true,
+  "protocol_sha256": "6f400ec3ab7ed6a8c9aae41605d8b6f0a997a7f88cf5b05ef2f1f6addec1b09e",
+  "launcher_sha256": "5d1961fdc0dc459fdfe65bb561de34c23dfc7fd27e6a3d9bcfa174b9c47693ce",
+  "previous_launcher_snapshot": "execution_support/revisions/catalog-v1/codex",
+  "diagnostic_model_reported_tool_names": [],
+  "diagnostic_rollout_sha256": "34dd81f0f10aecaec6daf74be31312ec6bf35a3e468421555c0d28ee11c828e7",
+  "native_calls_still_prohibited_and_audited": true,
+  "rejected_experiment_attempts_so_far": 3,
+  "rejected_attempts_count_towards_28_call_round_budget": true,
+  "explicit_identical_input_retry_after_no_tools_fix": 1,
+  "completed_training_batches_preserved": 3,
+  "test_truth_access_count": 0
+}

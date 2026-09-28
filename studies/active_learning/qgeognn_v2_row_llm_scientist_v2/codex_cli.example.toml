@@ -1,0 +1,22 @@
+# Standalone CLI example. The study generates isolated equivalents per call.
+# Provide the third-party key through SCIENTIST_API_KEY, never in this file.
+model_provider = "token4research"
+model = "gpt-5.5"
+review_model = "gpt-5.5"
+model_reasoning_effort = "high"
+approval_policy = "never"
+sandbox_mode = "read-only"
+web_search = "disabled"
+
+[model_providers.token4research]
+name = "token4research"
+base_url = "https://token4research.cn"
+wire_api = "responses"
+env_key = "SCIENTIST_API_KEY"
+requires_openai_auth = false
+
+[features]
+goals = false
+shell_tool = false
+multi_agent = false
+memories = false

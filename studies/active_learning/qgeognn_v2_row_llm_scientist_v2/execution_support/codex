@@ -1,0 +1,76 @@
+#!/Users/fish/miniforge3/envs/fish/bin/python
+"""Experiment-only CLI tool hardening; personal config and auth remain untouched."""
+import json
+import hashlib
+import os
+from pathlib import Path
+import subprocess
+import sys
+import tomllib
+import uuid
+from datetime import datetime, timezone
+
+REAL_CLI = '/private/tmp/scientist-codex-v0.157.1/codex-aarch64-apple-darwin'
+args = sys.argv[1:]
+if args and args[0] == 'exec':
+    support = Path(__file__).resolve().parent
+    manifest = json.loads((support / 'tool_free_catalog_manifest.json').read_text())
+    catalog = support / 'gpt-6-sol-no-native-tools.json'
+    if (hashlib.sha256(Path(REAL_CLI).read_bytes()).hexdigest() != manifest['source_binary_sha256']
+            or hashlib.sha256(catalog.read_bytes()).hexdigest() != manifest['catalog_sha256']):
+        raise RuntimeError('pinned CLI binary or model catalog changed')
+    config = tomllib.loads((Path.home() / '.codex/config.toml').read_text())
+    provider_id = config['model_provider']
+    provider = config['model_providers'][provider_id]
+    required = {'name', 'base_url', 'wire_api', 'requires_openai_auth'}
+    if set(provider) != required or provider['wire_api'] != 'responses' or not provider['requires_openai_auth']:
+        raise RuntimeError('provider configuration changed; review the experiment launcher')
+    overrides = {'model_provider': provider_id,
+                 'tools.experimental_request_user_input.enabled': False,
+                 'tools.update_plan.enabled': False,
+                 'model_catalog_json': str(Path(__file__).resolve().parent / 'gpt-6-sol-no-native-tools.json')}
+    overrides.update({f'model_providers.{provider_id}.{key}': value for key, value in provider.items()})
+    disabled = ('code_mode_host', 'code_mode', 'code_mode_only', 'apps', 'plugins',
+                'remote_plugin', 'browser_use', 'browser_use_external', 'computer_use',
+                'in_app_browser', 'view_image', 'image_generation', 'sleep_tool', 'hooks',
+                'skill_search', 'workspace_dependencies', 'shell_tool', 'unified_exec',
+                'multi_agent', 'goals', 'memories')
+    options = ['--ignore-user-config']
+    for key, value in overrides.items():
+        options += ['-c', f'{key}={json.dumps(value)}']
+    for feature in disabled:
+        options += ['--disable', feature]
+    args = ['exec', *options, *args[1:]]
+    input_text = sys.stdin.read()
+    started = datetime.now(timezone.utc).isoformat()
+    result = subprocess.run([REAL_CLI, *args], input=input_text, capture_output=True, text=True)
+    expected = ('Code Mode is unavailable because code-mode host is disabled. '
+                'Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.')
+    accepted, warnings = [], []
+    for line in result.stdout.splitlines(keepends=True):
+        try:
+            event = json.loads(line)
+        except json.JSONDecodeError:
+            accepted.append(line)
+            continue
+        item = event.get('item', {})
+        if (event.get('type') == 'item.completed' and item.get('type') == 'error'
+                and item.get('message') == expected):
+            warnings.append(event)
+        else:
+            accepted.append(line)
+    digest = lambda value: hashlib.sha256(value.encode()).hexdigest()
+    audits = Path(__file__).resolve().parent / 'launch_audits'
+    audits.mkdir(exist_ok=True)
+    record = {'started_at': started, 'completed_at': datetime.now(timezone.utc).isoformat(),
+              'cli_binary_sha256': manifest['source_binary_sha256'],
+              'model_catalog_sha256': manifest['catalog_sha256'],
+              'input_sha256': digest(input_text), 'raw_stdout_sha256': digest(result.stdout),
+              'forwarded_stdout_sha256': digest(''.join(accepted)), 'stderr_sha256': digest(result.stderr),
+              'exit_code': result.returncode, 'recorded_configuration_warnings': warnings,
+              'disabled_features': disabled, 'ignore_user_config': True}
+    (audits / f'{uuid.uuid4()}.json').write_text(json.dumps(record, indent=2) + '\n')
+    sys.stdout.write(''.join(accepted))
+    sys.stderr.write(result.stderr)
+    sys.exit(result.returncode)
+os.execv(REAL_CLI, [REAL_CLI, *args])

@@ -1,0 +1,26 @@
+{
+  "reason": "The installed CLI exposed its code-mode executor despite shell_tool=false; a rejected call triggered an execution-environment hardening amendment",
+  "applies_from": {
+    "seed": 157,
+    "method": "free_llm32_scientist_v2",
+    "round": 3,
+    "turn": 1
+  },
+  "core_code_protocol_prompt_and_existing_freezes_unchanged": true,
+  "protocol_sha256": "6f400ec3ab7ed6a8c9aae41605d8b6f0a997a7f88cf5b05ef2f1f6addec1b09e",
+  "launcher": "execution_support/codex",
+  "launcher_sha256": "704f52d915dafed903c60a356703a026c06f0f5be8fa2e991ee255bee9f844d5",
+  "ignored_user_configuration": true,
+  "provider_and_authentication_unchanged": true,
+  "model": "gpt-6-sol",
+  "reasoning_effort": "high",
+  "code_execution_host_disabled": true,
+  "tool_names_may_remain_visible": true,
+  "native_tool_calls_still_rejected": true,
+  "only_filtered_diagnostic": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+  "filtered_diagnostics_and_raw_output_hashes_saved": "execution_support/launch_audits",
+  "rejected_attempts_count_towards_actual_model_calls": true,
+  "explicit_identical_input_retry_count": 1,
+  "completed_training_batches_preserved": 3,
+  "test_truth_access_count": 0
+}
