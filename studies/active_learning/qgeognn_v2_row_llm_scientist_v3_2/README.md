@@ -1,5 +1,7 @@
 # Scientist V3.2 — seed157, six acquisitions through L525
 
+**Terminal outcome: STOPPED at L365 (1/6 acquisitions completed).** Round 1 exceeded the four-repair limit when a support update changed a hypothesis statement. No L397 batch was frozen or revealed. See [FINAL_REPORT.md](FINAL_REPORT.md).
+
 Updated user authorization: `free_llm32_scientist_v3_2`, seed157, clean Row L333 → L365 → L397 → L429 → L461 → L493 → L525, then STOP. Every round selects/freezes 32, reveals only that batch, and retrains from the same initialization. No hybrid or additional seeds are registered. V3.1 remains a frozen pilot at `archive/scientist-v3.1-pilot-2026-09-29`.
 
 The independent `active_learning_v3_2` protocol layer reuses stable V3 catalog/evidence/audit and V2 training/split/gradient primitives. The predictor Context and label-array construction are unchanged. Extra post-fit checks enforce identical initialization and validation IDs and zero test truth access. Validation scores are reported only after selection/training and never enter selector context.
@@ -31,3 +33,13 @@ The bounded context ceiling is preregistered at 180,000 characters (up from the 
 ## Explicitly authorized continuation after stream disconnect
 
 The first streaming attempt completed three responses/six queries, then stopped at a transport error before any batch freeze or label reveal. The user subsequently asked to continue to completion. An identical-request diagnostic reproduced APIConnectionError caused by httpx.RemoteProtocolError; direct httpx stream-read errors were missing from the retry allowlist. The second failure and diagnostic remain under `attempts/stream_disconnect`, hashed separately. The repair adds only bounded retries for network/remote-protocol/time-out errors and a missing response.completed stream terminator; it does not accept partial JSON or scientific content. Failure receipts now include the exception class. Scientific parameters are unchanged.
+
+## Explicit recovery of an externally interrupted process
+
+The third attempt completed L333 -> L365. During the next selection the process disappeared with no terminal controller receipt. Its last audit event was turn 14, transport attempt 3; attempts 1 and 2 had recorded connection and read-timeout failures. The cause of process exit is unknown. No round-1 batch or measurement existed.
+
+The user explicitly requested continuing. `scripts/studies/resume_qgeognn_v3_2_interrupted.py` is a separately hashed operational recovery tool. It runs the unchanged frozen selector against the 14 saved responses and strictly compares every prior audit event, request hash and write-once artifact before making a new request. It does not edit frozen source, prompts, schemas, training logic, limits or the original audit prefix. It conservatively counts the unknown in-flight request as a consumed transport attempt, leaving only attempt 4. All 23 accepted queries, 3 invalid queries and 1 response-validation error survive replay. Terminal failures cannot be resumed, and the recovery is allowed only once.
+
+The offline recovery rehearsal made zero model calls and passed. Six synthetic regression tests cover byte-preserving replay, exact remaining retry counts, failure on the final attempt, preservation of the repair limit, refusal to retry a fourth in-flight attempt, and detection of response-artifact drift before networking. The combined relevant suite passed 231 tests (147 dependency warnings).
+
+Recovery is an explicit operational addition, not part of the originally registered controller. Its script hash and original file hashes are recorded in `recovery_started.json`; `execution/process_recovery` records the separate controller outcome. The original interrupted controller log is retained. The provider may have billed the unknown attempt, whose usage cannot be recovered. Future results must disclose this interruption and recovery.
