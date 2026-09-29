@@ -1,20 +1,32 @@
 {
   "unit_tests": {
-    "passed": 215,
+    "passed": 220,
     "failed": 0,
-    "elapsed_seconds": 12.86,
+    "elapsed_seconds": 13.53,
     "scope": [
       "active_learning_v3_2",
       "active_learning_v3",
       "v2 scientist",
       "v2 no_label_leakage",
       "v2 row_protocol",
-      "v2 determinism"
+      "v2 determinism",
+      "stream completion/partial failure",
+      "six-round controller exact stop"
     ]
   },
   "compileall": "PASS",
   "git_diff_check": "PASS",
   "previous_V3_1_artifacts": "unchanged",
   "predictor_Context_and_arrays_AST": "identical to V3.1",
-  "live_experiment_started": false
+  "live_experiment_started": false,
+  "formal_delivery": "stream",
+  "formal_budgets": [
+    333,
+    365,
+    397,
+    429,
+    461,
+    493,
+    525
+  ]
 }

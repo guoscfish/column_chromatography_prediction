@@ -285,7 +285,7 @@ def test_invalid_json_and_query_error_feedback_are_bounded(tmp_path):
 
 def test_context_overflow_fails_without_call_and_reports_component(tmp_path):
     c, p, ledger = setup()
-    p['scientific_memory']['hypothesis_ledger'] = ['x'*100000]
+    p['scientific_memory']['hypothesis_ledger'] = ['x'*(schema.CONTEXT_HARD_CHARS+1)]
     with pytest.raises(transport.ContextBudgetError) as error:
         transport.run_selector(p, c, ledger, tmp_path, config(), call=lambda *args: pytest.fail('no call'))
     assert error.value.audit['largest_component'] == 'hypothesis_ledger'
@@ -465,10 +465,9 @@ def test_mock_measure_fit_next_round_stable_ledger_and_canonical_state(tmp_path,
     assert study.advance(157, method, root=tmp_path)['active_label_count'] == 33
     assert calls == ['after_acquisition_fit', 'initial_fit', 'fit']
     state = study.state(tmp_path, 157, method)
-    assert state['round'] == 1 and state['next_action'] == 'complete_no_test_evaluation'
+    assert state['round'] == 1 and state['next_action'] == 'stage'
     assert state['ledger']['hypotheses']['H0001']['created_round'] == 0
-    with pytest.raises(ValueError, match='unregistered'):
-        study.stage(157, method, 1, root=tmp_path)
+    assert not study.directory(tmp_path,157,method,1).exists()
     assert read(study.directory(tmp_path, 157, method, 0)/'training_complete.json')['test_truth_access_count'] == 0
     measurement = study.directory(tmp_path, 157, method, 0)/'measurement.json'
     bad = read(measurement); bad['records'][0]['error_V1_ml'] += 1
@@ -642,12 +641,18 @@ def test_responses_sdk_retries_disabled_and_model_parameters_preserved(monkeypat
     from types import SimpleNamespace
     import openai
     constructor, requests = [], []
-    def create(**kwargs):
+    class Stream:
+        def __enter__(self): return self
+        def __exit__(self, *args): pass
+        def __iter__(self): return iter([SimpleNamespace(type='response.completed')])
+        def get_final_response(self):
+            return SimpleNamespace(model='gpt-6-sol', status='completed', output=[], output_text='{}', id='synthetic', usage=None)
+    def stream(**kwargs):
         requests.append(kwargs)
-        return SimpleNamespace(model='gpt-6-sol', output=[], output_text='{}', id='synthetic', usage=None)
+        return Stream()
     def client(**kwargs):
         constructor.append(kwargs)
-        return SimpleNamespace(responses=SimpleNamespace(create=create))
+        return SimpleNamespace(responses=SimpleNamespace(stream=stream))
     monkeypatch.setattr(openai, 'OpenAI', client)
     monkeypatch.setenv('SCIENTIST_API_KEY', 'synthetic-test-key')
     answer, provenance = transport.responses_call([], config())
@@ -787,9 +792,9 @@ def test_v31_artifacts_and_scientific_sources_untouched():
     assert subprocess.check_output(['git','diff','8a8a917','--',*paths],text=True)==''
 
 
-def test_only_one_registered_round():
-    assert study.SEEDS==(157,) and study.METHODS==('free_llm32_scientist_v3_2',) and study.BUDGETS==(333,365)
-    for seed,method,r in [(157,study.METHODS[0],1),(6101,study.METHODS[0],0),(157,'cw16_llm16_scientist_v3_2',0)]:
+def test_six_rounds_only_registered_free_seed157():
+    assert study.SEEDS==(157,) and study.METHODS==('free_llm32_scientist_v3_2',) and study.BUDGETS==(333,365,397,429,461,493,525)
+    for seed,method,r in [(157,study.METHODS[0],6),(6101,study.METHODS[0],0),(157,'cw16_llm16_scientist_v3_2',0)]:
         with pytest.raises(ValueError): study.directory(Path('/unused'),seed,method,r)
 
 
@@ -803,3 +808,51 @@ def test_structured_wire_contract_nullable_optionals():
     assert decoded['queries'][0]['args']=={'filters':args['filters']}
     value['response']['unexpected']='not allowed'
     with pytest.raises(Exception): decode_wire(value)
+
+@pytest.mark.parametrize('event_type', ['response.failed','response.incomplete','error'])
+def test_stream_failure_never_accepts_partial_json(monkeypatch,event_type):
+    from types import SimpleNamespace
+    import openai
+    class Stream:
+        def __enter__(self):return self
+        def __exit__(self,*args):pass
+        def __iter__(self):return iter([SimpleNamespace(type=event_type)])
+        def get_final_response(self):pytest.fail('must not accept partial response')
+    monkeypatch.setattr(openai,'OpenAI',lambda **kwargs:SimpleNamespace(responses=SimpleNamespace(stream=lambda **kwargs:Stream())))
+    monkeypatch.setenv('SCIENTIST_API_KEY','synthetic-key')
+    with pytest.raises(transport.TransportFailure,match='incomplete_or_failed'):
+        transport.responses_call([],config())
+
+@pytest.mark.parametrize('fail_round',[None,2])
+def test_continuous_loop_exactly_six_rounds_or_stops(tmp_path,fail_round):
+    import importlib.util
+    from types import SimpleNamespace
+    path=Path('scripts/studies/run_qgeognn_v3_2_loop.py')
+    spec=importlib.util.spec_from_file_location('scientist_v32_loop_test',path)
+    controller=importlib.util.module_from_spec(spec);spec.loader.exec_module(controller)
+    once(tmp_path/'protocol.json',{'budgets':[333,365,397,429,461,493,525]})
+    current={'round':0,'active_label_count':333,'next_action':'stage'}
+    calls=[]
+    def state(*args):return dict(current)
+    def action(name):
+        def perform(seed,method,r,root):
+            assert seed==157 and method==study.METHODS[0] and 0<=r<6
+            calls.append((name,r))
+            if name=='select' and r==fail_round:raise RuntimeError('synthetic STOP')
+            if name=='stage':current['next_action']='select'
+            elif name=='select':current['next_action']='advance'
+            else:
+                current.update(round=r+1,active_label_count=365+32*r,next_action='complete_no_test_evaluation' if r==5 else 'stage')
+            return {'status':'synthetic'}
+        return perform
+    api=SimpleNamespace(state=state,stage=action('stage'),select=action('select'),advance=action('advance'))
+    result=controller.run_loop(tmp_path,157,study.METHODS[0],api=api,validate=lambda _:None)
+    if fail_round is None:
+        assert result['status']=='COMPLETED' and result['active_label_count']==525
+        assert [r for name,r in calls if name=='advance']==list(range(6))
+        assert len(calls)==18
+    else:
+        assert result['status']=='STOPPED' and current['active_label_count']==397
+        assert not any(r>2 for _,r in calls)
+    with pytest.raises(RuntimeError,match='already started'):
+        controller.run_loop(tmp_path,157,study.METHODS[0],api=api,validate=lambda _:None)

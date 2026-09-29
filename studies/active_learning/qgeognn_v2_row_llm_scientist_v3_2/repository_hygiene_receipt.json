@@ -1,0 +1,22 @@
+{
+  "scope": "repository hygiene / retention (additional to passing scientific suite)",
+  "passed": 27,
+  "failed": 3,
+  "inherited_runtime_records": 132,
+  "new_runtime_records": 0,
+  "failures": [
+    {
+      "test": "test_frozen_source_and_schedule_hashes_are_unchanged",
+      "cause": "Historical cross-column checkpoint is an ignored external runtime fixture absent from this isolated checkout."
+    },
+    {
+      "test": "test_study_runtime_directories_are_gitignored_and_untracked",
+      "cause": "Pre-existing V2 archived runtime JSON records; identical list at baseline 8a8a917. Preserved to avoid destroying audit evidence."
+    },
+    {
+      "test": "test_no_tracked_partial_history_fit_or_runtime",
+      "cause": "Same pre-existing V2 archived runtime records."
+    }
+  ],
+  "scientific_suite": "215 passed; no V3.2 scientific failures"
+}

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Scientist V3.2: seed157 Free-LLM32 L333→L365, with no continuation action."""
+"""Scientist V3.2: seed157 Free-LLM32 L333→L525, six registered acquisitions."""
 import argparse
 import json
 import os
@@ -15,6 +15,7 @@ from src.qgeognn_al.active_learning_v3_2.transport import settings
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action', choices=('prepare','stage','select','advance','status','validate'))
+    parser.add_argument('--round', type=int, choices=range(6), default=0)
     parser.add_argument('--study-dir', type=Path, default=study.STUDY)
     parser.add_argument('--source-root', type=Path, default=study.ROOT)
     parser.add_argument('--api-key-file', type=Path, default=Path.home()/'.config/qgeognn-scientist/token4research.api-key')
@@ -31,7 +32,7 @@ def main():
         if args.action == 'select':
             os.environ['SCIENTIST_API_KEY'] = args.api_key_file.read_text().strip()
         try:
-            result = getattr(study, args.action)(157, 'free_llm32_scientist_v3_2', 0, root=args.study_dir)
+            result = getattr(study, args.action)(157, 'free_llm32_scientist_v3_2', args.round, root=args.study_dir)
         finally:
             os.environ.pop('SCIENTIST_API_KEY', None)
     print(json.dumps(result, indent=2))

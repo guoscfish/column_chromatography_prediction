@@ -16,11 +16,11 @@ from .transport import build_request, empty_working_state, run_selector, setting
 STUDY = ROOT/'studies/active_learning/qgeognn_v2_row_llm_scientist_v3_2'
 SEEDS = (157,)
 METHODS = ('free_llm32_scientist_v3_2',)
-BUDGETS = (333, 365)
+BUDGETS = (333, 365, 397, 429, 461, 493, 525)
 
 
 def directory(root, seed, method, r):
-    if seed not in SEEDS or method not in METHODS or r not in range(1):
+    if seed not in SEEDS or method not in METHODS or r not in range(6):
         raise ValueError('unregistered seed/method/round')
     return Path(root)/f'selections/seed_{seed}/{method}/round_{r:02d}'
 
@@ -174,7 +174,7 @@ def state(root, seed, method):
     ledger, history, completed = new_ledger(seed, method), [], 0
     all_batch_ids = []
     phase = 'stage'
-    for r in range(1):
+    for r in range(6):
         d = directory(root, seed, method, r)
         if not (d/'contract.json').exists():
             phase = 'stage'
@@ -222,7 +222,7 @@ def state(root, seed, method):
         phase = 'complete_no_test_evaluation'
     # Detect holes instead of trusting a stale status file or skipping an earlier failure.
     if phase != 'complete_no_test_evaluation':
-        for future in range(r+1, 1):
+        for future in range(r+1, 6):
             if (directory(root, seed, method, future)/'contract.json').exists():
                 raise RuntimeError('noncontiguous round artifacts')
     return {'round': completed, 'active_label_count': initial_count+len(all_batch_ids),

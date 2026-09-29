@@ -49,7 +49,7 @@ def settings(backend='responses', model='gpt-6-sol', base_url='https://token4res
         'retry_policy': {'max_retries': transport_retries, 'backoff_seconds': [2, 4, 8][:transport_retries],
                          'scope': 'transient_responses_transport_only', 'sdk_max_retries': 0,
                          'max_transport_calls_per_selection': MODEL_CALL_BUDGET*(transport_retries+1)},
-        'automatic_fallback': False, 'response_format': 'json_schema', 'response_schema': RESPONSE_SCHEMA, 'store': False, 'context_hard_chars': CONTEXT_HARD_CHARS}
+        'automatic_fallback': False, 'response_format': 'json_schema', 'response_delivery': 'stream', 'response_schema': RESPONSE_SCHEMA, 'store': False, 'context_hard_chars': CONTEXT_HARD_CHARS}
     if backend == 'codex_cli':
         executable = shutil.which('codex')
         if not executable:
@@ -148,15 +148,26 @@ def responses_call(messages, config):
     if not os.environ.get(config['key_env']):
         raise TransportFailure('missing_api_key')
     client = OpenAI(api_key=os.environ[config['key_env']], base_url=config['base_url'], max_retries=0, timeout=600)
-    response = client.responses.create(model=config['model'], input=messages, tools=[], store=False,
-                                       reasoning={'effort': config['reasoning_effort']},
-                                       text={'format': {'type': 'json_schema', 'name': 'scientist_response', 'strict': True, 'schema': config['response_schema']}})
+    # Streaming sends headers/events while the model plans a large final batch,
+    # avoiding the provider gateway's idle non-streaming HTTP 524 deadline.
+    # This delivery mode is preregistered; no mid-trajectory fallback is permitted.
+    with client.responses.stream(model=config['model'], input=messages, tools=[], store=False,
+            reasoning={'effort': config['reasoning_effort']},
+            text={'format': {'type': 'json_schema', 'name': 'scientist_response', 'strict': True,
+                             'schema': config['response_schema']}}) as stream:
+        for event in stream:
+            if event.type in ('response.failed', 'response.incomplete', 'error'):
+                raise TransportFailure('incomplete_or_failed_response_stream')
+        response = stream.get_final_response()
+    if response.status != 'completed':
+        raise TransportFailure('incomplete_response')
     if response.model != config['model'] and not response.model.startswith(config['model']+'-'):
         raise TransportFailure('model_provenance_mismatch')
     if any(item.type not in ('message', 'reasoning') for item in response.output):
         raise TransportFailure('native_tool_or_unknown_output')
     return response.output_text, {'response_id': response.id, 'served_model': response.model,
-        'usage': response.usage.model_dump(mode='json') if response.usage else {}, 'native_tool_calls': 0}
+        'usage': response.usage.model_dump(mode='json') if response.usage else {}, 'native_tool_calls': 0,
+        'response_delivery': 'stream'}
 
 
 def transport_error(error):

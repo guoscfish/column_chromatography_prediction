@@ -13,7 +13,7 @@ from .selector import SYSTEM_PROMPT, SELECTION_SCHEMA
 
 def code_hashes():
     paths = sorted((ROOT/'src/qgeognn_al').rglob('*.py'))
-    paths += [ROOT/'scripts/studies/run_qgeognn_v3_2_row_llm_scientist.py']
+    paths += [ROOT/'scripts/studies/run_qgeognn_v3_2_row_llm_scientist.py', ROOT/'scripts/studies/run_qgeognn_v3_2_loop.py']
     return {str(p.relative_to(ROOT)): file_hash(p) for p in paths}
 
 
@@ -31,7 +31,7 @@ def fingerprint(config):
         'transport': config, 'training': TRAINING_CONFIG, 'packages': packages,
         'context_budget': config['context_hard_chars'], 'query_budget': schema.QUERY_BUDGET,
         'view_budget': schema.VIEW_BUDGET, 'model_call_budget': schema.MODEL_CALL_BUDGET,
-        'queries_per_turn': schema.QUERIES_PER_TURN, 'batch_quotas': None, 'repair_budget': schema.REPAIR_BUDGET, 'allowed_budgets': [333, 365]}))
+        'queries_per_turn': schema.QUERIES_PER_TURN, 'batch_quotas': None, 'repair_budget': schema.REPAIR_BUDGET, 'allowed_budgets': [333, 365, 397, 429, 461, 493, 525]}))
 
 
 def validate(root):
