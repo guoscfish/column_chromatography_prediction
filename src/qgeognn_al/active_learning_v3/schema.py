@@ -3,7 +3,7 @@ from __future__ import annotations
 import copy
 import json
 
-VERSION = 'llm_scientist_v3'
+VERSION = 'llm_scientist_v3_1'
 QUERY_BUDGET = 24
 VIEW_BUDGET = 480
 MODEL_CALL_BUDGET = 28

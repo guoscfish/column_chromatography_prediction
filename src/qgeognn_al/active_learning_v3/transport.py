@@ -1,4 +1,4 @@
-"""Stateless bounded relay. Infrastructure failure stops; no retry/revision/recovery."""
+"""Stateless relay with bounded, audited retries for transient Responses failures."""
 from __future__ import annotations
 import copy
 import json
@@ -8,6 +8,7 @@ import re
 import shutil
 import subprocess
 import tempfile
+import time
 import tomllib
 from ..active_learning_v2.scientist_transport import audit_cli
 from .artifacts import Audit, digest, file_hash, once
@@ -27,15 +28,25 @@ class ContextBudgetError(ValueError):
         super().__init__('context hard limit exceeded: ' + dumps(audit))
 
 
-def settings(backend='codex_cli', model='gpt-6-sol', base_url='https://token4research.cn', effort='high'):
+def settings(backend='responses', model='gpt-6-sol', base_url='https://token4research.cn', effort='high',
+             transport_retries=None):
     from urllib.parse import urlsplit
     url = urlsplit(base_url)
     if backend not in ('codex_cli', 'responses') or url.scheme != 'https' or not url.hostname or url.username or url.password or url.query or url.fragment:
         raise ValueError('invalid transport configuration')
     if not re.fullmatch(r'[A-Za-z0-9._-]+', model) or effort not in ('low', 'medium', 'high', 'xhigh'):
         raise ValueError('invalid model/effort')
+    if transport_retries is None:
+        transport_retries = 3 if backend == 'responses' else 0
+    if type(transport_retries) is not int or not 0 <= transport_retries <= 3:
+        raise ValueError('transport_retries must be an integer from 0 to 3')
+    if backend != 'responses' and transport_retries:
+        raise ValueError('transport retries are supported only for Responses')
     result = {'backend': backend, 'model': model, 'base_url': base_url.rstrip('/'),
-        'reasoning_effort': effort, 'key_env': 'SCIENTIST_API_KEY', 'automatic_retry': False,
+        'reasoning_effort': effort, 'key_env': 'SCIENTIST_API_KEY', 'automatic_retry': bool(transport_retries),
+        'retry_policy': {'max_retries': transport_retries, 'backoff_seconds': [2, 4, 8][:transport_retries],
+                         'scope': 'transient_responses_transport_only', 'sdk_max_retries': 0,
+                         'max_transport_calls_per_selection': MODEL_CALL_BUDGET*(transport_retries+1)},
         'automatic_fallback': False, 'store': False, 'context_hard_chars': CONTEXT_HARD_CHARS}
     if backend == 'codex_cli':
         executable = shutil.which('codex')
@@ -145,16 +156,68 @@ def responses_call(messages, config):
         'usage': response.usage.model_dump(mode='json') if response.usage else {}, 'native_tool_calls': 0}
 
 
-def failure_receipt(error, request_hash, config):
+def transport_error(error):
+    """Return allowlisted diagnostics only; never persist error text or provider bodies."""
+    from openai import APIConnectionError, APITimeoutError, APIStatusError
+    status = None
+    retryable = False
+    if isinstance(error, TransportFailure):
+        category = error.category
+    elif isinstance(error, (APITimeoutError, TimeoutError, subprocess.TimeoutExpired)):
+        category, retryable = 'transport_timeout', True
+    elif isinstance(error, (APIConnectionError, ConnectionError)):
+        category, retryable = 'transport_connection', True
+    elif isinstance(error, APIStatusError):
+        status = error.status_code
+        quota_exhausted = getattr(error, 'code', None) in ('insufficient_quota', 'billing_hard_limit_reached')
+        category = 'provider_quota_exhausted' if quota_exhausted else 'provider_http_error'
+        retryable = not quota_exhausted and (status in (408, 409, 429) or 500 <= status <= 599)
+    elif isinstance(error, subprocess.CalledProcessError):
+        category = 'cli_exit'
+    else:
+        category = 'runtime_or_provider_failure'
+    return {'error_category': category, 'http_status': status, 'retryable': retryable}
+
+
+def failure_receipt(error, request_hash, config, *, attempts=1):
     # Deliberately no str(error), stderr, provider body, headers, or environment values.
-    category = error.category if isinstance(error, TransportFailure) else (
-        'cli_exit' if isinstance(error, subprocess.CalledProcessError) else
-        'transport_timeout' if isinstance(error, (TimeoutError, subprocess.TimeoutExpired)) else 'runtime_or_provider_failure')
     return {'request_sha256': request_hash, 'model': config['model'], 'effort': config['reasoning_effort'],
         'cli_version': getattr(error, 'cli_version', None) or config.get('cli', {}).get('version'),
         'exit_code': getattr(error, 'exit_code', None) or getattr(error, 'returncode', None),
-        'error_category': category, 'diagnostic': 'Operation stopped. Raw provider/subprocess diagnostics withheld.',
-        'automatic_retry': False, 'protocol_changed': False}
+        **transport_error(error), 'diagnostic': 'Operation stopped. Raw provider/subprocess diagnostics withheld.',
+        'attempts': attempts, 'retries_performed': attempts-1,
+        'automatic_retry': attempts > 1, 'protocol_changed': False}
+
+
+def call_with_retries(call, messages, config, directory, audit, turn, request_hash, guard=None):
+    policy = config.get('retry_policy', {'max_retries': 0, 'backoff_seconds': []})
+    max_retries = policy['max_retries'] if config['backend'] == 'responses' else 0
+    for attempt in range(1, max_retries+2):
+        if guard:
+            guard()
+        audit.append('transport_attempt', {'attempt': attempt, 'max_attempts': max_retries+1},
+                     turn=turn, request_sha256=request_hash)
+        try:
+            answer, provenance = call(messages, config)
+        except Exception as error:
+            detail = transport_error(error)
+            retry = detail['retryable'] and attempt <= max_retries
+            delay = policy['backoff_seconds'][attempt-1] if retry else 0
+            receipt = {**failure_receipt(error, request_hash, config, attempts=attempt),
+                       'will_retry': retry, 'retry_delay_seconds': delay}
+            if retry:
+                receipt['diagnostic'] = 'Transient transport failure; identical request will be retried.'
+            once(directory/f'transport_attempt_{turn:02d}_{attempt:02d}.json', receipt)
+            audit.append('transport_attempt_failed', receipt, turn=turn, request_sha256=request_hash)
+            if not retry:
+                once(directory/f'failure_{turn:02d}.json', receipt)
+                audit.append('transport_failure', receipt, turn=turn, request_sha256=request_hash)
+                raise RuntimeError('STOP: transport failure; see sanitized failure receipt') from None
+            time.sleep(delay)
+        else:
+            audit.append('transport_attempt_succeeded', {'attempt': attempt},
+                         turn=turn, request_sha256=request_hash)
+            return answer, {**provenance, 'transport_attempts': attempt, 'transport_retries': attempt-1}
 
 
 def usage_counts(provenance):
@@ -188,13 +251,8 @@ def run_selector(packet, catalog, ledger, directory, config, call=None, guard=No
         sizes.update(query_count=len(catalog.queries), distinct_candidate_views=len(catalog.viewed))
         audit.append('request', {'messages': messages, 'config': config, 'context_budget': sizes},
                      turn=turn, request_sha256=request_hash)
-        try:
-            answer, provenance = call(messages, config)
-        except Exception as error:
-            receipt = failure_receipt(error, request_hash, config)
-            once(directory/f'failure_{turn:02d}.json', receipt)
-            audit.append('transport_failure', receipt, turn=turn, request_sha256=request_hash)
-            raise RuntimeError('STOP: transport failure; see sanitized failure receipt') from None
+        answer, provenance = call_with_retries(call, messages, config, directory, audit,
+                                               turn, request_hash, guard)
         receipt = {'answer': answer, 'provenance': provenance, 'request_sha256': request_hash,
                    'context_budget': {**sizes, **usage_counts(provenance)}}
         once(directory/f'turn_{turn:02d}.json', receipt)

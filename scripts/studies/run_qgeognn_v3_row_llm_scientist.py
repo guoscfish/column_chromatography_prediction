@@ -17,17 +17,21 @@ def main():
     parser.add_argument('--seed', type=int, choices=study.SEEDS)
     parser.add_argument('--method', choices=study.METHODS)
     parser.add_argument('--round', type=int, choices=range(6), default=0)
-    parser.add_argument('--backend', choices=('codex_cli', 'responses'), default='codex_cli')
+    parser.add_argument('--backend', choices=('codex_cli', 'responses'), default='responses')
     parser.add_argument('--model', default='gpt-6-sol')
     parser.add_argument('--base-url', default='https://token4research.cn')
     parser.add_argument('--effort', choices=('low', 'medium', 'high', 'xhigh'), default='high')
+    parser.add_argument('--transport-retries', type=int, choices=range(4), default=None,
+                        help='prepare only: extra Responses attempts, default 3 (CLI: 0)')
     args = parser.parse_args()
     # Prevent accidentally directing V3 actions at an existing V2 study.
-    if args.study_dir.resolve().name != 'qgeognn_v2_row_llm_scientist_v3':
-        parser.error('--study-dir must be an independent qgeognn_v2_row_llm_scientist_v3 directory')
+    if args.study_dir.resolve().name not in ('qgeognn_v2_row_llm_scientist_v3', study.STUDY.name):
+        parser.error('--study-dir must be an independent Scientist V3 or V3.1 directory')
+    if args.transport_retries is not None and args.action != 'prepare':
+        parser.error('--transport-retries is frozen at prepare; it cannot override an existing run')
     if args.action == 'prepare':
         result = study.prepare(args.study_dir, source_root=args.source_root,
-            config=settings(args.backend, args.model, args.base_url, args.effort))
+            config=settings(args.backend, args.model, args.base_url, args.effort, args.transport_retries))
     elif args.action == 'validate':
         result = protocol.validate(args.study_dir)
     elif args.action == 'status':

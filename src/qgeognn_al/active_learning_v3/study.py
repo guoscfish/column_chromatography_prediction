@@ -13,7 +13,7 @@ from .schema import VERSION
 from .selector import SYSTEM_PROMPT, make_packet, validate_selection
 from .transport import build_request, empty_working_state, run_selector, settings
 
-STUDY = ROOT/'studies/active_learning/qgeognn_v2_row_llm_scientist_v3'
+STUDY = ROOT/'studies/active_learning/qgeognn_v2_row_llm_scientist_v3_1'
 SEEDS = (157, 6101)
 METHODS = ('cw16_llm16_scientist_v3', 'free_llm32_scientist_v3')
 BUDGETS = (333, 365, 397, 429, 461, 493, 525)

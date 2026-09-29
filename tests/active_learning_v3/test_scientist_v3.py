@@ -310,7 +310,8 @@ def fake_study(tmp_path, hybrid=False):
 
 
 @pytest.mark.parametrize('hybrid', [False, True])
-def test_stage_select_lock_state_and_idempotent_freeze(tmp_path, hybrid):
+@pytest.mark.parametrize('transient_failure', [False, True])
+def test_stage_select_lock_state_and_idempotent_freeze(tmp_path, monkeypatch, hybrid, transient_failure):
     method = fake_study(tmp_path, hybrid)
     assert study.state(tmp_path, 157, method)['next_action'] == 'stage'
     result = study.stage(157, method, root=tmp_path)
@@ -318,8 +319,13 @@ def test_stage_select_lock_state_and_idempotent_freeze(tmp_path, hybrid):
     d = study.directory(tmp_path, 157, method, 0)
     p = read(d/'input.json')
     n = 0
+    failed = []
+    monkeypatch.setattr(transport.time, 'sleep', lambda _: None)
     def call(messages, cfg):
         nonlocal n
+        if transient_failure and not failed:
+            failed.append(True)
+            raise api_status_error(503)
         n += 1
         if n <= 2:
             return json.dumps(query({'offset': (n-1)*24})), {}
@@ -339,7 +345,7 @@ def test_stage_select_lock_state_and_idempotent_freeze(tmp_path, hybrid):
         study.audit_batch(tmp_path, 157, method, 0)
 
 
-@pytest.mark.parametrize('mutation', ['source', 'prompt', 'schema', 'memory', 'transport', 'deleted_lock', 'reregister'])
+@pytest.mark.parametrize('mutation', ['source', 'prompt', 'schema', 'memory', 'transport', 'retry_policy', 'deleted_lock', 'reregister'])
 def test_protocol_lock_fail_closed(tmp_path, monkeypatch, mutation):
     fake_study(tmp_path)
     protocol.lock_protocol(tmp_path)
@@ -357,7 +363,10 @@ def test_protocol_lock_fail_closed(tmp_path, monkeypatch, mutation):
         (tmp_path/'protocol.lock.json').unlink()
     else:
         p = read(tmp_path/'protocol.json')
-        p['transport']['model'] = 'changed'
+        if mutation == 'retry_policy':
+            p['transport']['retry_policy']['max_retries'] = 0
+        else:
+            p['transport']['model'] = 'changed'
         if mutation == 'reregister':
             p['fingerprint'] = protocol.fingerprint(p['transport'])
         (tmp_path/'protocol.json').write_text(json.dumps(p))
@@ -525,3 +534,135 @@ def test_initial_catalog_missing_active_contract_uses_only_exact_archived_seal(t
     (source/'catalog.json').write_text('{}')
     with pytest.raises(RuntimeError, match='no immutable provenance'):
         study.initial_contract(source, tmp_path, 6101, 'free_llm32_scientist_v2')
+
+
+def api_status_error(status, code=None):
+    import httpx
+    from openai import APIStatusError
+    return APIStatusError('Authorization: Bearer sk-secret',
+        response=httpx.Response(status, request=httpx.Request('POST', 'https://example.invalid')),
+        body={'code': code, 'message': 'sk-secret'})
+
+
+@pytest.mark.parametrize('status', [408, 409, 429, 500, 502, 503, 504, 599])
+def test_transient_status_retries_same_request_without_replaying_queries(tmp_path, monkeypatch, status):
+    c, p, ledger = setup()
+    successful, calls = scripted(c, p)
+    attempts, delays = [], []
+    def call(messages, cfg):
+        attempts.append(copy.deepcopy(messages))
+        if len(attempts) <= 2:
+            raise api_status_error(status)
+        return successful(messages, cfg)
+    monkeypatch.setattr(transport.time, 'sleep', delays.append)
+    transport.run_selector(p, c, ledger, tmp_path, config(), call=call)
+    assert attempts[0] == attempts[1] == attempts[2]
+    assert delays == [2, 4] and len(attempts) == 5 and len(calls) == 3
+    assert len(c.queries) == 2
+    events = verify_audit(tmp_path/'audit.jsonl')
+    starts = [e for e in events if e['event_type'] == 'transport_attempt']
+    assert len(starts) == 5 and len({e['request_sha256'] for e in starts[:3]}) == 1
+    assert len([e for e in events if e['event_type'] == 'response']) == 3
+    assert read(tmp_path/'turn_00.json')['provenance']['transport_attempts'] == 3
+    assert not list(tmp_path.glob('failure_*.json'))
+    assert 'sk-secret' not in (tmp_path/'audit.jsonl').read_text()
+
+
+@pytest.mark.parametrize('kind', ['connection', 'timeout', 'server'])
+def test_transient_retry_exhaustion_is_bounded_and_audited(tmp_path, monkeypatch, kind):
+    import httpx
+    from openai import APIConnectionError, APITimeoutError
+    request = httpx.Request('POST', 'https://example.invalid')
+    error = {'connection': APIConnectionError(message='sk-secret', request=request),
+             'timeout': APITimeoutError(request=request), 'server': api_status_error(503)}[kind]
+    c, p, ledger = setup()
+    attempts, delays = [], []
+    def fail(*args):
+        attempts.append(1)
+        raise error
+    monkeypatch.setattr(transport.time, 'sleep', delays.append)
+    with pytest.raises(RuntimeError, match='STOP'):
+        transport.run_selector(p, c, ledger, tmp_path, config(), call=fail)
+    assert len(attempts) == 4 and delays == [2, 4, 8]
+    assert len(c.queries) == 0 and not (tmp_path/'selection.json').exists()
+    receipt = read(tmp_path/'failure_00.json')
+    assert receipt['attempts'] == 4 and receipt['retries_performed'] == 3
+    assert receipt['automatic_retry'] and not receipt['will_retry']
+    assert len(list(tmp_path.glob('transport_attempt_*.json'))) == 4
+    events = verify_audit(tmp_path/'audit.jsonl')
+    assert events[-1]['event_type'] == 'transport_failure'
+    assert 'sk-secret' not in (tmp_path/'audit.jsonl').read_text()
+    with pytest.raises(RuntimeError, match='already started'):
+        transport.run_selector(p, c, ledger, tmp_path, config(), call=fail)
+    assert len(attempts) == 4
+
+
+@pytest.mark.parametrize('status,code', [(400, None), (401, None), (403, None), (404, None),
+    (422, None), (429, 'insufficient_quota'), (429, 'billing_hard_limit_reached')])
+def test_permanent_api_errors_do_not_retry(tmp_path, monkeypatch, status, code):
+    c, p, ledger = setup()
+    calls = []
+    def fail(*args):
+        calls.append(1)
+        raise api_status_error(status, code)
+    monkeypatch.setattr(transport.time, 'sleep', lambda _: pytest.fail('no sleep'))
+    with pytest.raises(RuntimeError, match='STOP'):
+        transport.run_selector(p, c, ledger, tmp_path, config(), call=fail)
+    assert len(calls) == 1
+    receipt = read(tmp_path/'failure_00.json')
+    assert receipt['http_status'] == status and not receipt['retryable']
+    assert 'sk-secret' not in (tmp_path/'audit.jsonl').read_text()
+
+
+def test_protocol_guard_rechecked_before_retry(tmp_path, monkeypatch):
+    c, p, ledger = setup()
+    changed, calls = [], []
+    def guard():
+        if changed:
+            raise RuntimeError('STOP STUDY: source drift')
+    def fail(*args):
+        calls.append(1)
+        raise api_status_error(503)
+    monkeypatch.setattr(transport.time, 'sleep', lambda _: changed.append(True))
+    with pytest.raises(RuntimeError, match='source drift'):
+        transport.run_selector(p, c, ledger, tmp_path, config(), call=fail, guard=guard)
+    assert len(calls) == 1 and not (tmp_path/'selection.json').exists()
+
+
+def test_retry_configuration_and_legacy_no_retry(tmp_path, monkeypatch):
+    for value in (-1, 4, True, 1.5):
+        with pytest.raises(ValueError, match='transport_retries'):
+            transport.settings(transport_retries=value)
+    with pytest.raises(ValueError, match='only for Responses'):
+        transport.settings('codex_cli', transport_retries=1)
+    assert transport.settings()['retry_policy']['max_transport_calls_per_selection'] == 112
+    assert study.STUDY.name == 'qgeognn_v2_row_llm_scientist_v3_1'
+    c, p, ledger = setup()
+    cfg = config(); cfg.pop('retry_policy'); cfg['automatic_retry'] = False
+    calls = []
+    def fail(*args):
+        calls.append(1)
+        raise api_status_error(503)
+    monkeypatch.setattr(transport.time, 'sleep', lambda _: pytest.fail('no sleep'))
+    with pytest.raises(RuntimeError, match='STOP'):
+        transport.run_selector(p, c, ledger, tmp_path, cfg, call=fail)
+    assert len(calls) == 1
+
+
+def test_responses_sdk_retries_disabled_and_model_parameters_preserved(monkeypatch):
+    from types import SimpleNamespace
+    import openai
+    constructor, requests = [], []
+    def create(**kwargs):
+        requests.append(kwargs)
+        return SimpleNamespace(model='gpt-6-sol', output=[], output_text='{}', id='synthetic', usage=None)
+    def client(**kwargs):
+        constructor.append(kwargs)
+        return SimpleNamespace(responses=SimpleNamespace(create=create))
+    monkeypatch.setattr(openai, 'OpenAI', client)
+    monkeypatch.setenv('SCIENTIST_API_KEY', 'synthetic-test-key')
+    answer, provenance = transport.responses_call([], config())
+    assert answer == '{}' and provenance['served_model'] == 'gpt-6-sol'
+    assert constructor[0]['max_retries'] == 0 and constructor[0]['timeout'] == 600
+    assert requests[0] == {'model': 'gpt-6-sol', 'input': [], 'tools': [], 'store': False,
+                           'reasoning': {'effort': 'high'}}
