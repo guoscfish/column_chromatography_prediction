@@ -19,3 +19,25 @@ other terminal failure stops this attempt without an in-place protocol change.
 
 Operation and verification receipts are stored under `execution/`. Canonical
 scientific state is derived by `study.state` from immutable phase artifacts.
+
+## Authorized continuation to the registered endpoint
+
+After the first batch was trained, the user authorized automatically continuing
+seed157 / Free-LLM32 through all registered budgets: 333, 365, 397, 429, 461, 493,
+525. The final endpoint is six completed acquisitions and 525 training labels.
+The bounded multi-call selection strategy, source fingerprint, prompt, query
+limits, model and predictor remain unchanged. This run uses the existing
+24-query / 28-logical-call limit per batch and three transient transport retries.
+
+`scripts/studies/run_qgeognn_v3_loop.py` is an external orchestration controller.
+It follows canonical state through stage, select and advance, without restarting
+failed selectors, editing the frozen protocol or starting another seed/method.
+The controller records its own file hash and operation events in
+`execution/continuous_loop/`. It stops at the registered budget or a terminal
+failure; successful training automatically leads to the next round.
+
+After the loop ends, it summarizes already stored validation fit metrics into
+`validation_learning_curve.json` and `.md` under that execution directory. These
+scores never enter the selector's context. No test truth is read. One seed's
+checkpoint-validation curve is preliminary evidence, not an independent test or
+a matched comparison against other acquisition strategies.
