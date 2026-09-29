@@ -856,3 +856,37 @@ def test_continuous_loop_exactly_six_rounds_or_stops(tmp_path,fail_round):
         assert not any(r>2 for _,r in calls)
     with pytest.raises(RuntimeError,match='already started'):
         controller.run_loop(tmp_path,157,study.METHODS[0],api=api,validate=lambda _:None)
+
+@pytest.mark.parametrize('kind',['remote_protocol','read_error','read_timeout','missing_completion'])
+def test_stream_disconnect_retries_are_bounded_and_keep_identical_request(tmp_path,monkeypatch,kind):
+    import httpx
+    errors={'remote_protocol':httpx.RemoteProtocolError('synthetic disconnect'),
+            'read_error':httpx.ReadError('synthetic disconnect'),
+            'read_timeout':httpx.ReadTimeout('synthetic timeout'),
+            'missing_completion':transport.TransportFailure('stream_disconnected_before_completion')}
+    c,p,ledger=setup(); calls=[];delays=[]
+    monkeypatch.setattr(transport.time,'sleep',delays.append)
+    def call(messages,cfg):
+        calls.append(messages)
+        raise errors[kind]
+    with pytest.raises(RuntimeError,match='STOP: transport failure'):
+        transport.run_selector(p,c,ledger,tmp_path,config(),call=call)
+    assert len(calls)==4 and all(m==calls[0] for m in calls)
+    assert delays==[2,4,8] and not c.queries
+    receipt=read(tmp_path/'failure_00.json')
+    assert receipt['attempts']==4 and receipt['retryable'] and receipt['exception_type']
+
+
+def test_missing_stream_completion_is_transient_but_partial_content_not_used(monkeypatch):
+    from types import SimpleNamespace
+    import openai
+    class Stream:
+        def __enter__(self):return self
+        def __exit__(self,*args):pass
+        def __iter__(self):return iter([])
+        def get_final_response(self):raise RuntimeError("Didn't receive a `response.completed` event.")
+    monkeypatch.setattr(openai,'OpenAI',lambda **kwargs:SimpleNamespace(responses=SimpleNamespace(stream=lambda **kwargs:Stream())))
+    monkeypatch.setenv('SCIENTIST_API_KEY','synthetic')
+    with pytest.raises(transport.TransportFailure) as error:
+        transport.responses_call([],config())
+    assert transport.transport_error(error.value)['retryable']

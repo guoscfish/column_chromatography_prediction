@@ -158,7 +158,12 @@ def responses_call(messages, config):
         for event in stream:
             if event.type in ('response.failed', 'response.incomplete', 'error'):
                 raise TransportFailure('incomplete_or_failed_response_stream')
-        response = stream.get_final_response()
+        try:
+            response = stream.get_final_response()
+        except RuntimeError as error:
+            if str(error) == "Didn't receive a `response.completed` event.":
+                raise TransportFailure('stream_disconnected_before_completion') from None
+            raise
     if response.status != 'completed':
         raise TransportFailure('incomplete_response')
     if response.model != config['model'] and not response.model.startswith(config['model']+'-'):
@@ -173,13 +178,15 @@ def responses_call(messages, config):
 def transport_error(error):
     """Return allowlisted diagnostics only; never persist error text or provider bodies."""
     from openai import APIConnectionError, APITimeoutError, APIStatusError
+    import httpx
     status = None
     retryable = False
     if isinstance(error, TransportFailure):
         category = error.category
-    elif isinstance(error, (APITimeoutError, TimeoutError, subprocess.TimeoutExpired)):
+        retryable = category == 'stream_disconnected_before_completion'
+    elif isinstance(error, (APITimeoutError, TimeoutError, subprocess.TimeoutExpired, httpx.TimeoutException)):
         category, retryable = 'transport_timeout', True
-    elif isinstance(error, (APIConnectionError, ConnectionError)):
+    elif isinstance(error, (APIConnectionError, ConnectionError, httpx.NetworkError, httpx.RemoteProtocolError)):
         category, retryable = 'transport_connection', True
     elif isinstance(error, APIStatusError):
         status = error.status_code
@@ -190,7 +197,7 @@ def transport_error(error):
         category = 'cli_exit'
     else:
         category = 'runtime_or_provider_failure'
-    return {'error_category': category, 'http_status': status, 'retryable': retryable}
+    return {'exception_type': type(error).__name__, 'error_category': category, 'http_status': status, 'retryable': retryable}
 
 
 def failure_receipt(error, request_hash, config, *, attempts=1):
