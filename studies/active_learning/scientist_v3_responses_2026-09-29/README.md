@@ -40,3 +40,28 @@ python scripts/studies/run_qgeognn_v3_row_llm_scientist.py select \
   --study-dir studies/active_learning/scientist_v3_responses_2026-09-29/qgeognn_v2_row_llm_scientist_v3 \
   --seed 157 --method free_llm32_scientist_v3 --round 0
 ```
+
+## Recorded outcome
+
+The single authorized operation ran from 02:19:52 to 02:31:13 UTC on
+2026-09-29 (681 seconds), then stopped on request 18 with a transport failure
+classified as `runtime_or_provider_failure`. The sanitized receipt does not
+identify a more specific cause. There were 17 completed responses, 24 query
+attempts and 128 distinct candidate views. Four responses failed JSON parsing;
+six queries failed argument validation. These received the existing protocol's
+structured error feedback without human intervention or source changes.
+
+No selection or batch was frozen. Canonical state is
+`STOP_failed_or_interrupted_selector`, with 333 active labels. There were zero
+label-store calls, no training and no test evaluation. This attempt must not be
+rerun using the example command above: `selector.started.json` preserves its
+single-attempt boundary. No retry or protocol revision was performed.
+
+The audit hash chain and protocol validation passed. Request sizes ranged from
+31,232 to 75,395 characters, below the 100,000-character hard limit. Completed
+responses reported 350,460 input and 10,472 output tokens; usage for the failed
+request is unknown. All 727 preserved V2 files and all 30 prior CLI V3 files
+retained their hashes. The full private API key was absent from these artifacts.
+
+See `selection_operation_20260929.json` for the operation receipt and
+`selection_verification_20260929.json` for the independently checked outcome.
