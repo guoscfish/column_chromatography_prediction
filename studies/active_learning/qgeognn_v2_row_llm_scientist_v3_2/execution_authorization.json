@@ -1,0 +1,26 @@
+{
+  "user_instruction": "如果都改完了开始正式跑的话，跑六轮，L333 → L365 → L397 → L429 → L461 → L493 → L525",
+  "seed": 157,
+  "method": "free_llm32_scientist_v3_2",
+  "budgets": [
+    333,
+    365,
+    397,
+    429,
+    461,
+    493,
+    525
+  ],
+  "hybrid_authorized": false,
+  "other_seeds_authorized": false,
+  "stop_after_completed_acquisitions": 6,
+  "terminal_failure_policy": "STOP, no automatic source changes or selector restart",
+  "prior_failed_attempt_preserved": "attempts/nonstreaming_http524",
+  "initialization": "clean L333/U0; no earlier query results, selection, measurements or hypothesis ledger imported",
+  "latest_user_instruction": "继续完成",
+  "formal_attempt_number": 3,
+  "prior_failed_attempts_preserved": [
+    "attempts/nonstreaming_http524",
+    "attempts/stream_disconnect"
+  ]
+}
