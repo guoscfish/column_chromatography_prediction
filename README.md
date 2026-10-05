@@ -12,10 +12,11 @@
 | 可运行的入口 | [脚本索引](scripts/README.md) |
 | 目录、分支和维护规则 | [仓库结构](docs/repository/STRUCTURE.md) |
 
-本地只保留一个工作副本：`/Users/fish/Documents/GitHub/column_chromatography_prediction`。
-此前带 `_al_innovation` 后缀的目录是同一仓库的实验 worktree，创新筛选内容已经合并到
-`main`，该目录不再是独立项目。新的实验请从 `main` 创建临时 worktree，完成后将代码和
-研究记录合并回主线，避免两个目录产生分叉。
+主工作副本为 `/Users/fish/Documents/GitHub/column_chromatography_prediction`；其他实验 worktree 可保留独立工作上下文。已验证的代码和研究记录统一合并回 `main`，未完成实验明确标为草案。
+
+- [2026-10-05 LLM与传统策略结果汇总及六张对比图](reports/active_learning_status_20261005/REPORT.md)
+- [2026-10-05 仓库整理与合并记录](docs/repository/CLEANUP_20261005.md)
+- [双专家实验草案（待实验）](studies/active_learning/qgeognn_v2_row_llm_dual_expert_v1/README.md)
 
 ## 当前结论
 

@@ -1,0 +1,120 @@
+{
+  "study_version": "llm_dual_expert_v1",
+  "base_commit": "647271df406cb30f606fd58de97b182b87fe2fd5",
+  "status": "FROZEN_BEFORE_NEW_SELECTION",
+  "scientific_question": "Does independent chemistry and ML advice, synthesized by a free planner, improve QGeoGNN label efficiency?",
+  "split": "Row",
+  "seeds": [
+    157,
+    6101
+  ],
+  "methods": [
+    "random32",
+    "center_width_lcmd",
+    "free_llm32_dual_expert_v1"
+  ],
+  "budgets": [
+    333,
+    365,
+    397,
+    429,
+    461,
+    493,
+    525
+  ],
+  "batch_size": 32,
+  "selection_count": 32,
+  "training": {
+    "model_variant": "qgeognn_v2",
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0,
+    "batch_size": 2048,
+    "maximum_epochs": 1000,
+    "patience": 100,
+    "shuffle": "deterministic_each_epoch",
+    "loss_weights": {
+      "V1": 1.0,
+      "V2": 1.0
+    },
+    "checkpoint_selection": "validation_combined_normalized_rmse",
+    "test_during_training": false,
+    "architecture_changed": false,
+    "head_changed": false,
+    "condition_branch_changed": false
+  },
+  "training_control": "unchanged QGeoGNN configuration; no training is started by this implementation",
+  "transport": {
+    "backend": "responses",
+    "model": "gpt-6-sol",
+    "base_url": "https://token4research.cn",
+    "reasoning_effort": "high",
+    "authentication": "environment_key",
+    "key_env": "SCIENTIST_API_KEY",
+    "automatic_fallback": false,
+    "responses_store": false,
+    "cli_isolation": "fresh temporary cwd with native-call audit"
+  },
+  "query_budget_per_role": 24,
+  "view_budget_per_role": 480,
+  "model_call_budget": {
+    "chemistry_scientist": 12,
+    "ml_scientist": 12,
+    "scientific_planner": 16
+  },
+  "roles": [
+    "chemistry_scientist",
+    "ml_scientist",
+    "scientific_planner"
+  ],
+  "fixed_quota": null,
+  "hidden_reranking": null,
+  "context_isolation": "independent role transcripts and seed/method/round directories",
+  "truth_barrier": "batch_freeze.json must exist before any future reveal; this module has no reveal/advance path",
+  "selector_boundary": "trajectory-local L_t/U_t features and predictions only; no validation/test/other seed truth",
+  "prompts": {
+    "chemistry": "f99dbbbae0b5065577f1f831ecc9404e7409f546c61eefbe8d683df8fb3f4fcb",
+    "ml": "0754ded11950f4b2cf18dc327ab8bcabab48d82128f7673df993357bc0458706",
+    "planner": "a29345134306d1f58cc4b4bfd151aefa4260df169d6485a41e1d14fe5a1d8780"
+  },
+  "source_manifest": {
+    "experiments/e0_4g_baseline/canonical_4g.csv": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+    "studies/active_learning/qgeognn_v2_row_short_sequential_b32/protocol.json": "7bfc76f4dccaa429e745817dd81b892e990b2eeed51e55d027fb05f5088ded7b",
+    "studies/active_learning/qgeognn_v2_row_short_sequential_b32/splits/row_seed_157.csv": "e1718212472ae86f5ca3f16c4d8e3905c043b06bf4830e87b5a9d0bb64577472",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/context.json": "dec8dcb1f80afc3511a2ea867fc342f5506f81902ec8425c2dc25fbc25e50757",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/scrubbed_graphs.pt": "29c2d4c5d9b4b0165c7ef5d400c0d7a5ae53795e10aea67318f68705ec9d9239",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_00/model/best.pt": "87e92ccdabc1dd64ecf89a3061624450ce125906c4cbb988d7263b190991b1c0",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_00/acquisition_artifacts/current_gradient_features.npz": "80c9a397f0c2d1b7caf8377929b046f24ed324718508ec35f6c6043672854147",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_00/acquisition_artifacts/current_gradient_features.npz.contract.json": "3881663fa3c718b5f6bf7330bbb8673ff2a48cffdc49b49b487207cdeeb68a1d",
+    "studies/active_learning/qgeognn_v2_row_short_sequential_b32/splits/row_seed_6101.csv": "3c8c809b2b6e63bd0b3d2f28032f0ae60adc66078fafb5e459d4d510d599e338",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/context.json": "08826d3c0e91dad858d9075d6552dc30cc2f8403be29183ef6e3312ac6110d8e",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/scrubbed_graphs.pt": "29c2d4c5d9b4b0165c7ef5d400c0d7a5ae53795e10aea67318f68705ec9d9239",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_00/model/best.pt": "bcfffa247c3d24c8c74993ddb66cb59741ae14b1e67e8ed9543a8d1af7c6c494",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_00/acquisition_artifacts/current_gradient_features.npz": "b1e3a748fb37ad2c180fc347e73153d2b011a16d9c9728ab91bbd5ec652e68b5",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_00/acquisition_artifacts/current_gradient_features.npz.contract.json": "22eef4e5d19af6394f7a1663cbe561d80721138aaaf42f8f9998cf9072427312"
+  },
+  "code_hashes": {
+    "scripts/studies/run_qgeognn_v2_row_llm_dual_expert.py": "bc72a6accf707cf7c5b360cb8962c1f04f1a1718447dfe62d0607cdc76fe5265",
+    "src/qgeognn_al/active_learning_v2/dialog_bridge.py": "e33ffb73bb40cf63a1d7f6790e5223706ee8fffa02c959c44ddd281d48ec4317",
+    "src/qgeognn_al/active_learning_v2/dialog_study.py": "636ceb174fbaf9d1042130cf1e8c604d728875389ddc3a238cb79ad94eec0f39",
+    "src/qgeognn_al/active_learning_v2/dual_expert_selector.py": "acd9061d6d21daee0401593d75f02687fd0cba2d9ca729cde30328eaef8ccf5f",
+    "src/qgeognn_al/active_learning_v2/dual_expert_study.py": "900dc1d20eafc6c76ca61528f9b3dc5b0bfb3cd5c0927a9ba38f68127b100d1b",
+    "src/qgeognn_al/active_learning_v2/dual_expert_transport.py": "9de8cee0d8373fb56a2ecb40009d345d09ca073c59ed6a429b2c5f23a48158d6",
+    "src/qgeognn_al/active_learning_v2/llm_screen.py": "1c2cb06957c8fcade076e4bb79335519ff14037e51f4fddf683aebc4f7eecf83",
+    "src/qgeognn_al/active_learning_v2/protocol.py": "919f7382544e1f89eeb8381ca1b53bf0a206637580c6019b966348b8fb8777d1",
+    "src/qgeognn_al/active_learning_v2/runner.py": "4f6e7e3b3ac32342366423eb8d7b75159e17da7cb64fa3734db0d7e55f5ebe2b",
+    "src/qgeognn_al/active_learning_v2/scientist_selector.py": "7a7df9382345add4fbf1a76a50ed8bb85f5726d7fe0ae8f2ea41503261509dc1",
+    "src/qgeognn_al/active_learning_v2/scientist_transport.py": "89d97b0c219866087bf61874d9a48335684f73ab68221e376ce080b301e194c8",
+    "src/qgeognn_al/active_learning_v2/short_sequential_runner.py": "0445082171c849463f22a85d5ed1b60877c084418cb7c89cd994f20ff4f6b38f"
+  },
+  "packages": {
+    "numpy": "2.4.6",
+    "pandas": "3.0.5",
+    "torch": "2.10.0",
+    "torch-geometric": "2.7.0",
+    "rdkit": "2025.9.3",
+    "scipy": "1.17.1",
+    "scikit-learn": "1.9.0"
+  },
+  "historical_v2_base_commit": "647271df406cb30f606fd58de97b182b87fe2fd5"
+}

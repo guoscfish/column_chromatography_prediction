@@ -789,7 +789,17 @@ def test_diagnostic_is_informational_even_for_concentrated_batch():
 def test_v31_artifacts_and_scientific_sources_untouched():
     paths=['studies/active_learning/qgeognn_v2_row_llm_scientist_v3_1','src/qgeognn_al/active_learning_v3',
            'src/qgeognn_al/active_learning_v2','src/qgeognn_al/models','src/qgeognn_al/training']
-    assert subprocess.check_output(['git','diff','8a8a917','--',*paths],text=True)==''
+    # The frozen V3.2 release must retain the original V3.1 scientific sources.
+    # Main now also contains later V2 transport work and independent studies.
+    assert subprocess.check_output(
+        ['git','diff','8a8a917','a66a753','--',*paths],text=True)==''
+    original = subprocess.check_output(
+        ['git','ls-tree','-r','--name-only','8a8a917','--',*paths],text=True).splitlines()
+    evolved = {'src/qgeognn_al/active_learning_v2/scientist_study.py',
+               'src/qgeognn_al/active_learning_v2/scientist_transport.py'}
+    protected = [path for path in original if path not in evolved]
+    assert subprocess.check_output(['git','diff','8a8a917','--',*protected],text=True)==''
+
 
 
 def test_six_rounds_only_registered_free_seed157():

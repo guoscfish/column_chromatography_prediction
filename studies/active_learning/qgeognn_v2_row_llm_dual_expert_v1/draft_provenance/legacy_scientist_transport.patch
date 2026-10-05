@@ -1,0 +1,33 @@
+--- 04869e5/src/qgeognn_al/active_learning_v2/scientist_transport.py
++++ dual-draft/src/qgeognn_al/active_learning_v2/scientist_transport.py
+@@ -257,26 +257,9 @@
+             raise ValueError("expected query or selection")
+         if index == MODEL_CALL_BUDGET-1 or len(catalog.queries)+len(queries) > catalog.query_budget:
+             raise ValueError("selector exceeded query/answer budget")
+-        results = []
+-        errors = []
+-        for query in queries:
+-            try:
+-                results.append(catalog.query(query["operation"], query["args"]))
+-                errors.append(None)
+-            except (ValueError, TypeError, KeyError) as error:
+-                # Feed malformed relay syntax back to the model without guessing
+-                # intent or counting the failed request as a catalog query.
+-                results.append({"error": type(error).__name__, "message": str(error)})
+-                errors.append(str(error))
+-        if any(errors):
+-            once(directory / f"query_error_{index:02d}.json", {
+-                "queries": queries, "results": results,
+-                "errors": errors, "remaining_answers": MODEL_CALL_BUDGET-index-1})
+-        else:
+-            once(directory / f"query_{index:02d}.json", {"queries": queries, "results": results})
+-        feedback = {"query_results": results, "remaining_answers": MODEL_CALL_BUDGET-index-1}
+-        if any(errors):
+-            feedback["query_errors"] = errors
++        results = [catalog.query(q["operation"], q["args"]) for q in queries]
++        once(directory / f"query_{index:02d}.json", {"queries": queries, "results": results})
+         messages += [{"role": "assistant", "content": receipt["answer"]},
+-                     {"role": "user", "content": json.dumps(feedback, ensure_ascii=False)}]
++                     {"role": "user", "content": json.dumps({"query_results": results,
++                         "remaining_answers": MODEL_CALL_BUDGET-index-1}, ensure_ascii=False)}]
+     raise RuntimeError("selector did not return a selection")
