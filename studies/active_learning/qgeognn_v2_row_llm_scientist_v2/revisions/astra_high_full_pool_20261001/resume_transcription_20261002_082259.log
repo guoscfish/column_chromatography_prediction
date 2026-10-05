@@ -1,0 +1,53 @@
+/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/requests/__init__.py:86: RequestsDependencyWarning: Unable to find acceptable character detection dependency (chardet or charset_normalizer).
+  warnings.warn(
+[LLM-AL 2026-10-02 08:23:05] round 6: validate authorized transcription correction and freeze batch; started
+[LLM-AL 2026-10-02 08:23:09] round 6: train final 525-label model; started
+[LLM-AL 2026-10-02 08:23:39] round 6: train final 525-label model; still running; elapsed=30.0s
+[LLM-AL 2026-10-02 08:24:09] round 6: train final 525-label model; still running; elapsed=60.0s
+[LLM-AL 2026-10-02 08:24:39] round 6: train final 525-label model; still running; elapsed=90.0s
+{
+  "status": "TRAJECTORY_COMPLETE_NO_TEST_EVALUATION",
+  "final_active_labels": 525,
+  "validation_learning_curve": [
+    {
+      "round": 0,
+      "labels": 333,
+      "validation_nrmse": 0.8538865655827187
+    },
+    {
+      "round": 1,
+      "labels": 365,
+      "validation_nrmse": 0.7844993667274389
+    },
+    {
+      "round": 2,
+      "labels": 397,
+      "validation_nrmse": 0.7861180061033118
+    },
+    {
+      "round": 3,
+      "labels": 429,
+      "validation_nrmse": 0.7306049108037806
+    },
+    {
+      "round": 4,
+      "labels": 461,
+      "validation_nrmse": 0.7418851093408472
+    },
+    {
+      "round": 5,
+      "labels": 493,
+      "validation_nrmse": 0.7287084953703056
+    },
+    {
+      "round": 6,
+      "labels": 525,
+      "validation_nrmse": 0.6454839364474252
+    }
+  ],
+  "test_evaluation_performed": false,
+  "protocol_deviation": "Round 6 fourth response plus user-authorized one-character ID repair.",
+  "trajectory_freeze_sha256": "7d950d77bbe774336546bb32504fecd20b0c4fe2a841dd612f19070559be5798",
+  "correction_receipt_sha256": "a835766fa7895066979513e6ca5af502244d6a5977d58b3d7bc1aa70d243ec47",
+  "audit_runner": "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/astra_high_full_pool_20261001/resume_round6_transcription_fix.py"
+}

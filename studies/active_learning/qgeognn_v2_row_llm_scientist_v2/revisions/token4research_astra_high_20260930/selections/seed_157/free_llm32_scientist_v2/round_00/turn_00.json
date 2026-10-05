@@ -1,0 +1,37 @@
+{
+  "request_sha256": "b9a3a28a8216448d8fddefbfd3da4bac18d6aa2312668dff2e0b46bad1190b34",
+  "answer": "{\"type\":\"query\",\"queries\":[{\"operation\":\"search_candidates\",\"args\":{\"sort_by\":\"V1_quantile_width_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"sort_by\":\"V2_quantile_width_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"sort_by\":\"cw_distance_percentile\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"sort_by\":\"molecule_novelty\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"sort_by\":\"condition_novelty\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"sort_by\":\"historical_abs_error_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"sort_by\":\"max_similarity_to_observed\",\"order\":\"asc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"sort_by\":\"loading_amount_mg\",\"order\":\"desc\",\"limit\":24}}]}",
+  "provenance": {
+    "audit": {
+      "turns": [
+        {
+          "model": "gpt-6-astra",
+          "effort": "high"
+        }
+      ],
+      "native_tool_calls": 0,
+      "response_item_types": [
+        "message",
+        "message",
+        "message",
+        "message",
+        "message",
+        "reasoning",
+        "message"
+      ],
+      "configuration_warnings": [],
+      "event_sha256": "28776036c94a0106d27a837fdd7e0719a58c201ccde0a51f70ec4f181b6285ad",
+      "rollout_sha256": "acb89774a4d0524b136aaff3b2a0afb434734b762bb430ca3074277d11b55353"
+    },
+    "usage": [
+      {
+        "input_tokens": 23162,
+        "cached_input_tokens": 8960,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 329,
+        "reasoning_output_tokens": 116
+      }
+    ],
+    "cli_version": "codex-cli 0.158.0-alpha.2.1"
+  }
+}

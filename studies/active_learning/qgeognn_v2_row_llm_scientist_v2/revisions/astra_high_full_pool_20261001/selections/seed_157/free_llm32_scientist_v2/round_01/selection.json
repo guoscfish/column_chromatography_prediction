@@ -1,0 +1,256 @@
+{
+  "type": "selection",
+  "packet_sha256": "1ee03aae0cce930b6575ab2aa3175e5cc8e4a391e2bc312f1b2802429e09f4f1",
+  "batch_strategy": "Use a diverse but chemically structured batch: extend carbonyl and ester response curves, probe nitrogen and oxygenated aromatic transfer, test weak and strong eluent regimes, and cover fast nonpolar rows. Several pairs form local condition-response experiments; the remainder repair underrepresented structural regions and high-distance rows. All IDs are distinct legal candidates and predictions must remain frozen before measurement.",
+  "choices": [
+    {
+      "id": "cd2c80dae2f32a52732f",
+      "reason": "Ethyl acetoacetate at 5/1 extends the beta-ketoester family around measured methyl acetoacetate cd566862a517dd7cdc8d and the strongly underpredicted ether acetoacetate c6924324ddd95f249df6. It tests whether the model transfers carbonyl-plus-ester response across alkyl substitution.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "4aabb77c06ad8c4b91fa",
+      "reason": "p-Chlorobenzophenone in pure EA probes the strong-eluent endpoint of a neutral aromatic ketone with halogen substitution, covering a condition and structural region not represented by the recent multifunctional corrections.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "d01d365af220241485ec",
+      "reason": "Trifluoroethyl acrylate at 50/1 supplies a fast-eluting, low-polarity ester row. It improves coverage of the lower-retention tail while testing whether fluorinated ester polarity is being overestimated from ordinary acrylates.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "9181e4bc1c8af8bf8693",
+      "reason": "Bibenzyl at 5/1 is a nonpolar aromatic reference with low similarity to many polar failure cases. Its label helps calibrate the neutral aromatic regime and prevents the batch from overconcentrating on strongly adsorbing functional groups.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "67b7c283d1762ce094e6",
+      "reason": "o-Methylacetophenone at 5/1 tests steric shielding of an aromatic ketone. This is a targeted comparison to the unusually early mesityl ketone outcome f73fd2f4c55177304721 rather than a generic aromatic-ketone duplicate.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "d17718dc009389d217a2",
+      "reason": "Bromo-methoxytoluene at 20/1 samples a neutral aryl ether with halogen and methyl substitution. It tests whether the unusual oxygenated-aromatic solvent behavior is confined to carbonyl-containing molecules.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "bbb514661c0a49694d6a",
+      "reason": "Methyl benzoylformate under EA-rich conditions combines ester and ketone acceptors in a topology distinct from the beta-ketoesters. It directly probes the topology-dependent acceptor hypothesis after the large V2 errors in c6924324ddd95f249df6 and 0c5c35afb3a24375c153.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "4dedc80fb33d21596b7e",
+      "reason": "A cyclic beta-keto ester at 2/1 provides a constrained carbonyl topology and tests transfer from acetoacetate observations while adding a compact aliphatic structure to the training set.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "368ea7ae793fdfdcf602",
+      "reason": "p-Methoxyacetophenone in pure EA tests positional and solvent transfer within oxygenated aryl ketones. It is a direct structural complement to the contradicted intermediate-solvent predictions for dimethoxytoluene and methylenedioxyacetophenone.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "463aca130eb59787c2df",
+      "reason": "A bromochloro benzaldehyde at 20/1 probes halogenated aromatic aldehyde retention under stronger eluent, helping separate carbonyl topology from the large responses observed for oxygen-rich aromatic compounds.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "3d5a3094cb10eee37b37",
+      "reason": "Ethyl cinnamate in pure EA samples a conjugated ester with one acceptor pair and extended aromaticity. It covers a common ester/aromatic relationship that is distinct from ketones and multifunctional esters.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "cfaceffb933d8cc2f151",
+      "reason": "Methyl acetoacetate at 1/1 supplies a weaker-eluent baseline for comparison with measured methyl acetoacetate cd566862a517dd7cdc8d at 5/1 and with the underpredicted ether analogue c6924324ddd95f249df6.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "619663c2b3ffb3a6c497",
+      "reason": "Salicylaldehyde at 50/1 tests the strong-eluent endpoint of the ortho-hydroxy aldehyde motif. Together with measured pure-EA ff3ee95fed58907ff8b3 and weaker-eluent salicylaldehyde rows, it tests whether late completion is compound specific.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "588b182228e5400a3c7a",
+      "reason": "Dibromobenzaldehyde in pure EA covers a halogenated aldehyde with no donor and tests whether strong-eluent completion behavior differs from salicylaldehyde rather than tracking aromatic carbonyl count alone.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "9c74e865c47b45a09229",
+      "reason": "Benzyl benzoate at 50/1 is a neutral di-oxygen aromatic ester with high hydrophobic surface. It adds a useful high-aromaticity ester regime for learning V1/V2 across broad, weakly polar molecules.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "7a9ddf2102dcd051c2f7",
+      "reason": "Bromonaphthaldehyde at 5/1 probes fused-ring aldehyde transfer and provides a mid-retention aromatic-carbonyl point between simple aldehydes and the highly retained multi-carbonyl rows.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "6000105cb6734cff8146",
+      "reason": "The beta-keto ester represented by m78 at 5/1 tests ester-plus-ketone topology at a different load and scaffold from the selected acetoacetates. It helps determine whether the recent carbonyl correction is structural or molecule-specific.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "7e86089bac8b650b9059",
+      "reason": "A chlorobromotoluene at 5/1 supplies a neutral halogenated aromatic reference with minimal hydrogen bonding. It improves generalization in the fast-to-intermediate nonpolar regime.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "ea810ad3e836415369bd",
+      "reason": "A diaryl diketone at 5/1 tests separated aromatic carbonyls under an intermediate eluent. Its label is informative alongside measured separated-diketone 0c5c35afb3a24375c153 and beta-diketone examples.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "fea64b3ae258f6efc23e",
+      "reason": "Bromobutylbenzene in pure PE is a low-polarity aliphatic-aromatic row that anchors the fast-elution tail and tests whether alkyl bromides are systematically shifted by aromatic surface area.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "cfaabf6bb144f1603460",
+      "reason": "A bis-trifluoromethyl bromoarene at 50/1 probes a highly hydrophobic but electronically unusual structure. It improves coverage of nonpolar high-MW rows and tests whether strong eluent creates unexpected retention in this regime.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "1d69b62112cfd5846e0a",
+      "reason": "Naphthaldehyde in pure EA adds a fused aromatic aldehyde at strong eluent and complements the selected bromonaphthaldehyde. This tests aromatic-size transfer without introducing additional donors or acceptors.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "70d035703d3eaebf81e6",
+      "reason": "Anisyl benzophenone at 1/1 combines an aryl ether with a diaryl ketone. It directly probes ether-plus-carbonyl topology after the oxygenated aromatic response anomalies in 17418a1ba5c9443057c3 and ae8805bc02bce03072e2.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "efba7e70f4e46055398b",
+      "reason": "3-Phenyl-1-propanol in 1/1 samples an exposed alcohol separated from the aryl ring. It extends the alcohol response beyond measured benzyl alcohol and the high-retention 1-phenylpropanol point c627405cf70a0daacc94.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "22fd19d74dd6b1208e4d",
+      "reason": "Phenoxyethyl acrylate at 1/1 tests an ether-plus-ester motif with an exposed flexible chain. This provides structural transfer for acceptor topology distinct from the compact beta-ketoesters.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "759630ce1a183c36325b",
+      "reason": "Diethyl bromomalonate at 2/1 tests a multi-ester halogenated scaffold and provides an intermediate solvent point for comparison with the unexpectedly early diethyl malonate observations 271f829efaeb0b6c03b9 and 9c10e0827e86bb3c7681.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "db81a705493a88f14ea0",
+      "reason": "p-Methylacetophenone at 1/1 is a compact aromatic-ketone calibration point. Together with o-methylacetophenone, it separates substitution-position effects from broad ketone retention trends.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "69f9cefb952abd22672c",
+      "reason": "Methyl bromomethylbenzoate at 20/1 tests an aromatic ester with a reactive halomethyl substituent. It adds a structurally distinct acceptor/halogen combination for transfer across aromatic ester rows.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "088e6991011a5a20ef36",
+      "reason": "Benzoylacetone at 2/1 tests a separated ketone-plus-ketone topology under intermediate eluent. Its label helps distinguish beta-diketone behavior from the separated aromatic diketone failures represented by 0c5c35afb3a24375c153.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "0530def762aaa01782dc",
+      "reason": "Methyl aminobenzoate in pure PE tests an aniline-plus-ester environment at a strong loading-solvent contrast. It complements measured aminoacetophenone 6b7209c2e8154837a8c7 and aminobenzoate observations, helping distinguish donor/basic-site effects.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "f4bf664ee55bdc446085",
+      "reason": "o-Methylacetophenone at 2/1 and higher load than the selected 5/1 row creates a local solvent/loading comparison for sterically shielded ketones. It tests whether the onset anomaly seen for oxygenated aromatics is condition driven.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "76adbcf0cdc6b3eed8e3",
+      "reason": "A dibrominated aliphatic-aromatic compound at 20/1 adds a low-polarity halogenated reference under stronger eluent. It broadens coverage of rows where retention is governed mainly by hydrophobic surface and molecular size.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Carbonyl and oxygen-acceptor topology produces markedly different retention responses. The early diethyl malonate observations should not be generalized to ether-bearing acetoacetates, multifunctional esters, or separated aromatic carbonyls.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "271f829efaeb0b6c03b9",
+        "9c10e0827e86bb3c7681",
+        "c6924324ddd95f249df6",
+        "9e3f598e00375ec93d9b",
+        "0c5c35afb3a24375c153"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The previous batch exposed large errors of opposite sign among superficially similar oxygen-rich structures. Response points across multiple topologies can teach transferable interactions rather than isolated molecule offsets.",
+      "next_discriminating_question": "Do the malonate exception and the delayed acetoacetate and separated-diketone responses persist across intermediate solvent conditions?"
+    },
+    {
+      "id": "H2",
+      "content": "Nitrogen identity and structural environment require distinct solvent-response curves across amines, pyridines, nitriles, and nitro groups.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "304fb0fdb486ae4b7a07",
+        "9a60cb4735780275034e",
+        "4659b6752f23c0b85f08",
+        "33ffc69a253a89f15995",
+        "b51b5dbcd2a38b174973"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched nitrogen experiments can distinguish missing functional-group effects from incorrect solvent sensitivity across recurring chemical families.",
+      "next_discriminating_question": "Do aromatic amino esters and nitrile/ketone compounds follow the same correction as pyridyl and nicotinate rows?"
+    },
+    {
+      "id": "H4",
+      "content": "Oxygenated aromatic response shapes are structure dependent. The previously predicted intermediate-solvent maxima for dimethoxytoluene and methylenedioxyacetophenone were not generally supported, so positional and functional-group transfer must be tested directly.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "17418a1ba5c9443057c3",
+        "1234fa6b7a71b815104c",
+        "ae8805bc02bce03072e2",
+        "a6a0404c3ad65c6d9326",
+        "50fbcf5ece9bd5fc2d70"
+      ],
+      "contradicting_observed_ids": [
+        "8143c4fff6f999b7ad0e",
+        "52b9af4df1f1e7cd4d9b"
+      ],
+      "confidence": "medium",
+      "status": "weakened",
+      "why_it_matters_for_model_learning": "The observations reject a universal monotonicity repair but still leave positional ether/carbonyl interactions underrepresented.",
+      "next_discriminating_question": "Do para-methoxy aryl ketones and aldehydes follow a smoother response than the ortho and methylenedioxy analogues?"
+    },
+    {
+      "id": "H5",
+      "content": "Pure-EA completion behavior for ortho-hydroxy carbonyls is compound specific rather than governed by a universal completion-volume increase.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "ff3ee95fed58907ff8b3",
+        "5067c9cd9f20d14c426f",
+        "23a5d9abd2b0db31a8d6"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "weakened",
+      "why_it_matters_for_model_learning": "Methyl salicylate contradicted the prior completion anomaly while salicylaldehyde remained late, so additional matched compounds can prevent overgeneralization.",
+      "next_discriminating_question": "Does the strong-eluent endpoint depend primarily on the hydroxy-carbonyl motif, aromatic size, or additional ether/halogen substitution?"
+    },
+    {
+      "id": "H6",
+      "content": "Loading can affect onset and completion differently, with molecule- and solvent-dependent magnitude; the supplied loading feature may need interaction terms.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "5b706e17e8412d02342f",
+        "b514312eda7950cdcf1c",
+        "8143c4fff6f999b7ad0e",
+        "ebdeaba52880c7eade16"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Nitrobenzophenone showed earlier onset but later completion at higher loading, while ortho-methoxyacetophenone suggested endpoint-specific changes.",
+      "next_discriminating_question": "Are loading effects smooth and transferable across neutral aromatic ketones, or are they specific to strongly adsorbing structures?"
+    }
+  ],
+  "feedback_interpretation": "The previous batch showed that diethyl malonate was much earlier than predicted at both measured solvent conditions, while ether-bearing acetoacetate, multifunctional methacrylate, and separated aromatic diketone rows were substantially later, especially in V2. Sulfoxide retention rose sharply from 1/1 to 5/1, confirming a solvent-response failure. Basic nitrogen compounds were often underpredicted, but the outcomes did not establish one common nitrogen correction. Matched dimethoxytoluene and methylenedioxyacetophenone measurements contradicted their predicted intermediate-solvent maxima. Ortho-methoxyacetophenone results indicated that loading and solvent effects can affect onset and completion differently. Nitrobenzophenone showed a particularly informative loading contrast, with earlier onset and later completion at higher load. Finally, methyl salicylate in pure EA finished much earlier than predicted, whereas salicylaldehyde remained late, weakening the universal hydroxy-carbonyl completion hypothesis. The corrected batch therefore emphasizes response curves, topology transfer, and endpoint-specific loading behavior.",
+  "batch_rationale": "The batch combines local condition-response experiments with coverage repair. Carbonyl and ester rows test the strongest observed failure pattern, including the malonate exception, ether-bearing acetoacetates, and separated diketones. Oxygenated aromatic pairs test whether the earlier response-shape anomalies transfer across positional isomers and aldehyde versus ketone functionality. Nitrogen-containing rows probe aniline ester, pyridyl ketone, and related aromatic environments. Hydroxy-carbonyl and alcohol rows examine the weakened strong-eluent completion hypothesis. Neutral halogenated and nonpolar rows anchor the fast and intermediate parts of the Row-distribution so the retrained model does not overfit the high-retention failure regions. Loading and solvent contrasts are used where they can distinguish competing endpoint mechanisms; broad redundancy is avoided. Quantile widths and CW distance are supplementary signals, not calibrated uncertainties, and V2 minus V1 remains an elution interval rather than uncertainty. Loading amount is treated only as density times volume, with no additional unrecorded variables inferred."
+}

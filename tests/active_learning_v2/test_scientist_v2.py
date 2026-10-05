@@ -1,6 +1,10 @@
 """Synthetic scientific boundary tests; no network or canonical hidden labels."""
 import copy
 import json
+from pathlib import Path
+import threading
+import tomllib
+from types import SimpleNamespace
 
 import numpy as np
 import pytest
@@ -12,6 +16,34 @@ from src.qgeognn_al.active_learning_v2.scientist_selector import (
     ReadOnlyCatalog, SYSTEM_PROMPT, scientific_memory, validate_selection)
 from src.qgeognn_al.active_learning_v2.scientist_transport import (
     audit_cli, recover_cli_rollout, run_selector, settings)
+from src.qgeognn_al.active_learning_v2 import scientist_transport as transport
+
+
+@pytest.mark.parametrize("status,model,item_type,accepted", [
+    ("completed", "gpt-6-astra", "message", True),
+    ("incomplete", "gpt-6-astra", "message", False),
+    ("failed", "gpt-6-astra", "message", False),
+    ("completed", "gpt-6-sol", "message", False),
+    ("completed", "gpt-6-astra", "function_call", False),
+])
+def test_streamed_response_requires_complete_expected_model_without_tools(
+        monkeypatch, status, model, item_type, accepted):
+    import openai
+    from unittest.mock import MagicMock
+    response = SimpleNamespace(status=status, model=model, output=[SimpleNamespace(type=item_type)],
+                               output_text='{"ok":true}', id="test-response", usage=None)
+    client = MagicMock()
+    client.responses.stream.return_value.__enter__.return_value.get_final_response.return_value = response
+    monkeypatch.setattr(openai, "OpenAI", lambda **kwargs: client)
+    monkeypatch.setattr(transport, "provider_key", lambda config: "test-key")
+    if accepted:
+        answer, provenance = transport.responses_call([], settings(backend="responses"))
+        assert answer == response.output_text
+        assert provenance["served_model"] == "gpt-6-astra"
+    else:
+        with pytest.raises(RuntimeError):
+            transport.responses_call([], settings(backend="responses"))
+    assert client.responses.stream.call_args.kwargs["tools"] == []
 
 
 def row(i, observed=False):
@@ -187,7 +219,7 @@ def mocked_call(p):
     return call
 
 
-def test_transport_replay_and_no_automatic_retry(tmp_path):
+def test_transport_replay_and_started_marker_validation(tmp_path):
     p = packet()
     c = ReadOnlyCatalog(**raw())
     c.initial_cards()
@@ -205,6 +237,28 @@ def test_transport_replay_and_no_automatic_retry(tmp_path):
     once(empty / "turn_00.started.json", {"request_sha256": "anything"})
     with pytest.raises(RuntimeError, match="interrupted|started CLI"):
         run_selector(p, c, empty, settings(), call=fail)
+
+
+def test_transport_retries_same_logical_turn_and_records_failures(tmp_path, monkeypatch):
+    p = packet()
+    c = ReadOnlyCatalog(**raw())
+    c.initial_cards()
+    calls = {"count": 0}
+    delegate = mocked_call(p)
+
+    def flaky(messages, config):
+        calls["count"] += 1
+        if calls["count"] <= 2:
+            raise RuntimeError("temporary provider outage")
+        return delegate(messages, config)
+
+    monkeypatch.setattr(transport, "RETRY_BACKOFF_SECONDS", 0)
+    result = run_selector(p, c, tmp_path, settings(), call=flaky)
+    assert len(result["choices"]) == 32
+    assert calls["count"] >= 4  # two transport retries, then query and selection turns
+    failures = sorted((tmp_path / "retries/turn_00").glob("attempt_*.json"))
+    assert len(failures) == 2
+    assert all(read(path)["error_type"] == "RuntimeError" for path in failures)
 
 
 def test_cli_audit_rejects_native_tools_unknown_items_and_wrong_model():
@@ -410,3 +464,227 @@ def test_prompt_objective_and_no_hidden_strategy_quota():
     assert "The goal is NOT to optimize chromatographic performance" in SYSTEM_PROMPT
     assert "These are outcomes of experiments you previously selected" in SYSTEM_PROMPT
     assert "V2 - V1 is the elution" in SYSTEM_PROMPT
+
+
+@pytest.mark.parametrize("single", [False, True])
+def test_runner_completes_six_feedback_cycles_before_report(tmp_path, monkeypatch, single):
+    monkeypatch.setattr(study, "STUDY", tmp_path)
+    monkeypatch.setattr(study, "prepare", lambda config: None)
+    monkeypatch.setattr(study, "check_transport", lambda config: None)
+    monkeypatch.setattr(study, "Context", lambda seed: seed)
+    monkeypatch.setattr(study, "state", lambda *args: None)
+    targets = [(157, study.METHODS[1])] if single else [
+        (seed, method) for seed in study.SEEDS for method in study.METHODS]
+    selected, feedback = set(), set()
+
+    def select(seed, method, r):
+        # The next selector must see the preceding batch's completed fit/feedback.
+        assert r == 0 or (seed, method, r-1) in feedback
+        selected.add((seed, method, r))
+        return {"status": "BATCH_FROZEN_BEFORE_REVEAL"}
+
+    def advance(seed, method, r):
+        assert (seed, method, r) in selected
+        feedback.add((seed, method, r))
+        if r == 5:
+            once(tmp_path / f"runtime/seed_{seed}/{method}/trajectory_freeze.json", {"files": {}})
+        return {"active_label_count": study.BUDGETS[r+1]}
+
+    reports = []
+    def report():
+        assert len(feedback) == 24
+        reports.append(True)
+        return {"status": "REPORTED"}
+
+    monkeypatch.setattr(study, "select", select)
+    monkeypatch.setattr(study, "advance", advance)
+    monkeypatch.setattr(study, "report", report)
+    kwargs = {"seed": 157, "method": study.METHODS[1]} if single else {}
+    result = study.run(**kwargs)
+    assert feedback == {(seed, method, r) for seed, method in targets for r in range(6)}
+    assert result["status"] == ("TRAJECTORY_COMPLETE" if single else "REPORTED")
+    assert bool(reports) is not single
+    # Re-running must audit completed trajectories without another selection/fit.
+    monkeypatch.setattr(study, "select", lambda *args: pytest.fail("completed trajectory selected again"))
+    monkeypatch.setattr(study, "advance", lambda *args: pytest.fail("completed trajectory fitted again"))
+    study.run(**kwargs)
+
+
+def test_runner_stops_before_next_selection_on_fit_failure(tmp_path, monkeypatch):
+    monkeypatch.setattr(study, "STUDY", tmp_path)
+    monkeypatch.setattr(study, "prepare", lambda config: None)
+    monkeypatch.setattr(study, "check_transport", lambda config: None)
+    calls = []
+    def select(seed, method, r):
+        calls.append(("select", r))
+        return {"status": "BATCH_FROZEN_BEFORE_REVEAL"}
+    def advance(seed, method, r):
+        calls.append(("advance", r))
+        raise RuntimeError("synthetic fit failure")
+    monkeypatch.setattr(study, "select", select)
+    monkeypatch.setattr(study, "advance", advance)
+    monkeypatch.setattr(study, "report", lambda: pytest.fail("premature report"))
+    with pytest.raises(RuntimeError, match="synthetic fit failure"):
+        study.run(157, study.METHODS[1])
+    assert calls == [("select", 0), ("advance", 0)]
+    events = [json.loads(line) for line in (tmp_path / "execution_progress.jsonl").read_text().splitlines()]
+    assert events[-1]["action"] == "run_stopped_on_error"
+    with study.exclusive_lock(tmp_path / "execution.lock"):
+        pass  # failure releases the lock for the user's next run
+
+
+@pytest.mark.parametrize("fail", [False, True])
+def test_terminal_heartbeat_during_blocking_work_and_cleanup(tmp_path, monkeypatch, capsys, fail):
+    monkeypatch.setattr(study, "STUDY", tmp_path)
+    emitted = threading.Event()
+    original = study._progress
+    def progress(event):
+        original(event)
+        emitted.set()
+    monkeypatch.setattr(study, "_progress", progress)
+    try:
+        with study.status_phase("waiting for synthetic provider", interval=0.01, seed=157):
+            assert emitted.wait(2), "heartbeat missing while work is blocked"
+            if fail:
+                raise RuntimeError("synthetic interruption")
+    except RuntimeError:
+        assert fail
+    assert "still running; elapsed=" in capsys.readouterr().out
+    assert not any(t.name == "llm-al-status" for t in threading.enumerate())
+    event = json.loads((tmp_path / "execution_progress.jsonl").read_text().splitlines()[0])
+    assert event["action"] == "heartbeat" and event["seed"] == 157
+
+
+@pytest.mark.parametrize("source", ["environment", "file"])
+def test_cli_uses_only_explicit_provider_credentials(tmp_path, monkeypatch, source):
+    key = "synthetic-provider-key"
+    monkeypatch.delenv("SCIENTIST_API_KEY", raising=False)
+    monkeypatch.delenv("SCIENTIST_API_KEY_FILE", raising=False)
+    if source == "environment":
+        monkeypatch.setenv("SCIENTIST_API_KEY", key)
+    else:
+        keyfile = tmp_path / "provider.key"
+        keyfile.write_text(key + "\n")
+        monkeypatch.setenv("SCIENTIST_API_KEY_FILE", str(keyfile))
+    monkeypatch.setattr(transport.shutil, "which", lambda name: "/synthetic/codex")
+    seen = []
+    def process(command, **kwargs):
+        env = kwargs["env"]
+        home = Path(env["CODEX_HOME"])
+        config_text = (home / "config.toml").read_text()
+        config = tomllib.loads(config_text)
+        provider = config["model_providers"]["scientist"]
+        assert provider["base_url"] == "https://token4research.cn/v1"
+        assert provider["env_key"] == "SCIENTIST_API_KEY"
+        assert not provider["requires_openai_auth"]
+        assert env[provider["env_key"]] == key
+        assert key not in config_text and key not in str(command)
+        assert not (home / "auth.json").exists()
+        (home / "sessions").mkdir()
+        (home / "sessions/session.jsonl").write_text('{}\n')
+        seen.append(True)
+        return SimpleNamespace(returncode=0, stdout='{}\n')
+    monkeypatch.setattr(transport.subprocess, "run", process)
+    monkeypatch.setattr(transport.subprocess, "check_output", lambda *args, **kwargs: "synthetic-cli")
+    monkeypatch.setattr(transport, "audit_cli", lambda *args: ('{}', {"synthetic": True}))
+    config = settings()
+    assert transport.check_transport(config)["credential_present"]
+    answer, provenance = transport.cli_call([], config)
+    assert answer == '{}' and seen == [True]
+    assert key not in json.dumps(provenance)
+
+
+def test_missing_provider_key_never_uses_global_login(tmp_path, monkeypatch):
+    monkeypatch.delenv("SCIENTIST_API_KEY", raising=False)
+    monkeypatch.delenv("SCIENTIST_API_KEY_FILE", raising=False)
+    (tmp_path / ".codex").mkdir()
+    (tmp_path / ".codex/auth.json").write_text('{"tokens":{"access_token":"synthetic-official-token"}}')
+    monkeypatch.setattr(Path, "home", lambda: tmp_path)
+    with pytest.raises(RuntimeError, match="SCIENTIST_API_KEY"):
+        transport.provider_key(settings())
+
+
+def full_packet(c):
+    from src.qgeognn_al.active_learning_v2.scientist_full_delivery import encode_catalog
+    p = {"selection_count": 32, "round": 0, "delivery": "all_candidates_one_request",
+         "candidate_count": len(c.candidates), "observed_count": len(c.observed), **encode_catalog(c)}
+    p["packet_sha256"] = stable_hash(p)
+    return p
+
+
+def test_full_pool_corrects_invalid_response_and_replays_without_queries(tmp_path):
+    c = ReadOnlyCatalog(**raw())
+    p = full_packet(c)
+    calls = []
+    def call(messages, config):
+        calls.append(messages)
+        if len(calls) == 1:
+            return "not JSON", {"mock": True}
+        result = selection(c, p)
+        return json.dumps(result), {"mock": True}
+    result = run_selector(p, c, tmp_path, settings(), call=call)
+    assert len(result['choices']) == 32
+    assert len(c.viewed) == len(c.candidates) and not c.queries
+    assert len(calls) == 2
+    assert len(json.loads(calls[0][1]['content'])['candidates']['rows']) == 80
+    assert (tmp_path/'turn_00.json').exists()
+    fresh = ReadOnlyCatalog(**raw())
+    assert run_selector(p, fresh, tmp_path, settings(), call=lambda *a: pytest.fail('network during replay')) == result
+    assert fresh.viewed == c.viewed and not fresh.queries
+
+
+def test_full_pool_rejects_omitted_candidates_before_call(tmp_path):
+    c = ReadOnlyCatalog(**raw())
+    p = full_packet(c)
+    p['candidates']['rows'].pop()
+    with pytest.raises(ValueError, match='complete authorized catalog'):
+        run_selector(p, c, tmp_path, settings(), call=lambda *a: pytest.fail('incomplete catalog sent'))
+
+
+def test_full_pool_never_executes_queries_and_has_bounded_corrections(tmp_path):
+    c = ReadOnlyCatalog(**raw())
+    p = full_packet(c)
+    calls = []
+    def call(*args):
+        calls.append(True)
+        return json.dumps({'type':'query','queries':[{'operation':'search_candidates','args':{}}]}), {'mock':True}
+    with pytest.raises(RuntimeError, match='bounded corrections'):
+        run_selector(p, c, tmp_path, settings(), call=call)
+    assert len(calls) == 3 and not c.queries
+    assert not (tmp_path/'selection.json').exists()
+
+
+def test_single_trajectory_report_requires_six_completed_cycles(tmp_path, monkeypatch):
+    monkeypatch.setattr(study, 'STUDY', tmp_path)
+    monkeypatch.setattr(study, 'validate', lambda: None)
+    monkeypatch.setattr(study, 'Context', lambda *a: pytest.fail('truth context opened before trajectory freeze'))
+    with pytest.raises(FileNotFoundError):
+        study.trajectory_report(157, study.METHODS[1])
+
+
+@pytest.mark.parametrize('method', study.METHODS)
+def test_full_pool_freeze_and_audit_both_arms(tmp_path, monkeypatch, method):
+    monkeypatch.setattr(study, 'STUDY', tmp_path)
+    monkeypatch.setattr(study, 'stage', lambda *args: None)
+    data = raw(method == study.METHODS[1])
+    c = ReadOnlyCatalog(**data)
+    p = full_packet(c)
+    p['selection_count'] = 16 if method == study.METHODS[0] else 32
+    p['packet_sha256'] = stable_hash({k:v for k,v in p.items() if k != 'packet_sha256'})
+    d = study.selection_directory(157, method, 0)
+    d.mkdir(parents=True)
+    once(tmp_path/'protocol.json', {'transport': settings()})
+    once(d/'input.json', p)
+    once(d/'catalog.json', data)
+    once(d/'contract.json', {'U_t_ids': list(c.candidates) + list(c.pending)})
+    def selector(p, c, directory, config):
+        return run_selector(p, c, directory, config,
+            call=lambda *args: (json.dumps(selection(c, p)), {'mock': True}))
+    monkeypatch.setattr(study, 'run_selector', selector)
+    assert study.select(157, method, 0)['batch_count'] == 32
+    monkeypatch.setattr(study, 'run_selector', run_selector)
+    frozen = study.audit_batch(d)
+    assert len(frozen['viewed_candidate_ids']) == len(c.candidates)
+    assert len(frozen['pending_ids']) == (16 if method == study.METHODS[0] else 0)
+    assert not frozen['new_batch_labels_revealed']
+    assert study.select(157, method, 0)['status'] == 'ALREADY_FROZEN'

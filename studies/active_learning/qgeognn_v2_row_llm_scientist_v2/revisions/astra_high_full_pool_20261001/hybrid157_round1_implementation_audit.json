@@ -1,0 +1,66 @@
+{
+  "protocol": {
+    "status": "VALID",
+    "protocol_sha256": "89d80fc4ab90c81ba98dcf63cc95dcb163c34221259e3f1334b5241eb453ef29",
+    "historical_artifacts_unchanged": true
+  },
+  "exact_request_verified": {
+    "candidates": 2981,
+    "CW_pending": 16,
+    "observed": 333,
+    "input_tokens": 467136
+  },
+  "CW16_exactly_matches_recomputed_and_CW32_prefix": true,
+  "LLM_overlap_CW_second16": 0,
+  "LLM_unique_molecules": 14,
+  "CW16_unique_molecules": 15,
+  "LLM_rationale_mentions_pending": 6,
+  "state_label_lineage_and_training_ids_verified": true,
+  "training_comparison": {
+    "hybrid": {
+      "best_epoch": 73,
+      "epochs_run": 173,
+      "train_rows": 365,
+      "recomputed_validation": {
+        "V1_RMSE": 5.413794994354248,
+        "V1_MAE": 2.9811818599700928,
+        "V1_R2": 0.5754918456077576,
+        "V2_RMSE": 10.622501373291016,
+        "V2_MAE": 5.395197868347168,
+        "V2_R2": 0.6292118430137634,
+        "combined_normalized_RMSE": 0.8199892423625634
+      }
+    },
+    "CW": {
+      "best_epoch": 139,
+      "epochs_run": 239,
+      "train_rows": 365,
+      "recomputed_validation": {
+        "V1_RMSE": 5.033003807067871,
+        "V1_MAE": 2.6246988773345947,
+        "V1_R2": 0.6331091523170471,
+        "V2_RMSE": 9.401287078857422,
+        "V2_MAE": 4.8831400871276855,
+        "V2_R2": 0.7095663547515869,
+        "combined_normalized_RMSE": 0.7448041250938031
+      }
+    },
+    "free": {
+      "best_epoch": 112,
+      "epochs_run": 212,
+      "train_rows": 365,
+      "recomputed_validation": {
+        "V1_RMSE": 5.104739665985107,
+        "V1_MAE": 2.6803295612335205,
+        "V1_R2": 0.6225759387016296,
+        "V2_RMSE": 10.316428184509277,
+        "V2_MAE": 5.2709431648254395,
+        "V2_R2": 0.6502715349197388,
+        "combined_normalized_RMSE": 0.7844993667274389
+      }
+    }
+  },
+  "all_checks_passed": true,
+  "checkpoint_training_config_equal": true,
+  "checkpoint_preprocessing_equal": true
+}

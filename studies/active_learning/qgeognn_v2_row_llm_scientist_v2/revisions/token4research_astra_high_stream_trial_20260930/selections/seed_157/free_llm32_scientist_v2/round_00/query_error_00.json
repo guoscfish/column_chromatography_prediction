@@ -1,0 +1,85 @@
+{
+  "queries": [
+    {
+      "operation": "search_candidates",
+      "args": {
+        "filters": {
+          "molecule_novelty": {
+            "min_value": 1,
+            "max_value": 1
+          }
+        },
+        "sort_by": "cw_distance_percentile",
+        "order": "desc",
+        "limit": 24
+      }
+    },
+    {
+      "operation": "search_candidates",
+      "args": {
+        "filters": {
+          "molecule_novelty": {
+            "min_value": 0,
+            "max_value": 0
+          }
+        },
+        "sort_by": "V1_quantile_width_ml",
+        "order": "desc",
+        "limit": 24
+      }
+    },
+    {
+      "operation": "search_candidates",
+      "args": {
+        "filters": {
+          "molecule_novelty": {
+            "min_value": 1,
+            "max_value": 1
+          }
+        },
+        "sort_by": "V2_quantile_width_ml",
+        "order": "desc",
+        "limit": 24
+      }
+    },
+    {
+      "operation": "search_candidates",
+      "args": {
+        "filters": {
+          "condition_novelty": {
+            "min_value": 1,
+            "max_value": 1
+          }
+        },
+        "sort_by": "loading_amount_mg",
+        "order": "desc",
+        "limit": 24
+      }
+    }
+  ],
+  "results": [
+    {
+      "error": "ValueError",
+      "message": "unknown query arguments"
+    },
+    {
+      "error": "ValueError",
+      "message": "unknown query arguments"
+    },
+    {
+      "error": "ValueError",
+      "message": "unknown query arguments"
+    },
+    {
+      "error": "ValueError",
+      "message": "unknown query arguments"
+    }
+  ],
+  "errors": [
+    "unknown query arguments",
+    "unknown query arguments",
+    "unknown query arguments",
+    "unknown query arguments"
+  ],
+  "remaining_answers": 27
+}

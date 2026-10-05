@@ -1,0 +1,95 @@
+{
+  "request_sha256": "a9afd3d002ebab65641fb13857683d29e7e16251ebd9c96bcbd3f4df78abce80",
+  "answer": "{\"type\":\"query\",\"queries\":[{\"operation\":\"search_candidates\",\"args\":{\"sort_by\":\"V1_quantile_width_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"sort_by\":\"V2_quantile_width_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"sort_by\":\"cw_distance_percentile\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"sort_by\":\"molecule_novelty\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"sort_by\":\"condition_novelty\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"conditions\":{\"PE/EA\":\"0/1\"},\"sort_by\":\"V1_quantile_width_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"conditions\":{\"PE/EA\":\"100/1\"},\"sort_by\":\"V1_quantile_width_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"conditions\":{\"PE/EA\":\"1/1\"},\"sort_by\":\"V2_quantile_width_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"conditions\":{\"PE/EA\":\"50/1\"},\"sort_by\":\"V2_quantile_width_ml\",\"order\":\"desc\",\"limit\":24}}]}",
+  "provenance": {
+    "response_id": "resp_09bc9b457311bd89016abd26caf06887d0aa79b060fdd47c9e",
+    "served_model": "gpt-6-astra",
+    "usage": {
+      "input_tokens": 16970,
+      "input_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 363,
+      "output_tokens_details": {
+        "reasoning_tokens": 76
+      },
+      "total_tokens": 17333,
+      "attribution": {
+        "items": {
+          "msg_09bc9b457311bd89016abd26caf84c87d09dcad5d53e24f9a1": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "content": [
+              {
+                "cache_write_tokens": 0,
+                "cached_tokens": 0,
+                "input_tokens": 10520,
+                "output_tokens": 0
+              }
+            ],
+            "input_tokens": 10520,
+            "output_tokens": 0
+          },
+          "msg_09bc9b457311bd89016abd26caf86887d09680a446c4911b09": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "content": [
+              {
+                "cache_write_tokens": 0,
+                "cached_tokens": 0,
+                "input_tokens": 359,
+                "output_tokens": 0
+              }
+            ],
+            "input_tokens": 359,
+            "output_tokens": 0
+          },
+          "msg_09bc9b457311bd89016abd26caf87c87d094fa38204f9bcc2b": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "content": [
+              {
+                "cache_write_tokens": 0,
+                "cached_tokens": 0,
+                "input_tokens": 17,
+                "output_tokens": 0
+              }
+            ],
+            "input_tokens": 17,
+            "output_tokens": 0
+          },
+          "rs_09bc9b457311bd89016abd26cbb67087d0b5e2b899f2aa0478": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "input_tokens": 2,
+            "output_tokens": 76
+          },
+          "msg_09bc9b457311bd89016abd26cf6a1c87d0acd55122a01a0b2c": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "content": [
+              {
+                "cache_write_tokens": 0,
+                "cached_tokens": 0,
+                "input_tokens": 0,
+                "output_tokens": 287
+              }
+            ],
+            "input_tokens": 0,
+            "output_tokens": 287
+          }
+        },
+        "request_fields": {
+          "instructions": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "input_tokens": 6072,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "native_tool_calls": 0
+  }
+}

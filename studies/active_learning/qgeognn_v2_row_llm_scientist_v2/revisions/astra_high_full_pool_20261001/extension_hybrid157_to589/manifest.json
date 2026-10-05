@@ -1,0 +1,49 @@
+{
+  "authorization": "User requested two additional rounds after reviewing the six-round validation result.",
+  "classification": "exploratory post-six-round extension",
+  "seed": 157,
+  "method": "cw16_llm16_scientist_v2",
+  "original_budgets": [
+    333,
+    365,
+    397,
+    429,
+    461,
+    493,
+    525
+  ],
+  "additional_round_indices": [
+    6,
+    7
+  ],
+  "additional_label_budgets": [
+    557,
+    589
+  ],
+  "batch_size": 32,
+  "CW_count": 16,
+  "LLM_count": 16,
+  "base_trajectory_sha256": "f921e2311e4bed405a8ef45c499eb0f1d10c27154aa433472ee3cee36929c37f",
+  "base_protocol_sha256": "b2ae7da1687a14da8e3e418248f4d68c01eb261c6e12945e1d1a40eb777ce12b",
+  "runner_sha256": "614c4afe611947f675fcd4b1be6d5a8212c9b025eb21377317cf14c2fd1c9d10",
+  "transport": {
+    "backend": "responses",
+    "model": "gpt-6-astra",
+    "base_url": "https://token4research.cn/v1",
+    "reasoning_effort": "high",
+    "candidate_delivery": "all_candidates",
+    "authentication": "explicit_provider_key",
+    "key_env": "SCIENTIST_API_KEY",
+    "key_file_env": "SCIENTIST_API_KEY_FILE",
+    "automatic_fallback": false,
+    "responses_store": false,
+    "cli_response_storage": "controlled by installed CLI/provider; not asserted by an undocumented flag",
+    "cli_isolation": "fresh CODEX_HOME and cwd; no inherited config/history; native-call audit",
+    "hard_filesystem_read_sandbox": false
+  },
+  "selection_prompt_changed": false,
+  "selection_call_budget_changed": false,
+  "base_code_changed": false,
+  "training_changed": false,
+  "test_evaluation": false
+}

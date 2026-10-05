@@ -2,7 +2,14 @@
 from __future__ import annotations
 
 from dataclasses import asdict
+from contextlib import contextmanager
+import fcntl
+import json
+import math
+import os
 from pathlib import Path
+import threading
+import time
 
 import numpy as np
 import pandas as pd
@@ -27,13 +34,91 @@ from .short_sequential_runner import ShortSequentialContext, _round0_evaluation
 from .short_sequential_study import STUDY as CW_SHORT
 from .scientist_selector import (VERSION, SYSTEM_PROMPT, ReadOnlyCatalog, scientific_memory,
                                  validate_selection, QUERY_BUDGET, VIEW_BUDGET, MODEL_CALL_BUDGET)
-from .scientist_transport import settings, run_selector
+from .scientist_transport import settings, run_selector, check_transport, FULL_SELECTION_ATTEMPTS
+from .scientist_full_delivery import DIRECT_PROMPT, encode_catalog, validate_direct
 
-STUDY = ROOT / "studies/active_learning/qgeognn_v2_row_llm_scientist_v2"
+SYSTEM_PROMPT = DIRECT_PROMPT
+
+ARCHIVE_STUDY = ROOT / "studies/active_learning/qgeognn_v2_row_llm_scientist_v2"
+DEFAULT_REVISION = "astra_high_full_pool_20261001"
+STUDY = ARCHIVE_STUDY / "revisions" / DEFAULT_REVISION
 SEEDS = (157, 6101)
 METHODS = ("cw16_llm16_scientist_v2", "free_llm32_scientist_v2")
 CONTROLS = ("random32", "center_width_lcmd")
 BUDGETS = (333, 365, 397, 429, 461, 493, 525)
+
+
+def configure_revision(revision: str | None = None) -> Path:
+    """Select an isolated protocol/runtime root without touching old studies."""
+    global STUDY
+    name = revision or DEFAULT_REVISION
+    if Path(name).name != name or name in ("", ".", ".."):
+        raise ValueError("revision must be a single directory name")
+    STUDY = ARCHIVE_STUDY / "revisions" / name
+    return STUDY
+
+
+@contextmanager
+def exclusive_lock(path):
+    """Hold a process lock for the complete multi-trajectory run.
+
+    ``flock`` is released by the OS if the process is killed, so an interrupted
+    run never leaves a stale lock that blocks the next resume.
+    """
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a+") as handle:
+        try:
+            fcntl.flock(handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError as error:
+            raise RuntimeError(f"another active-learning run holds {path}") from error
+        try:
+            yield
+        finally:
+            fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+
+
+def _progress(event):
+    """Append a crash-tolerant progress record for the one-command runner."""
+    path = STUDY / "execution_progress.jsonl"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps({"time": time.time(), **event}, ensure_ascii=False) + "\n")
+        handle.flush()
+        os.fsync(handle.fileno())
+
+
+def _status(message):
+    """Write human-readable progress while retaining JSONL audit records."""
+    print(f"[LLM-AL {time.strftime('%Y-%m-%d %H:%M:%S')}] {message}", flush=True)
+
+
+@contextmanager
+def status_phase(message, interval=30.0, **details):
+    """Emit flushed terminal heartbeats even while a provider or fit is blocking."""
+    if not math.isfinite(interval) or interval <= 0:
+        raise ValueError("status interval must be finite and positive")
+    started = time.monotonic()
+    stopped = threading.Event()
+    _status(f"{message}; started")
+
+    def heartbeat():
+        while not stopped.wait(interval):
+            elapsed = round(time.monotonic() - started, 1)
+            _status(f"{message}; still running; elapsed={elapsed:.1f}s")
+            _progress({"action": "heartbeat", "phase": message,
+                       "elapsed_seconds": elapsed, **details})
+
+    worker = threading.Thread(target=heartbeat, name="llm-al-status", daemon=True)
+    worker.start()
+    try:
+        yield
+    except BaseException:
+        _status(f"{message}; interrupted after {time.monotonic() - started:.1f}s")
+        raise
+    finally:
+        stopped.set()
+        worker.join()
 
 
 def code_hashes():
@@ -46,7 +131,7 @@ def historical_manifest():
     paths = []
     for name in ("qgeognn_v2_row_llm16_screen", "qgeognn_v2_row_llm_full_pool_feedback_v1",
                  "qgeognn_v2_row_llm_dialog_feedback_v1"):
-        paths.extend(p for p in (STUDY.parent / name).rglob("*") if p.is_file())
+        paths.extend(p for p in (ARCHIVE_STUDY.parent / name).rglob("*") if p.is_file())
     return {str(p.relative_to(ROOT)): sha256_file(p) for p in sorted(paths)}
 
 
@@ -140,8 +225,10 @@ def prepare(config=None):
         "development_gate": "lower mean AULC and wins on both seeds versus both controls",
         "attribution": "LLM scientist package; chemistry/ML prior causal effects not isolated",
         "evidence_class": "two-seed development; historically exposed test; no significance claims",
-        "transport": config, "query_budget": QUERY_BUDGET, "view_budget": VIEW_BUDGET,
-        "model_call_budget": MODEL_CALL_BUDGET, "initial_cards": 20,
+        "transport": config, "query_budget": 0, "view_budget": "all eligible candidates",
+        "model_call_budget": FULL_SELECTION_ATTEMPTS, "initial_cards": "all",
+        "candidate_delivery": "all candidates and observed records; lossless tables; no retrieval",
+        "single_trajectory_test_barrier": "explicit trajectory-report after all six batches and seven predictions freeze",
         "quotas": None, "automatic_fallback": False,
         "memory": "last LLM hypotheses/interpretation/rationale; last batch outcomes; exact top-8 error records; all selected IDs",
         "truth_barrier": "freeze all 32 IDs plus premeasurement predictions before reveal",
@@ -338,6 +425,11 @@ def stage(seed, method, r=0):
               "observed_examples": sorted(catalog.observed.values(), key=catalog.key)[:12],
               "observed_count": len(catalog.observed), "observed_record_access": "get_observed/search_observed",
               "validation_test_records": 0}
+    # Replace sampled/query-facing fields with the complete lossless catalog.
+    for key in ("initial_cards", "observed_examples", "observed_record_access", "candidate_overview", "pending_experiments"):
+        packet.pop(key, None)
+    packet.update(delivery="all_candidates_one_request", candidate_count=len(catalog.candidates),
+                  observed_count=len(catalog.observed), **encode_catalog(catalog))
     packet["packet_sha256"] = stable_hash(packet)
     once(directory / "input.json", packet)
     once(directory / "catalog.json", raw)
@@ -361,7 +453,10 @@ def select(seed, method, r=0):
     catalog = ReadOnlyCatalog(**raw)
     catalog.initial_cards()
     result = run_selector(packet, catalog, directory, read(STUDY / "protocol.json")["transport"])
-    validate_selection(result, catalog, packet)
+    if packet.get("delivery") == "all_candidates_one_request":
+        validate_direct(result, catalog, packet)
+    else:
+        validate_selection(result, catalog, packet)
     batch = list(catalog.pending) + [c["id"] for c in result["choices"]]
     if len(batch) != 32 or len(set(batch)) != 32 or not set(batch) <= set(read(directory / "contract.json")["U_t_ids"]):
         raise ValueError("invalid batch; no labels revealed")
@@ -483,3 +578,169 @@ def report():
         for (seed, method), group in frame.groupby(["seed", "method"])]
     once(STUDY / "results.json", {"learning_curves": rows, "aulc": areas, "test_access": audits})
     return {"status": "REPORTED", "evidence": "two-seed development; no causal knowledge attribution"}
+
+
+def run(seed=None, method=None, config=None, status_interval=30.0):
+    """Run every unfinished trajectory and report once all are frozen.
+
+    This is the terminal-facing state machine.  Each selection and advance is
+    independently durable, so restarting the same command resumes from the
+    first incomplete round without re-revealing labels or refitting completed
+    artifacts.
+    """
+    if (seed is None) != (method is None):
+        raise ValueError("seed and method must be supplied together")
+    if seed is not None and (seed not in SEEDS or method not in METHODS):
+        raise ValueError("unregistered seed/method")
+    if not math.isfinite(status_interval) or status_interval <= 0:
+        raise ValueError("status interval must be finite and positive")
+    config = config or settings()
+    with exclusive_lock(STUDY / "execution.lock"):
+        _status(f"run started; revision={STUDY.name}; status every {status_interval:g}s; "
+                "completed artifacts will be reused")
+        _progress({"action": "run_started", "seed": seed, "method": method})
+        completed = []
+        try:
+            # A fresh checkout can be started with one command.  An existing
+            # frozen protocol still rejects transport drift before labels move.
+            with status_phase("prepare/validate protocol", status_interval):
+                prepare(config)
+            targets = [(seed, method)] if seed is not None else [
+                (current_seed, current_method)
+                for current_seed in SEEDS for current_method in METHODS
+            ]
+            if any(not (STUDY / f"runtime/seed_{s}/{m}/trajectory_freeze.json").exists()
+                   for s, m in targets):
+                check_transport(config)
+            for current_seed, current_method in targets:
+                trajectory = STUDY / f"runtime/seed_{current_seed}/{current_method}/trajectory_freeze.json"
+                if trajectory.exists():
+                    _status(f"skip complete trajectory seed={current_seed} method={current_method}")
+                    with status_phase(f"audit completed seed={current_seed} method={current_method}", status_interval):
+                        verify_files(STUDY, read(trajectory)["files"])
+                        state(Context(current_seed), current_method, 6)
+                    _progress({"action": "trajectory_skipped", "seed": current_seed,
+                               "method": current_method})
+                    completed.append((current_seed, current_method))
+                    continue
+                for round_index in range(6):
+                    label = (f"seed={current_seed} method={current_method} cycle={round_index+1}/6 "
+                             f"labels={BUDGETS[round_index]}->{BUDGETS[round_index+1]}")
+                    details = {"seed": current_seed, "method": current_method, "round": round_index}
+                    _progress({"action": "select_started", "seed": current_seed,
+                               "method": current_method, "round": round_index})
+                    with status_phase(f"prepare candidates / LLM selection; {label}", status_interval, **details):
+                        selection_result = select(current_seed, current_method, round_index)
+                    _progress({"action": "select_completed", "seed": current_seed,
+                               "method": current_method, "round": round_index,
+                               "result": selection_result})
+                    _status(f"selection complete: {selection_result['status']}; {label}")
+                    _progress({"action": "advance_started", "seed": current_seed,
+                               "method": current_method, "round": round_index})
+                    with status_phase(f"reveal labels / train model / freeze predictions; {label}", status_interval, **details):
+                        advance_result = advance(current_seed, current_method, round_index)
+                    _progress({"action": "advance_completed", "seed": current_seed,
+                               "method": current_method, "round": round_index,
+                               "result": advance_result})
+                    _status(f"cycle complete; {label}; feedback and updated predictions ready for next selection")
+                # Round five creates the trajectory freeze after its final fit.
+                with status_phase(f"audit trajectory seed={current_seed} method={current_method}", status_interval):
+                    state(Context(current_seed), current_method, 6)
+                _progress({"action": "trajectory_completed", "seed": current_seed,
+                           "method": current_method})
+                _status(f"trajectory complete seed={current_seed} method={current_method}")
+                completed.append((current_seed, current_method))
+            if seed is None:
+                with status_phase("audit all 28 prediction points / final report", status_interval):
+                    result = report()
+                _progress({"action": "report_completed", "result": result})
+                _status("all trajectories complete; report written")
+                return result
+            return {"status": "TRAJECTORY_COMPLETE", "seed": seed, "method": method,
+                    "completed": completed, "report_pending": True}
+        except Exception as error:
+            _status(f"stopped safely: {type(error).__name__}: {error}")
+            _progress({"action": "run_stopped_on_error", "error_type": type(error).__name__,
+                       "message": str(error)[:1000]})
+            raise
+
+
+def trajectory_report(seed, method):
+    """Evaluate an explicitly requested single trajectory only after all six cycles."""
+    validate()
+    if seed not in SEEDS or method not in METHODS:
+        raise ValueError("unregistered seed/method")
+    trajectory = read(STUDY / f"runtime/seed_{seed}/{method}/trajectory_freeze.json")
+    if trajectory["final_active_labels"] != 525 or len(trajectory["selected_ids"]) != 192 or len(set(trajectory["selected_ids"])) != 192:
+        raise RuntimeError("incomplete six-cycle trajectory")
+    verify_files(STUDY, trajectory["files"])
+    context = Context(seed)
+    state(context, method, 6)
+    for r in range(6):
+        batch = audit_batch(selection_directory(seed, method, r))
+        if batch["batch_ids"] != trajectory["selected_ids"][r*32:(r+1)*32]:
+            raise RuntimeError("trajectory selection mismatch")
+    entries = {}
+    paths = {}
+    for r, budget in enumerate(BUDGETS):
+        p = STUDY / f"runtime/seed_{seed}/{method}/round_{r:02d}/prediction_freeze.json"
+        record = read(p)
+        for kind in ("checkpoint", "prediction"):
+            if sha256_file(Path(record[f"{kind}_path"])) != record[f"{kind}_sha256"]:
+                raise RuntimeError("prediction/checkpoint drift")
+        paths[(method, budget)] = Path(record["prediction_path"])
+        entries[str(p.relative_to(STUDY))] = sha256_file(p)
+    reused = read(STUDY / "control_reuse.json")["entries"]
+    for control in CONTROLS:
+        for budget in BUDGETS:
+            entry = next(e for e in reused if (e["seed"], e["method"], e["budget"]) == (seed, control, budget))
+            paths[(control, budget)] = ROOT / entry["prediction_path"]
+    directory = STUDY / f"reports/seed_{seed}/{method}"
+    directory.mkdir(parents=True, exist_ok=True)
+    once(directory / "pre_test_freeze.json", {"seed": seed, "method": method,
+        "prediction_points": entries, "controls": {f"{m}:{b}": sha256_file(p) for (m, b), p in paths.items() if m in CONTROLS},
+        "scope": "single-seed six-cycle development run; not the global two-seed study"})
+    store = context.new_store()
+    store.freeze_acquisitions([])
+    store.freeze_predictions()
+    values = store.reveal(context.ids(context.roles["test"]), "final_test_evaluation")
+    rows = []
+    for current_method in (*CONTROLS, method):
+        for budget in BUDGETS:
+            pred = pd.read_csv(paths[(current_method, budget)])
+            if pred.sample_id.astype(str).tolist() != context.ids(context.roles["test"]):
+                raise RuntimeError("test prediction alignment mismatch")
+            rows.append({"seed": seed, "method": current_method, "budget": budget,
+                **metric_row(values, pred.drop(columns="sample_id").to_numpy(float), context.preprocessing["target_scales"])})
+    frame = pd.DataFrame(rows)
+    areas = [{"seed": seed, "method": m, "AULC_333_525": float(np.trapezoid(
+        g.sort_values("budget").combined_normalized_RMSE, BUDGETS)/192)} for m, g in frame.groupby("method")]
+    calls = []
+    for r in range(6):
+        for p in sorted(selection_directory(seed, method, r).glob("turn_[0-9][0-9].json")):
+            receipt = read(p)
+            calls.append({"round": r, "turn": p.name, "usage": receipt["provenance"].get("usage"),
+                          "served_model": receipt["provenance"].get("served_model")})
+    once(directory / "results.json", {"learning_curves": rows, "aulc": areas,
+        "test_access": store.audit, "llm_calls": calls,
+        "evidence": "one seed; six-cycle development comparison; not statistical confirmation"})
+    frame.to_csv(directory / "learning_curves.csv", index=False)
+    pd.DataFrame(areas).to_csv(directory / "aulc.csv", index=False)
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    fig, axes = plt.subplots(1, 3, figsize=(14, 4))
+    for ax, metric in zip(axes, ("combined_normalized_RMSE", "V1_RMSE", "V2_RMSE")):
+        for m, group in frame.groupby("method"):
+            group = group.sort_values("budget")
+            ax.plot(group.budget, group[metric], marker="o", label=m)
+        ax.set_xlabel("Measured training records")
+        ax.set_ylabel(metric)
+        ax.grid(alpha=0.2)
+    axes[0].legend(fontsize=7)
+    fig.tight_layout()
+    fig.savefig(directory / "learning_curves.png", dpi=180)
+    plt.close(fig)
+    return {"status": "TRAJECTORY_REPORTED", "seed": seed, "method": method,
+            "results": str(directory / "results.json"), "aulc": areas,
+            "final_metrics": [r for r in rows if r["budget"] == 525]}

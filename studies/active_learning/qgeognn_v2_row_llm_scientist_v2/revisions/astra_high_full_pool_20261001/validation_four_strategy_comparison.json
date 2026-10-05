@@ -1,0 +1,155 @@
+{
+  "seed": 157,
+  "metric_scope": "checkpoint-selection validation set, not test",
+  "validation_ids_hash": "1c7360ea30a5bb2bbc04c1160ce749a6592ce89a5314acb6d1aa7bd7ce5d6ead",
+  "summary": {
+    "random32": {
+      "validation_NRMSE_525": 0.7894989129298299,
+      "normalized_validation_AULC_333_525": 0.8406342913750805
+    },
+    "center_width_lcmd": {
+      "validation_NRMSE_525": 0.5048877805582405,
+      "normalized_validation_AULC_333_525": 0.6163605872703698
+    },
+    "free_llm32_scientist_v2": {
+      "validation_NRMSE_525": 0.6454839364474252,
+      "normalized_validation_AULC_333_525": 0.7535835232267928
+    },
+    "cw16_llm16_scientist_v2": {
+      "validation_NRMSE_525": 0.4511102425475306,
+      "normalized_validation_AULC_333_525": 0.6599294519619198
+    }
+  },
+  "curves": {
+    "random32": [
+      {
+        "labels": 333,
+        "validation_nrmse": 0.8538865655827187
+      },
+      {
+        "labels": 365,
+        "validation_nrmse": 0.7791641974099506
+      },
+      {
+        "labels": 397,
+        "validation_nrmse": 0.8512461537591781
+      },
+      {
+        "labels": 429,
+        "validation_nrmse": 0.8599097883435606
+      },
+      {
+        "labels": 461,
+        "validation_nrmse": 0.8936726468989562
+      },
+      {
+        "labels": 493,
+        "validation_nrmse": 0.8381202225825631
+      },
+      {
+        "labels": 525,
+        "validation_nrmse": 0.7894989129298299
+      }
+    ],
+    "center_width_lcmd": [
+      {
+        "labels": 333,
+        "validation_nrmse": 0.8538865655827187
+      },
+      {
+        "labels": 365,
+        "validation_nrmse": 0.7448041250938031
+      },
+      {
+        "labels": 397,
+        "validation_nrmse": 0.7132590122932456
+      },
+      {
+        "labels": 429,
+        "validation_nrmse": 0.5719114511107042
+      },
+      {
+        "labels": 461,
+        "validation_nrmse": 0.4999682934011453
+      },
+      {
+        "labels": 493,
+        "validation_nrmse": 0.48883346865284133
+      },
+      {
+        "labels": 525,
+        "validation_nrmse": 0.5048877805582405
+      }
+    ],
+    "free_llm32_scientist_v2": [
+      {
+        "labels": 333,
+        "validation_nrmse": 0.8538865655827187
+      },
+      {
+        "labels": 365,
+        "validation_nrmse": 0.7844993667274389
+      },
+      {
+        "labels": 397,
+        "validation_nrmse": 0.7861180061033118
+      },
+      {
+        "labels": 429,
+        "validation_nrmse": 0.7306049108037806
+      },
+      {
+        "labels": 461,
+        "validation_nrmse": 0.7418851093408472
+      },
+      {
+        "labels": 493,
+        "validation_nrmse": 0.7287084953703056
+      },
+      {
+        "labels": 525,
+        "validation_nrmse": 0.6454839364474252
+      }
+    ],
+    "cw16_llm16_scientist_v2": [
+      {
+        "labels": 333,
+        "validation_nrmse": 0.8538865655827187
+      },
+      {
+        "labels": 365,
+        "validation_nrmse": 0.8199892423625634
+      },
+      {
+        "labels": 397,
+        "validation_nrmse": 0.7046426547537313
+      },
+      {
+        "labels": 429,
+        "validation_nrmse": 0.6712299031723551
+      },
+      {
+        "labels": 461,
+        "validation_nrmse": 0.5724309389662626
+      },
+      {
+        "labels": 493,
+        "validation_nrmse": 0.5387855684514812
+      },
+      {
+        "labels": 525,
+        "validation_nrmse": 0.4511102425475306
+      }
+    ]
+  },
+  "caveat": "One seed only. LLM round6 includes fourth response and authorized one-character ID repair. Validation AULC is descriptive and not the registered test outcome.",
+  "hybrid_audit": {
+    "six_batches_16_CW_plus_16_LLM": true,
+    "unique_new_samples": 192,
+    "final_labels": 525,
+    "frozen_artifact_hashes_verified": true,
+    "checkpoint_prediction_hashes_verified": true,
+    "extra_model_corrections_beyond_protocol": false,
+    "manual_ID_repair": false
+  }
+}

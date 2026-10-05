@@ -1,0 +1,224 @@
+{
+  "type": "selection",
+  "packet_sha256": "cfd1762a3b2a32054150cd4b056d4665385f9fd4046d95b1232e3f21f6c9cc7c",
+  "batch_strategy": "Prioritize condition-response curves for molecules with measured anchors, while adding chemically distinct low-similarity structures and high-width model-failure regions. Include a small fixed-condition loading comparison to probe whether the predictor is suppressing a potentially general loading effect.",
+  "choices": [
+    {
+      "id": "f02e9fb71b1116b89e05",
+      "reason": "Completes the low-strength endpoint for CCOC(=O)CBr. Together with measured 2efbe9ba7cc21641c47c at 1/1 and 76afed5c6eacb2ec8cd1 at 50/1, it tests the predicted early-elution limit and the solvent-strength response.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "8e2fabed04cc3bc8319a",
+      "reason": "Adds a 2/1 intermediate for the CCOC(=O)CBr response curve. Its predicted V1/V2 lies close to the 1/1 observation but below the stronger-solvent 50/1 observation, providing a useful local slope constraint.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "bbf1e6602fcae6dc3ae9",
+      "reason": "Samples 5/1 for CCOC(=O)CBr, extending the measured 1/1-to-50/1 response into the mid-strength region and testing whether the model's steep predicted shift is chemically consistent.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "43752c7d1a89edff7085",
+      "reason": "Samples 10/1 for CCOC(=O)CBr, where the model predicts a further V1 increase but a relatively narrow V2 interval. This helps distinguish a smooth solvent response from an abrupt transition.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "d9b23f64a364678f2720",
+      "reason": "Uses 1/1 for CCOC(=O)CBr at 225.9 mg, complementing the measured 150.6 mg point in 2efbe9ba7cc21641c47c and isolating a higher-loading condition near an observed solvent setting.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "877351d38f0e0f4edce6",
+      "reason": "Uses the same molecule and 1/1 condition as d9b23f64a364678f2720 but at 75.3 mg. The triplet with measured 2efbe9ba7cc21641c tests whether small predicted loading shifts are real or mostly model noise.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "9807b8d6ea4e235596ef",
+      "reason": "Measures the 0/1 endpoint for the dibromo diester. Measured 027bbff1ac308c5dd7a1 at 50/1 and b98a7974de322ed42ec0 at 20/1 show a large condition response, so this tests the low-strength boundary.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "4dcce3e0c8b66ec2ad50",
+      "reason": "Adds a 1/1 point for the dibromo diester between the 0/1 endpoint and the measured 20/1 condition, resolving the early part of a strongly changing response curve.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "344a23de5d4ee8d4ce48",
+      "reason": "Adds a 2/1 point for the dibromo diester. It tests the model's predicted compression of V2 at modest EA strength before the observed late-elution regime at 20/1 and 50/1.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "f72a0e7948a50ed09024",
+      "reason": "Samples 5/1 for the dibromo diester, providing a central condition-response anchor between low-strength candidates and measured 20/1 and 50/1 records.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "f38d5dff7d60bacd8a21",
+      "reason": "Samples 10/1 for the dibromo diester, directly testing whether the predicted V1/V2 rise toward the measured 20/1 result is gradual and transferable across related polar ester structures.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "3c68a8834b490cef1688",
+      "reason": "Measures the 0/1 endpoint for the brominated methyl benzaldehyde. The measured 50/1 record 41bda518b4b1e6fe001d provides a late-strength anchor, while the model predicts a distinctive V2 contraction at 0/1.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "09a23d7cc56674faa5d6",
+      "reason": "Adds a 1/1 point for the brominated aldehyde, testing the low-strength portion of the response against measured 41bda518b4b1e6fe001d and separating solvent effects from loading effects.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "af961173a92b2c6cdd21",
+      "reason": "Samples 5/1 for the brominated aldehyde, giving a central point near the observed 50/1 condition and testing the predicted gradual increase in V2 interval width.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "e5ee0314a8e504395712",
+      "reason": "Samples 10/1 for the brominated aldehyde, where the model predicts V2 expansion relative to 0-5/1. This is useful for learning structure-specific tailing or delayed completion behavior.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "9c700f8ed9efad8bc73a",
+      "reason": "Samples 20/1 for the brominated aldehyde, bridging the mid-strength response to the measured 50/1 record 41bda518b4b1e6fe001d and testing the model's predicted broadening of V2.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "2d55c475fcf1f4ced2d2",
+      "reason": "Samples the brominated aldehyde at 50/1 with a higher loading volume than measured record 41bda518b4b1e6fe001d. This both reinforces the strong-solvent endpoint and probes loading sensitivity at a known condition.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "1a3149e0c41e4560d347",
+      "reason": "Measures 0/1 for the fused cyclopentanone, extending beyond the measured 5/1 record 73a35f890e678b320073 and testing the predicted early V1 but substantially reduced V2.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "983a604ac43bb4d41238",
+      "reason": "Measures 2/1 for the fused cyclopentanone, providing an intermediate condition where the model predicts a much wider V2 interval than at 0/1 or 5/1.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "9ff75a89ec8d52e6f51c",
+      "reason": "Measures 10/1 for the fused cyclopentanone and tests the predicted late-elution broadening relative to measured 73a35f890e678b320073 at 5/1.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "1668026caa5d708642cf",
+      "reason": "Measures 20/1 for the fused cyclopentanone, extending the condition curve into a regime where the predictor expects V1 and V2 to increase while retaining a broad interval.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "d36939d59715910addb2",
+      "reason": "Introduces a low-similarity dihalogenated aromatic at 0/1. This chemically distinct, nonpolar, donor-free structure tests extrapolation in a sparse halogenated region and anchors the strongest-solvent response curve.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "8b10a91c2ccd153f2725",
+      "reason": "Measures the same novel dihalogenated aromatic at 2/1, adding a low-strength condition point with a different loading amount and testing whether the model's early V1/V2 behavior is stable.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "0ff637bc6dbcc788a2d6",
+      "reason": "Measures the novel dihalogenated aromatic at 10/1, a central condition that tests the predicted modest increase in V1 and V2 against the low-strength candidates.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "a5bbf29595c5243c6ba1",
+      "reason": "Measures the novel dihalogenated aromatic at 20/1, extending its condition response toward stronger eluent without relying on an observed molecule analogue.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "20abaa42ddee54ee8d19",
+      "reason": "Measures the novel dihalogenated aromatic at 50/1, completing a broad solvent-strength range and testing whether its weak silica interactions produce the predicted compressed elution interval.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "fd01ba613586dad81c4d",
+      "reason": "Adds a low-similarity aliphatic nitrile ketone at 1/1. Its narrow predicted V1 width but broader V2 width probes a chemically distinct carbonyl/nitrile interaction pattern absent from the measured examples.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "976120a6d37c441ea705",
+      "reason": "Measures the novel nitrile ketone at 0/1, testing the predicted early-elution endpoint and providing a paired low-strength reference for the same new molecule.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "def684761639e17b1a7e",
+      "reason": "Measures the novel nitrile ketone at 2/1, filling the low-strength response between 0/1 and 5/1 and checking the model's predicted V1 increase.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "28d8efb10e9abe6740a6",
+      "reason": "Measures the novel nitrile ketone at 5/1, where the model predicts a marked jump in V1 and V2 interval width. This is a useful test of a possible structure-specific response transition.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "96710afeabc594baa359",
+      "reason": "Targets a high-width model region for a pyridyl ester at 10/1: predicted V1 and V2 widths are 28.4 and 23.4 ml, respectively. The label can repair late-volume extrapolation for heteroaromatic, multifunctional molecules.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "488727f2d41859d1ac45",
+      "reason": "Targets a novel nitroacetophenone at 10/1 with very broad predicted V1/V2 widths and a late predicted interval. Its polar, strongly interacting functional-group pattern is a direct stress test of model behavior outside the measured chemistry.",
+      "hypothesis_id": "H2"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "PE/EA changes are a major, molecule-specific retention axis, and local condition-response measurements are needed because the response may be steep or nonlinear rather than captured by a single global correction.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "2efbe9ba7cc21641c47c",
+        "76afed5c6eacb2ec8cd1",
+        "b98a7974de322ed42ec0",
+        "027bbff1ac308c5dd7a1",
+        "41bda518b4b1e6fe001d",
+        "73a35f890e678b320073"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Condition-response coverage can teach the retrained model how solvent strength interacts with molecular functionality and can reduce interpolation errors between sparse observed conditions.",
+      "next_discriminating_question": "Do the candidate curves follow smooth monotonic shifts in both V1 and V2, or do different functional groups show abrupt changes in interval width or retention?"
+    },
+    {
+      "id": "H2",
+      "content": "V2 and elution-interval behavior are weakly constrained for polar multifunctional and heteroaromatic structures, especially in late predicted-volume regions.",
+      "basis": "model_behavior",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "The objective includes V2 accuracy, and high-width rows can expose systematic tailing or completion-volume errors that ordinary V1-focused sampling would miss.",
+      "next_discriminating_question": "Are the large predicted V1/V2 widths for the pyridyl ester and nitroacetophenone associated with genuinely broad measured intervals, or are they conservative model extrapolation?"
+    },
+    {
+      "id": "H3",
+      "content": "Low-similarity halogenated and aliphatic nitrile structures provide chemically distinct retention regimes that are underrepresented by the current labeled set and may not be reliably inferred from generic descriptors.",
+      "basis": "mixed",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "Labels from chemically novel but catalog-relevant structures can improve representation coverage and test whether solvent-response patterns transfer across nonpolar halogenated and polar nitrile-containing molecules.",
+      "next_discriminating_question": "Do the novel halogenated and nitrile molecules follow the same solvent-strength response learned from aromatic carbonyls and esters, or do their silica interactions require distinct structure-condition rules?"
+    },
+    {
+      "id": "H4",
+      "content": "At fixed molecule and solvent condition, loading mass may cause a small but systematic shift in V1/V2 that is currently attenuated by the predictor.",
+      "basis": "model_behavior",
+      "supporting_observed_ids": [
+        "2efbe9ba7cc21641c47c"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Loading amount is an explicit catalog feature; paired measurements can prevent the retrained model from either ignoring it or over-amplifying it relative to solvent and molecular structure.",
+      "next_discriminating_question": "For matched molecule-condition pairs, are differences across 50, 100, and 150 ul loading volumes larger than experimental scatter and consistent across chemical families?"
+    }
+  ],
+  "feedback_interpretation": "",
+  "batch_rationale": "This round has no previous measured feedback, so the batch is designed around the seed's observed anchors and current model behavior. Most selected rows form interpretable local condition-response curves for four measured molecules, including the strongly separated 1/1 versus 50/1 CCOC(=O)CBr observations, the 20/1 versus 50/1 dibromo-diester observations, and the broad V2 behavior of the brominated aldehyde. The batch also includes matched loading comparisons and chemically novel halogenated and nitrile structures to improve coverage beyond the existing 333 labels. Finally, two high-width polar/heteroaromatic rows target likely V2 failure regions. This combination should improve generalization by teaching solvent-response structure, checking loading sensitivity, repairing uncertainty-heavy V2 behavior, and adding chemically distinct examples without selecting solely for extreme predicted volumes."
+}

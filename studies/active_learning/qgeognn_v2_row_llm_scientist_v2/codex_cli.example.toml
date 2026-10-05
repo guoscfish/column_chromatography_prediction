@@ -1,8 +1,8 @@
 # Standalone CLI example. The study generates isolated equivalents per call.
-# Provide the third-party key through SCIENTIST_API_KEY, never in this file.
+# Use the same provider endpoint as the frozen scientist-v2 protocol.
 model_provider = "token4research"
-model = "gpt-5.5"
-review_model = "gpt-5.5"
+model = "gpt-6-astra"
+review_model = "gpt-6-astra"
 model_reasoning_effort = "high"
 approval_policy = "never"
 sandbox_mode = "read-only"
@@ -10,7 +10,7 @@ web_search = "disabled"
 
 [model_providers.token4research]
 name = "token4research"
-base_url = "https://token4research.cn"
+base_url = "https://token4research.cn/v1"
 wire_api = "responses"
 env_key = "SCIENTIST_API_KEY"
 requires_openai_auth = false

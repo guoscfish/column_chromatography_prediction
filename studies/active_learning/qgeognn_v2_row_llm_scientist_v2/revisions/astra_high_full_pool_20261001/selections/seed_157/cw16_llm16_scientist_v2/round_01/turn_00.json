@@ -1,0 +1,181 @@
+{
+  "request_sha256": "1fd251a1374d476ebb638d8f300aed53e886774760cb753b3ed288f86692cb0f",
+  "answer": "{\"type\":\"selection\",\"packet_sha256\":\"fb958275b19da2502ed1403c1caf4ab0155f1d440371b763aef3d9eacb636127\",\"batch_strategy\":\"Targeted failure repair with matched condition-response and loading contrasts, emphasizing large V2 residual regions while retaining a small set of structurally novel high-width rows.\",\"choices\":[{\"id\":\"b2ac848cc42390b01b9f\",\"reason\":\"m130 has a measured 2/1 result of 4.62/7.92 mL (2bd50654bad989d82c87), whereas this 20/1 candidate predicts 38.66/96.68 mL. Measuring it tests whether the model's extreme late-retention extrapolation for this nitrile family is real or a condition-response artifact.\",\"hypothesis_id\":null},{\"id\":\"99fb49a26d4f0f1440df\",\"reason\":\"This 5/1 m130 row complements the 20/1 row and the measured 2/1 anchor 2bd50654bad989d82c87. The predicted 7.51/25.10 mL provides an intermediate condition point that can distinguish a steep solvent curve from a spurious high-retention branch.\",\"hypothesis_id\":null},{\"id\":\"2cfa393cb79664e100ce\",\"reason\":\"At 5/1, m107 was measured at 50 uL and gave 43.20/101.44 mL (c6924324ddd95f249df6), while this 150 uL row predicts 45.31/102.25 mL. The matched loading contrast directly teaches whether the unusually broad m107 interval changes with loading.\",\"hypothesis_id\":\"H4\"},{\"id\":\"6bd128bde2e137ea54f3\",\"reason\":\"The measured 5/1 m199 row at 100 uL is 28.52/52.30 mL (714004602e6452764d9a), after a 2/1 row of 12.32/22.67 mL (b060fa3ae84f80e773d2). This 150 uL matched-solvent row tests loading sensitivity in a sulfoxide whose completion was strongly underpredicted.\",\"hypothesis_id\":\"H4\"},{\"id\":\"19f19f196ba5787a01b0\",\"reason\":\"This changes only loading-solvent volume relative to the measured m125 row facbcedbecb46072b04c (2/1, 150 uL sample, 500 uL loading volume, 32.95/69.81 mL). Its 300 uL loading-volume condition is predicted at 31.68/69.15 mL, providing a clean control for whether the broad m125 interval is robust to loading details.\",\"hypothesis_id\":null},{\"id\":\"74c8fcd8ac3f6caedcd2\",\"reason\":\"m141 produced a very broad measured interval at 20/1, 150 uL (51f4126a3aadb3239225, 43.47/118.59 mL). This 5/1, 100 uL row remains high-width and predicts 27.72/71.13 mL, testing whether the model can transfer that heteroaromatic behavior across solvent strength and load.\",\"hypothesis_id\":\"H4\"},{\"id\":\"855832bd4005ac7abdc6\",\"reason\":\"The measured m90 row at 10/1 and 150 uL is 41.71/106.06 mL (c76d0420b34df595c0c9). This 5/1, 100 uL candidate predicts 33.05/102.80 mL and has a wide predicted interval, making it a useful neighboring label for repairing the broad-completion region.\",\"hypothesis_id\":null},{\"id\":\"1e971da91b3a8229f0e0\",\"reason\":\"m173 shows strong condition-dependent completion: 0/1 gives 5.12/50.30 mL (6802f0b28c5a0c7b4c2a), while 1/1 gives 6.51/108.89 mL (f90a5a5a54509c085ebd). This 5/1 row, predicted at 16.81/68.42 mL with a wide interval, discriminates between persistent broadening and an irregular solvent response.\",\"hypothesis_id\":\"H2\"},{\"id\":\"38ac413d67aacb0d9060\",\"reason\":\"This m116 row is a matched intermediate point at 5/1, 100 uL, DCM, 300 uL loading volume. It complements the measured 2/1 result 17418a1ba5c9443057c3 (5.68/11.21 mL) and 20/1 result c3eb276f59965c3608f1 (17.14/27.77 mL), testing the reversed response curve with an intermediate solvent condition.\",\"hypothesis_id\":\"H3\"},{\"id\":\"1234fa6b7a71b815104c\",\"reason\":\"The 10/1 m116 point continues the matched condition-response sequence between the measured 2/1 and 20/1 rows. Its prediction of 10.90/19.14 mL can determine whether the observed increase toward 20/1 is gradual, abrupt, or nonmonotone.\",\"hypothesis_id\":\"H3\"},{\"id\":\"8aa79ce56a84843f3849\",\"reason\":\"m39 was measured at 5/1 and 150 uL with 10.76/26.72 mL (ae8805bc02bce03072e2). This 100 uL row holds the solvent system fixed and tests whether the load-associated endpoint widening seen for m166 (ea9ef1bc8766196ca96d and 20acd2ae49790ab82053) transfers to another oxygenated aromatic compound.\",\"hypothesis_id\":\"H1\"},{\"id\":\"d5234e966aa231be05e5\",\"reason\":\"This structurally novel amino ether row probes a polar basic molecule at 5/1 with a predicted 20.38/38.19 mL. It supplies a condition point outside the measured amino-ester and amino-carbonyl examples and can improve representation of aliphatic amine and ether interactions with silica.\",\"hypothesis_id\":\"H4\"},{\"id\":\"72231b208c5287c32d70\",\"reason\":\"m117 was measured at 50/1 and 150 uL at 22.87/57.47 mL (fe1a34b5975943e8f292). This 20/1 row, predicted at 18.32/47.62 mL, adds a nearby solvent-response anchor for an oxygenated aromatic aldehyde with a broad completion interval.\",\"hypothesis_id\":\"H2\"},{\"id\":\"a1d9ec291feffecb4e6f\",\"reason\":\"The measured m159 row at 10/1 and 150 uL is 7.70/31.58 mL (79ff49052bce33597828). This 20/1, lower-load candidate predicts 19.76/31.49 mL, testing whether solvent strength mainly shifts onset while completion remains stable or whether the model is overestimating onset for this multifunctional nitrile ketone.\",\"hypothesis_id\":null},{\"id\":\"776ee2c1e85ebde75168\",\"reason\":\"m119 is absent from the measured set and this 5/1 candidate has a large predicted interval, 23.29/57.19 mL. Its donor-containing alcohol and anisole structure probes an uncovered combination of hydrogen bonding and aromatic ether interactions, with potential transfer to several oxygenated rows.\",\"hypothesis_id\":null},{\"id\":\"10f14f6ee69ba06bbe68\",\"reason\":\"The measured m104 amino ester rows are much earlier, including 4.81/10.45 mL at 2/1 (04e994913bc43aa60007) and 5.23/13.75 mL at 5/1 (9333d130f52d80332cf0). This 20/1 candidate predicts 21.94/48.45 mL, directly testing whether the model's large late-retention step for this amino-aromatic family is chemically transferable.\",\"hypothesis_id\":\"H4\"}],\"hypotheses\":[{\"id\":\"H1\",\"content\":\"Loading amount can change onset and especially completion in a compound-dependent way, with oxygenated aromatic compounds showing larger interval changes than the predictor currently represents.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"ea9ef1bc8766196ca96d\",\"20acd2ae49790ab82053\"],\"contradicting_observed_ids\":[\"3aed7873d2fd1cf48684\",\"18186b5d6cc190fc07a3\"],\"confidence\":\"high\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"Loading amount varies widely across the catalog and can alter both endpoints. Matched contrasts can teach the retrained model when loading is a meaningful interaction rather than a nearly invariant feature.\",\"next_discriminating_question\":\"Does the m39 5/1 matched loading contrast reproduce the V2 widening observed for m166?\"},{\"id\":\"H2\",\"content\":\"Very broad or unexpectedly late completion is compound-specific near strong-eluent conditions; broad behavior observed for cinnamic acid does not transfer reliably to all oxygenated acids, aldehydes, or esters.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"6802f0b28c5a0c7b4c2a\",\"f90a5a5a54509c085ebd\"],\"contradicting_observed_ids\":[\"c19767fb04f6a760572d\",\"ff3ee95fed58907ff8b3\"],\"confidence\":\"high\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"V2 errors dominate several of the largest observed residuals. Labels across the same broad chemical class but different functional-group environments can prevent the model from applying a universal solvent-response rule.\",\"next_discriminating_question\":\"Does m173 retain a broad interval at 5/1, or does its unusual V2 response remain confined to the 0/1 to 1/1 boundary?\"},{\"id\":\"H3\",\"content\":\"The apparent decrease in m116 retention predicted from 2/1 to 20/1 was a model-response artifact; measured m116 retention instead increased over that range, and intermediate points are needed to learn the local curve.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"17418a1ba5c9443057c3\",\"c3eb276f59965c3608f1\"],\"contradicting_observed_ids\":[],\"confidence\":\"high\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"This is a direct, matched molecule-condition failure with opposite observed and predicted solvent direction. Intermediate labels can correct the learned solvent-response shape for m116 and related dimethoxy aromatics.\",\"next_discriminating_question\":\"Is the observed m116 increase from 2/1 to 20/1 gradual through 5/1 and 10/1?\"},{\"id\":\"H4\",\"content\":\"Functional-group identity and local structural environment cause large retention and interval errors for multifunctional polar compounds, sulfoxides, amine-containing aromatics, and amino ethers that are not captured by group counts alone.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"c6924324ddd95f249df6\",\"b060fa3ae84f80e773d2\",\"714004602e6452764d9a\",\"6b7209c2e8154837a8c7\"],\"contradicting_observed_ids\":[],\"confidence\":\"high\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"These failures affect both V1 and V2 and recur across catalog families. Matched or family-adjacent labels can improve structural offsets and the interaction between polarity, basicity, loading, and solvent strength.\",\"next_discriminating_question\":\"Do the selected amino, sulfoxide, and amino-ether rows reproduce the observed tendency toward unexpectedly late completion?\"}],\"feedback_interpretation\":\"The new labels strengthen the case that V2 is the main failure mode in several chemical regions. m107 at 5/1 was measured at 43.20/101.44 mL, m199 gave 28.52/52.30 mL at 5/1, and m173 reached 108.89 mL completion at 1/1; these outcomes support targeted repair of broad-interval and multifunctional polar rows. The m166 50-to-150 mg comparison also supports a compound-dependent loading effect, although other matched-like examples remain weak or contradictory. The m116 results directly changed the solvent-response hypothesis: the measured 2/1 row was 5.68/11.21 mL and the 20/1 row was 17.14/27.77 mL, opposite the model's predicted direction, so intermediate m116 points are now prioritized. Pure or strong eluent did not produce a universal behavior: cinnamic acid remained exceptionally broad, whereas methyl mandelate and salicylaldehyde were comparatively narrow. The batch therefore emphasizes local curves and load controls around confirmed failures, while adding a few high-width or structurally uncovered rows for transfer.\",\"batch_rationale\":\"The batch repairs several observed failure regions directly: m107 and m199 receive loading contrasts after large V2 underprediction, m125 receives a matched loading-solvent-volume control, and m141 and m90 extend broad-interval regions to nearby solvent and loading conditions. The m116 pair is a deliberately local response experiment anchored by two measured endpoints with an already confirmed reversed solvent trend. m130 provides two condition points against a measured early baseline to test an extreme model branch. m173, m117, and m159 add solvent-response labels where measured behavior is broad, irregular, or endpoint-specific. The remaining m212, m119, and m104 rows cover underrepresented basic, donor-containing, and amino-aromatic environments. Together these labels should improve endpoint calibration, interval-width learning, molecular-condition interactions, and transfer across repeated Row-distribution families rather than concentrating only on predicted late elution.\"}",
+  "provenance": {
+    "response_id": "resp_020c14573ec6f374016abff98aee9487d0b080dd32efc2ee6e",
+    "served_model": "gpt-6-astra",
+    "usage": {
+      "input_tokens": 462369,
+      "input_tokens_details": {
+        "cached_tokens": 461568,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 13392,
+      "output_tokens_details": {
+        "reasoning_tokens": 10358
+      },
+      "total_tokens": 475761,
+      "attribution": {
+        "items": {
+          "msg_020c14573ec6f374016abff98af83c87d0a00e3e4a30b1e9c5": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 455873,
+            "content": [
+              {
+                "cache_write_tokens": 0,
+                "cached_tokens": 455873,
+                "input_tokens": 456672,
+                "output_tokens": 0
+              }
+            ],
+            "input_tokens": 456672,
+            "output_tokens": 0
+          },
+          "rs_020c14573ec6f374016abff98e641087d0a4b11c29fd13f317": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "input_tokens": 2,
+            "output_tokens": 516
+          },
+          "rs_020c14573ec6f374016abff9a6974887d09c3302999582f12b": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "input_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_020c14573ec6f374016abff9baae1487d0a192c26603173d40": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "input_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_020c14573ec6f374016abff9cffda087d08580fce99d6d2216": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "input_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_020c14573ec6f374016abff9e40c6487d0a60700d43c3bd296": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "input_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_020c14573ec6f374016abff9fb079c87d082c7527b47eef6e0": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "input_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_020c14573ec6f374016abffa11114887d095c75e57ad8d899d": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "input_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_020c14573ec6f374016abffa2793bc87d0b9e4f734f6eedfba": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "input_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_020c14573ec6f374016abffa3d2c5c87d09430bd05c3db9736": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "input_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_020c14573ec6f374016abffa4faac887d08f520a88de2c3cda": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "input_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_020c14573ec6f374016abffa64e2c087d0bdf104f1f6baffe2": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "input_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_020c14573ec6f374016abffa76121087d090734f9ae625e71e": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "input_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_020c14573ec6f374016abffa8af8f887d09af072ca3386ec85": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "input_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_020c14573ec6f374016abffaa1bc2487d0bbe3a5005c2b5512": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "input_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_020c14573ec6f374016abffab4539487d0a1943452909c5cb0": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "input_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_020c14573ec6f374016abffac8953087d0939f740061267a24": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "input_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_020c14573ec6f374016abffadfb5fc87d0906b77a61b68d659": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "input_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_020c14573ec6f374016abffaf2e6dc87d0bcc7926e2646e6e4": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "input_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_020c14573ec6f374016abffb041c1087d0b5d3e8b3c56833cb": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "input_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_020c14573ec6f374016abffb16f15087d0ba74df79d73b7abf": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "input_tokens": 0,
+            "output_tokens": 518
+          },
+          "msg_020c14573ec6f374016abffb29d76c87d09145e2d88f781b16": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "content": [
+              {
+                "cache_write_tokens": 0,
+                "cached_tokens": 0,
+                "input_tokens": 0,
+                "output_tokens": 3034
+              }
+            ],
+            "input_tokens": 0,
+            "output_tokens": 3034
+          }
+        },
+        "request_fields": {
+          "instructions": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 5695,
+            "input_tokens": 5695,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "native_tool_calls": 0
+  }
+}

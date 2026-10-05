@@ -1,0 +1,43 @@
+/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/requests/__init__.py:86: RequestsDependencyWarning: Unable to find acceptable character detection dependency (chardet or charset_normalizer).
+  warnings.warn(
+[LLM-AL 2026-10-02 07:53:23] round 6: one authorized extra correction; started
+[LLM-AL 2026-10-02 07:53:25] round 6: one authorized extra correction; interrupted after 1.2s
+Traceback (most recent call last):
+  File "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/astra_high_full_pool_20261001/resume_round6_authorized.py", line 80, in <module>
+    result = study.select(157,METHOD,5)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/fish/Documents/GitHub/column_chromatography_prediction/src/qgeognn_al/active_learning_v2/scientist_study.py", line 447, in select
+    stage(seed, method, r)
+  File "/Users/fish/Documents/GitHub/column_chromatography_prediction/src/qgeognn_al/active_learning_v2/scientist_study.py", line 415, in stage
+    labeled, unlabeled, truth, history = state(context, method, r)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/fish/Documents/GitHub/column_chromatography_prediction/src/qgeognn_al/active_learning_v2/scientist_study.py", line 338, in state
+    frozen = audit_batch(directory)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/fish/Documents/GitHub/column_chromatography_prediction/src/qgeognn_al/active_learning_v2/scientist_study.py", line 322, in audit_batch
+    result = run_selector(packet, catalog, directory, config, call=unavailable)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: extra_selector() got an unexpected keyword argument 'call'
+/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/requests/__init__.py:86: RequestsDependencyWarning: Unable to find acceptable character detection dependency (chardet or charset_normalizer).
+  warnings.warn(
+[LLM-AL 2026-10-02 07:54:16] round 6: one authorized extra correction; started
+[LLM-AL 2026-10-02 07:54:46] round 6: one authorized extra correction; still running; elapsed=30.0s
+[LLM-AL 2026-10-02 07:55:16] round 6: one authorized extra correction; still running; elapsed=60.0s
+[LLM-AL 2026-10-02 07:55:46] round 6: one authorized extra correction; still running; elapsed=90.0s
+[LLM-AL 2026-10-02 07:56:16] round 6: one authorized extra correction; still running; elapsed=120.0s
+[LLM-AL 2026-10-02 07:56:46] round 6: one authorized extra correction; still running; elapsed=150.0s
+[LLM-AL 2026-10-02 07:57:16] round 6: one authorized extra correction; still running; elapsed=180.0s
+[LLM-AL 2026-10-02 07:57:21] round 6: one authorized extra correction; interrupted after 184.5s
+Traceback (most recent call last):
+  File "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/astra_high_full_pool_20261001/resume_round6_authorized.py", line 81, in <module>
+    result = study.select(157,METHOD,5)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/fish/Documents/GitHub/column_chromatography_prediction/src/qgeognn_al/active_learning_v2/scientist_study.py", line 455, in select
+    result = run_selector(packet, catalog, directory, read(STUDY / "protocol.json")["transport"])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/astra_high_full_pool_20261001/resume_round6_authorized.py", line 60, in extra_selector
+    result = validate_direct(json.loads(receipt['answer']),catalog,packet)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/fish/Documents/GitHub/column_chromatography_prediction/src/qgeognn_al/active_learning_v2/scientist_full_delivery.py", line 79, in validate_direct
+    raise ValueError('must select distinct legal supplied candidate IDs')
+ValueError: must select distinct legal supplied candidate IDs

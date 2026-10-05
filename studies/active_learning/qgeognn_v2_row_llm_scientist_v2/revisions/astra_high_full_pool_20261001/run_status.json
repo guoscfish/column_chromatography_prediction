@@ -1,0 +1,70 @@
+{
+  "status": "BLOCKED_PROVIDER_DAILY_LIMIT",
+  "seed": 157,
+  "method": "free_llm32_scientist_v2",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "high",
+  "delivery": "all_candidates",
+  "completed_cycles": 3,
+  "requested_cycles": 6,
+  "active_label_count": 429,
+  "remaining_candidate_count": 2901,
+  "completed_new_measurements": 96,
+  "next_cycle": 4,
+  "provider_error": "429 USAGE_LIMIT_EXCEEDED / DAILY_LIMIT_EXCEEDED",
+  "failed_attempts_at_next_cycle": 3,
+  "reset_time_provided": false,
+  "usage_completed_responses": {
+    "input_tokens": 1818504,
+    "output_tokens": 28407
+  },
+  "rounds": [
+    {
+      "cycle": 1,
+      "full_candidate_rows_sent": 2997,
+      "observed_rows_sent": 333,
+      "selected_count": 32,
+      "active_labels_after_training": 365,
+      "responses": 1,
+      "corrections": 0,
+      "usage": {
+        "input_tokens": 455242,
+        "output_tokens": 7270
+      },
+      "training_best_epoch": 112,
+      "artifact_audit": "passed"
+    },
+    {
+      "cycle": 2,
+      "full_candidate_rows_sent": 2965,
+      "observed_rows_sent": 365,
+      "selected_count": 32,
+      "active_labels_after_training": 397,
+      "responses": 2,
+      "corrections": 1,
+      "usage": {
+        "input_tokens": 912774,
+        "output_tokens": 14558
+      },
+      "training_best_epoch": 66,
+      "artifact_audit": "passed"
+    },
+    {
+      "cycle": 3,
+      "full_candidate_rows_sent": 2933,
+      "observed_rows_sent": 397,
+      "selected_count": 32,
+      "active_labels_after_training": 429,
+      "responses": 1,
+      "corrections": 0,
+      "usage": {
+        "input_tokens": 450488,
+        "output_tokens": 6579
+      },
+      "training_best_epoch": 111,
+      "artifact_audit": "passed"
+    }
+  ],
+  "test_evaluation_performed": false,
+  "resume_command": "KMP_DUPLICATE_LIB_OK=TRUE /Users/fish/miniforge3/envs/fish/bin/python -u scripts/studies/run_qgeognn_v2_row_llm_scientist.py run --revision astra_high_full_pool_20261001 --seed 157 --method free_llm32_scientist_v2 --status-interval 30"
+}

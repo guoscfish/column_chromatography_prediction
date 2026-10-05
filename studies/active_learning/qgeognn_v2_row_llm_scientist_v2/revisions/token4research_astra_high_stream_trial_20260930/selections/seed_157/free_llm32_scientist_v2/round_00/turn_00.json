@@ -1,0 +1,67 @@
+{
+  "request_sha256": "8161c17b85f72585949ae03b8eac8cf81362faaba4cda7fa2a41271e6073c04d",
+  "answer": "{\"type\":\"query\",\"queries\":[{\"operation\":\"search_candidates\",\"args\":{\"filters\":{\"molecule_novelty\":{\"min_value\":1,\"max_value\":1}},\"sort_by\":\"cw_distance_percentile\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"filters\":{\"molecule_novelty\":{\"min_value\":0,\"max_value\":0}},\"sort_by\":\"V1_quantile_width_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"filters\":{\"molecule_novelty\":{\"min_value\":1,\"max_value\":1}},\"sort_by\":\"V2_quantile_width_ml\",\"order\":\"desc\",\"limit\":24}},{\"operation\":\"search_candidates\",\"args\":{\"filters\":{\"condition_novelty\":{\"min_value\":1,\"max_value\":1}},\"sort_by\":\"loading_amount_mg\",\"order\":\"desc\",\"limit\":24}}]}",
+  "provenance": {
+    "response_id": "resp_02d9ab3c01f8c0c3016abd27cc279487d083c91e3dcfbc8530",
+    "served_model": "gpt-6-astra",
+    "usage": {
+      "input_tokens": 16594,
+      "input_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 515,
+      "output_tokens_details": {
+        "reasoning_tokens": 326
+      },
+      "total_tokens": 17109,
+      "attribution": {
+        "items": {
+          "msg_02d9ab3c01f8c0c3016abd27cc30c887d0812f731777f397ac": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "content": [
+              {
+                "cache_write_tokens": 0,
+                "cached_tokens": 0,
+                "input_tokens": 10520,
+                "output_tokens": 0
+              }
+            ],
+            "input_tokens": 10520,
+            "output_tokens": 0
+          },
+          "rs_02d9ab3c01f8c0c3016abd27d6f04887d0a6820afb28d99437": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "input_tokens": 2,
+            "output_tokens": 326
+          },
+          "msg_02d9ab3c01f8c0c3016abd27ea54b487d09a57c75eabf762d0": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "content": [
+              {
+                "cache_write_tokens": 0,
+                "cached_tokens": 0,
+                "input_tokens": 0,
+                "output_tokens": 189
+              }
+            ],
+            "input_tokens": 0,
+            "output_tokens": 189
+          }
+        },
+        "request_fields": {
+          "instructions": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0,
+            "input_tokens": 6072,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "native_tool_calls": 0
+  }
+}
