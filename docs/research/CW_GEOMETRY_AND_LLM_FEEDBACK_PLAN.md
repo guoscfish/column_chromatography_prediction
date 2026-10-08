@@ -1,0 +1,47 @@
+# CW geometry and LLM feedback — preregistered development study
+
+2026-10-08; starting commit `89c42c164aab2d873ccb65f409cfd0417233bd17` (origin/main verified). Branch `codex/cw-geometry-feedback`. No applicable AGENTS.md found; repository conventions and retention policy apply. Initial working tree clean, no local training worker; other worktrees preserved.
+
+## Questions and interpretation
+
+A: Are measured-feedback-driven LLM selection and CW geometry complementary? B: Does CW geometry improve LCMD, MaxDet and IVR, and is the benefit output correlation correction rather than unique center/width semantics? Task remains 4g Row overall V1/V2. No architecture, transfer or controller expansion. Historical CW/IVR portfolio uses CW-LCMD and Raw-IVR; it is not CW-IVR. Historical innovation whitening is selection-only unless full retraining provenance proves otherwise.
+
+## Frozen matrix and limits
+
+Development seeds 157, 6101; L0=333, B=32; budgets 333,365,397,429,461,493,525. Raw/CW × LCMD/MaxDet/IVR plus Random. Reuse audited Raw-LCMD, Raw-MaxDet, Raw-IVR, CW-LCMD, Random only on exact data/IDs/split/L333/initialization/training/scales/sketch/objective and trajectory match. New CW-MaxDet and CW-IVR: 24 fits. Whitening-LCMD: 12 fits. Maximum 36 new formal fits; shared L333 reused. No extra control fits on reuse failure. Complete all six batches per seed regardless of early performance; prioritize two CW arms if resources block. Rotation and metric-matched CW only diagnostic, no formal fits.
+
+All arms start shared L333 and independently consume only their own acquired labels. Scratch retrain with identical seed-specific initialization; existing QGeoGNN-V2 six-head model, Adam LR .001, weight decay 0, batch 2048, maximum 1000 epochs, patience 100, deterministic epoch shuffle, equal V1/V2 loss, validation combined NRMSE checkpoint. Fixed L333 target scales for original V1/V2 evaluation. Freeze batch IDs and premeasurement predictions before revealing labels. No new test evaluation before complete global matrix budget/checkpoint/prediction freeze. Historical exposed test is never a new blind test. Development validation comparison is explicitly exploratory.
+
+## P0 geometry and compatibility
+
+L333-only population scales: Raw D=diag(1/sV1,1/sV2); Rotation QD (45-degree orthogonal, no rescaling); CW rows (.5/sC,.5/sC),(-1/sW,1/sW); existing population whitening with absolute floor 1e-8 and relative floor 1e-6; H=sqrt(Tcw.T Tcw). Freeze transforms once. Small uncompressed gradient Gram audits Raw/Rotation and CW/H, no full dataset Jacobian saved. Projection seeds 17,101,1009; total dimensions 256,512,1024. Existing production 512D concatenated-output CountSketch with seed outer_seed+4000037 stays unchanged. Fixed finite sketch need not preserve rotation. Optional shared-projection two-block diagnostic retains total dimension and tests exact orthogonal invariance.
+
+Use existing selectors: MaxDet current-L feature RMS; IVR fixed L+U universe RMS; LCMD historical distance geometry. Same-selector Raw/CW policies match; cross-selector differences cannot be attributed only to objective. Verify direct logdet and explicit covariance IVR, duplicates, canonical tie, L/U ordering, model state, historical Raw/CW selection regression. CW-IVR is a CW gradient row-kernel IVR proxy, not an exact multi-output posterior risk.
+
+## P2 offline scope and future ablations
+
+Keep historical CW16 pending + LLM16 and Full prompt frozen. Future comparisons: CW32, CW16+Random16, Full, No-narrative, No-direct-response, No-chemistry. Unified schema/allowlisted filters must preserve candidate/pending eligibility and frozen batch count. No-narrative retains all measured numeric responses/errors/time but removes free text, self-explanations and hypotheses. No-direct-response removes measured endpoints, errors, before/after changes, response-derived summaries and narrative; retains current predictions, geometry, IDs, conditions and chemistry. Trainer still uses labels: this is not no feedback. No-chemistry keeps numeric observations/predictions, conditions, stable anonymous groups and predefined numeric geometry, removes structure/names/descriptors and leaking text. Remaining model signals can have chemical origins. Coupled field removal limits causal attribution.
+
+This round: offline fixture only, paid LLM calls=0. Future independent trajectories from L333, not replayed Full curves; two development seeds to525. Freeze provider/model/reasoning from Full (gpt-6-astra/high), context/prompt limits, retries, invalid-response policy and request/response model IDs; no automatic fallback or manual ID repair. Future run config must explicitly authorize finite cost/call ceilings; quota stops resumably. Pending-aware and deterministic condition controls deferred. If Full does not robustly beat CW32, do not claim overall label efficiency gains. Confirm with new measurement/test region or second system; selected-row error reduction is not generalization.
+
+## Primary analysis and continuation rules
+
+Primary metric frozen now: normalized trapezoidal validation AULC333–525. Secondary NRMSE@525, V1/V2 RMSE/MAE/R², paired seed differences. delta_s=AULC(CW,s)-AULC(Raw,s). Cross-selector differences are developmental interactions, no significance claims with two seeds. Report selection overlap/Jaccard and norms/rank/distances/structure-condition coverage; distinguish same-state diagnostics from separate trajectories.
+
+Candidate threshold: mean AULC improvement >=2% relative within selector AND both seeds improve. One new selector passes: selector-specific confirmation eligibility; both new selectors pass: cross-selector candidate eligibility. Threshold is resource allocation, not statistical significance. Do not substitute favorable endpoint or test. If whitening matches/beats CW, describe output geometry correction, not CW-specific semantics.
+
+Next stage planned only: freeze one candidate and strong Raw/CW/whitening controls; audit and preregister five unused split seeds before running L333→525. Extend to813/1005 only under subsequent prior budget. No rolling seed substitution. New splits are robustness, not external validation. Later add genuinely multi-output second system; single-output HPLC cannot validate CW multi-output geometry.
+
+## Status and artifact owner
+
+Study owner: `studies/active_learning/qgeognn_v2_row_cw_selector_factorial/`.
+
+| Stage | Actual state | Evidence / next step |
+|---|---|---|
+| inventory | running | origin verified; local runtime inventory and reuse audit underway |
+| P0 | planned | geometry + existing-selector tests + historical replay |
+| P1a | planned | only after P0 and exact reuse audit |
+| P1b | planned | 12 fits maximum, no Jaccard gate |
+| P2 offline | planned | allowlisted schema, adversarial fixtures; no network |
+
+Required outputs: PROTOCOL.md, protocol.json, REUSE_MANIFEST.json, RUN_STATE.json, MECHANISM_AUDIT.md, RESULTS.md, per-seed CSV/PNG, costs and executable recovery commands. Every stage transition updates this table and state. Blockers record evidence and recovery commands, never masquerade as completion. Stop after P0/P1a/P1b/P2 offline; preserve historical files and ignored checkpoint policy. Commit plan before formal runs and commit code/results after verification; no force push.
