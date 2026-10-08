@@ -1,0 +1,38 @@
+{
+  "status": "offline_only",
+  "paid_calls_limit": 0,
+  "cost_limit_usd": 0,
+  "future_seeds": [
+    157,
+    6101
+  ],
+  "budget": 525,
+  "baseline": "CW16_pending_LLM16",
+  "provider_model_reasoning": "inherit frozen Full revision; gpt-6-astra/high",
+  "future_transport_enabled": false,
+  "fallback": false,
+  "manual_id_repair": false,
+  "variants": {
+    "full": {
+      "narrative": true,
+      "direct_response": true,
+      "chemistry": true
+    },
+    "no_narrative": {
+      "narrative": false,
+      "direct_response": true,
+      "chemistry": true
+    },
+    "no_direct_response": {
+      "narrative": false,
+      "direct_response": false,
+      "chemistry": true
+    },
+    "no_chemistry": {
+      "narrative": false,
+      "direct_response": true,
+      "chemistry": false
+    }
+  },
+  "next_gate": "freeze adapted prompt/schema plus exact provider config hashes and finite positive authorized cost/call budget before enabling transport"
+}

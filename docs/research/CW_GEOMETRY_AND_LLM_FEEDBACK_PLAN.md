@@ -38,10 +38,10 @@ Study owner: `studies/active_learning/qgeognn_v2_row_cw_selector_factorial/`.
 
 | Stage | Actual state | Evidence / next step |
 |---|---|---|
-| inventory | running | origin verified; local runtime inventory and reuse audit underway |
-| P0 | planned | geometry + existing-selector tests + historical replay |
-| P1a | planned | only after P0 and exact reuse audit |
+| inventory | completed | 70 reused points: checkpoint, predictions, exact training/preprocessing/initialization and ordered trajectory checked |
+| P0 | completed | 166 geometry records, four historical first-batch replays, 29 unit tests passed |
+| P1a | running | bounded sequential CW-MaxDet then CW-IVR; 24 fits reserved in plan |
 | P1b | planned | 12 fits maximum, no Jaccard gate |
-| P2 offline | planned | allowlisted schema, adversarial fixtures; no network |
+| P2 offline | completed | four variants, numeric/text boundary and freeze tests; zero paid calls |
 
 Required outputs: PROTOCOL.md, protocol.json, REUSE_MANIFEST.json, RUN_STATE.json, MECHANISM_AUDIT.md, RESULTS.md, per-seed CSV/PNG, costs and executable recovery commands. Every stage transition updates this table and state. Blockers record evidence and recovery commands, never masquerade as completion. Stop after P0/P1a/P1b/P2 offline; preserve historical files and ignored checkpoint policy. Commit plan before formal runs and commit code/results after verification; no force push.
