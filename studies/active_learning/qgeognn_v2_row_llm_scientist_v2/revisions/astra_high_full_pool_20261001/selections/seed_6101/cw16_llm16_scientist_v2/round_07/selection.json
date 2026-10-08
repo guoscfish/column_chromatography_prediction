@@ -1,0 +1,170 @@
+{
+  "type": "selection",
+  "packet_sha256": "f616e539bd5a021bc6a6dffaaa53f09ebe440813295356f0b7d39d93fb0e488e",
+  "batch_strategy": "Targeted failure repair using solvent-response and loading contrasts, with chemically novel coverage of broad model-width regions.",
+  "choices": [
+    {
+      "id": "61e2b18d9ec61505948c",
+      "reason": "Tests an intermediate loading and 10/1 condition for an ester-like polar ketone in a broad predicted V2 region. It complements the exceptional phenylmalonate response, where 20/1 was much later than 50/1 in 3726956d81fe3954e5b7 and 28e9fea3e3293f2b8a0e.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "44fcf641ccfa3b10a97c",
+      "reason": "High-width 50/1 aromatic carbonyl candidate. Its label can repair late-onset and long-completion errors that were severe for para-methoxybenzaldehyde in 2d178efe0181baca2bd5 and for related aromatic carbonyls in 319e89d7000731f64e7f and 52348febee6695107c49.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "81507d463506a9e65e73",
+      "reason": "Broad-width 1/1 multifunctional ester candidate. It supplies a strong-eluent anchor for a structure class with large endpoint errors, complementing the measured high-ratio m13 row ca467c94f14b2219503e and the multifunctional-tail failures in c6924324ddd95f249df6.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "9e3f598e00375ec93d9b",
+      "reason": "Provides a loading contrast for m13 at 10/1: the candidate uses lower nominal sample amount than the measured 10/1 m13 experiment ca467c94f14b2219503e. This can separate amount sensitivity from the large solvent-response effect in that multifunctional molecule.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "dc8da611e77ae1bb11f2",
+      "reason": "Adds a 2/1 interior point for m11 between measured 10/1 and 50/1 observations in 6b8e53d2d8c8a90a7216 and 9ffee2813aef5c26f96f. It tests where the large completion tail begins rather than assuming a uniform solvent slope.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "d1172a49fca1e196a59f",
+      "reason": "High-width 5/1 candidate for m107. It complements the measured lower-loading 5/1 m107 result c6924324ddd95f249df6 and tests whether the severe high-retention tail persists when sample amount increases.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "c53b8c93f8ee1304dfd0",
+      "reason": "Broad-width 50/1 aromatic carbonyl candidate in an ordinary loading range. It expands positional and substituent coverage around the observed aromatic-carbonyl failures without duplicating the already measured tetralone curve.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "f31917e9b529f3a4126a",
+      "reason": "Chemically novel, highly hydrophobic polyaromatic bromide with broad predicted endpoint widths. The label probes extrapolation for large non-hydrogen-bonding aromatics, a structural region poorly represented by the severe polar failures.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "00ae0f7f3fc62795a036",
+      "reason": "Low-ratio anchor for a multifunctional diketone with broad predicted widths. It can be compared with the measured high-ratio m168 behavior, including 8db24ae10df4095ada47, to determine whether completion growth is monotone or connectivity-specific.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "a352cfd369602fd71eec",
+      "reason": "Broad-width 2/1 brominated aromatic aldehyde candidate. It tests whether the long-completion behavior seen in measured aromatic aldehydes such as 319e89d7000731f64e7f transfers across ring substitution and hydrogen-bonding topology.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "c8aa294f40da0b999307",
+      "reason": "Intermediate-ratio candidate for an ester-containing aromatic carbonyl. It complements the measured 10/1 m81 row 79a8af9fd69d3ddbf3e3 and 20/1 row 6b8ff4c027d9c4c2d75f, constraining an endpoint-specific response curve.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "6cc8a8235eb19b5ab514",
+      "reason": "20/1 aromatic aldehyde candidate with moderate-to-broad endpoint widths. It adds a positional aldehyde anchor to distinguish ordinary aromatic-aldehyde interpolation from the extreme para-methoxybenzaldehyde failure in 2d178efe0181baca2bd5.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "2aa2754666d0f055cb00",
+      "reason": "50/1 diester candidate at substantial loading. It probes whether the high-ratio ester completion tail is typical or restricted to phenylmalonate, whose reversal is documented in 3726956d81fe3954e5b7, 28e9fea3e3293f2b8a0e and ce3b9d9cbe1699c7eef9.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "b0764b94416833704b53",
+      "reason": "Lower-loading 50/1 aromatic ester candidate with broad V2 width. It supplies a local amount contrast for high-ratio ester behavior and can help prevent the phenylmalonate exception from being overgeneralized.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "61771d230b285babe4b6",
+      "reason": "High-width 50/1 beta-keto ester candidate. It extends coverage of late completion tails in multifunctional carbonyl compounds, complementing the measured m25 and m75 condition-response irregularities.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "778473c0f5d36fbe8069",
+      "reason": "1/1 halogenated nitrile candidate with a narrow predicted onset but nontrivial endpoint width. It provides a lower-retention structural anchor for distinguishing ordinary halogenated aromatics from the high-retention nitrogen-rich failures.",
+      "hypothesis_id": "H5"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Aromatic carbonyl retention requires topology- and substituent-specific solvent responses, with onset and completion sometimes changing independently.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "2d178efe0181baca2bd5",
+        "319e89d7000731f64e7f",
+        "1668026caa5d708642cf",
+        "52348febee6695107c49",
+        "855456da9ea892f7216b",
+        "0c5c35afb3a24375c153"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Aromatic carbonyls are common across the Row-distribution, so matched topology and ratio anchors can improve both endpoint interpolation and transfer.",
+      "next_discriminating_question": "Which aromatic carbonyl topologies develop late onset or long completion tails at intermediate and high PE/EA ratios?"
+    },
+    {
+      "id": "H2",
+      "content": "Highly polar or heteroatom-rich molecules can develop molecule-specific, endpoint-specific and unusually long completion tails; local ratio anchors are needed before applying a family correction.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "9ffee2813aef5c26f96f",
+        "6b8e53d2d8c8a90a7216",
+        "c6924324ddd95f249df6",
+        "c70b471334f9747d6f98",
+        "9e3ce3497298084abd83",
+        "855832bd4005ac7abdc6"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Repeated V2 underestimation in polar and multifunctional regions is a major generalization risk, and these candidates add interior anchors rather than only extremes.",
+      "next_discriminating_question": "Are the large endpoint errors driven mainly by solvent-ratio transitions or by molecule-specific connectivity?"
+    },
+    {
+      "id": "H3",
+      "content": "Loading amount can affect V1 and V2 differently in high-retention or multifunctional molecules, so matched amount contrasts are more informative than broad loading corrections.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "52b9af4df1f1e7cd4d9b",
+        "c82167c626a1495ef750",
+        "8143c4fff6f999b7ad0e",
+        "1effe6f049d068dc08cf"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The model needs to learn endpoint-specific loading interactions while retaining explicit density-times-volume covariates.",
+      "next_discriminating_question": "Do higher-load measurements shift onset, completion, or both within the broad-tail candidate families?"
+    },
+    {
+      "id": "H4",
+      "content": "Phenylmalonate-like ester behavior is locally nonmonotone or structurally exceptional, and ordinary ester response should not inherit its correction without additional anchors.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "3726956d81fe3954e5b7",
+        "28e9fea3e3293f2b8a0e",
+        "ce3b9d9cbe1699c7eef9",
+        "1effe6f049d068dc08cf"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The model can benefit from learning a localized exception while avoiding degradation across the much larger ordinary ester population.",
+      "next_discriminating_question": "Do other multifunctional esters show the same reversal or only a conventional monotone response?"
+    },
+    {
+      "id": "H5",
+      "content": "Chemically novel, hydrophobic or halogenated structures remain an extrapolation region even when predicted retention is modest; labels there can test whether the learned representation transfers beyond polar failure families.",
+      "basis": "model_behavior",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "A few structurally distant anchors can reduce representation blind spots and improve coverage of ordinary rows that are not captured by the current high-error examples.",
+      "next_discriminating_question": "Do structurally distant non-hydrogen-bonding aromatics follow the model's modest-retention predictions across solvent conditions?"
+    }
+  ],
+  "feedback_interpretation": "The latest measured feedback strengthens the need for local condition-response learning. Phenylmalonate retained its unusual reversal across 10/1 and 20/1 observations, while the 20/1 amount contrast was modest, so a generic ester correction remains inappropriate. Ortho-methoxyacetophenone still shows a loading-sensitive onset with comparatively less stable completion, motivating further matched loading. The large errors for multifunctional m13, m107, m11 and related nitrogen-rich compounds show that intermediate-ratio anchors may be more informative than additional extreme-ratio rows. The naphthyl-alcohol reversal hypothesis was weakened by its contradictory measured outcome, so this batch does not spend labels on that behavior. Recent aromatic-carbonyl outcomes, especially 2d178efe0181baca2bd5 and 319e89d7000731f64e7f, support topology-specific endpoint learning.",
+  "batch_rationale": "The batch combines failure repair with structured exploration. Most selections target broad-width aromatic carbonyl, multifunctional, ester and heteroatom-rich regions where measured feedback shows large signed errors and endpoint-specific behavior. Several rows add intermediate PE/EA anchors or amount contrasts, allowing the retrained model to learn slopes and loading interactions rather than merely shift predictions at isolated extremes. Two structurally distant candidates provide representation coverage for hydrophobic and halogenated molecules. The batch therefore spans early and late retention, onset and completion separately, and both common motifs and exceptional local response curves, which should improve generalization across the Row-distribution."
+}

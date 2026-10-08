@@ -1,0 +1,103 @@
+/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/requests/__init__.py:86: RequestsDependencyWarning: Unable to find acceptable character detection dependency (chardet or charset_normalizer).
+  warnings.warn(
+Waiting for PID 81187 to freeze hybrid6101 L493 before scheduler handoff
+Verified L493 freeze; old worker exited; starting hybrid-first schedule
+[LLM-AL 2026-10-07 23:59:33] 813 extension seed=157 cw16_llm16_scientist_v2 749->781 select; started
+[LLM-AL 2026-10-08 00:00:03] 813 extension seed=157 cw16_llm16_scientist_v2 749->781 select; still running; elapsed=30.0s
+[LLM-AL 2026-10-08 00:00:33] 813 extension seed=157 cw16_llm16_scientist_v2 749->781 select; still running; elapsed=60.0s
+[LLM-AL 2026-10-08 00:01:03] 813 extension seed=157 cw16_llm16_scientist_v2 749->781 select; still running; elapsed=90.0s
+[LLM-AL 2026-10-08 00:01:33] 813 extension seed=157 cw16_llm16_scientist_v2 749->781 select; still running; elapsed=120.0s
+[LLM-AL 2026-10-08 00:34:38] 813 extension seed=157 cw16_llm16_scientist_v2 749->781 select; interrupted after 146.3s
+Traceback (most recent call last):
+  File "/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/httpcore/_sync/connection.py", line 103, in handle_request
+    return self._connection.handle_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/httpcore/_sync/http11.py", line 136, in handle_request
+    raise exc
+  File "/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/httpcore/_sync/http11.py", line 106, in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/httpcore/_sync/http11.py", line 177, in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/httpcore/_sync/http11.py", line 231, in _receive_event
+    raise RemoteProtocolError(msg)
+httpcore.RemoteProtocolError: Server disconnected without sending a response.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/openai/_base_client.py", line 1005, in request
+    response = self._client.send(
+               ^^^^^^^^^^^^^^^^^^
+  File "/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+  File "/Users/fish/miniforge3/envs/fish/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.RemoteProtocolError: Server disconnected without sending a response.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/fish/Documents/GitHub/column_chromatography_prediction/src/qgeognn_al/active_learning_v2/scientist_transport.py", line 328, in _call_with_retries
+    answer, provenance = call(messages, config)
+                         ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/fish/Documents/GitHub/column_chromatography_prediction/src/qgeognn_al/active_learning_v2/scientist_transport.py", line 266, in responses_call
+    with client.responses.stream(model=config["model"], input=messages,
+  File "/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/openai/lib/streaming/responses/_responses.py", line 111, in __enter__
+    raw_stream = self.__api_request()
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/openai/resources/responses/responses.py", line 898, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/openai/_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/fish/miniforge3/envs/fish/lib/python3.11/site-packages/openai/_base_client.py", line 1037, in request
+    raise APIConnectionError(request=request) from err
+openai.APIConnectionError: Connection error.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/astra_high_full_pool_20261001/resume_813_hybrid_first.py", line 58, in <module>
+    s.select(seed,method,r)
+  File "/Users/fish/Documents/GitHub/column_chromatography_prediction/src/qgeognn_al/active_learning_v2/scientist_study.py", line 455, in select
+    result = run_selector(packet, catalog, directory, read(STUDY / "protocol.json")["transport"])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/astra_high_full_pool_20261001/resume_813_free6101_authorized.py", line 42, in extra_selector
+    return transport.run_selector(packet, catalog, directory, config, call=call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/fish/Documents/GitHub/column_chromatography_prediction/src/qgeognn_al/active_learning_v2/scientist_transport.py", line 347, in run_selector
+    return run_full_selector(packet, catalog, directory, config, call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/fish/Documents/GitHub/column_chromatography_prediction/src/qgeognn_al/active_learning_v2/scientist_transport.py", line 460, in run_full_selector
+    answer, provenance = _call_with_retries(messages, config, call, directory, index, request_hash)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/fish/Documents/GitHub/column_chromatography_prediction/src/qgeognn_al/active_learning_v2/scientist_transport.py", line 339, in _call_with_retries
+    raise RuntimeError(
+RuntimeError: selector turn 0 failed after 3 attempts; see /Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/astra_high_full_pool_20261001/selections/seed_157/cw16_llm16_scientist_v2/round_13/retries/turn_00

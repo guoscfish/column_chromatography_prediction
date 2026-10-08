@@ -1,0 +1,152 @@
+{
+  "type": "selection",
+  "packet_sha256": "610c50c821fb775731b609cd2befa254ffa8c7a6ba3c77dccbc5e3ec88db673f",
+  "batch_strategy": "Supplement the pending 16 with targeted tests of unusual endpoint responses, controlled solvent-response pairs for uncovered chemistry, and transferable functional-group coverage. Use predictions and quantile widths as diagnostic evidence, without treating them as measured errors or calibrated epistemic uncertainty. Freeze these 16 selections with the supplied premeasurement predictions and the pending 16 before revealing labels.",
+  "choices": [
+    {
+      "id": "ce14dd2481560a984aea",
+      "reason": "Measure nitrobenzophenone at PE/EA 10/1, where predicted V1 is 0 mL and V2 is 31.74 mL. Observed 08812206a257481691c4 and 5e276c1730fc0a9deba7 show early onset at both 5/1 and 20/1, but substantially different completion volumes. This intermediate point tests whether the predicted onset collapse is supported and teaches separate V1 and V2 responses.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "0b247863fd6e8aaf44d8",
+      "reason": "Cinnamic acid at 2/1 uses the same recorded density, sample volume and 2000-uL DCM loading volume as observed f90a5a5a54509c085ebd and 1e775e7d8dcbf48fd6f8. Those endpoints are approximately 6.51/108.89 at 1/1 and 12.92/60.92 at 5/1. The missing intermediate condition discriminates a reproducible endpoint-specific response from an isolated anomalous record.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "9ddc2e8babb52ee8e772",
+      "reason": "Introduce diphenyl sulfoxide at 2/1, predicted 4.34/12.44 mL, as the stronger-eluent member of a fixed-loading pair. No sulfoxide is measured or pending. Its strongly polar S=O interaction with silica may be poorly represented by transfer from the many carbonyl compounds.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "f82cfd3b57735b0ead3c",
+      "reason": "Complete the diphenyl sulfoxide pair at 5/1 with the same 50-mg loading and 400-uL DCM volume. The predicted change to 8.05/17.99 mL provides an explicit solvent-response hypothesis. Two labels can distinguish an incorrect molecular baseline from an incorrect solvent sensitivity.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "b24f66ff77974f8ba6e1",
+      "reason": "Measure the uncovered alpha-bromo carboxylic acid at 20/1. Predicted 9.62/21.97 mL is modest despite its acid group; the unusually broad observed cinnamic-acid interval in f90a5a5a54509c085ebd cautions against transferring a generic acid response. This tests transfer between aliphatic and conjugated acids while retaining their different recorded loading conditions.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "12ab195583f05b9aa177",
+      "reason": "Introduce methyl mandelate at 5/1, predicted 7.77/15.12 mL. Its adjacent alcohol and ester add an uncovered donor/acceptor arrangement. Observed ortho-hydroxy ester fa64656d7b055dec7f56 provides related chemistry, but possible intramolecular interactions and the different loading solvent prevent assuming equivalent retention.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "f73fd2f4c55177304721",
+      "reason": "Measure sterically crowded mesityl methyl ketone at 50/1, where predicted V1 is only 3.34 mL and its V1 quantile width is 9.72 mL. Related dimethyl acetophenone has measured 8.49/38.59 mL in d2c44b46eb306c56f241. The label tests whether additional ortho substitution creates a genuine early-onset, broad-interval regime or an extrapolation failure.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "10ea0c665f5ba7c91bbf",
+      "reason": "Introduce the fused lactone at 20/1, predicted 13.59/24.48 mL. This scaffold is absent from measured and pending rows and has low similarity to observed chemistry. The same eluent ratio for cyclic ketone 8b8becd233748ccae9e3 gives 6.13/23.54 mL, motivating a test of how an endocyclic ester changes onset versus completion, with loading differences acknowledged.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "33ffc69a253a89f15995",
+      "reason": "Introduce quinoline at 5/1, predicted 11.08/27.42 mL. Observed 65f4f125b5e1f8137bd9 shows 2,6-lutidine at this ratio has a much broader interval, 16.38/46.43 mL, under different loading conditions. Quinoline tests transfer of silica interactions across exposed versus sterically screened ring nitrogen.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "6b7209c2e8154837a8c7",
+      "reason": "Introduce para-aminoacetophenone at 2/1, predicted 7.65/19.12 mL. Observed aminobenzonitrile 53a1acff30433cff819f and amino ester a2b3a77e1b5200f7c164 show very different retention for related donor/base motifs. This label adds a carbonyl-bearing aniline and complements the pending nitroacetophenone without presuming a matched-condition comparison.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "c7e564f222bd8ae3f685",
+      "reason": "Measure 1-phenylethanol at 1/1 as the stronger-eluent endpoint of a fixed-loading pair. It is absent from measured and pending rows. Its prediction of 8.75/17.71 mL anchors secondary benzylic alcohol behavior and helps distinguish molecular effects from the unusual solvent responses seen elsewhere.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "85956151bfe869ac5ee6",
+      "reason": "Complete the 1-phenylethanol pair at 10/1, keeping density, 100-uL sample volume, PE loading solvent and 300-uL loading volume fixed. Predicted 16.23/27.03 mL tests the solvent dependence of both endpoints. Observed aromatic primary alcohol 75232f4ee5de52a0499e has much later elution at 10/1, making alcohol topology a useful relationship to learn.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "00a89de0e6cc7377a84b",
+      "reason": "Measure methyl benzoylformate at 1/1 with EA loading, predicted 3.02/17.15 mL. Its predicted V2 is larger than at 2/1, and its V1 quantile width is 4.05 mL. Observed e2f15590b7142490599b and 1844eab177de5d01fab6 anchor the same 50-uL EA-loading series at 10/1 and 50/1; this adds a stronger-eluent anchor rather than another weak-eluent extrapolation.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "8fa8d7ec035c6a829dc4",
+      "reason": "Measure pentafluorobenzene at 50/1, predicted 1.33/19.80 mL, against its same-loading 2/1 observation cd3c75eca39365e943e4 of 6.17/10.24 mL. The predicted earlier onset and much later completion for this donor-free molecule warrant testing. This supplies a chemically distinct check on endpoint distortion outside the polar families emphasized by pending CW.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "6b8e53d2d8c8a90a7216",
+      "reason": "Introduce ethyl acetoacetate at 10/1, predicted 11.92/29.63 mL. Measured methyl acetoacetate 35944fdd59ac331c3fcb and ether-containing acetoacetate 143bf510fe2028583763, plus pending m94 and m107 experiments, make this a useful bridge within a populous beta-keto ester family. It tests substituent transfer while respecting differences in loading and eluent conditions.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "73502a52708e4f9c2391",
+      "reason": "Introduce 3-phenyl-1-propanol at 10/1, predicted 31.69/54.72 mL. Together with the selected secondary benzylic alcohol pair and observed primary benzylic alcohol 75232f4ee5de52a0499e, this probes the effect of moving an exposed hydroxyl group away from the aromatic ring. The label tests a consequential prediction without selecting solely for large elution volumes.",
+      "hypothesis_id": "H2"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Some recorded solvent-response curves have substantially different onset and completion trends. Additional local labels can distinguish reproducible behavior from isolated anomalies and unsupported model extrapolation; a universal monotonic correction would be premature.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "f90a5a5a54509c085ebd",
+        "1e775e7d8dcbf48fd6f8",
+        "08812206a257481691c4",
+        "5e276c1730fc0a9deba7",
+        "55dfd30fde788076a355",
+        "f7d57d8bb988f7016502"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "V1 and V2 need separate condition-dependent supervision. Broad elution intervals are measured target behavior, whereas quantile widths describe the predictor's output spread.",
+      "next_discriminating_question": "Do intermediate acid and nitroketone conditions, and new strong-eluent or donor-free examples, reproduce the predicted endpoint trends?"
+    },
+    {
+      "id": "H2",
+      "content": "Donor accessibility, acid/base character and the placement of adjacent functional groups may explain retention differences that bulk polarity descriptors alone cannot capture. Several relevant motifs remain uncovered in this trajectory.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "53a1acff30433cff819f",
+        "a2b3a77e1b5200f7c164",
+        "65f4f125b5e1f8137bd9",
+        "75232f4ee5de52a0499e",
+        "fa64656d7b055dec7f56"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "Labels for alcohols, a hydroxy ester, a carboxylic acid, an aniline and quinoline can improve structural transfer across many related catalog rows. Existing comparisons are suggestive, with condition and loading confounding.",
+      "next_discriminating_question": "Which predicted differences persist after measuring these motifs, and does the controlled 1-phenylethanol pair support the learned solvent sensitivity?"
+    },
+    {
+      "id": "H3",
+      "content": "Diphenyl sulfoxide may require a retention baseline and solvent sensitivity distinct from aromatic ketones despite similar reported TPSA and acceptor counts.",
+      "basis": "chemical_prior",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "The catalog contains an unmeasured S=O motif. A controlled two-condition experiment provides both molecular and condition-response information for this structural gap.",
+      "next_discriminating_question": "Do its measured 2/1 and 5/1 endpoints follow the predicted moderate retention, or reveal substantially stronger silica interaction?"
+    },
+    {
+      "id": "H4",
+      "content": "Ortho substitution around aromatic carbonyls may alter onset and interval width differently. The very early predicted onset for mesityl methyl ketone at 50/1 could reflect steric effects or an unsupported extrapolation.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "d2c44b46eb306c56f241",
+        "4d75c120ba1c4f0dae89",
+        "18d688363c7fa3da0609"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Substituted aromatic ketones form a large catalog family. Resolving this boundary can improve transfer beyond the selected molecule, while the observed loading dependence cautions against attributing every difference to sterics.",
+      "next_discriminating_question": "Does the crowded ketone actually begin eluting near 3 mL at 50/1 while finishing much later?"
+    }
+  ],
+  "feedback_interpretation": "",
+  "batch_rationale": "The pending batch already covers many weak-eluent conditions and several novel molecules, so these supplements avoid near-duplicate pending tuples. The batch adds two controlled solvent-response pairs, intermediate conditions around unusual measured behavior, and uncovered functional-group environments with plausible transfer to the Row-distribution. The acid and nitroketone selections investigate candidate failure regions; their errors are unknown before measurement. Pentafluorobenzene checks whether endpoint distortions extend to relatively nonpolar chemistry. Initial observations include both substantial loading effects and counterintuitive condition trends, so chemical priors guide questions rather than override labels. Quantile crossings and nearly load-invariant predictions further discourage relying on a numerical uncertainty ranking alone. The selected labels should help retraining learn structural baselines, endpoint-specific solvent responses and exceptions, without treating missing experimental variables as known."
+}

@@ -1,0 +1,233 @@
+{
+  "type": "selection",
+  "packet_sha256": "6c81cf7e73fdbea855d17e3694654b2e5e8d444b41a18a5a03bbf0316d574f9b",
+  "batch_strategy": "condition-response curves plus failure repair and targeted novel-region exploration",
+  "choices": [
+    {
+      "id": "aef5cafc63ca445e92fa",
+      "reason": "M177 at 10/1 with 150 uL loading and 1000 uL loading solvent is predicted to have anomalously early V1 and broad uncertainty. It tests the response against measured m177 anchor 5e276c1730fc0a9deba7.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "0164f18711777547e68d",
+      "reason": "M177 at low solvent strength and lower loading contrasts the measured 20/1 m177 result and tests whether the predicted long V2 tail is solvent- or loading-driven.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "5b706e17e8412d02342f",
+      "reason": "M177 at 50/1 is predicted to elute much later with a broad V2 interval. This high-impact endpoint discriminates a smooth solvent-response curve from extrapolation failure.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "ce14dd2481560a984aea",
+      "reason": "M177 at 10/1 with 100 uL loading provides a matched loading perturbation around the other m177 measurements, targeting the extreme predicted uncertainty.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "2df9d2f88ac69c5229e5",
+      "reason": "M4 at 20/1 is a solvent-strength perturbation around measured m4 record e21a50fea625cd4d71f8 and tests the predicted V2 increase.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "5ae1e9580200827a709d",
+      "reason": "M31 at 0/1 extends below measured 1/1 condition 434c05a62ac9e65dd102 and tests onset-floor behavior.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "064249131c1c3106e540",
+      "reason": "M31 at 2/1 is a nearby solvent-strength step from measured 1/1 m31, testing monotonicity of V1 and V2.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "156594686f5cf7182bcc",
+      "reason": "M31 at 5/1 and lower loading provides a stronger-eluent, lower-loading endpoint to separate solvent and loading effects.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "b3d9bb5afa82b99f2a11",
+      "reason": "M31 at 10/1 tests high-strength extrapolation beyond the measured 1/1 point and can repair functional-group-specific V2 behavior.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "95a3dcfe4436e929aa30",
+      "reason": "M92 at 1/1 in EA adds a lower-strength point to measured EA records e2f15590b7142490599b and 1844eab177de5d01fab6.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "9768d61b571fc0c5ce1a",
+      "reason": "M92 at 2/1 EA supplies an intermediate point for the sparse and sharply varying EA response curve.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "790d27f0fa045d91f307",
+      "reason": "M92 at 5/1 EA provides a stronger-eluent interpolation point with materially different predicted V2.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "e93e08d6bc42e91e2679",
+      "reason": "M92 at 1/1 EA with increased loading separates loading amount from solvent response while matching the EA subregime.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "9bf0908bbb92616aa84a",
+      "reason": "M74 at 0/1 extends below measured 50/1 record 027bbff1ac308c5dd7a1 and tests the low-strength endpoint of a late-eluting compound.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "4ce74d351dca8ea185be",
+      "reason": "M74 at 1/1 is a nearby solvent-strength point to measured 50/1 m74 and helps resolve response-curve shape.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "bfaadd073aa5a950f919",
+      "reason": "M74 at 10/1 provides the stronger-eluent side of the curve and tests whether the measured late elution is gradual or regime-specific.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "44fcf641ccfa3b10a97c",
+      "reason": "M114 at 50/1 with increased loading tests loading dependence around measured m114 record 2d63ab3869184cde52bf and targets V2 uncertainty.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "8232ed63909910ce88f2",
+      "reason": "M114 at 20/1 provides a weaker-eluent comparison to measured high-retention m114 and tests onset-tail coupling.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "53dc2340c848330a9220",
+      "reason": "M135 at 0/1 tests the low-strength endpoint against measured 5/1 m135 record f9f0f4e29dbd30c000ee, where the predicted shift is large.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "a5446977630484ca5fe1",
+      "reason": "M135 at 5/1 with lower loading is a matched loading perturbation around measured m135 and targets broad-interval behavior.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "d05a91dc8e32e9edd7d0",
+      "reason": "M135 at 10/1 probes the stronger-eluent side of the curve and tests whether the measured 5/1 behavior transfers.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "a47a3987d45e7c542d38",
+      "reason": "M123 at 50/1 is a strong-eluent extrapolation from measured 20/1 record ba56f0e652a97bcee1b2 and tests late-onset prediction.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "71cde2967a339690e3de",
+      "reason": "M123 at 0/1 supplies the opposite endpoint to the high-ratio m123 point and measured 20/1 anchor.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "0c5c35afb3a24375c153",
+      "reason": "M178 is a novel, highly retained multi-carbonyl aromatic structure with very broad predicted V1 and V2 uncertainty, targeting an underanchored structural region.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "855456da9ea892f7216b",
+      "reason": "M178 at 20/1 pairs with the selected novel m178 point to determine whether its broad tail is condition-responsive or an embedding failure.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "1e971da91b3a8229f0e0",
+      "reason": "M173 at high loading and 5/1 has one of the largest predicted V1 uncertainty widths and probes loading-induced tail behavior in a novel polar structure.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "3f6b817d855e67b3b406",
+      "reason": "M164 at 1/1 has a broad predicted V1 interval and high condition-space distance, providing a structurally distinct exploration point for uncertain aromatic enones.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "6802f0b28c5a0c7b4c2a",
+      "reason": "M173 at 0/1 with the same high loading complements the selected m173 point and separates solvent strength from loading effects.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "783cf2454912fc14bb80",
+      "reason": "M195 at 20/1 tests loading sensitivity near collapsed-interval measured record a917c928912c74862968 and checks whether the near-zero observed width is reproducible.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "8bef7f788af60df5e18a",
+      "reason": "M195 at 50/1 supplies a strong-eluent comparison to the collapsed measured m195 interval and targets V2 tail calibration.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "ce39d1762993bbbafaca",
+      "reason": "M110 at 50/1 has anomalous model behavior, including a negative predicted V1 quantile width, making it a useful extrapolation and representation-failure probe.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "38e6b8bf0f089fcadd80",
+      "reason": "M37 at 10/1 extends beyond measured m37 anchor f04417b13d435a2810b3 and targets broad functional-group-specific V2 uncertainty.",
+      "hypothesis_id": "H4"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "PE/EA solvent strength has molecule-dependent, potentially nonlinear effects on elution onset and completion, so local condition-response curves can generalize better than isolated molecule sampling.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "5e276c1730fc0a9deba7",
+        "e2f15590b7142490599b",
+        "1844eab177de5d01fab6",
+        "ba56f0e652a97bcee1b2",
+        "027bbff1ac308c5dd7a1"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Repeated molecules across solvent ratios provide slope and nonlinearity information that can improve many related rows.",
+      "next_discriminating_question": "Are the large solvent-ratio shifts smooth within molecules, or do strongly retained compounds show abrupt regimes?"
+    },
+    {
+      "id": "H2",
+      "content": "High loading and strongly retained or structurally complex compounds produce unusually broad, compressed, or difficult V1/V2 intervals that the predictor may not represent reliably.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "5e276c1730fc0a9deba7",
+        "2d63ab3869184cde52bf",
+        "f9f0f4e29dbd30c000ee",
+        "a917c928912c74862968"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "V2 tail failures and collapsed intervals can dominate V2 loss; selected points target both behaviors.",
+      "next_discriminating_question": "Does interval width respond mainly to loading and solvent strength, or primarily to molecular structure?"
+    },
+    {
+      "id": "H3",
+      "content": "EA loading-solvent experiments form a sparse condition subregime whose retention response is not safely inferred from the larger DCM/PE catalog.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "e2f15590b7142490599b",
+        "1844eab177de5d01fab6"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Additional EA labels can correct condition encoding and improve transfer across rows using EA.",
+      "next_discriminating_question": "Can the EA response be explained by a smooth solvent-strength curve after accounting for loading?"
+    },
+    {
+      "id": "H4",
+      "content": "Related aromatic carbonyl, nitrile, and heteroaromatic structures do not share a fully transferable retention response; family-local condition measurements are needed to learn functional-group and structural-environment interactions.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "434c05a62ac9e65dd102",
+        "f9f0f4e29dbd30c000ee",
+        "f04417b13d435a2810b3"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "These functional groups recur across the Row-distribution, so local response measurements can repair broad chemical neighborhoods.",
+      "next_discriminating_question": "Do positional and functional-group changes alter solvent-response slope and V2 tail independently of coarse descriptors?"
+    }
+  ],
+  "feedback_interpretation": "",
+  "batch_rationale": "The batch combines linked solvent and loading response curves with targeted exploration. M177, m31, m92, m74, m114, m135, and m123 provide local perturbations around measured anchors, while m178, m173, m195, m110, m37, and m164 target high-width, novel, high-loading, or anomalous prediction regions. It covers EA, PE, and DCM, broad loading amounts, long tails, and collapsed intervals. These labels should improve generalization by teaching reusable condition-response relationships while repairing failures in chemically distinct retention regimes."
+}

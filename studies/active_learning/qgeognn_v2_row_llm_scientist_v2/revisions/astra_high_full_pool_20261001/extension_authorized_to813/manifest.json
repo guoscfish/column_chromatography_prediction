@@ -1,0 +1,94 @@
+{
+  "authorization": "User explicitly approved 813 labels, unchanged initial settings, additional rounds and seed6101.",
+  "classification": "exploratory extension after inspection of seed157 validation results",
+  "targets": [
+    {
+      "seed": 157,
+      "method": "cw16_llm16_scientist_v2",
+      "existing_rounds": 8
+    },
+    {
+      "seed": 6101,
+      "method": "cw16_llm16_scientist_v2",
+      "existing_rounds": 0
+    },
+    {
+      "seed": 6101,
+      "method": "free_llm32_scientist_v2",
+      "existing_rounds": 0
+    }
+  ],
+  "budgets": [
+    333,
+    365,
+    397,
+    429,
+    461,
+    493,
+    525,
+    557,
+    589,
+    621,
+    653,
+    685,
+    717,
+    749,
+    781,
+    813
+  ],
+  "batch_size": 32,
+  "hybrid_CW_count": 16,
+  "hybrid_LLM_count": 16,
+  "transport": {
+    "backend": "responses",
+    "model": "gpt-6-astra",
+    "base_url": "https://token4research.cn/v1",
+    "reasoning_effort": "high",
+    "candidate_delivery": "all_candidates",
+    "authentication": "explicit_provider_key",
+    "key_env": "SCIENTIST_API_KEY",
+    "key_file_env": "SCIENTIST_API_KEY_FILE",
+    "automatic_fallback": false,
+    "responses_store": false,
+    "cli_response_storage": "controlled by installed CLI/provider; not asserted by an undocumented flag",
+    "cli_isolation": "fresh CODEX_HOME and cwd; no inherited config/history; native-call audit",
+    "hard_filesystem_read_sandbox": false
+  },
+  "test_evaluation": false,
+  "correction_budget_changed": false,
+  "protocol_sha256": "b2ae7da1687a14da8e3e418248f4d68c01eb261c6e12945e1d1a40eb777ce12b",
+  "prior_freezes": {
+    "runtime/seed_157/cw16_llm16_scientist_v2/trajectory_freeze.json": "f921e2311e4bed405a8ef45c499eb0f1d10c27154aa433472ee3cee36929c37f",
+    "extension_hybrid157_to589/trajectory_freeze.json": "d27d48fd915f1b08b3a36b152ed677d4119aba60ba7ef593fda8ba174685189c"
+  },
+  "runner_sha256": "cb28f13d12d03b1636772b26703576e4d98f01de3d68eddd47b0ce61258dc9ae",
+  "unrelated_added_modules": [
+    "src/qgeognn_al/active_learning_v2/center_width_performance.py",
+    "src/qgeognn_al/active_learning_v2/dual_expert_selector.py",
+    "src/qgeognn_al/active_learning_v2/dual_expert_study.py",
+    "src/qgeognn_al/active_learning_v2/dual_expert_transport.py",
+    "src/qgeognn_al/active_learning_v3/__init__.py",
+    "src/qgeognn_al/active_learning_v3/artifacts.py",
+    "src/qgeognn_al/active_learning_v3/catalog.py",
+    "src/qgeognn_al/active_learning_v3/context_audit.py",
+    "src/qgeognn_al/active_learning_v3/memory.py",
+    "src/qgeognn_al/active_learning_v3/predictor.py",
+    "src/qgeognn_al/active_learning_v3/protocol.py",
+    "src/qgeognn_al/active_learning_v3/schema.py",
+    "src/qgeognn_al/active_learning_v3/selector.py",
+    "src/qgeognn_al/active_learning_v3/study.py",
+    "src/qgeognn_al/active_learning_v3/transport.py",
+    "src/qgeognn_al/active_learning_v3_2/__init__.py",
+    "src/qgeognn_al/active_learning_v3_2/artifacts.py",
+    "src/qgeognn_al/active_learning_v3_2/catalog.py",
+    "src/qgeognn_al/active_learning_v3_2/memory.py",
+    "src/qgeognn_al/active_learning_v3_2/predictor.py",
+    "src/qgeognn_al/active_learning_v3_2/protocol.py",
+    "src/qgeognn_al/active_learning_v3_2/report.py",
+    "src/qgeognn_al/active_learning_v3_2/response_contract.py",
+    "src/qgeognn_al/active_learning_v3_2/schema.py",
+    "src/qgeognn_al/active_learning_v3_2/selector.py",
+    "src/qgeognn_al/active_learning_v3_2/study.py",
+    "src/qgeognn_al/active_learning_v3_2/transport.py"
+  ]
+}

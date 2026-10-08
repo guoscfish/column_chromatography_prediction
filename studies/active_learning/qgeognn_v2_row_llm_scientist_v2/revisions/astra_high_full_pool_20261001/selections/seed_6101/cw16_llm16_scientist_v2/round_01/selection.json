@@ -1,0 +1,145 @@
+{
+  "type": "selection",
+  "packet_sha256": "8723304aa09cac908266f4fdbcd7655af6fcb16f7d96618eb5211bcddfa981e2",
+  "batch_strategy": "Supplement the pending 16 with condition-response experiments around historically large errors, matched structural comparisons, and a check of unusually compressed predicted elution. All selections and their supplied premeasurement predictions are fixed before measurement.",
+  "choices": [
+    {
+      "id": "60b7eed7a46a03b366b2",
+      "reason": "Measure methoxyethyl acetoacetate at 1/1, predicted 8.94/24.99 mL. Observed 143bf510fe2028583763 at 2/1 and c6924324ddd95f249df6 at 5/1 give 21.73/45.67 and 43.20/101.44 mL. This stronger-eluent anchor tests contraction of a broad interval after a large historical completion underestimate. The selected 100-uL sample differs from the 50-uL observed loadings, so solvent and loading effects cannot be fully separated.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "f50c45b31cf41304c109",
+      "reason": "Measure ethyl acetoacetate at 5/1 with the same 100-uL sample and 200-uL DCM loading as observed 6b8e53d2d8c8a90a7216 at 10/1. Prediction 19.79/46.22 mL is close to that measured 20.41/45.62 mL result. This tests an unexpectedly flat portion of the solvent response in a populous keto-ester family.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "61090cfdcf019e0891a3",
+      "reason": "Complete the ethyl acetoacetate local experiment at 20/1 with loading fixed. Prediction 14.64/32.81 mL is earlier for both endpoints than observed 6b8e53d2d8c8a90a7216 at 10/1. Together with the selected 5/1 row, this discriminates a real nonmonotonic recorded response from a model reversal.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "10f01f359bc6067d009f",
+      "reason": "Measure the amino unsaturated ester at 5/1, 50-uL sample loading in 200-uL DCM; prediction 16.18/54.15 mL. Observed 2466da143763ef5563ef at 2/1 and 5d6d4ac0c1dfacbde53d at 20/1 give 8.69/24.72 and 29.26/109.68 mL, respectively. The intermediate label tests development of the broad completion interval after a large historical V2 underestimate. Those references use 100- and 150-uL samples, so this is not a fixed-loading comparison.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "6b5982c6e1bbaadd6a95",
+      "reason": "Measure acetophenone oxime at 10/1, 100-uL sample loading; prediction 23.53/67.27 mL. Observed 8b09df1985688231fe0e at 1/1 and 9ffee2813aef5c26f96f at 50/1 have identical loading and give 4.31/10.14 and 43.11/119.20 mL. This interior point constrains solvent sensitivity after the large historical completion error.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "5cc67d02b8fad1c648d6",
+      "reason": "Measure 2-bromopropionic acid at 5/1 with the same 50-uL sample and 300-uL DCM loading as b24f66ff77974f8ba6e1 at 20/1. Prediction 19.06/28.40 mL tests the inferred contraction from measured 39.58/65.65 mL. The earlier large underestimate identifies a consequential failure region, but does not establish the retrained solvent curve.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "ad67d712133eac45ff64",
+      "reason": "Measure methyl mandelate at 2/1, preserving the 100-mg sample and 1000-uL DCM loading of observed 12ab195583f05b9aa177 at 5/1. Prediction 6.89/13.05 mL implies a sharp decrease from measured 19.91/32.37 mL. This tests solvent sensitivity of the adjacent alcohol/ester motif beyond its single measured anchor.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "859ae738b615cf17b849",
+      "reason": "Measure the actual 1-phenylethanol 10/1 row, predicted 20.91/33.45 mL, at 100-uL sample loading in 300-uL PE. It forms a fixed-loading pair with c7e564f222bd8ae3f685 at 1/1, measured 5.72/11.10 mL. The previous reason for 85956151bfe869ac5ee6 misidentified that measured methylbenzaldehyde row as this alcohol experiment; the intended alcohol endpoint remains unmeasured.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "c352863d9fa4a8645481",
+      "reason": "Introduce 4-phenyl-2-butanol at 10/1, 100-uL sample loading in 300-uL PE; prediction 50.91/82.21 mL. Alongside selected 1-phenylethanol under the same solvent ratio, sample volume and loading-solvent volume, it probes moving a secondary hydroxyl away from the aromatic ring. Observed primary alcohol 73502a52708e4f9c2391 supplies a related 51.71/94.93 mL anchor at higher loading; the proposed structural explanation remains untested.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "2feb7d8e0a3566ddf97f",
+      "reason": "Introduce para-aminobenzonitrile at 2/1, 100-mg sample loading in 400-uL DCM; prediction 14.56/35.53 mL. Observed meta isomer 53a1acff30433cff819f has exactly these recorded loading conditions and gives 11.61/31.58 mL. This matched positional comparison tests structural effects that identical bulk polarity descriptors cannot resolve.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "a92f7617b135de150588",
+      "reason": "Introduce para-nitrophenethyl alcohol at 2/1, 50-uL sample loading in 600-uL DCM; prediction 18.79/38.94 mL. Related measured donor motifs include 3f5051191caf6ab07337 and 73502a52708e4f9c2391, but neither covers this alcohol/nitro combination. The label tests transfer to combined polar groups; the references differ in conditions and are not controls.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "70593725787c65a74951",
+      "reason": "Introduce ethyl para-aminobenzoate at 2/1, 100-uL sample loading in 500-uL DCM; prediction 13.23/23.60 mL. Observed ortho amino ester a2b3a77e1b5200f7c164 is earlier at 2/1, while para-aminoacetophenone 6b7209c2e8154837a8c7 is later. This bridges measured chemical environments and tests positional and carbonyl-substitution transfer, with differing loading conditions acknowledged.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "e7bf6bd74f8498f1cb11",
+      "reason": "Measure quinoline at 2/1, 100-uL sample loading in 300-uL PE; prediction 12.02/21.47 mL. It matches the loading of observed 33ffc69a253a89f15995 at 5/1, measured 27.90/57.67 mL, and complements pending quinoline at 10/1. These ratios test the predicted peak around 5/1; the pending row uses lower loading and remains unlabeled.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "b2bf97a1dcb9d6609f7d",
+      "reason": "Extend diphenyl sulfoxide to pure EA, preserving the 50-mg sample and 400-uL DCM loading of 9ddc2e8babb52ee8e772 and f82cfd3b57735b0ead3c. Prediction 5.44/12.76 mL tests whether the strong retention demonstrated at 2/1 and 5/1 collapses under strong eluent. A third condition constrains the scope of the molecular correction.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "36f417057065d5f3290f",
+      "reason": "Measure the fused lactone at 2/1, 100-uL sample loading in 300-uL DCM; prediction 5.84/11.78 mL. Observed 10ea0c665f5ba7c91bbf at 20/1 has identical loading and gave 32.91/52.53 mL with large historical underestimates. This stronger-eluent anchor tests whether the newly learned retention baseline has the appropriate solvent dependence and supports transfer among cyclic carbonyl and ester structures.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "4a49effd313865c10fae",
+      "reason": "Measure anisole at 50/1, matching the 100-uL sample and 300-uL PE loading of observed b1737f3e487bbd039406 at 5/1. Prediction 11.46/11.63 mL implies an approximately 0.17-mL elution interval, versus measured 5.50/10.16 mL at 5/1. This tests unusually strong interval compression in a common ether motif and checks endpoint behavior outside the strongly retained polar families.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Recorded solvent responses can differ substantially between onset and completion, and repairing a molecular anchor does not establish accurate interpolation. Several current curves predict flat regions or reversals that require local measurements rather than a universal monotonic correction.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "f90a5a5a54509c085ebd",
+        "0b247863fd6e8aaf44d8",
+        "1e775e7d8dcbf48fd6f8",
+        "08812206a257481691c4",
+        "ce14dd2481560a984aea",
+        "5e276c1730fc0a9deba7",
+        "143bf510fe2028583763",
+        "c6924324ddd95f249df6",
+        "5d6d4ac0c1dfacbde53d",
+        "9ffee2813aef5c26f96f"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Endpoint-specific supervision can improve structure-condition relationships across keto esters, donor compounds, acids and nitrogen heterocycles. Historical errors identify consequential gaps; current predictions identify discriminating unmeasured conditions.",
+      "next_discriminating_question": "Do ethyl acetoacetate and quinoline reproduce predicted reversals, and do oxime, amino ester, acid and lactone intervals contract as predicted at stronger eluent?"
+    },
+    {
+      "id": "H2",
+      "content": "Functional-group placement and hydroxyl or nitrogen environment may require different retention baselines and solvent sensitivities. The previous round demonstrated structural-transfer failures for several polar motifs, but did not establish the intended controlled secondary-alcohol solvent curve.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "12ab195583f05b9aa177",
+        "6b7209c2e8154837a8c7",
+        "73502a52708e4f9c2391",
+        "c7e564f222bd8ae3f685",
+        "53a1acff30433cff819f",
+        "a2b3a77e1b5200f7c164"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Matched positional-isomer measurements and related alcohol examples can teach distinctions beyond HBD/HBA counts and TPSA. They also test whether corrections learned from newly measured polar molecules transfer to unseen combinations of groups.",
+      "next_discriminating_question": "How do matched aminobenzonitrile isomers differ, does secondary-alcohol placement explain the predicted 10/1 contrast, and does mandelate show the predicted sharp 2/1-to-5/1 change?"
+    },
+    {
+      "id": "H3",
+      "content": "Diphenyl sulfoxide required a substantially higher retention baseline and steeper 2/1-to-5/1 response than the acquisition-time model predicted. Its behavior under pure EA remains untested. The observations support a motif-specific correction without proving a causal difference from ketones under matched conditions.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "9ddc2e8babb52ee8e772",
+        "f82cfd3b57735b0ead3c"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The S=O motif was a clear structural-transfer failure despite simple descriptors resembling those of carbonyl compounds. A third condition constrains how far that correction should extend as eluent strength increases.",
+      "next_discriminating_question": "Does pure EA reduce its endpoints to the predicted 5.44/12.76 mL, or does appreciable retention persist?"
+    }
+  ],
+  "feedback_interpretation": "Previous outcomes strengthen the case for condition-response follow-up after structural exploration. Sulfoxide, acid, mandelate, aminoacetophenone, lactone, quinoline and primary alcohol had substantial historical underestimates. Separately identified CW outcomes showed large completion underestimates for the oxime, amino unsaturated ester and methoxyethyl acetoacetate. These are acquisition-time errors, not current-model residuals. Current predictions often reproduce measured anchors, making their unmeasured response curves the next useful question. Cinnamic acid at 2/1 finished at 45.06 mL, below both its 1/1 and 5/1 observations, weakening a simple interpolation of its earlier anomaly. Nitrobenzophenone at 10/1 began at 5.20 mL, rejecting the predicted zero onset, while completion remained close to its 5/1 observation. Mesityl methyl ketone likewise did not reproduce the very early predicted onset, weakening the earlier steric-extrapolation hypothesis. A provenance mismatch also matters: observed 85956151bfe869ac5ee6 is m142 at 50/1, not the 1-phenylethanol experiment described in its previous reason. The purported alcohol pair cannot be interpreted as measured, so this batch selects its actual missing endpoint.",
+  "batch_rationale": "The pending batch already emphasizes weak-eluent ketones, aromatic compounds and unusual predicted curves. These supplements add stronger and intermediate solvent anchors in historically consequential failure regions, a fixed-loading ethyl acetoacetate response experiment, a matched aminobenzonitrile positional comparison, and related alcohol and amino-ester exploration. Quinoline at 2/1 complements measured 5/1 and pending 10/1 without duplicating pending work. Sulfoxide and lactone follow-ups test whether newly learned molecular baselines have appropriate solvent sensitivity. Anisole checks endpoint compression in a different chemical region. Nearly identical loading variants were generally avoided; where a selected reference comparison changes loading, its reason states the limitation. Quantile widths and gradient-space distances were secondary evidence because quantiles sometimes cross and their widths are not calibrated epistemic uncertainty. The expected benefit is better structural transfer and endpoint-specific condition learning across the Row-distribution."
+}

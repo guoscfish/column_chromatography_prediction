@@ -1,0 +1,192 @@
+{
+  "type": "selection",
+  "packet_sha256": "508d3a008514a1898210c9154345234c81ed67fa4ed793f77331d7b481edca2e",
+  "batch_strategy": "Supplement the pending 16 with targeted solvent-response measurements after recent failures, one partial loading contrast, and four structural transfers. Prioritize labels that distinguish molecular baseline corrections from solvent sensitivity and separate onset from completion. All selections use the supplied frozen predictions.",
+  "choices": [
+    {
+      "id": "050e2fab4b407ea058cb",
+      "reason": "Measure acetoxybenzaldehyde m28 at 5/1, predicted 14.25/35.67 mL. Its newly measured 10/1 result, 39.13/81.40 in 351c17dfa8f46a8cb40a, substantially exceeded its acquisition prediction. This tests whether the corrected retention emerges sharply between 5/1 and 10/1. Sample volume is 150 versus 100 uL, so the comparison is not a pure solvent contrast.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "855832bd4005ac7abdc6",
+      "reason": "Measure ethyl nicotinate at 5/1, predicted 39.74/83.26 mL. The 2/1 result in 0460dfc4e1747f0fc92c was 14.42/29.27, while 10/1 in c76d0420b34df595c0c9 was 41.71/106.06. This interior point tests the predicted early saturation of onset versus continued growth of completion. Loading matches the 2/1 anchor; the 10/1 sample is larger.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "04a2e8ad27ca641a3a12",
+      "reason": "Measure methylquinoline at 5/1, predicted 32.49/66.76 mL. Its 2/1 prediction transferred well in 2745c6978a8911fc3dda, but 10/1 in 9e3ce3497298084abd83 measured 59.58/106.50 after a substantial underestimate. The interior label tests response curvature rather than another uniform nitrogen correction. This row uses 50-uL sample volume versus 100 uL in those anchors.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "51f4126a3aadb3239225",
+      "reason": "Measure 2,6-lutidine at 20/1, predicted 29.75/81.36 mL. Measured 5/1 and 10/1 rows 65f4f125b5e1f8137bd9 and 6f548d72f01fc85debdc use the same 150-uL loading and give 16.38/46.42 and 25.63/71.85. This tests the predicted flattening beyond 10/1 and whether nitrogen solvent sensitivity transfers across steric environments.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "252c027cf5a42b92c953",
+      "reason": "Measure dibenzylamine at 5/1 with 100-uL sample volume, predicted 7.71/14.59 mL. The measured 5/1, 50-uL row d5234e966aa231be05e5 gave 7.24/13.67, whereas 10/1, 150 uL in 942b8fc9cf013acda52b gave 46.13/68.02 after a large underestimate. Doubling amount at fixed ratio and PE loading volume tests the model's near invariance to amount. It only partially resolves the loading confound at 10/1.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "5fd49a50595624496938",
+      "reason": "Measure dimethoxytoluene m116 at 20/1, predicted 18.16/28.76 mL. Its recent 50/1 result in 22300151ccec3f1f1c24 was 29.86/53.48 after substantial underprediction. This row matches that loading and locates the retention increase between the low-ratio region and 50/1, helping constrain ether-substitution response curves.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "ebdeaba52880c7eade16",
+      "reason": "Measure ortho-methoxyacetophenone at 20/1, predicted 23.32/39.36 mL. It matches the loading of pending m127 at 50/1 and supplies an interior anchor beyond the measured 1/1 row b688bf34f76e0d26985a. Together with para-methoxyacetophenone observations such as 68f56b81e86e40c37d6b, this tests positional-substitution transfer without assuming identical silica interactions.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "5fd0921bbbba1e22abf9",
+      "reason": "Measure methyl acetoacetate at 50/1, predicted 23.21/50.85 mL, matching the loading of its measured 10/1 row 35944fdd59ac331c3fcb, 13.30/34.07. Ethyl acetoacetate reached 26.33/64.40 already at 20/1 in 61090cfdcf019e0891a3, and methoxyethyl acetoacetate showed much stronger retention at 5/1 in c6924324ddd95f249df6. This tests whether ester connectivity and solvent sensitivity are being distinguished appropriately; cross-molecule loadings differ.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "a17bcdddcf0799baeee2",
+      "reason": "Measure para-cyanobenzophenone at 50/1, predicted 24.47/73.30 mL. Its measured 20/1 anchor a738b1f204da6fcfd385 is 21.33/51.94 at identical loading. Nitrobenzophenone instead retained an early onset at 50/1 in b514312eda7950cdcf1c. This tests whether cyano substitution genuinely gives a different onset response, with the broad V1 quantiles serving only as a model-behavior flag.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "c28747d70e7b51a1cc95",
+      "reason": "Measure para-nitrobenzaldehyde at 20/1, predicted 34.82/80.77 mL. Pending measurement at 10/1 has identical loading, and measured 5/1 in 0a79a24271d119590ae6 gave 11.71/31.07 with a larger sample. Together these labels locate the predicted rise and permit comparison with pending nitroacetophenone at 20/1, testing carbonyl-context transfer within nitroaromatics.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "b37608f8c4a8ee4b8696",
+      "reason": "Measure cinnamic acid at 10/1, predicted 28.25/98.57 mL. Recorded anchors f90a5a5a54509c085ebd, 0b247863fd6e8aaf44d8 and 1e775e7d8dcbf48fd6f8 have an unusual completion sequence across 1/1, 2/1 and 5/1. This tests the currently predicted recovery of late completion and rising onset. The selected row uses 1500-uL DCM versus 2000 uL in those anchors, so solvent and loading-volume effects remain partly confounded.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "b7fffd840d208b29776c",
+      "reason": "Measure dibenzalacetone at 20/1, predicted 9.83/36.95 mL. Its identical-loading observations span 5.13/10.05 at 1/1 in 3f6b817d855e67b3b406 and 28.20/68.68 at 50/1 in c9bef93a79964dc6ede1. This interior label tests curvature and the predicted distinction from chalcone, measured 6.22/23.00 at 20/1 in a7f8c888870123f3b277.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "1668026caa5d708642cf",
+      "reason": "Introduce tetralone m180 at 20/1, predicted 7.26/24.95 mL. Related seven-membered cyclic ketone m179 measured 6.13/23.54 in 8b8becd233748ccae9e3, while methyl tetralone measured 9.96/25.76 in f9bba2e75f16ebadb0eb. The same sample and DCM volumes make this a useful local structural comparison of ring size and methyl substitution, although densities differ.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "1910a349b60a38899055",
+      "reason": "Introduce deoxybenzoin m171 at 20/1, predicted 7.53/14.41 mL. Its predicted completion is lower than its own 10/1 prediction, and it provides a connectivity bridge between chalcone and diaryl ketones. The measured chalcone result a7f8c888870123f3b277 supplies a nearby structural reference. This tests transfer across conjugated versus methylene-linked aromatic carbonyls without treating the predicted reversal as an observed effect.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "1f40af3483bd97a7dfca",
+      "reason": "Introduce para-chlorobenzophenone at 50/1, predicted 10.75/27.53 mL. Methoxybenzophenone measured 40.14/75.35 in 2d63ab3869184cde52bf, whereas nitrobenzophenone measured 4.49/81.30 in b514312eda7950cdcf1c. This less polar substituent tests whether the model can distinguish changes in onset and completion across the shared scaffold. Loading conditions differ, so these are structural references rather than controlled substituent contrasts.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "97fe38c6942b67ea70b2",
+      "reason": "Introduce 2-ethylhexyl acrylate m16 at 50/1, predicted 7.60/13.35 mL. Cyclohexyl acrylate measured 8.94/15.07 under the same ratio, sample volume and PE loading volume in 97b105f90c11a10a2cac. This tests transfer from cyclic to branched aliphatic ester environments and adds supervision in the numerous early-eluting rows, where recent ether-acrylate failures should not imply a blanket ester correction.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Nitrogen-containing molecules require distinct solvent-response curves: accurate stronger-eluent predictions do not establish accurate weaker-eluent slopes, and pyridyl ester and ketone responses are not interchangeable.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "4659b6752f23c0b85f08",
+        "49201b5817f204116f7f",
+        "0460dfc4e1747f0fc92c",
+        "c76d0420b34df595c0c9",
+        "2745c6978a8911fc3dda",
+        "9e3ce3497298084abd83",
+        "6f548d72f01fc85debdc"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Interior and extrapolation labels can constrain nitrogen-environment interactions with solvent ratio instead of propagating a common molecular offset.",
+      "next_discriminating_question": "Does nicotinate approach its 10/1 onset by 5/1, where does methylquinoline's rise occur, and does lutidine flatten beyond 10/1?"
+    },
+    {
+      "id": "H2",
+      "content": "Recent oxygen-containing molecule failures favor connectivity-specific solvent-response corrections. The acetoxybenzaldehyde and dimethoxytoluene increases should not be transferred uniformly to other esters and ethers.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "351c17dfa8f46a8cb40a",
+        "22300151ccec3f1f1c24",
+        "374b71ac526fe1051993",
+        "c86b03e1b275528444a6",
+        "c6924324ddd95f249df6",
+        "61090cfdcf019e0891a3"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "These families occupy many candidate rows. Labels at new ratios can separate oxygen connectivity, substitution position and solvent sensitivity after substantial acquisition-time errors.",
+      "next_discriminating_question": "Do the selected interior and weak-eluent labels support the model's current curve shapes for acetoxybenzaldehyde, dimethoxytoluene, ortho-methoxyacetophenone and methyl acetoacetate?"
+    },
+    {
+      "id": "H3",
+      "content": "Polar aromatic substituents can have different effects on onset and completion. Nitrobenzophenone's persistent early onset is observed locally, but transfer of that behavior to cyano, chloro or other nitro-carbonyl environments remains untested.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "5e276c1730fc0a9deba7",
+        "b514312eda7950cdcf1c",
+        "a738b1f204da6fcfd385",
+        "6aa69f7c2b8244353a75",
+        "0a79a24271d119590ae6"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Supervising both endpoints across related aromatic scaffolds can prevent broad intervals from being represented as a common shift of V1 and V2.",
+      "next_discriminating_question": "Does cyanobenzophenone retain its later onset at 50/1, and do chloro substitution and aldehyde carbonyl context produce the predicted distinct endpoint responses?"
+    },
+    {
+      "id": "H4",
+      "content": "Dibenzylamine's large recorded change between 5/1 and 10/1 may involve solvent ratio, sample amount or both; its current near-invariant loading predictions are not yet established by a controlled amount comparison.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "d5234e966aa231be05e5",
+        "942b8fc9cf013acda52b"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A fixed-ratio loading contrast can reveal whether a recent large failure is being attributed entirely to solvent strength when amount also matters.",
+      "next_discriminating_question": "At 5/1 and fixed PE loading volume, does increasing sample volume from 50 to 100 uL leave both endpoints near the observed baseline or shift them materially?"
+    },
+    {
+      "id": "H5",
+      "content": "Carbonyl topology, conjugation and ring environment may govern solvent-response differences that simple carbonyl counts or aromaticity do not capture.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "3f6b817d855e67b3b406",
+        "c9bef93a79964dc6ede1",
+        "a7f8c888870123f3b277",
+        "8b8becd233748ccae9e3",
+        "f9bba2e75f16ebadb0eb"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "An interior response measurement plus close structural bridges can improve transfer across the catalog's many aromatic and cyclic ketones.",
+      "next_discriminating_question": "At 20/1, do dibenzalacetone, deoxybenzoin and tetralone follow their predicted positions relative to the measured related ketones?"
+    },
+    {
+      "id": "H6",
+      "content": "The unusual recorded cinnamic-acid completion sequence warrants endpoint-specific supervision; the model's predicted return to late completion at 10/1 is not yet validated.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "f90a5a5a54509c085ebd",
+        "0b247863fd6e8aaf44d8",
+        "1e775e7d8dcbf48fd6f8",
+        "87da8c37b16d810331a2"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A new ratio tests whether an unusual measured interval has induced an unsupported response shape. Missing experimental details and the loading-volume difference limit mechanistic attribution.",
+      "next_discriminating_question": "Does 10/1 show the predicted later onset and approximately 99-mL completion, or a substantially different continuation of the measured trajectory?"
+    }
+  ],
+  "feedback_interpretation": "Recent outcomes strengthen local response-curve acquisition and weaken uniform family corrections. Nicotinate at 2/1 finished at 29.27 mL, substantially earlier than its acquisition prediction, while the pyridyl ketone at 2/1 finished at 55.06 mL. Their previously predicted similarity was not supported. Methylquinoline's accurate 2/1 transfer did not extend to 10/1, which measured 59.58/106.50, motivating an interior label. The amino ester loading experiment gave 36.42/112.07 at 50 uL versus 29.26/109.68 at 150 uL at 20/1. Late completion therefore persists at lower amount; increased amount is not needed to explain the large completion jump from 10/1. The onset difference also argues against declaring loading universally negligible. Nitrobenzophenone stayed near 4.5-mL onset at 50/1 while completion rose to 81.30, supporting endpoint-specific behavior. Thioglycolate completion was substantially overpredicted at both 20/1 and 50/1; those labels now constrain its narrower intervals, reducing the value of another nearby measurement. Methoxyethyl acrylate measured 21.07/34.45 at 10/1, rejecting the predicted reversal from 5/1. Acetoxybenzaldehyde instead exposed a large underestimate, so oxygen-containing corrections must remain connectivity-specific. The alcohol measurements supported a primary-versus-secondary structural contrast but came below their acquisition predictions; they now have useful interior anchors. Chalcone transferred reasonably, whereas methyl tetralone showed a smaller underestimate. Pending-CW outcomes separately exposed substantial underestimates for dimethoxytoluene and dibenzylamine, which now receive targeted follow-up. All cited prediction errors are acquisition-time errors, not current-model residuals.",
+  "batch_rationale": "The combined batch uses pending measurements as references without assuming their outcomes. The supplements add matched-loading interiors or extensions for lutidine, dimethoxytoluene, methyl acetoacetate, cyanobenzophenone and dibenzalacetone; nicotinate and methylquinoline address recent nitrogen-response failures. Acetoxybenzaldehyde receives a second ratio after a large first-label surprise. Ortho-methoxyacetophenone and nitrobenzaldehyde selections make pending weak-eluent measurements more informative about response shape. Dibenzylamine receives a controlled but partial loading contrast, while cinnamic acid tests a high-risk continuation of an unusual measured trajectory. Four previously unobserved molecules provide chemically interpretable structural transfers, including an early-eluting acrylate to retain relevance to the broader Row-distribution. Nearby amount variants and identical-condition candidate duplicates were otherwise avoided. Quantile widths and CW distances informed attention but were not treated as calibrated epistemic uncertainty or a mandatory ranking. The expected benefit is better structure-condition interpolation, more reliable endpoint-specific transfer and better use of loading features after retraining, rather than improved chromatographic performance of these particular runs."
+}

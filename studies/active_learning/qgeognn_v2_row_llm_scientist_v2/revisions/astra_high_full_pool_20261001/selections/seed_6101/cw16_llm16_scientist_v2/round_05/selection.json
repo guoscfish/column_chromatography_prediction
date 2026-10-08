@@ -1,0 +1,190 @@
+{
+  "type": "selection",
+  "packet_sha256": "4fb6f54ad58a3d3290b6bd7c9934c722dcee72fc4131994eec46f751c67a6c2b",
+  "batch_strategy": "Supplement the pending batch with targeted tests of nitrogen-context transfer, a solvent-by-loading comparison for dibenzylamine, and endpoint-specific oxygen/carbonyl response curves. Add structural bridges where labels can distinguish connectivity effects across many catalog rows. All selections use the supplied, unchanged premeasurement predictions.",
+  "choices": [
+    {
+      "id": "a60552f4d1a5ced4641f",
+      "reason": "Measure meta-aminobenzonitrile at 5/1, 50-uL sample, predicted 33.04/76.12 mL. Para-aminobenzonitrile at exactly the same recorded conditions measured 44.72/101.17 in ad833f34f6b91872362d after a large underestimate. The meta isomer has a 2/1 anchor in 53a1acff30433cff819f. This tests whether the newly learned steep response transfers between substitution positions or needs a positional correction.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "fbf7711e24f45bf06d4f",
+      "reason": "Measure para-aminobenzonitrile at 1/1 and 100 uL, predicted 7.02/19.52 mL. It matches the loading of the measured 2/1 row 2feb7d8e0a3566ddf97f, 11.90/33.83, and extends the response below the surprising 5/1 result ad833f34f6b91872362d. This distinguishes a low-ratio molecular offset from a steep solvent-dependent increase.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "6defbf00ecb558b77d50",
+      "reason": "Measure dibenzylamine at 2/1 and 100 uL, predicted 12.65/23.15 mL. Pending 2/1 uses 50 uL; observed 5/1 rows d5234e966aa231be05e5 and 252c027cf5a42b92c953 use 50 and 100 uL and differ substantially. Together these four conditions test whether the recorded loading association depends on solvent ratio, while the current predictor remains nearly amount-invariant.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "52b9af4df1f1e7cd4d9b",
+      "reason": "Measure ortho-methoxyacetophenone at 50/1 and 50 uL, predicted 5.06/23.90 mL. The 150-uL experiment c82167c626a1495ef750 measured 1.01/23.71, and its 20/1 counterpart ebdeaba52880c7eade16 measured 5.08/31.97. A threefold amount contrast at fixed ratio tests whether the unusually early onset and narrower completion persist at lower loading before transferring this pattern to other aromatic ketones.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "aff2ffd59a0610a54995",
+      "reason": "Measure ortho-methoxyacetophenone at 10/1 and 100 uL, predicted 8.49/21.65 mL. This adds an interior ratio beyond the same-loading 1/1 anchor b688bf34f76e0d26985a and below the unusual 20/1 and 50/1 observations. Pending para-methoxyacetophenone at 20/1 provides a complementary positional reference, without assuming its outcome or treating different loadings as a controlled isomer comparison.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "79ff49052bce33597828",
+      "reason": "Measure cyanobenzophenone at 10/1, predicted 6.92/27.43 mL. Observed 5/1, 20/1 and 50/1 rows 6aa69f7c2b8244353a75, a738b1f204da6fcfd385 and a17bcdddcf0799baeee2 span 4.91/18.96 to 57.88/117.93. This tests the model's still-early interior onset after a large weak-eluent failure. The selected 150-uL sample differs from the 100-uL anchors, so loading remains a qualification.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "28e9fea3e3293f2b8a0e",
+      "reason": "Measure diethyl phenylmalonate at 50/1 and 50 uL, predicted 22.88/49.18 mL. Its matched-loading 20/1 anchor 3726956d81fe3954e5b7 gives 18.43/30.51. The related benzyl-substituted beta-ketoester reached 56.96/97.46 at 50/1 in 2b97a1e0a6a4b944b760. This tests whether replacing ketone/ester connectivity with two esters produces the predicted shallower response; cross-molecule amounts and loading solvents differ.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "191c723f2b37d0c12afa",
+      "reason": "Introduce deoxybenzoin m171 at 20/1, predicted 6.90/16.63 mL. The observed table identifies the previously selected ID 1910a349b60a38899055 as m27, not deoxybenzoin, so m171 still lacks measured evidence. This actual structural bridge to chalcone a7f8c888870123f3b277 and the diaryl ketones tests transfer across methylene-linked versus conjugated carbonyl environments.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "52348febee6695107c49",
+      "reason": "Measure tetralone at 50/1, predicted 9.83/29.67 mL, with loading identical to its new 20/1 observation 1668026caa5d708642cf, 13.52/30.38. The predicted lower onset and almost unchanged completion at weaker eluent are untested. This extension distinguishes genuine flattening or reversal from insufficiently learned solvent sensitivity in a common cyclic-ketone motif.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "fd9cda2d3ab32ea2a360",
+      "reason": "Introduce biphenyl carboxaldehyde m189 at 20/1, predicted 9.75/24.77 mL. Naphthaldehyde observations a917c928912c74862968 and 79362765eb92377a5970 have an unusual endpoint sequence, whereas bromonaphthaldehyde stayed near 6-mL onset in ffa53b3aa054bc392704 and 7c6e7b244de393e8554d. This unfused aromatic bridge tests whether aromatic topology and substitution are being distinguished rather than propagating one aldehyde response.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "20d2b3319fd90528853f",
+      "reason": "Introduce meta-fluoropropiophenone at 20/1, predicted 6.73/15.59 mL. It bridges observed meta-bromopropiophenone, including 05c8e4d5f25c1295f231 at 50/1, and para-fluoroacetophenone f5d873a623aaeeb1e41e and 6998dee6f6e69401798a. This tests combined transfer across halogen identity, substitution position and carbonyl side chain in the catalog's numerous ordinary aromatic-ketone rows.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "c5a12771920c4410d921",
+      "reason": "Introduce methyl para-tert-butylbenzoate at 50/1, predicted 9.67/17.65 mL. Oxygen-containing molecules have shown strongly different responses: methoxybenzoate 8a4623d640cc619f2639 and benzyl-substituted beta-ketoester 2b97a1e0a6a4b944b760 retained substantially, while the aliphatic acrylate 97fe38c6942b67ea70b2 finished at 12.80 mL. This tests the predicted early elution of a hydrophobic aromatic ester and guards against a blanket ester correction.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "434e465cfa7e0034f233",
+      "reason": "Measure 2-phenylpyridine at 20/1 and 50 uL, predicted 18.35/47.87 mL. It matches the loading of observed 2/1 ecd17c7ea435a1e33f6b1c and 50/1 35f2be5f5aa14265e8a4, whose completion reached 81.78 mL. This interior anchor tests how the steep nitrogen response depends on the aryl environment after lutidine's predicted flattening failed in 51f4126a3aadb3239225.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "989b2145455d703d3b6d",
+      "reason": "Measure the fused lactone m181 at 10/1 and 100 uL, predicted 21.28/36.26 mL. Identically loaded observations 36f417057065d5f3290f and 10ea0c665f5ba7c91bbf give 6.33/11.91 at 2/1 and 32.91/52.53 at 20/1. The interior label constrains response curvature in a cyclic ester, providing a useful topology contrast to the selected aromatic and malonate esters.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "d1ec836ef828ebbf94ad",
+      "reason": "Measure trifluoroethyl acrylate at 10/1 and 50 uL. Its supplied prediction is physically inverted, 5.93-mL onset versus 5.14-mL completion; this is a model-behavior flag, not a measured effect. The only supplied measured anchor 28909b3d657af9f4764c is 1/1 at 150 uL, 5.97/8.87. A new ratio can repair endpoint ordering and transfer for fluorinated, early-eluting esters without spending a label on a duplicate condition.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "5522a1ec1f8e39cedb13",
+      "reason": "Measure acetoxybenzaldehyde at 2/1 and 100 uL, predicted 5.52/17.91 mL. The same-loading 10/1 observation 351c17dfa8f46a8cb40a gives 39.13/81.40, while 5/1 at 150 uL in 050e2fab4b407ea058cb gives 10.65/42.39. This stronger-eluent anchor tests the predicted onset plateau and rapid completion growth, helping localize a major connectivity-specific failure.",
+      "hypothesis_id": "H6"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Nitrogen environment and substitution position govern solvent-response slopes; accurate stronger-eluent predictions do not establish accurate weaker-eluent behavior.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "ad833f34f6b91872362d",
+        "2feb7d8e0a3566ddf97f",
+        "53a1acff30433cff819f",
+        "51f4126a3aadb3239225",
+        "855832bd4005ac7abdc6",
+        "35f2be5f5aa14265e8a4"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Labels spanning nitrogen environments can constrain structure-by-solvent interactions instead of applying a common retention offset to all bases.",
+      "next_discriminating_question": "Does the meta aminonitrile share the para isomer's steep rise at 5/1, and where does phenylpyridine's late-completion response emerge?"
+    },
+    {
+      "id": "H2",
+      "content": "Dibenzylamine has a substantial recorded loading association at 5/1; whether that association persists at 2/1 remains unresolved.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "d5234e966aa231be05e5",
+        "252c027cf5a42b92c953",
+        "942b8fc9cf013acda52b"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The current near-invariance to amount is inconsistent with the measured fixed-ratio contrast. A second ratio can distinguish a loading offset from a solvent-dependent interaction, although unrecorded variation and lack of replication limit causal attribution.",
+      "next_discriminating_question": "Does the pending 50-uL versus selected 100-uL contrast at 2/1 resemble the 14.83/23.52-mL endpoint differences observed at 5/1?"
+    },
+    {
+      "id": "H3",
+      "content": "Ortho-methoxyacetophenone's early onset and nonmonotone completion at high PE/EA require a local endpoint-specific response; the role of loading in this pattern is not yet established.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "ebdeaba52880c7eade16",
+        "c82167c626a1495ef750",
+        "b688bf34f76e0d26985a"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "These observations contradicted predictions that shifted both endpoints later. A loading contrast and an interior ratio can prevent an anomalous local pattern from becoming an unsupported general positional rule.",
+      "next_discriminating_question": "Does early onset persist at 50/1 with one-third the sample amount, and does 10/1 connect smoothly to the measured high-ratio endpoints?"
+    },
+    {
+      "id": "H4",
+      "content": "Carbonyl connectivity, aromatic topology and substituent identity can affect onset and completion differently; simple aromaticity or heteroatom counts are insufficient for transfer.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "a17bcdddcf0799baeee2",
+        "b514312eda7950cdcf1c",
+        "1f40af3483bd97a7dfca",
+        "a7f8c888870123f3b277",
+        "1668026caa5d708642cf",
+        "ffa53b3aa054bc392704",
+        "7c6e7b244de393e8554d"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched extensions and structural bridges can improve transfer across the large aromatic-carbonyl portion of the Row-distribution while preserving endpoint differences.",
+      "next_discriminating_question": "Do cyanobenzophenone and tetralone follow their predicted interior or extended curves, and do genuinely unmeasured carbonyl bridges support the learned topology distinctions?"
+    },
+    {
+      "id": "H5",
+      "content": "Ester-containing molecules need connectivity-specific solvent-response curves, including distinct behavior for cyclic esters, aromatic monoesters and beta-dicarbonyl esters.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "3726956d81fe3954e5b7",
+        "2b97a1e0a6a4b944b760",
+        "5fd0921bbbba1e22abf9",
+        "10ea0c665f5ba7c91bbf",
+        "36f417057065d5f3290f",
+        "97fe38c6942b67ea70b2"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Recent large errors have opposite implications across ester environments. These labels test whether the model distinguishes connectivity and response curvature rather than learning a uniform oxygen-count correction.",
+      "next_discriminating_question": "Does phenylmalonate remain much less retained than the benzyl beta-ketoester at 50/1, and do the lactone interior and hydrophobic aromatic ester follow their predicted responses?"
+    },
+    {
+      "id": "H6",
+      "content": "Acetoxybenzaldehyde's measured response suggests different onset and completion curvature across solvent ratio, but the stronger-eluent baseline remains unmeasured.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "351c17dfa8f46a8cb40a",
+        "050e2fab4b407ea058cb"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A matched-loading low-ratio anchor can constrain the response after a large acquisition-time underestimate and reduce unsupported transfer from simpler aldehydes and esters.",
+      "next_discriminating_question": "At 2/1, are both endpoints near the predicted 5.52/17.91 mL, or does substantial retention already occur?"
+    }
+  ],
+  "feedback_interpretation": "The latest outcomes reinforce local response measurements but reject several specific expectations. Lutidine at 20/1 measured 43.47/118.59 mL, weakening the predicted flattening beyond 10/1. Nicotinate at 5/1 finished at 60.60 rather than its acquisition prediction of 83.26, so nitrogen corrections cannot be uniform. Dibenzylamine's fixed-5/1 increase from 50 to 100 uL changed 7.24/13.67 to 22.07/37.18, directly weakening the amount-invariance assumption and motivating a second-ratio loading contrast. Ortho-methoxyacetophenone measured early onset at both 20/1 and 50/1, with completion decreasing from 31.97 to 23.71 at identical loading; this defeats the earlier expectation of a conventional late-onset rise and warrants careful follow-up. Cyanobenzophenone instead reached 57.88/117.93 at 50/1, strengthening its distinction from nitro- and chlorobenzophenone. Methyl acetoacetate's 50/1 completion was underestimated by 24.90 mL, whereas dimethoxytoluene's 20/1 completion and nitrobenzaldehyde's 20/1 endpoints transferred well. Dibenzalacetone and the branched acrylate now have useful anchors, reducing the need for immediate follow-up. Cinnamic acid did return to late completion at 10/1, but its onset was overpredicted; the irregular sequence and loading-volume differences remain unresolved. Pending-CW outcomes separately exposed the large para-aminobenzonitrile failure, motivating the positional comparison. Finally, the observed table maps 1910a349b60a38899055 to m27, despite its previous reason naming deoxybenzoin; I therefore do not treat it as evidence for m171. All errors discussed here are acquisition-time errors, not current-model residuals.",
+  "batch_rationale": "The supplements complement the pending 16 through interpretable contrasts. The dibenzylamine selection completes a two-ratio, two-amount comparison using pending and observed rows. Aminonitrile and phenylpyridine measurements address nitrogen-response failures without repeating already measured lutidine conditions. Ortho-methoxyacetophenone receives both a loading contrast and an interior ratio because its surprising endpoints cannot yet be assigned to structure or loading alone. Cyanobenzophenone, acetoxybenzaldehyde, tetralone and the lactone receive response anchors; phenylmalonate tests transfer from a related high-error beta-ketoester. Deoxybenzoin, biphenyl carboxaldehyde, fluoropropiophenone and a hydrophobic benzoate provide structural bridges relevant to numerous catalog rows, while trifluoroethyl acrylate tests an explicit endpoint-ordering failure in the early-eluting region. These choices were assessed against the whole supplied pool, including repeated condition tuples and nearby amount variants; extra variants were retained only for explicit comparisons. Quantile widths and CW distances were treated as model diagnostics, not calibrated epistemic uncertainty. The expected gain is better structure-condition interpolation, loading sensitivity and endpoint-specific transfer after retraining, with missing experimental information limiting mechanistic conclusions."
+}

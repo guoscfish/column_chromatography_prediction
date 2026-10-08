@@ -1,0 +1,264 @@
+{
+  "type": "selection",
+  "packet_sha256": "1f6451e9737e65205ade15f3e6d1d180051a656243286f73c6ed79fd2bc04c21",
+  "batch_strategy": "Freeze these 32 distinct candidate IDs and their supplied packet predictions together. Combine follow-up of historical failures, matched loading and loading-solvent contrasts, local solvent-response experiments, and focused structural exploration. Quantile spans and CW distances support selection but are not calibrated error estimates.",
+  "choices": [
+    {
+      "id": "aa43fe84c0d8c825fe58",
+      "reason": "m177 at 20/1 and 70.3 mg directly contrasts the 210.9 mg observation 5e276c1730fc0a9deba7. Current predicted V2 remains about 55.6 mL despite the threefold loading reduction. This tests transfer of the large measured loading effect at 10/1 to another solvent ratio.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "76643e968ecc935c745c",
+      "reason": "m177 at 5/1 and 210.9 mg contrasts measured 140.6 mg record 08812206a257481691c4 and connects to high-loading 10/1 and 20/1 observations. It tests where loading-dependent completion tails develop.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "4451265787d29526a93a",
+      "reason": "m92 at 1/1 in EA and 173.25 mg extends the measured loading contrast in 95a3dcfe4436e929aa30 and e93e08d6bc42e91e2679. Their V2 values were 11.70 and 25.15 mL, whereas current predictions are nearly loading-invariant.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "e626b5b8083ea1fd02f2",
+      "reason": "m92 at 1/1, 57.75 mg, and 200 uL PE loading solvent matches EA observation 95a3dcfe4436e929aa30 except for loading-solvent identity. This clean contrast separates a solvent-category effect from molecule and sample loading.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "65fcce0299e031dedeb8",
+      "reason": "m173 at 1/1 with 1500 uL DCM tests transfer from 2000 uL record f90a5a5a54509c085ebd, whose V2 is 108.89 mL. The two measured 5/1 records 1e971da91b3a8229f0e0 and 1e775e7d8dcbf48fd6f8 agree closely across those volumes. Recorded density differs slightly, so this is near-matched.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "9a32b65bc21fdc5f7286",
+      "reason": "m173 at 2/1 and 1500 uL DCM fills the gap between the selected 1/1 point and measured 5/1 record 1e971da91b3a8229f0e0. Predicted V2 is 73.69 mL; its label tests the shape of the acid's unusually long completion response.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "a83fb14090f1518df5a7",
+      "reason": "m195 at 20/1 and 50 mg adds a third loading level to 783cf2454912fc14bb80 and a917c928912c74862968. The latter has V2 slightly below V1, while the 100 mg experiment has an ordinary interval. This tests whether the discrepancy is loading-associated or isolated.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "5df546d9e2f2a29dfc89",
+      "reason": "m164 in pure EA mobile phase is predicted at 7.33/23.85 mL, versus measured 5.13/10.05 mL at 1/1 in 3f6b817d855e67b3b406. This predicted reversal tests whether retraining repaired the response neighborhood after the large historical error.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "b7fffd840d208b29776c",
+      "reason": "m164 at 20/1 provides a weaker-mobile-phase endpoint at the same loading as 3f6b817d855e67b3b406 and the selected pure-EA point. It tests extrapolation beyond the condition where acquisition-time errors exceeded 21 mL for both targets.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "634f21e11a8442494ce3",
+      "reason": "m178 at 10/1 bridges measured 5/1 record 17ff889395addf7d6295 and 20/1 record 855456da9ea892f7216b at matched loading. After the large 50/1 underprediction in 0c5c35afb3a24375c153, this locates the onset of a steep response.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "79ff49052bce33597828",
+      "reason": "m159 at 10/1 tests the transition between measured 5/1 record 6aa69f7c2b8244353a75 and 20/1 record a738b1f204da6fcfd385. It also tests transfer from the nitrile-carbonyl failure b3d9bb5afa82b99f2a11. Loading differs from the m159 anchors and remains a covariate.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "a17bcdddcf0799baeee2",
+      "reason": "m159 at 50/1 and 100 mg extends its matched-loading 5/1-to-20/1 series. Predicted 41.63/76.69 mL and maximal CW distance identify an unanchored endpoint in the aromatic carbonyl/nitrile neighborhood.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "c08c4700ae34281b3318",
+      "reason": "m193 at 10/1 tests nitrobenzaldehyde transfer from nitroacetophenone observation 38e6b8bf0f089fcadd80 and nitrobenzophenone observations. Its measured 2/1 anchor ca5c649ce727f8a36f41 is much earlier than the current 26.33/55.33 mL prediction.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "9de8f9fed06ef9d5befa",
+      "reason": "m37 at 5/1 and 134.5 mg supplies a matched-loading intermediate before the 10/1 failure 38e6b8bf0f089fcadd80. This tests whether its sharp retention increase is localized between 5/1 and 10/1.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "dafe887ed8c49efe19b9",
+      "reason": "m135 at 1/1 and 49 mg is predicted at 12.97/26.06 mL. Together with the selected 2/1 point and measured 5/1 record a5446977630484ca5fe1, it tests a predicted completion-volume reversal in a loading-sensitive alcohol family.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "4db6b065867770d9dbd9",
+      "reason": "m135 at 2/1 and 49 mg matches the selected 1/1 point and measured 5/1 record a5446977630484ca5fe1. Predicted V2 of 22.07 mL is below the 1/1 prediction; the pair discriminates a real response from an interpolation artifact.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "e4fd83fb3852eb354a66",
+      "reason": "Previously unmeasured methoxybenzyl alcohol m120 at 5/1 tests transfer from m135 and m206 alcohol observations. Predicted 17.28/28.46 mL and crossed V2 quantiles motivate a structural anchor, without assuming crossing proves a median error.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "859ae738b615cf17b849",
+      "reason": "Previously unmeasured m61 at 10/1 adds a secondary benzylic alcohol to a neighborhood containing primary and tertiary alcohol observations. Its label tests alcohol substitution and accessibility effects, with potential transfer to m60 and m67.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "bea7a84fdcea344896f4",
+      "reason": "Novel quinoline m216 at 1/1 anchors an uncovered basic fused heteroaromatic family. Pairing it with 10/1 measures solvent sensitivity; ecd17c7ea435a1e33f6b and 835b5f2641442576de42 provide related but imperfect pyridine references.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "9cd02352c2ed7a3e2321",
+      "reason": "m216 at 10/1 matches the selected 1/1 loading and loading-solvent volume. High CW distance and a 5.68 mL V1 quantile span support testing basic heteroaromatic adsorption beyond labeled pyridine examples.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "b4e0e9dc92fca2c88b90",
+      "reason": "Novel para-aminobenzonitrile m160 at 5/1 is predicted at 32.99/62.24 mL with crossed quantiles. The matched meta-isomer selection tests positional substitution and silica interactions under identical conditions.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "17902fa9c7f8ea9b456e",
+      "reason": "Meta-aminobenzonitrile m161 at 5/1 and 100 mg matches the selected para isomer. Its measured 2/1 anchor 53a1acff30433cff819f is 11.61/31.58 mL, versus predicted 27.82/55.16 mL at 5/1, testing both solvent sensitivity and positional-isomer transfer.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "26c1e0e617e6dbe06ef7",
+      "reason": "Novel dimethyl acetylenedicarboxylate m91 at 5/1 has low similarity to labeled molecules and predicted 6.88/35.59 mL. Paired with 20/1 at the same loading, it tests completion-tail behavior in a compact conjugated diester.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "93f10a8edf06f7acae26",
+      "reason": "m91 at 20/1 and 141.2 mg matches the selected 5/1 point, but predicted V2 falls from 35.59 to 24.33 mL as the mobile phase becomes weaker. High CW distance reinforces testing this unmeasured reversal.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "f82cfd3b57735b0ead3c",
+      "reason": "Novel diphenyl sulfoxide m199 at 5/1 tests a polar acceptor absent from measured sulfur environments. Comparison with thioether-containing carbonyl observation b655d7de0986cbd0d622 can help the model distinguish sulfur oxidation-state effects.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "902937db42f82f467718",
+      "reason": "m202 at 10/1 explores an unusual formally charged phosphorus representation with low similarity and crossed V1 quantiles. A measured anchor tests the utility of this recorded structure; no absent counterion or solution speciation is assumed.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "e6605c23fb1943a6b848",
+      "reason": "Novel bromopropionic acid m45 at 20/1 is predicted at 7.23/17.74 mL. Contrasting this compact acid with the long cinnamic-acid intervals in 6802f0b28c5a0c7b4c2a and 1e971da91b3a8229f0e0 tests structure-dependent acid behavior.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "12ab195583f05b9aa177",
+      "reason": "Novel methyl mandelate m99 at 5/1 combines an alcohol donor with an ester. Its predicted 7.69/14.38 mL tests functional-group combination and the recorded 1000 uL DCM loading condition beyond simpler alcohol and carbonyl examples.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "49932dbd3d16bb64f71a",
+      "reason": "m73 at 2/1 and approximately 104.9 mg tests the neighborhood of 1/1 record 2cf789c87f7c6325c020, whose onset and completion nearly coincide at 18.6 mL. The predicted 10.59/14.31 mL is earlier despite weaker eluent, suggesting a useful local consistency test.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "69b09343d0b9995c3ae4",
+      "reason": "m125 at 2/1 with 500 uL DCM tests predicted lower retention relative to 1/1 record f4fb5c03b8e8996e75f6. Predicted 8.53/20.11 mL versus measured 12.49/36.14 mL motivates the check; loading also changes from 50 to 100 mg.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "aa65e86ee8638bded5d9",
+      "reason": "m80 at 10/1 and 105.5 mg tests an intermediate tail between measured 1/1 record 55dfd30fde788076a355 and short intervals at 2/1 and 50/1 in 3b54dfb5158b47f3c0f5 and f7d57d8bb988f7016502. This probes a recurring diester family with nonmonotonic recorded behavior.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "ff9bcaab8e95f60d70bc",
+      "reason": "Novel naphthyl methyl ketone m40 at 20/1 and 50 mg tests transfer from aromatic ketones and the naphthaldehyde failure region. Predicted 19.72/34.51 mL has relatively wide quantile spans. This anchors a common carbonyl scaffold near the inconsistent m195 neighborhood.",
+      "hypothesis_id": "H5"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Solvent-response curves are molecule-dependent, and recorded nonmonotonic responses require local measurements. Increasing PE/EA generally weakens the normal-phase mobile phase, but a universal slope or strict monotonicity does not explain all supplied observations.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "156594686f5cf7182bcc",
+        "b3d9bb5afa82b99f2a11",
+        "17ff889395addf7d6295",
+        "855456da9ea892f7216b",
+        "0c5c35afb3a24375c153",
+        "f90a5a5a54509c085ebd",
+        "1e775e7d8dcbf48fd6f8",
+        "55dfd30fde788076a355",
+        "3b54dfb5158b47f3c0f5"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Local slopes, transitions, and exceptions can improve interpolation across repeated molecule-condition rows. Predicted reversals remain untested even when other molecules have measured reversals.",
+      "next_discriminating_question": "Which predicted reversals persist on measurement, and where do steep retention increases occur between existing anchors?"
+    },
+    {
+      "id": "H2",
+      "content": "The current predictor underresponds to loading changes in some families, especially for V2, but loading effects are molecule- and condition-specific.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "aef5cafc63ca445e92fa",
+        "ce14dd2481560a984aea",
+        "95a3dcfe4436e929aa30",
+        "e93e08d6bc42e91e2679",
+        "a5446977630484ca5fe1",
+        "f9f0f4e29dbd30c000ee",
+        "44fcf641ccfa3b10a97c",
+        "2d63ab3869184cde52bf"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Many loading variants receive almost identical predictions. Matched contrasts can teach when density-times-volume loading changes onset, completion, or both.",
+      "next_discriminating_question": "Does m177 retain its large loading-dependent V2 difference at 20/1, and does m92's 1/1 response continue changing at higher loading?"
+    },
+    {
+      "id": "H3",
+      "content": "An EA loading-solvent effect remains unresolved because EA observations are concentrated in m92 and vary with sample loading. A matched PE-versus-EA experiment is needed before attributing behavior to loading-solvent identity.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "95a3dcfe4436e929aa30",
+        "e93e08d6bc42e91e2679",
+        "9768d61b571fc0c5ce1a",
+        "790d27f0fa045d91f307",
+        "e2f15590b7142490599b"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Separating loading-solvent identity from molecule and loading effects can prevent unsupported solvent-category corrections.",
+      "next_discriminating_question": "At identical m92 mobile phase, sample loading, and loading-solvent volume, does replacing EA with PE change V1 or V2?"
+    },
+    {
+      "id": "H4",
+      "content": "Near-zero or inverted recorded V1/V2 intervals should not be generalized as stable molecule-level behavior. Neighboring-condition labels can distinguish local behavior from inconsistent records and interpolation artifacts.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "a917c928912c74862968",
+        "783cf2454912fc14bb80",
+        "8bef7f788af60df5e18a",
+        "2cf789c87f7c6325c020"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "m195 follow-ups show that a compressed interval is not a reliable molecule-wide template. Local labels may reduce onset bias and repair onset-completion relationships.",
+      "next_discriminating_question": "Does low-loading m195 at 20/1 resemble the ordinary 100 mg interval, and does m73 at 2/1 support its anomalous nearby 1/1 pattern?"
+    },
+    {
+      "id": "H5",
+      "content": "Functional-group environment and structural context can change retention and solvent sensitivity enough that coarse polarity or family-level transfer is insufficient.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "b3d9bb5afa82b99f2a11",
+        "38e6b8bf0f089fcadd80",
+        "0c5c35afb3a24375c153",
+        "a738b1f204da6fcfd385",
+        "53a1acff30433cff819f",
+        "6802f0b28c5a0c7b4c2a",
+        "1e971da91b3a8229f0e0"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Analog pairs and selected new functional-group combinations can teach reusable structure-condition interactions in neighborhoods with historical failures. Their specific outcomes remain hypotheses.",
+      "next_discriminating_question": "Which structural changes alter solvent-response slope or completion tails beyond what labeled analogs predict?"
+    }
+  ],
+  "feedback_interpretation": "Previous outcomes support local response measurements but weaken broad retention rules. m31 at 10/1, m178 at 50/1, and m37 at 10/1 were substantially underpredicted, while m164 at 1/1 and m195 at 20/1 and 50/1 had large onset overpredictions. These are acquisition-time errors, not current residuals. The m177 10/1 pair had similar onset but V2 of 20.70 versus 46.72 mL at 140.6 versus 210.9 mg. m92 at 1/1 also changed substantially with loading, while m135 and m114 loading contrasts affected onset more than completion. Cinnamic acid retained a long completion tail in pure EA, but its 5/1 result was already well predicted; its approximately 125 mg sample load is not exceptional in this catalog, and its large DCM loading-solvent volume is a separate condition. Higher PE/EA means weaker mobile phase. Contrary to the previous narrative, m178 and m173 already had initial measured anchors. EA observations do not establish a general EA-category effect, and quantile crossings do not prove median prediction errors.",
+  "batch_rationale": "This corrected batch contains 32 distinct supplied candidate IDs. The m40 choice uses the legal 20/1, 50 mg candidate ff9bcaab8e95f60d70bc. Linked experiments answer distinct questions: m177 tests loading-by-solvent interaction, m92 separates loading from loading-solvent identity, m173 tests loading-solvent-volume transfer and an intermediate solvent ratio, and m164 probes the neighborhood of a historical failure. m195 and m73 address compressed or inconsistent intervals. m178, m37, and m159 refine aromatic carbonyl response curves. m135, m125, m80, and m91 challenge nonmonotonic patterns. Focused exploration includes a quinoline response pair, matched aminobenzonitrile isomers, and selected alcohol, hydroxyester, acid, sulfoxide, phosphorus, and naphthyl-ketone examples. No identical candidate tuples are duplicated within the batch. These labels may improve overall Row accuracy by refining condition-response shapes and structural transfer while addressing both overprediction and underprediction."
+}
