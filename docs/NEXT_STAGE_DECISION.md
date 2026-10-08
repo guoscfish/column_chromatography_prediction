@@ -1,6 +1,10 @@
 # 当前研究状态
 
-更新：2026-09-18。本页是项目级结论与下一步的唯一入口；具体数值、冻结门槛和使用过的数据以链接的实验报告及协议为准。
+更新：2026-10-08。本页是项目级结论与下一步的唯一入口；具体数值、冻结门槛和使用过的数据以链接的实验报告及协议为准。
+
+## 本轮执行
+
+[CW geometry / LLM feedback](research/CW_GEOMETRY_AND_LLM_FEEDBACK_PLAN.md) 已预注册。P0兼容性与小样本几何审计、P2离线字段边界已完成；P1在36次新增拟合硬上限内执行。主指标固定为两development seeds的validation AULC333–525。实际状态见[RUN_STATE](../studies/active_learning/qgeognn_v2_row_cw_selector_factorial/RUN_STATE.json)。历史LLM轨迹与prompt不变，本轮不调用付费LLM、不开放test、不扩展架构或跨柱研究。
 
 ## 预测器
 

@@ -57,3 +57,5 @@ For full reproduction, use a separate checkout at that commit and restore the re
 
 - `audit_repository_hygiene.py`: read-only branch, retention, recovery and scientific-boundary audit.
 - `audit_datasets.py`: dataset inspection; reads label values and is not a blind model preflight.
+
+- `run_cw_geometry_feedback.py`: bounded CW-MaxDet/CW-IVR/Whitening-LCMD factorial, geometry audit and offline LLM boundary fixtures. See `studies/active_learning/qgeognn_v2_row_cw_selector_factorial/`.

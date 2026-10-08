@@ -26,3 +26,5 @@ results. The innovation-screen implementation is now part of the integrated `mai
 - [Active transfer](transfer/README.md): requires a stable independently validated transfer baseline and an adequate uncertainty contract.
 
 Use [current status](../../docs/NEXT_STAGE_DECISION.md) for the next action and [script index](../../scripts/README.md) for execution.
+
+- [CW selector factorial and LLM feedback boundaries](qgeognn_v2_row_cw_selector_factorial/README.md): two-seed development, frozen validation AULC333–525, max36 new fits; P2 offline only.

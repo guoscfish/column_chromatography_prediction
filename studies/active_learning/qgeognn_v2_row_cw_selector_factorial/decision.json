@@ -1,0 +1,30 @@
+{
+  "status": "running",
+  "primary_metric": "validation normalized AULC333-525",
+  "eligibility": "pending_incomplete_matrix",
+  "gates": [
+    {
+      "selector": "lcmd",
+      "status": "completed",
+      "raw_mean_AULC": 0.7492560064713576,
+      "cw_mean_AULC": 0.6973515420890176,
+      "relative_mean_improvement": 0.06927467238705964,
+      "both_seeds_improve": true,
+      "eligible": true
+    },
+    {
+      "selector": "maxdet",
+      "status": "incomplete",
+      "eligible": false
+    },
+    {
+      "selector": "ivr",
+      "status": "incomplete",
+      "eligible": false
+    }
+  ],
+  "whitening_vs_CW": [],
+  "interpretation": "pending whitening trajectories",
+  "new_test_evaluations": 0,
+  "historical_test_is_blind": false
+}

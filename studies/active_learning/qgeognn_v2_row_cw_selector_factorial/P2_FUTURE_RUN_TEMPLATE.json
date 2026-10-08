@@ -1,0 +1,51 @@
+{
+  "status": "planned_not_authorized_for_paid_execution",
+  "transport": {
+    "backend": "responses",
+    "model": "gpt-6-astra",
+    "base_url": "https://token4research.cn/v1",
+    "reasoning_effort": "high",
+    "candidate_delivery": "all_candidates",
+    "authentication": "explicit_provider_key",
+    "key_env": "SCIENTIST_API_KEY",
+    "key_file_env": "SCIENTIST_API_KEY_FILE",
+    "automatic_fallback": false,
+    "responses_store": false,
+    "cli_response_storage": "controlled by installed CLI/provider; not asserted by an undocumented flag",
+    "cli_isolation": "fresh CODEX_HOME and cwd; no inherited config/history; native-call audit",
+    "hard_filesystem_read_sandbox": false
+  },
+  "model_call_budget_per_selection": 3,
+  "query_budget": 0,
+  "view_budget": "all eligible candidates",
+  "source_protocol_sha256": "b2ae7da1687a14da8e3e418248f4d68c01eb261c6e12945e1d1a40eb777ce12b",
+  "historical_full_prompt_sha256": "f304b667ec2e1d97f0726e24bced2535a9e386e5ec206ea979cab0b5426ff441",
+  "development_seeds": [
+    157,
+    6101
+  ],
+  "budgets": [
+    333,
+    365,
+    397,
+    429,
+    461,
+    493,
+    525
+  ],
+  "paid_variants": [
+    "full",
+    "no_narrative",
+    "no_direct_response",
+    "no_chemistry"
+  ],
+  "selection_events_per_variant": 12,
+  "maximum_semantic_calls_if_later_authorized": 144,
+  "current_paid_calls_limit": 0,
+  "current_cost_limit_usd": 0,
+  "transport_retries": "must inherit and hash exact Full executor retry policy before enabling network",
+  "quota_action": "stop and retain resumable packet/freeze; no background retry",
+  "manual_id_repair": false,
+  "fallback": false,
+  "future_prompt_adapter_status": "planned; historical prompt unchanged"
+}
