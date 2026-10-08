@@ -38,6 +38,6 @@ for parent in (ROOT/'studies',ROOT/'experiments'):
   found=set(seed_values(json.loads(path.read_text())))&set(a.seeds)
   if found:sys.exit(f'Blocked: seeds {sorted(found)} occur in {path.relative_to(ROOT)}')
 print(json.dumps({'status':'eligible_preflight_only','candidate':a.candidate,'proposed_seeds':a.seeds,
- 'uniform_budgets':list(range(333,526,32)),'strong_controls':['matched_raw_selector','cw_lcmd','whitening_lcmd','random32'],
+ 'uniform_budgets':list(range(333,526,32)),'strong_controls':['raw_'+a.candidate.removeprefix('cw_'),a.candidate,'whitening_'+a.candidate.removeprefix('cw_'),'cw_lcmd','whitening_lcmd','random32'],
  'decision_sha256':hashlib.sha256((s/'decision.json').read_bytes()).hexdigest(),
  'no_training_started':True,'no_paid_calls':True,'next_action':'freeze independent confirmation protocol, exact splits and budget before execution; no automatic extension to813/1005'},indent=2))

@@ -40,8 +40,8 @@ Study owner: `studies/active_learning/qgeognn_v2_row_cw_selector_factorial/`.
 |---|---|---|
 | inventory | completed | 70 reused points: checkpoint, predictions, exact training/preprocessing/initialization and ordered trajectory checked |
 | P0 | completed | 166 geometry records, four historical first-batch replays, 29 unit tests passed |
-| P1a | running | 3/36 total completed fits; see RUN_STATE.json and RESULTS.md |
-| P1b | planned | 3/36 total completed fits; see RUN_STATE.json and RESULTS.md |
+| P1a | running | 13/36 total completed fits; see RUN_STATE.json and RESULTS.md |
+| P1b | planned | 13/36 total completed fits; see RUN_STATE.json and RESULTS.md |
 | P2 offline | completed | four variants, numeric/text boundary and freeze tests; zero paid calls |
 
 Required outputs: PROTOCOL.md, protocol.json, REUSE_MANIFEST.json, RUN_STATE.json, MECHANISM_AUDIT.md, RESULTS.md, per-seed CSV/PNG, costs and executable recovery commands. Every stage transition updates this table and state. Blockers record evidence and recovery commands, never masquerade as completion. Stop after P0/P1a/P1b/P2 offline; preserve historical files and ignored checkpoint policy. Commit plan before formal runs and commit code/results after verification; no force push.

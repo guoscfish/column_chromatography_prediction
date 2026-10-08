@@ -28,6 +28,12 @@ for selector in ('lcmd','maxdet','ivr'):
     decisions.append({'selector':selector,'status':'completed','raw_mean_AULC':float(raw.mean()),'cw_mean_AULC':float(cw.mean()),'relative_mean_improvement':improvement,'both_seeds_improve':both,'eligible':bool(improvement>=.02 and both)})
     for seed in pivot.index:
         effects.append({'seed':seed,'selector':selector,'delta_AULC':float(cw[seed]-raw[seed]),'relative_improvement':float(1-cw[seed]/raw[seed])})
+interaction=[]
+for seed in (157,6101):
+    delta={x['selector']:x['delta_AULC'] for x in effects if x['seed']==seed}
+    for a,b in [('maxdet','lcmd'),('ivr','lcmd'),('maxdet','ivr')]:
+        if a in delta and b in delta: interaction.append({'seed':seed,'contrast':a+' minus '+b,'difference_of_CW_effects':delta[a]-delta[b]})
+pd.DataFrame(interaction).to_csv(S/'development_interactions.csv',index=False)
 complete=len(summary)==16
 new_gates=[d for d in decisions if d['selector'] in ('maxdet','ivr')]
 eligibility='pending_incomplete_matrix' if not complete else ('cross_selector_candidate' if all(d['eligible'] for d in new_gates) else 'selector_specific_candidate' if any(d['eligible'] for d in new_gates) else 'no_new_selector_candidate')
@@ -69,6 +75,16 @@ Negative delta means CW improves on Raw within the same selector. Mean relative 
 
 {table(pd.DataFrame(effects)) if effects else 'No complete paired comparisons yet.'}
 
+{table(pd.DataFrame(decisions))}
+
+Development interaction contrasts (differences of paired CW effects):
+
+{table(pd.DataFrame(interaction)) if interaction else 'Pending complete new curves.'}
+
+Whitening minus CW AULC:
+
+{table(pd.DataFrame(white)) if white else 'Pending whitening curves.'}
+
 Decision: **{eligibility}**. Full machine-readable gates: decision.json. Whitening interpretation: **{geometry_claim}**.
 
 Cross-selector comparisons remain developmental interactions with two seeds. MaxDet and IVR retain different RMS policies. A favorable CW result under one selector does not establish universality. Finite CountSketch orientation contributes to the realized representation; see MECHANISM_AUDIT.md.
@@ -97,7 +113,9 @@ KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish python scripts/s
 KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish pytest -q tests/active_learning_v2/test_cw_factorial.py tests/active_learning_v2/test_feedback_ablation_adapter.py
 ```
 
-An interrupted fit reservation is not silently retried or removed: account for its attempt within the36 cap before any recovery. No automatic expansion beyond525, no test reveal command, and no live LLM command are enabled here. Future confirmation requires one frozen candidate/strong controls and five audited unused split seeds; extensions to813/1005 require a later preregistered budget. New splits are robustness checks, not external validation. The current round stops at the registered boundary.
+An interrupted fit reservation is not silently retried or removed: account for its attempt within the36 cap before any recovery. Selection coverage is in selection_coverage.csv; same_state_L333_overlap.csv compares only identical shared-model states. Later coverage rows belong to separate adaptive trajectories.
+
+No automatic expansion beyond525, no test reveal command, and no live LLM command are enabled here. Future confirmation requires one frozen candidate/strong controls and five audited unused split seeds; extensions to813/1005 require a later preregistered budget. New splits are robustness checks, not external validation. The current round stops at the registered boundary.
 '''
 (S/'RESULTS.md').write_text(text)
 # Keep stage table synchronized without claiming incomplete training is complete.
