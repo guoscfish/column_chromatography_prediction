@@ -67,3 +67,16 @@ python scripts/studies/prepare_cw_confirmation.py --candidate cw_ivr --seeds 146
 ```
 
 The listed seeds are proposals, not a frozen eligible confirmation cohort: the candidate gate fails before unused-seed validation. P2's paid limits remain zero in P2_CONFIG.json and P2_FUTURE_RUN_TEMPLATE.json; a future live run needs its common adapted prompt/schema, retry/context limits and explicit positive bounded budget frozen first. This turn does not resume historical LLM jobs.
+
+## Exploratory extension authorized — 2026-10-09
+
+After seeing the completed 333–525 results, the user asked to run several more rounds. Freeze a bounded four-round continuation for ALL three new arms and both seeds: budgets557,589,621,653;24 additional fits maximum, separate from the completed36-fit primary study. Continue each own exact L525 selected set/checkpoint, then scratch retrain from the same L333 initialization. L333 output transforms, production sketch, selector normalization, optimizer/checkpoint rules and label firewall remain unchanged.
+
+Extension primary descriptive metric is normalized validation AULC525–653, fixed before additional outcomes; secondary AULC333–653, NRMSE653 and per-target metrics. The original AULC333–525 result and failed new-selector confirmation gates remain unchanged. This is post-development exploration, not independent confirmation or a replacement success criterion. Complete all24 regardless of early performance and hard-stop at653. No paid LLM calls or new test reveals. Do not roll the budget forward to813/1005 without a new instruction and freeze.
+
+Owner: `studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_653/`. Forty additional historical control budget points are available for exact protocol/checkpoint/ordered-lineage reuse; controls are not refitted. Source six L525 states and original global matrix freeze are hash-bound. Original study artifacts remain immutable. Current extension status: prepared; execution begins only after committed protocol and implementation checks.
+
+```sh
+KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish python scripts/studies/run_cw_factorial_extension.py run
+KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish python scripts/studies/run_cw_factorial_extension.py report
+```
