@@ -125,3 +125,9 @@ Current status: resume_authorized; execution uses `continue_cw_without_whitening
 The user requested monitoring. No CW training/supervisor/worker process remains and both execution locks are free, despite stale running statuses. No terminal error identifies the cause. Current completed extension fits:24/60 (16 through653,8 thereafter). CW-MaxDet completed budgets749/813 for seeds157/6101; CW-IVR both653. Incomplete CW-MaxDet fits at781/845 retain their reservations and partial artifacts. MONITOR_FINDING.json records evidence. Status: blocked, no automatic restart.
 
 The two new interrupted attempts would require two additional scratch restarts to finish, raising total attempt accounting from the authorized61 to63 while retaining60 completed fits. Further retry allowance is not inferred from the monitoring request. Whitening remains525; no paid LLM calls or new test access.
+
+## Continue-until-complete authorization — 2026-10-10
+
+User explicitly instructed “继续重跑啊直到跑完”. This authorizes necessary interrupted-fit scratch retries until CW-MaxDet/CW-IVR both seeds reach1005, superseding the61-attempt cap; minimum now63 total attempts. Target remains60 completed extension fits. Every interrupted attempt is archived and separately recorded, never hidden or counted as completed. Whitening remains stopped525. No new seeds/arms/budget, paid LLM calls or test reveals. Integrity failures are not bypassed.
+
+Recovery entry: `python scripts/studies/recover_cw_until_complete.py`. It checks locks and processes, preserves frozen batch/prediction hashes, archives incomplete model files, records recovery_attempts receipts, and launches the existing frozen scientific pipeline in a detached session. The five-minute monitor may recover eligible process interruptions automatically under this authorization. Repeated identical nontransient errors require diagnosis before another attempt.

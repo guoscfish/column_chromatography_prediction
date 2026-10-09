@@ -1,0 +1,25 @@
+{
+  "status": "authorized",
+  "user_instruction": "\u7ee7\u7eed\u91cd\u8dd1\u554a\u76f4\u5230\u8dd1\u5b8c",
+  "date_local": "2026-10-10",
+  "recorded_unix": 1791567289.589175,
+  "automatic_interrupted_fit_retries_authorized": true,
+  "scope": {
+    "arms": [
+      "cw_maxdet",
+      "cw_ivr"
+    ],
+    "seeds": [
+      157,
+      6101
+    ],
+    "final_budget": 1005,
+    "completed_extension_fits": 60
+  },
+  "whitening": "stopped_at525_by_user",
+  "retry_policy": "Preserve every partial attempt and reservation history; same frozen batch and scratch initialization. Supersedes previous61 attempt cap for necessary interrupted-fit recovery only. No effect-based retries, new arms, new seeds, or budget beyond1005.",
+  "known_minimum_total_attempts": 63,
+  "paid_llm_calls": 0,
+  "new_test_reveals": 0,
+  "integrity_failure_policy": "Do not bypass frozen code/data/hash or label boundaries; report and diagnose."
+}
