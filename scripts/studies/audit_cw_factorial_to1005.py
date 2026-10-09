@@ -131,6 +131,21 @@ def main():
         '| Seed | Method / reference | AULC525–1005 delta | Relative improvement | NRMSE1005 delta |','|---|---|---:|---:|---:|']
     for r in paired.itertuples():
         lines.append(f'| {r.seed} | {r.method} / {r.reference} | {r.AULC525_1005_delta:+.6f} | {r.relative_improvement_percent:+.2f}% | {r.NRMSE1005_delta:+.6f} |')
+    lines += ['', '## Interpretation of the extended window', '']
+    for method in ('cw_lcmd', 'cw_maxdet', 'cw_ivr'):
+        g = paired[paired.method == method]
+        wins = int((g.AULC525_1005_delta < 0).sum())
+        lines.append(f'{method}: mean paired relative AULC improvement {g.relative_improvement_percent.mean():+.2f}%; CW improves in {wins}/2 seeds. This is a descriptive trajectory comparison, not a revised confirmation gate.')
+    white = paired[paired.method == 'whitening_lcmd']
+    wins = int((white.AULC525_1005_delta <= 0).sum())
+    if wins == 2:
+        lines += ['Whitening matches or beats CW-LCMD on both seeds in the extension window. Describe the benefit as output-geometry correction; this result does not support a unique center/width semantic explanation.']
+    elif wins == 1:
+        lines += ['Whitening matches or beats CW-LCMD on one seed only. The mixed geometry-control result limits a CW-specific interpretation; report the seed-dependent boundary.']
+    else:
+        lines += ['CW-LCMD beats Whitening-LCMD on both seeds in this extension window. This alone cannot establish semantic exclusivity: finite sketch and trajectory effects remain possible contributors.']
+    selector_wins = [int((paired[paired.method == m].AULC525_1005_delta < 0).sum()) for m in ('cw_lcmd','cw_maxdet','cw_ivr')]
+    lines += ['CW improves both seeds across all three selectors in this exploratory window; independent confirmation is still absent.' if all(w == 2 for w in selector_wins) else 'The observed CW effect is not uniform across selectors and seeds; retain selector-specific applicability boundaries.']
     lines += ['', 'V1/V2 RMSE, MAE and R²: endpoint_metrics.csv. Each seed curve: validation_curves.csv/PNG. Supplemental AULC653–1005: validation_summary.csv. Selector normalization and finite sketch behavior remain part of the comparison; cross-selector differences are not exclusively objective-function effects.', '',
         f"Additional525–1005 training wall-seconds summed over fits: {decision['training_seconds525_1005']:.1f}; acquisition: {decision['acquisition_seconds525_1005']:.1f}. Two independent fits may run concurrently after653; summed wall time is not elapsed makespan. See resource_costs_525_1005.csv.", '',
         '## Stop and recover', '', 'All training stops at1005. Reporting and verification only:', '', '```sh',

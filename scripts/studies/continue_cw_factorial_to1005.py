@@ -45,6 +45,7 @@ def main():
         command('run_cw_factorial_to1005.py','run')
         command('run_cw_factorial_to1005.py','report')
         command('audit_cw_factorial_to1005.py')
+        command('finalize_cw_factorial_to1005.py')
         state({'status':'completed','budget':1005,'new_fits_from525':90,'paid_llm_calls':0,'new_test_reveals':0})
 
 
