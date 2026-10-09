@@ -107,3 +107,7 @@ Current status: Whitening stopped_at525_by_user; other arms running. Replacement
 ```sh
 KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish python scripts/studies/continue_cw_without_whitening.py
 ```
+
+## User pause — 2026-10-09
+
+User requested all work stop before completion. All training and continuation processes were terminated; no automatic resume is authorized. Completed checkpoints remain intact, and any interrupted fit keeps its ledger reservation. USER_PAUSE.json records the previous state. Read-only plots use completed fit_audit validation scores only; partial best.pt files without final audits/state are excluded. Latest validation curves are in the1005 study's paused_results/ directory.
