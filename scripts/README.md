@@ -59,3 +59,5 @@ For full reproduction, use a separate checkout at that commit and restore the re
 - `audit_datasets.py`: dataset inspection; reads label values and is not a blind model preflight.
 
 - `run_cw_geometry_feedback.py`: bounded CW-MaxDet/CW-IVR/Whitening-LCMD factorial, geometry audit and offline LLM boundary fixtures. See `studies/active_learning/qgeognn_v2_row_cw_selector_factorial/`.
+
+- `report_cw_geometry_feedback.py`, `report_cw_selection_diagnostics.py`, and `audit_cw_factorial_delivery.py`: validation-only summary, label-free selection diagnostics and completed-matrix hash verification. `prepare_cw_confirmation.py` performs eligibility/unused-seed preflight only; no training or LLM requests.

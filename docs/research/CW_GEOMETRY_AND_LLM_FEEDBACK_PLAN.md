@@ -39,9 +39,31 @@ Study owner: `studies/active_learning/qgeognn_v2_row_cw_selector_factorial/`.
 | Stage | Actual state | Evidence / next step |
 |---|---|---|
 | inventory | completed | 70 reused points: checkpoint, predictions, exact training/preprocessing/initialization and ordered trajectory checked |
-| P0 | completed | 166 geometry records, four historical first-batch replays, 29 unit tests passed |
-| P1a | running | 13/36 total completed fits; see RUN_STATE.json and RESULTS.md |
-| P1b | planned | 13/36 total completed fits; see RUN_STATE.json and RESULTS.md |
+| P0 | completed | 166 geometry records, four historical first-batch replays, 31 final regression tests passed |
+| P1a | completed | 36/36 total completed fits; see RUN_STATE.json and RESULTS.md |
+| P1b | completed | 36/36 total completed fits; see RUN_STATE.json and RESULTS.md |
 | P2 offline | completed | four variants, numeric/text boundary and freeze tests; zero paid calls |
 
 Required outputs: PROTOCOL.md, protocol.json, REUSE_MANIFEST.json, RUN_STATE.json, MECHANISM_AUDIT.md, RESULTS.md, per-seed CSV/PNG, costs and executable recovery commands. Every stage transition updates this table and state. Blockers record evidence and recovery commands, never masquerade as completion. Stop after P0/P1a/P1b/P2 offline; preserve historical files and ignored checkpoint policy. Commit plan before formal runs and commit code/results after verification; no force push.
+
+## Completed outcome — 2026-10-09
+
+P0, P1a, P1b and P2 offline completed. Exactly36 new formal fits; six independent trajectories each acquired192 labels over six batches. Seventy historical control points reused; all16 seven-point validation curves available. No extra/retry fits, no paid LLM requests by this study, no new test reveals. Delivery audit verifies every new checkpoint, prediction, initialization and premeasurement batch freeze. Final regression suite:31 passed.
+
+CW relative mean validation AULC improvement: LCMD +6.9275% (both seeds improve), MaxDet −4.8558% (opposite directions), IVR +0.6881% (opposite directions). Neither new selector qualifies for confirmation under the registered gate. No new seed confirmation is launched. Whitening-LCMD minus CW-LCMD AULC is +0.056486/+0.020482 for seeds157/6101; CW is better on both here, but neither semantic exclusivity nor cross-selector universality follows. Report the observed LCMD-specific boundary with finite-sketch and normalization caveats.
+
+Measured aggregate training wall time:5018.1s; acquisition:1680.9s. See resource_costs.csv, environment.json and RESULTS.md. All new training is stopped. P2 live independent ablations, five-unused-seed confirmation if separately justified, and second-system validation remain planned, not completed.
+
+Next exact command is a verification-only handoff:
+
+```sh
+KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish python scripts/studies/audit_cw_factorial_delivery.py
+```
+
+Gate demonstration (expected blocked; does not train):
+
+```sh
+python scripts/studies/prepare_cw_confirmation.py --candidate cw_ivr --seeds 14653 18013 22349 27329 32719
+```
+
+The listed seeds are proposals, not a frozen eligible confirmation cohort: the candidate gate fails before unused-seed validation. P2's paid limits remain zero in P2_CONFIG.json and P2_FUTURE_RUN_TEMPLATE.json; a future live run needs its common adapted prompt/schema, retry/context limits and explicit positive bounded budget frozen first. This turn does not resume historical LLM jobs.

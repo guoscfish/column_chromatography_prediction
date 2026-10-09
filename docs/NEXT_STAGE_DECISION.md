@@ -1,10 +1,12 @@
 # 当前研究状态
 
-更新：2026-10-08。本页是项目级结论与下一步的唯一入口；具体数值、冻结门槛和使用过的数据以链接的实验报告及协议为准。
+更新：2026-10-09。本页是项目级结论与下一步的唯一入口；具体数值、冻结门槛和使用过的数据以链接的实验报告及协议为准。
 
 ## 本轮执行
 
-[CW geometry / LLM feedback](research/CW_GEOMETRY_AND_LLM_FEEDBACK_PLAN.md) 已预注册。P0兼容性与小样本几何审计、P2离线字段边界已完成；P1在36次新增拟合硬上限内执行。主指标固定为两development seeds的validation AULC333–525。实际状态见[RUN_STATE](../studies/active_learning/qgeognn_v2_row_cw_selector_factorial/RUN_STATE.json)。历史LLM轨迹与prompt不变，本轮不调用付费LLM、不开放test、不扩展架构或跨柱研究。
+[CW geometry / LLM feedback](research/CW_GEOMETRY_AND_LLM_FEEDBACK_PLAN.md) 的 P0、P1a、P1b 和 P2 离线实现已完成，新增拟合36/36，复用70个历史控制预算点。固定validation AULC333–525：CW相对Raw在LCMD改善6.93%，MaxDet恶化4.86%，IVR改善0.69%；两个新selector均未过“两seed同向且平均改善≥2%”门槛，因此不启动新selector确认。Whitening-LCMD两seed均未超过CW-LCMD；目前报告LCMD适用边界，不宣称跨selector普遍收益或CW语义独有。
+
+[完整结果与恢复命令](../studies/active_learning/qgeognn_v2_row_cw_selector_factorial/RESULTS.md)。本研究零付费LLM调用、零新test评价，31项回归测试通过。P2付费独立消融和外部/第二体系验证仍未执行。其他历史LLM任务的进度由其原研究目录负责，不与本研究运行额度混算。
 
 ## 预测器
 

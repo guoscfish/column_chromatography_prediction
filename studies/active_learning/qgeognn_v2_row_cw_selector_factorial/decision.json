@@ -1,7 +1,7 @@
 {
-  "status": "running",
+  "status": "completed",
   "primary_metric": "validation normalized AULC333-525",
-  "eligibility": "pending_incomplete_matrix",
+  "eligibility": "no_new_selector_candidate",
   "gates": [
     {
       "selector": "lcmd",
@@ -23,12 +23,25 @@
     },
     {
       "selector": "ivr",
-      "status": "incomplete",
+      "status": "completed",
+      "raw_mean_AULC": 0.7309062303602847,
+      "cw_mean_AULC": 0.7258768431859492,
+      "relative_mean_improvement": 0.00688102928313572,
+      "both_seeds_improve": false,
       "eligible": false
     }
   ],
-  "whitening_vs_CW": [],
-  "interpretation": "pending whitening trajectories",
+  "whitening_vs_CW": [
+    {
+      "seed": 157,
+      "whitening_minus_CW_AULC": 0.05648569783979529
+    },
+    {
+      "seed": 6101,
+      "whitening_minus_CW_AULC": 0.02048168627586544
+    }
+  ],
+  "interpretation": "CW exceeds whitening mean here; semantic exclusivity still not established",
   "new_test_evaluations": 0,
   "historical_test_is_blind": false
 }

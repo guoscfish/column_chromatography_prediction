@@ -20,3 +20,5 @@ KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish pytest -q tests/
 ```
 
 The adapter retains PE/EA and solvent categories via a fixed PE=0, EA=1, DCM=2 dictionary. No-direct-response removes high-error history membership/order in addition to its numerical values; recent selection IDs are separately retained without response ranking. P2_REAL_PACKET_AUDIT.json stores hashes/counts only, never raw historical request contents.
+
+Handoff update (2026-10-09): an independent historical-LLM task advanced seed6101 hybrid to621. LLM_HISTORY_HANDOFF_SNAPSHOT.json records the current checkpoint-verified budgets read-only. These external calls/fits are outside this factorial study and were neither initiated nor committed here. The original LLM_HISTORY_AUDIT.json remains the initial2026-10-08 snapshot. The incomplete Free6101 trajectory still prevents the historical full global test barrier.
