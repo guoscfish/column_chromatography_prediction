@@ -1,0 +1,69 @@
+{
+  "status": "completed",
+  "evidence_class": "post-development exploration",
+  "primary_metric": "validation AULC525-653",
+  "new_fits": 16,
+  "reused_control_points": 40,
+  "paid_llm_calls": 0,
+  "new_test_reveals": 0,
+  "original_confirmation_gate_changed": false,
+  "next_action": "stop training at 653; no automatic seed confirmation or LLM requests",
+  "training_seconds": 3101.486601541983,
+  "acquisition_seconds": 718.790322292014,
+  "paired_effects": [
+    {
+      "seed": 157,
+      "method": "cw_lcmd",
+      "reference": "raw_lcmd",
+      "late_AULC_delta": -0.0028515221042649253,
+      "late_relative_improvement_percent": 0.61844671233863,
+      "full_AULC_delta": -0.03406905856595843,
+      "NRMSE653_delta": 0.00519785688838259
+    },
+    {
+      "seed": 157,
+      "method": "cw_maxdet",
+      "reference": "raw_maxdet",
+      "late_AULC_delta": 0.02696189226330553,
+      "late_relative_improvement_percent": -5.399387190921795,
+      "full_AULC_delta": 0.062009207102068586,
+      "NRMSE653_delta": 0.026647402651432894
+    },
+    {
+      "seed": 157,
+      "method": "cw_ivr",
+      "reference": "raw_ivr",
+      "late_AULC_delta": -0.009639708912003497,
+      "late_relative_improvement_percent": 1.9092735965544378,
+      "full_AULC_delta": -0.013353563931304824,
+      "NRMSE653_delta": -0.01493163869697317
+    },
+    {
+      "seed": 6101,
+      "method": "cw_lcmd",
+      "reference": "raw_lcmd",
+      "late_AULC_delta": -0.07632691482313331,
+      "late_relative_improvement_percent": 13.26192841863388,
+      "full_AULC_delta": -0.059887673463808855,
+      "NRMSE653_delta": -0.0005539472657221101
+    },
+    {
+      "seed": 6101,
+      "method": "cw_maxdet",
+      "reference": "raw_maxdet",
+      "late_AULC_delta": -0.044316868471677595,
+      "late_relative_improvement_percent": 7.174637702530716,
+      "full_AULC_delta": -0.026318850128783766,
+      "NRMSE653_delta": -0.04723541497515116
+    },
+    {
+      "seed": 6101,
+      "method": "cw_ivr",
+      "reference": "raw_ivr",
+      "late_AULC_delta": -0.06676822980807573,
+      "late_relative_improvement_percent": 11.389150100852248,
+      "full_AULC_delta": -0.023244876165929407,
+      "NRMSE653_delta": -0.07219205540580098
+    }
+  ]
+}

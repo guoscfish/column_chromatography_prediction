@@ -2,7 +2,7 @@
 
 User-authorized extension of all eight arms × two seeds through1005. Three new arms continue their own frozen653 histories with11 further batches each (66 fits); five controls reuse110 historical budget points after protocol/hash/lineage audit. Including the preceding24-fit653 continuation,90 new fits extend the original525 study. Zero paid LLM calls, zero new test labels.
 
-Status: queued after the active653 run. Frozen protocol: protocol.json; reuse manifest: REUSE_MANIFEST.json. Pipeline status: pipeline_state.json; per-seed progress: progress_seed_*.json; fit reservations/checkpoints remain under ignored runtime.
+Status: completed and delivery-audited. Frozen protocol: protocol.json; reuse manifest: REUSE_MANIFEST.json. Pipeline status: pipeline_state.json; per-seed progress: progress_seed_*.json; fit reservations/checkpoints remain under ignored runtime.
 
 Primary descriptive extension metric: validation AULC525–1005, fixed before1005 extension outcomes. Secondary AULC653–1005, AULC333–1005, NRMSE1005 and V1/V2 RMSE/MAE/R². Original333–525 gate and intermediate525–653 result remain unchanged. Post-development exploration is not independent confirmation. Hard stop1005 regardless of effect.
 
@@ -25,3 +25,7 @@ Use `python scripts/studies/continue_cw_without_whitening.py` in the fish enviro
 ## Explicit user resume
 
 The subsequent user request resumes CW-MaxDet/CW-IVR only. Twelve extension fits are complete; one interrupted557 fit is restarted using the same frozen batch and initialization. See USER_RESUME.json and RESOURCE_ACCOUNTING_NOTE.md:60 completed fits plus one interrupted attempt,61 attempts maximum. Whitening remains stopped525. No extra LLM calls or test reveals.
+
+## Verified delivery
+
+Fourteen curves completed through1005; Whitening remains at525 for both seeds by user instruction.60 additional fits (16 to653 plus44 to1005);150 control points reused. Zero paid LLM calls or new test reveals. Original333–525 conclusions unchanged; extension exploratory. See the1005 RESULTS.md and DELIVERY_AUDIT.json for final effects and verification.

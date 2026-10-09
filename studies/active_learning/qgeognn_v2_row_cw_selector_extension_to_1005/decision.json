@@ -1,0 +1,70 @@
+{
+  "status": "completed",
+  "evidence_class": "post-development exploration",
+  "new_fits653_1005": 44,
+  "new_fits525_1005": 60,
+  "total_new_fits_including_original": 96,
+  "paid_llm_calls": 0,
+  "new_test_reveals": 0,
+  "primary_metric": "normalized validation AULC525-1005",
+  "original_confirmation_gate_changed": false,
+  "next_action": "stop training at1005; no automatic new-seed confirmation or paid LLM calls",
+  "training_seconds525_1005": 28279.668033831986,
+  "acquisition_seconds525_1005": 3874.50662603823,
+  "effects": [
+    {
+      "seed": 157,
+      "method": "cw_lcmd",
+      "reference": "raw_lcmd",
+      "AULC525_1005_delta": -0.0024858978174748803,
+      "relative_improvement_percent": 0.6266232151136738,
+      "AULC333_1005_delta": -0.017455855452602143,
+      "NRMSE1005_delta": 0.002758235394735853
+    },
+    {
+      "seed": 157,
+      "method": "cw_maxdet",
+      "reference": "raw_maxdet",
+      "AULC525_1005_delta": 0.042329612881471856,
+      "relative_improvement_percent": -10.027574301119426,
+      "AULC333_1005_delta": 0.05462803310426401,
+      "NRMSE1005_delta": 0.0065331227527409275
+    },
+    {
+      "seed": 157,
+      "method": "cw_ivr",
+      "reference": "raw_ivr",
+      "AULC525_1005_delta": -0.011630675337930552,
+      "relative_improvement_percent": 2.7874585457637773,
+      "AULC333_1005_delta": -0.012830330177809213,
+      "NRMSE1005_delta": -0.0053311104161719025
+    },
+    {
+      "seed": 6101,
+      "method": "cw_lcmd",
+      "reference": "raw_lcmd",
+      "AULC525_1005_delta": -0.00819139849783207,
+      "relative_improvement_percent": 1.7957172650155113,
+      "AULC333_1005_delta": -0.019830478705382903,
+      "NRMSE1005_delta": 0.013160517388154325
+    },
+    {
+      "seed": 6101,
+      "method": "cw_maxdet",
+      "reference": "raw_maxdet",
+      "AULC525_1005_delta": -0.013237493283343782,
+      "relative_improvement_percent": 2.4308064653972834,
+      "AULC333_1005_delta": -0.013546829840537233,
+      "NRMSE1005_delta": 0.007700558435638605
+    },
+    {
+      "seed": 6101,
+      "method": "cw_ivr",
+      "reference": "raw_ivr",
+      "AULC525_1005_delta": -0.047379886433284724,
+      "relative_improvement_percent": 9.16725443496918,
+      "AULC333_1005_delta": -0.032194006615536286,
+      "NRMSE1005_delta": -0.03672295945520759
+    }
+  ]
+}

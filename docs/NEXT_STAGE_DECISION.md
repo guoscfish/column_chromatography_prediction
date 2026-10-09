@@ -14,7 +14,7 @@
 
 [完整结果与恢复命令](../studies/active_learning/qgeognn_v2_row_cw_selector_factorial/RESULTS.md)。本研究零付费LLM调用、零新test评价，31项回归测试通过。P2付费独立消融和外部/第二体系验证仍未执行。其他历史LLM任务的进度由其原研究目录负责，不与本研究运行额度混算。
 
-用户随后授权追加四个round：三条新臂×两seed延长525→653，共24次新增拟合，653阶段running，用户进一步要求全矩阵到1005：其后追加66次拟合，总追加90次，固定描述指标AULC525–1005。[1005协议](../studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_1005/README.md)。延长窗口固定validation AULC525–653，仅作看过原结果后的探索，原门槛与结论不改。[延长研究](../studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_653/README.md)记录协议、额度与恢复命令。
+用户授权的1005扩展已完成：七臂×两seed到1005，Whitening按用户要求停在525；新增60次拟合，复用150个历史对照点。探索性validation AULC525–1005平均相对改善：cw_lcmd +1.21%；cw_maxdet -3.80%；cw_ivr +5.98%。原333–525结论与确认门槛不变，已停止新增训练及LLM调用。[完整扩展结果](../studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_1005/RESULTS.md)。
 
 用户最新要求停止Whitening-LCMD：两seed均保留525结果，无追加拟合；仅CW-MaxDet/CW-IVR继续1005，追加额度由90降为60。其余五个对照均已到1005。以研究计划末尾的停止修订和`continue_cw_without_whitening.py`为当前执行入口。
 
