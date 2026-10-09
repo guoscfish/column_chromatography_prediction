@@ -15,13 +15,17 @@ from src.qgeognn_al.training.predictor import atomic_json
 def main():
     p = study.verify()
     s, read = study.STUDY, study.base.read
+    amended = (s/'WHITENING_STOP_AMENDMENT.json').exists()
+    arms = ('cw_maxdet','cw_ivr') if amended else tuple(study.ARMS)
+    expected_fits = len(arms)*22
+    expected_total = len(arms)*30
     anchors = read(s/'ANCHORS.json')
     assert anchors['protocol_hash'] == stable_hash(p)
     assert anchors['source_global_freeze_sha256'] == sha(study.previous.STUDY/'GLOBAL_FREEZE.json')
     initial = read(study.base.STUDY/'protocol.json')['contexts']
     checks, costs = [], []
     for seed in study.SEEDS:
-        for arm in study.ARMS:
+        for arm in arms:
             root = s/f'runtime/seed_{seed}/{arm}'
             anchor = study.previous.STUDY/f'runtime/seed_{seed}/{arm}/round_10'
             bound = next(x for x in anchors['anchors'] if x['seed'] == seed and x['arm'] == arm)
@@ -86,25 +90,27 @@ def main():
         folder = '' if arm == 'raw_ivr' else ('acquisition' if arm == 'raw_maxdet' else 'acquisition_artifacts')
         assert sha(d/folder/'gradient_audit.json') == entry['audit_sha256']
     curves, summary = pd.read_csv(s/'validation_curves.csv'), pd.read_csv(s/'validation_summary.csv')
-    assert len(curves) == 352 and len(summary) == 16 and len(checks) == 66
+    assert len(curves) == (len(arms)+5)*44+(14 if amended else 0) and len(summary) == (len(arms)+5)*2 and len(checks) == expected_fits
     assert not curves.duplicated(['seed','arm','budget']).any()
-    assert all(g.budget.tolist() == list(range(333,1006,32)) for _,g in curves.groupby(['seed','arm']))
+    assert all(g.budget.tolist() == list(range(333,1006,32)) for (_,arm),g in curves.groupby(['seed','arm']) if arm in (*arms,*study.CONTROLS))
     pd.testing.assert_frame_equal(curves[curves.budget<=653].reset_index(drop=True),pd.read_csv(study.previous.STUDY/'validation_curves.csv'))
     for row in summary.itertuples():
         g = curves[(curves.seed==row.seed)&(curves.arm==row.arm)]
         for start in (333,525,653):
             w = g[g.budget>=start]
             assert np.isclose(getattr(row,f'AULC{start}_1005'),np.trapezoid(w.combined_normalized_RMSE,w.budget)/(1005-start))
-    assert read(s/'RUN_STATE.json')['completed_fits'] == 66
+    assert read(s/'RUN_STATE.json')['completed_fits'] == expected_fits
     cost = pd.DataFrame(costs)
     cost.to_csv(s/'resource_costs_653_1005.csv',index=False)
     allcost = pd.concat([pd.read_csv(study.previous.STUDY/'resource_costs.csv'),cost],ignore_index=True)
-    assert len(allcost) == 90
+    assert len(allcost) == expected_total
     allcost.to_csv(s/'resource_costs_525_1005.csv',index=False)
     differences = []
     for seed in study.SEEDS:
         rows = summary[summary.seed==seed].set_index('arm')
         for method, reference in [('cw_lcmd','raw_lcmd'),('cw_maxdet','raw_maxdet'),('cw_ivr','raw_ivr'),('whitening_lcmd','cw_lcmd')]:
+            if method not in rows.index:
+                continue
             a,b = rows.loc[method],rows.loc[reference]
             differences.append({'seed':seed,'method':method,'reference':reference,
                 'AULC525_1005_delta':float(a.AULC525_1005-b.AULC525_1005),
@@ -112,17 +118,17 @@ def main():
                 'AULC333_1005_delta':float(a.AULC333_1005-b.AULC333_1005),'NRMSE1005_delta':float(a.NRMSE1005-b.NRMSE1005)})
     paired = pd.DataFrame(differences)
     paired.to_csv(s/'paired_seed_differences.csv',index=False)
-    decision = {'status':'completed','evidence_class':'post-development exploration','new_fits653_1005':66,
-        'new_fits525_1005':90,'total_new_fits_including_original':126,'paid_llm_calls':0,'new_test_reveals':0,
+    decision = {'status':'completed','evidence_class':'post-development exploration','new_fits653_1005':expected_fits,
+        'new_fits525_1005':expected_total,'total_new_fits_including_original':expected_total+36,'paid_llm_calls':0,'new_test_reveals':0,
         'primary_metric':'normalized validation AULC525-1005','original_confirmation_gate_changed':False,
         'next_action':'stop training at1005; no automatic new-seed confirmation or paid LLM calls',
         'training_seconds525_1005':float(allcost.training_seconds.sum()),
         'acquisition_seconds525_1005':float(allcost.acquisition_seconds.sum()),'effects':differences}
     atomic_json(s/'decision.json',decision)
-    atomic_json(s/'DELIVERY_AUDIT.json',{'status':'completed','verified_fits':66,'checks':checks,'protocol_sha256':sha(s/'protocol.json'),
+    atomic_json(s/'DELIVERY_AUDIT.json',{'status':'completed','verified_fits':expected_fits,'checks':checks,'protocol_sha256':sha(s/'protocol.json'),
         'validation_curves_sha256':sha(s/'validation_curves.csv'),'audit_code_sha256':sha(Path(__file__))})
     lines = ['# CW factorial: continuation to1005', '',
-        'Completed all16 curves through1005: eight arms × two development seeds,22 budget points each. Three new arms required90 extra fits after525 (24 through653,66 thereafter);150 additional historical control points were audited and reused. Including the original36 fits,126 fits were added across this work. No paid LLM calls or new test reveals.', '',
+        f'Completed {(len(arms)+5)*2} curves through1005. {expected_total} extra fits after525;150 additional historical control points reused. Original36 fits preserved. No paid LLM calls or new test reveals. Whitening remains at525 under the user stop amendment.' if amended else 'Completed all16 curves through1005;90 extra fits after525;150 controls reused.', '',
         'The user extended the budget after seeing the333–525 development results. The frozen extension metric is validation AULC525–1005. This is post-development exploration; the original AULC333–525 and failed new-selector confirmation gate remain unchanged. Two seeds do not establish statistical significance.', '',
         '| Seed | Arm | AULC525–1005 | AULC333–1005 | NRMSE1005 |', '|---|---|---:|---:|---:|']
     for r in summary.itertuples():
@@ -138,7 +144,9 @@ def main():
         lines.append(f'{method}: mean paired relative AULC improvement {g.relative_improvement_percent.mean():+.2f}%; CW improves in {wins}/2 seeds. This is a descriptive trajectory comparison, not a revised confirmation gate.')
     white = paired[paired.method == 'whitening_lcmd']
     wins = int((white.AULC525_1005_delta <= 0).sum())
-    if wins == 2:
+    if amended:
+        lines += ['Whitening was stopped at525 by explicit user instruction. No matched late-window Whitening/CW comparison is available; do not extrapolate the earlier geometry-control result to1005.']
+    elif wins == 2:
         lines += ['Whitening matches or beats CW-LCMD on both seeds in the extension window. Describe the benefit as output-geometry correction; this result does not support a unique center/width semantic explanation.']
     elif wins == 1:
         lines += ['Whitening matches or beats CW-LCMD on one seed only. The mixed geometry-control result limits a CW-specific interpretation; report the seed-dependent boundary.']

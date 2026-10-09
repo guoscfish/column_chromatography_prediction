@@ -17,12 +17,15 @@ def main():
     p = ex.verify()
     s = ex.STUDY
     read = ex.base.read
+    amended = (ex.base.PARENT / 'qgeognn_v2_row_cw_selector_extension_to_1005/WHITENING_STOP_AMENDMENT.json').exists()
+    arms = ('cw_maxdet', 'cw_ivr') if amended else tuple(ex.ARMS)
+    expected_fits = len(arms)*8
     ledger = read(s / 'fit_ledger.json')
-    assert len(ledger) == 24 and all(v['status'] == 'completed' for v in ledger.values())
+    assert len(ledger) == expected_fits and all(v['status'] == 'completed' for v in ledger.values())
     checks, costs = [], []
     original = read(ex.base.STUDY / 'protocol.json')
     for seed in ex.SEEDS:
-        for arm in ex.ARMS:
+        for arm in arms:
             root = s / f'runtime/seed_{seed}/{arm}'
             anchor = ex.source_dir(seed, arm, 6)
             prior = read(anchor / 'state.json')
@@ -79,12 +82,12 @@ def main():
         assert sha(checkpoint) == entry['checkpoint_sha256']
         assert sha(checkpoint.with_name('fit_audit.json')) == entry['audit_sha256']
         assert sha(checkpoint.with_name('predictions.csv.gz')) == entry['prediction_sha256']
-    assert read(s / 'RUN_STATE.json')['completed_fits'] == 24
+    assert read(s / 'RUN_STATE.json')['completed_fits'] == expected_fits
     curves = pd.read_csv(s / 'validation_curves.csv')
     summary = pd.read_csv(s / 'validation_summary.csv')
-    assert len(curves) == 176 and len(summary) == 16
+    assert len(curves) == 112+(len(arms)+5)*8 and len(summary) == (len(arms)+5)*2
     assert not curves.duplicated(['seed', 'arm', 'budget']).any()
-    assert all(g.budget.tolist() == list(range(333, 654, 32)) for _, g in curves.groupby(['seed', 'arm']))
+    assert all(g.budget.tolist() == list(range(333, 654, 32)) for (_, arm), g in curves.groupby(['seed', 'arm']) if arm in (*arms, 'raw_lcmd','raw_maxdet','raw_ivr','cw_lcmd','random'))
     pd.testing.assert_frame_equal(curves[curves.budget <= 525].reset_index(drop=True),
                                   pd.read_csv(ex.base.STUDY / 'validation_curves.csv'))
     for row in summary.itertuples():
@@ -100,6 +103,8 @@ def main():
         rows = summary[summary.seed == seed].set_index('arm')
         for method, reference in [('cw_lcmd', 'raw_lcmd'), ('cw_maxdet', 'raw_maxdet'),
                                   ('cw_ivr', 'raw_ivr'), ('whitening_lcmd', 'cw_lcmd')]:
+            if method not in rows.index:
+                continue
             a, b = rows.loc[method], rows.loc[reference]
             differences.append({'seed': seed, 'method': method, 'reference': reference,
                 'late_AULC_delta': float(a.AULC525_653 - b.AULC525_653),
@@ -109,7 +114,7 @@ def main():
     paired = pd.DataFrame(differences)
     paired.to_csv(s / 'paired_seed_differences.csv', index=False)
     decision = {'status': 'completed', 'evidence_class': 'post-development exploration',
-        'primary_metric': 'validation AULC525-653', 'new_fits': 24, 'reused_control_points': 40,
+        'primary_metric': 'validation AULC525-653', 'new_fits': expected_fits, 'reused_control_points': 40,
         'paid_llm_calls': 0, 'new_test_reveals': 0, 'original_confirmation_gate_changed': False,
         'next_action': 'stop training at 653; no automatic seed confirmation or LLM requests',
         'training_seconds': float(cost.training_seconds.sum()),
@@ -122,7 +127,7 @@ def main():
         'validation_curves_sha256': sha(s / 'validation_curves.csv')}
     atomic_json(s / 'DELIVERY_AUDIT.json', audit)
     lines = ['# Four-round CW extension results', '',
-        'Completed24/24 new fits: three arms × two seeds × four batches (525→653). Forty additional historical control points were hash-audited and reused. The original36-fit study is unchanged. No paid LLM calls or new test labels were used.', '',
+        f'Completed{expected_fits}/{expected_fits} new fits: {len(arms)} arms × two seeds × four batches (525→653). Forty historical control points reused. Whitening stopped at525 by user request.' if amended else 'Completed24/24 new fits;40 control points reused.', '',
         'This extension was authorized after inspecting333–525. Its frozen descriptive primary metric is validation AULC525–653; it is exploratory and cannot reverse the original confirmation gate or establish significance with two seeds.', '',
         '| Seed | Arm | AULC525–653 | AULC333–653 | NRMSE653 |',
         '|---|---|---:|---:|---:|']
@@ -135,7 +140,7 @@ def main():
     for r in paired.itertuples():
         lines.append(f'| {r.seed} | {r.method} / {r.reference} | {r.late_AULC_delta:+.6f} | {r.late_relative_improvement_percent:+.2f}% | {r.NRMSE653_delta:+.6f} |')
     lines += ['', 'Per-target RMSE/MAE/R² are in endpoint_metrics.csv; all eleven-point curves in validation_curves.csv and validation_curves.png. Raw values and per-seed effects take precedence over pooled rankings.', '',
-        f"Training wall time: {decision['training_seconds']:.1f}s; acquisition: {decision['acquisition_seconds']:.1f}s. Exact costs and epochs: resource_costs.csv. Delivery audit verifies24 fits, unchanged initialization, own ordered label trajectories,32 unique IDs per batch and premeasurement prediction hashes.", '',
+        f"Training wall time: {decision['training_seconds']:.1f}s; acquisition: {decision['acquisition_seconds']:.1f}s. Exact costs and epochs: resource_costs.csv. Delivery audit verifies all authorized fits, unchanged initialization, own ordered label trajectories,32 unique IDs per batch and premeasurement prediction hashes.", '',
         '## Reproduction and stopping point', '', 'No further training is needed. Verification/report commands:', '',
         '```sh', 'KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish python scripts/studies/run_cw_factorial_extension.py report',
         'KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish python scripts/studies/audit_cw_factorial_extension.py', '```', '',

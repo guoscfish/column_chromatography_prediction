@@ -95,3 +95,15 @@ KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish python scripts/s
 # Verification only after completion:
 KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish python scripts/studies/audit_cw_factorial_to1005.py
 ```
+
+## User stop amendment: Whitening-LCMD — 2026-10-09
+
+The user explicitly stopped Whitening-LCMD before its extension began. Both Whitening seeds retain their completed525 checkpoints and original333–525 results; no Whitening fits beyond525 are authorized. This is a user scope change, not a performance-based stopping decision. Its later-window comparisons are unavailable and must not be extrapolated.
+
+CW-MaxDet and CW-IVR continue both seeds to1005. Five controls are reused through1005. Effective extension quota is60 fits:16 through653,44 thereafter. All10 fits already completed at amendment handoff are retained; the active fit was allowed to finish589 before switching at a durable state boundary. Original protocols/code remain immutable; WHITENING_STOP_AMENDMENT.json and AMENDED_EXECUTION_FREEZE.json define the explicit execution-membership amendment.
+
+Current status: Whitening stopped_at525_by_user; other arms running. Replacement recovery command (supersedes the unamended supervisor):
+
+```sh
+KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish python scripts/studies/continue_cw_without_whitening.py
+```

@@ -11,10 +11,14 @@ P = ROOT/'studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_653'
 
 def main():
     decision = json.loads((S/'decision.json').read_text())
-    assert decision['status'] == 'completed' and decision['new_fits525_1005'] == 90
-    assert json.loads((S/'DELIVERY_AUDIT.json').read_text())['verified_fits'] == 66
-    assert json.loads((P/'DELIVERY_AUDIT.json').read_text())['verified_fits'] == 24
+    amended = (S/'WHITENING_STOP_AMENDMENT.json').exists()
+    total, first, last = (60,16,44) if amended else (90,24,66)
+    assert decision['status'] == 'completed' and decision['new_fits525_1005'] == total
+    assert json.loads((S/'DELIVERY_AUDIT.json').read_text())['verified_fits'] == last
+    assert json.loads((P/'DELIVERY_AUDIT.json').read_text())['verified_fits'] == first
     summary = 'All16 curves completed through1005;90 additional fits from525 (24 to653 plus66 to1005),150 historical control points reused. No paid LLM calls or new test reveals. Original333–525 gate remains unchanged; the extension is exploratory.'
+    if amended:
+        summary = 'Fourteen curves completed through1005; Whitening remains at525 for both seeds by user instruction.60 additional fits (16 to653 plus44 to1005);150 control points reused. Zero paid LLM calls or new test reveals. Original333–525 conclusions unchanged; extension exploratory.'
     for directory in (S,P):
         p = directory/'README.md'
         text = p.read_text()
@@ -39,11 +43,11 @@ def main():
         for method in ('cw_lcmd','cw_maxdet','cw_ivr'):
             values = [x['relative_improvement_percent'] for x in decision['effects'] if x['method']==method]
             effects.append(f'{method} {sum(values)/len(values):+.2f}%')
-        replacement = '用户授权的1005扩展已完成：八臂×两seed全部22个预算点，525之后新增90次拟合，复用150个历史对照点。探索性validation AULC525–1005的平均逐seed相对改善：'+ '；'.join(effects)+'。原333–525结论与确认门槛不变，已停止新增训练及LLM调用。[完整扩展结果](../studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_1005/RESULTS.md)。'
+        replacement = ('用户授权的1005扩展已完成：七臂×两seed到1005，Whitening按用户要求停在525；新增60次拟合，复用150个历史对照点。探索性validation AULC525–1005平均相对改善：' if amended else '用户授权的1005扩展已完成：八臂×两seed到1005；新增90次拟合，复用150个历史对照点。探索性validation AULC525–1005平均相对改善：')+ '；'.join(effects)+'。原333–525结论与确认门槛不变，已停止新增训练及LLM调用。[完整扩展结果](../studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_1005/RESULTS.md)。'
         text = text[:start]+replacement+text[end:]
     p.write_text(text)
     (S/'pipeline_state.json').write_text(json.dumps({'status':'completed','budget':1005,
-        'new_fits_from525':90,'paid_llm_calls':0,'new_test_reveals':0},indent=2)+'\n')
+        'new_fits_from525':total,'paid_llm_calls':0,'new_test_reveals':0},indent=2)+'\n')
     paths = ['docs/research/CW_GEOMETRY_AND_LLM_FEEDBACK_PLAN.md','docs/NEXT_STAGE_DECISION.md',
              str(S.relative_to(ROOT)),str(P.relative_to(ROOT))]
     # Explicit paths protect unrelated live LLM work in this shared checkout.
