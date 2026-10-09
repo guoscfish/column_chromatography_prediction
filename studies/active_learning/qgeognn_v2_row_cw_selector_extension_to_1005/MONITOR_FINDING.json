@@ -1,0 +1,39 @@
+{
+  "status": "blocked",
+  "reason": "training processes absent and locks released; two incomplete reserved fits; exit cause unknown",
+  "checked_unix": 1791560380.2546291,
+  "completed_extension_fits": 24,
+  "target_completed_extension_fits": 60,
+  "interrupted_fits": [
+    {
+      "seed": 157,
+      "arm": "cw_maxdet",
+      "round": 14,
+      "budget": 781,
+      "reservation": {
+        "status": "running",
+        "started_unix": 1791558218.400189
+      },
+      "partial_files": {
+        "model/best.pt": "16aeffc73b94f273e758ac6a4a479f4558e078d14f5d9ca5cf32971d13685486"
+      }
+    },
+    {
+      "seed": 6101,
+      "arm": "cw_maxdet",
+      "round": 16,
+      "budget": 845,
+      "reservation": {
+        "status": "running",
+        "started_unix": 1791558707.940586
+      },
+      "partial_files": {
+        "model/best.pt": "97f599f56ef138769cd9cc86576a213df058bf39ed2fccc30078aa8ffc4a63ef"
+      }
+    }
+  ],
+  "existing_attempt_cap": 61,
+  "required_attempt_cap_to_complete_after_two_restarts": 63,
+  "automatic_restart": false,
+  "whitening": "stopped_at525_by_user"
+}

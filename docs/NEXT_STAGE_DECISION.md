@@ -4,6 +4,8 @@
 
 ## 本轮执行
 
+**最新监控：CW训练进程已退出，当前blocked。** 追加拟合完成24/60；CW-MaxDet到749/813，CW-IVR均653。两个未完成拟合保留，退出原因未知。状态文件已纠正；监控不自动重启或扩大尝试额度。
+
 **用户已明确要求恢复CW-MaxDet/CW-IVR到1005。** Whitening仍停525。12个已完成扩展拟合复用；中断的seed6101/CW-IVR/557按原初始化和冻结批次重跑一次，保留中断产物及成本。额度为60个完成拟合加1个中断尝试，不授权其他重试。
 
 [CW geometry / LLM feedback](research/CW_GEOMETRY_AND_LLM_FEEDBACK_PLAN.md) 的 P0、P1a、P1b 和 P2 离线实现已完成，新增拟合36/36，复用70个历史控制预算点。固定validation AULC333–525：CW相对Raw在LCMD改善6.93%，MaxDet恶化4.86%，IVR改善0.69%；两个新selector均未过“两seed同向且平均改善≥2%”门槛，因此不启动新selector确认。Whitening-LCMD两seed均未超过CW-LCMD；目前报告LCMD适用边界，不宣称跨selector普遍收益或CW语义独有。

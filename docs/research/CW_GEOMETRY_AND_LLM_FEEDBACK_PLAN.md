@@ -119,3 +119,9 @@ User requested continuation after the pause. Resume only CW-MaxDet/CW-IVR throug
 Resource accounting:60 completed extension fits remain the target; one user-interrupted attempt is separately retained, so at most61 total extension attempts are authorized by this explicit recovery. The lost attempt's wall-time upper bound is99.9 seconds. No other retry is authorized. The existing ledger entry remains reserved and changes to retry_authorized_after_user_pause; it is not erased. Paid LLM limit and new test reveals remain zero.
 
 Current status: resume_authorized; execution uses `continue_cw_without_whitening.py`. USER_PAUSE.json remains historical evidence and USER_RESUME.json records its revocation for the two continuing arms.
+
+## Monitoring found stopped processes — 2026-10-09
+
+The user requested monitoring. No CW training/supervisor/worker process remains and both execution locks are free, despite stale running statuses. No terminal error identifies the cause. Current completed extension fits:24/60 (16 through653,8 thereafter). CW-MaxDet completed budgets749/813 for seeds157/6101; CW-IVR both653. Incomplete CW-MaxDet fits at781/845 retain their reservations and partial artifacts. MONITOR_FINDING.json records evidence. Status: blocked, no automatic restart.
+
+The two new interrupted attempts would require two additional scratch restarts to finish, raising total attempt accounting from the authorized61 to63 while retaining60 completed fits. Further retry allowance is not inferred from the monitoring request. Whitening remains525; no paid LLM calls or new test access.
