@@ -74,9 +74,24 @@ After seeing the completed 333–525 results, the user asked to run several more
 
 Extension primary descriptive metric is normalized validation AULC525–653, fixed before additional outcomes; secondary AULC333–653, NRMSE653 and per-target metrics. The original AULC333–525 result and failed new-selector confirmation gates remain unchanged. This is post-development exploration, not independent confirmation or a replacement success criterion. Complete all24 regardless of early performance and hard-stop at653. No paid LLM calls or new test reveals. Do not roll the budget forward to813/1005 without a new instruction and freeze.
 
-Owner: `studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_653/`. Forty additional historical control budget points are available for exact protocol/checkpoint/ordered-lineage reuse; controls are not refitted. Source six L525 states and original global matrix freeze are hash-bound. Original study artifacts remain immutable. Current extension status: prepared; execution begins only after committed protocol and implementation checks.
+Owner: `studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_653/`. Forty additional historical control budget points are available for exact protocol/checkpoint/ordered-lineage reuse; controls are not refitted. Source six L525 states and original global matrix freeze are hash-bound. Original study artifacts remain immutable. Current extension status: running; protocol and implementation committed as e31ff6e before training. Acquisition boundary regression passed. RUN_STATE.json and fit_ledger.json track the24-fit allowance; all four rounds per trajectory remain mandatory.
 
 ```sh
 KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish python scripts/studies/run_cw_factorial_extension.py run
 KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish python scripts/studies/run_cw_factorial_extension.py report
+```
+
+## User-authorized extension to1005 — 2026-10-09
+
+The user explicitly requested “都跑到1005把” while the653 continuation was running. All eight arms × two seeds will reach1005. Preserve the existing653 run/protocol and finish its24 fits; then run11 more batches for each of the six new trajectories (66 more fits), bounded90 additional fits from525,126 including the original36. Five historical control arms already reach1005;110 further budget points pass training, preprocessing, initialization, checkpoint, prediction and ordered-lineage reuse audits. No control refits. No paid LLM calls or new test reveals.
+
+Owner: `studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_1005/`. Status: planned, waiting for653. The frozen primary descriptive extension metric is validation normalized AULC525–1005; secondary AULC653–1005, AULC333–1005, NRMSE1005 and per-target metrics. This supersedes653 as the user-requested final budget, not the previously frozen scientific conclusions or intermediate metric. This remains post-development exploration. Complete all trajectories regardless of effect; hard stop1005. No automatic new-seed confirmation.
+
+The653 stage retains its single-process execution. The subsequent stage permits two independent fits concurrently, two CPU threads each; seeds, model/loss/training/checkpoint policies, L333 transforms and production sketches are unchanged. All six653 anchors are hash-bound only after their full freeze and delivery audit. Per-trajectory fit ledger caps11, detects interrupted reservations and refuses silent retries.
+
+```sh
+# Supervises the existing653 process, then reports/audits and runs1005.
+KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish python scripts/studies/continue_cw_factorial_to1005.py
+# Verification only after completion:
+KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish python scripts/studies/audit_cw_factorial_to1005.py
 ```

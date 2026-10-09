@@ -28,3 +28,7 @@ results. The innovation-screen implementation is now part of the integrated `mai
 Use [current status](../../docs/NEXT_STAGE_DECISION.md) for the next action and [script index](../../scripts/README.md) for execution.
 
 - [CW selector factorial and LLM feedback boundaries](qgeognn_v2_row_cw_selector_factorial/README.md): two-seed development, frozen validation AULC333–525, max36 new fits; P2 offline only.
+
+- [CW factorial extension to653](qgeognn_v2_row_cw_selector_extension_to_653/README.md): post-development exploration, four additional rounds on all three new arms and both seeds;24-fit hard cap. Original333–525 gate unchanged.
+
+- [CW factorial extension to1005](qgeognn_v2_row_cw_selector_extension_to_1005/README.md): user-authorized final budget for all16 curves;90 extra fits from525, no paid LLM requests or new test evaluation.

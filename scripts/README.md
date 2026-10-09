@@ -61,3 +61,7 @@ For full reproduction, use a separate checkout at that commit and restore the re
 - `run_cw_geometry_feedback.py`: bounded CW-MaxDet/CW-IVR/Whitening-LCMD factorial, geometry audit and offline LLM boundary fixtures. See `studies/active_learning/qgeognn_v2_row_cw_selector_factorial/`.
 
 - `report_cw_geometry_feedback.py`, `report_cw_selection_diagnostics.py`, and `audit_cw_factorial_delivery.py`: validation-only summary, label-free selection diagnostics and completed-matrix hash verification. `prepare_cw_confirmation.py` performs eligibility/unused-seed preflight only; no training or LLM requests.
+
+- `run_cw_factorial_extension.py`: user-authorized four-round continuation to653, max24 extra fits. `audit_cw_factorial_extension.py` verifies completed lineage/hashes and produces compact exploratory delivery records without training or test-label access.
+
+- `continue_cw_factorial_to1005.py`: supervise the653 run and continue the frozen matrix to1005; `run_cw_factorial_to1005.py` prepares/runs/reports the66-fit second stage, and `audit_cw_factorial_to1005.py` verifies delivery without fitting.

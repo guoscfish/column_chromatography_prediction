@@ -8,6 +8,8 @@
 
 [完整结果与恢复命令](../studies/active_learning/qgeognn_v2_row_cw_selector_factorial/RESULTS.md)。本研究零付费LLM调用、零新test评价，31项回归测试通过。P2付费独立消融和外部/第二体系验证仍未执行。其他历史LLM任务的进度由其原研究目录负责，不与本研究运行额度混算。
 
+用户随后授权追加四个round：三条新臂×两seed延长525→653，共24次新增拟合，653阶段running，用户进一步要求全矩阵到1005：其后追加66次拟合，总追加90次，固定描述指标AULC525–1005。[1005协议](../studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_1005/README.md)。延长窗口固定validation AULC525–653，仅作看过原结果后的探索，原门槛与结论不改。[延长研究](../studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_653/README.md)记录协议、额度与恢复命令。
+
 ## 预测器
 
 **QGeoGNN-V2 已完成 4g 点预测资格验证**，状态为 `4G_POINT_PREDICTOR_QUALIFIED_FOR_TRANSFER_STUDIES`。

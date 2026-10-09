@@ -1,0 +1,61 @@
+{
+  "status": "frozen_before_653_to_1005_fits",
+  "authorization": "User: \u90fd\u8dd1\u52301005\u628a, 2026-10-09",
+  "evidence_class": "post-development exploratory extension",
+  "seeds": [
+    157,
+    6101
+  ],
+  "arms": {
+    "cw_maxdet": [
+      "cw",
+      "maxdet"
+    ],
+    "cw_ivr": [
+      "cw",
+      "ivr"
+    ],
+    "whitening_lcmd": [
+      "whitening",
+      "lcmd"
+    ]
+  },
+  "source_budget": 653,
+  "final_budget": 1005,
+  "new_budgets": [
+    685,
+    717,
+    749,
+    781,
+    813,
+    845,
+    877,
+    909,
+    941,
+    973,
+    1005
+  ],
+  "new_fit_limit": 66,
+  "per_trajectory_fit_limit": 11,
+  "total_extension_fit_limit_from525": 90,
+  "primary_metric": "normalized validation AULC525-1005",
+  "secondary_metrics": [
+    "AULC653-1005",
+    "AULC333-1005",
+    "NRMSE1005",
+    "V1/V2 RMSE MAE R2"
+  ],
+  "original_primary_unchanged": "validation AULC333-525; original gate unchanged",
+  "intermediate_window_retained": "AULC525-653 remains a separately frozen descriptive result",
+  "stop_rule": "all eight arms and both seeds through1005; no effect-based early stopping",
+  "max_concurrent_fits": 2,
+  "threads_per_fit": 2,
+  "paid_llm_call_limit": 0,
+  "new_test_reveals": 0,
+  "anchor_rule": "bind all six completed653 own states and checkpoints after prior global freeze, before new fits",
+  "previous_protocol_sha256": "0bcf40021a9ed8bcd49e711e52396c056b1491383775ab4dcc6234df1c107688",
+  "code_hashes": {
+    "src/qgeognn_al/active_learning_v2/cw_factorial_to1005.py": "7413f68bdddcc4a46f529ee1cfcee0504968a067530af08ec198771d603ea9b4",
+    "scripts/studies/run_cw_factorial_to1005.py": "d8f001cf756bfae28459f26367a000d8cb1a1e56f920276f381d07aafd0173e5"
+  }
+}
