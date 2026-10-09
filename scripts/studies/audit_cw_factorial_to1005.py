@@ -80,6 +80,11 @@ def main():
         assert sha(checkpoint) == entry['checkpoint_sha256']
         assert sha(checkpoint.with_name('fit_audit.json')) == entry['audit_sha256']
         assert sha(checkpoint.with_name('predictions.csv.gz')) == entry['prediction_sha256']
+    for entry in read(s/'REUSE_GEOMETRY_AUDIT.json')['checks']:
+        arm = entry['arm']
+        d = study.control_dir(entry['seed'], arm, entry['source_round'])
+        folder = '' if arm == 'raw_ivr' else ('acquisition' if arm == 'raw_maxdet' else 'acquisition_artifacts')
+        assert sha(d/folder/'gradient_audit.json') == entry['audit_sha256']
     curves, summary = pd.read_csv(s/'validation_curves.csv'), pd.read_csv(s/'validation_summary.csv')
     assert len(curves) == 352 and len(summary) == 16 and len(checks) == 66
     assert not curves.duplicated(['seed','arm','budget']).any()
