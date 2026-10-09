@@ -42,6 +42,8 @@ def main():
         replacement = '用户授权的1005扩展已完成：八臂×两seed全部22个预算点，525之后新增90次拟合，复用150个历史对照点。探索性validation AULC525–1005的平均逐seed相对改善：'+ '；'.join(effects)+'。原333–525结论与确认门槛不变，已停止新增训练及LLM调用。[完整扩展结果](../studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_1005/RESULTS.md)。'
         text = text[:start]+replacement+text[end:]
     p.write_text(text)
+    (S/'pipeline_state.json').write_text(json.dumps({'status':'completed','budget':1005,
+        'new_fits_from525':90,'paid_llm_calls':0,'new_test_reveals':0},indent=2)+'\n')
     paths = ['docs/research/CW_GEOMETRY_AND_LLM_FEEDBACK_PLAN.md','docs/NEXT_STAGE_DECISION.md',
              str(S.relative_to(ROOT)),str(P.relative_to(ROOT))]
     # Explicit paths protect unrelated live LLM work in this shared checkout.
