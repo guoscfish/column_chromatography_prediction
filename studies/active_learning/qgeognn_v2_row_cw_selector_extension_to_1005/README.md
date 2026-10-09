@@ -21,3 +21,7 @@ The supervisor refuses to silently restart an interrupted653 fit. Inspect its lo
 Whitening-LCMD stopped at525 for both seeds before any extension fit; preserve its historical result. Continue CW-MaxDet and CW-IVR only. Effective additional fit limits:16 through653 and44 thereafter,60 total. Seven arms × two seeds reach1005; Whitening's two curves end525. No late-window Whitening comparison is available. The original code/protocol is retained; the explicit stop amendment overrides execution membership and quota only.
 
 Use `python scripts/studies/continue_cw_without_whitening.py` in the fish environment with `KMP_DUPLICATE_LIB_OK=TRUE`. Do not resume the old unamended supervisor.
+
+## Explicit user resume
+
+The subsequent user request resumes CW-MaxDet/CW-IVR only. Twelve extension fits are complete; one interrupted557 fit is restarted using the same frozen batch and initialization. See USER_RESUME.json and RESOURCE_ACCOUNTING_NOTE.md:60 completed fits plus one interrupted attempt,61 attempts maximum. Whitening remains stopped525. No extra LLM calls or test reveals.

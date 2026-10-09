@@ -4,7 +4,7 @@
 
 ## 本轮执行
 
-**当前已按用户要求暂停全部训练及接续任务。** 后续运行描述为暂停前状态；不自动恢复。Whitening保留525结果，其他新臂保留各自已完成checkpoint；中断拟合保留额度记录。
+**用户已明确要求恢复CW-MaxDet/CW-IVR到1005。** Whitening仍停525。12个已完成扩展拟合复用；中断的seed6101/CW-IVR/557按原初始化和冻结批次重跑一次，保留中断产物及成本。额度为60个完成拟合加1个中断尝试，不授权其他重试。
 
 [CW geometry / LLM feedback](research/CW_GEOMETRY_AND_LLM_FEEDBACK_PLAN.md) 的 P0、P1a、P1b 和 P2 离线实现已完成，新增拟合36/36，复用70个历史控制预算点。固定validation AULC333–525：CW相对Raw在LCMD改善6.93%，MaxDet恶化4.86%，IVR改善0.69%；两个新selector均未过“两seed同向且平均改善≥2%”门槛，因此不启动新selector确认。Whitening-LCMD两seed均未超过CW-LCMD；目前报告LCMD适用边界，不宣称跨selector普遍收益或CW语义独有。
 

@@ -111,3 +111,11 @@ KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish python scripts/s
 ## User pause — 2026-10-09
 
 User requested all work stop before completion. All training and continuation processes were terminated; no automatic resume is authorized. Completed checkpoints remain intact, and any interrupted fit keeps its ledger reservation. USER_PAUSE.json records the previous state. Read-only plots use completed fit_audit validation scores only; partial best.pt files without final audits/state are excluded. Latest validation curves are in the1005 study's paused_results/ directory.
+
+## Explicit user resume — 2026-10-09
+
+User requested continuation after the pause. Resume only CW-MaxDet/CW-IVR through1005; Whitening remains stopped at525. Twelve completed extension fits are reused. The interrupted seed6101/CW-IVR/557 fit has no final audit or resumable optimizer state; preserve its partial model under ignored runtime/interrupted_attempts and restart from the original initialization with the unchanged frozen batch. USER_RESUME.json binds the old ledger, partial-artifact hashes and premeasurement freeze.
+
+Resource accounting:60 completed extension fits remain the target; one user-interrupted attempt is separately retained, so at most61 total extension attempts are authorized by this explicit recovery. The lost attempt's wall-time upper bound is99.9 seconds. No other retry is authorized. The existing ledger entry remains reserved and changes to retry_authorized_after_user_pause; it is not erased. Paid LLM limit and new test reveals remain zero.
+
+Current status: resume_authorized; execution uses `continue_cw_without_whitening.py`. USER_PAUSE.json remains historical evidence and USER_RESUME.json records its revocation for the two continuing arms.
