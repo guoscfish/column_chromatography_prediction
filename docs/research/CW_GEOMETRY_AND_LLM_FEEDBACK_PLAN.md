@@ -137,3 +137,7 @@ Recovery entry: `python scripts/studies/recover_cw_until_complete.py`. It checks
 Fourteen curves completed through1005; Whitening remains at525 for both seeds by user instruction.60 additional fits (16 to653 plus44 to1005);150 control points reused. Zero paid LLM calls or new test reveals. Original333–525 conclusions unchanged; extension exploratory.
 
 P1 extended matrix: completed. P2 offline: completed; live ablations: planned/unrun. New training and LLM calls stop here. See `studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_1005/RESULTS.md` for effects, paired differences, cost and verification-only commands.
+
+## Final accounting reconciliation (2026-10-10)
+
+All60 additional fits are complete, with3 interrupted attempts recorded separately (63 total attempts). Earlier90-fit scope,61-attempt cap and blocked/pause descriptions are historical and superseded by the stop amendment, continue-until-complete authorization and final delivery. CW-IVR mean paired validation AULC525–1005 improvement is5.98%; CW-MaxDet is−3.80%; CW-LCMD is1.21%. Extension remains exploratory; the original confirmation gate is unchanged. Current curves are validation_curves.png in the1005 study, not paused_results. See RESOURCE_ACCOUNTING_NOTE.md and COMPLETION_RECHECK.json for final costs and verification limitations.
