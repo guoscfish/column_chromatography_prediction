@@ -21,4 +21,3 @@ seed 157，397标签后切换gpt-6.1-sol/xhigh；最新完成461标签。无新t
 [原始指标与来源hash](results.json) · [区间AULC和成本](comparison_summary.json)
 
 模型设置参考：[OpenAI GPT-6.1 Sol文档](https://developers.openai.com/api/docs/models/gpt-6.1-sol)。实际provider回复的served_model已核对；无模型自动回退。
-

@@ -76,7 +76,10 @@ def main():
         f"模型切换后的已完成provider回答{len(new)}次，共{cost['total_tokens']:,} tokens；包含已完成的无效格式回答及尚未完成批次的回答。网络中断未获得完整usage，费用不估算。\n",
         '[原始指标与来源hash](results.json) · [区间AULC和成本](comparison_summary.json)\n',
         '模型设置参考：[OpenAI GPT-6.1 Sol文档](https://developers.openai.com/api/docs/models/gpt-6.1-sol)。实际provider回复的served_model已核对；无模型自动回退。\n']
-    (out/'README.md').write_text('\n'.join(lines)+'\n')
+    (out/'README.md').write_text('\n'.join(lines).rstrip()+'\n')
+    # Matplotlib emits trailing spaces in SVG paths; keep regenerated diffs clean.
+    svg = out/'comparison.svg'
+    svg.write_text('\n'.join(line.rstrip() for line in svg.read_text().splitlines())+'\n')
     print(json.dumps({'report':str(out/'README.md'),'summary':summary,'cost':cost},ensure_ascii=False,indent=2))
 
 if __name__=='__main__':main()
