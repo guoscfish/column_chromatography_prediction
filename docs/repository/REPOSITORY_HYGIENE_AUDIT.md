@@ -54,3 +54,8 @@ parser (without changing the frozen report), all 51 affected/navigation/hygiene
 and snapshot tests passed. The snapshot verified 559 source hashes and reproduced
 its JSON/report/plots without reading local runtime. Retirement violations are
 zero, all 17 protected anchors exist, and tracked runtime/progress paths are zero.
+
+At publication the dual-expert process was no longer present. Completed fits stop
+at 461 labels; the 493 target is incomplete. Final selection request receipts record
+two 429 quota errors and one 502 service error; the exact exit cause is unconfirmed.
+The current status preserves the previous RUNNING value and publication-check time.

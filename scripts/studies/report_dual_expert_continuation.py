@@ -28,6 +28,12 @@ def main():
             'validation_AULC_397_latest':float(np.trapezoid([row['validation_NRMSE'] for row in forward],
                 [row['budget'] for row in forward])/(latest-397))})
     unique={c['response_id']:c for c in r['llm_calls'] if c.get('response_id')}
+    for response_path in study.STUDY.glob(f'selections/seed_{a.seed}/{study.METHOD}/round_*/agents/*/turn_[0-9][0-9].json'):
+        receipt=json.loads(response_path.read_text())
+        provenance=receipt.get('provenance',{})
+        if provenance.get('response_id'):
+            round_index=int(response_path.parent.parent.parent.name.split('_')[-1])
+            unique[provenance['response_id']]={'round':round_index,**provenance}
     new=[c for c in unique.values() if c['round']>=2]
     cost={'completed_provider_responses_since_switch':len(new),
         'input_tokens':sum(c.get('usage',{}).get('input_tokens',0) for c in new),
@@ -67,7 +73,7 @@ def main():
     lines+=['\n指标越低越好；对照复用同seed、同分割和同训练规则的历史fit audit。\n','![比较](comparison.png)\n',
         '从397继承原有checkpoint、方案、标签和反馈。前两轮选样是Astra/high，之后是Sol 6.1/xhigh；不是同一397状态下的Astra/Sol分叉对照，不能单独归因模型更换。\n',
         '所有原始回答、格式纠正和失败网络请求保留。对格式/证据问题只提供纠正反馈，不由host改写选点或证据；样本与证据全部通过校验后才冻结和揭示新标签。首个Sol轮次ML和第二个Sol轮次planner各登记一次额外格式修复，来源与原始回答在研究revision的provenance文件中。\n',
-        f"模型切换后的已完成provider回答{len(new)}次，共{cost['total_tokens']:,} tokens；包含已完成的无效格式回答。网络中断未获得完整usage，费用不估算。\n",
+        f"模型切换后的已完成provider回答{len(new)}次，共{cost['total_tokens']:,} tokens；包含已完成的无效格式回答及尚未完成批次的回答。网络中断未获得完整usage，费用不估算。\n",
         '[原始指标与来源hash](results.json) · [区间AULC和成本](comparison_summary.json)\n',
         '模型设置参考：[OpenAI GPT-6.1 Sol文档](https://developers.openai.com/api/docs/models/gpt-6.1-sol)。实际provider回复的served_model已核对；无模型自动回退。\n']
     (out/'README.md').write_text('\n'.join(lines)+'\n')

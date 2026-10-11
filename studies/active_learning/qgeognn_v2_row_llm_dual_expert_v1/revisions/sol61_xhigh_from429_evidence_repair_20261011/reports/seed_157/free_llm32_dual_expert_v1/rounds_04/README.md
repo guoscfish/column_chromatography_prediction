@@ -16,8 +16,9 @@ seed 157，397标签后切换gpt-6.1-sol/xhigh；最新完成461标签。无新t
 
 所有原始回答、格式纠正和失败网络请求保留。对格式/证据问题只提供纠正反馈，不由host改写选点或证据；样本与证据全部通过校验后才冻结和揭示新标签。首个Sol轮次ML和第二个Sol轮次planner各登记一次额外格式修复，来源与原始回答在研究revision的provenance文件中。
 
-模型切换后的已完成provider回答17次，共8,348,194 tokens；包含已完成的无效格式回答。网络中断未获得完整usage，费用不估算。
+模型切换后的已完成provider回答18次，共8,845,565 tokens；包含已完成的无效格式回答及尚未完成批次的回答。网络中断未获得完整usage，费用不估算。
 
 [原始指标与来源hash](results.json) · [区间AULC和成本](comparison_summary.json)
 
 模型设置参考：[OpenAI GPT-6.1 Sol文档](https://developers.openai.com/api/docs/models/gpt-6.1-sol)。实际provider回复的served_model已核对；无模型自动回退。
+

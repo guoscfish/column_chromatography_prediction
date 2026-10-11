@@ -1,5 +1,5 @@
 {
-  "status": "RUNNING",
+  "status": "PROCESS_NOT_RUNNING_AT_PUBLICATION",
   "model": "gpt-6.1-sol",
   "reasoning_effort": "xhigh",
   "start_labels": 397,
@@ -9,5 +9,14 @@
   "latest_validation_NRMSE": 0.6874444855485873,
   "phase": "round_04_selection",
   "test_truth_access_count": 0,
-  "tests_passed": 80
+  "tests_passed": 80,
+  "previous_recorded_status": "RUNNING",
+  "publication_checked_at": "2026-10-11T23:25:54+08:00",
+  "target_labels_completed": false,
+  "last_request_errors": [
+    "429 DAILY_LIMIT_EXCEEDED",
+    "429 DAILY_LIMIT_EXCEEDED",
+    "502 origin_bad_gateway"
+  ],
+  "exit_cause": "not independently established; final request failure receipts retained"
 }

@@ -1,6 +1,6 @@
 # Study entrypoints
 
-Current execution: `run_qgeognn_v2_row_llm_dual_expert.py` (seed157, completed 461 labels; authorized continuation to493). See the study README for the current revision and explicit model/effort. Scientist V2 has completed hybrid813 and Free525/653 results.
+Latest study: `run_qgeognn_v2_row_llm_dual_expert.py` (seed157, completed 461 labels; 493 target incomplete; no live process observed at publication). See the study README for the current revision and explicit model/effort. Scientist V2 has completed hybrid813 and Free525/653 results.
 
 `run_qgeognn_v3_2_row_llm_scientist.py` retains the V3.2 pilot, which stopped at L365 with a terminal repair-budget failure; its original six-round target is not a completed result.
 

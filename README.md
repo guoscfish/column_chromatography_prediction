@@ -17,7 +17,7 @@
 - [最新实验结果、匹配预算比较与曲线](reports/active_learning_latest/REPORT.md)（2026-10-11快照）
 - [2026-10-05历史汇总](reports/active_learning_status_20261005/REPORT.md)（日期固定，不代表当前进度）
 - [2026-10-05 仓库整理与合并记录](docs/repository/CLEANUP_20261005.md)
-- [双专家主动学习（461标签已完成，493标签计划仍在执行）](studies/active_learning/qgeognn_v2_row_llm_dual_expert_v1/README.md)
+- [双专家主动学习（461标签已完成，493标签尚未完成）](studies/active_learning/qgeognn_v2_row_llm_dual_expert_v1/README.md)
 
 ## 当前结论
 

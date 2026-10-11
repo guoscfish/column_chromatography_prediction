@@ -8,7 +8,7 @@
 
 - **CW扩展已完成**：七臂×两seed到1005，Whitening按要求停525；新增60次拟合，复用150个历史对照点。validation AULC525–1005平均相对改善：CW-LCMD +1.21%、CW-MaxDet -3.80%、CW-IVR +5.98%。此前blocked、待恢复及90拟合额度均为历史状态。[完整结果](../studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_1005/RESULTS.md)。
 - **CW16+LLM16已完成两seed到813**；Free的seed157/6101分别已完成525/653。各曲线按实际完成预算截断，授权修复偏离保留在原研究回执中。[Scientist V2](../studies/active_learning/qgeognn_v2_row_llm_scientist_v2/README.md)。
-- **双专家seed157已完成461标签**，端点validation NRMSE为0.687444；当前按既有授权继续至493。333→397使用astra/high，397后使用sol61/xhigh；格式和未观测证据引用修复保留独立revision与原始回答，不将这条混合模型轨迹解释成单一模型的独立确认。[双专家记录](../studies/active_learning/qgeognn_v2_row_llm_dual_expert_v1/README.md)。
+- **双专家seed157已完成461标签**，端点validation NRMSE为0.687444；原计划继续至493，但发布核验时未观察到活跃进程；最后请求记录429额度不足与502服务错误，493尚未完成。333→397使用astra/high，397后使用sol61/xhigh；格式和未观测证据引用修复保留独立revision与原始回答，不将这条混合模型轨迹解释成单一模型的独立确认。[双专家记录](../studies/active_learning/qgeognn_v2_row_llm_dual_expert_v1/README.md)。
 
 CW最初333–525开发结论不变：CW相对Raw在LCMD的AULC改善6.93%、MaxDet恶化4.86%、IVR改善0.69%；两种新selector均未过两seed同向且平均改善≥2%的确认门槛。1005扩展属于探索性证据，P2付费独立消融与外部验证仍未执行。[原始factorial结果](../studies/active_learning/qgeognn_v2_row_cw_selector_factorial/RESULTS.md)。
 
@@ -38,7 +38,7 @@ CW最初333–525开发结论不变：CW相对Raw在LCMD的AULC改善6.93%、Max
 
 Sequential 的原始分类 `NO_CLEAR_SEQUENTIAL_AL_GAIN` 保留不改：它未确定 LCMD 与 Hybrid 的最佳/相近类别，不能解释成“对 Random 无收益”。约 650 标签后改善放缓，稳定达到 N90/N95 仍未解决。
 
-[Phase 1固定预算Static / Adaptive对照](../studies/active_learning/qgeognn_v2_batch_adaptivity/FINAL_REPORT.md)已完成：均333+320=653标签；Adaptive端点0.436791优于Static的0.451013，但AULC未改善，不能宣称完整曲线优势。当前执行项为上面的双专家扩展。
+[Phase 1固定预算Static / Adaptive对照](../studies/active_learning/qgeognn_v2_batch_adaptivity/FINAL_REPORT.md)已完成：均333+320=653标签；Adaptive端点0.436791优于Static的0.451013，但AULC未改善，不能宣称完整曲线优势。双专家扩展的493目标尚未完成，状态见上方。
 
 [Phase 2 实施方案](research/4G_PHASE2_IMPLEMENTATION_PLAN_2026-09-18.md) 是后续设计。全部已完成证据见[主动学习索引](../studies/active_learning/README.md)。
 

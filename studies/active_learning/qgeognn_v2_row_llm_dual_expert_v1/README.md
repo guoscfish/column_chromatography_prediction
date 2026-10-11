@@ -14,7 +14,9 @@
 
 `sol61_xhigh_from397_20261011`记录memo格式失败；`sol61_xhigh_from397_repair_20261011`保留一次额外格式修复及429拟合；当前revision保留planner引用未观测证据的修复来源与有界额外回答。继承的批次、标签和checkpoint保持不变，所有原始失败回答和成本仍保留。不能把astra/high→sol61/xhigh的混合轨迹解释成单一模型确认。
 
-继续当前已授权运行的命令（相同命令复用冻结前缀）：
+发布核验时已没有活跃进程；round04的最后请求记录两次429额度不足和一次502服务错误，493尚未完成。[状态回执](revisions/sol61_xhigh_from429_evidence_repair_20261011/execution_status.json)保留原RUNNING记录与核验时间，退出原因未独立确定。本次仓库维护没有重启实验。
+
+当前冻结revision的继续命令（相同命令复用前缀；历史命令不代表本次启动）：
 
 ```sh
 /Users/fish/miniforge3/envs/fish/bin/python -u scripts/studies/run_qgeognn_v2_row_llm_dual_expert.py run --seed 157 --rounds 5 --start-round 3 --revision sol61_xhigh_from429_evidence_repair_20261011 --model gpt-6.1-sol --reasoning-effort xhigh
