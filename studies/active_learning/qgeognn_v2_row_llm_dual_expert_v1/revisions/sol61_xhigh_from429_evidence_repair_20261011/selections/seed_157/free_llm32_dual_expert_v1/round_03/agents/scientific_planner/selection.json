@@ -1,0 +1,499 @@
+{
+  "type": "selection",
+  "packet_sha256": "1b58e4a0922d028a986e13fa995ee556f9505c65f6063dadc9daa1fb22b3fcbe",
+  "expert_synthesis": {
+    "chemistry_takeaways": "Measured data support molecule-specific ratio and loading responses. m125 has a sharply nonlinear 2/1 surface with opposite V1 directions under solvent-volume changes, while its 5/1 surface is comparatively flat. Large V2 underprediction occurs in donor-rich m205 and donor-free carbonyl/ether m107, so a universal donor correction is inadequate. m92, m146, m212, m31 and m193 retain steep local tail transitions.",
+    "ml_takeaways": "Marginal value has shifted away from broad m167, m147 and m105 grid expansion. The best experiments complete matched response curves, separate loading from ratio, and test whether severe tail residuals transfer across related structures. V1 and V2 residuals can move independently; quantile widths and V2 minus V1 are not uncertainty measures.",
+    "agreements": [
+      "Matched response curves are more informative than isolated extreme predictions.",
+      "V2 tail calibration remains a major Row-distribution learning target.",
+      "Sparse chemical probes should answer transfer or mechanism questions tied to observed records."
+    ],
+    "disagreements": [
+      "Chemistry favors wider donor, carbonyl, sulfur and basic-nitrogen coverage, while ML evidence rejects a universal functional-group offset.",
+      "Chemistry supports continuing several curves, whereas ML evidence assigns low marginal value to routine m167, m147 and m105 replication."
+    ],
+    "planner_resolution": "Use remaining m125 solvent-volume contrasts, ratio contrasts for the m205 and m107 tail regimes, targeted intermediate points for m146, m31, m212, m193 and m92, and a small number of orthogonal nitrogen, alcohol, sulfur and beta-ketoester probes. Exclude endpoint-order diagnostics."
+  },
+  "batch_strategy": "Prioritize five linked groups: m125 at 1/1 with 500 microlitres of loading solvent; donor-rich and donor-free carbonyl tail transfer; steep ratio curves for m146, m31, m212 and m193; EA and loading contrasts for m92 plus volume contrasts for m160, m161 and m216; and orthogonal m19, m117, m129, m173 and m13 probes.",
+  "choices": [
+    {
+      "id": "dbb94bf062fc0e640258",
+      "reason": "m125 at 1/1, 100 microlitres and 500 microlitres of DCM loading solvent is the fixed-volume solvent contrast to the observed 1/1, 100 microlitre, 300 microlitre record.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "f4fb5c03b8e8996e75f6",
+      "reason": "m125 at 1/1 and 50 microlitres with 500 microlitres of DCM loading solvent extends the low-volume side of the same solvent-volume surface.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "9bd998a328b109ef639e",
+      "reason": "m125 at 1/1 and 150 microlitres with 500 microlitres of DCM loading solvent completes the high-volume side and tests whether the opposite V1 directions seen at 2/1 persist.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "c973d4c257be9ef08216",
+      "reason": "m205 at 2/1, 100 microlitres and 400 microlitres of DCM loading solvent is a same-loading ratio contrast to the severe measured 5/1 tail.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "2b10c90b32f970e4b4c8",
+      "reason": "m205 at 1/1 with the measured 100 microlitre and 400 microlitre loading context adds a lower-ratio anchor for the tail transition.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "7954bf73f74c7fbcecb2",
+      "reason": "m205 at 5/1 and 50 microlitres provides a direct loading-volume contrast to the measured 100 microlitre high-tail record.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "614873124b33029a924c",
+      "reason": "m206 at 5/1 and 100 microlitres tests whether the fused alcohol transfers into the severe m205-like tail regime.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "7c0c324643799c918828",
+      "reason": "m206 at 2/1 and 50 microlitres supplies a lower-ratio, lower-volume point for distinguishing a general alcohol response from a localized transition.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "143bf510fe2028583763",
+      "reason": "m107 at 2/1 and 50 microlitres matches the loading context of its measured 5/1 tail and tests whether the large error is ratio-localized.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "769f1d04efb22c05cfdf",
+      "reason": "m107 at 2/1 and 150 microlitres complements the 50 microlitre point and separates ratio from loading-volume effects.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "32f34638e41ffc962cfc",
+      "reason": "m37 at 2/1, 100 microlitres and 400 microlitres of DCM loading solvent tests transfer from the measured nitro-aromatic ketone at 10/1 without assuming a common polar residual.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "cf36dbeee8bb51632d84",
+      "reason": "m146 at 2/1 and 50 microlitres bridges its measured 1/1 and 5/1 records at the same sample volume and locates tail onset.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "2745c6978a8911fc3dda",
+      "reason": "m146 at 2/1 and 100 microlitres is the matched-volume companion testing ratio-driven versus loading-sensitive transition.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "2a4de703709973e74dd2",
+      "reason": "m31 at 2/1 and 50 microlitres fills the lower-ratio gap before its measured 5/1 and 10/1 DCM response.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "d6ef05c62d2172fae39a",
+      "reason": "m31 at 0/1 and 100 microlitres provides a weak-ratio baseline for the donor-free nitrile/ketone tail curve.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "ab4326dd3bd3b0e07f81",
+      "reason": "m212 at 0/1 and 100 microlitres supplies a same-load baseline against the measured 5/1 and 10/1 basic-aromatic tail.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "18a189c89f59ac1d5a9f",
+      "reason": "m212 at 0/1 and 50 microlitres tests whether its low-ratio baseline is loading-sensitive before the steep ratio response.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "a01a137fa48c1391b9e7",
+      "reason": "m193 at 10/1 and 50 microlitres fills the ratio gap between measured lower-ratio records and the high-ratio nitrobenzaldehyde tail.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "a5f9179bfb146ad70953",
+      "reason": "m193 at 20/1 and 50 microlitres extends the same-load high-ratio curve and tests smooth continuation versus saturation.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "66da447ca0fe7160cc1c",
+      "reason": "m92 at 20/1 and 50 microlitres is a loading-volume contrast to the measured 20/1, 100 microlitre EA point before the 50/1 tail.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "4b8ba288d549f6cfc94b",
+      "reason": "m92 at 10/1 and 100 microlitres adds an intermediate EA-ratio point between observed tail records.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "2feb7d8e0a3566ddf97f",
+      "reason": "m160 at 2/1 and 100 microlitres is the missing intermediate loading point between measured 50 and 150 microlitre records.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "5258960e057b56ed51f8",
+      "reason": "m161 at 0/1 and 50 microlitres provides a lower-volume contrast to its measured 0/1, 100 and 150 microlitre records.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "222a68fc192f66c1c080",
+      "reason": "m216 at 10/1 and 150 microlitres extends the measured 50 and 100 microlitre high-tail sequence and tests endpoint-specific volume response.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "07933c8c797c30bb0e8e",
+      "reason": "m216 at 2/1 and 150 microlitres provides a lower-ratio, matched-volume point to distinguish a broad offset from the high-ratio transition.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "88cccd3e55677c52f9b7",
+      "reason": "m190 at 0/1 and 100 microlitres anchors the donor-rich bromosalicylaldehyde curve below its measured 2/1 and 10/1 points.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "f5259e3f51c168c59973",
+      "reason": "m190 at 5/1 and 100 microlitres fills the same-load intermediate ratio point and tests endpoint residual change across the curve.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "6d21e9ec887b3408c612",
+      "reason": "m19 at 2/1 and 50 microlitres probes a tertiary amine without an NH donor, separating basicity from donor-driven transfer.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "f90a5a5a54509c085ebd",
+      "reason": "m173 at 1/1 with its large DCM loading plug tests whether the measured 0/1 high V2 contracts at stronger mobile-phase composition.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "5079d0dfcde65893b224",
+      "reason": "m117 at 2/1 and 100 microlitres adds an unmeasured ortho-phenol/aldehyde point for donor accessibility and polar transfer.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "2dbfdf9c2d5defd09f7a",
+      "reason": "m13 at 2/1 and 150 microlitres tests beta-ketoester tail transfer against its measured 1/1 behavior.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "b0571346163b8f77528d",
+      "reason": "m129 at 1/1 and 100 microlitres extends the observed weak-ratio thioaromatic aldehyde toward an intermediate ratio.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H3"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "m167 has a reproducible molecule-specific ratio response dominated by V2, with loading modifying the curve and V1 showing local saturation.",
+      "why_it_matters_for_model_learning": "The response is well established, so only a targeted remaining loading contrast can improve interpolation and interaction modeling.",
+      "next_discriminating_question": "Does the remaining high-ratio intermediate-load point preserve the measured V2-dominant curve while clarifying the loading interaction?",
+      "basis": "observed_data",
+      "confidence": "high",
+      "status": "supported",
+      "supporting_observed_ids": [
+        "e947f47c9e991c7add4c",
+        "8136e1c1c9734ab0048d",
+        "d1e6e925623ba4b6810b",
+        "6d00a25c0ca42a5cf2c1",
+        "25dd969086d07da70d74",
+        "f05558de399ad23eb6f6",
+        "fa6fd34875fdc7acf6c1",
+        "ea6260d7052cabfca181",
+        "34a133db8364fd665ae6"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H2",
+      "content": "Loading amount and loading-solvent conditions produce local, endpoint-specific shifts whose direction depends on molecule and ratio; a universal correction is unsupported.",
+      "why_it_matters_for_model_learning": "Matched volume and solvent-plug contrasts can improve interaction features without encoding a false global loading trend.",
+      "next_discriminating_question": "Do the selected loading contrasts show repeatable local responses or mostly unexplained variability?",
+      "basis": "mixed",
+      "confidence": "medium",
+      "status": "supported",
+      "supporting_observed_ids": [
+        "b21061720e23b7a5bdcb",
+        "36d971e3231c54486d05",
+        "29db30571b2a1ae59cc7",
+        "b51b5dbcd2a38b174973",
+        "780b13846ace50ede763",
+        "549daca56bed1c9d2bcc",
+        "17902fa9c7f8ea9b456e",
+        "a60552f4d1a5ced4641f",
+        "9cd02352c2ed7a3e2321"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H3",
+      "content": "Sparse polar, donor-rich, basic, sulfur-containing, aza-aromatic and carbonyl-rich chemotypes have heterogeneous condition-dependent residuals; recent m205 and m107 tails are not explained by a universal donor correction.",
+      "why_it_matters_for_model_learning": "The observed sign changes favor interaction-aware and endpoint-specific residual modeling over a universal functional-group offset.",
+      "next_discriminating_question": "Do additional tertiary-amine, phenol/aldehyde, sulfur-aldehyde, alcohol and beta-ketoester points cluster by local interaction regime or remain heterogeneous?",
+      "basis": "mixed",
+      "confidence": "medium",
+      "status": "supported",
+      "supporting_observed_ids": [
+        "b4e0e9dc92fca2c88b90",
+        "36d971e3231c54486d05",
+        "53a1acff30433cff819f",
+        "17902fa9c7f8ea9b456e",
+        "e47aebe2660b9e1528de",
+        "2029b30e714e5ff498bf",
+        "c18c041c752aba7ff0e4",
+        "b060fa3ae84f80e773d2",
+        "18d13a057c8c8b316800",
+        "48853fd78c77153b963a",
+        "c6924324ddd95f249df6"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H4",
+      "content": "The endpoint-order anomaly premise is unsupported; measured diagnostic endpoints obey V2 greater than V1 and their recorded predictions are ordered.",
+      "why_it_matters_for_model_learning": "Capacity should target residual structure and response curves rather than a rejected ordering defect.",
+      "next_discriminating_question": "Does any future measured row violate endpoint ordering after verified alignment?",
+      "basis": "model_behavior",
+      "confidence": "high",
+      "status": "rejected",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [
+        "81507d463506a9e65e73",
+        "3a095d378b537020c569"
+      ]
+    },
+    {
+      "id": "H5",
+      "content": "m125 is a difficult local molecule-by-condition regime with strong 2/1 interaction among ratio, sample volume and loading-solvent volume, while its 5/1 response is comparatively stable.",
+      "why_it_matters_for_model_learning": "This regime can cause large Row-distribution errors, and matched 1/1 contrasts can distinguish repeatable structure from omitted variation.",
+      "next_discriminating_question": "Does the unusual loading-solvent effect extend from m125 2/1 to 1/1 at fixed sample volumes?",
+      "basis": "observed_data",
+      "confidence": "high",
+      "status": "supported",
+      "supporting_observed_ids": [
+        "4c32851430464f0ed684",
+        "c8d43713db33bf820a1d",
+        "69b09343d0b9995c3ae4",
+        "cc2a23d8eb9de61d2ab3",
+        "19f19f196ba5787a01b0",
+        "facbcedbecb46072b04c",
+        "74cf50c6ec476a394b01",
+        "549daca56bed1c9d2bcc",
+        "761c3f82d640da44966c",
+        "780b13846ace50ede763",
+        "00043aebb2540e369a7b",
+        "e7ed7ca4a53258b73ba2"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H6",
+      "content": "m147 is a shallow low-tail ratio-response anchor, showing that strong V2 ratio amplification is molecule-specific.",
+      "why_it_matters_for_model_learning": "It prevents extrapolation of m167-like behavior to low-interaction molecules.",
+      "next_discriminating_question": "Do other low-interaction molecules remain shallow across ratio and loading?",
+      "basis": "observed_data",
+      "confidence": "medium",
+      "status": "supported",
+      "supporting_observed_ids": [
+        "0fd4e9db5fde2aaf5a38",
+        "0ad8217c773fbf8f4344",
+        "0ce058f3352048ed0171",
+        "90dad8978308baf20b08",
+        "8136e1c1c9734ab0048d",
+        "d1e6e925623ba4b6810b"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H7",
+      "content": "m92 has an EA ratio-dependent V2 tail whose slope and loading response require intermediate conditions.",
+      "why_it_matters_for_model_learning": "Intermediate EA labels can calibrate sparse-solvent interpolation and high-volume V2 prediction.",
+      "next_discriminating_question": "Does the m92 V2 tail remain smooth when sample volume is reduced at 10/1 and 20/1?",
+      "basis": "observed_data",
+      "confidence": "medium",
+      "status": "supported",
+      "supporting_observed_ids": [
+        "9768d61b571fc0c5ce1a",
+        "0389a6366b3a51fad8b5",
+        "8b58e9d7a710f55e49d3",
+        "7b42519983cf93dd7efd",
+        "6c1c34b12c66ebcf39a4",
+        "e93e08d6bc42e91e2679"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H8",
+      "content": "High-tail ratio slopes are molecule-specific, with local transitions around m146, m212, m31 and m193 rather than a shared tail law.",
+      "why_it_matters_for_model_learning": "Intermediate ratio and matched-volume labels improve condition interpolation and endpoint-specific tail calibration.",
+      "next_discriminating_question": "Do lower-ratio points locate smooth transition onsets within each molecule, or do they reveal separate localized regimes?",
+      "basis": "mixed",
+      "confidence": "medium",
+      "status": "unresolved",
+      "supporting_observed_ids": [
+        "9e3ce3497298084abd83",
+        "70cba7a21b5a01fb8e73",
+        "e47aebe2660b9e1528de",
+        "33ffc69a253a89f15995",
+        "04a2e8ad27ca641a3a12",
+        "252c027cf5a42b92c953",
+        "156594686f5cf7182bcc",
+        "246c01e213831d66a856",
+        "c28747d70e7b51a1cc95"
+      ],
+      "contradicting_observed_ids": []
+    }
+  ],
+  "batch_rationale": "Previous real feedback strongly supports m167 V2-dominant response but makes routine m167 expansion low value. It supports H5 specifically: m125 2/1 changes strongly with loading-solvent volume and sample volume, with opposite V1 directions, while the 5/1 series is comparatively stable. H2 remains local because m160, m161, m90 and m216 have different endpoint-specific loading responses. The m205 and m107 measurements revise H3 and motivate carbonyl/alcohol transfer tests: severe V2 misses occur in donor-rich and donor-free carbonyl/ether structures, so the plan tests ratio and structural transfer rather than a universal donor effect. m92 retains a real EA V2 tail, and m146, m212, m31 and m193 retain molecule-specific steep transitions. H4 remains rejected by ordered m13 and m80 measurements.",
+  "expected_learning_value": "The three m125 1/1 points test whether the unusual solvent-volume interaction extends beyond 2/1. The m205, m206, m107 and m37 points test the newly exposed high-tail regime across ratio and structure. m146, m31, m212 and m193 supply intermediate transition points, while m92, m160, m161 and m216 separate EA or loading effects from ratio effects. m19, m117, m129, m173 and m13 add targeted transfer coverage.",
+  "feedback_interpretation": "Measured feedback supports H1, H5, H7 and H8, while refining them toward local endpoint-specific response shapes. It supports H2 locally and weakens any universal loading correction. It supports H3 as heterogeneous residual structure and shows that m205 and m107 are severe V2 underpredictions despite different donor patterns. H4 is rejected by ordered endpoint diagnostics. Candidate predictions near measured tails are treated as model-adjustment diagnostics, not independent evidence of future accuracy."
+}

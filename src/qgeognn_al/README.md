@@ -19,7 +19,7 @@ Read `active_learning_v2/` in this order:
 1. `protocol.py`, `sequential_protocol.py`: row identities, label accounting, budgets and frozen-source contracts.
 2. `gradient_features.py`, `gradient_bank.py`, `lcmd.py`: gradient representation and selection.
 3. `sequential_acquisition.py`, `sequential_runner.py`: per-round selection, retraining, freeze and evaluation.
-4. `batch_adaptivity.py`: current fixed-budget Static/Adaptive comparison.
+4. `batch_adaptivity.py`: completed fixed-budget Static/Adaptive comparison.
 5. `sequential_reporting.py`, `efficiency_reporting.py`: learning curves, label targets and cost reporting.
 
 `benchmark*` and `phase1.py` implement the earlier one-step benchmark; `phase1.py` is not the September batch-adaptivity study. `ivr*` and `block_ivr.py` retain the completed IVR implementation and diagnostics.
@@ -27,6 +27,15 @@ Read `active_learning_v2/` in this order:
 The selection-only innovation screen uses `gradient_transforms.py` and `innovation_screen.py`.
 It compares fixed representations and selectors on frozen L0 inputs; it does not retrain a model
 or inspect test labels. Keep this mechanism screen separate from sequential performance claims.
+
+## LLM selection and feedback
+
+- `scientist_full_delivery.py`, `scientist_selector.py`: full-pool encoding, observed/candidate boundaries and plan validation.
+- `scientist_transport.py`, `scientist_study.py`: frozen Scientist V2 transport and trajectory orchestration; completed Free/hybrid records use these hashes.
+- `scientist_lifecycle.py`: parameterized state, freeze, reveal, fit and feedback for new studies, with original training/checkpoint rules reused.
+- `dual_expert_selector.py`, `dual_expert_transport.py`, `dual_expert_study.py`: independent chemistry/ML memos and free planner, revision inheritance and recorded repairs.
+
+`scientist_lifecycle.py` intentionally retains equivalent lifecycle logic alongside the frozen `scientist_study.py`. Consolidating those files during execution would invalidate historical protocol hashes. New studies use the parameterized module; historical runners and sealed source copies remain reproduction dependencies. Reporting is centralized in `scripts/report_active_learning_snapshot.py`.
 
 ## Transfer
 

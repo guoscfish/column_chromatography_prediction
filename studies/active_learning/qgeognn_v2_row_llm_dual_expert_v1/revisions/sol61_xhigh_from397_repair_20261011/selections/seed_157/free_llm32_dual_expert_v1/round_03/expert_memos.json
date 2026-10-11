@@ -1,0 +1,258 @@
+{
+  "chemistry_scientist": {
+    "type": "memo",
+    "role": "chemistry_scientist",
+    "packet_sha256": "feecdb49f7582ba28c1dbbe0e979eb3a1bf72a6d86d87474490ea9655644b167",
+    "state_summary": "Round 3, seed 157: the packet reports 429 observed records, 2,901 candidates, no pending experiments and no validation/test records. The supplied catalog favors questions about structure-by-condition transfer, endpoint-specific loading responses and the unusual m125 condition surface. Recent m205 and m107 measurements expose substantial historical prediction errors. Expected learning value remains an inference, not demonstrated overall Row accuracy after retraining.",
+    "important_observations": [
+      "[Observed; H5 revised] At m125 2/1 and 100 ul sample volume, increasing DCM loading-solvent volume from 300 to 500 ul changes V1/V2 from 15.408/29.583 to 6.975/56.858 ml (c8d43713db33bf820a1d, 69b09343d0b9995c3ae4). At 150 ul sample volume, the same change gives 13.725/31.375 to 32.950/69.808 ml (19f19f196ba5787a01b0, facbcedbecb46072b04c). V2 increases in both contrasts; V1 moves in opposite directions. The completed factorial supports a local interaction while leaving variability and missing covariates as alternatives.",
+      "[Observed; H2/H5 refined] m125 2/1 with 500 ul DCM has V1 36.233, 6.975 and 32.950 ml at 50, 100 and 150 ul sample volumes (cc2a23d8eb9de61d2ab3, 69b09343d0b9995c3ae4, facbcedbecb46072b04c). Its 5/1, 300 ul DCM series is comparatively stable: V1 about 42.3-43.0 and V2 69.7-74.0 ml (780b13846ace50ede763, 74cf50c6ec476a394b01, 549daca56bed1c9d2bcc). A pervasive large loading effect is unsupported.",
+      "[Observed and historical predictions; H3 expanded] Primary alcohol m205 measured 51.433/98.375 ml at 5/1, with premeasurement errors -38.289/-71.708 ml (48853fd78c77153b963a). Donor-free ether-containing beta-ketoester m107 measured 43.200/101.442 ml at 5/1, with errors -16.470/-54.335 ml (c6924324ddd95f249df6). Severe errors therefore extend beyond basic nitrogen or high donor count; their mechanisms remain untested.",
+      "[Observed; H2 locally supported] Increasing sample volume from 50 to 100 ul advances V1 at m160 5/1 by 4.142 ml, m161 5/1 by 7.583 ml and m216 10/1 by 7.617 ml. V2 changes are -2.775, -1.650 and +0.133 ml, respectively (ad833f34f6b91872362d, b4e0e9dc92fca2c88b90, a60552f4d1a5ced4641f, 17902fa9c7f8ea9b456e, e47aebe2660b9e1528de, 9cd02352c2ed7a3e2321). A common correction for both endpoints would miss these differences.",
+      "[Observed; H7 retained] m92 at fixed 100 ul sample and EA 200 ul loading solvent has V2 29.625 ml at 20/1 and 61.950 ml at 50/1 (8b58e9d7a710f55e49d3, 7b42519983cf93dd7efd). Its 50/1, 50 ul result is also broad, 14.883/58.542 ml (7caf1db075b91197ba34). The high-ratio tail survives reduced loading, but the intervening curve shape remains untested.",
+      "[Observed; H1 refined] m167's new 100 ul points are 4.417/12.233 ml at 2/1 and 4.658/16.075 ml at 5/1 (ea6260d7052cabfca181, 34a133db8364fd665ae6). Compared with its measured 50 and 150 ul anchors, V1 changes mainly between 50 and 100 ul, suggesting local saturation. Its V2-dominant ratio response remains supported; routine grid filling now needs a specific unresolved question.",
+      "[Observed; H8 strengthened] Fixed-loading 5/1-to-10/1 contrasts increase m212 from 22.067/37.183 to 46.675/78.067 ml and m31 from 13.008/32.283 to 31.500/67.275 ml (252c027cf5a42b92c953, 70cba7a21b5a01fb8e73, 156594686f5cf7182bcc, b3d9bb5afa82b99f2a11). Steep responses occur in both a secondary amine and a donor-free nitrile/ketone.",
+      "[Observed-table correction] 7e327de3d5f5fcab9a7e is m123 at 2/1, 50 ul sample, DCM 400 ul, measuring 6.583/9.425 ml. It is not the proposed m117 20/1 experiment. No m117 measurement appears in the supplied observed table. H4 remains rejected by ordered m13/m80 evidence; H6 remains supported within the shallow measured m147 series."
+    ],
+    "candidate_scientific_questions": [
+      "[Untested] Does the m205 tail persist across loading and ratio, and does related primary alcohol m206 enter the same regime? Accessible alcohols can hydrogen-bond to silica, but m205-to-m206 transfer is unverified. Spacer length, aromatic attachment and loading-solvent volume differ.",
+      "[Untested] Is m107's error localized to 5/1, and do related beta-ketoesters share its response? General chemical knowledge permits tautomerism and intramolecular hydrogen bonding in beta-dicarbonyls. The supplied keto-form HBD count does not describe every possible tautomer; no tautomeric mechanism was measured.",
+      "[Untested] Does m125's loading-solvent effect extend to 1/1? Fixed-sample-volume solvent-volume contrasts can test whether the unusual 2/1 surface is localized. Focusing, breakthrough and experimental variability remain competing explanations.",
+      "[Untested] How much does loading modify m92 at 20/1? Available candidates test an almost flat predicted loading response against measured anchors. A repeated 50/1 condition could address variability but adds no new recorded-input coverage.",
+      "[Untested] Do tertiary amine m19 and pyridyl ketone m66 transfer from measured nitrogen-containing families? Basicity and nitrogen accessibility differ from anilines and fused aza-aromatics; silica acid-base interaction is a chemical prior, not a demonstrated residual correction.",
+      "[Untested] Is m173's predicted V2 contraction real under a large DCM loading plug? Its measured 0/1, 100 ul sample, DCM 2,000 ul result is 5.117/50.300 ml (6802f0b28c5a0c7b4c2a). Fixed-loading 1/1 predictions are much shorter. Acid association, solubility and injection effects are hypotheses."
+    ],
+    "possible_model_blind_spots": [
+      "Weak sensitivity to loading features may miss endpoint-specific interactions such as m125's opposite V1/V2 movements.",
+      "The large new m205 and m107 labels may induce excessive transfer to m206 and m13. Current high predictions do not independently validate that transfer.",
+      "Bulk HBD/HBA, TPSA and LogP do not fully encode positional effects, steric accessibility, intramolecular hydrogen bonding or tautomerism.",
+      "Identical recorded m174 inputs differ by about 4.68/5.93 ml (704ba630f25fe7f20166, 92bac523bed1042d6a75). Small contrasts cannot automatically be assigned to a causal mechanism."
+    ],
+    "important_model_behaviors": [
+      "[Predictions only] m206 5/1 predicts approximately 44.5/84.8 ml; m13 5/1 predicts approximately 53.6/127.6 ml. These are transfer diagnostics, not measured tails.",
+      "[Predictions only] m125 1/1 with DCM 500 ul predicts approximately 6.64/18.03 ml at both 50 and 100 ul sample volumes. Nearly equal predictions make matched loading contrasts informative.",
+      "Candidate 02ddeed8a16d3adf3e28 is currently ordered at 4.100/6.110 ml. Quantile crossings remain elsewhere; 89d752b5a7f7c8d0b91e has V2 q10 above q50. Historical output anomalies should not be carried forward unchanged."
+    ],
+    "coverage_or_redundancy_concerns": "The pool spans familiar nonpolar and carbonyl grids alongside sparse alcohol, phenol, acid, sulfur and nitrogen chemistry. Sparse probes should answer transfer questions; extensively measured m167, m105 and m147 need explicit remaining questions. Distinct candidate IDs can duplicate each other or observed inputs. Compare molecule identity and all five condition fields, while retaining duplicate multiplicity when considering Row coverage.",
+    "particularly_informative_candidates": [
+      {
+        "id": "7954bf73f74c7fbcecb2",
+        "reason": "m205 5/1, 50 ul sample, DCM 400 ul; predicts 47.397/89.871 ml. Loading contrast to its measured 100 ul tail."
+      },
+      {
+        "id": "c973d4c257be9ef08216",
+        "reason": "m205 2/1, 100 ul sample, DCM 400 ul; predicts 17.850/35.209 ml. Fixed-loading ratio contrast to measured 5/1."
+      },
+      {
+        "id": "614873124b33029a924c",
+        "reason": "m206 5/1, 100 ul sample, DCM 300 ul; predicts 44.489/84.830 ml. Tests alcohol-family transfer beyond its measured 0/1 anchor."
+      },
+      {
+        "id": "143bf510fe2028583763",
+        "reason": "m107 2/1, 50 ul sample, DCM 300 ul; predicts 26.529/58.203 ml. Fixed-loading ratio contrast to the severe measured 5/1 miss."
+      },
+      {
+        "id": "2dbfdf9c2d5defd09f7a",
+        "reason": "m13 2/1, 150 ul sample, DCM 300 ul; predicts 28.465/68.853 ml. Beta-ketoester transfer test against measured m13 1/1."
+      },
+      {
+        "id": "dbb94bf062fc0e640258",
+        "reason": "m125 1/1, 100 ul sample, DCM 500 ul; predicts 6.641/18.034 ml. Solvent-volume contrast to observed 4c32851430464f0ed684."
+      },
+      {
+        "id": "66da447ca0fe7160cc1c",
+        "reason": "m92 20/1, 50 ul sample, EA 200 ul; predicts 11.033/32.318 ml. Connects to measured 50/1 at the same loading."
+      },
+      {
+        "id": "6d21e9ec887b3408c612",
+        "reason": "Unmeasured m19 2/1, 50 ul sample, DCM 300 ul; predicts 6.580/10.396 ml. Tertiary amine without an NH donor tests nitrogen transfer."
+      },
+      {
+        "id": "f90a5a5a54509c085ebd",
+        "reason": "m173 1/1, 100 ul sample, DCM 2,000 ul; predicts 4.672/13.909 ml. Tests contraction from its measured 0/1 V2 at fixed loading."
+      },
+      {
+        "id": "5079d0dfcde65893b224",
+        "reason": "Still-unmeasured m117 2/1, 100 ul sample, DCM 600 ul; predicts 8.550/21.998 ml. Ortho phenol/aldehyde probe for donor accessibility."
+      },
+      {
+        "id": "feb389023cc6ceb597ed",
+        "reason": "m9 5/1, density 1.352, 50 ul sample, DCM 300 ul; predicts 4.781/10.573 ml. Loading-solvent-only contrast to observed PE record 36e3d917ed07cf327a84."
+      }
+    ],
+    "warnings": [
+      "Listed candidates have predictions only. Measured evidence is restricted to observed-table records. Historical errors are premeasurement errors from successive models, not current candidate errors.",
+      "Higher PE/EA is PE-richer and generally weaker on silica; 0/1 is pure EA. Loading solvent is a separate variable. Several older stronger/weaker-eluent descriptions are reversed.",
+      "Sample volume and loading-solvent volume are distinct. At fixed recorded density, sample-volume changes also change loading_amount_mg; their effects cannot be independently identified here.",
+      "Memory corrections: 69f9cefb952abd22672c is m101; 96710afeabc594baa359 is m90 at 100 ul; m199 is a sulfoxide; m174 is an ester.",
+      "V2-V1 is elution interval width, not uncertainty. Quantiles are not established as calibrated uncertainty. The objective is overall Row V1/V2 accuracy after retraining."
+    ]
+  },
+  "ml_scientist": {
+    "type": "memo",
+    "role": "ml_scientist",
+    "packet_sha256": "d44be68d33b7ad0432c29d254578972701abfc3cd7a5c099af9c8f9cf137c444",
+    "state_summary": "Round 3, seed 157: 429 observed measured records, 2,901 legal current candidates, no pending records, and no validation or test truth. Observed-table IDs and measured values are evidence from this trajectory. Candidate IDs have predictions only; their value is inferred.",
+    "important_model_behaviors": [
+      {
+        "basis": "observed_measured",
+        "finding": "m167 now has a densely measured, molecule-specific V2-dominant ratio curve. V2 rises from about 11.77 at 0/1 to 22.40 at 50/1, while loading changes V1 downward and modifies V2 mainly at stronger ratios.",
+        "evidence_ids": [
+          "e947f47c9e991c7add4c",
+          "8136e1c1c9734ab0048d",
+          "d1e6e925623ba4b6810b",
+          "6d00a25c0ca42a5cf2c1",
+          "25dd969086d07da70d74",
+          "f05558de399ad23eb6f6",
+          "fa6fd34875fdc7acf6c1"
+        ],
+        "implication": "H1 remains strongly supported, but broad m167 replication now has low marginal value. A missing high-ratio intermediate load can still test the local interaction."
+      },
+      {
+        "basis": "observed_measured",
+        "finding": "m125 is a sharply nonlinear local condition surface. At 2/1, measured records range from approximately 7.0/56.9 to 36.2/64.0 as V/ul, loading-solvent volume, and loading amount change. At 5/1 with 300 microlitres of loading solvent, V1 is approximately 42 across 50, 100, and 150 microlitre records.",
+        "evidence_ids": [
+          "c8d43713db33bf820a1d",
+          "69b09343d0b9995c3ae4",
+          "cc2a23d8eb9de61d2ab3",
+          "19f19f196ba5787a01b0",
+          "facbcedbecb46072b04c",
+          "74cf50c6ec476a394b01",
+          "549daca56bed1c9d2bcc",
+          "780b13846ace50ede763"
+        ],
+        "implication": "H5 is supported as a local interaction regime. A universal loading correction is weakened; the strongest remaining question is whether the large 2/1 changes are repeatable response structure or omitted experimental variation."
+      },
+      {
+        "basis": "observed_measured",
+        "finding": "Loading effects are real in several neighborhoods but have molecule- and ratio-dependent directions. m160 and m90 show sizable volume contrasts, while m125 at 5/1 is comparatively flat across loading volume.",
+        "evidence_ids": [
+          "b21061720e23b7a5bdcb",
+          "36d971e3231c54486d05",
+          "29db30571b2a1ae59cc7",
+          "b51b5dbcd2a38b174973",
+          "780b13846ace50ede763",
+          "549daca56bed1c9d2bcc"
+        ],
+        "implication": "H2 has local support but should remain molecule-specific and endpoint-specific. Global monotonic loading features risk encoding a false correction."
+      },
+      {
+        "basis": "observed_measured",
+        "finding": "H3 is increasingly supported as heterogeneous local residual structure. Donor-rich m205 and carbonyl-rich m107 were severely underpredicted, while m190, m129, m199, and m206 show different signed and endpoint-specific residuals.",
+        "evidence_ids": [
+          "48853fd78c77153b963a",
+          "c6924324ddd95f249df6",
+          "2029b30e714e5ff498bf",
+          "c18c041c752aba7ff0e4",
+          "b060fa3ae84f80e773d2",
+          "18d13a057c8c8b316800"
+        ],
+        "implication": "The bottleneck is likely interaction representation and local response shape rather than a universal polar or donor offset."
+      },
+      {
+        "basis": "observed_measured",
+        "finding": "EA m92 has a real V2 tail: measured V2 rises from 29.6 at 20/1 and 100 microlitres to 61.95 at 50/1 and 100 microlitres. The current predictor overpredicted the 20/1 intermediate by about 18.7 ml and overpredicted the 50/1, 50 microlitre point by about 8.4 ml.",
+        "evidence_ids": [
+          "8b58e9d7a710f55e49d3",
+          "7b42519983cf93dd7efd",
+          "7caf1db075b91197ba34"
+        ],
+        "implication": "H7 remains supported, with a revised concern about EA-tail calibration and slope magnitude."
+      },
+      {
+        "basis": "observed_measured",
+        "finding": "The m146, m212, m31, and m193 records suggest steep, molecule-specific condition transitions. Their intermediate labels reduce ambiguity about slope onset, but they do not justify a shared tail law.",
+        "evidence_ids": [
+          "b6229f0445560a4a54ed",
+          "04a2e8ad27ca641a3a12",
+          "252c027cf5a42b92c953",
+          "70cba7a21b5a01fb8e73",
+          "156594686f5cf7182bcc",
+          "246c01e213831d66a856",
+          "c28747d70e7b51a1cc95"
+        ],
+        "implication": "H8 is supported but unresolved; local transition mapping is more useful than isolated high-width selection."
+      },
+      {
+        "basis": "model_diagnostic",
+        "finding": "Candidate quantile fields remain internally irregular: V1 q10 is often zero, some intervals track endpoint scale, and supplied quantile orderings are not consistently coherent.",
+        "implication": "Quantile width, V2 minus V1, novelty, and extreme predicted endpoints should not be treated as calibrated uncertainty or expected error."
+      }
+    ],
+    "possible_learning_bottlenecks": [
+      "Sharp response transitions are under-sampled between measured ratios and loading conditions, especially for m125, m146, m205, m107, m212, m31, and m193.",
+      "V1 and V2 residuals can change sign independently. Endpoint-specific residual modeling or interactions may be needed for the high-volume tail.",
+      "Identical or near-identical recorded inputs have shown nontrivial variability, so missing covariates or experimental noise compete with chemical explanations.",
+      "The model may underrepresent joint effects among molecule structure, ratio, injection volume, loading amount, loading-solvent identity, and loading-solvent volume."
+    ],
+    "coverage_or_redundancy_concerns": [
+      "m167, m105, and m147 already have substantial condition coverage. Further points need a named missing contrast; broad grid expansion is unlikely to be efficient.",
+      "The current pool contains many exact or near-exact molecule-condition duplicates. Check molecule identity plus all five condition fields before treating a row as new coverage.",
+      "Many candidates have maximum similarity 1 to observed molecules. Chemical novelty alone has limited value at this stage; transfer questions tied to a measured response curve are stronger.",
+      "Common low-volume DCM and PE conditions are heavily represented. Sparse EA and unusual loading-solvent volumes are useful when matched to an observed contrast."
+    ],
+    "warnings": [
+      "Historical absolute errors and premeasurement errors are trajectory-local evidence, not unbiased estimates of Row accuracy after retraining.",
+      "Candidate predictions identify possible discriminating experiments; they do not establish that a candidate will be high-error or extreme.",
+      "The endpoint-order anomaly hypothesis remains rejected by the measured m13 and m80 records. Current prediction inconsistencies are model diagnostics and do not justify spending capacity on another ordering test.",
+      "Observed repeated-input variability means that a large residual should not automatically be assigned to chemistry or loading without matched replication."
+    ],
+    "particularly_informative_candidates": [
+      {
+        "id": "c973d4c257be9ef08216",
+        "basis": "observed_feedback plus response-curve inference",
+        "reason": "m205 at 2/1, V=100 microlitres, DCM, and 400 microlitres of loading solvent is a direct ratio contrast to the measured m205 5/1 record 48853fd78c77153b963a, which was 51.43/98.38. It tests whether the donor-rich extreme is ratio-triggered."
+      },
+      {
+        "id": "143bf510fe2028583763",
+        "basis": "observed_feedback plus response-curve inference",
+        "reason": "m107 at 2/1 and V=50 microlitres matches the loading context of the measured 5/1 m107 record c6924324ddd95f249df6. It separates a carbonyl-family offset from a high-ratio transition."
+      },
+      {
+        "id": "cf36dbeee8bb51632d84",
+        "basis": "observed response shape",
+        "reason": "m146 at 2/1 and V=50 microlitres bridges the measured 1/1 and 5/1 points at the same volume and can locate the onset of its steep tail."
+      },
+      {
+        "id": "2745c6978a8911fc3dda",
+        "basis": "matched-condition inference",
+        "reason": "m146 at 2/1 and V=100 microlitres complements the V=50 point and tests whether the m146 transition is ratio-driven or volume-sensitive."
+      },
+      {
+        "id": "2a4de703709973e74dd2",
+        "basis": "observed response shape",
+        "reason": "m31 at 2/1 and V=50 microlitres fills the lower-ratio gap before the measured 5/1 and 10/1 DCM points, testing whether its steep V2 rise begins early."
+      },
+      {
+        "id": "ab4326dd3bd3b0e07f81",
+        "basis": "observed response shape",
+        "reason": "m212 at 0/1, V=100 microlitres, and PE provides a same-load baseline against the measured 5/1 and 10/1 m212 tail records."
+      },
+      {
+        "id": "dbb94bf062fc0e640258",
+        "basis": "m125 factorial inference",
+        "reason": "m125 at 1/1, V=100 microlitres, DCM, and 500 microlitres of loading solvent is a matched solvent-volume contrast to the observed 1/1, V=100, 300 microlitre record."
+      },
+      {
+        "id": "2feb7d8e0a3566ddf97f",
+        "basis": "loading-response inference",
+        "reason": "m160 at 2/1 and V=100 microlitres lies between measured V=50 and V=150 records, helping distinguish a smooth loading curve from a condition-local residual."
+      },
+      {
+        "id": "222a68fc192f66c1c080",
+        "basis": "loading-response inference",
+        "reason": "m216 at 10/1 and V=150 microlitres extends the measured V=50 and V=100 high-tail sequence and tests whether its V1 residual is volume-dependent."
+      },
+      {
+        "id": "a01a137fa48c1391b9e7",
+        "basis": "observed response shape",
+        "reason": "m193 at 10/1 and V=50 microlitres provides an intermediate ratio/load point between the measured lower-ratio records and the high-ratio tail."
+      },
+      {
+        "id": "4df3d7b92b603fe8522f",
+        "basis": "supported H1 with diminishing marginal value",
+        "reason": "m167 at 50/1 and V=100 microlitres fills the remaining high-ratio loading interpolation. Its value is specific to estimating the local load interaction; broad m167 replication is lower priority."
+      }
+    ]
+  }
+}

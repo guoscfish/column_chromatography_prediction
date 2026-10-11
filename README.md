@@ -14,14 +14,15 @@
 
 主工作副本为 `/Users/fish/Documents/GitHub/column_chromatography_prediction`；其他实验 worktree 可保留独立工作上下文。已验证的代码和研究记录统一合并回 `main`，未完成实验明确标为草案。
 
-- [2026-10-05 LLM与传统策略结果汇总及六张对比图](reports/active_learning_status_20261005/REPORT.md)
+- [最新实验结果、匹配预算比较与曲线](reports/active_learning_latest/REPORT.md)（2026-10-11快照）
+- [2026-10-05历史汇总](reports/active_learning_status_20261005/REPORT.md)（日期固定，不代表当前进度）
 - [2026-10-05 仓库整理与合并记录](docs/repository/CLEANUP_20261005.md)
-- [双专家实验草案（待实验）](studies/active_learning/qgeognn_v2_row_llm_dual_expert_v1/README.md)
+- [双专家主动学习（461标签已完成，493标签计划仍在执行）](studies/active_learning/qgeognn_v2_row_llm_dual_expert_v1/README.md)
 
 ## 当前结论
 
 - **预测器已资格验证**：458,952 个有效参数，完成三个种子的 row / compound 4g 验证。Clean 是历史负结果，不是当前模型。
-- **4g 主动学习有效**：sequential B32 中 LCMD / Hybrid 相对 Random 的平均 AULC 改善约 23%，均为 5/5 种子获胜；两种主动方法之间没有稳定排名。当前在做固定总标签预算的 Static / Adaptive 对照。
+- **4g 主动学习有效**：sequential B32 中 LCMD / Hybrid 相对 Random 的平均 AULC 改善约 23%，均为 5/5 种子获胜；两种主动方法之间没有稳定排名。固定预算Static / Adaptive对照已完成；当前整合LLM/CW结果并执行双专家扩展。
 - **跨柱迁移仍有限制**：低标签、无阈值基准中简单校准仍有竞争力。后续 readout、FiLM 和 PCGrad 没有建立稳健的跨场景收益；主动迁移尚未启动。
 
 指标的适用范围和原始报告统一见[研究状态](docs/NEXT_STAGE_DECISION.md)，不能将不同数据过滤、标签预算或划分下的数值混合排名。

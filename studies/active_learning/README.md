@@ -4,7 +4,11 @@ Current work uses the qualified standalone QGeoGNN-V2. These row experiments con
 
 | Study | Status and interpretation |
 | --- | --- |
-| [Phase 1 batch/adaptivity](qgeognn_v2_batch_adaptivity/README.md) | Current execution: Static LCMD / Adaptive B32x10 / nested Random at 333+320 labels |
+| [Latest validation snapshot](../../reports/active_learning_latest/REPORT.md) | Completed-budget curves and matched comparisons; refresh without training |
+| [LLM Scientist V2](qgeognn_v2_row_llm_scientist_v2/README.md) | CW16+LLM16: both seeds813; Free: seed157525 / seed6101653 |
+| [Dual expert](qgeognn_v2_row_llm_dual_expert_v1/README.md) | Seed157 completed 461; authorized continuation to493 still in progress |
+| [CW extension to1005](qgeognn_v2_row_cw_selector_extension_to_1005/RESULTS.md) | Completed: seven arms × two seeds1005; Whitening stopped525; 60 new fits |
+| [Phase 1 batch/adaptivity](qgeognn_v2_batch_adaptivity/FINAL_REPORT.md) | Completed matched653-label comparison; endpoint benefit without AULC benefit |
 | [Phase 0 efficiency review](qgeognn_v2_efficiency_review/REPORT.md) | Completed reporting-only review of endpoints, AULC, target crossings and compute cost |
 | [Sequential B32](qgeognn_v2_row_sequential_b32/FINAL_REPORT.md) | Completed; LCMD and Hybrid improve mean AULC by about 23% over Random, 5/5 wins each |
 | [Kernel-IVR](qgeognn_v2_row_kernel_ivr_b32/FINAL_REPORT.md) | Completed exploratory extension; no clear gain over LCMD |
@@ -31,4 +35,4 @@ Use [current status](../../docs/NEXT_STAGE_DECISION.md) for the next action and 
 
 - [CW factorial extension to653](qgeognn_v2_row_cw_selector_extension_to_653/README.md): post-development exploration, four additional rounds on all three new arms and both seeds;24-fit hard cap. Original333–525 gate unchanged.
 
-- [CW factorial extension to1005](qgeognn_v2_row_cw_selector_extension_to_1005/README.md): user-authorized final budget for all16 curves;90 extra fits from525, no paid LLM requests or new test evaluation.
+- [CW factorial extension to1005](qgeognn_v2_row_cw_selector_extension_to_1005/README.md): completed seven-arm/two-seed1005 extension; Whitening stopped525 by user request,60 new fits, no paid LLM requests or new test evaluation.

@@ -1,0 +1,64 @@
+{
+  "status": "COMPLETE_TWO_ROUND_VALIDATION_PILOT",
+  "attempt_date": "2026-10-11",
+  "requested_seed": 157,
+  "requested_rounds": 2,
+  "budgets": [
+    333,
+    365,
+    397
+  ],
+  "completed_new_batches": 2,
+  "completed_new_fits": 2,
+  "new_labels_revealed": 64,
+  "selected_unique_ids": 64,
+  "test_truth_access_count": 0,
+  "initial_validation_NRMSE": 0.8538865655827187,
+  "endpoint_validation_NRMSE": 0.762185579112134,
+  "relative_improvement_vs_initial_percent": 10.739246893761008,
+  "fit_audits": [
+    {
+      "train_rows": 365,
+      "best_epoch": 135,
+      "epochs_run": 235,
+      "best_validation_combined_normalized_rmse": 0.841028963029093,
+      "training_seconds": 100.3268258330645,
+      "initialization_hash": "27933d44c40fa421228312c0940f971cf44564d39c1cf128e0b3b1acf85d75f6",
+      "test_labels_used_for_fit_or_checkpoint_selection": 0
+    },
+    {
+      "train_rows": 397,
+      "best_epoch": 230,
+      "epochs_run": 330,
+      "best_validation_combined_normalized_rmse": 0.762185579112134,
+      "training_seconds": 162.29499720898457,
+      "initialization_hash": "27933d44c40fa421228312c0940f971cf44564d39c1cf128e0b3b1acf85d75f6",
+      "test_labels_used_for_fit_or_checkpoint_selection": 0
+    }
+  ],
+  "batches": [
+    {
+      "round": 0,
+      "count": 32,
+      "unique_molecules": 20
+    },
+    {
+      "round": 1,
+      "count": 32,
+      "unique_molecules": 16
+    }
+  ],
+  "call_cost": {
+    "accepted_role_answers": 6,
+    "extra_format_answers": 2,
+    "unique_provider_responses": 8,
+    "input_tokens": 3669927,
+    "output_tokens": 34993,
+    "total_tokens": 3704920,
+    "monetary_cost": "not inferred from tokens; use provider billing",
+    "historical_quota_failures": "three 429 responses on 2026-10-10, preserved separately"
+  },
+  "tests_passed": 72,
+  "results": "studies/active_learning/qgeognn_v2_row_llm_dual_expert_v1/revisions/full_pool_feedback_schema_20261011/reports/seed_157/free_llm32_dual_expert_v1/rounds_02/results.json",
+  "schema_migration": "studies/active_learning/qgeognn_v2_row_llm_dual_expert_v1/revisions/full_pool_feedback_schema_20261011/schema_migration.json"
+}

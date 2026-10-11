@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prepare or select round 0 for the independent Dual Expert study."""
+"""Resumable Dual Expert selection, measured feedback and shared QGeoGNN training."""
 import argparse
 import json
 from pathlib import Path
@@ -8,35 +8,43 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from src.qgeognn_al.active_learning_v2 import dual_expert_study as study
 from src.qgeognn_al.active_learning_v2.dual_expert_transport import settings
+from src.qgeognn_al.active_learning_v2.scientist_transport import check_transport
+from src.qgeognn_al.active_learning_v2.scientist_study import exclusive_lock
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=("prepare", "validate", "stage", "select", "advance", "report"))
-    parser.add_argument("--seed", type=int, choices=study.SEEDS)
+    parser.add_argument("action", choices=("prepare", "validate", "check-transport", "stage", "select", "advance", "run", "report"))
+    parser.add_argument("--seed", type=int, choices=study.SEEDS, default=157)
     parser.add_argument("--method", choices=study.METHODS, default=study.METHOD)
-    parser.add_argument("--round", type=int, choices=(0,), default=0)
-    parser.add_argument("--backend", choices=("codex_cli", "responses"), default="codex_cli")
-    parser.add_argument("--model", default="gpt-6-sol")
-    parser.add_argument("--base-url", default="https://token4research.cn")
+    parser.add_argument("--round", type=int, choices=range(6), default=0)
+    parser.add_argument("--rounds", type=int, choices=range(1, 7), default=2,
+                        help="number of acquisition/retraining cycles; default 2 (333 -> 397 labels)")
+    parser.add_argument("--backend", choices=("codex_cli", "responses"), default="responses")
+    parser.add_argument("--model", default="gpt-6.1-sol")
+    parser.add_argument("--reasoning-effort", choices=("low", "medium", "high", "xhigh", "max"), default="xhigh")
+    parser.add_argument("--from-revision", help="inherit an already frozen trajectory prefix")
+    parser.add_argument("--start-round", type=int, choices=range(6), default=None,
+                        help="continue from this completed round (2 means start from 397 labels)")
+    parser.add_argument("--base-url", default="https://token4research.cn/v1")
+    parser.add_argument("--revision", default=study.DEFAULT_REVISION)
+    parser.add_argument("--status-interval", type=float, default=30.0)
     args = parser.parse_args()
-    config = settings(args.backend, args.model, args.base_url)
-    if args.action == "prepare":
-        result = study.prepare(config)
+    study.configure_revision(args.revision)
+    config = settings(args.backend, args.model, args.base_url, args.reasoning_effort)
+    if args.action == "run":
+        result = study.run(args.seed, args.method, args.rounds, config, args.status_interval,
+                           start_round=args.start_round, parent_revision=args.from_revision)
     elif args.action == "validate":
         result = study.validate()
-    elif args.action == "stage":
-        if args.seed is None:
-            parser.error("--seed is required")
-        result = study.stage(args.seed, args.method, args.round)
-    elif args.action == "select":
-        if args.seed is None:
-            parser.error("--seed is required")
-        result = study.select(args.seed, args.method, args.round)
-    elif args.action == "advance":
-        result = study.advance(args.seed, args.method, args.round)
+    elif args.action == "check-transport":
+        study.validate()
+        result = check_transport(study.read(study.STUDY / "protocol.json")["transport"])
+    elif args.action == "report":
+        result = study.report(args.seed, args.method, args.rounds)
     else:
-        result = study.report()
+        with exclusive_lock(study.STUDY / ".operation.lock"):
+            result = study.prepare(config) if args.action == "prepare" else getattr(study, args.action)(args.seed, args.method, args.round)
     print(json.dumps(result, ensure_ascii=False, indent=2))
 
 

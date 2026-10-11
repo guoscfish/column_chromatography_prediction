@@ -1,22 +1,16 @@
 # 当前研究状态
 
-更新：2026-10-09。本页是项目级结论与下一步的唯一入口；具体数值、冻结门槛和使用过的数据以链接的实验报告及协议为准。
+更新：2026-10-11。本页是项目级结论与下一步的唯一入口；具体数值、冻结门槛和使用过的数据以链接的实验报告及协议为准。
 
 ## 本轮执行
 
-**2026-10-10最新授权：继续重跑直到完成。** 已允许必要的中断重跑，按次保留成本记录；仅CW-MaxDet/CW-IVR到1005，Whitening仍525。此前等待额度确认的blocked记录为历史状态。
+当前结果统一见[最新 validation 快照](../reports/active_learning_latest/REPORT.md)。快照仅包含已完成拟合，正在选样或训练的轮次不写成已完成。各研究的冻结协议、授权修订和成本记录仍保存在原目录。
 
-**最新监控：CW训练进程已退出，当前blocked。** 追加拟合完成24/60；CW-MaxDet到749/813，CW-IVR均653。两个未完成拟合保留，退出原因未知。状态文件已纠正；监控不自动重启或扩大尝试额度。
+- **CW扩展已完成**：七臂×两seed到1005，Whitening按要求停525；新增60次拟合，复用150个历史对照点。validation AULC525–1005平均相对改善：CW-LCMD +1.21%、CW-MaxDet -3.80%、CW-IVR +5.98%。此前blocked、待恢复及90拟合额度均为历史状态。[完整结果](../studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_1005/RESULTS.md)。
+- **CW16+LLM16已完成两seed到813**；Free的seed157/6101分别已完成525/653。各曲线按实际完成预算截断，授权修复偏离保留在原研究回执中。[Scientist V2](../studies/active_learning/qgeognn_v2_row_llm_scientist_v2/README.md)。
+- **双专家seed157已完成461标签**，端点validation NRMSE为0.687444；当前按既有授权继续至493。333→397使用astra/high，397后使用sol61/xhigh；格式和未观测证据引用修复保留独立revision与原始回答，不将这条混合模型轨迹解释成单一模型的独立确认。[双专家记录](../studies/active_learning/qgeognn_v2_row_llm_dual_expert_v1/README.md)。
 
-**用户已明确要求恢复CW-MaxDet/CW-IVR到1005。** Whitening仍停525。12个已完成扩展拟合复用；中断的seed6101/CW-IVR/557按原初始化和冻结批次重跑一次，保留中断产物及成本。额度为60个完成拟合加1个中断尝试，不授权其他重试。
-
-[CW geometry / LLM feedback](research/CW_GEOMETRY_AND_LLM_FEEDBACK_PLAN.md) 的 P0、P1a、P1b 和 P2 离线实现已完成，新增拟合36/36，复用70个历史控制预算点。固定validation AULC333–525：CW相对Raw在LCMD改善6.93%，MaxDet恶化4.86%，IVR改善0.69%；两个新selector均未过“两seed同向且平均改善≥2%”门槛，因此不启动新selector确认。Whitening-LCMD两seed均未超过CW-LCMD；目前报告LCMD适用边界，不宣称跨selector普遍收益或CW语义独有。
-
-[完整结果与恢复命令](../studies/active_learning/qgeognn_v2_row_cw_selector_factorial/RESULTS.md)。本研究零付费LLM调用、零新test评价，31项回归测试通过。P2付费独立消融和外部/第二体系验证仍未执行。其他历史LLM任务的进度由其原研究目录负责，不与本研究运行额度混算。
-
-用户授权的1005扩展已完成：七臂×两seed到1005，Whitening按用户要求停在525；新增60次拟合，复用150个历史对照点。探索性validation AULC525–1005平均相对改善：cw_lcmd +1.21%；cw_maxdet -3.80%；cw_ivr +5.98%。原333–525结论与确认门槛不变，已停止新增训练及LLM调用。[完整扩展结果](../studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_1005/RESULTS.md)。
-
-用户最新要求停止Whitening-LCMD：两seed均保留525结果，无追加拟合；仅CW-MaxDet/CW-IVR继续1005，追加额度由90降为60。其余五个对照均已到1005。以研究计划末尾的停止修订和`continue_cw_without_whitening.py`为当前执行入口。
+CW最初333–525开发结论不变：CW相对Raw在LCMD的AULC改善6.93%、MaxDet恶化4.86%、IVR改善0.69%；两种新selector均未过两seed同向且平均改善≥2%的确认门槛。1005扩展属于探索性证据，P2付费独立消融与外部验证仍未执行。[原始factorial结果](../studies/active_learning/qgeognn_v2_row_cw_selector_factorial/RESULTS.md)。
 
 ## 预测器
 
@@ -31,6 +25,8 @@
 
 ## 4g 主动学习
 
+**双专家历史两轮试跑（333→397）**：[seed157试跑](../studies/active_learning/qgeognn_v2_row_llm_dual_expert_v1/README.md)完成333→397、64条新标签和2次同初始化训练。验证集端点NRMSE为0.7622，优于free的0.7861，仍弱于CW16+LLM16的0.7046；两轮AULC未优于free，尚无整体优势证据。历史方案和32条实测反馈已进入第二轮；72项测试通过，无新test评价。首轮格式兼容修复保留原始32个ID，额外格式调用计入成本。
+
 | 已完成工作 | 结论 |
 | --- | --- |
 | LCMD one-step pilot | 大批量一次选点有正信号；不等于完整曲线或 compound 鲁棒性 |
@@ -42,7 +38,7 @@
 
 Sequential 的原始分类 `NO_CLEAR_SEQUENTIAL_AL_GAIN` 保留不改：它未确定 LCMD 与 Hybrid 的最佳/相近类别，不能解释成“对 Random 无收益”。约 650 标签后改善放缓，稳定达到 N90/N95 仍未解决。
 
-**当前执行项**是 [Phase 1 固定预算 Static / Adaptive 对照](../studies/active_learning/qgeognn_v2_batch_adaptivity/PROTOCOL.md)：333+320=653 标签，Static LCMD、Adaptive B32×10 与 nested Random 使用匹配预算。运行状态以该研究目录为准，不把正在执行的任务写成已完成结论。
+[Phase 1固定预算Static / Adaptive对照](../studies/active_learning/qgeognn_v2_batch_adaptivity/FINAL_REPORT.md)已完成：均333+320=653标签；Adaptive端点0.436791优于Static的0.451013，但AULC未改善，不能宣称完整曲线优势。当前执行项为上面的双专家扩展。
 
 [Phase 2 实施方案](research/4G_PHASE2_IMPLEMENTATION_PLAN_2026-09-18.md) 是后续设计。全部已完成证据见[主动学习索引](../studies/active_learning/README.md)。
 

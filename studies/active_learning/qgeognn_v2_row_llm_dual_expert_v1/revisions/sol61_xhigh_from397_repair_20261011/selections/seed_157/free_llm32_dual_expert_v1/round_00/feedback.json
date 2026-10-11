@@ -1,0 +1,959 @@
+{
+  "seed": 157,
+  "method": "free_llm32_dual_expert_v1",
+  "round": 0,
+  "batch_freeze_sha256": "a350d28772aa9f71c572b6f35456296b312b32765a3261460f81ea913ec87a22",
+  "records": [
+    {
+      "candidate_id": "81507d463506a9e65e73",
+      "pred_V1_ml": 6.724873065948486,
+      "pred_V2_ml": 13.53891658782959,
+      "source": "LLM",
+      "true_V1_ml": 6.116666793823242,
+      "true_V2_ml": 19.125,
+      "error_V1_ml": 0.6082062721252441,
+      "error_V2_ml": -5.58608341217041,
+      "reason": "m13 has reversed predicted endpoint ordering; a direct label tests whether this is an isolated prediction artifact or a broader endpoint-calibration problem.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "candidate_id": "3a095d378b537020c569",
+      "pred_V1_ml": 6.523687362670898,
+      "pred_V2_ml": 11.405994415283203,
+      "source": "LLM",
+      "true_V1_ml": 5.316666603088379,
+      "true_V2_ml": 7.308333396911621,
+      "error_V1_ml": 1.2070207595825195,
+      "error_V2_ml": 4.097661018371582,
+      "reason": "Independent reversed-order diagnostic on m80 under PE; pairing it with m13 tests whether endpoint incoherence is chemistry-specific or systematic.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "candidate_id": "53a1acff30433cff819f",
+      "pred_V1_ml": 14.513482093811035,
+      "pred_V2_ml": 30.6820068359375,
+      "source": "LLM",
+      "true_V1_ml": 11.608333587646484,
+      "true_V2_ml": 31.575000762939453,
+      "error_V1_ml": 2.905148506164551,
+      "error_V2_ml": -0.8929939270019531,
+      "reason": "m161 is an amine/nitrile chemotype with an unusual predicted endpoint scale; it probes a sparse polar interaction regime under DCM.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "0ad8217c773fbf8f4344",
+      "pred_V1_ml": 5.511059761047363,
+      "pred_V2_ml": 6.922147274017334,
+      "source": "LLM",
+      "true_V1_ml": 5.191666603088379,
+      "true_V2_ml": 8.208333015441895,
+      "error_V1_ml": 0.3193931579589844,
+      "error_V2_ml": -1.2861857414245605,
+      "reason": "m147 at 10/1 PE provides one point on a ratio-response curve for a simple chlorinated aliphatic aromatic.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "0fd4e9db5fde2aaf5a38",
+      "pred_V1_ml": 3.7232422828674316,
+      "pred_V2_ml": 5.964682102203369,
+      "source": "LLM",
+      "true_V1_ml": 4.383333206176758,
+      "true_V2_ml": 8.166666984558105,
+      "error_V1_ml": -0.6600909233093262,
+      "error_V2_ml": -2.2019848823547363,
+      "reason": "m147 at 0/1 PE anchors the weak-eluent end of the same condition family and helps identify nonlinear ratio effects.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "0ce058f3352048ed0171",
+      "pred_V1_ml": 5.670578956604004,
+      "pred_V2_ml": 7.44711446762085,
+      "source": "LLM",
+      "true_V1_ml": 5.441666603088379,
+      "true_V2_ml": 8.508333206176758,
+      "error_V1_ml": 0.228912353515625,
+      "error_V2_ml": -1.0612187385559082,
+      "reason": "m147 at 20/1 PE extends the same curve toward stronger elution and distinguishes monotonic response from model saturation.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "90dad8978308baf20b08",
+      "pred_V1_ml": 4.792870998382568,
+      "pred_V2_ml": 8.74022388458252,
+      "source": "LLM",
+      "true_V1_ml": 4.5333333015441895,
+      "true_V2_ml": 8.25,
+      "error_V1_ml": 0.2595376968383789,
+      "error_V2_ml": 0.49022388458251953,
+      "reason": "m147 at 2/1 PE with a larger loading amount connects solvent-ratio response to loading sensitivity.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "d0836ca48b1b333388a4",
+      "pred_V1_ml": 4.7950825691223145,
+      "pred_V2_ml": 8.73029613494873,
+      "source": "LLM",
+      "true_V1_ml": 4.6583333015441895,
+      "true_V2_ml": 7.824999809265137,
+      "error_V1_ml": 0.136749267578125,
+      "error_V2_ml": 0.9052963256835938,
+      "reason": "Near the m147 2/1 condition at a different amount, this gives a within-molecule loading comparison with minimal structural confounding.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "d1e6e925623ba4b6810b",
+      "pred_V1_ml": 5.893627166748047,
+      "pred_V2_ml": 11.93129825592041,
+      "source": "LLM",
+      "true_V1_ml": 4.391666889190674,
+      "true_V2_ml": 12.433333396911621,
+      "error_V1_ml": 1.501960277557373,
+      "error_V2_ml": -0.5020351409912109,
+      "reason": "m167 at 2/1 DCM and 150 microlitres extends the observed m167 ratio point to a different load and tests separability of amount and ratio effects.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "25dd969086d07da70d74",
+      "pred_V1_ml": 5.902612686157227,
+      "pred_V2_ml": 18.650192260742188,
+      "source": "LLM",
+      "true_V1_ml": 4.824999809265137,
+      "true_V2_ml": 18.700000762939453,
+      "error_V1_ml": 1.0776128768920898,
+      "error_V2_ml": -0.049808502197265625,
+      "reason": "m167 at 10/1 DCM probes a strong ratio shift relative to observed m167 records and tests whether V2 responds more strongly than V1.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "6d00a25c0ca42a5cf2c1",
+      "pred_V1_ml": 5.536551475524902,
+      "pred_V2_ml": 15.663938522338867,
+      "source": "LLM",
+      "true_V1_ml": 4.625,
+      "true_V2_ml": 16.450000762939453,
+      "error_V1_ml": 0.9115514755249023,
+      "error_V2_ml": -0.7860622406005859,
+      "reason": "m167 at 5/1 DCM provides an intermediate point between observed 2/1 and 5/1 measurements while changing loading amount.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "b51b5dbcd2a38b174973",
+      "pred_V1_ml": 33.873199462890625,
+      "pred_V2_ml": 83.00363159179688,
+      "source": "LLM",
+      "true_V1_ml": 27.475000381469727,
+      "true_V2_ml": 65.40833282470703,
+      "error_V1_ml": 6.398199081420898,
+      "error_V2_ml": 17.595298767089844,
+      "reason": "m90 is a sparse heteroaromatic/ester tail case with very large predicted endpoints; its label can calibrate whether this tail is real and transferable.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "6f827d26c4f82a1bfa90",
+      "pred_V1_ml": 11.08169174194336,
+      "pred_V2_ml": 19.864274978637695,
+      "source": "LLM",
+      "true_V1_ml": 10.183333396911621,
+      "true_V2_ml": 20.933332443237305,
+      "error_V1_ml": 0.8983583450317383,
+      "error_V2_ml": -1.0690574645996094,
+      "reason": "A lower-ratio, larger-load m90 point tests whether the extreme prediction is driven by ratio, loading, or molecular representation.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "9a9b50816ec47f1cd755",
+      "pred_V1_ml": 5.1232075691223145,
+      "pred_V2_ml": 5.593062400817871,
+      "source": "LLM",
+      "true_V1_ml": 8.341666221618652,
+      "true_V2_ml": 15.941666603088379,
+      "error_V1_ml": -3.218458652496338,
+      "error_V2_ml": -10.348604202270508,
+      "reason": "m90 at 0/1 PE and lower loading anchors the tail probe at a weak-eluent condition and tests predicted endpoint contraction.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "fa64656d7b055dec7f56",
+      "pred_V1_ml": 7.0820183753967285,
+      "pred_V2_ml": 13.351777076721191,
+      "source": "LLM",
+      "true_V1_ml": 6.6583333015441895,
+      "true_V2_ml": 14.008333206176758,
+      "error_V1_ml": 0.42368507385253906,
+      "error_V2_ml": -0.6565561294555664,
+      "reason": "m105 has measured PE examples; this 10/1, 150 microlitre condition separates within-molecule response from chemical novelty.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "bc7f0f83b39a1ec3a79f",
+      "pred_V1_ml": 4.42098331451416,
+      "pred_V2_ml": 9.933141708374023,
+      "source": "LLM",
+      "true_V1_ml": 4.625,
+      "true_V2_ml": 8.125,
+      "error_V1_ml": -0.20401668548583984,
+      "error_V2_ml": 1.8081417083740234,
+      "reason": "m105 at 1/1 PE and lower loading supplies a matched contrast to the stronger-ratio, higher-loading m105 point.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "4ed0e95e81e3b84fa38d",
+      "pred_V1_ml": 5.334068298339844,
+      "pred_V2_ml": 8.004258155822754,
+      "source": "LLM",
+      "true_V1_ml": 4.820833206176758,
+      "true_V2_ml": 12.041666984558105,
+      "error_V1_ml": 0.5132350921630859,
+      "error_V2_ml": -4.037408828735352,
+      "reason": "m105 at 2/1 PE and 150 microlitres fills the intermediate ratio region while retaining measured chemical identity.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "e868755bce7658ed8227",
+      "pred_V1_ml": 7.084993362426758,
+      "pred_V2_ml": 13.336780548095703,
+      "source": "LLM",
+      "true_V1_ml": 6.6541666984558105,
+      "true_V2_ml": 12.962499618530273,
+      "error_V1_ml": 0.43082666397094727,
+      "error_V2_ml": 0.3742809295654297,
+      "reason": "m105 at 10/1 PE and 50 microlitres tests whether apparent loading effects persist when mobile-phase strength is held at the strong-ratio end.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "4c32851430464f0ed684",
+      "pred_V1_ml": 11.471831321716309,
+      "pred_V2_ml": 23.91045379638672,
+      "source": "LLM",
+      "true_V1_ml": 7.5,
+      "true_V2_ml": 20.46666717529297,
+      "error_V1_ml": 3.9718313217163086,
+      "error_V2_ml": 3.44378662109375,
+      "reason": "m125 is represented by measured high-volume records; this 1/1 DCM point probes reproducibility and condition sensitivity in a methoxy-rich aromatic aldehyde.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "c8d43713db33bf820a1d",
+      "pred_V1_ml": 31.386188507080078,
+      "pred_V2_ml": 65.158447265625,
+      "source": "LLM",
+      "true_V1_ml": 15.408333778381348,
+      "true_V2_ml": 29.58333396911621,
+      "error_V1_ml": 15.97785472869873,
+      "error_V2_ml": 35.57511329650879,
+      "reason": "m125 at 2/1 DCM supplies a stronger-eluent comparison to the 1/1 point and tests whether its broad predicted interval is condition dependent.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "e47aebe2660b9e1528de",
+      "pred_V1_ml": 25.72411346435547,
+      "pred_V2_ml": 51.0063591003418,
+      "source": "LLM",
+      "true_V1_ml": 53.41666793823242,
+      "true_V2_ml": 92.93333435058594,
+      "error_V1_ml": -27.692554473876953,
+      "error_V2_ml": -41.92697525024414,
+      "reason": "m216 is a sparse aza-aromatic class with broad predicted endpoints; it adds chemically distinct nitrogen-containing coverage without relying on a single analogue.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "6b5982c6e1bbaadd6a95",
+      "pred_V1_ml": 19.500123977661133,
+      "pred_V2_ml": 43.536930084228516,
+      "source": "LLM",
+      "true_V1_ml": 10.074999809265137,
+      "true_V2_ml": 23.95833396911621,
+      "error_V1_ml": 9.425124168395996,
+      "error_V2_ml": 19.578596115112305,
+      "reason": "m11 is a strongly polar oxime-like compound; this DCM point probes hydrogen bonding and acid-base interaction with silica.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "b4e0e9dc92fca2c88b90",
+      "pred_V1_ml": 22.555315017700195,
+      "pred_V2_ml": 45.581478118896484,
+      "source": "LLM",
+      "true_V1_ml": 40.58333206176758,
+      "true_V2_ml": 98.39167022705078,
+      "error_V1_ml": -18.028017044067383,
+      "error_V2_ml": -52.8101921081543,
+      "reason": "m160 combines an amino group and nitrile and is chemically distinct from the m161 diagnostic, helping test whether basic donor effects generalize.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "0b8c6c59ae5e24b420e5",
+      "pred_V1_ml": 21.50313949584961,
+      "pred_V2_ml": 40.30290222167969,
+      "source": "LLM",
+      "true_V1_ml": 26.266666412353516,
+      "true_V2_ml": 49.099998474121094,
+      "error_V1_ml": -4.763526916503906,
+      "error_V2_ml": -8.797096252441406,
+      "reason": "m208 is an iodophenol probe for strong silica hydrogen bonding and heavy-atom effects under a moderately strong PE ratio.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "1b4be0410f927930d56e",
+      "pred_V1_ml": 14.943400382995605,
+      "pred_V2_ml": 35.125247955322266,
+      "source": "LLM",
+      "true_V1_ml": 26.91666603088379,
+      "true_V2_ml": 53.891666412353516,
+      "error_V1_ml": -11.973265647888184,
+      "error_V2_ml": -18.76641845703125,
+      "reason": "m209 adds a phenol/trifluoroether motif and a PE condition, testing whether donor effects persist when polarity is distributed across ether functionality.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "5004f7ec0b1a4d127095",
+      "pred_V1_ml": 5.037693977355957,
+      "pred_V2_ml": 13.474259376525879,
+      "source": "LLM",
+      "true_V1_ml": 4.866666793823242,
+      "true_V2_ml": 8.916666984558105,
+      "error_V1_ml": 0.17102718353271484,
+      "error_V2_ml": 4.557592391967773,
+      "reason": "m152 is a halogenated, trifluoromethoxy-rich aromatic at unusual density; it probes density and heavy-atom representation outside common conditions.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "59e942d4a3b5dfc412a2",
+      "pred_V1_ml": 3.909019708633423,
+      "pred_V2_ml": 8.616933822631836,
+      "source": "LLM",
+      "true_V1_ml": 4.025000095367432,
+      "true_V2_ml": 11.916666984558105,
+      "error_V1_ml": -0.11598038673400879,
+      "error_V2_ml": -3.2997331619262695,
+      "reason": "m159 is a nitrile benzophenone with low similarity to observed records; it adds a distinct carbonyl/acceptor tail point while retaining a standard DCM setup.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "704ba630f25fe7f20166",
+      "pred_V1_ml": 15.099488258361816,
+      "pred_V2_ml": 24.306171417236328,
+      "source": "LLM",
+      "true_V1_ml": 11.987500190734863,
+      "true_V2_ml": 18.287500381469727,
+      "error_V1_ml": 3.111988067626953,
+      "error_V2_ml": 6.018671035766602,
+      "reason": "m174 at 30/1 PE and low loading tests a high predicted interval in a measured aldehyde/ketone-like family under a strong ratio.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "e84314bcd7ec5ba57283",
+      "pred_V1_ml": 5.003147602081299,
+      "pred_V2_ml": 13.795905113220215,
+      "source": "LLM",
+      "true_V1_ml": 4.525000095367432,
+      "true_V2_ml": 9.316666603088379,
+      "error_V1_ml": 0.4781475067138672,
+      "error_V2_ml": 4.479238510131836,
+      "reason": "m38 with a large loading-solvent volume probes injection-plug effects and unusually broad predicted V2 behavior.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "c28747d70e7b51a1cc95",
+      "pred_V1_ml": 24.362884521484375,
+      "pred_V2_ml": 61.29964828491211,
+      "source": "LLM",
+      "true_V1_ml": 36.891666412353516,
+      "true_V2_ml": 82.08333587646484,
+      "error_V1_ml": -12.52878189086914,
+      "error_V2_ml": -20.783687591552734,
+      "reason": "m193 at high loading-solvent volume is a nitrobenzaldehyde tail probe that tests whether broad V1/V2 predictions track polar silica interactions.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "b7880e59ff4586b29a28",
+      "pred_V1_ml": 8.457149505615234,
+      "pred_V2_ml": 17.69351577758789,
+      "source": "LLM",
+      "true_V1_ml": 6.616666793823242,
+      "true_V2_ml": 22.5,
+      "error_V1_ml": 1.8404827117919922,
+      "error_V2_ml": -4.806484222412109,
+      "reason": "m92 provides an EA condition close to measured m92 records, making it useful for separating EA-strength effects from loading and density effects.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "488f47950e5216c295df",
+      "pred_V1_ml": 4.790020942687988,
+      "pred_V2_ml": 8.492894172668457,
+      "source": "LLM",
+      "true_V1_ml": 5.099999904632568,
+      "true_V2_ml": 12.725000381469727,
+      "error_V1_ml": -0.3099789619445801,
+      "error_V2_ml": -4.2321062088012695,
+      "reason": "m151 is a dense halogenated aromatic under DCM and complements the m152 probe with a less polar structure and unusual density.",
+      "hypothesis_id": "H3"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Within a molecule, PE/EA ratio and loading amount produce separable, nonlinear changes in V1 and especially V2.",
+      "why_it_matters_for_model_learning": "The model sees many condition grids, but entangled chemistry and conditions can cause systematic interpolation errors. Matched curves improve condition-response representation across the Row distribution.",
+      "next_discriminating_question": "Do the m147 and m167 measurements follow a consistent ratio response after accounting for loading amount, and does V2 shift more than V1?",
+      "basis": "mixed",
+      "confidence": "medium",
+      "status": "supported",
+      "supporting_observed_ids": [
+        "8136e1c1c9734ab0048d",
+        "df7a5d9fbf36fc121de6"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H2",
+      "content": "Loading amount, loading-solvent volume, and loading solvent alter the injection zone enough to change endpoint location or interval width beyond mobile-phase strength alone.",
+      "why_it_matters_for_model_learning": "These variables are represented in the candidate features and can be confounded in training. Direct contrasts can improve both mean prediction and width-related endpoint behavior.",
+      "next_discriminating_question": "For measured or chemically repeated molecules, do changes in loading and loading solvent shift V1 and V2 coherently, or mainly alter V2 and interval width?",
+      "basis": "mixed",
+      "confidence": "low",
+      "status": "unresolved",
+      "supporting_observed_ids": [
+        "a8a8b4ab0ef68c063c29",
+        "c838aaaa480481570d39",
+        "6c1c34b12c66ebcf39a4",
+        "9768d61b571fc0c5ce1a"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H3",
+      "content": "Strong silica-interacting functional groups and sparse heteroaromatic classes create nonlinear V1/V2 behavior that is underrepresented by simple molecular similarity.",
+      "why_it_matters_for_model_learning": "Donors, basic nitrogens, multiple acceptors, and polar aromatic systems can create local errors that broad descriptor interpolation misses.",
+      "next_discriminating_question": "Do the selected donor-rich, basic, nitro, and aza-aromatic compounds show systematically displaced V1, V2, or interval widths relative to chemically similar nonpolar compounds?",
+      "basis": "mixed",
+      "confidence": "low",
+      "status": "unresolved",
+      "supporting_observed_ids": [
+        "0c24b9414856413c9a67",
+        "e12edd0198c0d750ecd5",
+        "6c1c34b12c66ebcf39a4",
+        "9bef8796fc48c4836e6b"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H4",
+      "content": "Reversed or otherwise incoherent predicted endpoint ordering reflects local model calibration or representation failures rather than a chromatographic response.",
+      "why_it_matters_for_model_learning": "If endpoint ordering failures recur, retraining should include a joint or constrained endpoint treatment rather than independent endpoint fits.",
+      "next_discriminating_question": "Are measured V2 values greater than V1 for the endpoint-anomaly candidates, and do their residual patterns resemble one another across chemotypes?",
+      "basis": "model_behavior",
+      "confidence": "medium",
+      "status": "proposed",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": []
+    }
+  ],
+  "feedback_interpretation": "This is round 0 with no previous real feedback, no prior hypotheses, and no premeasurement errors. Observed labels establish that condition dependence and broad V2 tails are real phenomena, but they do not establish universal causal trends. After measurement, compare the selected response curves against H1/H2, assess whether endpoint anomalies support H4, and use residuals from the sparse chemotypes to support, weaken, or reject H3.",
+  "batch_rationale": "There is no previous selected batch or measured follow-up in memory, so no earlier plan can be confirmed or revised from real feedback. The initial observed data do support condition dependence: m167 changes from V1/V2 5.60/12.30 at 2/1 to 5.80/15.11 at 5/1, while high-width examples such as m161, m92, and m131 show that V2 and interval behavior can be substantial. The batch therefore combines interpretable m147, m167, m90, and m105 condition curves with sparse polar, basic, aza-aromatic, halogenated, and high-volume probes. Repeated family members are retained only where they form a response curve or contrast a competing loading explanation.",
+  "chemistry_memo": {
+    "type": "memo",
+    "role": "chemistry_scientist",
+    "packet_sha256": "30aa8ee7e0ee6c5dc5e5cbe544df0c8db23282fd13c1482c521d0e19b5e3e039",
+    "state_summary": "Round 0; 333 measured records and 2,997 candidate records are supplied. There is no prior selection or feedback in memory, and no validation/test truth. The objective is Row-distribution V1/V2 accuracy, not chromatographic desirability.",
+    "important_observations": [
+      "Measured evidence: the observed pool spans many matched molecule/condition combinations, mostly PE or DCM and with varied PE/EA ratio, density, loading solvent, and loading amount. The only supplied EA examples are m92; avoid generalizing solvent effects from that narrow coverage.",
+      "Measured evidence: exact-condition repeats can differ substantially. For m167 in DCM at 50 \u00b5l loading, measured V1/V2 are 5.60/12.30 at 2/1 and 5.80/15.11 at 5/1. This is compatible with a ratio response, but does not establish a universal trend.",
+      "Measured evidence: high V1 or V2 values are present for multiple compounds and conditions (for example m75, m90, m125, m141, and m177). These are real labels, not evidence of poor chromatographic performance; their distributional value may be high.",
+      "Measured evidence: some compounds have substantial measured interval widths, including m131 (50/1, DCM, 150 \u00b5l: V1 5.46, V2 28.12) and m92 (5/1, EA, 150 \u00b5l: 7.14, 27.72). Width is V2\u2212V1, not uncertainty.",
+      "No measured candidate-pool prediction errors are available here. Candidate records supply predictions only; none should be described as confirmed misses or successes."
+    ],
+    "candidate_scientific_questions": [
+      "How well does the model capture same-molecule responses to PE/EA ratio and loading amount, separately from density and loading solvent? Matched or near-matched conditions are more diagnostic than another isolated analogue.",
+      "Does loading solvent (especially PE versus the more polar DCM) change early elution or interval width beyond the effects of loading amount and mobile-phase strength? This is an untested hypothesis; the injection plug can matter on silica.",
+      "Are compounds with HBDs or strongly coordinating groups\u2014phenols/alcohols, amines, oximes, acids, pyridines, and multiple carbonyls\u2014systematically difficult? Silica hydrogen bonding and acid\u2013base interactions provide a chemical prior, not a finding from this packet.",
+      "Do positional isomers and close analogues (e.g. the acetyl-substituted aromatic series, aminobenzoates, and halogenated benzaldehydes) reveal substituent or intramolecular hydrogen-bond effects the model misses?"
+    ],
+    "possible_model_blind_spots": [
+      "Chemical prior: polar/HBD compounds can interact strongly with silica, while EA increases normal-phase eluent strength relative to PE; DCM loading may also alter the injection zone. These effects are likely nonlinear and condition-dependent.",
+      "Candidate predictions include apparent endpoint-order anomalies, e.g. m13 candidate 81507d463506a9e65e73 predicts V1 6.72 and V2 5.15, and m80 candidate 3a095d378b537020c569 predicts 6.52 and 5.56. Treat these as model diagnostics to check against measurements, not chromatographic findings. Do not interpret V2\u2212V1 as predictive uncertainty.",
+      "Many supplied candidate rows are closely repeated across condition grids, and some prediction fields appear duplicated or irregular. Check row/column alignment and endpoint ordering rather than assuming every listed prediction is chemically coherent."
+    ],
+    "warnings": [
+      "The measured table is the sole source of measured evidence; candidate IDs carry predictions only. Do not infer truth from similarity scores, novelty fields, or prediction intervals.",
+      "Avoid treating nominal polarity, LogP, or functional-group counts as measured retention behavior. The observed labels show condition dependence, and loading amount/solvent may confound apparent molecular trends.",
+      "Do not infer retrained-model accuracy, validation performance, or a causal solvent/loading effect from this trajectory state alone."
+    ],
+    "particularly_informative_candidates": [
+      "81507d463506a9e65e73 (m13) and 3a095d378b537020c569 (m80): predicted endpoint ordering is reversed; useful for testing whether the issue is isolated or systematic.",
+      "53a1acffb08d6eaf3463 (m161): compare its unusual predicted endpoints with measured m161 behavior and nearby conditions; it is a diagnostic, not a presumed error.",
+      "Candidates for m147 across PE ratios and loading amounts, including 0ad8217c773fbf8f4344, 0fd4e9db5fde2aaf5a38, and 0ce058f3352048ed0171: potentially useful for separating molecule effects from condition response."
+    ]
+  },
+  "ml_memo": {
+    "type": "memo",
+    "role": "ml_scientist",
+    "packet_sha256": "94c12dc5bc0957bc342f97595668a76943076aacfcc424892a169b1acb17e840",
+    "state_summary": "Seed 157, round 0: 333 observed measurements and 2,997 legal candidates; no prior selection or feedback is recorded in memory. Observed records are initial measurements only. Candidate outcomes are predictions, not measured evidence.",
+    "important_model_behaviors": [
+      "Predicted V2 is generally above predicted V1, consistent with the measured records, where V2 also commonly exceeds V1. This is a broad pattern, not a guarantee for individual compounds.",
+      "Quantile widths vary widely: many ordinary candidates have moderate widths, while some polar, heteroaromatic, or otherwise distinctive structures and stronger/less common conditions have much wider intervals. Several V1 lower quantiles are zero, so width alone may partly reflect a floor or asymmetric uncertainty.",
+      "The prediction columns should not be treated as interchangeable: some records show prediction/quantile inconsistencies or unusual quantile behavior. Inspect individual columns rather than assuming the point prediction equals q50 or that intervals are calibrated."
+    ],
+    "possible_learning_bottlenecks": [
+      "Large retention volumes and V2 errors may be difficult to learn: measured examples include very high V2 values for several structurally and conditionally distinct cases (for example m90-like ester/heteroaromatic behavior is a candidate-model signal, not measured evidence here; measured examples include m31, m75, m90 is not measured). Such tails could dominate absolute error.",
+      "The observed set spans many chemotypes, but some potentially important interaction classes are sparse. ML/chemistry prior: basic nitrogen, hydrogen-bond donors/acceptors, acids, and strongly polar groups may interact nonlinearly with silica; whether these are actual error sources is unconfirmed by this seed\u2019s measured feedback.",
+      "Condition effects may be entangled with compound effects. Solvent composition, density, loading solvent, sample amount, and loading-solvent volume vary together in many rows, limiting causal attribution from observational coverage alone."
+    ],
+    "coverage_or_redundancy_concerns": [
+      "The pool contains many near-repeated molecule-condition combinations and small condition perturbations. Such candidates can help diagnose sensitivity or measurement noise, but groups of nearly identical points are redundant for generalization.",
+      "DCM and PE dominate the supplied measurements and pool; EA conditions are comparatively uncommon. The observed data include a broad range of solvent ratios and loading amounts, but extreme conditions and uncommon chemotypes should be interpreted as potential OOD regions rather than automatically high-value targets.",
+      "The observed set already includes broad chemical-space coverage across aromatic, halogenated, carbonyl, ester, and oxygen/nitrogen-containing compounds. Novelty can be useful, but isolated novelty without nearby coverage may yield limited Row-distribution benefit."
+    ],
+    "warnings": [
+      "No previous-batch rationale, selected IDs, premeasurement errors, or measured follow-up outcomes were supplied; there is no trajectory evidence to revise or affirm earlier hypotheses.",
+      "Quantile width, novelty, and predicted retention magnitude are model diagnostics/priors only. They are not observed error estimates, and extreme values may reflect extrapolation or model artifacts.",
+      "Some candidate rows appear duplicated or nearly duplicated in molecule and conditions. Deduplicate or group them when assessing information value; repeated measurements are useful chiefly when they resolve a specific ambiguity."
+    ],
+    "particularly_informative_candidates": [
+      {
+        "id": "e47aebe2660b9e1528de",
+        "reason": "Novel aza-aromatic chemotype with broad predicted intervals; could probe a sparsely supported chemical class, though its likely Row-distribution value is uncertain."
+      },
+      {
+        "id": "b51b5dbcd2a38b174973",
+        "reason": "Large predicted V1/V2 widths for m90 under DCM; useful as a diagnostic tail-region probe, but the extreme signal may be OOD and should not be valued on uncertainty alone."
+      },
+      {
+        "id": "fa64656d7b055dec7f56",
+        "reason": "m105 is represented in measured records, so this condition variant could help separate within-molecule condition sensitivity from chemical novelty."
+      },
+      {
+        "id": "8b06ec38fbb?",
+        "reason": "No candidate-specific repeated-measurement claim is made without a verified candidate ID; the pool has substantial near-duplicate structure that warrants redundancy control."
+      }
+    ]
+  },
+  "selected_plan": {
+    "type": "selection",
+    "packet_sha256": "443134c9c858645e5d0b5f79f47bf013f718cdadcd68639f651411b7205b1e11",
+    "expert_synthesis": {
+      "chemistry_takeaways": "Matched condition perturbations should separate mobile-phase strength, loading, density, and injection-solvent effects. Silica interactions from donors, acceptors, basic nitrogen, and strongly polar groups are plausible nonlinear sources of V1/V2 error. EA evidence is sparse and should be expanded cautiously.",
+      "ml_takeaways": "The candidate pool contains substantial near-duplicates, so repeated points should be selected only when they answer a response-curve question. Prediction widths and extreme predicted volumes are model diagnostics rather than measured error. Sparse chemical classes and tail regions merit targeted coverage, while isolated novelty has limited value without interpretable comparisons.",
+      "agreements": [
+        "Condition effects and chemical interactions are entangled and need matched or near-matched measurements.",
+        "A few diagnostic tail and endpoint-anomaly candidates are useful, but numerical uncertainty or novelty alone is insufficient."
+      ],
+      "disagreements": [
+        "The chemistry memo favors broader functional-group and positional-isomer probing; the ML memo places more weight on redundancy control and avoiding unstructured extrapolation.",
+        "The chemistry memo treats the reversed predicted endpoints as diagnostic candidates, whereas the ML memo cautions that unusual predictions may be artifacts."
+      ],
+      "planner_resolution": "Use structured response curves for m147, m167, m90, m105, and selected m125/m92 conditions, then spend the remaining capacity on chemically distinct sparse classes and interpretable tail probes. No fixed chemistry/ML quota is imposed."
+    },
+    "batch_strategy": "Select 32 legal candidates in four linked groups: condition-response grids, endpoint-order diagnostics, sparse silica-interaction chemotypes, and a small number of high-volume or high-width tail probes. The response grids are deliberately concentrated where a few labels can distinguish competing explanations; the broader probes reduce family redundancy and improve Row-distribution coverage.",
+    "choices": [
+      {
+        "id": "81507d463506a9e65e73",
+        "reason": "m13 has reversed predicted endpoint ordering; a direct label tests whether this is an isolated prediction artifact or a broader endpoint-calibration problem.",
+        "knowledge_basis": [
+          "machine_learning",
+          "chemistry"
+        ],
+        "hypothesis_id": "H4",
+        "related_hypothesis_id": "H4"
+      },
+      {
+        "id": "3a095d378b537020c569",
+        "reason": "Independent reversed-order diagnostic on m80 under PE; pairing it with m13 tests whether endpoint incoherence is chemistry-specific or systematic.",
+        "knowledge_basis": [
+          "machine_learning",
+          "chemistry"
+        ],
+        "hypothesis_id": "H4",
+        "related_hypothesis_id": "H4"
+      },
+      {
+        "id": "53a1acff30433cff819f",
+        "reason": "m161 is an amine/nitrile chemotype with an unusual predicted endpoint scale; it probes a sparse polar interaction regime under DCM.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": "H3",
+        "related_hypothesis_id": "H3"
+      },
+      {
+        "id": "0ad8217c773fbf8f4344",
+        "reason": "m147 at 10/1 PE provides one point on a ratio-response curve for a simple chlorinated aliphatic aromatic.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": "H1",
+        "related_hypothesis_id": "H1"
+      },
+      {
+        "id": "0fd4e9db5fde2aaf5a38",
+        "reason": "m147 at 0/1 PE anchors the weak-eluent end of the same condition family and helps identify nonlinear ratio effects.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": "H1",
+        "related_hypothesis_id": "H1"
+      },
+      {
+        "id": "0ce058f3352048ed0171",
+        "reason": "m147 at 20/1 PE extends the same curve toward stronger elution and distinguishes monotonic response from model saturation.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": "H1",
+        "related_hypothesis_id": "H1"
+      },
+      {
+        "id": "90dad8978308baf20b08",
+        "reason": "m147 at 2/1 PE with a larger loading amount connects solvent-ratio response to loading sensitivity.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": "H1",
+        "related_hypothesis_id": "H1"
+      },
+      {
+        "id": "d0836ca48b1b333388a4",
+        "reason": "Near the m147 2/1 condition at a different amount, this gives a within-molecule loading comparison with minimal structural confounding.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": "H2",
+        "related_hypothesis_id": "H2"
+      },
+      {
+        "id": "d1e6e925623ba4b6810b",
+        "reason": "m167 at 2/1 DCM and 150 microlitres extends the observed m167 ratio point to a different load and tests separability of amount and ratio effects.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": "H1",
+        "related_hypothesis_id": "H1"
+      },
+      {
+        "id": "25dd969086d07da70d74",
+        "reason": "m167 at 10/1 DCM probes a strong ratio shift relative to observed m167 records and tests whether V2 responds more strongly than V1.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": "H1",
+        "related_hypothesis_id": "H1"
+      },
+      {
+        "id": "6d00a25c0ca42a5cf2c1",
+        "reason": "m167 at 5/1 DCM provides an intermediate point between observed 2/1 and 5/1 measurements while changing loading amount.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": "H1",
+        "related_hypothesis_id": "H1"
+      },
+      {
+        "id": "b51b5dbcd2a38b174973",
+        "reason": "m90 is a sparse heteroaromatic/ester tail case with very large predicted endpoints; its label can calibrate whether this tail is real and transferable.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": "H3",
+        "related_hypothesis_id": "H3"
+      },
+      {
+        "id": "6f827d26c4f82a1bfa90",
+        "reason": "A lower-ratio, larger-load m90 point tests whether the extreme prediction is driven by ratio, loading, or molecular representation.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": "H2",
+        "related_hypothesis_id": "H2"
+      },
+      {
+        "id": "9a9b50816ec47f1cd755",
+        "reason": "m90 at 0/1 PE and lower loading anchors the tail probe at a weak-eluent condition and tests predicted endpoint contraction.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": "H2",
+        "related_hypothesis_id": "H2"
+      },
+      {
+        "id": "fa64656d7b055dec7f56",
+        "reason": "m105 has measured PE examples; this 10/1, 150 microlitre condition separates within-molecule response from chemical novelty.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": "H2",
+        "related_hypothesis_id": "H2"
+      },
+      {
+        "id": "bc7f0f83b39a1ec3a79f",
+        "reason": "m105 at 1/1 PE and lower loading supplies a matched contrast to the stronger-ratio, higher-loading m105 point.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": "H2",
+        "related_hypothesis_id": "H2"
+      },
+      {
+        "id": "4ed0e95e81e3b84fa38d",
+        "reason": "m105 at 2/1 PE and 150 microlitres fills the intermediate ratio region while retaining measured chemical identity.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": "H2",
+        "related_hypothesis_id": "H2"
+      },
+      {
+        "id": "e868755bce7658ed8227",
+        "reason": "m105 at 10/1 PE and 50 microlitres tests whether apparent loading effects persist when mobile-phase strength is held at the strong-ratio end.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": "H2",
+        "related_hypothesis_id": "H2"
+      },
+      {
+        "id": "4c32851430464f0ed684",
+        "reason": "m125 is represented by measured high-volume records; this 1/1 DCM point probes reproducibility and condition sensitivity in a methoxy-rich aromatic aldehyde.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": "H3",
+        "related_hypothesis_id": "H3"
+      },
+      {
+        "id": "c8d43713db33bf820a1d",
+        "reason": "m125 at 2/1 DCM supplies a stronger-eluent comparison to the 1/1 point and tests whether its broad predicted interval is condition dependent.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": "H1",
+        "related_hypothesis_id": "H1"
+      },
+      {
+        "id": "e47aebe2660b9e1528de",
+        "reason": "m216 is a sparse aza-aromatic class with broad predicted endpoints; it adds chemically distinct nitrogen-containing coverage without relying on a single analogue.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": "H3",
+        "related_hypothesis_id": "H3"
+      },
+      {
+        "id": "6b5982c6e1bbaadd6a95",
+        "reason": "m11 is a strongly polar oxime-like compound; this DCM point probes hydrogen bonding and acid-base interaction with silica.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": "H3",
+        "related_hypothesis_id": "H3"
+      },
+      {
+        "id": "b4e0e9dc92fca2c88b90",
+        "reason": "m160 combines an amino group and nitrile and is chemically distinct from the m161 diagnostic, helping test whether basic donor effects generalize.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": "H3",
+        "related_hypothesis_id": "H3"
+      },
+      {
+        "id": "0b8c6c59ae5e24b420e5",
+        "reason": "m208 is an iodophenol probe for strong silica hydrogen bonding and heavy-atom effects under a moderately strong PE ratio.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": "H3",
+        "related_hypothesis_id": "H3"
+      },
+      {
+        "id": "1b4be0410f927930d56e",
+        "reason": "m209 adds a phenol/trifluoroether motif and a PE condition, testing whether donor effects persist when polarity is distributed across ether functionality.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": "H3",
+        "related_hypothesis_id": "H3"
+      },
+      {
+        "id": "5004f7ec0b1a4d127095",
+        "reason": "m152 is a halogenated, trifluoromethoxy-rich aromatic at unusual density; it probes density and heavy-atom representation outside common conditions.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": "H3",
+        "related_hypothesis_id": "H3"
+      },
+      {
+        "id": "59e942d4a3b5dfc412a2",
+        "reason": "m159 is a nitrile benzophenone with low similarity to observed records; it adds a distinct carbonyl/acceptor tail point while retaining a standard DCM setup.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": "H3",
+        "related_hypothesis_id": "H3"
+      },
+      {
+        "id": "704ba630f25fe7f20166",
+        "reason": "m174 at 30/1 PE and low loading tests a high predicted interval in a measured aldehyde/ketone-like family under a strong ratio.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": "H2",
+        "related_hypothesis_id": "H2"
+      },
+      {
+        "id": "e84314bcd7ec5ba57283",
+        "reason": "m38 with a large loading-solvent volume probes injection-plug effects and unusually broad predicted V2 behavior.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": "H2",
+        "related_hypothesis_id": "H2"
+      },
+      {
+        "id": "c28747d70e7b51a1cc95",
+        "reason": "m193 at high loading-solvent volume is a nitrobenzaldehyde tail probe that tests whether broad V1/V2 predictions track polar silica interactions.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": "H3",
+        "related_hypothesis_id": "H3"
+      },
+      {
+        "id": "b7880e59ff4586b29a28",
+        "reason": "m92 provides an EA condition close to measured m92 records, making it useful for separating EA-strength effects from loading and density effects.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": "H2",
+        "related_hypothesis_id": "H2"
+      },
+      {
+        "id": "488f47950e5216c295df",
+        "reason": "m151 is a dense halogenated aromatic under DCM and complements the m152 probe with a less polar structure and unusual density.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": "H3",
+        "related_hypothesis_id": "H3"
+      }
+    ],
+    "hypotheses": [
+      {
+        "id": "H1",
+        "content": "Within a molecule, PE/EA ratio and loading amount produce separable, nonlinear changes in V1 and especially V2.",
+        "why_it_matters_for_model_learning": "The model sees many condition grids, but entangled chemistry and conditions can cause systematic interpolation errors. Matched curves improve condition-response representation across the Row distribution.",
+        "next_discriminating_question": "Do the m147 and m167 measurements follow a consistent ratio response after accounting for loading amount, and does V2 shift more than V1?",
+        "basis": "mixed",
+        "confidence": "medium",
+        "status": "supported",
+        "supporting_observed_ids": [
+          "8136e1c1c9734ab0048d",
+          "df7a5d9fbf36fc121de6"
+        ],
+        "contradicting_observed_ids": []
+      },
+      {
+        "id": "H2",
+        "content": "Loading amount, loading-solvent volume, and loading solvent alter the injection zone enough to change endpoint location or interval width beyond mobile-phase strength alone.",
+        "why_it_matters_for_model_learning": "These variables are represented in the candidate features and can be confounded in training. Direct contrasts can improve both mean prediction and width-related endpoint behavior.",
+        "next_discriminating_question": "For measured or chemically repeated molecules, do changes in loading and loading solvent shift V1 and V2 coherently, or mainly alter V2 and interval width?",
+        "basis": "mixed",
+        "confidence": "low",
+        "status": "unresolved",
+        "supporting_observed_ids": [
+          "a8a8b4ab0ef68c063c29",
+          "c838aaaa480481570d39",
+          "6c1c34b12c66ebcf39a4",
+          "9768d61b571fc0c5ce1a"
+        ],
+        "contradicting_observed_ids": []
+      },
+      {
+        "id": "H3",
+        "content": "Strong silica-interacting functional groups and sparse heteroaromatic classes create nonlinear V1/V2 behavior that is underrepresented by simple molecular similarity.",
+        "why_it_matters_for_model_learning": "Donors, basic nitrogens, multiple acceptors, and polar aromatic systems can create local errors that broad descriptor interpolation misses.",
+        "next_discriminating_question": "Do the selected donor-rich, basic, nitro, and aza-aromatic compounds show systematically displaced V1, V2, or interval widths relative to chemically similar nonpolar compounds?",
+        "basis": "mixed",
+        "confidence": "low",
+        "status": "unresolved",
+        "supporting_observed_ids": [
+          "0c24b9414856413c9a67",
+          "e12edd0198c0d750ecd5",
+          "6c1c34b12c66ebcf39a4",
+          "9bef8796fc48c4836e6b"
+        ],
+        "contradicting_observed_ids": []
+      },
+      {
+        "id": "H4",
+        "content": "Reversed or otherwise incoherent predicted endpoint ordering reflects local model calibration or representation failures rather than a chromatographic response.",
+        "why_it_matters_for_model_learning": "If endpoint ordering failures recur, retraining should include a joint or constrained endpoint treatment rather than independent endpoint fits.",
+        "next_discriminating_question": "Are measured V2 values greater than V1 for the endpoint-anomaly candidates, and do their residual patterns resemble one another across chemotypes?",
+        "basis": "model_behavior",
+        "confidence": "medium",
+        "status": "proposed",
+        "supporting_observed_ids": [],
+        "contradicting_observed_ids": []
+      }
+    ],
+    "batch_rationale": "There is no previous selected batch or measured follow-up in memory, so no earlier plan can be confirmed or revised from real feedback. The initial observed data do support condition dependence: m167 changes from V1/V2 5.60/12.30 at 2/1 to 5.80/15.11 at 5/1, while high-width examples such as m161, m92, and m131 show that V2 and interval behavior can be substantial. The batch therefore combines interpretable m147, m167, m90, and m105 condition curves with sparse polar, basic, aza-aromatic, halogenated, and high-volume probes. Repeated family members are retained only where they form a response curve or contrast a competing loading explanation.",
+    "expected_learning_value": "Highest expected value comes from the m147 and m167 condition curves, the m105 within-molecule contrasts, and the two reversed-endpoint diagnostics. The sparse functional-group probes should improve local generalization for silica-interacting chemistry, while the m90, m125, m174, m193, and m38 tail cases test whether broad or extreme predictions correspond to real Row-distribution behavior. The batch intentionally avoids treating quantile width as observed uncertainty or selecting a large number of nearly identical rows.",
+    "feedback_interpretation": "This is round 0 with no previous real feedback, no prior hypotheses, and no premeasurement errors. Observed labels establish that condition dependence and broad V2 tails are real phenomena, but they do not establish universal causal trends. After measurement, compare the selected response curves against H1/H2, assess whether endpoint anomalies support H4, and use residuals from the sparse chemotypes to support, weaken, or reject H3."
+  },
+  "expert_synthesis": {
+    "chemistry_takeaways": "Matched condition perturbations should separate mobile-phase strength, loading, density, and injection-solvent effects. Silica interactions from donors, acceptors, basic nitrogen, and strongly polar groups are plausible nonlinear sources of V1/V2 error. EA evidence is sparse and should be expanded cautiously.",
+    "ml_takeaways": "The candidate pool contains substantial near-duplicates, so repeated points should be selected only when they answer a response-curve question. Prediction widths and extreme predicted volumes are model diagnostics rather than measured error. Sparse chemical classes and tail regions merit targeted coverage, while isolated novelty has limited value without interpretable comparisons.",
+    "agreements": [
+      "Condition effects and chemical interactions are entangled and need matched or near-matched measurements.",
+      "A few diagnostic tail and endpoint-anomaly candidates are useful, but numerical uncertainty or novelty alone is insufficient."
+    ],
+    "disagreements": [
+      "The chemistry memo favors broader functional-group and positional-isomer probing; the ML memo places more weight on redundancy control and avoiding unstructured extrapolation.",
+      "The chemistry memo treats the reversed predicted endpoints as diagnostic candidates, whereas the ML memo cautions that unusual predictions may be artifacts."
+    ],
+    "planner_resolution": "Use structured response curves for m147, m167, m90, m105, and selected m125/m92 conditions, then spend the remaining capacity on chemically distinct sparse classes and interpretable tail probes. No fixed chemistry/ML quota is imposed."
+  },
+  "batch_strategy": "Select 32 legal candidates in four linked groups: condition-response grids, endpoint-order diagnostics, sparse silica-interaction chemotypes, and a small number of high-volume or high-width tail probes. The response grids are deliberately concentrated where a few labels can distinguish competing explanations; the broader probes reduce family redundancy and improve Row-distribution coverage.",
+  "expected_learning_value": "Highest expected value comes from the m147 and m167 condition curves, the m105 within-molecule contrasts, and the two reversed-endpoint diagnostics. The sparse functional-group probes should improve local generalization for silica-interacting chemistry, while the m90, m125, m174, m193, and m38 tail cases test whether broad or extreme predictions correspond to real Row-distribution behavior. The batch intentionally avoids treating quantile width as observed uncertainty or selecting a large number of nearly identical rows."
+}

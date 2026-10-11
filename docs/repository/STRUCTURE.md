@@ -27,9 +27,10 @@ It tracks `guoscfish/column_chromatography_prediction` and uses `main` as the in
 line. A worktree is a second checkout of the same Git repository, not a second project; remove it
 after its branch is merged or explicitly archived.
 
-Use one branch per independent, reviewable study. When its commits are integrated and no worktree
-uses it, delete the redundant branch. Retain an immutable tag when a result still needs a distinct
-recovery point. Generated `runtime/` directories are local scratch space and must remain ignored.
+Continue routine maintenance and result publication on `main`; reuse an existing study branch
+when isolation is necessary. Avoid a new branch for each recovery or report revision. When commits
+are integrated and no worktree uses the branch, remove the redundant branch. Frozen results use
+protocol hashes and recorded commits for recovery. Generated `runtime/` directories are local scratch space and must remain ignored.
 
 ## Runtime and retirement
 

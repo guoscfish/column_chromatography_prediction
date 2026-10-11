@@ -1,0 +1,244 @@
+{
+  "reason": "expert_synthesis accepts nonempty text or nonempty lists of text points; original content and IDs are preserved",
+  "prior_revision": "full_pool_feedback_isolated_20261010",
+  "new_revision": "full_pool_feedback_schema_20261011",
+  "copied_response_hashes": {
+    "full_pool_feedback_isolated_20261010/selections/seed_157/free_llm32_dual_expert_v1/round_00/agents/chemistry_scientist/turn_00.json": "619c91e54815206995adbd321d6568f664299a9db24e6bd09ff9a8f14d19121a",
+    "full_pool_feedback_isolated_20261010/selections/seed_157/free_llm32_dual_expert_v1/round_00/agents/chemistry_scientist/turn_00.started.json": "c7fd2adec03940afe2af1e2a43e9e4df2660c7c144a8258e814e31a393257270",
+    "full_pool_feedback_isolated_20261010/selections/seed_157/free_llm32_dual_expert_v1/round_00/agents/chemistry_scientist/memo.json": "968879ffac8072522c9a486e20360c24c77ce4348d2b61c6ec58ed88ff20840a",
+    "full_pool_feedback_isolated_20261010/selections/seed_157/free_llm32_dual_expert_v1/round_00/agents/ml_scientist/turn_00.json": "6d6d78e40470ec9e39d00e33e56934baa4109a47e2358b49693f113d2adca3ae",
+    "full_pool_feedback_isolated_20261010/selections/seed_157/free_llm32_dual_expert_v1/round_00/agents/ml_scientist/turn_00.started.json": "56daa0caafd0e47f5b6cd5a555d2cd1950edc1a22249f55d9ea368a48db13e80",
+    "full_pool_feedback_isolated_20261010/selections/seed_157/free_llm32_dual_expert_v1/round_00/agents/ml_scientist/memo.json": "a23b28b70c13ff7d5b07885efda1560e1b0afcb1a047b596ee2ed4a4c869c1d7",
+    "full_pool_feedback_isolated_20261010/selections/seed_157/free_llm32_dual_expert_v1/round_00/agents/scientific_planner/turn_00.json": "5306e617ea40266434975507fc17350e1843d33b5c353fc38e72d184413a0945",
+    "full_pool_feedback_isolated_20261010/selections/seed_157/free_llm32_dual_expert_v1/round_00/agents/scientific_planner/turn_00.started.json": "3bde209a16929d13a6f5d5d20ffcdf2bfaee9c8becaf522b99ac44419d3e394c"
+  },
+  "selection_rule": "earliest valid planner answer under the corrected schema, before any label reveal",
+  "new_labels_revealed_before_migration": 0,
+  "extra_failed_format_calls": [
+    {
+      "path": "full_pool_feedback_isolated_20261010/selections/seed_157/free_llm32_dual_expert_v1/round_00/agents/scientific_planner/turn_01.json",
+      "sha256": "1b26d3e57937ad5b5af37a335792cca8e13f4ba15883e779f4bdb6d547c954ec",
+      "provenance": {
+        "response_id": "resp_0271e3f36cc55e3f016acadc218a3c819498c52630dae0c7bd",
+        "served_model": "gpt-6-astra",
+        "usage": {
+          "input_tokens": 459919,
+          "input_tokens_details": {
+            "cached_tokens": 455424,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 3425,
+          "output_tokens_details": {
+            "reasoning_tokens": 516
+          },
+          "total_tokens": 463344,
+          "attribution": {
+            "items": {
+              "msg_0271e3f36cc55e3f016acadc218b54819483ebfcaab213b4a6": {
+                "input_tokens": 451285,
+                "cached_tokens": 450623,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 451285,
+                    "cached_tokens": 450623,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_0271e3f36cc55e3f016acadc218b5481949366741e32a343ee": {
+                "input_tokens": 3789,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 3789,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_0271e3f36cc55e3f016acadc218b548194a128a860d0bfc78f": {
+                "input_tokens": 42,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 42,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_0271e3f36cc55e3f016acadc2c4d008194968978ec5865d882": {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 2909,
+                "content": [
+                  {
+                    "input_tokens": 0,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 2909
+                  }
+                ]
+              },
+              "rs_0271e3f36cc55e3f016acadc2c14b881948273825c39a3210a": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 516
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 4801,
+                "cached_tokens": 4801,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "native_tool_calls": 0
+      }
+    },
+    {
+      "path": "full_pool_feedback_isolated_20261010/selections/seed_157/free_llm32_dual_expert_v1/round_00/agents/scientific_planner/turn_02.json",
+      "sha256": "141474903bdff19c46c688c3b7f2ac339c46576e9be19c0558a6c452d8d540b5",
+      "provenance": {
+        "response_id": "resp_04dc69bd0f990c75016acadc5a51988195a157d1b8d06faa55",
+        "served_model": "gpt-6-astra",
+        "usage": {
+          "input_tokens": 462870,
+          "input_tokens_details": {
+            "cached_tokens": 459520,
+            "cache_write_tokens": 0
+          },
+          "output_tokens": 4288,
+          "output_tokens_details": {
+            "reasoning_tokens": 635
+          },
+          "total_tokens": 467158,
+          "attribution": {
+            "items": {
+              "msg_04dc69bd0f990c75016acadc5a521081958b2ff14c619ec627": {
+                "input_tokens": 42,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 42,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_04dc69bd0f990c75016acadc5a521081959fbea56221f7c4e4": {
+                "input_tokens": 2909,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 2909,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_04dc69bd0f990c75016acadc5a52108195a7dbf9b86a43efb9": {
+                "input_tokens": 451285,
+                "cached_tokens": 451285,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 451285,
+                    "cached_tokens": 451285,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_04dc69bd0f990c75016acadc5a52108195ae98ae7ecc7a0aad": {
+                "input_tokens": 42,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 42,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_04dc69bd0f990c75016acadc5a52108195b6531c46f65edff7": {
+                "input_tokens": 3789,
+                "cached_tokens": 3434,
+                "cache_write_tokens": 0,
+                "output_tokens": 0,
+                "content": [
+                  {
+                    "input_tokens": 3789,
+                    "cached_tokens": 3434,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 0
+                  }
+                ]
+              },
+              "msg_04dc69bd0f990c75016acadc68fba08195ae6bf5a93ef86d34": {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 3653,
+                "content": [
+                  {
+                    "input_tokens": 0,
+                    "cached_tokens": 0,
+                    "cache_write_tokens": 0,
+                    "output_tokens": 3653
+                  }
+                ]
+              },
+              "rs_04dc69bd0f990c75016acadc65f5c881959f68098e8482d5c9": {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 516
+              },
+              "rs_04dc69bd0f990c75016acadc68dbc08195b3490350eb77f8db": {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 119
+              }
+            },
+            "request_fields": {
+              "instructions": {
+                "input_tokens": 4801,
+                "cached_tokens": 4801,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            }
+          }
+        },
+        "native_tool_calls": 0
+      }
+    }
+  ],
+  "tests_passed": 72
+}

@@ -267,6 +267,17 @@ def test_clean_checkpoint_contract_is_complete_and_validated(tmp_path: Path) -> 
         validate_clean_checkpoint(payload)
 
 
+def _navigation_targets(text: str) -> list[str]:
+    # Chemical SMILES such as [N+](=O) in fenced JSON are not Markdown links.
+    prose = re.sub(r"(?ms)^```[^\n]*\n.*?^```[ \t]*$", "", text)
+    return re.findall(r"\[[^]]+\]\(([^)]+)\)", prose)
+
+
+def test_navigation_parser_distinguishes_fenced_smiles_from_links() -> None:
+    text = '[report](REPORT.md)\n```json\n{"smiles": "[N+](=O)[O-]"}\n```\n'
+    assert _navigation_targets(text) == ["REPORT.md"]
+
+
 def test_navigation_links_resolve_and_benchmark_remains_preregistration_only() -> None:
     markdown_files = [ROOT / "README.md", ROOT / "docs/README.md", ROOT / "studies/README.md"]
     markdown_files.extend((ROOT / "docs/model").glob("*.md"))
@@ -276,10 +287,9 @@ def test_navigation_links_resolve_and_benchmark_remains_preregistration_only() -
     markdown_files.extend((ROOT / "studies/predictor").rglob("*.md"))
     markdown_files.extend((ROOT / "studies/transfer").rglob("*.md"))
     markdown_files.extend((ROOT / "studies/active_learning").rglob("*.md"))
-    pattern = re.compile(r"\[[^]]+\]\(([^)]+)\)")
     missing = []
     for markdown in markdown_files:
-        for target in pattern.findall(markdown.read_text()):
+        for target in _navigation_targets(markdown.read_text()):
             if "://" in target or target.startswith("#"):
                 continue
             path = (markdown.parent / target.split("#", 1)[0]).resolve()

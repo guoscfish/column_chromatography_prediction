@@ -1,0 +1,41 @@
+{
+  "status": "BLOCKED_PROVIDER_DAILY_LIMIT",
+  "requested_seed": 157,
+  "requested_rounds": 2,
+  "budgets": [
+    333,
+    365,
+    397
+  ],
+  "failed_requests": [
+    {
+      "path": "selections/seed_157/free_llm32_dual_expert_v1/round_00/agents/chemistry_scientist/retries/turn_00/attempt_01.json",
+      "request_sha256": "85db9b69b6710dc25049927f503c799b2df60271f89244b60e8ab8b9413052aa",
+      "attempt": 1,
+      "error_type": "RateLimitError",
+      "message": "Error code: 429 - {'code': 'USAGE_LIMIT_EXCEEDED', 'message': 'error: code=429 reason=\"DAILY_LIMIT_EXCEEDED\" message=\"daily usage limit exceeded\" metadata=map[]'}"
+    },
+    {
+      "path": "selections/seed_157/free_llm32_dual_expert_v1/round_00/agents/chemistry_scientist/retries/turn_00/attempt_02.json",
+      "request_sha256": "85db9b69b6710dc25049927f503c799b2df60271f89244b60e8ab8b9413052aa",
+      "attempt": 2,
+      "error_type": "RateLimitError",
+      "message": "Error code: 429 - {'code': 'USAGE_LIMIT_EXCEEDED', 'message': 'error: code=429 reason=\"DAILY_LIMIT_EXCEEDED\" message=\"daily usage limit exceeded\" metadata=map[]'}"
+    },
+    {
+      "path": "selections/seed_157/free_llm32_dual_expert_v1/round_00/agents/chemistry_scientist/retries/turn_00/attempt_03.json",
+      "request_sha256": "85db9b69b6710dc25049927f503c799b2df60271f89244b60e8ab8b9413052aa",
+      "attempt": 3,
+      "error_type": "RateLimitError",
+      "message": "Error code: 429 - {'code': 'USAGE_LIMIT_EXCEEDED', 'message': 'error: code=429 reason=\"DAILY_LIMIT_EXCEEDED\" message=\"daily usage limit exceeded\" metadata=map[]'}"
+    }
+  ],
+  "accepted_model_answers": 0,
+  "completed_new_batches": 0,
+  "completed_new_fits": 0,
+  "new_labels_revealed": 0,
+  "test_truth_access_count": 0,
+  "effect_evaluation": "NOT_AVAILABLE",
+  "resume_command": "/Users/fish/miniforge3/envs/fish/bin/python scripts/studies/run_qgeognn_v2_row_llm_dual_expert.py run --seed 157 --rounds 2",
+  "tests_passed": 64
+}

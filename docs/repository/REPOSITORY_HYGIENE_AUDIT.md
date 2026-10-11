@@ -1,43 +1,56 @@
 # Repository cleanup status
 
-Updated 2026-09-18. This page records repository maintenance; scientific results remain in their study reports.
+Updated 2026-10-11. Scientific measurements remain in study reports; the [latest validation snapshot](../../reports/active_learning_latest/REPORT.md) is the current results entrypoint.
 
-## Completed file cleanup
+## Current maintenance
 
-- Retired 34 completed one-off runners with no remaining import consumers. The conditional-scaling runner remains because a frozen protocol still verifies its exact source hash.
-- Consolidated 11 superseded project plans and duplicate navigation/policy pages.
-- Rewrote the project and topic indexes around qualified V2, current 4g active learning, and completed transfer evidence.
-- Preserved all scientific result trees, raw/canonical data, splits, protected anchors, source checkpoints and active runtime.
-- Preserved the ongoing uncommitted batch-adaptivity/efficiency work and its code paths.
+- Integrate the existing CW branch and latest LLM/dual-expert results into `main`, with no new branch. The remote previously lacked 18 CW commits; publication includes them and the new records.
+- Consolidate conflicting project status into `docs/NEXT_STAGE_DECISION.md`. Remove obsolete blocked/recovery descriptions from current navigation; retain original dated receipts.
+- Update the Scientist V2, dual-expert, active-learning, script and code indexes. Batch/adaptivity is completed; V3.2 stopped at 365, and its original 525 target is not a result.
+- Replace two untracked report-local plotting scripts with `scripts/report_active_learning_snapshot.py`. One entrypoint collects completed validation fits or redraws a retained snapshot without runtime.
+- Untrack 132 historical runtime JSON receipts (2,000,963 bytes). Original local paths remain untouched. A verified byte-exact metadata archive, per-file SHA-256 manifest and 18 readable fit audits remain in the Scientist V2 study. See [manifest](../../studies/active_learning/qgeognn_v2_row_llm_scientist_v2/historical_runtime_manifest.json); the metadata recovery commit is `caa07e8b5317afe31934280efcab63d8e2b4ee95`.
+- Ignore new console `.log` files under studies. Structured status, correction/cost receipts, measured feedback, protocols and result summaries remain versioned. Previously tracked logs are historical evidence and retain their paths.
+- Preserve protected data/checkpoints, active runtime, sealed source hashes and all original scientific results. Frozen Scientist V2 lifecycle code and parameterized dual-expert lifecycle code deliberately coexist; changing their relationship during a sealed run would break provenance.
 
-[RETIREMENTS.json](RETIREMENTS.json) is the exact file ledger: original path, SHA-256, size, line count, retained evidence and recovery commit. The source snapshot is `0e7b2ee940e3f71c6dbc7400c420694855eec597`. For reproduction, use the complete code at that revision and its recorded environment, not an isolated old script in a new pipeline.
+## Branches and worktrees
 
-The earlier paper-runtime cleanup remains recoverable at tag `archive/pre-matched-rmse-cleanup-2026-09-08`. Its 20-run scalar summary and compact artifact manifest remain in `studies/transfer/paper_transfer_reproduction/`.
+`main` owns integrated research and routine maintenance. The old local
+`codex/cw-geometry-feedback` and `codex/llm-scientist-dual-expert-v1` refs can be
+removed after integration; neither needs a new remote branch. The old dual-expert
+worktree was removed after verifying that the current process runs in the canonical
+checkout. Its differing legacy files were backed up outside this repository.
 
-## Branch disposition
+The V3/V3.2 worktrees remain attached to existing chats; their integrated branch
+refs are kept until those checkouts are intentionally retired. No remote worktree
+branch or Git history is rewritten.
 
-| Branch | Disposition |
-| --- | --- |
-| `main` | Keep as integrated baseline |
-| `codex/4g-evaluation-adaptivity` | Merged into `main` after the batch-adaptivity work was integrated |
-| `exp/qgeognn-v2-4g-row-al` | Merged into `main`; local and remote duplicate refs removed |
-| `research/matched-rmse-benchmark-cleanup` | Deleted local and remote refs at `ae4b6d4`, already contained in `origin/main` (0 unique commits; main was 31 commits ahead) |
-| `exp/qgeognn-v2-4g-al-innovation-screen` | Merged into `main`; its worktree was removed after integration |
-| `exp/qgeognn-v2-4g-cw-lcmd-performance` | Keep: separate worktree with additional CW evidence |
+## Historical cleanup and recovery
 
-No history rewrite or forced merge is needed. The remaining CW performance branch is retained as a
-separate evidence line; integrated branches are removed only after their worktree is gone.
+The earlier cleanup retired 34 completed one-off runners and consolidated 11
+superseded plans/navigation pages. [RETIREMENTS.json](RETIREMENTS.json) records
+original paths, hashes, retained results and recovery commit
+`0e7b2ee940e3f71c6dbc7400c420694855eec597`.
+The paper-runtime cleanup remains recoverable at
+`archive/pre-matched-rmse-cleanup-2026-09-08`.
+[The October 5 record](CLEANUP_20261005.md) describes that earlier integration;
+its draft dual-expert status and worktree inventory are historical.
 
-## Checks
+## Verification
 
 ```bash
+KMP_DUPLICATE_LIB_OK=TRUE /Users/fish/miniforge3/envs/fish/bin/python -m pytest -q
 python3 scripts/audit_repository_hygiene.py
-KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish pytest -q
 git diff --check
 ```
 
-The dependency audit covers import consumers and literal code references, including uncommitted Python files. Retirement checks verify Git recovery hashes and retained records. Scientific-boundary checks verify the frozen source, schedule, data and existing result manifests.
+The first targeted check found the 132 tracked runtime files despite the ignore
+rule; consolidation fixes the repository contract while preserving their exact
+metadata. Snapshot publication checks freeze/checkpoint hashes, conflicting
+same-budget metrics, finite validation values and zero test labels used for fitting.
 
-Validation on 2026-09-19: the full suite ran 570 tests and all passed. Retirement recovery, protected anchors, the active-experiment sealed files and `git diff --check` passed. Remote inspection confirmed the integrated main line and the removal of the merged cleanup refs.
-
-Large ignored runtime is intentionally retained: the final source checkpoint and current AL study depend on it. This cleanup reduces maintained code and conflicting documentation; it does not claim to reclaim historical Git objects or all local training storage.
+Validation on 2026-10-11: the full regression run passed 1053 tests and found one
+pre-existing navigation-parser false positive on fenced SMILES. After fixing the
+parser (without changing the frozen report), all 51 affected/navigation/hygiene
+and snapshot tests passed. The snapshot verified 559 source hashes and reproduced
+its JSON/report/plots without reading local runtime. Retirement violations are
+zero, all 17 protected anchors exist, and tracked runtime/progress paths are zero.

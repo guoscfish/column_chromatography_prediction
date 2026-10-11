@@ -78,13 +78,30 @@ directories. These snapshots require their frozen source versions for exact repl
 trial runner for a previously frozen catalog (`--live` enables the actual request).
 It does not perform training and does not replace the formal six-cycle runner above.
 
-## Current six-cycle run status (2026-10-01)
+## Current completed results (2026-10-11)
 
-The seed-157 full-pool run completed cycles 1–3 (365, 397 and 429 active labels),
-including retraining and frozen predictions. Cycle 4 stopped after three provider
-responses reported `429 USAGE_LIMIT_EXCEEDED / DAILY_LIMIT_EXCEEDED`. The provider
-did not supply a reset time. No final test evaluation was performed. All completed
-artifacts passed the post-stop audit. See `revisions/astra_high_full_pool_20261001/run_status.json`.
-Once provider quota is restored, run
-`revisions/astra_high_full_pool_20261001/resume_six_rounds.sh` to reuse the first three
-cycles and complete the remaining cycles and final report.
+CW16+LLM16 completed both seeds at 813 labels (15 batches each). Validation
+NRMSE is 0.322792/0.380292 for seeds 157/6101. Free completed 525/653 labels,
+with validation NRMSE 0.645484/0.520703. The October 1 quota stop and October 9
+stop-after-621 request are historical; later authorization resumed the hybrid
+trajectory. These records do not authorize a new run.
+
+See the [latest matched-budget snapshot](../../../reports/active_learning_latest/REPORT.md)
+and [813-label comparison](../../../reports/llm_hybrid_complete_20261010/same_budget_metrics.json).
+The completed extension result and compatibility/cost receipts remain under
+`revisions/astra_high_full_pool_20261001/extension_authorized_to813/`.
+Historical Free correction deviations remain part of interpretation; two seeds
+and previously exposed splits provide development evidence, not confirmation.
+
+132 old tracked runtime JSON receipts were consolidated into
+`historical_runtime_records.tar.gz`; `historical_runtime_manifest.json` lists exact
+paths, hashes and the Git recovery commit. `historical_fit_audits.json` retains 18
+old fit audits for readable review. Local originals remain at their frozen paths.
+This archive contains metadata only, without checkpoints or training payloads.
+Restore metadata for historical replay from the repository root:
+
+```bash
+tar -xzf studies/active_learning/qgeognn_v2_row_llm_scientist_v2/historical_runtime_records.tar.gz
+```
+
+Historical replay still needs the original code revision and local checkpoints.

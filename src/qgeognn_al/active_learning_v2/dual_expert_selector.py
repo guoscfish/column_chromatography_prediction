@@ -4,6 +4,8 @@ from __future__ import annotations
 import copy
 
 from .scientist_selector import ReadOnlyCatalog
+from .scientist_selector import scientific_memory
+from .scientist_full_delivery import decode_table
 
 VERSION = "llm_dual_expert_v1"
 METHOD = "free_llm32_dual_expert_v1"
@@ -111,6 +113,46 @@ ROLE_PROMPTS = {"chemistry_scientist": CHEMISTRY_SYSTEM_PROMPT,
                 "ml_scientist": ML_SYSTEM_PROMPT,
                 "scientific_planner": PLANNER_SYSTEM_PROMPT}
 
+FULL_DELIVERY = '''
+FULL CATALOG DELIVERY
+All eligible candidates and ALL currently observed records are included, using the
+same lossless column-oriented tables as the free LLM study. Zip each row with its
+columns; molecule_id references molecules; conditions follows condition_columns.
+There is no querying, paging, retrieval or tool use. Consider the whole supplied
+pool and return your final JSON directly. Observed-table IDs alone are measured
+evidence; candidate IDs have predictions only. Keep your response concise.
+Include the supplied packet_sha256 in your final object.
+The memory contains the previous selected plan, hypotheses, rationale, measured
+results and premeasurement errors. Use these to revise the previous reasoning.
+'''
+
+FULL_ROLE_PROMPTS = {
+    "chemistry_scientist": CHEMISTRY_SYSTEM_PROMPT.split('Return exactly one JSON object.')[0].replace(
+        'use the read-only catalog relay to inspect any legal current-pool records you need.',
+        'inspect the complete supplied current-pool records.') + FULL_DELIVERY + '''
+Return type "memo", role "chemistry_scientist", packet_sha256, state_summary,
+and any useful fields: important_observations, candidate_scientific_questions,
+possible_model_blind_spots, warnings, particularly_informative_candidates.
+Do not return a choices array or final batch. Keep the memo below 12,000 characters.
+''',
+    "ml_scientist": ML_SYSTEM_PROMPT.split('Return exactly one JSON object.')[0].replace(
+        'query the full legal current pool as needed.', 'inspect the complete supplied legal current pool.') + FULL_DELIVERY + '''
+Return type "memo", role "ml_scientist", packet_sha256, state_summary,
+and any useful fields: important_model_behaviors, possible_learning_bottlenecks,
+coverage_or_redundancy_concerns, warnings, particularly_informative_candidates.
+Do not return a choices array or final batch. Keep the memo below 12,000 characters.
+''',
+    "scientific_planner": PLANNER_SYSTEM_PROMPT.replace(
+        'query the catalog yourself', 'inspect the supplied catalog yourself') + FULL_DELIVERY + '''
+Each choice must include hypothesis_id (or null); related_hypothesis_id is also
+accepted. Each hypothesis includes id, content, why_it_matters_for_model_learning,
+next_discriminating_question, basis (chemical_prior/observed_data/model_behavior/mixed),
+confidence (low/medium/high), status (proposed/supported/weakened/rejected/unresolved),
+supporting_observed_ids and contradicting_observed_ids (lists; empty if no evidence).
+Keep the final plan below 30,000 characters.
+''',
+}
+
 
 def validate_expert_memo(value, role):
     if not isinstance(value, dict) or value.get("type") != "memo" or value.get("role") != role:
@@ -121,7 +163,7 @@ def validate_expert_memo(value, role):
         if key in value and not isinstance(value[key], str):
             raise ValueError("memo text fields must be strings")
     for key in value:
-        if key not in {"type", "role", "state_summary", "important_observations",
+        if key not in {"type", "role", "packet_sha256", "state_summary", "important_observations",
                        "candidate_scientific_questions", "possible_model_blind_spots",
                        "important_model_behaviors", "possible_learning_bottlenecks",
                        "coverage_or_redundancy_concerns", "warnings",
@@ -136,17 +178,28 @@ def validate_planner_selection(value, catalog, packet):
     if value.get("packet_sha256") != packet["packet_sha256"]:
         raise ValueError("planner packet binding mismatch")
     synthesis = value.get("expert_synthesis")
-    if not isinstance(synthesis, dict) or any(not isinstance(synthesis.get(k), str) or not synthesis[k].strip()
-                                               for k in ("chemistry_takeaways", "ml_takeaways", "agreements",
-                                                         "disagreements", "planner_resolution")):
-        raise ValueError("planner must explicitly synthesize expert conflict")
+    fields = ("chemistry_takeaways", "ml_takeaways", "agreements",
+              "disagreements", "planner_resolution")
+    def text_or_points(item):
+        if isinstance(item, str):
+            return bool(item.strip())
+        return (isinstance(item, list) and bool(item)
+                and all(isinstance(point, str) and point.strip() for point in item))
+    if not isinstance(synthesis, dict) or any(not text_or_points(synthesis.get(k)) for k in fields):
+        raise ValueError("expert_synthesis needs chemistry_takeaways, ml_takeaways, agreements, "
+                         "disagreements and planner_resolution; each must be nonempty text "
+                         "or a nonempty list of nonempty text points")
     choices = value.get("choices")
     if not isinstance(choices, list) or len(choices) != SELECTION_COUNT:
         raise ValueError("planner must choose exactly 32 experiments")
     ids = [c.get("id") if isinstance(c, dict) else None for c in choices]
     if any(not isinstance(i, str) for i in ids) or len(set(ids)) != SELECTION_COUNT:
         raise ValueError("choices must be distinct string IDs")
-    if not set(ids) <= catalog.viewed or not set(ids) <= set(catalog.candidates) or not catalog.queries:
+    if packet.get("delivery") == "all_candidates_one_request":
+        supplied = {row["id"] for row in decode_table(packet, "candidates")}
+        if not set(ids) <= supplied & set(catalog.candidates):
+            raise ValueError("planner choices must be legal supplied candidates")
+    elif not set(ids) <= catalog.viewed or not set(ids) <= set(catalog.candidates) or not catalog.queries:
         raise ValueError("planner choices must be viewed current candidates after a query")
     for choice in choices:
         if not isinstance(choice.get("reason"), str) or not choice["reason"].strip():
@@ -177,23 +230,34 @@ def validate_planner_selection(value, catalog, packet):
             evidence = hypothesis.get(field)
             if (not isinstance(evidence, list) or any(not isinstance(item, str) for item in evidence)
                     or not set(evidence) <= set(catalog.observed)):
-                raise ValueError("hypothesis cites unobserved evidence")
+                invalid = [item for item in evidence if not isinstance(item, str) or item not in catalog.observed] if isinstance(evidence, list) else evidence
+                raise ValueError(f"hypothesis {hypothesis['id']} cites unobserved evidence in {field}: {invalid}; "
+                                 "only observed-table sample IDs are measured evidence")
     for choice in choices:
-        if choice.get("related_hypothesis_id") is not None and choice["related_hypothesis_id"] not in hypothesis_ids:
+        related = choice.get("related_hypothesis_id", choice.get("hypothesis_id"))
+        if related is not None and related not in hypothesis_ids:
             raise ValueError("invalid related_hypothesis_id")
+        if "hypothesis_id" in choice and choice["hypothesis_id"] != related:
+            raise ValueError("conflicting hypothesis references")
     for key in ("batch_strategy", "batch_rationale", "expected_learning_value", "feedback_interpretation"):
         if not isinstance(value.get(key), str) or (key != "feedback_interpretation" or packet.get("round", 0) > 0) and not value[key].strip():
             raise ValueError(f"missing planner field: {key}")
     if len(str(value)) > 30000:
         raise ValueError("planner response exceeds bounded memory size")
-    return copy.deepcopy(value)
+    result = copy.deepcopy(value)
+    for choice in result["choices"]:
+        choice["hypothesis_id"] = choice.get("related_hypothesis_id", choice.get("hypothesis_id"))
+    return result
 
 
 def trajectory_memory(history, seed, method):
     if any((item.get("seed"), item.get("method")) != (seed, method) for item in history):
         raise ValueError("foreign trajectory in scientific memory")
     last = history[-1] if history else {}
-    return {"chemistry": last.get("chemistry_memo", {}),
+    return {**scientific_memory(history, seed, method),
+            "previous_plan": last.get("selected_plan", {}),
+            "previous_plans": [item.get("selected_plan", {}) for item in history],
+            "chemistry": last.get("chemistry_memo", {}),
             "machine_learning": last.get("ml_memo", {}),
             "planner": {key: last.get(key, "") for key in ("expert_synthesis", "batch_strategy", "batch_rationale")},
             "selected_ids": [row["candidate_id"] for item in history for row in item.get("records", [])],

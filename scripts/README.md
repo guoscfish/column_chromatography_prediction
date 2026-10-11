@@ -65,3 +65,7 @@ For full reproduction, use a separate checkout at that commit and restore the re
 - `run_cw_factorial_extension.py`: user-authorized four-round continuation to653, max24 extra fits. `audit_cw_factorial_extension.py` verifies completed lineage/hashes and produces compact exploratory delivery records without training or test-label access.
 
 - `continue_cw_factorial_to1005.py`: supervise the653 run and continue the frozen matrix to1005; `run_cw_factorial_to1005.py` prepares/runs/reports the66-fit second stage, and `audit_cw_factorial_to1005.py` verifies delivery without fitting.
+
+- `run_qgeognn_v2_row_llm_dual_expert.py`: independent Chemistry/ML advice, free 32-ID planner, full-pool history/feedback and resumable training. `run --seed 157 --rounds 2 --revision full_pool_feedback_schema_20261011` requests 333→397 labels; see `studies/active_learning/qgeognn_v2_row_llm_dual_expert_v1/README.md`.
+
+- `report_active_learning_snapshot.py`: one reporting entrypoint replacing the two untracked report-local plotting scripts. Reads completed validation audits and freezes, writes the latest tables/PNG/SVG snapshot; `--from-snapshot` redraws without local runtime. It performs no training or LLM requests.

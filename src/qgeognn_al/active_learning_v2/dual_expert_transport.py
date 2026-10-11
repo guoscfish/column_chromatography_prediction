@@ -1,107 +1,120 @@
-"""Independent, auditable JSON relays for the two advisers and planner."""
+"""Independent role transcripts using the same transport as the free/CW study."""
 from __future__ import annotations
 
 import json
 from pathlib import Path
-import os
-import shutil
-import subprocess
-import tempfile
-import time
-import tomllib
 
 from .dialog_bridge import once, read
-from .scientist_selector import MODEL_CALL_BUDGET as _unused
 from .protocol import stable_hash
+from .scientist_full_delivery import encode_catalog
+from .scientist_transport import (settings as scientist_settings, cli_call, responses_call,
+                                  _call_with_retries, FULL_SELECTION_ATTEMPTS)
 from .dual_expert_selector import (EXPERT_MODEL_CALL_BUDGET, PLANNER_MODEL_CALL_BUDGET,
-                                   ROLE_PROMPTS, validate_expert_memo, validate_planner_selection)
+    ROLE_PROMPTS, FULL_ROLE_PROMPTS, validate_expert_memo, validate_planner_selection)
 
 
-def settings(backend="codex_cli", model="gpt-6-sol", base_url="https://token4research.cn"):
-    if backend not in ("codex_cli", "responses"):
-        raise ValueError("unknown backend")
-    if not base_url.startswith("https://") or "@" in base_url or "?" in base_url:
-        raise ValueError("provider URL must be HTTPS without embedded credentials")
-    return {"backend": backend, "model": model, "base_url": base_url.rstrip("/"),
-            "reasoning_effort": "high", "authentication": "codex_home" if backend == "codex_cli" else "environment_key",
-            "key_env": None if backend == "codex_cli" else "SCIENTIST_API_KEY", "automatic_fallback": False,
-            "responses_store": False, "cli_isolation": "fresh temporary cwd with native-call audit"}
+def settings(backend="responses", model="gpt-6.1-sol", base_url="https://token4research.cn/v1",
+             reasoning_effort="xhigh"):
+    if reasoning_effort not in ("low", "medium", "high", "xhigh", "max"):
+        raise ValueError("unsupported reasoning effort")
+    config = scientist_settings(backend, model, base_url)
+    config["reasoning_effort"] = reasoning_effort
+    return config
 
 
-def _responses_call(messages, config):
-    from openai import OpenAI
-    key = os.environ.get(config["key_env"])
-    if not key:
-        raise RuntimeError(f"missing {config['key_env']}")
-    client = OpenAI(api_key=key, base_url=config["base_url"], max_retries=0, timeout=600)
-    response = client.responses.create(model=config["model"], input=messages,
-                                       reasoning={"effort": config["reasoning_effort"]}, tools=[], store=False)
-    if response.model != config["model"] and not response.model.startswith(config["model"] + "-"):
-        raise RuntimeError("provider returned a different model")
-    if any(item.type not in ("message", "reasoning") for item in response.output):
-        raise RuntimeError("native tool output invalidates response")
-    return response.output_text, {"response_id": response.id, "served_model": response.model,
-                                  "usage": response.usage.model_dump(mode="json") if response.usage else None,
-                                  "native_tool_calls": 0}
+def run_agent(role, packet, catalog, directory, config, call=None, extra_format_attempts=0):
+    if packet.get("delivery") != "all_candidates_one_request":
+        return _run_relay_agent(role, packet, catalog, directory, config, call)
+    if role not in FULL_ROLE_PROMPTS or packet.get("role") != role:
+        raise ValueError("unknown or mismatched role")
+    encoded = encode_catalog(catalog)
+    if any(packet.get(key) != value for key, value in encoded.items()):
+        raise ValueError("role packet differs from complete authorized catalog")
+    if packet.get("candidate_count") != len(catalog.candidates) or packet.get("observed_count") != len(catalog.observed):
+        raise ValueError("role catalog counts mismatch")
+    if packet.get("packet_sha256") != stable_hash({k: v for k, v in packet.items() if k != "packet_sha256"}):
+        raise ValueError("role packet hash mismatch")
+    catalog.viewed.update(catalog.candidates)
+    directory = Path(directory)
+    directory.mkdir(parents=True, exist_ok=True)
+    call = call or (cli_call if config["backend"] == "codex_cli" else responses_call)
+    messages = [{"role": "system", "content": FULL_ROLE_PROMPTS[role]},
+                {"role": "user", "content": json.dumps(packet, ensure_ascii=False, separators=(",", ":"), allow_nan=False)}]
+    if extra_format_attempts not in (0, 1):
+        raise ValueError("at most one explicitly registered extra format attempt")
+    attempt_budget = FULL_SELECTION_ATTEMPTS + extra_format_attempts
+    contract = ("MEMO FORMAT: state_summary must be a string. Use only type, role, packet_sha256, "
+                "state_summary, important_observations, candidate_scientific_questions, possible_model_blind_spots, "
+                "important_model_behaviors, possible_learning_bottlenecks, coverage_or_redundancy_concerns, "
+                "warnings, recommended_followup_queries, particularly_informative_candidates. "
+                "Put hypothesis revisions inside these fields; no hypothesis_updates or revised_hypotheses keys. "
+                "Keep the COMPLETE JSON below 9,500 characters to stay safely within the 12,000-character limit. "
+                "Return the correct role and packet_sha256. No choices or selection field.")
+    if role == "scientific_planner":
+        contract = ("PLAN FORMAT: return type selection and the supplied packet_sha256, expert_synthesis "
+                    "with chemistry_takeaways, ml_takeaways, agreements, disagreements, planner_resolution; "
+                    "nonempty batch_strategy, batch_rationale, expected_learning_value and feedback_interpretation. "
+                    "Exactly 32 distinct candidate-table IDs in choices, with id, reason, knowledge_basis "
+                    "(chemistry/machine_learning/observed_feedback) and hypothesis_id or related_hypothesis_id. "
+                    "hypotheses MUST be a LIST of 0..8 objects, each with id, content, why_it_matters_for_model_learning, "
+                    "next_discriminating_question, basis (chemical_prior/observed_data/model_behavior/mixed), "
+                    "confidence (low/medium/high), status (proposed/supported/weakened/rejected/unresolved), "
+                    "supporting_observed_ids and contradicting_observed_ids. Choice hypothesis references must be null "
+                    "or an ID in that list. Only observed-table sample IDs can be measured evidence; candidates and "
+                    "molecule IDs cannot. For prediction-only hypotheses, use empty evidence lists. "
+                    "Keep complete JSON below 28,000 characters.")
+    for index in range(attempt_budget):
+        path = directory / f"turn_{index:02d}.json"
+        request_hash = stable_hash({"messages": messages, "config": config})
+        if path.exists():
+            receipt = read(path)
+            if receipt["request_sha256"] != request_hash:
+                raise RuntimeError("agent transcript/request drift")
+        else:
+            answer, provenance = _call_with_retries(messages, config, call, directory, index, request_hash)
+            receipt = {"request_sha256": request_hash, "answer": answer, "provenance": provenance,
+                       "role": role, "call_index": index}
+            once(path, receipt)
+        try:
+            value = json.loads(receipt["answer"])
+            if role == "scientific_planner":
+                result = validate_planner_selection(value, catalog, packet)
+            else:
+                result = validate_expert_memo(value, role)
+                if result.get("packet_sha256") != packet["packet_sha256"]:
+                    raise ValueError("memo packet binding mismatch")
+                if not isinstance(result.get("state_summary"), str) or not result["state_summary"].strip():
+                    raise ValueError("memo needs state_summary")
+                if len(str(result)) > 12000:
+                    raise ValueError("memo exceeds size bound")
+        except (ValueError, TypeError, KeyError) as error:
+            rejected_path = directory / f"rejected_turn_{index:02d}.json"
+            if rejected_path.exists():
+                feedback = read(rejected_path)
+            else:
+                feedback = {"error": str(error)[:1000],
+                            "instruction": "Return corrected final JSON from the SAME complete catalog. No queries. Only observed-table IDs are measured evidence."
+                                + " " + contract}
+                once(rejected_path, feedback)
+            if index+1 == attempt_budget:
+                raise RuntimeError("agent response remained invalid after bounded corrections") from error
+            messages += [{"role": "assistant", "content": receipt["answer"]},
+                         {"role": "user", "content": json.dumps(feedback, ensure_ascii=False)}]
+            if extra_format_attempts and index+1 == FULL_SELECTION_ATTEMPTS:
+                detail = " Current validation detail: " + str(error)[:3000] if role == "scientific_planner" else ""
+                messages.append({"role": "user", "content": contract + detail})
+            continue
+        once(directory / ("selection.json" if role == "scientific_planner" else "memo.json"), result)
+        return result
+    raise RuntimeError("agent did not return a valid response")
 
 
-def _cli_call(messages, config, system_prompt):
-    executable = shutil.which("codex")
-    if not executable:
-        raise RuntimeError("codex CLI is not installed")
-    codex_home = Path.home() / ".codex"
-    user_config = tomllib.loads((codex_home / "config.toml").read_text())
-    provider_id = user_config.get("model_provider", "openai")
-    provider = user_config.get("model_providers", {}).get(provider_id, {})
-    if provider.get("base_url", "https://api.openai.com/v1").rstrip("/") != config["base_url"].rstrip("/"):
-        raise RuntimeError("Codex provider endpoint differs from frozen transport")
-    with tempfile.TemporaryDirectory(prefix="dual-expert-cli-") as tmp:
-        root, work = Path(tmp), Path(tmp) / "work"
-        work.mkdir()
-        instructions = root / "instructions.txt"
-        instructions.write_text(system_prompt)
-        command = [executable, "exec", "--ignore-rules", "--skip-git-repo-check", "--sandbox", "read-only",
-                   "--json", "--color", "never", "--model", config["model"], "--cd", str(work)]
-        overrides = {"model_reasoning_effort": config["reasoning_effort"], "approval_policy": "never",
-                     "web_search": "disabled", "features.shell_tool": False, "features.multi_agent": False,
-                     "features.goals": False, "features.memories": False, "mcp_servers": {},
-                     "model_instructions_file": str(instructions)}
-        for name, val in overrides.items():
-            command += ["-c", f"{name}={json.dumps(val)}"]
-        command += ["-"]
-        env = {k: os.environ[k] for k in ("PATH", "SYSTEMROOT", "LANG", "TMPDIR") if k in os.environ}
-        env.update({"HOME": str(Path.home()), "CODEX_HOME": str(codex_home)})
-        started = time.time()
-        result = subprocess.run(command, input=json.dumps(messages, ensure_ascii=False), capture_output=True,
-                                text=True, timeout=600, env=env, cwd=work)
-        if result.returncode:
-            raise RuntimeError(f"Codex CLI exited {result.returncode}")
-        events = [json.loads(line) for line in result.stdout.splitlines() if line.strip()]
-        errors = [e for e in events if e.get("type") in ("error", "turn.failed", "turn_failed")]
-        if errors:
-            raise RuntimeError("Codex CLI failed")
-        answers = []
-        for event in events:
-            item = event.get("item", {})
-            if event.get("type") in ("item.completed", "item_completed") and item.get("type") in ("agent_message", "AgentMessage"):
-                answers.append(item.get("text", "") or "".join(part.get("text", "") for part in item.get("content", [])))
-            if event.get("type", "").startswith("item.") or event.get("type", "").startswith("item_"):
-                if item.get("type") not in ("agent_message", "AgentMessage", "reasoning", "Reasoning", "error"):
-                    raise RuntimeError("native tool output invalidates CLI call")
-        if len(answers) != 1:
-            raise RuntimeError("missing CLI final answer")
-        return answers[0], {"cli_version": subprocess.check_output([executable, "--version"], text=True).strip(),
-                            "model": config["model"], "effort": config["reasoning_effort"],
-                            "native_tool_calls": 0, "event_sha256": stable_hash(events),
-                            "started_at": started}
-
-
-def run_agent(role, packet, catalog, directory, config, call=None):
+def _run_relay_agent(role, packet, catalog, directory, config, call=None):
     if role not in ROLE_PROMPTS:
         raise ValueError("unknown role")
     directory = Path(directory)
     directory.mkdir(parents=True, exist_ok=True)
-    call = call or (lambda messages, cfg: _cli_call(messages, cfg, ROLE_PROMPTS[role])) if config["backend"] == "codex_cli" else call or _responses_call
+    call = call or (cli_call if config["backend"] == "codex_cli" else responses_call)
     max_calls = PLANNER_MODEL_CALL_BUDGET if role == "scientific_planner" else EXPERT_MODEL_CALL_BUDGET
     messages = [{"role": "system", "content": ROLE_PROMPTS[role]},
                 {"role": "user", "content": json.dumps(packet, ensure_ascii=False)}]
