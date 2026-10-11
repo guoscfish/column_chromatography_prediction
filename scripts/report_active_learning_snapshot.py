@@ -101,8 +101,11 @@ def collect(dual_revision):
                 current[name] = rows
         curves[str(seed)] = {name: [{"labels": n, "nrmse": v} for n, v in sorted(rows.items())]
                              for name, rows in current.items()}
+    status_path = BASE / "qgeognn_v2_row_llm_dual_expert_v1/revisions" / dual_revision / "execution_status.json"
+    status = read(status_path) if status_path.exists() else {}
     return {"captured_at": datetime.now(ZoneInfo("Asia/Shanghai")).isoformat(timespec="seconds"),
             "evaluation": "validation_only", "dual_revision": dual_revision,
+            "dual_status": {k: status[k] for k in ("status", "latest_completed_labels", "target_labels") if k in status},
             "curves": curves, "source_hashes": sources, "fit_audits": audits}
 
 
@@ -145,6 +148,10 @@ def draw(snapshot, output):
 
 
 def report(snapshot, output):
+    dual_status = snapshot.get("dual_status", {})
+    dual_note = ("provider每日额度耗尽，493目标未完成，已停止新增调用；"
+                 if dual_status.get("status") == "BLOCKED_PROVIDER_DAILY_LIMIT"
+                 else "当前revision的计划终点为493；")
     lines = ["# 最新主动学习结果", "", f"快照时间：{snapshot['captured_at']}（Asia/Shanghai）。",
              "本页统一汇总已完成的 validation 拟合；运行中的选样或未完成训练不计作结果。", "",
              "![LLM comparison](llm_validation.png)", "",
@@ -156,7 +163,7 @@ def report(snapshot, output):
                 row = curves[name][-1]
                 lines.append(f"| {seed} | {name} | {row['labels']} | {row['nrmse']:.6f} |")
     lines += ["", "端点预算不同，不用上表直接排名。CW16+LLM16 的两个 seed 均到813；"
-              "Free 的157/6101分别到525/653。双专家仅seed157，当前revision的计划终点为493，"
+              "Free 的157/6101分别到525/653。双专家仅seed157，" + dual_note +
               "快照只报告已完成点；333→397使用astra/high，后续改用sol61/xhigh，并保留格式／证据修复记录。", "",
               "## 相同预算比较", "", "| Seed | 共同区间 | 方法 | 端点 NRMSE | Validation AULC |",
               "| --- | --- | --- | ---: | ---: |"]

@@ -1,22 +1,59 @@
 {
-  "status": "PROCESS_NOT_RUNNING_AT_PUBLICATION",
+  "status": "BLOCKED_PROVIDER_DAILY_LIMIT",
+  "date": "2026-10-11",
+  "seed": 157,
   "model": "gpt-6.1-sol",
   "reasoning_effort": "xhigh",
   "start_labels": 397,
-  "latest_labels": 461,
+  "latest_completed_labels": 461,
   "target_labels": 493,
-  "completed_sol_fits": 2,
+  "completed_total_acquisition_rounds": 4,
+  "completed_sol_acquisition_rounds": 2,
+  "completed_sol_new_labels": 64,
   "latest_validation_NRMSE": 0.6874444855485873,
-  "phase": "round_04_selection",
+  "unfinished_round_index": 4,
+  "unfinished_round_frozen": false,
   "test_truth_access_count": 0,
   "tests_passed": 80,
-  "previous_recorded_status": "RUNNING",
-  "publication_checked_at": "2026-10-11T23:25:54+08:00",
-  "target_labels_completed": false,
-  "last_request_errors": [
-    "429 DAILY_LIMIT_EXCEEDED",
-    "429 DAILY_LIMIT_EXCEEDED",
-    "502 origin_bad_gateway"
+  "stop_instruction": "user requested latest comparison if quota exhausted; no further requests or automatic restart",
+  "quota_failures": [
+    {
+      "path": "selections/seed_157/free_llm32_dual_expert_v1/round_04/agents/chemistry_scientist/retries/turn_01/attempt_01.json",
+      "request_sha256": "576fb49258aa294fa027d7809d3a84924d1dd29dcfffa9f9f9c4675f49d50e7f",
+      "attempt": 1,
+      "error_type": "RateLimitError",
+      "message": "Error code: 429 - {'code': 'USAGE_LIMIT_EXCEEDED', 'message': 'error: code=429 reason=\"DAILY_LIMIT_EXCEEDED\" message=\"daily usage limit exceeded\" metadata=map[]'}"
+    },
+    {
+      "path": "selections/seed_157/free_llm32_dual_expert_v1/round_04/agents/chemistry_scientist/retries/turn_01/attempt_02.json",
+      "request_sha256": "576fb49258aa294fa027d7809d3a84924d1dd29dcfffa9f9f9c4675f49d50e7f",
+      "attempt": 2,
+      "error_type": "RateLimitError",
+      "message": "Error code: 429 - {'code': 'USAGE_LIMIT_EXCEEDED', 'message': 'error: code=429 reason=\"DAILY_LIMIT_EXCEEDED\" message=\"daily usage limit exceeded\" metadata=map[]'}"
+    }
   ],
-  "exit_cause": "not independently established; final request failure receipts retained"
+  "last_error_type": "InternalServerError",
+  "comparison_report": "studies/active_learning/qgeognn_v2_row_llm_dual_expert_v1/revisions/sol61_xhigh_from429_evidence_repair_20261011/reports/seed_157/free_llm32_dual_expert_v1/rounds_04/README.md",
+  "previous_status": {
+    "status": "PROCESS_NOT_RUNNING_AT_PUBLICATION",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "xhigh",
+    "start_labels": 397,
+    "latest_labels": 461,
+    "target_labels": 493,
+    "completed_sol_fits": 2,
+    "latest_validation_NRMSE": 0.6874444855485873,
+    "phase": "round_04_selection",
+    "test_truth_access_count": 0,
+    "tests_passed": 80,
+    "previous_recorded_status": "RUNNING",
+    "publication_checked_at": "2026-10-11T23:25:54+08:00",
+    "target_labels_completed": false,
+    "last_request_errors": [
+      "429 DAILY_LIMIT_EXCEEDED",
+      "429 DAILY_LIMIT_EXCEEDED",
+      "502 origin_bad_gateway"
+    ],
+    "exit_cause": "not independently established; final request failure receipts retained"
+  }
 }

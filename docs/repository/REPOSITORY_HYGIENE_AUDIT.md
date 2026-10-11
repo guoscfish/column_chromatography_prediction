@@ -51,7 +51,7 @@ same-budget metrics, finite validation values and zero test labels used for fitt
 Validation on 2026-10-11: the full regression run passed 1053 tests and found one
 pre-existing navigation-parser false positive on fenced SMILES. After fixing the
 parser (without changing the frozen report), all 51 affected/navigation/hygiene
-and snapshot tests passed. The snapshot verified 559 source hashes and reproduced
+and snapshot tests passed. The snapshot verified 560 source hashes and reproduced
 its JSON/report/plots without reading local runtime. Retirement violations are
 zero, all 17 protected anchors exist, and tracked runtime/progress paths are zero.
 
