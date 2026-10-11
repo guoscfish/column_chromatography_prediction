@@ -15,8 +15,8 @@ Updated 2026-10-11. Scientific measurements remain in study reports; the [latest
 ## Branches and worktrees
 
 `main` owns integrated research and routine maintenance. The old local
-`codex/cw-geometry-feedback` and `codex/llm-scientist-dual-expert-v1` refs can be
-removed after integration; neither needs a new remote branch. The old dual-expert
+`codex/cw-geometry-feedback` and `codex/llm-scientist-dual-expert-v1` refs were
+removed after integration; no new remote branch was created. The old dual-expert
 worktree was removed after verifying that the current process runs in the canonical
 checkout. Its differing legacy files were backed up outside this repository.
 

@@ -10,7 +10,7 @@
 
 ## 当前扩展（2026-10-11）
 
-两轮astra/high试跑是历史起点。seed157随后改用`gpt-6.1-sol`、`xhigh`，完成397→429，validation NRMSE为0.704016。当前使用`sol61_xhigh_from429_evidence_repair_20261011`继续429→493，已完成461标签（validation NRMSE 0.687444）；已完成与仍在运行的预算见[最新快照](../../../reports/active_learning_latest/REPORT.md)，未完成轮次不计作结果。
+两轮astra/high试跑是历史起点。seed157随后改用`gpt-6.1-sol`、`xhigh`，完成397→429，validation NRMSE为0.704016。当前使用`sol61_xhigh_from429_evidence_repair_20261011`继续429→493，已完成461标签（validation NRMSE 0.687444）；已完成461的[详细比较与成本](revisions/sol61_xhigh_from429_evidence_repair_20261011/reports/seed_157/free_llm32_dual_expert_v1/rounds_04/README.md)已归档；已完成与仍在运行的预算见[最新快照](../../../reports/active_learning_latest/REPORT.md)，未完成轮次不计作结果。
 
 `sol61_xhigh_from397_20261011`记录memo格式失败；`sol61_xhigh_from397_repair_20261011`保留一次额外格式修复及429拟合；当前revision保留planner引用未观测证据的修复来源与有界额外回答。继承的批次、标签和checkpoint保持不变，所有原始失败回答和成本仍保留。不能把astra/high→sol61/xhigh的混合轨迹解释成单一模型确认。
 

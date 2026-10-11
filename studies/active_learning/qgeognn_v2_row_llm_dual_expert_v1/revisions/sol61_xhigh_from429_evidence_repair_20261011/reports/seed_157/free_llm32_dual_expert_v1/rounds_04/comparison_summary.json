@@ -1,0 +1,32 @@
+{
+  "summary": [
+    {
+      "method": "free_llm32_dual_expert_v1",
+      "latest_budget": 461,
+      "validation_NRMSE": 0.6874444855485873,
+      "validation_AULC_397_latest": 0.7144153243399971
+    },
+    {
+      "method": "free_llm32_scientist_v2",
+      "latest_budget": 461,
+      "validation_NRMSE": 0.7418851093408472,
+      "validation_AULC_397_latest": 0.7473032342629301
+    },
+    {
+      "method": "cw16_llm16_scientist_v2",
+      "latest_budget": 461,
+      "validation_NRMSE": 0.5724309389662626,
+      "validation_AULC_397_latest": 0.654883350016176
+    }
+  ],
+  "cost": {
+    "completed_provider_responses_since_switch": 17,
+    "input_tokens": 8194644,
+    "output_tokens": 153550,
+    "total_tokens": 8348194,
+    "network_failure_billing": "unknown; incomplete responses excluded from reported token totals",
+    "monetary_cost": "use actual provider billing; not inferred from official prices"
+  },
+  "switch_budget": 397,
+  "evidence": "single-seed mixed-model trajectory; not a paired Astra/Sol model-only comparison"
+}
