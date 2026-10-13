@@ -1,0 +1,462 @@
+{
+  "type": "selection",
+  "packet_sha256": "48bacd4b4e27891c3d732c02718e0cb2e1543e493d85c78a38eda8a7ae948a86",
+  "expert_synthesis": {
+    "chemistry_takeaways": "Loading responses depend on molecule, ratio and endpoint. m19 mainly changes V1, whereas m212 changes both endpoints. Alcohol spacer length and carbonyl environment strongly affect transfer. Higher PE/EA generally weakens elution on silica, but measured response surfaces contain local exceptions; adsorption mechanisms remain untested priors.",
+    "ml_takeaways": "Recent labels resolve the remaining m173 plug question and constrain m13, m205 and m92. Acquisition value now lies in newer response surfaces, substantial V1 loading effects, verified condition gaps and controlled structural transfer. Historical residuals identify past failures; candidate quantiles do not establish current error or acquisition value.",
+    "agreements": [
+      "Matched response measurements can distinguish ratio effects, loading effects and molecular offsets.",
+      "Measured heterogeneity rejects universal loading and functional-group corrections.",
+      "Established neighborhoods need a specific unresolved question before further acquisition."
+    ],
+    "disagreements": [
+      "The current advisers have no major empirical disagreement after row corrections. Chemistry emphasizes local response and mechanism questions; ML additionally emphasizes redundancy and ordinary structural coverage.",
+      "The ML memo's m191 5/1 candidate changes loading relative to existing anchors. I retain it only with a new same-loading baseline, making the ratio comparison interpretable.",
+      "I give m199's remaining 5/1 low-volume point lower priority after its measured 100/150 ul endpoints proved nearly identical."
+    ],
+    "planner_resolution": "Select conditional loading contrasts, fill the genuine m37 gap, extend newly exposed carbonyl responses, and test alcohol-spacer transfer. Add linked para/ortho, fused-aromatic and cyclic-ketone comparisons. Deprioritize routine acquisition in m173, m125, m167 and m92."
+  },
+  "batch_strategy": "Freeze these 32 distinct eligible IDs before measurement. Use fixed-input ratio curves and loading contrasts to resolve competing response explanations, with linked structural comparisons across moderate and larger endpoint regimes. Select one representative from duplicate candidate input tuples. Structural comparisons retain density, loading mass and loading-solvent differences as model inputs rather than treating them as isolated causal molecular effects.",
+  "choices": [
+    {
+      "id": "89d752b5a7f7c8d0b91e",
+      "reason": "m212 at 5/1, 150 ul and PE 300 ul extends the large measured 50-to-100 ul endpoint increase, distinguishing continuation, plateau or reversal.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "e0f2b47154fd134db700",
+      "reason": "m212 at 2/1 and 150 ul supplies a fixed-loading ratio anchor for the selected 5/1 point, testing whether its loading response emerges with PE enrichment.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "304fb0fdb486ae4b7a07",
+      "reason": "m19 at 2/1 and 100 ul interpolates the measured 10.30 ml V1 loading change while V2 remains almost unchanged.",
+      "knowledge_basis": [
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "97297c71a28a2ccbdeeb",
+      "reason": "m19 at 1/1 and 150 ul contrasts with its measured 50 ul baseline and measured 2/1, 150 ul result, testing ratio dependence of the V1 loading effect.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "9de8f9fed06ef9d5befa",
+      "reason": "m37 at 5/1, 100 ul and DCM 400 ul fills a verified ratio gap. The previously attributed m37 5/1 observation was actually m92.",
+      "knowledge_basis": [
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "38e6b8bf0f089fcadd80",
+      "reason": "m37 at 10/1 and 100 ul connects the selected 5/1 point to measured 20/1 at fixed loading; the existing 10/1 observation used 150 ul.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "351c17dfa8f46a8cb40a",
+      "reason": "m28 at 10/1 and 100 ul extends its measured fixed-loading 2/1-to-5/1 response, testing continuation of completion-volume growth with smaller onset changes.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "352465f62eba993148ee",
+      "reason": "m115 at 1/1 and 100 ul anchors the lower-ratio side of its measured 5/1 ketone response, separating a molecular offset from a later transition.",
+      "knowledge_basis": [
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H11"
+    },
+    {
+      "id": "5f2fc9606fb31b009ccc",
+      "reason": "m115 at 10/1 and 100 ul tests the predicted near-saturation after its measured 5/1 value of 13.98/30.66 ml.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H11"
+    },
+    {
+      "id": "70593725787c65a74951",
+      "reason": "Amino ester m86 at 2/1 and 100 ul tests transfer from measured amino ketone m36 and positional-isomer ester m88, retaining their different loading contexts explicitly.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "92f7fe9d8581717a9949",
+      "reason": "Methylthio ketone m128 at 10/1 and 100 ul extends its measured 2/1 anchor and provides a nominal-condition sulfur comparison with selected methoxy ketone m115.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "4c46ceefd6147b1e0a7a",
+      "reason": "Methylthio aldehyde m129 at 10/1 and 100 ul extends its measured 5/1 response and compares carbonyl environment with selected m128 under matching nominal injection conditions.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "e3716bf7dba67a0f2185",
+      "reason": "m68 at 2/1, 100 ul and DCM 400 ul establishes a fixed-loading lower-ratio anchor for its unexpectedly broad measured 5/1 elution interval.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H11"
+    },
+    {
+      "id": "f1e08c239f1c0950ad36",
+      "reason": "m68 at 10/1 holds loading fixed against measured 5/1 and selected 2/1, testing sustained completion growth versus the currently predicted contraction.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H11"
+    },
+    {
+      "id": "bb9d055d55ded1101079",
+      "reason": "m80 at 10/1 and 100 ul tests delayed retention onset after measured V2 remained near 7.31 ml at both 1/1 and 5/1.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H12"
+    },
+    {
+      "id": "26df752cf7c0673db585",
+      "reason": "m80 at 20/1 and 100 ul pairs with selected 10/1 to distinguish a genuine delayed malonate transition from continued excessive beta-ketoester transfer.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H12"
+    },
+    {
+      "id": "e76b02e4aa682c4153d0",
+      "reason": "m191 at 1/1 and 50 ul provides the same-loading baseline needed to interpret selected 5/1, while also contrasting with the measured 100 ul baseline.",
+      "knowledge_basis": [
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "20711ea4080ba078e890",
+      "reason": "m191 at 5/1 and 50 ul forms a controlled ratio pair with selected 1/1. It probes the intermediate regime without treating the existing 100 ul high-ratio label as fully matched.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "209779f51b9585f75215",
+      "reason": "Unobserved para-bromoacetophenone m30 at 2/1 and 100 ul anchors a new ordinary ketone curve and a positional comparison with selected ortho isomer m43.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "2420964caf34a1de2a5d",
+      "reason": "m30 at 10/1 holds its loading fixed against selected 2/1, testing whether positional substitution changes ratio sensitivity rather than only endpoint scale.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "8abfe1426e39da061663",
+      "reason": "Ortho-bromoacetophenone m43 at 2/1 and 100 ul supplies a lower-ratio anchor beside its measured 5/1 result and selected para-isomer comparison.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "057972d40b84bce6262b",
+      "reason": "m43 at 10/1 and 100 ul completes its fixed-loading 2/1-to-5/1-to-10/1 sequence and supports comparison of para and ortho response slopes.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "4d0055bdff0f507c778b",
+      "reason": "Unobserved naphthyl ketone m40 at 2/1 and 100 ul adds fused-aromatic carbonyl coverage under the common DCM 300 ul loading setup.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "b0cc544ceb575bae4069",
+      "reason": "m40 at 10/1 forms a fixed-loading ratio pair with selected 2/1, testing transfer across aromatic fusion without assuming that hydrophobic surface determines V2.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "4bfc587d4349aa309395",
+      "reason": "Unobserved cyclic ketone m179 at 2/1 and 100 ul compares ring-size transfer with measured m180 at matching nominal sample and solvent conditions.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "b6dc1ec0dbd724128ce3",
+      "reason": "m179 at 10/1 holds loading fixed against selected 2/1 and compares its ratio response with the measured m180 sequence; recorded densities differ.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "a775926fce57b3bf9ec1",
+      "reason": "m119 at 2/1 and 50 ul contrasts with its measured 150 ul anchor and provides a nominally matched alcohol-spacer comparison with selected m120.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "4ee22742c686bdbb1cb9",
+      "reason": "m120 at 2/1 and 50 ul tests the lower-ratio spacer contrast with m119 and anchors a new fixed-50 ul response pair; their densities and masses differ slightly.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "71abc36775b6cce56da7",
+      "reason": "m120 at 5/1 and 50 ul extends selected 2/1 at fixed loading and contrasts with its measured 100 ul result, testing persistence of its much smaller alcohol tail.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "183af335033005f96b97",
+      "reason": "m36 at 2/1 and 50 ul tests loading response below its newly measured 100 ul amino-ketone anchor while keeping the large DCM 900 ul plug fixed.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "9fcf89b00bb880c8a5ba",
+      "reason": "m36 at 2/1 and 150 ul brackets the measured 100 ul point with selected 50 ul, testing whether the nearly flat predicted loading response conceals endpoint-specific changes.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "a421784c91de559c18e0",
+      "reason": "m13 at 5/1 and 100 ul interpolates its opposing measured endpoint loading shifts. It tests V1 response shape and the predicted small V2 dip without assuming that the dip is reproducible.",
+      "knowledge_basis": [
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H10"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H2",
+      "content": "Loading responses are molecule-, ratio- and endpoint-specific. m19 mainly advances V1 as sample volume increases, whereas m212 at 5/1 delays both endpoints between 50 and 100 ul. Sample volume and mass remain coupled.",
+      "why_it_matters_for_model_learning": "Matched measurements can teach conditional onset and completion responses instead of propagating a global loading correction.",
+      "next_discriminating_question": "Does m212 continue, plateau or reverse at 150 ul, does m19 interpolate smoothly at 100 ul, and does newly measured m36 show either endpoint pattern?",
+      "basis": "mixed",
+      "confidence": "high",
+      "status": "supported",
+      "supporting_observed_ids": [
+        "6d21e9ec887b3408c612",
+        "906bd247e050658f99d8",
+        "d5234e966aa231be05e5",
+        "252c027cf5a42b92c953",
+        "b1fcf9bf2e03028d2ef8",
+        "2b10c90b32f970e4b4c8",
+        "1aceeb0ee0419209d1c7",
+        "6b7209c2e8154837a8c7"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H3",
+      "content": "Local structural environment and conditions determine transfer across alcohols, nitrogen-containing compounds and carbonyl families. Matching functional-group counts does not establish matching response surfaces.",
+      "why_it_matters_for_model_learning": "Linked structural and ratio comparisons can improve molecular transfer while limiting excessive propagation of recently acquired tail labels.",
+      "next_discriminating_question": "Do spacer, positional-substitution, aromatic-fusion and ring-size comparisons preserve measured local slopes, or reveal distinct onset and completion regimes?",
+      "basis": "mixed",
+      "confidence": "high",
+      "status": "supported",
+      "supporting_observed_ids": [
+        "776ee2c1e85ebde75168",
+        "e4fd83fb3852eb354a66",
+        "efe7c6b0783a33974807",
+        "6b7209c2e8154837a8c7",
+        "4659b6752f23c0b85f08",
+        "5522a1ec1f8e39cedb13",
+        "bfbe491a54086b98874d",
+        "cfc3cd7290e349d095d4",
+        "ca6feb29f6758377a65f",
+        "73d2b61a089521939a3e"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H7",
+      "content": "The earlier interpretation of a stable m92 20/1 loading reversal is weakened: exact-input variability accounts for much of the apparent 50-to-100 ul completion difference.",
+      "why_it_matters_for_model_learning": "Small differences should not be propagated as strong deterministic interactions when repeat variation is comparable.",
+      "next_discriminating_question": "Would additional balanced repeats establish a stable loading difference? The present batch gives this question lower priority after the latest repeat.",
+      "basis": "observed_data",
+      "confidence": "medium",
+      "status": "weakened",
+      "supporting_observed_ids": [
+        "66da447ca0fe7160cc1c",
+        "8b58e9d7a710f55e49d3"
+      ],
+      "contradicting_observed_ids": [
+        "bbb514661c0a49694d6a",
+        "4b8ba288d549f6cfc94b",
+        "ab1062a71079c605f750"
+      ]
+    },
+    {
+      "id": "H9",
+      "content": "m173 has a ratio-dependent plug response: the larger DCM plug delays V2 at 0/1 and 1/1, but the measured 5/1 completion values converge. Its 1,500 ul curve rebounds from 2/1 to 5/1 after the sampled 1/1 maximum.",
+      "why_it_matters_for_model_learning": "The completed contrasts reject a persistent plug offset and prevent imposing a continuing post-1/1 decline.",
+      "next_discriminating_question": "Would repeated near-matched measurements confirm high-ratio plug convergence? Existing evidence makes further routine m173 acquisition lower priority.",
+      "basis": "observed_data",
+      "confidence": "high",
+      "status": "supported",
+      "supporting_observed_ids": [
+        "87da8c37b16d810331a2",
+        "65fcce0299e031dedeb8",
+        "9a32b65bc21fdc5f7286",
+        "6802f0b28c5a0c7b4c2a",
+        "f90a5a5a54509c085ebd",
+        "1e775e7d8dcbf48fd6f8",
+        "1e971da91b3a8229f0e0"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H10",
+      "content": "m13 has an established delayed ratio transition at 150 ul. At 5/1, increasing sample volume from 50 to 150 ul advances V1 while modestly delaying V2; the intermediate loading response remains unmeasured.",
+      "why_it_matters_for_model_learning": "One intermediate label can constrain endpoint-specific loading interpolation within a genuine transition regime.",
+      "next_discriminating_question": "Does the 100 ul point interpolate V1 smoothly, and is its completion consistent with the measured endpoint range or a local dip?",
+      "basis": "observed_data",
+      "confidence": "high",
+      "status": "supported",
+      "supporting_observed_ids": [
+        "2dbfdf9c2d5defd09f7a",
+        "5d530b2f228ed39ff952",
+        "ca467c94f14b2219503e",
+        "1cc3b837c6561b1c0a23",
+        "9e3f598e00375ec93d9b"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H11",
+      "content": "The newer m68 and m115 completion regimes may contain a shoulder or saturation rather than a shared carbonyl ratio law. Existing single-ratio labels cannot distinguish these shapes.",
+      "why_it_matters_for_model_learning": "Lower and higher ratio anchors can distinguish molecular offsets from response slopes and calibrate V2 without imposing monotonicity.",
+      "next_discriminating_question": "Does m68 V2 continue growing beyond 5/1 or contract, and does m115 remain near its 5/1 completion volume at 10/1?",
+      "basis": "mixed",
+      "confidence": "medium",
+      "status": "unresolved",
+      "supporting_observed_ids": [
+        "c4b06a6e718225cb9cf8",
+        "cfc3cd7290e349d095d4"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H12",
+      "content": "m80 may develop a delayed transition above 5/1, but sustained low completion volume remains a competing explanation. Its measured lower-ratio behavior already weakens broad transfer of the m13 tail.",
+      "why_it_matters_for_model_learning": "The 10/1 and 20/1 labels can distinguish genuine higher-ratio malonate retention from excessive transfer across different carbonyl environments and loading solvents.",
+      "next_discriminating_question": "At fixed 100 ul and PE 200 ul loading solvent, does V2 rise at 10/1 or 20/1 after remaining near 7.31 ml from 1/1 to 5/1?",
+      "basis": "mixed",
+      "confidence": "medium",
+      "status": "unresolved",
+      "supporting_observed_ids": [
+        "3a095d378b537020c569",
+        "9205619d3836954c6591"
+      ],
+      "contradicting_observed_ids": []
+    }
+  ],
+  "batch_rationale": "The batch shifts attention from completed historic surfaces to recent unresolved interactions and structural transfer. m19, m212 and m36 provide substantial endpoint-specific loading questions. m37 receives correctly aligned fixed-loading ratio labels. m28, m115, m68, m80 and m191 receive measurements that distinguish response shape from molecular offset; the added m191 baseline repairs the loading confound in the proposed intermediate point. Alcohol-spacer measurements test the large m119/m120 divergence locally. Linked bromoketone, naphthyl-ketone and cyclic-ketone curves extend coverage beyond the adaptively investigated polar tails.",
+  "expected_learning_value": "Expected gains come from learning conditional V1 loading effects, distinguishing completion growth from saturation or local shoulders, and improving transfer across ordinary and polar carbonyl structures. Paired measurements constrain slopes as well as molecular offsets, and new structural curves provide informative comparisons at common Row conditions. The batch avoids redundant input repetitions and completed surfaces. These are expected benefits; the supplied trajectory does not establish retrained overall Row accuracy.",
+  "feedback_interpretation": "H2 is strengthened and revised toward endpoint-specific interactions: m19's 50-to-150 ul change is -10.30/+0.22 ml in V1/V2, while m212's 50-to-100 ul change at 5/1 is +14.83/+23.52 ml. The corrected m205 corner is now measured, with most 1/1 V2 change occurring between 50 and 100 ul and little 100-to-150 ul change at 2/1. H3 is strengthened by m119 versus m120 at 5/1: V2 is 77.09 versus 19.14 ml despite matching donor/acceptor counts and TPSA. m199's fixed-150 ul V2 increase from 52.38 to 114.60 ml rejects the previous saturation expectation, while its 5/1 loading contrast is nearly flat. H9's remaining question is answered: m173 5/1 V2 is 61.87 and 60.92 ml for the two plugs, rejecting a persistent positive plug offset; the 1,500 ul curve also rebounds after 2/1. H10 is supported by the correctly matched 150 ul 2/1, 5/1 and 10/1 sequence, leaving only a narrow loading interpolation question. H7's stable loading-reversal interpretation is weakened because the latest repeat reduces the apparent difference from 4.93 to 1.23 ml. H5's completed 1/1 solvent-volume surface and accurate recent m167 interpolation support deprioritization. H4's original acquisition premise remains rejected. Observed row alignment takes precedence over older summaries, all residuals discussed are historical premeasurement errors, and V2 minus V1 is an elution interval width."
+}

@@ -1,0 +1,182 @@
+{
+  "type": "selection",
+  "packet_sha256": "ccabc801e6136bb9d97f3c25603dfaa08b383ca4959a3389687430f28c1f1313",
+  "batch_strategy": "Supplement the pending 16 with targeted measurements of nonlinear solvent responses, alcohol-environment transfer, nitrogen heterocycles, and ether/carbonyl combinations. Use fixed-loading comparisons where available and explicitly retain confounding where they are not. All selections and their supplied premeasurement predictions are frozen together before label revelation; numerical predictions quoted below are approximate summaries of the packet values.",
+  "choices": [
+    {
+      "id": "2f48e798c7917fb7d2ae",
+      "reason": "Acetophenone oxime at 20/1, 100-mg sample in 300-uL DCM, predicts 24.31/71.96 mL. Identical-loading observations 6b5982c6e1bbaadd6a95 at 10/1 and 9ffee2813aef5c26f96f at 50/1 give 10.07/23.96 and 43.11/119.20 mL. The previous interior-point V2 overestimate of 43.31 mL makes the location of this steep transition consequential for learning endpoint-specific solvent sensitivity.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "7383949c431e18f39597",
+      "reason": "The amino unsaturated ester at 10/1 predicts 22.27/72.93 mL. Its 50-uL sample and 200-uL DCM loading match 10f01f359bc6067d009f at 5/1, measured 16.01/36.80 mL despite a historical V2 prediction of 54.15. This tests whether the retrained model still spreads the large 20/1 completion value too far toward stronger eluent. The 20/1 observation 5d6d4ac0c1dfacbde53d uses a larger sample, so that comparison also involves loading.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "668279c54bbf75e86496",
+      "reason": "Methyl cyclopropanecarbonylacetate at 10/1 predicts 29.35/53.55 mL. Observed 8a5443659239e3b52e14 at 5/1 gave 11.42/26.28, while ffc70e28db22d1cc1f3f at 20/1 gave 44.45/81.20; their acquisition errors had opposite signs. This intermediate ratio distinguishes a steep local response from an overly broad molecular correction. The selected 100-uL sample lies between the observed 150- and 50-uL loadings.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "9409394cdc0bcfb31fbc",
+      "reason": "2-Bromopropionic acid at 10/1 predicts 28.62/45.07 mL. It preserves the 50-uL sample and 300-uL DCM loading of 5cc67d02b8fad1c648d6 at 5/1 and b24f66ff77974f8ba6e1 at 20/1, measured 12.33/18.47 and 39.58/65.65. Their historical over- and underestimates motivate locating the response transition rather than applying a uniform acid correction.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "c61c1a72306f2ee37df8",
+      "reason": "Methyl mandelate at 10/1 predicts 21.70/32.37 mL, almost unchanged in completion from the 5/1 measurement 12ab195583f05b9aa177, 19.91/32.37. The 100-mg sample and 1000-uL DCM loading also match ad67d712133eac45ff64 at 2/1, 9.89/15.47. This tests a predicted plateau after a measured steep segment for the adjacent hydroxyl/ester motif.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "994a1f65509549a84ede",
+      "reason": "1-Phenylethanol at 5/1 predicts 7.49/16.11 mL with the same 100-uL sample and 300-uL PE loading as c7e564f222bd8ae3f685 at 1/1 and 859ae738b615cf17b849 at 10/1. Those measurements gave 5.72/11.10 and 3.04/17.24, so onset and completion did not move together. The missing interior point tests whether the low 10/1 onset is localized and constrains the model's inferred onset maximum.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "62d7ea74ab73fa6214b4",
+      "reason": "4-Phenyl-2-butanol at 5/1 predicts 20.15/30.21 mL and exactly preserves the recorded loading of c352863d9fa4a8645481 at 10/1, measured 39.13/64.72. Together with selected 1-phenylethanol at 5/1, it tests whether the large observed contrast between secondary-alcohol environments persists at stronger eluent. Equal sample volumes do not imply identical masses because densities differ.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "db5dcc7b864e0174fcbd",
+      "reason": "Introduce 1-phenyl-1-propanol at 10/1, predicted 6.91/19.01 mL, using a 50-uL sample in 300-uL DCM. Its benzylic secondary alcohol bridges measured 1-phenylethanol 859ae738b615cf17b849 and the more distant secondary hydroxyl in c352863d9fa4a8645481. This tests whether the newly learned low benzylic-alcohol prediction transfers to ethyl substitution. Loading solvent and sample amount differ from those references, so this is structural exploration rather than a controlled causal comparison.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "49201b5817f204116f7f",
+      "reason": "Introduce the pyridyl propyl ketone m66 at 5/1, predicted 13.57/36.52 mL. Quinoline 33ffc69a253a89f15995 and 2,6-lutidine 65f4f125b5e1f8137bd9 show substantial retention at this ratio, while 6f548d72f01fc85debdc exposed a large lutidine completion underestimate at 10/1. Combining a pyridine nitrogen with a ketone tests transfer beyond the separately measured motifs. Conditions differ across these structural references.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "2745c6978a8911fc3dda",
+      "reason": "Introduce methylquinoline m146 at 2/1, predicted 15.08/35.25 mL. Quinoline e7bf6bd74f8498f1cb11 at 2/1 measured 15.15/33.94, and its 5/1 and 10/1 observations demonstrate strong solvent dependence. This tests the predicted close structural transfer after methyl substitution. The selected row uses 100-uL sample in DCM rather than the quinoline reference's PE loading solvent.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "39815ababe97d7acc107",
+      "reason": "Introduce the dihydrobenzofuran aldehyde m194 at 5/1, predicted 11.41/32.99 mL; maximum similarity to observed molecules is only 0.370. The catalog contains related methoxy aldehydes and the methylenedioxy aldehyde m59, but this fused cyclic ether environment is uncovered. It complements pending anisaldehyde at 10/1 and tests whether aromatic ether/carbonyl effects transfer to a constrained ring environment.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "c11d5c3acbc28dddd0cf",
+      "reason": "Introduce phenoxyethyl acrylate at 5/1, predicted 10.64/26.99 mL, with a 100-uL sample in 300-uL DCM. Selected methoxyethyl acrylate at the same ratio and sample volume predicts much later completion. Observed ether-containing keto ester c6924324ddd95f249df6 was strongly retained, but does not establish an acrylate rule. These labels test whether replacing methyl with phenyl on the ether changes the predicted retention pattern; differing loading solvents prevent a strict matched comparison.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "c86b03e1b275528444a6",
+      "reason": "Methoxyethyl acrylate at 5/1 predicts 23.92/58.25 mL, versus measured 7.29/11.82 at 1/1 in a6ea2935fcde0150f1f8 and 7.70/10.73 in 66e8febca8812396280d. The selected 100-uL sample lies between those 150- and 50-uL samples, all loaded in 300-uL PE. This tests a large predicted solvent response and whether the strong-retention correction from methoxyethyl acetoacetate has transferred appropriately to an acrylate.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "e4fd83fb3852eb354a66",
+      "reason": "Introduce para-methoxybenzyl alcohol at 5/1, predicted 18.22/36.51 mL. Para-methylbenzyl alcohol f135-family observation f9f0f4e29dbd30c000ee measured 18.55/34.32 at this ratio, while pending para-methoxyphenethyl alcohol probes a different hydroxyl position at 1/1. This adds a useful bridge between aromatic substitution and alcohol placement, with loading differences acknowledged, after the nitrophenethyl-alcohol underestimate in a92f7617b135de150588.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "d035281432e410405550",
+      "reason": "Para-methoxybenzophenone at 20/1 predicts 22.89/41.79 mL. It matches the 50-mg sample and 300-uL DCM loading of 2d63ab3869184cde52bf at 50/1, measured 40.14/75.35. Stronger-eluent observation a5583432158c4e0d0cbb at 2/1 is much earlier, though at higher loading. This interior anchor tests whether the model localizes the retention increase in a common aromatic ether/ketone family.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "79362765eb92377a5970",
+      "reason": "2-Naphthaldehyde at 50/1 predicts 41.03/49.90 mL, preserving the 150-mg sample and 300-uL DCM loading of a917c928912c74862968 at 20/1. That observed record has V1 31.98 and V2 31.91, a small endpoint-order inconsistency. The new ratio tests whether the model's large onset increase and relatively narrow interval generalize beyond this questionable anchor; it does not assume the recorded inversion is physically meaningful.",
+      "hypothesis_id": "H5"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Several polar families have sharply curved and endpoint-specific solvent responses. Correcting a weak-eluent molecular anchor can still overestimate retention at intermediate ratios, so local measurements are needed to learn where the transition occurs.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "f50c45b31cf41304c109",
+        "61090cfdcf019e0891a3",
+        "6b8e53d2d8c8a90a7216",
+        "6b5982c6e1bbaadd6a95",
+        "9ffee2813aef5c26f96f",
+        "10f01f359bc6067d009f",
+        "5d6d4ac0c1dfacbde53d",
+        "8a5443659239e3b52e14",
+        "ffc70e28db22d1cc1f3f",
+        "5cc67d02b8fad1c648d6",
+        "b24f66ff77974f8ba6e1"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The previous round exposed both over- and underestimates within the same families. Learning response curvature should improve interpolation across many condition rows without imposing one correction on both endpoints.",
+      "next_discriminating_question": "Do the oxime, amino ester, cyclopropyl keto ester and bromo acid show the currently predicted intermediate transitions, and does mandelate truly plateau above 5/1?"
+    },
+    {
+      "id": "H2",
+      "content": "Hydroxyl position and aromatic substitution require different retention baselines and solvent responses. The measured benzylic secondary-alcohol onset is anomalous relative to a simple monotonic solvent prior; its behavior should be localized before transferring it to related alcohols.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "c7e564f222bd8ae3f685",
+        "859ae738b615cf17b849",
+        "c352863d9fa4a8645481",
+        "73502a52708e4f9c2391",
+        "a92f7617b135de150588",
+        "f9f0f4e29dbd30c000ee"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "These compounds share donor/acceptor counts yet have substantially different measured endpoints. Related structures and paired solvent changes can teach distinctions that bulk polarity descriptors miss.",
+      "next_discriminating_question": "At 5/1, do benzylic and distal secondary alcohols retain their contrast, and does 1-phenyl-1-propanol reproduce the predicted early 10/1 behavior?"
+    },
+    {
+      "id": "H3",
+      "content": "Nitrogen-heterocycle retention corrections may depend on ring substitution and coexistence of carbonyl groups. Strong retention of quinoline and lutidine does not establish transfer to methylquinoline or a pyridyl ketone.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "33ffc69a253a89f15995",
+        "e7bf6bd74f8498f1cb11",
+        "e47aebe2660b9e1528de",
+        "65f4f125b5e1f8137bd9",
+        "6f548d72f01fc85debdc"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Recent large errors show that nitrogen-containing molecules can be consequential failure regions. Two related but uncovered structures test the scope of the learned correction while pending phenylpyridine supplies another reference.",
+      "next_discriminating_question": "Are methylquinoline at 2/1 and the pyridyl ketone at 5/1 close to their current predictions, or do their nitrogen environments require different baselines?"
+    },
+    {
+      "id": "H4",
+      "content": "Ether/carbonyl combinations may have strongly structure-dependent solvent sensitivity. The model currently predicts large differences between related acrylates and steep responses in aromatic ether/carbonyl compounds; these transfers remain untested.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "c6924324ddd95f249df6",
+        "143bf510fe2028583763",
+        "60b7eed7a46a03b366b2",
+        "a6ea2935fcde0150f1f8",
+        "66e8febca8812396280d",
+        "2d63ab3869184cde52bf",
+        "a5583432158c4e0d0cbb"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The catalog contains many esters, ethers and aromatic carbonyls. Measuring their combinations tests whether corrections generalize through actual local chemical environments rather than a generic oxygen-count effect.",
+      "next_discriminating_question": "Does methoxyethyl acrylate develop the predicted broad interval at 5/1, how does phenoxyethyl substitution change it, and are the fused ether aldehyde and methoxybenzophenone predictions transferable?"
+    },
+    {
+      "id": "H5",
+      "content": "Some unusual predicted onset/completion relationships may reflect propagation of isolated recorded anomalies rather than reliable condition-response behavior. Their scope must be tested without treating an inconsistent observation as a physical rule.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "a917c928912c74862968",
+        "4a49effd313865c10fae"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Anisole's predicted near-zero interval was not reproduced, while naphthaldehyde has an observed endpoint-order inconsistency. Neighboring-condition supervision can constrain how far such patterns spread through the predictor.",
+      "next_discriminating_question": "Does naphthaldehyde at 50/1 support the predicted high onset and narrow interval when loading is held fixed?"
+    }
+  ],
+  "feedback_interpretation": "The latest outcomes reject the predicted flat/reversed ethyl acetoacetate curve: at fixed loading, measured endpoints increase from 12.32/29.34 at 5/1 through 20.41/45.62 at 10/1 to 26.33/64.40 at 20/1. Quinoline likewise increased strongly through 2/1, 5/1 and 10/1; its latest 10/1 CW result was severely underestimated, although loading differs from the lower-ratio rows. Conversely, the oxime at 10/1 and cyclopropyl keto ester at 5/1 were substantially overestimated after weak-eluent anchors had been underestimated. This strengthens the need to learn response curvature, rather than only molecular baselines. The actual 1-phenylethanol 10/1 measurement is now available and shows an unexpectedly early onset, while distal secondary and primary alcohols remain much later. Para-nitrophenethyl alcohol was another substantial structural-transfer underestimate. The matched aminobenzonitrile comparison gave similar values, weakening any expectation of a large positional effect for that pair at 2/1. Pure-EA sulfoxide, stronger-eluent lactone and methoxyethyl acetoacetate were predicted reasonably well, so I deprioritize further nearby measurements of those already repaired anchors. Anisole did not reproduce its predicted near-zero interval. CW feedback also showed errors in both directions, including severe underestimates for terephthalaldehyde and lutidine and overestimates for several weakly retained compounds. These are acquisition-time errors, not current-model residuals.",
+  "batch_rationale": "The pending batch already covers several aromatic carbonyls, nitrogen heterocycles, polar alcohols and cinnamic acid. These 16 supplements add discriminating interior ratios in families where recent measurements exposed incorrect response shapes, plus structural bridges that can test transfer of those corrections. The paired alcohol measurements form a coherent local experiment, and the two acrylates test whether the ether-containing keto-ester correction has extended too broadly. Novel methylquinoline, pyridyl ketone, fused ether aldehyde and methoxybenzyl alcohol expand chemical support where there are relevant measured neighbors. Naphthaldehyde provides a focused check on endpoint behavior near an inconsistent recorded anchor. I avoid spending the batch on nearly identical loading variants or duplicating pending conditions. Quantile widths and CW distance are secondary evidence: the supplied quantiles sometimes cross, and neither signal establishes calibrated epistemic uncertainty. The expected benefit is better structure-condition interpolation and transfer across the Row-distribution; selected retention volumes and interval widths are diagnostic predictions, not optimization objectives."
+}

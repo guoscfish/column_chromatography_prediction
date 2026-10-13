@@ -1,0 +1,161 @@
+{
+  "type": "selection",
+  "packet_sha256": "2335bad68eba40a0f0b11881c74295bc9ddc77cbe7b5a74e3b036a3c61252903",
+  "batch_strategy": "Supplement the pending 16 with targeted tests of loading sensitivity, suspicious condition-response shapes, and poorly anchored polar structures. Prioritize comparisons that distinguish competing explanations for measured failures, while adding two unmeasured structures with useful analogs. Freeze these selections and all supplied packet predictions before label reveal.",
+  "choices": [
+    {
+      "id": "06ebbf6e52fa3ea6aef3",
+      "reason": "Measure m125 at 5/1, 150 uL, DCM 500 uL, predicted 20.80/49.64 mL. Together with the pending 50-uL experiment at exactly the same solvent conditions, this tests loading sensitivity. It also gives a same-loading solvent contrast to facbcedbecb46072b04c, measured 32.95/69.81 at 2/1 after a major acquisition-time underestimate. This distinguishes a reproducible nonmonotonic response from loading-dependent behavior.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "a3ae677aae8a8faf5786",
+      "reason": "Measure ortho-methoxyacetophenone m127 at 50/1 and 100 uL, predicted 5.89/24.03. The measured 50- and 150-uL endpoints are 11.65/23.65 in 52b9af4df1f1e7cd4d9b and 1.01/23.71 in c82167c626a1495ef750. This interior loading point directly tests the striking onset change with nearly unchanged completion, a relationship the current near-invariant loading predictions cannot resolve.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "783cf2454912fc14bb80",
+      "reason": "Measure m195 at 20/1 and 100 uL, predicted 27.00/33.79. The 150-uL observation a917c928912c74862968 has V1=31.98 greater than V2=31.91, while dc9e3983cd4f98689fa7 at 10/1 measured 4.82/22.33. A neighboring loading point tests whether the apparent abrupt onset transition is reproducible or reflects record-level variability; it should prevent an anomalous endpoint ordering from defining the whole response curve.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "65fcce0299e031dedeb8",
+      "reason": "Measure cinnamic acid m173 at 1/1 with DCM loading volume 1500 uL, predicted 6.86/109.78. The closely matched 2000-uL record f90a5a5a54509c085ebd measured 6.51/108.89, whereas 0b247863fd6e8eaf44d8 at 2/1 measured 8.34/45.06. This tests whether the exceptional completion tail persists across loading-solvent volume. The very broad onset quantiles are an additional model warning, not calibrated epistemic uncertainty.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "8aa864c9e33df9bb1a6a",
+      "reason": "Measure multifunctional ester m13 in pure EA at 100 uL, predicted 7.15/27.55. Its measured 1/1 and 2/1 records 81507d463506a9e65e73 and 74ce463c8423fbd22dc4 have completion volumes near 19 and 23 mL, and its 10/1 labels are much later. The unmeasured strong-eluent endpoint tests the predicted reversal and whether the model overextends this molecule's weak-eluent tail into pure EA.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "36786ca0d1deaa0687ba",
+      "reason": "Measure methyl mandelate m99 at 1/1 and 100 uL, predicted 8.96/23.21. Same-loading observations ad67d712133eac45ff64 at 2/1 and 12ab195583f05b9aa177 at 5/1 are 9.89/15.47 and 19.91/32.37. This fills an interior strong-eluent gap and tests the predicted completion reversal without changing loading conditions, informing transfer among hydroxylated esters.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "7bd4e959319ef8b7b0fe",
+      "reason": "Measure ethyl cinnamate m73 at 1/1 and 50 uL, predicted 15.51/20.39. The 100-uL observation 2cf789c87f7c6325c020 has an unusually narrow measured interval, 18.60/18.96. A lower-loading comparison tests whether this is a reproducible retention regime or an isolated record, and complements the selected 2/1 point.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "49932dbd3d16bb64f71a",
+      "reason": "Measure m73 at 2/1 and 100 uL, predicted 10.89/11.92. This is effectively the same loading as 2cf789c87f7c6325c020 at 1/1, but the model predicts much earlier elution in weaker mobile phase. Together with the selected 1/1 loading contrast and measured 20/1 record 0baeb34a1650e9409f2a, it tests the response shape instead of assuming solvent monotonicity.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "55200f8e501a16ffa0cf",
+      "reason": "Measure methylthioacetophenone m128 at 20/1 and 50 uL, predicted 29.02/55.78. Records 91cd087e44e7a3364533 and 596bd04bfe916866f908 at 5/1 and 10/1, both 150 uL, measured 19.39/38.45 and 33.83/57.29. This tests the predicted plateau or reversal beyond 10/1 and transfer from sulfur-containing aromatic carbonyls; the loading difference limits a pure solvent-slope interpretation.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "98586ac2d6d266ddb78c",
+      "reason": "Measure para-methoxybenzaldehyde m118 at 5/1 and 100 uL, predicted 4.45/22.74. Same-loading records 319e89d7000731f64e7f at 10/1 and 2d178efe0181baca2bd5 at 50/1 measured 4.78/36.82 and 56.20/117.46. This anchors the early-onset side of its transition and teaches how V2 can grow before V1 changes substantially.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "7954bf73f74c7fbcecb2",
+      "reason": "Measure naphthylethanol m205 at 5/1 and 50 uL, predicted 31.86/66.18. Its 100-uL observations 2b10c90b32f970e4b4c8 at 1/1 and c973d4c257be9ef08216 at 2/1 measured 18.27/33.28 and 27.63/51.49. This extends an incompletely anchored alcohol response and tests whether the predicted modest onset increase but larger completion increase is credible. Loading differs, so the label is not a controlled solvent contrast.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "8730f48ba29fd2e622ac",
+      "reason": "Measure ether-containing aryl ketone m106 at 2/1 and 100 uL, predicted 9.11/17.67. Same-loading records 265b6eb5a10a34c937b1 at 0/1 and 7155ede91e7e3232862a at 10/1 measured 5.71/8.96 and 20.86/42.52. This fills a meaningful gap for a less common carbonyl topology after substantial historical underprediction at 10/1, testing transfer beyond directly conjugated methoxyaryl carbonyls.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "34e5e03737a88f40fa19",
+      "reason": "Introduce tert-butyl 2-bromopropionate m46 at 50/1 and 100 uL, predicted 8.74/12.74. It is absent from the measured set and has maximum observed similarity 0.48. The related bromoester m76 measured 7.83/15.93 in b9c474ef8c8affc54498. Changing ester-side and alpha-carbon substitution tests whether the model represents steric context around the ester rather than applying one bromoester response.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "3e9cbdb1e890c7998372",
+      "reason": "Introduce iododimethylbenzene m139 at 1/1 and 100 uL, predicted 5.87/11.55, with maximum observed similarity 0.43. Recent halogenated and polyaryl labels show that completion behavior is not uniformly compact: compare 7a19ff191dfe91e75bb4, d5b6201c7690d729361c, and 7c44f4c46906e8f36cd1 under their different conditions. This supplies a new nonpolar substitution pattern and tests whether predicted strong-eluent broadening is real.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "26df752cf7c0673db585",
+      "reason": "Measure diethyl malonate m80 at 20/1 and 100 uL, predicted 5.58/5.66, an almost zero elution interval. Its 10/1 observation 271f829efaeb0b6c03b9 and 50/1 observation 2aa2754666d0f055cb00 have compact but finite intervals. This fills the intervening ratio and tests endpoint collapse in an ester that should not inherit the very long tails of m13 or m107. Loading differs from those anchors.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "2cfa393cb79664e100ce",
+      "reason": "Measure m107 at 5/1 and 150 uL, predicted 37.58/97.00. At identical solvent conditions, c6924324ddd95f249df6 at 50 uL measured 43.20/101.44 and d1172a49fca1e196a59f at 100 uL measured 35.16/96.51. Completing this loading series tests whether the onset decrease continues, saturates, or reflects variability. It directly challenges the predictor's nearly unchanged outputs across loading amounts.",
+      "hypothesis_id": "H2"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Solvent-response transitions remain localized to molecular topology, and onset and completion can change at different rates. A broad correction for all aromatic carbonyls or alcohols is unlikely to transfer reliably.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "319e89d7000731f64e7f",
+        "2d178efe0181baca2bd5",
+        "596bd04bfe916866f908",
+        "7155ede91e7e3232862a",
+        "c973d4c257be9ef08216"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Condition anchors around transitions can improve both endpoint interpolation and transfer to related structures without imposing a global retention increase.",
+      "next_discriminating_question": "Do the selected lower- and intermediate-ratio points show smooth endpoint-specific responses, plateaus, or reversals after accounting for the recorded loading differences?"
+    },
+    {
+      "id": "H2",
+      "content": "Some measured families have loading-dependent endpoint changes that the current predictor's near-invariance to sample amount does not represent. The direction and affected endpoint are molecule-specific, although unexplained experimental variability remains an alternative.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "52b9af4df1f1e7cd4d9b",
+        "c82167c626a1495ef750",
+        "c6924324ddd95f249df6",
+        "d1172a49fca1e196a59f",
+        "f31917e9b529f3a4126a",
+        "7c44f4c46906e8f36cd1"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The catalog contains many loading variants. Learning when loading changes V1, V2, or both could benefit many rows, while additional contrasts can prevent isolated observations from being treated as general loading laws.",
+      "next_discriminating_question": "Does the intermediate m127 loading interpolate its onset change, does m107 continue its measured loading trend, and does the pending/selected m125 pair show a comparable effect?"
+    },
+    {
+      "id": "H3",
+      "content": "Several apparent nonmonotonic solvent responses and nearly collapsed intervals may reflect real molecule-condition behavior, record variability, or unrecorded factors. Neighboring labels are needed before these patterns are generalized.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "a917c928912c74862968",
+        "dc9e3983cd4f98689fa7",
+        "2cf789c87f7c6325c020",
+        "271f829efaeb0b6c03b9",
+        "2aa2754666d0f055cb00",
+        "28e9fea3e3293f2b8a0e"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A model can propagate unusual labels into entire response curves. Local tests distinguish reproducible behavior from unsupported interpolation and constrain endpoint ordering and interval width.",
+      "next_discriminating_question": "Are the m195 onset jump, m73 strong-eluent retention, and m80 near-zero predicted interval reproduced at neighboring conditions?"
+    },
+    {
+      "id": "H4",
+      "content": "Strong mobile phase does not guarantee a compact elution interval for every multifunctional molecule, but exceptional tails should be learned by connectivity and loading conditions rather than by heteroatom count alone.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "f90a5a5a54509c085ebd",
+        "f4fb5c03b8e8996e75f6",
+        "81507d463506a9e65e73",
+        "ad67d712133eac45ff64",
+        "6fe6280def3960fa4f99"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Strong-eluent labels can reveal overgeneralized tails as well as missed tails. These errors affect ordinary rows and cannot be repaired solely by measuring the latest-eluting candidates.",
+      "next_discriminating_question": "Does cinnamic acid retain its exceptional 1/1 tail at a different loading-solvent volume, and are the predicted strong-eluent completion reversals of m13 and m99 observed?"
+    }
+  ],
+  "feedback_interpretation": "Most recent LLM carbonyl and ordinary aromatic selections were already predicted closely: a7c31cd83c8ff0e359d0, c098b72af1f4e81425e7, and fde9781e6b15ffbe093f had endpoint errors below 1 mL. This reduces the value of adding more routine anchors merely because their quantile widths are broad. The pending-CW outcome facbcedbecb46072b04c instead exposed a major m125 failure at 2/1, motivating a controlled loading comparison alongside the new pending 5/1 point. The m198 outcome 0ac58929e586a4da4056 retains evidence for weak-eluent underprediction, but nearby m198 conditions already have measured anchors, so it does not justify another near-duplicate by itself. Completion underprediction for m3 and indene, alongside overprediction for biphenyl and naphthalene, weakens any assumption that nonpolar molecules provide universally narrow intervals. The m3 50/1 loading contrast also strengthens the case for testing amount effects. I corrected earlier memory annotations using the supplied structures and observed table: m199 is a sulfoxide, c6924324ddd95f249df6 is m107 rather than an anthranilate, and 6b8e53d2d8c8a90a7216 is m82 rather than m11. Historical errors are acquisition-time errors, not current residuals.",
+  "batch_rationale": "The pending batch already covers several ordinary aromatic, phenolic, nitrile, and carbonyl conditions. These supplements add comparisons with greater explanatory value: loading series for m127 and m107; a matched loading pair for m125 across pending and selected experiments; local tests of unusual m195, m73, and m80 response shapes; and strong-eluent probes for multifunctional molecules. Additional m118, m128, m205, and m106 points address incomplete structure-condition relationships with documented historical failures. Two new structures test representation transfer in bromoesters and nonpolar iodinated aromatics without spending most of the batch on routine controls. All learning claims remain prospective. Negative or crossed quantile widths and nearly identical predictions across loading variants are treated as model behavior, not calibrated uncertainty. Missing experimental variables and record variability limit mechanistic attribution. The intended gain is better prediction across the many related conditions and loading variants in the Row-distribution, through both localized failure repair and protection against overgeneralized corrections."
+}

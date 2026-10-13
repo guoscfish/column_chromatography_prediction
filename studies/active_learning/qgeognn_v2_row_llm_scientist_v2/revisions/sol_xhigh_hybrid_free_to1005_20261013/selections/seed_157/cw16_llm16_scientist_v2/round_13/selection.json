@@ -1,0 +1,146 @@
+{
+  "type": "selection",
+  "packet_sha256": "94aeb0dfc83bbc78b103e39aa1c34d8feb9bd539a37e0eb9694d4bf2ba833057",
+  "batch_strategy": "failure repair with local solvent response contrasts, loading controls, and chemically related endpoint checks",
+  "choices": [
+    {
+      "id": "ddb0a18bcd9c5fc460c2",
+      "reason": "Measure m130 at 2/1, 50 uL DCM loading, predicted 4.65/7.74 mL. This neighboring ratio tests how rapidly the molecule-specific response changes away from the severe delayed-elution prediction region.",
+      "hypothesis_id": "H23"
+    },
+    {
+      "id": "65bb637fa567663f5c54",
+      "reason": "Measure m130 at 5/1 and 100 uL, predicted 5.95/9.78 mL. Together with the selected 2/1 point, this brackets the response while also testing a loading change rather than imposing smooth interpolation.",
+      "hypothesis_id": "H23"
+    },
+    {
+      "id": "ce539fc06bdda7c0ed0d",
+      "reason": "Measure m82 at 2/1, 100 uL DCM loading, predicted 9.16/19.63 mL. It tests whether the large m82 endpoint discrepancy begins before the stronger-eluent region.",
+      "hypothesis_id": "H24"
+    },
+    {
+      "id": "f50c45b31cf41304c109",
+      "reason": "Measure m82 at 5/1 and 100 uL, predicted 11.19/24.36 mL. This intermediate strong-eluent constraint helps separate onset and completion corrections across the abrupt m82 response.",
+      "hypothesis_id": "H24"
+    },
+    {
+      "id": "2b7cd8ac357e176a9726",
+      "reason": "Measure m141 at 1/1, 100 uL DCM, predicted 12.52/23.58 mL. It tests whether the recently exposed m141 onset problem is already present near 1/1.",
+      "hypothesis_id": "H24"
+    },
+    {
+      "id": "eceaa4f4139cde7ba166",
+      "reason": "Measure m141 at 2/1, 100 uL DCM, predicted 11.76/30.62 mL. Paired with the 1/1 point, it gives a local condition response and distinguishes completion changes from onset changes.",
+      "hypothesis_id": "H24"
+    },
+    {
+      "id": "4d0055bdff0f507c778b",
+      "reason": "Measure m40 at 2/1, 100 uL DCM, predicted 4.66/11.82 mL. m40 has a broad predicted response across conditions, so this intermediate ratio can localize its solvent transition.",
+      "hypothesis_id": "H24"
+    },
+    {
+      "id": "b1fcf9bf2e03028d2ef8",
+      "reason": "Measure m205 at 1/1, 50 uL DCM, predicted 18.23/33.76 mL. This lower-ratio point tests whether the severe m205 underprediction is confined to strong eluent or begins earlier.",
+      "hypothesis_id": "H25"
+    },
+    {
+      "id": "91b6bda771851a5c78ac",
+      "reason": "Measure m205 at 2/1, 150 uL DCM, predicted 27.56/51.66 mL. It provides a higher-loading comparison that helps distinguish a solvent transition from a loading interaction.",
+      "hypothesis_id": "H25"
+    },
+    {
+      "id": "2745c6978a8911fc3dda",
+      "reason": "Measure m146 at 2/1, 100 uL DCM, predicted 20.07/34.50 mL. This tests loading transfer in a high-retention aromatic system and constrains its local response before stronger solvent conditions.",
+      "hypothesis_id": "H25"
+    },
+    {
+      "id": "4908bb1bf155952cd305",
+      "reason": "Measure m37 at 5/1, 50 uL DCM, predicted 13.30/29.83 mL. It tests whether the high-retention transition is gradual or sharply condition-specific at low loading.",
+      "hypothesis_id": "H25"
+    },
+    {
+      "id": "488727f2d41859d1ac45",
+      "reason": "Measure m37 at 10/1, 150 uL DCM, predicted 24.50/54.28 mL. Together with the selected low-loading strong-eluent point, it constrains the joint loading and solvent response.",
+      "hypothesis_id": "H25"
+    },
+    {
+      "id": "31232902f2b6f3a67c60",
+      "reason": "Measure m90 at 1/1, 100 uL DCM, predicted 11.10/20.51 mL. This local point tests whether its completion discrepancy persists toward weaker eluent and higher loading.",
+      "hypothesis_id": "H24"
+    },
+    {
+      "id": "04e162e0c1261108b4a0",
+      "reason": "Measure m197 at 10/1, 100 uL PE loading, predicted 9.11/28.67 mL. It tests whether the broad completion response remains a plateau at 10/1 or changes sharply in the stronger-eluent segment.",
+      "hypothesis_id": "H27"
+    },
+    {
+      "id": "2f48e798c7917fb7d2ae",
+      "reason": "Measure m11 at 20/1, 100 uL DCM, predicted 19.64/43.98 mL. This wide-interval point provides a joint endpoint constraint where onset, completion, and interval width all matter.",
+      "hypothesis_id": "H26"
+    },
+    {
+      "id": "ea004678fc850c759752",
+      "reason": "Measure m118 at 10/1, 150 uL DCM, predicted 5.44/36.30 mL. It fills a missing solvent-response segment between lower-ratio and high-retention conditions and tests whether the transition is smooth or abrupt.",
+      "hypothesis_id": "H24"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H23",
+      "content": "The extreme m130 discrepancy is a molecule-specific solvent-response regime rather than a uniformly shifted prediction; neighboring ratios should reveal where the response changes.",
+      "basis": "model_behavior",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Local constraints around a severe failure can prevent the retrained model from transferring an erroneous smooth solvent trend across related rows.",
+      "next_discriminating_question": "Does m130 remain near its early local interval at 2/1 and 5/1, or does a sharp delayed-elution transition appear before 20/1?"
+    },
+    {
+      "id": "H24",
+      "content": "Polar or heteroatom-containing compounds can have abrupt, molecule-specific onset and completion transitions with solvent strength; functional-group counts alone may not determine the response shape.",
+      "basis": "chemical_prior",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "Intermediate conditions for m82, m141, m40, m90, and m118 can teach condition structure instead of averaging incompatible response curves.",
+      "next_discriminating_question": "Are the selected errors concentrated in completion, onset, or both, and do they arise at a common solvent threshold?"
+    },
+    {
+      "id": "H25",
+      "content": "High-retention aromatic and carbonyl-rich compounds may show important interactions between solvent ratio and loading, making transfer across loading conditions unreliable even within a chemical family.",
+      "basis": "chemical_prior",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "Partially matched loading comparisons can teach whether large residuals are caused by solvent response, loading dependence, or their interaction.",
+      "next_discriminating_question": "Do m205, m146, and m37 follow a transferable loading correction, or do they require separate condition-response representations?"
+    },
+    {
+      "id": "H26",
+      "content": "Endpoint failures can be coupled, so correcting onset alone or completion alone may leave the predicted interval physically distorted.",
+      "basis": "model_behavior",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The m11 point supplies a wide-interval constraint where joint V1/V2 calibration and interval width matter for overall loss.",
+      "next_discriminating_question": "When a high-retention interval is mispredicted, does retraining need a joint endpoint shift or a change in interval width?"
+    },
+    {
+      "id": "H27",
+      "content": "Salicylaldehyde-like molecules may show nonmonotonic or plateaued completion responses across solvent conditions, and response shape should be learned locally rather than transferred from substitution analogues.",
+      "basis": "chemical_prior",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "The m197 10/1 point tests whether the model should preserve a broad completion plateau or learn a new strong-eluent transition in this family.",
+      "next_discriminating_question": "Does m197 completion remain near its lower-ratio level at 10/1, or does it change sharply?"
+    }
+  ],
+  "feedback_interpretation": "Recent outcomes strengthen the priority of local failure repair. The m130 region showed a severe condition-dependent discrepancy, while m82, m141, m90, and related high-retention rows also expose large endpoint errors. The m92 loading and solvent series remains irregular, and the m127 middle-load anomaly remains localized but unresolved. These results favor connected condition-response measurements over a universal loading correction. The new batch therefore emphasizes local segments for severe failures, with separate checks for endpoint behavior and loading effects.",
+  "batch_rationale": "The batch targets measured failure regions likely to affect many Row-distribution rows: abrupt solvent transitions, high-retention aromatic and heteroatom-containing compounds, and endpoint-specific interval errors. It includes paired or bracketed conditions for m130, m82, m141, m205, and m37, plus independent checks on m40, m90, m197, m11, m146, and m118. This preserves meaningful local designs while limiting redundant replication. The labels should improve generalization by distinguishing molecule-specific response regimes from effects that can transfer across chemical families."
+}

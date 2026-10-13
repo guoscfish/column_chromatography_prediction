@@ -1,0 +1,230 @@
+{
+  "type": "selection",
+  "packet_sha256": "639229c0e7515cac20f94d7a7aa10df168c4c0be66f0729e04f508eaeb4d88cd",
+  "batch_strategy": "Targeted failure repair with matched condition response curves across loading, solvent ratio, nitrogen-rich structures, and oxygenated aromatic compounds.",
+  "choices": [
+    {
+      "id": "19f19f196ba5787a01b0",
+      "reason": "m125 at 2/1, 150 mg, and 300 uL completes the loading/ratio series around the large measured V2 shift at 69b09343d0b9995c3ae4 and the 150 mg, 500 uL row facbcedbecb46072b04c. It separates loading-solvent volume from sample loading at a central condition.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "549daca56bed1c9d2bcc",
+      "reason": "m125 at 5/1 and 150 mg provides a higher-loading counterpart to the measured 5/1, 50 mg row 761c3f82d640da44966c. The predictor currently leaves a large completion tail nearly unchanged with loading, so this label can repair endpoint-specific loading effects.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "03744855d469f4cca7e6",
+      "reason": "m125 at 1/1, 150 mg, and 300 uL anchors the loading response between the measured low-load 1/1 row f4fb5c03b8e8996e75f6 and the 2/1 and 5/1 contrasts. It helps distinguish a ratio effect from a general high-loading tail.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "20d919989660f0116d9e",
+      "reason": "m90 at 0/1 and 100 mg supplies a baseline for a nitrogen-containing ester family with unusually broad predicted endpoint behavior. The label tests whether the model misses completion tails even under strong eluent conditions.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "0460dfc4e1747f0fc92c",
+      "reason": "m90 at 2/1 and 100 mg gives a matched solvent-ratio contrast to the selected 0/1 row. This probes whether the large predicted V2 response is a real nitrogen/ester solvent effect or a representation failure.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "b51b5dbcd2a38b174973",
+      "reason": "m90 at 5/1 and 150 mg extends the same family into a weaker-eluent, higher-loading regime. It is useful for testing whether the model's broad V1/V2 response is structurally transferable across adjacent ratios.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "e7bf6bd74f8498f1cb11",
+      "reason": "m216 at 2/1 and 100 mg fills a loading/ratio gap between measured 07933c8c797c30bb0e8e and the extreme 5/1 and 10/1 observations 33ffc69a253a89f15995 and 9cd02352c2ed7a3e2321. It constrains the steep nitrogen response curve.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "e47aebe2660b9e1528de",
+      "reason": "m216 at 10/1 and 50 mg tests whether the large measured retention at 10/1 transfers to lower loading. This separates a solvent-ratio effect from the loading covariate in the existing high-error nitrogen series.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "fe66b2381d33aa2ea3a8",
+      "reason": "m160 at 5/1 and 150 mg is a matched-loading extension of the measured amino-benzonitrile response at 5/1, 100 mg, b4e0e9dc92fca2c88b90. It tests continuation of the sharp completion increase at weaker eluent.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "537a64f15ea470d73b03",
+      "reason": "m160 at 1/1 and 150 mg provides a lower-ratio anchor for the same amino-benzonitrile family. Together with measured 0c24b9414856413c9a67, 2feb7d8e0a3566ddf97f, and b4e0e9dc92fca2c88b90, it teaches the model the nonlinear ratio response.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "f9d4d16c9703edbbe541",
+      "reason": "m161 at 1/1 and 150 mg is a matched positional-isomer comparison to the selected m160 row. The measured m161 extremes at 5/1 and the m160 observations show that nitrogen positional context can change V2 substantially.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "2745c6978a8911fc3dda",
+      "reason": "m146 at 2/1 and 100 mg bridges the measured 1/1 and 10/1 rows 9a58eec5ad3051be568a and 9e3ce3497298084abd83. It identifies whether the very large 10/1 retention is a gradual solvent response or a local transition.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "61b73b8065ae2ece22eb",
+      "reason": "m146 at 5/1 and 150 mg adds an intermediate solvent-ratio anchor at a higher loading. It tests transfer of the steep substituted quinoline behavior seen between 9a58eec5ad3051be568a and 9e3ce3497298084abd83.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "bd2e9fee67bbba1155df",
+      "reason": "m211 at 20/1 and 100 mg extends the measured 2/1, 10/1, and 50/1 response sequence from ecd17c7ea435a1e33f6b, d119d77f545c029deace, and 35f2be5f5aa14265e8a. It tests whether retention continues smoothly or saturates at weak eluent.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "434e465cfa7e0034f233",
+      "reason": "m211 at 20/1 and 50 mg is a matched lower-loading counterpart to bd2e9fee67bbba1155df, allowing the solvent response and loading response to be separated in a family with large measured errors.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "6defbf00ecb558b77d50",
+      "reason": "m212 at 2/1 and 100 mg supplies an intermediate loading point between measured 5/1 low-load dibenzylamine d5234e966aa231be05e5 and the 2/1 and 10/1 high-loading rows e0f2b47154fd134db700 and 942b8fc9cf013acda52b.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "6a11b71a3fb682d5f6da",
+      "reason": "m212 at 1/1 and 100 mg anchors a stronger-eluent condition at intermediate loading. It tests whether secondary-amine retention follows the aromatic nitrogen response or requires a distinct local correction.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "761c1abe2efeaef568fd",
+      "reason": "m73 at 5/1 and 100 mg fills the missing middle of the measured 1/1, 2/1, and 10/1 sequence 2cf789c87f7c6325c020, 49932dbd3d16bb64f71a, and 77f65db1224c7c295678. It tests whether the compressed 1/1 interval is local or part of a broader endpoint response.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "ae21e5bf088e88892524",
+      "reason": "m73 at 20/1 and 50 mg extends the same response curve into weak eluent at lower loading. This is useful for learning whether V2 broadening transfers beyond the measured 50/1 row e6dcf9d6f65fa598a38e.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "e9dc948c0e68a88eb621",
+      "reason": "m92 at 20/1 and 150 mg adds a high-loading EA point to the measured 20/1, 100 mg observation 8b58e9d7a710f55e49d3 and the broad EA series. It tests whether the completion tail continues with loading.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "4b8ba288d549f6cfc94b",
+      "reason": "m92 at 10/1 and 100 mg is a matched intermediate-loading point between measured EA rows e2f15590b7142490599b and 50e113fcc37184809670. It helps estimate the ratio/loading surface rather than treating each EA condition as a molecular offset.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "9845fd896eb72b0e149f",
+      "reason": "m28 at 1/1 and 150 mg extends the measured 1/1 low-load row 686562279e2bfb73ef1e toward higher loading. The compound's measured 10/1 tail in db7f9ffa50eb931613f6 suggests oxygenated aromatic structures need endpoint-specific transfer.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "351c17dfa8f46a8cb40a",
+      "reason": "m28 at 10/1 and 100 mg provides an intermediate loading anchor between the measured 10/1 low-load result db7f9ffa50eb931613f6 and the 1/1 observation 686562279e2bfb73ef1e.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "b6f1b33a5491968c645e",
+      "reason": "m37 at 20/1 and 100 mg tests weak-eluent behavior of an amino ketone after the large measured 5/1 and 10/1 responses 9de8f9fed06ef9d5befa and 38e6b8bf0f089fcadd80. It extends functional-group transfer beyond amino nitriles.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "9ae9c8b491a04e429a11",
+      "reason": "m37 at 10/1 and 50 mg supplies a lower-loading response anchor for the same amino ketone family. The contrast with measured 9de8f9fed06ef9d5befa helps identify whether the long tail is loading-sensitive.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "4d1e1e0eca90a46d77b2",
+      "reason": "m59 at 50/1 and 150 mg probes a high-loading, weak-eluent condition for an oxygenated aldehyde family. It complements the measured m59 conditions and tests whether V2 broadening is transferable across oxygen-rich aromatic structures.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "2b97a1e0a6a4b944b760",
+      "reason": "m78 at 50/1 and 50 mg extends the beta-dicarbonyl/ester response beyond the measured 10/1 anchor 3092a6310ab5c25cb83c. It tests whether the model's predicted weak-eluent tail is structurally credible.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "a7f8c888870123f3b277",
+      "reason": "m165 at 20/1 supplies a novel aromatic enone anchor with a predicted broad endpoint range. It expands functional-group coverage near measured aromatic carbonyl failures while avoiding another duplicate of the already sampled families.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "a1dc71bed9d8f372c9e5",
+      "reason": "m159 at 20/1 and 50 mg fills a missing low-loading, weak-eluent point between measured 0/1, 2/1, 5/1, 10/1, and 50/1 conditions, including a3b638d4b969c7f2a61b and 1395836aef00d6a880b0. It can teach the model the endpoint-specific nitrogen-plus-carbonyl response.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "cfcf2b8c54d4c8b3838a",
+      "reason": "m159 at 1/1 and 100 mg provides a stronger-eluent anchor at intermediate loading for the same structure. Together with a1dc71bed9d8f372c9e5, it tests whether the apparent long tail is driven mainly by ratio or by loading.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "d035281432e410405550",
+      "reason": "m114 at 20/1 and 50 mg adds a low-loading weak-eluent point to the measured 20/1 and 50/1 oxygenated aromatic series 8232ed63909910ce88f2, 44fcf641ccfa3b10a97c, and 0cf0d36290765378ae8d. It constrains V1/V2 tail transfer.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "10f14f6ee69ba06bbe68",
+      "reason": "m104 at 20/1 and 100 mg extends a polar amino ester family into weak eluent. It complements the measured 5/1 row 9333d130f52d80332cf0 and nearby amino-ester observations to test whether the model underestimates completion more strongly than onset.",
+      "hypothesis_id": "H3"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Loading amount, loading-solvent volume, and solvent ratio interact strongly and often affect V2 more than V1; a uniform molecular offset is inadequate.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "69b09343d0b9995c3ae4",
+        "facbcedbecb46072b04c",
+        "761c3f82d640da44966c",
+        "aa43fe84c0d8c825fe58",
+        "b514312eda7950cdcf1c",
+        "87da8c37b16d810331a2",
+        "6802f0b28c5a0c7b4c2a",
+        "65fcce0299e031dedeb8"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Many existing predictions barely change across loading conditions while measured completion volumes change substantially. Local response curves can teach endpoint-specific condition interactions that generalize across repeated catalog families.",
+      "next_discriminating_question": "Which loading and injection effects persist across solvent ratios, and which are confined to particular structural families?"
+    },
+    {
+      "id": "H2",
+      "content": "Nitrogen-containing compounds require local structural and solvent-response representations; quinolines, pyridyl carbonyls, secondary amines, and amino nitriles do not share one correction.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "49201b5817f204116f7f",
+        "9e3ce3497298084abd83",
+        "d119d77f545c029deace",
+        "35f2be5f5aa14265e8a4",
+        "b4e0e9dc92fca2c88b90",
+        "17902fa9c7f8ea9b456e",
+        "33ffc69a253a89f15995",
+        "9cd02352c2ed7a3e2321",
+        "bea7a84fdcea344896f4",
+        "6b7209c2e8154837a8c7"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The largest recent errors cluster in nitrogen-rich structures and include strong positional and ratio effects. Matched nitrogen experiments can improve transfer to unseen heteroaromatic and amino-functional rows.",
+      "next_discriminating_question": "Which nitrogen environments share a common ratio response, and which require separate structural features or endpoint models?"
+    },
+    {
+      "id": "H3",
+      "content": "Oxygenated aromatic and carbonyl-rich compounds can show broad, endpoint-specific tails that are poorly captured by simple polarity or functional-group counts.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "686562279e2bfb73ef1e",
+        "db7f9ffa50eb931613f6",
+        "c8d43713db33bf820a1d",
+        "5ba8cead5a790ba93029",
+        "e93e08d6bc42e91e2679"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "These structures recur across the catalog, so labels from matched carbonyl, ester, beta-dicarbonyl, and amino-ester environments can repair systematic V2 tail errors and improve family-level generalization.",
+      "next_discriminating_question": "Can endpoint broadening be predicted from local carbonyl arrangement and solvent ratio, or is it primarily compound-specific?"
+    }
+  ],
+  "feedback_interpretation": "The new labels strengthen the loading and endpoint-interaction hypothesis. m125 showed large completion shifts across loading and injection conditions, while m177 and m173 confirmed that V2 can change substantially without a comparable onset shift. The earlier broad reversal hypothesis was weakened: m200, m67, and m82 all measured normal or locally inconsistent solvent responses rather than the predicted reversal, so the next batch emphasizes matched response curves and structural transfer instead of assuming reversals. Nitrogen-specific failure repair remains high priority because m66, m146, m211, m216, and amino benzonitrile observations continue to show large, family-dependent errors. The m202 rectangle now suggests that both ratio and loading matter, but its low-load rows also show that the extreme high-load tail is not a universal molecular offset.",
+  "batch_rationale": "The batch concentrates on several scientifically meaningful local surfaces while retaining structural coverage. The m125, m90, m216, m160/m161, m146, m211/m212, m73, and m92 groups provide matched ratio or loading contrasts around measured failures, improving identifiability of V1 versus V2 effects. m28, m37, m59, m78, m165, m114, and m104 extend those lessons to oxygenated and carbonyl-rich families that recur across the catalog. The batch therefore repairs known high-error regions, tests transfer of response shapes, and adds intermediate conditions that can improve interpolation across the Row-distribution rather than selecting experiments for extreme retention."
+}

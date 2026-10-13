@@ -1,0 +1,267 @@
+{
+  "type": "selection",
+  "packet_sha256": "f266e6d2b5153886105a31366def70e88e3ad15e565e512c69d468275d951ec7",
+  "batch_strategy": "Freeze these 32 candidate IDs and their supplied current-model predictions together. Use matched solvent-response experiments to distinguish curvature from molecular offsets, follow up recent alcohol and multifunctional-carbonyl failures, test a reproducible injection-volume association, and check transfer to the remaining unlabeled halogenated aromatics. Treat conflicting identical-condition observations as evidence against simple causal loading interpretations.",
+  "choices": [
+    {
+      "id": "60b7eed7a46a03b366b2",
+      "reason": "m107 at 1/1 and 109 mg tests the strong-eluent side of a recently exposed steep response. The observed table identifies c6924324ddd95f249df6 as m107 at 5/1, measured at 43.20/101.44 mL; 143bf510fe2028583763 supplies a 2/1 anchor at lower loading. This label tests whether the predicted 10.99/27.79 mL transition is localized to weaker eluent.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "c692f211a6366b2f15c2",
+      "reason": "m26 at 20/1 and 150 mg supplies the aromatic beta-diketone experiment that the previous narrative incorrectly attributed to c6924324ddd95f249df6. It matches the loading and injection conditions of measured 50/1 reference 6020a000a87663526cc8, which gave 14.58/34.78 mL, and tests the current 10.38/24.00 mL interpolation.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "a421784c91de559c18e0",
+      "reason": "m13 at 5/1 and 112.2 mg fills the exact-condition interval between 6573d8f84faaf7ce4a78 at 2/1 and 9e3f598e00375ec93d9b at 10/1. Their measured endpoints changed from 9.23/17.90 to 44.09/91.85 mL, with opposite acquisition-error signs. The middle label distinguishes curvature from a uniform retention correction.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "53ceb391785085223695",
+      "reason": "m206 at 1/1 and 100 mg anchors a matched 1/1-to-2/1 pair. Its current 18.52/31.67 mL prediction exceeds the selected 2/1 prediction despite stronger eluent. The recent large underpredictions at 5/1 and 10/1 in cdf40bcb3f4392f8d7d1 and b7cf293311f83700cd9a make it useful to test whether retraining has extended the retention increase too far toward strong eluent.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "13bfaf03c35b4cff3bd5",
+      "reason": "m206 at 2/1 and 100 mg completes the matched pair with the selected 1/1 experiment. Measured 7c0c324643799c918828 at 50 mg gave 12.96/23.61 mL, close to this candidate's 13.15/24.22 mL prediction. The pair tests the predicted reversal while adding a loading comparison at an existing solvent ratio.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "c973d4c257be9ef08216",
+      "reason": "m205 at 2/1 and 99 mg matches measured 1/1 reference 2b10c90b32f970e4b4c8 in loading and injection conditions. Prediction 15.57/27.73 mL is below that reference's 18.27/33.28 mL. This directly tests a second naphthyl-alcohol reversal and whether the m206 correction transfers appropriately across OH placement.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "7954bf73f74c7fbcecb2",
+      "reason": "m205 at 5/1 and 49.5 mg tests the predicted rise to 30.23/57.61 mL after the m206 5/1 failure in cdf40bcb3f4392f8d7d1. Its high CW distance supports acquisition, but the main value is testing transfer from naphthylmethanol to a two-carbon alcohol side chain. Loading differs from the selected m205 2/1 point.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "ec6846c0fcb7df17c97d",
+      "reason": "m207 at 5/1 and 156 mg starts a matched pair for a brominated benzylic alcohol. Measured d803316212dc6eb862e9 supplies a lower-loading 1/1 reference. The predicted moderate 14.82/24.13 mL anchor helps determine whether a subsequent steep rise is specific to solvent ratio rather than a molecule-wide offset.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "ff3b6b1069b7d66ad021",
+      "reason": "m207 at 10/1 matches the selected 5/1 conditions and predicts 31.18/53.06 mL. Together they test whether the strong response seen for m206 and other alcohols transfers to a halogenated benzyl alcohol without assuming all OH environments behave alike. CW distance is high, while the quantile spans alone do not establish calibrated uncertainty.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "467ccfac002f5113fe81",
+      "reason": "m104 at 10/1 and 116.8 mg supplies a matched-loading anchor below observed 20/1 record 10f14f6ee69ba06bbe68 and 50/1 record 302e458c5ed2285ca328. The latter unexpectedly gave only 6.84/12.43 mL. This label tests whether the low-retention behavior extends across the curve or the existing 20/1-to-50/1 reversal is localized.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "5c2bc1d92128a17d996d",
+      "reason": "m125 at 2/1, 50 mg, and 300 uL DCM fills the exact-condition gap between 00043aebb2540e369a7b at 1/1 and 780b13846ace50ede763 at 5/1. Its predicted 18.45/48.34 mL completion is substantially above the measured approximately 30\u201331 mL completions at 100 and 150 mg in c8d43713db33bf820a1d and 19f19f196ba5787a01b0. This tests loading-dependent curvature at the missing corner.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "55f2352b50967352163e",
+      "reason": "m125 at 0/1, 50 mg, and 300 uL DCM starts an injection-volume contrast under pure EA. The 100 mg observations e7ed7ca4a53258b73ba2 and dd4f07e349873053fd73 differ substantially in completion across 300 and 500 uL injections. A second loading tests whether that association extends beyond the well-supported 1/1 contrasts.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "5e1a63da794d99ec88fb",
+      "reason": "m125 at 0/1, 50 mg, and 500 uL DCM completes the selected matched injection-volume pair. The predictor gives essentially the same endpoints for both injections, although 00043aebb2540e369a7b and f4fb5c03b8e8996e75f6 show a 17.79 mL completion difference at 1/1 and the same loading. The new pair tests solvent-ratio dependence of this model insensitivity.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "c86b03e1b275528444a6",
+      "reason": "m20 at 5/1 and 101.2 mg starts a matched ether-acrylate response pair. Measured e6cfb4a6354c69d460de is not used as an analogue here; the relevant same-molecule strong-eluent reference is 11f1d1ead8bfb4600086 at 0/1. Prediction 18.62/39.03 mL tests whether the methoxyethyl acrylate has a much stronger moderate-eluent response than the phenoxyethyl analogue measured in c11d5c3acbc28dddd0cf.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "374b71ac526fe1051993",
+      "reason": "m20 at 10/1 matches the selected 5/1 experiment. The model predicts nearly unchanged completion, 37.62 versus 39.03 mL, while m21's measured 10/1-to-50/1 response was steep. This pair discriminates a real plateau from inappropriate sharing of solvent-response shapes across ether-bearing acrylates.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "6c99a9b10569a54b715f",
+      "reason": "m21 at 20/1 and 165.6 mg probes the transition between the early-eluting 10/1 observation 487606cee9b08ded91f3 and much later 50/1 observation b4351e5f05f6d477a6c0. Prediction 17.98/21.71 mL implies a comparatively narrow elution interval. The label tests endpoint-specific growth, with the higher loading retained as a limitation on interpolation.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "bae9d67e095423d8edd2",
+      "reason": "m191 at 10/1 and 100 mg extends the exact-loading 5/1 reference b8c35c514f5ef6c0f3bc, measured at 14.16/34.92 mL. Prediction 24.71/46.70 mL and high CW distance identify an informative extension for two separated aldehyde groups, contrasting with shallow diaryl-ketone responses.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "8ab554cd154e9749790b",
+      "reason": "m198 at 50/1 and 100 mg matches measured 20/1 reference 163874b97308a1ea2507, which gave 24.17/56.91 mL. The predicted 32.56/77.36 mL extension has large quantile spans and tests weak-eluent curvature for an ortho-nitro aldehyde, without interpreting those spans as ensemble uncertainty.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "c28747d70e7b51a1cc95",
+      "reason": "m193 at 20/1 and 149.6 mg extends c08c4700ae34281b3318 at 10/1 under identical loading and injection conditions. The predicted 33.04/67.97 mL tests the para-nitro aldehyde's slope and complements the selected ortho isomer. Cross-isomer comparisons remain conditional on their different injection settings.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "a3ae677aae8a8faf5786",
+      "reason": "m127 at 50/1 and 109 mg tests a large predicted weak-eluent response for ortho-methoxyacetophenone. Measured b688bf34f76e0d26985a gives a same-loading 1/1 anchor of 4.81/9.86 mL. The high CW distance supports testing whether adjacent ether/carbonyl geometry transfers from the better-observed carbonyl families.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "2d178efe0181baca2bd5",
+      "reason": "m118 at 50/1 and 112.1 mg extends same-loading strong-eluent observation 073bc395a08f48db4fc0 only as an unmeasured candidate reference; measured evidence is the 2/1 series including 4e7e45a513ce579c5ce3 at higher loading. Prediction 30.94/55.63 mL tests weak-eluent transfer for a para-methoxy aldehyde, complementing the ortho-methoxy ketone and substituted salicylaldehydes.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "dea19ed5b8959a2a6619",
+      "reason": "m203 at 10/1 and 100 mg anchors a matched 10/1-to-20/1 pair for a cyclic tertiary benzylic alcohol. Measured 04ea307c7b7f3321cc20 at 150 mg gave 12.97/22.33 mL. This anchor separates loading transfer from the much steeper solvent response predicted at 20/1.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "080258046c2cae5fb2ab",
+      "reason": "m203 at 20/1 matches the selected 10/1 conditions and predicts 33.74/56.70 mL. It has the highest supplied CW-distance percentile, but the scientific question is whether the hindered cyclic OH environment supports this steep increase. The pair guards against transferring the m206 failure correction indiscriminately to tertiary alcohols.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "c023e9fab656fe2ce6a6",
+      "reason": "m58 at 20/1 and 101.2 mg starts a matched weak-eluent phenol pair. Observation aafc5710406e440a4c8f gives 8.83/14.98 mL at 10/1 and lower loading. The selected point tests the beginning of the predicted rise for an ortho-isopropyl phenol, where steric accessibility may matter but is not established experimentally.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "68a01853008546de06a1",
+      "reason": "m58 at 50/1 matches the selected 20/1 conditions and predicts 25.79/49.74 mL. Its high CW distance and lack of measured weak-eluent anchors make this a useful test of phenolic versus aliphatic-OH transfer. The two labels constrain slope and completion growth rather than merely adding another donor-containing molecule.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "6d07662cb17b795ea5e2",
+      "reason": "Benzyl benzoate m174 at 50/1 and 109.7 mg anchors a matched extension to 100/1. Measured 704ba630f25fe7f20166 at 30/1 and lower loading gave 11.99/18.29 mL. This tests the current moderate-retention prediction while connecting a common solvent ratio to the less-covered 100/1 range.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "2424b103c34d3d2b6a9a",
+      "reason": "m174 at 100/1 matches the selected 50/1 conditions. Prediction 14.66/31.19 mL tests whether completion continues to increase after 50/1 in a benzoate environment, contrasting with shallow responses measured for other ester structures such as m100 in c5a12771920c4410d921. The pair constrains extrapolation beyond the usual ratio grid.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "40fd02db79e028fe05a9",
+      "reason": "Diethyl malonate m80 at 20/1 and 105.5 mg matches aa65e86ee8638bded5d9 at 10/1, measured at 5.85/7.53 mL. The current 6.27/7.01 mL prediction implies almost no interval width and slightly earlier completion. This tests an early-eluting multi-ester exception that should prevent a generic carbonyl-count correction after the m107 and m13 failures.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "7726f4a207a737256a86",
+      "reason": "Dibenzalacetone m164 at 10/1 matches the measured 20/1 and 50/1 conditions in b7fffd840d208b29776c and c9bef93a79964dc6ede1. The recent 50/1 label showed substantial acquisition-time underprediction. This intermediate anchor tests whether the response starts from the predicted early onset and broad interval or requires a curve-wide correction.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "61f9733c04c17c3a14b4",
+      "reason": "Unmeasured dimethyliodobenzene m139 at 50/1 and 81.4 mg checks structural transfer within the many halogenated-aromatic rows. Maximum similarity to observed molecules is only 0.429, and the completion median exceeds its q90. A label tests whether the predicted modest retention is reliable despite that quantile inconsistency; it is not treated as proof of large error.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "616dd888d5b03ea79005",
+      "reason": "Unmeasured bromochloroiodobenzene m149 at 50/1 and 150 mg tests transfer across mixed heavy-halogen substitution without H-bonding functionality. Measured diiodobenzene d17eab369aebf6745a89 and other halogenated aromatics provide family coverage, but no same-molecule label exists. This constrains structure-derived retention in a large low-retention portion of the Row-distribution.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "d75058360a557a1bb4cb",
+      "reason": "Unmeasured para-chlorotoluene m136 at 50/1 and 107 mg checks the predicted early-eluting limit of a simple nonpolar aromatic. It complements the heavier halogenated selections and the recent accurate para-chloroanisole result 183e43f9452aa5b872ac. The label tests whether removing the ether group preserves the model's shallow response under the same PE injection volume.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H2",
+      "content": "For m125, a 500 uL DCM injection is associated with later completion than a 300 uL injection at 1/1 across all three measured loadings. This association also appears at 0/1 at 100 mg, whereas the 5/1 completion difference is small. Recorded injection volume therefore interacts with solvent ratio and endpoint; it is not a universal additive shift.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "00043aebb2540e369a7b",
+        "f4fb5c03b8e8996e75f6",
+        "4c32851430464f0ed684",
+        "dbb94bf062fc0e640258",
+        "03744855d469f4cca7e6",
+        "9bd998a328b109ef639e",
+        "e7ed7ca4a53258b73ba2",
+        "dd4f07e349873053fd73",
+        "780b13846ace50ede763",
+        "761c3f82d640da44966c"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Current predictions remain nearly invariant to injection volume. Matched labels can teach a reproducible recorded-condition association without claiming causality in the presence of missing variables.",
+      "next_discriminating_question": "Does the 0/1 completion difference persist at 50 mg, and where does the 2/1 low-loading, 300 uL point fall between the measured 1/1 and 5/1 endpoints?"
+    },
+    {
+      "id": "H3",
+      "content": "Carbonyl-containing compounds require structure-specific solvent-response curves. The ether-bearing beta-ketoester m107 and multifunctional m13 show steep measured responses, while aromatic beta-diketones and some diaryl ketones can respond more shallowly. Multiple ester groups alone do not imply strong retention, and onset and completion can change differently.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "c6924324ddd95f249df6",
+        "143bf510fe2028583763",
+        "6573d8f84faaf7ce4a78",
+        "9e3f598e00375ec93d9b",
+        "6020a000a87663526cc8",
+        "fa6fd34875fdc7acf6c1",
+        "191c723f2b37d0c12afa",
+        "aa65e86ee8638bded5d9",
+        "c9bef93a79964dc6ede1"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Recent opposite-sign acquisition errors favor learning curvature and functional-group environment rather than applying a common polarity or carbonyl-count correction. Correct molecule identity is essential to that interpretation.",
+      "next_discriminating_question": "Do matched intermediate points and weak-eluent extensions preserve the distinct curves of m13, m26, m107, m80, m164, and the substituted aromatic aldehydes and ketones?"
+    },
+    {
+      "id": "H4",
+      "content": "Acrylate solvent response depends strongly on the ester side-chain environment. Measured m21 rises sharply between 10/1 and 50/1, whereas hydrophobic m16 remains early-eluting. The model's predicted moderate-eluent plateau for methoxyethyl acrylate m20 remains untested.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "487606cee9b08ded91f3",
+        "b4351e5f05f6d477a6c0",
+        "66f42d226a5f7e934a86",
+        "97fe38c6942b67ea70b2",
+        "c11d5c3acbc28dddd0cf"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The m21 pair supports a structural distinction that the earlier m16 extrapolation missed. Testing m20 and an intermediate m21 condition can teach how ether placement modifies the response rather than treating all acrylates alike.",
+      "next_discriminating_question": "Does m20 really have similar completion at 5/1 and 10/1, and does m21 at 20/1 show the predicted onset increase with relatively little interval broadening?"
+    },
+    {
+      "id": "H5",
+      "content": "Methyl and ethyl anthranilate have very different recorded weak-eluent outcomes, and methyl anthranilate has a measured 20/1-to-50/1 reversal. This cannot yet be assigned to substitution or intramolecular hydrogen bonding because injection conditions differ between molecules and the reversal lacks replication.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "302e458c5ed2285ca328",
+        "249b884b29177edb9df5",
+        "10f14f6ee69ba06bbe68"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The large methyl-anthranilate overprediction rejects a generic strong-retention expectation for ortho-amino esters. Additional local information can reduce inappropriate structural transfer without converting an anomalous curve into an asserted mechanism.",
+      "next_discriminating_question": "At matched loading and injection conditions, does m104 at 10/1 resemble its low 50/1 endpoints or lie on a rising curve toward the observed 20/1 point?"
+    },
+    {
+      "id": "H6",
+      "content": "Several alcohols show steep solvent responses, but OH placement and structural environment constrain transfer. The m206 5/1-to-10/1 increase is much larger than previously predicted; current strong-eluent reversals for m206 and m205 and steep extensions for hindered alcohols and phenols remain untested.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "cdf40bcb3f4392f8d7d1",
+        "b7cf293311f83700cd9a",
+        "bad24d96575f423fe4fd",
+        "2cf4f6424b85ab121943",
+        "73502a52708e4f9c2391",
+        "c352863d9fa4a8645481",
+        "2b10c90b32f970e4b4c8"
+      ],
+      "contradicting_observed_ids": [
+        "859ae738b615cf17b849"
+      ],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "A donor-wide correction would miss measured exceptions and could overcorrect strong-eluent regions. Matched pairs across related OH environments distinguish offsets, solvent slopes, and endpoint-specific behavior.",
+      "next_discriminating_question": "Are the predicted 1/1-to-2/1 reversals real, and do brominated benzyl alcohol, cyclic tertiary alcohol, and hindered phenol follow their distinct predicted response curves?"
+    }
+  ],
+  "feedback_interpretation": "The m72 repeat changed the interpretation substantially: identical recorded low-loading 10/1 conditions gave 12.85/32.50 mL in 7383949c431e18f39597 and 27.35/63.33 mL in 93bcd806b8dcb8c0cab9. The latter resembles the high-loading completion, so the earlier simple loading-dependent explanation is weakened. The PE/300 uL high-loading result 48b79cabd9460cfc510b supports completion near 61 mL across that bundled injection-condition change, but does not resolve the conflicting repeat. I defer further m72 sampling rather than assume its discrepancy is explained by the recorded features. The new m125 1/1 low-loading result supports the injection-volume completion association at a third loading, motivating a 0/1 pair and a missing 2/1 point. The observed table corrects an important memory error: c6924324ddd95f249df6 is m107 at 5/1 and 54.5 mg, not m26 at 20/1. Its large error supports steep ether-bearing beta-ketoester behavior; m26's 20/1 gap remains unmeasured and is selected now. m13's opposite errors at 2/1 and 10/1 favor curvature repair. m21 supports a stronger ether-acrylate response than m16; m104's low 50/1 endpoints weaken any generic ortho-amino-ester retention expectation. The salicylaldehyde series shows differing completion behavior without establishing an intramolecular-H-bond mechanism. m206 revealed the largest recent alcohol failure, while m51 and m67 support strong but structurally variable responses. m164 also rose more than predicted, whereas m68 stayed shallow. Recent benzoate and halogenated-aromatic results were mostly closer to predictions, so those families receive focused transfer checks rather than broad repeat sampling. All cited prediction errors are acquisition-time errors, not current-model residuals.",
+  "batch_rationale": "The batch combines local experiments that distinguish competing response shapes with structural comparisons relevant to many catalog rows. Matched pairs for m206, m207, m20, m203, m58, and m174 separate solvent response from molecular offsets. The m125 pair isolates recorded injection volume, while its missing intermediate point tests a loading-by-ratio association. Carbonyl selections repair recent failures and retain early-eluting counterexamples such as m80, preventing a uniform increase in predicted retention for oxygen-rich molecules. The corrected m107 attribution avoids teaching the wrong structural lesson from previous feedback. Three previously unlabeled halogenated aromatics test transfer in the numerous modest-retention rows, where high molecular weight or halogen content should not automatically imply strong silica retention. No selected pair duplicates the same condition; cross-loading or cross-solvent comparisons are identified as limited contrasts. CW distances and quantile spans support some choices but are not acquisition rules, and elution interval width is treated as a target-derived property rather than uncertainty. These labels are intended to improve overall Row-distribution V1/V2 prediction after retraining by refining structure-condition relationships across both early and late elution regions."
+}

@@ -1,0 +1,183 @@
+{
+  "type": "selection",
+  "packet_sha256": "746906a567b5a9b1daa9c58ca9f34b23a109d070df4477c5f228e3c42a55f95b",
+  "batch_strategy": "Retain the same 16 selected supplements and their supplied full-precision premeasurement predictions, together with the 16 pending experiments. Combine matched protocol and amount contrasts, catalog reproducibility checks, solvent-response bridges and endpoint-order checks. H4 is reformulated as a prospective model-behavior hypothesis with empty observed-evidence lists.",
+  "choices": [
+    {
+      "id": "03744855d469f4cca7e6",
+      "reason": "Measure m125 at 1/1, 150 uL sample and 300 uL DCM; predicted V1/V2 is 9.89/26.11 mL. The low-amount observation 00043aebb2540e369a7b is 9.25/18.35. Together with the selected 500-uL protocol, this tests whether the completion difference persists at higher amount and whether the 300-uL series retains a modest amount response.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "9bd998a328b109ef639e",
+      "reason": "Measure the matched m125 1/1, 150-uL sample experiment in 500 uL DCM; predicted 9.86/26.13 mL. The low-amount 500-uL observation f4fb5c03b8e8996e75f6 finishes at 36.14 mL versus 18.35 under 300 uL DCM. The selected pair tests an association that the predictor nearly ignores, without assuming loading volume alone explains it.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "dd4f07e349873053fd73",
+      "reason": "Measure m125 in neat EA at 100 uL sample and 500 uL DCM; predicted 4.94/10.90 mL. The matched 300-uL observation e7ed7ca4a53258b73ba2 is 5.28/11.22. This tests whether protocol-associated completion differences disappear at the strongest supplied mobile phase, limiting the scope of a learned protocol correction.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "f159b69487cebc7dcf97",
+      "reason": "Acquire another m84 40/1, 100-uL catalog record; predicted 6.90/14.93 mL. The same recorded tuple in 6c387793968257d2f169 gave 3.50/4.45, whereas the recent 50-uL record 19ac0f010c25e2c5360d gave 8.19/23.40. This tests whether the short interval recurs at this amount or reflects between-record variability.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "0fb4ba3b33f8740a6a8a",
+      "reason": "Acquire another m84 40/1, 50-uL catalog record; predicted 6.93/14.91 mL. Paired with the selected 100-uL record, it checks both sides of the apparent amount contrast. The same-tuple m72 discrepancy between 7383949c431e18f39597 and 93bcd806b8dcb8c0cab9 makes reproducibility under recorded conditions a consequential learning question.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "d119d77f545c029deace",
+      "reason": "Measure 2-phenylpyridine m211 at 10/1 and 50 uL; predicted 16.33/31.21 mL. The matched 150-uL observation 810b065b0b86ff8c9aae is 15.66/32.11. At 50/1, 35f2be5f5aa14265e8a4 and 0f06772820e6693753e3 instead show both endpoints increasing substantially with amount. This tests whether that response is confined to weak elution.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "0655d71fcec0d1c3c73f",
+      "reason": "Measure lactone m181 at 20/1 and 150 uL; predicted 34.09/53.79 mL. This supplies the same-amount solvent bridge needed to interpret the recent 50/1 outcome and tests whether the nearly amount-invariant prediction is adequate at 20/1. It can distinguish solvent curvature from an amount contribution to retention.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "487606cee9b08ded91f3",
+      "reason": "Measure phenoxyethyl acrylate m21 at 10/1 and 50 uL; predicted 10.61/13.03 mL. Its predicted narrow interval at an intermediate ratio tests whether the model should learn different solvent responses for onset and completion. It also extends coverage of an ether-containing acrylate beyond the pending simpler acrylates.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "aef5cafc63ca445e92fa",
+      "reason": "Measure nitrobenzophenone m177 at 10/1 and 150 uL; predicted 5.07/21.85 mL. The 100-uL 10/1 observation ce14dd2481560a984aea finishes at 20.70, but the 150-uL 20/1 observation 5e276c1730fc0a9deba7 finishes at 57.02. This tests whether prolonged high-amount completion extends to 10/1, independently of the unusually short low-amount 20/1 record.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "1ac98da1ee548520f15b",
+      "reason": "Measure bicyclic acrylate m23 in neat EA at 50 uL; its predicted endpoints are reversed, 7.60/5.71 mL. The same-amount 1/1 observation 2928443b881ac6713786 is 6.04/8.50. Recent 2d389074e8eee38a47d4 showed ordinary ordering for another reversed prediction. This checks strong-solvent endpoint transfer to a sterically constrained ester.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "2631e65cfde93b7bbd64",
+      "reason": "Measure long-chain acrylate m18 at 1/1 and 100 uL; predicted endpoints are reversed, 5.75/4.84 mL. The matched 2/1 observation b8c5b2ddf2469922c305 is already narrow, 4.34/5.72. This distinguishes a genuinely short interval from invalid endpoint extrapolation and complements the m23 check with a flexible hydrophobic ester.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "e626b5b8083ea1fd02f2",
+      "reason": "Measure methyl benzoylformate m92 at 1/1, 50 uL sample and 200 uL PE; predicted 5.53/11.34 mL. The matched EA-loading observation 00a89de0e6cc7377a84b is 5.18/12.01. This changes loading solvent while preserving recorded volume, amount and mobile phase, testing protocol sensitivity in an adjacent dicarbonyl environment.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "129036e0bccc4ff7e848",
+      "reason": "Measure bromopropionic acid m45 at 50/1 and 100 uL; predicted 55.22/99.81 mL. This tests an uncovered weak-solvent extension for a carboxylic acid, where transfer from abundant ester and ketone rows may fail. Its value is testing functional-group-dependent curvature rather than seeking large retention.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "3cd6baf11210b3dcfb43",
+      "reason": "Measure methyl anthranilate m104 at 10/1 and 100 uL; predicted 8.05/17.42 mL. This intermediate solvent point can constrain how broadly the unexpectedly short recent 50/1 outcome should influence the learned curve. It tests interpolation within the amino-ester environment rather than assuming transfer from ethyl anthranilate.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "d49f2ae16cf70d54ccf4",
+      "reason": "Measure diphenyl sulfoxide m199 at 2/1 and 150 uL; predicted 14.28/26.25 mL. The matched 50-uL observation 9ddc2e8babb52ee8e772 is 14.26/26.03, so the predictor expects almost no amount response. Its neat-EA amount endpoints b2bf97a1dcb9d6609f7d and a7e095123d7186e83bbb both decrease with amount. This tests transfer of that response to stronger silica retention.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "66da447ca0fe7160cc1c",
+      "reason": "Measure m92 at 20/1, 50 uL sample and 200 uL EA; predicted 7.60/23.51 mL. This adds a low-amount intermediate solvent point to test the predicted onset dip and separate solvent-response curvature from amount dependence. It complements the selected loading-solvent contrast without duplicating its question.",
+      "hypothesis_id": "H4"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Amount responses are endpoint-specific and depend on molecule and mobile-phase strength. Earlier onset with increasing amount occurs in several families, but m211 at 50/1 shows substantial increases in both endpoints, so a universal loading slope is unsupported.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "35f2be5f5aa14265e8a4",
+        "0f06772820e6693753e3",
+        "a92f7617b135de150588",
+        "f91285c618eacb53538b",
+        "97318de99bab4460cf4e",
+        "5da8c25a3982216fb112",
+        "1cc3b837c6561b1c0a23",
+        "5d530b2f228ed39ff952",
+        "b2bf97a1dcb9d6609f7d",
+        "a7e095123d7186e83bbb"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Candidate predictions remain nearly invariant to amount. Matched contrasts can teach when that approximation is reasonable and when it misses changes in onset, completion or both.",
+      "next_discriminating_question": "Does m211 have a small amount response at 10/1 despite its large positive 50/1 response, and does m199 retain its neat-EA amount dependence at 2/1?"
+    },
+    {
+      "id": "H2",
+      "content": "m125 has protocol-associated completion differences at both 2/1 and 1/1. Onset differences are less consistent, including opposite directions at different amounts. Loading volume alone is not established as the cause, and a constant offset for both endpoints is inadequate.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "c8d43713db33bf820a1d",
+        "69b09343d0b9995c3ae4",
+        "19f19f196ba5787a01b0",
+        "facbcedbecb46072b04c",
+        "00043aebb2540e369a7b",
+        "f4fb5c03b8e8996e75f6",
+        "780b13846ace50ede763",
+        "74cf50c6ec476a394b01",
+        "549daca56bed1c9d2bcc",
+        "06ebbf6e52fa3ea6aef3"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The predictor assigns almost identical outcomes to the two protocols. Matched labels can establish the range of the association and prevent averaging across distinct completion behavior.",
+      "next_discriminating_question": "Does the 1/1 completion difference recur at 150 uL sample, and do the protocols converge in neat EA at 100 uL?"
+    },
+    {
+      "id": "H3",
+      "content": "The short m84 40/1, 100-uL interval may be a localized record pattern or an amount-dependent effect. The low-amount solvent series does not support a general decline in completion as PE/EA increases. Same-tuple m72 observations demonstrate that catalog variability can mimic a large amount response.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "6c387793968257d2f169",
+        "19ac0f010c25e2c5360d",
+        "e1b9d0166a4779c27067",
+        "b7e013953a302595b447",
+        "7383949c431e18f39597",
+        "93bcd806b8dcb8c0cab9"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A large apparent loading effect should not be propagated across ester rows before testing whether it recurs. Additional catalog records characterize reproducibility under recorded conditions, although they are not assumed to be controlled technical replicates.",
+      "next_discriminating_question": "Do additional m84 records reproduce long completion at 50 uL and short completion at 100 uL, or do outcomes vary within either recorded tuple?"
+    },
+    {
+      "id": "H4",
+      "content": "The predicted solvent-response shapes for m104, m181, m21, m92 and m45 may require different endpoint-specific corrections. Intermediate-ratio and matched-amount measurements can discriminate these possibilities; the directions of any prediction errors remain untested for the selected rows.",
+      "basis": "model_behavior",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "The candidate predictions span narrow intermediate-ratio intervals, an onset dip and steep weak-solvent extensions across different functional environments. Testing those shapes can improve structure-condition transfer without imposing a shared solvent curve.",
+      "next_discriminating_question": "Do the selected intermediate and weak-solvent labels support the predicted endpoint trajectories, and which trajectories change when amount is matched?"
+    },
+    {
+      "id": "H5",
+      "content": "The very short low-amount m177 interval at 20/1 remains localized within the measured solvent sequence. New low-amount 5/1 and 1/1 observations do not reproduce its exceptionally short completion. High-amount broadening may follow a different solvent dependence.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "aa43fe84c0d8c825fe58",
+        "27bac953781c17a3a74b",
+        "0164f18711777547e68d",
+        "5e276c1730fc0a9deba7",
+        "5b706e17e8412d02342f",
+        "b514312eda7950cdcf1c",
+        "ce14dd2481560a984aea"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A high-amount bridge can distinguish a broad solvent-dependent completion response from a sharply localized pattern, without extrapolating the anomalous low-amount observation to all nitrobenzophenone conditions.",
+      "next_discriminating_question": "At 10/1, does 150 uL sample finish near the measured 100-uL value of 20.70 mL or move toward the much later high-amount 20/1 completion?"
+    }
+  ],
+  "feedback_interpretation": "The latest outcomes weaken the earlier positive-loading interpretation for m72 at 10/1. A second 50-uL DCM record measured 27.35/63.33 mL, versus 12.85/32.50 for the same recorded tuple; its completion is close to the high-amount DCM and PE records. The new 5/1 high-amount result also shows a modest onset decrease and little completion change. I therefore pause further m72 acquisitions and use its demonstrated catalog variability to motivate paired reproducibility checks for m84. For m84, low-amount completion rises from 14.80 through 17.23 to 23.40 mL at 20/1, 30/1 and 40/1, weakening the predicted descending solvent curve. For m125, the 300-uL 2/1 midpoint agrees with its measured amount endpoints. The matched 500-uL midpoint has later completion but earlier onset, whereas the high-amount protocol comparison has later values for both endpoints. The 1/1 low-amount protocol difference also persists, weakening the proposed convergence at that ratio. m211 shows a large positive amount response at 50/1, while m200's onset response attenuates at 1/1 and m13 retains an onset decrease at 5/1. These outcomes support conditional loading effects but reject a common direction across molecules. m177's new low-amount 5/1 label and pending-CW 1/1 outcome leave its unusually short 20/1 completion localized. The recent m104 overestimate, m181 underestimate and m21 completion overestimate motivate solvent-response bridges, without establishing errors for any selected candidate. Finally, m203 measured an ordinary interval despite reversed predicted endpoints, supporting checks of two remaining ester endpoint-order failures. All error statements concern acquisition-time predictions.",
+  "batch_rationale": "The pending batch supplies broad coverage of early-eluting rows, simple acrylates, aromatic ethers and carbonyl solvent extensions. These supplements address questions it does not resolve. Three m125 experiments test protocol dependence and its strong-solvent boundary. Two deliberate m84 same-tuple acquisitions distinguish an apparent loading effect from record variability. Matched amount contrasts in m211 and m199 test the predictor's near invariance across chemically different silica-interacting groups. The m181 bridge removes an amount mismatch from interpretation of its weak-solvent response; m177 probes the boundary of prolonged high-amount completion. Intermediate points for m104, m21 and m92 constrain unusual solvent curves. The m92 loading-solvent comparison changes one recorded factor, while the m45 extension tests a carboxylic-acid environment. Two ester endpoint-order checks target a concrete consistency failure with possible relevance to the pending acrylates. Repeated molecules serve explicit contrasts. The expected benefit is improved learning of structure-condition relationships for both endpoints across the Row-distribution, with recognition that unrecorded experimental differences may limit deterministic prediction. Elution interval width is an outcome, and single-predictor quantile spread is not assumed to be calibrated epistemic uncertainty."
+}

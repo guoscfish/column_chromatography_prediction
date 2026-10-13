@@ -1,0 +1,161 @@
+{
+  "type": "selection",
+  "packet_sha256": "c89c2ace5c365dcce79bfda50de04ff687069012c3506ced4e5499780841964c",
+  "batch_strategy": "Select 16 eligible supplements using solvent-response contrasts, targeted checks around recent failures, and structural analogs that complement the pending experiments. The supplied premeasurement predictions remain frozen for these selections and the 16 pending rows. Higher PE/EA means weaker eluent; 0/1 is pure EA.",
+  "choices": [
+    {
+      "id": "40fd02db79e028fe05a9",
+      "reason": "Measure diethyl malonate m80 at 20/1, 100 uL, predicted 7.04/7.63 mL. Its exceptionally narrow predicted elution interval warrants a check after measured 50/1 row f7d57d8bb988f7016502 proved much faster than previously predicted. Together with the selected 50/1 row, this tests solvent response at fixed loading conditions.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "08155ffdcb0d27576050",
+      "reason": "Measure m80 at 50/1, 100 uL, predicted 7.66/7.84 mL. Measured f7d57d8bb988f7016502 at 150 uL gave 5.79/7.93 mL. This loading contrast tests whether fast weak-eluent completion persists at lower loading, while the selected 20/1 point checks whether retraining has imposed an unsupported near-zero interval across conditions.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "702ba575d6a3442b9a3b",
+      "reason": "Measure m53 at 5/1, 50 uL, predicted 13.35/29.18 mL. The measured 1/1 and 50/1 rows d83038f8278f7c0745ee and cdc8c1db00222994a1aa span 5.46/12.59 to 30.61/70.14 mL at 100 uL. This point and the selected 10/1 row form a matched-load intermediate solvent contrast around the recent large failure.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "30970941542856ce8eb1",
+      "reason": "Measure m53 at 10/1, 50 uL, predicted 20.31/45.18 mL. Paired with the selected 5/1 row, it tests the inferred rise toward the late measured 50/1 anchor cdc8c1db00222994a1aa. Both selected rows hold sample loading and loading solvent fixed, allowing direct assessment of solvent sensitivity.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "a5446977630484ca5fe1",
+      "reason": "Measure p-methylbenzyl alcohol m135 at 5/1, 50 uL, predicted 18.04/29.32 mL. Measured 10/1 row 75232f4ee5de52a0499e reached 39.39/66.36 mL and was severely underpredicted at acquisition. This intermediate point tests whether the current model places the retention rise correctly; the different load from that anchor remains a qualification.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "fc27fa779102c4aeb8ab",
+      "reason": "Measure anisaldehyde m118 at 20/1, 100 uL, predicted 33.39/60.98 mL. Measured 50-uL row 24a9086a8e2c8015c232 gave 36.65/59.88 mL after substantial historical underprediction. This directly tests whether that late-retention anchor transfers across loading amounts and helps distinguish solvent-driven retention from a loading-specific result.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "74c8fcd8ac3f6caedcd2",
+      "reason": "Measure 2,6-lutidine m141 at 5/1, 100 uL, predicted 22.53/48.83 mL. Measured 2/1 and 20/1 rows 8436939a2a6a91fa470d and 51f4126a3aadb3239225 at 150 uL span 11.59/30.62 to 43.47/118.59 mL. This probes the intermediate response of a hindered pyridine and complements pending quinoline-family experiments, while tracking the load difference.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "c3c4fdce502f6d3576dc",
+      "reason": "Measure acetophenone oxime m11 at 2/1, 100 uL, predicted 5.98/14.56 mL. Measured 5/1 row 1182373ab8814dbe2f43 was only 6.93/15.70, whereas 50/1 row 9ffee2813aef5c26f96f reached 43.11/119.20. This establishes the stronger-eluent side at matching load and complements pending 20/1 supervision of the steep rise.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "1e971da91b3a8229f0e0",
+      "reason": "Measure cinnamic acid m173 at 5/1 with 1500 uL DCM loading solvent, predicted 13.50/56.55 mL. The pending 5/1 experiment uses 2000 uL and almost the same density-derived loading amount. Their near-matched contrast tests loading-plug sensitivity in the family whose measured 1/1 row f90a5a5a54509c085ebd finished at 108.89 mL; neither pending nor selected labels are yet known.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "8f5acbec0c511bb1ea89",
+      "reason": "Measure previously unlabeled pyridyl ketone m66 at 1/1, 100 uL, predicted 11.35/17.15 mL. Measured ethyl nicotinate m90 at 2/1 in 6a4e95d2a3cca31094a1 gave 16.89/29.23 mL at a different load. This adds a stronger-eluent anchor for a related nitrogen environment and tests structural transfer from ester-bearing to ketone-bearing pyridines without assuming identical behavior.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "20913a7c2077b80b7351",
+      "reason": "Measure previously unlabeled p-methoxybenzyl alcohol m120 at 5/1, 150 uL, predicted 19.22/31.70 mL. Selected m135 and pending p-methoxyphenethyl alcohol m119 provide related 5/1 comparisons. The large measured m135 failure 75232f4ee5de52a0499e motivates testing substitution and hydroxyl-to-ring spacing, with loading differences explicitly retained.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "7c0c324643799c918828",
+      "reason": "Measure previously unlabeled naphthylmethanol m206 at 2/1, 50 uL, predicted 13.60/23.79 mL. Measured bromobenzyl alcohol row 8294d63723a29bc21a6b and phenylpropanol row 53c1be5b96937954b9fa provide 2/1 references at different loads. This tests whether fused aromatic structure changes primary-alcohol retention in a way that generalizes beyond the newly measured m135 anchor.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "b0571346163b8f77528d",
+      "reason": "Measure previously unlabeled p-methylthiobenzaldehyde m129 at 1/1, 100 uL, predicted 8.75/13.62 mL. Together with the selected 50/1 row, it defines a matched solvent contrast for a sulfur-containing aromatic carbonyl. Measured thioether ketone m128 at 1/1 in 63109bac6659ba471955 is not available as measured evidence; the measured m128 references used here are instead 21e09d52eac22fe25e15 and 4589cfb6a0563df83dd6 at other ratios.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "d54c93a11164b4abac6e",
+      "reason": "Measure m129 at 50/1, 100 uL, predicted 30.92/52.03 mL. The selected 1/1 row holds all loading conditions fixed. This tests the predicted large solvent response of an unlabeled sulfur aldehyde, informed by measured anisaldehyde failure 24a9086a8e2c8015c232 and thioether ketone reference 21e09d52eac22fe25e15, without treating those different compounds as interchangeable.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "6bd128bde2e137ea54f3",
+      "reason": "Measure diphenyl sulfoxide m199 at 5/1, 150 uL, predicted 29.37/52.51 mL. Measured 50- and 100-uL rows f82cfd3b57735b0ead3c and 714004602e6452764d9a finished at 51.75 and 52.30 mL despite an onset shift. This completes a three-load comparison to test the model's nearly load-invariant completion prediction in a confirmed historical failure region.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "17ff889395addf7d6295",
+      "reason": "Measure previously unlabeled aromatic diketone m178 at 5/1, 100 uL, predicted 6.93/18.96 mL. Measured nitrobenzophenone row 76643e968ecc935c745c gave 4.99/20.42 mL at 5/1 with different loading. This tests whether adding a second carbonyl behaves like other polar diaryl-carbonyl substitutions and complements pending methoxybenzophenone supervision.",
+      "hypothesis_id": "H4"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "The fast weak-eluent observation for diethyl malonate may be a genuine local exception, but its loading dependence and extent across solvent ratios remain unresolved.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "f7d57d8bb988f7016502"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The measured row had a historical V2 overprediction exceeding 61 mL. Additional labels can determine whether the current near-zero predicted intervals reflect a real response or excessive propagation of one anchor.",
+      "next_discriminating_question": "Does fast completion persist at 100 uL, and do matched 20/1 and 50/1 experiments show the predicted narrow intervals?"
+    },
+    {
+      "id": "H2",
+      "content": "Several compounds show large solvent-dependent retention changes, and intermediate measurements are needed to determine whether retraining has placed the rise correctly after receiving late-retention anchors.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "d83038f8278f7c0745ee",
+        "cdc8c1db00222994a1aa",
+        "75232f4ee5de52a0499e",
+        "8436939a2a6a91fa470d",
+        "51f4126a3aadb3239225",
+        "1182373ab8814dbe2f43",
+        "9ffee2813aef5c26f96f"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Historical errors include overprediction at intermediate ratios and underprediction at weaker eluents. Learning response shape can improve multiple unmeasured rows per molecule and related chemical families.",
+      "next_discriminating_question": "Do the selected intermediate m53, m135, m141, and m11 points support the current solvent-response predictions?"
+    },
+    {
+      "id": "H3",
+      "content": "Loading effects are compound- and endpoint-dependent: onset can move earlier without a corresponding delay in completion, and loading-solvent volume may contribute separately to broad intervals.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "143bf510fe2028583763",
+        "769f1d04efb22c05cfdf",
+        "c6924324ddd95f249df6",
+        "2cfa393cb79664e100ce",
+        "8641d0ec9c4b21727b9a",
+        "ae8805bc02bce03072e2",
+        "f82cfd3b57735b0ead3c",
+        "714004602e6452764d9a"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The predictor often gives nearly identical outputs across loading amounts. Matched contrasts can identify where that invariance is appropriate and where it misses endpoint-specific changes. Existing evidence does not isolate a loading-solvent-volume effect.",
+      "next_discriminating_question": "Does sulfoxide V2 remain stable at 150 uL, does anisaldehyde retention transfer across load, and does cinnamic-acid completion change between near-matched 1500- and 2000-uL loading plugs?"
+    },
+    {
+      "id": "H4",
+      "content": "Acceptor identity and structural environment may require distinct structure-condition relationships, including pyridyl ketones, sulfur aldehydes, aromatic diketones, and different primary-alcohol environments.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "6a4e95d2a3cca31094a1",
+        "21e09d52eac22fe25e15",
+        "4589cfb6a0563df83dd6",
+        "75232f4ee5de52a0499e",
+        "8294d63723a29bc21a6b",
+        "76643e968ecc935c745c"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "New close analogs test transfer of structural features instead of adding only molecule-specific offsets. The available observations motivate these comparisons but do not establish the proposed analog ordering.",
+      "next_discriminating_question": "Do m66, m120, m206, m129, and m178 follow their predicted relationships to observed and pending analogs once their labels are measured?"
+    }
+  ],
+  "feedback_interpretation": "The latest m116 measurements support increasing retention as PE/EA increases and were already accurate at acquisition: the 1/1, 5/1, and 10/1 endpoint errors were about 1.35 mL or less. Further dense interpolation there has lower marginal value. Loading evidence is more specific than the previous hypothesis suggested. For m39 at 5/1, V2 increased from 22.87 to 26.72 mL between 50 and 150 uL with little onset change. For m107, the observed table identifies c6924324ddd95f249df6 as 50 uL; increasing to 150 uL moved onset from 43.20 to 29.60 and completion from 101.44 to 94.03, widening the interval despite earlier completion. Sulfoxide completion at 5/1 barely changed between 50 and 100 uL, weakening a universal loading-delay explanation. Recent CW outcomes revealed large overprediction for m130 and m80 and underprediction for m53, m135, and m118. This batch consequently tests response shape, conditional loading effects, and structural transfer. Earlier solvent-strength wording was reversed: 0/1 is strongest and increasing PE/EA weakens elution.",
+  "batch_rationale": "The pending set already covers late polar rows, several nitrile endpoints, cinnamic acid at 5/1, and a new phenethyl alcohol. These supplements add complementary solvent and loading contrasts without repeating pending condition tuples. The m80 pair tests a surprising fast-elution region, the m53 pair tests intermediate solvent response, and the sulfur-aldehyde pair explores transfer to an unlabeled analog. Sulfoxide and anisaldehyde loading contrasts test whether recent anchors generalize across sample amounts. The near-matched cinnamic-acid comparison uses the pending row to investigate loading-solvent volume, with its slight density difference acknowledged. Additional alcohols, a pyridyl ketone, and an aromatic diketone extend coverage where structural comparisons have a clear learning purpose. Quantile widths and CW distances are secondary evidence, not calibrated epistemic uncertainty. These labels are intended to improve overall V1/V2 prediction across recurring structure-condition families; mechanisms remain hypotheses where measurements do not isolate them."
+}

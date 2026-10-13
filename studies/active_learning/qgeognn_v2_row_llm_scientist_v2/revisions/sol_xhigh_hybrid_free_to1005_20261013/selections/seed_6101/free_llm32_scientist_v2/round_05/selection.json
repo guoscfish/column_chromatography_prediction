@@ -1,0 +1,170 @@
+{
+  "type": "selection",
+  "packet_sha256": "ff7dff0363df94153e5efa2a922946ffa1f3b195f61a9acc030f893c4c711b2b",
+  "batch_strategy": "Freeze these 32 distinct candidate IDs and their exact supplied premeasurement predictions. Use matched solvent-response curves, a direct injection-volume contrast, and focused structural exploration to improve overall V1/V2 prediction after retraining. Treat quantile spans and CW distances as supporting signals rather than calibrated epistemic uncertainty.",
+  "choices": [
+    {
+      "id": "c399872ec43e2f6ac192",
+      "reason": "m78 at 2/1 and 103.6 mg anchors the strong-eluent end of the selected fixed-loading beta-ketoester curve. It tests whether the model's response shape is reliable before the weak-eluent regime implicated by recent feedback.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "a6a12fd9aa2dfc949207",
+      "reason": "m78 at 5/1 matches the selected 2/1, 20/1, and 50/1 rows in loading and injection conditions. This intermediate point helps distinguish smooth solvent sensitivity from a sharper transition affecting onset or completion.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "a44a22945d76c02aa6a7",
+      "reason": "m78 at 20/1 and 103.6 mg constrains the middle of the selected solvent-response curve. Its predicted 29.11/50.31 mL endpoints make it informative about where the model places the steep increase toward 50/1.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "61771d230b285babe4b6",
+      "reason": "m78 at 50/1 and 103.6 mg tests whether the recent long-retention result transfers to doubled loading. It also completes the selected fixed-loading curve, allowing ratio effects to be assessed without changing injection conditions.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "4c32851430464f0ed684",
+      "reason": "m125 at 1/1, 100 mg, and 300 uL DCM forms a direct injection-volume contrast with the selected 500 uL row. This tests a condition effect that current predictions represent as almost negligible.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "dbb94bf062fc0e640258",
+      "reason": "m125 at 1/1, 100 mg, and 500 uL DCM isolates injection volume against the selected 300 uL row. Recent feedback makes this a useful test of whether injection effects depend on eluent ratio rather than producing a uniform molecular offset.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "5522a1ec1f8e39cedb13",
+      "reason": "m28 at 2/1 and 116.8 mg adds a stronger-eluent constraint in an oxygenated aromatic family with recent completion-volume errors. It can locate where the steep response develops and help distinguish V1 and V2 sensitivity.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "c76d0420b34df595c0c9",
+      "reason": "m90 at 10/1 and 166.05 mg tests weak-eluent extrapolation for a pyridyl ester. The current V2 prediction exceeds 100 mL, while recent feedback at 5/1 showed overprediction, making the response slope an unresolved learning target.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "51f4126a3aadb3239225",
+      "reason": "2,6-Lutidine m141 at 20/1 and 138 mg probes a predicted weak-eluent plateau. Steric shielding near ring nitrogen provides a chemically motivated contrast to other heteroaromatic response curves; the plateau remains an untested prediction.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "10f01f359bc6067d009f",
+      "reason": "m72 at 5/1 and 51.1 mg in 200 uL DCM anchors the selected amino-enone ester pair. This nitrogen environment differs from aromatic amines and pyridines, so its label tests whether their learned retention relationships transfer.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "1b1a9ec85268aa66d327",
+      "reason": "m72 at 20/1 exactly matches the selected 5/1 loading and injection conditions. Predicted completion rises from about 44.43 to 94.10 mL; measuring both tests that steep response and its endpoint specificity.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "504e8e25f3a8b339a023",
+      "reason": "m27 at 2/1 and 52.85 mg anchors a previously unmeasured chlorinated aliphatic ketone with low similarity to observed structures. It tests transfer from the catalog's predominantly aromatic carbonyl examples.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "55927e904f7c540fd4f2",
+      "reason": "m27 at 50/1 matches the selected 2/1 loading and injection conditions. The predicted V2 increase from about 20.63 to 55.00 mL supplies a discriminating solvent-response experiment for this new aliphatic ketone.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "d549eb843e65b16a5502",
+      "reason": "m94 at 1/1 and 176.1 mg anchors a previously unmeasured cyclopropyl beta-ketoester. Its local carbonyl environment provides a focused test of whether the model generalizes beyond the beta-ketoesters already represented.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "ffffcd6f3b9393846ab4",
+      "reason": "m94 at 20/1 matches the selected 1/1 row in loading and injection conditions. This pair tests whether the predicted solvent sensitivity is transferable across beta-dicarbonyl structures rather than determined by functional-group counts alone.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "036352f6818925e928f6",
+      "reason": "m59 at 2/1 and 116.2 mg anchors the early part of the selected solvent-response pair for an aldehyde with a methylenedioxy aromatic group. It provides a moderate-retention constraint rather than only sampling weak-eluent tails.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "f5d802ca42b1a7226fc0",
+      "reason": "m59 at 20/1 matches the selected 2/1 loading and injection conditions. It tests the predicted increase to 26.74/42.48 mL and helps separate solvent sensitivity from loading effects in this oxygenated aldehyde family.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "66178a861f4bf31fa2e1",
+      "reason": "Ortho-nitrobenzaldehyde m198 at 2/1 and 100 mg supplies a stronger-eluent anchor for the selected nitro-carbonyl pair. It helps constrain the beginning of a predicted steep retention curve.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "163874b97308a1ea2507",
+      "reason": "m198 at 20/1 and 100 mg matches the selected 2/1 conditions. The pair tests the predicted rise from about 5.65/15.28 to 25.73/53.01 mL, with learning value for positional and functional-group interactions in nitro aromatics.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "88bd894f636978ba76e5",
+      "reason": "Previously unmeasured bromonitrobenzene m201 at 5/1 and 255 mg provides a nitro aromatic without a carbonyl or alcohol. This helps test whether relationships learned from compounds with combined polar functionality transfer to a simpler nitro environment.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "bef8e35136c28810eb6b",
+      "reason": "m201 at 50/1 matches the selected 5/1 loading and injection conditions. Its predicted V2 increase from about 13.07 to 38.84 mL tests solvent sensitivity for the nitro group without the additional polar groups present in several previously sampled families.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "bfcb567664468f0d6902",
+      "reason": "Previously unmeasured acetylfluorene m38 at 5/1 and 50 mg anchors a fused aromatic ketone with 1000 uL DCM loading. It connects aromatic ketone families while covering a larger recorded injection volume.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "cace6f00c46aea69fe39",
+      "reason": "m38 at 20/1 matches the selected 5/1 row in loading and injection conditions. This tests the predicted increase from about 7.70/18.45 to 23.50/46.94 mL without confounding the within-molecule ratio contrast with injection volume.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "c0094343ab6bb16bc58b",
+      "reason": "Previously unmeasured m194 at 1/1 and 58.85 mg anchors a cyclic-ether aromatic aldehyde. Its local oxygen arrangement differs from dimethoxy and methylenedioxy aldehydes, providing a targeted test of structural transfer.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "2bd4f8787a951ef0ee04",
+      "reason": "m194 at 2/1 matches the selected 1/1 loading and injection conditions. This local contrast tests early solvent sensitivity in the new scaffold and supplies information beyond a single molecular retention offset.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "d7457b516ddba0143275",
+      "reason": "Previously unmeasured phenoxyethyl acrylate m21 at 2/1 and 110.4 mg anchors an ether-plus-ester scaffold. Its flexible linker and extra acceptor make direct transfer from simpler acrylates uncertain.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "c11d5c3acbc28dddd0cf",
+      "reason": "m21 at 5/1 matches the selected 2/1 loading and injection conditions. The model predicts only a modest endpoint change, so this pair tests a relatively flat response and balances the batch's steeper predicted curves.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "ad67d712133eac45ff64",
+      "reason": "Hydroxy ester m99 at 2/1 and 100 mg constrains the stronger-eluent response in a family previously associated with substantial underprediction. Its label helps distinguish a molecular offset from ratio-dependent retention.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "c61c1a72306f2ee37df8",
+      "reason": "m99 at 10/1 matches the selected 2/1 row in loading and injection volume. It tests how onset and completion respond when hydroxyl and ester functionality coexist, including whether the curve flattens at weaker eluent.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "903811765ba61a8af2b7",
+      "reason": "Boronic ester m62 at 50/1 and 105 mg adds a weak-eluent anchor in a distinct structural environment. It broadens useful coverage beyond oxygenated carbonyl families without requiring a large retention prediction to justify selection.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "8c1d858fccc9c7cff5db",
+      "reason": "Dimethylbenzophenone m131 at 10/1 and 100 mg supplies a moderate-retention reference for the selected weak-eluent point. It tests a less polar aromatic ketone environment and adds a loading contrast within its existing series.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "c060c367e4e5bf6955cb",
+      "reason": "m131 at 50/1 matches the selected 10/1 loading and injection conditions. Predicted completion rises from about 16.36 to 34.68 mL; this tests whether aromatic-carbonyl solvent sensitivity transfers without importing the larger tails of more polar compounds.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [],
+  "feedback_interpretation": "Recent feedback shifts priority toward carbonyl response transfer. The m78 50/1 experiment had large historical underprediction of both endpoints, motivating a fixed-loading curve and a loading contrast. m28 again showed completion underprediction. The m125 results strengthen a ratio-dependent injection-volume interpretation: matched loading at 2/1 produced substantially different endpoints between 300 and 500 uL DCM. This does not establish a universal injection effect. Recent amino-nitrile labels were comparatively well predicted, reducing the marginal value of more nearby measurements this round. Conversely, m90 at 5/1 and m104 at 20/1 were overpredicted, weakening a blanket expectation of underestimated nitrogen-containing tails. The earlier structural description of m37 also needs correction: it is para-nitroacetophenone, not an amino ketone. These interpretations concern historical acquisition errors and measured outcomes, not current-model residuals.",
+  "batch_rationale": "The batch combines failure follow-up with experiments that test transfer across recurring catalog families. The m78 curve investigates the latest major failure and whether its weak-eluent behavior persists across loading. The m125 pair directly isolates injection volume. Nitrogen selections examine distinct unresolved response shapes, including a predicted plateau. New m27, m94, m201, m38, m194, and m21 pairs test structural transfer across aliphatic ketones, beta-ketoesters, nitro aromatics, fused aromatic ketones, and ether-containing compounds. The m59, m198, m99, and m131 pairs add solvent-response constraints around established chemical families, while m62 covers a distinct boronic ester environment. Matching conditions within pairs makes the labels more informative about response slopes than isolated novelty measurements. Both steep and modest predicted responses are included to improve interpolation and generalization across rows. Missing experimental variables and occasional inconsistent observations limit mechanistic attribution; these labels are intended to improve prediction under the recorded conditions, not optimize chromatographic performance."
+}

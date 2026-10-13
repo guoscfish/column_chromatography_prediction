@@ -1,0 +1,275 @@
+{
+  "type": "selection",
+  "packet_sha256": "f1a7d7a25d985b648ac2deb52b1c3bc9c9dbe58b72e0ebd71b423648e99fac44",
+  "batch_strategy": "Select 32 eligible experiments that test structure-dependent solvent responses and endpoint-specific loading effects. Use matched contrasts around recent alcohol, amino-nitrile and carbonyl failures, together with selected intermediate-ratio anchors and a neutral aromatic control pair. Freeze the supplied predictions for all selected IDs before measurement.",
+  "choices": [
+    {
+      "id": "f91285c618eacb53538b",
+      "reason": "m200 at 2/1 and 193.755 mg extends the measured 64.585 and 129.17 mg series (a92f7617b135de150588, 3fbf4a3d05e84138e1e2). The predictor remains nearly loading-invariant, whereas those labels differ particularly in onset. This tests whether that contrast extends to higher loading.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "97318de99bab4460cf4e",
+      "reason": "m200 at 1/1 and 64.585 mg matches the loading of a92f7617b135de150588 at 2/1 and contrasts with 7dace1dbecce79e17117 at 1/1 and 129.17 mg. This completes a measured two-ratio, two-load comparison and tests whether loading effects depend on solvent strength.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "c973d4c257be9ef08216",
+      "reason": "m205 at 2/1 fills the fixed-loading gap between measured 1/1 and 5/1 rows 2b10c90b32f970e4b4c8 and 48853fd78c77153b963a. Both endpoints were substantially underpredicted at acquisition; the intermediate label tests response curvature after retraining.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "988724a9391bf1618fda",
+      "reason": "m205 in pure EA preserves the 99 mg loading and 400 uL DCM of its measured 1/1 and 5/1 rows (2b10c90b32f970e4b4c8, 48853fd78c77153b963a). It tests whether the strong-eluent correction learned from naphthylmethanol transfers to naphthylethanol.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "27bac953781c17a3a74b",
+      "reason": "m177 at 5/1 and 70.3 mg matches the loading of aa43fe84c0d8c825fe58 at 20/1 and 5b706e17e8412d02342f at 50/1. Comparison with high-load 5/1 observation 76643e968ecc935c745c tests whether its irregular loading contrasts persist in stronger eluent.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "bef81d4dd93af26c12a9",
+      "reason": "m177 at 2/1 and 210.9 mg extends the fixed-load 5/1, 10/1, 20/1 and 50/1 series (76643e968ecc935c745c, aef5cafc63ca445e92fa, 5e276c1730fc0a9deba7, b514312eda7950cdcf1c). This tests whether completion contracts in stronger eluent while onset stays early.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "b5325cdcd2077724c722",
+      "reason": "m32 at 10/1 and 150.6 mg extends the high-load 5/1 observation a4ed6ac3d69b91c56aca. Its predicted V2 is lower than that measured 5/1 completion, making this a test of the model's response shape after the variable low-load 20/1 results.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "485f8bcfb08d6eaf3463",
+      "reason": "m32 at 50/1 and 50.2 mg extends the same-load 5/1 and repeated 20/1 measurements (6e1413072d0468278d36, 658deb7d61cd8cd7c4b1, 7522f965f25a50c9a3bc). It tests the weak-eluent trend without interpreting the discrepant repeats as a settled solvent effect.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "1cc3b837c6561b1c0a23",
+      "reason": "m13 at 5/1 and 56.1 mg halves the loading of a421784c91de559c18e0 while preserving other conditions. This tests the predictor's almost invariant loading response within a molecule that previously generated large condition-dependent overcorrections.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "ca467c94f14b2219503e",
+      "reason": "m13 at 10/1 and 168.3 mg contrasts with 9e3f598e00375ec93d9b at 112.2 mg. Together with the selected lower-load 5/1 point and existing solvent series, it tests whether loading effects change as completion becomes much later.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "769f1d04efb22c05cfdf",
+      "reason": "m107 at 2/1 and 163.5 mg triples the loading of 143bf510fe2028583763 at the same ratio. Paired with the selected high-load 5/1 row, this tests loading effects across the steep response of an ether-containing acetoacetate.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "2cfa393cb79664e100ce",
+      "reason": "m107 at 5/1 and 163.5 mg contrasts directly with c6924324ddd95f249df6 at 54.5 mg. The selected high-load 2/1 partner creates a matched comparison that can separate solvent response from loading-dependent onset and completion.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "a44a22945d76c02aa6a7",
+      "reason": "m78 at 20/1 and 103.6 mg fills the ratio gap between measured 10/1 and 50/1 results (b5e6e9a4b5c6f0f838bd, eb3bc3fba39e57adbc2f), with an explicit loading difference. Its selected same-load 50/1 partner isolates the local solvent slope.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "61771d230b285babe4b6",
+      "reason": "m78 at 50/1 and 103.6 mg contrasts with eb3bc3fba39e57adbc2f at 155.4 mg, whose completion was underpredicted by 33.38 mL at acquisition. It also pairs with selected 20/1 at identical loading to test response curvature and loading sensitivity.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "ea004678fc850c759752",
+      "reason": "m118 at 10/1 and 168.15 mg matches the loading of measured 1/1 observation 966254b5be3c8ecfa2ee only as a prediction reference is unavailable; measured context instead comes from fc27fa779102c4aeb8ab at 20/1 and 112.1 mg and 073bc395a08f48db4fc0 in pure EA. The new label tests intermediate-ratio transfer with the loading difference explicit.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "2d178efe0181baca2bd5",
+      "reason": "m118 at 50/1 and 112.1 mg preserves the loading of fc27fa779102c4aeb8ab at 20/1. It tests weak-eluent extrapolation for methoxybenzaldehyde after that measured row exposed substantial historical underprediction.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "e05652bb38d9efd5b11e",
+      "reason": "m129 at 2/1 preserves the loading of measured 5/1, 10/1 and 50/1 rows (cf8ab33c25ad391a584c, 4c46ceefd6147b1e0a7a, d54c93a11164b4abac6e). It anchors stronger eluent after repeated overprediction in this methylthio aldehyde.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "5d450444eb031c873584",
+      "reason": "m178 at 2/1 extends the fixed-loading 5/1, 10/1 and 50/1 series (17ff889395addf7d6295, 634f21e11a8442494ce3, 0c5c35afb3a24375c153). The label tests how the separated carbonyl topology approaches its strong-eluent regime.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "409d01129a3e41b32902",
+      "reason": "m178 at 1/1 pairs with selected 2/1 at identical loading. These points test the predicted shallow strong-eluent response against the much steeper measured 10/1-to-50/1 change in 634f21e11a8442494ce3 and 0c5c35afb3a24375c153.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "9bd998a328b109ef639e",
+      "reason": "m125 at 1/1, 150 mg and 500 uL DCM matches all non-mobile-phase conditions of facbcedbecb46072b04c at 2/1, measured at 32.95/69.81 mL. It directly tests the predicted sharp contraction and contrasts loading with 4c32851430464f0ed684, allowing for its different DCM volume.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "c8d43713db33bf820a1d",
+      "reason": "m125 at 2/1, 100 mg and 300 uL DCM completes a fixed-loading 1/1-to-5/1 comparison with 4c32851430464f0ed684 and 74cf50c6ec476a394b01. The current prediction places most of the retention rise between 1/1 and 2/1; this label tests that localized transition.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "96710afeabc594baa359",
+      "reason": "m90 at 10/1 and 110.7 mg contrasts with c76d0420b34df595c0c9 at 166.05 mg under otherwise identical conditions. It tests loading transfer in a pyridyl ester with very late completion and a measured 5/1 anchor b51b5dbcd2a38b174973.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "c70b471334f9747d6f98",
+      "reason": "m86 at 5/1 and 58.5 mg tests the predicted sharp response beyond measured 2/1 row 70593725787c65a74951, whose loading is higher. Compare with meta amino ester d2921349ba8d9cef15a4 to test positional transfer while explicitly retaining loading and loading-volume differences.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "fbf7711e24f45bf06d4f",
+      "reason": "m160 at 1/1 and 100 mg matches the loading of its measured 5/1 row b4e0e9dc92fca2c88b90 and the conditions of meta-isomer observation 0c24b9414856413c9a67. It separates positional effects from loading and solvent response.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "a60552f4d1a5ced4641f",
+      "reason": "m161 at 5/1 and 50 mg contrasts directly with 17902fa9c7f8ea9b456e at 100 mg and matches the loading of its 2/1 anchor e12edd0198c0d750ecd5. This tests whether the newly observed late completion transfers across loading.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "70cba7a21b5a01fb8e73",
+      "reason": "Dibenzylamine at 10/1 and 102.6 mg preserves the loading of 252c027cf5a42b92c953 at 5/1. It tests the weaker-eluent slope after that secondary-amine label weakened a general positive nitrogen-retention correction.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "a38fee52661fd3e3b7ea",
+      "reason": "Acetophenone oxime at 20/1 and 150 mg tests the predicted weak-eluent rise beyond measured pure-EA and 5/1 rows c219b2fe4227fb602c44 and 1182373ab8814dbe2f43, both at 100 mg. The loading difference limits causal attribution but extends a sparsely covered nitrogen environment.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "eee61f9b1be6b1acbef0",
+      "reason": "Biphenyl in pure EA at 50 mg pairs with selected 10/1 biphenyl at 100 mg as a neutral aromatic reference, with loading explicitly different. Measured 1/1 row 0167d1ccc46bf043be1cc at 150 mg provides context for whether predicted modest solvent effects transfer across neutral aromatic rows.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "d0c3cf60cb8fef1f9e7d",
+      "reason": "Biphenyl at 10/1 and 100 mg tests the predicted shallow response of an acceptor-free aromatic scaffold. With the selected pure-EA point and measured 1/1 row 0167d1ccc46bf043be1cc, it provides a boundary for corrections learned from polar aromatic families, allowing for loading differences.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "1a55639d058c08a1a06e",
+      "reason": "Methyl acetoacetate at 50/1 and 107.6 mg extends beyond measured 2/1 and 5/1 rows 8d018e521e8e6bbc53c2 and cd566862a517dd7cdc8d at 53.8 mg. It tests the predicted modest weak-eluent increase relative to the much steeper responses of substituted and ether-containing acetoacetates.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "4b8ba288d549f6cfc94b",
+      "reason": "m92 at 10/1 and 115.5 mg fills a fixed-load gap between measured 1/1 and 20/1 rows e93e08d6bc42e91e2679 and bbb514661c0a49694d6a, both loaded in EA. It also contrasts with ad0ace61c29817c678c2 at 173.25 mg and 10/1, testing loading sensitivity without changing loading solvent.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "780b13846ace50ede763",
+      "reason": "m125 at 5/1, 50 mg and 300 uL DCM directly contrasts loading with 74cf50c6ec476a394b01 at 100 mg and loading-solvent volume with 761c3f82d640da44966c at 500 uL. This helps interpret the selected m125 solvent-transition points without attributing every difference to mobile-phase strength.",
+      "hypothesis_id": "H6"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Alcohol solvent responses are scaffold dependent. Nitro- and naphthyl-containing alcohols can show steep changes across ordinary PE/EA mixtures, while the previously predicted pure-EA completion rebound does not generalize across the measured alcohol panel.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "6e07556df6bb6e9df96e",
+        "7dace1dbecce79e17117",
+        "3fbf4a3d05e84138e1e2",
+        "a92f7617b135de150588",
+        "2b10c90b32f970e4b4c8",
+        "48853fd78c77153b963a",
+        "18d13a057c8c8b316800",
+        "aff6404c31450d670256",
+        "7ec572e99922baa664e1"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched solvent and loading contrasts can localize corrections to relevant alcohol structures instead of shifting all donor-containing rows.",
+      "next_discriminating_question": "Does the m200 loading contrast depend on solvent strength, and does m205 follow the strong-eluent behavior of m206?"
+    },
+    {
+      "id": "H2",
+      "content": "The m177 and m32 observations require caution when interpreting loading and solvent effects: endpoint-specific differences exist, but a smooth loading law is unestablished and m32 repeats demonstrate variability at identical recorded conditions.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "aa43fe84c0d8c825fe58",
+        "4862e2fb71344ce16021",
+        "ce14dd2481560a984aea",
+        "aef5cafc63ca445e92fa",
+        "5e276c1730fc0a9deba7",
+        "b514312eda7950cdcf1c",
+        "658deb7d61cd8cd7c4b1",
+        "7522f965f25a50c9a3bc",
+        "6e1413072d0468278d36"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Local contrasts can identify reproducible interactions and reduce the risk of fitting variable observations as universal solvent or loading effects.",
+      "next_discriminating_question": "Do the new m177 strong-eluent points and m32 weak-eluent extensions support consistent trends across existing loads?"
+    },
+    {
+      "id": "H3",
+      "content": "Carbonyl and ester topology affect solvent-response slopes, while transfer of those slopes across loading remains insufficiently tested for several high-retention molecules.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "6573d8f84faaf7ce4a78",
+        "a421784c91de559c18e0",
+        "9e3f598e00375ec93d9b",
+        "143bf510fe2028583763",
+        "c6924324ddd95f249df6",
+        "60b7eed7a46a03b366b2",
+        "6000105cb6734cff8146",
+        "b5e6e9a4b5c6f0f838bd",
+        "eb3bc3fba39e57adbc2f"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "These recurring families show large historical errors and different response shapes. Paired labels can teach structure-condition interactions while checking the model's near-invariance to loading.",
+      "next_discriminating_question": "Do m13, m107 and m78 retain their measured response shapes at other loads, and how much weaker is the simple methyl-acetoacetate response?"
+    },
+    {
+      "id": "H5",
+      "content": "Nitrogen identity and position govern distinct solvent responses; amino nitriles, amino esters, pyridyl carbonyls, secondary amines and oximes should not share one retention adjustment.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "b4e0e9dc92fca2c88b90",
+        "17902fa9c7f8ea9b456e",
+        "d2921349ba8d9cef15a4",
+        "4659b6752f23c0b85f08",
+        "07dbb8c9982caa472c1a",
+        "252c027cf5a42b92c953",
+        "1182373ab8814dbe2f43"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Recent amino-nitrile completion underprediction contrasts with oxime and secondary-amine overprediction. Matched conditions and positional comparisons can improve transfer without a generic nitrogen correction.",
+      "next_discriminating_question": "How do amino-nitrile loading effects and amino-ester positional effects compare, and are the predicted weaker-eluent slopes for oxime and secondary amine supported?"
+    },
+    {
+      "id": "H6",
+      "content": "Aromatic carbonyl responses depend on substituent placement and topology. Some structures show steep transitions or late weak-eluent completion, whereas related sulfur- or hydroxy-substituted aldehydes have been overpredicted.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "cf8ab33c25ad391a584c",
+        "4c46ceefd6147b1e0a7a",
+        "d54c93a11164b4abac6e",
+        "fc27fa779102c4aeb8ab",
+        "4c32851430464f0ed684",
+        "facbcedbecb46072b04c",
+        "74cf50c6ec476a394b01",
+        "17ff889395addf7d6295",
+        "634f21e11a8442494ce3",
+        "0c5c35afb3a24375c153"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Opposite historical errors within common aromatic families favor learning local structure-solvent relationships. Matched m125 measurements can separate a sharp solvent transition from loading and loading-volume differences.",
+      "next_discriminating_question": "Does the m125 transition occur mainly between 1/1 and 2/1 at matched loading, and do stronger-eluent anchors and weaker-eluent extensions transfer across the selected carbonyl topologies?"
+    }
+  ],
+  "feedback_interpretation": "The latest alcohol and phenol panel weakens the proposed general pure-EA completion rebound: m206, m135, m119 and m58 completed much earlier than their acquisition predictions (18d13a057c8c8b316800, aff6404c31450d670256, 7ec572e99922baa664e1, 8f07dde39b5cb4c7d9e6). This does not establish universal monotonicity; salicylaldehyde ff3ee95fed58907ff8b3 and other supplied observations warrant molecule-specific interpretation. m200 now has a strong measured solvent response and a loading contrast at 2/1, while m205 exposed substantial underprediction at both 1/1 and 5/1. These outcomes support matched local follow-up. The m32 repeat changed completion from 12.09 to 20.71 mL at identical recorded conditions (658deb7d61cd8cd7c4b1, 7522f965f25a50c9a3bc), weakening any firm interpretation of its earlier apparent reversal. m177 high-load 10/1 completion reached 46.72 mL versus 20.70 mL at the middle load (aef5cafc63ca445e92fa, ce14dd2481560a984aea), but its broader irregular series still does not establish a smooth loading law. Amino-nitrile completion underprediction and oxime overprediction further support functional-group-specific correction. The m117 10/1 observation a7bc3fb68bdecbbe086f has V1 slightly greater than V2; I retain it as supplied but do not interpret it as a physically meaningful negative elution width or use it to establish a sharp onset transition. Historical acquisition errors are not current-model residuals.",
+  "batch_rationale": "All 32 choices are distinct eligible candidate IDs; the already-measured m200 pure-EA row is replaced by eligible low-load 1/1 row 97318de99bab4460cf4e8. The replacement completes a useful solvent-by-loading comparison without reselecting measured evidence. The batch combines local failure repair with tests of transfer across loading and chemical environments. The m200/m205 points test recent alcohol failures; m177/m32 address unresolved endpoint-specific effects and variability. Paired m107 and m78 measurements and selected m13 loading contrasts test the predictor's weak loading sensitivity. Aromatic carbonyl points examine strong-eluent anchors, weak-eluent extrapolation and the m125 transition with explicit control of recorded loading conditions. Nitrogen selections distinguish functional groups and positional effects. Biphenyl provides a small neutral aromatic reference panel; its selected loads differ, so it is not interpreted as a strictly matched solvent experiment. Quantile spans are single-predictor signals, not calibrated epistemic uncertainty, and elution interval widths are not uncertainty. These labels may improve retrained V1/V2 accuracy across recurring Row families by teaching relationships rather than isolated offsets. Missing experimental variables and observed variability limit causal conclusions and the certainty of the expected learning benefit."
+}

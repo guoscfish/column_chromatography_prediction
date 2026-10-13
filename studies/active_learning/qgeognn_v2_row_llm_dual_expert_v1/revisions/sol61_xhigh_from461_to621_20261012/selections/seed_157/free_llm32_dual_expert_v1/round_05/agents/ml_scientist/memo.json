@@ -1,0 +1,75 @@
+{
+  "type": "memo",
+  "role": "ml_scientist",
+  "packet_sha256": "5e9c56a4992c17d4a3de31ee0cb0b15bbb58aa7cd9a1b9faadeb8292ff64197d",
+  "state_summary": "Round 5, seed 157: 493 measured records, 2,837 legal candidates, no pending records, and no validation or test truth. Recent feedback narrows several response-surface questions. The strongest remaining issue is local, endpoint-specific V2 behavior rather than a universal functional-group or loading correction.",
+  "important_model_behaviors": [
+    "[Observed; H9 updated] m173 now shows a local V2 maximum near 1/1. At DCM loading volume 2,000 ul, V2 changes from 50.30 at 0/1 to 108.89 at 1/1 and 60.92 at 5/1 (6802f0b28c5a0c7b4c2a, f90a5a5a54509c085ebd, 1e775e7d8dcbf48fd6f8). At 1,500 ul, the corresponding 1/1 and 2/1 values are 78.37 and 46.22 (65fcce0299e031dedeb8, 9a32b65bc79664e100ce). The prior broad contraction premise remains rejected, but a nonmonotone ratio-by-plug response and substantial plug sensitivity are now supported.",
+    "[Observed; H5 refined] m125's 1/1 DCM loading-solvent effect is reproducible and smooth across sample volume. With 300 ul DCM, the 50/100/150 ul records are 9.25/18.35, 7.50/20.47 and 7.30/20.23 ml (00043aebb2540e369a7b, 4c32851430464f0ed684, 03744855d469f4cca7e6). With 500 ul DCM, they are 12.49/36.14, 13.44/38.40 and 14.07/39.38 (f4fb5c03b8e8996e75f6, dbb94bf062fc0e640258, 9bd998a328b109ef639e). The anomalous 2/1 V1 valley remains local.",
+    "[Observed; H10 supported] m13 has a genuine delayed tail: at 150 ul and DCM 300 ul, V2 is 18.17 at 2/1, 43.86 at 5/1 and 91.85 at 10/1 (2dbfdf9c2d5defd09f7a, 5d530b2f228ed39ff952, 9e3f598e00375ec93d9b). The current model still overpredicts the 5/1 point by 29.42 ml and the 10/1 point by 10.41 ml, so the transition is real but its magnitude remains poorly calibrated.",
+    "[Observed; H3 strengthened] Severe V2 misses occur across chemically different structures: donor-rich m205, donor-free m107, tertiary amine m19, pyridyl ketone m66, sulfoxide m199, dialdehyde m191, alcohol m119 and nitro ketone m37. Residual signs change with ratio, loading and structure. This supports local interaction modeling and weakens any shared donor, alcohol, sulfur or carbonyl offset.",
+    "[Observed; H2 local] Matched loading contrasts continue to be endpoint-specific. m107 changes from 21.73/45.67 at 50 ul to 14.15/42.35 at 150 ul at 2/1, while m216 V2 is nearly constant near 93 ml across 50/100/150 ul at 10/1. m205 and m206 also show different V1 and V2 loading responses.",
+    "[Observed; repeatability] The exact m92 10/1, 100 ul, EA input was replicated: 9.56/25.25 versus its earlier 9.43/26.42 prediction. This is a small residual and provides evidence that at least some repeated-input measurements are stable; it does not establish a universal noise level.",
+    "[Prediction diagnostic] Candidate quantile widths and endpoint intervals remain unsuitable as direct uncertainty rankings. The packet contains zero lower quantiles, inconsistent quantile ordering in some rows, and candidate interval widths that are not calibrated against measured error."
+  ],
+  "possible_learning_bottlenecks": [
+    "The predictor appears to underrepresent molecule-by-ratio-by-loading interactions, especially when V2 develops a local peak or delayed tail. A joint representation of V1 onset and V2 completion may be more useful than independent endpoint corrections.",
+    "The most valuable missing information is transition shape at moderate ratios and matched loading conditions. Extreme predicted endpoints alone are weak evidence because recent measured errors change sign across related molecules.",
+    "Loading amount, sample volume and loading-solvent volume are correlated through the recorded density and cannot be cleanly separated in this trajectory. The model may therefore learn unstable condition effects unless matched contrasts are emphasized.",
+    "Historical acquisition errors are concentrated in previously suspected regimes. They identify local failures, but they are not an unbiased estimate of current Row-distribution error or retrained accuracy."
+  ],
+  "coverage_or_redundancy_concerns": [
+    "m167, m125, m92, m146, m216, m147 and m105 now have substantial local coverage. Further expansion should address a named missing contrast or transfer question; routine grid filling has low marginal value.",
+    "The pool contains many exact or near-duplicate condition rows across molecules and occasional repeated inputs for the same molecule. Repetition is useful for variability only when it tests a specific ambiguity.",
+    "Chemical-space coverage is broader than the adaptive error history, but ordinary moderate-response rows remain important for Row accuracy. Novelty, predicted endpoint magnitude and quantile width should be combined with representativeness and redundancy control.",
+    "The current trajectory supports molecule-specific residual structure. It does not support assigning a universal correction to HBD, HBA, basic nitrogen, sulfur, nitro or carbonyl descriptors."
+  ],
+  "warnings": [
+    "Observed IDs and their labels are measured evidence. Candidate IDs below have predictions only; their predicted values are diagnostics, not evidence of future error.",
+    "V2 minus V1 is an elution interval, not uncertainty. Quantile width, similarity and condition novelty have no demonstrated calibration as expected-error measures.",
+    "The m173 plug comparison also changes recorded density slightly, so it isolates loading-plug sensitivity only approximately.",
+    "Chemical explanations involving silanol binding, protonation, tautomerism or hydrogen bonding are priors or possible mechanisms, not measured causal findings."
+  ],
+  "particularly_informative_candidates": [
+    {
+      "id": "1e971da91b3a8229f0e0",
+      "reason": "[Candidate prediction only] m173 at 5/1, 100 ul and DCM 1,500 ul predicts 12.89/60.43 ml. It is a direct plug-volume companion to the measured 5/1, 2,000 ul result and tests whether the large plug effect persists at the PE-richer ratio."
+    },
+    {
+      "id": "1cc3b837c6561b1c0a23",
+      "reason": "[Candidate prediction only] m13 at 5/1, 50 ul and DCM 300 ul predicts 20.08/46.69 ml. Compared with the measured same-ratio 150 ul point, it separates delayed ratio behavior from a loading-dependent tail."
+    },
+    {
+      "id": "8f5acbec0c511bb1ea89",
+      "reason": "[Candidate prediction only] m66 at 1/1, 100 ul and DCM 300 ul predicts 10.21/28.86 ml. Together with the measured 2/1 value of 18.98/55.06, it tests whether the large V2 miss begins at lower ratio."
+    },
+    {
+      "id": "f82cfd3b57735b0ead3c",
+      "reason": "[Candidate prediction only] m199 at 5/1, 50 ul and DCM 400 ul predicts 27.77/51.56 ml. The measured 5/1, 100 ul point is 28.52/52.30, making this a useful matched loading test of a severe sulfur-containing V2 regime."
+    },
+    {
+      "id": "acdffd73c7b1388ba321",
+      "reason": "[Candidate prediction only] m191 at 2/1, 100 ul and DCM 400 ul predicts 7.04/19.92 ml. It bridges the low-ratio region to the measured 10/1 value of 27.27/61.62 and can locate the carbonyl-rich tail onset."
+    },
+    {
+      "id": "e05652bb38d9efd5b11e",
+      "reason": "[Candidate prediction only] m129 at 2/1, 100 ul and DCM 300 ul predicts 8.65/18.01 ml. It fills the gap between measured 1/1 and 5/1 sulfur-aldehyde points and tests whether the current overprediction persists at an intermediate ratio."
+    },
+    {
+      "id": "c19b06649402d37faeba",
+      "reason": "[Candidate prediction only] m31 at 2/1, 100 ul and DCM 400 ul predicts 6.38/17.49 ml. Existing m31 records at 2/1, 50 ul and 1/1, 150 ul make this a targeted loading-surface interpolation rather than an isolated tail probe."
+    },
+    {
+      "id": "a775926fce57b3bf9ec1",
+      "reason": "[Candidate prediction only] m119 at 2/1, 50 ul and DCM 300 ul predicts 20.97/34.38 ml. It tests whether the measured 5/1 alcohol tail of 48.0/77.09 is a delayed ratio transition or a broad molecular offset."
+    },
+    {
+      "id": "d5234e966aa231be05e5",
+      "reason": "[Candidate prediction only] m212 at 5/1, 50 ul and PE 300 ul predicts 21.91/36.37 ml. The measured same-ratio 100 ul point is 22.07/37.18, so this is a clean check of loading sensitivity in a basic-aromatic tail."
+    },
+    {
+      "id": "47eb0d497e8c772aade3",
+      "reason": "[Candidate prediction only] m37 at 1/1, 100 ul and DCM 400 ul predicts 5.66/15.99 ml. It supplies a lower-ratio anchor for comparison with measured 2/1, 5/1 and 20/1 nitro-ketone records whose residuals change substantially with ratio."
+    }
+  ]
+}

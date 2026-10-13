@@ -1,0 +1,144 @@
+{
+  "study_name": "ROW_FILTERED_FULL_DATA_RMSE_COMPLETION_20261013",
+  "status": "FROZEN_BEFORE_NEW_TEST_EVALUATION",
+  "budget": "FULL",
+  "columns": [
+    "8g",
+    "25g",
+    "40g"
+  ],
+  "protocols": [
+    "row"
+  ],
+  "outer_seeds": [
+    769539383,
+    1425370602,
+    536279090,
+    2767143051,
+    1362771960
+  ],
+  "methods": [
+    "zero_shot",
+    "scale_only",
+    "affine",
+    "conditional_EA",
+    "paper_style_current_v2"
+  ],
+  "thresholds_ml": {
+    "8g": {
+      "V1": 60.0,
+      "V2": 120.0
+    },
+    "25g": {
+      "V1": 60.0,
+      "V2": 120.0
+    },
+    "40g": {
+      "V1": 150.0,
+      "V2": 200.0
+    }
+  },
+  "filter_definition": "inherited fixed legacy thresholds; V1<=limit and V2<=limit; no threshold selection",
+  "full_data_definition": "all operationally filtered rows outside inherited validation/test are gradient_train",
+  "source_checkpoint": "studies/predictor/final_4g_qualification/runtime/row/seed_42/best.pt",
+  "source_checkpoint_sha256": "fce9edebc294fd179c7c7dc27ab2badea049c77fdad03a6cf0c317c63df544b0",
+  "parent_schedule_sha256": "b52b937aa750586ec8f2efb2f10f93dfddd2252bb03afaf304556e16b4fab5ee",
+  "parent_benchmark_protocol_sha256": "b78f9b69780bce21c093496d8a6f59ccfab94e2934bacc247ce0ec387e6211b4",
+  "parent_benchmark_global_freeze_sha256": "523910edf367c4f5009fa88597acb56eb8a51a55208d2f2058880b97f7ffde28",
+  "source_main_commit": "42ab12600a353bba4a063ef5d1b623ee2f7b976a",
+  "new_arms": {
+    "8g": [
+      "zero_shot",
+      "scale_only",
+      "affine",
+      "conditional_EA",
+      "paper_style_current_v2"
+    ],
+    "25g": [
+      "affine"
+    ],
+    "40g": [
+      "affine"
+    ]
+  },
+  "reused_arms": {
+    "25g": [
+      "zero_shot",
+      "scale_only",
+      "conditional_EA",
+      "paper_style_current_v2"
+    ],
+    "40g": [
+      "zero_shot",
+      "scale_only",
+      "conditional_EA",
+      "paper_style_current_v2"
+    ]
+  },
+  "affine": "per-endpoint slope+intercept OLS, gradient_train only; same implementation as matched B100",
+  "scale_only": "per-endpoint through-origin OLS, gradient_train only",
+  "conditional_EA": {
+    "penalties": [
+      0.0,
+      0.1,
+      1.0
+    ],
+    "selection": "validation only"
+  },
+  "paper_style_current_v2": {
+    "config": {
+      "learning_rate": 0.0001,
+      "weight_decay": 1e-05,
+      "maximum_epochs": 500,
+      "patience": 100,
+      "batch_size": 2048,
+      "cpu_threads": 1,
+      "context_dim": 3,
+      "scope": "final message layer + condition branch + target head + zero-initialized column adapter",
+      "selection": "validation_only_minimum_source_normalized_rmse"
+    },
+    "context": "[target_mass_g/4, is_25g, is_40g]",
+    "selection": "validation only; project paper-inspired strategy, not original-paper result"
+  },
+  "zero_shot_target_training_labels": 0,
+  "test_labels_used_for_fit_or_selection": false,
+  "source_cache_verification": "float32 inference vs decimal CSV cache: rtol=1e-7, atol=1e-6 mL",
+  "evaluation_boundary": "hash-verify all 15 context predictions before any new test evaluation",
+  "interpretation": "descriptive completion on historically examined filtered tests; no independent-confirmation claim",
+  "inherited_artifacts_sha256": {
+    "studies/transfer/full_data_baseline_finalization/filtered_canonical_8g.csv": "7201e3457ec84acaa66b085b74c22afc6a823127e1394c93512b4a99f9439f84",
+    "studies/transfer/full_data_baseline_finalization/filtered_features_8g.csv": "5176534fed32658c09b59aaf9a83f68f3c1ed42654a1a5dafc1aa32fa8e046f2",
+    "studies/transfer/full_data_baseline_finalization/runtime/source_8g.csv.gz": "202d0c5b2c210cc755986032aca28ea5d266e1601ca54e0297a3b8e30d00a800",
+    "studies/transfer/filtered_full_data_benchmark/filtered_canonical_25g.csv": "fe24a1c17392d744c52e6f484b343ac6ed50cdbda343da8b965c150421c00e0e",
+    "studies/transfer/filtered_full_data_benchmark/filtered_features_25g.csv": "3733df28f6c14d21563e02d8fc04a37ce4838b17a46303986b6da65719ab07c9",
+    "studies/transfer/filtered_transfer_headroom_audit/runtime/source_25g.csv.gz": "8914ef50a18577d9d35b6919755d03f37f53708d66aefb5ce52a7846cef836bb",
+    "studies/transfer/filtered_full_data_benchmark/filtered_canonical_40g.csv": "4dd1ff8d1bd4cfb4388365a86d1439e6015a0d9de75cd6d90aa2ab23d84c5d97",
+    "studies/transfer/filtered_full_data_benchmark/filtered_features_40g.csv": "e64e09686ebb52b9d1bd276354318d565b15dc7b3910dd65dc60174436ee5720",
+    "studies/transfer/filtered_transfer_headroom_audit/runtime/source_40g.csv.gz": "aceaaebef5a6b2920a8fe3308c654c71890af4af9e51486cde762ea8c23d8508",
+    "studies/transfer/cross_column/data_audit/graph_cache_8g_only.pt": "bc8499b5c366fd504cb4d1aa95a7ad95d02d78163fe04cf9d5241b4b64b4c4bc",
+    "studies/transfer/cross_column/data_audit/graph_cache_25g_only.pt": "a5af734cc32dc4d3372a9cc952d098283cd97395d256ea07ef93ddaf2f006191",
+    "studies/transfer/cross_column/data_audit/graph_cache_40g_only.pt": "3919c2c5eac2b927c37fce52da4267fa65216d906e53c6edc4d9c044d188acaa",
+    "experiments/e0_4g_baseline/graph_cache_4g.pt": "a48f8ea1ce4f89c5a1ea6d17466e7c7ffa0439edb8ec79bd8b765bad3a97c3ee"
+  },
+  "implementation_sha256": {
+    "scripts/studies/run_row_full_data_rmse_completion.py": "cf74cb9569de1319cf9a7187ae7568c3ee505fe992daff0a3c310e6e4f6543c5",
+    "scripts/studies/run_filtered_full_data_benchmark.py": "de439ace6d441d9760d85044a01fc085cbef812c49b070b9a5cba20d580f578a",
+    "src/qgeognn_al/transfer/full_data.py": "a5c889062dc67d5c8da353388bc4885ba79b17eb6cb7b5ed59609ffbd39d7898",
+    "src/qgeognn_al/transfer/calibration.py": "e9f8511cd4e8263f16978527c4330a912f55bffe79b8966a522db9b898a7799d",
+    "src/qgeognn_al/transfer/conditional_scaling.py": "56c186b3731d75a69d8716b48ee4d91b7fb1df18172ec147a50d68502d4c065e",
+    "src/qgeognn_al/transfer/adaptation.py": "79a8a9ce3f30e634f5a3bdcd5a7605e26275656eef1191fc707a74619aa420b4"
+  },
+  "inputs_sha256": {
+    "inputs/filtered_canonical_25g.csv": "fe24a1c17392d744c52e6f484b343ac6ed50cdbda343da8b965c150421c00e0e",
+    "inputs/filtered_canonical_40g.csv": "4dd1ff8d1bd4cfb4388365a86d1439e6015a0d9de75cd6d90aa2ab23d84c5d97",
+    "inputs/filtered_canonical_8g.csv": "7201e3457ec84acaa66b085b74c22afc6a823127e1394c93512b4a99f9439f84",
+    "inputs/filtered_features_25g.csv": "3733df28f6c14d21563e02d8fc04a37ce4838b17a46303986b6da65719ab07c9",
+    "inputs/filtered_features_40g.csv": "e64e09686ebb52b9d1bd276354318d565b15dc7b3910dd65dc60174436ee5720",
+    "inputs/filtered_features_8g.csv": "5176534fed32658c09b59aaf9a83f68f3c1ed42654a1a5dafc1aa32fa8e046f2",
+    "inputs/source_25g.csv.gz": "8914ef50a18577d9d35b6919755d03f37f53708d66aefb5ce52a7846cef836bb",
+    "inputs/source_40g.csv.gz": "aceaaebef5a6b2920a8fe3308c654c71890af4af9e51486cde762ea8c23d8508",
+    "inputs/source_8g.csv.gz": "202d0c5b2c210cc755986032aca28ea5d266e1601ca54e0297a3b8e30d00a800"
+  },
+  "split_manifest_sha256": "27bef3c541b49873ffc49e8fcdef478d83e1065a71a092ec18ae4e51d33d2dc2",
+  "label_accounting_sha256": "57b18f18b689af546fb43b186fad6b1e7482ed3e03986ed38b0fb28fa9e6433b"
+}

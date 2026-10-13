@@ -365,3 +365,13 @@ def test_unobserved_evidence_diagnostic_names_hypothesis_field_and_id():
     with pytest.raises(ValueError,match='hypothesis H1 cites unobserved evidence in supporting_observed_ids') as caught:
         validate_planner_selection(plan,catalog,packet)
     assert "['0']" in str(caught.value)
+
+
+def test_dual_budget_extension_does_not_change_original_scientist_budget():
+    from src.qgeognn_al.active_learning_v2 import dual_expert_study as study
+    from src.qgeognn_al.active_learning_v2 import scientist_study as original
+    assert study.BUDGETS==tuple(range(333,622,32))
+    assert original.BUDGETS[-1]==525
+    assert study.BUDGETS[4]==461 and study.BUDGETS[9]==621
+    assert study.selection_directory(157,study.METHOD,8).name=='round_08'
+    with pytest.raises(ValueError): study.selection_directory(157,study.METHOD,9)

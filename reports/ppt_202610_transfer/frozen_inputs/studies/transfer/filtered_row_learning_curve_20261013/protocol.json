@@ -1,0 +1,102 @@
+{
+  "study_name": "FILTERED_ROW_LEARNING_CURVE_20261013",
+  "status": "FROZEN_BEFORE_NEW_TEST_EVALUATION",
+  "columns": [
+    "8g",
+    "25g",
+    "40g"
+  ],
+  "protocols": [
+    "row"
+  ],
+  "outer_seeds": [
+    769539383,
+    1425370602,
+    536279090,
+    2767143051,
+    1362771960
+  ],
+  "methods": [
+    "zero_shot",
+    "scale_only",
+    "affine",
+    "conditional_EA",
+    "paper_style_current_v2"
+  ],
+  "budgets": [
+    100,
+    300
+  ],
+  "reused_budget": "FULL",
+  "new_neural_fits": 30,
+  "budget_definition": "gradient_train plus validation revealed target rows",
+  "sampling": "original default_rng(seed) canonical row permutation; intersect eligible filtered FULL train; nested prefixes",
+  "validation_test": "byte-identical ID sets to filtered FULL for every column/seed and every budget",
+  "thresholds_ml": {
+    "8g": {
+      "V1": 60.0,
+      "V2": 120.0
+    },
+    "25g": {
+      "V1": 60.0,
+      "V2": 120.0
+    },
+    "40g": {
+      "V1": 150.0,
+      "V2": 200.0
+    }
+  },
+  "threshold_selection": "none; inherited frozen thresholds",
+  "source_checkpoint_sha256": "fce9edebc294fd179c7c7dc27ab2badea049c77fdad03a6cf0c317c63df544b0",
+  "paper_style_current_v2": {
+    "config": {
+      "learning_rate": 0.0001,
+      "weight_decay": 1e-05,
+      "maximum_epochs": 500,
+      "patience": 100,
+      "batch_size": 2048,
+      "cpu_threads": 1,
+      "context_dim": 3,
+      "scope": "final message layer + condition branch + target head + zero-initialized column adapter",
+      "selection": "validation_only_minimum_source_normalized_rmse"
+    },
+    "context": "[target_mass_g/4, is_25g, is_40g]",
+    "selection": "validation only; project paper-inspired strategy, not original-paper result"
+  },
+  "conditional_EA": {
+    "penalties": [
+      0.0,
+      0.1,
+      1.0
+    ],
+    "selection": "validation only"
+  },
+  "scale_only_affine": "same source q50, same gradient-train-only OLS implementations as FULL",
+  "zero_shot": "reuse identical FULL predictions at each context; zero target training labels",
+  "test_labels_used_for_fit_or_selection": false,
+  "evaluation_boundary": "all 30 new contexts hash-frozen plus 15 reused FULL contexts verified before new test evaluation",
+  "full_study": "studies/transfer/row_full_data_rmse_completion_20261013",
+  "full_protocol_sha256": "12149b974a5c63dd6a98db9c46be13047b0965d27f57377339708bf33c26399f",
+  "full_global_freeze_sha256": "aed841a8f7c33d197557987738c68d747de6b71654394efd77ab644c1ae187f2",
+  "full_metrics_sha256": "4ff006b1bd7dbef87327899de2eb3f64c3939e9e67c770b61bf3acd23a4b8527",
+  "full_summary_sha256": "2c8296905c9646049f7c5513934bde80a298310df440dbe39f4baaaec0629445",
+  "canonical_id_order_hashes": {
+    "8g": "7da5e2a1ec40dee4b52e2cd4d502f7b22a352b6326a0d2cb7b0af2d5b4bada82",
+    "25g": "897fb56785a25d9e6f377d49db7797963c3c9989c5bfd9df033d146f46558594",
+    "40g": "25a8f73243142a2b790e5fdb64419f7eaea4c68271655fe5e11a65aba4ac84fb"
+  },
+  "implementation_sha256": {
+    "scripts/studies/run_filtered_row_learning_curve.py": "ee9af57a0b0f376b48cb0d257840e33df9e462b3457dbf94430d074892ca4474",
+    "scripts/studies/run_row_full_data_rmse_completion.py": "cf74cb9569de1319cf9a7187ae7568c3ee505fe992daff0a3c310e6e4f6543c5",
+    "scripts/studies/run_filtered_full_data_benchmark.py": "de439ace6d441d9760d85044a01fc085cbef812c49b070b9a5cba20d580f578a",
+    "src/qgeognn_al/transfer/full_data.py": "a5c889062dc67d5c8da353388bc4885ba79b17eb6cb7b5ed59609ffbd39d7898",
+    "src/qgeognn_al/transfer/calibration.py": "e9f8511cd4e8263f16978527c4330a912f55bffe79b8966a522db9b898a7799d",
+    "src/qgeognn_al/transfer/conditional_scaling.py": "56c186b3731d75a69d8716b48ee4d91b7fb1df18172ec147a50d68502d4c065e",
+    "src/qgeognn_al/transfer/adaptation.py": "79a8a9ce3f30e634f5a3bdcd5a7605e26275656eef1191fc707a74619aa420b4"
+  },
+  "split_manifest_sha256": "763ed7b8bdbe29136a7d24baf454d347e8e02e472380e985b5f85805e92caa3a",
+  "label_accounting_sha256": "8a1154ea560e8397e3cc20f109643d88e538950812939a67bdfbb938a7b5e747",
+  "source_main_commit": "42ab12600a353bba4a063ef5d1b623ee2f7b976a",
+  "interpretation": "descriptive learning curve on historically examined tests; no independent-confirmation claim",
+  "plot_x": "actual revealed label count; FULL mean across five seeds, never equal categorical spacing"
+}

@@ -1,0 +1,45 @@
+{
+  "type": "memo",
+  "role": "ml_scientist",
+  "packet_sha256": "3542d69449f65e7eed7d2f1738f052878ebf01fe5d1ac8b2c270fb9a7cb165b6",
+  "state_summary": "Seed 157, round 1: 365 observed measurements and 2,965 legal candidates. The 32 prior selections now have measured feedback and premeasurement errors; the remaining candidates have predictions only. No validation/test truth or other trajectories are used. These results revise the round-0 hypotheses; they do not establish retrained accuracy.",
+  "important_model_behaviors": [
+    "Measured feedback strongly supports a condition-response effect for m167: at 150 \u00b5l loading in DCM, increasing PE/DCM ratio from 2/1 to 20/1 moves V1 from 4.39 to 4.98 and V2 from 12.43 to 20.14. V2 responds more strongly than V1 in this series. The 50 \u00b5l measurements at 2/1 and 5/1 likewise show V2 increasing (12.30 to 15.11), though this is not a universal response law.",
+    "Errors are heterogeneous and can be large in both directions. Examples: m216 at 10/1 PE was underpredicted by about 27.7 ml on V1 and 41.9 ml on V2; m160 at 5/1 DCM was underpredicted by 18.0 and 52.8 ml. Conversely, m90 at 5/1 DCM was overpredicted by 6.4 and 17.6 ml, and m11 at 10/1 DCM by 9.4 and 19.6 ml. Large predicted endpoints therefore flag risk, not a consistent signed correction.",
+    "The m125 measurements expose an important condition/load-related failure: at 2/1 DCM, measured V1/V2 are 32.95/69.81 at 150 \u00b5l, versus 15.41/29.58 at 100 \u00b5l. The 100 \u00b5l prediction was substantially too high. At 1/1, its measured 7.50/20.47 also exceeded the prior point prediction. This is evidence of a challenging response regime, but one molecule cannot identify which condition variable or interaction explains it.",
+    "Both endpoint-anomaly diagnostics measured in the normal order V2 > V1. The m13 and m80 predictions recorded in memory also have V2 > V1, despite the rationale calling them reversed. H4's stated reversed-order premise is unsupported here; avoid treating that narrative as evidence of a model ordering defect."
+  ],
+  "possible_learning_bottlenecks": [
+    "Tail-region calibration and molecule-by-condition interactions appear more consequential than a uniform endpoint bias. Large under- and overpredictions across polar, heteroaromatic, and other high-retention examples argue for learning local structure/condition interactions rather than applying a broad functional-group offset.",
+    "Loading/volume effects remain plausible and are now more important to investigate because of m125, but confounding prevents causal attribution. The near-matched m105 measurements at 10/1 PE, 150 \u00b5l differ (6.37/11.93 versus 6.66/14.01), cautioning against assuming small condition differences or repeated records are interchangeable.",
+    "Absolute-error priorities may be dominated by high-volume V2 misses. Consider modeling endpoint dependence or residuals jointly, while preserving the distinction between measured endpoint width and predictive uncertainty."
+  ],
+  "coverage_or_redundancy_concerns": [
+    "The prior batch densely covered m147, m167, m90, and m105 curves. Their labels now provide useful contrasts, but further near-duplicate points have diminishing value unless they isolate a specific load, solvent, or ratio comparison.",
+    "Measured evidence supports strong m167 ratio response and a notable m125 load/condition contrast; it does not establish universal PE/DCM trends or generalize loading effects across compounds. EA evidence remains concentrated on m92.",
+    "Several candidate prediction intervals are broad or internally irregular. Quantile width, novelty, and predicted magnitude are model diagnostics only, not observed errors or guaranteed information value."
+  ],
+  "warnings": [
+    "Observed-table IDs are measured evidence; candidate IDs remain predictions only. Historical errors and the prior batch's premeasurement errors are trajectory-local evidence, not future candidate truth.",
+    "H3 is partly supported as a local-error concern, especially for m216 and m160, but is not a uniform rule: m161's measured response is materially different from m160's, and m11 and m90 show opposite error directions.",
+    "Do not claim H2 is confirmed causally from m125: mobile phase, loading amount, loading-solvent volume, and experimental variability may be entangled."
+  ],
+  "particularly_informative_candidates": [
+    {
+      "id": "17902fa9c7f100e3e9e",
+      "reason": "m161 at 5/1 DCM, 100 \u00b5l: an interpretable extension of measured m161 conditions that can test ratio response in a donor/nitrile chemotype."
+    },
+    {
+      "id": "36d971e3231c54486d05",
+      "reason": "m160 at 2/1 DCM, 150 \u00b5l: a condition contrast for the measured m160 tail miss; useful for determining whether the large error persists across conditions."
+    },
+    {
+      "id": "29db30571b2a1ae59cc7",
+      "reason": "m90 at 5/1 DCM, 50 \u00b5l: a loading contrast to measured m90 at 5/1 and 150 \u00b5l, where endpoints are large; useful for probing the load-related explanation."
+    },
+    {
+      "id": "549daca56bed1c9d2bcc",
+      "reason": "m125 at 5/1 DCM, 150 \u00b5l: tests whether the pronounced measured m125 condition/load behavior continues beyond the already measured 1/1 and 2/1 cases; extreme predictions warrant caution, not automatic priority."
+    }
+  ]
+}

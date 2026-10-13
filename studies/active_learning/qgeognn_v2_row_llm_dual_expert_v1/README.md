@@ -8,18 +8,18 @@
 
 已完成运行保存于 `revisions/full_pool_feedback_schema_20261011/`，原 round-0 草案与冻结文件保留。首次试跑因另一个任务恢复共享文件而中断，未获得模型答案；其记录保留于 `revisions/full_pool_feedback_20261010/interruption.json`。独立生命周期模块避免修改正在使用的旧 Scientist 文件。代码变更后需使用新 revision；不重写历史协议 hash。运行中 checkpoint 和训练历史存于忽略的 `runtime/`，输入、角色对话、冻结及反馈保留用于审计。
 
-## 当前扩展（2026-10-11）
+## 当前扩展（2026-10-12）
 
 两轮astra/high试跑是历史起点。seed157随后改用`gpt-6.1-sol`、`xhigh`，完成397→429，validation NRMSE为0.704016。使用`sol61_xhigh_from429_evidence_repair_20261011`已完成461标签（validation NRMSE 0.687444），最后493轮次因provider每日额度耗尽未完成，按用户指令停止新增调用；已完成461的[详细比较与成本](revisions/sol61_xhigh_from429_evidence_repair_20261011/reports/seed_157/free_llm32_dual_expert_v1/rounds_04/README.md)已归档；已完成与仍在运行的预算见[最新快照](../../../reports/active_learning_latest/REPORT.md)，未完成轮次不计作结果。
 
 `sol61_xhigh_from397_20261011`记录memo格式失败；`sol61_xhigh_from397_repair_20261011`保留一次额外格式修复及429拟合；当前revision保留planner引用未观测证据的修复来源与有界额外回答。继承的批次、标签和checkpoint保持不变，所有原始失败回答和成本仍保留。不能把astra/high→sol61/xhigh的混合轨迹解释成单一模型确认。
 
-当前没有活跃双专家进程。round04纠正请求明确记录两次`429 DAILY_LIMIT_EXCEEDED`与一次502，493未完成；[状态回执](revisions/sol61_xhigh_from429_evidence_repair_20261011/execution_status.json)保留停止依据与此前状态，后续仅在用户要求恢复时续跑。461同预算NRMSE：双专家0.687444，free 0.741885，LLM+CW 0.572431。当前代码80项相关测试通过。
+2026-10-12续跑revision `sol61_xhigh_from461_to621_20261012`已完成621标签，继承461的四轮历史后新增5批×32=160条标签、五次训练。493/525/557/589/621的验证NRMSE为0.676554/0.649321/0.633334/0.616287/0.597021，比461的0.687444下降13.15%。用户要求18:30之后恢复的最后一批已完成；网络重试、格式纠正与全部原始回答保留。协议及源码、9批288个唯一选样、621标签、checkpoint与trajectory文件hash通过核验，无新test评价；81项相关测试此前通过。[最终曲线、同预算对比和成本](revisions/sol61_xhigh_from461_to621_20261012/reports/seed_157/free_llm32_dual_expert_v1/rounds_09/README.md) · [完成回执](revisions/sol61_xhigh_from461_to621_20261012/execution_status.json)。自动化`18-30-621`已暂停，当前没有活跃进程。Free seed157只到525：共同预算525双专家0.649321、Free0.645484、LLM+CW0.451110；621同预算双专家0.597021、LLM+CW0.398095。单seed混合模型轨迹、验证集结果，不能归因于单独的模型更换。
 
-额度恢复且用户要求续跑时的命令（复用全部已完成前缀，不自动执行）：
+已完成运行的复现命令（累计9批，继承前4批）：
 
 ```sh
-/Users/fish/miniforge3/envs/fish/bin/python -u scripts/studies/run_qgeognn_v2_row_llm_dual_expert.py run --seed 157 --rounds 5 --start-round 3 --revision sol61_xhigh_from429_evidence_repair_20261011 --model gpt-6.1-sol --reasoning-effort xhigh
+/Users/fish/miniforge3/envs/fish/bin/python -u scripts/studies/run_qgeognn_v2_row_llm_dual_expert.py run --seed 157 --rounds 9 --start-round 4 --revision sol61_xhigh_from461_to621_20261012 --model gpt-6.1-sol --reasoning-effort xhigh
 ```
 
 ## 历史两轮试跑与运行说明

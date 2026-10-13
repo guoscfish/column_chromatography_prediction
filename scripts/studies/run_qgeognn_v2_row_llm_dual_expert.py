@@ -17,14 +17,14 @@ def main():
     parser.add_argument("action", choices=("prepare", "validate", "check-transport", "stage", "select", "advance", "run", "report"))
     parser.add_argument("--seed", type=int, choices=study.SEEDS, default=157)
     parser.add_argument("--method", choices=study.METHODS, default=study.METHOD)
-    parser.add_argument("--round", type=int, choices=range(6), default=0)
-    parser.add_argument("--rounds", type=int, choices=range(1, 7), default=2,
+    parser.add_argument("--round", type=int, choices=range(len(study.BUDGETS)-1), default=0)
+    parser.add_argument("--rounds", type=int, choices=range(1, len(study.BUDGETS)), default=2,
                         help="number of acquisition/retraining cycles; default 2 (333 -> 397 labels)")
     parser.add_argument("--backend", choices=("codex_cli", "responses"), default="responses")
     parser.add_argument("--model", default="gpt-6.1-sol")
     parser.add_argument("--reasoning-effort", choices=("low", "medium", "high", "xhigh", "max"), default="xhigh")
     parser.add_argument("--from-revision", help="inherit an already frozen trajectory prefix")
-    parser.add_argument("--start-round", type=int, choices=range(6), default=None,
+    parser.add_argument("--start-round", type=int, choices=range(len(study.BUDGETS)-1), default=None,
                         help="continue from this completed round (2 means start from 397 labels)")
     parser.add_argument("--base-url", default="https://token4research.cn/v1")
     parser.add_argument("--revision", default=study.DEFAULT_REVISION)

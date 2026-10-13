@@ -1,0 +1,139 @@
+{
+  "type": "selection",
+  "packet_sha256": "8a8b16b94bd993159aec55d827280148ee22a308d5952ad4931fd560a099a1bd",
+  "batch_strategy": "Failure repair with condition-response anchors and representation coverage",
+  "choices": [
+    {
+      "id": "a7c31cd83c8ff0e359d0",
+      "reason": "10/1 aromatic methyl ketone with broad endpoint widths. It adds a common carbonyl anchor near the intermediate-ratio region implicated by the large aromatic-carbonyl errors in 2d178efe0181baca2bd5 and 319e89d7000731f64e7f.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "c098b72af1f4e81425e7",
+      "reason": "5/1 dibrominated aromatic aldehyde with broad predicted onset width. Its label tests whether late onset and long completion tails observed for aromatic carbonyls in 2d178efe0181baca2bd5 and 44fcf641ccfa3b10a97c transfer to halogenated aldehydes.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "a7e095123d7186e83bbb",
+      "reason": "0/1 diphenyl sulfone provides a structurally distinct, nonbasic aromatic anchor at a strong-eluent condition. It probes representation behavior outside the polar nitrogen-rich failure family.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "334348368030ba5ce3b6",
+      "reason": "1/1 chlorinated alkyl aryl ketone adds a moderate-ratio aliphatic-to-aromatic carbonyl point. It tests whether the model's carbonyl response transfers when the aromatic group is separated from the halogenated chain.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "c023e9fab656fe2ce6a6",
+      "reason": "20/1 phenolic alcohol probes high-ratio retention for a hydrogen-bond donor with a broad predicted V2 interval. It complements the strong-tail observations in polar and heteroatom-rich rows such as 9ffee2813aef5c26f96f and c70b471334f9747d6f98.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "36db2f5c4a17f1de1d84",
+      "reason": "5/1 anisole supplies a low-polarity aromatic ether anchor at a condition where the model predicts a compact interval. This helps distinguish ordinary ether behavior from the unusually broad polar failure regime.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "3db682471b6cad60811d",
+      "reason": "5/1 trifluoromethyl beta-diketone extends multifunctional carbonyl coverage with a broad V2 prediction. It tests whether completion tails seen in multifunctional molecules such as m13 and related records are shared across substitution patterns.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "7c44f4c46906e8f36cd1",
+      "reason": "50/1 polyaryl bromide is a structurally distant, non-hydrogen-bonding high-ratio anchor. It tests extrapolation of the learned representation for hydrophobic aromatic structures and helps balance the polar failure-focused labels.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "fde9781e6b15ffbe093f",
+      "reason": "10/1 oxygen-rich aromatic aldehyde candidate with broad predicted endpoint widths. It supplies an intermediate-ratio carbonyl point useful for separating onset response from completion-tail response, motivated by 319e89d7000731f64e7f and 2d178efe0181baca2bd5.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "6fe6280def3960fa4f99",
+      "reason": "2/1 anthranilate-like aromatic ester provides an interior anchor for a molecule with both an ester and hydrogen-bond donor. It tests whether the broad multifunctional tails in c6924324ddd95f249df6 persist at an intermediate solvent ratio.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "79cb1738d945317e5bfa",
+      "reason": "20/1 m11 is an interior point between the measured 10/1 and 50/1 m11 conditions. It directly tests where the large completion tail begins, targeting the endpoint-specific behavior documented in 6b8e53d2d8c8a90a7216 and 9ffee2813aef5c26f96f.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "7a19ff191dfe91e75bb4",
+      "reason": "5/1 chlorotoluene is a low-polarity halogenated aromatic anchor with a moderate predicted interval. It tests whether ordinary halogenated structures follow the model's compact predictions and improves coverage beyond polar high-error families.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "06e93ab1e94cbced3c21",
+      "reason": "0/1 oxygen-rich aromatic aldehyde candidate gives a strong-eluent baseline for comparison with the selected 10/1 oxygen-rich aldehyde and the measured aromatic-carbonyl response records 319e89d7000731f64e7f and 2d178efe0181baca2bd5.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "0fe72027fade7dd9a78e",
+      "reason": "1/1 branched aromatic ketone is a compact-interval carbonyl anchor. It helps determine whether broad carbonyl widths reflect topology-specific tails or simply solvent and loading regions.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "d5b6201c7690d729361c",
+      "reason": "50/1 diiodobenzene probes high-ratio behavior for a heavy, nonpolar halogenated aromatic with no hydrogen-bond donors or acceptors. Its label provides representation coverage for hydrophobic structures that are distant from the largest polar failures.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "35e055b13ba20e843f0d",
+      "reason": "2/1 indene provides a compact, nonpolar aromatic reference at an intermediate condition. It supplies a baseline for separating ordinary aromatic retention from the topology-specific carbonyl and heteroatom effects in the batch.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Aromatic carbonyl and conjugated carbonyl topologies require structure-specific solvent-response curves, with V1 and V2 changing at different rates.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "2d178efe0181baca2bd5",
+        "319e89d7000731f64e7f",
+        "44fcf641ccfa3b10a97c",
+        "52348febee6695107c49"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Aromatic carbonyls are common in the catalog, and the measured records show that a global solvent-strength correction can miss both onset and completion.",
+      "next_discriminating_question": "Do intermediate-ratio aromatic aldehydes and ketones share one response curve, or do substitution and carbonyl topology control the endpoint slopes?"
+    },
+    {
+      "id": "H2",
+      "content": "Heteroatom-rich and hydrogen-bonding molecules can undergo molecule-specific retention transitions that generate large, endpoint-specific V2 errors.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "9ffee2813aef5c26f96f",
+        "6b8e53d2d8c8a90a7216",
+        "c6924324ddd95f249df6",
+        "c70b471334f9747d6f98"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The largest measured failures include nitrogen-rich and multifunctional molecules, so interior condition anchors can improve tail prediction and transfer.",
+      "next_discriminating_question": "Are the broad completion tails driven mainly by heteroatom connectivity or by a solvent-ratio transition shared across related structures?"
+    },
+    {
+      "id": "H4",
+      "content": "Long completion tails near solvent-ratio transitions are structure-specific in multifunctional carbonyl and ester molecules rather than a universal ester correction.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "3726956d81fe3954e5b7",
+        "28e9fea3e3293f2b8a0e",
+        "ce3b9d9cbe1699c7eef9",
+        "1effe6f049d068dc08cf"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The model needs to learn when a broad V2 interval is a true structural tail and when it reflects overgeneralization from an exceptional ester.",
+      "next_discriminating_question": "Do additional multifunctional carbonyl anchors show a shared tail transition or several localized exceptions?"
+    }
+  ],
+  "feedback_interpretation": "Recent outcomes reinforce the need to repair joint V1/V2 underprediction in high-retention polar and multifunctional regions while adding ordinary aromatic and halogenated references. The measured m107 and related amount contrasts show that loading can affect endpoints differently, while 61771d230b285babe4b6, 44fcf641ccfa3b10a97c, and 2d178efe0181baca2bd5 show persistent completion-tail errors. The batch therefore retains a smaller set of local carbonyl and heteroatom probes, while adding compact nonpolar anchors to prevent corrections learned from polar failures from being applied globally.",
+  "batch_rationale": "The batch combines failure repair, interior condition-response measurements, and representation coverage. Aromatic carbonyl and heteroatom-rich rows target recurring endpoint errors and nonlinear solvent responses. Nonpolar ketones, ethers, halogenated aromatics, and indene provide controls for distinguishing chemical-specific tails from broad model bias. Several selections form meaningful comparisons across carbonyl topology and solvent ratio, while the nonpolar anchors reduce extrapolation risk across the wider Row-distribution. These labels should improve both local interpolation and transfer of V1/V2 behavior to structurally diverse rows."
+}

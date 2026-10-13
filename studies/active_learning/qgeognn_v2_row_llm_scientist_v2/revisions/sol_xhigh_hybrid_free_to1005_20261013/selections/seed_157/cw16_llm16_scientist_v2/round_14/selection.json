@@ -1,0 +1,165 @@
+{
+  "type": "selection",
+  "packet_sha256": "f99a725bf89142b8de0675330e493112d2b86adc5420f73933f4586870266287",
+  "batch_strategy": "Supplement the pending 16 with connected experiments that distinguish loading effects, loading-solvent-volume effects, and solvent-response errors. Prioritize unresolved contrasts over further sampling of already repaired high-retention predictions. Freeze these 16 IDs and their supplied predictions together with the pending 16 before any label reveal.",
+  "choices": [
+    {
+      "id": "69b09343d0b9995c3ae4",
+      "reason": "m125 at 2/1 with 100 uL sample in 500 uL DCM; predicted V1/V2 23.82/48.20 mL. It supplies a controlled loading-solvent-volume contrast within an otherwise sparsely resolved m125 region, allowing the retrained model to separate sample loading from the loading-solvent variable.",
+      "hypothesis_id": "H28"
+    },
+    {
+      "id": "19f19f196ba5787a01b0",
+      "reason": "m125 at 2/1 with 150 uL sample in 300 uL DCM; predicted 23.74/48.27 mL. Together with the selected 100-uL/500-uL point, it completes a small condition rectangle and tests whether the model's nearly invariant prediction is justified.",
+      "hypothesis_id": "H28"
+    },
+    {
+      "id": "cc2a23d8eb9de61d2ab3",
+      "reason": "m125 at 2/1 with 50 uL sample in 500 uL DCM; predicted 23.94/48.08 mL. This low-load point adds a third level to the local loading response and can reveal a threshold or nonlinear dependence that two levels cannot identify.",
+      "hypothesis_id": "H28"
+    },
+    {
+      "id": "89d752b5a7f7c8d0b91e",
+      "reason": "m212 at 5/1 with 150 uL sample; predicted 13.24/24.58 mL. It extends an unusual loading response to a third sample volume and tests whether the strong change across existing loading levels continues or is localized to one condition.",
+      "hypothesis_id": "H29"
+    },
+    {
+      "id": "1aceeb0ee0419209d1c7",
+      "reason": "m205 at 1/1 with 150 uL sample; predicted 13.54/29.42 mL. Measured m205 rows b1fcf9bf2e03028d2ef8 and 91b6bda771851a5c78ac show materially different behavior across loading and ratio; this point separates loading dependence from solvent response.",
+      "hypothesis_id": "H29"
+    },
+    {
+      "id": "4e7e45a513ce579c5ce3",
+      "reason": "m118 at 2/1 with 150 uL sample; predicted 6.82/15.88 mL. It connects the pending 5/1 point to the severe measured 10/1 failure ea004678fc850c759752 and tests whether the endpoint distortion is confined to a strong-eluent segment.",
+      "hypothesis_id": "H29"
+    },
+    {
+      "id": "b29c3ac2de3ba2d8b5c9",
+      "reason": "m82 at 10/1 with 100 uL sample; predicted 21.49/45.86 mL. This fills the missing intermediate ratio between measured 5/1 and 20/1 behavior. The measured 5/1 row f50c45b31cf41304c109 and pending 10/1 low-load outcome 3c041f5186a291c3b313 indicate that both endpoints remain difficult and may be loading-sensitive.",
+      "hypothesis_id": "H30"
+    },
+    {
+      "id": "502e41325a19473f9d08",
+      "reason": "m59 at 2/1 with 50 uL sample; predicted 7.50/22.53 mL. It tests a predicted completion reversal relative to the nearby solvent conditions and adds a structurally related carbonyl response in an underconstrained local region.",
+      "hypothesis_id": "H31"
+    },
+    {
+      "id": "21e47f16b77cfc96e54f",
+      "reason": "m59 at 1/1 with 50 uL sample; predicted 6.20/12.97 mL. Paired with the selected 2/1 point, this establishes the weaker-eluent side of the local curve and distinguishes a real nonmonotonic completion response from model interpolation error.",
+      "hypothesis_id": "H31"
+    },
+    {
+      "id": "1e12081e646a951776b1",
+      "reason": "m47 at 2/1 with 150 uL sample; predicted 10.06/17.17 mL. It extends a sparsely sampled ketonitrile response toward weaker eluent and tests transfer from better-covered aromatic carbonyl and nitrile families.",
+      "hypothesis_id": "H32"
+    },
+    {
+      "id": "fd01ba613586dad81c4d",
+      "reason": "m47 at 1/1 with 150 uL sample; predicted 6.50/10.47 mL. Together with the selected 2/1 point, it creates a matched solvent-response segment without changing loading, providing useful structure-condition coverage for retraining.",
+      "hypothesis_id": "H32"
+    },
+    {
+      "id": "08812206a257481691c4",
+      "reason": "m177 at 5/1 with 100 uL sample; predicted 4.81/20.96 mL. It tests whether the large completion discrepancies seen in this nitrobenzophenone family begin at weaker eluent or arise only at stronger ratios and higher loads.",
+      "hypothesis_id": "H29"
+    },
+    {
+      "id": "27bac953781c17a3a74b",
+      "reason": "m177 at 5/1 with 50 uL sample; predicted 4.97/20.78 mL. This complements the selected 100-uL point with a lower load and helps determine whether the nearly unchanged predicted interval is chemically transferable.",
+      "hypothesis_id": "H29"
+    },
+    {
+      "id": "899e3f4f8af9b2c20b3b",
+      "reason": "m62 at 5/1 with 100 uL sample; predicted 10.35/11.89 mL. It supplies the middle level of a loading series whose predicted interval is unusually narrow and can test whether the observed high-load behavior is gradual or localized.",
+      "hypothesis_id": "H33"
+    },
+    {
+      "id": "99b6aac7dd5c18caba18",
+      "reason": "m26 at 2/1 with 100 uL sample; predicted 8.10/21.70 mL. It tests a solvent-response point where the model predicts an onset shift while completion remains relatively broad, providing a joint endpoint constraint in a carbonyl-rich family.",
+      "hypothesis_id": "H31"
+    },
+    {
+      "id": "e1888b5ca18659a8d8eb",
+      "reason": "m26 at 1/1 with 100 uL sample; predicted 6.65/16.83 mL. Paired with the selected 2/1 point, it tests whether the predicted onset maximum and completion change are real local structure-condition behavior or unsupported model curvature.",
+      "hypothesis_id": "H31"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H28",
+      "content": "The large m125 contrast at PE/EA 2/1 may depend on sample loading, DCM loading volume, their interaction, or unexplained record variability. The current model's nearly constant predictions across these variables do not distinguish those explanations.",
+      "basis": "mixed",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A completed condition rectangle and an additional low-load point provide identifiable contrasts instead of teaching the model an average of confounded conditions.",
+      "next_discriminating_question": "At fixed PE/EA, does the m125 interval follow sample amount, DCM volume, both, or neither consistently?"
+    },
+    {
+      "id": "H29",
+      "content": "Several molecules have large differences between loading conditions that the model's weak loading sensitivity may smooth away. These are observed associations; the available records do not establish a universal causal loading law.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "b1fcf9bf2e03028d2ef8",
+        "91b6bda771851a5c78ac",
+        "ea004678fc850c759752"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Third loading levels and matched solvent contrasts can distinguish persistent condition effects from isolated irregularities, while teaching that onset and completion need not move together.",
+      "next_discriminating_question": "Do m205 and m118 retain their loading-dependent endpoint shifts when the solvent ratio is changed?"
+    },
+    {
+      "id": "H30",
+      "content": "m82 has a substantial solvent-dependent increase in both endpoints across 5/1\u201320/1. The recent observations support a rising response but do not establish a sharp threshold or loading-invariant curve.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "ce539fc06bdda7c0ed0d",
+        "f50c45b31cf41304c109",
+        "3c041f5186a291c3b313"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The missing 100-uL intermediate point tests interpolation through a recent failure region with closely matched recorded conditions.",
+      "next_discriminating_question": "Does 10/1 at 100 uL smoothly connect the measured 5/1 and 20/1 endpoints and agree with the lower-load 10/1 result?"
+    },
+    {
+      "id": "H31",
+      "content": "The predicted intermediate completion hump for m59 and onset maximum for m26 are untested local reversals. They could represent molecule-specific behavior or model distortion; the usual solvent-strength trend alone cannot decide.",
+      "basis": "model_behavior",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "Matched 1/1 and 2/1 measurements test response shape directly and prevent unsupported reversals from propagating across related carbonyl compounds.",
+      "next_discriminating_question": "Do the reversals occur in measured V1, measured V2, both, or neither?"
+    },
+    {
+      "id": "H32",
+      "content": "For m47, the combination of an aliphatic ketone, nitrile, and bulky alkyl group may produce a solvent response that is imperfectly transferred from better-covered aromatic carbonyl and nitrile families.",
+      "basis": "chemical_prior",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "A matched three-ratio series expands useful structure-condition coverage around a sparsely observed functional-group combination.",
+      "next_discriminating_question": "Do the 1/1 and 2/1 labels follow the predicted progression toward the stronger-eluent anchor or expose an earlier transition?"
+    },
+    {
+      "id": "H33",
+      "content": "The m62 5/1 loading series may contain a nonlinear response or an isolated high-load interval anomaly; two existing endpoints are insufficient to infer the shape.",
+      "basis": "model_behavior",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The middle loading level tests whether interpolation toward a narrow measured interval is justified and supplies a distinct structural context for joint endpoint learning.",
+      "next_discriminating_question": "At 100 uL, is the interval intermediate, similar to the low-load interval, or already nearly collapsed?"
+    }
+  ],
+  "feedback_interpretation": "The latest outcomes reduce the case for repeatedly sampling repaired extremes. m130 at 2/1 and 5/1 was predicted within about 1.2 mL per endpoint, weakening the earlier hypothesis of a delayed-elution transition. m141, m37, m90, and m11 also received useful local constraints, so they are not repeated solely because earlier errors were large. m82 remains a priority: measured 5/1 behavior underpredicted completion, while the pending 10/1 low-load result underpredicted both endpoints, leaving loading transfer unresolved. m118 at 10/1 and 150 uL showed a severe onset underprediction and completion overprediction, redirecting the earlier endpoint hypothesis toward condition-specific behavior rather than a universal solvent transition. m205 showed contrasting behavior across measured loading and ratio conditions, making a third loading level more informative than another extreme point. The batch therefore focuses on identifiable local contrasts and missing intermediate conditions.",
+  "batch_rationale": "The pending batch already supplies broad coverage of common early-eluting rows and includes useful m118 and m197 conditions. These 16 supplements emphasize experiments that can distinguish explanations: a small m125 loading and loading-solvent-volume design; third loading levels for m212, m205, and m62; connected solvent and loading constraints for m118, m82, and m177; and matched local response curves for m59, m26, and m47. Repeated molecules serve explicit comparisons rather than replication for its own sake. The expected benefit is improved V1/V2 generalization through better structure-condition interactions, endpoint coupling, and interpolation across the Row-distribution. Historical acquisition errors motivate follow-up but are not treated as current residuals. Quantile widths are used only as weak model-behavior signals, not calibrated uncertainty; V2-V1 remains the measured elution interval width."
+}

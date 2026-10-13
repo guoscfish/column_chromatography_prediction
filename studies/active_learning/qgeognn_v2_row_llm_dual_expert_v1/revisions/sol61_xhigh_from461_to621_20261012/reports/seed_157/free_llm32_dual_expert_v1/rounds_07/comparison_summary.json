@@ -1,0 +1,50 @@
+{
+  "summary": [
+    {
+      "method": "free_llm32_dual_expert_v1",
+      "latest_budget": 525,
+      "validation_NRMSE": 0.6493207200992166,
+      "validation_AULC_397_latest": 0.6934418362700245
+    },
+    {
+      "method": "free_llm32_scientist_v2",
+      "latest_budget": 525,
+      "validation_NRMSE": 0.6454839364474252,
+      "validation_AULC_397_latest": 0.7292498716975755
+    },
+    {
+      "method": "cw16_llm16_scientist_v2",
+      "latest_budget": 525,
+      "validation_NRMSE": 0.4511102425475306,
+      "validation_AULC_397_latest": 0.5900807148101824
+    }
+  ],
+  "latest_endpoints": [
+    {
+      "method": "free_llm32_dual_expert_v1",
+      "budget": 557,
+      "validation_NRMSE": 0.6333341696315112
+    },
+    {
+      "method": "free_llm32_scientist_v2",
+      "budget": 525,
+      "validation_NRMSE": 0.6454839364474252
+    },
+    {
+      "method": "cw16_llm16_scientist_v2",
+      "budget": 557,
+      "validation_NRMSE": 0.44298192468878544
+    }
+  ],
+  "common_budget": 525,
+  "cost": {
+    "completed_provider_responses_since_switch": 32,
+    "input_tokens": 15606055,
+    "output_tokens": 310586,
+    "total_tokens": 15916641,
+    "network_failure_billing": "unknown; incomplete responses excluded from reported token totals",
+    "monetary_cost": "use actual provider billing; not inferred from official prices"
+  },
+  "switch_budget": 397,
+  "evidence": "single-seed mixed-model trajectory; not a paired Astra/Sol model-only comparison"
+}

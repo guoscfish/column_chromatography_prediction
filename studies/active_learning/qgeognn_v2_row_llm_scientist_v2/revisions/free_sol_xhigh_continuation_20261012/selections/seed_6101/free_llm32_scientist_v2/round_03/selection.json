@@ -1,0 +1,248 @@
+{
+  "type": "selection",
+  "packet_sha256": "b1a398eac219d1ea57eac0d353c3fd8c2fa7321761328c428e7b19b561fd8b39",
+  "batch_strategy": "Freeze these 32 legal candidate IDs and their supplied premeasurement predictions as one batch. Resolve ratio-versus-loading ambiguity in m202, test completion-volume sensitivity in m125/m173/m92/m177, and extend learning to sparsely covered nitrogen, alcohol, carbonyl, nitrile, ester, and lactone environments. Use matched condition contrasts where they discriminate hypotheses, with less additional sampling of families whose recent labels were already predicted well.",
+  "choices": [
+    {
+      "id": "86258f5c8ffdb874521f",
+      "reason": "m202 at 5/1 and 122.3 mg completes the loading contrast to measured 4f88870ad666191b8ea7 at 61.15 mg. Together with the selected low-load 10/1 row, it separates a solvent-ratio transition from loading dependence behind the opposite historical errors at 5/1 and 10/1.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "7de812bda21b4dfe46dc",
+      "reason": "m202 at 10/1 and 61.15 mg matches the loading of 4f88870ad666191b8ea7 and contrasts with measured 902937db42f82f467718 at 122.3 mg. The resulting ratio/loading rectangle tests whether the observed 8.25/13.13 to 35.08/70.35 mL change is mainly ratio-driven.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "c8d43713db33bf820a1d",
+      "reason": "m125 at 2/1, 100 mg, and 300 uL DCM isolates loading-solvent volume against measured 69b09343d0b9995c3ae4 at 500 uL. The current prediction remains near 8.57/60.51 mL, testing whether the large completion volume transfers across injection volumes.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "facbcedbecb46072b04c",
+      "reason": "m125 at 2/1, 150 mg, and 500 uL DCM changes only sample loading relative to 69b09343d0b9995c3ae4. Its almost unchanged prediction tests whether the previously missed V2 tail has a loading dependence that retraining has not represented.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "761c3f82d640da44966c",
+      "reason": "m125 at 5/1, 50 mg, and 500 uL DCM matches measured 1/1 record f4fb5c03b8e8996e75f6. Predicted V2 is about 37 mL despite the 56.86 mL observation at 2/1 and 100 mg; this adds a ratio anchor while the other selected m125 rows investigate loading and injection volume.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "87da8c37b16d810331a2",
+      "reason": "m173 at 0/1 and 1500 uL DCM nearly matches the loading of measured 6802f0b28c5a0c7b4c2a at 2000 uL. It tests whether the large injection-volume contrast observed at 1/1 also appears in pure EA, where the model predicts little volume sensitivity.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "0b247863fd6e8aaf44d8",
+      "reason": "m173 at 2/1 and 2000 uL DCM nearly matches measured 9a32b65bc21fdc5f7286 at 1500 uL. The 1/1 pair 65fcce0299e031dedeb8/f90a5a5a54509c085ebd differs substantially in V2, whereas the measured 5/1 pair is close; this tests a ratio-dependent injection-volume interaction.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "9bbd36c8b484b5609808",
+      "reason": "m92 at 50/1 and 173.25 mg extends the EA-loading series from 1844eab177de5d01fab6 and 7b42519983cf93dd7efd. Their measured V2 increases from 52.44 to 61.95 mL with loading; the new label tests continuation or reversal while current predictions remain nearly loading-invariant.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "27bac953781c17a3a74b",
+      "reason": "m177 at 5/1 and 70.3 mg contrasts with measured 08812206a257481691c4 and 76643e968ecc935c745c at higher loads. It tests whether the large loading effects at 10/1, 20/1, and 50/1 disappear at 5/1, and whether the low-load 20/1 compression in aa43fe84c0d8c825fe58 is local.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "9a58eec5ad3051be568a",
+      "reason": "Previously unmeasured methylquinoline m146 at 1/1 provides a baseline for its selected 10/1 row. Quinoline observations bea7a84fdcea344896f4 and 9cd02352c2ed7a3e2321 motivate testing related ring nitrogen, but methyl substitution and DCM versus PE loading prevent assuming identical behavior.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "9e3ce3497298084abd83",
+      "reason": "m146 at 10/1 has the same loading and injection conditions as its selected 1/1 row, with predicted V1/V2 of 33.09/70.28 mL. This tests transfer of the steep quinoline response measured in 33ffc69a253a89f15995 and 9cd02352c2ed7a3e2321 to a new substituted heteroaromatic.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "4659b6752f23c0b85f08",
+      "reason": "Novel pyridyl ketone m66 at 2/1 anchors a nitrogen-plus-carbonyl environment absent from L_t. Its selected 5/1 partner gives a clean solvent-response contrast, testing transfer from related but chemically distinct pyridine and quinoline environments.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "49201b5817f204116f7f",
+      "reason": "m66 at 5/1 matches the selected 2/1 loading and injection conditions. Predicted retention rises from 9.91/22.66 to 16.47/37.42 mL. Measuring both tests whether the model transfers ring-nitrogen adsorption appropriately when an ester is replaced by a ketone.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "6b7209c2e8154837a8c7",
+      "reason": "Novel para-aminoacetophenone m36 at 2/1 tests functional-group transfer from para-aminobenzonitrile 2feb7d8e0a3566ddf97f. The predicted 5.68/14.36 mL is much lower than that nitrile's measured 11.90/33.83 mL; loading and injection volume also differ, so this is a structural coverage test rather than a controlled substitution experiment.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "c70b471334f9747d6f98",
+      "reason": "Novel para-aminobenzoate m86 at 5/1 and 58.5 mg is close in loading to ortho-amino ester 9333d130f52d80332cf0. Its predicted 9.79/20.85 mL tests whether positional context and ester identity explain retention beyond amino-group counts; injection volume differs and remains a covariate.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "99fb49a26d4f0f1440df",
+      "reason": "Novel dimethylbenzonitrile m130 at 5/1 and 50 mg has only 0.391 maximum similarity to labeled molecules. It anchors a nitrile without the second polar group present in m159/m31 and pairs with a selected 50/1 row to learn the response of this distinct aromatic environment.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "62d1db91c3839882736a",
+      "reason": "m130 at 50/1 matches the selected 5/1 conditions except mobile phase. Predicted V2 rises from 22.18 to 43.63 mL with a broad quantile span. The pair tests whether weak-eluent retention transfers from existing aromatic nitriles without assuming their carbonyl-associated behavior applies.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "686562279e2bfb73ef1e",
+      "reason": "Novel acetoxybenzaldehyde m28 at 1/1 and 58.4 mg supplies a baseline for its selected 10/1 row. It adds an aldehyde-plus-ester arrangement distinct from methoxy aldehydes and beta-ketoesters; the broad V2 quantile span is an additional model-behavior signal.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "db7f9ffa50eb931613f6",
+      "reason": "m28 at 10/1 exactly matches the selected 1/1 loading and injection conditions. Predicted V1/V2 rises to 17.39/43.73 mL. This tests the solvent response of two separated carbonyl-containing groups and can improve transfer across oxygenated aromatic rows.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "97318de99bab4460cf4e",
+      "reason": "Novel nitrophenethyl alcohol m200 at 1/1 and 64.585 mg starts a matched pair with 2/1. The model predicts both endpoints to decrease at the weaker eluent. A donor-plus-nitro environment tests whether that reversal is a valid local response or inappropriate transfer from other families.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "a92f7617b135de150588",
+      "reason": "m200 at 2/1 matches the selected 1/1 row in loading and 600 uL DCM. Predicted 5.40/14.20 mL versus 7.50/17.22 mL at 1/1 directly tests an unmeasured reversal, with learning value for nitro compounds and aromatic alcohols.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "53280227ec79d55f1912",
+      "reason": "Novel 1-phenylpropanol m67 at 1/1 and 49.7 mg establishes a baseline for the selected 10/1 row. Measured 859ae738b615cf17b849 showed unexpectedly early onset for related 1-phenylethanol at 10/1, while benzyl alcohol m135 retained much later; this probes structural context around the OH group.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "db5dcc7b864e0174fcbd",
+      "reason": "m67 at 10/1 matches its selected 1/1 loading and injection conditions. The predicted onset falls from 9.46 to 6.23 mL while completion rises slightly. The pair tests whether the low-onset behavior of 859ae738b615cf17b849 extends to the next benzylic-alcohol homologue.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "10ea0c665f5ba7c91bbf",
+      "reason": "Novel fused lactone m181 at 20/1 has low maximum similarity, 0.344, and predicted 11.72/23.08 mL. Comparison with cyclic-ketone observation 8b8becd233748ccae9e3 tests how a ring ester changes onset relative to completion, extending coverage beyond acyclic esters.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "6b8e53d2d8c8a90a7216",
+      "reason": "Novel ethyl acetoacetate m82 at 10/1 and 102.9 mg pairs with 20/1 at identical loading conditions. Methyl acetoacetate 35944fdd59ac331c3fcb has measured 13.30/34.07 mL at 10/1; this tests transfer across ester alkyl substitution while acknowledging its different loading.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "61090cfdcf019e0891a3",
+      "reason": "m82 at 20/1 is predicted to finish earlier than its selected 10/1 partner, 24.72 versus 27.77 mL. Measuring the pair tests a weak-eluent reversal in a common beta-ketoester family with many repeated catalog rows, where extra labels may generalize broadly.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "e0f2b47154fd134db700",
+      "reason": "Dibenzylamine m212 at 2/1 and 153.9 mg is predicted at 14.23/23.52 mL, above measured 5/1 low-load record d5234e966aa231be05e5. It establishes a matched-loading reference for the selected 10/1 experiment and tests whether this secondary amine differs from aromatic nitrogen families.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "942b8fc9cf013acda52b",
+      "reason": "m212 at 10/1 matches the selected 2/1 loading and PE injection conditions. Its predicted V2 of 39.30 mL exceeds its q90 prediction and its CW distance is high. The label tests an unanchored completion response without interpreting crossed quantiles as calibrated uncertainty.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "d119d77f545c029deace",
+      "reason": "Phenylpyridine m211 at 10/1 and 54.3 mg extends measured 2/1 anchor ecd17c7ea435a1e33f6b at identical loading and injection conditions. Predicted retention rises from that measured 8.14/13.44 mL to 28.82/56.60 mL. With the selected 50/1 row, it tests whether the large predicted response is gradual or concentrated at weaker eluents.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "35f2be5f5aa14265e8a4",
+      "reason": "m211 at 50/1 and 54.3 mg extends the selected 10/1 row at identical loading conditions. Predicted 50.37/94.15 mL is far from measured 2/1 anchor ecd17c7ea435a1e33f6b; the pair tests substantial extrapolation in a nitrogen family linked to earlier large errors.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "6b5982c6e1bbaadd6a95",
+      "reason": "Oxime m11 at 10/1 and 100 mg is predicted at 23.57/68.40 mL, whereas matched-load 1/1 observation 8b09df1985688231fe0e is 4.31/10.14 mL. This tests an unanchored steep response in a donor/acceptor arrangement poorly represented by ordinary alcohol or carbonyl analogies.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "5ba8cead5a790ba93029",
+      "reason": "Dibenzoylmethane m168 at 50/1 and 80 mg matches the loading and 300 uL DCM of pure-EA observation e7acdb127fe6371def7f. The predicted 20.54/44.91 mL tests weak-eluent extrapolation for an aromatic beta-dicarbonyl, informing its many ratio and loading rows and related fluorinated diketones.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "The large m202 retention increase between 5/1 and 10/1 may be a sharp solvent-response transition, a loading interaction, or both; the existing two observations confound these factors.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "4f88870ad666191b8ea7",
+        "902937db42f82f467718",
+        "87a651fc86ed976bd374"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The prior broad retention correction produced a large overprediction at 5/1 after underprediction at 10/1. A completed ratio/loading rectangle supplies a more identifiable relationship than another isolated extreme.",
+      "next_discriminating_question": "At both 61.15 and 122.3 mg, does retention increase sharply from 5/1 to 10/1?"
+    },
+    {
+      "id": "H2",
+      "content": "Completion-volume sensitivity to sample loading and loading-solvent volume is molecule- and ratio-dependent. Some large tails coexist with stable or earlier onset, so a uniform shift of both endpoints is inadequate.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "aa43fe84c0d8c825fe58",
+        "5e276c1730fc0a9deba7",
+        "5b706e17e8412d02342f",
+        "b514312eda7950cdcf1c",
+        "65fcce0299e031dedeb8",
+        "f90a5a5a54509c085ebd",
+        "1e971da91b3a8229f0e0",
+        "1e775e7d8dcbf48fd6f8",
+        "69b09343d0b9995c3ae4",
+        "1844eab177de5d01fab6",
+        "7b42519983cf93dd7efd"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Current predictions often change negligibly with loading or injection volume even where measured contrasts are substantial. Controlled contrasts can teach endpoint-specific interactions rather than molecular offsets.",
+      "next_discriminating_question": "Which effects persist across ratios, and which are confined to a particular loading or injection-volume regime?"
+    },
+    {
+      "id": "H3",
+      "content": "Nitrogen-containing compounds require local structural context and solvent-response anchors. Quinoline, substituted pyridines, secondary amines, amino nitriles, and amino esters should not receive a single basicity or polarity correction.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "bea7a84fdcea344896f4",
+        "33ffc69a253a89f15995",
+        "9cd02352c2ed7a3e2321",
+        "65f4f125b5e1f8137bd9",
+        "d5234e966aa231be05e5",
+        "b4e0e9dc92fca2c88b90",
+        "17902fa9c7f8ea9b456e",
+        "2feb7d8e0a3566ddf97f",
+        "53a1acff30433cff819f",
+        "9333d130f52d80332cf0"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Large historical errors and condition-dependent isomer differences motivate testing transfer to related but unmeasured nitrogen environments. Silica interaction and possible intramolecular H-bonding are priors, not established mechanisms here.",
+      "next_discriminating_question": "Which response shapes transfer to methylquinoline, pyridyl ketone, aminoacetophenone, and para-aminobenzoate, and which require distinct structural representations?"
+    },
+    {
+      "id": "H4",
+      "content": "Recorded solvent-response reversals occur locally, but their transfer to unmeasured alcohol and ester analogues remains untested. Predicted reversals should be checked with matched conditions rather than assumed chemically universal or automatically rejected.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "2cf789c87f7c6325c020",
+        "49932dbd3d16bb64f71a",
+        "77f65db1224c7c295678",
+        "859ae738b615cf17b849",
+        "75232f4ee5de52a0499e"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The model predicts decreasing onset or completion with weaker eluent in several unseen analogues. Matched pairs distinguish useful local transfer from spurious response shapes and improve interpolation across repeated ratios.",
+      "next_discriminating_question": "Do the predicted reversals in nitrophenethyl alcohol, 1-phenylpropanol, and ethyl acetoacetate survive measurement at fixed loading and injection conditions?"
+    }
+  ],
+  "feedback_interpretation": "Recent outcomes weaken a broad underprediction explanation. In particular, m202 at 5/1 was overpredicted by 18.23/42.99 mL after the earlier 10/1 underprediction, and the two rows also differ in loading. m216 at 2/1, m159 at 50/1, m135 at 1/1, and m195 at 2/1 or 50/1 were generally predicted much better, reducing the value of further dense sampling there. m177 remains a substantive failure: its high-load 50/1 observation has early onset and V2 of 81.30 mL, unlike the low-load onset of 21.33 mL. m92 still shows completion-volume errors and loading dependence. The m73 compressed 1/1 interval recurred at lower loading, while 10/1 was predicted well, supporting a local anomaly rather than a global correction. The aminobenzonitrile isomers differ strongly at 5/1 but are much closer at 2/1, so the earlier positional-isomer hypothesis now needs an explicit ratio interaction. All error statements refer to acquisition-time predictions. Loading amounts in this plan use density times sample volume, correcting the nominal-mg shorthand in earlier reasons.",
+  "batch_rationale": "The batch combines identifiable local experiments with exploration of chemically related gaps. The m202 rectangle directly addresses a demonstrated failure; m125 and m173 contrasts separate loading and injection-volume effects, and m92/m177 probe completion behavior that the predictor often treats as nearly loading-invariant. Matched response pairs extend nitrogen, alcohol, nitrile, aldehyde-ester, and beta-ketoester coverage. Individual lactone, oxime, and aromatic diketone anchors cover distinct functional-group environments and unmeasured response regions. These labels are intended to improve structure-condition transfer and V1/V2 response shape across catalog rows, rather than maximize retention. Quantile spans and CW distances are secondary evidence only; neither elution interval width nor a single predictor's quantile span is treated as calibrated epistemic uncertainty. No unrecorded concentration, pH, flow, or speciation is assumed."
+}

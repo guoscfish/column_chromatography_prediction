@@ -1,0 +1,168 @@
+{
+  "type": "selection",
+  "packet_sha256": "fd41aa4441e8ad763900fda826378839328b09bcf1c016e03141132a226e19ff",
+  "batch_strategy": "Targeted failure repair with matched loading and solvent-response contrasts across high-retention tails, endpoint-specific transitions, and a few structurally related transfer tests.",
+  "choices": [
+    {
+      "id": "780b13846ace50ede763",
+      "reason": "Measure m125 at 5/1 with a lower loading amount than the measured 150-uL point 06ebbf6e52fa3ea6aef3. The latter measured 28.75/73.65 while the pending 50-uL point 761c3f82d640da44966c has 39.51/67.70, so this label directly resolves whether the large onset change is loading-dependent or record variability.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "b7953b4cf8c561ff4cfe",
+      "reason": "Extend the m107 loading series at 1/1 and 150 uL. At 5/1, c6924324ddd95f249df6, d1172a49fca1e196a59f, and 2cfa393cb79664e100ce show 50-, 100-, and 150-uL onsets of 43.20, 35.16, and 29.60 mL with similarly late completions. This lower-strength point tests whether the loading effect transfers across the solvent-response curve.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "b21061720e23b7a5bdcb",
+      "reason": "Probe m160 at 2/1 with 50 uL. The measured 5/1 records ad833f34f6b91872362d and b4e0e9dc92fca2c88b90 show severe late-tail underprediction, while lower-ratio m160 records such as 36db2f5c4a17f1de1d84 are already much earlier. This supplies a local condition anchor for a high-retention polar aromatic family.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "a38fee52661fd3e3b7ea",
+      "reason": "Measure m11 at 20/1 and 150 uL to bridge the existing 50- and 100-uL observations 79cb1738d945317e5bfa and 2f48e798c7917fb7d2ae. The 50/1 point 9ffee2813aef5c26f96f has a very late 43.11/119.20 label, so this intermediate condition tests the steep completion response and improves interpolation of pyridyl oxime-like tails.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "7fb4f90753d40dd25be0",
+      "reason": "Measure m141 at 10/1 with 50 uL as a loading contrast to the 150-uL observation 6f548d72f01fc85debdc, which showed 25.63/71.85 after strong underprediction. The candidate targets the same unusual late-completion regime with a changed amount and can separate loading sensitivity from a general strong-eluent tail.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "434ffacb33eccce497c5",
+      "reason": "Measure m141 at 5/1 and 50 uL, complementing the 10/1 high-retention observation 65f4f125b5e1f8137bd9 and the proposed 10/1 loading contrast. This gives a lower-strength anchor for determining whether the model's missing tail begins gradually or appears only at strong PE-rich conditions.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "754f1d33b0ed61557754",
+      "reason": "Measure m72 at 20/1 and an intermediate loading amount. Existing labels 1b1a9ec85268aa66d327, 5d6d4ac0c1dfacbde53d, and 7383949c431e18f39597 show a persistent completion tail near 100 mL with substantial amount and condition variation. The point tests whether the current predicted 31.53/106.04 response is a useful interpolation or another tail underestimate.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "96710afeabc594baa359",
+      "reason": "Measure m90 at 10/1 and 100 uL to anchor a broad high-retention completion regime. The measured 10/1, 150-uL record c76d0420b34df595c0c9 is 41.71/106.06, while the current candidate predicts 40.44/101.60. This is a structurally common ester-pyridine motif where a label can improve transfer to related late-eluting rows.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "2f72c334253bbe94a8ab",
+      "reason": "Measure m128 at 10/1 with 50 uL, pairing the large 5/1 underprediction in 91cd087e44e7a3364533 with the 10/1, 150-uL underprediction in 596bd04bfe916866f908. The changed amount tests whether the sulfur-containing aromatic carbonyl tail is systematic and teaches the model an endpoint-specific loading response.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "b6f1b33a5491968c645e",
+      "reason": "Measure m37 at 20/1 with 100 uL to fill the strong-eluent response between the measured 10/1 point 9ae9c8b491a04e429a11 and the 20/1, 50-uL point 606886b17304ec494aa0. Both show substantial retention beyond the predictions; this point tests whether the completion tail scales smoothly with solvent strength and loading.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "45a1b11ae63f2dab2e48",
+      "reason": "Measure m204 at 5/1 with 50 uL as a controlled loading comparison to 1211905ebc8972913270, measured 25.51/49.95 at the same ratio with 150 uL. The candidate prediction is close to that observed regime, so the label can determine whether the strong amount dependence seen elsewhere generalizes to a hydroxylated aryl alcohol.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "776ee2c1e85ebde75168",
+      "reason": "Measure m119 at 5/1 and 100 uL. The observed 5/1 point e6e78489d1da4066c07e is 46.24/73.59 and was strongly underpredicted, while lower-ratio records such as 17c1bb3be086a2b6ffec are much earlier. This tests a strong solvent transition in an alcohol-containing aromatic and improves transfer to related alcohol rows.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "b7cf293311f83700cd9a",
+      "reason": "Measure m206 at 10/1 and 150 uL to extend the alcohol response beyond the measured 1/1 and 2/1 records fe69b1dbb4d976f830cd and 7c0c324643799c918828. The predicted late tail is large, so the label discriminates smooth solvent strengthening from the abrupt, molecule-specific transitions seen in m205 and m119.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "eb3bc3fba39e57adbc2f",
+      "reason": "Measure m78 at 50/1 with 150 uL to add a loading point around the measured late-tail records 2b97a1e0a6a4b944b760 and 61771d230b285babe4b6. Those rows finish near 97 mL despite substantial prediction error; this experiment tests whether the broad interval is intrinsic to the multifunctional ester or amount-dependent.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "bd2e9fee67bbba1155df",
+      "reason": "Measure m211 at 20/1 and 100 uL between the measured 20/1, 50-uL record 35f2be5f5aa14265e8a4 and related pyridyl/aromatic observations. The candidate targets a region where completion and loading effects may be confused, providing a useful local discriminator for the model's treatment of heteroaromatic retention.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "61b73b8065ae2ece22eb",
+      "reason": "Measure m146 at 5/1 and 150 uL between the measured 2/1 point 2745c6978a8911fc3dda and the much later 10/1 point 9e3ce3497298084abd83. This fills a major solvent-response gap for a fused aza-aromatic structure and tests whether the sharp retention transition is represented by topology rather than broad polarity descriptors.",
+      "hypothesis_id": "H1"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Solvent-response transitions remain localized to molecular topology, and onset and completion can change at different rates. Broad corrections for aromatic carbonyls, alcohols, or heteroaromatics are unlikely to transfer reliably.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "319e89d7000731f64e7f",
+        "2d178efe0181baca2bd5",
+        "596bd04bfe916866f908",
+        "7155ede91e7e3232862a",
+        "c973d4c257be9ef08216"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The selected solvent anchors can teach endpoint-specific interpolation and prevent a large error in one topology from becoming a global correction for chemically related but behaviorally different rows.",
+      "next_discriminating_question": "Do the new m119, m128, m146, and m206 labels follow smooth topology-specific solvent curves, or do they reveal abrupt transitions and endpoint decoupling?"
+    },
+    {
+      "id": "H2",
+      "content": "Some measured families have loading-dependent endpoint changes that the current predictor's near-invariance to sample amount does not represent. The direction and affected endpoint are molecule-specific, with unexplained record variability remaining an alternative.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "facbcedbecb46072b04c",
+        "06ebbf6e52fa3ea6aef3",
+        "52b9af4df1f1e7cd4d9b",
+        "c82167c626a1495ef750",
+        "a3ae677aae8a8faf5786",
+        "c6924324ddd95f249df6",
+        "d1172a49fca1e196a59f",
+        "2cfa393cb79664e100ce"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The catalog contains many loading variants and the observed m125, m127, and m107 series show changes far larger than the predictor expects. Matched amount contrasts can teach when loading affects onset, completion, or both.",
+      "next_discriminating_question": "Do the new m125, m107, and m204 amount contrasts reproduce monotonic loading trends, saturate, or remain irreducibly variable?"
+    },
+    {
+      "id": "H3",
+      "content": "Several apparent nonmonotonic solvent responses and nearly collapsed intervals reflect a mixture of real molecule-condition behavior and record variability; neighboring labels are needed before these patterns are generalized.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "a917c928912c74862968",
+        "dc9e3983cd4f98689fa7",
+        "783cf2454912fc14bb80",
+        "2cf789c87f7c6325c020",
+        "49932dbd3d16bb64f71a",
+        "0baeb34a1650e9409f2a",
+        "271f829efaeb0b6c03b9",
+        "2aa2754666d0f055cb00",
+        "26df752cf7c0673db585"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Local tests constrain unusual interval widths and endpoint reversals, reducing the risk that the retrained model propagates isolated labels into unsupported response curves.",
+      "next_discriminating_question": "Does the m211 condition/loading point and the surrounding high-retention batch show reproducible local curvature, or mainly record-level scatter?"
+    },
+    {
+      "id": "H4",
+      "content": "Strong mobile phase does not guarantee a compact elution interval for every multifunctional or heteroatom-rich molecule; exceptional tails should be learned by connectivity and loading conditions rather than heteroatom count alone.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "f90a5a5a54509c085ebd",
+        "65fcce0299e031dedeb8",
+        "0b247863fd6e8aaf44d8",
+        "9ffee2813aef5c26f96f",
+        "ad833f34f6b91872362d",
+        "6f548d72f01fc85debdc",
+        "1b1a9ec85268aa66d327"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Many of the largest current failures are completion-tail underestimates. Measuring chemically distinct tail families gives the model examples needed to repair high-volume error regions while avoiding a universal broadening rule.",
+      "next_discriminating_question": "Do the selected m11, m37, m72, m90, m141, m160, and m78 points show a transferable connectivity-based tail pattern or separate family-specific responses?"
+    }
+  ],
+  "feedback_interpretation": "The latest feedback strengthens the loading hypothesis. The pending m125 2/1 result facbcedbecb46072b04c and the selected 5/1 result 06ebbf6e52fa3ea6aef3 were both far later than predicted, while their loading conditions differ; the batch therefore emphasizes matched and near-matched amount contrasts. The m127 50/1 result a3ae677aae8a8faf5786 and the existing 50-, 100-, and 150-uL m127 observations show large, endpoint-asymmetric and nonmonotonic behavior, weakening any simple loading law and motivating local discriminating points. Routine carbonyl and ordinary aromatic selections were often close, so broad quantile width alone is less persuasive. In contrast, measured failures for m11, m37, m72, m90, m118, m119, m128, m141, m160, and related late-tail families show that completion underprediction remains a major generalization gap. The new batch concentrates on those tails while retaining condition-response and loading contrasts to distinguish systematic structure-condition effects from record variability.",
+  "batch_rationale": "The batch repairs several empirically demonstrated high-error regions rather than selecting routine anchors. It includes matched or near-matched loading contrasts for m125, m107, m141, m204, and m128; intermediate solvent anchors for m11, m72, m146, and m211; and strong-eluent tail probes for m37, m78, m90, m119, m160, and m206. These experiments span aromatic carbonyls, heteroaromatics, multifunctional esters, alcohols, and sulfur-containing compounds, so the retrained model can learn which failures are topology-specific and which loading or solvent effects transfer. The batch also avoids making all selections from one molecule family: local series test competing hypotheses, while m146, m211, m160, and m206 provide transfer to related rows with different connectivity. Learning these high-retention and endpoint-asymmetric relationships should improve generalization across the Row-distribution, where the largest observed losses come from underpredicted onset and completion tails."
+}

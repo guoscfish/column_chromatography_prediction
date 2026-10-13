@@ -1,0 +1,520 @@
+{
+  "seed": 6101,
+  "method": "free_llm32_scientist_v2",
+  "round": 11,
+  "batch_freeze_sha256": "118f950f6ac0d1d5f25a335e3c49a027e4b360385d1a049f3b3aece199465d4d",
+  "records": [
+    {
+      "candidate_id": "8143c4fff6f999b7ad0e",
+      "pred_V1_ml": 10.837907791137695,
+      "pred_V2_ml": 24.21538543701172,
+      "source": "LLM",
+      "true_V1_ml": 15.375,
+      "true_V2_ml": 31.141666412353516,
+      "error_V1_ml": -4.537092208862305,
+      "error_V2_ml": -6.926280975341797,
+      "reason": "m127 at 20/1 and 54.5 mg predicts 10.84/24.22 mL and anchors a matched low-loading 20/1-to-50/1 pair. At 163.5 mg, ebdeaba52880c7eade16 and c82167c626a1495ef750 showed decreasing endpoints across that extension. This tests whether the unusual response persists beyond one loading.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "candidate_id": "52b9af4df1f1e7cd4d9b",
+      "pred_V1_ml": 13.896979331970215,
+      "pred_V2_ml": 29.87739372253418,
+      "source": "LLM",
+      "true_V1_ml": 11.649999618530273,
+      "true_V2_ml": 23.649999618530273,
+      "error_V1_ml": 2.2469797134399414,
+      "error_V2_ml": 6.227394104003906,
+      "reason": "m127 at 50/1 and 54.5 mg predicts 13.90/29.88 mL. It adds a third loading to the sharply different 50/1 outcomes in a3ae677aae8a8faf5786 and c82167c626a1495ef750. The selected matched 20/1 point helps distinguish solvent-response shape from an isolated loading-specific outcome or unexplained variation.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "candidate_id": "2f72c334253bbe94a8ab",
+      "pred_V1_ml": 27.330873489379883,
+      "pred_V2_ml": 49.6126708984375,
+      "source": "LLM",
+      "true_V1_ml": 39.46666717529297,
+      "true_V2_ml": 54.400001525878906,
+      "error_V1_ml": -12.135793685913086,
+      "error_V2_ml": -4.787330627441406,
+      "reason": "m128 at 10/1 and 50 mg predicts 27.33/49.61 mL. The 100 mg pair 892c3900698d3de38b1c and 92f7fe9d8581717a9949 rejected the former completion plateau. This lower-loading anchor tests transfer of that correction before the selected 20/1 extension, with b655d7de0986cbd0d622 supplying a matched 1/1 reference.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "55200f8e501a16ffa0cf",
+      "pred_V1_ml": 30.550161361694336,
+      "pred_V2_ml": 55.44440841674805,
+      "source": "LLM",
+      "true_V1_ml": 33.49166488647461,
+      "true_V2_ml": 73.9749984741211,
+      "error_V1_ml": -2.9415035247802734,
+      "error_V2_ml": -18.530590057373047,
+      "reason": "m128 at 20/1 and 50 mg predicts 30.55/55.44 mL, only modest growth beyond the selected matched 10/1 prediction. Measuring both tests whether saturation occurs after the newly established 5/1-to-10/1 rise, rather than assuming that the failed plateau requires an upward correction at every ratio.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "25ffcaa2164643e082b9",
+      "pred_V1_ml": 12.690116882324219,
+      "pred_V2_ml": 22.62775993347168,
+      "source": "LLM",
+      "true_V1_ml": 11.833333015441895,
+      "true_V2_ml": 19.308332443237305,
+      "error_V1_ml": 0.8567838668823242,
+      "error_V2_ml": 3.319427490234375,
+      "reason": "m119 at 1/1 and 105.8 mg predicts 12.69/22.63 mL. It fills the exact-loading gap below 17c1bb3be086a2b6ffec at 2/1, measured at 20.00/31.61 mL, and 776ee2c1e85ebde75168 at 5/1, 48.00/77.09 mL. This constrains the location of the steep alcohol response.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "candidate_id": "e6e78489d1da4066c07e",
+      "pred_V1_ml": 44.32871627807617,
+      "pred_V2_ml": 76.36323547363281,
+      "source": "LLM",
+      "true_V1_ml": 46.24166488647461,
+      "true_V2_ml": 73.59166717529297,
+      "error_V1_ml": -1.9129486083984375,
+      "error_V2_ml": 2.7715682983398438,
+      "reason": "m119 at 5/1 and 158.7 mg predicts 44.33/76.36 mL. It tests loading transfer after the large acquisition-time underprediction in 776ee2c1e85ebde75168, while 3f5051191caf6ab07337 supplies a matched pure-EA anchor. A second loading can establish whether the late 5/1 completion is stable enough to generalize.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "candidate_id": "4e5ead91320bd24d485e",
+      "pred_V1_ml": 11.813326835632324,
+      "pred_V2_ml": 22.38224220275879,
+      "source": "LLM",
+      "true_V1_ml": 21.183332443237305,
+      "true_V2_ml": 34.025001525878906,
+      "error_V1_ml": -9.37000560760498,
+      "error_V2_ml": -11.642759323120117,
+      "reason": "m207 at 5/1 and 78 mg predicts 11.81/22.38 mL. At the same ratio, ec6846c0fcb7df17c97d gave 4.89/10.42 mL at 156 mg, whereas a7906197994af5c86745 gave 14.12/36.41 mL at 234 mg. This third loading tests whether the unusually early 156 mg outcome is isolated; the 10/1 loading contrast was much smaller.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "candidate_id": "98586ac2d6d266ddb78c",
+      "pred_V1_ml": 7.640024185180664,
+      "pred_V2_ml": 20.166723251342773,
+      "source": "LLM",
+      "true_V1_ml": 12.875,
+      "true_V2_ml": 20.299999237060547,
+      "error_V1_ml": -5.234975814819336,
+      "error_V2_ml": -0.13327598571777344,
+      "reason": "m118 at 5/1 and 112.1 mg predicts 7.64/20.17 mL. It lies below the identical-loading 10/1 result 319e89d7000731f64e7f, which had early onset but completion at 36.82 mL, and the 50/1 result 2d178efe0181baca2bd5 at 56.20/117.46 mL. This label localizes endpoint growth before the weak-eluent rise.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "8dce8486dfe67a190d0d",
+      "pred_V1_ml": 10.453163146972656,
+      "pred_V2_ml": 23.226009368896484,
+      "source": "LLM",
+      "true_V1_ml": 4.458333492279053,
+      "true_V2_ml": 20.34583282470703,
+      "error_V1_ml": 5.9948296546936035,
+      "error_V2_ml": 2.880176544189453,
+      "reason": "m32 at 20/1 and 150.6 mg predicts 10.45/23.23 mL and starts a second matched 20/1-to-50/1 pair. At 50.2 mg, 7522f965f25a50c9a3bc and 485f8bcfb08d6eaf3463 showed almost unchanged onset and only modest completion growth. This tests whether that shallow curve transfers to higher loading.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "8af7ab6d0c4dde52bba2",
+      "pred_V1_ml": 13.79138469696045,
+      "pred_V2_ml": 31.300077438354492,
+      "source": "LLM",
+      "true_V1_ml": 6.741666793823242,
+      "true_V2_ml": 14.241666793823242,
+      "error_V1_ml": 7.049717903137207,
+      "error_V2_ml": 17.05841064453125,
+      "reason": "m32 at 50/1 and 150.6 mg predicts 13.79/31.30 mL. The lower-loading 50/1 observation 485f8bcfb08d6eaf3463 was 9.13/22.56 mL, substantially below its acquisition prediction. Together with the selected 20/1 point, this tests whether retraining should retain a shallow para-methylketone extension across loadings.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "79aff1183a902fa3fb7e",
+      "pred_V1_ml": 12.754560470581055,
+      "pred_V2_ml": 26.594648361206055,
+      "source": "LLM",
+      "true_V1_ml": 16.95833396911621,
+      "true_V2_ml": 25.174999237060547,
+      "error_V1_ml": -4.203773498535156,
+      "error_V2_ml": 1.4196491241455078,
+      "reason": "Parent acetophenone m42 at 20/1 and 51.5 mg predicts 12.75/26.59 mL. The matched 50/1 observation cb42a00d7b000827217c gave 27.02/42.79 mL. This intermediate point locates the parent's weak-eluent rise and supplies a counterpoint to the shallow measured m32 curve.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "b4d9d000145f0dfcee50",
+      "pred_V1_ml": 12.177153587341309,
+      "pred_V2_ml": 25.383846282958984,
+      "source": "LLM",
+      "true_V1_ml": 10.324999809265137,
+      "true_V2_ml": 20.733333587646484,
+      "error_V1_ml": 1.8521537780761719,
+      "error_V2_ml": 4.6505126953125,
+      "reason": "Meta-methylacetophenone m41 at 20/1 and 49.3 mg predicts 12.18/25.38 mL. It fills the exact-loading gap between 66c26a33ef4dc69074d4 at 2/1 and dc795e0a68f104353b33 at 50/1. This constrains curvature after the previous completion overprediction and qualifies transfer from the para isomer.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "605436d35600502e8c2e",
+      "pred_V1_ml": 15.97870922088623,
+      "pred_V2_ml": 35.00593948364258,
+      "source": "LLM",
+      "true_V1_ml": 24.950000762939453,
+      "true_V2_ml": 51.04999923706055,
+      "error_V1_ml": -8.971291542053223,
+      "error_V2_ml": -16.04405975341797,
+      "reason": "Para-bromoacetophenone m30 at 50/1 and 164 mg predicts 15.98/35.01 mL, close to its matched 20/1 observation f79cf892a214e3af8f61 at 15.15/33.59 mL. This tests an unmeasured weak-eluent plateau in a halogenated ketone, providing a shallow predicted counterexample to the fluorinated analogue.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "6ac700cf79bf6e05982e",
+      "pred_V1_ml": 14.994221687316895,
+      "pred_V2_ml": 33.19975662231445,
+      "source": "LLM",
+      "true_V1_ml": 16.75,
+      "true_V2_ml": 31.875,
+      "error_V1_ml": -1.7557783126831055,
+      "error_V2_ml": 1.3247566223144531,
+      "reason": "Para-fluoroacetophenone m34 at 20/1 and 57.15 mg predicts 14.99/33.20 mL. Observation 6998dee6f6e69401798a supplies a matched 50/1 endpoint at 26.50/53.45 mL. This locates its transition and tests why the fluorinated, brominated, and methyl-substituted ketone curves differ; cross-molecule injection conditions limit causal attribution.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "533e50b0595be82d2716",
+      "pred_V1_ml": 11.183856010437012,
+      "pred_V2_ml": 21.237958908081055,
+      "source": "LLM",
+      "true_V1_ml": 6.4666666984558105,
+      "true_V2_ml": 16.575000762939453,
+      "error_V1_ml": 4.717189311981201,
+      "error_V2_ml": 4.662958145141602,
+      "reason": "Branched-side-chain ketone m54 at 50/1 and 49.4 mg predicts 11.18/21.24 mL. Its weak-eluent region is uncovered by c260e5193159c51fe828 under pure EA and 2a72d643375f0200af1e at 5/1 and higher loading. This tests transfer from acetophenone and ortho-methylacetophenone to a different steric carbonyl environment.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "855832bd4005ac7abdc6",
+      "pred_V1_ml": 23.674732208251953,
+      "pred_V2_ml": 54.24123001098633,
+      "source": "LLM",
+      "true_V1_ml": 30.70833396911621,
+      "true_V2_ml": 60.599998474121094,
+      "error_V1_ml": -7.033601760864258,
+      "error_V2_ml": -6.358768463134766,
+      "reason": "Pyridyl ester m90 at 5/1 and 110.7 mg predicts 23.67/54.24 mL. Observation 0460dfc4e1747f0fc92c gives a matched 2/1 anchor, while b51b5dbcd2a38b174973 measured 27.48/65.41 mL at 5/1 and higher loading. The selected matched 10/1 point tests curve shape and loading transfer together.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "candidate_id": "96710afeabc594baa359",
+      "pred_V1_ml": 36.75358200073242,
+      "pred_V2_ml": 84.34437561035156,
+      "source": "LLM",
+      "true_V1_ml": 48.17499923706055,
+      "true_V2_ml": 107.99166870117188,
+      "error_V1_ml": -11.421417236328125,
+      "error_V2_ml": -23.647293090820312,
+      "reason": "m90 at 10/1 and 110.7 mg predicts 36.75/84.34 mL. The higher-loading observation c76d0420b34df595c0c9 gave 41.71/106.06 mL. Pairing this with the selected 5/1 label determines whether the current shorter completion reflects a real loading association or underlearned solvent response.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "candidate_id": "ade065af3a515fc41105",
+      "pred_V1_ml": 13.142871856689453,
+      "pred_V2_ml": 23.42340850830078,
+      "source": "LLM",
+      "true_V1_ml": 13.708333015441895,
+      "true_V2_ml": 28.04166603088379,
+      "error_V1_ml": -0.5654611587524414,
+      "error_V2_ml": -4.618257522583008,
+      "reason": "Meta-aminobenzoate m88 at 2/1 and 110.7 mg predicts 13.14/23.42 mL and anchors a matched 2/1-to-5/1 pair. Measured references 5c9d8ece8d174d7a0e5f under pure EA and 9a9324fbb6b1e17e7743 at 1/1 cover only stronger eluent. This explores the onset of its currently unmeasured moderate-eluent transition.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "candidate_id": "d2921349ba8d9cef15a4",
+      "pred_V1_ml": 25.967992782592773,
+      "pred_V2_ml": 42.25028991699219,
+      "source": "LLM",
+      "true_V1_ml": 26.691667556762695,
+      "true_V2_ml": 61.829166412353516,
+      "error_V1_ml": -0.7236747741699219,
+      "error_V2_ml": -19.578876495361328,
+      "reason": "m88 at 5/1 and 110.7 mg predicts 25.97/42.25 mL. The matched selected 2/1 point tests whether this rise is reliable and whether the para-amino response in c70b471334f9747d6f98 transfers to the meta environment. Positional accessibility is a prior; differing injection volumes prevent an isolated positional-effect interpretation.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "candidate_id": "073e6abf4d3bfffc2761",
+      "pred_V1_ml": 16.199054718017578,
+      "pred_V2_ml": 28.65777587890625,
+      "source": "LLM",
+      "true_V1_ml": 10.566666603088379,
+      "true_V2_ml": 22.674999237060547,
+      "error_V1_ml": 5.632388114929199,
+      "error_V2_ml": 5.982776641845703,
+      "reason": "Para-aminobenzoate m86 at 2/1 and 175.5 mg predicts 16.20/28.66 mL. It starts a matched 2/1-to-5/1 pair after c70b471334f9747d6f98 exposed late 5/1 retention at 58.5 mg. This determines whether the steep transition begins by 2/1 and supplies a controlled comparator to the selected meta-amino curve.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "candidate_id": "9bc73e0c27d4d6b44abb",
+      "pred_V1_ml": 35.3466796875,
+      "pred_V2_ml": 59.96760940551758,
+      "source": "LLM",
+      "true_V1_ml": 26.799999237060547,
+      "true_V2_ml": 57.06666564941406,
+      "error_V1_ml": 8.546680450439453,
+      "error_V2_ml": 2.9009437561035156,
+      "reason": "m86 at 5/1 and 175.5 mg predicts 35.35/59.97 mL, near the lower-loading 32.05/58.38 mL observation c70b471334f9747d6f98. The new matched 2/1 label constrains transition shape, while this label tests the model's weak loading response in a strongly adsorbing amino ester.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "candidate_id": "c6a55a8d89f33c69899b",
+      "pred_V1_ml": 21.05915069580078,
+      "pred_V2_ml": 31.256319046020508,
+      "source": "LLM",
+      "true_V1_ml": 12.954166412353516,
+      "true_V2_ml": 23.633333206176758,
+      "error_V1_ml": 8.104984283447266,
+      "error_V2_ml": 7.62298583984375,
+      "reason": "Ortho-aminobenzoate m89 at 10/1 and 111.7 mg predicts 21.06/31.26 mL. It fills a gap below the identical-loading 20/1 and 50/1 observations fe40c32169d87261e1e9 and 249b884b29177edb9df5. This tests the location of its rise alongside the para/meta panels without assuming intramolecular shielding determines retention.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "candidate_id": "252c027cf5a42b92c953",
+      "pred_V1_ml": 9.957327842712402,
+      "pred_V2_ml": 17.0322265625,
+      "source": "LLM",
+      "true_V1_ml": 22.066667556762695,
+      "true_V2_ml": 37.18333435058594,
+      "error_V1_ml": -12.109339714050293,
+      "error_V2_ml": -20.151107788085938,
+      "reason": "Dibenzylamine m212 at 5/1 and 102.6 mg predicts 9.96/17.03 mL. The matched 2/1 result 6defbf00ecb558b77d50 and lower-loading 5/1 reference d5234e966aa231be05e5 are early, whereas 942b8fc9cf013acda52b measured late 10/1 elution at higher loading. This tests whether the transition remains beyond 5/1 or shifts with loading.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "candidate_id": "c82c1933ed710ffb4981",
+      "pred_V1_ml": 9.199480056762695,
+      "pred_V2_ml": 17.3771915435791,
+      "source": "LLM",
+      "true_V1_ml": 12.308333396911621,
+      "true_V2_ml": 20.54166603088379,
+      "error_V1_ml": -3.108853340148926,
+      "error_V2_ml": -3.1644744873046875,
+      "reason": "Ortho-bromobenzonitrile m162 at 10/1 and 100 mg predicts 9.20/17.38 mL. It fills the matched curve below ed3a90d38ff02a38deba at 20/1 and 7b8eaa0c9205349f60b1 at 50/1, both substantially later than their acquisition predictions. This localizes the rise after rejection of the predicted shallow weak-eluent response.",
+      "hypothesis_id": "H8"
+    },
+    {
+      "candidate_id": "b4e38c1386009c8311ab",
+      "pred_V1_ml": 8.828886032104492,
+      "pred_V2_ml": 17.784454345703125,
+      "source": "LLM",
+      "true_V1_ml": 11.399999618530273,
+      "true_V2_ml": 24.008333206176758,
+      "error_V1_ml": -2.5711135864257812,
+      "error_V2_ml": -6.223878860473633,
+      "reason": "Ortho-fluorobenzonitrile m163 at 10/1 and 111.6 mg predicts 8.83/17.78 mL. Its matched 20/1 and 50/1 references 539544adb51a91c9a465 and 4e417c41d918e49abba1 had later completion than predicted. Comparing both nitriles' new 10/1 anchors tests transition location; PE versus DCM injections limit attribution to halogen identity.",
+      "hypothesis_id": "H8"
+    },
+    {
+      "candidate_id": "cbedf4ab0af735b39b3a",
+      "pred_V1_ml": 18.68899917602539,
+      "pred_V2_ml": 35.02552795410156,
+      "source": "LLM",
+      "true_V1_ml": 21.41666603088379,
+      "true_V2_ml": 36.25,
+      "error_V1_ml": -2.7276668548583984,
+      "error_V2_ml": -1.2244720458984375,
+      "reason": "Benzyl benzoate m174 at 50/1 and 164.55 mg predicts 18.69/35.03 mL. It completes the exact-loading 30/1-to-100/1 curve defined by 34cf0942ff52b1b80385 and 36b45fbdbace5950c108. The 50/1 reference 6d07662cb17b795ea5e2 at lower loading separately tests whether onset and completion transfer similarly.",
+      "hypothesis_id": "H9"
+    },
+    {
+      "candidate_id": "4c7a167609de5f3e01c2",
+      "pred_V1_ml": 6.314412593841553,
+      "pred_V2_ml": 20.27639389038086,
+      "source": "LLM",
+      "true_V1_ml": 5.233333110809326,
+      "true_V2_ml": 20.399999618530273,
+      "error_V1_ml": 1.0810794830322266,
+      "error_V2_ml": -0.12360572814941406,
+      "reason": "Dibenzoylmethane m168 at 10/1, 80 mg, and 300 uL DCM predicts 6.31/20.28 mL. It anchors a matched 10/1-to-20/1 test of the predicted completion plateau and onset reversal. The matched 50/1 observation 5ba8cead5a790ba93029 showed early onset with completion at 28.17 mL, which does not validate the intermediate predictions.",
+      "hypothesis_id": "H11"
+    },
+    {
+      "candidate_id": "07a069e105eb7739bf7e",
+      "pred_V1_ml": 4.948093414306641,
+      "pred_V2_ml": 20.03589630126953,
+      "source": "LLM",
+      "true_V1_ml": 5.258333206176758,
+      "true_V2_ml": 22.358333587646484,
+      "error_V1_ml": -0.3102397918701172,
+      "error_V2_ml": -2.322437286376953,
+      "reason": "m168 at 20/1 matches the selected 10/1 conditions and predicts 4.95/20.04 mL. Measuring both tests whether onset decreases while completion stays nearly constant, or whether this is interpolation failure. References e7acdb127fe6371def7f under pure EA and 5ba8cead5a790ba93029 at 50/1 bound a carbonyl response distinct from the steep beta-ketoesters.",
+      "hypothesis_id": "H11"
+    },
+    {
+      "candidate_id": "fd327bd31cbab5b296a7",
+      "pred_V1_ml": 7.576204299926758,
+      "pred_V2_ml": 15.536914825439453,
+      "source": "LLM",
+      "true_V1_ml": 11.458333015441895,
+      "true_V2_ml": 18.45833396911621,
+      "error_V1_ml": -3.8821287155151367,
+      "error_V2_ml": -2.921419143676758,
+      "reason": "Cyclic lactone m181 at 5/1 and 58.45 mg predicts 7.58/15.54 mL, nearly the completion measured at matched 2/1 in 6d7b9c18dcb836a2b09c. This anchors a controlled 5/1-to-10/1 pair to test whether completion initially stays shallow before the large response exposed at 20/1 in 10ea0c665f5ba7c91bbf at higher loading.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "2cc7c8ae52cdb25ca284",
+      "pred_V1_ml": 17.209274291992188,
+      "pred_V2_ml": 33.04567337036133,
+      "source": "LLM",
+      "true_V1_ml": 21.450000762939453,
+      "true_V2_ml": 31.79166603088379,
+      "error_V1_ml": -4.240726470947266,
+      "error_V2_ml": 1.254007339477539,
+      "reason": "m181 at 10/1 and 58.45 mg predicts 17.21/33.05 mL and completes the matched pair. These labels locate its transition between the early 2/1 reference 6d7b9c18dcb836a2b09c and the later 20/1 observation 10ea0c665f5ba7c91bbf. This tests transfer of carbonyl solvent curvature to a ring-constrained ester.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "050e2fab4b407ea058cb",
+      "pred_V1_ml": 15.351228713989258,
+      "pred_V2_ml": 35.625404357910156,
+      "source": "LLM",
+      "true_V1_ml": 10.649999618530273,
+      "true_V2_ml": 42.391666412353516,
+      "error_V1_ml": 4.701229095458984,
+      "error_V2_ml": -6.766262054443359,
+      "reason": "Acetoxybenzaldehyde m28 at 5/1 and 175.2 mg predicts 15.35/35.63 mL. It starts a matched 5/1-to-10/1 pair above the same-loading 1/1 reference 9845fd896eb72b0e149f. The large measured 10/1 responses in db7f9ffa50eb931613f6 and 351c17dfa8f46a8cb40a motivate locating its transition rather than applying a uniform aldehyde correction.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "0dccaa29989ef4956786",
+      "pred_V1_ml": 34.029727935791016,
+      "pred_V2_ml": 65.096923828125,
+      "source": "LLM",
+      "true_V1_ml": 38.78333282470703,
+      "true_V2_ml": 80.875,
+      "error_V1_ml": -4.753604888916016,
+      "error_V2_ml": -15.778076171875,
+      "reason": "m28 at 10/1 and 175.2 mg predicts 34.03/65.10 mL. Lower-loading 10/1 observations db7f9ffa50eb931613f6 and 351c17dfa8f46a8cb40a finished at 75.43 and 81.40 mL. The selected matched 5/1 point distinguishes a loading association from an insufficiently learned steep response and provides a structural contrast to methoxybenzaldehyde m118.",
+      "hypothesis_id": "H3"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H3",
+      "content": "Carbonyl solvent-response curves require structural qualification and separate attention to onset and completion. The m128 5/1-to-10/1 completion plateau was rejected, whereas m32 showed nearly unchanged onset and modest completion growth from 20/1 to 50/1. m118 at 10/1 combined early onset with a broad elution interval. These observations support learning transition location and endpoint coupling rather than a carbonyl-wide retention increase.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "892c3900698d3de38b1c",
+        "92f7fe9d8581717a9949",
+        "7522f965f25a50c9a3bc",
+        "485f8bcfb08d6eaf3463",
+        "319e89d7000731f64e7f",
+        "24a9086a8e2c8015c232",
+        "2d178efe0181baca2bd5"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Recent errors occurred in opposite directions across related carbonyl compounds. Matched extensions and structural comparisons can prevent a correction for steep curves from degrading shallow curves and can improve both endpoint targets.",
+      "next_discriminating_question": "Does m32 retain its shallow weak-eluent extension at higher loading, where does the m128 curve saturate, and do the ketone substitution, lactone, and acetoxy-aldehyde anchors preserve distinct transition locations?"
+    },
+    {
+      "id": "H6",
+      "content": "Alcohol response depends on structural environment and may interact with recorded loading. m119 rises sharply between 2/1 and 5/1. For m207, the 5/1 outcomes differ substantially between 156 and 234 mg, while the 10/1 loading contrast is smaller. The relatively narrow m203 20/1 interval persists at another loading. These patterns do not support an alcohol-wide broadening or retention correction; unexplained variation remains an alternative to a reproducible loading response.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "17c1bb3be086a2b6ffec",
+        "776ee2c1e85ebde75168",
+        "ec6846c0fcb7df17c97d",
+        "a7906197994af5c86745",
+        "ff3b6b1069b7d66ad021",
+        "8f5452ff0e84ab2e2057",
+        "080258046c2cae5fb2ab",
+        "66747ae127e03516ffda"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The predictor often changes little across candidate loadings, but the measured loading associations are endpoint- and ratio-dependent. Additional loading anchors can establish which differences are sufficiently stable for the supplied features to explain.",
+      "next_discriminating_question": "Does m207's 78 mg 5/1 label resemble the early 156 mg outcome or the later 234 mg outcome, and does m119's late 5/1 response persist at 158.7 mg?"
+    },
+    {
+      "id": "H7",
+      "content": "The near-coincident m127 endpoints at 50/1 and 109 mg could represent a loading-specific regime, but extending that compression across loadings is weakened. At 163.5 mg, the 50/1 interval was broad and both endpoints were earlier than at matched 20/1. Neither a universal compressed interval nor a simple monotonic loading law is established.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "a3ae677aae8a8faf5786"
+      ],
+      "contradicting_observed_ids": [
+        "c82167c626a1495ef750",
+        "ebdeaba52880c7eade16"
+      ],
+      "confidence": "low",
+      "status": "weakened",
+      "why_it_matters_for_model_learning": "An isolated endpoint pattern should not be propagated throughout the molecule's condition space. A third loading with a matched solvent pair can distinguish a structured recorded-condition association from variation that the available features cannot explain.",
+      "next_discriminating_question": "At 54.5 mg, does the 50/1 interval compress again, and does the matched 20/1-to-50/1 ordering resemble the early-onset 163.5 mg curve?"
+    },
+    {
+      "id": "H8",
+      "content": "The previously predicted substantially stronger weak-eluent response for m163 than m162 is weakened. Both nitriles show appreciably later elution from 20/1 to 50/1. The fluorinated compound has later measured completion at both ratios, but onset differences and slope differences are much smaller than the former predictions suggested. Transfer at 10/1 remains untested.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "539544adb51a91c9a465",
+        "4e417c41d918e49abba1"
+      ],
+      "contradicting_observed_ids": [
+        "ed3a90d38ff02a38deba",
+        "7b8eaa0c9205349f60b1"
+      ],
+      "confidence": "low",
+      "status": "weakened",
+      "why_it_matters_for_model_learning": "The labels reject the brominated compound's predicted near-flat extension. Completing both local curves can repair acceptor-only aromatic retention without teaching an exaggerated halogen-dependent slope difference.",
+      "next_discriminating_question": "Do both 10/1 labels remain near their stronger-eluent anchors, or does one begin its completion growth earlier, accounting for their different loading solvents and sample amounts?"
+    },
+    {
+      "id": "H9",
+      "content": "Benzoate weak-eluent responses differ by structural environment. Benzyl benzoate m174's steep extension persists at higher loading. Isobutyl benzoate m56 instead has almost unchanged onset from 50/1 to 100/1 and a more modest completion increase, while para-fluoroethyl benzoate remains moderately retained. The remaining m174 50/1 point can constrain its higher-loading curvature.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "6d07662cb17b795ea5e2",
+        "2424b103c34d3d2b6a9a",
+        "34cf0942ff52b1b80385",
+        "36b45fbdbace5950c108",
+        "b4c266d3fe67315f0adf",
+        "e7c4d856d4d9a8d5ddbf",
+        "df93501912d2cfcfbc41"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The replicated steep m174 curve should be learned without transferring its correction to every ester. A missing intermediate label provides a precise local constraint with limited redundancy.",
+      "next_discriminating_question": "At 164.55 mg, does the 50/1 label place most of the completion rise between 50/1 and 100/1, and does it resemble the existing lower-loading 50/1 result?"
+    },
+    {
+      "id": "H10",
+      "content": "Nitrogen-containing compounds need environment-specific transition curves. Measured pyridyl carbonyls, amino esters, and dibenzylamine have different onset/completion responses across solvent ratios. Whether amino position and accessibility qualify transfer between benzoates remains a chemical prior and an untested hypothesis; the recorded injection conditions also differ across these compounds.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "c70b471334f9747d6f98",
+        "249b884b29177edb9df5",
+        "d5234e966aa231be05e5",
+        "942b8fc9cf013acda52b",
+        "0460dfc4e1747f0fc92c",
+        "c76d0420b34df595c0c9",
+        "49201b5817f204116f7f"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "A shared nitrogen correction could misplace both strong-eluent boundaries and steep moderate-eluent transitions. Within-molecule pairs isolate ratio response, while the positional ester panel tests qualified structural transfer across many related rows.",
+      "next_discriminating_question": "Where do the meta- and para-aminobenzoate 2/1-to-5/1 rises occur, how does the ortho 10/1 anchor compare with its measured curve, and do m90 and m212 preserve their inferred transition locations at the selected loadings?"
+    },
+    {
+      "id": "H11",
+      "content": "m168 may retain relatively early onset while weaker eluent mainly extends completion. Its measured pure-EA and 50/1 anchors support early onset at both boundaries, but the current predicted 10/1-to-20/1 completion plateau and onset decrease have not been measured and could be interpolation artifacts.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "e7acdb127fe6371def7f",
+        "5ba8cead5a790ba93029"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "This pair tests onset/completion decoupling in an aromatic beta-diketone and provides a counterexample to transferring steep beta-ketoester responses through carbonyl count alone.",
+      "next_discriminating_question": "At matched 80 mg and 300 uL DCM, do the 10/1 and 20/1 labels support nearly unchanged completion and decreasing onset, or reveal a different intermediate curve?"
+    }
+  ],
+  "feedback_interpretation": "The latest outcomes strengthen the case for learning local transition shape and weaken several previously proposed extrapolations. m128's matched 5/1-to-10/1 labels rose from 20.62/36.94 to 34.88/55.84 mL, rejecting the predicted completion plateau. Conversely, m32's matched 20/1-to-50/1 labels changed only from 9.84/20.71 to 9.13/22.56 mL, rejecting its predicted steep extension. The meta, ortho, and parent ketone results further support structurally qualified transfer, although their injection conditions differ. m118 at 10/1 revealed early onset with completion at 36.82 mL; its new 5/1 anchor therefore targets endpoint growth rather than a uniform upward shift. m119 was close to its acquisition prediction at 2/1 but substantially later at 5/1, motivating a stronger-eluent anchor and a loading extension. m207's higher-loading 5/1 result was much later than the 156 mg result, while its 10/1 loading difference was smaller. This shifts its next experiment toward a third 5/1 loading. m203's relatively narrow 20/1 interval persisted, so that question receives no further allocation. m127's nearly coincident 109 mg endpoints did not persist at 163.5 mg; the new low-loading pair tests stability while retaining unexplained variation as an alternative. Both aromatic nitriles showed substantial weak-eluent retention, rejecting the former shallow m162 prediction and reducing confidence in a large fluorine-versus-bromine slope difference. m174's steep extension persisted at higher loading, whereas m56's onset stayed almost constant and its completion grew modestly; this supports a focused m174 intermediate point rather than a broad benzoate correction. The m125 5/1 middle loading followed its measured neighbors, and m20's new 2/1 anchor was reasonably predicted, so their completed local questions receive no additional labels. Errors discussed here are acquisition-time errors, not current-model residuals.",
+  "batch_rationale": "The 32-row batch contains nine matched within-molecule solvent-response pairs: m127, m128, m32, m90, m88, m86, m168, m181, and m28. These pairs constrain curvature and endpoint coupling while holding the recorded loading and injection conditions fixed. Additional anchors complete measured curves or test loading transfer in demonstrated failure regions, particularly m119, m207, m174, and the nitriles. The shallow m32 and predicted m30 extensions counterbalance steep alcohol, nitrogen, and aldehyde responses, reducing the risk that retraining spreads an upward correction across related rows. The ketone substitution panel, branched carbonyl exploration, cyclic lactone pair, and amino-ester panel test relationships that can generalize to other catalog conditions. m127 receives a limited diagnostic pair because its discordant endpoints may reflect either recorded-condition structure or variation outside the supplied features; it does not justify a general compressed-interval rule. Existing m125, m203, m20, and shallow benzoate observations remain useful constraints without further allocation. Cross-molecule comparisons are conditional on differing loadings and loading solvents, and no missing concentration, speciation, flow, or column variables are assumed. Quantile spans and CW distance are secondary model-behavior evidence, not calibrated epistemic uncertainty; V2 minus V1 remains the measured elution interval width."
+}

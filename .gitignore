@@ -72,3 +72,11 @@ studies/**/*.log
 # Dual-expert accepted/rejected answers and tiny request-hash receipts are audit
 # evidence. Full requests, catalogs, locks and training payloads remain ignored.
 !studies/active_learning/qgeognn_v2_row_llm_dual_expert_v1/revisions/**/selections/**/agents/**/turn_*.json
+
+# Full candidate/history requests stay local; compact contracts, selections,
+# feedback and request hashes remain versioned. Existing tracked evidence stays.
+studies/**/selections/**/input.json
+studies/**/selections/**/planner_input.json
+studies/**/selections/**/extra_correction_request.json
+studies/**/*.lock
+.pytest_cache/

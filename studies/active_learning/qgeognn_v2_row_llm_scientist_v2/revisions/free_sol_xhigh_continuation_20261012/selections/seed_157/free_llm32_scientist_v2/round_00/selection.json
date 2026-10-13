@@ -1,0 +1,268 @@
+{
+  "type": "selection",
+  "packet_sha256": "ad44d555210401f1ee0a382ad411d91601da56233d494f856a840fe04637f393",
+  "batch_strategy": "Acquire 32 labels through targeted structure-condition contrasts: extend sparsely observed solvent-response curves, test chemically plausible blind spots, and examine loading effects where predictions are nearly invariant. Avoid equivalent duplicate rows. All selected IDs and their supplied premeasurement predictions are frozen together; no new labels are used.",
+  "choices": [
+    {
+      "id": "271f829efaeb0b6c03b9",
+      "reason": "Unobserved diethyl malonate at 10/1, 52.75 mg. Paired with its 50/1 row, tests whether the predicted steep response transfers from beta-ketoesters to a diester; observed dimethyl acetylenedicarboxylate a93680d827624e459a39 is much earlier at 10/1 despite four acceptors.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "9c10e0827e86bb3c7681",
+      "reason": "Same malonate and loading as the selected 10/1 row, now 50/1. Predicted V1/V2 are 41.08/69.20 mL; the matched pair identifies solvent sensitivity rather than merely adding a high-retention label.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "c6924324ddd95f249df6",
+      "reason": "New methoxyethyl acetoacetate at 5/1, predicted 23.62/41.47 mL. Compare with methyl acetoacetate cd566862a517dd7cdc8d at 13.02/23.20 mL and ethyl acetoacetate 3ad8ec5752f3c638e2ff at 11.42/25.28 mL, allowing for differing loads, to learn the effect of an additional ether.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "9e3f598e00375ec93d9b",
+      "reason": "New multifunctional methacrylate at 10/1, predicted 25.69/47.80 mL. Extends the ester/ether/ketone relationship to a larger topology, testing whether the model combines these groups appropriately rather than simply counting acceptors.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "38e6b8bf0f089fcadd80",
+      "reason": "New para-nitroacetophenone at 10/1. Its predicted 27.07/66.79 mL tests transfer from nitrobenzaldehyde and cyanoacetophenone; measured b3d9bb5afa82b99f2a11 gives 31.50/67.28 mL for the latter, but does not establish equivalence of nitro and nitrile interactions.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "6b7209c2e8154837a8c7",
+      "reason": "New para-aminoacetophenone at 2/1 provides a complementary nitrogen-functional-group contrast. Aminobenzoates ca6feb29f6758377a65f and 04e994913bc43aa60007 show substantially different retention with substitution environment; this label tests transfer to an amino ketone.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "b579bb037defe81a2b27",
+      "reason": "New diphenyl sulfoxide at 1/1, predicted only 7.24/12.69 mL. Sulfoxide-silica interactions may be poorly represented by sulfur-containing analogues; this stronger-eluent anchor complements the selected 5/1 condition.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "714004602e6452764d9a",
+      "reason": "Same sulfoxide and 100 mg load at 5/1. Predicted V1 falls to 5.24 mL while V2 rises to 15.29 mL relative to 1/1. Measuring both tests this response and introduces a missing sulfur oxidation state, not an assumed retention error.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "304fb0fdb486ae4b7a07",
+      "reason": "New diethylaminoethyl acrylate at 2/1, predicted 6.88/13.65 mL. A tertiary aliphatic amine can interact strongly with silica; this tests whether ester-family similarity obscures basic-site effects, with a matched 1/1 measurement to distinguish magnitude from solvent response.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "9a60cb4735780275034e",
+      "reason": "Same tertiary-amino acrylate, 92.2 mg, at 1/1. The model predicts only a small change from 2/1. This controlled pair tests whether stronger EA substantially changes onset and completion for a previously unobserved basic structure.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "28d8efb10e9abe6740a6",
+      "reason": "New sterically substituted keto nitrile at 5/1 has low structural similarity to L_t. Its predicted 9.48/16.33 mL probes a carbonyl-plus-nitrile environment distinct from aromatic cyanoacetophenone b3d9bb5afa82b99f2a11, expanding transferable functional-group context.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "33ffc69a253a89f15995",
+      "reason": "New quinoline at 5/1, predicted 19.63/41.78 mL. Bridges measured methylquinoline b6229f0445560a4a54ed and phenylpyridine ecd17c7ea435a1e33f6b/bd2e9fee67bbba1155df, testing aromatic basicity and ring-environment transfer.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "4659b6752f23c0b85f08",
+      "reason": "New pyridyl propyl ketone at 2/1, predicted 16.68/38.61 mL. Compared with the selected nicotinate condition and measured nicotinate c76d0420b34df595c0c9, tests whether changing ester to ketone changes the strong pyridine-associated solvent response.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "bfbe491a54086b98874d",
+      "reason": "New acetoxybenzaldehyde at 5/1, predicted 13.16/32.46 mL. Tests an aromatic ester-plus-aldehyde combination against the densely represented simpler aromatic carbonyls and ether-substituted carbonyls.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "0c5c35afb3a24375c153",
+      "reason": "New aromatic diketone at 50/1, predicted 10.04/36.39 mL with a broad V2 quantile span. Its separated carbonyls differ from the beta-diketone in 07a069e105eb7739bf7e; this tests topology-dependent adsorption and completion without treating interval width as uncertainty.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "f73fd2f4c55177304721",
+      "reason": "New mesityl methyl ketone at 50/1, predicted 4.39/19.90 mL. Ortho methyl groups may shield the carbonyl; comparison with ortho-methyl acetophenone and less hindered ketones tests whether geometry explains early onset despite weak eluent.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "17418a1ba5c9443057c3",
+      "reason": "New dimethoxytoluene at 2/1, predicted 11.15/21.06 mL. Together with its 10/1 row, tests the predicted retention maximum under stronger eluent in a neutral ether, separating this behavior from carbonyl-specific effects.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "1234fa6b7a71b815104c",
+      "reason": "Same dimethoxytoluene and 105.1 mg load at 10/1, predicted 6.64/12.73 mL, substantially earlier than at 2/1. This matched pair can confirm or correct a nonmonotonic response on a new molecule.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "e4fd83fb3852eb354a66",
+      "reason": "New para-methoxybenzyl alcohol at 5/1. Adds an exposed alcohol-plus-ether motif, contrasting with methoxy carbonyls and measured alcohols such as 53c1be5b96937954b9fa; useful for learning donor effects beyond a single polarity descriptor.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "50fbcf5ece9bd5fc2d70",
+      "reason": "Ortho-methoxyacetophenone at 5/1, 163.5 mg, is predicted at 19.40/35.89 mL. At the same load, measured 20/1 row ebdeaba52880c7eade16 starts at 5.08 mL. This tests the predicted intermediate-solvent maximum directly.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "8143c4fff6f999b7ad0e",
+      "reason": "Ortho-methoxyacetophenone at 20/1, 54.5 mg, supplies the missing low-load counterpart to ebdeaba52880c7eade16. It also matches the load of measured 50/1 row 52b9af4df1f1e7cd4d9b, separating loading from the apparent solvent-response reversal.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "5067c9cd9f20d14c426f",
+      "reason": "Methyl salicylate in pure EA, predicted 6.54/20.66 mL. Measured 23a5d9abd2b0db31a8d6 at 2/1 and the same load finishes at 8.09 mL. Tests the predicted strong-eluent completion increase in a potentially internally hydrogen-bonded molecule.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "ff3ee95fed58907ff8b3",
+      "reason": "Salicylaldehyde in pure EA, predicted 5.34/25.00 mL. Alongside methyl salicylate, tests whether the strong-eluent anomaly transfers across ortho-hydroxy carbonyls; measured 20/1 rows f6b05afc9acf85dffb0f and 8de30a7f5764c20b232e anchor the weaker-eluent behavior.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "4c32851430464f0ed684",
+      "reason": "Dimethoxybenzaldehyde at 1/1, 100 mg, predicted 11.47/23.91 mL versus measured 42.96/73.10 mL at 5/1 in 74cf50c6ec476a394b01. Tests a large predicted transition using the same loading solvent, volume and sample load.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "ae8805bc02bce03072e2",
+      "reason": "Methylenedioxyacetophenone at 5/1, 150 mg, predicted 22.98/42.58 mL. Only a 1/1 anchor is measured in 162ffd9b0db1fd3c1509. Pairing with 20/1 tests whether the predicted intermediate-solvent peak is real on a related oxygenated aromatic ketone.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "a6a0404c3ad65c6d9326",
+      "reason": "Same methylenedioxyacetophenone and loading at 20/1, predicted 16.55/41.47 mL. The pair distinguishes an onset reversal from a largely unchanged completion volume, teaching both targets rather than imposing a common response.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "b51b5dbcd2a38b174973",
+      "reason": "Ethyl nicotinate at 5/1, 166.05 mg, predicted 33.87/83.00 mL. Measured c76d0420b34df595c0c9 at 10/1 and the same load gives 41.71/106.06 mL; this adds a missing solvent-response point in a strongly retained basic family.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "7155ede91e7e3232862a",
+      "reason": "Ether-bearing aryl ketone at 10/1, predicted 25.70/45.81 mL. Same-load observations ed763ea5943e63a671c9 at 1/1 and b1c5816f929ef59f5a87 at 20/1 span 6.22/10.54 to 41.72/79.81 mL; the intermediate point constrains a steep response.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "2d11f1fe488a0c917ffe",
+      "reason": "1-Phenyl-1-propanol at 10/1, 99.4 mg, predicted 14.24/29.94 mL. Measured c627405cf70a0daacc94 at 20/1 gives 34.61/59.42 mL at the same load. Tests the location of a steep alcohol response rather than selecting another extreme.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "b514312eda7950cdcf1c",
+      "reason": "Nitrobenzophenone at 50/1 and 210.9 mg complements measured 5b706e17e8412d02342f at 70.3 mg with identical solvent conditions. Current predictions barely change with load; the measured low-load endpoint is 21.33/59.88 mL, making this a useful completion/loading test.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "8e701efd2ee4729edc4b",
+      "reason": "Methyl mandelate at 5/1, 50 mg, predicted 18.70/31.85 mL. Extends measured 30456dafbfe681b5af70 at 2/1 with identical loading and connects to 7bbdec21c428010dd67b at 10/1, while recognizing the latter has a different load.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "279654c9a255466c0dfa",
+      "reason": "New bis-trifluoromethyl bromoarene at 50/1, predicted 1.81/9.21 mL. Tests unusually early predicted onset on an unseen nonpolar structure and anchors the fast-eluting portion of the Row-distribution, which would otherwise be underrepresented in this batch.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "The retention contribution of multiple oxygen acceptors, or carbonyl-plus-nitrile combinations, depends on topology and solvent strength rather than a simple additive polarity rule.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "3fc05dc2025715e68174",
+        "cd566862a517dd7cdc8d",
+        "2635b25bb3c1c37f3b74",
+        "a93680d827624e459a39",
+        "b1c5816f929ef59f5a87"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "These motifs recur across esters, ketones and aromatic carbonyls; representative new combinations and intermediate solvent points can improve structural transfer and response curvature.",
+      "next_discriminating_question": "Do malonate, ether-extended acetoacetate and separated aromatic carbonyls follow the predicted response, or require distinct structure-dependent solvent sensitivities?"
+    },
+    {
+      "id": "H2",
+      "content": "Nitrogen functional-group identity and structural environment require distinct retention responses; aromatic pyridines, aliphatic tertiary amines, anilines, nitriles and nitro groups should not share a generic nitrogen penalty.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "c76d0420b34df595c0c9",
+        "ecd17c7ea435a1e33f6b",
+        "bd2e9fee67bbba1155df",
+        "04e994913bc43aa60007",
+        "ca6feb29f6758377a65f",
+        "b3d9bb5afa82b99f2a11"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Missing basic and electron-withdrawing nitrogen environments could cause systematic transfer errors across many candidate conditions.",
+      "next_discriminating_question": "Are the low predictions for aminoethyl acrylate and the strong predictions for pyridyl and nitro carbonyls supported, and how do they change with EA fraction?"
+    },
+    {
+      "id": "H3",
+      "content": "Diphenyl sulfoxide may be more strongly retained, or have a different solvent response, than predicted from the currently represented sulfur environments.",
+      "basis": "chemical_prior",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "A sulfoxide introduces a strong, directional acceptor absent from the measured catalog and tests transfer across sulfur oxidation states.",
+      "next_discriminating_question": "At matched loading, do its 1/1 and 5/1 labels support the predicted low retention and reversed V1 trend?"
+    },
+    {
+      "id": "H4",
+      "content": "Some oxygenated aromatics have nonmonotonic or sharply changing solvent-response predictions that need direct testing; existing observations do not justify imposing universal monotonicity on both endpoints.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "ebdeaba52880c7eade16",
+        "52b9af4df1f1e7cd4d9b",
+        "162ffd9b0db1fd3c1509",
+        "facbcedbecb46072b04c",
+        "74cf50c6ec476a394b01"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Matched condition pairs can distinguish a learned response artifact from reproducible onset/completion behavior and reduce errors across related aromatic ethers and carbonyls.",
+      "next_discriminating_question": "Do dimethoxytoluene and methylenedioxyacetophenone retain the predicted intermediate-solvent maxima, and does dimethoxybenzaldehyde show the predicted collapse at 1/1?"
+    },
+    {
+      "id": "H5",
+      "content": "Predicted increases in completion volume under very strong eluent for ortho-hydroxy carbonyls may be real condition-specific behavior or an overgeneralization from other unusual strong-eluent observations.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "6802f0b28c5a0c7b4c2a",
+        "9768d61b571fc0c5ce1a",
+        "e93e08d6bc42e91e2679",
+        "23a5d9abd2b0db31a8d6"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "Pure-EA labels for two related motifs test a shared prediction pattern without assuming that intramolecular hydrogen bonding or silica interactions dictate the outcome.",
+      "next_discriminating_question": "Do methyl salicylate and salicylaldehyde actually show the predicted late completion in pure EA?"
+    },
+    {
+      "id": "H6",
+      "content": "Nearly load-invariant predictions may miss compound- and solvent-dependent changes in onset or completion; observed loading contrasts suggest this deserves testing but do not establish a universal causal effect.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "ea9ef1bc8766196ca96d",
+        "20acd2ae49790ab82053",
+        "533e50b0595be82d2716",
+        "1c6a12a8c2cb62f05c80",
+        "44500edb95a3649adf91",
+        "faea8b8adf639599424e"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Loading is a supplied predictor feature. Controlled contrasts can reveal missing interactions, especially for V2, while avoiding redundant acquisition of many nearly identical predicted rows.",
+      "next_discriminating_question": "Do nitrobenzophenone and ortho-methoxyacetophenone show meaningful endpoint changes across matched-condition loading levels, beyond unexplained experimental variation?"
+    }
+  ],
+  "feedback_interpretation": "",
+  "batch_rationale": "The initial 333 labels already cover many fast-eluting hydrocarbons and halogenated compounds, often at several loads, but leave important functional-group combinations and solvent-response segments unmeasured. This batch combines chemically motivated exploration with local experiments that can discriminate competing explanations. Matched solvent pairs for malonate, sulfoxide, aminoethyl acrylate, dimethoxytoluene and methylenedioxyacetophenone are deliberate, not redundant. Existing observations make the additional nicotinate, alcohol, mandelate and ether-ketone points informative about curvature. The ortho-methoxyacetophenone design separates loading from solvent changes, and nitrobenzophenone provides a second loading test. Pure-EA hydroxy-carbonyl measurements challenge a shared prediction pattern; one novel nonpolar row checks the low-retention regime. Quantile spans and CW distances are supplementary evidence, not calibrated epistemic uncertainty or mandatory rankings. No initial observation is treated as an out-of-sample error, and no candidate prediction is treated as a measured finding. Loading amount is density times sample volume; no absent concentration, flow, pH or column variables are inferred. The intended benefit is better transferable V1/V2 relationships across the Row-distribution, not improved chromatography of these selected runs."
+}

@@ -1,0 +1,289 @@
+{
+  "type": "selection",
+  "packet_sha256": "762c1ef939a61ffea7985ea317b4d8df47af0ea64ff98710e2eaee44328f4948",
+  "batch_strategy": "Freeze these 32 candidate IDs and their supplied packet predictions together. Use matched solvent and loading contrasts to distinguish scaffold-specific response curves, test transfer beyond recently repaired failures, and strengthen learning of recorded injection-volume effects. The free-arm batch has no pending experiments. Predictions quoted in reasons are approximate summaries of the frozen packet values.",
+  "choices": [
+    {
+      "id": "9e3ce3497298084abd83",
+      "reason": "Methylquinoline at 10/1 and 108.3 mg, predicted 42.15/87.30 mL, extends the same-load 2/1 observation 2745c6978a8911fc3dda. Quinoline's 10/1 failure in 9cd02352c2ed7a3e2321 motivates testing transfer to methyl substitution; the measured methylquinoline 5/1 anchor used half this loading.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "e47aebe2660b9e1528de",
+      "reason": "Quinoline at 10/1 and 54.65 mg, predicted 41.57/87.15 mL, halves the loading of 9cd02352c2ed7a3e2321, measured at 45.80/93.07 mL. This tests whether the newly learned solvent response also captures loading effects in a basic aromatic scaffold.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "0f06772820e6693753e3",
+      "reason": "2-Phenylpyridine at 50/1 and 162.9 mg, predicted 46.01/90.59 mL, increases loading relative to 449b809e4efaaf2af86a at 108.6 mg, measured at 54.59/103.99 mL. It tests loading transfer at the weak-eluent boundary that recently exposed underprediction.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "4c3dce39521dcb1793a1",
+      "reason": "Ortho-methylbenzonitrile at 20/1 and 49.45 mg, predicted 9.62/21.24 mL, connects the same-condition 10/1 anchor 8c4e370263f89adb3bc6 with the selected 50/1 point. This tests whether the repaired dimethylbenzonitrile slope transfers across methyl placement.",
+      "hypothesis_id": "H9"
+    },
+    {
+      "id": "c698067a7f9c576a34a2",
+      "reason": "The matched ortho-methylbenzonitrile 50/1 point is predicted at 14.28/31.72 mL. Together with its selected 20/1 point and measured 10/1 anchor 8c4e370263f89adb3bc6, it distinguishes genuine weak-eluent growth from the excessive neutral-nitrile extrapolation observed in b51a88b6dc4049704214.",
+      "hypothesis_id": "H9"
+    },
+    {
+      "id": "539544adb51a91c9a465",
+      "reason": "Ortho-fluorobenzonitrile at 20/1 and 111.6 mg, predicted 8.69/20.81 mL, anchors a matched weak-eluent pair beyond its pure-EA observation 0be315008cf0a051a356. Fluorine substitution tests transfer beyond the methylated nitrile that exposed the previous extrapolation artifact.",
+      "hypothesis_id": "H9"
+    },
+    {
+      "id": "4e417c41d918e49abba1",
+      "reason": "Ortho-fluorobenzonitrile at 50/1 matches its selected 20/1 partner and is predicted at 13.07/30.45 mL. The pair tests neutral-nitrile curvature against the measured dimethyl curve and bromobenzonitrile boundary 96e2b82e29c0b5205628, retaining their loading differences.",
+      "hypothesis_id": "H9"
+    },
+    {
+      "id": "9c9d41f1f5f006de9819",
+      "reason": "Ortho-bromobenzonitrile at 10/1 and 50 mg, predicted 7.07/15.91 mL, precedes the identical-loading 50/1 observation 96e2b82e29c0b5205628 at 23.02/35.64 mL. It locates that response increase and checks that correcting dimethylbenzonitrile does not flatten every neutral nitrile.",
+      "hypothesis_id": "H9"
+    },
+    {
+      "id": "00043aebb2540e369a7b",
+      "reason": "m125 at 1/1, 50 mg and 300 uL DCM is predicted at 7.52/23.48 mL. It supplies the lower-load member of a new volume pair after 03744855d469f4cca7e6 confirmed approximately 20 mL completion at 150 mg in 300 uL.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "f4fb5c03b8e8996e75f6",
+      "reason": "m125 at 1/1, 50 mg and 500 uL DCM changes only injection volume from its selected partner; prediction is 7.52/23.49 mL. Nearly identical predictions contrast with measured volume effects at 100 and 150 mg in dbb94bf062fc0e640258 and 9bd998a328b109ef639e. This tests transfer to lower loading.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "549daca56bed1c9d2bcc",
+      "reason": "m125 at 5/1, 150 mg and 300 uL DCM, predicted 27.79/57.58 mL, extends the fixed-volume loading series containing 780b13846ace50ede763 and 74cf50c6ec476a394b01. It tests whether the onset advance implied by this prediction is real at the solvent strength where the low-load volume contrast was small.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "b1801204c2c4a34a9278",
+      "reason": "m117 at 50/1 and 60.715 mg, predicted 35.41/78.70 mL, halves the loading of d9c8c8af50a10bf07765, measured at 23.13/51.62 mL. The current prediction extrapolates substantially later endpoints; this tests whether loading explains that difference or the unusual 10/1 record is distorting transfer.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "id": "fe1a34b5975943e8f292",
+      "reason": "m117 at 50/1 and 182.145 mg, predicted 35.40/78.73 mL, completes a three-load comparison with the selected low-load row and d9c8c8af50a10bf07765. Predictions barely distinguish the two new loads. The labels can separate a loading relationship from an erroneous scaffold-wide weak-eluent correction.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "id": "5f1ae4e354b8b36ec691",
+      "reason": "Bromosalicylaldehyde m186 at 20/1 and 100 mg, predicted 18.70/39.84 mL, connects strong-eluent records with identical-condition 50/1 observation 2efa93ea474f798b712a at 5.07/25.81 mL. It tests whether the model's late-onset transfer already fails at an intermediate ratio.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "id": "d1774335b45258bc173a",
+      "reason": "The other bromosalicylaldehyde m190 at 20/1 and 173.7 mg, predicted 17.79/37.51 mL, anchors a matched weak-eluent pair beyond 03e8372f11ac433be4fa at 1/1. Comparison with m186 tests transfer across bromine placement while retaining their different mass and DCM injection volume.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "id": "7d9c7f40bc71ee7c4ef0",
+      "reason": "m190 at 50/1 matches its selected 20/1 partner and is predicted at 21.19/46.61 mL. This tests whether m186's relatively early 50/1 onset in 2efa93ea474f798b712a generalizes to a related ortho-hydroxyaldehyde or requires a more specific structural and loading interaction.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "id": "668279c54bbf75e86496",
+      "reason": "Cyclopropyl beta-ketoester m94 at 10/1 and 117.4 mg, predicted 25.90/56.87 mL, fills the fixed-condition gap between a1809a6c4c3ada20bcb0 at 5/1 and e3a799d0fa90b649a157 at 20/1. Their measured completion rose from 26.02 to 79.67 mL; this directly constrains transition curvature.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "ffc70e28db22d1cc1f3f",
+      "reason": "m94 at 20/1 and 58.7 mg, predicted 37.81/84.12 mL, halves the loading of e3a799d0fa90b649a157. The same family has a modest measured loading contrast at 5/1. This tests whether onset sensitivity increases in its retained 20/1 region, as seen for other beta-ketoesters.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "41f57dc6d50ee162801a",
+      "reason": "Methyl acetoacetate at 10/1 and 53.8 mg, predicted 16.86/38.67 mL, is the low-load member of a matched pair around 45e24a16b44a89653e4b at 107.6 mg. Its measured 20/1 loading response in f402144b8672dd5ab2ab and d448d8de2d8dacec62c3 motivates testing solvent dependence.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "35944fdd59ac331c3fcb",
+      "reason": "Methyl acetoacetate at 10/1 and 161.4 mg triples its selected partner's loading; prediction remains 16.85/38.69 mL. The matched pair tests whether the approximately 7 mL onset advance measured at 20/1 contracts at 10/1 while completion remains less sensitive.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "5ba8cead5a790ba93029",
+      "reason": "Dibenzoylmethane at 50/1 and 80 mg, predicted 11.33/30.26 mL, extends identical-condition observations 4c7a167609de5f3e01c2 and 07a069e105eb7739bf7e at 10/1 and 20/1. It tests modest beta-diketone growth against the very late separated-diketone result 0c5c35afb3a24375c153.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "1c12f9e9a5043e6d32cc",
+      "reason": "Phenyl-CF3 beta-diketone m167 at 20/1 and 100 mg, predicted 10.01/20.44 mL, anchors a matched comparison with its selected 50/1 row and the naphthyl analogue. Observation ddf2f769007f3d9f75fd provides 20/1 context at 150 mg, so this also tests loading transfer.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "4df3d7b92b603fe8522f",
+      "reason": "m167 at 50/1 and 100 mg is predicted at 14.93/29.44 mL. Its matched 20/1 partner tests whether a CF3 beta-diketone retains the relatively modest response found for benzoylacetone in fa851bcd2cdb1d84b91f, rather than inheriting the steep curves of other carbonyl topologies.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "80de1b57c56257d2ecae",
+      "reason": "Naphthyl-CF3 beta-diketone m166 at 20/1 and 100 mg, predicted 12.12/32.08 mL, anchors a same-mass, same-injection comparison with m167. The 10/1 records ea9ef1bc8766196ca96d and 20acd2ae49790ab82053 give loading-dependent context; the aromatic extension's weak-eluent effect remains unmeasured.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "483022b02f8329c323ac",
+      "reason": "m166 at 50/1 and 100 mg, predicted 24.05/53.51 mL, completes its matched curve. The model predicts substantially greater growth than for m167 under otherwise matched conditions. Measuring both curves tests whether aromatic extension supports this difference or produces another carbonyl-family transfer error.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "95e11ec70cd7b493e3f8",
+      "reason": "Benzoylacetone at 20/1 and 100 mg, predicted 16.29/35.78 mL, precedes same-load 50/1 observation fa851bcd2cdb1d84b91f at 15.40/34.50 mL. It distinguishes a genuinely flat local response from excessive intermediate-ratio prediction without confounding the comparison with c692f211a6366b2f15c2's 150 mg loading.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "cdd3b7758b3405a7b53f",
+      "reason": "Previously unmeasured 3-phenylpropanal at 10/1 and 101.9 mg, predicted 8.24/17.51 mL, anchors a matched solvent pair. Its nonconjugated aldehyde environment tests structural transfer beyond aromatic aldehydes such as m145, whose weak-eluent observations 5070bf9690131f519648 and abb2d31b1372dbd64398 were modest.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "cf5c7a2e1940e3c09dd5",
+      "reason": "3-Phenylpropanal at 50/1 matches its selected 10/1 partner and is predicted at 13.68/28.10 mL. The pair teaches a response curve for a new nonconjugated carbonyl environment and provides a simpler structural comparison for the selected methylenedioxyaryl aldehyde m59.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "f5d802ca42b1a7226fc0",
+      "reason": "Nonconjugated methylenedioxyaryl aldehyde m59 at 20/1 and 116.2 mg, predicted 16.89/38.17 mL, anchors a matched weak-eluent pair. Its measured 5/1 record 6209df8dd01072ab8a47 was 8.53/14.31 mL at half loading. This tests whether the predicted late transition is supported.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "85591a54c419ed02c5f5",
+      "reason": "m59 at 50/1 matches its selected 20/1 partner and is predicted at 25.73/56.69 mL. Comparison with the new 3-phenylpropanal pair tests transfer across ether substitution and side-chain environment. The steep measured ether-ketone curve in b1c5816f929ef59f5a87 is context, not evidence that this aldehyde shares it.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "c53b8c93f8ee1304dfd0",
+      "reason": "Para-fluoroacetophenone at 50/1 and 114.3 mg, predicted 21.49/45.00 mL, extends same-load 20/1 observation 122ecf89b68742b1bf36 at 14.52/32.08 mL. It tests halogen-dependent weak-eluent growth beside para-bromoacetophenone 605436d35600502e8c2e, retaining their different loading solvents and masses.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "a6f8e492c9e561c79cbd",
+      "reason": "Ortho-bromoacetophenone at 50/1 and 147.6 mg, predicted 11.76/28.01 mL, extends its same-load 5/1 anchor bfabf8894907ce140562. The predicted completion is much earlier than para-bromoacetophenone's measured 51.05 mL in 605436d35600502e8c2e. This tests positional transfer while retaining the mass difference.",
+      "hypothesis_id": "H3"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H2",
+      "content": "Higher loading often advances onset more than completion, but the magnitude depends on scaffold and solvent strength. The new tert-butyl acetoacetate pair supports this pattern; the much smaller cyano-benzophenone contrast weakens any expectation of a common quantitative loading effect. Irregular nitrobenzophenone records remain a boundary to smooth loading interpretations.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "327064e6ca2c38d79d76",
+        "0af9d219be9872711215",
+        "f402144b8672dd5ab2ab",
+        "d448d8de2d8dacec62c3",
+        "2b97a1e0a6a4b944b760",
+        "61771d230b285babe4b6",
+        "eb3bc3fba39e57adbc2f",
+        "1395836aef00d6a880b0"
+      ],
+      "contradicting_observed_ids": [
+        "4862e2fb71344ce16021",
+        "aa43fe84c0d8c825fe58"
+      ],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Candidate predictions remain nearly loading-insensitive. Contrasts at different solvent strengths can teach endpoint-specific loading interactions without applying a universal mass correction.",
+      "next_discriminating_question": "Does methyl acetoacetate's onset-dominant response contract at 10/1, and does cyclopropyl beta-ketoester show greater loading sensitivity in its retained 20/1 region?"
+    },
+    {
+      "id": "H3",
+      "content": "Carbonyl-family solvent curves depend strongly on connectivity, substitution and recorded loading conditions. Recent benzoylacetate, benzoylacetone and meta-bromopropiophenone outcomes weaken a shared late-completion correction, while cyclopropyl beta-ketoester and the separated aromatic diketone support steep responses in other environments. Specific adsorption, tautomeric or steric explanations remain chemical priors.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "57646b9484b03f4076bb",
+        "7e0c856a121512a6f891",
+        "fa851bcd2cdb1d84b91f",
+        "05c8e4d5f25c1295f231",
+        "605436d35600502e8c2e",
+        "a1809a6c4c3ada20bcb0",
+        "e3a799d0fa90b649a157",
+        "0c5c35afb3a24375c153"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Learning these structural distinctions can prevent corrections for retained carbonyls from spreading to rapidly eluting relatives. Matched CF3-diketone curves, intermediate anchors and a new nonconjugated aldehyde pair test relationships that recur across catalog rows.",
+      "next_discriminating_question": "Which weak-eluent response features transfer between phenyl and naphthyl CF3 beta-diketones, and between conjugated carbonyls, nonconjugated aldehydes and ortho-substituted aryl ketones?"
+    },
+    {
+      "id": "H5",
+      "content": "Basic aromatic nitrogen can support steep solvent-dependent retention, but its response and loading sensitivity depend on the surrounding structure. New quinoline and phenylpyridine failures support this concern beyond lutidine; the smaller methylquinoline 2/1 overprediction argues against a single correction across ratios and bases.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "51f4126a3aadb3239225",
+        "6f548d72f01fc85debdc",
+        "9cd02352c2ed7a3e2321",
+        "449b809e4efaaf2af86a",
+        "04a2e8ad27ca641a3a12",
+        "2745c6978a8911fc3dda"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "These labels can refine structure-by-solvent and structure-by-loading interactions while keeping basic ring nitrogen distinct from neutral nitriles and other nitrogen environments.",
+      "next_discriminating_question": "Does methylquinoline reproduce quinoline's 10/1 growth, and how much do quinoline and phenylpyridine endpoints move with loading at their retained conditions?"
+    },
+    {
+      "id": "H7",
+      "content": "For m125, larger recorded DCM injection volume is associated with later completion at pure EA, 1/1 and 2/1. The completed 1/1 comparison supports this at both 100 and 150 mg. The small low-load 5/1 volume contrast limits a universal volume-only interpretation; transfer to lower loading and the 5/1 loading response remain unresolved.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "03744855d469f4cca7e6",
+        "4c32851430464f0ed684",
+        "dbb94bf062fc0e640258",
+        "9bd998a328b109ef639e",
+        "c8d43713db33bf820a1d",
+        "69b09343d0b9995c3ae4",
+        "e7ed7ca4a53258b73ba2",
+        "dd4f07e349873053fd73"
+      ],
+      "contradicting_observed_ids": [
+        "780b13846ace50ede763",
+        "761c3f82d640da44966c"
+      ],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Current matched-volume predictions are essentially identical despite repeated measured differences. A lower-load pair and a 5/1 loading extension test when recorded injection volume and mass need separate endpoint effects.",
+      "next_discriminating_question": "Does the 1/1 completion difference persist at 50 mg, and does the 150 mg/300 uL result at 5/1 support the model's predicted onset advance?"
+    },
+    {
+      "id": "H9",
+      "content": "The previous large 10/1-to-50/1 prediction increase for 3,5-dimethylbenzonitrile was an extrapolation artifact under the measured 150 mg conditions. Completion increased only from 11.01 to 13.36 to 19.12 mL. This finding constrains that curve but does not establish uniformly flat responses for other neutral aromatic nitriles.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "de3442604a546992b1e1",
+        "65d07ddf4c4bdb3cf60b",
+        "b51a88b6dc4049704214"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The largest latest historical error exposed incorrect structure-condition transfer rather than missing late retention. Related neutral-nitrile curves test the scope of the correction and help distinguish nitrile nitrogen from basic ring nitrogen.",
+      "next_discriminating_question": "Do ortho-methyl and ortho-fluoro nitriles follow modest weak-eluent curves, and where does bromobenzonitrile's measured 50/1 increase begin?"
+    },
+    {
+      "id": "H10",
+      "content": "New m117 20/1 and 50/1 labels show earlier onset than its acquisition predictions and moderate completion growth, while its unusual 10/1 onset remains incompatible with those adjacent points. Together with bromosalicylaldehyde m186, these observations suggest that some ortho-hydroxyaldehydes elute earlier than transfer from retained methoxy-carbonyl scaffolds implies. Extension across loading and bromine placement remains untested.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "72231b208c5287c32d70",
+        "d9c8c8af50a10bf07765",
+        "2efa93ea474f798b712a",
+        "619663c2b3ffb3a6c497",
+        "f6b05afc9acf85dffb0f"
+      ],
+      "contradicting_observed_ids": [
+        "a7bc3fb68bdecbbe086f"
+      ],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Current predictions for other m117 loads still imply substantially later endpoints. Loading contrasts and a related positional pair can determine whether this is real condition dependence or overly broad transfer. Intramolecular hydrogen bonding is a possible prior, not a measured mechanism.",
+      "next_discriminating_question": "Do m117's other 50/1 loads reproduce moderate completion, and does the second bromosalicylaldehyde share m186's early weak-eluent onset?"
+    }
+  ],
+  "feedback_interpretation": "The latest results change the balance between repairing underprediction and checking overtransfer. The dimethylbenzonitrile curve decisively supports the former extrapolation-artifact concern: measured V2 values at 10/1, 20/1 and 50/1 were 11.01, 13.36 and 19.12 mL, with a historical 50/1 V2 overprediction of 74.76 mL. Current predictions are much more modest, so I test related neutral nitriles instead of repeatedly acquiring this same repaired boundary. Conversely, quinoline at 10/1 and phenylpyridine at 50/1 exposed historical completion underpredictions of 26.58 and 33.30 mL. Lutidine's intermediate labels clarify its steep response, while methylquinoline's 2/1 result cautions against a shared correction for all bases. Loading evidence remains conditional: tripling tert-butyl acetoacetate loading at 20/1 advanced onset by 5.64 mL with a completion change of only -0.81 mL, whereas increasing cyano-benzophenone loading from 100 to 150 mg at 50/1 advanced onset by only 1.41 mL. I therefore test loading by scaffold and solvent strength. The m125 missing corner reproduced the volume relationship: at 150 mg and 1/1, completion was 20.23 mL in 300 uL DCM versus 39.38 mL in 500 uL. The pure-EA pair also differed, 11.22 versus 22.11 mL, rejecting the tentative expectation that the effect might disappear there. The small 5/1 low-load volume contrast still prevents a universal correction. Benzoylacetate, benzoylacetone and meta-bromopropiophenone completed substantially earlier than their acquisition predictions, weakening broad late-carbonyl transfer. Finally, m117's 20/1 and 50/1 onsets were 13.48 and 23.13 mL, below its unusual 10/1 onset of 33.58 mL. I retain that inconsistency without interpreting reversed endpoints as a physical negative elution interval. All quoted acquisition errors are historical, not current-model residuals.",
+  "batch_rationale": "The batch obtains information principally from relationships. Basic aromatic nitrogen and neutral nitriles test opposite recent transfer failures, with matched curves or measured-condition anchors that prevent a single nitrogen correction. Carbonyl experiments compare modest and steep responses across beta-diketone topology, CF3 substitution, aromatic extension, carbonyl conjugation and aryl substitution. The new 3-phenylpropanal pair supplies useful structural exploration alongside the less-resolved m59 curve. Phenolic aldehydes test whether earlier measured elution generalizes across loading and substitution around an anomalous record. The m125 volume pair and beta-ketoester loading contrasts target endpoint-specific condition effects that predictions currently suppress; the m125 5/1 extension tests the boundary of that interpretation. Across the supplied pool, additional acceptor-free aromatic and halogen-only rows generally offered less direct discrimination than these linked structure-condition questions, although their predictions were considered. The selected experiments may improve overall Row accuracy by teaching where response features transfer and where they should remain scaffold-specific. Each selected tuple is distinct, and no pending or measured ID is selected. Quantile spans and CW distances informed attention without being treated as calibrated epistemic uncertainty or an acquisition formula. V2 minus V1 remains the elution interval width. Cross-molecule comparisons retain mass, loading-solvent and injection-volume differences, and the absent experimental variables limit causal interpretation."
+}

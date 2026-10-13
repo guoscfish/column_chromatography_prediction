@@ -1,0 +1,163 @@
+{
+  "type": "selection",
+  "packet_sha256": "455aae8e2aa81cb439fe34d57379b632deea5f65b23d83e01f0479a0e6da14c2",
+  "batch_strategy": "Select 16 supplements that test specific endpoint failures, remove loading confounds from apparent solvent-response reversals, and fill informative response segments across carbonyls, esters, alcohols, and amines. Use the pending 16 as complementary coverage. Prioritize discriminating comparisons over repeated sampling of already resolved segments or isolated retention extremes.",
+  "choices": [
+    {
+      "id": "2bd4f8787a951ef0ee04",
+      "reason": "Measure m194 at 2/1, 50 uL, predicted 6.08/28.07 mL. Its new 5/1, 50-uL label c393010c592b487413e2 is 9.02/21.52, while 2/1 at 150 uL gave 4.63/28.18 in 2bb48a2862bf80c30a36. This removes the loading confound from an apparent completion decrease in weaker eluent and tests whether the broad 2/1 interval persists at lower loading.",
+      "hypothesis_id": "H14"
+    },
+    {
+      "id": "cfc3cd7290e349d095d4",
+      "reason": "Measure para-methoxyacetophenone m115 at 5/1, 100 uL, predicted 11.73/26.97 mL. Recent CW observation 9aaa9e876dd61f679e7d at 5/1, 150 uL is 11.13/26.76, exceeding the 10/1, 100-uL label 5f2fc9606fb31b009ccc of 7.60/20.15. A matched-loading comparison determines whether the apparent reversal survives removal of that confound and complements the ortho-isomer measurements.",
+      "hypothesis_id": "H14"
+    },
+    {
+      "id": "a3ae677aae8a8faf5786",
+      "reason": "Measure m127 at 50/1, 100 uL, predicted 6.85/23.70 mL. The 50- and 150-uL observations 52b9af4df1f1e7cd4d9b and c82167c626a1495ef750 have nearly identical completion, 23.65 and 23.71, but onsets of 11.65 and 1.01. The middle loading tests whether onset interpolates between them or the records reflect an irregular response, without assuming a causal loading law.",
+      "hypothesis_id": "H18"
+    },
+    {
+      "id": "dc68091ba8b0648c216f",
+      "reason": "Measure aryl boronate m62 at 5/1, 50 uL, predicted 14.44/12.76 mL, an invalid endpoint ordering. Recent CW observation d1d265fffbf8e2ffc35e at 150 uL has the unusually narrow but valid interval 13.44/13.47. Lower loading tests whether this near-coincident endpoint regime persists and supplies a valid target where extrapolation currently crosses the endpoints.",
+      "hypothesis_id": "H15"
+    },
+    {
+      "id": "5265c3d2f02abb35e86e",
+      "reason": "Measure dodecyl acrylate m18 at 1/1, 50 uL, predicted 9.01/5.27 mL. This substantial inversion contrasts with the valid matched-loading 5/1 label 31d68872f0906ed4c5b1, 6.18/7.46. The label tests a strong-eluent failure in a hydrophobic ester and can constrain onset and completion without relying on a large-retention acquisition.",
+      "hypothesis_id": "H15"
+    },
+    {
+      "id": "80de1b57c56257d2ecae",
+      "reason": "Measure fluorinated naphthyl beta-diketone m166 at 20/1, 100 uL, predicted 4.89/27.13 mL. Measured 10/1 completion differs between 50 and 150 uL, 20.38 versus 28.52 (ea9ef1bc8766196ca96d, 20acd2ae49790ab82053), while 50/1 at 50 uL finishes at 26.79 (e9a7d193dc3d83532c1f). This missing weak-eluent segment tests the predicted plateau and complements pending phenyl analogue m167 at 50/1; loading remains a covariate.",
+      "hypothesis_id": "H16"
+    },
+    {
+      "id": "66da447ca0fe7160cc1c",
+      "reason": "Measure methyl benzoylformate m92 at 20/1, 50 uL, predicted 6.64/20.76 mL. At 150 uL, measured completion falls from 29.54 at 10/1 to 21.38 at 20/1 (ad0ace61c29817c678c2, e9dc948c0e68a88eb621). Its 1/1 EA-loaded records also vary substantially with loading (00a89de0e6cc7377a84b, e93e08d6bc42e91e2679). This tests transfer of the low 20/1 endpoints to a lower load rather than assuming a load-independent reversal.",
+      "hypothesis_id": "H14"
+    },
+    {
+      "id": "db2709229820b71e283b",
+      "reason": "Measure ethyl benzoylacetate m81 at 20/1, 100 uL, predicted 4.25/15.09 mL. The matched-loading 50/1 observation 57646b9484b03f4076bb is only 5.38/17.86, and the 5/1, 150-uL observation 5879dc8ccb560446d54c is 4.40/20.27. The missing segment tests the predicted completion minimum and provides a shallow aromatic beta-ketoester contrast to the steep aliphatic responses.",
+      "hypothesis_id": "H16"
+    },
+    {
+      "id": "9a60cb4735780275034e",
+      "reason": "Measure diethylaminoethyl acrylate m19 at 1/1, 100 uL, predicted 9.47/16.14 mL. Its measured 2/1 label 304fb0fdb486ae4b7a07 is 16.43/32.81 and was substantially underpredicted at acquisition. This locates the strong-eluent transition of a tertiary amine/ester and extends coverage beyond the pyridine-containing compounds already represented in pending experiments. Silica interactions with the amine are a prior, not an established explanation.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "8730f48ba29fd2e622ac",
+      "reason": "Measure ether-containing aryl ketone m106 at 2/1, 100 uL, predicted 5.83/15.04 mL. Matched observations give 6.22/10.54 at 1/1 (ed763ea5943e63a671c9), 20.86/42.52 at 10/1 (7155ede91e7e3232862a), and 41.72/79.81 at 20/1 (b1c5816f929ef59f5a87). This fills the onset of a steep response and tests whether the ether-bearing side chain is represented adequately before weak-eluent retention rises.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "cf8ab33c25ad391a584c",
+      "reason": "Measure methylthiobenzaldehyde m129 at 5/1, 100 uL, predicted 11.20/25.52 mL. Matched 1/1, 10/1, and 50/1 observations are 5.87/10.46, 10.18/24.26, and 38.40/63.22 (b0571346163b8f77528d, 4c46ceefd6147b1e0a7a, d54c93a11164b4abac6e). The 10/1 result previously rejected a much larger prediction. This tests whether the current slight 5/1 maximum is real and constrains the response before its weak-eluent rise.",
+      "hypothesis_id": "H14"
+    },
+    {
+      "id": "cf5c7a2e1940e3c09dd5",
+      "reason": "Measure hydrocinnamaldehyde m183 at 50/1, 100 uL, predicted 25.30/41.43 mL. Its 20/1, 50-uL observation d04db9386313746ba5e3 is 19.42/28.97, leaving the weak-eluent extension unmeasured. This tests whether a nonconjugated aldehyde continues to increase in both endpoints, contrasting with the shallow or reversing aromatic carbonyl curves. The high CW distance supports this missing-segment exploration, but does not establish prediction error.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "b4351e5f05f6d477a6c0",
+      "reason": "Measure phenoxyethyl acrylate m21 at 50/1, 50 uL, predicted 33.45/46.50 mL. The repaired 10/1 label 487606cee9b08ded91f3 is 7.17/11.35 at the same loading; 20/1 at 150 uL gives 17.43/19.28 (6c99a9b10569a54b715f). This tests a predicted sharp rise and interval widening beyond the short-interval region, rather than assuming that correcting one inversion has fixed the whole solvent curve.",
+      "hypothesis_id": "H15"
+    },
+    {
+      "id": "85924bdd0693438dc23a",
+      "reason": "Measure ethyl meta-aminobenzoate m88 at 5/1, 100 uL, predicted 21.24/41.60 mL. Its matched 2/1 observation ca6feb29f6758377a65f is 11.89/21.50; para-isomer m86 at 5/1, 150 uL gives 26.80/57.07 (9bc73e0c27d4d6b44abb), while ortho-isomer m89 has much shallower measured 5/1 retention (18186b5d6cc190fc07a3). This tests positional-environment transfer among amino esters, with loading and loading-solvent differences retained as covariates.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "e55c8ef232b46d3a1ca9",
+      "reason": "Measure methoxysalicylaldehyde m117 at 1/1, 150 uL, predicted 6.07/17.25 mL. Together with pending 0/1 at identical loading, this tests the predicted strong-eluent completion decrease. The new 2/1, 100-uL label 5079d0dfcde65893b224 is 4.88/15.80 and rejected the previous predicted 2/1 maximum. This comparison distinguishes a remaining pure-EA feature from the disproved intermediate peak without relying on its anomalous 10/1 record.",
+      "hypothesis_id": "H14"
+    },
+    {
+      "id": "22f4e0f26e7ff02e1054",
+      "reason": "Measure para-methylbenzyl alcohol m135 at 2/1, 100 uL, predicted 12.61/16.90 mL. Measured 5/1 at 50 uL is 24.27/34.31 (a5446977630484ca5fe1), and 10/1 at 100 uL is 39.39/66.36 (75232f4ee5de52a0499e). This tests the predicted narrow strong-eluent interval before the steep alcohol response and adds a useful hydroxyl-containing comparison to m119's measured 2/1 result a775926fce57b3bf9ec1, without assuming that hydroxyl count alone determines retention.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H14",
+      "content": "Solvent-response reversals must be tested locally and separately for onset and completion. The previously predicted 2/1 maxima in substituted salicylaldehydes were not supported, whereas some measured carbonyl and ester curves still contain apparent decreases that require matched-loading comparisons.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "5079d0dfcde65893b224",
+        "b73454f4c6942f4deb70",
+        "4a54ee0e355066ed7429",
+        "c393010c592b487413e2",
+        "2bb48a2862bf80c30a36",
+        "9aaa9e876dd61f679e7d",
+        "5f2fc9606fb31b009ccc",
+        "e9dc948c0e68a88eb621",
+        "ad0ace61c29817c678c2"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched comparisons can distinguish genuine recorded response shape from loading-confounded differences and prevent an isolated large label from distorting an entire solvent curve.",
+      "next_discriminating_question": "Do m194 and m115 retain their apparent completion decreases at matched loading, and does m117 have a pure-EA feature even though its predicted 2/1 maximum failed?"
+    },
+    {
+      "id": "H15",
+      "content": "Endpoint crossings identify concrete local prediction failures, but the correct repair may involve onset, completion, or both. Short measured intervals can also make nearby loading extrapolation especially fragile.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "c4c961533c50b899078c",
+        "487606cee9b08ded91f3",
+        "ad383ab38ce1ef78a5ae",
+        "d1d265fffbf8e2ffc35e",
+        "31d68872f0906ed4c5b1"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "New labels at current crossings and at a connected weak-eluent extension can constrain the joint endpoint relationship across common low-volume ester and boronate rows.",
+      "next_discriminating_question": "What valid intervals replace the m62 5/1 and m18 1/1 crossings, and does m21 develop its predicted broad interval at 50/1?"
+    },
+    {
+      "id": "H16",
+      "content": "Multiple-carbonyl compounds have structure-dependent solvent responses: aliphatic beta-ketoesters can rise steeply, while aromatic beta-ketoesters and fluorinated beta-diketones can show shallow or nonmonotonic recorded completion. Loading may affect the two endpoints differently.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "327064e6ca2c38d79d76",
+        "1a55639d058c08a1a06e",
+        "f402144b8672dd5ab2ab",
+        "d448d8de2d8dacec62c3",
+        "57646b9484b03f4076bb",
+        "ea9ef1bc8766196ca96d",
+        "20acd2ae49790ab82053",
+        "e9a7d193dc3d83532c1f"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The opposite completion errors for recent m25 and m95 measurements argue against a common correction based on carbonyl count. Missing segments in m81 and m166 test transfer to different structural environments.",
+      "next_discriminating_question": "Are the predicted m81 completion minimum and m166 weak-eluent plateau supported by new measurements, and how do they compare with pending m167?"
+    },
+    {
+      "id": "H18",
+      "content": "For m127 at 50/1, recorded loading variation is strongly endpoint-specific: onset changes substantially between 50 and 150 uL while completion is nearly unchanged. Whether the intermediate load follows a smooth trend is unresolved.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "52b9af4df1f1e7cd4d9b",
+        "c82167c626a1495ef750"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A middle loading label can distinguish smooth endpoint-specific dependence from irregular records and reduce erroneous coupling of onset and completion in the loading feature.",
+      "next_discriminating_question": "At 100 uL, is onset intermediate between 11.65 and 1.01 mL while completion remains near 23.7 mL?"
+    }
+  ],
+  "feedback_interpretation": "The latest m177 10/1, 100-uL result is 5.20/20.70 mL, with acquisition-time completion overprediction of 25.55 mL. Together with its short 100-uL 50/1 interval, this strengthens the evidence for irregular recorded loading/solvent behavior and further weakens smooth interpolation. I do not spend another slot on its remaining strong-eluent candidates because they do not directly resolve the disputed weak-eluent region. m127's matched 150-uL 50/1 result confirms lower completion than at 20/1, but its onset of 1.01 mL reveals a separate loading-dependent discrepancy, motivating the middle load. Ethyl nicotinate's third loading point continues the onset decrease but completion rebounds, weakening a joint monotonic loading law; no further immediate loading replication is selected there. The m117, m190, and CW m186 2/1 outcomes reject the predicted intermediate maxima, and ethyl cinnamate's 1/1 completion was also overestimated. I therefore retain only specific, testable reversal questions. m169 and nitroacetophenone m37 were accurate at their newly measured segments, reducing immediate follow-up value. The m25 and m95 completion errors had opposite signs, supporting structural rather than universal tail corrections. The m21 and m52 inversion tests produced valid measured intervals with different endpoint error patterns; current m62 and m18 crossings warrant analogous repair. Recent CW results also include an underestimated m115 5/1 interval and an unusually short m62 interval, which directly motivate selections. Historical errors are acquisition-time errors, not current residuals. I also correct the prior narrative: observed ID 7e981ba02c83f74f5e65 belongs to m71 at 50/1, not an m52 1/1 anchor.",
+  "batch_rationale": "The 16 choices complement the pending 16 through controlled comparisons and missing response segments. m194 and m115 remove loading confounds; m127 tests a newly exposed onset/completion difference across loading; and m117 forms a matched strong-eluent pair with a pending experiment. m62 and m18 target current invalid endpoint ordering, while m21 tests whether repair extends along the solvent curve. m81, m92, and m166 probe distinct multiple-carbonyl environments rather than repeatedly sampling the already characterized aliphatic beta-ketoesters. m19, m88, m106, m129, m183, and m135 extend chemically connected but incompletely measured response regions. This spans both modest and larger volumes and tests relationships that may transfer across many rows. Low CW distance does not disqualify a controlled comparison, and high distance is only supporting evidence for exploration. Quantile outputs include crossings and are not treated as calibrated epistemic uncertainty; V2 minus V1 remains the elution interval width. Unrecorded experimental variation limits mechanistic conclusions. All choices use supplied candidate IDs, avoid pending IDs and duplicate condition selections within this supplement, and retain the supplied premeasurement predictions without using any new labels."
+}

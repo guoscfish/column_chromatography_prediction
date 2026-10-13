@@ -31,7 +31,7 @@ STUDY = ARCHIVE_STUDY / "revisions" / DEFAULT_REVISION
 SEEDS = scientist.SEEDS
 METHODS = (METHOD,)
 CONTROLS = scientist.CONTROLS
-BUDGETS = scientist.BUDGETS
+BUDGETS = tuple(range(333, 622, 32))
 
 
 def configure_revision(revision=None):
@@ -49,6 +49,45 @@ def code_hashes():
     return {str(p.relative_to(ROOT)): sha256_file(p) for p in sorted(paths)}
 
 
+def control_reuse():
+    reuse = scientist.control_reuse()
+    base = ROOT / "studies/active_learning"
+    for seed in SEEDS:
+        initial = next(e for e in reuse["entries"] if e["seed"] == seed and e["budget"] == 333)
+        initial_audit = read((ROOT / initial["checkpoint_path"]).parent / "fit_audit.json")
+        for r, budget in enumerate(BUDGETS):
+            if budget <= scientist.BUDGETS[-1]:
+                continue
+            for method, name, folder, freeze_name in (
+                ("random32", "qgeognn_v2_row_sequential_b32", "random", "contract.json"),
+                ("center_width_lcmd", "qgeognn_v2_row_cw_lcmd_to_653", "center_width_lcmd", "round_freeze.json")):
+                directory = base / name / f"runtime/seed_{seed}/{folder}/round_{r:02d}"
+                frozen = read(directory / freeze_name)
+                checkpoint = Path(frozen["checkpoint_path"]) if "checkpoint_path" in frozen else directory / "model/best.pt"
+                prediction = Path(frozen["prediction_path"]) if "prediction_path" in frozen else directory / "model/predictions.csv.gz"
+                audit_path = checkpoint.parent / "fit_audit.json"
+                audit = read(audit_path)
+                if (audit["train_rows"] != budget or audit["initialization_hash"] != initial["initialization_hash"]
+                        or audit["validation_ids_hash"] != initial_audit["validation_ids_hash"]):
+                    raise RuntimeError("extended control budget/initialization/validation mismatch")
+                protocol_path = base / name / "protocol.json"
+                if method == "random32":
+                    if any(frozen["input"]["training_config"][k] != v for k, v in TRAINING_CONFIG.items()):
+                        raise RuntimeError("extended random training mismatch")
+                elif read(protocol_path)["training"] != TRAINING_CONFIG:
+                    raise RuntimeError("extended CW training mismatch")
+                for kind, path in (("checkpoint", checkpoint), ("prediction", prediction)):
+                    if sha256_file(path) != frozen[f"{kind}_sha256"] or sha256_file(path) != audit[f"{kind}_sha256"]:
+                        raise RuntimeError("extended control artifact drift")
+                for path in (checkpoint, prediction, audit_path, directory / freeze_name, protocol_path):
+                    reuse["source_hashes"][str(path.relative_to(ROOT))] = sha256_file(path)
+                reuse["entries"].append({"seed": seed, "method": method, "budget": budget,
+                    "checkpoint_path": str(checkpoint.relative_to(ROOT)), "prediction_path": str(prediction.relative_to(ROOT)),
+                    "freeze_path": str((directory / freeze_name).relative_to(ROOT)),
+                    "initialization_hash": initial["initialization_hash"], "L333_ids_hash": initial["L333_ids_hash"]})
+    return reuse
+
+
 def prepare(config=None, inheritance=None, format_repair=None):
     config = config or settings()
     if (STUDY / "protocol.json").exists():
@@ -58,7 +97,7 @@ def prepare(config=None, inheritance=None, format_repair=None):
             raise RuntimeError("inherited trajectory cannot change after protocol freeze")
         return validate()
     STUDY.mkdir(parents=True, exist_ok=True)
-    once(STUDY / "control_reuse.json", scientist.control_reuse())
+    once(STUDY / "control_reuse.json", control_reuse())
     record = {
         "study_version": VERSION, "implementation": "full_pool_feedback_v2",
         "split": "Row", "seeds": list(SEEDS), "methods": [*CONTROLS, METHOD],
@@ -355,7 +394,7 @@ def report(seed=157, method=METHOD, rounds=2):
     """Compare completed fits at equal budgets using validation only."""
     validate()
     if rounds not in range(1, len(BUDGETS)):
-        raise ValueError("rounds must be 1..6")
+        raise ValueError(f"rounds must be 1..{len(BUDGETS)-1}")
     context = Context(seed)
     state(context, method, rounds)
     rows, sources = [], {}

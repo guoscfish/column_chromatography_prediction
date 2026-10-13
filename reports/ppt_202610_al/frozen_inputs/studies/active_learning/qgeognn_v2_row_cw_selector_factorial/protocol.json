@@ -1,0 +1,435 @@
+{
+  "seeds": [
+    157,
+    6101
+  ],
+  "budgets": [
+    333,
+    365,
+    397,
+    429,
+    461,
+    493,
+    525
+  ],
+  "new_arms": {
+    "cw_maxdet": [
+      "cw",
+      "maxdet"
+    ],
+    "cw_ivr": [
+      "cw",
+      "ivr"
+    ],
+    "whitening_lcmd": [
+      "whitening",
+      "lcmd"
+    ]
+  },
+  "maximum_new_fits": 36,
+  "source_sha256": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+  "graph_sha256": "a48f8ea1ce4f89c5a1ea6d17466e7c7ffa0439edb8ec79bd8b765bad3a97c3ee",
+  "training": {
+    "model_variant": "qgeognn_v2",
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0,
+    "batch_size": 2048,
+    "maximum_epochs": 1000,
+    "patience": 100,
+    "shuffle": "deterministic_each_epoch",
+    "loss_weights": {
+      "V1": 1.0,
+      "V2": 1.0
+    },
+    "checkpoint_selection": "validation_combined_normalized_rmse",
+    "test_during_training": false,
+    "architecture_changed": false,
+    "head_changed": false,
+    "condition_branch_changed": false
+  },
+  "contexts": {
+    "157": {
+      "split_sha256": "e1718212472ae86f5ca3f16c4d8e3905c043b06bf4830e87b5a9d0bb64577472",
+      "context_sha256": "dec8dcb1f80afc3511a2ea867fc342f5506f81902ec8425c2dc25fbc25e50757",
+      "anchor_sha256": "87e92ccdabc1dd64ecf89a3061624450ce125906c4cbb988d7263b190991b1c0",
+      "initialization_hash": "27933d44c40fa421228312c0940f971cf44564d39c1cf128e0b3b1acf85d75f6",
+      "target_scales": {
+        "V1": 6.502957820892334,
+        "V2": 13.158523559570312
+      },
+      "transforms": {
+        "raw": [
+          [
+            0.15377617809349103,
+            0.0
+          ],
+          [
+            0.0,
+            0.0759963680934926
+          ]
+        ],
+        "rotation": [
+          [
+            0.10873617831485771,
+            -0.05373754722445759
+          ],
+          [
+            0.10873617831485771,
+            0.05373754722445759
+          ]
+        ],
+        "cw": [
+          [
+            0.05193550601071049,
+            0.05193550601071049
+          ],
+          [
+            -0.12896102553234312,
+            0.12896102553234312
+          ]
+        ],
+        "whitening": [
+          [
+            0.30846146444400857,
+            -0.09741678985485874
+          ],
+          [
+            -0.19711970455729824,
+            0.15244202343943936
+          ]
+        ],
+        "matched": [
+          [
+            0.1279131641472194,
+            -0.054465267178163225
+          ],
+          [
+            -0.054465267178163225,
+            0.1279131641472194
+          ]
+        ]
+      },
+      "transform_audit": {
+        "raw": {
+          "definition": "diag(1/s_V1, 1/s_V2)",
+          "target_scales": [
+            6.502957820892334,
+            13.158523559570312
+          ],
+          "transform_matrix": [
+            [
+              0.15377617809349103,
+              0.0
+            ],
+            [
+              0.0,
+              0.0759963680934926
+            ]
+          ],
+          "target_scale_source": "L0_labels_only"
+        },
+        "cw": {
+          "definition": "[(V1+V2)/(2*s_C), (V2-V1)/s_W]",
+          "center_population_std": 9.627325088483525,
+          "width_population_std": 7.754280767170251,
+          "transform_matrix": [
+            [
+              0.05193550601071049,
+              0.05193550601071049
+            ],
+            [
+              -0.12896102553234312,
+              0.12896102553234312
+            ]
+          ],
+          "target_source": "L0_labels_only",
+          "scale_ddof": 0
+        },
+        "whitening": {
+          "definition": "Sigma_z^(-1/2) @ diag(1/s_V1, 1/s_V2)",
+          "target_scales": [
+            6.502957820892334,
+            13.158523559570312
+          ],
+          "population_covariance": [
+            [
+              1.000000078974538,
+              0.9074884252190948
+            ],
+            [
+              0.9074884252190948,
+              1.0000000334915826
+            ]
+          ],
+          "eigenvalues_before_flooring": [
+            0.09251163101396521,
+            1.9074884814521553
+          ],
+          "eigenvalues_after_flooring": [
+            0.09251163101396521,
+            1.9074884814521553
+          ],
+          "absolute_eigenvalue_floor": 1e-08,
+          "relative_eigenvalue_floor": 1e-06,
+          "applied_eigenvalue_floor": 1.0000000562330602e-06,
+          "condition_number_before_flooring": 20.618904461474774,
+          "condition_number_after_flooring": 20.618904461474774,
+          "inverse_sqrt_covariance": [
+            [
+              2.0059118926500683,
+              -1.281861124402869
+            ],
+            [
+              -1.281861124402869,
+              2.0059119568964325
+            ]
+          ],
+          "transform_matrix": [
+            [
+              0.30846146444400857,
+              -0.09741678985485874
+            ],
+            [
+              -0.19711970455729824,
+              0.15244202343943936
+            ]
+          ],
+          "target_source": "L0_labels_only",
+          "covariance_ddof": 0
+        }
+      },
+      "training_config": {
+        "model_variant": "qgeognn_v2",
+        "optimizer": "Adam",
+        "learning_rate": 0.001,
+        "weight_decay": 0.0,
+        "batch_size": 2048,
+        "maximum_epochs": 1000,
+        "patience": 100,
+        "shuffle": "deterministic_each_epoch",
+        "loss_weights": {
+          "V1": 1.0,
+          "V2": 1.0
+        },
+        "checkpoint_selection": "validation_combined_normalized_rmse",
+        "test_during_training": false,
+        "architecture_changed": false,
+        "head_changed": false,
+        "condition_branch_changed": false,
+        "seed": 3000174,
+        "outer_seed": 157,
+        "cpu_threads": 2,
+        "split_sha256": "04c95c597835cc930f318d0f05177f274aec3112212ea39ab6ab62472cab5969"
+      },
+      "sketch_seed": 4000194
+    },
+    "6101": {
+      "split_sha256": "3c8c809b2b6e63bd0b3d2f28032f0ae60adc66078fafb5e459d4d510d599e338",
+      "context_sha256": "08826d3c0e91dad858d9075d6552dc30cc2f8403be29183ef6e3312ac6110d8e",
+      "anchor_sha256": "bcfffa247c3d24c8c74993ddb66cb59741ae14b1e67e8ed9543a8d1af7c6c494",
+      "initialization_hash": "ef0ea4900be1f13286fc526f0879dd94042983508662334d8032785ced026f7d",
+      "target_scales": {
+        "V1": 5.462151050567627,
+        "V2": 12.266972541809082
+      },
+      "transforms": {
+        "raw": [
+          [
+            0.18307805674763974,
+            0.0
+          ],
+          [
+            0.0,
+            0.08151970639795075
+          ]
+        ],
+        "rotation": [
+          [
+            0.1294557354127116,
+            -0.05764313719432736
+          ],
+          [
+            0.1294557354127116,
+            0.05764313719432736
+          ]
+        ],
+        "cw": [
+          [
+            0.05938546533911119,
+            0.05938546533911119
+          ],
+          [
+            -0.11390808983778564,
+            0.11390808983778564
+          ]
+        ],
+        "whitening": [
+          [
+            0.2598441575117849,
+            -0.05443488659289203
+          ],
+          [
+            -0.1222506029162458,
+            0.11570152255662239
+          ]
+        ],
+        "matched": [
+          [
+            0.12253704800150886,
+            -0.038553317511100485
+          ],
+          [
+            -0.038553317511100485,
+            0.12253704800150886
+          ]
+        ]
+      },
+      "transform_audit": {
+        "raw": {
+          "definition": "diag(1/s_V1, 1/s_V2)",
+          "target_scales": [
+            5.462151050567627,
+            12.266972541809082
+          ],
+          "transform_matrix": [
+            [
+              0.18307805674763974,
+              0.0
+            ],
+            [
+              0.0,
+              0.08151970639795075
+            ]
+          ],
+          "target_scale_source": "L0_labels_only"
+        },
+        "cw": {
+          "definition": "[(V1+V2)/(2*s_C), (V2-V1)/s_W]",
+          "center_population_std": 8.419568612367186,
+          "width_population_std": 8.779007719505096,
+          "transform_matrix": [
+            [
+              0.05938546533911119,
+              0.05938546533911119
+            ],
+            [
+              -0.11390808983778564,
+              0.11390808983778564
+            ]
+          ],
+          "target_source": "L0_labels_only",
+          "scale_ddof": 0
+        },
+        "whitening": {
+          "definition": "Sigma_z^(-1/2) @ diag(1/s_V1, 1/s_V2)",
+          "target_scales": [
+            5.462151050567627,
+            12.266972541809082
+          ],
+          "population_covariance": [
+            [
+              0.9999996636571898,
+              0.7704218793358875
+            ],
+            [
+              0.7704218793358875,
+              1.000000399394869
+            ]
+          ],
+          "eigenvalues_before_flooring": [
+            0.22957815219005415,
+            1.7704219108620045
+          ],
+          "eigenvalues_after_flooring": [
+            0.22957815219005415,
+            1.7704219108620045
+          ],
+          "absolute_eigenvalue_floor": 1e-08,
+          "relative_eigenvalue_floor": 1e-06,
+          "applied_eigenvalue_floor": 1.0000000315260292e-06,
+          "condition_number_before_flooring": 7.711630631979201,
+          "condition_number_after_flooring": 7.711630631979201,
+          "inverse_sqrt_covariance": [
+            [
+              1.4193080379368557,
+              -0.6677512591514978
+            ],
+            [
+              -0.6677512591514978,
+              1.419307400247591
+            ]
+          ],
+          "transform_matrix": [
+            [
+              0.2598441575117849,
+              -0.05443488659289203
+            ],
+            [
+              -0.1222506029162458,
+              0.11570152255662239
+            ]
+          ],
+          "target_source": "L0_labels_only",
+          "covariance_ddof": 0
+        }
+      },
+      "training_config": {
+        "model_variant": "qgeognn_v2",
+        "optimizer": "Adam",
+        "learning_rate": 0.001,
+        "weight_decay": 0.0,
+        "batch_size": 2048,
+        "maximum_epochs": 1000,
+        "patience": 100,
+        "shuffle": "deterministic_each_epoch",
+        "loss_weights": {
+          "V1": 1.0,
+          "V2": 1.0
+        },
+        "checkpoint_selection": "validation_combined_normalized_rmse",
+        "test_during_training": false,
+        "architecture_changed": false,
+        "head_changed": false,
+        "condition_branch_changed": false,
+        "seed": 3006118,
+        "outer_seed": 6101,
+        "cpu_threads": 2,
+        "split_sha256": "36fe19ff3e173f21046ef4ec8fa3eedfbd8c98f720df23d93ee0a409e6137988"
+      },
+      "sketch_seed": 4006138
+    }
+  },
+  "production_sketch_dimension": 512,
+  "projection_seeds": [
+    17,
+    101,
+    1009
+  ],
+  "diagnostic_dimensions": [
+    256,
+    512,
+    1024
+  ],
+  "normalization": {
+    "lcmd": "none",
+    "maxdet": "current_L_RMS",
+    "ivr": "fixed_L_plus_U_RMS"
+  },
+  "primary": "validation normalized trapezoidal AULC333-525",
+  "test_barrier": "entire matrix frozen before any new test evaluation",
+  "threshold": {
+    "mean_relative_AULC_improvement": 0.02,
+    "both_seed_directions": "negative"
+  },
+  "packages": {
+    "numpy": "2.4.6",
+    "pandas": "3.0.5",
+    "torch": "2.10.0",
+    "torch-geometric": "2.7.0",
+    "rdkit": "2025.9.3",
+    "scipy": "1.17.1",
+    "scikit-learn": "1.9.0"
+  },
+  "paid_llm_calls_limit": 0
+}

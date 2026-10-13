@@ -1,0 +1,305 @@
+{
+  "type": "selection",
+  "packet_sha256": "4f85513b5515ba35d45c5665ed3cebf4f0f04be996e4d45eff54132c941d416d",
+  "batch_strategy": "Measure condition-response gaps, scaffold-specific loading effects, and remaining endpoint anomalies using 32 distinct catalog candidates.",
+  "choices": [
+    {
+      "id": "1e775e7d8dcbf48fd6f8",
+      "reason": "Cinnamic acid at 5/1, 124.8 mg and 2000 uL loading solvent nearly matches 1e971da91b3a8229f0e0 at 1500 uL. The 1/1 comparison between f90a5a5a54509c085ebd and 65fcce0299e031dedeb8 showed a substantial completion difference. This tests whether that recorded volume association persists at 5/1.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "5a7a5139767fda9f7e9a",
+      "reason": "Iodophenol m208 at 20/1 and 92.865 mg starts a matched loading comparison. Its supplied prediction is almost identical to the selected 185.73 mg row despite the large historical weak-eluent underprediction in 95d1d257dfea69f178f8. Measuring both tests loading sensitivity within the unresolved transition.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "id": "0b8c6c59ae5e24b420e5",
+      "reason": "m208 at 20/1 and 185.73 mg extends the exact loading conditions of 457b3def1714039eadb3 at 10/1, measured at 13.91/26.97 mL. Together with the selected lower-mass point, it tests transition steepness and loading effects without conflating them with the higher-mass 50/1 observation.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "id": "a7ed4a556d5cae1eb7e1",
+      "reason": "m209 at 5/1 and 137.5 mg begins a fixed-mass 5/1\u201310/1\u201320/1 curve. It contrasts with edfbbb86c05a0aeb1bfb at 206.25 mg, where completion was 17.05 mL. This establishes the early side of a phenol response whose weak-eluent completion was previously underestimated.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "9b1545dfa05c9439870b",
+      "reason": "m209 at 10/1 and 137.5 mg supplies the intermediate point of the selected fixed-mass curve and contrasts with fe7d7af2c919facfe5f5 at 68.75 mg. That label exposed an onset underprediction despite comparatively accurate completion, making endpoint-specific loading response the learning target.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "bd3435c0f9b14ec7997d",
+      "reason": "m209 at 20/1 and 137.5 mg fills the mass midpoint between 1b4be0410f927930d56e and 29b39881584c4fec1c58. Their onsets differed by 12.49 mL while completions differed by only 3.07 mL. This tests whether the model learns that distinction and constrains the selected solvent-response curve.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "fe69b1dbb4d976f830cd",
+      "reason": "m206 at 1/1 and 50 mg pairs with its selected 5/1 point under identical loading conditions. Measured m206 at 0/1 in 18d13a057c8c8b316800 and at 5/1 in 614873124b33029a924c showed substantial response growth at 100 mg. This tests its stronger-eluent response at lower mass.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "id": "13bfaf03c35b4cff3bd5",
+      "reason": "m206 at 2/1 and 100 mg fills the fixed-mass gap between 18d13a057c8c8b316800 at 0/1 and 614873124b33029a924c at 5/1. It locates the transition for a naphthyl primary alcohol and distinguishes its response from the more modest cyclic-alcohol and thiol curves.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "id": "a6145bb0c9947f9515df",
+      "reason": "m206 at 5/1 and 50 mg directly contrasts with 614873124b33029a924c at 100 mg and completes the selected 1/1-to-5/1 low-mass comparison. It tests whether the large response learned for this alcohol transfers across mass, with onset and completion evaluated separately.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "79ff49052bce33597828",
+      "reason": "m159 at 10/1 and 150 mg contrasts with c6e78c97267cbb98dc22 at 100 mg and begins a fixed-mass 10/1-to-20/1 comparison. Measured 50/1 records a17bcdddcf0799baeee2 and 1395836aef00d6a880b0 had completion near 117\u2013118 mL. This anchors the earlier part of that steep response.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "59b54ad3a60a52cc2b2c",
+      "reason": "m159 at 20/1 and 150 mg pairs with the selected 10/1 point and contrasts with a738b1f204da6fcfd385 at 100 mg. It tests loading transfer and the curvature preceding the measured 50/1 completion in 1395836aef00d6a880b0, rather than selecting the largest predicted endpoint.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "91cd087e44e7a3364533",
+      "reason": "m128 at 5/1 and 150 mg begins a fixed-mass bridge to its selected 10/1 point. Observations 21e09d52eac22fe25e15, 92f7fe9d8581717a9949 and 55200f8e501a16ffa0cf show strongly endpoint-specific solvent response at other masses. This tests where that transition begins.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "596bd04bfe916866f908",
+      "reason": "m128 at 10/1 and 150 mg extends the measured loading comparison in 2f72c334253bbe94a8ab and 92f7fe9d8581717a9949. Those records showed onset decreasing with mass while completion changed little. The new point tests extrapolation of that distinction and completes the selected solvent pair.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "89425cdfb228a6ebf75d",
+      "reason": "m72 at 5/1 and 153.3 mg completes a loading-by-eluent rectangle with cd638c08f0b730d298e8, 7383949c431e18f39597 and a2f83665cfe821271b30. The high-mass 10/1 completion was 60.45 mL versus 32.50 mL at low mass. This tests whether loading sensitivity is already present at 5/1.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "ad833f34f6b91872362d",
+      "reason": "Para-amino benzonitrile m160 at 5/1 and 50 mg directly contrasts with b4e0e9dc92fca2c88b90 at 100 mg and with the same-mass meta isomer a60552f4d1a5ced4641f. The isomers were similar at 2/1 but differed at 5/1. This tests whether that divergence persists across loading.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "3c041f5186a291c3b313",
+      "reason": "m82 at 10/1 and 51.45 mg contrasts with b29c3ac2de3ba2d8b5c9 at 102.9 mg and connects to the same-mass 2/1 observation 6b38c8782f95c673c809. Paired with the selected 20/1 row, it tests both loading transfer and solvent-response steepness for an acetoacetate.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "ac81adfab5ec8ce768db",
+      "reason": "m82 at 20/1 and 51.45 mg completes the selected fixed-mass 10/1-to-20/1 pair and directly contrasts with 61090cfdcf019e0891a3 at 102.9 mg. That measured completion was 64.40 mL. This checks whether the substantial completion increase transfers to lower loading.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "6b5982c6e1bbaadd6a95",
+      "reason": "Oxime m11 at 10/1 and 100 mg fills the exact-loading gap between 1182373ab8814dbe2f43 at 5/1 and 2f48e798c7917fb7d2ae at 20/1. Completion then reached 119.20 mL at 50/1 in 9ffee2813aef5c26f96f. This locates curvature after the recent weak-eluent failure.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "319e89d7000731f64e7f",
+      "reason": "Methoxybenzaldehyde m118 at 10/1 and 112.1 mg supplies the fixed-mass bridge from its earlier observations toward fc27fa779102c4aeb8ab at 20/1 and 2d178efe0181baca2bd5 at 50/1. It also contrasts with ea004678fc850c759752 at 168.15 mg, separating loading from solvent curvature.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "0cf0d36290765378ae8d",
+      "reason": "m114 at 50/1 and 150 mg extends the loading of 44fcf641ccfa3b10a97c at 100 mg, measured at 36.53/75.88 mL. Together with its selected 20/1 point, this tests whether the strong methoxybenzophenone response transfers across mass or changes differently for onset and completion.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "e3c2b5ea1c83276cf63a",
+      "reason": "m114 at 20/1 and 150 mg contrasts with d035281432e410405550 at 50 mg and 8232ed63909910ce88f2 at 100 mg. It anchors the selected 20/1-to-50/1 high-mass curve, preventing a loading difference from being interpreted as a solvent-response slope.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "cf36dbeee8bb51632d84",
+      "reason": "Methylquinoline m146 at 2/1 and 54.15 mg connects to the exact-loading 5/1 observation 04a2e8ad27ca641a3a12 and contrasts with 2745c6978a8911fc3dda at 108.3 mg. This tests onset loading sensitivity before the large response measured at 10/1 in 9e3ce3497298084abd83.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "7e834c7b870ef7024d35",
+      "reason": "m117 at 20/1 and 182.145 mg contrasts with 72231b208c5287c32d70 at 121.43 mg and connects to the same-mass 50/1 result fe1a34b5975943e8f292. It tests whether the unusual onset and completion behavior around a7bc3fb68bdecbbe086f transfers across mass or remains local.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "e511eaf853100c310877",
+      "reason": "m115 at 10/1 and 54 mg forms the low-mass member of a comparison with selected 5f2fc9606fb31b009ccc at 108 mg. Both use DCM and 300 uL loading solvent. The model predicts almost no mass response; measuring both tests that assumption in a methoxyacetophenone transition region.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "48b79cabd9460cfc510b",
+      "reason": "m72 at 10/1 and 153.3 mg uses PE/300 uL loading solvent and contrasts with a2f83665cfe821271b30 using DCM/200 uL at the same mobile-phase ratio and mass. This tests the joint recorded loading-solvent/volume effect where high-mass completion was previously underestimated.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "8e7636d7a60a6058305a",
+      "reason": "m72 at 20/1 and 51.1 mg uses PE/300 uL loading solvent and directly contrasts with 1b1a9ec85268aa66d327 using DCM/200 uL. It tests transfer at the weak-eluent transition. Solvent identity and loading-solvent volume change together, so this contrast cannot identify their separate effects.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "d603d4af5fd62fa8b85e",
+      "reason": "m91 at 2/1 and 141.2 mg still predicts V1 above V2. The earlier reversal at 50/1 was not measured in 48679ae48dd485ffb7a6. This targets the remaining underconstrained stronger-eluent region and pairs with the selected higher-mass point to test endpoint-specific loading behavior.",
+      "hypothesis_id": "H12"
+    },
+    {
+      "id": "303a8a967047b5307933",
+      "reason": "m91 at 2/1 and 211.8 mg also predicts reversed endpoints and matches the loading of ordered observations a93680d827624e459a39 and 48679ae48dd485ffb7a6. Together with the selected 141.2 mg row, it distinguishes an unlearned loading effect from a shared local endpoint-model failure.",
+      "hypothesis_id": "H12"
+    },
+    {
+      "id": "98dd7f94e58da879b609",
+      "reason": "Pentafluorobenzene m156 at 0/1 and 75.7 mg predicts unusually late onset relative to c11cd3254f56bcefba08 at 5/1 and 8fa8d7ec035c6a829dc4 at 50/1 under identical loading conditions. This tests an unmeasured response-shape warning and broadens coverage of strong-eluent early-aromatic behavior.",
+      "hypothesis_id": "H12"
+    },
+    {
+      "id": "beda2205eedbe1688e1f",
+      "reason": "Secondary alcohol m60 at 10/1 and 48.5 mg directly contrasts with 5e45395722fa0dcc1d00 at 145.5 mg. Its model prediction is nearly loading-insensitive despite substantial conditional loading effects elsewhere. This tests whether the recent alcohol correction transfers correctly to onset and completion at lower mass.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "9ed7c1fb1c2cc499bbf9",
+      "reason": "Cyclic tertiary alcohol m203 at 20/1 and 50 mg directly contrasts with 66747ae127e03516ffda at 150 mg. That record rejected excessive predicted completion growth. This tests whether the corrected narrow elution interval transfers across loading and differs from the secondary and primary alcohol responses.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "id": "5f2fc9606fb31b009ccc",
+      "reason": "m115 at 10/1 and 108 mg supplies the other mass of the selected 54/108 mg comparison and extends cfc3cd7290e349d095d4 at 5/1 under identical loading conditions. The pair varies sample mass while keeping loading-solvent identity and its 300 uL volume fixed.",
+      "hypothesis_id": "H2"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H2",
+      "content": "Loading effects depend on scaffold, eluent and endpoint. m19 shows mass-dependent onset with almost unchanged completion at both 1/1 and 2/1. m72 has a much larger completion loading effect at 10/1 than at 20/1. Other scaffolds exhibit small responses or substantial completion changes, so one universal loading correction is inadequate.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "a595d5f1882c39914392",
+        "9a60cb4735780275034e",
+        "97297c71a28a2ccbdeeb",
+        "6d21e9ec887b3408c612",
+        "304fb0fdb486ae4b7a07",
+        "906bd247e050658f99d8",
+        "7383949c431e18f39597",
+        "a2f83665cfe821271b30",
+        "1b1a9ec85268aa66d327",
+        "334f7f55dcbf278e47ec",
+        "1b4be0410f927930d56e",
+        "29b39881584c4fec1c58",
+        "7954bf73f74c7fbcecb2",
+        "48853fd78c77153b963a"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Many candidate predictions remain nearly mass-insensitive. Controlled comparisons can teach when onset and completion need different loading responses while preserving genuinely small effects.",
+      "next_discriminating_question": "Does m72's high-mass completion shift already occur at 5/1, and how do loading effects transfer to alcohols, acetoacetates, methoxy carbonyls and the mass midpoint of m209?"
+    },
+    {
+      "id": "H3",
+      "content": "Carbonyl and neutral oxygenated-aromatic solvent responses depend on connectivity and substitution. Some measured scaffolds retain early onset with increasing completion, others develop delayed onset and steep completion growth, and bromobenzofuran remains comparatively flat across weak-eluent conditions. Corrections should therefore have structural boundaries.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "9b11493847c035abf800",
+        "a8313da6e9c9be0c1636",
+        "f46da3c00b2199795e4c",
+        "7c6e7b244de393e8554d",
+        "654a4a40363a388cf9cb",
+        "79362765eb92377a5970",
+        "5806c857509e09634010",
+        "12aed585647de3f03908",
+        "44fcf641ccfa3b10a97c",
+        "2d178efe0181baca2bd5",
+        "55200f8e501a16ffa0cf",
+        "1395836aef00d6a880b0"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Intermediate solvent points and matched loading comparisons constrain excessive extrapolation without flattening real steep responses. These distinctions can transfer across the many carbonyl-containing rows.",
+      "next_discriminating_question": "Where do the m159, m114, m128, m82 and m118 curves become steep, and does their curvature remain similar at different sample masses?"
+    },
+    {
+      "id": "H5",
+      "content": "Nitrogen-containing scaffolds have distinct solvent-response transitions. The amino-nitrile isomers are similar at 2/1 but differ at 5/1; m72 develops a sharp weak-eluent completion increase; the oxime has strong 20/1-to-50/1 growth; methyl anthranilate remained much earlier than its acquisition prediction at 20/1.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "2feb7d8e0a3566ddf97f",
+        "53a1acff30433cff819f",
+        "b4e0e9dc92fca2c88b90",
+        "17902fa9c7f8ea9b456e",
+        "a60552f4d1a5ced4641f",
+        "cd638c08f0b730d298e8",
+        "7383949c431e18f39597",
+        "1b1a9ec85268aa66d327",
+        "1182373ab8814dbe2f43",
+        "2f48e798c7917fb7d2ae",
+        "9ffee2813aef5c26f96f",
+        "73155d7feac7857188dd"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Connectivity-dependent transitions should improve interpolation across solvent regimes without applying a generic nitrogen-presence correction to chemically different rows.",
+      "next_discriminating_question": "Does the amino-nitrile positional difference persist at lower loading, where does the oxime transition begin, and does m72's weak-eluent behavior transfer under changed recorded loading-solvent conditions?"
+    },
+    {
+      "id": "H7",
+      "content": "Cinnamic acid has a nonmonotonic, endpoint-specific recorded response and a possible loading-solvent-volume interaction. At approximately fixed mass and 1500 uL loading solvent, completion is 31.91, 78.37, 46.22 and 61.87 mL at 0/1, 1/1, 2/1 and 5/1. At 2000 uL it is 50.30 and 108.89 mL at 0/1 and 1/1. These near-matched comparisons establish an association, not its mechanism.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "87da8c37b16d810331a2",
+        "65fcce0299e031dedeb8",
+        "9a32b65bc21fdc5f7286",
+        "1e971da91b3a8229f0e0",
+        "6802f0b28c5a0c7b4c2a",
+        "f90a5a5a54509c085ebd"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Recent large completion errors make this a useful test of an interaction among recorded conditions that is poorly constrained by a single solvent-response rule.",
+      "next_discriminating_question": "Does the completion difference associated with 2000 versus 1500 uL loading solvent persist at 5/1, or is it concentrated near 0/1 and 1/1?"
+    },
+    {
+      "id": "H10",
+      "content": "Donor-containing compounds require structure- and endpoint-dependent solvent responses. Iodophenol and m209 show substantial weak-eluent growth, whereas the thiol ester and cyclic tertiary alcohol had more modest completion than predicted. Primary, secondary and tertiary alcohol environments also have different recorded responses; donor count alone does not establish their curves.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "95d1d257dfea69f178f8",
+        "edfbbb86c05a0aeb1bfb",
+        "29b39881584c4fec1c58",
+        "80f546c47198fa7c6dbf",
+        "376ba323d8d487f80cee",
+        "18aafc3a2522f8cc2983",
+        "04ea307c7b7f3321cc20",
+        "66747ae127e03516ffda",
+        "614873124b33029a924c",
+        "b7cf293311f83700cd9a",
+        "19229d505f75d05a0bcb",
+        "5e45395722fa0dcc1d00"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The phenol and alcohol experiments test transfer boundaries for recent donor-associated corrections, including whether mass changes onset and completion differently.",
+      "next_discriminating_question": "How steep is iodophenol's intermediate response, where does m206's early transition occur, and does the corrected m203 response remain modest at lower loading?"
+    },
+    {
+      "id": "H12",
+      "content": "Endpoint-order and response-shape anomalies identify regions worth checking, but do not establish unmeasured candidate errors. The previous m91 and m156 endpoint reversals were not observed. Their remaining m91 reversals at 2/1 and m156 predicted onset maximum at 0/1 are untested. Measured reversed endpoints in some m73 records caution against explaining the entire catalog with a universal ordering rule.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "48679ae48dd485ffb7a6",
+        "c11cd3254f56bcefba08",
+        "a93680d827624e459a39",
+        "8fa8d7ec035c6a829dc4",
+        "2732471e4009311396ed",
+        "3d5a3094cb10eee37b37"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Targeted labels can constrain underfit endpoint relationships and unusual strong-eluent shapes in otherwise early-eluting families, while recognizing possible record heterogeneity.",
+      "next_discriminating_question": "Are m91's 2/1 endpoints ordered at both selected masses, and is pentafluorobenzene's predicted pure-EA onset maximum present in the measured record?"
+    }
+  ],
+  "feedback_interpretation": "The latest outcomes support conditional response experiments while rejecting several specific extrapolations. Cinnamic acid completion fell from 1/1 to 2/1 but rose again at 5/1, and its 1/1,2000 uL record exceeded the acquisition prediction by 31.79 mL. I retain a volume-interaction question without imposing monotonicity. Iodophenol at 50/1 exceeded its acquisition completion prediction by 49.20 mL, motivating intermediate-response and loading measurements. m209's lower-mass 20/1 completion was accurate at acquisition, but onset was underestimated by 11.26 mL, strengthening endpoint-specific loading comparisons. m72 showed a large mass effect at 10/1 and a much smaller completion effect at 20/1. Bromobenzofuran's measured weak-eluent curve was comparatively flat, while the oxime showed real steep growth; these weaken indiscriminate polarity-based transfer. Thiol and cyclic-alcohol completion overpredictions further support structural boundaries. Ordered m91 and m156 labels resolved their earlier predicted reversals, leaving new condition regions to test. All quoted errors are historical acquisition errors. The corrected plan also treats the m115 pair as a sample-mass comparison: its loading-solvent identity and 300 uL volume are fixed.",
+  "batch_rationale": "The batch combines experiments that resolve specific gaps in observed response relationships. The m209 midpoint curve, m208 loading pair, m206 condition and mass contrasts, m128 pair, m82 pair and m114 pair distinguish solvent curvature from loading response. The added m72 5/1 high-mass point completes a controlled rectangle around its newly measured loading sensitivity. Two further m72 comparisons test a joint change in loading-solvent identity and volume; those factors cannot be separated by these rows, and the two comparisons occur at different masses. The acid point tests whether its recorded volume association persists at another eluent ratio. The oxime, amino-nitrile and methylquinoline points test connectivity-specific nitrogen transitions. The m115, m60, m117 and m203 comparisons test transfer of loading corrections across structures, including rows with nearly loading-insensitive predictions. The m91 pair and pentafluorobenzene point examine explicit endpoint and response-shape warnings. These measurements may improve overall Row-distribution accuracy by teaching where corrections should transfer, where they should remain scaffold-specific, and how onset differs from completion. Selection is driven by measured gaps and discriminating comparisons; single-predictor quantile spans and elution interval widths are not treated as calibrated epistemic uncertainty. Unrecorded variables and possible record heterogeneity limit mechanistic conclusions."
+}
