@@ -1,6 +1,6 @@
 # LLM Scientist V2 — full-catalog delivery
 
-The current default revision is `astra_high_full_pool_20261001`. Both LLM arms
+The original runner default revision is `astra_high_full_pool_20261001`. Both LLM arms
 send every eligible candidate and every currently observed record in each round.
 The default transport is streaming Responses through `https://token4research.cn/v1`,
 using `gpt-6-astra` with `high` reasoning and `store=False`.
@@ -105,3 +105,9 @@ tar -xzf studies/active_learning/qgeognn_v2_row_llm_scientist_v2/historical_runt
 ```
 
 Historical replay still needs the original code revision and local checkpoints.
+
+## Latest completed continuation (2026-10-13)
+
+Free completed both seeds to813 in `free_sol_xhigh_continuation_20261012`; the later `sol_xhigh_hybrid_free_to1005_20261013` revision retains the inherited prefix and targets1005. Completed frozen endpoints are Hybrid845/813 and Free845/845 for seeds157/6101. The1005 target is incomplete; the pause receipt requires no recovery before2026-10-13 18:30 Asia/Shanghai. See the [current validation snapshot](../../../reports/active_learning_latest/REPORT.md) for same-budget comparisons.
+
+Free changed from Astra/high to Sol/xhigh after525/653 respectively; Hybrid changed after813. These mixed-model development trajectories do not isolate a model-only effect. Full requests and locks stay local; protocols, selections, measured feedback, costs and hashes remain versioned. Historical source files and frozen revisions remain immutable.

@@ -5,8 +5,8 @@ Current work uses the qualified standalone QGeoGNN-V2. These row experiments con
 | Study | Status and interpretation |
 | --- | --- |
 | [Latest validation snapshot](../../reports/active_learning_latest/REPORT.md) | Completed-budget curves and matched comparisons; refresh without training |
-| [LLM Scientist V2](qgeognn_v2_row_llm_scientist_v2/README.md) | CW16+LLM16: both seeds813; Free: seed157525 / seed6101653 |
-| [Dual expert](qgeognn_v2_row_llm_dual_expert_v1/README.md) | Seed157 completed 461; 493 target incomplete; process absent at publication, last requests429/502 |
+| [LLM Scientist V2](qgeognn_v2_row_llm_scientist_v2/README.md) | CW16+LLM16: seed157845 / seed6101813; Free: both seeds845; 1005 extension incomplete |
+| [Dual expert](qgeognn_v2_row_llm_dual_expert_v1/README.md) | Seed157 completed 621; validation NRMSE0.597021; no new test evaluation |
 | [CW extension to1005](qgeognn_v2_row_cw_selector_extension_to_1005/RESULTS.md) | Completed: seven arms × two seeds1005; Whitening stopped525; 60 new fits |
 | [Phase 1 batch/adaptivity](qgeognn_v2_batch_adaptivity/FINAL_REPORT.md) | Completed matched653-label comparison; endpoint benefit without AULC benefit |
 | [Phase 0 efficiency review](qgeognn_v2_efficiency_review/REPORT.md) | Completed reporting-only review of endpoints, AULC, target crossings and compute cost |

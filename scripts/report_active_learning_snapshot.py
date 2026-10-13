@@ -16,8 +16,9 @@ from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / "studies/active_learning"
-SCIENTIST = BASE / "qgeognn_v2_row_llm_scientist_v2/revisions/astra_high_full_pool_20261001"
-DUAL_REVISION = "sol61_xhigh_from429_evidence_repair_20261011"
+SCIENTIST_REVISION = "sol_xhigh_hybrid_free_to1005_20261013"
+SCIENTIST = BASE / "qgeognn_v2_row_llm_scientist_v2/revisions" / SCIENTIST_REVISION
+DUAL_REVISION = "sol61_xhigh_from461_to621_20261012"
 SPEC = {
     "Random32": [("qgeognn_v2_row_sequential_b32", "random")],
     "LCMD32": [("qgeognn_v2_row_sequential_b32", "lcmd")],
@@ -58,7 +59,9 @@ def merge_point(rows, labels, value):
     rows[labels] = value
 
 
-def collect(dual_revision):
+def collect(dual_revision, scientist_revision=None):
+    scientist = (BASE / "qgeognn_v2_row_llm_scientist_v2/revisions" / scientist_revision
+                 if scientist_revision else SCIENTIST)
     sources, audits = {}, {}
 
     def read(path):
@@ -88,8 +91,8 @@ def collect(dual_revision):
                         merge_point(rows, labels, value)
             current[name] = rows
         for name, method, study in (
-            ("CW16 + LLM16", "cw16_llm16_scientist_v2", SCIENTIST),
-            ("Free LLM32", "free_llm32_scientist_v2", SCIENTIST),
+            ("CW16 + LLM16", "cw16_llm16_scientist_v2", scientist),
+            ("Free LLM32", "free_llm32_scientist_v2", scientist),
             ("Dual expert", "free_llm32_dual_expert_v1",
              BASE / "qgeognn_v2_row_llm_dual_expert_v1/revisions" / dual_revision),
         ):
@@ -105,6 +108,7 @@ def collect(dual_revision):
     status = read(status_path) if status_path.exists() else {}
     return {"captured_at": datetime.now(ZoneInfo("Asia/Shanghai")).isoformat(timespec="seconds"),
             "evaluation": "validation_only", "dual_revision": dual_revision,
+            "scientist_revision": scientist.name,
             "dual_status": {k: status[k] for k in ("status", "latest_completed_labels", "target_labels") if k in status},
             "curves": curves, "source_hashes": sources, "fit_audits": audits}
 
@@ -149,9 +153,9 @@ def draw(snapshot, output):
 
 def report(snapshot, output):
     dual_status = snapshot.get("dual_status", {})
-    dual_note = ("provider每日额度耗尽，493目标未完成，已停止新增调用；"
-                 if dual_status.get("status") == "BLOCKED_PROVIDER_DAILY_LIMIT"
-                 else "当前revision的计划终点为493；")
+    dual_note = f"双专家状态为{dual_status.get('status', '未记录')}。"
+    if dual_status.get("target_labels") is not None:
+        dual_note += f"目标为{dual_status['target_labels']}标签；完成点以表中冻结拟合为准。"
     lines = ["# 最新主动学习结果", "", f"快照时间：{snapshot['captured_at']}（Asia/Shanghai）。",
              "本页统一汇总已完成的 validation 拟合；运行中的选样或未完成训练不计作结果。", "",
              "![LLM comparison](llm_validation.png)", "",
@@ -162,9 +166,10 @@ def report(snapshot, output):
             if name in curves:
                 row = curves[name][-1]
                 lines.append(f"| {seed} | {name} | {row['labels']} | {row['nrmse']:.6f} |")
-    lines += ["", "端点预算不同，不用上表直接排名。CW16+LLM16 的两个 seed 均到813；"
-              "Free 的157/6101分别到525/653。双专家仅seed157，" + dual_note +
-              "快照只报告已完成点；333→397使用astra/high，后续改用sol61/xhigh，并保留格式／证据修复记录。", "",
+    lines += ["", "端点预算不同，不用上表直接排名。" + dual_note +
+              "快照只报告已完成点；双专家333→397使用astra/high，后续改用sol61/xhigh。"
+              "Free在seed157/6101分别从525/653之后切换模型，Hybrid从813之后切换；"
+              "历史格式／证据修复记录保留，模型贡献不能由混合轨迹单独识别。", "",
               "## 相同预算比较", "", "| Seed | 共同区间 | 方法 | 端点 NRMSE | Validation AULC |",
               "| --- | --- | --- | ---: | ---: |"]
     for seed, curves in snapshot["curves"].items():
@@ -196,10 +201,14 @@ def main():
     parser.add_argument("--output", type=Path, default=ROOT / "reports/active_learning_latest")
     parser.add_argument("--from-snapshot", type=Path, help="redraw without local training runtime")
     parser.add_argument("--dual-revision", default=DUAL_REVISION)
+    parser.add_argument("--scientist-revision", default=SCIENTIST_REVISION)
     args = parser.parse_args()
     if Path(args.dual_revision).name != args.dual_revision:
         parser.error("--dual-revision must be a directory name")
-    snapshot = json.loads(args.from_snapshot.read_text()) if args.from_snapshot else collect(args.dual_revision)
+    if Path(args.scientist_revision).name != args.scientist_revision:
+        parser.error("--scientist-revision must be a directory name")
+    snapshot = (json.loads(args.from_snapshot.read_text()) if args.from_snapshot
+                else collect(args.dual_revision, args.scientist_revision))
     args.output.mkdir(parents=True, exist_ok=True)
     (args.output / "snapshot.json").write_text(json.dumps(snapshot, indent=2, ensure_ascii=False) + "\n")
     draw(snapshot, args.output)

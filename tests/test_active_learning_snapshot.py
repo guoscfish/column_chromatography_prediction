@@ -46,3 +46,22 @@ def test_llm_snapshot_requires_a_matching_prediction_freeze(tmp_path, monkeypatc
     write(freeze, {"checkpoint_path": str(model / "best.pt"), "checkpoint_sha256": "different"})
     with pytest.raises(ValueError, match="disagrees"):
         reporting.collect("unused")
+
+
+def test_report_uses_frozen_endpoints_and_common_budget(tmp_path):
+    snapshot = {
+        "captured_at": "2026-10-13T17:00:00+08:00",
+        "dual_status": {"status": "COMPLETE", "target_labels": 621},
+        "curves": {"157": {
+            "Free LLM32": [{"labels": 333, "nrmse": .8}, {"labels": 365, "nrmse": .6},
+                           {"labels": 397, "nrmse": .4}],
+            "Dual expert": [{"labels": 333, "nrmse": .8}, {"labels": 365, "nrmse": .5}],
+        }},
+    }
+    reporting.report(snapshot, tmp_path)
+    text = (tmp_path / "REPORT.md").read_text()
+    assert "| 157 | Free LLM32 | 397 | 0.400000 |" in text
+    assert "| 157 | 333–365 | Free LLM32 | 0.600000 | 0.700000 |" in text
+    assert "| 157 | 333–365 | Dual expert | 0.500000 | 0.650000 |" in text
+    assert "目标为621标签" in text and "状态为COMPLETE" in text
+    assert "目标为493" not in text

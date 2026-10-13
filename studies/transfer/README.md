@@ -11,6 +11,8 @@ Keep the low-label, unthresholded benchmark separate from filtered FULL-data stu
 | Does a converged staged neural recipe help? | [P0/P1 convergence baseline](traditional_transfer_converged_baseline_v1/FINAL_REPORT.md) |
 | Do alternative losses or adaptive readout help? | [Loss screen](conditioned_source_readout/LOSS_SCREEN_REPORT.md), [readout result](conditioned_source_readout/FINAL_REPORT.md) |
 | Does column-conditioned joint training help? | [Multitask/FiLM](column_conditioned_multitask/FINAL_REPORT.md) |
+| How does filtered Row error change with label budget? | [B100/B200/B300/FULL](filtered_row_learning_curve_b200_20261013/README.md); fixed held-out populations, five seeds |
+| Does Row-CV explain A1/A2 selection? | [One-seed inner pilot](column_conditioned_row_aligned_v1/REPORT.md), [implementation/evidence audit](../../reports/a1_a2_audit_20261013/AUDIT_REPORT.md); outer repair unproven |
 | Is gradient conflict the missing mechanism? | [PCGrad](column_conditioned_pcgrad/FINAL_REPORT.md) |
 
 [Transfer synthesis](../../docs/research/CROSS_COLUMN_TRANSFER_STATUS.md) summarizes what was tested, what is closed and what data are still needed. [Current status](../../docs/NEXT_STAGE_DECISION.md) owns next steps.

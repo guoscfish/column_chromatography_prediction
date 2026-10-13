@@ -272,7 +272,7 @@ def retirement_audit(root: Path) -> dict[str, object]:
         if not (root / record["retained_record"]).exists():
             violations.append({"path": path, "reason": "retained_record_missing"})
         original = subprocess.run(
-            ["git", "show", f"{commit}:{path}"], cwd=root, capture_output=True,
+            ["git", "show", f"{record.get('source_commit', commit)}:{path}"], cwd=root, capture_output=True,
         )
         if original.returncode or hashlib.sha256(original.stdout).hexdigest() != record["sha256"]:
             violations.append({"path": path, "reason": "recovery_hash_mismatch_or_unavailable"})

@@ -41,7 +41,7 @@ New scientific logic belongs in [the package](../src/qgeognn_al/README.md), not 
 
 ## Retired one-off scripts
 
-34 completed audit, smoke, qualification-report and closed-transfer scripts have been removed from the current checkout. Their reports, metrics, protocols and decisions remain at the original study paths. The complete mapping is [RETIREMENTS.json](../docs/repository/RETIREMENTS.json).
+37 completed audit, smoke, qualification-report and closed-transfer scripts have been removed from the current checkout. Their reports, metrics, protocols and decisions remain at the original study paths. The complete mapping is [RETIREMENTS.json](../docs/repository/RETIREMENTS.json).
 
 For example, `run_d45_oracle_marginal_utility.py` and `run_d46_oracle_utility_reliability.py` now have retained scientific records only. Their reusable diagnostic algorithms and tests remain.
 
@@ -68,6 +68,8 @@ For full reproduction, use a separate checkout at that commit and restore the re
 
 - `run_qgeognn_v2_row_llm_dual_expert.py`: independent Chemistry/ML advice, free 32-ID planner, full-pool history/feedback and resumable training. `run --seed 157 --rounds 2 --revision full_pool_feedback_schema_20261011` requests 333→397 labels; see `studies/active_learning/qgeognn_v2_row_llm_dual_expert_v1/README.md`.
 
-- `report_active_learning_snapshot.py`: one reporting entrypoint replacing the two untracked report-local plotting scripts. Reads completed validation audits and freezes, writes the latest tables/PNG/SVG snapshot; `--from-snapshot` redraws without local runtime. It performs no training or LLM requests.
+- `report_active_learning_snapshot.py`: one reporting entrypoint replacing the two untracked report-local plotting scripts. Defaults to the October13 continuation and completed621-label dual-expert revision; revision arguments allow historical collection. Reads completed validation audits and freezes, writes the latest tables/PNG/SVG snapshot; `--from-snapshot` redraws without local runtime. It performs no training or LLM requests.
 
-- `studies/report_dual_expert_continuation.py`: study-specific continuation report with the 397-label model switch, completed-response cost and 397→latest AULC; generic cross-study plots remain in `report_active_learning_snapshot.py`.
+- `studies/report_dual_expert_continuation.py`: study-specific continuation report with the 397-label model switch, completed-response cost and 397→common-budget AULC; generic cross-study plots remain in `report_active_learning_snapshot.py`.
+
+- `studies/run_row_full_data_rmse_completion.py`, `studies/run_filtered_row_learning_curve.py`, `studies/run_filtered_row_learning_curve_b200.py`: frozen filtered Row baselines and nested B100/B200/B300/FULL comparisons. See the [completed learning curve](../studies/transfer/filtered_row_learning_curve_b200_20261013/README.md); these entries are retained for reproduction, not new experiment authorization.

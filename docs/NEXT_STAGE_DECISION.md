@@ -1,14 +1,14 @@
 # 当前研究状态
 
-更新：2026-10-11。本页是项目级结论与下一步的唯一入口；具体数值、冻结门槛和使用过的数据以链接的实验报告及协议为准。
+更新：2026-10-13。本页是项目级结论与下一步的唯一入口；具体数值、冻结门槛和使用过的数据以链接的实验报告及协议为准。
 
 ## 本轮执行
 
 当前结果统一见[最新 validation 快照](../reports/active_learning_latest/REPORT.md)。快照仅包含已完成拟合，正在选样或训练的轮次不写成已完成。各研究的冻结协议、授权修订和成本记录仍保存在原目录。
 
 - **CW扩展已完成**：七臂×两seed到1005，Whitening按要求停525；新增60次拟合，复用150个历史对照点。validation AULC525–1005平均相对改善：CW-LCMD +1.21%、CW-MaxDet -3.80%、CW-IVR +5.98%。此前blocked、待恢复及90拟合额度均为历史状态。[完整结果](../studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_1005/RESULTS.md)。
-- **CW16+LLM16已完成两seed到813**；Free的seed157/6101分别已完成525/653。各曲线按实际完成预算截断，授权修复偏离保留在原研究回执中。[Scientist V2](../studies/active_learning/qgeognn_v2_row_llm_scientist_v2/README.md)。
-- **双专家seed157已完成621标签**，validation NRMSE 0.597021；2026-10-12从461新增五批、160条标签，误差下降13.15%。18:30后恢复的最后一批已完成，自动化已暂停，无活跃进程。621同预算LLM+CW为0.398095；Free仅到525，共同预算525双专家0.649321、Free0.645484、LLM+CW0.451110。全部九批及训练产物通过审计。单seed混合模型验证轨迹，无新test评价。[双专家记录](../studies/active_learning/qgeognn_v2_row_llm_dual_expert_v1/README.md)。
+- **LLM最新完成点**：CW16+LLM16在seed157/6101分别到845/813，validation NRMSE为0.344879/0.380292；Free两个seed均到845，为0.437181/0.391570。四臂1005目标尚未完成，现有暂停回执要求2026-10-13 18:30之前不恢复。各曲线只计冻结拟合，模型切换与授权修复保留在原回执中。[Scientist V2](../studies/active_learning/qgeognn_v2_row_llm_scientist_v2/README.md)。
+- **双专家seed157已完成621标签**，validation NRMSE 0.597021；2026-10-12从461新增五批、160条标签，误差下降13.15%。18:30后恢复的最后一批已完成，自动化已暂停，无活跃进程。三方法最新共同预算为621；完整配对表见最新快照。全部九批及训练产物通过审计。单seed混合模型验证轨迹，无新test评价。[双专家记录](../studies/active_learning/qgeognn_v2_row_llm_dual_expert_v1/README.md)。
 
 CW最初333–525开发结论不变：CW相对Raw在LCMD的AULC改善6.93%、MaxDet恶化4.86%、IVR改善0.69%；两种新selector均未过两seed同向且平均改善≥2%的确认门槛。1005扩展属于探索性证据，P2付费独立消融与外部验证仍未执行。[原始factorial结果](../studies/active_learning/qgeognn_v2_row_cw_selector_factorial/RESULTS.md)。
 
@@ -54,6 +54,8 @@ Sequential 的原始分类 `NO_CLEAR_SEQUENTIAL_AL_GAIN` 保留不改：它未�
 | Loss 与 adaptive readout | 保留 raw loss；R1/R2 未过双柱门槛，R3/R4 与 outer 测试未执行 | [Readout 报告](../studies/transfer/conditioned_source_readout/FINAL_REPORT.md) |
 | Column-conditioned multitask / FiLM | inner 有信号，但 outer 未形成稳健跨协议收益 | [Multitask 报告](../studies/transfer/column_conditioned_multitask/FINAL_REPORT.md) |
 | PCGrad | 降低梯度冲突，但未实质改善迁移；没有继续 outer 评估 | [PCGrad 报告](../studies/transfer/column_conditioned_pcgrad/FINAL_REPORT.md) |
+
+**2026-10-13新增记录**：过滤后Row的B100/B200/B300/FULL学习曲线已完成，三柱×五seed、五方法共300个方法/种子/预算记录；FULL结果复用并校验哈希，固定测试/验证人口和嵌套训练前缀，属于既有测试集上的开发证据。[曲线与审计](../studies/transfer/filtered_row_learning_curve_b200_20261013/README.md)。[A1/A2审计](../reports/a1_a2_audit_20261013/AUDIT_REPORT.md)未找到解释40g退化的实现错误；[Row-CV试点](../studies/transfer/column_conditioned_row_aligned_v1/REPORT.md)仅完成一个seed的10次inner拟合，不能据此宣布outer退化已修复。
 
 **迁移下一步优先补独立数据与实验设计**：compound/batch 验证、长尾覆盖、相同条件重复、mass×flow 交叉条件。已有结果不支持自动追加模型、优化器或特征扫描，也不启动主动迁移。
 

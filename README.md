@@ -14,10 +14,10 @@
 
 主工作副本为 `/Users/fish/Documents/GitHub/column_chromatography_prediction`；其他实验 worktree 可保留独立工作上下文。已验证的代码和研究记录统一合并回 `main`，未完成实验明确标为草案。
 
-- [最新实验结果、匹配预算比较与曲线](reports/active_learning_latest/REPORT.md)（2026-10-11快照）
+- [最新实验结果、匹配预算比较与曲线](reports/active_learning_latest/REPORT.md)（2026-10-13快照）
 - [2026-10-05历史汇总](reports/active_learning_status_20261005/REPORT.md)（日期固定，不代表当前进度）
 - [2026-10-05 仓库整理与合并记录](docs/repository/CLEANUP_20261005.md)
-- [双专家主动学习（461标签已完成，493标签尚未完成）](studies/active_learning/qgeognn_v2_row_llm_dual_expert_v1/README.md)
+- [双专家主动学习（621标签已完成）](studies/active_learning/qgeognn_v2_row_llm_dual_expert_v1/README.md)
 
 ## 当前结论
 
@@ -41,7 +41,7 @@ application/    旧应用及 Legacy 模型
 automation/     旧数据采集工具
 ```
 
-已完成且无现存调用依赖的 34 个一次性脚本已退役，结果仍在原目录；具体路径、校验值和恢复提交见[清理记录](docs/repository/RETIREMENTS.json)。需要复现退役实验时使用历史提交的完整环境和代码。
+已完成且无现存调用依赖的 37 个一次性脚本已退役，结果仍在原目录；具体路径、校验值和恢复提交见[清理记录](docs/repository/RETIREMENTS.json)。需要复现退役实验时使用历史提交的完整环境和代码。
 
 ## 验证
 

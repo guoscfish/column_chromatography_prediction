@@ -1,28 +1,18 @@
 # Repository cleanup status
 
-Updated 2026-10-11. Scientific measurements remain in study reports; the [latest validation snapshot](../../reports/active_learning_latest/REPORT.md) is the current results entrypoint.
+Updated 2026-10-13. Scientific measurements remain in study reports; the [latest validation snapshot](../../reports/active_learning_latest/REPORT.md) is the current results entrypoint.
 
 ## Current maintenance
 
-- Integrate the existing CW branch and latest LLM/dual-expert results into `main`, with no new branch. The remote previously lacked 18 CW commits; publication includes them and the new records.
-- Consolidate conflicting project status into `docs/NEXT_STAGE_DECISION.md`. Remove obsolete blocked/recovery descriptions from current navigation; retain original dated receipts.
-- Update the Scientist V2, dual-expert, active-learning, script and code indexes. Batch/adaptivity is completed; V3.2 stopped at 365, and its original 525 target is not a result.
-- Replace two untracked report-local plotting scripts with `scripts/report_active_learning_snapshot.py`. One entrypoint collects completed validation fits or redraws a retained snapshot without runtime.
-- Untrack 132 historical runtime JSON receipts (2,000,963 bytes). Original local paths remain untouched. A verified byte-exact metadata archive, per-file SHA-256 manifest and 18 readable fit audits remain in the Scientist V2 study. See [manifest](../../studies/active_learning/qgeognn_v2_row_llm_scientist_v2/historical_runtime_manifest.json); the metadata recovery commit is `caa07e8b5317afe31934280efcab63d8e2b4ee95`.
-- Ignore new console `.log` files under studies. Structured status, correction/cost receipts, measured feedback, protocols and result summaries remain versioned. Previously tracked logs are historical evidence and retain their paths.
-- Preserve protected data/checkpoints, active runtime, sealed source hashes and all original scientific results. Frozen Scientist V2 lifecycle code and parameterized dual-expert lifecycle code deliberately coexist; changing their relationship during a sealed run would break provenance.
+- Publish the October13 LLM/dual-expert continuations, A1/A2 evidence audit, Row-CV inner pilot, filtered Row FULL and B100/B200/B300 curves, and existing presentation figures on `main`. No new training, LLM request or experiment scoring is part of this cleanup.
+- Refresh the canonical validation snapshot from completed prediction freezes. Defaults select the October13 Scientist continuation and the completed621-label dual-expert revision. Report endpoints and common-budget tables derive from retained data; obsolete493/525/653 summaries no longer overwrite current progress on regeneration.
+- Retire three report-local plotting scripts: the two nearly identical model-switch copies and the four-arm progress plot. Preserve all original figures and numeric evidence. Each new entry in [RETIREMENTS.json](RETIREMENTS.json) has its own recovery commit and SHA-256; current plots use `scripts/report_active_learning_snapshot.py`.
+- Ignore approximately204 MB of newly created full LLM requests and thirteen lock files. They remain at their original local paths for resume/provenance; compact protocols, request hashes, selected IDs, measured feedback, answer/cost receipts and scientific results stay versioned. Existing tracked request evidence is untouched.
+- Preserve frozen scientific implementations and Phase1 archived sources, which have live imports or byte-hash consumers. This includes the similar historical and parameterized Scientist lifecycle modules and the B200/full-data runners. Protected datasets, checkpoints and training caches retain their paths.
 
 ## Branches and worktrees
 
-`main` owns integrated research and routine maintenance. The old local
-`codex/cw-geometry-feedback` and `codex/llm-scientist-dual-expert-v1` refs were
-removed after integration; no new remote branch was created. The old dual-expert
-worktree was removed after verifying that the current process runs in the canonical
-checkout. Its differing legacy files were backed up outside this repository.
-
-The V3/V3.2 worktrees remain attached to existing chats; their integrated branch
-refs are kept until those checkouts are intentionally retired. No remote worktree
-branch or Git history is rewritten.
+`codex/llm-scientist-v3-2` (`a66a753`) and `codex/llm-scientist-v3-context` (`8a8a917`) have zero commits outside `main`. Both checkouts were clean and had no active repository process at inspection. Their local branch refs were removed; publication also removes the two matching merged origin refs. The original worktrees remain at their existing commits with detached HEAD, preserving chat workspaces and ignored runtime. `main` remains the integrated local/remote branch; `upstream` is unchanged.
 
 ## Historical cleanup and recovery
 
@@ -43,19 +33,10 @@ python3 scripts/audit_repository_hygiene.py
 git diff --check
 ```
 
-The first targeted check found the 132 tracked runtime files despite the ignore
-rule; consolidation fixes the repository contract while preserving their exact
-metadata. Snapshot publication checks freeze/checkpoint hashes, conflicting
-same-budget metrics, finite validation values and zero test labels used for fitting.
+The prior October11 regression passed1053 tests with one pre-existing navigation-parser false positive, then all51 affected/navigation/hygiene/snapshot tests passed after the parser repair. October13 verification is recorded after the cleanup below. Historical stopped/failed/paused receipts remain unchanged; current completion is derived from frozen fit audits, never from planned label budgets.
 
-Validation on 2026-10-11: the full regression run passed 1053 tests and found one
-pre-existing navigation-parser false positive on fenced SMILES. After fixing the
-parser (without changing the frozen report), all 51 affected/navigation/hygiene
-and snapshot tests passed. The snapshot verified 560 source hashes and reproduced
-its JSON/report/plots without reading local runtime. Retirement violations are
-zero, all 17 protected anchors exist, and tracked runtime/progress paths are zero.
+A separately authorized Row-CV Phase2 process started during cleanup; its newly generated files remain uncommitted for the owning task. Published Phase1 reports remain frozen and do not imply that Phase2 is complete.
 
-At publication the dual-expert process was no longer present. Completed fits stop
-at 461 labels; the 493 target is incomplete. Final selection request receipts record
-two 429 quota errors and one 502 service error; the exact exit cause is unconfirmed.
-The current status preserves the previous RUNNING value and publication-check time.
+Default pytest discovery is limited to `tests/`. Frozen study archives contain duplicate test basenames; collecting those archived copies as current tests caused an import mismatch. Study-specific synthetic audits remain executable explicitly, without altering archived source bytes.
+
+Validation on2026-10-13: full canonical regression1065 passed (484.80s); A1/A2 label-free and Row-CV Phase1 synthetic audits22 passed. Verified615 snapshot/result source hashes and21 frozen transfer implementation hashes; no mismatch. Snapshot-only redraw reproduced all six JSON/report/PNG/SVG files byte-for-byte. Retirement recovery has zero violations; all17 protected anchors exist; tracked runtime/progress paths are zero. `git diff --check` passed.
