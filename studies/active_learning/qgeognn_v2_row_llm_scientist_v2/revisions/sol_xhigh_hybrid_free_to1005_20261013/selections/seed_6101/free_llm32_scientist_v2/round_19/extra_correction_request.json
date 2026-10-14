@@ -1,0 +1,18 @@
+{
+  "request_sha256": "5b46fbf047d50dff20ccbb967893ee0c934ef13c1b36279a277de6b9a95237b2",
+  "feedback": {
+    "authorization": "User explicitly authorized exactly one additional correction for seed6101 Free round19 (941 to 973 labels) on 2026-10-14. This is a recorded protocol deviation; all other rounds retain three logical attempts.",
+    "cited_evidence_ids": [
+      "163f6f0793f0d13950de",
+      "e8d25b0f93b5bcf88daf",
+      "fa7b8202df1e985c228c",
+      "9eaa21d2af3158cfa4f5",
+      "bd62986a3ea6d28161ec",
+      "7e981ba02c83f74f5e65"
+    ],
+    "invalid_observed_evidence_ids": [
+      "9eaa21d2af3158cfa4f5"
+    ],
+    "instruction": "H6 incorrectly cites the listed evidence IDs as supporting observed evidence. The invalid_observed_evidence_ids subset is NOT in the supplied observed table. Correct the hypotheses yourself: cite only IDs actually present in the observed table, or use empty observed-evidence lists when relying on chemical priors or unmeasured model predictions. Check every supporting_observed_ids and contradicting_observed_ids entry in all hypotheses against the observed table. Also verify all 32 choices are distinct eligible candidate IDs. Return the complete final JSON with the same packet_sha256 and original schema. Do not invent IDs, change the catalog, treat unmeasured candidates as measured evidence, or claim a predicted error is measured. This is the sole additional logical correction."
+  }
+}

@@ -1,0 +1,199 @@
+{
+  "request_sha256": "4dfd0d138c7516b0daca094d9fe9febe712ae61d9693c69b5ad76b26b5aeba9a",
+  "answer": "{\n  \"type\": \"selection\",\n  \"packet_sha256\": \"adfb9446cfae87495733ce1094c9d6611803e4dd85c8eb1876094e99c3946926\",\n  \"batch_strategy\": \"Supplement the fixed CW16 with 16 measurements that test loading effects, distinguish reproducible responses from record variation, and constrain missing solvent-response segments. Prioritize recent endpoint failures and informative matched comparisons, with additional coverage of multifunctional esters, a pyridyl ketone, a dialdehyde, and a simple aromatic ketone. Use the supplied premeasurement predictions without any intervening label reveal.\",\n  \"choices\": [\n    {\n      \"id\": \"780b13846ace50ede763\",\n      \"reason\": \"m125, 5/1, 50-uL sample in 300 uL DCM; predicted 41.47/70.25 mL. This directly matches measured DCM-500 row 761c3f82d640da44966c at 39.51/67.70. The predicted contrast reverses the repeatedly measured later completion with DCM-500 at 1/1 and pure EA. Measuring this weaker-eluent boundary can teach whether the loading-volume association attenuates or changes direction.\",\n      \"hypothesis_id\": \"H28\"\n    },\n    {\n      \"id\": \"c6ce120d2546ceadde09\",\n      \"reason\": \"m125, pure EA, 150-uL sample in 500 uL DCM; predicted 6.31/17.28 mL. At identical DCM volume, measured 100-uL row dd4f07e349873053fd73 gave 8.69/22.11 and had a historical completion underestimate of 12.84 mL. This tests loading transfer within the newly established pure-EA response, separating that question from the selected 5/1 volume contrast.\",\n      \"hypothesis_id\": \"H28\"\n    },\n    {\n      \"id\": \"f6650af9162e038d4108\",\n      \"reason\": \"m92, 2/1, 100-uL sample in 200 uL EA; predicted 7.49/16.51 mL. This repeats the recorded feature tuple of f7d6c68ef2b3f637bd05, measured at 7.45/10.33. Its completion is below both neighboring loading labels, 9768d61b571fc0c5ce1a and b7880e59ff4586b29a28. A consistency check is valuable here: agreement would support a local response that remains smoothed by the predictor; disagreement would reveal variation absent from the recorded features.\",\n      \"hypothesis_id\": \"H37\"\n    },\n    {\n      \"id\": \"790d27f0fa045d91f307\",\n      \"reason\": \"m92, 5/1, 50-uL sample in 200 uL EA; predicted 8.13/27.09 mL. Together with the selected 100-uL point and measured 150-uL anchor 6c1c34b12c66ebcf39a4, establishes a three-level loading response at the next weaker eluent. This tests whether the nonmonotonic completion pattern measured at 2/1 is localized rather than transferable.\",\n      \"hypothesis_id\": \"H37\"\n    },\n    {\n      \"id\": \"d1eeb016c4cf20b87e92\",\n      \"reason\": \"m92, 5/1, 100-uL sample in 200 uL EA; predicted 7.84/27.39 mL. The model predicts little completion change across the selected 50/100-uL pair, while the measured 2/1 middle-loading point finishes substantially earlier than its neighbors. This point is essential for distinguishing a similar middle-loading departure at 5/1 from genuine attenuation of the loading association.\",\n      \"hypothesis_id\": \"H37\"\n    },\n    {\n      \"id\": \"f559a4634c60d81f5f15\",\n      \"reason\": \"m61, 2/1, 100-uL sample in PE; predicted 12.09/20.85 mL. Measured same-load 1/1 and 5/1 rows c7e564f222bd8ae3f685 and 994a1f65509549a84ede gave 5.72/11.10 and 10.27/15.56. This missing intermediate point tests the predicted local endpoint maximum and whether the late 2/1 response of measured 150-uL row eceb eb4b29d917495b44 transfers to middle loading.\",\n      \"hypothesis_id\": \"H39\"\n    },\n    {\n      \"id\": \"053d656a484534ea6e2b\",\n      \"reason\": \"m61, 1/1, 150-uL sample in PE; predicted 5.31/11.29 mL. Compare with measured 100-uL 1/1 row c7e564f222bd8ae3f685 and 150-uL 2/1 row eceb eb4b29d917495b44. Alongside the selected 2/1 middle-loading point, completes a ratio-by-loading rectangle. It can distinguish a localized 5/1 loading-associated onset shift from a broader interaction.\",\n      \"hypothesis_id\": \"H39\"\n    },\n    {\n      \"id\": \"426ed16e4b39d346244b\",\n      \"reason\": \"m51, 2/1, 150-uL sample in PE; predicted 10.40/16.61 mL. At 10/1, measured 4fb92bd1fab3ba235858 and 19229d505f75d05a0bcb show an approximately 11.43-mL earlier onset at higher loading, with only 2.26-mL earlier completion. This matches the low-loading 2/1 anchor a1ea7a9303a5fc7a7b0f and extends the high-loading curve through measured 5/1 row 7eb97a2a0856e78a4b76.\",\n      \"hypothesis_id\": \"H43\"\n    },\n    {\n      \"id\": \"cb6d3ef1b6dde291fbac\",\n      \"reason\": \"m67, 5/1, 150-uL sample in 300 uL DCM; predicted 13.59/24.25 mL. This fills the solvent segment between measured high-loading 1/1 row f8235c550c614221a158 and the selected high-loading 10/1 point. The secondary benzylic alcohol is a close structural comparison to m61, whose recent onset predictions failed, but its DCM loading solvent differs from m61's PE and must remain part of the learned comparison.\",\n      \"hypothesis_id\": null\n    },\n    {\n      \"id\": \"5e784130c58b8175024e\",\n      \"reason\": \"m67, 10/1, 150-uL sample in 300 uL DCM; predicted 17.99/33.48 mL. Measured 100-uL row 2d11f1fe488a0c917ffe gave 19.26/33.62. This tests the model's small predicted loading adjustment in a benzylic-alcohol homolog, while providing a fixed-loading endpoint for the selected 5/1 measurement. It can determine whether large onset shifts observed for other alcohols transfer or remain structure- and condition-specific.\",\n      \"hypothesis_id\": null\n    },\n    {\n      \"id\": \"92212e7e2eb760820a7b\",\n      \"reason\": \"m107, pure EA, 100-uL sample in 300 uL DCM; predicted 7.00/14.58 mL. Measured same-load 1/1 row 60b7eed7a46a03b366b2 gave 10.82/27.16, and weaker-eluent rows show much later completion. This missing strongest-eluent anchor tests the steep predicted completion decrease for an ether-containing beta-ketoester and extends learning beyond the increasingly well-covered methyl/ethyl acetoacetate 10/1 segment.\",\n      \"hypothesis_id\": null\n    },\n    {\n      \"id\": \"07dbb8c9982caa472c1a\",\n      \"reason\": \"m66, pure EA, 100-uL sample in 300 uL DCM; predicted 5.61/12.25 mL. Same-load measured 1/1 and 2/1 rows 8f5acbec0c511bb1ea89 and 4659b6752f23c0b85f08 finish at 34.83 and 55.06 mL. This tests the model's strong-eluent extrapolation for a basic pyridyl ketone. Pyridine\u2013silica interactions are a chemical prior; the label will establish whether the predicted sharp completion decrease is actually supported.\",\n      \"hypothesis_id\": null\n    },\n    {\n      \"id\": \"e058e7b399f714dd7930\",\n      \"reason\": \"m191, pure EA, 150-uL sample in 400 uL DCM; predicted 3.00/10.07 mL. Measured matched 1/1 row e5c683a60b64d9cc299c gave 5.58/19.49. The recent m194 pure-EA high-loading result d7895c522a1a46a1175c retained completion at 24.99, showing that a generic strong-eluent collapse can fail. This dialdehyde contrast tests structural transfer while retaining its distinct DCM volume and density.\",\n      \"hypothesis_id\": null\n    },\n    {\n      \"id\": \"d2df3bff96e996e37f5d\",\n      \"reason\": \"m42, 5/1, 50-uL sample in PE; predicted 5.89/16.34 mL. This provides an unmeasured common-ratio benchmark for acetophenone and a fixed-loading solvent comparison with pending 50/1 coverage. Measured 100-uL 10/1 and 20/1 anchors 1cbe45e1a935365bd219 and 380a1230c49c0a2225f3 provide additional, loading-distinct context. The label can constrain transfer across the numerous aromatic-ketone rows.\",\n      \"hypothesis_id\": null\n    },\n    {\n      \"id\": \"2261bf7d6cced00105f6\",\n      \"reason\": \"m74, pure EA, 100-uL sample in PE; predicted 6.76/6.12 mL, with completion preceding onset. This is a prediction-ordering concern, not a measured error. Pairing it with the selected 1/1 row determines whether onset, completion, or both require correction in this strong-eluent region. Measured weaker-eluent rows dc73de0bfc725e8cd467 and b98a7974de322ed42ec0 establish ordered intervals but do not resolve this boundary.\",\n      \"hypothesis_id\": \"H44\"\n    },\n    {\n      \"id\": \"1237662bc794f13220ff\",\n      \"reason\": \"m74, 1/1, 100-uL sample in PE; predicted 4.84/6.23 mL. This holds all loading variables fixed relative to the selected pure-EA point. Its narrow predicted interval contrasts with measured 5/1 low-loading row d9426ef0af1c968f7fae at 4.53/9.63 and 20/1 middle-loading row b98a7974de322ed42ec0 at 13.37/24.60. The pair teaches the missing strong-eluent response of a four-acceptor malonate without assuming an ordering constraint alone identifies the correct labels.\",\n      \"hypothesis_id\": \"H44\"\n    }\n  ],\n  \"hypotheses\": [\n    {\n      \"id\": \"H28\",\n      \"content\": \"For m125, later completion with 500 versus 300 uL DCM is repeatedly observed at 1/1 and 2/1 and now also at pure EA with 100-uL sample loading. At 1/1 and 50 uL, the completion difference is 17.79 mL; at pure EA and 100 uL it is 10.89 mL. Extension to 5/1 and transfer across pure-EA sample loading remain unresolved. These are recorded-condition associations, with no established causal mechanism.\",\n      \"basis\": \"mixed\",\n      \"supporting_observed_ids\": [\n        \"00043aebb2540e369a7b\",\n        \"f4fb5c03b8e8996e75f6\",\n        \"4c32851430464f0ed684\",\n        \"dbb94bf062fc0e640258\",\n        \"e7ed7ca4a53258b73ba2\",\n        \"dd4f07e349873053fd73\",\n        \"c8d43713db33bf820a1d\",\n        \"69b09343d0b9995c3ae4\"\n      ],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"high\",\n      \"status\": \"supported\",\n      \"why_it_matters_for_model_learning\": \"The model needs molecule- and ratio-dependent loading-volume effects rather than averaging distinct completion responses. Testing boundaries can prevent an observed association from being extrapolated indiscriminately.\",\n      \"next_discriminating_question\": \"At 5/1 and 50-uL loading, does DCM-300 finish later than, similarly to, or earlier than the measured DCM-500 row? At fixed DCM-500 in pure EA, does 150-uL loading retain the late completion measured at 100 uL?\"\n    },\n    {\n      \"id\": \"H37\",\n      \"content\": \"m92 completion at 2/1 in 200 uL EA is nonmonotonic across 50/100/150-uL sample loading: 17.03/10.33/22.50 mL. This differs from the measured 1/1 increase between EA-50 and EA-100. Consistency of the short middle-loading interval and transfer of the local response to 5/1 are unresolved; the current predictor still smooths these loading contrasts.\",\n      \"basis\": \"mixed\",\n      \"supporting_observed_ids\": [\n        \"9768d61b571fc0c5ce1a\",\n        \"f7d6c68ef2b3f637bd05\",\n        \"b7880e59ff4586b29a28\",\n        \"00a89de0e6cc7377a84b\",\n        \"95a3dcfe4436e929aa30\",\n        \"e93e08d6bc42e91e2679\",\n        \"6c1c34b12c66ebcf39a4\"\n      ],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"medium\",\n      \"status\": \"unresolved\",\n      \"why_it_matters_for_model_learning\": \"A targeted repeated tuple can distinguish reproducible local behavior from variation unavailable to the predictor. The adjacent three-level curve then tests whether a structure-condition interaction generalizes across eluent ratio.\",\n      \"next_discriminating_question\": \"Does another 2/1 EA-100 record agree with 10.33-mL completion, and does the 5/1 loading curve have a comparable middle-loading departure?\"\n    },\n    {\n      \"id\": \"H39\",\n      \"content\": \"The previous expectation of persistently very early m61 onset through stronger-eluent conditions is weakened. Measured 100-uL onset is 5.72 mL at 1/1 and 10.27 mL at 5/1; measured 150-uL onset is 11.82 mL at 2/1. At 5/1, the 100/150-uL onset contrast is large while completion changes in the opposite direction. A ratio-dependent loading association is plausible, but its consistency and extent are unresolved.\",\n      \"basis\": \"mixed\",\n      \"supporting_observed_ids\": [\n        \"067260cef0fb89f79291\",\n        \"859ae738b615cf17b849\"\n      ],\n      \"contradicting_observed_ids\": [\n        \"c7e564f222bd8ae3f685\",\n        \"994a1f65509549a84ede\",\n        \"ecebeb4b29d917495b44\"\n      ],\n      \"confidence\": \"low\",\n      \"status\": \"weakened\",\n      \"why_it_matters_for_model_learning\": \"The recent failures concern onset as well as completion. Completing a ratio-by-loading rectangle can teach separate endpoint responses and test whether the updated prediction transfers across loading rather than spreading a local correction too broadly.\",\n      \"next_discriminating_question\": \"At 2/1, does 100-uL loading resemble the late measured 150-uL response? At 1/1, does 150-uL loading resemble the measured 100-uL interval?\"\n    },\n    {\n      \"id\": \"H43\",\n      \"content\": \"For m51 at 10/1, increasing sample loading from 50 to 150 uL advances onset by approximately 11.43 mL while completion advances by only 2.26 mL. Whether this endpoint-specific association persists at 2/1 is unknown. The measured high-loading 5/1 point provides a solvent-curve bridge, but does not establish a universal alcohol loading law.\",\n      \"basis\": \"observed_data\",\n      \"supporting_observed_ids\": [\n        \"4fb92bd1fab3ba235858\",\n        \"19229d505f75d05a0bcb\",\n        \"7eb97a2a0856e78a4b76\",\n        \"a1ea7a9303a5fc7a7b0f\"\n      ],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"medium\",\n      \"status\": \"unresolved\",\n      \"why_it_matters_for_model_learning\": \"This tests whether the model needs loading-dependent onset corrections concentrated in particular solvent segments. It complements m61 and m67 measurements across different hydroxyl environments.\",\n      \"next_discriminating_question\": \"At 2/1, does the 150-uL interval closely match the measured 50-uL anchor, as predicted, or retain a substantial onset shift?\"\n    },\n    {\n      \"id\": \"H44\",\n      \"content\": \"The predictor's endpoint coupling may be unreliable for m74 at strong eluent and middle sample loading. It predicts an inverted pure-EA interval and a narrow ordered interval at 1/1 under otherwise identical conditions. These predictions motivate testing which endpoint changes across the solvent contrast; they do not establish a measured residual or a retention mechanism.\",\n      \"basis\": \"model_behavior\",\n      \"supporting_observed_ids\": [],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"low\",\n      \"status\": \"proposed\",\n      \"why_it_matters_for_model_learning\": \"The matched pair can provide labels for a potential joint-output failure region and improve transfer to other multifunctional ester rows with short predicted intervals.\",\n      \"next_discriminating_question\": \"What are the recorded onset and completion at pure EA and 1/1, and does the solvent contrast primarily change onset, completion, or both?\"\n    }\n  ],\n  \"feedback_interpretation\": \"The new m125 labels strengthen the loading-volume association: the 1/1 low-loading completion difference is 17.79 mL, and the pure-EA middle-loading difference remains 10.89 mL. I therefore test its weaker-eluent boundary and pure-EA loading transfer. For m194, 150-uL completion at 1/1 is 27.33 mL, below the 100-uL value of 36.18; this weakens a simple transferred plateau. Pure-EA high-loading completion remains 24.99 mL, rejecting the predicted collapse and motivating strongest-eluent coverage in other multifunctional molecules. The m92 2/1 results reject straightforward transfer of the 1/1 loading increase: completion falls at 100 uL and rises at 150 uL. I add one targeted consistency check and an adjacent loading curve. The m61 LLM measurements and separately identified pending-CW 2/1 high-loading outcome contradict broad very-early-onset expectations, motivating a controlled rectangle. The m51 labels show much earlier high-loading onset than predicted, with a smaller completion change. For m82, onset continues earlier at 150 uL, but completion rises slightly relative to 100 uL, so a jointly decreasing loading law is unsupported; the m95 intermediate label was comparatively close to its acquisition prediction. The m89 measured completion increases from 1/1 to 2/1, rejecting the predicted decrease. The m26 20/1 bridge confirms recovery of both endpoints toward weaker-eluent anchors, reducing the need for another local solvent bracket. Other recent pending-CW outcomes mainly supply useful anchors with smaller or moderate endpoint misses. All acquisition errors are historical, not current-model residuals.\",\n  \"batch_rationale\": \"The fixed CW16 cover several common aromatic, ketone, ester, ether, and weak-eluent conditions. The supplements add comparisons that address gaps those pending rows do not resolve. Two m125 measurements test boundaries of a repeatedly observed loading-volume association. Three m92 measurements distinguish consistency from unrecorded variation and establish an adjacent loading curve; the repeated tuple has a specific purpose rather than serving nominal novelty. The m61 rectangle and the m51/m67 alcohol measurements address recent onset failures across different hydroxyl environments and recorded loading solvents. Pure-EA anchors for m107, m66, and m191 test structure-dependent completion extrapolation in multifunctional and basic compounds. Acetophenone provides a common aromatic-ketone solvent anchor linked to pending weak-eluent coverage. The matched m74 pair examines a potential endpoint-ordering failure and its solvent dependence. Together, these labels can improve overall Row accuracy by teaching when loading variables matter, when effects depend on molecular structure and eluent ratio, and when V1 and V2 need different responses. Many remaining candidates repeat measured tuples or have close, ordinary anchors; these controlled contrasts offer clearer discriminating value. Single-predictor quantile widths and CW distances inform context but are not treated as calibrated epistemic uncertainty. Elution interval width is distinct from uncertainty, and missing experimental variables limit causal explanations.\"\n}",
+  "provenance": {
+    "response_id": "resp_08c3f16072c97cda016ace489acbcc819998a75658f1b4fe29",
+    "served_model": "gpt-6.1-sol",
+    "usage": {
+      "input_tokens": 463314,
+      "input_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 16575,
+      "output_tokens_details": {
+        "reasoning_tokens": 11727
+      },
+      "total_tokens": 479889,
+      "attribution": {
+        "items": {
+          "msg_08c3f16072c97cda016ace489acce08199b5b537b2673de2e5": {
+            "input_tokens": 457515,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 457515,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_08c3f16072c97cda016ace4a4da65081999ce17254031eb6f5": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 4848,
+            "content": [
+              {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 4848
+              }
+            ]
+          },
+          "rs_08c3f16072c97cda016ace48b5c11081999113219968173fb6": {
+            "input_tokens": 2,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 516
+          },
+          "rs_08c3f16072c97cda016ace48c7e1748199b4ee97049f331f8d": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08c3f16072c97cda016ace48db117c81998b95f738f4ab0521": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08c3f16072c97cda016ace48eec7008199a7d3b39bc9c3dcc2": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08c3f16072c97cda016ace490358c881999afab04d16ba4bd9": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08c3f16072c97cda016ace49172a30819994f8c9d61789341a": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08c3f16072c97cda016ace4929f9dc8199976e8d196563e526": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08c3f16072c97cda016ace493e6c7081999200023421e767fd": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08c3f16072c97cda016ace495107288199903ed0d7242f7fed": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08c3f16072c97cda016ace496626448199808cdb2b16d30924": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08c3f16072c97cda016ace4974c25081999cc3908fa0e0de62": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08c3f16072c97cda016ace49816200819992c51c92da242f1c": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08c3f16072c97cda016ace4990274081998df30d0fab7e2f51": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08c3f16072c97cda016ace49a31b4c8199bc6b8658c6fe25e3": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08c3f16072c97cda016ace49b77d90819997f18454cab691fb": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08c3f16072c97cda016ace49cb2fc8819994af3264b6a75079": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08c3f16072c97cda016ace49de75288199a4b6fe2f4dacfd6b": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08c3f16072c97cda016ace49f22b808199a04a62b8f016608d": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08c3f16072c97cda016ace4a04a2f48199a03cfb3a80775bdf": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08c3f16072c97cda016ace4a15c17881999bffdd2282c3ada3": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08c3f16072c97cda016ace4a2a6ad481998956b6f6317db6f8": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08c3f16072c97cda016ace4a404558819986d83143eea67fbf": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08c3f16072c97cda016ace4a4d81408199b3a51149a06f29be": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 333
+          }
+        },
+        "request_fields": {
+          "instructions": {
+            "input_tokens": 5797,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "native_tool_calls": 0
+  }
+}

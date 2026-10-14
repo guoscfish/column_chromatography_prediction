@@ -1,0 +1,322 @@
+{
+  "type": "selection",
+  "packet_sha256": "325e3703389f938893ac9c7f6696cf2e9903178a877c19b63cbb6522757befca",
+  "batch_strategy": "Use matched solvent-response experiments to test remaining strong-eluent prediction humps, extend a recent endpoint-specific failure across loading, and distinguish recorded loading-solvent associations from repeat variability. Add conditional exploration on sparsely anchored ketones and nonpolar aromatic graphs. Prioritize relationships that can generalize across rows, while reducing follow-up on recently resolved weak-eluent curves.",
+  "choices": [
+    {
+      "id": "7b42519983cf93dd7efd",
+      "reason": "m92 at 50/1 and 115.5 mg tests loading transfer of the latest endpoint-specific failure. At 57.75 mg, 7caf1db075b91197ba34 measured 14.88/58.54 mL: acquisition prediction placed onset too late and completion too early. The current middle-loading prediction is 16.57/62.21 mL. This label tests both endpoints independently.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "e9dc948c0e68a88eb621",
+      "reason": "m92 at 20/1 and 173.25 mg completes loading coverage at the preceding solvent boundary. Lower and middle loadings finished at 34.55 and 33.32 mL in 66da447ca0fe7160cc1c and bbb514661c0a49694d6a. The inconsistent upper-loading 5/1 records make this new condition more useful than extrapolating a fixed loading offset.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "d2472f692763fd970d64",
+      "reason": "PE-loaded m72 at 1/1 and 51.1 mg tests the recorded loading-protocol contrast against DCM-loaded records 6a53fc46345dc50021ae and 4df0734ab058c0eeed78, whose completions differ by 10.19 mL. Solvent and loading-solvent volume change together, so this teaches their encoded joint association rather than isolating a solvent mechanism.",
+      "hypothesis_id": "H19"
+    },
+    {
+      "id": "a2c9096e1ec2e5c244d6",
+      "reason": "PE-loaded m72 at 1/1 and 102.2 mg provides the loading counterpart to the selected lower-loading row. DCM-loaded cad6b7ea1831fdd559f2 finished at 20.40 mL, while the PE-loaded pure-EA reference a047be17b8ee8bebb29a finished at 19.50 mL. This tests whether loading-protocol differences persist at the intermediate strong condition.",
+      "hypothesis_id": "H19"
+    },
+    {
+      "id": "d90d024730eb01bff3c7",
+      "reason": "Repeat DCM-loaded m72 at 1/1 and 102.2 mg, matching cad6b7ea1831fdd559f2. The latest lower-loading repeat 4df0734ab058c0eeed78 approached that middle-loading completion rather than reproducing its older lower value. This repeat checks the middle reference needed to interpret the selected PE loading pair.",
+      "hypothesis_id": "H19"
+    },
+    {
+      "id": "5149828089c3ed20123a",
+      "reason": "Tetralone m180 at 1/1 and 109.9 mg tests a predicted completion maximum of 18.59 mL, above the measured 5/1 completion of 15.74 mL in 73a35f890e678b320073. Its measured pure-EA completion is 10.51 mL in 1a3149e0c41e4560d347. The selected 2/1 counterpart makes this a controlled shape test.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "983a604ac43bb4d41238",
+      "reason": "m180 at 2/1 and 109.9 mg completes the matched pair, predicting 13.10 mL completion versus 18.59 mL at selected 1/1. Measured pure EA, 5/1 and 10/1 records 1a3149e0c41e4560d347, 73a35f890e678b320073 and 9ff75a89ec8d52e6f51c constrain the surrounding curve. This locates any genuine strong-region maximum.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "4a565c53862a9a8c3de3",
+      "reason": "Cyclic ester m181 at 1/1 and 58.45 mg begins a matched strong-eluent pair. Prediction finishes at 18.20 mL, above the selected 2/1 prediction of 15.29 mL. Measured same-loading pure EA and 10/1 records a355e45067146220aeb4 and 2cc7c8ae52cdb25ca284 provide boundaries. This tests transfer of the cyclic-carbonyl shape correction across an additional ring oxygen.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "eedc2caf00196610c74d",
+      "reason": "m181 at 2/1 and 58.45 mg completes the selected pair. Both strong conditions are unmeasured, whereas a355e45067146220aeb4 and 2cc7c8ae52cdb25ca284 measured completions of 9.82 and 31.79 mL in pure EA and 10/1. The pair distinguishes a real local decrease from interpolation overshoot without assuming universal monotonicity.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "593cfb8dc5f3c8b36cac",
+      "reason": "Seven-membered cyclic ketone m179 at 1/1 and 107.1 mg tests a predicted completion of 16.63 mL before a lower selected 2/1 prediction. Its measured 10/1 completion is 18.62 mL in b6dc1ec0dbd724128ce3. Comparison with the selected tetralone and cyclic-ester pairs tests whether the apparent hump transfers across ring environments.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "4bfc587d4349aa309395",
+      "reason": "m179 at 2/1 and 107.1 mg completes the matched pair, predicting 11.30 mL completion. The measured same-loading 10/1, 20/1 and 50/1 records b6dc1ec0dbd724128ce3, 8b8becd233748ccae9e3 and a36291cab664852df5e5 anchor the weaker region. This supplies the missing strong transition for both endpoints.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "c317a83705a69984f4b1",
+      "reason": "Sterically flanked trimethylacetophenone m29 at 2/1 and 48.75 mg starts a three-condition exploration. Prediction finishes at 13.20 mL, above its selected 5/1 prediction. The supplied measured anchor f73fd2f4c55177304721 covers 50/1 at 97.5 mg. New strong labels test whether carbonyl environment matters beyond the common ketone descriptor.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "1775390f94178c3c9974",
+      "reason": "m29 at 5/1 and 48.75 mg tests the predicted completion decrease from selected 2/1, 13.20 to 9.83 mL. Together with selected 20/1, it supplies a fixed-loading response segment for a scaffold whose supplied measured evidence is concentrated at the weak boundary f73fd2f4c55177304721.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "4b104d6f7556c8bc3a51",
+      "reason": "m29 at 20/1 and 48.75 mg bounds the selected 2/1-to-5/1 shape test, predicting 9.45/22.70 mL. The 50/1 observation f73fd2f4c55177304721 measured 11.79/27.88 mL at a different loading. This label checks the continuation while keeping loading fixed within the new three-point segment.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "e1da389a795a7f30c216",
+      "reason": "1-Phenylethanol m61 in pure EA at 151.8 mg begins a matched strong pair. Prediction finishes at 13.71 mL, above the selected 1/1 prediction. The measured upper-loading 5/1 record 067260cef0fb89f79291 has an unusually early onset, 2.68 mL, but completion at 19.38 mL. This tests the strong boundary of that endpoint pattern.",
+      "hypothesis_id": "H24"
+    },
+    {
+      "id": "053d656a484534ea6e2b",
+      "reason": "m61 at 1/1 and 151.8 mg completes the strong pair, predicting 3.89/12.24 mL. With measured 5/1 record 067260cef0fb89f79291, these labels establish whether completion decreases locally from pure EA and whether small onset persists across solvent regimes.",
+      "hypothesis_id": "H24"
+    },
+    {
+      "id": "994a1f65509549a84ede",
+      "reason": "m61 at 5/1 and 101.2 mg fills the loading-matched bridge to 859ae738b615cf17b849 at 10/1, measured at 3.04/17.24 mL. Prediction is 3.06/19.06 mL. This tests whether the early-onset, larger-completion pattern also occurs at this loading before generalizing from the upper-loading 5/1 record.",
+      "hypothesis_id": "H24"
+    },
+    {
+      "id": "cfcf2b8c54d4c8b3838a",
+      "reason": "Cyanobenzophenone m159 at 1/1 and 100 mg anchors its uncovered strong region. Same-loading records c6e78c97267cbb98dc22, a738b1f204da6fcfd385 and a17bcdddcf0799baeee2 show substantial growth from 10/1 through 50/1. The predicted 4.94/14.09 mL tests where that correction should stop toward stronger eluent.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "6aa69f7c2b8244353a75",
+      "reason": "m159 at 5/1 and 100 mg bridges the selected 1/1 anchor to c6e78c97267cbb98dc22 at 10/1, measured at 7.76/30.39 mL. Prediction gives an earlier onset but later completion than selected 1/1. This separately constrains onset and completion and limits transfer from the unusually variable nitrobenzophenone records.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "e831674d417af7d27b38",
+      "reason": "Nonpolar triphenyl bromoalkene m0 in pure EA at 100 mg tests its remaining strong-region prediction of 13.05 mL completion. Recent same-loading weak records e437adb333e7b4f4021c and f6ee035f6a2a7082604a finished at 10.67 and 12.34 mL. The selected 1/1 label tests whether the stronger-region increase is measured.",
+      "hypothesis_id": "H25"
+    },
+    {
+      "id": "181f4a164df2a06f6b96",
+      "reason": "m0 at 1/1 and 100 mg completes the strong pair, predicting 7.91/14.25 mL. Recent weak-region overpredictions in e437adb333e7b4f4021c and f6ee035f6a2a7082604a do not establish the strong shape. This label helps separate molecular baseline from solvent-response correction in a large graph without H-bond acceptors.",
+      "hypothesis_id": "H25"
+    },
+    {
+      "id": "61dbe9e57a7fb4f978a7",
+      "reason": "Dibromonaphthalene m5 in pure EA at 100 mg begins a strong-to-intermediate comparison. Its supplied measured 50/1 anchor 6344eef305d5c2c9e159 finished at 9.27 mL, while pure EA is predicted at 11.20 mL. This explores a sparsely anchored fused nonpolar graph and tests the scope of the recent m0 correction.",
+      "hypothesis_id": "H25"
+    },
+    {
+      "id": "3531227af9fe32de30eb",
+      "reason": "m5 at 5/1 and 100 mg completes the selected comparison, predicting 12.55 mL completion. With selected pure EA and measured 50/1 record 6344eef305d5c2c9e159, it distinguishes a real intermediate maximum from an unsupported curved response. Related m4 measurements show that nonpolar aromatic completions need not share one compact baseline.",
+      "hypothesis_id": "H25"
+    },
+    {
+      "id": "5b1af559138d20cb2423",
+      "reason": "Ortho-methoxyacetophenone m127 at 1/1 and 163.5 mg starts a matched hump test, predicting 19.73 mL completion. The selected 2/1 prediction is 13.67 mL, and measured 5/1 record 50fbcf5ece9bd5fc2d70 finished at 18.41 mL. This tests whether adjacent ether-carbonyl connectivity warrants a distinct strong response.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "f4e1a820726cf8f5d4e2",
+      "reason": "m127 at 2/1 and 163.5 mg completes the selected pair. Lower completion here than at selected 1/1 is untested at this loading. The middle-loading 2/1 measurement fd8b5ea3b704959cd1ab, 4.99/11.66 mL, and upper-loading 5/1 measurement 50fbcf5ece9bd5fc2d70 provide endpoint-specific context without assuming linear loading interpolation.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "425074f6cad1ac0c1bc8",
+      "reason": "Meta-amino ethyl benzoate m88 in pure EA at 110.7 mg begins a matched strong pair. Its same-loading 2/1 and 5/1 records ca6feb29f6758377a65f and d2921349ba8d9cef15a4 finished at 21.50 and 61.83 mL. The predicted 8.54 mL completion tests the strong boundary in an aniline-ester environment distinct from the recently measured pyridine bases.",
+      "hypothesis_id": "H20"
+    },
+    {
+      "id": "c620129610cfe348f024",
+      "reason": "m88 at 1/1 and 110.7 mg completes the matched pure-EA pair, predicting 12.84 mL completion. Measured ca6feb29f6758377a65f and d2921349ba8d9cef15a4 constrain the much larger weaker-eluent response. This localizes nitrogen-containing scaffold corrections before they reach the strongest conditions.",
+      "hypothesis_id": "H20"
+    },
+    {
+      "id": "4849c7e8a804b692efb7",
+      "reason": "Ortho-amino ethyl benzoate m89 at 1/1 and 111.7 mg starts a matched 1/1-to-2/1 segment. The ortho donor-ester environment may differ from m88 as a chemical prior; their loading protocols also differ. Measured m89 5/1 records 3aed7873d2fd1cf48684 and 18186b5d6cc190fc07a3 give compact nearby completions at other loadings.",
+      "hypothesis_id": "H20"
+    },
+    {
+      "id": "6fe6280def3960fa4f99",
+      "reason": "m89 at 2/1 and 111.7 mg completes the selected strong segment, predicting 13.32 mL completion. The same-loading 20/1 and 50/1 observations fe40c32169d87261e1e9 and 249b884b29177edb9df5 establish larger weak responses. This tests where the growth begins and prevents a common amino-ester or pyridine correction from determining the entire curve.",
+      "hypothesis_id": "H20"
+    },
+    {
+      "id": "14db2dd214b08f84732a",
+      "reason": "Difluorobenzaldehyde m185 at 1/1 and 65.85 mg fills the remaining reference after the predicted pure-EA reversal was rejected. abcfcb23dbe2574a2389 measured pure-EA completion at 7.96 mL; upper-loading pure EA and 1/1 records 38307f78abdd1b440f4b and 953c36233727e4998c93 were nearly equal. This determines whether the strong solvent response changes with loading.",
+      "hypothesis_id": "H23"
+    },
+    {
+      "id": "fa04675c3a6400dc01e0",
+      "reason": "Diethyl malonate m80 in pure EA at 158.25 mg begins a matched strong pair after weak-eluent loading transfer proved compact. Records 4c469be3d7348703d469 and f7d57d8bb988f7016502 finished at 9.21 and 7.93 mL at 20/1 and 50/1. The predicted pure-EA completion of 9.85 mL tests whether the compact correction extends to the strongest condition.",
+      "hypothesis_id": "H22"
+    },
+    {
+      "id": "9f2784e0f5c807ccfa0f",
+      "reason": "m80 at 1/1 and 158.25 mg completes the selected pair, predicting 8.42 mL completion below the selected pure-EA prediction. The measured middle-loading 2/1 record 0b1b7bf04ed8169cd172 and upper-loading weak records provide context. This checks a small strong-region reversal without assuming that substitution-dependent malonate growth applies to the unsubstituted diester.",
+      "hypothesis_id": "H22"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H2",
+      "content": "Loading associations remain scaffold-, solvent-regime- and endpoint-specific. Recent m53 50/1 and m56 100/1 labels support modest completion changes across loading at those boundaries. m92's lower-loading 50/1 label exposed a different problem: onset was predicted too late while completion was predicted too early. Its upper-loading 5/1 discrepancy does not establish a persistent loading effect because the repeat differed substantially.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "cdc8c1db00222994a1aa",
+        "0d588f7534b7a34cb10a",
+        "e7c4d856d4d9a8d5ddbf",
+        "781b8d96d8bc7c124dc9",
+        "7caf1db075b91197ba34",
+        "66da447ca0fe7160cc1c",
+        "bbb514661c0a49694d6a"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched loading labels can teach separate V1 and V2 interactions and prevent an isolated completion correction from becoming a universal loading offset.",
+      "next_discriminating_question": "Does m92's larger 50/1 completion transfer to middle loading, and is its upper-loading 20/1 response close to the measured lower and middle loadings?"
+    },
+    {
+      "id": "H19",
+      "content": "Exact recorded-condition variability is consequential but scoped. The latest m72 low-loading 1/1 repeat finished at 20.79 mL rather than the earlier 10.60 mL, weakening the previous deterministic strong-condition loading-gap interpretation. m92's upper-loading 5/1 repeat finished at 15.46 mL rather than 27.72 mL. The close m92 low-loading 1/1 repeats show that such variability cannot be assumed everywhere. Missing experimental factors prevent attribution.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "6a53fc46345dc50021ae",
+        "4df0734ab058c0eeed78",
+        "cad6b7ea1831fdd559f2",
+        "6c1c34b12c66ebcf39a4",
+        "c640425eaf27bc406362",
+        "7e0c856a121512a6f891",
+        "db2709229820b71e283b",
+        "95a3dcfe4436e929aa30",
+        "00a89de0e6cc7377a84b"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "A targeted repeat and matched recorded-protocol comparisons can keep retraining from assigning unsupported deterministic effects to mass or loading solvent.",
+      "next_discriminating_question": "Does m72's middle-loading DCM 1/1 reference reproduce, and how do the PE-loaded 1/1 labels compare at the same two recorded sample loadings?"
+    },
+    {
+      "id": "H3",
+      "content": "Neutral carbonyl strong-eluent corrections need explicit boundaries. Recent m53 pure EA rejected a predicted strong-region increase, and m197's measured 5/1-to-10/1 growth was smaller than predicted. Current unmeasured 1/1-to-2/1 completion humps recur in m179, m180, m181 and m127; m29 predicts a decrease from 2/1 to 5/1. These may be interpolation artifacts, but the heterogeneous observations do not justify imposing universal solvent monotonicity. m159 also lacks labels locating the start of its large weaker-eluent response.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "3bb54d92fcc3ef0fc388",
+        "d83038f8278f7c0745ee",
+        "61aca51ad135176924ec",
+        "04e162e0c1261108b4a0",
+        "1a3149e0c41e4560d347",
+        "73a35f890e678b320073",
+        "a355e45067146220aeb4",
+        "2cc7c8ae52cdb25ca284",
+        "c6e78c97267cbb98dc22"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Matched local segments across ring sizes, ester versus ketone connectivity, steric environments and nitrile substitution can correct response shape without spreading one scaffold's offset across carbonyl rows.",
+      "next_discriminating_question": "Which predicted local completion maxima are measured, and which disappear when both neighboring strong conditions are labeled at fixed recorded loading?"
+    },
+    {
+      "id": "H20",
+      "content": "Nitrogen-containing scaffold corrections are not transferable as a common strong-eluent offset. Recent methylquinoline and phenylpyridine pure-EA completions were overpredicted by 10.65 and 6.60 mL at acquisition, while earlier quinoline and lutidine pure-EA completions were underpredicted by about 8 mL. The latest m146, m90 and m211 strong pairs were ordered toward larger completion with weaker eluent. Aminoaryl esters remain a distinct, incompletely covered strong-region comparison.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "65723de539453b98b181",
+        "9a58eec5ad3051be568a",
+        "9a9b50816ec47f1cd755",
+        "64f99f02d02cc2d0791d",
+        "24e5dc14b855baed89fd",
+        "be06114d8d7b4a943ad7",
+        "ae187d6f3746213b630c",
+        "f768bef959891c647509"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Strong-condition labels in aminoaryl esters test the boundary of structural transfer from fused and pyridyl bases. Position and donor-acceptor environment are chemical priors, with recorded loading protocols retained as possible contributors.",
+      "next_discriminating_question": "How do m88's pure-EA-to-1/1 and m89's 1/1-to-2/1 segments connect to their sharply different measured weaker-eluent responses?"
+    },
+    {
+      "id": "H22",
+      "content": "The malonate family has substitution-specific recorded response curves. Upper-loading m80 remained compact at 20/1 and 50/1, supporting transfer of its lower-loading compact behavior. The latest m74 bridge rose from 11.39 to 17.42 mL completion between 5/1 and 10/1, and upper-loading m75 reached 51.52 mL at 50/1. These observations support scoped family differences, without identifying a molecular mechanism or establishing the unmeasured m80 strong boundary.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "271f829efaeb0b6c03b9",
+        "9c10e0827e86bb3c7681",
+        "4c469be3d7348703d469",
+        "f7d57d8bb988f7016502",
+        "28370d4d701b5589f06c",
+        "12ee64241e59d6b88e7a",
+        "9249ed2c527f70995033",
+        "5523d9c41009b84d3135"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The strong pair tests whether the model has correctly localized the compact unsubstituted-diester correction, instead of using acceptor count or substituted-malonate growth to determine all conditions.",
+      "next_discriminating_question": "Is upper-loading m80 compact in both pure EA and 1/1, and is the small predicted pure-EA completion increase present?"
+    },
+    {
+      "id": "H23",
+      "content": "The previous prediction of a pronounced m185 pure-EA completion increase to about 20.8 mL is rejected. Measured pure-EA completions were 7.96 mL at lower loading and 10.90 mL at upper loading; the matched upper-loading 1/1 completion was 11.15 mL. This rejects the large predicted reversal, while leaving the lower-loading 1/1 response and solvent-dependent loading difference unmeasured.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "953c36233727e4998c93"
+      ],
+      "contradicting_observed_ids": [
+        "abcfcb23dbe2574a2389",
+        "38307f78abdd1b440f4b"
+      ],
+      "confidence": "high",
+      "status": "rejected",
+      "why_it_matters_for_model_learning": "Retaining the contradicted hypothesis prevents the weak-eluent correction from being interpreted as evidence for a strong-eluent maximum. The missing lower-loading reference can localize the repaired response across loading.",
+      "next_discriminating_question": "Does lower-loading m185 increase from its measured pure-EA completion to the predicted approximately 11 mL completion at 1/1?"
+    },
+    {
+      "id": "H24",
+      "content": "m61's supplied weaker-eluent observations have small V1 values despite appreciable completion volumes, unlike the larger onsets recorded for several related aromatic alcohols. This may be a reproducible scaffold-condition endpoint pattern or a consequence of unrecorded factors. Its current pure-EA-to-1/1 completion decrease and middle-loading 5/1 response remain untested.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "067260cef0fb89f79291",
+        "859ae738b615cf17b849",
+        "2d11f1fe488a0c917ffe",
+        "19229d505f75d05a0bcb",
+        "5e45395722fa0dcc1d00"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "These labels can teach V1 and V2 separately and stop a donor-based retention correction learned from primary or other secondary alcohols from shifting both endpoints together.",
+      "next_discriminating_question": "Does the small-onset pattern persist at middle-loading 5/1 and upper-loading strong conditions, and is the predicted strong completion decrease measured?"
+    },
+    {
+      "id": "H25",
+      "content": "Nonpolar aromatic graphs need their own condition-response boundaries. Recent m0 weak labels were compact and smaller than their acquisition predictions, whereas m4 retained completion near 18 mL and its predicted 2/1-to-5/1 decrease was not measured. m5's supplied measured evidence is concentrated at 50/1. Current strong-region increases for m0 and m5 are hypotheses, not observed failures.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "e437adb333e7b4f4021c",
+        "f6ee035f6a2a7082604a",
+        "e88fbf312cd49dd88cef",
+        "5b46916999f1668c7409",
+        "6344eef305d5c2c9e159"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Strong and intermediate labels on these graphs can separate molecular baseline from solvent shape and prevent polar-scaffold repairs from controlling abundant nonpolar rows.",
+      "next_discriminating_question": "Do m0's strong pair and m5's pure-EA-to-5/1 comparison retain larger completions than their measured weak boundaries?"
+    }
+  ],
+  "feedback_interpretation": "The latest outcomes shift priority from extending recently repaired weak curves to locating their strong boundaries and checking influential recorded associations. m53's upper-loading 50/1 completion of 69.61 mL was close to its acquisition prediction and to the middle-loading 70.14 mL result; its pure-EA completion of 9.80 mL rejected the predicted strong increase. m56's 50/1 bridge finished at 18.14 mL between its measured 20/1 and 100/1 values, and lower-loading 100/1 finished at 23.08 mL, supporting scoped loading transfer. These results reduce the value of another immediate neighboring label on either molecule. For m72, the low-loading 1/1 repeat finished at 20.79 rather than 10.60 mL, so the former strong-condition loading-gap interpretation is weakened. Its pure-EA pair was nearly flat across the two loadings, 13.77 and 14.31 mL, and its middle-loading 5/1 bridge was close to prediction. I therefore use one middle-loading repeat and two PE-loaded 1/1 comparisons to distinguish recorded protocol associations from variability. m92's upper-loading 5/1 repeat changed from 27.72 to 15.46 mL, weakening a deterministic loading interpretation; its lower-loading 50/1 result instead exposed opposite-sign onset and completion errors, motivating a new weak-boundary loading label. The latest m146 and m211 pure-EA results rejected their predicted completion reversals, while m90's pair was ordered with more modest discrepancies. Earlier quinoline and lutidine misses had the opposite sign, reinforcing scaffold-specific strong-response learning rather than a shared nitrogen offset. Both m185 pure-EA results decisively rejected the approximately 20.8 mL predictions, so only its missing lower-loading 1/1 reference is selected now. The malonate results support compact loading transfer for m80 and an ordered growing bridge for m74; I limit follow-up to m80's uncovered strong pair. m197's new bridge rose gradually from 27.93 to 30.67 mL completion, less than predicted at 10/1, and m4's 5/1 result rejected its predicted local decrease. These outcomes motivate controlled tests of remaining neutral-carbonyl humps and sparse nonpolar strong regions. All error statements are historical acquisition-time errors, not current-model residuals.",
+  "batch_rationale": "The batch contains 32 distinct eligible experiments with no pending selections. Its main learning target is conditional response shape: three cyclic-carbonyl pairs test a recurring predicted 1/1-to-2/1 completion decrease across ring size and ester connectivity; the m127 pair and m29 segment test its structural scope in aromatic ether-carbonyl and sterically flanked ketone environments. The m159 anchors locate the strong boundary before a measured large weaker-eluent increase. These comparisons can repair shared solvent-response features while allowing genuine scaffold-specific exceptions. The m92 labels address a recent failure involving both endpoints and test loading transfer at two boundaries. The m72 design adds a narrowly targeted repeat and matched recorded-protocol comparisons because its latest repeat weakened the previous loading hypothesis. Alcohol labels test a different endpoint pattern, aminoaryl-ester segments extend nitrogen-condition learning beyond recently covered pyridine bases, and nonpolar comparisons constrain baselines that should not inherit polar-scaffold corrections. The m185 bridge follows a rejected prediction, and the m80 pair checks the boundary of a supported compact family response. Multiple rows on a molecule answer explicit local questions rather than provide redundant nearby anchors. Together, these labels may improve overall Row V1/V2 accuracy by teaching structure-condition interactions across prevalent functional groups and solvent regimes. Chemical priors guide the comparisons but do not impose absolute monotonicity or identify an adsorption mechanism. Loading mass is the supplied density-times-volume feature; loading solvent and volume are retained as recorded conditions, and missing experimental factors limit attribution. Single-predictor quantile spans are supplementary evidence, not calibrated epistemic uncertainty, and V2 minus V1 is the elution interval width. All 32 IDs and their exact associated premeasurement predictions in this packet are frozen before any new label reveal."
+}

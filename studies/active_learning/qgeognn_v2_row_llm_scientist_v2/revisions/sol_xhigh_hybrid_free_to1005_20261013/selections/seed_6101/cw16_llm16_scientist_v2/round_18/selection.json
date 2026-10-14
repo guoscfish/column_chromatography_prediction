@@ -1,0 +1,188 @@
+{
+  "type": "selection",
+  "packet_sha256": "9b88d0da4dab3544c253818d5fd21c124ece7ef65798ad8fe1e305d1ad31e499",
+  "batch_strategy": "Supplement the pending coverage batch with matched loading contrasts, a condition-dependent protocol comparison, and missing solvent anchors that test specific response-shape assumptions. Use recent successful measurements to reduce redundant follow-up, and use discordant catalog records to limit deterministic interpretations of loading curves.",
+  "choices": [
+    {
+      "id": "a1ea7a9303a5fc7a7b0f",
+      "reason": "Measure m51 at 2/1 and 50 uL; predicted V1/V2 is 9.69/14.82 mL. Pair with the selected 150-uL point and the measured 100-uL anchor 95a211366968c4cd1f0f, 8.73/14.49. The completed 10/1 series, including bad24d96575f423fe4fd, showed a diminishing onset decrease with amount. This stronger-solvent series tests transfer of the attenuation recently measured for m60 and m200 while retaining separate supervision for completion.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "426ed16e4b39d346244b",
+      "reason": "Measure the matched m51 2/1, 150-uL endpoint; predicted 8.11/14.86 mL. Together with the selected 50-uL point, this isolates recorded amount at fixed density and 300-uL PE loading protocol. The existing midpoint 95a211366968c4cd1f0f makes both loading curvature and the nearly flat predicted completion response testable without assuming that the large 10/1 onset slope persists.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "9139c55b31e4e4b0e062",
+      "reason": "Measure cyclic tertiary alcohol m203 at 2/1 and 50 uL; predicted 8.42/8.38 mL. The predicted endpoint reversal and completion trough are untested. At the same amount, 5885d427a26f03e522f3 measured 11.17/14.26 at 5/1 and ade362756cf5f89aea03 measured 4.79/7.95 in neat EA; the 1/1, 100-uL observation 2d389074e8eee38a47d4 was also ordered. This bridge can repair a local completion interpolation failure while distinguishing it from the accurately predicted neat-EA boundary.",
+      "hypothesis_id": "H9"
+    },
+    {
+      "id": "fbfb34ddee14b1ea50b1",
+      "reason": "Measure m203 at 10/1 and 50 uL; predicted 13.74/23.06 mL. The matched 150-uL record 04ea307c7b7f3321cc20 measured 12.97/22.33, so the model anticipates a small amount response. This contrasts a cyclic, benzylic tertiary hydroxyl environment under DCM loading with the substantial weak-solvent onset responses measured for m51 and m60. It tests the scope of loading corrections rather than transferring one alcohol slope universally.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "32326acee85181b5df10",
+      "reason": "Measure amino-enone ester m72 at 5/1 and 50 uL using 300 uL PE for loading; predicted 16.60/38.61 mL. The same amount under the 200-uL DCM protocol measured 16.01/36.80 in 10f01f359bc6067d009f. At 20/1, the corresponding low-amount protocol records 8e7636d7a60a6058305a and 1b1a9ec85268aa66d327 differed substantially. This missing 5/1 protocol contrast tests whether that association attenuates with stronger mobile phase.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "1f70add69a6dbecca3b4",
+      "reason": "Measure the m72 5/1, 150-uL PE-loading endpoint; predicted 14.92/38.68 mL. The matched DCM-loading record 89425cdfb228a6ebf75d measured 13.07/35.59. Together with the selected low-amount PE point, this separates an amount response within each protocol from a protocol-associated offset. Loading-solvent identity and volume change together between protocols, so their individual causal effects remain unresolved.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "9bc73e0c27d4d6b44abb",
+      "reason": "Measure para-aminobenzoate m86 at 5/1 and 150 uL; predicted 29.97/57.45 mL. Its matched 50-uL record c70b471334f9747d6f98 measured 32.05/58.38. The predicted modest onset change remains untested, whereas amino nitrile and lutidine observations show that basic aromatic loading responses can be substantial and endpoint dependent. This supplies a missing amount endpoint in an aryl amine/ester environment; its broad V1 quantile span is diagnostic context, not calibrated epistemic uncertainty.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "224279593b17fa2cbc8c",
+      "reason": "Measure m86 at 1/1 and 50 uL; predicted 8.54/15.75 mL. This is a fixed-amount solvent extension of c70b471334f9747d6f98, 32.05/58.38 at 5/1, with 70593725787c65a74951 providing a 2/1, 100-uL anchor. It tests the predicted strong-solvent convergence toward the meta-amino ester reference 9a9324fbb6b1e17e7743. Those structural references have different recorded loading protocols and densities, so convergence is a transfer question rather than an isolated positional effect.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "10a4c811b70ba8155044",
+      "reason": "Measure m92 at 2/1 and 50 uL with 200 uL EA loading solvent; predicted 2.99/13.05 mL. Its consistent 1/1 EA-loading records 00a89de0e6cc7377a84b and 95a3dcfe4436e929aa30 started near 5.2-5.7 mL, while 790d27f0fa045d91f307 started at 8.61 mL at 5/1. This tests the predicted unusually early intermediate-ratio onset. The discordant high-amount 5/1 repeat c640425eaf27bc406362 redirects effort from fitting a presumed completion upturn to resolving an uncovered solvent relationship.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "ba2b9e528f2743c4e6ec",
+      "reason": "Measure diethyl malonate m80 at 1/1 and 50 uL; predicted 5.11/15.54 mL. The 100-uL record 55dfd30fde788076a355 finished at 15.66 mL, compared with 7.51 mL at 20/1 and the same amount in 26df752cf7c0673db585. This new amount checks whether prolonged 1/1 completion extends beyond that single recorded condition. Pairing it with the selected neat-EA point tests the inferred strong-solvent response locally.",
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "461fbd64aa8472f52774",
+      "reason": "Measure the matched m80 neat-EA, 50-uL point; predicted 6.33/9.80 mL. Together with the selected 1/1 point, it tests both the predicted completion decrease and the predicted onset increase on strengthening the mobile phase. The measured 10/1, 50-uL anchor 271f829efaeb0b6c03b9 was 5.29/6.88. This supplies a missing boundary for a diester whose observed endpoint behavior does not follow a simple shared monotone curve.",
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "454eb2207b9abc0b2a6d",
+      "reason": "Measure salicylaldehyde m197 at 2/1 and 100 uL; predicted 5.46/17.16 mL. The same recorded loading at 1/1 measured 5.63/25.53 in 69be7348f9ab10739164. This tests the predicted intermediate-ratio completion minimum, which has no measured 2/1 support. The neighboring phenolic-carbonyl environment offers a chemically meaningful check on whether a response-shape exception is learned locally or incorrectly generalized.",
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "ff3ee95fed58907ff8b3",
+      "reason": "Measure m197 in neat EA at 100 uL; predicted 3.03/10.97 mL. With the selected 2/1 point and measured 1/1 anchor 69be7348f9ab10739164, this creates a fixed-loading strong-solvent comparison for both endpoints. It determines whether completion really falls sharply beyond the measured 1/1 region and bounds any ratio-specific anomaly. Intramolecular hydrogen bonding is a chemical possibility, not an established explanation for these records.",
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "7a3586b45c03832259f5",
+      "reason": "Measure ethyl acetoacetate m82 at 2/1 and 100 uL; predicted 10.39/17.23 mL. The matched 5/1 observation f50c45b31cf41304c109 measured 12.32/29.34, and af7d7a4a3b2da27cada0 supplies a lower-amount 1/1 boundary. The latest tert-butyl analogue result b008f92639d8bb738954 finished much earlier than its acquisition prediction at 5/1. This missing ethyl-ester bridge tests structure-dependent solvent curvature without treating that correction as transferable to every beta-keto ester.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "a421784c91de559c18e0",
+      "reason": "Measure multifunctional beta-keto ester m13 at 5/1 and 100 uL; predicted 20.50/39.37 mL. At matched protocol, 1cc3b837c6561b1c0a23 and 5d530b2f228ed39ff952 measured 23.90/40.10 and 17.85/43.86 at 50 and 150 uL. The predicted midpoint completion lies below both observed endpoints. This tests whether that dip is real while learning an onset decrease accompanied by a completion increase, a useful counterexample to a single loading correction for both targets.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "1ae3618ec277b0463686",
+      "reason": "Measure quinoline m216 at 5/1 and 50 uL; predicted 27.81/55.28 mL. Its 100-uL observation 33ffc69a253a89f15995 measured 27.90/57.67, so the current model anticipates little onset change toward lower amount. In contrast, lutidine records 434ffacb33eccce497c5 and 65f4f125b5e1f8137bd9 showed a substantial onset decrease from 50 to 150 uL at 5/1. This anchor tests scaffold-dependent loading behavior for basic heteroaromatics, with the different loading protocols retained as a limitation of cross-molecule interpretation.",
+      "hypothesis_id": "H1"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Loading responses are molecule-, solvent- and endpoint-dependent. The completed m51 10/1 series shows a diminishing onset decrease with amount, while the latest m60 2/1 and m200 neat-EA pairs support attenuation in stronger mobile phase without complete disappearance. Completion can remain nearly constant or increase with amount, as illustrated by the m60 10/1 contrast and m13 5/1 endpoints. These findings do not establish a universal slope or interpolation rule.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "4fb92bd1fab3ba235858",
+        "bad24d96575f423fe4fd",
+        "19229d505f75d05a0bcb",
+        "985361f6699d97f9464f",
+        "62d7ea74ab73fa6214b4",
+        "c9ad01493d938f825117",
+        "1e3423563c1cfbda4889",
+        "c352863d9fa4a8645481",
+        "5e45395722fa0dcc1d00",
+        "a92f7617b135de150588",
+        "f91285c618eacb53538b",
+        "6c022e06f98c0a9771b6",
+        "88d94bacb5a3b54ac7d1",
+        "1cc3b837c6561b1c0a23",
+        "5d530b2f228ed39ff952",
+        "434ffacb33eccce497c5",
+        "65f4f125b5e1f8137bd9"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched contrasts can teach both substantial onset responses and environments where small responses are appropriate, while preventing completion from inheriting the same correction. Structural scope checks extend this learning beyond the recently measured alcohols.",
+      "next_discriminating_question": "Does m51 retain a measurable, curved amount response at 2/1, and do cyclic tertiary alcohol, amino ester and quinoline environments follow their predicted smaller responses? Does m13's midpoint completion support or reject a local dip?"
+    },
+    {
+      "id": "H2",
+      "content": "Recorded loading protocols can have condition-dependent associations with retention. The latest m125 neat-EA result completes a 300-uL DCM protocol series whose completions remain near 11-13 mL; matched 50- and 100-uL records under the 500-uL protocol finished later. For m72, the PE/300-uL versus DCM/200-uL protocol contrast is substantial at the measured low-amount 20/1 boundary but much smaller at the measured high-amount 10/1 boundary. A constant protocol offset is therefore unsuitable, and recorded solvent volume alone is not established as the cause.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "55f2352b50967352163e",
+        "5e1a63da794d99ec88fb",
+        "e7ed7ca4a53258b73ba2",
+        "dd4f07e349873053fd73",
+        "922b1bfbf466fff6178f",
+        "8e7636d7a60a6058305a",
+        "1b1a9ec85268aa66d327",
+        "48b79cabd9460cfc510b",
+        "a2f83665cfe821271b30"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The m125 outcomes exposed averaging across recorded protocols. A meaningful comparison in another polar family can teach when protocol features interact with mobile-phase strength and amount, rather than encoding one molecule-specific offset.",
+      "next_discriminating_question": "At m72 5/1, do the PE-loading outcomes approach the matched DCM-loading outcomes at both amounts, or does a protocol association persist or change with amount?"
+    },
+    {
+      "id": "H3",
+      "content": "The proposed reproducible high-amount completion upturn for m92 at 5/1 is rejected as a deterministic relationship from the recorded variables. The original 150-uL completion of 27.72 mL suggested an upturn relative to the recent lower-amount labels, but another record with the same recorded tuple finished at 15.46 mL. The discrepancy does not identify its cause, and catalog records are not assumed to be controlled technical replicates.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "6c1c34b12c66ebcf39a4",
+        "790d27f0fa045d91f307",
+        "d1eeb016c4cf20b87e92"
+      ],
+      "contradicting_observed_ids": [
+        "c640425eaf27bc406362"
+      ],
+      "confidence": "low",
+      "status": "rejected",
+      "why_it_matters_for_model_learning": "This limits attempts to fit an isolated exceptional completion through amount alone. New supervision should resolve uncovered condition relationships while recognizing variability or missing information in identical recorded tuples.",
+      "next_discriminating_question": "Does the unmeasured EA-loaded 2/1, 50-uL condition validate the predicted very early onset, or indicate a more gradual transition between the measured 5/1 and 1/1 anchors?"
+    },
+    {
+      "id": "H8",
+      "content": "The current m80 and m197 predictions imply localized completion increases around 1/1 and lower completion at adjacent stronger or weaker ratios. For m80, prolonged completion at 1/1 is measured at 100 uL relative to its same-amount 20/1 observation, but its extension across amount and its neat-EA boundary remain untested. For m197, the measured 1/1 anchor does not establish the predicted 2/1 minimum or neat-EA decline. These curves require local checks and need not share a mechanism.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "55dfd30fde788076a355",
+        "26df752cf7c0673db585",
+        "69be7348f9ab10739164"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Matched solvent anchors distinguish useful endpoint-specific response shapes from interpolation driven by sparse or exceptional labels. They also prevent one observed ratio-specific association from spreading across diester and phenolic-carbonyl rows.",
+      "next_discriminating_question": "Does another m80 amount retain prolonged 1/1 completion, and do the matched neat-EA and m197 2/1 labels confirm the predicted neighboring decreases?"
+    },
+    {
+      "id": "H9",
+      "content": "m203's predicted 2/1 completion trough may be a local interpolation failure. Its current 50-uL prediction slightly reverses endpoint order, whereas measured 5/1 and neat-EA outcomes at 50 uL and the measured 1/1 outcome at 100 uL have ordered endpoints. No measured 2/1 result yet determines whether the predicted compression is appropriate.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "5885d427a26f03e522f3",
+        "ade362756cf5f89aea03",
+        "2d389074e8eee38a47d4"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "A missing intermediate condition can repair completion curvature without imposing a global monotonicity rule or transferring the behavior of other hydroxyl environments. The accurately predicted latest neat-EA result provides a useful boundary.",
+      "next_discriminating_question": "At 2/1 and 50 uL, is m203 completion close to its predicted onset, or appreciably later and consistent with an ordinary ordered solvent transition?"
+    }
+  ],
+  "feedback_interpretation": "The latest loading experiments support attenuation and endpoint-specific effects, but weaken universal loading corrections. m51 onset fell from 37.67 to 30.62 to 26.24 mL across its completed 10/1 series, with diminishing increments and much smaller completion changes. m60's 2/1 pair differed by 2.10 mL in onset and 0.84 mL in completion; m200's neat-EA pair differed by 2.69 and 0.93 mL, substantially less than its measured 2/1 contrasts. Conversely, m60 completion increased from 64.72 to 66.34 mL between 100 and 150 uL at 10/1. I therefore test structural scope and another stronger-solvent amount curve rather than repeatedly adding weak-solvent alcohol endpoints. The m125 300-uL DCM neat-EA extension finished at 11.58 mL, supporting a nearly flat completion series at that protocol. It does not establish the unmeasured 150-uL gap to the 500-uL protocol. I transfer the protocol question to m72, where matched reference labels already exist. The m92 same-tuple result finished at 15.46 versus the earlier 27.72 mL, rejecting a reproducible high-amount upturn as a deterministic rule and reducing the value of further acquisitions solely to fit that shape. The new m73 2/1 onset of 4.90 mL supports localization of late onset to its observed 1/1 region, while its inconsistent 1/1 intervals still limit shape interpretation. The m128 2/1 result, 12.16/20.42, rejected the previously predicted near-collapse to its 1/1 boundary; m129 completion instead decreased to 8.82 mL in neat EA. The m45 2/1 label, 6.84/11.64, also repaired a previously reversed prediction. These results motivate checks of other specific interpolation troughs, without asserting that every nonmonotone prediction is erroneous. The m25 bridge completion was overpredicted by 6.03 mL at acquisition, whereas the m127 10/1 completion and several pending-CW labels were close to prediction. Immediate follow-up thus shifts toward uncovered relationships rather than all recently measured molecules. All stated prediction errors are acquisition-time errors, not current-model residuals.",
+  "batch_rationale": "The pending 16 already provide substantial neutral aromatic coverage and neat-EA anchors for an amino nitrile and a hydroxyl ester. The supplements address relationships that those labels cannot isolate. The m51 pair forms a three-point stronger-solvent loading series with an existing midpoint. The m203 weak-solvent amount contrast, m86 high-amount point, quinoline low-amount point and m13 midpoint test where endpoint-specific loading behavior transfers and where structural environment requires a different response. The m72 pair supplies two matched comparisons to an observed DCM-loading series, allowing protocol association and amount response to be considered jointly while acknowledging that solvent identity and loading-solvent volume change together. The m203 2/1 bridge, m92 2/1 anchor and matched m80/m197 solvent comparisons test concrete response-shape questions after recent labels both repaired prediction failures and exposed same-tuple variability. The m82 bridge and m86 strong-solvent anchor extend supervision across beta-keto ester and aryl amine environments with observed neighboring conditions. Repeated molecules serve explicit comparisons; chemical breadth is included where it tests transfer across the supplied Row-distribution. This may improve generalization by teaching the model the scope of amount, protocol and solvent relationships separately for V1 and V2. Quantile spans and CW percentiles are diagnostic context rather than an acquisition formula or calibrated epistemic uncertainty; elution interval width remains an outcome. These 16 selected IDs join the pending 16 to freeze all 32 experiments before any new label reveal. Their exact supplied predictions remain the premeasurement predictions; values in reasons are rounded only for readability."
+}

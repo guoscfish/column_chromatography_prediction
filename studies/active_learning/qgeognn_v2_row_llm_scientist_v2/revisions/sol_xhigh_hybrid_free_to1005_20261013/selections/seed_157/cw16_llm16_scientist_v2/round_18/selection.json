@@ -1,0 +1,207 @@
+{
+  "type": "selection",
+  "packet_sha256": "254b49e83ce64a2d2a1ecfb14a6b476125f97955af041dbb72aaca9bf871f38e",
+  "batch_strategy": "Supplement the fixed CW16 with targeted consistency checks, matched solvent and loading contrasts, and strong-eluent anchors. Prioritize relationships that remain unresolved after recent feedback: reproducibility of a loading departure, transfer of endpoint corrections across alcohol environments and aromatic ketones, and structure-dependent completion at pure EA. The pending 16 and these 16 choices retain their supplied packet predictions before any new measurement.",
+  "choices": [
+    {
+      "id": "c640425eaf27bc406362",
+      "reason": "m92, 5/1, 150-uL sample in 200 uL EA; packet prediction 7.97/23.57 mL. This repeats measured tuple 6c1c34b12c66ebcf39a4, which gave 7.14/27.72. Recent 50/100-uL measurements 790d27f0fa045d91f307 and d1eeb016c4cf20b87e92 finished at 21.06/19.96. Because the previous 2/1 middle-loading consistency check disagreed substantially with its earlier label, this targeted repeat tests whether the apparent high-loading completion departure is reproducible and learnable from recorded features.",
+      "hypothesis_id": "H37"
+    },
+    {
+      "id": "ab1062a71079c605f750",
+      "reason": "m92, 10/1, 100-uL sample in 200 uL EA; packet prediction 9.62/28.39 mL. Measured low/high-loading anchors 0389a6366b3a51fad8b5 and ad0ace61c29817c678c2 finish at 26.35/29.54. This missing middle point establishes an adjacent loading curve and tests whether the irregular 2/1 and 5/1 associations persist in weaker eluent. It provides a new condition alongside the selected consistency check, without assuming a deterministic middle-loading minimum.",
+      "hypothesis_id": "H37"
+    },
+    {
+      "id": "56f8cdbb3999b366d947",
+      "reason": "m67, 2/1, 150-uL sample in 300 uL DCM; packet prediction 9.93/17.04 mL. Recent high-loading 5/1 row cb6d3ef1b6dde291fbac finished at 15.49, an acquisition overestimate of 8.75 mL, while 10/1 row 5e784130c58b8175024e was comparatively accurate at 16.58/32.87. Together with measured 1/1 anchor f8235c550c614221a158, this fills the strong-eluent segment and tests the predicted completion reversal between 2/1 and 5/1.",
+      "hypothesis_id": "H45"
+    },
+    {
+      "id": "26ead7c5ee68643c421e",
+      "reason": "m67, 2/1, 50-uL sample in 300 uL DCM; packet prediction 10.24/16.72 mL. Pairing this with the selected 150-uL point tests the model's very small predicted loading adjustment. Measured m61 5/1 rows 994a1f65509549a84ede and 067260cef0fb89f79291 show a large loading-associated onset contrast with completion moving oppositely; recent m67 feedback does not establish transfer of that behavior. The controlled pair distinguishes a solvent-segment correction from a loading interaction in a related benzylic alcohol.",
+      "hypothesis_id": "H45"
+    },
+    {
+      "id": "4003f255f44e82ee0975",
+      "reason": "m182, pure EA, 100-uL sample in 300 uL DCM; packet prediction 5.61/20.76 mL. Matched measured 1/1 row d6f36b5de45565d68603 gives 4.36/17.95, so the model predicts later onset and completion in the stronger eluent. This is an untested prediction, not an observed reversal. The label directly resolves the strongest-eluent boundary for fluorenone and complements the selected acetylfluorene pair.",
+      "hypothesis_id": "H47"
+    },
+    {
+      "id": "e84314bcd7ec5ba57283",
+      "reason": "m38, pure EA, 150-uL sample in 1000 uL DCM; packet prediction 5.14/20.18 mL. Its selected matched 1/1 partner is predicted at 2.77/13.67. Measured 5/1 high-loading row 5b1b0390c90ceb580c5e gives 8.01/21.48, while 2/1 middle-loading anchor a2f5638c0f2528673e4e gives 4.82/12.63. Measuring this boundary tests whether the predicted strong-eluent completion increase is real under the recorded loading conditions.",
+      "hypothesis_id": "H47"
+    },
+    {
+      "id": "0bd57808d920c8e6f5c4",
+      "reason": "m38, 1/1, 150-uL sample in 1000 uL DCM; packet prediction 2.77/13.67 mL. This holds every loading variable fixed relative to the selected pure-EA row. Both labels are needed to identify the solvent contrast rather than infer it from a loading-distinct anchor. Measured 5b1b0390c90ceb580c5e supplies the same-load 5/1 reference, allowing onset and completion responses to be assessed separately.",
+      "hypothesis_id": "H47"
+    },
+    {
+      "id": "9a9b50816ec47f1cd755",
+      "reason": "m90, pure EA, 50-uL sample in 300 uL DCM; packet prediction 5.27/16.60 mL. Matched 1/1 and 2/1 anchors 64f99f02d02cc2d0791d and 6a4e95d2a3cca31094a1 give 11.24/20.23 and 16.89/29.23. Recent pyridyl-ketone pure-EA row 07dbb8c9982caa472c1a retained completion at 21.09 despite a 12.25 prediction. This pyridyl-ester anchor tests functional-group transfer of strong-eluent behavior while preserving the distinct loading conditions.",
+      "hypothesis_id": "H46"
+    },
+    {
+      "id": "425074f6cad1ac0c1bc8",
+      "reason": "m88, pure EA, 100-uL sample in 200 uL DCM; packet prediction 5.64/8.97 mL. Same-load measured rows c620129610cfe348f024 and ca6feb29f6758377a65f give 5.93/17.08 at 1/1 and 11.89/21.50 at 2/1. The predicted strongest-eluent completion decrease is substantial. This label tests an amino-benzoate boundary that the pending batch does not cover and supplies a comparison with the selected para-amino isomer under its own loading conditions.",
+      "hypothesis_id": "H46"
+    },
+    {
+      "id": "0f9c311bea99fb35cf5f",
+      "reason": "m86, pure EA, 150-uL sample in 500 uL DCM; packet prediction 5.17/9.73 mL. Matched measured 1/1 row 4d3b1628cd2311585f50 gives 7.07/15.08, and 2/1 row 073e6abf4d3bfffc2761 gives 10.57/22.67. This strongest-eluent label tests completion transfer in a second amino-benzoate environment. Its comparison with m88 is informative for joint structure-condition learning, but differing DCM volumes and sample masses prevent attributing differences solely to substitution position.",
+      "hypothesis_id": "H46"
+    },
+    {
+      "id": "cc1f4899902d6f44bef2",
+      "reason": "m28, pure EA, 150-uL sample in 300 uL DCM; packet prediction 4.40/10.80 mL. Matched 1/1 row 9845fd896eb72b0e149f gives 4.82/19.96. The model predicts an approximately 9-mL completion decrease with little onset change. Recent aromatic-aldehyde pure-EA failures d7895c522a1a46a1175c and c6ce120d2546ceadde09 show that strong-eluent shortening can be overpredicted under other structures and loading conditions. This acetoxy-aldehyde label tests that transfer without assuming a universal aldehyde correction.",
+      "hypothesis_id": "H46"
+    },
+    {
+      "id": "67b7c283d1762ce094e6",
+      "reason": "m41, 5/1, 50-uL sample in PE; packet prediction 5.76/15.10 mL. Recent same-load 50/1 row dc795e0a68f104353b33 had an onset acquisition underestimate of 9.72 mL. Measured acetophenone 5/1 row d2df3bff96e996e37f5d gives 8.87/12.12 under the same PE loading-solvent volume and sample volume, with a slightly different density. This tests whether the current earlier-onset but later-completion prediction for the meta-methyl analog transfers correctly in a common aromatic-ketone segment.",
+      "hypothesis_id": "H48"
+    },
+    {
+      "id": "b4d9d000145f0dfcee50",
+      "reason": "m41, 20/1, 50-uL sample in PE; packet prediction 12.00/24.57 mL. Together with the selected 5/1 point and measured 50/1 anchor dc795e0a68f104353b33 at 19.80/36.03, this establishes a fixed-loading solvent curve. It tests the shape between the newly corrected weak-eluent anchor and stronger eluent, reducing the risk that retraining spreads an onset correction uniformly across ratios.",
+      "hypothesis_id": "H48"
+    },
+    {
+      "id": "1f95ba6922e8753bf2d6",
+      "reason": "m42, 5/1, 150-uL sample in PE; packet prediction 8.53/13.34 mL. Recent low-loading row d2df3bff96e996e37f5d measured 8.87/12.12 after opposite-signed onset and completion misses. This controlled loading contrast tests whether the updated short interval transfers to higher sample loading. It complements the m41 fixed-loading solvent curve and constrains separate endpoint responses in the aromatic-ketone family.",
+      "hypothesis_id": "H48"
+    },
+    {
+      "id": "7de812bda21b4dfe46dc",
+      "reason": "m202, 10/1, 50-uL sample in 300 uL DCM; packet prediction 5.31/9.32 mL. Recent same-load 5/1 row 4f88870ad666191b8ea7 gives 8.25/13.13, with completion underestimated by 4.38 mL at acquisition. The model predicts earlier completion in weaker eluent, while measured 10/1 high-loading row cb446680f62351d087a9 gives 4.62/9.38. This matched low-loading solvent contrast determines whether the predicted decrease survives removal of the loading confound.",
+      "hypothesis_id": "H49"
+    },
+    {
+      "id": "2f5ad80c46080b17df41",
+      "reason": "m202, 1/1, 50-uL sample in 300 uL DCM; packet prediction 5.59/8.03 mL. Alongside measured 5/1 row 4f88870ad666191b8ea7 and the selected 10/1 point, this brackets the apparent local maximum at fixed loading. Pending 2/1 coverage uses 150-uL sample loading and therefore does not resolve this curve. The formal phosphorus charge in the supplied SMILES makes this a useful distinct interaction environment, without assuming an unrecorded salt, pH, or speciation mechanism.",
+      "hypothesis_id": "H49"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H28",
+      "content": "The m125 loading-volume association depends on eluent ratio and sample loading. DCM-500 gives later completion than DCM-300 at measured 1/1 and pure-EA comparisons, but at 5/1 and 50-uL sample loading DCM-500 finishes at 67.70 versus 69.71 mL for DCM-300. At pure EA in DCM-500, increasing sample loading from 100 to 150 uL raises completion from 22.11 to 33.47 mL with little onset change. These are recorded-condition associations, with no established causal mechanism.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "00043aebb2540e369a7b",
+        "f4fb5c03b8e8996e75f6",
+        "e7ed7ca4a53258b73ba2",
+        "dd4f07e349873053fd73",
+        "761c3f82d640da44966c",
+        "780b13846ace50ede763",
+        "c6ce120d2546ceadde09"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The labels support interactions between molecule, eluent ratio, sample loading, and loading-solvent volume. A fixed-sign loading-volume correction would misrepresent the measured weaker-eluent boundary.",
+      "next_discriminating_question": "At pure EA and 150-uL sample loading, does DCM-300 retain the shorter completion seen at 100 uL, or approach the measured DCM-500 completion?"
+    },
+    {
+      "id": "H37",
+      "content": "The previously proposed reproducible middle-loading minimum for m92 is weakened: identical 2/1 EA-100 feature tuples finish at 10.325 and 17.608 mL. At 5/1, measured completion across 50/100/150-uL loading is 21.058/19.958/27.717 mL, leaving consistency of the high-loading departure unresolved. A deterministic loading law should not be inferred from these single records.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "9768d61b571fc0c5ce1a",
+        "f7d6c68ef2b3f637bd05",
+        "b7880e59ff4586b29a28",
+        "790d27f0fa045d91f307",
+        "d1eeb016c4cf20b87e92",
+        "6c1c34b12c66ebcf39a4"
+      ],
+      "contradicting_observed_ids": [
+        "f6650af9162e038d4108"
+      ],
+      "confidence": "low",
+      "status": "weakened",
+      "why_it_matters_for_model_learning": "One targeted repeat can distinguish a reproducible condition association from variation unavailable to the predictor. The adjacent 10/1 middle-loading label tests transfer without repeatedly reinforcing an unsupported local minimum.",
+      "next_discriminating_question": "Does another 5/1 EA-150 record reproduce the late completion, and does the new 10/1 middle-loading interval follow its neighboring loading anchors?"
+    },
+    {
+      "id": "H45",
+      "content": "Loading-associated alcohol endpoint shifts are localized by structural environment and eluent ratio. m51's earlier high-loading onset persists at 2/1 but is smaller than at 10/1; m61 has a large onset contrast at 5/1 with completion changing oppositely. For m67, recent high-loading 5/1 completion was much earlier than predicted, while 10/1 was comparatively accurate. Whether the m67 correction extends to 2/1 or depends on loading remains unresolved.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "4fb92bd1fab3ba235858",
+        "19229d505f75d05a0bcb",
+        "426ed16e4b39d346244b",
+        "994a1f65509549a84ede",
+        "067260cef0fb89f79291",
+        "cb6d3ef1b6dde291fbac",
+        "5e784130c58b8175024e"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A controlled m67 loading pair tests whether corrections should apply to a solvent segment, a loading level, or both. It can prevent alcohol-family transfer from coupling onset and completion too rigidly.",
+      "next_discriminating_question": "At 2/1, do m67 low and high loading have nearly identical intervals as predicted, or show an endpoint-specific loading departure?"
+    },
+    {
+      "id": "H46",
+      "content": "Strong-eluent completion responses differ across structures and recorded loading conditions. Recent pure-EA measurements for m66, m194, and DCM-500-loaded m125 finished substantially later than their acquisition predictions, whereas m107's completion prediction was close and m74 gave short ordered intervals. Unmeasured pyridyl-ester, amino-benzoate, and acetoxy-aldehyde boundaries may require distinct corrections; basicity or acceptor count alone does not establish their response.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "07dbb8c9982caa472c1a",
+        "d7895c522a1a46a1175c",
+        "c6ce120d2546ceadde09",
+        "92212e7e2eb760820a7b",
+        "2261bf7d6cced00105f6",
+        "1237662bc794f13220ff"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Strongest-eluent anchors paired with each molecule's measured weaker-eluent conditions can teach when completion shortening transfers and when molecular environment and loading variables modify it.",
+      "next_discriminating_question": "Do the selected pure-EA rows support their predicted completion decreases, and which structural environments retain later completion under their recorded loading conditions?"
+    },
+    {
+      "id": "H47",
+      "content": "The predictor gives later completion at pure EA than at 1/1 for fluorenone m182 and acetylfluorene m38. This conflicts with the usual stronger-eluent retention prior, but no measured reversal is established. The pattern could reflect a real conditional response or a model boundary artifact; endpoint ordering alone cannot decide which.",
+      "basis": "mixed",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "The m38 matched pair and m182 matched measured anchor test the same predicted solvent-boundary behavior in two related fused aromatic carbonyl environments, providing more discriminating labels than an isolated extreme prediction.",
+      "next_discriminating_question": "Does increasing eluent strength from 1/1 to pure EA advance or delay each endpoint in these matched comparisons?"
+    },
+    {
+      "id": "H48",
+      "content": "Recent aromatic-ketone acquisition misses depend on solvent segment and endpoint. Acetophenone m42 had underestimated onset but overestimated completion at low-loading 5/1, and both endpoints were underestimated at 50/1. Meta-methyl analog m41 also had a large weak-eluent onset underestimate. The corrected m42 strong-eluent response may not transfer uniformly across loading or to m41.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "d2df3bff96e996e37f5d",
+        "cb42a00d7b000827217c",
+        "dc795e0a68f104353b33"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The m41 fixed-loading solvent curve and m42 loading contrast distinguish structure-specific solvent slopes from loading-dependent endpoint changes in a well-represented chemical family.",
+      "next_discriminating_question": "Does m41 follow the predicted intermediate solvent curve, and does m42 retain its short 5/1 interval at higher loading?"
+    },
+    {
+      "id": "H49",
+      "content": "For m202, measured 5/1 low-loading endpoints exceed measured 10/1 high-loading endpoints. The model predicts the decrease also at fixed low loading, with an apparent local maximum at 5/1. This may represent loading dependence, solvent nonmonotonicity, or variation absent from the catalog; a mechanism is not established by the formal phosphorus charge.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "4f88870ad666191b8ea7",
+        "cb446680f62351d087a9"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Two fixed-loading solvent points remove the existing loading confound and test whether the recent completion correction should extend toward stronger or weaker eluent. The pending high-loading point addresses a different comparison.",
+      "next_discriminating_question": "At 50-uL sample loading, are 1/1 and 10/1 intervals both earlier than the measured 5/1 interval, as predicted?"
+    }
+  ],
+  "feedback_interpretation": "The m125 results replace a broad fixed-sign loading-volume expectation with a conditional association: the 5/1 low-loading contrast attenuates and reverses slightly, while pure-EA DCM-500 completion rises markedly at 150-uL sample loading. The m92 repeat changed my interpretation more substantially: its 2/1 middle-loading completion differs by 7.28 mL from the earlier identical tuple, so a reproducible sharp minimum is unsupported. The new 5/1 low/middle labels finish near 20\u201321 mL, making the inherited high-loading anchor worth one focused consistency check. The m61 rectangle now agrees closely with its acquisition predictions and shows little 100/150-uL contrast at 1/1 and 2/1; its 5/1 contrast remains distinct. m51's earlier high-loading onset persists at 2/1 with a smaller shift than at 10/1. m67's 5/1 completion overestimate, alongside its accurate 10/1 result, motivates a local 2/1 loading pair rather than a universal alcohol correction. Pure-EA feedback is heterogeneous: m66 completion was underestimated by 8.84 mL, m191 by 4.49 mL, and m107 was close. The m74 pair measured ordered, nearly equal strong-eluent intervals, and current predictions have repaired the inversion, reducing its priority. Separately identified recent CW outcomes provide new failure anchors for m41 at 50/1, m42 at 50/1, and m202 at 5/1; these guide controlled supplements. Acquisition errors remain historical evidence, not current-model residuals.",
+  "batch_rationale": "The fixed CW16 already cover several aromatic, ketone, ether, phosphorus-containing, and weak-eluent conditions. These supplements resolve comparisons that those pending rows do not establish. The m92 repeat has a specific role in testing whether recorded features can explain an apparent loading departure; its new 10/1 middle point adds an adjacent response curve. The m67 pair tests transfer of recent alcohol endpoint failures at fixed ratio. The m38 pair and m182 anchor directly test a shared predicted pure-EA reversal in related fused carbonyl structures. Four additional pure-EA anchors test structural transfer across pyridyl, amino-ester, and multifunctional aldehyde environments, each against its own measured condition trajectory. The aromatic-ketone measurements repair recent failure regions through a fixed-loading solvent curve and an independent loading contrast. The m202 bracket separates solvent behavior from the loading difference in its existing anchors and complements pending high-loading coverage. Most ordinary remaining candidates have close measured anchors, repeat established tuples, or predict small adjustments without a comparably discriminating question. The selected comparisons can improve Row-distribution accuracy by identifying where endpoint corrections transfer, where interactions are needed, and where label variation limits deterministic prediction. Quantile widths and CW distances provide context but are not treated as calibrated epistemic uncertainty. Elution interval width is a target relationship, not uncertainty, and absent experimental variables limit causal explanations."
+}
