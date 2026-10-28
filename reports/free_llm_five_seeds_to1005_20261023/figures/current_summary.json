@@ -1,0 +1,80 @@
+{
+  "snapshot_time": "2026-10-24T05:17:53.505614+08:00",
+  "status": "COMPLETE",
+  "common_budget": 1005,
+  "all_seed_count": 5,
+  "test_evaluation_performed": false,
+  "latest_free": {
+    "157": {
+      "labels": 1005,
+      "nrmse": 0.3454607070647139
+    },
+    "887": {
+      "labels": 1005,
+      "nrmse": 0.3010792121357691
+    },
+    "2357": {
+      "labels": 1005,
+      "nrmse": 0.36181214995290356
+    },
+    "6101": {
+      "labels": 1005,
+      "nrmse": 0.38148698336430303
+    },
+    "12203": {
+      "labels": 1005,
+      "nrmse": 0.3594363745697717
+    }
+  },
+  "common_budget_methods": {
+    "random": {
+      "mean_validation_nrmse": 0.5139403051662537,
+      "sd_across_seeds": 0.10878764978548214,
+      "per_seed_validation_nrmse": {
+        "157": 0.6723361493892638,
+        "887": 0.4158085399439623,
+        "2357": 0.46407281270879225,
+        "6101": 0.5797318451834882,
+        "12203": 0.437752178605762
+      },
+      "mean_normalized_aulc": 0.614742106708247
+    },
+    "lcmd": {
+      "mean_validation_nrmse": 0.36632837963558884,
+      "sd_across_seeds": 0.03841265221633133,
+      "per_seed_validation_nrmse": {
+        "157": 0.3322930804089139,
+        "887": 0.3183289182706114,
+        "2357": 0.38710659639702244,
+        "6101": 0.3888368872808084,
+        "12203": 0.40507641582058806
+      },
+      "mean_normalized_aulc": 0.462549166628149
+    },
+    "hybrid": {
+      "mean_validation_nrmse": 0.3519182830974512,
+      "sd_across_seeds": 0.039880041237656184,
+      "per_seed_validation_nrmse": {
+        "157": 0.32855844142060137,
+        "887": 0.31610136636663233,
+        "2357": 0.3518592821790082,
+        "6101": 0.41881012120752364,
+        "12203": 0.3442622043134907
+      },
+      "mean_normalized_aulc": 0.4384195162692139
+    },
+    "free_llm32_scientist_v2": {
+      "mean_validation_nrmse": 0.3498550854174923,
+      "sd_across_seeds": 0.030140279682441203,
+      "per_seed_validation_nrmse": {
+        "157": 0.3454607070647139,
+        "887": 0.3010792121357691,
+        "2357": 0.36181214995290356,
+        "6101": 0.38148698336430303,
+        "12203": 0.3594363745697717
+      },
+      "mean_normalized_aulc": 0.5088017784476131
+    }
+  },
+  "model_note": "157/6101 retain historical Astra/high prefixes; 887/2357/12203 use gpt-6.1-sol/xhigh throughout."
+}

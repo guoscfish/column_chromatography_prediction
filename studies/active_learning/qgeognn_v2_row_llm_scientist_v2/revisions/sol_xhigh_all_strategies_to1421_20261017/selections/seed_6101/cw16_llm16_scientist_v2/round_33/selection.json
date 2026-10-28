@@ -1,0 +1,143 @@
+{
+  "type": "selection",
+  "packet_sha256": "099a52b27e8741c97e14112f953cb642b04638b454355157e9193e49e5dfc41f",
+  "batch_strategy": "Mixed ratio-response mapping, endpoint repair, loading contrasts, and ordinary-row controls.",
+  "choices": [
+    {
+      "id": "8c1d858fccc9c7cff5db",
+      "reason": "Measures donor-free aromatic ketone m131 at 10/1, adding a strong-ratio point in a common scaffold class. Its moderate predicted V1 and broader V2 help test whether late completion broadening transfers to ordinary aromatic carbonyls.",
+      "hypothesis_id": "H18"
+    },
+    {
+      "id": "17beb55af7159f9079dc",
+      "reason": "Adds m41 at 20/1 and 100 uL, complementing measured m41 rows at 20/1 lower loading and 50/1 conditions such as b4d9d000145f0dfcee50 and a4923e4c1f935a466f3b. This is a loading and ratio response point for a donor-free aromatic ketone.",
+      "hypothesis_id": "H19"
+    },
+    {
+      "id": "553ee7ba7226d2304ed5",
+      "reason": "Provides a 1/1 m166 anchor before stronger-ratio measurements. The fused fluorinated diketone has multiple acceptors and a broad predicted V2, making it useful for separating early onset from later endpoint broadening.",
+      "hypothesis_id": "H18"
+    },
+    {
+      "id": "d548341855ca1aaebf07",
+      "reason": "Samples low-ratio m83 at 0/1, giving a baseline for an ester-containing aromatic family represented at stronger ratios. This can reduce extrapolation from solvent-strength effects that are currently learned mostly at higher ratios.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "8caaa3c9c24903be7feb",
+      "reason": "Adds a low-ratio, low-loading m17 point. The predicted interval tests whether this relatively polar ester family has a stable early baseline or an endpoint response that begins before the stronger-ratio regime.",
+      "hypothesis_id": "H18"
+    },
+    {
+      "id": "6ef1e6b5c3a9ab2744e9",
+      "reason": "Measures m138 at 1/1 with 150 uL, filling a moderate loading condition for a donor-free halogenated aromatic. This supports generalization across halogenated structures without importing corrections from strongly polar molecules.",
+      "hypothesis_id": "H20"
+    },
+    {
+      "id": "bc2a96424966b655227f",
+      "reason": "Provides a low-ratio m13 anchor with high heteroatom count and a broad predicted V2. It can test whether a highly acceptor-rich ester begins broadening at weak solvent strength.",
+      "hypothesis_id": "H18"
+    },
+    {
+      "id": "6bebc41cc4f55da05d47",
+      "reason": "Tests m158 at 50/1 and low loading, where the model predicts modest onset but a relatively wide endpoint interval. This is a strong-ratio control for whether sulfur heteroaromatics show the late V2 behavior seen in more polar families.",
+      "hypothesis_id": "H20"
+    },
+    {
+      "id": "1383d668fe060424f94f",
+      "reason": "Measures m153 at 10/1, bridging lower-ratio halogenated aryl ether conditions and the strong-ratio region. It probes whether the model's narrow predicted interval remains appropriate as solvent strength increases.",
+      "hypothesis_id": "H20"
+    },
+    {
+      "id": "caf9131e01751f4c90d4",
+      "reason": "Adds a high-ratio m184 point with a larger loading-solvent volume and broad predicted endpoints. The dibrominated aldehyde can test whether halogenation and aldehyde adsorption produce family-specific V2 behavior.",
+      "hypothesis_id": "H18"
+    },
+    {
+      "id": "f84c3d08ecd96132041d",
+      "reason": "Uses m54 at 2/1 and low loading as a compact carbonyl control. Its moderate prediction and relatively ordinary structure help calibrate smooth ratio behavior against the late polar failures.",
+      "hypothesis_id": "H20"
+    },
+    {
+      "id": "9de8f9fed06ef9d5befa",
+      "reason": "Measures m37 at 5/1, an intermediate-ratio nitroaryl ketone point. It directly fills the gap before the much later measured m37 responses, including 38e6b8bf0f089fcadd80 and b6f1b33a5491968c645e.",
+      "hypothesis_id": "H18"
+    },
+    {
+      "id": "0af62ac5a629ff0e38c4",
+      "reason": "Adds m102 at 5/1 and low loading as a chlorinated aromatic ester probe. This supplies a strong-ratio but chemically ordinary comparison for distinguishing generic solvent response from special late-retention behavior.",
+      "hypothesis_id": "H20"
+    },
+    {
+      "id": "540ef35dda953d3557c9",
+      "reason": "Measures m5 at 1/1 and 150 uL, extending a nonpolar halogenated aromatic family into a moderate loading regime. It provides a low-complexity reference against which polar and donor-rich corrections can be constrained.",
+      "hypothesis_id": "H20"
+    },
+    {
+      "id": "e947f47c9e991c7add4c",
+      "reason": "Provides a weak-ratio m167 anchor for an acceptor-rich diketone. Comparing this early point with stronger-ratio members can reveal whether its wide predicted V2 reflects actual family broadening or model uncertainty that should be reduced.",
+      "hypothesis_id": "H18"
+    },
+    {
+      "id": "19904930b0fa12eccf23",
+      "reason": "Measures m111 at 5/1 and moderate loading, filling a strong-ratio intermediate for a methoxy bromotoluene. It is a useful donor-free control for testing how much ratio-dependent broadening should transfer to ordinary aromatic ethers.",
+      "hypothesis_id": "H20"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H18",
+      "content": "Polar, nitro, aldehyde, and acceptor-rich aromatic families show family-specific ratio curvature and V2 broadening; V1 onset and V2 completion need separate conditional corrections.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "49201b5817f204116f7f",
+        "2d178efe0181baca2bd5",
+        "9ffee2813aef5c26f96f",
+        "776ee2c1e85ebde75168",
+        "c32caf65e93924aeb179",
+        "38e6b8bf0f089fcadd80"
+      ],
+      "contradicting_observed_ids": [
+        "73155d7feac7857188dd",
+        "a7990e0922fe119d57a6"
+      ],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Intermediate and control measurements can prevent the retrained model from smoothing sharp late transitions into a universal positive V2 correction and can improve transfer across related aromatic functional groups.",
+      "next_discriminating_question": "Do nitro, aldehyde, and polyacceptor structures share a solvent-ratio boundary, or do their V1 and V2 transitions remain scaffold-specific?"
+    },
+    {
+      "id": "H19",
+      "content": "Loading changes the late endpoint and interval width in a family-dependent way; loading amount alone does not imply a universal correction to V1 and V2.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "6a53fc46345dc50021ae",
+        "810b16f35a3a86f451ce",
+        "87996db5ddb7565fe66f",
+        "b8c35c514f5ef6c0f3bc"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The m41 contrast and varied loading conditions allow the model to learn whether loading affects onset, completion, or interval width separately.",
+      "next_discriminating_question": "Are loading effects largest in strongly adsorbing polar families, or do they also occur in donor-free aromatic carbonyls?"
+    },
+    {
+      "id": "H20",
+      "content": "Donor-free and relatively nonpolar controls generally show smoother strong-ratio behavior than the highly polar and basic failure families, limiting transfer of large late-retention corrections to ordinary rows.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "f3f7cfc40e5b84b18566",
+        "6f577b8349ef1b7cf6a4",
+        "8950945e8ef1b80f8d42"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The control rows preserve accuracy over the large ordinary-row population while the polar selections repair specialized late-retention regions.",
+      "next_discriminating_question": "Do halogenated donor-free aromatics remain smooth across the selected ratios, or does strong-ratio V2 widening extend beyond the observed nonpolar controls?"
+    }
+  ],
+  "feedback_interpretation": "Recent measurements weakened any universal late-retention offset. Several polar and basic rows still showed large V2 errors, while m198, m37, m59, and nonpolar controls were comparatively close. Low-ratio m159 and m160 measurements supported sharp, family-dependent transitions, and the m161 contrast showed positional structure effects. This batch therefore emphasizes intermediate-ratio probes, donor-free controls, and endpoint-focused coverage across multiple aromatic families.",
+  "batch_rationale": "The batch spans weak, intermediate, and strong solvent ratios across carbonyl, nitro, ester, halogenated, sulfur, and donor-free structures. m37, m166, m167, m184, m13, and m17 probe polar or acceptor-rich endpoint behavior; m41, m54, m102, m111, m138, m153, m158, and m5 provide controls that constrain overgeneralization. The varied loading amounts and loading-solvent volumes add information about loading sensitivity while retaining chemical coverage. Together these labels should improve Row-distribution accuracy by repairing V2 and ratio-curvature failures without transferring specialized late-retention corrections to ordinary rows."
+}

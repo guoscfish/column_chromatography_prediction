@@ -1,0 +1,99 @@
+{
+  "time": "2026-10-26T23:36:39.833992+08:00",
+  "status": "AWAITING_EXPLICIT_BUDGET_AUTHORIZATION",
+  "reason": "Existing per-round transport recovery limit exhausted; the standing instruction forbids unapproved budget increases.",
+  "connectivity_check": {
+    "time": "2026-10-26T23:35:33+0800",
+    "three_distinct_credentials": true,
+    "endpoint": "https://token4research.cn/v1/models",
+    "inference_performed": false,
+    "rows": [
+      {
+        "seed": 887,
+        "http_status": 200,
+        "requested_model_listed": true,
+        "elapsed_seconds": 2.004
+      },
+      {
+        "seed": 2357,
+        "http_status": 200,
+        "requested_model_listed": true,
+        "elapsed_seconds": 1.989
+      },
+      {
+        "seed": 12203,
+        "http_status": 200,
+        "requested_model_listed": true,
+        "elapsed_seconds": 2.0
+      }
+    ]
+  },
+  "proposed_scope": "At most two additional transport recoveries per listed current round; no extra logical corrections, no model/prompt/training/split changes, all history and failed receipts retained.",
+  "rows": [
+    {
+      "seed": 887,
+      "current_round": 33,
+      "labels": 1389,
+      "previous_supervisor": {
+        "status": "NEEDS_ATTENTION",
+        "seed": 887,
+        "time": "2026-10-26T19:18:49.674417+08:00",
+        "recovery_count": 18,
+        "session_recovery_count": 4,
+        "failures_per_round": {
+          "22": 1,
+          "33": 3
+        },
+        "returncode": 1,
+        "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/free/worker_seed_887.log"
+      },
+      "additional_transport_recoveries_proposed": 2,
+      "logical_attempts_already_returned": 3,
+      "logical_attempt_budget_unchanged": 6
+    },
+    {
+      "seed": 2357,
+      "current_round": 35,
+      "labels": 1453,
+      "previous_supervisor": {
+        "status": "NEEDS_ATTENTION",
+        "seed": 2357,
+        "session_id": "1792840103106800000",
+        "time": "2026-10-26T19:20:30.572821+08:00",
+        "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_llm_five_seeds_to1485_20261024/worker_seed_2357_1792840103106800000.log",
+        "recovery_count": 18,
+        "session_recovery_count": 4,
+        "failures_per_round": {
+          "22": 1,
+          "35": 3
+        },
+        "returncode": 1
+      },
+      "additional_transport_recoveries_proposed": 2,
+      "logical_attempts_already_returned": 0,
+      "logical_attempt_budget_unchanged": 3
+    },
+    {
+      "seed": 12203,
+      "current_round": 24,
+      "labels": 1101,
+      "previous_supervisor": {
+        "status": "NEEDS_ATTENTION",
+        "seed": 12203,
+        "time": "2026-10-26T18:47:26.087742+08:00",
+        "recovery_count": 19,
+        "session_recovery_count": 5,
+        "failures_per_round": {
+          "22": 1,
+          "23": 1,
+          "24": 3
+        },
+        "returncode": 1,
+        "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/free/worker_seed_12203.log"
+      },
+      "additional_transport_recoveries_proposed": 2,
+      "logical_attempts_already_returned": 3,
+      "logical_attempt_budget_unchanged": 6
+    }
+  ]
+}

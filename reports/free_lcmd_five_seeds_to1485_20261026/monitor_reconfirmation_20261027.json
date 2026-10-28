@@ -1,0 +1,36 @@
+{
+  "checked_at": "2026-10-27T23:16:22.179119+08:00",
+  "user_request": "继续跑完，如果有问题立马重跑，帮我监控",
+  "automation_id": "free-lcmd-seed-1485",
+  "automation_status": "ACTIVE",
+  "rrule": "FREQ=MINUTELY;INTERVAL=5",
+  "recovery_policy": "Immediate diagnosis and restart of recoverable failures within existing frozen budgets; preserve history and frozen progress; notify on budget exhaustion/auth/quota/integrity failures.",
+  "free_887_supervisor": {
+    "status": "RUNNING",
+    "seed": 887,
+    "time": "2026-10-27T23:12:29.361177+08:00",
+    "recovery_count": 20,
+    "session_recovery_count": 6,
+    "failures_per_round": {
+      "22": 1,
+      "33": 3,
+      "34": 2
+    },
+    "authorized_current_round_launches": 1,
+    "authorization": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/transport_epoch_20261026_2338/authorization.json",
+    "baseline_recovery_count": 18,
+    "source_status": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/free/status_seed_887.json",
+    "pid": 10641,
+    "supervisor_pid": 61688,
+    "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/transport_epoch_20261026_2338/worker_seed_887.log"
+  },
+  "free_887_source": {
+    "updated_at": "2026-10-27T23:15:19.298608+08:00",
+    "seed": 887,
+    "phase": "SELECTING",
+    "completed_rounds": 34,
+    "completed_labels": 1421,
+    "target_labels": 1485
+  },
+  "science_or_frozen_runner_modified": false
+}

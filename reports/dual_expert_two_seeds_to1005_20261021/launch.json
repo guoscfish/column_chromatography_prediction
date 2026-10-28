@@ -1,0 +1,57 @@
+{
+  "time": "2026-10-21T23:03:54.184742+08:00",
+  "target_labels": 1005,
+  "recovery_epoch": "20261021T230350+0800",
+  "user_requested_threshold": 1000,
+  "batch_size": 32,
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "xhigh",
+  "renewed_execution_authorized_on": "2026-10-21",
+  "history_preserved": true,
+  "old_recovery_receipts_preserved": true,
+  "new_execution_max_transport_recoveries_per_round": 2,
+  "extension": "finish frozen 813 revisions; inherit at round15 into new 1005 revisions",
+  "budget_override": "worker sets study.BUDGETS=333..1005 only for the new revision",
+  "scientific_source_changed": false,
+  "wrapper_hashes": {
+    "worker.py": "737ecb402c64bff1a079f384b78450c52bdba805eeaced9bc6f9f682467d9a81",
+    "controller.py": "f55802ab737f02898e7249ad84b705b4605159ab4a185140803257b82be64d57",
+    "launch.py": "0b364ba30ab27e119e16522b997ef2ba0e8d376156b422cb0e922baec1a48179"
+  },
+  "controllers": [
+    {
+      "seed": 157,
+      "revision": "sol61_xhigh_seed157_from621_to813_20261014",
+      "completed_labels": 749,
+      "validation_nrmse": 0.5721284958011841,
+      "frozen_validation": {
+        "status": "VALID",
+        "protocol_sha256": "a56d7118052ae98b6019e32ef700c9fc8c1073e20121015551e1a131c535047c"
+      },
+      "provider_probe": {
+        "http_status": 200,
+        "requested_model_listed": true
+      },
+      "pid": 5881,
+      "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/dual_expert_two_seeds_to1005_20261021/controller_seed_157.log",
+      "status": "STARTED"
+    },
+    {
+      "seed": 6101,
+      "revision": "sol61_xhigh_seed6101_to813_20261014",
+      "completed_labels": 461,
+      "validation_nrmse": 0.8390145323629724,
+      "frozen_validation": {
+        "status": "VALID",
+        "protocol_sha256": "20db744a4f9e9a79ad053ddd5e3b16bddf791dab021942665b3a3d92003c9e51"
+      },
+      "provider_probe": {
+        "http_status": 200,
+        "requested_model_listed": true
+      },
+      "pid": 5885,
+      "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/dual_expert_two_seeds_to1005_20261021/controller_seed_6101.log",
+      "status": "STARTED"
+    }
+  ]
+}

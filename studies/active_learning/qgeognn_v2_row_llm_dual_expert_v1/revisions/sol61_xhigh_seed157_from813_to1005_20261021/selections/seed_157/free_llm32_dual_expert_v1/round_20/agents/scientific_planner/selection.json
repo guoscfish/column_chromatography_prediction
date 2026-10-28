@@ -1,0 +1,487 @@
+{
+  "type": "selection",
+  "packet_sha256": "a9928e03a30c2456bc530841fde19b20d173888115dc57be2304ebdf84ea57cf",
+  "expert_synthesis": {
+    "chemistry_takeaways": "The latest labels show distinct onset and completion responses across loading, ester environment and aromatic connectivity. Increasing EA generally strengthens silica elution, but this prior does not establish monotonic endpoint curves. Adsorption, focusing and speciation remain untested explanations.",
+    "ml_takeaways": "m202 rejects bracketed loading interpolation, m118 rejects transfer of joint endpoint growth across loading, and the m74 repeat weakens a deterministic loading reversal. Several recently measured curves now have smaller information gaps. Connected ordinary curves and explicit condition contrasts offer useful transfer evidence; quantile widths and historical residual magnitudes do not measure acquisition value.",
+    "agreements": [
+      "Use the current 973-observed, 2,357-candidate state; embedded round-19 nominations already measured are ineligible.",
+      "Preserve molecule identity and all five conditions, and interpret V1 and V2 separately.",
+      "Neighboring conditions test localization and transfer; identical-input repeats test persistence.",
+      "Retain conflicting measurements without declaring either erroneous."
+    ],
+    "disagreements": [
+      "The advisers agree on the latest measured findings. I retain the two m202 baseline midpoints but give its additional 150 ul extension lower priority.",
+      "I expand the ordinary aryl-ketone comparison to m33 and m44 and independently develop a fixed-loading m38 curve.",
+      "I retain the m168 plug-volume comparison as a narrowly controlled condition-feature test, recognizing that small differences could remain inconclusive."
+    ],
+    "planner_resolution": "Select 32 distinct legal experiments across 12 identities. Five measurements address consequential m202/m118 localization and transfer questions; the remaining measurements constrain ordinary structural response curves and a matched plug-volume comparison. Allocation follows these scientific questions without adviser quotas."
+  },
+  "batch_strategy": "Freeze these 32 supplied IDs and their packet predictions before measurement. Complete input tuples are distinct within the batch, with no intentional exact-input repeats. Connect fixed-loading ratio sequences to observed anchors and explicit loading bridges. Preserve density precision and injection conditions, including m101's 68.02721088 ul dosing. Sample volume and mass remain coupled. Cross-molecule comparisons retain injection differences. Analyze onset and completion separately; V2 minus V1 is elution interval width, not uncertainty.",
+  "choices": [
+    {
+      "id": "8fb287430f3df6d0b3dd",
+      "reason": "m202 in pure EA at 100 ul completes the baseline loading comparison and tests whether its exceptional middle-loading response extends below the 10/1 regime.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H52"
+    },
+    {
+      "id": "87a651fc86ed976bd374",
+      "reason": "m202 at 1/1, 100 ul completes a second loading comparison and connects the measured 100 ul extreme to an earlier ratio. It does not replicate that extreme.",
+      "knowledge_basis": [
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H52"
+    },
+    {
+      "id": "fc27fa779102c4aeb8ab",
+      "reason": "m118 at 20/1, 100 ul tests whether onset remains early beyond measured 10/1 while completion grows, or develops the currently forecast onset recovery.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H53"
+    },
+    {
+      "id": "0afe12e53e575503e3f0",
+      "reason": "m118 in pure EA at 50 ul completes the baseline loading series and anchors a lower-loading ratio pair, separating baseline offsets from higher-ratio response.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H53"
+    },
+    {
+      "id": "24a9086a8e2c8015c232",
+      "reason": "m118 at 20/1, 50 ul pairs with the selected baseline and 100 ul condition, testing loading transfer of onset/completion decoupling under unchanged DCM loading.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H53"
+    },
+    {
+      "id": "fc6013d1dabfab0fd3cb",
+      "reason": "Para-fluoroacetophenone m34 at 2/1, 150 ul extends its measured 1/1 baseline and starts a controlled connection toward its measured 20/1 joint-growth regime.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H61"
+    },
+    {
+      "id": "f5d873a623aaeeb1e41e",
+      "reason": "m34 at 5/1, 150 ul locates intermediate growth, testing whether completion increases while onset remains shallow before a later onset transition.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H61"
+    },
+    {
+      "id": "01ed985e6ebf7d4a3dc8",
+      "reason": "m34 at 10/1, 150 ul completes the controlled connection to measured 20/1, distinguishing gradual joint growth from delayed onset growth.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H61"
+    },
+    {
+      "id": "e9950c0bf61094f632c2",
+      "reason": "Para-iodoacetophenone m35 at 1/1, 50 ul anchors its lower-ratio curve before the measured 10/1 response, broadening haloaryl-ketone transfer under its own injection conditions.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H61"
+    },
+    {
+      "id": "668124a369ad42ae4b89",
+      "reason": "m35 at 5/1, 50 ul locates growth between the selected baseline and measured 10/1, allowing independent onset and completion slope comparisons with other aryl ketones.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H61"
+    },
+    {
+      "id": "ba4d64425eed071718e4",
+      "reason": "Dimethylacetophenone m33 at 10/1, 150 ul extends its measured 2/1 and 5/1 sequence, testing transfer from differentiated singly methyl-substituted ketone curves.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H61"
+    },
+    {
+      "id": "75328dcee739068fdfba",
+      "reason": "m33 at 20/1, 150 ul completes the fixed-loading extension and tests the range of shallow onset as completion increases.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H61"
+    },
+    {
+      "id": "a1cf4ea6030b442bd6af",
+      "reason": "Ortho-methylacetophenone m44 at 2/1, 150 ul supplies a matched earlier-ratio anchor for measured 5/1, removing reliance on its differently loaded 10/1 observation.",
+      "knowledge_basis": [
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H61"
+    },
+    {
+      "id": "61d5633c7221b3040a5f",
+      "reason": "m44 at 20/1, 150 ul completes a controlled sequence through measured 5/1, testing whether onset and completion develop distinct later-ratio slopes.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H61"
+    },
+    {
+      "id": "05fe6f157ca6ce0374d7",
+      "reason": "tert-Butyl-substituted methyl benzoate m100 at 1/1, 100 ul supplies the matched baseline for measured 2/1 and selected 10/1.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H62"
+    },
+    {
+      "id": "11f27c83c1e956b8b00a",
+      "reason": "m100 at 10/1, 100 ul measures its own ordinary benzoate ratio slope after m97, m102 and m103 showed different onset/completion coupling.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H62"
+    },
+    {
+      "id": "9b612b8b4815d21f4fc6",
+      "reason": "Bromomethyl-substituted benzoate m101 at 2/1 and 68.02721088 ul anchors a controlled approximately 100 mg curve connected to its measured 5/1 condition.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H62"
+    },
+    {
+      "id": "65e9c139dc66fe608a89",
+      "reason": "m101 at 10/1 with the same approximately 100 mg dosing tests intermediate onset and completion growth without confusing mass-normalized volume with nominal 100 ul loading.",
+      "knowledge_basis": [
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H62"
+    },
+    {
+      "id": "af23f4f96549d4e1659f",
+      "reason": "m101 at 20/1 completes the fixed-dosing sequence and directly contrasts with its measured approximately 50 mg anchor, separating ratio growth from loading transfer.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H62"
+    },
+    {
+      "id": "02074ce57eac6aa9fffb",
+      "reason": "Fluoro/bromoanisole m109 at 2/1, 100 ul anchors a controlled single-ether curve after the dimethoxy-aromatic questions became substantially answered.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H63"
+    },
+    {
+      "id": "066397bae21d5a7046a6",
+      "reason": "m109 at 5/1, 100 ul tests the forecast modest completion decrease within a connected curve; measured related ethers do not establish this shape.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H63"
+    },
+    {
+      "id": "d894a098de0674074d0a",
+      "reason": "m109 at 10/1, 100 ul distinguishes recovery after a possible intermediate decrease from sustained shallow or increasing response, with all injection conditions fixed.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H63"
+    },
+    {
+      "id": "5570346e8898daafc8a7",
+      "reason": "m109 at 20/1, 100 ul completes the controlled curve and bridges its measured 50 ul anchor, testing structural transfer and loading association separately.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H63"
+    },
+    {
+      "id": "9d3f3505ff1be86befbe",
+      "reason": "Indene m12 at 2/1, 100 ul extends its measured pure-EA baseline and supplies a loading contrast with measured 50 ul in a carbonyl-free fused hydrocarbon.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H64"
+    },
+    {
+      "id": "418a798336105bff06e0",
+      "reason": "m12 at 5/1, 100 ul tests whether its relatively long low-ratio completion contracts, after the analogous forecast for structurally distinct m0 failed.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H64"
+    },
+    {
+      "id": "3fed3124ac3b59becb20",
+      "reason": "m12 at 10/1, 100 ul completes the connected sequence, distinguishing a completion shoulder from sustained growth and assessing onset independently.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H64"
+    },
+    {
+      "id": "2d870d7a88b5d7b7ef47",
+      "reason": "Fluorenyl acetyl ketone m38 at 1/1, 50 ul anchors a fixed-loading curve under its large DCM plug, testing transfer across fused aromatic carbonyl environments.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H65"
+    },
+    {
+      "id": "657aa3aea4edc623ac20",
+      "reason": "m38 at 2/1, 50 ul connects the selected baseline and higher ratios while directly bridging the measured 100 ul input.",
+      "knowledge_basis": [
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H65"
+    },
+    {
+      "id": "86fb9a8fd6633397d670",
+      "reason": "m38 at 10/1, 50 ul tests whether appreciable onset growth accompanies completion growth, contrasting with the measured early-onset fluorenone regime.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H65"
+    },
+    {
+      "id": "cace6f00c46aea69fe39",
+      "reason": "m38 at 20/1, 50 ul completes the controlled extension and distinguishes continued joint growth from completion-dominated transfer across fused ketones.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H65"
+    },
+    {
+      "id": "6f3318dd8909f20a1177",
+      "reason": "m168 at 20/1, 100 ul with DCM 400 ul differs from its measured anchor only in plug volume, testing a represented condition feature outside the large-plug acid regime.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H66"
+    },
+    {
+      "id": "b8abc8f40545556f07e0",
+      "reason": "m168 at 50/1 with DCM 400 ul supplies the second matched plug-volume contrast, testing whether any endpoint association changes with ratio.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H66"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H52",
+      "content": "m202 has a sampled middle-loading elevation at 10/1 that exceeds both loading extremes. Earlier-ratio 50/150 ul contrasts are much smaller. A general 100 ul association, a ratio-dependent response and variation omitted from the inputs remain competing explanations.",
+      "why_it_matters_for_model_learning": "Baseline loading midpoints distinguish broad loading associations from conditional structure without assuming smooth interpolation or a molecular offset.",
+      "next_discriminating_question": "Are the 100 ul pure-EA and 1/1 endpoints also elevated, or close to their measured loading companions? Persistence of the 10/1 elevation remains unresolved.",
+      "basis": "mixed",
+      "confidence": "medium",
+      "status": "unresolved",
+      "supporting_observed_ids": [
+        "902937db42f82f467718",
+        "7de812bda21b4dfe46dc",
+        "cb446680f62351d087a9",
+        "2f5ad80c46080b17df41",
+        "59f48cda668bdb63730d",
+        "db51722e47c78067c744",
+        "51691caac0be166b02c7"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H53",
+      "content": "m118's 150 ul joint higher-ratio growth does not transfer to 100 ul: onset returns early at 10/1 while completion increases. Its 150 ul, 1/1 completion elevation is localized among sampled ratios and remains unreplicated.",
+      "why_it_matters_for_model_learning": "A continuation and a lower-loading ratio pair constrain separate endpoint transfer rather than spreading either exceptional input across methoxy-aldehyde chemistry.",
+      "next_discriminating_question": "At 20/1, does onset remain early at 100 ul, and do the 50 ul baseline-to-20/1 changes resemble either measured loading regime?",
+      "basis": "mixed",
+      "confidence": "medium",
+      "status": "unresolved",
+      "supporting_observed_ids": [
+        "073bc395a08f48db4fc0",
+        "0abac89ea336b403f597",
+        "319e89d7000731f64e7f",
+        "ea004678fc850c759752",
+        "966254b5be3c8ec5edd3",
+        "9ef318afb1f6bac186ff"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H61",
+      "content": "Ordinary aryl-ketone membership does not determine onset/completion coupling. Sparse fluoro-, iodo-, dimethyl- and ortho-methyl ketone anchors leave growth location unresolved despite differentiated measured methyl- and bromoketone curves.",
+      "why_it_matters_for_model_learning": "Four independently controlled curves test structural limits of shallow onset and later joint growth at common Row conditions.",
+      "next_discriminating_question": "Where do these ketones develop onset growth relative to completion growth, and which retain shallow onset through their selected ranges?",
+      "basis": "mixed",
+      "confidence": "medium",
+      "status": "proposed",
+      "supporting_observed_ids": [
+        "b0035c08cda3495cb3b2",
+        "bed2f1430d0964e86fcb",
+        "a97a618319325a403c10",
+        "d36f7b3485a7dead23e2",
+        "211d35ba2d70d66634dc",
+        "696b873f81bc442af675",
+        "6ee03cf62adedf0716b3",
+        "6ece01a2e0fc9b1585df"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H62",
+      "content": "Ring substituent and injection context may limit benzoate response transfer. m100's fixed-100 ul shape and m101's approximately 100 mg progression remain incompletely constrained; the latest m97/m102/m103 results do not establish a shared ester slope.",
+      "why_it_matters_for_model_learning": "Connected curves distinguish structural offsets from endpoint slopes while preserving mass-normalized dosing and loading-solvent differences.",
+      "next_discriminating_question": "Does m100 remain completion-dominated through 10/1, and does m101 grow jointly from 2/1 through 20/1 at its fixed approximately 100 mg dosing?",
+      "basis": "mixed",
+      "confidence": "medium",
+      "status": "proposed",
+      "supporting_observed_ids": [
+        "ce1784be47d6d0869494",
+        "7312008fb6a636165c6b",
+        "69f9cefb952abd22672c",
+        "245baab1821d3ff8ac0b",
+        "cd12334b3ac8c4cb255a"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H63",
+      "content": "The fixed-100 ul response of single-methoxy fluoro/bromoaromatic m109 may differ from mapped dimethoxy and substituted-anisole curves. Its forecast small completion decline is untested, and the measured 20/1 anchor uses 50 ul.",
+      "why_it_matters_for_model_learning": "A controlled sequence tests ether-substitution transfer and response shape, with a loading bridge at the measured endpoint.",
+      "next_discriminating_question": "Does m109 completion decrease near 5/1 or increase across the sequence, and how does its 20/1 loading contrast behave?",
+      "basis": "mixed",
+      "confidence": "medium",
+      "status": "proposed",
+      "supporting_observed_ids": [
+        "97f693e8a82af54da0ed",
+        "4d07777ffa2c1d2f6254",
+        "2291ff5611de182e3dbc",
+        "cea0d1e24499911eed47",
+        "5b2c1366fbc2e7f7fa49"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H64",
+      "content": "Indene m12 has relatively long measured low-ratio completion, but its fixed-100 ul intermediate response is unresolved. Rejection of m0's completion contraction does not determine this distinct fused hydrocarbon curve.",
+      "why_it_matters_for_model_learning": "The sequence broadens carbonyl-free response learning and distinguishes completion-shape transfer from molecular offsets.",
+      "next_discriminating_question": "Does completion contract after 2/1, remain near its pure-EA level, or grow; and does onset change independently?",
+      "basis": "mixed",
+      "confidence": "medium",
+      "status": "proposed",
+      "supporting_observed_ids": [
+        "c4fb44ceb40c73758e28",
+        "4f828f86817f7db919d4",
+        "e831674d417af7d27b38",
+        "181f4a164df2a06f6b96",
+        "fc14674e86364aa7b0fb"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H65",
+      "content": "Carbonyl attachment within fused aromatic environments may limit response transfer. m38's sparse anchors do not establish whether its acetyl group produces joint growth or a fluorenone-like early-onset regime under its larger DCM plug.",
+      "why_it_matters_for_model_learning": "A controlled m38 sequence tests carbonyl geometry and fused-ring transfer while separating onset from completion growth.",
+      "next_discriminating_question": "At fixed 50 ul, does m38 onset grow substantially by 10/1 and continue through 20/1, or remain early while completion increases?",
+      "basis": "mixed",
+      "confidence": "medium",
+      "status": "proposed",
+      "supporting_observed_ids": [
+        "a2f5638c0f2528673e4e",
+        "e84314bcd7ec5ba57283",
+        "7ad898a193c20e7a329c",
+        "19c8831adeb5f3e2fcd5",
+        "b0cc544ceb575bae4069"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H66",
+      "content": "The ratio-dependent injection-plug associations measured in large-plug m173 do not establish the effect of a smaller DCM volume change in donor-free diketone m168. Local invariance and endpoint-specific ratio interactions remain alternatives.",
+      "why_it_matters_for_model_learning": "Two exact condition-feature contrasts test plug-volume transfer outside the intensively studied acid surface.",
+      "next_discriminating_question": "Does increasing DCM from 300 to 400 ul shift either m168 endpoint at 20/1 or 50/1, and is any shift similar across ratios?",
+      "basis": "mixed",
+      "confidence": "low",
+      "status": "proposed",
+      "supporting_observed_ids": [
+        "07a069e105eb7739bf7e",
+        "5ba8cead5a790ba93029",
+        "65fcce0299e031dedeb8",
+        "f90a5a5a54509c085ebd",
+        "1e971da91b3a8229f0e0",
+        "1e775e7d8dcbf48fd6f8"
+      ],
+      "contradicting_observed_ids": []
+    }
+  ],
+  "batch_rationale": "The latest feedback supports narrowing exceptional-surface acquisition and expanding controlled transfer learning. Two m202 baseline midpoints distinguish a general middle-loading association from localization toward 10/1. Three m118 measurements test the range and loading transfer of endpoint decoupling. The m74 repeat materially weakens its original reversal, so further routine surface expansion receives no allocation. Four aryl-ketone sequences test ordinary structural limits through response slopes; two benzoate curves preserve their distinct dosing contexts. The m109, indene and fused-ketone curves extend representation beyond recently mapped identities. The m168 pair supplies an exact plug-volume comparison at two ratios. Selection uses these scientific contrasts rather than numerical acquisition rankings.",
+  "expected_learning_value": "Expected benefits are better separation of molecular offsets, onset/completion ratio slopes and conditional loading or plug-volume associations. Connected ordinary curves can reduce excessive transfer of joint onset growth to completion-dominated structures, while the m202/m118 measurements constrain consequential conditional regimes. Small measured changes would provide useful local invariance evidence, although small plug-volume differences would remain provisional without repetition. Candidate multiplicity supplies no Row weighting, and the trajectory supports no numerical estimate of retrained overall accuracy gain.",
+  "feedback_interpretation": "H52 rejects bracketed interpolation: m202 at 10/1 measures 14.79/21.41, 35.08/70.35 and 4.62/9.38 ml across 50/100/150 ul, while the measured 1/1 loading contrast is much smaller. The exceptional middle input remains unreplicated. H53 rejects extension of long completion to pure EA and transfer of joint growth to 100 ul: m118 at 10/1 measures 4.78/36.82 ml at 100 ul versus 19.16/30.41 at 150 ul. H54 is weakened: the identical m74 input changes from 15.34/28.33 to 10.01/15.70 ml, reversing the apparent completion loading direction against the single 150 ul anchor. Both records remain valid evidence; this joins m75 and m32 in weakening singleton-based deterministic explanations without establishing a universal noise floor. H55 supports differentiated ester behavior: m97 grows jointly, m102 more modestly, m103 retains onset near 5 ml, and m23 retains nearly fixed onset through 50/1 despite completion growth. H56 and H57 substantially answer their immediate questions through positive ether progression and joint m47 growth. H59's forecast m0 contraction is rejected by increasing completion of 8.25/8.52/10.37 ml; earlier contextual IDs 8340b51546d211789a45 and c25aed72c162a62800ce belong to m3 and are removed from m0 reasoning. H60 supports completion-dominated m142 growth, with only +1.09 ml onset versus +10.62 ml completion from 2/1 to 20/1. Exceptional m177, m120, m207 and m209 inputs, m118's 1/1 elevation and m117's isolated near-reversal remain unresolved. Historical residuals describe premeasurement failures; current candidate values are predictions only."
+}

@@ -1,0 +1,274 @@
+{
+  "type": "selection",
+  "packet_sha256": "a1af05091ea09b09c4a6b3ea6163d18e06acb8560ba5fa20671413e557f41234",
+  "batch_strategy": "Select all 32 experiments jointly from the supplied pool, freezing their IDs and supplied point predictions before measurement. Emphasize intermediate solvent ratios around newly demonstrated failures, a few interpretable loading contrasts, and structural comparisons that can improve transfer across recurring chemical families. Avoid redundant catalog IDs with identical conditions. Treat quantile spread and CW distance as secondary evidence, not calibrated epistemic uncertainty.",
+  "choices": [
+    {
+      "id": "79ff49052bce33597828",
+      "reason": "Measures m159 at 10/1 and 150 uL, beginning a matched-volume 10/1\u201350/1 series. The ordinary 5/1 observation b86ace0ccafe0af8ceec and late 50/1 observation a17bcdddcf0799baeee2 leave the intervening response unresolved; the current prediction is only about 9.6/23.9 mL.",
+      "hypothesis_id": "R5_curve"
+    },
+    {
+      "id": "59b54ad3a60a52cc2b2c",
+      "reason": "Adds the 20/1 middle point of the m159 series at 150 uL. Its predicted 29.8/62.4 mL lies between the selected 10/1 and 50/1 predictions, allowing measured labels to distinguish gradual curvature from a sharper retention transition.",
+      "hypothesis_id": "R5_curve"
+    },
+    {
+      "id": "1395836aef00d6a880b0",
+      "reason": "Completes the m159 series at 50/1 and supplies a loading contrast to the measured 100-uL row a17bcdddcf0799baeee2, whose acquisition-time V2 error was -64.86 mL. Tests whether the corrected late regime transfers across loading rather than merely fitting one label.",
+      "hypothesis_id": "R5_load"
+    },
+    {
+      "id": "a38fee52661fd3e3b7ea",
+      "reason": "Measures m11 at 20/1 and 150 uL, paired with the selected 50/1 row at the same loading. The measured 20/1 row 79cb1738d945317e5bfa and 50/1 row 9ffee2813aef5c26f96f show a substantial completion increase, but at different sample volumes.",
+      "hypothesis_id": "R5_curve"
+    },
+    {
+      "id": "efd84dffe823b6298db6",
+      "reason": "Provides the m11 50/1, 150-uL contrast to 9ffee2813aef5c26f96f at 100 uL. Together with the selected 20/1 point, it tests transfer of both solvent curvature and loading response after the historical 60.70-mL V2 underestimate.",
+      "hypothesis_id": "R5_load"
+    },
+    {
+      "id": "2745c6978a8911fc3dda",
+      "reason": "Anchors m146 at the stronger 2/1 eluent, using the same 100-uL loading and DCM volume as measured 9e3ce3497298084abd83 at 10/1. Establishes whether that late label belongs to a steep solvent response rather than a molecule-wide offset.",
+      "hypothesis_id": "R5_ringN"
+    },
+    {
+      "id": "51f5ae6a991eea9e720e",
+      "reason": "Supplies the matched m146 5/1 intermediate between the selected 2/1 point and measured 10/1 row 9e3ce3497298084abd83. The predicted 34.8/62.4 mL makes this a direct test of response curvature in a recently underpredicted basic heteroaromatic scaffold.",
+      "hypothesis_id": "R5_ringN"
+    },
+    {
+      "id": "33ffc69a253a89f15995",
+      "reason": "Measures m216 at 5/1 and 100 uL below the measured 10/1 row 9cd02352c2ed7a3e2321, whose completion is 93.07 mL. Compares its transition with m146 while retaining the recorded PE-versus-DCM loading-solvent difference as a confound.",
+      "hypothesis_id": "R5_ringN"
+    },
+    {
+      "id": "49201b5817f204116f7f",
+      "reason": "Introduces molecule-novel pyridyl ketone m66 at 5/1, 100 uL and DCM 300 uL. Paired with m90 under closely matched recorded loading, it tests whether ring-N/carbonyl environments inherit the late responses of m146 and m216 or remain near the predicted ordinary regime.",
+      "hypothesis_id": "R5_ringN"
+    },
+    {
+      "id": "855832bd4005ac7abdc6",
+      "reason": "Introduces molecule-novel pyridyl ester m90 alongside m66 at the same ratio, sample volume and loading-solvent volume. Their similar predicted endpoints provide a useful test of ketone-versus-ester graph transfer without assuming basic aromatic N imposes a universal retention correction.",
+      "hypothesis_id": "R5_ringN"
+    },
+    {
+      "id": "6b7209c2e8154837a8c7",
+      "reason": "Adds molecule-novel aminoacetophenone m36 at 2/1. The amino-benzonitrile observations 36d971e3231c54486d05 and 0ced19fd8372ed93361c provide related donor/basic aromatic references; the different DCM loading volume prevents treating this as an isolated functional-group substitution.",
+      "hypothesis_id": "R5_graph"
+    },
+    {
+      "id": "d2921349ba8d9cef15a4",
+      "reason": "Measures molecule-novel meta-amino ester m88 at 5/1 and 100 uL. Together with m86 and the measured ortho-amino ester series, including 18186b5d6cc190fc07a3, it tests positional-environment transfer. Loading solvent and its volume differ across isomers and remain part of the comparison.",
+      "hypothesis_id": "R5_graph"
+    },
+    {
+      "id": "3ccd6444c8a55917fbf8",
+      "reason": "Extends para-amino ester m86 from the measured 2/1 row d7f5057912ffbf1231a3 to 5/1. Supplies the established-family counterpart to novel m88 and tests whether its predicted 13.4/28.6-mL response misses a steeper donor-aromatic transition.",
+      "hypothesis_id": "R5_graph"
+    },
+    {
+      "id": "fcb9019ffbdb889489f7",
+      "reason": "Introduces ortho-nitrobenzaldehyde m198 at 10/1. Its predicted completion is about 13.3 mL versus 40.7 mL for the selected para isomer. This large predicted structural contrast is untested; DCM loading volumes of 300 versus 700 uL mean the labels cannot isolate position alone.",
+      "hypothesis_id": "R5_graph"
+    },
+    {
+      "id": "c08c4700ae34281b3318",
+      "reason": "Measures para-nitrobenzaldehyde m193 at 10/1, bridging measured 2/1 row f64ebc218e6ab29d7edc and 20/1 row a5f9179bfb146ad70953. Also anchors the comparison with novel m198 so that an apparent isomer difference is not inferred from predictions alone.",
+      "hypothesis_id": "R5_graph"
+    },
+    {
+      "id": "39815ababe97d7acc107",
+      "reason": "Adds low-similarity, molecule-novel fused ether-aldehyde m194 at 5/1. The related oxygenated aromatic carbonyl observation 8641d0ec9c4b21727b9a offers a family reference, while this label tests transfer to a different constrained ether environment in a moderately retained regime.",
+      "hypothesis_id": "R5_graph"
+    },
+    {
+      "id": "af0ec4f316723b99eaef",
+      "reason": "Introduces hydroxy-methoxy aldehyde m117 at 1/1. Its predicted early onset and roughly 24.7-mL completion can test transfer from salicylaldehyde observation 739f955977aa740524e5; possible intramolecular H-bonding is a chemical prior, and the loading conditions are not matched.",
+      "hypothesis_id": "R5_graph"
+    },
+    {
+      "id": "0c5c35afb3a24375c153",
+      "reason": "Measures molecule-novel dibenzoyl scaffold m178 at 50/1, where the model predicts unusually early onset near 2.7 mL despite two carbonyl groups. Tests a possible graph-transfer artifact affecting onset and completion separately, with a contrasting late carbonyl/nitrile example in a17bcdddcf0799baeee2.",
+      "hypothesis_id": "R5_order"
+    },
+    {
+      "id": "0bdd638e906bf11a00cb",
+      "reason": "Introduces chalcone m165 under pure EA. The model predicts later completion here than at its 5/1 condition, an ordering worth testing against the usual solvent-strength prior. Pairing with m164 under the same recorded loading conditions probes whether this behavior transfers across conjugated ketones.",
+      "hypothesis_id": "R5_order"
+    },
+    {
+      "id": "5df546d9e2f2a29dfc89",
+      "reason": "Tests the m164 pure-EA completion prediction of about 50.5 mL against its measured 20/1 anchor b7fffd840d208b29776c at 35.72 mL. This unexpected predicted ordering, paired with novel m165, can reveal an overbroad completion correction or a real condition-specific effect.",
+      "hypothesis_id": "R5_order"
+    },
+    {
+      "id": "2420964caf34a1de2a5d",
+      "reason": "Adds molecule-novel para-bromoacetophenone m30 at 10/1, paired with its ortho isomer at the same sample volume and DCM volume. Their nearly identical predictions make the labels informative about local steric environment and ordinary aromatic-ketone transfer; density-derived loading amounts differ.",
+      "hypothesis_id": "R5_graph"
+    },
+    {
+      "id": "057972d40b84bce6262b",
+      "reason": "Adds molecule-novel ortho-bromoacetophenone m43 as the counterpart to m30. Tests whether carbonyl accessibility produces a structural difference that the current nearly identical predictions miss, while providing central-population coverage outside the repeatedly sampled late-tail families.",
+      "hypothesis_id": "R5_graph"
+    },
+    {
+      "id": "61771d230b285babe4b6",
+      "reason": "Measures the actual m78 50/1, 100-uL loading contrast to 2b97a1e0a6a4b944b760 at 50 uL, measured at 56.96/97.46 mL. The previous narrative's apparent m78 collapse used a different molecule's ID, so loading transfer remains unresolved.",
+      "hypothesis_id": "R5_load"
+    },
+    {
+      "id": "86258f5c8ffdb874521f",
+      "reason": "Measures m202 at 5/1 and 100 uL, matching the sample loading of the unusually late 10/1 row 902937db42f82f467718. Comparison with 4f88870ad666191b8ea7 at 5/1 and 50 uL tests whether the 100-uL anomaly recurs at an adjacent ratio.",
+      "hypothesis_id": "R5_m202"
+    },
+    {
+      "id": "a6145bb0c9947f9515df",
+      "reason": "Completes the m206 5/1 loading series at 50 uL alongside measured 614873124b33029a924c and cdf40bcb3f4392f8d7d1 at 100 and 150 uL. Tests the predicted lower-loading response and whether onset and completion shift together within this strongly retaining alcohol.",
+      "hypothesis_id": "R5_load"
+    },
+    {
+      "id": "1cc3b837c6561b1c0a23",
+      "reason": "Places m13 at 5/1 and 50 uL between its ordinary 2/1 regime and measured 10/1 row c4bb286978fe9078a303 at the same 50-uL loading. Localizes the large retention increase in a multifunctional ester/ketone structure rather than spreading the 10/1 label across all ratios.",
+      "hypothesis_id": "R5_curve"
+    },
+    {
+      "id": "f96cee9775323fbf1d8b",
+      "reason": "Measures m107 at 2/1 and 100 uL below measured 5/1 row d1172a49fca1e196a59f at 35.16/96.51 mL. Tests where its very broad completion interval develops and provides a related multifunctional carbonyl comparison to the selected m13 transition point.",
+      "hypothesis_id": "R5_curve"
+    },
+    {
+      "id": "6b8e53d2d8c8a90a7216",
+      "reason": "Fills m82 at 10/1 and 100 uL between the measured 5/1 regime and 20/1 row 3b400f57f8dcc4cdbd83. The methyl-ester homolog's measured 10/1 row 41f57dc6d50ee162801a supplies an additional reference for learning solvent curvature and ester-substituent transfer.",
+      "hypothesis_id": "R5_curve"
+    },
+    {
+      "id": "20913a7c2077b80b7351",
+      "reason": "Extends methoxybenzyl alcohol m120 to 5/1, with a predicted 25.7/47.1 mL. At the same sample volume, ratio and DCM volume, phenethyl analog e6e78489d1da4066c07e measured 46.24/73.59 mL; this tests alcohol-spacer transfer while accounting for the slightly different loading masses.",
+      "hypothesis_id": "R5_graph"
+    },
+    {
+      "id": "08155ffdcb0d27576050",
+      "reason": "Tests the predicted m80 50/1 transition to about 30.0/58.6 mL. Measured 2/1, 5/1 and 10/1 rows 99d252a2e394a175ecba, 034aaf7715b5ec8bd7ee and ab66de7edad40236ffd5 remain early; a weak-eluent label discriminates real diester curvature from transferred beta-ketoester tails.",
+      "hypothesis_id": "R5_curve"
+    },
+    {
+      "id": "40fd02db79e028fe05a9",
+      "reason": "Adds the m80 20/1 intermediate at the same 100-uL loading as the selected 50/1 point. Together these labels locate or reject the model's proposed transition beyond the measured early 10/1 regime, rather than relying on an isolated extreme-ratio result.",
+      "hypothesis_id": "R5_curve"
+    },
+    {
+      "id": "776ee2c1e85ebde75168",
+      "reason": "Measures m119 at 5/1 and 100 uL against the measured 150-uL row e6e78489d1da4066c07e, which was historically underpredicted by 22.12 mL in V2. Separates loading transfer within the phenethyl alcohol from the structural-spacer comparison supplied by m120.",
+      "hypothesis_id": "R5_load"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "R5_curve",
+      "content": "Several families show large retention changes between measured PE/EA ratios. Intermediate labels should locate molecule-specific curvature and prevent a late endpoint from inducing an excessive correction at stronger eluent. Whether individual transitions are smooth or abrupt remains unresolved.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "b86ace0ccafe0af8ceec",
+        "a17bcdddcf0799baeee2",
+        "6b5982c6e1bbaadd6a95",
+        "79cb1738d945317e5bfa",
+        "9ffee2813aef5c26f96f",
+        "2dbfdf9c2d5defd09f7a",
+        "c4bb286978fe9078a303",
+        "d1172a49fca1e196a59f",
+        "3b400f57f8dcc4cdbd83"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Local ratio series constrain nonlinear structure-condition relationships for both endpoints and reduce the risk of fitting tail labels with global molecule offsets.",
+      "next_discriminating_question": "Where do the m159, m11, m13, m107, m82 and m80 curves begin departing from their earlier-eluting regimes, and do onset and completion bend at the same ratios?"
+    },
+    {
+      "id": "R5_load",
+      "content": "Onset and completion require separate loading responses. Measured examples show appreciable onset shifts with smaller completion shifts, while the sign and magnitude need not transfer across molecules or solvent ratios. Many current candidate predictions remain almost insensitive to sample volume.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "606886b17304ec494aa0",
+        "b6f1b33a5491968c645e",
+        "3b2c663a28a9f32bd1d3",
+        "ad833f34f6b91872362d",
+        "b4e0e9dc92fca2c88b90",
+        "fe66b2381d33aa2ea3a8",
+        "d119d77f545c029deace",
+        "810b065b0b86ff8c9aae",
+        "07a55cdab65b05f31561"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched loading contrasts can teach interactions involving the supplied density-times-volume feature without assuming an unrecorded concentration or a universal monotonic loading effect.",
+      "next_discriminating_question": "Do new loading contrasts in m159, m11, m78, m206 and m119 reproduce onset/completion decoupling, or are their large intervals mainly controlled by solvent ratio?"
+    },
+    {
+      "id": "R5_ringN",
+      "content": "Aromatic ring-N compounds may need scaffold-specific solvent responses beyond TPSA and acceptor count. The late m146 and m216 labels and the now better mapped m211 curve identify a transfer risk, but they do not isolate basicity, topology and loading-solvent contributions.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "9e3ce3497298084abd83",
+        "e47aebe2660b9e1528de",
+        "9cd02352c2ed7a3e2321",
+        "d119d77f545c029deace",
+        "434e465cfa7e0034f233"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Intermediate quinoline-family labels and novel pyridyl carbonyl anchors test whether the graph representation learns accessible chemical environments rather than imposing a common nitrogen correction.",
+      "next_discriminating_question": "How do m146 and m216 behave at 5/1, and do pyridyl ketone m66 and pyridyl ester m90 remain ordinary under that ratio?"
+    },
+    {
+      "id": "R5_graph",
+      "content": "Local functional-group position and structural environment can have solvent-dependent effects. The matched amino-benzonitrile isomers differ more at 5/1 than at 2/1; analogous effects in amino esters, nitro aldehydes, bromoketones and alcohol spacers remain hypotheses requiring labels.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "ad833f34f6b91872362d",
+        "a60552f4d1a5ced4641f",
+        "36d971e3231c54486d05",
+        "0ced19fd8372ed93361c"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Related structural comparisons provide graph-sensitive supervision in both ordinary and strongly retained regimes. Comparisons with differing recorded loading conditions are interpreted conditionally rather than as isolated causal effects of position.",
+      "next_discriminating_question": "Which positional, spacer and functional-group changes preserve a family response, and which produce differences absent from the current predictions?"
+    },
+    {
+      "id": "R5_order",
+      "content": "The predicted pure-EA completion spikes in conjugated ketones m164/m165 and very early weak-eluent onset in dibenzoyl m178 may be transfer artifacts. Usual silica and solvent-strength expectations motivate testing these predictions but do not establish that they are wrong.",
+      "basis": "mixed",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "These labels challenge model behavior in previously uncovered graph-condition combinations, especially cases where onset and completion may have inherited different family biases.",
+      "next_discriminating_question": "Are the unusual endpoint orderings measured features of these recorded conditions, or does the model need corrections that restore ordinary solvent-response behavior locally?"
+    },
+    {
+      "id": "R5_m202",
+      "content": "The m202 records at 10/1 show a nonmonotonic loading pattern and cannot support a molecule-wide late-tail correction. A localized condition interaction and unexplained row variability remain competing explanations.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "902937db42f82f467718",
+        "7de812bda21b4dfe46dc",
+        "cb446680f62351d087a9",
+        "4f88870ad666191b8ea7",
+        "942c95c0b3a64c876639"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Testing an adjacent ratio at the anomalous loading can prevent the model from generalizing one late record across an otherwise earlier-eluting family. The catalog lacks information needed to assign the anomaly a mechanism.",
+      "next_discriminating_question": "Does the 100-uL loading also produce unusually late retention at 5/1, or is the late behavior localized to the recorded 10/1 row?"
+    }
+  ],
+  "feedback_interpretation": "The latest outcomes shift priority toward locating newly demonstrated transitions. At acquisition, m159 row a17bcdddcf0799baeee2, m11 row 9ffee2813aef5c26f96f and m146 row 9e3ce3497298084abd83 underestimated V2 by 64.86, 60.70 and 47.34 mL respectively. These are historical errors, not current-model residuals. Conversely, recent m211 labels mostly had modest errors, so its supported local-curve hypothesis now warrants less additional sampling. The m37 20/1 series 606886b17304ec494aa0, b6f1b33a5491968c645e and 3b2c663a28a9f32bd1d3 shows onset changing substantially while completion stays near 95\u201397 mL; this favors separate endpoint loading responses. The m82 completion measurements do not establish a universal monotonic loading effect. Two earlier interpretations require correction: cb446680f62351d087a9 and 7de812bda21b4dfe46dc were m202 overpredictions, with positive V2 errors of 52.75 and 40.72 mL. Their measured completions of 9.38 and 21.41 mL contrast with 70.35 mL at the intervening loading in 902937db42f82f467718. Also, the observed table maps 61764a2e9f71f1caa18e to m177 at 1/1 and 4fc25128f65d2cf6e786 to m15 under pure EA; they do not demonstrate the m78 collapse or m209 intermediate response described in the previous reasons. The accurate novel central anchor 6269d4154d62e1f5d91b supports retaining ordinary structural coverage alongside failure repair.",
+  "batch_rationale": "The batch combines local failure repair with structural transfer tests. The m159, m11 and m146 series locate solvent-response changes around recent large historical errors; m80 tests whether a predicted late transition exists beyond several measured early regimes. Intermediate m13, m107, m82, m193 and m216 points constrain response curvature in recurring polar families. Loading contrasts in m159, m11, m78, m206 and m119 test whether corrected responses transfer beyond one measured condition and whether V1 and V2 require different adjustments. The m202 experiment discriminates a localized anomaly from an overly broad retention correction. Novel pyridyl carbonyls, amino and nitro positional environments, bromoketones, a fused ether aldehyde and a hydroxy-methoxy aldehyde expand coverage where related observations or unusual model behavior provide a concrete transfer question. The m164/m165/m178 probes challenge suspicious endpoint orderings without assuming chemical priors are absolute. Modest predicted-retention structural pairs also constrain ordinary rows, which matters for overall Row accuracy. The batch avoids repeated IDs with identical conditions and spends multiple labels on a molecule only when they form an interpretable response or loading comparison. This should provide retraining with useful structure-condition relationships rather than merely more extreme labels; improvement remains an expectation to be tested after retraining."
+}

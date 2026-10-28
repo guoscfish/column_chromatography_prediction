@@ -1,0 +1,44 @@
+{
+  "time": 1792231493.9312158,
+  "purpose": "Original endpoint auth and empty POST validation only; no model generation requested",
+  "checks": [
+    {
+      "seed": 157,
+      "probes": [
+        {
+          "method": "GET",
+          "status": 200,
+          "elapsed": 6.72176194190979,
+          "content_type": "application/json; charset=utf-8",
+          "body_class": "model list"
+        },
+        {
+          "method": "POST",
+          "status": 400,
+          "elapsed": 0.38562607765197754,
+          "content_type": "application/json; charset=utf-8",
+          "body_class": "{\"error\":{\"message\":\"model is required\",\"type\":\"invalid_request_error\"}}"
+        }
+      ]
+    },
+    {
+      "seed": 6101,
+      "probes": [
+        {
+          "method": "GET",
+          "status": 200,
+          "elapsed": 6.7219390869140625,
+          "content_type": "application/json; charset=utf-8",
+          "body_class": "model list"
+        },
+        {
+          "method": "POST",
+          "status": 400,
+          "elapsed": 0.38573694229125977,
+          "content_type": "application/json; charset=utf-8",
+          "body_class": "{\"error\":{\"message\":\"model is required\",\"type\":\"invalid_request_error\"}}"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,194 @@
+{
+  "type": "selection",
+  "packet_sha256": "1cec03980bf68f9793789794efcf955fef211f08a483c7bd322c8cadb8fafd2d",
+  "batch_strategy": "Select 16 supplements that resolve recent endpoint-specific failures, test transfer of measured loading responses, and distinguish reproducible solvent-response branches from isolated records. Freeze all supplied point predictions for these choices and the 16 pending experiments before measurement. Use quantile spans and CW distances as contextual evidence only.",
+  "choices": [
+    {
+      "id": "b9567f94a7b303ec27d4",
+      "reason": "m124, pure EA, 100 uL; frozen V1/V2 prediction 17.332557678222656/18.383054733276367 mL. Recent CW observation 0e09f8144b025e4b5a8a at 50 uL gave 18.508/18.550 mL, with a historical onset underestimate of 14.475 mL. This midpoint tests whether the newly predicted late, narrow elution branch extends beyond that single record. Its near-coincident endpoints could also reflect record variation or missing information.",
+      "hypothesis_id": "H97"
+    },
+    {
+      "id": "5924be549731349785e5",
+      "reason": "m124, pure EA, 150 uL; frozen prediction 17.000654220581055/18.643400192260742 mL. Together with selected 100 uL and measured 50-uL record 0e09f8144b025e4b5a8a, this tests persistence and loading dependence of the late branch. The measured 1/1 low-loading reference 773e4e81304d36b364b8 was 5.650/9.508 mL, so confirming this branch would teach a substantial conditional relationship rather than a uniform retention correction.",
+      "hypothesis_id": "H97"
+    },
+    {
+      "id": "75f2fe316efd384a6327",
+      "reason": "m8, pure EA, 50 uL; frozen prediction 10.885279655456543/10.833498001098633 mL. The forecast places completion slightly before onset. Measured same-loading 1/1 record fd0fd67502640304b8fb was 5.317/9.450 mL. This tests whether the delayed, nearly coincident pure-EA forecasts represent a real response in another fused oxygen-containing aromatic scaffold or an unsupported transfer after the new m124 result.",
+      "hypothesis_id": "H97"
+    },
+    {
+      "id": "0a2dd1ad79e8b22ab734",
+      "reason": "m8, pure EA, 150 uL; frozen prediction 9.903912544250488/11.603279113769531 mL. Paired with selected 50 uL, this tests whether any delayed onset persists across loading or is localized. Existing m8 observations include early onset at 2/1 and 1/1 in fc859559977089c48afe and fd0fd67502640304b8fb. The pair can discriminate a transferable solvent-dependent branch from a prediction artifact without assuming m8 and m124 share a mechanism.",
+      "hypothesis_id": "H97"
+    },
+    {
+      "id": "24ac14b3a19069ee1128",
+      "reason": "m32, pure EA, 50 uL; frozen prediction 4.494150161743164/15.351662635803223 mL. The newly measured high-loading pure-EA completion in 70dd45e8e1ff8116c181 was 17.275 mL, versus 6.887 mL at matched 1/1 in fa12b8327b9b59795c56. This low-loading endpoint, matched to 9eec792e8b2ea194dd3c at 1/1, distinguishes a broad solvent rebound from a rebound that requires high loading.",
+      "hypothesis_id": "H92"
+    },
+    {
+      "id": "3f14d2a4f33426108e41",
+      "reason": "m32, pure EA, 100 uL; frozen prediction 4.180962562561035/15.597321510314941 mL. With selected 50 uL and measured 150-uL record 70dd45e8e1ff8116c181, this resolves the pure-EA loading-response shape. At 2/1, the measured midpoint 6e66ea6808d3ce077e47 finished at only 9.475 mL before the high-loading increase. Comparing these curves tests whether completion thresholds shift with solvent strength; pending e23428098aa1cdad35be adds an unknown 10/1 midpoint.",
+      "hypothesis_id": "H92"
+    },
+    {
+      "id": "34d95567b1dba64add5d",
+      "reason": "m41, 1/1, 150 uL; frozen prediction 4.195109844207764/8.534891128540039 mL. Its measured pure-EA reference 6e4be94a2a9069414c1c is 4.133/14.542 mL. One label therefore tests whether the completion rebound confirmed for para-methyl ketone m32 also occurs in the meta isomer. This matched contrast helps learn positional-environment effects within a common aromatic ketone family.",
+      "hypothesis_id": "H92"
+    },
+    {
+      "id": "d3b1f310cb3ebbca13af",
+      "reason": "m72, pure EA, 50 uL, DCM/200-uL loading protocol; frozen prediction 5.215224742889404/16.949708938598633 mL. Measured 50-uL 1/1 record 6a53fc46345dc50021ae finished at 10.600 mL, whereas the matched 100-uL series decreases from 2/1 to 1/1 to pure EA in 2466da143763ef5563ef, d90d024730eb01bff3c7 and 71f5df8c7d7e88d1afce. This tests whether solvent ordering changes with loading.",
+      "hypothesis_id": "H91"
+    },
+    {
+      "id": "1b1a9ec85268aa66d327",
+      "reason": "m72, 20/1, 50 uL, DCM/200-uL protocol; frozen prediction 31.63231086730957/115.81857299804688 mL. Measured high-loading record 334f7f55dcbf278e47ec gave 31.750/118.842 mL. The forecast transfers that long completion volume almost unchanged to low loading, despite the large loading response measured at 1/1. This matched endpoint tests whether loading sensitivity is localized to stronger eluent or remains consequential in the weak-eluent regime.",
+      "hypothesis_id": "H91"
+    },
+    {
+      "id": "6d21e9ec887b3408c612",
+      "reason": "m19, 2/1, 50 uL; frozen prediction 16.863616943359375/32.496978759765625 mL. The recent 1/1 loading series a595d5f1882c39914392, 9a60cb4735780275034e and 97297c71a28a2ccbdeeb showed a 4.800-mL onset advance with little completion change. This low-loading endpoint and the selected high-loading endpoint test whether that onset response strengthens, persists or attenuates at 2/1, using measured midpoint 304fb0fdb486ae4b7a07.",
+      "hypothesis_id": "H96"
+    },
+    {
+      "id": "906bd247e050658f99d8",
+      "reason": "m19, 2/1, 150 uL; frozen prediction 16.288394927978516/32.94818115234375 mL. Together with selected 50 uL and measured 100-uL anchor 304fb0fdb486ae4b7a07 at 16.433/32.808 mL, this completes a second loading series. The nearly flat forecasts contrast with the measured onset response at 1/1, providing a direct test of solvent-dependent loading effects in a tertiary-amino acrylate.",
+      "hypothesis_id": "H96"
+    },
+    {
+      "id": "73155d7feac7857188dd",
+      "reason": "m104, 20/1, 100 uL, an additional catalog record at an observed tuple; frozen prediction 9.82190227508545/16.593873977661133 mL. Observed 10f14f6ee69ba06bbe68 finished at 20.783 mL, while recent 150-uL record 6ce2b891280aed137ab8 finished at 13.125 mL. This deliberate repeat tests whether the midpoint anchor is representative before interpreting the opposing 10/1 and 20/1 loading trends as a smooth interaction. The 8.507-mL completion quantile span reinforces ambiguity without establishing calibrated uncertainty.",
+      "hypothesis_id": "H98"
+    },
+    {
+      "id": "04ea307c7b7f3321cc20",
+      "reason": "m203, 10/1, 150 uL; frozen prediction 17.210447311401367/25.132732391357422 mL. The measured low-loading anchor fbfb34ddee14b1ea50b1 is 17.758/24.575 mL. This tests the forecast weak loading response of a rigid tertiary alcohol after m60 and m51 showed substantial weak-eluent onset advances. Combined with the selected 20/1 high-loading condition, it tests whether hydroxyl environment changes the magnitude and solvent dependence of that response.",
+      "hypothesis_id": "H93"
+    },
+    {
+      "id": "66747ae127e03516ffda",
+      "reason": "m203, 20/1, 150 uL; frozen prediction 37.174293518066406/45.551326751708984 mL. Observed low-loading reference 9ed7c1fb1c2cc499bbf9 is 37.758/44.958 mL. Together with selected 10/1 high loading and measured fbfb34ddee14b1ea50b1, this completes a crossed solvent-loading comparison. Both forecasts have small onset changes, allowing the labels to distinguish structural attenuation from an inadequately learned loading interaction.",
+      "hypothesis_id": "H93"
+    },
+    {
+      "id": "1cc3b837c6561b1c0a23",
+      "reason": "m13, 5/1, 50 uL; frozen prediction 18.443891525268555/42.695552825927734 mL. Measured high-loading reference 5d530b2f228ed39ff952 is 17.850/43.858 mL. One label tests loading-response transfer in a donor-free molecule containing two esters and a ketone. The large onset loading response of the related acceptor-rich ketoester m107 in c6924324ddd95f249df6 and 2cfa393cb79664e100ce motivates testing this nearly flat forecast, while their structural differences prevent assuming the same outcome.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "1e3423563c1cfbda4889",
+      "reason": "m60, 2/1, 150 uL; frozen prediction 11.351367950439453/17.647541046142578 mL. Measured low-loading reference c9ad01493d938f825117 is 12.200/17.433 mL. The recent 10/1 pair showed a 9.083-mL onset advance, whereas pure-EA onset was nearly unchanged. This intermediate solvent condition locates attenuation of that response and tests transfer from m51's measured 2/1 loading contrast in a1ea7a9303a5fc7a7b0f and 426ed16e4b39d346244b.",
+      "hypothesis_id": "H93"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H97",
+      "content": "The new m124 pure-EA record may mark a reproducible late-onset branch with nearly coincident endpoints, but persistence across loading remains untested. Similar pure-EA forecasts for m8 may reflect transferable behavior or unsupported model propagation; a shared chemical mechanism is not established.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "0e09f8144b025e4b5a8a",
+        "773e4e81304d36b364b8"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The latest CW outcome exposed a large onset failure, and the retrained predictor now forecasts delayed onset across several unmeasured conditions. Additional labels can distinguish a useful conditional correction from overgeneralization from one unusual record. Fused aromatic oxygen environments motivate the comparison only as a chemical prior.",
+      "next_discriminating_question": "Do m124's 100- and 150-uL pure-EA records retain late onset, and does m8 actually show the delayed, narrow pure-EA response predicted at both loading endpoints?"
+    },
+    {
+      "id": "H92",
+      "content": "m32 has endpoint-specific, solvent-dependent loading behavior: completion rises substantially at high loading at 2/1, changes little across loading at 1/1, and rebounds strongly from 1/1 to pure EA at 150 uL. The pure-EA loading curve and transfer of the rebound to the meta-methyl isomer m41 remain unresolved.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "d73810c9779aede1ff57",
+        "6e66ea6808d3ce077e47",
+        "05a6276f67b3cca8cc7f",
+        "9eec792e8b2ea194dd3c",
+        "fa12b8327b9b59795c56",
+        "70dd45e8e1ff8116c181"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The latest outcome confirms a strong-solvent completion rebound that failed in some other compounds. Learning its loading and structural boundaries can improve predictions throughout the aromatic ketone family without imposing universal solvent monotonicity.",
+      "next_discriminating_question": "Is m32's pure-EA rebound present at 50 uL or concentrated at high loading, and does a measured 1/1 high-loading m41 label establish a comparable rebound against its existing pure-EA reference?"
+    },
+    {
+      "id": "H91",
+      "content": "m72's recorded completion-loading relationship depends on solvent strength and loading protocol. Among the sampled PE-loaded 1/1 records, completion is highest at 100 uL. DCM-loaded 1/1 completion rises strongly from 50 to 100 uL, while the measured DCM-loaded 100-uL solvent series decreases from 2/1 through 1/1 to pure EA. The low-loading pure-EA ordering and loading sensitivity at 20/1 remain untested.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "6a53fc46345dc50021ae",
+        "d2472f692763fd970d64",
+        "a2c9096e1ec2e5c244d6",
+        "506010b7655432ff2f72",
+        "d90d024730eb01bff3c7",
+        "2466da143763ef5563ef",
+        "71f5df8c7d7e88d1afce",
+        "334f7f55dcbf278e47ec"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The observations rule out a single loading correction across this amino-containing ester's conditions. Boundary comparisons can reveal whether response changes are localized or extend across the solvent range. Loading-solvent identity and loading-solvent volume remain a joint protocol contrast.",
+      "next_discriminating_question": "At 50 uL under DCM loading, does pure EA finish later than 1/1, and is 20/1 completion close to the existing high-loading value or materially loading-dependent?"
+    },
+    {
+      "id": "H93",
+      "content": "The strong attenuation of loading-associated onset advance between weak eluent and pure EA is now measured for m60 and is consistent with the solvent-dependent response of m51. The transition at m60's 2/1 condition and transfer to rigid tertiary alcohol m203 are unresolved; hydroxyl environment may change the magnitude substantially.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "beda2205eedbe1688e1f",
+        "5e45395722fa0dcc1d00",
+        "a0e60bf98ee02562a8e1",
+        "ca6df7e85e3c4bd22b40",
+        "4fb92bd1fab3ba235858",
+        "19229d505f75d05a0bcb",
+        "d2d6000790408687cc29",
+        "3c43e519a9cf66b66ebc"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "This supplies a measured relationship that can be tested across hydroxyl environments rather than assumed from H-bond descriptors alone. The selected labels constrain onset and completion separately and test forecasts that largely suppress loading sensitivity.",
+      "next_discriminating_question": "How much onset loading sensitivity remains for m60 at 2/1, and do m203's crossed 10/1 and 20/1 comparisons show structural attenuation or a substantial response missed by the current forecasts?"
+    },
+    {
+      "id": "H96",
+      "content": "m19's measured 1/1 loading series shows a substantial onset advance with nearly unchanged completion. The earlier possibility of a large completion response at this ratio is weakened. Whether its onset response persists or strengthens at 2/1 is unresolved despite nearly flat current forecasts there.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "a595d5f1882c39914392",
+        "9a60cb4735780275034e",
+        "97297c71a28a2ccbdeeb"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "A second loading series distinguishes an endpoint-specific solvent interaction from a molecule-wide adjustment. It also helps prevent transferring a common loading direction to all amino-containing compounds, whose recorded responses differ.",
+      "next_discriminating_question": "At 2/1, do the 50- and 150-uL onsets bracket the measured midpoint with a material advance, while completion remains nearly fixed, or does the loading response attenuate?"
+    },
+    {
+      "id": "H98",
+      "content": "m104's recorded loading-associated completion decrease at 20/1 opposes the increase at 10/1. A solvent-loading interaction and variation among records with identical recorded conditions remain competing explanations; the existing 20/1 midpoint needs an additional reference before assigning a smooth response shape.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "10f14f6ee69ba06bbe68",
+        "6ce2b891280aed137ab8",
+        "467ccfac002f5113fe81",
+        "9ea972636933bded6999"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The latest completion overestimate was large, but a deterministic loading explanation could be misleading if the midpoint record is unrepresentative. Another catalog label at the same tuple informs the predictable conditional level and the limits of the recorded features.",
+      "next_discriminating_question": "Does another 20/1, 100-uL record finish near 20.783 mL, closer to the 150-uL completion of 13.125 mL, or between them?"
+    }
+  ],
+  "feedback_interpretation": "The latest results strengthen several endpoint-specific loading interpretations while narrowing others. For m60, onset advanced from 46.017 to 36.933 mL between 50 and 150 uL at 10/1, compared with only 0.033 mL in pure EA. H93 is therefore supported for this molecule; the next useful question is its solvent boundary and transfer to a different hydroxyl environment. For m19, the corresponding 1/1 onset advance was 4.800 mL, while completion stayed within 0.625 mL across the three loadings. H96 is narrowed to onset behavior, and its proposed large completion variation loses support.\nFor m32, the 2/1 midpoint completion of 9.475 mL lies much closer to the low-loading value than the high-loading value. The 1/1 low-loading completion of 7.883 mL confirms much smaller loading sensitivity there. Pure-EA completion at 150 uL was 17.275 mL, confirming and exceeding the proposed rebound from 1/1; its acquisition-time completion underestimate was 4.962 mL. This supports testing the rebound's loading and structural boundaries rather than dismissing unusual strong-solvent behavior globally.\nFor m72, PE-loaded 1/1 completion changed from 14.458 to 21.158 to 18.267 mL across the sampled loadings, making a simple monotone loading interpretation inadequate. The DCM-loaded 100-uL 2/1 completion of 24.717 mL was 5.079 mL above its acquisition forecast and extends the measured descending solvent series toward pure EA. Low-loading solvent ordering and weak-eluent loading sensitivity now offer more discrimination than another uniform correction.\nThe m184 midpoint pair places pure-EA completion below 2/1 by 100 uL, while the 50-uL 1/1 result connects to the early 2/1 branch. H87's crossing is better constrained, reducing immediate follow-up value. m166's 5/1 loading completion difference was only 0.892 mL versus 8.142 mL at 10/1, supporting H94's attenuation and reducing its priority. Conversely, m104's high-loading 20/1 completion of 13.125 mL produced a 7.607-mL historical overestimate and an opposing loading trend to 10/1; record variation now deserves an explicit test.\nSeparately, the CW-selected m124 pure-EA record gave 18.508/18.550 mL, exposing a 14.475-mL historical onset underestimate. Its approximately 0.042-mL elution interval is a measured endpoint difference, not uncertainty. This result motivates persistence and transfer tests, with missing information retained as an alternative explanation. All error comparisons above use acquisition-time predictions, not current-model residuals.",
+  "batch_rationale": "The batch uses matched comparisons to turn recent failures into relationships that the retrained predictor can learn. The m124 and m8 experiments test whether a newly observed late-onset branch is reproducible across loading and whether related forecasts represent useful transfer or overgeneralization. Their labels are valuable even if they reject a common chemical explanation.\nThe m32 loading endpoints and midpoint resolve a confirmed completion rebound, while one m41 label provides an efficient positional-isomer transfer test against an existing pure-EA measurement. The m72 boundary labels test where loading dependence changes across solvent strength. The m19 pair completes a second loading series and separates onset learning from completion learning. The m104 repeat deliberately addresses ambiguity among records before treating an apparent interaction as a deterministic response curve.\nThe alcohol experiments combine a completed solvent-by-loading comparison for m203 with an intermediate-solvent test for m60. They test transfer of a now-supported relationship across hydroxyl environments. The single m13 label extends this investigation to a donor-free, acceptor-rich ester/ketone environment using an existing high-loading anchor.\nThese repeated-molecule selections each answer a specific response or transfer question. Apart from the deliberate m104 repeat, the selected tuples are condition-novel. The pending 16 already provide substantial geometric coverage and include m32 at 10/1 and m40 in pure EA; their labels remain unknown. The supplements add failure repair and hypothesis discrimination across common structural and condition families, which may improve overall Row-distribution V1/V2 accuracy without selecting for maximal retention or chromatographic performance."
+}

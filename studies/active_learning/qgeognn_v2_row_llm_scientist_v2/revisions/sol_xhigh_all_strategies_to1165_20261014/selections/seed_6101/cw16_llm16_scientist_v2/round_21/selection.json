@@ -1,0 +1,155 @@
+{
+  "type": "selection",
+  "packet_sha256": "bae3a06ed1077d83df1fbe31d6f5b64b421ac6c3b06d84d698e9880f278a21ab",
+  "batch_strategy": "Matched loading and solvent-response experiments, with local completion-failure repair and neutral reference conditions.",
+  "choices": [
+    {
+      "id": "8b6fc534edc07d5b79be",
+      "reason": "Measure m95 at 2/1 and 100 uL; predicted V1/V2 is 7.67/17.27 mL. Observed endpoints 8d018e521e8e6bbc53c2 and b7a9a6b5086135269cb6 show onset decreasing from 11.50 to 7.45 mL and completion from 18.28 to 16.44. The midpoint tests the predictor's implied early saturation of the onset response and resolves completion curvature separately.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "598ca66d9a8305ded243",
+      "reason": "Measure m95 at 1/1 and 100 uL; predicted 5.47/14.59 mL. Pairing with the selected 2/1 midpoint and measured 5/1 midpoint 0ccbd28a4414f97dfad8 creates a fixed-loading solvent series. The measured neat-EA midpoint 09451a20997310593b6e supplies a stronger-solvent anchor, allowing the labels to teach local endpoint-specific solvent curvature.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "b1fcf9bf2e03028d2ef8",
+      "reason": "Measure the actual eligible m205 1/1, 50-uL boundary; predicted 16.27/32.22 mL. Measured midpoint 2b10c90b32f970e4b4c8 and high endpoint 1aceeb0ee0419209d1c7 are 18.27/33.28 and 16.77/34.09. The low boundary remains unmeasured: feedback ID b1af54c32bec21b8bee1 belongs to m9. This label tests an amount response without assuming the previously proposed abrupt m205 transition.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "0483db40cbad8db07032",
+      "reason": "Measure m205 in neat EA at 150 uL; predicted 6.31/11.44 mL. Its matched 1/1 high endpoint 1aceeb0ee0419209d1c7 completed at 34.09 mL, while neat-EA midpoint 988724a9391bf1618fda completed at 10.57. This tests whether the strong-solvent contraction extends to high loading and whether loading sensitivity is attenuated there.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "53c1be5b96937954b9fa",
+      "reason": "Measure m204 at 2/1 and 100 uL; predicted 14.77/24.58 mL. Matched endpoints 8cc5dd51f0360e578ac3 and 6a39aff909ea35989c74 measured 17.58/26.33 and 12.09/22.88. The latest low boundary had historical underestimates of 4.89 and 4.29 mL. This midpoint teaches curvature where both endpoints respond appreciably to recorded loading amount.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "c46b86dae7e6845f08cd",
+      "reason": "Measure m204 at 1/1 and 100 uL; predicted 10.16/16.64 mL. The matched low-amount anchor a3560ac8164465dbb406 measured 10.71/16.17. Together with the selected 2/1 midpoint and measured 2/1 amount endpoints, this distinguishes a small strong-solvent loading response from the substantial response established at 2/1.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "02425f554db74d9809d2",
+      "reason": "Measure m117 at 1/1 and 50 uL; predicted 5.83/19.34 mL. Observed 100- and 150-uL rows af0ec4f316723b99eaef and e55c8ef232b46d3a1ca9 completed at 18.39 and 20.23. The missing low boundary tests whether the locally elevated 1/1 completion extends across amounts, rather than inferring a loading slope from two records.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "89d8c3c7ccaf88632c79",
+      "reason": "Measure eligible m186 at 5/1 and 150 uL; predicted 5.46/20.68 mL. Its fixed-loading stronger-solvent sequence a352cfd369602fd71eec, cf2b5bd61a8fa92f67a8 and 563fd55865b603f34e87 completed at 14.95, 14.23 and 13.99 mL. This missing weaker-solvent bridge locates the completion contraction while keeping loading protocol fixed. It replaces the already measured 2/1, 100-uL row.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "23434652f7af1cc03ab7",
+      "reason": "Measure donor-free m198 at 1/1 and 50 uL; predicted 4.98/11.88 mL. Matched midpoint e6326a07ad46fdd2e66f measured 4.88/12.21. This tests whether the nearly flat predicted amount response is appropriate in a polar aldehyde whose completion contracts strongly with solvent strength, providing a useful contrast to the phenolic series.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "66178a861f4bf31fa2e1",
+      "reason": "Measure m198 at 2/1 and 100 uL; predicted 5.16/14.43 mL. The 2/1 low-amount anchor 6f43332e2665523bcccc measured 6.52/14.57; fixed-midpoint 1/1 and neat-EA rows e6326a07ad46fdd2e66f and 40dbbf2e58a6065b2b52 completed at 12.21 and 9.37. The label separates an onset amount response from completion solvent curvature.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "966254b5be3c8ec5edd3",
+      "reason": "Measure m118 at 1/1 and 150 uL; predicted 6.05/11.03 mL. Its matched 2/1 anchor 4e7e45a513ce579c5ce3 measured 7.95/12.63. Together with the selected 5/1 high endpoint, this tests strong-solvent contraction in a molecule with unusual 10/1 midpoint behavior in 319e89d7000731f64e7f and a severe historical completion underestimate at 50/1 in 2d178efe0181baca2bd5.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "de833d1e7905f1cc3be9",
+      "reason": "Measure m118 at 5/1 and 150 uL; predicted 9.18/20.97 mL. Measured 100-uL reference 985361f6699d97f9464f was 12.88/20.30, and matched 2/1 high endpoint 4e7e45a513ce579c5ce3 was 7.95/12.63. This adds a loading contrast and completes a fixed-high-loading 5/1-to-1/1 solvent panel, testing whether onset and completion need different corrections.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "430318f87f3b5a86d927",
+      "reason": "Measure alpha-bromo ester m76 in neat EA at 50 uL; predicted 3.40/7.29 mL. Observed weaker-solvent midpoint b9c474ef8c8affc54498 measured 7.83/15.93 at 50/1. This explores an uncovered strong-solvent boundary in a donor-free ester, testing structural scope beyond the beta-keto-ester panels while retaining the amount difference in interpretation.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "4d79215a1f24e42e5eb5",
+      "reason": "Measure hydrocarbon m133 at 1/1 and 50 uL; predicted 5.77/11.07 mL. Pending a7a814c9db59a62411a2 supplies its matched 2/1 low boundary, while measured 1/1 midpoint 4ffa7c3e19fe33d7522f was 5.57/10.42. The new label tests the predicted completion increase with stronger solvent in a simple nonpolar structure and provides a loading contrast.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "ac52c50de335acae588d",
+      "reason": "Measure trimethoxybenzene m110 in neat EA at 100 uL; predicted 4.73/8.07 mL. Observed neat-EA low boundary 3ba72d7e71d02ea168dd measured 4.24/7.66, and pending 862513bccbf27b7e8f06 supplies 1/1 at the same midpoint loading. This creates matched solvent and amount comparisons for a neutral oxygen-rich aromatic.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "b070c3657459c06a4df1",
+      "reason": "Measure m110 at 50/1 and 150 uL; predicted 23.85/34.58 mL. Matched low-amount observation d3047299bd8817ee87dd measured 25.13/36.05. This tests whether weak-solvent loading responses remain small for an aromatic ether, supplying a contrast to the substantial responses observed in primary alcohols and beta-keto esters.",
+      "hypothesis_id": "H1"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Recorded loading responses depend on molecule, solvent ratio and endpoint. Stronger solvent attenuates responses in some measured series, but substantial onset responses remain in others. These associations do not establish a universal loading rule or isolate a causal mechanism.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "d2d6000790408687cc29",
+        "3c43e519a9cf66b66ebc",
+        "224279593b17fa2cbc8c",
+        "e9744f740f6e67fa561d",
+        "8cc5dd51f0360e578ac3",
+        "6a39aff909ea35989c74",
+        "a595d5f1882c39914392",
+        "97297c71a28a2ccbdeeb"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched labels teach when the density-times-volume feature should change V1, V2, both or neither. Neutral reference contrasts can constrain the structural scope of corrections learned from large polar-molecule responses.",
+      "next_discriminating_question": "How curved is m204's 2/1 response, how much does it attenuate at 1/1, and does m205's actual missing low boundary show an appreciable onset response?"
+    },
+    {
+      "id": "H3",
+      "content": "Beta-keto ester responses require structural and condition-specific supervision. m95's measured 2/1 onset decreases more than its completion with amount, and its 5/1 midpoint finishes substantially earlier than the ethyl acetoacetate reference under its recorded protocol.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "8d018e521e8e6bbc53c2",
+        "b7a9a6b5086135269cb6",
+        "0ccbd28a4414f97dfad8",
+        "f50c45b31cf41304c109",
+        "74ce463c8423fbd22dc4",
+        "2dbfdf9c2d5defd09f7a",
+        "143bf510fe2028583763",
+        "769f1d04efb22c05cfdf"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The m95 midpoint and solvent bridge distinguish loading curvature from condition-level offsets and limit transfer based only on shared oxygen-containing functional groups. Cross-molecule references retain differences in density and loading protocol.",
+      "next_discriminating_question": "Does m95's onset response largely saturate by 100 uL at 2/1, and how do its fixed-midpoint endpoints change from 5/1 through 1/1 to neat EA?"
+    },
+    {
+      "id": "H4",
+      "content": "Aromatic aldehyde completion responses remain local to structure and supplied conditions. m197 retains late neat-EA completion across measured amounts, m117 has elevated intermediate 1/1 completion, m186 contracts across its measured stronger-solvent sequence, and donor-free m198 contracts more smoothly.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "c86f06310e89b93ed6ac",
+        "ff3ee95fed58907ff8b3",
+        "0e74da1f30505a8699c4",
+        "5079d0dfcde65893b224",
+        "af0ec4f316723b99eaef",
+        "3c0e2ce9feb019d1dd30",
+        "a352cfd369602fd71eec",
+        "cf2b5bd61a8fa92f67a8",
+        "563fd55865b603f34e87",
+        "4da6e3b93f29af1efa94",
+        "e6326a07ad46fdd2e66f",
+        "40dbbf2e58a6065b2b52"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Local solvent and loading labels can repair V2 failures without spreading a shared phenolic or aldehyde offset. The m118 panel additionally tests the scope of unusual weak-solvent behavior in a donor-free methoxy aldehyde.",
+      "next_discriminating_question": "Does m117's intermediate completion elevation extend to low amount, where does m186's contraction begin, and do m198 and m118 support distinct fixed-loading solvent curves?"
+    }
+  ],
+  "feedback_interpretation": "The latest measurements support conditional loading responses. m19's 1/1 low-amount onset was 15.61 mL versus 10.81 at high amount, despite almost unchanged completion; this weakens universal strong-solvent flattening. m204 retained a 5.48-mL onset and 3.45-mL completion contrast at 2/1, motivating its midpoint and stronger-solvent comparison. m95's 2/1 onset decreased by 4.05 mL while completion decreased by 1.84; its 5/1 completion of 21.95 mL was historically overpredicted by 7.97 mL, weakening direct transfer from the ethyl acetoacetate reference.\n\nThe earlier m205 interpretation was based on a molecule mismatch in the stored feedback reason. Observed b1af54c32bec21b8bee1 is m9 at 50/1 and 150 uL, not m205 at 1/1 and 50 uL. It cannot establish an abrupt m205 loading transition. The actual measured m205 1/1 midpoint and high endpoint differ by only 1.49 mL in onset and 0.82 mL in completion. I now select the eligible, genuinely missing low boundary and test the high-loading neat-EA contraction.\n\nThe m80 same-recorded-tuple acquisition finished at 7.03 mL versus 15.66 in the earlier midpoint record. This demonstrates within-tuple disagreement and weakens a reproducible midpoint peak, without establishing an artifact or a controlled-replication mechanism. No additional m80 repeat is prioritized. Aldehyde feedback supports different local curves: m190's 2/1 bridge completed between its 5/1 and 1/1 outcomes, m117 confirmed elevated intermediate completion, m186's measured stronger-solvent sequence remained close to 14\u201315 mL, and m198's 1/1 completion contracted to 12.21. The measured m186 2/1, 100-uL row 43758e84c67aabf44a9f is used only as existing evidence; the replacement selection is an eligible 5/1, 150-uL bridge. All stated prediction errors are historical acquisition-time errors.",
+  "batch_rationale": "These sixteen distinct choices are eligible candidate-table rows and do not overlap the unchanged sixteen pending CW IDs. The packet hash preserves the supplied premeasurement predictions for the complete batch before any further label reveal.\n\nTwelve supplements resolve specific loading or solvent-response questions. m95 and m204 complete informative local comparisons after recent loading failures. The corrected m205 low boundary tests an unresolved amount response, while its neat-EA high boundary checks the scope of strong-solvent contraction. m117, m186, m198 and m118 refine separate completion curves, including fixed-loading comparisons that geometric coverage alone does not isolate. The m186 replacement adds a missing weaker-solvent point rather than reacquiring its measured 2/1 midpoint.\n\nFour neutral reference conditions constrain transfer across the Row-distribution. m133 and m110 create direct comparisons with pending solvent conditions, m110 also supplies a weak-solvent loading contrast, and m76 explores an uncovered strong-solvent ester boundary. Their purpose is to teach ordinary or small responses alongside substantial polar-molecule responses. Several selected rows are close in CW feature space, but their matched experimental questions give them marginal value beyond distance-based coverage. Quantile spans are diagnostic outputs of one predictor, not calibrated epistemic uncertainty; V2 minus V1 remains the elution interval width. Generalization may improve through supervision of conditional slopes and endpoint-specific solvent curvature, with missing experimental variables limiting mechanistic conclusions."
+}

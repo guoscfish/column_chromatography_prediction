@@ -1,0 +1,153 @@
+{
+  "request_sha256": "d218595ae1240ae1e303ddb6fe645e9ce99da45b2b93e410442656976443185e",
+  "answer": "{\n  \"type\": \"memo\",\n  \"role\": \"ml_scientist\",\n  \"packet_sha256\": \"5eb85a1540e48b2bf561f1bc56a9a79c4b3dd3e9dd6c33b8455f1b9c5c9d8e28\",\n  \"state_summary\": {\n    \"seed\": 6101,\n    \"round\": 4,\n    \"active_label_count\": 461,\n    \"observed_count\": 461,\n    \"eligible_candidate_count\": 2869,\n    \"pending_count\": 0,\n    \"objective\": \"Overall Row V1/V2 predictive accuracy after retraining\",\n    \"observed_measured_evidence\": \"The latest labels confirm strong graph-by-condition interactions. m211 is moderate at 5/1 and 10/1, but rises sharply at 20/1 and especially at 50/1 with higher loading. m90 at lower loading has V1 later than predicted while V2 is close. m99 remains much later than predicted at 10/1 and lower loading. In contrast, m120 becomes dramatically earlier at higher loading than at its lower-loading measurements. High-loading m194 retains broad completion intervals at 0/1, 1/1 and 2/1. m173 retains a late completion at 10/1 with the smaller plug, while pure EA substantially reduces it. m124 rejects the predicted delayed onset even at 50/1. Ordinary m68 and m3 labels expose repeated V2 underprediction.\",\n    \"model_diagnostics\": \"Candidate predictions remain nearly insensitive to some loading changes despite measured endpoint shifts. Errors are endpoint specific: V1 can be wrong while V2 is close, completion can be underpredicted with a reasonable onset, and both endpoints can be overpredicted for high-loading m120. Candidate quantiles are frequently crossed or internally inconsistent, so their widths are not calibrated uncertainty.\",\n    \"inference\": \"The dominant learning problem is conditional graph-by-ratio-by-loading behavior, with separate V1 and V2 or interval responses. Recent evidence does not support a universal nitrogen, hydroxyl, solvent-strength, loading, or naphthyl correction.\"\n  },\n  \"important_model_behaviors\": [\n    \"Nitrogen transfer is nonlinear and graph specific. m211 historical overprediction at 5/1 and 10/1 was followed by underprediction at 20/1 and severe V2 underprediction at 50/1/high loading. This supports a missing ratio-loading interaction rather than a simple global slope correction.\",\n    \"Hydroxyl behavior bifurcates by graph and loading. Measured m99 at 10/1 and lower loading is 44.43/60.99 mL versus 37.41/53.29 predicted, while high-loading m120 is far earlier than the low-loading m120 curve. A common hydroxyl offset would mix incompatible residual structures.\",\n    \"High-loading m194 completion remains broader than predicted at 0/1, 1/1 and 2/1, extending the evidence for loading-conditioned V2 behavior. The lower-loading collapse remains real, so the effect is conditional rather than a molecule-wide fixed correction.\",\n    \"m173's late completion is less confined to 1/1 than previously thought: the smaller-plug 10/1 record is 17.32/91.31. The pure-EA result is much earlier, so the response remains local and nonmonotone rather than universally late.\",\n    \"The shared naphthyl onset-delay explanation should be rejected. m124 at 20/1 and 50/1 both have ordinary early onset, while m40 has a different response shape.\",\n    \"Ordinary Row coverage is still useful. m68 at 5/1 and m3 at 5/1 and 50/1 show completion or interval underprediction that is distinct from the recent polar failures.\"\n  ],\n  \"hypothesis_updates\": [\n    {\n      \"id\": \"H_N_topology\",\n      \"status\": \"supported_revised\",\n      \"update\": \"Retain topology specificity, but replace the previous moderate-response emphasis with a nonlinear ratio-loading interaction. m211 is neither uniformly moderate nor uniformly steep.\"\n    },\n    {\n      \"id\": \"H_OH_graph\",\n      \"status\": \"supported_revised\",\n      \"update\": \"m99's late rise transfers to lower loading, but m120's high-loading collapse rejects a transferable hydroxyl correction. Graph and loading must be modeled jointly.\"\n    },\n    {\n      \"id\": \"H_beta_transfer\",\n      \"status\": \"partially_supported\",\n      \"update\": \"m94 at high loading and 20/1 is close to prediction, while the lower-loading counterpart is later. Transfer from m82 is conditional and endpoint specific.\"\n    },\n    {\n      \"id\": \"H_m194_loading\",\n      \"status\": \"strengthened\",\n      \"update\": \"Broad completion returns across several high-loading strong and intermediate ratios, while lower loading collapses the interval. This is useful supervision for a conditional V2 head.\"\n    },\n    {\n      \"id\": \"H_m173_local_tail\",\n      \"status\": \"unresolved_revised\",\n      \"update\": \"The tail persists at 10/1 but falls in pure EA and at stronger conditions. Treat it as a local ratio-by-condition response, not solely a 1/1 anomaly.\"\n    },\n    {\n      \"id\": \"H_naphthyl_local\",\n      \"status\": \"rejected_as_shared_rule\",\n      \"update\": \"m124's 50/1 measurement rejects continued pursuit of a family-wide naphthyl onset-delay correction.\"\n    },\n    {\n      \"id\": \"H_ordinary_coverage\",\n      \"status\": \"supported_for_interval_learning\",\n      \"update\": \"Recent m68 and m3 labels indicate that common aromatic carbonyl graphs can carry systematic V2 or interval residuals, even when onset predictions are reasonable.\"\n    }\n  ],\n  \"possible_learning_bottlenecks\": [\n    \"Weak graph-condition interaction capacity or condition routing, especially for loading amount jointly with PE/EA ratio and molecular topology.\",\n    \"Insufficient separation of V1, V2, and V2-minus-V1 interval responses; completion residuals are often qualitatively different from onset residuals.\",\n    \"Sparse grouped supervision across the same molecule at multiple ratios and loadings encourages unstable extrapolation after graph-level adaptation.\",\n    \"Loading solvent, plug volume, and loading amount may be conflated. The trajectory supports molecule-specific condition effects but does not identify which physical factor is causal.\",\n    \"Record variation and exact-input duplicates may limit learnable signal. Replication is useful only when it addresses a defined ambiguity.\"\n  ],\n  \"coverage_or_redundancy_concerns\": [\n    \"The full candidate pool contains many repeated physical inputs or near-duplicates. Group by molecule plus all five condition columns, including loading amount, before treating catalog multiplicity as information.\",\n    \"The trajectory has recently concentrated on nitrogen, hydroxyl, acid, and unusual completion failures. Further broad grids in m92, m80, or rejected m124 behavior have low marginal value.\",\n    \"Ordinary Row chemistry remains underrepresented relative to the recent polar focus. The m68 and m3 results argue for ordinary endpoint and interval anchors, but a single high numerical uncertainty score is insufficient justification.\",\n    \"Candidate novelty, condition novelty, and quantile width should be interpreted jointly with graph support and the specific ambiguity being tested.\"\n  ],\n  \"warnings\": [\n    \"Observed-table IDs and their V1/V2 values are measured evidence. Candidate IDs and all candidate endpoint values are predictions only.\",\n    \"Recent signed errors come from an adaptively selected trajectory and do not estimate unbiased overall Row error or prove retraining improvement.\",\n    \"V2 minus V1 is the physical elution interval; it is not predictive uncertainty.\",\n    \"Crossed or negative apparent candidate quantile widths make numerical uncertainty ranking unreliable.\",\n    \"No validation/test truth, future labels, other seeds, or other methods were used.\"\n  ],\n  \"particularly_informative_candidates\": [\n    {\n      \"candidate_ids\": [\n        \"0460dfc4e1747f0fc92c\",\n        \"a185774933bd6bb12c07\"\n      ],\n      \"reason\": \"These current-pool m90 and m211 conditions extend the recent graph-specific curves into missing ratio-loading combinations. They can distinguish persistent nonlinear response from a local correction and are more informative than another broad nitrogen grid.\"\n    },\n    {\n      \"candidate_ids\": [\n        \"2bd6619109218dcf6580\",\n        \"880646809d9f015053f6\"\n      ],\n      \"reason\": \"The two m120 candidates share the 1/1 setup while changing loading. Together they directly test the strong measured contrast between low-loading late retention and high-loading early retention; current predictions are nearly the same, making the measured contrast diagnostically useful.\"\n    },\n    {\n      \"candidate_ids\": [\n        \"e3716bf7dba67a0f2185\",\n        \"f1e08c239f1c0950ad36\"\n      ],\n      \"reason\": \"These m68 ratio extensions can determine whether the observed V2 underprediction at 5/1 is a local point or a broader ordinary aromatic-ketone completion slope.\"\n    },\n    {\n      \"candidate_ids\": [\n        \"25ffcaa2164643e082b9\",\n        \"a775926fce57b3bf9ec1\"\n      ],\n      \"reason\": \"These m119 hydroxyl-chain candidates test connectivity and accessibility beyond m120, while also exposing whether the current hydroxyl correction transfers to a related graph. Their labels would be prospective structural evidence, not confirmation of the model predictions.\"\n    },\n    {\n      \"candidate_ids\": [\n        \"b6bf451b4911ee22d4a4\"\n      ],\n      \"reason\": \"This m82 weak-eluent, higher-loading candidate connects the locally accurate m82 curve to the loading-sensitive m94 behavior and can test whether the beta-ketoester residual is molecular or condition specific.\"\n    }\n  ]\n}",
+  "provenance": {
+    "response_id": "resp_0e2e3d5586029cfe016ad8d6e04ce881998816989d066d3629",
+    "served_model": "gpt-6.1-sol",
+    "usage": {
+      "input_tokens": 497549,
+      "input_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 9891,
+      "output_tokens_details": {
+        "reasoning_tokens": 7768
+      },
+      "total_tokens": 507440,
+      "attribution": {
+        "items": {
+          "msg_0e2e3d5586029cfe016ad8d6e04e6081999e4fcd3b24fc2615": {
+            "input_tokens": 492851,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 492851,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_0e2e3d5586029cfe016ad8d7ef867c8199ba35c55bc7526447": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 2123,
+            "content": [
+              {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 2123
+              }
+            ]
+          },
+          "rs_0e2e3d5586029cfe016ad8d6f8276c8199b578ca92d1388e91": {
+            "input_tokens": 2,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 516
+          },
+          "rs_0e2e3d5586029cfe016ad8d7087bc881999b1a9fea246fe261": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e2e3d5586029cfe016ad8d71ae8e48199ab3de66c04c01a87": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e2e3d5586029cfe016ad8d72e40088199b7c5a8a6ddcad308": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e2e3d5586029cfe016ad8d73faf4c81999b7d94a1b50bec81": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e2e3d5586029cfe016ad8d751816c819997429d319317da82": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e2e3d5586029cfe016ad8d763acbc8199a727385315f79b1c": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e2e3d5586029cfe016ad8d775971081999d7523d363bb6d73": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e2e3d5586029cfe016ad8d7866bf48199861a4dfb40a07084": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e2e3d5586029cfe016ad8d7998404819990a38f461643ccff": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e2e3d5586029cfe016ad8d7aa5b0c8199ad31dabfba17d420": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e2e3d5586029cfe016ad8d7bbce0881999827a3e914fca337": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e2e3d5586029cfe016ad8d7cbedc881999a41363b76229d17": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e2e3d5586029cfe016ad8d7def6d4819993821e736303c6ed": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e2e3d5586029cfe016ad8d7ef394081998323217d1dd3c1d2": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          }
+        },
+        "request_fields": {
+          "instructions": {
+            "input_tokens": 4696,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "native_tool_calls": 0
+  },
+  "role": "ml_scientist",
+  "call_index": 0
+}

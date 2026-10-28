@@ -80,3 +80,15 @@ studies/**/selections/**/planner_input.json
 studies/**/selections/**/extra_correction_request.json
 studies/**/*.lock
 .pytest_cache/
+
+# Monitor console streams and kernel locks are local process state.
+reports/**/*.log
+reports/**/*.lock
+reports/**/matplotlib_cache/
+
+# Recomputable acquisition feature arrays; keep contracts and feature hashes.
+studies/**/current_center_width_gradient_features.npz
+
+# Presentation raster QA is regenerated from retained final PDFs.
+docs/presentation_assets/**/qa/pdf_render/
+docs/presentation_assets/**/qa/pdf_preview_*.png

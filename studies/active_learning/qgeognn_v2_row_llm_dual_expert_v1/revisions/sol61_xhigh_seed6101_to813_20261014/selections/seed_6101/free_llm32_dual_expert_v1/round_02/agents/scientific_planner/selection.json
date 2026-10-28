@@ -1,0 +1,479 @@
+{
+  "type": "selection",
+  "packet_sha256": "896bd2694ca6eb9d0c766750ec94e6402167cbfb47596212d6c4e9f5489026db",
+  "expert_synthesis": {
+    "chemistry_takeaways": [
+      "Nitrogen connectivity and hydroxyl placement strongly affect measured solvent responses. Shared functional-group counts cannot explain the observed distinctions.",
+      "Unusual completion responses remain molecule-specific: m194 and m173 retain strong-eluent completion excesses, while m73's original anomaly failed its near-repeat."
+    ],
+    "ml_takeaways": [
+      "Fresh measurements expose failures in graph transfer, solvent-response shape and interval prediction. Current adaptation around acquired labels does not establish prospective transfer.",
+      "Persistent loading insensitivity reduces the marginal value of another loading grid. Duplicate inputs and crossed quantiles also weaken acquisition rankings based on novelty or numerical widths."
+    ],
+    "agreements": [
+      "Use controlled response comparisons, distinguish historical errors from current predictions, and include ordinary Row chemistry alongside difficult polar compounds.",
+      "The latest feedback rejects several predicted declines but does not justify universal solvent monotonicity."
+    ],
+    "disagreements": [
+      "There is no material factual conflict. Chemistry emphasizes m194 loading comparisons and the m124 interval question; ML emphasizes connected m90 and m211 response tests.",
+      "For chlorobenzophenone, I choose the wider 5/1-to-20/1 contrast rather than the ML memo's 5/1-to-10/1 pair."
+    ],
+    "planner_resolution": "Retain the same 32 selections. Prioritize prospective transfer after the large pyridyl-carbonyl failures, then resolve selected endpoint-response questions and add connected coverage in ordinary carbonyl, ester, ether and haloarene families. Retain focused acid and m194 comparisons, while allocating no further extensive m92 or m80 grid and no additional m73 repeat this round."
+  },
+  "batch_strategy": "Select 32 distinct eligible IDs across 20 molecules. Sixteen experiments cover nine graphs without observed labels; sixteen extend eleven measured graphs. Twelve within-molecule pairs hold the other supplied condition fields fixed. No selected physical input duplicates another selection or an observed input. The lower-loading m194 pair tests response transfer and is not a reproducibility repeat. Candidate values remain predictions only.",
+  "choices": [
+    {
+      "id": "07dbb8c9982caa472c1a",
+      "reason": "m66 in pure EA retains its measured 111.4 mg/DCM 300 uL setup, anchoring the strong-eluent end after severe measured 2/1 and 5/1 underprediction.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_N_connectivity"
+    },
+    {
+      "id": "6f827d26c4f82a1bfa90",
+      "reason": "m90 at 1/1 and 166.05 mg matches its measured pure-EA setup and tests pyridyl ketone-to-ester transfer near the stronger-eluent transition.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_N_connectivity"
+    },
+    {
+      "id": "b51b5dbcd2a38b174973",
+      "reason": "m90 at 5/1 completes the fixed-setup pair, testing whether its newly predicted very late completion transfers correctly from pyridyl-carbonyl feedback.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_N_connectivity"
+    },
+    {
+      "id": "292e0342682192a69fce",
+      "reason": "Phenylpyridine m211 at 5/1, 54.3 mg and DCM 300 uL extends its measured moderate-retention 2/1 anchor into the predicted steep rise.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_N_connectivity"
+    },
+    {
+      "id": "d119d77f545c029deace",
+      "reason": "m211 at 10/1 preserves that setup and distinguishes a sustained steep nitrogen response from excessive transfer of the quinoline and m66 corrections.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_N_connectivity"
+    },
+    {
+      "id": "762190c8d9f5b2d1a89a",
+      "reason": "Introduce aminoacetophenone m36 at 1/1, 38.5 mg and DCM 900 uL, testing an aniline-plus-ketone environment distinct from pyridine nitrogen.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_N_connectivity"
+    },
+    {
+      "id": "183af335033005f96b97",
+      "reason": "m36 at 2/1 completes its matched pair, separating its retention level from solvent sensitivity without assuming a blanket nitrogen correction.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_N_connectivity"
+    },
+    {
+      "id": "ad67d712133eac45ff64",
+      "reason": "m99 at 2/1, 100 mg and DCM 1000 uL interpolates its measured 1/1-to-5/1 rise at identical loading conditions.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_OH"
+    },
+    {
+      "id": "c61c1a72306f2ee37df8",
+      "reason": "m99 at 10/1 tests the remaining predicted decline below its measured 5/1 endpoints; small quantile widths do not resolve this response question.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_OH"
+    },
+    {
+      "id": "4ee22742c686bdbb1cb9",
+      "reason": "Introduce methoxybenzyl alcohol m120 at 2/1, 55.65 mg and DCM 300 uL, connecting hydroxyl and aromatic-ether environments after differentiated alcohol feedback.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_OH"
+    },
+    {
+      "id": "71abc36775b6cce56da7",
+      "reason": "m120 at 5/1 completes the fixed-setup pair and tests whether the alcohol correction transfers to a primary benzylic hydroxyl bearing an ether substituent.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_OH"
+    },
+    {
+      "id": "f559a4634c60d81f5f15",
+      "reason": "m61 at 2/1 and 101.2 mg supplies the missing near-matched PE-loaded counterpart to measured m60, testing whether their 5/1 distinction persists in stronger eluent.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_OH"
+    },
+    {
+      "id": "e3a799d0fa90b649a157",
+      "reason": "m94 at 20/1 and 117.4 mg extends its measured 5/1-to-10/1 rise, testing weak-eluent beta-ketoester transfer after the m82 20/1 failure.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_beta_response"
+    },
+    {
+      "id": "f50c45b31cf41304c109",
+      "reason": "m82 at 5/1 and 102.9 mg fills the interval between measured 2/1 and 10/1 anchors, distinguishing interpolation quality from successful fitting at acquired ratios.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_beta_response"
+    },
+    {
+      "id": "1e971da91b3a8229f0e0",
+      "reason": "m173 at 5/1 with DCM 1500 uL extends the plug comparison beyond 1/1 and 2/1; the existing 2000 uL counterpart differs in mass by 0.05 mg.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_acid_plug"
+    },
+    {
+      "id": "87da8c37b16d810331a2",
+      "reason": "m173 in pure EA at 124.75 mg/DCM 1500 uL extends the same-plug curve toward stronger eluent, locating the boundary of its persistent late 1/1 completion.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_acid_plug"
+    },
+    {
+      "id": "c0094343ab6bb16bc58b",
+      "reason": "m194 at 1/1 and 58.85 mg tests whether the broad measured interval at 117.7 mg persists at half loading with the same DCM plug.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_m194"
+    },
+    {
+      "id": "2bd4f8787a951ef0ee04",
+      "reason": "m194 at 2/1 completes the lower-loading pair, testing the strong-eluent completion decrease while separating it from an across-molecule comparison.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_m194"
+    },
+    {
+      "id": "738d61dd88e0a9cf650d",
+      "reason": "Introduce chlorobenzophenone m176 at 5/1, 100 mg and DCM 600 uL, adding ordinary diaryl-ketone graph supervision.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": null
+    },
+    {
+      "id": "c717afaee5336c60c59f",
+      "reason": "m176 at 20/1 completes a substantial fixed-setup solvent contrast, informing substituent transfer within the represented diaryl-ketone family.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": null
+    },
+    {
+      "id": "06c1f0c9b81146ac92c4",
+      "reason": "Introduce methyl-substituted cyclic ketone m63 at 5/1 and 107.8 mg, testing structural transfer after the comparatively accurate m180 acquisition.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": null
+    },
+    {
+      "id": "f9bba2e75f16ebadb0eb",
+      "reason": "m63 at 20/1 preserves its setup and tests the predicted earlier onset with later completion; measured cyclic-ketone records provide family context.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": null
+    },
+    {
+      "id": "df71c07fd931cc29213b",
+      "reason": "m124 at 20/1 and 53.2 mg tests pronounced predicted onset delay and interval compression beyond its same-setup measured 10/1 anchor.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_naphthyl_shape"
+    },
+    {
+      "id": "b645df00945e594953a6",
+      "reason": "m40 at 20/1 and 112 mg tests the predicted sharp onset increase beyond measured 5/1 and 10/1, complementing the naphthyl-ether interval question.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_naphthyl_shape"
+    },
+    {
+      "id": "20ef1039f09d571c5a09",
+      "reason": "Introduce methyl 4-tert-butylbenzoate m100 at 5/1 and 49.75 mg, extending familiar aromatic-ester chemistry through a new ring substitution.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": null
+    },
+    {
+      "id": "9dd4e8dae2357c6de73e",
+      "reason": "m100 at 20/1 completes its matched PE-loaded pair, testing the predicted weak solvent response in a common short-to-moderate retention regime.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": null
+    },
+    {
+      "id": "5070bf9690131f519648",
+      "reason": "Introduce ortho-tolualdehyde m145 at 5/1 and 103.9 mg, extending positional transfer from measured methylbenzaldehyde environments.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": null
+    },
+    {
+      "id": "bccdbbd73be98bf008c8",
+      "reason": "m145 at 10/1 preserves the loading setup and tests its predicted retention decrease from 5/1 in an ordinary aromatic-aldehyde family.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": null
+    },
+    {
+      "id": "aa0073d23f28a1344e14",
+      "reason": "Chlorotoluene m136 at 10/1 and 107 mg adds an unmeasured nonpolar graph under the common PE 300 uL protocol.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": null
+    },
+    {
+      "id": "b7680f0ae6c8ca4dfd3a",
+      "reason": "Chloroanisole m121 at 10/1 and 116.4 mg adds ether-substituted haloarene coverage alongside the selected chlorotoluene at the same nominal injection protocol.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": null
+    },
+    {
+      "id": "d7452aadf19fd7c0248e",
+      "reason": "Introduce phenoxyethyl acrylate m21 at 2/1, 110.4 mg and DCM 300 uL, connecting represented ester and ether chemistry in a new graph.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": null
+    },
+    {
+      "id": "c11d5c3acbc28dddd0cf",
+      "reason": "m21 at 5/1 completes the fixed-setup pair, supplying its solvent slope as well as a molecular retention anchor.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H_N_connectivity",
+      "content": "Nitrogen response errors depend on graph connectivity and eluent. Quinoline supervision did not ensure transfer to pyridyl ketone, while successful aminobenzonitrile prediction opposes a uniform nitrogen correction.",
+      "why_it_matters_for_model_learning": "Connected pyridyl-ester, phenylpyridine and amino-ketone comparisons can distinguish retention level, solvent slope and completion-width transfer.",
+      "next_discriminating_question": "Do m90 and m211 sustain their predicted steep rises, and does m36 behave differently from pyridine-like nitrogen at matched within-molecule conditions?",
+      "basis": "mixed",
+      "confidence": "medium",
+      "status": "supported",
+      "supporting_observed_ids": [
+        "4659b6752f23c0b85f08",
+        "49201b5817f204116f7f",
+        "e47aebe2660b9e1528de",
+        "70593725787c65a74951",
+        "2feb7d8e0a3566ddf97f",
+        "f868ccbcbf392038fe36",
+        "ecd17c7ea435a1e33f6b"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H_OH",
+      "content": "Hydroxyl connectivity requires molecule-specific solvent-response learning. Primary, secondary benzylic and hydroxyester environments show distinct measured retention, and m99's historical solvent-response decrease failed.",
+      "why_it_matters_for_model_learning": "Interpolation, extension and a new hydroxyl-plus-ether graph test transfer beyond hydroxyl counts and molecule-specific corrections.",
+      "next_discriminating_question": "Does m99 continue rising at 10/1, how does m120 respond between 2/1 and 5/1, and does the m60/m61 distinction persist at 2/1?",
+      "basis": "mixed",
+      "confidence": "medium",
+      "status": "supported",
+      "supporting_observed_ids": [
+        "53c1be5b96937954b9fa",
+        "b7b1a1bb666c8cc99bad",
+        "62d7ea74ab73fa6214b4",
+        "994a1f65509549a84ede",
+        "4b3e648044ebe5372a27",
+        "36786ca0d1deaa0687ba",
+        "12ab195583f05b9aa177",
+        "47f2e980caaa77baa535"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H_beta_response",
+      "content": "The measured m82 and m94 weak-eluent rises provide transferable beta-ketoester information, but accuracy between acquired ratios and beyond their endpoints remains unestablished.",
+      "why_it_matters_for_model_learning": "A matched interpolation and a related-molecule extension distinguish curve learning from fitting isolated late-retention anchors.",
+      "next_discriminating_question": "Is m82's 5/1 interpolation accurate, and does the acquired m82 20/1 information transfer to m94 at 20/1?",
+      "basis": "mixed",
+      "confidence": "medium",
+      "status": "supported",
+      "supporting_observed_ids": [
+        "ce539fc06bdda7c0ed0d",
+        "6b8e53d2d8c8a90a7216",
+        "61090cfdcf019e0891a3",
+        "a1809a6c4c3ada20bcb0",
+        "668279c54bbf75e86496"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H_acid_plug",
+      "content": "m173's very late 1/1 completion persists with both plugs. The large plug-associated difference at 1/1, compared with little difference at 2/1, may reflect a localized ratio interaction or record variation.",
+      "why_it_matters_for_model_learning": "Completing the 5/1 plug comparison and extending the smaller-plug curve can constrain completion-specific condition responses without assuming a causal plug effect.",
+      "next_discriminating_question": "Do completions converge at 5/1 across plugs, and does pure EA remove the smaller-plug 1/1 completion excess?",
+      "basis": "mixed",
+      "confidence": "medium",
+      "status": "unresolved",
+      "supporting_observed_ids": [
+        "f90a5a5a54509c085ebd",
+        "65fcce0299e031dedeb8",
+        "0b247863fd6e8aaf44d8",
+        "9a32b65bc21fdc5f7286",
+        "1e775e7d8dcbf48fd6f8"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H_m194",
+      "content": "m194's broad strong-eluent interval may persist across loading. Its measured completion decrease from 1/1 to 5/1 could instead depend on loading or unrecorded variation.",
+      "why_it_matters_for_model_learning": "The historical error was predominantly completion underprediction; a common displacement of both endpoints would miss it.",
+      "next_discriminating_question": "At half loading, does the broad 1/1 interval persist, and what happens to each endpoint at 2/1?",
+      "basis": "mixed",
+      "confidence": "low",
+      "status": "unresolved",
+      "supporting_observed_ids": [
+        "4a39c1f64d17e050e4a5",
+        "39815ababe97d7acc107"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H_naphthyl_shape",
+      "content": "Abrupt weak-eluent onset delays and interval compression may be overgeneralized across naphthyl graphs with sparse ratio anchors. The unusual measured naphthyl-aldehyde interval does not establish shared behavior across functionalities.",
+      "why_it_matters_for_model_learning": "Matched extensions can test separate onset and completion responses in a represented aromatic family; historical interval-collapse failures motivate prospective scrutiny.",
+      "next_discriminating_question": "At 20/1, does methoxynaphthalene retain the predicted compressed interval, and does naphthyl ketone show its predicted sharp onset delay?",
+      "basis": "mixed",
+      "confidence": "low",
+      "status": "proposed",
+      "supporting_observed_ids": [
+        "326a96bcee1f3f903cf9",
+        "0f35c2146c21fa6ac372",
+        "b0cc544ceb575bae4069",
+        "a917c928912c74862968",
+        "93f10a8edf06f7acae26"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H_m73",
+      "content": "The original late, narrow m73 1/1 interval represents reproducible behavior transferable to related conjugated carbonyls.",
+      "why_it_matters_for_model_learning": "Its failed near-repeat weakens propagation of that isolated anchor as a transferable response pattern; both measured records must remain acknowledged.",
+      "next_discriminating_question": "Can future genuinely controlled replication distinguish record variation from omitted conditions? This batch instead tests transfer elsewhere.",
+      "basis": "observed_data",
+      "confidence": "low",
+      "status": "weakened",
+      "supporting_observed_ids": [
+        "2cf789c87f7c6325c020"
+      ],
+      "contradicting_observed_ids": [
+        "45dca237351265a8f169",
+        "067c9b96b35fefd28fdf",
+        "bb18fe197ad7e24c5ed1"
+      ]
+    },
+    {
+      "id": "H_m80_peak",
+      "content": "m80 has the previously predicted intermediate completion maximum at 10/1 under fixed 105.5 mg loading.",
+      "why_it_matters_for_model_learning": "The measured rejection reduces the value of further weak-eluent sampling around that predicted maximum.",
+      "next_discriminating_question": "Whether the recorded late 1/1 completion is reproducible remains separate from the rejected intermediate maximum.",
+      "basis": "observed_data",
+      "confidence": "high",
+      "status": "rejected",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [
+        "55dfd30fde788076a355",
+        "aa65e86ee8638bded5d9",
+        "40fd02db79e028fe05a9",
+        "08155ffdcb0d27576050"
+      ]
+    }
+  ],
+  "batch_rationale": "The largest new failures were prospective transfer failures, especially pyridyl ketone, and incorrect solvent-response continuations. This batch combines connected nitrogen and oxygenated response tests with selected interpolation checks. The acid and m194 experiments address specific completion ambiguities that ordinary monotonicity assumptions cannot resolve. Naphthyl extensions test suspicious interval shapes without declaring predictions erroneous in advance. New cyclic ketone, diaryl ketone, aldehyde, benzoate, ether-acrylate and haloarene labels provide complementary support in ordinary Row chemistry. Their value is transferable coverage and interpretable contrasts, independent of acquisition-score magnitude.",
+  "expected_learning_value": "Expected gains are better graph-by-eluent prediction of both endpoints, improved distinction between onset displacement and completion broadening, and broader transfer across ordinary molecular families. Within-molecule pairs provide solvent slopes, while measured anchors make several single additions discriminating. The retraining benefit is unquantified; persistent condition-feature insensitivity and unresolved record variation may limit gains.",
+  "feedback_interpretation": "H_nitrogen is strengthened but remains graph-specific. Observed e47aebe2660b9e1528de measured m216 at 10/1 as 53.42/92.93 mL, rejecting its historical decline. Observed 4659b6752f23c0b85f08 and 49201b5817f204116f7f measured m66 completions of 55.06 and 119.31 mL at 2/1 and 5/1, demonstrating failed transfer after quinoline supervision; historical V2 underprediction reached 92.12 mL. Accurate 2feb7d8e0a3566ddf97f and moderate aminoester retention in 70593725787c65a74951 oppose a blanket nitrogen correction. H_OH gains support from the differentiated alcohol measurements and the m99 rise from 6.47/13.36 to 19.91/32.37 mL in 36786ca0d1deaa0687ba and 12ab195583f05b9aa177. H_shape is refined: 61090cfdcf019e0891a3 confirms m82's 20/1 rise, and 93f10a8edf06f7acae26 rejects m91's predicted collapsed interval. The smaller pure-EA errors in 3554059c7f0676bb2e03 oppose a persistent sulfoxide offset. Conversely, 4a39c1f64d17e050e4a5 and 39815ababe97d7acc107 record decreasing m194 completion from 1/1 to 5/1, preventing a universal solvent-monotonicity correction. H_m73 is weakened: near-repeat 45dca237351265a8f169 measured 4.89/10.59 versus 18.60/18.96 mL in 2cf789c87f7c6325c020. The 0.01 mg difference does not establish a loading explanation, and the m165 pair also weakens transfer of the proposed maximum. Neither conflicting m73 record is identified as erroneous. Observed aa65e86ee8638bded5d9 and 40fd02db79e028fe05a9 reject m80's predicted intermediate completion maximum, reducing the value of further weak-eluent sampling there. Observed 65fcce0299e031dedeb8 confirms late m173 completion with the smaller plug, at 78.37 mL. Its approximately 30.53 mL plug-associated difference at 1/1 contrasts with 1.16 mL at 2/1, motivating a localized interaction question without establishing causality. The m92 2/1 contrast in 10a4c811b70ba8155044 and f7cc49c21fea55ed9087 moves onset and completion later by 0.51 and 0.83 mL, widening the interval by only 0.32 mL; conditional loading responses remain supported without establishing significance or smoothness. The m9 comparison c45a62392f6a5694efe6 and e515cb1302d9dac0b8cd gives only +0.12/+0.35 mL for PE-to-DCM substitution, weakening a large general injection-solvent correction motivated by the different m92 EA-to-PE contrast. Persistent weak predicted dose sensitivity supports pausing further loading grids. Only observed records establish these outcomes. Adapted candidate predictions remain prospective questions; adaptive residuals and training-input fit do not estimate overall Row accuracy or establish retraining improvement. V2 minus V1 is elution interval width, and predictive quantile widths are not treated as calibrated uncertainty."
+}

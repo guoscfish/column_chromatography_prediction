@@ -1,0 +1,261 @@
+{
+  "type": "selection",
+  "packet_sha256": "21291c0ca197bdb273d034aeb067f331837936a4802dc9289da538408a71f99f",
+  "batch_strategy": "failure_repair_plus_condition_response_and_loading_contrasts",
+  "choices": [
+    {
+      "id": "c61c1a72306f2ee37df8",
+      "reason": "m99 at 10/1 and 100 uL probes the late regime seen at measured d8fcb58722028dbf9c02, where V1/V2 were 44.43/60.99 mL against much lower predictions. It tests whether that regime persists at larger sample volume.",
+      "hypothesis_id": "H_LATE_REGIMES"
+    },
+    {
+      "id": "7bbdec21c428010dd67b",
+      "reason": "This m99 10/1 point at 150 uL completes the 100-to-150 uL loading contrast. Together with d8fcb58722028dbf9c02 and measured 1/1 and 5/1 m99 records, it can separate loading response from a scaffold-specific late transition.",
+      "hypothesis_id": "H_LOADING"
+    },
+    {
+      "id": "a775926fce57b3bf9ec1",
+      "reason": "m119 at 2/1 and 50 uL tests an early-to-intermediate condition against measured late behavior, including 776ee2c1e85ebde75168. It can determine whether the late response begins before 5/1 or is strongly loading dependent.",
+      "hypothesis_id": "H_LATE_REGIMES"
+    },
+    {
+      "id": "d3047299bd8817ee87dd",
+      "reason": "m110 at 50/1 and 50 uL extends the weak-side response while changing loading relative to measured m110 rows 8f7bcdb92b0cd7acad94 and ce39d1762993bbbafaca. It tests whether the late completion plateau is stable across loading.",
+      "hypothesis_id": "H_LOADING"
+    },
+    {
+      "id": "7bfad75485e830b6d460",
+      "reason": "m116 at 50/1 and 50 uL is a loading contrast to measured 50/1 m116 behavior, including f38088920e6edd19a62f. It calibrates a highly uncertain late tail without assuming that m99 behavior transfers to every ether graph.",
+      "hypothesis_id": "H_LATE_REGIMES"
+    },
+    {
+      "id": "3c041f5186a291c3b313",
+      "reason": "m82 at 10/1 and 50 uL fills an intermediate point between ordinary strong-side behavior and measured late m82 records such as ac81adfab5ec8ce768db. Its broad predicted completion region can locate the tail turn-on.",
+      "hypothesis_id": "H_LOADING"
+    },
+    {
+      "id": "b6ffd4ffa7739deb3e88",
+      "reason": "This m82 10/1 point at 150 uL pairs with the 50 uL experiment and tests whether the intermediate transition survives a threefold sample-volume change. It is relevant to the large 20/1 V2 values in ac81adfab5ec8ce768db and 07a55cdab65b05f31561.",
+      "hypothesis_id": "H_LOADING"
+    },
+    {
+      "id": "27d20ccfd8f7234015f4",
+      "reason": "m88 at 2/1 and 50 uL supplies a condition-novel loading point before later high-completion m88 records such as d2921349ba8d9cef15a4. It distinguishes an early ratio transition from a high-loading artifact.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "6a4e95d2a3cca31094a1",
+      "reason": "m90 at 2/1 and 50 uL tests the onset of the nitrogen-containing response near measured 2/1 row 0460dfc4e1747f0fc92c. The same scaffold becomes much later by 10/1 in c76d0420b34df595c0c9.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "22f82413c75481d74e9b",
+      "reason": "The 150 uL m90 companion completes a loading contrast at the same 2/1 ratio. Comparison with 6a4e95d2a3cca31094a1 and measured 10/1 c76d0420b34df595c0c9 tests whether loading shifts onset before the late transition.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "eceaa4f4139cde7ba166",
+      "reason": "m141 at 2/1 and 100 uL bridges measured lower-ratio m141 records and unexpectedly late 10/1 behavior in 7fb4f90753d40dd25be. It localizes the ratio at which this heteroaromatic response changes regime.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "58394a71418a9623e18a",
+      "reason": "m159 at 10/1 and 50 uL fills the gap between measured ordinary 2/1 behavior in 8cbab5e832e82452994c and later 20/1 and 50/1 records. It tests whether the large weak-side tail develops gradually or abruptly.",
+      "hypothesis_id": "H_NONPOLAR_COMPLETION"
+    },
+    {
+      "id": "5d450444eb031c873584",
+      "reason": "m178 at 2/1 and 100 uL probes the dibenzophenone response before the measured extreme 50/1 result 0c5c35afb3a24375c153. It tests whether the early predicted onset persists at intermediate ratio.",
+      "hypothesis_id": "H_NONPOLAR_COMPLETION"
+    },
+    {
+      "id": "47400540be3a56b2328b",
+      "reason": "m45 at 2/1 and 50 uL tests continuation from ordinary strong-side acid behavior toward the near-zero measured 50/1 outcome 129036e0bccc4ff7e848. It can show whether that collapse is weak-side localized.",
+      "hypothesis_id": "H_LOCALIZED_ANOMALIES"
+    },
+    {
+      "id": "e058e7b399f714dd7930",
+      "reason": "m191 at 0/1 and 150 uL adds a pure-EA loading anchor to the measured dialdehyde curve. It can be compared with 141a4d64a7d140eefdc3 and later 5/1 and 10/1 rows 316b7260106904f99ae8 and b0802294da4fd71d0f9d.",
+      "hypothesis_id": "H_CARBONYL_TRANSITIONS"
+    },
+    {
+      "id": "bfbe491a54086b98874d",
+      "reason": "m28 at 5/1 and 100 uL interpolates between measured 5/1 points at 50 and 150 uL, including be82391d6b3e742f1f26 and 050e2fab4b407ea058cb. It directly teaches the loading dependence of the large V2 transition.",
+      "hypothesis_id": "H_CARBONYL_TRANSITIONS"
+    },
+    {
+      "id": "668279c54bbf75e86496",
+      "reason": "m94 at 10/1 and 100 uL is a middle loading point between measured 10/1 records 7ac90b210e42d27c5a04 and 5b445b457a8b897a2d6c. It constrains the distinct onset and completion response of this ketoester family.",
+      "hypothesis_id": "H_CARBONYL_TRANSITIONS"
+    },
+    {
+      "id": "35944fdd59ac331c3fcb",
+      "reason": "m95 at 10/1 and 150 uL extends the compact ketoester curve beyond measured low-loading 10/1 row 41f57dc6d50ee162801a and toward the measured 50/1 regime 5fd0921bbbba1e22abf9. It tests completion growth with loading.",
+      "hypothesis_id": "H_CARBONYL_TRANSITIONS"
+    },
+    {
+      "id": "8e99350aac88fae9186b",
+      "reason": "m186 at 0/1 and 100 uL supplies a strong-side baseline after measured intermediate and weak-side points 5f1ae4e354b8b36ec691 and 2efa93ea474f798b712a showed later completion. It anchors the scaffold-specific response before fitting its transition location.",
+      "hypothesis_id": "H_LOCALIZED_ANOMALIES"
+    },
+    {
+      "id": "e83cbe662d2235b30b7e",
+      "reason": "m53 at 5/1 and 150 uL provides a middle condition between measured 20/1 and 50/1 records 6e17f8e15aa8fdd6a9ea and cdc8c1db00222994a1aa, which have different signed errors. It tests whether the completion rise is smooth or localized.",
+      "hypothesis_id": "H_NONPOLAR_COMPLETION"
+    },
+    {
+      "id": "c496cacfd9e40e5e6f71",
+      "reason": "m73 at 20/1 and 50 uL is a loading contrast to measured 20/1 behavior at 100 uL in 0baeb34a1650e9409f2a and the accurate 5/1 point 761c1abe2efeaef568fd. It preserves the localized 1/1 anomaly without imposing it on all loadings.",
+      "hypothesis_id": "H_LOADING"
+    },
+    {
+      "id": "c65ac14ffed8749381c1",
+      "reason": "m78 at 20/1 and 150 uL probes the approach to the measured very late 50/1 regime, including 61771d230b285babe4b6. Its broad predicted interval makes it useful for weak-side curvature.",
+      "hypothesis_id": "H_NONPOLAR_COMPLETION"
+    },
+    {
+      "id": "a44a22945d76c02aa6a7",
+      "reason": "This m78 20/1 point at 100 uL pairs with the 150 uL experiment and tests loading transfer before the measured 50/1 tail. The pair separates ratio and loading effects better than an isolated weak-side point.",
+      "hypothesis_id": "H_LOADING"
+    },
+    {
+      "id": "8cc5dd51f0360e578ac3",
+      "reason": "m204 at 2/1 and 50 uL supplies an early anchor for a flexible alcohol-containing scaffold whose measured 5/1 and 10/1 PE records 1211905ebc8972913270 and 358461ff3742e78ea3b6 are much later than ordinary predictions. It locates where the late response begins.",
+      "hypothesis_id": "H_LATE_REGIMES"
+    },
+    {
+      "id": "1182373ab8814dbe2f43",
+      "reason": "m11 at 5/1 and 100 uL fills the transition before measured 10/1 and 50/1 rows 6b5982c6e1bbaadd6a95 and 9ffee2813aef5c26f96f. It distinguishes an oxime-specific late turn-on from a common carbonyl correction.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "f08f1f5e4f51796c1f81",
+      "reason": "m21 at 5/1 and 150 uL tests loading transfer in a small oxygenated aromatic before measured high-ratio late point b4351e5f05f6d477a6c0. It adds an intermediate response point relevant to the Row distribution.",
+      "hypothesis_id": "H_NONPOLAR_COMPLETION"
+    },
+    {
+      "id": "6ce607e4fe208a186dff",
+      "reason": "m99 at 5/1 and 150 uL samples the onset of the high-loading m99 response between measured ordinary 1/1 and 5/1 records and the very late 10/1 row d8fcb58722028dbf9c02. It repairs ratio and loading interpolation.",
+      "hypothesis_id": "H_LATE_REGIMES"
+    },
+    {
+      "id": "c32500e81a05cfd2273d",
+      "reason": "m185 at 50/1 and 100 uL extends the measured m185 weak-side response beyond the 50 uL point 6c28e50241ca84637c9. It tests whether the moderate fluorinated-aromatic curve has a loading-dependent completion tail.",
+      "hypothesis_id": "H_NONPOLAR_COMPLETION"
+    },
+    {
+      "id": "aff6404c31450d670256",
+      "reason": "m135 at 0/1 and 100 uL supplies a strong-side baseline for a scaffold that becomes very late at intermediate ratios, as shown by measured f433bc672465387d951a. It prevents late behavior from becoming a global offset.",
+      "hypothesis_id": "H_LATE_REGIMES"
+    },
+    {
+      "id": "f12beecbff24b79dddeb",
+      "reason": "m152 at 0/1 and 150 uL explores a sparse halogenated acceptor-rich graph at the strong side. It tests whether unusual weak-side or loading patterns in nearby graphs represent a transferable effect.",
+      "hypothesis_id": "H_LOCALIZED_ANOMALIES"
+    },
+    {
+      "id": "769f1d04efb22c05cfdf",
+      "reason": "m107 at 2/1 and 150 uL bridges the ordinary strong-side baseline and measured very late 5/1 point d1172a49fca1e196a59f. It is a high-value transition measurement for a remote ether-carbonyl scaffold.",
+      "hypothesis_id": "H_LATE_REGIMES"
+    },
+    {
+      "id": "88d94bacb5a3b54ac7d1",
+      "reason": "m200 at 0/1 and 150 uL adds a strong-side anchor for a nitroalcohol graph with variability in measured rows 5da8c25a3982216fb112 and 6e07556df6bb6e9df96e. It tests whether the unusual response begins at pure EA.",
+      "hypothesis_id": "H_LOCALIZED_ANOMALIES"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H_LATE_REGIMES",
+      "content": "Several oxygenated, flexible, or acceptor-rich scaffolds enter a late V1/V2 regime that is strongly scaffold-specific and cannot be represented by a common polarity or carbonyl offset.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "d8fcb58722028dbf9c02",
+        "f433bc672465387d951a",
+        "776ee2c1e85ebde75168",
+        "b1c5816f929ef59f5a87"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The model needs local graph-condition interactions for late transitions so corrections learned from m99, m119, or m135 do not shift ordinary rows globally.",
+      "next_discriminating_question": "Do the selected m99, m110, m116, m107, and m135 points reveal a shared late transition or separate scaffold-specific response surfaces?"
+    },
+    {
+      "id": "H_LOADING",
+      "content": "Loading effects are endpoint- and scaffold-specific; similar ratios can show different onset and completion changes, and identical recorded tuples can still show substantial variability.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "d5234e966aa231be05e5",
+        "252c027cf5a42b92c953",
+        "70cba7a21b5a01fb8e73",
+        "1965d663b09320f566a5",
+        "40b5d3fdb9b234c05be5",
+        "9862563d18aae2868342",
+        "7b42519983cf93dd7efd"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Paired loading measurements can teach interaction terms and reduce inappropriate transfer of a single historical residual across the Row distribution.",
+      "next_discriminating_question": "Do the selected m82, m90, m78, and m99 loading pairs produce consistent endpoint-specific shifts or different scaffold responses?"
+    },
+    {
+      "id": "H_CARBONYL_TRANSITIONS",
+      "content": "Carbonyl multiplicity and ester placement define separate ratio-response curves, with V2 often turning on at a different condition from V1.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "686562279e2bfb73ef1e",
+        "08d345874afeaea97b5e",
+        "050e2fab4b407ea058cb",
+        "0dccaa29989ef4956786",
+        "7ac90b210e42d27c5a04",
+        "ffffcd6f3b9393846ab4",
+        "41f57dc6d50ee162801a",
+        "141a4d64a7d140eefdc3"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Intermediate carbonyl and ester labels constrain curvature and prevent the network from averaging early ketoesters, aldehydes, and dialdehydes into one retention regime.",
+      "next_discriminating_question": "Do the selected m28, m94, m95, and m191 points localize their completion transitions at different ratios and loadings?"
+    },
+    {
+      "id": "H_LOCALIZED_ANOMALIES",
+      "content": "Large strong-side or weak-side deviations in acid-like, charged, nitro, and highly loaded graphs are localized observations until reproduced across neighboring conditions.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "129036e0bccc4ff7e848",
+        "8fb287430f3df6d0b3dd",
+        "902937db42f82f467718",
+        "cb446680f62351d087a9",
+        "6802f0b28c5a0c7b4c2a"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Baseline and neighboring-ratio labels can prevent isolated anomalies from distorting predictions for chemically related rows while still allowing genuine graph-condition effects.",
+      "next_discriminating_question": "Do the selected m45, m152, m191, m200, and strong-side baseline points reproduce localized anomalies across adjacent conditions?"
+    },
+    {
+      "id": "H_NONPOLAR_COMPLETION",
+      "content": "Heteroatom-free and fused aromatic graphs can retain relatively early onset while developing topology- and ratio-specific V2 growth.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "72113bad4beb4e7b8852",
+        "ff8fce8e929a75d6fb8d",
+        "ca7513a424b1ad5dcd5a",
+        "909edd19830874acd4fa",
+        "5b46916999f1668c7409",
+        "f2f1228ed527e78379ef"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Separate V1 and V2 behavior in this broad chemical region helps the model learn completion tails without using HBA or polarity as a proxy for onset.",
+      "next_discriminating_question": "Do the selected m159, m178, m185, m78, and m53 points extend this early-onset, late-completion pattern across topologies?"
+    }
+  ],
+  "feedback_interpretation": "The previous batch weakened the value of a universal late-completion correction. m117 at 10/1 was close in both endpoints in 1d15ee46756cd1845a68, while its pure-EA completion was strongly underpredicted in 25de8af35e546add9783; m186, m190, and m197 intermediate points also measured later V2 than predicted in 5f1ae4e354b8b36ec691, d1774335b45258bc173a, and 905c8843dd27543205a5. This supports scaffold-specific transition curves. The m73 5/1 point was accurate in 761c1abe2efeaef568fd and its 20/1 point remained moderate in 0baeb34a1650e9409f2a, so the unusual 1/1 behavior remains localized. Recent m28 measurements changed sign and magnitude across ratios and loadings, while m212 records d5234e966aa231be05e5, 252c027cf5a42b92c953, and 70cba7a21b5a01fb8e73 showed no universal loading direction. The duplicate-condition m92 outcomes 9862563d18aae2868342 and 7b42519983cf93dd7efd also retain unexplained variability. I therefore prioritize paired loading points, intermediate transition labels, and strong-side anchors over another common endpoint offset.",
+  "batch_rationale": "The batch repairs several measured failure regions while preserving chemically meaningful comparisons. m99, m82, m90, m78, and m116 provide paired or near-paired loading contrasts; m119, m110, m107, m135, and m200 extend late-response curves into undercovered conditions. m28, m94, m95, and m191 add intermediate carbonyl and ester points, while m45, m152, and m186 test whether unusual strong-side or weak-side behavior is localized. m159, m178, m185, m53, and m204 broaden topology coverage for early-onset and late-completion behavior. The selected labels should improve graph-condition interactions, endpoint-specific corrections, response-curve interpolation, and extrapolation across the Row distribution. They also test whether recent high-error examples represent transferable structure-condition relationships or isolated variability from unrecorded factors."
+}

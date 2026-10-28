@@ -1,0 +1,285 @@
+{
+  "type": "selection",
+  "packet_sha256": "e24e68e81b2400589c2370a9ea06c2cdc4eb80723f08fdd98332d21804c77c29",
+  "batch_strategy": "Select matched condition experiments around the newly exposed m200 transition, endpoint-specific loading responses, persistent low-ratio prediction reversals, and sparsely supervised aromatic response curves. Include a controlled loading-solvent contrast and neighboring measurements around irregular observations. Historical acquisition errors guide questions but are not treated as current residuals. Freeze all 32 IDs and their supplied predictions together.",
+  "choices": [
+    {
+      "id": "f91285c618eacb53538b",
+      "reason": "m200 at 2/1 and 150 ul tests transfer of the newly measured steep nitro-alcohol response to threefold greater sample loading. The matched 50-ul observation a92f7617b135de150588 measured 33.88/74.44 mL; the current prediction has already shifted toward that branch, so the question is now loading dependence. Frozen V1/V2: 32.38863754272461/75.5180892944336 mL.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "5da8c25a3982216fb112",
+      "reason": "m200 at 1/1 and 150 ul forms a matched ratio contrast with the selected 2/1 point. Together with 50-ul observation 97318de99bab4460cf4e, it tests whether loading changes the location or slope of the early retention transition, rather than merely its late magnitude. Frozen V1/V2: 16.390331268310547/42.4107551574707 mL.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "88d94bacb5a3b54ac7d1",
+      "reason": "m200 at 0/1 and 150 ul completes the matched strong-eluent side of the selected curve. Comparison with 6c022e06f98c0a9771b6 at 50 ul distinguishes baseline loading effects from effects emerging at 1/1\u20132/1. Recent broad strong-eluent completion in other families makes this control useful. Frozen V1/V2: 7.312714099884033/19.217342376708984 mL.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "b24f66ff77974f8ba6e1",
+      "reason": "m45 at 20/1 and 50 ul extends the loading contrast established by e6605c23fb1943a6b848 and 53a9a2469f8d4ead8732: onset decreases from 26.49 to 20.75 mL between 100 and 150 ul, while completion changes less. This tests the remaining onset response without extrapolating from endpoint-inconsistent 50/1 record 129036e0bccc4ff7e848. Frozen V1/V2: 17.866621017456055/44.05556869506836 mL.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "ab5af30c3befe81e6244",
+      "reason": "m194 at 0/1 and 50 ul discriminates loading-dependent completion from a broad baseline common to all loads. Pure-EA records d7895c522a1a46a1175c and 12400c6c61643f9c79b5 have similar onset but completion of 24.99 and 13.13 mL at 150 and 100 ul; low-loading 1/1 and 2/1 labels are also relatively early. Frozen V1/V2: 4.56942892074585/18.05733299255371 mL.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "e55c8ef232b46d3a1ca9",
+      "reason": "m117 at 1/1 and 150 ul tests a remaining predicted completion hump: 23.09 mL here versus measured 19.17 mL at matched 5/1 in a0d6732883ffc7d063fb. Recent 1d15ee46756cd1845a68 also weakened a generally delayed intermediate branch. This missing anchor tests whether the reversal is real at high loading. Frozen V1/V2: 7.082701683044434/23.08980369567871 mL.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "c219b2fe4227fb602c44",
+      "reason": "m11 at 0/1 and 100 ul tests a strong-eluent completion hump that persists after recent 2/1 measurement c3c4fdce502f6d3576dc gave 12.12 mL. Matched 5/1 record 1182373ab8814dbe2f43 gave 15.70 mL, whereas the current pure-EA prediction is 24.35 mL. The label can constrain how the oxime's late branch transfers to its baseline. Frozen V1/V2: 5.685183048248291/24.346948623657227 mL.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "0b8c7bc2949fb8070c94",
+      "reason": "m73 at 0/1 and 100 ul is a near-replicate of ordinary b187c8a6f7beb2c7f61f; recorded density differs by only 0.0001 g/ml. The model still predicts substantially later endpoints despite recent ordinary 1/1 result 45dca237351265a8f169 and conflicting pure-EA records at other loads. This directly tests reproducibility around an influential irregular region. Frozen V1/V2: 9.159381866455078/16.249940872192383 mL.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "739f955977aa740524e5",
+      "reason": "m197 at 1/1 and 50 ul tests predicted completion already exceeding matched 5/1 observation a91850e587e062097c02. A genuine broad early response remains plausible because high-loading 1/1 record 35a1d2abee0780ee1d48 measured 25.79 mL completion. This distinguishes a loading-specific plateau from another model-generated early hump. Frozen V1/V2: 6.697036266326904/26.976696014404297 mL.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "959cb0482162f16a47e5",
+      "reason": "m94 at 1/1 and 100 ul tests predicted completion later than the matched 2/1 measurement 7bd353fc307c5af1997e, which gave 14.82 mL. The recent 5/1 low-loading result 20d4b1612cbdd88b6755 supports a retained later branch but does not establish delayed completion this early. This constrains the beta-keto ester's transition onset. Frozen V1/V2: 5.453309535980225/17.10868263244629 mL.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "8bc2c8fd4b9c791c9ae5",
+      "reason": "m6 at 0/1 and 150 ul establishes its missing strong-eluent level after 0007449b058916cdcad1 rejected pronounced predicted onset growth at 50/1. The matched 20/1 and 50/1 observations have onset near 5.2 mL; this label tests whether the correction has also shifted the unmeasured baseline too far downward. No void-volume floor is assumed. Frozen V1/V2: 2.3403635025024414/7.483599662780762 mL.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "bb387f1af7263b2445fb",
+      "reason": "m8 at 5/1 and 150 ul fills the stronger-eluent side of measured 20/1 record 5806c857509e09634010 and recent 50/1 record 12aed585647de3f03908. Both late points have ordinary onset and completion around 16 mL. This determines whether completion growth is already present at 5/1 and constrains the bromobenzofuran curve after its previous overprediction. Frozen V1/V2: 4.300656318664551/9.445931434631348 mL.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "aa3ac48b626bc54d5dc6",
+      "reason": "m124 at 50/1 and 100 ul extends matched 20/1 observation a247cee7090fdbb110b4, which measured 5.07/13.56 mL. The predicted onset increase is substantial. Recent shallow m6 and m8 outcomes motivate testing this transfer to methoxynaphthalene rather than assuming oxygen-containing aromatic graphs share a late branch. Frozen V1/V2: 13.1696195602417/22.927427291870117 mL.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "22300151ccec3f1f1c24",
+      "reason": "m116 at 50/1 and 150 ul tests a predicted plateau or slight decline from matched 20/1 observation 5fd49a50595624496938, measured at 15.81/28.81 mL. It distinguishes genuine saturation from insufficient weak-eluent supervision for this methylated dimethoxy aromatic. Frozen V1/V2: 15.669371604919434/27.98174285888672 mL.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "3af0219c06bb010d7fd0",
+      "reason": "m123 at 5/1 and 150 ul begins a matched response experiment for a sparsely measured dimethoxybenzene. Its existing 50/1 label a47a3987d45e7c542d38 does not determine the early curve. Alongside the selected 20/1 point, it tests transfer across methoxy arrangement and methyl substitution relative to m116. Frozen V1/V2: 7.081105709075928/10.22081184387207 mL.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "ba56f0e652a97bcee1b2",
+      "reason": "m123 at 20/1 and 150 ul links the selected 5/1 point to matched 50/1 observation a47a3987d45e7c542d38. Its predicted completion is much earlier than measured m116 at the same ratio and sample volume in 5fd49a50595624496938, although molecular density and graph differ. The label tests whether that structural contrast is learned correctly. Frozen V1/V2: 7.710110187530518/14.385350227355957 mL.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "a134ef1942ffcd81d017",
+      "reason": "m185 at 2/1 and 100 ul adds a missing early condition to a difluorobenzaldehyde represented by 50/1 observation c32500e81a05cfd2273d. The selected 10/1 companion holds loading fixed. These labels determine whether completion is already elevated at low PE/EA or develops mainly later, a relationship not established by the existing weak-eluent label. Frozen V1/V2: 6.31959867477417/20.31451416015625 mL.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "f3ee8cbdb15889a1a50d",
+      "reason": "m185 at 10/1 and 100 ul completes the matched pair with selected 2/1 and measured 50/1 record c32500e81a05cfd2273d. The model predicts much of the completion increase before 10/1. Measuring the middle point supplies scaffold-specific curvature for an ortho-fluorinated aldehyde rather than relying on descriptor-level polarity transfer. Frozen V1/V2: 14.496725082397461/29.081552505493164 mL.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "bd2d2667de61e29eaea3",
+      "reason": "m156 at 1/1 and 100 ul explores the poorly supervised early curve of a perfluoroaromatic without H-bond acceptors. Measured 20/1 records 4cacfd98f3f85dc0dc0e and cab3569f3fc4029f86a0 show a loading-dependent onset contrast but similar completion. They do not establish the predicted early completion level near 14.6 mL. Frozen V1/V2: 4.406818389892578/14.598219871520996 mL.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "f2a71cf81760d14bc8cf",
+      "reason": "m156 at 5/1 and 100 ul holds loading fixed against selected 1/1. The model predicts almost unchanged completion across that ratio change, followed by values close to measured 20/1 completion. The pair tests whether this shallow response is genuine and adds condition supervision for fluorinated aromatic rows. Frozen V1/V2: 6.284500598907471/14.547233581542969 mL.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "61771d230b285babe4b6",
+      "reason": "m78 at 50/1 and 100 ul fills the middle of a particularly informative loading series. Recent low-loading 2b97a1e0a6a4b944b760 and high-loading eb3bc3fba39e57adbc2f differ by 16.11 mL in onset but only 1.57 mL in completion. Despite low CW distance, the missing middle label can teach nonlinear endpoint-specific loading response. Frozen V1/V2: 49.28774642944336/99.48316192626953 mL.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "716d04ed1943f0708912",
+      "reason": "m135 at 5/1 and 100 ul completes a loading series between a5446977630484ca5fe1 and f9f0f4e29dbd30c000ee. Those differ by 5.73 mL in onset with essentially unchanged completion. The middle point tests response shape and whether the loading pattern recently confirmed in m141 transfers to a different donor environment. Frozen V1/V2: 20.350534439086914/35.7503662109375 mL.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "075c4b8bd77f0a8b34bc",
+      "reason": "m36 at 1/1 and 150 ul tests whether its completion remains near low-loading observation 762190c8d9f5b2d1a89a at 21.33 mL or follows the predicted 28.61 mL. The selected matched 2/1 point separates ratio response from loading. This amino ketone provides a useful transfer check after the much steeper m200 nitro-alcohol outcome. Frozen V1/V2: 11.519107818603516/28.612472534179688 mL.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "9fcf89b00bb880c8a5ba",
+      "reason": "m36 at 2/1 and 150 ul complements measured 50- and 100-ul records 183af335033005f96b97 and 6b7209c2e8154837a8c7. Their onset changes modestly while completion stays near 40 mL. With selected high-loading 1/1, this tests conditional loading sensitivity and the amino-ketone transition without imposing m200's response on all donors. Frozen V1/V2: 19.732864379882812/42.288658142089844 mL.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "401216df342ee56f834b",
+      "reason": "m61 at 1/1 and 50 ul fills an early anchor before the unusual low-loading 5/1 result e75030664990b64e9c05. Matched 10/1 record f15b726ca5b4897ed80c returned much earlier endpoints than that 5/1 point, so loading alone cannot establish a smooth response law. This label tests whether the broad branch has an early precursor. Frozen V1/V2: 6.399487018585205/15.90656852722168 mL.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "e626b5b8083ea1fd02f2",
+      "reason": "m92 at 1/1, 50 ul sample and PE/200 loading solvent forms an exact recorded-condition contrast with the selected EA/200 experiment: only loading-solvent identity changes. Current endpoint predictions differ by less than 0.1 mL. The pair tests whether this apparent insensitivity is justified for an alpha-keto ester. Frozen V1/V2: 4.574034214019775/8.809385299682617 mL.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "00a89de0e6cc7377a84b",
+      "reason": "m92 at 1/1, 50 ul sample and EA/200 is the companion to the selected PE-loading experiment. Existing EA-loaded 2/1 record 10a4c811b70ba8155044 supplies a neighboring ratio anchor, while the paired labels isolate loading-solvent identity from sample amount and loading volume. The direction and magnitude of any effect remain untested. Frozen V1/V2: 4.480427265167236/8.894515991210938 mL.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "922b1bfbf466fff6178f",
+      "reason": "m125 at 0/1 and 150 ul fills the baseline for its DCM/300 protocol. Records 55f2352b50967352163e and e7ed7ca4a53258b73ba2 establish lower-load DCM/300 baselines, whereas DCM/500 observations have later completion. This label helps distinguish sample-loading response from the recorded loading-volume effect before the retained 2/1\u20135/1 branch. Frozen V1/V2: 6.877135276794434/14.994040489196777 mL.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "e3716bf7dba67a0f2185",
+      "reason": "m68 at 2/1 and 100 ul precedes measured 5/1 record c4b06a6e718225cb9cf8, whose completion was 25.62 mL. The same-load 50/1 record 9f362bfe1dab6e9eac3d finished earlier, at 21.52 mL. Together with selected 20/1, this tests whether the broad 5/1 observation belongs to a local response feature or is an irregular anchor. Frozen V1/V2: 5.571356296539307/14.969686508178711 mL.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "cb534927304d5c892100",
+      "reason": "m68 at 20/1 and 100 ul supplies the weaker-eluent side of the selected local experiment. Its predicted completion of 15.81 mL falls below both measured 5/1 and 50/1 values in c4b06a6e718225cb9cf8 and 9f362bfe1dab6e9eac3d. Measuring the gap constrains this biphenyl ketone's curve without assuming either monotonicity or a genuine hump. Frozen V1/V2: 4.907271385192871/15.811200141906738 mL.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "cfc3cd7290e349d095d4",
+      "reason": "m115 at 5/1 and 100 ul holds loading fixed against measured 2/1 record f2931e18ce0362f7a6c0 and 10/1 record 68f56b81e86e40c37d6b. Existing 5/1 at 150 ul, 9aaa9e876dd61f679e7d, has later completion than the 10/1 middle-load label. This measurement separates loading from a potentially genuine intermediate-ratio reversal. Frozen V1/V2: 11.713035583496094/25.24764060974121 mL.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "034aaf7715b5ec8bd7ee",
+      "reason": "m80 at 5/1 and 150 ul tests a remaining early hump in an otherwise shallow diester curve. The current prediction exceeds matched 10/1 observation 4e69d770ec2e35212ede, measured at 5.78/7.66 mL, while matched 0/1 and 2/1 baselines are also early. This checks whether the reversal failure extends to ordinary malonate rows. Frozen V1/V2: 7.542314529418945/10.354267120361328 mL.",
+      "hypothesis_id": "H5"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Solvent-ratio curvature is scaffold-specific. The newly measured shallow weak-eluent responses of m6 and m8 coexist with steeper multifunctional and aromatic curves, so neither oxygen content nor a late-retention correction establishes the whole response curve.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "0007449b058916cdcad1",
+        "12aed585647de3f03908",
+        "1c52010cfa0344fd2b6b",
+        "3f49209a4fc102e36500",
+        "5fd49a50595624496938",
+        "a47a3987d45e7c542d38"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Missing early and intermediate labels can constrain molecular-graph interactions with eluent strength and prevent corrections at one ratio from shifting an entire scaffold incorrectly.",
+      "next_discriminating_question": "Do m124 and m116 retain their predicted weak-eluent growth or plateau, and do matched m123, m185 and m156 measurements support the predicted locations of their response changes?"
+    },
+    {
+      "id": "H2",
+      "content": "Loading effects depend on scaffold, ratio and endpoint. Several retained series show a larger onset response than completion response, whereas m194 shows substantial completion differences even in strong eluent. A universal loading correction is unsupported.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "2b97a1e0a6a4b944b760",
+        "eb3bc3fba39e57adbc2f",
+        "a5446977630484ca5fe1",
+        "f9f0f4e29dbd30c000ee",
+        "65f4f125b5e1f8137bd9",
+        "434ffacb33eccce497c5",
+        "d7895c522a1a46a1175c",
+        "12400c6c61643f9c79b5",
+        "e6605c23fb1943a6b848",
+        "53a9a2469f8d4ead8732"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched loading series provide endpoint-specific supervision where current candidate predictions often change little with sample amount. Middle points can reveal nonlinear responses rather than just reinforcing extreme labels.",
+      "next_discriminating_question": "Do the missing m78 and m135 middle loads interpolate their onset contrasts, and does low-loading m194 preserve the early or broad pure-EA completion branch?"
+    },
+    {
+      "id": "H3",
+      "content": "Conflicting records and apparent ratio reversals require local matched measurements before they are generalized. Some curves may contain real endpoint-specific departures, but the catalog alone does not establish whether isolated irregularities reflect variability, endpoint extraction or unrecorded influences.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "a7bc3fb68bdecbbe086f",
+        "1d15ee46756cd1845a68",
+        "a0d6732883ffc7d063fb",
+        "3d5a3094cb10eee37b37",
+        "9955b65d41bf10d27b48",
+        "45dca237351265a8f169",
+        "e75030664990b64e9c05",
+        "f15b726ca5b4897ed80c",
+        "c4b06a6e718225cb9cf8",
+        "9f362bfe1dab6e9eac3d"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Neighboring labels can limit inappropriate transfer from influential irregular records while preserving genuine scaffold-specific behavior. They also help distinguish loading effects from ratio effects.",
+      "next_discriminating_question": "Does the near-replicate m73 baseline remain ordinary, and do matched m68 and m115 measurements reproduce or resolve their apparent intermediate-ratio completion reversals?"
+    },
+    {
+      "id": "H4",
+      "content": "The nitro-alcohol m200 develops a strong measured retention increase already between pure EA, 1/1 and 2/1. Donor/acceptor environment therefore matters for where a transition begins; that response should not be transferred indiscriminately to amino ketones or amino esters.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "6c022e06f98c0a9771b6",
+        "97318de99bab4460cf4e",
+        "a92f7617b135de150588",
+        "762190c8d9f5b2d1a89a",
+        "183af335033005f96b97",
+        "3ccd6444c8a55917fbf8",
+        "9bc73e0c27d4d6b44abb"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "m200 exposed a major acquisition-time failure, but current predictions have already moved toward its measured branch. A matched high-loading curve and a chemically distinct donor comparison test whether the correction generalizes through appropriate structure-condition relationships.",
+      "next_discriminating_question": "At higher loading, does m200 retain the same early transition, and does m36 follow its own shallower 1/1\u20132/1 completion progression?"
+    },
+    {
+      "id": "H5",
+      "content": "Recent targeted low-ratio prediction humps were frequently overpredictions across unrelated scaffolds. These failures coexist with genuinely broad strong-eluent completion in other families, so repair needs molecular and loading context rather than a blanket reduction of early V2.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "71f5df8c7d7e88d1afce",
+        "d2b4c39faa51bb75bbfb",
+        "c3c4fdce502f6d3576dc",
+        "2bd50654bad989d82c87",
+        "65bb637fa567663f5c54",
+        "6d9732a794f436a1207a",
+        "0776336aa1c106b4d645",
+        "4b0aa1fb2c1d00131718",
+        "6802f0b28c5a0c7b4c2a",
+        "d7895c522a1a46a1175c"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The recurrence across functional classes suggests a shared condition-representation weakness. Measuring remaining explicit reversals can constrain that weakness while the broad-baseline controls protect genuine exceptions.",
+      "next_discriminating_question": "Do pure-EA m11, high-loading 1/1 m117, 1/1 m94 and 5/1 m80 preserve the currently predicted reversals, and is m197's early completion plateau loading-specific?"
+    },
+    {
+      "id": "H6",
+      "content": "At otherwise identical recorded conditions, PE versus EA loading solvent may change elution endpoints even though the current m92 predictions nearly coincide. Stronger or weaker loading plugs could alter focusing, but the direction and magnitude here are untested.",
+      "basis": "mixed",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "A controlled contrast isolates an input feature that is otherwise often confounded with sample amount or loading volume. Either a measurable difference or a near-null result would constrain how strongly that feature should affect related rows.",
+      "next_discriminating_question": "At m92 1/1, 50-ul sample and 200-ul loading volume, do PE and EA loading solvents produce distinguishable V1 or V2 labels?"
+    }
+  ],
+  "feedback_interpretation": "The strongest update is m200: its new 1/1 and 2/1 labels measured 15.15/37.40 and 33.88/74.44 mL, with acquisition-time completion underpredictions of 19.53 and 48.37 mL. Current high-loading predictions have already shifted toward that branch, so I now test transfer across loading with a matched 0/1\u20132/1 curve instead of assuming those historical errors remain current. Conversely, m117's high-loading 5/1 and 10/1 labels were earlier than predicted, reinforcing the ordinary-to-moderate intermediate branch and weakening a generally delayed interpretation. The new m6 and m8 50/1 results also rejected pronounced predicted onset growth; this redirects their follow-up toward missing stronger-eluent anchors and tests related aromatic curves without assuming all oxygen-containing graphs behave alike. The recent reversal tests in m72, m53, m11, m130, m12, m133, m58 and m211 mostly exposed overpredictions, supporting targeted tests of remaining current humps. However, m173 finished near 50.30 mL even in pure EA, and m194's high-loading pure-EA completion was 24.99 mL, so an indiscriminate early-V2 reduction would be inappropriate. The valid m45 20/1 result confirms substantial retention despite its endpoint-inconsistent 50/1 record. Loading evidence strengthened in m78 and m141, but the smaller m94 5/1 contrast, nearly unchanged m28 onset, and accurate m174 middle-loading prediction argue for conditional rather than universal effects. Recent m39 and m20 labels were comparatively close to their acquisition predictions, reducing the urgency of further routine measurements on those curves.",
+  "batch_rationale": "The batch uses the full free-arm allocation for complementary local experiments. The m200 curve addresses the most consequential new failure while testing an unmeasured loading regime. m45, m194, m78, m135, m36 and m125 distinguish endpoint-specific loading responses and recorded protocol effects. Explicit current reversals receive focused supervision in m11, m117, m94, m197 and m80; m73 supplies a near-replicate where conflicting records still influence prediction. m68 and m115 test whether apparent intermediate-ratio reversals survive matched conditions, preserving the possibility of real exceptions. The m6, m8, m124, m116, m123, m185 and m156 experiments cover missing portions of chemically interpretable response curves, including ordinary early rows as well as transitions. The m92 pair isolates loading-solvent identity. These relationships recur across many candidate rows, making their labels potentially useful beyond the selected experiments themselves. Selection is based on identifiable learning questions rather than large predicted volumes or diversity alone. CW distance and single-predictor quantile widths are secondary evidence, not calibrated epistemic uncertainty; V2 minus V1 is the elution interval. All choices and supplied endpoint predictions are frozen together before any new measurement."
+}

@@ -1,0 +1,278 @@
+{
+  "type": "selection",
+  "packet_sha256": "037ba996ab691b80954bc95ff011c8585a45d046ca315f83131a6ae3e7039904",
+  "batch_strategy": "Condition-response series with targeted failure repair. The batch emphasizes amount and loading-solvent-volume contrasts where recent labels showed endpoint-specific or nonlinear effects, then adds sulfur, carbonyl, nitrile and high-retention graph segments to repair structural extrapolation and endpoint-slope errors.",
+  "choices": [
+    {
+      "id": "0e3813ce35d9e31ef276",
+      "reason": "m72 at 2/1, 50-ul PE loading starts a fixed-medium amount series. It tests whether the strong amount dependence seen at 10/1 DCM between 7383949c431e18f39597 and a2f83665cfe821271b30 persists at a different solvent ratio.",
+      "hypothesis_id": "H2_amount_context"
+    },
+    {
+      "id": "be6fa448aed2d0520ac3",
+      "reason": "m72 at 2/1 and 100 ul PE supplies the middle amount point between the selected 50-ul and 150-ul rows. A smooth or nonmonotonic endpoint response will constrain how amount and eluent strength interact.",
+      "hypothesis_id": "H2_amount_context"
+    },
+    {
+      "id": "4257dae751590e647fb1",
+      "reason": "m72 at 2/1 and 150 ul PE completes the amount series. It is useful because the current predictions are nearly amount-invariant while the measured m72 responses at other ratios are strongly condition-dependent.",
+      "hypothesis_id": "H2_amount_context"
+    },
+    {
+      "id": "10a4c811b70ba8155044",
+      "reason": "m92 at 2/1, 50-ul EA loading begins a matched three-amount segment. The 20/1 EA series 66da447ca0fe7160cc1c, 8b58e9d7a710f55e49d3 and e9dc948c0e68a88eb621 showed an unusual amount pattern that should be tested at a stronger eluent.",
+      "hypothesis_id": "H2_amount_context"
+    },
+    {
+      "id": "f6650af9162e038d4108",
+      "reason": "m92 at 2/1 and 100 ul EA provides the interior amount point for the stronger-eluent series, separating a genuine amount response from the previously observed 20/1 trough and its nonmonotonic midpoint.",
+      "hypothesis_id": "H2_amount_context"
+    },
+    {
+      "id": "a93701aa1a4a960e479a",
+      "reason": "m92 at 2/1 and 150 ul EA completes the matched amount series. Jointly with the two lower amounts, it can teach whether V1 and V2 share the same loading dependence.",
+      "hypothesis_id": "H2_amount_context"
+    },
+    {
+      "id": "f4fb5c03b8e8996e75f6",
+      "reason": "m125 at 1/1, 50 ul sample and 500-ul DCM loading volume is one half of an exact loading-solvent-volume comparison with 00043aebb2540e369a7b. The measured 5/1 pair 74cf50c6ec476a394b01 and c4b5a5499258f39b7ac1 showed a large onset shift with nearly unchanged completion.",
+      "hypothesis_id": "H4_loading_volume"
+    },
+    {
+      "id": "00043aebb2540e369a7b",
+      "reason": "m125 at 1/1 with 300-ul DCM loading volume provides the matched reference for f4fb5c03b8e8996e75f6. Repeating the volume contrast at another ratio tests whether the observed onset sensitivity generalizes beyond the prior 5/1 pair.",
+      "hypothesis_id": "H4_loading_volume"
+    },
+    {
+      "id": "06ebbf6e52fa3ea6aef3",
+      "reason": "m125 at 5/1, 150 ul sample and 500-ul DCM loading volume extends the volume-controlled series beyond the measured 100-ul rows. It tests whether completion remains stable while onset changes with loading context.",
+      "hypothesis_id": "H4_loading_volume"
+    },
+    {
+      "id": "761c3f82d640da44966c",
+      "reason": "m125 at 5/1, 50 ul sample and 500-ul DCM loading volume supplies the low-amount point paired with 06ebbf6e52fa3ea6aef3. Together with the measured 100-ul volume contrast, this separates amount and loading-volume effects.",
+      "hypothesis_id": "H4_loading_volume"
+    },
+    {
+      "id": "c40d715383d042030e93",
+      "reason": "m127 at 5/1 and 50 ul PE loading tests a missing ratio segment against the strong onset-by-amount behavior measured at 20/1 by 8143c4fff6f999b7ad0e and ebdeaba52880c7eade16.",
+      "hypothesis_id": "H3_m127_onset"
+    },
+    {
+      "id": "81ac865dd40a21b73e6d",
+      "reason": "m127 at 5/1 and 100 ul PE is the midpoint of the new amount contrast. The measured 50/1 midpoint a3ae677aae8a8faf5786 was a large onset outlier, so this label tests whether the nonlinearity is ratio-specific.",
+      "hypothesis_id": "H3_m127_onset"
+    },
+    {
+      "id": "aff2ffd59a0610a54995",
+      "reason": "m127 at 10/1 and 100 ul PE compares a third ratio at the same nominal amount. It discriminates a common loading shift from the ratio-specific onset curves seen in 15d6bc57a87392fbeb98 and a3ae677aae8a8faf5786.",
+      "hypothesis_id": "H3_m127_onset"
+    },
+    {
+      "id": "40d5f6dbba8de32e9852",
+      "reason": "m128 at 2/1 and 50 ul DCM loading tests amount dependence beside the measured 2/1, 100-ul result 21e09d52eac22fe25e15 and the measured 5/1 response 892c3900698d3de38b1c.",
+      "hypothesis_id": "H5_sulfur_context"
+    },
+    {
+      "id": "91cd087e44e7a3364533",
+      "reason": "m128 at 5/1 and 150 ul DCM extends its sulfur-containing ketone curve to a higher amount. It tests whether the measured 5/1 onset and completion remain transferable across loading amount.",
+      "hypothesis_id": "H5_sulfur_context"
+    },
+    {
+      "id": "c18c041c752aba7ff0e4",
+      "reason": "m129 at 0/1 supplies a strong-eluent anchor for the aldehyde analogue. The measured m129 responses at 5/1, cf8ab33c25ad391a584c, and 20/1, f4331eb64b6774466836, already suggest a nontrivial local curve.",
+      "hypothesis_id": "H5_sulfur_context"
+    },
+    {
+      "id": "b0571346163b8f77528d",
+      "reason": "m129 at 1/1 fills the adjacent sulfur-aldehyde segment and tests whether its endpoint response changes smoothly from the proposed 0/1 point toward the measured weaker-eluent labels.",
+      "hypothesis_id": "H5_sulfur_context"
+    },
+    {
+      "id": "715cf6b265c19d80e943",
+      "reason": "m199 at 1/1 and 50 ul DCM adds a low-amount interior to the diphenyl-sulfoxide curve. The measured 0/1 anchor b2bf97a1dcb9d6609f7d and the 5/1 amount pair f82cfd3b57735b0ead3c and 6bd128bde2e137ea54f3 show that sulfur oxidation state needs its own response surface.",
+      "hypothesis_id": "H5_sulfur_context"
+    },
+    {
+      "id": "b060fa3ae84f80e773d2",
+      "reason": "m199 at 2/1 and 100 ul DCM tests an interior ratio and amount after the large 10/1 failure aa83ae83c0fa0cc37777. It can distinguish a steep ratio transition from a broad amount effect.",
+      "hypothesis_id": "H5_sulfur_context"
+    },
+    {
+      "id": "c6e78c97267cbb98dc22",
+      "reason": "m159 at 10/1 has a broad predicted endpoint range and a distant condition context. It targets high-retention extrapolation in a nitrile-containing diaryl ketone environment, where ordinary carbonyl transfer may fail.",
+      "hypothesis_id": "H6_graph_curves"
+    },
+    {
+      "id": "20711ea4080ba078e890",
+      "reason": "m191 at 5/1 and low amount probes a sparse dialdehyde curve with wide predicted completion variation. It complements the high-retention measured m191 result bae9d67e095423d8edd2 and tests whether both endpoints acquire the same weak-eluent slope.",
+      "hypothesis_id": "H6_graph_curves"
+    },
+    {
+      "id": "44fcf641ccfa3b10a97c",
+      "reason": "m114 at 50/1 targets a missing weak-eluent segment with a large predicted completion range. It extends the measured multifunctional-carbonyl behavior represented by b8268449dc991ce92f3d and tests graph-specific tail growth.",
+      "hypothesis_id": "H6_graph_curves"
+    },
+    {
+      "id": "efd84dffe823b6298db6",
+      "reason": "m11 at 50/1 and 150 ul is a high-tail amount contrast against measured m11 at 50/1 and 100 ul, 9ffee2813aef5c26f96f. The label can teach whether the model underrepresents late completion in this polar oxime-like graph.",
+      "hypothesis_id": "H6_graph_curves"
+    },
+    {
+      "id": "eb3bc3fba39e57adbc2f",
+      "reason": "m78 at 50/1 and 150 ul extends the measured 50/1, 100-ul point 61771d230b285babe4b6. It supplies a controlled high-retention amount response for a multifunctional ester graph.",
+      "hypothesis_id": "H6_graph_curves"
+    },
+    {
+      "id": "f2f54282835725ea01b1",
+      "reason": "m172 at 0/1 adds a strong-eluent anchor to the measured 2/1, 20/1 and 50/1 curve points 9e46469e7c9719ba3611, fd11ee7c408d95a1a8e6 and 419f6eb4080dcb9d293b. It tests whether onset and completion slopes differ locally.",
+      "hypothesis_id": "H6_graph_curves"
+    },
+    {
+      "id": "4e71aa5ec7e9c4e414dc",
+      "reason": "m103 at 0/1 completes the stronger-eluent side of a sparse ester curve. The measured 10/1, 20/1 and 50/1 labels 76d382617e5051b76435, c98657e16e93ef4ede6b and fc911fe23a3e1e8e87d2 provide slope references without assuming a common ester response.",
+      "hypothesis_id": "H6_graph_curves"
+    },
+    {
+      "id": "f7790e666959ebae2ab4",
+      "reason": "m162 at 1/1 fills the strong-to-intermediate nitrile segment between measured 5/1, 10/1, 20/1 and 50/1 labels 862163fa99660a023b6f, c82c1933ed710ffb4981, ed3a90d38ff02a38deba and 7b8eaa0c9205349f60b1.",
+      "hypothesis_id": "H6_graph_curves"
+    },
+    {
+      "id": "ea6260d7052cabfca181",
+      "reason": "m167 at 2/1 samples a missing substituted-diketone segment with a narrow point prediction but high condition distance. Its label can test whether the locally smooth carbonyl transfer assumed by the model is valid at this ratio.",
+      "hypothesis_id": "H6_graph_curves"
+    },
+    {
+      "id": "064249131c1c3106e540",
+      "reason": "m31 at 2/1 and 150 ul extends a cyanoacetophenone curve into a missing ratio and amount context. Existing m31 observations such as 5ae1e9580200827a709d and b3d9bb5afa82b99f2a11 show that related carbonyl graphs can have very different tails.",
+      "hypothesis_id": "H6_graph_curves"
+    },
+    {
+      "id": "bd04bce318b9a6fe2f60",
+      "reason": "m3 at 0/1 tests a remaining strong-eluent endpoint case after m71 measured ordered endpoints even where its 0/1 prediction had V2 below V1. Measured m3 points c59ffcab9329339d3e91 and 8ba04fd976f536e8340b anchor its nearby curve.",
+      "hypothesis_id": "H1_local_endpoints"
+    },
+    {
+      "id": "f31a89256d8ee4192d55",
+      "reason": "m39 at 20/1 and 100 ul fills the amount midpoint around the measured 20/1, 50-ul point 5524670e4337370c2ef6. Its large predicted tail makes it useful for learning amount-dependent completion in a diaryl carbonyl graph.",
+      "hypothesis_id": "H6_graph_curves"
+    },
+    {
+      "id": "551ec1f8caaa42f2e478",
+      "reason": "m40 at 2/1 and 50 ul adds a strong-eluent anchor to the measured m40 curve at 10/1, 20/1 and 50/1, including 594f52943fa688878ad4, b645df00945e594953a6 and 4e93e36ab850bab3d594. This tests whether the model can transfer the graph-specific onset slope.",
+      "hypothesis_id": "H6_graph_curves"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1_local_endpoints",
+      "content": "Endpoint-order and endpoint-shape failures are local graph-condition problems. The m71 0/1 prediction violated endpoint ordering even though its measured endpoints were ordered, while the exceptionally early m23 onset and extremely narrow m18 interval were also not realized; a blanket neat-EA boundary explanation is therefore inadequate.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "c3070604fe243a9e8bc9",
+        "ef3f1cc179493a050c5c"
+      ],
+      "contradicting_observed_ids": [
+        "fae79bab43155a52988f",
+        "74d0393fb6ddaea1d7a6"
+      ],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Labels from other early-eluting graphs can teach endpoint coordination and ordering without forcing a global boundary correction that would damage ordinary rows.",
+      "next_discriminating_question": "Do other strong-eluent graph contexts show ordered endpoints with a coordinated response, or do they produce distinct local endpoint defects?"
+    },
+    {
+      "id": "H2_amount_context",
+      "content": "Loading amount affects V1 and V2 conditionally on solvent ratio, loading medium and molecular graph. m72 showed a large 10/1 DCM amount contrast while its 5/1 DCM contrast was modest; m92 showed a nonmonotonic 20/1 amount response, so a universal monotonic loading law is unsupported.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "7383949c431e18f39597",
+        "a2f83665cfe821271b30",
+        "a461d15b45edb356d2da",
+        "89425cdfb228a6ebf75d",
+        "66da447ca0fe7160cc1c",
+        "8b58e9d7a710f55e49d3",
+        "9862563d18aae2868342",
+        "48b79cabd9460cfc510b"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched amount series can teach separate endpoint responses and ratio-by-loading interactions that are reusable across many catalog rows.",
+      "next_discriminating_question": "Do the m72 2/1 PE and m92 2/1 EA amount series remain smooth, or do they reveal additional ratio-specific reversals?"
+    },
+    {
+      "id": "H3_m127_onset",
+      "content": "m127 has strong, endpoint-specific and ratio-dependent loading behavior. The 20/1 amount series interpolated toward earlier onset at higher amount while completion stayed similar, whereas the 50/1 100-ul midpoint was an extreme onset outlier.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "8143c4fff6f999b7ad0e",
+        "ebdeaba52880c7eade16",
+        "52b9af4df1f1e7cd4d9b",
+        "c82167c626a1495ef750",
+        "15d6bc57a87392fbeb98",
+        "a3ae677aae8a8faf5786"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A ratio-specific onset response can improve interpolation for substituted acetophenones and prevent the model from pooling incompatible loading effects.",
+      "next_discriminating_question": "Do the 5/1 and 10/1 PE amount points retain the 20/1 onset trend, or do they reproduce the anomalous 50/1 behavior?"
+    },
+    {
+      "id": "H4_loading_volume",
+      "content": "The recorded loading-solvent volume can affect retention beyond sample amount. For m125 at 5/1, changing DCM volume from 300 to 500 ul shifted onset substantially while completion remained close, although the feature is confounded with loading procedure in many catalog rows.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "74cf50c6ec476a394b01",
+        "c4b5a5499258f39b7ac1"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched volume contrasts can teach whether this recorded feature deserves a transferable correction or should be downweighted as noise.",
+      "next_discriminating_question": "Does the m125 loading-volume effect persist at 1/1 and at different sample amounts?"
+    },
+    {
+      "id": "H5_sulfur_context",
+      "content": "Sulfur-containing graphs require oxidation-state and local functional-context responses beyond coarse polarity descriptors. m128 and m129 have different measured curves, while diphenyl sulfoxide shows a very different late-elution response and limited amount dependence at 5/1.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "892c3900698d3de38b1c",
+        "cf8ab33c25ad391a584c",
+        "6bd128bde2e137ea54f3",
+        "aa83ae83c0fa0cc37777",
+        "f82cfd3b57735b0ead3c",
+        "b655d7de0986cbd0d622"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Local sulfur curves can prevent the model from transferring carbonyl or acceptor-count corrections across thioether, aldehyde and sulfoxide environments.",
+      "next_discriminating_question": "Do the missing strong-eluent and amount points produce smooth sulfur-specific curves, or do oxidation state and graph identity create separate regimes?"
+    },
+    {
+      "id": "H6_graph_curves",
+      "content": "Endpoint slopes are graph-specific and often differ between V1 and V2. Measured carbonyl, ester and nitrile examples include flat weak-eluent onset, steep onset, unusual completion growth and large high-retention errors, so related functional groups should not share one generic solvent-response curve.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "f46da3c00b2199795e4c",
+        "98f7b4e7c44ba0532e85",
+        "5307ce95bcee2886afe0",
+        "c53b8c93f8ee1304dfd0",
+        "c98657e16e93ef4ede6b",
+        "76d382617e5051b76435",
+        "b08821181fbd4d81b247",
+        "7b8eaa0c9205349f60b1"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Filling missing graph-condition segments and high-retention regions can improve transfer across the Row-distribution while repairing endpoint-specific extrapolation.",
+      "next_discriminating_question": "Do the selected high-distance graph segments follow their neighboring curves, or do they expose additional structural contexts requiring separate response terms?"
+    }
+  ],
+  "feedback_interpretation": "Recent outcomes support selective condition-response repair. m71 endpoints were ordered despite a predicted V2<V1, while m23 and m18 did not realize their exceptional onset or narrow-interval predictions, weakening a blanket boundary campaign. m72 showed a large amount contrast at 10/1 DCM but little contrast at 5/1 DCM, and PE loading produced much later elution. m92 20/1 labels remained nonmonotonic across amount. m127's 20/1 midpoint interpolated its onset trend, whereas the 50/1 midpoint was an extreme outlier, strengthening ratio-specific modeling. The m125 300-versus-500-ul DCM comparison shifted onset more than completion, supporting a second volume-controlled test. Sulfur outcomes confirmed distinct m128, m129 and m199 behavior, and the m103, m33, m162, m163 and m189 labels strengthened the case for graph-specific endpoint slopes. The new batch therefore spends labels on matched curves and missing segments rather than repeating a general neat-EA boundary search.",
+  "batch_rationale": "The batch has four coordinated local experiments: m72 and m92 amount series at new ratios, m127 ratio-specific amount points, and m125 loading-volume and amount contrasts. These labels directly supervise interactions that recent measurements showed to be nonlinear and endpoint-specific. Sulfur rows m128, m129 and m199 extend local oxidation-state and graph-context curves. The remaining choices target sparse or high-distance graph-condition regions, including m159, m191, m114, m11, m78, m39, m103, m162, m167 and m31, where neighboring measured rows show different onset and completion slopes or large historical misses. A single m3 boundary point checks endpoint behavior in another early-eluting graph. The batch is intentionally redundant where the rows form interpretable response curves and diverse where the model needs structural transfer; the resulting labels can improve condition handling, tail calibration and V1/V2 coordination across the Row-distribution after retraining."
+}

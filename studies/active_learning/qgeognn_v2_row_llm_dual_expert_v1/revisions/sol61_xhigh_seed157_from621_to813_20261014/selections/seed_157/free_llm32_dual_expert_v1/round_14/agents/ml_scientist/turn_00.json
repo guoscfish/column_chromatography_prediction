@@ -1,0 +1,159 @@
+{
+  "request_sha256": "f5366516f231fae6f9f27a80ee4a1f8c251ccf0abdce4567e5aeee6b6b4db3c4",
+  "answer": "{\n  \"type\": \"memo\",\n  \"role\": \"ml_scientist\",\n  \"packet_sha256\": \"4dc26e9f5a3ccb29d60a4c8ef0202e83413400de60738d90b7156b0f5d1e7f87\",\n  \"state_summary\": {\n    \"seed\": 157,\n    \"method\": \"free_llm32_dual_expert_v1\",\n    \"round\": 14,\n    \"observed_count\": 781,\n    \"candidate_count\": 2549,\n    \"pending_count\": 0,\n    \"assessment\": \"The latest measurements resolve the proposed m200, m204 and m75 loading questions and several structural response curves. Remaining learning opportunities concern conditional response representation, specific unresolved shapes and less sampled ordinary chemistry. Current delivery supersedes embedded 749/2581 and earlier summaries. Retrained overall Row accuracy and label-efficiency gains are not established by these acquisition outcomes.\"\n  },\n  \"hypothesis_updates\": [\n    {\n      \"id\": \"H13\",\n      \"status\": \"supported_and_narrowed\",\n      \"basis\": \"observed measured evidence\",\n      \"revision\": \"m200 rejects loading invariance and a ratio-independent loading correction. From 50 to 150 ul, V1/V2 change by -3.96/+0.62 ml at 1/1, but -14.23/-6.42 ml at 2/1. The corresponding loading-by-ratio interaction is approximately -10.28/-7.04 ml. Completion is nearly invariant across loading at 1/1 while onset changes substantially, particularly at 2/1. m204 retains steep joint growth at 150 ul: 25.51/49.95 to 51.71/94.93 ml from 5/1 to 10/1. Its 100-to-150 ul shift is -3.11/-1.32 at 5/1 and -7.55/-4.90 at 10/1, so complete loading invariance is also unsupported.\",\n      \"supporting_observed_ids\": [\n        \"97318de99bab4460cf4e\",\n        \"5da8c25a3982216fb112\",\n        \"a92f7617b135de150588\",\n        \"f91285c618eacb53538b\",\n        \"1211905ebc8972913270\",\n        \"73502a52708e4f9c2391\"\n      ],\n      \"implication\": \"The immediate factorial questions are answered. Further alcohol measurements need a distinct condition or transfer question; routine expansion of these same contrasts has diminishing value.\"\n    },\n    {\n      \"id\": \"H15\",\n      \"status\": \"revised\",\n      \"basis\": \"observed measured evidence\",\n      \"revision\": \"m75 onset changes mostly between 50 and 100 ul, then changes little between 100 and 150 ul. At 2/1, V1 is 12.58/4.70/4.77 ml across 50/100/150 ul; at 10/1 it is 12.23/8.23/7.73. Completion at 100 ul lies below both loading brackets at both ratios, appreciably at 2/1 (8.28 versus 12.61 and 9.98 ml), but only modestly at 10/1 (18.39 versus 18.85 and 19.52). Linear bracket interpolation is rejected locally; reproducible completion minima remain unestablished.\",\n      \"supporting_observed_ids\": [\n        \"f2312f90dd4cf5ef0e23\",\n        \"9e1b72123bd827a51c19\",\n        \"476647879af7df57d509\",\n        \"9603a9567c8b21458d1e\",\n        \"e6d0dc8ca50b71d5f807\",\n        \"dea5f0228035f44dd102\"\n      ]\n    },\n    {\n      \"id\": \"H26\",\n      \"status\": \"partly_resolved\",\n      \"basis\": \"observed measured evidence\",\n      \"revision\": \"At fixed 100 ul, m197 completion increases across the sampled 1/1, 5/1, 10/1 and 20/1 conditions: 25.53/27.93/30.67/37.24 ml. This rejects the previously predicted 1/1-to-5/1 decline. Onset increases more gently, from 5.63 to 11.27 ml. Its 20/1 midpoint is close to the measured loading bracket, although completion is slightly above both endpoints. This coherent progression reduces the value of routine m197 curve completion and supplies no support for transferring m117's exceptional onset.\",\n      \"supporting_observed_ids\": [\n        \"69be7348f9ab10739164\",\n        \"61aca51ad135176924ec\",\n        \"04e162e0c1261108b4a0\",\n        \"905c8843dd27543205a5\"\n      ]\n    },\n    {\n      \"id\": \"H27\",\n      \"status\": \"supported_with_distinct_shapes\",\n      \"basis\": \"observed measured evidence\",\n      \"revision\": \"m22 grows moderately from 5.10/8.38 at 2/1 to 8.95/15.52 ml at 20/1, both at 150 ul. m17 completion is shallow across its sampled higher ratios: 12.33 at 10/1 and 11.96 ml at 20/1; that small decline does not establish a stable reversal. m87 exposes a different shape: completion falls from 23.51 at 2/1 to 17.47 at 5/1, then reaches 21.79 ml at 10/1, with onset remaining early. Its sampled 5/1 minimum is evidence of local shape, without replication.\",\n      \"supporting_observed_ids\": [\n        \"2e4e3982c8f3ea0db756\",\n        \"b522f87b2ab193018419\",\n        \"28909b3d657af9f4764c\",\n        \"3f51f959f0d663b61716\",\n        \"0637945ca309d8122e64\",\n        \"c1b9b6fc781ab8519301\",\n        \"ef809aee1c6b06021475\"\n      ]\n    },\n    {\n      \"id\": \"H28\",\n      \"status\": \"supported_as_joint_growth\",\n      \"basis\": \"observed measured evidence\",\n      \"revision\": \"m198 grows jointly at fixed 150 ul: 4.86/12.73, 14.38/36.06 and 23.51/56.04 ml at 1/1, 10/1 and 20/1. A shallow or completion-only continuation is rejected over this range. These observations do not isolate a nitro-position mechanism because comparisons with m193 retain different density and injection-plug conditions.\",\n      \"supporting_observed_ids\": [\n        \"658eecf514c6a6aa009d\",\n        \"e99da719af7e2c3e9a93\",\n        \"857ae40d0fdf1c7e387e\"\n      ]\n    },\n    {\n      \"id\": \"H29\",\n      \"status\": \"supported_and_more_specific\",\n      \"basis\": \"observed measured evidence\",\n      \"revision\": \"m32 retains early onset through 10/1 at 150 ul: V1 is 4.45/4.91/5.07 ml at 2/1, 5/1 and 10/1. Completion is 15.79/20.07/18.96, so sustained completion growth beyond 5/1 is unsupported. m41 instead has gently changing onset and increasing completion across its matched sequence. m169 also grows mainly in completion from 2/1 to 10/1, by approximately +1.08/+6.63 ml. These results weaken transfer of substantial onset growth across ordinary aryl ketones.\"\n    }\n  ],\n  \"important_model_behaviors\": [\n    {\n      \"basis\": \"historical premeasurement diagnostics\",\n      \"finding\": \"Recent residuals distinguish response-shape errors from molecular offsets. m198 completion error changes from +2.44 ml at 1/1 to -3.42 at 10/1 and -8.65 at 20/1. m87 completion error changes from -10.68 at 2/1 to +2.10 at 5/1. Neither surface is repaired by a single signed offset.\"\n    },\n    {\n      \"basis\": \"historical premeasurement diagnostics\",\n      \"finding\": \"Ordinary chemistry remains consequential: m32, m41, m169, m17 and m213 show overpredicted onset or completion at modest endpoint scales. Conversely, the three new m141 records have completion errors within 0.34 ml. This lowers the immediate value of routine m141 expansion while providing no guarantee for its unmeasured conditions.\"\n    },\n    {\n      \"basis\": \"current model predictions\",\n      \"finding\": \"Loading predictions remain almost flat across many unrelated structures. For example, m54 at 2/1 changes only about -0.049/+0.054 ml from 50 to 150 ul. The latest m200 factorial and earlier measured m19, m194 and m177 surfaces demonstrate that this degree of smoothing is inadequate in some neighborhoods. Nearly invariant predictions can therefore identify discriminating contrasts, but they do not imply every loading contrast is valuable.\"\n    },\n    {\n      \"basis\": \"current quantile diagnostics\",\n      \"finding\": \"Reported V1 q10 values are zero throughout the supplied candidates, making V1 width strongly dependent on endpoint scale. Quantile crossings also persist: m126 candidate 7a461dbe017030c8ac23 has V1 q50 about 6.02 above q90 about 5.80; m215 candidate 2050f421f2e882689760 has V2 q50 about 10.08 above q90 about 9.84. These are reporting or model-output defects requiring audit. Widths have no supplied calibration as uncertainty or acquisition value.\"\n    }\n  ],\n  \"possible_learning_bottlenecks\": [\n    {\n      \"basis\": \"inference from measured contrasts and model diagnostics\",\n      \"concern\": \"The model may represent broad ratio dependence more readily than molecule-specific loading-by-ratio interactions and separate onset/completion responses. The packet cannot distinguish feature scaling, representation, regularization, optimization or omitted experimental variables as causes.\"\n    },\n    {\n      \"basis\": \"ML prior\",\n      \"concern\": \"Additional nearby labels help only when the training procedure can absorb the relevant interaction. Inspect training-only fit and matched finite differences by complete input tuple and endpoint. Accurate fit at acquired anchors should be distinguished from successful transfer to another loading or ratio.\"\n    },\n    {\n      \"basis\": \"measured trajectory and ML prior\",\n      \"concern\": \"Exceptional singleton inputs can induce spurious local response shapes. Replicate-aware analysis is needed before learning deterministic minima from m177, m120, m207 or the short m75 interval. Variation measured for m92 and m174 does not establish a universal noise threshold.\"\n    }\n  ],\n  \"coverage_or_redundancy_concerns\": [\n    \"Across the supplied pool, useful alternatives include ordinary ketone, ester, aldehyde, nitrile, ether and weak-interaction conditions as well as targeted donor and tail contrasts. Recent adaptive attention is concentrated on a relatively small collection of conditional surfaces; further curve completion needs a specific unresolved question.\",\n    \"Similarity fields are saturated at maximum observed similarity 1.0 and molecule novelty 0. They cannot rank exploration here. Candidate multiplicity likewise does not establish Row prevalence or expected accuracy gain.\",\n    \"Exact tuple aliases are extensive. For example, 9d3f3505ff1be86befbe and 35e055b13ba20e843f0d represent the same m12 input. Group by molecule and all five condition fields before considering redundancy; preserve small density differences when distinguishing exact from near duplicates.\",\n    \"Eligible aliases can intentionally repeat an observed input, such as m104 5/1 at 100 ul via fa16274f756ebeec4d84. Such a repeat needs an explicit ambiguity to resolve. Its eligibility does not make it a new condition.\",\n    \"Substantially answered m200 factorial, m75 loading midpoints, m204 higher-loading ratio pair and older m13, m28, m81, m125, m167, m173 and m212 questions now have lower marginal value for routine expansion. Actual Row weights and the accuracy metric are unspecified, so no numerical exploration/exploitation allocation is justified.\"\n  ],\n  \"particularly_informative_candidates\": [\n    {\n      \"question\": \"Does the remaining m197 lower-ratio gap contain a real completion trough?\",\n      \"candidate\": {\n        \"id\": \"454eb2207b9abc0b2a6d\",\n        \"molecule_id\": \"m197\",\n        \"conditions\": [\"2/1\", 1.146, 100.0, \"PE\", 300]\n      },\n      \"correction\": \"Use the supplied legal ID 454eb2207b9abc0b2a6d only if matched exactly to the catalog; the catalog's actual ID is 454eb2207b9b5f04bd6af.\",\n      \"information_value\": \"The intended catalog input predicts completion about 21.19 ml, below measured 1/1 and 5/1 anchors of 25.53 and 27.93. This would test a specific response-shape disagreement after the broader predicted decline failed. A trough remains a prediction, not evidence.\"\n    },\n    {\n      \"question\": \"Does m87's measured 2/1-to-5/1 completion decline transfer across loading?\",\n      \"candidates\": [\n        {\n          \"id\": \"a05ccef9e073f648892e\",\n          \"molecule_id\": \"m87\",\n          \"conditions\": [\"2/1\", 1.103, 50.0, \"DCM\", 300]\n        },\n        {\n          \"id\": \"c449ecc5ee6acf61bddb\",\n          \"molecule_id\": \"m87\",\n          \"conditions\": [\"5/1\", 1.103, 50.0, \"DCM\", 300]\n        }\n      ],\n      \"information_value\": \"The matched 50 ul contrast can distinguish a transferable decline from a loading-specific association relative to the measured 150 ul pair. It would not establish repeatability of that pair.\"\n    },\n    {\n      \"question\": \"Does low-loading m75 maintain late onset between its measured 2/1 and 10/1 anchors?\",\n      \"candidate\": {\n        \"id\": \"c641cb5b9e82e60de614\",\n        \"molecule_id\": \"m75\",\n        \"conditions\": [\"5/1\", 1.095, 50.0, \"PE\", 200]\n      },\n      \"information_value\": \"Current predicted onset is 6.90 ml, whereas measured 2/1 and 10/1 onset values are both around 12 ml. This distinguishes an unmeasured onset minimum from a relatively stable low-loading onset regime. It cannot replicate the exceptional 2/1 interval.\"\n    },\n    {\n      \"question\": \"Where does the m204 loading association emerge before its steep higher-ratio response?\",\n      \"candidate\": {\n        \"id\": \"6a39aff909ea35989c74\",\n        \"molecule_id\": \"m204\",\n        \"conditions\": [\"2/1\", 1.001, 150.0, \"PE\", 300]\n      },\n      \"information_value\": \"A matched bridge to the measured 150 ul 5/1 and 10/1 records would test whether loading effects are small at 2/1 and strengthen later. Local invariance would also be informative.\"\n    },\n    {\n      \"question\": \"Do less sampled ordinary alkyl aryl ketones retain shallow onset as completion changes?\",\n      \"candidates\": [\n        {\n          \"id\": \"1e3db165e287321f2322\",\n          \"molecule_id\": \"m69\",\n          \"conditions\": [\"2/1\", 0.975, 100.0, \"DCM\", 300]\n        },\n        {\n          \"id\": \"0b3add03839ff1700084\",\n          \"molecule_id\": \"m69\",\n          \"conditions\": [\"10/1\", 0.975, 100.0, \"DCM\", 300]\n        }\n      ],\n      \"information_value\": \"These connect to the measured pure-EA 100 ul baseline and test transfer beyond the recently mapped methylacetophenones. Their value is controlled ordinary-condition coverage, not numerical novelty.\"\n    },\n    {\n      \"question\": \"When does an ordinary aryl nitrile develop appreciable endpoint growth?\",\n      \"candidates\": [\n        {\n          \"id\": \"dc9dc88c690b5a1d563f\",\n          \"molecule_id\": \"m144\",\n          \"conditions\": [\"5/1\", 0.989, 50.0, \"DCM\", 300]\n        },\n        {\n          \"id\": \"4c3dce39521dcb1793a1\",\n          \"molecule_id\": \"m144\",\n          \"conditions\": [\"20/1\", 0.989, 50.0, \"DCM\", 300]\n        }\n      ],\n      \"information_value\": \"They connect existing 0/1 and 10/1 measurements at the same loading and distinguish gradual growth from a later rise in a less investigated noncarbonyl environment. Predicted growth remains unmeasured.\"\n    },\n    {\n      \"question\": \"Does a conjugated aliphatic aldehyde follow the response of mapped aromatic or spacer aldehydes?\",\n      \"candidates\": [\n        {\n          \"id\": \"4ec77f604fa08f281ef7\",\n          \"molecule_id\": \"m53\",\n          \"conditions\": [\"10/1\", 0.888, 100.0, \"PE\", 300]\n        },\n        {\n          \"id\": \"6e17f8e15aa8fdd6a9ea\",\n          \"molecule_id\": \"m53\",\n          \"conditions\": [\"20/1\", 0.888, 100.0, \"PE\", 300]\n        }\n      ],\n      \"information_value\": \"A fixed-loading extension from its measured 1/1 anchor broadens aldehyde response coverage. Transfer benefit is an ML prior; the packet does not establish its contribution to overall Row risk.\"\n    }\n  ],\n  \"warnings\": [\n    \"Only observed-table labels are measured evidence. All candidate values above are predictions. Candidate IDs must match the supplied catalog exactly before any use.\",\n    \"Historical premeasurement residuals describe changing models on adaptively acquired inputs. They are not estimates of current candidate error or overall Row accuracy.\",\n    \"Preserve density, sample volume, loading-solvent identity, plug volume and PE/EA ratio. Sample volume and loading mass are coupled; cross-molecule comparisons do not isolate chemical mechanisms.\",\n    \"The m117 record a7bc3fb68bdecbbe086f has V2-V1 approximately -0.075 ml. Preserve its supplied values and audit annotation/integration before treating it as response structure. The original m13/m80 prediction-anomaly premise remains rejected.\",\n    \"Earlier m80-transition and m68-rebound expectations remain rejected over measured ranges. Larger boundary predictions alone do not reopen them. New neighboring conditions cannot resolve repeatability of exceptional existing inputs.\",\n    \"V2 minus V1 is elution interval width. No validation/test truth, future labels or external trajectory information was used.\"\n  ]\n}",
+  "provenance": {
+    "response_id": "resp_0068fe7e621a4075016ad8dda6232481958b70898a6dd0f7e2",
+    "served_model": "gpt-6.1-sol",
+    "usage": {
+      "input_tokens": 535983,
+      "input_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 12518,
+      "output_tokens_details": {
+        "reasoning_tokens": 8279
+      },
+      "total_tokens": 548501,
+      "attribution": {
+        "items": {
+          "msg_0068fe7e621a4075016ad8dda623ec8195b199959c75d32bc4": {
+            "input_tokens": 531285,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 531285,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_0068fe7e621a4075016ad8deb8b4908195acad6670ef48b7ad": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 4239,
+            "content": [
+              {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 4239
+              }
+            ]
+          },
+          "rs_0068fe7e621a4075016ad8ddbd6f34819592a1dba5fdaced82": {
+            "input_tokens": 2,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 516
+          },
+          "rs_0068fe7e621a4075016ad8ddcb1f248195ac733830a38f7147": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0068fe7e621a4075016ad8dddb8d4c8195bf321ed0c852ed02": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0068fe7e621a4075016ad8ddea009c81958d98e6c0a2fc4a44": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0068fe7e621a4075016ad8ddfb43c481959674d3d67bb45d99": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0068fe7e621a4075016ad8de0b0c008195b818ca197ac32b38": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0068fe7e621a4075016ad8de197c088195881c02e9c4cb526f": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0068fe7e621a4075016ad8de2b3b6481959df52fb9d1175497": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0068fe7e621a4075016ad8de3ac4ac81959814d17880137804": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0068fe7e621a4075016ad8de4c7ba48195857dbce594be5c7a": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0068fe7e621a4075016ad8de5d98bc81959801e48f8c726361": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0068fe7e621a4075016ad8de6f8ed481958394d17167b9186c": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0068fe7e621a4075016ad8de81a5008195bb05f74f64d40dba": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0068fe7e621a4075016ad8de948c2881959acead03ee9d1150": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0068fe7e621a4075016ad8dea633e48195b4270cababfc6e89": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0068fe7e621a4075016ad8deb8b4908195aa449c78787398a1": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 511
+          }
+        },
+        "request_fields": {
+          "instructions": {
+            "input_tokens": 4696,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "native_tool_calls": 0
+  },
+  "role": "ml_scientist",
+  "call_index": 0
+}

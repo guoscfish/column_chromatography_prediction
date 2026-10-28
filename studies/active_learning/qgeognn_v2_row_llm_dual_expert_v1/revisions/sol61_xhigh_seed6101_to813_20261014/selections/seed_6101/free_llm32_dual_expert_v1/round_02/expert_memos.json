@@ -1,0 +1,132 @@
+{
+  "chemistry_scientist": {
+    "type": "memo",
+    "role": "chemistry_scientist",
+    "packet_sha256": "f86580f881f9b1df47dc75fbb1bfb8cbb7a4d7a4bfeebd6e1f89524e72c10424",
+    "state_summary": "Round 2 reports 397 observed records, 2933 eligible candidates and no pending or validation/test records. Latest measurements strengthen graph-specific pyridyl-carbonyl transfer concerns, reject several predicted solvent-response reversals, and weaken the interpretation of m73's original anomaly as reproducible chemistry. Current predictions have adapted around acquired labels, while loading sensitivity remains weak. The objective remains overall Row V1/V2 accuracy after retraining.",
+    "important_observations": [
+      {
+        "topic": "H_nitrogen strengthened and refined",
+        "measured_evidence": "At identical 111.4 mg loading and DCM 300 uL, 3-pyridyl ketone m66 measures 18.98/55.06 mL at 2/1 and 47.37/119.31 at 5/1 (4659b6752f23c0b85f08; 49201b5817f204116f7f). Historical endpoint errors were -12.48/-41.00 and -35.90/-92.12 mL. Quinoline m216 reaches 53.42/92.93 at 10/1 (e47aebe2660b9e1528de), rejecting its previously predicted decline beyond 5/1.",
+        "revision": "Earlier quinoline supervision did not ensure prospective transfer to pyridyl ketone. Accurate earlier aminobenzonitrile prediction and moderate measured aminoester m86 retention still oppose a uniform nitrogen correction. Ring-N/carbonyl connectivity and eluent response deserve separate attention."
+      },
+      {
+        "topic": "H_m73 reproducibility weakened",
+        "measured_evidence": "The 1/1 near-repeat gives 4.89/10.59 mL at 104.91 mg (45dca237351265a8f169), versus 18.60/18.96 at 104.90 mg originally (2cf789c87f7c6325c020), with the same nominal mobile phase and DCM plug. Chalcone m165 gives 5.11/10.04 at 1/1 and 5.52/12.25 at 2/1, lacking its predicted strong-eluent maximum (067c9b96b35fefd28fdf; bb18fe197ad7e24c5ed1).",
+        "revision": "The original m73 interval was not reproduced. The 0.01 mg difference does not establish a loading explanation. Preserve both records; variation, omitted conditions and record differences remain unresolved hypotheses. Transfer of the original anomaly across conjugated carbonyls is poorly supported."
+      },
+      {
+        "topic": "H_m80 intermediate maximum rejected at tested ratios",
+        "measured_evidence": "At matched 105.5 mg and PE 200 uL, m80 measures 5.85/7.53 at 10/1 and 6.23/8.54 at 20/1 (aa65e86ee8638bded5d9; 40fd02db79e028fe05a9). Existing matched 1/1 and 50/1 results are 4.08/15.66 and 6.41/8.27.",
+        "revision": "The predicted 10/1 completion maximum failed. Narrow weak-eluent intervals are measured behavior here, while unusually late 1/1 completion remains recorded. The response question is now more localized."
+      },
+      {
+        "topic": "H_m173 late completion persists",
+        "measured_evidence": "At 1/1, DCM 1500 uL gives 6.04/78.37 mL near 124.8 mg (65fcce0299e031dedeb8), versus 6.51/108.89 using 2000 uL (f90a5a5a54509c085ebd). At 2/1, corresponding completions are 46.22 and 45.06.",
+        "revision": "Very late 1/1 completion survives the smaller plug. The approximately 30.53 mL completion difference there contrasts with 1.16 mL at 2/1. A ratio-by-plug interaction is plausible, but these unreplicated comparisons do not separate it from record variation."
+      },
+      {
+        "topic": "H_load and H_injection remain conditional",
+        "measured_evidence": "Increasing m92 loading from 57.75 to 173.25 mg at 2/1 changes 6.74/11.72 to 7.25/12.54 mL (10a4c811b70ba8155044; f7cc49c21fea55ed9087): onset increases 0.51, completion 0.83 and interval width 0.32 mL. For m9 at 2/1, replacing PE loading with DCM changes 4.18/9.85 to 4.30/10.20 (c45a62392f6a5694efe6; e515cb1302d9dac0b8cd).",
+        "revision": "The missing-ratio m92 contrast shows modest widening without resolving its nonmonotone loading sequences elsewhere. The m9 solvent contrast is small compared with m92's earlier PE-versus-EA contrast. Molecule, eluent and solvent-substitution differences prevent inferring a universal loading-solvent ranking."
+      },
+      {
+        "topic": "H_OH connectivity-specific response supported",
+        "measured_evidence": "At 5/1 under approximately matched PE loading protocols, m204 measures 28.62/51.27, m60 19.65/34.70 and benzylic m61 10.27/15.56 mL (b7b1a1bb666c8cc99bad; 62d7ea74ab73fa6214b4; 994a1f65509549a84ede). m204 and m60 rise from their measured 2/1 anchors. Benzylic homologue m67 measures 10.97/17.40 at 5/1 with DCM loading. Hydroxyester m99 rises from 6.47/13.36 at 1/1 to 19.91/32.37 at 5/1 (36786ca0d1deaa0687ba; 12ab195583f05b9aa177).",
+        "revision": "The predicted m99 decrease failed. Hydroxyl count alone does not capture these molecular distinctions. Accessibility and connectivity remain chemical explanations to test, rather than measured adsorption mechanisms."
+      },
+      {
+        "topic": "H_shape requires separate endpoint responses",
+        "measured_evidence": "m82 rises from 20.41/45.62 at 10/1 to 26.33/64.40 at 20/1 at fixed setup (6b8e53d2d8c8a90a7216; 61090cfdcf019e0891a3). Related beta-ketoester m94 rises from 12.33/26.02 at 5/1 to 21.34/45.11 at 10/1. m91 at 20/1 measures 9.02/13.30 (93f10a8edf06f7acae26), rejecting its predicted 0.17 mL interval. Conversely, m194 measures 4.35/36.18 at 1/1 and 8.20/26.57 at 5/1 at the same setup (4a39c1f64d17e050e4a5; 39815ababe97d7acc107).",
+        "revision": "Several predicted contractions failed, but m194's measured completion decrease, together with m80 and m173, prevents imposing universal endpoint monotonicity."
+      }
+    ],
+    "important_model_behaviors": [
+      "CURRENT PREDICTIONS: At measured m92 2/1 physical inputs, 9768d61b571fc0c5ce1a predicts 6.917/12.455 at 57.75 mg and b7880e59ff4586b29a28 predicts 6.916/12.510 at 173.25 mg. Completion changes only 0.054 mL versus the measured 0.825. This diagnoses training-input sensitivity, not prospective accuracy.",
+      "CURRENT PREDICTIONS: m216 and beta-ketoester weak-eluent values now broadly follow their acquired late-retention anchors. For example, m94 at 117.4 mg predicts 29.19/65.10 at 20/1. Transfer beyond the acquired conditions remains untested.",
+      "CURRENT QUANTILES: Ordering defects persist. For m124 candidate df71c07fd931cc29213b, V1 q10/q50/q90 are approximately 18.05/19.30/17.40 mL. Quantile width alone cannot establish confidence."
+    ],
+    "particularly_informative_candidates": [
+      {
+        "ids": [
+          "07dbb8c9982caa472c1a",
+          "b51b5dbcd2a38b174973"
+        ],
+        "question": "m66 in pure EA at its measured 111.4 mg/DCM 300 uL setup predicts 6.48/14.28 mL, anchoring the strong-eluent end of its measured late curve. Pyridyl ester m90 at 5/1, 166.05 mg/DCM 300 uL predicts 46.45/106.71; its matched measured pure-EA anchor is 6.71/14.27. These address eluent response and ketone-to-ester transfer within pyridyl chemistry."
+      },
+      {
+        "ids": [
+          "762190c8d9f5b2d1a89a",
+          "183af335033005f96b97"
+        ],
+        "question": "Unmeasured para-aminoacetophenone m36 at fixed 38.5 mg/DCM 900 uL predicts 6.25/17.24 at 1/1 and 7.43/22.48 at 2/1. This tests an aniline nitrogen conjugated with an aromatic ketone, distinct from ring-N carbonyls and measured aminobenzoate/nitrile environments."
+      },
+      {
+        "ids": [
+          "71abc36775b6cce56da7"
+        ],
+        "question": "Unmeasured para-methoxybenzyl alcohol m120 at 5/1, 55.65 mg/DCM 300 uL predicts 18.63/38.05. It adds a primary benzylic hydroxyl plus ether environment near represented alcohol and aromatic-ether families. A single label would establish retention at this condition, leaving its eluent slope unresolved."
+      },
+      {
+        "ids": [
+          "f50c45b31cf41304c109",
+          "e3a799d0fa90b649a157"
+        ],
+        "question": "m82 at 5/1, 102.9 mg predicts 12.45/30.22, interpolating measured 2/1, 10/1 and 20/1 anchors. m94 at 20/1, 117.4 mg predicts 29.19/65.10, extending its measured 5/1-to-10/1 rise. Each retains its own measured injection setup. These distinguish interpolation from transfer of the new weak-eluent response."
+      },
+      {
+        "ids": [
+          "1e971da91b3a8229f0e0"
+        ],
+        "question": "m173 at 5/1, 124.75 mg/DCM 1500 uL predicts 13.94/62.89. Its near-matched 2000 uL measurement is 12.92/60.92. This tests whether the large plug-associated completion difference is localized near 1/1; retain the 0.05 mg mass difference explicitly."
+      },
+      {
+        "ids": [
+          "c0094343ab6bb16bc58b",
+          "2bd4f8787a951ef0ee04"
+        ],
+        "question": "m194 at fixed 58.85 mg/DCM 300 uL predicts 4.61/35.47 at 1/1 and 7.13/21.78 at 2/1. This tests whether its broad strong-eluent interval extends to lower loading. These new loading conditions cannot alone establish reproducibility of the acquired 117.7 mg result."
+      },
+      {
+        "ids": [
+          "738d61dd88e0a9cf650d",
+          "c717afaee5336c60c59f"
+        ],
+        "question": "Unmeasured para-chlorobenzophenone m176 at fixed 100 mg/DCM 600 uL predicts 6.31/15.81 at 5/1 and 12.02/25.06 at 20/1. It supplies ordinary aromatic-carbonyl supervision and substituent-transfer information near represented benzophenones."
+      },
+      {
+        "ids": [
+          "df71c07fd931cc29213b"
+        ],
+        "question": "Methoxynaphthalene m124 at 20/1, 53.2 mg/DCM 400 uL predicts 19.30/19.54, versus its matched measured 10/1 anchor of 6.28/12.49. This tests pronounced onset delay and interval compression. Historical m126 failure motivates scrutiny, while genuinely narrow measured intervals elsewhere prevent declaring this prediction wrong in advance."
+      }
+    ],
+    "possible_model_blind_spots": [
+      "GENERAL CHEMICAL KNOWLEDGE: Increasing EA usually strengthens normal-phase elution. Pyridine-like nitrogen, sulfoxide oxygen and accessible hydroxyls can interact strongly with silica. Conjugation, steric accessibility and possible intramolecular hydrogen bonding can modify interactions. These priors motivate comparisons but do not explain the trajectory's unusual labels by themselves.",
+      "UNTESTED HYPOTHESES: Weak molecule-by-condition interactions, adsorption accessibility, dissolution and injection effects contribute to discrepancies. Shared TPSA and HBD/HBA totals cannot uniquely encode these distinctions.",
+      "Conflicting or unusual anchors may produce artificial response extrema or interval compression. The failed m73 near-repeat makes this concern concrete without identifying the cause of any unmeasured curve.",
+      "Completion-specific failure can coexist with reasonable onset prediction, as m194 showed historically. A common endpoint offset would miss that error structure."
+    ],
+    "coverage_or_redundancy_concerns": "Distinct eligible IDs frequently encode identical complete physical inputs, including observed inputs. Replication is informative when tied to a specific ambiguity; catalog multiplicity and tiny density-derived mass differences do not independently add chemical coverage. Ordinary aromatic, ester, ketone and aldehyde conditions remain relevant to the Row objective alongside difficult polar graphs.",
+    "warnings": [
+      "Candidate endpoint values above are current predictions only. Measured evidence comes from observed-table records; repeated memory summaries are not additional measurements.",
+      "V2 minus V1 is elution interval width. Predictive quantile width is separate and is not established uncertainty.",
+      "Historical residuals come from adaptively selected experiments before different retraining steps. They do not estimate overall Row error or establish retraining improvement.",
+      "Preserve conflicting m73 measurements and the slightly reversed measured m195 interval a917c928912c74862968. Neither establishes a universal endpoint correction. m202's positively charged phosphorus representation also limits interpretation through neutral-compound priors."
+    ]
+  },
+  "ml_scientist": {
+    "type": "memo",
+    "role": "ml_scientist",
+    "packet_sha256": "646a91a593d5a52ccca3b269b604962db9e4acfc4da05430ef0d2d1b28cf3446",
+    "state_summary": "Seed 6101, free_llm32_dual_expert_v1, round 2: 397 observed records, reported eligible pool 2933, no pending records. Latest measurements strengthen graph-dependent solvent-response failures, especially m66 and m216, while weakening the reproducible m73 anomaly and rejecting m80's predicted intermediate maximum. Current predictions adapt around acquired labels, but loading sensitivity remains weak. Useful next information combines transfer tests, focused response extensions and ordinary Row coverage. Overall Row accuracy improvement after retraining remains unestablished.",
+    "important_observations": "MEASURED FEEDBACK AND HYPOTHESIS REVISIONS:\nH_nitrogen is strengthened and broadened beyond quinolines. m216 at 10/1 measured 53.42/92.93 mL, beyond its measured 5/1 result 31.43/56.33, rejecting the historical predicted decline (e47aebe2660b9e1528de; 1ae3618ec277b0463686). m66 measured 18.98/55.06 at 2/1 and 47.37/119.31 at 5/1; historical V2 underprediction increased from 41.00 to 92.12 mL (4659b6752f23c0b85f08; 49201b5817f204116f7f). m86 at 2/1 exceeded its prediction by 4.24/7.82 (70593725787c65a74951). Previously accurate m160 remains evidence against a uniform nitrogen correction.\nH_m73 is substantially weakened. The near-repeat measured 4.89/10.59 at 104.91 mg versus 18.60/18.96 at 104.90 mg, differences of -13.71/-8.37 mL (45dca237351265a8f169; 2cf789c87f7c6325c020). Enone m165 measured 5.11/10.04 at 1/1 and 5.52/12.25 at 2/1, opposing its predicted strong-eluent maximum (067c9b96b35fefd28fdf; bb18fe197ad7e24c5ed1). A stable transferable maximum is unsupported. The m73 conflict does not identify which record is erroneous; under a local smoothness prior, the 0.01 mg difference offers negligible explanatory coverage.\nH_m80: measured V2 at fixed 105.5 mg is 15.66, 7.53, 8.54 and 8.27 at 1/1, 10/1, 20/1 and 50/1 (55dfd30fde788076a355; aa65e86ee8638bded5d9; 40fd02db79e028fe05a9; 08155ffdcb0d27576050). Earlier completion under weaker eluent persists, but the predicted intermediate maximum failed at the tested ratios. Another extensive weak-eluent grid now has reduced marginal value.\nH_m173: late 1/1 completion persists with the smaller plug, at 78.37 mL (65fcce0299e031dedeb8), above same-plug 2/1 completion 46.22 (9a32b65bc21fdc5f7286). Relative to 2000 uL, completion differs by -30.53 at 1/1 but +1.16 at 2/1; masses differ by 0.05 mg. This records a possible ratio-by-plug interaction, without separating it from omitted factors or variation.\nH_load remains conditional. At m92 2/1, raising mass from 57.75 to 173.25 mg changes 6.742/11.717 to 7.250/12.542; interval widening is only 0.317 mL (10a4c811b70ba8155044; f7cc49c21fea55ed9087). Both endpoints move later, unlike some earlier contrasts. These unreplicated small differences do not establish statistical significance or a universal loading law.\nH_injection: replacing PE with DCM for m9 changes measured endpoints by only +0.117/+0.350 at identical remaining inputs (e515cb1302d9dac0b8cd; c45a62392f6a5694efe6). This weakens a large general solvent correction motivated by m92's earlier EA-to-PE contrast of +2.84/+8.56. The solvent contrasts and molecules differ.\nH_shape: m82 at 20/1 measured 26.33/64.40, continuing upward from 10/1 and rejecting its historical decline (61090cfdcf019e0891a3). m91 at 20/1 measured 9.025/13.300, rejecting the predicted 0.169 mL interval (93f10a8edf06f7acae26). m199 pure-EA errors were much smaller than its earlier 2/1 errors (3554059c7f0676bb2e03). m194 has earlier onset but later completion at 1/1 than at 5/1 (4a39c1f64d17e050e4a5; 39815ababe97d7acc107). A common molecular offset cannot explain these patterns.\nH_OH gains connectivity-specific support. At 5/1, m204 measured 28.62/51.27, versus m60 19.65/34.70 and m61 10.27/15.56 under approximately matched PE protocols (b7b1a1bb666c8cc99bad; 62d7ea74ab73fa6214b4; 994a1f65509549a84ede). m99 rises from 6.475/13.358 at 1/1 to 19.908/32.367 at 5/1, rejecting its historical decrease (36786ca0d1deaa0687ba; 12ab195583f05b9aa177). m60's new 2/1 prediction and m67's 5/1 prediction were comparatively accurate. The specific m60-versus-m61 distinction at 2/1 remains unresolved because m61 lacks that measured counterpart.",
+    "important_model_behaviors": "CURRENT MODEL DIAGNOSTICS: Loading sensitivity remains weak. At measured m92 2/1 physical inputs, candidates 9768d61b571fc0c5ce1a and b7880e59ff4586b29a28 predict low-to-high-load changes near -0.001/+0.054 mL, versus measured +0.508/+0.825. At 10/1, 0389a6366b3a51fad8b5 and ad0ace61c29817c678c2 predict a V2 difference of 0.058 versus measured 3.479. These diagnose training-input fit and feature sensitivity.\nTRAJECTORY-LOCAL MODEL CHANGE: Still-eligible m146 candidate 9e3ce3497298084abd83 now predicts 49.12/81.58 at 10/1, versus approximately 27.01/42.75 in the previous memo. Adaptation is evident; its outcome remains unknown.\nCURRENT PREDICTION: m99 at 10/1 and the measured loading setup predicts 18.40/29.34 (c61c1a72306f2ee37df8), below measured 5/1 endpoints 19.91/32.37. Quantile widths are only 1.03/1.78. Failed historical declines elsewhere make this an informative prospective shape question despite small widths, without establishing a candidate error.\nCURRENT QUANTILE DIAGNOSTICS: 0e1077de5484a2b63b08 has V1 q10/q50/q90 4.69/5.38/4.89 despite positive width 0.20. a47a3987d45e7c542d38 has negative V1 width; ce39d1762993bbbafaca has V2 q10 above q50. Ordering defects require fresh inspection after retraining; numerical width does not establish calibrated uncertainty.",
+    "candidate_scientific_questions": "Does the latest pyridyl-ketone correction transfer appropriately to pyridyl esters and phenylpyridines? Are remaining predicted solvent-response declines real or recurring extrapolation failures? Can hydroxy-ether and amino-ketone labels distinguish connectivity-specific explanations? Would a focused m173 comparison resolve an interaction that the model can learn? How much additional ordinary graph coverage is available after discounting duplicate inputs?",
+    "possible_model_blind_spots": "INFERENCES: Severe errors include retention-level, solvent-slope and interval-width failures; a single bias correction would mix distinct problems. Sparse measured ratios can leave a molecule poorly covered even when similarity is 1. ML AND CHEMICAL PRIORS: Local smoothness, structural transfer, adsorption accessibility and injection effects motivate comparisons, but none independently establishes candidate truth or the mechanisms behind unusual records. The m73 conflict especially cautions against propagating one anomalous anchor across related graphs.",
+    "possible_learning_bottlenecks": "Persistent flat loading responses suggest weak condition-feature use, inadequate scaling or insufficient graph-by-condition interactions; the packet does not identify the cause. More loading triplets may have low marginal value until existing differences can be expressed. Diagnose endpoint residuals alongside derived center and interval residuals: m66 requires several corrections, whereas m194 predominantly exposes completion-response failure. Observed-only cross-fitting could distinguish graph transfer from ratio interpolation; keep exact-input replicates together and group whole molecules for graph-transfer checks. Inspect condition encoding, feature routing, scaling and output transformations using this trajectory alone. Better training fit or quantile ordering does not establish generalization.",
+    "coverage_or_redundancy_concerns": "Across the supplied pool, repeated loading grids coexist with unmeasured amino ketones, substituted cyclic ketones, hydroxy ethers, aromatic ketones, esters and haloarenes. Familiar short- and moderate-retention examples remain relevant to the Row objective; large recent nitrogen residuals do not justify concentrating all information gathering there. Group redundancy by molecule and all five condition fields: d268d676bd6d324ae708 and 05fe6f157ca6ce0374d7, for example, encode identical m100 inputs. Preserve catalog multiplicity for Row representativeness while discounting repeated information. Tiny density or mass differences add little coverage. m90 has only a pure-EA label and m211 only a 2/1 label despite similarity 1. Extreme cw distance, broad onset quantiles or extreme predicted retention alone need not imply high learning value. Further repeats need an ambiguity they could resolve.",
+    "particularly_informative_candidates": "Advisory examples, not a batch; all endpoint values below are current predictions in mL.\n6f827d26c4f82a1bfa90 and b51b5dbcd2a38b174973: m90 at 1/1 and 5/1, fixed 166.05 mg and DCM 300 uL, predicts 8.46/27.83 and 46.45/106.71. Measured pure-EA anchor f868ccbcbf392038fe36 is 6.71/14.27. Tests transfer from pyridyl ketone to pyridyl ester.\n292e0342682192a69fce and d119d77f545c029deace: m211 at 5/1 and 10/1, fixed 54.3 mg and DCM 300 uL, predicts 20.42/34.37 and 36.26/60.31. Measured same-setup 2/1 anchor ecd17c7ea435a1e33f6b is 8.14/13.44. Tests steep transferred nitrogen response against a graph-specific moderate response.\nad67d712133eac45ff64 and c61c1a72306f2ee37df8: m99 at 2/1 and 10/1, fixed 100 mg and DCM 1000 uL, predicts 9.18/16.61 and 18.40/29.34. Existing 1/1 and 5/1 labels make these complementary interpolation and extension questions; the latter tests a decline with narrow reported quantiles.\n4ee22742c686bdbb1cb9 and 71abc36775b6cce56da7: unmeasured hydroxy-ether m120 at 2/1 and 5/1, fixed 55.65 mg and DCM 300 uL, predicts 11.63/21.60 and 18.63/38.05. Adds connected hydroxyl/ether coverage after differentiated alcohol feedback; cross-molecule injection differences remain confounders.\n762190c8d9f5b2d1a89a and 183af335033005f96b97: unmeasured aminoacetophenone m36 at 1/1 and 2/1, fixed 38.5 mg and DCM 900 uL, predicts 6.25/17.24 and 7.43/22.48. Tests an aniline-plus-ketone environment where a blanket ring-nitrogen correction is unjustified.\n738d61dd88e0a9cf650d and afcd617fb4de453e8475: unmeasured chlorobenzophenone m176 at 5/1 and 10/1, fixed 100 mg and DCM 600 uL, predicts 6.31/15.81 and 6.70/17.93. Supplies ordinary aromatic-carbonyl graph coverage connected to measured diaryl ketones.\ne3a799d0fa90b649a157: m94 at 20/1, 117.4 mg and DCM 300 uL, predicts 29.19/65.10. Same-setup 5/1 and 10/1 labels and acquired m82 20/1 feedback make this a direct beta-ketoester response-transfer test.\n1e971da91b3a8229f0e0: m173 at 5/1, 124.75 mg and DCM 1500 uL, predicts 13.94/62.89. Comparison with observed 1e775e7d8dcbf48fd6f8 at 2000 uL extends the ratio-by-plug comparison. Value depends on resolving that interaction; broad onset quantiles alone are insufficient justification.",
+    "warnings": "Only observed-table IDs supply measured evidence. Eligible records remain prediction-only even when physical inputs match observations. Historical signed errors are prediction minus measurement; adaptive acquisition residuals do not estimate unbiased overall Row error. V2 minus V1 is elution interval width, distinct from predictive quantile width. The slightly reversed measured m195 interval in a917c928912c74862968 requires endpoint-definition awareness. Repeated memory summaries are not additional measurements. No validation/test truth, future labels, other seeds or other methods were used."
+  }
+}

@@ -1,0 +1,270 @@
+{
+  "type": "selection",
+  "packet_sha256": "efe38f581fac8d8484f6963c3f31655061b99d2d789c7273b1194eb9590caf06",
+  "batch_strategy": "Freeze these 32 candidate IDs and their supplied premeasurement predictions together. Prioritize endpoint-specific failure repair, matched amount and solvent-ratio contrasts, and three targeted repeats that distinguish condition relationships from within-tuple variability. Explore predicted early-ratio maxima in neutral aromatic ethers. Treat quantile widths and CW distance as secondary signals, without assuming calibrated epistemic uncertainty.",
+  "choices": [
+    {
+      "id": "9ef318afb1f6bac186ff",
+      "reason": "m118, pure EA, 150 uL: predicted 5.55/10.55 mL. Recent 1/1 observation 966254b5be3c8ec5edd3 measured 5.32/41.55, whereas matched-amount 2/1 observation 4e7e45a513ce579c5ce3 finished at 12.63. This boundary measurement tests whether broad completion extends toward pure EA or is localized near the surprising row.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "0afe12e53e575503e3f0",
+      "reason": "m118, pure EA, 50 uL, pairs with the selected 150-uL point despite almost identical predictions. It tests whether any boundary completion expansion depends on amount. The inconsistent-looking low-amount 10/1 observation 2cc254396123c76b9a13 cautions against transferring a single unusual label across this graph's condition surface.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "a539b04b0ab3606e7dd3",
+      "reason": "m4, 2/1, 50 uL, supplies the amount contrast to recent 150-uL observation 032d9fbb133dff53e005, measured at 4.18/19.73. At 1/1, 05532ff0857a33a604d0 and 9aadc8feed825d13a5d7 already differ substantially in completion across amount. This tests whether that association persists at 2/1.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "5a0302cc67b1fd69b7cd",
+      "reason": "m4, 1/1, 100 uL, bridges measured 50- and 150-uL completions of 12.52 and 18.51 in 05532ff0857a33a604d0 and 9aadc8feed825d13a5d7. Its 14.13-mL completion prediction tests interpolation where the model still represents amount contrasts weakly.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "111bfd60a27716526dc8",
+      "reason": "m4, 5/1, 150 uL: the predicted completion is 12.59 mL, below measured 1/1 and 2/1 completions of 18.51 and 19.73 in 9aadc8feed825d13a5d7 and 032d9fbb133dff53e005. This tests whether a completion decrease actually occurs farther along the ratio curve after the previously predicted 2/1 trough failed.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "61da71e94577a4d66028",
+      "reason": "m4, pure EA, 150 uL, closes the boundary contrast against measured 1/1 row 9aadc8feed825d13a5d7 and low-amount pure-EA row ef2fd58510bc9f4386a5. The 11.38-mL completion prediction tests whether the high-amount expansion disappears at the strongest eluent or remains underrepresented.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "9845fd896eb72b0e149f",
+      "reason": "m28, 1/1, 150 uL, extends the matched-ratio amount series from 686562279e2bfb73ef1e and 0d18f3f10c8377d12316, with completions of 12.50 and 18.71 at 50 and 100 uL. It tests completion growth separately from onset, complementing the 5/1 amount contrast in bfbe491a54086b98874d and 050e2fab4b407ea058cb.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "a595d5f1882c39914392",
+      "reason": "m19, 1/1, 50 uL, tests whether the strong onset-versus-amount association established at 2/1 by 6d21e9ec887b3408c612, 304fb0fdb486ae4b7a07 and 906bd247e050658f99d8 persists in stronger eluent. Together with the selected high-amount point and measured 100-uL row 9a60cb4735780275034e, it defines a complete local amount series.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "97297c71a28a2ccbdeeb",
+      "reason": "m19, 1/1, 150 uL, completes the selected amount contrast. The model predicts essentially the same endpoints as at 50 uL, while measured 2/1 onsets fall markedly with increasing amount. This discriminates a regime-dependent loading association from a response that transfers across adjacent ratios.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "a2c9096e1ec2e5c244d6",
+      "reason": "m72, 1/1, 100 uL, PE 300-uL loading, matches measured DCM 200-uL row d90d024730eb01bff3c7 in molecule, ratio and amount. Recent low-amount protocol observations 6a53fc46345dc50021ae and d2472f692763fd970d64 differed despite nearly identical predictions. This tests whether that joint protocol difference reproduces at another amount.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "4df0734ab058c0eeed78",
+      "reason": "Repeat the m72, 1/1, 50-uL, DCM 200-uL tuple. Observation 6a53fc46345dc50021ae measured 3.53/10.60, substantially earlier than the 100- and 150-uL DCM rows d90d024730eb01bff3c7 and 017b0f98188f8ff58935. A repeat directly tests whether the low-amount endpoint shift is reproducible before teaching a protocol interaction.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "f48457461a7af6a98587",
+      "reason": "Repeat m184 in pure EA at 100 uL. Observation 588b182228e5400a3c7a measured 5.59/9.81, below both 50-uL row 2490762d0471bbb9cc9f and 150-uL row 8435ac7ac5c9c8c37de2. This is the most direct available test of a nonmonotonic amount feature versus within-tuple variability.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "71eae942541acd0523cb",
+      "reason": "m123, pure EA, 50 uL, anchors a fixed-amount three-ratio experiment. The predicted completion is 8.17 mL, compared with 21.09 at selected 1/1 and 11.27 at selected 2/1. Measuring the boundary helps determine whether the predicted early-ratio maximum is reproducible.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "1b610fb92b30df5ca03f",
+      "reason": "m123, 1/1, 50 uL, targets the predicted 21.09-mL completion maximum and the highest supplied CW distance. Existing same-amount weak-eluent observation 832eaa9c6b2f7a68f2a5 finished at 23.16. The selected neighboring ratios make this a response-shape test rather than acquisition based on distance alone.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "7e327de3d5f5fcab9a7e",
+      "reason": "m123, 2/1, 50 uL, tests the predicted completion decrease after 1/1 while holding amount and loading protocol fixed. Together with the selected pure-EA and 1/1 labels, it can expose an interpolation artifact or teach a genuine endpoint-specific reversal in a neutral aromatic diether.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "bb586f37335be959683c",
+      "reason": "m126, 1/1, 100 uL, tests whether the analogous predicted completion maximum transfers from dimethoxybenzene m123 to anisole. Its 13.66-mL prediction exceeds matched-amount 2/1 observation 0f694957922ad0e10db2, measured at 8.98. This provides a structural comparison with only one additional label.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "3d4f7f7de9025ed645c9",
+      "reason": "m91, 2/1, 50 uL, changes only ratio from recent 1/1 observation fa59cd65f3b5f04bd6af, measured at 7.80/11.80 after completion was underpredicted by 4.63 mL at acquisition. It separates solvent-response curvature from the amount confounding in existing 100-uL observations 02ddeed8a16d3adf3e28 and d603d4af5fd62fa8b85e.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "8f683baab6101dc15006",
+      "reason": "m182, 1/1, 150 uL, tests the transition from recent pure-EA observation 9948433906d4afa41345, which finished at 20.41. Low-amount 1/1 row 52b474514f1e9ba6c4d2 finished at 11.80. This distinguishes a boundary reversal shared across amounts from an amount-associated completion difference.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "cfa75012f38a3f8f45d1",
+      "reason": "m131, 2/1, 150 uL, extends the matched-amount early-ratio sequence from pure-EA row 6ddb6596285d680135c6 and recent 1/1 row a78f7bae6726f8eb382a. Paired with the selected diphenylmethane experiment, it tests how a diaryl carbonyl environment changes completion growth without assuming a universal aromatic correction.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "fdab71468651c1f40792",
+      "reason": "m214, 2/1, 150 uL, follows recent 1/1 observation 06906310911a5a7509dd, measured at 4.32/7.72 after acquisition-time completion overprediction of 4.25 mL. Its 9.58-mL completion prediction tests whether the early response persists and supplies a non-carbonyl comparison to m131.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "cfaceffb933d8cc2f151",
+      "reason": "m95, 1/1, 50 uL, brackets measured pure-EA row 9546040e1980860a8fe1 and 2/1 row 8d018e521e8e6bbc53c2. The latter's onset is much later than at higher amounts. This tests where methyl acetoacetate develops its amount-associated onset differences.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "598ca66d9a8305ded243",
+      "reason": "m95, 1/1, 100 uL, pairs with the selected 50-uL point despite nearly identical predictions. Measured 2/1 rows 8d018e521e8e6bbc53c2 and 8b6fc534edc07d5b79be differ in both endpoints across these amounts. The pair tests whether that relationship already appears at 1/1.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "5cc67d02b8fad1c648d6",
+      "reason": "m45, 5/1, 50 uL, starts a matched amount contrast for the carboxylic-acid context. At 20/1, b24f66ff77974f8ba6e1 and 53a9a2469f8d4ead8732 show substantially earlier onset at greater amount. This interior ratio tests where the association emerges, away from the invalid-order 50/1 record 129036e0bccc4ff7e848.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "d7bff2b52f60b5fad4bd",
+      "reason": "m45, 5/1, 150 uL, completes the acid amount contrast. Its predicted endpoints are essentially identical to the selected 50-uL point. The labels test whether the clear 20/1 amount association is regime-specific and provide a comparison to neutral and basic loading-response experiments.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "086c54fea97e433c7cd8",
+      "reason": "m87, 1/1, 100 uL, fills the early-ratio gap between measured pure-EA row 933e17d426dc7efc96b5 and 2/1 row 981a11d7d65c8e5597f9. This methoxybenzoate comparison helps determine whether the unusual m118 aldehyde completion reflects functional-group context rather than a broad methoxy-aromatic adjustment.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "4276fb99ccd1d4c70a06",
+      "reason": "m115, 1/1, 50 uL, completes an amount extension of the methoxyacetophenone boundary. Measured 100- and 150-uL rows 352465f62eba993148ee and aa4c0f940c011630a345 have similar completions but different onsets. This tests endpoint-specific amount transfer alongside the methoxybenzaldehyde and methoxybenzoate experiments.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "06c0c99f1cfb752ed34b",
+      "reason": "m81, 1/1, 150 uL, adds an early-ratio anchor for an aromatic beta-ketoester. Matched-amount 2/1 observation bee82d193ec1ce4fde27 finished at 7.93, while pure-EA and later-ratio observations can be broader. This tests a possible local contraction and contrasts aromatic beta-ketoester behavior with selected aliphatic m95.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "3233c0996a6126a9c036",
+      "reason": "Repeat m81, 2/1, 150 uL, to assess the short completion in bee82d193ec1ce4fde27. Same-tuple 5/1 observations a9500e468002e41eceeb and 5879dc8ccb560446d54c differ markedly in completion, so reproducibility matters before interpreting the selected 1/1-to-2/1 contrast as a response feature.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "6ef1e6b5c3a9ab2744e9",
+      "reason": "m138, 1/1, 150 uL, adds an amount contrast to recent low-amount row 9329c6709a6b676368cf. At 2/1, b2717fe0c14d406893ef and d32673e3284e67755674 have similar completions but different onsets. This tests whether that endpoint split extends to the neighboring ratio in a halogenated aromatic.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "232aec9a239a600317ab",
+      "reason": "m60, 1/1, 50 uL, fills a fixed-amount curve between pure-EA behavior and measured 2/1 row c9ad01493d938f825117. Together with 5/1 row 985361f6699d97f9464f and 10/1 row beda2205eedbe1688e1f, it constrains where retention begins to grow in a secondary alcohol.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "53280227ec79d55f1912",
+      "reason": "m67, 1/1, 50 uL, provides a comparison to selected m60 with the hydroxyl group adjacent to the phenyl ring. Measured m67 rows db5dcc7b864e0174fcbd and 2cf4f6424b85ab121943 establish later-ratio retention, while 6125098643b6e16e10e3 is only a prediction. This label tests early-ratio structural transfer without treating that candidate as evidence.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "3b41addf80b8138137db",
+      "reason": "m20, 2/1, 50 uL, tests a neutral ether-containing acrylate against measured high-amount row 65e1a58ab8e4aa2f1eb6. Comparing this contrast with the strong m19 tertiary-amine acrylate amount association tests whether loading-response learning transfers across closely related ester scaffolds with different heteroatom environments.",
+      "hypothesis_id": "H2"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Early-ratio completion responses depend on molecular graph and amount, and can differ from onset responses. Broad m4 and pure-EA m182 intervals coexist with early m214 behavior; a uniform upward correction for aromatic or hydrophobic compounds would erase useful distinctions.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "032d9fbb133dff53e005",
+        "9aadc8feed825d13a5d7",
+        "05532ff0857a33a604d0",
+        "9948433906d4afa41345",
+        "13aa7f454204d054a196",
+        "06906310911a5a7509dd",
+        "072ea9156cf6dd75519a"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Local ratio measurements can teach separate V1 and V2 relationships and prevent failure repair in one graph from producing systematic errors in related compounds.",
+      "next_discriminating_question": "Does high-amount m4 completion remain broad in pure EA and at 5/1, and do matched-amount m182, m131 and m214 measurements retain their distinct early-ratio response shapes?"
+    },
+    {
+      "id": "H2",
+      "content": "Amount associations vary by graph, solvent regime and endpoint. The m19 onset decreases strongly with increasing amount at 2/1, while m4 and m28 show completion growth near 1/1. These observed associations do not establish a universal or causal loading law.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "6d21e9ec887b3408c612",
+        "304fb0fdb486ae4b7a07",
+        "906bd247e050658f99d8",
+        "05532ff0857a33a604d0",
+        "9aadc8feed825d13a5d7",
+        "686562279e2bfb73ef1e",
+        "0d18f3f10c8377d12316",
+        "050e2fab4b407ea058cb"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Many candidate predictions are nearly invariant across amount. Matched contrasts can teach when onset, completion or both change, and when a relationship fails to transfer to a neighboring ratio or functional-group context.",
+      "next_discriminating_question": "Which amount associations persist at earlier ratios across the tertiary-amine acrylate, neutral beta-ketoester, acid, fused aromatic and methoxy-carbonyl contexts?"
+    },
+    {
+      "id": "H3",
+      "content": "The unusually broad m118 interval at 1/1 and 150 uL may reflect a localized structure-condition relationship or a variable record. Its extension toward pure EA remains untested and should be established before spreading a large completion correction across methoxy-aromatic compounds.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "966254b5be3c8ec5edd3",
+        "4e7e45a513ce579c5ce3",
+        "de833d1e7905f1cc3be9",
+        "ea004678fc850c759752",
+        "2cc254396123c76b9a13"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The latest acquisition-time V2 error was about 29 mL with relatively accurate onset. Boundary labels and related functional-group comparisons can constrain whether repair should be localized to completion, amount and ratio.",
+      "next_discriminating_question": "Are pure-EA m118 completions ordinary at both selected amounts, or does a broad interval reproduce at the boundary, and how does the early methoxybenzoate response compare?"
+    },
+    {
+      "id": "H4",
+      "content": "Joint loading-solvent identity and volume differences may matter for m72 near 1/1, but their effect may depend on amount and ratio and remains entangled with within-tuple variability.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "6a53fc46345dc50021ae",
+        "d2472f692763fd970d64"
+      ],
+      "contradicting_observed_ids": [
+        "0e3813ce35d9e31ef276",
+        "eb798a5ccfb1f429a724"
+      ],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The predictor gives almost identical endpoints to the two protocols. A repeat and a matched contrast at another amount can distinguish an overlooked recorded relationship from a localized variable result. The design does not isolate solvent identity from loading-solvent volume.",
+      "next_discriminating_question": "Does the early DCM-loaded 50-uL result reproduce, and does PE versus DCM loading produce a corresponding difference at 100 uL and 1/1?"
+    },
+    {
+      "id": "H5",
+      "content": "The predicted V2 maxima near 1/1 for neutral aromatic ethers m123 and m126 could be reproducible solvent-response features or interpolation artifacts. The supplied widths do not determine which explanation is correct.",
+      "basis": "model_behavior",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "A fixed-amount ratio triplet tests response shape directly, while the anisole measurement tests transfer to a simpler graph. These labels cover ordinary neutral chemistry where surprising predictions could otherwise remain unchallenged.",
+      "next_discriminating_question": "Does m123 completion rise from pure EA to 1/1 and then fall at 2/1, and does anisole show a similar excess over its measured 2/1 completion?"
+    },
+    {
+      "id": "H6",
+      "content": "The pure-EA m184 response at 100 uL is lower than at both 50 and 150 uL. This may be a reproducible nonmonotonic amount relationship or within-tuple variability; smooth amount interpolation is currently unsupported.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "2490762d0471bbb9cc9f",
+        "588b182228e5400a3c7a",
+        "8435ac7ac5c9c8c37de2"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A targeted repeat can prevent a single low result from becoming an unjustified amount feature or, if reproduced, provide evidence for a graph-specific departure from smooth interpolation.",
+      "next_discriminating_question": "Does another eligible record at the same 100-uL pure-EA tuple reproduce the earlier onset and completion?"
+    }
+  ],
+  "feedback_interpretation": "The latest labels strengthen conditional, endpoint-specific reasoning. For m4, the predicted 2/1 completion trough at 150 uL failed: 032d9fbb133dff53e005 finished at 19.73 mL, slightly later than the 18.51-mL 1/1 result. The new 50-uL 1/1 completion of 12.52 supports an amount-associated expansion, so the next measurements separate amount interpolation from ratio curvature. For m19, 6d21e9ec887b3408c612 strongly supports earlier onset with greater amount at 2/1, but the three completions are approximately 32.8\u201335.0 mL and are not monotonically ordered; I therefore weaken the earlier suggestion of a general opposing completion trend. The m28 low-amount 1/1 result likewise makes amount dependence more plausible than a shared boundary reversal. The new m184 100-uL pure-EA result falls below both neighboring amounts, increasing the value of a repeat over another ordinary adjacent-ratio measurement. The m72 protocol pair differed at low amount, whereas the measured 2/1 pair was similar; this supports testing context dependence without assigning the difference solely to solvent identity. The m118 acquisition-time V2 underprediction of 29.00 mL is the strongest new failure, but nearby observations are too irregular to justify a broad upward correction. Pure-EA m182 remained broad at high amount, while m214 and m69 remained relatively early, further weakening universal aromatic-tail corrections. Recent m86 and amino-nitrile interior predictions were reasonably close, reducing the priority of more neighboring rows there. All error statements refer to acquisition-time predictions, not current-model residuals.",
+  "batch_rationale": "The batch turns recent failures into local experiments with interpretable alternatives. The m4 ratio and amount measurements, m118 boundary pair, and m182/m131/m214 contrasts target completion failures while preserving graph-specific counterexamples. Amount experiments span basic, neutral and acidic environments because the supplied observations support different onset and completion associations across those contexts. The m123 triplet and anisole anchor explore a predicted response maximum in neutral ether chemistry, extending coverage beyond the latest high-error molecules. Methoxy-carbonyl and alcohol comparisons test structural transfer in regions that connect early elution to later retention growth. Three repeats have specific roles: m72 assesses a new low-amount/protocol result, m184 tests a dip between neighboring amounts, and m81 assesses a short interval before interpreting adjacent-ratio curvature. Other duplicate candidate tuples are avoided. Several labels are expected to be ordinary; their value is to constrain where a correction should stop. The numerous zero V2 q10 values and some crossed V1 quantiles make interval widths unsuitable as a primary acquisition ranking in this packet. This design should improve conditional V1/V2 relationships and generalization across the Row-distribution without pursuing large elution volumes or better chromatographic performance. Unrecorded variables and within-tuple variation remain possible explanations where the local relationships do not reproduce."
+}

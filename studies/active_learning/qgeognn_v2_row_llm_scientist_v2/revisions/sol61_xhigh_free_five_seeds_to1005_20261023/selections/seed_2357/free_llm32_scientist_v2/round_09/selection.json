@@ -1,0 +1,261 @@
+{
+  "type": "selection",
+  "packet_sha256": "edbf1067add11b471c445cc669b3a3a70194a8ef6ba68572d5bd1613dedfbae3",
+  "batch_strategy": "Explore undercovered chemical families and condition regimes while adding matched condition or loading contrasts for several molecules. The batch emphasizes broad predicted endpoint ranges, polar and donor-rich scaffolds, aryl carbonyl controls, and a few low-width controls to constrain transfer.",
+  "choices": [
+    {
+      "id": "53a9a2469f8d4ead8732",
+      "reason": "High-width acid-containing scaffold at strong solvent and high loading probes a retention regime with limited matched coverage and can improve endpoint extrapolation.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "6ec710c7602a3cf9c5cb",
+      "reason": "Stronger-eluent aryl ketone control helps anchor ordinary carbonyl behavior against the scaffold-specific aryl-carbonyl failures in ed763ea5943e63a671c9 and 7155ede91e7e3232862a.",
+      "hypothesis_id": "H11"
+    },
+    {
+      "id": "3774a4dac6dd0f01d48d",
+      "reason": "High-width m161 condition extends the positional amino-nitrile series and tests whether the severe completion error at 17902fa9c7f8ea9b456e transfers to stronger loading and weak eluent.",
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "199cdd47b9f05e12aaa1",
+      "reason": "m122 at high PE fraction and low loading samples an underrepresented anisole-like aromatic regime and provides a condition anchor for distinguishing broad solvent effects from carbonyl-specific effects.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "4d07777ffa2c1d2f6254",
+      "reason": "m108 at 2/1 fills an intermediate condition in the aryl-carbonyl response region and can constrain transfer between the measured modest baseline 51e19edd60643f4e0804 and more responsive related scaffolds.",
+      "hypothesis_id": "H11"
+    },
+    {
+      "id": "44500edb95a3649adf91",
+      "reason": "m142 at 1/1 provides a stronger-eluent aldehyde baseline, testing whether the family remains early before weak-eluent response corrections are applied.",
+      "hypothesis_id": "H11"
+    },
+    {
+      "id": "caf9131e01751f4c90d4",
+      "reason": "Dibromo aldehyde at 50/1 samples a halogenated carbonyl regime with potentially different endpoint width from the measured aryl-carbonyl rows, improving scaffold-boundary coverage.",
+      "hypothesis_id": "H11"
+    },
+    {
+      "id": "b4297351c9b7fbdb8e4c",
+      "reason": "Methyl benzonitrile at 1/1 is a lower-polarity nitrile control that helps separate generic nitrile effects from the much stronger amino-nitrile failures.",
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "2a7062ac85d66260b3be",
+      "reason": "Phenolic fluoroether at 0/1 supplies a strong-eluent donor/acceptor anchor for polar aromatic retention and tests whether the model overextends late-response corrections.",
+      "hypothesis_id": "H14"
+    },
+    {
+      "id": "96bcae6dcf065b7ad6fc",
+      "reason": "m187 at 1/1 provides a stronger-eluent baseline for a halogenated aldehyde family whose weak-eluent behavior has shown scaffold-specific deviations, including ff5dce68c6a7c86f1e2b and 66922742441393a87729.",
+      "hypothesis_id": "H11"
+    },
+    {
+      "id": "638920730c17fcaca9ca",
+      "reason": "Anisole at 10/1 and high loading is a noncarbonyl aromatic control that tests whether predicted solvent response is being driven by aromaticity alone.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "ed355695f0ef084a0736",
+      "reason": "Simple chloroalkylbenzene at 1/1 provides a low-polarity control for condition and loading effects, limiting propagation from polar high-width rows.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "ad0c1e52e2dd98a268bb",
+      "reason": "Bromoalkylbenzene at 10/1 adds nonpolar aliphatic-aromatic coverage at moderate loading and helps calibrate the ordinary retention baseline.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "dbbc2379c8fb4e64f3d6",
+      "reason": "Stilbene at 1/1 is a nonpolar unsaturated aromatic control for separating hydrophobic retention from heteroatom-driven late responses.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "cbe7e55e896b42820ba5",
+      "reason": "A second m209 loading/solvent point complements the strong-eluent m209 experiment and tests whether phenolic ether retention changes smoothly with condition.",
+      "hypothesis_id": "H14"
+    },
+    {
+      "id": "77dcc64e3f31b0758f91",
+      "reason": "High-MW aryl iodide ether at 1/1 adds halogenated aromatic coverage with low predicted width, serving as a useful control for size-driven retention.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "e6aa01e185a9653117cd",
+      "reason": "Indene at 20/1 and low loading provides a nonpolar fused-aromatic strong-solvent control for condition-response calibration.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "70c04b4ba614e99cbc29",
+      "reason": "Naphthalene at 1/1 and 100 ul supplies a matched loading comparison to the 0/1 naphthalene point, allowing the model to learn a simple aromatic condition response.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "cbda6eb2f1c43371ac4d",
+      "reason": "Bromomethyl anisole at 0/1 and high loading adds ether-containing aromatic coverage without a carbonyl, testing whether heteroatom count alone predicts late elution.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "4ed4c718fae143eacb1a",
+      "reason": "The second m215 condition forms a loading contrast with 70c04b4ba614e99cbc29 and can teach the model whether nonpolar fused-aromatic retention is loading sensitive.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "fde9781e6b15ffbe093f",
+      "reason": "m59 at 10/1 and moderate loading probes a heteroatom-rich aldehyde-like scaffold in an intermediate-width regime, complementing the broader polar aromatic failures.",
+      "hypothesis_id": "H14"
+    },
+    {
+      "id": "9bd998a328b109ef639e",
+      "reason": "m125 at 1/1 and high loading supplies a stronger-eluent point for a scaffold with large observed condition-dependent errors, including 761c3f82d640da44966c and 4c32851430464f0ed684.",
+      "hypothesis_id": "H14"
+    },
+    {
+      "id": "e514cee27f046099a732",
+      "reason": "Iodothiophene at 2/1 adds heteroaromatic coverage with a relatively compact predicted interval, helping distinguish heteroatom identity from the highly polar aromatic regimes.",
+      "hypothesis_id": "H14"
+    },
+    {
+      "id": "6f548d72f01fc85debdc",
+      "reason": "m141 at 10/1 and high loading targets a high-width heteroaromatic response regime and tests transfer from the measured late m90 and m88 families.",
+      "hypothesis_id": "H14"
+    },
+    {
+      "id": "9e6c69af6f5142faa049",
+      "reason": "m119 at 2/1 and high loading probes donor-rich alcohol retention and complements the strong loading dependence observed for related donor-containing scaffolds.",
+      "hypothesis_id": "H13"
+    },
+    {
+      "id": "d9286f3f450c7cca4a86",
+      "reason": "m81 at 0/1 and low loading is a modest beta-ketoester control that helps preserve linkage-specific behavior while neighboring ester families receive corrections.",
+      "hypothesis_id": "H12"
+    },
+    {
+      "id": "51e19edd60643f4e0804",
+      "reason": "m108 at 5/1 and low loading forms a condition/loading contrast with the selected 2/1 point and the measured modest response at this scaffold, directly testing aryl-carbonyl response curvature.",
+      "hypothesis_id": "H11"
+    },
+    {
+      "id": "316b7260106904f99ae8",
+      "reason": "m191 at 5/1 and high loading samples a dialdehyde-like polar carbonyl regime with broad expected endpoint coverage and tests whether completion errors are scaffold specific.",
+      "hypothesis_id": "H14"
+    },
+    {
+      "id": "ae377e903c7cb2c36b71",
+      "reason": "Bromobenzonitrile at 10/1 and high loading extends nitrile coverage without an amino donor, providing a discriminator for the amino-nitrile hypothesis.",
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "05ae46c25f5bd347b3a1",
+      "reason": "m26 at 5/1 and low loading adds a beta-diketone/aryl carbonyl point that can be compared with the observed beta-ketoester completion failures and controls.",
+      "hypothesis_id": "H12"
+    },
+    {
+      "id": "988724a9391bf1618fda",
+      "reason": "m205 at 0/1 and moderate loading anchors the stronger-eluent side of the donor-rich fused-scaffold response measured at 91b6bda771851a5c78ac, 48853fd78c77153b963a, and cdf40bcb3f4392f8d7d1.",
+      "hypothesis_id": "H13"
+    },
+    {
+      "id": "dd7b5675d35297fb2cf2",
+      "reason": "m79 at 2/1 provides an ester-family control at intermediate solvent strength and helps constrain whether broad completion corrections should transfer to simpler ester linkages.",
+      "hypothesis_id": "H12"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H8",
+      "content": "Polar nitrile and amino-nitrile scaffolds require connectivity-specific endpoint corrections; positional isomers and non-amino nitriles should not share one retention offset.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "c4bb286978fe9078a303",
+        "b4e0e9dc92fca2c88b90",
+        "17902fa9c7f8ea9b456e",
+        "0ced19fd8372ed93361c",
+        "b21061720e23b7a5bdcb",
+        "2a4de703709973e74dd2"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "This family contains large onset and completion failures and is common enough that scaffold-specific corrections can improve many rows without imposing a global polarity offset.",
+      "next_discriminating_question": "Do lower-polarity nitriles remain modest while amino-nitrile positional isomers retain their large completion excess?"
+    },
+    {
+      "id": "H11",
+      "content": "Aryl carbonyl response amplitude is highly scaffold specific across substitution, side-chain, and loading context.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "ed763ea5943e63a671c9",
+        "7155ede91e7e3232862a",
+        "8b18117ded9c488721a3",
+        "e41d3fe370d4a57960e2",
+        "9b11493847c035abf800",
+        "ff5dce68c6a7c86f1e2b",
+        "66922742441393a87729"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched aryl ketone and aldehyde controls can prevent recent corrections from spreading across chemically distinct carbonyl rows.",
+      "next_discriminating_question": "Do stronger-eluent and lower-loading points preserve the contrast between modest m169/m187-like behavior and the larger m106 response?"
+    },
+    {
+      "id": "H12",
+      "content": "Beta-ketoester, diketone, and related ester families need linkage-specific response curves, with completion sometimes changing independently of onset.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "b6017da51a674177d16d",
+        "0af9d219be9872711215",
+        "5fd49a50595624496938",
+        "74701496b6fc5465eea7",
+        "08155ffdcb0d27576050",
+        "57646b9484b03f4076bb",
+        "d448d8de2d8dacec62c3"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Controls and related carbonyl points can define where broad completion corrections stop transferring within a common catalog family.",
+      "next_discriminating_question": "Do simpler ester linkages remain modest while beta-keto and aryl-diketone linkages develop broad completion intervals?"
+    },
+    {
+      "id": "H13",
+      "content": "Donor-rich alcohol and fused-aromatic scaffolds have connectivity- and loading-specific late responses rather than one shared donor offset.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "91b6bda771851a5c78ac",
+        "48853fd78c77153b963a",
+        "fe69b1dbb4d976f830cd",
+        "cdf40bcb3f4392f8d7d1",
+        "b37608f8c4a8ee4b8696",
+        "3e78a776ac9b885d378a"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The selected donor-rich controls test whether late response features transfer across fused-ring and side-chain connectivity.",
+      "next_discriminating_question": "Which part of the late response is shared between donor-rich fused scaffolds after loading and solvent strength are controlled?"
+    },
+    {
+      "id": "H14",
+      "content": "Polar heteroaromatic and aromatic carbonyl scaffolds occupy several endpoint-specific retention regimes, so one broad high-polarity correction would be harmful.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "96710afeabc594baa359",
+        "27d20ccfd8f7234015f4",
+        "c4bb286978fe9078a303",
+        "d448d8de2d8dacec62c3"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The catalog contains many high-width polar rows; matched controls can teach the model whether uncertainty reflects a shared interaction or separate scaffold mechanisms.",
+      "next_discriminating_question": "Do high-width heteroaromatic rows share a condition response, or do connectivity and loading determine distinct onset and completion regimes?"
+    }
+  ],
+  "feedback_interpretation": "Recent outcomes support continuing local response modeling. m199 now shows a graded weak-eluent rise; m13, m160, and m161 confirm large but connectivity-dependent polar-nitrile errors; m120 and m75 show loading-dependent reversals; and m127 continues to show endpoint decoupling. The m106/m169 contrast and the m31 result argue against broad aryl-carbonyl corrections. This batch therefore shifts additional measurements toward undercovered heteroaromatic, donor-rich, aldehyde, ester, and nonpolar control regimes while retaining a few matched condition and loading contrasts.",
+  "batch_rationale": "The batch combines targeted repair with coverage of chemical regions that remain less constrained. m161, m108, m187, m141, m119, m81, m26, m205, and m79 test specific response families supported by prior measurements. Paired m108 and m215 points add local condition or loading contrasts, while nonpolar aromatics, simple halides, nitriles, and ethers provide controls that limit transfer of polar corrections. Broad predicted endpoint ranges in m45, m59, m125, m191, and related scaffolds sample high-impact model regions. These labels should improve generalization by separating scaffold effects from solvent-strength, loading, and endpoint-specific behavior across the Row-distribution."
+}

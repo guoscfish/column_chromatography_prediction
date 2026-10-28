@@ -1,0 +1,289 @@
+{
+  "type": "selection",
+  "packet_sha256": "8023248a86b9c54af47b83907825eccf545237019cedcc0780702d6f1efd76b2",
+  "batch_strategy": "Select anchored solvent-response experiments that scope recent failures, extend informative structural comparisons, and resolve a few consequential loading contrasts. Freeze all 32 IDs and their exact supplied packet predictions before measurement; prediction values in reasons are rounded only for readability. Repeated molecules form condition contrasts, and no identical recorded condition tuple is selected twice.",
+  "choices": [
+    {
+      "id": "7155ede91e7e3232862a",
+      "reason": "m106 at 10/1, 100 ul, predicted 30.51/60.54 mL, fills the loading-matched interval between ed763ea5943e63a671c9 at 1/1 (6.22/10.54) and b1c5816f929ef59f5a87 at 20/1 (41.72/79.81). The latter exposed a large historical underprediction. This point tests whether retraining learned response curvature rather than merely a late endpoint.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "5b445b457a8b897a2d6c",
+      "reason": "m94 at 10/1, 150 ul is predicted at 21.71/45.16 mL. Observed a1809a6c4c3ada20bcb0 and e3a799d0fa90b649a157 show substantial 5/1-to-20/1 growth at 100 ul. This intermediate point tests where that growth occurs, with the loading difference explicitly limiting attribution to solvent ratio alone.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "5fd0921bbbba1e22abf9",
+      "reason": "m95 at 50/1, 150 ul, predicted 21.08/58.58 mL, extends the fixed-loading curve beyond 35944fdd59ac331c3fcb and d448d8de2d8dacec62c3. Those measured V2 values rose from 34.07 to 48.54 between 10/1 and 20/1. This tests whether the repaired response continues rising or approaches a plateau.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "74701496b6fc5465eea7",
+      "reason": "m25 at 50/1, 150 ul is predicted at 22.38/52.15 mL. Its matched 5/1 and 20/1 observations b6017da51a674177d16d and 0af9d219be9872711215 were less retained than previously predicted. Together with selected m95, this tests whether bulky ester substitution continues to restrict weak-eluent response.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "9603a9567c8b21458d1e",
+      "reason": "Phenylmalonate m75 at 10/1, 50 ul, predicted 9.64/19.63 mL, begins a fixed-loading response pair with selected 50/1. The matched 1/1 observation 98d079bcc13e1a200efe was only 3.80/5.90 mL. This separates response amplitude from a molecular offset in a scaffold with many repeated candidate rows.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "28e9fea3e3293f2b8a0e",
+      "reason": "m75 at 50/1, 50 ul is predicted at 17.84/44.51 mL. Paired with selected 10/1 and anchored by 98d079bcc13e1a200efe, it tests whether an alpha-phenyl diester develops substantial retention despite the modest measured plain-malonate response in 26df752cf7c0673db585. Its very high CW distance is secondary motivation.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "027bbff1ac308c5dd7a1",
+      "reason": "Bromomalonate m74 at 50/1, 100 ul, predicted 29.27/58.98 mL, extends matched observations c698c0c44dc3e81c2f47 at 5/1 and bfaadd073aa5a950f919 at 10/1, whose V2 values were 12.33 and 17.62. It tests the predicted acceleration and whether beta-ketoester corrections transfer appropriately to a halogenated diester.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "08155ffdcb0d27576050",
+      "reason": "Plain diethyl malonate m80 at 50/1, 100 ul is predicted at 8.58/14.34 mL. Its matched 20/1 observation 26df752cf7c0673db585 was only 5.85/7.51. This moderate-response control helps constrain transfer from selected m74/m75 and strongly retained beta-ketoesters across the many malonate candidate rows.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "57646b9484b03f4076bb",
+      "reason": "Benzoylacetate m81 at 50/1, 100 ul, predicted 4.96/17.61 mL, tests transfer of the early 50-ul observation f4a4fc4d6e4dea59b061 (4.93/16.83). That behavior contrasts strongly with m78 in eb3bc3fba39e57adbc2f. A loading contrast can determine how broadly the model should retain this exception within related beta-ketoesters.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "122ecf89b68742b1bf36",
+      "reason": "Para-fluoroacetophenone m34 at 20/1, 100 ul is predicted at 14.90/37.96 mL. It connects matched 2/1 and 50/1 observations 1e337f272ca5d688e8ff and c53b8c93f8ee1304dfd0, after the latter revealed substantial historical underprediction. The measured para-bromo 20/1 point f79cf892a214e3af8f61 provides a qualified analog comparison.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "c4b06a6e718225cb9cf8",
+      "reason": "Establish biphenyl alkyl ketone m68 at 5/1, 100 ul; prediction 5.00/13.77 mL and maximum labeled similarity 0.60. Its loading-matched selected 50/1 point distinguishes a scaffold offset from solvent-response amplitude. The modest propiophenone outcomes 05c8e4d5f25c1295f231 and 5307ce95bcee2886afe0 motivate testing acyl-side-chain transfer.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "9f362bfe1dab6e9eac3d",
+      "reason": "m68 at 50/1, 100 ul is predicted at 11.18/25.84 mL. The selected 5/1 companion tests whether the additional aromatic ring produces stronger response than the modest alkyl aryl ketones, without assuming transfer from late acetophenones. Observed e56c111af22d80f8d431 supplies a qualified long-chain aryl-ketone reference.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "e41d3fe370d4a57960e2",
+      "reason": "New terminal-chloro, para-fluoro aryl ketone m169 at 5/1, 100 ul is predicted at 9.93/20.09 mL, with maximum labeled similarity 0.48. Paired with selected 10/1, it tests structural transfer after m106's remote-ether failure. Related m170 observations bb8ba62a93aefa66d0f6 and 067c1cac53731e589c4b anchor a more modest response, with loading differences.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "9b11493847c035abf800",
+      "reason": "m169 at 10/1, 100 ul, predicted 14.53/31.56 mL, completes its fixed-loading pair. This tests whether the predicted rise is adequate for a new side-chain/ring combination, comparing with selected m106 at the same ratio while recognizing that ether, halogen placement, and loading mass differ.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "66922742441393a87729",
+      "reason": "Establish ortho-bromo, CF3-substituted benzaldehyde m187 at 5/1, 100 ul; prediction 6.37/13.32 mL and maximum labeled similarity 0.52. A matched selected 50/1 point separates baseline retention from response amplitude. The modest sterically crowded aldehyde observation c098b72af1f4e81425e7 motivates a qualified accessibility comparison.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "ff5dce68c6a7c86f1e2b",
+      "reason": "m187 at 50/1, 100 ul is predicted at 9.45/29.66 mL. Together with selected 5/1, it tests whether the model adequately transfers aldehyde substitution effects into weak eluent. Observed c5d46fe23a4cde01f738 and c32500e81a05cfd2273d show different endpoints for crowded halogenated aldehydes, although their loading conditions differ.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "7becf2ab3560ce93bfc8",
+      "reason": "New dimethylbenzaldehyde m134 at 50/1, 150 ul is predicted at 7.74/19.48 mL. The modest methylbenzaldehyde 20/1 observation 0f5a668aff17f4f3cc95 and the much later acetoxybenzaldehyde 351c17dfa8f46a8cb40a motivate testing whether a moderate response transfers to this substitution pattern; these are qualified, differently loaded references.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "abb2d31b1372dbd64398",
+      "reason": "New ortho-methylbenzaldehyde m145 at 50/1, 100 ul is predicted at 6.44/18.93 mL. It tests an accessible structural gap between methyl-substituted and ortho-halogenated aldehydes, with c5d46fe23a4cde01f738 as a qualified crowded-carbonyl reference. The selected m134 comparison also changes loading solvent and mass, so it is not a causal positional contrast.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "4a49effd313865c10fae",
+      "reason": "New anisole m126 at 50/1, 100 ul is predicted at 5.45/10.99 mL. Observed dimethoxybenzene a47a3987d45e7c542d38 and trimethoxybenzene b070c3657459c06a4df1 ended at 23.25 and 36.35 mL. This tests the simpler ether context and constrains overcorrection toward late polar aromatics; loading solvents and other loading conditions differ.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "f559a4634c60d81f5f15",
+      "reason": "m61 at 2/1, 100 ul is predicted at 12.46/17.41 mL. It extends the loading-matched moderate 5/1 result 994a1f65509549a84ede, after f15b726ca5b4897ed80c also failed to reproduce the late 5/1, 50-ul observation e75030664990b64e9c05. This scopes the ordinary stronger-eluent regime rather than propagating that isolated late point.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "4fb92bd1fab3ba235858",
+      "reason": "Remote tertiary alcohol m51 at 10/1, 50 ul is predicted at 26.98/47.37 mL. Its 5/1, 100-ul anchor 3e78a776ac9b885d378a was 15.32/29.42. The secondary remote alcohol at matched 10/1 loading in beda2205eedbe1688e1f provides a close mass and solvent comparison; the m51 anchor itself uses a different loading.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "17c1bb3be086a2b6ffec",
+      "reason": "Para-methoxyphenethyl alcohol m119 at 2/1, 100 ul is predicted at 21.80/37.25 mL. It locates the transition toward the loading-matched late 5/1 observation 776ee2c1e85ebde75168 (48.00/77.09). This tests where strong retention begins and limits treating that endpoint as an all-condition molecular offset.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "71abc36775b6cce56da7",
+      "reason": "Para-methoxybenzyl alcohol m120 at 5/1, 50 ul is predicted at 14.13/19.34 mL. It matches the loading of 4ee22742c686bdbb1cb9 at 2/1 (19.89/29.02), while e4fd83fb3852eb354a66 at 5/1, 100 ul was earlier. This tests whether the apparent turnover persists at fixed loading and distinguishes it from m119's late response.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "a3ae677aae8a8faf5786",
+      "reason": "m127 at 50/1, 100 ul is predicted at 6.89/25.98 mL. The 50- and 150-ul observations 52b9af4df1f1e7cd4d9b and c82167c626a1495ef750 had V1 of 11.65 and 1.01 but nearly identical V2 around 23.7. The intermediate loading tests whether this onset-specific contrast persists, without assuming loading caused it.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "27d50c1737f7940b2ab7",
+      "reason": "m133 at 2/1, 100 ul is predicted at 12.11/15.87 mL. It lies between the unusual 50-ul result a7a814c9db59a62411a2 (21.63/21.67) and the much earlier 150-ul result 5cc672fc502a8346577f (5.78/11.59). This tests the remaining loading neighborhood and helps contain propagation of the late observation to ordinary nonpolar rows.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "b3d9bb5afa82b99f2a11",
+      "reason": "Cyanoacetophenone m31 at 10/1, 50 ul is predicted at 20.22/47.54 mL and matches the loading of its 5/1 anchor 156594686f5cf7182bcc (13.01/32.28). It tests response growth in a second carbonyl-bearing nitrile after the large weak-eluent failure for m159 in a17bcdddcf0799baeee2, while respecting their different ketone linkages.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "8bef7f788af60df5e18a",
+      "reason": "Naphthaldehyde m195 at 50/1, 100 ul is predicted at 46.95/62.92 mL. Its 20/1 observation a917c928912c74862968 at 150 ul has nearly coincident, slightly reversed recorded endpoints, so it is an atypical anchor. This new ratio tests whether substantial weak-eluent retention is reproducible beyond that narrow observation.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "7c6e7b244de393e8554d",
+      "reason": "Bromonaphthaldehyde m196 at 50/1, 100 ul is predicted at 13.49/33.85 mL, far below selected m195. Its matched 2/1 observation b025092d9221340d484c anchors stronger eluent. Measuring both tests whether the predicted fused-aromatic substitution contrast transfers to weak eluent; different density-derived masses preclude assigning the difference solely to bromination.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "6a11b71a3fb682d5f6da",
+      "reason": "Dibenzylamine m212 at 1/1, 100 ul is predicted at 6.49/10.84 mL. It extends the curve below measured 2/1 and 5/1 observations f6c49d6bc4b677f17278 and 252c027cf5a42b92c953; the latter is loading-matched. Paired with selected pure EA, it tests a strong-eluent boundary for a secondary amine distinct from m19.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "ab4326dd3bd3b0e07f81",
+      "reason": "m212 in pure EA, 100 ul is predicted at 6.55/11.47 mL, slightly later than its selected loading-matched 1/1 point. The m19 outcome 309a91add8b07c02e65b retained V2 of 18.46 mL when a sharper collapse had been predicted. This pair tests whether m212's low, nearly flat boundary response is supported rather than assuming transfer across amine environments.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "b37608f8c4a8ee4b8696",
+      "reason": "Cinnamic acid m173 at 10/1, 100 ul in 1500 ul DCM is predicted at 18.77/81.24 mL. It holds recorded loading conditions fixed with 1e971da91b3a8229f0e0 at 5/1 (11.88/61.87). This tests onset and completion growth for a carboxylic acid, providing a donor context that should not automatically inherit alcohol or amine corrections.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "aa83ae83c0fa0cc37777",
+      "reason": "Diphenyl sulfoxide m199 at 10/1, 150 ul is predicted at 12.28/24.84 mL, little changed from matched 2/1 observation d49f2ae16cf70d54ccf4 (12.07/22.74). This tests the predicted shallow response for a distinct strong acceptor. Sulfoxide affinity for silica motivates the question but does not establish that its response must be steep.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "A few large local contrasts require condition-specific treatment rather than global loading or scaffold corrections. The late m61 5/1 observation did not transfer to higher loading or to 10/1; m127 showed a large loading-associated onset contrast with little completion change; the late m133 2/1 result did not persist at 150 ul. These observations do not establish loading as the cause or identify any record as erroneous.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "e75030664990b64e9c05",
+        "994a1f65509549a84ede",
+        "f15b726ca5b4897ed80c",
+        "52b9af4df1f1e7cd4d9b",
+        "c82167c626a1495ef750",
+        "a7a814c9db59a62411a2",
+        "5cc672fc502a8346577f"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "These contrasts can otherwise induce broad shifts across ordinary alcohol, ketone, and nonpolar-aromatic rows. Targeted neighboring labels can constrain their scope and distinguish endpoint-specific behavior from a common retention shift.",
+      "next_discriminating_question": "Is m61 moderate at 2/1 under 100-ul loading, and do intermediate 100-ul measurements for m127 at 50/1 and m133 at 2/1 support a loading-associated pattern or a more localized atypical observation?"
+    },
+    {
+      "id": "H2",
+      "content": "Weak-eluent response amplitude is strongly context-dependent within aryl ketones. Recent haloacetophenones and the remote-ether ketone m106 were substantially retained, whereas the measured meta-halopropiophenones remained modest. Carbonyl-bearing nitriles also differ from simple methyl nitriles. The available comparisons do not isolate substitution position, side-chain length, or ether connectivity as a single cause.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "b1c5816f929ef59f5a87",
+        "ed763ea5943e63a671c9",
+        "c53b8c93f8ee1304dfd0",
+        "a31d24ee8162e1eca101",
+        "605436d35600502e8c2e",
+        "05c8e4d5f25c1295f231",
+        "5307ce95bcee2886afe0",
+        "a17bcdddcf0799baeee2",
+        "63cda70afb5b740e4fa4"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "A common aryl-carbonyl correction would improve some rows while worsening others. Anchored intermediate points and paired new scaffolds can teach response shape and the structural limits of transfer across this extensive family.",
+      "next_discriminating_question": "Where does m106's retention rise occur, does m34 follow its bromo analog at 20/1, and do m68, m169, and cyanoacetophenone exhibit the predicted response amplitudes?"
+    },
+    {
+      "id": "H3",
+      "content": "Alcohol connectivity and condition-response shape need separate treatment. The measured m67 curve rises through 5/1, 10/1, and 20/1, but the new m61 neighbors are modest. Remote secondary and tertiary alcohols and the two para-methoxy alcohol connectivities provide distinct response contexts. In particular, the apparent m120 2/1-to-5/1 decrease remains confounded by loading.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "47f2e980caaa77baa535",
+        "2d11f1fe488a0c917ffe",
+        "c627405cf70a0daacc94",
+        "3e78a776ac9b885d378a",
+        "beda2205eedbe1688e1f",
+        "776ee2c1e85ebde75168",
+        "4ee22742c686bdbb1cb9",
+        "e4fd83fb3852eb354a66",
+        "f15b726ca5b4897ed80c"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The model needs to represent where a donor-containing scaffold develops strong retention and where that correction should be restricted. Intermediate and fixed-loading contrasts are more informative than another uniform donor offset.",
+      "next_discriminating_question": "Does remote tertiary alcohol m51 remain below the secondary analog at 10/1, where does m119's steep rise begin, and does m120's apparent turnover persist when loading is held fixed?"
+    },
+    {
+      "id": "H4",
+      "content": "The repaired positive response of simple acetoacetates is not a universal beta-ketoester or diester curve. Tert-butyl acetoacetate is less retained than earlier transfer predicted, alpha-benzyl m78 is very late at 50/1, and benzoylacetate m81 has an early 50/1 observation. Plain malonate remains modest at measured 20/1. Linkage and substitution must scope transfer; remaining weak-eluent boundaries are unresolved.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "cd2c80dae2f32a52732f",
+        "07a55cdab65b05f31561",
+        "d448d8de2d8dacec62c3",
+        "b6017da51a674177d16d",
+        "0af9d219be9872711215",
+        "eb3bc3fba39e57adbc2f",
+        "f4a4fc4d6e4dea59b061",
+        "e3a799d0fa90b649a157",
+        "26df752cf7c0673db585"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "These related molecules have large differences in response amplitude despite shared carbonyl motifs. The family also contains many repeated candidate rows, making calibrated transfer and preservation of modest-response exceptions useful for overall Row accuracy.",
+      "next_discriminating_question": "Do m95 and m25 continue rising at 50/1, where is the m94 transition, and how do phenyl-, bromo-, and unsubstituted malonates compare while m81's early endpoint is checked at another loading?"
+    },
+    {
+      "id": "H5",
+      "content": "Aromatic aldehyde substitution and structural environment may limit transfer of steep weak-eluent responses. Acetoxybenzaldehyde has a strong measured 5/1-to-10/1 rise, while methyl- and crowded halogenated aldehyde references can be much more modest. The predicted large m195/m196 contrast and responses of unseen methyl- and CF3/bromo-substituted aldehydes remain untested. The nearly coincident, slightly reversed m195 20/1 endpoints are an atypical recorded anchor.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "bfbe491a54086b98874d",
+        "351c17dfa8f46a8cb40a",
+        "0f5a668aff17f4f3cc95",
+        "c5d46fe23a4cde01f738",
+        "c32500e81a05cfd2273d",
+        "a917c928912c74862968",
+        "b025092d9221340d484c"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "New structural labels and weak-eluent extensions can prevent a correction from one late aldehyde from spreading across all aryl aldehydes, while identifying failures hidden behind moderate predictions.",
+      "next_discriminating_question": "Do the new substituted aldehydes retain their predicted moderate responses, and does naphthaldehyde remain substantially later than bromonaphthaldehyde at 50/1 despite their different loading masses?"
+    },
+    {
+      "id": "H6",
+      "content": "The sharp pure-EA completion collapse previously predicted for m19 was not supported: measured V2 remained 18.46 mL. Transfer of strong-eluent behavior to secondary dibenzylamine m212 remains unresolved, especially its currently predicted low and nearly equal 1/1 and pure-EA endpoints. Nitrogen environment is a chemical prior for distinct silica interactions, without assuming an unrecorded ionization state.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "309a91add8b07c02e65b",
+        "97297c71a28a2ccbdeeb",
+        "906bd247e050658f99d8",
+        "f6c49d6bc4b677f17278",
+        "252c027cf5a42b92c953"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The matched boundary pair tests whether the model can learn completion behavior across different amine environments rather than applying one strong-solvent endpoint contraction.",
+      "next_discriminating_question": "At fixed 100-ul loading, are m212's 1/1 and pure-EA V2 values both near 11 mL, and is the small predicted increase in pure EA reproducible?"
+    }
+  ],
+  "feedback_interpretation": "The latest outcomes substantially weaken the previous interpretation of m61 as a broadly late benzylic alcohol. Its 5/1, 50-ul label was 29.54/47.36 mL, but 10/1 at the same loading gave 11.11/15.86 and 5/1 at 100 ul gave 10.27/15.56. I retain all three observations and now scope that late result instead of extending it as a molecular correction. In contrast, m67's intermediate 10/1 label supported a rising local curve, and m51's 5/1 completion was close to its acquisition prediction. The early m133 and m136 2/1 outcomes further weaken a shared aromatic elevation. For m127, reducing loading at 50/1 changed onset markedly while leaving completion almost unchanged, making an intermediate-loading measurement useful without establishing causality.\n\nThe beta-ketoester feedback strengthens the need for restricted transfer: m25 rose from V2 16.69 at 5/1 to 39.22 at 20/1, but both were below previous predictions; m78 reached 99.03 at 50/1, well above its acquisition prediction. The haloacetophenones were also late, whereas both new meta-halopropiophenones were accurately predicted to remain modest. Their side-chain and positional changes are confounded, so I test new paired contexts rather than identify one structural cause. The m106 pair was especially diagnostic: 1/1 was modest and reasonably predicted, while 20/1 reached 41.72/79.81 after severe historical underprediction. This supports an intermediate response experiment. Cyano-benzophenone was much later at 50/1 than predicted, while simple methyl nitriles stayed moderate, reinforcing context-specific nitrile transfer. Dibenzalacetone and chalcone also diverged, further arguing against a common diaryl-carbonyl shift. The late m28 10/1 result motivates testing limits of aldehyde transfer, while accurate modest benzoate and dimethoxybenzene labels constrain overcorrection. Finally, m19's pure-EA completion was substantially higher than predicted, so strong-eluent boundary learning now shifts to a distinct amine environment. All error statements refer to acquisition-time predictions, not current-model residuals.",
+  "batch_rationale": "The batch concentrates on learning transferable relationships and the limits of those relationships. Intermediate points for m106, m34, m94, m119, and m31 locate response transitions around measured anchors. The m25/m95 extensions, phenylmalonate pair, bromomalonate extension, plain-malonate control, and m81 loading contrast address a common carbonyl family with both strong and modest retention and many repeated catalog rows. Paired new m68, m169, and m187 measurements separate baseline offsets from response amplitude rather than relying on a single novel-scaffold endpoint.\n\nThe aldehyde experiments test whether late responses generalize across ring substitution and fused aromatic environments, with explicit qualifications for different loading conditions and the atypical m195 anchor. Anisole supplies a simpler ether comparison in a moderate predicted region. The alcohol experiments distinguish connectivity-sensitive rises from apparent local reversals. Three focused measurements around m61, m127, and m133 constrain consequential local contrasts without assuming either universal loading behavior or erroneous observations. The matched m212 boundary pair, cinnamic-acid extension, and sulfoxide experiment test undercovered interaction contexts that should not automatically inherit carbonyl or alcohol corrections.\n\nI considered the available structural families, response regimes, loading contrasts, repeated-condition rows, and newly observed failure patterns. I did not select duplicate condition tuples or exhaust every unusual region: several already well-anchored modest-response families offer less marginal information. CW distance and quantile widths are secondary evidence from the existing predictor, not calibrated epistemic uncertainty; the physical V2-minus-V1 interval is not uncertainty. This combination may improve overall Row-distribution accuracy by repairing response-shape failures while supplying constraints against spreading those repairs too broadly."
+}

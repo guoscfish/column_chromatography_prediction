@@ -1,0 +1,253 @@
+{
+  "type": "selection",
+  "packet_sha256": "f4dc7e9cc98fd98ecfb599ab81abe360239599febebd6cae81dfc6dbf21b50fa",
+  "batch_strategy": "Matched condition and loading response curves combined with targeted coverage of recurrent polar, carbonyl-rich, and high-error regions",
+  "choices": [
+    {
+      "id": "e586f782dfd7bb09f66f",
+      "reason": "m29 at 2/1 provides a moderate-condition aromatic ketone anchor in a structurally common region. It adds condition coverage with nonzero CW distance and tests whether the model's compact interval prediction transfers to a substituted acetophenone scaffold.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "8a7e4cadaea654017cb4",
+      "reason": "m3 at 50/1 samples a weak-eluent branch for a highly hydrophobic polyaryl bromide. The high CW distance makes this useful for checking whether the model preserves condition response in the nonpolar tail.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "002ce3d7c637632f0ebe",
+      "reason": "m0 at 20/1 extends condition coverage for another high-logP polyaryl scaffold. Comparing this label with the selected m3 row tests whether weak-eluent response is learned from structure rather than only from endpoint magnitude.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "c060c367e4e5bf6955cb",
+      "reason": "m131 at 50/1 and 100 ul is one corner of a same-molecule response design. Its weak-eluent label can be compared with the two selected 2/1 m131 rows to learn solvent response and loading interaction.",
+      "hypothesis_id": "H15"
+    },
+    {
+      "id": "fb65053351114fb51265",
+      "reason": "m131 at 2/1 and 50 ul forms the stronger-eluent, lower-loading corner of the m131 design. The matched comparison to c060c367e4e5bf6955cb and cfa75012f38a3f8f45d1 is more informative than an isolated novel molecule.",
+      "hypothesis_id": "H15"
+    },
+    {
+      "id": "419f6eb4080dcb9d293b",
+      "reason": "m172 at 50/1 and 100 ul extends the measured same-loading curve from f2f54282835725ea01b1 at 0/1 and c4b2566e6fe1d00b20ea at 10/1. It tests whether the modest methylene-separated ketone response remains modest at very weak eluent.",
+      "hypothesis_id": "H11"
+    },
+    {
+      "id": "bfcfe9bcef40efc290f2",
+      "reason": "m158 at 0/1 samples the strong-eluent end of a sulfur heteroaromatic response. Together with measured e514cee27f046099a732 at 2/1, it tests whether the early branch is represented consistently before extrapolation to weaker solvent.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "d84e5afb325f6fd55103",
+      "reason": "m54 at 20/1 extends an aromatic ketone response beyond the measured stronger-eluent m54 rows 27c265d2946287217a2d and 8f78f3cdc769c7d9f6e2. It helps constrain ordinary ketone curvature in a region less dominated by known catastrophic failures.",
+      "hypothesis_id": "H11"
+    },
+    {
+      "id": "c07756fcea88312950ae",
+      "reason": "m127 at 0/1 complements the measured m127 rows 52b9af4df1f1e7cd4d9b and fd8b5ea3b704959cd1ab. This local curve tests solvent response for an oxygenated aromatic ketone without assuming that the large completion corrections of other carbonyls transfer.",
+      "hypothesis_id": "H11"
+    },
+    {
+      "id": "8e03d48d75ea0058fc99",
+      "reason": "m111 at 2/1 and 150 ul adds a condition point for an ether-containing aryl bromide with a different loading amount from nearby candidates. It expands representation of aromatic ethers whose response is currently weakly constrained.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "cfa75012f38a3f8f45d1",
+      "reason": "m131 at 2/1 and 150 ul completes the same-solvent loading contrast with fb65053351114fb51265 and links to the selected weak-eluent m131 row. This directly tests whether a loading effect is separable from a scaffold offset.",
+      "hypothesis_id": "H15"
+    },
+    {
+      "id": "dc8bcde539e5eb188a29",
+      "reason": "m143 at 1/1 provides an intermediate condition point for a brominated aromatic aldehyde. Measured m143 rows such as 3c68a8834b490cef1688 and 09a23d7cc56674faa5d6 provide nearby anchors for learning endpoint-specific aldehyde transfer.",
+      "hypothesis_id": "H11"
+    },
+    {
+      "id": "8677f09af6df7d38aa80",
+      "reason": "m130 at 10/1 tests a late condition for a nitrile-containing aromatic scaffold. The result can be compared with measured 63cda70afb5b740e4fa4 to determine whether the model's weak-eluent correction tracks the nitrile response.",
+      "hypothesis_id": "H25"
+    },
+    {
+      "id": "18a189c89f59ac1d5a9f",
+      "reason": "m212 at 0/1 starts a condition curve for a secondary amine-containing diaryl structure. Measured ab4326dd3bd3b0e07f81 and 252c027cf5a42b92c953 show that this family can shift strongly with solvent, making a strong-eluent anchor useful for calibration.",
+      "hypothesis_id": "H25"
+    },
+    {
+      "id": "f60c4677902a90143b6c",
+      "reason": "m76 at 10/1 and 150 ul adds a loading and condition point for a brominated ester-like scaffold. It supplies coverage of a relatively ordinary polar molecule at a solvent regime where condition response remains underrepresented.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "39dac9377600ed74a554",
+      "reason": "m83 at 10/1 and 100 ul extends an aromatic ester response into a weaker condition. It tests whether the model's modest predicted interval is consistent with the family behavior rather than importing the large corrections of beta-ketoesters.",
+      "hypothesis_id": "H12"
+    },
+    {
+      "id": "781b8d96d8bc7c124dc9",
+      "reason": "m56 at 100/1 probes an unusually weak sample loading solvent condition for an aromatic ester. This is useful for checking whether loading-solvent identity and solvent strength are represented independently in a common ester region.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "b59d10badf9681a661a6",
+      "reason": "m93 at 0/1 provides a strong-eluent anchor for a brominated carbonyl-containing scaffold. It adds a low-retention boundary point that can stabilize interpolation across the broader carbonyl catalog.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "3c6e7fafcacb87c40668",
+      "reason": "m15 at 5/1 samples an acrylate response at an intermediate eluent. It complements the measured stronger-condition m15 row 4fc25128f65d2cf6e786 and helps distinguish ordinary ester response from multi-carbonyl behavior.",
+      "hypothesis_id": "H12"
+    },
+    {
+      "id": "34021fab3c1543cca97d",
+      "reason": "m25 at 2/1 and 150 ul bridges the strong and weak response behavior of a beta-ketoester. Measured ac6cfe67adcb860efabf and b6017da51a674177d16d provide nearby anchors for testing whether completion-specific corrections begin early.",
+      "hypothesis_id": "H12"
+    },
+    {
+      "id": "2130189c7db0e19037e7",
+      "reason": "m188 at 0/1 gives a strong-eluent point for a halogenated aldehyde. It expands positional and halogen substitution coverage while providing a boundary for condition-response interpolation.",
+      "hypothesis_id": "H11"
+    },
+    {
+      "id": "54d9921472c8d46b7b9a",
+      "reason": "m174 at 50/1 and PE loading extends the weak-eluent response of an aromatic ester. Measured 9c74e865c47b45a09229 and 54bc75cc4d64dac2ed48 show that this family can have substantial condition response, so the new point can test curvature.",
+      "hypothesis_id": "H12"
+    },
+    {
+      "id": "a3c817ff559d5c946cc8",
+      "reason": "m96 at 5/1 and 100 ul samples a sulfur-containing ester in a moderate condition. Its predicted interval is broad enough to test whether the model's heteroatom correction is appropriate relative to measured 5bad82a6cffd60e7a6c9 and fd1d673cc647d6745303.",
+      "hypothesis_id": "H25"
+    },
+    {
+      "id": "bb18fe197ad7e24c5ed1",
+      "reason": "m165 at 2/1 adds a strong-eluent point for a conjugated diaryl ketone. It helps separate ordinary aromatic ketone behavior from the much larger corrections observed for selected substituted ketones.",
+      "hypothesis_id": "H11"
+    },
+    {
+      "id": "e6cfb4a6354c69d460de",
+      "reason": "m81 at 2/1 is a stronger-eluent companion to measured 57646b9484b03f4076bb and d9286f3f450c7cca4a86. This is a useful modest beta-ketoester control for linkage-specific correction learning.",
+      "hypothesis_id": "H12"
+    },
+    {
+      "id": "4a54ee0e355066ed7429",
+      "reason": "m186 at 2/1 and 50 ul provides a strong-eluent point for a bromosalicylaldehyde. It complements measured cf2b5bd61a8fa92f67a8 at 1/1 and 79faae5899539a97f8d9 at 10/1, testing whether the broad weak-eluent interval develops gradually.",
+      "hypothesis_id": "H11"
+    },
+    {
+      "id": "47064240165da3f6b2c8",
+      "reason": "m148 at 2/1 and PE loading adds a condition point for a simple chloroalkyl aromatic compound. It improves coverage of low-polarity response where measured rows are generally compressed into a narrow early-elution range.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "3554059c7f0676bb2e03",
+      "reason": "m199 at 0/1 and 100 ul supplies an early anchor for the sulfoxide curve. Measured d49f2ae16cf70d54ccf4 and aa83ae83c0fa0cc37777 show an unusually large late-elution shift at stronger solvent, making this boundary point valuable for locating its onset.",
+      "hypothesis_id": "H25"
+    },
+    {
+      "id": "a6145bb0c9947f9515df",
+      "reason": "m206 at 5/1 and 50 ul probes a high-retention alcohol-containing aromatic scaffold. Measured fe69b1dbb4d976f830cd at 1/1 and b7cf293311f83700cd9a at 10/1 show a severe failure region; the lower-loading point tests whether the rise is condition-driven or loading-sensitive.",
+      "hypothesis_id": "H25"
+    },
+    {
+      "id": "2398166df14947ad4be8",
+      "reason": "m104 at 0/1 and 50 ul adds a strong-eluent point for an aminobenzoate-like scaffold. It is useful for repairing transfer among polar aromatic esters, with measured 10f14f6ee69ba06bbe68 and 9fa7a350e402312e5860 providing later-condition references.",
+      "hypothesis_id": "H25"
+    },
+    {
+      "id": "fc672dc6f3ecc1d0492c",
+      "reason": "m166 at 10/1 and 100 ul samples a multi-carbonyl aromatic scaffold in a condition where linkage-specific completion corrections are uncertain. Measured 4c2ad10692512e8f23b8 provides a weaker-eluent same-family reference for testing whether the interval grows smoothly.",
+      "hypothesis_id": "H12"
+    },
+    {
+      "id": "801e2da4e098caa8fc7c",
+      "reason": "m201 at 2/1 and 150 ul adds a strong-eluent nitrohalogenated aromatic point. It broadens polar substituent coverage and tests whether the model's early prediction remains reliable for a high-heteroatom but non-donor scaffold.",
+      "hypothesis_id": "H25"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H15",
+      "content": "Recorded loading-solvent volume and sample loading can interact with solvent strength in scaffold-specific ways. The measured m125 contrasts support a reproducible loading-solvent-volume effect, while m207 remains irregular rather than following a simple monotone loading law.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "00043aebb2540e369a7b",
+        "9bd998a328b109ef639e",
+        "03744855d469f4cca7e6",
+        "f4fb5c03b8e8996e75f6",
+        "4e5ead91320bd24d485e",
+        "ec6846c0fcb7df17c97d",
+        "a7906197994af5c86745",
+        "a19f98569910dc7fd6c4",
+        "ff3b6b1069b7d66ad021"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Matched local designs can teach recorded condition interactions that are currently absorbed into scaffold residuals, while irregular outcomes discourage fitting an overly smooth loading correction.",
+      "next_discriminating_question": "Does a same-molecule loading contrast persist across the m131 design, and does it remain condition-dependent at 50/1?"
+    },
+    {
+      "id": "H11",
+      "content": "Carbonyl response amplitude and shape are scaffold and connectivity specific. Aryl ketones, aldehydes, thioether ketones, and methylene-separated ketones require different condition-response corrections.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "ed763ea5943e63a671c9",
+        "7155ede91e7e3232862a",
+        "b1c5816f929ef59f5a87",
+        "e41d3fe370d4a57960e2",
+        "9b11493847c035abf800",
+        "92f7fe9d8581717a9949",
+        "319e89d7000731f64e7f",
+        "c08c4700ae34281b3318",
+        "c4b2566e6fe1d00b20ea"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Connectivity-specific labels prevent a correction learned from one aromatic carbonyl family from being transferred indiscriminately to unrelated carbonyl scaffolds.",
+      "next_discriminating_question": "Do the selected ketone and aldehyde rows retain distinct onset and completion response shapes across condition changes?"
+    },
+    {
+      "id": "H12",
+      "content": "Carbonyl linkage and scaffold-specific response shapes should prevent indiscriminate transfer of large weak-eluent completion corrections. Beta-ketoesters can show large completion growth while aryl beta-ketoesters, simple malonates, and other ester controls can remain more modest.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "b6017da51a674177d16d",
+        "74701496b6fc5465eea7",
+        "07a55cdab65b05f31561",
+        "57646b9484b03f4076bb",
+        "08155ffdcb0d27576050",
+        "05ae46c25f5bd347b3a1",
+        "b4351e5f05f6d477a6c0",
+        "0dd38abec3981f296cfb",
+        "d3ffe87bbab76e5d5d56"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The retrained model needs linkage boundaries so that completion corrections generalize across recurring chemical families without flattening their different response amplitudes.",
+      "next_discriminating_question": "Do the selected m25, m81, m96, and m166 rows preserve distinct completion corrections from the measured beta-ketoester controls?"
+    },
+    {
+      "id": "H25",
+      "content": "Strongly retained polar and heteroatom-rich scaffolds form a recurrent model failure region in which both onset and completion are compressed toward ordinary early-eluting values.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "c4bb286978fe9078a303",
+        "aa83ae83c0fa0cc37777",
+        "b4e0e9dc92fca2c88b90",
+        "49201b5817f204116f7f",
+        "d1172a49fca1e196a59f",
+        "96710afeabc594baa359",
+        "51f5ae6a991eea9e720e"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Labels in this failure region can repair representations for silica affinity and condition response, with possible gains across multiple polar and heteroatom-rich rows.",
+      "next_discriminating_question": "Can strong-eluent anchors and intermediate condition points locate where the large retention correction begins for each scaffold family?"
+    }
+  ],
+  "feedback_interpretation": "Recent outcomes confirm that m125 has a substantial recorded loading-solvent-volume effect at both tested sample loadings. The m207 results remain irregular across loading, so the current batch uses matched local designs without assuming monotonicity. The m208 and m209 outcomes weaken a generic steep phenol extrapolation because some weak-eluent completion predictions were too high while another m209 branch remained underpredicted. Recent m21, m85, and m26 measurements also support scaffold-specific carbonyl and linkage corrections. The new reasoning therefore prioritizes local response curves, modest controls, and failure regions where the model repeatedly compresses late retention.",
+  "batch_rationale": "The batch includes a compact m131 condition-loading design, several same-molecule condition extensions, and strong-eluent anchors for previously difficult polar or heteroatom-rich scaffolds. The m25, m81, m96, m166, and m174 rows test linkage-specific carbonyl and ester transfer, while m172, m143, m130, and m186 test whether carbonyl and aldehyde corrections depend on connectivity and substitution. m199, m206, m104, m212, and m201 target recurrent polar or heteroatom-rich failure regions. The polyaryl, ether, and low-polarity rows add boundary coverage so retraining can improve interpolation across ordinary rows as well as the high-error tail of the Row-distribution."
+}

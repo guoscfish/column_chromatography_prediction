@@ -1,0 +1,157 @@
+{
+  "type": "memo",
+  "role": "chemistry_scientist",
+  "packet_sha256": "55932c18590daaafbebec784e4a207cf11c04c12759d01c2fa1515752f3fa930",
+  "state_summary": "The current packet contains 717 observed records, 2,613 eligible candidate records, no pending experiments, and no validation or test records. The current observed table supersedes the embedded round-11 summaries where counts or mappings differ. Overall retrained Row V1/V2 accuracy remains unverified.",
+  "important_observations": [
+    {
+      "basis": "observed_measured",
+      "statement": "m177 is an exceptional, strongly non-smooth surface. At 50/1, V2 is 59.88, 7.31 and 81.30 ml at 50, 100 and 150 ul. At 100 ul, V2 is 19.18, 20.70 and 7.31 ml at 5/1, 10/1 and 50/1; V1 remains near 5 ml. The measured 5/1, 50 ul and 20/1, 50 ul points are 14.51 and 8.50 ml in V2. These observations reject simple loading interpolation. A reproducible conditional minimum and omitted experimental variation remain competing hypotheses."
+    },
+    {
+      "basis": "observed_measured",
+      "statement": "m194 changes response shape with loading. At 100 ul, completion decreases from 36.18 to 28.27 ml between 1/1 and 2/1 with nearly fixed onset. At 50 ul, the corresponding measured sequence is 10.34, 14.73 and 21.52 ml at 1/1, 2/1 and 5/1. A common ratio correction or monotone loading term is inadequate."
+    },
+    {
+      "basis": "observed_measured",
+      "statement": "The corrected fixed-50 ul m20 curve rises from 7.70/10.73 at 1/1 to 10.80/15.09 at 2/1, 15.84/22.69 at 5/1 and 23.78/34.90 at 10/1. The previously attributed low-ratio observation was m148, so the actual m20 baseline is now measured and the earlier shoulder interpretation is rejected."
+    },
+    {
+      "basis": "observed_measured",
+      "statement": "m106 now has a connected fixed-100 ul sequence: 6.23/10.54, 7.16/13.39, 20.86/42.52 and 41.72/79.81 ml at 1/1, 2/1, 10/1 and 20/1. This supports a delayed joint transition in an ether-containing ketone, while the historical 10/1 prediction substantially overstated both endpoints."
+    },
+    {
+      "basis": "observed_measured",
+      "statement": "Aminoester transfer is local. m86 and m88 show substantial joint endpoint growth by 5/1 under their fixed 100 ul DCM conditions, whereas m89 remains moderate through 10/1 under PE loading and m104 has a moderate 5/1-to-10/1 response. Different loading solvent, plug volume, density and substitution environment prevent attributing the contrast to amino position alone."
+    },
+    {
+      "basis": "observed_measured",
+      "statement": "Alcohol response is heterogeneous: fixed-50 ul m60 grows strongly with ratio, while fixed-100 ul m61 onset decreases from 12.34 to 3.04 ml across 2/1 to 10/1. The m61 50 ul pair shows a much smaller change. A shared alcohol correction is unsupported."
+    },
+    {
+      "basis": "observed_measured",
+      "statement": "Identical m92 1/1, 50 ul, EA-loaded inputs give 5.18/12.01 and 5.72/11.70 ml, while the single PE-loaded counterpart gives 8.02/20.57 ml. This supports local persistence of the short EA completion, but PE-side repeatability and a general solvent-identity effect remain untested."
+    },
+    {
+      "basis": "general_chemical_knowledge",
+      "statement": "Increasing EA fraction generally strengthens normal-phase silica elution. Donor accessibility, basic nitrogen, hydrogen bonding, injection-solvent focusing and adsorption can modify this locally. These are chemical priors and are not established causes of any measured anomaly."
+    }
+  ],
+  "candidate_scientific_questions": [
+    {
+      "basis": "untested_candidate_question_with_predictions",
+      "question": "Do lower-ratio m177 points connect to the measured 5/1 and 10/1 100 ul sequence, and are loading differences already present below the exceptional high-ratio region?",
+      "ids": [
+        "61764a2e9f71f1caa18e",
+        "bd76c7bdcd3681374617",
+        "bef81d4dd93af26c12a9"
+      ],
+      "predicted_V1_V2_ml": [
+        [
+          6.26,
+          13.17
+        ],
+        [
+          7.31,
+          12.67
+        ],
+        [
+          7.14,
+          12.82
+        ]
+      ],
+      "caveat": "These candidates test lower-ratio response shape; they do not repeat the measured 50/1, 100 ul anomaly or establish its reproducibility."
+    },
+    {
+      "basis": "untested_candidate_question_with_predictions",
+      "question": "Does m194 at 0/1 and 150 ul preserve an early onset and short completion, or does the long-completion behavior persist under stronger mobile phase and higher loading?",
+      "ids": [
+        "d7895c522a1a46a1175c"
+      ],
+      "conditions": "m194, 0/1, density 1.177, 150 ul, DCM loading solvent, 300 ul plug",
+      "predicted_V1_V2_ml": [
+        4.1,
+        10.21
+      ],
+      "caveat": "This is a condition contrast, not a repeat of the measured 100 ul or 50 ul inputs."
+    },
+    {
+      "basis": "untested_structural_transfer_question_with_predictions",
+      "question": "Does an ordinary diaryl ketone, m114, show a smooth lower-ratio continuation into its measured 5/1 and 10/1 region?",
+      "ids": [
+        "a5583432158c4e0d0cbb"
+      ],
+      "conditions": "m114, 2/1, density 1.0, 100 ul, DCM loading solvent, 300 ul plug",
+      "predicted_V1_V2_ml": [
+        6.05,
+        12.86
+      ],
+      "caveat": "The candidate prediction is model output only. Its value is the connection to an ordinary carbonyl curve, not its predicted endpoint magnitude."
+    },
+    {
+      "basis": "untested_condition_response_question_with_predictions",
+      "question": "Does m40 at 1/1 and 150 ul provide a lower-ratio, higher-loading anchor before its measured 2/1-to-10/1 response?",
+      "ids": [
+        "eb607d68bca471faa4ec"
+      ],
+      "conditions": "m40, 1/1, density 1.12, 150 ul, DCM loading solvent, 300 ul plug",
+      "predicted_V1_V2_ml": [
+        5.67,
+        12.5
+      ],
+      "caveat": "Sample volume and loading mass are coupled; this should be interpreted as a complete condition tuple."
+    }
+  ],
+  "possible_model_blind_spots": [
+    {
+      "basis": "inference_from_observed_evidence",
+      "statement": "A single molecular offset, global loading term or smooth monotone ratio interpolation cannot represent the m177, m194 and m61 surfaces. V1 and V2 need separate molecule-by-condition interactions."
+    },
+    {
+      "basis": "inference_from_observed_evidence",
+      "statement": "Functional-group counts and broad polarity descriptors do not reliably transfer response shapes: aminoesters, alcohols, ether carbonyls and beta-ketoesters with similar HBD/HBA patterns occupy different regimes."
+    },
+    {
+      "basis": "model_prediction_diagnostic",
+      "statement": "Some current candidate outputs have non-monotone or incoherent predicted quantiles, including q50 values outside the q10-to-q90 ordering. This indicates output-calibration or representation issues, but quantile width is not measured uncertainty and does not establish expected learning value."
+    },
+    {
+      "basis": "inference_from_experiment_design",
+      "statement": "Loading amount, sample volume, loading-solvent identity, plug volume and density are strongly entangled in the pool. A model may learn spurious global effects unless these are represented as conditional features and evaluated with matched complete tuples."
+    },
+    {
+      "basis": "coverage_concern",
+      "statement": "The adaptively sampled pool is rich in exceptional high-tail surfaces. Overall Row accuracy may still be limited by ordinary moderate-response chemistry and lower-ratio condition coverage; historical residual magnitude alone cannot establish Row prevalence."
+    }
+  ],
+  "warnings": [
+    "Only observed-table records are measured evidence. Candidate IDs and all candidate endpoint values are predictions only.",
+    "Historical prediction errors describe prior acquisition behavior and are not current candidate error or current Row error.",
+    "V2 minus V1 is an elution interval width, not uncertainty.",
+    "Exact duplicate candidate tuples should be collapsed unless a named repeatability question justifies repetition. Candidate multiplicity does not establish prevalence.",
+    "The m177, m207 and m120 exceptional measurements remain difficult to interpret mechanistically. Adsorption, focusing, solubility, local silica interactions and omitted experimental variables are hypotheses, not findings.",
+    "The current objective is retrained overall Row V1/V2 accuracy. Chromatographic desirability, narrow intervals or large predicted endpoints are not acquisition objectives."
+  ],
+  "particularly_informative_candidates": [
+    {
+      "ids": [
+        "61764a2e9f71f1caa18e",
+        "bd76c7bdcd3681374617",
+        "bef81d4dd93af26c12a9"
+      ],
+      "reason": "Connected lower-ratio m177 conditions can test response-shape continuity while preserving the warning that they do not replicate the exceptional high-ratio minima."
+    },
+    {
+      "ids": [
+        "d7895c522a1a46a1175c"
+      ],
+      "reason": "A lower-ratio, higher-loading m194 point provides a chemically interpretable loading/mobile-phase contrast after opposite response shapes were observed at 50 and 100 ul."
+    },
+    {
+      "ids": [
+        "a5583432158c4e0d0cbb"
+      ],
+      "reason": "This ordinary m114 lower-ratio point adds a missing moderate-response anchor and helps distinguish general condition smoothing from tail-specific behavior."
+    }
+  ]
+}

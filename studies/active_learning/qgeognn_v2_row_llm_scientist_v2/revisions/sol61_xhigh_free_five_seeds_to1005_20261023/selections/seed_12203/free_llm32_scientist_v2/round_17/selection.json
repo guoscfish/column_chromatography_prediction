@@ -1,0 +1,308 @@
+{
+  "type": "selection",
+  "packet_sha256": "50a615b319b4fb799f062a0a8c86bfc34228e452259352a2faab02b5524d5831",
+  "batch_strategy": "Freeze these 32 IDs and their packet-supplied premeasurement predictions before any label reveal. Measure previously unobserved condition tuples that constrain scaffold-specific solvent response, endpoint-specific loading effects, and strong-side baselines. Use matched local contrasts where available, and represent duplicate candidate condition aliases only once. Quantile widths and CW distances are secondary evidence of predictor behavior, not calibrated epistemic uncertainty.",
+  "choices": [
+    {
+      "id": "1d15ee46756cd1845a68",
+      "reason": "m117 at 10/1, 150 uL fills the fixed-loading gap between measured 5/1 a0d6732883ffc7d063fb and 20/1 7e834c7b870ef7024d35. Its predicted 7.95/25.16 mL and broad V1 quantile span make this useful for locating onset growth separately from completion growth.",
+      "hypothesis_id": "H_HYDROXY_ALD"
+    },
+    {
+      "id": "25de8af35e546add9783",
+      "reason": "m117 at 0/1, 150 uL anchors the same loading used by the selected 10/1 point and measured 1/1 e55c8ef232b46d3a1ca9. The predicted completion near 8.27 mL is far earlier than that measured 1/1 completion of 20.23 mL; this tests the strong-side transition without shifting the entire curve.",
+      "hypothesis_id": "H_HYDROXY_ALD"
+    },
+    {
+      "id": "5f1ae4e354b8b36ec691",
+      "reason": "m186 at 20/1, 100 uL tests a predicted onset minimum of 2.72 mL before measured 50/1 row 2efa93ea474f798b712a, which gave 5.07/25.81 mL. It constrains whether the model's unusual intermediate V1 shape is supported while V2 continues to grow.",
+      "hypothesis_id": "H_HYDROXY_ALD"
+    },
+    {
+      "id": "d1774335b45258bc173a",
+      "reason": "m190 at 20/1, 100 uL bridges measured 1/1 03e8372f11ac433be4fa and 50/1 7d9c7f40bc71ee7c4ef0. Comparison with the selected positional isomer m186 tests substitution-dependent response shapes, while retaining the distinction between their different recorded loading conditions.",
+      "hypothesis_id": "H_HYDROXY_ALD"
+    },
+    {
+      "id": "04e162e0c1261108b4a0",
+      "reason": "m197 at 10/1, 100 uL tests the predicted 7.11/22.55 mL intermediate regime. Measured 5/1 d227db4f4b8fdca822d5 and 50/1 619663c2b3ffb3a6c497 have later completion at different loadings. The selected matching 20/1 row separates ratio response from loading between the new labels.",
+      "hypothesis_id": "H_HYDROXY_ALD"
+    },
+    {
+      "id": "905c8843dd27543205a5",
+      "reason": "m197 at 20/1, 100 uL forms a controlled ratio pair with the selected 10/1 experiment. Its predicted 9.37/24.05 mL tests whether completion stays comparatively flat while onset grows, or whether the model has suppressed an intermediate transition toward the measured 50/1 regime.",
+      "hypothesis_id": "H_HYDROXY_ALD"
+    },
+    {
+      "id": "761c1abe2efeaef568fd",
+      "reason": "m73 at 5/1, 100 uL fills an unmeasured ratio after ordinary 2/1 row 49932dbd3d16bb64f71a. The late, nearly zero-width 1/1 observations 2cf789c87f7c6325c020 and a387411cbcb6be48bde4 should not automatically shift neighboring conditions. This label constrains that boundary.",
+      "hypothesis_id": "H_LOCAL_M73"
+    },
+    {
+      "id": "0baeb34a1650e9409f2a",
+      "reason": "m73 at 20/1, 100 uL pairs with the selected 5/1 point at the same recorded loading. Measured 10/1 row 122a83bd31e4c0efeebd remained early in onset at 150 uL. This tests the predicted growth to 10.05/22.57 mL independently of the localized 1/1 anomaly.",
+      "hypothesis_id": "H_LOCAL_M73"
+    },
+    {
+      "id": "050e2fab4b407ea058cb",
+      "reason": "m28 at 5/1, 150 uL can be compared directly with measured low-loading 5/1 be82391d6b3e742f1f26 and high-loading 10/1 0dccaa29989ef4956786. It tests whether the large 5-to-10/1 transition persists at high loading rather than being explained by a common carbonyl correction.",
+      "hypothesis_id": "H_CARBONYL"
+    },
+    {
+      "id": "08d345874afeaea97b5e",
+      "reason": "m28 at 2/1, 50 uL tests whether the completion loading contrast seen at 1/1 in 686562279e2bfb73ef1e and 0d18f3f10c8377d12316 persists at 2/1. Existing 2/1 rows 5522a1ec1f8e39cedb13 and b05a4e8db42ce35cc958 provide 100- and 150-uL references.",
+      "hypothesis_id": "H_LOADING"
+    },
+    {
+      "id": "7bd353fc307c5af1997e",
+      "reason": "m94 at 2/1, 100 uL fills the gap between measured 1/1 959cb0482162f16a47e5 and 5/1 20d4b1612cbdd88b6755 at lower loading. Despite narrow predicted quantile spans, its high CW distance identifies a useful check on the early ketoester transition before much later 10\u201320/1 behavior.",
+      "hypothesis_id": "H_ESTER"
+    },
+    {
+      "id": "ffffcd6f3b9393846ab4",
+      "reason": "m94 at 20/1, 150 uL complements low-loading 20/1 ffc70e28db22d1cc1f3f. At 10/1, 7ac90b210e42d27c5a04 and 5b445b457a8b897a2d6c showed a substantial onset loading association with nearly unchanged completion. This tests whether that endpoint distinction survives into the later regime.",
+      "hypothesis_id": "H_LOADING"
+    },
+    {
+      "id": "cd566862a517dd7cdc8d",
+      "reason": "m95 at 5/1, 50 uL fills a missing ratio before measured 10/1 low-loading 41f57dc6d50ee162801a. Together with its early baseline and late 50/1 completion, this label can localize how a compact ketoester develops V2 growth without assuming the early m81 response transfers.",
+      "hypothesis_id": "H_ESTER"
+    },
+    {
+      "id": "3b6524f5fc7e0343ff9b",
+      "reason": "m25 at 5/1, 100 uL tests recovery from the unusually early measured 2/1 high-loading regime ac6cfe67adcb860efabf toward measured 10/1 53774efff44f690d6f30. The predicted 6.44/12.01 mL supplies a missing middle point in a strongly curved ketoester response.",
+      "hypothesis_id": "H_ESTER"
+    },
+    {
+      "id": "f6650af9162e038d4108",
+      "reason": "m92 at 2/1, 100 uL with EA loading fills an unobserved strong-to-intermediate ratio. Measured 1/1 00a89de0e6cc7377a84b and 5/1 790d27f0fa045d91f307 provide EA references at 50 uL. This constrains the early alpha-ketoester surface before its variable late completion regime.",
+      "hypothesis_id": "H_ESTER"
+    },
+    {
+      "id": "1f70add69a6dbecca3b4",
+      "reason": "m72 at 5/1, 150 uL with PE loading complements measured 5/1 low-loading 32326acee85181b5df10 and 10/1 high-loading 48b79cabd9460cfc510b. It tests whether the V2 transition and loading association are already present at 5/1. PE versus DCM comparisons also differ in loading-solvent volume.",
+      "hypothesis_id": "H_LOADING"
+    },
+    {
+      "id": "ab4326dd3bd3b0e07f81",
+      "reason": "m212 at 0/1, 100 uL supplies a missing strong-side baseline for the secondary amine. Measured 1/1 6a11b71a3fb682d5f6da was 4.78/12.23 mL, whereas later ratios and loadings behave very differently. This checks the predicted higher pure-EA onset without propagating weak-side retention uniformly.",
+      "hypothesis_id": "H_BASELINE"
+    },
+    {
+      "id": "ebf38d80f4c5674cf120",
+      "reason": "m212 at 1/1, 50 uL tests whether the strong loading contrast observed at 5/1 in d5234e966aa231be05e5 and 252c027cf5a42b92c953 also occurs on the strong side. Its prediction is almost unchanged from the measured 100-uL baseline, making this a targeted test of the model's loading insensitivity.",
+      "hypothesis_id": "H_LOADING"
+    },
+    {
+      "id": "8fb287430f3df6d0b3dd",
+      "reason": "m202 at 0/1, 100 uL anchors the formally charged P/O graph before its irregular 10/1 loading surface in 7de812bda21b4dfe46dc, 902937db42f82f467718, and cb446680f62351d087a9. This can constrain strong-side transfer without assuming those discrepancies establish a reproducible loading mechanism.",
+      "hypothesis_id": "H_BASELINE"
+    },
+    {
+      "id": "d1ec836ef828ebbf94ad",
+      "reason": "m17 at 10/1, 50 uL tests transfer across loading after high-loading d6b28f60f89677468590 revealed a historical V2 underprediction of 6.10 mL. The current prediction is 7.97/11.96 mL; measurement determines whether the newly characterized intermediate regime also applies at low loading.",
+      "hypothesis_id": "H_LOADING"
+    },
+    {
+      "id": "b0802294da4fd71d0f9d",
+      "reason": "m191 at 10/1, 50 uL tests the very broad V1 quantile span around a prediction of 28.02/61.47 mL. Measured 100-uL bae9d67e095423d8edd2 gave 27.27/61.62 mL. The label constrains whether low loading preserves this dialdehyde regime or requires a separate onset correction.",
+      "hypothesis_id": "H_LOADING"
+    },
+    {
+      "id": "141a4d64a7d140eefdc3",
+      "reason": "m191 at 0/1, 100 uL provides an unmeasured baseline for a dialdehyde with substantial ratio-dependent growth in acdffd73c7b1388ba321, 316b7260106904f99ae8, and bae9d67e095423d8edd2. It tests the predicted early onset and limits leakage of late carbonyl corrections into pure EA.",
+      "hypothesis_id": "H_CARBONYL"
+    },
+    {
+      "id": "780b13846ace50ede763",
+      "reason": "m125 at 5/1, 50 uL extends a sparsely observed dimethoxy-aldehyde graph beyond measured 1/1 row 4c32851430464f0ed684. Paired with the selected pure-EA point at identical loading, it tests whether its predicted completion plateau differs from the growing m28 and m191 curves.",
+      "hypothesis_id": "H_CARBONYL"
+    },
+    {
+      "id": "55f2352b50967352163e",
+      "reason": "m125 at 0/1, 50 uL supplies the strong endpoint of a controlled 0-to-5/1 pair. Its predicted 3.29/7.62 mL contrasts with measured 1/1 4c32851430464f0ed684 at 100 uL, which gave 7.50/20.47 mL. The new pair reduces reliance on that single condition for graph transfer.",
+      "hypothesis_id": "H_CARBONYL"
+    },
+    {
+      "id": "0dd38abec3981f296cfb",
+      "reason": "m85 at 20/1, 50 uL fills the fixed-loading gap between measured 10/1 d1483fc2e333c62494b3 and 50/1 cd7c523e3df961c83524. This tests the predicted relatively flat intermediate fluorobenzoate regime before later growth and provides a transfer boundary within the benzoate family.",
+      "hypothesis_id": "H_ESTER"
+    },
+    {
+      "id": "812adebe27af25dc2242",
+      "reason": "m84 at 40/1, 100 uL extends chlorobenzoate coverage beyond measured 30/1 ab49ee9538cdb7f47f70 at 50 uL. This tests weak-eluent extrapolation in a repeatedly represented Row family; the loading change means the comparison is not interpreted as a pure solvent-ratio effect.",
+      "hypothesis_id": "H_ESTER"
+    },
+    {
+      "id": "bfe9ce431b45599fd5e6",
+      "reason": "m55 at 40/1, 100 uL extends the same-loading 20/1 observation 98f205d21cdccb427f9e from 5.25/10.71 mL toward the predicted 7.94/17.97 mL. This adds an uncovered weak-side response for an alkyl benzoate without assuming all ester families develop large tails.",
+      "hypothesis_id": "H_ESTER"
+    },
+    {
+      "id": "66d759515aa12dcf0810",
+      "reason": "m56 at 40/1, 50 uL lies between measured 30/1 e19bda1298f299931245 and 100/1 781b8d96d8bc7c124dc9 at identical loading. It localizes curvature in a branched alkyl benzoate curve and helps distinguish ratio response from transfer based only on ester functionality.",
+      "hypothesis_id": "H_ESTER"
+    },
+    {
+      "id": "fefdeb43fb4d634b7880",
+      "reason": "m12 at 10/1, 100 uL fills an intermediate hydrocarbon condition between early 2/1 behavior and measured 20/1 ca7513a424b1ad5dcd5a and 50/1 909edd19830874acd4fa. It tests whether completion reaches its elevated regime before 20/1 while onset remains early.",
+      "hypothesis_id": "H_NONPOLAR"
+    },
+    {
+      "id": "5673d1c9567dd502bdc8",
+      "reason": "m4 at 10/1, 100 uL fills the same-loading gap between measured 5/1 5b46916999f1668c7409 and 50/1 f2f1228ed527e78379ef. This probes a fused, heteroatom-free aromatic whose completion is appreciably later than its onset, constraining topology-specific transfer.",
+      "hypothesis_id": "H_NONPOLAR"
+    },
+    {
+      "id": "26d65d4171bcd03f7ee3",
+      "reason": "m3 at 2/1, 50 uL forms a controlled loading pair with the selected 150-uL row. At 5/1, measured 1965d663b09320f566a5 and 40b5d3fdb9b234c05be5 differed strongly in V2. The pair tests whether that association extends to 2/1 despite nearly identical model completion predictions.",
+      "hypothesis_id": "H_NONPOLAR"
+    },
+    {
+      "id": "0ee34370dd3159941bdc",
+      "reason": "m3 at 2/1, 150 uL completes the loading contrast while holding ratio and loading-solvent identity/volume fixed. Comparison with the selected 50-uL row and measured high-loading 1/1 c2222e1974033abfcc10 is not available as measured evidence, so interpretation will instead use observed 5/1 40b5d3fdb9b234c05be5 and low-loading 1/1 c3feac62808af7335473.",
+      "hypothesis_id": "H_NONPOLAR"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H_HYDROXY_ALD",
+      "content": "Hydroxyaldehydes require scaffold-specific V1 and V2 solvent-response shapes. Substitution may alter donor-acceptor accessibility and intramolecular interactions, but those mechanisms are chemical hypotheses. The current intermediate onset minima and completion plateaus need direct testing.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "e55c8ef232b46d3a1ca9",
+        "a0d6732883ffc7d063fb",
+        "7e834c7b870ef7024d35",
+        "739f955977aa740524e5",
+        "8f1e0cc3cdc0e6164229",
+        "619663c2b3ffb3a6c497",
+        "7d9c7f40bc71ee7c4ef0",
+        "2efa93ea474f798b712a"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Intermediate labels can prevent a shared oxygenated-aromatic representation from averaging together distinct onset transitions and completion behavior.",
+      "next_discriminating_question": "Do m117, m186, m190, and m197 preserve their distinct endpoint shapes at the selected strong-side and 10\u201320/1 conditions?"
+    },
+    {
+      "id": "H_CARBONYL",
+      "content": "Carbonyl multiplicity, placement, and neighboring substituents produce different response curves. The substantial growth of m28 and m191 does not justify increasing completion uniformly across carbonyl graphs, as recent m28 strong-side and m29 intermediate labels demonstrate.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "686562279e2bfb73ef1e",
+        "0e3fa5113029ce384922",
+        "be82391d6b3e742f1f26",
+        "351c17dfa8f46a8cb40a",
+        "316b7260106904f99ae8",
+        "bae9d67e095423d8edd2",
+        "4c32851430464f0ed684"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Strong baselines and missing middle points teach where a carbonyl correction transfers and where it should remain localized.",
+      "next_discriminating_question": "Do the new m28, m191, and m125 points support separate transition locations and strong-side baselines rather than a common endpoint offset?"
+    },
+    {
+      "id": "H_LOADING",
+      "content": "Loading associations depend on scaffold, ratio, endpoint, and recorded loading conditions. Some identical condition tuples also have substantially different labels, so loading contrasts cannot all be treated as clean causal effects or explained by a universal direction.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "7ac90b210e42d27c5a04",
+        "5b445b457a8b897a2d6c",
+        "32326acee85181b5df10",
+        "48b79cabd9460cfc510b",
+        "d5234e966aa231be05e5",
+        "252c027cf5a42b92c953",
+        "9862563d18aae2868342",
+        "7b42519983cf93dd7efd",
+        "686562279e2bfb73ef1e",
+        "0d18f3f10c8377d12316"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Targeted condition contrasts can improve endpoint-specific loading features while limiting inappropriate transfer of historical residuals and label variability.",
+      "next_discriminating_question": "Do loading differences persist across adjacent ratios for m28, m94, m72, and m212, and does the recently measured m17 regime transfer to low loading?"
+    },
+    {
+      "id": "H_ESTER",
+      "content": "An ester or a high acceptor count does not determine a common retained regime. Adjacent carbonyl placement and ester substituents distinguish early m81 and m80 behavior from the later m94 and m95 regimes; benzoate families also need their own intermediate and weak-side anchors.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "57646b9484b03f4076bb",
+        "a9500e468002e41eceeb",
+        "08155ffdcb0d27576050",
+        "ffc70e28db22d1cc1f3f",
+        "5fd0921bbbba1e22abf9",
+        "cd7c523e3df961c83524",
+        "98f205d21cdccb427f9e",
+        "781b8d96d8bc7c124dc9"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "These boundaries constrain graph-condition interactions across numerous ester-containing rows and reduce both excessive tail transfer and missed completion growth.",
+      "next_discriminating_question": "Which selected intermediate ester points remain early, and which reveal the beginning of the later completion regime?"
+    },
+    {
+      "id": "H_BASELINE",
+      "content": "Basic nitrogen and the formally charged P/O graph require scaffold-specific strong-side baselines. Weak-side or loading anomalies do not establish a uniform retention offset. Missing pure-EA labels on m212 and m202 can test whether their baselines remain comparatively ordinary.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "75c96505f7b6b907aadf",
+        "97297c71a28a2ccbdeeb",
+        "6a11b71a3fb682d5f6da",
+        "7de812bda21b4dfe46dc",
+        "902937db42f82f467718",
+        "cb446680f62351d087a9"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Baseline labels can keep unusual graph or loading responses from displacing predictions across the entire solvent curve.",
+      "next_discriminating_question": "Are the selected pure-EA baselines consistent with their predictions, and is the m212 low-loading effect absent at 1/1 but present at 5/1?"
+    },
+    {
+      "id": "H_LOCAL_M73",
+      "content": "The late m73 onset at 1/1 is localized in the supplied observations rather than a scaffold-wide shift. Its cause remains unresolved, particularly because some intervals are nearly zero or slightly inverted. Labels at other unmeasured ratios can constrain how that local pattern should transfer.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "2cf789c87f7c6325c020",
+        "a387411cbcb6be48bde4",
+        "51de9c0ea3a29bbcda54",
+        "49932dbd3d16bb64f71a",
+        "122a83bd31e4c0efeebd"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "New ratio labels can prevent an unusual local observation from distorting neighboring rows without declaring the observation erroneous.",
+      "next_discriminating_question": "Does ordinary onset persist at 5/1, followed by growth at 20/1 under the same 100-uL loading?"
+    },
+    {
+      "id": "H_NONPOLAR",
+      "content": "Heteroatom-free aromatic graphs can retain early onset while developing topology- and condition-specific completion behavior. Some also show loading associations. The m156 observations weaken excessive onset-growth transfer, but they do not eliminate real V2 growth with increasing PE.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "ca7513a424b1ad5dcd5a",
+        "909edd19830874acd4fa",
+        "5b46916999f1668c7409",
+        "f2f1228ed527e78379ef",
+        "1965d663b09320f566a5",
+        "40b5d3fdb9b234c05be5",
+        "bd2d2667de61e29eaea3",
+        "ff8fce8e929a75d6fb8d",
+        "99c52c931d5bd0f365b0"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Intermediate nonpolar labels define boundaries for oxygenated-family corrections and teach onset/completion separation beyond simple HBA or polarity descriptors.",
+      "next_discriminating_question": "Do m12 and m4 reach their completion plateaus at 10/1, and does the m3 loading association extend from 5/1 to 2/1?"
+    }
+  ],
+  "feedback_interpretation": "The latest outcomes weaken a uniform late-completion deficit. Historical V2 predictions were high by 7.38 mL for m29 row 0e3fa5113029ce384922, 5.72 mL for m28 row 686562279e2bfb73ef1e, and 4.43 mL for m81 row a9500e468002e41eceeb, but low by 6.10 mL for m17 row d6b28f60f89677468590 and 5.82 mL for m92 row 7b42519983cf93dd7efd. This favors local ratio/loading contrasts over another common tail correction. The accurate m199 5/1 result 714004602e6452764d9a and modest m185 errors reduce the value of repeating those already anchored regimes. Recent m73 pure-EA onset remained ordinary, strengthening localization of its unusual 1/1 behavior. Two memory interpretations also need refinement from the numeric observed table: m53 at 20/1 in 6e17f8e15aa8fdd6a9ea was overpredicted, whereas its 50/1 point cdc8c1db00222994a1aa was strongly underpredicted; and m156 showed almost flat V1 but genuine V2 growth from 1/1 through 50/1. The rejected fluorinated-aromatic inference concerns excessive onset and growth magnitude, not the absence of all completion growth. Identical-condition m92 records 9862563d18aae2868342 and 7b42519983cf93dd7efd differ materially, so I retain uncertainty about variability and missing information instead of interpreting every discrepancy as a loading mechanism. All cited errors are acquisition-time errors, not current-model residuals.",
+  "batch_rationale": "The batch targets condition gaps after many extreme regimes have already been measured. Fixed-loading m117 and m197 series constrain solvent-response shape; m28, m94, m72, m17, m191, and m212 contrasts test whether loading associations change with ratio or endpoint. The m3 pair specifically challenges nearly identical completion predictions where neighboring measured conditions showed a substantial loading association. Sparse m125 coverage and missing m191, m212, and m202 pure-EA baselines provide exploration with direct relevance to existing response families. Ketoester and benzoate points test transfer boundaries between early and retained ester regimes, while m12 and m4 constrain intermediate completion behavior outside oxygenated graphs. Each chosen tuple is condition-novel, and repeated catalog aliases are not used to inflate the batch. Together these labels should improve the learned structure-condition-retention surface across early, intermediate, and late Row regimes. They cannot resolve effects of variables absent from the catalog, and no causal mechanism is assumed from a single contrast."
+}

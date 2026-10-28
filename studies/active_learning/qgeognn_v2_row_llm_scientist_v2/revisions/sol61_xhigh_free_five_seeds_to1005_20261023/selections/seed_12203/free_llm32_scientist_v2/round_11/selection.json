@@ -1,0 +1,261 @@
+{
+  "type": "selection",
+  "packet_sha256": "097f5e34c0913b7166840290dad715134d4e8759584a97ce5d2a70391acf72c2",
+  "batch_strategy": "A condition-space coverage batch combining ordinary aromatic controls, carbonyl and beta-dicarbonyl transition anchors, heteroatom-rich structures, and loading-sensitive rows. The selected points emphasize high supplied prediction widths, high current feature-space distance, and chemically distinct response regions.",
+  "choices": [
+    {
+      "id": "0a974fa5ccff4ce25b98",
+      "reason": "m116 at pure EA and 100 uL provides a strong-eluent baseline for an electron-rich diaryl ether and tests whether the relatively narrow model interval is reliable in an undercovered aromatic-ether condition.",
+      "hypothesis_id": "H_BASELINE"
+    },
+    {
+      "id": "0146e8c64d0bd7bf5904",
+      "reason": "m121 at 20/1 and 150 uL samples a weak-eluent anisole-like halogenated aromatic with a comparatively broad supplied prediction interval, adding ordinary late-condition coverage.",
+      "hypothesis_id": "H_BASELINE"
+    },
+    {
+      "id": "65a84972b3a290ff8a0e",
+      "reason": "m70 at 2/1 and low loading is a compact aliphatic aryl-ketone control. It helps separate ordinary ketone response from the retained carbonyl regimes observed in 892c3900698d3de38b1c and 92f7fe9d8581717a9949.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "9425b8289ee4a76611af",
+      "reason": "m54 at pure EA and 100 uL anchors a strong-eluent aryl-ketone condition. Its label can constrain the early side of a carbonyl response surface before PE-rich extrapolation.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "7609a0c63a8cd353dd97",
+      "reason": "m6 at 5/1 and 50 uL tests a brominated methylenedioxy aromatic in an intermediate-eluent region, adding heteroatom and halogen context distinct from ordinary hydrocarbon rows.",
+      "hypothesis_id": "H_HETERO"
+    },
+    {
+      "id": "5579fc741622454cdd34",
+      "reason": "m50 at 20/1 and 150 uL supplies a weak-eluent, high-loading halogenated hydrocarbon control. It tests whether the model's modest predicted retention is transferable to a non-donor aromatic.",
+      "hypothesis_id": "H_BASELINE"
+    },
+    {
+      "id": "9c700f8ed9efad8bc73a",
+      "reason": "m143 at 20/1 and 100 uL probes a brominated methyl benzaldehyde with a wide supplied V1 interval, extending carbonyl coverage into a halogenated aldehyde environment.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "5b7c4a47b624119302fa",
+      "reason": "m127 at pure EA and 150 uL is a strong-eluent methoxy acetophenone anchor. It provides a low-retention reference for comparing substituted aryl ketones under recorded high loading.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "0d1c0a80c613a60b0fa0",
+      "reason": "m35 at 2/1 and 50 uL samples a halogenated acetophenone at low loading and an intermediate ratio, testing local substituent transfer from measured aryl-carbonyl rows.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "9b11493847c035abf800",
+      "reason": "m169 at 10/1 and 100 uL targets a broad predicted interval for a fluorinated aryl ketone with a flexible chlorinated chain, providing a structurally distinct carbonyl row in a weak-eluent regime.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "b621ae038eb99991ffec",
+      "reason": "m150 at 2/1 and 100 uL is a halogenated hydrocarbon control at moderate eluent strength. It tests whether the model separates nonpolar halogen effects from donor and carbonyl interactions.",
+      "hypothesis_id": "H_HETERO"
+    },
+    {
+      "id": "1c12f9e9a5043e6d32cc",
+      "reason": "m167 at 20/1 and 100 uL is a high-width beta-dicarbonyl candidate. It extends the measured m166 and m168 family into a distinct loading and graph environment, supporting local rather than global carbonyl corrections.",
+      "hypothesis_id": "H_DICARB"
+    },
+    {
+      "id": "8d1c1f1a4efded6a8158",
+      "reason": "m168 at 10/1 and 150 uL adds an independent beta-diketone condition with a broad completion prediction. It helps distinguish fluorinated or fused-ring effects from the response seen for m166.",
+      "hypothesis_id": "H_DICARB"
+    },
+    {
+      "id": "75f1650706d11848a73a",
+      "reason": "m108 at 10/1 and 50 uL tests a brominated dimethoxy aromatic in a moderate weak-eluent region, complementing the non-donor aromatic controls and probing a wide supplied V1 interval.",
+      "hypothesis_id": "H_HETERO"
+    },
+    {
+      "id": "d78f8b8454ab35fb5472",
+      "reason": "m43 at 5/1 and 150 uL provides a high-loading bromoacetophenone condition. It can test whether halogenated aryl-ketone behavior transfers across loading and ratio.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "8b18117ded9c488721a3",
+      "reason": "m169 at 2/1 and 100 uL pairs with the selected 10/1 condition, forming a same-loading ratio contrast for a flexible fluorinated ketone and locating any onset transition.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "fb4ce5d78cbb665a3ddb",
+      "reason": "m93 at 1/1 and 50 uL samples an alpha-bromo ester at strong eluent and low loading, adding a compact carbonyl-halogen anchor with different steric environment from aryl ketones.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "58669c7a3953b668d2e1",
+      "reason": "m160 at pure EA and 50 uL probes an aminobenzonitrile in a strong-eluent condition. The high supplied V2 interval tests whether donor and nitrile interactions create an early or broad elution response.",
+      "hypothesis_id": "H_HETERO"
+    },
+    {
+      "id": "cc1f4899902d6f44bef2",
+      "reason": "m28 at pure EA and 150 uL provides a strong-eluent aldehyde-ester anchor. It helps establish the early side of the large measured carbonyl response range represented by 0d18f3f10c8377d12316 and 351c17dfa8f46a8cb40a.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "8c5919c128847d433188",
+      "reason": "m59 at pure EA and 150 uL tests a methylenedioxy-substituted aldehyde under strong eluent, adding a structurally related but electronically distinct carbonyl baseline.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "12400c6c61643f9c79b5",
+      "reason": "m194 at pure EA and 100 uL probes a cyclic ether aldehyde with a broad supplied V1 interval, extending aldehyde coverage outside the more heavily sampled aromatic carbonyl families.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "19c8831adeb5f3e2fcd5",
+      "reason": "m182 at 20/1 and 100 uL is a high-distance, high-width fused ketone candidate. It tests whether the retained behavior of rigid fused carbonyl structures transfers beyond the measured beta-dicarbonyl examples.",
+      "hypothesis_id": "H_HETERO"
+    },
+    {
+      "id": "ad61a3e6e11effc0299a",
+      "reason": "m152 at 2/1 and 100 uL samples a heavily halogenated trifluoromethoxy aromatic with an unusually broad supplied V1 interval, probing nonpolar polarizability and heteroatom effects without an H-bond donor.",
+      "hypothesis_id": "H_HETERO"
+    },
+    {
+      "id": "34a133db8364fd665ae6",
+      "reason": "m167 at 5/1 and 100 uL pairs with the selected 20/1 condition and provides an intermediate beta-dicarbonyl response point at fixed loading.",
+      "hypothesis_id": "H_DICARB"
+    },
+    {
+      "id": "6be742f06dddb42eb929",
+      "reason": "m207 at 2/1 and 50 uL samples a bromobenzyl alcohol at low loading. It tests donor and halogen transfer against the measured benzylic-alcohol and brominated-alcohol regimes.",
+      "hypothesis_id": "H_LOAD"
+    },
+    {
+      "id": "9a207c449ef228ed648f",
+      "reason": "m25 at pure EA and 150 uL provides a strong-eluent ester baseline at high loading. It can help distinguish loading effects from the much later multifunctional carbonyl rows.",
+      "hypothesis_id": "H_LOAD"
+    },
+    {
+      "id": "a1ea7a9303a5fc7a7b0f",
+      "reason": "m51 at 2/1 and 50 uL probes a tertiary alcohol with a wide supplied endpoint interval at low loading. It adds a loading-sensitive donor environment distinct from primary and benzylic alcohols.",
+      "hypothesis_id": "H_LOAD"
+    },
+    {
+      "id": "fce2741d123dd81a8fa6",
+      "reason": "m15 at 20/1 and 50 uL is a weak-eluent acrylate control with a broad completion interval. It tests whether the model's response for a nonaromatic ester remains ordinary in a PE-rich condition.",
+      "hypothesis_id": "H_BASELINE"
+    },
+    {
+      "id": "d979e07040a3ca7229c6",
+      "reason": "m7 at 1/1 and 100 uL supplies a strong-eluent fused halogenated hydrocarbon anchor, useful for separating aromaticity and halogen effects from the donor-rich late regimes.",
+      "hypothesis_id": "H_HETERO"
+    },
+    {
+      "id": "4a4b159460fe624a95fc",
+      "reason": "m210 at 50/1 and 50 uL samples a nonpolar biphenyl in a very weak-eluent condition. It tests whether the broad late-condition prediction is chemically plausible for a donor-free scaffold.",
+      "hypothesis_id": "H_BASELINE"
+    },
+    {
+      "id": "588b182228e5400a3c7a",
+      "reason": "m184 at pure EA and 100 uL provides a strong-eluent dibromobenzaldehyde anchor. It complements the selected weak-eluent carbonyl rows and tests halogenated aldehyde transfer.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "87ada91b7803cfd9f767",
+      "reason": "m98 at 5/1 and 100 uL samples a fused aromatic ester in an intermediate condition with a broad supplied prediction interval, adding a compact ester response boundary near aromatic carbonyl families.",
+      "hypothesis_id": "H_CARB"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H_CARB",
+      "content": "Carbonyl response corrections are strongly scaffold- and condition-specific. Aldehydes, aryl ketones, esters, and fused carbonyls can occupy different onset and completion regimes.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "892c3900698d3de38b1c",
+        "92f7fe9d8581717a9949",
+        "20d4b1612cbdd88b6755",
+        "ffc70e28db22d1cc1f3f",
+        "80de1b57c56257d2ecae",
+        "fc672dc6f3ecc1d0492c",
+        "04220e1eb53e9a22175c",
+        "783cf2454912fc14bb80"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The selected carbonyl rows add strong-eluent baselines, intermediate ratios, halogenated analogues, and fused structures, helping the retrained model avoid transferring a single correction across chemically different carbonyl environments.",
+      "next_discriminating_question": "Which carbonyl graph environments show early onset with late completion, and where does the strong-to-weak-eluent transition occur?"
+    },
+    {
+      "id": "H_DICARB",
+      "content": "Beta-dicarbonyl responses differ across graph environment and loading, with sharp completion growth possible at weak eluent while onset can remain comparatively early.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "54f20e9bd23ee1c7b5db",
+        "20d4b1612cbdd88b6755",
+        "7ac90b210e42d27c5a04",
+        "ffc70e28db22d1cc1f3f",
+        "80de1b57c56257d2ecae",
+        "fc672dc6f3ecc1d0492c",
+        "483022b02f8329c323ac",
+        "78c0a2cff75a69f56f26"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The m167 and m168 conditions provide additional fused and fluorinated beta-dicarbonyl supervision near measured transition regions, improving interpolation across graph context.",
+      "next_discriminating_question": "Does the beta-dicarbonyl completion transition occur at comparable ratios for m167, m168, and the measured m166/m94 scaffolds?"
+    },
+    {
+      "id": "H_HETERO",
+      "content": "Heteroatom-rich, halogenated, and fused aromatics can form late-retention regimes that are poorly represented by simple polarity or molecular-weight transfer.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "49201b5817f204116f7f",
+        "855832bd4005ac7abdc6",
+        "c76d0420b34df595c0c9",
+        "9ffee2813aef5c26f96f",
+        "6b5982c6e1bbaadd6a95"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The batch samples ring-N-adjacent behavior, fused carbonyls, amino nitriles, and heavily halogenated aromatics, addressing model blind spots while retaining donor-free controls.",
+      "next_discriminating_question": "Can the retrained model distinguish late retention caused by heteroatom interaction from late retention caused primarily by fused or highly polarizable hydrocarbon structure?"
+    },
+    {
+      "id": "H_LOAD",
+      "content": "Loading effects are scaffold- and ratio-dependent and may affect V1 and V2 differently; no universal loading correction is justified.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "f6c49d6bc4b677f17278",
+        "d5234e966aa231be05e5",
+        "252c027cf5a42b92c953",
+        "70cba7a21b5a01fb8e73",
+        "942b8fc9cf013acda52b",
+        "7fb4f90753d40dd25be0",
+        "434ffacb33eccce497c5",
+        "65f4f125b5e1f8137bd9",
+        "7caf1db075b91197ba34",
+        "9862563d18aae2868342"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The selected alcohol and ester rows add loading-diverse anchors that can help the model learn endpoint-specific loading behavior across donor and non-donor scaffolds.",
+      "next_discriminating_question": "Which of these donor and ester environments retain strong loading sensitivity at stronger eluent, and which changes mainly affect completion?"
+    },
+    {
+      "id": "H_BASELINE",
+      "content": "Ordinary donor-free aromatic and ester rows remain useful as controls because late-condition model behavior may be overgeneralized from chemically polar or high-error families.",
+      "basis": "chemical_prior",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "Strong-eluent and weak-eluent controls help calibrate the retrained model's baseline response and prevent local failure corrections from spreading to ordinary Row-distribution members.",
+      "next_discriminating_question": "Do donor-free aromatic controls remain comparatively early across the selected solvent conditions, or do some enter the late regime unexpectedly?"
+    }
+  ],
+  "feedback_interpretation": "The latest measured outcomes reinforce local response modeling. m200 showed only moderate error at 1/1 and 50 uL but a much larger same-loading shift at 2/1, supporting a sharp ratio transition. m212 confirmed a large 50-to-100-uL loading change at 5/1 followed by a smaller 100-to-150-uL change, while m141 showed a different onset-sensitive loading response. The m99 5/1 and 10/1 measurements rose strongly, rejecting the former plateau prediction. These outcomes favor matched condition anchors and chemically distinct controls over universal monotonicity or loading corrections.",
+  "batch_rationale": "The batch combines baseline controls with targeted repair of the measured carbonyl and beta-dicarbonyl failure regions. m167 and m168 provide additional beta-dicarbonyl anchors; aldehydes, aryl ketones, esters, fused structures, and halogenated aromatics test whether carbonyl corrections transfer across graph context. m160, m182, m152, m7, and m210 probe heteroatom, fused, halogen, and donor-free boundaries. m25, m51, and m207 add loading-diverse donor and ester conditions. Together these measurements broaden condition and structure coverage while testing where observed late-retention relationships generalize, which should improve overall V1/V2 accuracy across the Row-distribution."
+}

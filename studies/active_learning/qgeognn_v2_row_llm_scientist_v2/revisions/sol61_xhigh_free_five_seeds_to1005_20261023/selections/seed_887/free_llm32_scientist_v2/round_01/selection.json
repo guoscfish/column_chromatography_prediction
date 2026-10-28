@@ -1,0 +1,278 @@
+{
+  "type": "selection",
+  "packet_sha256": "daf9578c473fdf516ae2f52d07e567e15965b341f5241913ad2abe63b9f258f0",
+  "batch_strategy": "Repair failures in the separate prediction of onset and completion through molecule-local solvent-response experiments and close structural contrasts. Extend coverage where current predictions extrapolate sharply from measured conditions, including several novel chemotypes with ordinary predicted retention. Prioritize interpretable label comparisons over quantile-width rankings, and avoid redundant candidate tuples. All 32 selections are fixed together using the supplied premeasurement predictions.",
+  "choices": [
+    {
+      "id": "ce14dd2481560a984aea",
+      "reason": "m177 at 10/1, 100 ul has current predictions 0.00/38.45 mL. Its measured 50/1 result b514312eda7950cdcf1c was 4.49/81.30, with historical errors +55.12/+58.43. This tests whether retraining has transferred the early onset too aggressively across solvent conditions while learning completion separately.",
+      "hypothesis_id": "H2_onset_completion"
+    },
+    {
+      "id": "5e276c1730fc0a9deba7",
+      "reason": "m177 at 20/1, 150 ul holds loading conditions fixed against b514312eda7950cdcf1c at 50/1. Current predictions 0.54/59.71 mL make this a direct test of whether early onset persists while completion changes with EA fraction.",
+      "hypothesis_id": "H2_onset_completion"
+    },
+    {
+      "id": "855456da9ea892f7216b",
+      "reason": "Novel aromatic diketone m178 at 20/1 is predicted to start at 0.00 and finish at 26.83 mL. This unusual onset resembles the newly learned m177 behavior, despite different acceptor topology. Together with measured benzophenone-family rows 975d484a29fb5011f336 and b514312eda7950cdcf1c, its label tests structural transfer of the early-onset regime.",
+      "hypothesis_id": "H2_onset_completion"
+    },
+    {
+      "id": "942b8fc9cf013acda52b",
+      "reason": "m212 at 10/1, 150 ul is predicted at 20.66/30.95 mL after its 5/1 measurement d5234e966aa231be05e5 gave 7.24/13.67 and exposed a large historical overprediction. This tests whether the remaining steep response is real. The selected dibenzyl ether uses the same ratio, sample volume, loading solvent and solvent volume.",
+      "hypothesis_id": "H3_nitrogen_context"
+    },
+    {
+      "id": "e8d25b0f93b5bcf88daf",
+      "reason": "Novel dibenzyl ether m213 at 10/1, 150 ul forms a close N-to-O structural contrast with the selected dibenzylamine under matched recorded conditions and similar loading amounts. Its prediction of 5.28/10.39 mL versus the amine's 20.66/30.95 tests whether the model's nitrogen-specific response is warranted.",
+      "hypothesis_id": "H3_nitrogen_context"
+    },
+    {
+      "id": "4659b6752f23c0b85f08",
+      "reason": "Novel pyridyl ketone m66 at 2/1, 100 ul provides the stronger-eluent endpoint of a controlled pair with its selected 5/1 row. Predictions are 11.98/29.70 mL. Measured pyridyl ester 22f82413c75481d74e9b supplies a related 2/1 anchor, without establishing that ketone and ester responses are interchangeable.",
+      "hypothesis_id": "H3_nitrogen_context"
+    },
+    {
+      "id": "49201b5817f204116f7f",
+      "reason": "m66 at 5/1, 100 ul is predicted at 30.07/70.90 mL, a sharp increase from its selected 2/1 point with all loading variables fixed. The selected m90 ester at the same ratio and sample volume adds a close functional-group comparison, testing pyridine versus carbonyl-context contributions.",
+      "hypothesis_id": "H3_nitrogen_context"
+    },
+    {
+      "id": "855832bd4005ac7abdc6",
+      "reason": "m90 at 5/1, 100 ul fills the transition between measured 2/1 row 22f82413c75481d74e9b and 10/1 row 96710afeabc594baa359. The latter measured 48.17/107.99 mL and was historically underpredicted. This label constrains response curvature and supports transfer to the selected pyridyl ketone.",
+      "hypothesis_id": "H3_nitrogen_context"
+    },
+    {
+      "id": "1ce749f818905d3c61d4",
+      "reason": "m211 at 5/1, 100 ul extends a molecule observed only at 0/1, including 0776336aa1c106b4d645 at 4.91/11.14 mL. Its current 18.00/40.46 prediction supplies the intermediate point for the selected 50/1 experiment, testing whether a phenyl-substituted pyridine follows the late heteroaromatic response.",
+      "hypothesis_id": "H3_nitrogen_context"
+    },
+    {
+      "id": "449b809e4efaaf2af86a",
+      "reason": "m211 at 50/1, 100 ul is predicted at 48.94/111.66 mL, far beyond its measured 0/1 range. Paired with 5/1 at identical loading, it tests a major uncovered condition response. Measured quinoline rows 33ffc69a253a89f15995 and 9cd02352c2ed7a3e2321 make a late response plausible, while the m212 failure cautions against treating all bases alike.",
+      "hypothesis_id": "H3_nitrogen_context"
+    },
+    {
+      "id": "88bd894f636978ba76e5",
+      "reason": "Novel bromonitrobenzene m201 at 5/1, 150 ul is predicted at 3.95/13.50 mL and anchors a controlled pair with its selected 20/1 row. Removing the carbonyl from the nitroaromatic families represented by b6f1b33a5491968c645e and a5f9179bfb146ad70953 tests whether the learned solvent response depends on combined functional groups.",
+      "hypothesis_id": "H6_acceptor_topology"
+    },
+    {
+      "id": "476cfe5a707e309dcbc1",
+      "reason": "m201 at 20/1, 150 ul is predicted at 23.62/51.08 mL. Relative to its selected 5/1 point, only PE/EA changes. This discriminates a genuine nitro-group response from inappropriate transfer of the late nitro-carbonyl labels, whose V2 values were substantially overpredicted in the previous batch.",
+      "hypothesis_id": "H6_acceptor_topology"
+    },
+    {
+      "id": "a01a137fa48c1391b9e7",
+      "reason": "m193 at 10/1, 50 ul directly changes solvent strength from measured 20/1 row a5f9179bfb146ad70953 while holding loading fixed. That result had an accurate onset but a +32.23 mL historical V2 error. The new point tests whether completion response is learned independently of onset.",
+      "hypothesis_id": "H1_response"
+    },
+    {
+      "id": "38e6b8bf0f089fcadd80",
+      "reason": "m37 at 10/1, 100 ul provides a matched-loading solvent contrast to b6f1b33a5491968c645e at 20/1. Its prediction is 31.38/66.98 mL. Together with m193, this tests whether nitro ketone and nitro aldehyde response curves share transferable features despite their different measured completion volumes.",
+      "hypothesis_id": "H1_response"
+    },
+    {
+      "id": "59b54ad3a60a52cc2b2c",
+      "reason": "m159 at 20/1, 150 ul bridges measured 5/1 row 5ae7472a4d9ce3fe20d0 and 50/1 row 1395836aef00d6a880b0 at fixed loading. Current predictions 32.65/75.41 mL test the missing transition from early onset to genuinely late elution, contrasting with the nitrobenzophenone response.",
+      "hypothesis_id": "H1_response"
+    },
+    {
+      "id": "62e730f8ad10cbdd613b",
+      "reason": "m203 at 5/1, 100 ul is predicted at 26.91/39.81 mL although its measured 0/1 row d550a2107daf4c532b6a was 5.12/8.32. This tests the large predicted response of a rigid tertiary alcohol and provides the lower-ratio endpoint of a controlled 5/1-to-10/1 pair.",
+      "hypothesis_id": "H4_alcohol_context"
+    },
+    {
+      "id": "dea19ed5b8959a2a6619",
+      "reason": "m203 at 10/1, 100 ul is predicted at 44.01/65.75 mL. Compared with its selected 5/1 point, loading is unchanged. The pair tests whether steric environment permits this steep alcohol response; the early 0/1 measurement alone cannot establish shielding under weaker eluent.",
+      "hypothesis_id": "H4_alcohol_context"
+    },
+    {
+      "id": "d05a91dc8e32e9edd7d0",
+      "reason": "m135 at 10/1, 150 ul changes only PE/EA from f9f0f4e29dbd30c000ee at 5/1, which measured 18.55/34.32 mL. The current 29.41/59.29 prediction tests alcohol response curvature and whether the previous completion underprediction generalizes to weaker eluent.",
+      "hypothesis_id": "H4_alcohol_context"
+    },
+    {
+      "id": "776ee2c1e85ebde75168",
+      "reason": "Novel methoxyphenethyl alcohol m119 at 5/1, 100 ul is predicted at 28.58/50.41 mL. It extends the alcohol family represented by f9f0f4e29dbd30c000ee and c973d4c257be9ef08216, testing OH distance from the aromatic ring and methoxy substitution at an informative intermediate solvent strength.",
+      "hypothesis_id": "H4_alcohol_context"
+    },
+    {
+      "id": "e4fd83fb3852eb354a66",
+      "reason": "Novel methoxybenzyl alcohol m120 at 5/1, 100 ul shares the selected m119 ratio, loading solvent and solvent volume, but has a benzylic OH and prediction 18.38/32.70 mL. Their labels test the predicted structural difference; measured methylbenzyl alcohol f9f0f4e29dbd30c000ee supplies another nearby anchor.",
+      "hypothesis_id": "H4_alcohol_context"
+    },
+    {
+      "id": "ff3b6b1069b7d66ad021",
+      "reason": "Novel bromobenzyl alcohol m207 at 10/1, 100 ul is predicted at 20.37/39.51 mL. It tests transfer from the measured and selected benzyl-alcohol family to a halogenated, higher-density loading regime, without assuming that halogen mass or the OH group alone determines retention.",
+      "hypothesis_id": "H4_alcohol_context"
+    },
+    {
+      "id": "783cf2454912fc14bb80",
+      "reason": "m195 at 20/1, 100 ul fills the loading midpoint between a83fb14090f1518df5a7 at 50 ul and a917c928912c74862968 at 150 ul. Their onset values differ greatly, and the latter slightly exceeds its V2. This tests loading dependence versus anomalous measurement behavior, which the nearly load-invariant current predictions cannot resolve.",
+      "hypothesis_id": "H5_loading_or_variation"
+    },
+    {
+      "id": "6020a000a87663526cc8",
+      "reason": "The beta-diketone m26 at 50/1, 150 ul is predicted at 30.99/70.97 mL. Related beta-diketones e82a87ee526fdd9b1e8d and 0b9a59526d7d4ce5f872 start near 5 mL at the same ratio and sample volume. Extending m26 beyond its measured 5/1 row cd886ea93739886ed3c6 tests whether this predicted onset contrast is real.",
+      "hypothesis_id": "H6_acceptor_topology"
+    },
+    {
+      "id": "08155ffdcb0d27576050",
+      "reason": "Diethyl malonate m80 at 50/1, 100 ul is predicted at 25.34/45.66 mL, whereas its measured series through 10/1 remains early, including 08ae0e5f727afabf1e71. This tests a large extrapolated response in a common ester family and complements the novel alkynediester experiment.",
+      "hypothesis_id": "H6_acceptor_topology"
+    },
+    {
+      "id": "61090cfdcf019e0891a3",
+      "reason": "Ethyl acetoacetate m82 at 20/1, 100 ul is predicted at 21.26/40.10 mL. Its measured 1/1 anchor af7d7a4a3b2da27cada0 and related methyl acetoacetate row cd566862a517dd7cdc8d leave the weak-eluent response poorly constrained. This label teaches beta-ketoester response beyond the existing stronger-eluent anchors.",
+      "hypothesis_id": "H6_acceptor_topology"
+    },
+    {
+      "id": "48679ae48dd485ffb7a6",
+      "reason": "Novel dimethyl alkynedicarboxylate m91 has low similarity to labeled molecules, 0.333, and predictions 17.97/31.68 mL at 50/1. Its rigid acceptor arrangement and low LogP test transfer from flexible malonate and beta-ketoester families. The selected malonate provides a same-ratio reference, although loading conditions differ.",
+      "hypothesis_id": "H6_acceptor_topology"
+    },
+    {
+      "id": "28d8efb10e9abe6740a6",
+      "reason": "Novel aliphatic ketonitrile m47 has maximum labeled similarity 0.233 and modest predictions 5.83/10.62 mL at 5/1. It explores ketone/nitrile chemistry outside the aromatic structures represented by 386303f0b10c49ce93b4 and 1395836aef00d6a880b0, testing structural extrapolation even where predicted retention is ordinary.",
+      "hypothesis_id": "H6_acceptor_topology"
+    },
+    {
+      "id": "304fb0fdb486ae4b7a07",
+      "reason": "Novel tertiary-amino acrylate m19 at 2/1, 100 ul is predicted at 6.32/9.87 mL. Measured amino acrylate 017b0f98188f8ff58935 and dibenzylamine d5234e966aa231be05e5 show why amine-containing structures need context-specific treatment. This probes a distinct flexible tertiary amine under an ordinary predicted-retention condition.",
+      "hypothesis_id": "H3_nitrogen_context"
+    },
+    {
+      "id": "9bc73e0c27d4d6b44abb",
+      "reason": "Novel para-aminobenzoate m86 at 5/1, 150 ul tests positional transfer from measured ortho isomer a1d9a0b7b03901c439bc and meta isomer 4cb169fead3b3de5dada. Its prediction is 9.85/20.24 mL. Amine accessibility and possible intramolecular interactions are hypotheses; different loading-solvent volumes prevent a purely positional attribution.",
+      "hypothesis_id": "H3_nitrogen_context"
+    },
+    {
+      "id": "aa83ae83c0fa0cc37777",
+      "reason": "Diphenyl sulfoxide m199 at 10/1, 150 ul extends beyond its measured 0/1 anchor b2bf97a1dcb9d6609f7d. The 10.22/23.09 prediction tests sulfur oxidation-state and acceptor representation, especially given the very different measured sulfur-containing carbonyl rows 4c46ceefd6147b1e0a7a and 92f7fe9d8581717a9949.",
+      "hypothesis_id": "H6_acceptor_topology"
+    },
+    {
+      "id": "bae9d67e095423d8edd2",
+      "reason": "Novel terephthalaldehyde m191 at 10/1, 100 ul is predicted at 7.40/22.75 mL. It tests whether two separated aldehydes produce the modest onset and broader completion predicted, extending carbonyl-topology coverage beyond measured monoaldehydes, nitroaldehydes and beta-diketones.",
+      "hypothesis_id": "H6_acceptor_topology"
+    },
+    {
+      "id": "96840797cfdea44e1467",
+      "reason": "Novel rigid bicyclic acrylate m23 at 50/1, 50 ul is predicted at 19.18/36.21 mL. Branched-chain acrylate 97fe38c6942b67ea70b2, with the same listed LogP and closely matched recorded loading conditions, measured 8.95/12.80. This tests a substantial predicted steric/topological effect rather than assuming ester or LogP equivalence.",
+      "hypothesis_id": "H6_acceptor_topology"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1_response",
+      "content": "Molecule-specific PE/EA response can be steep, and onset and completion need not change proportionally. Labels between existing solvent-strength anchors should be more transferable than additional near-duplicate loading points in already constrained regions.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "1395836aef00d6a880b0",
+        "6c27c0ab37bb8d812822",
+        "0dfdfd6dce2d3f41a427",
+        "683b6279a87805548c7c",
+        "ca467c94f14b2219503e",
+        "6573d8f84faaf7ce4a78"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The candidate catalog contains many same-molecule condition variants. Learning where response curves accelerate can improve predictions for many rows while constraining V1 and V2 separately.",
+      "next_discriminating_question": "Do the selected intermediate nitro-carbonyl and cyanobenzophenone conditions follow the predicted response curvature at fixed loading?"
+    },
+    {
+      "id": "H2_onset_completion",
+      "content": "The m177 measurement establishes an early-onset, broad-elution case that a general late-retention heuristic missed. Whether that behavior persists across its solvent-response curve or transfers to related aromatic ketones remains unresolved.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "b514312eda7950cdcf1c",
+        "975d484a29fb5011f336",
+        "e82a87ee526fdd9b1e8d",
+        "0b9a59526d7d4ce5f872"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A single extreme label can correct one row but distort nearby condition predictions. Additional labels distinguish early breakthrough with delayed completion from genuinely late onset, repairing both output relationships.",
+      "next_discriminating_question": "Are m177's near-zero predicted onsets at 10/1 and 20/1 supported, and does the novel aromatic diketone show a related interval shape?"
+    },
+    {
+      "id": "H3_nitrogen_context",
+      "content": "Retention of nitrogen-containing compounds depends on nitrogen environment, accessibility and eluent strength. Aromatic nitrogen compounds may have much steeper solvent responses than the measured dibenzylamine; a generic basicity-based retention rule is insufficient.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "d5234e966aa231be05e5",
+        "18a189c89f59ac1d5a9f",
+        "22f82413c75481d74e9b",
+        "96710afeabc594baa359",
+        "33ffc69a253a89f15995",
+        "9cd02352c2ed7a3e2321",
+        "6f548d72f01fc85debdc"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "This addresses the previous large amine false positive while preserving evidence for genuinely late heteroaromatics. Matched pairs teach structural interactions instead of a uniform correction to all nitrogen-containing molecules.",
+      "next_discriminating_question": "How do pyridyl ketone, pyridyl ester and phenylpyridine responses compare, and does dibenzylamine remain distinct from its ether analogue at 10/1?"
+    },
+    {
+      "id": "H4_alcohol_context",
+      "content": "Alcohol solvent-response curves may depend strongly on OH position, substitution and surrounding aromatic structure. A common donor descriptor alone may miss differences between primary, secondary and sterically constrained tertiary alcohols.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "f9f0f4e29dbd30c000ee",
+        "d550a2107daf4c532b6a",
+        "13bfaf03c35b4cff3bd5",
+        "b7cf293311f83700cd9a",
+        "c973d4c257be9ef08216",
+        "73502a52708e4f9c2391",
+        "67b03e9099ef99d26eb1",
+        "12ab195583f05b9aa177"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Several measured alcohols span early through very late elution, but their conditions differ. Local solvent pairs and related novel alcohols help disentangle structure from condition and support transfer across the donor-containing rows.",
+      "next_discriminating_question": "Does the rigid tertiary alcohol exhibit the predicted steep 5/1-to-10/1 increase, and are the predicted differences among substituted benzyl and phenethyl alcohols supported?"
+    },
+    {
+      "id": "H5_loading_or_variation",
+      "content": "Some apparent loading-dependent onset differences may reflect genuine structure-loading interactions, measurement variation or anomalous records. The nearly flat current predictions across loading amounts do not establish loading independence.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "a83fb14090f1518df5a7",
+        "a917c928912c74862968",
+        "96710afeabc594baa359",
+        "c76d0420b34df595c0c9"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A model could either ignore an important interaction or memorize an anomalous endpoint. A strategically placed loading midpoint helps distinguish these explanations without imposing a universal loading direction.",
+      "next_discriminating_question": "Does m195 at the intermediate 100 ul loading resemble the 50 ul result, the anomalous 150 ul result, or an intermediate response?"
+    },
+    {
+      "id": "H6_acceptor_topology",
+      "content": "Accessible acceptor arrangement, possible keto-enol intramolecular hydrogen bonding, sulfur oxidation state and ester steric environment may explain retention differences that acceptor counts, TPSA or LogP alone cannot capture.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "e82a87ee526fdd9b1e8d",
+        "0b9a59526d7d4ce5f872",
+        "ca467c94f14b2219503e",
+        "4c46ceefd6147b1e0a7a",
+        "92f7fe9d8581717a9949",
+        "97fe38c6942b67ea70b2"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Carbonyls and esters are common in the catalog. Labels that distinguish their structural environments can improve broad family-level generalization and prevent descriptor-level polarity extrapolation.",
+      "next_discriminating_question": "Are the predicted contrasts between beta-diketones, nitro-only versus nitro-carbonyl compounds, flexible versus rigid diesters, and rigid versus branched acrylates supported?"
+    }
+  ],
+  "feedback_interpretation": "The previous outcomes support a genuine late-elution tail but weaken my earlier tendency to associate high spread and heteroatom-rich or basic structures with late onset. m177 b514312eda7950cdcf1c measured 4.49/81.30 mL despite historical predictions 59.61/139.73, establishing early onset with delayed completion. Dibenzylamine d5234e966aa231be05e5 and sulfur-containing aldehyde 4c46ceefd6147b1e0a7a also exposed large overpredictions. Conversely, pyridyl ester 96710afeabc594baa359, multifunctional ester ca467c94f14b2219503e and trimethoxybenzene b070c3657459c06a4df1 were underpredicted. Nitro-carbonyl rows a5f9179bfb146ad70953 and b6f1b33a5491968c645e had much larger historical completion errors than onset errors, motivating separate response constraints for both targets. These are acquisition-time errors, not current-model residuals. The m159 and m165 outcomes strengthen molecule-specific solvent-response reasoning, while the available loading comparisons do not establish a universal loading law. In particular, a917c928912c74862968 has V1 slightly above V2 and should not be treated as clean mechanistic evidence. I also correct the earlier functional-group description: m26 is a beta-diketone, not an ester. Quantile widths remain auxiliary model-behavior signals; zero V2 lower quantiles and quantile crossing limit their interpretation as uncertainty.",
+  "batch_rationale": "The batch combines failure repair with experiments that can distinguish competing structure-condition relationships. The m177 response points and novel aromatic diketone test transfer of an early-onset, broad-interval observation. Controlled solvent pairs for m66, m211, m201 and m203 constrain sharp response regions; matched dibenzylamine/ether conditions isolate a close structural difference. Intermediate conditions for m90, m193, m37, m159 and m135 connect measured anchors instead of merely repeating their extreme rows. Related novel alcohols, an aliphatic ketonitrile, an alkynediester, a rigid acrylate, an amino ester and a dialdehyde extend structural coverage where labels could challenge plausible predictions, including ordinary-retention predictions. The m195 loading midpoint specifically addresses an unresolved data-versus-loading explanation. Repeated catalog tuples and near-identical loading variants were generally passed over because they add less discrimination. This design should help retraining learn transferable functional-group context and molecule-specific condition response across the Row-distribution, rather than apply a uniform upward or downward correction to late predictions."
+}

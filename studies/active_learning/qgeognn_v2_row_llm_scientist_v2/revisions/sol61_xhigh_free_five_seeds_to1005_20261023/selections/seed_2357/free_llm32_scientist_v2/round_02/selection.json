@@ -1,0 +1,245 @@
+{
+  "type": "selection",
+  "packet_sha256": "b9cf0356a7ac82979b10756f640df39b4dfd996493f86c778222dcbd4ffe6ab3",
+  "batch_strategy": "failure-repair with local solvent/loading response curves and selective scaffold-transfer probes",
+  "choices": [
+    {
+      "id": "5d530b2f228ed39ff952",
+      "reason": "Measures m13 at 5/1 with a larger sample volume than the severe 10/1 failure c4bb286978fe9078a303 and the measured 2/1 point 6573d8f84faaf7ce4a78. It separates solvent-ratio and loading effects in a highly polar, V2-sensitive scaffold.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "81507d463506a9e65e73",
+      "reason": "Provides a lower-strength, higher-volume m13 anchor. Together with c4bb286978fe9078a303, 1cc3b837c6561b1c0a23, and 6573d8f84faaf7ce4a78 it can teach whether the large retention shift is smooth or breakpoint-like.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "5f8a81445707df0eaad0",
+      "reason": "Adds a low-ratio m177 point at the same 1000 ul loading-solvent volume used by other m177 candidates, testing the localized broad-V2 behavior seen at 5e276c1730fc0a9deba7 against the narrow measured interval at 4862e2fb71344ce16021.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "27bac953781c17a3a74b",
+      "reason": "Fills the intermediate 5/1 point of the m177 response curve. It can distinguish a ratio-dependent transition from the extreme V2 at 5e276c1730fc0a9deba7 and the short interval at 4862e2fb71344ce16021.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "5b706e17e8412d02342f",
+      "reason": "Tests m177 at 50/1 with half the sample volume of 4862e2fb71344ce16021, holding the loading-solvent volume fixed. This directly probes loading sensitivity in a molecule with strongly inconsistent observed V2 behavior.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "408ce1a4e23492a3ef31",
+      "reason": "Adds a low-volume 2/1 m117 point to the measured m117 series spanning 0/1, 1/1, 5/1, 10/1, 20/1, and 50/1 conditions. The labels can reveal whether the observed late behavior is a smooth response surface or an interaction between ratio and loading.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "09c2a4beb05ca5c84aab",
+      "reason": "Provides a 10/1 m117 loading contrast to a7bc3fb68bdecbbe086f and to the higher-volume measured points. It tests whether the nearly coincident measured V1/V2 at a7bc3fb68bdecbbe086f is reproducible across loading amount.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "b1801204c2c4a34a9278",
+      "reason": "Extends m117 to 50/1 at low sample volume, complementing d9c8c8af50a10bf07765 and the high-volume tail. This is useful for learning the high-strength boundary of its V2 response.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "53becf1a41d72abcc45a",
+      "reason": "Measures m191 at 2/1 with higher sample volume than the measured 5/1 point 20711ea4080ba078e890. It gives a local loading/ratio point around the broad interval at bae9d67e095423d8edd2.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "b52b86b1b9a2a78f0452",
+      "reason": "Provides a lower-volume m191 point at the same 2/1 ratio as 53becf1a41d72abcc45a, isolating sample-loading effects from solvent-strength effects using the observed m191 contrasts bae9d67e095423d8edd2 and e058e7b399f714dd7930.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "b8c35c514f5ef6c0f3bc",
+      "reason": "Adds the intermediate 5/1, 100 ul m191 point between the measured low-strength e058e7b399f714dd7930 and the later 10/1 failure bae9d67e095423d8edd2. It can repair the model's V2 curve in a common dialdehyde-like scaffold.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "56151359aadfa5411fc6",
+      "reason": "Tests m146 at 2/1 with larger sample volume than 2745c6978a8911fc3dda. The pair directly probes loading transfer around the measured high-retention point 51f5ae6a991eea9e720e.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "23ef03f3e75e40b20095",
+      "reason": "Samples a strong-solvent, high-volume m146 condition to extend the observed transition from 2745c6978a8911fc3dda to 51f5ae6a991eea9e720e. This teaches whether the quinoline-like scaffold remains late under stronger solvent.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "65723de539453b98b181",
+      "reason": "Supplies a weak-solvent m146 anchor, which is missing around the measured 2/1 and 5/1 late points. It helps distinguish intrinsic heteroaromatic retention from a high-ratio condition effect.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "c4b5a5499258f39b7ac1",
+      "reason": "Measures m125 at 5/1 with a distinct loading-solvent volume and sample volume relative to the anomalous 2/1 measurement 69b09343d0b9995c3ae4 and the weak-solvent anchor e7ed7ca4a53258b73ba2.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "549daca56bed1c9d2bcc",
+      "reason": "Provides a higher-volume m125 point at the same 5/1 ratio as c4b5a5499258f39b7ac1. The pair tests whether the very broad V2 at 69b09343d0b9995c3ae4 is loading-dependent or a molecule-condition effect.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "00043aebb2540e369a7b",
+      "reason": "Adds a low-ratio, low-volume m125 anchor to the measured 0/1 and 2/1 points. It helps calibrate the ordinary-to-late transition while preserving a common-region reference for the retrained model.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "96710afeabc594baa359",
+      "reason": "Measures m90 at 10/1 after the measured 5/1 high-volume tail b51b5dbcd2a38b174973 and the lower-volume selected point 855456da9ea892f7216b. This tests whether the model's predicted high-ratio V2 tail transfers across loading.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "6a4e95d2a3cca31094a1",
+      "reason": "Adds a 2/1 low-volume m90 point to bracket the response between ordinary retention and the broad measured interval at b51b5dbcd2a38b174973. It supplies a useful lower-strength calibration point for V2.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "27d20ccfd8f7234015f4",
+      "reason": "Probes m88 at 2/1 and low sample volume against the measured broad 5/1 interval 85924bdd0693438dc23a and the measured 2/1 point ca6feb29f6758377a65f. It tests whether the amino-ester-like V2 response is smooth across loading.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "073e6abf4d3bfffc2761",
+      "reason": "Measures m86 at 2/1 with a larger sample volume than the measured 1/1 point 4d3b1628cd2311585f50 and the 5/1 point 3ccd6444c8a55917fbf8. It targets the observed V2-specific condition sensitivity.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "22f4e0f26e7ff02e1054",
+      "reason": "Adds a lower-ratio m135 point below the measured late 10/1 rows d05a91dc8e32e9edd7d0 and f433bc672465387d951a. It tests whether the large V1 shift is a solvent-strength effect or a scaffold-level offset.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "4659b6752f23c0b85f08",
+      "reason": "Samples m66 at 2/1 after the major pyridyl-ketone transfer failure 49201b5817f204116f7f. Together with the other m66 ratio points, it can teach whether the late tail emerges gradually or abruptly.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "8f5acbec0c511bb1ea89",
+      "reason": "Provides a 1/1 m66 point in the same loading regime as 49201b5817f204116f7f. This is a chemically distinct local curve for testing heteroaromatic retention transfer and V2 extrapolation.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "07dbb8c9982caa472c1a",
+      "reason": "Adds the weak-solvent m66 anchor. The 0/1, 1/1, and 2/1 measurements can determine whether the observed 5/1 late interval is a general pyridyl effect or a strong-ratio interaction.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "252c027cf5a42b92c953",
+      "reason": "Measures the amine-containing m212 at 5/1 and lower loading amount than 942b8fc9cf013acda52b. It tests whether the observed late m212 label is transferable across solvent strength and loading.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "f6c49d6bc4b677f17278",
+      "reason": "Adds a 2/1 m212 point at low sample volume, bracketing the measured 10/1, high-volume point 942b8fc9cf013acda52b. This is a high-value chemical-transfer curve for an HBD-containing scaffold.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "7c0c324643799c918828",
+      "reason": "Measures m206 at 2/1 after the early measured point b0f83f107759037eea65 and the very late high-strength point b7cf293311f83700cd9a. It directly tests the solvent-strength transition in a naphthyl alcohol-like scaffold.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "cdf40bcb3f4392f8d7d1",
+      "reason": "Samples m206 at 5/1 with high loading to bridge b0f83f107759037eea65 and b7cf293311f83700cd9a. The label can separate a smooth condition gradient from a high-ratio threshold.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "91b6bda771851a5c78ac",
+      "reason": "Adds a lower-ratio m205 point around the measured late labels e8f592c469b2f3c136d8 and 48853fd78c77153b963a. It tests whether the unexpectedly late alcohol-like scaffold remains late as solvent strength decreases.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "1ce749f818905d3c61d4",
+      "reason": "Measures m211 at 5/1 between the measured moderate dd4829f39cdf781ffaf9 and the late 50/1 point 449b809e4efaaf2af86a. This probes heteroaromatic transfer across the onset of the late tail.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "d9e187481b855cef4e41",
+      "reason": "Provides a moderate m151 condition-response point at 2/1 and higher sample volume, complementing the accurate 5/1 and 20/1 observations 5ce90b59d89383abc568 and 8b51e50fec9dd89974f1. It supplies an ordinary calibration anchor while testing a solvent/loading gradient.",
+      "hypothesis_id": "H3"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Late and broad V1/V2 behavior is real for several families, but its direction and magnitude are heterogeneous; V2 can fail independently of V1 and requires local calibration.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "c4bb286978fe9078a303",
+        "5e276c1730fc0a9deba7",
+        "4862e2fb71344ce16021",
+        "d9c8c8af50a10bf07765",
+        "5c2bc1d92128a17d996d",
+        "49201b5817f204116f7f",
+        "b51b5dbcd2a38b174973"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The largest losses are concentrated in chemically structured but highly heterogeneous tail regions. Local labels can teach the retrained QGeoGNN when broad intervals are justified and prevent V2 errors from being hidden by reasonable V1 predictions.",
+      "next_discriminating_question": "Do nearby ratio and loading points form transferable local response surfaces, or are the extreme intervals isolated molecule-condition effects?"
+    },
+    {
+      "id": "H2",
+      "content": "Solvent ratio, sample loading, and loading-solvent volume create molecule-dependent response curves, sometimes with sharp or nonmonotonic changes; V2 is often more condition-sensitive than V1.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "6573d8f84faaf7ce4a78",
+        "1cc3b837c6561b1c0a23",
+        "9e3f598e00375ec93d9b",
+        "ce14dd2481560a984aea",
+        "2745c6978a8911fc3dda",
+        "e058e7b399f714dd7930",
+        "5ce90b59d89383abc568"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The catalog contains repeated molecules over a structured condition grid. Paired local measurements can teach gradients and interactions that generalize across unmeasured rows more effectively than isolated offsets.",
+      "next_discriminating_question": "Are the observed response curves smooth within each scaffold, or do polar, heteroaromatic, and hydrogen-bonding families need separate response representations?"
+    },
+    {
+      "id": "H3",
+      "content": "Moderate-retention and short-interval rows remain important for aggregate V1/V2 accuracy and provide calibration anchors that keep retraining from being dominated by tail failures.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "c098b72af1f4e81425e7",
+        "30d5da2fe6827f118117",
+        "4d3b1628cd2311585f50",
+        "b8d2fd43e8f44cebaf16",
+        "877351d38f0e0f4edce6"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The Row-distribution contains many common moderate rows. Accurate calibration in this region can improve overall loss and preserve performance while tail-focused examples repair high-error structures.",
+      "next_discriminating_question": "Can local tail repair improve high-retention calibration without shifting the common moderate region or short V2 intervals?"
+    },
+    {
+      "id": "H4",
+      "content": "Chemical-transfer failures are selective among heteroaromatic, amine-containing, substituted aromatic, and halogenated structures; similarity alone does not reliably identify either the late tail or ordinary behavior.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "942b8fc9cf013acda52b",
+        "49201b5817f204116f7f",
+        "449b809e4efaaf2af86a",
+        "434e465cfa7e0034f233"
+      ],
+      "contradicting_observed_ids": [
+        "956e1a3a4931a3109447",
+        "f62720d3fc5dbb0e173d"
+      ],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Labels from carefully chosen functional-group and heteroaromatic contrasts can correct chemical-transfer errors across many unseen rows, while close novel examples prevent novelty from becoming an indiscriminate acquisition rule.",
+      "next_discriminating_question": "Which structural features and condition regimes distinguish the late transfer failures from chemically similar rows that remain ordinary or accurately predicted?"
+    }
+  ],
+  "feedback_interpretation": "The latest outcomes strengthen the view that tail behavior is heterogeneous and condition-dependent. m13 moved from the severe late 10/1 failure at c4bb286978fe9078a303 to much earlier measured behavior at 2/1 in 6573d8f84faaf7ce4a78, while the 5/1 point 1cc3b837c6561b1c0a23 remained intermediate. m177 showed the clearest V2 contrast: 5e276c1730fc0a9deba was extremely broad, 4862e2fb71344ce16021 was narrow at a stronger ratio, and ce14dd2481560a984aea remained intermediate. m117 likewise showed large changes across d9c8c8af50a10bf07765, e058e7b399f714dd7930, 7e834c7b870ef7024d35, and a7bc3fb68bdecbbe086f. The m125 measurements 5c2bc1d92128a17d996d, 69b09343d0b9995c3ae4, and e7ed7ca4a53258b73ba2 further weaken any simple monotone loading interpretation because V2 changed sharply while V1 did not move consistently. The accurate m151 gradient at 5ce90b59d89383abc568 and the comparatively close novel rows 434e465cfa7e0034f233, 956e1a3a4931a3109447, and f62720d3fc5dbb0e173d show that local curves and selective novelty are more useful than blanket uncertainty or novelty prioritization.",
+  "batch_rationale": "The batch forms several local experiments around the strongest measured failures: m13, m177, m117, m191, m146, m125, m90, m88, m86, and m135. Their selected ratio and loading contrasts are intended to teach response gradients and V2 behavior rather than add isolated late labels. The m66, m212, m206, m205, and m211 choices extend chemically distinct transfer-failure families, with multiple points for m66 and condition bridges for the other scaffolds. The m151 point supplies a moderate calibration anchor tied to an already informative measured gradient. This combination repairs high-loss regions, tests whether the failures are locally transferable, and retains enough ordinary and moderate-retention structure-condition examples to improve generalization across the full Row-distribution."
+}

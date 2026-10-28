@@ -1,0 +1,267 @@
+{
+  "type": "selection",
+  "packet_sha256": "633cceddb2fd3f3ceb36c6431697a0a8b8fbbbf645536dc814d96206354d35ab",
+  "batch_strategy": "Select controlled solvent-response segments around demonstrated failures, targeted loading contrasts where current predictions are nearly invariant, and structural comparisons that test transfer across carbonyl, ester, and alcohol environments. Include ordinary-prediction and endpoint-ordering diagnostics. Treat historical errors as acquisition-time evidence and quantile widths as uncalibrated single-predictor signals.",
+  "choices": [
+    {
+      "id": "10f01f359bc6067d009f",
+      "reason": "m72 at 5/1, 50 ul, DCM loading is predicted at 3.80/7.80 mL. Its unusually early prediction sits below the observed 10/1 result 7383949c431e18f39597, 12.85/32.50, and the observed 1/1 series. This tests whether the apparent intermediate-ratio trough is real or a model artifact.",
+      "hypothesis_id": "H1_response"
+    },
+    {
+      "id": "eb798a5ccfb1f429a724",
+      "reason": "m72 at 2/1 uses the same 50 ul and DCM settings as the selected 5/1 point. Together they locate the response below 10/1 without changing loading. The measured 10/1 and 20/1, 50 ul records 7383949c431e18f39597 and 1b1a9ec85268aa66d327 establish a substantial solvent-ratio transition.",
+      "hypothesis_id": "H1_response"
+    },
+    {
+      "id": "f1e08c239f1c0950ad36",
+      "reason": "m68 at 10/1, 100 ul is predicted at 5.96/23.94 mL. The measured 5/1 record c4b06a6e718225cb9cf8 finished at 25.62 mL after a 12.81 mL historical V2 underprediction. This fixed-loading extension tests whether completion plateaus, increases, or changes independently of onset.",
+      "hypothesis_id": "H5_aromatic_context"
+    },
+    {
+      "id": "e3716bf7dba67a0f2185",
+      "reason": "m68 at 2/1, 100 ul provides the stronger-eluent flank of the measured 5/1 point c4b06a6e718225cb9cf8. With the selected 10/1 row, it measures a local response segment for the biphenyl ketone and tests whether its broad completion interval emerges before onset changes appreciably.",
+      "hypothesis_id": "H5_aromatic_context"
+    },
+    {
+      "id": "8b556440cbbd8224f6ff",
+      "reason": "m106 at 5/1, 100 ul is predicted at 18.03/35.47 mL, between an ordinary low-ratio prediction and the measured 20/1 result b1c5816f929ef59f5a87, 41.72/79.81. This tests how the previously missed ether-containing ketone response develops across solvent ratios.",
+      "hypothesis_id": "H3_acceptor_context"
+    },
+    {
+      "id": "ed763ea5943e63a671c9",
+      "reason": "m106 at 1/1 holds all loading settings fixed relative to its selected 5/1 point and measured 20/1 anchor b1c5816f929ef59f5a87. Its ordinary 5.01/13.99 mL prediction tests whether the large late response disappears in stronger eluent, supplying a baseline for learning the structure-condition interaction.",
+      "hypothesis_id": "H3_acceptor_context"
+    },
+    {
+      "id": "143bf510fe2028583763",
+      "reason": "m107 at 2/1, 50 ul is predicted at 19.20/45.28 mL. Pairing it with the selected 5/1, 50 ul row measures a controlled response for the remote-ether beta-ketoester. Observation d1172a49fca1e196a59f showed that its 5/1 completion was previously underestimated by 70.56 mL.",
+      "hypothesis_id": "H3_acceptor_context"
+    },
+    {
+      "id": "c6924324ddd95f249df6",
+      "reason": "m107 at 5/1, 50 ul directly contrasts with the measured 100 ul record d1172a49fca1e196a59f while preserving ratio, density, loading solvent, and solvent volume. The model predicts nearly unchanged retention. This tests amount sensitivity in a strongly retained, broad-interval compound and anchors the selected 2/1 comparison.",
+      "hypothesis_id": "H2_loading"
+    },
+    {
+      "id": "8a5443659239e3b52e14",
+      "reason": "m94 at 5/1, 150 ul is predicted at 19.02/27.14 mL. Its measured 20/1 record ffffcd6f3b9393846ab4 was 33.26/78.83, whereas the measured 0/1 row d7457b516ddba0143275 was early. This point locates the onset of retention and completion broadening for the cyclopropyl beta-ketoester.",
+      "hypothesis_id": "H3_acceptor_context"
+    },
+    {
+      "id": "5b445b457a8b897a2d6c",
+      "reason": "m94 at 10/1 uses the same 150 ul loading as the selected 5/1 row and measured 20/1 anchor ffffcd6f3b9393846ab4. The predicted change to 25.55/54.89 mL implies much greater growth in completion than onset. Measuring this segment tests that curvature and improves beta-ketoester transfer.",
+      "hypothesis_id": "H3_acceptor_context"
+    },
+    {
+      "id": "65e1a58ab8e4aa2f1eb6",
+      "reason": "m20 at 2/1, 150 ul begins a fixed-loading ether-acrylate response segment with the selected 5/1 point. The measured 10/1 record 374b71ac526fe1051993 exposed substantial underprediction, while phenoxyethyl acrylate f08f1f5e4f51796c1f81 eluted much earlier at 5/1. This probes ether environment rather than acceptor count alone.",
+      "hypothesis_id": "H3_acceptor_context"
+    },
+    {
+      "id": "a1a20c44f0f897b9626c",
+      "reason": "m20 at 5/1, 150 ul is predicted at 20.79/36.25 mL, close to the measured 10/1, 100 ul result 374b71ac526fe1051993. Its label tests the predicted plateau and, with the selected 2/1 row, supplies a controlled ratio contrast. Comparison with the existing 10/1 anchor remains partly loading-confounded.",
+      "hypothesis_id": "H3_acceptor_context"
+    },
+    {
+      "id": "8c8922eada2018f59953",
+      "reason": "Bulky acrylate m23 at 2/1, 50 ul has predicted endpoints 4.23/3.74 mL, reversing their intended order. Observation 96840797cfdea44e1467 measured 6.38/13.58 at 50/1 after a large historical overprediction. This diagnoses whether learning that weak-eluent anchor has distorted the lower-ratio response.",
+      "hypothesis_id": "H3_acceptor_context"
+    },
+    {
+      "id": "34b6f9955044e17d887e",
+      "reason": "m23 at 5/1 preserves the selected 2/1 row's 50 ul PE-loading conditions but predicts an even earlier 2.13/2.53 mL pair. The two labels test the predicted trough and near-collapse of the interval, complementing measured anchor 96840797cfdea44e1467 and extending coverage of sterically constrained acrylates.",
+      "hypothesis_id": "H3_acceptor_context"
+    },
+    {
+      "id": "a2ecf2b2f28094d70368",
+      "reason": "Linear diester m91 at 5/1, 100 ul is predicted at 8.06/7.07 mL, another endpoint-ordering failure. Its measured 50/1 record 48679ae48dd485ffb7a6 was 8.39/13.54. This tests whether the current narrow response is an overcorrection and distinguishes its acceptor arrangement from early-eluting malonate 08155ffdcb0d27576050.",
+      "hypothesis_id": "H3_acceptor_context"
+    },
+    {
+      "id": "6d54149d618f026681ef",
+      "reason": "m87 at 20/1, 150 ul extends the para-methoxybenzoate series from measured 2/1 record 0637945ca309d8122e64 and 5/1 record b324251a07260af49364. The selected 50/1 row preserves its loading settings. These labels test whether a substantial late response follows the observed early-onset regime.",
+      "hypothesis_id": "H1_response"
+    },
+    {
+      "id": "8a4623d640cc619f2639",
+      "reason": "m87 at 50/1, 150 ul is predicted at 29.48/58.13 mL. With the selected 20/1 point it measures the weak-eluent slope at fixed loading, testing whether the model transfers an appropriate late regime to this ester after the relatively short measured 5/1 completion b324251a07260af49364.",
+      "hypothesis_id": "H1_response"
+    },
+    {
+      "id": "a19f98569910dc7fd6c4",
+      "reason": "m207 at 10/1, 50 ul completes an amount series with measured 100 ul record ff3b6b1069b7d66ad021 and 150 ul record 8f5452ff0e84ab2e2057. The higher-volume measurement eluted about 5 mL earlier in both endpoints. This third point discriminates a loading trend from scatter despite nearly invariant model predictions.",
+      "hypothesis_id": "H2_loading"
+    },
+    {
+      "id": "c32caf65e93924aeb179",
+      "reason": "m119 at 1/1, 150 ul is predicted at 12.49/17.60 mL. Measured 2/1 and 5/1 records 17c1bb3be086a2b6ffec and 776ee2c1e85ebde75168 showed a steep response. Pairing this condition with the selected m120 row tests whether their large topology-dependent difference persists in stronger eluent.",
+      "hypothesis_id": "H4_alcohol_context"
+    },
+    {
+      "id": "880646809d9f015053f6",
+      "reason": "m120 at 1/1, 150 ul matches the selected m119 ratio, nominal loading volume, and solvent settings, with similar loading amounts. Observation e4fd83fb3852eb354a66 measured only 14.67/19.14 at 5/1, versus 48.00/77.09 for m119 in 776ee2c1e85ebde75168. This tests homolog-specific alcohol response rather than a shared OH correction.",
+      "hypothesis_id": "H4_alcohol_context"
+    },
+    {
+      "id": "1e971da91b3a8229f0e0",
+      "reason": "Cinnamic acid m173 at 5/1 with 1500 ul DCM loading solvent fills the response between measured 0/1 record 87da8c37b16d810331a2 and 10/1 record b37608f8c4a8ee4b8696 using the same solvent volume. Its predicted 10.50/60.59 mL pair tests how broad completion develops relative to onset.",
+      "hypothesis_id": "H1_response"
+    },
+    {
+      "id": "1e775e7d8dcbf48fd6f8",
+      "reason": "The second m173 5/1 point uses 2000 rather than 1500 ul DCM loading solvent. It forms a near-matched plug-volume contrast with the selected row; recorded density differs slightly, changing amount by only 0.05 mg. Nearly identical predictions make this a direct test of omitted sensitivity to the recorded loading-solvent volume.",
+      "hypothesis_id": "H2_loading"
+    },
+    {
+      "id": "a36291cab664852df5e5",
+      "reason": "Unobserved seven-membered fused ketone m179 is predicted at 19.53/48.99 mL at 50/1. Its similarity to labeled structures is 0.909. Paired with m180 under the same nominal loading settings, it tests whether close graph similarity supports transfer across ring size and carbonyl environment.",
+      "hypothesis_id": "H5_aromatic_context"
+    },
+    {
+      "id": "52348febee6695107c49",
+      "reason": "m180 at 50/1, 100 ul provides the measured comparator needed for the selected m179 ring-size experiment. Existing m180 observations 5149828089c3ed20123a and 983a604ac43bb4d41238 cover 1/1 and 2/1 only. This weak-eluent label tests extrapolation of the fused-ketone response as well as structural transfer.",
+      "hypothesis_id": "H5_aromatic_context"
+    },
+    {
+      "id": "c0094343ab6bb16bc58b",
+      "reason": "Unobserved fused ether-aldehyde m194 has maximum labeled similarity 0.370 and a moderate 7.41/16.04 mL prediction at 1/1, 50 ul. Together with its selected 5/1 point, it establishes a controlled response for a poorly covered oxygen arrangement, informed by the differing aldehyde behavior in 319e89d7000731f64e7f and 87996db5ddb7565fe66f.",
+      "hypothesis_id": "H5_aromatic_context"
+    },
+    {
+      "id": "c393010c592b487413e2",
+      "reason": "m194 at 5/1 keeps all loading settings fixed relative to its selected 1/1 point and predicts 11.62/28.03 mL. This tests whether the fused ether changes completion substantially as eluent weakens. Two conditions make the new motif useful for learning a response interaction rather than only a molecular offset.",
+      "hypothesis_id": "H5_aromatic_context"
+    },
+    {
+      "id": "8b06ec38a7e5999edfa6",
+      "reason": "Unobserved dimethylbenzaldehyde m134 has labeled similarity 0.429 and predicts 7.47/21.08 mL at 50/1, 100 ul. With the selected o-tolualdehyde point, it tests methyl substitution around the carbonyl against weak-eluent aldehyde observation 41bda518b4b1e6fe001d, without assuming similar descriptors imply identical completion.",
+      "hypothesis_id": "H5_aromatic_context"
+    },
+    {
+      "id": "abb2d31b1372dbd64398",
+      "reason": "Unobserved o-tolualdehyde m145 at 50/1, 100 ul complements m134 at the same ratio and nominal loading settings. The measured meta-methyl aldehyde  c6d5f62b278d39ee2c4f and substituted aldehyde 41bda518b4b1e6fe001d provide family references. This probes positional and steric transfer in an ordinary predicted-retention region.",
+      "hypothesis_id": "H5_aromatic_context"
+    },
+    {
+      "id": "fd73bcb28ed4a4959b1f",
+      "reason": "Unobserved fluoropropiophenone m65 at 10/1 predicts 6.45/15.31 mL. It extends nonbasic aryl-ketone coverage around bromopropiophenone observation 4c10cf623fbb8793829f and bromoacetophenone observation 2420964caf34a1de2a5d. Its label tests substituent and side-chain transfer without presuming a large error from novelty.",
+      "hypothesis_id": "H5_aromatic_context"
+    },
+    {
+      "id": "b9c474ef8c8affc54498",
+      "reason": "Unobserved ethyl alpha-bromoisobutyrate m76 at 50/1, 100 ul predicts 10.43/17.32 mL. The methyl analogue 933bc87d8ae9186a7803 measured 11.18/19.11 at the same ratio and nominal volume. This supplies a close ester-substitution comparison at comparable loading and tests transfer within the brominated ester family.",
+      "hypothesis_id": "H3_acceptor_context"
+    },
+    {
+      "id": "06e2ce85d19f6758cd2d",
+      "reason": "Unobserved diphenylmethane m214 at 10/1 predicts ordinary endpoints of 5.06/11.18 mL. It provides a carbon-bridge reference for the ether and amine families represented by e8d25b0f93b5bcf88daf and 70cba7a21b5a01fb8e73. This tests graph-context transfer while retaining the recorded loading differences between those references.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "8bef7f788af60df5e18a",
+      "reason": "m195 at 50/1, 100 ul predicts 35.82/52.74 mL, a substantial onset increase beyond the measured 20/1, 100 ul result 783cf2454912fc14bb80, 9.98/25.87. Fixing loading at 100 ul avoids treating the anomalous 150 ul record a917c928912c74862968 as a clean solvent-response anchor.",
+      "hypothesis_id": "H1_response"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1_response",
+      "content": "Solvent-ratio transitions are molecule-specific and can affect onset and completion differently. The m72 measurements support a substantial transition between 10/1 and 20/1 at fixed loading, while other families require separate response shapes.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "7383949c431e18f39597",
+        "1b1a9ec85268aa66d327",
+        "754f1d33b0ed61557754",
+        "aa83ae83c0fa0cc37777",
+        "6bd128bde2e137ea54f3",
+        "d49f2ae16cf70d54ccf4",
+        "b37608f8c4a8ee4b8696",
+        "783cf2454912fc14bb80"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Repeated condition rows make response shape broadly relevant. Labels on both sides of transitions can improve interpolation and prevent one late measurement from imposing excessive retention across all ratios.",
+      "next_discriminating_question": "Does m72 actually have the predicted low-ratio trough, and do m87, m173, and m195 develop their predicted weak-eluent responses through onset shifts, completion changes, or both?"
+    },
+    {
+      "id": "H2_loading",
+      "content": "Some local amount effects may remain hidden by nearly invariant model predictions, but a broadly applicable loading correction is unproven. Recorded loading-solvent volume may also affect endpoints; its effect has not been isolated in the supplied acid series.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "ff3b6b1069b7d66ad021",
+        "8f5452ff0e84ab2e2057",
+        "13bfaf03c35b4cff3bd5",
+        "7c0c324643799c918828",
+        "ca6df7e85e3c4bd22b40",
+        "ccfdc194079950babd47"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Amount and loading-solvent volume are explicit inputs. Controlled contrasts can teach useful sensitivity or establish local invariance, reducing spurious corrections inferred from ratio-confounded rows. Plug effects remain a chemical prior rather than an observed finding.",
+      "next_discriminating_question": "Do the third m207 amount point and lower-load m107 point reveal reproducible endpoint changes, and does the near-matched 1500/2000 ul m173 contrast shift onset or completion?"
+    },
+    {
+      "id": "H3_acceptor_context",
+      "content": "Acceptor arrangement, accessibility, and ester environment interact with solvent ratio. Remote-ether carbonyl compounds and beta-ketoesters need distinct response curves; sparse labels can also lead to excessive correction and collapsed predicted intervals in other ester environments.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "d1172a49fca1e196a59f",
+        "b1c5816f929ef59f5a87",
+        "374b71ac526fe1051993",
+        "ffffcd6f3b9393846ab4",
+        "ca467c94f14b2219503e",
+        "61090cfdcf019e0891a3",
+        "08155ffdcb0d27576050",
+        "96840797cfdea44e1467",
+        "48679ae48dd485ffb7a6"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "These families produced large errors in opposite directions. Controlled response segments and close ester comparisons can teach graph-condition interactions beyond acceptor count, while labels at endpoint-ordering failures constrain poorly learned regions.",
+      "next_discriminating_question": "Where do the m106, m107, m94, and m20 responses change, and are the m23 and m91 interval collapses supported by measurements or artifacts of transfer from sparse anchors?"
+    },
+    {
+      "id": "H4_alcohol_context",
+      "content": "Alcohol topology strongly affects the scale and shape of solvent response. The methoxyphenethyl and methoxybenzyl alcohol measurements show that similar donor/acceptor counts do not justify transferring a common retention curve.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "776ee2c1e85ebde75168",
+        "17c1bb3be086a2b6ffec",
+        "e4fd83fb3852eb354a66",
+        "dea19ed5b8959a2a6619",
+        "48853fd78c77153b963a",
+        "614873124b33029a924c"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Alcohols span substantially different retention regimes. A homologous comparison at a common stronger-eluent condition tests whether their difference is a persistent structural offset or an interaction that grows with solvent ratio.",
+      "next_discriminating_question": "At 1/1 and comparable loading, do m119 and m120 converge, or does the large difference measured at 5/1 persist?"
+    },
+    {
+      "id": "H5_aromatic_context",
+      "content": "Aromatic carbonyl topology can alter completion much more than onset. Ring size, aromatic connectivity, and substitution around the carbonyl are plausible transfer variables, but their effects require measurements rather than descriptor-based assumptions.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "c4b06a6e718225cb9cf8",
+        "634f21e11a8442494ce3",
+        "855456da9ea892f7216b",
+        "ce14dd2481560a984aea",
+        "b514312eda7950cdcf1c",
+        "319e89d7000731f64e7f",
+        "41bda518b4b1e6fe001d"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The new m68 failure and existing early-onset, long-completion examples identify a useful graph-context question. Ring-size and substitution comparisons can improve transfer across many ordinary carbonyl rows without assigning a universal aromatic-size correction.",
+      "next_discriminating_question": "Do the m68 response segment, matched m179/m180 weak-eluent comparison, and new aldehyde environments support the model's topology-dependent endpoint predictions?"
+    }
+  ],
+  "feedback_interpretation": "The largest recent acquisition-time failure was m72 at 10/1: prediction 28.94/85.46 versus measurement 12.85/32.50 mL in 7383949c431e18f39597. The existing 20/1, 50 ul DCM record 1b1a9ec85268aa66d327 measured 36.42/112.07, so the contrast supports a ratio transition even without invoking loading differences. Current 10/1 predictions have moved close to the new label; the next question is the lower-ratio shape. m68 in c4b06a6e718225cb9cf8 exposed a completion-specific miss, with V2 underestimated by 12.81 mL and much smaller onset error. Conversely, m25 and m56 completion was overpredicted in 53774efff44f690d6f30 and 81cd2078a0008c2c9cd9, weakening any global late-tail correction. Most recent ordinary-region exploration was reasonably accurate, so novelty alone receives less weight. Loading evidence remains mixed: m207 at higher loading eluted earlier, m206's lower-load 2/1 point shifted modestly later, and m60 in pure EA changed little between the measured 100 and 150 ul rows. I therefore retain a few discriminating loading contrasts while concentrating response measurements on specific unresolved regions. Controls use the supplied table conditions rather than inconsistent descriptions in earlier memory.",
+  "batch_rationale": "All 32 choices are distinct supplied candidates, with no pending experiments. The batch combines fixed-loading ratio segments for m72, m68, m106, m107, m94, m20, m23, m87, and m194; amount contrasts for m107 and m207; and a near-matched loading-solvent-volume contrast for m173. These experiments distinguish response shape from loading and test both onset and completion, including predicted endpoint-ordering failures. Structural comparisons address fused-ketone ring size, aldehyde substitution, alcohol homologs, ester substitution, and a carbon-bridge baseline. Several predictions are ordinary or close to analogues: their value is testing specific transfer relationships, not assumed large errors. The m195 weak-eluent point probes an uncovered transition while avoiding an inconsistent measured loading anchor. Quantile widths and CW distances were considered as model-behavior context, but widespread zero V2 lower quantiles and quantile crossing make them weak stand-alone acquisition evidence. The resulting labels should improve supervision across repeated structure-condition rows and reduce both missed retention transitions and excessive transfer of late behavior. Missing experimental variables and unreplicated measurement scatter limit causal interpretation; selected contrasts are designed to reduce the confounding available within this catalog."
+}

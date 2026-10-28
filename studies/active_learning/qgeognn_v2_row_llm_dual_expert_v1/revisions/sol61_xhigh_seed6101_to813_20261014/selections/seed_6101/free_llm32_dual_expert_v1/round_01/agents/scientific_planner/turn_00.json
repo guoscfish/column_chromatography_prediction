@@ -1,0 +1,189 @@
+{
+  "request_sha256": "d15a4085eb6fd7f443898c25749dbadd13ec32bdaaf496f61da2a7eddfdfc3f5",
+  "answer": "{\n  \"type\": \"selection\",\n  \"packet_sha256\": \"ab1cab09528a48589209c4646c4b9e08d840100cd45c06f359b89c307316a7ed\",\n  \"expert_synthesis\": {\n    \"chemistry_takeaways\": [\n      \"Measured loading effects depend on molecule, eluent and endpoint. The m92 results reject universal loading-induced widening.\",\n      \"Quinoline, sulfoxide and alcohol feedback supports learning functional connectivity and solvent response separately. The unusual m73, m80 and m173 records require distinct local explanations.\"\n    ],\n    \"ml_takeaways\": [\n      \"Current predictions adapt substantially around newly measured graphs, but loading sensitivity remains nearly absent at measured inputs.\",\n      \"Historical errors distinguish interval inflation from joint endpoint underprediction. Quantile ordering defects and duplicate inputs make numerical width or novelty rankings insufficient.\"\n    ],\n    \"agreements\": [\n      \"Use controlled comparisons, distinguish historical errors from current predictions, and reserve replication for a specific ambiguity.\",\n      \"Combine unresolved response questions with transferable graph coverage in common Row conditions.\"\n    ],\n    \"disagreements\": [\n      \"Chemistry emphasizes additional m92 and unusual solvent-curve measurements; ML gives greater weight to diminishing returns from further loading grids.\",\n      \"The planner adds hydroxyester and enone response pairs, ordinary benzoate and haloarene examples, and a naphthyl-ketone pair beyond the highlighted recommendations.\"\n    ],\n    \"planner_resolution\": \"Select a small m92 loading contrast at the missing 2/1 ratio, then shift the main effort toward graph-dependent solvent responses. Retain one deliberate m73 near-repeat and targeted m80/m173 comparisons. New molecular pairs address identifiable transfer questions rather than novelty alone.\"\n  },\n  \"batch_strategy\": \"Select 32 distinct current-pool IDs across 22 molecules. Eleven molecules have no observed labels; their 18 selected experiments mostly establish matched solvent-response pairs. Fourteen experiments extend measured molecules or test reproducibility and injection effects. The m73 experiment is a deliberate near-repeat differing by 0.01 mg; other selections add distinct conditions. No duplicate physical inputs are selected within the batch. All current candidate values remain predictions only.\",\n  \"choices\": [\n    {\n      \"id\": \"cf36dbeee8bb51632d84\",\n      \"reason\": \"m146 at 2/1 and 54.15 mg interpolates its measured 1/1-to-5/1 rise while holding loading and DCM plug fixed.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H_nitrogen\"\n    },\n    {\n      \"id\": \"5097ef8f92148f920ca4\",\n      \"reason\": \"m216 at 2/1 and 54.65 mg tests where its large measured quinoline retention increase begins, using its measured loading setup.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H_nitrogen\"\n    },\n    {\n      \"id\": \"e47aebe2660b9e1528de\",\n      \"reason\": \"m216 at 10/1 retains the measured mass and PE plug. Test the current predicted decline beyond its late 5/1 endpoints.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H_nitrogen\"\n    },\n    {\n      \"id\": \"4659b6752f23c0b85f08\",\n      \"reason\": \"Introduce pyridyl ketone m66 at 2/1, 111.4 mg and DCM 300 uL, establishing a baseline for transfer from the quinoline feedback.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H_nitrogen\"\n    },\n    {\n      \"id\": \"49201b5817f204116f7f\",\n      \"reason\": \"m66 at 5/1 completes the fixed-loading pair, testing the solvent response of combined ring nitrogen and carbonyl functionality.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H_nitrogen\"\n    },\n    {\n      \"id\": \"53c1be5b96937954b9fa\",\n      \"reason\": \"Primary alcohol m204 at 2/1 and 100.1 mg anchors a PE-loaded response pair near the measured m60/m61 mass scale.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H_OH\"\n    },\n    {\n      \"id\": \"b7b1a1bb666c8cc99bad\",\n      \"reason\": \"m204 at 5/1 holds its setup fixed and approximately matches the measured m60/m61 protocol, extending supervision to a primary hydroxyl.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H_OH\"\n    },\n    {\n      \"id\": \"36786ca0d1deaa0687ba\",\n      \"reason\": \"Hydroxyester m99 at 1/1, 100 mg and DCM 1000 uL establishes a baseline for learning hydroxyl-plus-ester connectivity.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H_OH\"\n    },\n    {\n      \"id\": \"12ab195583f05b9aa177\",\n      \"reason\": \"m99 at 5/1 completes its matched pair and tests the predicted decrease in retention from 1/1 without cross-molecule injection confounding.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H_OH\"\n    },\n    {\n      \"id\": \"a1809a6c4c3ada20bcb0\",\n      \"reason\": \"Introduce cyclopropyl beta-ketoester m94 at 5/1 and 117.4 mg, establishing a moderate-ratio anchor after the m82 transfer failure.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H_shape\"\n    },\n    {\n      \"id\": \"668279c54bbf75e86496\",\n      \"reason\": \"m94 at 10/1 uses the same mass and DCM plug as its selected 5/1 row, testing whether weak-eluent beta-ketoester behavior transfers.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H_shape\"\n    },\n    {\n      \"id\": \"4a39c1f64d17e050e4a5\",\n      \"reason\": \"Introduce fused ether-aldehyde m194 at 1/1 and 117.7 mg, adding a distinct connection between represented ether and carbonyl environments.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\"],\n      \"hypothesis_id\": null\n    },\n    {\n      \"id\": \"39815ababe97d7acc107\",\n      \"reason\": \"m194 at 5/1 completes its matched response pair, separating its molecular retention level from its eluent dependence.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\"],\n      \"hypothesis_id\": null\n    },\n    {\n      \"id\": \"0f35c2146c21fa6ac372\",\n      \"reason\": \"Naphthyl ketone m40 at 5/1 and 112 mg adds an unmeasured graph in the well-represented aromatic-carbonyl portion of Row.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\"],\n      \"hypothesis_id\": null\n    },\n    {\n      \"id\": \"b0cc544ceb575bae4069\",\n      \"reason\": \"m40 at 10/1 holds mass and injection conditions fixed, providing a transferable aromatic-ketone solvent slope alongside its baseline.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\"],\n      \"hypothesis_id\": null\n    },\n    {\n      \"id\": \"93f10a8edf06f7acae26\",\n      \"reason\": \"m91 at 20/1 and 141.2 mg tests the predicted nearly collapsed interval beyond measured 2/1 and 5/1 anchors with identical loading setup.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H_shape\"\n    },\n    {\n      \"id\": \"61090cfdcf019e0891a3\",\n      \"reason\": \"m82 at 20/1 and 102.9 mg tests whether the current predicted decline from its measured late 10/1 interval is real.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H_shape\"\n    },\n    {\n      \"id\": \"3554059c7f0676bb2e03\",\n      \"reason\": \"m199 in pure EA preserves the measured 100 mg and DCM 400 uL setup, distinguishing a persistent sulfoxide offset from eluent-dependent error.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H_shape\"\n    },\n    {\n      \"id\": \"45dca237351265a8f169\",\n      \"reason\": \"Near-repeat m73 at 1/1, 104.91 mg and DCM 300 uL to test its localized late, narrow measured interval; the original mass was 104.90 mg.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H_m73\"\n    },\n    {\n      \"id\": \"65fcce0299e031dedeb8\",\n      \"reason\": \"m173 at 1/1 reduces DCM to 1500 uL with a 0.05 mg mass difference, testing whether its very late completion persists under the smaller plug.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H_m173\"\n    },\n    {\n      \"id\": \"aa65e86ee8638bded5d9\",\n      \"reason\": \"m80 at 10/1 and 105.5 mg tests the predicted intermediate completion maximum between its matched measured 1/1 and 50/1 conditions.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H_m80\"\n    },\n    {\n      \"id\": \"40fd02db79e028fe05a9\",\n      \"reason\": \"m80 at 20/1 keeps the same loading setup and distinguishes a localized intermediate maximum from a broader weak-eluent completion trend.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H_m80\"\n    },\n    {\n      \"id\": \"10a4c811b70ba8155044\",\n      \"reason\": \"m92 at 2/1, 57.75 mg and EA 200 uL supplies the low-load member of a missing-ratio contrast where the loading response may change sign.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H_load\"\n    },\n    {\n      \"id\": \"f7cc49c21fea55ed9087\",\n      \"reason\": \"m92 at 2/1 and 173.25 mg completes that controlled loading contrast; nearly identical predictions make the measured endpoint differences informative.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H_load\"\n    },\n    {\n      \"id\": \"e515cb1302d9dac0b8cd\",\n      \"reason\": \"m9 at 2/1 and 135.2 mg changes loading solvent from measured PE to DCM at otherwise identical inputs, testing transfer of injection-solvent effects.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H_injection\"\n    },\n    {\n      \"id\": \"70593725787c65a74951\",\n      \"reason\": \"Para-aminoethylbenzoate m86 at 2/1 and 117 mg extends the observed aminobenzoate positional family and tests topology-specific nitrogen transfer.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H_nitrogen\"\n    },\n    {\n      \"id\": \"16374e5b25572a4c37e5\",\n      \"reason\": \"Isoamyl benzoate m55 at 10/1 and 99 mg adds ordinary ester-homologue supervision using the represented PE 200 uL loading protocol.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\"],\n      \"hypothesis_id\": null\n    },\n    {\n      \"id\": \"5d9905b2a51a5954c8f2\",\n      \"reason\": \"Dimethyliodoarene m139 at 10/1 extends graph coverage in the nonpolar, predicted short-interval portion of Row at a common DCM loading setup.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\"],\n      \"hypothesis_id\": null\n    },\n    {\n      \"id\": \"4b3e648044ebe5372a27\",\n      \"reason\": \"m60 at 2/1 and 97 mg holds its measured 5/1 loading setup fixed, testing whether its large alcohol retention difference persists in stronger eluent.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H_OH\"\n    },\n    {\n      \"id\": \"067c9b96b35fefd28fdf\",\n      \"reason\": \"Enone m165 at 1/1 and 107.12 mg tests whether a predicted strong-eluent retention maximum transfers beyond the unusual measured m73 case.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H_m73\"\n    },\n    {\n      \"id\": \"bb18fe197ad7e24c5ed1\",\n      \"reason\": \"m165 at 2/1 completes its fixed-setup pair, testing the predicted retention drop from 1/1 without assuming the enone shares m73's mechanism.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H_m73\"\n    },\n    {\n      \"id\": \"47f2e980caaa77baa535\",\n      \"reason\": \"Benzylic alcohol m67 at 5/1 and 99.4 mg tests homologous transfer near measured m61; its DCM loading differs from m61's PE protocol.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H_OH\"\n    }\n  ],\n  \"hypotheses\": [\n    {\n      \"id\": \"H_load\",\n      \"content\": \"Loading responses are endpoint- and eluent-specific. Measured m8 widens with loading, whereas m92 narrows at 1/1 and widens at 50/1; a smooth monotone dose law is unestablished.\",\n      \"why_it_matters_for_model_learning\": \"Conditional endpoint supervision is needed, although persistent prediction insensitivity limits the expected value of another extensive loading grid.\",\n      \"next_discriminating_question\": \"At m92 2/1, does increasing loading narrow or widen the interval, and which endpoint moves?\",\n      \"basis\": \"mixed\",\n      \"confidence\": \"medium\",\n      \"status\": \"supported\",\n      \"supporting_observed_ids\": [\"fd0fd67502640304b8fb\", \"a98f3e4664fd05c0f82c\", \"6c4ddf5ad1cf067b81ee\", \"00a89de0e6cc7377a84b\", \"4451265787d29526a93a\", \"1844eab177de5d01fab6\", \"9bbd36c8b484b5609808\"],\n      \"contradicting_observed_ids\": []\n    },\n    {\n      \"id\": \"H_nitrogen\",\n      \"content\": \"Historical nitrogen transfer failures concentrate in quinoline retention and solvent sensitivity. Successful aminobenzonitrile prediction supports a graph-specific interpretation rather than a uniform nitrogen correction.\",\n      \"why_it_matters_for_model_learning\": \"Quinoline interpolation and pyridyl-ketone and aminoester transfer can teach distinctions beyond shared polarity descriptors.\",\n      \"next_discriminating_question\": \"Where do quinoline responses rise, does the weak-eluent decline persist, and does the new information transfer to other nitrogen environments?\",\n      \"basis\": \"mixed\",\n      \"confidence\": \"medium\",\n      \"status\": \"supported\",\n      \"supporting_observed_ids\": [\"b6229f0445560a4a54ed\", \"04a2e8ad27ca641a3a12\", \"d1e71a8278523e7a10e3\", \"1ae3618ec277b0463686\", \"2feb7d8e0a3566ddf97f\", \"53a1acff30433cff819f\"],\n      \"contradicting_observed_ids\": []\n    },\n    {\n      \"id\": \"H_injection\",\n      \"content\": \"Loading-solvent identity matters in the measured m92 contrast, but its magnitude and direction need not transfer to other molecules. Evidence for a large plug-volume effect is weaker.\",\n      \"why_it_matters_for_model_learning\": \"A familiar, nonpolar molecule provides a useful transfer control for condition effects that predictions largely suppress.\",\n      \"next_discriminating_question\": \"Does replacing PE with DCM change m9 endpoints at otherwise identical inputs?\",\n      \"basis\": \"mixed\",\n      \"confidence\": \"medium\",\n      \"status\": \"supported\",\n      \"supporting_observed_ids\": [\"00a89de0e6cc7377a84b\", \"e626b5b8083ea1fd02f2\", \"0b247863fd6e8aaf44d8\", \"9a32b65bc21fdc5f7286\"],\n      \"contradicting_observed_ids\": []\n    },\n    {\n      \"id\": \"H_m73\",\n      \"content\": \"The late, narrow m73 interval is localized at 1/1 relative to its measured 2/1, 5/1 and 50/1 progression. Reproducibility and transfer to other conjugated carbonyls remain unresolved.\",\n      \"why_it_matters_for_model_learning\": \"The model should learn reproducible local behavior without propagating an isolated unusual record indiscriminately across related graphs.\",\n      \"next_discriminating_question\": \"Does the near-repeat preserve m73's 1/1 behavior, and does a matched enone pair show a comparable response?\",\n      \"basis\": \"mixed\",\n      \"confidence\": \"low\",\n      \"status\": \"unresolved\",\n      \"supporting_observed_ids\": [\"2cf789c87f7c6325c020\", \"49932dbd3d16bb64f71a\", \"c9a9fab963b85f141aa6\", \"e6dcf9d6f65fa598a38e\"],\n      \"contradicting_observed_ids\": []\n    },\n    {\n      \"id\": \"H_m80\",\n      \"content\": \"m80's earlier recorded completion at weaker eluent survives matching loading. Its intermediate solvent-response shape is still unknown.\",\n      \"why_it_matters_for_model_learning\": \"Intermediate labels can distinguish a local completion maximum from an incorrectly generalized solvent trend.\",\n      \"next_discriminating_question\": \"Do matched 10/1 and 20/1 conditions show the predicted intermediate completion maximum?\",\n      \"basis\": \"mixed\",\n      \"confidence\": \"medium\",\n      \"status\": \"supported\",\n      \"supporting_observed_ids\": [\"55dfd30fde788076a355\", \"08155ffdcb0d27576050\", \"f7d57d8bb988f7016502\"],\n      \"contradicting_observed_ids\": []\n    },\n    {\n      \"id\": \"H_m173\",\n      \"content\": \"m173 has a recorded completion trough at 2/1 and little onset change between the two measured plug volumes there. Whether its very late 1/1 completion persists with a smaller plug remains unresolved.\",\n      \"why_it_matters_for_model_learning\": \"A ratio-by-plug comparison helps separate stable solvent-response structure from injection dependence or record variation.\",\n      \"next_discriminating_question\": \"At 1/1, does the 1500 uL DCM plug retain the very late completion seen with 2000 uL?\",\n      \"basis\": \"mixed\",\n      \"confidence\": \"medium\",\n      \"status\": \"unresolved\",\n      \"supporting_observed_ids\": [\"f90a5a5a54509c085ebd\", \"0b247863fd6e8aaf44d8\", \"1e775e7d8dcbf48fd6f8\", \"9a32b65bc21fdc5f7286\"],\n      \"contradicting_observed_ids\": []\n    },\n    {\n      \"id\": \"H_shape\",\n      \"content\": \"Measured premeasurement failures differ by graph: m91 showed interval inflation, while m82 and m199 showed underprediction of both endpoints. Sparse ratio anchors may leave unresolved response-shape errors.\",\n      \"why_it_matters_for_model_learning\": \"Matched solvent extensions and a related beta-ketoester pair provide supervision for separate endpoint responses instead of a common offset.\",\n      \"next_discriminating_question\": \"Are the predicted weak-eluent contractions real, and do beta-ketoester and sulfoxide corrections transfer across ratios?\",\n      \"basis\": \"mixed\",\n      \"confidence\": \"medium\",\n      \"status\": \"supported\",\n      \"supporting_observed_ids\": [\"d603d4af5fd62fa8b85e\", \"a2ecf2b2f28094d70368\", \"6b8e53d2d8c8a90a7216\", \"ce539fc06bdda7c0ed0d\", \"b060fa3ae84f80e773d2\"],\n      \"contradicting_observed_ids\": []\n    },\n    {\n      \"id\": \"H_OH\",\n      \"content\": \"m60 and m61 have markedly different measured retention under approximately matched PE loading. Transfer to primary alcohols, benzylic homologues and hydroxyesters may require connectivity-specific solvent responses.\",\n      \"why_it_matters_for_model_learning\": \"These comparisons test whether the newly learned alcohol behavior generalizes beyond molecule-specific corrections or HBD counts.\",\n      \"next_discriminating_question\": \"Does the m60 distinction persist at 2/1, and how do primary-alcohol and hydroxyester response pairs behave?\",\n      \"basis\": \"mixed\",\n      \"confidence\": \"medium\",\n      \"status\": \"unresolved\",\n      \"supporting_observed_ids\": [\"62d7ea74ab73fa6214b4\", \"994a1f65509549a84ede\"],\n      \"contradicting_observed_ids\": []\n    },\n    {\n      \"id\": \"H_onset\",\n      \"content\": \"The historical zero-onset prediction for m177 at 10/1 failed at the tested condition: measured onset was 5.20 mL, close to its matched 5/1 onset.\",\n      \"why_it_matters_for_model_learning\": \"This resolves the specific collapse question and redirects acquisition toward remaining response ambiguities.\",\n      \"next_discriminating_question\": \"Do other molecules retain comparable endpoint defects after local retraining?\",\n      \"basis\": \"observed_data\",\n      \"confidence\": \"high\",\n      \"status\": \"supported\",\n      \"supporting_observed_ids\": [\"ce14dd2481560a984aea\", \"08812206a257481691c4\"],\n      \"contradicting_observed_ids\": []\n    }\n  ],\n  \"batch_rationale\": \"The previous batch revealed substantial graph-dependent failures, while its connected loading program left current dose predictions nearly flat. This batch therefore gives most new supervision to solvent-response transfer, retaining only a two-experiment m92 loading contrast. Quinoline interpolation and extension test whether large local corrections have learned useful curves. Alcohol, hydroxyester, beta-ketoester, ether-aldehyde, enone and naphthyl-ketone comparisons add connected structural support. The m73 near-repeat and focused m80/m173 measurements address specific unresolved recorded behavior. Benzoate and haloarene additions cover ordinary predicted retention regimes relevant to the broader Row pool.\",\n  \"expected_learning_value\": \"Expected gains are improved graph-by-eluent prediction of both onset and completion, better separation of interval inflation from common endpoint displacement, and transfer from recently labeled polar compounds to related unmeasured graphs. The injection contrast can establish whether a measured condition effect transfers or is locally small. The m73 near-repeat can change how its unusual anchor should influence learning. Loading gains may remain limited if retraining continues to underuse dose features. No numerical retraining benefit or overall Row accuracy improvement is established.\",\n  \"feedback_interpretation\": [\n    \"H_load is retained as a conditional hypothesis. m8's intermediate label supports local widening, and the m44 repeat preserves earlier onset and later completion relative to low loading despite a 2.09 mL difference between high-load onsets. In contrast, m92 completion falls from 12.01 to 9.73 mL with loading at 1/1 but rises from 52.44 to 62.21 at 50/1. Its 10/1 middle-load completion exceeds both endpoint-load measurements. These observations reject a universal widening rule and do not establish a smooth adsorption mechanism.\",\n    \"The composite H_ratio is revised into separate m73, m80 and m173 questions. m73's intermediate labels localize its unusual 1/1 result. m80's matched-load result removes the earlier loading confound. The two m173 2/1 measurements agree closely in onset and show completion near 45\u201346 mL, establishing a recorded trough between the 1/1 and 5/1 anchors while providing little evidence for a large plug effect at 2/1.\",\n    \"H_nitrogen gains strong local evidence from the two quinoline pairs: historical 5/1 endpoint underpredictions reached roughly 20\u201332 mL. Accurate m160 prediction rejects a blanket nitrogen-error correction. Current predictions have shifted substantially around quinoline graphs, but their unmeasured response curves still require prospective labels.\",\n    \"H_injection gains support from the fixed-input m92 solvent comparison: PE loading delayed onset and completion by 2.84 and 8.56 mL relative to EA. This single contrast does not establish a general causal magnitude; m9 now tests transfer in familiar nonpolar chemistry.\",\n    \"The tested H_onset question is resolved by m177's measured 5.20 mL onset. The measured ordered m126 interval also rejects its historical reversed prediction. Neither result identifies a universal output-transformation defect, so further acquisition targets remaining chemical and response-shape questions.\",\n    \"m91's historical near-correct band center but excessive interval differs from the joint endpoint underprediction observed for m82, m199 and m60. These prospective residuals motivate the new response pairs. They come from an adaptively selected batch and do not estimate overall Row error. Current fit comparisons are training diagnostics. V2 minus V1 is elution interval width throughout, and quantile widths are not treated as calibrated uncertainty.\"\n  ]\n}",
+  "provenance": {
+    "response_id": "resp_0081aaef524f1d64016ad329f85db4819ba329a287b28946a9",
+    "served_model": "gpt-6.1-sol",
+    "usage": {
+      "input_tokens": 488463,
+      "input_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 16856,
+      "output_tokens_details": {
+        "reasoning_tokens": 10876
+      },
+      "total_tokens": 505319,
+      "attribution": {
+        "items": {
+          "msg_0081aaef524f1d64016ad329f85e84819b8b507add0e19ec8f": {
+            "input_tokens": 483558,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 483558,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_0081aaef524f1d64016ad32acaf450819bafeba2cd85ae1bd0": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 5980,
+            "content": [
+              {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 5980
+              }
+            ]
+          },
+          "rs_0081aaef524f1d64016ad32a07deac819b88c3ec6114c2fc41": {
+            "input_tokens": 2,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 516
+          },
+          "rs_0081aaef524f1d64016ad32a1153b4819baadffe18649b2028": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0081aaef524f1d64016ad32a1b5234819bbf2ccac3ecf99398": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0081aaef524f1d64016ad32a251db8819ba325d28eb36b4977": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0081aaef524f1d64016ad32a2f7ff0819bba612eb9ba5d0890": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0081aaef524f1d64016ad32a3c1ca4819ba04b3c275c7f4a66": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0081aaef524f1d64016ad32a4257b0819ba2eb34d32ca48d13": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0081aaef524f1d64016ad32a4cbca0819b8acce0f10670a30f": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0081aaef524f1d64016ad32a566044819b91ec76040a34ed88": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0081aaef524f1d64016ad32a60c7a0819bb59ca39289bb9968": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0081aaef524f1d64016ad32a6a99b4819ba5e4b1fe5d5e0754": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0081aaef524f1d64016ad32a74f3e8819bbc3c6fb19f5f1461": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0081aaef524f1d64016ad32a7f4b48819bb7e4378ad2bcb90b": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0081aaef524f1d64016ad32a88507c819bb692faee0851a238": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0081aaef524f1d64016ad32a8f9194819bbe4904530f01ed1b": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0081aaef524f1d64016ad32a98122c819ba38f7cb40b529c82": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0081aaef524f1d64016ad32a9f7774819bb4b76e6dc6fb7eb1": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0081aaef524f1d64016ad32aa944c0819b81246d231068156f": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0081aaef524f1d64016ad32ab2b158819bb3c73ea38e6c935c": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0081aaef524f1d64016ad32abfe240819b82e1bedc77264fb7": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0081aaef524f1d64016ad32acacf2c819b916872b5dd5447ba": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          }
+        },
+        "request_fields": {
+          "instructions": {
+            "input_tokens": 4903,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "native_tool_calls": 0
+  },
+  "role": "scientific_planner",
+  "call_index": 0
+}

@@ -1,0 +1,141 @@
+{
+  "request_sha256": "57eb0717d60ef06a4edb8ba0efea8a8458aa432d91a394f57eeb02d6cbbf24cf",
+  "answer": "{\n  \"type\": \"selection\",\n  \"packet_sha256\": \"df7694c8c7141990000d06b7d4327518fc894669da05af7529fe44df42c15ad4\",\n  \"expert_synthesis\": {\n    \"chemistry_takeaways\": \"Recent labels distinguish shallow onset, completion-dominated growth and joint endpoint growth across closely related structures. Increasing EA generally strengthens silica elution, but measured local reversals and loading associations require separate V1/V2 interpretation. Adsorption and focusing remain untested explanations.\",\n    \"ml_takeaways\": \"Several recent curves have answered their immediate questions. Greater marginal value now comes from controlled curves in sparsely sampled molecular environments and comparisons that constrain structural transfer. Historical residuals, endpoint magnitude and quantile widths do not estimate current acquisition value.\",\n    \"agreements\": [\n      \"Use the current 877-observed, 2,453-candidate state and preserve molecule identity plus all five condition fields.\",\n      \"Connected measurements can distinguish molecular offsets, ratio slopes and endpoint-specific loading associations.\",\n      \"Neighboring conditions cannot establish persistence of exceptional measured inputs.\",\n      \"Ordinary modest-volume responses remain relevant to overall Row accuracy.\"\n    ],\n    \"disagreements\": [\n      \"The ML memo misidentifies 409d01129a3e41b32902 as an endpoint reversal; its current prediction is ordered at approximately 6.15/11.79 ml. The current m18 reversal is a valid prediction-only diagnostic, but does not establish a chromatographic anomaly.\",\n      \"The chemistry memo's cited m73 pure-EA ID 0b8c6c59ae5e24b420e5 belongs to m208. The correct m73 anchor is 0b8c7bc2949fb8070c94.\",\n      \"I give further m156, m209, m87 and m162 extensions lower priority after their latest measurements. I independently prioritize diester and chloroketone transfer alongside the advisers' alcohol, oxygen-ring and aldehyde questions.\"\n    ],\n    \"planner_resolution\": \"Select exactly 32 distinct legal IDs across ten observed molecular identities. Develop controlled chloroketone, tertiary-alcohol, carbonyl-free oxygen/sulfur, halogenated-aldehyde and diester curves. These comparisons address remaining structural-transfer questions without assigning adviser quotas.\"\n  },\n  \"batch_strategy\": \"Freeze these 32 current-pool IDs and their supplied predictions before measurement. Every selected complete molecule/condition tuple is distinct, with no intentional identical-input repeats. Use fixed-loading ratio sequences, measured anchors and selected loading bridges. Preserve density, sample volume, loading-solvent identity and plug volume; sample volume and mass remain coupled. Cross-molecule comparisons retain injection differences explicitly. Analyze V1 and V2 separately; V2 minus V1 is elution interval width, not uncertainty.\",\n  \"choices\": [\n    {\n      \"id\": \"a2e635d2c20fa080aec6\",\n      \"reason\": \"m27 at pure EA, 50 ul anchors a controlled aliphatic chloroketone curve connected to its measured 20/1 input, testing whether unusually short later completion reflects a ratio response.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H40\"\n    },\n    {\n      \"id\": \"a4a62cf5452e2229b667\",\n      \"reason\": \"m27 at 1/1, 50 ul tests the predicted longer completion before the proposed decline, with density and DCM 300 ul unchanged.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H40\"\n    },\n    {\n      \"id\": \"504e8e25f3a8b339a023\",\n      \"reason\": \"m27 at 2/1, 50 ul locates the intermediate response between selected 1/1 and 10/1, distinguishing a completion shoulder from a molecular offset.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H40\"\n    },\n    {\n      \"id\": \"09096996d08f0c063345\",\n      \"reason\": \"m27 at 10/1, 50 ul directly tests the predicted completion decrease and connects the selected lower ratios to measured 20/1 under identical loading.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H40\"\n    },\n    {\n      \"id\": \"3c43e519a9cf66b66ebc\",\n      \"reason\": \"Remote tertiary alcohol m51 at 1/1, 150 ul establishes the baseline for a controlled alcohol-topology curve after measured secondary and primary alcohols showed differentiated responses.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H41\"\n    },\n    {\n      \"id\": \"426ed16e4b39d346244b\",\n      \"reason\": \"m51 at 2/1, 150 ul bridges its measured 50 ul input and supplies the lower-ratio anchor for selected 5/1 and 10/1.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H41\"\n    },\n    {\n      \"id\": \"7eb97a2a0856e78a4b76\",\n      \"reason\": \"m51 at 5/1, 150 ul tests whether appreciable joint growth develops in this remote tertiary-alcohol environment, rather than assuming transfer from m60 or m204.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H41\"\n    },\n    {\n      \"id\": \"19229d505f75d05a0bcb\",\n      \"reason\": \"m51 at 10/1, 150 ul completes the controlled sequence and tests the predicted strong continuation of both endpoints under fixed PE loading.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H41\"\n    },\n    {\n      \"id\": \"ce58f28250c053410654\",\n      \"reason\": \"Benzylic cyclic tertiary alcohol m203 at 2/1, 150 ul provides a matched earlier-ratio anchor for its modest measured 5/1 response, supporting an independent tertiary-alcohol comparison.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H41\"\n    },\n    {\n      \"id\": \"04ea307c7b7f3321cc20\",\n      \"reason\": \"m203 at 10/1, 150 ul tests whether its modest measured 5/1 endpoints precede a later joint rise. Its DCM 400 ul plug remains explicit when comparing with m51.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H41\"\n    },\n    {\n      \"id\": \"7609a0c63a8cd353dd97\",\n      \"reason\": \"Bromobenzodioxole m6 at 5/1, 50 ul extends its measured 2/1 anchor, testing a fused acetal oxygen environment beyond the newly constrained benzofuran curve.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H42\"\n    },\n    {\n      \"id\": \"38e27006134935d923ca\",\n      \"reason\": \"m6 at 10/1, 50 ul measures the intermediate slope while holding DCM loading fixed, separating onset sensitivity from completion growth.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H42\"\n    },\n    {\n      \"id\": \"d5fd79e96156bc59e3fe\",\n      \"reason\": \"m6 at 20/1, 50 ul connects selected intermediate ratios to its measured 50/1 anchor, testing whether onset remains shallow across the connected curve.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H42\"\n    },\n    {\n      \"id\": \"ec71ea81bb34e0bf505e\",\n      \"reason\": \"Long-chain dibromothiophene m71 at 1/1, 150 ul anchors a controlled carbonyl-free sulfur curve connected to its measured 5/1 input.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H42\"\n    },\n    {\n      \"id\": \"0f8ae9a2f5ed927d4a08\",\n      \"reason\": \"m71 at 2/1, 150 ul tests whether completion remains short before measured 5/1, distinguishing a later completion increment from a broadly shifted molecular response.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H42\"\n    },\n    {\n      \"id\": \"e9aa21d2af3158cfa4f5\",\n      \"reason\": \"m71 at 10/1, 150 ul completes the sequence around measured 5/1 and tests shallow-onset transfer from iodothiophene despite substantial substitution and hydrophobicity differences.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H42\"\n    },\n    {\n      \"id\": \"e1f8b7530ab6a1f9cad1\",\n      \"reason\": \"Bromochlorobenzaldehyde m188 at 1/1, 150 ul supplies a matched baseline for its measured 2/1 anchor, extending the recent halogenated-aldehyde comparison.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H43\"\n    },\n    {\n      \"id\": \"e9f697dbb93b4a1b0184\",\n      \"reason\": \"m188 at 10/1, 150 ul tests whether its onset stays early while completion grows, as in m184, or develops joint growth closer to m185.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H43\"\n    },\n    {\n      \"id\": \"4ea178918812712ff767\",\n      \"reason\": \"m188 at 20/1, 150 ul provides a controlled continuation after selected 10/1, testing the range of any shallow-onset regime.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H43\"\n    },\n    {\n      \"id\": \"0a47888f8860e1cb8d77\",\n      \"reason\": \"Positional isomer m192 at 1/1, 100 ul extends its measured pure-EA baseline. Its density 1.698 and DCM 400 ul plug remain distinct from m188.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H43\"\n    },\n    {\n      \"id\": \"1125dd6a2736e219401f\",\n      \"reason\": \"m192 at 10/1, 100 ul measures its own controlled endpoint slope, allowing structural-transfer assessment without attributing cross-molecule differences solely to halogen position.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H43\"\n    },\n    {\n      \"id\": \"a04af55e394c31f4123a\",\n      \"reason\": \"m192 at 20/1, 100 ul tests continued completion growth versus a later onset transition, complementing the independently controlled m188 sequence.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H43\"\n    },\n    {\n      \"id\": \"d603d4af5fd62fa8b85e\",\n      \"reason\": \"Acetylenic diester m91 at 2/1, 100 ul anchors a new fixed-loading sequence. Its measured 10/1 input uses 150 ul and supplies context rather than a matched ratio anchor.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H44\"\n    },\n    {\n      \"id\": \"a2ecf2b2f28094d70368\",\n      \"reason\": \"m91 at 5/1, 100 ul tests the predicted modest completion decline from selected 2/1, contrasting a rigid acetylenic linker with flexible malonate environments.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H44\"\n    },\n    {\n      \"id\": \"93f10a8edf06f7acae26\",\n      \"reason\": \"m91 at 20/1, 100 ul completes the controlled three-point curve, distinguishing sustained modest response from completion recovery or joint growth.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H44\"\n    },\n    {\n      \"id\": \"3250d3677af7398cd6e8\",\n      \"reason\": \"Bromomalonate m74 at 2/1, 100 ul removes the loading mismatch with its measured 20/1 and 50/1 anchors and directly contrasts with measured 50 ul.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H44\"\n    },\n    {\n      \"id\": \"28370d4d701b5589f06c\",\n      \"reason\": \"m74 at 5/1, 100 ul locates the earlier response before its measured higher-ratio growth, testing structural limits of transfer from shallow unsubstituted malonate m80.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H44\"\n    },\n    {\n      \"id\": \"12ee64241e59d6b88e7a\",\n      \"reason\": \"m74 at 10/1, 100 ul connects selected lower ratios to measured 20/1 and 50/1, separating onset and completion growth locations within a controlled diester curve.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H44\"\n    },\n    {\n      \"id\": \"1f21033e56ca247448e2\",\n      \"reason\": \"Chloroalkyl aryl ketone m170 at 1/1, 100 ul anchors a controlled curve connected to its measured 50/1 input, complementing aliphatic chloroketone m27.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H40\"\n    },\n    {\n      \"id\": \"0f16b0305f82a94326f7\",\n      \"reason\": \"m170 at 5/1, 100 ul directly contrasts with its measured 150 ul point and supplies an intermediate fixed-loading anchor before the higher-ratio response.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H40\"\n    },\n    {\n      \"id\": \"aca5c381b829d96bf9e2\",\n      \"reason\": \"m170 at 10/1, 100 ul tests whether completion grows with shallow onset, extending carbonyl-environment learning beyond the recently measured benzyl-substituted ketones.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H40\"\n    },\n    {\n      \"id\": \"fb3a6d49af52de47c06e\",\n      \"reason\": \"m170 at 20/1, 100 ul connects the selected sequence to measured 50/1 and tests whether appreciable onset growth develops later, retaining its differences from m169 explicitly.\",\n      \"knowledge_basis\": [\"chemistry\", \"machine_learning\", \"observed_feedback\"],\n      \"hypothesis_id\": \"H40\"\n    }\n  ],\n  \"hypotheses\": [\n    {\n      \"id\": \"H40\",\n      \"content\": \"Carbonyl environment limits transfer of shallow onset and completion growth. Sparse m27 and m170 anchors do not establish their fixed-loading curves; the predicted lower-ratio m27 completion decline remains untested.\",\n      \"why_it_matters_for_model_learning\": \"Controlled aliphatic and aryl chloroketone sequences can distinguish molecular offsets from separate endpoint slopes and constrain transfer from recently mapped ketones.\",\n      \"next_discriminating_question\": \"Does m27 completion decrease between 1/1 and 10/1 at 50 ul, and does m170 retain shallow onset through 20/1 at 100 ul?\",\n      \"basis\": \"mixed\",\n      \"confidence\": \"medium\",\n      \"status\": \"proposed\",\n      \"supporting_observed_ids\": [\n        \"93bde1825d0cb1cb4305\",\n        \"bb8ba62a93aefa66d0f6\",\n        \"98f7b4e7c44ba0532e85\",\n        \"191c723f2b37d0c12afa\",\n        \"fd11ee7c408d95a1a8e6\"\n      ],\n      \"contradicting_observed_ids\": []\n    },\n    {\n      \"id\": \"H41\",\n      \"content\": \"Hydroxyl-bearing carbon environment may delimit ratio-response transfer. m51 has only a lower-loading 2/1 anchor, while cyclic benzylic tertiary alcohol m203 remains modest at measured 5/1. Neither is determined by the steep m60 or m204 curves.\",\n      \"why_it_matters_for_model_learning\": \"Connected tertiary-alcohol curves test structural limits of joint endpoint growth and provide loading bridges without relying on exceptional benzyl-alcohol inputs.\",\n      \"next_discriminating_question\": \"Does m51 develop strong joint growth across 1/1-to-10/1 at 150 ul, and does m203 remain modest or begin a later rise?\",\n      \"basis\": \"mixed\",\n      \"confidence\": \"medium\",\n      \"status\": \"proposed\",\n      \"supporting_observed_ids\": [\n        \"a1ea7a9303a5fc7a7b0f\",\n        \"5885d427a26f03e522f3\",\n        \"eb151126b40eda411ab7\",\n        \"beda2205eedbe1688e1f\",\n        \"358461ff3742e78ea3b6\"\n      ],\n      \"contradicting_observed_ids\": []\n    },\n    {\n      \"id\": \"H42\",\n      \"content\": \"Carbonyl-free ring environments require differentiated response curves. Shallow measured m8 and m158 behavior does not establish the intermediate progression of fused-acetal m6 or long-chain substituted thiophene m71.\",\n      \"why_it_matters_for_model_learning\": \"These curves extend oxygen and sulfur representation while testing whether completion changes independently of onset at ordinary endpoint scales.\",\n      \"next_discriminating_question\": \"Does m6 completion grow with persistently shallow onset, and where does m71 develop completion growth around its measured 5/1 input?\",\n      \"basis\": \"mixed\",\n      \"confidence\": \"medium\",\n      \"status\": \"proposed\",\n      \"supporting_observed_ids\": [\n        \"8398d446af24cfce2962\",\n        \"b94677e12c4d6aa11d9b\",\n        \"a6fd9cae6e0672265c13\",\n        \"7e981ba02c83f74f5e65\",\n        \"1525a3663c8d039331ed\",\n        \"35fcb2fcbf9425af2c6c\"\n      ],\n      \"contradicting_observed_ids\": []\n    },\n    {\n      \"id\": \"H43\",\n      \"content\": \"Halogenated aldehydes have differentiated endpoint slopes: m184 completion grows with slightly decreasing onset between 2/1 and 10/1, whereas m185 grows jointly. This does not determine m188 or m192, whose injection contexts also differ.\",\n      \"why_it_matters_for_model_learning\": \"Two independently controlled positional-isomer curves can improve aldehyde transfer without encoding an unsupported halogen-position correction.\",\n      \"next_discriminating_question\": \"Do m188 at 150 ul and m192 at 100 ul preserve shallow onset through 20/1, develop joint growth, or differ in their transition locations?\",\n      \"basis\": \"mixed\",\n      \"confidence\": \"high\",\n      \"status\": \"supported\",\n      \"supporting_observed_ids\": [\n        \"1017f3210c25ff6e6cc1\",\n        \"e78030609295a056f86f\",\n        \"a134ef1942ffcd81d017\",\n        \"f3ee8cbdb15889a1a50d\",\n        \"64bb328174ab49136339\",\n        \"0037e4cf8cedc4462b44\"\n      ],\n      \"contradicting_observed_ids\": []\n    },\n    {\n      \"id\": \"H44\",\n      \"content\": \"Diester membership does not determine a common ratio response. m80 remains near 7.5 ml completion through 20/1, m74 reaches substantially larger higher-ratio endpoints, and m91 has modest measured 10/1 endpoints under another loading.\",\n      \"why_it_matters_for_model_learning\": \"Connected bromomalonate and acetylenic-diester curves test structural limits of polycarbonyl transfer and distinguish onset growth from completion shoulders.\",\n      \"next_discriminating_question\": \"At fixed 100 ul, where does m74 begin growing toward its measured 20/1 and 50/1 endpoints, and does m91 remain modest or develop completion recovery by 20/1?\",\n      \"basis\": \"mixed\",\n      \"confidence\": \"high\",\n      \"status\": \"supported\",\n      \"supporting_observed_ids\": [\n        \"3a095d378b537020c569\",\n        \"26df752cf7c0673db585\",\n        \"dc73de0bfc725e8cd467\",\n        \"b98a7974de322ed42ec0\",\n        \"027bbff1ac308c5dd7a1\",\n        \"a93680d827624e459a39\"\n      ],\n      \"contradicting_observed_ids\": []\n    }\n  ],\n  \"batch_rationale\": \"The latest feedback substantially answers the previous m156, m209 loading-transfer, m73 interior, m87 higher-ratio, m171/m172, m184/m185 and m8/m158 questions. Their findings now motivate transfer tests in less sampled environments. The m27 and m170 sequences compare carbonyl contexts through controlled curves; m51 and m203 test tertiary-alcohol transfer; m6 and m71 extend carbonyl-free oxygen/sulfur coverage. The m188/m192 curves test limits of the newly established aldehyde divergence. Independently selected m74/m91 measurements address a consequential gap between shallow malonate behavior and larger diester responses. Every group supplies interpretable slopes or loading bridges rather than isolated molecular offsets.\",\n  \"expected_learning_value\": \"Expected benefits are improved representation of separate onset and completion slopes, conditional loading transfer and structural limits across ten molecular environments. The batch includes modest-response chemistry where evidence for local invariance would be useful, alongside alcohol and diester conditions that can locate stronger growth. Its connected measurements should constrain transfer beyond the repeatedly investigated adaptive surfaces. Overall Row weighting and a retrained evaluation are not supplied, so no numerical accuracy gain is claimed.\",\n  \"feedback_interpretation\": \"The authoritative state is 877 observed records and 2,453 eligible candidates. H33 is revised: m209's exceptional 2/1 onset does not transfer to 150 ul, whose measured 1/1, 2/1 and 5/1 sequence is 5.40/9.05, 5.89/11.18 and 7.45/17.05 ml. This rejects propagation of the isolated onset elevation across loading; the original 100 ul input remains unreplicated. Its fixed-100 ul continuation reaches 18.81/51.67 ml at 20/1. H35's long pure-EA completion and initial-decrease alternatives are rejected: m156 completion increases from 8.73 through 9.80, 12.83 and 14.10 to 23.25 ml, while onset decreases between 20/1 and 50/1. Thus broad endpoint monotonicity is still unwarranted. H36 is differentiated: m171 onset stays near 5.7\u20136.2 ml from 2/1 through 20/1, whereas m172 onset rises to 9.05 ml at 20/1. H37 supports distinct aldehyde slopes: m184 changes by -0.90/+3.09 ml between 2/1 and 10/1, while m185 changes by +2.89/+6.29 ml. H39's predicted large m8 onset rise is rejected by the shallow measured curve; m158 also retains early onset with modest completion variation. H32's sampled m73 completion minimum is located at 1/1: completion is 13.62/10.59/11.60/13.55/15.69 ml across pure EA, 1/1, 2/1, 5/1 and 10/1 at density 1.0491 and 100 ul. Persistence remains untested. H27's immediate higher-ratio question is answered: m87's 50-to-100 ul change at 50/1 is -2.92/-0.23 ml, separating onset loading response from nearly unchanged completion. H30 retains joint m162 growth across loading, with 2/1-to-10/1 increments of +6.33/+10.37 ml at 50 ul and +5.24/+9.30 ml at 150 ul; exact slope invariance is unsupported. Recent m55/m56 measurements also support modest benzoate progression. H34 remains rejected because its supposed repeat pair contains different molecules. Earlier m75 and m32 repeats continue to weaken stable loading-step and completion-maximum interpretations. Exceptional m177, m120 and m207 inputs and the isolated m117 near-reversal remain unresolved. The current m18 prediction reversal has reappeared in this packet and supersedes the older ordered-prediction summary, but supplies no measured evidence. Earlier m80-transition and m68-rebound expectations remain rejected over their measured ranges. All residuals discussed are historical premeasurement errors; selected candidates remain predictions only.\"\n}",
+  "provenance": {
+    "response_id": "resp_00d5cc2ab70c1ae4016ad8f2b0b84c8198bdb647ca4a7bd44d",
+    "served_model": "gpt-6.1-sol",
+    "usage": {
+      "input_tokens": 560024,
+      "input_tokens_details": {
+        "cached_tokens": 4736,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 12516,
+      "output_tokens_details": {
+        "reasoning_tokens": 6706
+      },
+      "total_tokens": 572540,
+      "attribution": {
+        "items": {
+          "msg_00d5cc2ab70c1ae4016ad8f2b0b91881989a9b27ba7132bb58": {
+            "input_tokens": 555119,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 555119,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_00d5cc2ab70c1ae4016ad8f37540c48198bad5485dff03bc5c": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 5810,
+            "content": [
+              {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 5810
+              }
+            ]
+          },
+          "rs_00d5cc2ab70c1ae4016ad8f2c59eb08198907a74ce7bffa585": {
+            "input_tokens": 2,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 516
+          },
+          "rs_00d5cc2ab70c1ae4016ad8f2d490e48198b078d689d66198de": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_00d5cc2ab70c1ae4016ad8f2e2ca1881988490415c779b9998": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_00d5cc2ab70c1ae4016ad8f2f31a488198a48078945c23cd39": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_00d5cc2ab70c1ae4016ad8f30357c881989951383125db0644": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_00d5cc2ab70c1ae4016ad8f3141194819884da4f27b5b50356": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_00d5cc2ab70c1ae4016ad8f322fc4481988db051702c12694e": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_00d5cc2ab70c1ae4016ad8f3327ba08198a591be39cbaa0990": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_00d5cc2ab70c1ae4016ad8f33c47108198b35c9ad57f293443": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_00d5cc2ab70c1ae4016ad8f349defc8198bd9987c81cf7a84d": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_00d5cc2ab70c1ae4016ad8f35783388198986020b892b67ea5": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_00d5cc2ab70c1ae4016ad8f364764481988cbf8ff0187a86c0": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_00d5cc2ab70c1ae4016ad8f37520d0819897ae5fe336df4d4b": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 492
+          }
+        },
+        "request_fields": {
+          "instructions": {
+            "input_tokens": 4903,
+            "cached_tokens": 4736,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "native_tool_calls": 0
+  },
+  "role": "scientific_planner",
+  "call_index": 0
+}

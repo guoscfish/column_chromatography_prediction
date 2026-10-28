@@ -1,0 +1,14 @@
+id,ppt_page,page_status,kind,stem,source,split,budget
+F01,P03,suggested,method,F01_research_gap,user task,conceptual,
+F02,P04,suggested,method,F02_research_questions,user task,conceptual,
+F03,P05,suggested,method,F03_active_learning_framework,src/qgeognn_al/active_learning_v2/scientist_study.py,offline lifecycle,
+F04,P06,suggested,method,F04_representation_acquisition,src/qgeognn_al/active_learning_v2/lcmd.py; maxdet.py; ivr.py; data/illustrative/F04_mechanism_examples.json,constructed 2D examples run with original selectors; not experimental data,
+F05,P08,suggested,method,F05_llm_feedback_reasoning,src/qgeognn_al/active_learning_v2/scientist_selector.py,information flow,
+F06,P09,suggested,method,F06_llm_selection_variants,src/qgeognn_al/active_learning_v2/scientist_study.py + dual_expert_study.py,selection mechanisms,32 per batch
+F07,P10,suggested,method,F07_evaluation_protocol,src/qgeognn_al/active_learning_v2/sequential_protocol.py,budget protocol,333-813 and 333-1005
+R01,P11,user specified,result,R01_numerical_learning_curves,reports/ppt_202610_al/frozen_inputs/reports/active_learning_latest/snapshot.json,validation,333-1005
+R02,P12,user specified,result,R02_raw_cw_aulc_comparison,reports/ppt_202610_al/frozen_inputs/studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_1005/validation_curves.csv,validation,333-1005
+F08,P13,suggested,method + recorded result,F08_state_branching,reports/ppt_202610_al/frozen_inputs/studies/active_learning/qgeognn_v2_same_state_branching/results/branch_results.csv,historical postfreeze test,anchor +64
+R03,P14,user specified,result,R03_cw32_vs_cw16_llm16,reports/ppt_202610_al/frozen_inputs/reports/active_learning_latest/snapshot.json,validation,333-813
+R04,P15,user specified,result,R04_free_llm_learning_curves,reports/llm_free_complete_20261013/source_hashes.json + original fit_audit.json,validation,333-813
+F09,P16,suggested,method,F09_research_roadmap,user task,planned work,

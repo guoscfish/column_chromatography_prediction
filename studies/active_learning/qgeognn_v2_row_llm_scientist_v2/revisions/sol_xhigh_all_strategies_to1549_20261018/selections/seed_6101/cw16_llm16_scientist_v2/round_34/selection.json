@@ -1,0 +1,160 @@
+{
+  "type": "selection",
+  "packet_sha256": "15941f17dc5088ef168ef5fb51a42c298c93a1bc35c30f9fc1a6300ae739fdbb",
+  "batch_strategy": "Supplement the pending 16 with controlled loading contrasts, gaps in scaffold-specific solvent-response curves, and one diagnostic replicate. Emphasize endpoint-specific learning where the model predicts little loading sensitivity, while using compact-elution families to constrain transfer of broadening corrections. Larger PE/EA means a weaker normal-phase mobile phase. Quantile ranges are secondary model-behavior signals, not calibrated epistemic uncertainty.",
+  "choices": [
+    {
+      "id": "d90d024730eb01bff3c7",
+      "reason": "Measure m72 at 1/1, 100 uL, DCM/200 uL. This matches the sample amount and mobile phase of measured PE/300 uL record a2c9096e1ec2e5c244d6 and extends DCM record 6a53fc46345dc50021ae from 50 to 100 uL. Together with the selected 2/1 PE row, it tests a ratio-dependent loading-presentation effect. Solvent identity and loading-solvent volume remain jointly changed.",
+      "hypothesis_id": "H21"
+    },
+    {
+      "id": "be6fa448aed2d0520ac3",
+      "reason": "Measure m72 at 2/1, 100 uL, PE/300 uL against measured DCM/200 uL record 2466da143763ef5563ef at the same sample amount. The selected 1/1 DCM experiment supplies the complementary comparison against an existing PE label. These two measurements can teach whether loading presentation affects V2 differently across adjacent mobile-phase ratios.",
+      "hypothesis_id": "H21"
+    },
+    {
+      "id": "0f3200ec8aae2a81902a",
+      "reason": "Add m56 at 30/1 and 50 uL. Pending 463adede738923684058 uses 150 uL at the same ratio and loading presentation, so the pair directly tests loading sensitivity. Measured 7a3708dd5094bb49d459 supplies a 20/1, 50-uL anchor. This also starts a controlled local ratio series with the selected 40/1 row.",
+      "hypothesis_id": "H19"
+    },
+    {
+      "id": "ac76ec24edfe8aec7fb2",
+      "reason": "Add m56 at 40/1 and 50 uL, holding sample loading, PE loading solvent, and its volume fixed relative to selected 30/1 and measured 20/1 record 7a3708dd5094bb49d459. This resolves curvature within a benzoate family with many catalog rows. Pending 30/1 at higher loading helps distinguish ratio response from loading response.",
+      "hypothesis_id": "H18"
+    },
+    {
+      "id": "b8abc8f40545556f07e0",
+      "reason": "Measure dibenzoylmethane m168 at 50/1 and 100 uL in 400 uL DCM. Measured 8db24ae10df4095ada47 uses 150 uL with the same loading presentation and retains an early onset despite late completion. The candidate's broad V1 quantile range makes this a useful test of whether the model should preserve that endpoint asymmetry at lower loading.",
+      "hypothesis_id": "H18"
+    },
+    {
+      "id": "80de1b57c56257d2ecae",
+      "reason": "Measure naphthyl-substituted beta-diketone m166 at 20/1 and 100 uL. Recent 553ee7ba7226d2304ed5 establishes its 1/1 baseline at this loading; ea9ef1bc8766196ca96d and 7ac16a6d90180a350ff0 provide 10/1 and 20/1 references at 50 uL. This tests completion growth without assuming that onset must rise in parallel, while filling a loading gap.",
+      "hypothesis_id": "H18"
+    },
+    {
+      "id": "4df3d7b92b603fe8522f",
+      "reason": "Measure phenyl fluorinated beta-diketone m167 at 50/1 and 100 uL. Measured fa6fd34875fdc7acf6c1 at 150 uL and 7accad40a62307970be8 at 20/1, 50 uL suggest a bounded late endpoint with an early onset. This complements m166 and m168 by testing whether fluorination and aromatic environment require different V1/V2 response surfaces.",
+      "hypothesis_id": "H18"
+    },
+    {
+      "id": "9d7b71b3f9f6ea222bc1",
+      "reason": "Measure acceptor-rich aliphatic ester m13 at 1/1 and 50 uL. Record 81507d463506a9e65e73 supplies the same ratio at 150 uL, while 74ce463c8423fbd22dc4 and 1cc3b837c6561b1c0a23 establish lower-loading responses at 2/1 and 5/1. This tests whether loading sensitivity is already present before the sharp retention increase seen at weaker mobile phases.",
+      "hypothesis_id": "H19"
+    },
+    {
+      "id": "17c1bb3be086a2b6ffec",
+      "reason": "Measure m119 at 2/1 and 100 uL between measured 50-uL a775926fce57b3bf9ec1 and 150-uL 9e6c69af6f5142faa049. Those observations show decreasing onset but nearly stable completion as loading rises. The intermediate label can distinguish a reproducible loading trend from scatter and improve endpoint-specific interpolation for aromatic alcohols.",
+      "hypothesis_id": "H19"
+    },
+    {
+      "id": "5ae7472a4d9ce3fe20d0",
+      "reason": "Measure cyanobenzophenone m159 at 5/1 and 150 uL. At identical loading presentation, measured b86ace0ccafe0af8ceec and 6aa69f7c2b8244353a75 have similar onsets but different completion volumes at 50 and 100 uL. The higher-loading label tests whether completion continues to broaden, preventing an amount-insensitive approximation from masking an endpoint-specific association.",
+      "hypothesis_id": "H19"
+    },
+    {
+      "id": "36d971e3231c54486d05",
+      "reason": "Measure para-aminobenzonitrile m160 at 2/1 and 150 uL. Records b21061720e23b7a5bdcb and 2feb7d8e0a3566ddf97f show a lower onset at 100 than 50 uL with nearly unchanged completion. Completing this loading series tests whether the pattern persists near the steep 2/1-to-5/1 retention transition, rather than transferring a generic amine correction.",
+      "hypothesis_id": "H19"
+    },
+    {
+      "id": "66747ae127e03516ffda",
+      "reason": "Measure sterically substituted alcohol m203 at 20/1 and 150 uL against 100-uL record 080258046c2cae5fb2ab. At 10/1, fbfb34ddee14b1ea50b1 and 04ea307c7b7f3321cc20 associate higher loading with earlier onset. The selected prediction instead places the 20/1 higher-loading onset later than the existing 100-uL observation, making this a useful test of ratio-by-loading interaction.",
+      "hypothesis_id": "H19"
+    },
+    {
+      "id": "10aed2ae6d65e00f993a",
+      "reason": "Measure dimethyl acetylenedicarboxylate m91 at 10/1 and 150 uL. Measured e9d196dc9d1443121cf9 at 5/1 and 93f10a8edf06f7acae26 at 20/1 provide compact-elution references, although their sample amounts differ. This fills an unmeasured ratio and loading combination in an oxygen-rich family that can constrain overgeneralization of broad V2 corrections from other polyacceptors.",
+      "hypothesis_id": "H18"
+    },
+    {
+      "id": "067c9b96b35fefd28fdf",
+      "reason": "Add chalcone m165 at 1/1 and 100 uL between same-loading, same-presentation observations 0bdd638e906bf11a00cb at 0/1 and bb18fe197ad7e24c5ed1 at 2/1. Its predicted onset is already above the measured 2/1 onset, making the interpolation worth checking without imposing monotonicity. This supplies a donor-free aromatic enone reference for transfer across carbonyl families.",
+      "hypothesis_id": "H18"
+    },
+    {
+      "id": "f7684c557ad58e3a1b0b",
+      "reason": "Replicate m75 at 2/1 and 100 uL. The current candidate prediction has a later onset than existing same-tuple record 9e1b72123bd827a51c19, while 50-uL record f2312f90dd4cf5ef0e23 has nearly coincident endpoints. One targeted replicate can assess reproducibility of the ordinary 100-uL response before treating the cross-loading discrepancy as a learnable threshold.",
+      "hypothesis_id": "H22"
+    },
+    {
+      "id": "14ec65dd3e0364a45b2d",
+      "reason": "Measure m48 at 2/1 and 50 uL, extending measured 150-uL record 00115fe52c86d3614129. This small nonaromatic O\u2013Cl compound has relatively sparse supplied condition coverage and limited structural analogy to the aromatic carbonyl population. The label tests transfer and loading response in that distinct environment; its broad quantile ranges are supporting signals rather than proof of error.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H18",
+      "content": "V1 and V2 have scaffold-specific responses to increasing PE/EA. Early onset can persist while completion moves later in some beta-diketones, whereas nitroaryl ketones can delay both endpoints. Acceptor or donor counts alone do not determine the response curve.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "553ee7ba7226d2304ed5",
+        "ea9ef1bc8766196ca96d",
+        "0b9a59526d7d4ce5f872",
+        "fa6fd34875fdc7acf6c1",
+        "8db24ae10df4095ada47",
+        "9de8f9fed06ef9d5befa",
+        "38e6b8bf0f089fcadd80"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Separate conditional learning of onset and completion can preserve early-onset, broad-elution behavior without imposing it on other carbonyl or polyacceptor families. Intermediate-ratio controls also constrain interpolation across common scaffolds.",
+      "next_discriminating_question": "Do the selected beta-diketone loading gaps preserve early onset and family-specific completion, and do the benzoate, enone, and aliphatic diester controls require different ratio curvature?"
+    },
+    {
+      "id": "H19",
+      "content": "Loading-associated endpoint patterns depend on family and ratio. Several measured series associate higher sample amount with earlier V1 while V2 remains similar or increases. Current candidate predictions often vary much less with loading, but reproducibility and causal attribution remain uncertain.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "a775926fce57b3bf9ec1",
+        "9e6c69af6f5142faa049",
+        "fbfb34ddee14b1ea50b1",
+        "04ea307c7b7f3321cc20",
+        "b86ace0ccafe0af8ceec",
+        "6aa69f7c2b8244353a75",
+        "b21061720e23b7a5bdcb",
+        "2feb7d8e0a3566ddf97f"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Controlled loading extensions can teach endpoint-specific interactions with the predictor's density-times-volume feature. They can also establish where a nearly flat loading response is adequate, avoiding a universal amount correction.",
+      "next_discriminating_question": "Do intermediate or higher-loading measurements reproduce these associations, and does the onset trend observed for m203 at 10/1 persist or change at 20/1?"
+    },
+    {
+      "id": "H21",
+      "content": "For m72, the joint loading presentation of solvent identity and solvent volume may interact with mobile-phase ratio. Existing matched-amount observations suggest completion differences that the model's small presentation sensitivity may underrepresent. Identity and volume cannot be separated with these comparisons.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "32326acee85181b5df10",
+        "10f01f359bc6067d009f"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Complementary matched-amount comparisons at 1/1 and 2/1 can reveal whether the recorded loading-presentation features need a ratio-dependent effect, rather than attributing all completion differences to molecular polarity or sample amount.",
+      "next_discriminating_question": "At 100 uL sample loading, how does DCM/200 uL compare with PE/300 uL at 1/1 and 2/1, and is the direction consistent with the measured 5/1 comparison?"
+    },
+    {
+      "id": "H22",
+      "content": "Some supplied identical condition tuples have materially different endpoint labels, so deterministic structure-condition trends cannot explain every discrepancy. Targeted replication can help distinguish reproducible loading associations from variability or heterogeneity absent from the recorded features.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "73155d7feac7857188dd",
+        "10f14f6ee69ba06bbe68",
+        "7383949c431e18f39597",
+        "93bcd806b8dcb8c0cab9"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Recognizing inconsistent labels limits overfitting to isolated narrow intervals or apparent loading thresholds. A small replication investment can clarify how much weight to place on such patterns during subsequent acquisition.",
+      "next_discriminating_question": "Does the new m75 2/1, 100-uL measurement reproduce the existing ordinary response, or reveal substantial within-tuple variability that weakens a loading-threshold interpretation?"
+    }
+  ],
+  "feedback_interpretation": "Recent LLM outcomes generally reduced the case for another blanket late-retention correction. The m37 5/1 measurement and m166, m13, and m167 baseline measurements were comparatively close to their acquisition-time predictions. The m41 20/1 result was also close and showed only a modest change from its lower-loading reference, bounding claims of large loading effects. Errors for m153 and m111 were positive in both endpoints, whereas m158 combined an onset underestimate with a completion overestimate; endpoint-specific and family-specific reasoning remains necessary. Pending-CW outcomes separately showed several positive V2 errors on ordinary rows, including m94 and m142, further discouraging indiscriminate broadening. These are historical acquisition errors, not current-model residuals. I also correct the previous wording: increasing PE/EA weakens the mobile phase; m13 and m17 are aliphatic esters, and m166 is a naphthyl-substituted beta-diketone. Existing identical-tuple disagreements motivate one diagnostic replicate rather than treating every unusual observation as a mechanistic finding.",
+  "batch_rationale": "The pending batch already supplies substantial coverage of ordinary aromatic, ester, and hydrocarbon rows. The supplements add experiments with specific conditional questions: two m72 loading-presentation comparisons; a fixed-loading m56 ratio curve linked to a pending loading contrast; three beta-diketone measurements addressing asymmetric onset/completion behavior; and loading gaps in m13, m119, m159, m160, and m203. The m91 and m165 measurements constrain transfer across oxygen-rich aliphatic and donor-free aromatic carbonyl environments, while m48 extends a sparsely represented structural environment. One m75 replicate addresses a known prediction-versus-reference discrepancy without assuming the candidate's label. All selected molecules are already represented, so the intended gain is better estimation of conditional relationships and their reproducibility. The batch may improve Row-distribution accuracy by learning when loading and solvent ratio affect each endpoint, while limiting propagation of specialized retention corrections into the large ordinary-row population."
+}

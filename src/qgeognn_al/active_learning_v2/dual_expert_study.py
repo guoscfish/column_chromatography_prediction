@@ -31,7 +31,7 @@ STUDY = ARCHIVE_STUDY / "revisions" / DEFAULT_REVISION
 SEEDS = scientist.SEEDS
 METHODS = (METHOD,)
 CONTROLS = scientist.CONTROLS
-BUDGETS = tuple(range(333, 622, 32))
+BUDGETS = tuple(range(333, 814, 32))
 
 
 def configure_revision(revision=None):
@@ -60,7 +60,7 @@ def control_reuse():
                 continue
             for method, name, folder, freeze_name in (
                 ("random32", "qgeognn_v2_row_sequential_b32", "random", "contract.json"),
-                ("center_width_lcmd", "qgeognn_v2_row_cw_lcmd_to_653", "center_width_lcmd", "round_freeze.json")):
+                ("center_width_lcmd", "qgeognn_v2_row_cw_lcmd_to_653" if budget <= 653 else "qgeognn_v2_row_cw_lcmd_to_1005", "center_width_lcmd", "round_freeze.json")):
                 directory = base / name / f"runtime/seed_{seed}/{folder}/round_{r:02d}"
                 frozen = read(directory / freeze_name)
                 checkpoint = Path(frozen["checkpoint_path"]) if "checkpoint_path" in frozen else directory / "model/best.pt"

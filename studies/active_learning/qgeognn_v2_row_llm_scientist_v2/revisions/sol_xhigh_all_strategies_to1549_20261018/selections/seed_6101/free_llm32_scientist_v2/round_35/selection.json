@@ -1,0 +1,283 @@
+{
+  "type": "selection",
+  "packet_sha256": "7bde95ff92903a4d21aaf364a2c1c316061e144fa8d11877574291fe6f6e3b09",
+  "batch_strategy": "Use matched condition panels to resolve loading-dependent response shapes, repair endpoint-specific failures, and test whether apparent extrema reproduce at another loading. Add focused exploration of the weak-eluent diiodobenzene curve and a bulky acrylate endpoint reversal. Select 32 experiments with no pending experiments; freeze all acquisition forecasts to those supplied in this packet.",
+  "choices": [
+    {
+      "id": "7a3586b45c03832259f5",
+      "reason": "m82 at 2/1 and 102.9 mg fills the loading midpoint. The forecast is 7.17/15.90 mL, while measured low- and high-load rows 9652798512ade7486015 and c5130d0b1bb6dba0fb85 finish at 16.63 and 19.77 mL. This tests whether the model misses a completion response that is already present at 2/1.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "f50c45b31cf41304c109",
+      "reason": "m82 at 5/1 and 102.9 mg predicts V2=26.20 mL, below both measured loading endpoints: 36.83 mL in 3ca8d2ff798fad4faffc and 29.76 mL in cd2c80dae2f32a52732f. The midpoint distinguishes a loading minimum from a smoother decrease or variable endpoint labels.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "ac81adfab5ec8ce768db",
+      "reason": "m82 at 20/1 and 51.45 mg extends the loading panel into weaker eluent. Its forecast is 23.43/57.18 mL, whereas measured 102.9 and 154.35 mg completions are both about 64.4 mL in 61090cfdcf019e0891a3 and b6bf451b4911ee22d4a4. This determines whether the lower-load divergence persists or reverses again.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "81507d463506a9e65e73",
+      "reason": "m13 at 1/1 and 168.3 mg begins a matched high-load solvent pair. The low-load pair 9d7b71b3f9f6ea222bc1 and 74ce463c8423fbd22dc4 increased in V2 from 15.63 to 22.60 mL, unlike the decrease at 112.2 mg. This new loading tests which response shape transfers.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "2dbfdf9c2d5defd09f7a",
+      "reason": "m13 at 2/1 and 168.3 mg completes the solvent pair, with forecast 10.44/18.46 mL. Comparing it with the selected 1/1 point and measured medium-load pair 9e94f0a4a224512b06cc and 6573d8f84faaf7ce4a78 tests whether their completion decrease recurs at higher loading.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "3db682471b6cad60811d",
+      "reason": "m166 at 5/1 and 50 mg locates where its completion loading response develops. Measured high-load 5/1 row ed4d64cb440e2438815f finishes at 17.96 mL, while low-load 10/1 row ea9ef1bc8766196ca96d finishes at 20.38 mL. This supplies the missing low-load 5/1 anchor before the divergence seen at 10/1.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "fc672dc6f3ecc1d0492c",
+      "reason": "m166 at 10/1 and 100 mg predicts 6.54/24.74 mL between measured 50 and 150 mg completions of 20.38 and 28.52 mL in ea9ef1bc8766196ca96d and 20acd2ae49790ab82053. The midpoint tests interpolation after the proposed low-load completion maximum failed.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "d9ebd22828036fc4c7e6",
+      "reason": "m166 at 2/1 and 50 mg anchors the stronger-eluent side of the selected low-load 5/1 point. Its 6.36/12.99 mL forecast connects that region to measured 10/1 and 20/1 rows ea9ef1bc8766196ca96d and 7ac16a6d90180a350ff0. High CW distance supports coverage, without establishing uncertainty calibration.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "3a21ecb17bc874170109",
+      "reason": "m168 at 2/1, 40 mg and 300 uL DCM starts an exact loading-solvent-volume contrast with the selected 400 uL row. The weak-eluent low-load rows 5f02dc3c13f7f2daed32 and 5e5b7c697bc0c268b288 differed by 4.28 mL in onset; this pair tests whether such a contrast extends into stronger eluent.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "b7d6bedb33cb5650a8cf",
+      "reason": "m168 at 2/1, 40 mg and 400 uL DCM completes the matched volume contrast. Both acquisition forecasts are approximately 6.07/13.86 mL. Measuring both tests the model's volume invariance while holding molecule, mobile-phase ratio and sample loading fixed.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "b8abc8f40545556f07e0",
+      "reason": "m168 at 50/1, 80 mg and 400 uL DCM completes the loading midpoint between 5e5b7c697bc0c268b288 and 8db24ae10df4095ada47. It also matches the 300 uL condition in 5ba8cead5a790ba93029, measured at 5.44/28.17 mL. This separates a broader volume/loading interaction from an isolated low-load onset anomaly.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "c0c1e5902a4bf388fcd0",
+      "reason": "Repeat m174 at 20/1 and 164.55 mg. The current forecast is 14.70/24.27 mL versus measured 24.83/38.08 mL in 591b1bb527d42e831f12. The neighboring 30/1 label reproduced in 246a1d68ed2f87de7d1f; repeating 20/1 now tests whether the apparent solvent minimum has a reproducible upper neighbor.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "92bac523bed1042d6a75",
+      "reason": "Repeat m174 at 30/1 and 54.85 mg. The forecast 16.44/25.91 mL differs from 11.99/18.29 mL in 704ba630f25fe7f20166. Together with the reproducible high-load 30/1 labels, this tests whether the substantial loading contrast and low-load solvent minimum recur.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "0be038db2251642c6862",
+      "reason": "m96 at 10/1 and 178.05 mg adds the missing high-load response for a thiol-containing ester. Matched low-load row b38269af25220f62d607 finishes at 18.03 mL; the high-load forecast is 16.80 mL. Paired with 20/1, it tests whether the nearly flat modeled loading response is appropriate outside the beta-ketoesters.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "376ba323d8d487f80cee",
+      "reason": "m96 at 20/1 and 178.05 mg completes that solvent/loading comparison. Its forecast is 17.48/25.89 mL, close in completion to measured low-load row a0fb13951a097b6a1516 at 26.49 mL. The label can establish whether completion remains loading-insensitive while onset changes, limiting transfer of unrelated loading corrections.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "e71bdbb1d06ba82dc4cc",
+      "reason": "m208 at 2/1 and 92.865 mg supplies a low-load phenol transition anchor. Compare measured high-load 2/1 row 1c1d7ff3d6c495744916 with low-load pure-EA and 5/1 rows 09b5473d1d8ee26da8d9 and 1150272392a90f36db05. This locates the onset of stronger retention before its much later weak-eluent region.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "cbe7e55e896b42820ba5",
+      "reason": "m209 at 1/1 and 68.75 mg starts a matched loading pair between measured pure-EA and 2/1 conditions. Pure-EA rows 07b65328a3ec1d825fef and 2a7062ac85d66260b3be differ by 4.84 mL in V2 across loading. This tests whether that contrast persists at 1/1 despite the nearly invariant forecasts.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "f7e3bf988bd0e1b9f58b",
+      "reason": "m209 at 1/1 and 206.25 mg completes the loading pair. Measured 2/1 loading endpoints eda42a3c0f94ffce3e99 and c343983d41d51a6a66c3 both finish at 11.18 mL, unlike the pure-EA contrast. The intermediate solvent ratio discriminates a localized loading effect from a common mass correction.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "224279593b17fa2cbc8c",
+      "reason": "m86 at 1/1 and 58.5 mg connects the recent pure-EA label 0d7b26fecd6b2854ca8e, V2=14.63 mL, to the much later matched-load 5/1 label c70b471334f9747d6f98, V2=58.38 mL. Its predicted V2=14.50 mL tests a strong-eluent plateau before the steep amino-ester response.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "9ea972636933bded6999",
+      "reason": "m104 at 10/1 and 175.2 mg provides the control for the selected 20/1 point. Measured 116.8 mg rows 467ccfac002f5113fe81 and 10f14f6ee69ba06bbe68 finish at 11.00 and 20.78 mL. The high-load pair tests whether this apparent completion rise is reproducible across loading.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "6c4eacf7845534254af9",
+      "reason": "m104 at 20/1 and 175.2 mg predicts V2=13.18 mL, well below the measured 116.8 mg value of 20.78 mL in 10f14f6ee69ba06bbe68. That measured point also exceeds the 50/1 completion in 302e458c5ed2285ca328. This tests a loading-specific peak versus variable labels or a misplaced modeled transition.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "99a3c4452ddfa8ff12c0",
+      "reason": "Ethyl anthranilate m89 at 20/1 and 167.55 mg extends measured middle-load row fe40c32169d87261e1e9 and its later 50/1 anchor 249b884b29177edb9df5. It contrasts with the selected methyl anthranilate panel, while retaining loading-solvent differences as covariates rather than attributing the contrast solely to ester substitution.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "8755c59209c36519ca2d",
+      "reason": "m157 at 10/1 and 100 mg starts a matched solvent extension from measured 5/1 row d17eab369aebf6745a89, 4.67/10.64 mL. The 5.89/11.63 mL forecast supplies an intermediate anchor before the selected 50/1 point, testing where the predicted diiodobenzene retention rise develops.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "51b57cfd0a20117aab60",
+      "reason": "m157 at 50/1 and 100 mg predicts 12.91/19.90 mL and has CW distance percentile 0.99947. Together with the selected 10/1 point and measured d17eab369aebf6745a89, it tests a weak-eluent curve at fixed loading and 900 uL DCM. This explores low-polarity response transfer after the m3 maximum was disproved.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "6e66ea6808d3ce077e47",
+      "reason": "m32 at 2/1 and 100.4 mg fills the midpoint between measured low- and high-load completions of 8.24 and 15.79 mL in d73810c9779aede1ff57 and 05a6276f67b3cca8cc7f. The forecast is 10.80 mL. This constrains a substantial completion loading response that does not require a similar onset shift.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "7c11aaa0d5d18caa8c92",
+      "reason": "m32 at 10/1 and 150.6 mg connects matched-load 2/1 and 20/1 rows 05a6276f67b3cca8cc7f and 8dce8486dfe67a190d0d. Both measured onsets were about 4.45 mL, whereas this forecast is 7.61/15.91 mL. The label tests whether the onset rise is real and how completion evolves at higher loading.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "8c8922eada2018f59953",
+      "reason": "Bulky acrylate m23 at 2/1 and 49.3 mg predicts 6.23/6.82 mL, with completion earlier than the matched 1/1 measurement of 8.50 mL in 2928443b881ac6713786. Testing this reversal constrains both endpoint ordering and the elution interval for a sterically hindered ester; high CW distance adds a coverage argument.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "463c07f492870522d9b8",
+      "reason": "m80 at 20/1 and 158.25 mg targets a forecast with V2 below V1: 6.48/6.32 mL. Measured lower-load rows d7b0845793265cab0c33 and 40fd02db79e028fe05a9 finish at 6.32 and 8.54 mL. The third loading teaches the joint endpoint response and checks whether a completion loading effect is being suppressed.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "988724a9391bf1618fda",
+      "reason": "m205 under pure EA at 99 mg extends the strong-eluent baseline after b1fcf9bf2e03028d2ef8 showed substantial acquisition overprediction at low-load 1/1. Compare the measured pure-EA 148.5 mg row 0483db40cbad8db07032 with this 5.04/11.51 mL forecast to delimit that local correction.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "b0f83f107759037eea65",
+      "reason": "m206 under pure EA at 50 mg completes the low-load strong-eluent sequence begun by fe69b1dbb4d976f830cd at 1/1. Measured 100 mg pure-EA row 18d13a057c8c8b316800 supplies another loading anchor. This tests baseline transfer between the two naphthyl alcohol environments without extending historical weak-eluent corrections everywhere.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "f64ebc218e6ab29d7edc",
+      "reason": "m193 at 2/1 and 74.8 mg locates the low-load nitroaldehyde transition between strong eluent and measured 5/1 row 3e69cf586f3eb0f0fa8c. Compare high-load 2/1 row ca5c649ce727f8a36f41. Paired with the selected nitroacetophenone point, it tests scaffold differences near the solvent-response knee.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "544e9bf9588be765ad82",
+      "reason": "m37 at 2/1 and 67.25 mg predicts 7.06/15.61 mL. Measured middle-load 2/1 row 32f34638e41ffc962cfc finishes at 16.91 mL, and matched low-load 5/1 row 4908bb1bf155952cd305 finishes at 30.17 mL. This tests loading transfer before the steep nitroketone rise and complements the nitroaldehyde measurement.",
+      "hypothesis_id": "H2"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Loading responses depend on scaffold and solvent ratio, and can affect onset and completion differently. For m82, the measured high-minus-low loading completion contrast is approximately zero at 1/1, positive at 2/1, and negative at 5/1; a common loading correction cannot represent these observations.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "af7d7a4a3b2da27cada0",
+        "31c0776f3608c0708c2c",
+        "9652798512ade7486015",
+        "c5130d0b1bb6dba0fb85",
+        "3ca8d2ff798fad4faffc",
+        "cd2c80dae2f32a52732f",
+        "d73810c9779aede1ff57",
+        "05a6276f67b3cca8cc7f"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched loading panels can teach interactions currently compressed into almost invariant forecasts, while separate endpoint labels prevent a completion correction from unnecessarily shifting onset.",
+      "next_discriminating_question": "Do m82 loading midpoints at 2/1 and 5/1 support smooth responses or local minima, and does its low-load 20/1 completion converge with the higher loads?"
+    },
+    {
+      "id": "H2",
+      "content": "Solvent-response curvature is specific to scaffold and loading. The m13 completion decrease from 1/1 to 2/1 at 112.2 mg did not recur at 56.1 mg, and the proposed low-load m166 maximum near 10/1 was unsupported. Apparent extrema require additional local anchors before transfer.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "9e94f0a4a224512b06cc",
+        "6573d8f84faaf7ce4a78",
+        "9d7b71b3f9f6ea222bc1",
+        "74ce463c8423fbd22dc4",
+        "ea9ef1bc8766196ca96d",
+        "7ac16a6d90180a350ff0",
+        "20acd2ae49790ab82053",
+        "4c2ad10692512e8f23b8"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "These contrasts identify where transferred response shapes fail. Additional loadings and neighboring solvent ratios can distinguish conditional curvature from variable measurements and improve interpolation across carbonyl-containing rows.",
+      "next_discriminating_question": "Which m13 response appears at 168.3 mg, where does the m166 loading divergence begin, and does the apparent m104 20/1 completion rise recur at higher loading?"
+    },
+    {
+      "id": "H3",
+      "content": "Strong-eluent baselines for hydroxyl- and nitrogen-containing compounds need scaffold-specific anchors. Large weak-eluent historical errors do not imply the same correction at pure EA or 1/1, and even related structures can differ in the location of their retention rise.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "b1fcf9bf2e03028d2ef8",
+        "fe69b1dbb4d976f830cd",
+        "0d7b26fecd6b2854ca8e",
+        "bae7ff3dc7b9d8610a44",
+        "d1e71a8278523e7a10e3",
+        "18d13a057c8c8b316800",
+        "53ceb391785085223695",
+        "c70b471334f9747d6f98"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Boundary and transition labels constrain how far retention corrections should propagate through solvent and loading space, reducing errors on early-eluting rows while preserving steep responses where measured.",
+      "next_discriminating_question": "Do m205 and m206 retain similar pure-EA completion baselines at the selected loads, and are the m86 1/1 and m208 2/1 transitions consistent with their measured neighboring conditions?"
+    },
+    {
+      "id": "H4",
+      "content": "Some labels at identical recorded conditions differ substantially, while other unusual points reproduce closely. The m92 2/1 loading minimum is weakened by its repeat; the m174 high-load 30/1 endpoint reproduced, but its neighboring 20/1 high-load value and low-load 30/1 value still need confirmation.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "f7d6c68ef2b3f637bd05",
+        "9ad049e65cfbfbac2282",
+        "34cf0942ff52b1b80385",
+        "246a1d68ed2f87de7d1f",
+        "f159b69487cebc7dcf97",
+        "812adebe27af25dc2242",
+        "ec816522a495dc36b76c",
+        "e301272fe83481e8a85d"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Two targeted repeats address ambiguity that new neighboring conditions alone cannot resolve. They can improve the evidence for deterministic response learning, although they cannot identify experimental variables absent from the catalog.",
+      "next_discriminating_question": "Does m174 reproduce its elevated high-load 20/1 retention and its much earlier low-load 30/1 completion?"
+    },
+    {
+      "id": "H5",
+      "content": "Previous proposal: m3 at 100 mg and 600 uL DCM has a completion maximum near 10/1 followed by lower completion at 50/1.",
+      "basis": "mixed",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [
+        "8ba04fd976f536e8340b",
+        "8a7e4cadaea654017cb4"
+      ],
+      "confidence": "high",
+      "status": "rejected",
+      "why_it_matters_for_model_learning": "Measured completions were 13.91 mL at 10/1 and 18.50 mL at 50/1, reversing the predicted relationship. Current forecasts have substantially adjusted, so further m3 measurements have lower priority than testing another uncovered low-polarity solvent curve.",
+      "next_discriminating_question": "Does the predicted weak-eluent onset rise for m157 survive a matched 10/1\u201350/1 experiment, or is another low-polarity response shape being transferred incorrectly?"
+    },
+    {
+      "id": "H6",
+      "content": "The large low-load m168 onset contrast between 300 and 400 uL DCM under weak eluent may be localized in loading and solvent space. Variable outcomes remain an alternative explanation, and the observations do not establish a universal or causal loading-solvent-volume effect.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "5f02dc3c13f7f2daed32",
+        "5e5b7c697bc0c268b288",
+        "e82a87ee526fdd9b1e8d",
+        "8db24ae10df4095ada47",
+        "51d7323891ad7051a817",
+        "00ae0f7f3fc62795a036"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The model predicts almost identical responses across the two volumes. Exact condition contrasts and a loading midpoint test whether that invariance is useful or hides an interaction, without inventing missing concentration or operating variables.",
+      "next_discriminating_question": "Does a volume contrast appear at 2/1 and 40 mg, and does the 80 mg weak-eluent point agree across 300 and 400 uL DCM?"
+    }
+  ],
+  "feedback_interpretation": "The latest outcomes strengthen conditional loading learning and weaken transferred extrema. For m82, completion barely changed with loading at 1/1, increased by 3.14 mL at 2/1, and previously decreased by 7.08 mL at 5/1. This motivates loading midpoints and a low-load weak-eluent extension. The m13 low-load completion increased from 15.63 to 22.60 mL between 1/1 and 2/1, opposite the medium-load decrease. The m166 low-load 10/1 completion was 20.38 mL, below its 20/1 completion, rejecting the proposed local maximum while revealing a substantial contrast with high-load 10/1. The m3 pair directly rejected its predicted 10/1 maximum; current forecasts have adjusted enough to reduce further sampling there. Repeats gave mixed evidence: m92 finished at 16.82 mL instead of the earlier 10.32 mL, weakening its loading minimum; m174 high-load 30/1 repeated within 0.63 mL in completion; m84 high-load 40/1 repeated with a 1.63 mL completion difference and remained later than its low-load counterpart. I therefore target the unresolved neighbors of the m174 minimum rather than repeat all unusual rows. The m168 volume contrast was large in low-load onset at 50/1 but small at high loading, so I retain it as an unresolved interaction rather than a causal finding. Strong-eluent feedback was also local: m205 at low-load 1/1 had acquisition overprediction of 8.23/9.62 mL, whereas m206 at 1/1 was much closer and m86 under pure EA had completion underprediction. These opposite patterns argue against a broad retention offset. Historical acquisition errors are used as trajectory evidence, not as current-model residuals.",
+  "batch_rationale": "The batch uses local experiments whose outcomes can discriminate response shapes. The m82, m13, m166 and m32 panels address recent loading and curvature failures with interpretable comparisons to measured conditions. The m168 panel tests an unresolved volume interaction with exact condition controls. Two m174 repeats examine specific ambiguity left by a successful neighboring repeat; the remaining selections add new recorded condition tuples. Thiol ester and phenol loading experiments test whether relationships learned around beta-ketoesters transfer appropriately to other silica-interaction environments. Amino-esters, naphthyl alcohols and nitrocarbonyls constrain strong-eluent baselines and transition locations. The matched m157 pair explores a poorly covered low-polarity solvent curve, while m23 and m80 target questionable joint endpoint behavior. Quantile spans and CW distances inform coverage but are not treated as calibrated epistemic uncertainty. All 32 IDs are distinct, and no molecule-condition tuple is duplicated within the batch. These labels may improve overall Row accuracy by teaching conditional relationships and preventing corrections from spreading across unsupported scaffold or condition boundaries."
+}

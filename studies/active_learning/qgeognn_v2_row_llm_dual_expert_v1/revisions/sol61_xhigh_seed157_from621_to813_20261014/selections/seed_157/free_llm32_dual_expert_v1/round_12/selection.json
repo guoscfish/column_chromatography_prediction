@@ -1,0 +1,463 @@
+{
+  "type": "selection",
+  "packet_sha256": "66007ba26acdeecb23f1deac4652fbb630bbd168402a11e95f5f6afb9f81e892",
+  "expert_synthesis": {
+    "chemistry_takeaways": "Measured aminoester, alcohol and carbonyl responses depend on molecular environment, injection conditions and endpoint. Increasing PE/EA generally weakens silica elution. Hydrogen bonding, adsorption and focusing remain possible explanations for local behavior rather than established mechanisms.",
+    "ml_takeaways": "The actual m20 baseline and several previous loading questions are answered. Remaining value comes from specific condition gaps and connected curves in less sampled surfaces within observed identities. Historical residuals and current local fit do not establish future-condition accuracy or overall Row risk.",
+    "agreements": [
+      "Current table mappings and predictions supersede stale embedded summaries.",
+      "Interpret V1 and V2 separately while preserving all five condition fields.",
+      "New conditions constrain response shape but cannot establish reproducibility of exceptional measured inputs.",
+      "Candidate multiplicity, endpoint magnitude and quantile widths do not establish acquisition value."
+    ],
+    "disagreements": [
+      "The advisers agree empirically but emphasize different extensions: chemistry highlights lower-ratio m177 sampling, while ML highlights remaining loading gaps and less sampled response curves.",
+      "I prioritize broader controlled transfer measurements over further m177 lower-ratio sampling or m104 loading expansion.",
+      "I independently include hydroxyaldehydes, hydrophobic acrylates, phenylmalonate, a boronate and dimethylpyridine to extend learning beyond repeatedly investigated exceptional surfaces."
+    ],
+    "planner_resolution": "Retain 32 distinct supplied candidate IDs across 17 molecules. Resolve consequential remaining anchors in m194, m61, m25 and m181, then measure connected curves that test structural transfer across ordinary and polar Row chemistry. The m75 group forms a controlled loading comparison, and the m15 pair holds sample volume at 100 ul. Allocation follows scientific questions without adviser quotas."
+  },
+  "batch_strategy": "Freeze these 32 distinct current-pool IDs and their supplied current predictions before measurement. Select one representative per complete molecule/condition tuple, with no intentional repeats. Connect ratio curves and loading contrasts to observed anchors, retaining density, sample volume, loading-solvent identity and plug volume. Sample volume and loading mass remain coupled. Evaluate V1 and V2 separately; V2 minus V1 is elution interval width.",
+  "choices": [
+    {
+      "id": "e8185e062559aff5c99e",
+      "reason": "m194 at 1/1, 150 ul completes the loading contrast against measured 50/100 ul and connects to measured 2/1 at 150 ul, testing higher-loading transfer of the completion decline.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H18"
+    },
+    {
+      "id": "d7895c522a1a46a1175c",
+      "reason": "m194 at 0/1, 150 ul supplies the pure-EA baseline for selected 1/1 and measured 2/1 under identical loading, locating the lower-ratio shape of its completion response.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H18"
+    },
+    {
+      "id": "ecebeb4b29d917495b44",
+      "reason": "m61 at 2/1, 150 ul connects to measured 5/1 at the same loading and completes the 2/1 loading sequence, testing where onset decreases independently of completion.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H13"
+    },
+    {
+      "id": "7394fdb0a8cd53255d4a",
+      "reason": "m25 at 10/1, 150 ul directly contrasts with measured 100 ul and establishes the matched baseline for selected 20/1, separating later ratio growth from loading transfer.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H15"
+    },
+    {
+      "id": "0af9d219be9872711215",
+      "reason": "m25 at 20/1, 150 ul measures the next controlled ratio increment after its modest response through 10/1. The large measured 50/1 anchor uses 100 ul and remains contextual.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H15"
+    },
+    {
+      "id": "fd327bd31cbab5b296a7",
+      "reason": "m181 at 5/1, 50 ul locates growth between measured 2/1 and 10/1, testing whether lactone onset and completion begin increasing together or at different ratios.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H17"
+    },
+    {
+      "id": "d7452aadf19fd7c0248e",
+      "reason": "Phenoxyethyl acrylate m21 at 2/1, 100 ul extends its measured pure-EA anchor and starts a controlled ether-acrylate curve. Comparisons with m20 retain their different loading solvents.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H18"
+    },
+    {
+      "id": "c11d5c3acbc28dddd0cf",
+      "reason": "m21 at 5/1, 100 ul completes the matched continuation from selected 2/1, testing whether its phenoxy environment preserves m20-like joint growth or produces different endpoint slopes.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H18"
+    },
+    {
+      "id": "7dace1dbecce79e17117",
+      "reason": "Nitrophenethyl alcohol m200 at 1/1, 100 ul extends its measured 0/1 baseline under fixed DCM loading, broadening alcohol transfer beyond established benzyl-alcohol surfaces.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H13"
+    },
+    {
+      "id": "3fbf4a3d05e84138e1e2",
+      "reason": "m200 at 2/1, 100 ul supplies the next controlled increment, distinguishing an early molecular offset from ratio-dependent onset and completion growth in a nitro-alcohol environment.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H13"
+    },
+    {
+      "id": "eb798a5ccfb1f429a724",
+      "reason": "Conjugated aminoester m72 at 2/1, 50 ul, DCM 200 ul connects measured 1/1 and 5/1 at identical loading, testing transfer beyond aromatic aminoesters.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": null
+    },
+    {
+      "id": "7383949c431e18f39597",
+      "reason": "m72 at 10/1, 50 ul extends the same DCM-loaded curve beyond measured 5/1, testing whether conjugation changes the differentiated aminoester endpoint progression.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": null
+    },
+    {
+      "id": "a5583432158c4e0d0cbb",
+      "reason": "m114 at 2/1, 100 ul fills a lower-ratio gap before measured 5/1 and 10/1, improving ordinary methoxy-diaryl-ketone slope coverage after earlier excessive endpoint transfer.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H18"
+    },
+    {
+      "id": "e9a1a41c8d1f0476af75",
+      "reason": "m40 at 1/1, 100 ul supplies a matched baseline for its measured 2/1 and 10/1 naphthyl-ketone curve, separating lower-ratio offset from subsequent joint growth.",
+      "knowledge_basis": [
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H17"
+    },
+    {
+      "id": "ea05f93949c8eb3289cd",
+      "reason": "m186 at 1/1, 100 ul supplies the missing baseline between measured 50/150 ul inputs and anchors the selected fixed-100 ul hydroxyaldehyde sequence with DCM 800 ul.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H26"
+    },
+    {
+      "id": "43758e84c67aabf44a9f",
+      "reason": "m186 at 2/1, 100 ul measures the first controlled ratio increment from selected 1/1, testing transfer of the early-onset hydroxyaldehyde regime under its larger DCM plug.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H26"
+    },
+    {
+      "id": "79faae5899539a97f8d9",
+      "reason": "m186 at 10/1, 100 ul completes the controlled extension, distinguishing completion-dominated growth from substantial onset growth while retaining injection differences from m190.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H26"
+    },
+    {
+      "id": "a7bc3fb68bdecbbe086f",
+      "reason": "Methoxy-hydroxyaldehyde m117 at 10/1, 100 ul extends its measured 2/1 anchor, testing whether its predicted joint rise occurs or onset stays early as in measured m190.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H26"
+    },
+    {
+      "id": "72231b208c5287c32d70",
+      "reason": "m117 at 20/1, 100 ul forms a matched continuation of selected 10/1, testing the range of hydroxyaldehyde transfer while retaining substitution, mass and injection differences.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H26"
+    },
+    {
+      "id": "64177ca0cbeb3fc11d57",
+      "reason": "Cyclohexyl acrylate m15 at 1/1, 100 ul anchors a fixed-loading ratio pair in ordinary hydrophobic ester chemistry. Its measured pure-EA inputs at other loadings provide context.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H27"
+    },
+    {
+      "id": "a41b395c8efbc1de1aa7",
+      "reason": "m15 at 10/1, 100 ul completes the matched contrast, testing whether onset and completion remain modest or increase substantially across PE enrichment.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": "H27"
+    },
+    {
+      "id": "8e0b31ca5aab2cb9dbca",
+      "reason": "Branched alkyl acrylate m16 at 1/1, 150 ul extends its measured pure-EA anchor and supplies a linked structural comparison with m15 while preserving loading differences.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H27"
+    },
+    {
+      "id": "b6cc56c52476d7eccce6",
+      "reason": "m16 at 10/1, 150 ul measures its matched ratio slope, testing how ester substituent environment limits transfer from m15 and the more strongly growing ether acrylate m20.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H27"
+    },
+    {
+      "id": "75beffaee6607b1477f4",
+      "reason": "Pinacol boronate m62 at 2/1, 100 ul adds a lower-ratio anchor to its measured 50/1 condition, testing a noncarbonyl acceptor environment with sparse response coverage.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": null
+    },
+    {
+      "id": "7f3a3fa577dc73897305",
+      "reason": "m62 at 20/1, 100 ul connects selected 2/1 to measured 50/1 under identical loading, testing whether its boronate environment has shallow or appreciable endpoint slopes.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": null
+    },
+    {
+      "id": "476647879af7df57d509",
+      "reason": "Phenylmalonate m75 at 2/1, 150 ul provides a controlled baseline for selected 10/1 and measured 20/1, testing transfer from shallow m80 and differentiated beta-ketoesters.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H15"
+    },
+    {
+      "id": "dea5f0228035f44dd102",
+      "reason": "m75 at 10/1, 150 ul completes the matched three-ratio sequence and contrasts with measured 50 ul at 10/1, separating ratio response from loading-associated changes.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H15"
+    },
+    {
+      "id": "f2312f90dd4cf5ef0e23",
+      "reason": "m75 at 2/1, 50 ul combines with selected 150 ul and the measured 10/1, 50 ul anchor to complete a two-ratio, two-loading comparison of onset and completion.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H15"
+    },
+    {
+      "id": "de4e10d3a5d448ffcdda",
+      "reason": "Dimethylpyridine m141 at 1/1, 150 ul anchors the lower-ratio side of its measured 2/1 response, extending basic-nitrogen transfer beyond densely investigated fused aza-aromatics.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": null
+    },
+    {
+      "id": "6f548d72f01fc85debdc",
+      "reason": "m141 at 10/1, 150 ul completes the controlled extension through its measured 2/1 anchor, testing whether a small substituted pyridine develops joint endpoint growth.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": null
+    },
+    {
+      "id": "b7b1a1bb666c8cc99bad",
+      "reason": "Primary alcohol m204 at 5/1, 100 ul extends its measured 1/1 and 2/1 anchors, testing alcohol-topology transfer alongside the strongly growing secondary alcohol m60.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H13"
+    },
+    {
+      "id": "358461ff3742e78ea3b6",
+      "reason": "m204 at 10/1, 100 ul completes the matched primary-alcohol curve, testing joint growth without importing the inverse m61 response or exceptional benzyl-alcohol depressions.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H13"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H18",
+      "content": "Ether/carbonyl response depends on molecular environment and loading. m194 completion rises across 1/1-to-5/1 at 50 ul but falls from 1/1 to 2/1 at 100 ul. The corrected m20 curve grows jointly, while m106 develops stronger growth later.",
+      "why_it_matters_for_model_learning": "Matched m194 anchors constrain completion-specific interactions; m21 and m114 test transfer to less sampled ether/carbonyl surfaces.",
+      "next_discriminating_question": "Does m194 retain its completion decline at 150 ul, and do phenoxyacrylate and diaryl-ketone lower-ratio labels follow nearby measured response shapes?",
+      "basis": "mixed",
+      "confidence": "high",
+      "status": "supported",
+      "supporting_observed_ids": [
+        "c0094343ab6bb16bc58b",
+        "2bd4f8787a951ef0ee04",
+        "c393010c592b487413e2",
+        "4a39c1f64d17e050e4a5",
+        "66c6a533f485d5277f2f",
+        "66e8febca8812396280d",
+        "3b41addf80b8138137db",
+        "7155ede91e7e3232862a",
+        "b1c5816f929ef59f5a87"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H13",
+      "content": "Alcohol ratio response depends on loading and endpoint. m61 onset decreases only 2.32 ml from 2/1 to 10/1 at 50 ul versus 9.30 ml at 100 ul, while completion decreases similarly. Other alcohols show strong growth; exceptional m120 and m207 inputs remain unreplicated.",
+      "why_it_matters_for_model_learning": "The remaining m61 anchor and connected primary- and nitro-alcohol curves distinguish onset interactions from completion slopes and limit inappropriate alcohol-wide transfer.",
+      "next_discriminating_question": "At 150 ul, does m61 onset already decrease by 5/1, and do m204 and m200 exhibit joint growth or endpoint decoupling?",
+      "basis": "mixed",
+      "confidence": "medium",
+      "status": "supported",
+      "supporting_observed_ids": [
+        "e71aba5ca322ce0a2c7f",
+        "f15b726ca5b4897ed80c",
+        "f559a4634c60d81f5f15",
+        "859ae738b615cf17b849",
+        "067260cef0fb89f79291",
+        "c9ad01493d938f825117",
+        "c352863d9fa4a8645481",
+        "53c1be5b96937954b9fa",
+        "6e07556df6bb6e9df96e"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H15",
+      "content": "Carbonyl arrangement limits transfer across beta-ketoesters and diesters. m25 grows modestly through 10/1 before its large measured 50/1 response; m82 and m95 have different 10/1 regimes. Phenylmalonate ratio and loading responses cannot be inferred from shallow m80 behavior.",
+      "why_it_matters_for_model_learning": "A later m25 increment and a controlled m75 loading comparison teach transition location and structural limits without propagating a shared polycarbonyl correction.",
+      "next_discriminating_question": "How much does m25 grow from 10/1 to 20/1 at 150 ul, and does the m75 loading effect change between 2/1 and 10/1?",
+      "basis": "mixed",
+      "confidence": "high",
+      "status": "supported",
+      "supporting_observed_ids": [
+        "ec1c29d6d4fe334c886a",
+        "3b6524f5fc7e0343ff9b",
+        "d21f08a7e8eaa163ecfc",
+        "3fc05dc2025715e68174",
+        "5b7151c95c4e964a121b",
+        "41f57dc6d50ee162801a",
+        "2635b25bb3c1c37f3b74",
+        "9603a9567c8b21458d1e",
+        "26df752cf7c0673db585"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H17",
+      "content": "Lactone and ketone arrangements have different endpoint slopes. m181 has modest low-ratio endpoints followed by joint growth at 10/1, whereas m179 retains shallow onset. m40 grows jointly between its measured 2/1 and 10/1 anchors.",
+      "why_it_matters_for_model_learning": "The m181 intermediate point and matched m40 baseline distinguish transition shape from molecular offset across ordinary cyclic and fused carbonyl environments.",
+      "next_discriminating_question": "Does m181 begin joint growth by 5/1, and is m40's lower-ratio progression shallow before its measured higher-ratio rise?",
+      "basis": "mixed",
+      "confidence": "medium",
+      "status": "supported",
+      "supporting_observed_ids": [
+        "4a565c53862a9a8c3de3",
+        "eedc2caf00196610c74d",
+        "2cc7c8ae52cdb25ca284",
+        "64c9e190e213bb061867",
+        "b6dc1ec0dbd724128ce3",
+        "4d0055bdff0f507c778b",
+        "b0cc544ceb575bae4069"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H26",
+      "content": "Ortho-hydroxyaryl aldehydes may occupy different ratio-response regimes despite shared donor and carbonyl groups. m190 retains onset near 6 ml through 10/1 while completion grows; sparse m117 and m186 anchors do not establish the same slope. Substitution and injection context remain entangled.",
+      "why_it_matters_for_model_learning": "Controlled hydroxyaldehyde curves test whether completion-dominated or joint growth transfers appropriately across related donor/carbonyl environments.",
+      "next_discriminating_question": "Do m117 and m186 develop substantial onset growth, or preserve early onset while completion increases, under their own fixed injection conditions?",
+      "basis": "mixed",
+      "confidence": "medium",
+      "status": "proposed",
+      "supporting_observed_ids": [
+        "b73454f4c6942f4deb70",
+        "f5259e3f51c168c59973",
+        "2029b30e714e5ff498bf",
+        "5079d0dfcde65893b224",
+        "47328994eb7953d68919",
+        "cf2b5bd61a8fa92f67a8"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H27",
+      "content": "Hydrophobic acrylate ester environments may have different ratio sensitivity from the larger measured ether-acrylate response. Pure-EA m15 and m16 anchors establish low-ratio endpoints but do not determine their PE-enrichment slopes. Cross-molecule comparisons retain the selected loading differences.",
+      "why_it_matters_for_model_learning": "Parallel fixed-loading curves broaden ordinary ester coverage and test whether recently acquired polar acrylate responses transfer excessively.",
+      "next_discriminating_question": "Across 1/1 to 10/1, do cyclohexyl acrylate at 100 ul and branched alkyl acrylate at 150 ul remain modest, grow jointly, or differ primarily in completion?",
+      "basis": "mixed",
+      "confidence": "medium",
+      "status": "proposed",
+      "supporting_observed_ids": [
+        "be1d1eac10cca873e4ef",
+        "a9aa61b1ba22e0c6cdbe",
+        "66e8febca8812396280d",
+        "fc452a2ea628a6c49dee",
+        "5695d3c04943153386bb"
+      ],
+      "contradicting_observed_ids": []
+    }
+  ],
+  "batch_rationale": "The latest feedback favors a few remaining conditional anchors followed by broader response learning. m194 receives a controlled 150 ul sequence, m61 a targeted third-loading anchor, m25 a later-ratio pair with a loading bridge, and m181 an intermediate transition measurement. The remaining choices build connected curves across aminoester conjugation, alcohol topology, hydroxyaldehydes, ether acrylates, hydrophobic esters, phenylmalonate, boronate and basic nitrogen. The m75 group forms a two-ratio, two-loading comparison with an observed anchor. These experiments expand condition coverage within observed identities while avoiding routine completion of already mapped surfaces.",
+  "expected_learning_value": "Expected gains come from separating molecular offsets, ratio slopes and endpoint-specific loading associations across 17 identities. The conditional anchors address consequential interpolation questions; less sampled curves test transfer across chemically distinct Row environments at modest and larger endpoint scales. Small measured changes would also teach useful local invariance. The supplied trajectory does not support a numerical estimate of retrained overall Row accuracy gain, and these new conditions cannot resolve repeatability of existing exceptional inputs.",
+  "feedback_interpretation": "H24 is strengthened as limited structural transfer: at 100 ul, m89 grows from 8.81/14.05 at 5/1 to 13.49/26.04 ml at 10/1, whereas m104 changes from 5.20/13.90 to 7.91/11.00. m86 retains steep 5/1 response across loading, but full invariance is rejected by a 50-to-150 ul change of -5.25/-1.31 ml; completion is comparatively stable while onset advances. These questions now have lower marginal priority. H18 requires revision: transfer of m194's completion decline to 50 ul is rejected by its rising 10.34/14.73/21.52 ml sequence across 1/1, 2/1 and 5/1, unlike the 100 ul 36.18-to-28.27 decline. The actual m20 baseline is now measured and connects an increasing fixed-50 ul curve; the older m148 attribution remains discarded. m106 supports stronger later growth rather than the historically forecast early rise. H13 gains qualified support: m61's 2/1-to-10/1 onset change is -2.32 ml at 50 ul and -9.30 at 100 ul, while completion changes are similar at -4.63 and -4.75 ml. This rejects a large loading-invariant inverse onset response and supports separate endpoint interactions. H15 is refined by modest m25 growth through 10/1 before its large 50/1 anchor and opposite historical completion-error signs across m25, m82 and m95, rejecting a shared beta-ketoester correction. H25's initial m45 and m96 curve questions are substantially answered. H17's proposed large early lactone completion tail is unsupported: m181 at 50 ul measures 6.18/10.19, 7.38/13.29 and 21.45/31.79 ml at 1/1, 2/1 and 10/1, leaving a specific intermediate-ratio question. m177 still rejects smooth loading interpolation, but available lower-ratio inputs cannot replicate its exceptional high-ratio minima. Repeated short m92 EA completion supports a local association while PE-side repeatability remains unresolved. Earlier m80-transition and m68-rebound expectations remain rejected over their measured ranges. All measured findings come from observed-table records; historical residuals describe past failures and candidate matches remain predictions only. No new labels, validation/test truth or external trajectory information were used."
+}

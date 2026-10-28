@@ -1,0 +1,269 @@
+{
+  "type": "selection",
+  "packet_sha256": "cc242df4a8eb33ef4346bea7d4ce7f1ba177f7742970d4e948b2dc4c039669b9",
+  "batch_strategy": "Measure 32 distinct candidate rows that resolve missing solvent-response segments, test questionable predicted curve shapes, and distinguish sample-amount effects from loading-solvent effects. Combine endpoint-specific failure repair with controlled local comparisons across ordinary and steep retention regimes. Freeze the supplied predictions for all choices before measurement.",
+  "choices": [
+    {
+      "id": "43d0ea8af460a7ac5934",
+      "reason": "m0 at 10/1, 50 uL tests a predicted intermediate-ratio completion maximum against the same-amount 50/1 observation 8ab3606b0d15babbd1c7. Recent pure-EA observation a0507e669c939a982dd3 exposed V2 overprediction at another amount. This label tests local curve shape without assuming a global aromatic correction.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "0d16b0a631dd0d2eda1a",
+      "reason": "Diphenylethylene m14 at pure EA, 150 uL tests transfer of strong-eluent completion behavior from m0 and bromobiphenyl m9. Recent observations a0507e669c939a982dd3 and 48f272583f7a8b863fc2 had overpredicted V2, whereas nonpolar aromatic observation bd04bce318b9a6fe2f60 remained broad. The label distinguishes connectivity effects from blanket shortening.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "003ad1a9637ac1b7c0fd",
+      "reason": "m33 at pure EA, 150 uL supplies the boundary of a fixed-amount comparison with the selected 1/1 experiment. Recent 2/1 observation 068ecbf94a9e12b1b908 showed completion underprediction at 100 uL, while 5/1 observation 9d3546df38b38ba16da5 was close at 50 uL. The new pair separates early solvent-response shape from cross-amount comparisons.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "22191f76e895327c6e2d",
+      "reason": "m33 at 1/1, 150 uL completes the selected strong-eluent ratio pair and connects to measured higher-ratio behavior in b08821181fbd4d81b247 and d2c44b46eb306c56f241 at 100 uL. Its learning value is locating completion curvature while measuring both early points at one amount.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "bb18fe197ad7e24c5ed1",
+      "reason": "Chalcone m165 at 2/1, 100 uL fills an interior point between pure-EA observation 0bdd638e906bf11a00cb and 10/1 observation 0dfdfd6dce2d3f41a427. Their historical V2 errors had opposite signs, approximately +6.07 and -7.14 mL. The label tests ratio-dependent curvature rather than a constant chalcone-tail correction.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "011d2598865d3a81a17d",
+      "reason": "Pentafluorobenzene m156 at 1/1, 150 uL probes predicted completion near 4.85 mL, compared with 9.79 mL in same-amount pure-EA observation 66454b90cefcad2e4125. Together with the selected 2/1 point, it tests the predicted short-completion region directly.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "27f29e20ad7b3f90539d",
+      "reason": "m156 at 2/1, 150 uL completes a ratio-only comparison with the selected 1/1 experiment. Measured 5/1 observation c11cd3254f56bcefba08 at 50 uL and 10/1 observation 70128b3aa68fb18aa17c at 150 uL finish substantially later than the predicted 2/1 value. The label discriminates a genuine minimum from a model-shape artifact.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "3bb54d92fcc3ef0fc388",
+      "reason": "Conjugated aliphatic aldehyde m53 at pure EA, 100 uL is predicted to finish later than its measured 2/1 observation 1934e3f2ee65da718096. The selected 5/1 experiment supplies another fixed-amount point, testing whether unusual strong-eluent completion extends beyond aromatic graphs.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "2e181a70e997f2b6d728",
+      "reason": "m53 at 5/1, 100 uL fills the interval between measured 2/1 observation 1934e3f2ee65da718096 and 20/1 observation 6e17f8e15aa8fdd6a9ea. Combined with the selected pure-EA boundary, it separates a possible boundary reversal from the later rise in retention.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "502e41325a19473f9d08",
+      "reason": "m59 at 2/1, 50 uL begins a fixed-amount 2/1-to-5/1 comparison for a benzodioxole-containing side-chain aldehyde. Measured 20/1 observation 87996db5ddb7565fe66f anchors the later response at the same amount. This probes how remote ether topology changes the carbonyl response.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "6209df8dd01072ab8a47",
+      "reason": "m59 at 5/1, 50 uL completes the selected ratio-only pair. Later measured observations 87996db5ddb7565fe66f and 85591a54c419ed02c5f5 constrain the weak-eluent regime, allowing these interior labels to locate curvature instead of merely confirming late endpoints.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "504e8e25f3a8b339a023",
+      "reason": "Chlorinated aliphatic ketone m27 at 2/1, 50 uL tests a predicted interior retention hump after same-amount 1/1 observation a4a62cf5452e2229b667. Measured 10/1 and 20/1 observations c0adb1c6f9dbe862a4dc and a3c1a0ac40733e8650fb have compact intervals at 100 uL. The label tests a possible local reversal without imposing monotonicity.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "e3a799d0fa90b649a157",
+      "reason": "m94 at 20/1, 100 uL completes amount interpolation between ffc70e28db22d1cc1f3f at 50 uL and ffffcd6f3b9393846ab4 at 150 uL. Those measurements differ strongly in onset but less in completion. The middle label tests endpoint-specific loading associations in a previous severe failure region.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "56f8cdbb3999b366d947",
+      "reason": "Benzylic alcohol m67 at 2/1, 150 uL fills an early response segment before same-amount 5/1 observation cb6d3ef1b6dde291fbac and 20/1 observation 80f6a235bb59c2a7ea59. It helps locate the donor-dependent transition and distinguish onset changes from completion expansion.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "2cf4f6424b85ab121943",
+      "reason": "m67 at 20/1, 50 uL extends the amount comparison below measured 100-uL observation c627405cf70a0daacc94 and 150-uL observation 80f6a235bb59c2a7ea59. Their onset decreases while completion increases at the larger amount. The new point tests whether that association continues or is comparable to record variation.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "40b48a623d1e8eef6eb1",
+      "reason": "Phenylacetate m83 at 2/1, 50 uL connects its measured low-amount 1/1 and 20/1 observations 8eab21530377ac7720ec and c1590fdeb07c00fa0187. This tests whether the short strong-eluent interval expands gradually before the amount-dependent weak-eluent contrast represented by cd52e7c2ec49986121e2.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "2afa724a60f596feafb1",
+      "reason": "Naphthylacetate m98 at 5/1, 50 uL fills the gap after same-amount 2/1 observation 9ad00109e888c57d5d30 and before the measured later-ratio regime represented by 752c884154a739045315. Comparison with the phenylacetate series tests how fused aromatic connectivity shifts an ester response.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "414e3cc35873dcefe96f",
+      "reason": "m168 at 5/1, 50 uL with 400 uL DCM forms a genuine loading-solvent-volume comparison with the selected 300-uL experiment. Existing matched 1/1 observations e240edfce1937ea191c9 and 89fbb0023e89f4da9de7 differ modestly at 100 uL sample volume. The new pair tests whether volume sensitivity changes with ratio.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "efad03690b647faa84f7",
+      "reason": "The matched m168 5/1 experiment uses the same 50-uL sample and 300 uL DCM loading solvent. Paired measurement with the selected 400-uL condition separates loading-solvent volume from sample amount and provides a control for the much larger m125 volume associations.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "922b1bfbf466fff6178f",
+      "reason": "m125 at pure EA, 150 uL with 300 uL DCM strengthens the lower-volume boundary. Matched-amount 1/1 observations 03744855d469f4cca7e6 and 9bd998a328b109ef639e show substantially different completion with 300 versus 500 uL loading solvent. This tests boundary extrapolation of that association without treating it as established causation.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "723a7255bbbef8dcad76",
+      "reason": "p-Methylbenzyl alcohol m135 at pure EA, 50 uL anchors the low-amount boundary before measured 5/1 observation a5446977630484ca5fe1. Higher-amount pure-EA observation 53dc2340c848330a9220 provides an amount reference. This constrains the early response before the steep donor-retention regime.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "d803316212dc6eb862e9",
+      "reason": "m207 at 1/1, 50 uL establishes an early-ratio anchor before same-amount 2/1 and 5/1 observations 6be742f06dddb42eb929 and 4e5ead91320bd24d485e. The selected 150-uL condition tests amount at this ratio and helps interpret the exceptional short 100-uL 5/1 observation ec6846c0fcb7df17c97d.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "bcd5c4eaf46f52d68e6f",
+      "reason": "The second m207 1/1 experiment changes sample volume from 50 to 150 uL while keeping loading-solvent identity and volume fixed. Predictions are almost unchanged, whereas measured 5/1 observations 4e5ead91320bd24d485e, ec6846c0fcb7df17c97d and a7906197994af5c86745 vary substantially. The pair tests whether sensitivity is localized to the transition region.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "91b6bda771851a5c78ac",
+      "reason": "Naphthylethanol m205 at 2/1, 150 uL fills the fixed-amount interval between 1/1 observation 1aceeb0ee0419209d1c7 and 5/1 observation e8f592c469b2f3c136d8. Measured 100-uL 2/1 observation c973d4c257be9ef08216 supplies an amount reference. This locates a transition for a donor separated from a fused aromatic system.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "d9229993cd394b0710b4",
+      "reason": "Cyclic tertiary alcohol m203 at 1/1, 150 uL tests the strong-eluent shoulder after same-amount pure-EA observation d550a2107daf4c532b6a. Predicted completion is slightly earlier than that boundary, while measured 2/1 and 5/1 observations d11074f9c4f74061ba15 and 62e730f8ad10cbdd613b remain moderate at 100 uL. This constrains transfer from steeper alcohol curves.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "a355e45067146220aeb4",
+      "reason": "Lactone m181 at pure EA, 50 uL anchors a fixed-amount boundary pair with the selected 1/1 experiment. Same-amount 2/1 observation eedc2caf00196610c74d and later 5/1 observation 8fb7f07df563e78786b2 at 100 uL provide context. The pair tests the predicted onset decrease on moving away from pure EA.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "4a565c53862a9a8c3de3",
+      "reason": "m181 at 1/1, 50 uL forms a ratio-only pair with the selected pure-EA experiment. Both predicted endpoints are earlier at 1/1, before the later measured response in eedc2caf00196610c74d and 8fb7f07df563e78786b2. This tests whether the predicted minimum is real and where completion begins expanding.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "13aa7f454204d054a196",
+      "reason": "Fluorenone m182 at pure EA, 50 uL supplies the boundary for a fixed-amount shape test. The selected 2/1 point is predicted to start substantially earlier. Measured 5/1 observation d7603686249e1fb69a60 and 10/1 observation b5aa0bae2967975bdf4b at 150 uL show early onset with expanding completion, motivating a direct early-ratio comparison.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "6d7b9c18dcb836a2b09c",
+      "reason": "m182 at 2/1, 50 uL tests the predicted onset minimum and relatively short completion before measured 5/1 observation d7603686249e1fb69a60 at another amount. Together with the selected pure-EA boundary, it separates early-ratio shape from the fused-ketone completion tail.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "5bc44018685f9a24e0ea",
+      "reason": "Difluorobenzaldehyde m185 at 2/1, 150 uL begins a fixed-amount 2/1-to-5/1 comparison. Measured 100-uL 1/1 and 10/1 observations bfc5d8a0a4f7ca00ff61 and f3ee8cbdb15889a1a50d provide neighboring-ratio context. This tests substitution-sensitive carbonyl interpolation in a region distant from labeled rows in the supplied CW space.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "419ef6fd31c0f118f3a3",
+      "reason": "m185 at 5/1, 150 uL completes the ratio-only pair and tests the predicted rise in completion from 2/1. Measured 50-uL 50/1 observation 6c28e50241ca84637c9f anchors the weak-eluent regime at another amount. These labels locate interior curvature without relying on fluorine count or CW distance alone.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "df4d1cc1a382562c2b31",
+      "reason": "Bromobiphenyl m9 at pure EA, 50 uL with DCM loading solvent directly matches PE-loaded observation 48f272583f7a8b863fc2 in every other recorded condition. This tests a genuine solvent-identity change. A small difference would support boundary-prediction repair; a larger difference would identify an interaction missed by the similar predictions.",
+      "hypothesis_id": "H4"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Strong-eluent completion requires graph-specific calibration. Several current predictions contain low-ratio minima in onset or completion whose reality remains unresolved and should be measured before their shapes are transferred between structures.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "a0507e669c939a982dd3",
+        "48f272583f7a8b863fc2",
+        "0bdd638e906bf11a00cb",
+        "d9286f3f450c7cca4a86",
+        "bd04bce318b9a6fe2f60"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Recent strong-eluent V2 errors have opposite signs across graphs. Boundary and adjacent-ratio pairs can teach endpoint-specific response shapes while limiting unjustified global corrections for aromaticity or solvent strength.",
+      "next_discriminating_question": "Do the m156, m181 and m182 pairs reproduce their predicted minima, and do m14 and m33 support transfer of any strong-eluent completion correction?"
+    },
+    {
+      "id": "H2",
+      "content": "Neutral carbonyl and ester structures require topology-specific solvent-response curves, with completion curvature sometimes differing from onset curvature even among related structures.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "068ecbf94a9e12b1b908",
+        "9d3546df38b38ba16da5",
+        "0bdd638e906bf11a00cb",
+        "0dfdfd6dce2d3f41a427",
+        "f5d802ca42b1a7226fc0",
+        "85591a54c419ed02c5f5",
+        "c0adb1c6f9dbe862a4dc",
+        "a3c1a0ac40733e8650fb"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Interior measurements in m53, m59, m98, m165, m185 and m27 test curvature across aliphatic, conjugated, fused-aromatic and ether-containing environments. These relationships can transfer across condition rows without treating acceptor count as sufficient.",
+      "next_discriminating_question": "Which interior points reveal smooth response, delayed completion expansion, or a local reversal after accounting for recorded loading conditions?"
+    },
+    {
+      "id": "H3",
+      "content": "Sample amount may affect onset and completion differently within retained alcohol and beta-ketoester graphs, but the association depends on graph and ratio and may partly reflect record variation.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "ffc70e28db22d1cc1f3f",
+        "ffffcd6f3b9393846ab4",
+        "c627405cf70a0daacc94",
+        "80f6a235bb59c2a7ea59",
+        "c1590fdeb07c00fa0187",
+        "cd52e7c2ec49986121e2"
+      ],
+      "contradicting_observed_ids": [
+        "5570346e8898daafc8a7",
+        "4b8f25056df6f60831b1",
+        "e6d0dc8ca50b71d5f807",
+        "11fef346c358d54d3059"
+      ],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The m94 middle amount, m67 low amount, m83 interior point and m207 matched pair test conditional endpoint associations. Compact m109 behavior and m75 repeat variation weaken any universal loading-slope interpretation.",
+      "next_discriminating_question": "Do added amount contrasts reproduce earlier onset with unchanged or later completion, and does the association persist beyond a single ratio or isolated record?"
+    },
+    {
+      "id": "H4",
+      "content": "Loading-solvent identity and volume may have graph- and mobile-phase-dependent associations with completion, separately from sample amount. Large m125 volume associations need comparison with controlled smaller-effect cases.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "00043aebb2540e369a7b",
+        "f4fb5c03b8e8996e75f6",
+        "c8d43713db33bf820a1d",
+        "69b09343d0b9995c3ae4",
+        "e240edfce1937ea191c9",
+        "89fbb0023e89f4da9de7",
+        "f8670511cab05ad7141d",
+        "1e5d53b5d5e0e3d96556"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The selected m168 volume pair and m9 solvent-identity comparison distinguish genuine loading-solvent changes from sample-amount changes. The m125 boundary strengthens coverage where large completion differences have already been observed.",
+      "next_discriminating_question": "Does changing DCM volume from 300 to 400 uL for m168 at 5/1, or PE to DCM for m9 in pure EA, shift endpoints beyond the variation in comparable records?"
+    },
+    {
+      "id": "H5",
+      "content": "Alcohol retention transitions depend strongly on donor placement and structural environment; donor count alone cannot determine where onset and completion rise steeply as PE/EA increases.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "d11074f9c4f74061ba15",
+        "c973d4c257be9ef08216",
+        "62e730f8ad10cbdd613b",
+        "48853fd78c77153b963a",
+        "cb6d3ef1b6dde291fbac",
+        "c627405cf70a0daacc94"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "m203 and m205 differ greatly at comparable ratios and amounts, while m67, m135 and m207 provide different benzylic environments. Early and intermediate labels can teach transition locations and reduce inappropriate transfer of steep alcohol curves.",
+      "next_discriminating_question": "Do the selected early-ratio alcohol points distinguish gradual response from a sharp transition, consistently across recorded amounts?"
+    }
+  ],
+  "feedback_interpretation": "The latest outcomes favor graph- and ratio-specific endpoint learning. Pure-EA m0, bromobiphenyl m9 and chalcone m165 had historical V2 overpredictions of approximately 5.69, 4.80 and 6.07 mL, while m33 at 2/1, m4 at 50/1 and m81 in pure EA had completion underpredictions. These acquisition-time errors do not support a common aromatic-tail adjustment. m203 remained moderate with a narrow measured 5/1 interval, and measured m62 behavior is comparatively compact, weakening the earlier grouping of alcohols and boronates into one steep-retention regime. The previous loading interpretation also needs correction: the m109 100-to-150-uL comparison changed sample volume and amount; both records used 300 uL DCM loading solvent. Its endpoints changed little. The m67 amount comparison showed earlier onset but later completion at the larger amount. Repeated m75 10/1, 100-uL records changed onset from 8.23 to 11.62 mL, showing that record variation can imitate loading associations. This batch therefore includes explicit amount contrasts and genuine loading-solvent changes, with conditional interpretations.",
+  "batch_rationale": "The batch combines compact local experiments with interpolation across common structures. Ratio pairs for m33, m156, m53, m59, m181, m182 and m185 test response shape; m165 and m27 address historical sign changes or unusual recorded solvent responses. Alcohol points locate transitions across donor environments. m94, m67, m83 and m207 test endpoint-specific amount associations, while the matched m168 pair and m9 comparison isolate loading-solvent volume and identity. Ordinary retention regions provide controls alongside broad or steep regimes, helping improve overall Row prediction rather than emphasizing only large endpoints. Quantile widths were not treated as calibrated epistemic uncertainty: several supplied quantiles cross, and many V2 lower quantiles are zero. All 32 supplied predictions remain frozen, and no new labels are assumed."
+}

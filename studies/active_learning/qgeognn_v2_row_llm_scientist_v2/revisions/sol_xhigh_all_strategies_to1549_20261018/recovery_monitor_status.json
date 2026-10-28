@@ -1,0 +1,16 @@
+{
+  "time": 1793195851.987998,
+  "failed_recoveries": {
+    "157": 0,
+    "6101": 0
+  },
+  "blocked": {
+    "6101:free_llm32_scientist_v2": "quota",
+    "6101:cw16_llm16_scientist_v2": "quota"
+  },
+  "last_recovery": {
+    "157": 1792313790.29668,
+    "6101": 1792311362.339173
+  },
+  "policy": "600seconds between failed half-open attempts; max3 consecutive failed full recoveries per key; quota/logical exhaustion stop immediately; max1 call/key and2 fits unchanged"
+}

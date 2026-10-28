@@ -1,0 +1,243 @@
+{
+  "type": "memo",
+  "role": "chemistry_scientist",
+  "packet_sha256": "40af496ddf65e8a8e87e447f94213253e5a31e6978c01a01de2a265478275693",
+  "state_summary": "Round 4 has 461 observed records, 2869 eligible candidates, no pending records, and no validation or test truth. New feedback revises several response hypotheses: m211 has a real late weak eluent tail beyond 10/1, m99 remains late at lower loading, m120 shows a large loading conditioned shift, m194 completion broadening is reproducible at high loading, m173 has a broader weak ratio completion response, and the m124 onset defect persists across weak ratios. The objective remains overall Row V1/V2 accuracy after retraining.",
+  "important_observations": [
+    {
+      "evidence_type": "observed_measured",
+      "observation": "m211 measured 4.91/11.14, 8.14/13.44, 11.61/19.38, 18.13/30.88, 28.88/47.57 and 46.44/103.28 mL at 0/1, 2/1, 5/1, 10/1, 20/1 and 50/1. The 50/1 point uses higher loading, so its ratio and loading effects are confounded. The model overpredicted through 10/1 but underpredicted both endpoints at 20/1 and especially completion at 50/1.",
+      "observed_ids": [
+        "0776336aa1c106b4d645",
+        "ecd17c7ea435a1e33f6b",
+        "292e0342682192a69fce",
+        "d119d77f545c029deace",
+        "434e465cfa7e0034f233",
+        "0f06772820e6693753e3"
+      ]
+    },
+    {
+      "evidence_type": "observed_measured",
+      "observation": "m90 at 5/1 measured 27.48/65.41 mL at 150 mg and 30.71/60.60 mL at 100 mg. The lower loading prediction was close, weakening a universal late nitrogen correction while leaving loading and graph specific response possible.",
+      "observed_ids": [
+        "b51b5dbcd2a38b174973",
+        "855832bd4005ac7abdc6"
+      ]
+    },
+    {
+      "evidence_type": "observed_measured",
+      "observation": "m99 remains strongly late at lower loading: 6.47/13.36 at 1/1, 19.91/32.37 at 5/1, 38.99/58.03 at 10/1 with 100 mg, and 44.43/60.99 at 10/1 with 50 mg. The model underpredicted the late 10/1 response at both loadings.",
+      "observed_ids": [
+        "36786ca0d1deaa0687ba",
+        "12ab195583f05b9aa177",
+        "c61c1a72306f2ee37df8",
+        "d8fcb58722028dbf9c02"
+      ]
+    },
+    {
+      "evidence_type": "observed_measured",
+      "observation": "m120 changes sharply with loading. Lower loading measured 19.89/29.02 at 2/1 and 50.73/71.53 at 5/1, whereas higher loading measured 8.03/10.83 and 14.67/19.14. The large shift is inconsistent with hydroxyl count alone; loading, dissolution, injection, or graph-condition interaction remain competing explanations.",
+      "observed_ids": [
+        "4ee22742c686bdbb1cb9",
+        "71abc36775b6cce56da7",
+        "a5f9f0327623c4752e2e",
+        "e4fd83fb3852eb354a66"
+      ]
+    },
+    {
+      "evidence_type": "observed_measured",
+      "observation": "m94 at 20/1 measured 33.26/78.83 mL at higher loading and 44.45/81.20 at lower loading. This supports loading conditioned, endpoint specific beta ketoester behavior; transfer from m82 remains partial.",
+      "observed_ids": [
+        "ffffcd6f3b9393846ab4",
+        "ffc70e28db22d1cc1f3f",
+        "e3a799d0fa90b649a157",
+        "f50c45b31cf41304c109"
+      ]
+    },
+    {
+      "evidence_type": "observed_measured",
+      "observation": "m194 completion broadening returns at high loading across 0/1, 1/1 and 2/1: 3.87/24.99, 4.59/27.33 and 4.63/28.18 mL. Lower loading gave 4.26/10.34 and 5.93/14.73. V2 therefore needs separate loading by ratio supervision from V1.",
+      "observed_ids": [
+        "d7895c522a1a46a1175c",
+        "e8185e062559aff5c99e",
+        "2bb48a2862bf80c30a36",
+        "c0094343ab6bb16bc58b",
+        "2bd4f8787a951ef0ee04"
+      ]
+    },
+    {
+      "evidence_type": "observed_measured",
+      "observation": "m173 completion remains late with the smaller plug and extends through weaker ratios: 6.04/78.37 at 1/1, 11.88/61.87 at 5/1, 17.32/91.31 at 10/1 and 3.56/31.91 in pure EA. This is a molecule and condition local response, not evidence for a universal solvent law or a single 1/1 anomaly.",
+      "observed_ids": [
+        "65fcce0299e031dedeb8",
+        "1e971da91b3a8229f0e0",
+        "b37608f8c4a8ee4b8696",
+        "87da8c37b16d810331a2"
+      ]
+    },
+    {
+      "evidence_type": "observed_measured",
+      "observation": "m124 rejected the predicted delayed onset at both 20/1 and 50/1, measuring 6.31/13.08 and 4.79/15.66 mL. The onset defect is graph local within the naphthyl family; m40 shows a different response.",
+      "observed_ids": [
+        "df71c07fd931cc29213b",
+        "aa3ac48b626bc54d5dc6",
+        "b645df00945e594953a6",
+        "b0cc544ceb575bae4069"
+      ]
+    },
+    {
+      "evidence_type": "observed_measured",
+      "observation": "Ordinary graphs show mixed residual directions. m68 and m3 have substantial V2 underprediction, while m27 at 20/1 was predicted far too late and too broad. These records support continued Row coverage without a universal aromatic carbonyl correction.",
+      "observed_ids": [
+        "c4b06a6e718225cb9cf8",
+        "40b5d3fdb9b234c05be5",
+        "7c44f4c46906e8f36cd1",
+        "a4c8259421a3aa5edeea"
+      ]
+    },
+    {
+      "evidence_type": "general_chemical_knowledge",
+      "observation": "Silica hydrogen bonding and acid base interactions can retain accessible nitrogen, hydroxyl, carbonyl, and sulfoxide groups. Higher EA generally strengthens elution, but loading, dissolution, injection solvent, steric accessibility, and adsorption site saturation can change V1 and V2 differently. These are chemical priors, not findings about unmeasured candidates."
+    }
+  ],
+  "candidate_scientific_questions": [
+    {
+      "question": "Does high loading shift m211 at 1/1, separating its graph specific ratio response from the already observed loading contrast?",
+      "candidate_ids": [
+        "a185774933bd6bb12c07"
+      ],
+      "basis": "Prospective candidate prediction only."
+    },
+    {
+      "question": "At m90 2/1 and lower loading, does the response remain moderate between its measured 1/1 and 5/1 points?",
+      "candidate_ids": [
+        "0460dfc4e1747f0fc92c"
+      ],
+      "basis": "Prospective candidate prediction only."
+    },
+    {
+      "question": "Does m119 transfer the unusual hydroxyl response of m120, or does the extra methylene change accessibility and loading sensitivity?",
+      "candidate_ids": [
+        "25ffcaa2164643e082b9",
+        "a775926fce57b3bf9ec1"
+      ],
+      "basis": "These conditions test graph and condition transfer jointly; candidate endpoints are untested."
+    },
+    {
+      "question": "Does fused aromatic alcohol m205 reproduce the m120 response or show a distinct hydroxyl accessibility pattern?",
+      "candidate_ids": [
+        "c973d4c257be9ef08216",
+        "7954bf73f74c7fbcecb2"
+      ],
+      "basis": "Prospective candidate prediction only."
+    },
+    {
+      "question": "Does higher loading change m82 completion at 20/1, providing a beta ketoester control for m94?",
+      "candidate_ids": [
+        "b6bf451b4911ee22d4a4"
+      ],
+      "basis": "Prospective candidate prediction only."
+    }
+  ],
+  "possible_model_blind_spots": [
+    "Sparse ratio anchors permit incorrect slope extrapolation: m211 is overpredicted through 10/1 but underpredicted at 20/1 and 50/1.",
+    "Loading amount and graph by loading interactions remain weakly represented. m120 and m194 show large loading effects, especially in V2.",
+    "V1 and V2 residuals are heterogeneous; a common endpoint offset would mix onset shifts, completion broadening, and interval errors.",
+    "Shared HBD, HBA, TPSA, or polarity descriptors transfer corrections across incompatible nitrogen, hydroxyl, ester, and ether topologies.",
+    "Candidate quantile ordering is inconsistent in some records. Quantile width is not calibrated uncertainty, and V2 minus V1 is physical interval width.",
+    "Repeated physical inputs and locally variable measured records should be retained as conditional evidence without inferring a global noise floor."
+  ],
+  "important_model_behaviors": [
+    {
+      "behavior": "Observed graph conditioned correction failure",
+      "detail": "The model transferred large corrections among nitrogen and hydroxyl graphs, then overpredicted m90, m211, and high loading m120 while underpredicting m36, m99, and late m211.",
+      "evidence_ids": [
+        "855832bd4005ac7abdc6",
+        "434e465cfa7e0034f233",
+        "e4fd83fb3852eb354a66",
+        "d8fcb58722028dbf9c02",
+        "762190c8d9f5b2d1a89a"
+      ]
+    },
+    {
+      "behavior": "Endpoint specific loading failure",
+      "detail": "m194 V1 remained near 4 to 6 mL while V2 changed from about 10 to 28 to 36 mL across loading and ratio conditions. The model needs separate loading conditioned V2 learning.",
+      "evidence_ids": [
+        "c0094343ab6bb16bc58b",
+        "2bd4f8787a951ef0ee04",
+        "e8185e062559aff5c99e",
+        "d7895c522a1a46a1175c"
+      ]
+    },
+    {
+      "behavior": "Local weak eluent tail",
+      "detail": "m173 completion remains late through 10/1, while m124 remains early at weak ratios. This argues for graph local response routing rather than universal solvent monotonicity corrections.",
+      "evidence_ids": [
+        "b37608f8c4a8ee4b8696",
+        "aa3ac48b626bc54d5dc6"
+      ]
+    }
+  ],
+  "possible_learning_bottlenecks": [
+    "Insufficient graph by condition interaction capacity or weak routing of loading and loading solvent features.",
+    "Inadequate separation of V1, V2, and interval width responses.",
+    "Sparse supervision at the transition where solvent response changes slope, especially for m211.",
+    "Adaptive graph level fitting may improve acquired molecule fit without reliable unseen molecule by ratio transfer.",
+    "Locally variable records and duplicate inputs complicate estimating the useful strength of condition effects."
+  ],
+  "coverage_or_redundancy_concerns": "The pool contains many duplicate physical inputs and repeated loading grids. Tiny density derived mass differences add little chemical coverage. Further broad loading grids for already tested m92 or m80 have low priority. Targeted loading contrasts remain valuable for m120, m194, m94, and selected nitrogen graphs. Ordinary ketone, ester, aldehyde, ether, haloarene, and nitrile candidates should remain represented because the objective is overall Row accuracy.",
+  "warnings": [
+    "Observed-table IDs and their V1/V2 values are measured evidence. Candidate IDs and candidate endpoint values remain predictions.",
+    "Historical signed errors are adaptively collected and do not estimate unbiased overall Row error or prove retraining improvement.",
+    "No validation or test truth, other seeds, other trajectories, or other methods were supplied.",
+    "Chemical explanations involving silica interaction, loading, dissolution, or injection solvent remain hypotheses unless directly established by controlled measurements."
+  ],
+  "recommended_followup_queries": [
+    {
+      "candidate_ids": [
+        "a185774933bd6bb12c07",
+        "0460dfc4e1747f0fc92c"
+      ],
+      "question": "Test nitrogen graph by loading response for m211 and m90."
+    },
+    {
+      "candidate_ids": [
+        "25ffcaa2164643e082b9",
+        "a775926fce57b3bf9ec1",
+        "c973d4c257be9ef08216",
+        "7954bf73f74c7fbcecb2"
+      ],
+      "question": "Extend hydroxyl supervision to m119 and m205 after the conflicting m99 and m120 loading responses."
+    },
+    {
+      "candidate_ids": [
+        "b6bf451b4911ee22d4a4"
+      ],
+      "question": "Use m82 as a beta ketoester loading control for the m94 response."
+    }
+  ],
+  "particularly_informative_candidates": [
+    {
+      "ids": [
+        "a185774933bd6bb12c07",
+        "0460dfc4e1747f0fc92c"
+      ],
+      "reason": "They distinguish persistent nitrogen response shape from loading conditioned error."
+    },
+    {
+      "ids": [
+        "25ffcaa2164643e082b9",
+        "a775926fce57b3bf9ec1",
+        "c973d4c257be9ef08216",
+        "7954bf73f74c7fbcecb2"
+      ],
+      "reason": "They test whether the large hydroxyl behavior transfers beyond the measured m99 and m120 graphs."
+    },
+    {
+      "ids": [
+        "b6bf451b4911ee22d4a4"
+      ],
+      "reason": "It connects beta ketoester loading behavior to the partial m82 to m94 transfer already observed."
+    }
+  ]
+}

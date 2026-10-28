@@ -1,0 +1,270 @@
+{
+  "type": "selection",
+  "packet_sha256": "d9ea31309b03b266e0557b69c958b0a33ba3bfe1d5eb389a65a842ee0b894a1d",
+  "batch_strategy": "Target loading relationships that remain poorly represented, then measure structured chemical contrasts in uncovered families. Three m125 experiments complete a local loading factorial; one m177 experiment tests its unresolved loading response. The remaining selections connect unseen structures to measured analogs through matched isomer comparisons, within-molecule PE/EA contrasts, and informative condition anchors. Use the supplied pred_V1_ml and pred_V2_ml unchanged as the frozen premeasurement predictions for all 32 choices. Quantile widths and CW distances are secondary diagnostics, not calibrated epistemic uncertainty.",
+  "choices": [
+    {
+      "id": "780b13846ace50ede763",
+      "reason": "Measure m125 at 5/1, 50 ul sample, and 300 ul DCM. Together with the selected 500 ul DCM counterpart, this isolates loading-solvent volume where the current predictions are essentially identical. The large measured 2/1 contrast between 5c2bc1d92128a17d996d and cc2a23d8eb9de61d2ab3 makes this relationship worth testing at another ratio.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "761c3f82d640da44966c",
+      "reason": "This is the 5/1, 50 ul sample, 500 ul DCM counterpart. It also provides a sample-amount contrast to measured c4b5a5499258f39b7ac1 at 100 ul sample and the same solvent volume. The completed comparisons can distinguish a loading interaction from a simple molecule-wide retention offset.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "74ecab0a11898dede473",
+      "reason": "Measure m125 at 5/1, 100 ul sample, and 300 ul DCM. With measured c4b5a5499258f39b7ac1 and the two selected 50 ul points, this completes a 2-by-2 sample-volume/loading-solvent-volume experiment. Measured 549daca56bed1c9d2bcc supplies an additional 150 ul sample reference.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "b514312eda7950cdcf1c",
+      "reason": "The remaining 150 ul m177 point at 50/1 tests whether the measured 21.33/59.88 mL at 5b706e17e8412d02342f and 5.27/7.31 mL at 4862e2fb71344ce16021 belong to a reproducible loading response. Its predicted intermediate endpoints are an untested interpolation, not evidence that the response is smooth.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "74c8fcd8ac3f6caedcd2",
+      "reason": "Introduce 2,6-lutidine at 5/1 and 100 ul sample. Its sterically shielded basic nitrogen provides a meaningful transfer test against the disparate measured heteroaromatics 49201b5817f204116f7f, 51f5ae6a991eea9e720e, and 1ce749f818905d3c61d4. The label can identify whether the predicted substantial retention is justified.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "abca62b372239d49a61b",
+      "reason": "Pair the new lutidine 5/1 point with 10/1 at identical loading conditions. Predicted V1/V2 rise from about 19.5/38.4 to 38.0/75.8 mL as the eluent weakens. Both labels can test the transferred response slope rather than merely adjust an unseen-molecule offset.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "9cd02352c2ed7a3e2321",
+      "reason": "Measure quinoline at 10/1 to extend the measured 5/1 anchor c5185bd663026c64c816. Comparison with methylquinoline 23ef03f3e75e40b20095 and phenylpyridine dd4829f39cdf781ffaf9 tests how ring fusion and substitution modify the weak-eluent response of basic nitrogen scaffolds.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "8aa79ce56a84843f3849",
+      "reason": "Introduce the methylenedioxy acetophenone m39 at 5/1. Its predicted 20.15/40.67 mL differs substantially from measured methoxy acetophenone 9aaa9e876dd61f679e7d. The label tests transfer across oxygen connectivity, with the recorded loading differences retained as possible contributors.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "f31a89256d8ee4192d55",
+      "reason": "Add m39 at 20/1 with the same sample and loading-solvent conditions as its selected 5/1 point. This tests the predicted steep retention increase in an unseen cyclic-acetal carbonyl scaffold and provides a transferable solvent-response contrast.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "f96cee9775323fbf1d8b",
+      "reason": "Measure the unseen ether-containing beta-ketoester m107 at 2/1. It connects the severe m13 family to simpler ketoesters: measured 6573d8f84faaf7ce4a78 provides an m13 reference, while m107 changes ester and ether connectivity. This anchors the stronger-eluent side before testing its predicted transition.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "d1172a49fca1e196a59f",
+      "reason": "Pair m107 at 5/1 with its selected 2/1 point at identical loading. The predicted V1 rises from about 8.7 to 21.0 mL. Measured m13 points 6573d8f84faaf7ce4a78 and 5d530b2f228ed39ff952 establish a relevant but unproven transfer relationship for this response.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "b21061720e23b7a5bdcb",
+      "reason": "Measure para-aminobenzonitrile at 2/1 and 50 ul sample, exactly matching the recorded conditions of meta isomer e12edd0198c0d750ecd5. This directly tests positional-isomer transfer without changing the supplied loading variables.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "b4e0e9dc92fca2c88b90",
+      "reason": "Measure para-aminobenzonitrile at 5/1 and 100 ul sample, matched to the selected meta-isomer experiment. The model predicts very similar endpoints for the two isomers; their labels can reveal whether electronic and positional differences require distinct retention representations.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "17902fa9c7f8ea9b456e",
+      "reason": "The matched meta-aminobenzonitrile 5/1 point completes the second isomer comparison and extends measured e12edd0198c0d750ecd5. Jointly measuring both isomers is more informative than assuming the meta compound's existing 2/1 label transfers unchanged into this regime.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "645cb06b9e2a33b6044b",
+      "reason": "Measure methyl anthranilate m104 at 5/1, where predicted retention exceeds its measured 10/1 behavior at 467ccfac002f5113fe81. This anchors a potentially nonmonotonic response and tests transfer from the much later amino-ester observations 3ccd6444c8a55917fbf8 and 85924bdd0693438dc23a.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "10f14f6ee69ba06bbe68",
+      "reason": "Pair m104 at 20/1 with its selected 5/1 point under identical loading. Predicted V1/V2 decrease to about 7.5/16.3 mL despite the weaker eluent. Measuring this surprising curve can distinguish a real scaffold-specific pattern from unsupported model interpolation.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "e513420e1b7414424e7c",
+      "reason": "Measure ethyl anthranilate m89 at 5/1 to connect its ordinary 1/1 labels to measured 20/1 and 50/1 behavior at fe40c32169d87261e1e9 and 547923973b121019625f. It also contrasts with the selected methyl analog, while recognizing their different recorded loading conditions.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "319e89d7000731f64e7f",
+      "reason": "Introduce para-anisaldehyde at 10/1 as the oxygen-substituted member of a matched aryl-carbonyl comparison. It tests whether the severe behavior of multiply substituted aldehydes such as c4b5a5499258f39b7ac1 transfers to a simpler methoxy aldehyde.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "4c46ceefd6147b1e0a7a",
+      "reason": "Measure para-methylthio benzaldehyde at 10/1, matching the selected anisaldehyde's sample volume, loading solvent, and solvent volume. Their nearly coincident predictions leave oxygen-versus-sulfur transfer untested; a measured contrast could inform many substituted aromatic carbonyl rows.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "d54c93a11164b4abac6e",
+      "reason": "Extend the same methylthio aldehyde to 50/1 at unchanged loading. Its predicted 42.58/81.77 mL is a substantial extrapolation for an unmeasured sulfur-containing scaffold. Together with the 10/1 label, this tests the response slope rather than relying on a single novel-structure anchor.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "92f7fe9d8581717a9949",
+      "reason": "Measure para-methylthio acetophenone at 10/1 under the same recorded loading conditions as the selected sulfur aldehyde. This isolates aldehyde-to-methyl-ketone connectivity within the sulfur series and tests whether the model's nearly equal predictions conceal a transferable functional-group effect.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "a1809a6c4c3ada20bcb0",
+      "reason": "Introduce cyclopropyl beta-ketoester m94 at 5/1. It tests whether the model's relatively ordinary prediction transfers from simpler ketoesters despite changed carbonyl sterics. This supplies a moderate reference beside the selected ether-containing m107 curve.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "e3a799d0fa90b649a157",
+      "reason": "Pair m94 at 20/1 with its selected 5/1 point at identical loading. The predicted increase from about 7.3/13.3 to 18.3/34.0 mL tests whether beta-ketoester connectivity supports a distinct response from the much steeper measured m13 family.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "1e971da91b3a8229f0e0",
+      "reason": "Introduce cinnamic acid at 5/1 with its recorded 1500 ul DCM loading volume. Carboxylic-acid silica interactions and this large loading-solvent volume are poorly represented by the measured alcohol series. Its moderate prediction is a useful test of transfer to a chemically different donor class.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "12ab195583f05b9aa177",
+      "reason": "Measure methyl mandelate at 5/1. The adjacent hydroxyl and ester permit interactions different from simple alcohols, yet predicted retention remains moderate. This can discriminate selective donor-context effects from indiscriminate transfer of the late alcohol behavior at 48853fd78c77153b963a.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "776ee2c1e85ebde75168",
+      "reason": "Measure methoxyphenethyl alcohol m119 at 5/1, extending its measured 1/1 anchor c32caf65e93924aeb179. The predicted large increase may reflect transfer from late primary alcohols; the new label tests that transfer in an ether-containing scaffold.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "e4fd83fb3852eb354a66",
+      "reason": "Measure methoxybenzyl alcohol m120 at 5/1, matched to selected m119 in sample volume, loading solvent, and solvent volume. This tests the effect of one-carbon versus two-carbon aryl-alcohol linkage and extends measured 2/1 point 4ee0e15840492362f7d8.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "b7b1a1bb666c8cc99bad",
+      "reason": "Measure 3-phenylpropanol m204 at 5/1 to extend the strong-eluent anchor 09b1bb29e7a0e3565a0d. Its predicted 33.19/53.84 mL tests a substantial response in a simple primary alcohol and provides another structural context for the heterogeneous m205/m206 observations.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "c32500e81a05cfd2273d",
+      "reason": "Introduce 2,6-difluorobenzaldehyde at 50/1. Its predicted 23.33/42.59 mL contrasts with the much earlier dibromo analog c5d46fe23a4cde01f738 at the same ratio. Smaller ortho substituents may alter carbonyl accessibility, but the label must establish whether that structural transfer is warranted.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "52348febee6695107c49",
+      "reason": "Measure unseen tetralone m180 at 50/1 despite its high similarity to labeled cyclic ketones. Its predicted 21.63/52.32 mL tests weak-eluent transfer across ring size and methyl substitution; 8b8becd233748ccae9e3 and 87727a0338c26706a350 provide measured neighboring scaffolds.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "c0adb1c6f9dbe862a4dc",
+      "reason": "Introduce the structurally remote aliphatic chloroketone m27 at 10/1. The predicted moderate retention tests whether relationships learned from aromatic chloroketones, including 22f5284ebc07b484fc2d, transfer when the aromatic carbonyl environment is removed.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "def684761639e17b1a7e",
+      "reason": "Measure the unseen branched nitrile-ketone m47 at 2/1. It supplies a moderate-retention transfer test combining nitrile, ketone, and substantial aliphatic sterics, distinct from aromatic nitrile-ketone observations such as 156594686f5cf7182bcc. This explores a chemical gap without assuming that novelty implies late elution.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "The records contain large, scaffold-specific differences across recorded loading conditions that the current nearly loading-invariant predictions may miss. Some differences may also reflect unexplained experimental variability; a universal monotonic loading rule is unsupported.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "5c2bc1d92128a17d996d",
+        "cc2a23d8eb9de61d2ab3",
+        "c4b5a5499258f39b7ac1",
+        "549daca56bed1c9d2bcc",
+        "5b706e17e8412d02342f",
+        "4862e2fb71344ce16021"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "A retrained model needs to learn when sample amount and loading-solvent volume affect each endpoint, rather than absorbing all differences into a molecular offset. Controlled local contrasts can expose interactions that isolated tail labels cannot resolve.",
+      "next_discriminating_question": "Does the m125 loading-solvent-volume contrast recur at 5/1 across two sample amounts, and where does the third m177 sample-volume level fall at 50/1?"
+    },
+    {
+      "id": "H2",
+      "content": "Basic heteroaromatic retention responses depend strongly on nitrogen environment and scaffold context. Ring fusion, substitution, and steric shielding may determine whether a weak-eluent tail transfers between pyridines and quinolines.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "49201b5817f204116f7f",
+        "51f5ae6a991eea9e720e",
+        "23ef03f3e75e40b20095",
+        "c5185bd663026c64c816",
+        "1ce749f818905d3c61d4",
+        "449b809e4efaaf2af86a"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "These measured families span very different response magnitudes despite sharing basic aromatic nitrogen. Lutidine and the missing quinoline condition can teach structural distinctions that generalize beyond any single late scaffold.",
+      "next_discriminating_question": "Does sterically shielded 2,6-lutidine follow the predicted steep 5/1-to-10/1 response, and does unsubstituted quinoline resemble methylquinoline or phenylpyridine at 10/1?"
+    },
+    {
+      "id": "H3",
+      "content": "The model may smooth over position-dependent aryl-amine behavior and may interpolate unsupported nonmonotonic curves for ortho amino esters. Electronic effects and possible intramolecular hydrogen bonding are chemical explanations to test, not established mechanisms in these records.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "e12edd0198c0d750ecd5",
+        "467ccfac002f5113fe81",
+        "c424072ab574452d8db5",
+        "3ccd6444c8a55917fbf8",
+        "85924bdd0693438dc23a",
+        "547923973b121019625f"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Matched nitrile-isomer labels test molecular positional encoding directly. The anthranilate measurements test a surprising predicted response and help distinguish chemical transfer from effects of the recorded loading conditions.",
+      "next_discriminating_question": "Do meta and para aminobenzonitriles differ under matched conditions, and is methyl anthranilate's predicted decline from 5/1 to 20/1 supported by measurement?"
+    },
+    {
+      "id": "H4",
+      "content": "The steep retention response of multiply oxygenated compounds may transfer selectively across ether, ester, ketone, and cyclic-acetal connectivity. Oxygen count alone is insufficient to decide which unseen carbonyl scaffolds share that response.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "c4bb286978fe9078a303",
+        "6573d8f84faaf7ce4a78",
+        "5d530b2f228ed39ff952",
+        "c4b5a5499258f39b7ac1",
+        "9aaa9e876dd61f679e7d",
+        "ce539fc06bdda7c0ed0d"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "The recent extreme oxygenated-family labels can improve local fits while also encouraging over-transfer. Response pairs for m39, m107, and m94 can identify which connectivity changes preserve, attenuate, or shift the transition.",
+      "next_discriminating_question": "Which of the three unseen carbonyl scaffolds follows a steep PE/EA response, and which remains comparatively moderate as the EA fraction decreases?"
+    },
+    {
+      "id": "H5",
+      "content": "Nearly coincident predicted endpoints for para-methoxy and para-methylthio aryl aldehydes and ketones may conceal oxygen-versus-sulfur and carbonyl-connectivity effects.",
+      "basis": "model_behavior",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "These are structured contrasts within a common aromatic-carbonyl region. Labels can either validate chemical transfer or reveal a missing distinction, while a second ratio for the sulfur aldehyde tests whether transfer errors concern slope as well as offset.",
+      "next_discriminating_question": "Are the three 10/1 labels actually similar, and does the sulfur aldehyde develop the predicted large increase by 50/1?"
+    },
+    {
+      "id": "H6",
+      "content": "Hydrogen-bond donor count does not determine the weak-eluent tail. Alcohol linkage, adjacent ester or ether groups, acid functionality, and recorded loading conditions may produce substantially different response curves.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "48853fd78c77153b963a",
+        "62e730f8ad10cbdd613b",
+        "cdf40bcb3f4392f8d7d1",
+        "4ee0e15840492362f7d8"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Measured donor-containing families already range from ordinary to very late. The selected alcohol contrast and new hydroxyester/acid anchors can prevent a global donor-associated offset from replacing scaffold-sensitive prediction.",
+      "next_discriminating_question": "Does the late response transfer to methoxy aryl alcohols and phenylpropanol, while the hydroxyester and carboxylic acid remain moderate under their supplied loading conditions?"
+    }
+  ],
+  "feedback_interpretation": "The latest acquisitions confirm substantial historical underprediction for m125 at 5/1, m146 at 10/1, m90 at 10/1, and m205 at 2/1: c4b5a5499258f39b7ac1, 549daca56bed1c9d2bcc, 23ef03f3e75e40b20095, 96710afeabc594baa359, and 91b6bda771851a5c78ac. Current nearby predictions have moved substantially toward those late labels, so their acquisition-time errors do not justify repeatedly sampling every repaired tail. The remaining concern is whether the model learns condition interactions: m125 predictions remain almost unchanged across loading-solvent volume, and m177's opposite 50/1 outcomes at 5b706e17e8412d02342f and 4862e2fb71344ce16021 remain unresolved. Conversely, 27bac953781c17a3a74b, 22f4e0f26e7ff02e1054, and d9e187481b855cef4e41 show that some local curves are already predicted reasonably closely. I therefore shift much of the batch toward chemically interpretable transfer tests. I also correct earlier interpretations using the raw tables: increasing PE/EA reduces the EA fraction and weakens normal-phase elution; e058e7b399f714dd7930 is m191, and 855456da9ea892f7216b is m178. Differences between repeated condition records, such as 0520aee15336815a25f0 and 4eb9255929f1ff9900ba, caution against treating every local difference as a deterministic loading mechanism.",
+  "batch_rationale": "The batch combines a controlled repair experiment with several tests of structural transfer. The m125 factorial is especially informative because it varies inputs to which the current model is nearly insensitive, while the m177 point interrogates an unresolved response rather than simply seeking another extreme label. The heteroaromatic, amino-isomer, oxygenated-carbonyl, and sulfur-carbonyl groups provide meaningful comparisons across conditions and structures. New donor-containing and remote aliphatic compounds test whether recent tail corrections generalize selectively. Several selected rows have moderate predicted retention and can falsify over-transfer from late families. Early-eluting regions already have extensive measured coverage, so additional near-duplicate early rows offer less incremental value here. Within-molecule pairs control the supplied loading variables; cross-molecule comparisons retain density and loading-solvent differences as possible contributors. The many zero V2 q10 values and occasional quantile crossings also discourage ranking solely by quantile width. These labels should improve both endpoint calibration and structure-condition response learning across the remaining Row-distribution, without assuming unrecorded experimental variables or equating elution-interval width with uncertainty."
+}

@@ -1,0 +1,44 @@
+{
+  "type": "memo",
+  "role": "ml_scientist",
+  "packet_sha256": "94c12dc5bc0957bc342f97595668a76943076aacfcc424892a169b1acb17e840",
+  "state_summary": "Seed 157, round 0: 333 observed measurements and 2,997 legal candidates; no prior selection or feedback is recorded in memory. Observed records are initial measurements only. Candidate outcomes are predictions, not measured evidence.",
+  "important_model_behaviors": [
+    "Predicted V2 is generally above predicted V1, consistent with the measured records, where V2 also commonly exceeds V1. This is a broad pattern, not a guarantee for individual compounds.",
+    "Quantile widths vary widely: many ordinary candidates have moderate widths, while some polar, heteroaromatic, or otherwise distinctive structures and stronger/less common conditions have much wider intervals. Several V1 lower quantiles are zero, so width alone may partly reflect a floor or asymmetric uncertainty.",
+    "The prediction columns should not be treated as interchangeable: some records show prediction/quantile inconsistencies or unusual quantile behavior. Inspect individual columns rather than assuming the point prediction equals q50 or that intervals are calibrated."
+  ],
+  "possible_learning_bottlenecks": [
+    "Large retention volumes and V2 errors may be difficult to learn: measured examples include very high V2 values for several structurally and conditionally distinct cases (for example m90-like ester/heteroaromatic behavior is a candidate-model signal, not measured evidence here; measured examples include m31, m75, m90 is not measured). Such tails could dominate absolute error.",
+    "The observed set spans many chemotypes, but some potentially important interaction classes are sparse. ML/chemistry prior: basic nitrogen, hydrogen-bond donors/acceptors, acids, and strongly polar groups may interact nonlinearly with silica; whether these are actual error sources is unconfirmed by this seed\u2019s measured feedback.",
+    "Condition effects may be entangled with compound effects. Solvent composition, density, loading solvent, sample amount, and loading-solvent volume vary together in many rows, limiting causal attribution from observational coverage alone."
+  ],
+  "coverage_or_redundancy_concerns": [
+    "The pool contains many near-repeated molecule-condition combinations and small condition perturbations. Such candidates can help diagnose sensitivity or measurement noise, but groups of nearly identical points are redundant for generalization.",
+    "DCM and PE dominate the supplied measurements and pool; EA conditions are comparatively uncommon. The observed data include a broad range of solvent ratios and loading amounts, but extreme conditions and uncommon chemotypes should be interpreted as potential OOD regions rather than automatically high-value targets.",
+    "The observed set already includes broad chemical-space coverage across aromatic, halogenated, carbonyl, ester, and oxygen/nitrogen-containing compounds. Novelty can be useful, but isolated novelty without nearby coverage may yield limited Row-distribution benefit."
+  ],
+  "warnings": [
+    "No previous-batch rationale, selected IDs, premeasurement errors, or measured follow-up outcomes were supplied; there is no trajectory evidence to revise or affirm earlier hypotheses.",
+    "Quantile width, novelty, and predicted retention magnitude are model diagnostics/priors only. They are not observed error estimates, and extreme values may reflect extrapolation or model artifacts.",
+    "Some candidate rows appear duplicated or nearly duplicated in molecule and conditions. Deduplicate or group them when assessing information value; repeated measurements are useful chiefly when they resolve a specific ambiguity."
+  ],
+  "particularly_informative_candidates": [
+    {
+      "id": "e47aebe2660b9e1528de",
+      "reason": "Novel aza-aromatic chemotype with broad predicted intervals; could probe a sparsely supported chemical class, though its likely Row-distribution value is uncertain."
+    },
+    {
+      "id": "b51b5dbcd2a38b174973",
+      "reason": "Large predicted V1/V2 widths for m90 under DCM; useful as a diagnostic tail-region probe, but the extreme signal may be OOD and should not be valued on uncertainty alone."
+    },
+    {
+      "id": "fa64656d7b055dec7f56",
+      "reason": "m105 is represented in measured records, so this condition variant could help separate within-molecule condition sensitivity from chemical novelty."
+    },
+    {
+      "id": "8b06ec38fbb?",
+      "reason": "No candidate-specific repeated-measurement claim is made without a verified candidate ID; the pool has substantial near-duplicate structure that warrants redundancy control."
+    }
+  ]
+}

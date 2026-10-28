@@ -1,0 +1,218 @@
+{
+  "type": "selection",
+  "packet_sha256": "674c78be1522aadef58be737dcda201e2da9875496cd4af19ebe35a7b78e2599",
+  "batch_strategy": "Supplement the fixed pending 16 with matched condition-response experiments that test loading curvature, solvent-dependent attenuation, structural transfer, and endpoint-specific behavior. Give the anomalous m207 result an independent-condition check without assuming it is reproducible. Preserve all pending IDs and predictions unchanged; freeze the 16 additional IDs and their supplied premeasurement predictions below before any label reveal.",
+  "choices": [
+    {
+      "id": "ff3b6b1069b7d66ad021",
+      "reason": "m207, 10/1, 100 uL; frozen V1/V2=39.669857025146484/67.62442016601562 mL. Completes the loading curve between a19f98569910dc7fd6c4 at 45.383/72.033 and 8f5452ff0e84ab2e2057 at 32.792/61.142. The exceptional 5/1 midpoint ec6846c0fcb7df17c97d prevents a simple attenuation interpretation. This independent midpoint tests whether appreciable curvature also occurs at 10/1; it cannot establish the reproducibility of the 5/1 anomaly.",
+      "hypothesis_id": "H112"
+    },
+    {
+      "id": "6cc257b0facade227e36",
+      "reason": "m207, 2/1, 150 uL; frozen V1/V2=11.367430686950684/17.720577239990234 mL. Completes a stronger-eluent curve with 6be742f06dddb42eb929 at 13.075/17.625 and 8294d63723a29bc21a6b at 10.517/17.583. The forecast places high-loading onset after the measured midpoint despite the lower-loading onset advance. This tests that reversal and constrains transfer from the irregular 5/1 curve.",
+      "hypothesis_id": "H112"
+    },
+    {
+      "id": "97318de99bab4460cf4e",
+      "reason": "m200, 1/1, 50 uL; frozen V1/V2=13.903338432312012/38.06645202636719 mL. Together with the selected high-loading row and midpoint 7dace1dbecce79e17117 at 13.550/38.250, tests whether the large 2/1 loading response in a92f7617b135de150588 and f91285c618eacb53538b attenuates sharply in stronger eluent. The forecast nearly matches the midpoint, making a missed lower-loading response discriminating.",
+      "hypothesis_id": "H102"
+    },
+    {
+      "id": "5da8c25a3982216fb112",
+      "reason": "m200, 1/1, 150 uL; frozen V1/V2=13.367900848388672/38.39839172363281 mL. Completes the curve around 7dace1dbecce79e17117. At 2/1, onset advances 14.233 mL and completion advances 6.425 mL across 50\u2013150 uL. Measuring both 1/1 endpoints distinguishes attenuation across the full range from curvature confined to one loading segment, as recently demonstrated for m204.",
+      "hypothesis_id": "H102"
+    },
+    {
+      "id": "2cf4f6424b85ab121943",
+      "reason": "m67, 20/1, 50 uL; frozen V1/V2=33.21873474121094/62.777156829833984 mL. Completes the curve with c627405cf70a0daacc94 at 34.608/59.417 and 80f6a235bb59c2a7ea59 at 30.592/62.983. The new high-loading label rejects the earlier nearly flat upper-loading forecast. The low-loading forecast now lies before the measured midpoint, so this label discriminates actual curvature from another smoothed onset response while checking completion independently.",
+      "hypothesis_id": "H110"
+    },
+    {
+      "id": "d7f5057912ffbf1231a3",
+      "reason": "m86, 2/1, 50 uL; frozen V1/V2=12.233307838439941/23.303205490112305 mL. Compare with 073e6abf4d3bfffc2761 at 150 uL, 10.567/22.675. The latest 5/1 comparison c70b471334f9747d6f98 versus 9bc73e0c27d4d6b44abb establishes a 5.250-mL onset advance. This stronger-eluent endpoint tests how much survives and whether completion remains much less sensitive than onset.",
+      "hypothesis_id": "H107"
+    },
+    {
+      "id": "b3fd855968b6fbe1bd2e",
+      "reason": "m88, 2/1, 50 uL; frozen V1/V2=12.044441223144531/22.790599822998047 mL. Compare with measured midpoint ca6feb29f6758377a65f at 11.887/21.496. This meta-amino ester provides a positional transfer test alongside the selected para-amino ester m86 condition. Each comparison fixes its own loading protocol; differing loading volumes between molecules prevent attributing their contrast solely to substitution position.",
+      "hypothesis_id": "H107"
+    },
+    {
+      "id": "183af335033005f96b97",
+      "reason": "m36, 2/1, 50 uL; frozen V1/V2=23.54791831970215/42.12897491455078 mL. Completes the curve around 6b7209c2e8154837a8c7 at 22.317/39.858 and 9fcf89b00bb880c8a5ba at 21.883/40.942. The upper-loading onset response is small, but m204 showed that this need not imply a flat lower segment. This label tests that distinction in aminoaryl ketone chemistry and whether completion has a minimum near the midpoint.",
+      "hypothesis_id": "H107"
+    },
+    {
+      "id": "4dedc80fb33d21596b7e",
+      "reason": "m94, 2/1, 50 uL; frozen V1/V2=7.022944927215576/15.131431579589844 mL. Completes the curve with 7bd353fc307c5af1997e at 7.400/14.825 and 852d4f3443a81d662552 at 5.983/15.667. The forecast puts low-loading onset before the midpoint. The new 5/1 contrast 20d4b1612cbdd88b6755 versus 8a5443659239e3b52e14 instead advances onset 2.525 mL with almost unchanged completion. This tests stronger-eluent curvature rather than imposing a shared slope.",
+      "hypothesis_id": "H109"
+    },
+    {
+      "id": "c5130d0b1bb6dba0fb85",
+      "reason": "m82, 2/1, 150 uL; frozen V1/V2=8.278514862060547/19.75054931640625 mL. Completes the ethyl acetoacetate curve with 6b38c8782f95c673c809 at 8.975/20.200 and ce539fc06bdda7c0ed0d at 7.867/21.358. The forecast implies an upper-loading onset delay after a measured lower-loading advance. This tests transfer from the newly measured methyl acetoacetate response in b7a9a6b5086135269cb6 and separately resolves the completion direction.",
+      "hypothesis_id": "H109"
+    },
+    {
+      "id": "b43781cffcdb47081a21",
+      "reason": "m99, 2/1, 150 uL; frozen V1/V2=11.726761817932129/16.487606048583984 mL. Compare with low-loading 30456dafbfe681b5af70 at 11.567/15.783. This alpha-hydroxy ester tests a structural boundary of the onset advances measured in simpler alcohols and m200. The forecast implies little movement and a slight onset delay. Its adjacent ester and secondary benzylic hydroxyl environment are chemical reasons to test transfer, not evidence that it must share another alcohol's response.",
+      "hypothesis_id": "H102"
+    },
+    {
+      "id": "23ef03f3e75e40b20095",
+      "reason": "m146, 10/1, 150 uL; frozen V1/V2=62.26766586303711/112.12059783935547 mL. The forecast places both endpoints after measured 100-uL record 9e3ce3497298084abd83 at 59.583/106.500. At 2/1, cf36dbeee8bb51632d84, 2745c6978a8911fc3dda and 56151359aadfa5411fc6 instead show a 5.475-mL full-range onset advance with little completion movement. This tests a solvent-dependent loading-direction change in basic N-heteroaromatic chemistry, extending conditional coverage beyond oxygenated compounds.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "a1dc71bed9d8f372c9e5",
+      "reason": "m159, 20/1, 50 uL; frozen V1/V2=21.29838752746582/58.192115783691406 mL. Compare with high-loading 59b54ad3a60a52cc2b2c at 19.692/55.725. At 5/1, b86ace0ccafe0af8ceec and 5ae7472a4d9ce3fe20d0 show a small onset delay and substantial completion growth with loading, unlike m31's overall onset advance. This weaker-eluent contrast tests whether that structural boundary persists or the endpoint directions change with solvent strength.",
+      "hypothesis_id": "H108"
+    },
+    {
+      "id": "3726956d81fe3954e5b7",
+      "reason": "m75, 20/1, 50 uL; frozen V1/V2=21.518522262573242/32.07538604736328 mL. Compare with measured 150-uL anchor 2635b25bb3c1c37f3b74 at 20.992/32.533. This tests the nearly flat loading forecast in a phenyl-substituted malonate, extending the carbonyl/ester question beyond beta-ketoesters. Existing 10/1 low-loading record 9603a9567c8b21458d1e and 50/1 high-loading record 9249ed2c527f70995033 anchor its broader solvent response but do not establish the missing matched loading contrast.",
+      "hypothesis_id": "H113"
+    },
+    {
+      "id": "2b97a1e0a6a4b944b760",
+      "reason": "m78, 50/1, 50 uL; frozen V1/V2=47.64083480834961/93.25914764404297 mL. Pair with the selected high-loading row around measured midpoint 61771d230b285babe4b6 at 49.933/97.975. The two endpoint forecasts are nearly invariant with loading and both lie below the measured midpoint. This distinguishes a general level error from missed loading curvature in a substituted beta-ketoester. Its historical acquisition error identifies a past failure region, not a current residual.",
+      "hypothesis_id": "H113"
+    },
+    {
+      "id": "eb3bc3fba39e57adbc2f",
+      "reason": "m78, 50/1, 150 uL; frozen V1/V2=47.21139144897461/93.52538299560547 mL. Completes the weak-eluent loading curve with 61771d230b285babe4b6 and the selected 50-uL row. At 10/1, 9ccd4f4f61665ec641fe and b5e6e9a4b5c6f0f838bd show only a 0.625-mL onset advance but a 2.283-mL completion increase. This tests whether weaker eluent amplifies either response or produces curvature, providing a meaningful alternative to assuming every flat loading forecast is wrong.",
+      "hypothesis_id": "H113"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H102",
+      "content": "Alcohol loading responses depend jointly on solvent strength and hydroxyl environment. At 1/1, m204 advances onset 2.133 mL across 50\u2013150 uL while completion increases only 0.275 mL. At 2/1, m200 advances onset 14.233 mL and completion 6.425 mL. Further attenuation for m200 at 1/1 and transfer to the adjacent ester/secondary alcohol environment of m99 remain untested.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "a3560ac8164465dbb406",
+        "c46b86dae7e6845f08cd",
+        "efba7e70f4e46055398b",
+        "a92f7617b135de150588",
+        "3fbf4a3d05e84138e1e2",
+        "f91285c618eacb53538b"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched solvent and loading relationships can teach endpoint-specific interactions without spreading a universal alcohol correction across different structural environments.",
+      "next_discriminating_question": "Does m200's full loading response become small at 1/1, and does m99 at 2/1 show a real structural boundary or a missed onset advance?"
+    },
+    {
+      "id": "H107",
+      "content": "m86 at 5/1 shows a 5.250-mL onset advance and only a 1.308-mL completion advance across loading. m36 at 2/1 shows just a 0.433-mL upper-loading onset advance with a 1.083-mL completion delay. These results support conditional rather than fixed aminoaryl loading responses. They do not isolate scaffold effects from solvent strength or between-molecule protocol differences.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "c70b471334f9747d6f98",
+        "9bc73e0c27d4d6b44abb",
+        "6b7209c2e8154837a8c7",
+        "9fcf89b00bb880c8a5ba"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The selected comparisons test attenuation and lower-loading curvature in aminoaryl esters and ketones, including positional transfer under each molecule's recorded protocol.",
+      "next_discriminating_question": "How much onset sensitivity remains for m86 at 2/1, does m88 show a similar lower-loading response, and is m36's lower segment more responsive than its upper segment?"
+    },
+    {
+      "id": "H108",
+      "content": "A common loading-induced onset advance for cyanoaryl carbonyl compounds is weakened. At 5/1, m31 advances onset from 13.008 to 10.392 mL, whereas m159 changes from 4.650 to 5.117 mL and completion rises from 15.408 to 21.308 mL. The small opposite onset difference could include variability. Whether m159 changes endpoint directions in weaker eluent remains unresolved.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "156594686f5cf7182bcc",
+        "f0b6d8fb9d1feea8b24b",
+        "eb383b92fe958c91d272"
+      ],
+      "contradicting_observed_ids": [
+        "b86ace0ccafe0af8ceec",
+        "5ae7472a4d9ce3fe20d0"
+      ],
+      "confidence": "medium",
+      "status": "weakened",
+      "why_it_matters_for_model_learning": "This limits transfer based on shared nitrile/carbonyl functionality and tests whether the relevant boundary is structural, solvent-dependent, or both.",
+      "next_discriminating_question": "At 20/1, does m159 advance onset and completion with loading as the selected forecast implies, or retain the 5/1 direction?"
+    },
+    {
+      "id": "H109",
+      "content": "Loading effects in beta-ketoesters can remain appreciable in stronger eluents and move the endpoints independently. m94 at 5/1 advances onset 2.525 mL with almost unchanged completion; m95 at 2/1 advances onset 4.054 mL and completion 1.842 mL. These endpoint contrasts do not establish linear loading curves or identical behavior for cyclopropyl, methyl and ethyl ester environments.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "20d4b1612cbdd88b6755",
+        "8a5443659239e3b52e14",
+        "8d018e521e8e6bbc53c2",
+        "b7a9a6b5086135269cb6",
+        "7bd353fc307c5af1997e",
+        "852d4f3443a81d662552"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Completing m94 and m82 curves tests forecast onset reversals and separates loading curvature from solvent-strength attenuation in related carbonyl/ester structures.",
+      "next_discriminating_question": "Does m94's low-loading onset exceed its 2/1 midpoint, and does m82 continue advancing onset above 100 uL or actually reverse direction?"
+    },
+    {
+      "id": "H110",
+      "content": "The nearly flat m67 20/1 upper-loading forecast was not supported: from 100 to 150 uL, onset advances 4.017 mL while completion is delayed 3.567 mL. At 2/1, upper-loading onset advancement accompanies much smaller completion movement. The lower-loading shape of the 20/1 curve remains unknown.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "c627405cf70a0daacc94",
+        "80f6a235bb59c2a7ea59",
+        "18493dd4e68cac01205f",
+        "56f8cdbb3999b366d947"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "A completed secondary benzylic alcohol curve can teach opposing endpoint movements and prevent a single loading slope from being applied across solvent strengths.",
+      "next_discriminating_question": "At 20/1, is low-loading onset later than the measured midpoint, or is the forecast nonmonotonicity real?"
+    },
+    {
+      "id": "H112",
+      "content": "m207's 5/1 loading series is irregular: 21.183/34.025, 4.892/10.417 and 14.117/36.408 mL at 50, 100 and 150 uL. Local behavior and unrecorded variability remain competing explanations. Feature-identical disagreements elsewhere in the catalog make a deterministic mechanistic interpretation unsafe. Independent 10/1 and 2/1 curves can establish the scope of the irregularity, but cannot identify its cause or verify the 5/1 midpoint.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "4e5ead91320bd24d485e",
+        "ec6846c0fcb7df17c97d",
+        "a7906197994af5c86745",
+        "a19f98569910dc7fd6c4",
+        "8f5452ff0e84ab2e2057",
+        "6be742f06dddb42eb929",
+        "8294d63723a29bc21a6b",
+        "7383949c431e18f39597",
+        "93bcd806b8dcb8c0cab9"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Independent conditional anchors can constrain how an exceptional label affects retraining and reduce unsupported transfer of one irregular curve to other alcohol conditions.",
+      "next_discriminating_question": "Does the 10/1 midpoint lie coherently between its endpoints, and does the 2/1 high-loading label continue the measured onset advance?"
+    },
+    {
+      "id": "H113",
+      "content": "The predictor may also oversmooth weak-eluent loading responses in ester/carbonyl compounds with zero HBD in their supplied structures, including m78 and m75. Measured m95 weak-eluent curves show substantial onset sensitivity, while m78 at 10/1 has a small onset change and completion growth. Neither observation establishes the response of m78 at 50/1 or m75 at 20/1.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "f402144b8672dd5ab2ab",
+        "d448d8de2d8dacec62c3",
+        "41f57dc6d50ee162801a",
+        "35944fdd59ac331c3fcb",
+        "9ccd4f4f61665ec641fe",
+        "b5e6e9a4b5c6f0f838bd",
+        "61771d230b285babe4b6",
+        "2635b25bb3c1c37f3b74"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "These measurements test transfer beyond donor-containing families and distinguish genuinely weak responses, missed curvature, and errors in the predicted retention level.",
+      "next_discriminating_question": "Is m78's full 50/1 curve nearly flat or curved, and does m75 show an appreciable matched loading response at 20/1?"
+    }
+  ],
+  "feedback_interpretation": "The latest outcomes strengthen conditional loading hypotheses while weakening universal endpoint corrections. The completed m204 1/1 series is 10.708/16.175, 9.333/16.158 and 8.575/16.450 mL: onset still advances, but completion is nearly constant. In contrast, m200 at 2/1 has a 14.233-mL full-range onset advance and a 6.425-mL completion advance. This motivates a full m200 1/1 curve and one structural-boundary test in m99.\n\nThe m207 5/1 midpoint is a major qualification. Its 4.892/10.417 mL label lies far below both neighboring loading records, so the series cannot be treated as a clean monotone attenuation curve. I retain the earlier evidence of feature-identical variability and use independent 10/1 and 2/1 relationships to test the scope of this irregularity without claiming to resolve its origin.\n\nThe m86 5/1 result confirms a substantial onset response missed by its earlier flat forecast. The small m36 upper-loading onset change leaves its lower segment unresolved. m31 at 2/1 still advances onset by 1.400 mL across loading, whereas m159 at 5/1 has a small onset delay and a 5.900-mL completion increase. This weakens a common cyanoaryl onset correction and motivates a solvent-boundary test for m159.\n\nThe m94 5/1 and m95 2/1 outcomes support loading sensitivity in beta-ketoesters, with different completion responses. The m67 20/1 outcome rejects its earlier flat upper-loading forecast and shows onset advancement with completion delay. These findings favor completing selected curves rather than inferring the full response from one segment.\n\nThe m72 5/1 PE/300-uL result is close in onset to the DCM/200-uL record but finishes 3.892 mL earlier; this remains a joint protocol contrast and receives less immediate follow-up. The m145 2/1 completion falls between its measured 5/1 and pure-EA values, reducing the need to pursue the earlier plateau forecast. Several recent CW acquisitions had historical completion overpredictions around 4\u20135 mL in early-eluting conditions. The current pending batch maintains coverage of that region. All errors discussed here are acquisition-time errors, not current-model residuals.",
+  "batch_rationale": "The batch emphasizes missing relationships that individual labels can resolve against measured anchors. The m200 pair and m78 pair each complete a three-level loading curve around an existing midpoint. The m67, m36, m94 and m82 labels complete additional curves with one acquisition each. These experiments distinguish lower- versus upper-loading sensitivity, curvature, and independent movement of onset and completion. They can teach retrained structure-condition interactions that isolated retention labels would constrain less directly.\n\nThe m207 measurements address a recent failure while respecting its ambiguous interpretation. Measuring independent solvent conditions gives useful conditional constraints even if the exceptional 5/1 midpoint reflects variation absent from the supplied features. The aminoaryl ester comparisons, alpha-hydroxy ester boundary, cyano-benzophenone solvent contrast, phenylmalonate loading contrast and quinoline weak-eluent label test transfer across functional and structural environments. Their value comes from specific comparisons, rather than molecular diversity alone.\n\nThe pending 16 already cover many common early-eluting aromatic and ester conditions. These supplements add conditional exploration and failure repair in regions where loading or solvent interactions remain unresolved. The more retained selections are chosen for their response relationships and past model difficulties, rather than for large V1 or V2 values. No improvement in the selected experiments' chromatographic performance is being optimized.\n\nWithin-molecule comparisons hold the other supplied conditions fixed. Sample volume and density-derived loading amount remain linked, so these labels do not independently identify their causal contributions. Between-molecule comparisons preserve protocol and density differences. Chemical interaction arguments are priors, and catalog variability limits deterministic conclusions. Quantile spans from the single predictor are not treated as calibrated epistemic uncertainty; the supplied quantile outputs also contain zero lower bounds and some crossings. V2 minus V1 remains the elution interval width. The expected generalization benefit is better learning of endpoint-specific structure, solvent-strength and loading relationships across the Row-distribution."
+}

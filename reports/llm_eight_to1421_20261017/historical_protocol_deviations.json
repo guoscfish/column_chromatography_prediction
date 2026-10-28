@@ -1,0 +1,126 @@
+{
+  "classification": "Historical user-authorized deviations; retained, not newly applied to1293 extension",
+  "records": [
+    {
+      "scope": "Free157_round05_extra",
+      "record_path": "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/astra_high_full_pool_20261001/selections/seed_157/free_llm32_scientist_v2/round_05/authorized_extra_correction.json",
+      "sha256": "98cab1bd4a5e9c041d4fb0065590bbfe43d8ddd79df700675339a57c726d65e8",
+      "authorization": {
+        "authorization": "User approved one additional correction beyond the original three-call budget for round 6.",
+        "invalid_candidate_ids": [
+          "88d94bacb5a3b54ac7d1"
+        ],
+        "instruction": "88d94bacb5a3b54ac7d1 is already measured and appears in the observed table, not the eligible candidates table. Remove it from choices and choose a replacement yourself from the supplied eligible candidates table. Return exactly 32 distinct eligible candidate IDs and the full final JSON, with the same packet_sha256. Verify every choice ID against the candidates table. Do not select observed IDs, invent IDs, or change the catalog. All original output schema and evidence requirements still apply.",
+        "original_call_budget": 3,
+        "additional_logical_calls": 1,
+        "packet_sha256": "f1a7d7a25d985b648ac2deb52b1c3bc9c9dbe58b72e0ebd71b423648e99fac44",
+        "script_sha256": "7897f504dcdf1081a67a2865659d65ecbbd6d65489ac697150fca89cb0735c08",
+        "historical_transcript_hashes": {
+          "turn_00.json": "4ef073207bce7dbe8bb3a2f60925216415cb25dbc6f6b21c57722d95a7e28a5d",
+          "turn_01.json": "40a489ca6bd41952c59ff598a4d49654c6344ae33db81f6f7188d7248eb3742f",
+          "turn_02.json": "b200e7f92a1e2a839d40c43debd7596931e2862794c7fac7108844df4053dfb2"
+        }
+      }
+    },
+    {
+      "scope": "Free157_round05_authorized_character_repair",
+      "record_path": "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/astra_high_full_pool_20261001/selections/seed_157/free_llm32_scientist_v2/round_05/authorized_id_transcription_correction.json",
+      "sha256": "a835766fa7895066979513e6ca5af502244d6a5977d58b3d7bc1aa70d243ec47",
+      "authorization": {
+        "authorization": "User approved continuing with the returned selection after the explained one-character ID correction.",
+        "source": "turn_03.json",
+        "source_sha256": "15edc7ef2015a3b773886dfc36689fb2a723104500d93ee10c371eb3fd876753",
+        "old_id": "97318de99bab4460cf4e8",
+        "new_id": "97318de99bab4460cf4e",
+        "reason": "Extra trailing 8; candidate molecule and conditions agree with the returned rationale.",
+        "selection_reason_unchanged": true,
+        "all_other_fields_unchanged": true,
+        "new_llm_calls": 0,
+        "new_labels_accessed_for_correction": 0,
+        "protocol_deviation": "Round 6 used a fourth model response and a user-authorized deterministic ID transcription repair.",
+        "script_sha256": "c5b461d84a8e470e3646a05257707ff75f82fb99f0211ea66bcaa4c363a39b1f"
+      }
+    },
+    {
+      "scope": "Free6101_round00_extra",
+      "record_path": "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/astra_high_full_pool_20261001/selections/seed_6101/free_llm32_scientist_v2/round_00/authorized_extra_correction.json",
+      "sha256": "4a0b78dfd6a951a84d3ccc9451c734a1eec482ea2fb53d22ebf163d1c4ec110b",
+      "authorization": {
+        "authorization": "User approved one additional correction beyond the original three-call budget for seed6101 Free round 0 on 2026-10-06.",
+        "invalid_candidate_ids": [
+          "f90a5a5a54509c085ebd"
+        ],
+        "instruction": "f90a5a5a54509c085ebd is already measured and appears in the observed table, not the eligible candidates table. Remove it from choices and choose a replacement yourself from the supplied eligible candidates table. Return exactly 32 distinct eligible candidate IDs and the full final JSON, with the same packet_sha256. Verify every choice ID against the candidates table. Do not select observed IDs, invent IDs, or change the catalog. All original output schema and evidence requirements still apply.",
+        "original_call_budget": 3,
+        "additional_logical_calls": 1,
+        "packet_sha256": "6c81cf7e73fdbea855d17e3694654b2e5e8d444b41a18a5a03bbf0316d574f9b",
+        "script_sha256": "8d381dedab639a8e155d91953f1dc79846eb2c0e0d76211ae02d0d09ba245e81",
+        "historical_transcript_hashes": {
+          "turn_00.json": "52900a75d28e9cb30a9e15e8623ee44dc72b0c403bb9d54cccd57b9c64097f0f",
+          "turn_01.json": "483911127160bf000ab25e21b7d13fbce40a3c3e25a888905cb9d65a13bce5f1",
+          "turn_02.json": "a18f62098be939f4d848dcde301d3c40fffaee8e67397bbcebadd53cab91f347"
+        }
+      }
+    },
+    {
+      "scope": "Free6101_round19_extra",
+      "record_path": "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_6101/free_llm32_scientist_v2/round_19/authorized_extra_correction.json",
+      "sha256": "c1033d39e35805c4cbb73ad74980022d93f7fe24b8052ce7d9dfefdd43cd5f5a",
+      "authorization": {
+        "authorization": "User explicitly authorized exactly one additional correction for seed6101 Free round19 (941 to 973 labels) on 2026-10-14. This is a recorded protocol deviation; all other rounds retain three logical attempts.",
+        "cited_evidence_ids": [
+          "163f6f0793f0d13950de",
+          "e8d25b0f93b5bcf88daf",
+          "fa7b8202df1e985c228c",
+          "9eaa21d2af3158cfa4f5",
+          "bd62986a3ea6d28161ec",
+          "7e981ba02c83f74f5e65"
+        ],
+        "invalid_observed_evidence_ids": [
+          "9eaa21d2af3158cfa4f5"
+        ],
+        "instruction": "H6 incorrectly cites the listed evidence IDs as supporting observed evidence. The invalid_observed_evidence_ids subset is NOT in the supplied observed table. Correct the hypotheses yourself: cite only IDs actually present in the observed table, or use empty observed-evidence lists when relying on chemical priors or unmeasured model predictions. Check every supporting_observed_ids and contradicting_observed_ids entry in all hypotheses against the observed table. Also verify all 32 choices are distinct eligible candidate IDs. Return the complete final JSON with the same packet_sha256 and original schema. Do not invent IDs, change the catalog, treat unmeasured candidates as measured evidence, or claim a predicted error is measured. This is the sole additional logical correction.",
+        "original_call_budget": 3,
+        "additional_logical_calls": 1,
+        "packet_sha256": "28953ddf195f37de6b5234f101910e0ecb440ef1da2d79b8e84bb7f40cdac230",
+        "script_sha256": "01d160b2ef745519ee97d2618eb849d1eecb852e119b466897e1a3a34cdfface",
+        "historical_transcript_hashes": {
+          "turn_00.json": "c96f07e1ebcbc18cad7671f72039da4611e12ce0baab3a3dee641cff6565b931",
+          "turn_01.json": "3c810a5ab95e8c4dec15e764329ea9f129953600de135a1a16e014e103add9aa",
+          "turn_02.json": "7c12be3dba35bf822224f4e55c522ce7ced6db907c4bd61ff28c1c19b16f3ca1"
+        }
+      }
+    },
+    {
+      "scope": "Hybrid6101_round21_extra",
+      "record_path": "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1165_20261014/selections/seed_6101/cw16_llm16_scientist_v2/round_21/authorized_extra_correction.json",
+      "sha256": "240656a4248d23de89d90b3157e1cdd3f1078f103276e3b084a6f1e08b1292b9",
+      "authorization": {
+        "authorization": "User explicitly authorized exactly one additional gpt-6.1-sol/xhigh correction for seed6101 hybrid round21 (1005 to 1037 labels) on 2026-10-15. This is a protocol deviation. Every other round retains three logical attempts.",
+        "instruction": "43758e84c67aabf44a9f is ALREADY MEASURED in the observed table, NOT an eligible candidate or a pending CW ID. Remove it from choices and select a replacement yourself from the eligible candidates table. Return the complete original-schema final JSON with exactly 16 distinct eligible candidate choices and the same packet_sha256. Verify every choice against the candidates table and every evidence reference against the observed table. The fixed 16 pending CW IDs remain unchanged. This is the sole additional logical correction; do not invent or locally repair IDs.",
+        "original_call_budget": 3,
+        "additional_logical_calls": 1,
+        "packet_sha256": "bae3a06ed1077d83df1fbe31d6f5b64b421ac6c3b06d84d698e9880f278a21ab",
+        "wrapper_sha256": "5ad826d8bf5a1f29c45344ddcd64b8f10ae28cb3eabd13901322e30fcc47ab74",
+        "historical_transcript_hashes": {
+          "turn_00.json": "9a28ff86282404e5abf98890a0eefbbd0c8ef9d3fb5b8b1ec68dbfb935ac187c",
+          "turn_01.json": "05476cf12e153bb98ebd89c42580cd15bc29ee7cabd5d07db559a2804d4d0d01",
+          "turn_02.json": "e8fac10f249e708caf450bb68be091ab357cbb95eb40e6ac13ac3794d34b35e4"
+        }
+      }
+    }
+  ],
+  "new_extension_rounds": [
+    26,
+    27,
+    28,
+    29
+  ],
+  "new_extra_corrections_authorized": false,
+  "mixed_model_prefixes": {
+    "Hybrid": "Astra/high through813; Sol/xhigh afterward",
+    "Free157": "Astra/high through525; Sol/xhigh afterward",
+    "Free6101": "Astra/high through653; Sol/xhigh afterward"
+  },
+  "test_evaluation_performed": false
+}

@@ -1,0 +1,220 @@
+{
+  "time": "2026-10-26T23:42:13.264866+08:00",
+  "status": "RUNNING",
+  "target_labels": 1485,
+  "transport_authorization": "授权各再恢复最多2次",
+  "epoch": {
+    "epoch": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/transport_epoch_20261026_2338",
+    "entry": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/transport_epoch.py",
+    "authorization": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/transport_epoch_20261026_2338/authorization.json",
+    "time": "2026-10-26T23:39:36.254654+08:00",
+    "seeds": [
+      887,
+      2357,
+      12203
+    ]
+  },
+  "monitor": {
+    "time": "2026-10-26T23:41:07.734517+08:00",
+    "automation_id": "free-lcmd-seed-1485",
+    "status": "ACTIVE",
+    "old_automation_id": "free-llm-seed-1005",
+    "old_automation_update_result": "Did not exist in app; created replacement for the authorized continuation.",
+    "target_thread_id": "01a16484-94ac-7752-92ff-48fe4356bed4",
+    "notifications": "Meaningful exceptions, completion, failed recovery or user action only.",
+    "target_labels": 1485,
+    "methods": [
+      "Free LLM32",
+      "LCMD32"
+    ],
+    "seeds": [
+      157,
+      887,
+      2357,
+      6101,
+      12203
+    ]
+  },
+  "free": {
+    "887": {
+      "status": "RUNNING",
+      "seed": 887,
+      "time": "2026-10-26T23:40:11.337503+08:00",
+      "recovery_count": 18,
+      "session_recovery_count": 4,
+      "failures_per_round": {
+        "22": 1,
+        "33": 3
+      },
+      "authorized_current_round_launches": 1,
+      "authorization": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/transport_epoch_20261026_2338/authorization.json",
+      "baseline_recovery_count": 18,
+      "source_status": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/free/status_seed_887.json",
+      "pid": 61727,
+      "supervisor_pid": 61688,
+      "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/transport_epoch_20261026_2338/worker_seed_887.log"
+    },
+    "2357": {
+      "status": "RUNNING",
+      "seed": 2357,
+      "time": "2026-10-26T23:40:11.337660+08:00",
+      "recovery_count": 18,
+      "session_recovery_count": 4,
+      "failures_per_round": {
+        "22": 1,
+        "35": 3
+      },
+      "authorized_current_round_launches": 1,
+      "authorization": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/transport_epoch_20261026_2338/authorization.json",
+      "baseline_recovery_count": 18,
+      "source_status": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_llm_five_seeds_to1485_20261024/status_seed_2357.json",
+      "pid": 61728,
+      "supervisor_pid": 61690,
+      "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/transport_epoch_20261026_2338/worker_seed_2357.log"
+    },
+    "12203": {
+      "status": "RUNNING",
+      "seed": 12203,
+      "time": "2026-10-26T23:40:11.337542+08:00",
+      "recovery_count": 19,
+      "session_recovery_count": 5,
+      "failures_per_round": {
+        "22": 1,
+        "23": 1,
+        "24": 3
+      },
+      "authorized_current_round_launches": 1,
+      "authorization": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/transport_epoch_20261026_2338/authorization.json",
+      "baseline_recovery_count": 19,
+      "source_status": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/free/status_seed_12203.json",
+      "pid": 61729,
+      "supervisor_pid": 61692,
+      "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/transport_epoch_20261026_2338/worker_seed_12203.log"
+    }
+  },
+  "lcmd": {
+    "157": {
+      "status": {
+        "updated_at": "2026-10-26T23:33:22.546696+08:00",
+        "seed": 157,
+        "method": "lcmd",
+        "phase": "WAITING_FOR_TRAINING",
+        "completed_rounds": 22,
+        "completed_labels": 1037,
+        "target_labels": 1485
+      },
+      "supervisor": {
+        "status": "RUNNING",
+        "seed": 157,
+        "time": "2026-10-26T15:43:22.505144+08:00",
+        "recovery_count": 0,
+        "session_recovery_count": 0,
+        "failures_per_round": {},
+        "pid": 57064,
+        "supervisor_pid": 57033,
+        "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/lcmd/worker_seed_157.log"
+      }
+    },
+    "887": {
+      "status": {
+        "updated_at": "2026-10-26T23:34:40.767514+08:00",
+        "seed": 887,
+        "method": "lcmd",
+        "phase": "TRAINING",
+        "completed_rounds": 21,
+        "completed_labels": 1005,
+        "target_labels": 1485,
+        "training_labels": 1037
+      },
+      "supervisor": {
+        "status": "RUNNING",
+        "seed": 887,
+        "time": "2026-10-26T15:43:22.592267+08:00",
+        "recovery_count": 0,
+        "session_recovery_count": 0,
+        "failures_per_round": {},
+        "pid": 57065,
+        "supervisor_pid": 57035,
+        "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/lcmd/worker_seed_887.log"
+      }
+    },
+    "2357": {
+      "status": {
+        "updated_at": "2026-10-26T23:40:37.184042+08:00",
+        "seed": 2357,
+        "method": "lcmd",
+        "phase": "TRAINING",
+        "completed_rounds": 23,
+        "completed_labels": 1069,
+        "target_labels": 1485,
+        "training_labels": 1101
+      },
+      "supervisor": {
+        "status": "RUNNING",
+        "seed": 2357,
+        "time": "2026-10-26T15:43:22.631229+08:00",
+        "recovery_count": 0,
+        "session_recovery_count": 0,
+        "failures_per_round": {},
+        "pid": 57067,
+        "supervisor_pid": 57037,
+        "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/lcmd/worker_seed_2357.log"
+      }
+    },
+    "6101": {
+      "status": {
+        "updated_at": "2026-10-26T23:36:27.309604+08:00",
+        "seed": 6101,
+        "method": "lcmd",
+        "phase": "TRAINING",
+        "completed_rounds": 23,
+        "completed_labels": 1069,
+        "target_labels": 1485,
+        "training_labels": 1101
+      },
+      "supervisor": {
+        "status": "RUNNING",
+        "seed": 6101,
+        "time": "2026-10-26T15:43:22.616477+08:00",
+        "recovery_count": 0,
+        "session_recovery_count": 0,
+        "failures_per_round": {},
+        "pid": 57066,
+        "supervisor_pid": 57039,
+        "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/lcmd/worker_seed_6101.log"
+      }
+    },
+    "12203": {
+      "status": {
+        "updated_at": "2026-10-26T15:43:34.103362+08:00",
+        "seed": 12203,
+        "method": "lcmd",
+        "phase": "WAITING_FOR_TRAINING",
+        "completed_rounds": 21,
+        "completed_labels": 1005,
+        "target_labels": 1485
+      },
+      "supervisor": {
+        "status": "RUNNING",
+        "seed": 12203,
+        "time": "2026-10-26T15:43:22.681414+08:00",
+        "recovery_count": 0,
+        "session_recovery_count": 0,
+        "failures_per_round": {},
+        "pid": 57068,
+        "supervisor_pid": 57041,
+        "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/lcmd/worker_seed_12203.log"
+      }
+    }
+  },
+  "frozen_entry_hashes": {
+    "free_continue.py": "4f41464e511eecffc7fd7f04e714013a468480f90d38588ee1f0b8e9a90770fd",
+    "lcmd_continue.py": "19db7fdec7e4faa2d00eec1ec9b9fec1b4afccdbe813f9cd8c73dd298b360c94",
+    "control.py": "2d7f720ede6470242dc7bf8b123b49e51fb7bdeaa762f4839815b3e589f5a8c1",
+    "transport_epoch.py": "2d65c01144f39ffa908b6725c920431961b202952568755c764555e86195fafb",
+    "frozen_sources/gradient_features.py": "d5de5c2ecdbcd57a4152c7be72f6bfc82028e9c1cfd2ff502c09ac78a5329320"
+  },
+  "latest_lcmd_full_audit": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/lcmd/audit_latest.json",
+  "all_lcmd_prefixes_and_completed_extension_rounds_verified": true,
+  "test_evaluation_performed": false
+}

@@ -1,0 +1,141 @@
+{
+  "request_sha256": "0947c6d80e721c2cb0fd1bd7d85c8d51507fc0807c5cc41c436466580f659f8c",
+  "answer": "{\n  \"type\": \"memo\",\n  \"role\": \"ml_scientist\",\n  \"packet_sha256\": \"a465013b6dcc5443423e5a53d1f58acda95c13b2c980fc373527d6dc35690714\",\n  \"state_summary\": {\n    \"seed\": 157,\n    \"method\": \"free_llm32_dual_expert_v1\",\n    \"round\": 18,\n    \"observed_count\": 909,\n    \"candidate_count\": 2421,\n    \"pending_count\": 0,\n    \"assessment\": \"The latest 32 measurements answer most immediate questions in H40\u2013H44. Remaining opportunities concern specific loading interactions, persistence of isolated response features, and condition coverage in less developed molecular families. Embedded 877/2,453 summaries are stale. Historical acquisition errors do not establish current candidate error or retrained overall Row accuracy.\"\n  },\n  \"hypothesis_updates\": [\n    {\n      \"id\": \"H40\",\n      \"status\": \"revised\",\n      \"basis\": \"observed_measured_evidence\",\n      \"finding\": \"Reject the predicted m27 completion decrease from 1/1 to 10/1: measured completion rises from 8.50 to 14.63 ml at 50 ul. However, the measured 20/1 completion is only 7.09 ml, producing a consequential sampled decrease after 10/1 while onset changes little. A reproducible response feature and omitted run variation remain competing explanations. For m170, onset rises from 4.53 at 1/1 to 8.43 ml at 20/1; shallow onset does not persist across the entire range.\",\n      \"observed_ids\": [\n        \"a4a62cf5452e2229b667\",\n        \"09096996d08f0c063345\",\n        \"93bde1825d0cb1cb4305\",\n        \"fb3a6d49af52de47c06e\"\n      ],\n      \"implication\": \"The lower-ratio m27 decline hypothesis is rejected, but global monotonicity is also unsupported. The m170 curve is substantially constrained and its historical predictions were accurate; routine expansion has lower marginal value.\"\n    },\n    {\n      \"id\": \"H41\",\n      \"status\": \"supported_with_smaller_growth_than_predicted\",\n      \"basis\": \"observed_measured_evidence_and_historical_predictions\",\n      \"finding\": \"m51 develops strong joint growth at 150 ul: 6.59/11.45, 7.72/14.17, 14.01/27.73 and 26.24/55.67 ml across 1/1, 2/1, 5/1 and 10/1. Historical overprediction increases substantially with ratio, reaching +16.59/+11.66 ml at 10/1. This is a response-slope failure, not merely a constant molecular offset. m203 also grows jointly, but more modestly: its matched-150 ul 5/1-to-10/1 change is +3.44/+7.62 ml; historical 10/1 errors were +9.41/+13.66 ml.\",\n      \"observed_ids\": [\n        \"3c43e519a9cf66b66ebc\",\n        \"19229d505f75d05a0bcb\",\n        \"eb151126b40eda411ab7\",\n        \"04ea307c7b7f3321cc20\"\n      ],\n      \"implication\": \"Retain differentiated alcohol transfer. The matched m203 5/1 anchor is eb151126b40eda411ab7; 5885d427a26f03e522f3 uses 50 ul.\"\n    },\n    {\n      \"id\": \"H42\",\n      \"status\": \"supported_and_immediate_questions_answered\",\n      \"basis\": \"observed_measured_evidence\",\n      \"finding\": \"m6 onset changes only 5.78-to-6.28 ml from 2/1 to 20/1 at 50 ul while completion grows 9.84-to-12.98 ml. m71 at 150 ul retains onset near 3.2\u20133.6 ml and completion rises gently from 9.14 at 1/1 to 10.66 ml at 10/1. Its historical low-ratio completion errors of approximately -3.7 to -3.9 ml coexist with accurate onset predictions.\",\n      \"observed_ids\": [\n        \"8398d446af24cfce2962\",\n        \"d5fd79e96156bc59e3fe\",\n        \"ec71ea81bb34e0bf505e\",\n        \"e9aa21d2af3158cfa4f5\"\n      ],\n      \"implication\": \"These labels support separate onset and completion responses. Further routine grid filling in these curves has limited marginal value.\"\n    },\n    {\n      \"id\": \"H43\",\n      \"status\": \"supported_and_immediate_questions_answered\",\n      \"basis\": \"observed_measured_evidence\",\n      \"finding\": \"Both new aldehyde curves show completion-dominated growth through 20/1. m188 changes from 5.22/12.52 at 1/1 to 5.55/21.17 ml at 20/1; m192 changes from 3.93/11.87 to 4.83/18.02 ml. Neither develops an m185-like joint rise over this measured range.\",\n      \"observed_ids\": [\n        \"e1f8b7530ab6a1f9cad1\",\n        \"4ea178918812712ff767\",\n        \"0a47888f8860e1cb8d77\",\n        \"a04af55e394c31f4123a\"\n      ],\n      \"implication\": \"Shallow onset transfers to these conditions, but their different loadings, densities and plugs prevent isolating a positional-isomer correction.\"\n    },\n    {\n      \"id\": \"H44\",\n      \"status\": \"supported_with_predicted_trough_rejected\",\n      \"basis\": \"observed_measured_evidence\",\n      \"finding\": \"m91 completion increases 7.98-to-11.12-to-13.30 ml across 2/1, 5/1 and 20/1 at 100 ul, rejecting the predicted initial decline. Onset also increases from 5.62 to 9.03 ml. m74 grows jointly across its connected curve: 6.36/10.12, 7.45/11.39, 10.63/17.42, 13.37/24.60 and 26.16/41.80 ml across 2/1 through 50/1. Historical m74 errors underestimate both endpoints, whereas m91 errors change sign and endpoint.\",\n      \"observed_ids\": [\n        \"d603d4af5fd62fa8b85e\",\n        \"a2ecf2b2f28094d70368\",\n        \"93f10a8edf06f7acae26\",\n        \"12ee64241e59d6b88e7a\",\n        \"027bbff1ac308c5dd7a1\"\n      ],\n      \"implication\": \"A shared diester correction remains unsupported. The fixed-100 ul shapes are now substantially established.\"\n    }\n  ],\n  \"important_model_behaviors\": [\n    {\n      \"basis\": \"current_candidate_diagnostics\",\n      \"finding\": \"The supplied candidate export uses zero V1 q10 values throughout. Consequently, V1 quantile width equals q90 and strongly reflects endpoint scale. Quantile crossing also occurs: adf7fdfc67d09b71d6c3 has V1 median 7.30 above q90 6.62. Candidate 42858a5819b8eb812861 has negative V2 width, with q90 below q10.\",\n      \"implication\": \"Diagnose quantile construction, ordering and calibration before using widths for acquisition. Large V1 width is not evidence of large reducible uncertainty; narrow V2 width is not evidence of reliability.\"\n    },\n    {\n      \"basis\": \"current_candidate_predictions\",\n      \"finding\": \"Retire the stale endpoint-reversal flags for 8e17cb06a37c48cc9ab5, db51722e47c78067c744 and 409d01129a3e41b32902. Their current predictions are ordered at approximately 5.16/6.65, 5.27/8.13 and 3.58/11.07 ml. The earlier negative-width flag on m153 candidate 5aadd41cc94de38b9875 is also stale; its current V2 width is positive.\",\n      \"implication\": \"Current rows supersede remembered diagnostics. Quantile defects persist elsewhere, but these old examples no longer support their previous claims.\"\n    },\n    {\n      \"basis\": \"current_predictions_compared_with_observed_condition_contrasts\",\n      \"finding\": \"Many current loading predictions remain nearly invariant. For m74 at 2/1, predicted 50-to-100 ul changes are about -0.04/+0.05 ml, whereas measured changes are +0.83/+2.13 ml. Elsewhere, this trajectory contains much larger loading associations and repeated-input variability.\",\n      \"implication\": \"Weak predicted loading sensitivity can motivate a controlled discrimination between local invariance and missed interaction. It cannot establish either explanation.\"\n    },\n    {\n      \"basis\": \"inference_from_measured_feedback\",\n      \"finding\": \"The latest errors distinguish several failure types: excessive alcohol ratio slopes in m51/m203, underestimated low-ratio completion in m71, a wrong completion shape in m27/m91, and relatively accurate m170 predictions.\",\n      \"implication\": \"A universal tail, donor, carbonyl or endpoint correction would combine incompatible residual structures. Assess V1 and V2 slopes and offsets separately.\"\n    }\n  ],\n  \"possible_learning_bottlenecks\": [\n    {\n      \"basis\": \"inference\",\n      \"content\": \"The strongest recurring limitation is conditional response representation within known molecules. Supplied candidate molecule-novelty scores are zero and maximum similarity to observed is 1.0; these fields provide no useful molecular novelty ranking here. Unmeasured ratio/loading combinations can still lie outside a molecule's supported response region.\"\n    },\n    {\n      \"basis\": \"ML_prior\",\n      \"content\": \"Connected contrasts can constrain an offset, a ratio slope or a ratio-by-loading interaction with fewer labels than disconnected extremes. Their value falls after the relevant curve is already established, so recent historical error alone should not keep a neighborhood active.\"\n    },\n    {\n      \"basis\": \"observed_evidence_and_inference\",\n      \"content\": \"Repeated m32 completion changes from 20.07 to 10.98 ml, and m75 100 ul onset changes from 8.23 to 11.62 ml. These weaken deterministic singleton interpretations without identifying an erroneous record or a universal noise floor. The new m27 10/1-to-20/1 contrast likewise needs persistence evidence before being treated as a stable peak.\"\n    },\n    {\n      \"basis\": \"ML_prior\",\n      \"content\": \"An identical-input repeat is useful when persistence changes the preferred response explanation. A neighboring loading or ratio only tests transfer. Neither repetition nor a current training-input fit discrepancy by itself diagnoses optimization, calibration or omitted experimental variables.\"\n    }\n  ],\n  \"coverage_or_redundancy_concerns\": [\n    \"The pool contains exact input duplicates, including 25212b47c6beed9e7a86 and 8ebb30a21329a4f7d769 for m21. Distinct IDs do not imply distinct experiments or independent information.\",\n    \"Keep molecule identity and all five condition fields attached to each row. Density 1.049 versus 1.0491 is a represented input difference, but its numerical novelty alone does not justify another m73 measurement.\",\n    \"Most immediate questions in m6, m71, m170, m188, m192 and the fixed-100 ul diester curves are answered. Further work there should resolve a named interaction or persistence question.\",\n    \"Less developed haloester, substituted-ether and halogenated-aldehyde curves offer condition coverage beyond the repeatedly investigated exceptional surfaces. Candidate multiplicity is not supplied Row prevalence, and no Row-weighted accuracy gain can be estimated.\"\n  ],\n  \"particularly_informative_candidates\": [\n    {\n      \"candidate_ids\": [\n        \"8748c66e5f0823e6a65e\",\n        \"c0adb1c6f9dbe862a4dc\",\n        \"a3c1a0ac40733e8650fb\"\n      ],\n      \"basis\": \"predictions_only_with_observed_anchors\",\n      \"question\": \"m27 at 2/1, 10/1 and 20/1, fixed 100 ul: does completion show the same 10/1 elevation and subsequent fall seen at 50 ul?\",\n      \"value\": \"Distinguishes loading transfer of the newly exposed completion shape from an isolated short 20/1 label. Current 10/1 and 20/1 predictions are approximately 6.13/11.62 and 5.96/10.11 ml. These conditions do not replicate the exceptional 50 ul input.\"\n    },\n    {\n      \"candidate_ids\": [\n        \"d2d6000790408687cc29\",\n        \"4fb92bd1fab3ba235858\"\n      ],\n      \"basis\": \"predictions_only_with_observed_anchors\",\n      \"question\": \"m51 at 1/1 and 10/1, fixed 50 ul: does its strong ratio rise transfer across loading?\",\n      \"value\": \"Connects the measured 50 ul 2/1 anchor to a lower-loading curve and contrasts with the new 150 ul sequence. The measured 2/1 loading change already advances onset by 3.06 ml. Current predictions are approximately 6.41/11.12 and 27.63/58.49 ml; near-invariant loading transfer remains untested.\"\n    },\n    {\n      \"candidate_ids\": [\n        \"d9426ef0af1c968f7fae\",\n        \"83b130b6b5ea23418a95\"\n      ],\n      \"basis\": \"predictions_only_with_observed_anchors\",\n      \"question\": \"m74 at 5/1 and 10/1, fixed 50 ul: does its low-ratio loading difference persist or diminish as retention grows?\",\n      \"value\": \"Uses the measured 2/1, 50 ul anchor and the new 100 ul curve to distinguish an offset from a ratio-dependent loading association. Current predictions closely match the measured 100 ul endpoints, making invariance a concrete competing explanation.\"\n    },\n    {\n      \"candidate_ids\": [\n        \"381a7717cd8db0a06c69\",\n        \"7f4f6bad0930976deaf5\",\n        \"dd7b5675d35297fb2cf2\",\n        \"43752c7d1a89edff7085\"\n      ],\n      \"basis\": \"predictions_only_with_observed_anchors_and_structural_transfer_prior\",\n      \"question\": \"How do alpha-substituted bromoester m76 at 50 ul and bromoacetate m79 at 100 ul progress around their measured intermediate anchors?\",\n      \"value\": \"Provides ordinary ester condition coverage through separate controlled curves. m76 connects 2/1 and 20/1 to measured 10/1; m79 connects 2/1 and 10/1 to measured 5/1. Their different densities and loading contexts remain explicit. This tests structural limits beyond the newly mapped bromomalonate response.\"\n    },\n    {\n      \"candidate_ids\": [\n        \"658d8ba3d430dc7188d8\",\n        \"0ae541927703401945de\",\n        \"e1820b06a1bf3612ff8c\"\n      ],\n      \"basis\": \"current_predictions_only_with_an_observed_baseline\",\n      \"question\": \"Does trimethoxy aromatic m110 at fixed 150 ul exhibit the predicted completion decrease from 2/1 to 5/1?\",\n      \"value\": \"The 1/1, 2/1 and 5/1 sequence connects to its measured pure-EA 150 ul input. Predicted completion is 15.84/18.95/12.44 ml. It tests ether-topology transfer after the m116 decline failed, while allowing a different response. The measured m110 10/1 point uses 50 ul and is contextual.\"\n    },\n    {\n      \"candidate_ids\": [\n        \"872cc42767a008d75dc6\",\n        \"108c776e90a5913e6dd3\"\n      ],\n      \"basis\": \"predictions_only_with_observed_anchors\",\n      \"question\": \"Does m187 preserve shallow onset from 2/1 through 20/1 at fixed 150 ul?\",\n      \"value\": \"Connects two missing ratios to its actual measured 20/1, 150 ul anchor. Extends the differentiated halogenated-aldehyde findings to a trifluoromethyl-containing environment without treating shared polarity descriptors as a common response law.\"\n    }\n  ],\n  \"warnings\": [\n    \"Candidate examples are unranked scientific contrasts, not a batch, allocation or quota. Candidate rows contain predictions only; measured evidence comes from observed-table rows.\",\n    \"Preserve the supplied m117 near-reversal and exceptional m177, m120, m207 and m209 labels without mechanistic generalization. Neighbors do not establish their repeatability.\",\n    \"H34 remains rejected: its purported repeat pair contains m156 and m163. The correct m73 pure-EA anchor is 0b8c7bc2949fb8070c94; 0b8c6c59ae5e24b420e5 is m208.\",\n    \"Sample volume and loading mass remain coupled. V2 minus V1 is elution interval width, not predictive uncertainty. Adsorption and focusing explanations remain chemical priors.\",\n    \"This memo uses only the supplied seed/method trajectory. No validation/test truth, future labels or external trajectories support its recommendations.\"\n  ]\n}",
+  "provenance": {
+    "response_id": "resp_09e52a28499440e1016ad8f7542a408193be29e38053c021ba",
+    "served_model": "gpt-6.1-sol",
+    "usage": {
+      "input_tokens": 559343,
+      "input_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 10458,
+      "output_tokens_details": {
+        "reasoning_tokens": 6557
+      },
+      "total_tokens": 569801,
+      "attribution": {
+        "items": {
+          "msg_09e52a28499440e1016ad8f7542ac8819381d3d9a16a487467": {
+            "input_tokens": 554645,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 554645,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_09e52a28499440e1016ad8f8150a608193ac55a74e0ff3c87d": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 3901,
+            "content": [
+              {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 3901
+              }
+            ]
+          },
+          "rs_09e52a28499440e1016ad8f7696c4c8193b83b09b455dd9134": {
+            "input_tokens": 2,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 516
+          },
+          "rs_09e52a28499440e1016ad8f77690b48193bfff8d06328012fd": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09e52a28499440e1016ad8f78514088193a6dbd5898619b7fb": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09e52a28499440e1016ad8f79547d48193bf9fae1857541d27": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09e52a28499440e1016ad8f7a42db08193b79a0646a55b3959": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09e52a28499440e1016ad8f7b327e08193969df1d5b9175a6d": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09e52a28499440e1016ad8f7bfe2348193b1673d2ad9bc158e": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09e52a28499440e1016ad8f7cfb9dc81939b0cfd6c85e9e1df": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09e52a28499440e1016ad8f7df37a4819398457c0454179e5d": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09e52a28499440e1016ad8f7ed01408193884ae4f673e63668": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09e52a28499440e1016ad8f7fc5234819381d77845a023799f": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09e52a28499440e1016ad8f80b6ed4819383018823d37c7928": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09e52a28499440e1016ad8f814ec108193bf7e6ac9adf6a5c3": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 343
+          }
+        },
+        "request_fields": {
+          "instructions": {
+            "input_tokens": 4696,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "native_tool_calls": 0
+  },
+  "role": "ml_scientist",
+  "call_index": 0
+}

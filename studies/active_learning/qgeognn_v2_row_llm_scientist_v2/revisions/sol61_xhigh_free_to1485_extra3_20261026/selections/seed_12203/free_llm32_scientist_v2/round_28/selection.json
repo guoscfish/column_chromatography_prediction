@@ -1,0 +1,266 @@
+{
+  "type": "selection",
+  "packet_sha256": "c6ef360e16f6dcfd16647da9e62c455ef39cb60c2c0f97740a3dd00e0815f612",
+  "batch_strategy": "Select 32 labels through local experiments anchored by measured rows. Resolve completion-response features exposed by the latest feedback, test loading dependence at fixed ratios, and compare related carbonyl environments without imposing monotonicity. Add missing response segments for recurring ester and hydrocarbon rows and sparsely labeled halogenated aromatics. Avoid incidental identical-input repeats.",
+  "choices": [
+    {
+      "id": "f1e08c239f1c0950ad36",
+      "reason": "m68 at 10/1, 100 uL is predicted at 6.56/22.49 mL. Its newly measured 5/1 completion is 25.62 in c4b06a6e718225cb9cf8, above the 20/1 and 50/1 completions in cb534927304d5c892100 and 9f362bfe1dab6e9eac3d. This locates whether the elevated completion extends through an interior segment or is confined near 5/1.",
+      "hypothesis_id": "H_POLYARYL_RESPONSE"
+    },
+    {
+      "id": "9ee8566ca27ac0454721",
+      "reason": "m68 at 0/1, 100 uL supplies its missing baseline, predicted at 3.13/7.20 mL. Together with measured 2/1 row e3716bf7dba67a0f2185 and the new 5/1 completion in c4b06a6e718225cb9cf8, it distinguishes a steep initial response from an elevated baseline and constrains onset independently of the completion maximum.",
+      "hypothesis_id": "H_POLYARYL_RESPONSE"
+    },
+    {
+      "id": "10b3c563b748d6a9737c",
+      "reason": "m171 at 2/1, 100 uL is predicted at 5.39/11.84 mL. Measured 1/1, 5/1 and 10/1 completions are 10.77, 18.48 and 17.77 in 0901fd8923d9679837cd, a059b2825881c97ce308 and 4fecb175b95402132c29. This tests where the rise into that interior plateau begins after the 5/1 prediction underestimated completion by 6.50 mL.",
+      "hypothesis_id": "H_POLYARYL_RESPONSE"
+    },
+    {
+      "id": "bb18fe197ad7e24c5ed1",
+      "reason": "m165 at 2/1, 100 uL is predicted at 5.16/11.06 mL. It connects its measured pure-EA completion of 9.01 in 0bdd638e906bf11a00cb to 19.17 at 5/1 in 9e0497d20614ebedf8ed. Comparison with measured m164 at 2/1 in cb729a03dac0230812b1 tests whether their completion contrast is already present on the strong side.",
+      "hypothesis_id": "H_POLYARYL_RESPONSE"
+    },
+    {
+      "id": "0dfdfd6dce2d3f41a427",
+      "reason": "m165 at 10/1, 100 uL is predicted to finish at 20.43 mL, almost matching measured m164 at 20.41 in 7726f4a207a737256a86. Their measured contrast has opposite signs at 5/1 and 50/1. This label tests the predicted convergence and helps locate where the much larger weak-eluent contrast develops.",
+      "hypothesis_id": "H_POLYARYL_RESPONSE"
+    },
+    {
+      "id": "3b45c013164f91745fd2",
+      "reason": "m33 at 5/1, 100 uL is predicted at 5.07/11.00 mL, below its measured 1/1 completion of 15.02 in 7a9775ac62acbc27a73d. The new 50-uL 1/1 completion in 7f441e5455eeb896256b was also underestimated. This tests a missing moderate-ratio segment and pairs with selected m134 under the same loading solvent and plug volume.",
+      "hypothesis_id": "H_METHYL_CARBONYL"
+    },
+    {
+      "id": "3525a4882a3afddd9dad",
+      "reason": "m33 at 2/1, 50 uL is predicted to finish at 12.48 mL, versus measured 16.76 at 1/1 in 7f441e5455eeb896256b and 14.26 at 10/1 in b176d0d8203294517e53. It tests whether the low-loading completion falls after 1/1. Its comparison with the selected 100-uL 5/1 row retains the amount difference explicitly.",
+      "hypothesis_id": "H_METHYL_CARBONYL"
+    },
+    {
+      "id": "07d510e8dcc4c021b35b",
+      "reason": "m32 at 5/1, 100 uL is predicted at 6.02/12.24 mL. Paired with its selected 2/1 row, this tests a predicted completion decrease at fixed loading. It provides a neighboring methyl-ketone response beside m33, while retaining their DCM-versus-PE loading-solvent difference.",
+      "hypothesis_id": "H_METHYL_CARBONYL"
+    },
+    {
+      "id": "6e66ea6808d3ce077e47",
+      "reason": "m32 at 2/1, 100 uL is predicted to finish at 15.06 mL, above both measured 1/1 completion 10.12 in 2a4dce3f3faca1767ab8 and its selected 5/1 prediction. The 150-uL 2/1 completion is 15.79 in 05a6276f67b3cca8cc7f. This tests whether the proposed local maximum persists at the intermediate amount.",
+      "hypothesis_id": "H_METHYL_CARBONYL"
+    },
+    {
+      "id": "fa5d86f56c1c38fa9416",
+      "reason": "m81 at 1/1, 50 uL is predicted at 5.13/7.48 mL. Measured same-loading 2/1 completion is 13.00 in 36c9891cc52de490659d, whereas 150-uL 1/1 completion is only 6.66 in 06c0c99f1cfb752ed34b. This tests whether the early 1/1 regime transfers to low loading or whether completion remains elevated there.",
+      "hypothesis_id": "H81_COMPLETION"
+    },
+    {
+      "id": "54d470deb03c6f66b026",
+      "reason": "m81 at 1/1, 100 uL is predicted to finish at 7.62 mL despite a measured pure-EA completion of 14.64 in e301272fe83481e8a85d. The selected 50-uL counterpart and measured 150-uL row 06c0c99f1cfb752ed34b make this a direct test of conditional amount dependence and the proposed strong-side decrease.",
+      "hypothesis_id": "H81_COMPLETION"
+    },
+    {
+      "id": "e6cfb4a6354c69d460de",
+      "reason": "m81 at 2/1, 100 uL is predicted at 5.20/10.64 mL. Measured 50- and 150-uL completions are 13.00 and 7.93 in 36c9891cc52de490659d and bee82d193ec1ce4fde27. Together with selected 1/1 at 100 uL, this separates ratio shape from loading interpolation in the region where recent completion predictions were about 5 mL too late.",
+      "hypothesis_id": "H81_COMPLETION"
+    },
+    {
+      "id": "c7b33bb4e1a37b576135",
+      "reason": "m25 at 1/1, 100 uL starts a matched ratio pair, predicted at 5.16/9.17 mL. At 150 uL, 1/1 records 3f4948999956d25c00e0 and 7a686f0aefeefe62a695 finish near 9.7-9.9 mL, while 2/1 row ac6cfe67adcb860efabf finishes at 5.80. This establishes the reference needed to test that decrease at 100 uL.",
+      "hypothesis_id": "H_BETA_DIP"
+    },
+    {
+      "id": "075248a5ddcd4b5d091f",
+      "reason": "m25 at 2/1, 100 uL completes the selected fixed-loading pair. Its predicted completion is 7.46 versus 9.17 mL at 1/1. Comparison with the measured 150-uL pair tests persistence of the trough across amount, while measured 5/1 row 3b6524f5fc7e0343ff9b at 15.77 mL constrains the subsequent response.",
+      "hypothesis_id": "H_BETA_DIP"
+    },
+    {
+      "id": "99b6aac7dd5c18caba18",
+      "reason": "m26 at 2/1, 100 uL is predicted at 5.98/17.73 mL, between measured 1/1 and 5/1 completions of 13.10 and 20.17 in e1888b5ca18659a8d8eb and f394f6b40e55953df8e1. This tests a contrasting beta-diketone response beside the selected m25 trough experiment, constraining how carbonyl arrangement changes the strong-side curve.",
+      "hypothesis_id": "H_BETA_DIP"
+    },
+    {
+      "id": "5f189f103424c7cfda69",
+      "reason": "m82 at 1/1, 100 uL fills an uncovered ethyl-acetoacetate segment, predicted at 5.32/11.20 mL before measured 2/1 completion 21.36 in ce539fc06bdda7c0ed0d. Measured methyl analogue 598ca66d9a8305ded243 finishes at 12.88 at 1/1. This tests ester-environment transfer and provides a rising-response boundary beside m25 and m26.",
+      "hypothesis_id": "H_BETA_DIP"
+    },
+    {
+      "id": "ac5d83c43c312ae6b483",
+      "reason": "m46 at 0/1, 150 uL anchors a matched strong-side pair, predicted at 4.36/7.54 mL. The new 50-uL pure-EA measurement 84457536bb50a7061808 is 5.50/7.71. This separates baseline loading effects from the unusually early completion predicted at selected 1/1, with measured 150-uL 2/1 row ad7cc17e8d2615575fe3 providing another boundary.",
+      "hypothesis_id": "H_STRONG_SIDE"
+    },
+    {
+      "id": "69e5210bdf6ccaba2d52",
+      "reason": "m46 at 1/1, 150 uL is predicted at 4.04/5.34 mL, finishing earlier than both its selected pure-EA prediction and measured 2/1 completion 7.01 in ad7cc17e8d2615575fe3. The fixed-loading pair tests whether this is another response artifact or a real local decrease, following m117's reproducible counterexample to universal monotonicity.",
+      "hypothesis_id": "H_STRONG_SIDE"
+    },
+    {
+      "id": "7312008fb6a636165c6b",
+      "reason": "m101 at 5/1 and 68.02721088 uL is predicted at 8.38/16.46 mL. Density times volume is approximately 100 mg. Measured same-configuration 2/1 and 20/1 rows 9b612b8b4815d21f4fc6 and af23f4f96549d4e1659f finish at 14.25 and 25.42. This fills an interior segment for a repeatedly represented benzoate configuration.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "6bd522326fb91ebf1379",
+      "reason": "m101 at 10/1 and 68.02721088 uL completes the selected fixed-loading segment, predicted at 10.28/19.08 mL. The two interior labels locate curvature between measured 2/1 and 20/1 anchors without inferring an amount effect from neighboring sample volumes. They may generalize across the catalog's repeated m101 condition rows.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "a8313da6e9c9be0c1636",
+      "reason": "m169 at 20/1, 100 uL is predicted at 5.91/23.69 mL. Measured 10/1 and 50/1 rows 9b11493847c035abf800 and f46da3c00b2199795e4c have early onsets but completions of 17.48 and 36.16. This missing segment tests completion growth in a chloroalkyl aryl ketone and limits transfer from ordinary shorter-completion ketones.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "b54f29a73518aa1f30a7",
+      "reason": "m172 at 5/1, 100 uL is predicted at 3.61/13.83 mL, with earlier onset than measured 1/1 and 10/1 rows 6cb56f71f524d68d7e3f and c4b2566e6fe1d00b20ea. This tests the onset dip and missing completion segment of a cyclopropyl ketone whose carbonyl is separated from the aryl ring, expanding carbonyl-environment coverage.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "8fb7f07df563e78786b2",
+      "reason": "m181 at 5/1, 100 uL is predicted at 9.04/18.73 mL. Measured low-loading 10/1 row 2cc7c8ae52cdb25ca284 and high-loading 20/1 row 0655d71fcec0d1c3c73f establish a later regime but leave its beginning unmeasured. This adds a lactone response boundary beside the now better-anchored fused carbocyclic ketones; amount differences remain explicit.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "8a822ff1d8dbfc293743",
+      "reason": "m139 at 0/1, 100 uL is predicted at 4.66/11.51 mL, finishing later than its selected 1/1 prediction and close to measured 20/1 completion 11.30 in 27c0c131e405aa30b00a. This tests an uncovered strong-eluent baseline in a sparsely labeled, nonpolar iodinated aromatic rather than transferring carbonyl-specific corrections automatically.",
+      "hypothesis_id": "H_STRONG_SIDE"
+    },
+    {
+      "id": "3e9cbdb1e890c7998372",
+      "reason": "m139 at 1/1, 100 uL completes the matched baseline pair, predicted at 5.65/9.14 mL. Measuring both ratios distinguishes a genuine completion decrease from a distorted pure-EA prediction and establishes how much of its response is already present before the measured 20/1 anchor 27c0c131e405aa30b00a.",
+      "hypothesis_id": "H_STRONG_SIDE"
+    },
+    {
+      "id": "dbe79bb4ca4ae4967721",
+      "reason": "m12 at 5/1, 100 uL is predicted at 5.01/15.87 mL. Measured 10/1 and 50/1 rows fefdeb43fb4d634b7880 and 909edd19830874acd4fa finish at 18.19 and 18.30. This tests whether the indene completion plateau is nearly reached by 5/1, covering a recurring hydrocarbon input family with a missing earlier response segment.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "19c803265ff8ef6cb0b0",
+      "reason": "m138 at 50/1, 50 uL extends its sparse fixed-loading curve beyond measured 10/1 row 692f9718b7b1b1619949 at 6.57/10.43 mL. Prediction is 5.59/12.63. This tests the weak-eluent response of a multiply halogenated aromatic and whether its onset stays early, providing exploration beyond the better-labeled carbonyl families.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "6fe77425f0d00758ebb8",
+      "reason": "m134 at 1/1, 100 uL is predicted at 5.39/11.09 mL. It provides a same-ratio comparison with measured dimethyl ketone m33 in 7a9775ac62acbc27a73d, retaining their density difference while matching PE loading solvent and 300-uL plug. The selected 5/1 pair tests whether their aldehyde-versus-ketone completion contrast changes with ratio.",
+      "hypothesis_id": "H_METHYL_CARBONYL"
+    },
+    {
+      "id": "5fe9702f3a3a783b4c94",
+      "reason": "m134 at 5/1, 100 uL is predicted to finish at 13.52 mL, versus 11.00 for selected m33, reversing their predicted contrast relative to 1/1. Measured m134 10/1 and 50/1 anchors c8b332c6c452d13fcc6e and 8b06ec38a7e5999edfa6 finish at 16.80 and 27.78. This tests where the ordinary-volume structural contrast emerges.",
+      "hypothesis_id": "H_METHYL_CARBONYL"
+    },
+    {
+      "id": "5a0302cc67b1fd69b7cd",
+      "reason": "m4 at 1/1, 100 uL is predicted at 4.32/15.70 mL, between measured pure-EA and 5/1 completions of 11.46 and 18.54 in e85d76beae17d6b6ada4 and 5b46916999f1668c7409. Its broad single-predictor completion quantiles are an additional diagnostic. This anchors a large fused aromatic graph's initial response and separates early onset from increasing completion.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "d53a30ff40b1bfdee07e",
+      "reason": "m10 at 0/1, 150 uL starts a fixed-configuration pair, predicted at 2.52/10.89 mL. Existing 100-uL rows e2256ee3039d85dd024b and 00a82096f4ac4e03ea01 anchor only 5/1 and 50/1. This tests the missing stilbene baseline under the recorded 700-uL DCM plug and a proposed strong-side onset/completion contrast.",
+      "hypothesis_id": "H_STRONG_SIDE"
+    },
+    {
+      "id": "87feacbcbae05abe90a8",
+      "reason": "m10 at 1/1, 150 uL completes the selected pair, predicted at 5.49/8.46 mL: later onset but earlier completion than under pure EA. The pair can establish or reject this endpoint-specific response at unchanged loading. It also provides a nonpolar boundary against imposing the strong-eluent corrections learned from carbonyl compounds.",
+      "hypothesis_id": "H_STRONG_SIDE"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H_STRONG_SIDE",
+      "content": "Several uncovered strong-eluent predictions were distorted, but the correction is compound-specific. New labels removed m185's predicted pure-EA completion maximum and corrected m23's excessively early baseline. Measured decreases elsewhere mean that a universal monotonicity constraint remains unjustified.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "abcfcb23dbe2574a2389",
+        "f3a9b0a4924369149487",
+        "1ac98da1ee548520f15b",
+        "84457536bb50a7061808",
+        "00576956c634095bfd14",
+        "02425f554db74d9809d2",
+        "408ce1a4e23492a3ef31"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched strong-side labels can repair both endpoint baselines and response direction while teaching where corrections should stop transferring across functional groups and nonpolar graphs.",
+      "next_discriminating_question": "Do m46, m139 and m10 reproduce their predicted completion decreases at fixed loading, and are onset and completion affected differently?"
+    },
+    {
+      "id": "H81_COMPLETION",
+      "content": "m81 completion has a conditional ratio-by-amount response. The new 150-uL pure-EA and 2/1 completions are early, consistent with its measured 1/1-to-10/1 segment, while the 100-uL pure-EA and 50-uL 2/1 completions are substantially later. A common completion offset or uniform loading correction is inadequate.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "da1432805cdb94057366",
+        "bee82d193ec1ce4fde27",
+        "06c0c99f1cfb752ed34b",
+        "a9500e468002e41eceeb",
+        "7d402b3fad455f06fe68",
+        "e301272fe83481e8a85d",
+        "36c9891cc52de490659d"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The remaining loading levels can distinguish a genuine conditional response from inappropriate interpolation and improve completion prediction independently of the consistently early onset.",
+      "next_discriminating_question": "At 1/1, do 50 and 100 uL resemble the early 150-uL completion, and how does the 100-uL 2/1 label connect the measured lower- and higher-loading responses?"
+    },
+    {
+      "id": "H_POLYARYL_RESPONSE",
+      "content": "The m164-minus-m165 completion contrast changes sign between 5/1 and 50/1. The new m171 interior labels show nearly level completion between 5/1 and 10/1, while m68 finishes later at 5/1 than at its measured 20/1 and 50/1 points. These observations support distinct response shapes rather than a constant polyaryl-carbonyl offset; their chemical causes remain unproven.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "9f450a70d44f4384353f",
+        "9e0497d20614ebedf8ed",
+        "c9bef93a79964dc6ede1",
+        "683b6279a87805548c7c",
+        "a059b2825881c97ce308",
+        "4fecb175b95402132c29",
+        "c4b06a6e718225cb9cf8",
+        "cb534927304d5c892100",
+        "9f362bfe1dab6e9eac3d"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Labels around the observed contrasts teach solvent-dependent structural effects on completion without spreading corrections from one aromatic arrangement across the family.",
+      "next_discriminating_question": "Do m165 and m164 converge at 10/1, where does m165's strong-side rise begin, and does m68's elevated completion extend through 10/1?"
+    },
+    {
+      "id": "H_METHYL_CARBONYL",
+      "content": "m33's pure-EA-to-1/1 completion change differs across loading: completion rises at 50 uL but falls at 100 uL. Its predicted moderate-ratio decrease therefore needs local testing. Comparisons with m32 and the similarly substituted aldehyde m134 may distinguish scaffold-specific response shapes from excessive transfer of a single strong-side label.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "17fd49e7bf1b8c8b08f7",
+        "7f441e5455eeb896256b",
+        "915cf3a7c8100cb7ce1f",
+        "7a9775ac62acbc27a73d",
+        "05a6276f67b3cca8cc7f",
+        "2a4dce3f3faca1767ab8"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "These are common ordinary-volume aromatic carbonyl relationships. Fixed-condition ratio segments and explicit loading-solvent differences can improve transfer among neighboring graphs without assuming a universal methyl-substitution effect.",
+      "next_discriminating_question": "Does m33 completion decrease after 1/1, does m32 have its predicted 2/1-to-5/1 decrease at 100 uL, and does the m33/m134 contrast reverse between 1/1 and 5/1?"
+    },
+    {
+      "id": "H_BETA_DIP",
+      "content": "m25 has a measured 2/1 completion trough relative to 1/1 at 150 uL. Whether this persists at 100 uL is unresolved. Related beta-dicarbonyl environments need separate boundaries: m26 is predicted to rise through 2/1, and m82 has a measured later 2/1 completion whose preceding 1/1 segment is missing.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "ac6cfe67adcb860efabf",
+        "3f4948999956d25c00e0",
+        "7a686f0aefeefe62a695",
+        "e1888b5ca18659a8d8eb",
+        "f394f6b40e55953df8e1",
+        "ce539fc06bdda7c0ed0d"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A matched second-amount pair tests reproducibility of a local feature, while related structures constrain whether the predictor should transfer or suppress that feature across beta-ketoesters and diketones.",
+      "next_discriminating_question": "Does the matched m25 100-uL pair reproduce the trough, and do m26 and m82 instead show increasing completion across their missing strong-side segments?"
+    }
+  ],
+  "feedback_interpretation": "The newest m62 labels reject the proposed transfer of its elevated 150-uL 1/1 behavior to 50 uL: cb79e57eb461a7dcc59a measured 5.78/7.78 mL, rather than the predicted 12.16/12.96. The 150-uL observation remains measured evidence, but it should not become a loading-independent graph feature. I therefore defer further nearby m62 labels. In contrast, m117's completion decrease from 1/1 to 2/1 now appears at all three amounts: about 2.72, 2.59 and 4.63 mL at 50, 100 and 150 uL. That is strong empirical support for this response shape, although it does not establish a mechanism; more adjacent m117 labels have lower marginal priority. For m81, da1432805cdb94057366 and bee82d193ec1ce4fde27 measured completions of 6.96 and 7.93 mL, approximately 5 mL earlier than their acquisition predictions. This shifts the next question toward the missing 50- and 100-uL strong-side responses. m185's pure-EA completion of 7.96 removed its predicted maximum, while m23's baseline was substantially later than predicted, showing that baseline errors occur in both directions. The polyaryl results changed the structural interpretation: m165 finishes later than m164 at 5/1, opposite their 50/1 ordering; m171's 5/1 and 10/1 completions are nearly level; and m68's new 5/1 completion exceeds both weaker-eluent anchors. I now locate those response features rather than treating m68 as a simple plateau control. Finally, m33's new 50-uL strong-side pair reveals a different ratio response from its 100-uL pair, and m19's loading series changes onset much more than completion. These outcomes reinforce endpoint-specific, local loading questions rather than a global amount correction.",
+  "batch_rationale": "The batch combines follow-up experiments that discriminate response shapes with missing segments likely to generalize across recurring catalog rows. The polyaryl and methyl-carbonyl selections address recent completion failures using measured boundaries and structural comparisons. The m81 series and matched m25 pair test loading interactions directly; m26 and m82 provide related chemical boundaries. Three fixed-configuration strong-side pairs test remaining predicted decreases while respecting the now replicated m117 counterexample. The m101 segment covers repeatedly represented ester inputs at a fixed density-times-volume loading, and m12, m138, m139 and m4 expand ordinary-volume aromatic response coverage. m169, m172 and m181 add uncovered carbonyl environments and onset/completion contrasts. Multiple rows on a molecule resolve a specific segment or matched comparison; identical-input duplicates are not selected incidentally. Further m72/m92 repeats, m168 plug comparisons and adjacent m117 measurements are deferred because existing variation or recently resolved questions reduce their marginal value. Quantile widths are used only as single-predictor diagnostics, and V2 minus V1 remains the elution interval. All 32 IDs and their supplied full-precision premeasurement predictions are fixed jointly by this packet before any new label reveal."
+}

@@ -1,0 +1,207 @@
+{
+  "request_sha256": "f4939a3bb2ab967a9e9f800bf8050bd4735bee1ad60b8379edab834774323d30",
+  "answer": "{\n  \"type\": \"memo\",\n  \"role\": \"ml_scientist\",\n  \"packet_sha256\": \"6cc5787808da95c08cd98f04ec3060168f94efd576dba68e58237317b37fedf8\",\n  \"state_summary\": \"Round 16, seed 157, method free_llm32_dual_expert_v1. The authoritative delivery contains 845 observed records and 2,485 eligible candidates, with no validation/test records. The older 813/2,517 counts in memory are stale. Recent measurements answer several prior questions, but they do not establish retrained overall Row accuracy or label-efficiency gains.\",\n  \"important_model_behaviors\": [\n    {\n      \"basis\": \"observed measured evidence\",\n      \"finding\": \"The m163 repeat at the identical 50/1, 50 ul, PE 300 ul input measures 24.86/44.05 ml, close to its premeasurement prediction of 26.05/48.60. The earlier identical record is 7.19/23.25. The new 2/1, 10/1 and 20/1 measurements at 50 ul form a generally increasing intermediate curve.\",\n      \"update\": \"H34 is substantially revised: the repeat weakens a persistent current-model error explanation and highlights serious between-record variation at the 50/1 input. Preserve both labels; the repeat pair does not identify a noise distribution or which record, if either, is erroneous.\"\n    },\n    {\n      \"basis\": \"observed measured evidence\",\n      \"finding\": \"m75's repeated 10/1, 50 ul inputs agree closely, but its 100 ul onset changes from 8.23 to 11.62 ml. m32's repeated 5/1 completion changes from 20.07 to 10.98 ml.\",\n      \"update\": \"Further deterministic interpretation of the original m75 loading step and m32 completion elevation is unwarranted. These are evidence of repeat sensitivity, not a universal variability threshold.\"\n    },\n    {\n      \"basis\": \"observed measured evidence\",\n      \"finding\": \"m87 at 20/1 has similar endpoints at 50 and 100 ul (12.23/26.58 versus 12.01/27.92 ml). At 2/1, 50 and 100 ul completions are also close (13.18 and 13.51), whereas the 150 ul record is 23.51. At 5/1 and 10/1, 50-to-150 ul completion differences are smaller.\",\n      \"update\": \"The prior loading association is ratio-specific and dominated by the 2/1, 150 ul corner; smooth interpolation or a global loading correction is unsupported.\"\n    },\n    {\n      \"basis\": \"observed measured evidence\",\n      \"finding\": \"At fixed 50 ul, m162 increases across 2/1, 5/1 and 10/1 from 4.91/10.10 to 8.88/14.56 to 11.23/20.47 ml. By contrast, m130 remains modest through 20/1 at 150 ul (6.23/13.36), and m144 has its own later, modest growth.\",\n      \"update\": \"These measurements reject excessive transfer of a large nitrile ratio transition; they do not support a common nitrile curve.\"\n    },\n    {\n      \"basis\": \"observed measured evidence\",\n      \"finding\": \"m54 and m175 retain early onset across their measured extensions with modest completion growth. m182 instead shows completion growth before clearer onset growth: at 5/1, 10/1 and 20/1 it measures 5.02/21.80, 5.22/28.70 and 8.19/32.84 ml.\",\n      \"update\": \"Ketone responses remain molecule- and endpoint-specific. The newly measured m53 fixed-100 ul sequence grows jointly, while the purported m53 5/1 anchor is actually m59; retain that mapping correction.\"\n    },\n    {\n      \"basis\": \"observed measured evidence\",\n      \"finding\": \"m58 grows across its sampled ratios at fixed 50 ul. m209's 2/1, 100 ul result (21.85/21.90 ml) is sharply out of line with its measured 1/1, 5/1 and 10/1 neighbors.\",\n      \"update\": \"Do not generalize a shared phenolic response or treat the isolated m209 2/1 result as a stable curve feature without replication.\"\n    },\n    {\n      \"basis\": \"observed measured evidence and data-quality warning\",\n      \"finding\": \"m117 at 10/1, 100 ul has V1 33.58 and V2 33.51 ml, a small endpoint-order reversal.\",\n      \"update\": \"Preserve the recorded values and flag for alignment/integration review. This isolated record is distinct from the previously rejected general endpoint-anomaly premise.\"\n    },\n    {\n      \"basis\": \"historical premeasurement diagnostics\",\n      \"finding\": \"Historical residuals show slope errors of different signs and scales: m130 was greatly overpredicted at high ratios, while m53 was underpredicted as its measured curve grew. In the new m69/m70 measurements, historical completion predictions were generally high; for m182, onset was overpredicted while completion was much closer.\",\n      \"update\": \"A shared signed correction by functional group, polarity or endpoint is unlikely to address these patterns. These are past-model errors, not estimates of current candidate error.\"\n    }\n  ],\n  \"possible_learning_bottlenecks\": [\n    \"Inference: identical-input discrepancies can arise from experimental/record variability as well as model fit. Keep replicate provenance and assess sensitivity to singletons; the supplied evidence does not establish a general noise floor.\",\n    \"Inference: after repeated acquisition, marginal learning is increasingly about condition response and sparse within-catalog chemotypes rather than novel molecule discovery. Candidate molecule-novelty indicators are zero in the supplied examples.\",\n    \"ML prior: evaluate V1 and V2 separately and test whether learning conditional interactions improves held-out Row accuracy; this packet contains no such evaluation result.\"\n  ],\n  \"coverage_or_redundancy_concerns\": [\n    \"The pool offers many condition-level contrasts but also near-duplicate rows. Deduplicate by molecule plus all five condition fields; for example, candidate IDs 9d3f3505ff1be86befbe and 35e055b13ba20e843f0d are identical m12 inputs.\",\n    \"Recent m162, m87, m54/m175, m53/m59, m73/m83 and m58 measurements substantially answer their immediate curve questions. Further sampling should target a specific remaining interaction, not routine grid completion.\",\n    \"The overall Row weighting and error metric are unspecified. Moderate, common-condition behavior remains relevant; large endpoints, novelty and quantile width alone do not establish expected value.\"\n  ],\n  \"particularly_informative_candidates\": [\n    {\n      \"id\": \"9f892e34701ddf30e470\",\n      \"context\": \"m162, 2/1, density 1.0, 100 ul, DCM 300 ul.\",\n      \"predictions_only\": \"Approximately 5.57/10.15 ml.\",\n      \"value\": \"A loading contrast to the measured 50 ul m162 2/1 input; compare with the supplied 150 ul counterpart 9a07019d2e529ba6eda4. Similar predictions are not measured evidence of loading invariance.\"\n    },\n    {\n      \"id\": \"862163fa99660a023b6f\",\n      \"context\": \"m162, 5/1, density 1.0, 150 ul, DCM 300 ul.\",\n      \"predictions_only\": \"Approximately 7.86/14.65 ml.\",\n      \"value\": \"Pairs with the measured 50 ul 5/1 point; together with the 10/1 150 ul candidate ae377e903c7cb2c36b71, it tests whether the measured fixed-50 ul nitrile curve transfers across loading.\"\n    },\n    {\n      \"id\": \"7b8eaa0c9205349f60b1\",\n      \"context\": \"m162, 50/1, density 1.0, 100 ul, DCM 300 ul.\",\n      \"predictions_only\": \"Approximately 23.74/37.81 ml.\",\n      \"value\": \"A higher-ratio loading comparison against measured m162 50/1 data. It probes continuation and loading response without presuming another nitrile transition.\"\n    },\n    {\n      \"id\": \"c7c87de08eb40f9343be\",\n      \"context\": \"m209, 0/1, density 1.375, 100 ul, PE 300 ul.\",\n      \"predictions_only\": \"Approximately 3.26/13.17 ml.\",\n      \"value\": \"Adds a lower-ratio neighbor to the unusual measured 2/1, 100 ul point and the measured 1/1-to-10/1 sequence. It cannot replicate the 2/1 input.\"\n    }\n  ],\n  \"warnings\": [\n    \"Only observed-table IDs provide measured evidence. Candidate records, including predictions on previously measured molecules, are not labels.\",\n    \"Historical errors are from premeasurement models and do not estimate current prediction error or retrained Row accuracy. Quantile widths have no supplied acquisition calibration; supplied V1 q10 values of zero further limit interpreting them as uncertainty.\",\n    \"Preserve all five condition fields. Sample volume and loading mass are coupled. V2 minus V1 is an elution interval, not uncertainty.\",\n    \"Older memory flags an endpoint reversal for candidate 8e17cb06a37c48cc9ab5; the current supplied candidate row predicts approximately 4.13/6.50 ml, so that flag is stale. Do not use it as current evidence.\"\n  ]\n}",
+  "provenance": {
+    "response_id": "resp_08a6188508cf4c04016ad8eab32690819b9bdf1905c2c4612a",
+    "served_model": "gpt-6.1-sol",
+    "usage": {
+      "input_tokens": 545612,
+      "input_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 14198,
+      "output_tokens_details": {
+        "reasoning_tokens": 12072
+      },
+      "total_tokens": 559810,
+      "attribution": {
+        "items": {
+          "msg_08a6188508cf4c04016ad8eab32748819bae164541ab8a3d70": {
+            "input_tokens": 544953,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 544953,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_08a6188508cf4c04016ad8eb200cdc819bb264a67de660816d": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 2126,
+            "content": [
+              {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 2126
+              }
+            ]
+          },
+          "rs_08a6188508cf4c04016ad8eabc4d24819ba6e19eb4fb11bcc0": {
+            "input_tokens": 2,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 516
+          },
+          "rs_08a6188508cf4c04016ad8eac0e038819b99bc9d950dbf11ff": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08a6188508cf4c04016ad8eac52600819b8a8f4a5d82202423": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08a6188508cf4c04016ad8eac99804819b876c174cd4a115f7": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08a6188508cf4c04016ad8eace4c98819bbd6d99ced3dfeb6e": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08a6188508cf4c04016ad8ead31750819bbdd5ba3dd387722d": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08a6188508cf4c04016ad8ead767f4819b98d50bb610fcaa86": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08a6188508cf4c04016ad8eadc5c28819baf06b46dcaca52ff": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08a6188508cf4c04016ad8eae06564819b98bbf66694f3b6e8": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08a6188508cf4c04016ad8eae4e6e8819bb0bb1b03d803a4d3": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08a6188508cf4c04016ad8eae94cb0819b94704901301e70a5": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08a6188508cf4c04016ad8eaee52d8819b98fbd31a57a55a7e": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08a6188508cf4c04016ad8eaf2a14c819bb35a745651777b16": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08a6188508cf4c04016ad8eaf6acbc819ba9a0291f7ae178f1": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08a6188508cf4c04016ad8eafb46fc819bae1b235f01dd11d7": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08a6188508cf4c04016ad8eafffcd8819bb573df479861192d": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08a6188508cf4c04016ad8eb04075c819bab45894879c970fa": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08a6188508cf4c04016ad8eb09cd04819ba6b971c6b3a944af": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08a6188508cf4c04016ad8eb0cc1e0819ba5f6c1102b7a97a5": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08a6188508cf4c04016ad8eb111118819b8b820ce15447581c": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08a6188508cf4c04016ad8eb15b2c0819bb8535eff1b6b2928": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08a6188508cf4c04016ad8eb1a6bb4819b81b0cc2f0dcaf652": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08a6188508cf4c04016ad8eb1e9cd4819baaaae61379e82d38": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_08a6188508cf4c04016ad8eb2000c8819bbf9bc852dff01dae": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 160
+          }
+        },
+        "request_fields": {
+          "instructions": {
+            "input_tokens": 657,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "native_tool_calls": 0
+  },
+  "role": "ml_scientist",
+  "call_index": 0
+}

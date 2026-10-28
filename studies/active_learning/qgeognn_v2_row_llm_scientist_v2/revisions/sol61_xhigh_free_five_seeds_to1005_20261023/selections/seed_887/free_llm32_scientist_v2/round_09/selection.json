@@ -1,0 +1,291 @@
+{
+  "type": "selection",
+  "packet_sha256": "aa41b24c425be75103708785ba16149648491b5538dde6af010413bc09990ae2",
+  "batch_strategy": "Freeze these 32 IDs and their supplied V1/V2 predictions as one batch. Prioritize unresolved structure-condition relationships exposed by recent outcomes: conditional loading sensitivity, graph-specific solvent-response curves, and weak-eluent benzoate behavior. Include one deliberate repeat of a discrepant recorded tuple, controlled local contrasts, and missing response segments in sparsely supervised graphs. Avoid redundant candidate tuples within the batch.",
+  "choices": [
+    {
+      "id": "4862e2fb71344ce16021",
+      "reason": "m177, 50/1, 100 ul; frozen V1/V2=18.44611930847168/78.36489868164062 mL. Completes the amount series between 5b706e17e8412d02342f at 50 ul, 21.33/59.88, and b514312eda7950cdcf1c at 150 ul, 4.49/81.30. Tests whether the opposing onset and completion associations interpolate across amount, without extending the isolated short 20/1 interval into a general rule.",
+      "hypothesis_id": "H1_interval_variation"
+    },
+    {
+      "id": "de833d1e7905f1cc3be9",
+      "reason": "m118, 5/1, 150 ul; frozen V1/V2=10.549555778503418/21.876989364624023 mL. Directly contrasts with 100-ul observation 98586ac2d6d266ddb78c, 12.88/20.30, and supplies the adjacent ratio to new 150-ul 10/1 observation ea004678fc850c759752, 19.16/30.41. Distinguishes a reproducible response segment from the very different 100-ul onset pattern.",
+      "hypothesis_id": "H1_interval_variation"
+    },
+    {
+      "id": "4e7e45a513ce579c5ce3",
+      "reason": "m118, 2/1, 150 ul; frozen V1/V2=9.776627540588379/25.344064712524414 mL. With the selected 5/1 point and measured 10/1 row ea004678fc850c759752, establishes a fixed-loading stronger-eluent segment. The prediction places completion above the selected 5/1 prediction; measuring both tests this curvature rather than assuming that the discordant 10/1 amounts identify a loading threshold.",
+      "hypothesis_id": "H1_interval_variation"
+    },
+    {
+      "id": "97318de99bab4460cf4e",
+      "reason": "m200, 1/1, 50 ul; frozen V1/V2=13.052559852600098/40.376346588134766 mL. Compare with 150-ul reference 5da8c25a3982216fb112, 11.19/38.02. At 2/1, a92f7617b135de150588 and f91285c618eacb53538b showed a 14.23-mL onset difference across these amounts. Tests whether stronger eluent attenuates that association in this nitro alcohol, as observed previously for other graphs.",
+      "hypothesis_id": "H2_conditional_loading"
+    },
+    {
+      "id": "04a2e8ad27ca641a3a12",
+      "reason": "m146, 5/1, 50 ul; frozen V1/V2=31.4110164642334/65.52934265136719 mL. Direct amount contrast with 51f5ae6a991eea9e720e at 100 ul, 31.31/60.95. The recent 10/1 comparison between 9e3ce3497298084abd83 and 23ef03f3e75e40b20095 shifted onset earlier by 8.24 mL at higher amount with little completion change. Tests the solvent dependence of that association.",
+      "hypothesis_id": "H2_conditional_loading"
+    },
+    {
+      "id": "b645df00945e594953a6",
+      "reason": "m40, 20/1, 100 ul; frozen V1/V2=14.947574615478516/29.36606216430664 mL. Contrasts with 50-ul observation ff9bcaab8e95f60d70bc, 21.75/35.99. Together with the selected 50/1 point, tests amount sensitivity at two ratios of acetyl-naphthalene. This distinguishes a conditional loading relationship from structural-response underfitting after the recent interior corrections.",
+      "hypothesis_id": "H2_conditional_loading"
+    },
+    {
+      "id": "c2334ccf8e6788ac6ca2",
+      "reason": "m40, 50/1, 100 ul; frozen V1/V2=27.256484985351562/50.87449645996094 mL. Matched-ratio reference 8b9ff1a26d840aaa6a49 at 50 ul measured 40.62/65.53. The selected 20/1 contrast supplies a second ratio, allowing endpoint-specific amount associations to be compared across eluent strengths rather than inferred from a single weak-eluent difference.",
+      "hypothesis_id": "H2_conditional_loading"
+    },
+    {
+      "id": "781b8d96d8bc7c124dc9",
+      "reason": "m56, 100/1, 50 ul; frozen V1/V2=8.751631736755371/18.850032806396484 mL. Deliberate repeat of the recorded tuple in 81cd2078a0008c2c9cd9, which measured 5.31/7.85, versus 150-ul observation 3016ab4b83227fcf83e4, 7.69/27.38. A second low-amount label discriminates reproducible amount dependence from tuple-level variation before further labels encode a deterministic weak-eluent downturn.",
+      "hypothesis_id": "H3_benzoate_response"
+    },
+    {
+      "id": "73d2b61a089521939a3e",
+      "reason": "m56, 20/1, 150 ul; frozen V1/V2=6.445392608642578/12.577088356018066 mL. Contrasts directly with low-amount 7a3708dd5094bb49d459, 7.38/11.52. Alongside the selected 100/1 low-amount repeat and existing high-amount 100/1 label 3016ab4b83227fcf83e4, tests whether the large completion difference is confined to weak eluent.",
+      "hypothesis_id": "H3_benzoate_response"
+    },
+    {
+      "id": "9c74e865c47b45a09229",
+      "reason": "m174, 50/1, 50 ul; frozen V1/V2=23.941722869873047/36.37305450439453 mL. Fills the fixed-loading gap between 704ba630f25fe7f20166 at 30/1, 11.99/18.29, and recent 54bc75cc4d64dac2ed48 at 100/1, 39.30/58.54. The latter was strongly underpredicted at acquisition. This locates the response increase across a repeatedly represented benzoate grid.",
+      "hypothesis_id": "H3_benzoate_response"
+    },
+    {
+      "id": "36b45fbdbace5950c108",
+      "reason": "m174, 100/1, 150 ul; frozen V1/V2=38.090911865234375/56.97455596923828 mL. Directly contrasts with 54bc75cc4d64dac2ed48 at 50 ul. The m56 amount contrast produced a large completion difference, but benzyl benzoate need not share it. Tests transfer or legitimate local invariance where the current remaining predictions barely distinguish amount.",
+      "hypothesis_id": "H3_benzoate_response"
+    },
+    {
+      "id": "b7e013953a302595b447",
+      "reason": "m84, 20/1, 50 ul; frozen V1/V2=8.407371520996094/19.98893165588379 mL. Fills the fixed-loading interval between 89b6013d19ba95312c59 at 10/1 and d15ae6c5a25f630d3055 at 30/1; 19ac0f010c25e2c5360d extends that curve to 40/1. Numerous eligible rows repeat these settings. This ordinary-volume label can constrain onset curvature and completion interpolation in substantial repeated Row coverage.",
+      "hypothesis_id": "H3_benzoate_response"
+    },
+    {
+      "id": "00024cd15c1b4e6c6ef8",
+      "reason": "m55, 30/1, 100 ul; frozen V1/V2=6.997917652130127/13.07730484008789 mL. Interpolates at identical loading between 98f205d21cdccb427f9e at 20/1, 5.25/10.71, and bfe9ce431b45599fd5e6 at 40/1, 5.84/14.55. Repeated candidate tuples make this a useful test of a modest ester response, complementing the much steeper benzyl-benzoate curve.",
+      "hypothesis_id": "H3_benzoate_response"
+    },
+    {
+      "id": "382c90a40989c39ceed1",
+      "reason": "m101, 5/1, 102.0408163 ul, approximately 150 mg; frozen V1/V2=8.084714889526367/16.22223472595215 mL. Extends identically loaded 1/1 observation da10b7eb5f74593251cb, 5.39/14.35. With the selected 50/1 point, tests the predicted shallow response of bromomethyl-substituted methyl benzoate, whose missing ratios currently rely heavily on transfer from other esters.",
+      "hypothesis_id": "H3_benzoate_response"
+    },
+    {
+      "id": "8925249b7fbe141dbce6",
+      "reason": "m101, 50/1, 102.0408163 ul; frozen V1/V2=11.835443496704102/25.905155181884766 mL. Holds loading fixed with selected 5/1 and observed da10b7eb5f74593251cb. Tests whether the modest predicted weak-eluent increase is supported or misses substituent-specific growth, as happened for m174 at 100/1. Multiple eligible IDs share this sparse condition grid.",
+      "hypothesis_id": "H3_benzoate_response"
+    },
+    {
+      "id": "0d18f3f10c8377d12316",
+      "reason": "m28, 1/1, 100 ul; frozen V1/V2=4.614407539367676/19.435482025146484 mL. Adds the stronger-eluent boundary of the controlled 2/1, 5/1, 10/1 series in 5522a1ec1f8e39cedb13, bfbe491a54086b98874d, and 351c17dfa8f46a8cb40a. Recent completion underpredictions at 5/1 and 10/1 show that this ester-plus-aldehyde graph needs its own response shape.",
+      "hypothesis_id": "H4_carbonyl_topology"
+    },
+    {
+      "id": "db7f9ffa50eb931613f6",
+      "reason": "m28, 10/1, 50 ul; frozen V1/V2=42.0782470703125/83.49845123291016 mL. Direct amount contrast with recent 351c17dfa8f46a8cb40a at 100 ul, 39.13/81.40. Tests whether the newly corrected late response transfers across amount or conceals the onset sensitivity measured in other retained compounds. Either result helps separate graph-response correction from loading correction.",
+      "hypothesis_id": "H2_conditional_loading"
+    },
+    {
+      "id": "b5aa0bae2967975bdf4b",
+      "reason": "m182, 10/1, 150 ul; frozen V1/V2=8.222749710083008/35.983642578125 mL. Extends fluorenone from identically loaded d7603686249e1fb69a60 at 5/1, 4.70/22.94. Together with selected 20/1, supplies a controlled curve for a ring-embedded ketone. The recent acetylfluorene label cace6f00c46aea69fe39 provides a related graph reference, although its loading differs.",
+      "hypothesis_id": "H4_carbonyl_topology"
+    },
+    {
+      "id": "204c95299f49a2bcdb61",
+      "reason": "m182, 20/1, 150 ul; frozen V1/V2=13.456643104553223/46.364967346191406 mL. Completes the selected fixed-loading 5/1-to-10/1-to-20/1 segment. Its high CW distance indicates missing feature-space coverage, not a calibrated error probability. Tests the predicted combination of modest onset growth and extended completion for fluorenone against the differentiated fused-arene ketone observations.",
+      "hypothesis_id": "H4_carbonyl_topology"
+    },
+    {
+      "id": "1668026caa5d708642cf",
+      "reason": "m180, 20/1, 100 ul; frozen V1/V2=8.357375144958496/30.41269874572754 mL. Fills the missing interior between stronger-eluent tetralone observations 5149828089c3ed20123a and 983a604ac43bb4d41238, and weak-eluent 52348febee6695107c49, 22.75/48.88 at 50/1. Tests where retention begins rising for this cyclic aryl ketone, alongside the selected fluorenone curve.",
+      "hypothesis_id": "H4_carbonyl_topology"
+    },
+    {
+      "id": "f6c49d6bc4b677f17278",
+      "reason": "m212, 2/1, 50 ul; frozen V1/V2=10.409083366394043/18.525428771972656 mL. Directly precedes identically loaded 5/1 observation d5234e966aa231be05e5, 7.24/13.67. The prediction implies an intermediate decrease before the much later 10/1 observations at other amounts. Tests whether this secondary amine shares a real local downturn or an unsupported interpolation; the new anthranilate results caution against trusting predicted extrema.",
+      "hypothesis_id": "H5_nitrogen_context"
+    },
+    {
+      "id": "6b5982c6e1bbaadd6a95",
+      "reason": "m11, 10/1, 100 ul; frozen V1/V2=13.275527000427246/30.276016235351562 mL. Extends the identically loaded oxime reference 1182373ab8814dbe2f43 at 5/1, 6.93/15.70. Measured 20/1 row 79cb1738d945317e5bfa is later but uses 50 ul. This label and selected 50/1 constrain a donor-acceptor graph whose missing response segments cannot be established from a shared nitrogen or oxygen correction.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "9ffee2813aef5c26f96f",
+      "reason": "m11, 50/1, 100 ul; frozen V1/V2=28.81311798095703/73.55463409423828 mL. With selected 10/1 and observed 1182373ab8814dbe2f43 at 5/1, tests the oxime's weak-eluent extension at fixed loading. The 20/1 anchor 79cb1738d945317e5bfa measured 20.68/45.58 at a different amount. This distinguishes endpoint growth across solvent strength without treating its broad interval as uncertainty.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "9bbd36c8b484b5609808",
+      "reason": "m92, 50/1, 150 ul, EA loading; frozen V1/V2=20.271326065063477/61.20960235595703 mL. Extends identically loaded alpha-ketoester observation e9dc948c0e68a88eb621, 5.42/21.38 at 20/1, and contrasts with low-amount 50/1 reference 7caf1db075b91197ba34. Tests weak-eluent growth and amount transfer in a carbonyl arrangement distinct from the selected beta-ketoesters; EA versus DCM loading limits cross-family attribution.",
+      "hypothesis_id": "H4_carbonyl_topology"
+    },
+    {
+      "id": "5fd0921bbbba1e22abf9",
+      "reason": "m95, 50/1, 150 ul; frozen V1/V2=26.14854621887207/64.52230834960938 mL. Extends methyl acetoacetate from matched-loading d448d8de2d8dacec62c3 at 20/1, 15.69/48.54, which was overpredicted at acquisition. Tests whether correction at that anchor establishes the weak-eluent slope. The selected tert-butyl analogue supplies a related ester-context comparison with its differing loading acknowledged.",
+      "hypothesis_id": "H4_carbonyl_topology"
+    },
+    {
+      "id": "3fc05dc2025715e68174",
+      "reason": "m25, 50/1, 100 ul; frozen V1/V2=23.724403381347656/52.97163391113281 mL. Extends the fixed-loading tert-butyl acetoacetate series from 9ea628a740f0855c4dbe at 1/1 and 53774efff44f690d6f30 at 10/1, 12.28/24.24. Tests transfer of the weak-eluent response across beta-ketoester substituents, rather than inferring it from descriptors or from the differently loaded 20/1 observation.",
+      "hypothesis_id": "H4_carbonyl_topology"
+    },
+    {
+      "id": "c692f211a6366b2f15c2",
+      "reason": "m26, 20/1, 150 ul; frozen V1/V2=9.92444896697998/29.72542381286621 mL. Interpolates at identical loading between cd886ea93739886ed3c6 at 5/1, 5.21/19.87, and 6020a000a87663526cc8 at 50/1, 14.58/34.78. The latter was substantially overpredicted at acquisition. This beta-diketone control tests whether the model can retain a relatively modest curve while learning steeper multifunctional-carbonyl responses.",
+      "hypothesis_id": "H4_carbonyl_topology"
+    },
+    {
+      "id": "ade065af3a515fc41105",
+      "reason": "m88, 2/1, 100 ul; frozen V1/V2=12.29308795928955/26.139482498168945 mL. Supplies the missing stronger-eluent neighbor of d2921349ba8d9cef15a4 at 5/1, 26.69/61.83, with all loading settings fixed. Tests the onset and completion rise for meta-aminobenzoate after the predicted anthranilate 2/1 peaks failed, avoiding transfer of one positional isomer's response shape to another.",
+      "hypothesis_id": "H5_nitrogen_context"
+    },
+    {
+      "id": "c70b471334f9747d6f98",
+      "reason": "m86, 5/1, 50 ul; frozen V1/V2=31.047849655151367/64.6029281616211 mL. Contrasts directly with 150-ul observation 9bc73e0c27d4d6b44abb, 26.80/57.07. Tests loading sensitivity in para-aminobenzoate at the solvent regime where its response rises strongly. The selected meta isomer addresses a neighboring response segment, but different loading conditions prevent a pure positional-effect attribution.",
+      "hypothesis_id": "H5_nitrogen_context"
+    },
+    {
+      "id": "a594ed374525b27ed662",
+      "reason": "m186, 5/1, 100 ul; frozen V1/V2=6.924386024475098/24.57581901550293 mL. Adds a fixed-loading stronger-eluent neighbor to 79faae5899539a97f8d9 and 5f1ae4e354b8b36ec691, whose 10/1 and 20/1 completions were almost unchanged at about 20.5 mL. Tests whether the predicted higher 5/1 completion is real or an unsupported shoulder in this bromohydroxyaldehyde curve.",
+      "hypothesis_id": "H6_hydroxyaldehydes"
+    },
+    {
+      "id": "b73454f4c6942f4deb70",
+      "reason": "m190, 2/1, 100 ul; frozen V1/V2=12.772770881652832/23.13196563720703 mL. Same loading as measured 10/1 row 2029b30e714e5ff498bf, 6.22/24.14, and 20/1 row d1774335b45258bc173a, 7.57/29.88. Tests the predicted strong-eluent onset maximum while completion remains similar. Recent failed aminoester maxima make this a useful cross-context test of prediction shape, not evidence that the maximum exists.",
+      "hypothesis_id": "H6_hydroxyaldehydes"
+    },
+    {
+      "id": "9b1545dfa05c9439870b",
+      "reason": "m209, 10/1, 100 ul; frozen V1/V2=7.935773849487305/15.392400741577148 mL. Para-trifluoromethoxyphenol is sparsely supervised by strong-eluent observation 2a7062ac85d66260b3be at a different amount. Silica hydrogen bonding makes additional retention chemically plausible, while the ordinary predicted interval and high CW distance identify an untested donor-response regime. This explores a possible missed relationship without declaring a predicted error.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1_interval_variation",
+      "content": "Short completion intervals and large amount contrasts require neighboring supervision before becoming deterministic response rules. New m177 results show that its short low-amount 20/1 completion does not persist at 10/1 or 50/1. The third m118 amount gives nonmonotonic completion across amount at 10/1. These patterns can contain learnable conditional associations, but measured recorded-tuple discrepancies elsewhere demonstrate variation beyond the supplied inputs.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "aa43fe84c0d8c825fe58",
+        "5e276c1730fc0a9deba7",
+        "5442611ea6789d42bc86",
+        "5b706e17e8412d02342f",
+        "2cc254396123c76b9a13",
+        "319e89d7000731f64e7f",
+        "ea004678fc850c759752",
+        "73155d7feac7857188dd",
+        "10f14f6ee69ba06bbe68"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Separate onset and completion supervision can prevent isolated short labels from distorting neighboring ratios or producing an unjustified universal loading threshold.",
+      "next_discriminating_question": "Does the intermediate m177 amount interpolate the opposing onset/completion associations at 50/1, and does m118's fixed-150-ul stronger-eluent curve differ from its 100-ul curve?"
+    },
+    {
+      "id": "H2_conditional_loading",
+      "content": "Amount associations depend on molecule, solvent regime, and endpoint. At 2/1, m200 onset decreases across 50, 100, and 150 ul, with a smaller completion decrease. At 10/1, m146 shows earlier onset at higher amount with nearly unchanged completion. In contrast, m206 completion increases between 50 and 100 ul. These associations support conditional sensitivity, not a common loading correction or a causal mechanism established from the recorded variables alone.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "a92f7617b135de150588",
+        "3fbf4a3d05e84138e1e2",
+        "f91285c618eacb53538b",
+        "9e3ce3497298084abd83",
+        "23ef03f3e75e40b20095",
+        "a6145bb0c9947f9515df",
+        "614873124b33029a924c",
+        "7954bf73f74c7fbcecb2",
+        "e8f592c469b2f3c136d8"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Many remaining predictions barely distinguish amount. Selected contrasts can teach both endpoint-specific sensitivity and legitimate invariance, with two-ratio comparisons testing whether the association changes with eluent strength.",
+      "next_discriminating_question": "Does stronger eluent attenuate the m200 and m146 onset associations, and do retained neutral carbonyl graphs show comparable sensitivity or local invariance?"
+    },
+    {
+      "id": "H3_benzoate_response",
+      "content": "Benzoate response curves differ substantially by structure and may also depend on amount. Benzyl benzoate develops a large weak-eluent increase, whereas low-amount isobutyl benzoate has a short 100/1 completion and its high-amount counterpart finishes much later. The latter difference remains ambiguous between reproducible amount dependence and unrecorded variation. Isoamyl and chlorobenzoate observations show more modest response segments.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "54bc75cc4d64dac2ed48",
+        "704ba630f25fe7f20166",
+        "3016ab4b83227fcf83e4",
+        "81cd2078a0008c2c9cd9",
+        "66d759515aa12dcf0810",
+        "89b6013d19ba95312c59",
+        "19ac0f010c25e2c5360d",
+        "bfe9ce431b45599fd5e6"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Repeated candidate tuples give this family substantial representation in the eligible pool. A repeat, missing ratio segments, and targeted amount contrasts can constrain both ordinary and steep curves without transferring one ester's behavior across the family.",
+      "next_discriminating_question": "Is the low-amount m56 100/1 result reproducible, is its amount association weaker at 20/1, and where does m174's fixed-loading rise occur between 30/1 and 100/1?"
+    },
+    {
+      "id": "H4_carbonyl_topology",
+      "content": "Carbonyl arrangement and structural environment require graph-specific solvent-response supervision. Recent m40 interior labels were earlier than predicted, acetylfluorene's 20/1 label was close, and acetoxybenzaldehyde and methoxybenzophenone showed substantial completion underprediction in particular segments. These outcomes oppose a shared carbonyl offset and show that correcting an anchor does not establish neighboring slopes.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "594f52943fa688878ad4",
+        "ff9bcaab8e95f60d70bc",
+        "cace6f00c46aea69fe39",
+        "bfbe491a54086b98874d",
+        "351c17dfa8f46a8cb40a",
+        "0cf0d36290765378ae8d",
+        "2d178efe0181baca2bd5",
+        "d448d8de2d8dacec62c3"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Controlled cyclic-ketone curves and alpha-ketoester, beta-ketoester, and diketone response segments can teach reusable graph-condition interactions beyond heteroatom counts, polarity descriptors, or a common late-retention adjustment.",
+      "next_discriminating_question": "Do ring-embedded ketones follow their predicted onset/completion growth, and do the distinct carbonyl arrangements preserve their predicted weak-eluent slopes after the measured interior corrections?"
+    },
+    {
+      "id": "H5_nitrogen_context",
+      "content": "Nitrogen-containing graphs require context-specific response shapes. The newly measured anthranilate 2/1 endpoints were substantially below their predicted maxima; methyl anthranilate has a measured onset trough relative to its 1/1 and 5/1 points at fixed loading. Aminobenzonitrile completion nearly converges at 1/1 despite substantial positional differences at 5/1. Neither basicity nor donor/acceptor counts determine a common curve.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "04e994913bc43aa60007",
+        "b4af5b2a9ead4e589dee",
+        "9fa7a350e402312e5860",
+        "645cb06b9e2a33b6044b",
+        "19732d5797039e3465b6",
+        "a8ae74aecb3b1e85b73c",
+        "ad833f34f6b91872362d",
+        "a60552f4d1a5ced4641f"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Measurements of missing aminoester and secondary-amine segments can distinguish genuine local downturns from prediction artifacts while retaining structural positional information.",
+      "next_discriminating_question": "Does meta-aminobenzoate have the predicted early 2/1 response, does para-aminobenzoate show an amount association at 5/1, and is dibenzylamine's predicted decrease toward its measured 5/1 point supported?"
+    },
+    {
+      "id": "H6_hydroxyaldehydes",
+      "content": "Hydroxyaldehydes retain differentiated measured response curves. The latest m117 interpolation and weak-eluent extension were reasonably predicted after earlier corrections, while m186 completion stayed almost unchanged from 10/1 to 20/1 and remained earlier than predicted. The strong-eluent portions of the brominated isomers remain insufficiently supervised. These observations do not establish an intramolecular-interaction mechanism.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "79faae5899539a97f8d9",
+        "5f1ae4e354b8b36ec691",
+        "2029b30e714e5ff498bf",
+        "d1774335b45258bc173a",
+        "1d15ee46756cd1845a68",
+        "fe1a34b5975943e8f292"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Fixed-loading stronger-eluent measurements test whether the model has learned distinct positional response shapes or is introducing unsupported shoulders and onset maxima.",
+      "next_discriminating_question": "Does m186 truly finish later at 5/1 than at 10/1, and is m190's predicted 2/1 onset maximum supported relative to its measured 10/1 and 20/1 points?"
+    }
+  ],
+  "feedback_interpretation": "The latest outcomes narrow several previous hypotheses. For m177, the 10/1 low-amount completion of 21.03 mL agrees closely with the 100-ul reference of 20.70, whereas its 50/1 low-amount completion is 59.88 and its onset is 21.33. The short 20/1 low-amount interval therefore cannot be generalized to adjacent ratios. For m118 at 10/1, the third amount measured 19.16/30.41, so completion does not increase monotonically across the three amounts; a simple loading threshold is weakened further. I now favor a missing fixed-loading response segment and one intermediate m177 amount over extending deterministic explanations. The m200 amount series strengthens an earlier-onset association at higher amount, but its completion decreases modestly, opposite to the increasing completion observed in some naphthyl alcohol contrasts. The new m146 contrast also shifts onset much more than completion. These results motivate tests of solvent-dependent sensitivity rather than a global amount slope. The predicted anthranilate 2/1 maxima failed: m89 measured 6.81/14.22 and m104 measured 4.81/10.45. For m104 the observed onset trough is supported by its fixed-loading neighbors. The aminobenzonitrile 1/1 completion convergence, however, was supported. The carbonyl results were heterogeneous: m40 interior endpoints were overpredicted, m38 at 20/1 was close, and m28 at 10/1 plus m114 and m118 weak-eluent completions were underpredicted. This favors graph-specific response segments. Benzyl benzoate's 100/1 result revealed much stronger growth than predicted, while m56's 150-ul 100/1 completion was 19.53 mL above its low-amount reference. That difference warrants one deliberate low-amount repeat before treating it as a deterministic loading interaction. The m117 follow-up predictions were reasonably accurate, reducing the priority of further nearby labels there; m186 still needs its stronger-eluent segment. The m9 PE/DCM comparison at 2/1 differed little, and the 20/1 comparison mainly changed completion by about 2.86 mL. These do not establish a transferable loading-solvent effect, so further m9 contrasts receive lower priority. The physically inconsistent m45 label remains unresolved and is not treated as an acid-response finding. All errors discussed are frozen acquisition-time errors, not current-model residuals.",
+  "batch_rationale": "The batch combines failure repair with exploration of relationships that remain uncovered after 621 labels. The m177 and m118 selections discriminate specific explanations for discordant endpoints. Controlled amount contrasts for m200, m146, m40, m28, and benzoates test whether the model's weak amount sensitivity is appropriate in each solvent regime. The m56 repeat has a distinct purpose: resolving whether an influential short interval is reproducible before nearby supervision reinforces an incorrect rule. Benzoate interpolation and the m101 curve address repeated candidate regions, including modest predicted volumes whose labels may benefit many similar rows. Cyclic ketones, the oxime, and different carbonyl arrangements add missing response segments with measured anchors rather than molecular diversity alone. The nitrogen and hydroxyaldehyde selections directly test unsupported extrema and positional transfer; the sparsely supervised phenol provides an additional test of an ordinary predicted-retention region where chemical prior and current model behavior leave a useful open question. All selected molecules are already observed, so exploration concerns structure-condition relationships. Multiple selections for one molecule form interpretable curves or contrasts, and no tuple is duplicated within the batch. Cross-molecule comparisons are not claimed to isolate structure when density, amount, loading solvent, or solvent-plug volume differ. CW distance is used as coverage evidence only. Single-predictor quantile spans, many with zero lower V2 quantiles and some crossed V1 quantiles, are not treated as calibrated epistemic uncertainty; V2 minus V1 is the elution interval width. The expected gain is better supervision of reusable graph-condition and endpoint-specific relationships across the Row-distribution."
+}

@@ -1,0 +1,281 @@
+{
+  "type": "selection",
+  "packet_sha256": "4103ca69fe180f06221bf983a9adcc7082bb9bc2096733d56f49db784bec88e0",
+  "batch_strategy": "Freeze these 32 IDs with their packet-supplied V1/V2 predictions. Select new condition tuples that discriminate scaffold-specific solvent responses, endpoint-specific loading effects, and suspicious model extrapolations. Use measured neighboring conditions as anchors, avoid redundant catalog duplicates, and treat quantile widths and CW distances as supporting signals rather than calibrated epistemic uncertainty.",
+  "choices": [
+    {
+      "id": "4e5ead91320bd24d485e",
+      "reason": "m207 at 5/1 and 50 uL tests whether the retention dip measured at 100 uL in ec6846c0fcb7df17c97d also occurs at the loading of recent 2/1 row 6be742f06dddb42eb929. Together with the selected 10/1 point, it distinguishes a reproducible local response from loading dependence or row variability.",
+      "hypothesis_id": "H_LOAD"
+    },
+    {
+      "id": "a19f98569910dc7fd6c4",
+      "reason": "m207 at 10/1 and 50 uL completes the selected fixed-loading 2/1\u20135/1\u201310/1 comparison. Measured 100-uL row ff3b6b1069b7d66ad021 was 38.08/66.27 mL; the current 50-uL prediction is 31.05/56.34. This tests transfer of the sharp retention increase across loading.",
+      "hypothesis_id": "H_LOAD"
+    },
+    {
+      "id": "25ffcaa2164643e082b9",
+      "reason": "m119 at 1/1 and 100 uL locates the strong-eluent side of the methoxyphenethyl-alcohol transition. Rows 9e6c69af6f5142faa049 and 776ee2c1e85ebde75168 establish substantially later behavior at 2/1 and 5/1, although only the latter matches this loading.",
+      "hypothesis_id": "H_TRANSITION"
+    },
+    {
+      "id": "6e07556df6bb6e9df96e",
+      "reason": "m200 at pure EA and 100 uL anchors the previously unmeasured strong-eluent boundary of a nitro alcohol. Measured 1/1 row 7dace1dbecce79e17117 is 13.55/38.25 mL, while the selected prediction is 4.33/14.21. This tests how rapidly both endpoints change before the known retained regime.",
+      "hypothesis_id": "H_TRANSITION"
+    },
+    {
+      "id": "e7bf6bd74f8498f1cb11",
+      "reason": "m216 at 2/1 and 100 uL fills the gap before measured quinoline rows 33ffc69a253a89f15995 at 5/1 and 9cd02352c2ed7a3e2321 at 10/1. It can constrain the onset of ring-N retention without extrapolating directly from those much later conditions.",
+      "hypothesis_id": "H_TRANSITION"
+    },
+    {
+      "id": "82d7243f61695e1b94cf",
+      "reason": "m141 at 2/1 and 50 uL extends its loading comparison toward stronger eluent. Rows 434ffacb33eccce497c5 and 65f4f125b5e1f8137bd9 show markedly different 5/1 onsets at 50 and 150 uL; 8436939a2a6a91fa470d supplies the existing 2/1,150-uL anchor.",
+      "hypothesis_id": "H_LOAD"
+    },
+    {
+      "id": "660a7ad5a1b46e40ee6b",
+      "reason": "m110 at 10/1 and 100 uL supplies an intermediate anchor for trimethoxybenzene, currently observed principally at stronger eluent, including ac52c50de335acae588d. It pairs with the selected 50/1 row to test the predicted decline in onset while completion increases.",
+      "hypothesis_id": "H_ETHER"
+    },
+    {
+      "id": "ce39d1762993bbbafaca",
+      "reason": "m110 at 50/1 and 100 uL is predicted at 5.30/27.28 mL versus 10.08/19.19 for the selected 10/1 condition. Its large onset quantile width and high CW distance reinforce the value of testing this unmeasured response shape; neither establishes an actual error.",
+      "hypothesis_id": "H_ETHER"
+    },
+    {
+      "id": "c6159dcb5802e62284d1",
+      "reason": "m123 at 50/1 and 100 uL tests substantial predicted retention growth for dimethoxybenzene. Measured 10/1,50-uL row c39d248b49ed97dc0d77 remains at 9.27/12.82 mL. This provides a related ether scaffold for interpreting the selected m110 and m116 weak-eluent results.",
+      "hypothesis_id": "H_ETHER"
+    },
+    {
+      "id": "f38088920e6edd19a62f",
+      "reason": "m116 at 50/1 and 100 uL is predicted at 2.72/18.16 mL despite measured onsets of 4.67 at pure EA in 0a974fa5ccff4ce25b98 and 5.68 at 2/1 in 17418a1ba5c9443057c3. This directly tests an unusual extrapolated onset/completion combination for dimethoxytoluene.",
+      "hypothesis_id": "H_ETHER"
+    },
+    {
+      "id": "72113bad4beb4e7b8852",
+      "reason": "m156 at pure EA and 100 uL pairs with the selected 1/1 condition to test the predicted strong-eluent inversion for pentafluorobenzene. The available measured 10/1 anchor ce2b3297b07008700156 is 7.06/12.83 mL; a direct strong-eluent pair is more discriminating than another weak-eluent control.",
+      "hypothesis_id": "H_FLUORO"
+    },
+    {
+      "id": "bd2d2667de61e29eaea3",
+      "reason": "m156 at 1/1 and 100 uL is predicted at only 0.63/6.03 mL, compared with 6.36/16.37 at the selected pure-EA condition. Measuring both tests whether this pronounced model response is supported by labels and can constrain transfer among fluorinated donor-free aromatics.",
+      "hypothesis_id": "H_FLUORO"
+    },
+    {
+      "id": "f73fd2f4c55177304721",
+      "reason": "m29 at 50/1 and 100 uL introduces weak-eluent supervision for an ortho-methyl-shielded aryl ketone. Its predicted 4.42/25.91 mL has a broad onset interval, whereas measured pure-EA row 18355dfa0f6e519b7bf6 is 6.80/15.84. This tests steric-context transfer beyond ordinary acetophenones.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "f46a56ff1e84b8baa552",
+      "reason": "m49 at 50/1 and 100 uL tests the very early predicted onset of 2.16 mL for a hydrophobic 3,5-di-tert-butylbenzaldehyde. Measured 5/1 row c4d9bf232947534bbfac is 4.03/9.43. Comparison with m29 helps distinguish hydrophobic substitution from direct ortho shielding of a carbonyl.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "f46da3c00b2199795e4c",
+      "reason": "m169 at 50/1 and 100 uL tests whether a late regime actually follows its ordinary measured 2/1 and 10/1 behavior. Acquisition-time predictions overestimated both endpoints in 8b18117ded9c488721a3 and 9b11493847c035abf800; the current 50/1 prediction is 21.73/45.53.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "98f7b4e7c44ba0532e85",
+      "reason": "m170 at 50/1 and 100 uL forms a chlorinated-ketone comparison with selected m169 at the same ratio and nominal sample volume, with different densities. Measured 20/1 row fb3a6d49af52de47c06e anchors whether the predicted 11.32/25.92 mL represents gradual growth or misses a sharper transition.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "a3c1a0ac40733e8650fb",
+      "reason": "m27 at 20/1 and 100 uL extends the chlorinated-ketone comparison to an aliphatic carbonyl without an aromatic ring. Existing strong-eluent row da5b02dfb78f7248e643 does not establish its weak-eluent behavior. The high-distance prediction of 14.73/28.42 tests graph-dependent transfer.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "9f362bfe1dab6e9eac3d",
+      "reason": "m68 at 50/1 and 100 uL extends measured 20/1 row cb534927304d5c892100, which is 6.07/17.50 mL. It tests whether an unfused biphenyl ketone develops the later response seen for some fused aromatic carbonyls or remains closer to long-chain aryl-ketone behavior.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "c060c367e4e5bf6955cb",
+      "reason": "m131 at 50/1 and 100 uL adds a weak-eluent endpoint for dimethylbenzophenone beyond measured 5/1 row 13fe9abf652f585d7ed5. It tests substituent transfer between much later methoxybenzophenone row 44fcf641ccfa3b10a97c and comparatively early chlorobenzophenone row 8e330202a1983cbc02b5.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "f31a89256d8ee4192d55",
+      "reason": "m39 at 20/1 and 100 uL extends the same-loading 10/1 anchor 1c52010cfa0344fd2b6b from 18.56/36.52 mL toward a predicted 24.80/52.23. This tests completion curvature for a methylenedioxy acetophenone and helps localize oxygen-substituent effects within aryl ketones.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "cfc3cd7290e349d095d4",
+      "reason": "m115 at 5/1 and 100 uL establishes the lower-ratio side of para-methoxyacetophenone's response before measured 20/1 row 122fbec0df9ecf1c5d89. It complements the selected ortho analogue m127 and the methylenedioxy ketone m39, testing positional graph context rather than a common carbonyl correction.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "52b9af4df1f1e7cd4d9b",
+      "reason": "m127 at 50/1 and 50 uL tests the loading dependence behind the near-1-mL onset recorded at 150 uL in c82167c626a1495ef750. The prediction is 6.66/30.77. This can distinguish a transferable ortho-methoxy response from a loading-specific or row-specific low-onset anomaly.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "41bda518b4b1e6fe001d",
+      "reason": "m143 at 50/1 and 100 uL extends recent same-loading 20/1 row 9c700f8ed9efad8bc73a, measured at 5.93/20.90 despite an acquisition-time onset prediction near 9.91. It tests whether onset remains early while completion grows, repairing endpoint-specific aldehyde extrapolation.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "a83fb14090f1518df5a7",
+      "reason": "m195 at 20/1 and 50 uL adds a third loading to contrasting measured anchors: 783cf2454912fc14bb80 at 100 uL is 9.98/25.87, while a917c928912c74862968 at 150 uL is nearly coincident at 31.98/31.91. This tests whether the loading pattern persists without assuming a cause for the unusual endpoint ordering.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "b187c8a6f7beb2c7f61f",
+      "reason": "m73 at pure EA and 100 uL probes the neighboring condition of unusual 1/1 row 2cf789c87f7c6325c020. The prediction combines early onset with late completion, 2.84/18.86 mL. Together with ordinary 2/1 row 49932dbd3d16bb64f71a, it can bound how far the atypical recorded response extends.",
+      "hypothesis_id": "H_M73"
+    },
+    {
+      "id": "3cd0aa35793392d15513",
+      "reason": "m98 at 20/1 and 50 uL extends the fixed-loading 10/1 anchor 6c79b254471fec29c482 and bridges toward the later 50/1,100-uL label 25fcfe22a4504f391482. The recent accurate 5/1 result 87ada91b7803cfd9f767 makes this transition point more useful than another baseline.",
+      "hypothesis_id": "H_ESTER"
+    },
+    {
+      "id": "af23f4f96549d4e1659f",
+      "reason": "m101 at 20/1 and approximately 100 mg loading fills the gap between measured 2/1 row 9b612b8b4815d21f4fc6 and the lower-loading 50/1 row 25b1f8000dd22874bb29. It tests the weak-eluent response of a directly attached aromatic ester and complements the selected benzyl-linked ester m97.",
+      "hypothesis_id": "H_ESTER"
+    },
+    {
+      "id": "80762b40f399bb68342a",
+      "reason": "m97 at 20/1 and 100 uL locates the transition before its late 50/1 labels, including 13f4ada439a309a538b8. Jointly with m101, it tests whether ester-to-ring linkage changes onset and completion differently; their recorded loading differences remain part of the comparison.",
+      "hypothesis_id": "H_ESTER"
+    },
+    {
+      "id": "cd7c523e3df961c83524",
+      "reason": "m85 at 50/1 and 50 uL extends the fixed-loading 10/1 anchor d1483fc2e333c62494b3 from 6.80/10.88 toward a predicted 14.00/33.45. This tests an uncovered weak-eluent tail for a simple fluorobenzoate and provides a boundary against more strongly retained multifunctional esters.",
+      "hypothesis_id": "H_ESTER"
+    },
+    {
+      "id": "ab49ee9538cdb7f47f70",
+      "reason": "m84 at 30/1 and 50 uL adds an intermediate ratio outside the usual 20/1\u201350/1 grid. Existing same-tuple 10/1 labels c16aef24cbedd5b1b875 and 89b6013d19ba95312c59 differ, so this new ratio informs the local chlorobenzoate trend without treating either measurement as an exact universal baseline.",
+      "hypothesis_id": "H_ESTER"
+    },
+    {
+      "id": "781b8d96d8bc7c124dc9",
+      "reason": "m56 at 100/1 and 50 uL extends a fixed-loading series anchored by 920dbde1a4d0fdf60ec7 at 1/1 and e19bda1298f299931245 at 30/1. The modest predicted 6.31/16.64 tests whether an ordinary alkyl benzoate retains a gradual response at very weak eluent.",
+      "hypothesis_id": "H_ESTER"
+    },
+    {
+      "id": "60b7eed7a46a03b366b2",
+      "reason": "m107 at 1/1 and 100 uL fills a clean same-loading gap between pure-EA row 92212e7e2eb760820a7b and 2/1 row f96cee9775323fbf1d8b, before the very broad 5/1 response in d1172a49fca1e196a59f. It tests the early development of completion growth in an ether-containing beta-ketoester.",
+      "hypothesis_id": "H_TRANSITION"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H_LOAD",
+      "content": "Loading effects depend on scaffold and eluent ratio and can affect onset and completion differently. For m207, the measured 5/1 retention dip may be reproducible across loading, loading-specific, or partly row variability.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "6be742f06dddb42eb929",
+        "ec6846c0fcb7df17c97d",
+        "ff3b6b1069b7d66ad021",
+        "434ffacb33eccce497c5",
+        "65f4f125b5e1f8137bd9",
+        "d5234e966aa231be05e5",
+        "252c027cf5a42b92c953"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched loading and ratio contrasts can teach endpoint-specific interactions that are missed when the predictor changes little with sample amount. The m207 pair also tests whether an unusual local curve transfers across loading.",
+      "next_discriminating_question": "At 50 uL, does m207 again move from moderate retention at 2/1 to an early 5/1 interval and then a much later 10/1 interval, and does m141 retain onset-sensitive loading behavior at 2/1?"
+    },
+    {
+      "id": "H_TRANSITION",
+      "content": "Large retention increases begin at scaffold-specific solvent ratios. Strong-eluent anchors are needed to locate these transitions separately for donor-containing molecules, ring-N compounds, and multiacceptor carbonyls.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "97318de99bab4460cf4e",
+        "a92f7617b135de150588",
+        "776ee2c1e85ebde75168",
+        "33ffc69a253a89f15995",
+        "92212e7e2eb760820a7b",
+        "f96cee9775323fbf1d8b"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Labels before a known steep increase constrain interpolation and help prevent late-retention corrections from contaminating stronger-eluent predictions.",
+      "next_discriminating_question": "How much of each retained response is already present at pure EA or 1/1, and can the model distinguish the transition locations of m119, m200, m216, and m107?"
+    },
+    {
+      "id": "H_CARB",
+      "content": "Carbonyl graph environment controls onset and completion responses separately. Corrections should not transfer uniformly across steric substitution, aromatic substitution, linker length, and ring topology; unusual loading-dependent endpoint patterns also require local evidence.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "9b11493847c035abf800",
+        "8b18117ded9c488721a3",
+        "1c52010cfa0344fd2b6b",
+        "92f7fe9d8581717a9949",
+        "783cf2454912fc14bb80",
+        "a917c928912c74862968"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The carbonyl selections test distinct boundaries of transfer using new solvent or loading conditions, including both predicted late regimes and unexpectedly early predicted onsets. These relationships cover several substantial catalog families.",
+      "next_discriminating_question": "Which carbonyl environments remain early at weak eluent, which develop later onset, and which primarily extend completion? Do the unusual m127 and m195 endpoint patterns persist at lower loading?"
+    },
+    {
+      "id": "H_ETHER",
+      "content": "The model predicts falling weak-eluent onset with rising completion for underanchored ether aromatics m110 and m116. These shapes could reflect real recorded responses or extrapolation artifacts; the related m123 curve provides a useful comparison.",
+      "basis": "model_behavior",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "Measuring the predicted response shapes can constrain the mapping from ether substitution and solvent ratio to the two endpoints without imposing a universal monotonicity rule.",
+      "next_discriminating_question": "Does m110 onset actually fall between 10/1 and 50/1, and does m116 at 50/1 start earlier than its measured strong-eluent anchors?"
+    },
+    {
+      "id": "H_FLUORO",
+      "content": "Pentafluorobenzene's predicted pure-EA-to-1/1 change is an unusually large decrease in both endpoints. A direct paired measurement can determine whether this model behavior is supported in the recorded conditions.",
+      "basis": "model_behavior",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "This tests a donor-free fluorinated boundary where numerical intervals alone do not adequately convey the unusual response. It can improve baseline transfer across fluorinated aromatic rows.",
+      "next_discriminating_question": "Are the predicted 0.63-mL onset at 1/1 and much later pure-EA interval both supported, or does one condition expose an extrapolation failure?"
+    },
+    {
+      "id": "H_ESTER",
+      "content": "Recorded ester responses span gradual and sharp weak-eluent growth across different graph and loading environments. Ester count alone does not determine the response; ring linkage, substitution, and alkyl environment need condition-specific supervision.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "87ada91b7803cfd9f767",
+        "25fcfe22a4504f391482",
+        "08155ffdcb0d27576050",
+        "36b45fbdbace5950c108",
+        "98f205d21cdccb427f9e",
+        "25b1f8000dd22874bb29"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The selected linkage contrasts, halobenzoates, fused aromatic ester, and very weak-eluent alkyl benzoate extend local curves across a common chemical family while retaining ordinary-response boundaries.",
+      "next_discriminating_question": "Where do m98, m101, m97, m85, and m84 develop their weak-eluent increases, and does m56 remain comparatively gradual through 100/1?"
+    },
+    {
+      "id": "H_M73",
+      "content": "The recorded m73 1/1 rows have nearly coincident or slightly inverted endpoints. This may include measurement or annotation behavior rather than ordinary retention physics, so neighboring labels are needed before extending that pattern.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "a387411cbcb6be48bde4",
+        "2cf789c87f7c6325c020",
+        "49932dbd3d16bb64f71a"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A neighboring strong-eluent label can bound an atypical onset/completion relationship and reduce the risk of spreading it to other unsaturated ester rows. The supplied data cannot establish its underlying cause.",
+      "next_discriminating_question": "At pure EA and 100 uL, does m73 show ordinary early onset with a broad interval, or does the nearcoincident late behavior extend beyond 1/1?"
+    }
+  ],
+  "feedback_interpretation": "The latest outcomes favor targeted condition gaps over further dense sampling of already repaired families. The m167 5/1 and 20/1 labels and m168 10/1 label had completion errors no larger than about 1.6 mL, so I deprioritize additional beta-diketone anchors this round. Ordinary controls such as m116 at pure EA, m121 and m50 at 20/1, and the selected strong-eluent ketones mostly had modest errors; a blanket late-retention correction is therefore unwarranted. Error direction remained scaffold- and endpoint-specific: m169 was overpredicted at both measured ratios, m35 completion was overpredicted by 4.31 mL, m194 pure-EA completion was underpredicted by 4.78 mL, and m207 at 2/1 had onset underpredicted by 5.68 mL. These results motivate weak-eluent carbonyl boundary tests, strong-side transition anchors, and the matched m207 loading curve. The broad heteroatom/halogen hypothesis is narrowed: retained ring-N examples remain relevant, but ordinary m152 and hydrocarbon results do not support a general halogen-driven late regime. I also correct prior structural descriptions: m116 is dimethoxytoluene, m167 is a trifluorinated beta-diketone, and m168 is dibenzoylmethane, not a fluorinated or fused scaffold. Historical errors are used only as acquisition-time feedback, not as current-model residuals.",
+  "batch_rationale": "All 32 choices add new condition tuples for molecules already represented in the measured set. The batch emphasizes labels that distinguish response shapes, rather than labels chosen simply for high predicted retention or broad elution intervals. The m207 pair and m141 loading contrast test whether measured local irregularities transfer across sample amount. Strong-side anchors for m119, m200, m216, and m107 locate transitions before their known retained regimes. Carbonyl selections address mixed-direction failures and undercovered steric, linker, substitution, and ring environments; the m127 and m195 conditions explicitly confront unusual recorded endpoint patterns. Ether-aromatic and pentafluorobenzene experiments test striking model response shapes with nearby chemical references. Ester selections extend common-family curves, including intermediate and very weak solvent ratios, while m73 probes the extent of an atypical recorded relationship. Catalog duplicates and additional points on well-covered beta-diketone curves are avoided. Together, these labels should help the retrained predictor learn endpoint-specific structure\u2013condition relationships across both ordinary and retained portions of the Row-distribution, although their eventual accuracy benefit remains unmeasured."
+}

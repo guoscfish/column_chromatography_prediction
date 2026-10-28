@@ -1,0 +1,272 @@
+{
+  "type": "selection",
+  "packet_sha256": "88554dd6d39b57176f34ca8032151f2dbeeb8bc2718c4d6806b62d8ab6a1bb95",
+  "batch_strategy": "Investigate local condition dependence exposed by recent measurements, while adding strong-eluent baselines and discriminating response curves. Prioritize follow-ups to the m125 loading-plug contrast, resolve the incorrectly attributed m61 feedback, and test scaffold-specific carbonyl behavior. All 32 distinct supplied candidate IDs and their supplied premeasurement predictions are fixed together.",
+  "choices": [
+    {
+      "id": "dbb94bf062fc0e640258",
+      "reason": "m125 at 1/1, 100 uL and DCM 500 uL changes only plug volume relative to measured 300 uL anchor 4c32851430464f0ed684. The prediction remains 6.69/21.59 mL. This tests whether the large plug-associated broadening measured at 2/1 also occurs before that transition.",
+      "hypothesis_id": "H_PLUG_INTERACTION"
+    },
+    {
+      "id": "761c3f82d640da44966c",
+      "reason": "m125 at 5/1, 50 uL and DCM 500 uL forms a controlled plug-volume contrast with measured 300 uL row 780b13846ace50ede763, 42.27/69.71 mL. Its prediction is 38.99/72.88 mL. This determines whether the 2/1 plug response persists, disappears, or changes beyond the retention transition.",
+      "hypothesis_id": "H_PLUG_INTERACTION"
+    },
+    {
+      "id": "19f19f196ba5787a01b0",
+      "reason": "m125 at 2/1, 150 uL and DCM 300 uL establishes one member of a new controlled plug pair. Measured 100 uL rows c8d43713db33bf820a1d and 69b09343d0b9995c3ae4 differed substantially, but current predictions for the selected 150 uL pair remain almost identical. The new loading level tests reproducibility and interaction with sample amount.",
+      "hypothesis_id": "H_PLUG_INTERACTION"
+    },
+    {
+      "id": "facbcedbecb46072b04c",
+      "reason": "This m125 2/1, 150 uL experiment changes only the DCM plug to 500 uL relative to its selected companion. Both predictions are about 13.47/44.37 mL. A repeated onset decrease and completion increase would strengthen evidence for missed condition sensitivity; agreement would limit transfer of the earlier contrast.",
+      "hypothesis_id": "H_PLUG_INTERACTION"
+    },
+    {
+      "id": "994a1f65509549a84ede",
+      "reason": "This is the actual m61 5/1, 100 uL experiment. Observed row 9948433906d4afa41345 belongs to m182 at pure EA, despite its feedback reason mentioning m61. Compare the present 9.49/19.88 mL prediction with matching-loading m61 2/1 anchor f559a4634c60d81f5f15, 12.34/21.99 mL, to resolve the still-untested dip.",
+      "hypothesis_id": "H_ALCOHOL_CURVE"
+    },
+    {
+      "id": "859ae738b615cf17b849",
+      "reason": "m61 at 10/1 keeps loading and plug fixed relative to the selected 5/1 point. The prediction is 12.78/28.08 mL. Together with f559a4634c60d81f5f15, these labels distinguish a local minimum from gradual growth and test transfer from the measured m67 rise in 47f2e980caaa77baa535 and 2d11f1fe488a0c917ffe.",
+      "hypothesis_id": "H_ALCOHOL_CURVE"
+    },
+    {
+      "id": "8f683baab6101dc15006",
+      "reason": "m182 at 1/1 and 150 uL directly follows pure-EA observation 9948433906d4afa41345, 3.78/20.41 mL, at identical loading. Its predicted completion is lower, 17.06 mL. This tests a possible strong-side completion minimum in fluorenone and uses the previous outcome under its correct molecular identity.",
+      "hypothesis_id": "H_BASELINE_SHAPES"
+    },
+    {
+      "id": "ef8724fc040ffeca44b7",
+      "reason": "m75 at 20/1 and 100 uL fills the transition after matching-loading 10/1 anchor e6d0dc8ca50b71d5f807, 8.23/18.39 mL. Recent 50/1 row 9249ed2c527f70995033 was much later than predicted. This intermediate label localizes growth instead of transferring its approximately 23 mL acquisition errors backward.",
+      "hypothesis_id": "H_CARBONYL_CURVES"
+    },
+    {
+      "id": "28e9fea3e3293f2b8a0e",
+      "reason": "m75 at 50/1 and 50 uL adds a loading contrast to recent 150 uL observation 9249ed2c527f70995033, 37.94/51.52 mL. The prediction is 32.31/52.56 mL and is nearly loading-invariant in completion. This tests whether the newly discovered late malonate regime generalizes across sample amounts.",
+      "hypothesis_id": "H_LOADING_LOCAL"
+    },
+    {
+      "id": "40dbbf2e58a6065b2b52",
+      "reason": "m198 at pure EA and 100 uL supplies the missing baseline for its measured 5/1-to-50/1 curve, including 163874b97308a1ea2507 and 8ab554cd154e9749790b. Predicted completion, 18.59 mL, exceeds its predicted 1/1 completion. This checks strong-side curvature after the weak-side underpredictions have been exposed.",
+      "hypothesis_id": "H_BASELINE_SHAPES"
+    },
+    {
+      "id": "904fa4a17e429d0616f5",
+      "reason": "m193 at pure EA and 100 uL complements the selected ortho-nitroaldehyde baseline and measured para-isomer curve c08c4700ae34281b3318 and c28747d70e7b51a1cc95. Its 17.42 mL predicted completion tests baseline tails in nitroaldehydes. Different densities and DCM plug volumes prevent an isolated positional-isomer interpretation.",
+      "hypothesis_id": "H_BASELINE_SHAPES"
+    },
+    {
+      "id": "aed6d224edcb21e5d658",
+      "reason": "m178 at pure EA and 100 uL anchors a dibenzoyl curve measured from 2/1 through 50/1. The extreme historical miss in 0c5c35afb3a24375c153 contrasts with ordinary 2/1 behavior in 5d450444eb031c873584. A baseline label tests whether the repaired late response transfers excessively toward strong eluent.",
+      "hypothesis_id": "H_BASELINE_SHAPES"
+    },
+    {
+      "id": "976120a6d37c441ea705",
+      "reason": "m47 at pure EA and 100 uL establishes the fixed-loading baseline for the selected 1/1 companion. Its prediction is 3.69/6.26 mL; observed pure-EA row 02c053f1544310b38b17 used 150 uL and gave 4.18/6.75 mL. The pair explores a sparsely constrained aliphatic nitrile-ketone and tests the boundary of transfer from later aromatic nitrile-carbonyl responses.",
+      "hypothesis_id": "H_CARBONYL_CURVES"
+    },
+    {
+      "id": "1c9e5d1b4f0318333afd",
+      "reason": "m47 at 1/1 and 100 uL provides the fixed-loading companion to its selected pure-EA baseline. The prediction is 5.96/9.59 mL. These labels establish the early response of this aliphatic nitrile-ketone without assuming that it inherits the late aromatic behavior measured in f0b6d8fb9d1feea8b24b.",
+      "hypothesis_id": "H_CARBONYL_CURVES"
+    },
+    {
+      "id": "914cbf3bfe7468210e0e",
+      "reason": "m96 at pure EA and 50 uL tests a compact predicted interval of 3.87\u20135.43 mL against matching-loading 1/1 anchor 5ac4ef8dc89489d5dcd8, 6.41/8.34 mL. This supplies a missing thiol-ester baseline and checks early-regime compression outside the recently sampled long-chain acrylate and thiophene.",
+      "hypothesis_id": "H_SHAPE_REPAIR"
+    },
+    {
+      "id": "5e5b7c697bc0c268b288",
+      "reason": "m168 at 50/1, 50 uL and DCM 400 uL changes only plug volume relative to measured 300 uL row 5f02dc3c13f7f2daed32, 10.57/26.83 mL. The prediction is 11.46/31.63 mL. This cross-scaffold contrast tests whether plug dependence also matters for a beta-diketone, without assuming the m125 effect size transfers.",
+      "hypothesis_id": "H_PLUG_INTERACTION"
+    },
+    {
+      "id": "f5259e3f51c168c59973",
+      "reason": "m190 at 5/1 and 100 uL bridges measured 1/1 row 03e8372f11ac433be4fa and 20/1 row d1774335b45258bc173a at identical loading. Pure-EA row 88cccd3e55677c52f9b7 finished at 19.14 mL, above this 16.73 mL prediction. The label tests where baseline completion gives way to ratio-driven growth.",
+      "hypothesis_id": "H_BASELINE_SHAPES"
+    },
+    {
+      "id": "454eb2207b9abc0b2a6d",
+      "reason": "m197 at 2/1 and 100 uL tests predicted completion of 22.14 mL against matching-loading pure-EA completion of 26.73 mL in ff3ee95fed58907ff8b3 and 10/1 completion of 30.67 mL in 04e162e0c1261108b4a0. It discriminates a genuine strong-side minimum from an incorrectly interpolated baseline tail.",
+      "hypothesis_id": "H_BASELINE_SHAPES"
+    },
+    {
+      "id": "f42cc6b0f90fad5c1f7f",
+      "reason": "m197 at 50/1 and 100 uL continues the fixed-loading curve from 20/1 row 905c8843dd27543205a5, 11.27/37.24 mL. The model predicts 16.77/45.31 mL, while measured 50 uL endpoint 619663c2b3ffb3a6c497 finished at 38.43 mL. This distinguishes further ratio growth from a plateau or loading interaction.",
+      "hypothesis_id": "H_BASELINE_SHAPES"
+    },
+    {
+      "id": "73155d7feac7857188dd",
+      "reason": "This eligible alternative ID repeats m104 at 20/1 and 100 uL. Row 10f14f6ee69ba06bbe68 finished at 20.78 mL, whereas recent 150 uL row 6c4eacf7845534254af9 finished at 9.45 mL; current prediction is 13.88 mL. A targeted repeat tests reproducibility before assigning the abrupt contrast entirely to loading.",
+      "hypothesis_id": "H_LOADING_LOCAL"
+    },
+    {
+      "id": "822acada514c54d41f68",
+      "reason": "m201 at 50/1 and 100 uL probes a nitroaromatic without a carbonyl. Its predicted 14.71/31.58 mL lies beyond measured 10/1 and 20/1 50 uL anchors 1d2bc3f5c63f14f60fe3 and d6faa7e77464f5f9a34b. With the selected matching-loading 20/1 point, it tests whether the model distinguishes this curve from late nitroaldehydes.",
+      "hypothesis_id": "H_CARBONYL_CURVES"
+    },
+    {
+      "id": "0537c303027eef12ba09",
+      "reason": "m38 at 1/1 and 100 uL supplies a strong-side anchor for acetylfluorene, measured at 10/1 in 8e4d62928039d2200288 at 15.36/35.51 mL. The predicted 5.72/16.51 mL tests baseline transfer across fused aryl carbonyls under its recorded 1000 uL DCM plug.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "b0cc544ceb575bae4069",
+      "reason": "m40 at 10/1 and 100 uL adds a loading contrast to 150 uL anchor 1a382a7d3a13ed7fb28f, 12.87/24.12 mL. Its prediction is 9.60/22.78 mL. Measured 20/1 and 50/1 rows a15744dbeb99bc224e40 and 4e93e36ab850bab3d594 provide additional context for testing the naphthyl ketone's onset response.",
+      "hypothesis_id": "H_LOADING_LOCAL"
+    },
+    {
+      "id": "e85d76beae17d6b6ada4",
+      "reason": "m4 at pure EA and 100 uL tests a predicted 6.45/19.41 mL baseline against matching-loading 5/1 and 10/1 rows 5b46916999f1668c7409 and 5673d1c9567dd502bdc8. This checks high strong-side completion in a heteroatom-free fused aromatic and helps constrain transfer of polar-compound tails.",
+      "hypothesis_id": "H_SHAPE_REPAIR"
+    },
+    {
+      "id": "4ed4c718fae143eacb1a",
+      "reason": "m215 at pure EA and 50 uL is predicted at 8.31/16.00 mL, later at both endpoints than matching-loading 50/1 observation e598b9cf54086c1c64b2, 6.29/12.63 mL. This tests a specific strong-side aromatic response shape after recent m0 and m10 labels weakened predicted excess completion in other nonpolar scaffolds.",
+      "hypothesis_id": "H_SHAPE_REPAIR"
+    },
+    {
+      "id": "9e94f0a4a224512b06cc",
+      "reason": "m13 at 1/1 and 100 uL adds a loading contrast to measured 150 uL row 81507d463506a9e65e73, 6.12/19.13 mL. The prediction is 6.46/22.10 mL. This tests the early completion baseline of a multi-acceptor acrylate/ketoester before its later regimes in 1cc3b837c6561b1c0a23 and c4bb286978fe9078a303.",
+      "hypothesis_id": "H_LOADING_LOCAL"
+    },
+    {
+      "id": "74ce463c8423fbd22dc4",
+      "reason": "m13 at 2/1 and 50 uL provides a loading contrast to 150 uL anchor 2dbfdf9c2d5defd09f7a, 9.04/18.17 mL. The prediction is 8.14/20.08 mL. Alongside the selected 1/1 loading contrast, it tests whether early loading responses differ from the pronounced onset dependence already measured at 10/1.",
+      "hypothesis_id": "H_LOADING_LOCAL"
+    },
+    {
+      "id": "5e276c1730fc0a9deba7",
+      "reason": "m177 at 20/1 and 150 uL checks the early weak-eluent regime suggested by 50 uL observation aa43fe84c0d8c825fe58 and 100 uL 50/1 observation 4862e2fb71344ce16021. The prediction is 4.51/9.58 mL. This exception test constrains indiscriminate transfer of late nitroaldehyde or aryl-carbonyl corrections.",
+      "hypothesis_id": "H_CARBONYL_CURVES"
+    },
+    {
+      "id": "e93e08d6bc42e91e2679",
+      "reason": "m92 at 1/1, 100 uL and EA loading extends 50 uL EA anchor 00a89de0e6cc7377a84b, 5.18/12.01 mL. At 50 uL, PE loading in e626b5b8083ea1fd02f2 instead gave 8.02/20.57 mL. This tests sample-amount response within EA and constrains predictions that may pool distinct recorded loading configurations.",
+      "hypothesis_id": "H_LOADING_LOCAL"
+    },
+    {
+      "id": "a2c9096e1ec2e5c244d6",
+      "reason": "m72 at 1/1 and 100 uL with PE 300 uL can be compared with measured DCM 200 uL row cad6b7ea1831fdd559f2, 6.84/20.40 mL, and PE 150 uL sample anchor 506010b7655432ff2f72. Prediction is 6.01/17.58 mL. Solvent and plug change together in the first comparison, so it tests configuration transfer rather than an isolated solvent effect.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "595ef9e60d54ebad4071",
+      "reason": "m30 at 5/1 and 100 uL supplies the missing strong-side anchor before matching-loading 10/1 row 2420964caf34a1de2a5d and recent late 50/1 row 605436d35600502e8c2e. Its 6.62/14.50 mL prediction tests whether weak-side repair preserves the earlier curve; ortho-bromo row d78f8b8454ab35fb5472 provides a related comparison at different loading.",
+      "hypothesis_id": "H_CARBONYL_CURVES"
+    },
+    {
+      "id": "a4157c1e4630bc139965",
+      "reason": "m201 at 20/1 and 100 uL forms a fixed-loading ratio pair with the selected 50/1 point. Prediction is 9.14/18.95 mL, while matching-ratio 50 uL row d6faa7e77464f5f9a34b gave 6.41/17.05 mL. The pair separates weak-side growth from a possible loading offset in this simpler nitroaromatic.",
+      "hypothesis_id": "H_CARBONYL_CURVES"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H_PLUG_INTERACTION",
+      "content": "The measured m125 contrast at 2/1 associates a larger DCM loading plug with earlier onset and substantially later completion. Whether this response reproduces at another sample loading, persists across PE/EA ratios, or transfers to another scaffold remains unresolved. Current predictions are nearly insensitive to the selected plug changes.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "c8d43713db33bf820a1d",
+        "69b09343d0b9995c3ae4"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Controlled follow-ups can teach endpoint-specific dependence on a recorded condition and distinguish a local interaction from variability. They can also prevent a single large contrast from shifting every loading-plug prediction.",
+      "next_discriminating_question": "Does the 300-to-500 uL contrast reproduce at 2/1 with a 150 uL sample, and how does its magnitude change at 1/1 and 5/1 or for m168?"
+    },
+    {
+      "id": "H_LOADING_LOCAL",
+      "content": "Loading responses differ by scaffold, ratio and endpoint. Some contrasts mainly shift onset, others alter completion appreciably, and abrupt differences such as m104 at 20/1 require a reproducibility check before being interpreted entirely as a loading effect.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "10f14f6ee69ba06bbe68",
+        "6c4eacf7845534254af9",
+        "3cd6baf11210b3dcfb43",
+        "9845fd896eb72b0e149f",
+        "2cf4f6424b85ab121943",
+        "80f6a235bb59c2a7ea59",
+        "249b884b29177edb9df5"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Candidate predictions often change very little across sample amounts. Targeted contrasts can constrain graph-condition interactions, while the m104 repeat checks whether an apparent interaction is reproducible. Loading amount remains the supplied density-times-volume feature.",
+      "next_discriminating_question": "Does m104 at 20/1 and 100 uL reproduce its approximately 20.8 mL completion, and do the selected malonate, multi-acceptor acrylate and aryl-ketone contrasts show distinct endpoint responses?"
+    },
+    {
+      "id": "H_ALCOHOL_CURVE",
+      "content": "The m61 5/1 response remains unmeasured in the observed table, so its predicted completion dip relative to 2/1 is unresolved. The measured m67 rise from 5/1 to 10/1 provides a related benzylic-alcohol curve but does not establish the m61 transition.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "f559a4634c60d81f5f15",
+        "c7e564f222bd8ae3f685",
+        "47f2e980caaa77baa535",
+        "2d11f1fe488a0c917ffe"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A fixed-loading m61 pair tests how the model combines the alcohol environment and eluent ratio. Correctly assigning the previous feedback avoids deriving an alcohol interpretation from a fluorenone measurement.",
+      "next_discriminating_question": "At 100 uL, does m61 completion decrease from 2/1 to 5/1 before rising at 10/1, or is the predicted minimum an interpolation error?"
+    },
+    {
+      "id": "H_CARBONYL_CURVES",
+      "content": "Carbonyl placement, neighboring functional groups and scaffold environment define different ratio-response curves. Recent late malonate, nitroaldehyde and haloketone labels reinforce this, while early weak-eluent nitrobenzophenone and malonate examples show why a shared acceptor-count or late-completion correction is inadequate.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "9249ed2c527f70995033",
+        "08155ffdcb0d27576050",
+        "605436d35600502e8c2e",
+        "a6f8e492c9e561c79cbd",
+        "8ab554cd154e9749790b",
+        "4862e2fb71344ce16021"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Intermediate ratios and simpler functional-group comparisons can locate transitions and establish boundaries of chemical transfer. Early-regime exceptions also constrain overcorrection after late failures.",
+      "next_discriminating_question": "Where does m75 enter its late regime, does m30 retain an ordinary 5/1 baseline, and how do simpler nitroaromatic m201 and aliphatic nitrile-ketone m47 respond under the selected conditions?"
+    },
+    {
+      "id": "H_BASELINE_SHAPES",
+      "content": "Several aromatic compounds already have appreciable completion tails at pure EA, with scaffold-specific changes across the strongest recorded mobile phases. A strong-side minimum is possible, but should be tested at fixed loading rather than inferred from chemical polarity or imposed monotonicity.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "ff3ee95fed58907ff8b3",
+        "88cccd3e55677c52f9b7",
+        "8e99350aac88fae9186b",
+        "ea05f93949c8eb3289cd",
+        "9948433906d4afa41345"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Baseline labels separate strong-eluent completion from later ratio-driven growth. This helps prevent weak-side corrections from displacing an entire molecular response curve.",
+      "next_discriminating_question": "Do the selected nitroaldehyde and dibenzoyl pure-EA labels show substantial baseline completion, and do m182, m190 and m197 reproduce their predicted strong-side shapes?"
+    },
+    {
+      "id": "H_SHAPE_REPAIR",
+      "content": "Several previous predicted early-regime extrema or compressions were not reproduced in measured labels. This supports targeted checks of specific suspicious shapes outside the late polar families, while allowing genuinely narrow intervals such as the measured m18 result.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "f7beb14403cc07d739c4",
+        "ef3f1cc179493a050c5c",
+        "2631e65cfde93b7bbd64",
+        "16cee53cbe16b60fb395",
+        "00a82096f4ac4e03ea01"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Shape checks can identify model failures that modest quantile widths do not flag. They also provide early-retention anchors that constrain inappropriate transfer from late carbonyl-rich regions.",
+      "next_discriminating_question": "Are the predicted strong-side retardation of m215, high baseline completion of m4, and compact pure-EA interval of m96 reproducible relative to measured neighboring conditions?"
+    }
+  ],
+  "feedback_interpretation": "The latest measurements strengthen scaffold-specific response modeling. m198 completion was underpredicted at acquisition by 12.68 mL at 20/1 and 32.49 mL at 50/1; m75 and para-bromoacetophenone m30 also exposed substantial weak-side misses. Conversely, m115 at 10/1 was overpredicted in completion by 12.80 mL, while the m114 intermediate label was accurate. These opposite outcomes argue against a universal tail correction. The controlled m125 2/1 pair was especially informative: increasing the DCM plug from 300 to 500 uL accompanied an 8.43 mL earlier onset and 27.28 mL later completion, despite almost identical acquisition predictions. I therefore extend that local experiment across loading and ratio and add a cross-scaffold plug contrast. m28 completion at 1/1 continued increasing with loading, whereas the m104 20/1 contrast was abrupt enough to justify a targeted repeat. The m67 5/1-to-10/1 rise was largely captured, reducing the immediate value of further filling that curve. The observed table identifies 9948433906d4afa41345 as m182 at pure EA, rather than the m61 5/1 experiment described in its feedback reason. I use it as fluorenone evidence and select the actual unresolved m61 conditions. The m71 and m131 labels did not reproduce the previously predicted deep completion minimum or onset bump; m18 remained narrow but less compressed than predicted. Historical acquisition errors inform these decisions but are not current-model residuals.",
+  "batch_rationale": "The batch targets relationships that can generalize across rows: endpoint-specific loading responses, sensitivity to recorded loading configurations, scaffold-dependent ratio transitions, and strong-eluent baselines. The m125 experiments extend a large measured contrast through controlled comparisons, while m168 tests its transfer boundary. One m104 repeat addresses reproducibility where another novel condition would leave the main interpretation ambiguous. The m61 pair resolves a missing response curve after correcting feedback attribution. Malonate, haloketone, aliphatic nitrile-ketone and nitroaromatic experiments distinguish functional-group environments without assuming shared descriptors imply shared retention. Strong-side labels for hydroxyaldehydes, nitroaldehydes, fused carbonyls and nonpolar aromatics help keep late-region repairs local. Several selections test ordinary or early predicted behavior and can constrain overcorrection. Cross-compound comparisons retain their recorded loading differences; the m72 configuration comparison changes solvent and plug together. Quantile widths and CW distance support prioritization but are not treated as calibrated epistemic uncertainty, and V2 minus V1 remains the physical elution interval width. All 32 distinct legal candidate IDs and their supplied premeasurement predictions are fixed together, with no pending experiments or new labels used."
+}

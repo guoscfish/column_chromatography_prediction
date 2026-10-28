@@ -1,0 +1,109 @@
+{
+  "request_sha256": "b6e427a88196baf87d1a1dba818345968486b18b5b8bb0ea5f533faef53528e8",
+  "answer": "{\n  \"type\": \"memo\",\n  \"role\": \"ml_scientist\",\n  \"packet_sha256\": \"8d979dbc603bae9dbc55ea77aef81b0edd7a6a848a4df191e5e807b7a5141637\",\n  \"state_summary\": \"Authoritative current state: 877 observed records, 2,453 eligible candidates, no pending experiments, and no validation or test records. Older 845/2,485 summaries are stale. Observed labels, model diagnostics, chemical priors, and inferences are kept separate. No numerical retrained Row accuracy gain can be inferred from this packet.\",\n  \"important_observations\": \"OBSERVED MEASURED EVIDENCE: The purported m163 repeat is a row-alignment error. Observed 8fa8d7ec035c6a829dc4 is m156 at 50/1 and measures 7.19/23.25 ml; observed fe212637596386c24049 is m163 at 50/1 and measures 24.86/44.05 ml. H34 therefore has no valid identical-input m163 repeat interpretation. The actual measured m163 prediction error was modest relative to the erroneous comparison. m156 now has a measured, nonmonotonic curve: 98dd7f94e58da879b609, 7412eddb17268ce380c7, ce2b3297b07008700156, 4cacfd98f3f85dc0dc0e and 8fa8d7ec035c6a829dc4 give approximately 3.86/8.73, 5.96/9.80, 7.06/12.83, 10.16/14.10 and 7.19/23.25 ml. m209 is smooth across the 150 ul sequence: f7e3bf988bd0e1b9f58b, c343983d41d51a6a66c3 and edfbbb86c05a0aeb1bfb measure approximately 5.40/9.05, 5.89/11.18 and 7.45/17.05 ml, while the isolated 100 ul 2/1 record 4fce6e1a422b4f54c601 is 21.85/21.90 ml. This weakens transfer of the exceptional onset but cannot establish its repeatability. m87 completion is close for 50 and 100 ul at 2/1 and 20/1 but later at the 150 ul 2/1 corner, so a global loading correction is unsupported. m162 shows intermediate joint growth at fixed 50 ul; m130 remains modest through 20/1. m75 and m32 repeated inputs disagree enough to weaken deterministic interpretations of isolated loading steps and completion maxima. OBSERVED DATA-QUALITY FLAG: a7bc3fb68bdecbbe086f has V1 33.58 and V2 33.51 ml; preserve the label and review alignment or integration rather than generalizing it. INFERENCE: the trajectory supports local molecule-by-ratio-by-loading response surfaces with heterogeneous endpoint behavior.\",\n  \"candidate_scientific_questions\": \"1) Can the complete m156 curve be represented with a local nonmonotonic response rather than a global monotonic ratio rule? 2) Do additional m209 loading-transfer points support a local exceptional label without propagating it to neighboring inputs? 3) Does m87 at the missing higher-ratio loading condition retain the small 50-to-100 ul difference or reveal another nonlinear completion step? 4) Does m162 loading transfer remain coherent at high ratio, and how does it differ from m130 and m163? 5) Which ordinary, moderate-response chemical families remain underrepresented after adaptive concentration on polar tails, nitriles and special loading surfaces?\",\n  \"possible_model_blind_spots\": \"OBSERVED-BASED INFERENCE: Misassigned molecule-condition anchors can manufacture false replication failures and false response curves. CONDITION BLIND SPOT: independent endpoint fits and molecular offsets do not capture nonlinear interactions among ratio, sample volume, loading mass, loading solvent and plug volume. DATA-QUALITY BLIND SPOT: exact-input differences in m75, m32 and m92 are evidence of possible run or integration variability, but do not define a general noise distribution. CHEMICAL PRIOR: silica adsorption, hydrogen bonding, focusing, solubility and injection-zone effects may matter, but none is mechanistically established by the labels. MODEL DIAGNOSTIC: candidate quantile widths, novelty, similarity and extreme predicted volumes are not calibrated uncertainty or acquisition value. Endpoint ordering should be monitored, while V2 minus V1 remains an elution interval rather than uncertainty.\",\n  \"important_model_behaviors\": \"The model often predicts onset reasonably while missing completion growth, but polar and tail examples also show the reverse. Measured m156 and m73 responses demonstrate local reversals, so monotonicity should not be imposed broadly. Loading effects are molecule-, ratio- and endpoint-specific: m87, m162, m200 and m75 do not support a universal loading offset. Historical residual signs change across related donors, acceptors, nitriles, ketones, esters and alcohols; a shared functional-group correction is unlikely to transfer. The current candidate pool also contains model-consistency diagnostics such as predicted V2 below V1; these are predictions only and require a concrete calibration question before being treated as informative.\",\n  \"possible_learning_bottlenecks\": \"The main bottlenecks are conditional interaction representation, V2 tail calibration, and distinguishing learnable response structure from omitted experimental variation. Adaptive sampling has already substantially mapped m54/m175, m53/m59, m73, m156, m167, m173, m125 and much of m162/m163. Further value should come from specific missing contrasts or representative ordinary Row chemistry. Replicates can test persistence of a measured association, but a single repeat cannot identify a noise model or determine which label is correct.\",\n  \"coverage_or_redundancy_concerns\": \"The legal pool contains many near-duplicate condition rows and some exact molecule-plus-five-condition duplicates. Deduplication must use molecule identity and all five condition columns, including density and loading-solvent volume. Recent adaptive work is concentrated in a limited set of molecules and high-error tails; moderate common-condition rows and less sampled ester, ether, weak-interaction aromatic, aldehyde and ordinary ketone families remain useful for Row-distribution coverage. Density values such as 1.049 and 1.0491 are distinct represented inputs and should remain distinct in analysis.\",\n  \"warnings\": \"Only observed-table IDs are measured evidence; all candidate records contain predictions only. Historical premeasurement residuals do not estimate current candidate error or retrained Row accuracy. Do not infer acquisition value from quantile width, novelty, endpoint magnitude or V2-minus-V1 interval width. Preserve the isolated m117 endpoint-order reversal without mechanistic generalization. No validation, test truth, future labels, other seeds or other methods were used.\",\n  \"recommended_followup_queries\": \"For a future measured round, first verify molecule and condition alignment, then compare V1 and V2 residuals separately. Prioritize contrasts that distinguish ratio slope, loading response and molecular offset within the same molecule or a tightly linked structural pair. Treat exceptional singletons such as m209 2/1 at 100 ul, m177 tail inputs, and m120/m207 loading anomalies as local labels until matched persistence is demonstrated. Reassess Row coverage after removing redundant candidates and before extending already mapped response grids.\",\n  \"particularly_informative_candidates\": \"Predictions only: 9f892e34701ddf30e470 is a useful m162 2/1 loading bridge; 862163fa99660a023b6f and 7b8eaa0c9205349f60b1 extend that loading comparison toward 5/1 and 50/1. c7c87de08eb40f9343be adds a lower-ratio m209 neighbor without pretending to replicate the exceptional 100 ul input. 2732471e4009311396ed probes m73 loading response with its represented density. 409d01129a3e41b32902 is a model-consistency diagnostic because its predicted V2 is below V1; its value depends on whether endpoint calibration is a current learning priority. These IDs are not measured evidence and should not be interpreted as selected points.\"\n}",
+  "provenance": {
+    "response_id": "resp_090ddf8575a22902016ad8f23f09bc8193863aaa9a211783f3",
+    "served_model": "gpt-6.1-sol",
+    "usage": {
+      "input_tokens": 557873,
+      "input_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 3178,
+      "output_tokens_details": {
+        "reasoning_tokens": 1389
+      },
+      "total_tokens": 561051,
+      "attribution": {
+        "items": {
+          "msg_090ddf8575a22902016ad8f23f0a488193860fa9e7fb32aba1": {
+            "input_tokens": 2348,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 2348,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_090ddf8575a22902016ad8f23f0a488193a43592b72f042746": {
+            "input_tokens": 550654,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 550654,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_090ddf8575a22902016ad8f23f0a488193b0baa94764eebb8a": {
+            "input_tokens": 173,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 173,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_090ddf8575a22902016ad8f27672ac8193bfb3a0e1969add3b": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 1789,
+            "content": [
+              {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 1789
+              }
+            ]
+          },
+          "rs_090ddf8575a22902016ad8f2589aa081938d93b6a0b87c7c84": {
+            "input_tokens": 2,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 516
+          },
+          "rs_090ddf8575a22902016ad8f26a18f48193a3f4dd2824121c9c": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_090ddf8575a22902016ad8f27647188193a0cb20bf058f86c5": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 355
+          }
+        },
+        "request_fields": {
+          "instructions": {
+            "input_tokens": 4696,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "native_tool_calls": 0
+  },
+  "role": "ml_scientist",
+  "call_index": 1
+}

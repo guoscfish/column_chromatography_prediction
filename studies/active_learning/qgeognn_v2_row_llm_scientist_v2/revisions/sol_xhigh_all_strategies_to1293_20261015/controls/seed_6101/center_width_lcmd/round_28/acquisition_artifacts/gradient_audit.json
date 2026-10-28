@@ -1,0 +1,58 @@
+{
+  "method": "center_width_lcmd",
+  "current_model_round": 28,
+  "current_active_labels": 1229,
+  "current_checkpoint_sha256": "98c3ddcc5c3aa7208334bfba14a0addc23c093c72bbddc759d9aeef51ab2ac2e",
+  "current_checkpoint_state_hash": "4b0db92b979cdb3f961c8936cb4fbd624a88e9e8f037230afd38d7ec387791b9",
+  "gradient_audit": {
+    "rows": 3330,
+    "parameter_count": 458952,
+    "trainable_parameter_tensors": 189,
+    "gradient_bearing_parameter_count": 393520,
+    "gradient_bearing_parameter_tensors": 189,
+    "sketch_dimension": 512,
+    "sketch_seed": 4006138,
+    "sketch_mapping_sha256": "ef8d278ed9255686adf94d7d313bda9fc7011a58c9719fa762a2ee185fb5491f",
+    "representation": "CountSketch(concat(grad(z1), grad(z2)))",
+    "output_transform": [
+      [
+        0.05938546533911119,
+        0.05938546533911119
+      ],
+      [
+        -0.11390808983778564,
+        0.11390808983778564
+      ]
+    ],
+    "full_network": true,
+    "n_by_p_materialized": false,
+    "all_finite": true,
+    "norm_min": 45.48412878235911,
+    "norm_mean": 206.05044859391637,
+    "norm_std": 185.48934676727922,
+    "norm_max": 1515.8277457700556,
+    "zero_norm_rows": 0,
+    "unique_feature_rows": 3108,
+    "duplicate_feature_rows": 222,
+    "elapsed_seconds": 66.52366362499743
+  },
+  "transform_audit": {
+    "definition": "[(V1+V2)/(2*s_C), (V2-V1)/s_W]",
+    "center_population_std": 8.419568612367186,
+    "width_population_std": 8.779007719505096,
+    "transform_matrix": [
+      [
+        0.05938546533911119,
+        0.05938546533911119
+      ],
+      [
+        -0.11390808983778564,
+        0.11390808983778564
+      ]
+    ],
+    "target_source": "L0_labels_only",
+    "scale_ddof": 0
+  },
+  "feature_hash": "b287ab354faedf5dd2d755e19487e51bd4a80cb64b5083a05bcfb6e38043285f",
+  "gradient_extraction_seconds": 66.53501937499823
+}

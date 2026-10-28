@@ -1,0 +1,42 @@
+{
+  "time": 1792231070.779567,
+  "diagnosis": {
+    "157": "Provider explicitly sent upstream_http2_stream_error, then partial stream closed; no completed reply",
+    "6101": "Connection failed before HTTP response bytes; no selection reply"
+  },
+  "auth_checks": [
+    {
+      "seed": 157,
+      "status": 200,
+      "elapsed": 7.032616853713989
+    },
+    {
+      "seed": 6101,
+      "status": 200,
+      "elapsed": 7.029587984085083
+    }
+  ],
+  "guard": "PASS",
+  "preserved_active_training": true,
+  "policy": "one half-open request per key; no logical budget expansion",
+  "workers": [
+    {
+      "seed": 157,
+      "method": "free_llm32_scientist_v2",
+      "pid": 35429,
+      "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1421_20261017/recovery_157_free_llm32_scientist_v2_20261017_175750.log"
+    },
+    {
+      "seed": 6101,
+      "method": "cw16_llm16_scientist_v2",
+      "pid": 35431,
+      "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1421_20261017/recovery_6101_cw16_llm16_scientist_v2_20261017_175750.log"
+    },
+    {
+      "seed": 6101,
+      "method": "free_llm32_scientist_v2",
+      "pid": 35433,
+      "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1421_20261017/recovery_6101_free_llm32_scientist_v2_20261017_175750.log"
+    }
+  ]
+}

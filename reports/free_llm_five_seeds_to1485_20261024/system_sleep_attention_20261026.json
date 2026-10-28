@@ -1,0 +1,29 @@
+{
+  "time": "2026-10-26T02:56:11.679880+08:00",
+  "status": "SYSTEM_SLEEP_AFFECTING_PROGRESS_NOTIFIED",
+  "evidence_source": "pmset -g log",
+  "events": [
+    {
+      "time": "2026-10-26T01:40:27+08:00",
+      "reason": "Clamshell Sleep"
+    },
+    {
+      "time": "2026-10-26T01:40:39+08:00",
+      "reason": "Thermal Emergency Sleep"
+    },
+    {
+      "time": "2026-10-26T02:08:49+08:00",
+      "reason": "Maintenance Sleep",
+      "seconds": 900
+    },
+    {
+      "time": "2026-10-26T02:24:44+08:00",
+      "reason": "Maintenance Sleep",
+      "seconds": 900
+    }
+  ],
+  "effect": "Training and local audit work pause during system sleep; short maintenance wakes provide only brief execution windows.",
+  "required_user_action": "Open the lid, keep the Mac awake and provide adequate ventilation. Do not bypass thermal sleep protections.",
+  "experiments_unchanged": true,
+  "other_blocker": "seed12203 logical correction budget exhausted; previously notified"
+}

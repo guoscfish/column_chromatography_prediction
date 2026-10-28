@@ -1,0 +1,62 @@
+{
+  "time": "2026-10-26T00:41:48.619516+08:00",
+  "status": "LOGICAL_CORRECTION_BUDGET_EXHAUSTED_NOTIFIED",
+  "seed": 12203,
+  "completed_labels": 1101,
+  "completed_round": 24,
+  "verified_fits": 25,
+  "verified_batches": 24,
+  "target_labels": 1485,
+  "failed_transition": "1101->1133",
+  "configured_selection_attempts": 3,
+  "turns": [
+    {
+      "turn": "turn_00.json",
+      "selection_count": 32,
+      "duplicate_count": 0,
+      "ids_outside_catalog": 6,
+      "sha256": "a05817f74499fecc0a42599824ccceee28f5d66d9581b3f0134f1d9a07f05457",
+      "reason": "must select distinct legal supplied candidate IDs"
+    },
+    {
+      "turn": "turn_01.json",
+      "selection_count": 32,
+      "duplicate_count": 0,
+      "ids_outside_catalog": 7,
+      "sha256": "0253edb78f1643eac0abdc0cbc3b249555136c025d75395c6db9eb5381e38b9a",
+      "reason": "must select distinct legal supplied candidate IDs"
+    },
+    {
+      "turn": "turn_02.json",
+      "selection_count": 32,
+      "duplicate_count": 0,
+      "ids_outside_catalog": 6,
+      "sha256": "86b3788fda962133f27af8ba9cfadf48d76befcf3c5c09e70513ba32f81eb1f4",
+      "reason": "must select distinct legal supplied candidate IDs"
+    }
+  ],
+  "workers_and_supervisor_exited": true,
+  "kernel_locks_free": true,
+  "automatic_logical_retry_allowed": false,
+  "budget_changed": false,
+  "other_seeds_continuing": {
+    "887": 1165,
+    "2357": 1133
+  },
+  "supervisor": {
+    "status": "NEEDS_ATTENTION",
+    "seed": 12203,
+    "session_id": "1792840103106800000",
+    "time": "2026-10-26T00:36:43.608204+08:00",
+    "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_llm_five_seeds_to1485_20261024/worker_seed_12203_1792840103106800000.log",
+    "recovery_count": 17,
+    "session_recovery_count": 3,
+    "failures_per_round": {
+      "22": 1,
+      "23": 1,
+      "24": 1
+    },
+    "returncode": 1
+  },
+  "test_evaluation_performed": false
+}

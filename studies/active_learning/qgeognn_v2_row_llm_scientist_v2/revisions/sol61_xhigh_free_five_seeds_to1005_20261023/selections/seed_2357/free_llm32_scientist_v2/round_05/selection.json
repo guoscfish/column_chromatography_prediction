@@ -1,0 +1,300 @@
+{
+  "type": "selection",
+  "packet_sha256": "24f3d4d7103ea64b33fcdef7a3b7ad1af9418fdae74eecf251de7e94965049f7",
+  "batch_strategy": "Select the following 32 distinct candidate-table IDs from the same catalog. Freeze their exact supplied premeasurement predictions before any measurement. Combine identifiable loading contrasts, within-molecule solvent-response experiments, and targeted structural analogs. Use quantile spans and CW distances as secondary model-behavior signals, without treating them as calibrated epistemic uncertainty.",
+  "choices": [
+    {
+      "id": "d227db4f4b8fdca822d5",
+      "reason": "Measure m197 at 5/1 with 150 ul sample, matching the loading of the recent 10/1 measurement 70abe1d9543e6cae908e. Comparison with the 5/1, 50 ul observation a91850e587e062097c02 directly tests loading dependence, while the ratio contrast tests where its long V2 tail develops.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "35a1d2abee0780ee1d48",
+      "reason": "m197 at 1/1 and 150 ul extends the fixed-loading response through selected 5/1 and measured 10/1 point 70abe1d9543e6cae908e. Its predicted 8.42/18.22 mL tests whether the model correctly locates the strong-eluent end of this endpoint-specific failure region.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "54bc75cc4d64dac2ed48",
+      "reason": "m174 at 100/1 and 50 ul provides a loading contrast to the severe historical failure 36b45fbdbace5950c108 at 150 ul, measured at 32.72/61.66 mL. The current 28.00/51.71 prediction has already changed substantially, so this tests transfer of that correction across loading.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "9c74e865c47b45a09229",
+      "reason": "m174 at 50/1 holds loading fixed with the selected 100/1, 50 ul experiment. The predicted 21.35/41.07 mL supplies an intermediate weak-eluent point, separating curve shape from the loading contrast to 36b45fbdbace5950c108.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "469630617554d93aef66",
+      "reason": "Measure m133 at 5/1 and 150 ul to test the neighborhood of its unusual 2/1, 50 ul result a7a814c9db59a62411a2. Existing early 20/1 measurements faf590d8931af48e6f22 and 0e5ec8a2cbdfe50daf83 make a universal late-aromatic correction questionable.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "bea1372bb92556f2c23a",
+      "reason": "New chlorotoluene m136 at 5/1 uses the same sample volume, loading solvent and loading-solvent volume as selected m133. Its predicted 8.07/12.29 mL tests whether the elevated aromatic predictions generalize to a nearby scaffold; density and loading amount differ.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "4c32851430464f0ed684",
+      "reason": "m125 at 1/1 and 100 ul fills a loading contrast to 00043aebb2540e369a7b at 50 ul, with DCM loading volume fixed at 300 ul. This tests the predictor's nearly loading-invariant response at a stronger-eluent condition before attributing the large contrasts elsewhere to a universal loading effect.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "c82167c626a1495ef750",
+      "reason": "m127 at 50/1 and 150 ul tests the predicted 23.74/41.75 mL weak-eluent response of an ortho-methoxy aryl ketone. Its measured strong-eluent anchor b7c4a47b624119302fa and the selected 20/1 point permit slope learning rather than a molecular offset alone.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "ebdeaba52880c7eade16",
+      "reason": "m127 at 20/1 holds all recorded loading variables fixed with its selected 50/1 point. The predicted 19.15/33.92 mL tests response curvature and helps distinguish this ortho-methoxy ketone from other oxygenated aryl-carbonyl families.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "35944fdd59ac331c3fcb",
+      "reason": "Establish new methyl acetoacetate m95 at 10/1 and 150 ul, predicted at 13.16/28.57 mL. Together with its selected 20/1 point, this tests whether the model has transferred an inappropriate solvent-response shape from related beta-dicarbonyl scaffolds.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "d448d8de2d8dacec62c3",
+      "reason": "m95 at 20/1 is predicted to finish earlier than its selected 10/1 point, with loading held fixed. This unverified turnover is informative given the strong retention growth measured for m94 in a1809a6c4c3ada20bcb0 and e3a799d0fa90b649a157.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "5b7151c95c4e964a121b",
+      "reason": "Measure ethyl acetoacetate m82 at 10/1 and 150 ul as the homologous companion to m95. Existing 2/1 observations ce539fc06bdda7c0ed0d and 7a3586b45c03832259f5 show endpoint variation, so a fixed-loading response pair is more informative than assuming a simple homolog offset.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "07a55cdab65b05f31561",
+      "reason": "m82 at 20/1 completes its loading-matched 10/1-to-20/1 pair. Predicted V2 falls from 21.26 to 16.67 mL as EA decreases, paralleling m95. Four labels across these homologs test a shared model turnover while preserving their different loading-solvent volumes.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "ddf2f769007f3d9f75fd",
+      "reason": "New CF3 beta-diketone m167 at 20/1 is predicted at 7.53/23.12 mL. Its selected naphthyl analog uses identical recorded conditions and loading amount, making their comparison informative about ring fusion and beta-dicarbonyl context.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "4c2ad10692512e8f23b8",
+      "reason": "m166 at 20/1 provides the matched naphthyl side of the CF3 beta-diketone comparison, predicted at 15.34/35.22 mL. Its measured 5/1 anchor 989222022f8f567ee126 also gives a reference for solvent-response growth, although sample loading differs.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "3232c07325c3dd8f1e6a",
+      "reason": "Establish new ortho-nitrobenzaldehyde m198 at 0/1 and 150 ul. Its predicted 5.47/11.57 mL anchors the strong-eluent boundary of a matched response pair, helping distinguish a scaffold offset from a different solvent-ratio slope.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "857ae40d0fdf1c7e387e",
+      "reason": "m198 at 20/1 completes the fixed-loading pair and tests its predicted 20.96/45.30 mL response. Para-nitrobenzaldehyde a5f9179bfb146ad70953 measured 43.17/78.53 mL at this ratio, but other loading variables differ, so that observation motivates rather than establishes a positional effect.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "b3f456e3c4a350277eaa",
+      "reason": "New naphthyl-acetate ester m98 has maximum labeled similarity of 0.47 and a 10/1 prediction of 12.77/25.29 mL. It tests structural transfer across ring fusion and ester placement after the selective weak-eluent failure observed for m174 in 36b45fbdbace5950c108.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "0901fd8923d9679837cd",
+      "reason": "Establish new deoxybenzoin m171 at 1/1 and 100 ul, predicted at 5.49/11.10 mL. Its selected 20/1 experiment holds recorded loading fixed, allowing the model to learn the response of a diaryl monoketone with a methylene linker.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "191c723f2b37d0c12afa",
+      "reason": "m171 at 20/1 completes its fixed-loading response pair. The predicted 7.45/18.34 mL tests whether this carbonyl linkage remains moderate compared with the two-carbonyl scaffold measured in 855456da9ea892f7216b.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "a6f8e492c9e561c79cbd",
+      "reason": "New ortho-bromoacetophenone m43 at 50/1 is predicted at 9.84/23.66 mL. Measuring its para isomer in the same batch tests the predicted positional distinction; the large historical error for para isomer f79cf892a214e3af8f61 makes this family worth calibrating.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "605436d35600502e8c2e",
+      "reason": "m30 at 50/1 matches the selected ortho isomer in sample volume, loading solvent and loading-solvent volume, while density and mass differ. Its predicted 14.86/31.74 mL also tests response beyond the 20/1 measurement f79cf892a214e3af8f61, measured at 15.15/33.59 mL.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "e75030664990b64e9c05",
+      "reason": "New benzylic secondary alcohol m61 at 5/1 is predicted at only 8.86/16.33 mL. Remote secondary alcohol m60 was much later in 985361f6699d97f9464f, motivating a test of hydroxyl environment rather than transfer of a generic alcohol tail.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "47f2e980caaa77baa535",
+      "reason": "Establish new benzylic alcohol homolog m67 at 5/1 and 100 ul, predicted at 13.99/19.72 mL. It complements m61 and measured primary benzylic alcohol f433bc672465387d951a; cross-scaffold loading differences are retained rather than interpreted as a pure chain-length effect.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "c627405cf70a0daacc94",
+      "reason": "m67 at 20/1 holds all recorded loading variables fixed with its selected 5/1 point. The predicted rise to 28.84/40.95 mL tests a solvent-response curve for an unlabeled alcohol scaffold and helps localize donor-context transfer.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "0c5c35afb3a24375c153",
+      "reason": "m178 at 50/1 extends the exactly loading-matched 20/1 measurement 855456da9ea892f7216b, measured at 18.76/48.89 mL. Current predictions keep V1 near 17.93 mL while V2 rises to 59.94 mL, testing whether the two endpoints respond differently.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "a1dc71bed9d8f372c9e5",
+      "reason": "m159 at 20/1 and 50 ul follows the exactly loading-matched 10/1 measurement 58394a71418a9623e18a. The predicted 13.62/38.35 mL tests weak-eluent growth in a cyano-benzophenone without borrowing a basic-heteroaromatic correction.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "4c3dce39521dcb1793a1",
+      "reason": "m144 at 20/1 and 50 ul tests a predicted 22.68/41.88 mL response for an aromatic nitrile without a donor or carbonyl. Its measured early 2/1 reference 186ff43c8f3dcf2ed444 and selected m130 point constrain how broadly a nitrile slope should transfer.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "b2ac848cc42390b01b9f",
+      "reason": "m130 at 20/1 and 50 ul is nearly matched in loading amount to selected m144, with identical loading solvent and volume. Its predicted 18.40/28.81 mL tests methyl-substitution context; measured 10/1 point de3442604a546992b1e1 was early at a different sample loading.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "21e09d52eac22fe25e15",
+      "reason": "m128 at 2/1 and 100 ul anchors the stronger-eluent side of the thioether/aryl-ketone response. Its matched 10/1 measurement 92f7fe9d8581717a9949 was 34.88/55.84 mL after substantial historical underprediction, so this point tests the amplitude of the intervening rise.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "e05652bb38d9efd5b11e",
+      "reason": "m129 at 2/1 and 100 ul complements selected thioether ketone m128 under the same ratio and loading-solvent conditions. Measured 4c46ceefd6147b1e0a7a at 10/1 and d54c93a11164b4abac6e at 50/1 let this label distinguish aldehyde-specific slope from indiscriminate sulfur-family transfer.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "97297c71a28a2ccbdeeb",
+      "reason": "m19 at 1/1 and 150 ul is loading-matched to its measured 2/1 point 906bd247e050658f99d8, measured at 13.39/35.04 mL. The predicted 9.61/25.83 mL adds condition-response information for an aliphatic tertiary amine, distinct from the extensively measured ring-nitrogen families.",
+      "hypothesis_id": "H2"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Loading contrasts are scaffold- and solvent-regime-dependent. A universal monotonic loading correction is unsupported, and some large contrasts may include experimental variability. The predictor's nearly flat loading response therefore needs targeted checks.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "5c2bc1d92128a17d996d",
+        "cc2a23d8eb9de61d2ab3",
+        "780b13846ace50ede763",
+        "761c3f82d640da44966c",
+        "5b706e17e8412d02342f",
+        "b514312eda7950cdcf1c",
+        "6209df8dd01072ab8a47",
+        "76435080f7632be26e64"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Matched contrasts can distinguish learnable loading interactions from molecular offsets and variable observations, especially for V2.",
+      "next_discriminating_question": "Does m197 reproduce its 5/1 behavior across sample loading, and does m125 show a meaningful loading effect at 1/1?"
+    },
+    {
+      "id": "H2",
+      "content": "Nitrogen environment controls retention response: pyridyl and quinoline motifs, aliphatic tertiary amines, and conjugated amino esters should not inherit one common condition-response curve.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "49201b5817f204116f7f",
+        "96710afeabc594baa359",
+        "23ef03f3e75e40b20095",
+        "906bd247e050658f99d8",
+        "a2f83665cfe821271b30"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Scaffold-specific nitrogen representations can prevent strong ring-nitrogen corrections from spreading to amine-containing rows with different adsorption behavior.",
+      "next_discriminating_question": "At fixed loading, how much does m19 retention decrease from 2/1 to 1/1, and does the model capture both endpoints?"
+    },
+    {
+      "id": "H3",
+      "content": "Alcohol retention depends on hydroxyl position and structural environment. The relatively modest predictions for new benzylic secondary alcohols require testing against heterogeneous measured primary and remote secondary alcohols.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "985361f6699d97f9464f",
+        "beda2205eedbe1688e1f",
+        "f433bc672465387d951a",
+        "776ee2c1e85ebde75168",
+        "e4fd83fb3852eb354a66",
+        "cdf40bcb3f4392f8d7d1"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "These comparisons teach donor environment and connectivity rather than a global HBD correction.",
+      "next_discriminating_question": "Do m61 and m67 retain modest endpoints at 5/1, and does m67 follow the predicted increase under weaker eluent?"
+    },
+    {
+      "id": "H4",
+      "content": "Beta-dicarbonyl connectivity changes solvent-response amplitude. The predicted 10/1-to-20/1 turnover shared by m82 and m95 may be a model slope error, while genuine scaffold-dependent behavior remains an alternative. CF3 beta-diketones provide a separate structural-transfer test.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "f96cee9775323fbf1d8b",
+        "d1172a49fca1e196a59f",
+        "a1809a6c4c3ada20bcb0",
+        "e3a799d0fa90b649a157",
+        "088e6991011a5a20ef36",
+        "989222022f8f567ee126"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The homologous response pairs can identify a shared slope failure, while the matched CF3 pair tests whether correction amplitude depends on aromatic connectivity.",
+      "next_discriminating_question": "Do both simple acetoacetates actually finish earlier at 20/1 than at 10/1, and is the predicted phenyl/naphthyl CF3-diketone distinction reproduced?"
+    },
+    {
+      "id": "H5",
+      "content": "Ester and aryl-carbonyl response slopes require linkage-, substitution-, and scaffold-specific calibration. Correcting one weak-eluent endpoint does not establish the rest of a molecule's response curve.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "36b45fbdbace5950c108",
+        "7abb2cb83395e9b18de1",
+        "e19bda1298f299931245",
+        "92f7fe9d8581717a9949",
+        "4c46ceefd6147b1e0a7a",
+        "d54c93a11164b4abac6e",
+        "f79cf892a214e3af8f61",
+        "855456da9ea892f7216b"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Carbonyl families occupy many catalog rows. Response pairs and targeted analogs can improve transfer while preserving ordinary early and moderate retention.",
+      "next_discriminating_question": "Which structural distinctions persist across measured ratio changes, and which apparent molecular offsets are actually errors in solvent-response shape?"
+    },
+    {
+      "id": "H6",
+      "content": "The unusual late, nearly zero-width m133 measurement at 2/1 may reflect a local condition/loading effect or an atypical observation. Its transfer to neighboring aromatic scaffolds remains unverified.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "a7a814c9db59a62411a2",
+        "faf590d8931af48e6f22",
+        "0e5ec8a2cbdfe50daf83",
+        "07ea08422927a101205e",
+        "f3268baa6bed1f0d5edf",
+        "02ba043ace647ea2192f"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A focused neighboring-condition comparison can constrain propagation of an isolated observation while allowing a genuine local retention regime to be learned.",
+      "next_discriminating_question": "Are m133 and nearby chlorotoluene m136 modest at 5/1, or do they support the elevated endpoints now predicted?"
+    },
+    {
+      "id": "H7",
+      "content": "Nonbasic aromatic nitriles can show weak-eluent retention growth, but its magnitude depends on methyl substitution and carbonyl context. Current steep extrapolations require direct calibration.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "75f973363b6239ac22da",
+        "dd055d2ba5398880d3da",
+        "156594686f5cf7182bcc",
+        "58394a71418a9623e18a",
+        "de3442604a546992b1e1",
+        "186ff43c8f3dcf2ed444"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "These labels distinguish nitrile-specific solvent response from corrections learned for basic heteroaromatics or donor-rich molecules.",
+      "next_discriminating_question": "Which nitrile contexts support the predicted steep rise, and do V1 and V2 slopes change differently when an aryl ketone is present?"
+    }
+  ],
+  "feedback_interpretation": "The latest batch showed mostly small acquisition-time errors for ordinary esters, ketones, ethers and halogenated aromatics, supporting selective corrections. The strongest new failure was m174 at 100/1: 32.72/61.66 mL versus its historical 7.91/24.40 prediction. Current predictions have moved toward that label, so matched ratio and loading contrasts now test transfer of the correction. For m197, V1 was close while V2 was underpredicted by 19.57 mL, motivating a fixed-loading response curve and a matched 5/1 loading comparison. The unusual m133 2/1 result weakens a universal early-aromatic assumption, but accurate neighboring nonpolar measurements argue for a focused check. The matched m59 5/1 measurements were very similar across sample loading, weakening any broad loading-effect claim. Recent m107 1/1 accuracy alongside its earlier late 2/1 and 5/1 measurements strengthens the case for connectivity-sensitive solvent-response learning. Historical acquisition errors are not treated as current residuals.",
+  "batch_rationale": "The batch combines focused failure repair with structural transfer and condition-response learning. m197, m125 and m174 provide loading contrasts connected to measured references. The m133/m136 comparison checks propagation of an unusual aromatic observation. Two acetoacetate response pairs test a shared predicted turnover, and a matched CF3-diketone pair tests structural specificity. New nitroaldehyde, ester, diaryl-ketone and benzylic-alcohol scaffolds explore transfer near measured families. Additional methoxy, thioether, nitrile and amine points constrain unsupported slopes and endpoint-specific behavior. Repeated molecules are used where paired conditions identify response shape; duplicate-condition IDs are not selected together. These labels may improve generalization across the Row-distribution by teaching when a correction should transfer and when connectivity or loading context should limit it. Cross-molecule loading differences and experimental variability remain limits on causal interpretation."
+}

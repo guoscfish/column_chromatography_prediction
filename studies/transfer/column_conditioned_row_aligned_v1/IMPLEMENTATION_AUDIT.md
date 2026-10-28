@@ -1,27 +1,25 @@
-# Implementation audit：Phase 1
+# Implementation audit：完整五seed Phase 2
 
-## 证据边界和冻结
+## 冻结与范围
 
-旧模型、训练脚本及其六个依赖代码的 SHA256 与历史 EXECUTION_PROVENANCE 一致；新入口通过导入使用原模型、loss、batcher、prediction 和 point metrics，没有改动其 GroupKFold 语义。所有写操作限本新目录。历史 study 1069 个文件全部哈希不变；source/data/graph cache/split 哈希与旧 protocol 一致。外层 test 与 validation 只读取身份/获准 feature 白名单，没有标签请求、训练图、epoch 选择或评分。LABEL_ACCESS_AUTHORIZATION.json 固定允许的 ID；PREFLIGHT.json 保存元数据 header 审计。
+PHASE2_PROTOCOL.json引用原冻结protocol.json和phase1_archive，并记录Phase1与历史Row外层结果已曝光。科学设置未变：sample_id排序、KFold5/shuffle/seed42、同一4g源checkpoint、原A1/A2结构、FiLM16与blocks3/4、Adam原LR/weight_decay、raw_quantile、混合late BN、500/patience80、等权两柱Combined NRMSE、最早argmin与五折中位数。新代码不含refit、外层score、PCGrad或搜索入口。
 
-## 测试与真实拟合
+唯一执行诊断差异是遵照本轮用户权限停止解析源validation标签。test_phase2.py以AST比较确认fit代码仅新增source-validation诊断跳过分支；A1/A2三步合成更新、目标历史和best epoch与Phase1逐位一致。source_train人口及所有目标训练/选择完全不变。数据loader使源validation truth为NaN、图y为零，防止误将占位值记为观察指标；源validation误差/loss在Phase2缺失并明确标记。
 
-test_protocol.py：14 passed。覆盖真实五个 seed 的 outer 身份隔离（只对试点拟合）、每折两柱完整性、稳定排序、固定 seed 重现、不同 seed 改变身份、跨柱共享 ID 拒绝、允许分子重合、授权读取跳过 forbidden 标签、真实目标 loader 白名单/标签请求/outer graphs 排除、共同初始权重、图输入 digest 与合成标签下原训练入口一步 checkpoint 完全一致。
+## 逐seed核验
 
-FIT_AUDIT.csv 覆盖十个完成拟合。A1/A2 同折训练/验证 IDs、scales、counts、training seed、batch size、steps_per_epoch 一致；所有共同 epoch 的 batch_draws_sha256 一致。best_epoch 是严格最早 joint argmin，保存模型恢复包含 BN 的完整 state_dict。frozen 参数逐张量与初始状态相同；early BN 统计不变，late BN num_batches_tracked 增量等于 best checkpoint 实际步数。真实 optimizer_steps 是执行 optimizer.step 累加，而不是推测完整源数据遍历次数。
+phase2/seed_*/COMPLETE_AUDIT.json保存每seed完整检查和CSV哈希。共50模型、100目标记录；Phase1十模型从原receipt复用，40新增模型均在完成后审计。ROW_SPLIT_MANIFEST包含全部真实折身份，每目标ID在本seed五折中恰一次验证；源train和diagnostic身份固定。对每折比较两个arm的训练/验证hash、数量、归一化尺度、训练seed、batchsize和steps，全部一致；共同epoch的batch_draws_sha256完全相同，共同初始状态digest一致。
 
-verify_inner_predictions.py 的零标签重放检查 20 个目标上下文、1368 条预测，最大绝对差 2.84e-14 mL。此独立检查只解析输入白名单、身份及保存的盲预测，没有新增标签读取。CHECKPOINT_REPLAY.csv/json 保存逐上下文证据。
+独立读取best.pt核对best_epoch、源authority、冻结参数和early BN buffers、late BN num_batches_tracked增量；best是joint历史最早argmin，optimizer_steps是实际累加，每个checkpoint最佳步数与best_epoch×steps一致。重算获准inner验证指标与保存CSV、best history一致；零标签模型重放 100个上下文、6788条预测，最大差 2.84e-14 mL。目标训练/验证预测、训练梯度、train和target validation损失均有限。
 
-每折 source、25g、40g 的训练损失和验证损失有限，预测/梯度有限；A1 trainable/total=130615/460500，A2=139367/469252。FiLM 仍是 embedding_dim16、blocks3/4、零初始化；pretrained/new LR、Adam wd、raw_quantile、混合 BN、patience80/max500 不变。新增诊断不改变目标或参数更新；合成等价性测试对此提供直接执行证据。
+## 权限、重复输入和保存
 
-## 数据独立性
+PHASE2_LABEL_AUTHORIZATION固定每seed gradient_train与源source_train ID；每新fit的label_access.json记录实际读取请求hash。源validation/test、目标outer validation/test真实标签均无请求。只按特征白名单解析CSV，原features文件冗余时间列未解析。输入digest含实际图与条件张量，排除y/身份；不同ID重复输入保留当前协议并统计，没有自行去重或重新分组。跨柱task ID不同意味着骨干输入重合不等于完整模型输入相同。缺少明确物理实验批次/replicate元数据，不将共享记录的五seed或25折当独立物理重复。
 
-ROW_SPLIT_MANIFEST.csv 包含每个实际 fold 的真实身份。目标 OOF 每 ID 恰一次验证，两个 arm 预测 ID 相同。INPUT_OVERLAP_AUDIT 按 heldout 方向记录同柱及跨柱分子、身份、图输入重合；跨柱 full_model_input_overlap_rows=0，因为 task identity 不同。输入 digest 包含实际 atom/bond/angle 图和原条件张量，排除 y、canonical_position 和缓存派生量；不是把原 CSV 全列当模型输入。
+原Phase1 110个runtime文件、43个归档根文件，以及历史研究1069个文件哈希保持不变。原Phase1 protocol.json、训练/测试代码与provenance不改动；PROTOCOL.md按用户要求追加阶段授权/曝光/诊断边界披露。根目录聚合结果更新为50拟合，Phase1原表保存在phase1_archive，原单seed负结果保留。
 
-CSV header 没有明确 independent batch/replicate ID；source_row_1based 不是实验批次证据。重复输入行可能来自不同实验、重复测量或数据处理，当前不能判定，保留 Row 记录级估计并披露边界。新 runner 若遇到共享 sample_id 立即拒绝，而不是静默按列拆到两侧。
+## 限制与执行记录
 
-## 结果限制与停止
+没有发现训练协议漂移或非有限预测/错误参数范围/BN故障。19项执行与权限测试通过（TEST_RESULTS_PHASE2.txt），统计定义的独立算术检查见REPORTING_TEST_RESULTS.txt。每seed的收敛上限和所有tail/max负结果见REPORT。没有提高500上限或改变epoch选择。完整曲线保存在learning_curves/，全部历史在TRAINING_HISTORY.csv。
 
-未发现新的训练错误。十折模型全部按原 recipe 运行；收益、tail/Center/Width 和 cap/early stop 详见 REPORT。单 seed 不足以证明选择偏好、跨 seed 稳定性或外层泛化。后续四 seed/refit/score 不在入口中，也未执行。新增文件不覆盖历史冻结证据。
-
-复现（在仓库根目录）：`KMP_DUPLICATE_LIB_OK=TRUE /Users/fish/miniforge3/envs/fish/bin/python studies/transfer/column_conditioned_row_aligned_v1/run_phase1.py`；完成拟合按 receipt 校验复用。仅重新报告：同一 Python 运行 summarize_phase1.py。测试：`python -m pytest -q studies/transfer/column_conditioned_row_aligned_v1/test_protocol.py`。上述 Python 为已验证 fish 环境，系统/base Python 缺 torch，因此没有安装或修改环境。
+复现已完成检查/汇总：fish Python运行summarize_phase2.py；Phase2运行入口run_phase2.py只接受四个新seed并按receipt复用已完成fit，拒绝拟合pilot。该入口没有其他科学动作。报告生成不训练模型；诊断重放不会读取外层标签。**已完成Phase2并停止，未执行FULL-data refit或outer评分。**

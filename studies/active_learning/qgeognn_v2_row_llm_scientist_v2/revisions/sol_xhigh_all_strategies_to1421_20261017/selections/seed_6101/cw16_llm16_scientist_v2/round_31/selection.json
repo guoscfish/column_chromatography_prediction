@@ -1,0 +1,130 @@
+{
+  "type": "selection",
+  "packet_sha256": "7cf5d8276e40649afda775bcbd823f20d18dc48f3a14d40d7c14c42be3c37143",
+  "batch_strategy": "condition response anchors with targeted polar failure repair and structural coverage across low, intermediate, and high PE/EA ratios",
+  "choices": [
+    {
+      "id": "0e6e193d74ba48307bc4",
+      "reason": "Measures m14 at 1/1 to fill the low-to-intermediate condition curve between measured m14 rows c27a012f2bf336bbde03 and a40529b9fd2969cce106. This helps separate the ratio response from loading effects in a weakly polar aromatic scaffold.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "ef809aee1c6b06021475",
+      "reason": "Adds a high-ratio m87 point with a broad model interval, providing condition coverage for an amino-substituted aromatic ester family where silica interactions may broaden V2 disproportionately.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "id": "00576956c634095bfd14",
+      "reason": "Provides a weak-eluent m49 anchor for a hydrophobic aromatic aldehyde. It tests whether the model's relatively early low-ratio prediction transfers to a less polar structure and supplies a control for polar late-retention corrections.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "e7a1b39854237234e083",
+      "reason": "Samples m56 at 1/1 and moderate loading, adding a simple ester loading-condition point to the broad catalog region and helping calibrate ordinary rows around the high-error polar families.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "b75496c856f75b72251c",
+      "reason": "Measures m147 at 1/1 as a low-ratio alkyl chloride aromatic anchor. Its structural simplicity gives the retrained model a useful comparison against more strongly interacting heteroatom-rich rows.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "0c322a9024cb27b07137",
+      "reason": "Extends m136 to 50/1, complementing the measured m136 intermediate-ratio failure at 0176b6e3af99b142d3f8. This tests whether the model recovers a high-ratio response in a relatively nonpolar halogenated family.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "1de0df01db7a3b665672",
+      "reason": "Adds m102 at 1/1 and low amount as a neutral halogenated benzoate control. It can distinguish ordinary ester condition behavior from the conditional basic ester failures represented in H10.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "id": "b6ed580bb82f12b95bb8",
+      "reason": "Measures a high-ratio m1 nonpolar alkyl bromide, supplying geometric and chemical coverage where strong solvent changes should be relatively smooth and therefore useful for anchoring the model outside late-retention regimes.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "57163774ada660438e36",
+      "reason": "Adds a 10/1 m89 amino ester point with low loading. The polar aromatic ester motif provides a transfer test for whether V2 broadening seen in basic and heteroatom-rich observations persists across substitution patterns.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "id": "5ade07cbab809516adec",
+      "reason": "Samples m50 at 50/1 as a high-ratio hydrophobic control. Comparing this point with the selected polar and heteroatom-rich conditions can help the retrained model avoid assigning a universal high-ratio offset.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "c219b2fe4227fb602c44",
+      "reason": "Measures m11 at 0/1, extending the basic oxime response below the strongly underpredicted 50/1 observation 9ffee2813aef5c26f96f and the closer intermediate point c3c4fdce502f6d3576dc. It directly tests where the basic late-retention transition begins.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "id": "13bfaf03c35b4cff3bd5",
+      "reason": "Provides an intermediate-ratio m206 point for a polar fused aromatic alcohol-like structure. It targets a chemically distinct HBD-containing family and can test whether the V2 late-retention behavior generalizes beyond the observed basic and quinoline-like cases.",
+      "hypothesis_id": "H10"
+    },
+    {
+      "id": "2490762d0471bbb9cc9f",
+      "reason": "Adds a weak-eluent m184 point for a dibrominated aromatic aldehyde. This supplies structural coverage in a less polar aldehyde regime and helps separate halogen and aromaticity effects from nitroaldehyde behavior.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "a247cee7090fdbb110b4",
+      "reason": "Measures m124 at 20/1, adding a high-ratio fused aromatic ether condition with a broad model interval. It tests high-ratio transfer in a moderately polar aromatic family without duplicating the basic or acid regimes.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "59e942d4a3b5dfc412a2",
+      "reason": "Anchors the weak-eluent end of the m159 surface. It extends the measured m159 sequence from 1/1, 2/1, and 5/1 rows cfcf2b8c54d4c8b3838a, da1e48445e8e0b651070, and b86ace0ccafe0af8ceec before the much later 20/1 and 50/1 rows a738b1f204da6fcfd385 and 1395836aef00d6a880b0.",
+      "hypothesis_id": "H11"
+    },
+    {
+      "id": "abb6aad7f0471caa082f",
+      "reason": "Measures m52 at 2/1 as a low-polarity condition anchor. It adds a chemically simple brominated alkene to help calibrate ordinary solvent response against the conditional late-retention families selected elsewhere in the batch.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H10",
+      "content": "Polar, basic, heteroatom-rich, and acid-containing molecules can enter late-retention regimes conditionally, with V2 often failing differently from V1. Recent observations support ratio-dependent transitions but reject a universal positive offset.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "49201b5817f204116f7f",
+        "2d178efe0181baca2bd5",
+        "c6924324ddd95f249df6",
+        "d1172a49fca1e196a59f",
+        "9ffee2813aef5c26f96f",
+        "754f1d33b0ed61557754",
+        "abca62b372239d49a61b"
+      ],
+      "contradicting_observed_ids": [
+        "73155d7feac7857188dd",
+        "a7990e0922fe119d57a6"
+      ],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The batch tests whether conditional late-retention corrections transfer across basic, amino ester, fused aromatic, and less polar control structures while preserving separate V1 and V2 behavior.",
+      "next_discriminating_question": "Can a shared ratio boundary explain the remaining basic and heteroatom-rich families, or are family-specific endpoint corrections required?"
+    },
+    {
+      "id": "H11",
+      "content": "m159 has a sharp structure- and condition-dependent retention surface, with a relatively early low-ratio regime followed by much later high-ratio behavior and endpoint-specific widening.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "a738b1f204da6fcfd385",
+        "a17bcdddcf0799baeee2",
+        "1395836aef00d6a880b0",
+        "da1e48445e8e0b651070",
+        "8cbab5e832e82452994c"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "A weak-ratio m159 anchor helps locate the transition boundary and prevents the retrained model from smoothing a sharp local response into a generic cyanoaryl carbonyl trend.",
+      "next_discriminating_question": "Does the m159 transition begin below 1/1, and does the interval width change before or after the onset shift?"
+    }
+  ],
+  "feedback_interpretation": "Recent m159 measurements confirmed a sharp response surface: the 1/1 point cfcf2b8c54d4c8b3838a was close, while the lower-amount 5/1 point b86ace0ccafe0af8ceec still had a substantial V2 overprediction and the high-ratio measured rows were much later. Nitroaldehyde feedback also continued to show endpoint-specific behavior, while m72, m107, m216, m211, and m104 outcomes strengthened the view that late retention is conditional rather than a universal positive offset. The corrected batch therefore retains one m159 transition anchor, adds basic and polar family tests, and includes nonpolar controls so the retrained model can learn where corrections should and should not transfer.",
+  "batch_rationale": "The batch combines a focused m159 transition measurement with low, intermediate, and high-ratio anchors across aromatic esters, basic oximes, amino esters, fused aromatic alcohol or ether motifs, aldehydes, and nonpolar halogenated controls. The condition-response points target model failure regions while the simpler controls constrain overgeneralization of late-retention corrections. Several candidates have broad predicted endpoint intervals or high geometric novelty, adding information outside the already sampled local neighborhoods. Together these labels should improve generalization across the Row-distribution by refining solvent-ratio response surfaces, distinguishing V1 from V2 behavior, and calibrating ordinary rows alongside the difficult polar regimes."
+}

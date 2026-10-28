@@ -1,0 +1,217 @@
+{
+  "type": "selection",
+  "packet_sha256": "c453f1c688bdc7129a2db542e05cfbcc66eae7e8ee524b7af79049287c21d558",
+  "batch_strategy": "late-tail coverage with novel chemical structures and molecule-local condition-response probes",
+  "choices": [
+    {
+      "id": "f9f0f4e29dbd30c000ee",
+      "reason": "Novel benzyl-alcohol structure with predicted V1/V2 quantile widths of 6.35/39.20 ml; tests hydrogen bonding and broad-tail behavior in a poorly constrained region.",
+      "hypothesis_id": "H3_spread_novelty"
+    },
+    {
+      "id": "25d60bbb1198b76224d2",
+      "reason": "Novel low-polarity bromide at 50/1 PE with predicted widths 3.19/15.18 ml; supplies a nonpolar halogenated anchor against the more polar and late-eluting selections.",
+      "hypothesis_id": "H3_spread_novelty"
+    },
+    {
+      "id": "b324251a07260af49364",
+      "reason": "m87 at 5/1 DCM and 100 ul provides a molecule-local response point with a relatively broad predicted V2 width of 23.22 ml; useful for condition-response learning.",
+      "hypothesis_id": "H1_response"
+    },
+    {
+      "id": "515763da976fe2130227",
+      "reason": "m54 at 10/1 DCM samples a stronger eluent for a related ketone while retaining a 17.58 ml predicted V2 width; tests whether the model captures solvent-strength shifts.",
+      "hypothesis_id": "H1_response"
+    },
+    {
+      "id": "cd886ea93739886ed3c6",
+      "reason": "The m26 diketone/ester has predicted widths 6.08/28.26 ml at 5/1 DCM, targeting a carbonyl-rich retention regime where V2 shape may be underlearned.",
+      "hypothesis_id": "H3_spread_novelty"
+    },
+    {
+      "id": "cb446680f62351d087a9",
+      "reason": "m202 is a phosphorus-containing, moderately polar structure with predicted widths 6.27/25.27 ml; its 10/1 DCM point tests heteroatom-specific silica interactions.",
+      "hypothesis_id": "H3_spread_novelty"
+    },
+    {
+      "id": "dcd115d5903aa7c38191",
+      "reason": "Novel iodothiophene-like m158 at high density gives a chemically distinct halogen/heteroaromatic point with predicted widths 3.57/14.13 ml.",
+      "hypothesis_id": "H3_spread_novelty"
+    },
+    {
+      "id": "a83fb14090f1518df5a7",
+      "reason": "m195, a fused aromatic aldehyde, has predicted widths 8.49/44.71 ml at 20/1 DCM; it probes late aromatic-carbonyl retention and tail completion.",
+      "hypothesis_id": "H2_tail"
+    },
+    {
+      "id": "4c46ceefd6147b1e0a7a",
+      "reason": "Novel thioanisaldehyde-like m129 has predicted widths 11.97/57.28 ml, providing a strong test of sulfur-containing aromatic retention and V2 tail calibration.",
+      "hypothesis_id": "H2_tail"
+    },
+    {
+      "id": "d550a2107daf4c532b6a",
+      "reason": "m203 combines a tertiary alcohol with a rigid aromatic framework and has predicted widths 5.05/21.12 ml; it tests whether steric shielding changes the expected silica interaction.",
+      "hypothesis_id": "H3_spread_novelty"
+    },
+    {
+      "id": "754f1d33b0ed61557754",
+      "reason": "Novel amino acrylate m72 is an extreme model-spread case, with predicted widths 33.32/108.54 ml and a late predicted interval; high value for repairing the upper-tail regime.",
+      "hypothesis_id": "H2_tail"
+    },
+    {
+      "id": "b070c3657459c06a4df1",
+      "reason": "m110 at 50/1 DCM and 150 ul directly extends the observed m110 condition/loading series (7c9b7238a83ed646815a, 0ae541927703401945de); it tests PE/EA and loading interaction together.",
+      "hypothesis_id": "H1_response"
+    },
+    {
+      "id": "96710afeabc594baa359",
+      "reason": "Ethyl nicotinate-like m90 has predicted widths 24.94/102.34 ml, targeting a high-retention heteroaromatic ester regime with substantial potential impact on V1 and V2 accuracy.",
+      "hypothesis_id": "H2_tail"
+    },
+    {
+      "id": "d5234e966aa231be05e5",
+      "reason": "Novel dibenzylamine-like m212 has predicted widths 14.41/74.90 ml at 5/1 PE; its basic H-bonding character makes it a useful test of nonmonotonic silica retention.",
+      "hypothesis_id": "H2_tail"
+    },
+    {
+      "id": "46b721cd9a123b4974e8",
+      "reason": "Novel heavily halogenated anisole m153 at 0/1 DCM has predicted widths 4.28/19.37 ml; it separates mass and halogen effects from conventional polarity expectations.",
+      "hypothesis_id": "H3_spread_novelty"
+    },
+    {
+      "id": "683b6279a87805548c7c",
+      "reason": "m165 is a conjugated aromatic ketone with predicted widths 9.82/32.55 ml at 50/1 DCM, adding a high-spread carbonyl point to the aromatic tail set.",
+      "hypothesis_id": "H2_tail"
+    },
+    {
+      "id": "67b03e9099ef99d26eb1",
+      "reason": "Hydroxy ester m99 has predicted widths 7.22/27.75 ml; it probes how a donor and multiple acceptors alter both onset and completion of elution.",
+      "hypothesis_id": "H2_tail"
+    },
+    {
+      "id": "298de9d74bc6f5f13409",
+      "reason": "m127 at 0/1 PE supplies a relatively early condition point for an anisyl ketone, useful for learning response curvature across the many stronger-solvent m127 candidates.",
+      "hypothesis_id": "H1_response"
+    },
+    {
+      "id": "f08f1f5e4f51796c1f81",
+      "reason": "Phenoxyethyl acrylate-like m21 at 5/1 DCM has predicted widths 5.55/22.11 ml; it fills an ether/ester chemical niche distinct from the aromatic carbonyl tail rows.",
+      "hypothesis_id": "H3_spread_novelty"
+    },
+    {
+      "id": "5265c3d2f02abb35e86e",
+      "reason": "m18 has an unusually narrow predicted V1 width of 0.24 ml but a much wider V2 width of 15.37 ml, including internally irregular quantile ordering; measuring it is a direct diagnostic of model-shape failure.",
+      "hypothesis_id": "H3_spread_novelty"
+    },
+    {
+      "id": "0dfdfd6dce2d3f41a427",
+      "reason": "A second m165 point at 10/1 DCM tests solvent-strength response against the selected 50/1 point while retaining a predicted V2 width of 24.29 ml.",
+      "hypothesis_id": "H1_response"
+    },
+    {
+      "id": "20d161840f4253ea98bc",
+      "reason": "m181 at 2/1 DCM and 150 ul probes a lactone-like oxygenated aromatic structure with predicted widths 4.48/19.64 ml, adding a distinct condition/functional-group combination.",
+      "hypothesis_id": "H1_response"
+    },
+    {
+      "id": "a5f9179bfb146ad70953",
+      "reason": "m193 at 20/1 DCM with high loading has predicted widths 29.68/115.29 ml; this is a strong upper-tail and loading-regime repair point.",
+      "hypothesis_id": "H2_tail"
+    },
+    {
+      "id": "1c2fe2551ccf2b35aacc",
+      "reason": "m103 uses an unusually high density and loading amount at 0/1 DCM, with predicted widths 3.39/18.15 ml; it tests loading effects for a halogenated ester.",
+      "hypothesis_id": "H1_response"
+    },
+    {
+      "id": "9b11493847c035abf800",
+      "reason": "m169 at 10/1 DCM has predicted widths 4.51/24.93 ml and combines an aryl ketone with a terminal halide, covering a structurally distinct intermediate-retention regime.",
+      "hypothesis_id": "H2_tail"
+    },
+    {
+      "id": "6e17f8e15aa8fdd6a9ea",
+      "reason": "m53 at 20/1 PE has predicted widths 17.66/62.56 ml, providing a late-eluting unsaturated aldehyde/terpene-like point for tail learning outside the aromatic families.",
+      "hypothesis_id": "H2_tail"
+    },
+    {
+      "id": "b6f1b33a5491968c645e",
+      "reason": "Nitroacetophenone-like m37 has predicted widths 31.81/127.15 ml; its strong polarity and high model spread make it a high-value V1/V2 tail calibration experiment.",
+      "hypothesis_id": "H2_tail"
+    },
+    {
+      "id": "b514312eda7950cdcf1c",
+      "reason": "m177 is the largest-spread candidate in the batch, with predicted widths 37.23/148.84 ml at high loading; it targets the extreme late-elution region represented by observed high-tail rows.",
+      "hypothesis_id": "H2_tail"
+    },
+    {
+      "id": "ca467c94f14b2219503e",
+      "reason": "Polar diester m13 has predicted widths 21.46/85.37 ml; it tests whether the model handles several acceptors and high loading without collapsing onset and completion together.",
+      "hypothesis_id": "H2_tail"
+    },
+    {
+      "id": "975d484a29fb5011f336",
+      "reason": "Chlorobenzophenone-like m176 has predicted widths 7.25/33.52 ml and forms a useful structural contrast to the selected nitrobenzophenone-like m177 point.",
+      "hypothesis_id": "H2_tail"
+    },
+    {
+      "id": "6c27c0ab37bb8d812822",
+      "reason": "The observed m159 row 1395836aef00d6a880b0 is extremely late at 50/1 DCM; this candidate changes to 0/1 DCM with lower volume and tests whether the model learns that condition response rather than transferring the late label blindly.",
+      "hypothesis_id": "H1_response"
+    },
+    {
+      "id": "6e2325f6234c59293bd5",
+      "reason": "m168 at 10/1 DCM and 50 ul extends the observed m168 series e7acdb127fe6371def7f, c9bc6e598eba6b2f3739, and e82a87ee526fdd9b1e8d across PE/EA and loading conditions.",
+      "hypothesis_id": "H1_response"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1_response",
+      "content": "Retention is materially condition- and loading-responsive at the molecule level, so same-molecule measurements across PE/EA, volume, density, and loading solvent should be learned jointly rather than inferred from structure alone.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "7c9b7238a83ed646815a",
+        "0ae541927703401945de",
+        "e7acdb127fe6371def7f",
+        "c9bc6e598eba6b2f3739",
+        "e82a87ee526fdd9b1e8d",
+        "1395836aef00d6a880b0"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Condition-response labels can teach interaction terms and prevent the model from treating molecule identity or PE/EA ratio as sufficient across loading regimes.",
+      "next_discriminating_question": "Do the selected same-molecule points show smooth, monotonic response to PE/EA and loading, or are there molecule-specific reversals and width changes?"
+    },
+    {
+      "id": "H2_tail",
+      "content": "The Row-distribution contains a genuine late and broad elution tail, especially among aromatic, heteroatom-rich, conjugated, or strongly interacting structures; improving this tail should materially improve overall V1/V2 accuracy.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "67fa39740fcf946a3154",
+        "d9c8c8af50a10bf07765",
+        "1395836aef00d6a880b0",
+        "8ab554cd154e9749790b",
+        "547923973b121019625f"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The selected high-spread rows provide labels in the region where V2 completion and late V1 onset can dominate absolute error and where chemical extrapolation is most consequential.",
+      "next_discriminating_question": "Are the large predicted widths associated with consistently late measured elution across several chemotypes, or are they mostly overdispersion in the current predictor?"
+    },
+    {
+      "id": "H3_spread_novelty",
+      "content": "Large model quantile widths combined with novel or chemically distinct structures identify weakly constrained regions likely to benefit from new labels; the widths are used as a model-behavior signal and are not assumed to be calibrated uncertainty.",
+      "basis": "model_behavior",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "Novel labels diversify the correction signal and reduce dependence on repeated near-duplicate rows, improving transfer across functional groups and loading conditions.",
+      "next_discriminating_question": "Do high-spread novel rows produce systematic residual patterns that can be generalized by the retrained model, or do they mainly reflect irreducible row-to-row variation?"
+    }
+  ],
+  "feedback_interpretation": "",
+  "batch_rationale": "There is no prior-round feedback or pending set in this round. The batch combines high-spread late-tail rows, novel chemical structures, and molecule-local condition probes. The extreme candidates m72, m90, m177, m37, m193, m13, m53, and m159 target the observed late-elution tail; m1, m135, m129, m153, m195, m158, and m212 add structural coverage; m110, m165, m168, m181, m127, m103, and m159 form condition or loading-response tests. The narrow-V1 but broad-V2 m18 row diagnoses an unusual model output shape. This mix supplies both tail repair and transferable structure-condition-response information across polar esters, aromatic carbonyls, heteroaromatics, halogenated compounds, sulfur-containing structures, and nonpolar molecules, which should improve generalization across the Row-distribution."
+}

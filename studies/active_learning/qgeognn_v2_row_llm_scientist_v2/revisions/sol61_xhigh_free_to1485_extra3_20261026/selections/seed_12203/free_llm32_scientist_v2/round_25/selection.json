@@ -1,0 +1,273 @@
+{
+  "type": "selection",
+  "packet_sha256": "7a43c48407245722a0333739da0b40b9fc98a66a56de44c746675eb87fa7ad21",
+  "batch_strategy": "Use targeted repeats where recorded-condition variability undermines deterministic corrections, then fill informative gaps in solvent-response and loading-response curves. Include ordinary early-elution regimes, unusual endpoint predictions, and matched structural comparisons so retraining can improve both V1 and V2 across the Row-distribution.",
+  "choices": [
+    {
+      "id": "5d6d4ac0c1dfacbde53d",
+      "reason": "Repeat m72 at 20/1, 150 uL, DCM/200. The prediction is 38.40/113.28 mL versus measured 334f7f55dcbf278e47ec at 31.75/118.84. The substantial disagreement between identical 10/1 rows 7383949c431e18f39597 and 93bcd806b8dcb8c0cab9 makes repeatability at this second ratio informative.",
+      "hypothesis_id": "H72_VARIABILITY"
+    },
+    {
+      "id": "d2472f692763fd970d64",
+      "reason": "m72 at 1/1, 50 uL, PE/300 fills a missing configuration control. Compare with DCM/200 observations 4df0734ab058c0eeed78 and 6a53fc46345dc50021ae, which themselves differ. This helps assess configuration transfer while allowing for within-condition variation.",
+      "hypothesis_id": "H72_VARIABILITY"
+    },
+    {
+      "id": "bbb514661c0a49694d6a",
+      "reason": "Repeat m92 at 20/1, 100 uL with EA loading. Its 10.17/27.11 prediction lies between the onset patterns measured in 8b58e9d7a710f55e49d3 and higher-loading e9dc948c0e68a88eb621. An independent label tests whether that apparent loading contrast is reproducible.",
+      "hypothesis_id": "H92_VARIABILITY"
+    },
+    {
+      "id": "ab1062a71079c605f750",
+      "reason": "Repeat m92 at 10/1, 100 uL. The model predicts 9.47/23.72 mL versus measured 8.85/28.15 in 4b8ba288d549f6cfc94b. Together with lower-loading e2f15590b7142490599b and higher-loading 50e113fcc37184809670, this tests intermediate-ratio completion variation before imposing a smooth amount correction.",
+      "hypothesis_id": "H92_VARIABILITY"
+    },
+    {
+      "id": "cdaf95461fe3b3d80075",
+      "reason": "m198 at 20/1, 50 uL fills the lower-loading point beside 163874b97308a1ea2507. The 23.97/52.84 prediction tests whether the loading response between measured 10/1 and 50/1 remains modest at this intermediate ratio.",
+      "hypothesis_id": "H_NITRO_CONFIG_CURVES"
+    },
+    {
+      "id": "d5b6201c7690d729361c",
+      "reason": "m157 at 50/1, 50 uL tests the predicted increase to 11.61/19.35 mL beyond measured 10/1 row 6348f80546c20a88b318. This nonpolar scaffold with a 900-uL DCM plug probes solvent-response transfer to a graph without O/N acceptors.",
+      "hypothesis_id": "H157_WEAK_RESPONSE"
+    },
+    {
+      "id": "a39b54ec29efd4464245",
+      "reason": "m157 at 50/1, 150 uL forms a fixed-ratio loading contrast with the selected 50-uL row. Predictions are nearly amount-invariant at 11.26/19.50 mL; the pair can reveal onset displacement or completion broadening that a single weak-eluent label would miss.",
+      "hypothesis_id": "H157_WEAK_RESPONSE"
+    },
+    {
+      "id": "c19767fb04f6a760572d",
+      "reason": "m99 at 0/1, 100 uL establishes an unmeasured strong-eluent baseline for the hydroxyester with a 1000-uL DCM plug. Predicted completion, 15.65 mL, exceeds the selected matched-loading 2/1 prediction. Measured 67b03e9099ef99d26eb1 supplies an additional 1/1 reference at a different amount.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "ad67d712133eac45ff64",
+      "reason": "m99 at 2/1, 100 uL completes the amount series bracketed by 30456dafbfe681b5af70 and b43781cffcdb47081a21. Together with the selected pure-EA row, it supplies a matched ratio comparison for the predicted 10.34/13.88 mL regime.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "b9aa7dfdcba8cffaa0e2",
+      "reason": "m40 at 0/1, 100 uL tests an uncovered baseline where predicted onset is 7.30 mL, later than the selected 2/1 onset. Existing 0f35c2146c21fa6ac372 and b645df00945e594953a6 anchor the higher-ratio curve but cannot establish this strong-side behavior.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "4d0055bdff0f507c778b",
+      "reason": "m40 at 2/1, 100 uL pairs with the pure-EA row at identical loading conditions. The 4.99/13.47 prediction implies nearly unchanged completion but earlier onset; measuring both distinguishes a real endpoint-specific response from a model artifact in this carbonyl family.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "ed4d64cb440e2438815f",
+      "reason": "m166 at 5/1, 150 uL fills a ratio gap before measured 10/1 and 20/1 behavior. Prediction is 5.21/19.64 mL. The matched m167 selection tests whether their measured weak-eluent completion contrast shrinks at this stronger eluent.",
+      "hypothesis_id": "H_CARBONYL_ENVIRONMENT"
+    },
+    {
+      "id": "6d00a25c0ca42a5cf2c1",
+      "reason": "m167 at 5/1, 150 uL matches the m166 probe in recorded conditions and loading amount. Compare with 34a133db8364fd665ae6 at 100 uL and f4c58d48258027bb5485 at 50/1, 50 uL to separate amount effects from the aromatic-environment response.",
+      "hypothesis_id": "H_CARBONYL_ENVIRONMENT"
+    },
+    {
+      "id": "b8abc8f40545556f07e0",
+      "reason": "m168 at 50/1, 100 uL, DCM/400 bridges measured lower-loading 5e5b7c697bc0c268b288 and the 10/1 series. Its 10.28/29.90 prediction provides a nonfluorinated aromatic beta-diketone comparison without assuming the fluorinated scaffolds' early-onset behavior transfers unchanged.",
+      "hypothesis_id": "H_CARBONYL_ENVIRONMENT"
+    },
+    {
+      "id": "8a5443659239e3b52e14",
+      "reason": "m94 at 5/1, 150 uL tests the prediction of almost unchanged endpoints from measured 50-uL row 20d4b1612cbdd88b6755. At 10/1 and 20/1, 7ac90b210e42d27c5a04, 5b445b457a8b897a2d6c, ffc70e28db22d1cc1f3f and ffffcd6f3b9393846ab4 show stronger onset dependence on amount.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "b7953b4cf8c561ff4cfe",
+      "reason": "m107 at 1/1, 150 uL fills a strong-side loading boundary beside 60b7eed7a46a03b366b2. The predicted 9.74/25.22 mL constrains how its large measured 5/1 completion volumes recede toward the baseline, rather than applying a shared beta-ketoester tail offset.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "6b8ff4c027d9c4c2d75f",
+      "reason": "m81 at 20/1, 150 uL probes an uncovered ratio for an aromatic beta-ketoester whose measured 50/1 rows f4a4fc4d6e4dea59b061 and 57646b9484b03f4076bb remain relatively early. The 6.05/17.69 prediction tests the boundary of transferring later responses from m94 and m107.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "68c511d842fc030aa84b",
+      "reason": "m18 at 0/1, 50 uL tests a predicted near-front onset of 0.84 mL and completion at 5.26 mL. The selected 5/1 row supplies a matched-loading contrast; measured 2631e65cfde93b7bbd64 and 2f1ff409bb879ae9f62b anchor other ratios at 100 uL.",
+      "hypothesis_id": "H18_ENDPOINT_BEHAVIOR"
+    },
+    {
+      "id": "31d68872f0906ed4c5b1",
+      "reason": "m18 at 5/1, 50 uL has predicted V1/V2 of 7.44/6.93 mL, an endpoint-order violation. Paired with the selected pure-EA condition, its label can repair the local ratio response and endpoint relationship in a long-chain ester region.",
+      "hypothesis_id": "H18_ENDPOINT_BEHAVIOR"
+    },
+    {
+      "id": "bf09d868ed4d68a97b40",
+      "reason": "m51 at 5/1, 50 uL tests whether the modest amount response predicted here persists despite the pronounced onset loading response at 10/1 in 4fb92bd1fab3ba235858, bad24d96575f423fe4fd and 19229d505f75d05a0bcb. Measured 3e78a776ac9b885d378a supplies the 100-uL control.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "985361f6699d97f9464f",
+      "reason": "m60 at 5/1, 50 uL matches the selected m51 condition closely in loading amount and configuration. Measured 62d7ea74ab73fa6214b4 and 3e78a776ac9b885d378a show different responses at 100 uL; this tests transfer across secondary and more hindered tertiary alcohol environments.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "c9ad01493d938f825117",
+      "reason": "m60 at 2/1, 50 uL forms a fixed-loading ratio contrast with its selected 5/1 row. Compare with 4b3e648044ebe5372a27 at 100 uL to distinguish ratio curvature from loading dependence in this alcohol family.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "dea19ed5b8959a2a6619",
+      "reason": "m203 at 10/1, 100 uL fills the middle amount between fbfb34ddee14b1ea50b1 and 04ea307c7b7f3321cc20. Those measurements show a larger onset than completion shift with loading; this intermediate point teaches separate endpoint responses for a cyclic tertiary alcohol.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "5910d3761883c7036a58",
+      "reason": "m205 at 0/1, 50 uL supplies the missing low-loading baseline beside 0483db40cbad8db07032 at 150 uL. Its unusual amount dependence at 1/1 in b1fcf9bf2e03028d2ef8 and 1aceeb0ee0419209d1c7 should not be transferred to pure EA without this control.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "eb56f25c331ea1ab9b2b",
+      "reason": "m216 at 0/1, 150 uL establishes an uncovered strong-eluent baseline for the quinoline scaffold. The 5.42/12.82 prediction tests the transition from measured 1/1 behavior in d1e71a8278523e7a10e3 and the much later 5/1 regime in c5185bd663026c64c816, while retaining the recorded PE loading configuration.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "e84314bcd7ec5ba57283",
+      "reason": "m38 at 0/1, 150 uL establishes the strong-eluent baseline for its 1000-uL DCM configuration. Recent 5b1b0390c90ceb580c5e and d1e922c04dbd0c9f6c06 constrain 5/1 and 10/1; this point tests whether completion returns to the predicted 11.70 mL rather than inheriting a general large-plug delay.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "857ae40d0fdf1c7e387e",
+      "reason": "m198 at 20/1, 150 uL completes a fixed-loading ratio segment between e99da719af7e2c3e9a93 and 0ac58929e586a4da4056. Pairing it with the selected 50-uL point tests loading dependence where the model predicts lower completion than measured 100-uL row 163874b97308a1ea2507.",
+      "hypothesis_id": "H_NITRO_CONFIG_CURVES"
+    },
+    {
+      "id": "5a279bc25d91d033acdc",
+      "reason": "m198 at 5/1, 150 uL extends measured 4da6e3b93f29af1efa94 to the amount used in the recent 10/1 and 50/1 labels. It tests whether the modest loading response established there also applies on the stronger-eluent side, where the model predicts 7.32/20.95 mL.",
+      "hypothesis_id": "H_NITRO_CONFIG_CURVES"
+    },
+    {
+      "id": "3e69cf586f3eb0f0fa8c",
+      "reason": "m193 at 5/1, 50 uL completes the lower-loading curve before a01a137fa48c1391b9e7 at 10/1 and a5f9179bfb146ad70953 at 20/1. Together with 6ae922f63e983b14e320 and 0a79a24271d119590ae6, it separates loading effects on onset and completion within this recorded configuration.",
+      "hypothesis_id": "H_NITRO_CONFIG_CURVES"
+    },
+    {
+      "id": "f9d4d16c9703edbbe541",
+      "reason": "m161 at 1/1, 150 uL supplies a missing strong-side amount boundary beside 19732d5797039e3465b6 at 50 uL. The 6.67/18.28 prediction constrains how the late 5/1 regime in 3774a4dac6dd0f01d48d transitions through measured 2/1 row 0ced19fd8372ed93361c.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "72231b208c5287c32d70",
+      "reason": "m117 at 20/1, 100 uL fills an intermediate amount beside 7e834c7b870ef7024d35. Compare also with salicylaldehyde row 905c8843dd27543205a5: similar completion volumes need not imply identical onset or loading responses, and their recorded configurations differ.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "c68db037670dea886720",
+      "reason": "m117 at 5/1, 50 uL tests the lower-loading side of measured a0d6732883ffc7d063fb at 150 uL. This adds an intermediate-ratio anchor for a hydroxy/methoxy aldehyde whose 1/1 and 2/1 responses are irregular, limiting an unsupported common phenolic loading correction.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H72_VARIABILITY",
+      "content": "m72 cannot currently be represented confidently by a deterministic amount/configuration correction. Identical 10/1, 50-uL DCM/200 rows differ substantially, and matched configuration contrasts change between pure EA and 2/1. Whether similarly large variation occurs at 20/1 remains unresolved.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "7383949c431e18f39597",
+        "93bcd806b8dcb8c0cab9",
+        "a047be17b8ee8bebb29a",
+        "71f5df8c7d7e88d1afce",
+        "4257dae751590e647fb1",
+        "65e1a598d00339bec2f8"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A reproducible condition interaction and variation unexplained by recorded inputs require different interpretations. Additional independent labels can prevent a large historical contrast from becoming an unjustified global loading rule.",
+      "next_discriminating_question": "Does another 20/1, 150-uL DCM/200 label reproduce the existing long interval, and where does the missing 1/1, 50-uL PE configuration fall relative to the variable DCM observations?"
+    },
+    {
+      "id": "H92_VARIABILITY",
+      "content": "m92 shows within-condition variation at 50/1, so its nonmonotonic amount response should not be treated as entirely deterministic. The reproducibility of the apparent 20/1 amount contrast and intermediate-ratio completion behavior remains incompletely established.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "7caf1db075b91197ba34",
+        "1844eab177de5d01fab6",
+        "9862563d18aae2868342",
+        "7b42519983cf93dd7efd",
+        "8b58e9d7a710f55e49d3",
+        "e9dc948c0e68a88eb621",
+        "4b8ba288d549f6cfc94b",
+        "50e113fcc37184809670"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Repeats at additional ratios constrain the response learned from variable rows and reduce overinterpretation of isolated endpoint differences.",
+      "next_discriminating_question": "Do independent 20/1 and 10/1 labels at 100 uL reproduce their existing completion volumes or move toward the model's smoother response?"
+    },
+    {
+      "id": "H_NITRO_CONFIG_CURVES",
+      "content": "For m198, measured 10/1 and 50/1 endpoints change modestly between 100 and 150 uL; this does not establish amount invariance at 5/1 or 20/1. m193 has a different recorded response curve, but its density and loading-plug volume also differ, so the comparison does not isolate nitro position.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "fcb9019ffbdb889489f7",
+        "e99da719af7e2c3e9a93",
+        "8ab554cd154e9749790b",
+        "0ac58929e586a4da4056",
+        "163874b97308a1ea2507",
+        "6ae922f63e983b14e320",
+        "0a79a24271d119590ae6",
+        "a01a137fa48c1391b9e7"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Completing local curves teaches structure-condition relationships while avoiding attribution of a configuration-confounded contrast solely to graph topology.",
+      "next_discriminating_question": "Does m198 retain modest amount effects at 20/1 and 5/1, and does m193's missing 5/1 lower-loading point connect smoothly to its measured 10/1 and 20/1 curve?"
+    },
+    {
+      "id": "H_CARBONYL_ENVIRONMENT",
+      "content": "Matched m166 and m167 observations retain early weak-eluent onset but differ in completion volume. The completion contrast may depend on ratio rather than being a constant aromatic-environment offset, and it should not be transferred automatically to nonfluorinated beta-diketones.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "e9a7d193dc3d83532c1f",
+        "f4c58d48258027bb5485",
+        "483022b02f8329c323ac",
+        "4df3d7b92b603fe8522f",
+        "80de1b57c56257d2ecae",
+        "1c12f9e9a5043e6d32cc",
+        "5e5b7c697bc0c268b288"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched intermediate-ratio labels teach independent onset/completion responses and the interaction between carbonyl environment and eluent strength.",
+      "next_discriminating_question": "At 5/1 and 150 uL, is the m166-minus-m167 completion contrast smaller than at 50/1, and does m168's intermediate-loading weak-eluent response follow either fluorinated scaffold?"
+    },
+    {
+      "id": "H18_ENDPOINT_BEHAVIOR",
+      "content": "The predictor gives m18 a slightly reversed V1/V2 ordering at 5/1 across candidate loadings and a near-front onset under pure EA. These are model diagnostics; the actual missing-condition response is unknown.",
+      "basis": "model_behavior",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "Labels at both conditions can correct the learned response and endpoint relationship in an early-eluting ester region, where small absolute volumes and narrow intervals make endpoint ordering consequential.",
+      "next_discriminating_question": "What are the measured pure-EA and 5/1 endpoints at the same 50-uL loading, and how do they connect to the existing higher-loading observations?"
+    },
+    {
+      "id": "H157_WEAK_RESPONSE",
+      "content": "m157's unmeasured 50/1 candidates are predicted to elute later than its measured 10/1 baseline. Limited silica affinity is a chemical prior for this graph without O/N acceptors, while the 900-uL DCM plug supplies a plausible competing influence; neither establishes the unknown weak-eluent behavior.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "6348f80546c20a88b318",
+        "ada006a63d5f5bb2d92f"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "This tests transfer of solvent-strength and loading effects into a nonpolar, heavily iodinated scaffold with limited measured condition coverage.",
+      "next_discriminating_question": "Does the predicted weak-eluent increase occur, and are onset and completion approximately invariant between 50 and 150 uL as predicted?"
+    }
+  ],
+  "feedback_interpretation": "The latest m125 pure-EA label strengthens the configuration-dependent interpretation: dd4f07e349873053fd73 measured 8.69/22.11 mL versus 5.28/11.22 for the smaller plug in e7ed7ca4a53258b73ba2. Its acquisition-time completion underestimate of 8.73 mL is evidence of another conditional failure, not a current residual. For m72, the repeat 93bcd806b8dcb8c0cab9 measured 27.35/63.33 versus 12.85/32.50 in the identical recorded condition 7383949c431e18f39597. This weakens the earlier interpretation of the 10/1 amount contrast as a reproducible loading curve. The new matched configuration measurements also oppose a constant PE-versus-DCM correction: pure-EA PE completion is later, whereas at 2/1 and 150 uL it is earlier. The m92 repeat likewise confirms within-condition variation, motivating repeats at intermediate ratios. The m202 1/1 pair was nearly amount-invariant, supporting restriction of its unusual 10/1 contrast to that region or to unexplained variability. New m166/m167 lower-loading labels preserved early onset, and the m198 150-uL endpoints closely followed the established curve. These outcomes favor intermediate-ratio tests and ordinary-side controls over further broad tail corrections. Recent m40 and m38 labels also make their missing strong-eluent baselines informative.",
+  "batch_rationale": "The 32 experiments combine three deliberate repeats with missing condition coverage and interpretable local comparisons. The m72 and m92 repeats address variation that the recorded inputs may not explain; they constrain learning from conflicting rows without assigning an unrecorded cause. Matched m157 loadings test weak-eluent transfer in a sparsely covered nonpolar configuration. Matched m99 and m40 ratio pairs examine predicted endpoint-specific inversions, while the m18 pair investigates reversed endpoint predictions. The fluorinated beta-diketone pair, nonfluorinated comparison, and beta-ketoester extensions test where functional-environment transfer succeeds or fails. Alcohol, amine, quinoline, fused-ketone and hydroxyaldehyde controls add coverage where large weak-eluent responses transition toward ordinary volumes. Nitroaldehyde selections complete local ratio/amount segments after recent successful endpoint predictions, with explicit recognition that between-scaffold configurations differ. These labels may improve Row-distribution generalization by teaching conditional response shapes, separating V1 from V2 behavior, limiting excessive tail transfer, and representing variable conditions with independent measurements. Quantile widths are single-predictor diagnostics; V2 minus V1 is the elution interval. All selections retain the supplied packet's premeasurement predictions, with no new label reveal."
+}

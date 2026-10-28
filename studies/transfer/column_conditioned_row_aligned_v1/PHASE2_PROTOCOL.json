@@ -1,0 +1,72 @@
+{
+  "base_protocol_archive": "phase1_archive/protocol.json",
+  "base_protocol_sha256": "318423196209dd2ee58a6f98b06064dc18b295658561456342e74c0ad4640ad2",
+  "epoch_refit": "round-half-up median of five joint inner best epochs, per arm and seed",
+  "film": {
+    "embedding_dim": 16,
+    "gamma_beta_initialization": "zero",
+    "layers": [
+      3,
+      4
+    ],
+    "meaning": "categorical related task identity only",
+    "placement": "after GIN output, before existing activation"
+  },
+  "forbidden_actions": [
+    "FULL refit",
+    "outer validation/test label access or scoring",
+    "optimizer intervention",
+    "hyperparameter search"
+  ],
+  "gain_A": "mean(1-NRMSE_A2_fold/NRMSE_A1_fold)",
+  "gain_B": "1-mean(NRMSE_A2)/mean(NRMSE_A1)",
+  "inner_cv": {
+    "folds": 5,
+    "order": "sample_id sorted",
+    "seed": 42,
+    "selector": "equal-column arithmetic mean of inner-train-scaled combined NRMSE",
+    "splitter": "per-column shuffled KFold",
+    "tie": "earliest epoch",
+    "unit": "sample_id"
+  },
+  "interpretation": "developmental method diagnosis; not independent external confirmation",
+  "new_fits": 40,
+  "new_seeds": [
+    536279090,
+    1362771960,
+    1425370602,
+    2767143051
+  ],
+  "observed_before_execution": [
+    "Phase 1 internal results",
+    "historical Row outer results"
+  ],
+  "phase": "PHASE_2_INTERNAL_ONLY",
+  "protocol_document_sha256": "d3ae39be6062e41335c60b46415a18d563387eccf7aa3dd5b37178073c1d5e1d",
+  "reused_fits": 10,
+  "seeds": [
+    769539383,
+    536279090,
+    1362771960,
+    1425370602,
+    2767143051
+  ],
+  "source_checkpoint": "studies/predictor/final_4g_qualification/runtime/row/seed_42/best.pt",
+  "source_diagnostic_change": "omit label diagnostics only; training and target selection unchanged; synthetic equivalence required",
+  "source_label_permission": "source_train only; source validation labels not parsed; no observed source validation metrics",
+  "source_sha256": "fce9edebc294fd179c7c7dc27ab2badea049c77fdad03a6cf0c317c63df544b0",
+  "target_label_permission": "each seed outer gradient_train only",
+  "threads_per_worker": 1,
+  "training": {
+    "cpu_threads": 1,
+    "gradient_diagnostic_interval": 10,
+    "loss": "raw_quantile",
+    "maximum_epochs": 500,
+    "new_lr": 0.0003,
+    "patience": 80,
+    "per_task_batch_cap": 682,
+    "pretrained_lr": 0.0001,
+    "weight_decay": 1e-05
+  },
+  "workers": 5
+}

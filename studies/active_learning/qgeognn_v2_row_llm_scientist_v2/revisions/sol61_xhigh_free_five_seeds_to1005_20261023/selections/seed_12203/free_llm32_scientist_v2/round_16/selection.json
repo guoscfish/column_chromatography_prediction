@@ -1,0 +1,309 @@
+{
+  "type": "selection",
+  "packet_sha256": "ec9407c67147ea659fdfaadc0db574d4c43743d13622a0cb9ac16f42e485d050",
+  "batch_strategy": "A diverse coverage batch emphasizing strong-side anchors, carbonyl response boundaries, late-tail regimes, ether transfer, and condition-sensitive loading regions. Repeated molecules are used only for meaningful ratio or condition-response contrasts.",
+  "choices": [
+    {
+      "id": "51de9c0ea3a29bbcda54",
+      "reason": "m73 at 0/1, 150 uL provides a strong-side boundary for a molecule whose measured 1/1 row a387411cbcb6be48bde4 showed an unusual late onset and whose 0/1 behavior is not yet stable. This tests whether the anomaly is ratio-dependent or scaffold-wide.",
+      "hypothesis_id": "H_OUTLIER"
+    },
+    {
+      "id": "99c52c931d5bd0f365b0",
+      "reason": "m140 at 50/1 and 100 uL extends the halogenated aromatic baseline beyond measured strong-side m140 rows and adds weak-eluent coverage for a non-HBD/HBA scaffold. It is useful for calibrating high-PE behavior outside oxygenated families.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "8eaf61cc544233320cf2",
+      "reason": "m198 at 2/1 and 150 uL samples the early side of a nitroaldehyde curve before its measured late 5/1 and 10/1 regimes. It can localize whether the completion tail develops gradually or at a sharper solvent transition.",
+      "hypothesis_id": "H_LATE"
+    },
+    {
+      "id": "8f3710fb6d8508ff6528",
+      "reason": "m133 at 1/1 and 150 uL supplies an unsubstituted hydrocarbon aromatic baseline at a moderate loading, helping separate generic weak-eluent effects from heteroatom-driven corrections.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "2a4de703709973e74dd2",
+      "reason": "m31 at 2/1 and 50 uL probes a cyano aryl ketone on the stronger side with low loading. Its carbonyl and nitrile combination tests whether the model transfers late carbonyl behavior into a more polar but structurally distinct ketone.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "0e3fa5113029ce384922",
+      "reason": "m29 at 20/1 and 150 uL extends a substituted acetophenone curve into the retained regime. It is a useful comparison to measured m42, m40, m41, and other aryl-ketone responses that showed different weak-side errors.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "705d1b2999659e6d5bbf",
+      "reason": "m175 at 5/1 and 100 uL tests a cyclohexyl phenyl ketone boundary between early simple ketones and more strongly retained fused or substituted carbonyl graphs.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "1525a3663c8d039331ed",
+      "reason": "m8 at 10/1 and 50 uL fills an intermediate ether point between measured early weak-eluent behavior at 50/1 and stronger-side points. It tests whether the early m8 regime persists through the transition.",
+      "hypothesis_id": "H_ETHER"
+    },
+    {
+      "id": "4c57cf3006f6345d11fc",
+      "reason": "m26 at 1/1 and 150 uL anchors a multifunctional diketone on the strong side. This constrains how far carbonyl-related corrections should be propagated into a more polar, multi-acceptor graph.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "714004602e6452764d9a",
+      "reason": "m199 at 5/1 and 100 uL extends the sulfoxide response at an intermediate loading between measured 2/1 and 5/1 observations. It is informative for separating the strong onset shift from the much later completion tail.",
+      "hypothesis_id": "H_LATE"
+    },
+    {
+      "id": "57646b9484b03f4076bb",
+      "reason": "m81 at 50/1 and 100 uL probes a weak-eluent ester regime at moderate loading, extending measured m81 strong-side and intermediate conditions. It tests whether the model underestimates a late completion transition for this ester family.",
+      "hypothesis_id": "H_LATE"
+    },
+    {
+      "id": "3584971523a9f99cac5c",
+      "reason": "m69 at 2/1 and 150 uL supplies an early-side point for the long-chain aryl ketone. Comparison with measured m69 and related ketones tests whether alkyl-chain size changes the onset and completion response independently.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "966bc0aaa6c98ecfa2ee",
+      "reason": "m185 at 10/1 and 50 uL gives a lower-loading intermediate point for a difluoroaldehyde family with sparse condition coverage. It tests whether halogen substitution preserves the aldehyde response shape seen for m53 and m183.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "686562279e2bfb73ef1e",
+      "reason": "m28 at 1/1 and 50 uL anchors an acetate aldehyde on the strong side. The label helps distinguish ordinary early carbonyl behavior from the late ester-aldehyde tails seen in other multifunctional rows.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "be1d1eac10cca873e4ef",
+      "reason": "m15 at 0/1 and 150 uL provides an early acrylate ester baseline under pure EA, useful for calibrating the low-retention edge and for checking whether strong-side predictions remain ordered across simple esters.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "bdb0ef0bddafb45d4620",
+      "reason": "m2 at 2/1 and 50 uL adds a low-loading dibrominated hydrocarbon anchor. Its low polarity and heavy halogenation provide coverage outside the oxygenated and basic response families.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "8cbab5e832e82452994c",
+      "reason": "m159 at 2/1 and 100 uL probes the strong-to-intermediate side of a high-width cyano benzophenone regime. It discriminates a genuine topology-specific late tail from extrapolation bias associated with its extreme 50/1 prediction.",
+      "hypothesis_id": "H_OUTLIER"
+    },
+    {
+      "id": "f3a9b0a4924369149487",
+      "reason": "m185 at 2/1 and 50 uL forms a condition-response pair with the selected 10/1 m185 point. The pair teaches the model whether the difluoroaldehyde transition begins gradually or only at higher PE.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "ca796e1439984837b964",
+      "reason": "m136 at 2/1 and 150 uL supplies a halotoluene early-side point at high loading, complementing measured nonpolar aromatic and halogenated rows and improving coverage of simple low-polarity baselines.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "a9500e468002e41eceeb",
+      "reason": "m81 at 5/1 and 150 uL complements the selected m81 50/1, 100-uL point and anchors the onset of its retained regime at higher loading. The paired labels distinguish ratio curvature from loading response.",
+      "hypothesis_id": "H_LATE"
+    },
+    {
+      "id": "96b1f62eb7db27e58287",
+      "reason": "m44 at 5/1 and 50 uL probes a methyl aryl ketone at low loading. It tests whether the carbonyl correction observed for parent and substituted aryl ketones transfers to a compact, less polar graph.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "e55c8ef232b46d3a1ca9",
+      "reason": "m117 at 1/1 and 150 uL samples a methoxy hydroxyaldehyde strong-side regime at high loading. It provides coverage for a multifunctional aromatic acceptor and helps constrain endpoint separation before weak-eluent growth.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "02e4d578437631b52709",
+      "reason": "m114 at 0/1 and 100 uL supplies a strong-side anchor for a benzophenone ether whose weak-side completion may be unusually late. The contrast can prevent a late-tail correction from shifting the entire curve uniformly.",
+      "hypothesis_id": "H_LATE"
+    },
+    {
+      "id": "7b42519983cf93dd7efd",
+      "reason": "m92 at 50/1 with EA loading solvent and 100 uL tests a controlled solvent-loading condition in a multifunctional alpha-ketoester. It extends the measured m92 EA series and helps separate loading-solvent effects from mobile-phase effects.",
+      "hypothesis_id": "H_LOAD"
+    },
+    {
+      "id": "d6b28f60f89677468590",
+      "reason": "m17 at 10/1 and 150 uL adds a moderate-strength acrylate ester point at high loading. It helps constrain the early retention surface for small acceptor-rich molecules and the loading association at intermediate PE.",
+      "hypothesis_id": "H_LOAD"
+    },
+    {
+      "id": "45ee5106187dc3b895e1",
+      "reason": "m95 at 0/1 and 100 uL provides a pure-EA baseline for a small ketoester. This low-retention anchor is useful for preventing late-regime corrections from leaking into compact, highly polar esters.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "ada006a63d5f5bb2d92f",
+      "reason": "m157 at 0/1 and 100 uL samples a heavy diiodoaromatic under a strong mobile phase, adding coverage for non-HBD/HBA graphs with unusual mass and polarizability but no obvious silica-binding group.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "e71aba5ca322ce0a2c7f",
+      "reason": "m61 at 2/1 and 50 uL tests a low-loading secondary alcohol at an intermediate ratio. It complements measured alcohol responses and helps determine whether loading shifts onset differently from completion for HBD-containing molecules.",
+      "hypothesis_id": "H_LOAD"
+    },
+    {
+      "id": "f59dc07845ef4a376526",
+      "reason": "m24 at 0/1 and 50 uL gives an early hydrocarbon baseline at low loading. It improves the strong-side boundary for nonpolar molecules and supplies a reference against which heteroatom-driven retention corrections can be localized.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "9652798512ade7486015",
+      "reason": "m82 at 2/1 and 50 uL probes a compact ketoester at low loading, where the broad candidate response interval indicates a useful unresolved condition region. It tests whether the late completion behavior of related ester-ketones begins on the stronger side.",
+      "hypothesis_id": "H_LATE"
+    },
+    {
+      "id": "c82c1933ed710ffb4981",
+      "reason": "m162 at 10/1 and 100 uL provides an intermediate nonbasic nitrile-halogen anchor. It tests whether the strong nitrogen-family corrections transfer to a nitrile without a basic ring nitrogen.",
+      "hypothesis_id": "H_BASE"
+    },
+    {
+      "id": "aa614da3137ee8938fc9",
+      "reason": "m152 at 2/1 and 50 uL probes a heavily halogenated aryl ether under a stronger mobile phase and low loading. It adds chemical novelty and tests whether heavy substituents produce a distinct retention baseline despite low HBD count.",
+      "hypothesis_id": "H_ETHER"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H_CARB",
+      "content": "Carbonyl and aldehyde solvent-response curves are scaffold-specific and often endpoint-specific. Recent m53 and m183 labels show substantial growth between 10/1 and 20/1 and again toward 50/1, whereas m54, m69, m63, m180, m190, and m134 occupy different onset and completion regimes.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "2e181a70e997f2b6d728",
+        "4ec77f604fa08f281ef7",
+        "6e17f8e15aa8fdd6a9ea",
+        "cdc8c1db00222994a1aa",
+        "eb8fe82f34df6bf3ff38",
+        "cf5c7a2e1940e3c09dd5",
+        "1c6a12a8c2cb62f05c80",
+        "7575e5ec93e20a7babeb",
+        "65f22906a14f74d756d4",
+        "52348febee6695107c49",
+        "7d9c7f40bc71ee7c4ef0",
+        "8b06ec38a7e5999edfa6"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Local carbonyl curves can teach QGeoGNN where corrections transfer and where a shared representation would distort neighboring rows.",
+      "next_discriminating_question": "Do the selected strong-side and intermediate points preserve scaffold-specific ordering while separating onset corrections from completion-tail corrections?"
+    },
+    {
+      "id": "H_LOAD",
+      "content": "Loading effects interact with scaffold, mobile-phase ratio, endpoint, and loading-solvent identity. m203, m207, m72, m92, and m127 show that loading associations can be strong for onset, completion, or both, with no single transfer direction.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "9ed7c1fb1c2cc499bbf9",
+        "080258046c2cae5fb2ab",
+        "66747ae127e03516ffda",
+        "8294d63723a29bc21a6b",
+        "6be742f06dddb42eb929",
+        "00a89de0e6cc7377a84b",
+        "e626b5b8083ea1fd02f2",
+        "bcd986158b7450087591",
+        "a2f83665cfe821271b30",
+        "48b79cabd9460cfc510b"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Condition contrasts can teach interactions absent from molecule-only representations and improve transfer across repeated scaffold families.",
+      "next_discriminating_question": "Are loading responses smooth within a scaffold, or do ratio and loading-solvent changes create separate regimes for V1 and V2?"
+    },
+    {
+      "id": "H_BASE",
+      "content": "Nitrogen-containing molecules have environment-specific strong-side baselines and transition locations. Nicotinate, substituted pyridine, and aminonitrile observations do not support a single correction based only on nitrogen count or bulk descriptors.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "96710afeabc594baa359",
+        "855832bd4005ac7abdc6",
+        "0460dfc4e1747f0fc92c",
+        "9a9b50816ec47f1cd755",
+        "f768bef959891c647509",
+        "8436939a2a6a91fa470d",
+        "2b7cd8ac357e176a9726",
+        "19732d5797039e3465b6",
+        "a8ae74aecb3b1e85b73c",
+        "e12edd0198c0d750ecd5",
+        "a60552f4d1a5ced4641f"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Strong-side anchors can improve placement of early baselines before large weak-eluent corrections are applied.",
+      "next_discriminating_question": "Can QGeoGNN distinguish ring position and steric environment in the strong-side baseline before extrapolating the retained regime?"
+    },
+    {
+      "id": "H_LATE",
+      "content": "Several acceptor-rich, sulfur-containing, ester, oxime, and aromatic carbonyl families develop late completion tails that are underestimated by shared smooth response patterns. Their onset and completion errors can have different condition dependence.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "aa83ae83c0fa0cc37777",
+        "9ffee2813aef5c26f96f",
+        "b1c5816f929ef59f5a87",
+        "f4331eb64b6774466836",
+        "d8fcb58722028dbf9c02",
+        "e8f592c469b2f3c136d8"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Late-tail labels broaden response-space coverage and can reduce systematic V2 underprediction in families whose tails are not explained by simple polarity descriptors.",
+      "next_discriminating_question": "Which structural families share a late completion correction, and which require separate onset and completion representations?"
+    },
+    {
+      "id": "H_ETHER",
+      "content": "Aryl ethers show graph-specific weak-eluent behavior: m110 and m116 develop later transitions while m6, m8, and m124 remain comparatively early under some weak conditions. Intermediate ether labels are needed to determine transfer boundaries.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "8f7bcdb92b0cd7acad94",
+        "7ad7f454a7b16a9ff211",
+        "19e5d078bc0eb8a91e1e",
+        "0007449b058916cdcad1",
+        "96ab5d3f34bf46cba8c0",
+        "aa3ac48b626bc54d5dc6"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Ether-family boundaries test whether the graph representation distinguishes fused topology and substitution pattern from generic HBA count.",
+      "next_discriminating_question": "Do the selected ether points follow the early m124-like regime or develop a separate weak-side transition?"
+    },
+    {
+      "id": "H_OUTLIER",
+      "content": "The largest failures cluster in topology and condition regions where structurally similar rows can occupy very different retention regimes. Local boundary measurements are more informative than applying a uniform correction to all high-width or molecule-novel rows.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "49201b5817f204116f7f",
+        "0c5c35afb3a24375c153",
+        "a17bcdddcf0799baeee2",
+        "129036e0bccc4ff7e848",
+        "95d1d257dfea69f178f8"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Boundary labels can teach the graph model when to preserve a local regime rather than propagate a nearby residual across a chemical family.",
+      "next_discriminating_question": "Are extreme residuals caused by distinct scaffold interactions, loading transitions, or both, and where do those regimes begin?"
+    },
+    {
+      "id": "H_FLUORO",
+      "content": "The proposed substantial weak-eluent growth for HBD/HBA-free pentafluorobenzene m156 was not supported by the measured 20/1 and 50/1 points, which remained substantially earlier than predicted, indicating inappropriate transfer from retained oxygenated graphs.",
+      "basis": "mixed",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [
+        "2a14de0306254a123d5d",
+        "ff8fce8e929a75d6fb8d",
+        "72113bad4beb4e7b8852",
+        "bd2d2667de61e29eaea3"
+      ],
+      "confidence": "high",
+      "status": "weakened",
+      "why_it_matters_for_model_learning": "This correction prevents QGeoGNN from learning an overly broad weak-eluent growth rule for nonpolar fluorinated aromatics.",
+      "next_discriminating_question": "Does the remaining nonpolar halogenated catalog follow the early m156-like regime, or are there separate heavy-substituent exceptions?"
+    }
+  ],
+  "feedback_interpretation": "Recent feedback strengthens local response learning. m53 was close at 10/1 but remained underpredicted at 20/1 and especially 50/1, while m183 also grew beyond its intermediate prediction. In contrast, m54, m69, m63, m180, m190, and m134 occupied different regimes, weakening any common aryl-ketone correction. The m156 pair contradicted the proposed substantial nonoxygenated growth, so that hypothesis is weakened and no further m156 labels are prioritized. m89 at 50/1 was much later than its predicted plateau, shifting attention toward explicit aminoester condition-response boundaries. Phenol outcomes confirmed strong ratio and loading dependence. Nitrogen baselines remained environment-specific, and the m92 and m72 results leave loading-solvent effects unresolved rather than universal.",
+  "batch_rationale": "The batch repairs several chemically distinct failure regions while retaining interpretable local contrasts. Carbonyl, aldehyde, ester, oxime, sulfoxide, and benzophenone-like selections cover early baselines, transition regions, and late completion tails. Two m81 points, two m185 points, and multiple related carbonyl conditions form meaningful response curves rather than redundant molecule sampling. Ether, halogenated aromatic, nitrile, and hydrocarbon anchors broaden coverage into less polar graphs and test whether retained-regime corrections transfer. Loading and solvent-condition experiments are included where prior labels show endpoint-specific associations. The batch therefore supplies supervision for structure-condition-retention interactions across early, intermediate, and late Row-distribution regimes, which should improve retrained QGeoGNN generalization."
+}

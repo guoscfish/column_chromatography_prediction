@@ -1,0 +1,266 @@
+{
+  "type": "selection",
+  "packet_sha256": "7bb323d4310da470a1a7865ba3e136d010564437ab985a06fa8bfb8317da9e0f",
+  "batch_strategy": "Select 32 experiments that constrain unresolved graph-condition response curves, test endpoint-specific loading effects, and investigate suspicious prediction shapes. The batch includes a controlled DCM plug-volume pair, a fixed-loading nitroaldehyde ratio series, a local benzylic-alcohol experiment, and targeted ester, haloketone, hydroxyaldehyde, and low-polarity aromatic measurements. Recent accurate acquisitions reduce the priority of further sampling already well-constrained m99, m90, m94, and m95 conditions.",
+  "choices": [
+    {
+      "id": "163874b97308a1ea2507",
+      "reason": "m198 at 20/1 and 100 uL extends the fixed-loading curve beyond measured 10/1 row fcb9019ffbdb889489f7, which gave 14.90/35.72 mL. Together with the selected 50/1 point, it tests whether the predicted 22.77/44.23 mL represents gradual growth or misses a transition resembling para-nitroaldehyde m193.",
+      "hypothesis_id": "H_CARBONYL_CURVES"
+    },
+    {
+      "id": "8ab554cd154e9749790b",
+      "reason": "The m198 50/1 companion retains the same 100 uL sample and DCM 300 uL plug. Its predicted 30.65/60.32 mL and broad quantile ranges identify an unresolved extrapolation; measuring both 20/1 and 50/1 distinguishes curvature from an isolated endpoint correction.",
+      "hypothesis_id": "H_CARBONYL_CURVES"
+    },
+    {
+      "id": "c8d43713db33bf820a1d",
+      "reason": "m125 at 2/1, 100 uL, and DCM 300 uL bridges measured 1/1 row 4c32851430464f0ed684 and late 5/1 row 780b13846ace50ede763. It also establishes the lower-volume member of a controlled loading-plug comparison.",
+      "hypothesis_id": "H_PLUG_VOLUME"
+    },
+    {
+      "id": "69b09343d0b9995c3ae4",
+      "reason": "This m125 experiment changes only the DCM plug from 300 to 500 uL relative to the selected companion. Predictions change by less than 0.02 mL at either endpoint. A measured difference would expose condition sensitivity missing from the predictor; agreement would provide a useful negative control.",
+      "hypothesis_id": "H_PLUG_VOLUME"
+    },
+    {
+      "id": "9249ed2c527f70995033",
+      "reason": "m75 at 50/1 and 150 uL tests the weak-eluent response of phenyl-substituted malonate. Measured m75 10/1 row e6d0dc8ca50b71d5f807 remains moderate, while bromomalonate 4756b7ebb0be7c63e552 and unsubstituted malonate 08155ffdcb0d27576050 have markedly different weak-side completion volumes. This label can constrain transfer within the diester family.",
+      "hypothesis_id": "H_CARBONYL_CURVES"
+    },
+    {
+      "id": "dde0f59c8346943fe60a",
+      "reason": "m74 at 20/1 and 100 uL fills the ratio gap after the matching-loading 10/1 observation 12ee64241e59d6b88e7a, measured at 10.63/17.42 mL. It localizes completion growth toward the 50/1 regime observed in 4756b7ebb0be7c63e552.",
+      "hypothesis_id": "H_CARBONYL_CURVES"
+    },
+    {
+      "id": "81ac865dd40a21b73e6d",
+      "reason": "m127 at 5/1 and 100 uL tests an undercovered ortho-methoxyacetophenone condition. Measured m127 rows 15d6bc57a87392fbeb98 and b0a156972380db9bb945 show that onset and completion need separate treatment. Comparison with para-methoxy m115 anchor cfc3cd7290e349d095d4 helps assess positional transfer.",
+      "hypothesis_id": "H_CARBONYL_CURVES"
+    },
+    {
+      "id": "03990d0d818a066d09b6",
+      "reason": "m115 at 10/1 and 50 uL samples the missing intermediate ratio between measured 5/1 cfc3cd7290e349d095d4 and 20/1 122fbec0df9ecf1c5d89. The broad onset quantile range makes the location of this para-methoxy carbonyl transition worth resolving, with loading differences retained in the analysis.",
+      "hypothesis_id": "H_CARBONYL_CURVES"
+    },
+    {
+      "id": "cde49c2f3cf630c3a2a2",
+      "reason": "m114 at 10/1 and 50 uL bridges moderate 5/1 behavior in 6b2bd8cc21ac4437ca78 and later 20/1 behavior in 8232ed63909910ce88f2. It tests where the methoxybenzophenone completion curve rises before the measured late 50/1 regime in 44fcf641ccfa3b10a97c.",
+      "hypothesis_id": "H_CARBONYL_CURVES"
+    },
+    {
+      "id": "605436d35600502e8c2e",
+      "reason": "m30 at 50/1 and 100 uL tests the projected weak-side continuation from measured 10/1 row 2420964caf34a1de2a5d. Paired with ortho-bromo m43 at matching ratio, sample volume, and DCM plug, it can determine whether their similar predicted endpoints conceal different response curves; their recorded densities remain distinct.",
+      "hypothesis_id": "H_CARBONYL_CURVES"
+    },
+    {
+      "id": "a6f8e492c9e561c79cbd",
+      "reason": "The m43 50/1, 100 uL point complements para-bromo m30. Measured 10/1 row 057972d40b84bce6262b gave 7.37/17.33 mL, versus m30 completion of 23.37 mL in 2420964caf34a1de2a5d. The model predicts nearly equal weak-side completions, so the pair tests a possible crossing of positional-isomer curves.",
+      "hypothesis_id": "H_CARBONYL_CURVES"
+    },
+    {
+      "id": "93d0b949ca6dc0685979",
+      "reason": "m35 at 50/1 and 150 uL tests the predicted onset decline and completion plateau beyond measured 20/1 row 796417d42eb6a5349404. Alongside the bromoacetophenones and measured fluoroacetophenone c096c324a71974b6ab37, it constrains substituent-dependent extrapolation without imposing a common halogen correction.",
+      "hypothesis_id": "H_CARBONYL_CURVES"
+    },
+    {
+      "id": "9845fd896eb72b0e149f",
+      "reason": "m28 at 1/1 and 150 uL tests loading-dependent completion before its large ratio transition. At the same ratio, measured 50 and 100 uL rows 686562279e2bfb73ef1e and 0d18f3f10c8377d12316 finished at 12.50 and 18.71 mL. The new prediction of 14.25 mL challenges whether that increase persists at 150 uL.",
+      "hypothesis_id": "H_ENDPOINT_LOADING"
+    },
+    {
+      "id": "6c4eacf7845534254af9",
+      "reason": "m104 at 20/1 and 150 uL tests whether the completion near 20.78 mL in matching-ratio 100 uL row 10f14f6ee69ba06bbe68 persists with loading. The prediction is only 13.70 mL, while measured 50/1 row 302e458c5ed2285ca328 is also early. This distinguishes a localized ratio maximum from a loading interaction.",
+      "hypothesis_id": "H_ENDPOINT_LOADING"
+    },
+    {
+      "id": "249b884b29177edb9df5",
+      "reason": "m89 at 50/1 and 100 uL provides a loading contrast to 547923973b121019625f, measured at 34.03/75.16 mL with 150 uL. It also tests whether the late ethyl anthranilate regime reproduces at another loading, given much earlier weak-side methyl analogue m104 in 302e458c5ed2285ca328.",
+      "hypothesis_id": "H_ENDPOINT_LOADING"
+    },
+    {
+      "id": "47f2e980caaa77baa535",
+      "reason": "m67 at 5/1 and 100 uL supplies the first selected lower-ratio anchor for a benzylic secondary alcohol currently represented by the late 20/1 observation 2cf4f6424b85ab121943. The predicted 10.70/18.06 mL can be tested against the selected 10/1 point to locate its response transition.",
+      "hypothesis_id": "H_ALCOHOL_CURVES"
+    },
+    {
+      "id": "2d11f1fe488a0c917ffe",
+      "reason": "This m67 10/1 experiment keeps sample loading and plug volume fixed relative to the selected 5/1 point. Its predicted 18.33/29.49 mL tests the approach to measured late 20/1 behavior and helps distinguish a smooth rise from a poorly located transition.",
+      "hypothesis_id": "H_ALCOHOL_CURVES"
+    },
+    {
+      "id": "80f6a235bb59c2a7ea59",
+      "reason": "m67 at 20/1 and 150 uL forms a loading contrast to measured 50 uL row 2cf4f6424b85ab121943, which gave 42.23/62.09 mL. The predictor is nearly loading-invariant here. This contrast helps interpret the selected lower-ratio curve without assuming that the existing low-loading endpoint transfers unchanged.",
+      "hypothesis_id": "H_ENDPOINT_LOADING"
+    },
+    {
+      "id": "9948433906d4afa41345",
+      "reason": "m61 at 5/1 and 100 uL tests a predicted completion of 16.89 mL, below the 21.99 mL measured at 2/1 with identical loading in f559a4634c60d81f5f15. Together with the m67 series, it tests whether the apparent alcohol response difference is reproducible or an interpolation artifact.",
+      "hypothesis_id": "H_ALCOHOL_CURVES"
+    },
+    {
+      "id": "9fcf89b00bb880c8a5ba",
+      "reason": "m36 at 2/1 and 150 uL tests loading transfer from measured 100 uL row 6b7209c2e8154837a8c7, which gave 22.32/39.86 mL. Its prediction of 18.09/34.77 mL provides a discriminating aminoaryl-carbonyl comparison to the nearly constant completion observed across recent m90 loading measurements.",
+      "hypothesis_id": "H_ENDPOINT_LOADING"
+    },
+    {
+      "id": "f7beb14403cc07d739c4",
+      "reason": "m131 at 2/1 and 100 uL is predicted at 8.08/16.03 mL, later than measured 5/1 row 13fe9abf652f585d7ed5 at identical loading, 4.76/13.42 mL. This tests an early-ratio onset bump despite relatively modest quantile widths, providing a check on confident graph-condition interpolation.",
+      "hypothesis_id": "H_SHAPE_CHECKS"
+    },
+    {
+      "id": "c5185bd663026c64c816",
+      "reason": "m216 at 5/1 and 150 uL extends measured 100 uL row 33ffc69a253a89f15995. At 10/1, measured e47aebe2660b9e1528de and 9cd02352c2ed7a3e2321 show earlier onset at greater loading with almost unchanged completion. This point tests whether that endpoint-specific response extends back to 5/1.",
+      "hypothesis_id": "H_ENDPOINT_LOADING"
+    },
+    {
+      "id": "88cccd3e55677c52f9b7",
+      "reason": "m190 at pure EA and 100 uL establishes a missing strong-eluent baseline. Comparison with measured m186 pure-EA row 8e99350aac88fae9186b and m190 1/1 row 03e8372f11ac433be4fa can separate baseline completion from the positional-isomer differences seen at weaker eluent.",
+      "hypothesis_id": "H_HYDROXY_BASELINES"
+    },
+    {
+      "id": "ea05f93949c8eb3289cd",
+      "reason": "m186 at 1/1 and 100 uL follows the pure-EA measurement 8e99350aac88fae9186b, whose completion was underpredicted by 4.28 mL at acquisition. The new prediction, 14.10 mL, is below that measured pure-EA completion of 16.16 mL. This tests the strong-side response shape at matching loading.",
+      "hypothesis_id": "H_HYDROXY_BASELINES"
+    },
+    {
+      "id": "ff3ee95fed58907ff8b3",
+      "reason": "m197 at pure EA and 100 uL supplies the missing strong-side anchor beside measured 10/1 and 20/1 rows 04e162e0c1261108b4a0 and 905c8843dd27543205a5 at the same loading. It helps determine how much of the salicylaldehyde completion tail is already present at the strongest mobile phase.",
+      "hypothesis_id": "H_HYDROXY_BASELINES"
+    },
+    {
+      "id": "fe1a34b5975943e8f292",
+      "reason": "m117 at 50/1 and 150 uL extends its matching-loading curve beyond measured 10/1 and 20/1 rows 1d15ee46756cd1845a68 and 7e834c7b870ef7024d35. The predicted 19.82/47.38 mL tests continued growth versus a plateau while the selected hydroxyaldehyde baselines constrain strong-side behavior.",
+      "hypothesis_id": "H_HYDROXY_BASELINES"
+    },
+    {
+      "id": "00a82096f4ac4e03ea01",
+      "reason": "m10 at 50/1 and 100 uL tests whether stilbene develops the predicted 20.83 mL completion while retaining early onset. Measured 5/1 row e2256ee3039d85dd024b used identical loading and finished at 10.55 mL. This adds a topology-specific aromatic response beyond carbonyl-rich failure regions.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "2631e65cfde93b7bbd64",
+      "reason": "m18 at 1/1 and 100 uL is predicted to elute over only about 0.53 mL, from 4.08 to 4.61 mL. The matching-loading 50/1 observation 2f1ff409bb879ae9f62b gave 8.72/12.68 mL. Measuring the strong-side point tests an unusually compressed interval for this sparsely sampled long-chain acrylate.",
+      "hypothesis_id": "H_SHAPE_CHECKS"
+    },
+    {
+      "id": "ef3f1cc179493a050c5c",
+      "reason": "m71 at 1/1 and 100 uL has predicted completion of 4.25 mL, compared with measured pure-EA completion of 8.89 mL in c3070604fe243a9e8bc9 at identical loading. It tests whether the pronounced predicted minimum in this long-chain thiophene is real and whether similar low-polarity graph predictions need repair.",
+      "hypothesis_id": "H_SHAPE_CHECKS"
+    },
+    {
+      "id": "16cee53cbe16b60fb395",
+      "reason": "m0 at 5/1 and 150 uL tests a predicted intermediate-ratio completion maximum of 17.12 mL against measured 50/1 row 2c8bdc7f29ed47c7ce61, which finished at 12.35 mL with identical loading. It can distinguish a genuine nonmonotonic aromatic response from transfer of completion tails learned elsewhere.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "7726f4a207a737256a86",
+      "reason": "m164 at 10/1 and 100 uL fills the fixed-loading curve between measured 1/1 row 3f6b817d855e67b3b406 and 20/1 row b7fffd840d208b29776c, before the late 50/1 result c9bef93a79964dc6ede1. This tests transition curvature in an extended conjugated ketone with only one acceptor.",
+      "hypothesis_id": "H_CARBONYL_CURVES"
+    },
+    {
+      "id": "6000105cb6734cff8146",
+      "reason": "m78 at 5/1 and 150 uL adds a strong-side point at the loading used in measured 20/1 row c65ac14ffed8749381c1, which gave 19.97/45.34 mL. It tests whether this benzyl-substituted ketoester remains near the predicted 15.25 mL completion at 5/1 or begins broad completion growth earlier.",
+      "hypothesis_id": "H_CARBONYL_CURVES"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H_CARBONYL_CURVES",
+      "content": "Carbonyl type, ester placement, and substituent environment define distinct ratio-response curves. A shared late-completion offset or acceptor-count rule is insufficient; the remaining aryl carbonyl and ester points may reveal different transition positions or plateaus.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "61771d230b285babe4b6",
+        "f4a4fc4d6e4dea59b061",
+        "08155ffdcb0d27576050",
+        "4756b7ebb0be7c63e552",
+        "fcb9019ffbdb889489f7",
+        "c08c4700ae34281b3318",
+        "057972d40b84bce6262b",
+        "7fdf49a091a855c0138f"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Intermediate and weak-side labels constrain graph-ratio interactions and separate onset from completion. Cross-compound comparisons retain their recorded loading differences and are not isolated causal substituent tests.",
+      "next_discriminating_question": "Does m198 flatten, rise smoothly, or enter a later regime beyond 10/1, and do the selected ester and haloketone points preserve their separately predicted curvature?"
+    },
+    {
+      "id": "H_ENDPOINT_LOADING",
+      "content": "Loading responses are endpoint-, scaffold-, and ratio-specific. Several measured curves show earlier onset with greater loading, while completion can remain approximately constant, increase, or decrease. The current predictor often changes completion very little across candidate loading levels.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "d8fcb58722028dbf9c02",
+        "c61c1a72306f2ee37df8",
+        "7bbdec21c428010dd67b",
+        "6a4e95d2a3cca31094a1",
+        "22f82413c75481d74e9b",
+        "3c041f5186a291c3b313",
+        "b6ffd4ffa7739deb3e88",
+        "686562279e2bfb73ef1e",
+        "0d18f3f10c8377d12316"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "New loading contrasts can teach endpoint-specific interactions instead of transferring one acquisition residual across every loading of a molecule. Loading amount remains the recorded density-times-volume feature.",
+      "next_discriminating_question": "Do m28, m36, m67, m89, m104, and m216 maintain the loading trends suggested by their existing anchors, or reveal changes in direction or magnitude?"
+    },
+    {
+      "id": "H_PLUG_VOLUME",
+      "content": "At the intermediate m125 condition, increasing the DCM loading plug from 300 to 500 uL may change onset or completion more than the predictor's nearly zero response. A material effect remains untested.",
+      "basis": "mixed",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "The controlled pair tests whether an available recorded condition contributes useful sensitivity in a rapidly changing retention region. Similar labels would also constrain the model against inventing a plug-volume effect.",
+      "next_discriminating_question": "At 2/1 with the same molecule, density, sample volume, and loading solvent, do DCM plugs of 300 and 500 uL produce distinguishable V1 or V2?"
+    },
+    {
+      "id": "H_ALCOHOL_CURVES",
+      "content": "The model may place benzylic secondary-alcohol transitions incorrectly. Its substantial predicted m67 rise toward 20/1 and its m61 completion dip at 5/1 remain unresolved by the available local observations.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "2cf4f6424b85ab121943",
+        "f559a4634c60d81f5f15"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A local homolog comparison tests how the model combines the OH environment, adjacent alkyl substitution, ratio, and loading. The observations anchor the experiment but do not yet establish a substituent-driven transition shift.",
+      "next_discriminating_question": "Do m67 at 5/1 and 10/1 with fixed loading show gradual or abrupt growth, and does m61 at 5/1 reproduce its predicted dip below the measured 2/1 completion?"
+    },
+    {
+      "id": "H_HYDROXY_BASELINES",
+      "content": "Ortho-hydroxy aromatic aldehydes can have appreciable completion tails under strong mobile phases, with scaffold-specific baseline and ratio effects. Possible intramolecular hydrogen bonding does not by itself establish an early or monotonic completion curve.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "8e99350aac88fae9186b",
+        "25de8af35e546add9783",
+        "739f955977aa740524e5",
+        "8f1e0cc3cdc0e6164229",
+        "1d15ee46756cd1845a68",
+        "905c8843dd27543205a5"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Strong-side anchors distinguish baseline completion from later ratio-driven growth. This can prevent a correction learned at weak eluent from shifting the entire scaffold curve.",
+      "next_discriminating_question": "Do the m190 and m197 pure-EA anchors and m186 1/1 point reveal shared baseline tails or separate strong-side shapes, and does m117 continue growing at 50/1?"
+    },
+    {
+      "id": "H_SHAPE_CHECKS",
+      "content": "Some predicted early-regime extrema and highly compressed elution intervals may be interpolation failures rather than reproducible response features. The m18 and m71 strong-side compression and m131 onset bump are specific untested examples.",
+      "basis": "model_behavior",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "Chemically motivated checks can identify confidently misplaced response shapes that quantile width alone would not prioritize. A confirmed extremum would instead teach the model to retain a genuine local exception.",
+      "next_discriminating_question": "Do the selected m18, m71, and m131 labels reproduce the predicted compression or onset bump when compared with their measured neighboring conditions?"
+    }
+  ],
+  "feedback_interpretation": "The latest outcomes support local response modeling and reduce the value of another universal late-volume correction. The m99 measurements c61c1a72306f2ee37df8 and 7bbdec21c428010dd67b confirmed late retention, but their positive acquisition-time onset errors of 4.72 and 8.08 mL accompanied a clear measured onset decrease from 50 to 150 uL. Recent m90 rows 6a4e95d2a3cca31094a1 and 22f82413c75481d74e9b instead had almost identical completion, while m82 rows 3c041f5186a291c3b313 and b6ffd4ffa7739deb3e88 showed lower completion at higher loading. Accurate acquisitions bfbe491a54086b98874d, 668279c54bbf75e86496, and 35944fdd59ac331c3fcb lower the priority of further filling those already constrained transitions. The m88 and m73 completion overpredictions in 27d20ccfd8f7234015f4 and c496cacfd9e40e5e6f71 also argue against increasing tails globally. Conversely, m186 pure-EA row 8e99350aac88fae9186b motivates additional strong-side hydroxyaldehyde anchors. I now keep the ketoester m78, nitrile-ketone m159, and dibenzoyl m178 separate from the genuinely heteroatom-free aromatic comparison rather than retaining the earlier overly broad nonpolar grouping.",
+  "batch_rationale": "The batch combines failure repair with experiments that can distinguish competing response shapes. The m198 20/1 and 50/1 measurements form a fixed-loading ratio extension; the m125 pair isolates loading-plug volume; and the m67 experiment combines a fixed-loading 5/1-to-10/1 comparison with a 20/1 loading contrast to an existing measurement. Additional loading points test transfer across aminoaryl, ketoester, anthranilate, and quinoline environments. Carbonyl and ester selections cover missing transition locations and weak-side continuations, including a closely matched para/ortho bromoacetophenone pair. Hydroxyaldehyde baselines separate strong-side completion from later growth, while m18, m71, m131, m0, and m10 test specific prediction shapes outside the recent late polar families. These labels should constrain graph-condition interactions and reduce inappropriate correction transfer across the Row distribution. Quantile ranges and CW distance provide supporting evidence about unresolved regions; they are not treated as calibrated epistemic uncertainty. All 32 candidate IDs and their supplied premeasurement predictions are fixed together, with no pending experiments or new labels used."
+}

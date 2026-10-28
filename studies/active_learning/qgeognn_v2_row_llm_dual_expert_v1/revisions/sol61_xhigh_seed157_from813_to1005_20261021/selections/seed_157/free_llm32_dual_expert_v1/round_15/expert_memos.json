@@ -1,0 +1,190 @@
+{
+  "chemistry_scientist": {
+    "type": "memo",
+    "role": "chemistry_scientist",
+    "packet_sha256": "95db3c0f4a3a01d720196d3f063046ab39d12b9313ed6dbe9771a702fe62a027",
+    "state_summary": "Round 15, seed 157. The delivery reports 813 observed records, 2,517 eligible candidates, no pending experiments and no validation/test records. Latest feedback weakens deterministic interpretations of the m75 loading association and m32 completion elevation, establishes shallow m130 behavior through 20/1, and further distinguishes onset from completion response. Current records supersede older summaries. The candidate examples below are unranked scientific contrasts. No retrained overall Row accuracy gain is established.",
+    "important_observations": [
+      {
+        "topic": "H15: m75 loading interpretation weakened",
+        "measured_evidence": "At 10/1, the 50 ul repeat closely reproduces the original endpoints: 12.23/18.85 versus 12.10/18.57 ml. At 100 ul, onset changes from 8.23 to 11.62 ml and completion from 18.39 to 19.49 ml. The original 50-to-100 ul onset difference of -4.00 ml becomes only -0.48 ml in the new pair; the small completion difference changes sign.",
+        "revision": "A stable onset advancement followed by a loading plateau is not established at 10/1. The 2/1 loading association remains unreplicated. New 5/1, 50 ul onset of 7.50 ml lies below the approximately 12 ml 2/1 and repeated 10/1 anchors, supporting a sampled intermediate depression without establishing repeatability.",
+        "observed_ids": [
+          "9603a9567c8b21458d1e",
+          "e6d0dc8ca50b71d5f807",
+          "fa1a4a2aa332b091b615",
+          "11fef346c358d54d3059",
+          "c641cb5b9e82e60de614"
+        ]
+      },
+      {
+        "topic": "H29: m32 completion elevation is unstable",
+        "measured_evidence": "Identical 5/1, 150 ul inputs give 4.91/20.07 and 6.29/10.98 ml. Completion differs by 9.09 ml, exceeding the original 1.11 ml elevation over measured 10/1 completion.",
+        "revision": "Early onset remains supported, but a reproducible 5/1 completion maximum is unsupported. Preserve both records; averaging does not identify the cause or establish a universal variability threshold.",
+        "observed_ids": [
+          "a4ed6ac3d69b91c56aca",
+          "6ece01a2e0fc9b1585df",
+          "b5325cdcd2077724c722"
+        ]
+      },
+      {
+        "topic": "H27: m87 completion shape changes across loading",
+        "measured_evidence": "At 50 ul, completion is 13.18/13.43/19.70 ml across 2/1, 5/1 and 10/1. The substantial 2/1-to-5/1 decline measured at 150 ul does not transfer. Increasing loading from 50 to 150 ul changes completion by +10.33/+4.04/+2.09 ml at those ratios, while onset changes by -0.13/+0.33/-1.15 ml.",
+        "revision": "The loading association is strongest in low-ratio completion and diminishes across sampled ratios. A common molecular offset cannot represent it. Repeatability of the original 150 ul decline remains unresolved.",
+        "observed_ids": [
+          "a05ccef9e073f648892e",
+          "c449ecc5ee6acf61bddb",
+          "8b197f0ed5860f909b5f",
+          "0637945ca309d8122e64",
+          "c1b9b6fc781ab8519301",
+          "ef809aee1c6b06021475"
+        ]
+      },
+      {
+        "topic": "H30: large m130 transition rejected through 20/1",
+        "measured_evidence": "At 150 ul, m130 gives 4.57/8.23, 5.00/11.01 and 6.23/13.36 ml at 2/1, 10/1 and 20/1. Its 2/1 loading bridge agrees closely with measured 100 ul. Historical 20/1 prediction errors were +23.23/+42.85 ml. At 50 ul, m144 instead has completion approximately 12.25/12.27/16.77 ml at 5/1, 10/1 and 20/1, with later onset growth.",
+        "revision": "Sharing one nitrile group and identical TPSA does not establish a common response curve. The large historical miss motivates structural-transfer questions without automatically justifying another m130 boundary point.",
+        "observed_ids": [
+          "cefa66116f9a89542666",
+          "de3442604a546992b1e1",
+          "65d07ddf4c4bdb3cf60b",
+          "2bd50654bad989d82c87",
+          "dc9dc88c690b5a1d563f",
+          "8c4e370263f89adb3bc6",
+          "4c3dce39521dcb1793a1"
+        ]
+      },
+      {
+        "topic": "H29: ketone onset and completion have different slopes",
+        "measured_evidence": "From 2/1 to 20/1 at 100 ul, m69 onset stays approximately 4.5\u20134.7 ml while completion increases 7.99-to-11.60 ml. m70 changes from 4.22/8.34 to 4.88/10.84 ml and retains early onset at its measured 50/1 anchor. Fused ketone m182 gives onset 5.02/5.23/8.19 and completion 21.80/28.70/32.84 ml at 5/1, 10/1 and 20/1.",
+        "revision": "Longer alkyl aryl ketones retain shallow onset over the measured range. m182 develops onset growth later than completion growth.",
+        "observed_ids": [
+          "1e3db165e287321f2322",
+          "0b3add03839ff1700084",
+          "a1089c52394c961fdb05",
+          "c8dd55f564273cf0c058",
+          "cd64ecbc5b5755fec3b6",
+          "daf5b621e5b862e37cfe",
+          "bc3692f55b839d2f2c07",
+          "7ad898a193c20e7a329c",
+          "19c8831adeb5f3e2fcd5"
+        ]
+      },
+      {
+        "topic": "H31: m53 growth supported; stored anchor misassigned",
+        "measured_evidence": "m53 at 100 ul gives 6.07/13.29, 10.19/23.38 and 15.49/36.63 ml at 2/1, 10/1 and 20/1. Both endpoints grow appreciably. However, 6209df8dd01072ab8a47 is m59 at 5/1, 50 ul with DCM loading, not m53.",
+        "revision": "The controlled m53 growth question is substantially answered. Discard the repeated memory attribution of an existing 5/1, 50 ul m53 measurement.",
+        "observed_ids": [
+          "1934e3f2ee65da718096",
+          "4ec77f604fa08f281ef7",
+          "6e17f8e15aa8fdd6a9ea",
+          "6209df8dd01072ab8a47"
+        ]
+      },
+      {
+        "topic": "H26/H28: interior questions narrowed",
+        "measured_evidence": "m197 completion at 2/1 is 25.00 ml versus 25.53 at 1/1 and 27.93 at 5/1. This small dip is much shallower than the historical 21.19 ml prediction. For m198, 1/1-to-2/1 changes endpoints only +0.23/+3.36 ml before stronger higher-ratio joint growth.",
+        "revision": "Neither strict m197 monotonicity nor a substantial reproducible trough is established. The lower-ratio m198 increment is mainly in completion.",
+        "observed_ids": [
+          "454eb2207b9abc0b2a6d",
+          "69be7348f9ab10739164",
+          "61aca51ad135176924ec",
+          "658eecf514c6a6aa009d",
+          "8eaf61cc544233320cf2"
+        ]
+      },
+      {
+        "topic": "Ordinary ester and nitroarene extensions",
+        "measured_evidence": "m18 completion grows modestly through 2/1, 5/1, 20/1 and 50/1: 5.73/6.68/9.52/12.68 ml at fixed 100 ul. Carbonyl-free m201 grows from 4.14/9.80 to 6.37/14.77 ml between 2/1 and 10/1; onset then changes little at measured 20/1 while completion reaches 17.05 ml.",
+        "revision": "These curves reduce immediate gaps without establishing a universal hydrophobic-ester or nitro-group response.",
+        "observed_ids": [
+          "b8c5b2ddf2469922c305",
+          "74d0393fb6ddaea1d7a6",
+          "c1050421bf89c585cb4c",
+          "2f1ff409bb879ae9f62b",
+          "5067b637ae304dd5924a",
+          "1d2bc3f5c63f14f60fe3",
+          "d6faa7e77464f5f9a34b"
+        ]
+      }
+    ],
+    "candidate_scientific_questions": [
+      "Do ortho-halogenated aryl nitriles develop predicted intermediate-ratio joint growth or retain m130-like shallow behavior under their own fixed loading conditions?",
+      "Does a cyclic saturated substituent adjacent to an aryl carbonyl preserve the shallow onset of m69/m70 while changing completion progression?",
+      "Is m87's low-ratio completion loading association smoothly interpolated at 100 ul, and does loading dependence remain small during its later ratio rise?",
+      "How does a phenolic donor without a carbonyl respond compared with mapped alcohol and hydroxyaldehyde environments? Donor accessibility is a chemical consideration, not an established explanation."
+    ],
+    "particularly_informative_candidates": [
+      {
+        "ids": [
+          "e27ccbecd9b65fd452dd",
+          "9c9d41f1f5f006de9819",
+          "c395b34d5d170a501543",
+          "f4ec546ae74a4b3888df"
+        ],
+        "context": "m162 at 2/1 and 10/1: density 1.0, 50 ul, DCM 300 ul. m163 at the same ratios: density 1.116, 50 ul, PE 300 ul.",
+        "predictions_only": "m162 approximately 5.89/10.52 and 9.44/16.83 ml; m163 approximately 5.91/11.45 and 10.29/17.85 ml.",
+        "scientific_value": "Each pair connects measured pure-EA and 50/1 anchors. Tests nitrile structural transfer; different loading solvents and masses prevent attribution solely to the halogen."
+      },
+      {
+        "ids": [
+          "705d1b2999659e6d5bbf",
+          "11897f093fed60f3c7e3",
+          "3929a461501f88558c7d"
+        ],
+        "context": "m175 at 5/1, 10/1 and 20/1; density 1.0, 100 ul, DCM 300 ul.",
+        "predictions_only": "Approximately 5.02/11.79, 4.90/11.54 and 5.14/13.10 ml.",
+        "scientific_value": "Extends measured 2/1 at the same loading in cyclohexyl phenyl ketone, testing shallow-onset transfer. Its measured 50/1 input uses 50 ul."
+      },
+      {
+        "ids": [
+          "981a11d7d65c8e5597f9",
+          "eed75e5b0d9c27fa754c",
+          "690924276beda2d5e719"
+        ],
+        "context": "m87 at 2/1, 100 ul; and 20/1, 50 and 100 ul. Density 1.103, DCM 300 ul throughout.",
+        "predictions_only": "Approximately 6.88/17.79, 19.06/38.01 and 19.03/38.04 ml.",
+        "scientific_value": "Tests interpolation of low-ratio completion loading effects and nearly invariant predicted loading response during later growth. These inputs do not replicate the original decline."
+      },
+      {
+        "ids": [
+          "59bbda2fab97a5d45827",
+          "30970941542856ce8eb1"
+        ],
+        "context": "Actual m53 at 2/1 and 10/1; density 0.888, 50 ul, PE 300 ul.",
+        "predictions_only": "Approximately 6.21/13.14 and 10.84/25.35 ml.",
+        "scientific_value": "Provides genuine lower-loading aldehyde comparisons after correcting the false m59-to-m53 anchor attribution."
+      }
+    ],
+    "possible_model_blind_spots": [
+      "OBSERVED-BASED INFERENCE: m75 and m32 repeats show that singleton loading minima or completion elevations can be unstable. A deterministic condition surface can overfit them unless repeated-input variation remains visible.",
+      "OBSERVED-BASED INFERENCE: historical excessive nitrile growth, insufficient aldehyde growth and excessive fused-ketone onset growth cannot be repaired by one signed polarity or carbonyl correction.",
+      "GENERAL CHEMICAL KNOWLEDGE: EA generally strengthens silica elution; increasing PE/EA weakens the mobile phase, and 0/1 is pure EA. Hydrogen bonding and functional-group accessibility can affect adsorption.",
+      "UNTESTED HYPOTHESES: adsorption nonlinearity, injection focusing, solubility, integration differences and unrecorded experimental variation could contribute to discrepancies. Endpoints alone do not distinguish them."
+    ],
+    "important_model_behaviors": [
+      "Current candidate 8e17cb06a37c48cc9ab5 predicts m18 V1/V2 approximately 3.57/1.71 ml. This is a present endpoint-order defect, distinct from the rejected original m13/m80 anomaly premise. It does not by itself establish acquisition value.",
+      "Historical premeasurement errors describe past models. They do not estimate current candidate error or overall Row accuracy."
+    ],
+    "warnings": [
+      "Only observed-table IDs provide measured evidence. Every eligible example above has predictions only, including aliases of observed inputs.",
+      "Preserve the isolated m117 near-reversal as supplied. Exceptional m177, m120 and m207 inputs remain unreplicated; neighboring conditions cannot establish repeatability.",
+      "Preserve molecule identity and all five condition fields. Sample volume and loading mass change together. V2 minus V1 is elution interval width, not uncertainty.",
+      "Candidate multiplicity, endpoint magnitude and quantile widths have no supplied calibration as learning value. Shallow ordinary responses remain relevant to overall Row accuracy."
+    ]
+  },
+  "ml_scientist": {
+    "type": "memo",
+    "role": "ml_scientist",
+    "packet_sha256": "70dbb79b666e423df9bfc5f920eee05234d003875a0af5c824479d456dc7e09b",
+    "state_summary": "Round 15, seed 157, method free_llm32_dual_expert_v1. The packet reports 813 observed records, 2,517 eligible candidates, no pending experiments and zero validation/test records. Latest repeats weaken the m75 onset loading-step interpretation and withdraw support for a stable m32 completion peak. New nitrile and ketone curves expose excessive historical ratio sensitivity, while m53 shows the opposite error direction. Remaining opportunities concern repeatability, endpoint-specific interactions and differentiated condition coverage. No supplied outcome establishes retrained overall Row accuracy or label-efficiency gains.",
+    "important_observations": "MEASURED; H15 weakened: At m75 10/1, the 50 ul repeat closely agrees with the original: 12.10/18.57 versus 12.23/18.85 ml. At 100 ul, the repeat is 11.62/19.49 versus 8.23/18.39, changing onset by +3.38 ml. The between-loading onset difference therefore falls from 4.00 to 0.48 ml in the new pair. A deterministic loading step is unestablished; the small completion loading contrast also changes direction. Evidence: 9603a9567c8b21458d1e, fa1a4a2aa332b091b615, e6d0dc8ca50b71d5f807, 11fef346c358d54d3059. Separately, c641cb5b9e82e60de614 measures onset 7.50 ml at 5/1, 50 ul, supporting a sampled interior depression relative to the approximately 12 ml ratio anchors. Its persistence and the exceptional 2/1 interval remain unresolved.\nMEASURED; H29 peak interpretation weakened: The m32 identical-input repeat 6ece01a2e0fc9b1585df measures 6.29/10.98 ml versus original a4ed6ac3d69b91c56aca at 4.91/20.07. Completion differs by -9.09 ml, much more than the original 1.11 ml elevation above 10/1. Withdraw support for a stable 5/1 completion maximum. Neither record can be identified as erroneous from endpoints alone. The new m69/m70 sequences retain onset near 4\u20135 ml through 20/1 while completion grows modestly. In contrast, m182 at 100 ul measures 5.02/21.80, 5.22/28.70 and 8.19/32.84 across 5/1, 10/1 and 20/1: substantial completion growth precedes clearer onset growth.\nMEASURED; H26 locally answered: m197 completion at 2/1 is 25.00 ml (454eb2207b9abc0b2a6d), compared with 25.53 at 1/1 and 27.93 at 5/1. Strict monotonicity is unsupported, but so is the pronounced historical trough prediction of 21.19 ml. The 0.53 ml dip does not establish a reproducible minimum.\nMEASURED; H27 revised: Reject transfer of m87's 2/1-to-5/1 completion decline to 50 ul. Completion at 50 ul is 13.18/13.43/19.70 ml across 2/1, 5/1 and 10/1, versus 23.51/17.47/21.79 at 150 ul. Thus increasing loading changes completion by +10.33/+4.04/+2.09 ml across those ratios, with much smaller onset differences. Evidence: a05ccef9e073f648892e, c449ecc5ee6acf61bddb, 8b197f0ed5860f909b5f and their observed 150 ul counterparts. This supports a conditional association without establishing repeatability. m18 remains comparatively shallow: onset 4.34-to-5.24 and completion 5.72-to-9.52 ml from 2/1 to 20/1 at 100 ul.\nMEASURED; H30 revised: Reject the large predicted m130 rise through 20/1 at 150 ul. Measured endpoints are 4.57/8.23, 5.00/11.01 and 6.23/13.36 ml at 2/1, 10/1 and 20/1 (cefa66116f9a89542666, de3442604a546992b1e1, 65d07ddf4c4bdb3cf60b). The historical 20/1 prediction was 29.47/56.21. m144 also remains moderate: completion is nearly unchanged from 5/1 to 10/1, then reaches 16.77 ml at 20/1. These findings constrain nitrile transfer without establishing a common curve.\nMEASURED; H31 supported with mapping correction: m53 at fixed 100 ul exhibits joint growth: 6.07/13.29, 10.19/23.38 and 15.49/36.63 ml across 2/1, 10/1 and 20/1. However, stored supporting ID 6209df8dd01072ab8a47 is m59 at 5/1, not m53. It supplies no m53 lower-loading anchor and cannot establish the previously described loading mismatch.\nMEASURED; H28 refined: m198 at 2/1 measures 5.08/16.08 ml (8eaf61cc544233320cf2), showing little onset change but appreciable completion growth from 1/1 before its later joint rise. Carbonyl-free m201 grows moderately across 2/1-to-20/1 at 50 ul, with little onset change after 10/1. Nitro membership does not determine transition magnitude or location across these different inputs.",
+    "important_model_behaviors": "HISTORICAL PREMEASUREMENT DIAGNOSTICS: Errors include incorrect slopes as well as offsets. m130 completion error changes from -0.41 ml at 2/1 to +17.47 and +42.85 at 10/1 and 20/1. Conversely, m53 completion errors become -4.76 and -8.19 ml at higher ratios. All six new m69/m70 completion predictions overestimate measurements by approximately 1.90\u20135.37 ml. For m182, onset is overpredicted by 3.63\u20136.25 ml while completion is underpredicted or nearly accurate. A shared signed correction cannot repair these patterns.\nCURRENT FIT DIAGNOSTIC: Candidate fe212637596386c24049 matches observed m163 record 8fa8d7ec035c6a829dc4 exactly: [50/1, 1.116, 50 ul, PE, 300 ul]. Current prediction 26.05/48.60 ml differs from that measured record's 7.19/23.25 by +18.86/+25.35 ml. This is a discrepancy against an already observed input, not a measured candidate error. Check tuple handling and training fit before assuming neighboring labels will solve it.\nCURRENT QUANTILE DIAGNOSTICS: V1 q10 is zero throughout supplied candidate rows, making reported V1 width strongly dependent on endpoint scale. Candidate 7a461dbe017030c8ac23 has V1 q50 5.76 above q90 5.49; 181f4a164df2a06f6b96 has V2 q10 10.29 above q50 8.85. The previous m215 example 2050f421f2e882689760 is now ordered; discard its stale diagnosis. Verified current endpoint reversals also occur, such as m18 candidate 8e17cb06a37c48cc9ab5 at 3.57/1.71 ml. These warrant pipeline audits, not automatic experimental priority.",
+    "candidate_scientific_questions": "Can an eligible identical-input repeat distinguish persistent m163 model-to-observation disagreement from label variability? Where do less sampled nitrile and ordinary ester curves begin growing under fixed loading? Does m87's newly established completion loading association interpolate at 100 ul? Do branched ketones preserve the shallow-onset regime measured in m69/m70? Can ordinary low-width predictions discriminate response-shape explanations? These are advisory questions without batch allocation.",
+    "possible_model_blind_spots": "INFERENCE: Global molecular offsets or loading corrections cannot represent the observed endpoint-specific interactions and heterogeneous ratio slopes. ML PRIOR: Related structures can support transfer, but functional-group counts and broad descriptor similarity do not determine response shape. CHEMICAL PRIORS: Adsorption, focusing and hydrogen bonding remain possible explanations rather than measured mechanisms. Moving a failed transition hypothesis to a farther boundary solely because the model predicts growth there has weak evidential support.",
+    "possible_learning_bottlenecks": "INFERENCE: m75 and m32 repeats expose variation among identical represented inputs. Measurement variation, annotation/integration differences and omitted run conditions remain competing explanations. Two records per input do not identify an irreducible noise distribution or universal noise floor. ML PRIOR: Retain individual labels and provenance; use replicate-aware summaries and sensitivity checks so singleton extrema do not become deterministic surfaces. Training-only residuals and matched finite differences can distinguish poor fitting of acquired labels from a coverage gap. This packet cannot identify feature scaling, regularization, optimization or omitted variables as the cause.",
+    "coverage_or_redundancy_concerns": "The supplied pool spans ordinary ester, branched and cyclic ketone, flexible aldehyde, nitrile, ether and weakly interacting aromatic conditions alongside dense polar neighborhoods. Similarity is saturated at 1.0 and molecule novelty at zero, so those fields cannot rank exploration. Group by molecule and all five conditions: 9d3f3505ff1be86befbe and 35e055b13ba20e843f0d are identical m12 inputs. Multiplicity is neither independent diversity nor Row prevalence. Recent m69/m70, m130/m144, m53, m18 and m201 sequences answer their immediate questions; routine grid completion has diminishing value. Row weights and the accuracy metric are unspecified.",
+    "particularly_informative_candidates": "Unranked advisory contrasts; every candidate value is a prediction only.\nfe212637596386c24049: m163, [50/1, 1.116, 50 ul, PE, 300 ul]. An eligible matching repeat can test persistence of the large current fit discrepancy described above.\n75f973363b6239ac22da and 9c9d41f1f5f006de9819: m162 at 5/1 and 10/1, density 1.0, 50 ul, DCM 300 ul. Connect measured 0/1 and 50/1 anchors to locate growth in another noncarbonyl nitrile. Current predictions are 7.97/14.29 and 9.44/16.83 ml.\n981a11d7d65c8e5597f9: m87, [2/1, 1.103, 100 ul, DCM, 300 ul]. Constrains loading-response shape between measured completion 13.18 and 23.51 ml at 50 and 150 ul. Current prediction is 6.88/17.79. This tests shape, not repeatability.\n502e41325a19473f9d08 and 477241eeda24d5f7e750: m59 at 2/1 and 10/1, density 1.162, 50 ul, DCM 300 ul. Extend its actual measured 5/1 anchor of 8.53/14.31 ml. Predictions 7.63/16.24 and 21.62/29.81 permit a response-shape test in a flexible ether-containing aldehyde.\n30d5da2fe6827f118117 and 39dac9377600ed74a554: m83 at 2/1 and 10/1, density 1.03, 100 ul, PE 300 ul. Connect its measured 1/1 baseline and bridge the observed 2/1, 150 ul input. Modest predictions of 5.97/9.40 and 9.64/13.40 offer ordinary ester transfer information.\n49932dbd3d16bb64f71a and 77f65db1224c7c295678: m73 at 2/1 and 10/1, density 1.0491, 100 ul, DCM 300 ul. Predicted completion 9.64 and 11.49 ml is below measured pure-EA completion 13.62. These narrow-width predictions can distinguish systematic shape explanations at ordinary endpoint scale.",
+    "warnings": "Only observed-table records establish measured evidence, including for candidate aliases matching an observed input. Historical residuals come from changing models on adaptively acquired labels and do not estimate current candidate error or overall Row risk. Quantile widths lack supplied acquisition calibration. Preserve all conditions; sample volume and loading mass are coupled. V2 minus V1 is elution interval width, not uncertainty. Preserve and audit m117's isolated near-reversal without rewriting its values. Exceptional m177, m120 and m207 inputs remain unreplicated. Earlier m80-transition and m68-rebound expectations remain rejected over measured ranges. Only this supplied seed-local trajectory was used."
+  }
+}

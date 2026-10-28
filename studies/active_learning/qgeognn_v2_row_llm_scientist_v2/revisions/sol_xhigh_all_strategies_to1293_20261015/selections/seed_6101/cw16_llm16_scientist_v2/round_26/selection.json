@@ -1,0 +1,174 @@
+{
+  "type": "selection",
+  "packet_sha256": "c158a0492bf92538675bb2939b3dd42c91906e7b4d5284c94e560f8feed66915",
+  "batch_strategy": "Use connected amount and eluent comparisons to repair endpoint-specific failures, with targeted checks of repeated-input variation and transfer across chemical environments. Supplement the pending coverage batch with response questions its labels will not resolve.",
+  "choices": [
+    {
+      "id": "7b42519983cf93dd7efd",
+      "reason": "Measure m92 at 50/1 and 100 uL; frozen prediction 22.21/55.35 mL. Low and high records 1844eab177de5d01fab6 and 9bbd36c8b484b5609808 measured 22.57/52.44 and 20.51/62.21. This midpoint distinguishes a gradual completion increase from curvature, following the recent 14.54-mL acquisition-time completion underestimate at the high boundary.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "4b8ba288d549f6cfc94b",
+      "reason": "Measure m92 at 10/1 and 100 uL; frozen prediction 9.89/22.80 mL. Measured low and high records e2f15590b7142490599b and 50e113fcc37184809670 gave 10.54/21.03 and 10.48/24.51. This tests whether the replicated 2/1 midpoint elevation transfers to an intermediate eluent regime or remains localized.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "9768d61b571fc0c5ce1a",
+      "reason": "Measure another m92 2/1, 50-uL catalog record; frozen prediction 6.12/15.46 mL. The existing low record 10a4c811b70ba8155044 completed at 11.72, whereas midpoint records f6650af9162e038d4108 and 9ad049e65cfbfbac2282 completed at 17.61 and 16.82. Rechecking the low boundary determines whether the apparent midpoint maximum survives repeated-input variation.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "4db6b065867770d9dbd9",
+      "reason": "Measure p-methylbenzyl alcohol m135 at 2/1 and 50 uL; frozen prediction 9.77/16.70 mL. High boundary 82b6eb1475767aca619f measured 10.00/17.41. The 5/1 boundaries a5446977630484ca5fe1 and f9f0f4e29dbd30c000ee showed a 5.73-mL onset decline with almost unchanged completion. This tests how far that amount contrast contracts in stronger eluent.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "6214a18745efe9be3788",
+      "reason": "Measure m135 at 1/1 and 150 uL; frozen prediction 7.92/14.33 mL. Low boundary dafe887ed8c49efe19b9 measured 9.27/13.90. Together with the selected 2/1 boundary and measured 5/1 and 10/1 panels, this constrains a solvent-dependent onset slope while testing completion separately.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "2cf4f6424b85ab121943",
+      "reason": "Measure secondary benzylic alcohol m67 at 20/1 and 50 uL; frozen prediction 31.44/62.16 mL. High boundary 80f6a235bb59c2a7ea59 measured 30.59/62.98. Its onset contrast grew from about 0.98 mL at 5/1 to 5.88 mL at 10/1, using 209cc7cf667dbec940db, cb6d3ef1b6dde291fbac, db5dcc7b864e0174fcbd and 5e784130c58b8175024e. This tests whether that growth continues or flattens at 20/1 despite a nearly flat prediction.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "ec6846c0fcb7df17c97d",
+      "reason": "Measure bromobenzyl alcohol m207 at 5/1 and 100 uL; frozen prediction 18.62/35.33 mL. Boundaries 4e5ead91320bd24d485e and a7906197994af5c86745 measured 21.18/34.03 and 14.12/36.41. This midpoint tests the shape of an onset decrease accompanied by a completion increase, providing a distinct alcohol response for transfer beyond m135 and m67.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "7ac90b210e42d27c5a04",
+      "reason": "Measure cyclopropyl beta-keto ester m94 at 10/1 and 50 uL; frozen prediction 22.51/46.83 mL. Midpoint 668279c54bbf75e86496 measured 21.34/45.11. Its 20/1 boundaries ffc70e28db22d1cc1f3f and ffffcd6f3b9393846ab4 showed an 11.19-mL onset decrease, while its 1/1 contrast was small. This low boundary and the selected high boundary locate the contraction between those regimes.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "5b445b457a8b897a2d6c",
+      "reason": "Measure m94 at 10/1 and 150 uL; frozen prediction 22.48/46.87 mL. Combined with the selected low boundary and measured midpoint 668279c54bbf75e86496, this tests the almost amount-invariant predictions and estimates the two endpoint slopes independently. It can discriminate monotonic onset decline from a midpoint feature without transferring the 20/1 magnitude unchanged.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "5b7151c95c4e964a121b",
+      "reason": "Measure ethyl acetoacetate m82 at 10/1 and 150 uL; frozen prediction 17.47/39.97 mL. Midpoint 6b8e53d2d8c8a90a7216 measured 20.41/45.62, and high 20/1 record 07a55cdab65b05f31561 measured 24.32/66.92. This supplies an amount comparison at 10/1 and a fixed-loading solvent comparison, testing whether onset and completion contract differently.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "3ca8d2ff798fad4faffc",
+      "reason": "Measure m82 at 5/1 and 50 uL; frozen prediction 11.57/26.24 mL. Midpoint f50c45b31cf41304c109 measured 12.32/29.34. With the selected high boundary, this tests whether the onset decline observed across its 20/1 panel persists in stronger eluent and whether completion remains flat, rises or shows curvature.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "cd2c80dae2f32a52732f",
+      "reason": "Measure m82 at 5/1 and 150 uL; frozen prediction 11.55/26.27 mL. This completes the selected 5/1 amount panel around f50c45b31cf41304c109 and connects at fixed loading to the selected 10/1 row and measured 20/1 high boundary 07a55cdab65b05f31561. The connected design tests solvent-by-amount interactions in a common beta-keto ester.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "d21f08a7e8eaa163ecfc",
+      "reason": "Measure tert-butyl acetoacetate m25 at 10/1 and 100 uL; frozen prediction 12.42/22.87 mL. Latest CW record 3fc05dc2025715e68174 measured 42.22/88.03 at the same loading and 50/1, with historical errors of -15.05/-28.14 mL. Low 10/1 record 61e2b18d9ec61505948c measured 14.73/24.55. This probes the stronger-eluent side of the newly exposed transition and tests transfer across ester substituents.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "f9d4d16c9703edbbe541",
+      "reason": "Measure meta-aminobenzonitrile m161 at 1/1 and 150 uL; frozen prediction 7.34/19.21 mL. Its same-loading 5/1 record 3774a4dac6dd0f01d48d measured 25.20/80.63. The measured 5/1 amount panel differs substantially from para isomer m160. This new strong-eluent anchor tests whether those positional-isomer differences contract and bounds transfer from other aromatic nitrogen compounds.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "b51b5dbcd2a38b174973",
+      "reason": "Measure ethyl nicotinate m90 at 5/1 and 150 uL; frozen prediction 27.35/60.82 mL. Midpoint 855832bd4005ac7abdc6 measured 30.71/60.60. At 10/1, 96710afeabc594baa359 and c76d0420b34df595c0c9 showed an onset decline from 48.17 to 41.71 with a much smaller completion change. This tests contraction in a pyridine ester, extending the amount-response question beyond alcohols and nonbasic carbonyl compounds.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "aed6d224edcb21e5d658",
+      "reason": "Measure aromatic diketone m178 in neat EA at 100 uL; frozen prediction 4.74/16.30 mL. Same-loading 1/1 record 409d01129a3e41b32902 measured 5.18/11.22, while 5/1 record 17ff889395addf7d6295 measured 6.03/18.17. The predicted terminal completion increase under stronger eluent is an untested reversal. One label can constrain this part of a measured solvent curve; the usual solvent-strength trend is a prior, not proof that the prediction is wrong.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "m92 has solvent-dependent, endpoint-specific amount associations. The 2/1 midpoint completion elevation now has repeated-input support, but its full shape and transfer to other eluent ratios remain unresolved. The 50/1 completion increase with amount differs from the decrease observed at 20/1.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "f6650af9162e038d4108",
+        "9ad049e65cfbfbac2282",
+        "10a4c811b70ba8155044",
+        "a93701aa1a4a960e479a",
+        "1844eab177de5d01fab6",
+        "9bbd36c8b484b5609808",
+        "66da447ca0fe7160cc1c",
+        "e9dc948c0e68a88eb621"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A single amount slope or a universally propagated midpoint maximum would misrepresent these observations. Repeated boundaries and intermediate amounts can distinguish learnable response shape from variation not explained by the supplied inputs.",
+      "next_discriminating_question": "Does the low 2/1 completion reproduce, and do the 10/1 and 50/1 midpoints follow their boundary trends or show a reproducible interior feature?"
+    },
+    {
+      "id": "H3",
+      "content": "Alcohol onset responses to recorded amount depend on eluent and structural environment. m135 and m67 show contraction of the onset contrast from 10/1 to 5/1, while m207 retains a substantial 5/1 onset decrease with increasing completion. A common correction to both endpoints is inadequate.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "f433bc672465387d951a",
+        "d05a91dc8e32e9edd7d0",
+        "a5446977630484ca5fe1",
+        "f9f0f4e29dbd30c000ee",
+        "db5dcc7b864e0174fcbd",
+        "5e784130c58b8175024e",
+        "209cc7cf667dbec940db",
+        "cb6d3ef1b6dde291fbac",
+        "4e5ead91320bd24d485e",
+        "a7906197994af5c86745"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The remaining predictions often have very weak amount sensitivity. Connected comparisons test where the measured onset response contracts, grows or changes shape, and prevent completion from receiving an inappropriate shared shift.",
+      "next_discriminating_question": "Does m135's onset contrast become small at 2/1 and 1/1, does m67's contrast grow further at 20/1, and is m207's 5/1 midpoint consistent with smooth interpolation?"
+    },
+    {
+      "id": "H4",
+      "content": "Beta-keto esters require structure- and eluent-dependent amount responses for V1 and V2 separately. Recent m82 and m95 boundaries support earlier onset at higher amount with comparatively small completion changes; m94 shows a much larger weak-eluent onset contrast. The new m25 weak-eluent miss exposes an additional transfer question across ester substituents.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "ac81adfab5ec8ce768db",
+        "07a55cdab65b05f31561",
+        "41f57dc6d50ee162801a",
+        "35944fdd59ac331c3fcb",
+        "ffc70e28db22d1cc1f3f",
+        "ffffcd6f3b9393846ab4",
+        "54f20e9bd23ee1c7b5db",
+        "d549eb843e65b16a5502",
+        "3fc05dc2025715e68174"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "These recurring motifs provide connected tests of endpoint slopes, curvature and solvent transitions. They can reduce excessive amount invariance and inappropriate transfer of a response magnitude between related ester structures.",
+      "next_discriminating_question": "What is m94's full 10/1 amount response, how do m82's 5/1 panel and 10/1 high boundary compare with its measured 20/1 panel, and is m25's 10/1 midpoint consistent with its local amount reference?"
+    },
+    {
+      "id": "H5",
+      "content": "Transfer of retention and amount responses among aromatic nitrogen environments remains conditional on eluent. The large 5/1 differences between aminobenzonitrile positional isomers may contract at 1/1, and ethyl nicotinate's onset decline from midpoint to high amount may contract from 10/1 to 5/1. These contractions are hypotheses, not measured findings.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "ad833f34f6b91872362d",
+        "fe66b2381d33aa2ea3a8",
+        "a60552f4d1a5ced4641f",
+        "3774a4dac6dd0f01d48d",
+        "fbf7711e24f45bf06d4f",
+        "855832bd4005ac7abdc6",
+        "96710afeabc594baa359",
+        "c76d0420b34df595c0c9"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Nitrogen-containing compounds have produced substantial historical errors. These labels test transfer using measured local references and explicit condition changes, rather than treating basicity or heteroatom count as a universal retention rule.",
+      "next_discriminating_question": "Does high-loading m161 approach the strong-eluent retention range of m160, and does m90 retain a smaller onset contrast with nearly stable completion at 5/1?"
+    }
+  ],
+  "feedback_interpretation": "The m76 follow-ups measured 5.02/7.60 at 1/1 and 50 uL and 4.58/7.29 at 2/1 and 100 uL; related m93 measured 4.93/7.69 at 1/1. Their acquisition-time overestimates support limiting propagation of m76's exceptional late midpoint. I stop expanding that local family this round.\n\nThe repeated m92 2/1 midpoint completed at 16.82 mL, within 0.79 mL of the previous 17.61. This strengthens the midpoint observation, but its low boundary still needs a repeated-input check. At 50/1, completion increased from 52.44 to 62.21 across the amount boundaries, unlike the decrease at 20/1. This motivates intermediate amounts across solvent regimes.\n\nAlcohol feedback strengthens a conditional onset pattern: m135's 5/1 onset contrast was 5.73 mL with essentially unchanged completion; m67's was only 0.98 mL, with earlier completion at high amount. m207 showed a 7.07-mL onset decrease accompanied by a 2.38-mL completion increase. These outcomes justify testing both contraction and its structural limits.\n\nThe m82 20/1 and m95 10/1 boundaries showed onset declines of about 3.73 and 3.48 mL, with much smaller completion changes. m28 and m114 also reinforced separate endpoint responses. The pending-CW outcome for m25 at 50/1 was a new major failure, with historical prediction-minus-measurement errors of -15.05/-28.14 mL. This adds a connected ester-transfer question. All errors here are acquisition-time errors, not current-model residuals.",
+  "batch_rationale": "The sixteen supplements have no ID overlap with the pending sixteen. Together they define the frozen 32-experiment batch, using the supplied premeasurement predictions. Pending experiments remain prediction-only references.\n\nThe pending batch supplies several strong-eluent and coverage anchors. These supplements concentrate on relationships that isolated anchors cannot identify: amount-response shape, separate onset and completion slopes, and how those slopes change with eluent and chemical environment. The m92 experiments address both repeated-input variation and a solvent-dependent change in completion response. The alcohol comparisons extend newly supported patterns toward stronger and weaker eluents. The beta-keto-ester experiments connect measured midpoints and boundaries across related structures, including the newly exposed m25 failure. Two nitrogen-containing compounds test transfer in historically difficult chemical environments. A single m178 measurement checks an independently predicted terminal-solvent reversal without committing a large panel to it.\n\nThis design may improve overall Row-distribution accuracy by constraining excessive amount invariance, correcting endpoint-specific biases and limiting unsupported propagation of exceptional observations. Multiple rows for a molecule serve explicit local comparisons. Density times sample volume is the recorded amount feature; the comparisons do not establish a loading mechanism. Missing experimental information and disagreement between identical supplied tuples limit deterministic interpretation. Quantile spans and CW distances are secondary signals, not calibrated epistemic uncertainty, and V2 minus V1 remains the elution interval width."
+}

@@ -1,0 +1,79 @@
+{
+  "time": "2026-10-23T09:32:13.914997+08:00",
+  "seed": 887,
+  "purpose": "Connectivity diagnostic only",
+  "experiment_packet_sent": false,
+  "attempts": 1,
+  "events": [
+    {
+      "action": "request_started",
+      "model": "gpt-6.1-sol",
+      "effort": "xhigh"
+    },
+    {
+      "action": "response_complete",
+      "response_id": "resp_0280508d199e802e016adab91fa1a881958972c69ac3de3461",
+      "served_model": "gpt-6.1-sol"
+    }
+  ],
+  "status": "PASS",
+  "answer_nonempty": true,
+  "provenance": {
+    "response_id": "resp_0280508d199e802e016adab91fa1a881958972c69ac3de3461",
+    "served_model": "gpt-6.1-sol",
+    "usage": {
+      "input_tokens": 4226,
+      "input_tokens_details": {
+        "cached_tokens": 4096,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 5,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 4231,
+      "attribution": {
+        "items": {
+          "msg_0280508d199e802e016adab91fa2fc8195aebebea058ba0f34": {
+            "input_tokens": 8,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 8,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_0280508d199e802e016adab929ac7c8195a65e1c84067e158b": {
+            "input_tokens": 2,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 5,
+            "content": [
+              {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 5
+              }
+            ]
+          }
+        },
+        "request_fields": {
+          "instructions": {
+            "input_tokens": 4216,
+            "cached_tokens": 4096,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "native_tool_calls": 0
+  },
+  "elapsed_seconds": 12.03
+}

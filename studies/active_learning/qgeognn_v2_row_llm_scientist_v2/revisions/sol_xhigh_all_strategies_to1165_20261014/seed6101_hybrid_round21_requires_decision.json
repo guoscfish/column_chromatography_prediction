@@ -1,0 +1,71 @@
+{
+  "status": "REQUIRES_USER_DECISION_NO_EXTRA_CALL_MADE",
+  "original_request_hash_replay": "PASS all3",
+  "evidence": [
+    {
+      "turn": 0,
+      "request_sha256": "6d045649b7ab44c1fd4421bb5ea9fc2a0becf704a6283676539817c635118c8a",
+      "receipt_sha256": "9a28ff86282404e5abf98890a0eefbbd0c8ef9d3fb5b8b1ec68dbfb935ac187c",
+      "choices": 16,
+      "unique_choices": 16,
+      "invalid_ids": [
+        "07dbb8c9982caa472c1a",
+        "43758e84c67aabf44a9f",
+        "4659b6752f23c0b85f08",
+        "c973d4c257be9ef08216"
+      ],
+      "already_measured_ids": [
+        "07dbb8c9982caa472c1a",
+        "43758e84c67aabf44a9f",
+        "4659b6752f23c0b85f08",
+        "c973d4c257be9ef08216"
+      ],
+      "error": "must select distinct legal supplied candidate IDs"
+    },
+    {
+      "turn": 1,
+      "request_sha256": "d28949602d21636c7dacf1edd55bc9c8d462ab7360e774f52e41eff2c98ae712",
+      "receipt_sha256": "05476cf12e153bb98ebd89c42580cd15bc29ee7cabd5d07db559a2804d4d0d01",
+      "choices": 16,
+      "unique_choices": 16,
+      "invalid_ids": [
+        "43758e84c67aabf44a9f"
+      ],
+      "already_measured_ids": [
+        "43758e84c67aabf44a9f"
+      ],
+      "error": "must select distinct legal supplied candidate IDs"
+    },
+    {
+      "turn": 2,
+      "request_sha256": "5a7aca35e78c174eae6a111b65b99e11ab61d7ea11ae821649da66c5cdb2c2bf",
+      "receipt_sha256": "e8fac10f249e708caf450bb68be091ab357cbb95eb40e6ac13ac3794d34b35e4",
+      "choices": 16,
+      "unique_choices": 16,
+      "invalid_ids": [
+        "43758e84c67aabf44a9f"
+      ],
+      "already_measured_ids": [
+        "43758e84c67aabf44a9f"
+      ],
+      "error": "must select distinct legal supplied candidate IDs"
+    }
+  ],
+  "proposed_correction": {
+    "status": "PROPOSAL_ONLY_NOT_AUTHORIZED",
+    "scope": {
+      "seed": 6101,
+      "method": "cw16_llm16_scientist_v2",
+      "round": 21,
+      "labels_before": 1005,
+      "labels_after": 1037
+    },
+    "original_logical_attempts": 3,
+    "proposed_additional_logical_attempts": 1,
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "xhigh",
+    "instruction": "43758e84c67aabf44a9f is ALREADY MEASURED and appears in the supplied observed table. It is NOT an eligible candidate and is NOT one of the pending CW16 IDs. Remove it from choices and select a replacement yourself from the eligible candidates table. Return the complete original-schema final JSON with exactly16 distinct eligible candidate choices, preserving the same packet_sha256. Verify every choice against the candidates table and every evidence reference against the observed table. The fixed16 CW pending IDs remain unchanged; no local ID repair or enlarged budget for any other round is permitted. Only one extra correction would be allowed if explicitly authorized."
+  },
+  "proposed_request_sha256": "cf9d84c19d852b74c0142fb551ac5d0dcd285552a35f8d3ebe53aaeec104e09a",
+  "packet_sha256": "bae3a06ed1077d83df1fbe31d6f5b64b421ac6c3b06d84d698e9880f278a21ab"
+}

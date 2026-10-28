@@ -1,0 +1,244 @@
+{
+  "type": "selection",
+  "packet_sha256": "919bcf854d9c9ee5b5145fad5895ec10791d877e0d3b02320bd64435f0c2456c",
+  "batch_strategy": "Freeze these 32 IDs with their supplied premeasurement predictions unchanged. Prioritize missing solvent-response segments, informative loading contrasts, and a limited investigation of inconsistent recorded-condition labels. Use CW distance as secondary coverage evidence; quantile spans are neither calibrated epistemic uncertainty nor elution interval widths. All selected molecules are already represented, so the principal learning opportunity is their conditional response.",
+  "choices": [
+    {
+      "id": "9ef318afb1f6bac186ff",
+      "reason": "m118, pure EA, 150 ul: test whether the newly measured 41.55 mL completion at 1/1 in 966254b5be3c8ec5edd3 persists at stronger eluent. The same loading finished at 12.63 mL at 2/1 in 4e7e45a513ce579c5ce3. This constrains the extent of the anomalous completion behavior without assuming its cause.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "0afe12e53e575503e3f0",
+      "reason": "m118, pure EA, 50 ul: pair with the selected 150 ul row to isolate loading at fixed mobile phase and loading-solvent volume. The existing 100 ul observation 073bc395a08f48db4fc0 finished at 11.44 mL. The three loading levels can distinguish a strong-solvent loading effect from an isolated 1/1 label.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "a387411cbcb6be48bde4",
+      "reason": "m73, 1/1, 50 ul: probe the disputed strong-solvent region at density 1.049. Nearly identical 100 ul records 2cf789c87f7c6325c020 and 45dca237351265a8f169 have very different measured endpoints. This label tests whether delayed onset recurs at lower loading instead of treating the tiny density difference as a chemical mechanism.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "7150b292e8a20dd06f1c",
+      "reason": "m73, 2/1, 50 ul: form an exact-loading solvent contrast with the selected 1/1 row. The recent 100 ul result 49932dbd3d16bb64f71a was ordinary at 5.26/11.60 mL, while pure-EA record 3d5a3094cb10eee37b37 has reversed endpoint order. This helps localize response behavior while exposing limits of a physical-transition interpretation.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "f7cc49c21fea55ed9087",
+      "reason": "m92, 2/1, 150 ul in EA: acquire another eligible row at the same recorded tuple as b7880e59ff4586b29a28 and a93701aa1a4a960e479a, whose measured completions were 22.50 and 15.43 mL. This deliberate repeat can inform the conditional mean and variability rather than attributing their difference to solvent or loading.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "b4d9d000145f0dfcee50",
+      "reason": "m41, 20/1, 50 ul: test the loading dependence of onset after 46412717e5e282f83527 showed a 3.81 mL acquisition-time onset overprediction at 150 ul, with accurate completion. The low-loading 5/1 anchor 67b7c283d1762ce094e6 makes this a useful extension of the onset response.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "dc795e0a68f104353b33",
+      "reason": "m41, 50/1, 50 ul: pair with the selected 20/1 row at identical loading. This determines whether weaker eluent delays onset, expands completion, or both for the meta-methyl ketone. The endpoint-specific discrepancy in 46412717e5e282f83527 and the para-methyl ketone reference 485f8bcfb08d6eaf3463 motivate this local curve.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "47eb0d497e8c772aade3",
+      "reason": "m37, 1/1, 100 ul: establish the stronger-solvent end of a nitroacetophenone response whose measured 5/1 and 10/1 anchors are 9de8f9fed06ef9d5befa and 38e6b8bf0f089fcadd80. Its high CW distance supports filling this specific gap, especially because onset and completion rise substantially at weaker solvent.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "32f34638e41ffc962cfc",
+      "reason": "m37, 2/1, 100 ul: pair with the selected 1/1 row and measured 5/1 record 9de8f9fed06ef9d5befa at the same loading. These points locate the curvature before the much later 10/1 and 20/1 observations, improving interpolation for nitro-carbonyl interactions.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "9845fd896eb72b0e149f",
+      "reason": "m28, 1/1, 150 ul: test high-loading completion for an acetoxybenzaldehyde against the 100 ul anchor 0d18f3f10c8377d12316. It provides a chemically related comparison to the unusual m118 result 966254b5be3c8ec5edd3, helping determine how narrowly any aldehyde-tail correction should transfer.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "f394f6b40e55953df8e1",
+      "reason": "m26, 5/1, 100 ul: fill the solvent gap between measured 2/1 record 99b6aac7dd5c18caba18 and 20/1 record 95e11ec70cd7b493e3f8. This beta-diketone supplies a topology-specific comparison to separated aromatic carbonyls, whose weak-solvent behavior was very different in 0c5c35afb3a24375c153.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "ba0d2f91eb0b005857f8",
+      "reason": "m26, 10/1, 100 ul: together with the selected 5/1 point, resolve the intermediate response at fixed loading. The measured 20/1 completion in 95e11ec70cd7b493e3f8 and 50/1 completion in fa851bcd2cdb1d84b91f provide weaker-solvent anchors. This can distinguish a plateau from a smooth increase.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "f4ec546ae74a4b3888df",
+      "reason": "m163, 10/1, 50 ul: fill the missing intermediate solvent level for fluorobenzonitrile. Measured context includes 5/1 record e91adf33d8e63498e304 and 20/1 record 539544adb51a91c9a465 at 100 ul. Its maximal CW distance is useful coverage evidence, while loading differences prevent treating those anchors as an exact matched curve.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "da1e48445e8e0b651070",
+      "reason": "m159, 2/1, 150 ul: test the model's predicted completion of 10.45 mL, below its 1/1 prediction at the same loading. Measured 1/1 record cfcf2b8c54d4c8b3838a and 10/1 high-loading record 79ff49052bce33597828 provide context. This probes a possible response reversal before a long cyano-benzophenone tail develops.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "9a9324fbb6b1e17e7743",
+      "reason": "m88, 1/1, 50 ul: add a low-loading anchor for the meta-amino ester beside measured 100 ul records c620129610cfe348f024 at 1/1 and ca6feb29f6758377a65f at 2/1. This tests loading-sensitive onset and completion in a positional-isomer family where donor accessibility can affect transfer.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "40d5f6dbba8de32e9852",
+      "reason": "m128, 2/1, 50 ul: compare directly with the 100 ul observation 21e09d52eac22fe25e15 and connect to the low-loading 10/1 anchor 2f72c334253bbe94a8ab. The thioether-substituted ketone tests whether loading changes onset independently of completion in a sulfur-containing scaffold.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "def684761639e17b1a7e",
+      "reason": "m47, 2/1, 100 ul: constrain the mass response of an aliphatic ketonitrile using the 150 ul 2/1 observation 1e12081e646a951776b1. Its measured 5/1 high-loading record 28d8efb10e9abe6740a6 also anchors solvent sensitivity. This helps distinguish aliphatic ketonitrile behavior from aromatic nitrile-carbonyl transfer.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "a01ddd20ae3501ca9881",
+      "reason": "m166, 1/1, 150 ul: test a predicted completion minimum of 9.43 mL, below the model's pure-EA prediction at identical loading. Measured pure-EA record 6760820b54dccf5904f9 and 10/1 record 20acd2ae49790ab82053 supply context. This checks strong-solvent response for a fluorinated aromatic beta-diketone.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "fc6013d1dabfab0fd3cb",
+      "reason": "m34, 2/1, 150 ul: complete an exact-loading solvent bracket between 1/1 observation b0035c08cda3495cb3b2 and 5/1 observation f5d873a623aaeeb1e41e. This compact fluoroacetophenone comparison helps delimit how the selected nitro- and methyl-ketone response curves should generalize.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "51691caac0be166b02c7",
+      "reason": "m202, pure EA, 150 ul: complete a loading series after db51722e47c78067c744 measured 11.19 mL completion at 50 ul and 8fb287430f3df6d0b3dd measured 8.03 mL at 100 ul. Strong-solvent loading coverage is valuable because the 10/1 records 902937db42f82f467718 and cb446680f62351d087a9 differ greatly across loading.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "7df9f96b58c06a0c86c2",
+      "reason": "m214, 50/1, 100 ul: extend the hydrocarbon reference beyond measured 1/1 record 13c17274bed8acf44c7f and 5/1 record 9181e4bc1c8af8bf8693. This high-CW condition tests whether the predicted compact completion persists with very weak eluent, providing a boundary against transferring polar-scaffold tail corrections.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "2b266fc41757f88e8b09",
+      "reason": "m23, 50/1, 150 ul: pair with the selected 10/1 row at identical loading to measure the weak-solvent response of a bulky bicyclic acrylate. The measured 20/1 low-loading anchor 8aeb3c33c4cded8425b9 provides context. This tests sterically shielded ester transfer beyond the already well-behaved simpler acrylates.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "4557a201acb370fccbfa",
+      "reason": "m71, 50/1, 150 ul: compare with low-loading 50/1 observation 7e981ba02c83f74f5e65 and high-loading 5/1 observation a6fd9cae6e0672265c13. This very lipophilic thiophene tests whether tripling sample loading preserves compact completion. The broad V2 quantile span adds a model-sensitivity question without establishing epistemic uncertainty.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "b5a09e39ab254d048d3e",
+      "reason": "m58, 1/1, 50 ul: fill an exact-loading solvent bracket between pure-EA observation 8f07dde39b5cb4c7d9e6 and 2/1 observation 4b0aa1fb2c1d00131718. Predicted completion is 7.32 mL, below both measured neighbors near 9.3-9.6 mL. This directly tests a local response minimum for a hindered phenol.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "09b1bb29e7a0e3565a0d",
+      "reason": "m204, pure EA, 150 ul: establish a strong-solvent anchor for a primary alcohol whose same-loading 1/1 and 5/1 records efba7e70f4e46055398b and 1211905ebc8972913270 show substantial solvent response. This constrains where donor-driven retention collapses and supports transfer across phenylalkyl alcohols.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "cd7ac6881cd138aaeb8a",
+      "reason": "m23, 10/1, 150 ul: provide the matched-loading reference needed to interpret the selected 50/1 point. Existing 1/1 observation 1a462e0cc4fc1474a76c and 20/1 observation 8aeb3c33c4cded8425b9 use different loadings. The pair separates solvent response from those loading differences.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "a4fc5d66da363324e2bf",
+      "reason": "m206, 1/1, 150 ul: test loading transfer from low-loading 1/1 observation fe69b1dbb4d976f830cd. The high-loading 10/1 observation b7cf293311f83700cd9a has a very long completion interval. This stronger-solvent anchor helps localize the conditions under which that naphthylmethanol behavior should transfer.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "471287eecf7b94603e9e",
+      "reason": "m103, 50/1, 50 ul: extend the accurately measured low-loading 20/1 point 5580a36d869fbaf15a47 and compare with high-loading 50/1 record 9f3b75bc3a2c4004a893. This tests whether nearly loading-independent completion at weak solvent coexists with an onset shift, rather than adding another already-covered moderate-solvent point.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "ffa53b3aa054bc392704",
+      "reason": "m196, 20/1, 100 ul: fill an exact-loading gap between measured 10/1 record 36b4e1b99354c22c07da and 50/1 record 7c6e7b244de393e8554d. Their onsets remain near 6 mL while completion expands. This high-CW point tests endpoint-specific solvent response in a fused brominated aldehyde.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "87ada91b7803cfd9f767",
+      "reason": "m98, 5/1, 100 ul: interpolate at fixed loading between measured 1/1 record 038c2ece456c59cf6285 and 10/1 record b3f456e3c4a350277eaa. Its high CW distance identifies an uncovered response segment despite exact molecular familiarity. This can improve fused-aromatic ester interpolation without revisiting its already measured weak-solvent endpoint.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "0dd38abec3981f296cfb",
+      "reason": "m85, 20/1, 50 ul: add an intermediate low-loading solvent point between measured 2/1 record c2349adace8ee903700a and 50/1 record cd7c523e3df961c83524. The high CW distance supports this specific gap. It provides an exposed aromatic ester comparison for the bulky m23 solvent pair.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "547923973b121019625f",
+      "reason": "m89, 50/1, 150 ul: test high-loading transfer from the 100 ul weak-solvent observation 249b884b29177edb9df5, which finished at 69.89 mL. Same-loading 5/1 record 18186b5d6cc190fc07a3 finished at 16.69 mL. This constrains how an ortho-amino ester's response changes with loading despite possible donor shielding.",
+      "hypothesis_id": "H3"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Strongly delayed or broadened elution is scaffold- and condition-specific; acceptor count, polarity, or aromaticity alone does not justify a universal completion-tail correction.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "aa83ae83c0fa0cc37777",
+        "0c5c35afb3a24375c153",
+        "6d00a25c0ca42a5cf2c1",
+        "8d1c1f1a4efded6a8158",
+        "46412717e5e282f83527",
+        "7c44f4c46906e8f36cd1"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Chemically motivated intermediate points and compact-retention controls can teach where conditional corrections transfer, including cases where V1 stays nearly fixed while V2 changes.",
+      "next_discriminating_question": "Across the selected matched solvent curves, which motifs show delayed onset, increased completion volume, or both, and which remain compact under weak eluent?"
+    },
+    {
+      "id": "H2",
+      "content": "The previous explanation that a sharp physical strong-solvent transition is the primary cause of m73's large onset errors is weakened.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "2cf789c87f7c6325c020"
+      ],
+      "contradicting_observed_ids": [
+        "45dca237351265a8f169",
+        "49932dbd3d16bb64f71a",
+        "2732471e4009311396ed",
+        "3d5a3094cb10eee37b37"
+      ],
+      "confidence": "low",
+      "status": "weakened",
+      "why_it_matters_for_model_learning": "Nearly identical 1/1 records disagree, and some pure-EA labels have V2 below V1. A molecular model should not infer extreme physical sensitivity to a 0.0001 g/ml density difference from these observations.",
+      "next_discriminating_question": "At 50 ul and density 1.049, do the selected 1/1 and 2/1 labels follow an ordinary response or reproduce the delayed strong-solvent behavior? This pair can localize the pattern but cannot by itself identify its origin."
+    },
+    {
+      "id": "H3",
+      "content": "Sample loading can affect onset and completion differently, with the magnitude and direction depending on scaffold and solvent strength.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "7954bf73f74c7fbcecb2",
+        "48853fd78c77153b963a",
+        "c5cf43c25a1071ceb950",
+        "2f0437567e9d50e90296",
+        "5bad82a6cffd60e7a6c9",
+        "fd1d673cc647d6745303"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Loading contrasts at otherwise fixed recorded conditions can improve endpoint-specific conditional representations. The selected contrasts include both potentially persistent tails and compact-retention cases.",
+      "next_discriminating_question": "Do the missing loading levels mainly change V1, V2, or neither, and does the m118 completion excess persist under pure EA?"
+    },
+    {
+      "id": "H4",
+      "content": "The supplied labels contain inconsistencies at the resolution of the recorded features; their origin in measurement, annotation, or unrecorded variation remains unresolved.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "2cf789c87f7c6325c020",
+        "45dca237351265a8f169",
+        "2732471e4009311396ed",
+        "3d5a3094cb10eee37b37",
+        "b7880e59ff4586b29a28",
+        "a93701aa1a4a960e479a",
+        "129036e0bccc4ff7e848"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "A small number of repeat or closely matched labels can inform conditional averages and variability, reducing the risk of fitting incompatible outcomes as deterministic structure-condition effects. This does not establish which existing label is correct.",
+      "next_discriminating_question": "Does another m92 label at the identical recorded tuple support one completion range or reveal continuing scatter, and do the new m73 points make the disputed pattern more coherent?"
+    }
+  ],
+  "feedback_interpretation": "Most latest selections had modest acquisition-time errors, including m96, m167, m168, m103 and several hydrocarbon, ester and halogenated controls. That reduces the value of continuing generic weak-solvent or heteroatom exploration in already anchored regions. The main new exception was m118 at 1/1 and 150 ul: onset was accurate but completion was underpredicted by 28.73 mL, motivating a pure-EA loading bracket rather than a general aldehyde correction. m41 instead showed a 3.81 mL onset overprediction with accurate completion, motivating a low-loading solvent pair. The ordinary m73 2/1 outcome, together with a normal near-identical 1/1 record and reversed endpoint ordering in some older pure-EA records, weakens the previous physical-transition explanation. I therefore distinguish label inconsistency from established adsorption behavior and include one deliberate m92 repeat. The recent m202 pure-EA result also leaves a useful missing high-loading anchor. I correct the previous structural shorthand: m48 is an alkyl hypochlorite with no OH donor.",
+  "batch_rationale": "The batch concentrates on relationships that remain identifiable from the available catalog: matched solvent pairs for m41, m37, m26 and m23; a pure-EA loading bracket for m118; loading contrasts across donor, nitrile, ester, sulfur and phosphorus-containing scaffolds; and several specific interpolation gaps with high CW distance. Compact-retention hydrocarbon and thiophene points delimit transfer of long-tail corrections. The m73 pair and one exact-tuple m92 repeat address uncertainty in the interpretation of existing labels without allowing inconsistent examples to dominate the batch. These measurements should help retraining learn endpoint-specific response curvature, loading interactions and conditional averages across familiar molecules, supporting overall Row-distribution accuracy. Large predicted volumes are included only where they answer those learning questions."
+}

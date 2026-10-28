@@ -1,0 +1,90 @@
+{
+  "type": "memo",
+  "role": "ml_scientist",
+  "packet_sha256": "6cc5787808da95c08cd98f04ec3060168f94efd576dba68e58237317b37fedf8",
+  "state_summary": "Round 16, seed 157, method free_llm32_dual_expert_v1. The authoritative delivery contains 845 observed records and 2,485 eligible candidates, with no validation/test records. The older 813/2,517 counts in memory are stale. Recent measurements answer several prior questions, but they do not establish retrained overall Row accuracy or label-efficiency gains.",
+  "important_model_behaviors": [
+    {
+      "basis": "observed measured evidence",
+      "finding": "The m163 repeat at the identical 50/1, 50 ul, PE 300 ul input measures 24.86/44.05 ml, close to its premeasurement prediction of 26.05/48.60. The earlier identical record is 7.19/23.25. The new 2/1, 10/1 and 20/1 measurements at 50 ul form a generally increasing intermediate curve.",
+      "update": "H34 is substantially revised: the repeat weakens a persistent current-model error explanation and highlights serious between-record variation at the 50/1 input. Preserve both labels; the repeat pair does not identify a noise distribution or which record, if either, is erroneous."
+    },
+    {
+      "basis": "observed measured evidence",
+      "finding": "m75's repeated 10/1, 50 ul inputs agree closely, but its 100 ul onset changes from 8.23 to 11.62 ml. m32's repeated 5/1 completion changes from 20.07 to 10.98 ml.",
+      "update": "Further deterministic interpretation of the original m75 loading step and m32 completion elevation is unwarranted. These are evidence of repeat sensitivity, not a universal variability threshold."
+    },
+    {
+      "basis": "observed measured evidence",
+      "finding": "m87 at 20/1 has similar endpoints at 50 and 100 ul (12.23/26.58 versus 12.01/27.92 ml). At 2/1, 50 and 100 ul completions are also close (13.18 and 13.51), whereas the 150 ul record is 23.51. At 5/1 and 10/1, 50-to-150 ul completion differences are smaller.",
+      "update": "The prior loading association is ratio-specific and dominated by the 2/1, 150 ul corner; smooth interpolation or a global loading correction is unsupported."
+    },
+    {
+      "basis": "observed measured evidence",
+      "finding": "At fixed 50 ul, m162 increases across 2/1, 5/1 and 10/1 from 4.91/10.10 to 8.88/14.56 to 11.23/20.47 ml. By contrast, m130 remains modest through 20/1 at 150 ul (6.23/13.36), and m144 has its own later, modest growth.",
+      "update": "These measurements reject excessive transfer of a large nitrile ratio transition; they do not support a common nitrile curve."
+    },
+    {
+      "basis": "observed measured evidence",
+      "finding": "m54 and m175 retain early onset across their measured extensions with modest completion growth. m182 instead shows completion growth before clearer onset growth: at 5/1, 10/1 and 20/1 it measures 5.02/21.80, 5.22/28.70 and 8.19/32.84 ml.",
+      "update": "Ketone responses remain molecule- and endpoint-specific. The newly measured m53 fixed-100 ul sequence grows jointly, while the purported m53 5/1 anchor is actually m59; retain that mapping correction."
+    },
+    {
+      "basis": "observed measured evidence",
+      "finding": "m58 grows across its sampled ratios at fixed 50 ul. m209's 2/1, 100 ul result (21.85/21.90 ml) is sharply out of line with its measured 1/1, 5/1 and 10/1 neighbors.",
+      "update": "Do not generalize a shared phenolic response or treat the isolated m209 2/1 result as a stable curve feature without replication."
+    },
+    {
+      "basis": "observed measured evidence and data-quality warning",
+      "finding": "m117 at 10/1, 100 ul has V1 33.58 and V2 33.51 ml, a small endpoint-order reversal.",
+      "update": "Preserve the recorded values and flag for alignment/integration review. This isolated record is distinct from the previously rejected general endpoint-anomaly premise."
+    },
+    {
+      "basis": "historical premeasurement diagnostics",
+      "finding": "Historical residuals show slope errors of different signs and scales: m130 was greatly overpredicted at high ratios, while m53 was underpredicted as its measured curve grew. In the new m69/m70 measurements, historical completion predictions were generally high; for m182, onset was overpredicted while completion was much closer.",
+      "update": "A shared signed correction by functional group, polarity or endpoint is unlikely to address these patterns. These are past-model errors, not estimates of current candidate error."
+    }
+  ],
+  "possible_learning_bottlenecks": [
+    "Inference: identical-input discrepancies can arise from experimental/record variability as well as model fit. Keep replicate provenance and assess sensitivity to singletons; the supplied evidence does not establish a general noise floor.",
+    "Inference: after repeated acquisition, marginal learning is increasingly about condition response and sparse within-catalog chemotypes rather than novel molecule discovery. Candidate molecule-novelty indicators are zero in the supplied examples.",
+    "ML prior: evaluate V1 and V2 separately and test whether learning conditional interactions improves held-out Row accuracy; this packet contains no such evaluation result."
+  ],
+  "coverage_or_redundancy_concerns": [
+    "The pool offers many condition-level contrasts but also near-duplicate rows. Deduplicate by molecule plus all five condition fields; for example, candidate IDs 9d3f3505ff1be86befbe and 35e055b13ba20e843f0d are identical m12 inputs.",
+    "Recent m162, m87, m54/m175, m53/m59, m73/m83 and m58 measurements substantially answer their immediate curve questions. Further sampling should target a specific remaining interaction, not routine grid completion.",
+    "The overall Row weighting and error metric are unspecified. Moderate, common-condition behavior remains relevant; large endpoints, novelty and quantile width alone do not establish expected value."
+  ],
+  "particularly_informative_candidates": [
+    {
+      "id": "9f892e34701ddf30e470",
+      "context": "m162, 2/1, density 1.0, 100 ul, DCM 300 ul.",
+      "predictions_only": "Approximately 5.57/10.15 ml.",
+      "value": "A loading contrast to the measured 50 ul m162 2/1 input; compare with the supplied 150 ul counterpart 9a07019d2e529ba6eda4. Similar predictions are not measured evidence of loading invariance."
+    },
+    {
+      "id": "862163fa99660a023b6f",
+      "context": "m162, 5/1, density 1.0, 150 ul, DCM 300 ul.",
+      "predictions_only": "Approximately 7.86/14.65 ml.",
+      "value": "Pairs with the measured 50 ul 5/1 point; together with the 10/1 150 ul candidate ae377e903c7cb2c36b71, it tests whether the measured fixed-50 ul nitrile curve transfers across loading."
+    },
+    {
+      "id": "7b8eaa0c9205349f60b1",
+      "context": "m162, 50/1, density 1.0, 100 ul, DCM 300 ul.",
+      "predictions_only": "Approximately 23.74/37.81 ml.",
+      "value": "A higher-ratio loading comparison against measured m162 50/1 data. It probes continuation and loading response without presuming another nitrile transition."
+    },
+    {
+      "id": "c7c87de08eb40f9343be",
+      "context": "m209, 0/1, density 1.375, 100 ul, PE 300 ul.",
+      "predictions_only": "Approximately 3.26/13.17 ml.",
+      "value": "Adds a lower-ratio neighbor to the unusual measured 2/1, 100 ul point and the measured 1/1-to-10/1 sequence. It cannot replicate the 2/1 input."
+    }
+  ],
+  "warnings": [
+    "Only observed-table IDs provide measured evidence. Candidate records, including predictions on previously measured molecules, are not labels.",
+    "Historical errors are from premeasurement models and do not estimate current prediction error or retrained Row accuracy. Quantile widths have no supplied acquisition calibration; supplied V1 q10 values of zero further limit interpreting them as uncertainty.",
+    "Preserve all five condition fields. Sample volume and loading mass are coupled. V2 minus V1 is an elution interval, not uncertainty.",
+    "Older memory flags an endpoint reversal for candidate 8e17cb06a37c48cc9ab5; the current supplied candidate row predicts approximately 4.13/6.50 ml, so that flag is stale. Do not use it as current evidence."
+  ]
+}

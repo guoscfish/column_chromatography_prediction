@@ -1,0 +1,226 @@
+{
+  "type": "selection",
+  "packet_sha256": "a354dca889bde749f66e329636c5add9c44cc190f97c848bb5efe620aa706c0b",
+  "batch_strategy": "Use a diverse response-surface batch spanning boundary, intermediate, and high-ratio conditions. The batch emphasizes graph-specific solvent curvature, endpoint-specific loading effects, and sparse late-retention regions while avoiding duplicate tuples.",
+  "choices": [
+    {
+      "id": "6ddb6596285d680135c6",
+      "reason": "m131 at pure EA and 150 uL provides a low-ratio boundary for a diaryl ketone with high structural similarity to other aromatic carbonyl rows. It can anchor whether the model's ordinary 3.74/12.94-mL prediction transfers to this topology.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "072ea9156cf6dd75519a",
+      "reason": "m214 at pure EA and 150 uL supplies a nonpolar diaryl reference with a predicted narrow early-elution regime. Comparing it with the broader aromatic responses tests whether the model separates hydrocarbon topology from carbonyl-containing analogues.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "34a9b815565879eeb8c1",
+      "reason": "m9 at 20/1 and 100 uL extends a well represented biphenyl response to a strong-ratio tail. It tests whether the model's predicted 5.35/12.83 mL endpoints remain appropriate at a condition where aromatic retention can change sharply.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "c096c324a71974b6ab37",
+      "reason": "m34 at 50/1 and 150 uL adds a high-ratio amount point to the aromatic ketone family. The label can distinguish a smooth amount response from the endpoint-specific loading behavior seen in observed high-ratio rows.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "5f189f103424c7cfda69",
+      "reason": "m82 at 1/1 and 100 uL fills an intermediate ratio for a multifunctional ester-ketone graph. It can locate the transition between ordinary strong-eluent behavior and the much later high-ratio regimes represented by observed multifunctional rows.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "ee6b3465557d832e0b90",
+      "reason": "m144 at pure EA and 50 uL is a low-amount boundary point for a nitrile-containing aromatic graph. It tests whether the predicted short completion is stable before stronger solvent-ratio effects appear.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "49ec0d8e4bc26b48e813",
+      "reason": "m121 at 10/1 and 50 uL probes a low-amount, intermediate-ratio response in a methoxy aryl chloride. This can separate condition curvature from the amount effects observed in related aromatic rows.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "d074d3b670ffc9e13369",
+      "reason": "m136 at pure EA and 100 uL creates a simple nonpolar amount contrast for an alkyl chlorobenzene. It provides a clean baseline for learning whether loading affects V1 and V2 similarly in weakly interacting graphs.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "8435ac7ac5c9c8c37de2",
+      "reason": "m184 at pure EA and 150 uL adds a boundary condition for a dibrominated aldehyde with a predicted 4.95/10.19 mL response. This helps calibrate heavy halogenated carbonyls before extrapolation to stronger ratios.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "8aeb3c33c4cded8425b9",
+      "reason": "m23 at 20/1 and 50 uL tests the low-amount high-ratio response of an acrylate-bearing terpene-like graph. It can reveal whether the model's moderate prediction misses a loading-dependent onset or completion shift.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "4c40bd6781093d65e26f",
+      "reason": "m152 at 1/1 and 150 uL supplies an early-ratio point for a heavily halogenated anisole. The sparse condition coverage makes this useful for learning descriptor-condition interactions rather than relying on similarity alone.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "6e66ea6808d3ce077e47",
+      "reason": "m32 at 2/1 and 100 uL provides an intermediate-ratio aromatic ketone measurement with a compact predicted interval. It helps constrain ordinary carbonyl response shape and prevents attention from concentrating only on extreme tails.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "616dd888d5b03ea79005",
+      "reason": "m149 at 50/1 and 150 uL samples a high-ratio, heavily halogenated aromatic graph. Its prediction is still near the ordinary volume range, so the measurement can test whether heavy halogenation creates a missed late-retention subgroup.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "9aadc8feed825d13a5d7",
+      "reason": "m4 at 1/1 and 150 uL adds an early-ratio point for a fused polyaromatic graph with limited local coverage. Together with later-ratio analogues, it can teach whether completion expands smoothly or through a graph-specific transition.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "a99011d97b1af601fdbc",
+      "reason": "m25 at 2/1 and 50 uL gives a low-amount intermediate-ratio point for a beta-ketoester. It is useful for separating amount effects from the strong condition response expected for multiple carbonyl acceptors.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "eac4c18cd654841de896",
+      "reason": "m111 at 20/1 and 100 uL extends a methoxy-brominated aromatic response into a high-ratio condition. The label tests whether the model underestimates late completion in halogenated ether systems.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "2f1ff409bb879ae9f62b",
+      "reason": "m18 at 50/1 and 100 uL probes a long-chain acrylate at high ratio. This is a useful condition-response point for a graph whose hydrophobicity may produce a broader interval than the predicted 7.39/12.95 mL endpoints.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "742735a20e3a21be6d2c",
+      "reason": "m45 at 1/1 and 150 uL provides a strong-eluent anchor for the carboxylic-acid series. It helps determine whether the unusual late and invalid-looking acid records reflect a ratio-specific transition rather than a universal acid correction.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "7bdb81ebd10a45bc8ad1",
+      "reason": "m148 at 50/1 and 100 uL adds a high-ratio amount point for a simple chloroethylbenzene. It provides a lower-complexity comparison for testing whether loading shifts onset and completion differently.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "e831674d417af7d27b38",
+      "reason": "m0 at pure EA and 100 uL supplies a boundary point for a highly hydrophobic triaryl bromide. Its predicted early onset but broad completion can test whether the model captures endpoint decoupling in very nonpolar graphs.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "c5879e8f93b99dcf6b34",
+      "reason": "m39 at 1/1 and 50 uL adds a low-amount early-ratio point for an oxygenated aromatic ketone. It can connect strong-eluent behavior to the broader late-ratio responses of related carbonyl graphs.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "b0c585bd56fc0cd41c3e",
+      "reason": "m112 at 1/1 and 120 uL gives an early-ratio amount anchor for a bromomethyl anisole. The label can improve interpolation across amount and solvent ratio in an oxygenated halogenated family.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "0dccaa29989ef4956786",
+      "reason": "m28 at 10/1 and 150 uL targets a predicted late regime for an aldehyde ester. Its large predicted endpoints are useful for testing whether the model has learned a transferable high-retention tail or is overextending a local response.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "90b458cad40e4d8b82fd",
+      "reason": "m157 at 2/1 and 100 uL tests an early-ratio point for a diiodobenzene. The compact predicted interval can reveal whether the model underrepresents heavy-halogen aromatic retention at intermediate solvent strength.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "18eb8ff2b9699bbdb4f1",
+      "reason": "m102 at 50/1 and 50 uL probes a low-amount high-ratio chlorobenzoate. It adds coverage of a potentially late ester regime and tests whether the completion prediction of 26.18 mL is too narrow.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "7a686f0aefeefe62a695",
+      "reason": "m25 at 1/1 and 150 uL complements the selected m25 2/1, 50-uL point. The pair forms a local condition-amount experiment for separating solvent response from loading response in a beta-ketoester.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "b2717fe0c14d406893ef",
+      "reason": "m138 at 2/1 and 50 uL samples an intermediate-ratio dihalogenated aromatic at low amount. It provides a matched structural comparison to other halogenated graphs and tests ordinary versus tail-like retention.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "cc4f2a94babfca65e283",
+      "reason": "m89 at 1/1 and 150 uL adds an amount point for an amino benzoate. The basic donor-acceptor environment may produce endpoint behavior different from neutral esters, which is valuable for transfer across chemical families.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "bfd6d9785c1b89dd9c11",
+      "reason": "m71 at 5/1 and 50 uL probes a low-amount high-ratio dibrominated long-chain thiophene. It targets a hydrophobic heteroaromatic region where the model may compress completion toward ordinary values.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "7a2d11133b002d4183f0",
+      "reason": "m112 at 10/1 and 100 uL complements the selected early-ratio m112 point and supplies a local solvent-response pair. This can identify curvature rather than imposing a single ratio slope.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "fb0cb3f676c76d46ada8",
+      "reason": "m76 at 20/1 and 150 uL provides a high-ratio amount point for a brominated ester. It can test whether loading changes the onset and completion endpoints independently in a relatively simple graph.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "f55930a15011eea1c30b",
+      "reason": "m69 at pure EA and 50 uL supplies a boundary measurement for a hydrophobic alkyl aryl ketone. It anchors a low-ratio response before stronger-ratio extrapolation and helps calibrate ordinary aromatic carbonyl behavior.",
+      "hypothesis_id": "H3"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "The model compresses some multifunctional, heteroaromatic, and heavily hydrophobic graphs toward ordinary retention even when their measured rows occupy a late tail. This tail is conditional on graph topology, solvent ratio, and amount.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "74cf50c6ec476a394b01",
+        "b1c5816f929ef59f5a87",
+        "aa83ae83c0fa0cc37777",
+        "ffffcd6f3b9393846ab4",
+        "b514312eda7950cdcf1c"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Sampling both ordinary-looking and tail-like predicted rows can teach the retrained model when structural features lead to large V1/V2 responses and improve generalization to related unseen conditions.",
+      "next_discriminating_question": "Do intermediate-ratio and lower-amount measurements show a gradual transition into the late tail, or are the largest responses localized to particular graph-condition combinations?"
+    },
+    {
+      "id": "H2",
+      "content": "Loading amount affects V1 and V2 differently and does not have a universal direction. Some graphs show ordered onset changes with amount while completion is weak, nonmonotonic, or graph-specific.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "668279c54bbf75e86496",
+        "e3a799d0fa90b649a157",
+        "db5dcc7b864e0174fcbd",
+        "18493dd4e68cac01205f",
+        "56f8cdbb3999b366d947",
+        "80f6a235bb59c2a7ea59"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Matched amount and ratio points can teach structure-condition interactions without spreading an isolated loading association across the Row-distribution.",
+      "next_discriminating_question": "Which chemical families have reproducible amount effects, and is the dominant effect carried by onset, completion, or interval width?"
+    },
+    {
+      "id": "H3",
+      "content": "Solvent-ratio response is endpoint-specific and graph-dependent. Aromatic carbonyls, beta-ketoesters, and oxygenated or basic heteroaromatics can show curvature that a smooth global interpolation misses.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "003ad1a9637ac1b7c0fd",
+        "22191f76e895327c6e2d",
+        "13aa7f454204d054a196",
+        "6d7b9c18dcb836a2b09c",
+        "3bb54d92fcc3ef0fc388",
+        "502e41325a19473f9d08",
+        "fde9781e6b15ffbe093f",
+        "6209df8dd01072ab8a47"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Local response curves can improve the separate V1 and V2 surfaces and prevent a universal monotonic solvent correction from erasing observed completion reversals or interior features.",
+      "next_discriminating_question": "Which graph classes show delayed completion growth or local extrema, and does the shape persist when amount is held fixed?"
+    }
+  ],
+  "feedback_interpretation": "Recent outcomes weakened a universal loading or solvent correction. m182 at 1/1 and 50 uL was close to its prediction, while m33 retained a strong completion reversal between pure EA and 1/1. m53 and m59 supplied useful intermediate curve information but retained graph-specific completion behavior. m94 showed ordered onset changes with amount, whereas m67 showed nonmonotonic completion. These results favor conditional response surfaces and targeted coverage of late-tail regions over a global correction.",
+  "batch_rationale": "The batch combines failure repair, local curve learning, and broad chemical coverage. Several high-ratio or multifunctional candidates test whether the predictor compresses late-retention tails. Matched or near-matched amount and ratio points for m25, m112, m33-like carbonyl environments, and related aromatic graphs probe endpoint-specific loading effects. Boundary measurements at pure EA or 1/1 anchor the strong-eluent regime, while 10/1 to 50/1 points test curvature and extrapolation. The resulting labels should improve structure-condition-retention relationships across ordinary, oxygenated, halogenated, heteroaromatic, acidic, and highly hydrophobic rows without assuming unrecorded chromatographic variables."
+}

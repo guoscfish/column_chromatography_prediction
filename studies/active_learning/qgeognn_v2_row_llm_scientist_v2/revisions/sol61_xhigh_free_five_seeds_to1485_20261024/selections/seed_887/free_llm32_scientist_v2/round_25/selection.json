@@ -1,0 +1,280 @@
+{
+  "type": "selection",
+  "packet_sha256": "dce4a83c2fd0601688cf9ec6087390bf34293d2e8e729b6fb846e0e7019246bd",
+  "batch_strategy": "Fill unmeasured condition gaps using compact solvent-response experiments, comparisons among related functional groups, and targeted loading controls. Emphasize relationships that can transfer across rows while retaining ordinary-retention controls. Freeze the supplied premeasurement V1/V2 predictions unchanged for all 32 selections.",
+  "choices": [
+    {
+      "id": "7a3586b45c03832259f5",
+      "reason": "Ethyl acetoacetate m82 at 2/1 and 100 uL fills the gap before measured 5/1 row f50c45b31cf41304c109 and 10/1 row 6b8e53d2d8c8a90a7216. Together with the other selected beta-ketoesters, it tests where their endpoint curves begin diverging.",
+      "hypothesis_id": "H6_beta_ketoester"
+    },
+    {
+      "id": "7bd353fc307c5af1997e",
+      "reason": "Cyclopropyl beta-ketoester m94 at 2/1 and 100 uL tests whether its predicted compact interval persists before the much later measured 5/1 and 10/1 conditions, represented by 20d4b1612cbdd88b6755 and 7ac90b210e42d27c5a04. This constrains transfer of its historical weak-eluent failure into strong eluent.",
+      "hypothesis_id": "H6_beta_ketoester"
+    },
+    {
+      "id": "8b6fc534edc07d5b79be",
+      "reason": "Methyl acetoacetate m95 at 2/1 and 100 uL lies between measured 50 and 150 uL rows 8d018e521e8e6bbc53c2 and b7a9a6b5086135269cb6. It supplies the common-volume comparison with m82 and m94 and tests whether their different onset predictions are reproducible.",
+      "hypothesis_id": "H6_beta_ketoester"
+    },
+    {
+      "id": "ec1c29d6d4fe334c886a",
+      "reason": "Tert-butyl acetoacetate m25 at 2/1 and 100 uL tests whether the short interval in 150 uL observation ac6cfe67adcb860efabf extends to another amount. Its measured 1/1, 100 uL anchor 9ea628a740f0855c4dbe makes this a direct test of the apparent local dip without changing sample volume.",
+      "hypothesis_id": "H6_beta_ketoester"
+    },
+    {
+      "id": "352465f62eba993148ee",
+      "reason": "Para-methoxy ketone m115 at 1/1 and 100 uL fills an EA-rich gap before measured 2/1 row f2931e18ce0362f7a6c0 and 5/1 row cfc3cd7290e349d095d4. It also provides a comparison with the selected ortho isomer, while preserving their different recorded loading solvents.",
+      "hypothesis_id": "H2_topology"
+    },
+    {
+      "id": "b688bf34f76e0d26985a",
+      "reason": "Ortho-methoxy ketone m127 at 1/1 and 100 uL extends the measured pure-EA anchor 298de9d74bc6f5f13409. With the selected 2/1 point and measured 5/1 row 81ac865dd40a21b73e6d, it tests whether completion grows while onset remains nearly unchanged.",
+      "hypothesis_id": "H1_endpoint"
+    },
+    {
+      "id": "fd8b5ea3b704959cd1ab",
+      "reason": "The second m127 point, at 2/1 and 100 uL, completes a local 0/1\u20131/1\u20132/1\u20135/1 response experiment at fixed recorded loading conditions. Measured rows 298de9d74bc6f5f13409 and 81ac865dd40a21b73e6d constrain both ends of this gap.",
+      "hypothesis_id": "H1_endpoint"
+    },
+    {
+      "id": "82b6eb1475767aca619f",
+      "reason": "Benzylic alcohol m135 at 2/1 and 150 uL bridges measured pure-EA row 53dc2340c848330a9220 and 5/1 row f9f0f4e29dbd30c000ee at the same sample volume. It locates the onset of the steep alcohol retention response rather than extrapolating backward from 10/1.",
+      "hypothesis_id": "H4_donor_basic"
+    },
+    {
+      "id": "a5446977630484ca5fe1",
+      "reason": "m135 at 5/1 and 50 uL directly complements measured 150 uL row f9f0f4e29dbd30c000ee. Its nearly amount-invariant model prediction can be tested against a donor-containing graph whose solvent-response transition is already established.",
+      "hypothesis_id": "H3_loading"
+    },
+    {
+      "id": "486a799fa205437ae1dc",
+      "reason": "Methoxyphenethyl alcohol m119 in pure EA at 100 uL supplies the missing boundary before measured 2/1 and 5/1 rows 17c1bb3be086a2b6ffec and 776ee2c1e85ebde75168. It tests how much of this graph's broad completion survives at maximum EA strength.",
+      "hypothesis_id": "H4_donor_basic"
+    },
+    {
+      "id": "0483db40cbad8db07032",
+      "reason": "Naphthylethyl alcohol m205 in pure EA at 150 uL adds a fixed-volume boundary to measured 1/1 row 1aceeb0ee0419209d1c7 and 5/1 row e8f592c469b2f3c136d8. This distinguishes an early collapse of retention from a persistent broad alcohol interval.",
+      "hypothesis_id": "H4_donor_basic"
+    },
+    {
+      "id": "b1fcf9bf2e03028d2ef8",
+      "reason": "m205 at 1/1 and 50 uL completes the amount comparison with measured 100 and 150 uL rows 2b10c90b32f970e4b4c8 and 1aceeb0ee0419209d1c7. It tests whether onset shifts more than completion when the model currently predicts almost no amount response.",
+      "hypothesis_id": "H3_loading"
+    },
+    {
+      "id": "a5f9f0327623c4752e2e",
+      "reason": "Methoxybenzyl alcohol m120 at 2/1 and 150 uL complements measured 2/1, 50 uL row 4ee22742c686bdbb1cb9. The striking 5/1 contrast between 71abc36775b6cce56da7 and e4fd83fb3852eb354a66 makes it useful to ask whether amount-associated variation also appears at the neighboring ratio.",
+      "hypothesis_id": "H3_loading"
+    },
+    {
+      "id": "595ef9e60d54ebad4071",
+      "reason": "Para-bromoacetophenone m30 at 5/1 and 100 uL anchors the ordinary region before measured 10/1 row 2420964caf34a1de2a5d and 50/1 row 605436d35600502e8c2e. It participates in a compact para-Br, para-I, ortho-Br and unsubstituted ketone comparison.",
+      "hypothesis_id": "H2_topology"
+    },
+    {
+      "id": "8200df9dd2dce17ed7d1",
+      "reason": "Para-iodoacetophenone m35 at 5/1 and 100 uL fills the gap below measured 10/1 row 8fca5f8901efd254353e. Recent pure-EA observation 339874c9f2c54f3370a0 supports an ordinary early boundary, so this point tests the intermediate curve without assuming a broad-tail correction.",
+      "hypothesis_id": "H2_topology"
+    },
+    {
+      "id": "bfabf8894907ce140562",
+      "reason": "Ortho-bromoacetophenone m43 at 5/1 and 100 uL bridges measured pure-EA row 1dfd819f5ad387a25ee7 and higher-ratio row 311c5263eb74490ea0ec. Comparing it with selected para-bromo m30 tests carbonyl accessibility and substitution transfer under the same loading solvent and solvent volume.",
+      "hypothesis_id": "H2_topology"
+    },
+    {
+      "id": "cf76f3cc8104a573e84c",
+      "reason": "Acetophenone m42 at 5/1 and 100 uL supplies the unsubstituted ketone control before measured 10/1 row 931009eecbb6eaaecd32. Recent 50/1 row cb42a00d7b000827217c still had appreciable onset underprediction; this interior label helps localize that error instead of shifting the entire curve.",
+      "hypothesis_id": "H1_endpoint"
+    },
+    {
+      "id": "0e3fa5113029ce384922",
+      "reason": "Sterically crowded trimethyl aryl ketone m29 at 20/1 and 150 uL tests the missing intermediate response between measured 10/1 row b99eb5b0204fb5f49372 and 50/1 row f73fd2f4c55177304721. The selected ortho-methyl ketone provides a related structural comparison at the same ratio and sample volume.",
+      "hypothesis_id": "H2_topology"
+    },
+    {
+      "id": "61d5633c7221b3040a5f",
+      "reason": "Ortho-methylacetophenone m44 at 20/1 and 150 uL adds an intermediate point for a family with substantial positional differences at 50/1, illustrated by 92614816a3b3942bf123 and 485f8bcfb08d6eaf3463. It tests whether the difference develops gradually or at a particular solvent-strength range.",
+      "hypothesis_id": "H2_topology"
+    },
+    {
+      "id": "53d14fe6b27f5c325b09",
+      "reason": "Ortho-methylbenzonitrile m144 at 10/1 and 100 uL fills a large gap above measured 2/1 row 751b439cc6f7eaa3bdc8. Its selected 20/1 companion tests the predicted flattening, while selected m130 tests transfer between substituted nitrile graphs.",
+      "hypothesis_id": "H2_topology"
+    },
+    {
+      "id": "da4ade272ce8100d5b06",
+      "reason": "m144 at 20/1 and 100 uL is paired with the selected 10/1 point to test the model's nearly flat endpoint response across these ratios. Measured 50/1 row 1c312750e15ff66c6243 supplies a higher-ratio reference, although its loading amount differs.",
+      "hypothesis_id": "H1_endpoint"
+    },
+    {
+      "id": "8677f09af6df7d38aa80",
+      "reason": "Dimethylbenzonitrile m130 at 10/1 and 100 uL connects measured 5/1 row 65bb637fa567663f5c54 with higher-ratio row 65d07ddf4c4bdb3cf60b. Its lower predicted retention than m144 at the same ratio tests a specific substitution-response difference beyond nitrile count.",
+      "hypothesis_id": "H2_topology"
+    },
+    {
+      "id": "70593725787c65a74951",
+      "reason": "Para-amino ethyl benzoate m86 at 2/1 and 100 uL enables comparison with measured meta and ortho ester rows ade065af3a515fc41105 and b4af5b2a9ead4e589dee. Their loading-solvent volumes differ, so the label teaches the joint structure-condition relationship rather than an isolated positional effect.",
+      "hypothesis_id": "H4_donor_basic"
+    },
+    {
+      "id": "26f3abb3142c77dd157b",
+      "reason": "Aminoacetophenone m36 in pure EA at 100 uL supplies an unmeasured strong-eluent boundary for a donor/basic carbonyl graph. Measured 1/1 and 2/1 rows 762190c8d9f5b2d1a89a and 183af335033005f96b97 show a steep rise that cannot determine this boundary by itself.",
+      "hypothesis_id": "H4_donor_basic"
+    },
+    {
+      "id": "efe7c6b0783a33974807",
+      "reason": "m36 at 1/1 and 100 uL pairs with its selected pure-EA point and complements measured 50 uL row 762190c8d9f5b2d1a89a. This separates the EA-rich solvent transition from a possible loading contribution before the much later 2/1 observations.",
+      "hypothesis_id": "H4_donor_basic"
+    },
+    {
+      "id": "8b09df1985688231fe0e",
+      "reason": "Oxime m11 at 1/1 and 100 uL tests a predicted early onset with appreciable completion volume in a missing ratio. Measured 2/1 row c3c4fdce502f6d3576dc and 5/1 row 1182373ab8814dbe2f43 provide nearby endpoint anchors for this donor/acceptor environment.",
+      "hypothesis_id": "H1_endpoint"
+    },
+    {
+      "id": "22300151ccec3f1f1c24",
+      "reason": "Dimethoxy aromatic m116 at 50/1 and 150 uL tests loading transfer from measured 100 uL row f38088920e6edd19a62f, which originally exposed a large underprediction. Recent 10/1, 150 uL row 7ad7f454a7b16a9ff211 was close, making this a localized weak-eluent test.",
+      "hypothesis_id": "H3_loading"
+    },
+    {
+      "id": "e69f027cda0eb00f0073",
+      "reason": "Bromodimethoxy aromatic m122 at 20/1 and 100 uL complements measured 150 uL row 0da0c1a34a53c41e368a and the related m108 row 2486f5f33a2106f6a2e5. It tests whether the substitution-dependent completion difference persists at another amount.",
+      "hypothesis_id": "H2_topology"
+    },
+    {
+      "id": "8fb287430f3df6d0b3dd",
+      "reason": "The formally positive phosphorus graph m202 in pure EA at 100 uL tests the EA-rich side of its unusual recorded response. Measured rows d834329bf2be8835bae6, 86258f5c8ffdb874521f and cb446680f62351d087a9 do not support imposing a universal monotonic solvent curve.",
+      "hypothesis_id": "H5_phosphorus_response"
+    },
+    {
+      "id": "87a651fc86ed976bd374",
+      "reason": "m202 at 1/1 and 100 uL pairs with its selected pure-EA point and measured 2/1 row d834329bf2be8835bae6. These labels determine whether the apparent intermediate-ratio maximum extends into the unmeasured EA-rich region.",
+      "hypothesis_id": "H5_phosphorus_response"
+    },
+    {
+      "id": "e240edfce1937ea191c9",
+      "reason": "Dibenzoylmethane m168 at 1/1, 100 uL and 300 uL DCM loading solvent is one half of a controlled loading-solvent-volume comparison. Pure-EA observations 51d7323891ad7051a817 and 00ae0f7f3fc62795a036 differed mainly in completion, motivating a test at a new ratio and fixed amount.",
+      "hypothesis_id": "H3_loading"
+    },
+    {
+      "id": "89fbb0023e89f4da9de7",
+      "reason": "The matched m168 experiment uses 400 rather than 300 uL DCM loading solvent, with molecule, ratio and sample amount fixed. Predictions are almost identical for the pair; their labels test whether a reproducible volume association remains beyond ordinary measurement variation.",
+      "hypothesis_id": "H3_loading"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1_endpoint",
+      "content": "Onset and completion can follow different solvent-response shapes. A graph may retain an early V1 while V2 grows, so endpoint curves should be learned separately rather than through a universal interval shape.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "00ae0f7f3fc62795a036",
+        "5ba8cead5a790ba93029",
+        "aff2ffd59a0610a54995",
+        "15d6bc57a87392fbeb98"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Missing interior ratios can reveal endpoint-specific curvature and reduce errors transferred from late completion to onset or from one solvent regime to another.",
+      "next_discriminating_question": "Do the selected m127 and m144 ratio pairs move both endpoints together, or primarily change completion?"
+    },
+    {
+      "id": "H2_topology",
+      "content": "Aromatic substitution and connectivity require graph-specific retention curves even within familiar carbonyl, ether and nitrile families. Recorded loading differences must remain part of these comparisons rather than being attributed entirely to structure.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "485f8bcfb08d6eaf3463",
+        "92614816a3b3942bf123",
+        "cfc3cd7290e349d095d4",
+        "81ac865dd40a21b73e6d",
+        "2486f5f33a2106f6a2e5",
+        "0da0c1a34a53c41e368a"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Related-graph measurements in missing solvent regions can improve structural transfer while ordinary ketone controls limit excessive corrections to all heteroatom-containing aromatics.",
+      "next_discriminating_question": "Which predicted differences among the selected ketones and nitriles persist after conditioning on their recorded loading variables?"
+    },
+    {
+      "id": "H3_loading",
+      "content": "Some endpoint variation may be systematically associated with loading amount or loading-solvent volume despite nearly invariant current predictions, but inconsistent repeated tuples prevent treating every contrast as a deterministic loading effect.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "9ddc2e8babb52ee8e772",
+        "b060fa3ae84f80e773d2",
+        "71abc36775b6cce56da7",
+        "e4fd83fb3852eb354a66",
+        "19f19f196ba5787a01b0",
+        "facbcedbecb46072b04c"
+      ],
+      "contradicting_observed_ids": [
+        "89b6013d19ba95312c59",
+        "c16aef24cbedd5b1b875",
+        "d15ae6c5a25f630d3055",
+        "ab49ee9538cdb7f47f70"
+      ],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Targeted amount and volume comparisons can identify useful conditional effects while guarding against fitting repeat variability as a universal loading slope.",
+      "next_discriminating_question": "Does the matched m168 volume pair show a meaningful endpoint shift, and do m135, m205, m120 and m116 amount comparisons show consistent or graph-specific changes?"
+    },
+    {
+      "id": "H4_donor_basic",
+      "content": "Alcohol and amino/basic graphs can enter steep retention regimes within EA-rich to intermediate mobile phases, with transition location depending on structural context. Silica hydrogen bonding and acid-base interactions are plausible priors, not established mechanisms for individual rows.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "53dc2340c848330a9220",
+        "f9f0f4e29dbd30c000ee",
+        "2b10c90b32f970e4b4c8",
+        "48853fd78c77153b963a",
+        "762190c8d9f5b2d1a89a",
+        "183af335033005f96b97"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Boundary and interior labels distinguish transition locations across donors and basic environments without assuming that donor count alone determines retention.",
+      "next_discriminating_question": "Do the selected pure-EA and 1/1 points collapse to ordinary intervals, or preserve delayed onset or broad completion before the measured steep rises?"
+    },
+    {
+      "id": "H5_phosphorus_response",
+      "content": "The recorded m202 response has higher endpoints around 2/1 than at 5/1 or 10/1. Its unmeasured EA-rich response should be tested rather than reconstructed by enforcing the usual normal-phase monotonic prior.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "d834329bf2be8835bae6",
+        "942c95c0b3a64c876639",
+        "86258f5c8ffdb874521f",
+        "cb446680f62351d087a9"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "This tests whether an unusual recorded condition-response pattern generalizes locally, preventing inappropriate monotonic corrections for an uncommon heteroatom environment.",
+      "next_discriminating_question": "Are m202 endpoints at 0/1 and 1/1 below the measured 2/1 values, as the current predictor suggests?"
+    },
+    {
+      "id": "H6_beta_ketoester",
+      "content": "Beta-ketoester behavior near 2/1 may depend on alkoxy and ketone environment as well as loading. The short m25 interval at 150 uL could reflect a local response, an amount association or record variability; its high-ratio behavior does not resolve these alternatives.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "ac6cfe67adcb860efabf",
+        "9ea628a740f0855c4dbe",
+        "8d018e521e8e6bbc53c2",
+        "b7a9a6b5086135269cb6",
+        "3fc05dc2025715e68174",
+        "ffffcd6f3b9393846ab4"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A common-ratio, common-sample-volume experiment across four related graphs can constrain the strong-eluent regime without propagating historical weak-eluent corrections throughout the family.",
+      "next_discriminating_question": "At 2/1 and 100 uL, does m25 remain unusually short, and do m82, m94 and m95 exhibit the predicted ordering of onset and completion?"
+    }
+  ],
+  "feedback_interpretation": "The latest batch mostly produced modest errors, weakening the case for another broad late-tail correction. Recent m116, chloroketone and bromodimethoxy anchors 7ad7f454a7b16a9ff211, 1f21033e56ca247448e2 and 953149e1525e6f393546 were close, while m199 at 2/1 and m42 at 50/1 still showed localized underprediction in 9ddc2e8babb52ee8e772 and cb42a00d7b000827217c. Completion remained underestimated at strong-eluent m127 and m168 boundaries in 5b7c4a47b624119302fa and 00ae0f7f3fc62795a036, supporting endpoint-specific gap filling. The new m84 outcomes also differ from earlier measurements at identical recorded tuples: c16aef24cbedd5b1b875 versus 89b6013d19ba95312c59, and ab49ee9538cdb7f47f70 versus d15ae6c5a25f630d3055. I therefore treat repeat variation as a competing explanation for small apparent corrections and avoid inferring universal loading slopes. Historical acquisition errors are not treated as current-model residuals. I also correct the previous description of 1/1 as low-strength: 1/1 is relatively strong eluent, and 0/1 is pure EA.",
+  "batch_rationale": "All 32 choices are distinct candidate rows and target unmeasured recorded condition tuples. The beta-ketoester group tests a shared 2/1 region; the methoxy ketone, nitrile and donor experiments locate local solvent-response transitions; the ketone comparisons cover common aromatic rows where topology transfer should matter broadly. Targeted amount comparisons and the matched m168 loading-solvent-volume pair examine a conspicuous current-model near-invariance while acknowledging repeat variability. The m202 pair tests a specific observed departure from the usual solvent-strength prior. The batch includes compact predicted intervals, broad completion and a weak-eluent m116 extension, so it can repair localized failures without fitting one global tail adjustment. Quantile widths and CW distances are secondary evidence, not calibrated epistemic uncertainty; elution interval width is treated as a target property. These measurements should improve Row-distribution generalization by teaching missing structure-condition relationships and separate onset/completion response shapes."
+}

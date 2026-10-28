@@ -1,0 +1,242 @@
+{
+  "type": "selection",
+  "packet_sha256": "dbd299787d66c55a5d82e1937784ea5545254d03ea94dd392df493e31159e852",
+  "batch_strategy": "Structured failure repair with local condition-response curves, loading contrasts, calibration controls, and targeted structural exploration.",
+  "choices": [
+    {
+      "id": "358461ff3742e78ea3b6",
+      "reason": "Adds an intermediate m204 loading point near the measured late-tail cases 45a1b11ae63f2dab2e48 and 73502a52708e4f9c2391, testing whether the predicted tail changes smoothly with ratio and loading.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "6a39aff909ea35989c74",
+      "reason": "Provides a lower-ratio, higher-loading m204 point to separate solvent-strength response from the large loading-associated shift seen between measured m204 records 45a1b11ae63f2dab2e48 and 73502a52708e4f9c2391.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "23fc3cce7e0bad6c114c",
+      "reason": "Samples the strong-eluent end of the m204 response curve; together with measured 45a1b11ae63f2dab2e48 and 73502a52708e4f9c2391 it can test whether the late tail collapses or persists.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "65fcce0299e031dedeb8",
+      "reason": "Fills the middle of the m173 acidic tail series between measured 6802f0b28c5a0c7b4c2a, 0b247863fd6e8aaf44d8, and 1e775e7d8dcbf48fd6f8, giving the model a ratio-response anchor.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "b37608f8c4a8ee4b8696",
+      "reason": "Tests the weak-eluent endpoint for m173 under a reduced loading-solvent volume, probing whether the extreme V2 tail is reproducible across nearby loading conditions.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "b0b245affce834e336c5",
+      "reason": "Contrasts a strong-eluent m107 condition with measured late m107 behavior in d1172a49fca1e196a59f, helping identify whether the model's tail error is driven by solvent ratio or loading.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "c6924324ddd95f249df6",
+      "reason": "Uses the m107 ratio associated with measured d1172a49fca1e196a59f but halves the sample volume, directly probing the loading contribution to a strongly retained polar tail.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "b7e9adfdbe7f57bf526f",
+      "reason": "Adds a loading contrast to measured m103 case c98657e16e93ef4ede6b, where onset was substantially overpredicted; the label can distinguish loading sensitivity from a broader structural bias.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "701de834ac2822a2efd5",
+      "reason": "Samples the strong-eluent end of the m103 response at the measured loading level, testing whether the large onset error in c98657e16e93ef4ede6b changes monotonically with PE/EA.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "692318a7ef5974282184",
+      "reason": "Brackets measured m11 case 3e41bb94c582476b5b6a at a nearby ratio and tests whether its overpredicted completion tail is localized to the weaker condition.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "6b5982c6e1bbaadd6a95",
+      "reason": "Extends the m11 curve toward weaker elution, providing a chemically polar tail label that can distinguish genuine late retention from the overbroad prediction in 3e41bb94c582476b5b6a.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "41f57dc6d50ee162801a",
+      "reason": "Provides a lower-volume m95 point near measured late case d448d8de2d8dacec62c3, testing whether completion shifts with loading while retaining the same polar ester family.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "1a55639d058c08a1a06e",
+      "reason": "Samples a very weak-eluent m95 condition to extend the measured response around d448d8de2d8dacec62c3 and calibrate the upper V2 tail.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "8e7636d7a60a6058305a",
+      "reason": "Targets a high-width m72 condition in a family with measured late completion, including 334f7f55dcbf278e47ec and 10f01f359bc6067d009f, while changing loading solvent and volume.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "bcd986158b7450087591",
+      "reason": "Pairs with the other m72 point to separate ratio and loading effects; it tests whether the broad predicted V2 remains after moving toward a stronger condition.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "65e1a598d00339bec2f8",
+      "reason": "Adds a lower-ratio m72 control near measured 10f01f359bc6067d009f and 334f7f55dcbf278e47ec, helping calibrate the transition from ordinary to extreme completion behavior.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "b9567f94a7b303ec27d4",
+      "reason": "Repeats the strong-eluent m124 regime at twice the sample volume of measured 0e09f8144b025e4b5a8a, which had a major onset miss, isolating a loading-volume contribution.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "bee3e39d4123febbff8e",
+      "reason": "Adds a higher-volume m124 condition near measured ba1aeb76162831a17f00 and 0e09f8144b025e4b5a8a, testing whether the anomalous fused-aromatic onset persists at a weaker ratio.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "c023e9fab656fe2ce6a6",
+      "reason": "Introduces a novel HBD aromatic structure at a weak-eluent condition with broad predicted targets, expanding coverage of silica-interacting structures absent from the measured set.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "aafc5710406e440a4c8f",
+      "reason": "Forms a matched m58 condition pair with c023e9fab656fe2ce6a6, allowing the retrained model to learn whether the new phenolic structure has a steep local solvent response.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "308ffc82485e086c1c09",
+      "reason": "Adds a molecule-novel small bromoester-like structure at moderate conditions, supplying structural coverage where the current model has no direct measured anchor.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "87727a0338c26706a350",
+      "reason": "Adds a novel fused ketone-like structure in an ordinary-width region, useful for testing whether graph topology transfers from nearby aromatic carbonyls without relying on extreme tails.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "0483db40cbad8db07032",
+      "reason": "Adds a novel fused alcohol structure at a strong-eluent condition, broadening structural coverage of HBD-containing aromatics and testing onset/completion calibration away from known rows.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "3f81ba81d5def13e1c3a",
+      "reason": "Adds a novel diaryl ether-like structure under PE-rich loading conditions, providing a moderate-width structural anchor for generalization across aromatic acceptor environments.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "94be7930f29fabd4159d",
+      "reason": "Tests a strong-eluent m149 point against measured 7d4077da333ed637ab36, where both onset and completion were underpredicted, separating ordinary calibration from ratio response.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "ee5c9d29ed57c3312389",
+      "reason": "Extends m32 toward a weak-eluent ratio after measured 9eec792e8b2ea194dd3c and 05a6276f67b3cca8cc7f showed a relatively stable onset but a strongly changing V2.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "8dce8486dfe67a190d0d",
+      "reason": "Matches the preceding m32 ratio while increasing sample volume, giving a direct loading contrast for the V2 sensitivity seen in measured 9eec792e8b2ea194dd3c, 05a6276f67b3cca8cc7f, and 7522f965f25a50c9a3bc.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "f4a4fc4d6e4dea59b061",
+      "reason": "Adds a weak-eluent m81 point after measured 36c9891cc52de490659d and 06c0c99f1cfb752ed34b showed condition-dependent onset and completion shifts.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "ce11189a0e59d1798306",
+      "reason": "Provides an intermediate m81 ratio at the same low volume as the preceding point, creating a compact local response curve for the retrained model.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "7e70e0d2553228179804",
+      "reason": "Adds a lower-volume m52 control near measured 10bf40d15c62324241b0, where V2 was underpredicted, testing whether the bias is stable under loading changes.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "35eec7ac26c84401f860",
+      "reason": "Adds a novel halogenated alkylbenzene-like structure under PE-rich conditions, providing moderate structural exploration with a predicted range suitable for calibration.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "b9529a88ac5b822de9c4",
+      "reason": "Extends the measured m140 control 8f84fa7c65453783c74e to a much weaker PE/EA ratio, testing whether its V2 underprediction reflects an ordinary solvent-response slope.",
+      "hypothesis_id": "H3"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Late-completion tails and onset shifts are strongly family- and condition-specific in polar, HBD-containing, or strongly adsorbing structures; broad model intervals are not reliably calibrated in either direction.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "6802f0b28c5a0c7b4c2a",
+        "73502a52708e4f9c2391",
+        "0e09f8144b025e4b5a8a",
+        "c98657e16e93ef4ede6b",
+        "1965d663b09320f566a5"
+      ],
+      "contradicting_observed_ids": [
+        "3e41bb94c582476b5b6a",
+        "8e330202a1983cbc02b5"
+      ],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Labels in several chemically distinct tail regimes can teach QGeoGNN when late completion is real, when broad predictions are overestimates, and how loading and solvent condition alter V1 and V2.",
+      "next_discriminating_question": "Do nearby ratio and loading points reproduce the observed tails, or are the largest residuals isolated structure-specific events?"
+    },
+    {
+      "id": "H2",
+      "content": "PE/EA ratio, loading amount, loading-solvent volume, and molecule structure interact locally, so condition response should be learned from matched molecule curves rather than a single global monotonic correction.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "9eec792e8b2ea194dd3c",
+        "05a6276f67b3cca8cc7f",
+        "36c9891cc52de490659d",
+        "06c0c99f1cfb752ed34b",
+        "6691aaf598ee5504e24b",
+        "be2d8614d178068a6f1e",
+        "d1093ff4ef84f3dc68c3"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The selected m204, m173, m107, m103, m72, m32, and m81 groups provide matched local contrasts that can teach interaction terms and reduce interpolation errors across the catalog.",
+      "next_discriminating_question": "Are the observed V1 and V2 shifts smooth along each local condition curve, or do functional-group environments produce reversals and threshold-like behavior?"
+    },
+    {
+      "id": "H3",
+      "content": "Even moderate-width ordinary rows have uneven V2 calibration, with recurring completion bias that should be corrected alongside extreme-tail repair.",
+      "basis": "model_behavior",
+      "supporting_observed_ids": [
+        "7d4077da333ed637ab36",
+        "10bf40d15c62324241b0",
+        "8f84fa7c65453783c74e",
+        "920dbde1a4d0fdf60ec7"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Controls prevent retraining from overfitting only to spectacular failures and help preserve accuracy across the large ordinary portion of the Row-distribution.",
+      "next_discriminating_question": "Do added ordinary controls reduce V2 bias without widening errors in the difficult late-elution regions?"
+    },
+    {
+      "id": "H4",
+      "content": "Aromatic topology, fusion, halogen placement, and local functional-group environment can produce large retention residuals despite similar coarse descriptors, so structural anchors are needed around failure regions.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "0e09f8144b025e4b5a8a",
+        "c98657e16e93ef4ede6b",
+        "92614816a3b3942bf123",
+        "7d4077da333ed637ab36"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Novel m58, m77, m63, m205, m213, and m147 labels test whether graph and descriptor representations transfer across underrepresented aromatic and HBD/HBA environments.",
+      "next_discriminating_question": "Which structural changes preserve the local retention response, and which cause abrupt onset or tail shifts that require explicit graph-sensitive learning?"
+    }
+  ],
+  "feedback_interpretation": "The previous batch confirmed that large prediction widths are not calibrated uncertainty. The measured m173 and m204 cases 6802f0b28c5a0c7b4c2a and 73502a52708e4f9c2391 had V2 substantially later than predicted, while m11, m124, m103, and m3 cases such as 3e41bb94c582476b5b6a, 0e09f8144b025e4b5a8a, c98657e16e93ef4ede6b, and 1965d663b09320f566a5 showed substantial overprediction or onset error. The m32 and m81 outcomes support local response learning: onset was often comparatively stable while V2 changed materially with condition and loading. The m79 point was close, which weakens a universal failure claim and supports selecting matched curves. Ordinary controls m149, m52, m140, and m56 also showed uneven V2 calibration, so this batch retains moderate-width controls while expanding failure repair and structural coverage.",
+  "batch_rationale": "The batch concentrates labels where previous feedback exposed distinct failure modes: m204, m173, m107, m103, m11, m95, m72, and m124 supply tail and onset repair across acids, oximes, polar esters, and aromatic systems. Their paired conditions test solvent-ratio response, loading volume, and local nonlinearity. m32, m81, m52, m149, and m140 provide calibration and response controls so retraining can improve difficult regions without sacrificing ordinary rows. Six structurally novel or underrepresented molecules add graph and functional-group coverage. Together these experiments cover high-impact residual regions, condition-response relationships, and representative Row-distribution structure rather than optimizing any individual chromatographic outcome."
+}

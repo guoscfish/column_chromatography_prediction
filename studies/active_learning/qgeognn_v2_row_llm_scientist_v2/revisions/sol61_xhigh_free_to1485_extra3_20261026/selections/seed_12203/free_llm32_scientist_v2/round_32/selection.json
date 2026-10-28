@@ -1,0 +1,236 @@
+{
+  "type": "selection",
+  "packet_sha256": "b766f8757f0318bc7f946087656ac606724172181b4db0cb367448033392c7aa",
+  "batch_strategy": "structured coverage with targeted ratio and loading response curves",
+  "choices": [
+    {
+      "id": "7edab67bc020beb2b623",
+      "reason": "m79 at pure EA and high loading supplies a strong-side baseline for a molecule with measured later weak-side responses, helping separate baseline retention from PE/EA-driven growth.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "111bfd60a27716526dc8",
+      "reason": "m4 at 5/1 and 150 uL fills an interior point between measured pure-EA, 2/1, and weak-side high-loading labels, constraining its ratio response at fixed loading.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "d7b0845793265cab0c33",
+      "reason": "m80 at 20/1 and 50 uL adds a low-loading weak-side point to a recurring ester-like input family and tests whether the model transfers its loading response into PE-rich conditions.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "7aebc58989fa288b11fc",
+      "reason": "m48 at 10/1 and 150 uL probes a high-loading weak-side condition with a broad predicted endpoint range, adding condition coverage for a sparse halogenated aliphatic family.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "9a99e869cff4f47ba58c",
+      "reason": "m22 at 10/1 and 150 uL extends a recurring aromatic ester response into high loading and tests whether completion growth is represented consistently beyond lower-loading observations.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "af9980962627308f544c",
+      "reason": "m136 at 20/1 and 100 uL provides a PE-rich condition in a common halogenated aromatic family, useful for learning ratio transfer where nearby model predictions are comparatively compressed.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "cc27ac69eb6c0c29f26f",
+      "reason": "m176 at 2/1 and 50 uL supplies an early interior condition for a carbonyl-rich aromatic scaffold with several loading and ratio regimes, separating onset from later completion growth.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "cfcf2b8c54d4c8b3838a",
+      "reason": "m159 at 1/1 and 100 uL directly samples the suspected onset of its late-completion branch between ordinary and extreme observed responses in a17bcdddcf0799baeee2, 1395836aef00d6a880b0, and b86ace0ccafe0af8ceec.",
+      "hypothesis_id": "H_M159_LOADING_BRANCH"
+    },
+    {
+      "id": "c827119f3e13a7eab121",
+      "reason": "m93 at pure EA and high loading establishes a strong-side reference for an aromatic ester family before testing its PE-rich completion behavior in related rows.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "09b222eabddb5c300af9",
+      "reason": "m102 at 20/1 and 50 uL adds a weak-side low-loading point with broad predicted V1/V2 ranges, useful for calibrating endpoint tails in a halogenated ester family.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "34e5e03737a88f40fa19",
+      "reason": "m46 at 50/1 and 100 uL tests a weak-eluent, intermediate-loading boundary and can distinguish a true completion increase from ordinary interpolation across related bromoester rows.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "0f756a58174e946b976a",
+      "reason": "m57 at 50/1 and 50 uL supplies low-loading weak-side coverage for a nonpolar aromatic scaffold, complementing higher-loading and stronger-solvent conditions.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "1ab945e238082f589bc3",
+      "reason": "m99 at pure EA and high loading anchors a sulfur-containing ester before ratio-driven retention increases; it is useful where loading amount and solvent volume interact in the catalog.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "e6cc0bf41a57589c64b6",
+      "reason": "m132 at pure EA and low loading adds a strong-side reference for a compact hydrocarbon scaffold and tests whether its predicted ordinary retention transfers across loading conditions.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "221e6b2fcdb8b545320f",
+      "reason": "m152 is molecule-novel, high-loading, and high-distance in the current feature space, so its label provides sparse structural coverage for a halogenated heteroatom-containing aromatic regime.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "60030aa5d07e476f04ec",
+      "reason": "m131 at 50/1 and 50 uL samples a weak-side low-loading carbonyl-rich aromatic condition, useful for learning whether completion tails persist when loading is reduced.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "1e6ced1cb75e23cdeb0b",
+      "reason": "m188 at pure EA and high loading supplies a baseline for a brominated aldehyde family whose interior conditions can otherwise be learned mainly from PE-rich rows.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "7b6f484416c9d0e2004e",
+      "reason": "m155 at 20/1 and 100 uL extends the demonstrated completion-side failure around 1/1 toward weaker solvent, testing whether the error is ratio-local or a broader endpoint offset.",
+      "hypothesis_id": "H155_LOCAL_RESPONSE"
+    },
+    {
+      "id": "f17690c586ce5d166eb0",
+      "reason": "m98 at 2/1 and 150 uL fills a high-loading interior point between strong-side and weak-side observations, helping locate the onset of its completion increase.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "ee987e40c1f4a61a19d7",
+      "reason": "m170 at 2/1 and 50 uL provides a low-loading interior condition for a carbonyl family with substantial ratio-dependent endpoint variation, separating solvent response from loading transfer.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "0fd4e9db5fde2aaf5a38",
+      "reason": "m147 at pure EA and high loading adds a baseline for a simple chlorinated alkylbenzene and improves strong-side coverage in a sparse nonpolar family.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "74292a64ad6203713d6b",
+      "reason": "m182 at 5/1 and 50 uL tests the low-loading weak-side transition against the observed m182 sequence from 1/1 through 20/1, including bc3692f55b839d2f2c07 and 7ad898a193c20e7a329c.",
+      "hypothesis_id": "H_M182_RESPONSE"
+    },
+    {
+      "id": "b9c6bc8d6e3dae9c8177",
+      "reason": "m15 at 2/1 and 100 uL fills an early PE-rich condition for a small ester and provides a lower-retention calibration point for ratio interpolation.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "892a2c637cdd5e79cd71",
+      "reason": "m121 at pure EA and low loading supplies a strong-side anchor for a methoxy halogenated aromatic scaffold before its PE-rich response is modeled.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "3a5731977a5dc4a065ed",
+      "reason": "m1 at 2/1 and 100 uL adds an interior condition for a simple bromoalkylbenzene, helping constrain the contribution of solvent ratio apart from functional-group effects.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "108c776e90a5913e6dd3",
+      "reason": "m187 at 10/1 and high loading samples a PE-rich aromatic aldehyde condition with broad endpoint uncertainty, adding transfer coverage among halogenated aldehydes.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "4ed0e95e81e3b84fa38d",
+      "reason": "m105 at 2/1 and high loading provides an interior phenolic ester condition and tests whether its hydrogen-bonding environment shifts completion earlier than the model predicts.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "6f3318dd8909f20a1177",
+      "reason": "m168 at 20/1 and 100 uL extends the observed loading-sensitive beta-dicarbonyl response toward weaker solvent and tests whether its completion tail transfers from 5e5b7c697bc0c268b288 and b8abc8f40545556f07e0.",
+      "hypothesis_id": "H_LOAD_RESPONSE_TAILS"
+    },
+    {
+      "id": "467369f114586bba5b10",
+      "reason": "m153 at 2/1 and 50 uL adds an interior condition for a halogenated aryl ether with broad structural and condition coverage value, especially for onset calibration.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "e4a7e43d15fcdee2ba1d",
+      "reason": "m71 at pure EA and low loading supplies a strong-side reference for a highly hydrophobic dibrominated heteroaromatic scaffold before its weak-side response is extrapolated.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "9046ef1d90ff9bb08297",
+      "reason": "m157 at 2/1 and low loading with a large loading-solvent volume tests loading representation in a diiodoaromatic regime that is sparse and chemically distinct from ordinary aromatic rows.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "f910964f7e52c7ba6cb0",
+      "reason": "m113 at 2/1 and high loading fills an interior condition for a brominated anisole family and can improve transfer of ratio effects across methoxy substitution patterns.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H_M159_LOADING_BRANCH",
+      "content": "m159 has a conditional late-completion branch near weak PE-rich conditions and moderate-to-high loading, while neighboring ratios or lower loading can remain ordinary; the onset location is unresolved.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "a17bcdddcf0799baeee2",
+        "1395836aef00d6a880b0",
+        "b86ace0ccafe0af8ceec"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The selected 1/1, 100-uL condition can tell QGeoGNN whether the large V2 error is a ratio-specific branch, a loading interaction, or a molecule-wide offset, improving interpolation to related carbonyl-rich structures.",
+      "next_discriminating_question": "Does the late m159 completion branch begin by 1/1 at intermediate loading, or only at weaker ratios and higher loading?"
+    },
+    {
+      "id": "H155_LOCAL_RESPONSE",
+      "content": "The m155 failure is concentrated around 1/1, where both endpoints were underestimated, while its pure-EA and 5/1 measurements are much closer; the response should be learned locally rather than corrected globally.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "73771d4752cdcd04a023",
+        "98923a8da3524ce0e392",
+        "69d0a853b07ce34d002e",
+        "c4c961533c50b899078c"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The selected 20/1 point tests whether the completion error returns toward the ordinary regime or persists through weaker solvent, separating a ratio-local feature from a general scaffold offset.",
+      "next_discriminating_question": "Does m155 completion remain elevated at 20/1, or does the strong-side anomaly disappear outside the 1/1 neighborhood?"
+    },
+    {
+      "id": "H_M182_RESPONSE",
+      "content": "m182 shows a nonmonotonic or weakly resolved ratio response, with observed interior and weak-side labels that are useful for testing whether a low-loading 5/1 point follows the broader curve.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "6d7b9c18dcb836a2b09c",
+        "bc3692f55b839d2f2c07",
+        "7ad898a193c20e7a329c",
+        "19c8831adeb5f3e2fcd5"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A low-loading 5/1 label tests ratio interpolation and loading transfer in a scaffold where a smooth monotone response is not yet established.",
+      "next_discriminating_question": "Does low-loading m182 at 5/1 remain near the observed ordinary regime, or does it reveal the same completion increase seen at weaker ratios?"
+    },
+    {
+      "id": "H_LOAD_RESPONSE_TAILS",
+      "content": "Loading and mobile-phase response can interact strongly and structurally specifically, producing large completion changes and sometimes onset changes across beta-dicarbonyl, aromatic carbonyl, and related families.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "3ca8d2ff798fad4faffc",
+        "f50c45b31cf41304c109",
+        "3ad8ec5752f3c638e2ff",
+        "5e5b7c697bc0c268b288",
+        "b8abc8f40545556f07e0",
+        "a5f9179bfb146ad70953"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The selected m168 and related loading points test whether endpoint-specific loading interactions transfer across chemical families or require scaffold-specific representations.",
+      "next_discriminating_question": "Which structural families show a reproducible loading shift in V2, and which changes mainly with PE/EA ratio?"
+    }
+  ],
+  "feedback_interpretation": "Recent outcomes strengthen the case for learning conditional response boundaries. The m82 series, including 3ca8d2ff798fad4faffc, f50c45b31cf41304c109, and 3ad8ec5752f3c638e2ff, confirms strong loading and transition effects. m12 labels weakened the predicted interior trough, and m197 strong-side labels weakened its predicted maximum. m155 measurements localized a completion-side failure around 1/1, while the m32 repeats demonstrated substantial variation at identical recorded inputs. I therefore favor missing ratio and loading segments, baseline coverage, and structurally distinct rows over additional identical-input repeats.",
+  "batch_rationale": "The batch combines broad catalog coverage with targeted local experiments. m159 and m155 address demonstrated endpoint failures; m182 and m168 test unresolved ratio and loading transfer; m4, m98, m170, m187, and related rows fill interior condition segments. Strong-side baselines for m79, m93, m99, m121, m132, m147, m188, and m71 reduce extrapolation from weak-eluent observations, while high-distance or molecule-novel rows such as m152 and m157 add sparse structural coverage. Labels from these conditions should improve generalization of both V1 and V2 across recurring structure-condition relationships in the Row-distribution."
+}

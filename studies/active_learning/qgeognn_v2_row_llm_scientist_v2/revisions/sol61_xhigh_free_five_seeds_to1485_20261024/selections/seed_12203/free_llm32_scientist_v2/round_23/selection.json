@@ -1,0 +1,297 @@
+{
+  "type": "selection",
+  "packet_sha256": "df82406978c728f48e2ab5d7a0a07a758898ba7e014ad1f14115dcc0413a163d",
+  "batch_strategy": "conditional_failure_repair_with_local_ratio_loading_curves",
+  "choices": [
+    {
+      "id": "c4b5a5499258f39b7ac1",
+      "reason": "m125 at 5/1, 100 uL and a 500-uL DCM plug is predicted at 38.8/65.9 mL. It extends the measured late 5/1 behavior at 50 uL, including 761c3f82d640da44966c and 780b13846ace50ede763, and tests whether the completion tail is amount-stable or changes between 50, 100 and 150 uL.",
+      "hypothesis_id": "H_M125_CONFIG"
+    },
+    {
+      "id": "06ebbf6e52fa3ea6aef3",
+      "reason": "This is the 150-uL companion to c4b5a5499258f39b7ac1 at the same m125 5/1, 500-uL-plug configuration. The model predicts 38.7/66.0 mL, so the pair directly measures the loading dependence of the late branch already seen in 761c3f82d640da44966c.",
+      "hypothesis_id": "H_M125_CONFIG"
+    },
+    {
+      "id": "e7ed7ca4a53258b73ba2",
+      "reason": "m125 at 0/1, 100 uL and a 300-uL plug is predicted at 7.43/16.35 mL. It anchors the strong-eluent side beside measured 4c32851430464f0ed684 and 00043aebb2540e369a7, separating the unusual 1/1 plug effect from the ordinary solvent-strength response.",
+      "hypothesis_id": "H_M125_CONFIG"
+    },
+    {
+      "id": "922b1bfbf466fff6178f",
+      "reason": "This 0/1, 150-uL m125 row is predicted at 7.33/16.39 mL and forms an amount pair with e7ed7ca4a53258b73ba. Together with the measured 1/1 amount comparison 03744855d469f4cca7e6, it tests whether the smaller-plug curve is amount-sensitive before the 5/1 tail appears.",
+      "hypothesis_id": "H_M125_CONFIG"
+    },
+    {
+      "id": "34a20bc9c1f8c8bdf357",
+      "reason": "m177 at 0/1, 100 uL with the 1000-uL plug is predicted at 4.25/12.77 mL. It supplies a low-eluent baseline around the measured ordinary 1/1 and 2/1 100-uL rows 61764a2e9f71f1caa18e and bd76c7bdcd3681374617, before testing the late weak-eluent branch.",
+      "hypothesis_id": "H_M177_REGIME"
+    },
+    {
+      "id": "2fdb072df7b02b768161",
+      "reason": "m177 at 1/1 and 150 uL is predicted at 4.80/12.94 mL. Comparing it with the measured 1/1, 100-uL row 61764a2e9f71f1caa18e tests whether the ordinary strong-side regime is stable with loading while 20/1 and 50/1 produce late completion.",
+      "hypothesis_id": "H_M177_REGIME"
+    },
+    {
+      "id": "27bac953781c17a3a74b",
+      "reason": "m177 at 5/1 and 50 uL is predicted at 4.38/18.95 mL. It bridges the ordinary measured 5/1, 100-uL result 08812206a257481691c4 and the late 50/1 outcomes 5b706e17e8412d02342f and b514312eda7950cdcf1c, discriminating ratio response from a loading-only effect.",
+      "hypothesis_id": "H_M177_REGIME"
+    },
+    {
+      "id": "4466eabae9624380fbc6",
+      "reason": "m177 at 0/1 and 150 uL is predicted at 4.12/12.82 mL. This fills the weak-to-strong endpoint of the same recorded plug configuration and helps determine whether the large completion values are specific to intermediate or weak PE/EA ratios.",
+      "hypothesis_id": "H_M177_REGIME"
+    },
+    {
+      "id": "22300151ccec3f1f1c24",
+      "reason": "m116 at 50/1, 150 uL is predicted at 32.2/53.7 mL. It tests amount transfer from the measured 50/1, 100-uL tail in f38088920e6edd19a62f and may reveal whether this scaffold has a broad late regime like m177 or a narrower loading boundary.",
+      "hypothesis_id": "H_M116_TAIL"
+    },
+    {
+      "id": "c3eb276f59965c3608f1",
+      "reason": "m116 at 20/1, 100 uL is predicted at 16.8/28.0 mL. It pairs with the measured 20/1, 150-uL row 5fd49a50595624496938 and locates where the m116 completion tail begins between the 10/1, 20/1 and 50/1 conditions.",
+      "hypothesis_id": "H_M116_TAIL"
+    },
+    {
+      "id": "1234fa6b7a71b815104c",
+      "reason": "m116 at 10/1, 100 uL is predicted at 10.5/17.5 mL. Alongside measured 7ad7f454a7b16a9ff211 at 10/1, 150 uL, it tests whether the apparent late branch is primarily ratio-driven or also strongly amount-dependent.",
+      "hypothesis_id": "H_M116_TAIL"
+    },
+    {
+      "id": "017b0f98188f8ff58935",
+      "reason": "m72 at 1/1, 150 uL and a 200-uL plug is predicted at 5.67/18.19 mL. It anchors the strong side against the ordinary low-ratio observation d3b1f310cb3ebbca13af and provides a controlled point before the measured 10/1 and 20/1 tails.",
+      "hypothesis_id": "H_M72_TAIL"
+    },
+    {
+      "id": "eb798a5ccfb1f429a724",
+      "reason": "m72 at 2/1, 50 uL is predicted at 8.51/22.88 mL. This amount and ratio point tests whether the large completion values in 1b1a9ec85268aa66d327 and 8e7636d7a60a6058305a arise only at very weak eluent or persist at intermediate ratios.",
+      "hypothesis_id": "H_M72_TAIL"
+    },
+    {
+      "id": "4299a86aae93463852d9",
+      "reason": "m72 at 0/1, 150 uL with PE loading is predicted at 4.57/13.58 mL. It is a solvent and ratio boundary for the late behavior seen in the measured PE/DCM series, including 48b79cabd9460cfc510b, and tests whether the strong-eluent baseline remains early at higher loading.",
+      "hypothesis_id": "H_M72_TAIL"
+    },
+    {
+      "id": "0cf0d36290765378ae8d",
+      "reason": "m114 at 50/1, 150 uL is predicted at 34.5/74.4 mL. It extends the measured 50/1, 100-uL late row 44fdbadc2762d6900093 and tests whether this carbonyl-rich scaffold has an amount-dependent tail comparable to the high-tail families.",
+      "hypothesis_id": "H_TAIL_TRANSFER"
+    },
+    {
+      "id": "4fea915e827f81f71f56",
+      "reason": "m114 at 2/1, 150 uL is predicted at 6.33/14.48 mL. Measuring it with the 50/1 companion distinguishes a localized weak-eluent tail from a broadly shifted curve and adds a strong-side anchor for this underconstrained scaffold.",
+      "hypothesis_id": "H_TAIL_TRANSFER"
+    },
+    {
+      "id": "6f827d26c4f82a1bfa90",
+      "reason": "m90 at 1/1, 150 uL is predicted at 10.3/20.6 mL. It tests the strong-side baseline before the measured late 5/1 and 10/1 rows, including b51b5dbcd2a38b174973 and c76d0420b34df595c0c9, and separates onset behavior from completion-tail transfer.",
+      "hypothesis_id": "H_TAIL_TRANSFER"
+    },
+    {
+      "id": "f868ccbcbf392038fe36",
+      "reason": "m90 at 0/1, 150 uL is predicted at 7.67/17.43 mL. This complementary strong-eluent point helps determine whether m90's observed late values reflect a broad molecule-level shift or a sharp condition response.",
+      "hypothesis_id": "H_TAIL_TRANSFER"
+    },
+    {
+      "id": "6214a18745efe9be3788",
+      "reason": "m135 at 1/1, 150 uL is predicted at 8.90/14.83 mL. It anchors the early side beside the measured 1/1, 100-uL row 4d08b9494002d348513d and contrasts with the later 5/1 and 10/1 behavior, testing scaffold-specific tail onset.",
+      "hypothesis_id": "H_TAIL_TRANSFER"
+    },
+    {
+      "id": "53ceb391785085223695",
+      "reason": "m206 at 1/1, 100 uL is predicted at 7.57/17.87 mL. It fills a strong-side gap between measured early rows such as 035c26f2979b6bb5c0b5 and the severe weak-side observations 614873124b33029a924c and cdf40bcb3f4392f8d7d1.",
+      "hypothesis_id": "H_TAIL_TRANSFER"
+    },
+    {
+      "id": "47d6e515a2053be79718",
+      "reason": "m37 at 1/1, 150 uL is predicted at 4.67/12.33 mL. It supplies a strong-side baseline for a family with measured late 5/1 and 20/1 points, including 9ae9c8b491a04e429a11 and b6f1b33a5491968c645e, and tests whether the late regime is ratio-local.",
+      "hypothesis_id": "H_TAIL_TRANSFER"
+    },
+    {
+      "id": "9de8f9fed06ef9d5befa",
+      "reason": "m37 at 5/1, 100 uL is predicted at 14.0/31.2 mL. This directly extends the measured late behavior at nearby loading and ratio conditions and provides a high-information completion label for distinguishing a smooth tail from a discontinuous regime change.",
+      "hypothesis_id": "H_TAIL_TRANSFER"
+    },
+    {
+      "id": "b85305d91a9e7cfa6005",
+      "reason": "m193 at 20/1, 150 uL is predicted at 38.9/79.1 mL. It extends the measured late m193 rows, including c28747d70e7b51a1cc95 and aa83ae83c0fa0cc37777, and tests whether completion remains high at a larger amount and intermediate ratio.",
+      "hypothesis_id": "H_TAIL_TRANSFER"
+    },
+    {
+      "id": "a05989f2de32dc6a3f64",
+      "reason": "m193 at 0/1, 150 uL is predicted at 4.60/12.82 mL. Paired with b85305d91a9e7cfa6005, it brackets the response from strong to weak eluent and can separate a genuine solvent-strength curve from broad scaffold-level lateness.",
+      "hypothesis_id": "H_TAIL_TRANSFER"
+    },
+    {
+      "id": "0b8c6c59ae5e24b420e5",
+      "reason": "m208 at 20/1, 100 uL is predicted at 26.0/46.5 mL. It fills the intermediate region between ordinary measured 1/1 and 5/1 rows such as 836ccf54f6d913ff8c83 and bd3f212c1910e0de6b6e and the extreme weak-side row 95d1d257dfea69f178f8.",
+      "hypothesis_id": "H_TAIL_TRANSFER"
+    },
+    {
+      "id": "17c1bb3be086a2b6ffec",
+      "reason": "m119 at 2/1, 100 uL is predicted at 19.3/29.9 mL. It tests the onset of the late behavior seen at 5/1, 150 uL in e6e78489d1da4066c07e against the early strong-eluent behavior represented by 486a799fa205437ae1dc.",
+      "hypothesis_id": "H_TAIL_TRANSFER"
+    },
+    {
+      "id": "50e113fcc37184809670",
+      "reason": "m92 at 10/1, 150 uL is predicted at 9.94/25.9 mL. It extends the measured nonmonotonic loading and ratio series from e93e08d6bc42e91e2679, 4451265787d29526a93a, 6c1c34b12c66ebcf39a4 and 4b8ba288d549f6cfc94b into the 150-uL 10/1 region.",
+      "hypothesis_id": "H_M92_LOADING"
+    },
+    {
+      "id": "e9dc948c0e68a88eb621",
+      "reason": "m92 at 20/1, 150 uL is predicted at 12.5/31.3 mL. It tests the later-ratio continuation of the m92 curve after the measured 50/1, 100-uL row 9862563d18aae2868342 and helps determine whether completion increases smoothly or peaks locally.",
+      "hypothesis_id": "H_M92_LOADING"
+    },
+    {
+      "id": "ff9bcaab8e95f60d70bc",
+      "reason": "m40 at 20/1, 50 uL is predicted at 21.1/36.8 mL, while the same loading at 5/1 is predicted near 5.85/15.6 mL for 0f35c2146c21fa6ac372. Measuring the pair tests a large model-predicted ratio step in a fixed recorded configuration.",
+      "hypothesis_id": "H_M40_RESPONSE"
+    },
+    {
+      "id": "0f35c2146c21fa6ac372",
+      "reason": "This m40 5/1, 100-uL row is the strong-side companion to ff9bcaab8e95f60d70bc. The controlled pair measures whether the predicted m40 completion increase is a real response curve or an interpolation artifact.",
+      "hypothesis_id": "H_M40_RESPONSE"
+    },
+    {
+      "id": "8f625c2f36dcacfc8ed5",
+      "reason": "m184 at 50/1, 150 uL is predicted at 5.23/20.6 mL. It extends the measured 50/1, 100-uL point caf9131e01751f4c90d4 and tests amount dependence in a scaffold that is ordinary at some nearby conditions despite late behavior elsewhere.",
+      "hypothesis_id": "H_TAIL_TRANSFER"
+    },
+    {
+      "id": "d626f5ddb709bc11257a",
+      "reason": "m145 at 20/1, 100 uL has broad predicted endpoint ranges and high current feature-space distance. It adds an undercovered aromatic-aldehyde condition and tests whether the model's late completion response transfers across ratio and loading changes.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H_M125_CONFIG",
+      "content": "m125 has a conditional interaction between solvent ratio, loading amount and DCM plug volume. The repeated 1/1 contrast supports a plug-associated shift, while the pure-EA result shows that the effect does not generalize across all solvent regimes.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "4c32851430464f0ed684",
+        "03744855d469f4cca7e6",
+        "dbb94bf062fc0e640258",
+        "00043aebb2540e369a7b",
+        "5e1a63da794d99ec88fb",
+        "5c2bc1d92128a17d996d",
+        "c8d43713db33bf820a1d",
+        "780b13846ace50ede763",
+        "761c3f82d640da44966c"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The predictor needs conditional interaction terms that distinguish plug, solvent ratio and loading rather than applying a universal plug correction.",
+      "next_discriminating_question": "Do the 5/1 late values persist at 100 and 150 uL with the 500-uL plug, and does the 0/1 smaller-plug curve remain comparatively early?"
+    },
+    {
+      "id": "H_M177_REGIME",
+      "content": "m177 completion is jointly conditional on PE/EA ratio and loading amount. Late completion occurs at 10/1, 20/1 and 50/1 for some loadings, while nearby 10/1, 1/1 and 2/1 conditions remain ordinary.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "aef5cafc63ca445e92fa",
+        "5e276c1730fc0a9deba7",
+        "b514312eda7950cdcf1c",
+        "5b706e17e8412d02342f",
+        "aa43fe84c0d8c825fe58",
+        "4862e2fb71344ce16021",
+        "ce14dd2481560a984aea",
+        "5442611ea6789d42bc86"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "This is a large completion failure region where smooth monotonic solvent or loading corrections could be badly misleading; boundary labels can teach the interaction structure.",
+      "next_discriminating_question": "Where do the ordinary-to-late transitions occur at 0/1, 1/1, 5/1 and 20/1 as loading changes?"
+    },
+    {
+      "id": "H_M116_TAIL",
+      "content": "m116 may have a loading-dependent late-completion branch, but its onset and ratio threshold are not established. Measured 10/1, 20/1 and 50/1 rows suggest a structured tail rather than a single universal offset.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "f38088920e6edd19a62f",
+        "5fd49a50595624496938",
+        "7ad7f454a7b16a9ff211"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The selected intermediate amount and ratio points can identify whether the model needs a local interaction or a broader correction for methoxy-rich aromatic compounds.",
+      "next_discriminating_question": "Does m116 remain late at 100 uL across 10/1, 20/1 and 50/1, or is the observed tail confined to particular amounts?"
+    },
+    {
+      "id": "H_M72_TAIL",
+      "content": "m72 has a conditional late-completion regime that depends on ratio, loading and recorded solvent configuration. Strong-eluent rows can be ordinary while weak or intermediate conditions become very late.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "8e7636d7a60a6058305a",
+        "1b1a9ec85268aa66d327",
+        "7383949c431e18f39597",
+        "48b79cabd9460cfc510b"
+      ],
+      "contradicting_observed_ids": [
+        "d3b1f310cb3ebbca13af"
+      ],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "m72 provides a distinct tail family that can test whether the predictor learns ratio-by-loading interactions without transferring the m177 or m125 response wholesale.",
+      "next_discriminating_question": "Does the late branch persist at 0/1 to 2/1 and across PE versus DCM at 50 and 150 uL?"
+    },
+    {
+      "id": "H_M92_LOADING",
+      "content": "m92 has a nonmonotonic, ratio-local response in which completion and onset do not move together consistently with loading. The measured 1/1-to-2/1 and 5/1 contrasts reject a simple global amount correction.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "00a89de0e6cc7377a84b",
+        "e93e08d6bc42e91e2679",
+        "4451265787d29526a93a",
+        "f7cc49c21fea55ed9087",
+        "d1eeb016c4cf20b87e92",
+        "6c1c34b12c66ebcf39a4",
+        "4b8ba288d549f6cfc94b",
+        "9862563d18aae2868342"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The added 10/1 and 20/1 rows test interpolation across a measured nonmonotonic curve and can improve generalization to other ester-ketone scaffolds.",
+      "next_discriminating_question": "Does the 150-uL completion continue rising from 10/1 to 20/1, or does it show another local maximum or reversal?"
+    },
+    {
+      "id": "H_TAIL_TRANSFER",
+      "content": "Large completion tails occur across several aromatic carbonyl, heteroatom-rich and phenolic scaffolds, but matched ordinary rows show that tail transfer is scaffold- and condition-specific.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "49201b5817f204116f7f",
+        "95d1d257dfea69f178f8",
+        "aa83ae83c0fa0cc37777",
+        "a17bcdddcf0799baeee2",
+        "9ffee2813aef5c26f96f"
+      ],
+      "contradicting_observed_ids": [
+        "caf9131e01751f4c90d4",
+        "bd3f212c1910e0de6b6e",
+        "836ccf54f6d913ff8c83"
+      ],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The batch samples both late-tail continuations and strong-side or neighboring controls, helping the retrained model distinguish transferable structure-condition effects from isolated tails.",
+      "next_discriminating_question": "Which combinations of scaffold, ratio and loading predict a tail, and which nearby conditions reliably return to ordinary completion?"
+    },
+    {
+      "id": "H_M40_RESPONSE",
+      "content": "m40 has a model-predicted step from ordinary 5/1 behavior to much later 20/1 behavior at 50 uL, but this response shape is currently untested in the supplied evidence.",
+      "basis": "model_behavior",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "A fixed-loading matched pair can repair a potentially large graph-condition interpolation failure without conflating it with loading or plug effects.",
+      "next_discriminating_question": "Is the predicted m40 completion increase between 5/1 and 20/1 reproduced at 50 uL?"
+    }
+  ],
+  "feedback_interpretation": "Recent feedback strengthened conditional rather than global corrections. m177 showed late completion at several weak ratios and loadings, but ordinary 10/1 and strong-ratio anchors prevent a uniform tail offset. m125 reproduced the large 1/1 plug contrast, while the pure-EA 500-uL-plug point was ordinary, restricting the effect to a solvent-ratio regime. m92 reversed an earlier proposed loading-by-ratio trend, and m104 repeats demonstrated substantial within-tuple variability, so the new batch emphasizes local response curves and hypothesis discrimination. Several predicted extrema in ordinary-retention molecules were rejected, reducing the value of more isolated shape probes and increasing the priority of uncovered tail boundaries and matched controls.",
+  "batch_rationale": "The batch repairs several high-impact completion regions while preserving interpretable local experiments. Four m125 rows test plug, ratio and amount interactions; four m177 rows map the ordinary-to-late boundary; three m116 and three m72 rows test whether separate scaffolds require distinct tail interactions. Matched m114 and m90 rows separate strong-side baselines from weak-side tails. Additional m135, m206, m37, m193, m208, m119 and m184 conditions probe whether late behavior transfers across related aromatic carbonyl and heteroatom-rich families. The two m92 rows extend a measured nonmonotonic response curve, while the m40 pair tests a specific model-predicted ratio step at fixed loading. The batch combines failure repair, condition-response coverage and scaffold-boundary exploration, with controls that can prevent the retrained QGeoGNN from learning broad corrections from isolated anomalies."
+}

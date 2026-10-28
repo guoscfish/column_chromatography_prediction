@@ -44,6 +44,7 @@ from src.qgeognn_al.transfer.calibration import (
     mass_ratio_prediction,
 )
 from scripts.studies.run_final_v2_transfer import train_adaptation
+from scripts.studies.plot_cross_column_source_truth import plot_source_truth
 
 
 STUDY = ROOT / "studies/transfer/cross_column"
@@ -601,22 +602,9 @@ def _plot_outputs(metrics: pd.DataFrame, aulc: pd.DataFrame, coefficients: pd.Da
     plots = STUDY / "plots"; plots.mkdir(parents=True, exist_ok=True)
     colors = {"zero_shot": "#777777", "scale_only": "#d08700", "affine": "#087e8b",
               "affine_condition_residual": "#b33f62", "target_head_only": "#3b5bdb", "last2": "#6f42c1"}
-    # Figure 1: descriptive all-held-out scatter, with lines fit only for visualization.
-    fig, axes = plt.subplots(3, 2, figsize=(11, 14))
-    for row, column in enumerate(COLUMNS):
-        subset = predictions.loc[(predictions.column.eq(column)) & predictions.protocol.eq("row") &
-                                 predictions.seed.eq(SEEDS[0]) & predictions.planned_budget.eq(100)]
-        for index, target in enumerate(("V1", "V2")):
-            ax = axes[row, index]; x = subset[f"zero_shot_{target}"].to_numpy(); y = subset[f"{target}_true"].to_numpy()
-            ax.scatter(x, y, s=10, alpha=.55, color="#30343b")
-            limit = [min(x.min(), y.min()), max(x.max(), y.max())]
-            ax.plot(limit, limit, "--", color="#999999", label="y=x")
-            scale = float((x * y).sum() / np.square(x).sum()); affine = np.polyfit(x, y, 1)
-            xx = np.linspace(*limit, 100); ax.plot(xx, scale * xx, color="#d08700", label="scale-only")
-            ax.plot(xx, affine[0] * xx + affine[1], color="#087e8b", label="affine")
-            ax.set(title=f"{column} {target}", xlabel="4g source q50 prediction (mL)", ylabel="target truth (mL)")
-            if row == 0 and index == 0: ax.legend()
-    fig.tight_layout(); fig.savefig(plots / "source_prediction_vs_target_truth.png", dpi=180); plt.close(fig)
+    # Descriptive held-out scatter with independent data-driven axis limits.
+    plot_audit = plot_source_truth(predictions, plots, seed=SEEDS[0])
+    pd.DataFrame(plot_audit).to_csv(plots / "source_prediction_vs_target_truth_plot_audit.csv", index=False)
     fig, axes = plt.subplots(1, 3, figsize=(15, 4.5))
     for ax, column in zip(axes, COLUMNS):
         subset = predictions.loc[(predictions.column.eq(column)) & predictions.protocol.eq("row")]

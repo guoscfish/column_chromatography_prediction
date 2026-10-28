@@ -1,0 +1,94 @@
+{
+  "type": "memo",
+  "role": "chemistry_scientist",
+  "packet_sha256": "0a75572a8447b64b552a11b460acba9428259248a57d9125d9f1519a119bd2f2",
+  "state_summary": "Round 1 reports 365 measured records, including all 32 previous acquisitions, and 2965 eligible candidates; none are pending. The new measurements strengthen graph-specific quinoline and injection-solvent questions, support conditional loading responses, and resolve several historical prediction anomalies. Current predictions have changed substantially. Historical premeasurement errors and current predictions must remain distinct. The objective remains overall Row V1/V2 accuracy after retraining.",
+  "important_observations": [
+    "H_load, revised: measured loading responses depend on eluent and endpoint. For m8 at 1/1, 78.65, 157.3 and 235.95 mg give V1/V2 5.32/9.45, 4.23/11.45 and 4.22/13.04 mL (fd0fd67502640304b8fb; a98f3e4664fd05c0f82c; 6c4ddf5ad1cf067b81ee). At 5/1, 78.65 versus 157.3 mg gives 5.74/11.29 versus 4.72/14.07 (c8176b3eea7a5d8802dc; 898bde0c214429571108). These support widening with loading locally.",
+    "H_load, limits: m92 at 1/1 with EA loading changes from 5.18/12.01 to 6.29/9.73 mL when mass increases from 57.75 to 173.25 mg (00a89de0e6cc7377a84b; 4451265787d29526a93a), opposing a universal widening rule. At 50/1 the same loads give 22.57/52.44 and 20.51/62.21 (1844eab177de5d01fab6; 9bbd36c8b484b5609808). At 10/1 the intermediate 115.5 mg result, 8.85/28.15 (4b8ba288d549f6cfc94b), exceeds both low- and high-load V2 anchors, 21.03 and 24.51 mL. This establishes a recorded nonmonotone sequence, not a smooth adsorption law.",
+    "H_load, reproducibility and transfer: the m44 high-load repeat gives 7.76/20.25 mL (61d5633c7221b3040a5f), compared with the first high-load result 9.85/20.92 (18d688363c7fa3da0609) and low-load result 11.88/17.52 (4d75c120ba1c4f0dae89). The opposing endpoint shift survives, with appreciable onset variation. For m101 at 2/1, approximately 50 versus 150 mg gives 4.32/12.10 and 4.93/12.82 (2f95389e141635b0e27c; e48a024ed5f697067195), a weaker completion response than its measured 1/1 contrast.",
+    "H_ratio, split into local questions: m173 at fixed mass and DCM 2000 uL has V2 108.89, 45.06 and 60.92 mL at 1/1, 2/1 and 5/1 (f90a5a5a54509c085ebd; 0b247863fd6e8aaf44d8; 1e775e7d8dcbf48fd6f8). m73's measured sequence is 18.60/18.96 at 1/1, 5.26/11.60 at 2/1, 5.63/13.55 at 5/1 and 9.59/28.68 at 50/1 at essentially matched mass and injection setup (2cf789c87f7c6325c020; 49932dbd3d16bb64f71a; c9a9fab963b85f141aa6; e6dcf9d6f65fa598a38e). Its unusual 1/1 result is localized relative to the subsequent progression. For m80, matched 105.5 mg measurements give 4.08/15.66 at 1/1 and 6.41/8.27 at 50/1 (55dfd30fde788076a355; 08155ffdcb0d27576050). Earlier completion at weaker eluent survives removal of the previous loading confound.",
+    "H_nitrogen, supported specifically for quinoline transfer: at fixed loading, changing 1/1 to 5/1 moves m146 from 13.28/23.85 to 37.67/59.83 mL (b6229f0445560a4a54ed; 04a2e8ad27ca641a3a12), and m216 from 11.59/23.93 to 31.43/56.33 (d1e71a8278523e7a10e3; 1ae3618ec277b0463686). Historical 5/1 errors were -27.84/-32.47 and -20.35/-28.90 mL. Conversely, para-aminobenzonitrile m160 was predicted closely at 2/1; measured endpoints exceed the matched meta isomer by only 0.29/2.26 mL (2feb7d8e0a3566ddf97f; 53a1acff30433cff819f). A generic nitrogen correction is unsupported.",
+    "H_injection, supported for one solvent contrast: m92 at 1/1, 57.75 mg and a 200 uL plug changes from 5.18/12.01 with EA loading to 8.02/20.57 with PE loading (00a89de0e6cc7377a84b; e626b5b8083ea1fd02f2). For m173 at 2/1, reducing DCM from 2000 to 1500 uL changes onset by -0.025 mL and completion by +1.16 mL, with a 0.05 mg mass difference (0b247863fd6e8aaf44d8; 9a32b65bc21fdc5f7286). The latter supplies little evidence for a large plug effect at that ratio. Neither contrast establishes a general causal effect without replication.",
+    "H_onset, specific question resolved: m177 at 10/1 and 140.6 mg measures 5.20/20.70 mL (ce14dd2481560a984aea), close to its matched 5/1 onset of 5.06 (08812206a257481691c4). The historical zero-onset prediction failed at this condition. m126 at 20/1 measures an ordered interval, 6.21/11.84 (87814eeffb35c15f3f89), contradicting its historical reversed prediction. The causes remain unidentified.",
+    "Additional measured transfer evidence: m91 gives narrow intervals, 5.62/7.98 at 2/1 and 7.29/11.12 at 5/1 (d603d4af5fd62fa8b85e; a2ecf2b2f28094d70368); historical predictions placed onset too early and completion too late. In contrast, m82 at 10/1 measures 20.41/45.62 with both endpoints historically underpredicted (6b8e53d2d8c8a90a7216). Sulfoxide m199 measures 12.32/22.67 at 2/1 versus historical 4.34/12.45 (b060fa3ae84f80e773d2). Alcohol m60 measures 19.65/34.70 at 5/1, much later than benzylic m61 at 10.27/15.56 under near-matched PE loading protocols (62d7ea74ab73fa6214b4; 994a1f65509549a84ede). Close cyclic-ketone transfer to m180 was comparatively accurate (73a35f890e678b320073)."
+  ],
+  "important_model_behaviors": [
+    "CURRENT PREDICTIONS: loading sensitivity remains tiny. For m92 at 10/1, 57.75 versus 173.25 mg predicts 9.903/23.806 versus 9.905/23.814 mL (0389a6366b3a51fad8b5; ad0ace61c29817c678c2). These physical inputs already have measurements; this comparison diagnoses training fit and feature sensitivity, not prospective accuracy.",
+    "CURRENT PREDICTIONS: some new curves turn downward beyond measured long-retention anchors. At matched mass, m216 at 10/1 predicts 29.58/44.53, preceding its measured 5/1 endpoints 31.43/56.33. m82 at 20/1 predicts 15.36/37.98, preceding its measured 10/1 endpoints 20.41/45.62. These are untested response shapes, not demonstrated candidate errors.",
+    "CURRENT QUANTILES: ordering defects persist. d997636736faa38ac83a has V1 q10/q50/q90 approximately 3.39/5.96/3.40 mL despite a positive reported quantile width. Small numerical widths do not establish confidence."
+  ],
+  "candidate_scientific_questions": [
+    "Do near-repeats reproduce the localized m73 1/1 result and the large m92 loading-solvent contrast?",
+    "Where do m92's loading response and m80's unusual completion response change with eluent?",
+    "Does the new quinoline information transfer to a pyridyl ketone, and do current weak-eluent predictions preserve the measured molecular distinctions?",
+    "Can matched-condition extensions distinguish persistent molecular offsets from solvent-dependent errors for sulfoxides, alcohols and different diester connectivities?"
+  ],
+  "particularly_informative_candidates": [
+    {
+      "ids": [
+        "10a4c811b70ba8155044",
+        "f7cc49c21fea55ed9087"
+      ],
+      "question": "m92 at 2/1, EA 200 uL, 57.75 versus 173.25 mg; both predict approximately 4.43/10.63 mL. A controlled loading contrast at a missing ratio tests where the observed response changes sign."
+    },
+    {
+      "ids": [
+        "45dca237351265a8f169"
+      ],
+      "question": "m73 at 1/1, 104.91 mg, DCM 300 uL predicts 11.42/17.15 mL. This nearly repeats observed 2cf789c87f7c6325c020, differing by only 0.01 mg, and directly examines reproducibility of the late, narrow interval."
+    },
+    {
+      "ids": [
+        "aa65e86ee8638bded5d9",
+        "40fd02db79e028fe05a9"
+      ],
+      "question": "m80 at 105.5 mg, PE 200 uL: 10/1 predicts 10.68/21.53 and 20/1 predicts 7.06/14.25 mL. These alternatives probe a predicted intermediate maximum between the measured 1/1 and 50/1 conditions."
+    },
+    {
+      "ids": [
+        "65fcce0299e031dedeb8",
+        "6802f0b28c5a0c7b4c2a"
+      ],
+      "question": "m173 at 1/1 with DCM 1500 uL predicts 6.90/98.58; at 0/1 with DCM 2000 uL predicts 4.62/25.58 mL, both near 124.8 mg. The first tests whether the large measured 1/1 completion persists under a smaller plug; the second extends the fixed-setup solvent curve."
+    },
+    {
+      "ids": [
+        "5097ef8f92148f920ca4",
+        "e47aebe2660b9e1528de",
+        "cf36dbeee8bb51632d84"
+      ],
+      "question": "At their own measured loading setups, m216 at 2/1 predicts 13.30/24.74 and at 10/1 predicts 29.58/44.53; m146 at 2/1 predicts 15.41/29.94 mL. These distinguish interpolation from a local retention maximum. Cross-molecule interpretation remains confounded by loading-solvent identity."
+    },
+    {
+      "ids": [
+        "4659b6752f23c0b85f08",
+        "49201b5817f204116f7f"
+      ],
+      "question": "Unmeasured pyridyl ketone m66 at 111.4 mg, DCM 300 uL: 2/1 predicts 6.51/14.06 and 5/1 predicts 11.47/27.18 mL. A matched solvent pair tests transfer from quinoline N to combined ring-N and carbonyl functionality."
+    },
+    {
+      "ids": [
+        "93f10a8edf06f7acae26",
+        "61090cfdcf019e0891a3"
+      ],
+      "question": "Separate within-molecule tests: m91 at 20/1, 141.2 mg predicts 5.91/6.08; m82 at 20/1, 102.9 mg predicts 15.36/37.98 mL. Their injection setups match their respective measured anchors. The predicted interval collapse or earlier migration needs measurement."
+    },
+    {
+      "ids": [
+        "b7b1a1bb666c8cc99bad",
+        "47f2e980caaa77baa535",
+        "3554059c7f0676bb2e03"
+      ],
+      "question": "Complementary transfer questions: unmeasured primary alcohol m204 at 5/1, 100.1 mg, PE 300 uL predicts 20.04/36.29; benzylic alcohol m67 at 5/1, 99.4 mg, DCM 300 uL predicts 10.31/16.38; m199 in pure EA at 100 mg, DCM 400 uL predicts 4.47/11.90 mL. m204 closely matches the m60/m61 protocol; m67 has a solvent confound; m199 isolates eluent change against its acquired 2/1 result."
+    }
+  ],
+  "possible_model_blind_spots": "GENERAL CHEMICAL KNOWLEDGE: increasing EA usually strengthens normal-phase elution; basic nitrogen, sulfoxide oxygen and accessible hydroxyls can interact strongly with silica. These priors motivate comparisons but do not explain the unusual labels by themselves. UNTESTED HYPOTHESES: graph-specific adsorption environments, conditional loading effects, dissolution and injection focusing contribute to the observed discrepancies. Shared HBD/HBA or TPSA totals cannot uniquely encode these distinctions. Current local maxima may reflect interpolation around new anchors, but their physical reality remains untested.",
+  "coverage_or_redundancy_concerns": "Distinct IDs frequently encode identical complete physical inputs, including measured inputs. Their value is replication when tied to a reproducibility question. Small density-derived mass differences should not be mistaken for substantial new coverage. Remaining ordinary aromatic, ester, ketone and aldehyde conditions provide complementary Row information; neither structural novelty nor extreme predicted retention alone establishes learning value.",
+  "warnings": [
+    "V2 minus V1 is elution interval width, not uncertainty. Quantile widths also require ordering checks before interpretation.",
+    "Only observed-table IDs supply measured evidence. Current candidate predictions remain unmeasured even when their physical inputs match observed records.",
+    "Historical errors come from deliberately selected experiments. They establish those premeasurement failures, not overall Row accuracy or accuracy improvement after retraining.",
+    "m202 retains a formally positive phosphorus representation without a supplied counterion; confirm intended identity before applying a neutral-compound prior. The slightly reversed measured m195 interval in a917c928912c74862968 requires endpoint-definition awareness."
+  ]
+}

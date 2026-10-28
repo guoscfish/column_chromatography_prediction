@@ -8,6 +8,10 @@
 
 已完成运行保存于 `revisions/full_pool_feedback_schema_20261011/`，原 round-0 草案与冻结文件保留。首次试跑因另一个任务恢复共享文件而中断，未获得模型答案；其记录保留于 `revisions/full_pool_feedback_20261010/interruption.json`。独立生命周期模块避免修改正在使用的旧 Scientist 文件。代码变更后需使用新 revision；不重写历史协议 hash。运行中 checkpoint 和训练历史存于忽略的 `runtime/`，输入、角色对话、冻结及反馈保留用于审计。
 
+## 两seed扩展（2026-10-14）
+
+用户要求两个seed均到800标签；固定批量32对应目标813。seed157由`sol61_xhigh_seed157_from621_to813_20261014`继承已完成621及九批历史，再跑6批；seed6101由`sol61_xhigh_seed6101_to813_20261014`从同规则333起点跑15批。两个轨迹完全隔离，使用gpt-6.1-sol/xhigh，提示词、选样、标签揭示和训练规则保持一致；仅扩展预算并引用已有同预算对照。原621协议及源码原文保存，不改写历史产物。81项相关测试通过；当前已启动两个运行，结果以各revision实际fit audit为准。
+
 ## 当前扩展（2026-10-12）
 
 两轮astra/high试跑是历史起点。seed157随后改用`gpt-6.1-sol`、`xhigh`，完成397→429，validation NRMSE为0.704016。使用`sol61_xhigh_from429_evidence_repair_20261011`已完成461标签（validation NRMSE 0.687444），最后493轮次因provider每日额度耗尽未完成，按用户指令停止新增调用；已完成461的[详细比较与成本](revisions/sol61_xhigh_from429_evidence_repair_20261011/reports/seed_157/free_llm32_dual_expert_v1/rounds_04/README.md)已归档；已完成与仍在运行的预算见[最新快照](../../../reports/active_learning_latest/REPORT.md)，未完成轮次不计作结果。

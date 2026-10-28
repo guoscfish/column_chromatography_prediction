@@ -1,0 +1,937 @@
+{
+  "seed": 6101,
+  "method": "free_llm32_dual_expert_v1",
+  "round": 0,
+  "batch_freeze_sha256": "277a7db8031756e219e66103365efb13f7a0fa9c7e81cb288dab6497f182486d",
+  "records": [
+    {
+      "candidate_id": "a98f3e4664fd05c0f82c",
+      "pred_V1_ml": 4.726521015167236,
+      "pred_V2_ml": 10.63953971862793,
+      "source": "LLM",
+      "true_V1_ml": 4.224999904632568,
+      "true_V2_ml": 11.449999809265137,
+      "error_V1_ml": 0.501521110534668,
+      "error_V2_ml": -0.810460090637207,
+      "reason": "m8 at 1/1 and 157.3 mg interpolates the measured loading contrast and matches the loading of its measured 5/1 anchor.",
+      "hypothesis_id": "H_load"
+    },
+    {
+      "candidate_id": "c8176b3eea7a5d8802dc",
+      "pred_V1_ml": 4.678658485412598,
+      "pred_V2_ml": 13.854243278503418,
+      "source": "LLM",
+      "true_V1_ml": 5.741666793823242,
+      "true_V2_ml": 11.291666984558105,
+      "error_V1_ml": -1.0630083084106445,
+      "error_V2_ml": 2.5625762939453125,
+      "reason": "m8 at 5/1 and 78.65 mg completes a two-load, two-eluent comparison with existing measurements and the selected 1/1 midpoint.",
+      "hypothesis_id": "H_load"
+    },
+    {
+      "candidate_id": "4b8ba288d549f6cfc94b",
+      "pred_V1_ml": 10.656512260437012,
+      "pred_V2_ml": 22.792579650878906,
+      "source": "LLM",
+      "true_V1_ml": 8.850000381469727,
+      "true_V2_ml": 28.149999618530273,
+      "error_V1_ml": 1.8065118789672852,
+      "error_V2_ml": -5.357419967651367,
+      "reason": "m92 at 10/1 and 115.5 mg tests interpolation between measured loads whose V2 differs by 3.48 mL despite almost unchanged predicted completion.",
+      "hypothesis_id": "H_load"
+    },
+    {
+      "candidate_id": "9bbd36c8b484b5609808",
+      "pred_V1_ml": 23.039682388305664,
+      "pred_V2_ml": 52.4433479309082,
+      "source": "LLM",
+      "true_V1_ml": 20.508333206176758,
+      "true_V2_ml": 62.20833206176758,
+      "error_V1_ml": 2.5313491821289062,
+      "error_V2_ml": -9.764984130859375,
+      "reason": "m92 at 50/1 and 173.25 mg supplies the high-load counterpart to the measured 57.75 mg record, testing whether the loading effect persists at weak eluent.",
+      "hypothesis_id": "H_load"
+    },
+    {
+      "candidate_id": "4451265787d29526a93a",
+      "pred_V1_ml": 3.0167009830474854,
+      "pred_V2_ml": 17.15993309020996,
+      "source": "LLM",
+      "true_V1_ml": 6.291666507720947,
+      "true_V2_ml": 9.725000381469727,
+      "error_V1_ml": -3.274965524673462,
+      "error_V2_ml": 7.434932708740234,
+      "reason": "m92 at 1/1 and 173.25 mg pairs with the selected low-load EA injection, extending the loading-by-eluent comparison into stronger mobile phase.",
+      "hypothesis_id": "H_load"
+    },
+    {
+      "candidate_id": "2f95389e141635b0e27c",
+      "pred_V1_ml": 4.698118686676025,
+      "pred_V2_ml": 12.631017684936523,
+      "source": "LLM",
+      "true_V1_ml": 4.324999809265137,
+      "true_V2_ml": 12.095833778381348,
+      "error_V1_ml": 0.37311887741088867,
+      "error_V2_ml": 0.5351839065551758,
+      "reason": "m101 at 2/1 and approximately 50 mg pairs with its measured 150 mg counterpart; the measured 1/1 loading contrast provides a second ratio for comparison.",
+      "hypothesis_id": "H_load"
+    },
+    {
+      "candidate_id": "61d5633c7221b3040a5f",
+      "pred_V1_ml": 10.62993335723877,
+      "pred_V2_ml": 18.96477508544922,
+      "source": "LLM",
+      "true_V1_ml": 7.758333206176758,
+      "true_V2_ml": 20.25,
+      "error_V1_ml": 2.8716001510620117,
+      "error_V2_ml": -1.2852249145507812,
+      "reason": "Deliberately repeat m44 at 20/1 and 153.9 mg. Its initial high-load result has earlier V1 and later V2 than the low-load result, making reproducibility informative.",
+      "hypothesis_id": "H_load"
+    },
+    {
+      "candidate_id": "b99eb5b0204fb5f49372",
+      "pred_V1_ml": 6.049178123474121,
+      "pred_V2_ml": 14.82341480255127,
+      "source": "LLM",
+      "true_V1_ml": 4.8416666984558105,
+      "true_V2_ml": 12.641666412353516,
+      "error_V1_ml": 1.2075114250183105,
+      "error_V2_ml": 2.181748390197754,
+      "reason": "Establish a 10/1 baseline at 97.5 mg for unseen, sterically crowded m29; the paired 50/1 experiment isolates its solvent response.",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "f73fd2f4c55177304721",
+      "pred_V1_ml": 3.341639995574951,
+      "pred_V2_ml": 33.77928924560547,
+      "source": "LLM",
+      "true_V1_ml": 11.791666984558105,
+      "true_V2_ml": 27.883333206176758,
+      "error_V1_ml": -8.450026988983154,
+      "error_V2_ml": 5.895956039428711,
+      "reason": "At the same m29 loading, the model predicts V1 falling from about 6.05 to 3.34 mL while V2 rises strongly. Test this transfer behavior in crowded aromatic ketones.",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "d603d4af5fd62fa8b85e",
+      "pred_V1_ml": 1.218035340309143,
+      "pred_V2_ml": 12.689026832580566,
+      "source": "LLM",
+      "true_V1_ml": 5.620833396911621,
+      "true_V2_ml": 7.983333110809326,
+      "error_V1_ml": -4.402798056602478,
+      "error_V2_ml": 4.70569372177124,
+      "reason": "Unseen acetylenic diester m91 at 2/1 tests its predicted very early onset and supplies the stronger-eluent member of a matched response pair.",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "a2ecf2b2f28094d70368",
+      "pred_V1_ml": 2.7235941886901855,
+      "pred_V2_ml": 20.166807174682617,
+      "source": "LLM",
+      "true_V1_ml": 7.291666507720947,
+      "true_V2_ml": 11.116666793823242,
+      "error_V1_ml": -4.568072319030762,
+      "error_V2_ml": 9.050140380859375,
+      "reason": "m91 at 5/1, with the same mass and injection setup, distinguishes its solvent dependence from the measured malonate and beta-ketoester families.",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "b6229f0445560a4a54ed",
+      "pred_V1_ml": 7.643474102020264,
+      "pred_V2_ml": 12.89279556274414,
+      "source": "LLM",
+      "true_V1_ml": 13.274999618530273,
+      "true_V2_ml": 23.850000381469727,
+      "error_V1_ml": -5.63152551651001,
+      "error_V2_ml": -10.957204818725586,
+      "reason": "Measure unseen methylquinoline m146 at 1/1 and 54.15 mg to establish a baseline for its matched 5/1 response.",
+      "hypothesis_id": "H_nitrogen"
+    },
+    {
+      "candidate_id": "04a2e8ad27ca641a3a12",
+      "pred_V1_ml": 9.822522163391113,
+      "pred_V2_ml": 27.354948043823242,
+      "source": "LLM",
+      "true_V1_ml": 37.66666793823242,
+      "true_V2_ml": 59.82500076293945,
+      "error_V1_ml": -27.84414577484131,
+      "error_V2_ml": -32.47005271911621,
+      "reason": "m146 at 5/1 tests transfer to a poorly supported nitrogen topology. Its narrow, crossed V2 quantiles provide no assurance of accuracy.",
+      "hypothesis_id": "H_nitrogen"
+    },
+    {
+      "candidate_id": "d1e71a8278523e7a10e3",
+      "pred_V1_ml": 6.770559787750244,
+      "pred_V2_ml": 10.341118812561035,
+      "source": "LLM",
+      "true_V1_ml": 11.591666221618652,
+      "true_V2_ml": 23.933332443237305,
+      "error_V1_ml": -4.821106433868408,
+      "error_V2_ml": -13.59221363067627,
+      "reason": "Measure unseen quinoline m216 at 1/1 and 54.65 mg, establishing the baseline for a within-molecule solvent contrast.",
+      "hypothesis_id": "H_nitrogen"
+    },
+    {
+      "candidate_id": "1ae3618ec277b0463686",
+      "pred_V1_ml": 11.080401420593262,
+      "pred_V2_ml": 27.420883178710938,
+      "source": "LLM",
+      "true_V1_ml": 31.433332443237305,
+      "true_V2_ml": 56.32500076293945,
+      "error_V1_ml": -20.352931022644043,
+      "error_V2_ml": -28.904117584228516,
+      "reason": "m216 at 5/1 completes its fixed-loading response pair. Comparison with m146 is contextual because their loading solvents differ.",
+      "hypothesis_id": "H_nitrogen"
+    },
+    {
+      "candidate_id": "2feb7d8e0a3566ddf97f",
+      "pred_V1_ml": 12.666461944580078,
+      "pred_V2_ml": 34.390838623046875,
+      "source": "LLM",
+      "true_V1_ml": 11.899999618530273,
+      "true_V2_ml": 33.83333206176758,
+      "error_V1_ml": 0.7664623260498047,
+      "error_V2_ml": 0.5575065612792969,
+      "reason": "Para-aminobenzonitrile m160 at 2/1, 100 mg and DCM 400 uL directly matches the measured meta-isomer protocol, testing positional effects beyond shared bulk descriptors.",
+      "hypothesis_id": "H_nitrogen"
+    },
+    {
+      "candidate_id": "8fb7f07df563e78786b2",
+      "pred_V1_ml": 8.759858131408691,
+      "pred_V2_ml": 19.371259689331055,
+      "source": "LLM",
+      "true_V1_ml": 11.074999809265137,
+      "true_V2_ml": 19.358333587646484,
+      "error_V1_ml": -2.3151416778564453,
+      "error_V2_ml": 0.012926101684570312,
+      "reason": "Introduce lactone m181 at 5/1 using the same injection volume and solvent plug as the selected cyclic ketone and measured m179 reference; density-derived masses differ.",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "73a35f890e678b320073",
+      "pred_V1_ml": 6.039849281311035,
+      "pred_V2_ml": 16.5069522857666,
+      "source": "LLM",
+      "true_V1_ml": 5.983333110809326,
+      "true_V2_ml": 15.741666793823242,
+      "error_V1_ml": 0.056516170501708984,
+      "error_V2_ml": 0.7652854919433594,
+      "reason": "m180 at 5/1 tests close cyclic-ketone transfer from measured m179, providing a comparison with the larger functional-group change to m181.",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "b060fa3ae84f80e773d2",
+      "pred_V1_ml": 4.338319778442383,
+      "pred_V2_ml": 12.44947338104248,
+      "source": "LLM",
+      "true_V1_ml": 12.316666603088379,
+      "true_V2_ml": 22.66666603088379,
+      "error_V1_ml": -7.978346824645996,
+      "error_V2_ml": -10.217192649841309,
+      "reason": "The first sulfoxide m199 label, at 2/1 and 100 mg, adds an S=O adsorption environment absent from the initial measurements without relying on extreme predicted retention.",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "6b8e53d2d8c8a90a7216",
+      "pred_V1_ml": 11.917556762695312,
+      "pred_V2_ml": 29.627487182617188,
+      "source": "LLM",
+      "true_V1_ml": 20.40833282470703,
+      "true_V2_ml": 45.61666488647461,
+      "error_V1_ml": -8.490776062011719,
+      "error_V2_ml": -15.989177703857422,
+      "reason": "Unseen ethyl acetoacetate m82 at 10/1 extends a represented beta-ketoester family and anchors its selected solvent-response pair.",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "ce539fc06bdda7c0ed0d",
+      "pred_V1_ml": 9.247579574584961,
+      "pred_V2_ml": 19.930492401123047,
+      "source": "LLM",
+      "true_V1_ml": 7.866666793823242,
+      "true_V2_ml": 21.358333587646484,
+      "error_V1_ml": 1.3809127807617188,
+      "error_V2_ml": -1.4278411865234375,
+      "reason": "m82 at 2/1 holds mass and injection setup fixed relative to the selected 10/1 row, separating its eluent response from cross-molecule loading differences.",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "0b247863fd6e8aaf44d8",
+      "pred_V1_ml": 7.875871181488037,
+      "pred_V2_ml": 70.57404327392578,
+      "source": "LLM",
+      "true_V1_ml": 8.341666221618652,
+      "true_V2_ml": 45.05833435058594,
+      "error_V1_ml": -0.46579504013061523,
+      "error_V2_ml": 25.515708923339844,
+      "reason": "m173 at 2/1 and DCM 2000 uL fills the ratio gap between measured 1/1 and 5/1 acid records with unusually different completion volumes.",
+      "hypothesis_id": "H_ratio"
+    },
+    {
+      "candidate_id": "9a32b65bc21fdc5f7286",
+      "pred_V1_ml": 7.877638339996338,
+      "pred_V2_ml": 70.57014465332031,
+      "source": "LLM",
+      "true_V1_ml": 8.316666603088379,
+      "true_V2_ml": 46.21666717529297,
+      "error_V1_ml": -0.439028263092041,
+      "error_V2_ml": 24.353477478027344,
+      "reason": "The paired m173 2/1 injection reduces DCM from 2000 to 1500 uL with only a 0.05 mg mass difference, testing a plug-volume effect suppressed by current predictions.",
+      "hypothesis_id": "H_injection"
+    },
+    {
+      "candidate_id": "ce14dd2481560a984aea",
+      "pred_V1_ml": 0.0,
+      "pred_V2_ml": 31.74306297302246,
+      "source": "LLM",
+      "true_V1_ml": 5.199999809265137,
+      "true_V2_ml": 20.700000762939453,
+      "error_V1_ml": -5.199999809265137,
+      "error_V2_ml": 11.043062210083008,
+      "reason": "m177 at 10/1 predicts zero onset between measured positive-onset neighboring ratios. Its 140.6 mg loading matches the measured 5/1 anchor.",
+      "hypothesis_id": "H_onset"
+    },
+    {
+      "candidate_id": "49932dbd3d16bb64f71a",
+      "pred_V1_ml": 10.684648513793945,
+      "pred_V2_ml": 14.424671173095703,
+      "source": "LLM",
+      "true_V1_ml": 5.258333206176758,
+      "true_V2_ml": 11.600000381469727,
+      "error_V1_ml": 5.4263153076171875,
+      "error_V2_ml": 2.8246707916259766,
+      "reason": "m73 at 2/1 and approximately 104.9 mg probes the transition from its measured late, narrow 1/1 interval toward its measured weak-eluent response.",
+      "hypothesis_id": "H_ratio"
+    },
+    {
+      "candidate_id": "c9a9fab963b85f141aa6",
+      "pred_V1_ml": 6.915072441101074,
+      "pred_V2_ml": 17.838520050048828,
+      "source": "LLM",
+      "true_V1_ml": 5.625,
+      "true_V2_ml": 13.550000190734863,
+      "error_V1_ml": 1.2900724411010742,
+      "error_V2_ml": 4.288519859313965,
+      "reason": "m73 at 5/1 uses the same setup as the selected 2/1 row, helping distinguish a localized onset anomaly from a broader unusual solvent-response curve.",
+      "hypothesis_id": "H_ratio"
+    },
+    {
+      "candidate_id": "08155ffdcb0d27576050",
+      "pred_V1_ml": 6.343588352203369,
+      "pred_V2_ml": 8.205827713012695,
+      "source": "LLM",
+      "true_V1_ml": 6.4083333015441895,
+      "true_V2_ml": 8.274999618530273,
+      "error_V1_ml": -0.06474494934082031,
+      "error_V2_ml": -0.06917190551757812,
+      "reason": "m80 at 50/1 and 105.5 mg matches the loading of its measured 1/1 record, removing the loading confound from the existing unusual completion comparison.",
+      "hypothesis_id": "H_ratio"
+    },
+    {
+      "candidate_id": "87814eeffb35c15f3f89",
+      "pred_V1_ml": 11.127340316772461,
+      "pred_V2_ml": 10.707768440246582,
+      "source": "LLM",
+      "true_V1_ml": 6.208333492279053,
+      "true_V2_ml": 11.841666221618652,
+      "error_V1_ml": 4.919006824493408,
+      "error_V2_ml": -1.1338977813720703,
+      "reason": "m126 at 20/1 predicts completion before onset and crossed V1 quantiles. Its measured 5/1, 99.5 mg anchor makes this a targeted ether-response and endpoint-convention check.",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "00a89de0e6cc7377a84b",
+      "pred_V1_ml": 3.0211660861968994,
+      "pred_V2_ml": 17.15283966064453,
+      "source": "LLM",
+      "true_V1_ml": 5.175000190734863,
+      "true_V2_ml": 12.008333206176758,
+      "error_V1_ml": -2.153834104537964,
+      "error_V2_ml": 5.144506454467773,
+      "reason": "m92 at 1/1 and 57.75 mg with EA loading establishes both the low-load baseline for the selected EA high-load row and one side of the solvent-identity contrast.",
+      "hypothesis_id": "H_injection"
+    },
+    {
+      "candidate_id": "e626b5b8083ea1fd02f2",
+      "pred_V1_ml": 3.054675340652466,
+      "pred_V2_ml": 16.908172607421875,
+      "source": "LLM",
+      "true_V1_ml": 8.016666412353516,
+      "true_V2_ml": 20.566667556762695,
+      "error_V1_ml": -4.96199107170105,
+      "error_V2_ml": -3.6584949493408203,
+      "reason": "The matching m92 experiment changes loading solvent from EA to PE at fixed mass, plug volume and mobile phase, testing injection strength or dissolution effects.",
+      "hypothesis_id": "H_injection"
+    },
+    {
+      "candidate_id": "62d7ea74ab73fa6214b4",
+      "pred_V1_ml": 12.579875946044922,
+      "pred_V2_ml": 19.036344528198242,
+      "source": "LLM",
+      "true_V1_ml": 19.649999618530273,
+      "true_V2_ml": 34.70000076293945,
+      "error_V1_ml": -7.070123672485352,
+      "error_V2_ml": -15.663656234741211,
+      "reason": "Introduce secondary alcohol m60 at 5/1 and 97 mg. Its hydroxyl group is separated from the phenyl ring, providing an accessibility contrast with selected benzylic m61.",
+      "hypothesis_id": null
+    },
+    {
+      "candidate_id": "994a1f65509549a84ede",
+      "pred_V1_ml": 8.939146995544434,
+      "pred_V2_ml": 15.469171524047852,
+      "source": "LLM",
+      "true_V1_ml": 10.266666412353516,
+      "true_V2_ml": 15.558333396911621,
+      "error_V1_ml": -1.327519416809082,
+      "error_V2_ml": -0.08916187286376953,
+      "reason": "Benzylic secondary alcohol m61 at 5/1 and 101.2 mg shares the PE loading protocol with m60, extending alcohol coverage at approximately matched mass.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H_load",
+      "content": "Loading responses are endpoint-specific and depend on molecule and eluent. Several measured families show stationary or earlier V1 together with later V2, while current predictions barely change with loading.",
+      "why_it_matters_for_model_learning": "A common shift of both endpoints or loading-insensitive fit cannot capture these contrasts; connected comparisons can teach conditional band widening.",
+      "next_discriminating_question": "Do m8's completed loading-by-eluent comparisons and m92's three-ratio program show consistent conditional slopes, and does the m44 repeat preserve its opposing endpoint shift?",
+      "basis": "mixed",
+      "confidence": "medium",
+      "status": "supported",
+      "supporting_observed_ids": [
+        "fd0fd67502640304b8fb",
+        "6c4ddf5ad1cf067b81ee",
+        "e2f15590b7142490599b",
+        "50e113fcc37184809670",
+        "902f3082ba7241022d82",
+        "da10b7eb5f74593251cb",
+        "4d75c120ba1c4f0dae89",
+        "18d688363c7fa3da0609"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H_ratio",
+      "content": "The unusual measured solvent responses of m173 and m73 may represent systematic local behavior in the recorded endpoints. The corresponding m80 interpretation remains confounded by loading.",
+      "why_it_matters_for_model_learning": "Learning the Row distribution requires resolving these local curves rather than imposing a universal solvent-monotonicity correction.",
+      "next_discriminating_question": "What do intermediate m73 and m173 ratios show, and does m80 retain its unusual completion response when loading is held constant?",
+      "basis": "mixed",
+      "confidence": "low",
+      "status": "unresolved",
+      "supporting_observed_ids": [
+        "f90a5a5a54509c085ebd",
+        "1e775e7d8dcbf48fd6f8",
+        "2cf789c87f7c6325c020",
+        "e6dcf9d6f65fa598a38e",
+        "55dfd30fde788076a355",
+        "f7d57d8bb988f7016502"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H_onset",
+      "content": "The predicted zero onset for m177 at 10/1 may be a local model-response defect rather than a real collapse of retention between positive-onset neighboring conditions.",
+      "why_it_matters_for_model_learning": "One intermediate label can discriminate an onset-head failure from a genuine unusual response while also informing V2 interpolation.",
+      "next_discriminating_question": "At 140.6 mg, is m177's 10/1 onset comparable to its measured 5/1 onset or substantially earlier?",
+      "basis": "mixed",
+      "confidence": "medium",
+      "status": "proposed",
+      "supporting_observed_ids": [
+        "08812206a257481691c4",
+        "5e276c1730fc0a9deba7"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H_nitrogen",
+      "content": "Basic-nitrogen topology and accessibility may change silica retention and solvent response beyond what shared TPSA and acceptor counts convey. Transfer to the selected unseen nitrogen compounds is untested.",
+      "why_it_matters_for_model_learning": "Quinoline response pairs and a matched aminobenzonitrile positional-isomer comparison provide graph-specific supervision that uncertainty width alone may miss.",
+      "next_discriminating_question": "How do the two quinoline scaffolds respond from 1/1 to 5/1, and how does para-aminobenzonitrile compare with the measured meta isomer at 2/1?",
+      "basis": "mixed",
+      "confidence": "medium",
+      "status": "proposed",
+      "supporting_observed_ids": [
+        "53a1acff30433cff819f",
+        "ecd17c7ea435a1e33f6b",
+        "835b5f2641442576de42",
+        "65f4f125b5e1f8137bd9"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H_injection",
+      "content": "Loading-solvent identity and plug volume may alter migration or dissolution at fixed nominal mass, even where current predictions are almost invariant. No isolated measured contrast presently establishes these effects.",
+      "why_it_matters_for_model_learning": "Controlled contrasts can reveal whether injection features carry useful endpoint information or whether apparent anomalies arise from omitted experimental factors.",
+      "next_discriminating_question": "Does EA versus PE loading change m92 at 1/1, and does a 500 uL DCM-plug change affect m173 at 2/1?",
+      "basis": "mixed",
+      "confidence": "low",
+      "status": "proposed",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": []
+    }
+  ],
+  "feedback_interpretation": "Round-0 memory contains no previous selected plan, acquisition hypotheses or outcomes, and no labels have been revealed since this plan was selected. Initial observed measurements support separate loading responses for V1 and V2: e2f15590b7142490599b and 50e113fcc37184809670 show m92 V2 rising from 21.03 to 24.51 mL while V1 barely changes. Predictions at those physical inputs change by about 0.007 mL in V2, a training-input fit diagnostic rather than held-out accuracy evidence. A universal later-completion-with-higher-loading rule is weakened by 5f8a81445707df0eaad0 and bef81d4dd93af26c12a9, where the higher-load m177 result finishes earlier. A universal earlier-completion-with-more-EA rule is contradicted by the recorded m173 comparison f90a5a5a54509c085ebd and 1e775e7d8dcbf48fd6f8. These findings favor conditional response learning. Identical recorded inputs in 425074f6cad1ac0c1bc8 and 5c9d8ece8d174d7a0e5f have different measured endpoints, establishing local variation without estimating a global noise floor. The nearly reversed interval in a917c928912c74862968 requires endpoint-convention awareness. Crossed candidate quantiles weaken uncertainty-based prioritization. V2 minus V1 is treated as elution interval width throughout, and selected candidate IDs remain prediction-only until measured.",
+  "batch_rationale": "The strongest measured signal is differential loading sensitivity, so the batch builds connected comparisons around that signal. Five m92 experiments resolve loading across eluent strengths and a separate injection-solvent contrast; m8 and m101 test transfer of the interaction, and one m44 repeat checks reproducibility. Remaining experiments address selected missing molecular environments and unusually shaped recorded response curves. Moderate-retention examples accompany long intervals, and duplicate catalog multiplicity does not consume the batch.",
+  "chemistry_memo": {
+    "type": "memo",
+    "role": "chemistry_scientist",
+    "packet_sha256": "a97a68107d7428f30de23f1ce09bc2dd7c4e40fa4bf826b27f0bbfe1bd319f5f",
+    "state_summary": "Round 0 contains 333 supplied measured records, a reported pool of 2997 eligible candidates, and no pending records. Memory is empty, so there are no previous hypotheses or feedback to revise. The catalog offers extensive same-molecule condition comparisons, repeated physical conditions, and unmeasured molecular analogues. Useful questions concern loading sensitivity, unusual measured solvent responses, and transfer across functional groups. Their purpose is improving overall Row V1/V2 accuracy after retraining.",
+    "important_observations": "OBSERVED MEASUREMENTS: Loading sometimes moves onset and completion in opposite directions. For m8 at PE/EA 1/1, increasing loading from 78.65 to 235.95 mg changes V1/V2 from 5.32/9.45 to 4.22/13.04 mL (fd0fd67502640304b8fb; 6c4ddf5ad1cf067b81ee). At 2/1, the same loads give 5.52/10.09 and 4.48/14.55 mL (fc859559977089c48afe; 22917c7639323bc6f051). For m92 at 10/1 with EA loading solvent, 57.75 versus 173.25 mg gives 10.54/21.03 versus 10.48/24.51 mL (e2f15590b7142490599b; 50e113fcc37184809670). These support investigating separate loading responses for V1 and V2; saturation or fronting remains a mechanistic hypothesis.\nOBSERVED MEASUREMENTS: Several unusual solvent responses already occur in the labels. Cinnamic acid m173 at 124.8 mg and DCM 2000 uL gives 6.51/108.89 mL at 1/1 and 12.92/60.92 at 5/1 (f90a5a5a54509c085ebd; 1e775e7d8dcbf48fd6f8). Ethyl cinnamate m73 gives 18.60/18.96 at 1/1 and 9.59/28.68 at 50/1 at essentially identical loading (2cf789c87f7c6325c020; e6dcf9d6f65fa598a38e). Diethyl malonate m80 gives 4.08/15.66 at 1/1 and 105.5 mg, whereas 50/1 at 158.25 mg gives 5.79/7.93 (55dfd30fde788076a355; f7d57d8bb988f7016502). The m80 comparison is confounded by loading.\nOBSERVED MEASUREMENTS: Identical recorded conditions can yield different endpoints. m88 at 0/1, 110.7 mg, DCM 200 uL has 5.22/12.77 and 4.53/10.82 mL (425074f6cad1ac0c1bc8; 5c9d8ece8d174d7a0e5f). m89 at 5/1, 55.85 mg, PE 200 uL has 8.77/15.69 and 9.25/17.00 (1cee9fb4b0731101f3a6; 3aed7873d2fd1cf48684). These establish variation in those examples, not a global experimental noise estimate.\nOBSERVED MEASUREMENT: m195 at 20/1 has V1/V2 31.98/31.91 mL, a small reversed interval (a917c928912c74862968). Its endpoint convention or record quality merits examination before interpreting its narrow interval chemically.",
+    "candidate_scientific_questions": "Loading response: Does the model miss later completion at higher load while approximately preserving onset? Intermediate m8 and m92 loads can test interpolation between measured endpoints. GENERAL CHEMICAL KNOWLEDGE: nonlinear silica adsorption can produce earlier onset and later completion as loading increases. UNTTESTED HYPOTHESIS: the model underuses loading amount or averages opposing onset effects.\nSolvent response: Are unusual measured curves reproducible, and where do they change? GENERAL CHEMICAL KNOWLEDGE: increasing EA usually strengthens the mobile phase on silica. This prior does not establish monotonic V1 and V2 behavior in every supplied series. Competing untested explanations include adsorption or dissolution effects, endpoint interpretation, and record problems. Matched loading comparisons and intermediate solvent conditions can distinguish them.\nMolecular transfer: Does the model capture carbonyl accessibility and basic nitrogen interactions beyond scalar polarity? Ortho substitution can alter accessibility and conformation; basic nitrogen can interact with silanols. These are chemical priors. The unmeasured mesityl ketone m29, para-aminobenzonitrile m160, and quinoline derivatives m146/m216 offer different tests, with measured analogues available. A generic correction based solely on amine presence would be poorly justified.\nSpeciation and loading solvent: Beta-dicarbonyl compounds can adopt enol forms, and ortho hydroxy carbonyl compounds can form internal hydrogen bonds. The supplied keto-form descriptors do not establish their chromatographic populations. Strong loading solvents and large plugs can affect migration or dissolution. Unmeasured m91 tests a different diester arrangement; m173 plug-volume and m92 loading-solvent comparisons test condition effects. Their mechanisms remain unobserved.",
+    "important_model_behaviors": "MODEL PREDICTIONS: Many threefold loading changes produce endpoint shifts of only hundredths of a milliliter. For m92 at 10/1, the 50 and 150 uL candidates predict approximately 10.66/22.79 and 10.66/22.80 mL, despite the measured completion difference described above. This flags sensitivity worth testing, not demonstrated held-out error.\nMODEL PREDICTIONS: Candidate 87814eeffb35c15f3f89, m126 at 20/1, predicts V1/V2 11.13/10.71 mL and has V1 q10 greater than q90. Candidate d997636736faa38ac83a, m18 in pure EA, predicts 8.13/8.05. Quantile crossings also occur with positive supplied quantile widths. Candidate ce14dd2481560a984aea, m177 at 10/1, predicts onset 0 and completion 31.74 mL; its onset is surprising relative to measured neighboring conditions, but there is no measured truth for that candidate.",
+    "possible_model_blind_spots": "UNTTESTED MODEL HYPOTHESES: Separate loading effects on onset and completion; silica acid-base interactions and nitrogen accessibility; positional substituent effects on carbonyl adsorption; keto-enol and internal hydrogen-bonding behavior; loading-solvent identity and plug volume. Nearly invariant predictions across condition changes may indicate weak sensitivity, but some compounds could genuinely show little response. The measured table already contains unusual curves, so chemical expectations alone cannot diagnose a model failure.",
+    "coverage_or_redundancy_concerns": "The pool contains different IDs encoding identical physical conditions, including conditions already present in the observed table. Such candidates offer replication, not additional chemical coverage. Repeats can be valuable when they distinguish reproducible loading effects, unusual solvent responses, or endpoint variation. Otherwise, multiple closely related loading rows may add little information. Unmeasured molecular motifs provide complementary transfer questions, but structural novelty alone does not establish usefulness for overall Row accuracy. Very long intervals already have measured anchors in several families; their magnitude alone should not dominate attention.",
+    "particularly_informative_candidates": "Examples for scientific consideration, not a batch:\n\u2022 a98f3e4664fd05c0f82c: m8, 1/1, 157.3 mg, DCM 300 uL; predicted 4.73/10.64 mL. Intermediate loading between measured low and high loads showing earlier onset and later completion at higher load.\n\u2022 4b8ba288d549f6cfc94b: m92, 10/1, 115.5 mg, EA 200 uL; predicted 10.66/22.79. Intermediate loading between measured records with nearly constant onset and a 3.48 mL completion difference.\n\u2022 08155ffdcb0d27576050: m80, 50/1, 105.5 mg, PE 200 uL; predicted 6.34/8.21. Controls loading relative to measured 1/1 at 105.5 mg, directly examining the unusual completion response.\n\u2022 49932dbd3d16bb64f71a and c9a9fab963b85f141aa6: m73, 104.91 mg, DCM 300 uL, at 2/1 and 5/1; predicted 10.68/14.42 and 6.92/17.84. Near-matched intermediate conditions address the onset anomaly anchored by measured 1/1 and 50/1 records.\n\u2022 0b247863fd6e8aaf44d8 and 9a32b65bc21fdc5f7286: m173 at 2/1, approximately 124.8 mg, with DCM 2000 versus 1500 uL; both predict approximately 7.88/70.57. A plug-volume comparison, with only a 0.05 mg numerical mass difference, within an unusually broad measured acid series.\n\u2022 00a89de0e6cc7377a84b and e626b5b8083ea1fd02f2: m92 at 1/1 and 57.75 mg, EA versus PE loading, both 200 uL; predicted 3.02/17.15 versus 3.05/16.91. Isolates recorded loading-solvent identity; dissolution remains untested.\n\u2022 5830dbb35947aa6f58f0: unmeasured m29, 50/1, 48.75 mg, DCM 300 uL; predicted 3.34/33.77. Tests a striking onset prediction for a sterically substituted aromatic ketone. Measured m33 at 50/1 and 99.7 mg gives 8.49/38.59; candidate cb42a00d7b000827217c, acetophenone m42 at 51.5 mg with PE loading, predicts 24.99/40.13. These analogue comparisons have loading or loading-solvent differences.\n\u2022 2feb7d8e0a3566ddf97f: unmeasured m160, 2/1, 100 mg, DCM 400 uL; predicted 12.67/34.39. Close para/meta comparison with measured m161 at the same recorded conditions and mass, 11.61/31.58 (53a1acff30433cff819f).\n\u2022 9e3ce3497298084abd83: unmeasured m146, 10/1, 108.3 mg, DCM 300 uL; predicted 9.66/26.44. Tests transfer to a methylquinoline topology; measured basic aromatic anchors have different structures and conditions.\n\u2022 a2ecf2b2f28094d70368: unmeasured m91, 5/1, 141.2 mg, DCM 300 uL; predicted 2.72/20.17. Acetylenic diester with low structural similarity and surprising early onset, offering a transfer question against measured malonate and beta-ketoester chemistry.",
+    "warnings": "V2 minus V1 is elution interval width, not predictive uncertainty. Broad intervals can be informative regardless of chromatographic desirability. Check q10/q50/q90 ordering before interpreting quantile widths; positive widths do not guarantee ordered quantiles. Only observed-table IDs are measured evidence. Candidate IDs remain prediction-only even when their physical conditions match measured records. Agreement with these initial measurements is an in-sample comparison, not validation or test accuracy. m202's supplied SMILES contains a formal positive charge on phosphorus without a counterion; the intended identity should be confirmed before assigning a neutral phosphorus-compound prior. No candidate's eventual retraining benefit is established by chemical surprise alone."
+  },
+  "ml_memo": {
+    "type": "memo",
+    "role": "ml_scientist",
+    "packet_sha256": "56fddd88fdacb1ef9c1d0d2d7f177c62a6919e974eccf6ab2b0a1290f754704a",
+    "state_summary": "Seed 6101, free_llm32_dual_expert_v1, round 0: 333 initial measured records, declared legal pool of 2997 candidates, no pending experiments. Memory contains no previous acquisition hypotheses, plan or feedback to revise. Across the supplied catalog, the main concerns are weak predicted loading sensitivity, invalid quantile ordering, and extensive input redundancy. Measured contrasts support investigating loading-by-molecule and loading-by-eluent interactions; missing chemical families offer complementary information. Candidate values below are predictions only. Comparisons at measured inputs diagnose current training fit, not prospective accuracy.",
+    "important_observations": "MEASURED EVIDENCE: For m92 at PE/EA 10/1 with EA loading solvent, 200 ul, observed e2f15590b7142490599b at V=50 ul gives V1/V2=10.542/21.033 ml; 50e113fcc37184809670 at V=150 ul gives 10.479/24.513 ml. V2 increases 3.479 ml while V1 barely changes. For m101 at 1/1 with DCM 200 ul, observed 902f3082ba7241022d82 at approximately 50 mg gives 5.408/11.475 ml; da10b7eb5f74593251cb at approximately 150 mg gives 5.392/14.350 ml. V2 increases 2.875 ml. Effects can also move endpoints in opposite directions: m8 at 1/1, DCM 300 ul, changes from 5.317/9.450 ml at V=50 ul (fd0fd67502640304b8fb) to 4.217/13.042 ml at V=150 ul (6c4ddf5ad1cf067b81ee). For m44 at 20/1, observed 4d75c120ba1c4f0dae89 and 18d688363c7fa3da0609 give 11.883/17.521 and 9.846/20.917 ml at V=50 and 150 ul. INFERENCE: A loading-insensitive response or common additive correction to both endpoints is inadequate for these measured contrasts; the physical explanation remains unresolved.",
+    "important_model_behaviors": "MODEL DIAGNOSTICS: At the two measured m92 inputs, candidates 0389a6366b3a51fad8b5 and ad0ace61c29817c678c2 predict V2=22.789 and 22.796 ml, a change of only 0.007 ml. At the measured m101 inputs, db7eff29fb2c3ba5bcd3 and a37e31ac2c128f596cf6 predict 12.399 and 12.411 ml, a change of 0.012 ml. For both pairs, measured low-loading V2 lies below predicted q10 and measured high-loading V2 exceeds predicted q90. Many other candidate families show similarly tiny responses to threefold loading changes. Quantile ordering is also defective: d86448c8f5aaa8ebcf7f has V1 q10/q50/q90=15.899/16.005/14.169 ml and width=-1.730 ml; ce39d1762993bbbafaca has V1 q90 below q50; unseen m146 candidate 04a2e8ad27ca641a3a12 has V2 width=0.219 ml but q10 exceeds q50. m177 candidate ce14dd2481560a984aea predicts V1=0 despite positive q10. The point estimate and q50 coincide in supplied rows and should not be treated as independent evidence.",
+    "possible_model_blind_spots": "INFERENCES: Loading effects may be absorbed into residual variation because the predictor barely responds to loading. Some loading-solvent and injection-volume alternatives also receive nearly identical predictions, but isolated measured evidence for those effects is limited. Density often tracks molecule identity, while loading amount equals density times V; confounding and dependent inputs can obscure the actual causal feature. Chemical novelty is not captured reliably by width: unseen m146 has maximum similarity 0.259 and a narrow crossed V2 interval, whereas unseen m180 has similarity 0.909. These represent different extrapolation problems despite sharing molecule_novelty=1. Missing sulfoxide, phosphorus, lactone and nitrogen-heterocycle support can expose representation weaknesses that high-width familiar molecules will not resolve.",
+    "possible_learning_bottlenecks": "Check condition-feature use, numeric scaling, categorical encoding, clipping and output transformations before expecting additional labels alone to fix the observed loading mismatch. ML PRIOR: Molecule-by-condition interactions, or modeling band center and width, could help represent opposite endpoint shifts; improvement is not established. Quantile-order repair restores valid ordering but does not establish calibration. If retraining diagnostics are available, use only these initial observed labels for grouped out-of-fold residual and interval checks, retaining exact-input replicate groups together. Separate loading, ratio and chemical-family behavior. Acquisition should combine opportunities to learn a shared response defect with scaffold transfer and Row representativeness; avoid allowing extreme predicted volumes or large widths alone to dominate.",
+    "coverage_or_redundancy_concerns": "The catalog contains many distinct IDs with identical molecule, full conditions and predictions. Examples are 368ea7ae793fdfdcf602 and d686d29dfac970468ac6 for m115, and a2ecf2b2f28094d70368 and 26c1e0e617e6dbe06ef7 for m91. Group acquisition redundancy by molecule plus the complete condition tuple. Different loading amounts remain scientifically distinct even when current predictions nearly coincide. condition_novelty is coarse: an unobserved loading amount at a familiar ratio can receive 1 without indicating a distant condition. max_similarity_to_pending provides no discrimination with no pending records. Several candidates overlap measured inputs; their value depends on an explicit repeatability question. Preserve eligible Row multiplicity when assessing representativeness, while discounting duplicate information. Conventional close analogues and distant functional groups both matter; uniform chemical coverage is not automatically aligned with the Row objective.",
+    "candidate_scientific_questions": "Which loading effects depend on eluent ratio, and do they predominantly widen the elution band? Are narrow intervals on unseen nitrogen heterocycles hiding systematic graph extrapolation error? Does m177's zero V1 at 10/1 reflect an output-boundary defect or an unusual intermediate response? Can a controlled loading-solvent contrast reveal a condition effect that predictions currently suppress? Does another exact-input measurement clarify repeatability sufficiently to change model interpretation? These questions guide diagnostic value without defining a final batch.",
+    "particularly_informative_candidates": "Advisory examples from the legal pool, with predicted V1/V2 in ml:\n1. a2ecf2b2f28094d70368: unseen m91, dimethyl acetylenedicarboxylate, 5/1, V=100 ul, DCM 300 ul; predicts 2.724/20.167, widths 6.426/4.190. Similarity 0.333 and LogP=-0.66 make this a distinct chemical coverage test. d603d4af5fd62fa8b85e at 2/1 predicts 1.218/12.689 and could test the ratio response. Exact duplicate IDs add no new support.\n2. b99eb5b0204fb5f49372 and f73fd2f4c55177304721: unseen m29, trimethylacetophenone, at 10/1 and 50/1, V=100 ul, DCM 300 ul; predict 6.049/14.823 and 3.342/33.779. Tests falling predicted V1 alongside increasing V2 against nearby measured acetophenone chemistry.\n3. 04a2e8ad27ca641a3a12: unseen m146 at 5/1, V=50 ul, DCM 300 ul; predicts 9.823/27.355. Low structural similarity and crossed, narrow V2 quantiles make it informative despite a small numerical width. 33ffc69a253a89f15995, unseen m216 at 5/1, V=100 ul, PE 300 ul, predicts 11.078/27.424 and offers related missing nitrogen-heterocycle support. These are not a controlled pair.\n4. b060fa3ae84f80e773d2: unseen m199 sulfoxide at 2/1, V=100 ul, DCM 400 ul; predicts 4.338/12.449. d834329bf2be8835bae6: unseen m202 phosphorus compound at 2/1, V=100 ul, DCM 300 ul; predicts 4.337/10.909. Both test uncommon atom environments without extreme predicted retention. Verify that m202's supplied formal-charge representation matches the intended compound before interpreting a discrepancy.\n5. 73a35f890e678b320073 and 8fb7f07df563e78786b2: unseen m180 cyclic ketone and m181 lactone, both at 5/1, V=100 ul, DCM 300 ul; predict 6.040/16.507 and 8.760/19.371. Distinguishes close-analogue transfer for m180, similarity 0.909, from a larger scaffold change for m181, similarity 0.344. Observed m179 reference ac975c791f030093081f at these conditions measures 5.775/14.775.\n6. 2feb7d8e0a3566ddf97f: unseen m160 para-aminobenzonitrile at 2/1, V=100 ul, DCM 400 ul; predicts 12.666/34.391. Observed meta isomer m161 at identical conditions, 53a1acff30433cff819f, measures 11.608/31.575. A controlled positional-isomer comparison tests effects absent from shared bulk descriptors.\n7. 6b8e53d2d8c8a90a7216: unseen m82 ethyl acetoacetate at 10/1, V=100 ul, DCM 200 ul; predicts 11.918/29.627 with widths 4.520/3.771. Tests transfer near measured methyl acetoacetate and related ester chemistry.\n8. 9bbd36c8b484b5609808: m92 at 50/1, V=150 ul, EA 200 ul; predicts 23.040/52.443. Observed V=50 ul counterpart 1844eab177de5d01fab6 measures 22.571/52.438. Extends the loading question to a long-retention ratio; a large loading effect is not assumed.\n9. 2f95389e141635b0e27c: m101 at 2/1, approximately 50 mg, DCM 200 ul; predicts 4.698/12.631. Observed approximately 150 mg counterpart e48a024ed5f697067195 measures 4.929/12.825. Together with the measured 1/1 loading contrast, this tests ratio-dependent loading effects using a relatively narrow interval.\n10. ce14dd2481560a984aea: m177 at 10/1, V=100 ul, DCM 1000 ul; predicts 0.000/31.743. Observed 5/1 record 08812206a257481691c4 and 20/1 record 5e276c1730fc0a9deba7 have V1 near 5 ml. The new intermediate ratio can test the output-boundary anomaly, with loading differences acknowledged.\n11. 0b247863fd6e8aaf44d8: m173 at 2/1, density 1.248, V=100 ul, DCM 2000 ul; predicts 7.876/70.574. Matches the loading setup of observed acid records at 1/1 and 5/1, allowing a new ratio to clarify their unusual V2 response.",
+    "warnings": "No candidate prediction is a measured outcome, and no held-out accuracy, calibrated coverage or retraining gain is established. The empty round-0 memory provides no historical premeasurement residuals. Exact-input variability is measured: m89 records 1cee9fb4b0731101f3a6 and 3aed7873d2fd1cf48684 differ by 1.308 ml in V2; m88 records 425074f6cad1ac0c1bc8 and 5c9d8ece8d174d7a0e5f differ by 1.950 ml. This may reflect measurement variation or omitted factors, not a demonstrated irreducible noise floor. A universal monotonicity hypothesis is weakened by observed m173 V2 decreasing from 108.892 ml at 1/1 to 60.917 ml at 5/1. Strict endpoint ordering also requires definition-aware review: observed m195 record a917c928912c74862968 has nearly coincident V1/V2=31.983/31.908 ml. Extreme width near measured support, such as m173 candidate 65fcce0299e031dedeb8, does not automatically imply high information value. These examples are scientific advice, not a batch or quotas."
+  },
+  "selected_plan": {
+    "type": "selection",
+    "packet_sha256": "cc8300b12e4ab85168fd5c38a4c5a4e4772b8980fcf16660b130450df73198ee",
+    "expert_synthesis": {
+      "chemistry_takeaways": [
+        "Measured loading contrasts can move onset earlier while delaying completion. Solvent strength, adsorption, dissolution and injection conditions offer competing explanations requiring controlled comparisons.",
+        "Unusual solvent responses already occur in measured records. Local response curves and reproducibility checks are needed before interpreting their mechanisms."
+      ],
+      "ml_takeaways": [
+        "Nearly invariant loading predictions miss substantial differences between initial measured inputs. Additional labels should identify endpoint-specific and eluent-dependent responses.",
+        "Crossed quantiles undermine uncertainty ranking. Exact-input duplicates provide replication, while small reported widths do not establish reliable transfer to unseen molecules."
+      ],
+      "agreements": [
+        "Prioritize interpretable contrasts, distinguish predictions from measurements, and discount redundant physical inputs.",
+        "Combine condition-response learning with selected missing molecular environments relevant to the supplied Row pool."
+      ],
+      "disagreements": [
+        "There is no substantive factual conflict between the memos. Chemistry emphasizes unusual solvent behavior and molecular accessibility; ML emphasizes feature sensitivity and structural support.",
+        "The planner gives m92 a connected loading-by-eluent program, retains one deliberate loading-response repeat, and adds secondary-alcohol and ether checks beyond the advisers' highlighted candidates."
+      ],
+      "planner_resolution": "The batch targets identifiable response differences rather than acquisition-score magnitude. Matched comparisons address the loading defect, small response curves examine competing explanations, and selected unseen graphs extend transferable chemistry. Quantile defects motivate scrutiny but are not treated as calibrated uncertainty."
+    },
+    "batch_strategy": "Retain the same 32 experiments across 20 molecules, including 11 molecules absent from the observed table. There are 31 previously unmeasured molecule-condition tuples and one deliberate repeat of a measured m44 input. The connected m92 program tests loading at three eluent ratios plus loading-solvent identity. Other selections complete economical contrasts around measured anchors or establish response curves for unseen chemistry. Distinct IDs encoding the same physical tuple are otherwise represented once.",
+    "choices": [
+      {
+        "id": "a98f3e4664fd05c0f82c",
+        "reason": "m8 at 1/1 and 157.3 mg interpolates the measured loading contrast and matches the loading of its measured 5/1 anchor.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": "H_load"
+      },
+      {
+        "id": "c8176b3eea7a5d8802dc",
+        "reason": "m8 at 5/1 and 78.65 mg completes a two-load, two-eluent comparison with existing measurements and the selected 1/1 midpoint.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": "H_load"
+      },
+      {
+        "id": "4b8ba288d549f6cfc94b",
+        "reason": "m92 at 10/1 and 115.5 mg tests interpolation between measured loads whose V2 differs by 3.48 mL despite almost unchanged predicted completion.",
+        "knowledge_basis": [
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": "H_load"
+      },
+      {
+        "id": "9bbd36c8b484b5609808",
+        "reason": "m92 at 50/1 and 173.25 mg supplies the high-load counterpart to the measured 57.75 mg record, testing whether the loading effect persists at weak eluent.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": "H_load"
+      },
+      {
+        "id": "4451265787d29526a93a",
+        "reason": "m92 at 1/1 and 173.25 mg pairs with the selected low-load EA injection, extending the loading-by-eluent comparison into stronger mobile phase.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": "H_load"
+      },
+      {
+        "id": "2f95389e141635b0e27c",
+        "reason": "m101 at 2/1 and approximately 50 mg pairs with its measured 150 mg counterpart; the measured 1/1 loading contrast provides a second ratio for comparison.",
+        "knowledge_basis": [
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": "H_load"
+      },
+      {
+        "id": "61d5633c7221b3040a5f",
+        "reason": "Deliberately repeat m44 at 20/1 and 153.9 mg. Its initial high-load result has earlier V1 and later V2 than the low-load result, making reproducibility informative.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": "H_load"
+      },
+      {
+        "id": "b99eb5b0204fb5f49372",
+        "reason": "Establish a 10/1 baseline at 97.5 mg for unseen, sterically crowded m29; the paired 50/1 experiment isolates its solvent response.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": null
+      },
+      {
+        "id": "f73fd2f4c55177304721",
+        "reason": "At the same m29 loading, the model predicts V1 falling from about 6.05 to 3.34 mL while V2 rises strongly. Test this transfer behavior in crowded aromatic ketones.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": null
+      },
+      {
+        "id": "d603d4af5fd62fa8b85e",
+        "reason": "Unseen acetylenic diester m91 at 2/1 tests its predicted very early onset and supplies the stronger-eluent member of a matched response pair.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": null
+      },
+      {
+        "id": "a2ecf2b2f28094d70368",
+        "reason": "m91 at 5/1, with the same mass and injection setup, distinguishes its solvent dependence from the measured malonate and beta-ketoester families.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": null
+      },
+      {
+        "id": "b6229f0445560a4a54ed",
+        "reason": "Measure unseen methylquinoline m146 at 1/1 and 54.15 mg to establish a baseline for its matched 5/1 response.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": "H_nitrogen"
+      },
+      {
+        "id": "04a2e8ad27ca641a3a12",
+        "reason": "m146 at 5/1 tests transfer to a poorly supported nitrogen topology. Its narrow, crossed V2 quantiles provide no assurance of accuracy.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": "H_nitrogen"
+      },
+      {
+        "id": "d1e71a8278523e7a10e3",
+        "reason": "Measure unseen quinoline m216 at 1/1 and 54.65 mg, establishing the baseline for a within-molecule solvent contrast.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": "H_nitrogen"
+      },
+      {
+        "id": "1ae3618ec277b0463686",
+        "reason": "m216 at 5/1 completes its fixed-loading response pair. Comparison with m146 is contextual because their loading solvents differ.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": "H_nitrogen"
+      },
+      {
+        "id": "2feb7d8e0a3566ddf97f",
+        "reason": "Para-aminobenzonitrile m160 at 2/1, 100 mg and DCM 400 uL directly matches the measured meta-isomer protocol, testing positional effects beyond shared bulk descriptors.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": "H_nitrogen"
+      },
+      {
+        "id": "8fb7f07df563e78786b2",
+        "reason": "Introduce lactone m181 at 5/1 using the same injection volume and solvent plug as the selected cyclic ketone and measured m179 reference; density-derived masses differ.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": null
+      },
+      {
+        "id": "73a35f890e678b320073",
+        "reason": "m180 at 5/1 tests close cyclic-ketone transfer from measured m179, providing a comparison with the larger functional-group change to m181.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": null
+      },
+      {
+        "id": "b060fa3ae84f80e773d2",
+        "reason": "The first sulfoxide m199 label, at 2/1 and 100 mg, adds an S=O adsorption environment absent from the initial measurements without relying on extreme predicted retention.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": null
+      },
+      {
+        "id": "6b8e53d2d8c8a90a7216",
+        "reason": "Unseen ethyl acetoacetate m82 at 10/1 extends a represented beta-ketoester family and anchors its selected solvent-response pair.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": null
+      },
+      {
+        "id": "ce539fc06bdda7c0ed0d",
+        "reason": "m82 at 2/1 holds mass and injection setup fixed relative to the selected 10/1 row, separating its eluent response from cross-molecule loading differences.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": null
+      },
+      {
+        "id": "0b247863fd6e8aaf44d8",
+        "reason": "m173 at 2/1 and DCM 2000 uL fills the ratio gap between measured 1/1 and 5/1 acid records with unusually different completion volumes.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": "H_ratio"
+      },
+      {
+        "id": "9a32b65bc21fdc5f7286",
+        "reason": "The paired m173 2/1 injection reduces DCM from 2000 to 1500 uL with only a 0.05 mg mass difference, testing a plug-volume effect suppressed by current predictions.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": "H_injection"
+      },
+      {
+        "id": "ce14dd2481560a984aea",
+        "reason": "m177 at 10/1 predicts zero onset between measured positive-onset neighboring ratios. Its 140.6 mg loading matches the measured 5/1 anchor.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": "H_onset"
+      },
+      {
+        "id": "49932dbd3d16bb64f71a",
+        "reason": "m73 at 2/1 and approximately 104.9 mg probes the transition from its measured late, narrow 1/1 interval toward its measured weak-eluent response.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": "H_ratio"
+      },
+      {
+        "id": "c9a9fab963b85f141aa6",
+        "reason": "m73 at 5/1 uses the same setup as the selected 2/1 row, helping distinguish a localized onset anomaly from a broader unusual solvent-response curve.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": "H_ratio"
+      },
+      {
+        "id": "08155ffdcb0d27576050",
+        "reason": "m80 at 50/1 and 105.5 mg matches the loading of its measured 1/1 record, removing the loading confound from the existing unusual completion comparison.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": "H_ratio"
+      },
+      {
+        "id": "87814eeffb35c15f3f89",
+        "reason": "m126 at 20/1 predicts completion before onset and crossed V1 quantiles. Its measured 5/1, 99.5 mg anchor makes this a targeted ether-response and endpoint-convention check.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning",
+          "observed_feedback"
+        ],
+        "hypothesis_id": null
+      },
+      {
+        "id": "00a89de0e6cc7377a84b",
+        "reason": "m92 at 1/1 and 57.75 mg with EA loading establishes both the low-load baseline for the selected EA high-load row and one side of the solvent-identity contrast.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": "H_injection"
+      },
+      {
+        "id": "e626b5b8083ea1fd02f2",
+        "reason": "The matching m92 experiment changes loading solvent from EA to PE at fixed mass, plug volume and mobile phase, testing injection strength or dissolution effects.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": "H_injection"
+      },
+      {
+        "id": "62d7ea74ab73fa6214b4",
+        "reason": "Introduce secondary alcohol m60 at 5/1 and 97 mg. Its hydroxyl group is separated from the phenyl ring, providing an accessibility contrast with selected benzylic m61.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": null
+      },
+      {
+        "id": "994a1f65509549a84ede",
+        "reason": "Benzylic secondary alcohol m61 at 5/1 and 101.2 mg shares the PE loading protocol with m60, extending alcohol coverage at approximately matched mass.",
+        "knowledge_basis": [
+          "chemistry",
+          "machine_learning"
+        ],
+        "hypothesis_id": null
+      }
+    ],
+    "hypotheses": [
+      {
+        "id": "H_load",
+        "content": "Loading responses are endpoint-specific and depend on molecule and eluent. Several measured families show stationary or earlier V1 together with later V2, while current predictions barely change with loading.",
+        "why_it_matters_for_model_learning": "A common shift of both endpoints or loading-insensitive fit cannot capture these contrasts; connected comparisons can teach conditional band widening.",
+        "next_discriminating_question": "Do m8's completed loading-by-eluent comparisons and m92's three-ratio program show consistent conditional slopes, and does the m44 repeat preserve its opposing endpoint shift?",
+        "basis": "mixed",
+        "confidence": "medium",
+        "status": "supported",
+        "supporting_observed_ids": [
+          "fd0fd67502640304b8fb",
+          "6c4ddf5ad1cf067b81ee",
+          "e2f15590b7142490599b",
+          "50e113fcc37184809670",
+          "902f3082ba7241022d82",
+          "da10b7eb5f74593251cb",
+          "4d75c120ba1c4f0dae89",
+          "18d688363c7fa3da0609"
+        ],
+        "contradicting_observed_ids": []
+      },
+      {
+        "id": "H_ratio",
+        "content": "The unusual measured solvent responses of m173 and m73 may represent systematic local behavior in the recorded endpoints. The corresponding m80 interpretation remains confounded by loading.",
+        "why_it_matters_for_model_learning": "Learning the Row distribution requires resolving these local curves rather than imposing a universal solvent-monotonicity correction.",
+        "next_discriminating_question": "What do intermediate m73 and m173 ratios show, and does m80 retain its unusual completion response when loading is held constant?",
+        "basis": "mixed",
+        "confidence": "low",
+        "status": "unresolved",
+        "supporting_observed_ids": [
+          "f90a5a5a54509c085ebd",
+          "1e775e7d8dcbf48fd6f8",
+          "2cf789c87f7c6325c020",
+          "e6dcf9d6f65fa598a38e",
+          "55dfd30fde788076a355",
+          "f7d57d8bb988f7016502"
+        ],
+        "contradicting_observed_ids": []
+      },
+      {
+        "id": "H_onset",
+        "content": "The predicted zero onset for m177 at 10/1 may be a local model-response defect rather than a real collapse of retention between positive-onset neighboring conditions.",
+        "why_it_matters_for_model_learning": "One intermediate label can discriminate an onset-head failure from a genuine unusual response while also informing V2 interpolation.",
+        "next_discriminating_question": "At 140.6 mg, is m177's 10/1 onset comparable to its measured 5/1 onset or substantially earlier?",
+        "basis": "mixed",
+        "confidence": "medium",
+        "status": "proposed",
+        "supporting_observed_ids": [
+          "08812206a257481691c4",
+          "5e276c1730fc0a9deba7"
+        ],
+        "contradicting_observed_ids": []
+      },
+      {
+        "id": "H_nitrogen",
+        "content": "Basic-nitrogen topology and accessibility may change silica retention and solvent response beyond what shared TPSA and acceptor counts convey. Transfer to the selected unseen nitrogen compounds is untested.",
+        "why_it_matters_for_model_learning": "Quinoline response pairs and a matched aminobenzonitrile positional-isomer comparison provide graph-specific supervision that uncertainty width alone may miss.",
+        "next_discriminating_question": "How do the two quinoline scaffolds respond from 1/1 to 5/1, and how does para-aminobenzonitrile compare with the measured meta isomer at 2/1?",
+        "basis": "mixed",
+        "confidence": "medium",
+        "status": "proposed",
+        "supporting_observed_ids": [
+          "53a1acff30433cff819f",
+          "ecd17c7ea435a1e33f6b",
+          "835b5f2641442576de42",
+          "65f4f125b5e1f8137bd9"
+        ],
+        "contradicting_observed_ids": []
+      },
+      {
+        "id": "H_injection",
+        "content": "Loading-solvent identity and plug volume may alter migration or dissolution at fixed nominal mass, even where current predictions are almost invariant. No isolated measured contrast presently establishes these effects.",
+        "why_it_matters_for_model_learning": "Controlled contrasts can reveal whether injection features carry useful endpoint information or whether apparent anomalies arise from omitted experimental factors.",
+        "next_discriminating_question": "Does EA versus PE loading change m92 at 1/1, and does a 500 uL DCM-plug change affect m173 at 2/1?",
+        "basis": "mixed",
+        "confidence": "low",
+        "status": "proposed",
+        "supporting_observed_ids": [],
+        "contradicting_observed_ids": []
+      }
+    ],
+    "batch_rationale": "The strongest measured signal is differential loading sensitivity, so the batch builds connected comparisons around that signal. Five m92 experiments resolve loading across eluent strengths and a separate injection-solvent contrast; m8 and m101 test transfer of the interaction, and one m44 repeat checks reproducibility. Remaining experiments address selected missing molecular environments and unusually shaped recorded response curves. Moderate-retention examples accompany long intervals, and duplicate catalog multiplicity does not consume the batch.",
+    "expected_learning_value": "Expected gains are better conditional V1/V2 loading and eluent dependence in common PE/EA regimes, plus improved transfer across nitrogen topology, crowded ketones, diester connectivity, beta-ketoesters, cyclic carbonyls, sulfoxides and secondary alcohols. Within-molecule pairs identify which endpoint moves and how strongly. The repeat and injection contrasts help distinguish reproducible responses from variation or omitted factors. Retraining benefit is unquantified; persistent feature insensitivity could limit how much additional supervision repairs the loading defect.",
+    "feedback_interpretation": "Round-0 memory contains no previous selected plan, acquisition hypotheses or outcomes, and no labels have been revealed since this plan was selected. Initial observed measurements support separate loading responses for V1 and V2: e2f15590b7142490599b and 50e113fcc37184809670 show m92 V2 rising from 21.03 to 24.51 mL while V1 barely changes. Predictions at those physical inputs change by about 0.007 mL in V2, a training-input fit diagnostic rather than held-out accuracy evidence. A universal later-completion-with-higher-loading rule is weakened by 5f8a81445707df0eaad0 and bef81d4dd93af26c12a9, where the higher-load m177 result finishes earlier. A universal earlier-completion-with-more-EA rule is contradicted by the recorded m173 comparison f90a5a5a54509c085ebd and 1e775e7d8dcbf48fd6f8. These findings favor conditional response learning. Identical recorded inputs in 425074f6cad1ac0c1bc8 and 5c9d8ece8d174d7a0e5f have different measured endpoints, establishing local variation without estimating a global noise floor. The nearly reversed interval in a917c928912c74862968 requires endpoint-convention awareness. Crossed candidate quantiles weaken uncertainty-based prioritization. V2 minus V1 is treated as elution interval width throughout, and selected candidate IDs remain prediction-only until measured."
+  },
+  "expert_synthesis": {
+    "chemistry_takeaways": [
+      "Measured loading contrasts can move onset earlier while delaying completion. Solvent strength, adsorption, dissolution and injection conditions offer competing explanations requiring controlled comparisons.",
+      "Unusual solvent responses already occur in measured records. Local response curves and reproducibility checks are needed before interpreting their mechanisms."
+    ],
+    "ml_takeaways": [
+      "Nearly invariant loading predictions miss substantial differences between initial measured inputs. Additional labels should identify endpoint-specific and eluent-dependent responses.",
+      "Crossed quantiles undermine uncertainty ranking. Exact-input duplicates provide replication, while small reported widths do not establish reliable transfer to unseen molecules."
+    ],
+    "agreements": [
+      "Prioritize interpretable contrasts, distinguish predictions from measurements, and discount redundant physical inputs.",
+      "Combine condition-response learning with selected missing molecular environments relevant to the supplied Row pool."
+    ],
+    "disagreements": [
+      "There is no substantive factual conflict between the memos. Chemistry emphasizes unusual solvent behavior and molecular accessibility; ML emphasizes feature sensitivity and structural support.",
+      "The planner gives m92 a connected loading-by-eluent program, retains one deliberate loading-response repeat, and adds secondary-alcohol and ether checks beyond the advisers' highlighted candidates."
+    ],
+    "planner_resolution": "The batch targets identifiable response differences rather than acquisition-score magnitude. Matched comparisons address the loading defect, small response curves examine competing explanations, and selected unseen graphs extend transferable chemistry. Quantile defects motivate scrutiny but are not treated as calibrated uncertainty."
+  },
+  "batch_strategy": "Retain the same 32 experiments across 20 molecules, including 11 molecules absent from the observed table. There are 31 previously unmeasured molecule-condition tuples and one deliberate repeat of a measured m44 input. The connected m92 program tests loading at three eluent ratios plus loading-solvent identity. Other selections complete economical contrasts around measured anchors or establish response curves for unseen chemistry. Distinct IDs encoding the same physical tuple are otherwise represented once.",
+  "expected_learning_value": "Expected gains are better conditional V1/V2 loading and eluent dependence in common PE/EA regimes, plus improved transfer across nitrogen topology, crowded ketones, diester connectivity, beta-ketoesters, cyclic carbonyls, sulfoxides and secondary alcohols. Within-molecule pairs identify which endpoint moves and how strongly. The repeat and injection contrasts help distinguish reproducible responses from variation or omitted factors. Retraining benefit is unquantified; persistent feature insensitivity could limit how much additional supervision repairs the loading defect."
+}

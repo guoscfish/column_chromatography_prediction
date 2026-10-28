@@ -1,0 +1,100 @@
+{
+  "status": "COMPLETE_VERIFIED",
+  "workers_launched": true,
+  "new_seeds": [
+    887,
+    2357,
+    12203
+  ],
+  "reused_seeds": [
+    157,
+    6101
+  ],
+  "target_labels": 1005,
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "xhigh",
+  "destination": "https://token4research.cn/v1/responses",
+  "payload": [
+    "candidate SMILES and experimental conditions",
+    "own observed experiment outcomes",
+    "own model predictions"
+  ],
+  "excluded": [
+    "validation truth",
+    "test truth",
+    "other trajectories"
+  ],
+  "local_preflight": "PASS",
+  "ready_seeds": [
+    887,
+    2357,
+    12203
+  ],
+  "provider_calls": 0,
+  "external_payload_authorized": true,
+  "authorization": "用户明确回复：沿用，开始跑",
+  "launch_time": "2026-10-23T01:08:14.335670+08:00",
+  "workers": [
+    {
+      "seed": 887,
+      "pid": 74959,
+      "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_llm_five_seeds_to1005_20261023/worker_seed_887.log"
+    },
+    {
+      "seed": 2357,
+      "pid": 74961,
+      "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_llm_five_seeds_to1005_20261023/worker_seed_2357.log"
+    },
+    {
+      "seed": 12203,
+      "pid": 74963,
+      "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_llm_five_seeds_to1005_20261023/worker_seed_12203.log"
+    }
+  ],
+  "resolved_approval_history": "User authorized runs, but reviewer requires explicit authorization for sending experiment catalogs and records to this destination.",
+  "approval_resolution": "Explicit user authorization received: 沿用，开始跑",
+  "training_concurrency": 3,
+  "LLM_request_concurrency": 3,
+  "seed12203_independent_credential": true,
+  "supervisors": [
+    {
+      "seed": 887,
+      "pid": 59787,
+      "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_llm_five_seeds_to1005_20261023/supervisor_seed_887_1792775749418280000.log"
+    },
+    {
+      "seed": 2357,
+      "pid": 59789,
+      "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_llm_five_seeds_to1005_20261023/supervisor_seed_2357_1792775749418280000.log"
+    },
+    {
+      "seed": 12203,
+      "pid": 59791,
+      "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_llm_five_seeds_to1005_20261023/supervisor_seed_12203_1792775749418280000.log"
+    }
+  ],
+  "active_entrypoint": "continue_20261024.py",
+  "heartbeat_automation_id": "free-llm-seed-1005",
+  "monitoring_interval_minutes": 5,
+  "latest_recovery": "2026-10-24T01:15:49.420576+08:00",
+  "cumulative_failures_preserved": {
+    "887": 13,
+    "2357": 13,
+    "12203": 13
+  },
+  "diagnostic_probe": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_llm_five_seeds_to1005_20261023/inference_probe_1792719145945169000.json",
+  "quota_blocked_seeds": [],
+  "running_seeds": [],
+  "completed_labels": {
+    "157": 1005,
+    "887": 1005,
+    "2357": 1005,
+    "6101": 1005,
+    "12203": 1005
+  },
+  "resume_session_id": "1792775749418280000",
+  "completed_at": "2026-10-24T05:18:27.971863+08:00",
+  "completion_receipt": "reports/free_llm_five_seeds_to1005_20261023/final_verification.json",
+  "result_summary": "reports/free_llm_five_seeds_to1005_20261023/figures/current_summary.json",
+  "monitoring_status": "PAUSED_AFTER_VERIFIED_COMPLETION"
+}

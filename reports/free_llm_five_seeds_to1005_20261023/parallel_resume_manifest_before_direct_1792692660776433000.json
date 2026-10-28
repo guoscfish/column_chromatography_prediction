@@ -1,0 +1,50 @@
+{
+  "time": "2026-10-23T01:14:08.305954+08:00",
+  "authorization": "User requested independent seed12203 credential, three parallel calls and fits, immediate monitored retries",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "xhigh",
+  "target_labels": 1005,
+  "training_concurrency": 3,
+  "LLM_request_concurrency": 3,
+  "frozen_runner_sha256": "ec8a8e8025018fb45e6bc435cc4c24b1fd91c64823ae7001f9718c00dade3587",
+  "adapter_sha256": "3d0dfe29f3babb46aaedbe2fc2220ad80ee8b206acd4d5859c8e9edcf1e05b0d",
+  "routes": {
+    "887": {
+      "http_status": 200,
+      "proxy": "http://127.0.0.1:3066",
+      "requested_model_listed": true
+    },
+    "2357": {
+      "http_status": 200,
+      "proxy": "http://127.0.0.1:3066",
+      "requested_model_listed": true
+    },
+    "12203": {
+      "http_status": 200,
+      "proxy": "http://127.0.0.1:3066",
+      "requested_model_listed": true
+    }
+  },
+  "credential_files": {
+    "887": "/Users/fish/.config/qgeognn-scientist/dual-expert-813.api-key",
+    "2357": "/Users/fish/.config/qgeognn-scientist/dual-expert-813-seed6101.api-key",
+    "12203": "/Users/fish/.config/qgeognn-scientist/free-12203-20261023.api-key"
+  },
+  "supervisors": [
+    {
+      "seed": 887,
+      "pid": 75552,
+      "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_llm_five_seeds_to1005_20261023/supervisor_seed_887.log"
+    },
+    {
+      "seed": 2357,
+      "pid": 75554,
+      "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_llm_five_seeds_to1005_20261023/supervisor_seed_2357.log"
+    },
+    {
+      "seed": 12203,
+      "pid": 75556,
+      "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_llm_five_seeds_to1005_20261023/supervisor_seed_12203.log"
+    }
+  ]
+}

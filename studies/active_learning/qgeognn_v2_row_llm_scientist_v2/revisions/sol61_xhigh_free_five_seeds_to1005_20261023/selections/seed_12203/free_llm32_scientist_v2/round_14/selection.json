@@ -1,0 +1,303 @@
+{
+  "type": "selection",
+  "packet_sha256": "fb68d3d8ad01df520df365b8783e9c570798fce6b6e6157cbbe6924453534aac",
+  "batch_strategy": "Freeze these 32 IDs and their exact supplied packet predictions before measurement. Use recent failures to select solvent-response gaps, matched loading contrasts, and structural boundaries where corrections may transfer incorrectly. Add several undercovered ester, aldehyde and nitrile condition curves. Reported predictions in reasons are rounded for readability; the packet values remain the frozen predictions.",
+  "choices": [
+    {
+      "id": "8f7bcdb92b0cd7acad94",
+      "reason": "m110 at 20/1,100 uL fills a matched-loading gap between 660a7ad5a1b46e40ee6b at 10/1, measured 9.60/15.48 mL, and ce39d1762993bbbafaca at 50/1, 22.94/36.12. The prediction is 15.46/26.22. This locates retention growth after the earlier weak-eluent failure without extending that correction uniformly to other ether graphs.",
+      "hypothesis_id": "H_ETHER"
+    },
+    {
+      "id": "7ad7f454a7b16a9ff211",
+      "reason": "m116 at 10/1,150 uL, predicted 9.37/17.37, precedes the same-loading 20/1 measurement 5fd49a50595624496938, 15.81/28.81. That result was substantially overpredicted at acquisition, while the recent 5/1,100-uL result 38ac413d67aacb0d9060 was close. This label constrains the transition's stronger side and its loading dependence.",
+      "hypothesis_id": "H_ETHER"
+    },
+    {
+      "id": "19e5d078bc0eb8a91e1e",
+      "reason": "m8 at 50/1,50 uL extends the same-loading 20/1 anchor 6a4be1a58bc5ec9ed008, measured 6.04/13.79. The prediction is 6.25/17.36. Bromobenzofuran tests whether the early-onset boundary established for cyclic ether m6 also applies to a fused aromatic oxygen environment; it need not inherit the methoxy-aromatic correction.",
+      "hypothesis_id": "H_ETHER"
+    },
+    {
+      "id": "b0a156972380db9bb945",
+      "reason": "m127 at 10/1,150 uL, predicted 7.42/27.56, precedes ebdeaba52880c7eade16 at 20/1, 5.08/31.97, and c82167c626a1495ef750 at 50/1, 1.01/23.71. Recent 15d6bc57a87392fbeb98 also showed a loading-associated onset contrast at 20/1. This tests where the recorded onset decline begins and whether completion follows a different curve.",
+      "hypothesis_id": "H_LOAD"
+    },
+    {
+      "id": "dc9e3983cd4f98689fa7",
+      "reason": "m195 at 10/1,150 uL is predicted at 5.67/19.75. Measured 10/1 rows bd9a1f4f201144d577d7 and 04220e1eb53e9a22175c at 50 and 100 uL have ordinary onsets, whereas a917c928912c74862968 at 20/1,150 uL has a near-zero recorded interval around 32 mL. This neighboring condition bounds that unusual row without assigning it a physical cause.",
+      "hypothesis_id": "H_LOAD"
+    },
+    {
+      "id": "8294d63723a29bc21a6b",
+      "reason": "m207 at 2/1,100 uL completes a three-loading comparison. The prediction is 10.83/18.48; measured 6be742f06dddb42eb929 at 50 uL is 13.07/17.63 and 6cc257b0facade227e36 at 150 uL is 9.36/19.50. This tests the opposing onset/completion loading associations at 2/1 against the measured decreases in both endpoints at 10/1.",
+      "hypothesis_id": "H_LOAD"
+    },
+    {
+      "id": "cb42a00d7b000827217c",
+      "reason": "m42 at 50/1,50 uL is predicted at 17.46/26.26, only modestly later than the new same-loading 20/1 result 840c35e5a30f05a5784c, 16.80/23.57. The parent acetophenone label discriminates a plateau from continued retention growth and anchors transfer to the substituted acetophenones selected alongside it.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "485f8bcfb08d6eaf3463",
+      "reason": "m32 at 50/1,50 uL, predicted 7.56/15.76, tests whether the short interval recently measured at 150 uL in 8af7ab6d0c4dde52bba2 persists at lower loading. Its same-loading 20/1 anchor 7522f965f25a50c9a3bc is 9.84/20.71. This distinguishes a scaffold response from a loading-specific or isolated decrease in completion volume.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "17beb55af7159f9079dc",
+      "reason": "m41 at 20/1,100 uL is predicted at 16.28/31.24. It extends the same-loading 5/1 anchor a68f480c04f4dafbdb6d, 5.38/12.49, toward the retained 50/1,150-uL result 0a198329beafc8de5ed0, 15.27/37.05. This localizes the meta-methyl ketone transition while retaining the loading difference in the later comparison.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "a15744dbeb99bc224e40",
+      "reason": "m40 at 20/1,150 uL supplies a matched-loading intermediate between 1a382a7d3a13ed7fb28f at 10/1, measured 12.87/24.12, and 4e93e36ab850bab3d594 at 50/1, 37.14/67.02. The predicted 31.29/47.50 implies substantial growth already by 20/1. This tests the transition location for a fused-ring aryl ketone.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "53774efff44f690d6f30",
+      "reason": "m25 at 10/1,100 uL, predicted 13.95/24.32, creates a fixed-loading comparison with the newly measured 50/1 row 3fc05dc2025715e68174, 42.22/88.03. The 10/1,50-uL anchor 61e2b18d9ec61505948c is 14.73/24.55. This bounds where the large new beta-ketoester correction belongs and provides a direct loading contrast at 10/1.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "cdc8c1db00222994a1aa",
+      "reason": "m53 at 50/1,100 uL, predicted 17.26/39.62, extends the same-loading 5/1 observation 2e181a70e997f2b6d728, 7.58/16.55. This undercovered conjugated aliphatic aldehyde tests whether the model's predicted weak-eluent growth transfers beyond aromatic carbonyls. Its high CW distance supports a coverage gap, without establishing an error.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "cf5c7a2e1940e3c09dd5",
+      "reason": "m183 at 50/1,100 uL is predicted at 21.88/39.57. Measured e2364c2febf76c017308 at 10/1,50 uL is 13.15/22.33. This remote-phenyl aldehyde complements m53 and measured linker-containing aldehyde m59 in 87996db5ddb7565fe66f, testing graph-dependent retention growth with the loading difference explicit.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "07f6d8c342b66a49bb4e",
+      "reason": "m102 at 20/1,100 uL begins a fixed-loading 20/1\u201350/1 pair, predicted here at 8.16/17.74. Its measured same-loading pure-EA anchor 6269d4154d62e1f5d91b is 4.13/7.73. The pair fills a large solvent-response gap for methyl chlorobenzoate and tests transfer from the more extensively sampled ethyl and iodinated aryl esters.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "ede97e1f4b6e7fe9a7eb",
+      "reason": "m102 at 50/1,100 uL completes the selected fixed-loading pair, with prediction 15.31/33.55. Joint labels can distinguish gradual completion growth from a later onset transition. The nearby ethyl chlorobenzoate observations c16aef24cbedd5b1b875 and ab49ee9538cdb7f47f70 provide measured family references, with their different conditions preserved.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "471287eecf7b94603e9e",
+      "reason": "m103 at 50/1,50 uL, predicted 10.37/27.29, tests whether its early-onset 20/1 regime extends into weaker eluent. Measured c98657e16e93ef4ede6b and b7e9adfdbe7f57bf526f at 100 and 150 uL have onsets near 5 mL. This gives a structural boundary for the selected chlorobenzoate curve without assuming a common halogen correction.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "374b71ac526fe1051993",
+      "reason": "m20 at 10/1,100 uL, predicted 18.03/32.00, extends the same-loading 5/1 measurement c86b03e1b275528444a6, 12.76/21.52. This tests the solvent-response slope of an aliphatic ether-acrylate environment and provides a measured counterpart for interpreting the selected phenoxyethyl acrylate condition.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "c11d5c3acbc28dddd0cf",
+      "reason": "m21 at 5/1,100 uL is predicted at 7.23/11.55, earlier than measured ether-acrylate m20 in c86b03e1b275528444a6. Its weak-eluent 50/1,50-uL reference b4351e5f05f6d477a6c0 is 35.42/47.97. This label tests the stronger side of its response and whether phenoxy attachment changes transfer from aliphatic ether-containing carbonyls.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "bd3f212c1910e0de6b6e",
+      "reason": "m208 at 5/1,100 uL fills the matched-loading gap between 836ccf54f6d913ff8c83 at 1/1, measured 4.86/9.48, and 457b3def1714039eadb3 at 10/1, 13.91/26.97. The prediction is 8.58/18.87. This locates the transition after the previous predicted decline was contradicted by measurement.",
+      "hypothesis_id": "H_PHENOL"
+    },
+    {
+      "id": "1b4be0410f927930d56e",
+      "reason": "m209 at 20/1,50 uL is predicted at 15.45/50.83, implying little onset change but much later completion than same-loading 10/1 row fe7d7af2c919facfe5f5, 15.54/27.73. Comparison with measured 20/1,150-uL row 29b39881584c4fec1c58 tests whether that endpoint-specific response persists across loading.",
+      "hypothesis_id": "H_PHENOL"
+    },
+    {
+      "id": "68a01853008546de06a1",
+      "reason": "m58 at 50/1,100 uL extends same-loading 20/1 observation c023e9fab656fe2ce6a6, 12.32/22.79, toward a predicted 20.04/34.46. This tests whether the comparatively early ortho-isopropylphenol regime persists at weak eluent. Steric shielding of the OH is a possible explanation to test, not an established cause.",
+      "hypothesis_id": "H_PHENOL"
+    },
+    {
+      "id": "6c28e50241ca84637c9f",
+      "reason": "m185 at 50/1,50 uL, predicted 18.14/30.16, extends same-loading 20/1 anchor d2b2a221080a75b4729f, 13.50/22.31. This tests whether the fluorinated aldehyde continues shifting onset, contrasting with early-onset weak-eluent halogenated aldehydes such as m192 in 253f25857da206693a36.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "c4b2566e6fe1d00b20ea",
+      "reason": "m172 at 10/1,100 uL begins a fixed-loading response pair for a benzyl cyclopropyl ketone, predicted here at 7.33/19.21. The same-loading 1/1 anchor 6cb56f71f524d68d7e3f is 5.63/9.37. This tests transfer to a carbonyl separated from its aromatic ring, a structural distinction that bulk carbonyl descriptors cannot resolve.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "419f6eb4080dcb9d293b",
+      "reason": "m172 at 50/1,100 uL completes the selected pair, with prediction 18.64/45.03. The model anticipates a retained regime despite the early 1/1 anchor 6cb56f71f524d68d7e3f. Joint labels can distinguish genuine solvent-response growth from an overtransferred ketone correction; the maximal CW distance is supporting coverage evidence.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "75c96505f7b6b907aadf",
+      "reason": "m19 at pure EA,50 uL is predicted at 8.13/17.95. Measured 97297c71a28a2ccbdeeb at 1/1,150 uL and 304fb0fdb486ae4b7a07 at 2/1,100 uL establish stronger retention at weaker eluents. This supplies a missing strong-eluent baseline for a nonaromatic tertiary amine, while retaining loading differences in those comparisons.",
+      "hypothesis_id": "H_BASE"
+    },
+    {
+      "id": "5ff3e81c102706da6a30",
+      "reason": "m144 at 50/1,100 uL, predicted 16.36/31.78, extends same-loading 10/1 observation 53d14fe6b27f5c325b09, 5.79/13.79. Recent m130 and m163 weak-eluent outcomes occupy very different regimes. This ortho-methyl nitrile tests which correction transfers to another single-nitrile aromatic environment.",
+      "hypothesis_id": "H_NITRILE"
+    },
+    {
+      "id": "e12edd0198c0d750ecd5",
+      "reason": "m161 at 2/1,50 uL is predicted at 11.62/31.06. It precedes same-loading 5/1 result a60552f4d1a5ced4641f, 34.93/86.44, and can be compared with 2/1,150-uL row 0ced19fd8372ed93361c, 10.94/31.43. This tests whether loading-associated onset differences emerge before the retained aminonitrile regime.",
+      "hypothesis_id": "H_BASE"
+    },
+    {
+      "id": "1cee9fb4b0731101f3a6",
+      "reason": "m89 at 5/1,50 uL starts a fixed-loading 5/1\u201310/1 pair, predicted here at 8.82/16.55. Measured 18186b5d6cc190fc07a3 at 150 uL is comparatively early, unlike the meta and para aminoesters at 5/1. This tests whether the ortho ethyl-aminoester boundary persists at lower loading.",
+      "hypothesis_id": "H_AMINO"
+    },
+    {
+      "id": "57163774ada660438e36",
+      "reason": "m89 at 10/1,50 uL completes the selected pair, predicted at 15.69/29.14. The measured 20/1,150-uL reference b6b8449bda1ec4f0697f is 19.79/36.33. The pair identifies when retention develops and enables comparison with methyl anthranilate without attributing differences solely to amino position or ester substitution.",
+      "hypothesis_id": "H_AMINO"
+    },
+    {
+      "id": "3cd6baf11210b3dcfb43",
+      "reason": "m104 at 10/1,100 uL, predicted 8.86/19.72, fills a matched-loading gap between recent 5/1 result 645cb06b9e2a33b6044b, 5.20/13.90, and 20/1 row 10f14f6ee69ba06bbe68, 10.73/20.78. Together with the earlier 50/1 result 302e458c5ed2285ca328, it constrains the recorded nonmonotonic response.",
+      "hypothesis_id": "H_AMINO"
+    },
+    {
+      "id": "316b7260106904f99ae8",
+      "reason": "m191 at 5/1,150 uL is predicted at 8.28/31.36. Same-loading 2/1 row 53becf1a41d72abcc45a is 7.08/23.74, while 10/1,100-uL row bae9d67e095423d8edd2 is 27.27/61.62. This tests whether completion expands before onset shifts for a dialdehyde and localizes a consequential response gap.",
+      "hypothesis_id": "H_CARB"
+    },
+    {
+      "id": "9ed7c1fb1c2cc499bbf9",
+      "reason": "m203 at 20/1,50 uL is predicted at 32.02/35.28, transferring the narrow recorded interval of 20/1,150-uL row 66747ae127e03516ffda, 31.00/34.93. The earlier same-molecule 10/1 result 04ea307c7b7f3321cc20 is 12.97/22.33 at 150 uL. This tests whether the narrow late-onset regime persists across loading or is localized to one row.",
+      "hypothesis_id": "H_LOAD"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H_ETHER",
+      "content": "Weak-eluent onset growth differs substantially across ether graphs. The measured m6 and m213 responses do not share the large onset growth of m110 and m116. Transition placement within the retained methoxy-aromatic curves and transfer to fused aromatic oxygen environments remain unresolved.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "ce39d1762993bbbafaca",
+        "f38088920e6edd19a62f",
+        "38ac413d67aacb0d9060",
+        "5fd49a50595624496938",
+        "0007449b058916cdcad1",
+        "96ab5d3f34bf46cba8c0"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Local ratio gaps can place corrections accurately, while a fused oxygen boundary tests whether retraining transfers those corrections to inappropriate graphs.",
+      "next_discriminating_question": "Does m110 develop its predicted intermediate retention at 20/1, where does m116's higher-loading curve rise, and does bromobenzofuran retain early onset at 50/1?"
+    },
+    {
+      "id": "H_LOAD",
+      "content": "Recorded loading associations depend on scaffold, solvent ratio and endpoint. m207's 10/1 endpoints decrease with loading, while its measured 2/1 completion moves in the opposite direction. Unusual m127, m195 and m203 intervals require neighboring conditions before being interpreted as broadly transferable loading effects.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "6be742f06dddb42eb929",
+        "6cc257b0facade227e36",
+        "a19f98569910dc7fd6c4",
+        "ff3b6b1069b7d66ad021",
+        "8f5452ff0e84ab2e2057",
+        "15d6bc57a87392fbeb98",
+        "c82167c626a1495ef750",
+        "a917c928912c74862968",
+        "66747ae127e03516ffda"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched loading contrasts and neighboring ratios can constrain endpoint-specific interactions and limit propagation of isolated unusual recordings.",
+      "next_discriminating_question": "Does m207's intermediate loading complete its endpoint-specific 2/1 trend, and do the m127, m195 and m203 patterns persist at the selected neighboring conditions?"
+    },
+    {
+      "id": "H_CARB",
+      "content": "A common carbonyl retention correction is unsupported. Recent acetophenone, substituted ketone, aldehyde and beta-ketoester labels show distinct onset and completion responses under their recorded conditions. Some apparent plateaus or decreases may be local to loading or individual rows rather than general scaffold behavior.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "840c35e5a30f05a5784c",
+        "8af7ab6d0c4dde52bba2",
+        "0a198329beafc8de5ed0",
+        "c096c324a71974b6ab37",
+        "3fc05dc2025715e68174",
+        "f4a4fc4d6e4dea59b061",
+        "87996db5ddb7565fe66f",
+        "f46da3c00b2199795e4c"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Parent references, local response gaps and graph-boundary experiments teach separate V1 and V2 relationships across a substantial catalog family.",
+      "next_discriminating_question": "Which selected carbonyl environments retain early onset, which develop later onset, and are the predicted transition locations and completion plateaus supported by new labels?"
+    },
+    {
+      "id": "H_PHENOL",
+      "content": "The new matched-loading m208 measurements reject its previously predicted early plateau or decline through 10/1. Phenol retention growth begins before the already measured late regime, but onset and completion need not grow together or transfer uniformly across substituents.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "836ccf54f6d913ff8c83",
+        "457b3def1714039eadb3",
+        "534afc6bd39a8f7923d8",
+        "fe7d7af2c919facfe5f5",
+        "29b39881584c4fec1c58",
+        "c023e9fab656fe2ce6a6"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The m208 gap localizes a demonstrated failure, while m209 and m58 test endpoint and structural boundaries of the resulting correction.",
+      "next_discriminating_question": "How much m208 retention is present at 5/1, does m209 completion grow independently of onset at lower loading, and does the earlier m58 regime persist through 50/1?"
+    },
+    {
+      "id": "H_BASE",
+      "content": "Nitrogen-containing compounds have environment-dependent solvent-response transitions, with measurable retention already present in stronger eluents. Ring nitrogen, aniline-type amino groups and a nonaromatic tertiary amine should not receive an identical baseline or transition correction. Specific ionization states and causal silica-binding mechanisms are unmeasured.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "d1e71a8278523e7a10e3",
+        "777a87b895af5e6bc380",
+        "64f99f02d02cc2d0791d",
+        "97297c71a28a2ccbdeeb",
+        "304fb0fdb486ae4b7a07",
+        "0ced19fd8372ed93361c",
+        "a60552f4d1a5ced4641f"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "A missing tertiary-amine strong-eluent baseline and an aminonitrile loading contrast test transfer beyond the newly anchored quinoline and nicotinate curves.",
+      "next_discriminating_question": "What baseline does m19 show in pure EA, and are m161's loading differences already present at 2/1 or primarily associated with its retained 5/1 regime?"
+    },
+    {
+      "id": "H_AMINO",
+      "content": "The comparatively early ortho-aminoester boundary remains supported by the new m104 5/1 label and the stronger-side meta/para labels. Ester substitution, loading and positional environment remain intertwined; intramolecular hydrogen bonding and steric effects are plausible explanations rather than measured causes.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "645cb06b9e2a33b6044b",
+        "224279593b17fa2cbc8c",
+        "c620129610cfe348f024",
+        "c70b471334f9747d6f98",
+        "d2921349ba8d9cef15a4",
+        "18186b5d6cc190fc07a3",
+        "10f14f6ee69ba06bbe68",
+        "302e458c5ed2285ca328"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The low-loading ethyl ortho pair and matched methyl ortho gap test graph distinctions that shared bulk descriptors cannot resolve.",
+      "next_discriminating_question": "Does ethyl anthranilate remain comparatively early at 5/1 under lower loading, when does it develop retention, and how does that curve compare with methyl anthranilate at its recorded loading?"
+    },
+    {
+      "id": "H_NITRILE",
+      "content": "A general late-retention correction for single-nitrile aromatics is unsupported. Recent m130 and m163 labels show distinct weak-eluent regimes, and measured m162 provides another retained reference. The current intermediate prediction for ortho-methyl nitrile m144 remains untested.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "b51a88b6dc4049704214",
+        "741f33ecf2e66f9958fd",
+        "dc73b789d0821495353b",
+        "53d14fe6b27f5c325b09"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Another substituted nitrile can establish where the recent early and retained corrections transfer, with recorded solvent and loading differences retained.",
+      "next_discriminating_question": "At 50/1, does m144 follow its predicted intermediate regime, remain closer to m130, or develop retention comparable to the halogenated nitriles?"
+    }
+  ],
+  "feedback_interpretation": "The latest ether results weaken any broad transfer of the m110/m116 weak-eluent correction: m6 at 50/1,150 uL measured 5.22/15.08 and m213 measured 6.77/20.42, with acquisition-time overpredictions of 15.22/20.93 and 12.79/16.15 mL respectively. m116 at 20/1 was also overpredicted, whereas its 5/1 point was close. I therefore select transition gaps and one fused oxygen boundary, while treating the newly corrected ether endpoints as useful anchors. Carbonyl feedback again split by graph: parent m42 onset was underpredicted, m32 at 50/1 had much earlier completion than predicted, m41 and m34 remained retained, and m25 reached 42.22/88.03 with acquisition-time errors of -17.29/-39.83. These outcomes motivate parent/substituent comparisons and a stronger-side m25 anchor rather than a common carbonyl adjustment. The m208 matched pair decisively contradicts its predicted decline through 10/1, making 5/1 a direct transition-localization experiment. m207's new 150-uL results support decreasing onset with loading at both sampled ratios, but completion behaves differently at 2/1 and 10/1. The new m127 onset/completion contrast likewise supports endpoint-specific supervision. Strong-side nitrogen and aminoester measurements generally support environment-dependent transitions; the m104 5/1 result reinforces its early ortho regime. Finally, m130's large overprediction and m163's underprediction at 50/1 favor another nitrile structural boundary. All error statements refer to acquisition-time feedback, not current-model residuals. Near-zero or inverted recorded intervals remain ambiguous evidence and are not assigned a chromatographic mechanism.",
+  "batch_rationale": "The batch combines repair of demonstrated failure regions with experiments that test whether those repairs generalize. Matched-loading ratio gaps for m110, m116, m40, m104 and m208 localize response changes. The m102, m172 and m89 pairs provide interpretable local curves in undercovered condition ranges. Loading contrasts for m207, m32 and m203, together with neighboring m127 and m195 conditions, distinguish endpoint-specific associations from isolated unusual rows. Carbonyl selections include a common parent, positional analogues, flexible and conjugated aldehydes, a dialdehyde transition, and the newly failed beta-ketoester region. Ether-acrylate, aryl-ester and nitrile conditions test structural boundaries where a correction learned elsewhere may be inappropriate. Several selections may confirm ordinary or early-onset behavior; those labels can be valuable constraints against overgeneralized retained-regime predictions. All 32 choices are distinct supplied candidates with new recorded condition tuples, and no exact duplicate tuples are selected together. Quantile widths and CW distances serve only as supporting evidence of model behavior or coverage; they are not treated as calibrated epistemic uncertainty. The intended benefit is more accurate structure-condition relationships for both endpoints across the Row-distribution after retraining, whose eventual improvement remains unmeasured."
+}

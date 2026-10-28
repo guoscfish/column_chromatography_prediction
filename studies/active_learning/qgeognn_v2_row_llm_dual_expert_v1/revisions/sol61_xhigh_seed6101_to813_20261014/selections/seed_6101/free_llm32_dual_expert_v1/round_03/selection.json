@@ -1,0 +1,471 @@
+{
+  "type": "selection",
+  "packet_sha256": "e421292c47f48beaea54cf9606bb28a9e6357faf39d7fe477c850b0d03525b61",
+  "expert_synthesis": {
+    "chemistry_takeaways": [
+      "Nitrogen and hydroxyl responses are strongly connectivity dependent. Recent m90, m211, m36, m99 and m120 results reject functional-group-count corrections.",
+      "m194 completion broadening depends on loading or condition interaction, while m173 has a localized late-completion tail near 1/1.",
+      "The m124 result weakens a shared naphthyl onset-delay rule; ordinary carbonyl, ester, haloarene and ether graphs remain useful for Row coverage."
+    ],
+    "ml_takeaways": [
+      "The previous steep nitrogen continuation overfit acquired quinoline and pyridyl-ketone behavior and overpredicted m90 and m211.",
+      "Measured m82 interpolation was useful, but transfer to m94 remained biased. Endpoint and interval errors require separate graph-by-condition supervision.",
+      "Loading sensitivity remains weak in predictions despite measured effects. Quantile widths and candidate novelty are unreliable stand-alone value measures."
+    ],
+    "agreements": [
+      "Use controlled response curves where they resolve a specific competing explanation.",
+      "Preserve molecule-specific and endpoint-specific behavior rather than applying universal solvent or polarity corrections.",
+      "Include ordinary Row chemistry alongside difficult polar graphs to improve distribution-wide transfer."
+    ],
+    "disagreements": [
+      "Chemistry favors several focused continuation curves for hydroxyl, m194 and m173 behavior; ML assigns lower value to broad repetition after recent transfer failures.",
+      "ML favors a stricter shift toward ordinary coverage, while chemistry gives one additional naphthyl follow-up to locate the weakened shape defect."
+    ],
+    "planner_resolution": "Use targeted pairs for the revised nitrogen, hydroxyl, beta-ketoester and m194 hypotheses, one m173 continuation and one m124 weak-eluent test. Allocate the remaining choices to ordinary carbonyl, ester, haloarene and heteroatom coverage. Do not spend this batch on another m80 grid, m73 repeat or broad m92 loading program."
+  },
+  "batch_strategy": "Select 32 distinct candidate IDs across 21 molecules. The batch contains targeted response groups for nitrogen, hydroxyl, beta-ketoester, m194, m173 and m124, plus ordinary Row coverage anchors. Candidate predictions remain prospective.",
+  "choices": [
+    {
+      "id": "855832bd4005ac7abdc6",
+      "reason": "Probe m90 at 5/1 and lower loading after its 1/1 and 5/1 late-retention overpredictions, separating ratio response from dose effects.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_N_topology"
+    },
+    {
+      "id": "0776336aa1c106b4d645",
+      "reason": "Measure m211 at 0/1 after its measured 2/1, 5/1 and 10/1 moderate responses, testing the strong-eluent boundary and loading transfer.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_N_topology"
+    },
+    {
+      "id": "434e465cfa7e0034f233",
+      "reason": "Continue m211 to 20/1 at its matched setup to test whether the model still extrapolates a steep response beyond the measured moderate curve.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_N_topology"
+    },
+    {
+      "id": "0f06772820e6693753e3",
+      "reason": "Test m211 at 50/1 and higher loading to distinguish a persistent solvent-slope error from the overcorrection observed at 5/1 and 10/1.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_N_topology"
+    },
+    {
+      "id": "9d592f50cbcfa48d9ab6",
+      "reason": "Add a strong-eluent m36 anchor at higher loading to separate its delayed amino-ketone retention from ring-nitrogen response failures.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_N_topology"
+    },
+    {
+      "id": "d8fcb58722028dbf9c02",
+      "reason": "Measure m99 at 10/1 and lower loading to determine whether its observed late rise is graph-wide or conditional on loading.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_OH_graph"
+    },
+    {
+      "id": "a5f9f0327623c4752e2e",
+      "reason": "Establish an m120 anchor at 2/1 with higher loading after the large measured m120 rise toward weaker eluent.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_OH_graph"
+    },
+    {
+      "id": "e4fd83fb3852eb354a66",
+      "reason": "Pair m120 at 5/1 with a higher loading to test whether its benzylic hydroxyl and ether response remains strongly shifted.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_OH_graph"
+    },
+    {
+      "id": "c9ad01493d938f825117",
+      "reason": "Test m60 at 2/1 and lower loading against its measured alcohol anchors, separating loading from connectivity effects.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_OH_graph"
+    },
+    {
+      "id": "ffffcd6f3b9393846ab4",
+      "reason": "Extend m94 to 20/1 at higher loading after its measured 5/1 and 10/1 anchors and the related m82 response.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_beta_transfer"
+    },
+    {
+      "id": "ffc70e28db22d1cc1f3f",
+      "reason": "Use a lower-loading m94 experiment at the same weak ratio to test endpoint-specific loading sensitivity that current predictions suppress.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_beta_transfer"
+    },
+    {
+      "id": "d7895c522a1a46a1175c",
+      "reason": "Sample m194 at 0/1 and higher loading to determine whether its completion broadening returns outside the measured lower-loading range.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_m194_loading"
+    },
+    {
+      "id": "e8185e062559aff5c99e",
+      "reason": "Measure m194 at 1/1 and higher loading, directly testing whether the broad high-loading completion interval reappears.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_m194_loading"
+    },
+    {
+      "id": "2bb48a2862bf80c30a36",
+      "reason": "Complete the high-loading m194 curve at 2/1 to separate ratio-dependent completion behavior from the observed loading collapse.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_m194_loading"
+    },
+    {
+      "id": "b37608f8c4a8ee4b8696",
+      "reason": "Extend m173 to 10/1 with the smaller plug to test whether its late completion is confined to the 1/1 region.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_m173_local_tail"
+    },
+    {
+      "id": "aa3ac48b626bc54d5dc6",
+      "reason": "Probe m124 at 50/1 after its rejected 20/1 delayed-onset prediction, locating whether the error is local or persists at weaker eluent.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_naphthyl_local"
+    },
+    {
+      "id": "c4b06a6e718225cb9cf8",
+      "reason": "Add an m68 aromatic-ketone anchor at 5/1 for ordinary Row graph coverage and endpoint calibration.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": "H_ordinary_coverage"
+    },
+    {
+      "id": "40b5d3fdb9b234c05be5",
+      "reason": "Add m3 at 5/1 for ordinary diaryl aromatic coverage in a less polar graph.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": "H_ordinary_coverage"
+    },
+    {
+      "id": "7c44f4c46906e8f36cd1",
+      "reason": "Complete the m3 weak-eluent contrast to measure a solvent slope in a hydrophobic aromatic graph.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": "H_ordinary_coverage"
+    },
+    {
+      "id": "efb7617d566fb19d9217",
+      "reason": "Add a methyl-substituted aromatic nitrile anchor at 1/1, extending ordinary polar coverage.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": "H_ordinary_coverage"
+    },
+    {
+      "id": "1d7f8e6f28d47d54d5f3",
+      "reason": "Measure a compact dimethyliodoarene at 1/1, adding nonpolar haloarene coverage under a common protocol.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": "H_ordinary_coverage"
+    },
+    {
+      "id": "3e69cf586f3eb0f0fa8c",
+      "reason": "Add a nitrobenzaldehyde graph at 5/1 to cover a polar aromatic aldehyde regime.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": "H_ordinary_coverage"
+    },
+    {
+      "id": "66dc3ddd818671ed42f2",
+      "reason": "Measure a fluoroaromatic ester at 2/1 to broaden ordinary ester calibration.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": "H_ordinary_coverage"
+    },
+    {
+      "id": "9ff75a89ec8d52e6f51c",
+      "reason": "Add an ordinary cyclic ketone at 10/1, providing carbonyl supervision outside the m63 graph.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning",
+        "observed_feedback"
+      ],
+      "hypothesis_id": "H_ordinary_coverage"
+    },
+    {
+      "id": "195ef0093f90d8fd51ad",
+      "reason": "Add a fused cyclic ketone at 2/1 to improve compact aromatic carbonyl coverage.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": "H_ordinary_coverage"
+    },
+    {
+      "id": "b76d12abc1975ad3ec45",
+      "reason": "Measure a straight-chain aromatic ketone at 10/1 for moderate-retention carbonyl calibration.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": "H_ordinary_coverage"
+    },
+    {
+      "id": "75f973363b6239ac22da",
+      "reason": "Add a haloaromatic nitrile at 5/1 to connect common halogen and nitrile chemistry.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": "H_ordinary_coverage"
+    },
+    {
+      "id": "660a7ad5a1b46e40ee6b",
+      "reason": "Add a methoxyaromatic ether at 10/1, extending oxygenated graph coverage without hydroxyl transfer.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": "H_ordinary_coverage"
+    },
+    {
+      "id": "a4c8259421a3aa5edeea",
+      "reason": "Add a chlorinated aliphatic carbonyl at 20/1, covering a less represented polar halide graph.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": "H_ordinary_coverage"
+    },
+    {
+      "id": "e3fcc2157b88a47ce0e4",
+      "reason": "Add an iodinated aromatic ether at 5/1 to broaden heavy-halogen heteroatom coverage.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": "H_ordinary_coverage"
+    },
+    {
+      "id": "2545388039f2e2901afb",
+      "reason": "Add an aromatic nitro-ketone at 0/1, supplying a short-retention polar anchor.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": "H_ordinary_coverage"
+    },
+    {
+      "id": "933e17d426dc7efc96b5",
+      "reason": "Add an aminoester-related ether graph at 0/1 to broaden ester and heteroatom supervision.",
+      "knowledge_basis": [
+        "chemistry",
+        "machine_learning"
+      ],
+      "hypothesis_id": "H_ordinary_coverage"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H_N_topology",
+      "content": "Nitrogen solvent response is topology specific. Quinoline and pyridyl-ketone supervision overcorrected m90 and m211, while m36 and m66 retain different endpoint errors.",
+      "why_it_matters_for_model_learning": "Graph-conditioned nitrogen supervision can reduce slope over-extrapolation and separate retention level from completion response.",
+      "next_discriminating_question": "At additional ratios and loadings, do m90 and m211 remain moderate, and does amino-ketone behavior remain distinct from ring-N carbonyl behavior?",
+      "basis": "mixed",
+      "confidence": "high",
+      "status": "supported",
+      "supporting_observed_ids": [
+        "4659b6752f23c0b85f08",
+        "49201b5817f204116f7f",
+        "07dbb8c9982caa472c1a",
+        "6f827d26c4f82a1bfa90",
+        "b51b5dbcd2a38b174973",
+        "292e0342682192a69fce",
+        "d119d77f545c029deace",
+        "762190c8d9f5b2d1a89a",
+        "183af335033005f96b97",
+        "e47aebe2660b9e1528de",
+        "70593725787c65a74951"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H_OH_graph",
+      "content": "Hydroxyl response depends on connectivity and condition. m99 and m120 rise strongly at weaker eluent, while m60 and m61 differ under matched alcohol protocols.",
+      "why_it_matters_for_model_learning": "Separate graph and condition supervision is needed to predict endpoint displacement and interval broadening in oxygenated molecules.",
+      "next_discriminating_question": "Does the late hydroxyl response persist at lower loading or transfer to related alcohol graphs?",
+      "basis": "mixed",
+      "confidence": "high",
+      "status": "supported",
+      "supporting_observed_ids": [
+        "36786ca0d1deaa0687ba",
+        "12ab195583f05b9aa177",
+        "c61c1a72306f2ee37df8",
+        "4ee22742c686bdbb1cb9",
+        "71abc36775b6cce56da7",
+        "f559a4634c60d81f5f15",
+        "62d7ea74ab73fa6214b4",
+        "994a1f65509549a84ede",
+        "b7b1a1bb666c8cc99bad",
+        "53c1be5b96937954b9fa"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H_beta_transfer",
+      "content": "m82 supports local beta-ketoester interpolation, but response transfer to m94 remains incomplete and endpoint specific.",
+      "why_it_matters_for_model_learning": "Matched m94 labels can teach whether retraining learns a family response or merely fits the acquired m82 curve.",
+      "next_discriminating_question": "At weak eluent, does m94 follow the acquired m82 response after accounting for loading, or retain a separate completion residual?",
+      "basis": "mixed",
+      "confidence": "medium",
+      "status": "supported",
+      "supporting_observed_ids": [
+        "ce539fc06bdda7c0ed0d",
+        "f50c45b31cf41304c109",
+        "6b8e53d2d8c8a90a7216",
+        "61090cfdcf019e0891a3",
+        "a1809a6c4c3ada20bcb0",
+        "668279c54bbf75e86496",
+        "e3a799d0fa90b649a157"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H_m194_loading",
+      "content": "m194 completion broadening is loading or ratio conditioned. The broad high-loading interval collapsed at lower loading.",
+      "why_it_matters_for_model_learning": "Endpoint-specific loading supervision can prevent transfer of a broad completion interval across doses.",
+      "next_discriminating_question": "Does broad completion return at higher loading across 0/1, 1/1 and 2/1, or is it confined to one recorded condition?",
+      "basis": "observed_data",
+      "confidence": "medium",
+      "status": "supported",
+      "supporting_observed_ids": [
+        "4a39c1f64d17e050e4a5",
+        "39815ababe97d7acc107",
+        "c0094343ab6bb16bc58b",
+        "2bd4f8787a951ef0ee04"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H_m173_local_tail",
+      "content": "m173 has a localized late-completion tail near 1/1 with possible ratio-by-plug interaction; stronger eluent reduces completion substantially.",
+      "why_it_matters_for_model_learning": "A targeted continuation can teach whether the unusual tail is local and prevent universal solvent monotonicity corrections.",
+      "next_discriminating_question": "Does the smaller-plug m173 completion fall at 10/1, or does a broader late-completion response persist?",
+      "basis": "mixed",
+      "confidence": "medium",
+      "status": "unresolved",
+      "supporting_observed_ids": [
+        "f90a5a5a54509c085ebd",
+        "65fcce0299e031dedeb8",
+        "0b247863fd6e8aaf44d8",
+        "9a32b65bc21fdc5f7286",
+        "1e775e7d8dcbf48fd6f8",
+        "87da8c37b16d810331a2"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H_naphthyl_local",
+      "content": "The predicted naphthyl onset delay and interval compression are graph local or model artifacts rather than a family-wide rule.",
+      "why_it_matters_for_model_learning": "A weak-eluent label can distinguish local m124 failure from a broader naphthyl response defect.",
+      "next_discriminating_question": "Does m124 recover or remain mispredicted at 50/1 after its rejected 20/1 delayed-onset prediction?",
+      "basis": "observed_data",
+      "confidence": "medium",
+      "status": "supported",
+      "supporting_observed_ids": [
+        "326a96bcee1f3f903cf9",
+        "df71c07fd931cc29213b",
+        "0f35c2146c21fa6ac372",
+        "b0cc544ceb575bae4069",
+        "b645df00945e594953a6"
+      ],
+      "contradicting_observed_ids": []
+    },
+    {
+      "id": "H_ordinary_coverage",
+      "content": "Ordinary aromatic carbonyl, ester, haloarene and heteroatom graphs need ratio anchors because nearby graphs show different endpoint slopes.",
+      "why_it_matters_for_model_learning": "These labels improve transfer across the broader Row distribution and prevent domination by recent polar failures.",
+      "next_discriminating_question": "Do ordinary graph anchors improve solvent-slope transfer across ketone, nitrile, haloarene and aldehyde families?",
+      "basis": "mixed",
+      "confidence": "medium",
+      "status": "proposed",
+      "supporting_observed_ids": [
+        "738d61dd88e0a9cf650d",
+        "06c1f0c9b81146ac92c4",
+        "20ef1039f09d571c5a09",
+        "b7680f0ae6c8ca4dfd3a",
+        "d7452aadf19fd7c0248e"
+      ],
+      "contradicting_observed_ids": []
+    }
+  ],
+  "batch_rationale": "The previous batch exposed a major revision: transferred steep nitrogen corrections failed for m90 and m211, while m36 and m120 were substantially later than predicted. The selected nitrogen experiments therefore test moderate continuation and topology separation rather than another blanket correction. The hydroxyl group receives paired and lower-loading tests because m99 and m120 both showed large late rises. m94 and m194 experiments target partial beta-ketoester transfer and loading-dependent completion. One m173 continuation and one m124 weak-eluent test resolve localized anomalies. The remaining choices provide ordinary Row coverage across aromatic ketone, nitrile, haloarene, fused ketone, ester, ether and aldehyde graphs.",
+  "expected_learning_value": "The batch should improve graph-conditioned V1 and V2 slopes, reduce over-extrapolation from sparse ratio anchors, and teach loading-dependent completion behavior. Ordinary coverage anchors should improve distribution-wide transfer in common Row chemistry. The strongest information comes from measured-anchor contrasts that distinguish endpoint shifts, interval broadening and graph-specific solvent response. Retraining improvement is expected qualitatively but is not quantified from this trajectory.",
+  "feedback_interpretation": "The prior nitrogen hypothesis is revised rather than retained in its steep-transfer form: m90 and m211 were overpredicted at their newly selected ratios, while m36 was underpredicted and m66 retained a completion error in pure EA. This rejects a universal nitrogen correction and motivates moderate m90/m211 continuation. The hydroxyl hypothesis is strengthened by m99's measured 10/1 rise, m120's large 2/1-to-5/1 increase and m61's 2/1 excess; lower-loading and related alcohol labels test whether those effects transfer. The beta-ketoester hypothesis is only partially supported: m82 interpolation was accurate, but m94 at 20/1 remained underpredicted. The m194 persistence hypothesis is revised toward loading-conditioned broadening because its high-loading interval disappeared at lower loading. m173 remains unresolved but localized because the late 1/1 tail coexists with lower completion at stronger eluent. The naphthyl shape hypothesis is weakened by m124's ordinary 20/1 measurement; one 50/1 label tests whether that failure is local. m80 and the original m73 anomaly are deprioritized after repeated rejection and poor reproducibility. Loading predictions remain nearly flat around measured m92 contrasts, so this batch uses focused loading tests rather than another broad loading grid. All conclusions use observed-table measurements only; candidate values remain unrevealed predictions."
+}

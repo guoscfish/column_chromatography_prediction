@@ -18,6 +18,12 @@ Target-compound holdout means no target-domain label for a held-out compound; it
 
 The mass-ratio result is `DESCRIPTIVE_PHYSICAL_BASELINE_ONLY`. R2 describes trend fit; RMSE/MAE and normalized RMSE remain necessary for absolute-error interpretation.
 
+## Source-to-target scatter display
+
+The [full-range scatter](plots/source_prediction_vs_target_truth.png) uses independent source-prediction and target-truth axis limits and shows all retained observations for the original row / seed 769539383 / budget 100 context. Reference lines stop at the observed source range, preventing extrapolation from stretching the axes. The [central-range zoom](plots/source_prediction_vs_target_truth_zoom.png) uses each axis's 90th percentile plus a 6% margin and labels the number of observations outside the displayed window. PNG, PDF and SVG exports are available in `plots/`.
+
+The scale-only and affine lines reproduce the original descriptive fits to held-out points; they are visualization guides, not the gradient-train calibration models used for the reported metrics. This display correction changes no predictions, splits, model coefficients or scientific results. Reproduce only these plots with `python scripts/studies/plot_cross_column_source_truth.py`; the per-panel display limits and point counts are recorded in `plots/source_prediction_vs_target_truth_plot_audit.csv`.
+
 ## AULC
 
 | column | protocol | method | mean | std | median | min | max |

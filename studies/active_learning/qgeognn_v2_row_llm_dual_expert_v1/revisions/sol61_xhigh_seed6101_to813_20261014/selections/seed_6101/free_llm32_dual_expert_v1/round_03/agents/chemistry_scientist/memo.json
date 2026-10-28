@@ -1,0 +1,99 @@
+{
+  "type": "memo",
+  "role": "chemistry_scientist",
+  "packet_sha256": "21ca94492df1e0b82955ea8de709c0c4ed89f9e7e29afaae7b7a0ea555a517bd",
+  "state_summary": "Round 3 contains 429 observed records, 2901 eligible candidates, no pending records, and no validation or test records. The latest feedback revises the nitrogen and hydroxyl hypotheses substantially. Large nitrogen corrections learned from quinoline and pyridyl ketone data failed to transfer to pyridyl ester m90 and phenylpyridine m211, whereas aminoacetophenone m36 was much later than predicted. Hydroxyl-plus-ester and hydroxyl-plus-ether responses remain strongly graph dependent. The objective is overall Row V1/V2 accuracy after retraining; adaptive residuals do not estimate that accuracy.",
+  "important_observations": [
+    {
+      "evidence_type": "observed_measured",
+      "observation": "Nitrogen transfer is now clearly topology specific. m90 measured 10.18/20.93 mL at 1/1 and 27.48/65.41 at 5/1, versus current predictions of 8.46/27.83 and 46.45/106.71. m211 measured 11.61/19.38 at 5/1 and 18.13/30.88 at 10/1, versus 20.42/34.37 and 36.26/60.31. These results reject the predicted steep pyridyl-ester and phenylpyridine responses. m66 in pure EA measured 5.57/21.09 versus 6.48/14.28 predicted, so even within pyridyl carbonyl chemistry the endpoint response is not a simple extension of the 2/1 and 5/1 late-retention records."
+    },
+    {
+      "evidence_type": "observed_measured",
+      "observation": "The amino-ketone environment behaves differently from the ring-N examples. m36 measured 11.68/21.33 at 1/1 and 23.42/39.43 at 2/1, while predictions were 6.25/17.24 and 7.43/22.48. This supports connectivity-specific nitrogen behavior, but it does not support a uniform nitrogen correction."
+    },
+    {
+      "evidence_type": "observed_measured",
+      "observation": "Hydroxyl response errors remain large and molecule dependent. m99 measured 38.99/58.03 at 10/1 after 19.91/32.37 at 5/1, while its 10/1 prediction was 18.40/29.34. Methoxybenzyl alcohol m120 measured 19.89/29.02 at 2/1 and 50.73/71.53 at 5/1, versus 11.63/21.60 and 18.63/38.05 predicted. m61 at 2/1 measured 12.34/21.99, above its prediction and distinct from m60 at 2/1 (10.43/16.98). Hydroxyl count alone is insufficient."
+    },
+    {
+      "evidence_type": "observed_measured",
+      "observation": "Beta-ketoester interpolation and molecular transfer separate. m82 at 5/1 was predicted accurately at 12.32/29.34, but related m94 at 20/1 measured 37.25/79.67 versus 29.19/65.10 predicted. The acquired m82 curve improves local interpolation without establishing transfer to every beta-ketoester graph."
+    },
+    {
+      "evidence_type": "observed_measured",
+      "observation": "The m194 broad completion interval did not persist at half loading. At 117.7 mg, m194 measured 4.35/36.18 at 1/1 and 8.20/26.57 at 5/1. At 58.85 mg it measured 4.26/10.34 at 1/1 and 5.93/14.73 at 2/1. This supports loading-dependent completion broadening or another loading-conditioned effect, while rejecting persistence of the high-loading interval under the tested lower loading."
+    },
+    {
+      "evidence_type": "observed_measured",
+      "observation": "m173 continues to show a localized ratio and plug dependence. At 1/1, the 1500 uL plug measured 6.04/78.37 versus 6.51/108.89 with 2000 uL; at 2/1 the corresponding completions were 46.22 and 45.06. The 1500 uL experiment at 5/1 measured 11.88/61.87, and pure EA measured 3.56/31.91. These records do not establish a causal plug mechanism, but they argue against a universal solvent monotonicity correction."
+    },
+    {
+      "evidence_type": "observed_measured",
+      "observation": "The naphthyl shape hypothesis is weakened further. m124 at 20/1 measured 6.31/13.08, rejecting its predicted 19.30/19.54 delayed-onset, compressed-interval response. m40 at 20/1 did rise to 20.33/37.51, but the predicted onset of 26.08 was too late while completion was close. Response shape therefore remains graph specific within the naphthyl family."
+    },
+    {
+      "evidence_type": "observed_measured",
+      "observation": "Ordinary Row chemistry remains useful for calibration. m176 measured 4.43/14.45 at 5/1 and 4.73/18.69 at 20/1, so its predicted weak-eluent onset increase was excessive. m63 measured 5.91/13.93 at 5/1 and 9.96/25.76 at 20/1, opposing the predicted earlier onset at 20/1. m121 was close at 10/1, and m21 was close at 2/1; at 5/1 its measured onset was later and completion earlier than predicted."
+    },
+    {
+      "evidence_type": "general_chemical_knowledge",
+      "observation": "In normal-phase silica chromatography, increasing EA generally strengthens elution. Basic or accessible nitrogen, hydroxyl, sulfoxide and carbonyl groups can increase silica interaction through hydrogen bonding or acid-base effects. Steric accessibility, conjugation, intramolecular hydrogen bonding, dissolution and loading-solvent effects can modify these trends. These are chemical priors, not findings about any particular unmeasured candidate."
+    }
+  ],
+  "candidate_scientific_questions": [
+    {
+      "question": "Does the moderate m211 response continue beyond the measured 10/1 point without the model's previous steep extrapolation?",
+      "candidate_ids": [
+        "434e465cfa7e0034f233"
+      ],
+      "basis": "This candidate retains the m211 loading and plug while extending to 20/1. Its value is a direct solvent-response test after the 5/1 and 10/1 overprediction failures."
+    },
+    {
+      "question": "Does the hydroxyl-chain extension m119 resemble the strongly retained m120 graph, or does the extra methylene change accessibility and solvent response?",
+      "candidate_ids": [
+        "25ffcaa2164643e082b9",
+        "a775926fce57b3bf9ec1"
+      ],
+      "basis": "These are prospective m119 predictions only. The conditions differ in loading, so they test a combined graph and loading question rather than a clean molecular-only contrast."
+    },
+    {
+      "question": "Does a fused aromatic alcohol such as m205 carry the large retention increase seen for m120, and how does its endpoint width respond to EA?",
+      "candidate_ids": [
+        "c973d4c257be9ef08216",
+        "7954bf73f74c7fbcecb2"
+      ],
+      "basis": "These candidates extend hydroxyl and fused-aromatic coverage. Their predicted values are untested and should be interpreted as questions, not evidence."
+    },
+    {
+      "question": "Is m194's completion broadening confined to the 1/1 region, or does it reappear at stronger eluent under higher loading?",
+      "candidate_ids": [
+        "d7895c522a1a46a1175",
+        "e8185e062559aff5c99e"
+      ],
+      "basis": "The candidates provide prospective 0/1 and 1/1 high-loading conditions around the measured low-loading and high-loading records. This directly probes endpoint-specific loading and ratio interaction."
+    },
+    {
+      "question": "After m124 rejected the predicted 20/1 onset delay, does the model remain wrong at a still weaker ratio or does the response recover?",
+      "candidate_ids": [
+        "aa3ac48b626bc54d5dc6"
+      ],
+      "basis": "This is a prospective m124 50/1 prediction and tests whether the rejected shape was a local 20/1 error or a broader weak-eluent extrapolation defect."
+    }
+  ],
+  "possible_model_blind_spots": [
+    "Graph similarity and shared HBA/HBD or TPSA descriptors appear to transfer large solvent corrections across incompatible nitrogen topologies. The m90 and m211 results show that retention level and solvent slope need separate graph-conditioned learning.",
+    "The model can underpredict both endpoints for hydroxylated graphs while overpredicting completion for other oxygenated graphs. A single polarity correction would mix m99, m120, m194 and m173 error structures.",
+    "Loading features remain weakly expressed in current predictions despite measured endpoint-specific effects, especially m194 completion broadening and earlier m92 condition contrasts. The packet does not identify whether the cause is feature scaling, condition encoding, graph-condition interaction capacity or record variation.",
+    "Sparse ratio coverage encourages implausible extrapolation and nonmonotone predictions. The measured m66, m99 and m173 curves show that a smooth universal solvent law is unsafe.",
+    "Candidate quantile ordering defects remain present, including crossed or negative apparent widths. Quantile width is therefore not calibrated uncertainty and should not be used as a stand-alone information-value signal.",
+    "Repeated catalog IDs can encode the same full physical input. Such multiplicity is relevant to Row representativeness but usually adds little new chemical information unless replication addresses a defined ambiguity."
+  ],
+  "warnings": [
+    "Observed-table records are measured evidence. Candidate records and all candidate endpoint values remain model predictions until measured.",
+    "V2 minus V1 is elution interval width, not uncertainty.",
+    "Recent signed errors are from an adaptively selected trajectory and do not estimate unbiased overall Row error or prove retraining improvement.",
+    "The m73 pair, m173 plug comparisons, m194 loading comparison and other unusual records should be preserved as conflicting or conditional evidence. None alone establishes a universal chromatographic mechanism.",
+    "No validation or test truth, other seeds, other trajectories or other methods were supplied."
+  ]
+}

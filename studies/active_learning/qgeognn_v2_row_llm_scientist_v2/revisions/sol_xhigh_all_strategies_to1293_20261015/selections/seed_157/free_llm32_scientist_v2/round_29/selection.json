@@ -1,0 +1,303 @@
+{
+  "type": "selection",
+  "packet_sha256": "90ff09c199db6ad073fc996a058af691a0770f9e36a0e2bbfd79899a3aed7034",
+  "batch_strategy": "Select connected experiments that distinguish loading interactions, misplaced solvent-response curvature, and variation among rows sharing a recorded protocol. Prioritize the new m81 and m115 completion discrepancies, then test remaining endpoint-specific features across carbonyls, aldehydes, bases, esters, alcohols and electron-poor aromatics. Use measured neighboring rows as anchors without imposing monotonicity or transferring isolated exceptional labels across an entire family.",
+  "choices": [
+    {
+      "id": "eb6c235e6ed90084bfc9",
+      "reason": "m81 at 10/1 and 111 mg fills the loading midpoint between ce11189a0e59d1798306, 6.65/17.39 mL, and 7d402b3fad455f06fe68, 6.70/9.74 mL. The current completion prediction is 14.63 mL. This distinguishes a loading transition from an isolated low-completion record.",
+      "hypothesis_id": "H39"
+    },
+    {
+      "id": "390d6dfe33afc329fb17",
+      "reason": "This distinct eligible m81 row shares the upper-loading 10/1 protocol of 7d402b3fad455f06fe68. Its 14.73 mL completion prediction lies between that measured 9.74 mL and the lower-loading 17.39 mL. A further label at this recorded tuple tests consistency before assigning the large decline a general loading interpretation.",
+      "hypothesis_id": "H39"
+    },
+    {
+      "id": "3233c0996a6126a9c036",
+      "reason": "m81 at 2/1 and 166.5 mg connects the stronger-solvent region to upper-loading 5/1 record 5879dc8ccb560446d54c, completing at 20.27 mL, and the surprising 10/1 record 7d402b3fad455f06fe68. It helps locate the decline instead of learning a loading-wide completion offset.",
+      "hypothesis_id": "H39"
+    },
+    {
+      "id": "c8eaca5c64e92991b284",
+      "reason": "m115 in pure EA at 162 mg completes the loading comparison with lower-loading 056a228c0de193b126cf and midpoint 368ea7ae793fdfdcf602, whose completions were 8.65 and 17.33 mL. The current 11.17 mL prediction tests whether the sharp lower-loading boundary response extends to upper loading.",
+      "hypothesis_id": "H41"
+    },
+    {
+      "id": "aa4c0f940c011630a345",
+      "reason": "m115 at 1/1 and 162 mg supplies the matched control for selected upper-loading pure EA. Lower and midpoint 1/1 records 4276fb99ccd1d4c70a06 and 352465f62eba993148ee completed at 16.70 and 18.04 mL. This separates solvent-boundary shape from loading effects.",
+      "hypothesis_id": "H41"
+    },
+    {
+      "id": "d686d29dfac970468ac6",
+      "reason": "This eligible m115 row shares the midpoint pure-EA protocol of 368ea7ae793fdfdcf602. Its current completion prediction, 11.07 mL, is well below the measured 17.33 mL anchor. Together with the new upper-loading pair, it tests whether recent correction has spread too broadly or recorded-protocol variability explains the contrast.",
+      "hypothesis_id": "H41"
+    },
+    {
+      "id": "b176d0d8203294517e53",
+      "reason": "m33 at 10/1 and 49.85 mg brackets new midpoint b08821181fbd4d81b247 with the selected upper loading. Measured lower-loading 5/1 and 20/1 records 9d3546df38b38ba16da5 and d13724f7a4b6c8bb3628 provide solvent anchors. This tests whether the midpoint completion increase is shared across loading.",
+      "hypothesis_id": "H38"
+    },
+    {
+      "id": "ba4d64425eed071718e4",
+      "reason": "m33 at 10/1 and 149.55 mg completes the loading comparison around b08821181fbd4d81b247, 5.47/19.32 mL. Existing upper-loading 20/1 and 50/1 records 75328dcee739068fdfba and c356230277dfc98406e0 show nonparallel endpoint changes. The label constrains where that loading interaction begins.",
+      "hypothesis_id": "H38"
+    },
+    {
+      "id": "e9a7d193dc3d83532c1f",
+      "reason": "Fluorinated beta-diketone m166 at 50/1 and 50 mg tests persistence of a measured loading contrast: at 10/1, ea9ef1bc8766196ca96d completed at 20.38 mL and upper-loading 20acd2ae49790ab82053 at 28.52 mL. Current 50/1 predictions are almost loading-insensitive despite that earlier difference.",
+      "hypothesis_id": "H39"
+    },
+    {
+      "id": "0b9a59526d7d4ce5f872",
+      "reason": "m166 at 50/1 and 150 mg supplies the matched loading control. Midpoint 50/1 record 483022b02f8329c323ac measured 5.24/29.89 mL, while midpoint 20/1 record 80de1b57c56257d2ecae completed at 28.43 mL. The pair tests whether the shallow weak-solvent completion response has a loading-dependent scale.",
+      "hypothesis_id": "H39"
+    },
+    {
+      "id": "bccdbbd73be98bf008c8",
+      "reason": "Ortho-methylbenzaldehyde m145 at 10/1 predicts onset at 9.14 mL, above same-loading measured 5/1 and 50/1 onsets near 6 mL in 5070bf9690131f519648 and abb2d31b1372dbd64398. With selected 20/1, this tests a bracketed onset maximum separately from completion growth.",
+      "hypothesis_id": "H42"
+    },
+    {
+      "id": "d626f5ddb709bc11257a",
+      "reason": "m145 at 20/1 predicts 9.28/19.70 mL and connects selected 10/1 to measured 50/1 record abb2d31b1372dbd64398, 6.23/22.35 mL. The two labels distinguish sustained intermediate onset elevation from misplaced curvature while retaining the measured weak-boundary endpoint.",
+      "hypothesis_id": "H42"
+    },
+    {
+      "id": "7c14324532b02f7a3ab9",
+      "reason": "Meta-methylbenzaldehyde m142 at 20/1 and 50.95 mg predicts 4.23/16.79 mL. Midpoint records c6d5f62b278d39ee2c4f at 10/1 and 654a4a40363a388cf9cb at 50/1 show substantial weak-region growth. Paired with lower-loading 50/1, this tests transfer of that shape across loading.",
+      "hypothesis_id": "H42"
+    },
+    {
+      "id": "85956151bfe869ac5ee6",
+      "reason": "m142 at 50/1 and 50.95 mg completes the selected weak-solvent segment and compares with midpoint 654a4a40363a388cf9cb, 12.45/28.52 mL. It determines whether onset and completion rise together at lower loading, providing a protocol-specific contrast to the selected m145 onset feature.",
+      "hypothesis_id": "H42"
+    },
+    {
+      "id": "d1aea374a88513fdb2ab",
+      "reason": "Bromo-CF3 benzaldehyde m187 at 5/1 and 83.85 mg predicts 6.75/14.25 mL, with onset above selected 20/1. The measured upper-loading 20/1 anchor 7d8d7bb22a7cbba9acf6 had early onset, 3.72 mL. This starts a matched lower-loading test of the predicted onset decline.",
+      "hypothesis_id": "H42"
+    },
+    {
+      "id": "87dd1aa770dd9b7e4695",
+      "reason": "m187 at 20/1 and 83.85 mg completes the selected 5/1-to-20/1 comparison. Its 4.66/16.49 mL prediction resembles upper-loading 7d8d7bb22a7cbba9acf6. This checks both solvent-dependent onset ordering and whether the early upper-loading response transfers to lower loading.",
+      "hypothesis_id": "H42"
+    },
+    {
+      "id": "64177ca0cbeb3fc11d57",
+      "reason": "Cyclohexyl acrylate m15 at 1/1 and 97.5 mg predicts completion at 9.42 mL, below selected 2/1 but above measured 5/1 completion of 7.75 mL in 183768832c247da26797. This provides the stronger-solvent side of a remaining predicted local maximum.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "b9c6bc8d6e3dae9c8177",
+      "reason": "m15 at 2/1 and 97.5 mg predicts 6.25/11.70 mL before measured 5/1 endpoints 5.16/7.75 mL in 183768832c247da26797. Paired with selected 1/1, it tests whether both endpoint maxima survive on an ester environment after several aromatic maxima failed measurement.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "cd3c75eca39365e943e4",
+      "reason": "Pentafluorobenzene m156 at 2/1 and 75.7 mg predicts completion at 6.73 mL, below midpoint 1/1 completion of 8.79 mL in bd2d2667de61e29eaea3 and lower-loading 5/1 completion of 11.01 mL in c11cd3254f56bcefba08. This tests a proposed compact minimum with the loading distinction kept explicit.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "4cacfd98f3f85dc0dc0e",
+      "reason": "m156 at 20/1 and 75.7 mg fills the same-loading gap between c11cd3254f56bcefba08 at 5/1 and 8fa8d7ec035c6a829dc4 at 50/1. Their completions increased from 11.01 to 23.25 mL while onset stayed near 7 mL. This teaches endpoint-specific growth on a donor-free graph.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "73771d4752cdcd04a023",
+      "reason": "m155 at 1/1 and 84.95 mg tests loading scope of a measured exception: midpoint records 98923a8da3524ce0e392 and e4165f66799cc8d96b23 showed completion falling from 13.72 to 7.57 mL between 1/1 and 2/1. It provides a positive comparison to predicted features that disappeared elsewhere.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "88d22d4f503314c0e664",
+      "reason": "m155 at 2/1 and 84.95 mg completes the matched 1/1-to-2/1 test and connects to lower-loading 5/1 record c4c961533c50b899078c, 6.08/8.10 mL. This distinguishes a loading-robust decrease from propagation of the midpoint feature into an unmeasured loading regime.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "fa59cd65f3b5f04bd6af",
+      "reason": "Dimethyl acetylenedicarboxylate m91 at 1/1 and 70.6 mg predicts 8.19/10.61 mL, with both endpoints above selected 2/1. Measured middle and upper 2/1 records d603d4af5fd62fa8b85e and 303a8a967047b5307933 provide context but do not validate the lower-loading feature.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "7bb758eca7db78231165",
+      "reason": "m91 at 2/1 and 70.6 mg supplies the direct control for selected 1/1. Its 6.33/8.91 mL prediction can be compared with measured 2/1 loading anchors d603d4af5fd62fa8b85e and 303a8a967047b5307933. The pair tests solvent curvature without conflating it with a loading contrast.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "d119d77f545c029deace",
+      "reason": "2-Phenylpyridine m211 at 10/1 and 54.3 mg connects lower-loading 5/1 record 292e0342682192a69fce to selected 20/1. Midpoint dd4829f39cdf781ffaf9 measured 16.20/31.50 mL. This tests whether onset loading sensitivity emerges as eluent weakens on this basic graph.",
+      "hypothesis_id": "H43"
+    },
+    {
+      "id": "434e465cfa7e0034f233",
+      "reason": "m211 at 20/1 and 54.3 mg extends the selected lower-loading curve and compares with midpoint bd2e9fee67bbba1155df, 26.42/48.74 mL. It tests the scope of loading corrections learned from m90 while distinguishing onset shifts from completion broadening.",
+      "hypothesis_id": "H43"
+    },
+    {
+      "id": "d5234e966aa231be05e5",
+      "reason": "Dibenzylamine m212 at 5/1 and 51.3 mg pairs with selected upper loading around midpoint 252c027cf5a42b92c953, 22.07/37.18 mL. Current predictions scarcely change with loading. This tests whether the onset sensitivity seen in some pyridyl rows transfers to a secondary amine.",
+      "hypothesis_id": "H43"
+    },
+    {
+      "id": "89d752b5a7f7c8d0b91e",
+      "reason": "m212 at 5/1 and 153.9 mg completes the loading-extreme comparison. Measured m211 5/1 records 292e0342682192a69fce and 1e77ce24daad192212f6 changed completion more than onset, unlike m90. This label helps define scaffold-specific endpoint sensitivity among basic molecules.",
+      "hypothesis_id": "H43"
+    },
+    {
+      "id": "e8985293d175e0f0f8dd",
+      "reason": "Ortho-nitrobenzaldehyde m198 at 5/1 and 50 mg begins a lower-loading 5/1-to-10/1 segment. Upper-loading 2/1 and 10/1 records 8eaf61cc544233320cf2 and e99da719af7e2c3e9a93 completed at 16.08 and 36.06 mL. It tests the intervening response instead of transferring the upper-loading curve unchanged.",
+      "hypothesis_id": "H42"
+    },
+    {
+      "id": "c6bd64a77e94e93e5018",
+      "reason": "m198 at 10/1 and 50 mg directly compares with upper-loading e99da719af7e2c3e9a93, 14.38/36.06 mL. With selected 5/1, it separates solvent growth from loading sensitivity on a nitro-carbonyl environment where the single-predictor completion quantile span is also broad.",
+      "hypothesis_id": "H42"
+    },
+    {
+      "id": "d550a2107daf4c532b6a",
+      "reason": "Tertiary cyclic alcohol m203 in pure EA at 150 mg predicts completion at 9.83 mL, above selected 1/1. Upper-loading 5/1 anchor eb151126b40eda411ab7 completed at 14.71 mL. This tests an uncovered strong-solvent boundary rather than extending the failed m147 compact-response interpretation.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "d9229993cd394b0710b4",
+      "reason": "m203 at 1/1 and 150 mg completes the boundary pair, predicting 3.57/8.59 mL. Together with selected pure EA and measured 5/1 record eb151126b40eda411ab7, it tests a completion minimum and anchors the strong-region end of the loading-sensitive alcohol curve.",
+      "hypothesis_id": "H3"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H3",
+      "content": "Local extrema remain useful questions for acquisition, but their survival depends on molecule, endpoint and loading. Latest measurements removed the m5 and m130 completion maxima and the large m48 pure-EA feature, while measured decreases remain on m155 and m190. A universal monotonic correction would therefore be inappropriate.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "e66696e912043d01d240",
+        "30ae74055d1ffabed86a",
+        "ef909b1f112d3493ba8a",
+        "adbaa4b00d492d64eed5",
+        "98923a8da3524ce0e392",
+        "e4165f66799cc8d96b23",
+        "88cccd3e55677c52f9b7",
+        "03e8372f11ac433be4fa"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched neighboring labels can remove misplaced curvature while preserving measured exceptions. Testing several graph environments helps limit inappropriate transfer of a correction.",
+      "next_discriminating_question": "Which predicted m15, m91, m156 and m203 features survive direct comparisons, and does the measured m155 decrease persist at lower loading?"
+    },
+    {
+      "id": "H38",
+      "content": "Loading associations are endpoint-specific and can be nonlinear. The m135 onset decrease persists across tested solvent strengths with much smaller completion changes. m90 midpoint onset falls between its loading extremes, but its midpoint completion is below both extremes. m33 also lacks a single loading-independent endpoint response.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "4db6b065867770d9dbd9",
+        "82b6eb1475767aca619f",
+        "d05a91dc8e32e9edd7d0",
+        "75232f4ee5de52a0499e",
+        "855832bd4005ac7abdc6",
+        "29db30571b2a1ae59cc7",
+        "b51b5dbcd2a38b174973",
+        "b08821181fbd4d81b247",
+        "1ed76d286d658f024404",
+        "d2c44b46eb306c56f241"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "A common shift of V1 and V2, or interpolation between loading extremes, can miss measured responses. The model needs conditional loading effects without assigning them an unobserved mechanism.",
+      "next_discriminating_question": "Do the missing m33 10/1 loading extremes show a shared completion rise, a midpoint-specific response, or additional nonlinearity before the measured 20/1\u201350/1 segment?"
+    },
+    {
+      "id": "H39",
+      "content": "The shallow lower-loading m81 completion curve is supported, but its loading transfer is unresolved: upper-loading completion fell from 20.27 mL at 5/1 to 9.74 mL at 10/1 in the supplied records. Related dicarbonyl graphs also have different loading responses; m166 completion increased substantially with loading at 10/1. Functional-group counts alone cannot specify these scales.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "904c7849feb1c686924a",
+        "ce11189a0e59d1798306",
+        "f4a4fc4d6e4dea59b061",
+        "5879dc8ccb560446d54c",
+        "7d402b3fad455f06fe68",
+        "7e0c856a121512a6f891",
+        "db2709229820b71e283b",
+        "ea9ef1bc8766196ca96d",
+        "20acd2ae49790ab82053"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "These comparisons distinguish graph-dependent solvent response, loading interaction and recorded-protocol variability. They can prevent a shallow-curve correction from erasing loading-specific completion behavior.",
+      "next_discriminating_question": "Does another upper-loading m81 10/1 row retain low completion, where does the midpoint lie, and does m166's positive completion-loading contrast persist at 50/1?"
+    },
+    {
+      "id": "H40",
+      "content": "The previously predicted m147 interval contraction around 10/1\u201320/1 and the lower-loading m62 completion minimum at 10/1 correspond to real measured features.",
+      "basis": "model_behavior",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [
+        "0ad8217c773fbf8f4344",
+        "0ce058f3352048ed0171",
+        "b7ebe910f1966ad518b8",
+        "130a4d6f3299791112ea"
+      ],
+      "confidence": "high",
+      "status": "rejected",
+      "why_it_matters_for_model_learning": "Both endpoints can be biased even when a predicted interval appears compact. The new labels corrected these specific shapes, reducing the value of immediately sampling more neighboring m147 and m62 rows.",
+      "next_discriminating_question": "Do other underanchored short-retention curves show similar endpoint bias, or do their predicted boundary features survive measurement?"
+    },
+    {
+      "id": "H41",
+      "content": "The large m115 pure-EA-to-1/1 completion increase is currently specific to the measured lower-loading records. Its scope across loading and its consistency among rows sharing a recorded protocol remain unresolved. The current predictor appears to smooth much of the pure-EA loading contrast.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "056a228c0de193b126cf",
+        "4276fb99ccd1d4c70a06",
+        "368ea7ae793fdfdcf602",
+        "352465f62eba993148ee"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The lower-loading boundary pair differed by about 8.05 mL in completion, whereas the midpoint pair differed by about 0.71 mL. New upper-loading labels and a further midpoint pure-EA row can distinguish interaction from variation before retraining propagates a broad correction.",
+      "next_discriminating_question": "Does upper-loading m115 reproduce the lower-loading boundary increase, and does the additional midpoint pure-EA row resemble the existing 17.33 mL completion?"
+    },
+    {
+      "id": "H42",
+      "content": "Several remaining aromatic-aldehyde onset features may be misplaced even when completion growth is reasonable. The current m145 intermediate onset maximum, m187 onset decline, and lower-loading m142 weak-region transition require connected labels. m198 adds a loading-transfer test on a more polar nitro-aldehyde environment.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "5070bf9690131f519648",
+        "abb2d31b1372dbd64398",
+        "c6d5f62b278d39ee2c4f",
+        "654a4a40363a388cf9cb",
+        "7d8d7bb22a7cbba9acf6",
+        "e99da719af7e2c3e9a93",
+        "857ae40d0fdf1c7e387e"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "Aldehydes provide many related rows with different steric, electronic and heteroatom environments. Separating onset from completion response can improve transfer without treating positional substitution as a causal explanation when loading protocols differ.",
+      "next_discriminating_question": "Do matched m145 and m187 segments confirm their predicted onset ordering, does lower-loading m142 retain weak-region growth, and is the m198 lower-loading response close to its measured upper-loading curve?"
+    },
+    {
+      "id": "H43",
+      "content": "Loading sensitivity among basic molecules is scaffold- and endpoint-dependent. At 5/1, measured m90 loading changes affected onset more strongly than completion, whereas the measured m211 contrast affected completion more than onset. A shared base-wide loading correction is insufficiently supported.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "29db30571b2a1ae59cc7",
+        "855832bd4005ac7abdc6",
+        "b51b5dbcd2a38b174973",
+        "292e0342682192a69fce",
+        "1e77ce24daad192212f6",
+        "252c027cf5a42b92c953"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched loading labels on a secondary amine and a connected weaker-solvent pyridine curve test where earlier V1 corrections should transfer and where V2 requires a different response.",
+      "next_discriminating_question": "Do the missing m212 5/1 loading extremes expose sensitivity hidden by nearly identical predictions, and does m211 develop a larger onset-loading contrast at 10/1\u201320/1?"
+    }
+  ],
+  "feedback_interpretation": "The latest outcomes strengthen conditional, endpoint-specific reasoning. m135 showed earlier upper-loading onset at both 2/1 and 10/1 with comparatively small completion changes. m90's new midpoint onset preserved loading ordering, but completion was 60.60 mL, below both loading extremes; this weakens any claim of loading-invariant completion. The m96 midpoint completion also exceeded both extremes. m33 midpoint 10/1 completed at 19.32 mL, 5.70 mL above its acquisition-time prediction, motivating the missing loading controls on that segment. The strongest new qualification concerns m81: lower-loading 5/1 and 50/1 supported its shallow completion response, but upper-loading 10/1 completed at 9.74 mL, producing an acquisition-time V2 overprediction of 8.27 mL. I now test consistency at that recorded tuple and the missing loading midpoint instead of extending a shallow response across all loadings. Strong-boundary feedback was mixed. The m5 and m130 maxima and large m48 feature disappeared, while m190 retained a completion decrease. Lower-loading m127 was nearly flat in completion between pure EA and 1/1, whereas lower-loading m115 showed a large measured increase. This shifts attention from a shared methoxy-ketone correction to direct loading-scope tests. The predicted m147 contraction and m62 minimum failed, and their current predictions have moved toward the new observations; I reduce immediate further sampling there. m82's upper-loading weak-region labels were comparatively close and completed an already connected loading comparison, so I shift acquisition toward remaining gaps. Historical errors cited here are acquisition-time errors, not current-model residuals.",
+  "batch_rationale": "The 32 selections form connected tests with measured anchors. The m81 and m115 experiments address newly exposed completion discrepancies and include two eligible catalog rows sharing already measured recorded tuples. These labels test consistency of the recorded protocols; they do not guarantee that omitted experimental factors were identical. The other selections examine missing condition/loading combinations. m33 and m166 test different loading responses, while the m211 and m212 comparisons assess transfer of onset corrections across basic graphs. The aldehyde segments distinguish reasonable completion growth from potentially misplaced onset curvature. Short-retention ester, alcohol and electron-poor aromatic comparisons retain coverage of ordinary Row responses, with m155 providing a measured nonmonotonic comparison so that repairing false extrema does not become an indiscriminate monotonicity constraint. Each group can teach a relationship useful beyond its individual row: endpoint-specific solvent response, nonlinear loading dependence, boundaries of structural transfer, or the extent of variation under a recorded tuple. Cross-molecule comparisons retain their density, sample-volume, loading-solvent and loading-volume differences; they support conditional prediction tests rather than isolated causal claims about substitution. Loading amount is density times sample volume. Quantile spans and CW distances are supporting diagnostics, not calibrated epistemic uncertainty, and V2 minus V1 is the elution interval width. This free-arm batch contains 32 distinct eligible IDs and no pending selections. All IDs and their exact associated premeasurement predictions in this packet are frozen together before any new label reveal."
+}
