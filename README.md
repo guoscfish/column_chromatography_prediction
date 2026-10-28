@@ -1,3 +1,22 @@
+# 迁移学习归档（停止维护）
+
+归档日期：2026-10-28。分支：`codex/archive-transfer-20261028`。
+
+该分支保存分离前仓库的完整已提交快照，迁移学习的代码、实验协议、划分、指标、报告和测试均保留原路径与原始内容。此分支停止研究更新，不跟随 main 同步或合并后续主动学习进展。main 从此集中于 4g 主动学习、LLM 选样及其预测器。
+
+基础提交：`2bb086dbd2c23a82485f27f3463b1800298a4f27`。仅本首页增加归档说明；下方是基础提交的项目介绍，描述的是归档时的历史状态。正在运行的主动学习任务和未提交进度未纳入本归档。被忽略的本地 runtime、检查点及请求缓存不属于 Git 快照，原有本地文件继续保留。
+
+查看迁移内容：
+
+- `studies/transfer/`：跨柱迁移的完整研究记录。
+- `studies/track_b_transfer/`、`studies/track_c_active_transfer/`、`studies/active_learning/transfer/`：历史迁移与主动迁移设计。
+- `src/qgeognn_al/transfer/`、`scripts/studies/`：迁移算法与执行入口。
+- `docs/research/CROSS_COLUMN_TRANSFER_STATUS.md`：归档前的迁移研究总结。
+
+需要阅读或复现时，请建立单独工作副本，不要切换正在运行主动学习实验的 main 工作目录。
+
+---
+
 # Column Chromatography Prediction
 
 用分子几何和实验条件预测柱层析保留体积。当前模型是 **QGeoGNN-V2**；研究分为 4g 主动学习和跨柱迁移两条线。
