@@ -5,7 +5,7 @@ The [current research status](../docs/NEXT_STAGE_DECISION.md) owns project decis
 | Topic | Current focus | Index |
 | --- | --- | --- |
 | Predictor | Qualified standalone QGeoGNN-V2 and its source checkpoint | [Predictor](predictor/README.md) |
-| 4g active learning | LLM/CW validation results and ongoing dual-expert continuation | [Active learning](active_learning/README.md) |
+| 4g active learning | Five-seed Free / LCMD continuation and retained CW / dual-expert evidence | [Active learning](active_learning/README.md) |
 | Cross-column transfer | Matched low-label baselines and completed transfer controls | [Transfer](transfer/README.md) |
 
 ## Reading a result

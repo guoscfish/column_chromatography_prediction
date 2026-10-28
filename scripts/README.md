@@ -2,7 +2,13 @@
 
 Run from the repository root in the validated Conda `fish` environment. Read the linked protocol before any fitting or test evaluation. A runnable entry point is not authorization to start a new experiment.
 
-## Current 4g work
+## Current reporting and continuation
+
+- `report_free_lcmd.py`: current five-seed Free / LCMD1485 validation report and three curve figures. Collects verified local runtime; `--from-snapshot reports/free_llm_five_seeds_to1485_20261024/figures` redraws Git-retained JSON without training payloads. `--output` supports independent output; `--require-complete` rejects partial trajectories.
+- Current process ownership and frozen continuation entrypoints are documented in the [current report](../reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md) and its manifests. The historical report-local plot entry forwards to this single implementation; active scientific runners retain original paths and bytes.
+- `report_active_learning_snapshot.py` remains the historical two-seed / dual-expert snapshot reader. Its default is the October13 revision; it is not the current five-seed report.
+
+## Completed 4g workflows
 
 | Entry in `studies/` | Role | Study / execution |
 | --- | --- | --- |
@@ -40,9 +46,11 @@ Some old runners still export functions consumed by retained workflows or tests.
 
 New scientific logic belongs in [the package](../src/qgeognn_al/README.md), not these runners.
 
+`studies/report_filtered_row_learning_curve.py` redraws the retained B100/B200/B300/FULL curve directly from the canonical study summaries. The figure now belongs to that study; temporary PPT bundles and duplicated frozen inputs have been retired.
+
 ## Retired one-off scripts
 
-37 completed audit, smoke, qualification-report and closed-transfer scripts have been removed from the current checkout. Their reports, metrics, protocols and decisions remain at the original study paths. The complete mapping is [RETIREMENTS.json](../docs/repository/RETIREMENTS.json).
+Completed audit, smoke, qualification-report and closed-transfer scripts have been removed from the current checkout. Their reports, metrics, protocols and decisions remain at the original study paths. The complete mapping is [RETIREMENTS.json](../docs/repository/RETIREMENTS.json).
 
 For example, `run_d45_oracle_marginal_utility.py` and `run_d46_oracle_utility_reliability.py` now have retained scientific records only. Their reusable diagnostic algorithms and tests remain.
 
@@ -69,7 +77,6 @@ For full reproduction, use a separate checkout at that commit and restore the re
 
 - `run_qgeognn_v2_row_llm_dual_expert.py`: independent Chemistry/ML advice, free 32-ID planner, full-pool history/feedback and resumable training. `run --seed 157 --rounds 2 --revision full_pool_feedback_schema_20261011` requests 333→397 labels; see `studies/active_learning/qgeognn_v2_row_llm_dual_expert_v1/README.md`.
 
-- `report_active_learning_snapshot.py`: one reporting entrypoint replacing the two untracked report-local plotting scripts. Defaults to the October13 continuation and completed621-label dual-expert revision; revision arguments allow historical collection. Reads completed validation audits and freezes, writes the latest tables/PNG/SVG snapshot; `--from-snapshot` redraws without local runtime. It performs no training or LLM requests.
 
 - `studies/report_dual_expert_continuation.py`: study-specific continuation report with the 397-label model switch, completed-response cost and 397→common-budget AULC; generic cross-study plots remain in `report_active_learning_snapshot.py`.
 

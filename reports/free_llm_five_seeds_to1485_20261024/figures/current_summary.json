@@ -1,10 +1,10 @@
 {
-  "snapshot_time": "2026-10-28T21:13:37.803086+08:00",
+  "snapshot_time": "2026-10-28T21:59:53.402032+08:00",
   "status": "IN_PROGRESS",
-  "free_common_budget": 1357,
+  "free_common_budget": 1389,
   "traditional_common_budget": 1005,
   "lcmd_common_budget": 1485,
-  "free_lcmd_matched_budget": 1357,
+  "free_lcmd_matched_budget": 1389,
   "target_labels": 1485,
   "seed_count": 5,
   "test_evaluation_performed": false,
@@ -27,8 +27,8 @@
       "nrmse": 0.3757673683307912
     },
     "12203": {
-      "labels": 1357,
-      "nrmse": 0.3446925280497154
+      "labels": 1389,
+      "nrmse": 0.3522962616112287
     }
   },
   "latest_lcmd": {
@@ -1021,10 +1021,10 @@
       "test_truth_access_count": 0
     },
     "12203": {
-      "verified_fits": 33,
-      "verified_batches": 32,
-      "unique_acquired_ids": 1024,
-      "final_labels": 1357,
+      "verified_fits": 34,
+      "verified_batches": 33,
+      "unique_acquired_ids": 1056,
+      "final_labels": 1389,
       "fit_ownership": [
         {
           "round": 0,
@@ -1223,6 +1223,12 @@
           "labels": 1357,
           "revision": "sol61_xhigh_free_to1485_extra3_20261026",
           "freeze": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_to1485_extra3_20261026/runtime/seed_12203/free_llm32_scientist_v2/round_32/prediction_freeze.json"
+        },
+        {
+          "round": 33,
+          "labels": 1389,
+          "revision": "sol61_xhigh_free_to1485_extra3_20261026",
+          "freeze": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_to1485_extra3_20261026/runtime/seed_12203/free_llm32_scientist_v2/round_33/prediction_freeze.json"
         }
       ],
       "initialization_hash": "55c4f0a50df1a2836d1f1319de2ffe0fb6810d085764fbb6368246d326cd7410",
@@ -1234,19 +1240,19 @@
     }
   },
   "free_at_common_budget": {
-    "labels": 1357,
-    "mean_validation_nrmse": 0.3354828438672451,
-    "sd_across_seeds": 0.02972029397419514
+    "labels": 1389,
+    "mean_validation_nrmse": 0.33951821500362533,
+    "sd_across_seeds": 0.028578944742236316
   },
   "free_vs_lcmd_at_matched_budget": {
-    "labels": 1357,
+    "labels": 1389,
     "free_llm32_scientist_v2": {
-      "mean": 0.3354828438672451,
-      "sd": 0.02972029397419514
+      "mean": 0.33951821500362533,
+      "sd": 0.028578944742236316
     },
     "lcmd": {
-      "mean": 0.35095355396300076,
-      "sd": 0.027843605873229305
+      "mean": 0.3499363598749386,
+      "sd": 0.025604365061345453
     }
   }
 }

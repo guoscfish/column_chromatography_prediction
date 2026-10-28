@@ -1,42 +1,37 @@
 # Repository cleanup status
 
-Updated 2026-10-13. Scientific measurements remain in study reports; the [latest validation snapshot](../../reports/active_learning_latest/REPORT.md) is the current results entrypoint.
+Updated2026-10-28. [Current research status](../NEXT_STAGE_DECISION.md) owns decisions; the [five-seed Free / LCMD report](../../reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md) owns current curves and completion. Dated reports retain their original scope.
 
-## Current maintenance
+## Publication and consolidation
 
-- Publish the October13 LLM/dual-expert continuations, A1/A2 evidence audit, Row-CV inner pilot, filtered Row FULL and B100/B200/B300 curves, and existing presentation figures on `main`. No new training, LLM request or experiment scoring is part of this cleanup.
-- Refresh the canonical validation snapshot from completed prediction freezes. Defaults select the October13 Scientist continuation and the completed621-label dual-expert revision. Report endpoints and common-budget tables derive from retained data; obsolete493/525/653 summaries no longer overwrite current progress on regeneration.
-- Retire three report-local plotting scripts: the two nearly identical model-switch copies and the four-arm progress plot. Preserve all original figures and numeric evidence. Each new entry in [RETIREMENTS.json](RETIREMENTS.json) has its own recovery commit and SHA-256; current plots use `scripts/report_active_learning_snapshot.py`.
-- Ignore approximately204 MB of newly created full LLM requests and thirteen lock files. They remain at their original local paths for resume/provenance; compact protocols, request hashes, selected IDs, measured feedback, answer/cost receipts and scientific results stay versioned. Existing tracked request evidence is untouched.
-- Preserve frozen scientific implementations and Phase1 archived sources, which have live imports or byte-hash consumers. This includes the similar historical and parameterized Scientist lifecycle modules and the B200/full-data runners. Protected datasets, checkpoints and training caches retain their paths.
+- Preserve the current code and compact experiment results on `main`: Free / LCMD continuations, dual-expert receipts, matched validation analyses, and completed transfer Phase2 / 3A / 3B results. Running experiments retain their original paths, lock ownership and frozen budgets.
+- Move the current five-seed plotting implementation into `scripts/report_free_lcmd.py`. Keep the original monitor path as a compatibility entry. Offline `--from-snapshot` redraws retained curves without checkpoints; online collection verifies frozen local artifacts. `--require-complete` rejects any incomplete trajectory. The older two-seed report reader remains explicitly historical.
+- Retire496 temporary presentation files (41,394,073bytes) across `docs/presentation_assets/`, `reports/ppt_202610_al/` and `reports/ppt_202610_transfer/`: PPT-specific documents, render previews, obsolete figures and duplicate source/data copies. Their original bytes are recoverable from commit`2c730ef6c6766e05ab5af39f74f913fb2936b7f2`. Each file has a hash and recovery entry in [RETIREMENTS.json](RETIREMENTS.json) and [PRUNE_MANIFEST.csv](../PRUNE_MANIFEST.csv).
+- Retain the scientific B100/B200/B300/FULL transfer curve under its [study](../../studies/transfer/filtered_row_learning_curve_b200_20261013/README.md). Its reporting entry now reads canonical study summaries directly, eliminating presentation-only input copies. No training or scoring changed.
+- Keep207,478,213bytes of new acquisition gradient caches local and ignored, alongside console logs, locks, runtime checkpoints and matplotlib caches. Compact contracts, selected IDs, label-access receipts, failed responses, costs and results remain versioned. Existing historical tracked scientific evidence is preserved.
+- Update root/topic/script navigation and project conclusions. The old October13 snapshot, partial dual-expert trial and one-seed Row-CV pilot no longer stand in for current progress. Current numerical endpoints derive from a single generated report.
 
 ## Branches and worktrees
 
-`codex/llm-scientist-v3-2` (`a66a753`) and `codex/llm-scientist-v3-context` (`8a8a917`) have zero commits outside `main`. Both checkouts were clean and had no active repository process at inspection. Their local branch refs were removed; publication also removes the two matching merged origin refs. The original worktrees remain at their existing commits with detached HEAD, preserving chat workspaces and ignored runtime. `main` remains the integrated local/remote branch; `upstream` is unchanged.
+At publication, the only local branch is `main`, and `git ls-remote --heads origin` lists only`main`. No redundant local or origin branch remains to delete. `upstream` is unchanged. Two historical managed worktrees remain detached at`a66a753` and`8a8a917`; their directories and ignored experimental storage are retained.
 
-## Historical cleanup and recovery
-
-The earlier cleanup retired 34 completed one-off runners and consolidated 11
-superseded plans/navigation pages. [RETIREMENTS.json](RETIREMENTS.json) records
-original paths, hashes, retained results and recovery commit
-`0e7b2ee940e3f71c6dbc7400c420694855eec597`.
-The paper-runtime cleanup remains recoverable at
-`archive/pre-matched-rmse-cleanup-2026-09-08`.
-[The October 5 record](CLEANUP_20261005.md) describes that earlier integration;
-its draft dual-expert status and worktree inventory are historical.
+The earlier retirement of37 completed one-off runners and11 superseded project documents remains recorded in the same registry. [October5 cleanup](CLEANUP_20261005.md) is a historical record, not a current branch inventory. No history rewriting or forced push is part of publication.
 
 ## Verification
 
+- Canonical regression:1068 tests passed (165.05s). Warnings come from existing library/deprecation checks.
+- Focused reporting/navigation/recovery checks:12 passed before the additional presentation retirement; final reporting/navigation/retention checks27 passed after the additional retirement.
+- Snapshot-only redraw: all three retained JSON and three PNG outputs match the collected snapshot byte-for-byte. Offline rendering validates table consistency; it does not claim to re-audit absent runtime files.
+- Free amendment, LCMD extension and recovery-epoch frozen source validations passed after reporting consolidation. No scientific source, prompt, protocol or retry budget was edited.
+- Retirement recovery, current navigation, protected data/checkpoint anchors, staged whitespace and publication secret checks are verified before push.
+
+Reproduce checks from the repository root:
+
 ```bash
-KMP_DUPLICATE_LIB_OK=TRUE /Users/fish/miniforge3/envs/fish/bin/python -m pytest -q
-python3 scripts/audit_repository_hygiene.py
+KMP_DUPLICATE_LIB_OK=TRUE conda run --no-capture-output -n fish pytest -q
+python scripts/audit_repository_hygiene.py
 git diff --check
+python scripts/report_free_lcmd.py --from-snapshot reports/free_llm_five_seeds_to1485_20261024/figures --output /tmp/free_lcmd_redraw
 ```
 
-The prior October11 regression passed1053 tests with one pre-existing navigation-parser false positive, then all51 affected/navigation/hygiene/snapshot tests passed after the parser repair. October13 verification is recorded after the cleanup below. Historical stopped/failed/paused receipts remain unchanged; current completion is derived from frozen fit audits, never from planned label budgets.
-
-A separately authorized Row-CV Phase2 process started during cleanup; its newly generated files remain uncommitted for the owning task. Published Phase1 reports remain frozen and do not imply that Phase2 is complete.
-
-Default pytest discovery is limited to `tests/`. Frozen study archives contain duplicate test basenames; collecting those archived copies as current tests caused an import mismatch. Study-specific synthetic audits remain executable explicitly, without altering archived source bytes.
-
-Validation on2026-10-13: full canonical regression1065 passed (484.80s); A1/A2 label-free and Row-CV Phase1 synthetic audits22 passed. Verified615 snapshot/result source hashes and21 frozen transfer implementation hashes; no mismatch. Snapshot-only redraw reproduced all six JSON/report/PNG/SVG files byte-for-byte. Retirement recovery has zero violations; all17 protected anchors exist; tracked runtime/progress paths are zero. `git diff --check` passed.
+Runtime payloads remain local. A new clone contains reproducible report inputs and audit hashes, not every training checkpoint or full LLM request. Source/raw datasets, frozen partitions, scalers and authoritative checkpoint anchors are excluded from pruning.

@@ -1,16 +1,18 @@
 # 当前研究状态
 
-更新：2026-10-13。本页是项目级结论与下一步的唯一入口；具体数值、冻结门槛和使用过的数据以链接的实验报告及协议为准。
+更新：2026-10-28。本页是项目级结论与下一步的唯一入口；具体数值、冻结门槛和使用过的数据以链接的实验报告及协议为准。
 
 ## 本轮执行
 
-当前结果统一见[最新 validation 快照](../reports/active_learning_latest/REPORT.md)。快照仅包含已完成拟合，正在选样或训练的轮次不写成已完成。各研究的冻结协议、授权修订和成本记录仍保存在原目录。
+当前五seed Free LLM32 / LCMD32延长实验以[自动生成报告](../reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md)为唯一进度与数值入口，目标是每条1485标签、37拟合、36批次。只统计完成且冻结的点；监控继续推进未完成轨迹，并在既有冻结预算内恢复可恢复故障。历史阶段的STOPPED、NEEDS_ATTENTION和计划预算不能代替当前epoch状态。
 
-- **CW扩展已完成**：七臂×两seed到1005，Whitening按要求停525；新增60次拟合，复用150个历史对照点。validation AULC525–1005平均相对改善：CW-LCMD +1.21%、CW-MaxDet -3.80%、CW-IVR +5.98%。此前blocked、待恢复及90拟合额度均为历史状态。[完整结果](../studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_1005/RESULTS.md)。
-- **LLM最新完成点**：CW16+LLM16在seed157/6101分别到845/813，validation NRMSE为0.344879/0.380292；Free两个seed均到845，为0.437181/0.391570。四臂1005目标尚未完成，现有暂停回执要求2026-10-13 18:30之前不恢复。各曲线只计冻结拟合，模型切换与授权修复保留在原回执中。[Scientist V2](../studies/active_learning/qgeognn_v2_row_llm_scientist_v2/README.md)。
-- **双专家seed157已完成621标签**，validation NRMSE 0.597021；2026-10-12从461新增五批、160条标签，误差下降13.15%。18:30后恢复的最后一批已完成，自动化已暂停，无活跃进程。三方法最新共同预算为621；完整配对表见最新快照。全部九批及训练产物通过审计。单seed混合模型验证轨迹，无新test评价。[双专家记录](../studies/active_learning/qgeognn_v2_row_llm_dual_expert_v1/README.md)。
+- LCMD五seed已到1485；Free已有四seed到1485，最后seed12203继续运行。具体预算与共同区间随报告更新，不在多个导航页重复维护。
+- LCMD使用原冻结梯度特征实现与corrected LCMD-TP，保留同初始化及validation划分；Free旧157/6101保留Astra/high前缀，887/12203有显式限定的逻辑纠正amendment。全部解释与证据链接在当前报告中。
+- 3330标签全训练集参考与后段平台期比较见[validation参考分析](../reports/free_lcmd_five_seeds_to1485_20261026/analysis/full_reference_validation_comparison_20261028.json)。未新增test评价，不能把validation平台期解释成无剩余泛化空间。
+- 双专家seed157已完成1005，seed6101到525后连接故障停止；不能称为两seed1005完成。[核验记录](../reports/dual_expert_two_seeds_to1005_20261021/verified_final_status.json)。该停止记录不影响独立的Free / LCMD续跑。
+- CW七臂×两seed1005扩展完成，Whitening按要求停525；[完整结果](../studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_1005/RESULTS.md)保留原开发门槛与探索性解释。
 
-CW最初333–525开发结论不变：CW相对Raw在LCMD的AULC改善6.93%、MaxDet恶化4.86%、IVR改善0.69%；两种新selector均未过两seed同向且平均改善≥2%的确认门槛。1005扩展属于探索性证据，P2付费独立消融与外部验证仍未执行。[原始factorial结果](../studies/active_learning/qgeognn_v2_row_cw_selector_factorial/RESULTS.md)。
+[2026-10-13两seed快照](../reports/active_learning_latest/REPORT.md)和各阶段报告均为日期固定的历史记录，不作为当前进度。
 
 ## 预测器
 
@@ -25,8 +27,6 @@ CW最初333–525开发结论不变：CW相对Raw在LCMD的AULC改善6.93%、Max
 
 ## 4g 主动学习
 
-**双专家历史两轮试跑（333→397）**：[seed157试跑](../studies/active_learning/qgeognn_v2_row_llm_dual_expert_v1/README.md)完成333→397、64条新标签和2次同初始化训练。验证集端点NRMSE为0.7622，优于free的0.7861，仍弱于CW16+LLM16的0.7046；两轮AULC未优于free，尚无整体优势证据。历史方案和32条实测反馈已进入第二轮；72项测试通过，无新test评价。首轮格式兼容修复保留原始32个ID，额外格式调用计入成本。
-
 | 已完成工作 | 结论 |
 | --- | --- |
 | LCMD one-step pilot | 大批量一次选点有正信号；不等于完整曲线或 compound 鲁棒性 |
@@ -38,7 +38,7 @@ CW最初333–525开发结论不变：CW相对Raw在LCMD的AULC改善6.93%、Max
 
 Sequential 的原始分类 `NO_CLEAR_SEQUENTIAL_AL_GAIN` 保留不改：它未确定 LCMD 与 Hybrid 的最佳/相近类别，不能解释成“对 Random 无收益”。约 650 标签后改善放缓，稳定达到 N90/N95 仍未解决。
 
-[Phase 1固定预算Static / Adaptive对照](../studies/active_learning/qgeognn_v2_batch_adaptivity/FINAL_REPORT.md)已完成：均333+320=653标签；Adaptive端点0.436791优于Static的0.451013，但AULC未改善，不能宣称完整曲线优势。双专家扩展已完成621，状态见上方。
+[Phase 1固定预算Static / Adaptive对照](../studies/active_learning/qgeognn_v2_batch_adaptivity/FINAL_REPORT.md)已完成：均333+320=653标签；Adaptive端点0.436791优于Static的0.451013，但AULC未改善，不能宣称完整曲线优势。后续LLM轨迹状态见上方当前报告。
 
 [Phase 2 实施方案](research/4G_PHASE2_IMPLEMENTATION_PLAN_2026-09-18.md) 是后续设计。全部已完成证据见[主动学习索引](../studies/active_learning/README.md)。
 
@@ -55,7 +55,9 @@ Sequential 的原始分类 `NO_CLEAR_SEQUENTIAL_AL_GAIN` 保留不改：它未�
 | Column-conditioned multitask / FiLM | inner 有信号，但 outer 未形成稳健跨协议收益 | [Multitask 报告](../studies/transfer/column_conditioned_multitask/FINAL_REPORT.md) |
 | PCGrad | 降低梯度冲突，但未实质改善迁移；没有继续 outer 评估 | [PCGrad 报告](../studies/transfer/column_conditioned_pcgrad/FINAL_REPORT.md) |
 
-**2026-10-13新增记录**：过滤后Row的B100/B200/B300/FULL学习曲线已完成，三柱×五seed、五方法共300个方法/种子/预算记录；FULL结果复用并校验哈希，固定测试/验证人口和嵌套训练前缀，属于既有测试集上的开发证据。[曲线与审计](../studies/transfer/filtered_row_learning_curve_b200_20261013/README.md)。[A1/A2审计](../reports/a1_a2_audit_20261013/AUDIT_REPORT.md)未找到解释40g退化的实现错误；[Row-CV试点](../studies/transfer/column_conditioned_row_aligned_v1/REPORT.md)仅完成一个seed的10次inner拟合，不能据此宣布outer退化已修复。
+**最新Row-CV评估已完成**：[Phase3B报告](../studies/transfer/column_conditioned_row_aligned_v1/PHASE3B_REPORT.md)给出五seed结果与判断C：inner收益没有稳定转化为outer跨柱收益，25g局部改善、40g仍有差距。Phase2原README与Phase3A盲预测保留为冻结历史协议。该研究不能继续描述为单seed试点，也不支持宣称outer退化已解决。
+
+过滤后Row的B100/B200/B300/FULL曲线保留为独立[开发证据](../studies/transfer/filtered_row_learning_curve_b200_20261013/README.md)；不得与无阈值低标签基准混合排名。
 
 **迁移下一步优先补独立数据与实验设计**：compound/batch 验证、长尾覆盖、相同条件重复、mass×flow 交叉条件。已有结果不支持自动追加模型、优化器或特征扫描，也不启动主动迁移。
 

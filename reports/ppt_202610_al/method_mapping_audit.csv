@@ -1,7 +1,0 @@
-display_method,csv_arm,representation,selector,is_latent,changes_model_head,dimension,selector_normalization,historical_source
-RAW-LCMD,raw_lcmd,scaled_q50_output_gradient,lcmd,False,False,512,none,qgeognn_v2_row_sequential_b32/lcmd
-CW-LCMD,cw_lcmd,scaled_center_width_output_gradient,lcmd,False,False,512,none,qgeognn_v2_row_short_sequential_b32 + CW LCMD extensions
-RAW-IVR,raw_ivr,scaled_q50_output_gradient,ivr,False,False,512,RMS_over_fixed_L_plus_U,qgeognn_v2_row_kernel_ivr_b32
-CW-IVR,cw_ivr,scaled_center_width_output_gradient,ivr,False,False,512,RMS_over_fixed_L_plus_U,CW factorial + selector extensions
-RAW-MAXDET,raw_maxdet,scaled_q50_output_gradient,maxdet,False,False,512,RMS_over_current_L,qgeognn_v2_row_maxdet_b32/gradient_maxdet
-CW-MAXDET,cw_maxdet,scaled_center_width_output_gradient,maxdet,False,False,512,RMS_over_current_L,CW factorial + selector extensions

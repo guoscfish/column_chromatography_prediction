@@ -5,7 +5,7 @@ Use these pages in order; study reports own the detailed measurements.
 | Purpose | Canonical page |
 | --- | --- |
 | Current conclusions and next step | [Research status](NEXT_STAGE_DECISION.md) |
-| Latest completed AL curves | [Validation snapshot](../reports/active_learning_latest/REPORT.md) |
+| Latest completed AL curves | [Five-seed Free / LCMD snapshot](../reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md) |
 | Results by topic | [Study index](../studies/README.md) |
 | Read the implementation | [Code map](../src/qgeognn_al/README.md) |
 | Run or reproduce a study | [Script index](../scripts/README.md) |

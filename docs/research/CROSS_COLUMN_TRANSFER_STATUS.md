@@ -27,6 +27,7 @@ Neither setting is pristine external confirmation. Their populations, splits, la
 | Endpoint-normalized / q50 loss controls | Neither passes the two-column rule; retain L0 raw quantile loss | [Loss screen](../../studies/transfer/conditioned_source_readout/LOSS_SCREEN_REPORT.md) |
 | Adaptive and condition-query readout | R1/R2 fail the ROW inner gate; R3/R4 and outer scoring were not run | [Readout](../../studies/transfer/conditioned_source_readout/FINAL_REPORT.md) |
 | Shared representation and column FiLM | A2 improves inner metrics but does not survive the outer cross-protocol guard | [Multitask](../../studies/transfer/column_conditioned_multitask/FINAL_REPORT.md) |
+| Row-aligned five-seed model selection | Phase3B judgement C: local25g gain, remaining40g gap; inner gains do not transfer reliably | [Row-CV Phase3B](../../studies/transfer/column_conditioned_row_aligned_v1/PHASE3B_REPORT.md) |
 | Gradient conflict control | PCGrad reduces conflict but does not materially improve transfer; stops before outer evaluation | [PCGrad](../../studies/transfer/column_conditioned_pcgrad/FINAL_REPORT.md) |
 
 ## Quantitative anchors

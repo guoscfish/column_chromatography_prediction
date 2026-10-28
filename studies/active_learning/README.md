@@ -4,9 +4,9 @@ Current work uses the qualified standalone QGeoGNN-V2. These row experiments con
 
 | Study | Status and interpretation |
 | --- | --- |
-| [Latest validation snapshot](../../reports/active_learning_latest/REPORT.md) | Completed-budget curves and matched comparisons; refresh without training |
-| [LLM Scientist V2](qgeognn_v2_row_llm_scientist_v2/README.md) | CW16+LLM16: seed157845 / seed6101813; Free: both seeds845; 1005 extension incomplete |
-| [Dual expert](qgeognn_v2_row_llm_dual_expert_v1/README.md) | Seed157 completed 621; validation NRMSE0.597021; no new test evaluation |
+| [Current five-seed Free / LCMD](../../reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md) | Live completion table, matched-budget curves and full-data validation reference; target1485 |
+| [LLM Scientist V2](qgeognn_v2_row_llm_scientist_v2/README.md) | Frozen historical protocols; current Free cross-revision lineage is documented in the current report |
+| [Dual expert](../../reports/dual_expert_two_seeds_to1005_20261021/verified_final_status.json) | Seed157 completed1005; seed6101 stopped525 on provider connection failure; no new test evaluation |
 | [CW extension to1005](qgeognn_v2_row_cw_selector_extension_to_1005/RESULTS.md) | Completed: seven arms × two seeds1005; Whitening stopped525; 60 new fits |
 | [Phase 1 batch/adaptivity](qgeognn_v2_batch_adaptivity/FINAL_REPORT.md) | Completed matched653-label comparison; endpoint benefit without AULC benefit |
 | [Phase 0 efficiency review](qgeognn_v2_efficiency_review/REPORT.md) | Completed reporting-only review of endpoints, AULC, target crossings and compute cost |
@@ -34,5 +34,3 @@ Use [current status](../../docs/NEXT_STAGE_DECISION.md) for the next action and 
 - [CW selector factorial and LLM feedback boundaries](qgeognn_v2_row_cw_selector_factorial/README.md): two-seed development, frozen validation AULC333–525, max36 new fits; P2 offline only.
 
 - [CW factorial extension to653](qgeognn_v2_row_cw_selector_extension_to_653/README.md): post-development exploration, four additional rounds on all three new arms and both seeds;24-fit hard cap. Original333–525 gate unchanged.
-
-- [CW factorial extension to1005](qgeognn_v2_row_cw_selector_extension_to_1005/README.md): completed seven-arm/two-seed1005 extension; Whitening stopped525 by user request,60 new fits, no paid LLM requests or new test evaluation.

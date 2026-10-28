@@ -10,4 +10,4 @@
 - [五seed汇总](summary.csv)、[全部逐seed指标](all_metrics.csv)、[预测冻结](all_predictions_frozen.json)、[完成审计](completion_audit.json)。
 - 入口：`scripts/studies/run_filtered_row_learning_curve.py`；参数为`--prepare`、`--execute`、`--evaluate`。恢复执行前遵循冻结协议与既有授权；训练缓存和checkpoint在本地忽略的`runtime/`，新克隆只含紧凑结果。
 
-最终四预算的可比曲线见[B200补齐记录](../filtered_row_learning_curve_b200_20261013/README.md)与[已有图](../../../reports/ppt_202610_transfer/figures/slide18_filtered_row_learning_curve.png)。当前下一步由[项目研究状态](../../../docs/NEXT_STAGE_DECISION.md)管理。
+最终四预算的可比曲线见[B200补齐记录](../filtered_row_learning_curve_b200_20261013/README.md)与[已有图](../filtered_row_learning_curve_b200_20261013/figures/learning_curve.png)。当前下一步由[项目研究状态](../../../docs/NEXT_STAGE_DECISION.md)管理。
