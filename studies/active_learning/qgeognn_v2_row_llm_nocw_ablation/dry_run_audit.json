@@ -1,0 +1,261 @@
+{
+  "status": "PASS",
+  "seeds": [
+    {
+      "seed": 157,
+      "input_diff": {
+        "passed": true,
+        "candidate_ids_and_order_identical": true,
+        "other_values_and_precision_identical": true,
+        "derived_difference": "packet_sha256",
+        "prompt_removed": "CW distance is a percentile\nof distance to labeled rows in the current center/width gradient feature space.\n",
+        "aware_sha256": "f7ec3ea6064503f123862ef1ac58947252d6cca3959488e848f915b3581d7355",
+        "nocw_sha256": "d5fbdc6139fa2ce23c92df2c004cb6c38512177c48d3cd30769b63cf1a6d728d"
+      },
+      "removed_CW_values": 2997,
+      "initial_checkpoint": {
+        "seed": 157,
+        "sources": {
+          "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/astra_high_full_pool_20261001/selections/seed_157/free_llm32_scientist_v2/round_00/catalog.json": "119db97c255daa3ce770a7e03300bec1c40e6369f08cbece2b51bb7fcd9ed276",
+          "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/astra_high_full_pool_20261001/selections/seed_157/free_llm32_scientist_v2/round_00/contract.json": "18855cbe001a278d833f8ca8c872c15b800c49852487d62bfee732bc62d37622",
+          "studies/active_learning/qgeognn_v2_row_short_sequential_b32/splits/row_seed_157.csv": "e1718212472ae86f5ca3f16c4d8e3905c043b06bf4830e87b5a9d0bb64577472",
+          "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_00/model/best.pt": "87e92ccdabc1dd64ecf89a3061624450ce125906c4cbb988d7263b190991b1c0",
+          "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_00/model/fit_audit.json": "e3bdbf15ae810f93f9af0ddca3f30caf0c8cbd95b8824c68bc9e5216c968a886",
+          "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_00/model/predictions.csv.gz": "449bcacedb3708db5846031c7a1db5ae7df047fe78b44a58088bf3f34a1b4374",
+          "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/context.json": "dec8dcb1f80afc3511a2ea867fc342f5506f81902ec8425c2dc25fbc25e50757",
+          "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/scrubbed_graphs.pt": "29c2d4c5d9b4b0165c7ef5d400c0d7a5ae53795e10aea67318f68705ec9d9239"
+        },
+        "checkpoint_path": "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_00/model/best.pt",
+        "checkpoint_sha256": "87e92ccdabc1dd64ecf89a3061624450ce125906c4cbb988d7263b190991b1c0",
+        "initialization_hash": "27933d44c40fa421228312c0940f971cf44564d39c1cf128e0b3b1acf85d75f6",
+        "L333_ids_hash": "1171988daf4e91eb3d866b44b1ba07f04a36e6f88eb953eda831b9c64c66854d",
+        "U333_ids_hash": "2d5225ceee78487280509f7b1352724a9a87b095ebccf0041d9fe2b5b7e5bf47",
+        "normalization": {
+          "loading_amount_min": 30.0,
+          "loading_amount_max": 327.29998779296875,
+          "loading_volume_min": 200.0,
+          "loading_volume_max": 2000.0,
+          "fit_dataset": "4g",
+          "fit_role": "source_train",
+          "fit_row_count": 3330,
+          "fit_ids_hash": "f6bb127d5c6cd29f88c267177e7dd6d8da18f8738b1e38d1db86743676508b4f",
+          "eluent_scaler_sha256": "858d5afa5b5861427031dfea1f3d82189070af8f61b7710337de9e08b13e8266"
+        },
+        "preprocessing": {
+          "scaler": {
+            "descriptor": {
+              "min": [
+                106.00885009765625,
+                0.0,
+                0.0,
+                0.0,
+                -0.6642000079154968,
+                1.87009596824646,
+                317.4486083984375,
+                0.11138497292995453,
+                0.052911177277565,
+                0.023961281403899193,
+                0.0,
+                0.20014657080173492,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "max": [
+                408.01220703125,
+                12.0,
+                1.0,
+                5.0,
+                7.736499786376953,
+                7.203703880310059,
+                24009.255859375,
+                0.5370063185691833,
+                0.3233283460140228,
+                0.33165669441223145,
+                0.38679033517837524,
+                2.5147390365600586,
+                69.66999816894531,
+                69.66999816894531,
+                0.11178451031446457,
+                90.9955062866211
+              ]
+            },
+            "eluent": {
+              "min": [
+                86.1287841796875,
+                0.2603960335254669,
+                1.0,
+                0.0,
+                0.019801979884505272,
+                0.5694000124931335
+              ],
+              "max": [
+                88.05242919921875,
+                26.299999237060547,
+                2.9801981449127197,
+                0.0,
+                2.0,
+                2.5666277408599854
+              ]
+            }
+          },
+          "target_scales": {
+            "V1": 6.502957820892334,
+            "V2": 13.158523559570312
+          },
+          "fit_role": "source_train",
+          "fit_rows": 3330,
+          "fit_ids_hash": "f6bb127d5c6cd29f88c267177e7dd6d8da18f8738b1e38d1db86743676508b4f",
+          "covariate_fit_role": "outer_train_X_only",
+          "covariate_fit_rows": 3330,
+          "covariate_fit_ids_hash": "f6bb127d5c6cd29f88c267177e7dd6d8da18f8738b1e38d1db86743676508b4f",
+          "target_scale_fit_role": "l0_labels_only",
+          "target_scale_fit_rows": 333,
+          "target_scale_fit_ids_hash": "1171988daf4e91eb3d866b44b1ba07f04a36e6f88eb953eda831b9c64c66854d",
+          "validation_rows_used_for_scaling": 0,
+          "u0_rows_used_for_scaling": 0,
+          "test_rows_used": 0
+        },
+        "legacy_feedback_read": false
+      },
+      "mock_batches_independent": true,
+      "no_cw_leak_audit": {
+        "passed": true,
+        "serialized_sha256": "5f7f9cb44f11d561de7bad18a87fc7f4bd4f2ad59caeaed9a979cde37bac8bf7",
+        "serialized_characters": 947743
+      }
+    },
+    {
+      "seed": 6101,
+      "input_diff": {
+        "passed": true,
+        "candidate_ids_and_order_identical": true,
+        "other_values_and_precision_identical": true,
+        "derived_difference": "packet_sha256",
+        "prompt_removed": "CW distance is a percentile\nof distance to labeled rows in the current center/width gradient feature space.\n",
+        "aware_sha256": "81c7d949f542758c900f5555a2f5e55575f67732d329566c2142aec5e6e40b25",
+        "nocw_sha256": "628a88bb0188fb5a7ee865c6e5b4baf2fec171b2b53f159893874058790a8ed1"
+      },
+      "removed_CW_values": 2997,
+      "initial_checkpoint": {
+        "seed": 6101,
+        "sources": {
+          "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/astra_high_full_pool_20261001/selections/seed_6101/free_llm32_scientist_v2/round_00/catalog.json": "9374f1bd2e2a05a267fde9c67b5daa68822f3736a7d317ac2931a463faeb9710",
+          "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/astra_high_full_pool_20261001/selections/seed_6101/free_llm32_scientist_v2/round_00/contract.json": "ed8084bf917fde639443239a19adbeeec7f685beeca673f7cdea8e39fafdcdce",
+          "studies/active_learning/qgeognn_v2_row_short_sequential_b32/splits/row_seed_6101.csv": "3c8c809b2b6e63bd0b3d2f28032f0ae60adc66078fafb5e459d4d510d599e338",
+          "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_00/model/best.pt": "bcfffa247c3d24c8c74993ddb66cb59741ae14b1e67e8ed9543a8d1af7c6c494",
+          "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_00/model/fit_audit.json": "223e6cada0c5d5f806e837f0f3df0c77ddae02b06f481c6f8d23d1b2dda13d1a",
+          "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_00/model/predictions.csv.gz": "89765310b8808be70c1741341e8aa8bb48d81c8c7b0a0fc4986ea04c3413639c",
+          "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/context.json": "08826d3c0e91dad858d9075d6552dc30cc2f8403be29183ef6e3312ac6110d8e",
+          "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/scrubbed_graphs.pt": "29c2d4c5d9b4b0165c7ef5d400c0d7a5ae53795e10aea67318f68705ec9d9239"
+        },
+        "checkpoint_path": "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_00/model/best.pt",
+        "checkpoint_sha256": "bcfffa247c3d24c8c74993ddb66cb59741ae14b1e67e8ed9543a8d1af7c6c494",
+        "initialization_hash": "ef0ea4900be1f13286fc526f0879dd94042983508662334d8032785ced026f7d",
+        "L333_ids_hash": "38793e6f1eda734757c562de4973830b27cf13b2c0e97fbf110c5a1e61fb860e",
+        "U333_ids_hash": "2b9590b3a68506f0c2cab57988232d3bc220911d12e680709ae02259f81aa149",
+        "normalization": {
+          "loading_amount_min": 30.0,
+          "loading_amount_max": 327.29998779296875,
+          "loading_volume_min": 200.0,
+          "loading_volume_max": 2000.0,
+          "fit_dataset": "4g",
+          "fit_role": "source_train",
+          "fit_row_count": 3330,
+          "fit_ids_hash": "d3f58ee5d80894933f5524c850e5571cc90dfbd149661f1204491d899260ecfb",
+          "eluent_scaler_sha256": "858d5afa5b5861427031dfea1f3d82189070af8f61b7710337de9e08b13e8266"
+        },
+        "preprocessing": {
+          "scaler": {
+            "descriptor": {
+              "min": [
+                106.00885009765625,
+                0.0,
+                0.0,
+                0.0,
+                -0.6642000079154968,
+                1.87009596824646,
+                317.4486083984375,
+                0.11138497292995453,
+                0.052911177277565,
+                0.023961281403899193,
+                0.0,
+                0.20014657080173492,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "max": [
+                408.01220703125,
+                12.0,
+                1.0,
+                5.0,
+                7.736499786376953,
+                7.203703880310059,
+                24009.255859375,
+                0.5370063185691833,
+                0.3233283460140228,
+                0.33165669441223145,
+                0.38679033517837524,
+                2.5147390365600586,
+                69.66999816894531,
+                69.66999816894531,
+                0.11178451031446457,
+                90.9955062866211
+              ]
+            },
+            "eluent": {
+              "min": [
+                86.1287841796875,
+                0.2603960335254669,
+                1.0,
+                0.0,
+                0.019801979884505272,
+                0.5694000124931335
+              ],
+              "max": [
+                88.05242919921875,
+                26.299999237060547,
+                2.9801981449127197,
+                0.0,
+                2.0,
+                2.5666277408599854
+              ]
+            }
+          },
+          "target_scales": {
+            "V1": 5.462151050567627,
+            "V2": 12.266972541809082
+          },
+          "fit_role": "source_train",
+          "fit_rows": 3330,
+          "fit_ids_hash": "d3f58ee5d80894933f5524c850e5571cc90dfbd149661f1204491d899260ecfb",
+          "covariate_fit_role": "outer_train_X_only",
+          "covariate_fit_rows": 3330,
+          "covariate_fit_ids_hash": "d3f58ee5d80894933f5524c850e5571cc90dfbd149661f1204491d899260ecfb",
+          "target_scale_fit_role": "l0_labels_only",
+          "target_scale_fit_rows": 333,
+          "target_scale_fit_ids_hash": "38793e6f1eda734757c562de4973830b27cf13b2c0e97fbf110c5a1e61fb860e",
+          "validation_rows_used_for_scaling": 0,
+          "u0_rows_used_for_scaling": 0,
+          "test_rows_used": 0
+        },
+        "legacy_feedback_read": false
+      },
+      "mock_batches_independent": true,
+      "no_cw_leak_audit": {
+        "passed": true,
+        "serialized_sha256": "89d0c298f049493bc1baab07db018d03452541def0b0e004901e317273c3643e",
+        "serialized_characters": 953054
+      }
+    }
+  ],
+  "real_llm_calls": 0,
+  "model_fits": 0,
+  "new_real_labels_revealed": 0,
+  "validation_test_truth_reads": 0,
+  "synthetic_feedback_only": true,
+  "formal_runtime_created": false
+}
