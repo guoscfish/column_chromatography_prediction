@@ -1,0 +1,26 @@
+{
+  "version": "persistent_transport_retry_v1",
+  "base_protocol_sha256": "fbf5bf0e7d4e304d11d0afdab2eb09bf1833ddbe1a604e3889159fdca50ea89a",
+  "user_authorization": "\u4e00\u76f4\u5931\u8d25\u5c31\u4e00\u76f4\u91cd\u8bd5",
+  "authorized_utc": "2026-10-29T12:11:37.158450+00:00",
+  "maximum_transport_attempts": null,
+  "backoff_seconds": [
+    30,
+    60,
+    120,
+    240,
+    300
+  ],
+  "scope": "retry completed transport failures indefinitely; no reset of attempts or request hashes",
+  "inflight_requests": "wait for existing worker; never run two workers for a seed",
+  "ambiguous_started_without_result": "stop for reconciliation; do not delete or resend silently",
+  "scientific_validation": "unchanged; malformed/illegal plans never replaced or accepted",
+  "selection_correction_budget": "unchanged at 3 answers",
+  "key_model_endpoint": "unchanged",
+  "base_config_note": "frozen config retains original transport_attempts=3; this explicit amendment supersedes that limit only",
+  "fees": "failed/timeout requests may be billed; repeated requests now explicitly authorized",
+  "code_hashes": {
+    "scripts/studies/run_qgeognn_v2_row_llm_nocw_persistent.py": "42a966119e1da3fc64cf4661752979741e54222810242727559cce5fa0e47e6c",
+    "tests/active_learning_v2/test_nocw_persistent_retry.py": "00029bd690a9f600cb42c324f7d8dd26f059dd0e017146de38aa73d262839865"
+  }
+}
