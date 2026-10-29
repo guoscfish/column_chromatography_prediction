@@ -1,10 +1,10 @@
 {
-  "snapshot_time": "2026-10-28T21:59:53.402032+08:00",
-  "status": "IN_PROGRESS",
-  "free_common_budget": 1389,
+  "snapshot_time": "2026-10-29T13:52:29.684878+08:00",
+  "status": "COMPLETE",
+  "free_common_budget": 1485,
   "traditional_common_budget": 1005,
   "lcmd_common_budget": 1485,
-  "free_lcmd_matched_budget": 1389,
+  "free_lcmd_matched_budget": 1485,
   "target_labels": 1485,
   "seed_count": 5,
   "test_evaluation_performed": false,
@@ -27,8 +27,8 @@
       "nrmse": 0.3757673683307912
     },
     "12203": {
-      "labels": 1389,
-      "nrmse": 0.3522962616112287
+      "labels": 1485,
+      "nrmse": 0.3482629987175296
     }
   },
   "latest_lcmd": {
@@ -1021,10 +1021,10 @@
       "test_truth_access_count": 0
     },
     "12203": {
-      "verified_fits": 34,
-      "verified_batches": 33,
-      "unique_acquired_ids": 1056,
-      "final_labels": 1389,
+      "verified_fits": 37,
+      "verified_batches": 36,
+      "unique_acquired_ids": 1152,
+      "final_labels": 1485,
       "fit_ownership": [
         {
           "round": 0,
@@ -1229,6 +1229,24 @@
           "labels": 1389,
           "revision": "sol61_xhigh_free_to1485_extra3_20261026",
           "freeze": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_to1485_extra3_20261026/runtime/seed_12203/free_llm32_scientist_v2/round_33/prediction_freeze.json"
+        },
+        {
+          "round": 34,
+          "labels": 1421,
+          "revision": "sol61_xhigh_free_to1485_extra3_20261026",
+          "freeze": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_to1485_extra3_20261026/runtime/seed_12203/free_llm32_scientist_v2/round_34/prediction_freeze.json"
+        },
+        {
+          "round": 35,
+          "labels": 1453,
+          "revision": "sol61_xhigh_free_to1485_extra3_20261026",
+          "freeze": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_to1485_extra3_20261026/runtime/seed_12203/free_llm32_scientist_v2/round_35/prediction_freeze.json"
+        },
+        {
+          "round": 36,
+          "labels": 1485,
+          "revision": "sol61_xhigh_free_to1485_extra3_20261026",
+          "freeze": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_to1485_extra3_20261026/runtime/seed_12203/free_llm32_scientist_v2/round_36/prediction_freeze.json"
         }
       ],
       "initialization_hash": "55c4f0a50df1a2836d1f1319de2ffe0fb6810d085764fbb6368246d326cd7410",
@@ -1240,19 +1258,19 @@
     }
   },
   "free_at_common_budget": {
-    "labels": 1389,
-    "mean_validation_nrmse": 0.33951821500362533,
-    "sd_across_seeds": 0.028578944742236316
+    "labels": 1485,
+    "mean_validation_nrmse": 0.3340850415527771,
+    "sd_across_seeds": 0.037097141959139254
   },
   "free_vs_lcmd_at_matched_budget": {
-    "labels": 1389,
+    "labels": 1485,
     "free_llm32_scientist_v2": {
-      "mean": 0.33951821500362533,
-      "sd": 0.028578944742236316
+      "mean": 0.3340850415527771,
+      "sd": 0.037097141959139254
     },
     "lcmd": {
-      "mean": 0.3499363598749386,
-      "sd": 0.025604365061345453
+      "mean": 0.34758213679367617,
+      "sd": 0.030466887340616106
     }
   }
 }

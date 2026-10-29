@@ -248,7 +248,7 @@ def plot(curves, summary, np, plt):
     fig.suptitle('Free LLM and LCMD32 | five-seed continuation to 1485', fontsize=19, y=.99)
     fig.text(.055, .025, 'Lower is better. Lines stop at verified fits; Random/Hybrid stop at 1005. LCMD includes verified continuation fits.\n'
              'Seeds 157/6101 retain historical Astra/high prefixes; 887/2357/12203 use Sol6.1/xhigh throughout.\n'
-             'Registered amendment: +3 correction attempts only for Free seed887 r33 and seed12203 r24.\n'
+             'New amendment: +3 corrections at seed887 r33 / seed12203 r24; historical authorized prefix corrections retained (see report).\n'
              f'Snapshot: {summary["snapshot_time"]}. Status: {summary["status"]}. Validation only; no test evaluation.',
              fontsize=9.5, color='#5D6878', linespacing=1.5)
     fig.subplots_adjust(left=.055, right=.98, top=.865, bottom=.16, wspace=.29, hspace=.4)
@@ -267,7 +267,7 @@ def plot(curves, summary, np, plt):
         title=f'Free LLM32 vs LCMD32 | matched five-seed mean ± SD to {x[-1]}')
     ax.grid(axis='y',alpha=.15);ax.legend(frameon=False)
     fig.text(.08,.025,'Validation only; lower is better. No extrapolation.\n'
-        'Free retains historical model prefixes and the registered bounded-correction amendment.',fontsize=9,color='#5D6878')
+        'Free retains historical model prefixes, authorized prefix corrections and the new correction amendment; see report.',fontsize=9,color='#5D6878')
     fig.tight_layout(rect=[0,.10,1,1])
     for ext in ('png','pdf','svg'):fig.savefig(OUT/f'free_vs_lcmd_five_seed_mean.{ext}',dpi=170,facecolor='white')
     plt.close(fig)
@@ -283,7 +283,8 @@ def plot(curves, summary, np, plt):
     ax.grid(axis='y', alpha=.15)
     ax.legend(frameon=False)
     fig.text(.08, .03, f'Status: {summary["status"]}; common Free budget: {summary["free_common_budget"]}. '
-             'Lines stop at verified completed fits.\nSeeds 157/6101 retain Astra/high prefixes; new three seeds use Sol6.1/xhigh.',
+             'Lines stop at verified completed fits.\nSeeds 157/6101 retain Astra/high prefixes; new three seeds use Sol6.1/xhigh.\n'
+             'Authorized prefix corrections and the seed157 r5 ID transcription repair are retained; see report.',
              fontsize=9.5, color='#5D6878')
     fig.tight_layout(rect=[0, .10, 1, 1])
     for ext in ('png', 'pdf', 'svg'):
@@ -320,7 +321,7 @@ def load_snapshot(directory, require_complete, np):
     return curves, summary, sources
 
 
-def report(summary, destination, figures):
+def report(summary, destination, figures, curves=None):
     """One current report, with values derived from the same retained curves."""
     destination.parent.mkdir(parents=True, exist_ok=True)
     relative_figures = Path(os.path.relpath(figures, destination.parent)).as_posix()
@@ -329,7 +330,8 @@ def report(summary, destination, figures):
     remaining = sum((1485-point['labels'])//32 for family in ('latest_free', 'latest_lcmd')
                     for point in summary[family].values())
     matched = summary['free_vs_lcmd_at_matched_budget']
-    lines = ['# Free LLM32 与 LCMD32：五 seed 当前结果', '',
+    heading = '最终结果' if summary['status'] == 'COMPLETE' else '当前结果'
+    lines = [f'# Free LLM32 与 LCMD32：五 seed {heading}', '',
              f"采集时间：{summary['snapshot_time']}。状态：{summary['status']}。",
              f'目标为每条1485训练标签（初始333 + 36批×32，37次拟合）；已完成{complete}/10条，还剩{remaining}次拟合。', '',
              '| Seed | Free标签 | Free validation NRMSE | LCMD标签 | LCMD validation NRMSE |',
@@ -337,8 +339,28 @@ def report(summary, destination, figures):
     for seed in SEEDS:
         free, lcmd = (summary[key][str(seed)] for key in ('latest_free', 'latest_lcmd'))
         lines.append(f"| {seed} | {free['labels']} | {free['nrmse']:.6f} | {lcmd['labels']} | {lcmd['nrmse']:.6f} |")
-    lines += ['', f"五seed共同预算{matched['labels']}：Free平均NRMSE {matched[FREE]['mean']:.6f}，"
-                  f"LCMD {matched['lcmd']['mean']:.6f}。不同端点不作直接排名。", '',
+    difference = matched['lcmd']['mean'] - matched[FREE]['mean']
+    relative = difference / matched['lcmd']['mean']
+    direction = '低' if difference >= 0 else '高'
+    area_note = ''
+    if curves is not None:
+        areas = {}
+        for method in (FREE, 'lcmd'):
+            values = []
+            for seed in SEEDS:
+                rows = [row for row in curves[str(seed)][method] if row['labels'] <= matched['labels']]
+                area = sum((a['nrmse'] + b['nrmse']) / 2 * (b['labels'] - a['labels'])
+                           for a, b in zip(rows, rows[1:])) / (matched['labels'] - 333)
+                values.append(area)
+            areas[method] = sum(values) / len(values)
+        area_note = (f"全程333→{matched['labels']}标签的平均归一化曲线面积："
+                     f"Free {areas[FREE]:.6f}，LCMD {areas['lcmd']:.6f}（越低越好）。"
+                     '端点误差与整个采样过程的效率应分别比较。')
+    lines += ['', f"五seed共同预算{matched['labels']}：Free平均NRMSE {matched[FREE]['mean']:.6f} ± "
+                  f"{matched[FREE]['sd']:.6f}，LCMD {matched['lcmd']['mean']:.6f} ± {matched['lcmd']['sd']:.6f}"
+                  '（均值 ± seed间样本标准差）。'
+                  f'Free比LCMD{direction}{abs(difference):.6f}，相对LCMD{direction}{abs(relative):.2%}。', '',
+              area_note, '',
               f'![五seed实际冻结曲线]({relative_figures}/current_five_seed_comparison.png)', '',
               '## 实现与证据范围', '',
               'LCMD续跑使用冻结的原梯度特征实现，512D CountSketch、q50输出梯度和corrected LCMD-TP；'
@@ -347,6 +369,9 @@ def report(summary, destination, figures):
               'Free的157/6101保留历史Astra/high前缀，887/2357/12203使用gpt-6.1-sol/xhigh。'
               '887 r33与12203 r24有显式授权的额外3次逻辑纠正；原失败回执保留，其他科学规则不变。'
               '见[amendment](free/continuation_amendment.json)。', '',
+              '历史前缀还保留157 r5、6101 r0/r19各一次已授权的额外纠正，以及157 r5的一次已授权ID抄写修正；'
+              '这些例外均有原始回执，本次没有新增调用或修正。'
+              '见[历史授权记录](../llm_eight_to1549_20261018/historical_protocol_deviations.json)。', '',
               '只画完成且冻结的拟合点。Random/Hybrid五seed只到1005，不外推。'
               '这些是validation开发轨迹，没有新增test评价，validation指标不进入selector，标签在批次冻结后揭示。', '',
               '## 全训练集参考与平台期', '',
@@ -361,8 +386,11 @@ def report(summary, destination, figures):
               'python scripts/report_free_lcmd.py --from-snapshot reports/free_llm_five_seeds_to1485_20261024/figures',
               '```', '',
               '第一条读取本地runtime并核对冻结拟合、预测和批次哈希；第二条仅从Git保留的数值快照重绘。'
-              '新克隆不包含检查点、逐fit预测和训练缓存，因此离线重绘不等于重新完成runtime完整审计。'
-              '全部十条完成后再用`--require-complete`生成最终报告并进行完整37拟合/36批次审计。', '',
+              '新克隆不包含检查点、逐fit预测和训练缓存，因此离线重绘不等于重新完成runtime完整审计。' +
+              ('本轮已使用`--require-complete`完成全部十条37拟合/36批次核验；'
+               '逐条最终审计与图表核验见[最终核验记录](final_audit.json)。'
+               if summary['status'] == 'COMPLETE' else
+               '全部十条完成后再用`--require-complete`生成最终报告并进行完整37拟合/36批次审计。'), '',
               '历史监控入口`reports/free_llm_five_seeds_to1485_20261024/plot_frozen_results.py`保留为兼容转发，'
               '绘图实现统一在`scripts/report_free_lcmd.py`。原阶段协议与失败回执保持原路径。', '']
     destination.write_text('\n'.join(lines))
@@ -395,7 +423,7 @@ def main():
                         ('source_hashes.json', sources)]:
         (OUT/name).write_text(json.dumps(value, indent=2, ensure_ascii=False)+'\n')
     report_path = args.report or ((REPORT_DIR if OUT == DEFAULT_OUT else OUT)/'REPORT.md')
-    report(summary, report_path, OUT)
+    report(summary, report_path, OUT, curves)
     print(json.dumps({k: summary[k] for k in ('status', 'free_common_budget', 'lcmd_common_budget', 'latest_free')}))
 
 

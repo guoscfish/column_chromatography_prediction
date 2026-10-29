@@ -1,0 +1,943 @@
+{
+  "status": "PASS_ALL_TEN_COMPLETE1485",
+  "training_completed_at": "2026-10-29T13:49:56.312014+08:00",
+  "final_audit_completed_at": "2026-10-29T14:10:30.850712+08:00",
+  "seeds": [
+    157,
+    887,
+    2357,
+    6101,
+    12203
+  ],
+  "target_labels": 1485,
+  "completed_trajectories": 10,
+  "total_verified_fits": 370,
+  "total_verified_batches": 360,
+  "per_trajectory": [
+    {
+      "seed": 157,
+      "method": "free_llm32_scientist_v2",
+      "final_round": 36,
+      "final_labels": 1485,
+      "verified_fits": 37,
+      "verified_unique_batches": 36,
+      "batch_size": 32,
+      "unique_acquired_ids": 1152,
+      "same_initialization_and_validation_split": true,
+      "models_and_predictions_hash_verified": true,
+      "frozen_before_label_reveal": true,
+      "test_truth_access_count": 0,
+      "validation_nrmse": 0.33175533559052184
+    },
+    {
+      "seed": 157,
+      "method": "lcmd",
+      "final_round": 36,
+      "final_labels": 1485,
+      "verified_fits": 37,
+      "verified_unique_batches": 36,
+      "batch_size": 32,
+      "unique_acquired_ids": 1152,
+      "same_initialization_and_validation_split": true,
+      "models_and_predictions_hash_verified": true,
+      "frozen_before_label_reveal": true,
+      "test_truth_access_count": 0,
+      "validation_nrmse": 0.330408266601939
+    },
+    {
+      "seed": 887,
+      "method": "free_llm32_scientist_v2",
+      "final_round": 36,
+      "final_labels": 1485,
+      "verified_fits": 37,
+      "verified_unique_batches": 36,
+      "batch_size": 32,
+      "unique_acquired_ids": 1152,
+      "same_initialization_and_validation_split": true,
+      "models_and_predictions_hash_verified": true,
+      "frozen_before_label_reveal": true,
+      "test_truth_access_count": 0,
+      "validation_nrmse": 0.2746994213884128
+    },
+    {
+      "seed": 887,
+      "method": "lcmd",
+      "final_round": 36,
+      "final_labels": 1485,
+      "verified_fits": 37,
+      "verified_unique_batches": 36,
+      "batch_size": 32,
+      "unique_acquired_ids": 1152,
+      "same_initialization_and_validation_split": true,
+      "models_and_predictions_hash_verified": true,
+      "frozen_before_label_reveal": true,
+      "test_truth_access_count": 0,
+      "validation_nrmse": 0.30409255527848217
+    },
+    {
+      "seed": 2357,
+      "method": "free_llm32_scientist_v2",
+      "final_round": 36,
+      "final_labels": 1485,
+      "verified_fits": 37,
+      "verified_unique_batches": 36,
+      "batch_size": 32,
+      "unique_acquired_ids": 1152,
+      "same_initialization_and_validation_split": true,
+      "models_and_predictions_hash_verified": true,
+      "frozen_before_label_reveal": true,
+      "test_truth_access_count": 0,
+      "validation_nrmse": 0.33994008373662965
+    },
+    {
+      "seed": 2357,
+      "method": "lcmd",
+      "final_round": 36,
+      "final_labels": 1485,
+      "verified_fits": 37,
+      "verified_unique_batches": 36,
+      "batch_size": 32,
+      "unique_acquired_ids": 1152,
+      "same_initialization_and_validation_split": true,
+      "models_and_predictions_hash_verified": true,
+      "frozen_before_label_reveal": true,
+      "test_truth_access_count": 0,
+      "validation_nrmse": 0.36622810563804126
+    },
+    {
+      "seed": 6101,
+      "method": "free_llm32_scientist_v2",
+      "final_round": 36,
+      "final_labels": 1485,
+      "verified_fits": 37,
+      "verified_unique_batches": 36,
+      "batch_size": 32,
+      "unique_acquired_ids": 1152,
+      "same_initialization_and_validation_split": true,
+      "models_and_predictions_hash_verified": true,
+      "frozen_before_label_reveal": true,
+      "test_truth_access_count": 0,
+      "validation_nrmse": 0.3757673683307912
+    },
+    {
+      "seed": 6101,
+      "method": "lcmd",
+      "final_round": 36,
+      "final_labels": 1485,
+      "verified_fits": 37,
+      "verified_unique_batches": 36,
+      "batch_size": 32,
+      "unique_acquired_ids": 1152,
+      "same_initialization_and_validation_split": true,
+      "models_and_predictions_hash_verified": true,
+      "frozen_before_label_reveal": true,
+      "test_truth_access_count": 0,
+      "validation_nrmse": 0.3807611861909842
+    },
+    {
+      "seed": 12203,
+      "method": "free_llm32_scientist_v2",
+      "final_round": 36,
+      "final_labels": 1485,
+      "verified_fits": 37,
+      "verified_unique_batches": 36,
+      "batch_size": 32,
+      "unique_acquired_ids": 1152,
+      "same_initialization_and_validation_split": true,
+      "models_and_predictions_hash_verified": true,
+      "frozen_before_label_reveal": true,
+      "test_truth_access_count": 0,
+      "validation_nrmse": 0.3482629987175296
+    },
+    {
+      "seed": 12203,
+      "method": "lcmd",
+      "final_round": 36,
+      "final_labels": 1485,
+      "verified_fits": 37,
+      "verified_unique_batches": 36,
+      "batch_size": 32,
+      "unique_acquired_ids": 1152,
+      "same_initialization_and_validation_split": true,
+      "models_and_predictions_hash_verified": true,
+      "frozen_before_label_reveal": true,
+      "test_truth_access_count": 0,
+      "validation_nrmse": 0.3564205702589342
+    }
+  ],
+  "common_budget_comparison": {
+    "labels": 1485,
+    "endpoint_validation_nrmse": {
+      "labels": 1485,
+      "free_llm32_scientist_v2": {
+        "mean": 0.3340850415527771,
+        "sd": 0.037097141959139254
+      },
+      "lcmd": {
+        "mean": 0.34758213679367617,
+        "sd": 0.030466887340616106
+      }
+    },
+    "mean_free_minus_lcmd": -0.013497095240899093,
+    "relative_endpoint_reduction_vs_lcmd": 0.03883138346925732,
+    "normalized_aulc_333_to1485": {
+      "free_llm32_scientist_v2": {
+        "mean": 0.439159120279057,
+        "sd_across_seeds": 0.05725304722252411,
+        "per_seed": {
+          "157": 0.47157407900469894,
+          "887": 0.3681701752055312,
+          "2357": 0.40625431347934665,
+          "6101": 0.5160333594305073,
+          "12203": 0.43376367427520096
+        }
+      },
+      "lcmd": {
+        "mean": 0.4170492687884865,
+        "sd_across_seeds": 0.04945200242436524,
+        "per_seed": {
+          "157": 0.41499183698228115,
+          "887": 0.3494261954091391,
+          "2357": 0.4124154162739323,
+          "6101": 0.48900662455544336,
+          "12203": 0.4194062707216367
+        }
+      }
+    },
+    "interpretation": "Free has lower mean endpoint NRMSE; LCMD has lower mean integrated learning-curve error. Exploratory validation trajectories; no test evaluation or significance claim."
+  },
+  "historical_free_provenance": {
+    "batch_audits": [
+      {
+        "seed": 157,
+        "verified_batches": 36,
+        "unique_acquired_ids": 1152,
+        "authorization_aware_selector_validation": "PASS",
+        "historical_request_configs": "matched_to_original_turn00_request_hash",
+        "same_initial_labeled_ids_as_lcmd": true,
+        "acquisitions_in_original_unlabeled_pool": true,
+        "no_validation_or_test_ids_selected": true,
+        "historical_model_prefix_retained": true
+      },
+      {
+        "seed": 6101,
+        "verified_batches": 36,
+        "unique_acquired_ids": 1152,
+        "authorization_aware_selector_validation": "PASS",
+        "historical_request_configs": "matched_to_original_turn00_request_hash",
+        "same_initial_labeled_ids_as_lcmd": true,
+        "acquisitions_in_original_unlabeled_pool": true,
+        "no_validation_or_test_ids_selected": true,
+        "historical_model_prefix_retained": true
+      }
+    ],
+    "request_config_matches": [
+      {
+        "seed": 157,
+        "round": 0,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1293_20261015/protocol.json",
+        "config_sha256": "9de220891739ef84d4859f157cd40ec523bbc73c03333ad1575135d824c8127a",
+        "request_sha256": "e2297cb8d9526970dfdb7c7ef7964de6f022027233574be33fa3f349199b4f16"
+      },
+      {
+        "seed": 157,
+        "round": 1,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1293_20261015/protocol.json",
+        "config_sha256": "9de220891739ef84d4859f157cd40ec523bbc73c03333ad1575135d824c8127a",
+        "request_sha256": "ab13a2460a88a2585ceaae260480acc38abe7a697afda9de4fc7df3f6fb70526"
+      },
+      {
+        "seed": 157,
+        "round": 2,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1293_20261015/protocol.json",
+        "config_sha256": "9de220891739ef84d4859f157cd40ec523bbc73c03333ad1575135d824c8127a",
+        "request_sha256": "83346d248d7270d149066448c82f8542bd94a441664e6b32d1146087b0cda044"
+      },
+      {
+        "seed": 157,
+        "round": 3,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1293_20261015/protocol.json",
+        "config_sha256": "9de220891739ef84d4859f157cd40ec523bbc73c03333ad1575135d824c8127a",
+        "request_sha256": "a4a83e638ffc0026dc5e9a8bfc78c051488de91b2d7dbfaad788fed54c35f06b"
+      },
+      {
+        "seed": 157,
+        "round": 4,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1293_20261015/protocol.json",
+        "config_sha256": "9de220891739ef84d4859f157cd40ec523bbc73c03333ad1575135d824c8127a",
+        "request_sha256": "8ca0934e42a74805574e58f450fc7c8643c1d02379cad14e98f23b44b15728fc"
+      },
+      {
+        "seed": 157,
+        "round": 5,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1293_20261015/protocol.json",
+        "config_sha256": "9de220891739ef84d4859f157cd40ec523bbc73c03333ad1575135d824c8127a",
+        "request_sha256": "2a45aebaf948f1a1d4014d351577c9633e377a6d827b5b1dc3440bc359d7fd4d"
+      },
+      {
+        "seed": 157,
+        "round": 6,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "08dbecde0f9ceaf0b5d726affa48224ba46a9fc4793e1e4b6907b9e28036e1c4"
+      },
+      {
+        "seed": 157,
+        "round": 7,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "72467d22eed0c81c1e6e3370535889b93475c25284487742363fabffe69bfb5c"
+      },
+      {
+        "seed": 157,
+        "round": 8,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "606d3732ebbbcd3e0de5639fa4da200b3e4d8a43196d9d53092ac8cc2c00cfc0"
+      },
+      {
+        "seed": 157,
+        "round": 9,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "407c2564bc217027e5ecff0b193a95557ed3fb6c204743c1d2e6d344538eeb40"
+      },
+      {
+        "seed": 157,
+        "round": 10,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "3f3f870f5b46ed5ee5e7f086847a0deee993ff473056f27740baa732cac194ba"
+      },
+      {
+        "seed": 157,
+        "round": 11,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "eaf82d237c900050de86a27ab386f33c45d1732e6a1fa1e50d39280683c214aa"
+      },
+      {
+        "seed": 157,
+        "round": 12,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "b731307c0d7f0834a3cd3a4f7cb5337e90144d41b36e42ac0dae3143c3d0c7a8"
+      },
+      {
+        "seed": 157,
+        "round": 13,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "03789601d00e9f3a73662fce051df0c500af665b709b1cbf4b9e37e95069e11b"
+      },
+      {
+        "seed": 157,
+        "round": 14,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "f26188870aed75a896c4bf1515bfe3e14ac6472948e4f649a316e38e07be2174"
+      },
+      {
+        "seed": 157,
+        "round": 15,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "9bea4d3b2787985f1cac60d18243fa97acee4e07f8bd3bf3cd50d2609e720e07"
+      },
+      {
+        "seed": 157,
+        "round": 16,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "af039c3d40a9fdd424525c6247ff07ad6e8f18aa44ed822aa33552abb44266a9"
+      },
+      {
+        "seed": 157,
+        "round": 17,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "6f07ae57da93dfbf71aec0a7a564406c1c36ce7b3f9d936a38c46b77d4d4e4fe"
+      },
+      {
+        "seed": 157,
+        "round": 18,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "1853095ee77159a64357cffb6aab8021e7bbe2fea22901575d10ee78554b1a05"
+      },
+      {
+        "seed": 157,
+        "round": 19,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "8a85e79d9992a14b44056a59a8e75200d5cadde704bdd1f74812a35b1384426c"
+      },
+      {
+        "seed": 157,
+        "round": 20,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "9ae1c8fe52419fd0d4f091ab4dbd479d0d6d5046b495d4a4dec35a505de7960d"
+      },
+      {
+        "seed": 157,
+        "round": 21,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "e767c11e10afdfc41d81829a154e2d7fea51b74e11dcd8c6116e840405f51050"
+      },
+      {
+        "seed": 157,
+        "round": 22,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "d6bcfb6c7016108affbaf98ce9f57f33c1e223964a87f8314231581f32946cd0"
+      },
+      {
+        "seed": 157,
+        "round": 23,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "74ef7bed1c9800c40acdcb9a0b72a92663e9d714702f3757be3d20cfd482148d"
+      },
+      {
+        "seed": 157,
+        "round": 24,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "31af70b6bfcbd3205ca634f63c5afa0c21d135d3354036cf7925a892950cfe1c"
+      },
+      {
+        "seed": 157,
+        "round": 25,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "a1071a7f0e819f0a1d02549fd602bb567d80bde344705a8a19e2ab3cedfc4cba"
+      },
+      {
+        "seed": 157,
+        "round": 26,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "97749cf5c5f5c155e297d0492bd4377146e0ad373fad2353a55a7c7a6638b2b0"
+      },
+      {
+        "seed": 157,
+        "round": 27,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "242c9344bd06fa483485541e4bc37becec748092778162eaff45c96e783f2226"
+      },
+      {
+        "seed": 157,
+        "round": 28,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "4cf30cce2a3eea4a79f1d637991b7edfb907591f1569adbc05aced2ae93dbebc"
+      },
+      {
+        "seed": 157,
+        "round": 29,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "3a1ca2db6b79a4932ce5a0d8ae1f446aa3c7b6f687882028fc86971353266c0e"
+      },
+      {
+        "seed": 157,
+        "round": 30,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "3e7f3c1e5c442ea20ba0be2d15fd6d077f1b11c7882a14056bd4842beec80538"
+      },
+      {
+        "seed": 157,
+        "round": 31,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "9addbddfa5ebeb04372c9eafbc8ec97d55e8bba3c9d21a52e04fee3689bf4581"
+      },
+      {
+        "seed": 157,
+        "round": 32,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "dbc7b34925aa6789eae9e14ac7ba3ac29e9b301a431705393c547bbd21b210d4"
+      },
+      {
+        "seed": 157,
+        "round": 33,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "24ebd4d76f35d14bf9c1b4e1e73040bed0a2a417f04e8d8e153f8dc05945d7b9"
+      },
+      {
+        "seed": 157,
+        "round": 34,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "9cff97a56a6ad2ca465258fbf8adb83700a653989ab2567193a88f32eb71e9a6"
+      },
+      {
+        "seed": 157,
+        "round": 35,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "d9d2f58bf226b3b7e6146e909ee0a48d01043a838ed542f6b3730b374fcf75b2"
+      },
+      {
+        "seed": 6101,
+        "round": 0,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1293_20261015/protocol.json",
+        "config_sha256": "9de220891739ef84d4859f157cd40ec523bbc73c03333ad1575135d824c8127a",
+        "request_sha256": "ac907fcc4247ed49486e966eaa05f35339901b21832bebad3580dbe07a74cda5"
+      },
+      {
+        "seed": 6101,
+        "round": 1,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1293_20261015/protocol.json",
+        "config_sha256": "9de220891739ef84d4859f157cd40ec523bbc73c03333ad1575135d824c8127a",
+        "request_sha256": "8350cd54d69b57c6069fa59fb68aae89d32de2b5503a42f8261290437de55e93"
+      },
+      {
+        "seed": 6101,
+        "round": 2,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1293_20261015/protocol.json",
+        "config_sha256": "9de220891739ef84d4859f157cd40ec523bbc73c03333ad1575135d824c8127a",
+        "request_sha256": "d728949fc9cdc869d72b142da586e190561b0ff684c74990cd2a2d27bf4f9596"
+      },
+      {
+        "seed": 6101,
+        "round": 3,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1293_20261015/protocol.json",
+        "config_sha256": "9de220891739ef84d4859f157cd40ec523bbc73c03333ad1575135d824c8127a",
+        "request_sha256": "a2f8db9a58e25ca1c2a1330b34e2636e5f541417306c004b01fa496223308bbb"
+      },
+      {
+        "seed": 6101,
+        "round": 4,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1293_20261015/protocol.json",
+        "config_sha256": "9de220891739ef84d4859f157cd40ec523bbc73c03333ad1575135d824c8127a",
+        "request_sha256": "7d8ed116f25505f3753aa6a902938be538eb9365833fe856c6ee98d53058bdbe"
+      },
+      {
+        "seed": 6101,
+        "round": 5,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1293_20261015/protocol.json",
+        "config_sha256": "9de220891739ef84d4859f157cd40ec523bbc73c03333ad1575135d824c8127a",
+        "request_sha256": "f53fe4f5f21ec3801d532bea228ee1eec895e2068519b087a301ed5127b2cc6d"
+      },
+      {
+        "seed": 6101,
+        "round": 6,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1293_20261015/protocol.json",
+        "config_sha256": "9de220891739ef84d4859f157cd40ec523bbc73c03333ad1575135d824c8127a",
+        "request_sha256": "89e28f36353ac3669651b29e9893a37194003b0ee97d4ecf857cb0e0617fe867"
+      },
+      {
+        "seed": 6101,
+        "round": 7,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1293_20261015/protocol.json",
+        "config_sha256": "9de220891739ef84d4859f157cd40ec523bbc73c03333ad1575135d824c8127a",
+        "request_sha256": "b62d46d1b7f0264a033789340ba635464ee5fa2dc34884e458497885d3c6c3e5"
+      },
+      {
+        "seed": 6101,
+        "round": 8,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1293_20261015/protocol.json",
+        "config_sha256": "9de220891739ef84d4859f157cd40ec523bbc73c03333ad1575135d824c8127a",
+        "request_sha256": "06581976432d2865468eec9769e187c3d14b81dc81e126de6065b35fe3369c21"
+      },
+      {
+        "seed": 6101,
+        "round": 9,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1293_20261015/protocol.json",
+        "config_sha256": "9de220891739ef84d4859f157cd40ec523bbc73c03333ad1575135d824c8127a",
+        "request_sha256": "28a38f24ee4376e6f5417d9ace83e7a5e63395259bf62ea15c0d0819a6ab1433"
+      },
+      {
+        "seed": 6101,
+        "round": 10,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "bf62340de753bedc85b74b3653343d2351382b0eb977994af94558ce676267d2"
+      },
+      {
+        "seed": 6101,
+        "round": 11,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "9fe6dd53bd2d3845359db8c0cf4b97c70e98a78b255041a78af2883179193d50"
+      },
+      {
+        "seed": 6101,
+        "round": 12,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "d1c48bd522ed7bac8490266aa0fb6ebcb0aa938f304d6466c9101315cb5372b4"
+      },
+      {
+        "seed": 6101,
+        "round": 13,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "78efe17d3c50e45461b747bc49c806019fab195aafefc6325ede406e6489091f"
+      },
+      {
+        "seed": 6101,
+        "round": 14,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "76ec29aa1f6e579c7186d77f47a5b24a9ae6f5d561f1e364af4fabc912dbfddd"
+      },
+      {
+        "seed": 6101,
+        "round": 15,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "3454f6e3a3171987f736332aa8b6ac72eae4f29c39efa4dbedca3fc17249ae20"
+      },
+      {
+        "seed": 6101,
+        "round": 16,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "e16c0754a122c49e81236130f5d99111e499cbd5f88694607f3b3ea14e538772"
+      },
+      {
+        "seed": 6101,
+        "round": 17,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "425cc52fb27a000c382a223b04a2e948c72f85d0a704001aaa13952c56441baf"
+      },
+      {
+        "seed": 6101,
+        "round": 18,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "f562d4c5a52a43b17d7506b78590ea07ac76f3a016166eba48974db29150235e"
+      },
+      {
+        "seed": 6101,
+        "round": 19,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "83dbe10f260d91be9ababc6c0f0a25066931462da55d1b77f2092f8631ab6b4f"
+      },
+      {
+        "seed": 6101,
+        "round": 20,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "c9ed8d72a94a76659681441d2d4a3f3040fb3931da11920b0ec758fbfe3b359e"
+      },
+      {
+        "seed": 6101,
+        "round": 21,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "0935833deeba6997eb6f920f4b9cc35d7c7fa3773c82b3c08923921a73f5e1d1"
+      },
+      {
+        "seed": 6101,
+        "round": 22,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "ff0054f7ef573d689dbc130a2ba3056d85b634cd9f5b5a1bbeee9dc2477d3931"
+      },
+      {
+        "seed": 6101,
+        "round": 23,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "f6850563da1191cbc5e4eba7f0c16a7184cd38efb27c30669d9bc37860214db6"
+      },
+      {
+        "seed": 6101,
+        "round": 24,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "af019f540f8bdd98e3e8d921588e887e64d393539427e522b037dade47c055a2"
+      },
+      {
+        "seed": 6101,
+        "round": 25,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "11fafd4ef0c5279b4e0286f08e456212aace955b4139f69b92f130fb53b55454"
+      },
+      {
+        "seed": 6101,
+        "round": 26,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "00259ef96507d24cfa9c4e6c78a8efafb1efbcc4cc8c07cb7876d526b7a876c2"
+      },
+      {
+        "seed": 6101,
+        "round": 27,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "5ff3d7f8ed0f070affa426360463e5f2ac9067f0a18a9b408191b774256f05d1"
+      },
+      {
+        "seed": 6101,
+        "round": 28,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "5f024c710cd8d163ab029f46851aa4a5e9ed139f9db9601960e9ffaa4c873fdd"
+      },
+      {
+        "seed": 6101,
+        "round": 29,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "363b974886a5f9825c57c7f2402691de82dba3658c47964298f32d15e6833767"
+      },
+      {
+        "seed": 6101,
+        "round": 30,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "fbc5629fa9e9bb5fd15b6bae68cb1de1090dae4f94472786d8efb72ebf68d765"
+      },
+      {
+        "seed": 6101,
+        "round": 31,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "4c07c06efa457f4e31d867e493f3f817792ef4b3adfa91704c657c949eba1d13"
+      },
+      {
+        "seed": 6101,
+        "round": 32,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "5769cd2791c261a6a795c6a6d95288c189b328fcd207585b3f617f0be9a9e5db"
+      },
+      {
+        "seed": 6101,
+        "round": 33,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "cf663cd43aeb38b34c003e3e0f4e98eaf206c5915448d6033d183be4ee081473"
+      },
+      {
+        "seed": 6101,
+        "round": 34,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "98909ed7c7489cd3347f5d883957a69ffb5b51d99363d248ad58e505f4f96dce"
+      },
+      {
+        "seed": 6101,
+        "round": 35,
+        "config_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+        "config_sha256": "ff5da8f292de8a000aebac34f83fe1dacf91c9ad64d9ed399102a3163151979d",
+        "request_sha256": "da0c19b673139db5b3242d1f954c9b81f080df7e4abc93d3059a42e500fba742"
+      }
+    ],
+    "model_batch_counts": [
+      {
+        "model": "gpt-6-astra",
+        "reasoning_effort": "high",
+        "batches": 16
+      },
+      {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "xhigh",
+        "batches": 56
+      }
+    ],
+    "authorized_deviations": [
+      {
+        "seed": 157,
+        "round": 5,
+        "path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_157/free_llm32_scientist_v2/round_05/authorized_extra_correction.json",
+        "sha256": "98cab1bd4a5e9c041d4fb0065590bbfe43d8ddd79df700675339a57c726d65e8",
+        "additional_logical_calls": 1
+      },
+      {
+        "seed": 157,
+        "round": 5,
+        "path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_157/free_llm32_scientist_v2/round_05/authorized_id_transcription_correction.json",
+        "sha256": "a835766fa7895066979513e6ca5af502244d6a5977d58b3d7bc1aa70d243ec47",
+        "deterministic_id_transcription_correction": true,
+        "new_llm_calls": 0,
+        "new_labels_accessed": 0
+      },
+      {
+        "seed": 6101,
+        "round": 0,
+        "path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_6101/free_llm32_scientist_v2/round_00/authorized_extra_correction.json",
+        "sha256": "4a0b78dfd6a951a84d3ccc9451c734a1eec482ea2fb53d22ebf163d1c4ec110b",
+        "additional_logical_calls": 1
+      },
+      {
+        "seed": 6101,
+        "round": 19,
+        "path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_6101/free_llm32_scientist_v2/round_19/authorized_extra_correction.json",
+        "sha256": "c1033d39e35805c4cbb73ad74980022d93f7fe24b8052ce7d9dfefdd43cd5f5a",
+        "additional_logical_calls": 1
+      }
+    ]
+  },
+  "new_free_amendment": {
+    "seeds_and_cut_rounds": {
+      "887": 33,
+      "12203": 24
+    },
+    "extra_logical_corrections_at_those_cuts_only": 3,
+    "original_failed_receipts_retained": true,
+    "no_additional_budget_in_final_monitoring": true
+  },
+  "full_reference": {
+    "training_labels": 3330,
+    "mean_validation_nrmse": 0.3254330246,
+    "free1485_gap": 0.008652016952777064,
+    "lcmd1485_gap": 0.022149112193676157,
+    "source": "reports/free_lcmd_five_seeds_to1485_20261026/analysis/full_reference_validation_comparison_20261028.json"
+  },
+  "runtime_collection": {
+    "command": "python scripts/report_free_lcmd.py --require-complete",
+    "status": "PASS",
+    "snapshot_time": "2026-10-29T13:52:29.684878+08:00",
+    "source_hash_manifest": "reports/free_llm_five_seeds_to1485_20261024/figures/source_hashes.json"
+  },
+  "offline_redraw": {
+    "command": "python scripts/report_free_lcmd.py --from-snapshot reports/free_llm_five_seeds_to1485_20261024/figures --require-complete",
+    "status": "PASS",
+    "does_not_replace_runtime_audit": true
+  },
+  "visual_qa": {
+    "status": "PASS",
+    "inspected_pngs": {
+      "reports/free_llm_five_seeds_to1485_20261024/figures/current_five_seed_comparison.png": "d21ad7e24b58237b9b169c1782335b381c0abdaa82fcd93a289071bab95c7193",
+      "reports/free_llm_five_seeds_to1485_20261024/figures/free_llm_five_seed_curves.png": "5cc734c5df4bd871c1f02cee7f7042e18851bb098a8ed1b2c350ad26921797dc",
+      "reports/free_llm_five_seeds_to1485_20261024/figures/free_vs_lcmd_five_seed_mean.png": "6647ece161bf62a01d6bce5543de4f52a5540f229feb518d5d606df59f01d6fc"
+    },
+    "checks": [
+      "all_ten_endpoints1485",
+      "legible_axes_and_legends",
+      "no_label_clipping",
+      "random_hybrid_stop1005",
+      "sample_SD_shading",
+      "historical_authorized_deviations_disclosed"
+    ]
+  },
+  "plot_exports": {
+    "reports/free_llm_five_seeds_to1485_20261024/figures/current_five_seed_comparison.png": "d21ad7e24b58237b9b169c1782335b381c0abdaa82fcd93a289071bab95c7193",
+    "reports/free_llm_five_seeds_to1485_20261024/figures/current_five_seed_comparison.pdf": "1af33499d9302e0494cad15bbffa0e5b3100f2d90194d8444cd2c93c7edcf0ce",
+    "reports/free_llm_five_seeds_to1485_20261024/figures/current_five_seed_comparison.svg": "4ab575799e15f379a5772d5087e745038b01ac770379bff018b91635a9f6065d",
+    "reports/free_llm_five_seeds_to1485_20261024/figures/free_llm_five_seed_curves.png": "5cc734c5df4bd871c1f02cee7f7042e18851bb098a8ed1b2c350ad26921797dc",
+    "reports/free_llm_five_seeds_to1485_20261024/figures/free_llm_five_seed_curves.pdf": "5225c67767dec2ecfacd247a969c58e81e78f4b324538c3ae7f1eec2e4d08757",
+    "reports/free_llm_five_seeds_to1485_20261024/figures/free_llm_five_seed_curves.svg": "995838f511cb6233d87537d1ba820de04605af5814e7052a82f9eac7520a6824",
+    "reports/free_llm_five_seeds_to1485_20261024/figures/free_vs_lcmd_five_seed_mean.png": "6647ece161bf62a01d6bce5543de4f52a5540f229feb518d5d606df59f01d6fc",
+    "reports/free_llm_five_seeds_to1485_20261024/figures/free_vs_lcmd_five_seed_mean.pdf": "75b1eae419903993718040d26ef63681241f47cea398acdc501af86560f3edb4",
+    "reports/free_llm_five_seeds_to1485_20261024/figures/free_vs_lcmd_five_seed_mean.svg": "a59fb55ca3aa6081e70168b0f42508d8550034b01cdd22df1f41bc49d2e712d0"
+  },
+  "frozen_entry_integrity": {
+    "free_validation": "VALID",
+    "lcmd_validation": "VALID",
+    "epoch_authorization_validation": "VALID"
+  },
+  "final_process_evidence": {
+    "checked_at": "2026-10-29T14:08:45.671398+08:00",
+    "status": "PASS",
+    "free_validation": "VALID",
+    "lcmd_validation": "VALID",
+    "epoch_authorization_validation": "VALID",
+    "supervisor": {
+      "status": "COMPLETE",
+      "seed": 12203,
+      "time": "2026-10-29T13:49:57.583920+08:00",
+      "recovery_count": 23,
+      "session_recovery_count": 9,
+      "failures_per_round": {
+        "22": 1,
+        "23": 1,
+        "24": 3,
+        "29": 1,
+        "33": 1,
+        "35": 2
+      },
+      "authorized_current_round_launches": 1,
+      "authorization": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/transport_epoch_20261026_2338/authorization.json",
+      "baseline_recovery_count": 19,
+      "source_status": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/free/status_seed_12203.json"
+    },
+    "source": {
+      "updated_at": "2026-10-29T13:49:56.312014+08:00",
+      "seed": 12203,
+      "phase": "COMPLETE",
+      "completed_rounds": 36,
+      "completed_labels": 1485,
+      "target_labels": 1485
+    },
+    "expected_worker_and_supervisor_exited": true,
+    "kernel_lock_probes": [
+      {
+        "path": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/free/worker_seed_12203.lock",
+        "held_by_other_process": false
+      },
+      {
+        "path": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/free/supervisor_seed_12203.lock",
+        "held_by_other_process": false
+      },
+      {
+        "path": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/transport_epoch_20261026_2338/supervisor_seed_12203.lock",
+        "held_by_other_process": false
+      },
+      {
+        "path": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/free/credential_6cf5cbe63801f926.lock",
+        "held_by_other_process": false
+      },
+      {
+        "path": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_llm_five_seeds_to1485_20261024/training_slot_0.lock",
+        "held_by_other_process": false
+      },
+      {
+        "path": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_llm_five_seeds_to1485_20261024/training_slot_1.lock",
+        "held_by_other_process": false
+      },
+      {
+        "path": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_llm_five_seeds_to1485_20261024/training_slot_2.lock",
+        "held_by_other_process": false
+      }
+    ]
+  },
+  "evidence_sha256": {
+    "reports/free_llm_five_seeds_to1485_20261024/figures/current_summary.json": "9a3f0a2f5363347f23109b1756511ad0e20cd091944518ae01ad41b02252c359",
+    "reports/free_llm_five_seeds_to1485_20261024/figures/validation_curves.json": "ad789470ca76b6a98ab5eac191054a088c5f97a7bfd0800a0e4ec1eb63b97115",
+    "reports/free_llm_five_seeds_to1485_20261024/figures/source_hashes.json": "4d55bcc75c8d5e197cee84eb7a9738c617eaa9b3a7bee19dbab41c7accdf1d69",
+    "reports/free_lcmd_five_seeds_to1485_20261026/free/continuation_amendment.json": "f2cda951f9fcd815060bb09e4d3134f9f17efe8f64026da547aceec08421e47e",
+    "reports/free_lcmd_five_seeds_to1485_20261026/transport_epoch_20261026_2338/authorization.json": "e6b69cd1e1028f5d88021f27116b0638dbfa30eeca96265c3671db30650aad3c",
+    "reports/free_lcmd_five_seeds_to1485_20261026/lcmd/extension_manifest.json": "4d07686078c42d47cede6fb25b24892b15317709d500a279d6dfd1827a5e338d",
+    "reports/free_lcmd_five_seeds_to1485_20261026/frozen_sources/gradient_features.py": "d5de5c2ecdbcd57a4152c7be72f6bfc82028e9c1cfd2ff502c09ac78a5329320",
+    "reports/free_lcmd_five_seeds_to1485_20261026/audit_selection_seed_12203_round_35.json": "e5de2e488ed2c3c6a3512b01420bae8adfc35d63f47d03d33c6904e2a32ee0f7",
+    "reports/free_lcmd_five_seeds_to1485_20261026/integrity_clearance_seed_12203_latest.json": "c74df110ac2fce191cdcceb544bcd82ff1e087adf1544c28d1c44e9029082da5",
+    "reports/llm_eight_to1549_20261018/historical_protocol_deviations.json": "5b83d9bc8bad5334f517fd0308851e1b9483adfb2a2270bd88a0a5e5531ba4a3",
+    "reports/free_lcmd_five_seeds_to1485_20261026/free/audit_seed_887_latest.json": "f561de568281a0478c37e4446b2b2d319e5711e392ceaa3b26fd6ca378e5b2dd",
+    "reports/free_lcmd_five_seeds_to1485_20261026/free/audit_seed_12203_latest.json": "187ca4834ee07d6e0bbcd36ae0e85ce4aaad703fe39801535397663bcba59e58",
+    "reports/free_lcmd_five_seeds_to1485_20261026/lcmd/audit_seed_157_latest.json": "8de6547ee1dfbfca398f74b885fc97d48234c6134ac9e63a4e34d1d5d746b7cb",
+    "reports/free_lcmd_five_seeds_to1485_20261026/lcmd/audit_seed_887_latest.json": "35ec9afd9b9ded11050a5acffb65bce9148e5395d167ed8e853de5b28c5eaabe",
+    "reports/free_lcmd_five_seeds_to1485_20261026/lcmd/audit_seed_2357_latest.json": "c365781ab81d53ad04da0167ae7433d31747043ea5b057fc1d6988cf0f25dbf1",
+    "reports/free_lcmd_five_seeds_to1485_20261026/lcmd/audit_seed_6101_latest.json": "88c772a9d8b9da84d0ff941a78931d5c2fa196560ed1aabdaea5a7f34b77c6d7",
+    "reports/free_lcmd_five_seeds_to1485_20261026/lcmd/audit_seed_12203_latest.json": "950a787b21345d19ce74752a6121b2ec5bf70a7183ca7b82508fae263a6a6a4e",
+    "reports/free_llm_five_seeds_to1485_20261024/audit_seed_2357_latest.json": "d599edde14456869719bf8307a629217e635cb4bdd37ee5635f32fa226be430d"
+  },
+  "test_evaluation_performed": false,
+  "monitoring": {
+    "automation_id": "free-lcmd-seed-1485",
+    "completion_verified": true,
+    "status": "DELETED",
+    "deleted_at": "2026-10-29T14:12:29.039457+08:00",
+    "deletion_confirmed_by": "Codex automation_update deleteStatus=deleted"
+  },
+  "rendering_script_sha256": "7af1f4914816bf7dbd18b94934d05089ee37a6be26d506d7cc8fa51be9d56506",
+  "repository_hygiene_audit": {
+    "command": "python scripts/audit_repository_hygiene.py",
+    "status": "PASS",
+    "exit_code": 0
+  }
+}

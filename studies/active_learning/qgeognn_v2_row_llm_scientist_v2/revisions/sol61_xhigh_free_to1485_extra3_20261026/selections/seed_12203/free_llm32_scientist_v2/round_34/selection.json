@@ -1,0 +1,244 @@
+{
+  "type": "selection",
+  "packet_sha256": "e0630736f8b8679dc6237d9e7ef338ea75e0dec8598e4d2d8fe488d322c9676b",
+  "batch_strategy": "Select missing condition segments and controlled loading contrasts that distinguish local response shapes from inappropriate transfer between retention regimes. Prioritize the recent endpoint-specific failures without treating historical errors as current residuals. Include ordinary aromatic controls and strong-eluent anchors where they constrain poorly covered response curves. Quantile widths and CW distances provide secondary evidence; neither is treated as calibrated epistemic uncertainty.",
+  "choices": [
+    {
+      "id": "b7d6bedb33cb5650a8cf",
+      "reason": "m168 at 2/1, 50 uL and DCM 400 uL starts a controlled low-loading segment with the selected 5/1 row. Existing 10/1 and 20/1 anchors a7b3f30d3df81d5a1b39 and 78c0a2cff75a69f56f26 leave its stronger-eluent response uncovered.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "414e3cc35873dcefe96f",
+      "reason": "m168 at 5/1 and 50 uL changes only PE/EA relative to the selected 2/1 point and only sample volume relative to the selected 150-uL point. This makes its label useful for separating solvent response from loading effects.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "1876202ed404e43b3852",
+      "reason": "m168 at 5/1 and 150 uL completes the fixed-ratio loading contrast. The 50/1 observations 5e5b7c697bc0c268b288 and b8abc8f40545556f07e0 show that onset and completion need not shift together; this tests whether that behavior transfers to stronger eluent.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "06bedd392df0b12026dd",
+      "reason": "m44 at 5/1 and 100 uL bridges measured 1/1 row eb8bf4960fc4d556bab4 and the selected 10/1 point at identical loading conditions. It localizes the response curve after recent completion overprediction.",
+      "hypothesis_id": "H_endpoints"
+    },
+    {
+      "id": "07d227507052d834608f",
+      "reason": "m44 at 10/1 and 100 uL gives a direct loading contrast to 918504cfbad81b27c08e, whose acquisition-time V2 error was +6.25 mL. Together with selected 5/1, it tests whether the narrow measured low-loading interval transfers to intermediate loading.",
+      "hypothesis_id": "H_endpoints"
+    },
+    {
+      "id": "dcd115d5903aa7c38191",
+      "reason": "m158 is iodothiophene. Its 5/1, 50-uL label connects measured 2/1 row ad309f50747343bbbc4f with weaker conditions and tests the predicted onset hump. Recent pure-EA row 6f9d141f9a5e7238a801 exposed underestimated completion.",
+      "hypothesis_id": "H_endpoints"
+    },
+    {
+      "id": "db5dcc7b864e0174fcbd",
+      "reason": "m67 at 10/1 and 50 uL supplies the missing low-loading bridge before the late 20/1 response in 2cf4f6424b85ab121943. Comparison with 2d11f1fe488a0c917ffe isolates loading at 10/1, where onset prediction has a broad quantile span.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "d415596f22ad889a6d7b",
+      "reason": "m58 at 5/1 and 100 uL begins a matched pair with selected 10/1. The predictor places onset later at 5/1 than 10/1; labels can determine whether this is a genuine local plateau or reversal rather than imposing a solvent-strength rule.",
+      "hypothesis_id": "H_curve"
+    },
+    {
+      "id": "04c495d5b53e3b1bceb7",
+      "reason": "m58 at 10/1 and 100 uL completes the fixed-loading ratio pair and contrasts with low-loading measurement aafc5710406e440a4c8f. Measured 20/1 row c023e9fab656fe2ce6a6 supplies a weaker-eluent anchor.",
+      "hypothesis_id": "H_curve"
+    },
+    {
+      "id": "fa59cd65f3b5f04bd6af",
+      "reason": "m91 at 1/1 and 50 uL pairs with selected 2/1. At 100 uL, 0a94142a35c55e5f1788 and 02ddeed8a16d3adf3e28 show lower retention at 2/1. This tests whether the observed dip persists at lower loading.",
+      "hypothesis_id": "H_curve"
+    },
+    {
+      "id": "7bb758eca7db78231165",
+      "reason": "m91 at 2/1 and 50 uL completes the controlled ratio contrast. Its label distinguishes a reproducible condition-response dip from a loading-specific or variable observation, with a2ecf2b2f28094d70368 anchoring recovery at 5/1 and 100 uL.",
+      "hypothesis_id": "H_curve"
+    },
+    {
+      "id": "020187ef7e68c736fde7",
+      "reason": "m25 at 2/1 and 50 uL tests the low-loading extension of the retention dip measured in 075248a5ddcd4b5d091f and ac6cfe67adcb860efabf. This provides an independent beta-ketoester example for learning nonmonotonic local responses.",
+      "hypothesis_id": "H_curve"
+    },
+    {
+      "id": "23ef03f3e75e40b20095",
+      "reason": "m146 at 10/1 and 150 uL tests loading transfer into its late branch. Measurement 9e3ce3497298084abd83 at 100 uL reached 59.58/106.50 mL, while 777a87b895af5e6bc380 anchors the same loading at 1/1.",
+      "hypothesis_id": "H_transition"
+    },
+    {
+      "id": "6aa69f7c2b8244353a75",
+      "reason": "m159 at 5/1 and 100 uL fills the loading gap between b86ace0ccafe0af8ceec and 5ae7472a4d9ce3fe20d0, whose V2 values differ by about 5.9 mL. It anchors the ordinary branch before the much later 20/1 and 50/1 responses.",
+      "hypothesis_id": "H_transition"
+    },
+    {
+      "id": "53a1acff30433cff819f",
+      "reason": "m161 at 2/1 and 100 uL completes an interior loading point between e12edd0198c0d750ecd5 and 0ced19fd8372ed93361c. Their onset differs more than completion; the label constrains transfer toward the late 5/1 amino-nitrile regime.",
+      "hypothesis_id": "H_transition"
+    },
+    {
+      "id": "762190c8d9f5b2d1a89a",
+      "reason": "m36 at 1/1 and 50 uL tests loading response near the onset of its steep solvent dependence. Measured efe7c6b0783a33974807 at 100 uL and 6b7209c2e8154837a8c7 at 2/1 provide strong local references for an amino ketone.",
+      "hypothesis_id": "H_transition"
+    },
+    {
+      "id": "f8dff14aa7f68363fa60",
+      "reason": "m19 at pure EA and 100 uL provides a tertiary-amine acrylate baseline, comparing directly with low-loading 75c96505f7b6b907aadf. The 2/1 measurements 304fb0fdb486ae4b7a07 and 6d21e9ec887b3408c612 show loading-sensitive onset.",
+      "hypothesis_id": "H_transition"
+    },
+    {
+      "id": "36786ca0d1deaa0687ba",
+      "reason": "m99 at 1/1 and 100 uL connects same-loading pure-EA and 2/1 measurements c19767fb04f6a760572d and ad67d712133eac45ff64. It tests transfer from the low-loading 1/1 anchor 67b03e9099ef99d26eb1 for a hydroxy ester.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "fe69b1dbb4d976f830cd",
+      "reason": "m206 at 1/1 and 50 uL fills the strong-side loading gap before measured 2/1 and 5/1 low-loading rows 7c0c324643799c918828 and a6145bb0c9947f9515df. It helps locate the growth of the naphthyl alcohol response.",
+      "hypothesis_id": "H_transition"
+    },
+    {
+      "id": "c6e28d5262ab7fb32107",
+      "reason": "m202 at 2/1 and 50 uL contrasts with 942c95c0b3a64c876639 at 150 uL. Its unusual recorded phosphorus-containing graph and highly inconsistent loading response at 10/1 warrant an earlier-ratio control, without assuming that the 10/1 branch is mechanistically established.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "5885d427a26f03e522f3",
+      "reason": "m203 at 5/1 and 50 uL supplies a controlled loading comparison with eb151126b40eda411ab7. Existing low-loading 2/1 and 10/1 rows 9139c55b31e4e4b0e062 and fbfb34ddee14b1ea50b1 bracket its solvent response.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "c476eca5614cf9aa12d8",
+      "reason": "m53 at 50/1 and 50 uL tests whether the late unsaturated-aldehyde response measured at 100 uL in cdc8c1db00222994a1aa persists at low loading. Its broad onset quantile span adds prioritization evidence, while the label tests a specific loading extrapolation.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "463adede738923684058",
+      "reason": "m56 at 30/1 and 150 uL adds a new weak-eluent loading contrast to e19bda1298f299931245 and precedes measured 100/1 high-loading row 3016ab4b83227fcf83e4. It avoids simply repeating the variable 10/1 low-loading condition.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "a26b10be727def240259",
+      "reason": "m214 at 50/1 and 50 uL extends the recently measured pure-EA baseline 5dbed8a79ad6c95bde4f into weak eluent. This provides a hydrocarbon control for deciding which completion growth requires specific polar interactions.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "50dc9c531f5fa893e9ad",
+      "reason": "m215 at 2/1 and 150 uL tests the predicted elevated completion between stronger eluent and measured 5/1 row cd767a7bd002d07cbc45. It also forms a matched recorded-condition scaffold contrast with selected m210.",
+      "hypothesis_id": "H_curve"
+    },
+    {
+      "id": "43c92df186ee75e5faba",
+      "reason": "m210 at 2/1 and 150 uL matches the selected m215 row in density, sample volume, loading solvent and solvent volume. Together they test transfer between biphenyl and naphthalene, using a45500adef751d92ffd8 as a same-loading weaker-eluent reference.",
+      "hypothesis_id": "H_curve"
+    },
+    {
+      "id": "13aa7f454204d054a196",
+      "reason": "m182 at pure EA and 50 uL tests whether substantial completion volume persists at low loading despite early onset. Measurements 4003f255f44e82ee0975 and 9948433906d4afa41345 establish this behavior at 100 and 150 uL.",
+      "hypothesis_id": "H_endpoints"
+    },
+    {
+      "id": "a23b5b2899de52f589d3",
+      "reason": "m131 at pure EA and 100 uL supplies a missing strong-eluent baseline for a substituted benzophenone. The ordinary 2/1 measurement f7beb14403cc07d739c4 and extended completion at 50/1 in c060c367e4e5bf6955cb constrain the rest of its curve.",
+      "hypothesis_id": "H_transition"
+    },
+    {
+      "id": "66c6a533f485d5277f2f",
+      "reason": "m194 at 2/1 and 100 uL bridges pure-EA row 12400c6c61643f9c79b5 and 5/1 row 39815ababe97d7acc107 at identical loading. This locates completion growth in an oxygen-containing fused aromatic aldehyde.",
+      "hypothesis_id": "H_transition"
+    },
+    {
+      "id": "01ceffc28813fe71d8bc",
+      "reason": "m152 at 50/1 and 50 uL explores an uncovered weak-eluent segment for a heavily halogenated trifluoromethoxy aromatic. Stronger-condition measurements aa614da3137ee8938fc9 and f0f0ce675d00176813bf5 provide same-loading references; the high CW distance supports measuring this gap.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "d99e1639b668210776c3",
+      "reason": "m94 at pure EA and 100 uL adds a strong-side anchor to a beta-ketoester curve that reaches 21.34/45.11 mL at 10/1 in 668279c54bbf75e86496. Comparing with 959cb0482162f16a47e5 at 1/1 constrains where its retention begins to grow.",
+      "hypothesis_id": "H_transition"
+    },
+    {
+      "id": "8c8922eada2018f59953",
+      "reason": "m23 at 2/1 and 50 uL tests the predicted unusually early onset for a rigid bicyclic acrylate. Pure-EA measurement 1ac98da1ee548520f15b starts at 5.62 mL, whereas this candidate predicts 2.62 mL; observed dips in m25 and m91 make this a question to measure, not a presumed error.",
+      "hypothesis_id": "H_curve"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H_loading",
+      "content": "Apparent loading effects depend on molecule and PE/EA and can affect onset and completion differently. Some extreme branches may also reflect experimental variability or information absent from the catalog; a universal loading correction would be inadequate.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "5b706e17e8412d02342f",
+        "4862e2fb71344ce16021",
+        "b514312eda7950cdcf1c",
+        "902937db42f82f467718",
+        "cb446680f62351d087a9",
+        "5e5b7c697bc0c268b288",
+        "b8abc8f40545556f07e0"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Controlled contrasts can teach interaction boundaries and endpoint-specific loading responses without transferring isolated extreme observations to every row. They cannot by themselves identify missing experimental causes.",
+      "next_discriminating_question": "Does the fixed-condition m168 5/1 loading contrast change onset, completion, both or neither, and do the m67, m99, m202 and m203 bridges support transferable response patterns?"
+    },
+    {
+      "id": "H_curve",
+      "content": "Local retention dips and plateaus occur in the measured condition-response curves, so solvent-strength monotonicity is an imperfect prior. Other predicted humps may still be model artifacts; matched-condition measurements can distinguish these possibilities.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "c7b33bb4e1a37b576135",
+        "075248a5ddcd4b5d091f",
+        "0a94142a35c55e5f1788",
+        "02ddeed8a16d3adf3e28",
+        "a2ecf2b2f28094d70368"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The predictor needs evidence for the shape of local curves rather than either indiscriminate smoothing or an absolute monotonic constraint. Testing the same feature across chemically different families can reveal which patterns generalize.",
+      "next_discriminating_question": "Does the m91 1/1-to-2/1 dip persist at 50 uL, does m25 show the corresponding low-loading dip, and are the predicted m58 and m23 reversals supported by labels?"
+    },
+    {
+      "id": "H_endpoints",
+      "content": "Completion tails are conditional and cannot be inferred from onset alone. Early onset can coexist with prolonged completion, while other rows have much narrower measured intervals than predicted.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "b514312eda7950cdcf1c",
+        "10c3ccc6c179f32c6ff3",
+        "6f9d141f9a5e7238a801",
+        "4003f255f44e82ee0975",
+        "918504cfbad81b27c08e"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Both endpoints require accurate conditional responses. Labels spanning persistent completion tails and ordinary narrow intervals can improve V2 without introducing a common positive offset or incorrectly shifting V1.",
+      "next_discriminating_question": "Do the m44 5/1 and 10/1 measurements at fixed 100-uL loading retain relatively compact intervals, while m158 and m182 retain elevated completion volumes in their selected conditions?"
+    },
+    {
+      "id": "H_transition",
+      "content": "Steep retention growth in aromatic-basic and multifunctional compounds is localized to particular solvent ranges and structural environments. Strong-eluent anchors and interior loading points can help the model distinguish ordinary branches from the transition into late retention.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "2745c6978a8911fc3dda",
+        "51f5ae6a991eea9e720e",
+        "9e3ce3497298084abd83",
+        "b86ace0ccafe0af8ceec",
+        "a738b1f204da6fcfd385",
+        "a17bcdddcf0799baeee2",
+        "e12edd0198c0d750ecd5",
+        "a60552f4d1a5ced4641f"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "These observations favor learning structure-condition relationships rather than assigning retention from heteroatom counts or polarity alone. New anchors can constrain interpolation and reduce inappropriate transfer of late branches into stronger-eluent conditions.",
+      "next_discriminating_question": "Do the selected m146, m159 and m161 loading bridges follow their measured local regimes, and where do the new m94, m131 and m194 anchors place the beginning of completion growth?"
+    }
+  ],
+  "feedback_interpretation": "The latest outcomes weaken a general expectation that broad predicted endpoint ranges identify severe underprediction. Many selected hydrocarbon, halogenated and strong-eluent rows had modest acquisition-time errors. The clearest recent failures had opposite signs: m44 row 918504cfbad81b27c08e overpredicted V2 by 6.25 mL, whereas m158 row 6f9d141f9a5e7238a801 underpredicted it by 5.88 mL. The m124 and m56 outcomes also showed completion overprediction. However, m56 measurements cb839ce268b9ea4fa20b and 008b682251848aa83f89 have identical recorded conditions and V2 values of 8.82 and 11.77 mL, so a deterministic local correction is not established. Historical errors are not current-model residuals. Several previous contrasts changed ratio and loading together; this batch adds explicit fixed-loading ratio pairs and fixed-ratio loading contrasts. Structural interpretation follows the supplied SMILES: m158 is iodothiophene, and m80 is diethyl malonate.",
+  "batch_rationale": "The 32 selections combine recent failure follow-up with experiments that resolve specific missing relationships. The m168 subset separates ratio and loading; m44 and m58 provide fixed-loading response segments; m91 tests an observed nonmonotonic curve at another loading. Additional loading bridges cover alcohols, a hydroxy ester, basic compounds and the unusual phosphorus-containing record without assuming that their response laws are shared. Strong-side and interior anchors constrain chemically distinct curves with steep weaker-eluent growth. The matched m210/m215 comparison and weak-eluent m214 and m152 rows provide ordinary-retention controls and structural coverage, helping prevent polar-tail repair from degrading common aromatic predictions. All selected molecules already occur in the observed catalog, so exploration targets uncovered conditions and response shapes. Repeated candidate tuples are avoided within the batch. Broad quantile spans indicate model output dispersion, not the physical elution interval or calibrated uncertainty. This batch is intended to improve generalization across the Row-distribution by refining conditional relationships for both V1 and V2 rather than maximizing retention or optimizing the chromatography of the selected rows."
+}

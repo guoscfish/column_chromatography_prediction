@@ -1,0 +1,44 @@
+{
+  "time": "2026-10-28T22:49:56.169403+08:00",
+  "seed": 12203,
+  "status": "STOPPED_INTEGRITY_FAILURE",
+  "error": "Frozen source drift",
+  "missing_file_count": 28,
+  "previous_supervisor": {
+    "status": "RUNNING",
+    "seed": 12203,
+    "time": "2026-10-28T22:06:46.937926+08:00",
+    "recovery_count": 21,
+    "session_recovery_count": 7,
+    "failures_per_round": {
+      "22": 1,
+      "23": 1,
+      "24": 3,
+      "29": 1,
+      "33": 1
+    },
+    "authorized_current_round_launches": 1,
+    "authorization": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/transport_epoch_20261026_2338/authorization.json",
+    "baseline_recovery_count": 19,
+    "source_status": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/free/status_seed_12203.json",
+    "pid": 59206,
+    "supervisor_pid": 61692,
+    "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/transport_epoch_20261026_2338/worker_seed_12203.log"
+  },
+  "previous_source_status": {
+    "updated_at": "2026-10-28T22:42:18.130402+08:00",
+    "seed": 12203,
+    "phase": "SELECTING",
+    "completed_rounds": 35,
+    "completed_labels": 1453,
+    "target_labels": 1485
+  },
+  "action": "Terminated exact verified supervisor PID and worker process group; no automatic restart; counters preserved.",
+  "remaining_processes": "",
+  "last_independently_audited_labels": 1421,
+  "new_fit1453_complete_but_pending_full_audit": true,
+  "test_evaluation_performed": false,
+  "resolved": true,
+  "resolved_at": "2026-10-29T03:49:17.666637+08:00",
+  "resolution": "28 protected source paths restored byte-for-byte; frozen validations and1453 full audit passed; resumed same epoch with explicit user authorization."
+}

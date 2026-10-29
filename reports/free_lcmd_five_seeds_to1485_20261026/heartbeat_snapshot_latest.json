@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-28T21:15:04.495500+08:00",
+  "checked_at": "2026-10-29T14:10:30.850712+08:00",
   "rows": [
     {
       "method": "free",
@@ -60,33 +60,52 @@
       "method": "free",
       "seed": 12203,
       "supervisor": {
-        "status": "RUNNING",
+        "status": "COMPLETE",
         "seed": 12203,
-        "time": "2026-10-28T19:11:25.734582+08:00",
-        "recovery_count": 20,
-        "session_recovery_count": 6,
+        "time": "2026-10-29T13:49:57.583920+08:00",
+        "recovery_count": 23,
+        "session_recovery_count": 9,
         "failures_per_round": {
           "22": 1,
           "23": 1,
           "24": 3,
-          "29": 1
+          "29": 1,
+          "33": 1,
+          "35": 2
         },
         "authorized_current_round_launches": 1,
         "authorization": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/transport_epoch_20261026_2338/authorization.json",
         "baseline_recovery_count": 19,
-        "source_status": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/free/status_seed_12203.json",
-        "pid": 34581,
-        "supervisor_pid": 61692,
-        "log": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/transport_epoch_20261026_2338/worker_seed_12203.log"
+        "source_status": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/free/status_seed_12203.json"
       },
       "source": {
-        "updated_at": "2026-10-28T20:55:24.549864+08:00",
+        "updated_at": "2026-10-29T13:49:56.312014+08:00",
         "seed": 12203,
-        "phase": "SELECTING",
-        "completed_rounds": 32,
-        "completed_labels": 1357,
+        "phase": "COMPLETE",
+        "completed_rounds": 36,
+        "completed_labels": 1485,
         "target_labels": 1485
       }
+    },
+    {
+      "method": "free",
+      "seed": 157,
+      "source": {
+        "phase": "COMPLETE",
+        "completed_rounds": 36,
+        "completed_labels": 1485
+      },
+      "evidence": "Frozen cross-revision plot verification; historical prefix retained"
+    },
+    {
+      "method": "free",
+      "seed": 6101,
+      "source": {
+        "phase": "COMPLETE",
+        "completed_rounds": 36,
+        "completed_labels": 1485
+      },
+      "evidence": "Frozen cross-revision plot verification; historical prefix retained"
     },
     {
       "method": "lcmd",
@@ -193,5 +212,144 @@
         "target_labels": 1485
       }
     }
-  ]
+  ],
+  "status": "COMPLETE",
+  "plots_updated": true,
+  "latest_plot_snapshot": "2026-10-29T13:52:29.684878+08:00",
+  "process_evidence": {
+    "verified_at": "2026-10-29T14:08:45.671398+08:00",
+    "expected_worker_and_supervisor_exited": true,
+    "kernel_lock_probes": [
+      {
+        "path": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/free/worker_seed_12203.lock",
+        "held_by_other_process": false
+      },
+      {
+        "path": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/free/supervisor_seed_12203.lock",
+        "held_by_other_process": false
+      },
+      {
+        "path": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/transport_epoch_20261026_2338/supervisor_seed_12203.lock",
+        "held_by_other_process": false
+      },
+      {
+        "path": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_lcmd_five_seeds_to1485_20261026/free/credential_6cf5cbe63801f926.lock",
+        "held_by_other_process": false
+      },
+      {
+        "path": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_llm_five_seeds_to1485_20261024/training_slot_0.lock",
+        "held_by_other_process": false
+      },
+      {
+        "path": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_llm_five_seeds_to1485_20261024/training_slot_1.lock",
+        "held_by_other_process": false
+      },
+      {
+        "path": "/Users/fish/Documents/GitHub/column_chromatography_prediction/reports/free_llm_five_seeds_to1485_20261024/training_slot_2.lock",
+        "held_by_other_process": false
+      }
+    ]
+  },
+  "latest_free12203_audit": {
+    "final_labels": 1485,
+    "verified_fits": 37,
+    "verified_batches": 36,
+    "test_evaluation_performed": false
+  },
+  "notes": [
+    "All ten trajectories complete1485; final full auditPASS37fits/36unique batches per trajectory,370fits/360batches total.",
+    "Frozen sources and authorization valid; final worker and supervisor exited normally and all relevant locks released. Counters recovery23/session9 retained for12203.",
+    "Final three figures generated with require-complete and visually inspected. Historical model prefixes, authorized extra corrections and ID transcription repair disclosed. No test evaluation."
+  ],
+  "effective_phase": "COMPLETE",
+  "sleep_evidence": {
+    "verified_via": "pmset -g log (read only)",
+    "date": "2026-10-29",
+    "last_observed_darkwake": "07:55:43",
+    "recent_causes": [
+      "Sleep Service Back to Sleep",
+      "Maintenance Sleep"
+    ],
+    "settings_changed": false,
+    "previously_notified": true
+  },
+  "recent_log_error_marker_counts": {
+    "ReadTimeout": 7,
+    "APIConnectionError": 0,
+    "QUOTA_EXHAUSTED": 0,
+    "AuthenticationError": 0,
+    "Frozen source drift": 0,
+    "integrity failure": 0
+  },
+  "recovery_events": [
+    {
+      "time": "2026-10-29T11:06:13.736976+08:00",
+      "seed": 12203,
+      "event": "authorized_transport_retry",
+      "round": 35,
+      "returncode": 1
+    },
+    {
+      "time": "2026-10-29T11:22:53.297475+08:00",
+      "seed": 12203,
+      "event": "authorized_transport_worker_started",
+      "pid": 88550,
+      "round": 35,
+      "current_round_launches": 1
+    },
+    {
+      "time": "2026-10-29T13:14:44.987705+08:00",
+      "seed": 12203,
+      "event": "authorized_transport_retry",
+      "round": 35,
+      "returncode": 1
+    },
+    {
+      "time": "2026-10-29T13:14:49.998699+08:00",
+      "seed": 12203,
+      "event": "authorized_transport_worker_started",
+      "pid": 98446,
+      "round": 35,
+      "current_round_launches": 1
+    }
+  ],
+  "recent_progress": [
+    "[LLM-AL 2026-10-29 13:47:42] Free seed12203 train 1485; still running; elapsed=510.1s",
+    "[LLM-AL 2026-10-29 13:48:12] Free seed12203 train 1485; still running; elapsed=540.1s",
+    "[LLM-AL 2026-10-29 13:48:42] Free seed12203 train 1485; still running; elapsed=570.1s"
+  ],
+  "last_check_changes": {},
+  "latest_free12203_selection_audit": {
+    "checked_at": "2026-10-29T13:41:14.370608+08:00",
+    "seed": 12203,
+    "selection_round": 35,
+    "next_training_labels": 1485,
+    "status": "PASS",
+    "batch_size": 32,
+    "unique_in_batch": true,
+    "overlap_with_preceding_35_batches": false,
+    "pending_ids": 0,
+    "accepted_turn": 2,
+    "served_model": "gpt-6.1-sol",
+    "frozen_before_label_reveal": true,
+    "batch_freeze_sha256": "fd28787fb99b53b957f1a9a4f18489c5abefabad1eecad175073dfe551e8e682",
+    "label_access_receipt_sha256": "4cc75103005fcc9be323680846188a416c442a4752f69d80faada713c1c99cae",
+    "training_completed": false,
+    "test_evaluation_performed": false
+  },
+  "final_audit": {
+    "path": "reports/free_lcmd_five_seeds_to1485_20261026/final_audit.json",
+    "status": "PASS_ALL_TEN_COMPLETE1485",
+    "completed_trajectories": 10,
+    "verified_fits": 370,
+    "verified_batches": 360,
+    "sha256": "39163b5894c864dd89de52ef9977de95b6885bfe9d78dac217a061c08f3fe532"
+  },
+  "monitoring": {
+    "automation_id": "free-lcmd-seed-1485",
+    "completion_verified": true,
+    "status": "DELETED",
+    "deleted_at": "2026-10-29T14:12:29.039457+08:00",
+    "deletion_confirmed_by": "Codex automation_update deleteStatus=deleted"
+  }
 }

@@ -1,12 +1,12 @@
 # 当前研究状态
 
-更新：2026-10-28。本页是项目级结论与下一步的唯一入口；具体数值、冻结门槛和使用过的数据以链接的实验报告及协议为准。
+更新：2026-10-29。本页是项目级结论与下一步的唯一入口；具体数值、冻结门槛和使用过的数据以链接的实验报告及协议为准。
 
 ## 本轮执行
 
-当前五seed Free LLM32 / LCMD32延长实验以[自动生成报告](../reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md)为唯一进度与数值入口，目标是每条1485标签、37拟合、36批次。只统计完成且冻结的点；监控继续推进未完成轨迹，并在既有冻结预算内恢复可恢复故障。历史阶段的STOPPED、NEEDS_ATTENTION和计划预算不能代替当前epoch状态。
+五seed Free LLM32 / LCMD32延长实验已完成，每条达到1485标签。以[最终自动生成报告](../reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md)为唯一数值入口；[最终核验](../reports/free_lcmd_five_seeds_to1485_20261026/final_audit.json)覆盖全部十条的37拟合、36批次及历史授权例外。监控已在核验完成后删除。
 
-- LCMD五seed已到1485；Free已有四seed到1485，最后seed12203继续运行。具体预算与共同区间随报告更新，不在多个导航页重复维护。
+- Free与LCMD均已完成五seed的同预算比较；端点误差和全程学习曲线面积分别解释，不在导航页重复抄写数值。
 - LCMD使用原冻结梯度特征实现与corrected LCMD-TP，保留同初始化及validation划分；Free旧157/6101保留Astra/high前缀，887/12203有显式限定的逻辑纠正amendment。全部解释与证据链接在当前报告中。
 - 3330标签全训练集参考与后段平台期比较见[validation参考分析](../reports/free_lcmd_five_seeds_to1485_20261026/analysis/full_reference_validation_comparison_20261028.json)。未新增test评价，不能把validation平台期解释成无剩余泛化空间。
 - 双专家seed157已完成1005，seed6101到525后连接故障停止；不能称为两seed1005完成。[核验记录](../reports/dual_expert_two_seeds_to1005_20261021/verified_final_status.json)。该停止记录不影响独立的Free / LCMD续跑。

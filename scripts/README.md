@@ -4,7 +4,7 @@
 
 ## 当前报告与续跑
 
-- `report_free_lcmd.py`：五种子 Free / LCMD 的进度、验证曲线与三组图。`--from-snapshot reports/free_llm_five_seeds_to1485_20261024/figures` 可离线重绘；`--output` 指定独立输出；`--require-complete` 拒绝不完整轨迹。
+- `report_free_lcmd.py`：五种子 Free / LCMD 的最终验证结果与三组图。`--from-snapshot reports/free_llm_five_seeds_to1485_20261024/figures` 可离线重绘；`--output` 指定独立输出；`--require-complete` 拒绝不完整轨迹。
 - 正在运行的监督器和冻结续跑入口见[当前报告](../reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md)及其清单。保持单一进程所有权，避免重复启动。
 - `report_active_learning_snapshot.py`：10 月 13 日两种子和双专家的历史快照读取器，不维护当前五种子进度。
 
