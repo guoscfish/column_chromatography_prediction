@@ -1,0 +1,21 @@
+{
+  "version": "audited_sse_transport_v1",
+  "base_protocol_sha256": "fbf5bf0e7d4e304d11d0afdab2eb09bf1833ddbe1a604e3889159fdca50ea89a",
+  "persistent_retry_amendment_sha256": "2b3c1b62057a6015deb7871bda21cd498dd53e2dfeaceaa086208c777939fc60",
+  "user_authorization": "\u5e2e\u6211\u5904\u7406\u4e00\u4e0b\uff08\u4fee\u590d\u957f\u8bf7\u6c42\u4f20\u8f93\u4e0e\u6d41\u4e8b\u4ef6\u8bb0\u5f55\uff09",
+  "request_body": "same model/input/reasoning/tools/store/max_output_tokens/sampling_parameters; stream=true",
+  "route": "direct; proxy=None; trust_env=False; same endpoint and independent key mapping",
+  "tcp_keepalive_seconds": 60,
+  "http_read_timeout": "unchanged 600 seconds of socket inactivity",
+  "observability": "metadata only: response id, event type/count/cursor/timestamps; no reasoning or input text",
+  "durability": "validated completed answer saved before closing stream; recover this local receipt without resending",
+  "handover": "retain inflight workers; stop only in verified retry backoff with zero unresolved started markers",
+  "retry_and_correction": "persistent network retry policy and three answer correction budget unchanged",
+  "background": false,
+  "store": false,
+  "paid_probes": false,
+  "code_hashes": {
+    "scripts/studies/run_qgeognn_v2_row_llm_nocw_stream.py": "b4afd4ba595ca604e613928ee803db93109dfcaab8d564cc6a87bc771e4372bc",
+    "tests/active_learning_v2/test_nocw_stream_transport.py": "e53c44c3d3e3dbc41253f48636cc1a5dab275c4a5eb69df633bfa01c1c654090"
+  }
+}
