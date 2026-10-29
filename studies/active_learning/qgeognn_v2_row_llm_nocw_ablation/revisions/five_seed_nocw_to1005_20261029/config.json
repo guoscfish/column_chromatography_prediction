@@ -1,0 +1,91 @@
+{
+  "version": "llm32_nocw_five_seed_historical_control_v1",
+  "status": "USER_AUTHORIZED_FORMAL_FIVE_SEED_NOCW_ONLY_REVISION",
+  "seeds": [
+    157,
+    887,
+    2357,
+    6101,
+    12203
+  ],
+  "arms": {
+    "llm32_nocw": "no_cw"
+  },
+  "initial_budget": 333,
+  "batch_size": 32,
+  "selection_count": 32,
+  "pending_count": 0,
+  "engineering_milestone": 525,
+  "primary_endpoint": 1005,
+  "secondary_endpoints": [
+    525,
+    653,
+    813,
+    1005
+  ],
+  "primary_metric": "validation normalized trapezoidal label-AULC333..1005; fixed L333 target scales",
+  "early_performance_stopping": false,
+  "candidate_delivery": "complete lossless full catalog",
+  "ordering": "historical Free: sha256([llm_scientist_v2:seed:free_llm32_scientist_v2:round, opaque ID])",
+  "automatic_fallback": false,
+  "initial_checkpoint_reuse": "seed-matched historical L333 QGeoGNN-V2 member0 only",
+  "training": {
+    "model_variant": "qgeognn_v2",
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0,
+    "batch_size": 2048,
+    "maximum_epochs": 1000,
+    "patience": 100,
+    "shuffle": "deterministic_each_epoch",
+    "loss_weights": {
+      "V1": 1.0,
+      "V2": 1.0
+    },
+    "checkpoint_selection": "validation_combined_normalized_rmse",
+    "test_during_training": false,
+    "architecture_changed": false,
+    "head_changed": false,
+    "condition_branch_changed": false
+  },
+  "initialization_seed": "outer_seed + 2000003, member0; same scratch initialization each fit",
+  "training_rng_seed": "outer_seed + 3000017; two CPU threads",
+  "transport": {
+    "backend": "responses",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "xhigh",
+    "base_url": "https://token4research.cn/v1",
+    "key_env": "SCIENTIST_API_KEY",
+    "key_file_env": "SCIENTIST_API_KEY_FILE",
+    "sampling_parameters": {},
+    "sampling_note": "temperature/top_p omitted; same provider defaults for both arms",
+    "max_output_tokens": 32768,
+    "maximum_plan_characters": 30000,
+    "selection_attempts": 3,
+    "transport_attempts": 3,
+    "retry_backoff_seconds": 2,
+    "timeout_seconds": 600,
+    "sdk_max_retries": 0,
+    "tools": [],
+    "store": false,
+    "served_model_policy": "exact served model locked on first response across both arms",
+    "provider_support_verified": false,
+    "pricing_verified": false
+  },
+  "execution": {
+    "seed_workers": 5,
+    "arms_per_worker": 1,
+    "target_budget": 1005,
+    "key_assignment": {
+      "157": "/Users/fish/.config/qgeognn-scientist/seed157-continuation.api-key",
+      "887": "/Users/fish/.config/qgeognn-scientist/dual-expert-813.api-key",
+      "2357": "/Users/fish/.config/qgeognn-scientist/dual-expert-813-seed6101.api-key",
+      "6101": "/Users/fish/.config/qgeognn-scientist/seed6101-token4research.api-key",
+      "12203": "/Users/fish/.config/qgeognn-scientist/free-12203-20261023.api-key"
+    },
+    "operation_lock": "per seed; global model-identity lock only",
+    "cw_aware_execution": false,
+    "comparison": "historical CW-aware reference; model/call-configuration confounding remains",
+    "provider_support": "verify from first authorized full-catalog selection; fail closed"
+  }
+}

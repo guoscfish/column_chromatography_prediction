@@ -1,0 +1,35 @@
+{
+  "status": "VALID",
+  "protocol_sha256": "fbf5bf0e7d4e304d11d0afdab2eb09bf1833ddbe1a604e3889159fdca50ea89a",
+  "formal_run_authorized": true,
+  "user_authorization": [
+    "\u5f00\u59cb\u8fd0\u884c\u5427\uff0c\u6bcf\u4e2aseed\u7528\u4e00\u4e2a\u5355\u72ec\u7684key\uff0c\u4e94\u4e2a\u5e76\u884c\u8dd1",
+    "CW-aware\u662f\u4e0d\u662f\u90fd\u8dd1\u5b8c\u4e86\uff0c\u8dd1NoCW\u5c31\u884c",
+    "\u8fd9\u4e9b\u4efb\u52a1\u7edf\u4e00\u90fd\u75286.1 sol xhigh"
+  ],
+  "scope": "five seed workers; NoCW ONLY; L333 to L1005; reveal and retrain after each frozen batch; no new CW-aware calls or fits",
+  "provider_support_attested_by_operator": false,
+  "provider_support_verification": "first actual authorized full request; never change model or truncate input on failure",
+  "transport": {
+    "backend": "responses",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "xhigh",
+    "base_url": "https://token4research.cn/v1",
+    "key_env": "SCIENTIST_API_KEY",
+    "key_file_env": "SCIENTIST_API_KEY_FILE",
+    "sampling_parameters": {},
+    "sampling_note": "temperature/top_p omitted; same provider defaults for both arms",
+    "max_output_tokens": 32768,
+    "maximum_plan_characters": 30000,
+    "selection_attempts": 3,
+    "transport_attempts": 3,
+    "retry_backoff_seconds": 2,
+    "timeout_seconds": 600,
+    "sdk_max_retries": 0,
+    "tools": [],
+    "store": false,
+    "served_model_policy": "exact served model locked on first response across both arms",
+    "provider_support_verified": false,
+    "pricing_verified": false
+  }
+}
