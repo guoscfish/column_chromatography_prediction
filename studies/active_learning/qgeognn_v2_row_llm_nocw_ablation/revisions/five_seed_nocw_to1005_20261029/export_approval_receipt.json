@@ -1,0 +1,26 @@
+{
+  "status": "APPROVED_BY_USER",
+  "approved_utc": "2026-10-29T11:22:25.568674+00:00",
+  "user_question": "是否允许将五个 NoCW 任务的 SMILES、实验条件、本 seed 已观测 V1/V2、模型预测和历史反馈发送到第三方 Token4Research（https://token4research.cn/v1），以 gpt-6.1-sol/xhigh、每 seed 独立 key 并行运行至 L1005？",
+  "user_answer": "允许发送并启动五个 NoCW 任务",
+  "destination": "https://token4research.cn/v1",
+  "data_fields": [
+    "SMILES",
+    "experimental conditions",
+    "own observed V1/V2",
+    "current model predictions",
+    "own historical feedback and scientific memory"
+  ],
+  "seeds": [
+    157,
+    887,
+    2357,
+    6101,
+    12203
+  ],
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "xhigh",
+  "target_budget": 1005,
+  "cw_aware_runs_authorized": false,
+  "protocol_sha256": "fbf5bf0e7d4e304d11d0afdab2eb09bf1833ddbe1a604e3889159fdca50ea89a"
+}
