@@ -46,5 +46,5 @@
 
 局限：单 seed、两轮、探索性验证集比较；双专家增加模型调用和上下文，结果不单独识别化学知识的因果贡献。
 
-- [设计说明](../../../docs/research/4G_LLM_DUAL_EXPERT_ACTIVE_LEARNING_V1_2026-09-27.md)
+- [设计说明](../../../docs/research/LLM方案沿革.md#记录-1)
 - 原草案未提交文件 hash：`draft_provenance/source_manifest.json`

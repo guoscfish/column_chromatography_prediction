@@ -2,7 +2,7 @@
   "schema_version": 1,
   "date": "2026-09-18",
   "source_commit": "0e7b2ee940e3f71c6dbc7400c420694855eec597",
-  "scope": "Completed one-off runners and superseded navigation documents. Scientific result trees and active runtime are retained.",
+  "scope": "已退役脚本与文档。迁移相关证据由 retained_commit / retained_ref 指向冻结归档，其余证据保留在 main。",
   "records": [
     {
       "path": "EXPERIMENT_PLAN.md",
@@ -18,7 +18,7 @@
       "sha256": "4ef0a1e0b308618cd49e7b14ea40df740a5d3ff342a5c9860e3c55fdfa20a811",
       "bytes": 1397,
       "lines": 14,
-      "retained_record": "docs/repository/STRUCTURE.md"
+      "retained_record": "docs/README.md"
     },
     {
       "path": "docs/RESEARCH_DIRECTION.md",
@@ -34,7 +34,9 @@
       "sha256": "37e2fcbfa62674b2f50bc646946aedda7104bb54d63c42d27bb8bd292855bc66",
       "bytes": 5628,
       "lines": 74,
-      "retained_record": "docs/research/CROSS_COLUMN_TRANSFER_STATUS.md"
+      "retained_record": "docs/research/CROSS_COLUMN_TRANSFER_STATUS.md",
+      "retained_ref": "codex/archive-transfer-20261028",
+      "retained_commit": "dadd2281fba01eb4414128cbf9feb2859c78544b"
     },
     {
       "path": "docs/repository/ARTIFACT_POLICY.md",
@@ -42,7 +44,7 @@
       "sha256": "91beae616191e4c8eff75a44448f4128304d39fc927e8cd1a37cac05a6b96f6f",
       "bytes": 1186,
       "lines": 12,
-      "retained_record": "docs/ARTIFACT_RETENTION_POLICY.md"
+      "retained_record": "docs/README.md"
     },
     {
       "path": "docs/repository/CLEANUP_CANDIDATES.md",
@@ -50,7 +52,7 @@
       "sha256": "2965dfdb45643839eee242181dc6189850c71903438427dca0fd3b1d517637ab",
       "bytes": 4389,
       "lines": 55,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md"
+      "retained_record": "docs/README.md"
     },
     {
       "path": "docs/research/TRANSFER_IMPROVEMENT_PLAN_2026-09-11.md",
@@ -58,7 +60,9 @@
       "sha256": "739c3dd07c90e30c0da9620e4f687fb764e9614dcde1a90603d39b3f267b6731",
       "bytes": 27530,
       "lines": 268,
-      "retained_record": "docs/research/CROSS_COLUMN_TRANSFER_STATUS.md"
+      "retained_record": "docs/research/CROSS_COLUMN_TRANSFER_STATUS.md",
+      "retained_ref": "codex/archive-transfer-20261028",
+      "retained_commit": "dadd2281fba01eb4414128cbf9feb2859c78544b"
     },
     {
       "path": "docs/research/TRANSFER_RESEARCH_ROADMAP_2026-09-12.md",
@@ -66,7 +70,9 @@
       "sha256": "c5e5a396e517e86d6489ea8f63ad44f4568042bb9ab8dee62a421bdc6557a68c",
       "bytes": 6544,
       "lines": 68,
-      "retained_record": "docs/research/CROSS_COLUMN_TRANSFER_STATUS.md"
+      "retained_record": "docs/research/CROSS_COLUMN_TRANSFER_STATUS.md",
+      "retained_ref": "codex/archive-transfer-20261028",
+      "retained_commit": "dadd2281fba01eb4414128cbf9feb2859c78544b"
     },
     {
       "path": "docs/roadmap/ACTIVE_LEARNING.md",
@@ -90,7 +96,9 @@
       "sha256": "8719857f8df0435d14c67cc9b89f048f51ac76febb3b9753a03d83a15adf38db",
       "bytes": 1941,
       "lines": 9,
-      "retained_record": "studies/transfer/README.md"
+      "retained_record": "studies/transfer/README.md",
+      "retained_ref": "codex/archive-transfer-20261028",
+      "retained_commit": "dadd2281fba01eb4414128cbf9feb2859c78544b"
     },
     {
       "path": "scripts/audit_e2_row_mechanisms.py",
@@ -130,7 +138,9 @@
       "sha256": "c1e0436d7aa5ec53210d4dda666c4ca13086b3512ca93f197eaae7d080343c82",
       "bytes": 24424,
       "lines": 367,
-      "retained_record": "experiments/e4_protocol_a_headroom_audit"
+      "retained_record": "experiments/e4_protocol_a_headroom_audit",
+      "retained_ref": "codex/archive-transfer-20261028",
+      "retained_commit": "dadd2281fba01eb4414128cbf9feb2859c78544b"
     },
     {
       "path": "scripts/run_d43_transfer_aware_qualification.py",
@@ -138,7 +148,9 @@
       "sha256": "75fe47575912aaffac76c99df0464a046d3a04e6542440154741439b44b29927",
       "bytes": 24970,
       "lines": 356,
-      "retained_record": "experiments/e4_transfer_aware_acquisition_qualification"
+      "retained_record": "experiments/e4_transfer_aware_acquisition_qualification",
+      "retained_ref": "codex/archive-transfer-20261028",
+      "retained_commit": "dadd2281fba01eb4414128cbf9feb2859c78544b"
     },
     {
       "path": "scripts/run_d44_active_learning_suitability.py",
@@ -146,7 +158,9 @@
       "sha256": "f3f3d8d16de233890f8f9978fc46cf3410c89b2535f2d3b7b177b26bbc5767db",
       "bytes": 54321,
       "lines": 637,
-      "retained_record": "experiments/e4_active_learning_suitability_diagnosis"
+      "retained_record": "experiments/e4_active_learning_suitability_diagnosis",
+      "retained_ref": "codex/archive-transfer-20261028",
+      "retained_commit": "dadd2281fba01eb4414128cbf9feb2859c78544b"
     },
     {
       "path": "scripts/run_d45_oracle_marginal_utility.py",
@@ -178,7 +192,9 @@
       "sha256": "29dacf3de60254fd37489a4a5b46193a86cbffab35f485d984eaa9ca1a2f22b6",
       "bytes": 10810,
       "lines": 91,
-      "retained_record": "experiments/e4_a2a_engineering_smoke"
+      "retained_record": "experiments/e4_a2a_engineering_smoke",
+      "retained_ref": "codex/archive-transfer-20261028",
+      "retained_commit": "dadd2281fba01eb4414128cbf9feb2859c78544b"
     },
     {
       "path": "scripts/run_e4_a2a_low_budget.py",
@@ -186,7 +202,9 @@
       "sha256": "df5fdab04e733b3d0269a0c8fafed4323ce4e9c0e4bcac0066112c5fcbe23b7f",
       "bytes": 3825,
       "lines": 65,
-      "retained_record": "experiments/e4_a2a_low_budget_formal"
+      "retained_record": "experiments/e4_a2a_low_budget_formal",
+      "retained_ref": "codex/archive-transfer-20261028",
+      "retained_commit": "dadd2281fba01eb4414128cbf9feb2859c78544b"
     },
     {
       "path": "scripts/studies/audit_column_conditioned_multitask_evidence.py",
@@ -210,7 +228,9 @@
       "sha256": "ed8eaa532ce8d91f32adc98a89dd8f0495855a8ce6d7bcdea8438c3b21c575b8",
       "bytes": 8946,
       "lines": 131,
-      "retained_record": "studies/transfer/stage2_transfer_audit"
+      "retained_record": "studies/transfer/stage2_transfer_audit",
+      "retained_ref": "codex/archive-transfer-20261028",
+      "retained_commit": "dadd2281fba01eb4414128cbf9feb2859c78544b"
     },
     {
       "path": "scripts/studies/audit_traditional_transfer_convergence.py",
@@ -218,7 +238,9 @@
       "sha256": "87d008baed973303510190901bd4cddf20b43efc24659130fc2ed2a8f5288086",
       "bytes": 7655,
       "lines": 115,
-      "retained_record": "studies/transfer/stage2_transfer_audit"
+      "retained_record": "studies/transfer/stage2_transfer_audit",
+      "retained_ref": "codex/archive-transfer-20261028",
+      "retained_commit": "dadd2281fba01eb4414128cbf9feb2859c78544b"
     },
     {
       "path": "scripts/studies/run_4g_threshold_audit.py",
@@ -234,7 +256,9 @@
       "sha256": "56229d6f3eb01c3ba9a17227e3efadcecdc2b2bc79b4fe0c5f185d221890114b",
       "bytes": 32083,
       "lines": 447,
-      "retained_record": "studies/transfer/controlled_lightweight_transfer_audit"
+      "retained_record": "studies/transfer/controlled_lightweight_transfer_audit",
+      "retained_ref": "codex/archive-transfer-20261028",
+      "retained_commit": "dadd2281fba01eb4414128cbf9feb2859c78544b"
     },
     {
       "path": "scripts/studies/run_filtered_transfer_headroom_audit.py",
@@ -274,7 +298,9 @@
       "sha256": "96bdd81c663af3ede2bd2886e347dfa7df0eb959e872686a48c85c87bc968622",
       "bytes": 20461,
       "lines": 334,
-      "retained_record": "studies/transfer/physical_metadata_identifiability_audit"
+      "retained_record": "studies/transfer/physical_metadata_identifiability_audit",
+      "retained_ref": "codex/archive-transfer-20261028",
+      "retained_commit": "dadd2281fba01eb4414128cbf9feb2859c78544b"
     },
     {
       "path": "scripts/studies/run_predictor_v2_preflight.py",
@@ -282,7 +308,9 @@
       "sha256": "294e6fa966d2ce46095b58553e52eb3df03b668c291bca95045e512c30bbffe9",
       "bytes": 17548,
       "lines": 357,
-      "retained_record": "studies/track_b_transfer/predictor_v2_preflight"
+      "retained_record": "studies/track_b_transfer/predictor_v2_preflight",
+      "retained_ref": "codex/archive-transfer-20261028",
+      "retained_commit": "dadd2281fba01eb4414128cbf9feb2859c78544b"
     },
     {
       "path": "scripts/studies/run_row_column_selective_latent_audit.py",
@@ -298,7 +326,9 @@
       "sha256": "124e2132893c619db3a5a5ebf912e3ce12422c513e6e740fbcacf7b3480f7b53",
       "bytes": 26821,
       "lines": 447,
-      "retained_record": "studies/transfer/structured_center_width_followup"
+      "retained_record": "studies/transfer/structured_center_width_followup",
+      "retained_ref": "codex/archive-transfer-20261028",
+      "retained_commit": "dadd2281fba01eb4414128cbf9feb2859c78544b"
     },
     {
       "path": "scripts/studies/run_traditional_transfer_formal_row.py",
@@ -354,7 +384,9 @@
       "sha256": "324cbcd3475e8a87278307eb5b65a02337c61fb29c12c4f02e1af40ade8fc438",
       "bytes": 30673,
       "lines": 375,
-      "retained_record": "studies/transfer/scaling_failure_audit"
+      "retained_record": "studies/transfer/scaling_failure_audit",
+      "retained_ref": "codex/archive-transfer-20261028",
+      "retained_commit": "dadd2281fba01eb4414128cbf9feb2859c78544b"
     },
     {
       "path": "scripts/studies/summarize_traditional_transfer_formal_row.py",
@@ -404,7 +436,7 @@
       "sha256": "b40445fa807c33ad979cc2f4788e65d523303c6edbc5ec6b21f1583e8bb5efde",
       "bytes": 89687,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -415,7 +447,7 @@
       "sha256": "77adb938731b057409f5b64a826d5f42b18ba8a248490c21f6c67550d559e596",
       "bytes": 510063,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -426,7 +458,7 @@
       "sha256": "4df3ef17a005fd8bb8506bff856209918d13966d8f2895b9c224fafe52e3b45b",
       "bytes": 70451,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -437,7 +469,7 @@
       "sha256": "f6c8fd395fcdd71e663a026b1d0701a4dbec6d2226f81c75825c795a9632071b",
       "bytes": 19410,
       "lines": 160,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -448,7 +480,7 @@
       "sha256": "50c3f47af76b156f90b1c85e56263121b80597a161dbf0feb4df2f566735061b",
       "bytes": 29557,
       "lines": 491,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -459,7 +491,7 @@
       "sha256": "4333c69e309c90544ec8059e9f17d8079d187b4475d2d53879095eb9b210eba6",
       "bytes": 51786,
       "lines": 1034,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -470,7 +502,7 @@
       "sha256": "069c1aee24bb0285a45b24f06060898205114976b42cf026918b261ae82d7615",
       "bytes": 5109,
       "lines": 146,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -481,7 +513,7 @@
       "sha256": "db3e914afbbb74a05f05df3237edc6b50db25b8d1ce4394e044ca016dcfb62e3",
       "bytes": 419211,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -492,7 +524,7 @@
       "sha256": "e3de59fd4fb821d53e84c5b6fae622b7ded317bafc05045034d36b6743f3aca2",
       "bytes": 362104,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -503,7 +535,7 @@
       "sha256": "0fd5022d3d9c7eb29c3d0de9c160052154f22466ff293981823c541f7853fecf",
       "bytes": 443476,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -514,7 +546,7 @@
       "sha256": "3a1913df99c04a6e168035ff271ae0af01a52b98dce8ff264eec6ff4bffd8b79",
       "bytes": 500710,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -525,7 +557,7 @@
       "sha256": "a7aaa89a9a632791279922b38bce66dfc59681160f7beb0cf992333c0f750c5b",
       "bytes": 405792,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -536,7 +568,7 @@
       "sha256": "232866997e1cd7398fea028f8608e233c3b606b5079f23958e683378e34f5704",
       "bytes": 435506,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -547,7 +579,7 @@
       "sha256": "dd43554050553548fb9a2d62fc88d23ea4926334940eef44fb6349df693eb329",
       "bytes": 354326,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -558,7 +590,7 @@
       "sha256": "2562fb13329e9b066a09837e8b04d459cca61672803fd6a83eaf591c549846d5",
       "bytes": 481810,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -569,7 +601,7 @@
       "sha256": "b8be8b5a341278513582aa1146b3187ffb12d42a00e86e3fa73191966357bd3d",
       "bytes": 335326,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -580,7 +612,7 @@
       "sha256": "98fcb056ae1b3a2a13a22d738087386e4021b38aec13b70c46d6344ab8505419",
       "bytes": 602539,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -591,7 +623,7 @@
       "sha256": "a3fa2018de641444b108a2c0a230acf8e50046321da6b545255e7a5aa3b1483a",
       "bytes": 429108,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -602,7 +634,7 @@
       "sha256": "35c8ec11ba257a250a3c94eebb5f8e92306df43f3d0af4c5bac5d4d27228c851",
       "bytes": 479051,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -613,7 +645,7 @@
       "sha256": "2d34b9448387ef9cc7193f10cba0a71df88e05855752dd6ec2a4fb89b830e508",
       "bytes": 638087,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -624,7 +656,7 @@
       "sha256": "57af8931c12445ff9decafac42637f310f9e13202957f7955bc8acf3c763ee50",
       "bytes": 580708,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -635,7 +667,7 @@
       "sha256": "8b6efd341b857dac624aa96ca9d3f3d4b532e8d1c9edfc6fd6ecf8e1e7cb640c",
       "bytes": 620894,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -646,7 +678,7 @@
       "sha256": "3b1edc1ebba1797d05af993a437db3278df49ba46212d2ae258b2f3352c7b59a",
       "bytes": 438768,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -657,7 +689,7 @@
       "sha256": "f29d28921805f550035aca3449278a595ef94791d6db724497f7aa00dd4dd0c7",
       "bytes": 1401268,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -668,7 +700,7 @@
       "sha256": "8c058f92e2f4a3fbdeb1ad03485022f525ff7bc747870ae071cd92e52974d8ed",
       "bytes": 2953,
       "lines": 63,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -679,7 +711,7 @@
       "sha256": "a7221869b2923f598de4384749265cd4e2e3a63b52ecbfd1a4a534ea940ef648",
       "bytes": 20281,
       "lines": 352,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -690,7 +722,7 @@
       "sha256": "af7c66a99f16c596595364b55f526b6f397ddbe2cfac948aaaae4682f5963bdd",
       "bytes": 8191,
       "lines": 140,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -701,7 +733,7 @@
       "sha256": "956ddcb2af76fb80723c8d7bb93d55566ac8749f275b43b4458d4c8d44376de9",
       "bytes": 2085,
       "lines": 43,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -712,7 +744,7 @@
       "sha256": "f0b1f60e15b15ddc0d59968fcc1a82d2df29af61c7be280f004c9b024c827e6f",
       "bytes": 949,
       "lines": 24,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -723,7 +755,7 @@
       "sha256": "b909b2a72082dc1252e5f38bb371529c284943b131a9f0bb975ba01e01ee4c8d",
       "bytes": 13494,
       "lines": 239,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -734,7 +766,7 @@
       "sha256": "2c1110fa3575480b466b83f960d579757b3ad229398a80fe169eea3d031e713f",
       "bytes": 6849,
       "lines": 164,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -745,7 +777,7 @@
       "sha256": "d52d80744f1039f804a62c13ea8f7f0a21b922cfb0487c97c1c4acc862b14c34",
       "bytes": 2944,
       "lines": 58,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -756,7 +788,7 @@
       "sha256": "4333c69e309c90544ec8059e9f17d8079d187b4475d2d53879095eb9b210eba6",
       "bytes": 51786,
       "lines": 1034,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -767,7 +799,7 @@
       "sha256": "7ced34212a5362aef51c057312a9609bb35e11f55bb64bb35525e52a16dd79b6",
       "bytes": 433012,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -778,7 +810,7 @@
       "sha256": "d094736787daa9b845f7fd6f3f2a0376b1e6937024877c6a3ff7df4adbd26447",
       "bytes": 356561,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -789,7 +821,7 @@
       "sha256": "d5769d80205b40e1345639e489d1447a79bdbae7cbe738597f634d963c0345eb",
       "bytes": 451802,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -800,7 +832,7 @@
       "sha256": "09d8977df0a85bddcb15c947b03044a70820ff607558788f81fd24d54f9f59b8",
       "bytes": 505782,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -811,7 +843,7 @@
       "sha256": "ff32d65ff396694ad180cd737b4e935fbf868cfd3d5a9861f06801dc469f2f65",
       "bytes": 481948,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -822,7 +854,7 @@
       "sha256": "ae989b7dc5fb4519c1b6e6d4d5c5024ab2a5f19323048f1d925d1aba1ac6acb2",
       "bytes": 444451,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -833,7 +865,7 @@
       "sha256": "f11aea931d7babf83234117c983299323f60bbcecafdd7b99e0f9cc52d0ab5cf",
       "bytes": 366541,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -844,7 +876,7 @@
       "sha256": "27b2692bcc9b53359745da387b27c81774c8e6e5ba8d8d53f35682eae9a8656f",
       "bytes": 502299,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -855,7 +887,7 @@
       "sha256": "3a1ce1e72f6c9a1d02118e5c34be01f6da449c02d0437083fe949ef138af60b4",
       "bytes": 359396,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -866,7 +898,7 @@
       "sha256": "1ac7ef90907d81768b551b1872dda9b4276c0248dca90d9246b5249823eb0784",
       "bytes": 629913,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -877,7 +909,7 @@
       "sha256": "ade661a114c5e2f2b64899dcb5bfd1c0ade479889c392e5619e088b57c1191c5",
       "bytes": 483878,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -888,7 +920,7 @@
       "sha256": "42892901ec9ab5fab8b082930f320bc899358d23225686c653733c853467c23c",
       "bytes": 511099,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -899,7 +931,7 @@
       "sha256": "f1ab6de7a70e2ea0372ade32671cedb79bd5d77c18b8a2be0e5cf8b1308e9109",
       "bytes": 681660,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -910,7 +942,7 @@
       "sha256": "8c058f92e2f4a3fbdeb1ad03485022f525ff7bc747870ae071cd92e52974d8ed",
       "bytes": 2953,
       "lines": 63,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -921,7 +953,7 @@
       "sha256": "6c27a2481d584c59ec7c41415d3217265a99ea7a0131e3bafc84577f9f5481e0",
       "bytes": 19425,
       "lines": 335,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -932,7 +964,7 @@
       "sha256": "50cea799396d9942e76baf980bf8758349a3f3c2b4d57a21b33eaf07f4db5447",
       "bytes": 7977,
       "lines": 138,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -943,7 +975,7 @@
       "sha256": "956ddcb2af76fb80723c8d7bb93d55566ac8749f275b43b4458d4c8d44376de9",
       "bytes": 2085,
       "lines": 43,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -954,7 +986,7 @@
       "sha256": "f0b1f60e15b15ddc0d59968fcc1a82d2df29af61c7be280f004c9b024c827e6f",
       "bytes": 949,
       "lines": 24,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -965,7 +997,7 @@
       "sha256": "b909b2a72082dc1252e5f38bb371529c284943b131a9f0bb975ba01e01ee4c8d",
       "bytes": 13494,
       "lines": 239,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -976,7 +1008,7 @@
       "sha256": "6946a243bee1202d44742fdd09d4715a5ba2f8387ef7a670c9734b5d03f3ee63",
       "bytes": 6749,
       "lines": 162,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -987,7 +1019,7 @@
       "sha256": "d52d80744f1039f804a62c13ea8f7f0a21b922cfb0487c97c1c4acc862b14c34",
       "bytes": 2944,
       "lines": 58,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -998,7 +1030,7 @@
       "sha256": "66f14712a53b2b58e1a95f3ff089368f880eb0bcceaff4fb0b2562da44febfaa",
       "bytes": 51786,
       "lines": 1034,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
       "retired_on": "2026-10-28"
     },
@@ -1009,7 +1041,7 @@
       "sha256": "3506c17559772b6549fec04384d46a54e9e8ab5be6c95b5bb67c66cf1900dccf",
       "bytes": 5745,
       "lines": 63,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1020,7 +1052,7 @@
       "sha256": "b4ddf3650e6b9d06fdbb6073c489ba4ccee25502d817c3008ec5f679690f1096",
       "bytes": 21432,
       "lines": 166,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1031,7 +1063,7 @@
       "sha256": "3aaf690ff06c3594ceb342314850a2fb35ec9ae99fca9ca4ab4aaa69dee0fb96",
       "bytes": 5785,
       "lines": 25,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1042,7 +1074,7 @@
       "sha256": "467c6ec515b0d288301fcaee9da4468e6c67e3a3042a6e8ed5a30a25b53243d8",
       "bytes": 29118,
       "lines": 177,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1053,7 +1085,7 @@
       "sha256": "12bbe211ac3d42cba03e59bd8e68c3125f2eea1bb1d2fbde661729d75eeddf36",
       "bytes": 1439,
       "lines": 19,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1064,7 +1096,7 @@
       "sha256": "485073713a18b7d9267a9632a26506eea69e5f77ff67dae52b00d665e6dcfd93",
       "bytes": 13549,
       "lines": 265,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1075,7 +1107,7 @@
       "sha256": "4a730a599c765184cc6cf7defee10b08a0d98fb286a202fb8d2f2f0c09736316",
       "bytes": 12657,
       "lines": 65,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1086,7 +1118,7 @@
       "sha256": "d0a891bd2c8a7994664ef3f5c16228bd4eaeacd757f6f2599899bebaa75ecb3d",
       "bytes": 25496,
       "lines": 129,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1097,7 +1129,7 @@
       "sha256": "8b41862dc820a2af2a9ff0568053833bbd23702a19112731499fd7c4ff489c99",
       "bytes": 27374,
       "lines": 501,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1108,7 +1140,7 @@
       "sha256": "8d392e325c0070093b695c91c30045d717a99e2d03fc22f68dad314397774658",
       "bytes": 1932,
       "lines": 19,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1119,7 +1151,7 @@
       "sha256": "c335399b8cc923716fb74e7cf6c1b5dfab514f676679c88e8ecc3b0106f42411",
       "bytes": 68569,
       "lines": 323,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1130,7 +1162,7 @@
       "sha256": "e4368483bc5a165aa10bb44f28a684c439b62aabf40e4b77a032e88f7e5d5dbc",
       "bytes": 11449,
       "lines": 435,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1141,7 +1173,7 @@
       "sha256": "6b186d58cbf9173121002a55d4a606dccac14a4d6419c8072fb399b3d6617f71",
       "bytes": 61172,
       "lines": 265,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1152,7 +1184,7 @@
       "sha256": "0039c57bf94bd695ec2d2860673059132a0a44de90cfc3d220b07887be6c5d66",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1163,7 +1195,7 @@
       "sha256": "007d07ac4688b407117f0670c1bc8a0991a23c28c2490616feee117c59b40606",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1174,7 +1206,7 @@
       "sha256": "00b8e8bf8c32e8c1506ddfccbefcebbb5d667403eb63f717f3f720970eed065a",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1185,7 +1217,7 @@
       "sha256": "0275b02b3cd00f2625fa65b5457b45754380ebc2cdb2a45e986e89cfc40a52e5",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1196,7 +1228,7 @@
       "sha256": "0317f6aa6b7d0175351cfd75758dcf6c60e377c0a96a47c581d583cd3cdd9150",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1207,7 +1239,7 @@
       "sha256": "041db99a27ac99f30ed77dfa3458bef792ba61e69734a6b35db41827a3a62348",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1218,7 +1250,7 @@
       "sha256": "045601aae4c882fbb9bb8d623d4c49761cf6aa7702236e7c1ccba1f012aa5f77",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1229,7 +1261,7 @@
       "sha256": "0469f653df96615e173f7dc49997c239318a6aad09494df769f34437eeb41686",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1240,7 +1272,7 @@
       "sha256": "06a0dabc606834134dfed55926133fb71e887bc84e049f973843afc86ec4ff4f",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1251,7 +1283,7 @@
       "sha256": "06db00bf7a35c3374a5a2c3ed930e2c49253c1a27af89c15cbbdfae7aa2241bb",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1262,7 +1294,7 @@
       "sha256": "0741e5f3967e9526c1a859de6a9e0f65dc8d568c3592586f6ad12ff993598518",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1273,7 +1305,7 @@
       "sha256": "098cd60a634dd867813ecbc45db83dd8cd866a895fcec2e7bc146bcc1f355739",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1284,7 +1316,7 @@
       "sha256": "0a1dd50d225e3f22bbfb432b010e7ff69673d4a724a562d0677f283f208418d7",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1295,7 +1327,7 @@
       "sha256": "0adf7fbd48e1d24d2ae1cffa2fdddceb8167faf9716f2bca5e313aad7e6d2f56",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1306,7 +1338,7 @@
       "sha256": "0b7ae3a372d9133301165a086312f4b0736ed67fdd5da944239d7058200c59a1",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1317,7 +1349,7 @@
       "sha256": "0c197b4a2eb6d72772418a8f1b5c7d105775948ccfbf05b3785a8e311d7ad8e8",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1328,7 +1360,7 @@
       "sha256": "0c94bdf6d51534a31844141554200725eb5cf9db1bd4a0744b54593761a748b9",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1339,7 +1371,7 @@
       "sha256": "0d9e5dcfc59c012538bc5ecd7abdb165be954276f95dae7d0471bb46c7602c13",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1350,7 +1382,7 @@
       "sha256": "0ee37cc6b52d2914ecaf37dbf57e11b970e3ab16dddb8b70412b50106f1bc75e",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1361,7 +1393,7 @@
       "sha256": "10d1fcd4bdf495defc65099a1bcbad2aedc583f8618763b23ba4fbf420ef5db1",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1372,7 +1404,7 @@
       "sha256": "11d06f8b06275fabb61109cfbe8a2fe14f4e5bf597f43189ac2fd368e2013c0d",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1383,7 +1415,7 @@
       "sha256": "13282de00c063200c74c527221274275a41f98cca6d1968c52ceb9a2ad086f3f",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1394,7 +1426,7 @@
       "sha256": "162e8c97b831c5127b74c73bb090e72481e1af6cdcf924a6925b380094b0a98b",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1405,7 +1437,7 @@
       "sha256": "16d2ab39ffd67527d9c91e20fadda89d52ac0c340b0d0914f310fc4282cfdd5f",
       "bytes": 1063,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1416,7 +1448,7 @@
       "sha256": "16ecead2bffb5f7ef0b72798fe400ef095cef07c9e620e4a3c5645c2eb1a3b76",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1427,7 +1459,7 @@
       "sha256": "173f5308ccb86eedf73fc42ecacdd14aa67a627a4e4d8b65df182062b6ccbab0",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1438,7 +1470,7 @@
       "sha256": "180604a5dc6192766ff48790717731a23a36dbd8ae1cd9a1d9886be7a09dcb7a",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1449,7 +1481,7 @@
       "sha256": "18e6b653be9e50347c8857875ceda83f2136686eca8e0f3471827092f66bb16e",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1460,7 +1492,7 @@
       "sha256": "1904c0d120e8fadd530110938d69f832e887d8f96fc3fd2fa5cc077f550f5527",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1471,7 +1503,7 @@
       "sha256": "1a98901ceec8eba54d53b4f70f1b9b320a3455bc410d36ff3bb37c5d5a3b960f",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1482,7 +1514,7 @@
       "sha256": "1c1b77a06e12b4cedd01f530f3517bcda71785b0998ed92d9be26da73902e423",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1493,7 +1525,7 @@
       "sha256": "1c56c67b0d872108a3285d5483cf866eb8d6e59f7435c5f6f6c08a7e7006f0ee",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1504,7 +1536,7 @@
       "sha256": "209bb498a9b9e4359956906470c9151257d875ee2359c8ecba8db516c511d7d7",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1515,7 +1547,7 @@
       "sha256": "21d395b401ab4ac962111c2955621622dc3b69c0c9cf617b015a32caac3b7bf2",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1526,7 +1558,7 @@
       "sha256": "21d7abde6cee9033f35e778071f08cec38926756438b668622e011ae02bf0956",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1537,7 +1569,7 @@
       "sha256": "223e6cada0c5d5f806e837f0f3df0c77ddae02b06f481c6f8d23d1b2dda13d1a",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1548,7 +1580,7 @@
       "sha256": "2545fd37e4bf41d200f09386f618543a9bc285873336c20e399b2923c95bd6c0",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1559,7 +1591,7 @@
       "sha256": "2773ba5dcf072772ff2aeccde0c0b02969b263f2800ba621cc450a6f88f6b45e",
       "bytes": 1067,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1570,7 +1602,7 @@
       "sha256": "28095552a5aeff25790d7152e453f22480484794f6ac8fd0605feadf1d3ae47d",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1581,7 +1613,7 @@
       "sha256": "28b07e339bf5ebd335f8843aff1c3937a38ca098c9885189f9bceb63c3e082df",
       "bytes": 1067,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1592,7 +1624,7 @@
       "sha256": "2b07d5465f1866705af0bd95801fb652a88ace3b645c2a51a4fbc59d9f8e3715",
       "bytes": 1063,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1603,7 +1635,7 @@
       "sha256": "2c85a424814a72c2b6a2a531abac3437d5149a3bc2ab8b43233c56ecc4bd80a6",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1614,7 +1646,7 @@
       "sha256": "2d2b5c5e579a710d17d91c3da7d4cfc0a62a3e1ac20f008ea73543c24a181ac6",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1625,7 +1657,7 @@
       "sha256": "2f3a6ccceb98be2a254e6ccc7b5f6a4b0c2de959ef00865dc175f5431e712f09",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1636,7 +1668,7 @@
       "sha256": "311a34facc0345e94114307796314a43c5c109897318c3d3ca1a42dbde08fce5",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1647,7 +1679,7 @@
       "sha256": "316ab72af72814edc06988bd9add1a730f3ca9a8cb739755f812183c6e02923d",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1658,7 +1690,7 @@
       "sha256": "3237cee5a4abda883b8fb52e3991dfe32b4ae552fc359733ee3e50d7d6fb8dee",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1669,7 +1701,7 @@
       "sha256": "3246aee1ab0f5805fd0d9b3d34d2483de2058c790f24f04aebe514ced155f51f",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1680,7 +1712,7 @@
       "sha256": "32e3b685c1c91efb1e1ab2ab31a41ccd989de549dc1c2e99862ae7342fc31f60",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1691,7 +1723,7 @@
       "sha256": "32e54a63ffda190a668756de63f053c4404b904f512af3f12887adee833ae1ee",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1702,7 +1734,7 @@
       "sha256": "3479dfc8db7362e7dc504483cc1d1d49ad4113a52fdd3cc6375c2631d28e7243",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1713,7 +1745,7 @@
       "sha256": "34b9611630b454f715441e5a946de379c3e749cc4dbf0f077c11b9cf30552b9e",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1724,7 +1756,7 @@
       "sha256": "360e27eba629a55b8f41ce9db379deac5e83d04f9da1552e5059a6b38d4ef133",
       "bytes": 1063,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1735,7 +1767,7 @@
       "sha256": "361326eb9a41a5cb98bdfd96b9a67130b724ab43571730a16432288935612f1b",
       "bytes": 1067,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1746,7 +1778,7 @@
       "sha256": "3682f7e8d345a3b6f683fdc03051c2596915b8de822165f81425644ae470f3d7",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1757,7 +1789,7 @@
       "sha256": "37bd2ff81b10869d4a82d09aa36431e21b16acbc59d6eaca3c358a7cbf01a45b",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1768,7 +1800,7 @@
       "sha256": "388cfdb92186e2403f52394867be2132c9da6199b2234c4a4bfcc4f27b5601c1",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1779,7 +1811,7 @@
       "sha256": "38df463a474edd1e30dfe02719ab31dfa652673701ce4aa66119d37f7de26ed1",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1790,7 +1822,7 @@
       "sha256": "3a70a0c4198e484e636e8be5ef805c3779cadb17d18a70097f6c121f3c58bd28",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1801,7 +1833,7 @@
       "sha256": "3c5fef0ca287956c1e5463929a1d672e88a88ddffe05db1e5df26b7a44e38375",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1812,7 +1844,7 @@
       "sha256": "3cf8d0bd13bd79c721e956ebf15e4627387eb4248f9490fa99576b13cb57fbb6",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1823,7 +1855,7 @@
       "sha256": "3d79c1c2fc2b4dc2f7b0220ec016cf8769fe0e2f6824af1c628b0932f55bcd10",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1834,7 +1866,7 @@
       "sha256": "3e010bedda34be1c91aade7f67d895aa981b34fb02d5bbfa5352e6b52d743f2b",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1845,7 +1877,7 @@
       "sha256": "419dbb755797addb816119b4c2af39b81b41250c0053f3e96ac17289c58e1ac8",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1856,7 +1888,7 @@
       "sha256": "45d9c2c97a5bbfa82fba7a9f369142b759a7dd197d11322fbfdaeb5b2cc47528",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1867,7 +1899,7 @@
       "sha256": "462bad2fa8c58c7ca482e6a7cc829d75e3039de9408adf2149960c4887c009c7",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1878,7 +1910,7 @@
       "sha256": "48b6a0be1c4f4f68dbc464bd8f91043e0e0abf02774a86a1fdea8f405b55e3e1",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1889,7 +1921,7 @@
       "sha256": "48cfbc79614c3646b5d7b50299822c92d204f23ff7e0753a5bcec8a141a09d09",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1900,7 +1932,7 @@
       "sha256": "48e3b9b5b244dff57df00fdd62c3ae9847c2a58a8ce64bf90021bd217e4651c5",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1911,7 +1943,7 @@
       "sha256": "49d8d8aaf9ebc722b2e3937d259b45ccfc8df9972e4b70abdc1e9edc36fe569f",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1922,7 +1954,7 @@
       "sha256": "4ad35764ad0a2fb49d9210fa29561f10548a9a02639edd2162c42f2c0b136f7e",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1933,7 +1965,7 @@
       "sha256": "4c992b94baa205c94b275e7a70699f10275032ee5168ecca30fed3159014b712",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1944,7 +1976,7 @@
       "sha256": "4d8e50d84c599d8b7add2383dd7414a99862ddec1b131c29bb18162568f41be6",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1955,7 +1987,7 @@
       "sha256": "4ea6baef0da83daf545efd83094a415239aa97d0967a293978ff1b4d1bc1c083",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1966,7 +1998,7 @@
       "sha256": "4ee231c45e4e4ac0478434ac2345755ccb39bef148434ab7e9bef9b78abe6691",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1977,7 +2009,7 @@
       "sha256": "4f296c9024ca368d4d6ba5291cc773a73c38a94d81f9e8c8b796401ad97167d4",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1988,7 +2020,7 @@
       "sha256": "5003cc7fcd1ad49db8f3cdfaa716631c498c8673c1c74178cbe054886e05bd44",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -1999,7 +2031,7 @@
       "sha256": "562eb2e899f8c4d159cdaef125874345eccaddb61c9b13c79cba45f75d69514c",
       "bytes": 1067,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2010,7 +2042,7 @@
       "sha256": "581b9c703f804269aebec511d7ad9a6fa6f266e4a265e2d94d7a6cf3d711cf94",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2021,7 +2053,7 @@
       "sha256": "59ce458cd2e2da7c3200375644eaa0e1f35a1e46f1c960ac8a0440244ebb4ddc",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2032,7 +2064,7 @@
       "sha256": "5bc59fa174aa18ce35cb4b340908154beb0ff59b915549706f18a90ee1da2f84",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2043,7 +2075,7 @@
       "sha256": "5d43cdddbbc3f8c629740afaba86cbc6ec2a6ab43b158454515e7b82ca3ba19d",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2054,7 +2086,7 @@
       "sha256": "5e9c5fea029c2654f8a0b3102f33da0c4a58e34e9065f87101b9918a48610b52",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2065,7 +2097,7 @@
       "sha256": "5f570457473df6f17dcba112a484d942031b29e4c60c0005e704d8f45cc8d3a1",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2076,7 +2108,7 @@
       "sha256": "61641e4e2b177b29a04dd93cd9f3fa12c504240257d20b76993cbc2dc4cc3d9c",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2087,7 +2119,7 @@
       "sha256": "61cef927913e28a7a560b269c898a48025f3216c70977a672b86454fe8c1afc5",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2098,7 +2130,7 @@
       "sha256": "64bc19fb7b9569ecc4d5ba03faabec0de15d61c20f128172a73079a0caff0a36",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2109,7 +2141,7 @@
       "sha256": "656fb856c1589e3334b367aff5ae9d7ef9775b39ba56e684f419f6aeabd3e24e",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2120,7 +2152,7 @@
       "sha256": "657613ef2cc9608785ea88508ff280f31c35b45b32dfd45b95c5e0b78fea54ff",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2131,7 +2163,7 @@
       "sha256": "66b8e14dc84b92d6aa9422a7fdf849d8d8134a594aa05c70ee5739d0fab06a43",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2142,7 +2174,7 @@
       "sha256": "6954aca6f8301952d93925072fe7188ad3161fb1c56dfb86cab91cee2c2e035e",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2153,7 +2185,7 @@
       "sha256": "698b60ff527c2a51b39ed989290feb7c875d17baa09ae425042fade72dd3baa5",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2164,7 +2196,7 @@
       "sha256": "6abeac984a6a143491df272240ac3199b6c34ca4595744bd4ec655fdb6c61d16",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2175,7 +2207,7 @@
       "sha256": "6b7867758203f3ebafb03b45089c4e0e9fccfa162e131039cbe3de0cea03f97f",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2186,7 +2218,7 @@
       "sha256": "6ffe4a253f160ed0311b858b96b4491751ab1907689018278dc451ad4edf4969",
       "bytes": 1063,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2197,7 +2229,7 @@
       "sha256": "70116278c673db0734231af19bed8d52a2b1c7e8aee7197b8e75c86ded8cd853",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2208,7 +2240,7 @@
       "sha256": "713e1bad6afd480fbe114bba11378181fea7032e1b6a6baa33e1bbca2b8e082a",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2219,7 +2251,7 @@
       "sha256": "71d796e526168e6b6394e0f28146e698f99d8e3408975df1acc92a79cbb7af6f",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2230,7 +2262,7 @@
       "sha256": "7417af13554315be05b9a03a617325f5280b941b05d53e70a54cec56d95d9cbf",
       "bytes": 1067,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2241,7 +2273,7 @@
       "sha256": "746fbaef9600709b84571f98b374954190a863d2de39496a71e6a71ed11641ae",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2252,7 +2284,7 @@
       "sha256": "7531cf4d2966212e35658b88c17b87d3cde3d3dedfac66d47d910ad30b3b15da",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2263,7 +2295,7 @@
       "sha256": "7c5a6aeee0880636e0866f05ed54344a437b780a25b6ab7aae1abd178873b93e",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2274,7 +2306,7 @@
       "sha256": "7d3aca11c6b68a1810650ca0988aa9fb02c3cf543d9097b451aeb3393df84ef5",
       "bytes": 1067,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2285,7 +2317,7 @@
       "sha256": "827b09262d76c3e468f72d3302457d685b0393a438c9cd0d3f6848f77e422249",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2296,7 +2328,7 @@
       "sha256": "82bc33cca206fa9aaf6d611fe709d9afc8b474f3c021177b61e4a4b0a3daa280",
       "bytes": 1063,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2307,7 +2339,7 @@
       "sha256": "84a9c06c97c6b94069156ec8c28ea84b3884a3a9a08dcb644255863c099fa1b4",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2318,7 +2350,7 @@
       "sha256": "8621715cfa7229f54dd039ff79828ac674f53330904de13f7c376fa54819cdaf",
       "bytes": 1067,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2329,7 +2361,7 @@
       "sha256": "864675f6acdf291d5e07670ed55f23b24e4b6dafc8c4c188e55c94f6c82c6e7f",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2340,7 +2372,7 @@
       "sha256": "875daa08288fbc1a0a72ad74b829e83a3190d9070ed7d918d9363785787413f3",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2351,7 +2383,7 @@
       "sha256": "89f2dc2ab4e768a53b04ea2f38ac593b0098564ed713419384cbd43bf18f30dd",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2362,7 +2394,7 @@
       "sha256": "8a38752398ce7d1447019487d8e49ed459346c39c1b01a6082b3cd35a67c9b1e",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2373,7 +2405,7 @@
       "sha256": "8ad7090144e47cb4dd310fd4cadd41c8f07949548472c66605c96895708e6972",
       "bytes": 1067,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2384,7 +2416,7 @@
       "sha256": "8cd3cd82ff568e1056dcee597b587944c8e685120dc52bc87c9b929c4e0349be",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2395,7 +2427,7 @@
       "sha256": "8e005419bc6b2fd4a3f6dc7a8ebbe1b967ab6bc07904c2beb743f096d3a685d3",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2406,7 +2438,7 @@
       "sha256": "8e3f9a09dd4ed8030c8288e24c0257b56df9c2a59baca11e1712fd38c6c1c224",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2417,7 +2449,7 @@
       "sha256": "8f9f7fabce0f740632ff63ebe3ce39b7417efb897cdd0b1741dd11810d13b78e",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2428,7 +2460,7 @@
       "sha256": "90f85efdaf6ff35464202f95d52979aa62aa383d190a786baa45f88f121e0e97",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2439,7 +2471,7 @@
       "sha256": "925031ba7edba353f5f9763e6ccdc4e6e5f9422d8d72cb913a48ca0e5366b4b8",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2450,7 +2482,7 @@
       "sha256": "92af149bd6c285bf1d8ea4a56e5a42842f6850223b25a8679dbececb6ff77aa7",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2461,7 +2493,7 @@
       "sha256": "92f5e300c47d52fc1ad7cc18205327247fc98e01195ce4c905be7ade0852850a",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2472,7 +2504,7 @@
       "sha256": "958123a899605e37e38861255aa94ab220b99d917d84b6badf8beb106aba1cb6",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2483,7 +2515,7 @@
       "sha256": "99a61f46a510b6d3d8c047ac09766c495175e47a90d4301e30ee1102fc8be8d6",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2494,7 +2526,7 @@
       "sha256": "9a2aeb0376ad4fd5712bbcaf59fe939acd7fdb7e2c67b1a9a163051ab6d856b1",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2505,7 +2537,7 @@
       "sha256": "9b3de277817f51ea2d0fccaf09370750ef682c425f2e131c0130843f23cb92c6",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2516,7 +2548,7 @@
       "sha256": "9b754bac4488f085e5ed9b9de0bee980be18b706a215d8bf1f328b0f8bf9d169",
       "bytes": 1067,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2527,7 +2559,7 @@
       "sha256": "9c1eb4882bc70f0ade06c9f78040bcf3b1b0f92a68c0b3bcf72d2beb60598796",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2538,7 +2570,7 @@
       "sha256": "9c9ed134eeb1b94e12d652afe1526b0552ccb1a4ab369126d613d95a04be4261",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2549,7 +2581,7 @@
       "sha256": "9cfeff86288ee27c53695ff2c5ab699f91d2079999ef9fe0f9b8a4cddec2236b",
       "bytes": 1063,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2560,7 +2592,7 @@
       "sha256": "9d59db400a54063a6ac26a6e3c44d5b6492fde6fe2f7b3430477cdc8ef709716",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2571,7 +2603,7 @@
       "sha256": "9e32527f3be8bac2d8b4daa6b050bf09d961633a79efed7ff3c64553bef82caa",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2582,7 +2614,7 @@
       "sha256": "a0eabc6ba64082e170f941ce390bfee3932bb1a949b94c11cba1f12bb536a182",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2593,7 +2625,7 @@
       "sha256": "a18d2427feb1000f44128a88e5d8384a3f8fa6a2ff24ce0a327981c266b013f4",
       "bytes": 1067,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2604,7 +2636,7 @@
       "sha256": "a1c691a52efd0b7b1294c2aa6e238b5868c651d88dd70192427c14d4dacd46ba",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2615,7 +2647,7 @@
       "sha256": "a36c34e8793603dd82ff4f19de83bfd8eaac9ca66763ec5c013709ab860defeb",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2626,7 +2658,7 @@
       "sha256": "a40e18dd982dafc1044dc76472d4bd51bcd54ce0669de3935d902b701ccf2597",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2637,7 +2669,7 @@
       "sha256": "a4b353b4ff8846846efdfb18778c3551fc9f14bd214f6199a5c573dd9f918223",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2648,7 +2680,7 @@
       "sha256": "a50d76b1ea65e36a24553956e1fe0f538e53690f80ce4bf21672570006a5c13a",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2659,7 +2691,7 @@
       "sha256": "a628952f9099f7fe2b038588d18597b4edae2d666b63ea5099277af3c1d9dd6a",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2670,7 +2702,7 @@
       "sha256": "a90f4dbf65fcb59a4ae68eed3791d8beea68c27c74564c1559d1d0736e7ba60f",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2681,7 +2713,7 @@
       "sha256": "aa50f83194adb807f9f42a3bfc787a6d683fefcae32ec460364d66d84724cb23",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2692,7 +2724,7 @@
       "sha256": "ab5e391e8b5b83a5084aac405eaab1de213aed8dc6dffb7e3f1a09ac9a375948",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2703,7 +2735,7 @@
       "sha256": "abc866424fed425ece5ada2fcc50c32d4c78d5a4ad73a733a7ccd26405d2bdb1",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2714,7 +2746,7 @@
       "sha256": "ad808e5e5319e293b8755d738e41a7f388fe6886e8e329c6408bd5c8a38b47b9",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2725,7 +2757,7 @@
       "sha256": "aef87b78624fea0511d827920f18fa3be088b423ae4003230c9597ce86e9ab78",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2736,7 +2768,7 @@
       "sha256": "afeec36fb022a9b05675e4f24f00883c94165e736929828012ea359aefc4bfa5",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2747,7 +2779,7 @@
       "sha256": "b0bf2b16b8a59c5ac72aee5fae24f2f053cb39d56ce602155ce720bfe0791175",
       "bytes": 1067,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2758,7 +2790,7 @@
       "sha256": "b26023087d175e7dfdd046dedfc5ffa895eea0676847922d46dcf43b78de32e6",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2769,7 +2801,7 @@
       "sha256": "b321b3432954e1656c10a3f06348f920f3bcfeca5af3da6dab9d34324b6519df",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2780,7 +2812,7 @@
       "sha256": "b4e4df7336933cb1cd0d63e019ad88b59d4368ca7852650de4a547b39a28a2fe",
       "bytes": 1067,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2791,7 +2823,7 @@
       "sha256": "b7367e9058d6db27f60419f9c51b7dd7ce6ffd067a9028c15e9725366572f441",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2802,7 +2834,7 @@
       "sha256": "b853b4e876a2d8f658a390860f913a1d62666588345feb97e37d398505c71910",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2813,7 +2845,7 @@
       "sha256": "b9f5c476e15db4d4aabaa6aeb3c74c94f38fbfcc7325f6dc4e05da746a37a48b",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2824,7 +2856,7 @@
       "sha256": "ba046c7e6f64833880b70da7be115eb98b1950700eb5a09398a7018520a1280d",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2835,7 +2867,7 @@
       "sha256": "bb5a08f3770decb011a840db3e596895bb0d4b3c9b1bea8c69032640ad0a1b81",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2846,7 +2878,7 @@
       "sha256": "bb8032fad0851f4d3626f37d3458768297de58253d5c63ed9a639b98a9b4ef05",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2857,7 +2889,7 @@
       "sha256": "bc2a310778040aea19cf5a3555dc99f7eeb4ebfbd55224926645ca24932ed6af",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2868,7 +2900,7 @@
       "sha256": "bc82604f0e7e545655be2335883987be8d59be886716bead60e17a9203828ba6",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2879,7 +2911,7 @@
       "sha256": "bd8a94f5968d63de889b5d2481fb2dab356e4e277e008bdbe2223b07d2650681",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2890,7 +2922,7 @@
       "sha256": "bdf23761b1d737be48be92732e534b94fa2a188f2a055f3cb5940d36a72ee260",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2901,7 +2933,7 @@
       "sha256": "bf64c9af47a1ffb39f313636320163f0dc6c1d459b228e45452d8716fc37fd24",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2912,7 +2944,7 @@
       "sha256": "c01bda10bdda599905638e3d48b935c3a94c893ecec3f963cfb4dfca9145f420",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2923,7 +2955,7 @@
       "sha256": "c073ae8007be8b7c767f655dff968e7563d626af165c7626363d2168ddfb726f",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2934,7 +2966,7 @@
       "sha256": "c09529b0d0bc481fa6454d6dab10b2916b201b5ba80f8e53515541cc4cd2ee75",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2945,7 +2977,7 @@
       "sha256": "c124697259632e0c76551913e70dde4567f2b1ed8481d49032d1e1f3102de760",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2956,7 +2988,7 @@
       "sha256": "c1f574dedc02ae95199300ee1bd95b477b7dd16a203581fdee83c7bcde902f75",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2967,7 +2999,7 @@
       "sha256": "c28caa7e7c6dd3586b297cbe3a408bc87fe6fea3ad2e7faa7d9694611b0cb6df",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2978,7 +3010,7 @@
       "sha256": "c318cbc499a7d4d5ce78e8f21006be008500b72908c869ca8700009cffa58fd8",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -2989,7 +3021,7 @@
       "sha256": "c3819d39c34a5c178cc3d5a02f5d3171e97cee3d36fc98332dc1ed4240d59557",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3000,7 +3032,7 @@
       "sha256": "c3cea1c4175d0330fc9bbdc844922a5ee012fdc66745b730957c34314410a927",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3011,7 +3043,7 @@
       "sha256": "c6492bb48e2dcb0116def7825533ae9e8547bd66cc9da929893afffc68d9e8f1",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3022,7 +3054,7 @@
       "sha256": "c8a98d22c3c044a336e60adf38af37191f290d504d8f4f96eaa1a3b28ada2922",
       "bytes": 1067,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3033,7 +3065,7 @@
       "sha256": "c8baef8292b90780d88d3d8ed029eb3b29001fcbbae9d0e8621500a7e3087eb6",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3044,7 +3076,7 @@
       "sha256": "c9918879994482d5fcda213b05f3a91b255bb67d036a5f626131f547059c43f9",
       "bytes": 1067,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3055,7 +3087,7 @@
       "sha256": "ca0fa9d530da18cc605658e9b72c9fbe33bff2b3285a8fba69aad32f9dd9e1ac",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3066,7 +3098,7 @@
       "sha256": "ca9a277f1a01865367ab1f30062203dec2653b4f70f59de265604a07cb007f5e",
       "bytes": 1067,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3077,7 +3109,7 @@
       "sha256": "cb695ab2094e4809594eff77131bba64c3f96ec42669a409d831f1c0a13cc03d",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3088,7 +3120,7 @@
       "sha256": "cb7894bcb9ee278d85e5cce7738f421bbf488cf9363e14e09eac790aa51a644c",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3099,7 +3131,7 @@
       "sha256": "cbcee00cde7e1f49f7a9d09c3d18ee243440b9fd77c5ffb9713655806a6c3645",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3110,7 +3142,7 @@
       "sha256": "ce0a2e805f032d547360e96654bfe7c49fcdc9d35f3d974e6f34b6196b400ed7",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3121,7 +3153,7 @@
       "sha256": "cefcbd65cc14f7e620dbc2d9e7db9c99d5578efa01bdda8748789875f39418fa",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3132,7 +3164,7 @@
       "sha256": "d0af1ceec219059918e37ad51c1d1026985e858c67169e549032f703a9dd30f6",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3143,7 +3175,7 @@
       "sha256": "d135b9483ddf0ce2211845b932a524020c0950c0cbdfec293360f726902ba9dc",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3154,7 +3186,7 @@
       "sha256": "d17d1a68cd3eb3761bfc59b59e7cdc69794f13ca0e375eafdda2a0375aff5175",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3165,7 +3197,7 @@
       "sha256": "d1d127035bad07761a4bd99c49f37863ac3e39488ba401ef1b33c3fe3faae8bb",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3176,7 +3208,7 @@
       "sha256": "d1ff382e187218fe5613887dc5ad81be28500a358d8faddfe5f985446a767239",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3187,7 +3219,7 @@
       "sha256": "d43d3e71a6a24d67579cb99541e86cac88def5d67803cfc8234906fb614f65b0",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3198,7 +3230,7 @@
       "sha256": "d4934f4cbe797ebb77377bc44939c560c102ac7c56d9e1debecfde46636b2d0e",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3209,7 +3241,7 @@
       "sha256": "d4d9a06be2b6e49c9a17897df09258ff894385d4d8d53d5398f675a8540a1f28",
       "bytes": 1067,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3220,7 +3252,7 @@
       "sha256": "d58c871d0cc26f6ca9839c26d9386fac9ed7f9148179da6120a6d0cfc5771c33",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3231,7 +3263,7 @@
       "sha256": "d801d8a4212d5758fc8f58c0e889385859d5d60feaad5e71cc68e2ee78762914",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3242,7 +3274,7 @@
       "sha256": "d904ca2f169877864d53ce4dda7c5e4045f1e458f5628528d1484862502b9147",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3253,7 +3285,7 @@
       "sha256": "db276304a747fdc84ff52bfa97729eddc8b5e35f37ba09ba11d173cae73b7a98",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3264,7 +3296,7 @@
       "sha256": "ddc660439450d23faafd92b526c625acbfd107f0a3d062c2884d7f90a7b7219a",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3275,7 +3307,7 @@
       "sha256": "dec31efd7590b0c64ecf3eb06f4399698dc2b7edea34d13e64618bbf9755500b",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3286,7 +3318,7 @@
       "sha256": "df14360b65883ad129780a4cf53c93e94c2c15b3d595c50e8b295976ce72b29e",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3297,7 +3329,7 @@
       "sha256": "e0970948d3c702ac585399394cee04ac5b3577d2e8b7697f8b50838718910662",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3308,7 +3340,7 @@
       "sha256": "e12aa49e83a2d2c5b885e68b02606954399958e5eb19cbac75cd4dba6c2e1cdf",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3319,7 +3351,7 @@
       "sha256": "e14e8abad691cf31c5e3b8d4378593eb6d8d66d4cc8ae4323524013cf526fe23",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3330,7 +3362,7 @@
       "sha256": "e24788c0f8684d72bac6cc031adeace132b42611fff5fd0c01e5199682ca2e0b",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3341,7 +3373,7 @@
       "sha256": "e2a12e70b16b3270592b69c178f9292c6060aac42d0c6dc6d0b38fdb28d5dad2",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3352,7 +3384,7 @@
       "sha256": "e3bdbf15ae810f93f9af0ddca3f30caf0c8cbd95b8824c68bc9e5216c968a886",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3363,7 +3395,7 @@
       "sha256": "e4c28e5ca8cbc79fee493317191a6cf33b9002636a1deb2cba4ca1b58baeef03",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3374,7 +3406,7 @@
       "sha256": "e4e475aade8362158491ce4d8420da314a3e8de3f126c7e7d5bcc115a898067c",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3385,7 +3417,7 @@
       "sha256": "e4f2c39a072fda1c793d0ea35676a24dc3315c8f5691ec09288384b2f1dc225c",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3396,7 +3428,7 @@
       "sha256": "e510feef13ed890971038757726f0bfb547a497a08b11705f168f8a2f79d38c8",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3407,7 +3439,7 @@
       "sha256": "e54f35d059f42043cc62a5e0f1c14a2627b4aa981f031d5dac9a2b15bccbad1c",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3418,7 +3450,7 @@
       "sha256": "e610f39bc19cc8717b681a395359171a49de1bedf9db1d4bea9c812d51a13284",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3429,7 +3461,7 @@
       "sha256": "e6acf5d823f191525fc9f93c7f038409d366d6c2c50ce4110bbee2a042f2140f",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3440,7 +3472,7 @@
       "sha256": "e7eb26c478e89714c0c5ab33926aa286c66f78df2d870c578aec6aab20812fb7",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3451,7 +3483,7 @@
       "sha256": "e8231d844b465f8e185805a80527569ca6360bcb42a32624dda35a31c34a8dae",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3462,7 +3494,7 @@
       "sha256": "e93d6209118a9c1458858dddd386166fbbcb2d0535c30e3a7b3bccdb6d8a27ba",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3473,7 +3505,7 @@
       "sha256": "ec50a208ddd3a7ba0854123552e86c41d4fb12da338906b6f2ac241f7d564000",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3484,7 +3516,7 @@
       "sha256": "ee01f6a2563942edfd2ab614a07707d227e95d339165c2c6992f1d52b1df5250",
       "bytes": 1064,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3495,7 +3527,7 @@
       "sha256": "ef204a28c355382ffbed222221db7569d7d7a0c3a29966a215bfbda0ab2b8a50",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3506,7 +3538,7 @@
       "sha256": "f03c3de786ae4cea0297375e450f86c42da81b59fcbfc7e0f4e021f66d7ecd0c",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3517,7 +3549,7 @@
       "sha256": "f0e1c34b45153c9b19209f6c965f9039c7cc4fffb2ff21b2335b08b1585cf4ea",
       "bytes": 1063,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3528,7 +3560,7 @@
       "sha256": "f14d239068e4bad15fc62c3ebbfae57094435c0f7de652cf536618d97a5e9339",
       "bytes": 1067,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3539,7 +3571,7 @@
       "sha256": "f1cef32fda71de6a0d5fee9058941249bccc758603640f3c2a548cd2e0cf8b44",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3550,7 +3582,7 @@
       "sha256": "f21fc3475d7474e0564a52581f3f611223bac6312160d32e4f9c6a4ec9d5831c",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3561,7 +3593,7 @@
       "sha256": "f28f7e721c5f06e1325e3b8cbe41c9bcd638d7bfb73f21c56c7c34256d77223b",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3572,7 +3604,7 @@
       "sha256": "f32611501206d475ac547d6a046fffb2e3fa2eb9641a858e9c5312d0680186a6",
       "bytes": 1063,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3583,7 +3615,7 @@
       "sha256": "f3277c9582c4af9796297672e1651f2425efa3c2b784fe632229df98b833f034",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3594,7 +3626,7 @@
       "sha256": "f3f25c89fbab92b1702bf2f4b8207bf2a9e574534e62703a5ffcdb5c833758eb",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3605,7 +3637,7 @@
       "sha256": "f66a36776febedaac0b8d0099f9768818122c5ea3784cdd86110516391054da8",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3616,7 +3648,7 @@
       "sha256": "f6a657842df50ede6b06e64cec66af4d35d3f405a3c474f6098d2a351b64437b",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3627,7 +3659,7 @@
       "sha256": "f6ee0af1f8a0bebeacd7f38b0dabed02433d212b11e617f035e05d0b205f3646",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3638,7 +3670,7 @@
       "sha256": "f8b75abe1d367563765bdfb85defdf36488fe8df082ba4c53651171ff0e1ad1c",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3649,7 +3681,7 @@
       "sha256": "f98b365866723d2c241e8f18ec9bb20cbb8ee9cd69be23ec13799a3a007a0ec8",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3660,7 +3692,7 @@
       "sha256": "fa7df4a3fa90d38a9bff9a3e5f3c61d99f56d241adfd046bb3506210ee3676bc",
       "bytes": 1065,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3671,7 +3703,7 @@
       "sha256": "fb2534876f167833a08d551442733d0a4c7c076ee604a9849f4ec9590d1b738f",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3682,7 +3714,7 @@
       "sha256": "fc51814a56e356b5c12824d876b4a8d62d7c35f82d19fc08c572766788997c21",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3693,7 +3725,7 @@
       "sha256": "fd296fcb2904a068cda73914a68d564d45e0bc6d6c7eb0c048ee51553c691709",
       "bytes": 1066,
       "lines": 21,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3704,7 +3736,7 @@
       "sha256": "d85d44ee6eaba71e1c17b219fb536b9dd1d2449c1fce468f6f59e4cddd00f2bf",
       "bytes": 1131,
       "lines": 31,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3715,7 +3747,7 @@
       "sha256": "65ade455068749cc79686d0d029ea019d71ea26fd6a6eb4790195eeb161366ce",
       "bytes": 7675,
       "lines": 34,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3726,7 +3758,7 @@
       "sha256": "d7fc345b1970fbc13cf70a12f229dc490baaa39f7ba325fc76403ea31866763f",
       "bytes": 53048,
       "lines": 404,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3737,7 +3769,7 @@
       "sha256": "c542946b00533bd6bb1336a9fd58ab4b23a6a0bda023f0c672761aa36ca5df94",
       "bytes": 10051,
       "lines": 534,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3748,7 +3780,7 @@
       "sha256": "5ef383c4f5bb9dbcd7e3fb234e256f5530d033341cc3f47a8a331f58dca178a9",
       "bytes": 14960,
       "lines": 176,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3759,7 +3791,7 @@
       "sha256": "9727b57ab8ee46710e2933d1f1e5f4c10ff1e8293992bf8ee3b0829a3adfd281",
       "bytes": 194613,
       "lines": 265,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3770,7 +3802,7 @@
       "sha256": "b7f4708e51997612fde8e9e840861fdb458abee506ace5f43aae84980706d541",
       "bytes": 5592,
       "lines": 25,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3781,7 +3813,7 @@
       "sha256": "b2ae7da1687a14da8e3e418248f4d68c01eb261c6e12945e1d1a40eb777ce12b",
       "bytes": 18982,
       "lines": 226,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3792,7 +3824,7 @@
       "sha256": "71468b5b498b942ea0418333bae2cedee7760b60fdd09a4387c84295286ddba0",
       "bytes": 10785,
       "lines": 182,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3803,7 +3835,7 @@
       "sha256": "7a7df9382345add4fbf1a76a50ed8bb85f5726d7fe0ae8f2ea41503261509dc1",
       "bytes": 22192,
       "lines": 361,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3814,7 +3846,7 @@
       "sha256": "5371e429f9d15db5c11c6e6842c08f5d4bbbc8361400004065e50a50eafdbed8",
       "bytes": 43283,
       "lines": 746,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3825,7 +3857,7 @@
       "sha256": "81ea56b38159ef54c8a7acd1950a55e8555ae0da7b41ab063102577a43786ed5",
       "bytes": 764441,
       "lines": 12346,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3836,7 +3868,7 @@
       "sha256": "ffc4db71ec0699772f1d8f06f32228b3bc8afa26b012c1ec6f90190ec0255440",
       "bytes": 6833,
       "lines": 368,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3847,7 +3879,7 @@
       "sha256": "2ea829d39c7b3dd73cdda94ee9a9ca4b0167c2e1bb070a9e1d5d3592eb30f448",
       "bytes": 2270,
       "lines": 49,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3858,7 +3890,7 @@
       "sha256": "ac0c2d36912efeb97eddeae3484fc601de1b5b3b94dd5e4570699b8d1c53b278",
       "bytes": 20522,
       "lines": 461,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3869,7 +3901,7 @@
       "sha256": "0ee6c707c15f3ad519056da27863ed51cfd1e0c260748770626e2536aa185e82",
       "bytes": 5597,
       "lines": 134,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3880,7 +3912,7 @@
       "sha256": "e225af0a79a6e5bf3073e1cf57803be6c11fa9dedfe1139d382d32978ed08204",
       "bytes": 4430,
       "lines": 83,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3891,7 +3923,7 @@
       "sha256": "9c0ede83a898394aa501815f7ae3641bc5f16c7c0343e75ac0a72cecf726e67d",
       "bytes": 3895,
       "lines": 100,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3902,7 +3934,7 @@
       "sha256": "ea8fde846afe418228e510c8e21e4e8f571aba21c188dec4f5d8dfe7bcfe7945",
       "bytes": 8229,
       "lines": 185,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3913,7 +3945,7 @@
       "sha256": "412e5b69d61a915da5ea0e3d14eece735dca290bbcc8f9596905fe0969168e1b",
       "bytes": 7592,
       "lines": 171,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3924,7 +3956,7 @@
       "sha256": "7de33df299d5309852174f1f95442625f54d02ae5e5771971722221af4004ca4",
       "bytes": 892,
       "lines": 17,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3935,7 +3967,7 @@
       "sha256": "55ef17320f9dc96025c3cefacd4cdd242ffa8ce9f2f5a5384d143ead3602f6f1",
       "bytes": 2579,
       "lines": 58,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3946,7 +3978,7 @@
       "sha256": "15d88ed12f10d2532828a1e47822aa92eeb76c05dd6dc15e17c5ce5a12dff46c",
       "bytes": 280687,
       "lines": 369,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3957,7 +3989,7 @@
       "sha256": "c997df63385eb971955de25ff1030837049b284ca0c9ffc8dfd3938b01162f5e",
       "bytes": 3829,
       "lines": 49,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3968,7 +4000,7 @@
       "sha256": "f40932300a0299f51aa423afb36f205767c0ee19fee205df460439e245187e4c",
       "bytes": 94050,
       "lines": 1496,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3979,7 +4011,7 @@
       "sha256": "b29008d3dfb2938cd27b1d34860052fcadc13276860b93c2d44aa7e63f02458b",
       "bytes": 1966,
       "lines": 14,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -3990,7 +4022,7 @@
       "sha256": "3908452616982e575326d1ef7ff49042379a06957a95ee726295059698bdaf68",
       "bytes": 108909,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4001,7 +4033,7 @@
       "sha256": "fae9e26bfd04712b316afef68b37df3ae4eed5dce20a9f9af22b791d339cb1d3",
       "bytes": 570665,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4012,7 +4044,7 @@
       "sha256": "468cc1e86ac7ebdeb4e93ace48e264f5c1948526b9284b5e5abc3eb28b7cea88",
       "bytes": 73713,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4023,7 +4055,7 @@
       "sha256": "ac5e9b8c791c3253e09bef5caf1f820e922f5874f293027b6772a689e19a4fd2",
       "bytes": 89252,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4034,7 +4066,7 @@
       "sha256": "70a4a872fe270fe40bf2323a7c8ec6e7fdc816d310e0bbe8ac7f3dcb8f11854e",
       "bytes": 450682,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4045,7 +4077,7 @@
       "sha256": "00d36ec649f6e3bd0ffa39ffaa48015fd8a4d3a2371dee24d45f3e128ec686ce",
       "bytes": 45813,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4056,7 +4088,7 @@
       "sha256": "8446e87606646e20f7e972787ebeb4be9b7b5fb5194c8ba3c55252f28ea86986",
       "bytes": 103896,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4067,7 +4099,7 @@
       "sha256": "2c4bc63085eff006e9218c3b7c894d3d48d8356742193e51edabe89dcd9f880e",
       "bytes": 539843,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4078,7 +4110,7 @@
       "sha256": "5c34450a4c235a6db5e0cbd2df5198926ba37311a69481fcaf9004047a01b961",
       "bytes": 68683,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4089,7 +4121,7 @@
       "sha256": "d0a92b7bd8668db0f7ba1e2120aea780a693b3979ee0440f7a90150d5035212e",
       "bytes": 146450,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4100,7 +4132,7 @@
       "sha256": "e47ce81fc9e0ce03df850b6bbb5a73eb7f64d58947699eaef161d5c78f46426d",
       "bytes": 865828,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4111,7 +4143,7 @@
       "sha256": "d45caf3f917f40bd4f91eaa110a2b7c40ee6068791508bff0fdfbdf8c54f67e2",
       "bytes": 109545,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4122,7 +4154,7 @@
       "sha256": "f33ac5b0d4a92efa8425258f3fde358688d51adf780e4c6403a5f251ce386720",
       "bytes": 89024,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4133,7 +4165,7 @@
       "sha256": "0cabbbdff57e833ae638661389eea1eb56111e9cb1fd1d1b5711e6ac3a137504",
       "bytes": 527849,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4144,7 +4176,7 @@
       "sha256": "33bb648ade415a7e8fe1078148f4ab47f357374ee2bb9e179fe68f044e96c742",
       "bytes": 32990,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4155,7 +4187,7 @@
       "sha256": "17a3bfda53b7d11faa5536e6744935fb371ed9f2c11b48ed330619c0be128a5a",
       "bytes": 79280,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4166,7 +4198,7 @@
       "sha256": "258841d3483a812b6ff259ca7c2ef96f690b2fd27104ac36898c2132c8340476",
       "bytes": 411278,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4177,7 +4209,7 @@
       "sha256": "4a49c34c55570dc2f4e0fb60af0f59119421960708afe3165ad509ffbcdfe3fd",
       "bytes": 50826,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4188,7 +4220,7 @@
       "sha256": "32bd6e4e71380a7e12ab85a9d5c68ce1d746baae07fa4f2a5d9ba3e1689c4c19",
       "bytes": 69870,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4199,7 +4231,7 @@
       "sha256": "dd43554050553548fb9a2d62fc88d23ea4926334940eef44fb6349df693eb329",
       "bytes": 354326,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4210,7 +4242,7 @@
       "sha256": "fa7aed9b654cbcfad4fe133a68c83d180899b379a8711934f003702fc2e389f7",
       "bytes": 20535,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4221,7 +4253,7 @@
       "sha256": "42568882ad3b4db01bf760035e532145ba2c85b246c7cbe6f858fb5864819489",
       "bytes": 78779,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4232,7 +4264,7 @@
       "sha256": "3f8dc07945dc1ee49fbc54cbddce0c1f80a717e9c6015079c30b4a2003665671",
       "bytes": 504620,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4243,7 +4275,7 @@
       "sha256": "9a163c9cc9f89f1e830c61cd6a063b23063204b9bee7c67272082c042eefb38b",
       "bytes": 44895,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4254,7 +4286,7 @@
       "sha256": "3ba3309041be95914b4219a956ff148452fe8569f1e943843ba3e387d08191de",
       "bytes": 80841,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4265,7 +4297,7 @@
       "sha256": "dd2bb7f1c956f678cd6940dbb18957bcea2f722b5ec0ece5e8e16703c7a23c9e",
       "bytes": 441358,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4276,7 +4308,7 @@
       "sha256": "b13032ef0eb2fc38c44f1d210d521268fda9e13b205da2a30fbcff0b103840ef",
       "bytes": 60813,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4287,7 +4319,7 @@
       "sha256": "0a43ff2440dbe187504dda6b4559b2751d8ddbd6b48c1797bf607fe31e05f25a",
       "bytes": 74318,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4298,7 +4330,7 @@
       "sha256": "98fcb056ae1b3a2a13a22d738087386e4021b38aec13b70c46d6344ab8505419",
       "bytes": 602539,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4309,7 +4341,7 @@
       "sha256": "681d5257443e47b4625f03d193cb5bd77a1371cd9e289e3da8e6b20d33410eaa",
       "bytes": 73900,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4320,7 +4352,7 @@
       "sha256": "803e3b35ec68b68c262246928fd439318a5b923c3474500f43126b5d049eee4c",
       "bytes": 60220,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4331,7 +4363,7 @@
       "sha256": "a3fa2018de641444b108a2c0a230acf8e50046321da6b545255e7a5aa3b1483a",
       "bytes": 429108,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4342,7 +4374,7 @@
       "sha256": "6ef333b26aba2ae021ce30e1baa81da32833115623ca246e1244327e95e19e19",
       "bytes": 22531,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4353,7 +4385,7 @@
       "sha256": "3b2df37f2772bfb4ee654b31a87d907933b4f9167cf21c9722af97118432bd51",
       "bytes": 63262,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4364,7 +4396,7 @@
       "sha256": "35c8ec11ba257a250a3c94eebb5f8e92306df43f3d0af4c5bac5d4d27228c851",
       "bytes": 479051,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4375,7 +4407,7 @@
       "sha256": "0b5f63999657c589d2af8ddd754a2c71487c51eb2e06aac31d8b75095d7071e2",
       "bytes": 41520,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4386,7 +4418,7 @@
       "sha256": "95891eefa2fe529404d0fa410c1f31b30aa10dbf6e45c8296048a94016f48655",
       "bytes": 78560,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4397,7 +4429,7 @@
       "sha256": "2d34b9448387ef9cc7193f10cba0a71df88e05855752dd6ec2a4fb89b830e508",
       "bytes": 638087,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4408,7 +4440,7 @@
       "sha256": "486d33d1b09fc359b5490795fd84cbff7a6a3ce5f8adfa7687dde705180610e3",
       "bytes": 62299,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4419,7 +4451,7 @@
       "sha256": "6960022268c1316d087a425b9e6945d6a917b425ae62db402b9c3b7c7abb8fed",
       "bytes": 1119871,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4430,7 +4462,7 @@
       "sha256": "445d392c26c893997ac6fa395aadb394cc632c6e69c90e3cb511b4e300c005b9",
       "bytes": 750477,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4441,7 +4473,7 @@
       "sha256": "9a5cbde832e77cca76ae0c53da0dfc249b3dadbb745fdd1925c9715475fe893e",
       "bytes": 754894,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4452,7 +4484,7 @@
       "sha256": "3b1edc1ebba1797d05af993a437db3278df49ba46212d2ae258b2f3352c7b59a",
       "bytes": 438768,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4463,7 +4495,7 @@
       "sha256": "627211096f534973813950ad3269a3d2e7938385ca4ceb5220fac46cbbe95e3f",
       "bytes": 1636863,
       "lines": 0,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4474,7 +4506,7 @@
       "sha256": "f74864378d5f026282ceafa8da4ad8447c272cf56c3da610eb644c83d2732bf5",
       "bytes": 3988,
       "lines": 116,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4485,7 +4517,7 @@
       "sha256": "d23d9a3b2c3a313a345703c83be2b1dc9d2a9e77f72aef30af118986d5fff729",
       "bytes": 85,
       "lines": 5,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4496,7 +4528,7 @@
       "sha256": "80338d9a5083743219959296efa02a25ca6cb847518e535907154216ed8fde14",
       "bytes": 4874,
       "lines": 286,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4507,7 +4539,7 @@
       "sha256": "2d49d0effe767a04d640200a94e78d61b6154478bba4fa7d8c81a8539b2d1dd5",
       "bytes": 237,
       "lines": 12,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4518,7 +4550,7 @@
       "sha256": "088a8fb033d699005aaef5390e6d8ef1b9f4075859dc45228b9e942ded4fd8c4",
       "bytes": 306129,
       "lines": 9120,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4529,7 +4561,7 @@
       "sha256": "8bb12be73720d978b1b132a1e124f516faee224b83f7f8b235081b73b251ce6f",
       "bytes": 1059,
       "lines": 34,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4540,7 +4572,7 @@
       "sha256": "ba5b850b828c5dafb97769520553a188dce125800a1829c177215c3c47db8128",
       "bytes": 2229,
       "lines": 132,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4551,7 +4583,7 @@
       "sha256": "3cd764fd8cedb91a3b9f765ba854b6e3da9f9c29daddee0c5d845377f428451b",
       "bytes": 7121,
       "lines": 222,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4562,7 +4594,7 @@
       "sha256": "2d56208325bad89a3cb57a20bc079b8b4229bf1eed4551b7b83143e3f96e3f2f",
       "bytes": 13456,
       "lines": 588,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4573,7 +4605,7 @@
       "sha256": "94d5c5cd84e17209a72296abaf6225f07ff6029a5537687d36786547d5121c32",
       "bytes": 2353,
       "lines": 75,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4584,7 +4616,7 @@
       "sha256": "59d0489bd5a5ac3090c3dc6506a1c0063a57608920ef7e69a1e8ae3debd5657c",
       "bytes": 1244,
       "lines": 37,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4595,7 +4627,7 @@
       "sha256": "1ee4fbbefd2f2cecd4ff01d262aef73f9c52f5d0fa25b05efe98660e942766db",
       "bytes": 2546,
       "lines": 82,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4606,7 +4638,7 @@
       "sha256": "8c058f92e2f4a3fbdeb1ad03485022f525ff7bc747870ae071cd92e52974d8ed",
       "bytes": 2953,
       "lines": 63,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4617,7 +4649,7 @@
       "sha256": "3952970f076bb0a7df8f63d1a06b038db2e5489d22b8b61e82450a4a8d704325",
       "bytes": 10828,
       "lines": 191,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4628,7 +4660,7 @@
       "sha256": "a8dc759fb9ed149f199c8e7cd23263e0cbc0e315fb13837b2d76ff65b92ce1d6",
       "bytes": 26180,
       "lines": 442,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4639,7 +4671,7 @@
       "sha256": "af7c66a99f16c596595364b55f526b6f397ddbe2cfac948aaaae4682f5963bdd",
       "bytes": 8191,
       "lines": 140,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4650,7 +4682,7 @@
       "sha256": "353fb6d5719ac57d5869614bf1f702d458b11fde1854b8cc5574106a01f466b2",
       "bytes": 6144,
       "lines": 124,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4661,7 +4693,7 @@
       "sha256": "956ddcb2af76fb80723c8d7bb93d55566ac8749f275b43b4458d4c8d44376de9",
       "bytes": 2085,
       "lines": 43,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4672,7 +4704,7 @@
       "sha256": "f0b1f60e15b15ddc0d59968fcc1a82d2df29af61c7be280f004c9b024c827e6f",
       "bytes": 949,
       "lines": 24,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4683,7 +4715,7 @@
       "sha256": "b909b2a72082dc1252e5f38bb371529c284943b131a9f0bb975ba01e01ee4c8d",
       "bytes": 13494,
       "lines": 239,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4694,7 +4726,7 @@
       "sha256": "f95c69059744e7c6378ddb8068adcffa87589e07d2badad86b1b7b20f719b080",
       "bytes": 72,
       "lines": 6,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4705,7 +4737,7 @@
       "sha256": "6f27110c131160b417b597aeb3d6791bd6baf650038c24eea7ed19a1747b63a4",
       "bytes": 6682,
       "lines": 146,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4716,7 +4748,7 @@
       "sha256": "2c1110fa3575480b466b83f960d579757b3ad229398a80fe169eea3d031e713f",
       "bytes": 6849,
       "lines": 164,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },
@@ -4727,7 +4759,7 @@
       "sha256": "d52d80744f1039f804a62c13ea8f7f0a21b922cfb0487c97c1c4acc862b14c34",
       "bytes": 2944,
       "lines": 58,
-      "retained_record": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
+      "retained_record": "docs/README.md",
       "replacement": "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
       "retired_on": "2026-10-28"
     },

@@ -1,9 +1,9 @@
-# Study entrypoints
+# 研究执行入口
 
-The [script index](../README.md) owns the runnable workflow list. The [current research status](../../docs/NEXT_STAGE_DECISION.md) and [study index](../../studies/README.md) own completion and next actions; this directory does not maintain a second progress list.
+完整命令导航见[脚本索引](../README.md)，完成状态与下一步见[当前研究状态](../../docs/NEXT_STAGE_DECISION.md)。本目录不再维护第二份进度清单。
 
-Scientific algorithms belong in `src/qgeognn_al/`. Runners orchestrate frozen protocols, manifests, training and reporting. Some historical runners remain shared dependencies or byte-hashed protocol inputs and must retain their original paths. Closed entrypoints without consumers are recorded in [RETIREMENTS.json](../../docs/repository/RETIREMENTS.json).
+科学算法放在 `src/qgeognn_al/`。运行器负责配置、协议检查、训练与报告。已有代码的路径与字节可能被协议冻结，清理时须核对调用者和哈希。
 
-Active Free / LCMD continuation uses its frozen report-local supervisors. Do not independently launch a second runner from this directory. A reproduction uses a separate output directory and requires the original protocol, environment and local checkpoint anchors.
+Free / LCMD 使用当前报告约定的监督器与续跑入口；不要另起重复任务。新研究的协议、选中 ID、请求哈希、标签凭据和汇总结果进入 Git；检查点、缓存、完整请求和运行锁留在本地。
 
-New studies keep protocols, selected IDs, request hashes, accepted/rejected receipts and aggregate results in Git. Checkpoints, feature caches, full requests, process locks and console logs stay local under the repository retention rules. Existing tracked historical evidence remains preserved.
+迁移专用运行器已归档到 `codex/archive-transfer-20261028`。已退役脚本见[退役登记](../../docs/repository/RETIREMENTS.json)；维护规则见[仓库指南](../../docs/README.md)。

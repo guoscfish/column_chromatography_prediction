@@ -1,3 +1,0 @@
-# Protocol
-
-The authoritative preregistration is [the research plan](../../../docs/research/CW_GEOMETRY_AND_LLM_FEEDBACK_PLAN.md). Machine-readable parameters, L333 transforms, package versions and data hashes are frozen in protocol.json; execution_code_freeze.json binds the implementation. REUSE_MANIFEST.json and reuse_compatibility.json audit 70 historical control points. New fits use the historical CPU two-thread training protocol, with unmodified production CountSketch and independent trajectories. Historical test exposure is acknowledged; this runner contains no test-label reveal operation.

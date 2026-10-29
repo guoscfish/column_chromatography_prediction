@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import hashlib
+import subprocess
 import re
 from dataclasses import replace
 from pathlib import Path
@@ -287,13 +289,15 @@ def test_navigation_links_resolve_and_benchmark_remains_preregistration_only() -
     markdown_files.extend((ROOT / "studies/predictor").rglob("*.md"))
     markdown_files.extend((ROOT / "studies/transfer").rglob("*.md"))
     markdown_files.extend((ROOT / "studies/active_learning").rglob("*.md"))
+    scope = json.loads((ROOT / "docs/repository/RESEARCH_SCOPE.json").read_text())
+    archived = {record["path"] for record in scope["removed_files"]}
     missing = []
     for markdown in markdown_files:
         for target in _navigation_targets(markdown.read_text()):
             if "://" in target or target.startswith("#"):
                 continue
             path = (markdown.parent / target.split("#", 1)[0]).resolve()
-            if not path.exists():
+            if not path.exists() and str(path.relative_to(ROOT)) not in archived:
                 missing.append(f"{markdown.relative_to(ROOT)} -> {target}")
     assert not missing
     benchmark = ROOT / "studies/predictor/4g_source_benchmark"
@@ -314,7 +318,9 @@ def test_legacy_history_was_not_overwritten() -> None:
         "studies/track_b_transfer/t1b1_adapter_capacity/FORMAL_RESULTS.md": "dfe57bb95158c2006443ae98f8b1e1449349129a3dd73f0866c92633ff384934",
     }
     for relative, digest in expected.items():
-        assert sha256_file(ROOT / relative) == digest
+        scope = json.loads((ROOT / "docs/repository/RESEARCH_SCOPE.json").read_text())
+        original = subprocess.check_output(["git", "show", scope["archive"]["archive_commit"] + ":" + relative], cwd=ROOT)
+        assert hashlib.sha256(original).hexdigest() == digest
 
 
 def test_preflight_record_matches_implementation_and_scientific_boundary() -> None:

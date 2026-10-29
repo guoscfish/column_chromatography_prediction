@@ -47,7 +47,7 @@ LCMD 的 NRMSE 从 333 标签的约 0.707 降到 653 标签的约 0.437，之后
 - [sequential_acquisition.py](/Users/fish/Documents/GitHub/column_chromatography_prediction/src/qgeognn_al/active_learning_v2/sequential_acquisition.py) 的 Hybrid 是集成分歧前 25% 内再做覆盖。它已包含不确定性加多样性，不能把同样组合换个名字当新方案。
 - [ivr.py:11](/Users/fish/Documents/GitHub/column_chromatography_prediction/src/qgeognn_al/active_learning_v2/ivr.py:11) 已实现已标注集条件化的方差减少，用统一行核、等权参考集、单位先验/噪声。后验是代理模型，不能等同于实际六输出 GNN 的预测后验。
 - [training/predictor.py:75](/Users/fish/Documents/GitHub/column_chromatography_prediction/src/qgeognn_al/training/predictor.py:75) 的中间输出虽然叫 q50，实际上以 MSE 训练；严格说并非 pinball 定义的条件中位数。训练损失使用原始体积尺度，而选模型与选样使用标准化目标。这里有可研究的不一致，但不能仅凭形式不一致就断言它是平台原因。
-- [QUANTILE_AUDIT.md](/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/predictor/final_4g_qualification/QUANTILE_AUDIT.md) 中名义 80% 区间的 row 覆盖率只有约 72%/69%，compound V2 约 46%。区间宽度不能直接当作可被补标签消除的不确定性；强制分位数有序也不等于获得校准或认识不确定性。
+- [QUANTILE_AUDIT.md](../../studies/predictor/final_4g_qualification/README.md#记录-3) 中名义 80% 区间的 row 覆盖率只有约 72%/69%，compound V2 约 46%。区间宽度不能直接当作可被补标签消除的不确定性；强制分位数有序也不等于获得校准或认识不确定性。
 
 ### 2.3 最值得做的下一项精度实验：后期共同状态分叉
 
@@ -63,7 +63,7 @@ LCMD 的 NRMSE 从 333 标签的约 0.707 降到 653 标签的约 0.437，之后
 
 ### 2.4 如何调整现有 Phase 2 的优先级
 
-[现有方案](/Users/fish/Documents/GitHub/column_chromatography_prediction/docs/research/4G_PHASE2_IMPLEMENTATION_PLAN_2026-09-18.md) 已列出 MaxDet、RD-EMCM、噪声加权、multi-output IVR 与预测协方差。这些是候选储备，不宜同时铺开。
+[现有方案](主动学习方法沿革.md#记录-7) 已列出 MaxDet、RD-EMCM、噪声加权、multi-output IVR 与预测协方差。这些是候选储备，不宜同时铺开。
 
 如果主要目标是低预算 AULC，先做便宜的 Gradient-MaxDet 一步筛选合理。如果主要目标是突破后期 N90/N95，333→365 的筛选与研究问题不完全对应：一个早期不占优的方法仍可能是后期有效候选，现有 IVR 就提示了这种可能。因此我更建议把共同状态分叉排在更多新算子之前。
 
@@ -87,7 +87,7 @@ LCMD 的 NRMSE 从 333 标签的约 0.707 降到 653 标签的约 0.437，之后
 | 25g | 13.01 / 19.76 | 13.95 / 19.76 | 19.56 / 26.27 |
 | 40g | 31.84 / 43.46 | 33.57 / 40.97 | 37.40 / 48.17 |
 
-来源：[匹配迁移报告](/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/transfer/matched_rmse_benchmark/MATCHED_RMSE_REPORT.md)。B 包含目标训练与验证标签，compound 分组预算还需以实际消耗数为准。8g head-only 也是强对照，不能在最终比较中省略。表中的 Conditional-EA 是该固定模型，并不等同于会在验证集上回退的 conditional policy。
+来源：[匹配迁移报告](https://github.com/guoscfish/column_chromatography_prediction/blob/2bb086dbd2c23a82485f27f3463b1800298a4f27/studies/transfer/matched_rmse_benchmark/MATCHED_RMSE_REPORT.md)。B 包含目标训练与验证标签，compound 分组预算还需以实际消耗数为准。8g head-only 也是强对照，不能在最终比较中省略。表中的 Conditional-EA 是该固定模型，并不等同于会在验证集上回退的 conditional policy。
 
 这些结果表明源预测保留了有价值的色谱顺序/尺度信息，而低维修正有较低估计方差。但它们没有证明“跨柱关系纯粹线性”，更没证明简单校准已经满足实际收集窗口精度。
 
@@ -97,15 +97,15 @@ Loss normalization、弱分位数/点预测 loss、adaptive readout、FiLM、多
 
 PCGrad 将负梯度冲突负担降低约 99.28%，却只得到 25g -0.37%、40g +0.50% 的 inner NRMSE 变化。它说明“测得到梯度冲突”不等于“冲突是主要性能瓶颈”。继续换一串梯度协调器的依据较弱。
 
-也不能把复杂方法全部描述成没有效果：过滤后 FULL-data 的 A1 共享表示在 40g row 上报告 V1/V2 RMSE 约 11.92/14.75，P0 为 13.75/16.40；但额外的相关柱监督、compound 表现和泛化范围需要同时交代。A2 FiLM 未稳定超过 A1，和 A1 在某个场景有正信号是两件事。[多任务报告](/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/transfer/column_conditioned_multitask/FINAL_REPORT.md) 支持场景限定的后续确认，不支持普适低标签优势。
+也不能把复杂方法全部描述成没有效果：过滤后 FULL-data 的 A1 共享表示在 40g row 上报告 V1/V2 RMSE 约 11.92/14.75，P0 为 13.75/16.40；但额外的相关柱监督、compound 表现和泛化范围需要同时交代。A2 FiLM 未稳定超过 A1，和 A1 在某个场景有正信号是两件事。[多任务报告](https://github.com/guoscfish/column_chromatography_prediction/blob/2bb086dbd2c23a82485f27f3463b1800298a4f27/studies/transfer/column_conditioned_multitask/FINAL_REPORT.md) 支持场景限定的后续确认，不支持普适低标签优势。
 
 ### 3.3 数据限制比“再加特征”更具体
 
-1. **柱规格与流速混杂。** 8g/25g/40g 分别固定为 10/15/30 mL/min。同一柱内流速不变，单柱模型加 flow 不增加区分信息；跨柱模型也不能仅凭这几个点分离柱重与流速效应。旧 25g/40g 几何元数据三元组相同且缺乏测量出处。[元数据审计](/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/transfer/physical_metadata_identifiability_audit/FINAL_REPORT.md)。
+1. **柱规格与流速混杂。** 8g/25g/40g 分别固定为 10/15/30 mL/min。同一柱内流速不变，单柱模型加 flow 不增加区分信息；跨柱模型也不能仅凭这几个点分离柱重与流速效应。旧 25g/40g 几何元数据三元组相同且缺乏测量出处。[元数据审计](https://github.com/guoscfish/column_chromatography_prediction/blob/2bb086dbd2c23a82485f27f3463b1800298a4f27/studies/transfer/physical_metadata_identifiability_audit/FINAL_REPORT.md)。
 2. **源域没见过的分子很少。** 审计中 source-absent 仅 8g 的 1 个分子/7 行、25g 的 1 个分子/19 行，40g 为零。target-compound holdout 不能代表真正 source-unseen OOD。
 3. **严格配对并不普遍成立。** 若要求分子、洗脱剂、上样条件和流速均匹配，25g/40g exact pair 为零；忽略流速才有 297/490、422/529 行，其中源训练标签可用为 240、358 行。它们可以研究复合域迁移，但不是纯柱重因果对照。
 4. **噪声下限尚未识别。** 8g/25g/40g 的精确重复组仅 7/3/7 组，每组最多 2 次，而且实验 provenance 仍重要。不能靠这点信息推断全面异方差噪声模型。
-5. **长尾重要，但不能只追极端点。** 按真实目标体积的训练 q80 切分，25g/40g 大量 SSE 集中在高体积组；按可获取的 source-prediction q90 定义尾部时，40g 尾部只解释约 20%–28% 的 scale SSE，主体区仍有大误差。两种分层变量不同，不能混为一谈。候选选样时未知真实目标体积，应使用源预测/条件定义区间；真值尾部只能用于事后评价。[缩放审计](/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/transfer/scaling_failure_audit/SCALING_FAILURE_AUDIT.md)。
+5. **长尾重要，但不能只追极端点。** 按真实目标体积的训练 q80 切分，25g/40g 大量 SSE 集中在高体积组；按可获取的 source-prediction q90 定义尾部时，40g 尾部只解释约 20%–28% 的 scale SSE，主体区仍有大误差。两种分层变量不同，不能混为一谈。候选选样时未知真实目标体积，应使用源预测/条件定义区间；真值尾部只能用于事后评价。[缩放审计](https://github.com/guoscfish/column_chromatography_prediction/blob/2bb086dbd2c23a82485f27f3463b1800298a4f27/studies/transfer/scaling_failure_audit/SCALING_FAILURE_AUDIT.md)。
 
 ## 4. 课题 2 的可行转向：主动校准与目标误差减少
 
@@ -193,7 +193,7 @@ AGBAL 是辅助数据驱动的不确定性代理，并非“把 q90-q10 当噪�
 3. Ash, Adams. *On Warm-Starting Neural Network Training*. NeurIPS 2020. [论文](https://arxiv.org/abs/1910.08475)。
 4. Ramakrishnan, Dral, Rupp, von Lilienfeld. *Big Data Meets Quantum Chemistry Approximations: The Delta-Machine Learning Approach*. JCTC 2015. [论文](https://arxiv.org/abs/1503.04987)，[DOI](https://doi.org/10.1021/acs.jctc.5b00099)。
 5. Min, Xu, Li, Zou, Zhou. *Enhancing Deep Batch Active Learning for Regression with Imperfect Data Guided Selection*. NeurIPS 2025. [正式论文集](https://papers.nips.cc/paper_files/paper/2025/hash/cbae8efcc23a0cb6d15a20f245514020-Abstract-Conference.html)。
-6. Wu 等. *Intelligent column chromatography prediction model based on automation and machine learning*. Chem 11, 102598, 2025. [DOI](https://doi.org/10.1016/j.chempr.2025.102598)，[本地方法契约审计](/Users/fish/Documents/GitHub/column_chromatography_prediction/docs/model/PAPER_CODE_CONTRACT_AUDIT.md)，[复现差距分解](/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/transfer/paper_transfer_gap_decomposition/FINAL_REPORT.md)。
+6. Wu 等. *Intelligent column chromatography prediction model based on automation and machine learning*. Chem 11, 102598, 2025. [DOI](https://doi.org/10.1016/j.chempr.2025.102598)，[本地方法契约审计](/Users/fish/Documents/GitHub/column_chromatography_prediction/docs/model/PAPER_CODE_CONTRACT_AUDIT.md)，[复现差距分解](https://github.com/guoscfish/column_chromatography_prediction/blob/2bb086dbd2c23a82485f27f3463b1800298a4f27/studies/transfer/paper_transfer_gap_decomposition/FINAL_REPORT.md)。
 
 ## 7. 建议的投入顺序
 

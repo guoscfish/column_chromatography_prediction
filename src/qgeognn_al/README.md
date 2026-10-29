@@ -1,61 +1,41 @@
-# Scientific code map
+# 科学代码地图
 
-Start with the current predictor, then follow its data, training and evaluation paths. Study orchestration lives in [scripts/studies](../../scripts/studies); scientific code must not import those runners.
+先看当前预测器，再看数据、训练和选样。研究编排位于 `scripts/studies/`，科学包不导入运行脚本。
 
-## Current predictor
+## 当前预测器
 
-| Module | Responsibility |
+| 模块 | 职责 |
 | --- | --- |
-| [models/qgeognn_v2.py](models/qgeognn_v2.py) | `build_predictor`, `load_predictor_checkpoint`, forward prediction and representation extraction |
-| [schemas/conditions.py](schemas/conditions.py) | Typed condition contract |
-| [data.py](data.py), [input_schema.py](input_schema.py) | Canonical records, graph construction and input semantics |
-| [training/predictor.py](training/predictor.py) | Source training, preprocessing and checkpoint selection |
-| [evaluation/point.py](evaluation/point.py), [evaluation/reporting.py](evaluation/reporting.py) | Point metrics and qualification reports |
+| [models/qgeognn_v2.py](models/qgeognn_v2.py) | 模型构建、检查点加载、预测与表示提取 |
+| [schemas/conditions.py](schemas/conditions.py) | 实验条件类型约定 |
+| [data.py](data.py)、[input_schema.py](input_schema.py) | 规范数据、图构建与输入语义 |
+| [training/predictor.py](training/predictor.py) | 训练、预处理与检查点选择 |
+| [evaluation/point.py](evaluation/point.py)、[evaluation/reporting.py](evaluation/reporting.py) | 点预测指标和资格验证报告 |
 
-## Current 4g active learning
+## 主动学习
 
-Read `active_learning_v2/` in this order:
+按以下顺序阅读 `active_learning_v2/`：
 
-1. `protocol.py`, `sequential_protocol.py`: row identities, label accounting, budgets and frozen-source contracts.
-2. `gradient_features.py`, `gradient_bank.py`, `lcmd.py`: gradient representation and selection.
-3. `sequential_acquisition.py`, `sequential_runner.py`: per-round selection, retraining, freeze and evaluation.
-4. `batch_adaptivity.py`: completed fixed-budget Static/Adaptive comparison.
-5. `sequential_reporting.py`, `efficiency_reporting.py`: learning curves, label targets and cost reporting.
+1. `protocol.py`、`sequential_protocol.py`：样本身份、标签预算、划分与冻结来源。
+2. `gradient_features.py`、`gradient_bank.py`、`lcmd.py`：梯度表示与 LCMD 选样。
+3. `sequential_acquisition.py`、`sequential_runner.py`：每轮选择、标签揭示、重训、冻结与评价。
+4. `batch_adaptivity.py`：固定预算的静态/自适应对照。
+5. `sequential_reporting.py`、`efficiency_reporting.py`：学习曲线、目标标签数与成本。
 
-`benchmark*` and `phase1.py` implement the earlier one-step benchmark; `phase1.py` is not the September batch-adaptivity study. `ivr*` and `block_ivr.py` retain the completed IVR implementation and diagnostics.
+`benchmark*`、`phase1.py` 属于早期一步基准，后者不是 9 月的批次自适应研究。`ivr*`、`block_ivr.py` 保留 IVR 实现及诊断；`gradient_transforms.py`、`innovation_screen.py` 在冻结初始状态上做只选样的机制筛选，不重训、不读测试标签。
 
-The selection-only innovation screen uses `gradient_transforms.py` and `innovation_screen.py`.
-It compares fixed representations and selectors on frozen L0 inputs; it does not retrain a model
-or inspect test labels. Keep this mechanism screen separate from sequential performance claims.
+## LLM 选样与反馈
 
-## LLM selection and feedback
+- `scientist_full_delivery.py`、`scientist_selector.py`：全池编码、可见标签边界与选择方案验证。
+- `scientist_transport.py`、`scientist_study.py`：Scientist V2 的冻结传输和轨迹编排。
+- `scientist_lifecycle.py`：新研究可参数化的冻结、标签揭示、拟合与反馈流程；复用原训练规则。
+- `dual_expert_selector.py`、`dual_expert_transport.py`、`dual_expert_study.py`：化学与机器学习专家建议、自由选样规划、版本继承和修复凭据。
+- `active_learning_v3/`、`active_learning_v3_2/`：独立版本的上下文、记忆、查询、传输与执行约定。
 
-- `scientist_full_delivery.py`, `scientist_selector.py`: full-pool encoding, observed/candidate boundaries and plan validation.
-- `scientist_transport.py`, `scientist_study.py`: frozen Scientist V2 transport and trajectory orchestration; completed Free/hybrid records use these hashes.
-- `scientist_lifecycle.py`: parameterized state, freeze, reveal, fit and feedback for new studies, with original training/checkpoint rules reused.
-- `dual_expert_selector.py`, `dual_expert_transport.py`, `dual_expert_study.py`: independent chemistry/ML memos and free planner, revision inheritance and recorded repairs.
+`scientist_lifecycle.py` 与冻结的 `scientist_study.py` 存在相似流程，是为了保留旧实验哈希。活跃实验期间不合并这些科学源文件。当前五种子展示统一由 `scripts/report_free_lcmd.py` 维护。
 
-`scientist_lifecycle.py` intentionally retains equivalent lifecycle logic alongside the frozen `scientist_study.py`. Consolidating those files during execution would invalidate historical protocol hashes. New studies use the parameterized module; historical runners and sealed source copies remain reproduction dependencies. Reporting is centralized in `scripts/report_active_learning_snapshot.py`.
+## 公共与历史模块
 
-## Transfer
+`partitions.py`、`metrics.py`、`resources.py`、`artifacts.py` 提供公共基础设施。`model.py`、`engine.py`、`acquisition.py` 保留早期主动学习实现；`condition_complete_v2*` 与 `historical/` 保留等价性、复现及失败架构对照。`diagnostics/`、`uncertainty/` 存在不代表不确定性已资格验证。
 
-| Area | Modules under `transfer/` |
-| --- | --- |
-| Label boundaries, splits and metrics | `protocol.py`, `evaluation.py`, `baseline.py` |
-| Neural adaptation | `adaptation.py`, `source_anchored.py`, `full_data.py` |
-| Strong calibration controls | `calibration.py`, `matched_calibration.py`, `conditional_scaling.py` |
-| Corrected structural control | `hierarchical_cw_corrected.py` |
-| Completed controlled hypotheses | `adaptive_readout.py`, `source_augmentation.py`, `column_conditioned_multitask.py`, `pcgrad.py` |
-| Historical calibration/architecture diagnostics | Remaining Center/Width, latent, scaling and physics modules |
-
-The broad `transfer/__init__.py` exports are a compatibility surface, not a ranking of preferred models. Use explicit modules for new work and consult [the transfer index](../../studies/transfer/README.md) before selecting a baseline.
-
-## Shared and historical code
-
-- `partitions.py`, `metrics.py`, `resources.py`, `artifacts.py`: shared infrastructure.
-- `model.py`, `engine.py`, `acquisition.py`, `t1_formal.py`, `t1b1.py`: retained Legacy scientific implementation; they are not the standalone predictor entry point.
-- `condition_complete_v2.py`, `condition_complete_v2_pruned.py`: equivalence and reproduction controls.
-- `historical/`: failed Clean architecture and conversion controls.
-- `diagnostics/`, `uncertainty/`: diagnostic and quantile utilities; presence does not imply uncertainty qualification.
-
-These files have live import, regression-test or frozen-hash consumers. Directory cleanup does not justify changing model semantics or relocating them during an active sealed experiment.
+迁移研究的运行入口、实验结果与专用测试已归档到 `codex/archive-transfer-20261028`。`transfer/`、`t1_formal.py`、`t1b1.py` 共 28 个源文件仍被现有 Free LLM 协议按哈希冻结，因此作为当前课题的必要复现依赖继续在 main 跟踪，保留原路径与原字节，停止迁移研究更新。main 还保留公共流程引用的旧数据锚点和兼容脚本，见[分离清单](../../docs/repository/RESEARCH_SCOPE.json)。

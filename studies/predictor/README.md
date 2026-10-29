@@ -1,18 +1,15 @@
-# Predictor studies
+# 预测器研究
 
-The current predictor is **standalone QGeoGNN-V2**, qualified for point-transfer studies. Clean is a failed historical architecture experiment.
+当前模型是独立 **QGeoGNN-V2**。main 保留其点预测资格验证和主动学习依赖；Clean 为历史失败架构。
 
-| Read first | What it establishes |
+| 入口 | 建立了什么证据 |
 | --- | --- |
-| [Standalone engineering](final_v2_engineering/README.md) | 458,952 effective parameters; exact six-output equivalence to R2-pruned |
-| [Final 4g qualification](final_4g_qualification/FINAL_4G_QUALIFICATION_REPORT.md) | Six frozen row/compound runs; current point-prediction evidence |
-| [Quantile audit](final_4g_qualification/QUANTILE_AUDIT.md) | Current head retained for point prediction; UQ needs further qualification |
-| [Checkpoint and reproduction](final_4g_qualification/README.md) | Required local runtime anchors and commands |
+| [独立模型工程验证](final_v2_engineering/README.md) | 458,952 个有效参数；与 R2-pruned 六输出完全一致 |
+| [4g 正式资格验证报告](final_4g_qualification/FINAL_4G_QUALIFICATION_REPORT.md) | 三种子、row / compound 六次冻结验证 |
+| [资格验证、预注册与分位数审计](final_4g_qualification/README.md) | 复现所需检查点与原协议；分位数头用于点预测，不代表不确定性已合格 |
+| [历史模型索引](historical/README.md) | 旧模型、条件补全、R2 剪枝与独立 V2 的演变 |
+| [输入语义审计](semantic_input_audit/README.md) | 输入特征及数据含义 |
+| [条件补全](condition_completion/README.md) | 条件输入的历史验证 |
+| [早期基准预注册](4g_source_benchmark/README.md) | 保留旧设计，不代表已执行当前正式基准 |
 
-Implementation starts at [models/qgeognn_v2.py](../../src/qgeognn_al/models/qgeognn_v2.py).
-
-## Historical development
-
-Legacy -> condition completion -> R2 pruning -> standalone V2. The [historical index](historical/README.md) covers Clean, the regression ladder and pruning. [Semantic input audit](semantic_input_audit/README.md), [condition completion](condition_completion/README.md) and [the superseded benchmark](4g_source_benchmark/README.md) preserve earlier reasoning.
-
-Original decisions remain frozen. Their old pending gates do not supersede [current research status](../../docs/NEXT_STAGE_DECISION.md).
+实现入口为 [models/qgeognn_v2.py](../../src/qgeognn_al/models/qgeognn_v2.py)。历史判定不改写；其中过时的待办由[当前研究状态](../../docs/NEXT_STAGE_DECISION.md)取代。

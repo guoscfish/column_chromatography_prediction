@@ -1,26 +1,126 @@
-# Documentation
+# 仓库与文档指南
 
-Use these pages in order; study reports own the detailed measurements.
+更新：2026-10-29。main 维护 4g 主动学习、LLM 选样，以及它们依赖的预测器、数据和公共基础设施。本页统一维护目录说明、文档分工、开发约定、数据边界与归档规则。
 
-| Purpose | Canonical page |
+## 阅读顺序
+
+[项目首页](../README.md) → [当前研究状态](NEXT_STAGE_DECISION.md) → [主动学习索引](../studies/active_learning/README.md) → 对应实验报告。看实现时进入[代码地图](../src/qgeognn_al/README.md)，执行或复现时进入[脚本索引](../scripts/README.md)。
+
+## 为什么原来有这么多 Markdown
+
+整理前 Git 跟踪了 **362 份 Markdown**，不是 362 项独立研究。文档多的主要原因是：
+
+1. 每次实验通常各写一份说明、预注册、协议、实施审计、结果、解释和下一步，同一研究便产生数份文件。
+2. Scientist、双专家、CW、IVR 等方案反复迭代，每个版本都保留旧设计；项目级计划和状态又重复描述其中一部分。
+3. 早期 `experiments/`、后来的 `studies/` 和 `track_*` 三套历史目录同时存在，各层又有导航页。
+4. 为保留实验来源，一些文档的原始字节已写入冻结清单，不能像普通笔记那样随意改写；自动生成报告也必须保留脚本约定的输出路径。
+5. 过去清理仓库时又新增清理说明，原有约定、结构、保留策略和清理记录没有及时归并。
+
+Markdown 就是可直接阅读、方便 Git 比较的文本格式。文件后缀相同，不意味着内容作用相同，也不意味着运行程序需要阅读全部文档。
+
+## 常见文档到底在干什么
+
+| 名称 | 作用 | 什么时候读 |
+| --- | --- | --- |
+| `README.md` | 首页或某个目录/研究的说明 | 首先读 |
+| `PROTOCOL.md` | 方法、预算、划分、标签可见性和停止条件 | 复现或检查公平比较时 |
+| `PREREGISTRATION.md` | 看到结果前预先确定的假设与判定规则 | 检查是否事后改规则时 |
+| `FINAL_REPORT.md` / `RESULTS.md` / `REPORT.md` | 实测结果、指标与结论；部分由脚本生成 | 看研究结论时 |
+| `*_AUDIT.md` | 实现、数据、量纲、泄漏或结果来源检查 | 追查具体可信度问题时 |
+| `IMPLEMENTATION_*` / `EXECUTION_NOTES.md` / `HANDOFF.md` | 实施或交接记录 | 维护运行流程时；可合并进研究说明 |
+| `NEXT_*` / `*_PLAN.md` | 当时的建议与计划 | 了解方案由来；不能直接当成当前待办 |
+| `INDEX.md` | 导航目录 | 找历史研究时 |
+
+同一个目录中若仍有多份 Markdown，优先读 README 和最终报告。其余往往是被冻结的原始协议或独立证据，保留它们是为了追溯，不需要全部通读。
+
+## 本次如何合并
+
+- 结构、开发约定、产物保留策略、数据使用解释及历次清理说明统一到本页。
+- 早期主动学习方案、状态审计和 IVR 分析合并为[主动学习方法沿革](research/主动学习方法沿革.md)。
+- Scientist V3 / V3.1 的历史设计合并为 [LLM 方案沿革](research/LLM方案沿革.md)。正在使用的 Scientist V2 和双专家设计保留独立原入口。
+- 已完成研究中的零散资源说明、交接、审计和未被哈希锁定的协议合并到该研究原有 README；原文按小节保留，旧文件与新小节的对应关系写入[分离与合并清单](repository/RESEARCH_SCOPE.json)。
+- 迁移学习及专用文档放入冻结分支；main 的导航以中文维护。历史协议中的英文原文、程序标识符及路径保留原样，避免改动实验含义或破坏来源校验。
+
+合并后的历史章节保留原日期和结论。当前状态只在[研究状态](NEXT_STAGE_DECISION.md)维护；历史章节中“下一步”“尚未执行”等措辞描述当时情境。
+
+## 目录用途
+
+| 目录 | 内容与维护方式 |
 | --- | --- |
-| Current conclusions and next step | [Research status](NEXT_STAGE_DECISION.md) |
-| Latest completed AL curves | [Five-seed Free / LCMD snapshot](../reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md) |
-| Results by topic | [Study index](../studies/README.md) |
-| Read the implementation | [Code map](../src/qgeognn_al/README.md) |
-| Run or reproduce a study | [Script index](../scripts/README.md) |
-| Directory ownership and branches | [Repository structure](repository/STRUCTURE.md) |
-| Write and maintain a study | [Conventions](CODEBASE_CONVENTIONS.md) |
-| Keep or retire artifacts | [Retention policy](ARTIFACT_RETENTION_POLICY.md) |
-| Data exposure and split semantics | [Data usage](protocols/DATA_USAGE_REGISTER.md) |
+| `src/qgeognn_al/` | 模型、训练、选样、反馈、评价与公共算法 |
+| `scripts/studies/` | 研究执行入口；负责参数、协议、运行与汇总 |
+| `scripts/` | 报告、只读审计及兼容入口 |
+| `tests/` | 模型行为、泄漏边界、冻结约定和报告完整性检查 |
+| `studies/active_learning/` | 当前主动学习与 LLM 研究的协议、选择记录和结果 |
+| `studies/predictor/` | 当前预测器资格验证及必要的历史对照 |
+| `studies/track_a_4g_al/`、`studies/i0_predictor_semantic_audit/` | 仍被引用的早期主动学习及预测器证据 |
+| `experiments/` | 早期冻结实验、原始身份映射、划分和公共数据锚点 |
+| `reports/` | 汇总曲线、阶段结果及运行监控记录 |
+| `docs/` | 当前状态、统一指南、模型约定和历史研究论证 |
+| `dataset/` | 原始数据，保留来源与身份 |
+| `application/` | 历史应用代码；其中模型和图构建仍是兼容依赖 |
 
-## Research context
+少量旧的 8g 文件与源检查点审计仍被公共基础设施加载。它们保留原路径，具体清单见 `RESEARCH_SCOPE.json` 的 `shared_compatibility_paths`。这不会恢复迁移研究的维护工作。
 
-- [Transfer evidence and remaining questions](research/CROSS_COLUMN_TRANSFER_STATUS.md)
-- [4g active-learning review](research/4G_ACTIVE_LEARNING_REVIEW_2026-09-17.md)
-- [Current matched-budget experiment and Phase 2 plan](research/4G_ACTIVE_LEARNING_NEXT_EXPERIMENT_2026-09-18.md)
-- [Model implementation variants](QGEOGNN_IMPLEMENTATION_VARIANTS.md) and [input schema](model/INPUT_SCHEMA.md)
+## 迁移学习归档
 
-Dated reviews provide rationale; the current status and frozen study protocols determine what is complete or still pending. Legacy/Clean design documents under `model/` and the benchmark under `protocols/` are historical contracts, not alternate current roadmaps.
+归档分支：`codex/archive-transfer-20261028`。该分支保存分离前的完整已提交仓库，在首页标明停止维护；迁移算法、协议、结果、专用测试均可在其中找到。它是历史快照，不接受 main 后续主动学习更新。
 
-Superseded navigation and plans have been consolidated. [Cleanup status](repository/REPOSITORY_HYGIENE_AUDIT.md) explains retention and branch decisions; [RETIREMENTS.json](repository/RETIREMENTS.json) records the exact recovery commit for each removed file.
+查看某份旧文件，无需切换当前工作目录：
+
+```bash
+git show codex/archive-transfer-20261028:studies/transfer/README.md
+```
+
+需要完整复现时，建立单独工作副本：
+
+```bash
+git worktree add --detach ../column_chromatography_transfer_archive codex/archive-transfer-20261028
+```
+
+归档不包含 Git 已忽略的本地 runtime、完整 LLM 请求或未提交的实时进度。本次清理保留这些本地文件原路径；它们不会自动出现在新工作副本中。当前 Free LLM 的协议还冻结了 28 个迁移 Python 源文件。虽然它们不直接参与选样，完整性校验仍依赖其原路径与原字节，因此继续在 main 跟踪，停止迁移研究更新。清单为 `frozen_llm_compatibility_paths`。这些是当前课题的必要复现依赖，不是仅保存在本地的缓存。复现仍需按原协议另行提供未进入 Git 的运行数据、环境及检查点。
+
+不要在仍有主动学习任务运行的主工作目录切换到归档分支。
+
+分离时每个移出文件的 SHA-256、基础提交、归档提交与合并去向记录在[分离清单](repository/RESEARCH_SCOPE.json)。既往退役脚本及展示产物的恢复信息仍在[退役登记](repository/RETIREMENTS.json)与[产物清理清单](PRUNE_MANIFEST.csv)。
+
+## 以后如何避免文档再次膨胀
+
+| 信息 | 唯一维护位置 |
+| --- | --- |
+| 项目简介与阅读入口 | 根目录 `README.md` |
+| 当前结论与下一步 | `docs/NEXT_STAGE_DECISION.md` |
+| 目录、约定、数据边界和保留规则 | 本页 |
+| 研究导航 | `studies/README.md` 及主题索引 |
+| 运行命令 | `scripts/README.md` |
+| 代码职责 | `src/qgeognn_al/README.md` |
+| 单个研究的问题、方法、审计、结果与限制 | 该研究原有 README，必要时附独立的长报告 |
+
+新增文档默认写中文；方法名、API、文件名和程序判定码可保留原标识。每项新研究优先只维护一份 README。确需在实验前冻结的独立协议、预注册，以及较长的最终报告可以单列。追加分析和执行备注先更新原页，不再为每次修复、状态快照或下一步各建一份 Markdown。
+
+可复用算法放在 `src/qgeognn_al/`，运行入口放在 `scripts/studies/`。已有入口之间的导入是兼容债务；迁移或删除前先查调用关系与冻结哈希。实验版本差异通过配置表达，避免复制整份运行器。
+
+## 数据与评价边界
+
+- 4g、8g 历史结果已经用于训练、选择、评价或诊断，不能称为从未暴露的独立确认集。
+- 25g、40g 在归档前已用于迁移拟合、选择及测试评价。旧 JSON 中的“仅审计”是当时的曝光快照，不代表现在未使用。C18、CN、NH2、DCM 也至少有仓库数据审计曝光。
+- [历史机器可读曝光记录](data_consumption_register.json)保留原样；具体后续曝光以相应研究的冻结协议和标签账本为准。
+- 标准化仅使用协议声明的训练行。验证集可用于约定的模型选择；测试标签不能用于选样或挑模型。
+- row 插值、目标域分子留出和源域也未见过的分子泛化是不同问题；4g 主动学习不自动代表跨柱泛化。
+- 初始训练标签、固定验证标签和新增查询标签需要分别列出。固定验证集是共享成本，不能在部署标签预算中忽略。
+- 终点误差、学习曲线面积、达到目标精度的标签数与计算成本分别报告；不同过滤、人群、划分或预算不混合排名。
+- 事后读取过测试标签的分析须标明开发性或诊断性用途；不以事后测试结果修改原判定规则。
+
+## 产物保留规则
+
+1. 原始数据、规范数据、冻结划分、标准化器、权威检查点及仍被加载的图缓存是保护锚点，登记在[保护清单](PROTECTED_ARTIFACTS.json)。
+2. Git 保留紧凑研究记录：协议/配置、环境、选择 ID、标签访问凭据、接受/拒绝记录、核心汇总表、少量图和必要哈希。
+3. 新生成的检查点、逐轮训练历史、预测缓存、完整请求、锁和控制台日志写入被忽略的 `runtime/`。已有本地运行目录在执行中不随意挪动。
+4. 无当前调用的完成脚本可退役，但必须留下原提交、校验值与证据入口；冻结源代码、活跃任务和未提交工作不作为普通清理候选。
+5. 不为整理目录重新生成冻结协议或改写历史数值。历史协议的路径与字节由其研究约定决定；新规则只约束后续维护。
+
+## 清理历史与检查
+
+此前 9 月、10 月 5 日及 10 月 28 日的清理完成了分支整合、37 个一次性脚本退役、重复项目计划合并，以及 496 个临时演示文件退役。详细恢复信息集中在机器可读登记，不再维护多份清理报告。
+
+本次新增迁移归档和文档合并，Markdown 从 362 份减少到 169 份，其中 38 份零散文档合并到现有入口。Free LLM 的必要冻结源码、协议、记录与原设计继续在 main 保留。使用根目录的验证命令检查代码与报告，用 `scripts/audit_repository_hygiene.py` 核验保护锚点、退役恢复、归档树及是否重新引入已移出的模块。审计只读，不会训练、调用 LLM 或展开封存测试标签。

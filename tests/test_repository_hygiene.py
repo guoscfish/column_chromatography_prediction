@@ -41,11 +41,8 @@ def test_retired_code_has_recoverable_sources_retained_evidence_and_no_importers
 def test_current_navigation_links_resolve():
     pages = [
         "README.md", "docs/README.md", "docs/NEXT_STAGE_DECISION.md",
-        "docs/repository/STRUCTURE.md", "docs/repository/REPOSITORY_HYGIENE_AUDIT.md",
-        "docs/research/CROSS_COLUMN_TRANSFER_STATUS.md", "docs/CODEBASE_CONVENTIONS.md",
         "scripts/README.md", "src/qgeognn_al/README.md", "studies/README.md",
-        "studies/predictor/README.md", "studies/transfer/README.md",
-        "studies/active_learning/README.md", "studies/active_learning/transfer/README.md",
+        "studies/predictor/README.md", "studies/active_learning/README.md",
     ]
     broken = []
     for name in pages:

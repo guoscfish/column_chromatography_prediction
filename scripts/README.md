@@ -1,83 +1,41 @@
-# Script index
+# 脚本索引
 
-Run from the repository root in the validated Conda `fish` environment. Read the linked protocol before any fitting or test evaluation. A runnable entry point is not authorization to start a new experiment.
+从仓库根目录使用 Conda `fish` 环境。入口存在并不意味着需要重新启动实验；复现先核对冻结协议和输出目录。
 
-## Current reporting and continuation
+## 当前报告与续跑
 
-- `report_free_lcmd.py`: current five-seed Free / LCMD1485 validation report and three curve figures. Collects verified local runtime; `--from-snapshot reports/free_llm_five_seeds_to1485_20261024/figures` redraws Git-retained JSON without training payloads. `--output` supports independent output; `--require-complete` rejects partial trajectories.
-- Current process ownership and frozen continuation entrypoints are documented in the [current report](../reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md) and its manifests. The historical report-local plot entry forwards to this single implementation; active scientific runners retain original paths and bytes.
-- `report_active_learning_snapshot.py` remains the historical two-seed / dual-expert snapshot reader. Its default is the October13 revision; it is not the current five-seed report.
+- `report_free_lcmd.py`：五种子 Free / LCMD 的进度、验证曲线与三组图。`--from-snapshot reports/free_llm_five_seeds_to1485_20261024/figures` 可离线重绘；`--output` 指定独立输出；`--require-complete` 拒绝不完整轨迹。
+- 正在运行的监督器和冻结续跑入口见[当前报告](../reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md)及其清单。保持单一进程所有权，避免重复启动。
+- `report_active_learning_snapshot.py`：10 月 13 日两种子和双专家的历史快照读取器，不维护当前五种子进度。
 
-## Completed 4g workflows
+## 研究入口
 
-| Entry in `studies/` | Role | Study / execution |
-| --- | --- | --- |
-| `run_qgeognn_v2_batch_adaptivity.py` | Formal matched-budget control | [Phase 1](../studies/active_learning/qgeognn_v2_batch_adaptivity/README.md); prepared run/resume, not an independent duplicate launch |
-| `summarize_qgeognn_v2_adaptivity.py` | Reporting | Current adaptivity artifacts; requires complete frozen trajectories |
-| `report_qgeognn_v2_efficiency.py` | Reporting only | [Phase 0](../studies/active_learning/qgeognn_v2_efficiency_review/REPORT.md); retained results, no retraining |
-| `run_qgeognn_v2_4g_row_innovation_screen.py` | Selection-only mechanism screen | [Innovation screen](../studies/active_learning/qgeognn_v2_row_innovation_screen/README.md); frozen L0 inputs, no test evaluation |
+以下文件均位于 `scripts/studies/`，细节以[研究索引](../studies/active_learning/README.md)和对应协议为准。
 
-## Retained workflows
+| 研究 | 入口 |
+| --- | --- |
+| 预测器工程与资格验证 | `run_final_v2_engineering.py`、`run_final_4g_qualification.py`、`summarize_final_4g_qualification.py` |
+| 连续主动学习与对照 | `run_qgeognn_v2_row_sequential_b32.py`、`run_qgeognn_v2_4g_row_small_batch_benchmark.py`、`run_qgeognn_v2_row_hybrid_extension.py`、`run_qgeognn_v2_4g_row_lcmd_pilot.py` |
+| 固定预算与效率复核 | `run_qgeognn_v2_batch_adaptivity.py`、`summarize_qgeognn_v2_adaptivity.py`、`report_qgeognn_v2_efficiency.py` |
+| 机制筛选与 IVR | `run_qgeognn_v2_4g_row_innovation_screen.py`、`run_qgeognn_v2_row_kernel_ivr_b32.py`、`run_ivr_mechanism_audit.py`、`report_ivr_mechanism_diagnostics.py` |
+| CW 因子对照与诊断 | `run_cw_geometry_feedback.py`、`report_cw_geometry_feedback.py`、`report_cw_selection_diagnostics.py`、`audit_cw_factorial_delivery.py` |
+| CW 延长与核验 | `run_cw_factorial_extension.py`、`run_cw_factorial_to1005.py`、`continue_cw_factorial_to1005.py`、`audit_cw_factorial_extension.py`、`audit_cw_factorial_to1005.py` |
+| LLM Scientist | `run_qgeognn_v2_row_llm_scientist.py` 及 V3 / V3.2 的独立冻结入口 |
+| 双专家选样 | `run_qgeognn_v2_row_llm_dual_expert.py`、`report_dual_expert_continuation.py` |
 
-These are completed studies or reproduction entry points. Follow their frozen configs and use separate reproduction outputs.
+`prepare_cw_confirmation.py` 只做候选资格和未用种子预检，不训练或调用 LLM。`build_qgeognn_v2_row_master_report.py` 等历史报告入口保留原研究范围，不能代替当前报告。
 
-| Family | Entries in `studies/` | Role / evidence |
-| --- | --- | --- |
-| Standalone predictor | `run_final_v2_engineering.py`, `run_final_4g_qualification.py`, `summarize_final_4g_qualification.py` | Engineering and formal [qualification](../studies/predictor/final_4g_qualification/README.md) |
-| Current-V2 row AL | `run_qgeognn_v2_4g_row_lcmd_pilot.py`, `run_qgeognn_v2_4g_row_small_batch_benchmark.py`, `run_qgeognn_v2_row_hybrid_extension.py`, `run_qgeognn_v2_row_sequential_b32.py`, `run_qgeognn_v2_4g_row_innovation_screen.py` | Completed formal/diagnostic [row studies](../studies/active_learning/README.md) |
-| IVR | `run_qgeognn_v2_row_kernel_ivr_b32.py`, `run_ivr_mechanism_audit.py`, `report_ivr_mechanism_diagnostics.py` | Completed exploratory and mechanism studies; no automatic follow-up |
-| Transfer baselines | `run_final_v2_transfer.py`, `run_cross_column_transfer.py`, `run_matched_rmse_benchmark.py` | Frozen [matched benchmark](../studies/transfer/matched_rmse_benchmark/README.md) |
-| Transfer scatter display | `plot_cross_column_source_truth.py` | Redraw [cross-column scatter](../studies/transfer/cross_column/CROSS_COLUMN_TRANSFER_REPORT.md#source-to-target-scatter-display) from retained predictions; full range and central zoom, no training or scoring |
-| Source anchoring | `run_source_anchored_transfer.py`, `evaluate_source_anchored_transfer.py`, `summarize_source_anchored_transfer.py` | Blind fit, gated evaluation, report; [protocol](../studies/transfer/source_anchored_shared_transfer/README.md) |
-| Physics control | `run_physics_column_transfer.py`, `evaluate_physics_column_transfer.py`, `summarize_physics_column_transfer.py`, `audit_column_physics.py`, `supplement_column_physics_audit.py` | Completed [physics study](../studies/transfer/physics_column_conditioned_transfer/README.md) |
-| Filtered FULL-data controls | `run_filtered_full_data_benchmark.py`, `run_full_data_baseline_finalization.py`, `run_hier_cw_semantic_repair.py` | Shared record readers and corrected [structural baseline](../studies/transfer/hier_cw_semantic_repair/README.md) |
-| Neural transfer | `run_traditional_transfer_recipe_pilot.py`, `run_traditional_transfer_converged_baseline_v1.py`, `run_conditioned_source_readout.py`, `run_column_conditioned_multitask.py`, `summarize_column_conditioned_multitask.py`, `run_column_conditioned_pcgrad.py` | Completed controlled studies; shared helpers and regression-test consumers remain |
-| Paper reconstruction | `run_paper_transfer_reproduction_25g_40g.py`, `run_paper_transfer_gap_decomposition.py` | Historical distinct-protocol [reproduction](../studies/transfer/paper_transfer_reproduction/REPRODUCTION_REPORT.md) |
+## 历史兼容依赖
 
-## Compatibility and reproduction dependencies
+预测器历史资格验证和等价性对照仍保留。顶层 `run_e0_4g_baseline.py`、`run_e1_signal_qualification.py`、`run_e2_4g_active_learning.py` 等是早期数据/模型依赖；`al_engine.py`、`al_acquisition.py`、`qgeognn_graphs.py` 为兼容入口。
 
-Some old runners still export functions consumed by retained workflows or tests. They stay at their original paths until those consumers and scientific hashes can be migrated together.
+`run_e0_8g_controls.py` 与 `run_e0_8g_transfer.py` 因仍被公共图缓存加载路径引用而保留原字节。迁移专用入口已移入 `codex/archive-transfer-20261028`。新逻辑写入[科学包](../src/qgeognn_al/README.md)，不继续把历史运行器当公共库扩展。
 
-- Predictor controls: `studies/run_clean_4g_baseline_qualification.py`, `studies/run_point_predictor_regression_audit.py`, `studies/run_r2_pruned_requalification.py`.
-- Transfer readers and frozen source contracts: `studies/run_next_transfer_diagnostics.py`, `studies/run_scaling_failure_audit.py`, `studies/run_conditional_scaling_audit_model.py`.
-- Legacy study contracts: `studies/run_s1_source_target_shift.py`, `studies/run_t1_low_label_adaptation.py`, `studies/run_t1b1_adapter_capacity.py`, `studies/run_a1a_hybrid_batch_control.py`.
-- Top-level Legacy dependencies: `run_e0_4g_baseline.py`, `run_e0_8g_controls.py`, `run_e0_8g_transfer.py`, `run_e1_signal_qualification.py`, `run_e2_4g_active_learning.py`, `run_e2_compound_failure_audit.py`, `run_e4_active_transfer.py`, `run_e4_a2a_formal.py`, and `run_g0_1*` through `run_g0_4*`.
-- `al_engine.py`, `al_acquisition.py`, `qgeognn_graphs.py` are compatibility shims; `transfer_aware_acquisition.py` is a Legacy acquisition utility.
+## 维护与恢复
 
-New scientific logic belongs in [the package](../src/qgeognn_al/README.md), not these runners.
+- `audit_repository_hygiene.py`：只读核验分支、归档、恢复、保护锚点与导入边界。
+- `audit_datasets.py`：数据检查，会读取标签值，不是盲预检。
+- [退役登记](../docs/repository/RETIREMENTS.json)：一次性完成脚本的原路径、哈希、恢复提交与证据入口。
+- [分离清单](../docs/repository/RESEARCH_SCOPE.json)：此次迁移归档和文档合并去向。
 
-`studies/report_filtered_row_learning_curve.py` redraws the retained B100/B200/B300/FULL curve directly from the canonical study summaries. The figure now belongs to that study; temporary PPT bundles and duplicated frozen inputs have been retired.
-
-## Retired one-off scripts
-
-Completed audit, smoke, qualification-report and closed-transfer scripts have been removed from the current checkout. Their reports, metrics, protocols and decisions remain at the original study paths. The complete mapping is [RETIREMENTS.json](../docs/repository/RETIREMENTS.json).
-
-For example, `run_d45_oracle_marginal_utility.py` and `run_d46_oracle_utility_reliability.py` now have retained scientific records only. Their reusable diagnostic algorithms and tests remain.
-
-Inspect any retired file at the recorded commit:
-
-```bash
-git show 0e7b2ee940e3f71c6dbc7400c420694855eec597:scripts/run_d45_oracle_marginal_utility.py
-```
-
-For full reproduction, use a separate checkout at that commit and restore the required data/checkpoint anchors. Do not paste an old runner into the current execution pipeline.
-
-## Maintenance
-
-- `audit_repository_hygiene.py`: read-only branch, retention, recovery and scientific-boundary audit.
-- `audit_datasets.py`: dataset inspection; reads label values and is not a blind model preflight.
-
-- `run_cw_geometry_feedback.py`: bounded CW-MaxDet/CW-IVR/Whitening-LCMD factorial, geometry audit and offline LLM boundary fixtures. See `studies/active_learning/qgeognn_v2_row_cw_selector_factorial/`.
-
-- `report_cw_geometry_feedback.py`, `report_cw_selection_diagnostics.py`, and `audit_cw_factorial_delivery.py`: validation-only summary, label-free selection diagnostics and completed-matrix hash verification. `prepare_cw_confirmation.py` performs eligibility/unused-seed preflight only; no training or LLM requests.
-
-- `run_cw_factorial_extension.py`: user-authorized four-round continuation to653, max24 extra fits. `audit_cw_factorial_extension.py` verifies completed lineage/hashes and produces compact exploratory delivery records without training or test-label access.
-
-- `continue_cw_factorial_to1005.py`: supervise the653 run and continue the frozen matrix to1005; `run_cw_factorial_to1005.py` prepares/runs/reports the66-fit second stage, and `audit_cw_factorial_to1005.py` verifies delivery without fitting.
-
-- `run_qgeognn_v2_row_llm_dual_expert.py`: independent Chemistry/ML advice, free 32-ID planner, full-pool history/feedback and resumable training. `run --seed 157 --rounds 2 --revision full_pool_feedback_schema_20261011` requests 333→397 labels; see `studies/active_learning/qgeognn_v2_row_llm_dual_expert_v1/README.md`.
-
-
-- `studies/report_dual_expert_continuation.py`: study-specific continuation report with the 397-label model switch, completed-response cost and 397→common-budget AULC; generic cross-study plots remain in `report_active_learning_snapshot.py`.
-
-- `studies/run_row_full_data_rmse_completion.py`, `studies/run_filtered_row_learning_curve.py`, `studies/run_filtered_row_learning_curve_b200.py`: frozen filtered Row baselines and nested B100/B200/B300/FULL comparisons. See the [completed learning curve](../studies/transfer/filtered_row_learning_curve_b200_20261013/README.md); these entries are retained for reproduction, not new experiment authorization.
+复现旧研究使用原提交的独立工作副本和独立输出；不要把旧脚本直接复制进活跃流程。目录约定与产物保留规则统一见[仓库指南](../docs/README.md)。
