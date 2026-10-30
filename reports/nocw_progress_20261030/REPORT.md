@@ -34,15 +34,17 @@
 
 ## 续跑与审计边界
 
-当前控制器为 `scripts/studies/run_qgeognn_v2_row_llm_nocw_resume_6101_r11.py`，监督 stream、resume、resume_2357 及最新 resume_6101_r11 worker。每 seed 独立凭据，endpoint、模型、effort、候选池和选点校验保持冻结设定。完整有效响应先落盘；持续网络重试使用原退避 30/60/120/240/300 秒后保持 5 分钟，不重置编号或删除 started/ledger。
+当前控制器为 `scripts/studies/run_qgeognn_v2_row_llm_nocw_resume_887_r09.py`，兼容六种 worker 入口；887 使用最新入口，其他在飞 worker 保持原入口，2357 round15 等待单独授权。每 seed 独立凭据，endpoint、模型、effort、候选池和选点校验保持冻结设定。完整有效响应先落盘；持续网络重试使用原退避 30/60/120/240/300 秒后保持 5 分钟，不重置编号或删除 started/ledger。
 
-2026-10-30 用户要求“帮我继续跑”后，先为 **seed887 round03、seed6101 round08** 各追加三个纠错答案，总上限六；同日 seed2357 round10 的三答案因非法/重复候选 ID 与数量/结构错误耗尽，用户再次明确批准“仅此轮追加 3 个答案并续跑”。最新适配器只为 **seed2357 round10** 追加三答案，并保留前两项授权；其他轮次仍为三。旧失败、答案和拟合全部保留；此授权不是全局增加纠错额度。v2 修订已取代未启动的 v1 草案，草案保留作来源记录。
+2026-10-30 用户要求“帮我继续跑”后，先为 **seed887 round03、seed6101 round08** 各追加三个纠错答案，总上限六；同日 seed2357 round10 的三答案因非法/重复候选 ID 与数量/结构错误耗尽，用户再次明确批准“仅此轮追加 3 个答案并续跑”。当时适配器只为 **seed2357 round10** 追加三答案，并保留前两项授权；其他轮次仍为三。旧失败、答案和拟合全部保留；此授权不是全局增加纠错额度。v2 修订已取代未启动的 v1 草案，草案保留作来源记录。
 
 后续执行更新（2026-10-30 15:52）：seed6101 round10（L653→685）的三答案耗尽后，用户明确批准“仅 round10 追加3个答案并续跑”。独立追加修订已冻结，原十轮拟合审计后复用，其他四个 worker 保持运行。当前共有四个指定轮次的六答案例外，未来轮次仍为三。此更新不改变上方 15:21 的结果快照。
 
 后续执行更新（2026-10-30 16:51）：seed6101 round11（L685→717）原三个答案均将正确64位 packet_sha256 返回成63位。用户批准仅该轮追加三次，并明确提示完整64位校验码。新适配器只在该轮新增请求前加入一次完整哈希提示；原答案、请求、失败记录及严格绑定校验保持原样，已完成十一轮拟合审计后复用。现共有五个指定轮次的六答案例外，未来轮次仍为三。
 
-全部五 seed 到 L1005 且轨迹冻结后，必须经最新 resume_6101_r11 适配器离线 `activate(); validate(); retry.report(1005)` 生成最终 validation 报告。直接用旧三答案入口会遗漏此次授权例外。
+后续执行更新（2026-10-30 17:54）：seed887 round09（L621→653）原三个答案均漏掉完整64位 packet_sha256 的最后一位。用户批准“仅 round09 追加3次并加提示续跑”。独立适配器只为本轮新增答案加入完整哈希提示，原27份记录按哈希保留，9轮已完成拟合复用，未中断其他在飞 worker。现共有六个指定轮次的六答案例外；完整哈希提示仅覆盖 6101 round11、887 round09，未来轮次仍三答案。seed2357 round15 的另一追加问题仍在等待授权，未自动恢复。本段为执行更新，上方图表仍固定于 15:21 快照。
+
+全部五 seed 到 L1005 且轨迹冻结后，必须经最新 resume_887_r09 适配器离线 `activate(); validate(); retry.report(1005)` 生成最终 validation 报告。直接用旧三答案入口会遗漏此次授权例外。
 
 本次图表只读既有 fit audit、checkpoint/hash、训练 history 中已保存的 validation 分数，以及 selection freeze / feedback；不新增训练、推理、LLM 调用、标签揭示或 test 评价，未将评价结果用于选点。
 
@@ -51,6 +53,7 @@
 - [summary.json](summary.json)、[validation_curves.json](validation_curves.json)：端点与全部绘图值。
 - [progress_snapshot.json](progress_snapshot.json)：对应时间的进程、锁、传输状态及请求计数；不是实时看板。
 - [fit_audits.json](fit_audits.json)、[source_audit.json](source_audit.json)：本次使用的拟合元数据与原文件 SHA。
+- [resume887r09_receipt.json](resume887r09_receipt.json)：seed887 round09 追加授权、64位哈希提示、原拟合复用及独立进展核验。
 - [resume6101r11_receipt.json](resume6101r11_receipt.json)：round11 单轮追加及完整哈希提示的授权、前缀复用与首个新增请求核验。
 - [resume6101r10_receipt.json](resume6101r10_receipt.json)：seed6101 round10 新授权、原拟合复用、worker 与其他四个 PID 的核验记录。
 - [resume2357_receipt.json](resume2357_receipt.json)：本轮追加授权、原十轮拟合复用、新 worker 与其他四个 PID 保留的核验记录。
@@ -60,7 +63,7 @@
 有本地运行依赖时，从仓库根目录执行：
 
 ```bash
-KMP_DUPLICATE_LIB_OK=TRUE /Users/fish/miniforge3/envs/fish/bin/python scripts/studies/run_qgeognn_v2_row_llm_nocw_resume_6101_r11.py validate
+KMP_DUPLICATE_LIB_OK=TRUE /Users/fish/miniforge3/envs/fish/bin/python scripts/studies/run_qgeognn_v2_row_llm_nocw_resume_887_r09.py validate
 KMP_DUPLICATE_LIB_OK=TRUE /Users/fish/miniforge3/envs/fish/bin/python reports/nocw_progress_20261030/plot_comparison.py
 ```
 
@@ -79,5 +82,6 @@ KMP_DUPLICATE_LIB_OK=TRUE /Users/fish/miniforge3/envs/fish/bin/python reports/no
 | `correction_resume_seed2357_round10_20261030.json` | `dd66a60a7fc93b51a021bfcfad7dbdbabdf2e87b7e03ea976bb765d4f3f67fab` |
 | `correction_resume_seed6101_round10_20261030.json` | `ed8894fda8d524d9c3895ccc0498cf7d61622a7d37a9ec35afea94b4fdd19446` |
 | `correction_resume_seed6101_round11_20261030.json` | `a390a5bf554e127d692147084889b2f7ca568c3d65bdfea8f238a06f49feb878` |
+| `correction_resume_seed887_round09_20261030.json` | `9ca1f8072f8cc41778d27acd130b4e18767bd9051c256adbc4fe59cee711a8eb` |
 
 相关研究：[Free / LCMD 五种子最终报告](../free_lcmd_five_seeds_to1485_20261026/REPORT.md)、[机制诊断](../../studies/active_learning/free_lcmd_mechanism_diagnostics_20261029/README.md)、[Hybrid loading-cap 审计](../../studies/active_learning/hybrid_loading_cap_audit_20261029/README.md)。后两项仅离线分析，loading-cap 阶段B已按原证据门暂停。
