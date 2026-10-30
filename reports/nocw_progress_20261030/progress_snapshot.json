@@ -1,20 +1,20 @@
 {
-  "snapshot_time": "2026-10-30T15:06:20+08:00",
-  "checked_utc": "2026-10-30T07:06:07.866383+00:00",
+  "snapshot_time": "2026-10-30T15:21:13+08:00",
+  "checked_utc": "2026-10-30T07:20:50.233153+00:00",
   "rows": [
     {
       "seed": 157,
       "phase": "SELECTING",
-      "round": 11,
+      "round": 12,
       "pid": 27292,
       "process_alive": true,
       "process_state": "Ss",
       "worker_lock_held": true,
-      "completed_budget": 685,
-      "frozen_batches": 11,
-      "feedback_batches": 11,
-      "new_fit_audits": 11,
-      "started_attempts": 119,
+      "completed_budget": 717,
+      "frozen_batches": 12,
+      "feedback_batches": 12,
+      "new_fit_audits": 12,
+      "started_attempts": 120,
       "attempts": [
         {
           "path": "selections/seed_157/llm32_nocw/round_00/attempt_00_00.json",
@@ -959,41 +959,49 @@
           "elapsed_seconds": 679.7336995829828,
           "served_model": "gpt-6.1-sol",
           "fatal_protocol_error": false
+        },
+        {
+          "path": "selections/seed_157/llm32_nocw/round_11/attempt_00_00.json",
+          "success": true,
+          "error_type": null,
+          "elapsed_seconds": 769.6597529589199,
+          "served_model": "gpt-6.1-sol",
+          "fatal_protocol_error": false
         }
       ],
       "unresolved_started": [
-        "selections/seed_157/llm32_nocw/round_11/attempt_00_00.started.json"
+        "selections/seed_157/llm32_nocw/round_12/attempt_00_00.started.json"
       ],
       "rejected_answers": 5,
-      "local_completed_receipts": 16,
+      "local_completed_receipts": 17,
       "stream": {
         "seed": 157,
         "pid": 27292,
         "turn": 0,
         "attempt_index": 0,
-        "request_sha256": "d5fadf0f9b0cb37f5d314bf0de8b56c0db4329fa055a47d63b628acf1ae5d445",
+        "request_sha256": "dfa12c7bd3c67f1676971cd690cddfeef71138f6d1666102b2b64fe3f9955cef",
         "amendment_sha256": "beb59766429506b118c125c306a006f518839628653c022455cbefc8cd16baeb",
         "phase": "IN_PROGRESS",
-        "started_utc": "2026-10-30T06:53:42.675954+00:00",
-        "event_count": 6367,
-        "line_count": 19306,
-        "response_id": "resp_00efa7660082b03b016ae43ef98d70819392156488a78d4e1a",
-        "last_sequence_number": 6366,
-        "updated_utc": "2026-10-30T07:05:54.909361+00:00",
+        "started_utc": "2026-10-30T07:15:18.501434+00:00",
+        "event_count": 35,
+        "line_count": 214,
+        "response_id": "resp_09facfde6f4c930f016ae4441878188198a19b03e6eec0e956",
+        "last_sequence_number": 34,
+        "updated_utc": "2026-10-30T07:20:43.518825+00:00",
         "http_status": 200,
-        "headers_received_utc": "2026-10-30T06:53:57.185892+00:00",
-        "last_line_utc": "2026-10-30T07:05:54.909343+00:00",
-        "last_event_type": "response.output_text.delta",
-        "last_event_utc": "2026-10-30T07:05:47.246719+00:00"
+        "headers_received_utc": "2026-10-30T07:15:50.807290+00:00",
+        "last_line_utc": "2026-10-30T07:20:43.518801+00:00",
+        "last_event_type": "response.output_item.done",
+        "last_event_utc": "2026-10-30T07:20:29.307028+00:00"
       },
       "retry": {
         "seed": 157,
         "pid": 27292,
-        "updated_utc": "2026-10-30T06:53:42.542383+00:00",
+        "updated_utc": "2026-10-30T07:15:18.272064+00:00",
         "phase": "REQUESTING",
         "turn": 0,
         "attempt_index": 0,
-        "request_sha256": "d5fadf0f9b0cb37f5d314bf0de8b56c0db4329fa055a47d63b628acf1ae5d445",
+        "request_sha256": "dfa12c7bd3c67f1676971cd690cddfeef71138f6d1666102b2b64fe3f9955cef",
         "amendment_sha256": "2b3c1b62057a6015deb7871bda21cd498dd53e2dfeaceaa086208c777939fc60"
       },
       "request_config_checks": [
@@ -1008,16 +1016,16 @@
     {
       "seed": 887,
       "phase": "SELECTING",
-      "round": 4,
+      "round": 5,
       "pid": 91198,
       "process_alive": true,
       "process_state": "Ss",
       "worker_lock_held": true,
-      "completed_budget": 461,
-      "frozen_batches": 4,
-      "feedback_batches": 4,
-      "new_fit_audits": 4,
-      "started_attempts": 16,
+      "completed_budget": 493,
+      "frozen_batches": 5,
+      "feedback_batches": 5,
+      "new_fit_audits": 5,
+      "started_attempts": 17,
       "attempts": [
         {
           "path": "selections/seed_887/llm32_nocw/round_00/attempt_00_00.json",
@@ -1138,41 +1146,49 @@
           "elapsed_seconds": 321.6658538330812,
           "served_model": "gpt-6.1-sol",
           "fatal_protocol_error": false
+        },
+        {
+          "path": "selections/seed_887/llm32_nocw/round_04/attempt_00_00.json",
+          "success": true,
+          "error_type": null,
+          "elapsed_seconds": 895.1197894159704,
+          "served_model": "gpt-6.1-sol",
+          "fatal_protocol_error": false
         }
       ],
       "unresolved_started": [
-        "selections/seed_887/llm32_nocw/round_04/attempt_00_00.started.json"
+        "selections/seed_887/llm32_nocw/round_05/attempt_00_00.started.json"
       ],
       "rejected_answers": 3,
-      "local_completed_receipts": 6,
+      "local_completed_receipts": 7,
       "stream": {
         "seed": 887,
         "pid": 91198,
         "turn": 0,
         "attempt_index": 0,
-        "request_sha256": "28cb8737a87685b480fc106553c1e6a83d98bcce6929ce1cc2b4cf1966626288",
+        "request_sha256": "86ed37cef13a78e6e523c1cec8ef63a65713105ed2f12c67d9bebb52f70669fb",
         "amendment_sha256": "beb59766429506b118c125c306a006f518839628653c022455cbefc8cd16baeb",
         "phase": "IN_PROGRESS",
-        "started_utc": "2026-10-30T06:52:23.018253+00:00",
-        "event_count": 3959,
-        "line_count": 12138,
-        "response_id": "resp_06696014665a4010016ae43eabe3248197a2aa212e9f67d5d0",
-        "last_sequence_number": 3958,
-        "updated_utc": "2026-10-30T07:06:07.107403+00:00",
+        "started_utc": "2026-10-30T07:15:20.925239+00:00",
+        "event_count": 64,
+        "line_count": 285,
+        "response_id": "resp_040e44a07c9ed9a5016ae4440c5538819a99c462102d10c042",
+        "last_sequence_number": 63,
+        "updated_utc": "2026-10-30T07:20:41.060169+00:00",
         "http_status": 200,
-        "headers_received_utc": "2026-10-30T06:52:38.992004+00:00",
-        "last_line_utc": "2026-10-30T07:06:07.107360+00:00",
-        "last_event_type": "response.output_text.delta",
-        "last_event_utc": "2026-10-30T07:06:06.636090+00:00"
+        "headers_received_utc": "2026-10-30T07:15:35.828489+00:00",
+        "last_line_utc": "2026-10-30T07:20:41.060103+00:00",
+        "last_event_type": "response.output_item.done",
+        "last_event_utc": "2026-10-30T07:20:30.662637+00:00"
       },
       "retry": {
         "seed": 887,
         "pid": 91198,
-        "updated_utc": "2026-10-30T06:52:22.849340+00:00",
+        "updated_utc": "2026-10-30T07:15:20.739715+00:00",
         "phase": "REQUESTING",
         "turn": 0,
         "attempt_index": 0,
-        "request_sha256": "28cb8737a87685b480fc106553c1e6a83d98bcce6929ce1cc2b4cf1966626288",
+        "request_sha256": "86ed37cef13a78e6e523c1cec8ef63a65713105ed2f12c67d9bebb52f70669fb",
         "amendment_sha256": "2b3c1b62057a6015deb7871bda21cd498dd53e2dfeaceaa086208c777939fc60"
       },
       "request_config_checks": [
@@ -1193,7 +1209,7 @@
       "seed": 2357,
       "phase": "SELECTING",
       "round": 10,
-      "pid": 13405,
+      "pid": 69592,
       "process_alive": true,
       "process_state": "Ss",
       "worker_lock_held": true,
@@ -1201,7 +1217,7 @@
       "frozen_batches": 10,
       "feedback_batches": 10,
       "new_fit_audits": 10,
-      "started_attempts": 125,
+      "started_attempts": 126,
       "attempts": [
         {
           "path": "selections/seed_2357/llm32_nocw/round_00/attempt_00_00.json",
@@ -2194,36 +2210,49 @@
           "elapsed_seconds": 240.50112437503412,
           "served_model": "gpt-6.1-sol",
           "fatal_protocol_error": false
+        },
+        {
+          "path": "selections/seed_2357/llm32_nocw/round_10/attempt_02_00.json",
+          "success": true,
+          "error_type": null,
+          "elapsed_seconds": 327.1867747500073,
+          "served_model": "gpt-6.1-sol",
+          "fatal_protocol_error": false
         }
       ],
       "unresolved_started": [
-        "selections/seed_2357/llm32_nocw/round_10/attempt_02_00.started.json"
+        "selections/seed_2357/llm32_nocw/round_10/attempt_03_00.started.json"
       ],
-      "rejected_answers": 11,
-      "local_completed_receipts": 20,
+      "rejected_answers": 12,
+      "local_completed_receipts": 21,
       "stream": {
         "seed": 2357,
-        "pid": 13405,
-        "turn": 2,
+        "pid": 69592,
+        "turn": 3,
         "attempt_index": 0,
-        "request_sha256": "cb9ea316fa91fa4bc021f5fb39441fc283a168335d4fecd2117ba4cdbdc5dedd",
+        "request_sha256": "27f1cab3b8827c5a7ccb74e48c11beb679efd98f2f2ba9aedab7ff28e3eafe12",
         "amendment_sha256": "beb59766429506b118c125c306a006f518839628653c022455cbefc8cd16baeb",
-        "phase": "CONNECTING",
-        "started_utc": "2026-10-30T07:05:57.020802+00:00",
-        "event_count": 0,
-        "line_count": 0,
-        "response_id": null,
-        "last_sequence_number": null,
-        "updated_utc": "2026-10-30T07:05:57.020812+00:00"
+        "phase": "IN_PROGRESS",
+        "started_utc": "2026-10-30T07:19:46.646457+00:00",
+        "event_count": 4,
+        "line_count": 31,
+        "response_id": "resp_03b8083dd48bd7fb016ae4451bb2fc8198a2efe47034090226",
+        "last_sequence_number": 3,
+        "updated_utc": "2026-10-30T07:20:40.104711+00:00",
+        "http_status": 200,
+        "headers_received_utc": "2026-10-30T07:20:06.798859+00:00",
+        "last_line_utc": "2026-10-30T07:20:40.104696+00:00",
+        "last_event_type": "response.output_item.done",
+        "last_event_utc": "2026-10-30T07:20:24.876281+00:00"
       },
       "retry": {
         "seed": 2357,
-        "pid": 13405,
-        "updated_utc": "2026-10-30T07:05:56.900599+00:00",
+        "pid": 69592,
+        "updated_utc": "2026-10-30T07:19:46.504393+00:00",
         "phase": "REQUESTING",
-        "turn": 2,
+        "turn": 3,
         "attempt_index": 0,
-        "request_sha256": "cb9ea316fa91fa4bc021f5fb39441fc283a168335d4fecd2117ba4cdbdc5dedd",
+        "request_sha256": "27f1cab3b8827c5a7ccb74e48c11beb679efd98f2f2ba9aedab7ff28e3eafe12",
         "amendment_sha256": "2b3c1b62057a6015deb7871bda21cd498dd53e2dfeaceaa086208c777939fc60"
       },
       "request_config_checks": [
@@ -2238,16 +2267,16 @@
     {
       "seed": 6101,
       "phase": "SELECTING",
-      "round": 9,
+      "round": 10,
       "pid": 91200,
       "process_alive": true,
       "process_state": "Ss",
       "worker_lock_held": true,
-      "completed_budget": 621,
-      "frozen_batches": 9,
-      "feedback_batches": 9,
-      "new_fit_audits": 9,
-      "started_attempts": 26,
+      "completed_budget": 653,
+      "frozen_batches": 10,
+      "feedback_batches": 10,
+      "new_fit_audits": 10,
+      "started_attempts": 27,
       "attempts": [
         {
           "path": "selections/seed_6101/llm32_nocw/round_00/attempt_00_00.json",
@@ -2448,41 +2477,49 @@
           "elapsed_seconds": 688.3359490419971,
           "served_model": "gpt-6.1-sol",
           "fatal_protocol_error": false
+        },
+        {
+          "path": "selections/seed_6101/llm32_nocw/round_09/attempt_01_00.json",
+          "success": true,
+          "error_type": null,
+          "elapsed_seconds": 254.79617179196794,
+          "served_model": "gpt-6.1-sol",
+          "fatal_protocol_error": false
         }
       ],
       "unresolved_started": [
-        "selections/seed_6101/llm32_nocw/round_09/attempt_01_00.started.json"
+        "selections/seed_6101/llm32_nocw/round_10/attempt_00_00.started.json"
       ],
       "rejected_answers": 7,
-      "local_completed_receipts": 16,
+      "local_completed_receipts": 17,
       "stream": {
         "seed": 6101,
         "pid": 91200,
-        "turn": 1,
+        "turn": 0,
         "attempt_index": 0,
-        "request_sha256": "e5c4cd01dc629cbecd0d6d97d8a9223cea077592989d4ed865c7442e5d7f4130",
+        "request_sha256": "f67579b8557c511bce8b2c5f119c39d79eef5709620fae6ae768baf2cf57de31",
         "amendment_sha256": "beb59766429506b118c125c306a006f518839628653c022455cbefc8cd16baeb",
         "phase": "IN_PROGRESS",
-        "started_utc": "2026-10-30T07:03:45.097787+00:00",
-        "event_count": 14,
-        "line_count": 85,
-        "response_id": "resp_06d378fde74f76a8016ae4415feff0819a9cea460bd27f89fb",
-        "last_sequence_number": 13,
-        "updated_utc": "2026-10-30T07:05:59.574333+00:00",
+        "started_utc": "2026-10-30T07:16:01.263452+00:00",
+        "event_count": 30,
+        "line_count": 185,
+        "response_id": "resp_0788949baa76924a016ae44441c46c819b9fb426b3964c3849",
+        "last_sequence_number": 29,
+        "updated_utc": "2026-10-30T07:20:35.732897+00:00",
         "http_status": 200,
-        "headers_received_utc": "2026-10-30T07:04:10.744803+00:00",
-        "last_line_utc": "2026-10-30T07:05:59.574316+00:00",
+        "headers_received_utc": "2026-10-30T07:16:28.895486+00:00",
+        "last_line_utc": "2026-10-30T07:20:35.732860+00:00",
         "last_event_type": "response.output_item.done",
-        "last_event_utc": "2026-10-30T07:05:46.311440+00:00"
+        "last_event_utc": "2026-10-30T07:20:21.065203+00:00"
       },
       "retry": {
         "seed": 6101,
         "pid": 91200,
-        "updated_utc": "2026-10-30T07:03:44.947514+00:00",
+        "updated_utc": "2026-10-30T07:16:01.119703+00:00",
         "phase": "REQUESTING",
-        "turn": 1,
+        "turn": 0,
         "attempt_index": 0,
-        "request_sha256": "e5c4cd01dc629cbecd0d6d97d8a9223cea077592989d4ed865c7442e5d7f4130",
+        "request_sha256": "f67579b8557c511bce8b2c5f119c39d79eef5709620fae6ae768baf2cf57de31",
         "amendment_sha256": "2b3c1b62057a6015deb7871bda21cd498dd53e2dfeaceaa086208c777939fc60"
       },
       "request_config_checks": [
@@ -2506,7 +2543,7 @@
       "frozen_batches": 12,
       "feedback_batches": 12,
       "new_fit_audits": 12,
-      "started_attempts": 122,
+      "started_attempts": 123,
       "attempts": [
         {
           "path": "selections/seed_12203/llm32_nocw/round_00/attempt_00_00.json",
@@ -3475,10 +3512,18 @@
           "elapsed_seconds": 701.0832120840205,
           "served_model": "gpt-6.1-sol",
           "fatal_protocol_error": false
+        },
+        {
+          "path": "selections/seed_12203/llm32_nocw/round_12/attempt_00_00.json",
+          "success": false,
+          "error_type": "RemoteProtocolError",
+          "elapsed_seconds": 913.9970761670265,
+          "served_model": null,
+          "fatal_protocol_error": false
         }
       ],
       "unresolved_started": [
-        "selections/seed_12203/llm32_nocw/round_12/attempt_00_00.started.json"
+        "selections/seed_12203/llm32_nocw/round_12/attempt_00_01.started.json"
       ],
       "rejected_answers": 4,
       "local_completed_receipts": 16,
@@ -3486,29 +3531,29 @@
         "seed": 12203,
         "pid": 51378,
         "turn": 0,
-        "attempt_index": 0,
+        "attempt_index": 1,
         "request_sha256": "518a30ecf8fa86eb633c4e27d6bf53c0d42c73c4b01873940974ca476e285759",
         "amendment_sha256": "beb59766429506b118c125c306a006f518839628653c022455cbefc8cd16baeb",
         "phase": "IN_PROGRESS",
-        "started_utc": "2026-10-30T07:04:37.580785+00:00",
-        "event_count": 8,
-        "line_count": 53,
-        "response_id": "resp_059d959dd21f9d7f016ae4419101588195ba12ae8f07f10e1e",
-        "last_sequence_number": 7,
-        "updated_utc": "2026-10-30T07:06:04.127480+00:00",
+        "started_utc": "2026-10-30T07:20:21.715403+00:00",
+        "event_count": 2,
+        "line_count": 8,
+        "response_id": "resp_0c7d50c3907ccd39016ae4453beed48190bc7ff6a535cb8e32",
+        "last_sequence_number": 1,
+        "updated_utc": "2026-10-30T07:20:45.653610+00:00",
         "http_status": 200,
-        "headers_received_utc": "2026-10-30T07:05:00.100573+00:00",
-        "last_line_utc": "2026-10-30T07:06:04.127431+00:00",
-        "last_event_type": "response.output_item.done",
-        "last_event_utc": "2026-10-30T07:05:54.128903+00:00"
+        "headers_received_utc": "2026-10-30T07:20:39.033742+00:00",
+        "last_line_utc": "2026-10-30T07:20:45.653455+00:00",
+        "last_event_type": "response.in_progress",
+        "last_event_utc": "2026-10-30T07:20:45.653602+00:00"
       },
       "retry": {
         "seed": 12203,
         "pid": 51378,
-        "updated_utc": "2026-10-30T07:04:37.424788+00:00",
+        "updated_utc": "2026-10-30T07:20:21.585583+00:00",
         "phase": "REQUESTING",
         "turn": 0,
-        "attempt_index": 0,
+        "attempt_index": 1,
         "request_sha256": "518a30ecf8fa86eb633c4e27d6bf53c0d42c73c4b01873940974ca476e285759",
         "amendment_sha256": "2b3c1b62057a6015deb7871bda21cd498dd53e2dfeaceaa086208c777939fc60"
       },
