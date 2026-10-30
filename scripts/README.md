@@ -4,6 +4,10 @@
 
 ## 当前报告与续跑
 
+- NoCW 当前控制器为 `studies/run_qgeognn_v2_row_llm_nocw_resume.py`。只读预检：`KMP_DUPLICATE_LIB_OK=TRUE python scripts/studies/run_qgeognn_v2_row_llm_nocw_resume.py validate`。监督器已运行，勿重复启动；它同时监督原 stream 和 resume worker。
+- [NoCW 最新报告](../reports/nocw_progress_20261030/REPORT.md)集中给出进度、修订哈希和曲线。`python reports/nocw_progress_20261030/plot_comparison.py` 只读取本地冻结拟合与监控快照，无训练或 API 调用；新克隆可直接读取已提交曲线 JSON/图。
+- NoCW 全部到 L1005 后须通过 resume 适配器 `activate(); validate(); retry.report(1005)` 审计，保留两轮六答案例外；不能用旧三答案入口代替。
+
 - `report_free_lcmd.py`：五种子 Free / LCMD 的最终验证结果与三组图。`--from-snapshot reports/free_llm_five_seeds_to1485_20261024/figures` 可离线重绘；`--output` 指定独立输出；`--require-complete` 拒绝不完整轨迹。
 - 正在运行的监督器和冻结续跑入口见[当前报告](../reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md)及其清单。保持单一进程所有权，避免重复启动。
 - `report_active_learning_snapshot.py`：10 月 13 日两种子和双专家的历史快照读取器，不维护当前五种子进度。

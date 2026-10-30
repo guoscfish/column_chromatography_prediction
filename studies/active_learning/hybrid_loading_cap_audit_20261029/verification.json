@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "test_command": [
+    "/Users/fish/miniforge3/envs/chromatography/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/hybrid_loading_cap_audit_20261029/test_assemble_audit.py",
+    "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/hybrid_loading_cap_audit_20261029/test_geometry_analysis.py",
+    "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/hybrid_loading_cap_audit_20261029/test_provenance_analysis.py",
+    "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/hybrid_loading_cap_audit_20261029/test_selection_analysis.py"
+  ],
+  "tests_exit_code": 0,
+  "test_output": ".........................................                           [100%]\n41 passed, 5 subtests passed in 1.22s\n",
+  "checked_profiles": 180,
+  "checked_source_point_views": 4800,
+  "independent_selected_rows": 3840,
+  "verified_historical_fit_points": 128,
+  "unique_historical_fit_audits": 122,
+  "verified_historical_batches": 120,
+  "input_source_files": 2209,
+  "phase_b": "PAUSED_BY_USER_DEFINED_EVIDENCE_GATE",
+  "phase_b_implementation": "NOT_PERFORMED",
+  "phase_b_mock_dry_run": "NOT_PERFORMED_AFTER_GATE_PAUSE",
+  "real_llm_calls": 0,
+  "new_model_fits": 0,
+  "new_labels_revealed": 0,
+  "new_test_evaluations": 0,
+  "visual_qa": [
+    "loading_and_molecules.png",
+    "geometry_division_of_labor.png",
+    "geometry_stage_marginal_coverage.png",
+    "validation_curves.png"
+  ],
+  "analysis_replay": "offline derived CSV merge, contract checks and plotting passed"
+}

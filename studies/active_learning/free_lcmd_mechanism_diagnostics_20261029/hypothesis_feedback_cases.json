@@ -1,0 +1,1170 @@
+[
+  {
+    "seed": 887,
+    "method": "free_llm32_scientist_v2",
+    "round": 0,
+    "labels_before": 333,
+    "labels_after": 365,
+    "stage": "333-525",
+    "selection_source": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_887/free_llm32_scientist_v2/round_00/batch_freeze.json",
+    "catalog_source": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_887/free_llm32_scientist_v2/round_00/catalog.json",
+    "selection_sha256": "03e4d5193128fd1a441baab5185d14cd2fe7a15fa4e181dba9a148e6fca2acd0",
+    "feedback_source": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_887/free_llm32_scientist_v2/round_00/feedback.json",
+    "selector_revision": "sol61_xhigh_free_five_seeds_to1005_20261023",
+    "served_model": "gpt-6.1-sol",
+    "hypothesis": {
+      "id": "H1_response",
+      "content": "Retention is materially condition- and loading-responsive at the molecule level, so same-molecule measurements across PE/EA, volume, density, and loading solvent should be learned jointly rather than inferred from structure alone.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "7c9b7238a83ed646815a",
+        "0ae541927703401945de",
+        "e7acdb127fe6371def7f",
+        "c9bc6e598eba6b2f3739",
+        "e82a87ee526fdd9b1e8d",
+        "1395836aef00d6a880b0"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Condition-response labels can teach interaction terms and prevent the model from treating molecule identity or PE/EA ratio as sufficient across loading regimes.",
+      "next_discriminating_question": "Do the selected same-molecule points show smooth, monotonic response to PE/EA and loading, or are there molecule-specific reversals and width changes?"
+    },
+    "choices": [
+      {
+        "id": "b324251a07260af49364",
+        "reason": "m87 at 5/1 DCM and 100 ul provides a molecule-local response point with a relatively broad predicted V2 width of 23.22 ml; useful for condition-response learning.",
+        "hypothesis_id": "H1_response",
+        "metadata": {
+          "id": "b324251a07260af49364",
+          "smiles": "CCOC(=O)c1ccc(OC)cc1",
+          "conditions": {
+            "PE/EA": "5/1",
+            "Density g/ml": 1.103,
+            "V/ul": 100.0,
+            "loading solvent": "DCM",
+            "Volume of loading solvent/ul": 300
+          }
+        },
+        "revealed_feedback": {
+          "candidate_id": "b324251a07260af49364",
+          "pred_V1_ml": 8.09483814239502,
+          "pred_V2_ml": 15.7940092086792,
+          "source": "LLM",
+          "true_V1_ml": 5.099999904632568,
+          "true_V2_ml": 16.20833396911621,
+          "error_V1_ml": 2.994838237762451,
+          "error_V2_ml": -0.4143247604370117,
+          "reason": "m87 at 5/1 DCM and 100 ul provides a molecule-local response point with a relatively broad predicted V2 width of 23.22 ml; useful for condition-response learning.",
+          "hypothesis_id": "H1_response"
+        }
+      },
+      {
+        "id": "515763da976fe2130227",
+        "reason": "m54 at 10/1 DCM samples a stronger eluent for a related ketone while retaining a 17.58 ml predicted V2 width; tests whether the model captures solvent-strength shifts.",
+        "hypothesis_id": "H1_response",
+        "metadata": {
+          "id": "515763da976fe2130227",
+          "smiles": "CC(C)C(=O)c1ccccc1",
+          "conditions": {
+            "PE/EA": "10/1",
+            "Density g/ml": 0.988,
+            "V/ul": 100.0,
+            "loading solvent": "DCM",
+            "Volume of loading solvent/ul": 300
+          }
+        },
+        "revealed_feedback": {
+          "candidate_id": "515763da976fe2130227",
+          "pred_V1_ml": 5.667143821716309,
+          "pred_V2_ml": 12.304391860961914,
+          "source": "LLM",
+          "true_V1_ml": 4.675000190734863,
+          "true_V2_ml": 12.091666221618652,
+          "error_V1_ml": 0.9921436309814453,
+          "error_V2_ml": 0.21272563934326172,
+          "reason": "m54 at 10/1 DCM samples a stronger eluent for a related ketone while retaining a 17.58 ml predicted V2 width; tests whether the model captures solvent-strength shifts.",
+          "hypothesis_id": "H1_response"
+        }
+      },
+      {
+        "id": "b070c3657459c06a4df1",
+        "reason": "m110 at 50/1 DCM and 150 ul directly extends the observed m110 condition/loading series (7c9b7238a83ed646815a, 0ae541927703401945de); it tests PE/EA and loading interaction together.",
+        "hypothesis_id": "H1_response",
+        "metadata": {
+          "id": "b070c3657459c06a4df1",
+          "smiles": "COc1cc(OC)cc(OC)c1",
+          "conditions": {
+            "PE/EA": "50/1",
+            "Density g/ml": 1.126,
+            "V/ul": 150.0,
+            "loading solvent": "DCM",
+            "Volume of loading solvent/ul": 300
+          }
+        },
+        "revealed_feedback": {
+          "candidate_id": "b070c3657459c06a4df1",
+          "pred_V1_ml": 11.904215812683105,
+          "pred_V2_ml": 23.936330795288086,
+          "source": "LLM",
+          "true_V1_ml": 21.90833282470703,
+          "true_V2_ml": 36.349998474121094,
+          "error_V1_ml": -10.004117012023926,
+          "error_V2_ml": -12.413667678833008,
+          "reason": "m110 at 50/1 DCM and 150 ul directly extends the observed m110 condition/loading series (7c9b7238a83ed646815a, 0ae541927703401945de); it tests PE/EA and loading interaction together.",
+          "hypothesis_id": "H1_response"
+        }
+      }
+    ],
+    "prior_measurements_for_case_molecules": [
+      {
+        "id": "862513bccbf27b7e8f06",
+        "smiles": "COc1cc(OC)cc(OC)c1",
+        "conditions": {
+          "PE/EA": "1/1",
+          "Density g/ml": 1.126,
+          "V/ul": 100.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 5.558333396911621,
+        "V2_ml": 9.100000381469727,
+        "record_kind": "initial_L333"
+      },
+      {
+        "id": "7c9b7238a83ed646815a",
+        "smiles": "COc1cc(OC)cc(OC)c1",
+        "conditions": {
+          "PE/EA": "2/1",
+          "Density g/ml": 1.126,
+          "V/ul": 50.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 7.099999904632568,
+        "V2_ml": 10.699999809265137,
+        "record_kind": "initial_L333"
+      },
+      {
+        "id": "0ae541927703401945de",
+        "smiles": "COc1cc(OC)cc(OC)c1",
+        "conditions": {
+          "PE/EA": "2/1",
+          "Density g/ml": 1.126,
+          "V/ul": 150.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 5.9666666984558105,
+        "V2_ml": 9.966666221618652,
+        "record_kind": "initial_L333"
+      },
+      {
+        "id": "815afa4c05f8c4e7ef9c",
+        "smiles": "COc1cc(OC)cc(OC)c1",
+        "conditions": {
+          "PE/EA": "10/1",
+          "Density g/ml": 1.126,
+          "V/ul": 150.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 9.691666603088379,
+        "V2_ml": 16.15833282470703,
+        "record_kind": "initial_L333"
+      },
+      {
+        "id": "933e17d426dc7efc96b5",
+        "smiles": "CCOC(=O)c1ccc(OC)cc1",
+        "conditions": {
+          "PE/EA": "0/1",
+          "Density g/ml": 1.103,
+          "V/ul": 100.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 3.933333396911621,
+        "V2_ml": 11.191666603088379,
+        "record_kind": "initial_L333"
+      },
+      {
+        "id": "0637945ca309d8122e64",
+        "smiles": "CCOC(=O)c1ccc(OC)cc1",
+        "conditions": {
+          "PE/EA": "2/1",
+          "Density g/ml": 1.103,
+          "V/ul": 150.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 5.808333396911621,
+        "V2_ml": 23.508333206176758,
+        "record_kind": "initial_L333"
+      },
+      {
+        "id": "5fc00b4a6787d6ea4547",
+        "smiles": "CC(C)C(=O)c1ccccc1",
+        "conditions": {
+          "PE/EA": "2/1",
+          "Density g/ml": 0.988,
+          "V/ul": 150.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 4.199999809265137,
+        "V2_ml": 10.274999618530273,
+        "record_kind": "initial_L333"
+      },
+      {
+        "id": "438821f1c66ff1d0f440",
+        "smiles": "CC(C)C(=O)c1ccccc1",
+        "conditions": {
+          "PE/EA": "10/1",
+          "Density g/ml": 0.988,
+          "V/ul": 150.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 3.3499999046325684,
+        "V2_ml": 13.958333015441895,
+        "record_kind": "initial_L333"
+      },
+      {
+        "id": "cd29e6174c638a44ccc9",
+        "smiles": "CC(C)C(=O)c1ccccc1",
+        "conditions": {
+          "PE/EA": "20/1",
+          "Density g/ml": 0.988,
+          "V/ul": 50.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 6.266666889190674,
+        "V2_ml": 12.541666984558105,
+        "record_kind": "initial_L333"
+      },
+      {
+        "id": "565ddc610d06341d68bb",
+        "smiles": "CC(C)C(=O)c1ccccc1",
+        "conditions": {
+          "PE/EA": "20/1",
+          "Density g/ml": 0.988,
+          "V/ul": 100.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 5.074999809265137,
+        "V2_ml": 12.983333587646484,
+        "record_kind": "initial_L333"
+      },
+      {
+        "id": "f7bbba9684bf7983ccbf",
+        "smiles": "CC(C)C(=O)c1ccccc1",
+        "conditions": {
+          "PE/EA": "50/1",
+          "Density g/ml": 0.988,
+          "V/ul": 50.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 9.75,
+        "V2_ml": 17.391666412353516,
+        "record_kind": "initial_L333"
+      },
+      {
+        "id": "9c84ccd6d0bc1e852431",
+        "smiles": "CC(C)C(=O)c1ccccc1",
+        "conditions": {
+          "PE/EA": "1/1",
+          "Density g/ml": 0.988,
+          "V/ul": 150.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 4.308333396911621,
+        "V2_ml": 8.383333206176758,
+        "record_kind": "initial_L333"
+      },
+      {
+        "id": "1c6a12a8c2cb62f05c80",
+        "smiles": "CC(C)C(=O)c1ccccc1",
+        "conditions": {
+          "PE/EA": "50/1",
+          "Density g/ml": 0.988,
+          "V/ul": 150.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 5.074999809265137,
+        "V2_ml": 17.975000381469727,
+        "record_kind": "initial_L333"
+      }
+    ],
+    "evidence_boundary": "Feedback values revealed after freeze; cases are audits, not prospective scientific hypothesis validation.",
+    "following_selection_source": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_887/free_llm32_scientist_v2/round_01/selection.json",
+    "following_feedback_interpretation": "The previous outcomes support a genuine late-elution tail but weaken my earlier tendency to associate high spread and heteroatom-rich or basic structures with late onset. m177 b514312eda7950cdcf1c measured 4.49/81.30 mL despite historical predictions 59.61/139.73, establishing early onset with delayed completion. Dibenzylamine d5234e966aa231be05e5 and sulfur-containing aldehyde 4c46ceefd6147b1e0a7a also exposed large overpredictions. Conversely, pyridyl ester 96710afeabc594baa359, multifunctional ester ca467c94f14b2219503e and trimethoxybenzene b070c3657459c06a4df1 were underpredicted. Nitro-carbonyl rows a5f9179bfb146ad70953 and b6f1b33a5491968c645e had much larger historical completion errors than onset errors, motivating separate response constraints for both targets. These are acquisition-time errors, not current-model residuals. The m159 and m165 outcomes strengthen molecule-specific solvent-response reasoning, while the available loading comparisons do not establish a universal loading law. In particular, a917c928912c74862968 has V1 slightly above V2 and should not be treated as clean mechanistic evidence. I also correct the earlier functional-group description: m26 is a beta-diketone, not an ester. Quantile widths remain auxiliary model-behavior signals; zero V2 lower quantiles and quantile crossing limit their interpretation as uncertainty.",
+    "following_choices_same_molecules": []
+  },
+  {
+    "seed": 887,
+    "method": "free_llm32_scientist_v2",
+    "round": 35,
+    "labels_before": 1453,
+    "labels_after": 1485,
+    "stage": "1197-1485",
+    "selection_source": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_to1485_extra3_20261026/selections/seed_887/free_llm32_scientist_v2/round_35/batch_freeze.json",
+    "catalog_source": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_to1485_extra3_20261026/selections/seed_887/free_llm32_scientist_v2/round_35/catalog.json",
+    "selection_sha256": "58b7f7adc550f4f96fe0e79cc86aaa061a39d52ba7210f3b808f265389731f5d",
+    "feedback_source": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_to1485_extra3_20261026/selections/seed_887/free_llm32_scientist_v2/round_35/feedback.json",
+    "selector_revision": "sol61_xhigh_free_to1485_extra3_20261026",
+    "served_model": "gpt-6.1-sol",
+    "hypothesis": {
+      "id": "H1",
+      "content": "Loading associations depend on molecular environment and PE/EA and differ between endpoints. Several matched series show declining V1 with relatively stable or increasing V2, while exceptions and curved responses preclude a universal loading shift.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "75232f4ee5de52a0499e",
+        "c352863d9fa4a8645481",
+        "bad24d96575f423fe4fd",
+        "195a292d7c8874415285",
+        "7becf2ab3560ce93bfc8",
+        "a1dc71bed9d8f372c9e5",
+        "316b7260106904f99ae8",
+        "35f2be5f5aa14265e8a4",
+        "449b809e4efaaf2af86a"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Many eligible predictions change very little with amount. Matched boundaries and selected interior points can teach endpoint-specific response shape and establish where corrections transfer across common chemical families.",
+      "next_discriminating_question": "Which missing amount segments are flat, monotonic or curved? Do the m96 and m74 boundaries support an interior maximum, and does the m92 middle-amount pattern reproduce?"
+    },
+    "choices": [
+      {
+        "id": "716d04ed1943f0708912",
+        "reason": "m135, 5/1, 100 uL; frozen prediction 22.255685806274414/34.573631286621094 mL. Measured 50/150-uL boundaries a5446977630484ca5fe1 and f9f0f4e29dbd30c000ee have V1 24.27/18.55 but nearly identical V2. The accurate recent 10/1 midpoint 75232f4ee5de52a0499e makes this a test of whether onset curvature transfers across solvent regimes.",
+        "hypothesis_id": "H1",
+        "metadata": {
+          "id": "716d04ed1943f0708912",
+          "smiles": "Cc1ccc(CO)cc1",
+          "conditions": {
+            "PE/EA": "5/1",
+            "Density g/ml": 0.98,
+            "V/ul": 100.0,
+            "loading solvent": "DCM",
+            "Volume of loading solvent/ul": 300
+          }
+        },
+        "revealed_feedback": {
+          "candidate_id": "716d04ed1943f0708912",
+          "pred_V1_ml": 22.255685806274414,
+          "pred_V2_ml": 34.573631286621094,
+          "source": "LLM",
+          "true_V1_ml": 20.924999237060547,
+          "true_V2_ml": 34.016666412353516,
+          "error_V1_ml": 1.3306865692138672,
+          "error_V2_ml": 0.5569648742675781,
+          "reason": "m135, 5/1, 100 uL; frozen prediction 22.255685806274414/34.573631286621094 mL. Measured 50/150-uL boundaries a5446977630484ca5fe1 and f9f0f4e29dbd30c000ee have V1 24.27/18.55 but nearly identical V2. The accurate recent 10/1 midpoint 75232f4ee5de52a0499e makes this a test of whether onset curvature transfers across solvent regimes.",
+          "hypothesis_id": "H1"
+        }
+      },
+      {
+        "id": "7eb97a2a0856e78a4b76",
+        "reason": "m51, 5/1, 150 uL; frozen prediction 20.025251388549805/30.303190231323242 mL. Low-amount record bf09d868ed4d68a97b40 measured 18.92/28.63, while recent 10/1 midpoint bad24d96575f423fe4fd showed earlier onset than its low-amount reference. Tests whether that association persists at 5/1 in a tertiary alcohol; this candidate is not an existing measured boundary.",
+        "hypothesis_id": "H1",
+        "metadata": {
+          "id": "7eb97a2a0856e78a4b76",
+          "smiles": "CC(C)(O)CCc1ccccc1",
+          "conditions": {
+            "PE/EA": "5/1",
+            "Density g/ml": 0.966,
+            "V/ul": 150.0,
+            "loading solvent": "PE",
+            "Volume of loading solvent/ul": 300
+          }
+        },
+        "revealed_feedback": {
+          "candidate_id": "7eb97a2a0856e78a4b76",
+          "pred_V1_ml": 20.025251388549805,
+          "pred_V2_ml": 30.303190231323242,
+          "source": "LLM",
+          "true_V1_ml": 14.008333206176758,
+          "true_V2_ml": 27.725000381469727,
+          "error_V1_ml": 6.016918182373047,
+          "error_V2_ml": 2.5781898498535156,
+          "reason": "m51, 5/1, 150 uL; frozen prediction 20.025251388549805/30.303190231323242 mL. Low-amount record bf09d868ed4d68a97b40 measured 18.92/28.63, while recent 10/1 midpoint bad24d96575f423fe4fd showed earlier onset than its low-amount reference. Tests whether that association persists at 5/1 in a tertiary alcohol; this candidate is not an existing measured boundary.",
+          "hypothesis_id": "H1"
+        }
+      },
+      {
+        "id": "358461ff3742e78ea3b6",
+        "reason": "m204, 10/1, 100 uL; frozen prediction 51.437007904052734/93.70467376708984 mL. High-amount reference 73502a52708e4f9c2391 measured 51.71/94.93; the 5/1 records b7b1a1bb666c8cc99bad and 1211905ebc8972913270 show an onset decline with amount. Tests whether the nearly high-boundary prediction misses a corresponding association in this primary alcohol.",
+        "hypothesis_id": "H1",
+        "metadata": {
+          "id": "358461ff3742e78ea3b6",
+          "smiles": "OCCCc1ccccc1",
+          "conditions": {
+            "PE/EA": "10/1",
+            "Density g/ml": 1.001,
+            "V/ul": 100.0,
+            "loading solvent": "PE",
+            "Volume of loading solvent/ul": 300
+          }
+        },
+        "revealed_feedback": {
+          "candidate_id": "358461ff3742e78ea3b6",
+          "pred_V1_ml": 51.437007904052734,
+          "pred_V2_ml": 93.70467376708984,
+          "source": "LLM",
+          "true_V1_ml": 59.25833511352539,
+          "true_V2_ml": 99.83333587646484,
+          "error_V1_ml": -7.821327209472656,
+          "error_V2_ml": -6.128662109375,
+          "reason": "m204, 10/1, 100 uL; frozen prediction 51.437007904052734/93.70467376708984 mL. High-amount reference 73502a52708e4f9c2391 measured 51.71/94.93; the 5/1 records b7b1a1bb666c8cc99bad and 1211905ebc8972913270 show an onset decline with amount. Tests whether the nearly high-boundary prediction misses a corresponding association in this primary alcohol.",
+          "hypothesis_id": "H1"
+        }
+      }
+    ],
+    "prior_measurements_for_case_molecules": [
+      {
+        "id": "73502a52708e4f9c2391",
+        "smiles": "OCCCc1ccccc1",
+        "conditions": {
+          "PE/EA": "10/1",
+          "Density g/ml": 1.001,
+          "V/ul": 150.0,
+          "loading solvent": "PE",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 51.70833206176758,
+        "V2_ml": 94.93333435058594,
+        "record_kind": "initial_L333"
+      },
+      {
+        "id": "8de7bea3e86066a6c12b",
+        "smiles": "CC(C)(O)CCc1ccccc1",
+        "conditions": {
+          "PE/EA": "0/1",
+          "Density g/ml": 0.966,
+          "V/ul": 100.0,
+          "loading solvent": "PE",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 5.183333396911621,
+        "V2_ml": 8.866666793823242,
+        "record_kind": "initial_L333"
+      },
+      {
+        "id": "f91e857aa14399ede600",
+        "smiles": "CC(C)(O)CCc1ccccc1",
+        "conditions": {
+          "PE/EA": "0/1",
+          "Density g/ml": 0.966,
+          "V/ul": 150.0,
+          "loading solvent": "PE",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 5.25,
+        "V2_ml": 9.016666412353516,
+        "record_kind": "initial_L333"
+      },
+      {
+        "id": "bf09d868ed4d68a97b40",
+        "smiles": "CC(C)(O)CCc1ccccc1",
+        "conditions": {
+          "PE/EA": "5/1",
+          "Density g/ml": 0.966,
+          "V/ul": 50.0,
+          "loading solvent": "PE",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 18.91666603088379,
+        "V2_ml": 28.625,
+        "record_kind": "initial_L333"
+      },
+      {
+        "id": "f9f0f4e29dbd30c000ee",
+        "smiles": "Cc1ccc(CO)cc1",
+        "conditions": {
+          "PE/EA": "5/1",
+          "Density g/ml": 0.98,
+          "V/ul": 150.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 18.549999237060547,
+        "V2_ml": 34.31666564941406,
+        "record_kind": "acquired_with_premeasurement_prediction",
+        "premeasurement_prediction_V1_ml": 18.250215530395508,
+        "premeasurement_prediction_V2_ml": 28.561504364013672,
+        "premeasurement_error_V1_ml": -0.29978370666503906,
+        "premeasurement_error_V2_ml": -5.755161285400391
+      },
+      {
+        "id": "d05a91dc8e32e9edd7d0",
+        "smiles": "Cc1ccc(CO)cc1",
+        "conditions": {
+          "PE/EA": "10/1",
+          "Density g/ml": 0.98,
+          "V/ul": 150.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 34.69166564941406,
+        "V2_ml": 65.26667022705078,
+        "record_kind": "acquired_with_premeasurement_prediction",
+        "premeasurement_prediction_V1_ml": 29.405794143676758,
+        "premeasurement_prediction_V2_ml": 59.289859771728516,
+        "premeasurement_error_V1_ml": -5.285871505737305,
+        "premeasurement_error_V2_ml": -5.976810455322266
+      },
+      {
+        "id": "4fb92bd1fab3ba235858",
+        "smiles": "CC(C)(O)CCc1ccccc1",
+        "conditions": {
+          "PE/EA": "10/1",
+          "Density g/ml": 0.966,
+          "V/ul": 50.0,
+          "loading solvent": "PE",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 37.67499923706055,
+        "V2_ml": 57.93333435058594,
+        "record_kind": "acquired_with_premeasurement_prediction",
+        "premeasurement_prediction_V1_ml": 32.339752197265625,
+        "premeasurement_prediction_V2_ml": 47.116188049316406,
+        "premeasurement_error_V1_ml": -5.335247039794922,
+        "premeasurement_error_V2_ml": -10.817146301269531
+      },
+      {
+        "id": "53c1be5b96937954b9fa",
+        "smiles": "OCCCc1ccccc1",
+        "conditions": {
+          "PE/EA": "2/1",
+          "Density g/ml": 1.001,
+          "V/ul": 100.0,
+          "loading solvent": "PE",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 13.058333396911621,
+        "V2_ml": 22.21666717529297,
+        "record_kind": "acquired_with_premeasurement_prediction",
+        "premeasurement_prediction_V1_ml": 19.06853485107422,
+        "premeasurement_prediction_V2_ml": 30.508975982666016,
+        "premeasurement_error_V1_ml": 6.010201454162598,
+        "premeasurement_error_V2_ml": 8.292308807373047
+      },
+      {
+        "id": "b7b1a1bb666c8cc99bad",
+        "smiles": "OCCCc1ccccc1",
+        "conditions": {
+          "PE/EA": "5/1",
+          "Density g/ml": 1.001,
+          "V/ul": 100.0,
+          "loading solvent": "PE",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 28.616666793823242,
+        "V2_ml": 51.266666412353516,
+        "record_kind": "acquired_with_premeasurement_prediction",
+        "premeasurement_prediction_V1_ml": 33.8365478515625,
+        "premeasurement_prediction_V2_ml": 55.346282958984375,
+        "premeasurement_error_V1_ml": 5.219881057739258,
+        "premeasurement_error_V2_ml": 4.079616546630859
+      },
+      {
+        "id": "c46b86dae7e6845f08cd",
+        "smiles": "OCCCc1ccccc1",
+        "conditions": {
+          "PE/EA": "1/1",
+          "Density g/ml": 1.001,
+          "V/ul": 100.0,
+          "loading solvent": "PE",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 9.333333015441895,
+        "V2_ml": 16.15833282470703,
+        "record_kind": "acquired_with_premeasurement_prediction",
+        "premeasurement_prediction_V1_ml": 7.2090935707092285,
+        "premeasurement_prediction_V2_ml": 13.487258911132812,
+        "premeasurement_error_V1_ml": -2.124239444732666,
+        "premeasurement_error_V2_ml": -2.6710739135742188
+      },
+      {
+        "id": "3c43e519a9cf66b66ebc",
+        "smiles": "CC(C)(O)CCc1ccccc1",
+        "conditions": {
+          "PE/EA": "1/1",
+          "Density g/ml": 0.966,
+          "V/ul": 150.0,
+          "loading solvent": "PE",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 6.5916666984558105,
+        "V2_ml": 11.449999809265137,
+        "record_kind": "acquired_with_premeasurement_prediction",
+        "premeasurement_prediction_V1_ml": 7.29699182510376,
+        "premeasurement_prediction_V2_ml": 10.983760833740234,
+        "premeasurement_error_V1_ml": 0.7053251266479492,
+        "premeasurement_error_V2_ml": -0.46623897552490234
+      },
+      {
+        "id": "53dc2340c848330a9220",
+        "smiles": "Cc1ccc(CO)cc1",
+        "conditions": {
+          "PE/EA": "0/1",
+          "Density g/ml": 0.98,
+          "V/ul": 150.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 5.258333206176758,
+        "V2_ml": 9.091666221618652,
+        "record_kind": "acquired_with_premeasurement_prediction",
+        "premeasurement_prediction_V1_ml": 4.071177005767822,
+        "premeasurement_prediction_V2_ml": 8.428077697753906,
+        "premeasurement_error_V1_ml": -1.1871562004089355,
+        "premeasurement_error_V2_ml": -0.6635885238647461
+      },
+      {
+        "id": "82b6eb1475767aca619f",
+        "smiles": "Cc1ccc(CO)cc1",
+        "conditions": {
+          "PE/EA": "2/1",
+          "Density g/ml": 0.98,
+          "V/ul": 150.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 10.0,
+        "V2_ml": 17.40833282470703,
+        "record_kind": "acquired_with_premeasurement_prediction",
+        "premeasurement_prediction_V1_ml": 13.935319900512695,
+        "premeasurement_prediction_V2_ml": 20.54316520690918,
+        "premeasurement_error_V1_ml": 3.9353199005126953,
+        "premeasurement_error_V2_ml": 3.1348323822021484
+      },
+      {
+        "id": "a5446977630484ca5fe1",
+        "smiles": "Cc1ccc(CO)cc1",
+        "conditions": {
+          "PE/EA": "5/1",
+          "Density g/ml": 0.98,
+          "V/ul": 50.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 24.274999618530273,
+        "V2_ml": 34.30833435058594,
+        "record_kind": "acquired_with_premeasurement_prediction",
+        "premeasurement_prediction_V1_ml": 19.752145767211914,
+        "premeasurement_prediction_V2_ml": 34.108951568603516,
+        "premeasurement_error_V1_ml": -4.522853851318359,
+        "premeasurement_error_V2_ml": -0.19938278198242188
+      },
+      {
+        "id": "723a7255bbbef8dcad76",
+        "smiles": "Cc1ccc(CO)cc1",
+        "conditions": {
+          "PE/EA": "0/1",
+          "Density g/ml": 0.98,
+          "V/ul": 50.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 5.166666507720947,
+        "V2_ml": 8.125,
+        "record_kind": "acquired_with_premeasurement_prediction",
+        "premeasurement_prediction_V1_ml": 4.461953163146973,
+        "premeasurement_prediction_V2_ml": 9.103471755981445,
+        "premeasurement_error_V1_ml": -0.7047133445739746,
+        "premeasurement_error_V2_ml": 0.9784717559814453
+      },
+      {
+        "id": "4db6b065867770d9dbd9",
+        "smiles": "Cc1ccc(CO)cc1",
+        "conditions": {
+          "PE/EA": "2/1",
+          "Density g/ml": 0.98,
+          "V/ul": 50.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 12.508333206176758,
+        "V2_ml": 17.325000762939453,
+        "record_kind": "acquired_with_premeasurement_prediction",
+        "premeasurement_prediction_V1_ml": 11.607342720031738,
+        "premeasurement_prediction_V2_ml": 17.97339630126953,
+        "premeasurement_error_V1_ml": -0.9009904861450195,
+        "premeasurement_error_V2_ml": 0.6483955383300781
+      },
+      {
+        "id": "1211905ebc8972913270",
+        "smiles": "OCCCc1ccccc1",
+        "conditions": {
+          "PE/EA": "5/1",
+          "Density g/ml": 1.001,
+          "V/ul": 150.0,
+          "loading solvent": "PE",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 25.508333206176758,
+        "V2_ml": 49.95000076293945,
+        "record_kind": "acquired_with_premeasurement_prediction",
+        "premeasurement_prediction_V1_ml": 29.36431312561035,
+        "premeasurement_prediction_V2_ml": 48.47229766845703,
+        "premeasurement_error_V1_ml": 3.8559799194335938,
+        "premeasurement_error_V2_ml": -1.4777030944824219
+      },
+      {
+        "id": "f433bc672465387d951a",
+        "smiles": "Cc1ccc(CO)cc1",
+        "conditions": {
+          "PE/EA": "10/1",
+          "Density g/ml": 0.98,
+          "V/ul": 50.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 47.38333511352539,
+        "V2_ml": 68.38333129882812,
+        "record_kind": "acquired_with_premeasurement_prediction",
+        "premeasurement_prediction_V1_ml": 34.855621337890625,
+        "premeasurement_prediction_V2_ml": 63.12305450439453,
+        "premeasurement_error_V1_ml": -12.527713775634766,
+        "premeasurement_error_V2_ml": -5.260276794433594
+      },
+      {
+        "id": "75232f4ee5de52a0499e",
+        "smiles": "Cc1ccc(CO)cc1",
+        "conditions": {
+          "PE/EA": "10/1",
+          "Density g/ml": 0.98,
+          "V/ul": 100.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 39.391666412353516,
+        "V2_ml": 66.35832977294922,
+        "record_kind": "acquired_with_premeasurement_prediction",
+        "premeasurement_prediction_V1_ml": 40.38258743286133,
+        "premeasurement_prediction_V2_ml": 66.49141693115234,
+        "premeasurement_error_V1_ml": 0.9909210205078125,
+        "premeasurement_error_V2_ml": 0.133087158203125
+      },
+      {
+        "id": "bad24d96575f423fe4fd",
+        "smiles": "CC(C)(O)CCc1ccccc1",
+        "conditions": {
+          "PE/EA": "10/1",
+          "Density g/ml": 0.966,
+          "V/ul": 100.0,
+          "loading solvent": "PE",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 30.616666793823242,
+        "V2_ml": 58.16666793823242,
+        "record_kind": "acquired_with_premeasurement_prediction",
+        "premeasurement_prediction_V1_ml": 35.06543731689453,
+        "premeasurement_prediction_V2_ml": 53.13844299316406,
+        "premeasurement_error_V1_ml": 4.448770523071289,
+        "premeasurement_error_V2_ml": -5.028224945068359
+      }
+    ],
+    "evidence_boundary": "Feedback values revealed after freeze; cases are audits, not prospective scientific hypothesis validation."
+  },
+  {
+    "seed": 2357,
+    "method": "free_llm32_scientist_v2",
+    "round": 10,
+    "labels_before": 653,
+    "labels_after": 685,
+    "stage": "653-813",
+    "selection_source": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_2357/free_llm32_scientist_v2/round_10/batch_freeze.json",
+    "catalog_source": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_2357/free_llm32_scientist_v2/round_10/catalog.json",
+    "selection_sha256": "07e376b12a2543e8e9c98d4f72f58ff4490dff86f23acd444eab6385501d7ab8",
+    "feedback_source": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_2357/free_llm32_scientist_v2/round_10/feedback.json",
+    "selector_revision": "sol61_xhigh_free_five_seeds_to1005_20261023",
+    "served_model": "gpt-6.1-sol",
+    "hypothesis": {
+      "id": "H15",
+      "content": "Some recorded endpoint differences depend jointly on sample loading, loading-solvent volume and solvent strength. The predictor's near-invariance to loading changes may miss these relationships, although discordant observations can also reflect unrecorded experimental variation.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "9bd998a328b109ef639e",
+        "00043aebb2540e369a7b",
+        "cc2a23d8eb9de61d2ab3",
+        "5c2bc1d92128a17d996d",
+        "4e5ead91320bd24d485e",
+        "ec6846c0fcb7df17c97d",
+        "e75030664990b64e9c05",
+        "994a1f65509549a84ede"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Matched comparisons can separate learnable condition interactions from scaffold offsets and establish where additional labels mainly expose unexplained variation. This is especially relevant to the recent m125 failure.",
+      "next_discriminating_question": "Does the completed m125 sample-amount by DCM-volume design show a consistent interaction, and does m207 retain its unusual loading response at both 5/1 and 10/1?"
+    },
+    "choices": [
+      {
+        "id": "03744855d469f4cca7e6",
+        "reason": "m125 at 1/1, 150 ul sample and 300 ul DCM closes a constant-sample-loading comparison with measured 9bd998a328b109ef639e at 500 ul DCM, which gave 14.07/39.38 mL and a historical completion underprediction of 21.71 mL. Current prediction 9.48/23.65 mL barely distinguishes DCM volume, making this a direct test of a missing interaction.",
+        "hypothesis_id": "H15",
+        "metadata": {
+          "id": "03744855d469f4cca7e6",
+          "smiles": "COc1cccc(OC)c1C=O",
+          "conditions": {
+            "PE/EA": "1/1",
+            "Density g/ml": 1.0,
+            "V/ul": 150.0,
+            "loading solvent": "DCM",
+            "Volume of loading solvent/ul": 300
+          }
+        },
+        "revealed_feedback": {
+          "candidate_id": "03744855d469f4cca7e6",
+          "pred_V1_ml": 9.48025894165039,
+          "pred_V2_ml": 23.65239715576172,
+          "source": "LLM",
+          "true_V1_ml": 7.300000190734863,
+          "true_V2_ml": 20.225000381469727,
+          "error_V1_ml": 2.1802587509155273,
+          "error_V2_ml": 3.427396774291992,
+          "reason": "m125 at 1/1, 150 ul sample and 300 ul DCM closes a constant-sample-loading comparison with measured 9bd998a328b109ef639e at 500 ul DCM, which gave 14.07/39.38 mL and a historical completion underprediction of 21.71 mL. Current prediction 9.48/23.65 mL barely distinguishes DCM volume, making this a direct test of a missing interaction.",
+          "hypothesis_id": "H15"
+        }
+      },
+      {
+        "id": "f4fb5c03b8e8996e75f6",
+        "reason": "m125 at 1/1, 50 ul sample and 500 ul DCM complements measured 00043aebb2540e369a7b at 300 ul DCM. Together with the other selected m125 row and measured 9bd998a328b109ef639e, this completes a 50/150 ul sample by 300/500 ul DCM design. Prediction 9.49/23.64 mL allows testing whether the recent loading-solvent-volume difference transfers across sample loading.",
+        "hypothesis_id": "H15",
+        "metadata": {
+          "id": "f4fb5c03b8e8996e75f6",
+          "smiles": "COc1cccc(OC)c1C=O",
+          "conditions": {
+            "PE/EA": "1/1",
+            "Density g/ml": 1.0,
+            "V/ul": 50.0,
+            "loading solvent": "DCM",
+            "Volume of loading solvent/ul": 500
+          }
+        },
+        "revealed_feedback": {
+          "candidate_id": "f4fb5c03b8e8996e75f6",
+          "pred_V1_ml": 9.488138198852539,
+          "pred_V2_ml": 23.64422035217285,
+          "source": "LLM",
+          "true_V1_ml": 12.491666793823242,
+          "true_V2_ml": 36.141666412353516,
+          "error_V1_ml": -3.003528594970703,
+          "error_V2_ml": -12.497446060180664,
+          "reason": "m125 at 1/1, 50 ul sample and 500 ul DCM complements measured 00043aebb2540e369a7b at 300 ul DCM. Together with the other selected m125 row and measured 9bd998a328b109ef639e, this completes a 50/150 ul sample by 300/500 ul DCM design. Prediction 9.49/23.64 mL allows testing whether the recent loading-solvent-volume difference transfers across sample loading.",
+          "hypothesis_id": "H15"
+        }
+      },
+      {
+        "id": "a7906197994af5c86745",
+        "reason": "m207 at 5/1 and 150 ul completes the sample-loading sequence around measured 4e5ead91320bd24d485e at 50 ul, 21.18/34.03 mL, and ec6846c0fcb7df17c97d at 100 ul, 4.89/10.42 mL. Prediction 12.10/22.93 mL lies between these discordant observations. A third loading point can constrain the relationship without presuming its cause.",
+        "hypothesis_id": "H15",
+        "metadata": {
+          "id": "a7906197994af5c86745",
+          "smiles": "OCc1cccc(Br)c1",
+          "conditions": {
+            "PE/EA": "5/1",
+            "Density g/ml": 1.56,
+            "V/ul": 150.0,
+            "loading solvent": "DCM",
+            "Volume of loading solvent/ul": 300
+          }
+        },
+        "revealed_feedback": {
+          "candidate_id": "a7906197994af5c86745",
+          "pred_V1_ml": 12.09506607055664,
+          "pred_V2_ml": 22.934926986694336,
+          "source": "LLM",
+          "true_V1_ml": 14.116666793823242,
+          "true_V2_ml": 36.40833282470703,
+          "error_V1_ml": -2.0216007232666016,
+          "error_V2_ml": -13.473405838012695,
+          "reason": "m207 at 5/1 and 150 ul completes the sample-loading sequence around measured 4e5ead91320bd24d485e at 50 ul, 21.18/34.03 mL, and ec6846c0fcb7df17c97d at 100 ul, 4.89/10.42 mL. Prediction 12.10/22.93 mL lies between these discordant observations. A third loading point can constrain the relationship without presuming its cause.",
+          "hypothesis_id": "H15"
+        }
+      }
+    ],
+    "prior_measurements_for_case_molecules": [
+      {
+        "id": "4e5ead91320bd24d485e",
+        "smiles": "OCc1cccc(Br)c1",
+        "conditions": {
+          "PE/EA": "5/1",
+          "Density g/ml": 1.56,
+          "V/ul": 50.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 21.183332443237305,
+        "V2_ml": 34.025001525878906,
+        "record_kind": "initial_L333"
+      },
+      {
+        "id": "ec6846c0fcb7df17c97d",
+        "smiles": "OCc1cccc(Br)c1",
+        "conditions": {
+          "PE/EA": "5/1",
+          "Density g/ml": 1.56,
+          "V/ul": 100.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 4.891666889190674,
+        "V2_ml": 10.416666984558105,
+        "record_kind": "initial_L333"
+      },
+      {
+        "id": "ff3b6b1069b7d66ad021",
+        "smiles": "OCc1cccc(Br)c1",
+        "conditions": {
+          "PE/EA": "10/1",
+          "Density g/ml": 1.56,
+          "V/ul": 100.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 38.07500076293945,
+        "V2_ml": 66.26667022705078,
+        "record_kind": "initial_L333"
+      },
+      {
+        "id": "cc2a23d8eb9de61d2ab3",
+        "smiles": "COc1cccc(OC)c1C=O",
+        "conditions": {
+          "PE/EA": "2/1",
+          "Density g/ml": 1.0,
+          "V/ul": 50.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 500
+        },
+        "V1_ml": 36.233333587646484,
+        "V2_ml": 63.99166488647461,
+        "record_kind": "initial_L333"
+      },
+      {
+        "id": "19f19f196ba5787a01b0",
+        "smiles": "COc1cccc(OC)c1C=O",
+        "conditions": {
+          "PE/EA": "2/1",
+          "Density g/ml": 1.0,
+          "V/ul": 150.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 13.725000381469727,
+        "V2_ml": 31.375,
+        "record_kind": "initial_L333"
+      },
+      {
+        "id": "5c2bc1d92128a17d996d",
+        "smiles": "COc1cccc(OC)c1C=O",
+        "conditions": {
+          "PE/EA": "2/1",
+          "Density g/ml": 1.0,
+          "V/ul": 50.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 16.941667556762695,
+        "V2_ml": 29.491666793823242,
+        "record_kind": "acquired_with_premeasurement_prediction",
+        "premeasurement_prediction_V1_ml": 25.153186798095703,
+        "premeasurement_prediction_V2_ml": 47.58798599243164,
+        "premeasurement_error_V1_ml": 8.211519241333008,
+        "premeasurement_error_V2_ml": 18.0963191986084
+      },
+      {
+        "id": "69b09343d0b9995c3ae4",
+        "smiles": "COc1cccc(OC)c1C=O",
+        "conditions": {
+          "PE/EA": "2/1",
+          "Density g/ml": 1.0,
+          "V/ul": 100.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 500
+        },
+        "V1_ml": 6.974999904632568,
+        "V2_ml": 56.858333587646484,
+        "record_kind": "acquired_with_premeasurement_prediction",
+        "premeasurement_prediction_V1_ml": 20.48442268371582,
+        "premeasurement_prediction_V2_ml": 38.698760986328125,
+        "premeasurement_error_V1_ml": 13.509422779083252,
+        "premeasurement_error_V2_ml": -18.15957260131836
+      },
+      {
+        "id": "e7ed7ca4a53258b73ba2",
+        "smiles": "COc1cccc(OC)c1C=O",
+        "conditions": {
+          "PE/EA": "0/1",
+          "Density g/ml": 1.0,
+          "V/ul": 100.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 5.275000095367432,
+        "V2_ml": 11.216666221618652,
+        "record_kind": "acquired_with_premeasurement_prediction",
+        "premeasurement_prediction_V1_ml": 4.940749168395996,
+        "premeasurement_prediction_V2_ml": 11.747601509094238,
+        "premeasurement_error_V1_ml": -0.33425092697143555,
+        "premeasurement_error_V2_ml": 0.5309352874755859
+      },
+      {
+        "id": "c4b5a5499258f39b7ac1",
+        "smiles": "COc1cccc(OC)c1C=O",
+        "conditions": {
+          "PE/EA": "5/1",
+          "Density g/ml": 1.0,
+          "V/ul": 100.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 500
+        },
+        "V1_ml": 33.06666564941406,
+        "V2_ml": 72.46666717529297,
+        "record_kind": "acquired_with_premeasurement_prediction",
+        "premeasurement_prediction_V1_ml": 16.39466667175293,
+        "premeasurement_prediction_V2_ml": 32.11085891723633,
+        "premeasurement_error_V1_ml": -16.671998977661133,
+        "premeasurement_error_V2_ml": -40.35580825805664
+      },
+      {
+        "id": "549daca56bed1c9d2bcc",
+        "smiles": "COc1cccc(OC)c1C=O",
+        "conditions": {
+          "PE/EA": "5/1",
+          "Density g/ml": 1.0,
+          "V/ul": 150.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 42.266666412353516,
+        "V2_ml": 74.04166412353516,
+        "record_kind": "acquired_with_premeasurement_prediction",
+        "premeasurement_prediction_V1_ml": 16.391613006591797,
+        "premeasurement_prediction_V2_ml": 32.11689758300781,
+        "premeasurement_error_V1_ml": -25.87505340576172,
+        "premeasurement_error_V2_ml": -41.924766540527344
+      },
+      {
+        "id": "00043aebb2540e369a7b",
+        "smiles": "COc1cccc(OC)c1C=O",
+        "conditions": {
+          "PE/EA": "1/1",
+          "Density g/ml": 1.0,
+          "V/ul": 50.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 9.25,
+        "V2_ml": 18.350000381469727,
+        "record_kind": "acquired_with_premeasurement_prediction",
+        "premeasurement_prediction_V1_ml": 7.390712261199951,
+        "premeasurement_prediction_V2_ml": 20.741928100585938,
+        "premeasurement_error_V1_ml": -1.8592877388000488,
+        "premeasurement_error_V2_ml": 2.391927719116211
+      },
+      {
+        "id": "780b13846ace50ede763",
+        "smiles": "COc1cccc(OC)c1C=O",
+        "conditions": {
+          "PE/EA": "5/1",
+          "Density g/ml": 1.0,
+          "V/ul": 50.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 42.266666412353516,
+        "V2_ml": 69.70833587646484,
+        "record_kind": "acquired_with_premeasurement_prediction",
+        "premeasurement_prediction_V1_ml": 35.283973693847656,
+        "premeasurement_prediction_V2_ml": 70.5115737915039,
+        "premeasurement_error_V1_ml": -6.982692718505859,
+        "premeasurement_error_V2_ml": 0.8032379150390625
+      },
+      {
+        "id": "761c3f82d640da44966c",
+        "smiles": "COc1cccc(OC)c1C=O",
+        "conditions": {
+          "PE/EA": "5/1",
+          "Density g/ml": 1.0,
+          "V/ul": 50.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 500
+        },
+        "V1_ml": 39.50833511352539,
+        "V2_ml": 67.69999694824219,
+        "record_kind": "acquired_with_premeasurement_prediction",
+        "premeasurement_prediction_V1_ml": 35.280799865722656,
+        "premeasurement_prediction_V2_ml": 70.51219177246094,
+        "premeasurement_error_V1_ml": -4.227535247802734,
+        "premeasurement_error_V2_ml": 2.81219482421875
+      },
+      {
+        "id": "eb36ddda7c31d7efdac5",
+        "smiles": "OCc1cccc(Br)c1",
+        "conditions": {
+          "PE/EA": "1/1",
+          "Density g/ml": 1.56,
+          "V/ul": 100.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 7.775000095367432,
+        "V2_ml": 12.491666793823242,
+        "record_kind": "acquired_with_premeasurement_prediction",
+        "premeasurement_prediction_V1_ml": 5.054482460021973,
+        "premeasurement_prediction_V2_ml": 10.464173316955566,
+        "premeasurement_error_V1_ml": -2.720517635345459,
+        "premeasurement_error_V2_ml": -2.027493476867676
+      },
+      {
+        "id": "4c32851430464f0ed684",
+        "smiles": "COc1cccc(OC)c1C=O",
+        "conditions": {
+          "PE/EA": "1/1",
+          "Density g/ml": 1.0,
+          "V/ul": 100.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 300
+        },
+        "V1_ml": 7.5,
+        "V2_ml": 20.46666717529297,
+        "record_kind": "acquired_with_premeasurement_prediction",
+        "premeasurement_prediction_V1_ml": 8.95760440826416,
+        "premeasurement_prediction_V2_ml": 23.40518569946289,
+        "premeasurement_error_V1_ml": 1.4576044082641602,
+        "premeasurement_error_V2_ml": 2.938518524169922
+      },
+      {
+        "id": "9bd998a328b109ef639e",
+        "smiles": "COc1cccc(OC)c1C=O",
+        "conditions": {
+          "PE/EA": "1/1",
+          "Density g/ml": 1.0,
+          "V/ul": 150.0,
+          "loading solvent": "DCM",
+          "Volume of loading solvent/ul": 500
+        },
+        "V1_ml": 14.066666603088379,
+        "V2_ml": 39.38333511352539,
+        "record_kind": "acquired_with_premeasurement_prediction",
+        "premeasurement_prediction_V1_ml": 6.831786632537842,
+        "premeasurement_prediction_V2_ml": 17.67752456665039,
+        "premeasurement_error_V1_ml": -7.234879970550537,
+        "premeasurement_error_V2_ml": -21.705810546875
+      }
+    ],
+    "evidence_boundary": "Feedback values revealed after freeze; cases are audits, not prospective scientific hypothesis validation.",
+    "following_selection_source": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_2357/free_llm32_scientist_v2/round_11/selection.json",
+    "following_feedback_interpretation": "Recent outcomes confirm that m125 has a substantial recorded loading-solvent-volume effect at both tested sample loadings. The m207 results remain irregular across loading, so the current batch uses matched local designs without assuming monotonicity. The m208 and m209 outcomes weaken a generic steep phenol extrapolation because some weak-eluent completion predictions were too high while another m209 branch remained underpredicted. Recent m21, m85, and m26 measurements also support scaffold-specific carbonyl and linkage corrections. The new reasoning therefore prioritizes local response curves, modest controls, and failure regions where the model repeatedly compresses late retention.",
+    "following_choices_same_molecules": []
+  }
+]

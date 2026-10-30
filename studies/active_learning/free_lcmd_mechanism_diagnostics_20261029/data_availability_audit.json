@@ -1,0 +1,132 @@
+{
+  "status": "COMPLETE_WITH_EXPLICIT_STRUCTURAL_NA",
+  "reporting_only": true,
+  "repository_head": "fbf4efa9efe251a22c3865d15718e149a38eeb7d",
+  "remote_main": "fbf4efa9efe251a22c3865d15718e149a38eeb7d",
+  "required_inputs": [
+    {
+      "path": "docs/NEXT_STAGE_DECISION.md",
+      "exists": true,
+      "sha256": "c359076e8165b4ba9fc35013933d01a3d5ed820a7fcc554617ba6fc198021a20"
+    },
+    {
+      "path": "reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md",
+      "exists": true,
+      "sha256": "be64b60c608510198a0f05758015741e8f458a946dfbfc6f5a1ba85696b025e2"
+    },
+    {
+      "path": "reports/free_lcmd_five_seeds_to1485_20261026/final_audit.json",
+      "exists": true,
+      "sha256": "39163b5894c864dd89de52ef9977de95b6885bfe9d78dac217a061c08f3fe532"
+    },
+    {
+      "path": "reports/free_llm_five_seeds_to1485_20261024/figures/validation_curves.json",
+      "exists": true,
+      "sha256": "ad789470ca76b6a98ab5eac191054a088c5f97a7bfd0800a0e4ec1eb63b97115"
+    },
+    {
+      "path": "src/qgeognn_al/active_learning_v2/scientist_study.py",
+      "exists": true,
+      "sha256": "5371e429f9d15db5c11c6e6842c08f5d4bbbc8361400004065e50a50eafdbed8"
+    },
+    {
+      "path": "src/qgeognn_al/active_learning_v2/scientist_selector.py",
+      "exists": true,
+      "sha256": "7a7df9382345add4fbf1a76a50ed8bb85f5726d7fe0ae8f2ea41503261509dc1"
+    },
+    {
+      "path": "src/qgeognn_al/active_learning_v2/lcmd.py",
+      "exists": true,
+      "sha256": "9c0ede83a898394aa501815f7ae3641bc5f16c7c0343e75ac0a72cecf726e67d"
+    }
+  ],
+  "runtime_hash_audit": "runtime_integrity_audit.json",
+  "runtime_source_hash_manifest": "runtime_source_hashes.json",
+  "geometry_audit": "geometry_availability.json",
+  "geometry_contract_robustness_audit": "geometry_contract_robustness_audit.json",
+  "behavior_audit": "behavior_data_audit.json",
+  "matched_condition_probe": {
+    "audit": "matched_condition_geometry_probe.json",
+    "rows": 72,
+    "seeds": [
+      157,
+      887
+    ],
+    "labels_before": [
+      333,
+      653,
+      973,
+      1293
+    ],
+    "scope": "representative frozen states; not all five seeds or all rounds",
+    "new_model_or_gradient_computation": false,
+    "units_and_perturbation_ranges_not_equalized": true
+  },
+  "curves": {
+    "verified_fits": 370,
+    "seed_count": 5,
+    "methods": 2,
+    "points_per_trajectory": 37,
+    "runtime_equals_frozen_snapshot": true,
+    "frozen_original_normalization_retained": true
+  },
+  "selections": {
+    "verified_batches": 360,
+    "selected_records": 11520,
+    "unique_trajectory_round_keys": 360
+  },
+  "gradient_banks": {
+    "raw_free": 180,
+    "raw_lcmd": 180,
+    "cw_free": 180,
+    "cw_lcmd": 0,
+    "checkpoint_hashes_verified_for_each_state": 360
+  },
+  "limitations": [
+    {
+      "metric": "LCMD CW geometry",
+      "missing_batches": 180,
+      "reason": "No frozen CW bank; non-invertible raw CountSketch cannot reconstruct CW; no recomputation performed."
+    },
+    {
+      "metric": "LCMD history residual proximity",
+      "missing_batches": 180,
+      "reason": "The audited LCMD selection/receipt sources lack per-batch measured feedback payloads; hashes cannot recover values. No full truth table or foreign trajectory substituted."
+    },
+    {
+      "metric": "Free r0 historical acquisition residual",
+      "missing_batches": 5,
+      "reason": "Initial L333 has no acquisition-time out-of-sample residual; NA, not zero."
+    },
+    {
+      "metric": "CW causal contribution",
+      "reason": "Observational exposure and text/behavior associations cannot identify contribution; NoCW experiment required."
+    }
+  ],
+  "behavior_completeness_details": {
+    "status": "PASS_360_BATCHES_11520_SELECTED_RECORDS",
+    "batch_count": 360,
+    "selected_record_count": 11520,
+    "unique_metadata_ids": 4162,
+    "unique_molecules_in_eligible_metadata": 217,
+    "id_mapping": "exact sample_id -> frozen catalog smiles + five experimental conditions, never positional guesses",
+    "historical_truth_policy": "Only own Free catalog observed data and frozen selected Free feedback. No source response CSV, test truth, new label requests or predictions executed.",
+    "lcmd_residual_limitation": "All LCMD historical residual features NA; frozen receipts only prove reveal hashes. No reconstruction from full source or foreign trajectories.",
+    "morgan": {
+      "radius": 2,
+      "bits": 2048,
+      "metric": "Tanimoto",
+      "unique_molecule_cache": true
+    },
+    "scaffold_caveat": "Exact Bemis-Murcko scaffold is only a family proxy; acyclic molecules are kept distinct. Functional groups may overlap.",
+    "round_index": "0-based selection: 333+32*r labels before; evaluate improvement at the next fit",
+    "text_caveat": "Narrative string values only, excluding schema keys and identifier/reference fields. Regex indicators may still misclassify semantic context, negations and self-disclaims. Constant indicators yield NA correlation. Mention does not imply causal contribution.",
+    "statistics": "paired seed means (n=5); within-seed round correlations are descriptive only; no p-values"
+  },
+  "historical_model_version_confounding": "157/6101 retain Astra/high prefixes; pure Sol seed stratum has n=3 and is nonrandom",
+  "new_training": 0,
+  "new_llm_calls": 0,
+  "gradient_recomputation": 0,
+  "new_label_requests": 0,
+  "test_truth_read": false
+}

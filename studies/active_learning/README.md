@@ -4,6 +4,9 @@
 
 | 研究 | 状态与解释 |
 | --- | --- |
+| [NoCW 五种子消融](../../reports/nocw_progress_20261030/REPORT.md) | 目标 L1005；当前完成拟合、续跑授权及与历史策略的匹配预算曲线 |
+| [Free / LCMD 机制诊断](free_lcmd_mechanism_diagnostics_20261029/README.md) | 五种子完成轨迹的离线分析；不新增训练或 LLM 调用 |
+| [Hybrid loading-cap 审计](hybrid_loading_cap_audit_20261029/README.md) | 阶段 A 离线诊断完成；阶段 B 因反证门槛暂停 |
 | [当前五种子 Free / LCMD](../../reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md) | 目标 1485 标签；进度、共同预算曲线和全数据验证参考统一由本报告给出 |
 | [LLM Scientist V2](qgeognn_v2_row_llm_scientist_v2/README.md) | 保留冻结协议；当前 Free 跨版本来源链见当前报告 |
 | [双专家核验记录](../../reports/dual_expert_two_seeds_to1005_20261021/verified_final_status.json) | seed157 完成 1005；seed6101 到 525 后因连接失败停止 |

@@ -1,0 +1,29 @@
+{
+  "snapshot_time": "2026-10-30T15:06:20+08:00",
+  "status": "PASS",
+  "branch_policy": "main for active-learning LLM main experiments; no new branch unless user requests",
+  "offline_tests": [
+    {
+      "scope": "NoCW correction resume and streaming transport",
+      "passed": 22
+    },
+    {
+      "scope": "Free/LCMD mechanism diagnostics and report reader",
+      "passed": 31
+    },
+    {
+      "scope": "Hybrid loading-cap stage A diagnostics",
+      "passed": 41,
+      "subtests_passed": 5
+    }
+  ],
+  "diagnostic_artifact_hashes": {
+    "free_lcmd": 67,
+    "hybrid_loading_cap": 52
+  },
+  "retirement_audit": "PASS; recovery and retained paths verified; no violations",
+  "research_scope_audit": "PASS; frozen transfer archive unchanged",
+  "no_training_or_model_calls_for_publication": true,
+  "plot_visual_check": "PASS; both PNG figures inspected",
+  "no_frozen_source_protocol_or_test_modified": true
+}

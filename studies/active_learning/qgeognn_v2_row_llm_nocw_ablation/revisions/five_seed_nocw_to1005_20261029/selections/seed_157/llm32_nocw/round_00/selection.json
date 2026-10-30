@@ -1,0 +1,294 @@
+{
+  "type": "selection",
+  "packet_sha256": "7a6e340a393249352adbcb7d551dabbce4dc14b07b620c1a5e40fe4b3ba7c279",
+  "batch_strategy": "Combine controlled tests of questionable solvent-response shapes, first labels for chemically informative uncovered structures, and loading contrasts that distinguish V1 from V2 behavior. All 32 selections use the packet's frozen premeasurement predictions. Quantile widths serve only as secondary dispersion signals, not calibrated epistemic uncertainty. Initial L333 observations provide chemical and condition anchors, not out-of-sample error rankings.",
+  "choices": [
+    {
+      "id": "8641d0ec9c4b21727b9a",
+      "reason": "Measure m39 at 5/1 and 50 uL alongside its selected 20/1 counterpart. Predictions are 22.99/42.57 versus 16.56/41.46 mL, an inverted strength response for V1. The measured 1/1 anchor 162ffd9b0db1fd3c1509 establishes a much earlier regime.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "5524670e4337370c2ef6",
+      "reason": "Completes the m39 solvent comparison with sample amount, loading solvent and injection volume held fixed. It determines whether the predicted V1 inversion and nearly flat V2 are real local behavior or sparse-data interpolation artifacts.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "81ac865dd40a21b73e6d",
+      "reason": "The ortho-methoxyacetophenone prediction at 5/1 is 19.41/35.89 mL, substantially later than its predictions under weaker eluents. Together with the selected 20/1 low-load row and measured ebdeaba52880c7eade16 and 52b9af4df1f1e7cd4d9b, this constrains a questionable response curve.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "cfc3cd7290e349d095d4",
+      "reason": "First label for para-methoxyacetophenone, near-matched to the selected ortho analog at 5/1, 100 uL and DCM/300 uL. The predicted 13.41/30.90 mL tests whether ring position changes retention and curve shape beyond their almost identical loading amounts.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "8143c4fff6f999b7ad0e",
+      "reason": "Measures ortho-methoxyacetophenone at 20/1 and 50 uL against measured 150 uL row ebdeaba52880c7eade16. It also creates a same-load solvent comparison with measured 50/1 row 52b9af4df1f1e7cd4d9b, separating loading from the unusual onset pattern.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "7155ede91e7e3232862a",
+      "reason": "Adds the 10/1 point for the ether-containing aryl ketone m106. Measured ed763ea5943e63a671c9 at 1/1 and b1c5816f929ef59f5a87 at 20/1 span 6.22/10.54 to 41.72/79.81 mL at identical loading conditions; this label locates the steep transition.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "9cd02352c2ed7a3e2321",
+      "reason": "First quinoline label, at 10/1 with predicted 25.72/51.01 mL and observed-set similarity 0.407. Measured methylquinoline records b6229f0445560a4a54ed and 8436939a2a6a91fa470d provide related basic-aromatic anchors, but leave this scaffold and weaker-eluent response uncovered.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "4659b6752f23c0b85f08",
+      "reason": "Introduces a pyridyl ketone at 2/1. Its nicotinyl substitution pattern connects to the strongly retained pyridyl ester in c76d0420b34df595c0c9; the label tests transfer between ketone and ester environments around a basic ring nitrogen.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "304fb0fdb486ae4b7a07",
+      "reason": "The unseen tertiary aminoacrylate is predicted to elute at only 6.88/13.65 mL at 2/1, earlier than the neutral ether-acrylate prediction. This is a useful test of whether ester analogies miss amine-silanol interactions; nitrogen protonation is not assumed.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "6b7209c2e8154837a8c7",
+      "reason": "First para-aminoacetophenone label at 2/1 bridges the acetophenone and aminoaromatic families. Measured aminonitrile e12edd0198c0d750ecd5 and aminobenzoate ca6feb29f6758377a65f motivate learning nitrogen context rather than assigning all amino groups one retention effect.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "70593725787c65a74951",
+      "reason": "Adds para ethyl aminobenzoate at 2/1 and 100 uL. With the selected ortho isomer and measured meta isomer ca6feb29f6758377a65f, it expands positional coverage at a common mobile-phase ratio; recorded loading-solvent differences remain relevant predictors.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "b4af5b2a9ead4e589dee",
+      "reason": "Adds ortho ethyl aminobenzoate at 2/1, complementing its measured 5/1 records 18186b5d6cc190fc07a3 and 3aed7873d2fd1cf48684. The para choice and measured ortho methyl ester 04e994913bc43aa60007 help distinguish positional effects from ester and loading differences.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "776ee2c1e85ebde75168",
+      "reason": "First label for para-methoxyphenethyl alcohol at 5/1. Its selected benzyl-alcohol counterpart has the same donor/acceptor counts and similar LogP, yet predictions differ by about 4 mL in V1 and 5 mL in V2. This tests transferable effects of donor spacing.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "e4fd83fb3852eb354a66",
+      "reason": "Completes the methoxybenzyl/phenethyl alcohol comparison at 5/1, 100 uL and DCM/300 uL, with a small recorded mass difference. Existing alcohol records 8294d63723a29bc21a6b and 53c1be5b96937954b9fa supply related silica-interaction examples without covering these ether/alcohol combinations.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "a7bc3fb68bdecbbe086f",
+      "reason": "First methoxy-substituted salicylaldehyde label at 10/1. It tests the combined influence of an ortho donor-carbonyl environment and an additional ether, using measured salicylaldehyde f6b05afc9acf85dffb0f as a related anchor. Intramolecular hydrogen bonding remains a hypothesis.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "6b5982c6e1bbaadd6a95",
+      "reason": "Measures the oxime at 10/1, where prediction is 19.50/43.54 mL. Its only measured anchor c219b2fe4227fb602c44 is pure EA at 4.00/8.73 mL. This supplies the missing condition response for a donor/acceptor arrangement unlike ordinary alcohols or ketones.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "5067c9cd9f20d14c426f",
+      "reason": "Tests the pure-EA methyl-salicylate prediction of 6.54/20.66 mL against a selected, otherwise identical 1/1 experiment. The predicted completion volume is unusually larger under the stronger eluent; measured 23a5d9abd2b0db31a8d6 anchors the nearby 2/1 regime.",
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "4b2c37e7fb416a420eab",
+      "reason": "Provides the exact loading-matched 1/1 control for the selected pure-EA methyl-salicylate row. Measuring both endpoints distinguishes a true local response from a pure-EA model artifact rather than extrapolating from the measured 10/1 records.",
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "04ecdea4151183669394",
+      "reason": "Tests whether the same pure-EA completion-volume anomaly transfers to bromosalicylaldehyde. Prediction is 5.95/26.56 mL; measured 47328994eb7953d68919 at 1/1 has identical 50 uL loading and DCM/800 uL conditions, giving a direct reference.",
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "40fd02db79e028fe05a9",
+      "reason": "First diethyl-malonate label at 20/1 tests the predicted 30.75/49.30 mL response of two ester groups. Measured acetylenic diester a93680d827624e459a39 and beta-ketoester records provide contrasting carbonyl arrangements, making this informative beyond simple oxygen-count coverage.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "c6924324ddd95f249df6",
+      "reason": "First methoxyethyl acetoacetate label at 5/1 and 50 uL. The predicted 23.62/41.47 mL is substantially later than measured methyl acetoacetate cd566862a517dd7cdc8d at the same ratio and sample volume, testing the effect of an additional ether and changed ester substituent.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "9e3f598e00375ec93d9b",
+      "reason": "Introduces a multifunctional methacrylate/beta-ketoester with five acceptors at 10/1. It tests whether distributed polar groups transfer from simpler acetoacetate observations such as cd566862a517dd7cdc8d, rather than being treated as interchangeable with a compact diester.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "28d8efb10e9abe6740a6",
+      "reason": "First label for the low-similarity cyano ketone, similarity 0.276, at 5/1. It tests transfer of the nitrile-plus-ketone motif from aromatic compound b3d9bb5afa82b99f2a11 while adding a sterically different aliphatic environment and a moderate predicted retention regime.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "351c17dfa8f46a8cb40a",
+      "reason": "First acetoxybenzaldehyde label at 10/1, predicted 14.85/37.30 mL. Its aldehyde-plus-acetate arrangement connects common aromatic aldehyde and ester families while differing from beta-ketoesters with the same acceptor count, providing useful structural discrimination.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "bae9d67e095423d8edd2",
+      "reason": "First para-dialdehyde label at 10/1 tests how a second accessible aromatic carbonyl changes onset and completion. Related aromatic aldehyde observations, including 783cf2454912fc14bb80, establish retention responses but do not identify this two-aldehyde relationship.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "aa83ae83c0fa0cc37777",
+      "reason": "First sulfoxide label, with similarity 0.353 and predicted 5.82/16.90 mL at 10/1. Strong dipolar silica interactions are a chemical prior, so this comparatively early prediction is a valuable test of sulfur oxidation-state transfer rather than a demonstrated model error.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "9de8f9fed06ef9d5befa",
+      "reason": "Introduces para-nitroacetophenone into the well-populated acetophenone family. At 5/1, comparison with measured nitrobenzaldehyde 6ae922f63e983b14e320, while retaining loading differences, tests transfer between electronically modified aldehyde and ketone acceptor environments.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "279654c9a255466c0dfa",
+      "reason": "Adds an unseen bis-CF3 aryl bromide in the short-retention region. Prediction is only 1.81/9.21 mL even at 50/1; measured nonpolar aryl-halide example 616dd888d5b03ea79005 provides context. This probes structural transfer where novelty need not produce long retention.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "f73fd2f4c55177304721",
+      "reason": "First mesityl-ketone label at 50/1 tests carbonyl accessibility in a sterically shielded aromatic ketone. Its predicted V1 is 4.39 mL versus 12.77 mL for the acetophenone candidate at the same ratio; measured branched-ketone row 533e50b0595be82d2716 supplies another relevant anchor.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "e9a7d193dc3d83532c1f",
+      "reason": "Low-load member of a matched 50/1 fluorinated diketone pair. At 10/1, measured ea9ef1bc8766196ca96d and 20acd2ae49790ab82053 differ in V2 by 8.14 mL between 50 and 150 uL. The current 50/1 predictions are nearly load-invariant, making this a discriminating test.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "0b9a59526d7d4ce5f872",
+      "reason": "High-load member of the same 50/1 pair, with DCM/300 uL held fixed. Together with the measured 10/1 loading pair, it forms a strength-by-loading comparison that can teach whether increased sample amount shifts onset, completion or both.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "994a1f65509549a84ede",
+      "reason": "Closes a small alcohol condition/loading comparison: measured 067260cef0fb89f79291 is 5/1 at 150 uL and 859ae738b615cf17b849 is 10/1 at 100 uL. Measuring 5/1 at 100 uL separates solvent response from loading in a compound with early measured onset and a broad elution interval.",
+      "hypothesis_id": "H7"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Some oxygenated aromatic compounds have steep solvent responses that sparse observations may distort into predicted inversions or plateaus. The m39 and ortho-methoxyacetophenone curves need direct labels before their shapes can be trusted.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "162ffd9b0db1fd3c1509",
+        "ebdeaba52880c7eade16",
+        "52b9af4df1f1e7cd4d9b",
+        "ed763ea5943e63a671c9",
+        "b1c5816f929ef59f5a87"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Solvent strength affects many rows per molecule. Correcting a response shape, or confirming an unexpected one, can improve interpolation across numerous related conditions and aromatic carbonyl structures.",
+      "next_discriminating_question": "Do matched m39 measurements preserve the predicted 5/1-to-20/1 inversion, and do ortho/para methoxy ketones show different response shapes after accounting for recorded loading?"
+    },
+    {
+      "id": "H2",
+      "content": "Nitrogen type, accessibility and aromatic substitution affect silica retention beyond HBA count or TPSA. Transfer among pyridines, quinolines, arylamines and tertiary aminoesters is not established by the existing nitrogen-containing labels.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "c76d0420b34df595c0c9",
+        "bd2e9fee67bbba1155df",
+        "8436939a2a6a91fa470d",
+        "04e994913bc43aa60007",
+        "ca6feb29f6758377a65f"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The observed nitrogen families span markedly different retention regimes. First labels and positional comparisons can improve structure-condition transfer without assuming protonation states or treating every nitrogen identically.",
+      "next_discriminating_question": "Does the tertiary aminoacrylate retain as weakly as predicted, and how do pyridyl ketones and aminoaromatic positional isomers behave under the selected mobile phases? Loading-solvent differences limit strict causal attribution."
+    },
+    {
+      "id": "H3",
+      "content": "Donor spacing and neighboring acceptors influence retention differently from donor count alone. Ether/alcohol combinations, ortho-hydroxy aldehydes and oximes may require distinct solvent-response representations.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "8294d63723a29bc21a6b",
+        "53c1be5b96937954b9fa",
+        "c627405cf70a0daacc94",
+        "c219b2fe4227fb602c44",
+        "f6b05afc9acf85dffb0f"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "These measurements connect several uncovered donor environments to existing alcohol and hydroxycarbonyl records. They can teach effects of local structure and spacing while testing whether the oxime's response transfers from its sole strong-eluent observation.",
+      "next_discriminating_question": "Is the predicted benzyl-versus-phenethyl alcohol difference reproducible, and do the oxime and methoxy salicylaldehyde follow their predicted intermediate-strength responses?"
+    },
+    {
+      "id": "H4",
+      "content": "Carbonyl arrangement, possible enolization, steric environment and additional ethers may produce different adsorption responses in beta-ketoesters, malonates, acetylenic diesters and cyano ketones. Oxygen or acceptor count alone is insufficient as a working explanation.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "3fc05dc2025715e68174",
+        "cd566862a517dd7cdc8d",
+        "3ad8ec5752f3c638e2ff",
+        "a93680d827624e459a39"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The catalog contains many related ester and carbonyl rows. Labels that discriminate their arrangements can improve transferable molecular representations rather than only extend individual condition curves.",
+      "next_discriminating_question": "Do the malonate and ether-containing acetoacetates exhibit the predicted elevated retention, and does the aliphatic cyano ketone remain comparatively early? Any tautomeric explanation would remain unverified."
+    },
+    {
+      "id": "H5",
+      "content": "Accessible polar acceptors are not interchangeable across nitro, nitrile, aldehyde, acetate and sulfoxide environments. Their effects on V1 and V2 may differ even when coarse descriptors are similar.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "b3d9bb5afa82b99f2a11",
+        "3e69cf586f3eb0f0fa8c",
+        "6ae922f63e983b14e320",
+        "783cf2454912fc14bb80"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "The selected new structures connect dense aromatic carbonyl families to sparse functional-group combinations. The sulfoxide specifically tests a sulfur environment with little direct measured support.",
+      "next_discriminating_question": "Which of the predicted nitroketone, dialdehyde, acetoxy-aldehyde and sulfoxide retention scales transfer correctly from existing aromatic acceptor examples?"
+    },
+    {
+      "id": "H6",
+      "content": "Steric shielding and highly lipophilic substitution can yield low onset volumes that should not be inferred from heteroatom counts alone. The mesityl ketone and bis-CF3 aryl bromide predictions are useful tests of this structural transfer.",
+      "basis": "mixed",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "These probes cover short-retention rows and blocked carbonyl environments, balancing the batch's emphasis on polar compounds. They test possible representation blind spots without assuming molecular novelty implies large error.",
+      "next_discriminating_question": "Are the very early predicted onsets at 50/1 valid for these unseen structures, and does the mesityl ketone's completion volume remain substantially separated from its onset?"
+    },
+    {
+      "id": "H7",
+      "content": "Loading effects can be scaffold- and endpoint-dependent. The predictor's nearly unchanged outputs across sample volumes may miss effects on earlier onset or later completion, although measurement variation is an alternative explanation.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "ea9ef1bc8766196ca96d",
+        "20acd2ae49790ab82053",
+        "4589cfb6a0563df83dd6",
+        "d2d36d9586f3f49acd5d",
+        "067260cef0fb89f79291",
+        "859ae738b615cf17b849"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Loading varies throughout the Row-distribution. Controlled contrasts can teach the density-times-volume feature and its interaction with solvent strength, while learning V1 and V2 separately rather than interpreting interval width as uncertainty.",
+      "next_discriminating_question": "Does the fluorinated diketone show a similar loading response at 50/1 as at measured 10/1, and do the ketone and alcohol comparisons resolve apparent loading-versus-strength confounding?"
+    },
+    {
+      "id": "H8",
+      "content": "Pure-EA predictions for selected ortho-hydroxycarbonyl compounds show unexpectedly larger completion volumes than stronger-mixture intuition would suggest. This is an unconfirmed model pattern that may reflect artifacts or genuine endpoint-specific behavior.",
+      "basis": "model_behavior",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Pure EA is a common catalog condition. A matched methyl-salicylate comparison and a bromosalicylaldehyde transfer test can reveal whether this predicted pattern generalizes and requires additional labels.",
+      "next_discriminating_question": "At fixed loading, is methyl salicylate's measured V2 larger in pure EA than at 1/1, and does bromosalicylaldehyde show the same effect relative to its measured 1/1 reference?"
+    }
+  ],
+  "feedback_interpretation": "",
+  "batch_rationale": "The batch targets relationships likely to transfer across the supplied Row-distribution. New labels cover nitrogen environments, donor spacing, carbonyl arrangements, sulfur oxidation state and sterically different short-retention structures. Local experiments add stronger discrimination: two m39 solvent conditions test a predicted inversion; ortho/para methoxy ketones connect structure to response shape; aminobenzoates expand positional comparisons; matched pure-EA controls examine a recurring prediction anomaly; and the fluorinated diketone pair extends an existing loading comparison to another solvent strength. The additional ortho-ketone and alcohol rows separate loading from solvent changes using measured anchors. Multiple rows per molecule are reserved for these interpretable comparisons, with no identical experiment tuples repeated. Quantile dispersion informed attention but did not determine the selections. Acid-base interactions, hydrogen bonding, shielding and enolization are working chemical priors; unrecorded experimental details and measurement variation may also explain unexpected results. Measuring both endpoints across these contrasts should help retraining learn transferable structure-condition relationships rather than merely reinforce already similar rows."
+}

@@ -1,0 +1,202 @@
+{
+  "request_sha256": "060cf739d46ee8e1a9c2db08e5584acff3eb60c17514af754e77c7a50b10b539",
+  "success": true,
+  "answer": "{\n  \"type\": \"selection\",\n  \"packet_sha256\": \"4e5bd92a3dcac8ef292f7cdf4b87171b1eeb4d30a9f30438da882aa04868f4f9\",\n  \"batch_strategy\": \"Freeze 32 experiments and their supplied point predictions. Prioritize crossed condition experiments, unresolved solvent-response shapes and connected structural comparisons, with exploration concentrated where it can test transfer across substantial ester, ether and aromatic-carbonyl neighborhoods.\",\n  \"choices\": [\n    {\n      \"id\": \"69b09343d0b9995c3ae4\",\n      \"reason\": \"2,6-Dimethoxybenzaldehyde, 2/1, 100 uL sample in 500 uL DCM. Frozen prediction V1/V2: 20.577983856201172/42.75478744506836 mL. Together with the other selected corner, separates sample-volume and loading-solvent-volume associations behind c8d43713db33bf820a1d versus facbcedbecb46072b04c, whose measured completions differ by 40.23 mL.\",\n      \"hypothesis_id\": \"H7\"\n    },\n    {\n      \"id\": \"19f19f196ba5787a01b0\",\n      \"reason\": \"2,6-Dimethoxybenzaldehyde, 2/1, 150 uL sample in 300 uL DCM. Frozen prediction V1/V2: 20.569570541381836/42.75129318237305 mL. Completes the crossed design with measured c8d43713db33bf820a1d and facbcedbecb46072b04c. The nearly identical predictions for the two missing corners leave competing loading explanations unresolved.\",\n      \"hypothesis_id\": \"H7\"\n    },\n    {\n      \"id\": \"2d178efe0181baca2bd5\",\n      \"reason\": \"Para-methoxybenzaldehyde, 50/1, 100 uL. Frozen prediction V1/V2: 40.407249450683594/70.6191177368164 mL. Loading matches fc27fa779102c4aeb8ab at 20/1 and 319e89d7000731f64e7f at 10/1. Tests weak-eluent extrapolation after both new 20/1 labels were historically underestimated, while their completion difference across sample loads was small.\",\n      \"hypothesis_id\": \"H7\"\n    },\n    {\n      \"id\": \"c3eb276f59965c3608f1\",\n      \"reason\": \"Dimethoxy-methylbenzene, 20/1, 100 uL. Frozen prediction V1/V2: 19.592287063598633/36.381858825683594 mL. Locates the rise toward measured 50/1 f38088920e6edd19a62f, 31.82/55.57 mL. Paired with trimethoxybenzene at the same composition and loading setup, tests whether the newly corrected weak-eluent structural ranking transfers into interpolation.\",\n      \"hypothesis_id\": \"H5\"\n    },\n    {\n      \"id\": \"8f7bcdb92b0cd7acad94\",\n      \"reason\": \"Trimethoxybenzene, 20/1, 100 uL. Frozen prediction V1/V2: 13.586956024169922/19.564870834350586 mL. Loading matches 50/1 observation ce39d1762993bbbafaca. Alongside selected dimethoxy-methylbenzene, tests the predicted intermediate structural contrast after the earlier weak-eluent ranking was contradicted; densities differ between molecules.\",\n      \"hypothesis_id\": \"H5\"\n    },\n    {\n      \"id\": \"c6159dcb5802e62284d1\",\n      \"reason\": \"Para-dimethoxybenzene, 50/1, 100 uL. Frozen prediction V1/V2: 17.04566764831543/26.67011260986328 mL. Adds a common-composition, common-sample-volume reference to ce39d1762993bbbafaca and f38088920e6edd19a62f. Its 400 uL DCM volume differs from their 300 uL, so this tests conditional structural transfer rather than isolating ether count.\",\n      \"hypothesis_id\": \"H5\"\n    },\n    {\n      \"id\": \"92212e7e2eb760820a7b\",\n      \"reason\": \"Methoxyethyl acetoacetate, pure EA, 100 uL. Frozen prediction V1/V2: 5.288253307342529/8.08759880065918 mL. Loading matches 1/1 observation 60b7eed7a46a03b366b2, measured 10.82/27.16 mL. Tests the predicted sharp final contraction after completion remained historically underestimated at 1/1, distinguishing this ether-containing ketoester from other strong-eluent responses.\",\n      \"hypothesis_id\": \"H4\"\n    },\n    {\n      \"id\": \"c86b03e1b275528444a6\",\n      \"reason\": \"Methoxyethyl acrylate, 5/1, 100 uL. Frozen prediction V1/V2: 18.217073440551758/36.80018615722656 mL. Predicted completion exceeds the measured 10/1 value of 34.90 mL in 5695d3c04943153386bb, whereas onset contracts. Tests an unconfirmed endpoint-specific response and transfer from the much more retained methoxyethyl acetoacetate; that 10/1 anchor used 50 uL.\",\n      \"hypothesis_id\": \"H4\"\n    },\n    {\n      \"id\": \"b21061720e23b7a5bdcb\",\n      \"reason\": \"Para-aminobenzonitrile, 2/1, 50 uL. Frozen prediction V1/V2: 15.288311958312988/33.92457580566406 mL. Loading matches 1/1 observation a8ae74aecb3b1e85b73c and the selected 5/1 experiment. Measuring both directly tests the predicted 2/1-later-than-5/1 response instead of inferring a nitrogen correction from one anchor.\",\n      \"hypothesis_id\": \"H2\"\n    },\n    {\n      \"id\": \"ad833f34f6b91872362d\",\n      \"reason\": \"Para-aminobenzonitrile, 5/1, 50 uL. Frozen prediction V1/V2: 9.690484046936035/28.369688034057617 mL. Paired with the selected loading-matched 2/1 point, discriminates a real response inversion from interpolation failure. The related meta isomer has measured 2/1 evidence in e12edd0198c0d750ecd5 and is also selected at 5/1.\",\n      \"hypothesis_id\": \"H2\"\n    },\n    {\n      \"id\": \"a60552f4d1a5ced4641f\",\n      \"reason\": \"Meta-aminobenzonitrile, 5/1, 50 uL. Frozen prediction V1/V2: 8.372466087341309/25.642786026000977 mL. Loading matches e12edd0198c0d750ecd5 at 2/1, measured 14.22/31.49 mL. Tests the same predicted response inversion in a positional isomer and provides a controlled comparison with selected para-aminobenzonitrile.\",\n      \"hypothesis_id\": \"H2\"\n    },\n    {\n      \"id\": \"74c8fcd8ac3f6caedcd2\",\n      \"reason\": \"2,6-Lutidine, 5/1, 100 uL. Frozen prediction V1/V2: 15.684542655944824/39.489532470703125 mL. Resolves the intermediate response between 8436939a2a6a91fa470d and 6f548d72f01fc85debdc after the latter exposed a 22.74 mL historical completion underestimate. Both measured anchors used 150 uL, retained as a loading covariate.\",\n      \"hypothesis_id\": \"H2\"\n    },\n    {\n      \"id\": \"9a60cb4735780275034e\",\n      \"reason\": \"Diethylaminoethyl acrylate, 1/1, 100 uL. Frozen prediction V1/V2: 7.717958927154541/16.53993034362793 mL. Loading matches 2/1 observation 304fb0fdb486ae4b7a07, measured 16.43/32.81 mL. Tests the predicted contraction for an aliphatic tertiary amine with an ester, extending nitrogen response learning beyond pyridines and dibenzylamine.\",\n      \"hypothesis_id\": \"H2\"\n    },\n    {\n      \"id\": \"33ffc69a253a89f15995\",\n      \"reason\": \"Quinoline, 5/1, 100 uL. Frozen prediction V1/V2: 29.12233543395996/53.092384338378906 mL. Loading matches measured e7bf6bd74f8498f1cb11 at 2/1 and 9cd02352c2ed7a3e2321 at 10/1. Tests interpolation and transfer of the now better constrained methylquinoline curve without assuming its retention scale applies unchanged.\",\n      \"hypothesis_id\": \"H2\"\n    },\n    {\n      \"id\": \"246c01e213831d66a856\",\n      \"reason\": \"Para-nitrobenzaldehyde, 1/1, 100 uL. Frozen prediction V1/V2: 5.281673431396484/20.181324005126953 mL. Exactly matches loading of 2/1 observation f9564b598f30f816ac19, measured 5.52/16.05 mL. Tests a predicted completion rebound with little onset change and supplies an independent scaffold check for the selected nitrobenzophenone pair.\",\n      \"hypothesis_id\": \"H8\"\n    },\n    {\n      \"id\": \"61764a2e9f71f1caa18e\",\n      \"reason\": \"Para-nitrobenzophenone, 1/1, 100 uL. Frozen prediction V1/V2: 7.9674530029296875/29.91801643371582 mL. The selected loading-matched 2/1 experiment has earlier predicted endpoints; measured 5/1 record 76643e968ecc935c745c also completed earlier, at 20.42 mL, but used 150 uL. Tests whether this unusual predicted strong-eluent shape is supported.\",\n      \"hypothesis_id\": \"H8\"\n    },\n    {\n      \"id\": \"bd76c7bdcd3681374617\",\n      \"reason\": \"Para-nitrobenzophenone, 2/1, 100 uL. Frozen prediction V1/V2: 6.533385753631592/21.653900146484375 mL. Completes the controlled 2/1-to-1/1 comparison. Both endpoints are needed to distinguish a completion-specific rebound from a general retention-scale error and to constrain transfer across nitro aldehyde and ketone rows.\",\n      \"hypothesis_id\": \"H8\"\n    },\n    {\n      \"id\": \"e91423e4955526580753\",\n      \"reason\": \"First ethyl 2-bromopropionate label, 20/1, 50 uL. Frozen prediction V1/V2: 11.04977035522461/19.051870346069336 mL. Paired with ethyl 2-bromoisobutyrate under the same solvent setup, tests alpha-substitution effects on ester retention. Related measured bromoester records include 7387be9709aeda9b4fa4 and 76afed5c6eacb2ec8cd1; densities differ.\",\n      \"hypothesis_id\": \"H4\"\n    },\n    {\n      \"id\": \"7f4f6bad0930976deaf5\",\n      \"reason\": \"Ethyl 2-bromoisobutyrate, 20/1, 50 uL. Frozen prediction V1/V2: 8.13528060913086/12.97033977508545 mL. Loading matches 10/1 observation 7387be9709aeda9b4fa4. Supplies the condition anchor for interpreting the new less-substituted bromoester and tests the predicted lower retention associated with its changed alpha-carbon environment.\",\n      \"hypothesis_id\": \"H4\"\n    },\n    {\n      \"id\": \"f159b69487cebc7dcf97\",\n      \"reason\": \"First ethyl para-chlorobenzoate label, 40/1, 100 uL. Frozen prediction V1/V2: 9.581206321716309/19.648468017578125 mL. Tests methyl-to-ethyl benzoate transfer using methyl analogue 07f6d8c342b66a49bb4e and related ester observations as context. This moderate-retention exploration represents numerous ester rows; it does not presume a large error from novelty.\",\n      \"hypothesis_id\": \"H4\"\n    },\n    {\n      \"id\": \"21dff71e317a08aafbb2\",\n      \"reason\": \"First 2,4-dimethylbenzaldehyde label, 20/1, 100 uL. Frozen prediction V1/V2: 9.588032722473145/22.122539520263672 mL. Together with its selected 50/1 point and the ortho-tolualdehyde pair, tests predicted weak-eluent response differences among simple aromatic aldehydes. Ortho shielding and substitution are chemical priors, not established effects here.\",\n      \"hypothesis_id\": \"H1\"\n    },\n    {\n      \"id\": \"d626f5ddb709bc11257a\",\n      \"reason\": \"First ortho-tolualdehyde label, 20/1, 100 uL. Frozen prediction V1/V2: 6.714295864105225/17.24427604675293 mL. Starts a loading-matched two-composition curve alongside 2,4-dimethylbenzaldehyde. Tests structural transfer from observed aromatic aldehydes without propagating the large methoxybenzaldehyde correction as a common carbonyl offset.\",\n      \"hypothesis_id\": \"H1\"\n    },\n    {\n      \"id\": \"ae66743d0808a4a8cc80\",\n      \"reason\": \"First aryl/benzylic dibromide methoxybenzene label, 50/1, 100 uL. Frozen prediction V1/V2: 7.855511665344238/16.867568969726562 mL. Tests weak-eluent transfer within halogenated ethers after f38088920e6edd19a62f exposed a major failure for another substituted ether. Its 600 uL DCM loading volume remains a covariate; that failure does not establish an error here.\",\n      \"hypothesis_id\": \"H5\"\n    },\n    {\n      \"id\": \"5004f7ec0b1a4d127095\",\n      \"reason\": \"First bromo-iodo trifluoromethoxybenzene label, 50/1, 100 uL. Frozen prediction V1/V2: 7.857473373413086/17.782896041870117 mL. Tests transfer from measured trifluoromethoxy aryl iodide d8f34dc388842e55905b and early halogenated references. Adds a connected fluorinated-ether environment while guarding against excessive retention corrections learned from polyethers.\",\n      \"hypothesis_id\": \"H5\"\n    },\n    {\n      \"id\": \"abb2d31b1372dbd64398\",\n      \"reason\": \"Ortho-tolualdehyde, 50/1, 100 uL. Frozen prediction V1/V2: 9.004105567932129/21.467912673950195 mL. Completes its controlled 20/1-to-50/1 curve. The predicted rise is modest compared with selected 2,4-dimethylbenzaldehyde, so the pair can distinguish structural response-shape transfer from an arbitrary offset at a single new-molecule condition.\",\n      \"hypothesis_id\": \"H1\"\n    },\n    {\n      \"id\": \"b6dc1ec0dbd724128ce3\",\n      \"reason\": \"Benzosuberone, 10/1, 100 uL. Frozen prediction V1/V2: 5.368784427642822/16.302289962768555 mL. Loading matches 20/1 observation 8b8becd233748ccae9e3, whose onset was historically overpredicted by 11.07 mL while completion was much closer. Tests whether its relatively early onset persists across composition and differs from tetralone's response.\",\n      \"hypothesis_id\": \"H1\"\n    },\n    {\n      \"id\": \"f9bba2e75f16ebadb0eb\",\n      \"reason\": \"Methyl-substituted tetralone, 20/1, 100 uL. Frozen prediction V1/V2: 5.785758018493652/16.43951988220215 mL. Loading matches its measured 5/1 record 06c1f0c9b81146ac92c4. At the same composition, tetralone 1668026caa5d708642cf measured 13.52/30.38 mL. Tests the predicted large substitution effect, retaining density differences.\",\n      \"hypothesis_id\": \"H1\"\n    },\n    {\n      \"id\": \"2d11f1fe488a0c917ffe\",\n      \"reason\": \"1-Phenylpropan-1-ol, 10/1, 100 uL. Frozen prediction V1/V2: 12.403962135314941/29.754743576049805 mL. Loading matches its 20/1 anchor c627405cf70a0daacc94, measured 34.61/59.42 mL. Tests the predicted steep contraction and transfer between secondary benzylic alcohols, including the unusual onset records 859ae738b615cf17b849 and 994a1f65509549a84ede.\",\n      \"hypothesis_id\": \"H3\"\n    },\n    {\n      \"id\": \"7ec572e99922baa664e1\",\n      \"reason\": \"Para-methoxyphenethyl alcohol, pure EA, 50 uL. Frozen prediction V1/V2: 3.9404067993164062/9.079052925109863 mL. Loading matches the accurate acquired 2/1 comparison a775926fce57b3bf9ec1. Tests whether the strong-eluent contraction observed for both naphthyl alcohols extends to this ether-containing primary alcohol; its 1/1 anchor used 100 uL.\",\n      \"hypothesis_id\": \"H3\"\n    },\n    {\n      \"id\": \"ec6846c0f382476b5b10\",\n      \"reason\": \"Meta-bromobenzyl alcohol, 5/1, 100 uL. Frozen prediction V1/V2: 20.01980209350586/33.4744987487793 mL. Exactly matches loading of 10/1 ff3b6b1069b7d66ad021 and 2/1 8294d63723a29bc21a6b. Locates the response between those anchors after the weak-eluent completion remained underestimated, testing transfer from other benzyl and remote primary alcohols.\",\n      \"hypothesis_id\": \"H3\"\n    },\n    {\n      \"id\": \"667c85d13b14c7dcf547\",\n      \"reason\": \"1-Phenylcyclohexanol, 20/1, 150 uL. Frozen prediction V1/V2: 25.848934173583984/53.94794464111328 mL. Loading matches measured 5/1 eb151126b40eda411ab7, 9.52/14.71 mL. Tests the predicted weak-eluent rise for a constrained tertiary donor environment after 4fb92bd1fab3ba235858 showed that a different tertiary alcohol had been overpredicted.\",\n      \"hypothesis_id\": \"H3\"\n    },\n    {\n      \"id\": \"8b06ec38a7e5999edfa6\",\n      \"reason\": \"2,4-Dimethylbenzaldehyde, 50/1, 100 uL. Frozen prediction V1/V2: 15.456478118896484/32.98125457763672 mL. Completes its loading-matched curve and the common-composition comparison with selected ortho-tolualdehyde. Tests whether additional methyl substitution changes weak-eluent slope and endpoint spacing as predicted, providing transferable information across simple aromatic-carbonyl rows.\",\n      \"hypothesis_id\": \"H1\"\n    }\n  ],\n  \"hypotheses\": [\n    {\n      \"id\": \"H1\",\n      \"content\": \"Aromatic-carbonyl retention depends on structural environment in an endpoint-specific way. The measured fused-ring comparison differs more strongly in onset than a common offset would imply. Positional methyl substitution and steric environment are plausible extensions to test, not established explanations for the new aldehydes.\",\n      \"basis\": \"mixed\",\n      \"supporting_observed_ids\": [\n        \"8b8becd233748ccae9e3\",\n        \"1668026caa5d708642cf\",\n        \"06c1f0c9b81146ac92c4\",\n        \"73a35f890e678b320073\",\n        \"92f7fe9d8581717a9949\",\n        \"4c46ceefd6147b1e0a7a\"\n      ],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"high\",\n      \"status\": \"supported\",\n      \"why_it_matters_for_model_learning\": \"Connected ring-size, substitution and composition comparisons can improve transfer across abundant carbonyl rows while preventing corrections for one retained scaffold from spreading to early-eluting analogues.\",\n      \"next_discriminating_question\": \"Does benzosuberone retain its early onset at 10/1, is methyl-substituted tetralone much earlier than tetralone at 20/1, and do the two new aldehydes have different 20/1-to-50/1 slopes?\"\n    },\n    {\n      \"id\": \"H2\",\n      \"content\": \"Nitrogen environments require distinct solvent-response curves and separate onset/completion learning. The latest lutidine, dibenzylamine and methylquinoline outcomes support this distinction. The predicted aminobenzonitrile 2/1-later-than-5/1 response remains untested and may be an interpolation failure.\",\n      \"basis\": \"mixed\",\n      \"supporting_observed_ids\": [\n        \"6f548d72f01fc85debdc\",\n        \"8436939a2a6a91fa470d\",\n        \"89d752b5a7f7c8d0b91e\",\n        \"e0f2b47154fd134db700\",\n        \"cf36dbeee8bb51632d84\",\n        \"304fb0fdb486ae4b7a07\",\n        \"e12edd0198c0d750ecd5\",\n        \"a8ae74aecb3b1e85b73c\"\n      ],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"high\",\n      \"status\": \"supported\",\n      \"why_it_matters_for_model_learning\": \"The batch tests response direction in positional isomers and interpolation across several nitrogen environments, avoiding a shared retention correction based only on nitrogen presence or presumed basicity.\",\n      \"next_discriminating_question\": \"Are the aminonitrile inversions real, and do intermediate lutidine, quinoline and tertiary-amino acrylate labels support their current scaffold-specific curves?\"\n    },\n    {\n      \"id\": \"H3\",\n      \"content\": \"Alcohol response depends on donor environment and composition. The predicted naphthylethanol strong-eluent onset reversal was rejected: pure EA eluted much earlier than 1/1. This supports a strong boundary contraction for the measured naphthyl alcohols, while weak/intermediate transfer remains heterogeneous across other alcohols.\",\n      \"basis\": \"mixed\",\n      \"supporting_observed_ids\": [\n        \"988724a9391bf1618fda\",\n        \"2b10c90b32f970e4b4c8\",\n        \"18d13a057c8c8b316800\",\n        \"a775926fce57b3bf9ec1\",\n        \"b7b1a1bb666c8cc99bad\",\n        \"ff3b6b1069b7d66ad021\",\n        \"4fb92bd1fab3ba235858\"\n      ],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"high\",\n      \"status\": \"supported\",\n      \"why_it_matters_for_model_learning\": \"Boundary and intermediate labels can teach where contractions occur and how they transfer between benzylic, remote primary, secondary and constrained tertiary donor environments.\",\n      \"next_discriminating_question\": \"Does methoxyphenethyl alcohol contract similarly in pure EA, and are the predicted intermediate or weak-eluent scales correct for bromobenzyl, secondary benzylic and cyclic tertiary alcohols?\"\n    },\n    {\n      \"id\": \"H4\",\n      \"content\": \"Ester response cannot be inferred from acceptor count or a common long-retention correction. Recent ketoester outcomes differ in scale and endpoint behavior. Additional ether functionality, carbonyl arrangement and alpha substitution are plausible determinants whose transfer needs direct testing.\",\n      \"basis\": \"mixed\",\n      \"supporting_observed_ids\": [\n        \"60b7eed7a46a03b366b2\",\n        \"c6924324ddd95f249df6\",\n        \"143bf510fe2028583763\",\n        \"327064e6ca2c38d79d76\",\n        \"d21f08a7e8eaa163ecfc\",\n        \"57646b9484b03f4076bb\",\n        \"40fd02db79e028fe05a9\",\n        \"7387be9709aeda9b4fa4\"\n      ],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"high\",\n      \"status\": \"supported\",\n      \"why_it_matters_for_model_learning\": \"A boundary test, an ether-acrylate interpolation test and connected bromoester/benzoate exploration constrain several common ester neighborhoods without assigning an unsupported adsorption or tautomeric mechanism.\",\n      \"next_discriminating_question\": \"Does methoxyethyl acetoacetate complete near the predicted pure-EA boundary, does methoxyethyl acrylate actually show the predicted completion rebound at 5/1, and does alpha substitution transfer correctly in bromoesters?\"\n    },\n    {\n      \"id\": \"H5\",\n      \"content\": \"Weak-eluent aromatic-ether response is substitution-dependent. The earlier expectation that trimethoxybenzene would be later than dimethoxy-methylbenzene at 50/1 was contradicted: their measured endpoints were 22.94/36.12 and 31.82/55.57 mL, respectively. These conditional comparisons do not establish ether count as the cause.\",\n      \"basis\": \"mixed\",\n      \"supporting_observed_ids\": [\n        \"ce39d1762993bbbafaca\",\n        \"f38088920e6edd19a62f\",\n        \"4a49effd313865c10fae\",\n        \"0ae541927703401945de\",\n        \"e1820b06a1bf3612ff8c\",\n        \"c34f8af0b9b65f8bfc2e\",\n        \"8b9a55e63dd5e733dcb0\"\n      ],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"medium\",\n      \"status\": \"supported\",\n      \"why_it_matters_for_model_learning\": \"Intermediate measurements can determine whether retraining learned a transferable structure-by-composition interaction. Related halogenated and fluorinated ethers test the limits of that correction in earlier-retention regions.\",\n      \"next_discriminating_question\": \"Where do the two ether curves diverge between 5/1 and 50/1, and do para-dimethoxybenzene and the new halogenated ethers follow the predicted weak-eluent scales?\"\n    },\n    {\n      \"id\": \"H7\",\n      \"content\": \"The methoxy-aromatic records do not support one smooth universal loading response. At 2/1, the dimethoxybenzaldehyde discrepancy changes both sample and DCM volume; at 20/1, para-methoxybenzaldehyde shows a moderate onset difference but similar completion across 50 and 100 uL. Loading interactions and unrecorded run variation remain competing explanations.\",\n      \"basis\": \"mixed\",\n      \"supporting_observed_ids\": [\n        \"c8d43713db33bf820a1d\",\n        \"facbcedbecb46072b04c\",\n        \"24a9086a8e2c8015c232\",\n        \"fc27fa779102c4aeb8ab\",\n        \"319e89d7000731f64e7f\",\n        \"ea004678fc850c759752\",\n        \"a3ae677aae8a8faf5786\"\n      ],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"medium\",\n      \"status\": \"unresolved\",\n      \"why_it_matters_for_model_learning\": \"Completing missing factorial corners is more discriminating than adding another confounded contrast. It can reveal whether recorded loading features explain the discrepancy and limit unsupported propagation to other rows.\",\n      \"next_discriminating_question\": \"At 2/1, do the missing corners track sample volume, DCM volume, an interaction or neither, and does para-methoxybenzaldehyde's corrected 20/1 scale extrapolate to 50/1?\"\n    },\n    {\n      \"id\": \"H8\",\n      \"content\": \"The predicted 1/1 completion rebound for nitro aromatic carbonyls is unresolved. A related methyl benzoylformate comparison has a measured completion rebound, but also changes sample volume, so it cannot validate the nitro predictions. Matched measurements are needed before treating the current curves as either real behavior or model failure.\",\n      \"basis\": \"mixed\",\n      \"supporting_observed_ids\": [\n        \"f9564b598f30f816ac19\",\n        \"76643e968ecc935c745c\",\n        \"e93e08d6bc42e91e2679\",\n        \"9768d61b571fc0c5ce1a\"\n      ],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"low\",\n      \"status\": \"unresolved\",\n      \"why_it_matters_for_model_learning\": \"The selected matched pair and independent aldehyde check distinguish an endpoint-specific response from transfer artifacts. Either outcome can improve strong-eluent predictions without imposing monotonicity unsupported by the catalog.\",\n      \"next_discriminating_question\": \"Does nitrobenzophenone complete later at 1/1 than 2/1 under identical loading, and does nitrobenzaldehyde reproduce that completion direction with its measured 2/1 anchor?\"\n    }\n  ],\n  \"feedback_interpretation\": \"The latest outcomes changed both the hypotheses and the allocation. Naphthylethanol measured 6.01/10.57 mL in pure EA versus 18.27/33.28 at 1/1, rejecting the predicted onset reversal; naphthylmethanol also contracted strongly in pure EA. However, pyridyl propiophenone still completed at 21.09 mL in pure EA against a 7.43 mL acquisition prediction, so a universal strong-eluent collapse is unsupported. Dimethoxy-methylbenzene at 50/1 produced the largest recent ether failure, measuring 31.82/55.57 against 7.65/13.53 predicted, while trimethoxybenzene and anisole were much closer. I therefore test intermediate response and structural transfer rather than retain the previous weak-eluent ranking. The new loading-matched dimethoxybenzaldehyde point was much earlier than the older 2/1 record, but sample and DCM volumes differ between them; the missing factorial corners now have high discriminating value. Both para-methoxybenzaldehyde 20/1 labels were historically underestimated, yet their completions differed by only 1.57 mL, weakening a large general completion-versus-load explanation. Methylquinoline interpolation was comparatively close, dibenzylamine was earlier than predicted, and lutidine completion remained substantially underestimated. These outcomes favor scaffold-specific nitrogen follow-up. Methoxyethyl acetoacetate retained a completion underestimate at 1/1, whereas tert-butyl acetoacetate at 20/1 was earlier than predicted. The fused-ring ketone labels exposed greater onset than completion errors. Cinnamic acid's 5/1 completions were similar across DCM volumes, weakening a composition-independent loading-solvent-volume offset; its cause remains unresolved. Several new halogenated ketones, the branched chloride and chloroiodobenzene were comparatively accurate, reducing the case for more isolated novelty-only probes. All errors described here are acquisition-time errors, not current-model residuals.\",\n  \"batch_rationale\": \"The batch combines experiments that distinguish explanations with measurements that test transfer beyond the acquired scaffolds. The dimethoxybenzaldehyde factorial corners directly address confounded loading evidence. Paired ether intermediates, two new aldehyde response curves, the aminonitrile comparisons and the nitrobenzophenone pair constrain response direction and shape rather than only retention scale. Alcohol, lutidine, quinoline and ester measurements target unresolved transitions or boundaries after feedback showed heterogeneous correction transfer. Fused ketones test whether structural effects on onset and completion remain distinct. New bromoesters, a benzoate and halogenated ethers provide connected exploration in common, often earlier-retaining neighborhoods, helping protect that portion of the Row-distribution from excessive corrections learned from polar compounds. No identical experiment tuple is selected twice. All 32 IDs and their supplied point predictions are frozen in the reasons before measurement. Comparisons retain recorded density, sample volume, loading solvent and its volume as covariates where unmatched; density times sample volume is the loading feature, not an independent label. Selection targets expected improvement after retraining, not chromatographic performance or maximal elution volume. Elution interval width is an outcome, and the single-predictor quantile widths are not treated as calibrated epistemic uncertainty.\"\n}",
+  "provenance": {
+    "response_id": "resp_0c911f9472b00c6d016ae3735cd30c8199a8ccec685cc1e8ed",
+    "served_model": "gpt-6.1-sol",
+    "usage": {
+      "input_tokens": 440026,
+      "input_tokens_details": {
+        "cached_tokens": 439808,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 19503,
+      "output_tokens_details": {
+        "reasoning_tokens": 11912
+      },
+      "total_tokens": 459529,
+      "attribution": {
+        "items": {
+          "msg_0c911f9472b00c6d016ae3735cd3c0819990a4c8044d63e838": {
+            "input_tokens": 434256,
+            "cached_tokens": 434040,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 434256,
+                "cached_tokens": 434040,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_0c911f9472b00c6d016ae374d860f08199864f0fc2d97ca534": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 7591,
+            "content": [
+              {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 7591
+              }
+            ]
+          },
+          "rs_0c911f9472b00c6d016ae37376295c8199827e44baacdb2ca9": {
+            "input_tokens": 2,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 516
+          },
+          "rs_0c911f9472b00c6d016ae37386848c8199b0a36f81bbd54cbe": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0c911f9472b00c6d016ae3739812d88199a21413c91bb59f37": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0c911f9472b00c6d016ae373a844a08199a6902d888ea8e52c": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0c911f9472b00c6d016ae373bae43c8199b89ec96081d6e519": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0c911f9472b00c6d016ae373c892a481998a7bec25b4e10bfe": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0c911f9472b00c6d016ae373db66288199b29cc7255ed0016f": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0c911f9472b00c6d016ae373ef219c819990872ffb367b89e9": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0c911f9472b00c6d016ae37400905081999bc0f1f2b9d27c6d": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0c911f9472b00c6d016ae3740d085c819993a091fc3b8b57c1": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0c911f9472b00c6d016ae3741cefa08199bdf970e7724b4caa": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0c911f9472b00c6d016ae3742dcc28819982570d93ea45f682": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0c911f9472b00c6d016ae37440e07881999c33e7c80386a32e": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0c911f9472b00c6d016ae3745489c481998f3a048afe85e4b0": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0c911f9472b00c6d016ae3746303808199bbfca0d457f666d5": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0c911f9472b00c6d016ae37475185c81998ebfed5042db80b4": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0c911f9472b00c6d016ae374891d148199a9e92253c3479208": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0c911f9472b00c6d016ae3749ab86c8199a15a2dfc723d6d1c": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0c911f9472b00c6d016ae374a5cd088199af73ee8ad13c82ee": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0c911f9472b00c6d016ae374ab607081999a10af9863f0ac5c": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0c911f9472b00c6d016ae374b4a65c8199a18e90d4cab0108d": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0c911f9472b00c6d016ae374c57168819996f7a422234b1497": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0c911f9472b00c6d016ae374d860f88199ba282853d699170d": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          }
+        },
+        "request_fields": {
+          "instructions": {
+            "input_tokens": 5768,
+            "cached_tokens": 5768,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "native_tool_calls": 0
+  },
+  "elapsed_seconds": 533.4388615000062,
+  "retry_amendment_sha256": "2b3c1b62057a6015deb7871bda21cd498dd53e2dfeaceaa086208c777939fc60"
+}

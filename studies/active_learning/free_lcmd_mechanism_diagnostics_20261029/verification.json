@@ -1,0 +1,67 @@
+{
+  "status": "PASS",
+  "completed_at": "2026-10-29T17:36:05.515560+08:00",
+  "python": "3.11.14",
+  "dependencies": {
+    "numpy": "2.4.6",
+    "pandas": "3.0.5",
+    "scipy": "1.17.1",
+    "matplotlib": "3.10.8",
+    "rdkit": "2025.9.3",
+    "pytest": "9.1.1"
+  },
+  "test_command": [
+    "/Users/fish/miniforge3/envs/chromatography/bin/python",
+    "-m",
+    "pytest",
+    "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_lcmd_mechanism_diagnostics_20261029",
+    "tests/test_free_lcmd_reporting.py",
+    "-q"
+  ],
+  "test_return_code": 0,
+  "test_output": "...............................                                          [100%]\n31 passed in 1.29s",
+  "shape_checks": {
+    "selection_profiles": 360,
+    "selection_records": 11520,
+    "round_metrics": 370,
+    "stage_comparison": 100,
+    "text_fields": 900,
+    "condition_probe": 72
+  },
+  "report_aulc_values_match_derived_summary": true,
+  "markdown_links_checked": true,
+  "small_scientific_sources_rechecked": [
+    "docs/NEXT_STAGE_DECISION.md",
+    "src/qgeognn_al/active_learning_v2/lcmd.py",
+    "src/qgeognn_al/active_learning_v2/scientist_selector.py",
+    "src/qgeognn_al/active_learning_v2/scientist_study.py"
+  ],
+  "visual_qa": {
+    "status": "PASS",
+    "inspection": "All nine delivered PNGs inspected in model-visible images; labels, legends, source populations and seed counts checked.",
+    "png_sha256": {
+      "chemical_condition_behavior.png": "2f1dd895a3c92702e5cbd60401f76c386220eb6cf71c3241e0d570fef6811eb1",
+      "geometry_coverage_denominator_sensitivity.png": "969d54f11adee5056c462948bb5ef21c76b5d164681bc81e5a7355dca5a8a091",
+      "geometry_free_cw_percentiles.png": "b44be58c31baae156b380cc4a8da7e86ea6d1fd8f4f1d5c61c4f3bcc5e3c6d74",
+      "geometry_raw_diagnostics.png": "09226c7651cabb48234e2a4eb433ea56d1a454a35932c711e4896e80f14cd276",
+      "historical_error_neighborhoods.png": "8864e49951e6970b532dfc8d09fde502e55a685b939432e48b4bbfbc1b28dbc8",
+      "matched_condition_geometry_signal.png": "1709ae134dec915ee1a3051b8c55791e51b0e3acad6df0d3e2e3b758fa2f0a65",
+      "midstage_headroom_diagnostics.png": "838c6e4b5ac6661a8c414abb6c825f9c98e680c9d55f39f7a95d94ab7998e392",
+      "paired_stage_comparison.png": "4fbef6a7392c0b2a48789f0cf31462c2a42e2db62c256c12b6148ea33515f0b0",
+      "validation_learning_curves.png": "ac0d44f26a464bc94cb78d65669bb0b7c412a82c8809c39f5e2f535232341419"
+    }
+  },
+  "tracked_modifications_outside_new_study": [
+    "reports/llm_eight_to1549_20261018/live_status.json",
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1549_20261018/recovery_monitor_status.json"
+  ],
+  "tracked_modifications_were_present_before_this_task": true,
+  "git_status": " M reports/llm_eight_to1549_20261018/live_status.json\n M studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1549_20261018/recovery_monitor_status.json\n?? studies/active_learning/free_lcmd_mechanism_diagnostics_20261029/\n",
+  "no_historical_output_overwritten": true,
+  "other_untracked_paths_preserved": [],
+  "new_training": 0,
+  "new_llm_calls": 0,
+  "gradient_recomputation": 0,
+  "new_label_requests": 0,
+  "test_truth_read": false
+}

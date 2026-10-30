@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "profiles": 180,
+  "seeds": [
+    157,
+    6101
+  ],
+  "rounds_per_source": 15,
+  "sources": [
+    "hybrid_cw16",
+    "hybrid_llm16",
+    "hybrid_all32",
+    "free32",
+    "cw_lcmd32",
+    "raw_lcmd32"
+  ],
+  "phase_b": "PAUSED_BY_USER_DEFINED_EVIDENCE_GATE",
+  "real_llm_calls": 0,
+  "new_model_fits": 0,
+  "new_labels_revealed": 0,
+  "limitations": [
+    "historical and version-confounded",
+    "two independent seed pairs",
+    "no causal loading effect identified"
+  ],
+  "input_sha256": {
+    "behavior_profiles.csv": "4902644ca8f70b6427b2759a6d236253bf975f71c2ef96a00b4d2766e0f32c87",
+    "geometry_profiles.csv": "598cdf511403643fcd81add944ac0acca6f268673db583f2b170d773fac9a6f1",
+    "validation_rounds.csv": "951340d9d6ff68847bc71198914e8327dbc37a144bb53ba14898e12c84e99994"
+  }
+}
