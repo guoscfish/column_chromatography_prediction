@@ -1,0 +1,31 @@
+持续运行与恢复记录（上海时间 2026-11-02T00:37:34.908775+08:00）
+
+已按最新用户授权取消传输尝试、逻辑回答纠错及可恢复本地重启的次数上限。累计次数及历史失败收据保留，不清零；传输退避为2/10/60/120/300/600秒，之后最多600秒持续重试；可恢复worker重启冷却60秒。模型、完整候选输入、prompt、科学记忆、共同合法性校验、标签冻结屏障、从头训练与验证checkpoint规则及终点均不变。
+旧config.json中的有界字段为保持既有请求哈希而保留；当前有效恢复策略以 persistent_20261102_v2/authorization.json 为准。此接口差异已明确记录。
+固定 gpt-6.1-sol / reasoning_effort=xhigh；五seed分别使用原有五个不同key，值不写入代码、报告或日志。12203首个完成响应实际返回gpt-6.1-sol，已冻结served_model_lock.json。模型变化、配置不支持、凭据/余额、产物或源码绑定故障仍需明确报告，绝不切换模型、截断候选或放宽32个唯一合法候选校验。
+目标每seed从L333至L1485、36轮，合计180接受批次。当前5个选点worker，训练并发上限1，目前尚无新训练。NoCW资源优先，不修改其入口、源码、prompt、配置、历史产物或预算。
+
+控制器PID 87869；保活PID 87870。真实进程与锁、当前PID流事件及冻结产物已经核对。
+157已越过旧8次上限，从第9次传输请求继续；2357及6101在已保存失败、无未决请求的退避边界迁移。887和12203保留仍在输出的原有请求，由新控制器接管监督，待安全边界切换。旧worker进度文件的BACKOFF与8次上限可能滞后，不代表当前流状态或新控制器会在旧上限停止。
+12203第一个完整API响应已持久化，因候选ID不满足共同合法性校验被拒绝，正按完全相同纠错提示继续。该响应不会重复收费请求，尚未冻结选点或揭示新标签。流事件和完整但不合法的响应均不等于接受批次或完成训练。
+
+seed 157：PID=87980，完成L333 / 0轮，接受0批；累计传输9次，完成响应0；当前逻辑回答turn=0、传输attempt=8（均为0起始），IN_PROGRESS；距最新真实流事件22.7秒。
+seed 887：PID=25183，完成L333 / 0轮，接受0批；累计传输8次，完成响应0；当前逻辑回答turn=0、传输attempt=7（均为0起始），IN_PROGRESS；距最新真实流事件20.6秒。
+seed 2357：PID=88364，完成L333 / 0轮，接受0批；累计传输8次，完成响应0；当前逻辑回答turn=0、传输attempt=7（均为0起始），IN_PROGRESS；距最新真实流事件17.2秒。
+seed 6101：PID=88464，完成L333 / 0轮，接受0批；累计传输8次，完成响应0；当前逻辑回答turn=0、传输attempt=7（均为0起始），IN_PROGRESS；距最新真实流事件21.5秒。
+seed 12203：PID=53095，完成L333 / 0轮，接受0批；累计传输8次，完成响应1；当前逻辑回答turn=1、传输attempt=0（均为0起始），IN_PROGRESS；距最新真实流事件17.0秒。
+
+离线校验：29项测试通过，包含超过旧传输及纠错上限后的继续执行、成功响应重放、原有前8轮纠错消息逐字一致、在途请求不重复、只在无本地完成响应时恢复超时连接、CLI实际控制器分发。全部263个冻结源码及对应共享源码哈希、NoCW配置/协议/授权哈希均匹配；无新增付费试点。详见persistent_20261102_v2/offline_test_results.txt及startup_verification.json。
+首版持续控制器曾因CLI分发KeyError退出，未派生新worker或发出新API请求。原冻结副本、日志和superseded.json保留于persistent_20261102；修复另存v2并通过测试及实际进程验证。
+已恢复同一聊天的每5分钟监控（5-cw-free32-seed，ACTIVE），新提示明确不因旧上限停止或再询问。仅后台控制器发起选点和训练，监控不得重复worker或读取未选/测试真值。若控制器意外退出，按冻结入口和独立锁恢复监督。
+已启用caffeinate -i -w 87869，并确认PreventUserIdleSystemSleep断言。此前pmset日志记录Clamshell Sleep导致长时间暂停；caffeinate防空闲睡眠，无法保证合盖时继续运行。请保持电脑开盖、供电及联网。
+
+实际后台命令：
+KMP_DUPLICATE_LIB_OK=TRUE OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 /Users/fish/miniforge3/envs/fish/bin/python /Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/persistent_20261102_v2/frozen_runner.py supervise --allow-paid-llm --allow-training --allow-label-reveal
+
+运行指针：/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/active_runtime.json
+当前监督：/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/progress/persistent_supervisor.json
+日志：/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/progress/persistent_supervisor.log 及 progress/seed_<seed>_persistent.log；仍在使用旧worker的种子同时查看原parallel日志与当前PID流日志。
+初始对齐/差异清单：offline_checks/audit.json 与 packet_diff_seed_<seed>.json。
+后续冻结与拟合：selections/seed_<seed>/free_cw_sol61_xhigh_rerun32/round_*、runtime/seed_<seed>/free_cw_sol61_xhigh_rerun32/round_*、progress/completed_seed_<seed>_round_*.json。
+自动比较仍由原冻结报告脚本生成；五seed共同达到L525/L813/L1005/L1389/L1485后生成相应汇总。与历史Free、NoCW、数值Hybrid、Gradient-LCMD使用公平共同预算、完整原始非单调曲线的归一化梯形AULC，保留逐seed/配对差值/均值/样本标准差；历史混模标记和后端随机性限制保留。尚未完成L1485，不声称CW独立因果机制。

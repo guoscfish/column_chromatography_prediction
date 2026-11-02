@@ -1,0 +1,306 @@
+{
+  "type": "selection",
+  "packet_sha256": "27b4c89cec19b497e0eaa0958a832c6e3a9ddd8cb242e668f6233622925f07d0",
+  "batch_strategy": "failure_repair_plus_condition_response_and_transfer_anchors",
+  "choices": [
+    {
+      "id": "6f43332e2665523bcccc",
+      "reason": "A 2/1, lower-loading point for m198 fills the steep gap between the measured 0/1 row 40dbbf2e58a6065b2b52 and the measured 5/1 row 4da6e3b93f29af1efa94. It tests whether the nitroaromatic response begins smoothly or jumps before 5/1.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "5a279bc25d91d033acdc",
+      "reason": "This 5/1 m198 point changes loading relative to the measured 5/1 row 4da6e3b93f29af1efa94 and sits before the measured 10/1 row c6bd64a77e94e93e5018. It separates solvent-response curvature from loading-dependent broadening.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "0ac58929e586a4da4056",
+      "reason": "The 50/1 m198 condition extends the measured curve through 8ab554cd154e9749790b while changing sample loading. Its large predicted tail makes it useful for testing high-ratio V2 calibration and loading effects together.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "08812599cc0ffd09d9bd",
+      "reason": "m177 repeatedly has nonzero measured onset while the model predicts a floor onset at nearby 10/1 and 20/1 conditions, including aa43fe84c0d8c825fe58 and 5442611ea6789d42bc86. This 5/1 point localizes where the onset-floor failure begins.",
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "4862e2fb71344ce16021",
+      "reason": "This high-ratio, lower-loading m177 row tests whether the very broad measured tail in b514312eda7950cdcf1c persists after reducing loading. It also probes whether V1 remains a separate floor failure when V2 becomes genuinely late.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "7fb4f90753d40dd25be0",
+      "reason": "m141 remains underpredicted at measured 5/1 and 20/1 conditions, especially for V2 in 65f4f125b5e1f8137bd9 and 51f4126a3aadb3239225. A 10/1 lower-loading point compares the steep response with the measured 10/1 higher-loading row 6f548d72f01fc85debdc.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "a6145bb0c9947f9515df",
+      "reason": "This is a direct loading contrast to the measured 5/1 m206 row 614873124b33029a924c, while the same family already has measured 1/1 and 2/1 points in a4fc5d66da363324e2bf and 7c0c324643799c918828. It tests whether loading mainly shifts V1, V2, or interval width.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "1211905ebc8972913270",
+      "reason": "The 5/1 m204 point at higher loading extends the measured response from b7b1a1bb666c8cc99bad and provides a loading contrast to the measured 2/1 pair 53c1be5b96937954b9fa and 8cc5dd51f0360e578ac3. It can repair attribution between ratio and loading.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "1aceeb0ee0419209d1c7",
+      "reason": "m205 is molecule-novel and already shows a late measured 2/1 response in c973d4c257be9ef08216. This weaker-ratio, higher-loading point tests whether the transfer failure begins before the previously measured 5/1 regime.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "48853fd78c77153b963a",
+      "reason": "This 5/1 m205 row changes loading relative to the molecule-novel measured anchor c973d4c257be9ef08216 and targets the predicted late, broad regime. It distinguishes a true structure-driven tail from a loading-induced shift.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "5da8c25a3982216fb112",
+      "reason": "The 1/1 m200 point changes loading relative to the measured 1/1 row 97318de99bab4460cf4 and complements the measured 2/1 high-loading point a92f7617b135de150588. It tests transfer and loading sensitivity in a novel polar aromatic scaffold.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "1ae3618ec277b0463686",
+      "reason": "m216 has a measured early 0/1 anchor ae187d6f3746213b630c and a measured late 10/1 high-loading point e47aebe2660b9e1528de. The 5/1 midpoint at lower loading is a useful transition and loading probe.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "04ea307c7b7f3321cc20",
+      "reason": "The measured m203 row 9ed7c1fb1c2cc499bbf9 shows substantial V2 overprediction in a late regime. This 10/1 higher-loading point tests whether the predicted broad tail develops gradually or is an isolated model artifact.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "153cd671a94c0407cc6b",
+      "reason": "A weak-condition m203 anchor gives a baseline for the late measured row 9ed7c1fb1c2cc499bbf and the higher-ratio candidate in this batch. It helps identify whether the model's V2 error is a regime transition or a molecule-wide offset.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "1e77ce24daad192212f6",
+      "reason": "m211 has measured low-loading response points at 10/1 and 50/1 in d119d77f545c029deace and 35f2be5f5aa14265e8a4. This 5/1 higher-loading point resolves the missing middle of a potentially nonlinear curve.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "bd2e9fee67bbba1155df",
+      "reason": "The 20/1 m211 row extends the condition curve while changing loading relative to d119d77f545c029deace and 35f2be5f5aa14265e8a4. It directly tests separate V2 growth after conditioning on the onset regime.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "942b8fc9cf013acda52b",
+      "reason": "m212 has measured 2/1 and 5/1 points in f6c49d6bc4b677f17278 and d5234e966aa231be05e5, while the measured 10/1 row 70cba7a21b5a01fb8e73 exposes strong tail overprediction. This higher-loading 10/1 point discriminates solvent curvature from loading bias.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "96710afeabc594baa359",
+      "reason": "The measured m90 curve spans 2/1 in 22f82413c75481d74e9b, 5/1 in 855832bd4005ac7abdc6, and 10/1 at higher loading in c76d0420b34df595c0c9. This 10/1 lower-loading point targets the unresolved V2 loading response.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "f433bc672465387d951a",
+      "reason": "m135 shows a measured 2/1 lower-loading point 4db6b065867770d9dbd9 and measured 5/1 and 10/1 higher-loading points f9f0f4e29dbd30c000ee and d05a91dc8e32e9edd7d0. The 10/1 low-loading row tests whether the apparent V2 agreement is loading-specific.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "776ee2c1e85ebde75168",
+      "reason": "m119 has a measured 2/1 lower-loading anchor a775926fce57b3bf9ec1 and a measured 5/1 higher-loading row e6e78489d1da4066c07e. This intermediate loading condition tests whether the broad predicted interval is caused by ratio, loading, or both.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "df6457ca86c98c073bf6",
+      "reason": "m193 has measured 1/1, 10/1, and 20/1 points in baae4c016e087caeda81, a01a137fa48c1391b9e7, and a5f9179bfb146ad70953. A 10/1 higher-loading point fills a local response surface where V1 and V2 errors have both been large.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "a1dc71bed9d8f372c9e5",
+      "reason": "m159 has measured 5/1 and 10/1 rows in 6aa69f7c2b8244353a75 and c6e78c97267cbb98dc22, plus a measured 20/1 higher-loading row a738b1f204da6fcfd385. This lower-loading 20/1 point isolates the decoupled V1/V2 loading response.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "17ff889395addf7d6295",
+      "reason": "The measured m178 10/1 row 634f21e11a8442494ce3 shows a nonzero onset and a substantial finish volume despite a predicted onset floor. This 5/1 point tests whether the floor and V2 errors persist at an intermediate condition.",
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "855456da9ea892f7216b",
+      "reason": "This 20/1 m178 row extends the difficult polyaromatic ketone-like regime beyond measured 634f21e11a8442494ce3. It supplies a higher-ratio calibration point for separating onset-floor error from V2 tail overprediction.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "ed763ea5943e63a671c9",
+      "reason": "m106 was a severe transfer failure at 20/1 in b1c5816f929ef59f5a87, while its measured 5/1 point 8b556440cbbd8224f6ff is much closer. The 1/1 point tests where the structure-specific retention transition begins.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "bad24d96575f423fe4fd",
+      "reason": "m51 moves from an early measured 0/1 row f91e857aa14399ede600 to a later measured 5/1 row bf09d868ed4d68a97b40. The 10/1 point probes a possible steep alcohol-containing transition and tests whether the current broad prediction is calibrated.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "3ae1262572c1d989fe91",
+      "reason": "The m58 family has an early measured anchor 0120f093f01a659610ef and a high-ratio measured row 68a01853008546de06a1. This intermediate 10/1 higher-loading point tests solvent curvature and interval broadening in an H-bond-donor scaffold.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "302e458c5ed2285ca328",
+      "reason": "m104 has a measured 1/1 anchor 9fa7a350e402312e5860, while this 50/1 condition has a much later and broader model prediction. It adds a high-ratio aromatic amine/ester calibration point to a relatively underexplored tail.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "efd84dffe823b6298db6",
+      "reason": "The measured m11 5/1 row 3b4634411832718c26e4 is moderate and broad. This 50/1 higher-loading point tests extrapolation into a late, high-quantile-width regime and can reveal whether the V2 tail is chemically real.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "55200f8e501a16ffa0cf",
+      "reason": "m128 has a measured 10/1 point with a large onset in 2f72c334253bbe94a8ab and a related higher-loading 10/1 anchor 596bd04bfe916866f908. This 20/1 point tests continued V1/V2 growth rather than assuming a global monotonic correction.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "0cf0d36290765378ae8d",
+      "reason": "The measured m114 20/1 row e3c2b5ea1c83276cf63a provides a mid-to-late reference. This 50/1 higher-loading row probes whether the predicted wide V2 interval reflects a genuine upper-tail regime or systematic overbroad calibration.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "4e417c41d918e49abba1",
+      "reason": "m163 has a measured 1/1 anchor f0d01a802b42b748e6e2, whereas this high-ratio PE condition is predicted to broaden and shift substantially. It adds a chemically distinct halogenated aromatic anchor for structure-condition transfer.",
+      "hypothesis_id": "H5"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Mobile-phase response is strongly structure-dependent: the same nominal ratio can produce opposite retention shifts across chemical families, so ratio effects require molecule-conditioned representations.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "b1c5816f929ef59f5a87",
+        "b514312eda7950cdcf1c",
+        "70cba7a21b5a01fb8e73",
+        "f4331eb64b6774466836"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "A global solvent-strength correction will miscalibrate families with different silica interactions and transition locations. Same-family condition points provide reusable interaction-surface information.",
+      "next_discriminating_question": "Which structural descriptors determine the location and steepness of the solvent-response transition?"
+    },
+    {
+      "id": "H2",
+      "content": "V2 calibration is regime-specific: large late-regime V2 residuals occur in both directions, so broad predicted intervals can reflect genuine tails or systematic overbroad calibration.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "b514312eda7950cdcf1c",
+        "b1c5816f929ef59f5a87",
+        "51f4126a3aadb3239225",
+        "9ed7c1fb1c2cc499bbf9"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "V2 errors dominate several difficult rows and cannot be repaired by adjusting V1 alone. Direct measurements at different tail regimes can improve the V2 head and interval calibration.",
+      "next_discriminating_question": "Which structure, ratio, and loading combinations predict genuine V2 broadening versus overestimated model width?"
+    },
+    {
+      "id": "H3",
+      "content": "Loading amount and loading-solvent volume produce learnable shifts within matched molecule-condition families, with effects that can differ for V1, V2, and interval width.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "b7b1a1bb666c8cc99bad",
+        "53c1be5b96937954b9fa",
+        "8cc5dd51f0360e578ac3",
+        "614873124b33029a924c",
+        "a4fc5d66da363324e2bf"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Without loading contrasts, the model can attribute loading shifts to PE/EA or structure and learn the wrong response surface. Matched contrasts directly supervise the catalog loading feature.",
+      "next_discriminating_question": "After holding molecule and mobile phase fixed, does loading mainly move onset, extend finishing volume, or alter both together?"
+    },
+    {
+      "id": "H4",
+      "content": "Predicted V1 greater than V2 is an output-consistency failure that should generally be repaired, although rare measured edge cases can remain.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "68c511d842fc030aa84b",
+        "e4a7e43d15fcdee2ba1d",
+        "d22eb7805d90b684e45f",
+        "8c8922eada2018f59953"
+      ],
+      "contradicting_observed_ids": [
+        "a917c928912c74862968"
+      ],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Ordering defects reveal a shared-output or calibration problem that ordinary average-error sampling may miss. Direct labels can teach the output head to preserve physically plausible elution order.",
+      "next_discriminating_question": "Are ordering failures localized to low-retention or broad-interval chemical regions?"
+    },
+    {
+      "id": "H5",
+      "content": "Molecule-novel rows can expose large transfer errors in structure-condition-retention relationships, although novelty alone does not guarantee a large residual.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "b1c5816f929ef59f5a87",
+        "97318de99bab4460cf4e",
+        "a92f7617b135de150588",
+        "e47aebe2660b9e1528de"
+      ],
+      "contradicting_observed_ids": [
+        "d05a91dc8e32e9edd7d0"
+      ],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Overall Row-distribution accuracy requires transfer across functional groups and scaffolds. Novel anchors can correct descriptor and substructure regions that local condition curves cannot cover.",
+      "next_discriminating_question": "Which functional-group and aromaticity changes most often cause transfer failure at otherwise familiar conditions?"
+    },
+    {
+      "id": "H6",
+      "content": "Several chemical families have steep or threshold-like condition-response curves, making intermediate PE/EA measurements more informative than unpaired extremes.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "40dbbf2e58a6065b2b52",
+        "163874b97308a1ea2507",
+        "8ab554cd154e9749790b",
+        "b0f83f107759037eea65",
+        "a01a137fa48c1391b9e7",
+        "70cba7a21b5a01fb8e73"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Intermediate labels constrain local slope and curvature, reducing extrapolation through family-specific transitions and improving generalization to unmeasured ratios.",
+      "next_discriminating_question": "Are the transitions better represented by a shared nonlinear solvent response or by family-specific transition locations?"
+    },
+    {
+      "id": "H7",
+      "content": "V1 and V2 errors can decouple: a row may have a reasonable onset prediction while substantially miscalibrating the finishing volume, or the reverse.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "a5f9179bfb146ad70953",
+        "a738b1f204da6fcfd385",
+        "614873124b33029a924c",
+        "aa43fe84c0d8c825fe58",
+        "9ed7c1fb1c2cc499bbf9"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Acquisition and retraining that focus on only onset or interval width can leave the V2 head systematically biased. Paired labels from differing residual patterns improve both outputs and their shared representation.",
+      "next_discriminating_question": "Which structure and loading features predict V2 residuals after conditioning on the onset regime?"
+    },
+    {
+      "id": "H8",
+      "content": "The predicted V1 floor is a localized onset failure in difficult aromatic ketone and nitroaromatic regimes: measured onset remains nonzero while V2 may be comparatively accurate.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "aa43fe84c0d8c825fe58",
+        "5442611ea6789d42bc86",
+        "634f21e11a8442494ce3"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Floor-clipped V1 predictions can hide chemically meaningful onset differences and distort the learned V1/V2 relationship. Adjacent-condition labels can teach the onset head to leave the floor without unnecessarily inflating V2.",
+      "next_discriminating_question": "Is the onset-floor error confined to a structural subregion, or does it occur whenever predicted retention is near zero?"
+    }
+  ],
+  "feedback_interpretation": "The previous labels confirm that intermediate conditions repair some curves but do not support a global solvent correction. The m146 midpoint 51f4126a3aadb3239225 was close, whereas m141 remained substantially underpredicted, and m106 moved from a severe 20/1 transfer failure in b1c5816f929ef59f5a87 to a much better 5/1 result in 8b556440cbbd8224f6ff. This strengthens structure-specific transition and transfer hypotheses. The m177 10/1 and 20/1 labels aa43fe84c0d8c825fe58 and 5442611ea6789d42bc86 show persistent nonzero measured onset despite floor predictions, while V2 is much closer in one of the two rows; this separates onset repair from tail repair. The m198, m204, m206, m159, and m193 labels continue to show steep response surfaces and loading-dependent V1/V2 behavior. Conversely, m203 in 9ed7c1fb1c2cc499bbf9 and several other late rows show that a broad predicted interval can overstate V2, so this batch includes both genuine-tail and overbroad-tail tests.",
+  "batch_rationale": "The batch combines local curve repair with chemically distinct transfer anchors. The m198, m177, m141, m204, m206, m212, m193, m159, m178, and m211 selections add intermediate or high-ratio points around measured failures, with matched loading contrasts where they can separate loading from PE/EA response. m205, m200, m216, m106, and m163 broaden coverage of molecule-novel or structurally difficult regions. Additional m203, m90, m104, m11, m128, and m114 rows target V2 tail calibration in both underpredicted and overbroad regimes. The batch therefore supplies paired labels for shared response surfaces, direct repair examples for V1/V2 decoupling and floor behavior, and novel structural anchors that can improve transfer across the Row-distribution."
+}

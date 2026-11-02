@@ -1,0 +1,161 @@
+{
+  "verified_utc": "2026-11-01T09:48:34.126602+00:00",
+  "launch": {
+    "pid": 83387,
+    "started_utc": "2026-11-01T09:47:26.372153+00:00",
+    "command": [
+      "/Users/fish/miniforge3/envs/fish/bin/python",
+      "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/frozen_source/scripts/studies/run_free_cw_sol61_five_20261101.py",
+      "supervise",
+      "--allow-paid-llm",
+      "--allow-training",
+      "--allow-label-reveal"
+    ],
+    "maximum_new_workers": 1,
+    "maximum_new_training_workers": 1,
+    "target_budget": 1485,
+    "accepted_batches": 180,
+    "NoCW_modified": false
+  },
+  "seeds": [
+    {
+      "seed": 157,
+      "phase": "SELECTING",
+      "updated_utc": "2026-11-01T09:48:01.408931+00:00",
+      "pid": 83861,
+      "round": 0,
+      "current_budget": 333,
+      "target_budget": 1485
+    },
+    {
+      "seed": 887,
+      "phase": "QUEUED",
+      "updated_utc": "2026-11-01T09:45:22.636437+00:00",
+      "pid": 79728,
+      "current_budget": 333,
+      "completed_rounds": 0,
+      "target_budget": 1485
+    },
+    {
+      "seed": 2357,
+      "phase": "QUEUED",
+      "updated_utc": "2026-11-01T09:45:22.636969+00:00",
+      "pid": 79728,
+      "current_budget": 333,
+      "completed_rounds": 0,
+      "target_budget": 1485
+    },
+    {
+      "seed": 6101,
+      "phase": "QUEUED",
+      "updated_utc": "2026-11-01T09:45:22.637506+00:00",
+      "pid": 79728,
+      "current_budget": 333,
+      "completed_rounds": 0,
+      "target_budget": 1485
+    },
+    {
+      "seed": 12203,
+      "phase": "QUEUED",
+      "updated_utc": "2026-11-01T09:45:22.638593+00:00",
+      "pid": 79728,
+      "current_budget": 333,
+      "completed_rounds": 0,
+      "target_budget": 1485
+    }
+  ],
+  "streams": [
+    {
+      "seed": 157,
+      "pid": 83861,
+      "turn": 0,
+      "attempt": 0,
+      "request_sha256": "2748f4a3ded09993affcb55183b29c25e6663ed34d28436164013f9cbdb699bf",
+      "phase": "IN_PROGRESS",
+      "started_utc": "2026-11-01T09:48:04.902122+00:00",
+      "requested_model": "gpt-6.1-sol",
+      "reasoning_effort": "xhigh",
+      "response_id": "resp_02bb5a082888b8df016ae70ad7cf34819b9e2c978ba2a69797",
+      "request_id": "25c3d4a8-e797-483d-b76d-bac845a64c90",
+      "event_count": 2,
+      "updated_utc": "2026-11-01T09:48:33.104911+00:00",
+      "http_status": 200,
+      "headers_received_utc": "2026-11-01T09:48:18.234921+00:00",
+      "last_line_utc": "2026-11-01T09:48:33.104603+00:00",
+      "last_event_type": "response.in_progress",
+      "last_event_utc": "2026-11-01T09:48:33.104874+00:00",
+      "last_sequence_number": 1
+    }
+  ],
+  "processes": [
+    {
+      "pid": 1581,
+      "ppid": 4248,
+      "rss_kib": 89712,
+      "elapsed": "13:55:03",
+      "command": "/Users/fish/miniforge3/envs/fish/bin/python /Users/fish/Documents/GitHub/column_chromatography_prediction/scripts/studies/run_qgeognn_v2_row_llm_nocw_to1389.py worker --seed 157 --allow-paid-llm --allow-training --allow-label-reveal"
+    },
+    {
+      "pid": 4248,
+      "ppid": 1,
+      "rss_kib": 111232,
+      "elapsed": "16:06:49",
+      "command": "/Users/fish/miniforge3/envs/fish/bin/python /Users/fish/Documents/GitHub/column_chromatography_prediction/scripts/studies/run_qgeognn_v2_row_llm_nocw_to1389.py supervise --allow-paid-llm --allow-training --allow-label-reveal"
+    },
+    {
+      "pid": 4386,
+      "ppid": 4248,
+      "rss_kib": 1611504,
+      "elapsed": "16:06:44",
+      "command": "/Users/fish/miniforge3/envs/fish/bin/python /Users/fish/Documents/GitHub/column_chromatography_prediction/scripts/studies/run_qgeognn_v2_row_llm_nocw_to1389.py worker --seed 6101 --allow-paid-llm --allow-training --allow-label-reveal"
+    },
+    {
+      "pid": 4387,
+      "ppid": 4248,
+      "rss_kib": 1113696,
+      "elapsed": "16:06:44",
+      "command": "/Users/fish/miniforge3/envs/fish/bin/python /Users/fish/Documents/GitHub/column_chromatography_prediction/scripts/studies/run_qgeognn_v2_row_llm_nocw_to1389.py worker --seed 12203 --allow-paid-llm --allow-training --allow-label-reveal"
+    },
+    {
+      "pid": 63906,
+      "ppid": 1,
+      "rss_kib": 114832,
+      "elapsed": "19:53:23",
+      "command": "/Users/fish/miniforge3/envs/fish/bin/python /Users/fish/Documents/GitHub/column_chromatography_prediction/scripts/studies/run_qgeognn_v2_row_llm_nocw_unbounded_v3.py supervise --allow-paid-llm --allow-training --allow-label-reveal"
+    },
+    {
+      "pid": 64135,
+      "ppid": 63906,
+      "rss_kib": 1680768,
+      "elapsed": "19:53:14",
+      "command": "/Users/fish/miniforge3/envs/fish/bin/python /Users/fish/Documents/GitHub/column_chromatography_prediction/scripts/studies/run_qgeognn_v2_row_llm_nocw_unbounded_v3.py worker --seed 887 --allow-paid-llm --allow-training --allow-label-reveal"
+    },
+    {
+      "pid": 83387,
+      "ppid": 1,
+      "rss_kib": 112208,
+      "elapsed": "01:08",
+      "command": "/Users/fish/miniforge3/envs/fish/bin/python /Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/frozen_source/scripts/studies/run_free_cw_sol61_five_20261101.py supervise --allow-paid-llm --allow-training --allow-label-reveal"
+    },
+    {
+      "pid": 83861,
+      "ppid": 83387,
+      "rss_kib": 321120,
+      "elapsed": "00:50",
+      "command": "/Users/fish/miniforge3/envs/fish/bin/python /Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/frozen_source/scripts/studies/run_free_cw_sol61_five_20261101.py worker --seed 157 --allow-paid-llm --allow-training --allow-label-reveal"
+    },
+    {
+      "pid": 86832,
+      "ppid": 4248,
+      "rss_kib": 247424,
+      "elapsed": "14:05:07",
+      "command": "/Users/fish/miniforge3/envs/fish/bin/python /Users/fish/Documents/GitHub/column_chromatography_prediction/scripts/studies/run_qgeognn_v2_row_llm_nocw_to1389.py worker --seed 2357 --allow-paid-llm --allow-training --allow-label-reveal"
+    }
+  ],
+  "NoCW_config_and_protocol_unchanged": true,
+  "offline_tests": "9 passed",
+  "offline_paid_calls": 0,
+  "endpoint": 1485,
+  "planned_accepted_batches": 180,
+  "concurrency": 1
+}

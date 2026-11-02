@@ -1,0 +1,251 @@
+{
+  "type": "selection",
+  "packet_sha256": "b452d31e187ce0523890607f619153fa792cf9be86c98b610ac92d0a1195ef52",
+  "batch_strategy": "Broad chemical-condition coverage with targeted V2-tail probes, sparse scaffold anchors, and calibration points in both confident and high-width model regions.",
+  "choices": [
+    {
+      "id": "c2349adace8ee903700a",
+      "reason": "Novel aromatic ester scaffold with condition novelty and substantial CW distance; useful for testing transfer into a moderately polar, halogenated region.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "2af28410325677ec79af",
+      "reason": "Novel dimethoxy aryl bromide samples a distinct ether-rich region at intermediate strength, extending chemical representation coverage.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "8048dcef1d7c5237b474",
+      "reason": "Sparse polyaryl halogenated scaffold at 10/1 supplies a hydrophobic aromatic anchor for testing whether broad similarity transfers retention correctly.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "36b45fbdbace5950c108",
+      "reason": "High-strength 100/1 PE point has broad supplied V2 width and high CW distance, directly probing strong-solvent tail calibration.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "088e6991011a5a20ef36",
+      "reason": "Carbonyl-rich aromatic molecule at 2/1 provides a condition anchor in a lower-distance region where additional labels can calibrate local V1/V2 behavior.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "f3268baa6bed1f0d5edf",
+      "reason": "Low-strength diphenyl hydrocarbon-like scaffold provides a near-center baseline for checking whether the model is calibrated for nonpolar compounds.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "d13724f7a4b6c8bb3628",
+      "reason": "20/1 PE point on a methylated aromatic ketone extends solvent-strength coverage for a compact carbonyl family.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "eee61f9b1be6b1acbef0",
+      "reason": "Low-strength biphenyl anchor tests the baseline response of a nonpolar aromatic scaffold and helps separate hydrophobicity from heteroatom effects.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "a7a814c9db59a62411a2",
+      "reason": "Simple alkylbenzene at 2/1 provides a low-complexity retention anchor useful for improving the hydrophobicity-condition baseline.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "9c06d41471b0bc70e4c7",
+      "reason": "Biphenyl at 1/1 adds a nearby nonpolar aromatic condition point and can test local interpolation among related hydrocarbons.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "eb36ddda7c31d7efdac5",
+      "reason": "Novel brominated benzyl alcohol samples a donor-containing aromatic region that is chemically distinct from the nonpolar anchors.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "94bc3fc118d3761c7685",
+      "reason": "Chloro-substituted benzophenone at low strength supplies carbonyl and halogen coverage for V2 calibration without relying only on high-strength rows.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "328a8c7b56213c777826",
+      "reason": "Halogenated aromatic hydrocarbon at 5/1 tests whether solvent-strength response remains smooth in a low-polarity family.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "b7953b4cf8c561ff4cfe",
+      "reason": "Novel oxygen-rich multifunctional scaffold probes transfer of acceptor-rich chemistry and loading descriptors into a sparsely represented region.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "0a556ab193222863f8b8",
+      "reason": "Brominated dimethoxy aromatic point adds ether and halogen representation at low strength, complementing the broader aromatic set.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "2151afbd54319dc04692",
+      "reason": "Methyl chlorobenzoate at 10/1 tests carbonyl/halogen retention at higher solvent strength and provides V2-tail calibration for ester-like chemistry.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "6209df8dd01072ab8a47",
+      "reason": "Carbonyl-rich aromatic ether scaffold at 5/1 extends intermediate-strength coverage in a family where silica interactions may broaden the finish tail.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "c4b580f549c5ce3a5ad9",
+      "reason": "Low-strength acrylate ester is a chemically simple polar anchor that can improve the model's baseline for small ester-containing molecules.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "e240edfce1937ea191c9",
+      "reason": "Dicarbonyl aromatic scaffold at 1/1 probes whether two acceptors alter V2 width relative to simpler ketones and esters.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "e19bda1298f299931245",
+      "reason": "30/1 PE ester point extends the condition range for a moderately polar ester and tests solvent-strength response outside the common 1/1 to 10/1 grid.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "e9aa21d2af3158cfa4f5",
+      "reason": "Long-chain dibromothiophene at 10/1 is a high-similarity, apparently narrow-width case that can test whether confident predictions fail in unusual hydrophobic sulfur chemistry, complementing the measured m71 anomalies 7e981ba02c83f74f5e65 and 2f22fe92623a5d221e6e.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "85591a54c419ed02c5f5",
+      "reason": "High-strength m59 point has very broad supplied V2 width and high CW distance, making it a strong direct probe of finish-tail calibration in a carbonyl-rich scaffold.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "96840797cfdea44e1467",
+      "reason": "High-strength PE point on a compact ester-containing hydrophobic scaffold tests whether the model captures late elution without extrapolating only from DCM rows.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "06a4f4336a9864d70117",
+      "reason": "Low-strength bromobutylbenzene anchor expands the simple halogenated hydrocarbon family and helps calibrate solvent response at the lower-strength edge.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "b579bb037defe81a2b27",
+      "reason": "Diphenyl sulfone-like scaffold at 1/1 supplies a strongly acceptor-rich aromatic point for testing whether polar surface area is reflected in finish behavior.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "2f03edb1177fc5048002",
+      "reason": "Low-polarity chlorinated scaffold at 10/1 tests a compact, low-width prediction region and can identify systematic confidence bias in nonpolar compounds.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "81481bf0d9bfc104fdc2",
+      "reason": "Dimethoxy aromatic scaffold at low strength provides an ether-rich baseline and complements the novel ether/halogen anchors in this batch.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "c0801078671076bce4b1",
+      "reason": "Chloroiodobenzene at low strength adds sparse heavy-halogen chemistry, useful for testing molecular-weight and hydrophobicity transfer.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "bb8ba62a93aefa66d0f6",
+      "reason": "Chlorinated aliphatic ketone at 5/1 probes carbonyl/halogen interaction at intermediate strength and contributes direct V2 calibration.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "c11d5c3acbc28dddd0cf",
+      "reason": "Phenoxy acrylate-like ester at 5/1 is a lower-distance polar anchor that helps calibrate ordinary ester behavior against the broader tail cases.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "02ba043ace647ea2192f",
+      "reason": "Diiodoaromatic hydrocarbon at 2/1 samples heavy-halogen chemistry in a comparatively centered feature region, testing whether local analog transfer is reliable.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "a2febf036cd726eb4526",
+      "reason": "Highly hydrophobic polyaryl bromide at low strength probes the extreme nonpolar end of the chemical space and can improve extrapolation for similar catalog rows.",
+      "hypothesis_id": "H5"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Solvent-strength response is scaffold-specific and can change onset and finish abruptly around transitions; a global monotone slope will miss local structure.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "a17bcdddcf0799baeee2",
+        "58394a71418a9623e18a",
+        "2cc254396123c76b9a13",
+        "2d178efe0181baca2bd5",
+        "351c17dfa8f46a8cb40a",
+        "c76d0420b34df595c0c9"
+      ],
+      "contradicting_observed_ids": [
+        "2f22fe92623a5d221e6e",
+        "7e981ba02c83f74f5e65"
+      ],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Condition anchors across distinct scaffolds can teach nonlinear solvent-condition interactions and reduce erroneous smooth extrapolation.",
+      "next_discriminating_question": "Are transition locations reusable across related scaffolds, or are both threshold and amplitude scaffold-specific?"
+    },
+    {
+      "id": "H2",
+      "content": "Loading alters V1 and V2 or interval width differently, and the effect depends on scaffold and solvent regime.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "e4fd83fb3852eb354a66",
+        "20913a7c2077b80b7351",
+        "a6145bb0c9947f9515df",
+        "59b54ad3a60a52cc2b2c",
+        "1b1a9ec85268aa66d327",
+        "222a68fc192f66c1c080",
+        "3e69cf586f3eb0f0fa8c"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Loading interactions contribute to selective onset shifts and finish-tail expansion, so they need representation beyond a single global loading correction.",
+      "next_discriminating_question": "At fixed molecule and solvent condition, does loading mainly shift onset, expand width, or affect both?"
+    },
+    {
+      "id": "H3",
+      "content": "V2 tails and interval width require direct condition calibration separate from onset calibration.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "a17bcdddcf0799baeee2",
+        "e4fd83fb3852eb354a66",
+        "44fcf641ccfa3b10a97c",
+        "8ab554cd154e9749790b",
+        "79362765eb92377a5970",
+        "3163a9b58f1a52a1992c",
+        "79cb1738d945317e5bfa",
+        "c76d0420b34df595c0c9"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Measured errors show that finish and interval width can remain badly biased even when onset is closer; additional V2-focused labels should improve joint accuracy.",
+      "next_discriminating_question": "Can chemical descriptors predict tail width across scaffolds, or are local scaffold-condition labels required?"
+    },
+    {
+      "id": "H5",
+      "content": "Novel molecules are most useful when chemically sparse and associated with broad supplied target spans; novelty alone is insufficient.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "f4c58d48258027bb5485",
+        "7fb4f90753d40dd25be0",
+        "634f21e11a8442494ce3",
+        "4659b6752f23c0b85f08"
+      ],
+      "contradicting_observed_ids": [
+        "f62720d3fc5dbb0e173d",
+        "2f22fe92623a5d221e6e",
+        "7e981ba02c83f74f5e65"
+      ],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Targeted sparse chemical anchors can repair representation gaps and reveal failures that broad similarity would otherwise hide.",
+      "next_discriminating_question": "Do labels from chemically sparse anchors improve predictions for nearby unlabeled rows after retraining?"
+    }
+  ],
+  "feedback_interpretation": "Recent m159, m118, m120, m146, m114, and m181 outcomes reinforce scaffold-specific solvent transitions, selective loading effects, and persistent V2-tail bias. The strongest recent failures remain concentrated in broad-width, carbonyl-rich, donor/acceptor-rich, and sparse heteroaromatic regions. The batch therefore combines chemically distinct anchors with both high-width and centered candidates, allowing the retrained model to learn where its confidence is reliable and where local condition interactions are missing.",
+  "batch_rationale": "The batch covers nonpolar hydrocarbons, heavy-halogen aromatics, esters, ketones, ethers, donor-containing molecules, and multifunctional carbonyl scaffolds across low, intermediate, and high solvent strength. High-CW and broad-width candidates target likely failure repair, while low-distance anchors provide calibration controls so retraining does not overcorrect from only extreme rows. Several rows probe unusually strong PE or DCM conditions and broad predicted V2 intervals, directly addressing the observed finish-tail errors. This chemical and condition coverage should improve representation transfer and calibration across neighboring rows in the Row-distribution."
+}

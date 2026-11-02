@@ -1,0 +1,491 @@
+{
+  "seed": 2357,
+  "method": "free_cw_sol61_xhigh_rerun32",
+  "round": 1,
+  "batch_freeze_sha256": "fc198142b9b11b26f58177d35cc515fb572222304d948fd85d2295a40404e8c3",
+  "records": [
+    {
+      "candidate_id": "96710afeabc594baa359",
+      "pred_V1_ml": 45.45800018310547,
+      "pred_V2_ml": 100.43772888183594,
+      "source": "LLM",
+      "true_V1_ml": 48.17499923706055,
+      "true_V2_ml": 107.99166870117188,
+      "error_V1_ml": -2.716999053955078,
+      "error_V2_ml": -7.5539398193359375,
+      "reason": "Matched m90 loading point at 10/1 relative to measured c76d0420b34df595c0c9; tests whether the observed late V2 tail changes with injected volume.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "855832bd4005ac7abdc6",
+      "pred_V1_ml": 28.945528030395508,
+      "pred_V2_ml": 67.12500762939453,
+      "source": "LLM",
+      "true_V1_ml": 30.70833396911621,
+      "true_V2_ml": 60.599998474121094,
+      "error_V1_ml": -1.7628059387207031,
+      "error_V2_ml": 6.5250091552734375,
+      "reason": "m90 5/1 point complements measured b51b5dbcd2a38b174973 and c76d0420b34df595c0c9, separating solvent-strength response from loading effects in a known V2-error family.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "candidate_id": "a1dc71bed9d8f372c9e5",
+      "pred_V1_ml": 29.988441467285156,
+      "pred_V2_ml": 52.711753845214844,
+      "source": "LLM",
+      "true_V1_ml": 23.90833282470703,
+      "true_V2_ml": 49.36666488647461,
+      "error_V1_ml": 6.080108642578125,
+      "error_V2_ml": 3.3450889587402344,
+      "reason": "High-strength m159 point probes whether the extreme late elution measured at a17bcdddcf0799baeee2 persists at 20/1 rather than being confined to 50/1.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "59b54ad3a60a52cc2b2c",
+      "pred_V1_ml": 29.968828201293945,
+      "pred_V2_ml": 52.71702194213867,
+      "source": "LLM",
+      "true_V1_ml": 19.691667556762695,
+      "true_V2_ml": 55.724998474121094,
+      "error_V1_ml": 10.27716064453125,
+      "error_V2_ml": -3.007976531982422,
+      "reason": "Paired with a1dc71bed9d8f372c9e5, this m159 loading comparison tests onset and finish sensitivity at fixed 20/1 after the large error at a17bcdddcf0799baeee2.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "b86ace0ccafe0af8ceec",
+      "pred_V1_ml": 13.63242244720459,
+      "pred_V2_ml": 32.774017333984375,
+      "source": "LLM",
+      "true_V1_ml": 4.650000095367432,
+      "true_V2_ml": 15.408333778381348,
+      "error_V1_ml": 8.982422351837158,
+      "error_V2_ml": 17.365683555603027,
+      "reason": "Lower-strength m159 anchor bridges measured 58394a71418a9623e18a and the high-strength failure a17bcdddcf0799baeee2, providing a discriminating response slope.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "2cc254396123c76b9a13",
+      "pred_V1_ml": 21.328956604003906,
+      "pred_V2_ml": 41.582847595214844,
+      "source": "LLM",
+      "true_V1_ml": 2.433333396911621,
+      "true_V2_ml": 5.358333110809326,
+      "error_V1_ml": 18.895623207092285,
+      "error_V2_ml": 36.22451448440552,
+      "reason": "m118 at 10/1 and lower injected volume compares directly with measured fc27fa779102c4aeb8ab and tests whether its large late-tail error is load dependent.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "24a9086a8e2c8015c232",
+      "pred_V1_ml": 33.71609115600586,
+      "pred_V2_ml": 59.71538543701172,
+      "source": "LLM",
+      "true_V1_ml": 36.650001525878906,
+      "true_V2_ml": 59.875,
+      "error_V1_ml": -2.933910369873047,
+      "error_V2_ml": -0.15961456298828125,
+      "reason": "High-strength m118 extension complements the measured 2/1 point 4e7e45a513ce579c5ce3 and 10/1 point fc27fa779102c4aeb8ab, testing a family-specific solvent transition.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "db7f9ffa50eb931613f6",
+      "pred_V1_ml": 33.5681266784668,
+      "pred_V2_ml": 74.2400131225586,
+      "source": "LLM",
+      "true_V1_ml": 43.63333511352539,
+      "true_V2_ml": 75.42500305175781,
+      "error_V1_ml": -10.065208435058594,
+      "error_V2_ml": -1.1849899291992188,
+      "reason": "m28 at 10/1 and 50 ul is a loading counterpart to measured 351c17dfa8f46a8cb40a and the lower-strength bfbe491a54086b98874d, targeting a severe onset and finish failure.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "0dccaa29989ef4956786",
+      "pred_V1_ml": 33.54793167114258,
+      "pred_V2_ml": 74.24638366699219,
+      "source": "LLM",
+      "true_V1_ml": 38.78333282470703,
+      "true_V2_ml": 80.875,
+      "error_V1_ml": -5.235401153564453,
+      "error_V2_ml": -6.6286163330078125,
+      "reason": "m28 at 10/1 and 150 ul completes the local loading curve around measured 351c17dfa8f46a8cb40a, helping calibrate the broad interval rather than only its center.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "candidate_id": "e4fd83fb3852eb354a66",
+      "pred_V1_ml": 23.543123245239258,
+      "pred_V2_ml": 67.85955810546875,
+      "source": "LLM",
+      "true_V1_ml": 14.666666984558105,
+      "true_V2_ml": 19.141666412353516,
+      "error_V1_ml": 8.876456260681152,
+      "error_V2_ml": 48.717891693115234,
+      "reason": "m120 at 5/1 and 100 ul tests loading against measured 20913a7c2077b80b7351, where the model underpredicted V2 while overpredicting V1.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "2bd6619109218dcf6580",
+      "pred_V1_ml": 9.133145332336426,
+      "pred_V2_ml": 19.52570915222168,
+      "source": "LLM",
+      "true_V1_ml": 10.541666984558105,
+      "true_V2_ml": 16.66666603088379,
+      "error_V1_ml": -1.4085216522216797,
+      "error_V2_ml": 2.8590431213378906,
+      "reason": "Lower-strength m120 anchor supplies a condition-response point for comparison with measured 20913a7c2077b80b7351 and constrains the onset-to-finish transition.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "e6e78489d1da4066c07e",
+      "pred_V1_ml": 35.26222610473633,
+      "pred_V2_ml": 79.56832885742188,
+      "source": "LLM",
+      "true_V1_ml": 46.24166488647461,
+      "true_V2_ml": 73.59166717529297,
+      "error_V1_ml": -10.979438781738281,
+      "error_V2_ml": 5.976661682128906,
+      "reason": "m119 at the measured 5/1 condition with larger load tests whether the broad interval in 776ee2c1e85ebde75168 changes mainly in onset or finish.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "a775926fce57b3bf9ec1",
+      "pred_V1_ml": 18.751564025878906,
+      "pred_V2_ml": 31.654571533203125,
+      "source": "LLM",
+      "true_V1_ml": 20.875,
+      "true_V2_ml": 30.183332443237305,
+      "error_V1_ml": -2.1234359741210938,
+      "error_V2_ml": 1.4712390899658203,
+      "reason": "Lower-strength m119 point complements measured 3f5051191caf6ab07337 and 776ee2c1e85ebde75168, distinguishing solvent response from the long-tail regime.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "a6145bb0c9947f9515df",
+      "pred_V1_ml": 24.561180114746094,
+      "pred_V2_ml": 58.296329498291016,
+      "source": "LLM",
+      "true_V1_ml": 27.799999237060547,
+      "true_V2_ml": 52.06666564941406,
+      "error_V1_ml": -3.238819122314453,
+      "error_V2_ml": 6.229663848876953,
+      "reason": "m206 at 5/1 and 50 ul is a controlled loading counterpart to measured 614873124b33029a924c and tests the unexpectedly high model center against an observed lower value.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "a4fc5d66da363324e2bf",
+      "pred_V1_ml": 7.038437366485596,
+      "pred_V2_ml": 17.195999145507812,
+      "source": "LLM",
+      "true_V1_ml": 5.233333110809326,
+      "true_V2_ml": 18.299999237060547,
+      "error_V1_ml": 1.8051042556762695,
+      "error_V2_ml": -1.1040000915527344,
+      "reason": "Lower-strength m206 point complements measured 13bfaf03c35b4cff3bd5 and 614873124b33029a924c, anchoring the beginning of its condition-response curve.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "c28747d70e7b51a1cc95",
+      "pred_V1_ml": 35.3963623046875,
+      "pred_V2_ml": 69.33299255371094,
+      "source": "LLM",
+      "true_V1_ml": 36.891666412353516,
+      "true_V2_ml": 82.08333587646484,
+      "error_V1_ml": -1.4953041076660156,
+      "error_V2_ml": -12.750343322753906,
+      "reason": "m193 at 20/1 and 100 ul extends measured a5f9179bfb146ad70953 and tests high-strength loading effects after the 5/1 pair showed modest load sensitivity.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "candidate_id": "a01a137fa48c1391b9e7",
+      "pred_V1_ml": 19.2901554107666,
+      "pred_V2_ml": 38.91054153442383,
+      "source": "LLM",
+      "true_V1_ml": 24.0,
+      "true_V2_ml": 44.29166793823242,
+      "error_V1_ml": -4.709844589233398,
+      "error_V2_ml": -5.381126403808594,
+      "reason": "m193 at 10/1 and 50 ul provides an intermediate solvent-strength point between measured 6ae922f63e983b14e320 and a5f9179bfb146ad70953.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "ad833f34f6b91872362d",
+      "pred_V1_ml": 24.45342254638672,
+      "pred_V2_ml": 61.63604736328125,
+      "source": "LLM",
+      "true_V1_ml": 44.724998474121094,
+      "true_V2_ml": 101.16666412353516,
+      "error_V1_ml": -20.271575927734375,
+      "error_V2_ml": -39.530616760253906,
+      "reason": "m160 at 5/1 and 50 ul tests whether the large donor/acceptor-rich prediction bias seen for measured b4d9d000145f0dfcee50 depends on loading.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "2feb7d8e0a3566ddf97f",
+      "pred_V1_ml": 18.598730087280273,
+      "pred_V2_ml": 40.90361404418945,
+      "source": "LLM",
+      "true_V1_ml": 11.899999618530273,
+      "true_V2_ml": 33.83333206176758,
+      "error_V1_ml": 6.69873046875,
+      "error_V2_ml": 7.070281982421875,
+      "reason": "Lower-strength m160 point distinguishes structural representation error from a solvent-triggered transition, using measured b4d9d000145f0dfcee50 as the local anchor.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "53a1acff30433cff819f",
+      "pred_V1_ml": 15.156675338745117,
+      "pred_V2_ml": 30.68240737915039,
+      "source": "LLM",
+      "true_V1_ml": 11.608333587646484,
+      "true_V2_ml": 31.575000762939453,
+      "error_V1_ml": 3.548341751098633,
+      "error_V2_ml": -0.8925933837890625,
+      "reason": "Novel m161 amino-nitrile scaffold at 2/1 probes transfer from the related measured donor/acceptor-rich m160 point b4d9d000145f0dfcee50.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "candidate_id": "17902fa9c7f8ea9b456e",
+      "pred_V1_ml": 23.55120277404785,
+      "pred_V2_ml": 56.74946975708008,
+      "source": "LLM",
+      "true_V1_ml": 27.350000381469727,
+      "true_V2_ml": 84.79166412353516,
+      "error_V1_ml": -3.798797607421875,
+      "error_V2_ml": -28.042194366455078,
+      "reason": "m161 at 5/1 creates a same-scaffold condition comparison and tests whether a new positional isomer follows the measured m160 behavior or requires distinct calibration.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "candidate_id": "35f2be5f5aa14265e8a4",
+      "pred_V1_ml": 53.13511276245117,
+      "pred_V2_ml": 95.92427825927734,
+      "source": "LLM",
+      "true_V1_ml": 26.266666412353516,
+      "true_V2_ml": 81.7750015258789,
+      "error_V1_ml": 26.868446350097656,
+      "error_V2_ml": 14.149276733398438,
+      "reason": "m211 at 50/1 and lower load is paired with measured 449b809e4efaaf2af86a to test the unusually large late-retention tail as a loading effect.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "bd2e9fee67bbba1155df",
+      "pred_V1_ml": 33.44607925415039,
+      "pred_V2_ml": 54.271053314208984,
+      "source": "LLM",
+      "true_V1_ml": 26.41666603088379,
+      "true_V2_ml": 48.74166488647461,
+      "error_V1_ml": 7.029413223266602,
+      "error_V2_ml": 5.529388427734375,
+      "reason": "m211 at 20/1 provides a lower-strength tail anchor relative to measured 449b809e4efaaf2af86a and tests whether the model learns a family-specific transition.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "e47aebe2660b9e1528de",
+      "pred_V1_ml": 44.73339080810547,
+      "pred_V2_ml": 86.41485595703125,
+      "source": "LLM",
+      "true_V1_ml": 53.41666793823242,
+      "true_V2_ml": 92.93333435058594,
+      "error_V1_ml": -8.683277130126953,
+      "error_V2_ml": -6.5184783935546875,
+      "reason": "m216 at 10/1 and 50 ul extends the measured 5/1 high-tail record c5185bd663026c64c816 and probes solvent-strength transfer in a sparse scaffold.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "07933c8c797c30bb0e8e",
+      "pred_V1_ml": 8.40906047821045,
+      "pred_V2_ml": 22.66997528076172,
+      "source": "LLM",
+      "true_V1_ml": 15.0,
+      "true_V2_ml": 34.724998474121094,
+      "error_V1_ml": -6.590939521789551,
+      "error_V2_ml": -12.055023193359375,
+      "reason": "Lower-strength m216 point complements c5185bd663026c64c816 and gives a condition-response anchor before the predicted high-strength tail.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "9e3ce3497298084abd83",
+      "pred_V1_ml": 39.83866882324219,
+      "pred_V2_ml": 72.3191146850586,
+      "source": "LLM",
+      "true_V1_ml": 59.58333206176758,
+      "true_V2_ml": 106.5,
+      "error_V1_ml": -19.74466323852539,
+      "error_V2_ml": -34.180885314941406,
+      "reason": "m146 at 10/1 tests whether the large measured error at 51f5ae6a991eea9e720e continues beyond 5/1, directly targeting heteroaromatic condition bias.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "23ef03f3e75e40b20095",
+      "pred_V1_ml": 39.82875061035156,
+      "pred_V2_ml": 72.3220443725586,
+      "source": "LLM",
+      "true_V1_ml": 51.34166717529297,
+      "true_V2_ml": 108.45833587646484,
+      "error_V1_ml": -11.512916564941406,
+      "error_V2_ml": -36.13629150390625,
+      "reason": "The 150-ul m146 counterpart forms a loading pair with 9e3ce3497298084abd83 around the measured 51f5ae6a991eea9e720e failure.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "candidate_id": "8ab554cd154e9749790b",
+      "pred_V1_ml": 32.254852294921875,
+      "pred_V2_ml": 66.02631378173828,
+      "source": "LLM",
+      "true_V1_ml": 41.15833282470703,
+      "true_V2_ml": 92.80833435058594,
+      "error_V1_ml": -8.903480529785156,
+      "error_V2_ml": -26.782020568847656,
+      "reason": "High-width, novel nitroaromatic m198 point probes transfer into an uncovered long-retention region where functional-group priors and the model may disagree.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "candidate_id": "44fcf641ccfa3b10a97c",
+      "pred_V1_ml": 24.148548126220703,
+      "pred_V2_ml": 43.76361083984375,
+      "source": "LLM",
+      "true_V1_ml": 36.53333282470703,
+      "true_V2_ml": 75.875,
+      "error_V1_ml": -12.384784698486328,
+      "error_V2_ml": -32.11138916015625,
+      "reason": "High-strength m114 point extends measured 5fb70d195002f8a4d518 and targets a broad, sparsely calibrated aromatic carbonyl regime.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "3163a9b58f1a52a1992c",
+      "pred_V1_ml": 43.300174713134766,
+      "pred_V2_ml": 76.67560577392578,
+      "source": "LLM",
+      "true_V1_ml": 58.25833511352539,
+      "true_V2_ml": 97.57499694824219,
+      "error_V1_ml": -14.958160400390625,
+      "error_V2_ml": -20.899391174316406,
+      "reason": "m181 at 50/1 and high load tests whether the measured 20/1 tail at 10ea0c665f5ba7c91bbf continues or changes interval width at stronger eluent.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "79362765eb92377a5970",
+      "pred_V1_ml": 42.78886795043945,
+      "pred_V2_ml": 63.34148025512695,
+      "source": "LLM",
+      "true_V1_ml": 17.25,
+      "true_V2_ml": 41.65833282470703,
+      "error_V1_ml": 25.538867950439453,
+      "error_V2_ml": 21.683147430419922,
+      "reason": "m195 at 50/1 targets finish calibration after the anomalous measured interval at a917c928912c74862968a; it can distinguish true broadening from model interval pathology.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "62d1db91c3839882736a",
+      "pred_V1_ml": 30.833593368530273,
+      "pred_V2_ml": 51.593780517578125,
+      "source": "LLM",
+      "true_V1_ml": 10.574999809265137,
+      "true_V2_ml": 19.308332443237305,
+      "error_V1_ml": 20.258593559265137,
+      "error_V2_ml": 32.28544807434082,
+      "reason": "High-strength m130 point tests structure-condition transfer against measured 10/1 m130 behavior in de3442604a546992b1e1 and samples a high-width tail region.",
+      "hypothesis_id": "H1"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "High PE/EA can produce family-specific late-retention transitions, but the response is not a universal smooth or monotone shift across molecules.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "a17bcdddcf0799baeee2",
+        "351c17dfa8f46a8cb40a",
+        "c76d0420b34df595c0c9",
+        "d9c8c8af50a10bf07765",
+        "5d6d4ac0c1dfacbde53d",
+        "d54c93a11164b4abac6e"
+      ],
+      "contradicting_observed_ids": [
+        "2f22fe92623a5d221e6e",
+        "7e981ba02c83f74f5e65"
+      ],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The retrained model needs family-specific solvent-condition interactions so it can represent abrupt onset and finish shifts without imposing one global elution-strength slope.",
+      "next_discriminating_question": "Do matched families show a shared transition location with different amplitudes, or are transition locations themselves scaffold specific?"
+    },
+    {
+      "id": "H2",
+      "content": "Loading effects are molecule specific and often alter onset or interval width modestly rather than producing one uniform retention shift.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "5c2bc1d92128a17d996d",
+        "efd84dffe823b6298db6",
+        "6ae922f63e983b14e320",
+        "3e69cf586f3eb0f0fa8c",
+        "89d752b5a7f7c8d0b91e",
+        "252c027cf5a42b92c953"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The predictor contains loading features, but controlled labels are needed to prevent the model from learning spurious global loading corrections from confounded observations.",
+      "next_discriminating_question": "At fixed molecule and solvent strength, does loading mainly move V1, expand V2-V1, or leave both nearly unchanged?"
+    },
+    {
+      "id": "H3",
+      "content": "V2 and interval width require separate tail calibration; onset can be close while the predicted finish remains substantially biased.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "a17bcdddcf0799baeee2",
+        "351c17dfa8f46a8cb40a",
+        "c76d0420b34df595c0c9",
+        "20913a7c2077b80b7351",
+        "776ee2c1e85ebde75168",
+        "5d6d4ac0c1dfacbde53d",
+        "d9c8c8af50a10bf07765"
+      ],
+      "contradicting_observed_ids": [
+        "f62720d3fc5dbb0e173d",
+        "b4d9d000145f0dfcee50"
+      ],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "V2 errors dominate several long-tail failures, so labels should teach finish behavior and interval width rather than only improving the onset center.",
+      "next_discriminating_question": "Can width be predicted from loading and functional-group descriptors, or does it require scaffold-specific condition examples?"
+    },
+    {
+      "id": "H4",
+      "content": "Novel or weakly represented scaffolds can show family-specific transfer failures, while chemical novelty alone does not guarantee a large error.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "51f5ae6a991eea9e720e",
+        "89d752b5a7f7c8d0b91e",
+        "2f22fe92623a5d221e6e"
+      ],
+      "contradicting_observed_ids": [
+        "f62720d3fc5dbb0e173d"
+      ],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The structure representation must transfer across functional groups and positional changes without relying on a new-molecule quota or treating every novel row as equally informative.",
+      "next_discriminating_question": "Do matched functional-group analogs transfer retention and width, or do positional and scaffold effects dominate?"
+    },
+    {
+      "id": "H6",
+      "content": "Small matched local curves provide more information about structure-condition and loading interactions than isolated extremes.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "6ae922f63e983b14e320",
+        "3e69cf586f3eb0f0fa8c",
+        "89d752b5a7f7c8d0b91e",
+        "252c027cf5a42b92c953",
+        "9a60cb4735780275034e"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Grouped labels expose slopes, nonlinearities, and interactions that can generalize across the many related molecule-condition rows in the catalog.",
+      "next_discriminating_question": "Are response slopes shared within functional-group families, or must the model learn separate local curves for each scaffold?"
+    }
+  ],
+  "feedback_interpretation": "The newly measured labels strengthen H1 and H3. m159, m28, m90, m118, m40, m119, and m129 produced large or family-specific solvent-strength and finish deviations, while m117 and m206 showed that the direction and magnitude are not universal. The matched m193 pair changed little with loading, and the m212 pair changed only modestly, weakening any simple global loading correction and supporting controlled local pairs. Novelty remains informative but unreliable by itself: m146 was a large error, m212 was moderate, m71 showed a weak or nonmonotone condition response, and m139 was close to prediction. The next batch therefore emphasizes V2 tail repair, matched loading comparisons, and solvent-response curves around the strongest measured failures, while retaining a smaller set of novel scaffold anchors.",
+  "batch_rationale": "The batch concentrates labels where recent measurements exposed systematic failure: broad V2 tails, abrupt PE/EA responses, and uncertain loading effects. Several groups form interpretable local experiments around m90, m159, m118, m28, m120, m119, m206, m193, m160, m161, m211, m216, and m146; their paired conditions can teach slopes and interactions during retraining. Additional high-width m198, m114, m181, m195, and m130 rows extend tail calibration across nitroaromatic, carbonyl, fused aromatic, and heteroatom-rich regimes. This combination should improve generalization across the Row-distribution by correcting recurrent finish bias, resolving condition-response relationships, and adding transfer examples where the current structure representation is sparsely constrained."
+}

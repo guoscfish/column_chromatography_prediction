@@ -1,0 +1,327 @@
+{
+  "request_sha256": "ca316950f4e9e0044ff548ae070de7fe8afcdf6221b5d67311002d2c6d33b907",
+  "success": true,
+  "answer": "{\"type\":\"selection\",\"packet_sha256\":\"27da23a90d6e4f56a8e4079d225293749fb6ad5f9d36fc83853f81f8a5431ef4\",\"batch_strategy\":\"Family-specific tail repair with matched ratio and loading contrasts, plus low-retention anchors\",\"choices\":[{\"id\":\"761c3f82d640da44966c\",\"reason\":\"m125 at 5/1 DCM with 50 ul sample and 500 ul loading solvent has a predicted 32.5/67.4 ml tail. It extends the measured m125 tail in c4b5a5499258f39b7ac1 to a lower sample volume and tests whether the anomaly is loading dependent.\",\"hypothesis_id\":\"H1\"},{\"id\":\"06ebbf6e52fa3ea6aef3\",\"reason\":\"This is the matched m125 5/1 DCM, 150 ul sample, 500 ul loading-solvent point. Comparing it with 761c3f82d640da44966c and measured c4b5a5499258f39b7ac1 gives a same-family loading curve around a known large tail.\",\"hypothesis_id\":\"H3\"},{\"id\":\"d1172a49fca1e196a59f\",\"reason\":\"m107 at 5/1 DCM and 100 ul sample is predicted at 48.7/104.6 ml. It forms a loading contrast with measured c6924324ddd95f249df6, where the same ratio and loading-solvent volume produced 43.2/101.4 ml.\",\"hypothesis_id\":\"H1\"},{\"id\":\"143bf510fe2028583763\",\"reason\":\"m107 at 2/1 DCM and 50 ul supplies a lower-strength point beside measured c6924324ddd95f249df6. The label tests whether the exceptionally late m107 finish emerges smoothly with ratio or reflects a threshold response.\",\"hypothesis_id\":\"H1\"},{\"id\":\"8e7636d7a60a6058305a\",\"reason\":\"m72 at 20/1 PE and 50 ul has a very broad predicted 37.6/116.7 ml response. It tests the high-ratio end of a donor-containing response against measured 334f7f55dcbf278e47ec and 89425cdfb228a6ebf75d.\",\"hypothesis_id\":\"H4\"},{\"id\":\"7383949c431e18f39597\",\"reason\":\"m72 at 10/1 DCM and 50 ul probes a lower-ratio, low-volume point between measured a461d15b45edb356d2da and 48b79cabd9460cfc510b. This helps separate ratio, solvent identity, and loading effects in a tail-forming family.\",\"hypothesis_id\":\"H4\"},{\"id\":\"29db30571b2a1ae59cc7\",\"reason\":\"m90 at 5/1 DCM and 50 ul is predicted at 29.8/66.7 ml. It provides a loading contrast to measured 855832bd4005ac7abdc6 at the same ratio and a nearby DCM loading context.\",\"hypothesis_id\":\"H4\"},{\"id\":\"31232902f2b6f3a67c60\",\"reason\":\"m90 at 1/1 DCM and 100 ul supplies a lower-ratio anchor for the same heteroaromatic family. It can be compared with measured 6f827d26c4f82a1bfa90 and the high-ratio m90 records 855832bd4005ac7abdc6 and 96710afeabc594baa359.\",\"hypothesis_id\":\"H4\"},{\"id\":\"434e465cfa7e0034f233\",\"reason\":\"m211 at 20/1 DCM and 50 ul is predicted at 23.0/70.2 ml. It extends measured d119d77f545c029deace at 10/1 and contrasts with measured bd2e9fee67bbba1155df at 20/1 under a different loading volume.\",\"hypothesis_id\":\"H4\"},{\"id\":\"449b809e4efaaf2af86a\",\"reason\":\"m211 at 50/1 DCM and 100 ul tests the high-ratio endpoint beside measured 35f2be5f5aa14265e8a4 at 50 ul. The contrast is useful because V2 and loading effects may move independently.\",\"hypothesis_id\":\"H4\"},{\"id\":\"de4e10d3a5d448ffcdda\",\"reason\":\"m141 at 1/1 DCM and 150 ul adds a lower-ratio anchor to the strong measured m141 response at 10/1 and 20/1 in 6f548d72f01fc85debdc and 51f4126a3aadb3239225.\",\"hypothesis_id\":\"H4\"},{\"id\":\"b85305d91a9e7cfa6005\",\"reason\":\"m193 at 20/1 DCM with 150 ul sample and 700 ul loading solvent tests whether the high-ratio m193 tail persists at larger sample volume. It extends measured a5f9179bfb146ad70953 at the same ratio and lower sample volume.\",\"hypothesis_id\":\"H4\"},{\"id\":\"2d63ab3869184cde52bf\",\"reason\":\"m114 at 50/1 DCM and 50 ul is a high-ratio, low-volume point with a broad predicted finish. It forms a loading-solvent-volume contrast with measured 0cf0d36290765378ae8d at the same ratio.\",\"hypothesis_id\":\"H1\"},{\"id\":\"44fcf641ccfa3b10a97c\",\"reason\":\"The matched m114 50/1 DCM point at 100 ul samples the intermediate loading amount. Together with 2d63ab3869184cde52bf and measured 0cf0d36290765378ae8d, it tests whether the late finish scales with loading.\",\"hypothesis_id\":\"H3\"},{\"id\":\"f31a89256d8ee4192d55\",\"reason\":\"m39 at 20/1 DCM and 100 ul is predicted at 28.6/74.9 ml. It provides an intermediate loading point relative to measured a6a0404c3ad65c6d9326 at 150 ul and tests whether the finish broadening is monotonic.\",\"hypothesis_id\":\"H1\"},{\"id\":\"7ac90b210e42d27c5a04\",\"reason\":\"m94 at 10/1 DCM and 50 ul probes a lower-loading point in a multifunctional carbonyl family. It helps interpolate toward the large measured m94 tail in ffffcd6f3b9393846ab4.\",\"hypothesis_id\":\"H1\"},{\"id\":\"e3a799d0fa90b649a157\",\"reason\":\"m94 at 20/1 DCM and 100 ul is predicted at 36.3/76.4 ml. Comparing it with measured ffffcd6f3b9393846ab4 at 150 ul directly tests whether V1 and V2 respond differently to loading.\",\"hypothesis_id\":\"H3\"},{\"id\":\"9e3f598e00375ec93d9b\",\"reason\":\"m13 at 10/1 DCM and 100 ul is a high predicted-tail point between the ordinary measured 1/1 record 81507d463506a9e65e73 and the later measured 5/1 record 5d530b2f228ed39ff952.\",\"hypothesis_id\":\"H1\"},{\"id\":\"1cc3b837c6561b1c0a23\",\"reason\":\"m13 at 5/1 DCM and 50 ul tests the lower-volume side of the same carbonyl-rich response. It complements measured 5d530b2f228ed39ff952 at 150 ul and can reveal a loading-driven onset shift.\",\"hypothesis_id\":\"H3\"},{\"id\":\"17c1bb3be086a2b6ffec\",\"reason\":\"m119 at 2/1 DCM and 100 ul is predicted at 16.6/32.0 ml. It forms a direct loading contrast with measured a775926fce57b3bf9ec1 at 50 ul in a family that already shows a large finish response at higher loading.\",\"hypothesis_id\":\"H3\"},{\"id\":\"e4fd83fb3852eb354a66\",\"reason\":\"m120 at 5/1 DCM and 100 ul tests whether the large measured m120 tail in 71abc36775b6cce56da7 at 50 ul is primarily loading driven or condition driven.\",\"hypothesis_id\":\"H3\"},{\"id\":\"92f7fe9d8581717a9949\",\"reason\":\"m128 at 10/1 DCM and 100 ul samples the high-tail ether-rich aromatic family between measured 596bd04bfe916866f908 at 150 ul and lower-ratio records. It targets transfer of the newly observed tail behavior.\",\"hypothesis_id\":\"H1\"},{\"id\":\"892c3900698d3de38b1c\",\"reason\":\"m128 at 5/1 DCM and 100 ul is a moderate-ratio loading anchor with a broad predicted V2 interval. The label can distinguish an early tail threshold from a smooth ratio response in this structurally unusual family.\",\"hypothesis_id\":\"H1\"},{\"id\":\"58394a71418a9623e18a\",\"reason\":\"m159 at 10/1 DCM and 50 ul tests the lower-loading side of measured 79ff49052bce33597828 at 150 ul. It is useful because measured 1395836aef00d6a880b0 shows a much later high-ratio endpoint.\",\"hypothesis_id\":\"H3\"},{\"id\":\"b1801204c2c4a34a9278\",\"reason\":\"m117 at 50/1 DCM and 50 ul targets a high-ratio ether-containing aldehyde with a wide predicted interval. Its label supplies a structurally distinct check on whether late carbonyl tails transfer beyond the m125 and m107 examples.\",\"hypothesis_id\":\"H1\"},{\"id\":\"0296d31e8c2e55602a19\",\"reason\":\"m58 at 50/1 DCM and 150 ul tests a high-ratio donor-containing response at larger sample volume. It extends measured 3ae1262572c1d989fe91 and 68a01853008546de06a1, which show strong condition sensitivity in this family.\",\"hypothesis_id\":\"H3\"},{\"id\":\"4fb92bd1fab3ba235858\",\"reason\":\"m51 at 10/1 PE and 50 ul is a lower-volume point beside measured bad24d96575f423fe4fd at 100 ul and bf09d868ed4d68a97b40 at 5/1. This discriminates loading sensitivity from a simple ratio effect in a donor-containing molecule.\",\"hypothesis_id\":\"H3\"},{\"id\":\"a3a9c58c8aa6145907a6\",\"reason\":\"m204 at 0/1 PE and 100 ul is a strong-solvent low-retention anchor. It can be compared with measured 09b1bb29e7a0e3565a0 and the high-retention 358461ff3742e78ea3b6 to locate where the m204 tail turns on.\",\"hypothesis_id\":\"H3\"},{\"id\":\"4fd617ffb65c4435f9bb\",\"reason\":\"m213 at 0/1 PE and 50 ul provides a donor-free aromatic-ether baseline against measured 28ade707bfe458664f60 at 20/1 PE. It protects the retrained model from applying tail corrections to ordinary low-retention structures.\",\"hypothesis_id\":\"H2\"},{\"id\":\"d1e6e925623ba4b6810b\",\"reason\":\"m167 at 2/1 DCM and 150 ul is a compact multifunctional carbonyl control. Its moderate predicted retention contrasts with the high-ratio measured fa6fd34875fdc7acf6c1 and helps calibrate carbonyl effects outside the extreme-tail families.\",\"hypothesis_id\":\"H2\"},{\"id\":\"d603d4af5fd62fa8b85e\",\"reason\":\"m91 at 2/1 DCM and 100 ul is a low-polarity ester anchor. It complements measured bc98537714d620facf79 and 93f10a8edf06f7acae26 at higher ratio, constraining the ordinary response surface.\",\"hypothesis_id\":\"H2\"},{\"id\":\"6325c295ee77a229bbdc\",\"reason\":\"m14 at 0/1 PE and 100 ul supplies a strong-solvent, donor-free aromatic boundary point. It is useful against the high-ratio measured m14 records fc5fa646f4ee783c186a and d1093ff4ef84f3dc68c3.\",\"hypothesis_id\":\"H2\"}],\"hypotheses\":[{\"id\":\"H1\",\"content\":\"Late V2 tails and delayed onsets are concentrated in ether-rich, multifunctional carbonyl, and other heteroatom-rich families, with abrupt dependence on ratio and loading rather than a universal solvent correction.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"c6924324ddd95f249df6\",\"c4b5a5499258f39b7ac1\",\"ffffcd6f3b9393846ab4\",\"b1c5816f929ef59f5a87\",\"51f4126a3aadb3239225\",\"9e3ce3497298084abd83\",\"71abc36775b6cce56da7\",\"855832bd4005ac7abdc6\"],\"contradicting_observed_ids\":[],\"confidence\":\"high\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"Local labels can teach the model when V1 and V2 shift together, when only V2 broadens, and which structural families require nonlinear condition responses.\",\"next_discriminating_question\":\"Do matched loading and ratio contrasts within each tail-forming family reveal a reproducible threshold or a smooth response curve?\"},{\"id\":\"H2\",\"content\":\"Ordinary neutral and donor-free rows remain substantially earlier than the tail-forming families, so family-specific corrections need low-retention anchors to avoid global overcorrection.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"3a095d378b537020c569\",\"463c07f492870522d9b8\",\"2aa2754666d0f055cb00\",\"9f2784e0f5c807ccfa0f\",\"0b1b7bf04ed8169cd172\",\"fc5fa646f4ee783c186a\"],\"contradicting_observed_ids\":[],\"confidence\":\"high\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"These anchors constrain the common Row-distribution region while the tail experiments teach rare high-error structure-condition interactions.\",\"next_discriminating_question\":\"Which descriptor and condition combinations separate ordinary aromatic or ester behavior from the late-tail subfamilies?\"},{\"id\":\"H3\",\"content\":\"Loading amount and loading-solvent volume interact with structure and can change onset and finish differently, especially in flexible donor-containing or oxygen-rich molecules.\",\"basis\":\"observed_data\",\"supporting_observed_ids\":[\"7954bf73f74c7fbcecb2\",\"e8f592c469b2f3c136d8\",\"91b6bda771851a5c78ac\",\"358461ff3742e78ea3b6\",\"a0fb13951a097b6a1516\",\"8b0153f031bc52c2c1dd\"],\"contradicting_observed_ids\":[],\"confidence\":\"high\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"Matched same-molecule contrasts provide supervision for interactions that descriptor pooling and global loading terms cannot represent.\",\"next_discriminating_question\":\"At fixed PE/EA, does changing sample volume or loading-solvent volume primarily shift V1, broaden V2, or do both?\"},{\"id\":\"H4\",\"content\":\"Basic and heteroaromatic acceptor families such as m90, m141, m211, and m193 have distinct ratio-dependent upper-tail curves that should not be transferred by simple structural similarity.\",\"basis\":\"observed_data\",\"supporting_observed_ids\":[\"855832bd4005ac7abdc6\",\"96710afeabc594baa359\",\"51f4126a3aadb3239225\",\"49201b5817f204116f7f\",\"d119d77f545c029deace\",\"a5f9179bfb146ad70953\"],\"contradicting_observed_ids\":[],\"confidence\":\"high\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"These families occupy important high-error regions and can improve calibration of nonlinear ratio effects across chemically related but noninterchangeable structures.\",\"next_discriminating_question\":\"Can local ratio curves identify family-specific slopes or thresholds after conditioning on loading context?\"},{\"id\":\"H5\",\"content\":\"Very broad model quantile widths can represent severe overprediction as well as a real late tail, as shown by the m177 family; width alone should not drive a global correction.\",\"basis\":\"observed_data\",\"supporting_observed_ids\":[\"b514312eda7950cdcf1c\",\"4862e2fb71344ce16021\",\"5e276c1730fc0a9deba7\"],\"contradicting_observed_ids\":[\"c6924324ddd95f249df6\",\"334f7f55dcbf278e47ec\",\"ffffcd6f3b9393846ab4\"],\"confidence\":\"medium\",\"status\":\"unresolved\",\"why_it_matters_for_model_learning\":\"The retrained model needs labels that discriminate true tail regions from false positives in its uncertainty and upper-tail predictions.\",\"next_discriminating_question\":\"Which molecular and condition features distinguish genuine late finishes from the m177-like overpredicted intervals?\"}],\"feedback_interpretation\":\"Recent labels strengthened the tail hypothesis for m107, m125, m94, m106, m141, m66, and m90-like regions, while m205 and m204 showed that loading context can move both heads substantially. The m80 records continue to support a comparatively flat neutral diester response. The m177 measurements were a useful correction to the acquisition logic: very broad predictions can be badly overestimated, so this batch emphasizes matched local curves and strong-solvent controls instead of selecting only the widest predicted intervals.\",\"batch_rationale\":\"The batch concentrates on measured failure families while preserving transfer anchors. The first group maps ratio and loading responses for m107, m72, m90, m211, m141, m193, m114, m39, m94, m13, m119, m120, m128, m159, m117, m58, and m51. Several are same-molecule contrasts against measured rows, which should teach whether errors belong to V1, V2, or both. The final anchors cover donor-free aromatics, simple esters, and compact carbonyl structures at strong or moderate solvent strength. This combination should improve generalization across the Row-distribution by repairing rare tail regions without spreading their corrections into the much larger ordinary-retention region.\"}",
+  "provenance": {
+    "response_id": "resp_0d3d4950dc31a0c2016ae7f8a39cc88198979ca65932612487",
+    "served_model": "gpt-6.1-sol",
+    "request_id": "c1e9ab0b-cb30-404b-8fd0-a3503ff87e28",
+    "usage": {
+      "input_tokens": 448884,
+      "input_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 26319,
+      "output_tokens_details": {
+        "reasoning_tokens": 22210
+      },
+      "total_tokens": 475203,
+      "attribution": {
+        "items": {
+          "msg_0d3d4950dc31a0c2016ae7f8a39d988198a58231ffe2293aaa": {
+            "input_tokens": 443093,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 443093,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_0d3d4950dc31a0c2016ae7fb635a588198b9931d3c5a2641df": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 4109,
+            "content": [
+              {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 4109
+              }
+            ]
+          },
+          "rs_0d3d4950dc31a0c2016ae7f8bcea6481988ec4dc88a420a055": {
+            "input_tokens": 2,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 516
+          },
+          "rs_0d3d4950dc31a0c2016ae7f8ceb6a88198b2ba519a6e4a9a2b": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7f8df56948198adddac6eaccbe886": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7f8ef0d7c8198a0c78108ee11bb12": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7f8fedb548198b3c53bac6a93e31d": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7f90f13408198836ba23ae4f6f4eb": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7f920be34819894d4f1e74036e205": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7f931c9e88198a08c8d47e42491dc": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7f941a4e88198b558563b8b32eff1": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7f95181388198b8a84b701ff0f471": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7f96030c0819891e8c8fbde0ec0c8": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7f970e5808198bc392496b20e5659": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7f982506c81989089b35c4655958a": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7f9938da48198b951712be15bf8dd": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7f9a37b688198866a55e06cddb0a5": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7f9b227e48198bda05b6d75eaae91": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7f9c28bc8819888d5c0f57a064ee5": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7f9d5292c8198a937d46137d10295": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7f9e6a0e48198a455ee5199c27e26": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7f9f7415881988a162efc1354ea1d": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7fa0538a081988476dda2376d4314": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7fa1440148198bc246ebe1f517692": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7fa258a208198ad0f45f6256b56d9": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7fa354ba0819880eff7219e4042d1": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7fa4405888198a8903199ef585793": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7fa533108819881827f759f137739": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7fa66706481988073d4ccac0f4457": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7fa79c0dc81988d46566a4acae034": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7fa89a318819894df4c73978cb18e": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7fa969ddc819891e57c1dac74add5": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7faa9b6708198b528302ba496fb84": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7fab8c2ac8198919149a0ffc088a0": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7fac7fb0881988383491314bf98ff": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7fad7ea808198a63f8a4ad54eca21": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7fae95f4c8198a109aa683f8bf626": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7fafc84a08198b7504754ad49ddcf": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7fb09fe8c819881d24b2a801cce47": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7fb18a30081989fe209cd23c05ead": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7fb298550819886045dd378046225": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7fb3a0498819891b8c51985c7efe2": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7fb47760c819897dae736872fc55a": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7fb56ddf08198b50f4e8c24768613": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0d3d4950dc31a0c2016ae7fb6316b08198b0fefff92758e805": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 456
+          }
+        },
+        "request_fields": {
+          "instructions": {
+            "input_tokens": 5789,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "native_tool_calls": 0,
+    "requested_model": "gpt-6.1-sol",
+    "reasoning_effort": "xhigh",
+    "received_utc": "2026-11-02T02:56:24.937897+00:00",
+    "provider_source": "frozen-provider; per-seed credential alias"
+  },
+  "elapsed_seconds": 826.4340038329829,
+  "ended_utc": "2026-11-02T02:56:24.941892+00:00"
+}

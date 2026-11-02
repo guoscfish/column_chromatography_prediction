@@ -1,0 +1,16 @@
+# Recomputable mock/prelaunch copies; authoritative preflight audits stay tracked.
+/setup_attempts/
+/dry_run/
+# Machine-specific live process state; publish fixed report snapshots instead.
+/active_runtime.json
+/worktree_before.txt
+/reports/
+/concurrency_v2/dispatch_seed_*.json
+/persistent_20261102_v2/dispatch_seed_*.json
+/persistent_20261102_v2/restart_after_seed_*.json
+/persistent_20261102_v2/worker_exits/
+# Raw SSE mirrors duplicate compact attempt receipts and accepted selections.
+/selections/**/stream_*
+# Python and test caches are not scientific results.
+__pycache__/
+.pytest_cache/

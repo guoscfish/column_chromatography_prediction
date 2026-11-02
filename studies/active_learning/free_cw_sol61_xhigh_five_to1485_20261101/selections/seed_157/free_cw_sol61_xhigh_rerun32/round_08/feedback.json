@@ -1,0 +1,501 @@
+{
+  "seed": 157,
+  "method": "free_cw_sol61_xhigh_rerun32",
+  "round": 8,
+  "batch_freeze_sha256": "42ad7351f73c7644d5b99b134e834c473373f696a6ca8f2392db953587e7b16f",
+  "records": [
+    {
+      "candidate_id": "0dd38abec3981f296cfb",
+      "pred_V1_ml": 7.74358606338501,
+      "pred_V2_ml": 16.60541534423828,
+      "source": "LLM",
+      "true_V1_ml": 9.183333396911621,
+      "true_V2_ml": 15.716666221618652,
+      "error_V1_ml": -1.4397473335266113,
+      "error_V2_ml": 0.8887491226196289,
+      "reason": "m85 at 20/1 and low loading is a molecule-known, condition-novel point with a broad predicted interval. It tests transfer of solvent-strength response while retaining an ordinary scaffold anchor.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "0e3813ce35d9e31ef276",
+      "pred_V1_ml": 8.394604682922363,
+      "pred_V2_ml": 19.555248260498047,
+      "source": "LLM",
+      "true_V1_ml": 9.0,
+      "true_V2_ml": 19.34166717529297,
+      "error_V1_ml": -0.6053953170776367,
+      "error_V2_ml": 0.21358108520507812,
+      "reason": "m72 at 2/1 and 50 uL bridges the measured low-regime point 6a53fc46345dc50021ae and stronger m72 tails such as 7383949c431e18f39597, probing the onset of V2 expansion.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "3b85c48d88dae39651ac",
+      "pred_V1_ml": 5.273771286010742,
+      "pred_V2_ml": 10.400229454040527,
+      "source": "LLM",
+      "true_V1_ml": 6.483333110809326,
+      "true_V2_ml": 10.116666793823242,
+      "error_V1_ml": -1.209561824798584,
+      "error_V2_ml": 0.28356266021728516,
+      "reason": "Molecule-novel m151 at 2/1 provides a moderate-retention chemical anchor at high feature-space distance, improving transfer beyond the tail-heavy neighborhoods.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "candidate_id": "9ee8566ca27ac0454721",
+      "pred_V1_ml": 4.518814563751221,
+      "pred_V2_ml": 9.748977661132812,
+      "source": "LLM",
+      "true_V1_ml": 3.375,
+      "true_V2_ml": 12.100000381469727,
+      "error_V1_ml": 1.1438145637512207,
+      "error_V2_ml": -2.351022720336914,
+      "reason": "Molecule-novel m68 at 0/1 supplies a moderate-width calibration point in a distinct ketone family, helping distinguish broad uncertainty from genuine late retention.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "candidate_id": "5c4c93d36b2fc71b1442",
+      "pred_V1_ml": 4.817482948303223,
+      "pred_V2_ml": 12.514711380004883,
+      "source": "LLM",
+      "true_V1_ml": 5.75,
+      "true_V2_ml": 14.691666603088379,
+      "error_V1_ml": -0.9325170516967773,
+      "error_V2_ml": -2.176955223083496,
+      "reason": "Molecule-novel m12 at 10/1 samples an unrepresented condition in a small aromatic scaffold and adds ordinary-to-intermediate calibration at stronger eluent.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "candidate_id": "0c698539e41c4b28cd00",
+      "pred_V1_ml": 5.371280193328857,
+      "pred_V2_ml": 10.987434387207031,
+      "source": "LLM",
+      "true_V1_ml": 3.9000000953674316,
+      "true_V2_ml": 7.991666793823242,
+      "error_V1_ml": 1.4712800979614258,
+      "error_V2_ml": 2.995767593383789,
+      "reason": "Molecule-novel m29 at 1/1 adds a moderate anchor in a substituted aromatic ketone family and tests whether nearby structural coverage transfers at ordinary strength.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "candidate_id": "662cdf5c5a8b351d8584",
+      "pred_V1_ml": 5.931166648864746,
+      "pred_V2_ml": 7.247158527374268,
+      "source": "LLM",
+      "true_V1_ml": 5.8416666984558105,
+      "true_V2_ml": 8.699999809265137,
+      "error_V1_ml": 0.08949995040893555,
+      "error_V2_ml": -1.4528412818908691,
+      "reason": "Molecule-novel m16 at 1/1 and 100 uL expands calibration for a simple ester scaffold while adding loading coverage outside the extreme tails.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "candidate_id": "b5a09e39ab254d048d3e",
+      "pred_V1_ml": 5.714155673980713,
+      "pred_V2_ml": 12.869162559509277,
+      "source": "LLM",
+      "true_V1_ml": 5.608333110809326,
+      "true_V2_ml": 8.566666603088379,
+      "error_V1_ml": 0.10582256317138672,
+      "error_V2_ml": 4.302495956420898,
+      "reason": "Molecule-novel m58 at 1/1 provides a donor-containing ordinary anchor, useful for learning when hydrogen bonding produces routine rather than late-tail retention.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "candidate_id": "ab6f5728ca497f067610",
+      "pred_V1_ml": 4.223321437835693,
+      "pred_V2_ml": 8.24482250213623,
+      "source": "LLM",
+      "true_V1_ml": 5.516666889190674,
+      "true_V2_ml": 8.074999809265137,
+      "error_V1_ml": -1.2933454513549805,
+      "error_V2_ml": 0.16982269287109375,
+      "reason": "Molecule-novel m57 at 0/1 adds a low-strength halogenated aromatic anchor and broadens chemical coverage with a narrow predicted regime.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "candidate_id": "d1aea374a88513fdb2ab",
+      "pred_V1_ml": 5.29923677444458,
+      "pred_V2_ml": 13.538505554199219,
+      "source": "LLM",
+      "true_V1_ml": 5.691666603088379,
+      "true_V2_ml": 13.541666984558105,
+      "error_V1_ml": -0.39242982864379883,
+      "error_V2_ml": -0.0031614303588867188,
+      "reason": "Molecule-novel m187 at 5/1 has a broad predicted interval and high distance, testing whether conditional late-tail behavior transfers into a halogenated aldehyde family.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "59752d0b8c96b9efb90c",
+      "pred_V1_ml": 8.88228988647461,
+      "pred_V2_ml": 18.215688705444336,
+      "source": "LLM",
+      "true_V1_ml": 6.875,
+      "true_V2_ml": 10.425000190734863,
+      "error_V1_ml": 2.0072898864746094,
+      "error_V2_ml": 7.790688514709473,
+      "reason": "Molecule-novel m116 at 2/1 and low loading is a moderately retained high-distance anchor that tests transfer outside the established failure families.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "candidate_id": "18355dfa0f6e519b7bf6",
+      "pred_V1_ml": 5.898245334625244,
+      "pred_V2_ml": 11.165905952453613,
+      "source": "LLM",
+      "true_V1_ml": 4.008333206176758,
+      "true_V2_ml": 7.991666793823242,
+      "error_V1_ml": 1.8899121284484863,
+      "error_V2_ml": 3.174239158630371,
+      "reason": "The second m29 condition point at 0/1 forms a local solvent-strength contrast with 0c698539e41c4b28cd00, teaching the model the scaffold-specific condition slope.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "7a9ddf2102dcd051c2f7",
+      "pred_V1_ml": 6.831751346588135,
+      "pred_V2_ml": 16.80492401123047,
+      "source": "LLM",
+      "true_V1_ml": 5.808333396911621,
+      "true_V2_ml": 17.16666603088379,
+      "error_V1_ml": 1.0234179496765137,
+      "error_V2_ml": -0.3617420196533203,
+      "reason": "m196 at 5/1 and 100 uL is a high-distance, broad-width point in a fused aromatic aldehyde family and tests late-tail transfer across a distinct structure.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "2c42c9de227df39c5f0c",
+      "pred_V1_ml": 3.7572953701019287,
+      "pred_V2_ml": 8.705739974975586,
+      "source": "LLM",
+      "true_V1_ml": 4.712500095367432,
+      "true_V2_ml": 7.7833333015441895,
+      "error_V1_ml": -0.9552047252655029,
+      "error_V2_ml": 0.9224066734313965,
+      "reason": "m95 at 0/1 is a narrow, early-regime anchor that helps calibrate the lower end of a carbonyl-rich family whose stronger conditions can develop broad intervals.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "candidate_id": "4466eabae9624380fbc6",
+      "pred_V1_ml": 3.2509841918945312,
+      "pred_V2_ml": 10.032227516174316,
+      "source": "LLM",
+      "true_V1_ml": 4.099999904632568,
+      "true_V2_ml": 9.941666603088379,
+      "error_V1_ml": -0.8490157127380371,
+      "error_V2_ml": 0.0905609130859375,
+      "reason": "m177 at 0/1 and high loading gives a lower-strength baseline for a polar benzophenone family, helping separate ordinary retention from its stronger-condition tail behavior.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "candidate_id": "9425b8289ee4a76611af",
+      "pred_V1_ml": 3.752932071685791,
+      "pred_V2_ml": 8.339439392089844,
+      "source": "LLM",
+      "true_V1_ml": 4.5,
+      "true_V2_ml": 8.0,
+      "error_V1_ml": -0.747067928314209,
+      "error_V2_ml": 0.33943939208984375,
+      "reason": "m54 at 0/1 adds a moderate ordinary ketone anchor with a distinct loading amount and prevents the batch from concentrating only on late-tail predictions.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "candidate_id": "80762b40f399bb68342a",
+      "pred_V1_ml": 15.158971786499023,
+      "pred_V2_ml": 27.49892807006836,
+      "source": "LLM",
+      "true_V1_ml": 16.725000381469727,
+      "true_V2_ml": 27.066667556762695,
+      "error_V1_ml": -1.5660285949707031,
+      "error_V2_ml": 0.43226051330566406,
+      "reason": "m97 at 20/1 has a broad predicted V1 interval and samples a strong-condition ester family at high distance, providing a distinct tail-repair test.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "3786b3156365f77c03ce",
+      "pred_V1_ml": 7.405855178833008,
+      "pred_V2_ml": 20.37299156188965,
+      "source": "LLM",
+      "true_V1_ml": 4.5916666984558105,
+      "true_V2_ml": 17.266666412353516,
+      "error_V1_ml": 2.8141884803771973,
+      "error_V2_ml": 3.106325149536133,
+      "reason": "m176 at 10/1 and high loading probes a strong-condition benzophenone scaffold with moderate-to-broad width, testing condition transfer outside the measured extreme families.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "1b610fb92b30df5ca03f",
+      "pred_V1_ml": 5.430242538452148,
+      "pred_V2_ml": 8.413122177124023,
+      "source": "LLM",
+      "true_V1_ml": 6.141666889190674,
+      "true_V2_ml": 9.108333587646484,
+      "error_V1_ml": -0.7114243507385254,
+      "error_V2_ml": -0.6952114105224609,
+      "reason": "Molecule-novel m123 at 1/1 provides an ordinary anisole-family anchor and helps calibrate common rows with moderate polarity and no donor.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "candidate_id": "43a518f01fef0d4ae54b",
+      "pred_V1_ml": 4.633345127105713,
+      "pred_V2_ml": 9.345775604248047,
+      "source": "LLM",
+      "true_V1_ml": 3.8916666507720947,
+      "true_V2_ml": 9.183333396911621,
+      "error_V1_ml": 0.7416784763336182,
+      "error_V2_ml": 0.16244220733642578,
+      "reason": "m39 at 0/1 is an early-regime anchor for a dioxole ketone family and supplies a lower-strength point before its broader predicted strong-condition behavior.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "candidate_id": "216d3a0a0932cff106a6",
+      "pred_V1_ml": 5.075769424438477,
+      "pred_V2_ml": 9.857362747192383,
+      "source": "LLM",
+      "true_V1_ml": 4.633333206176758,
+      "true_V2_ml": 8.233333587646484,
+      "error_V1_ml": 0.44243621826171875,
+      "error_V2_ml": 1.6240291595458984,
+      "reason": "m111 at 2/1 and 100 uL adds a moderate halogenated anisole response point, useful for ordinary chemical coverage and condition transfer.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "candidate_id": "ee6b3465557d832e0b90",
+      "pred_V1_ml": 4.755290508270264,
+      "pred_V2_ml": 8.707009315490723,
+      "source": "LLM",
+      "true_V1_ml": 5.633333206176758,
+      "true_V2_ml": 9.925000190734863,
+      "error_V1_ml": -0.8780426979064941,
+      "error_V2_ml": -1.2179908752441406,
+      "reason": "m144 at 0/1 provides a narrow low-retention nitrile aromatic anchor, improving calibration of simple heteroatom-containing rows.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "candidate_id": "351c17dfa8f46a8cb40a",
+      "pred_V1_ml": 15.671710014343262,
+      "pred_V2_ml": 38.13844680786133,
+      "source": "LLM",
+      "true_V1_ml": 39.125,
+      "true_V2_ml": 81.4000015258789,
+      "error_V1_ml": -23.45328998565674,
+      "error_V2_ml": -43.26155471801758,
+      "reason": "m28 at 10/1 has a broad predicted interval and tests whether a polar aromatic aldehyde family develops a late tail under stronger eluent.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "87ada91b7803cfd9f767",
+      "pred_V1_ml": 7.304635524749756,
+      "pred_V2_ml": 18.812252044677734,
+      "source": "LLM",
+      "true_V1_ml": 5.166666507720947,
+      "true_V2_ml": 14.691666603088379,
+      "error_V1_ml": 2.1379690170288086,
+      "error_V2_ml": 4.1205854415893555,
+      "reason": "m98 at 5/1 and 100 uL is a broad-width carbonyl-rich point that tests late-tail transfer in a less represented fused aromatic ester family.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "candidate_id": "c40d715383d042030e93",
+      "pred_V1_ml": 12.636553764343262,
+      "pred_V2_ml": 23.196882247924805,
+      "source": "LLM",
+      "true_V1_ml": 6.358333110809326,
+      "true_V2_ml": 15.333333015441895,
+      "error_V1_ml": 6.2782206535339355,
+      "error_V2_ml": 7.86354923248291,
+      "reason": "m127 at 5/1 and low loading samples a strong-condition aromatic ketone family and adds a condition-response point where the current predicted interval is broad.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "7cc7aba732355d335c3d",
+      "pred_V1_ml": 5.30108642578125,
+      "pred_V2_ml": 10.524801254272461,
+      "source": "LLM",
+      "true_V1_ml": 5.662499904632568,
+      "true_V2_ml": 11.366666793823242,
+      "error_V1_ml": -0.36141347885131836,
+      "error_V2_ml": -0.8418655395507812,
+      "reason": "m105 at 5/1 and 100 uL is a moderate-width phenolic ester anchor that tests whether donor-containing carbonyl behavior transfers without assuming a late tail.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "candidate_id": "bb9d7417c4e22f8cf234",
+      "pred_V1_ml": 4.660347938537598,
+      "pred_V2_ml": 10.7991304397583,
+      "source": "LLM",
+      "true_V1_ml": 4.5,
+      "true_V2_ml": 7.891666889190674,
+      "error_V1_ml": 0.16034793853759766,
+      "error_V2_ml": 2.907463550567627,
+      "reason": "m44 at 0/1 supplies an ordinary aromatic ketone calibration point at a distinct amount, supporting generalization across common low-retention rows.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "candidate_id": "e9744f740f6e67fa561d",
+      "pred_V1_ml": 6.753827095031738,
+      "pred_V2_ml": 14.917736053466797,
+      "source": "LLM",
+      "true_V1_ml": 7.125,
+      "true_V2_ml": 14.691666603088379,
+      "error_V1_ml": -0.3711729049682617,
+      "error_V2_ml": 0.22606945037841797,
+      "reason": "m86 at 1/1 and 100 uL forms a condition and loading anchor for the aniline ester family, complementing measured high-condition m86 behavior such as c70b471334f9747d6f98.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "candidate_id": "3b36e9fefb5dd3802feb",
+      "pred_V1_ml": 4.115365505218506,
+      "pred_V2_ml": 13.672739028930664,
+      "source": "LLM",
+      "true_V1_ml": 4.304166793823242,
+      "true_V2_ml": 11.6875,
+      "error_V1_ml": -0.18880128860473633,
+      "error_V2_ml": 1.985239028930664,
+      "reason": "The second m12 point at 0/1 creates a matched condition contrast with 5c4c93d36b2fc71b1442 and tests the scaffold response without changing amount.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "e85d76beae17d6b6ada4",
+      "pred_V1_ml": 5.435066223144531,
+      "pred_V2_ml": 12.591053009033203,
+      "source": "LLM",
+      "true_V1_ml": 3.375,
+      "true_V2_ml": 11.458333015441895,
+      "error_V1_ml": 2.0600662231445312,
+      "error_V2_ml": 1.1327199935913086,
+      "reason": "m4 at 0/1 is a moderate early-regime polyaromatic anchor that improves calibration for nonpolar structures at low solvent strength.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "candidate_id": "3c0e2ce9feb019d1dd30",
+      "pred_V1_ml": 7.3336029052734375,
+      "pred_V2_ml": 23.92690086364746,
+      "source": "LLM",
+      "true_V1_ml": 4.4083333015441895,
+      "true_V2_ml": 13.333333015441895,
+      "error_V1_ml": 2.925269603729248,
+      "error_V2_ml": 10.593567848205566,
+      "reason": "m117 at 0/1 and 100 uL adds the low-strength endpoint of a local response curve, complementing measured strong-condition points d9c8c8af50a10bf07765 and a7bc3fb68bdecbbe086f.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "candidate_id": "1ce749f818905d3c61d4",
+      "pred_V1_ml": 11.120786666870117,
+      "pred_V2_ml": 22.30592918395996,
+      "source": "LLM",
+      "true_V1_ml": 10.791666984558105,
+      "true_V2_ml": 20.316667556762695,
+      "error_V1_ml": 0.3291196823120117,
+      "error_V2_ml": 1.9892616271972656,
+      "reason": "m211 at 5/1 and 100 uL samples an intermediate basic heteroaromatic regime between measured moderate and strong-condition behavior, testing whether its broad interval is a real tail.",
+      "hypothesis_id": "H1"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Condition-response curves are scaffold-specific and can be nonlinear; solvent strength may shift V1 and V2 differently, with thresholds or saturation in some families.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "9e3f598e00375ec93d9b",
+        "ca467c94f14b2219503e",
+        "a7bc3fb68bdecbbe086f",
+        "d9c8c8af50a10bf07765",
+        "7383949c431e18f39597",
+        "1a55639d058c08a1a06e",
+        "a2f83665cfe821271b30"
+      ],
+      "contradicting_observed_ids": [
+        "e9e7a737df389d5fcc13",
+        "9c10e0827e86bb3c7681"
+      ],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The model needs local scaffold-condition interactions rather than one global solvent-strength correction, especially for V2 tails.",
+      "next_discriminating_question": "Do intermediate points show smooth response, threshold activation, or saturation for each scaffold?"
+    },
+    {
+      "id": "H2",
+      "content": "Loading effects are molecule- and endpoint-specific; amount can move V1, V2, or both, and the effect can depend on solvent strength.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "ca467c94f14b2219503e",
+        "d9c8c8af50a10bf07765",
+        "c68db037670dea886720",
+        "547923973b121019625f",
+        "2cf4f6424b85ab121943",
+        "f7d57d8bb988f7016502"
+      ],
+      "contradicting_observed_ids": [
+        "7c0c324643799c918828",
+        "a775926fce57b3bf9ec1"
+      ],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched amount contrasts teach whether loading corrections should be endpoint-specific and condition-dependent.",
+      "next_discriminating_question": "Which remaining scaffolds show a reproducible amount shift in onset, tail completion, or both?"
+    },
+    {
+      "id": "H3",
+      "content": "Large errors cluster in conditional late tails across oxygen-rich, phenolic, basic, carbonyl, and heteroaromatic neighborhoods, but late-tail behavior transfers unevenly between families.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "c6924324ddd95f249df6",
+        "e47aebe2660b9e1528de",
+        "b7cf293311f83700cd9a",
+        "95d1d257dfea69f178f8",
+        "a1dc71bed9d8f372c9e5",
+        "e4fd83fb3852eb354a66",
+        "9cd02352c2ed7a3e2321"
+      ],
+      "contradicting_observed_ids": [
+        "9c10e0827e86bb3c7681",
+        "129036e0bccc4ff7e848",
+        "e9e7a737df389d5fcc13"
+      ],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Distinct high-width families are needed to teach when chemical similarity predicts a late tail and when broad width is a model artifact.",
+      "next_discriminating_question": "Do new high-width families reproduce the same residual direction or split into family-specific regimes?"
+    },
+    {
+      "id": "H4",
+      "content": "The predictor's broad endpoint ranges are sometimes conservative in ordinary or moderately retained rows, so width alone should be separated from genuine tail risk.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "eb798a5ccfb1f429a724",
+        "fa7b8202df1e985c228c",
+        "f268ace6a5f8098f342f",
+        "de833d1e7905f1cc3be9"
+      ],
+      "contradicting_observed_ids": [
+        "c6924324ddd95f249df6",
+        "e47aebe2660b9e1528de"
+      ],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Calibration anchors prevent retraining from converting every broad prediction into a universal late-tail correction.",
+      "next_discriminating_question": "Which broad predictions remain inside their measured regimes after accounting for family and loading?"
+    },
+    {
+      "id": "H5",
+      "content": "Molecule-novel and ordinary anchors remain valuable because some moderate rows are locally predictable even while neighboring tail families fail.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "fa7b8202df1e985c228c",
+        "de833d1e7905f1cc3be9",
+        "f268ace6a5f8098f342f",
+        "c32ed74eba9d7dfc4860",
+        "53c0ebdf849859e3432e"
+      ],
+      "contradicting_observed_ids": [
+        "c6924324ddd95f249df6",
+        "e47aebe2660b9e1528de"
+      ],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Coverage anchors improve transfer and calibration across the Row-distribution rather than concentrating all labels in extreme failure neighborhoods.",
+      "next_discriminating_question": "Do novel anchors improve predictions for nearby unmeasured molecules, or are their residuals isolated?"
+    }
+  ],
+  "feedback_interpretation": "Recent outcomes strengthened scaffold-specific condition response and weakened any global tail correction. Some strong-condition rows were substantially overpredicted at both endpoints, while other families showed strong V2 underprediction and amount-dependent onset shifts. The next batch therefore emphasizes local condition contrasts, ordinary calibration anchors, and a smaller set of distinct high-width transfer points.",
+  "batch_rationale": "The 32 experiments combine matched condition pairs, low-strength anchors, and loading-sensitive points across several measured chemical families. High-width rows test whether late-tail residuals transfer beyond oxygen-rich and phenolic examples, while moderate and molecule-novel anchors protect calibration across common Row-distribution regions. The batch should improve generalization by teaching both conditional tails and the regions where broad predictions are conservative."
+}

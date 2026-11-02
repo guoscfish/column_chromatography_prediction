@@ -1,0 +1,267 @@
+{
+  "request_sha256": "6471ac570e9156be621579b4231f5205687b0f320440ee215e70c126cb0c75ca",
+  "success": true,
+  "answer": "{\"type\":\"selection\",\"packet_sha256\":\"8e0ea4defe27c6ee1c15a911ba95fed1a93a637d995ced0000ccb6e67f5f0515\",\"batch_strategy\":\"Tail repair combined with targeted eluent-strength and loading-response curves, plus several weakly represented scaffold anchors.\",\"choices\":[{\"id\":\"5c2bc1d92128a17d996d\",\"reason\":\"Tests a 50-ul load of m125 at the same 2/1 DCM condition where the measured 150-ul experiment 19f19f196ba5787a01b0 eluted at V1/V2 13.73/31.38 ml. The model reports very wide V1 and V2 quantile ranges and predicts 25.15/47.59 ml, making this a high-value loading-response point.\",\"hypothesis_id\":\"H2\"},{\"id\":\"d9c8c8af50a10bf07765\",\"reason\":\"A high-PE/EA, strongly retained m117 condition with very wide model ranges and predicted V1/V2 29.48/79.00 ml. It extends the measured m117 baseline at 1/1 and 50 ul in 02425f554db74d9809d2 into a much stronger eluent and different loading regime.\",\"hypothesis_id\":\"H1\"},{\"id\":\"5d6d4ac0c1dfacbde53d\",\"reason\":\"Maps the m72 response from the measured 10/1 DCM experiment a2f83665cfe821271b30, V1/V2 23.05/60.45 ml, to 20/1 at similar loading. The model predicts 31.24/85.58 ml with a V1 width of 20.78 ml, directly probing the long-retention tail.\",\"hypothesis_id\":\"H1\"},{\"id\":\"efd84dffe823b6298db6\",\"reason\":\"Uses the same m11 50/1 DCM family as measured record 9ffee2813aef5c26f96f but with a larger injected volume. The model predicts 40.47/113.97 ml and reports an exceptionally broad V1 range, making the label useful for tail and loading calibration.\",\"hypothesis_id\":\"H2\"},{\"id\":\"b7cf293311f83700cd9a\",\"reason\":\"High-width m206 point at 10/1 DCM and 150 ul, predicted at 66.04/132.40 ml. It tests whether the high retention seen for the measured m206 2/1, 100-ul condition in 13bfaf03c35b4cff3bd5 continues smoothly with stronger eluent and larger load.\",\"hypothesis_id\":\"H1\"},{\"id\":\"48853fd78c77153b963a\",\"reason\":\"Targets m205 at 5/1 DCM and 100 ul, where the model predicts 47.13/93.80 ml with a V1 width of 18.38 ml. The measured 5/1, 150-ul m205 record e8f592c469b2f3c136d8 provides a nearby loading anchor for a high-retention response comparison.\",\"hypothesis_id\":\"H2\"},{\"id\":\"614873124b33029a924c\",\"reason\":\"Pairs with b7cf293311f83700cd9a to give a local m206 curve across eluent strength and loading. Its 5/1, 100-ul prediction is 40.79/84.57 ml with wide V1 uncertainty, so the pair can distinguish a smooth response from a sharp regime change.\",\"hypothesis_id\":\"H6\"},{\"id\":\"b0802294da4fd71d0f9d\",\"reason\":\"The m191 condition has a 18.51-ml V1 quantile width and predicts 7.00/39.69 ml, indicating substantial model uncertainty about the start-to-finish interval. Measuring this isolated high-width point can repair a poorly constrained aromatic dialdehyde-like regime.\",\"hypothesis_id\":\"H4\"},{\"id\":\"351c17dfa8f46a8cb40a\",\"reason\":\"Tests m28 at 10/1 DCM and 100 ul against the measured 5/1, 100-ul point bfbe491a54086b98874d, which finished at 38.69 ml. The model predicts 8.72/44.46 ml with a 19.18-ml V1 width, making solvent-strength response especially informative.\",\"hypothesis_id\":\"H1\"},{\"id\":\"3f49209a4fc102e36500\",\"reason\":\"High-width m39 experiment at 2/1 DCM and 100 ul, predicted at 14.11/41.83 ml. It samples a strongly retained, heteroatom-rich region with little local constraint and can improve prediction of broad elution intervals.\",\"hypothesis_id\":\"H3\"},{\"id\":\"fc27fa779102c4aeb8ab\",\"reason\":\"One endpoint of a planned m118 condition-response comparison: 20/1 PE/EA, 100 ul, DCM, predicted at 12.78/43.00 ml with a 15.14-ml V1 width. Its value comes from testing whether the model's very broad response is real rather than from maximizing retention.\",\"hypothesis_id\":\"H6\"},{\"id\":\"4e7e45a513ce579c5ce3\",\"reason\":\"Complements fc27fa779102c4aeb8ab with m118 at 2/1 and 150 ul, predicted at 12.26/27.71 ml. The paired conditions discriminate eluent-strength effects from loading effects in a high-width region.\",\"hypothesis_id\":\"H6\"},{\"id\":\"776ee2c1e85ebde75168\",\"reason\":\"m119 at 5/1 DCM and 100 ul is predicted at 32.68/65.15 ml with a 15.25-ml V1 width. This extends the measured m119 low-strength baseline in 3f5051191caf6ab07337 and tests whether a strongly retained tail appears under stronger PE/EA conditions.\",\"hypothesis_id\":\"H1\"},{\"id\":\"20913a7c2077b80b7351\",\"reason\":\"High-width m120 point at 5/1 DCM and 150 ul, predicted at 25.01/53.39 ml. It adds a high-retention polar oxygenated scaffold to the tail-calibration set and complements the lower-loading and lower-strength regions in the seed.\",\"hypothesis_id\":\"H3\"},{\"id\":\"3ccd6444c8a55917fbf8\",\"reason\":\"The model predicts 30.60/69.93 ml for m86 and gives a 15.96-ml V1 quantile width. This samples an amine-containing aromatic ester regime where hydrogen bonding may create retention behavior different from the mostly neutral aromatic rows.\",\"hypothesis_id\":\"H3\"},{\"id\":\"6ae922f63e983b14e320\",\"reason\":\"One member of a fixed-condition m193 loading pair, predicted at 14.69/44.57 ml for 100 ul with a 13.92-ml V1 width. It can be compared with the measured high-loading-strength m193 point a5f9179bfb146ad70953.\",\"hypothesis_id\":\"H2\"},{\"id\":\"3e69cf586f3eb0f0fa8c\",\"reason\":\"The 50-ul counterpart to 6ae922f63e983b14e320 at the same m193 5/1 DCM condition. Nearly identical model predictions despite different loading make the measured pair particularly useful for testing whether loading sensitivity is missing from the representation.\",\"hypothesis_id\":\"H2\"},{\"id\":\"89d752b5a7f7c8d0b91e\",\"reason\":\"Novel m212 scaffold with weak similarity to the observed set, predicted at 32.30/51.29 ml and high CW distance. It probes whether the model can transfer retention behavior to a new H-bond-donor aromatic amine at 5/1 PE/EA.\",\"hypothesis_id\":\"H5\"},{\"id\":\"252c027cf5a42b92c953\",\"reason\":\"Pairs with 89d752b5a7f7c8d0b91e at the same novel m212 condition family but 100 rather than 150 ul. The model predicts the same long-retention center, so the label can reveal whether loading changes the tail width or onset for an uncovered scaffold.\",\"hypothesis_id\":\"H2\"},{\"id\":\"d54c93a11164b4abac6e\",\"reason\":\"High-strength m129 condition with model prediction 39.59/74.35 ml and V1 width 11.37 ml. This is a useful condition-response point for a sulfur-containing aromatic aldehyde-like scaffold in a poorly constrained high-retention region.\",\"hypothesis_id\":\"H1\"},{\"id\":\"2f22fe92623a5d221e6e\",\"reason\":\"Novel long-chain dibromothiophene-like m71 scaffold at 20/1 DCM, predicted at 2.00/20.69 ml with an 8.14-ml V1 width. It tests whether the model's low predicted onset and broad finish are plausible for a highly hydrophobic, weakly represented structure.\",\"hypothesis_id\":\"H5\"},{\"id\":\"7e981ba02c83f74f5e65\",\"reason\":\"Second m71 condition at 50/1 DCM and lower loading, predicted at 1.70/26.82 ml with a 12.08-ml V1 width. Together with 2f22fe92623a5d221e6e, it tests solvent-strength sensitivity in a novel scaffold where chemical priors and model behavior may disagree.\",\"hypothesis_id\":\"H5\"},{\"id\":\"cace6f00c46aea69fe39\",\"reason\":\"High-width m38 experiment at 20/1 DCM, 50 ul, and 1000-ul loading-solvent volume, predicted at 9.92/40.71 ml. The measured m38 point 0bd57808d920c8e6f5c4 at 1/1 and 150 ul provides a nearby anchor for a strong-condition response test.\",\"hypothesis_id\":\"H1\"},{\"id\":\"c627405cf70a0daacc94\",\"reason\":\"m67 at 20/1 DCM is predicted at 31.52/56.53 ml with an 8.53-ml V1 width. This samples a donor-containing aliphatic alcohol region at high eluent strength and can improve transfer across polar, nonaromatic structures.\",\"hypothesis_id\":\"H3\"},{\"id\":\"c76d0420b34df595c0c9\",\"reason\":\"High-width m90 at 10/1 DCM and 150 ul, predicted at 33.54/75.02 ml. The measured m90 0/1, 150-ul record f868ccbcbf392038fe36 begins at 6.71 ml, so this label directly tests the predicted nonlinear eluent-strength shift.\",\"hypothesis_id\":\"H1\"},{\"id\":\"8b9ff1a26d840aaa6a49\",\"reason\":\"m40 at 50/1 DCM and 50 ul is predicted at 27.05/51.00 ml with a 12.75-ml V1 width. It extends the measured m40 20/1, 50-ul point ff9bcaab8e95f60d70bc and probes whether the long tail continues with stronger PE/EA.\",\"hypothesis_id\":\"H1\"},{\"id\":\"a17bcdddcf0799baeee2\",\"reason\":\"High-strength m159 condition predicted at 16.66/45.54 ml with an 11.76-ml V1 width. The measured m159 10/1, 50-ul point 58394a71418a9623e18a supplies a local reference for solvent and loading response.\",\"hypothesis_id\":\"H1\"},{\"id\":\"b4d9d000145f0dfcee50\",\"reason\":\"Novel amino-nitrile-like m160 scaffold at 5/1 DCM and 100 ul, with predicted V1/V2 20.75/53.97 ml and a 13.91-ml V1 width. It expands coverage of donor/acceptor-rich aromatic chemistry beyond the heavily represented families.\",\"hypothesis_id\":\"H5\"},{\"id\":\"f62720d3fc5dbb0e173d\",\"reason\":\"Weakly similar, previously unseen m139 halogenated aromatic scaffold at 20/1 DCM. The predicted 5.81/11.91 ml is moderate but the chemical novelty and condition novelty provide coverage of a sparse structural region that wide-uncertainty points alone would miss.\",\"hypothesis_id\":\"H5\"},{\"id\":\"51f5ae6a991eea9e720e\",\"reason\":\"Novel quinoline-like m146 at 5/1 DCM, predicted at 14.23/35.53 ml with a 9.63-ml V1 width. It provides a new heteroaromatic anchor in the intermediate-to-late retention range and tests transfer of aromatic nitrogen effects.\",\"hypothesis_id\":\"H5\"},{\"id\":\"9a60cb4735780275034e\",\"reason\":\"m19 at 1/1 DCM and 100 ul is predicted at 10.06/20.52 ml with a 5.62-ml V1 width. It fills a condition-response gap relative to the measured m19 2/1, 150-ul record 906bd247e050658f99d8 and helps separate loading from solvent effects.\",\"hypothesis_id\":\"H6\"},{\"id\":\"bc2a96424966b655227f\",\"reason\":\"Novel m13 at 0/1 DCM and 150 ul has inconsistent model quantile ordering and a low predicted onset of 4.65 ml. Measuring this point is useful for repairing pathological interval behavior in a highly polar, multi-acceptor scaffold rather than relying on the model's apparent narrow confidence.\",\"hypothesis_id\":\"H4\"}],\"hypotheses\":[{\"id\":\"H1\",\"content\":\"Eluent-strength response is nonlinear and compound-specific, with high PE/EA conditions producing especially large retention shifts for polar, heteroatom-rich, or strongly adsorbing compounds.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"a2f83665cfe821271b30\",\"9bbd36c8b484b5609808\",\"449b809e4efaaf2af86a\",\"9de8f9fed06ef9d5befa\"],\"contradicting_observed_ids\":[],\"confidence\":\"medium\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"Many rows occupy a long-retention tail, and a single smooth solvent-strength effect would underrepresent family-specific shifts. Measuring multiple high-width conditions can improve both onset and finish predictions across the Row-distribution.\",\"next_discriminating_question\":\"Do matched or near-matched molecules show a monotone, smooth shift with PE/EA, or do hydrogen bonding and scaffold geometry create family-specific transitions?\"},{\"id\":\"H2\",\"content\":\"Loading amount and injected volume may change retention and interval width, but the seed does not cleanly separate loading effects from solvent-condition effects.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"19f19f196ba5787a01b0\",\"a5f9179bfb146ad70953\",\"3f5051191caf6ab07337\"],\"contradicting_observed_ids\":[],\"confidence\":\"medium\",\"status\":\"unresolved\",\"why_it_matters_for_model_learning\":\"The predictor includes loading features, yet the most informative labels are controlled local pairs. Measuring paired volumes for m206, m193, and m212 can teach whether loading changes onset, broadening, or both.\",\"next_discriminating_question\":\"At fixed molecule and PE/EA, does increasing sample load primarily shift V1, increase V2-V1, or have little effect?\"},{\"id\":\"H3\",\"content\":\"Strongly retained polar and aromatic compounds form a broad-tail regime whose V1 and V2 behavior needs separate calibration.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"9de8f9fed06ef9d5befa\",\"9bbd36c8b484b5609808\",\"449b809e4efaaf2af86a\",\"ff9bcaab8e95f60d70bc\"],\"contradicting_observed_ids\":[],\"confidence\":\"medium\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"V1 and V2 errors can arise from incorrect interval width even when the onset is reasonable. High-width m39, m67, m86, and m120 experiments target this tail directly.\",\"next_discriminating_question\":\"Are broad intervals predictable from molecular polarity and loading, or are they dominated by scaffold-specific silica interactions?\"},{\"id\":\"H4\",\"content\":\"Some model outputs have pathological quantile ordering or implausible V1/V2 relationships, indicating a useful calibration and constraint-repair region.\",\"basis\":\"model_behavior\",\"supporting_observed_ids\":[],\"contradicting_observed_ids\":[],\"confidence\":\"medium\",\"status\":\"proposed\",\"why_it_matters_for_model_learning\":\"Labels from these points can correct systematic representation or loss behavior that is invisible when selecting only numerically broad but internally consistent predictions.\",\"next_discriminating_question\":\"Do measured labels at pathological prediction points fall near the model center, or do they reveal systematic bias in onset, finish, or interval width?\"},{\"id\":\"H5\",\"content\":\"Weakly represented or novel scaffolds, especially halogenated, heteroaromatic, and donor/acceptor-rich molecules, are needed to improve chemical transfer beyond the dense observed families.\",\"basis\":\"chemical_prior\",\"supporting_observed_ids\":[],\"contradicting_observed_ids\":[],\"confidence\":\"medium\",\"status\":\"proposed\",\"why_it_matters_for_model_learning\":\"Novel-scaffold labels can improve generalization across rows that share functional groups but differ in substitution, aromaticity, and steric environment.\",\"next_discriminating_question\":\"Can the learned structure representation transfer retention from similar functional groups, or does it require local examples for each scaffold family?\"},{\"id\":\"H6\",\"content\":\"Small local condition-response curves provide more information about generalizable structure-condition interactions than isolated high-novelty points.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"f868ccbcbf392038fe36\",\"ff9bcaab8e95f60d70bc\",\"906bd247e050658f99d8\"],\"contradicting_observed_ids\":[],\"confidence\":\"medium\",\"status\":\"proposed\",\"why_it_matters_for_model_learning\":\"Paired and grouped experiments let retraining learn slopes, nonlinearities, and interactions rather than only memorizing individual labels.\",\"next_discriminating_question\":\"Do local response curves share a common slope across chemical families, or must the model learn family-specific condition effects?\"}],\"feedback_interpretation\":\"\",\"batch_rationale\":\"The batch concentrates on measured-value regions where the current model reports wide V1/V2 quantile ranges, long predicted tails, or internally inconsistent intervals, while retaining several structurally novel anchors. It includes local response groups for m206, m118, m193, m212, and m71; these distinguish loading effects from PE/EA effects and provide information about response slopes. The remaining high-width points span polar heteroatom-rich compounds, aromatic carbonyl systems, heteroaromatics, and halogenated or highly hydrophobic scaffolds. Observed anchors such as the long-retention m72, m92, m211, m37, and m40 records support targeting these regions, while the novel m139, m146, m160, m212, m13, and m71 rows extend chemical coverage. Together the labels should improve tail calibration, interval width, condition-response interactions, and transfer to uncovered Row-distribution regions.\"}",
+  "provenance": {
+    "response_id": "resp_01a995e9be86f873016ae76a5fea9c8199833ac8efa4514276",
+    "served_model": "gpt-6.1-sol",
+    "request_id": "1485255d-0ac9-4660-b54c-510e0162c779",
+    "usage": {
+      "input_tokens": 457944,
+      "input_tokens_details": {
+        "cached_tokens": 5632,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 21295,
+      "output_tokens_details": {
+        "reasoning_tokens": 17092
+      },
+      "total_tokens": 479239,
+      "attribution": {
+        "items": {
+          "msg_01a995e9be86f873016ae76a5feb28819994c0813ff43d9c52": {
+            "input_tokens": 452153,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 452153,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_01a995e9be86f873016ae76c795e748199867158c2acb997e3": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 4203,
+            "content": [
+              {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 4203
+              }
+            ]
+          },
+          "rs_01a995e9be86f873016ae76a7938308199a791b3a6fb53eb6c": {
+            "input_tokens": 2,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 516
+          },
+          "rs_01a995e9be86f873016ae76a8b51d481998f0616d8fb7fe6cb": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76a9c191c8199865d70826244e5b7": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76aabf1588199ba61b5d9eb739b19": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76abd6c808199bd6a7b50af45bc78": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76ace050c8199818163d570663cb0": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76adfaa608199b2e2bdf47fb8213a": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76aef057c8199b7e131f2a31d302e": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76affa91481999ea869acd7623270": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76b1049d88199bac85e04c7a505c1": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76b2218948199a682836de87ec81a": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76b32059c8199b7d7f639c79fa0e1": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76b439ad881998c58715625075aea": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76b5478b88199b1840870ef1905d0": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76b62b4188199b542115ee03f3a6a": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76b7140948199a01cdbac16a23442": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76b827ab88199b2d06746ee0948b3": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76b93457881998ab681e25670b3a8": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76ba46e8c8199bcb64451ce18e0cd": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76bb43ab481999cc64df7c2211de1": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76bc484408199b45cd026f48e8853": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76bd26e0c8199bc0354a8eb860a3b": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76bdf9e108199ae76584f6cd1f4ff": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76bee36288199908aed884e436b50": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76bffb4448199bf3f3722f0dc22d8": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76c0f20a081998ab32cb77940ded0": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76c2051888199899b4fb9310e53da": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76c2cd2088199a392fa0e77353782": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76c3b453481999dbe3f6a2c0849dc": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76c4be094819999fa2469e9eb5cec": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76c5c5f1c8199ac70d27830cdd4fd": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76c697c188199a9ca112069506c71": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_01a995e9be86f873016ae76c7919c081999a8293dad21b95c7": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          }
+        },
+        "request_fields": {
+          "instructions": {
+            "input_tokens": 5789,
+            "cached_tokens": 5632,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "native_tool_calls": 0,
+    "requested_model": "gpt-6.1-sol",
+    "reasoning_effort": "xhigh",
+    "received_utc": "2026-11-01T16:46:54.250145+00:00",
+    "provider_source": "frozen-provider; per-seed credential alias"
+  },
+  "elapsed_seconds": 674.4567625420168,
+  "ended_utc": "2026-11-01T16:46:54.255675+00:00"
+}

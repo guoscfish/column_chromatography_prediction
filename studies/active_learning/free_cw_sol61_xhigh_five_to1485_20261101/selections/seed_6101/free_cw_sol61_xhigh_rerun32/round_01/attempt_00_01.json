@@ -1,0 +1,291 @@
+{
+  "request_sha256": "c29fed1f2f19161b7cc4a87f6c9f79ee84a40adbd5fa171bcd5d63d87de9b3b0",
+  "success": true,
+  "answer": "{\"type\":\"selection\",\"packet_sha256\":\"fc4114e5ee16f404a608b0ba24c846a0c01fc1641bbdcf5114d7faa0e3d29fbf\",\"batch_strategy\":\"Targeted condition-response curves, high-retention tail repair, loading contrasts, and direct calibration-pathology checks\",\"choices\":[{\"id\":\"1395836aef00d6a880b0\",\"reason\":\"m159 at 50/1 with a larger sample volume is a clean loading contrast to measured a17bcdddcf0799baeee2 at the same mobile phase and smaller V; the model predicts another extreme 57.58/117.70 mL tail, testing whether that tail persists with loading.\",\"hypothesis_id\":\"H4\"},{\"id\":\"cfcf2b8c54d4c8b3838a\",\"reason\":\"This intermediate m159 point fills the condition-response gap between measured 0/1 and 10/1-to-20/1 examples 59e942d4a3b5dfc412a2, 79ff49052bce33597828, and a738b1f204da6fcfd385, where retention rises sharply.\",\"hypothesis_id\":\"H1\"},{\"id\":\"a3decda22e526a843c03\",\"reason\":\"The lower-volume m159 2/1 point tests whether the rapid tail growth seen through a17bcdddcf0799baeee2 is smooth or has a loading-dependent threshold; it also adds a low-cost local anchor.\",\"hypothesis_id\":\"H1\"},{\"id\":\"0b247863fd6e8aaf44d8\",\"reason\":\"m173 keeps the 2/1 mobile phase and sample amount of measured 9a32b65bc21fdc5f7286 but increases loading-solvent volume to 2000 uL, directly testing the extreme-loading V2 overprediction and its sensitivity to this catalog condition.\",\"hypothesis_id\":\"H4\"},{\"id\":\"87da8c37b16d810331a2\",\"reason\":\"This m173 0/1 point at the same 1500 uL loading-solvent volume as measured 9a32b65bc21fdc5f7286 and 65fcce0299e031dedeb8 probes the low-strength end of the extreme-loading response.\",\"hypothesis_id\":\"H1\"},{\"id\":\"1e971da91b3a8229f0e0\",\"reason\":\"The m173 5/1 point extends the measured 1/1-to-2/1 extreme-loading series 65fcce0299e031dedeb8 and 9a32b65bc21fdc5f7286 into stronger mobile phase, separating solvent response from a general loading-solvent artifact.\",\"hypothesis_id\":\"H1\"},{\"id\":\"b514312eda7950cdcf1c\",\"reason\":\"This m177 50/1, 150 uL sample is a direct loading contrast to measured 5b706e17e8412d02342f at 50 uL; the prior point had accurate V1 but V2 overprediction, so this tests whether the broad interval is loading-sensitive.\",\"hypothesis_id\":\"H4\"},{\"id\":\"76643e968ecc935c745c\",\"reason\":\"m177 at 5/1 and 150 uL provides an intermediate solvent-strength anchor between measured aef5cafc63ca445e92fa, 5e276c1730fc0a9deba7, and the strong-solvent tail 5b706e17e8412d02342f.\",\"hypothesis_id\":\"H1\"},{\"id\":\"34a20bc9c1f8c8bdf357\",\"reason\":\"The m177 0/1 point supplies a weak-solvent baseline for the same highly polar benzophenone derivative, helping determine whether the large V2 shifts in 5e276c1730fc0a9deba and aa43fe84c0d8c825fe58 are smooth or threshold-like.\",\"hypothesis_id\":\"H1\"},{\"id\":\"0164f18711777547e68d\",\"reason\":\"This m177 1/1, 50 uL point matches the sample-volume regime of measured 5b706e17e8412d02342f while moving to an intermediate mobile phase, discriminating solvent response from the observed V2 anomaly.\",\"hypothesis_id\":\"H1\"},{\"id\":\"e3a799d0fa90b649a157\",\"reason\":\"m94 at 20/1 and larger V is a loading contrast to measured ffc70e28db22d1cc1f3f, whose 50 uL experiment strongly underpredicted the measured long tail; this tests whether the tail is persistent across loading.\",\"hypothesis_id\":\"H2\"},{\"id\":\"5b445b457a8b897a2d6c\",\"reason\":\"The m94 10/1 point maps the solvent-strength response between a lower-strength baseline and the measured 20/1 extreme in ffc70e28db22d1cc1f3f, targeting a distinct polar scaffold with large predicted V1/V2.\",\"hypothesis_id\":\"H2\"},{\"id\":\"4dedc80fb33d21596b7e\",\"reason\":\"This lower-strength m94 anchor tests whether the high V1/V2 regime in ffc70e28db22d1cc1f3f emerges gradually or abruptly, improving interpolation across the m94 condition series.\",\"hypothesis_id\":\"H1\"},{\"id\":\"0cf0d36290765378ae8d\",\"reason\":\"m114 at 50/1 and larger V is a direct loading contrast to measured 2d63ab3869184cde52bf, which already shows a very large tail; the near-tail prediction makes this useful for learning V2 loading behavior.\",\"hypothesis_id\":\"H4\"},{\"id\":\"8232ed63909910ce88f2\",\"reason\":\"This m114 20/1 point adds a lower-strength condition to the measured high-tail example 2d63ab3869184cde52bf, testing whether the model can represent the scaffold-specific onset of late elution.\",\"hypothesis_id\":\"H2\"},{\"id\":\"634f21e11a8442494ce3\",\"reason\":\"m178 at 10/1 provides a moderate-strength anchor for the measured 50/1 long-tail failure 0c5c35afb3a24375c153; its large predicted quantile widths make the condition response especially informative.\",\"hypothesis_id\":\"H2\"},{\"id\":\"409d01129a3e41b32902\",\"reason\":\"The m178 1/1 baseline complements 634f21e11a8442494ce3 and measured 0c5c35afb3a24375c153, helping distinguish a structure-driven tail from a strong-solvent transition.\",\"hypothesis_id\":\"H1\"},{\"id\":\"cf8ab33c25ad391a584c\",\"reason\":\"This m129 5/1 point probes the route from ordinary retention to the measured 50/1 high-tail row d54c93a11164b4abac6e, testing whether a sulfur-containing aromatic carbonyl family has a smooth solvent response.\",\"hypothesis_id\":\"H2\"},{\"id\":\"f433bc672465387d951a\",\"reason\":\"The model predicts an unusually late and broad m135 interval at 10/1; measuring it against the high-tail measured f9f0f4e29dbd30c000ee tests whether this polar alcohol family has a strong condition/loading interaction.\",\"hypothesis_id\":\"H2\"},{\"id\":\"b6f1b33a5491968c645e\",\"reason\":\"m37 at 20/1 extends the measured 10/1 high-retention point 38e6b8bf0f089fcadd80 and tests whether its V1 underprediction grows with solvent strength in a nitroaromatic ketone family.\",\"hypothesis_id\":\"H2\"},{\"id\":\"45a1b11ae63f2dab2e48\",\"reason\":\"The candidate has an inverted, negative V1 quantile width and a high predicted V1, making it a direct calibration-repair experiment for the anomaly pattern supported by measured 302e458c5ed2285ca328 and ce39d1762993bbbafaca.\",\"hypothesis_id\":\"H3\"},{\"id\":\"3bb1d388702c98c505de\",\"reason\":\"This m3 row has a negative V1 quantile width and a high-cw prediction, providing a chemically distinct test of whether interval-ordering failures are local artifacts or transferable model behavior.\",\"hypothesis_id\":\"H3\"},{\"id\":\"5dbed8a79ad6c95bde4f\",\"reason\":\"The m214 candidate has a strongly inverted V1 interval; it is a direct pathology check near measured m214 condition 3b2c3b53c2b3401ccb72 and the broader anomaly examples.\",\"hypothesis_id\":\"H3\"},{\"id\":\"281fe631ac69f68cb898\",\"reason\":\"This m213 row combines an inverted V1 interval with a novel PE/EA condition; measured e8d25b0f93b5bcf88daf supplies a nearby scaffold anchor for testing both interval calibration and condition transfer.\",\"hypothesis_id\":\"H3\"},{\"id\":\"2cfa393cb79664e100ce\",\"reason\":\"m107 is structurally unmeasured here and has large predicted V1 uncertainty plus a high predicted V2; labeling it explores a polar multifunctional scaffold that could extend tail learning beyond the current families.\",\"hypothesis_id\":\"H2\"},{\"id\":\"9e3f598e00375ec93d9b\",\"reason\":\"The multifunctional, heteroatom-rich m13 candidate lies in a high-cw region with a predicted 26.38/53.18 mL interval; it tests whether the long-tail behavior seen in measured ffc70e28db22d1cc1f3f and 0c5c35afb3a24375c153 transfers to a different polar scaffold.\",\"hypothesis_id\":\"H2\"},{\"id\":\"5e5b7c697bc0c268b288\",\"reason\":\"m168 has a large predicted V2 width and high-cw tail prediction, offering a distinct diaryl diketone experiment to improve representation of broad high-retention intervals like measured 0c5c35afb3a24375c153.\",\"hypothesis_id\":\"H2\"},{\"id\":\"29b39881584c4fec1c58\",\"reason\":\"This m209 row is a clean 20/1 loading contrast to measured bd3435c0f9b14ec7997d at the same density, solvent, and ratio but smaller V; it tests whether the predicted long V2 interval is loading-dependent.\",\"hypothesis_id\":\"H4\"},{\"id\":\"c9e08e156472783dee4e\",\"reason\":\"m182 at 10/1 supplies a middle condition between measured 2/1 and 50/1 examples 25d11f28e27e3f751324 and 486e498e45d084ced568, testing a strong predicted V2 response in a fused aromatic ketone.\",\"hypothesis_id\":\"H1\"},{\"id\":\"7c50b9dc5e2577123b92\",\"reason\":\"The high-cw m175 candidate predicts a broad late interval and extends measured 75adc7367152310b089f from 5/1 to 50/1, probing a solvent-driven tail in another aromatic ketone family.\",\"hypothesis_id\":\"H2\"},{\"id\":\"03990d0d818a066d09b6\",\"reason\":\"This m115 10/1, 50 uL point complements measured 68f56b81e86e40c37d6b and the much later 122fbec0df9ecf1c5d89, helping separate solvent-strength and sample-volume effects in a scaffold with a measured long-retention tail.\",\"hypothesis_id\":\"H1\"},{\"id\":\"0e3fa5113029ce384922\",\"reason\":\"m29 at 20/1 and larger V tests the condition response relative to measured f73fd2f4c55177304721 at 50/1, targeting whether the model's broad V2 interval generalizes across loading and solvent strength.\",\"hypothesis_id\":\"H1\"}],\"hypotheses\":[{\"id\":\"H1\",\"content\":\"Mobile-phase condition response is scaffold-dependent and can be strongly nonlinear; local same-molecule curves are more informative than isolated structure points.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"5e276c1730fc0a9deba\",\"a738b1f204da6fcfd385\",\"79ff49052bce33597828\",\"59e942d4a3b5dfc412a2\",\"e2f15590b7142490599b\",\"1844eab177de5d01fab6\"],\"contradicting_observed_ids\":[],\"confidence\":\"high\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"The Row-distribution contains repeated molecules across PE/EA ratios and loading regimes, so curve labels can teach interaction terms and reduce interpolation errors across related rows.\",\"next_discriminating_question\":\"Are the observed retention changes smooth within each scaffold, or do different families have abrupt transitions and different V1 versus V2 responses?\"},{\"id\":\"H2\",\"content\":\"High-retention and broad-interval behavior is underlearned in several polar, multifunctional, or aromatic carbonyl families, although extreme loading can also produce V2 overprediction.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"a17bcdddcf0799baeee2\",\"ffc70e28db22d1cc1f3f\",\"0c5c35afb3a24375c153\",\"38e6b8bf0f089fcadd80\",\"df6457ca86c98c073bf6\",\"d54c93a11164b4abac6e\"],\"contradicting_observed_ids\":[\"65fcce0299e031dedeb8\",\"9a32b65bc21fdc5f7286\"],\"confidence\":\"high\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"These regions contain large measured V1/V2 values and dominate absolute error, but their mixed residual signs require diverse tail labels rather than a one-direction correction.\",\"next_discriminating_question\":\"Which structural and condition combinations produce persistent long tails, and which produce narrow or overpredicted V2 intervals?\"},{\"id\":\"H3\",\"content\":\"Inverted or nearly zero quantile widths identify model-failure regions whose labels can improve interval ordering and target calibration.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"302e458c5ed2285ca328\",\"ce39d1762993bbbafaca\",\"4a49effd313865c10fae\",\"d86448c8f5aaa8ebcf7f\",\"303a8a967047b5307933\"],\"contradicting_observed_ids\":[],\"confidence\":\"high\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"Several measured anomaly rows had large signed errors despite apparently narrow or invalid intervals, so direct labels can repair both mean predictions and uncertainty-derived representation behavior.\",\"next_discriminating_question\":\"Do new anomaly labels show a shared chemical failure mode, or are the interval pathologies scattered across otherwise ordinary compounds?\"},{\"id\":\"H4\",\"content\":\"Loading amount and loading-related conditions have molecule-dependent effects, with especially large effects on V2 for some polar compounds and modest effects for others.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"aa43fe84c0d8c825fe58\",\"5e276c1730fc0a9deba\",\"9a32b65bc21fdc5f7286\",\"65fcce0299e031dedeb8\",\"a6a0404c3ad65c6d9326\"],\"contradicting_observed_ids\":[],\"confidence\":\"high\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"A global loading correction would miss the observed scaffold dependence; paired contrasts can teach the model when loading changes peak width and late elution.\",\"next_discriminating_question\":\"Can sample volume, loading-solvent volume, and PE/EA response be separated well enough to learn scaffold-specific loading interactions?\"},{\"id\":\"H5\",\"content\":\"V2 and elution-interval errors form a distinct failure axis from V1; V1 can be close while V2 is substantially wrong.\",\"basis\":\"observed_data\",\"supporting_observed_ids\":[\"aa43fe84c0d8c825fe58\",\"e6326a07ad46fdd2e66f\",\"5b706e17e8412d02342f\",\"65fcce0299e031dedeb8\"],\"contradicting_observed_ids\":[],\"confidence\":\"high\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"The objective scores both endpoints, and V2-dominant residuals show that improving V1 alone will leave major overall error unrepaired.\",\"next_discriminating_question\":\"Which structural and loading features determine interval width and V2 independently of the onset volume?\"}],\"feedback_interpretation\":\"Recent outcomes strengthened the condition and loading hypotheses. For m177, measured aa43fe84c0d8c825fe58 had V2=8.5 mL at 20/1 and 50 uL, while measured 5e276c1730fc0a9deba at the same ratio and larger sample volume had V2=57.02 mL; measured 5b706e17e8412d02342f at 50/1 and 50 uL had V2=59.88 mL. This rejects a simple solvent-only or globally monotonic explanation and prioritizes paired scaffold-specific curves. The measured m159 sequence from 59e942d4a3b5dfc412a2 through 79ff49052bce33597828, a738b1f204da6fcfd385, and a17bcdddcf0799baeee2 shows rapid tail growth with condition strength. High-tail failures in ffc70e28db22d1cc1f3f, 0c5c35afb3a24375c153, 38e6b8bf0f089fcadd80, and df6457ca86c98c073bf6 support tail repair, while 65fcce0299e031dedeb8 and 9a32b65bc21fdc5f7286 show that V2 overprediction also occurs in extreme-loading cases. The measured anomaly rows 302e458c5ed2285ca328, ce39d1762993bbbafaca, 4a49effd313865c10fae, d86448c8f5aaa8ebcf7f, and 303a8a967047b5307933 confirm that invalid-looking intervals are useful direct repair targets.\",\"batch_rationale\":\"The batch combines four linked local experiments: m159, m173, and m177 condition/loading curves; m94, m114, m178, m129, m135, m37, m175, m115, m182, and m29 tail-response anchors; four direct quantile-pathology rows; and several less represented or structurally novel high-cw compounds including m107, m13, m168, and m209. The paired rows reuse measured anchors where possible, while the tail and novel rows extend the learned relationships to different functional-group and loading regimes. This should improve generalization across common interpolation rows, rare high-V1/V2 rows, and V2-dominant failure regions in the Row-distribution.\"}",
+  "provenance": {
+    "response_id": "resp_0dcbc54729e39844016ae7759262348199b326e4d1b6c8c8bd",
+    "served_model": "gpt-6.1-sol",
+    "request_id": "3c92720c-112b-407b-b088-a33c5c9e86be",
+    "usage": {
+      "input_tokens": 466711,
+      "input_tokens_details": {
+        "cached_tokens": 466560,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 23270,
+      "output_tokens_details": {
+        "reasoning_tokens": 19123
+      },
+      "total_tokens": 489981,
+      "attribution": {
+        "items": {
+          "msg_0dcbc54729e39844016ae7759263008199aed634ce0f9244c0": {
+            "input_tokens": 460920,
+            "cached_tokens": 460771,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 460920,
+                "cached_tokens": 460771,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_0dcbc54729e39844016ae777e0b2ec8199bbd9f14db1825efb": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 4147,
+            "content": [
+              {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 4147
+              }
+            ]
+          },
+          "rs_0dcbc54729e39844016ae775a913608199927782db0e423c66": {
+            "input_tokens": 2,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 516
+          },
+          "rs_0dcbc54729e39844016ae775ba97708199bd099879875a4802": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae775ca7a9481999953d2f1454c3c2f": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae775dab70c81998266c88c6248cac5": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae775eb6a7881999e40cf2617bf0a0a": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae775fb91608199830a9f806b020c28": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae7760d632481999c1f38535a8f61ca": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae7761c77e081999686728ae646518d": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae7762a8a088199b3565fa9da0a60ee": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae776393ff88199a1f7fcf98f4a1df6": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae77648fe088199bc714cfd17936fb1": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae77659eadc8199807fd6a44c5e5b22": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae77667d3e481998fc522f4f7637b46": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae77677fd6c81998585e7123c73ddcb": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae77683f2348199b2e98be438f7283e": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae776941dd88199ba5bff8ee11ea369": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae776a611688199b55206478df97802": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae776b5ab788199868000ad88dc252e": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae776c6464c8199aaebc6ccdabfd1a9": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae776d627d881999c377640349b0c88": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae776e674148199b726ef3c59a58efb": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae776fa407c81998a3e06be472229ff": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae77707c710819985fac486855d64f4": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae7771670dc8199a427abab73103e36": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae777260f5c81998277a9f8beb62c66": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae77733b34081998db1eb87f2177979": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae77746427c8199a729975edea0cb84": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae777544d5c8199909b907c41673e98": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae77764bfb08199b811e54996b0338f": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae77774223881998d41be16254b9d65": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae77788d32c81999551e316a2e77d0e": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae777933060819980c68a6a0f38e95c": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae777a1de988199b8ecfb8edbacb45a": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae777b1e2c08199b5361f874d6e22b3": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae777c1897c819987adebd2fbea8cb4": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae777d24f988199b9e2bbe7efa5a077": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0dcbc54729e39844016ae777e06c288199bb1ad1e7e055db09": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 477
+          }
+        },
+        "request_fields": {
+          "instructions": {
+            "input_tokens": 5789,
+            "cached_tokens": 5789,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "native_tool_calls": 0,
+    "requested_model": "gpt-6.1-sol",
+    "reasoning_effort": "xhigh",
+    "received_utc": "2026-11-01T17:35:27.120589+00:00",
+    "provider_source": "frozen-provider; per-seed credential alias"
+  },
+  "elapsed_seconds": 721.1237079160055,
+  "ended_utc": "2026-11-01T17:35:27.124808+00:00"
+}

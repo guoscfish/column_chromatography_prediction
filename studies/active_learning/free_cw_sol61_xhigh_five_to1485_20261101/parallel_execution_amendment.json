@@ -1,0 +1,49 @@
+{
+  "version": "free_cw_five_distinct_keys_parallel_v2",
+  "user_authorization": "\u4e94\u4e2aseed\u7528\u4e94\u4e2a\u4e0d\u540c\u7684key\u8dd1\u4e00\u4e0b",
+  "original_protocol_sha256": "d6c9b1855cca0552fe5a4c3faa57b0e5b453a861059c3a232670beb5cd12b64d",
+  "original_config_sha256": "6ceff253194bda805a020c66042c73335916fcb685026ebd26d30585b072bcec",
+  "requested_model": "gpt-6.1-sol",
+  "reasoning_effort": "xhigh",
+  "maximum_seed_workers": 5,
+  "maximum_expensive_compute": 1,
+  "key_audit": {
+    "distinct_keys": 5,
+    "key_values_logged": false,
+    "key_aliases": {
+      "157": "existing-independent-seed-157",
+      "887": "existing-independent-seed-887",
+      "2357": "existing-independent-seed-2357",
+      "6101": "existing-independent-seed-6101",
+      "12203": "existing-independent-seed-12203"
+    }
+  },
+  "NoCW_modified": false,
+  "frozen_original_source_modified": false,
+  "migration": "stop only the old Free supervisor; adopt every live seed worker without interruption or repeat request",
+  "scientific_changes": null,
+  "request_body_hash_changes": false,
+  "budget": 1485,
+  "accepted_batches": 180,
+  "initial_round_first_answer_total_transport_attempts": 8,
+  "all_other_answer_transport_attempts": 4,
+  "answer_attempts_per_round": 8,
+  "transport_backoff_seconds": [
+    2,
+    10,
+    60,
+    120,
+    120,
+    300,
+    600
+  ],
+  "gateway_classification": "HTTP 5xx is recoverable transport; preserve original failed receipts and write reclassification sidecars",
+  "ambiguous_interruption": "stop without auto-resend; local completed response and completed fit are reused",
+  "maximum_local_worker_restarts_per_seed": 2,
+  "code_hashes": {
+    "scripts/studies/run_free_cw_parallel_20261101.py": "bb55033d833c21e090a7a82cacfdc89d9c0cf04c271931a0190ca84a3127238c",
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/concurrency_v2/frozen_runner.py": "bb55033d833c21e090a7a82cacfdc89d9c0cf04c271931a0190ca84a3127238c",
+    "tests/active_learning_v2/test_free_cw_parallel.py": "64411360f9671e5857260cbe2c9edc964c8e4e1e9d9dfe2de0be36ff83618f9e",
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/concurrency_v2/frozen_tests.py": "64411360f9671e5857260cbe2c9edc964c8e4e1e9d9dfe2de0be36ff83618f9e"
+  }
+}

@@ -1,0 +1,261 @@
+{
+  "request_sha256": "cd4fd14960f2d60a60d1189c6a23d4a20ce79f84de80a09414bb6c9bd4b21a9d",
+  "success": true,
+  "answer": "{\"type\":\"selection\",\"packet_sha256\":\"f8fd1682476a31e8e97de596fdc559a0cb27cf99c89b767c94a63d99af5801f8\",\"batch_strategy\":\"targeted uncertainty repair with matched condition-response curves and sparse chemical coverage\",\"choices\":[{\"id\":\"efd84dffe823b6298db6\",\"reason\":\"Molecule-novel m11 has one of the largest model widths; this high-loading, strong-ratio point probes a sparse polar/heteroatom retention regime and its predicted late tail.\",\"hypothesis_id\":\"H3\"},{\"id\":\"a38fee52661fd3e3b7ea\",\"reason\":\"Same molecule and loading as the preceding point at a weaker ratio, giving a direct eluent-response measurement for the high-uncertainty m11 regime.\",\"hypothesis_id\":\"H2\"},{\"id\":\"79cb1738d945317e5bfa\",\"reason\":\"Same m11 ratio with lower loading separates loading effects from solvent-strength effects while retaining very large predicted V1/V2 widths.\",\"hypothesis_id\":\"H5\"},{\"id\":\"6b5982c6e1bbaadd6a95\",\"reason\":\"Adds a third m11 ratio/loading point, improving identification of whether the predicted broad late interval changes smoothly or sharply with eluent strength.\",\"hypothesis_id\":\"H2\"},{\"id\":\"5d6d4ac0c1dfacbde53\",\"reason\":\"m72 lies in a very wide predicted interval regime; this high-loading DCM point tests whether the broad behavior seen for measured m72 conditions such as 4df0734ab058c0eeed78 persists at stronger elution.\",\"hypothesis_id\":\"H1\"},{\"id\":\"1b1a9ec85268aa66d327\",\"reason\":\"Matched m72 solvent ratio with lower loading provides a useful loading contrast for the same uncertain retention regime.\",\"hypothesis_id\":\"H5\"},{\"id\":\"c6924324ddd95f249df6\",\"reason\":\"The model predicts an exceptionally late and broad m107 elution window. Measured m107 record d1172a49fca1e196a59f already demonstrates a late/broad regime, so this lower-loading point can teach its loading dependence.\",\"hypothesis_id\":\"H1\"},{\"id\":\"dd4829f39cdf781ffaf9\",\"reason\":\"m211 has very large V1/V2 widths; this ratio point extends the condition curve around measured m211 record 1ce749f818905d3c61d4.\",\"hypothesis_id\":\"H3\"},{\"id\":\"0f06772820e6693753e3\",\"reason\":\"A high-ratio, higher-loading m211 point complements the preceding condition and tests whether its predicted long tail is driven by solvent strength, loading, or both.\",\"hypothesis_id\":\"H2\"},{\"id\":\"ad833f34f6b91872362d\",\"reason\":\"High uncertainty and low structural similarity make this m160 point useful for repairing the sparse high-retention region around a donor/acceptor-rich aromatic nitrile.\",\"hypothesis_id\":\"H3\"},{\"id\":\"a60552f4d1a5ced4641f\",\"reason\":\"Paired with m160 under the same loading and conditions, this regioisomer probes structural-context sensitivity that summary descriptors may miss.\",\"hypothesis_id\":\"H4\"},{\"id\":\"3774a4dac6dd0f01d48d\",\"reason\":\"Higher loading of the matched m161 regioisomer creates a local loading-response experiment in a highly uncertain chemical neighborhood.\",\"hypothesis_id\":\"H5\"},{\"id\":\"7de812bda21b4dfe46dc\",\"reason\":\"m202 has a broad predicted interval at this strong-ratio point; measuring it samples an underrepresented heteroatom-rich retention regime with high potential model impact.\",\"hypothesis_id\":\"H3\"},{\"id\":\"0dccaa29989ef4956786\",\"reason\":\"The model predicts a substantial late tail for m28 at 10/1. Measured m28 record b05a4e8db42ce35cc958 anchors a much weaker-ratio condition, making this a useful response-curve extension.\",\"hypothesis_id\":\"H2\"},{\"id\":\"be82391d6b3e742f1f26\",\"reason\":\"Lower ratio and loading for m28 provides a paired contrast to the strong-ratio point and helps identify whether the broad interval scales with loading.\",\"hypothesis_id\":\"H5\"},{\"id\":\"4c46ceefd6147b1e0a7a\",\"reason\":\"m129 has high predicted V1/V2 widths and a late model center; this ratio point probes a sulfur-containing aromatic regime that is poorly stabilized by the current predictor.\",\"hypothesis_id\":\"H3\"},{\"id\":\"d54c93a11164b4abac6e\",\"reason\":\"The matched m129 high-ratio condition tests the molecule-specific solvent response and whether its predicted late tail persists across stronger eluent.\",\"hypothesis_id\":\"H2\"},{\"id\":\"c65ac14ffed8749381c1\",\"reason\":\"m78 combines high interval uncertainty with a strongly retained predicted endpoint; this point samples a broad multifunctional-ester regime relevant to overall V2 accuracy.\",\"hypothesis_id\":\"H1\"},{\"id\":\"29b39881584c4fec1c58\",\"reason\":\"m209 has one of the widest predicted intervals in the pool; this high-ratio PE point tests late retention for a hydrogen-bond-donor aromatic structure.\",\"hypothesis_id\":\"H1\"},{\"id\":\"c06e784aecc76cea9d63\",\"reason\":\"A lower-ratio matched m209 point makes the strong predicted response measurable as a condition curve rather than an isolated uncertain label.\",\"hypothesis_id\":\"H2\"},{\"id\":\"6bd128bde2e137ea54f3\",\"reason\":\"Measured m199 record f82cfd3b57735b0ead3c is already late and broad at 50 mg; this same-ratio, higher-loading point directly tests whether loading expands the interval.\",\"hypothesis_id\":\"H5\"},{\"id\":\"358461ff3742e78ea3b6\",\"reason\":\"Measured m204 record b7b1a1bb666c8cc99bad is late and broad at 5/1; this 10/1 point tests the molecule-specific eluent response in a high-impact regime.\",\"hypothesis_id\":\"H2\"},{\"id\":\"73502a52708e4f9c2391\",\"reason\":\"Matched m204 ratio with increased loading separates loading from solvent effects and targets the large predicted V1/V2 uncertainty.\",\"hypothesis_id\":\"H5\"},{\"id\":\"09b1bb29e7a0e3565a0d\",\"reason\":\"The weak-ratio m204 counterpart tests whether the predicted late behavior changes sharply across the solvent-strength range.\",\"hypothesis_id\":\"H2\"},{\"id\":\"a15744dbeb99bc224e40\",\"reason\":\"Measured m40 record 1a382a7d3a13ed7fb28f provides a 10/1 anchor; this stronger-ratio point tests the predicted upward shift and broadening.\",\"hypothesis_id\":\"H2\"},{\"id\":\"c2334ccf8e6788ac6ca2\",\"reason\":\"An extreme-ratio, lower-loading m40 point extends that response curve and tests interaction between solvent strength and sample loading.\",\"hypothesis_id\":\"H2\"},{\"id\":\"b3d9bb5afa82b99f2a11\",\"reason\":\"Measured m31 record 064249131c1c3106e540 anchors a 2/1, higher-loading condition; this high-uncertainty point tests whether stronger eluent produces the model's predicted late tail.\",\"hypothesis_id\":\"H2\"},{\"id\":\"1a55639d058c08a1a06e\",\"reason\":\"Measured m95 records such as d448d8de2d8dacec62c3 already show broad V2 behavior; this high-ratio condition targets the uncertain upper-tail regime.\",\"hypothesis_id\":\"H1\"},{\"id\":\"692f9718b7b1b1619949\",\"reason\":\"Molecule-novel m138 has low similarity to labeled chemistry; this point adds chemical coverage for a halogenated aromatic under a moderate condition.\",\"hypothesis_id\":\"H6\"},{\"id\":\"b531c2b3601aa8bebd65\",\"reason\":\"A second molecule-novel m138 condition forms a small response curve, improving transfer from the new chemical structure to condition-dependent retention.\",\"hypothesis_id\":\"H6\"},{\"id\":\"d2ad2d89b0ecb819c916\",\"reason\":\"m173 has a very broad predicted interval at high loading; this strong-ratio point samples a late, poorly constrained acid-containing regime.\",\"hypothesis_id\":\"H3\"},{\"id\":\"1e971da91b3a8229f0e0\",\"reason\":\"Matched m173 loading at a weaker ratio distinguishes the eluent-strength contribution to its predicted broad interval.\",\"hypothesis_id\":\"H2\"}],\"hypotheses\":[{\"id\":\"H1\",\"content\":\"A subset of polar or strongly interacting structures occupies a broad late-elution regime whose onset and finish are poorly represented by a smooth lipophilicity trend.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"d1172a49fca1e196a59f\",\"d448d8de2d8dacec62c3\",\"f82cfd3b57735b0ead3c\",\"b7b1a1bb666c8cc99bad\"],\"contradicting_observed_ids\":[],\"confidence\":\"medium\",\"status\":\"proposed\",\"why_it_matters_for_model_learning\":\"These rows can teach the model a distinct long-tail V2 regime that contributes disproportionately to overall error.\",\"next_discriminating_question\":\"Do the selected high-width polar and heteroatom-rich rows share a common late-tail response across solvent ratio and loading?\"},{\"id\":\"H2\",\"content\":\"Eluent ratio and loading interact molecule-specifically, so local condition-response measurements should generalize better than isolated exploration points.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"1d0b13a3b852c290cfd9\",\"6f577b8349ef1b7cf6a4\",\"43d6f492bc9902b2e1e2\"],\"contradicting_observed_ids\":[],\"confidence\":\"medium\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"Matched curves provide gradients for condition features and help correct interpolation across the many repeated molecule-condition neighborhoods in the Row-distribution.\",\"next_discriminating_question\":\"Are changes in V1 and V2 across ratio and loading consistent within a molecule, or do they require functional-group-specific interactions?\"},{\"id\":\"H3\",\"content\":\"The largest current QGeoGNN quantile widths identify undercovered high-retention regions where new labels are likely to repair global predictive accuracy.\",\"basis\":\"model_behavior\",\"supporting_observed_ids\":[],\"contradicting_observed_ids\":[],\"confidence\":\"medium\",\"status\":\"proposed\",\"why_it_matters_for_model_learning\":\"Reducing uncertainty in these high-impact regions can improve both V1 and V2 calibration and reduce large absolute errors.\",\"next_discriminating_question\":\"Do measured outcomes in the selected high-width rows fall outside the current central predictions or mainly refine already plausible ranges?\"},{\"id\":\"H4\",\"content\":\"Regioisomeric and local structural context can change silica retention beyond the coarse descriptors supplied to the model.\",\"basis\":\"chemical_prior\",\"supporting_observed_ids\":[],\"contradicting_observed_ids\":[],\"confidence\":\"low\",\"status\":\"proposed\",\"why_it_matters_for_model_learning\":\"Paired close structures can teach QGeoGNN which local graph features alter retention and prevent overgeneralized descriptor effects.\",\"next_discriminating_question\":\"Do m160 and m161 behave differently under matched conditions despite nearly identical descriptor summaries?\"},{\"id\":\"H5\",\"content\":\"For strongly retained compounds, increased loading can alter the observed interval and may interact with retention rather than acting as a simple additive feature.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"f82cfd3b57735b0ead3c\",\"b7b1a1bb666c8cc99bad\",\"d1172a49fca1e196a59f\"],\"contradicting_observed_ids\":[],\"confidence\":\"low\",\"status\":\"unresolved\",\"why_it_matters_for_model_learning\":\"Matched loading contrasts can improve the model's treatment of loading_amount_mg across broad and late-eluting rows.\",\"next_discriminating_question\":\"At fixed molecule and solvent ratio, does increasing loading systematically shift V1, V2, or interval width?\"},{\"id\":\"H6\",\"content\":\"A small number of molecule-novel, low-similarity rows are needed to test transfer into halogenated aromatic chemistry rather than repeatedly sampling known neighborhoods.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[],\"contradicting_observed_ids\":[],\"confidence\":\"low\",\"status\":\"proposed\",\"why_it_matters_for_model_learning\":\"These labels expand chemical coverage and can prevent the retrained model from fitting repeated known tuples while missing new structural contexts.\",\"next_discriminating_question\":\"Does m138 follow the retention trends learned from nearby aromatic halides, or reveal a distinct structure-condition interaction?\"}],\"feedback_interpretation\":\"\",\"batch_rationale\":\"The batch concentrates labels where the predictor reports the widest V1/V2 ranges, while forming interpretable local curves for m11, m72, m129, m204, m40, m138, and m173. Several points directly contrast loading at matched or near-matched conditions, and others extend measured late-elution examples such as m107, m199, m204, m28, m31, and m95. The two m160/m161 rows add a close-structure comparison, while molecule-novel m138 provides chemical coverage. This combination should reduce failure-region error, teach condition-response interactions, and improve transfer across repeated molecule families in the Row-distribution.\"}",
+  "provenance": {
+    "response_id": "resp_05b2ccb8da4aba5a016ae767bc5ae4819684b534fb55e73f7b",
+    "served_model": "gpt-6.1-sol",
+    "request_id": "83da849a-912c-4a37-add4-a8011840b7bf",
+    "usage": {
+      "input_tokens": 454530,
+      "input_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 19183,
+      "output_tokens_details": {
+        "reasoning_tokens": 16272
+      },
+      "total_tokens": 473713,
+      "attribution": {
+        "items": {
+          "msg_05b2ccb8da4aba5a016ae767bc5b888196ba6d1e35574e24ad": {
+            "input_tokens": 448739,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 448739,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_05b2ccb8da4aba5a016ae769c148d081969641ea62541556eb": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 2911,
+            "content": [
+              {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 2911
+              }
+            ]
+          },
+          "rs_05b2ccb8da4aba5a016ae767d49f2c8196a351f1890b0b5318": {
+            "input_tokens": 2,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 516
+          },
+          "rs_05b2ccb8da4aba5a016ae767e7c8508196a0a913f00f77f0d6": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae767f79ab48196a76356081afa674f": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae7680983e08196bb73a1c6b15459af": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae7681a06688196a5326d1fa877ccb0": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae76829928c8196abee4229da02f910": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae7683a1cb08196ad72f17d0643551c": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae7684d77d88196b3675479b2a1317c": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae7685d29e481969a878dfc3d3c5152": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae7686ddbac8196a2118ea245402824": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae7687c57588196a1c455ceb82b2099": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae7688c35348196a54d162d84321852": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae7689a1d9c8196a111423989b74610": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae768a9ab7c8196b60955d3b264731e": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae768b94d608196bdd67572c5ab1f92": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae768c8d3d08196af38ce5d882849b2": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae768d711d08196aa36b77c46d9e40f": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae768e6fc908196b41fe45735c18893": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae768f562b081969c036157c0fb5187": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae7690425748196a7d8072db0a8e7ff": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae7691550c881969abe0c113b2c4cff": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae76928cb78819685f0163490c463d6": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae769358aa08196a84a37f84f111ab9": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae7694425bc8196bcae0db3255a505b": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae76953c8bc8196a58963f29e1ece9c": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae76966cd448196ba185c4f6629a3d2": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae76977afc08196b48716a51ad3a5c6": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae76987b73881968eb3d1cf4a9eefad": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae769993e4481968491d65c0b2d8dae": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae769a829f4819695e6f123a00fc5a8": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae769b9d85c8196bbc6f3eefb7b8c5f": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05b2ccb8da4aba5a016ae769c11b8c8196b31c1730be27e731": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 216
+          }
+        },
+        "request_fields": {
+          "instructions": {
+            "input_tokens": 5789,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "native_tool_calls": 0,
+    "requested_model": "gpt-6.1-sol",
+    "reasoning_effort": "xhigh",
+    "received_utc": "2026-11-01T16:35:49.122966+00:00",
+    "provider_source": "frozen-provider; per-seed credential alias"
+  },
+  "elapsed_seconds": 686.1405332499417,
+  "ended_utc": "2026-11-01T16:35:49.129542+00:00"
+}
