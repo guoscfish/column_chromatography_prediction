@@ -1,0 +1,243 @@
+{
+  "request_sha256": "eef5bdbfb5458cd55c2ea8d477d6908f88d3e22f74d64e025c611959c85091fc",
+  "success": true,
+  "answer": "{\"type\":\"selection\",\"packet_sha256\":\"2814f24b132455a23d1f5202e8d829a882ba8f2ff3af55282507c4894b01cd7a\",\"batch_strategy\":\"Failure repair with matched condition and loading response curves, supplemented by sparse heteroatom and fused-graph anchors.\",\"choices\":[{\"id\":\"4ff4a4435ab70d96f0bf\",\"reason\":\"m141 at 0/1 provides the strong-eluent endpoint for the anomalous basic aromatic nitrogen response. Measured m141 is already late at 5/1 and 20/1 (65f4f125b5e1f8137bd9, 51f4126a3aadb3239225); this point tests whether stronger eluent collapses retention or whether the graph remains strongly adsorbed.\",\"hypothesis_id\":\"H3\"},{\"id\":\"7fb4f90753d40dd25be0\",\"reason\":\"m141 at 10/1 and lower sample volume supplies a midpoint between the strong-eluent anchor and the measured late 5/1 and 20/1 rows. It helps separate condition slope from loading effects in the basic pyridine region identified by 65f4f125b5e1f8137bd9 and 51f4126a3aadb3239225.\",\"hypothesis_id\":\"H3\"},{\"id\":\"61b73b8065ae2ece22eb\",\"reason\":\"m146 at 5/1 extends the fused aromatic base curve around the very late measured methylquinoline row at 10/1 (9e3ce3497298084abd83). It tests whether the model can learn a steep, graph-specific condition response rather than transferring an ordinary aromatic correction.\",\"hypothesis_id\":\"H3\"},{\"id\":\"777a87b895af5e6bc380\",\"reason\":\"m146 at 1/1 and higher loading provides an earlier-condition anchor for the same fused nitrogen graph. Paired with the measured 10/1 failure 9e3ce3497298084abd83, it discriminates condition response from a blanket molecular-nitrogen offset.\",\"hypothesis_id\":\"H3\"},{\"id\":\"222a68fc192f66c1c080\",\"reason\":\"m216 at 10/1 and higher volume directly extends the measured quinoline curve whose 10/1 point was 45.80/93.07 (9cd02352c2ed7a3e2321). It tests whether late fused-base retention persists when loading changes.\",\"hypothesis_id\":\"H3\"},{\"id\":\"07933c8c797c30bb0e8e\",\"reason\":\"m216 at 2/1 supplies a lower-strength anchor for comparison with the measured 2/1 row e7bf6bd74f8498f1cb11 and the catastrophic 10/1 row 9cd02352c2ed7a3e2321. The paired points can teach the model the condition slope within this fused nitrogen family.\",\"hypothesis_id\":\"H3\"},{\"id\":\"3774a4dac6dd0f01d48d\",\"reason\":\"m161 at 5/1 and higher loading tests the positional aniline-nitrile failure region. The measured 5/1 meta isomer 17902fa9c7f8ea9b456e is very late, while the lower-condition 1/1 row 0c24b9414856413c9a67 is much earlier; this point improves positional and condition transfer.\",\"hypothesis_id\":\"H3\"},{\"id\":\"5a6c740e9306a2ffd60a\",\"reason\":\"m161 at 0/1 supplies the strong-eluent end of the same positional isomer curve. Together with 17902fa9c7f8ea9b456e and 0c24b9414856413c9a67, it tests whether the model represents the unusually large response change across conditions.\",\"hypothesis_id\":\"H3\"},{\"id\":\"fe66b2381d33aa2ea3a8\",\"reason\":\"m160 at 5/1 and high loading targets the measured para-aminobenzonitrile failure b4e0e9dc92fca2c88b90. It tests whether the large late V2 tail is associated with the amino-nitrile graph and loading, rather than with nitrile count alone.\",\"hypothesis_id\":\"H3\"},{\"id\":\"537a64f15ea470d73b03\",\"reason\":\"m160 at 1/1 provides an earlier same-molecule condition point for comparison with b4e0e9dc92fca2c88b90 and the lower-loading 2/1 measurement b21061720e23b7a5bdcb. This is a direct response-curve experiment for a graph with large endpoint errors.\",\"hypothesis_id\":\"H5\"},{\"id\":\"22fc04337abf53335eb8\",\"reason\":\"m45 at 2/1 tests the acid region between the strongly late measured 20/1 row 53a9a2469f8d4ead8732 and the anomalous 50/1 result 129036e0bccc4ff7e848. The label can localize whether the unusual acid behavior is condition-specific or broadly misrepresented.\",\"hypothesis_id\":\"H6\"},{\"id\":\"742735a20e3a21be6d2c\",\"reason\":\"m45 at 1/1 adds a second intermediate acid condition with a different loading amount. It helps distinguish a solvent-strength response from the extreme endpoint behavior in 53a9a2469f8d4ead8732 and 129036e0bccc4ff7e848.\",\"hypothesis_id\":\"H6\"},{\"id\":\"cb446680f62351d087a9\",\"reason\":\"m202 at 10/1 and higher volume probes the phosphorus-containing graph at a condition near the measured 10/1 failure 902937db42f82f467718. The contrast with measured low points at 1/1 and 2/1 (87a651fc86ed976bd374, d834329bf2be8835bae6) tests the apparent nonuniform condition response.\",\"hypothesis_id\":\"H4\"},{\"id\":\"8fb287430f3df6d0b3dd\",\"reason\":\"m202 at 0/1 supplies a strong-eluent phosphorus anchor. Together with 902937db42f82f467718 and the lower measured 1/1 point 87a651fc86ed976bd374, it can reveal whether the predictor is missing a condition-dependent graph transition.\",\"hypothesis_id\":\"H4\"},{\"id\":\"4f88870ad666191b8ea7\",\"reason\":\"m202 at 5/1 and low loading fills the middle of the sparse phosphorus response curve. It helps separate loading from the apparently large PE/EA effect seen between 87a651fc86ed976bd374 and 902937db42f82f467718.\",\"hypothesis_id\":\"H5\"},{\"id\":\"44fcf641ccfa3b10a97c\",\"reason\":\"m114 at 50/1 and intermediate loading extends the donor-free aromatic carbonyl curve. Measured m114 at the same ratio has a broad, late tail at 150 uL and 50 uL (0cf0d36290765378ae8d, 2d63ab3869184cde52bf); this point teaches loading dependence of V1 and V2 separately.\",\"hypothesis_id\":\"H2\"},{\"id\":\"19f19f196ba5787a01b0\",\"reason\":\"m125 at 2/1 and high volume targets the oxygen-rich aldehyde tail. The measured 2/1 row 69b09343d0b9995c3ae4 has a strongly underpredicted V2, while the 0/1 row e7ed7ca4a53258b73ba2 is much earlier; this point tests graph-condition and loading interactions.\",\"hypothesis_id\":\"H2\"},{\"id\":\"5c2bc1d92128a17d996d\",\"reason\":\"m125 at the same 2/1 condition with lower loading forms a controlled amount contrast with 19f19f196ba5787a01b0. It can identify whether the broad V2 tail in 69b09343d0b9995c3ae4 is driven by loading or by the oxygenated graph itself.\",\"hypothesis_id\":\"H5\"},{\"id\":\"9ae9c8b491a04e429a11\",\"reason\":\"m37 at 10/1 and low volume targets the nitro-carbonyl region where measured V2 tails are large. It bridges the measured 20/1 low-volume failure 606886b17304ec494aa0 and the 10/1 higher-volume failure 38e6b8bf0f089fcadd80.\",\"hypothesis_id\":\"H2\"},{\"id\":\"65f6e8326897810ec715\",\"reason\":\"m37 at 5/1 and higher volume supplies a lower-strength carbonyl anchor around the measured 20/1 and 10/1 failures 606886b17304ec494aa0 and 38e6b8bf0f089fcadd80. The point tests endpoint-specific V2 growth across conditions and loading.\",\"hypothesis_id\":\"H5\"},{\"id\":\"60b7eed7a46a03b366b2\",\"reason\":\"m107 at 1/1 is an intermediate oxygen-rich carbonyl point. Measured m107 is extremely late at 5/1 for both low and high loading (c692f211a6366b2f15c2, 2cfa393cb79664e100ce); this point tests whether the model can locate the onset of that late regime.\",\"hypothesis_id\":\"H2\"},{\"id\":\"92212e7e2eb760820a7b\",\"reason\":\"m107 at 0/1 supplies the strong-eluent endpoint for the same multi-acceptor graph. It distinguishes an early strong-eluent response from the measured 5/1 V2 failures c692f211a6366b2f15c2 and 2cfa393cb79664e100ce.\",\"hypothesis_id\":\"H2\"},{\"id\":\"d1172a49fca1e196a59f\",\"reason\":\"m107 at 5/1 and intermediate loading is a direct loading-curve point between measured 5/1 rows c692f211a6366b2f15c2 and 2cfa393cb79664e100ce. It can teach whether increased loading shifts onset, broadens V2, or both.\",\"hypothesis_id\":\"H5\"},{\"id\":\"1211905ebc8972913270\",\"reason\":\"m204 at 5/1 and high loading bridges measured m204 points at 5/1 low loading, 2/1, and 10/1 (45a1b11ae63f2dab2e48, 8cc5dd51f0360e578ac3, 73502a52708e4f9c2391). This tests the family-specific alcohol response and its V2 broadening.\",\"hypothesis_id\":\"H5\"},{\"id\":\"91b6bda771851a5c78ac\",\"reason\":\"m205 at 2/1 and higher loading extends the naphthyl alcohol curve around the measured 2/1 row c973d4c257be9ef08216 and the 1/1 row 2b10c90b32f970e4b4c8. It tests whether fused topology changes the loading response of an alcohol donor.\",\"hypothesis_id\":\"H2\"},{\"id\":\"7954bf73f74c7fbcecb2\",\"reason\":\"m205 at 5/1 and lower loading provides a condition and amount contrast to 91b6bda771851a5c78ac. The pair probes whether the late alcohol tail is controlled by condition strength, loading, or fused-ring topology, using c973d4c257be9ef08216 as a local anchor.\",\"hypothesis_id\":\"H5\"},{\"id\":\"5d11af6ff834c7706e64\",\"reason\":\"This sparse dibrominated sulfur graph at 2/1 supplies an unusual heteroatom and long-chain anchor. The measured related row e9aa21d2af3158cfa4f5 is much earlier than generic high-retention expectations, so this label tests graph-specific transfer rather than simple mass or hydrophobicity scaling.\",\"hypothesis_id\":\"H4\"},{\"id\":\"692b10efd757f1ef87ab\",\"reason\":\"m158 at 1/1 adds a sulfur heteroaromatic condition point around measured m158 rows at 2/1 and 10/1 (b31fd6bd7ae30c540bd7, 1ffdc26416a1526dd534). It tests whether the model distinguishes sulfur topology from oxygenated and nitrogen-containing heteroatoms.\",\"hypothesis_id\":\"H4\"},{\"id\":\"b060fa3ae84f80e773d2\",\"reason\":\"m199 at 2/1 and higher loading extends the diphenyl sulfone response around measured 2/1 and 0/1 low-loading rows 9ddc2e8babb52ee8e772 and b2bf97a1dcb9d6609f7d. This supplies a rare sulfur-oxide loading contrast for sparse graph transfer.\",\"hypothesis_id\":\"H4\"},{\"id\":\"aa0f0e8128794bdd469d\",\"reason\":\"m38 at 2/1 and high loading provides a fused carbonyl anchor between measured m38 condition points 8e4d62928039d2200288 and d1e922c04dbd0c9f6c06. It tests whether the model can transfer endpoint behavior across fused aromatic carbonyl topology and loading.\",\"hypothesis_id\":\"H1\"},{\"id\":\"27bac953781c17a3a74b\",\"reason\":\"m177 at 5/1 and low volume probes the nitro-benzophenone graph between measured points with sharply different outcomes: 50/1 at 100 uL is late (5b706e17e8412d02342f), while 20/1 and 1/1 low-volume rows are much earlier (aa43fe84c0d8c825fe58, 0164f18711777547e68d). This is a high-value test of nonuniform condition response.\",\"hypothesis_id\":\"H6\"},{\"id\":\"0ccbd28a4414f97dfad8\",\"reason\":\"m95 at 5/1 and intermediate loading targets a multi-carbonyl V2 tail. Measured m95 is substantially broader at 10/1 and especially 50/1 (35944fdd59ac331c3fcb, 5fd0921bbbba1e22abf9), so this point improves interpolation of endpoint-specific broadening.\",\"hypothesis_id\":\"H2\"}],\"hypotheses\":[{\"id\":\"H1\",\"content\":\"Donor-free aromatic and hydrophobic graphs have condition responses that depend on packing and graph topology beyond LogP and molecular size.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"1d1e8e2d695f325f148e\",\"daeabe69828349fa8e49\",\"8894e4be81344ed2e831\",\"df4d1cc1a382562c2b31\",\"60d0510d3f8c8d6644dd\"],\"contradicting_observed_ids\":[],\"confidence\":\"medium\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"Fused and sparse donor-free graphs are common enough that generic hydrophobic corrections can propagate systematic errors. Local topology and condition anchors can improve transfer across structurally similar rows.\",\"next_discriminating_question\":\"After controlling PE/EA and loading, do fused topology and heavy-atom substitution explain residual retention differences better than size and LogP?\"},{\"id\":\"H2\",\"content\":\"Oxygenated and carbonyl-rich structures often have endpoint-specific V2 tails that are underfit even when V1 is closer.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"ffc70e28db22d1cc1f3f\",\"ffffcd6f3b9393846ab4\",\"5b445b457a8b897a2d6c\",\"69b09343d0b9995c3ae4\",\"df6457ca86c98c073bf6\",\"c692f211a6366b2f15c2\",\"b3d9bb5afa82b99f2a11\",\"8e4d62928039d2200288\"],\"contradicting_observed_ids\":[\"c11d5c3acbc28dddd0cf\",\"daeabe69828349fa8e49\"],\"confidence\":\"high\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"V2 tail errors recur across esters, aldehydes, ketones, alcohols, nitro carbonyls, and multi-acceptor graphs. Matched condition and loading points can teach endpoint-specific broadening instead of a uniform volume shift.\",\"next_discriminating_question\":\"Which combinations of carbonyl topology, donor accessibility, fused structure, and loading produce broad V2 independently of V1?\"},{\"id\":\"H3\",\"content\":\"Nitrogen-containing rows require graph-conditioned transfer; nitriles, anilines, pyridines, and fused aromatic bases do not share one correction.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"51f4126a3aadb3239225\",\"49201b5817f204116f7f\",\"9e3ce3497298084abd83\",\"9cd02352c2ed7a3e232\",\"b4e0e9dc92fca2c88b90\",\"17902fa9c7f8ea9b456e\",\"6f548d72f01fc85debdc\"],\"contradicting_observed_ids\":[],\"confidence\":\"high\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"The largest failures now cluster in basic aromatic nitrogen and amino-nitrile graphs, while simpler nitrile anchors can be close. Graph-specific condition curves should improve generalization across chemically distinct nitrogen environments.\",\"next_discriminating_question\":\"Can the retrained graph model separate nitrogen accessibility and basicity from formal acceptor count and aromaticity?\"},{\"id\":\"H4\",\"content\":\"High-CW-distance and sparse heteroatom or fused graphs are transfer-failure regions where local anchors improve generalization more than generic novelty alone.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"902937db42f82f467718\",\"79ff49052bce33597828\",\"8e4d62928039d2200288\",\"a17bcdddcf0799baeee2\",\"606886b17304ec494aa0\"],\"contradicting_observed_ids\":[],\"confidence\":\"high\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"Rare phosphorus, sulfur, fused, and multi-heteroatom structures can have large residuals despite moderate descriptor similarity. Local anchors may repair graph-conditioned extrapolation and improve predictions for uncovered Row-distribution regions.\",\"next_discriminating_question\":\"Are the high-CW residuals shared across rare heteroatom classes, or does each graph environment need a separate correction?\"},{\"id\":\"H5\",\"content\":\"Loading amount changes V1 and V2 differently and the interaction is family-specific.\",\"basis\":\"observed_data\",\"supporting_observed_ids\":[\"ffc70e28db22d1cc1f3f\",\"ffffcd6f3b9393846ab4\",\"b4e0e9dc92fca2c88b90\",\"17902fa9c7f8ea9b456e\",\"b21061720e23b7a5bdcb\",\"36d971e3231c54486d05\"],\"contradicting_observed_ids\":[],\"confidence\":\"high\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"Loading is not a uniform volume offset in these data. Controlled amount contrasts in nitrogen, carbonyl, alcohol, and phosphorus families can improve interaction terms needed for both endpoints.\",\"next_discriminating_question\":\"Within each chemical family, does loading primarily shift onset, broaden completion, or change both effects with PE/EA?\"},{\"id\":\"H6\",\"content\":\"Several problematic graphs have nonuniform or endpoint-specific PE/EA responses, so same-molecule condition curves are more informative than a global late-retention correction.\",\"basis\":\"observed_data\",\"supporting_observed_ids\":[\"53a9a2469f8d4ead8732\",\"129036e0bccc4ff7e848\",\"902937db42f82f467718\",\"87a651fc86ed976bd374\",\"d834329bf2be8835bae6\",\"aa43fe84c0d8c825fe58\",\"0164f18711777547e68d\"],\"contradicting_observed_ids\":[],\"confidence\":\"medium\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"Some families change sharply across PE/EA or show different behavior for V1 and V2. Measuring intermediate conditions can distinguish a genuine response surface from artifacts of extrapolation and improve interpolation across catalog rows.\",\"next_discriminating_question\":\"Do intermediate PE/EA points reveal smooth but steep response curves, or discrete graph-specific retention regimes?\"}],\"feedback_interpretation\":\"Recent labels weakened the case for a universal late-retention correction. Simple donor-free anchors such as c19a58904344cbc4c80b, f109ef7afffd7c1f6727, and 3d473593f8a917401398 were comparatively close, while aromatic bases and amino-nitrile graphs remained severely underpredicted, including 6b7209c2e8154837a8c7, 9e3ce3497298084abd83, and the positional amino-nitrile measurements b4e0e9dc92fca2c88b90 and 17902fa9c7f8ea9b456e. Carbonyl and oxygenated outcomes continued to show endpoint asymmetry: caf9131e01751f4c90d4 and 44fdbadc2762d6900093 had large V2 underprediction, while 9f2784e0f5c807ccfa0f showed V2 overprediction. The phosphorus and acid observations also support condition-specific curves rather than a single polarity shift. I therefore concentrated the new batch on nitrogen response curves, carbonyl and alcohol V2 tails, loading contrasts, and sparse sulfur, phosphorus, fused, and sulfone anchors.\",\"batch_rationale\":\"The batch has three linked roles. It repairs the largest measured failure region with paired curves for pyridines, quinolines, amino-nitriles, acids, and phosphorus-containing graphs. It samples oxygenated carbonyl and alcohol families at intermediate PE/EA and loading values to improve V1/V2 endpoint interactions, especially the recurring V2 tails. It also includes a smaller set of sulfur, sulfone, fused, and nitro-benzophenone rows where local graph coverage is sparse. Repeated same-molecule points are deliberate: they discriminate condition slope, loading effects, and nonmonotonic behavior, while the rare-graph anchors extend those learned relationships to uncovered parts of the Row-distribution. The batch is intended to improve structure-condition-retention transfer and endpoint calibration after retraining.\"}",
+  "provenance": {
+    "response_id": "resp_0e910d49ef83bc07016ae8565d4b8c819394ba37fbdf37fbad",
+    "served_model": "gpt-6.1-sol",
+    "request_id": "91fd92e0-a88b-4ac6-bf3f-0f5c784a0d24",
+    "usage": {
+      "input_tokens": 461246,
+      "input_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 19970,
+      "output_tokens_details": {
+        "reasoning_tokens": 15020
+      },
+      "total_tokens": 481216,
+      "attribution": {
+        "items": {
+          "msg_0e910d49ef83bc07016ae8565d4c2081938a9206ff833bc358": {
+            "input_tokens": 455455,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 455455,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_0e910d49ef83bc07016ae8584c44488193a66a138c025d9829": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 4950,
+            "content": [
+              {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 4950
+              }
+            ]
+          },
+          "rs_0e910d49ef83bc07016ae8567b7728819381167f187ee0e84c": {
+            "input_tokens": 2,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 516
+          },
+          "rs_0e910d49ef83bc07016ae8568c2f908193823f789ef4fe2e1d": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e910d49ef83bc07016ae8569bb36881938cbf95da2e39f247": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e910d49ef83bc07016ae856acb1408193ad9fb26d4b829b4a": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e910d49ef83bc07016ae856bcafb08193b744f8cc55b93d80": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e910d49ef83bc07016ae856cd93f48193882fa1405ebecdc0": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e910d49ef83bc07016ae856dd2b1c8193aeebda27bdb32a89": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e910d49ef83bc07016ae856ed98f88193aa43c3c5924aa1ea": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e910d49ef83bc07016ae856fd359c81939c65ba223b46d3f8": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e910d49ef83bc07016ae8570ad57c8193815571ebc07ec94c": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e910d49ef83bc07016ae8571b476881938be6b7d578b38696": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e910d49ef83bc07016ae8572b0b688193ab3bd31b3803df71": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e910d49ef83bc07016ae8573b0dd481939937397f02bc8dfc": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e910d49ef83bc07016ae8574a8ee48193bd385c822941431f": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e910d49ef83bc07016ae8575b95ec8193aa6da00223aa7caa": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e910d49ef83bc07016ae8576cc6f881939dfdc0e1de696da8": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e910d49ef83bc07016ae8577f98548193be936d43f5aae4a8": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e910d49ef83bc07016ae8578c248c81939e762e13a0c0d3b0": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e910d49ef83bc07016ae8579897d08193bf8c070b7a9f007e": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e910d49ef83bc07016ae857a749ac8193a15c2415f6e72de5": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e910d49ef83bc07016ae857d17ea08193971d9a6f4bcec33c": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e910d49ef83bc07016ae857e06d5c8193ba94aecf445fe3f7": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e910d49ef83bc07016ae857efa46081939e67abaeaf5a9f5b": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e910d49ef83bc07016ae858019ea08193b9cca263c4a633ba": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e910d49ef83bc07016ae85813cdfc8193a47b10e694ae891c": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e910d49ef83bc07016ae8582189108193a757ea62c490a5c0": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e910d49ef83bc07016ae8582efa688193837d928eef381ff9": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e910d49ef83bc07016ae8583d58cc8193bd6836e1a1cb40f3": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0e910d49ef83bc07016ae8584c04188193a561a77c9653f04e": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          }
+        },
+        "request_fields": {
+          "instructions": {
+            "input_tokens": 5789,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "native_tool_calls": 0,
+    "requested_model": "gpt-6.1-sol",
+    "reasoning_effort": "xhigh",
+    "received_utc": "2026-11-02T09:33:16.146804+00:00",
+    "provider_source": "frozen-provider; per-seed credential alias"
+  },
+  "elapsed_seconds": 647.3439525840804,
+  "ended_utc": "2026-11-02T09:33:16.151267+00:00"
+}

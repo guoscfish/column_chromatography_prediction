@@ -1,0 +1,201 @@
+{
+  "request_sha256": "1d898cdbd9e367ca0c78097faa0ab47e697ac8ef0420defc6cc46715aafca69e",
+  "success": true,
+  "answer": "{\n  \"type\": \"selection\",\n  \"packet_sha256\": \"dcca37077df71288d58b9b4447e93cb27dc371f406b78ba25892bb3447841a49\",\n  \"batch_strategy\": \"Select controlled experiments that distinguish scaffold-specific solvent response, endpoint-specific loading effects, and inappropriate structural transfer. Extend the measured m125 loading-volume contrasts, test a matched aminobenzonitrile response matrix, investigate reversed endpoint predictions for m23, and add informative conditions on sparsely constrained carbonyl and amine scaffolds. Use a few neighboring conditions to constrain the influence of anomalous observations. All 32 selections use the supplied current predictions unchanged and are fixed together before any new label reveal.\",\n  \"choices\": [\n    {\n      \"id\": \"761c3f82d640da44966c\",\n      \"reason\": \"Measure m125 at 5/1, 50 ul, 500 ul DCM, predicted 34.04/70.82 mL. The matched 300 ul observation 780b13846ace50ede763 is 42.27/69.71. Together with the selected 100 ul contrast, this tests whether the large loading-volume effects measured at 1/1 and 2/1 persist at 5/1 or become endpoint-specific.\",\n      \"hypothesis_id\": \"H2\"\n    },\n    {\n      \"id\": \"74cf50c6ec476a394b01\",\n      \"reason\": \"Measure m125 at 5/1, 100 ul, 300 ul DCM, predicted 33.97/70.83. The matched 500 ul observation c4b5a5499258f39b7ac1 is 33.07/72.47. This completes a 2-by-2 amount/solvent-volume comparison with the selected 50 ul condition and existing observations, testing a ratio-dependent loading interaction that the predictions barely represent.\",\n      \"hypothesis_id\": \"H2\"\n    },\n    {\n      \"id\": \"9bd998a328b109ef639e\",\n      \"reason\": \"Measure m125 at 1/1, 150 ul, 500 ul DCM, predicted 9.44/25.20. The matched 300 ul observation 03744855d469f4cca7e6 is 7.30/20.23, while f4fb5c03b8e8996e75f6 gives 12.49/36.14 at 50 ul with 500 ul DCM. This tests whether the strong finish association with solvent volume changes with sample amount.\",\n      \"hypothesis_id\": \"H2\"\n    },\n    {\n      \"id\": \"5307ce95bcee2886afe0\",\n      \"reason\": \"Measure the actual m65 50/1, 100 ul condition, predicted 6.95/18.99. Its measured 10/1 anchor fd73bcb28ed4a4959b1f is 6.02/13.14. The previously described high-ratio m65 experiment was actually an m137 record, so this response extension remains unmeasured and can constrain transfer to meta-fluoropropiophenone.\",\n      \"hypothesis_id\": \"H4\"\n    },\n    {\n      \"id\": \"24bf82db0ce55835b608\",\n      \"reason\": \"Introduce genuinely molecule-novel m1 at 50/1 and 100 ul, predicted 6.41/10.69. Its chloro analogue has measured endpoints 5.56/9.57 under the same ratio, sample volume and PE loading volume in ff36ed72f76515960408. This tests halogen substitution transfer while retaining the different recorded density-times-volume amount.\",\n      \"hypothesis_id\": \"H4\"\n    },\n    {\n      \"id\": \"34b6f9955044e17d887e\",\n      \"reason\": \"Measure rigid acrylate m23 at 5/1 and 50 ul, predicted 7.20/6.62, with finish preceding onset. Its measured 2/1 anchor 8c8922eada2018f59953 is ordered at 6.09/8.64. Paired with the selected 50/1 condition, this tests the extent of a systematic endpoint-ordering vulnerability on this graph.\",\n      \"hypothesis_id\": \"H7\"\n    },\n    {\n      \"id\": \"96840797cfdea44e1467\",\n      \"reason\": \"Extend the fixed-loading m23 pair to 50/1, predicted 10.31/9.82 and again reversed. Related acrylates have ordered measured endpoints, including m15 in c3add4f9b8eb5e002281 and m16 in 97fe38c6942b67ea70b2. This label can teach both endpoint ordering and the solvent response of the sterically constrained ester.\",\n      \"hypothesis_id\": \"H7\"\n    },\n    {\n      \"id\": \"8748c66e5f0823e6a65e\",\n      \"reason\": \"Measure aliphatic chloroketone m27 at 2/1 and 100 ul, predicted 8.08/20.20. Its measured neat-EA anchor a63ce210564bfb05f06c is only 4.00/7.42. This establishes the lower part of a fixed-loading response pair on a sparsely supervised carbonyl environment.\",\n      \"hypothesis_id\": \"H1\"\n    },\n    {\n      \"id\": \"c0adb1c6f9dbe862a4dc\",\n      \"reason\": \"Pair m27 at 10/1 and 100 ul with its selected 2/1 condition. The prediction rises to 20.69/40.98, with CW distance 0.983. Measuring the pair tests whether this large response is supported for an accessible aliphatic ketone or reflects excessive transfer from more strongly retained carbonyl scaffolds.\",\n      \"hypothesis_id\": \"H1\"\n    },\n    {\n      \"id\": \"2e181a70e997f2b6d728\",\n      \"reason\": \"Measure m53 at 5/1 and 100 ul, predicted 8.68/31.19. The matched 2/1 observation 1934e3f2ee65da718096 is 6.07/13.29; the higher-ratio reference 0d588f7534b7a34cb10a has a late finish but a different amount. This label tests the predicted early onset of substantial finish growth in an unsaturated aliphatic aldehyde.\",\n      \"hypothesis_id\": \"H1\"\n    },\n    {\n      \"id\": \"9e0497d20614ebedf8ed\",\n      \"reason\": \"Measure chalcone m165 at 5/1 and 100 ul, predicted 6.23/15.43. Its neat-EA observation 0bdd638e906bf11a00cb is 3.56/9.01. The related, more extensively conjugated m164 is measured at the same 5/1 loading in 9f450a70d44f4384353f, providing a structural comparison for the selected high-ratio pair.\",\n      \"hypothesis_id\": \"H4\"\n    },\n    {\n      \"id\": \"683b6279a87805548c7c\",\n      \"reason\": \"Complete the fixed-loading m165 pair at 50/1, predicted 16.60/37.93. Together with selected m164 at the same condition and the measured m164 5/1 reference 9f450a70d44f4384353f, these labels form a scaffold-by-ratio comparison that tests transfer of conjugated-ketone response slopes.\",\n      \"hypothesis_id\": \"H4\"\n    },\n    {\n      \"id\": \"c9bef93a79964dc6ede1\",\n      \"reason\": \"Measure m164 at 50/1 and 100 ul, predicted 21.66/52.87. Its measured 20/1 condition b7fffd840d208b29776c is 13.35/35.72. The matched chalcone experiments distinguish graph-dependent finish growth from a shared aromatic-ketone correction.\",\n      \"hypothesis_id\": \"H4\"\n    },\n    {\n      \"id\": \"cb534927304d5c892100\",\n      \"reason\": \"Measure biphenyl ketone m68 at 20/1 and 100 ul, predicted 5.99/18.34. Its matched 5/1 observation c4b06a6e718225cb9cf8 is 5.63/25.62, so the current prediction implies a shorter finish with weaker eluent. This tests a potentially consequential transfer pattern without assuming monotonic retention is universal.\",\n      \"hypothesis_id\": \"H4\"\n    },\n    {\n      \"id\": \"7799455820f8a51e59fa\",\n      \"reason\": \"Extend long-chain aryl ketone m70 to 50/1 and 100 ul, predicted 6.08/13.32. Its measured 5/1 anchor fd40d88566b5a84ea627 is 4.45/9.79, while the shorter-chain m69 gives 9.69/16.83 at 50/1 in 712efbedcb59418d3a25. This tests whether the predicted shallow response transfers appropriately across alkyl-chain length, with density differences retained.\",\n      \"hypothesis_id\": \"H4\"\n    },\n    {\n      \"id\": \"4b8ba288d549f6cfc94b\",\n      \"reason\": \"Measure alpha-keto ester m92 at 10/1 and 100 ul with EA loading, predicted 4.05/18.07. The matched 50/1 observation 7b42519983cf93dd7efd is 19.76/61.95. This fills an interior condition needed to locate the onset of its large finish response under the recorded EA-loading conditions.\",\n      \"hypothesis_id\": \"H1\"\n    },\n    {\n      \"id\": \"5fd0921bbbba1e22abf9\",\n      \"reason\": \"Measure methyl acetoacetate m95 at 50/1 and 150 ul, predicted only 14.74/26.32. Its measured 5/1 reference cd566862a517dd7cdc8d is 13.02/23.20 at 50 ul, whereas related m94 and m107 show much larger late-ratio retention. This tests the predicted weak response of a common beta-keto ester, while acknowledging the amount difference from its existing anchor.\",\n      \"hypothesis_id\": \"H1\"\n    },\n    {\n      \"id\": \"e12edd0198c0d750ecd5\",\n      \"reason\": \"Measure meta-aminobenzonitrile m161 at 2/1 and 50 ul, predicted 9.12/24.67. Its existing neat-EA observation 247846e36e9c012df30f does not constrain this region. This is one corner of a matched positional-isomer-by-ratio matrix testing the predicted finish decrease between 2/1 and 5/1.\",\n      \"hypothesis_id\": \"H6\"\n    },\n    {\n      \"id\": \"a60552f4d1a5ced4641f\",\n      \"reason\": \"Pair m161 at 5/1 and 50 ul with its selected 2/1 condition. The prediction falls to 7.36/14.42 despite weaker eluent. Both endpoints are unmeasured here; this controlled contrast determines whether the nonmonotonic prediction deserves supervision as a real catalog relationship or requires correction.\",\n      \"hypothesis_id\": \"H6\"\n    },\n    {\n      \"id\": \"b21061720e23b7a5bdcb\",\n      \"reason\": \"Measure para-aminobenzonitrile m160 at 2/1 and 50 ul, predicted 12.00/31.66. Its matched 1/1 observation a8ae74aecb3b1e85b73c is 6.18/19.48. Comparison with selected m161 at identical recorded loading conditions tests positional effects that aggregate descriptors cannot distinguish.\",\n      \"hypothesis_id\": \"H6\"\n    },\n    {\n      \"id\": \"ad833f34f6b91872362d\",\n      \"reason\": \"Complete the aminobenzonitrile matrix with m160 at 5/1 and 50 ul, predicted 8.31/16.36. Both isomers are predicted to finish earlier at 5/1 than at 2/1. Four matched labels can discriminate a shared condition-response pattern from a representation error and reveal whether substitution position changes its magnitude.\",\n      \"hypothesis_id\": \"H6\"\n    },\n    {\n      \"id\": \"f8dff14aa7f68363fa60\",\n      \"reason\": \"Measure tertiary-amino acrylate m19 in neat EA at 100 ul, predicted 6.49/13.33. Its measured 2/1 condition 304fb0fdb486ae4b7a07 is 16.43/32.81. Together with the selected 1/1 condition, this establishes a controlled three-point curve for an acyclic amine/ester environment with little direct supervision.\",\n      \"hypothesis_id\": \"H1\"\n    },\n    {\n      \"id\": \"9a60cb4735780275034e\",\n      \"reason\": \"Measure m19 at 1/1 and 100 ul, predicted 10.08/22.61, between selected neat EA and measured 2/1 in 304fb0fdb486ae4b7a07. This distinguishes gradual response from a localized transition and tests transfer from the better-sampled pyridyl and aromatic-amine families to an acyclic tertiary amine.\",\n      \"hypothesis_id\": \"H1\"\n    },\n    {\n      \"id\": \"747af2ae1176c54b9e5d\",\n      \"reason\": \"Measure m57 at 20/1 and 150 ul, predicted 6.91/9.09. The 50 ul 20/1 observation 120a3bece2efacad82a7 is early at 4.62/7.13, while 63ec73e3341feaaf43ae at 50/1 and 150 ul is late and nearly coincident. This tests whether that high-amount behavior already appears at the neighboring ratio.\",\n      \"hypothesis_id\": \"H5\"\n    },\n    {\n      \"id\": \"8143c4fff6f999b7ad0e\",\n      \"reason\": \"Complete the m127 20/1 amount series at 50 ul, predicted 9.67/30.78. Measured 100 and 150 ul finishes are approximately 31.7\u201332.0 in 15d6bc57a87392fbeb98 and ebdeaba52880c7eade16, whereas the 50/1, 50 ul finish is 23.65 in 52b9af4df1f1e7cd4d9b. This bounds the unusual high-ratio pattern without forcing a smooth explanation.\",\n      \"hypothesis_id\": \"H5\"\n    },\n    {\n      \"id\": \"b24f66ff77974f8ba6e1\",\n      \"reason\": \"Measure m45 at 20/1 and 50 ul, predicted 25.97/57.17, against the matched 100 ul observation e6605c23fb1943a6b848 at 26.49/57.16. Recent d43d692e19100ebe5646 established 14.79/32.17 at 10/1. This tests the extent of the ordinary late-retention regime around the reversed near-zero 50/1 record 129036e0bccc4ff7e848.\",\n      \"hypothesis_id\": \"H5\"\n    },\n    {\n      \"id\": \"a5446977630484ca5fe1\",\n      \"reason\": \"Measure m135 at 5/1 and 50 ul, predicted 19.51/35.09. Its measured 5/1, 150 ul reference f9f0f4e29dbd30c000ee is 18.55/34.32. The complete measured 10/1 series shows a large onset decrease with amount, so this label tests whether that sensitivity is specific to the weaker-eluent regime.\",\n      \"hypothesis_id\": \"H3\"\n    },\n    {\n      \"id\": \"716d04ed1943f0708912\",\n      \"reason\": \"Measure m135 at 5/1 and 100 ul, predicted 19.45/35.10. Alongside selected 50 ul and measured 150 ul conditions, this completes a 5/1-by-10/1 loading surface. The measured 10/1 midpoint 75232f4ee5de52a0499e supports an ordered onset trend, making this a targeted test of amount-by-ratio interaction rather than another isolated loading row.\",\n      \"hypothesis_id\": \"H3\"\n    },\n    {\n      \"id\": \"db5dcc7b864e0174fcbd\",\n      \"reason\": \"Measure benzylic alcohol m67 at 10/1 and 50 ul, predicted 20.09/34.83. The matched-ratio 100 ul observation 2d11f1fe488a0c917ffe is 19.26/33.62. This anchors the selected 20/1 condition at fixed loading and tests amount transfer before interpreting differences from the recently measured, differently loaded alcohol m60.\",\n      \"hypothesis_id\": \"H1\"\n    },\n    {\n      \"id\": \"2cf4f6424b85ab121943\",\n      \"reason\": \"Extend the fixed-loading m67 pair to 20/1, predicted 37.91/56.36. Recent m60 observations 985361f6699d97f9464f and beda2205eedbe1688e1f confirmed a steep alcohol response, but alcohol position and loading solvent differ. This pair establishes m67's own slope and tests whether that steepness transfers appropriately.\",\n      \"hypothesis_id\": \"H1\"\n    },\n    {\n      \"id\": \"20d4b1612cbdd88b6755\",\n      \"reason\": \"Measure m94 at 5/1 and 50 ul, predicted 11.98/26.59. Existing 50 ul labels at 10/1 and 20/1 in 7ac90b210e42d27c5a04 and ffc70e28db22d1cc1f3f establish strong growth, while 8a5443659239e3b52e14 anchors 5/1 at 150 ul. This tests whether onset sensitivity to amount emerges only at higher PE/EA ratios.\",\n      \"hypothesis_id\": \"H3\"\n    },\n    {\n      \"id\": \"59ce141f6f9f30603132\",\n      \"reason\": \"Measure bromonitrobenzene m201 at 50/1 and 50 ul, predicted 18.21/38.48. The matched 20/1 observation d6faa7e77464f5f9a34b is only 6.41/17.05. This tests an unsupervised steep-response region and whether the model transfers late retention from nitrocarbonyl compounds too strongly to a nitroarene lacking a carbonyl.\",\n      \"hypothesis_id\": \"H1\"\n    }\n  ],\n  \"hypotheses\": [\n    {\n      \"id\": \"H1\",\n      \"content\": \"Solvent-response slopes and curvature are strongly scaffold-dependent, and onset and finish need not change together. Sparse interior conditions remain valuable even when the general prior favors later elution as PE/EA increases.\",\n      \"basis\": \"mixed\",\n      \"supporting_observed_ids\": [\n        \"985361f6699d97f9464f\",\n        \"beda2205eedbe1688e1f\",\n        \"bccdbbd73be98bf008c8\",\n        \"abb2d31b1372dbd64398\",\n        \"b98a7974de322ed42ec0\"\n      ],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"high\",\n      \"status\": \"supported\",\n      \"why_it_matters_for_model_learning\": \"Controlled ratio contrasts teach graph-dependent response functions instead of encouraging a universal solvent correction. They also distinguish onset shifts from independent finish growth.\",\n      \"next_discriminating_question\": \"Do the m27, m19 and m67 pairs support their predicted slopes, and where do m53, m92, m95 and m201 begin substantial finish growth?\"\n    },\n    {\n      \"id\": \"H2\",\n      \"content\": \"At 1/1 and 2/1, m125 shows substantial associations between recorded DCM loading volume and measured endpoints. The magnitude may depend on mobile-phase ratio and sample amount; extension to 5/1 is unresolved.\",\n      \"basis\": \"mixed\",\n      \"supporting_observed_ids\": [\n        \"00043aebb2540e369a7b\",\n        \"f4fb5c03b8e8996e75f6\",\n        \"19f19f196ba5787a01b0\",\n        \"facbcedbecb46072b04c\",\n        \"c8d43713db33bf820a1d\",\n        \"cc2a23d8eb9de61d2ab3\"\n      ],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"high\",\n      \"status\": \"supported\",\n      \"why_it_matters_for_model_learning\": \"Current predictions remain almost insensitive to loading-solvent volume. Matched labels can identify when this feature should affect either endpoint and prevent its association from being absorbed into molecular or ratio features.\",\n      \"next_discriminating_question\": \"Does the selected 5/1 amount-by-volume comparison show a diminished volume effect, and does the 1/1 volume contrast persist at 150 ul?\"\n    },\n    {\n      \"id\": \"H3\",\n      \"content\": \"Sample amount can alter onset more than finish, with sensitivity depending on scaffold and solvent ratio. The ordered m135 and m94 observations support local amount relationships, while irregular m81 behavior argues against a universal smooth loading law.\",\n      \"basis\": \"mixed\",\n      \"supporting_observed_ids\": [\n        \"f433bc672465387d951a\",\n        \"75232f4ee5de52a0499e\",\n        \"d05a91dc8e32e9edd7d0\",\n        \"ffc70e28db22d1cc1f3f\",\n        \"e3a799d0fa90b649a157\",\n        \"ffffcd6f3b9393846ab4\",\n        \"fefecd79dc057980f62c\",\n        \"a9500e468002e41eceeb\"\n      ],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"high\",\n      \"status\": \"supported\",\n      \"why_it_matters_for_model_learning\": \"Endpoint-specific amount supervision can improve both heads without imposing the same loading correction on onset and finish. Ratio-by-amount comparisons test where this sensitivity becomes substantial.\",\n      \"next_discriminating_question\": \"Does m135 retain its strong onset dependence at 5/1, and is m94's amount dependence much smaller at 5/1 than at 20/1?\"\n    },\n    {\n      \"id\": \"H4\",\n      \"content\": \"Detailed carbonyl environment, conjugation and topology can limit retention-response transfer between related molecules. Similar aggregate polarity and close fingerprints do not establish equivalent onset or finish behavior.\",\n      \"basis\": \"mixed\",\n      \"supporting_observed_ids\": [\n        \"a36291cab664852df5e5\",\n        \"52348febee6695107c49\",\n        \"80de1b57c56257d2ecae\",\n        \"1c12f9e9a5043e6d32cc\",\n        \"c4b06a6e718225cb9cf8\"\n      ],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"medium\",\n      \"status\": \"unresolved\",\n      \"why_it_matters_for_model_learning\": \"Matched scaffold comparisons and sparse-graph extensions test whether QGeoGNN shares information appropriately across common ketone, ester and halogenated-aromatic families.\",\n      \"next_discriminating_question\": \"Do the m164/m165 response slopes transfer, does m68 really shorten its finish, and do the m65, m70 and molecule-novel m1 labels support their predicted structural corrections?\"\n    },\n    {\n      \"id\": \"H5\",\n      \"content\": \"The unusual high-PE endpoints may mark a local condition regime rather than isolated measurement or recording effects. However, the earlier expectation that nearly coincident m127 and m57 endpoints extend across neighboring amounts is now disfavored.\",\n      \"basis\": \"observed_data\",\n      \"supporting_observed_ids\": [\n        \"a3ae677aae8a8faf5786\",\n        \"63ec73e3341feaaf43ae\",\n        \"129036e0bccc4ff7e848\"\n      ],\n      \"contradicting_observed_ids\": [\n        \"52b9af4df1f1e7cd4d9b\",\n        \"c82167c626a1495ef750\",\n        \"0f756a58174e946b976a\",\n        \"120a3bece2efacad82a7\"\n      ],\n      \"confidence\": \"low\",\n      \"status\": \"weakened\",\n      \"why_it_matters_for_model_learning\": \"Neighboring labels can constrain how far anomalous observations influence learned condition curves. They cannot independently establish reproducibility or identify an unrecorded cause.\",\n      \"next_discriminating_question\": \"Does m57's high-amount shift appear already at 20/1, does m127 maintain its approximately 32 mL finish at lower amount, and does m45's ordinary 20/1 response transfer across amount?\"\n    },\n    {\n      \"id\": \"H6\",\n      \"content\": \"For both aminobenzonitrile positional isomers, the model predicts a substantial finish decrease from 2/1 to 5/1 at identical loading. This shared nonmonotonic response is untested and may reflect inappropriate transfer or a real catalog relationship.\",\n      \"basis\": \"model_behavior\",\n      \"supporting_observed_ids\": [],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"low\",\n      \"status\": \"proposed\",\n      \"why_it_matters_for_model_learning\": \"A matched two-isomer, two-ratio experiment separates a shared solvent-response error from positional structural effects while holding all supplied loading conditions fixed.\",\n      \"next_discriminating_question\": \"Do either or both isomers finish earlier at 5/1 than at 2/1, and does substitution position change the direction or magnitude?\"\n    },\n    {\n      \"id\": \"H7\",\n      \"content\": \"Repeated V2-before-V1 predictions for m23 suggest a graph-conditioned endpoint-ordering vulnerability. They do not demonstrate reversed physical elution, and labels at separated ratios may correct both ordering and the underlying response.\",\n      \"basis\": \"model_behavior\",\n      \"supporting_observed_ids\": [],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"medium\",\n      \"status\": \"proposed\",\n      \"why_it_matters_for_model_learning\": \"Supervising both endpoints on this rigid acrylate can test whether the representation incorrectly transfers onset and finish independently from related esters.\",\n      \"next_discriminating_question\": \"What are the ordered endpoints and solvent-response slope at 5/1 and 50/1 with sample loading fixed?\"\n    }\n  ],\n  \"feedback_interpretation\": \"Recent outcomes strengthen some local relationships and weaken others. The m60 pair confirmed a steep response: 27.63/36.92 at 5/1 became 46.02/68.74 at 10/1. In contrast, m145 onset stayed near 6.3 mL between 10/1 and 50/1 while finish increased from 16.63 to 22.35, supporting separate endpoint supervision. The measured m157 pair showed nearly unchanged onset, rejecting the predicted deep onset minimum. The m137 1/1-to-50/1 pair was also shallow. These results favor scaffold-specific contrasts over selection based only on large predicted changes. For m125, the new 300 ul DCM labels reinforced substantial volume associations: at 1/1 and 50 ul, finish was 18.35 versus 36.14 with 500 ul; at 2/1 and 150 ul, it was 31.38 versus 69.81. I therefore extend this question to a controlled 5/1 comparison. The m135 midpoint supported its ordered onset decrease with amount, and m94 at 20/1 showed the same direction with much less change in finish. Conversely, m81's midpoint resembled its low-amount finish, leaving its short high-amount finish unresolved. The m127 and m57 neighboring labels did not reproduce nearly coincident endpoints, so I reduce the scope of that hypothesis and allocate only focused boundary experiments. The large m45 acquisition-time overprediction at 10/1 further cautions against extrapolating through its problematic 50/1 record. Two prior experiment descriptions also require correction using the observed table: 530217d6ee1ada65ac65 was m137 in neat EA at 150 ul, not m65 at 50/1; 24ac14b3a19069ee1128 was m32 in neat EA at 50 ul, not m1 at 50/1. Thus m65's high-ratio extension and molecule-novel m1 remain legitimate unanswered questions. Historical errors are interpreted at acquisition time, not as current residuals.\",\n  \"batch_rationale\": \"The batch creates several interpretable comparisons with existing labels: an m125 amount-by-loading-volume matrix, complete m135 amount series at two ratios, a matched aminobenzonitrile isomer-by-ratio matrix, fixed-loading m27, m19 and m67 response curves, and an m164/m165 scaffold-by-ratio comparison. These experiments can teach interactions shared across many catalog rows rather than merely add extreme retention labels. The m23 pair targets a repeated endpoint-ordering problem; m68, m65, m70, m95 and m201 test potentially inappropriate structural transfer in ordinary carbonyl and aromatic regions. Molecule-novel m1 supplies a close, interpretable halide analogue test. Three neighboring conditions constrain the influence of anomalous high-PE observations without assuming their cause or spending the batch on attempted mechanistic explanations. Previously well-predicted m166 and m187 regions receive less attention this round. Quantile spans and CW distances are secondary evidence, not calibrated epistemic uncertainty, and physical interval width is kept distinct from prediction uncertainty. No duplicate condition tuples are selected together. Missing experimental context and inconsistent observations limit causal attribution, but these controlled labels should improve the retrained model's onset, finish and condition-response accuracy across the Row-distribution.\"\n}",
+  "provenance": {
+    "response_id": "resp_073a4dcc225528ce016ae8b9ac4060819ab1176f2c37d1dcd3",
+    "served_model": "gpt-6.1-sol",
+    "request_id": "e592d512-8348-4fc8-8464-b1d2a769a796",
+    "usage": {
+      "input_tokens": 450495,
+      "input_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 18107,
+      "output_tokens_details": {
+        "reasoning_tokens": 11394
+      },
+      "total_tokens": 468602,
+      "attribution": {
+        "items": {
+          "msg_073a4dcc225528ce016ae8b9ac4178819a9c6a7b6b5cc2a2f7": {
+            "input_tokens": 444704,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 444704,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_073a4dcc225528ce016ae8bb4483d4819aab37add2566e394e": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 6713,
+            "content": [
+              {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 6713
+              }
+            ]
+          },
+          "rs_073a4dcc225528ce016ae8b9c7a1a8819aa2e50af8ee61539b": {
+            "input_tokens": 2,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 516
+          },
+          "rs_073a4dcc225528ce016ae8b9db2fec819a85a9e737d2d10309": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_073a4dcc225528ce016ae8b9ed6600819a98763b48a7dd7e82": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_073a4dcc225528ce016ae8b9fee9fc819a96806225fd16553c": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_073a4dcc225528ce016ae8ba1040f4819aa9cf0479f68ed962": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_073a4dcc225528ce016ae8ba239550819ab616151e4ca55e73": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_073a4dcc225528ce016ae8ba366e60819aa369e189240f5b43": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_073a4dcc225528ce016ae8ba4815e8819abb29de26b6e219e1": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_073a4dcc225528ce016ae8ba562870819aa72b6b531a232d38": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_073a4dcc225528ce016ae8ba686fac819a9d187079d04d84df": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_073a4dcc225528ce016ae8ba7aada8819aa1ae7ce88c10200b": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_073a4dcc225528ce016ae8ba8ece68819a9d24c51c6899c087": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_073a4dcc225528ce016ae8baa3822c819ab9bf3b029257ef93": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_073a4dcc225528ce016ae8bab17510819a897891d061921bf4": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_073a4dcc225528ce016ae8bac3555c819ab4180ecf8ffa94dc": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_073a4dcc225528ce016ae8bad8e0e0819abfbe14eeb8a729fd": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_073a4dcc225528ce016ae8baeb7a80819a9e35116095a39908": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_073a4dcc225528ce016ae8baf85784819a96e5277fd678c922": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_073a4dcc225528ce016ae8bb062ee0819a88b7491a3f80f2cb": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_073a4dcc225528ce016ae8bb1b7ab4819aa64a6602d77261f4": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_073a4dcc225528ce016ae8bb310ba4819a9662a052611f47e1": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_073a4dcc225528ce016ae8bb446014819abe4176a8e3bcbb74": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          }
+        },
+        "request_fields": {
+          "instructions": {
+            "input_tokens": 5789,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "native_tool_calls": 0,
+    "requested_model": "gpt-6.1-sol",
+    "reasoning_effort": "xhigh",
+    "received_utc": "2026-11-02T16:35:21.669617+00:00",
+    "provider_source": "frozen-provider; per-seed credential alias"
+  },
+  "elapsed_seconds": 547.6754469999578,
+  "ended_utc": "2026-11-02T16:35:21.671525+00:00"
+}

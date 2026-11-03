@@ -1,0 +1,243 @@
+{
+  "request_sha256": "86e65a5b3dbf6ae2292410370af9473fa1b896c1310176ce541d14a8dd2ac7ac",
+  "success": true,
+  "answer": "{\"type\":\"selection\",\"packet_sha256\":\"c5bd5d197aaf9442be78e3ce07da316b226be6797d0f77b38330b41854e49017\",\"batch_strategy\":\"Failure repair with paired condition and loading response experiments, emphasizing late-tail calibration while retaining low-strength anchors and scaffold diversity.\",\"choices\":[{\"id\":\"cb446680f62351d087a9\",\"reason\":\"The model predicts a broad late interval for a heteroatom-rich row at 10/1 DCM and high loading. It extends the underpredicted late regime seen for m107 and m118 in c6924324ddd95f249df6 and 2d178efe0181baca2bd5.\",\"hypothesis_id\":\"H1\"},{\"id\":\"61771d230b285babe4b6\",\"reason\":\"This high-width 50/1 DCM row tests whether a carbonyl-rich scaffold enters a late regime at larger sample volume. The m177 loading contrast in b514312eda7950cdcf1c and 4862e2fb71344ce16021 shows that apparently similar strong-condition rows can have very different tails.\",\"hypothesis_id\":\"H2\"},{\"id\":\"9e3f598e00375ec93d9b\",\"reason\":\"A high-width 10/1 DCM point for an oxygen-rich ester scaffold probes the onset-to-finish transition between ordinary and extreme carbonyl retention, informed by the measured m107 and m118 failures in c6924324ddd95f249df6 and 2d178efe0181baca2bd5.\",\"hypothesis_id\":\"H1\"},{\"id\":\"9ffee2813aef5c26f96f\",\"reason\":\"The model gives a very broad upper-tail prediction for a carbonyl-containing aromatic at 50/1 DCM. This is a useful remote-space label because observed oxygen-rich rows such as c6924324ddd95f249df6 and 3163a9b58f1a52a1992c were substantially later than their predictions.\",\"hypothesis_id\":\"H1\"},{\"id\":\"7383949c431e18f39597\",\"reason\":\"This 10/1 DCM row combines a broad predicted tail with an unusual loading-solvent volume. It tests whether the tail behavior seen in 8de30a7f5764c20b232e and b514312eda7950cdcf1c transfers to a different oxygenated scaffold and loading context.\",\"hypothesis_id\":\"H2\"},{\"id\":\"5e45395722fa0dcc1d00\",\"reason\":\"The model predicts a late, broad interval at 10/1 PE for an alcohol-containing scaffold. It samples a condition family where strong retention and endpoint-specific errors have been observed, while adding a high-volume loading point for generalization.\",\"hypothesis_id\":\"H2\"},{\"id\":\"db7f9ffa50eb931613f6\",\"reason\":\"This high-width 10/1 DCM aldehyde/ester-like row tests a strong-condition upper tail in a scaffold distinct from the measured m195 and m198 examples. It is useful for distinguishing family-specific high-ratio behavior from a global correction.\",\"hypothesis_id\":\"H3\"},{\"id\":\"e99da719af7e2c3e9a93\",\"reason\":\"An intermediate high-strength point for the nitrobenzaldehyde-like family can connect the measured m198 behavior in cdaf95461fe3b3d80075 to stronger-condition rows. Its predicted width indicates potential endpoint calibration value.\",\"hypothesis_id\":\"H3\"},{\"id\":\"0d1eaff6f686ee174d88\",\"reason\":\"This lower-strength m195 point is paired conceptually with the measured high-ratio overprediction in 7654254c03d9de79740f. It tests whether the model's excessive late prediction persists when strength and loading are changed.\",\"hypothesis_id\":\"H3\"},{\"id\":\"783cf2454912fc14bb80\",\"reason\":\"A second m195 condition-response point at 20/1 DCM helps separate a scaffold-specific high-ratio anomaly from a smooth solvent-strength trend. The measured 7654254c03d9de79740f provides the high-ratio comparison.\",\"hypothesis_id\":\"H3\"},{\"id\":\"58669c7a3953b668d2e1\",\"reason\":\"This low-strength m160 anchor tests whether the aminobenzonitrile late-retention regime has a threshold in solvent strength. The measured 5/1 failure in ad833f34f6b91872362d motivates an explicit low-strength point.\",\"hypothesis_id\":\"H4\"},{\"id\":\"5258960e057b56ed51f8\",\"reason\":\"The corresponding low-strength m161 point supplies an isomer-matched control for the m160 experiment. It is valuable because ad833f34f6b91872362d and a60552f4d1a5ced4641f show unexpectedly late behavior for both isomers under stronger conditions.\",\"hypothesis_id\":\"H4\"},{\"id\":\"0c24b9414856413c9a67\",\"reason\":\"This m161 1/1 DCM point tests the transition between the low-strength floor and the known late 5/1 regime. It adds a volume contrast to the isomer evidence in a60552f4d1a5ced4641f.\",\"hypothesis_id\":\"H4\"},{\"id\":\"fbf7711e24f45bf06d4f\",\"reason\":\"The matched m160 1/1 DCM row complements the m161 point and tests whether positional substitution changes the loading and solvent response. The observed m160 label in ad833f34f6b91872362d is a strong reason to repair this local family.\",\"hypothesis_id\":\"H4\"},{\"id\":\"b4e0e9dc92fca2c88b90\",\"reason\":\"This m160 5/1 row uses twice the sample volume of the known catastrophic point in ad833f34f6b91872362d. It directly tests whether the late regime is primarily condition-driven or amplified by loading amount.\",\"hypothesis_id\":\"H1\"},{\"id\":\"3fbf4a3d05e84138e1e2\",\"reason\":\"The same 2/1 m200 condition at a different sample volume is a controlled loading-response experiment. It extends the measured m200 tail behavior and tests whether V2 scales independently of V1.\",\"hypothesis_id\":\"H2\"},{\"id\":\"95d1d257dfea69f178f8\",\"reason\":\"This high-ratio m208 row samples an upper-tail regime with a large predicted endpoint interval. It extends measured m208 condition-response behavior into a stronger solvent condition and helps calibrate high-strength heteroatom effects.\",\"hypothesis_id\":\"H3\"},{\"id\":\"80f546c47198fa7c6dbf\",\"reason\":\"A high-strength PE experiment on an alcohol-containing nitroaromatic provides a chemically different late-tail probe. It tests whether the strong predicted tail is transferable across loading and solvent systems.\",\"hypothesis_id\":\"H3\"},{\"id\":\"f38088920e6edd19a62f\",\"reason\":\"The model predicts a broad late interval for oxygenated m116 at 50/1 DCM. This row probes a methoxy-rich family in which high-ratio response may be nonlinear and helps distinguish V1 from V2 correction needs.\",\"hypothesis_id\":\"H3\"},{\"id\":\"122fbec0df9ecf1c5d89\",\"reason\":\"This high-width m115 point provides a strong-condition carbonyl/aryl ether label at larger volume. It complements the broader oxygen-rich failures in c6924324ddd95f249df6 and tests upper-tail transfer across related carbonyl scaffolds.\",\"hypothesis_id\":\"H1\"},{\"id\":\"dc795e0a68f104353b33\",\"reason\":\"A donor-free aromatic carbonyl row at 50/1 PE supplies a control for whether strong-condition corrections require heteroatoms or also occur in less polar graphs. It helps discriminate the family-specific behavior seen in 6d5c9e3367e3d9b87fe4 and 3f79435038d038b87d4f.\",\"hypothesis_id\":\"H3\"},{\"id\":\"fa851bcd2cdb1d84b91f\",\"reason\":\"This high-ratio m26 row targets a carbonyl-rich aromatic with a broad predicted V2 tail. It samples a distinct scaffold while retaining similarity to observed high-ratio carbonyl failures, supporting transferable upper-tail calibration.\",\"hypothesis_id\":\"H1\"},{\"id\":\"d035281432e410405550\",\"reason\":\"The 20/1 DCM m114 point tests whether a late finish develops before the most extreme 50/1 condition. It complements the measured 50/1 m114 behavior in 0cf0d36290765378ae8d and separates condition strength from loading effects.\",\"hypothesis_id\":\"H3\"},{\"id\":\"9de8f9fed06ef9d5befa\",\"reason\":\"This 5/1 DCM m37 row probes a moderate-strength nitroaryl carbonyl regime between ordinary and extreme tails. The measured m37 rows in b6f1b33a5491968c645e and 9ae9c8b491a04e429a11 show that this family can be substantially later than predicted.\",\"hypothesis_id\":\"H1\"},{\"id\":\"3c1875eb669056c6c621\",\"reason\":\"A low-strength, high-loading m38 anchor tests whether loading alone can produce a broad finish interval. It complements the measured higher-strength m38 tail in d1e922c04dbd0c9f6c06 and calibrates the early-elution floor.\",\"hypothesis_id\":\"H2\"},{\"id\":\"1e775e7d8dcbf48fd6f8\",\"reason\":\"This m173 point combines a large loading-solvent volume with a broad predicted V2 interval. It extends the measured m173 condition-response labels in 9a32b65bc21fdc5f7286 and b37608f8c4a8ee4b8696 into a higher-strength, high-loading regime.\",\"hypothesis_id\":\"H2\"},{\"id\":\"65fcce0299e031dedeb8\",\"reason\":\"The matched lower-strength m173 point creates a meaningful response curve with 1e775e7d8dcbf48fd6f8. It can identify whether the large V2 tail is caused by solvent strength, loading, or their interaction.\",\"hypothesis_id\":\"H2\"},{\"id\":\"7bbdec21c428010dd67b\",\"reason\":\"This high-loading m99 row tests whether the long finish observed in the measured 10/1 m99 experiment d8f34dc388842e55905b persists when sample volume is increased. It is a direct loading-sensitivity label for a polar ester/alcohol-like graph.\",\"hypothesis_id\":\"H2\"},{\"id\":\"b1801204c2c4a34a9278\",\"reason\":\"The high-ratio m117 point is a controlled low-volume complement to measured m117 rows a0d6732883ffc7d063fb and d9c8c8af50a10bf07765. It targets the model's uncertainty about whether V2 growth survives reduced loading.\",\"hypothesis_id\":\"H2\"},{\"id\":\"b85305d91a9e7cfa6005\",\"reason\":\"This m193 20/1 DCM point increases sample volume relative to measured m193 rows c28747d70e7b51a1cc95 and a5f9179bfb146ad70953. It tests a loading-dependent tail in a nitroaryl aldehyde family with broad endpoint predictions.\",\"hypothesis_id\":\"H2\"},{\"id\":\"18d13a057c8c8b316800\",\"reason\":\"A low-strength m206 anchor is useful because the measured stronger-condition m206 row 614873124b33029a924c was much later than its prediction. This point tests whether the anomaly begins only after increasing eluent strength.\",\"hypothesis_id\":\"H3\"},{\"id\":\"6c6e575f7751f607a167\",\"reason\":\"This low-strength m31 anchor complements the measured high-strength m31 behavior in b3d9bb5afa82b99f2a11. It tests whether the observed late shift is a solvent-strength response or a scaffold-independent model bias.\",\"hypothesis_id\":\"H3\"}],\"hypotheses\":[{\"id\":\"H1\",\"content\":\"High-loading, polar or heteroatom-rich graphs form a late-retention regime that the current model often underpredicts, especially for V2; the effect is substantial but scaffold-specific.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"ad833f34f6b91872362d\",\"a60552f4d1a5ced4641f\",\"c6924324ddd95f249df6\",\"2d178efe0181baca2bd5\",\"3163a9b58f1a52a1992c\",\"b514312eda7950cdcf1c\"],\"contradicting_observed_ids\":[\"7654254c03d9de79740f\"],\"confidence\":\"high\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"These failures affect both endpoints and occupy broad regions of the Row-distribution, so labels that distinguish ordinary from late retention can improve representation, condition response, and upper-tail calibration.\",\"next_discriminating_question\":\"Does the late regime recur across unrelated polar scaffolds at matched strength and loading, or is it confined to a few molecular families?\"},{\"id\":\"H2\",\"content\":\"V2 tails can change independently of V1, and loading amount or loading-solvent conditions interact with solvent strength to control that tail.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"b514312eda7950cdcf1c\",\"4862e2fb71344ce16021\",\"5e276c1730fc0a9deba7\",\"8de30a7f5764c20b232e\",\"2d178efe0181baca2bd5\"],\"contradicting_observed_ids\":[],\"confidence\":\"high\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"QGeoGNN needs labels that separate onset calibration from finish calibration; paired loading and condition rows can teach this interaction more efficiently than isolated high-width rows.\",\"next_discriminating_question\":\"For a fixed scaffold and mobile-phase strength, does changing loading primarily move V2, V1, or both?\"},{\"id\":\"H3\",\"content\":\"High-ratio condition response is scaffold-specific; donor-free, oxygenated, sulfur-containing, and fused graphs do not share one transferable correction.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"7654254c03d9de79740f\",\"129036e0bccc4ff7e848\",\"6d5c9e3367e3d9b87fe4\",\"3f79435038d038b87d4f\",\"cdaf95461fe3b3d80075\"],\"contradicting_observed_ids\":[],\"confidence\":\"high\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"A global solvent-strength adjustment would worsen some families while helping others; explicit cross-family labels can encourage the model to learn interaction terms instead.\",\"next_discriminating_question\":\"Which structural features determine whether increasing PE/EA ratio produces early elution, a late tail, or an anomalous floor?\"},{\"id\":\"H4\",\"content\":\"Aminobenzonitrile retention is strongly sensitive to substitution environment and condition, so positional isomers should not be pooled through generic polarity descriptors alone.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"ad833f34f6b91872362d\",\"a60552f4d1a5ced4641f\",\"19732d5797039e3465b6\",\"a8ae74aecb3b1e85b73c\"],\"contradicting_observed_ids\":[],\"confidence\":\"high\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"This family exposes a representation failure with very large V1 and V2 errors; matched low-strength and intermediate-strength labels can teach substitution-specific condition response.\",\"next_discriminating_question\":\"Do the two aminobenzonitrile isomers share a common retention threshold, or do their late transitions occur at different solvent strengths and loadings?\"}],\"feedback_interpretation\":\"Recent measured outcomes strengthened the separation between onset and finish learning. The m177 pair b514312eda7950cdcf1c and 4862e2fb71344ce16021 showed that a broad V2 tail can depend strongly on loading even when V1 stays near the early-elution floor. The aminobenzonitrile labels ad833f34f6b91872362d and a60552f4d1a5ced4641f confirmed a severe, isomer-sensitive underprediction regime. At the same time, 7654254c03d9de79740f showed that a fused aldehyde can be overpredicted at high ratio, so predicted width alone cannot justify a global late-retention correction. The batch therefore uses paired response points, family controls, and low-strength anchors alongside broad-width exploration.\",\"batch_rationale\":\"The batch repairs several measured failure regions while preserving coverage across carbonyl-rich, nitro, amino, alcohol, ester, fused, donor-free, and heteroatom-containing graphs. High-width rows target upper-tail calibration where observed labels show large V2 errors. The m160/m161, m195, m173, m99, m117, m193, and m206 selections form local condition or loading-response experiments rather than redundant replicates. Low-strength m31, m38, m160, m161, and m206 anchors test whether late behavior has a threshold and help calibrate early-elution floors. The remaining high-ratio controls test whether corrections depend on scaffold class. Together these labels can improve generalization by teaching QGeoGNN separate V1 and V2 responses, loading interactions, and chemically conditional solvent-strength effects across the Row-distribution.\"}",
+  "provenance": {
+    "response_id": "resp_035e0ce373aa7e9e016ae8e460c288819b997b2e054d7b10c6",
+    "served_model": "gpt-6.1-sol",
+    "request_id": "36cdb813-da4b-4d6c-8446-1a1a05196c80",
+    "usage": {
+      "input_tokens": 447098,
+      "input_tokens_details": {
+        "cached_tokens": 5632,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 18376,
+      "output_tokens_details": {
+        "reasoning_tokens": 14589
+      },
+      "total_tokens": 465474,
+      "attribution": {
+        "items": {
+          "msg_035e0ce373aa7e9e016ae8e460c380819b85a4f04d2af2f935": {
+            "input_tokens": 441307,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 441307,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_035e0ce373aa7e9e016ae8e5e2866c819b8b2ee04f325a44c5": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 3787,
+            "content": [
+              {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 3787
+              }
+            ]
+          },
+          "rs_035e0ce373aa7e9e016ae8e4723234819ba847f58f79bc8a1d": {
+            "input_tokens": 2,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 516
+          },
+          "rs_035e0ce373aa7e9e016ae8e47ffe7c819b9bdc28c71349fbdb": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_035e0ce373aa7e9e016ae8e48e8180819bb5bf6dff87dc6575": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_035e0ce373aa7e9e016ae8e49c8518819ba794d630568dd00b": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_035e0ce373aa7e9e016ae8e4aa5840819b8768b271e915ee11": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_035e0ce373aa7e9e016ae8e4b7ebac819b8b668ffa5a71b31e": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_035e0ce373aa7e9e016ae8e4c74870819b8a2a5e876f45d38b": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_035e0ce373aa7e9e016ae8e4d443fc819b96765e1439deb479": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_035e0ce373aa7e9e016ae8e4dfe588819baccc189e1511685b": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_035e0ce373aa7e9e016ae8e4ed3144819bad4d95dce659363e": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_035e0ce373aa7e9e016ae8e4fc2c68819bb3b1ac8809dfbece": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_035e0ce373aa7e9e016ae8e509cd40819b926386c5e6b3d97d": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_035e0ce373aa7e9e016ae8e515a418819b8b81fa998866c74c": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_035e0ce373aa7e9e016ae8e5202610819b903adc99f1db4545": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_035e0ce373aa7e9e016ae8e52d6d50819b98758fbb35f128f5": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_035e0ce373aa7e9e016ae8e53b1434819bbd787cb7ec29579a": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_035e0ce373aa7e9e016ae8e548bb18819ba10ab1f4fd235ddc": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_035e0ce373aa7e9e016ae8e556f160819b8d8f60cae9aff1dd": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_035e0ce373aa7e9e016ae8e5673ea0819b8ac06399ce75a9b2": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_035e0ce373aa7e9e016ae8e57462bc819bb9f486b55aefaf13": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_035e0ce373aa7e9e016ae8e5821620819bbcf0207fe87a0753": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_035e0ce373aa7e9e016ae8e58f7688819b82f90b561e9df35f": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_035e0ce373aa7e9e016ae8e59d7200819b8c9ef3ecea674c98": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_035e0ce373aa7e9e016ae8e5acfff8819b80fc3319e938de5c": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_035e0ce373aa7e9e016ae8e5ba53dc819bbe364ff75bc601ca": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_035e0ce373aa7e9e016ae8e5c71a1c819bb40b30ab8e7ea53c": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_035e0ce373aa7e9e016ae8e5d1951c819bb584a59ffd8ed13c": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_035e0ce373aa7e9e016ae8e5dfe8c0819b9e2e9818e963a0b3": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_035e0ce373aa7e9e016ae8e5e272a0819ba55aca565a02dedb": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 87
+          }
+        },
+        "request_fields": {
+          "instructions": {
+            "input_tokens": 5789,
+            "cached_tokens": 5632,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "native_tool_calls": 0,
+    "requested_model": "gpt-6.1-sol",
+    "reasoning_effort": "xhigh",
+    "received_utc": "2026-11-02T19:36:42.483212+00:00",
+    "provider_source": "frozen-provider; per-seed credential alias"
+  },
+  "elapsed_seconds": 493.92483195802197,
+  "ended_utc": "2026-11-02T19:36:42.487359+00:00"
+}
