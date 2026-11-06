@@ -88,3 +88,8 @@ reports/**/matplotlib_cache/
 
 # Recomputable acquisition feature arrays; keep contracts and feature hashes.
 studies/**/current_center_width_gradient_features.npz
+
+# High-volume CW retry sidecars are exported losslessly in reports/cw_retry_evidence_*.
+# Keep originals locally for cumulative accounting and worker recovery.
+studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/**/attempt_*.json
+studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/**/stream_*.json

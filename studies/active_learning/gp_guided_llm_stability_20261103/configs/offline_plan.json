@@ -1,0 +1,29 @@
+{
+  "version": "phase0-dev-v1",
+  "status": "development_screen_not_external_confirmation",
+  "seeds": [157, 6101],
+  "observed_rounds": [0, 1, 2, 3, 4, 5],
+  "risk_training_rounds": [0, 1, 2],
+  "risk_evaluation_rounds": [3, 4, 5],
+  "representations": ["raw", "cw"],
+  "kernel": "linear_L0_RMS",
+  "hyperparameters": "training_marginal_likelihood_only",
+  "log_variance_bounds": [-9.0, 9.0],
+  "random_batch_count": 64,
+  "random_batch_seed": 20261103,
+  "batch_size": 32,
+  "formal_thresholds_frozen": false,
+  "development_reliability_screen": {
+    "response_nlpd_no_worse_than_L0_constant_each_endpoint_seed": true,
+    "response_90_coverage_absolute_gap_max_each_endpoint_seed": 0.1,
+    "risk_spearman_min_each_seed": 0.2,
+    "risk_nlpd_improves_training_constant_each_seed": true,
+    "all_optimizer_and_source_checks_required": true,
+    "current_checkpoint_risk_transport_validated_required_for_paid_phase1": true
+  },
+  "permitted_reads": "hash_locked_train_pool_banks_catalog_contract_batch_freeze_and_already_observed_feedback_only",
+  "llm_calls": 0,
+  "new_QGeoGNN_fits": 0,
+  "new_label_access": 0,
+  "test_truth_access": 0
+}

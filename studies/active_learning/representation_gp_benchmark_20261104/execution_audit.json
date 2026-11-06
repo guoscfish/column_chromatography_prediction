@@ -1,0 +1,37 @@
+{
+  "date_Asia_Shanghai": "2026-11-04",
+  "branch": "main",
+  "initial_head": "32fdc85cb8411f9e93c2e3db56f6648c14d620b2",
+  "remote_main_read_only_verified": "32fdc85cb8411f9e93c2e3db56f6648c14d620b2",
+  "initial_worktree": "two tracked status modifications and other studies untracked records preserved",
+  "write_scope": "studies/active_learning/representation_gp_benchmark_20261104/",
+  "observed_running_processes": {
+    "CW_Free_supervisor": 10050,
+    "CW_Free_worker_887": 72401,
+    "CW_Free_worker_12203": 5733,
+    "historical_readonly_monitors": [
+      71130,
+      71132
+    ]
+  },
+  "observed_CW_Free_persistent_budgets": {
+    "157": 813,
+    "887": 1101,
+    "2357": 1037,
+    "6101": 973,
+    "12203": 909
+  },
+  "process_control_commands": 0,
+  "checkout_reset_clean_pull": 0,
+  "protected_reused_source_sha256": {
+    "src/qgeognn_al/models/qgeognn_v2.py": "0058ae546ed0aeb84762b1b26f343a9b622f49a2fb45aefb2434e679ba2547e2",
+    "src/qgeognn_al/active_learning_v2/gradient_features.py": "ac0c2d36912efeb97eddeae3484fc601de1b5b3b94dd5e4570699b8d1c53b278",
+    "src/qgeognn_al/active_learning_v2/gradient_transforms.py": "0ee6c707c15f3ad519056da27863ed51cfd1e0c260748770626e2536aa185e82",
+    "src/qgeognn_al/active_learning_v2/ivr.py": "e225af0a79a6e5bf3073e1cf57803be6c11fa9dedfe1139d382d32978ed08204",
+    "src/qgeognn_al/active_learning_v2/scientist_selector.py": "7a7df9382345add4fbf1a76a50ed8bb85f5726d7fe0ae8f2ea41503261509dc1",
+    "src/qgeognn_al/active_learning_v2/protocol.py": "919f7382544e1f89eeb8381ca1b53bf0a206637580c6019b966348b8fb8777d1",
+    "studies/active_learning/gp_guided_llm_stability_20261103/gp.py": "77fc12f16d930e0419a9ec0187b0b6ce4e3aab9dcea8a684631760f0b65d1dc5"
+  },
+  "source_label_policy": "RestrictedLabelStore converts only current seed L_t and its validation, never test or current U; label-free loader uses explicit usecols",
+  "metadata_repairs_note": "fits raw row seed/kernel may be overwritten by model random seed/kernel; summary restores from immutable completed-state path and preserves model_random_seed, records every repaired row; predictions and numeric arrays unchanged"
+}

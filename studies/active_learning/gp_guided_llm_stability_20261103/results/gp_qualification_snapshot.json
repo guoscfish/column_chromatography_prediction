@@ -1,0 +1,71 @@
+{
+  "schema_version": "stable-gp-development-qualification-v1",
+  "scope": "Retrospective qualification only; no candidate numerical values or metric values",
+  "excluded_volatile_fields": [
+    "elapsed_seconds"
+  ],
+  "verification_fields": {
+    "scope": "Phase0 completed; Phase1 mock preparation only",
+    "source_checks_passed": true,
+    "historical_seeds": [
+      157,
+      6101
+    ],
+    "initial_labels_per_seed": 333,
+    "response_forward_evaluation_per_seed": 192,
+    "risk_training_per_seed": 96,
+    "risk_evaluation_per_seed": 96,
+    "screen": [
+      {
+        "seed": 157,
+        "space": "raw",
+        "response_screen_pass": false,
+        "risk_screen_pass": true,
+        "current_checkpoint_risk_transport_validated": false,
+        "formal_guidance_eligible": false
+      },
+      {
+        "seed": 6101,
+        "space": "raw",
+        "response_screen_pass": false,
+        "risk_screen_pass": true,
+        "current_checkpoint_risk_transport_validated": false,
+        "formal_guidance_eligible": false
+      },
+      {
+        "seed": 157,
+        "space": "cw",
+        "response_screen_pass": false,
+        "risk_screen_pass": true,
+        "current_checkpoint_risk_transport_validated": false,
+        "formal_guidance_eligible": false
+      },
+      {
+        "seed": 6101,
+        "space": "cw",
+        "response_screen_pass": false,
+        "risk_screen_pass": true,
+        "current_checkpoint_risk_transport_validated": false,
+        "formal_guidance_eligible": false
+      }
+    ],
+    "formal_GP_guidance_eligible": false,
+    "risk_current_checkpoint_transport": "not_validated",
+    "all_fits_successful": true,
+    "boundary_fit_count": 0,
+    "fit_count": 52,
+    "maximum_jitter": 0.0,
+    "actions": {
+      "paid_llm_calls": 0,
+      "QGeoGNN_training_runs": 0,
+      "new_labels_revealed": 0,
+      "test_truth_reads": 0,
+      "checkpoint_loads": 0,
+      "raw_dataset_reads": 0
+    },
+    "source_manifest_sha256": "5eff43d927bef4acb294e1e12371b6430652b1b8b19a26f76eaa6dcafdcee2dc",
+    "offline_plan_sha256": "4d353c63a37ca3a9980f3a5b14c021dcffc5e33139999964de4da2d04af38e4a"
+  },
+  "metrics_sha256": "e578743c67d88b70da386de21ea5b3a940261195a0e4734bc0be6aa80ae5781b",
+  "offline_plan_sha256": "4d353c63a37ca3a9980f3a5b14c021dcffc5e33139999964de4da2d04af38e4a"
+}

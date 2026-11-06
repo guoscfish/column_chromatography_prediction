@@ -1,0 +1,262 @@
+{
+  "request_sha256": "0ceaf0f1377e778d71ab55e961717189a8e3a42de6eae07e60b7c34f9664a02a",
+  "success": true,
+  "answer": "{\n  \"type\": \"selection\",\n  \"packet_sha256\": \"1ebe5df48901545d2d5e5ca99cb227eb24e6f1906911548b1f91e4b08b478e59\",\n  \"batch_strategy\": \"Use targeted condition-response experiments and structural analogues to improve prediction across the supplied Row-distribution. Prioritize uncovered chemistry, consequential interpolation gaps, and suspicious endpoint behavior, while avoiding redundant recorded-condition repeats. Include explicit loading contrasts because many supplied predictions barely change with sample amount. All 32 selections and their supplied premeasurement predictions are frozen before any new labels. Quantile widths and crossings are diagnostic signals from one predictor, not calibrated epistemic uncertainty.\",\n  \"choices\": [\n    {\n      \"id\": \"0b247863fd6e8aaf44d8\",\n      \"reason\": \"Measure cinnamic acid at 2/1, preserving the 100-uL sample and 2000-uL DCM loading used in observed f90a5a5a54509c085ebd and 1e775e7d8dcbf48fd6f8. This directly resolves the transition between their very different 1/1 and 5/1 onset/finish patterns.\",\n      \"hypothesis_id\": \"H1\"\n    },\n    {\n      \"id\": \"ce14dd2481560a984aea\",\n      \"reason\": \"For nitrobenzophenone at 10/1, predicted V1 is zero while V2 is 31.74 mL. The same 100-uL sample at 5/1 was measured in 08812206a257481691c4; 5e276c1730fc0a9deba7 supplies a broad 20/1 interval at higher loading. This probes a consequential interpolation gap.\",\n      \"hypothesis_id\": \"H1\"\n    },\n    {\n      \"id\": \"aa43fe84c0d8c825fe58\",\n      \"reason\": \"Reduce nitrobenzophenone loading at 20/1 from the measured 210.9 mg in 5e276c1730fc0a9deba7 to 70.3 mg, holding loading solvent and its volume fixed. Determine whether the broad interval persists or depends strongly on sample amount; the predictor currently expects almost no change.\",\n      \"hypothesis_id\": \"H3\"\n    },\n    {\n      \"id\": \"e7b3f786a783fb44ea83\",\n      \"reason\": \"Anisole at 20/1 has predicted V1/V2 of 11.13/10.71 mL. This endpoint inversion flags an unsupported response for a common aromatic-ether motif. Observed b1737f3e487bbd039406 anchors the molecule at 5/1.\",\n      \"hypothesis_id\": null\n    },\n    {\n      \"id\": \"d997636736faa38ac83a\",\n      \"reason\": \"Dodecyl acrylate in pure EA has predicted V1/V2 of 8.13/8.05 mL, whereas b8c5b2ddf2469922c305 and 48094ec5355600d7a0fa anchor earlier onset at 2/1 and 20/1. This tests strong-solvent extrapolation for a highly lipophilic ester without assuming the inversion proves an error.\",\n      \"hypothesis_id\": null\n    },\n    {\n      \"id\": \"69b09343d0b9995c3ae4\",\n      \"reason\": \"Probe 2,6-dimethoxybenzaldehyde at 2/1 using 500 uL DCM. Observed f4fb5c03b8e8996e75f6 has an unusually broad 1/1 interval with that loading-solvent volume, while e7ed7ca4a53258b73ba2 anchors pure EA. The new label tests whether the neighboring-ratio collapse predicted by the model is real; sample amounts differ from the 1/1 anchor.\",\n      \"hypothesis_id\": \"H1\"\n    },\n    {\n      \"id\": \"067c9b96b35fefd28fdf\",\n      \"reason\": \"Chalcone at 1/1 is predicted to start at 13.91 mL, well after its predicted onset in weaker solvent. Together with its selected 10/1 row, test whether the unusual strong-solvent onset seen for ethyl cinnamate in 2cf789c87f7c6325c020 transfers to another conjugated carbonyl.\",\n      \"hypothesis_id\": \"H2\"\n    },\n    {\n      \"id\": \"0dfdfd6dce2d3f41a427\",\n      \"reason\": \"Complete the chalcone 1/1-to-10/1 contrast with sample amount, DCM, and loading-solvent volume fixed. Predicted onset falls to 3.81 mL while finish increases to 21.41 mL. Both labels distinguish a shared conjugated-carbonyl response from an inherited local anomaly.\",\n      \"hypothesis_id\": \"H2\"\n    },\n    {\n      \"id\": \"3f6b817d855e67b3b406\",\n      \"reason\": \"Dibenzalacetone at 1/1 has predicted onset of 27.09 mL, an especially strong extrapolation of the conjugated-carbonyl pattern. Measuring it alongside chalcone and its own 10/1 condition tests whether this prediction generalizes beyond the measured ethyl-cinnamate example.\",\n      \"hypothesis_id\": \"H2\"\n    },\n    {\n      \"id\": \"7726f4a207a737256a86\",\n      \"reason\": \"Complete the fixed-loading dibenzalacetone contrast: at 10/1 the predictor gives 3.01/24.00 mL, compared with 27.09/31.58 at 1/1. This supplies a second molecular response curve, allowing structural effects to be distinguished from a common learned solvent-response pattern.\",\n      \"hypothesis_id\": \"H2\"\n    },\n    {\n      \"id\": \"f82cfd3b57735b0ead3c\",\n      \"reason\": \"Explore diphenyl sulfoxide at 5/1. It is unobserved and has maximum observed similarity only 0.353. Its S=O interaction with silica may differ substantially from carbonyls and ethers despite its small recorded TPSA; the predicted 8.05/17.99 mL provides an untested baseline.\",\n      \"hypothesis_id\": null\n    },\n    {\n      \"id\": \"d603d4af5fd62fa8b85e\",\n      \"reason\": \"Measure dimethyl acetylenedicarboxylate at 2/1, where predicted onset is only 1.22 mL. This unobserved, low-similarity electron-poor alkyne diester tests representation transfer within the substantial ester population.\",\n      \"hypothesis_id\": null\n    },\n    {\n      \"id\": \"93f10a8edf06f7acae26\",\n      \"reason\": \"Pair the same alkyne diester at 20/1 with its selected 2/1 experiment, holding all loading conditions fixed. The predicted 6.52/18.40 mL weak-solvent endpoint anchors its response rather than leaving a novel scaffold represented by one early-elution label.\",\n      \"hypothesis_id\": null\n    },\n    {\n      \"id\": \"7a3586b45c03832259f5\",\n      \"reason\": \"Add ethyl acetoacetate at 2/1. The molecule is absent from observations but appears repeatedly in the candidate pool. This anchors the stronger-solvent portion of a beta-ketoester response and connects to measured methyl acetoacetate, including 09451a20997310593b6e and 35944fdd59ac331c3fcb.\",\n      \"hypothesis_id\": null\n    },\n    {\n      \"id\": \"b29c3ac2de3ba2d8b5c9\",\n      \"reason\": \"Complete the ethyl-acetoacetate contrast at 10/1 with identical loading conditions. Its predicted finish is 29.63 mL; measured methyl analogue 35944fdd59ac331c3fcb finishes at 34.07 mL under 10/1 but different loading. Two labels teach the new molecule's response and support transfer across beta-ketoesters.\",\n      \"hypothesis_id\": null\n    },\n    {\n      \"id\": \"1775390f94178c3c9974\",\n      \"reason\": \"Anchor the unobserved mesityl ketone at 5/1, predicted 5.35/12.04 mL. Its two ortho methyl groups provide a focused test of carbonyl accessibility within the common aryl-ketone family, alongside measured methyl-substituted ketones such as d13724f7a4b6c8bb3628.\",\n      \"hypothesis_id\": \"H4\"\n    },\n    {\n      \"id\": \"5830dbb35947aa6f58f0\",\n      \"reason\": \"Pair mesityl ketone at 50/1 with the same 50-uL sample and DCM loading. The model predicts earlier onset, 3.34 mL, but much later finish, 33.77 mL. This tests whether steric shielding produces that endpoint split or the model extrapolates poorly.\",\n      \"hypothesis_id\": \"H4\"\n    },\n    {\n      \"id\": \"71abc36775b6cce56da7\",\n      \"reason\": \"Measure para-methoxybenzyl alcohol at 5/1 and 55.65 mg as the lower member of a controlled twofold loading contrast. The new primary-alcohol/ether combination also connects to para-methylbenzyl alcohol measured in f9f0f4e29dbd30c000ee.\",\n      \"hypothesis_id\": \"H3\"\n    },\n    {\n      \"id\": \"e4fd83fb3852eb354a66\",\n      \"reason\": \"Increase the same alcohol to 111.3 mg with PE/EA, DCM, and its 300-uL loading volume unchanged. Predicted endpoints are essentially identical to the lower-load row. The pair can reveal conditional loading effects while establishing a new donor-containing analogue.\",\n      \"hypothesis_id\": \"H3\"\n    },\n    {\n      \"id\": \"04a2e8ad27ca641a3a12\",\n      \"reason\": \"Explore methylquinoline at 5/1. No quinoline scaffold is measured, and maximum similarity is only 0.259. The long 5/1 interval for lutidine in 65f4f125b5e1f8137bd9 motivates testing how basic-ring environment changes retention beyond a nitrogen-count correction.\",\n      \"hypothesis_id\": \"H5\"\n    },\n    {\n      \"id\": \"1ae3618ec277b0463686\",\n      \"reason\": \"Add quinoline at 5/1 as a related basic scaffold alongside methylquinoline. Their predicted finishes are nearly equal, approximately 27.4 mL. Both labels test scaffold-specific nitrogen interactions; their recorded loading solvents differ, so this is not a pure substitution-only comparison.\",\n      \"hypothesis_id\": \"H5\"\n    },\n    {\n      \"id\": \"989b2145455d703d3b6d\",\n      \"reason\": \"Measure the unobserved fused lactone at 10/1, predicted 9.82/21.16 mL and similarity 0.344. Alongside selected tetralone, this tests how replacing a ketone environment with a cyclic ester changes onset and finish under closely comparable loading conditions.\",\n      \"hypothesis_id\": null\n    },\n    {\n      \"id\": \"9ff75a89ec8d52e6f51c\",\n      \"reason\": \"Measure tetralone at 10/1. Although highly similar to an observed molecule, its scaffold has no labels. Together with the lactone and measured larger-ring ketone b6dc1ec0dbd724128ce3, it discriminates ring-environment effects within a broadly represented carbonyl family.\",\n      \"hypothesis_id\": null\n    },\n    {\n      \"id\": \"73502a52708e4f9c2391\",\n      \"reason\": \"Add 3-phenyl-1-propanol at 10/1, predicted 31.69/54.72 mL. This introduces an accessible primary aliphatic OH environment, complementing measured benzylic primary alcohol 75232f4ee5de52a0499e and tertiary alcohol 04ea307c7b7f3321cc20.\",\n      \"hypothesis_id\": \"H6\"\n    },\n    {\n      \"id\": \"c70b471334f9747d6c43\",\n      \"reason\": \"Measure para-amino ethyl benzoate at 5/1 to extend amino-ester coverage beyond measured ortho and meta analogues. Observations 3aed7873d2fd1cf48684 and 9a9324fbb6b1e17e7743 provide family anchors, while the new label tests positional effects on accessible nitrogen and carbonyl interactions.\",\n      \"hypothesis_id\": \"H5\"\n    },\n    {\n      \"id\": \"2feb7d8e0a3566ddf97f\",\n      \"reason\": \"Measure para-aminobenzonitrile at 2/1 using exactly the same recorded loading conditions as meta isomer 53a1acff30433cff819f. This clean positional-isomer comparison tests electronic and geometric nitrogen effects without changing descriptors or loading.\",\n      \"hypothesis_id\": \"H5\"\n    },\n    {\n      \"id\": \"d5fd79e96156bc59e3fe\",\n      \"reason\": \"Explore bromomethylenedioxybenzene at 20/1, predicted 15.64/24.02 mL. Compare its adjacent, constrained ether oxygens with measured bromoanisole and bromobenzofuran contexts, including cd04739913b72a351990 and 5806c857509e09634010. This tests functional-group geometry beyond total polarity.\",\n      \"hypothesis_id\": null\n    },\n    {\n      \"id\": \"351c17dfa8f46a8cb40a\",\n      \"reason\": \"Add acetoxybenzaldehyde at 10/1, predicted 10.92/33.19 mL. The unobserved combination of aldehyde and ester connects the large aromatic-carbonyl and ester populations, testing whether their combined silica interactions are represented correctly.\",\n      \"hypothesis_id\": null\n    },\n    {\n      \"id\": \"fb031b748f1f5a8cc89e\",\n      \"reason\": \"Explore 2-bromopropionic acid in pure EA, where predicted V1/V2 are inverted at 3.09/2.93 mL. This introduces an aliphatic carboxylic acid beyond the cinnamic-acid anchors and tests whether their unusual behavior has distorted acid-class extrapolation.\",\n      \"hypothesis_id\": null\n    },\n    {\n      \"id\": \"5e784130c58b8175024e\",\n      \"reason\": \"Measure secondary benzylic alcohol 1-phenyl-1-propanol at 10/1, predicted 15.15/24.16 mL. Alongside the selected primary aliphatic alcohol and measured tertiary alcohol 04ea307c7b7f3321cc20, this teaches OH structural environment while retaining all recorded loading differences.\",\n      \"hypothesis_id\": \"H6\"\n    },\n    {\n      \"id\": \"074316ec711541809840\",\n      \"reason\": \"Add branched 2-ethylhexyl acrylate at 20/1. Its 132.75-mg loading closely matches dodecyl-acrylate observation 48094ec5355600d7a0fa at 132.6 mg. The loading solvents differ, but this still tests transfer among bulky lipophilic esters with identical HBD/HBA/TPSA descriptors.\",\n      \"hypothesis_id\": null\n    },\n    {\n      \"id\": \"c53330d840e277502386\",\n      \"reason\": \"Measure 3,5-dimethylbenzonitrile at 20/1, predicted 6.61/29.59 mL. Its exposed nitrile contrasts with the ortho-methyl nitrile represented by 101e73ea321226570290 and 1c312750e15ff66c6243. This probes local acceptor accessibility in an unobserved, low-similarity aromatic scaffold.\",\n      \"hypothesis_id\": null\n    }\n  ],\n  \"hypotheses\": [\n    {\n      \"id\": \"H1\",\n      \"content\": \"Unusually broad intervals and abrupt condition-dependent endpoint changes may require separate local response functions for V1 and V2. Their transferability to neighboring conditions remains uncertain; a smooth global retention correction may miss them.\",\n      \"basis\": \"mixed\",\n      \"supporting_observed_ids\": [\n        \"f90a5a5a54509c085ebd\",\n        \"1e775e7d8dcbf48fd6f8\",\n        \"5e276c1730fc0a9deba7\",\n        \"08812206a257481691c4\",\n        \"f4fb5c03b8e8996e75f6\",\n        \"e7ed7ca4a53258b73ba2\"\n      ],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"medium\",\n      \"status\": \"unresolved\",\n      \"why_it_matters_for_model_learning\": \"These records can strongly influence learned solvent responses. Neighboring labels can establish where broad intervals persist and where the model has interpolated from isolated observations.\",\n      \"next_discriminating_question\": \"Do cinnamic acid at 2/1, nitrobenzophenone at 10/1, and dimethoxybenzaldehyde at 2/1 support the predicted transitions in onset and finish?\"\n    },\n    {\n      \"id\": \"H2\",\n      \"content\": \"The high 1/1 onset predicted for chalcone and dibenzalacetone may be transfer from the unusual ethyl-cinnamate observation rather than a general conjugated-carbonyl response.\",\n      \"basis\": \"mixed\",\n      \"supporting_observed_ids\": [\n        \"2cf789c87f7c6325c020\",\n        \"e6dcf9d6f65fa598a38e\"\n      ],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"low\",\n      \"status\": \"proposed\",\n      \"why_it_matters_for_model_learning\": \"A response learned from one conjugated ester could affect many unsaturated carbonyl rows. Parallel fixed-loading contrasts distinguish a transferable relationship from a molecule-specific exception.\",\n      \"next_discriminating_question\": \"Do both new conjugated ketones actually start later at 1/1 than at 10/1, as predicted?\"\n    },\n    {\n      \"id\": \"H3\",\n      \"content\": \"Sample amount can shift onset earlier and finish later in some chemical contexts, whereas many supplied predictions are nearly flat across loading. Additional controlled contrasts may teach a conditional loading effect rather than a universal correction.\",\n      \"basis\": \"mixed\",\n      \"supporting_observed_ids\": [\n        \"fd0fd67502640304b8fb\",\n        \"6c4ddf5ad1cf067b81ee\",\n        \"4d75c120ba1c4f0dae89\",\n        \"18d688363c7fa3da0609\"\n      ],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"medium\",\n      \"status\": \"supported\",\n      \"why_it_matters_for_model_learning\": \"Loading varies repeatedly throughout the candidate population. Its measured effects in bromobenzofuran and ortho-methylacetophenone suggest that ignoring the density-times-volume feature could limit generalization, although experimental variation remains possible.\",\n      \"next_discriminating_question\": \"Does reducing nitrobenzophenone loading narrow its broad 20/1 interval, and does doubling methoxybenzyl-alcohol loading change either endpoint?\"\n    },\n    {\n      \"id\": \"H4\",\n      \"content\": \"Steric shielding of the mesityl-ketone carbonyl could reduce retention onset, but the predicted decrease in V1 from 5/1 to 50/1 while V2 rises strongly may instead be unsupported extrapolation.\",\n      \"basis\": \"mixed\",\n      \"supporting_observed_ids\": [],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"low\",\n      \"status\": \"proposed\",\n      \"why_it_matters_for_model_learning\": \"Crowded and unhindered aromatic ketones share many descriptors. Resolving this response can improve how the graph representation distinguishes carbonyl accessibility across a common chemical family.\",\n      \"next_discriminating_question\": \"At fixed loading, does mesityl ketone really show earlier onset but later finish in the weaker mobile phase?\"\n    },\n    {\n      \"id\": \"H5\",\n      \"content\": \"Basic nitrogen requires scaffold- and position-dependent response modeling. A single correction for nitrogen count or TPSA may not transfer between pyridines, quinolines, amino esters, and amino nitriles.\",\n      \"basis\": \"mixed\",\n      \"supporting_observed_ids\": [\n        \"65f4f125b5e1f8137bd9\",\n        \"906bd247e050658f99d8\",\n        \"53a1acff30433cff819f\"\n      ],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"medium\",\n      \"status\": \"proposed\",\n      \"why_it_matters_for_model_learning\": \"Observed nitrogen-containing compounds include substantial retention, but the new ring systems and substitution patterns lack direct labels. These experiments add chemically connected coverage rather than unrelated novelty.\",\n      \"next_discriminating_question\": \"Are quinoline finishes near the predicted 27 mL at 5/1, and does the exactly matched para/meta aminobenzonitrile comparison reveal a positional effect?\"\n    },\n    {\n      \"id\": \"H6\",\n      \"content\": \"Alcohol retention may depend strongly on OH structural environment and neighboring ether groups. Existing primary and tertiary alcohol records motivate testing this relationship but do not isolate steric effects from their other structural and loading differences.\",\n      \"basis\": \"mixed\",\n      \"supporting_observed_ids\": [\n        \"f9f0f4e29dbd30c000ee\",\n        \"75232f4ee5de52a0499e\",\n        \"04ea307c7b7f3321cc20\"\n      ],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"medium\",\n      \"status\": \"proposed\",\n      \"why_it_matters_for_model_learning\": \"Several unobserved alcohol scaffolds populate the pool. Labels across primary aliphatic, secondary benzylic, and ether-substituted primary alcohols can improve donor-environment transfer.\",\n      \"next_discriminating_question\": \"Do the new primary and secondary alcohols follow the predicted large retention differences, and is methoxybenzyl alcohol's response consistent with the measured methyl analogue after accounting for loading?\"\n    }\n  ],\n  \"feedback_interpretation\": \"\",\n  \"batch_rationale\": \"The batch combines local diagnosis with connected chemical exploration. Fixed-loading contrasts for two conjugated ketones, an alkyne diester, ethyl acetoacetate, and mesityl ketone provide response information that isolated labels would not. Cinnamic acid, nitrobenzophenone, and dimethoxybenzaldehyde address abrupt endpoint patterns already present in measured data. Two loading experiments test the predictor's nearly flat amount response. Additional labels cover missing basic scaffolds, sulfoxide, cyclic ester/ketone environments, alcohol environments, and accessible versus shielded acceptors that can inform neighboring rows. Most exact-condition repeats and nearly identical loading variants were omitted unless they serve a specific contrast. Endpoint inversions are flags rather than proof of error: observed a917c928912c74862968 itself has V2 slightly below V1, and several measured responses are nonmonotonic. Initial L333 records provide no out-of-sample error estimates, so failure repair here means testing plausible model failure regions, not claiming demonstrated predictive errors. The intended benefit is better structure-condition-loading transfer across the Row-distribution, not improved chromatography for these selected runs.\"\n}",
+  "provenance": {
+    "response_id": "resp_0307e06890e67146016ae360f85254819999c2c1e20f48d58c",
+    "served_model": "gpt-6.1-sol",
+    "usage": {
+      "input_tokens": 443540,
+      "input_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 22346,
+      "output_tokens_details": {
+        "reasoning_tokens": 17090
+      },
+      "total_tokens": 465886,
+      "attribution": {
+        "items": {
+          "msg_0307e06890e67146016ae360f8533c8199b61baecea4f6e33f": {
+            "input_tokens": 437770,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 437770,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_0307e06890e67146016ae3635cb0108199969fd5fe9b1fc071": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 5256,
+            "content": [
+              {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 5256
+              }
+            ]
+          },
+          "rs_0307e06890e67146016ae361125f088199a784f3b0ada1fc4d": {
+            "input_tokens": 2,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 516
+          },
+          "rs_0307e06890e67146016ae361245f30819997be465eb3756686": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae36137e4b081998910d02997e8e4af": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae3614bbb9c8199967135d148dbd46d": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae3615f0b5481999944e16bb1e1892c": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae361737ffc819990b1f8a877f83c5b": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae361859ca48199873aef61055cfcd6": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae361996218819983070f64eab33f0a": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae361acc3888199b2e51c52f4769cf7": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae361c1e18481999c1ce246a968ceac": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae361cd66008199bc0b183380916dbc": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae361dd8da08199bb54b73504d71adb": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae361ed4b848199a2e387e2c73a09c8": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae361fcfb6481998d26bf3195163726": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae36210e8348199b9171033dbe72f64": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae36224bc3c8199916e9b003aa5a247": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae3623c19648199ab3b2d5ec8b7a989": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae3625223708199bfe1dce2f73e80ed": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae36264d78081998f97fbfff323d8fb": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae3627a035c81999e70ee9b1abaf7b0": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 516
+          },
+          "rs_0307e06890e67146016ae3628d4fb48199b7c07e8d315277d0": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae3629cde3881999aad3987e58f7fd5": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae362b0b4188199b55d397629278ccc": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae362c4333881999fb9ed439f53e610": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae362d5058481999c26fc7b80153861": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae362e7bf988199949917d46c7cb0c0": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae362f62fac8199ad76c3c954961e4e": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae362fbc84c8199984f650847bcf54b": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae3630b83188199b10f27782a3d1ab7": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae3631ebcec81999da4a988439c3c2d": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae3633171dc81998cb5fff9df8e05ea": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae36346a8388199963cf37a9091837f": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0307e06890e67146016ae3635c65f081998229670cfa78e14f": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          }
+        },
+        "request_fields": {
+          "instructions": {
+            "input_tokens": 5768,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "native_tool_calls": 0
+  },
+  "elapsed_seconds": 836.8358695410425,
+  "retry_amendment_sha256": "2b3c1b62057a6015deb7871bda21cd498dd53e2dfeaceaa086208c777939fc60"
+}

@@ -1,0 +1,1438 @@
+[
+  {
+    "seed": 157,
+    "method": "new_free_cw_sol61_xhigh",
+    "acquisition_round_index": 0,
+    "L_before": 333,
+    "L_after": 365,
+    "batch_path": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_157/free_cw_sol61_xhigh_rerun32/round_00",
+    "batch_n": 32,
+    "cw_percentile": {
+      "mean": 0.684653125,
+      "median": 0.7859499999999999,
+      "min": 0.01735,
+      "max": 0.99766
+    },
+    "cw_top20_count": 16,
+    "cw_top10_count": 12,
+    "pred_C_ml": {
+      "mean": 27.375104196369648,
+      "median": 21.135943174362183,
+      "min": 5.24049973487854,
+      "max": 74.8741626739502
+    },
+    "pred_W_ml": {
+      "mean": 20.395816788077354,
+      "median": 17.55200481414795,
+      "min": 4.544382095336914,
+      "max": 64.54728317260742
+    },
+    "pred_V1_quantile_span": {
+      "mean": 11.15866403374821,
+      "median": 9.624593734741211,
+      "min": 4.04992002248764,
+      "max": 28.39625358581543
+    },
+    "pred_V2_quantile_span": {
+      "mean": 11.924187526106834,
+      "median": 11.076130867004395,
+      "min": 4.526691436767578,
+      "max": 23.418907165527344
+    },
+    "unique_smiles": 24,
+    "unique_molecules": 24,
+    "max_points_per_molecule": 3,
+    "molecule_count_histogram": {
+      "1": 18,
+      "3": 2,
+      "2": 4
+    },
+    "top_molecule_counts": [
+      [
+        "m125",
+        3
+      ],
+      [
+        "m161",
+        3
+      ],
+      [
+        "m92",
+        2
+      ],
+      [
+        "m11",
+        2
+      ],
+      [
+        "m90",
+        2
+      ],
+      [
+        "m39",
+        2
+      ]
+    ],
+    "condition_ratio_counts": {
+      "5/1": 8,
+      "20/1": 7,
+      "50/1": 4,
+      "10/1": 5,
+      "1/1": 2,
+      "0/1": 4,
+      "2/1": 2
+    },
+    "loading_solvent_counts": {
+      "EA": 2,
+      "DCM": 28,
+      "PE": 2
+    },
+    "hypothesis_choice_counts": {
+      "H3": 3,
+      "H5": 9,
+      "H1": 8,
+      "H2": 6,
+      "H4": 6
+    },
+    "reasons_CW_mentions": 4,
+    "reasons_uncertainty_mentions": 11,
+    "strategy": "Tail calibration with same-molecule condition-response curves, loading-response tests, and targeted structure-gap exploration.",
+    "rationale": "The batch combines five complementary sources of learning value. High-width and high-CW rows target sparse regions and late-elution tails that can dominate absolute V1/V2 error. Several same-molecule sets deliberately form response curves: m161, m92, m90, m11, m39, and m125. These curves test mobile-phase response and distinguish smooth interpolation from abrupt or scaffold-specific behavior. m20, m99, and m104 add loading and loading-solvent comparisons where the seed shows substantial endpoint variation. The molecule-novel m120, m157, m152, m155, m135, and m189 rows provide controlled chemical-space exploration with low similarity to labeled structures. Together, the batch repairs likely tail and interaction gaps while preserving coverage of ordinary and novel rows, which should improve generalization across the full Row-distribution after retraining.",
+    "hypothesis_contents": [
+      {
+        "id": "H1",
+        "content": "Several molecules occupy a condition-sensitive long-retention tail in which V1, V2, and interval width can change substantially with PE/EA and loading conditions."
+      },
+      {
+        "id": "H2",
+        "content": "Loading amount, loading-solvent volume, and loading solvent can materially alter observed endpoint position and interval width, and these effects are partly confounded with mobile-phase strength in the seed."
+      },
+      {
+        "id": "H3",
+        "content": "Candidates with large quantile widths and high CW distance sample sparse model regions where new labels should have disproportionate value for overall calibration."
+      },
+      {
+        "id": "H4",
+        "content": "Low-similarity molecule-novel rows are needed to test transfer of retention relationships across aromaticity, halogenation, heteroatoms, and hydrogen-bonding environments."
+      },
+      {
+        "id": "H5",
+        "content": "Same-molecule condition-response curves are more informative than isolated points when measured rows already show large shifts across PE/EA or loading conditions."
+      }
+    ]
+  },
+  {
+    "seed": 157,
+    "method": "new_free_cw_sol61_xhigh",
+    "acquisition_round_index": 14,
+    "L_before": 781,
+    "L_after": 813,
+    "batch_path": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_157/free_cw_sol61_xhigh_rerun32/round_14",
+    "batch_n": 32,
+    "cw_percentile": {
+      "mean": 0.4953478125,
+      "median": 0.5002,
+      "min": 0.04825,
+      "max": 0.96665
+    },
+    "cw_top20_count": 3,
+    "cw_top10_count": 2,
+    "pred_C_ml": {
+      "mean": 10.2990403175354,
+      "median": 8.159830331802368,
+      "min": 5.012936592102051,
+      "max": 35.837202072143555
+    },
+    "pred_W_ml": {
+      "mean": 7.701499164104462,
+      "median": 6.401352167129517,
+      "min": 2.5211105346679688,
+      "max": 24.787409782409668
+    },
+    "pred_V1_quantile_span": {
+      "mean": 9.220819905400276,
+      "median": 8.156061172485352,
+      "min": 4.10878324508667,
+      "max": 30.872291564941406
+    },
+    "pred_V2_quantile_span": {
+      "mean": 9.870814427733421,
+      "median": 9.113598585128784,
+      "min": 4.801350116729736,
+      "max": 21.16672706604004
+    },
+    "unique_smiles": 28,
+    "unique_molecules": 28,
+    "max_points_per_molecule": 3,
+    "molecule_count_histogram": {
+      "1": 25,
+      "2": 2,
+      "3": 1
+    },
+    "top_molecule_counts": [
+      [
+        "m184",
+        3
+      ],
+      [
+        "m7",
+        2
+      ],
+      [
+        "m116",
+        2
+      ],
+      [
+        "m27",
+        1
+      ],
+      [
+        "m121",
+        1
+      ],
+      [
+        "m155",
+        1
+      ]
+    ],
+    "condition_ratio_counts": {
+      "100/1": 1,
+      "2/1": 2,
+      "10/1": 3,
+      "20/1": 6,
+      "0/1": 10,
+      "5/1": 6,
+      "1/1": 2,
+      "50/1": 2
+    },
+    "loading_solvent_counts": {
+      "PE": 8,
+      "DCM": 24
+    },
+    "hypothesis_choice_counts": {
+      "H1": 10,
+      "H4": 11,
+      "H2": 8,
+      "H3": 3
+    },
+    "reasons_CW_mentions": 0,
+    "reasons_uncertainty_mentions": 0,
+    "strategy": "Broad structure-condition coverage with matched solvent-ratio, loading-solvent, and late-retention probes",
+    "rationale": "The batch supplies 32 distinct legal candidate tuples spanning strong, moderate, and weak eluent; donor-free aromatics, aldehydes, ketones, nitriles, ethers, alcohols, and heteroaromatics; and several loading-solvent volumes. The paired m183, m116, m7, and m184 entries probe local ratio response, while the high loading-solvent and varied-loading entries probe conditional effects. Late-tail candidates add coverage of regions where V2 errors can be large, while ordinary low-retention anchors constrain transfer and reduce overcorrection. This combination should improve generalization across the Row-distribution's repeated structure-condition patterns.",
+    "hypothesis_contents": [
+      {
+        "id": "H1",
+        "content": "Solvent-ratio response is molecule-specific, with aldehydes, ketones, and related neutral scaffolds showing different degrees of weak-eluent curvature."
+      },
+      {
+        "id": "H2",
+        "content": "Loading amount and loading-solvent volume can change retention heterogeneously, with V1 and V2 potentially responding differently in strongly adsorbing compounds."
+      },
+      {
+        "id": "H3",
+        "content": "Late-retention regimes are clustered in particular oxygen-rich, polar, or strongly interacting neighborhoods and are often underpredicted in V2."
+      },
+      {
+        "id": "H4",
+        "content": "Aromaticity, halogenation, hydrogen-bonding, heteroatom count, and steric environment jointly alter silica retention, so descriptor-similar molecules may still require separate local calibration."
+      }
+    ]
+  },
+  {
+    "seed": 157,
+    "method": "historical_free_mixed_model",
+    "acquisition_round_index": 0,
+    "L_before": 333,
+    "L_after": 365,
+    "batch_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/astra_high_full_pool_20261001/selections/seed_157/free_llm32_scientist_v2/round_00",
+    "batch_n": 32,
+    "cw_percentile": {
+      "mean": 0.83530875,
+      "median": 0.920085,
+      "min": 0.12279,
+      "max": 0.99833
+    },
+    "cw_top20_count": 22,
+    "cw_top10_count": 17,
+    "pred_C_ml": {
+      "mean": 24.183118464425206,
+      "median": 22.356711387634277,
+      "min": 5.50781637430191,
+      "max": 58.43841552734375
+    },
+    "pred_W_ml": {
+      "mean": 17.765997108072042,
+      "median": 16.09457015991211,
+      "min": 4.36553955078125,
+      "max": 49.13043212890625
+    },
+    "pred_V1_quantile_span": {
+      "mean": 9.740189854986966,
+      "median": 8.841837286949158,
+      "min": 3.688934803009033,
+      "max": 21.36440658569336
+    },
+    "pred_V2_quantile_span": {
+      "mean": 10.944041132926941,
+      "median": 9.513311386108398,
+      "min": 3.33935546875,
+      "max": 23.449535369873047
+    },
+    "unique_smiles": 26,
+    "unique_molecules": 26,
+    "max_points_per_molecule": 2,
+    "molecule_count_histogram": {
+      "2": 6,
+      "1": 20
+    },
+    "top_molecule_counts": [
+      [
+        "m39",
+        2
+      ],
+      [
+        "m199",
+        2
+      ],
+      [
+        "m127",
+        2
+      ],
+      [
+        "m80",
+        2
+      ],
+      [
+        "m19",
+        2
+      ],
+      [
+        "m116",
+        2
+      ]
+    ],
+    "condition_ratio_counts": {
+      "10/1": 6,
+      "50/1": 5,
+      "0/1": 2,
+      "5/1": 10,
+      "2/1": 4,
+      "1/1": 3,
+      "20/1": 2
+    },
+    "loading_solvent_counts": {
+      "PE": 7,
+      "DCM": 25
+    },
+    "hypothesis_choice_counts": {
+      "H1": 8,
+      "H2": 7,
+      "H3": 2,
+      "null": 5,
+      "H4": 6,
+      "H6": 2,
+      "H5": 2
+    },
+    "reasons_CW_mentions": 0,
+    "reasons_uncertainty_mentions": 1,
+    "strategy": "Acquire 32 labels through targeted structure-condition contrasts: extend sparsely observed solvent-response curves, test chemically plausible blind spots, and examine loading effects where predictions are nearly invariant. Avoid equivalent duplicate rows. All selected IDs and their supplied premeasurement predictions are frozen together; no new labels are used.",
+    "rationale": "The initial 333 labels already cover many fast-eluting hydrocarbons and halogenated compounds, often at several loads, but leave important functional-group combinations and solvent-response segments unmeasured. This batch combines chemically motivated exploration with local experiments that can discriminate competing explanations. Matched solvent pairs for malonate, sulfoxide, aminoethyl acrylate, dimethoxytoluene and methylenedioxyacetophenone are deliberate, not redundant. Existing observations make the additional nicotinate, alcohol, mandelate and ether-ketone points informative about curvature. The ortho-methoxyacetophenone design separates loading from solvent changes, and nitrobenzophenone provides a second loading test. Pure-EA hydroxy-carbonyl measurements challenge a shared prediction pattern; one novel nonpolar row checks the low-retention regime. Quantile spans and CW distances are supplementary evidence, not calibrated epistemic uncertainty or mandatory rankings. No initial observation is treated as an out-of-sample error, and no candidate prediction is treated as a measured finding. Loading amount is density times sample volume; no absent concentration, flow, pH or column variables are inferred. The intended benefit is better transferable V1/V2 relationships across the Row-distribution, not improved chromatography of these selected runs.",
+    "hypothesis_contents": [
+      {
+        "id": "H1",
+        "content": "The retention contribution of multiple oxygen acceptors, or carbonyl-plus-nitrile combinations, depends on topology and solvent strength rather than a simple additive polarity rule."
+      },
+      {
+        "id": "H2",
+        "content": "Nitrogen functional-group identity and structural environment require distinct retention responses; aromatic pyridines, aliphatic tertiary amines, anilines, nitriles and nitro groups should not share a generic nitrogen penalty."
+      },
+      {
+        "id": "H3",
+        "content": "Diphenyl sulfoxide may be more strongly retained, or have a different solvent response, than predicted from the currently represented sulfur environments."
+      },
+      {
+        "id": "H4",
+        "content": "Some oxygenated aromatics have nonmonotonic or sharply changing solvent-response predictions that need direct testing; existing observations do not justify imposing universal monotonicity on both endpoints."
+      },
+      {
+        "id": "H5",
+        "content": "Predicted increases in completion volume under very strong eluent for ortho-hydroxy carbonyls may be real condition-specific behavior or an overgeneralization from other unusual strong-eluent observations."
+      },
+      {
+        "id": "H6",
+        "content": "Nearly load-invariant predictions may miss compound- and solvent-dependent changes in onset or completion; observed loading contrasts suggest this deserves testing but do not establish a universal causal effect."
+      }
+    ]
+  },
+  {
+    "seed": 157,
+    "method": "historical_free_mixed_model",
+    "acquisition_round_index": 14,
+    "L_before": 781,
+    "L_after": 813,
+    "batch_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/free_sol_xhigh_continuation_20261012/selections/seed_157/free_llm32_scientist_v2/round_14",
+    "batch_n": 32,
+    "cw_percentile": {
+      "mean": 0.5854746875,
+      "median": 0.77854,
+      "min": 0.03727,
+      "max": 1.0
+    },
+    "cw_top20_count": 14,
+    "cw_top10_count": 11,
+    "pred_C_ml": {
+      "mean": 25.334542140364647,
+      "median": 22.28750777244568,
+      "min": 8.623326063156128,
+      "max": 77.8325366973877
+    },
+    "pred_W_ml": {
+      "mean": 16.09177330136299,
+      "median": 13.55237627029419,
+      "min": 1.2974634170532227,
+      "max": 42.03391647338867
+    },
+    "pred_V1_quantile_span": {
+      "mean": 19.836952820420265,
+      "median": 16.541290283203125,
+      "min": 7.577846527099609,
+      "max": 61.28410720825195
+    },
+    "pred_V2_quantile_span": {
+      "mean": 4.711709052324295,
+      "median": 4.380350589752197,
+      "min": 2.2854576110839844,
+      "max": 10.391166687011719
+    },
+    "unique_smiles": 20,
+    "unique_molecules": 20,
+    "max_points_per_molecule": 2,
+    "molecule_count_histogram": {
+      "2": 12,
+      "1": 8
+    },
+    "top_molecule_counts": [
+      [
+        "m27",
+        2
+      ],
+      [
+        "m38",
+        2
+      ],
+      [
+        "m181",
+        2
+      ],
+      [
+        "m21",
+        2
+      ],
+      [
+        "m15",
+        2
+      ],
+      [
+        "m182",
+        2
+      ]
+    ],
+    "condition_ratio_counts": {
+      "50/1": 6,
+      "5/1": 7,
+      "10/1": 8,
+      "1/1": 2,
+      "2/1": 4,
+      "20/1": 4,
+      "0/1": 1
+    },
+    "loading_solvent_counts": {
+      "PE": 12,
+      "DCM": 20
+    },
+    "hypothesis_choice_counts": {
+      "H3": 11,
+      "H10": 2,
+      "H2": 3,
+      "H7": 1,
+      "H14": 6,
+      "H12": 2,
+      "H5": 5,
+      "H15": 2
+    },
+    "reasons_CW_mentions": 0,
+    "reasons_uncertainty_mentions": 0,
+    "strategy": "Measure fixed-loading solvent bridges and focused loading contrasts around the latest failures, together with structural boundaries that can prevent broad corrections from spreading incorrectly. The batch tests steep alcohol and carbonyl responses, compact acrylate intervals, nitrogen connectivity, and two localized response-shape questions. All 32 selected IDs use the supplied frozen premeasurement predictions; there are no pending experiments.",
+    "rationale": "The 32 rows span 20 scaffolds, with repeated molecules serving specific comparisons. The m28 and m204 experiments test transfer of newly revealed steep curves across loading; the m119 points constrain the stronger-eluent side and loading scope of another large failure. Fluorenone, iodobenzoate and naphthylacetate bridges distinguish early onset from delayed onset while learning completion growth separately. Acetylfluorene, tetralone and the fused lactone extend these questions to meaningful carbonyl-connectivity boundaries. The acrylate comparisons address m21's completion-specific failures and test whether compact or broader intervals generalize to suitable neighboring structures. Nitrogen experiments fill a loading midpoint, complete a quinoline loading series and explore aminoester boundaries after the amino-nitrile solvent-localization question was answered. The m125 point constrains a recorded feature interaction, while m27 and salicylaldehyde receive limited, explicit shape checks. Together, these labels can improve interpolation, identify transition locations and restrict overcorrection across other rows sharing structural and condition features. CW distance supports several exploratory choices but does not determine the batch. Single-predictor quantile spans are not treated as calibrated epistemic uncertainty, and V2 minus V1 is used only as the elution interval width. Unrecorded experimental factors and possible record heterogeneity limit causal interpretation.",
+    "hypothesis_contents": [
+      {
+        "id": "H2",
+        "content": "Loading associations depend on scaffold, eluent and endpoint. Recent m118 measurements show a much smaller onset association at 2/1 than at 10/1. For PE-loaded m72, completion is nearly equal at 102.2 and 153.3 mg at 10/1, despite onset differences. These observations do not support a universal loading direction or a linear correction shared by both endpoints."
+      },
+      {
+        "id": "H3",
+        "content": "Neutral acceptor-containing scaffolds have different onset and completion transitions. The latest m28 and m98 labels establish substantial growth in their measured weak-eluent regions, whereas fluorenone retains early onset through 10/1 and iodobenzoate retains early onset at 50/1. Acceptor count or aromaticity alone cannot locate these transitions; structural explanations remain chemical priors rather than identified causes."
+      },
+      {
+        "id": "H5",
+        "content": "Nitrogen-containing scaffolds need connectivity- and endpoint-dependent condition responses. At 50 mg, amino-nitrile isomers have nearly equal onset at 2/1 but differ substantially at 5/1. Lutidine and quinoline show onset loading associations with smaller completion changes. The recorded methyl- versus ethyl-anthranilate contrast is another transfer boundary, although their loading conditions differ and its cause is unresolved."
+      },
+      {
+        "id": "H7",
+        "content": "The former proposal of a persistent positive completion association with larger loading-solvent volume remains weakened. m125 now also has a strongly nonmonotonic recorded onset series at 2/1 and DCM/500 uL: 36.23, 6.98 and 32.95 mL at 50, 100 and 150 mg. The useful remaining question concerns scaffold-, eluent- and loading-dependent recorded associations, with mechanism unresolved."
+      },
+      {
+        "id": "H10",
+        "content": "Alcohol response curves depend on structural environment and endpoint. The latest phenylpropyl alcohol m204 curve rises sharply between 5/1 and 10/1, and methoxyphenethyl alcohol m119 is substantially retained at 5/1. Secondary alcohol m60 also shows loading-associated onset changes. Donor presence alone does not determine the transition location or interval width."
+      },
+      {
+        "id": "H12",
+        "content": "The former predicted m27 completion dip from 2/1 to 10/1 is rejected by measurement: V2 rises from 8.99 to 14.63 mL. A different recorded reversal remains, with V2 falling to 7.09 mL at 20/1 at the same loading. Its persistence across loading and farther into weak eluent is unresolved."
+      },
+      {
+        "id": "H14",
+        "content": "Acrylates have distinct elution-interval shapes under their recorded conditions. Recent m21 intervals are compact at 5/1 and 20/1, while multifunctional m13 and methoxyethyl acrylate m20 have broader measured intervals. Extra acceptors do not imply broad intervals in every scaffold or solvent regime; loading and connectivity must bound transfer."
+      },
+      {
+        "id": "H15",
+        "content": "At fixed 114.6 mg and PE loading, m197 currently predicts a pronounced completion decrease from 1/1 to 2/1 with little onset change. This may reflect an uncovered condition interaction or interpolation failure. Neither a true dip nor a prediction error has been established at these two conditions."
+      }
+    ]
+  },
+  {
+    "seed": 887,
+    "method": "new_free_cw_sol61_xhigh",
+    "acquisition_round_index": 0,
+    "L_before": 333,
+    "L_after": 365,
+    "batch_path": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_887/free_cw_sol61_xhigh_rerun32/round_00",
+    "batch_n": 32,
+    "cw_percentile": {
+      "mean": 0.6834290625,
+      "median": 0.88005,
+      "min": 0.03904,
+      "max": 1.0
+    },
+    "cw_top20_count": 20,
+    "cw_top10_count": 14,
+    "pred_C_ml": {
+      "mean": 39.85397054255009,
+      "median": 34.859206199645996,
+      "min": 3.083617687225342,
+      "max": 99.66971015930176
+    },
+    "pred_W_ml": {
+      "mean": 28.105038911104202,
+      "median": 22.980814933776855,
+      "min": -2.1750941276550293,
+      "max": 80.11141586303711
+    },
+    "pred_V1_quantile_span": {
+      "mean": 14.891925722360611,
+      "median": 13.34183120727539,
+      "min": 0.8769629001617432,
+      "max": 37.2303581237793
+    },
+    "pred_V2_quantile_span": {
+      "mean": 63.552723079919815,
+      "median": 56.269405364990234,
+      "min": 9.338891983032227,
+      "max": 148.8440704345703
+    },
+    "unique_smiles": 31,
+    "unique_molecules": 31,
+    "max_points_per_molecule": 2,
+    "molecule_count_histogram": {
+      "2": 1,
+      "1": 30
+    },
+    "top_molecule_counts": [
+      [
+        "m135",
+        2
+      ],
+      [
+        "m175",
+        1
+      ],
+      [
+        "m141",
+        1
+      ],
+      [
+        "m101",
+        1
+      ],
+      [
+        "m99",
+        1
+      ],
+      [
+        "m214",
+        1
+      ]
+    ],
+    "condition_ratio_counts": {
+      "50/1": 8,
+      "1/1": 2,
+      "20/1": 8,
+      "2/1": 2,
+      "0/1": 3,
+      "10/1": 4,
+      "5/1": 5
+    },
+    "loading_solvent_counts": {
+      "EA": 1,
+      "PE": 5,
+      "DCM": 26
+    },
+    "hypothesis_choice_counts": {
+      "H2": 2,
+      "H1": 14,
+      "H5": 9,
+      "H3": 4,
+      "H4": 3
+    },
+    "reasons_CW_mentions": 12,
+    "reasons_uncertainty_mentions": 5,
+    "strategy": "failure-repair plus condition-response and novel-structure transfer",
+    "rationale": "The batch combines four complementary sources of learning value. Most selections target structure-by-PE/EA response transitions and late, broad predicted tails, with observed examples showing large low-to-high changes for m159, m198, m204, and m206. Several rows form local loading or condition-response experiments, including m92, m99, m101, m128, and m135, so their labels can separate loading effects from solvent-ratio effects. Six molecule-novel or low-similarity rows broaden transfer coverage across alcohols, nitro compounds, ethers, ketones, and hydrophobic aromatics. Three candidates deliberately repair inconsistent V1/V2 predictions. This mix should improve generalization by covering both high-error chemical-condition interactions and underrepresented structure regions while avoiding a batch made entirely of near-duplicate high-retention rows.",
+    "hypothesis_contents": [
+      {
+        "id": "H1",
+        "content": "For polar, heteroatom-rich, or strongly aromatic compounds, PE/EA changes can move retention from an early regime into a late, broad-tail regime. The retrained model needs structure-by-mobile-phase interactions rather than a single global solvent-strength trend."
+      },
+      {
+        "id": "H2",
+        "content": "Late and broad elution intervals form a distinct calibration region in which V2 is especially difficult and the existing quantile span is often large."
+      },
+      {
+        "id": "H3",
+        "content": "Loading amount and loading-solvent volume produce smaller but learnable shifts within otherwise matched condition families, and their effects may alter V1 and V2 differently."
+      },
+      {
+        "id": "H4",
+        "content": "Candidates with predicted V1 greater than V2 expose an output-consistency failure that should be repaired if the true labels usually preserve the elution order, while allowing for small measurement edge cases."
+      },
+      {
+        "id": "H5",
+        "content": "Low-similarity molecule-novel rows with different donor, acceptor, aromatic, and halogen patterns can improve chemical transfer beyond the current labeled structures, especially when paired with broad predicted spans or large CW distance."
+      }
+    ]
+  },
+  {
+    "seed": 887,
+    "method": "historical_free_mixed_model",
+    "acquisition_round_index": 0,
+    "L_before": 333,
+    "L_after": 365,
+    "batch_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_887/free_llm32_scientist_v2/round_00",
+    "batch_n": 32,
+    "cw_percentile": {
+      "mean": 0.5964612499999999,
+      "median": 0.6679999999999999,
+      "min": 0.0292,
+      "max": 1.0
+    },
+    "cw_top20_count": 11,
+    "cw_top10_count": 7,
+    "pred_C_ml": {
+      "mean": 27.499085307121277,
+      "median": 14.972800731658936,
+      "min": 6.293067216873169,
+      "max": 99.66971015930176
+    },
+    "pred_W_ml": {
+      "mean": 21.140422999858856,
+      "median": 12.038962602615356,
+      "min": 2.9243078231811523,
+      "max": 80.11141586303711
+    },
+    "pred_V1_quantile_span": {
+      "mean": 10.754426427185535,
+      "median": 6.195188283920288,
+      "min": 0.23858165740966797,
+      "max": 37.2303581237793
+    },
+    "pred_V2_quantile_span": {
+      "mean": 45.29988017678261,
+      "median": 27.3950252532959,
+      "min": 14.129916191101074,
+      "max": 148.8440704345703
+    },
+    "unique_smiles": 31,
+    "unique_molecules": 31,
+    "max_points_per_molecule": 2,
+    "molecule_count_histogram": {
+      "1": 30,
+      "2": 1
+    },
+    "top_molecule_counts": [
+      [
+        "m165",
+        2
+      ],
+      [
+        "m135",
+        1
+      ],
+      [
+        "m1",
+        1
+      ],
+      [
+        "m87",
+        1
+      ],
+      [
+        "m54",
+        1
+      ],
+      [
+        "m26",
+        1
+      ]
+    ],
+    "condition_ratio_counts": {
+      "20/1": 5,
+      "5/1": 6,
+      "50/1": 5,
+      "1/1": 2,
+      "10/1": 8,
+      "0/1": 5,
+      "2/1": 1
+    },
+    "loading_solvent_counts": {
+      "PE": 5,
+      "DCM": 27
+    },
+    "hypothesis_choice_counts": {
+      "H3_spread_novelty": 9,
+      "H1_response": 9,
+      "H2_tail": 14
+    },
+    "reasons_CW_mentions": 0,
+    "reasons_uncertainty_mentions": 2,
+    "strategy": "late-tail coverage with novel chemical structures and molecule-local condition-response probes",
+    "rationale": "There is no prior-round feedback or pending set in this round. The batch combines high-spread late-tail rows, novel chemical structures, and molecule-local condition probes. The extreme candidates m72, m90, m177, m37, m193, m13, m53, and m159 target the observed late-elution tail; m1, m135, m129, m153, m195, m158, and m212 add structural coverage; m110, m165, m168, m181, m127, m103, and m159 form condition or loading-response tests. The narrow-V1 but broad-V2 m18 row diagnoses an unusual model output shape. This mix supplies both tail repair and transferable structure-condition-response information across polar esters, aromatic carbonyls, heteroaromatics, halogenated compounds, sulfur-containing structures, and nonpolar molecules, which should improve generalization across the Row-distribution.",
+    "hypothesis_contents": [
+      {
+        "id": "H1_response",
+        "content": "Retention is materially condition- and loading-responsive at the molecule level, so same-molecule measurements across PE/EA, volume, density, and loading solvent should be learned jointly rather than inferred from structure alone."
+      },
+      {
+        "id": "H2_tail",
+        "content": "The Row-distribution contains a genuine late and broad elution tail, especially among aromatic, heteroatom-rich, conjugated, or strongly interacting structures; improving this tail should materially improve overall V1/V2 accuracy."
+      },
+      {
+        "id": "H3_spread_novelty",
+        "content": "Large model quantile widths combined with novel or chemically distinct structures identify weakly constrained regions likely to benefit from new labels; the widths are used as a model-behavior signal and are not assumed to be calibrated uncertainty."
+      }
+    ]
+  },
+  {
+    "seed": 2357,
+    "method": "new_free_cw_sol61_xhigh",
+    "acquisition_round_index": 0,
+    "L_before": 333,
+    "L_after": 365,
+    "batch_path": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_2357/free_cw_sol61_xhigh_rerun32/round_00",
+    "batch_n": 32,
+    "cw_percentile": {
+      "mean": 0.8027978125,
+      "median": 0.9297599999999999,
+      "min": 0.05772,
+      "max": 1.0
+    },
+    "cw_top20_count": 24,
+    "cw_top10_count": 20,
+    "pred_C_ml": {
+      "mean": 37.811759972944856,
+      "median": 33.73466968536377,
+      "min": 5.6016716957092285,
+      "max": 99.21858596801758
+    },
+    "pred_W_ml": {
+      "mean": 30.59660629555583,
+      "median": 29.35451316833496,
+      "min": 1.9066600799560547,
+      "max": 73.49932098388672
+    },
+    "pred_V1_quantile_span": {
+      "mean": 13.817128360271454,
+      "median": 13.958841800689697,
+      "min": -0.7771039009094238,
+      "max": 26.32968521118164
+    },
+    "pred_V2_quantile_span": {
+      "mean": 4.805606082081795,
+      "median": 3.820079803466797,
+      "min": 1.0086908340454102,
+      "max": 13.479175567626953
+    },
+    "unique_smiles": 27,
+    "unique_molecules": 27,
+    "max_points_per_molecule": 2,
+    "molecule_count_histogram": {
+      "1": 22,
+      "2": 5
+    },
+    "top_molecule_counts": [
+      [
+        "m212",
+        2
+      ],
+      [
+        "m193",
+        2
+      ],
+      [
+        "m118",
+        2
+      ],
+      [
+        "m206",
+        2
+      ],
+      [
+        "m71",
+        2
+      ],
+      [
+        "m139",
+        1
+      ]
+    ],
+    "condition_ratio_counts": {
+      "20/1": 7,
+      "5/1": 10,
+      "2/1": 3,
+      "1/1": 1,
+      "50/1": 6,
+      "10/1": 4,
+      "0/1": 1
+    },
+    "loading_solvent_counts": {
+      "DCM": 29,
+      "PE": 3
+    },
+    "hypothesis_choice_counts": {
+      "H2": 6,
+      "H1": 10,
+      "H6": 4,
+      "H4": 2,
+      "H3": 4,
+      "H5": 6
+    },
+    "reasons_CW_mentions": 1,
+    "reasons_uncertainty_mentions": 6,
+    "strategy": "Tail repair combined with targeted eluent-strength and loading-response curves, plus several weakly represented scaffold anchors.",
+    "rationale": "The batch concentrates on measured-value regions where the current model reports wide V1/V2 quantile ranges, long predicted tails, or internally inconsistent intervals, while retaining several structurally novel anchors. It includes local response groups for m206, m118, m193, m212, and m71; these distinguish loading effects from PE/EA effects and provide information about response slopes. The remaining high-width points span polar heteroatom-rich compounds, aromatic carbonyl systems, heteroaromatics, and halogenated or highly hydrophobic scaffolds. Observed anchors such as the long-retention m72, m92, m211, m37, and m40 records support targeting these regions, while the novel m139, m146, m160, m212, m13, and m71 rows extend chemical coverage. Together the labels should improve tail calibration, interval width, condition-response interactions, and transfer to uncovered Row-distribution regions.",
+    "hypothesis_contents": [
+      {
+        "id": "H1",
+        "content": "Eluent-strength response is nonlinear and compound-specific, with high PE/EA conditions producing especially large retention shifts for polar, heteroatom-rich, or strongly adsorbing compounds."
+      },
+      {
+        "id": "H2",
+        "content": "Loading amount and injected volume may change retention and interval width, but the seed does not cleanly separate loading effects from solvent-condition effects."
+      },
+      {
+        "id": "H3",
+        "content": "Strongly retained polar and aromatic compounds form a broad-tail regime whose V1 and V2 behavior needs separate calibration."
+      },
+      {
+        "id": "H4",
+        "content": "Some model outputs have pathological quantile ordering or implausible V1/V2 relationships, indicating a useful calibration and constraint-repair region."
+      },
+      {
+        "id": "H5",
+        "content": "Weakly represented or novel scaffolds, especially halogenated, heteroaromatic, and donor/acceptor-rich molecules, are needed to improve chemical transfer beyond the dense observed families."
+      },
+      {
+        "id": "H6",
+        "content": "Small local condition-response curves provide more information about generalizable structure-condition interactions than isolated high-novelty points."
+      }
+    ]
+  },
+  {
+    "seed": 2357,
+    "method": "historical_free_mixed_model",
+    "acquisition_round_index": 0,
+    "L_before": 333,
+    "L_after": 365,
+    "batch_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_2357/free_llm32_scientist_v2/round_00",
+    "batch_n": 32,
+    "cw_percentile": {
+      "mean": 0.4738684375,
+      "median": 0.39548,
+      "min": 0.0367,
+      "max": 0.99466
+    },
+    "cw_top20_count": 5,
+    "cw_top10_count": 3,
+    "pred_C_ml": {
+      "mean": 13.638723235577345,
+      "median": 9.529820799827576,
+      "min": 6.041888952255249,
+      "max": 54.2351713180542
+    },
+    "pred_W_ml": {
+      "mean": 10.32550010830164,
+      "median": 6.596114635467529,
+      "min": 2.3132123947143555,
+      "max": 49.519968032836914
+    },
+    "pred_V1_quantile_span": {
+      "mean": 4.824741058051586,
+      "median": 2.704078793525696,
+      "min": 0.1512923240661621,
+      "max": 19.668182373046875
+    },
+    "pred_V2_quantile_span": {
+      "mean": 2.512980192899704,
+      "median": 1.6088557243347168,
+      "min": 0.15923213958740234,
+      "max": 13.479175567626953
+    },
+    "unique_smiles": 31,
+    "unique_molecules": 31,
+    "max_points_per_molecule": 2,
+    "molecule_count_histogram": {
+      "1": 30,
+      "2": 1
+    },
+    "top_molecule_counts": [
+      [
+        "m151",
+        2
+      ],
+      [
+        "m53",
+        1
+      ],
+      [
+        "m184",
+        1
+      ],
+      [
+        "m28",
+        1
+      ],
+      [
+        "m32",
+        1
+      ],
+      [
+        "m139",
+        1
+      ]
+    ],
+    "condition_ratio_counts": {
+      "5/1": 7,
+      "0/1": 3,
+      "10/1": 6,
+      "2/1": 7,
+      "20/1": 6,
+      "1/1": 2,
+      "50/1": 1
+    },
+    "loading_solvent_counts": {
+      "PE": 7,
+      "DCM": 25
+    },
+    "hypothesis_choice_counts": {
+      "H3": 10,
+      "H1": 6,
+      "H2": 14,
+      "H4": 2
+    },
+    "reasons_CW_mentions": 0,
+    "reasons_uncertainty_mentions": 1,
+    "strategy": "paired condition-response measurements combined with high-width tail calibration and novel-structure probes",
+    "rationale": "The corrected batch contains 32 distinct IDs copied from the supplied candidate table. It combines high-width and high-retention calibration points with ordinary moderate-retention rows, same-molecule condition contrasts, loading-sensitive measurements, and molecule-novelty probes. The m151 pair directly tests a solvent-strength response; the m125, m117, m191, m36, and m28 selections target broad or late predictions; the m13, m62, m102, m144, m176, and m186 selections improve common-region and V2 calibration. This balance should provide both local gradients and broader chemical coverage, improving generalization across the Row-distribution after retraining.",
+    "hypothesis_contents": [
+      {
+        "id": "H1",
+        "content": "The high-retention tail and unusually broad V2 behavior require direct calibration across molecules and conditions."
+      },
+      {
+        "id": "H2",
+        "content": "PE/EA ratio, loading amount, and solvent condition generate molecule-dependent response curves that should be learned locally."
+      },
+      {
+        "id": "H3",
+        "content": "Moderate-retention and short-interval rows remain useful for correcting V2 calibration and functional-group transfer even when V1 predictions are less extreme."
+      },
+      {
+        "id": "H4",
+        "content": "Novel iodinated, heteroaromatic, and substituted aromatic structures may expose chemical-transfer errors that similarity alone does not capture."
+      }
+    ]
+  },
+  {
+    "seed": 6101,
+    "method": "new_free_cw_sol61_xhigh",
+    "acquisition_round_index": 0,
+    "L_before": 333,
+    "L_after": 365,
+    "batch_path": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_6101/free_cw_sol61_xhigh_rerun32/round_00",
+    "batch_n": 32,
+    "cw_percentile": {
+      "mean": 0.732024375,
+      "median": 0.91675,
+      "min": 0.00918,
+      "max": 1.0
+    },
+    "cw_top20_count": 23,
+    "cw_top10_count": 18,
+    "pred_C_ml": {
+      "mean": 25.58686865121126,
+      "median": 21.690072536468506,
+      "min": 6.15005886554718,
+      "max": 60.02323913574219
+    },
+    "pred_W_ml": {
+      "mean": 25.191334888339043,
+      "median": 21.60867929458618,
+      "min": 0.4835472106933594,
+      "max": 99.77492761611938
+    },
+    "pred_V1_quantile_span": {
+      "mean": 6.28870880859904,
+      "median": 4.989818572998047,
+      "min": -2.0305538177490234,
+      "max": 34.674787521362305
+    },
+    "pred_V2_quantile_span": {
+      "mean": 3.7014837563037872,
+      "median": 3.3265371322631836,
+      "min": 0.3247509002685547,
+      "max": 10.764991760253906
+    },
+    "unique_smiles": 19,
+    "unique_molecules": 19,
+    "max_points_per_molecule": 3,
+    "molecule_count_histogram": {
+      "3": 4,
+      "1": 10,
+      "2": 5
+    },
+    "top_molecule_counts": [
+      [
+        "m91",
+        3
+      ],
+      [
+        "m124",
+        3
+      ],
+      [
+        "m177",
+        3
+      ],
+      [
+        "m159",
+        3
+      ],
+      [
+        "m92",
+        2
+      ],
+      [
+        "m39",
+        2
+      ]
+    ],
+    "condition_ratio_counts": {
+      "1/1": 3,
+      "5/1": 3,
+      "2/1": 2,
+      "10/1": 5,
+      "20/1": 7,
+      "50/1": 10,
+      "0/1": 2
+    },
+    "loading_solvent_counts": {
+      "EA": 2,
+      "DCM": 28,
+      "PE": 2
+    },
+    "hypothesis_choice_counts": {
+      "H1": 7,
+      "H5": 6,
+      "H4": 4,
+      "H2": 10,
+      "H3": 5
+    },
+    "reasons_CW_mentions": 9,
+    "reasons_uncertainty_mentions": 11,
+    "strategy": "Mixed local condition-response curves with targeted repair of high-uncertainty, tail-retention, and quantile-pathology regions.",
+    "rationale": "The batch combines local response experiments and broad failure repair. The m177, m159, m91, m92, m124, m123, and m39 groups provide repeated molecules across solvent strength and loading, with several measured anchors such as 5e276c1730fc0a9deba, e2f15590b7142490599b, 1844eab177de5d01fab6, ba56f0e652a97bcee1b2, and 5524670e4337370c2ef6. This should teach condition-retention interactions and loading sensitivity. The other selections cover high-cw long-tail chemistry, extreme loading regimes, and direct quantile pathologies such as inverted or nearly zero-width intervals. Together they sample both common local relationships and rare V1/V2 regions that can disproportionately affect overall error, while maintaining scaffold and condition diversity for generalization across the Row-distribution.",
+    "hypothesis_contents": [
+      {
+        "id": "H1",
+        "content": "Same-molecule condition-response curves, especially across PE/EA ratio and loading volume, can teach relationships that isolated structure points cannot."
+      },
+      {
+        "id": "H2",
+        "content": "A chemically meaningful long-retention tail is concentrated among strongly interacting, highly functionalized, or heavily loaded compounds, and its V2 behavior is underlearned."
+      },
+      {
+        "id": "H3",
+        "content": "Rows with inverted quantile intervals, near-zero interval widths, or implausibly narrow uncertainty around extreme predictions are model-failure regions worth labeling directly."
+      },
+      {
+        "id": "H4",
+        "content": "Loading amount, represented by density times volume, has molecule-dependent effects that are not safely captured by a simple global correction."
+      },
+      {
+        "id": "H5",
+        "content": "PE/EA strength and solvent identity create large scaffold-dependent retention changes, particularly for polar or strongly adsorbing molecules."
+      }
+    ]
+  },
+  {
+    "seed": 6101,
+    "method": "historical_free_mixed_model",
+    "acquisition_round_index": 0,
+    "L_before": 333,
+    "L_after": 365,
+    "batch_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/astra_high_full_pool_20261001/selections/seed_6101/free_llm32_scientist_v2/round_00",
+    "batch_n": 32,
+    "cw_percentile": {
+      "mean": 0.6214028125,
+      "median": 0.832165,
+      "min": 0.02536,
+      "max": 1.0
+    },
+    "cw_top20_count": 16,
+    "cw_top10_count": 15,
+    "pred_C_ml": {
+      "mean": 23.32887113839388,
+      "median": 19.302255511283875,
+      "min": 5.819299221038818,
+      "max": 57.48751258850098
+    },
+    "pred_W_ml": {
+      "mean": 18.99296300113201,
+      "median": 14.385793089866638,
+      "min": 0.18826675415039062,
+      "max": 64.26557731628418
+    },
+    "pred_V1_quantile_span": {
+      "mean": 4.497434673132375,
+      "median": 3.6102871894836426,
+      "min": -2.0305538177490234,
+      "max": 16.15741539001465
+    },
+    "pred_V2_quantile_span": {
+      "mean": 3.126108020544052,
+      "median": 2.856959819793701,
+      "min": 0.4229564666748047,
+      "max": 8.56875228881836
+    },
+    "unique_smiles": 14,
+    "unique_molecules": 14,
+    "max_points_per_molecule": 4,
+    "molecule_count_histogram": {
+      "4": 3,
+      "2": 5,
+      "1": 4,
+      "3": 2
+    },
+    "top_molecule_counts": [
+      [
+        "m177",
+        4
+      ],
+      [
+        "m92",
+        4
+      ],
+      [
+        "m31",
+        4
+      ],
+      [
+        "m74",
+        3
+      ],
+      [
+        "m135",
+        3
+      ],
+      [
+        "m173",
+        2
+      ]
+    ],
+    "condition_ratio_counts": {
+      "1/1": 5,
+      "2/1": 2,
+      "5/1": 4,
+      "0/1": 5,
+      "10/1": 6,
+      "50/1": 6,
+      "20/1": 4
+    },
+    "loading_solvent_counts": {
+      "EA": 4,
+      "PE": 3,
+      "DCM": 25
+    },
+    "hypothesis_choice_counts": {
+      "H1": 9,
+      "H2": 13,
+      "H4": 7,
+      "H3": 3
+    },
+    "reasons_CW_mentions": 0,
+    "reasons_uncertainty_mentions": 8,
+    "strategy": "condition-response curves plus failure repair and targeted novel-region exploration",
+    "rationale": "The batch combines linked solvent and loading response curves with targeted exploration. M177, m31, m92, m74, m114, m135, and m123 provide local perturbations around measured anchors, while m178, m173, m195, m110, m37, and m164 target high-width, novel, high-loading, or anomalous prediction regions. It covers EA, PE, and DCM, broad loading amounts, long tails, and collapsed intervals. These labels should improve generalization by teaching reusable condition-response relationships while repairing failures in chemically distinct retention regimes.",
+    "hypothesis_contents": [
+      {
+        "id": "H1",
+        "content": "PE/EA solvent strength has molecule-dependent, potentially nonlinear effects on elution onset and completion, so local condition-response curves can generalize better than isolated molecule sampling."
+      },
+      {
+        "id": "H2",
+        "content": "High loading and strongly retained or structurally complex compounds produce unusually broad, compressed, or difficult V1/V2 intervals that the predictor may not represent reliably."
+      },
+      {
+        "id": "H3",
+        "content": "EA loading-solvent experiments form a sparse condition subregime whose retention response is not safely inferred from the larger DCM/PE catalog."
+      },
+      {
+        "id": "H4",
+        "content": "Related aromatic carbonyl, nitrile, and heteroaromatic structures do not share a fully transferable retention response; family-local condition measurements are needed to learn functional-group and structural-environment interactions."
+      }
+    ]
+  },
+  {
+    "seed": 12203,
+    "method": "new_free_cw_sol61_xhigh",
+    "acquisition_round_index": 0,
+    "L_before": 333,
+    "L_after": 365,
+    "batch_path": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_12203/free_cw_sol61_xhigh_rerun32/round_00",
+    "batch_n": 32,
+    "cw_percentile": {
+      "mean": 0.49875375,
+      "median": 0.499835,
+      "min": 0.01318,
+      "max": 0.93493
+    },
+    "cw_top20_count": 6,
+    "cw_top10_count": 1,
+    "pred_C_ml": {
+      "mean": 11.731505699455738,
+      "median": 9.316938519477844,
+      "min": 5.304780960083008,
+      "max": 49.923362731933594
+    },
+    "pred_W_ml": {
+      "mean": 8.39269144833088,
+      "median": 6.255086660385132,
+      "min": 1.2941913604736328,
+      "max": 26.321510314941406
+    },
+    "pred_V1_quantile_span": {
+      "mean": 8.703044727444649,
+      "median": 7.176586627960205,
+      "min": 3.045560359954834,
+      "max": 22.04663848876953
+    },
+    "pred_V2_quantile_span": {
+      "mean": 13.297339290380478,
+      "median": 10.817793846130371,
+      "min": 3.527282238006592,
+      "max": 35.5512580871582
+    },
+    "unique_smiles": 29,
+    "unique_molecules": 29,
+    "max_points_per_molecule": 2,
+    "molecule_count_histogram": {
+      "1": 26,
+      "2": 3
+    },
+    "top_molecule_counts": [
+      [
+        "m32",
+        2
+      ],
+      [
+        "m81",
+        2
+      ],
+      [
+        "m14",
+        2
+      ],
+      [
+        "m173",
+        1
+      ],
+      [
+        "m11",
+        1
+      ],
+      [
+        "m79",
+        1
+      ]
+    ],
+    "condition_ratio_counts": {
+      "1/1": 7,
+      "5/1": 5,
+      "2/1": 6,
+      "50/1": 5,
+      "10/1": 5,
+      "0/1": 3,
+      "20/1": 1
+    },
+    "loading_solvent_counts": {
+      "PE": 9,
+      "DCM": 23
+    },
+    "hypothesis_choice_counts": {
+      "H1": 5,
+      "H4": 9,
+      "H2": 7,
+      "H3": 11
+    },
+    "reasons_CW_mentions": 0,
+    "reasons_uncertainty_mentions": 2,
+    "strategy": "high-width failure repair with matched condition-response measurements and targeted chemical coverage",
+    "rationale": "The batch combines high predicted-width failure repair with condition and chemical coverage. It includes matched pairs for m32, m14, and m81, broad late-tail probes such as m173, m199, m204, m124, m103, and m176, and several chemically distinct aromatic, halogenated, nitrile, sulfur-containing, and multifunctional structures. The observed broad intervals in d1172a49fca1e196a59f, f82cfd3b57735b0ead3c, b7b1a1bb666c8cc99bad, and d448d8de2d8dacec62c3 motivate the late-tail selections, while the matched conditions teach gradients that can generalize across repeated molecule families and improve overall V1/V2 accuracy.",
+    "hypothesis_contents": [
+      {
+        "id": "H1",
+        "content": "Some structures occupy a broad late-elution regime whose onset and finish are poorly captured by a smooth global retention trend."
+      },
+      {
+        "id": "H2",
+        "content": "PE/EA ratio and loading interact with molecule-specific retention, so matched condition-response measurements are more informative than isolated labels."
+      },
+      {
+        "id": "H3",
+        "content": "Structural context among aromatic and halogenated molecules can alter retention beyond coarse descriptors such as MW and LogP."
+      },
+      {
+        "id": "H4",
+        "content": "Donor-rich, heteroatom-rich, or multifunctional structures may form a distinct silica-interaction regime with unusually late or broad elution."
+      }
+    ]
+  },
+  {
+    "seed": 12203,
+    "method": "historical_free_mixed_model",
+    "acquisition_round_index": 0,
+    "L_before": 333,
+    "L_after": 365,
+    "batch_path": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_12203/free_llm32_scientist_v2/round_00",
+    "batch_n": 32,
+    "cw_percentile": {
+      "mean": 0.49875375,
+      "median": 0.499835,
+      "min": 0.01318,
+      "max": 0.93493
+    },
+    "cw_top20_count": 6,
+    "cw_top10_count": 1,
+    "pred_C_ml": {
+      "mean": 11.731505699455738,
+      "median": 9.316938519477844,
+      "min": 5.304780960083008,
+      "max": 49.923362731933594
+    },
+    "pred_W_ml": {
+      "mean": 8.39269144833088,
+      "median": 6.255086660385132,
+      "min": 1.2941913604736328,
+      "max": 26.321510314941406
+    },
+    "pred_V1_quantile_span": {
+      "mean": 8.703044727444649,
+      "median": 7.176586627960205,
+      "min": 3.045560359954834,
+      "max": 22.04663848876953
+    },
+    "pred_V2_quantile_span": {
+      "mean": 13.297339290380478,
+      "median": 10.817793846130371,
+      "min": 3.527282238006592,
+      "max": 35.5512580871582
+    },
+    "unique_smiles": 29,
+    "unique_molecules": 29,
+    "max_points_per_molecule": 2,
+    "molecule_count_histogram": {
+      "1": 26,
+      "2": 3
+    },
+    "top_molecule_counts": [
+      [
+        "m32",
+        2
+      ],
+      [
+        "m81",
+        2
+      ],
+      [
+        "m14",
+        2
+      ],
+      [
+        "m173",
+        1
+      ],
+      [
+        "m11",
+        1
+      ],
+      [
+        "m79",
+        1
+      ]
+    ],
+    "condition_ratio_counts": {
+      "1/1": 7,
+      "5/1": 5,
+      "2/1": 6,
+      "50/1": 5,
+      "10/1": 5,
+      "0/1": 3,
+      "20/1": 1
+    },
+    "loading_solvent_counts": {
+      "PE": 9,
+      "DCM": 23
+    },
+    "hypothesis_choice_counts": {
+      "H1": 11,
+      "H2": 12,
+      "H3": 9
+    },
+    "reasons_CW_mentions": 0,
+    "reasons_uncertainty_mentions": 2,
+    "strategy": "Broad-width failure repair combined with same-molecule PE/EA response curves, loading contrasts, and moderate-width local controls.",
+    "rationale": "The batch covers several high-width late-elution regions while retaining moderate-width controls. Repeated molecules m32, m14, and m81 create local condition or loading contrasts; m79, m123, m163, m91, and m56 extend response coverage across solvent ratios. Broad-tail candidates m173, m11, m3, m199, m204, m124, m103, and m176 target underconstrained V2 behavior, while aromatic and halogenated controls improve structural coverage. This combination should help QGeoGNN learn condition interactions and tail behavior while avoiding a batch composed only of extreme predictions.",
+    "hypothesis_contents": [
+      {
+        "id": "H1",
+        "content": "Broad V2 tails and large V2-minus-V1 intervals mark underconstrained structure-condition regions, especially for polar, fused, or strongly adsorbing molecules."
+      },
+      {
+        "id": "H2",
+        "content": "PE/EA ratio, loading amount, and loading-solvent volume interact in molecule-specific ways, so condition response should be learned locally rather than imposed as one global monotonic correction."
+      },
+      {
+        "id": "H3",
+        "content": "Moderate-width local controls are needed alongside high-width cases to distinguish genuine model failure from ordinary interpolation noise and to stabilize retraining across the Row-distribution."
+      }
+    ]
+  }
+]

@@ -1,0 +1,54 @@
+{
+  "all_3901_source_hashes_match_after_final_audit": true,
+  "all_snapshot_source_hashes_match": true,
+  "audit_output_sha256": {
+    "HISTORY_AUDIT_NOTES.md": "aa0095c232e2c2fd34dcd12b57e3da4c6ed064848c28474aa8a470a8bb29fdd3",
+    "audit_history.py": "539e8d70a4284c10960182eaf3645cf2dee82ead04cf2790ad9a3afa15235832",
+    "completed_response_costs.csv": "a9eb20f753406013e18dd341d8d29f68cf362191a9912ebe1b4760d0273b18a7",
+    "correction_request_causes.csv": "cfd150d6832c72002792db32261f212831a196106c9c8a2da6a8da4428742155",
+    "failure_events.csv": "a9f15eb11027135975822a7a66466cbfb57ab1c1ae61ce3745f16ae420b8e587",
+    "history_audit_summary.json": "68f20c19f79da33654c5a476c0ab4dbf725f21ab8eb804f68d52a3e201ba8637",
+    "history_snapshot_manifest.json": "93fe32691b77be3ce31285addba672640e514bee4f7a283190a3781a410feb9f",
+    "input_scale_reliability.csv": "10991a02a120dcd34f8e5604b61a613946c82a6c9d44fe8c66db958aa2799814",
+    "reliability_metrics.csv": "86fbb4e73885b3c887f2bf41024cfcea20b34b65b96c94b2f29271988ab59596",
+    "repair_trajectory_analysis.csv": "351c767163fbde249504fad396fced00fc9fe61903068d564f7725a0bbc871c8",
+    "response_manifest.jsonl": "ea50641edcce542a3586c4a842ab6fd39f4f59a3b8a7da28e7b74d2bb68e23ac",
+    "test_audit_history.py": "d09ceaac994b6a9b3fd801dfe56c463287d12692624f242632cd75e550a8a431"
+  },
+  "batches": 310,
+  "every_final_selection_passes_current_frozen_validator": true,
+  "every_frozen_batch_32_unique_legal_ids": true,
+  "historical_raw_final_response_mismatch_batches": [
+    {
+      "authorization_sidecars": [
+        "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_157/free_llm32_scientist_v2/round_05/authorized_extra_correction.json",
+        "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_157/free_llm32_scientist_v2/round_05/authorized_id_transcription_correction.json",
+        "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_157/free_llm32_scientist_v2/round_05/extra_correction_request.json"
+      ],
+      "calls_beyond_original_three": 1,
+      "complete_responses": 4,
+      "final_batch_frozen": true,
+      "final_raw_accepted": false,
+      "manual_transcription_repair": true,
+      "method": "free_llm32_scientist_v2",
+      "method_group": "Free",
+      "response_turn_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "round": 5,
+      "seed": 157
+    }
+  ],
+  "no_source_mutations": true,
+  "tests": {
+    "command": "python -m unittest discover -s studies/active_learning/verifiable_scientific_agent_20261030 -p test_audit_history.py -v",
+    "coverage": "snapshot cohort uniqueness; successful-attempt/turn dedup; failure partition; four authorized NoCW rounds; manual transcription distinction; incomplete round exclusion; freeze/SHA binding; duplicate JSON keys, NaN and 1e400 overflow; malformed hypothesis objects in choices; missing usage; original validator source binding; correction-cause linkage",
+    "failed": 0,
+    "passed": 12
+  },
+  "unique_batch_keys": 310,
+  "verified_source_files": 3901
+}

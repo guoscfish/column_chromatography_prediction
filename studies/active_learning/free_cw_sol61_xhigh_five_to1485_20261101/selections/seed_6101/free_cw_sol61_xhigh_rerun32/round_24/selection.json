@@ -1,0 +1,273 @@
+{
+  "type": "selection",
+  "packet_sha256": "258ffd4fed7aff983b0e6d9efd413bbf77df99aa87251fe49e8d5b8ae243722b",
+  "batch_strategy": "Freeze these 32 IDs and their supplied premeasurement V1/V2 predictions. Measure new condition tuples that resolve motif-specific solvent responses, test transfer of loading associations, and constrain remaining strong-eluent extrapolations. Include a small number of diagnostic experiments for irregular predictions and sparsely measured weak-eluent responses.",
+  "choices": [
+    {
+      "id": "91cd087e44e7a3364533",
+      "reason": "m128 at 5/1 and 150 uL begins a matched-loading pair with the selected 10/1 experiment. The measured 50 uL curve grows from 12.16/20.42 at 2/1 to 21.00/34.02 at 5/1 in 40d5f6dbba8de32e9852/cdcabd704ebeeeca9183. This tests whether that response transfers across sample loading.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "596bd04bfe916866f908",
+      "reason": "m128 at 10/1 and 150 uL completes the pair. At 50 uL, 2f72c334253bbe94a8ab measured 39.47/54.40 mL after large acquisition-time underestimates. Its onset also exceeds the 20/1 onset in 55200f8e501a16ffa0cf. This distinguishes a transferable response from a loading-specific onset pattern.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "827a3b0963882acf7f7a",
+      "reason": "m181 at 5/1 and 150 uL starts a local response sequence with the selected 10/1 row and measured 20/1 and 50/1 anchors 0655d71fcec0d1c3c73f/3163a9b58f1a52a1992c. It locates growth below the recently underestimated cyclic-ester response while holding every loading variable fixed.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "64c9e190e213bb061867",
+      "reason": "m181 at 10/1 and 150 uL connects that sequence to measured 30.65/52.89 at 20/1 and 58.26/97.57 at 50/1. The same-ratio 100 uL record 989b2145455d703d3b6d supplies a loading contrast. This constrains curvature and loading separately after the latest weak-end failure.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "5fd49a50595624496938",
+      "reason": "m116 at 20/1 and 150 uL tests transfer from low-loading 9de8edaa330ab971f479, measured 19.33/29.83 mL, and extends the same-loading 2/1 anchor c34f8af0b9b65f8bfc2e. Recent 5/1\u201320/1 labels were earlier than their acquisition predictions, so another blanket upward correction would be inappropriate.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "8f7bcdb92b0cd7acad94",
+      "reason": "m110 at 20/1 and 100 uL fills an unmeasured ratio between the 10/1 region and same-loading 50/1 record ce39d1762993bbbafaca. It tests methoxy-pattern transfer against m116 and m123. Its approximately 99.5th-percentile CW distance adds a model-feature coverage argument, without establishing epistemic uncertainty.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "a97a618319325a403c10",
+      "reason": "m35 at 10/1 and 50 uL provides a lower-ratio bridge to dc419b3ce4e1382aae7a/20a5a5008211ea15a65a at 20/1 and 50/1. Those labels exposed completion overestimates of 14.08 and 12.45 mL. This point helps repair response placement without shifting the comparatively accurate weak-end onset.",
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "7522f965f25a50c9a3bc",
+      "reason": "m32 at 20/1 and 50 uL connects the 5/1 anchor 6e1413072d0468278d36 to the unexpectedly early 50/1 result 485f8bcfb08d6eaf3463. Together with measured meta and ortho curves, it tests whether the para isomer's flatter weak-eluent response is localized or extends through 20/1.",
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "156594686f5cf7182bcc",
+      "reason": "m31 at 5/1 and 50 uL fills the interval below its same-loading 10/1 measurement b3d9bb5afa82b99f2a11 and contrasts with 5/1 high-loading eb383b92fe958c91d272. The recent 2/1 high-loading result 064249131c1c3106e540 was earlier than predicted. This teaches nitrile-carbonyl response placement and loading transfer.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "2b97a1e0a6a4b944b760",
+      "reason": "m78 at 50/1 and 50 uL tests loading transfer from 61771d230b285babe4b6 at 100 uL, measured 49.93/97.97 mL. Most measured m78 ratios use middle loading. This adds a loading contrast for a benzyl-substituted beta-ketoester, where transfer from simpler ketoesters may alter onset and completion differently.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "790d27f0fa045d91f307",
+      "reason": "m92 at 5/1 and 50 uL fills a new EA-loaded ratio between 10a4c811b70ba8155044 at 2/1 and the repeated 10/1 records e2f15590b7142490599b/0389a6366b3a51fad8b5. It constrains the low-loading response without relying on the conflicting 150 uL 5/1 completion records.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "f7684c557ad58e3a1b0b",
+      "reason": "m75 at 2/1 and 100 uL tests whether the nearly collapsed interval in low-loading f2312f90dd4cf5ef0e23 recurs at another loading. The current prediction is also compressed, about 11.14/11.95 mL. Measured middle-loading 5/1 f82f2844c7e27afd32bb provides an adjacent-ratio reference. This is a bounded test of an irregular pattern.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "b1fcf9bf2e03028d2ef8",
+      "reason": "m205 at 1/1 and 50 uL contrasts directly with middle-loading 2b10c90b32f970e4b4c8 and extends the same-loading curve toward 5/1 record 7954bf73f74c7fbcecb2. The model predicts little loading sensitivity here; the label tests whether primary-alcohol onset associations transfer to this naphthyl environment.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "91b6bda771851a5c78ac",
+      "reason": "m205 at 2/1 and 150 uL contrasts with c973d4c257be9ef08216 at 100 uL, measured 27.63/51.49 mL. Alongside the selected 1/1 low-loading point, it tests loading transfer at two ratios. The recent m204 loading sequence motivates this question but does not establish the answer for m205.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "13bfaf03c35b4cff3bd5",
+      "reason": "m206 at 2/1 and 100 uL supplies a matched-loading bridge below 5/1 record 614873124b33029a924c, measured 26.06/57.81 mL. Low-loading 7c0c324643799c918828 anchors the same ratio. Comparison with m205 tests how moving the OH-bearing chain changes the learned structure-condition response.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "25ffcaa2164643e082b9",
+      "reason": "m119 at 1/1 and 100 uL connects the strong end to same-loading 2/1 and 5/1 records 17c1bb3be086a2b6ffec/776ee2c1e85ebde75168. Those labels grow to 20.00/31.61 and 48.00/77.09 mL. This locates the earlier part of a remote-alcohol/aromatic-ether curve without importing the irregular m120 response.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "bf09d868ed4d68a97b40",
+      "reason": "m51 at 5/1 and 50 uL extends same-loading 1/1 record d2d6000790408687cc29 and bridges toward middle-loading 10/1 bad24d96575f423fe4fd. It tests response growth for a tertiary alcohol with a remote phenyl group, providing a structural contrast to primary and benzylic alcohol loading experiments.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "e75030664990b64e9c05",
+      "reason": "m61 at 5/1 and 50 uL contrasts with middle-loading 994a1f65509549a84ede, measured 10.27/15.56 mL. Its predicted onset is earlier at low loading, unlike several measured alcohol associations. This tests transfer near a stable ratio before interpreting the exceptional 10/1 onset in 859ae738b615cf17b849.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "073e6abf4d3bfffc2761",
+      "reason": "m86 at 2/1 and 150 uL completes a matched-loading bridge between 1/1 record 4d3b1628cd2311585f50 and 5/1 record 9bc73e0c27d4d6b44abb. Middle-loading 70593725787c65a74951 provides a direct loading contrast. This tests amino-ester response transfer after the new m88 loading result.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "99a3c4452ddfa8ff12c0",
+      "reason": "m89 at 20/1 and 150 uL connects same-loading 10/1 and 50/1 labels f6cfe706d71f58273c59/547923973b121019625f. Same-ratio middle-loading fe40c32169d87261e1e9 anchors a loading comparison. This constrains the ortho-amino ester curve while retaining its PE loading solvent and 200 uL loading volume.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "79cb1738d945317e5bfa",
+      "reason": "m11 at 20/1 and 50 uL contrasts with high-loading oxime record a38fee52661fd3e3b7ea, measured 16.43/45.70 mL. Existing middle-loading 10/1 and 50/1 records 6b5982c6e1bbaadd6a95/9ffee2813aef5c26f96f establish substantial completion growth. This tests loading transfer in a donor-containing nitrogen-oxygen environment.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "3f59bb6766ef6551502f",
+      "reason": "m194 at 5/1 and 150 uL extends high-loading 2/1 record 2bb48a2862bf80c30a36 and contrasts with middle-loading 5/1 record 39815ababe97d7acc107. The new 1/1 midpoint 4a39c1f64d17e050e4a5 disproved gradual completion interpolation. This tests whether the extended completion persists at weaker eluent.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "141a4d64a7d140eefdc3",
+      "reason": "m191 at pure EA and 100 uL tests a remaining 17.32 mL completion prediction. Unlike the recently overestimated m181 and m38 pure-EA tails, this dialdehyde has a nearby same-loading 1/1 completion of 17.73 mL in ea9c116dcd66aca4039c. The label distinguishes supported local persistence from broad tail transfer.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "8fb287430f3df6d0b3dd",
+      "reason": "m202 at pure EA and 100 uL establishes an unmeasured strong-end baseline for the recorded phosphorus-containing structure. Same-loading 1/1\u20135/1 anchors include 87a651fc86ed976bd374/d834329bf2be8835bae6/86258f5c8ffdb874521f. This constrains extrapolation before the highly variable measured 10/1 loading series.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "ce2b3297b07008700156",
+      "reason": "m156 at 10/1 and 50 uL begins a matched pair with the selected 50/1 row. The predicted onset, 3.37 mL, is earlier than the measured 2/1 onset of 6.17 mL in cd3c75eca39365e943e4. Only strong-eluent anchors are measured here; this tests an unverified onset dip in a high-CW-distance region.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "8fa8d7ec035c6a829dc4",
+      "reason": "m156 at 50/1 and 50 uL completes that response pair. Its predicted 7.87/17.03 mL response extends beyond measured 0/1\u20132/1 records 98dd7f94e58da879b609/7412eddb17268ce380c7/cd3c75eca39365e943e4. Pentafluorobenzene provides a useful test of weak-eluent transfer among low-TPSA halogenated aromatics.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "7f4f64cb791c71ba0420",
+      "reason": "m174 at 100/1 and 50 uL extends the same-loading 30/1 and 50/1 measurements 704ba630f25fe7f20166/9c74e865c47b45a09229. This tests solvent-strength extrapolation for benzyl benzoate at an eligible but sparsely anchored ratio. Its high CW distance supports coverage value; the goal is learning the response, not obtaining maximal retention.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "5c11321c1ad5aec4ddf1",
+      "reason": "m56 at 50/1 and 100 uL extends beyond its measured 10/1 region, including 19e665b6098744dfb60c and 8e175dc1200d398d3489. Together with the selected benzyl-benzoate extension and m55 reference 7937e75a777f4bf48438, it tests whether the model distinguishes ester substituent context under weak eluent.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "74cf50c6ec476a394b01",
+      "reason": "m125 at 5/1 and 100 uL fills the 300 uL DCM sample-loading series between 780b13846ace50ede763 and 549daca56bed1c9d2bcc. The latest pure-EA 150 uL result 922b1bfbf466fff6178f stayed near the lower-loading completions. This point tests ratio-specific expansion without attributing it to a universal sample-mass effect.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "db26f51c86dc787ac633",
+      "reason": "m182 at 20/1 and 50 uL bridges matched-loading 10/1 and 50/1 records c9e08e156472783dee4e/486e498e45d084ced568. Their early onset and later completion distinguish fluorenone from other cyclic aromatic ketones. This label constrains separate endpoint responses where the onset quantile span remains broad.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "7b341f30a27433562690",
+      "reason": "m38 at 5/1 and 100 uL bridges the newly early pure-EA result 3c1875eb669056c6c621 to same-loading 10/1 and 20/1 records 8e4d62928039d2200288/8f9a7ca0380c405ee685. It locates response growth for a fused aromatic ketone loaded in 1000 uL DCM after the pure-EA completion overestimate.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "76435080f7632be26e64",
+      "reason": "m59 at 5/1 and 100 uL fills the gap above same-loading 1/1 record 19bdb9c6c59639662992 and below its later 20/1 response f5d802ca42b1a7226fc0. This explores a branched, nonconjugated aldehyde with a methylenedioxy aromatic group, testing carbonyl-topology transfer beyond the more densely sampled acetophenones.",
+      "hypothesis_id": "H2"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H2",
+      "content": "Solvent-ratio responses require motif-specific and endpoint-specific learning. Recent m128, m116, and m181 labels reject a shared retention offset. In particular, m128 completion increases from 10/1 to 20/1 while its measured onset decreases, so strict onset monotonicity should not be imposed from chemical prior.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "40d5f6dbba8de32e9852",
+        "cdcabd704ebeeeca9183",
+        "2f72c334253bbe94a8ab",
+        "55200f8e501a16ffa0cf",
+        "38ac413d67aacb0d9060",
+        "1234fa6b7a71b815104c",
+        "9de8edaa330ab971f479",
+        "f38088920e6edd19a62f",
+        "3163a9b58f1a52a1992c"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Local ratio sequences can teach response placement and endpoint coupling, while contrasts across ethers, thioethers, esters, aldehydes, and cyclic ketones test which relationships transfer across rows.",
+      "next_discriminating_question": "Do the m128 5/1\u201310/1 responses transfer to high loading, where does the high-loading m181 curve begin growing, and do the selected structural bridges follow their current response predictions?"
+    },
+    {
+      "id": "H3",
+      "content": "Extended completion under strong eluent is a local structure-condition association. m194's 1/1 loading midpoint finishes later than either loading endpoint, contradicting gradual interpolation. Other recent pure-EA labels finish early, while the hydroxy aldehyde m197 retains appreciable completion volume at low loading. Mechanisms and unrecorded influences remain unresolved.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "c0094343ab6bb16bc58b",
+        "4a39c1f64d17e050e4a5",
+        "e8185e062559aff5c99e",
+        "2bd4f8787a951ef0ee04",
+        "c86f06310e89b93ed6ac",
+        "b2ef457b41d15be60154",
+        "3c1875eb669056c6c621",
+        "8aa864c9e33df9bb1a6a"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "A valid completion tail at one tuple can produce substantial overestimation elsewhere. New strong-end baselines and an adjacent-ratio loading contrast help limit such propagation without erasing measured tails.",
+      "next_discriminating_question": "Does m194 retain its extended completion at high-loading 5/1, and are the remaining pure-EA predictions for m191 and m202 supported by their own nearby response anchors?"
+    },
+    {
+      "id": "H4",
+      "content": "Loading associations depend on ratio, structure, and endpoint. The completed m204 2/1 series shows decreasing onset from 50 to 150 uL, with a much smaller and nonmonotonic completion change. The new m88 contrast also changes onset more than completion. These observations motivate transfer tests, rather than a universal loading law.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "8cc5dd51f0360e578ac3",
+        "53c1be5b96937954b9fa",
+        "6a39aff909ea35989c74",
+        "27d20ccfd8f7234015f4",
+        "ca6feb29f6758377a65f",
+        "c9ad01493d938f825117",
+        "4b3e648044ebe5372a27",
+        "985361f6699d97f9464f",
+        "62d7ea74ab73fa6214b4"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The predictor often forecasts nearly unchanged labels across sample loading. Matched contrasts can determine where that approximation is useful and where it misses endpoint-specific behavior across alcohols, amino esters, an oxime, and a ketoester.",
+      "next_discriminating_question": "Do the observed loading associations transfer across primary, secondary, and tertiary alcohol environments and amino-ester positions, or are the current nearly flat loading predictions adequate for those rows?"
+    },
+    {
+      "id": "H6",
+      "content": "For m125, the recorded DCM loading-volume association depends on mobile-phase ratio. The completed pure-EA series at 300 uL DCM has similar completion across sample loadings, weakening the predicted increase at 150 uL sample. Larger recorded DCM volume remains associated with later strong-eluent completion in measured contrasts, without establishing a causal mechanism.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "55f2352b50967352163e",
+        "5e1a63da794d99ec88fb",
+        "e7ed7ca4a53258b73ba2",
+        "dd4f07e349873053fd73",
+        "922b1bfbf466fff6178f",
+        "00043aebb2540e369a7b",
+        "f4fb5c03b8e8996e75f6",
+        "03744855d469f4cca7e6",
+        "9bd998a328b109ef639e",
+        "780b13846ace50ede763",
+        "761c3f82d640da44966c"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Completing a loading series at another ratio helps separate recorded sample-loading associations from the loading-solvent-volume interaction and prevents a strong-eluent correction from becoming a general mass correction.",
+      "next_discriminating_question": "At 5/1 and 300 uL DCM, does the 100 uL sample complete near the measured low- and high-loading 70\u201374 mL range, and is onset similarly stable?"
+    },
+    {
+      "id": "H8",
+      "content": "Aryl-ketone transfer depends on structural context and endpoint. The methyl-isomer comparison previously missed their measured ordering, whereas the latest iodine-ketone errors were mainly completion overestimates. The meta-methyl 50/1 result was comparatively well predicted. Structural comparisons must retain recorded mass and loading-solvent differences.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "485f8bcfb08d6eaf3463",
+        "92614816a3b3942bf123",
+        "dc795e0a68f104353b33",
+        "dc419b3ce4e1382aae7a",
+        "20a5a5008211ea15a65a"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "A common substituent correction could move an already accurate onset or exaggerate completion. Lower-ratio bridges can teach the response shape responsible for the different acquisition errors.",
+      "next_discriminating_question": "Does para-methylacetophenone remain comparatively early at 20/1, and where does para-iodoacetophenone's completion begin rising between its lower-ratio region and measured 20/1 response?"
+    }
+  ],
+  "feedback_interpretation": "The latest results sharpen the response-curve interpretation. m128 at 2/1 was predicted closely, but its 10/1 label exposed acquisition-time underestimates of 19.81/15.20 mL. Its measured onset at 10/1 also exceeded that at 20/1, so I retain endpoint-specific flexibility instead of imposing monotonic onset. Conversely, m116's new intermediate labels were earlier than predicted, despite its previously underestimated 50/1 response. This weakens any common additive repair across ratios.\n\nm181 showed two distinct issues: pure-EA completion was only 7.96 mL, while high-loading 50/1 completion reached 97.57 mL and was underestimated by 27.14 mL at acquisition. The selected 5/1\u201310/1 high-loading pair therefore targets response placement. The newly short pure-EA m38 and m13 labels further weaken broad transfer of strong-eluent tails.\n\nThe m194 midpoint result rejects the previous gradual loading interpolation: 1/1 completion was 10.34, 36.18, and 27.33 mL at 50, 100, and 150 uL. Its low-loading 2/1 completion remained relatively short at 14.73 mL. I select one new high-loading ratio point to test persistence, while avoiding a mechanistic explanation unsupported by recorded variables. m197's low-loading pure-EA completion of 22.95 mL remains evidence that some local tails persist.\n\nm125 at pure EA and 300 uL DCM finished at 11.58 mL at the largest sample loading, close to the measured lower-loading range. This weakens the predicted sample-loading rise while preserving the recorded DCM-volume association from other contrasts. Its next experiment moves to a useful missing midpoint at 5/1.\n\nThe completed m204 loading series supports a diminishing onset association at 2/1; m88 likewise changed onset more than completion. I now test transfer across alcohol topology and amino-ester context. For aryl ketones, the iodine pair overestimated completion while meta-methyl was comparatively accurate, so only focused lower-ratio bridges are retained. The new early m73 20/1 label supports its ordinary weaker-eluent region; its previously conflicting strong-end records do not justify further anomaly-focused expansion this round.",
+  "batch_rationale": "The batch addresses several transferable prediction problems using interpretable contrasts. The m128 and m181 pairs test response shape at fixed loading after large recent errors. The m116, m110, m31, m92, m182, m38, and m59 bridges extend that learning across different heteroatom and carbonyl environments. The aryl-ketone points distinguish completion repair from onset repair, while the benzoate extensions test structural transfer and the sparsely anchored 100/1 regime.\n\nLoading experiments compare new labels with measured same-molecule, same-ratio anchors or complete matched-loading ratio sequences. Their purpose is to determine where nearly flat model loading responses generalize and where endpoint-specific associations matter. Cross-molecule comparisons retain differences in recorded density, sample volume, loading solvent, and loading-solvent volume. The m125 extension tests a documented local interaction without treating density-times-volume loading amount as a separate measured label.\n\nStrong-end exploration is limited to cases with distinct learning value: m191 has nearby measured completion support, m202 lacks a pure-EA baseline, and m194 tests persistence of an irregular but measured loading pattern. The m156 pair covers an inadequately measured weak-eluent response among low-polarity aromatics; its high CW distances are secondary evidence of model-feature coverage. One m75 experiment tests whether a compressed interval transfers across loading. Interval width and single-predictor quantile spans are not treated as calibrated uncertainty.\n\nAll 32 choices are distinct supplied candidates with new condition tuples, and there are no pending experiments. The supplied predictions are frozen through the packet hash and these selected IDs. The expected benefit is better joint structure-condition prediction of both endpoints across the Row-distribution after retraining, through response-curve repair, tests of loading transfer, and targeted coverage of remaining extrapolations."
+}

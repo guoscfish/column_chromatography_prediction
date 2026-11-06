@@ -1,0 +1,767 @@
+{
+  "actual_nocw_validator_source": "scripts/studies/run_qgeognn_v2_row_llm_nocw_five.py:74 (paired prose-ID prohibition is not applied)",
+  "actual_nocw_validator_source_sha256": "1a0545d52850f99c3d510edc58749565e56c59f82239842f4f9a38587b605243",
+  "batches": 310,
+  "candidate_error_diagnostic_response_counts_overlapping": {
+    "already_observed_ids": 63,
+    "outside_candidate_ids": 117,
+    "unknown_ids": 66
+  },
+  "candidate_error_diagnostic_strict_choice_schema_response_counts_overlapping": {
+    "already_observed_ids": 63,
+    "duplicate_ids": 0,
+    "outside_candidate_ids": 116,
+    "unknown_ids": 65
+  },
+  "candidate_error_raw_scan_note": "Raw ID-object scans do not recover malformed scientific plans; hypothesis-shaped entries in choices may be among raw out-of-pool references. Strict-schema counts are separately given.",
+  "complete_responses": 462,
+  "complete_responses_with_analyzable_choices": 460,
+  "corrected_rounds": 114,
+  "correction_request_cause_counts": {
+    "candidate_identity": 113,
+    "evidence_or_other_constraints": 34,
+    "format_or_schema": 5
+  },
+  "correction_request_cost_by_cause": [
+    {
+      "cause_group": "format_or_schema",
+      "cost": null,
+      "extra_completed_requests": 5,
+      "input_tokens_subtotal": 2321694,
+      "output_tokens_subtotal": 33772,
+      "usage_available_requests": 5
+    },
+    {
+      "cause_group": "candidate_identity",
+      "cost": null,
+      "extra_completed_requests": 113,
+      "input_tokens_subtotal": 52022356,
+      "output_tokens_subtotal": 1142615,
+      "usage_available_requests": 113
+    },
+    {
+      "cause_group": "evidence_or_other_constraints",
+      "cost": null,
+      "extra_completed_requests": 34,
+      "input_tokens_subtotal": 15685713,
+      "output_tokens_subtotal": 205519,
+      "usage_available_requests": 34
+    }
+  ],
+  "correction_request_primary_type_counts": {
+    "candidate_identity": 113,
+    "count_or_choice_structure": 5,
+    "hypothesis_reference": 4,
+    "packet_binding": 2,
+    "unobserved_evidence": 28
+  },
+  "cost_availability_by_method": [
+    {
+      "completed_responses": 270,
+      "cost": null,
+      "elapsed_seconds_available_complete_responses": 0,
+      "elapsed_seconds_available_transport_failures": 0,
+      "elapsed_seconds_completed_responses_subtotal": null,
+      "elapsed_seconds_transport_failure_subtotal": null,
+      "input_tokens_available_responses": 270,
+      "input_tokens_complete_response_subtotal": 123649767,
+      "method_group": "Free",
+      "output_tokens_available_responses": 270,
+      "output_tokens_complete_response_subtotal": 4485127
+    },
+    {
+      "completed_responses": 93,
+      "cost": null,
+      "elapsed_seconds_available_complete_responses": 0,
+      "elapsed_seconds_available_transport_failures": 0,
+      "elapsed_seconds_completed_responses_subtotal": null,
+      "elapsed_seconds_transport_failure_subtotal": null,
+      "input_tokens_available_responses": 93,
+      "input_tokens_complete_response_subtotal": 43606522,
+      "method_group": "Hybrid",
+      "output_tokens_available_responses": 93,
+      "output_tokens_complete_response_subtotal": 1049083
+    },
+    {
+      "completed_responses": 99,
+      "cost": null,
+      "elapsed_seconds_available_complete_responses": 99,
+      "elapsed_seconds_available_transport_failures": 330,
+      "elapsed_seconds_completed_responses_subtotal": 63409.92341704038,
+      "elapsed_seconds_transport_failure_subtotal": 68749.78726717981,
+      "input_tokens_available_responses": 99,
+      "input_tokens_complete_response_subtotal": 44137245,
+      "method_group": "NoCW",
+      "output_tokens_available_responses": 99,
+      "output_tokens_complete_response_subtotal": 1616917
+    }
+  ],
+  "duplicate_id_interpretation": "Zero actual duplicates in all 462 complete frozen answers; generic historical validator messages conflate duplicate and illegal IDs. This does not rule out duplicates in excluded/unavailable history.",
+  "duplicate_id_responses_in_frozen_complete_history": 0,
+  "excluded_unfrozen_rounds": [
+    {
+      "directory": "studies/active_learning/qgeognn_v2_row_llm_nocw_ablation/revisions/five_seed_nocw_to1005_20261029/selections/seed_887/llm32_nocw/round_07",
+      "files_present": [
+        "attempt_00_00.json",
+        "attempt_00_00.started.json",
+        "attempt_00_01.json",
+        "attempt_00_01.started.json",
+        "attempt_00_02.json",
+        "attempt_00_02.started.json",
+        "attempt_00_03.started.json",
+        "catalog.json",
+        "contract.json",
+        "input.json",
+        "request_00.json",
+        "stream_00_00.json",
+        "stream_00_01.json",
+        "stream_00_02.json",
+        "stream_00_03.json"
+      ],
+      "method": "llm32_nocw",
+      "round": 7,
+      "seed": 887,
+      "status": "excluded_unfrozen_inventory_only"
+    },
+    {
+      "directory": "studies/active_learning/qgeognn_v2_row_llm_nocw_ablation/revisions/five_seed_nocw_to1005_20261029/selections/seed_2357/llm32_nocw/round_13",
+      "files_present": [
+        "attempt_00_00.json",
+        "attempt_00_00.started.json",
+        "attempt_01_00.started.json",
+        "catalog.json",
+        "contract.json",
+        "input.json",
+        "rejected_00.json",
+        "request_00.json",
+        "request_01.json",
+        "stream_00_00.completed.json",
+        "stream_00_00.json",
+        "stream_01_00.json",
+        "turn_00.json"
+      ],
+      "method": "llm32_nocw",
+      "round": 13,
+      "seed": 2357,
+      "status": "excluded_unfrozen_inventory_only"
+    },
+    {
+      "directory": "studies/active_learning/qgeognn_v2_row_llm_nocw_ablation/revisions/five_seed_nocw_to1005_20261029/selections/seed_6101/llm32_nocw/round_11",
+      "files_present": [
+        "attempt_00_00.json",
+        "attempt_00_00.started.json",
+        "attempt_00_01.started.json",
+        "catalog.json",
+        "contract.json",
+        "input.json",
+        "request_00.json",
+        "stream_00_00.json",
+        "stream_00_01.json"
+      ],
+      "method": "llm32_nocw",
+      "round": 11,
+      "seed": 6101,
+      "status": "excluded_unfrozen_inventory_only"
+    },
+    {
+      "directory": "studies/active_learning/qgeognn_v2_row_llm_nocw_ablation/revisions/five_seed_nocw_to1005_20261029/selections/seed_12203/llm32_nocw/round_14",
+      "files_present": [
+        "attempt_00_00.json",
+        "attempt_00_00.started.json",
+        "attempt_00_01.started.json",
+        "catalog.json",
+        "contract.json",
+        "input.json",
+        "request_00.json",
+        "stream_00_00.json",
+        "stream_00_01.json"
+      ],
+      "method": "llm32_nocw",
+      "round": 14,
+      "seed": 12203,
+      "status": "excluded_unfrozen_inventory_only"
+    }
+  ],
+  "extra_requests_due_evidence_or_other_constraints": 34,
+  "extra_requests_due_format_or_candidate_identity": 118,
+  "failure_event_rows": 887,
+  "groups": [
+    {
+      "completed_llm_responses": 270,
+      "cost": null,
+      "failure_class_record_counts": {
+        "constraint": 87,
+        "syntactic": 4,
+        "transport": 305
+      },
+      "final_raw_legal_numerator": 179,
+      "first_output_legal_denominator": 180,
+      "first_output_legal_numerator": 112,
+      "first_output_legal_rate": 0.6222222222222222,
+      "frozen_batch_legal_denominator": 180,
+      "frozen_batch_legal_numerator": 180,
+      "frozen_batches": 180,
+      "invalid_complete_outputs": 91,
+      "llm_correction_requests": 90,
+      "mean_corrections_per_frozen_batch": 0.5,
+      "method_group": "Free",
+      "per_seed_batches": {
+        "12203": 36,
+        "157": 36,
+        "2357": 36,
+        "6101": 36,
+        "887": 36
+      },
+      "primary_failure_type_counts": {
+        "api_or_http_failure": 15,
+        "candidate_identity": 71,
+        "connection_failure": 107,
+        "count_or_choice_structure": 4,
+        "hypothesis_reference": 2,
+        "request_timeout": 16,
+        "stream_or_protocol_interruption": 152,
+        "transport_other_or_parser_recovery": 15,
+        "unobserved_evidence": 14
+      },
+      "rounds_needing_correction": 68,
+      "transport_failure_records": 305
+    },
+    {
+      "completed_llm_responses": 93,
+      "cost": null,
+      "failure_class_record_counts": {
+        "constraint": 22,
+        "transport": 99
+      },
+      "final_raw_legal_numerator": 71,
+      "first_output_legal_denominator": 71,
+      "first_output_legal_numerator": 51,
+      "first_output_legal_rate": 0.7183098591549296,
+      "frozen_batch_legal_denominator": 71,
+      "frozen_batch_legal_numerator": 71,
+      "frozen_batches": 71,
+      "invalid_complete_outputs": 22,
+      "llm_correction_requests": 22,
+      "mean_corrections_per_frozen_batch": 0.30985915492957744,
+      "method_group": "Hybrid",
+      "per_seed_batches": {
+        "157": 36,
+        "6101": 35
+      },
+      "primary_failure_type_counts": {
+        "api_or_http_failure": 10,
+        "candidate_identity": 16,
+        "connection_failure": 58,
+        "request_timeout": 7,
+        "stream_or_protocol_interruption": 16,
+        "transport_other_or_parser_recovery": 8,
+        "unobserved_evidence": 6
+      },
+      "rounds_needing_correction": 20,
+      "transport_failure_records": 99
+    },
+    {
+      "completed_llm_responses": 99,
+      "cost": null,
+      "failure_class_record_counts": {
+        "constraint": 39,
+        "syntactic": 1,
+        "transport": 330
+      },
+      "final_raw_legal_numerator": 59,
+      "first_output_legal_denominator": 59,
+      "first_output_legal_numerator": 33,
+      "first_output_legal_rate": 0.559322033898305,
+      "frozen_batch_legal_denominator": 59,
+      "frozen_batch_legal_numerator": 59,
+      "frozen_batches": 59,
+      "invalid_complete_outputs": 40,
+      "llm_correction_requests": 40,
+      "mean_corrections_per_frozen_batch": 0.6779661016949152,
+      "method_group": "NoCW",
+      "per_seed_batches": {
+        "12203": 14,
+        "157": 14,
+        "2357": 13,
+        "6101": 11,
+        "887": 7
+      },
+      "primary_failure_type_counts": {
+        "api_or_http_failure": 234,
+        "candidate_identity": 27,
+        "connection_failure": 40,
+        "count_or_choice_structure": 1,
+        "hypothesis_reference": 2,
+        "packet_binding": 2,
+        "request_timeout": 35,
+        "stream_or_protocol_interruption": 18,
+        "transport_other_or_parser_recovery": 3,
+        "unobserved_evidence": 8
+      },
+      "rounds_needing_correction": 26,
+      "transport_failure_records": 330
+    }
+  ],
+  "historical_rejection_replay": {
+    "matching_first_error_count": 153,
+    "mismatches": [],
+    "saved_rejection_count": 153
+  },
+  "input_scale_descriptive_bands": [
+    {
+      "first_output_failure_fraction": 0.43333333333333335,
+      "first_output_failures": 13,
+      "frozen_batch_denominator": 30,
+      "labels_before_band": "333-524",
+      "mean_candidate_count": 2917,
+      "mean_input_packet_bytes": 1738995.2333333334,
+      "mean_labels_before": 413,
+      "mean_llm_correction_requests": 0.6666666666666666,
+      "method_group": "Free",
+      "note": "Descriptive only: L grows while U shrinks, packet/history changes and model version/budget confound these trends.",
+      "transport_failure_records": 138
+    },
+    {
+      "first_output_failure_fraction": 0.35555555555555557,
+      "first_output_failures": 16,
+      "frozen_batch_denominator": 45,
+      "labels_before_band": "525-812",
+      "mean_candidate_count": 2677,
+      "mean_input_packet_bytes": 1745603.888888889,
+      "mean_labels_before": 653,
+      "mean_llm_correction_requests": 0.4,
+      "method_group": "Free",
+      "note": "Descriptive only: L grows while U shrinks, packet/history changes and model version/budget confound these trends.",
+      "transport_failure_records": 25
+    },
+    {
+      "first_output_failure_fraction": 0.3333333333333333,
+      "first_output_failures": 10,
+      "frozen_batch_denominator": 30,
+      "labels_before_band": "813-1004",
+      "mean_candidate_count": 2437,
+      "mean_input_packet_bytes": 1740765.3,
+      "mean_labels_before": 893,
+      "mean_llm_correction_requests": 0.4,
+      "method_group": "Free",
+      "note": "Descriptive only: L grows while U shrinks, packet/history changes and model version/budget confound these trends.",
+      "transport_failure_records": 29
+    },
+    {
+      "first_output_failure_fraction": 0.38666666666666666,
+      "first_output_failures": 29,
+      "frozen_batch_denominator": 75,
+      "labels_before_band": "1005-1485",
+      "mean_candidate_count": 2101,
+      "mean_input_packet_bytes": 1737769.1466666667,
+      "mean_labels_before": 1229,
+      "mean_llm_correction_requests": 0.5333333333333333,
+      "method_group": "Free",
+      "note": "Descriptive only: L grows while U shrinks, packet/history changes and model version/budget confound these trends.",
+      "transport_failure_records": 113
+    },
+    {
+      "first_output_failure_fraction": 0.4166666666666667,
+      "first_output_failures": 5,
+      "frozen_batch_denominator": 12,
+      "labels_before_band": "333-524",
+      "mean_candidate_count": 2901,
+      "mean_input_packet_bytes": 1778341.5,
+      "mean_labels_before": 413,
+      "mean_llm_correction_requests": 0.4166666666666667,
+      "method_group": "Hybrid",
+      "note": "Descriptive only: L grows while U shrinks, packet/history changes and model version/budget confound these trends.",
+      "transport_failure_records": 6
+    },
+    {
+      "first_output_failure_fraction": 0.4444444444444444,
+      "first_output_failures": 8,
+      "frozen_batch_denominator": 18,
+      "labels_before_band": "525-812",
+      "mean_candidate_count": 2661,
+      "mean_input_packet_bytes": 1777698.5,
+      "mean_labels_before": 653,
+      "mean_llm_correction_requests": 0.4444444444444444,
+      "method_group": "Hybrid",
+      "note": "Descriptive only: L grows while U shrinks, packet/history changes and model version/budget confound these trends.",
+      "transport_failure_records": 16
+    },
+    {
+      "first_output_failure_fraction": 0.08333333333333333,
+      "first_output_failures": 1,
+      "frozen_batch_denominator": 12,
+      "labels_before_band": "813-1004",
+      "mean_candidate_count": 2421,
+      "mean_input_packet_bytes": 1777495.5,
+      "mean_labels_before": 893,
+      "mean_llm_correction_requests": 0.08333333333333333,
+      "method_group": "Hybrid",
+      "note": "Descriptive only: L grows while U shrinks, packet/history changes and model version/budget confound these trends.",
+      "transport_failure_records": 22
+    },
+    {
+      "first_output_failure_fraction": 0.20689655172413793,
+      "first_output_failures": 6,
+      "frozen_batch_denominator": 29,
+      "labels_before_band": "1005-1485",
+      "mean_candidate_count": 2092.7241379310344,
+      "mean_input_packet_bytes": 1774096.3793103448,
+      "mean_labels_before": 1221.2758620689656,
+      "mean_llm_correction_requests": 0.27586206896551724,
+      "method_group": "Hybrid",
+      "note": "Descriptive only: L grows while U shrinks, packet/history changes and model version/budget confound these trends.",
+      "transport_failure_records": 55
+    },
+    {
+      "first_output_failure_fraction": 0.4,
+      "first_output_failures": 12,
+      "frozen_batch_denominator": 30,
+      "labels_before_band": "333-524",
+      "mean_candidate_count": 2917,
+      "mean_input_packet_bytes": 1692639.2333333334,
+      "mean_labels_before": 413,
+      "mean_llm_correction_requests": 0.5333333333333333,
+      "method_group": "NoCW",
+      "note": "Descriptive only: L grows while U shrinks, packet/history changes and model version/budget confound these trends.",
+      "transport_failure_records": 54
+    },
+    {
+      "first_output_failure_fraction": 0.4827586206896552,
+      "first_output_failures": 14,
+      "frozen_batch_denominator": 29,
+      "labels_before_band": "525-812",
+      "mean_candidate_count": 2709,
+      "mean_input_packet_bytes": 1696627.5862068965,
+      "mean_labels_before": 621,
+      "mean_llm_correction_requests": 0.8275862068965517,
+      "method_group": "NoCW",
+      "note": "Descriptive only: L grows while U shrinks, packet/history changes and model version/budget confound these trends.",
+      "transport_failure_records": 276
+    }
+  ],
+  "interventions": [
+    {
+      "authorization_sidecars": [
+        "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_157/free_llm32_scientist_v2/round_05/authorized_extra_correction.json",
+        "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_157/free_llm32_scientist_v2/round_05/authorized_id_transcription_correction.json",
+        "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_157/free_llm32_scientist_v2/round_05/extra_correction_request.json"
+      ],
+      "calls_beyond_original_three": 1,
+      "complete_responses": 4,
+      "final_batch_frozen": true,
+      "final_raw_accepted": false,
+      "manual_transcription_repair": true,
+      "method": "free_llm32_scientist_v2",
+      "method_group": "Free",
+      "response_turn_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "round": 5,
+      "seed": 157
+    },
+    {
+      "authorization_sidecars": [],
+      "calls_beyond_original_three": 1,
+      "complete_responses": 4,
+      "final_batch_frozen": true,
+      "final_raw_accepted": true,
+      "manual_transcription_repair": false,
+      "method": "free_llm32_scientist_v2",
+      "method_group": "Free",
+      "response_turn_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "round": 33,
+      "seed": 887
+    },
+    {
+      "authorization_sidecars": [
+        "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_6101/free_llm32_scientist_v2/round_00/authorized_extra_correction.json",
+        "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_6101/free_llm32_scientist_v2/round_00/extra_correction_request.json"
+      ],
+      "calls_beyond_original_three": 1,
+      "complete_responses": 4,
+      "final_batch_frozen": true,
+      "final_raw_accepted": true,
+      "manual_transcription_repair": false,
+      "method": "free_llm32_scientist_v2",
+      "method_group": "Free",
+      "response_turn_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "round": 0,
+      "seed": 6101
+    },
+    {
+      "authorization_sidecars": [
+        "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_6101/free_llm32_scientist_v2/round_19/authorized_extra_correction.json",
+        "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_6101/free_llm32_scientist_v2/round_19/extra_correction_request.json"
+      ],
+      "calls_beyond_original_three": 1,
+      "complete_responses": 4,
+      "final_batch_frozen": true,
+      "final_raw_accepted": true,
+      "manual_transcription_repair": false,
+      "method": "free_llm32_scientist_v2",
+      "method_group": "Free",
+      "response_turn_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "round": 19,
+      "seed": 6101
+    },
+    {
+      "authorization_sidecars": [],
+      "calls_beyond_original_three": 1,
+      "complete_responses": 4,
+      "final_batch_frozen": true,
+      "final_raw_accepted": true,
+      "manual_transcription_repair": false,
+      "method": "free_llm32_scientist_v2",
+      "method_group": "Free",
+      "response_turn_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "round": 24,
+      "seed": 12203
+    },
+    {
+      "authorization_sidecars": [
+        "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1165_20261014/selections/seed_6101/cw16_llm16_scientist_v2/round_21/authorized_extra_correction.json",
+        "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1165_20261014/selections/seed_6101/cw16_llm16_scientist_v2/round_21/extra_correction_request.json"
+      ],
+      "calls_beyond_original_three": 1,
+      "complete_responses": 4,
+      "final_batch_frozen": true,
+      "final_raw_accepted": true,
+      "manual_transcription_repair": false,
+      "method": "cw16_llm16_scientist_v2",
+      "method_group": "Hybrid",
+      "response_turn_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "round": 21,
+      "seed": 6101
+    },
+    {
+      "authorization_sidecars": [],
+      "calls_beyond_original_three": 1,
+      "complete_responses": 4,
+      "final_batch_frozen": true,
+      "final_raw_accepted": true,
+      "manual_transcription_repair": false,
+      "method": "llm32_nocw",
+      "method_group": "NoCW",
+      "response_turn_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "round": 3,
+      "seed": 887
+    },
+    {
+      "authorization_sidecars": [],
+      "calls_beyond_original_three": 1,
+      "complete_responses": 4,
+      "final_batch_frozen": true,
+      "final_raw_accepted": true,
+      "manual_transcription_repair": false,
+      "method": "llm32_nocw",
+      "method_group": "NoCW",
+      "response_turn_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "round": 10,
+      "seed": 2357
+    },
+    {
+      "authorization_sidecars": [],
+      "calls_beyond_original_three": 1,
+      "complete_responses": 4,
+      "final_batch_frozen": true,
+      "final_raw_accepted": true,
+      "manual_transcription_repair": false,
+      "method": "llm32_nocw",
+      "method_group": "NoCW",
+      "response_turn_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "round": 8,
+      "seed": 6101
+    },
+    {
+      "authorization_sidecars": [],
+      "calls_beyond_original_three": 1,
+      "complete_responses": 4,
+      "final_batch_frozen": true,
+      "final_raw_accepted": true,
+      "manual_transcription_repair": false,
+      "method": "llm32_nocw",
+      "method_group": "NoCW",
+      "response_turn_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "round": 10,
+      "seed": 6101
+    }
+  ],
+  "new_training": 0,
+  "per_model_complete_response_reliability": [
+    {
+      "complete_response_denominator": 30,
+      "complete_response_legal_numerator": 15,
+      "first_output_denominator": 16,
+      "first_output_legal_numerator": 7,
+      "method_group": "Free",
+      "note": "Versions are confounded with seeds, budgets and history; no causal model comparison.",
+      "served_model": "gpt-6-astra"
+    },
+    {
+      "complete_response_denominator": 240,
+      "complete_response_legal_numerator": 164,
+      "first_output_denominator": 164,
+      "first_output_legal_numerator": 105,
+      "method_group": "Free",
+      "note": "Versions are confounded with seeds, budgets and history; no causal model comparison.",
+      "served_model": "gpt-6.1-sol"
+    },
+    {
+      "complete_response_denominator": 43,
+      "complete_response_legal_numerator": 30,
+      "first_output_denominator": 30,
+      "first_output_legal_numerator": 17,
+      "method_group": "Hybrid",
+      "note": "Versions are confounded with seeds, budgets and history; no causal model comparison.",
+      "served_model": "gpt-6-astra"
+    },
+    {
+      "complete_response_denominator": 50,
+      "complete_response_legal_numerator": 41,
+      "first_output_denominator": 41,
+      "first_output_legal_numerator": 34,
+      "method_group": "Hybrid",
+      "note": "Versions are confounded with seeds, budgets and history; no causal model comparison.",
+      "served_model": "gpt-6.1-sol"
+    },
+    {
+      "complete_response_denominator": 99,
+      "complete_response_legal_numerator": 59,
+      "first_output_denominator": 59,
+      "first_output_legal_numerator": 33,
+      "method_group": "NoCW",
+      "note": "Versions are confounded with seeds, budgets and history; no causal model comparison.",
+      "served_model": "gpt-6.1-sol"
+    }
+  ],
+  "primary_taxonomy_note": "primary_failure_type is the first error raised by original validator (AST-exact replay); overlapping duplicate/out-of-pool/measured-ID details are separate diagnostic fields. Scientific behavior is not an execution failure.",
+  "real_llm_calls": 0,
+  "repair_behavior_summary": [
+    {
+      "analyzable_corrected_rounds": 68,
+      "caution": "All first-proposal behavior uses unique legal subset; n can differ from final. Does not establish intent preservation or quality.",
+      "mean_initial_legal_candidate_count": 29.514705882352942,
+      "mean_retained_legal_count": 14.529411764705882,
+      "mean_retained_reason_exact_fraction": 0.10662555992063977,
+      "mean_selection_jaccard": 0.4086633332706346,
+      "method_group": "Free",
+      "molecule_hhi_decrease_rounds": 55,
+      "molecule_hhi_increase_rounds": 7,
+      "molecule_hhi_unchanged_rounds": 6,
+      "pe_contrast_L_or_batch_fraction_decrease_rounds": 39,
+      "pe_contrast_L_or_batch_fraction_increase_rounds": 22,
+      "pe_contrast_L_or_batch_fraction_unchanged_rounds": 7,
+      "same_molecule_pair_fraction_decrease_rounds": 44,
+      "same_molecule_pair_fraction_increase_rounds": 17,
+      "same_molecule_pair_fraction_unchanged_rounds": 7,
+      "strict_loading_contrast_L_or_batch_fraction_decrease_rounds": 50,
+      "strict_loading_contrast_L_or_batch_fraction_increase_rounds": 13,
+      "strict_loading_contrast_L_or_batch_fraction_unchanged_rounds": 5,
+      "zero_legal_candidate_overlap_rounds": 12
+    },
+    {
+      "analyzable_corrected_rounds": 20,
+      "caution": "All first-proposal behavior uses unique legal subset; n can differ from final. Does not establish intent preservation or quality.",
+      "mean_initial_legal_candidate_count": 14.7,
+      "mean_retained_legal_count": 10.3,
+      "mean_retained_reason_exact_fraction": 0.17039473684210527,
+      "mean_selection_jaccard": 0.5922649372554496,
+      "method_group": "Hybrid",
+      "molecule_hhi_decrease_rounds": 9,
+      "molecule_hhi_increase_rounds": 5,
+      "molecule_hhi_unchanged_rounds": 6,
+      "pe_contrast_L_or_batch_fraction_decrease_rounds": 8,
+      "pe_contrast_L_or_batch_fraction_increase_rounds": 6,
+      "pe_contrast_L_or_batch_fraction_unchanged_rounds": 6,
+      "same_molecule_pair_fraction_decrease_rounds": 7,
+      "same_molecule_pair_fraction_increase_rounds": 6,
+      "same_molecule_pair_fraction_unchanged_rounds": 7,
+      "strict_loading_contrast_L_or_batch_fraction_decrease_rounds": 6,
+      "strict_loading_contrast_L_or_batch_fraction_increase_rounds": 5,
+      "strict_loading_contrast_L_or_batch_fraction_unchanged_rounds": 9,
+      "zero_legal_candidate_overlap_rounds": 1
+    },
+    {
+      "analyzable_corrected_rounds": 26,
+      "caution": "All first-proposal behavior uses unique legal subset; n can differ from final. Does not establish intent preservation or quality.",
+      "mean_initial_legal_candidate_count": 30.53846153846154,
+      "mean_retained_legal_count": 11.884615384615385,
+      "mean_retained_reason_exact_fraction": 0.11805555555555555,
+      "mean_selection_jaccard": 0.3455905679814598,
+      "method_group": "NoCW",
+      "molecule_hhi_decrease_rounds": 18,
+      "molecule_hhi_increase_rounds": 3,
+      "molecule_hhi_unchanged_rounds": 5,
+      "pe_contrast_L_or_batch_fraction_decrease_rounds": 17,
+      "pe_contrast_L_or_batch_fraction_increase_rounds": 4,
+      "pe_contrast_L_or_batch_fraction_unchanged_rounds": 5,
+      "same_molecule_pair_fraction_decrease_rounds": 17,
+      "same_molecule_pair_fraction_increase_rounds": 4,
+      "same_molecule_pair_fraction_unchanged_rounds": 5,
+      "strict_loading_contrast_L_or_batch_fraction_decrease_rounds": 19,
+      "strict_loading_contrast_L_or_batch_fraction_increase_rounds": 2,
+      "strict_loading_contrast_L_or_batch_fraction_unchanged_rounds": 5,
+      "zero_legal_candidate_overlap_rounds": 8
+    }
+  ],
+  "repair_comparison_analyzable_rounds": 114,
+  "selection_legality_note": "Conditional on completed frozen cohort, so final legality is a freeze audit, not eventual success probability for ongoing/never-frozen requests. One historical authorized transcription repair is distinct from raw LLM success.",
+  "served_model_complete_response_counts": {
+    "gpt-6-astra": 73,
+    "gpt-6.1-sol": 389
+  },
+  "snapshot_captured_at": "2026-10-30T16:17:05.764164+08:00",
+  "source_file_count": 3901,
+  "strict_parse_issue_response_count": 0,
+  "tokens_cost_note": "Provider usage for complete responses only; transport failures may have unknown usage. No token price or billed cost estimated. Blank costs are missing, not zero.",
+  "transport_note": "NoCW attempt success mirrors turn and is counted once. V2 retries can include CLI recovery/parsing records, so recorded request failures are not asserted to be distinct billed model requests.",
+  "truth_table_reads": 0
+}

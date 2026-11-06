@@ -1,0 +1,250 @@
+{
+  "request_sha256": "7cbe2d518b307aa13767fa324cda13b50ebd0713a921b9c603f40671939fc0a2",
+  "success": true,
+  "answer": "{\"type\":\"selection\",\"packet_sha256\":\"095379dd0d99f51117677e7385f97cade5741a487f41019e0c5baa30ec658670\",\"batch_strategy\":\"Structured mixed batch combining fixed-molecule condition-response curves, late-tail coverage, polar and novel scaffold transfer, and a small set of explicit model-interval failure probes.\",\"choices\":[{\"id\":\"35f2be5f5aa14265e8a4\",\"reason\":\"The model forecasts V1/V2 of 50.8/98.0 mL at 50/1 with 50 ul loading. This is a direct loading neighbor to observed m211 at 50/1 and 100 ul, 449b809e4efaaf2af86a, and tests whether the extreme late tail is stable under loading change.\",\"hypothesis_id\":\"condition_response\"},{\"id\":\"1e46d0444dfa1065fc00\",\"reason\":\"The forecast is 11.5/24.3 mL at 5/1 and 100 ul. Together with the selected m211 20/1 and 50/1 points and observed 449b809e4efaaf2af86a, this samples the sharp apparent PE/EA response of a high-retention scaffold.\",\"hypothesis_id\":\"condition_response\"},{\"id\":\"bd2e9fee67bbba1155df\",\"reason\":\"The forecast is 35.2/56.6 mL at 20/1 and 100 ul, providing an intermediate condition between the low-ratio m211 forecast and the observed late 50/1 point 449b809e4efaaf2af86a. It discriminates smooth from threshold-like solvent response.\",\"hypothesis_id\":\"condition_response\"},{\"id\":\"48853fd78c77153b963a\",\"reason\":\"The model forecasts 47.1/93.8 mL for m205 at 5/1 and 100 ul. Observed m205 at the same ratio with 150 ul, e8f592c469b2f3c136d8, is already 50.7/101.0 mL, so this label isolates loading-volume transfer in a late-tail regime.\",\"hypothesis_id\":\"condition_response\"},{\"id\":\"91b6bda771851a5c78ac\",\"reason\":\"The forecast is 9.8/17.4 mL for m205 at 2/1 and 150 ul. It supplies a lower-strength companion to the observed high-retention m205 record e8f592c469b2f3c136d8 and tests whether the large tail turns on gradually with PE/EA ratio.\",\"hypothesis_id\":\"condition_response\"},{\"id\":\"614873124b33029a924c\",\"reason\":\"The forecast is 40.8/84.6 mL for m206 at 5/1 and 100 ul, while observed m206 at 2/1 and 100 ul, 13bfaf03c35b4cff3bd5, is 11.3/22.5 mL. This is a high-value fixed-molecule test of a possible nonlinear condition transition.\",\"hypothesis_id\":\"condition_response\"},{\"id\":\"18d13f3f10c8377d12316\",\"reason\":\"The model forecasts 5.9/10.8 mL for m206 at 0/1 and 100 ul. It brackets the selected stronger m206 conditions and tests the low-strength baseline needed to learn the molecule-specific response curve.\",\"hypothesis_id\":\"condition_response\"},{\"id\":\"b7cf293311f83700cd9a\",\"reason\":\"The forecast is 66.0/132.4 mL for m206 at 10/1 and 150 ul, far into the model's late-tail region. Alongside observed 13bfaf03c35b4cff3bd5 and the selected lower-ratio m206 rows, it tests extrapolation of both V1 and V2.\",\"hypothesis_id\":\"late_tail\"},{\"id\":\"96710afeabc594baa359\",\"reason\":\"The forecast is 33.6/75.0 mL for m90 at 10/1 and 100 ul. Observed m90 changes from 6.7/14.3 mL at 0/1, f868ccbcbf392038fe36, to 27.5/65.4 mL at 5/1, b51b5dbcd2a38b174973; this point tests continuation of that strong response.\",\"hypothesis_id\":\"condition_response\"},{\"id\":\"6a4e95d2a3cca31094a1\",\"reason\":\"The forecast is 13.1/31.4 mL for m90 at 2/1 and 50 ul, adding an intermediate-ratio and lower-loading response point between the observed m90 anchors f868ccbcbf392038fe36 and b51b5dbcd2a38b174973.\",\"hypothesis_id\":\"condition_response\"},{\"id\":\"8ab554cd154e9749790b\",\"reason\":\"This molecule is novel to the observed set and the model forecasts a late 34.7/71.3 mL interval at 50/1. It probes whether the late behavior seen for related nitro compounds, including observed m193 at a5f9179bfb146ad70953, transfers to a different scaffold.\",\"hypothesis_id\":\"functional_group_transfer\"},{\"id\":\"4da6e3b93f29af1efa94\",\"reason\":\"The forecast is 10.8/23.9 mL for the same novel m198 scaffold at 5/1 and 100 ul. Pairing it with the selected 50/1 point tests whether the high predicted tail is driven by structure or by solvent strength.\",\"hypothesis_id\":\"condition_response\"},{\"id\":\"efd84dffe823b6298db6\",\"reason\":\"The model forecasts 40.5/114.0 mL for m11 at 50/1 and 150 ul. Observed m11 at the same ratio and 100 ul, 9ffee2813aef5c26f96f, is 43.1/119.2 mL, making this a strong loading-response test for an unusually long V2 tail.\",\"hypothesis_id\":\"condition_response\"},{\"id\":\"3e69cf586f3eb0f0fa8c\",\"reason\":\"The forecast is 14.8/44.6 mL for m193 at 5/1 and 50 ul, compared with observed m193 at 20/1 and 50 ul, a5f9179bfb146ad70953, at 43.2/78.5 mL. This directly tests ratio dependence in a measured late-retention family.\",\"hypothesis_id\":\"condition_response\"},{\"id\":\"c08c4700ae34281b3318\",\"reason\":\"The forecast is 21.4/53.1 mL for m193 at 10/1 and 100 ul. It fills the response surface between the selected 5/1 point and observed 20/1 record a5f9179bfb146ad70953, with additional loading variation.\",\"hypothesis_id\":\"condition_response\"},{\"id\":\"5c2bc1d92128a17d996d\",\"reason\":\"The model forecasts 25.2/47.6 mL for m125 at 2/1 and 50 ul, whereas observed m125 at 2/1 and 150 ul, 19f19f196ba5787a01b0, is 13.7/31.4 mL. This isolates a loading-volume effect in a broad-interval compound.\",\"hypothesis_id\":\"condition_response\"},{\"id\":\"549daca56bed1c9d2bcc\",\"reason\":\"The forecast is 19.7/37.6 mL for m125 at 5/1 and 150 ul. Relative to observed 19f19f196ba5787a01b0 at 2/1 and the selected lower-volume point, it tests both solvent-ratio and loading interactions.\",\"hypothesis_id\":\"condition_response\"},{\"id\":\"7e834c7b870ef7024d35\",\"reason\":\"The forecast is 16.9/50.0 mL for m117 at 20/1 and 150 ul. Observed m117 at 1/1 and 50 ul, 02425f554db74d9809d2, is 7.0/17.2 mL; this probes the growth of V2 with stronger eluent and loading.\",\"hypothesis_id\":\"late_tail\"},{\"id\":\"b1801204c2c4a34a9278\",\"reason\":\"The forecast is 29.5/79.0 mL for m117 at 50/1 and 50 ul, extending the selected m117 response curve into the strongest-solvent-ratio tail. It tests whether the model's large V2 prediction is chemically transferable from other polar late-tail rows.\",\"hypothesis_id\":\"late_tail\"},{\"id\":\"e4fd83fb3852eb354a66\",\"reason\":\"The model forecasts 25.1/53.4 mL for m120 at 5/1 and 100 ul with a broad V1 interval. This polar donor/acceptor scaffold probes structure-specific tail behavior supported by observed long intervals for m72, a2f83665cfe821271b30, and m88, 85924bdd0693438dc23a.\",\"hypothesis_id\":\"functional_group_transfer\"},{\"id\":\"f433bc672465387d951a\",\"reason\":\"The forecast is 33.1/61.1 mL for m135 at 5/1 and 50 ul, with substantial V1 uncertainty. Measuring an aromatic alcohol in this region tests whether donor-containing structures receive the same late-tail treatment as observed m72 and m88.\",\"hypothesis_id\":\"functional_group_transfer\"},{\"id\":\"8641d0ec9c4b21727b9a\",\"reason\":\"The forecast is 16.5/34.5 mL for m39 at 5/1 and 50 ul with wide model intervals. This novel heteroatom-rich scaffold provides a structure-transfer probe in a region where the catalog contains broad polar intervals but limited direct coverage.\",\"hypothesis_id\":\"functional_group_transfer\"},{\"id\":\"3c4c856ec5ee29c66540\",\"reason\":\"The model forecasts an unusual 0.9/18.8 mL interval for m39 at 1/1 and 150 ul with a very broad V1 interval. It is a useful companion to the selected m39 high-ratio points for separating a real condition response from an extrapolation artifact.\",\"hypothesis_id\":\"interval_failure\"},{\"id\":\"c63ed0daca6f4e0f5c52\",\"reason\":\"The candidate has an inverted predicted V1 interval, with q10 above q90, and forecasts 2.9/7.7 mL at 2/1. Measuring it can repair uncertainty and endpoint-ordering behavior; observed m156 at a stronger ratio, 4cacfd98f3f85dc0dc0e, provides a nearby chemical anchor.\",\"hypothesis_id\":\"interval_failure\"},{\"id\":\"b55c27267a071711d0c0\",\"reason\":\"The model gives an invalid V1 quantile ordering for m154 at 1/1 and forecasts 4.6/6.0 mL. This is a targeted calibration probe for a halogenated aromatic region with little direct evidence and high potential value for interval consistency.\",\"hypothesis_id\":\"interval_failure\"},{\"id\":\"98923a8da3524ce0e392\",\"reason\":\"The m155 candidate also has an inverted V1 quantile interval and a low forecast of 2.3/6.5 mL. Its label tests whether the pathology is localized or systematic across closely related halogenated aromatic structures.\",\"hypothesis_id\":\"interval_failure\"},{\"id\":\"3d4f7f7de9025ed645c9\",\"reason\":\"The model forecasts only 5.8/6.2 mL for m91 while its V1 quantiles are inverted. This probes both endpoint uncertainty and the model's treatment of a multifunctional ester under a distinct loading solvent.\",\"hypothesis_id\":\"interval_failure\"},{\"id\":\"c3feac62808af7335473\",\"reason\":\"The candidate has an inverted V1 interval and forecasts 2.6/11.9 mL for m3 at 1/1. Observed m3 at 20/1 and 100 ul, c25aed72c162a62800ce, is 4.8/14.2 mL, so the label also tests whether the low-ratio prediction is physically plausible.\",\"hypothesis_id\":\"interval_failure\"},{\"id\":\"0d16b0a631dd0d2eda1a\",\"reason\":\"The forecast for m14 at 0/1 and 150 ul is 3.2/7.4 mL with an inverted V1 interval. This adds a chemically simple aromatic control to determine whether invalid intervals persist outside the more polar and highly retained families.\",\"hypothesis_id\":\"interval_failure\"},{\"id\":\"754f1d33b0ed61557754\",\"reason\":\"The model forecasts 31.2/85.6 mL for m72 at 20/1 and 100 ul. Observed m72 spans 23.1/60.5 mL at 10/1 DCM, a2f83665cfe821271b30, and 12.9/32.3 mL at 5/1 PE, 1f70add69a6dbecca3b4, making this a strong cross-condition late-tail test.\",\"hypothesis_id\":\"late_tail\"},{\"id\":\"cace6f00c46aea69fe39\",\"reason\":\"The forecast for m38 at 20/1 and 50 ul is 9.9/40.7 mL with a very broad V1 interval. Observed m38 at 1/1 and 150 ul, 0bd57808d920c8e6f5c4, is 4.7/12.9 mL; this tests whether high ratio and low loading generate a distinct long-tail regime.\",\"hypothesis_id\":\"condition_response\"},{\"id\":\"3f49209a4fc102e36500\",\"reason\":\"The model forecasts 14.1/41.8 mL for m39 at 2/1 and 150 ul with large quantile widths. Together with the selected 1/1 and 5/1 m39 points, this gives a local response curve for a novel scaffold and can distinguish smooth retention changes from unstable extrapolation.\",\"hypothesis_id\":\"condition_response\"}],\"hypotheses\":[{\"id\":\"condition_response\",\"content\":\"PE/EA ratio, loading amount, and loading volume interact strongly with molecular structure, and fixed-molecule response curves should improve prediction of both endpoints across the catalog.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"b4877b0011db295949d5\",\"0da0c1a34a53c41e368a\",\"9bbd36c8b484b5609808\",\"e2f15590b7142490599b\",\"f7bbba9684bf7983ccbf\",\"27c265d2946287217a2d\"],\"contradicting_observed_ids\":[],\"confidence\":\"high\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"The observed same-molecule records show large changes in V1, V2, and interval width across solvent ratio and loading. Local curves can teach interaction terms that structure-only interpolation cannot recover.\",\"next_discriminating_question\":\"At fixed molecule, do stronger PE/EA ratios and loading changes produce smooth monotone shifts or threshold-like jumps in V1 and V2?\"},{\"id\":\"late_tail\",\"content\":\"Strongly retained compounds can develop unusually late and broad V2 tails, especially at high PE/EA ratios or unusual loading conditions; these tails need explicit condition-sensitive representation.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"449b809e4efaaf2af86a\",\"9ffee2813aef5c26f96f\",\"a5f9179bfb146ad70953\",\"e8f592c469b2f3c136d8\",\"b51b5dbcd2a38b174973\"],\"contradicting_observed_ids\":[],\"confidence\":\"high\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"Late V2 values occupy a high-loss region and are represented by multiple distinct chemical families. Sampling this regime can improve tail accuracy and transfer across rows.\",\"next_discriminating_question\":\"Do late V2 tails persist across related scaffolds and loading changes, or do current extreme forecasts substantially overshoot outside observed anchors?\"},{\"id\":\"functional_group_transfer\",\"content\":\"HBD/HBA-rich and heteroatom-containing structures can decouple V1 and V2 from simple hydrophobicity, so polar and novel scaffolds are needed to learn family-specific structure-condition interactions.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"a2f83665cfe821271b30\",\"85924bdd0693438dc23a\",\"9de8f9fed06ef9d5befa\",\"e12edd0198c0d750ecd5\"],\"contradicting_observed_ids\":[],\"confidence\":\"medium\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"Observed polar and heteroatom-rich rows include long, variable intervals. Novel related molecules can test whether the model transfers these effects or collapses them into an overly simple polarity trend.\",\"next_discriminating_question\":\"Under comparable conditions, do donor/acceptor-rich and scaffold-isomeric molecules share tail behavior or require family-specific features?\"},{\"id\":\"interval_failure\",\"content\":\"Some candidate predictions have inverted q10/q90 intervals or endpoints outside their own quantile ranges, indicating a model-calibration or representation failure region worth labeling directly.\",\"basis\":\"model_behavior\",\"supporting_observed_ids\":[],\"contradicting_observed_ids\":[],\"confidence\":\"medium\",\"status\":\"proposed\",\"why_it_matters_for_model_learning\":\"Labels from these rows can identify whether invalid uncertainty behavior coincides with systematic endpoint error and can improve retraining stability, interval ordering, and extrapolation handling.\",\"next_discriminating_question\":\"Do measured endpoints in these rows fall outside the current intervals or violate the predicted ordering, or are the interval pathologies disconnected from endpoint accuracy?\"}],\"feedback_interpretation\":\"\",\"batch_rationale\":\"The batch emphasizes information about relationships that can generalize across the Row-distribution. Three fixed-molecule groups probe solvent-ratio and loading response in m211, m206, m90, m125, m117, m193, and m39, using observed anchors where available. High-tail rows cover the late V2 regimes represented by observed m11, m193, m205, m211, m72, and m90 records. Polar and novel scaffolds test transfer of heteroatom and donor/acceptor effects. A smaller set of inverted-interval candidates repairs model failure behavior and tests whether uncertainty pathologies correspond to endpoint errors. The batch therefore combines local response information, tail coverage, structural transfer, and explicit failure repair while avoiding redundant repeats of already observed tuples.\"}",
+  "provenance": {
+    "response_id": "resp_09851cd4ecc16d32016ae33a8972c8819986daf42c2db37ffd",
+    "served_model": "gpt-6.1-sol",
+    "usage": {
+      "input_tokens": 442962,
+      "input_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 19831,
+      "output_tokens_details": {
+        "reasoning_tokens": 15797
+      },
+      "total_tokens": 462793,
+      "attribution": {
+        "items": {
+          "msg_09851cd4ecc16d32016ae33a89737c8199834b1211b52e0bc7": {
+            "input_tokens": 437192,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 437192,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_09851cd4ecc16d32016ae33b7c1c308199994684874cf395da": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 4034,
+            "content": [
+              {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 4034
+              }
+            ]
+          },
+          "rs_09851cd4ecc16d32016ae33a9642dc8199b1aa6aa98da71088": {
+            "input_tokens": 2,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 516
+          },
+          "rs_09851cd4ecc16d32016ae33a9ef65c819996ab157e44b2b283": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33aa707508199989ed6a16af21f2f": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33ab029fc81999536a1be9ff3c474": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33ab8d1788199a3edf9e32e16ad47": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33ac1fe388199bdea4ef195d25bc1": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33aca7d3c819980ddce762f697128": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33ad31da48199a47119d626973e06": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33adadaf48199aa3a4207057f51d8": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33ae214f08199a706365bef025d51": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33ae93ef08199b2a99b89559ecaae": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33af08e348199b450b43a6df0b349": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33af87fb08199b844e12f89d468ec": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33afe9b6c819998a30e60c72cc5bd": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33b0710cc8199b779d1333d8557bd": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33b0dfa7c81998ce9675645b36411": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33b15212c81998a19fbe31e375665": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33b1cf5a48199bb264dd64bec467f": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33b245020819983642465860924ea": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33b2c560c8199ad71dcf64896799e": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33b34eea88199a36f4a3ad6281388": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33b3cb9dc81999e25fb483112f03f": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33b441cb88199b8abe1239200bd7f": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33b4b1a648199a3eefc8e5fe64aa4": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33b52af248199966cbd1c712cd4f7": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33b58b3608199b5115de5af0e0e26": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33b61e3188199adc6ea85c0695e1a": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33b6a312c8199996c6c6ff6906e33": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33b70d1d88199b7f3cbff974f8315": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33b7874988199a6ad0084b07a42c7": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_09851cd4ecc16d32016ae33b7c10848199b8f87e5c35afb04b": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 259
+          }
+        },
+        "request_fields": {
+          "instructions": {
+            "input_tokens": 5768,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "native_tool_calls": 0
+  },
+  "elapsed_seconds": 4369.512554042041,
+  "retry_amendment_sha256": "2b3c1b62057a6015deb7871bda21cd498dd53e2dfeaceaa086208c777939fc60"
+}

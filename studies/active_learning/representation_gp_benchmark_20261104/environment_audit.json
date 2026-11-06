@@ -1,0 +1,151 @@
+{
+  "record_kind": "implementation_preflight_synthetic_inputs_not_effectiveness_evidence",
+  "t5_status": "blocked_no_local_weights",
+  "qwen_available": true,
+  "encoding_first": {
+    "count": 4,
+    "tokens": 291,
+    "token_min": 12,
+    "token_max": 135,
+    "seconds": 0.9477440000046045,
+    "texts_sha256": "61be3e4baa43c544ef51bf2a98edaace36bfadec7a3800474051d93e16b0f59f"
+  },
+  "bitwise_repeat_equal": true,
+  "repeat_max_abs_difference": 0.0,
+  "metadata": {
+    "model": "Qwen/Qwen1.5-0.5B-Chat",
+    "model_type": "qwen2",
+    "model_commit": "4d14e384a4b037942bb3f3016665157c8bcb70ea",
+    "requested_revision": null,
+    "local_files_only": true,
+    "trust_remote_code": false,
+    "parameter_count": 463987712,
+    "hidden_size": 1024,
+    "model_dtype": "float32",
+    "output_dtype": "float64",
+    "device": "cpu",
+    "pooling": "last_hidden_state_attention_masked_mean",
+    "max_tokens": 512,
+    "truncation": false,
+    "padding_side": "right",
+    "chat_template": false,
+    "generate_calls": 0,
+    "frozen_parameters": true,
+    "load_seconds": 3.14274441706948,
+    "model_kind": "chat_decoder_pretrained_hidden_state_exploratory",
+    "last_encoding": {
+      "count": 4,
+      "tokens": 291,
+      "token_min": 12,
+      "token_max": 135,
+      "seconds": 1.5366050000302494,
+      "texts_sha256": "61be3e4baa43c544ef51bf2a98edaace36bfadec7a3800474051d93e16b0f59f"
+    }
+  },
+  "local_model_revision": "4d14e384a4b037942bb3f3016665157c8bcb70ea",
+  "local_files": {
+    "config.json": {
+      "bytes": 661,
+      "sha256": "adac3bb8bf1b15c74312a2835e3796f6b352d817ff726960e1d5c2cd171da951"
+    },
+    "generation_config.json": {
+      "bytes": 206,
+      "sha256": "5cf6fb81bd473eeb55678afbaee79e8d5f8b6e9bc2f942c30ee94721a0a91945"
+    },
+    "merges.txt": {
+      "bytes": 1671839,
+      "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3"
+    },
+    "model.safetensors": {
+      "bytes": 1239173352,
+      "sha256": "72453a8ccb338811935ab95a3a6ffa86b586807bf5b3dc327f28b5389b5636e6"
+    },
+    "tokenizer.json": {
+      "bytes": 7028015,
+      "sha256": "f7c9b2dba4a296b1aa76c16a34b8225c0c118978400d4bb66bff0902d702f5b8"
+    },
+    "tokenizer_config.json": {
+      "bytes": 1287,
+      "sha256": "482bd979881423375ca5414e4e0d94cd7c5349dbb17fffd46b4d36d71e62a1bc"
+    },
+    "vocab.json": {
+      "bytes": 2776833,
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    }
+  },
+  "projection_estimate": {
+    "7680_condition_templates_seconds_linear_estimate": 1819.6684800088406,
+    "note": "Mixed 2 short and 2 full templates; full-template-only throughput can be slower. Encoding will be globally deduplicated across states."
+  },
+  "strict_loading_info_check": {
+    "missing_keys": [],
+    "unexpected_keys": [
+      "lm_head.weight"
+    ],
+    "mismatched_keys": [],
+    "error_msgs": []
+  },
+  "packages": {
+    "torch": {
+      "available": true,
+      "version": "2.13.0"
+    },
+    "torch_geometric": {
+      "available": true,
+      "version": "2.7.0"
+    },
+    "transformers": {
+      "available": true,
+      "version": "5.4.0"
+    },
+    "tokenizers": {
+      "available": true,
+      "version": "0.22.2"
+    },
+    "sentencepiece": {
+      "available": false,
+      "version": null
+    },
+    "safetensors": {
+      "available": true,
+      "version": "0.7.0"
+    },
+    "numpy": {
+      "available": true,
+      "version": "2.4.6"
+    },
+    "scipy": {
+      "available": true,
+      "version": "1.17.1"
+    },
+    "rdkit": {
+      "available": true,
+      "version": "2025.9.3"
+    },
+    "gpytorch": {
+      "available": false,
+      "version": null
+    },
+    "botorch": {
+      "available": false,
+      "version": null
+    }
+  },
+  "device": {
+    "cuda_available": false,
+    "mps_available": false,
+    "threads": 1
+  },
+  "audit_date": "2026-11-04",
+  "runtime_choice": "existing chromatography conda environment; executable supplied by caller, no environment modifications",
+  "openmp_environment": "KMP_DUPLICATE_LIB_OK=TRUE OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1; inherited existing qualified runtime convention, unguarded torch import aborted with duplicate OpenMP",
+  "default_python": "miniforge base lacks torch, transformers, rdkit; use existing chromatography environment",
+  "storage_budget": {
+    "t5_base_safetensors_remote_bytes_approx": 892000000,
+    "t5_base_total_parameters": 220000000,
+    "t5_downloaded": false,
+    "local_qwen_cache_bytes": 1250652193,
+    "download_calls": 0,
+    "environment_modifications": 0
+  }
+}

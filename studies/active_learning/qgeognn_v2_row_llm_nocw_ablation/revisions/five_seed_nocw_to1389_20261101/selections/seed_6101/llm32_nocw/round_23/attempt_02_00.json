@@ -1,0 +1,186 @@
+{
+  "request_sha256": "2a4e05412b616804a798b7074fd53564b27b10e5dd780b747024248abb635bf0",
+  "success": true,
+  "answer": "{\"type\":\"selection\",\"packet_sha256\":\"3a9912ae58bd9aae9193e9d9f54d02767cb86ea8f7edbb53977d98bd9eda4efc\",\"batch_strategy\":\"Use same-molecule condition and loading contrasts to learn endpoint-specific response curves, while adding chemically distinct heteroatom, oxygenated, and neutral controls for transfer across the Row-distribution.\",\"choices\":[{\"id\":\"b2ef457b41d15be60154\",\"reason\":\"m181 at 0/1 DCM is a weak-solvent oxygen-heterocycle anchor. It complements the measured m181 high-ratio point 2cc7c8ae52cdb25ca284 and tests whether its late endpoint is condition dependent.\",\"hypothesis_id\":\"H23_condition\"},{\"id\":\"dfd15398154ac2f524d5\",\"reason\":\"m184 at 20/1 DCM samples a halogenated aldehyde at high ratio. It adds an acceptor-rich heavy-atom row to test whether aldehyde and halogen effects are represented separately from neutral controls.\",\"hypothesis_id\":\"H23_polar\"},{\"id\":\"1de0df01db7a3b665672\",\"reason\":\"m102 at 1/1 DCM is a narrow predicted chlorobenzoate baseline. It constrains ordinary ester and halogen solvent response before the batch's larger polar-tail labels influence retraining.\",\"hypothesis_id\":\"H23_baseline\"},{\"id\":\"3c0e2ce9feb019d1dd30\",\"reason\":\"m117 at 0/1 DCM targets a donor-bearing aldehyde scaffold near the large measured residual in a7bc3fb68bdecbbe086f. The weak-ratio point tests whether its error persists outside the high-ratio regime.\",\"hypothesis_id\":\"H23_polar\"},{\"id\":\"54a3411006f7051f1053\",\"reason\":\"m174 at 10/1 PE provides an oxygenated aromatic condition point with a moderate predicted interval. It helps calibrate the common response for a high-molecular-weight ester before comparing the more extreme m174 ratio point.\",\"hypothesis_id\":\"H23_baseline\"},{\"id\":\"f156391514f509a6ea3a\",\"reason\":\"m71 is a donor-free, highly lipophilic heavy-atom control at 0/1 DCM. Its narrow predicted endpoint range provides distribution coverage against the donor and polycarbonyl failure region.\",\"hypothesis_id\":\"H23_baseline\"},{\"id\":\"299c9c17b93fc19e0682\",\"reason\":\"m154 is another donor-free heavy-atom control at 20/1 DCM. Comparing it with the low-ratio m71 control tests whether high ratio alone creates a broad tail in neutral heavy-atom chemistry.\",\"hypothesis_id\":\"H23_baseline\"},{\"id\":\"f4fd9dc02cc082b1dccd\",\"reason\":\"m175 at 20/1 DCM supplies a neutral cyclic ketone control at high ratio, useful for separating generic solvent response from the large tails in polar multifunctional rows.\",\"hypothesis_id\":\"H23_baseline\"},{\"id\":\"efb7617d566fb19d9217\",\"reason\":\"m130 at 1/1 DCM probes a neutral nitrile with a compact predicted interval. It helps determine whether nitrile-associated residuals transfer to a donor-free aromatic scaffold.\",\"hypothesis_id\":\"H23_hetero\"},{\"id\":\"a4ed6ac3d69b91c56aca\",\"reason\":\"m32 at 5/1 DCM is an ordinary aromatic ketone anchor. It gives the model a central carbonyl condition against which high-ratio aldehyde and nitro-carbonyl responses can be compared.\",\"hypothesis_id\":\"H23_baseline\"},{\"id\":\"df576d6e2e33250f1208\",\"reason\":\"m163 at 2/1 PE adds a halobenzonitrile condition with no donor. It tests whether the nitrogen-related representation needs a nitrile interaction distinct from the donor-rich failures in 49201b5817f204116f7f.\",\"hypothesis_id\":\"H23_hetero\"},{\"id\":\"ca28db10589bf3ee4600\",\"reason\":\"m142 at 20/1 PE samples a high-ratio aromatic aldehyde. It is useful for transferring the aldehyde condition response beyond the measured acetoxybenzaldehyde failures in 351c17dfa8f46a8cb40a.\",\"hypothesis_id\":\"H23_polar\"},{\"id\":\"33b6c8de250498f05946\",\"reason\":\"m16 at 5/1 PE is a relatively simple acrylate ester anchor. It supplies a low-complexity oxygenated row to prevent the retrained model from treating all ester-containing compounds as tail dominated.\",\"hypothesis_id\":\"H23_baseline\"},{\"id\":\"7b42519983cf93dd7efd\",\"reason\":\"m92 at 50/1 EA has a broad predicted interval and is a strong loading and solvent anchor for a polycarbonyl ester. It can be compared with measured m92 EA records 1844eab177de5d01fab6 and 9bbd36c8b484b5609808.\",\"hypothesis_id\":\"H23_polar\"},{\"id\":\"a2ecf2b2f28094d70368\",\"reason\":\"m91 at 5/1 DCM probes a compact multi-acceptor molecule at moderate solvent strength. It tests whether the model's carbonyl-count response transfers to a less aromatic scaffold.\",\"hypothesis_id\":\"H23_polar\"},{\"id\":\"ece815bb9caf05c4cf62\",\"reason\":\"m157 at 0/1 DCM is a neutral diiodoaromatic baseline with a narrow predicted onset. It gives coverage of heavy-atom chemistry without donor or acceptor tails.\",\"hypothesis_id\":\"H23_baseline\"},{\"id\":\"c3c4fdce502f6d3576dc\",\"reason\":\"m11 at 2/1 DCM targets a donor-bearing oxime in a condition between its measured low-ratio and higher-loading records. It tests whether the donor-induced endpoint shift is smooth or scaffold specific.\",\"hypothesis_id\":\"H23_hetero\"},{\"id\":\"89b6013d19ba95312c59\",\"reason\":\"m84 at 10/1 PE is a halogenated ester control at higher ratio. It helps calibrate whether ester and halogen features produce a common solvent response across molecular size.\",\"hypothesis_id\":\"H23_baseline\"},{\"id\":\"bb6b2ec09ed4e0b613c4\",\"reason\":\"m132 at 1/1 PE is a simple neutral alkyl aromatic control. It anchors the low-retention portion of the Row-distribution and protects against overcorrection from polar-tail labels.\",\"hypothesis_id\":\"H23_baseline\"},{\"id\":\"3bac976904bce39c77a9\",\"reason\":\"m14 at 20/1 PE probes a donor-free diaryl alkene at high ratio. It tests whether high-ratio neutral aromatics require an interaction separate from the polar tail regime.\",\"hypothesis_id\":\"H23_baseline\"},{\"id\":\"48a8b24b649031229980\",\"reason\":\"m158 at 5/1 DCM adds a sulfur-containing heavy-atom aromatic. It tests whether heteroatom effects in donor-free scaffolds differ from the nitrogen-rich residuals.\",\"hypothesis_id\":\"H23_hetero\"},{\"id\":\"c1050421bf89c585cb4c\",\"reason\":\"m18 at 20/1 DCM is a long-chain acrylate ester control. Its lipophilic structure helps separate retention due to hydrophobicity and size from silica donor or acceptor interactions.\",\"hypothesis_id\":\"H23_baseline\"},{\"id\":\"7bd8adc2fdba124990b2\",\"reason\":\"m63 at 2/1 DCM is a cyclic aromatic ketone at intermediate ratio. It provides a structural control for the broader carbonyl response without nitro, donor, or multiple ester groups.\",\"hypothesis_id\":\"H23_baseline\"},{\"id\":\"551ec1f8caaa42f2e478\",\"reason\":\"m40 at 2/1 DCM is an aromatic ketone point that complements the same molecule at 1/1 in candidate 26c42fac19b627a9ab40. The pair can teach local ratio response with minimal structural confounding.\",\"hypothesis_id\":\"H23_condition\"},{\"id\":\"4dd5139156c57f3467c1\",\"reason\":\"m176 at 5/1 DCM with larger loading-solvent volume probes a chlorobenzophenone-like acceptor scaffold. It adds a controlled multifunctional aromatic point near the observed high-ratio carbonyl failures.\",\"hypothesis_id\":\"H23_polar\"},{\"id\":\"26c42fac19b627a9ab40\",\"reason\":\"The m40 1/1 DCM point forms a local ratio pair with 551ec1f8caaa42f2e478. Measuring both conditions can distinguish a smooth aromatic-ketone response from model uncertainty in the high-ratio point.\",\"hypothesis_id\":\"H23_condition\"},{\"id\":\"7a2f7cc9ffd95dd9cfa7\",\"reason\":\"m54 at 5/1 DCM is a substituted aromatic ketone with a compact predicted range. It provides an additional neutral carbonyl control for learning whether substitution changes endpoint width.\",\"hypothesis_id\":\"H23_baseline\"},{\"id\":\"161dadd8e1a872f74bda\",\"reason\":\"m29 at 5/1 DCM supplies a more sterically substituted aromatic ketone at higher volume. It tests whether steric shielding reduces the carbonyl-associated late-tail behavior.\",\"hypothesis_id\":\"H23_baseline\"},{\"id\":\"f4e3920c62fc6679c3c2\",\"reason\":\"m134 at 1/1 PE is an aromatic aldehyde anchor at weak solvent strength. It provides a lower-ratio comparison for the high-ratio aldehyde candidate ca28db10589bf3ee4600 and observed aldehyde residuals.\",\"hypothesis_id\":\"H23_polar\"},{\"id\":\"660b9817e57d6cbe989d\",\"reason\":\"m10 at 0/1 DCM is a neutral diaryl alkene baseline. It complements the measured high-ratio stilbene control 380e1e6e22f1e66a0963 and tests whether the apparent finish anomaly is condition specific.\",\"hypothesis_id\":\"H23_baseline\"},{\"id\":\"d7452aadf19fd7c0248e\",\"reason\":\"m21 at 2/1 DCM is an oxygenated aromatic ester/ether row with a broad predicted endpoint range. It tests transfer of the polar oxygen response without a donor and complements the measured high-error oxygenated families.\",\"hypothesis_id\":\"H23_polar\"},{\"id\":\"9c74e865c47b45a09229\",\"reason\":\"m174 at 50/1 PE provides a high-ratio counterpart to candidate 54a3411006f7051f1053. The same-molecule contrast is informative for learning whether ratio changes move both endpoints together or mainly broaden V2.\",\"hypothesis_id\":\"H23_condition\"}],\"hypotheses\":[{\"id\":\"H23_condition\",\"content\":\"Condition response is strongly scaffold dependent: neutral ketones and heavy-atom controls should constrain a smoother baseline, whereas oxygenated or heteroatom-rich scaffolds may show endpoint-specific high-ratio shifts.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"7383949c431e18f39597\",\"1b1a9ec85268aa66d327\",\"8e7636d7a60a6058305a\",\"5d6d4ac0c1dfacbde53d\",\"380e1e6e22f1e66a0963\",\"290e3b1b716d87069937\"],\"contradicting_observed_ids\":[\"b1af54c32bec21b8bee1\",\"d076e21bdb650d4e367e\"],\"confidence\":\"high\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"Same-molecule and chemically matched condition contrasts teach interaction terms while neutral controls protect the common Row-distribution baseline.\",\"next_discriminating_question\":\"Do high-ratio changes primarily shift V1 and V2 together, or selectively create a V2 tail?\"},{\"id\":\"H23_polar\",\"content\":\"Oxygen-rich, donor-bearing, aldehyde, and multifunctional scaffolds remain a major generalization failure region, with errors often larger for V2 than V1.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"351c17dfa8f46a8cb40a\",\"9e94f0a4a224512b06cc\",\"10f14f6ee69ba06bbe68\",\"00043aebb2540e369a7b\",\"69b09343d0b9995c3ae4\"],\"contradicting_observed_ids\":[\"c620129610cfe348f024\",\"a8b7c07187ebd2ff5c92\"],\"confidence\":\"high\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"Labels from multiple oxygenated families can improve representation of endpoint-specific silica interactions rather than applying a global polarity offset.\",\"next_discriminating_question\":\"Do oxygenated residuals persist after matching ratio and loading across different scaffolds?\"},{\"id\":\"H23_hetero\",\"content\":\"Nitrogen, nitrile, sulfur, and donor interactions are transferable only partly; positional and scaffold context can change retention beyond simple H-bond or heteroatom counts.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"49201b5817f204116f7f\",\"9c9d41f1f5f006de9819\",\"fe66b2381d33aa2ea3a8\",\"36d971e3231c54486d05\",\"ad833f34f6b91872362d\"],\"contradicting_observed_ids\":[\"c620129610cfe348f024\",\"a8b7c07187ebd2ff5c92\"],\"confidence\":\"high\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"Chemically related but structurally distinct heteroatom rows can improve transfer to uncovered molecules and reduce descriptor-only extrapolation.\",\"next_discriminating_question\":\"Are remaining heteroatom residuals primarily scaffold effects or condition interactions?\"},{\"id\":\"H23_baseline\",\"content\":\"Neutral aromatics, simple ketones, esters, and heavy-atom compounds provide a relatively stable common response that should be preserved while repairing polar tails.\",\"basis\":\"mixed\",\"supporting_observed_ids\":[\"b1af54c32bec21b8bee1\",\"d076e21bdb650d4e367e\",\"380e1e6e22f1e66a0963\",\"290e3b1b716d87069937\"],\"contradicting_observed_ids\":[\"3d5a3094cb10eee37b37\",\"91b6bda771851a5c78ac\"],\"confidence\":\"medium\",\"status\":\"supported\",\"why_it_matters_for_model_learning\":\"Baseline labels reduce the risk that rare high-error polar rows distort the broader V1/V2 mapping.\",\"next_discriminating_question\":\"Can one neutral condition response describe multiple aromatic and carbonyl scaffolds, or are high-ratio exceptions systematic?\"}],\"feedback_interpretation\":\"The recent m72 measurements confirmed a large high-ratio tail but also showed that the DCM high-volume point 5d6d4ac0c1dfacbde53d was much closer than the PE point 8e7636d7a60a6058305a, so loading is treated as solvent- and scaffold-dependent. Recent m37 and m193 labels were comparatively close, supporting targeted condition-response calibration rather than a universal nitro correction. Large residuals remain concentrated in oxygenated and heteroatom-rich families, while neutral controls such as b1af54c32bec21b8bee1 and d076e21bdb650d4e367e support preserving the common baseline.\",\"batch_rationale\":\"The batch deliberately combines matched condition contrasts for m40 and m174 with a broad set of neutral ketone, ester, aromatic, and heavy-atom anchors. These controls cover the common Row-distribution response and test whether high-ratio exceptions are systematic. Additional oxygenated aldehyde, ester, nitrile, oxime, sulfur, and long-chain rows target chemically distinct transfer regions associated with previous measured failures. The local pairs and family contrasts should help retraining learn condition-scaffold interactions and endpoint-specific V2 tails while maintaining accuracy in ordinary neutral chemistry.\"}",
+  "provenance": {
+    "response_id": "resp_05d3f455a06e4a62016ae64dad0618819b8ce57541d99f9a4d",
+    "served_model": "gpt-6.1-sol",
+    "usage": {
+      "input_tokens": 457843,
+      "input_tokens_details": {
+        "cached_tokens": 5632,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 9012,
+      "output_tokens_details": {
+        "reasoning_tokens": 5506
+      },
+      "total_tokens": 466855,
+      "attribution": {
+        "items": {
+          "msg_05d3f455a06e4a62016ae64dad073c819b8502295486c86996": {
+            "input_tokens": 54,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 54,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_05d3f455a06e4a62016ae64dad073c819b9167fbdd1a087bbb": {
+            "input_tokens": 4642,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 4642,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_05d3f455a06e4a62016ae64dad073c819b9e2d0bab1eb7ee1b": {
+            "input_tokens": 4589,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 4589,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_05d3f455a06e4a62016ae64dad073c819bb6dcc2252f39038b": {
+            "input_tokens": 54,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 54,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_05d3f455a06e4a62016ae64dad073c819bb9c4280b30ca8a48": {
+            "input_tokens": 442734,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 442734,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_05d3f455a06e4a62016ae64e1a2f18819b9fd2e27c85723aeb": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 3506,
+            "content": [
+              {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 3506
+              }
+            ]
+          },
+          "rs_05d3f455a06e4a62016ae64db9c3dc819bbf0a3b4e6a69e459": {
+            "input_tokens": 2,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 516
+          },
+          "rs_05d3f455a06e4a62016ae64dc30ecc819bbfbc4c8655b027e8": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05d3f455a06e4a62016ae64dcd6270819ba1ec588a345f0ea5": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05d3f455a06e4a62016ae64dd5fd14819bb01adfe0e74f4200": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05d3f455a06e4a62016ae64ddfd010819b8f1e2dcbac0d363c": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05d3f455a06e4a62016ae64deadf9c819bb88a5aca7be8a1a8": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05d3f455a06e4a62016ae64df5a284819b81ed57dc73dca442": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05d3f455a06e4a62016ae64e0028f0819bbdbaa9e6f1940e7c": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05d3f455a06e4a62016ae64e0adb4c819b8266af639543b923": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05d3f455a06e4a62016ae64e132cb4819b9fafa6188b3b78f4": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_05d3f455a06e4a62016ae64e1a1264819b80ea0dd80fd5862d": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 328
+          }
+        },
+        "request_fields": {
+          "instructions": {
+            "input_tokens": 5768,
+            "cached_tokens": 5632,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "native_tool_calls": 0
+  },
+  "elapsed_seconds": 177.7022969169775,
+  "retry_amendment_sha256": "2b3c1b62057a6015deb7871bda21cd498dd53e2dfeaceaa086208c777939fc60"
+}

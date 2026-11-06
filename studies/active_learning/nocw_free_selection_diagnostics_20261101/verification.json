@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "common_completed_L": 973,
+  "batches_total": 584,
+  "completed_batches": 584,
+  "accepted_only_batches": 0,
+  "main_batches": 400,
+  "metadata_row_ids": 4162,
+  "metadata_molecule_keys": 217,
+  "all_batches_32_unique_ids": true,
+  "no_cross_round_repeats": true,
+  "main_phase_batch_counts": {
+    "early_333_525": 120,
+    "late_813_common": 100,
+    "middle_525_813": 180
+  },
+  "phase_rule": "L_before: [333,525), [525,813), [813,common_end). L_after<=common_end; boundary 525 belongs to middle, 813 to late.",
+  "proportions": "selected slots / 32 per batch. Phase average first within each seed; across-seed mean and sample SD ddof=1. Pair totals also retained; single-match categories can overlap in slots.",
+  "safety": {
+    "new_llm_calls": 0,
+    "training_runs": 0,
+    "uncollected_response_reads": 0,
+    "gpu_use": false
+  }
+}

@@ -1,0 +1,309 @@
+{
+  "type": "selection",
+  "packet_sha256": "ae4cf0486701139d77e0746d284114bb8512e14ff3d92c39a8e2f3795d473005",
+  "batch_strategy": "Select 32 experiments that locate unresolved solvent-response transitions, test transfer between closely related structures, and investigate one loading-dependent onset contrast. Freeze the selected IDs together with their supplied current V1/V2 predictions before measurement. Historical errors motivate questions; current prediction scale and quantile width are not treated as acquisition scores or calibrated epistemic uncertainty.",
+  "choices": [
+    {
+      "id": "d49f2ae16cf70d54ccf4",
+      "reason": "Diphenyl sulfoxide at 2/1 and 150 uL is predicted at 11.13/22.74 mL. Together with the selected 5/1 row, it forms a fixed-loading response experiment connected to aa83ae83c0fa0cc37777 at 10/1, measured 57.86/114.60 mL after a large historical underestimate.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "6bd128bde2e137ea54f3",
+      "reason": "Complete the sulfoxide 2/1-to-5/1 pair at 150 uL, predicted 31.56/64.21 mL. The matched-loading 10/1 observation aa83ae83c0fa0cc37777 makes this useful for locating response curvature and determining whether onset and completion accelerate together.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "762190c8d9f5b2d1a89a",
+      "reason": "Para-aminoacetophenone at 1/1 and 50 uL is predicted at 9.31/17.46 mL. Its otherwise matched 2/1 measurement 183af335033005f96b97 was 23.42/39.43 mL and was historically underestimated. This anchors the strong-eluent side of that response.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "d7f5057912ffbf1231a3",
+      "reason": "Para-amino ethyl benzoate at 2/1 and 50 uL is predicted at 11.87/23.99 mL. Measured c70b471334f9747d6f98 at 5/1 used the same loading and gave 32.05/58.38 mL. This tests the transition location independently of the amino ketone.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "ade065af3a515fc41105",
+      "reason": "Meta-amino ethyl benzoate at 2/1 and 100 uL is predicted at 11.11/21.55 mL. The matched-loading 5/1 result d2921349ba8d9cef15a4 was 26.69/61.83 mL. This determines whether the newly observed large completion volume develops sharply between these ratios.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "74541dbf8571f881c454",
+      "reason": "Ortho-amino ethyl benzoate at 20/1 and 100 uL is predicted at 23.20/49.49 mL. Its same-loading 5/1 observation 5df4935254e8c1e8471d was 9.07/18.22 mL. This fills the transition between early strong-eluent behavior and the later 50/1 result at a different amount.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "434e465cfa7e0034f233",
+      "reason": "2-Phenylpyridine at 20/1 and 50 uL is predicted at 36.23/68.35 mL. Its matched-loading 5/1 measurement 292e0342682192a69fce was only 11.61/19.38 mL. This tests whether the remaining steep weak-eluent extrapolation is real and distinct from quinoline behavior.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "aa43fe84c0d8c825fe58",
+      "reason": "Nitrobenzophenone at 20/1 and 50 uL is predicted at 6.28/15.84 mL. Pair it with 50/1 at identical loading to investigate the unusual response suggested by ce14dd2481560a984aea and 4862e2fb71344ce16021, whose 100 uL completion volumes decreased from 20.70 to 7.31 mL.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "5b706e17e8412d02342f",
+      "reason": "Complete the nitrobenzophenone 20/1-to-50/1 pair at 50 uL, predicted 4.22/10.06 mL. This supplies an independent loading series around the surprising 4862e2fb71344ce16021 result and tests whether the declining completion response persists without asserting that it must be monotonic.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "59ce141f6f9f30603132",
+      "reason": "Bromonitrobenzene at 50/1 and 50 uL is predicted at 17.10/34.15 mL. Its otherwise matched 20/1 observation d6faa7e77464f5f9a34b was 6.41/17.05 mL. This asks whether a delayed transition remains after the previous broad nitro-group transfer failed.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "17c1bb3be086a2b6ffec",
+      "reason": "Methoxyphenethyl alcohol at 2/1 and 100 uL is predicted at 21.74/43.58 mL. The matched-loading 5/1 result 776ee2c1e85ebde75168 was 48.00/77.09 mL. This locates its transition and provides context for the broad nitrophenethyl-alcohol intervals without assuming substituent additivity.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "ec6846c0fcb7df17c97d",
+      "reason": "Meta-bromobenzyl alcohol at 5/1 and 100 uL is predicted at 14.67/25.38 mL. Its matched 10/1 observation ff3b6b1069b7d66ad021 was 38.08/66.27 mL. The new label enables a response comparison with the measured methylbenzyl-alcohol pair 716d04ed1943f0708912 and 75232f4ee5de52a0499e.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "48853fd78c77153b963a",
+      "reason": "Naphthylethanol at 5/1 and 100 uL is predicted at 23.78/53.13 mL, including an onset below its same-loading 2/1 measurement c973d4c257be9ef08216 of 27.63 mL. This tests that questionable onset response and transfer from naphthylmethanol 614873124b33029a924c.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "769f1d04efb22c05cfdf",
+      "reason": "Methoxyethyl acetoacetate at 2/1 and 150 uL is predicted at 18.96/45.21 mL. It fills the interval between measured 1/1 and 5/1 anchors 60b7eed7a46a03b366b2 and d1172a49fca1e196a59f. The amount changes from 109.0 to 163.5 mg, so interpretation must retain a loading contribution.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "f50c45b31cf41304c109",
+      "reason": "Ethyl acetoacetate at 5/1 and 100 uL is predicted at 11.42/23.45 mL. This extends a molecule represented mainly in strong eluent and tests transfer between methyl acetoacetate cd566862a517dd7cdc8d and the much later ether-containing beta-ketoester d1172a49fca1e196a59f; loading-solvent volumes differ.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "e3a799d0fa90b649a157",
+      "reason": "The cyclopropyl beta-ketoester at 20/1 and 100 uL is predicted at 17.01/35.05 mL, beyond its measured pure-EA coverage. This tests how changing the ketone environment transfers within beta-ketoesters, informed by cd566862a517dd7cdc8d and the contrasting beta-diketone result 95e11ec70cd7b493e3f8.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "f31a89256d8ee4192d55",
+      "reason": "The benzodioxole acetophenone at 20/1 and 100 uL is predicted at 25.49/54.78 mL, while 89fc4c70c5a2e9ea04d3 anchors only pure EA at another amount. Together with the selected bromobenzodioxole, this tests whether a constrained acetal plus carbonyl supports the predicted weak-eluent retention.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "a2dbe14788c85f0974a9",
+      "reason": "Unmeasured bromobenzodioxole at 20/1 and 100 uL is predicted at 15.68/26.48 mL. It provides the acetal-containing comparison for the selected benzodioxole ketone under the same loading solvent and volume. Substituent and density differences remain, so the pair tests transfer rather than isolating one functional group.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "a36291cab664852df5e5",
+      "reason": "Unmeasured benzosuberone at 50/1 and 100 uL is predicted at 17.41/40.02 mL. Pairing it with tetralone at the same ratio and nominal loading tests whether the model's nearly identical response transfers across expansion of the carbonyl-containing ring; observed similarity is high but weak-eluent coverage is absent.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "52348febee6695107c49",
+      "reason": "Tetralone at 50/1 and 100 uL is predicted at 16.68/39.99 mL. Measurements 5149828089c3ed20123a and 983a604ac43bb4d41238 cover only 1/1 and 2/1. This supplies the weak-eluent reference needed to interpret the selected seven-membered-ring analogue.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "93dec4e70431268ebbc3",
+      "reason": "Unmeasured dibenzyl ether at 5/1 and 100 uL is predicted at 5.24/11.08 mL. Together with its selected 50/1 row, this tests a donor-free benzylic ether response near the dibenzylamine family represented by d5234e966aa231be05e5, while retaining the different sample amount.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "185b059eb1bfc13b1497",
+      "reason": "Complete the dibenzyl-ether pair at 50/1 with identical loading, predicted 7.81/14.95 mL. This tests the predicted modest solvent response in a new ether topology after c86b03e1b275528444a6 showed that the large methoxyethyl-acetoacetate response did not transfer to an ether-containing monoester.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "7df9f96b58c06a0c86c2",
+      "reason": "Unmeasured diphenylmethane at 50/1 and 100 uL is predicted at 9.15/15.86 mL. It adds a nearby hydrocarbon reference in the low-retention region, where the diiodobenzene pair 825a7ebe0905718755c4 and 51b57cfd0a20117aab60 disproved a large predicted reversal. Its DCM loading differs from the ether pair's PE loading.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "d626f5ddb709bc11257a",
+      "reason": "Unmeasured ortho-tolualdehyde at 20/1 and 100 uL is predicted at 8.42/22.21 mL. It tests transfer into an aldehyde with a proximal methyl group, using meta-tolualdehyde c6d5f62b278d39ee2c4f and ortho-methylacetophenone ebdeaba52880c7eade16 as structural references, with their condition differences retained.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "b7e013953a302595b447",
+      "reason": "Unmeasured ethyl para-chlorobenzoate at 20/1 and 50 uL is predicted at 8.32/18.96 mL. Ethyl para-fluorobenzoate 0dd38abec3981f296cfb gave 9.18/15.72 mL under the same ratio, sample volume and PE loading. This tests substituent transfer with a small density-derived amount difference.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "8fca5f8901efd254353e",
+      "reason": "Unmeasured para-iodoacetophenone at 10/1 and 100 uL is predicted at 9.14/20.53 mL. Para-bromoacetophenone 2420964caf34a1de2a5d gave 8.96/23.37 mL under the same ratio and loading-solvent conditions. This tests halogen transfer in the common aryl-ketone family without selecting an extreme predicted volume.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "781b8d96d8bc7c124dc9",
+      "reason": "Isobutyl benzoate at 100/1 and 50 uL is predicted at 9.60/22.03 mL. It extends the same-loading 20/1 observation 7a3708dd5094bb49d459 into a sparsely anchored ratio and tests weak-solvent extrapolation in an ester family with many catalog rows.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "7f4f64cb791c71ba0420",
+      "reason": "Benzyl benzoate at 100/1 and 50 uL is predicted at 11.79/29.49 mL. The otherwise matched 30/1 observation 704ba630f25fe7f20166 was 11.99/18.29 mL. This tests the predicted onset plateau with increasing completion volume and complements the isobutyl-benzoate extension.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "47b637b24c432172c8ed",
+      "reason": "Isobutyrophenone at 50/1 and 100 uL is predicted at 10.00/20.18 mL, almost identical to predictions at other amounts. Observations f7bbba9684bf7983ccbf and 1c6a12a8c2cb62f05c80 had onsets of 9.75 and 5.07 mL at 50 and 150 uL but similar completion volumes. This midpoint tests that selective onset contrast.",
+      "hypothesis_id": "H8"
+    },
+    {
+      "id": "b4e0e9dc92fca2c88b90",
+      "reason": "Para-aminobenzonitrile at 5/1 and 100 mg is predicted at 26.11/58.40 mL. Its measured coverage includes a8ae74aecb3b1e85b73c at 1/1 and 50 mg. Pairing it with the meta isomer under identical loading tests whether amino-ester response patterns transfer to an amino-nitrile.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "17902fa9c7f8ea9b456e",
+      "reason": "Meta-aminobenzonitrile at 5/1 and 100 mg is predicted at 25.88/61.83 mL, nearly the para-isomer prediction. Observation 247846e36e9c012df30f covers pure EA at the same loading. The selected isomer pair tests positional sensitivity where amino-benzoate measurements already show substantial structural differences.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "1e775e7d8dcbf48fd6f8",
+      "reason": "Cinnamic acid at 5/1 is predicted at 12.06/39.17 mL with the same recorded loading as 0b247863fd6e8aaf44d8 at 2/1, measured 8.34/45.06 mL. This tests the predicted decrease in completion volume under weaker eluent in a donor-containing acid with a large, fixed DCM loading volume.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Nitrogen-containing scaffolds need distinct solvent-response scales and transition locations. Recent amino-ketone and meta-amino-ester labels were historically underestimated, while dibenzylamine and 2-phenylpyridine were overestimated. Transfer from amino carbonyls to amino nitriles remains untested at weaker eluent.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "183af335033005f96b97",
+        "d2921349ba8d9cef15a4",
+        "d5234e966aa231be05e5",
+        "292e0342682192a69fce",
+        "4659b6752f23c0b85f08",
+        "49201b5817f204116f7f",
+        "c70b471334f9747d6f98",
+        "1cee9fb4b0731101f3a6"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Scaffold-specific response labels can prevent a correction for one nitrogen family from distorting another and can improve transfer across positional isomers and different electron-withdrawing groups.",
+      "next_discriminating_question": "Where do the amino-ketone and amino-benzoate transitions occur, do para/meta amino nitriles share the predicted 5/1 response, and does 2-phenylpyridine become substantially retained at 20/1?"
+    },
+    {
+      "id": "H2",
+      "content": "The strong response of compact nitrocarbonyls does not transfer wholesale to nitrobenzophenone or bromonitrobenzene. Nitrobenzophenone's lower completion volume at 50/1 than at 10/1 is measured at one fixed loading, but the reproducibility and explanation of that unusual response remain unresolved.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "c28747d70e7b51a1cc95",
+        "b6f1b33a5491968c645e",
+        "ce14dd2481560a984aea",
+        "4862e2fb71344ce16021",
+        "d6faa7e77464f5f9a34b"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "These labels distinguish topology-dependent response from a broad nitro-group multiplier. An independent loading series also guards against learning a questionable response from one unusual endpoint.",
+      "next_discriminating_question": "Does nitrobenzophenone retain a declining completion response between 20/1 and 50/1 at 50 uL, and does bromonitrobenzene develop a later transition at 50/1?"
+    },
+    {
+      "id": "H3",
+      "content": "Hydroxyl environment influences onset and completion separately. The constrained tertiary alcohol retains relatively compact intervals after a loading bridge, while primary benzylic and remote alcohols show larger, structure-dependent responses. A generic donor-count correction is insufficient.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "62e730f8ad10cbdd613b",
+        "dea19ed5b8959a2a6619",
+        "716d04ed1943f0708912",
+        "75232f4ee5de52a0499e",
+        "ff3b6b1069b7d66ad021",
+        "776ee2c1e85ebde75168",
+        "e4fd83fb3852eb354a66",
+        "f91285c618eacb53538b"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Learning local hydroxyl environments can improve both endpoint predictions and avoid imposing the same interval growth or solvent-response slope on all alcohols.",
+      "next_discriminating_question": "Do methoxyphenethyl and bromobenzyl alcohol follow the predicted transition locations, and is naphthylethanol's predicted onset decrease from 2/1 to 5/1 supported?"
+    },
+    {
+      "id": "H4",
+      "content": "Carbonyl and ether arrangement governs transfer more strongly than acceptor count alone. The large methoxyethyl-acetoacetate response did not transfer to methoxyethyl acrylate or the remote-ether aryl ketone. Constrained acetals and other beta-ketoester environments remain useful tests of this structural dependence.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "d1172a49fca1e196a59f",
+        "60b7eed7a46a03b366b2",
+        "59077fee5632336c199c",
+        "c86b03e1b275528444a6",
+        "ed763ea5943e63a671c9",
+        "8b556440cbbd8224f6ff",
+        "95e11ec70cd7b493e3f8",
+        "855456da9ea892f7216b"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Esters, ketones and aldehydes occupy much of the catalog. Labels across arrangements can constrain structural interactions without attributing the observations to unspecified tautomer populations or solution mechanisms.",
+      "next_discriminating_question": "How do the intermediate beta-ketoester response, cyclopropyl substitution, constrained acetal/carbonyl combination and donor-free dibenzyl ether differ from the previously measured ether-containing structures?"
+    },
+    {
+      "id": "H5",
+      "content": "A reproducible step down of ethyl benzoylacetate V2 to approximately 9 mL at the recorded 150 uL, 5/1 tuple is rejected as a working loading relationship. The new repeat finished near the smaller-volume measurements, although unrecorded variability cannot be identified from this catalog.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "a9500e468002e41eceeb",
+        "904c7849feb1c686924a",
+        "fefecd79dc057980f62c"
+      ],
+      "contradicting_observed_ids": [
+        "5879dc8ccb560446d54c"
+      ],
+      "confidence": "medium",
+      "status": "rejected",
+      "why_it_matters_for_model_learning": "The repeat discourages spending model capacity or further acquisitions on a loading rule derived from one inconsistent completion label.",
+      "next_discriminating_question": "Does the separate isobutyrophenone onset contrast show an intermediate-amount pattern, or does it also resemble isolated label variability?"
+    },
+    {
+      "id": "H6",
+      "content": "A substantial decrease in both para-diiodobenzene endpoints when PE/EA changes from 1/1 to 50/1 at fixed loading is rejected. The measured onset was nearly unchanged and completion increased slightly.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [
+        "825a7ebe0905718755c4",
+        "51b57cfd0a20117aab60"
+      ],
+      "confidence": "medium",
+      "status": "rejected",
+      "why_it_matters_for_model_learning": "This removes the earlier predicted reversal as a continuing acquisition target and supports testing nearby low-retention structures without treating their predicted orderings as findings.",
+      "next_discriminating_question": "Does the model transfer the modest response scale to donor-free benzylic ether and hydrocarbon structures under their supplied loading conditions?"
+    },
+    {
+      "id": "H7",
+      "content": "Diphenyl sulfoxide has a large strong-to-weak-eluent response, but its transition location is poorly identified. The current 2/1 and 5/1 predictions propose a substantial rise before the measured 10/1 endpoint; strong silica interaction is a chemical prior, not an established explanation.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "b2bf97a1dcb9d6609f7d",
+        "aa83ae83c0fa0cc37777"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The large historical failure provides a useful sulfur-oxo example. Matched-loading intermediate labels can identify response shape and improve transfer beyond the oxygen and nitrogen environments that dominate measured coverage.",
+      "next_discriminating_question": "At 150 uL, is the major increase concentrated between 2/1 and 5/1, between 5/1 and 10/1, or distributed across both intervals?"
+    },
+    {
+      "id": "H8",
+      "content": "Isobutyrophenone may exhibit an amount-dependent onset change with comparatively stable completion at weak eluent. The current model is nearly insensitive to amount for these rows, but the measured contrast could also reflect variability; it is not yet a causal loading effect.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "f7bbba9684bf7983ccbf",
+        "1c6a12a8c2cb62f05c80",
+        "cd29e6174c638a44ccc9",
+        "565ddc610d06341d68bb"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "A midpoint can reveal whether an onset-specific amount relationship is learnable from recorded features, while the ethyl-benzoylacetate repeat cautions against assuming every loading contrast is reproducible.",
+      "next_discriminating_question": "At 50/1, does the 100 uL onset lie between the measured 50 and 150 uL onsets, and does completion remain near 17\u201318 mL?"
+    }
+  ],
+  "feedback_interpretation": "The latest outcomes reject broad correction directions based on nitro groups, nitrogen presence or an added ether. Nitrobenzophenone at 50/1 had a historical V2 overestimate of 80.68 mL, and bromonitrobenzene was also much earlier than predicted; compact nitrocarbonyls therefore cannot supply a common response scale for those structures. Conversely, diphenyl sulfoxide was underestimated by 67.47 mL in V2, identifying another large response whose intermediate conditions remain unknown. Methoxyethyl acrylate's 5/1 V2 overestimate of 47.57 mL and the more modest remote-ether-ketone response strengthen topology-dependent interpretation of the methoxyethyl-acetoacetate failure. Aminoacetophenone and meta-amino benzoate remained historically underestimated, while dibenzylamine and 2-phenylpyridine were overestimated, reinforcing scaffold-specific nitrogen responses. The constrained-alcohol loading bridge preserved a compact interval, while methylbenzyl, bromobenzyl and nitrophenethyl alcohol outcomes supported separate onset and completion learning. The ethyl-benzoylacetate repeat finished at 20.27 mL, weakening the earlier causal loading interpretation of its 9.23 mL result. Diiodobenzene showed essentially constant onset and slightly higher completion at 50/1, rejecting the substantial predicted reversal. The earlier uniform-zero pure-EA onset behavior is no longer universal in the supplied current predictions. All quoted errors are historical acquisition errors, not current-model residuals.",
+  "batch_rationale": "The batch emphasizes unresolved relationships that can influence many rows after retraining. Fixed-loading solvent experiments for sulfoxide, nitrobenzophenone and dibenzyl ether identify response shape; extensions of amino compounds and alcohols connect measured failures to missing transition regions. The amino-nitrile isomer pair, cyclic-ketone pair and acetal-containing comparisons test specific structural transfer questions. Additional aryl ketone, aldehyde and benzoate labels cover common catalog chemistry, including moderate and low predicted volumes. The two 100/1 benzoate extensions probe a weak-eluent boundary using existing same-loading anchors. One isobutyrophenone midpoint investigates onset-specific loading sensitivity, while the cinnamic-acid experiment challenges a predicted completion decrease under otherwise matched conditions. Loading differences are retained explicitly wherever exact matching is unavailable, particularly for methoxyethyl acetoacetate. Most interchangeable amount variants and duplicate tuples were omitted because their predictions are nearly identical and their marginal learning value is unclear. Quantile widths were not treated as calibrated epistemic uncertainty, and elution interval widths were treated as target behavior. These choices should constrain structure\u2013condition interactions across the Row-distribution while limiting repeated sampling of already anchored failure endpoints."
+}

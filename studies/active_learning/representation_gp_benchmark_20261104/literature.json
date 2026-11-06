@@ -1,0 +1,56 @@
+{
+  "checked_date": "2026-11-04",
+  "sources_are_primary": true,
+  "paid_apis_called": 0,
+  "model_downloads": 0,
+  "sources": [
+    {
+      "title": "Large language models as uncertainty-calibrated optimizers for experimental discovery",
+      "authors": ["Bojana Ranković", "Ryan-Rhys Griffiths", "Philippe Schwaller"],
+      "publication": "Nature Machine Intelligence 8, 1466–1477 (2026)",
+      "published": "2026-08-28",
+      "doi": "10.1038/s42256-026-01283-z",
+      "url": "https://www.nature.com/articles/s42256-026-01283-z",
+      "method_relevant_to_this_study": "GP marginal likelihood jointly optimizes representation and GP parameters. PLLM learns a projection of frozen LLM features; phi variants update LLM parameters. The main PLLM_phi method is broader than this study's frozen encoder plus projection.",
+      "limits": "Optimization benchmarks and calibrated-optimizer claims are not direct evidence of QGeoGNN active-learning AULC or calibrated column-chromatography response uncertainty."
+    },
+    {
+      "title": "Official GOLLuM repository and PLLM configuration",
+      "url": "https://github.com/schwallergroup/gollum",
+      "config_url": "https://github.com/schwallergroup/gollum/blob/main/configs/pllm.yaml",
+      "projection_code": "https://github.com/schwallergroup/gollum/blob/main/src/gollum/featurization/deep.py",
+      "gp_code": "https://github.com/schwallergroup/gollum/blob/main/src/gollum/surrogate_models/gp.py",
+      "license": "Apache-2.0",
+      "verified_config": {"model": "t5-base", "pooling": "average", "kernel": "Matern nu 2.5", "projection_dimension": 64, "acquisition": "ExpectedImprovement", "batch_size": 1},
+      "limits": "Mutable main inspected as methodological reference, not installed or invoked; exact result reproduction is not claimed. This study uses learning-oriented offline batch acquisitions instead of EI."
+    },
+    {
+      "title": "T5-base official checkpoint model card and file inventory",
+      "url": "https://huggingface.co/google-t5/t5-base",
+      "files_url": "https://huggingface.co/google-t5/t5-base/tree/main",
+      "parameters": 220000000,
+      "license": "Apache-2.0",
+      "safetensors_bytes_approx": 892000000,
+      "multi_framework_repository_bytes_approx": 4460000000,
+      "status": "blocked_no_local_T5_weights; no download",
+      "cost_note": "About 0.9 GB full fp32 checkpoint plus tokenizer and activation/runtime memory; only one framework's weights would be needed."
+    },
+    {
+      "title": "Qwen1.5-0.5B-Chat official model card",
+      "url": "https://huggingface.co/Qwen/Qwen1.5-0.5B-Chat",
+      "license": "tongyi-qianwen-research",
+      "architecture": "pretrained decoder-only Qwen2, post-trained chat checkpoint",
+      "local_revision": "4d14e384a4b037942bb3f3016665157c8bcb70ea",
+      "local_base_model_parameters_measured": 463987712,
+      "local_hidden_size_measured": 1024,
+      "use_in_this_study": "explicit exploratory local frozen decoder hidden-state masked-mean arm; never generate and never call remote inference",
+      "limits": "Not T5, not a trained semantic embedding encoder, not full GOLLuM reproduction. Model weights remain in their existing local cache."
+    },
+    {
+      "title": "Gaussian Processes for Machine Learning",
+      "authors": ["Carl Edward Rasmussen", "Christopher K. I. Williams"],
+      "url": "https://gaussianprocess.org/gpml/chapters/",
+      "use": "Gaussian conditional posterior, marginal likelihood, observation noise and hyperparameter learning"
+    }
+  ]
+}

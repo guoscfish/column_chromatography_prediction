@@ -1,0 +1,536 @@
+{
+  "scope": "Existing L333 CW cache metadata and feature-array comparison only; no target arrays or response CSV opened",
+  "correction": "Trajectory directory ownership does not determine cache eligibility. Five L333 checkpoints and complete L/U states are shared between raw LCMD and historical Free; exact-state CW features existed and should have been considered. Initial audit omitted them and caused redundant feature computation.",
+  "applies_only_to_budget": 333,
+  "other_budgets": "No cross-trajectory reuse inferred for L525/L813/L1005; checkpoints and states diverge after acquisition.",
+  "geometry_manifest": "studies/active_learning/nocw_free_selection_diagnostics_20261101/geometry_input_manifest.json.xz",
+  "geometry_manifest_sha256": "9e3adeb68af30f1fb3af06559909d0ed04d698811ebba0f183f07bbb750726b9",
+  "producer_extra3": "reports/free_llm_five_seeds_to1005_20261023/run.py::activate forces source_round=max(1,r) for initial extra seeds, invoking unchanged llm_screen.banks extraction with context.cw_transform, dimension512, sketch_seed(seed)",
+  "producer_extra3_sha256": "ec8a8e8025018fb45e6bc435cc4c24b1fd91c64823ae7001f9718c00dade3587",
+  "producer_code": "src/qgeognn_al/active_learning_v2/llm_screen.py::banks; center_width_transform uses historical L0 only",
+  "producer_code_sha256": "1c2cb06957c8fcade076e4bb79335519ff14037e51f4fddf683aebc4f7eecf83",
+  "rows": [
+    {
+      "seed": 157,
+      "budget": 333,
+      "kind": "historical_free_initial_bank",
+      "old_cache": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/runtime/seed_157/free_llm32_scientist_v2/round_00/banks.npz",
+      "old_cache_sha256": "709ba81306d90773713f741b49c81e3c485d3c90d8a4fdabc019518a680cde78",
+      "metadata": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/runtime/seed_157/free_llm32_scientist_v2/round_00/banks.json",
+      "metadata_sha256": "e7fcea958bb280c2505a8ea7e8920ebee0ffcec7166c8530adc6fa091ad7d0c1",
+      "checkpoint_sha256": "87e92ccdabc1dd64ecf89a3061624450ce125906c4cbb988d7263b190991b1c0",
+      "checkpoint_matches": true,
+      "L_U_ids_and_order_match": true,
+      "ordered_canonical_indices_match": true,
+      "dimension": 512,
+      "sketch_seed": 4000194,
+      "sketch_mapping_sha256": "6f5018bad8a7fd73c6ddfe5e5064944c7fd5ba326f34bc0f9855804edad94132",
+      "L0_transform": {
+        "definition": "[(V1+V2)/(2*s_C), (V2-V1)/s_W]",
+        "center_population_std": 9.627325088483525,
+        "width_population_std": 7.754280767170251,
+        "transform_matrix": [
+          [
+            0.05193550601071049,
+            0.05193550601071049
+          ],
+          [
+            -0.12896102553234312,
+            0.12896102553234312
+          ]
+        ],
+        "target_source": "L0_labels_only",
+        "scale_ddof": 0
+      },
+      "direct_transform_receipt": false,
+      "historical_rows": 3330,
+      "shared_rows_compared": 589,
+      "shared_rows_composition": "333 L0 plus deterministic 256 U; excludes all 416 validation rows",
+      "old_cw_dtype": "float32",
+      "new_cw_dtype": "float64",
+      "exact_equal": false,
+      "max_abs_difference": 3.814697265625e-06,
+      "mean_abs_difference": 8.383089066158936e-09,
+      "relative_frobenius_difference": 1.3200436480020765e-08,
+      "allclose_existing_repository_tolerance": true,
+      "tolerance": {
+        "rtol": 0.0002,
+        "atol": 2e-05
+      },
+      "finite": true,
+      "new_cw_cache_sha256": "8cf37ab63d6e30b6e6e2501bf6df1624a8101b96416f8f581e332b56f99f17fb",
+      "new_cw_full_extraction_seconds": 29.922243542037904,
+      "max_elementwise_relative_difference_nonzero_old": 7.096728408203818e-05,
+      "old_zero_elements_with_nonzero_new": 0,
+      "relative_error_definition": "Frobenius ||new-old||/||old||; elementwise max only over nonzero old entries, which can amplify cancellation",
+      "historical_protocol": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/protocol.json",
+      "historical_protocol_sha256": "b2ae7da1687a14da8e3e418248f4d68c01eb261c6e12945e1d1a40eb777ce12b",
+      "bank_protocol_hash_matches_canonical_protocol": true,
+      "historical_context": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/runtime/seed_157/context.json",
+      "historical_context_sha256": "dbc24435d18a60c9e7ba645bb7830b36810322b40165b38b4cb28f63cc65f3c3",
+      "same_preprocessing_and_normalization": true,
+      "sketch_and_transform_provenance": "source bridge; bank sidecar pins checkpoint/indices/protocol but does not repeat sketch or transform scalars",
+      "old_free_vs_short_all3330_bitwise_equal": true,
+      "max_relative_error_coordinate": {
+        "canonical_index": 2685,
+        "sketch_column": 310,
+        "old_feature": 0.006719112396240234,
+        "new_feature": 0.0067195892333984375,
+        "absolute_difference": 4.76837158203125e-07
+      }
+    },
+    {
+      "seed": 157,
+      "budget": 333,
+      "kind": "short_sequential_center_width_initial_bank",
+      "old_cache": "studies/active_learning/qgeognn_v2_row_short_sequential_b32/runtime/seed_157/center_width_lcmd/round_00/acquisition_artifacts/current_transformed_gradient_features.npz",
+      "old_cache_sha256": "f3e6946815489a239831d39b72738ddc8614e5dc774dfccffc4668cf3a5df440",
+      "metadata": "studies/active_learning/qgeognn_v2_row_short_sequential_b32/runtime/seed_157/center_width_lcmd/round_00/acquisition_artifacts/current_transformed_gradient_features.npz.contract.json",
+      "metadata_sha256": "1471e0969ad069e3117fee0b3deaab3015bdf71511ee5e5ab52e9b2863b6c874",
+      "checkpoint_sha256": "87e92ccdabc1dd64ecf89a3061624450ce125906c4cbb988d7263b190991b1c0",
+      "checkpoint_matches": true,
+      "L_U_ids_and_order_match": true,
+      "ordered_canonical_indices_match": true,
+      "dimension": 512,
+      "sketch_seed": 4000194,
+      "sketch_mapping_sha256": "6f5018bad8a7fd73c6ddfe5e5064944c7fd5ba326f34bc0f9855804edad94132",
+      "L0_transform": {
+        "definition": "[(V1+V2)/(2*s_C), (V2-V1)/s_W]",
+        "center_population_std": 9.627325088483525,
+        "width_population_std": 7.754280767170251,
+        "transform_matrix": [
+          [
+            0.05193550601071049,
+            0.05193550601071049
+          ],
+          [
+            -0.12896102553234312,
+            0.12896102553234312
+          ]
+        ],
+        "target_source": "L0_labels_only",
+        "scale_ddof": 0
+      },
+      "direct_transform_receipt": true,
+      "historical_rows": 3330,
+      "shared_rows_compared": 589,
+      "shared_rows_composition": "333 L0 plus deterministic 256 U; excludes all 416 validation rows",
+      "old_cw_dtype": "float32",
+      "new_cw_dtype": "float64",
+      "exact_equal": false,
+      "max_abs_difference": 3.814697265625e-06,
+      "mean_abs_difference": 8.383089066158936e-09,
+      "relative_frobenius_difference": 1.3200436480020765e-08,
+      "allclose_existing_repository_tolerance": true,
+      "tolerance": {
+        "rtol": 0.0002,
+        "atol": 2e-05
+      },
+      "finite": true,
+      "new_cw_cache_sha256": "8cf37ab63d6e30b6e6e2501bf6df1624a8101b96416f8f581e332b56f99f17fb",
+      "new_cw_full_extraction_seconds": 29.922243542037904,
+      "max_elementwise_relative_difference_nonzero_old": 7.096728408203818e-05,
+      "old_zero_elements_with_nonzero_new": 0,
+      "relative_error_definition": "Frobenius ||new-old||/||old||; elementwise max only over nonzero old entries, which can amplify cancellation",
+      "max_relative_error_coordinate": {
+        "canonical_index": 2685,
+        "sketch_column": 310,
+        "old_feature": 0.006719112396240234,
+        "new_feature": 0.0067195892333984375,
+        "absolute_difference": 4.76837158203125e-07
+      }
+    },
+    {
+      "seed": 887,
+      "budget": 333,
+      "kind": "historical_free_initial_bank",
+      "old_cache": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/runtime/seed_887/free_llm32_scientist_v2/round_00/banks.npz",
+      "old_cache_sha256": "22d0fcb3965ec0f5060302334fe6b6b09600cdd3c9fff2855c2939d39eeb7dce",
+      "metadata": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/runtime/seed_887/free_llm32_scientist_v2/round_00/banks.json",
+      "metadata_sha256": "7299ff83c851332ef14bb07011295d25a38413d8f6275378fbc981444c3a8eae",
+      "checkpoint_sha256": "8a9c26efc0e8fd25420e56177f8becc8d12ddec204e564c6037fe58c12587059",
+      "checkpoint_matches": true,
+      "L_U_ids_and_order_match": true,
+      "ordered_canonical_indices_match": true,
+      "dimension": 512,
+      "sketch_seed": 4000924,
+      "sketch_mapping_sha256": "bc331a1e627dc4ac0948741f78a5572e5ecf591454ad11456f11d27bf5c75031",
+      "L0_transform": {
+        "definition": "[(V1+V2)/(2*s_C), (V2-V1)/s_W]",
+        "center_population_std": 12.506906325575873,
+        "width_population_std": 10.090293070440055,
+        "transform_matrix": [
+          [
+            0.03997791196193178,
+            0.03997791196193178
+          ],
+          [
+            -0.09910514917842603,
+            0.09910514917842603
+          ]
+        ],
+        "target_source": "L0_labels_only",
+        "scale_ddof": 0
+      },
+      "direct_transform_receipt": false,
+      "historical_rows": 3330,
+      "shared_rows_compared": 589,
+      "shared_rows_composition": "333 L0 plus deterministic 256 U; excludes all 416 validation rows",
+      "old_cw_dtype": "float32",
+      "new_cw_dtype": "float64",
+      "exact_equal": false,
+      "max_abs_difference": 7.62939453125e-06,
+      "mean_abs_difference": 6.431650057283241e-09,
+      "relative_frobenius_difference": 1.368385194730862e-08,
+      "allclose_existing_repository_tolerance": true,
+      "tolerance": {
+        "rtol": 0.0002,
+        "atol": 2e-05
+      },
+      "finite": true,
+      "new_cw_cache_sha256": "b55e6df8a6bf3d8a8531f1fae21be0b1a033c60707381017501152c2a9dfe617",
+      "new_cw_full_extraction_seconds": 28.768828666070476,
+      "max_elementwise_relative_difference_nonzero_old": 0.0003888402838534072,
+      "old_zero_elements_with_nonzero_new": 0,
+      "relative_error_definition": "Frobenius ||new-old||/||old||; elementwise max only over nonzero old entries, which can amplify cancellation",
+      "historical_protocol": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+      "historical_protocol_sha256": "8a1679469421fd74f61328b4ad9d7285c6e193c12613a1f2b2f1f493950fd061",
+      "bank_protocol_hash_matches_canonical_protocol": true,
+      "historical_context": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/runtime/seed_887/context.json",
+      "historical_context_sha256": "f19131eee29d585fd18ea9fbe27327fc66659fa5ded293d27fb8b482253a4d39",
+      "same_preprocessing_and_normalization": true,
+      "sketch_and_transform_provenance": "source bridge; bank sidecar pins checkpoint/indices/protocol but does not repeat sketch or transform scalars",
+      "extra3_runner_hash_matches_frozen_protocol": true,
+      "L0_transform_provenance": "producer context derives center_width_transform only from its initial L0; same initial L0/state/checkpoint, source code bridge, and fresh589-row numerical agreement verified",
+      "max_relative_error_coordinate": {
+        "canonical_index": 3818,
+        "sketch_column": 20,
+        "old_feature": -0.00015328824520111084,
+        "new_feature": -0.00015322864055633545,
+        "absolute_difference": 5.960464477539063e-08
+      }
+    },
+    {
+      "seed": 2357,
+      "budget": 333,
+      "kind": "historical_free_initial_bank",
+      "old_cache": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/runtime/seed_2357/free_llm32_scientist_v2/round_00/banks.npz",
+      "old_cache_sha256": "6cb6b6682f2067a84996c69ee1c4567fcfcada3aa873fbd32abaad89bf1b6511",
+      "metadata": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/runtime/seed_2357/free_llm32_scientist_v2/round_00/banks.json",
+      "metadata_sha256": "25dbedc8245a9cc8fcc1c31b483a1716f0b2803119713d25ce40a8bf063e3c8c",
+      "checkpoint_sha256": "ac34c895d573510f86f9aa1dd0b7b0c565dbf3fd80fa3763acab92c787de6731",
+      "checkpoint_matches": true,
+      "L_U_ids_and_order_match": true,
+      "ordered_canonical_indices_match": true,
+      "dimension": 512,
+      "sketch_seed": 4002394,
+      "sketch_mapping_sha256": "49acebd9aeb5af87b1609c2209272d07ee7abbd2cababd7f4daa6f2d75ea531c",
+      "L0_transform": {
+        "definition": "[(V1+V2)/(2*s_C), (V2-V1)/s_W]",
+        "center_population_std": 11.278030416594314,
+        "width_population_std": 8.8419085076826,
+        "transform_matrix": [
+          [
+            0.04433398222302256,
+            0.04433398222302256
+          ],
+          [
+            -0.1130977547586152,
+            0.1130977547586152
+          ]
+        ],
+        "target_source": "L0_labels_only",
+        "scale_ddof": 0
+      },
+      "direct_transform_receipt": false,
+      "historical_rows": 3330,
+      "shared_rows_compared": 589,
+      "shared_rows_composition": "333 L0 plus deterministic 256 U; excludes all 416 validation rows",
+      "old_cw_dtype": "float32",
+      "new_cw_dtype": "float64",
+      "exact_equal": false,
+      "max_abs_difference": 7.62939453125e-06,
+      "mean_abs_difference": 8.435466078525892e-09,
+      "relative_frobenius_difference": 1.2150787126508382e-08,
+      "allclose_existing_repository_tolerance": true,
+      "tolerance": {
+        "rtol": 0.0002,
+        "atol": 2e-05
+      },
+      "finite": true,
+      "new_cw_cache_sha256": "dd3b6ae29f42ea50e9c689898177811e821cf21acd0d0118cdda5ccd7646d9bf",
+      "new_cw_full_extraction_seconds": 28.542604082962498,
+      "max_elementwise_relative_difference_nonzero_old": 0.005988023952095809,
+      "old_zero_elements_with_nonzero_new": 0,
+      "relative_error_definition": "Frobenius ||new-old||/||old||; elementwise max only over nonzero old entries, which can amplify cancellation",
+      "historical_protocol": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+      "historical_protocol_sha256": "8a1679469421fd74f61328b4ad9d7285c6e193c12613a1f2b2f1f493950fd061",
+      "bank_protocol_hash_matches_canonical_protocol": true,
+      "historical_context": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/runtime/seed_2357/context.json",
+      "historical_context_sha256": "b6296a87baf9a30f884e94b2f62aa194b3340d5eb2c0799e6ca44ea48237eb49",
+      "same_preprocessing_and_normalization": true,
+      "sketch_and_transform_provenance": "source bridge; bank sidecar pins checkpoint/indices/protocol but does not repeat sketch or transform scalars",
+      "extra3_runner_hash_matches_frozen_protocol": true,
+      "L0_transform_provenance": "producer context derives center_width_transform only from its initial L0; same initial L0/state/checkpoint, source code bridge, and fresh589-row numerical agreement verified",
+      "max_relative_error_coordinate": {
+        "canonical_index": 673,
+        "sketch_column": 278,
+        "old_feature": -9.953975677490234e-06,
+        "new_feature": -1.0013580322265625e-05,
+        "absolute_difference": 5.960464477539063e-08
+      }
+    },
+    {
+      "seed": 6101,
+      "budget": 333,
+      "kind": "historical_free_initial_bank",
+      "old_cache": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/runtime/seed_6101/free_llm32_scientist_v2/round_00/banks.npz",
+      "old_cache_sha256": "1928a96807aeaf257df19a75182b765280805120eb3755d05f801c35098e55da",
+      "metadata": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/runtime/seed_6101/free_llm32_scientist_v2/round_00/banks.json",
+      "metadata_sha256": "d7854fa209ec7ba89d955447003a8d56f52c28c1f49b17cc5d9337b49fa54d79",
+      "checkpoint_sha256": "bcfffa247c3d24c8c74993ddb66cb59741ae14b1e67e8ed9543a8d1af7c6c494",
+      "checkpoint_matches": true,
+      "L_U_ids_and_order_match": true,
+      "ordered_canonical_indices_match": true,
+      "dimension": 512,
+      "sketch_seed": 4006138,
+      "sketch_mapping_sha256": "ef8d278ed9255686adf94d7d313bda9fc7011a58c9719fa762a2ee185fb5491f",
+      "L0_transform": {
+        "definition": "[(V1+V2)/(2*s_C), (V2-V1)/s_W]",
+        "center_population_std": 8.419568612367186,
+        "width_population_std": 8.779007719505096,
+        "transform_matrix": [
+          [
+            0.05938546533911119,
+            0.05938546533911119
+          ],
+          [
+            -0.11390808983778564,
+            0.11390808983778564
+          ]
+        ],
+        "target_source": "L0_labels_only",
+        "scale_ddof": 0
+      },
+      "direct_transform_receipt": false,
+      "historical_rows": 3330,
+      "shared_rows_compared": 589,
+      "shared_rows_composition": "333 L0 plus deterministic 256 U; excludes all 416 validation rows",
+      "old_cw_dtype": "float32",
+      "new_cw_dtype": "float64",
+      "exact_equal": false,
+      "max_abs_difference": 7.62939453125e-06,
+      "mean_abs_difference": 8.23633460697982e-09,
+      "relative_frobenius_difference": 1.3406246615872322e-08,
+      "allclose_existing_repository_tolerance": true,
+      "tolerance": {
+        "rtol": 0.0002,
+        "atol": 2e-05
+      },
+      "finite": true,
+      "new_cw_cache_sha256": "37d0409714580a0a3925b87b391ede20a9ff26b7c47e1b843ab2b11f2583143a",
+      "new_cw_full_extraction_seconds": 25.910043208976276,
+      "max_elementwise_relative_difference_nonzero_old": 0.00034223134839151266,
+      "old_zero_elements_with_nonzero_new": 0,
+      "relative_error_definition": "Frobenius ||new-old||/||old||; elementwise max only over nonzero old entries, which can amplify cancellation",
+      "historical_protocol": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/protocol.json",
+      "historical_protocol_sha256": "b2ae7da1687a14da8e3e418248f4d68c01eb261c6e12945e1d1a40eb777ce12b",
+      "bank_protocol_hash_matches_canonical_protocol": true,
+      "historical_context": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/runtime/seed_6101/context.json",
+      "historical_context_sha256": "e0e856c44dd8dd91c7735df3f901f029c58434dea99533712d77c7c601e79318",
+      "same_preprocessing_and_normalization": true,
+      "sketch_and_transform_provenance": "source bridge; bank sidecar pins checkpoint/indices/protocol but does not repeat sketch or transform scalars",
+      "old_free_vs_short_all3330_bitwise_equal": true,
+      "max_relative_error_coordinate": {
+        "canonical_index": 2854,
+        "sketch_column": 149,
+        "old_feature": -0.0001741647720336914,
+        "new_feature": -0.00017410516738891602,
+        "absolute_difference": 5.960464477539063e-08
+      }
+    },
+    {
+      "seed": 6101,
+      "budget": 333,
+      "kind": "short_sequential_center_width_initial_bank",
+      "old_cache": "studies/active_learning/qgeognn_v2_row_short_sequential_b32/runtime/seed_6101/center_width_lcmd/round_00/acquisition_artifacts/current_transformed_gradient_features.npz",
+      "old_cache_sha256": "3b94a5e6616f99d457b80c538e1bbbdf17fd77880de83f9b6fa553df7186ae49",
+      "metadata": "studies/active_learning/qgeognn_v2_row_short_sequential_b32/runtime/seed_6101/center_width_lcmd/round_00/acquisition_artifacts/current_transformed_gradient_features.npz.contract.json",
+      "metadata_sha256": "3ddc86c22dbedca571e9f6da13ec6d236874a088f8bd7f834db6f6b96d69c1eb",
+      "checkpoint_sha256": "bcfffa247c3d24c8c74993ddb66cb59741ae14b1e67e8ed9543a8d1af7c6c494",
+      "checkpoint_matches": true,
+      "L_U_ids_and_order_match": true,
+      "ordered_canonical_indices_match": true,
+      "dimension": 512,
+      "sketch_seed": 4006138,
+      "sketch_mapping_sha256": "ef8d278ed9255686adf94d7d313bda9fc7011a58c9719fa762a2ee185fb5491f",
+      "L0_transform": {
+        "definition": "[(V1+V2)/(2*s_C), (V2-V1)/s_W]",
+        "center_population_std": 8.419568612367186,
+        "width_population_std": 8.779007719505096,
+        "transform_matrix": [
+          [
+            0.05938546533911119,
+            0.05938546533911119
+          ],
+          [
+            -0.11390808983778564,
+            0.11390808983778564
+          ]
+        ],
+        "target_source": "L0_labels_only",
+        "scale_ddof": 0
+      },
+      "direct_transform_receipt": true,
+      "historical_rows": 3330,
+      "shared_rows_compared": 589,
+      "shared_rows_composition": "333 L0 plus deterministic 256 U; excludes all 416 validation rows",
+      "old_cw_dtype": "float32",
+      "new_cw_dtype": "float64",
+      "exact_equal": false,
+      "max_abs_difference": 7.62939453125e-06,
+      "mean_abs_difference": 8.23633460697982e-09,
+      "relative_frobenius_difference": 1.3406246615872322e-08,
+      "allclose_existing_repository_tolerance": true,
+      "tolerance": {
+        "rtol": 0.0002,
+        "atol": 2e-05
+      },
+      "finite": true,
+      "new_cw_cache_sha256": "37d0409714580a0a3925b87b391ede20a9ff26b7c47e1b843ab2b11f2583143a",
+      "new_cw_full_extraction_seconds": 25.910043208976276,
+      "max_elementwise_relative_difference_nonzero_old": 0.00034223134839151266,
+      "old_zero_elements_with_nonzero_new": 0,
+      "relative_error_definition": "Frobenius ||new-old||/||old||; elementwise max only over nonzero old entries, which can amplify cancellation",
+      "max_relative_error_coordinate": {
+        "canonical_index": 2854,
+        "sketch_column": 149,
+        "old_feature": -0.0001741647720336914,
+        "new_feature": -0.00017410516738891602,
+        "absolute_difference": 5.960464477539063e-08
+      }
+    },
+    {
+      "seed": 12203,
+      "budget": 333,
+      "kind": "historical_free_initial_bank",
+      "old_cache": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/runtime/seed_12203/free_llm32_scientist_v2/round_00/banks.npz",
+      "old_cache_sha256": "0a3943608f715fe05311e318825ccfdabc0339d3fce31235ac67caae1b049667",
+      "metadata": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/runtime/seed_12203/free_llm32_scientist_v2/round_00/banks.json",
+      "metadata_sha256": "3c625552b81e1986d92645e1b17381750e05242a2343188fbd1d105045449350",
+      "checkpoint_sha256": "114ba06d0fde3bce6c05f7ec2c642ed2b1c9b50a0a235c9bce06530d7bc9be5a",
+      "checkpoint_matches": true,
+      "L_U_ids_and_order_match": true,
+      "ordered_canonical_indices_match": true,
+      "dimension": 512,
+      "sketch_seed": 4012240,
+      "sketch_mapping_sha256": "a982ea46bf216d0e973d2470c98292c65d01841a6c2d70ad196d43a67fbb471d",
+      "L0_transform": {
+        "definition": "[(V1+V2)/(2*s_C), (V2-V1)/s_W]",
+        "center_population_std": 11.868307854400712,
+        "width_population_std": 10.08779630682477,
+        "transform_matrix": [
+          [
+            0.04212900492083228,
+            0.04212900492083228
+          ],
+          [
+            -0.09912967803716088,
+            0.09912967803716088
+          ]
+        ],
+        "target_source": "L0_labels_only",
+        "scale_ddof": 0
+      },
+      "direct_transform_receipt": false,
+      "historical_rows": 3330,
+      "shared_rows_compared": 589,
+      "shared_rows_composition": "333 L0 plus deterministic 256 U; excludes all 416 validation rows",
+      "old_cw_dtype": "float32",
+      "new_cw_dtype": "float64",
+      "exact_equal": false,
+      "max_abs_difference": 7.62939453125e-06,
+      "mean_abs_difference": 7.599212722584023e-09,
+      "relative_frobenius_difference": 1.2214181503598419e-08,
+      "allclose_existing_repository_tolerance": true,
+      "tolerance": {
+        "rtol": 0.0002,
+        "atol": 2e-05
+      },
+      "finite": true,
+      "new_cw_cache_sha256": "b97339cadcd7a71788a7a2ea6b7ec2aa6de0dcd90e1174864e8ff89d025331c9",
+      "new_cw_full_extraction_seconds": 29.136777291074395,
+      "max_elementwise_relative_difference_nonzero_old": 0.00022914757103574703,
+      "old_zero_elements_with_nonzero_new": 0,
+      "relative_error_definition": "Frobenius ||new-old||/||old||; elementwise max only over nonzero old entries, which can amplify cancellation",
+      "historical_protocol": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/protocol.json",
+      "historical_protocol_sha256": "8a1679469421fd74f61328b4ad9d7285c6e193c12613a1f2b2f1f493950fd061",
+      "bank_protocol_hash_matches_canonical_protocol": true,
+      "historical_context": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/runtime/seed_12203/context.json",
+      "historical_context_sha256": "104d23822f5dcd6426c75725a1c23ff2a403ed39a273c857b9c226fdd55734f2",
+      "same_preprocessing_and_normalization": true,
+      "sketch_and_transform_provenance": "source bridge; bank sidecar pins checkpoint/indices/protocol but does not repeat sketch or transform scalars",
+      "extra3_runner_hash_matches_frozen_protocol": true,
+      "L0_transform_provenance": "producer context derives center_width_transform only from its initial L0; same initial L0/state/checkpoint, source code bridge, and fresh589-row numerical agreement verified",
+      "max_relative_error_coordinate": {
+        "canonical_index": 2982,
+        "sketch_column": 68,
+        "old_feature": 0.0020809173583984375,
+        "new_feature": 0.0020813941955566406,
+        "absolute_difference": 4.76837158203125e-07
+      }
+    }
+  ],
+  "seeds_with_reusable_initial_cache": 5,
+  "shared_rows_recomputed_despite_available_cache": 2945,
+  "validation_rows_not_in_historical_caches": 2080,
+  "note_on_cost": "No estimated savings are claimed: each new state computed 1005 rows. Existing cache covers589; validation416 still needed. Per-state measured full CW extraction seconds are retained in rows.",
+  "labels_read": 0,
+  "test_truth_access_count": 0,
+  "new_gradient_computations": 0,
+  "core_or_results_modified": false,
+  "correction_overrides_frozen_flag": {
+    "field": "state.audit.historical_cw_available / representation_source_audit.states[*].historical_cw_available",
+    "frozen_value": false,
+    "interpretation": "early audit searched trajectory-owned LCMD cache only and overgeneralized; L333 has exact-state cross-directory CW caches for all five seeds",
+    "this_audit_overrides_for_budget": 333,
+    "frozen_core_cache_and_result_hashes_unchanged": true
+  },
+  "redundant_CW_rows": 2945,
+  "all20_state_CW_rows": 26820,
+  "redundant_CW_row_fraction": 0.10980611483967188,
+  "numerical_summary": {
+    "all_comparisons_bitwise_equal": false,
+    "max_absolute_difference": 7.62939453125e-06,
+    "max_relative_frobenius_difference": 1.368385194730862e-08,
+    "max_elementwise_relative_difference_nonzero_old": 0.005988023952095809,
+    "all_pass_existing_repository_tolerance": true
+  },
+  "extra3_producer_dependency_hash_checks": {
+    "src/qgeognn_al/active_learning_v2/llm_screen.py": {
+      "frozen_hash": "1c2cb06957c8fcade076e4bb79335519ff14037e51f4fddf683aebc4f7eecf83",
+      "current_hash": "1c2cb06957c8fcade076e4bb79335519ff14037e51f4fddf683aebc4f7eecf83",
+      "exact_file_match": true
+    },
+    "src/qgeognn_al/active_learning_v2/gradient_features.py": {
+      "frozen_hash": "ac0c2d36912efeb97eddeae3484fc601de1b5b3b94dd5e4570699b8d1c53b278",
+      "current_hash": "ac0c2d36912efeb97eddeae3484fc601de1b5b3b94dd5e4570699b8d1c53b278",
+      "exact_file_match": true
+    },
+    "src/qgeognn_al/active_learning_v2/gradient_transforms.py": {
+      "frozen_hash": "0ee6c707c15f3ad519056da27863ed51cfd1e0c260748770626e2536aa185e82",
+      "current_hash": "0ee6c707c15f3ad519056da27863ed51cfd1e0c260748770626e2536aa185e82",
+      "exact_file_match": true
+    },
+    "src/qgeognn_al/active_learning_v2/benchmark_protocol.py": {
+      "frozen_hash": "7b343227d021e1a5fd7ce3370032e45a05aebeb22a994dee2bd946257b213e72",
+      "current_hash": "7b343227d021e1a5fd7ce3370032e45a05aebeb22a994dee2bd946257b213e72",
+      "exact_file_match": true
+    },
+    "src/qgeognn_al/active_learning_v2/scientist_study.py": {
+      "frozen_hash": "5371e429f9d15db5c11c6e6842c08f5d4bbbc8361400004065e50a50eafdbed8",
+      "current_hash": "5371e429f9d15db5c11c6e6842c08f5d4bbbc8361400004065e50a50eafdbed8",
+      "exact_file_match": true
+    }
+  }
+}

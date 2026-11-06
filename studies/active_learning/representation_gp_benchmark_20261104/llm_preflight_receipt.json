@@ -1,0 +1,100 @@
+{
+  "encoder": {
+    "model": "Qwen/Qwen1.5-0.5B-Chat",
+    "model_type": "qwen2",
+    "model_commit": "4d14e384a4b037942bb3f3016665157c8bcb70ea",
+    "requested_revision": null,
+    "local_files_only": true,
+    "trust_remote_code": false,
+    "parameter_count": 463987712,
+    "hidden_size": 1024,
+    "model_dtype": "float32",
+    "output_dtype": "float64",
+    "device": "cpu",
+    "pooling": "last_hidden_state_attention_masked_mean",
+    "max_tokens": 512,
+    "truncation": false,
+    "padding_side": "right",
+    "chat_template": false,
+    "generate_calls": 0,
+    "frozen_parameters": true,
+    "load_seconds": 2.620056166080758,
+    "loading_info": {
+      "missing_keys": [],
+      "unexpected_keys": [
+        "lm_head.weight"
+      ],
+      "mismatched_keys": [],
+      "error_msgs": []
+    },
+    "model_kind": "chat_decoder_pretrained_hidden_state_exploratory",
+    "last_encoding": {
+      "count": 1954,
+      "tokens": 241037,
+      "token_min": 113,
+      "token_max": 144,
+      "seconds": 643.6519104999024,
+      "texts_sha256": "7e9eb0c7abfce733482006b9354dce62754ddda3c425004c27657b731efa07dd"
+    }
+  },
+  "encoding": {
+    "llm_smiles": {
+      "count": 217,
+      "tokens": 4109,
+      "token_min": 12,
+      "token_max": 38,
+      "seconds": 17.132830167072825,
+      "texts_sha256": "cecaf695edfdd6061ec32f914b476ad6fabf3bf8a83a332666967c32827c271f"
+    },
+    "llm_conditions": {
+      "count": 1954,
+      "tokens": 233221,
+      "token_min": 109,
+      "token_max": 140,
+      "seconds": 605.0262905000709,
+      "texts_sha256": "1e9c7287e10e0aded80471775bc63b4a308325e862b1a03f31fee82f4836f799"
+    },
+    "llm_template_b": {
+      "count": 1954,
+      "tokens": 241037,
+      "token_min": 113,
+      "token_max": 144,
+      "seconds": 643.6519104999024,
+      "texts_sha256": "7e9eb0c7abfce733482006b9354dce62754ddda3c425004c27657b731efa07dd"
+    }
+  },
+  "model_files": {
+    "config.json": {
+      "bytes": 661,
+      "sha256": "adac3bb8bf1b15c74312a2835e3796f6b352d817ff726960e1d5c2cd171da951"
+    },
+    "generation_config.json": {
+      "bytes": 206,
+      "sha256": "5cf6fb81bd473eeb55678afbaee79e8d5f8b6e9bc2f942c30ee94721a0a91945"
+    },
+    "merges.txt": {
+      "bytes": 1671839,
+      "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3"
+    },
+    "model.safetensors": {
+      "bytes": 1239173352,
+      "sha256": "72453a8ccb338811935ab95a3a6ffa86b586807bf5b3dc327f28b5389b5636e6"
+    },
+    "tokenizer.json": {
+      "bytes": 7028015,
+      "sha256": "f7c9b2dba4a296b1aa76c16a34b8225c0c118978400d4bb66bff0902d702f5b8"
+    },
+    "tokenizer_config.json": {
+      "bytes": 1287,
+      "sha256": "482bd979881423375ca5414e4e0d94cd7c5349dbb17fffd46b4d36d71e62a1bc"
+    },
+    "vocab.json": {
+      "bytes": 2776833,
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    }
+  },
+  "cache_sha256": "bcef085a5c88f74a4e13df355f711a37ccfa0cc14a68d5e2ee8d70726638d878",
+  "rows": 2017,
+  "no_download": true,
+  "paid_api_calls": 0
+}

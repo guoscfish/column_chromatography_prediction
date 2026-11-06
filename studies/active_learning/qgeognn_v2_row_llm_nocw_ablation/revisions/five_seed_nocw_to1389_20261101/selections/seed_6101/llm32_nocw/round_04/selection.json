@@ -1,0 +1,275 @@
+{
+  "type": "selection",
+  "packet_sha256": "fbeef1ca08ca9e4288b7a931f1439e7ffd6ee061a6e206e48b4fbd2585d83819",
+  "batch_strategy": "Select 32 experiments using the packet's fixed premeasurement predictions. Prioritize response curves around newly exposed failures, controlled loading contrasts, and structural analogs that distinguish competing explanations. Use chemical novelty and predicted quantile ranges as supporting evidence, while avoiding redundant catalog duplicates and blanket corrections based on polarity or historical error sign.",
+  "choices": [
+    {
+      "id": "07dbb8c9982caa472c1a",
+      "reason": "Measure m66 in pure EA at the same 111.4 mg loading as 49201b5817f204116f7f. Its historical 5/1 prediction missed V2 by 93.18 mL; this strong-solvent anchor determines whether that failure is localized to weaker elution conditions.",
+      "hypothesis_id": "N2_basic_topology"
+    },
+    {
+      "id": "4659b6752f23c0b85f08",
+      "reason": "Add m66 at 2/1 with loading and injection conditions held fixed. Together with the selected 0/1 point and measured 5/1 result 49201b5817f204116f7f, it tests where the pyridyl-ketone response rises sharply; the current prediction is 16.87/45.06 mL.",
+      "hypothesis_id": "N2_basic_topology"
+    },
+    {
+      "id": "0460dfc4e1747f0fc92c",
+      "reason": "Measure pyridyl ester m90 at 2/1 and 110.7 mg. This provides a structural comparison with the selected m66 2/1 point, testing transfer between ester and ketone substituents on a pyridine ring after the large m66 failure.",
+      "hypothesis_id": "N2_basic_topology"
+    },
+    {
+      "id": "855832bd4005ac7abdc6",
+      "reason": "Pair m90 5/1 with its selected 2/1 point at identical loading. Predictions rise from 13.84/40.23 to 33.75/87.64 mL; labels can establish whether the m66 correction transfers to this pyridyl ester or exaggerates its solvent response.",
+      "hypothesis_id": "N2_basic_topology"
+    },
+    {
+      "id": "d119d77f545c029deace",
+      "reason": "Extend m211 to 10/1 at the same 54.3 mg used in measured 2/1 record ecd17c7ea435a1e33f6b. This tests transfer from the steep quinoline responses in 9e3ce3497298084abd83 and 9cd02352c2ed7a3e2321 to a phenyl-substituted pyridine.",
+      "hypothesis_id": "N2_basic_topology"
+    },
+    {
+      "id": "6b7209c2e8154837a8c7",
+      "reason": "Introduce para-aminoacetophenone m36 at 2/1. Its aromatic NH2 environment contrasts with pyridyl nitrogen and with measured amino ester 70593725787c65a74951, testing whether nitrogen topology and carbonyl context are represented beyond HBA/HBD counts.",
+      "hypothesis_id": "N2_basic_topology"
+    },
+    {
+      "id": "62d7ea74ab73fa6214b4",
+      "reason": "Introduce secondary alcohol m60 at 5/1 and 97 mg. Its OH is separated from the phenyl ring, unlike benzylic m67; this establishes a baseline for the selected 10/1 point and tests transfer from 26ead7c5ee68643c421e and 5e784130c58b8175024e.",
+      "hypothesis_id": "N5_alcohol_context"
+    },
+    {
+      "id": "c352863d9fa4a8645481",
+      "reason": "Measure m60 at 10/1 with exactly the same loading conditions as its selected 5/1 point. The model predicts a large jump from 14.41/23.28 to 41.03/64.19 mL, a discriminating test of alcohol-environment transfer to a molecule absent from L_t.",
+      "hypothesis_id": "N5_alcohol_context"
+    },
+    {
+      "id": "b1fcf9bf2e03028d2ef8",
+      "reason": "Measure m205 at 1/1 and 49.5 mg, complementing measured 99 mg record 2b10c90b32f970e4b4c8. It also supplies a loading-matched anchor for the selected 5/1 experiment, separating alcohol solvent response from sample-amount effects.",
+      "hypothesis_id": "N5_alcohol_context"
+    },
+    {
+      "id": "7954bf73f74c7fbcecb2",
+      "reason": "Extend m205 to 5/1 at 49.5 mg. After the large historical underprediction in 91b6bda771851a5c78ac, the current predicted V2 is near the measured 2/1 finish despite weaker eluent; the selected 1/1 low-load anchor makes this plateau test interpretable.",
+      "hypothesis_id": "N5_alcohol_context"
+    },
+    {
+      "id": "17c1bb3be086a2b6ffec",
+      "reason": "Measure methoxyphenethyl alcohol m119 at 2/1 and 105.8 mg. Its existing observation 3f5051191caf6ab07337 is only at 0/1. This begins a matched response curve and tests transfer from the strongly loading-dependent methoxybenzyl alcohol records 71abc36775b6cce56da7 and e4fd83fb3852eb354a66.",
+      "hypothesis_id": "N5_alcohol_context"
+    },
+    {
+      "id": "776ee2c1e85ebde75168",
+      "reason": "Pair m119 at 5/1 with its selected 2/1 point at identical loading and injection conditions. The predicted 20.34/34.24 to 38.91/61.16 mL change tests how an extra methylene between aromatic ring and OH alters response relative to m120.",
+      "hypothesis_id": "N5_alcohol_context"
+    },
+    {
+      "id": "ad67d712133eac45ff64",
+      "reason": "Introduce alpha-hydroxy ester m99 at 2/1 and 100 mg. This missing OH-plus-ester combination tests whether the model can transfer donor-environment information to an adjacent carbonyl; it anchors the selected 5/1 point while holding the 1000 uL DCM injection fixed.",
+      "hypothesis_id": "N5_alcohol_context"
+    },
+    {
+      "id": "12ab195583f05b9aa177",
+      "reason": "Measure m99 at 5/1 under the same loading conditions as its selected 2/1 point. The relatively early 6.43/14.75 mL prediction tests whether the adjacent ester moderates the alcohol response or whether this uncovered combination requires a larger correction.",
+      "hypothesis_id": "N5_alcohol_context"
+    },
+    {
+      "id": "904fa4a17e429d0616f5",
+      "reason": "Complete the m81 5/1 loading series at 55.5 mg. Measured fefecd79dc057980f62c and a9500e468002e41eceeb finish at 18.57 and 9.23 mL at 111 and 166.5 mg, respectively; this label distinguishes a loading trend from an isolated short-finish observation.",
+      "hypothesis_id": "N3_loading_context"
+    },
+    {
+      "id": "390d6dfe33afc329fb17",
+      "reason": "Measure m81 at 10/1 and 166.5 mg. Comparison with same-ratio 111 mg record eb6c235e6ed90084bfc9 tests loading directly, while comparison with a9500e468002e41eceeb asks whether its early finish persists at a neighboring mobile-phase ratio.",
+      "hypothesis_id": "N3_loading_context"
+    },
+    {
+      "id": "5b706e17e8412d02342f",
+      "reason": "Measure m177 at 50/1 and 70.3 mg. At 20/1, aa43fe84c0d8c825fe58 and 5e276c1730fc0a9deba7 have dramatically different finishes at low and high loading. The new point tests whether low loading also shortens the interval at 50/1, against measured high-load b514312eda7950cdcf1c.",
+      "hypothesis_id": "N3_loading_context"
+    },
+    {
+      "id": "634f21e11a8442494ce3",
+      "reason": "Fill m178's 10/1 gap at 116.5 mg, holding all other recorded conditions fixed relative to its measured 5/1, 20/1 and 50/1 curve. Records 17ff889395addf7d6295, 855456da9ea892f7216b and 0c5c35afb3a24375c153 make this a useful transition-location experiment.",
+      "hypothesis_id": "N1_condition_curve"
+    },
+    {
+      "id": "5522a1ec1f8e39cedb13",
+      "reason": "Add m28 at 2/1 and 116.8 mg, matching the loading in high-error 10/1 record 351c17dfa8f46a8cb40a. This tests how early its aldehyde/ester response develops as EA fraction decreases, without confusing the comparison with sample amount.",
+      "hypothesis_id": "N1_condition_curve"
+    },
+    {
+      "id": "a1809a6c4c3ada20bcb0",
+      "reason": "Introduce cyclic beta-ketoester m94 at 5/1 and 117.4 mg. It connects measured acetoacetate families to an uncovered cyclopropyl environment and provides the baseline for a matched 20/1 experiment.",
+      "hypothesis_id": "N3_acceptor_endpoint"
+    },
+    {
+      "id": "e3a799d0fa90b649a157",
+      "reason": "Pair m94 at 20/1 with its selected 5/1 point at identical loading. Predictions move both endpoints substantially, unlike the nearly flat onset predicted for m81 and m168; measurement can distinguish transferable beta-ketoester response from an overly broad polycarbonyl correction.",
+      "hypothesis_id": "N3_acceptor_endpoint"
+    },
+    {
+      "id": "0b9a59526d7d4ce5f872",
+      "reason": "Extend fluorinated naphthyl diketone m166 to 50/1 at 150 mg. Its strong-solvent anchors 14d7f6fb3dda38f48fb9 and 6760820b54dccf5904f9 are consistent, but the weak-solvent prediction has broad quantile ranges. This tests the response beyond those anchors.",
+      "hypothesis_id": "N3_acceptor_endpoint"
+    },
+    {
+      "id": "fa6fd34875fdc7acf6c1",
+      "reason": "Measure phenyl analog m167 at 50/1 and the same 150 mg and DCM conditions as selected m166. Its measured 0/1 anchor bd4a842f0d21e901f024 permits a solvent-response comparison, while the pair tests the effect of adding a fused aromatic ring.",
+      "hypothesis_id": "N3_acceptor_endpoint"
+    },
+    {
+      "id": "8232ed63909910ce88f2",
+      "reason": "Add methoxybenzophenone m114 at 20/1 and 100 mg. It bridges measured 2/1 record a5583432158c4e0d0cbb and 50/1 record 44fcf641ccfa3b10a97c at the same loading, testing where onset and finish begin their large weak-solvent shift.",
+      "hypothesis_id": "N1_condition_curve"
+    },
+    {
+      "id": "b0cc544ceb575bae4069",
+      "reason": "Introduce acetylnaphthalene m40 at 10/1 and 112 mg as the baseline of a matched pair. Related aromatic ketones span very different measured responses, so this label tests whether fused-ring topology is represented independently of carbonyl count.",
+      "hypothesis_id": "N1_condition_curve"
+    },
+    {
+      "id": "b645df00945e594953a6",
+      "reason": "Pair m40 at 20/1 with its selected 10/1 point. The predicted onset rises from 9.49 to 26.72 mL; measured 20/1 ketones cb534927304d5c892100 and 5524670e4337370c2ef6 occupy very different regimes, making this a useful structural-transfer test.",
+      "hypothesis_id": "N1_condition_curve"
+    },
+    {
+      "id": "30aebe05b55e1e5bd900",
+      "reason": "Measure m76 at 1/1 and half the sample volume used in d7cc9292c7683a77b8ff. That observation had nearly coincident 15.41/15.44 mL endpoints; this controlled loading contrast tests whether the unusual behavior persists beyond the single acquired point.",
+      "hypothesis_id": "E1_ester_local"
+    },
+    {
+      "id": "40964ac3f659274451ef",
+      "reason": "Measure m76 at 2/1 with the same 132.9 mg and injection conditions as d7cc9292c7683a77b8ff. This tests whether the exceptional 1/1 behavior is localized in ratio, rather than imposing a smooth monotonic curve on an observed anomaly.",
+      "hypothesis_id": "E1_ester_local"
+    },
+    {
+      "id": "84837928991db29409c6",
+      "reason": "Measure methyl analog m93 at 1/1. Its current 13.65/14.08 mL prediction resembles the unusual ethyl-ester m76 observation, although measured m93 records 90d8a6d3f4fbe760dd4e and 933bc87d8ae9186a7803 are at other ratios. This directly tests potentially excessive analog transfer.",
+      "hypothesis_id": "E1_ester_local"
+    },
+    {
+      "id": "822acada514c54d41f68",
+      "reason": "Introduce nitro-only aromatic m201 at 50/1, with low observed-chemistry similarity of 0.393. Removing the carbonyl present in measured nitrocarbonyl families tests whether their endpoint corrections transfer to a simpler nitroaromatic or depend on combined functional groups.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "8a7e4cadaea654017cb4",
+      "reason": "Introduce nonpolar bromoterphenyl m3 at 50/1. This extends aromatic-shape coverage beyond measured m7 record 49774197068e5ae66f69 and bulky m0 record f6ee035f6a2a7082604a, checking low-onset endpoint prediction without adding another polar failure-family example.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "22fc04337abf53335eb8",
+      "reason": "Measure bromo carboxylic acid m45 at 2/1 with exactly the loading conditions of 0/1 observation fb031b748f1f5a8cc89e. The predicted earlier 3.29/5.78 mL endpoints under weaker eluent challenge the usual solvent-strength prior and add a sparse acid response contrast.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "N1_condition_curve",
+      "content": "PE/EA changes produce scaffold-specific endpoint responses; V1 and V2 need separate response representations, and intermediate ratios can locate transitions that endpoint anchors alone do not constrain.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "aed6d224edcb21e5d658",
+        "17ff889395addf7d6295",
+        "855456da9ea892f7216b",
+        "0c5c35afb3a24375c153"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched condition curves can teach transferable structure-condition interactions while avoiding a uniform solvent correction across aromatic carbonyl families.",
+      "next_discriminating_question": "Do m178 and m114 intermediate points interpolate smoothly, and does novel m40 show the predicted sharp onset change between 10/1 and 20/1?"
+    },
+    {
+      "id": "N2_basic_topology",
+      "content": "Ring-nitrogen scaffolds can show steep retention increases as EA fraction falls, but transfer between pyridyl carbonyls, phenylpyridines and quinolines depends on nitrogen environment and the rest of the structure.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "49201b5817f204116f7f",
+        "04a2e8ad27ca641a3a12",
+        "9e3ce3497298084abd83",
+        "1ae3618ec277b0463686",
+        "9cd02352c2ed7a3e2321"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The new m66 failure shows that corrections learned from other nitrogen-containing molecules did not prevent a major acquisition-time miss. Related curves can distinguish shared silica acid/base interaction features from scaffold-specific effects.",
+      "next_discriminating_question": "Where does m66's response rise between 0/1 and 5/1, does m90 follow it, and do m211 and aromatic NH2 compound m36 require different corrections?"
+    },
+    {
+      "id": "N3_loading_context",
+      "content": "Endpoint dependence on recorded loading amount is scaffold- and condition-dependent. Large matched contrasts need neighboring labels before they can be treated as transferable loading slopes or thresholds.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "71abc36775b6cce56da7",
+        "e4fd83fb3852eb354a66",
+        "fefecd79dc057980f62c",
+        "a9500e468002e41eceeb",
+        "aa43fe84c0d8c825fe58",
+        "5e276c1730fc0a9deba7",
+        "14d7f6fb3dda38f48fb9",
+        "6760820b54dccf5904f9"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Current predictions change little with sample amount despite some large measured contrasts. Additional controlled labels can establish when loading information is useful and when an isolated observation or missing context limits a deterministic explanation.",
+      "next_discriminating_question": "Does the m81 three-level 5/1 series support a loading trend, does that effect persist at 10/1, and does low-load m177 remain unusually early at 50/1?"
+    },
+    {
+      "id": "N5_alcohol_context",
+      "content": "Alcohol response depends on OH environment, aromatic spacing, neighboring functional groups and recorded conditions; HBD count alone does not explain the observed retention patterns.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "2b10c90b32f970e4b4c8",
+        "91b6bda771851a5c78ac",
+        "26ead7c5ee68643c421e",
+        "5e784130c58b8175024e",
+        "71abc36775b6cce56da7",
+        "e4fd83fb3852eb354a66"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched curves for an uncovered secondary alcohol, a methoxyphenethyl alcohol and an alpha-hydroxy ester test whether donor-environment features generalize beyond repeatedly measured benzylic alcohols.",
+      "next_discriminating_question": "Do m60, m119 and m99 follow their predicted response slopes, and does m205's apparent 2/1-to-5/1 plateau survive a loading-matched comparison?"
+    },
+    {
+      "id": "N3_acceptor_endpoint",
+      "content": "The earlier hypothesis that acceptor-rich scaffolds generally need an upward V2 correction at PE-rich conditions is too broad and remains weakened as a shared acquisition rule.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "0c5c35afb3a24375c153",
+        "351c17dfa8f46a8cb40a",
+        "1395836aef00d6a880b0"
+      ],
+      "contradicting_observed_ids": [
+        "aa43fe84c0d8c825fe58",
+        "a9500e468002e41eceeb",
+        "e82a87ee526fdd9b1e8d"
+      ],
+      "confidence": "low",
+      "status": "weakened",
+      "why_it_matters_for_model_learning": "Acquisition-time errors have both signs, including large V2 overpredictions. Labels should discriminate flat-onset diketones, beta-ketoesters and late-onset aromatic carbonyls rather than reinforce a common polarity correction.",
+      "next_discriminating_question": "Do matched m166/m167 weak-solvent labels and the novel m94 curve identify structural differences that explain which endpoints shift and in which direction?"
+    },
+    {
+      "id": "E1_ester_local",
+      "content": "The late, nearly coincident endpoints observed for m76 and m73 at 1/1 may be local structure-condition behavior; extending that pattern to other ester analogs remains untested.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "d7cc9292c7683a77b8ff",
+        "2cf789c87f7c6325c020"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A strong correction learned from an unusual single observation could propagate incorrectly across a large ester family. Loading, neighboring-ratio and close-analog labels offer complementary tests of that transfer.",
+      "next_discriminating_question": "Does m76 retain its exceptional 1/1 response at lower loading, does it diminish at 2/1, and does methyl analog m93 actually share the predicted 1/1 behavior?"
+    }
+  ],
+  "feedback_interpretation": "The latest outcomes redirect attention toward pyridyl carbonyls: m66 record 49201b5817f204116f7f had acquisition-time errors of -37.87/-93.18 mL, much larger than the routine aromatic checks. The m205 2/1 outcome also strengthens the need to test alcohol condition-response transfer. Conversely, m81 record a9500e468002e41eceeb and m168 record e82a87ee526fdd9b1e8d overpredicted V2 by 9.06 and 10.14 mL, weakening a blanket acceptor-rich underprediction hypothesis. Actual matched measurements also refine the loading interpretation: m81 and m120 show large contrasts, whereas m166 at 0/1, m204 at 1/1 and m96 at 5/1 have much smaller finish changes. Large historical errors alone do not establish loading sensitivity. The unexpected m76 1/1 result motivates local discrimination and a methyl-ester analog check; m93 is an alpha-bromo aliphatic ester. Throughout this plan, increasing PE/EA means decreasing EA fraction and weaker normal-phase elution. Historical errors are used as acquisition evidence, not asserted to be current-model residuals.",
+  "batch_rationale": "The batch combines six nitrogen-environment experiments, eight alcohol or hydroxy-ester experiments, three targeted loading tests, nine carbonyl response experiments, three ester-anomaly tests and three additional chemical-coverage checks. These groups arise from the supplied failures and missing relationships rather than fixed quotas. Matched pairs hold sample amount and injection conditions constant where possible; comparisons with measured anchors isolate loading in m81, m76 and m177. New scaffolds m36, m60, m94, m99, m40, m201 and m3 test whether learned corrections transfer across chemically meaningful changes. Intermediate conditions and lower-retention controls prevent the batch from merely extending the largest labels. Quantile ranges are treated as uncalibrated single-predictor evidence, especially where crossings occur. No duplicate structure-condition rows are selected. Together, the labels should improve endpoint-specific solvent response, structural representation and selective use of loading features across the Row-distribution, while acknowledging that missing experimental context may leave some unusual observations difficult to explain."
+}

@@ -1,0 +1,262 @@
+{
+  "type": "selection",
+  "packet_sha256": "1ebe5df48901545d2d5e5ca99cb227eb24e6f1906911548b1f91e4b08b478e59",
+  "batch_strategy": "Select 32 distinct supplied candidate IDs using targeted condition-response experiments, controlled loading contrasts, and chemically connected exploration. Prioritize uncovered relationships and suspicious endpoint behavior without treating quantile widths as calibrated epistemic uncertainty. The corrected batch and its supplied premeasurement predictions are frozen before any new label reveal. Measured-evidence IDs appear only in the typed hypothesis evidence lists.",
+  "choices": [
+    {
+      "id": "0b247863fd6e8aaf44d8",
+      "reason": "Measure cinnamic acid at 2/1 with a 100-uL sample and 2000-uL DCM loading. This fills the gap between its measured 1/1 and 5/1 conditions and discriminates competing explanations for their markedly different onset and finish patterns.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "ce14dd2481560a984aea",
+      "reason": "Nitrobenzophenone at 10/1 has predicted V1 of zero and V2 of 31.74 mL. This fills an important solvent-response gap between measured conditions and tests whether the model's very early onset is supported.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "aa43fe84c0d8c825fe58",
+      "reason": "Measure nitrobenzophenone at 20/1 and 70.3 mg, holding loading solvent and its volume fixed relative to the measured higher-load condition. Determine whether the broad interval persists when sample amount falls threefold; the predictor expects almost no change.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "e7b3f786a783fb44ea83",
+      "reason": "Anisole at 20/1 has predicted V1/V2 of approximately 11.13/10.71 mL. This endpoint inversion flags a useful test of solvent-response extrapolation for a common aromatic-ether motif, without establishing that a predictive error has occurred.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "d997636736faa38ac83a",
+      "reason": "Dodecyl acrylate in pure EA has predicted V1/V2 of approximately 8.13/8.05 mL. Measure this strong-solvent endpoint to test extrapolation for a highly lipophilic ester and resolve the predicted endpoint inversion.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "69b09343d0b9995c3ae4",
+      "reason": "Probe 2,6-dimethoxybenzaldehyde at 2/1 using 500 uL DCM. This tests the predicted collapse of its broad neighboring-condition interval. Its sample amount differs from the measured 1/1 anchor, so the result will constrain the combined recorded-condition response.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "067c9b96b35fefd28fdf",
+      "reason": "Chalcone at 1/1 is predicted to start at 13.91 mL, substantially later than at 10/1. Together with its selected 10/1 row, test whether this unusual response transfers across conjugated carbonyls or reflects an unsupported structural analogy.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "0dfdfd6dce2d3f41a427",
+      "reason": "Complete the fixed-loading chalcone contrast at 10/1, predicted at 3.81/21.41 mL. Measuring both ratios distinguishes changes in onset from changes in finish for an unobserved conjugated ketone.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "3f6b817d855e67b3b406",
+      "reason": "Dibenzalacetone at 1/1 has predicted onset of 27.09 mL. This is a strong extrapolation of the unusual conjugated-carbonyl response and provides a second scaffold on which to test that proposed relationship.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "7726f4a207a737256a86",
+      "reason": "Complete the fixed-loading dibenzalacetone contrast at 10/1, predicted at 3.01/24.00 mL. The paired labels test the large predicted onset reversal while allowing comparison with the parallel chalcone experiment.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "f82cfd3b57735b0ead3c",
+      "reason": "Explore diphenyl sulfoxide at 5/1. It is unobserved, with maximum observed similarity of 0.353. Its S=O interaction with silica may differ from carbonyl and ether interactions despite a small recorded TPSA, making this a useful representation-transfer test.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "d603d4af5fd62fa8b85e",
+      "reason": "Measure dimethyl acetylenedicarboxylate at 2/1, where predicted onset is only 1.22 mL. This unobserved electron-poor alkyne diester tests transfer within the substantial ester population.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "93f10a8edf06f7acae26",
+      "reason": "Pair the same alkyne diester at 20/1 with its selected 2/1 experiment, holding loading conditions fixed. The predicted 6.52/18.40 mL endpoint anchors its weak-solvent response and makes the novel-scaffold experiment interpretable as a local curve.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "7a3586b45c03832259f5",
+      "reason": "Add ethyl acetoacetate at 2/1. It is absent from observations but appears repeatedly in the pool. This establishes the stronger-solvent portion of a beta-ketoester response and connects to the measured methyl analogue.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "b29c3ac2de3ba2d8b5c9",
+      "reason": "Complete the ethyl-acetoacetate contrast at 10/1 with identical loading conditions. Its predicted finish is 29.63 mL. Two labels support transfer across beta-ketoesters while testing the new molecule's solvent response directly.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "1775390f94178c3c9974",
+      "reason": "Anchor the unobserved mesityl ketone at 5/1, predicted at 5.35/12.04 mL. Its two ortho methyl groups provide a focused test of carbonyl accessibility within the common aryl-ketone family.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "5830dbb35947aa6f58f0",
+      "reason": "Pair mesityl ketone at 50/1 with the same loading conditions. The model predicts earlier onset, 3.34 mL, but later finish, 33.77 mL. This tests whether steric shielding explains that endpoint split or the response is poorly extrapolated.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "71abc36775b6cce56da7",
+      "reason": "Measure para-methoxybenzyl alcohol at 5/1 and 55.65 mg as the lower member of a controlled twofold loading contrast. It also adds an unobserved primary-alcohol/ether combination connected to the measured benzyl-alcohol family.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "e4fd83fb3852eb354a66",
+      "reason": "Increase the same alcohol to 111.3 mg with PE/EA, DCM, and its 300-uL loading volume unchanged. Predicted endpoints are essentially identical to those of the lower-load row, making the pair informative about conditional loading effects.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "04a2e8ad27ca641a3a12",
+      "reason": "Explore methylquinoline at 5/1. No quinoline scaffold is measured, and maximum observed similarity is only 0.259. This tests how basic-ring environment changes retention beyond a nitrogen-count correction.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "1ae3618ec277b0463686",
+      "reason": "Add quinoline at 5/1 alongside methylquinoline. Their predicted finishes are nearly equal, approximately 27.4 mL. Their recorded loading solvents differ, so these labels test scaffold-specific transfer without being interpreted as a substitution-only contrast.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "989b2145455d703d3b6d",
+      "reason": "Measure the unobserved fused lactone at 10/1, predicted at 9.82/21.16 mL and maximum similarity 0.344. Alongside selected tetralone, test how a cyclic ester versus ketone environment changes both endpoints under closely comparable loading conditions.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "9ff75a89ec8d52e6f51c",
+      "reason": "Measure tetralone at 10/1. Although highly similar to an observed molecule, it has no direct labels. Together with the lactone experiment, it discriminates ring and functional-group environment effects within a broadly represented carbonyl family.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "73502a52708e4f9c2391",
+      "reason": "Add 3-phenyl-1-propanol at 10/1, predicted at 31.69/54.72 mL. Its accessible primary aliphatic OH expands donor-environment coverage and complements the selected secondary benzylic alcohol.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "9bc73e0c27d4d6b44abb",
+      "reason": "Measure para-amino ethyl benzoate at 5/1 with a 150-uL sample. This extends amino-ester coverage beyond the measured ortho and meta analogues and tests how substitution position affects accessible nitrogen and carbonyl interactions.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "2feb7d8e0a3566ddf97f",
+      "reason": "Measure para-aminobenzonitrile at 2/1 using the same recorded loading conditions as the measured meta isomer. This positional-isomer comparison tests electronic and geometric nitrogen effects without changing the supplied global descriptors.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "8a9121a5453cc56bc6d1",
+      "reason": "Explore bromomethylenedioxybenzene at 20/1 with a 150-uL sample, predicted at 15.63/24.04 mL. Its adjacent constrained ether oxygens connect to measured bromoanisole and bromobenzofuran chemistry while testing geometry beyond total polarity.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "351c17dfa8f46a8cb40a",
+      "reason": "Add acetoxybenzaldehyde at 10/1, predicted at 10.92/33.19 mL. This unobserved aldehyde/ester combination connects two large chemical families and tests whether their combined silica interactions are represented correctly.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "fb031b748f1f5a8cc89e",
+      "reason": "Explore 2-bromopropionic acid in pure EA, where predicted V1/V2 are inverted at approximately 3.09/2.93 mL. This adds an aliphatic carboxylic acid and tests whether the unusual cinnamic-acid response transfers too broadly.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "5e784130c58b8175024e",
+      "reason": "Measure secondary benzylic alcohol 1-phenyl-1-propanol at 10/1, predicted at 15.15/24.16 mL. Alongside the primary aliphatic alcohol, it teaches OH structural-environment effects while retaining the recorded density difference.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "074316ec711541809840",
+      "reason": "Add branched 2-ethylhexyl acrylate at 20/1. Its 132.75-mg loading closely matches a measured dodecyl-acrylate condition. Loading solvents differ, but this still tests transfer among bulky lipophilic esters with identical HBD/HBA/TPSA descriptors.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "c53330d840e277502386",
+      "reason": "Measure 3,5-dimethylbenzonitrile at 20/1, predicted at 6.61/29.59 mL. Its exposed nitrile contrasts with measured ortho-methylbenzonitrile chemistry and probes acceptor accessibility in an unobserved, low-similarity aromatic scaffold.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Unusually broad intervals and abrupt condition-dependent endpoint changes may require separate local response functions for V1 and V2. Their transferability to neighboring conditions remains uncertain.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "f90a5a5a54509c085ebd",
+        "1e775e7d8dcbf48fd6f8",
+        "5e276c1730fc0a9deba7",
+        "08812206a257481691c4",
+        "f4fb5c03b8e8996e75f6",
+        "e7ed7ca4a53258b73ba2"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Neighboring labels can establish where broad elution intervals persist and where interpolation from isolated observations is unreliable. Interval width itself is not predictive uncertainty.",
+      "next_discriminating_question": "Do cinnamic acid at 2/1, nitrobenzophenone at 10/1, and dimethoxybenzaldehyde at 2/1 support the predicted transitions in onset and finish?"
+    },
+    {
+      "id": "H2",
+      "content": "The high 1/1 onset predicted for chalcone and dibenzalacetone may be transfer from an unusual ethyl-cinnamate observation rather than a general conjugated-carbonyl response.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "2cf789c87f7c6325c020",
+        "e6dcf9d6f65fa598a38e"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "A response learned from one conjugated ester could affect many unsaturated-carbonyl rows. Parallel fixed-loading contrasts distinguish a transferable relationship from a molecule-specific exception.",
+      "next_discriminating_question": "Do both new conjugated ketones actually start later at 1/1 than at 10/1, as predicted?"
+    },
+    {
+      "id": "H3",
+      "content": "Sample amount can shift onset earlier and finish later in some chemical contexts, whereas many supplied predictions are nearly flat across loading. Controlled contrasts may teach a conditional loading effect rather than a universal correction.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "fd0fd67502640304b8fb",
+        "6c4ddf5ad1cf067b81ee",
+        "4d75c120ba1c4f0dae89",
+        "18d688363c7fa3da0609"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Loading varies throughout the candidate population. The supporting contrasts suggest that ignoring the density-times-volume feature could limit generalization, although experimental variation remains possible.",
+      "next_discriminating_question": "Does reducing nitrobenzophenone loading narrow its broad 20/1 interval, and does doubling methoxybenzyl-alcohol loading change either endpoint?"
+    },
+    {
+      "id": "H4",
+      "content": "Steric shielding of the mesityl-ketone carbonyl could reduce retention onset, but the predicted decrease in V1 from 5/1 to 50/1 while V2 rises strongly may instead be unsupported extrapolation.",
+      "basis": "mixed",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "Crowded and unhindered aromatic ketones share many descriptors. Resolving this response can improve how the graph representation distinguishes carbonyl accessibility.",
+      "next_discriminating_question": "At fixed loading, does mesityl ketone show earlier onset but later finish in the weaker mobile phase?"
+    },
+    {
+      "id": "H5",
+      "content": "Basic nitrogen may require scaffold- and position-dependent response modeling. A single correction for nitrogen count or TPSA may not transfer between pyridines, quinolines, amino esters, and amino nitriles.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "65f4f125b5e1f8137bd9",
+        "906bd247e050658f99d8",
+        "53a1acff30433cff819f",
+        "3aed7873d2fd1cf48684",
+        "9a9324fbb6b1e17e7743"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "The new ring systems and substitution patterns lack direct labels. These experiments add connected coverage of nitrogen environments with different potential silica interactions.",
+      "next_discriminating_question": "Are quinoline finishes near the predicted 27 mL at 5/1, and does the matched para/meta aminobenzonitrile comparison reveal a positional effect?"
+    },
+    {
+      "id": "H6",
+      "content": "Alcohol retention may depend strongly on OH structural environment and neighboring ether groups. Existing primary and tertiary alcohol records motivate this relationship but do not isolate steric effects from other structural and loading differences.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "f9f0f4e29dbd30c000ee",
+        "75232f4ee5de52a0499e",
+        "04ea307c7b7f3321cc20"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "Several unobserved alcohol scaffolds populate the pool. Labels across primary aliphatic, secondary benzylic, and ether-substituted primary alcohols can improve donor-environment transfer.",
+      "next_discriminating_question": "Do the new primary and secondary alcohols follow the predicted retention differences, and how does methoxybenzyl alcohol respond to loading?"
+    }
+  ],
+  "feedback_interpretation": "",
+  "batch_rationale": "The batch combines local diagnosis with connected chemical exploration. Fixed-loading contrasts for two conjugated ketones, an alkyne diester, ethyl acetoacetate, and mesityl ketone provide response information that isolated labels would not. The cinnamic-acid, nitrobenzophenone, and dimethoxybenzaldehyde experiments constrain abrupt endpoint patterns. Controlled amount contrasts test the predictor's nearly flat loading response. Other labels cover missing basic scaffolds, sulfoxide, cyclic carbonyl environments, alcohol environments, and acceptor accessibility. Exact-condition repeats and nearly identical loading variants were generally avoided unless they serve a defined contrast. Endpoint inversions are diagnostic flags, not proof of error, and no out-of-sample errors are available at round zero. The intended benefit is better structure-condition-loading transfer across the Row-distribution after retraining, rather than improved chromatographic performance of the selected experiments."
+}

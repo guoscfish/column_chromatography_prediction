@@ -1,0 +1,39 @@
+{
+  "schema_version": "numerical-critic-verification-v1",
+  "date": "2026-10-30",
+  "test_command": "/Users/fish/miniforge3/envs/chromatography/bin/python -m unittest discover -s studies/active_learning/verifiable_scientific_agent_20261030 -p test_numerical_critic.py -v",
+  "python": "3.11.14 | packaged by conda-forge | (main, Oct 22 2025, 22:56:31) [Clang 19.1.7 ]",
+  "numpy": "2.4.6",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "tests_run": 11,
+  "failures": 0,
+  "errors": 0,
+  "success": true,
+  "suite_seconds": 0.27533933403901756,
+  "metric_parity_reference": "studies/active_learning/free_lcmd_mechanism_diagnostics_20261029/geometry_analysis.py::geometry",
+  "metric_parity_count": 29,
+  "metric_parity_absolute_tolerance": 1e-11,
+  "mock": {
+    "synthetic": true,
+    "L_count": 8,
+    "U_count": 40,
+    "selected_count": 32,
+    "feature_dimension": 5,
+    "single_call_seconds": 0.002065667067654431,
+    "all_pairs_count": 496,
+    "scientific_control_count": 7,
+    "strict_loading_contrast_with_identical_features_preserved": true,
+    "performance_scope": "synthetic small input only; not a real candidate-pool benchmark"
+  },
+  "new_training": 0,
+  "new_llm_calls": 0,
+  "new_gradient_extractions": 0,
+  "new_label_requests": 0,
+  "real_prediction_tables_read": 0,
+  "test_truth_access_count": 0,
+  "hashes": {
+    "numerical_critic.py": "165231fc0de4d225565cb3483783de86f83f2db39f127283b64d7705c3719ee9",
+    "test_numerical_critic.py": "39dda42ed09974a2b2ac092bb9d0e672c1462094fe9ab4b2e9e01c98e991a5e4",
+    "NUMERICAL_CRITIC_INTERFACE.md": "3b746c8224ffbf7fe9c842a8beda4aa4212acedfeea35132f5149aa5b0e13e2f"
+  }
+}

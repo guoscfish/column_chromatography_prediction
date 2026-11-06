@@ -1,0 +1,497 @@
+{
+  "seed": 6101,
+  "method": "llm32_nocw",
+  "round": 24,
+  "batch_freeze_sha256": "81e56f6f6ddb8a8f8a47d807b8f80284524cccb85210dfd4c0f67206968eca10",
+  "records": [
+    {
+      "candidate_id": "066b241758142e7a7356",
+      "pred_V1_ml": 5.517358779907227,
+      "pred_V2_ml": 9.427321434020996,
+      "source": "LLM",
+      "true_V1_ml": 6.208333492279053,
+      "true_V2_ml": 8.491666793823242,
+      "error_V1_ml": -0.6909747123718262,
+      "error_V2_ml": 0.9356546401977539,
+      "reason": "m155 at 10/1 DCM is a donor-free heavy-atom control that anchors ordinary retention while the batch targets polar tails; it complements neutral measured anchors b1af54c32bec21b8bee1 and d076e21bdb650d4e367e.",
+      "hypothesis_id": "H24_baseline"
+    },
+    {
+      "candidate_id": "79cb1738d945317e5bfa",
+      "pred_V1_ml": 17.220901489257812,
+      "pred_V2_ml": 44.86083984375,
+      "source": "LLM",
+      "true_V1_ml": 20.683332443237305,
+      "true_V2_ml": 45.58333206176758,
+      "error_V1_ml": -3.462430953979492,
+      "error_V2_ml": -0.7224922180175781,
+      "reason": "m11 at 20/1 DCM probes the donor-bearing oxime high-ratio regime and tests whether the V2 tail seen in measured m11 records c3c4fdce502f6d3576dc and 2f48e798c7917fb7d2ae persists across loading context.",
+      "hypothesis_id": "H24_polar"
+    },
+    {
+      "candidate_id": "07e90c9f30b819291d42",
+      "pred_V1_ml": 5.306446075439453,
+      "pred_V2_ml": 8.07459545135498,
+      "source": "LLM",
+      "true_V1_ml": 4.7833333015441895,
+      "true_V2_ml": 7.849999904632568,
+      "error_V1_ml": 0.5231127738952637,
+      "error_V2_ml": 0.2245955467224121,
+      "reason": "m18 at 10/1 DCM is a long-chain acrylate control that separates hydrophobic size and ester effects from silica donor interactions; it complements the measured m18 loading points d997636736faa38ac83a and c1050421bf89c585cb4c.",
+      "hypothesis_id": "H24_loading"
+    },
+    {
+      "candidate_id": "553ad963219026be5c60",
+      "pred_V1_ml": 4.634567737579346,
+      "pred_V2_ml": 10.139028549194336,
+      "source": "LLM",
+      "true_V1_ml": 6.616666793823242,
+      "true_V2_ml": 9.550000190734863,
+      "error_V1_ml": -1.9820990562438965,
+      "error_V2_ml": 0.5890283584594727,
+      "reason": "m148 at 0/1 PE supplies a low-retention neutral aromatic anchor, useful for preserving the lower end of the Row-distribution during polar-tail repair.",
+      "hypothesis_id": "H24_baseline"
+    },
+    {
+      "candidate_id": "47046691058568380f85",
+      "pred_V1_ml": 5.5965189933776855,
+      "pred_V2_ml": 14.936347961425781,
+      "source": "LLM",
+      "true_V1_ml": 5.199999809265137,
+      "true_V2_ml": 14.225000381469727,
+      "error_V1_ml": 0.39651918411254883,
+      "error_V2_ml": 0.7113475799560547,
+      "reason": "m142 at 5/1 PE samples a small aromatic aldehyde at intermediate strength, extending the aldehyde family beyond measured high-ratio point ca28db10589bf3ee4600 and the m142 condition records.",
+      "hypothesis_id": "H24_polar"
+    },
+    {
+      "candidate_id": "bfe9ce431b45599fd5e6",
+      "pred_V1_ml": 8.293498039245605,
+      "pred_V2_ml": 14.157276153564453,
+      "source": "LLM",
+      "true_V1_ml": 5.84499979019165,
+      "true_V2_ml": 14.550000190734863,
+      "error_V1_ml": 2.448498249053955,
+      "error_V2_ml": -0.39272403717041016,
+      "reason": "m55 at 40/1 PE probes a high-ratio ester response in a donor-free scaffold, helping distinguish generic ratio effects from the oxygen-rich multifunctional failures represented by measured 351c17dfa8f46a8cb40.",
+      "hypothesis_id": "H24_condition"
+    },
+    {
+      "candidate_id": "a775926fce57b3bf9ec1",
+      "pred_V1_ml": 21.482261657714844,
+      "pred_V2_ml": 35.3795280456543,
+      "source": "LLM",
+      "true_V1_ml": 20.875,
+      "true_V2_ml": 30.183332443237305,
+      "error_V1_ml": 0.6072616577148438,
+      "error_V2_ml": 5.196195602416992,
+      "reason": "m119 at 2/1 DCM targets an oxygenated aromatic alcohol/ether scaffold with a broad predicted response; it extends measured m119 failures c32caf65e93924aeb179 and 776ee2c1e85ebde75168 into an intermediate condition.",
+      "hypothesis_id": "H24_polar"
+    },
+    {
+      "candidate_id": "af999f675454be1dbd4d",
+      "pred_V1_ml": 5.943586349487305,
+      "pred_V2_ml": 10.300324440002441,
+      "source": "LLM",
+      "true_V1_ml": 5.0916666984558105,
+      "true_V2_ml": 8.675000190734863,
+      "error_V1_ml": 0.8519196510314941,
+      "error_V2_ml": 1.6253242492675781,
+      "reason": "m97 at 1/1 PE provides a moderate-ratio ester loading anchor, allowing comparison with measured high-ratio m97 behavior c7e762106a9ec0d9ea75 and ca7faa605430c91c04cc.",
+      "hypothesis_id": "H24_loading"
+    },
+    {
+      "candidate_id": "d3047299bd8817ee87dd",
+      "pred_V1_ml": 24.9693546295166,
+      "pred_V2_ml": 37.293914794921875,
+      "source": "LLM",
+      "true_V1_ml": 25.133333206176758,
+      "true_V2_ml": 36.04999923706055,
+      "error_V1_ml": -0.16397857666015625,
+      "error_V2_ml": 1.2439155578613281,
+      "reason": "m110 at 50/1 DCM samples a highly oxygenated aromatic ether at high ratio and tests whether methoxy-rich scaffolds develop the same V2 tail as measured oxygenated rows such as 69b09343d0b9995c3ae4.",
+      "hypothesis_id": "H24_polar"
+    },
+    {
+      "candidate_id": "5c7ee6cbeaa27e2e1572",
+      "pred_V1_ml": 5.161067485809326,
+      "pred_V2_ml": 9.292652130126953,
+      "source": "LLM",
+      "true_V1_ml": 5.4666666984558105,
+      "true_V2_ml": 10.074999809265137,
+      "error_V1_ml": -0.3055992126464844,
+      "error_V2_ml": -0.7823476791381836,
+      "reason": "m154 at 5/1 DCM is a donor-free heavy-atom control at moderate strength, helping constrain the neutral baseline against which high-ratio polar responses are learned.",
+      "hypothesis_id": "H24_baseline"
+    },
+    {
+      "candidate_id": "7edab67bc020beb2b623",
+      "pred_V1_ml": 5.4522385597229,
+      "pred_V2_ml": 8.232400894165039,
+      "source": "LLM",
+      "true_V1_ml": 4.125,
+      "true_V2_ml": 7.099999904632568,
+      "error_V1_ml": 1.3272385597229004,
+      "error_V2_ml": 1.1324009895324707,
+      "reason": "m79 at 0/1 DCM is a weak-solvent ester baseline with little structural complexity, useful for separating ordinary carbonyl retention from donor-driven tails.",
+      "hypothesis_id": "H24_baseline"
+    },
+    {
+      "candidate_id": "fca76818a51e7fb90fa9",
+      "pred_V1_ml": 6.638130187988281,
+      "pred_V2_ml": 15.664444923400879,
+      "source": "LLM",
+      "true_V1_ml": 6.933333396911621,
+      "true_V2_ml": 17.566667556762695,
+      "error_V1_ml": -0.29520320892333984,
+      "error_V2_ml": -1.9022226333618164,
+      "reason": "m43 at 10/1 DCM tests a halogenated aromatic ketone condition response and provides a neutral carbonyl comparison for the measured high-ratio carbonyl failures in 4e93e36ab850bab3d594 and a4ed6ac3d69b91c56aca.",
+      "hypothesis_id": "H24_baseline"
+    },
+    {
+      "candidate_id": "909edd19830874acd4fa",
+      "pred_V1_ml": 5.848557472229004,
+      "pred_V2_ml": 17.427621841430664,
+      "source": "LLM",
+      "true_V1_ml": 6.141666889190674,
+      "true_V2_ml": 18.299999237060547,
+      "error_V1_ml": -0.2931094169616699,
+      "error_V2_ml": -0.8723773956298828,
+      "reason": "m12 at 50/1 PE probes a donor-free fused hydrocarbon at high ratio, testing whether a broad finish is specific to polar chemistry or can also appear in neutral aromatic scaffolds.",
+      "hypothesis_id": "H24_baseline"
+    },
+    {
+      "candidate_id": "bb8ba62a93aefa66d0f6",
+      "pred_V1_ml": 5.8935227394104,
+      "pred_V2_ml": 12.79945182800293,
+      "source": "LLM",
+      "true_V1_ml": 4.858333110809326,
+      "true_V2_ml": 13.858333587646484,
+      "error_V1_ml": 1.0351896286010742,
+      "error_V2_ml": -1.0588817596435547,
+      "reason": "m170 at 5/1 DCM is a simple chlorinated ketone control at intermediate ratio, helping calibrate carbonyl and halogen effects separately from multifunctional oxygenated compounds.",
+      "hypothesis_id": "H24_baseline"
+    },
+    {
+      "candidate_id": "aa3ac48b626bc54d5dc6",
+      "pred_V1_ml": 20.814247131347656,
+      "pred_V2_ml": 32.342735290527344,
+      "source": "LLM",
+      "true_V1_ml": 4.791666507720947,
+      "true_V2_ml": 15.658333778381348,
+      "error_V1_ml": 16.02258062362671,
+      "error_V2_ml": 16.684401512145996,
+      "reason": "m124 at 50/1 DCM supplies the high-ratio endpoint of a local m124 condition curve, complementing the selected 1/1 and 2/1 m124 points and testing nonlinear ratio response.",
+      "hypothesis_id": "H24_condition"
+    },
+    {
+      "candidate_id": "92614816a3b3942bf123",
+      "pred_V1_ml": 11.81772232055664,
+      "pred_V2_ml": 28.767724990844727,
+      "source": "LLM",
+      "true_V1_ml": 18.774999618530273,
+      "true_V2_ml": 31.308332443237305,
+      "error_V1_ml": -6.957277297973633,
+      "error_V2_ml": -2.540607452392578,
+      "reason": "m44 at 50/1 DCM is a neutral aromatic ketone high-ratio control that tests whether large predicted intervals arise without donor or multifunctional heteroatom interactions.",
+      "hypothesis_id": "H24_baseline"
+    },
+    {
+      "candidate_id": "ca796e1439984837b964",
+      "pred_V1_ml": 5.549283027648926,
+      "pred_V2_ml": 9.46877670288086,
+      "source": "LLM",
+      "true_V1_ml": 4.7833333015441895,
+      "true_V2_ml": 8.083333015441895,
+      "error_V1_ml": 0.7659497261047363,
+      "error_V2_ml": 1.3854436874389648,
+      "reason": "m136 at 2/1 PE is a simple neutral alkyl halide/aromatic anchor at weak-to-intermediate strength, protecting common low-retention chemistry from overcorrection.",
+      "hypothesis_id": "H24_baseline"
+    },
+    {
+      "candidate_id": "185b059eb1bfc13b1497",
+      "pred_V1_ml": 10.945987701416016,
+      "pred_V2_ml": 16.55109977722168,
+      "source": "LLM",
+      "true_V1_ml": 9.766666412353516,
+      "true_V2_ml": 20.04166603088379,
+      "error_V1_ml": 1.1793212890625,
+      "error_V2_ml": -3.4905662536621094,
+      "reason": "m213 at 50/1 PE probes a donor-free diaryl ether scaffold at high ratio, testing whether aromatic ether and molecular size produce a distinct V2 response from donor-bearing oxygenated rows.",
+      "hypothesis_id": "H24_hetero"
+    },
+    {
+      "candidate_id": "0c06011beeb8325569a8",
+      "pred_V1_ml": 8.735918045043945,
+      "pred_V2_ml": 15.683733940124512,
+      "source": "LLM",
+      "true_V1_ml": 7.816666603088379,
+      "true_V2_ml": 20.950000762939453,
+      "error_V1_ml": 0.9192514419555664,
+      "error_V2_ml": -5.266266822814941,
+      "reason": "m87 at 10/1 DCM is an oxygenated aromatic ester/ether row that tests transfer of the polar response without an H-bond donor, complementing measured donor-bearing failures c620129610cfe348f024 and a8b7c07187ebd2ff5c92.",
+      "hypothesis_id": "H24_polar"
+    },
+    {
+      "candidate_id": "6553b9607d6093f257c7",
+      "pred_V1_ml": 3.5558383464813232,
+      "pred_V2_ml": 9.357982635498047,
+      "source": "LLM",
+      "true_V1_ml": 4.066666603088379,
+      "true_V2_ml": 10.708333015441895,
+      "error_V1_ml": -0.5108282566070557,
+      "error_V2_ml": -1.3503503799438477,
+      "reason": "m62 at 0/1 PE probes a boron-containing acceptor scaffold under weak solvent, testing whether heteroatom effects remain modest outside high-ratio conditions.",
+      "hypothesis_id": "H24_hetero"
+    },
+    {
+      "candidate_id": "f6650af9162e038d4108",
+      "pred_V1_ml": 3.4682607650756836,
+      "pred_V2_ml": 10.66220474243164,
+      "source": "LLM",
+      "true_V1_ml": 5.900000095367432,
+      "true_V2_ml": 17.608333587646484,
+      "error_V1_ml": -2.431739330291748,
+      "error_V2_ml": -6.946128845214844,
+      "reason": "m92 at 2/1 EA provides a lower-strength polycarbonyl ester point that can be compared with measured high-ratio EA behavior 1844eab177de5d01fab6 and 9bbd36c8b484b5609808.",
+      "hypothesis_id": "H24_condition"
+    },
+    {
+      "candidate_id": "0fe72027fade7dd9a78e",
+      "pred_V1_ml": 4.739752769470215,
+      "pred_V2_ml": 7.5828166007995605,
+      "source": "LLM",
+      "true_V1_ml": 4.316666603088379,
+      "true_V2_ml": 7.558333396911621,
+      "error_V1_ml": 0.42308616638183594,
+      "error_V2_ml": 0.024483203887939453,
+      "reason": "m54 at 1/1 DCM is a compact neutral ketone anchor, useful for learning ordinary endpoint width before adding more high-ratio polar labels.",
+      "hypothesis_id": "H24_baseline"
+    },
+    {
+      "candidate_id": "ce103e949b7ef5641a1e",
+      "pred_V1_ml": 5.9069013595581055,
+      "pred_V2_ml": 13.079401969909668,
+      "source": "LLM",
+      "true_V1_ml": 5.858333110809326,
+      "true_V2_ml": 15.283333778381348,
+      "error_V1_ml": 0.0485682487487793,
+      "error_V2_ml": -2.2039318084716797,
+      "reason": "m104 at 5/1 DCM probes an amino benzoate with both donor and acceptor character, testing whether donor-bearing ester behavior transfers from measured aniline and multifunctional rows.",
+      "hypothesis_id": "H24_polar"
+    },
+    {
+      "candidate_id": "0cb699c71da5f69feb44",
+      "pred_V1_ml": 7.401105880737305,
+      "pred_V2_ml": 13.599481582641602,
+      "source": "LLM",
+      "true_V1_ml": 5.9083333015441895,
+      "true_V2_ml": 10.324999809265137,
+      "error_V1_ml": 1.4927725791931152,
+      "error_V2_ml": 3.274481773376465,
+      "reason": "A second m124 point at 2/1 DCM creates a meaningful local condition-response curve with the selected 1/1 and 50/1 points; it can distinguish smooth ratio response from a high-ratio transition.",
+      "hypothesis_id": "H24_condition"
+    },
+    {
+      "candidate_id": "d559ea9713a01142b49d",
+      "pred_V1_ml": 4.201192378997803,
+      "pred_V2_ml": 14.406949043273926,
+      "source": "LLM",
+      "true_V1_ml": 3.924999952316284,
+      "true_V2_ml": 10.774999618530273,
+      "error_V1_ml": 0.27619242668151855,
+      "error_V2_ml": 3.6319494247436523,
+      "reason": "m195 at 0/1 DCM is a weak-solvent aromatic aldehyde anchor, testing whether aldehyde-associated V2 tails require stronger mobile phase as suggested by measured aldehyde failures 351c17dfa8f46a8cb40 and ca28db10589bf3ee4600.",
+      "hypothesis_id": "H24_polar"
+    },
+    {
+      "candidate_id": "773e4e81304d36b364b8",
+      "pred_V1_ml": 6.328780174255371,
+      "pred_V2_ml": 12.524394035339355,
+      "source": "LLM",
+      "true_V1_ml": 5.650000095367432,
+      "true_V2_ml": 9.508333206176758,
+      "error_V1_ml": 0.6787800788879395,
+      "error_V2_ml": 3.0160608291625977,
+      "reason": "The m124 1/1 DCM point completes a three-condition m124 response curve with the selected 2/1 and 50/1 measurements, providing high-value interaction information for an oxygenated fused aromatic scaffold.",
+      "hypothesis_id": "H24_condition"
+    },
+    {
+      "candidate_id": "9139c55b31e4e4b0e062",
+      "pred_V1_ml": 7.935416221618652,
+      "pred_V2_ml": 10.877091407775879,
+      "source": "LLM",
+      "true_V1_ml": 7.541666507720947,
+      "true_V2_ml": 10.183333396911621,
+      "error_V1_ml": 0.3937497138977051,
+      "error_V2_ml": 0.6937580108642578,
+      "reason": "m203 at 2/1 DCM probes a tertiary alcohol scaffold with a compact predicted interval, testing whether donor effects transfer to a sterically shielded alcohol relative to measured donor-bearing failures.",
+      "hypothesis_id": "H24_polar"
+    },
+    {
+      "candidate_id": "b24f66ff77974f8ba6e1",
+      "pred_V1_ml": 13.373602867126465,
+      "pred_V2_ml": 31.114673614501953,
+      "source": "LLM",
+      "true_V1_ml": 39.58333206176758,
+      "true_V2_ml": 65.6500015258789,
+      "error_V1_ml": -26.209729194641113,
+      "error_V2_ml": -34.53532791137695,
+      "reason": "m45 at 20/1 DCM targets the acidic, donor-bearing bromocarboxylic scaffold and directly extends the unusual condition response seen in measured 53a9a2469f8d4ead8732 and 129036e0bccc4ff7e848.",
+      "hypothesis_id": "H24_condition"
+    },
+    {
+      "candidate_id": "e76b02e4aa682c4153d0",
+      "pred_V1_ml": 4.678452968597412,
+      "pred_V2_ml": 20.744068145751953,
+      "source": "LLM",
+      "true_V1_ml": 7.566666603088379,
+      "true_V2_ml": 16.516666412353516,
+      "error_V1_ml": -2.888213634490967,
+      "error_V2_ml": 4.2274017333984375,
+      "reason": "m191 at 1/1 DCM probes a multifunctional aldehyde scaffold at moderate conditions, testing whether the large V2 deviations of oxygenated rows persist outside high-ratio experiments.",
+      "hypothesis_id": "H24_polar"
+    },
+    {
+      "candidate_id": "8a52c99147f17c2d2807",
+      "pred_V1_ml": 5.355113506317139,
+      "pred_V2_ml": 15.181404113769531,
+      "source": "LLM",
+      "true_V1_ml": 4.7166666984558105,
+      "true_V2_ml": 10.133333206176758,
+      "error_V1_ml": 0.6384468078613281,
+      "error_V2_ml": 5.048070907592773,
+      "reason": "m7 at 5/1 DCM is a neutral fused heavy-atom control at intermediate ratio, adding coverage near measured neutral rows and checking ordinary V2 interval behavior.",
+      "hypothesis_id": "H24_baseline"
+    },
+    {
+      "candidate_id": "db26f51c86dc787ac633",
+      "pred_V1_ml": 9.215991973876953,
+      "pred_V2_ml": 28.41472053527832,
+      "source": "LLM",
+      "true_V1_ml": 9.166666984558105,
+      "true_V2_ml": 27.066667556762695,
+      "error_V1_ml": 0.049324989318847656,
+      "error_V2_ml": 1.348052978515625,
+      "reason": "m182 at 20/1 DCM probes a fused ketone scaffold at high ratio, testing whether a late endpoint is driven by generic aromatic carbonyl response or by polar multifunctionality.",
+      "hypothesis_id": "H24_condition"
+    },
+    {
+      "candidate_id": "d035281432e410405550",
+      "pred_V1_ml": 16.99724769592285,
+      "pred_V2_ml": 32.458892822265625,
+      "source": "LLM",
+      "true_V1_ml": 18.524999618530273,
+      "true_V2_ml": 37.03333282470703,
+      "error_V1_ml": -1.5277519226074219,
+      "error_V2_ml": -4.574440002441406,
+      "reason": "m114 at 20/1 DCM targets a polyaromatic oxygenated ketone/ether region associated with measured high-ratio V2 failures 44fcf641ccfa3b10a97c and 0cf0d36290765378ae8d.",
+      "hypothesis_id": "H24_polar"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H24_polar",
+      "content": "Oxygen-rich, donor-bearing, aldehyde, and multifunctional scaffolds remain a major generalization failure region, with V2 errors often larger than V1 errors.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "49201b5817f204116f7f",
+        "1b1a9ec85268aa66d327",
+        "351c17dfa8f46a8cb40a",
+        "9e94f0a4a224512b06cc",
+        "10f14f6ee69ba06bbe68",
+        "69b09343d0b9995c3ae4",
+        "0c5c35afb3a24375c153",
+        "a7bc3fb68bdecbbe086f"
+      ],
+      "contradicting_observed_ids": [
+        "c620129610cfe348f024",
+        "a8b7c07187ebd2ff5c92"
+      ],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Labels across aldehydes, alcohols, amino esters, and multifunctional acceptors can teach endpoint-specific silica interactions instead of one global polarity correction.",
+      "next_discriminating_question": "Do oxygenated residuals remain mainly in V2 after matching ratio and loading across unrelated scaffolds?"
+    },
+    {
+      "id": "H24_condition",
+      "content": "Condition response is scaffold dependent; ratio changes may move both endpoints, selectively broaden V2, or produce nonlinear transitions.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "7383949c431e18f39597",
+        "8e7636d7a60a6058305a",
+        "5d6d4ac0c1dfacbde53d",
+        "2cc7c8ae52cdb25ca284",
+        "b2ef457b41d15be60154",
+        "54a3411006f7051f1053",
+        "9c74e865c47b45a09229"
+      ],
+      "contradicting_observed_ids": [
+        "b1af54c32bec21b8bee1",
+        "d076e21bdb650d4e367e"
+      ],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched condition points, especially the m124 curve, provide direct interaction labels that structure descriptors alone cannot supply.",
+      "next_discriminating_question": "Do intermediate-ratio measurements interpolate smoothly between observed anchors or reveal abrupt scaffold-specific V2 transitions?"
+    },
+    {
+      "id": "H24_loading",
+      "content": "Loading amount and loading-solvent context can affect retention and interval width, with direction and magnitude depending on scaffold and mobile phase.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "71f5df8c7d7e88d1afce",
+        "5d6d4ac0c1dfacbde53d",
+        "542f504077b58e444bc2",
+        "4d0055bdff0f507c778b"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Loading-sensitive labels help the model distinguish sample-loading effects from chemical retention effects and improve transfer to unusual loading rows.",
+      "next_discriminating_question": "Within a scaffold and ratio, does loading primarily shift V1, broaden V2, or change both endpoints together?"
+    },
+    {
+      "id": "H24_hetero",
+      "content": "Nitrogen, nitrile, sulfur, and donor interactions transfer only partly across scaffolds; positional and structural context can dominate heteroatom counts.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "49201b5817f204116f7f",
+        "9c9d41f1f5f006de9819",
+        "fe66b2381d33aa2ea3a8",
+        "36d971e3231c54486d05",
+        "ad833f34f6b91872362d"
+      ],
+      "contradicting_observed_ids": [
+        "c620129610cfe348f024",
+        "a8b7c07187ebd2ff5c92"
+      ],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The batch samples pyridyl, nitrile, sulfur, boron, and donor-bearing scaffolds to improve context-sensitive transfer across uncovered molecules.",
+      "next_discriminating_question": "Are remaining heteroatom failures driven primarily by scaffold identity or by condition interaction?"
+    },
+    {
+      "id": "H24_baseline",
+      "content": "Neutral aromatics, simple carbonyls, and heavy-atom compounds provide a relatively stable common response that should be preserved while repairing polar tails.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "b1af54c32bec21b8bee1",
+        "d076e21bdb650d4e367e",
+        "380e1e6e22f1e66a0963",
+        "290e3b1b716d87069937",
+        "f4fd9dc02cc082b1dccd"
+      ],
+      "contradicting_observed_ids": [
+        "3d5a3094cb10eee37b37",
+        "91b6bda771851a5c78ac"
+      ],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Neutral controls anchor the common Row-distribution and reduce the risk that rare polar-tail labels distort ordinary V1/V2 predictions.",
+      "next_discriminating_question": "Can one neutral baseline response cover ratios and molecular sizes, or are high-ratio neutral exceptions systematic?"
+    }
+  ],
+  "feedback_interpretation": "Recent measurements reinforced scaffold-specific condition response. Weak-solvent m181 b2ef457b41d15be60154 had a measured V2 of 7.96 mL versus a premeasurement prediction of 20.06 mL, while high-ratio m181 2cc7c8ae52cdb25ca284 was much closer. The m174 point dfd15398154ac2f524d5 was also close, whereas high-ratio m174 9c74e865c47b45a09229 and several m72 records retained large V2 tails. This weakens any universal late-endpoint correction and motivates intermediate-ratio curves, loading contrasts, and multiple chemically distinct polar probes.",
+  "batch_rationale": "The batch contains a three-point m124 condition curve, high-ratio aromatic and carbonyl controls, donor-bearing aldehyde and ester rows, and heteroatom probes spanning nitrile, sulfur, boron, and amino functionality. Several neutral aromatic and heavy-atom controls anchor the common response. Together these experiments repair the dominant oxygenated and heteroatom failure regions while teaching condition-scaffold interactions and preserving generalization across ordinary Row-distribution chemistry."
+}

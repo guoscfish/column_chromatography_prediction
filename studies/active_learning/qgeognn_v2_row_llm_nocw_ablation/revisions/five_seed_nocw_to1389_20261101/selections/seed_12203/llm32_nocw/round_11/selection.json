@@ -1,0 +1,289 @@
+{
+  "type": "selection",
+  "packet_sha256": "4cdff70a4769082d2655dd0e54f76de268c971baeecea3691cc3d70e3b4bcf0c",
+  "batch_strategy": "Freeze these 32 IDs with their supplied current-model predictions. Use matched solvent and loading contrasts to investigate endpoint-specific failures, especially conflicting nitrobenzophenone records and loading-sensitive completion. Extend several sparsely measured structure-condition curves to test where corrections should transfer. Historical acquisition errors guide questions but are not treated as current residuals; quantile widths are supplementary evidence rather than calibrated epistemic uncertainty.",
+  "choices": [
+    {
+      "id": "ce14dd2481560a984aea",
+      "reason": "m177 at 10/1, 100 ul tests whether the compact 50/1 result at this amount (4862e2fb71344ce16021, 5.27/7.31 mL) is localized to that solvent regime. Together with measured 2/1 bd76c7bdcd3681374617 and the selected 150-ul counterpart, it probes the nearly amount-invariant 10/1 forecasts without imposing a monotonic loading law.",
+      "hypothesis_id": "H_NITRO11"
+    },
+    {
+      "id": "aef5cafc63ca445e92fa",
+      "reason": "m177 at 10/1, 150 ul locates completion growth before measured 20/1 and 50/1 at the same amount, which finished at 57.02 and 81.30 mL (5e276c1730fc0a9deba7, b514312eda7950cdcf1c). The supplied forecast is 4.30/20.00 mL. The observed table confirms that this condition remains unmeasured despite its appearance in an earlier stored rationale.",
+      "hypothesis_id": "H_NITRO11"
+    },
+    {
+      "id": "3e69cf586f3eb0f0fa8c",
+      "reason": "m193 at 5/1, 50 ul begins a fixed-loading intermediate pair between measured 2/1 f64ebc218e6ab29d7edc, 7.38/16.92 mL, and 20/1 a5f9179bfb146ad70953, 43.17/78.53 mL. It tests whether completion starts increasing before the large onset transition in this para-nitroaldehyde.",
+      "hypothesis_id": "H_NITRO11"
+    },
+    {
+      "id": "a01a137fa48c1391b9e7",
+      "reason": "m193 at 10/1, 50 ul completes the selected 5/10 response pair. Its 20.91/39.07 mL forecast places substantial growth before measured 20/1 a5f9179bfb146ad70953. Comparison with selected ortho-isomer m198 tests transition placement, while retaining their different density-derived amounts and DCM plug volumes.",
+      "hypothesis_id": "H_NITRO11"
+    },
+    {
+      "id": "c6bd64a77e94e93e5018",
+      "reason": "m198 at 10/1, 50 ul supplies an amount contrast to fcb9019ffbdb889489f7, measured at 100 ul as 14.90/35.72 mL, and connects to the same-loading 20/1 result cdaf95461fe3b3d80075. The modest measured 20/1 amount contrast makes this a useful check against transferring m177's irregular loading pattern across nitrocarbonyl scaffolds.",
+      "hypothesis_id": "H_NITRO11"
+    },
+    {
+      "id": "822acada514c54d41f68",
+      "reason": "m201 at 50/1, 100 ul tests weak-solvent extrapolation for a nitroarene without a carbonyl. Measured 10/1 and 20/1 at 50 ul remain comparatively early (1d2bc3f5c63f14f60fe3, d6faa7e77464f5f9a34b). The forecast rises to 13.77/29.06 mL. This label tests the limits of nitrocarbonyl transfer, with the amount change kept explicit.",
+      "hypothesis_id": "H_NITRO11"
+    },
+    {
+      "id": "e8185e062559aff5c99e",
+      "reason": "m194 at 1/1, 150 ul asks whether the long completion observed at 2/1 at this amount (2bb48a2862bf80c30a36, 28.18 mL) is already present in stronger solvent. Measured 1/1 at 50 ul was compact (c0094343ab6bb16bc58b). It helps locate the solvent dependence of the recorded loading association.",
+      "hypothesis_id": "H_AMOUNT11"
+    },
+    {
+      "id": "3f59bb6766ef6551502f",
+      "reason": "m194 at 5/1, 150 ul completes a matched 1/2/5 curve with the selected 1/1 point and measured 2bb48a2862bf80c30a36. It also completes the 5/1 amount series with c393010c592b487413e2 and 39815ababe97d7acc107. The label distinguishes persistence of longer completion from a smaller amount effect as solvent weakens.",
+      "hypothesis_id": "H_AMOUNT11"
+    },
+    {
+      "id": "cb446680f62351d087a9",
+      "reason": "m202 at 10/1, 150 ul supplies the third amount after 50-ul 7de812bda21b4dfe46dc measured 14.79/21.41 mL and 100-ul 902937db42f82f467718 measured 35.08/70.35 mL. Its intermediate forecast, 20.29/36.80 mL, could reflect smoothing of a conditional change. This is a direct test of how the loading feature should represent this scaffold.",
+      "hypothesis_id": "H_AMOUNT11"
+    },
+    {
+      "id": "b51b5dbcd2a38b174973",
+      "reason": "m90 at 5/1, 150 ul contrasts with measured 100-ul 855832bd4005ac7abdc6, 30.71/60.60 mL, and joins measured 10/1 at 150 ul (c76d0420b34df595c0c9). It tests whether the current 23.29/51.05 mL forecast captures the pyridyl ester's amount response before its steep solvent transition.",
+      "hypothesis_id": "H_AMOUNT11"
+    },
+    {
+      "id": "6d21e9ec887b3408c612",
+      "reason": "m19 at 2/1, 50 ul completes an amount series with 304fb0fdb486ae4b7a07 and 906bd247e050658f99d8. Those higher-amount records have similar completion but different onset. This tertiary aminoester provides a useful boundary on how loading effects learned from m202 or m212 should transfer to another basic scaffold.",
+      "hypothesis_id": "H_AMOUNT11"
+    },
+    {
+      "id": "a5f9f0327623c4752e2e",
+      "reason": "m120 at 2/1, 150 ul connects measured 1/1 and 5/1 at the same amount (880646809d9f015053f6, 20913a7c2077b80b7351). The latter has early onset but completion at 72.41 mL, whereas low-loading 5/1 has much later onset (71abc36775b6cce56da7). This intermediate asks whether endpoint decoupling begins before 5/1.",
+      "hypothesis_id": "H_AMOUNT11"
+    },
+    {
+      "id": "f96cee9775323fbf1d8b",
+      "reason": "m107 at 2/1, 100 ul fills the controlled solvent gap between 60b7eed7a46a03b366b2 at 1/1 and d1172a49fca1e196a59f at 5/1. It also contrasts directly with measured 2/1 at 150 ul, 769f1d04efb22c05cfdf. This separates transition placement from the amount dependence recently seen mainly in onset at 5/1.",
+      "hypothesis_id": "H_BETA11"
+    },
+    {
+      "id": "ce11189a0e59d1798306",
+      "reason": "m81 at 10/1, 50 ul tests whether the compact 10/1 completion recorded at 150 ul (7d402b3fad455f06fe68) transfers to lower amount. At 50 ul, measured 5/1 and 50/1 finish at 18.80 and 16.83 mL (904c7849feb1c686924a, f4a4fc4d6e4dea59b061). This constrains an irregular response that differs sharply from delayed m78 and m107.",
+      "hypothesis_id": "H_BETA11"
+    },
+    {
+      "id": "26c1e0e617e6dbe06ef7",
+      "reason": "m91 at 5/1, 100 ul tests a sparsely anchored activated diester curve. Its predicted completion, 7.36 mL, is below measured 2/1 completion of 9.17 mL (02ddeed8a16d3adf3e28). Paired with selected 20/1, it distinguishes a genuinely early regime from inappropriate transfer of compact diester behavior.",
+      "hypothesis_id": "H_BETA11"
+    },
+    {
+      "id": "93f10a8edf06f7acae26",
+      "reason": "m91 at 20/1, 100 ul supplies the weak-solvent side of the selected fixed-loading pair. The forecast retains early onset but increases completion to 17.51 mL. With 02ddeed8a16d3adf3e28, the pair tests endpoint-specific growth in an acceptor arrangement not resolved by the saturated malonate observations.",
+      "hypothesis_id": "H_BETA11"
+    },
+    {
+      "id": "8143c4fff6f999b7ad0e",
+      "reason": "m127 at 20/1, 50 ul starts a lower-loading 20/50 curve. Higher-loading 20/1 and 50/1 records have unusually early onset and nonmonotone completion (ebdeaba52880c7eade16, c82167c626a1495ef750). This label tests whether that pattern is localized to high loading or also affects the ortho-methoxy ketone's lower-loading response.",
+      "hypothesis_id": "H_ECAR11"
+    },
+    {
+      "id": "52b9af4df1f1e7cd4d9b",
+      "reason": "m127 at 50/1, 50 ul completes the selected fixed-loading pair and directly contrasts with c82167c626a1495ef750 at 150 ul, measured as 1.01/23.71 mL. The forecast is 10.91/28.64 mL. Measuring both selected ratios can distinguish amount-associated onset changes from a misplaced solvent response.",
+      "hypothesis_id": "H_ECAR11"
+    },
+    {
+      "id": "9aaa9e876dd61f679e7d",
+      "reason": "m115 at 5/1, 150 ul provides an amount contrast to cfc3cd7290e349d095d4, measured at 100 ul as 13.98/30.66 mL, and anchors the selected 20/1 extension. It makes the para-methoxy ketone curve interpretable without assuming the unusual m127 records transfer between positional environments.",
+      "hypothesis_id": "H_ECAR11"
+    },
+    {
+      "id": "122fbec0df9ecf1c5d89",
+      "reason": "m115 at 20/1, 150 ul completes the selected solvent-only extension. Its forecast, 20.91/44.93 mL, tests how much onset and completion grow beyond the measured 5/1 region (cfc3cd7290e349d095d4). Together with m127, it informs substitution-context transfer while preserving the different within-molecule loading curves.",
+      "hypothesis_id": "H_ECAR11"
+    },
+    {
+      "id": "59b54ad3a60a52cc2b2c",
+      "reason": "m159 at 20/1, 150 ul connects measured 10/1 at the same amount (79ff49052bce33597828) to the selected 50/1 point. It also contrasts with 100-ul 20/1 a738b1f204da6fcfd385, 21.33/51.94 mL. This tests whether the modest amount difference at 10/1 persists through the onset transition.",
+      "hypothesis_id": "H_TRANS11"
+    },
+    {
+      "id": "1395836aef00d6a880b0",
+      "reason": "m159 at 50/1, 150 ul completes the selected 20/50 curve and contrasts with a17bcdddcf0799baeee2 at 100 ul, measured as 57.88/117.93 mL. The current 49.06/100.35 mL forecast tests transfer of that delayed boundary across amount, rather than assuming the historical severe underestimate remains unchanged.",
+      "hypothesis_id": "H_TRANS11"
+    },
+    {
+      "id": "b0802294da4fd71d0f9d",
+      "reason": "m191 at 10/1, 50 ul contrasts with measured 100-ul bae9d67e095423d8edd2, 27.27/61.62 mL. The latest 5/1 result at 150 ul (316b7260106904f99ae8) showed more completion growth than forecast. This label tests whether the dialdehyde's transition transfers across amounts while keeping that comparison distinct from a solvent-only curve.",
+      "hypothesis_id": "H_TRANS11"
+    },
+    {
+      "id": "be82391d6b3e742f1f26",
+      "reason": "m28 at 5/1, 50 ul supplies a direct amount contrast to 050e2fab4b407ea058cb, measured at 150 ul as 10.65/42.39 mL, and joins same-loading 10/1 db7f9ffa50eb931613f6. It tests whether completion growth before the major onset increase is robust across amounts in this acetoxy aldehyde.",
+      "hypothesis_id": "H_TRANS11"
+    },
+    {
+      "id": "3cd0aa35793392d15513",
+      "reason": "m98 at 20/1, 50 ul begins a matched extension from measured 10/1 6c79b254471fec29c482, 9.88/19.17 mL. Its 13.38/25.62 mL forecast places only modest growth at this ratio. The selected 50/1 point can locate the subsequent rise for a naphthyl acetate ester.",
+      "hypothesis_id": "H_TRANS11"
+    },
+    {
+      "id": "c80022254967f6a925f3",
+      "reason": "m98 at 50/1, 50 ul completes the selected fixed-loading curve and contrasts with measured 100-ul 25fcfe22a4504f391482, 27.65/51.24 mL. It tests whether the predicted large 20-to-50/1 increase is correctly placed and whether the boundary transfers across amount in this fused aromatic ester.",
+      "hypothesis_id": "H_TRANS11"
+    },
+    {
+      "id": "91b6bda771851a5c78ac",
+      "reason": "m205 at 2/1, 150 ul connects measured same-amount 1/1 1aceeb0ee0419209d1c7 to the selected 5/1 point. It also contrasts with 100-ul c973d4c257be9ef08216, 27.63/51.49 mL. This tests the early part of the naphthylethanol transition after its previously missed delayed response was learned.",
+      "hypothesis_id": "H_DONOR11"
+    },
+    {
+      "id": "e8f592c469b2f3c136d8",
+      "reason": "m205 at 5/1, 150 ul completes the selected 2/5 curve and contrasts with 48853fd78c77153b963a at 100 ul, measured as 51.43/98.38 mL. The forecast is 46.84/88.31 mL. This tests whether amount effects remain modest through a strong alcohol response, limiting transfer of the much larger m120 onset contrast.",
+      "hypothesis_id": "H_DONOR11"
+    },
+    {
+      "id": "7155ede91e7e3232862a",
+      "reason": "m106 at 10/1, 100 ul extends the measured 5/1 anchor 8b556440cbbd8224f6ff, 11.47/23.00 mL, under unchanged loading conditions. The forecast grows only slightly to 12.56/25.78 mL. Paired with 20/1, it tests a predicted plateau for a flexible ether separated from an aryl ketone.",
+      "hypothesis_id": "H_ECAR11"
+    },
+    {
+      "id": "b1c5816f929ef59f5a87",
+      "reason": "m106 at 20/1, 100 ul completes the selected intermediate curve. Its 14.84/30.31 mL forecast tests whether modest solvent sensitivity beyond 8b556440cbbd8224f6ff is supported or whether growth was compressed. This extends ether-carbonyl coverage beyond the directly methoxy-substituted aromatic ketones.",
+      "hypothesis_id": "H_ECAR11"
+    },
+    {
+      "id": "b66aa101a244885dd587",
+      "reason": "m208 at 20/1, 150 ul tests a phenol response beyond measured 10/1 at 50 ul (e9e7a737df389d5fcc13, 16.52/27.41 mL). The selected m209 point asks whether their similar measured 10/1 endpoints continue into weaker solvent. Different sample masses and loading plugs remain explicit covariates rather than a controlled structural substitution.",
+      "hypothesis_id": "H_DONOR11"
+    },
+    {
+      "id": "29b39881584c4fec1c58",
+      "reason": "m209 at 20/1, 150 ul contrasts directly with 50-ul 1b4be0410f927930d56e, 26.92/53.89 mL, and connects to same-amount 50/1 80f546c47198fa7c6dbf, 30.59/85.64 mL. It tests whether later completion grows with little further onset change and whether that relationship transfers across amounts.",
+      "hypothesis_id": "H_DONOR11"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H_NITRO11",
+      "content": "Compact m177 behavior is localized within an irregular recorded structure-condition response, rather than a persistent low-loading regime. Its nonmonotone amount contrasts cannot support one smooth loading correction. Nitroaldehydes and nitroarenes may require different endpoint-response relationships, and unrecorded variability remains an alternative explanation for the m177 pattern.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "aa43fe84c0d8c825fe58",
+        "5b706e17e8412d02342f",
+        "4862e2fb71344ce16021",
+        "b514312eda7950cdcf1c",
+        "5442611ea6789d42bc86",
+        "cdaf95461fe3b3d80075",
+        "163874b97308a1ea2507",
+        "d6faa7e77464f5f9a34b"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The largest latest failure was an excessive completion prediction for m177 at 100 ul, while other amounts remained much later. New matched points can constrain which condition relationships should transfer and prevent an indiscriminate nitro-family adjustment.",
+      "next_discriminating_question": "Does m177 remain compact at 100 ul at 10/1, where does long completion begin at 150 ul, and do nitroaldehyde intermediates and the nitroarene extension support distinct response shapes?"
+    },
+    {
+      "id": "H_AMOUNT11",
+      "content": "Recorded loading associations depend on scaffold, solvent ratio, and endpoint. The similar m194 completion volumes at 100 and 150 ul at 2/1 are consistent with a change concentrated between 50 and 100 ul; m202 shows a large amount contrast at 10/1 despite similar 5/1 labels. These patterns do not establish a causal or universal amount law.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "2bd4f8787a951ef0ee04",
+        "66c6a533f485d5277f2f",
+        "2bb48a2862bf80c30a36",
+        "7de812bda21b4dfe46dc",
+        "902937db42f82f467718",
+        "4f88870ad666191b8ea7",
+        "86258f5c8ffdb874521f",
+        "252c027cf5a42b92c953"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Many candidate predictions barely change with density-times-volume loading. Targeted amount contrasts can teach conditional sensitivity while examples with smaller changes can limit overcorrection across the Row-distribution.",
+      "next_discriminating_question": "Where does m194's longer completion emerge along its 1/2/5 curve, what does the third m202 amount reveal, and how far do these relationships transfer to basic esters and methoxybenzyl alcohol?"
+    },
+    {
+      "id": "H_BETA11",
+      "content": "Acceptor arrangement and surrounding structure distinguish beta-ketoester and diester response curves beyond acceptor count. Measured m107 and m78 show delayed regimes that do not transfer to compact weak-solvent m81 or m80. The sparse m91 curve and the amount dependence of m81's intermediate response remain unresolved.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "c6924324ddd95f249df6",
+        "d1172a49fca1e196a59f",
+        "61771d230b285babe4b6",
+        "f4a4fc4d6e4dea59b061",
+        "57646b9484b03f4076bb",
+        "7d402b3fad455f06fe68",
+        "37c15d90032e66347ed6",
+        "02ddeed8a16d3adf3e28"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "These motifs occur in several rows with very different onset and completion behavior. Labels at controlled intermediate conditions can improve structural transfer without assigning an unmeasured tautomeric or adsorption mechanism.",
+      "next_discriminating_question": "Does m107's matched 2/1 label locate a consistent transition, does low-loading m81 retain its compact intermediate regime, and is m91's predicted early 5/1 response followed by completion growth at 20/1?"
+    },
+    {
+      "id": "H_ECAR11",
+      "content": "The joint environment of an ether and carbonyl, including aromatic substitution position or flexible separation, may determine solvent response more usefully than ether count alone. The m127 high-loading onset anomaly may be localized, and neither pure-ether observations nor a para-methoxy ketone curve establish its lower-loading behavior.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "c82167c626a1495ef750",
+        "ebdeaba52880c7eade16",
+        "cfc3cd7290e349d095d4",
+        "8b556440cbbd8224f6ff",
+        "0007449b058916cdcad1",
+        "19e5d078bc0eb8a91e1e",
+        "7bfad75485e830b6d460"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Recent pure-ether overpredictions show the risk of transferring a large weak-solvent increase broadly. Matched curves on ether-carbonyl scaffolds can learn where that transfer should resume, weaken, or affect the endpoints differently.",
+      "next_discriminating_question": "Do low-loading m127 endpoints reproduce its high-loading pattern, does m115 show a different 5-to-20/1 response, and is the predicted mild m106 intermediate response supported?"
+    },
+    {
+      "id": "H_TRANS11",
+      "content": "Onset and completion transitions need not occur at the same solvent ratio in aromatic carbonyl compounds. The lower-ratio completion growth in m28 and m159 does not justify shifting both endpoints by a common offset. Transfer of transition placement to other amounts, dialdehydes, and fused aromatic esters remains open.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "b05a4e8db42ce35cc958",
+        "050e2fab4b407ea058cb",
+        "0dccaa29989ef4956786",
+        "58394a71418a9623e18a",
+        "79ff49052bce33597828",
+        "a738b1f204da6fcfd385",
+        "316b7260106904f99ae8",
+        "bae9d67e095423d8edd2"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Intermediate labels distinguish transition location from endpoint offsets and loading effects. This can improve interpolation among common carbonyl-containing rows after boundary predictions have already changed through retraining.",
+      "next_discriminating_question": "Do the selected m159, m28, m191, and m98 points preserve the measured separation between completion growth and major onset growth, and which relationships change with amount?"
+    },
+    {
+      "id": "H_DONOR11",
+      "content": "The solvent response of aryl hydrogen-bond donors depends on OH context and aromatic attachment, with loading associations that may differ between alcohols and phenols. Strong delayed m205 behavior and the m208/m209 phenol curves provide useful comparisons, but their different masses and loading plugs prevent a causal structural interpretation.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "1aceeb0ee0419209d1c7",
+        "c973d4c257be9ef08216",
+        "48853fd78c77153b963a",
+        "e9e7a737df389d5fcc13",
+        "fe7d7af2c919facfe5f5",
+        "1b4be0410f927930d56e",
+        "80f546c47198fa7c6dbf"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "These labels test whether learned donor-related retention and amount effects generalize across alcohol and phenol environments instead of spreading the large m120 onset contrast to all donors.",
+      "next_discriminating_question": "Does m205 retain a similar 2-to-5/1 transition at higher amount, and do m208 and m209 develop different completion responses at 20/1 after their similar measured 10/1 endpoints?"
+    }
+  ],
+  "feedback_interpretation": "The latest measurements weaken simple loading and ether-transfer explanations. For m177 at 50/1, completion was 59.88, 7.31, and 81.30 mL at 50, 100, and 150 ul, respectively; onset also differed. The 100-ul acquisition forecast overestimated V2 by 67.52 mL. This rejects both persistence of the compact low-loading exception and a monotonic amount-expansion interpretation. I also correct a memory annotation using the observed table: aef4c70d74081b04c15e is m122 at 2/1 and 50 ul, not m177 at 10/1 and 150 ul. The latter therefore remains a useful unmeasured condition. The new m198 20/1 amount contrast was much smaller, arguing against transferring m177's pattern across nitrocarbonyls. For m194, 150-ul completion at 2/1 closely matched 100 ul and remained above 50 ul; m212's middle amount also resembled its higher amount. Conversely, m75's 10/1 completion contrast was modest despite its much larger 50/1 contrast. These outcomes favor local solvent-by-loading questions. The m202 10/1 low-loading result was far earlier than its acquisition forecast and its 100-ul counterpart, making a third amount especially informative. Pure-ether predictions again transferred too much delay: m6 remained early at both 20/1 and 50/1, m8 stayed compact at 50/1, and m110 intermediates were earlier than forecast. Their current predictions have already changed, so I shift attention toward ether-carbonyl context rather than repeatedly sampling the repaired pure-ether boundaries. The large predicted m164 strong-solvent reversal collapsed to similarly early labels, and the predicted m95 5-to-10/1 completion reversal was not observed. I therefore reduce emphasis on those specific forecast anomalies. Recent m28, m191, m107, and m198 outcomes still support learning transition placement separately for onset and completion, without assuming their historical errors persist in the current model.",
+  "batch_rationale": "The batch combines failure investigation with controlled extensions of unresolved response curves. The nitro experiments distinguish localized m177 irregularity from transferable nitroaldehyde transitions and test the limits of transfer to a nitroarene without a carbonyl. The m194 curve, third m202 amount, and basic-ester and alcohol contrasts investigate where loading matters, while retaining examples where its effect may be modest. Beta-ketoester and diester experiments test structural distinctions that previously produced both severe underprediction and overprediction. Ether-carbonyl curves follow the latest rejection of broad pure-ether delay transfer and ask more specific questions about substitution environment and functional-group separation. The m159, m28, m191, and m98 experiments locate transitions and test their transfer across amount; donor experiments extend those questions to alcohol and phenol environments. Multiple rows for a molecule form interpretable local experiments rather than redundant repetitions, and all selected condition tuples are distinct within the batch. Cross-molecule comparisons retain differences in density-derived amount and loading solvent or plug volume. This allocation may improve overall Row accuracy by teaching conditional structure-response relationships and their exceptions, rather than merely adding large-volume labels. Elution-interval width is treated as an observed response property, not prediction uncertainty; unexplained contrasts remain subject to experimental variability and missing metadata."
+}

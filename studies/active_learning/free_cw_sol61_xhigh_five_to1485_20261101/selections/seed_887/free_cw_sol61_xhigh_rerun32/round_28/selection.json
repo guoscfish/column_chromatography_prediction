@@ -1,0 +1,268 @@
+{
+  "type": "selection",
+  "packet_sha256": "3ea0bc3aa6c9205a979dcd5d078eb76fa63b4f1e89d5e9e3850b7b3812049b51",
+  "batch_strategy": "Measure linked solvent-response and loading contrasts that can repair endpoint-specific transfer errors. Test remaining strong-eluent prediction reversals, fill informative gaps in scaffold-specific response curves, and include one deliberate repeated condition to distinguish an amount relationship from record variability.",
+  "choices": [
+    {
+      "id": "3f6b817d855e67b3b406",
+      "reason": "m164 at 1/1 and 100 uL is predicted at 10.45/26.05 mL, later than its measured 5/1 result in 9f450a70d44f4384353f. Together with the selected 2/1 condition and measured pure-EA anchor 5df546d9e2f2a29dfc89, this tests whether its raised strong-eluent baseline resembles the recently confirmed m53 prediction failure.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "cb729a03dac0230812b1",
+      "reason": "m164 at 2/1 and 100 uL is predicted at 8.04/18.50 mL. The matched selected 1/1 point tests the predicted decrease in both endpoints as PE increases, while the measured 5/1 condition in 9f450a70d44f4384353f anchors the other side. These labels discriminate a real local reversal from model interpolation error.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "067c9b96b35fefd28fdf",
+      "reason": "m165 at 1/1 and 100 uL is predicted at 7.15/18.47 mL. Its onset prediction exceeds the measured 5/1 onset in 9e0497d20614ebedf8ed. Paired with 2/1 and the selected m164 series, it tests whether the questionable baseline transfers across related conjugated ketones with different substitution around the carbonyl.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "bb18fe197ad7e24c5ed1",
+      "reason": "m165 at 2/1 and 100 uL is predicted at 6.81/16.17 mL. Holding loading fixed against selected 1/1 gives a clean local contrast, with measured pure EA in 0bdd638e906bf11a00cb and 5/1 in 9e0497d20614ebedf8ed supplying boundaries. This can teach whether onset and finish require different solvent-response corrections.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "4ec77f604fa08f281ef7",
+      "reason": "m53 at 10/1 and 100 uL is predicted at 9.46/22.37 mL. It fills the remaining fixed-loading gap between measured 5/1 in 2e181a70e997f2b6d728 and recent 20/1 in 6e17f8e15aa8fdd6a9ea. This tests response curvature after the strong-eluent measurements corrected the earlier baseline hypothesis.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "cf5c7a2e1940e3c09dd5",
+      "reason": "m183 at 50/1 and 100 uL is predicted at 28.60/43.45 mL and has the highest supplied CW distance percentile. Its measured 20/1 result in eb8fe82f34df6bf3ff38 is 17.72/28.73 mL. This extension tests weak-eluent growth for a nonconjugated aldehyde and its transfer relationship to the selected unsaturated aldehyde curve.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "975d484a29fb5011f336",
+      "reason": "m176 at 50/1 and 150 uL is predicted at 14.11/33.74 mL. The same-loading 20/1 measurement in 09dd7a16716e6f168fd6 retains an early onset with a later finish. This tests whether weaker eluent begins delaying onset for the chlorinated diaryl ketone, contrasting with measured early-onset diaryl ketones such as c060c367e4e5bf6955cb.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "ffa53b3aa054bc392704",
+      "reason": "m196 at 20/1 and 100 uL is predicted at 13.83/32.75 mL and has very high CW distance. Its measured 10/1 result in 36b4e1b99354c22c07da is 6.03/21.08 mL. The label tests the onset transition in a brominated naphthaldehyde environment without assuming that simpler aromatic aldehydes share its curve.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "752c884154a739045315",
+      "reason": "m98 at 20/1 and 100 uL is predicted at 14.98/29.46 mL. It extends the same-loading 10/1 anchor b3f456e3c4a350277eaa toward the weaker-eluent behavior represented by 67fa39740fcf946a3154 at 150 uL. Its high CW distance and missing intermediate label make this useful for calibrating naphthylacetate response curvature.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "80762b40f399bb68342a",
+      "reason": "m97 at 20/1 and 100 uL is predicted at 13.18/23.66 mL. Its measured 50/1 counterpart in 105457e008d11073c7b7 is substantially later. This missing intermediate point complements selected m98 by testing ester-side-chain and aromatic-substitution transfer; their different recorded loading solvents remain part of the comparison.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "54a23aa9aaa695bdc06b",
+      "reason": "m163 at 20/1 and 150 uL is predicted at 14.74/23.27 mL, with almost the same finish as the measured 10/1 result in 0cb4dac3d2afc696843b. This directly tests a predicted finish plateau despite onset growth. The later 50/1 measurement 4e417c41d918e49abba1 supplies a weaker-eluent reference at another loading.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "ed3a90d38ff02a38deba",
+      "reason": "m162 at 20/1 and 100 uL is predicted at 12.75/22.77 mL. Measurements ae377e903c7cb2c36b71 at 10/1 and 7b8eaa0c9205349f60b1 at 50/1 bracket this region, with a loading difference at 10/1. Paired with selected m163, it tests halogen-dependent nitrile response while retaining the distinct loading conditions.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "48679ae48dd485ffb7a6",
+      "reason": "m91 at 50/1 and 150 uL is predicted at only 9.36/15.37 mL. Measured 20/1 records bc98537714d620facf79 and 93f10a8edf06f7acae26 are also relatively early. This tests whether an acetylenic diester preserves modest retention at weak eluent, helping distinguish carbonyl arrangement from a generic oxygen-count or ester-tail correction.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "f4a4fc4d6e4dea59b061",
+      "reason": "m81 at 50/1 and 50 uL is predicted at 7.41/20.43 mL. Its measured 100-uL counterpart in 57646b9484b03f4076bb retains an early onset, while other m81 records show substantial finish variability. This lower-loading label tests whether the early-onset, finish-dominated response persists and constrains transfer from later beta-ketoesters.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "0dccaa29989ef4956786",
+      "reason": "m28 at 10/1 and 150 uL is predicted at 39.25/77.44 mL. The measured 50- and 100-uL results in db7f9ffa50eb931613f6 and 351c17dfa8f46a8cb40a show onset differences alongside similarly broad finishes. A third amount tests whether loading primarily shifts onset in this strongly condition-responsive carbonyl-rich aromatic.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "8fa8d7ec035c6a829dc4",
+      "reason": "m156 at 50/1 and 50 uL is predicted at 9.88/21.32 mL. Its recent same-loading 20/1 result in 4cacfd98f3f85dc0dc0e had a later onset and earlier finish than predicted. This extension tests finish growth at fixed loading and contrasts with the early-onset 100-uL 50/1 record ff8fce8e929a75d6fb8d.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "ef809aee1c6b06021475",
+      "reason": "m87 at 10/1 and 150 uL is predicted at 7.92/18.74 mL. Its 2/1 finish in 0637945ca309d8122e64 is much later than the lower-loading 2/1 finishes. Measuring this alongside selected 50-uL 10/1 tests whether that amount-associated difference persists into the intermediate solvent regime or is localized.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "8b197f0ed5860f909b5f",
+      "reason": "m87 at 10/1 and 50 uL is predicted at 7.92/18.74 mL, nearly identical to selected 150 uL. The same-loading 2/1 measurement a05ccef9e073f648892e and 20/1 measurement eed75e5b0d9c27fa754c bracket this gap. The pair can expose a loading interaction currently absent from the predictions while teaching local ratio interpolation.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "9bc73e0c27d4d6b44abb",
+      "reason": "m86 at 5/1 and 150 uL is predicted at 32.23/62.31 mL. The recent fixed-loading 2/1-to-5/1 pair d7f5057912ffbf1231a3 and c70b471334f9747d6f98 confirmed a sharp transition but a smaller finish than previously predicted. This new amount tests whether the corrected transition amplitude transfers across loading.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "6c4eacf7845534254af9",
+      "reason": "This is a deliberate repeat of m104 at 20/1 and 150 uL, currently predicted at 8.98/18.47 mL. Measurement 6ce2b891280aed137ab8 finished at 13.13 mL, compared with 20.78 and 29.11 mL at 100 and 50 uL in 10f14f6ee69ba06bbe68 and 655dc9dfb978b4ffd624. Repetition tests whether this ordered finish pattern is reproducible before treating it as a loading interaction.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "a8b7c07187ebd2ff5c92",
+      "reason": "m104 at 5/1 and 150 uL is predicted at 4.96/14.54 mL. The 50- and 100-uL finishes in 9333d130f52d80332cf0 and 645cb06b9e2a33b6044b are nearly equal, unlike the ordered 20/1 finishes. Together with the selected 20/1 repeat, this tests whether the amount relationship is confined to weaker eluent.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "39963f2ef0f22d86beed",
+      "reason": "m58 at 20/1 and 50 uL is predicted at 12.93/25.16 mL. Paired with selected 100 uL and measured 150 uL in 014a5a6687748dfc0ebf, it forms a three-level amount contrast for an ortho-substituted phenol. This tests whether loading effects seen in m209 transfer to a more crowded hydroxyl environment.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "c023e9fab656fe2ce6a6",
+      "reason": "m58 at 20/1 and 100 uL is predicted at 12.92/25.16 mL. Its same-loading 50/1 result in 68a01853008546de06a1 is later, while the selected 50-uL point and measured 150-uL 20/1 point test the predictor's amount invariance. This supplies both a solvent-response anchor and a controlled loading contrast.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "fe7d7af2c919facfe5f5",
+      "reason": "m209 at 10/1 and 50 uL is predicted at 11.95/27.45 mL. Its 100-uL counterpart in 9b1545dfa05c9439870b is measured, and the 20/1 records 1b4be0410f927930d56e and bd3435c0f9b14ec7997d show a pronounced onset difference across those amounts. This tests whether that difference begins only at weaker eluent.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "f525413ea8aed78db62a",
+      "reason": "m208 at 2/1 and 100 uL is predicted at 8.45/12.81 mL. The same-loading 5/1 measurement bd3f212c1910e0de6b6e provides a nearby reference. This fills the stronger-eluent side of the iodophenol curve and tests whether onset and finish start growing together before its later weak-eluent regime.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "8294d63723a29bc21a6b",
+      "reason": "m207 at 2/1 and 100 uL is predicted at 10.24/16.61 mL. At this amount, ec6846c0fcb7df17c97d measured an unusually early 5/1 result, whereas ff3b6b1069b7d66ad021 measured much later elution at 10/1. This missing flank constrains the anomalous region without assigning a chemical mechanism to one record.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "c352863d9fa4a8645481",
+      "reason": "m60 at 10/1 and 100 uL is predicted at 43.58/70.71 mL. The 50- and 150-uL measurements beda2205eedbe1688e1f and 5e45395722fa0dcc1d00 differ more in onset than finish. The missing middle amount tests that endpoint-specific relationship in a nonbenzylic secondary alcohol.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "7eb97a2a0856e78a4b76",
+      "reason": "m51 at 5/1 and 150 uL is predicted at 19.49/28.97 mL. Its recent same-loading 2/1 measurement 426ed16e4b39d346244b was much earlier than originally predicted. This label tests where retention growth begins, with the lower-loading 5/1 record bf09d868ed4d68a97b40 offering an amount reference.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "ecebeb4b29d917495b44",
+      "reason": "m61 at 2/1 and 150 uL is predicted at 12.09/18.75 mL. At 100 uL, f559a4634c60d81f5f15 is later than the weaker-eluent 5/1 result 994a1f65509549a84ede. Pairing this with selected 5/1 at 150 uL tests whether the local reversal recurs at another amount rather than enforcing monotonicity from chemical prior.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "067260cef0fb89f79291",
+      "reason": "m61 at 5/1 and 150 uL is predicted at 10.02/17.60 mL, earlier than selected 2/1. The matched pair tests the unusual response already observed at 100 uL in f559a4634c60d81f5f15 and 994a1f65509549a84ede. It can distinguish reproducible scaffold-condition behavior from isolated record variability.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "07a069e105eb7739bf7e",
+      "reason": "m168 at 20/1 with 300 uL DCM loading solvent is predicted at 6.08/23.89 mL. Measurement 6f3318dd8909f20a1177 holds molecule, sample amount, eluent, and loading-solvent identity fixed but uses 400 uL. This isolates loading-solvent volume, following the large pure-EA m173 contrast without assuming that its effect transfers to a diketone.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "d834329bf2be8835bae6",
+      "reason": "m202 at 2/1 and 100 uL is predicted at 7.18/14.64 mL. Its 5/1 result 86258f5c8ffdb874521f is similarly early, while the same-loading 10/1 record 902937db42f82f467718 is much later and other amounts behave differently. This stronger-eluent anchor tests the boundary of that failure region for the unusual formal-charge phosphorus representation.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Solvent-response curvature and the relationship between onset and finish are scaffold-specific. Broad finish growth can occur with little onset delay, so a shared solvent or tail correction is unlikely to transfer reliably across carbonyl, ester, nitrile, and low-polarity aromatic environments.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "b0cc544ceb575bae4069",
+        "b645df00945e594953a6",
+        "d2c44b46eb306c56f241",
+        "57646b9484b03f4076bb",
+        "3c041f5186a291c3b313",
+        "4cacfd98f3f85dc0dc0e"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Linked labels can teach which structural environments delay onset, extend finish, or change both, reducing inappropriate transfer of exceptional elution intervals into ordinary rows.",
+      "next_discriminating_question": "Do the remaining intermediate and weak-eluent labels confirm finish plateaus, early-onset broadening, or coordinated endpoint growth within their respective scaffolds?"
+    },
+    {
+      "id": "H2",
+      "content": "Loading-associated endpoint changes depend on molecule and eluent regime. Sample amount and loading-solvent volume are separate recorded features, and neither supports a universal correction. Some ordered amount contrasts may be learnable, but repeated-condition variability remains an alternative explanation.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "655dc9dfb978b4ffd624",
+        "10f14f6ee69ba06bbe68",
+        "6ce2b891280aed137ab8",
+        "f402144b8672dd5ab2ab",
+        "d448d8de2d8dacec62c3",
+        "1b4be0410f927930d56e",
+        "bd3435c0f9b14ec7997d",
+        "6802f0b28c5a0c7b4c2a",
+        "87da8c37b16d810331a2"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The current predictor remains nearly invariant across several amount and loading-solvent-volume contrasts. Controlled labels and one repeat can distinguish missing conditional effects from variability that a deterministic predictor cannot resolve from the supplied inputs.",
+      "next_discriminating_question": "Does the m104 20/1 repeat reproduce its short high-amount finish, does its 5/1 response remain amount-insensitive, and do the m87, m58, m60, and m168 contrasts show coherent endpoint-specific changes?"
+    },
+    {
+      "id": "H3",
+      "content": "Hydroxyl-containing scaffolds do not share a single strong-eluent baseline or retention threshold. Alcohol placement, substitution, neighboring groups, and recorded loading conditions require conditional calibration; unusual local reversals should be tested without being promoted to universal chemical rules.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "426ed16e4b39d346244b",
+        "4b3e648044ebe5372a27",
+        "cb6d3ef1b6dde291fbac",
+        "ade362756cf5f89aea03",
+        "5885d427a26f03e522f3",
+        "7ec572e99922baa664e1",
+        "f559a4634c60d81f5f15",
+        "994a1f65509549a84ede",
+        "ec6846c0fcb7df17c97d"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Recent early m51 and moderate m60 results weaken blanket late-retention assumptions for hydrogen-bond donors. Local contrasts can teach where response curves diverge while limiting overfitting to anomalous records.",
+      "next_discriminating_question": "Does m51 develop its delay between 2/1 and 5/1 at fixed 150-uL loading, does m61 reproduce its 2/1-to-5/1 reversal, and where do the phenolic and bromobenzyl-alcohol curves depart from their stronger-eluent baselines?"
+    },
+    {
+      "id": "H4",
+      "content": "Amino-benzoate positional environment and recorded conditions jointly determine the retention transition. The para ester has a measured sharp 2/1-to-5/1 increase, but its finish was overpredicted; this transition should not be transferred wholesale to the ortho esters.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "d7f5057912ffbf1231a3",
+        "c70b471334f9747d6f98",
+        "85924bdd0693438dc23a",
+        "5df4935254e8c1e8471d",
+        "9333d130f52d80332cf0",
+        "645cb06b9e2a33b6044b"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The measured para transition supports a real response change while rejecting the previous predicted amplitude. Supervision at another amount can improve positional and condition interactions without imposing a family-wide upward finish correction.",
+      "next_discriminating_question": "At 150-uL loading, does m86 preserve approximately the measured low-loading transition amplitude, or does loading change its onset and finish differently?"
+    },
+    {
+      "id": "H5",
+      "content": "The former raised strong-eluent baseline for m53 was a prediction failure. Similar current reversals for conjugated ketones m164 and m165 may reflect another baseline-transfer error, but their actual 1/1-to-2/1 relationships remain unmeasured.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "3bb54d92fcc3ef0fc388",
+        "d83038f8278f7c0745ee",
+        "1934e3f2ee65da718096",
+        "5df546d9e2f2a29dfc89",
+        "9f450a70d44f4384353f",
+        "0bdd638e906bf11a00cb",
+        "9e0497d20614ebedf8ed"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Matched strong-eluent labels can repair a recurring structure-condition interpolation failure. Silica solvent-strength expectations motivate the test, while measured nonmonotonic examples elsewhere caution against imposing a hard monotonic constraint.",
+      "next_discriminating_question": "For each conjugated ketone, are the matched 1/1 and 2/1 endpoints earlier than, comparable to, or later than the existing 5/1 endpoints, and does the relationship transfer between the two structures?"
+    }
+  ],
+  "feedback_interpretation": "The latest outcomes strengthen endpoint-specific and condition-specific reasoning. The m53 pure-EA and 1/1 measurements confirmed the suspected raised-baseline prediction failure: acquisition-time V2 overestimates were 9.40 and 10.12 mL. Its 20/1 finish was also overpredicted, so the remaining 10/1 point now tests curvature rather than a general upward correction. The m40 pair confirmed substantial 10/1-to-20/1 growth, while m33 at 50/1 combined an onset overestimate with an 8.60-mL finish underestimate. The m86 pair confirmed a sharp transition, but its 5/1 finish was overpredicted by 16.20 mL, revising the expected transition amplitude. The third m104 amount produced ordered 20/1 finishes of 29.11, 20.78, and 13.13 mL at 50, 100, and 150 uL; this motivates a repeat and a lower-ratio control rather than assuming causality from one trajectory. m89 at 20/1 and 150 uL was again overpredicted, whereas m75 at that ratio and amount had an 11.88-mL finish underestimate, further opposing a shared loading or ester-tail correction. The earlier-than-predicted m51 and moderate m60 2/1 labels support locating scaffold-specific thresholds. The m119 pure-EA and m73 2/1 results were close to their predictions, reducing the value of indiscriminate baseline repeats. Finally, m173's 2000-uL loading-solvent pure-EA finish was 18.39 mL later than its nearly matched 1500-uL record, but its measured 2/1 and 5/1 volume contrasts are much smaller; volume effects therefore remain conditional. All errors cited here are historical acquisition errors, not current-model residuals.",
+  "batch_rationale": "The 32 experiments connect remaining gaps to measured reference curves across the supplied pool. Four matched conjugated-ketone labels test a prediction pattern whose analogue was recently falsified for m53. Intermediate and weak-eluent labels cover unresolved curvature in aldehydes, diaryl ketones, esters, nitriles, and a low-polarity fluorinated aromatic, including high-CW regions where the numerical distance signal agrees with a concrete chemical question. Loading contrasts concentrate on endpoint relationships suggested by measured trajectories: onset shifts with relatively stable finishes, regime-specific finish changes, and nearly invariant model predictions across amounts. One deliberate m104 repeat checks reproducibility before extending its inverse amount-finish pattern to other rows. The m168 contrast separately tests loading-solvent volume. Hydroxyl-containing and amino-ester experiments locate response thresholds and test exceptional local behavior without treating polarity or solvent-strength priors as absolute rules. The unusual phosphorus-containing row adds a focused check around a poorly explained measured condition response. These linked labels may improve Row-distribution generalization by teaching conditional interactions and preventing exceptional finishes from driving broad structural corrections. Quantile widths and CW distance are supporting signals; they are not calibrated epistemic uncertainty, and elution interval width is not uncertainty."
+}

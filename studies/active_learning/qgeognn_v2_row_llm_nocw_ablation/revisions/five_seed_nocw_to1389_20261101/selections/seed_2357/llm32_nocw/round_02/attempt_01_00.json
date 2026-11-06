@@ -1,0 +1,176 @@
+{
+  "request_sha256": "8189158b706f3a9ae9902ad402724a08ef6d35853dbea8d11736310339105a47",
+  "success": true,
+  "answer": "{\n  \"type\": \"selection\",\n  \"packet_sha256\": \"94cce805b6f2620191114564cfbf85708efb548a292d9ce4311ff390ffb4d613\",\n  \"batch_strategy\": \"Freeze these 32 distinct candidate IDs and their supplied packet predictions together before measurement. Target scaffold-specific failures through solvent-response pairs, controlled loading contrasts, and transfer to uncovered nitrogen, donor, carbonyl and sulfur environments. Include ordinary-retention probes in distant structural environments. Treat quantile widths as single-predictor diagnostics, without assuming calibrated epistemic uncertainty.\",\n  \"choices\": [\n    {\n      \"id\": \"de4e10d3a5d448ffcdda\",\n      \"reason\": \"m141 at 1/1 and 150 ul starts a fixed-loading solvent-response pair. The prediction of 9.18/31.09 mL tests whether appreciable retention persists in 50% EA for the lutidine scaffold that previously produced a large endpoint underprediction.\",\n      \"hypothesis_id\": \"H_N\"\n    },\n    {\n      \"id\": \"65f4f125b5e1f8137bd9\",\n      \"reason\": \"Pair m141 at 5/1 with its selected 1/1 experiment, holding every loading variable fixed. Predicted endpoints rise to 17.47/37.96 mL. The pair identifies the response below the measured 10/1 anchor, whose sample amount differs.\",\n      \"hypothesis_id\": \"H_N\"\n    },\n    {\n      \"id\": \"07dbb8c9982caa472c1a\",\n      \"reason\": \"m66 in pure EA exactly matches the loading conditions of its measured 1/1 failure example. Predicted endpoints are 6.60/13.98 mL versus measured 12.23/34.83 mL at 1/1. This directly tests whether stronger eluent removes the prolonged completion seen for this pyridyl ketone.\",\n      \"hypothesis_id\": \"H_N\"\n    },\n    {\n      \"id\": \"2feb7d8e0a3566ddf97f\",\n      \"reason\": \"Novel para-aminobenzonitrile m160 at 2/1 supplies the baseline for a matched 5/1 experiment. A measured meta isomer at the same ratio provides a structural reference, although its sample amount differs. This tests transfer of amino-nitrile retention across substitution positions.\",\n      \"hypothesis_id\": \"H_N\"\n    },\n    {\n      \"id\": \"b4e0e9dc92fca2c88b90\",\n      \"reason\": \"The matched m160 5/1 point predicts V2 48.44 mL, compared with 31.20 mL at 2/1. Measuring both identifies a solvent-response slope for an uncovered amino-aromatic scaffold rather than relying on a generic nitrogen offset.\",\n      \"hypothesis_id\": \"H_N\"\n    },\n    {\n      \"id\": \"6defbf00ecb558b77d50\",\n      \"reason\": \"Novel dibenzylamine m212 at 2/1 begins a controlled response pair with 5/1. Its predicted 6.84/14.72 mL endpoints test whether this secondary amine has ordinary retention at higher EA fraction before the predicted transition.\",\n      \"hypothesis_id\": \"H_N\"\n    },\n    {\n      \"id\": \"252c027cf5a42b92c953\",\n      \"reason\": \"At unchanged loading, m212 at 5/1 predicts 27.50/36.69 mL. Together with its 2/1 baseline, this discriminates a steep amine response from an incorrectly transferred nitrogen-family prediction and teaches whether onset and completion shift together.\",\n      \"hypothesis_id\": \"H_N\"\n    },\n    {\n      \"id\": \"f4c58d48258027bb5485\",\n      \"reason\": \"Novel fluorinated beta-dicarbonyl m167 at 50/1 predicts early onset with prolonged completion, 9.27/30.75 mL. Measured related dicarbonyl environments provide partial references. This tests transfer of endpoint behavior across aromatic substitution and fluorination.\",\n      \"hypothesis_id\": \"H_carbonyl\"\n    },\n    {\n      \"id\": \"74cf50c6ec476a394b01\",\n      \"reason\": \"m125 at 5/1, 100 mg and 300 ul DCM loading volume is one side of a volume-only contrast. A large measured 300-versus-500 ul difference at 2/1 motivates testing whether loading-solvent volume matters at another mobile-phase ratio.\",\n      \"hypothesis_id\": \"H_loading\"\n    },\n    {\n      \"id\": \"c4b5a5499258f39b7ac1\",\n      \"reason\": \"The paired m125 experiment changes only DCM loading volume from 300 to 500 ul. Predictions remain essentially identical at 18.31/38.15 mL. Its label can reveal a neglected volume interaction or weaken the interpretation that the earlier contrast reflects a reproducible volume effect.\",\n      \"hypothesis_id\": \"H_loading\"\n    },\n    {\n      \"id\": \"27bac953781c17a3a74b\",\n      \"reason\": \"m177 at 5/1 and 50 ul sample volume starts a controlled sample-amount contrast. At 20/1, measured 50-versus-150 ul experiments had V2 values of 8.50 and 57.02 mL. Testing a higher EA fraction asks whether that contrast disappears outside the weaker-eluent regime.\",\n      \"hypothesis_id\": \"H_loading\"\n    },\n    {\n      \"id\": \"76643e968ecc935c745c\",\n      \"reason\": \"Pair m177 at 5/1 and 150 ul with the selected 50 ul experiment, holding density, loading solvent and its volume fixed. Both predict V2 near 26.86 mL. The labels test a loading-by-solvent interaction that the predictor currently represents as almost amount-invariant.\",\n      \"hypothesis_id\": \"H_loading\"\n    },\n    {\n      \"id\": \"f9f0f4e29dbd30c000ee\",\n      \"reason\": \"Novel p-methylbenzyl alcohol m135 at 5/1 begins a fixed-loading response pair. Predicted endpoints of 23.06/39.18 mL test transfer from measured late primary-alcohol examples to a simpler benzylic environment.\",\n      \"hypothesis_id\": \"H_donor\"\n    },\n    {\n      \"id\": \"d05a91dc8e32e9edd7d0\",\n      \"reason\": \"The matched m135 10/1 point predicts 41.72/76.57 mL. The two labels test the steep predicted primary-alcohol response as EA fraction decreases and establish whether both endpoints require the same structural correction.\",\n      \"hypothesis_id\": \"H_donor\"\n    },\n    {\n      \"id\": \"994a1f65509549a84ede\",\n      \"reason\": \"Novel 1-phenylethanol m61 at 5/1 predicts 14.37/20.96 mL. Measured secondary alcohols at related conditions span much later behavior. This tests transfer across secondary-alcohol environments while retaining the recorded PE loading condition.\",\n      \"hypothesis_id\": \"H_donor\"\n    },\n    {\n      \"id\": \"c627405cf70a0daacc94\",\n      \"reason\": \"Novel 1-phenylpropanol m67 at 20/1 predicts 32.86/54.78 mL. It adds a secondary benzylic-alcohol environment in weaker eluent. Comparison with m61 informs joint structure-condition transfer; their different loading solvents prevent interpreting it as a substitution-only contrast.\",\n      \"hypothesis_id\": \"H_donor\"\n    },\n    {\n      \"id\": \"12ab195583f05b9aa177\",\n      \"reason\": \"Novel alpha-hydroxy ester m99 at 5/1 predicts 10.87/19.38 mL. Its hydroxyl-carbonyl environment and 1000 ul DCM loading volume probe transfer between alcohol and ester chemistry without assuming donor counts determine retention.\",\n      \"hypothesis_id\": \"H_donor\"\n    },\n    {\n      \"id\": \"1e775e7d8dcbf48fd6f8\",\n      \"reason\": \"Cinnamic acid m173 adds an uncovered conjugated carboxylic-acid environment at 5/1 with 2000 ul DCM loading volume. The label expands coverage of this joint chemistry-loading region; comparison with the measured aliphatic acid cannot isolate an acid effect from the other recorded differences.\",\n      \"hypothesis_id\": \"H_donor\"\n    },\n    {\n      \"id\": \"614873124b33029a924c\",\n      \"reason\": \"m206 at 5/1 and 100 ul predicts 39.40/73.47 mL. It extends the measured 2/1 experiment at exactly the same loading conditions, directly testing the steep predicted solvent response of a naphthylmethanol scaffold.\",\n      \"hypothesis_id\": \"H_donor\"\n    },\n    {\n      \"id\": \"48853fd78c77153b963a\",\n      \"reason\": \"Related naphthyl alcohol m205 at 5/1 and 100 ul predicts 46.47/89.30 mL. A measured 150 ul experiment at this ratio gave 50.72/100.95 mL. This tests amount transfer in a late-retention alcohol family and complements the selected m206 comparison.\",\n      \"hypothesis_id\": \"H_loading\"\n    },\n    {\n      \"id\": \"81507d463506a9e65e73\",\n      \"reason\": \"m13 at 1/1 and 150 ul supplies the higher-EA baseline for a matched 5/1 experiment. The prediction of 3.52/8.19 mL is ordinary despite the scaffold's measured late behavior at 10/1 with a different sample amount. This locates the transition rather than repeating the extreme anchor.\",\n      \"hypothesis_id\": \"H_carbonyl\"\n    },\n    {\n      \"id\": \"5d530b2f228ed39ff952\",\n      \"reason\": \"The matched m13 5/1 point predicts 35.34/63.86 mL, a large change from the selected 1/1 baseline. This pair tests whether the revealed multifunctional-carbonyl failure corresponds to a sharp but learnable structure-condition response.\",\n      \"hypothesis_id\": \"H_carbonyl\"\n    },\n    {\n      \"id\": \"0892bc6cad36949f9030\",\n      \"reason\": \"Novel methylenedioxy acetophenone m39 at 10/1 starts a controlled pair with 20/1. Predicted endpoints are 18.75/36.63 mL. This tests transfer from measured methoxy ketones and methylenedioxy-containing aldehydes to a distinct three-acceptor aromatic carbonyl environment.\",\n      \"hypothesis_id\": \"H_carbonyl\"\n    },\n    {\n      \"id\": \"a6a0404c3ad65c6d9326\",\n      \"reason\": \"At identical loading, m39 at 20/1 predicts 32.68/58.18 mL. Measuring both selected ratios establishes whether its predicted late response is real and whether onset and completion change proportionally as eluent strength decreases.\",\n      \"hypothesis_id\": \"H_carbonyl\"\n    },\n    {\n      \"id\": \"ea004678fc850c759752\",\n      \"reason\": \"Novel p-methoxybenzaldehyde m118 at 10/1 predicts 18.21/41.80 mL. Pairing it with 5/1 tests a new aldehyde response curve and the substantial retention assigned to this scaffold relative to measured methoxy-acetophenone examples.\",\n      \"hypothesis_id\": \"H_carbonyl\"\n    },\n    {\n      \"id\": \"de833d1e7905f1cc3be9\",\n      \"reason\": \"The matched m118 5/1 point predicts 9.80/28.53 mL. Its label supplies a lower-ratio anchor and a methoxy-aldehyde reference for the selected methylthio aldehyde, with loading differences kept explicit.\",\n      \"hypothesis_id\": \"H_carbonyl\"\n    },\n    {\n      \"id\": \"91cd087e44e7a3364533\",\n      \"reason\": \"Novel p-methylthio acetophenone m128 at 5/1 predicts 11.85/23.13 mL. Together with the selected methoxy ketone, it tests oxygen-to-sulfur transfer within aromatic ketones. Sample amount differs, so the comparison informs the complete recorded feature mapping.\",\n      \"hypothesis_id\": \"H_sulfur\"\n    },\n    {\n      \"id\": \"cf8ab33c25ad391a584c\",\n      \"reason\": \"Novel p-methylthio benzaldehyde m129 at 5/1 predicts 10.96/21.79 mL. It supplies a second sulfur-carbonyl environment and tests whether the similar predicted aldehyde and ketone endpoints for methylthio substitution survive measurement.\",\n      \"hypothesis_id\": \"H_sulfur\"\n    },\n    {\n      \"id\": \"cfc3cd7290e349d095d4\",\n      \"reason\": \"m115 at 5/1 and 100 ul anchors the sulfur-transfer comparisons with an observed methoxy-ketone scaffold. Its predicted 10.22/23.47 mL endpoints can be compared with the measured 150 ul experiment at this ratio, helping assess loading contributions before attributing differences to O/S substitution.\",\n      \"hypothesis_id\": \"H_sulfur\"\n    },\n    {\n      \"id\": \"855456da9ea892f7216b\",\n      \"reason\": \"Novel bis-benzoyl scaffold m178 at 20/1 predicts early onset but prolonged completion, 4.74/32.36 mL, with a broad V1 quantile range. This tests whether aromatic carbonyl multiplicity transfers as delayed onset, extended completion, or a different scaffold-specific pattern.\",\n      \"hypothesis_id\": \"H_carbonyl\"\n    },\n    {\n      \"id\": \"e4a7e43d15fcdee2ba1d\",\n      \"reason\": \"Novel long-chain dibromothiophene m71 has maximum observed similarity 0.275 and predicts ordinary endpoints of 5.51/8.68 mL in pure EA. This probes a distant sulfur-heterocycle environment and helps test whether broad quantile ranges also occur in ordinary-retention regions.\",\n      \"hypothesis_id\": null\n    },\n    {\n      \"id\": \"1e12081e646a951776b1\",\n      \"reason\": \"Novel compact aliphatic ketone-nitrile m47 has maximum observed similarity about 0.276 and predicts 4.15/8.97 mL at 2/1. It tests transfer of carbonyl/nitrile representations learned mainly from aromatic examples into a branched aliphatic environment with modest predicted quantile widths.\",\n      \"hypothesis_id\": null\n    }\n  ],\n  \"hypotheses\": [\n    {\n      \"id\": \"H_N\",\n      \"content\": \"Nitrogen-containing scaffolds require family-specific condition responses for onset and completion. Observed lutidine, pyridyl-carbonyl and amino-aromatic behavior does not support a single polarity offset; transfer to secondary amines and positional amino-nitrile isomers remains untested.\",\n      \"basis\": \"mixed\",\n      \"supporting_observed_ids\": [\n        \"abca62b372239d49a61b\",\n        \"8f5acbec0c511bb1ea89\",\n        \"51f5ae6a991eea9e720e\",\n        \"b51b5dbcd2a38b174973\",\n        \"0460dfc4e1747f0fc92c\",\n        \"e12edd0198c0d750ecd5\"\n      ],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"medium\",\n      \"status\": \"supported\",\n      \"why_it_matters_for_model_learning\": \"These families produced several large historical endpoint errors. Controlled response pairs and a stronger-eluent anchor can teach interactions that transfer across nitrogen-containing rows.\",\n      \"next_discriminating_question\": \"Do lutidine, pyridyl ketones, amino-nitriles and secondary amines share response features, or do they need separate onset and completion corrections?\"\n    },\n    {\n      \"id\": \"H_loading\",\n      \"content\": \"The predictor's near invariance to sample amount and loading-solvent volume may miss scaffold-condition interactions. Existing contrasts also permit unexplained experimental variability, so neither a universal direction nor a deterministic loading law is established.\",\n      \"basis\": \"mixed\",\n      \"supporting_observed_ids\": [\n        \"aa43fe84c0d8c825fe58\",\n        \"5e276c1730fc0a9deba7\",\n        \"5c2bc1d92128a17d996d\",\n        \"cc2a23d8eb9de61d2ab3\",\n        \"4e5ead91320bd24d485e\",\n        \"ec6846c0fcb7df17c97d\",\n        \"e8f592c469b2f3c136d8\"\n      ],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"medium\",\n      \"status\": \"unresolved\",\n      \"why_it_matters_for_model_learning\": \"Controlled contrasts can determine whether weakly represented catalog features explain large endpoint differences or whether some variation remains unresolved by the recorded inputs.\",\n      \"next_discriminating_question\": \"Does the m125 loading-volume contrast persist at 5/1, does the m177 amount contrast disappear at higher EA fraction, and does amount transfer hold for late naphthyl alcohols?\"\n    },\n    {\n      \"id\": \"H_donor\",\n      \"content\": \"Hydroxyl environment and acid character may require different solvent-response representations even at similar donor counts. Primary benzylic alcohols, secondary alcohols, alpha-hydroxy esters and carboxylic acids should not be assumed to share one retention offset.\",\n      \"basis\": \"mixed\",\n      \"supporting_observed_ids\": [\n        \"e8f592c469b2f3c136d8\",\n        \"985361f6699d97f9464f\",\n        \"beda2205eedbe1688e1f9\",\n        \"5e45395722fa0dcc1d00\",\n        \"62e730f8ad10cbdd613b\",\n        \"13bfaf03c35b4cff3bd5\",\n        \"fc47eff9bc6b7be6c207\"\n      ],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"medium\",\n      \"status\": \"unresolved\",\n      \"why_it_matters_for_model_learning\": \"Measured donor-containing examples span ordinary and very late retention. New response anchors and donor environments can improve transfer while keeping solvent and loading differences explicit.\",\n      \"next_discriminating_question\": \"Do the m135 and m206 condition changes follow their steep predictions, and how well do those relationships transfer to secondary alcohols and multifunctional hydroxy or acidic structures?\"\n    },\n    {\n      \"id\": \"H_carbonyl\",\n      \"content\": \"Multiacceptor carbonyl scaffolds can show strong condition dependence and different changes in V1 versus V2. Functional-group counts alone do not determine whether a structure has delayed onset, early onset with prolonged completion, or both.\",\n      \"basis\": \"mixed\",\n      \"supporting_observed_ids\": [\n        \"c4bb286978fe9078a303\",\n        \"08d345874afeaea97b5e\",\n        \"bfbe491a54086b98874d\",\n        \"bae9d67e095423d8edd2\",\n        \"58394a71418a9623e18a\",\n        \"b8abc8f40545556f07e0\",\n        \"989222022f8f567ee126\",\n        \"f2931e18ce0362f7a6c0\",\n        \"9aaa9e876dd61f679e7d\"\n      ],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"medium\",\n      \"status\": \"supported\",\n      \"why_it_matters_for_model_learning\": \"Carbonyl-containing molecules occupy much of the catalog. Local curves and new carbonyl environments can improve shared onset and completion representations without imposing a uniform upward correction.\",\n      \"next_discriminating_question\": \"Where does m13 enter its late regime, and do m39, m118, m167 and m178 follow transferable carbonyl-family patterns or scaffold-specific exceptions?\"\n    },\n    {\n      \"id\": \"H_sulfur\",\n      \"content\": \"Replacing aryl methoxy oxygen with methylthio sulfur may alter adsorption and solvent response in ways not captured by acceptor counts. Aldehyde versus ketone environment may modulate that transfer, but the supplied sulfur-aromatic predictions remain untested.\",\n      \"basis\": \"chemical_prior\",\n      \"supporting_observed_ids\": [],\n      \"contradicting_observed_ids\": [],\n      \"confidence\": \"low\",\n      \"status\": \"proposed\",\n      \"why_it_matters_for_model_learning\": \"Labels for two aromatic sulfides, accompanied by oxygen-containing references, can test a specific functional-group transfer gap rather than relying on unrelated sulfur examples.\",\n      \"next_discriminating_question\": \"Are methylthio aldehyde and ketone endpoints similar at 5/1, and can their differences from methoxy references be explained after accounting for recorded loading conditions?\"\n    }\n  ],\n  \"feedback_interpretation\": \"Recent outcomes favor scaffold-specific failure repair. Historical V2 underpredictions were approximately 42.85 mL for m141, 18.49 mL for m66, 17.86 mL for m34 and 19.24 mL for m198. These are acquisition-time errors, not current-model residuals. Current nearby predictions have moved upward, so new condition anchors and structural transfer tests are more useful than repeating those measured rows. Conversely, the recent m35 and m213 controls showed smaller errors, reducing the value of another large allocation to similar ordinary aromatic controls. The phenolic-aldehyde outcome also showed that V2 can remain inaccurate when V1 is close. I retain loading sensitivity as an unresolved interaction: the m125 comparison changes DCM loading volume, and other measured loading contrasts do not have a consistent direction. The selected matched contrasts test persistence across conditions. Higher PE/EA ratios are interpreted as weaker eluent because EA fraction decreases.\",\n  \"batch_rationale\": \"The batch combines seven within-batch solvent-response pairs with exact-loading extensions of measured examples, two controlled loading contrasts, and probes of uncovered structural environments. Nitrogen pairs address demonstrated failure families and test transfer to new bases and amino-nitriles. The m13 and oxygen-rich aromatic pairs identify response shapes that could generalize across the abundant carbonyl rows. Loading contrasts challenge nearly unchanged predictions when sample amount or DCM loading volume changes. Donor-containing rows test primary, secondary, hydroxy-ester and acid environments, while the sulfur probes examine a specific heteroatom transfer gap. Distant m47 and m71 provide ordinary-retention examples alongside the late predictions. Identical experiment tuples are not repeated within the batch. Comparisons with differing recorded conditions are explicitly treated as joint structure-condition evidence rather than isolated causal effects. Quantile widths guide attention without being equated to epistemic uncertainty, and V2 minus V1 remains an elution interval. These labels should improve transferable relationships and endpoint calibration across both ordinary rows and high-error retention regions.\"\n}",
+  "provenance": {
+    "response_id": "resp_0f3fd40aa047fea5016ae37024c0ac81988ed00e0328433758",
+    "served_model": "gpt-6.1-sol",
+    "usage": {
+      "input_tokens": 453560,
+      "input_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 12106,
+      "output_tokens_details": {
+        "reasoning_tokens": 7017
+      },
+      "total_tokens": 465666,
+      "attribution": {
+        "items": {
+          "msg_0f3fd40aa047fea5016ae37024c1ac819881ad7d0cf0bdcb38": {
+            "input_tokens": 5725,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 5725,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_0f3fd40aa047fea5016ae37024c1ac81989936cb07680fd9f0": {
+            "input_tokens": 54,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 54,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_0f3fd40aa047fea5016ae37024c1ac8198a09842458774119d": {
+            "input_tokens": 442011,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 442011,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_0f3fd40aa047fea5016ae370e942fc8198a6d0bd6530a2291c": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 5089,
+            "content": [
+              {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 5089
+              }
+            ]
+          },
+          "rs_0f3fd40aa047fea5016ae3703232388198b9e1543ab305d345": {
+            "input_tokens": 2,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 516
+          },
+          "rs_0f3fd40aa047fea5016ae3703e1af08198ab2bfef4075be29b": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0f3fd40aa047fea5016ae3704e111481989c5d4220b2f7f9fa": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0f3fd40aa047fea5016ae3705dc13881988dcb7ee584afbdef": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0f3fd40aa047fea5016ae3706e72c081988184dab65045128b": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0f3fd40aa047fea5016ae3707c93648198a53f3ccdb683d6a4": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0f3fd40aa047fea5016ae3708b344081988ea50b261437c16f": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0f3fd40aa047fea5016ae370990ad48198b789087c4effce88": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0f3fd40aa047fea5016ae370a807a08198b46587e1804eb313": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0f3fd40aa047fea5016ae370bb84a48198889599e293508a15": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0f3fd40aa047fea5016ae370c47554819885308ca70b80854a": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0f3fd40aa047fea5016ae370cd094c8198ab9227cec35c4043": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0f3fd40aa047fea5016ae370dfb8d48198b119d03d7dc899c4": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 518
+          },
+          "rs_0f3fd40aa047fea5016ae370e9430481988c5e7dc43da01a42": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 285
+          }
+        },
+        "request_fields": {
+          "instructions": {
+            "input_tokens": 5768,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "native_tool_calls": 0
+  },
+  "elapsed_seconds": 318.7281465419801,
+  "retry_amendment_sha256": "2b3c1b62057a6015deb7871bda21cd498dd53e2dfeaceaa086208c777939fc60"
+}

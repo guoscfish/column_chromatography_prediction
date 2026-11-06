@@ -1,0 +1,289 @@
+{
+  "type": "selection",
+  "packet_sha256": "091cdb2dd5d9238464938d318257f0b24776ae3ef64388971065a2c37495894f",
+  "batch_strategy": "Measure uncovered condition-response segments on already labeled molecules, with linked experiments for nitroarenes, acids, aromatic ethers, benzoates, and selected anomalous records. Use recent feedback to reduce replication of well-calibrated conditions and to separate reproducible response structure from variation unexplained by the recorded inputs. All 32 selections use the supplied current predictions, frozen before measurement.",
+  "choices": [
+    {
+      "id": "1d2bc3f5c63f14f60fe3",
+      "reason": "m201 at 10/1, 50 ul begins a matched extension from measured 5/1 at 4.52/11.01 mL (40dc5fb2b982ad272131). Together with the selected 50/1 row, it tests whether a nitroarene develops the large weak-eluent response seen in nitrocarbonyl compounds.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "59ce141f6f9f30603132",
+      "reason": "m201 at 50/1, 50 ul completes that fixed-loading extension. Its predicted 20.35/51.42 mL response is unmeasured; the high CW distance strengthens the case for testing this extrapolation, without establishing that it is erroneous.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "e6605c23fb1943a6b848",
+      "reason": "m45 at 20/1, 100 ul supplies the common-loading anchor for the selected 50/1 condition. Comparison with measured 20/1, 150 ul at 20.75/54.72 mL (53a9a2469f8d4ead8732) helps distinguish strength response from loading associations in a carboxylic acid.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "129036e0bccc4ff7e848",
+      "reason": "m45 at 50/1, 100 ul tests the predicted 25.56/72.12 mL extension beyond existing acid measurements. Paired with 20/1 at the same loading, it can teach separate onset and finish curvature for an interaction class poorly represented by neutral ester analogies.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "902937db42f82f467718",
+      "reason": "m202 at 10/1, 100 ul extends the phosphorus-containing, formally charged scaffold beyond measured 5/1 and 2/1 records (4f88870ad666191b8ea7; 942c95c0b3a64c876639). It tests whether the modest predicted extension transfers to this unusual graph environment.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "07dbb8c9982caa472c1a",
+      "reason": "The EA-only m66 baseline brackets its steep measured response: 1/1 gives 12.23/34.83 mL and 5/1 gives 47.37/119.31 mL (8f5acbec0c511bb1ea89; 49201b5817f204116f7f). This locates where the pyridyl-ketone response begins, rather than adding another known tail point.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "6a11b71a3fb682d5f6da",
+      "reason": "m212 at 1/1, 100 ul fills an unmeasured early segment for a secondary amine. Existing 2/1, 150-ul and 5/1, 100-ul records differ markedly (e0f2b47154fd134db700; 252c027cf5a42b92c953); this label constrains the onset of that response.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "f768bef959891c647509",
+      "reason": "m141 at 0/1, 100 ul supplies an EA-only anchor below measured 1/1 and 2/1 values (2b7cd8ac357e176a9726; eceaa4f4139cde7ba166). It tests the compact baseline prediction for a sterically substituted pyridine despite its steep response at larger PE/EA ratios.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "5d450444eb031c873584",
+      "reason": "m178 at 2/1, 100 ul is predicted to start later than the selected 5/1 row, with crossed onset quantiles. This is a model-behavior warning worth resolving against the measured 0/1 and 10/1 anchors (aed6d224edcb21e5d658; 634f21e11a8442494ce3).",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "17ff889395addf7d6295",
+      "reason": "m178 at 5/1, 100 ul completes the local 2/1-to-5/1 test below measured 10/1, 20/1, and 50/1 points (634f21e11a8442494ce3; 855456da9ea892f7216b; 0c5c35afb3a24375c153). It can resolve onset irregularity while calibrating the early finish slope.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "8b9a55e63dd5e733dcb0",
+      "reason": "m116 at 5/1, 150 ul anchors the lower end of a largely uncovered aromatic-ether curve. The measured 50/1 result is 29.86/53.48 mL (22300151ccec3f1f1c24); measuring 5/1 and 20/1 at the same loading identifies the transition shape.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "5fd49a50595624496938",
+      "reason": "m116 at 20/1, 150 ul tests a predicted response already close to its measured 50/1 endpoint (22300151ccec3f1f1c24). The selected 5/1 companion distinguishes early saturation from a more gradual rise and constrains transfer among methoxy-substituted arenes.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "d4bcc09609c820442d3d",
+      "reason": "m110 at 20/1, 150 ul provides a same-loading comparison with selected m116. Measured m110 50/1 finishes near 36 mL (b070c3657459c06a4df1), versus about 53 mL for m116 (22300151ccec3f1f1c24), so methoxy count alone cannot determine the response.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "0956abfd4514355d5383",
+      "reason": "m55 at 20/1, 100 ul begins a fixed-loading benzoate response experiment above measured 10/1 at 5.30/9.06 mL (26b3dfccf0d1cfb441c7). It supplies an intermediate label for a condition region represented by many eligible rows.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "bfe9ce431b45599fd5e6",
+      "reason": "m55 at 40/1, 100 ul completes the selected 20/1-to-40/1 contrast. It tests the predicted finish growth from 13.34 to 21.49 mL and helps distinguish this alkyl benzoate from the related m56 response measured at 40/1 (ac76ec24edfe8aec7fb2).",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "6c387793968257d2f169",
+      "reason": "m84 at 40/1, 100 ul extends ethyl chlorobenzoate beyond its measured 10/1 anchor (c16aef24cbedd5b1b875). Alongside the selected methyl-ester m102 row, it tests transfer of weak-eluent response across closely related ester structures.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "ede97e1f4b6e7fe9a7eb",
+      "reason": "m102 at 50/1, 100 ul is eligible and unmeasured in this packet, despite an earlier memory citation treating it as measured. Its predicted 14.93/32.77 mL response extends actual 10/1 and 20/1 anchors (95c74e404e629c201615; 07f6d8c342b66a49bb4e).",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "07a55cdab65b05f31561",
+      "reason": "m82 at 20/1, 150 ul tests whether onset begins to plateau while finish continues growing. Relevant measured anchors are 5/1, 150 ul at 10.78/29.76 mL and 10/1, 100 ul at 20.41/45.62 mL (cd2c80dae2f32a52732f; 6b8e53d2d8c8a90a7216).",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "f4ec546ae74a4b3888df",
+      "reason": "m163 at 10/1, 50 ul fills the gap between measured 5/1 and 50/1 at that loading (d17626bc1e62c46d095f; fe212637596386c24049). This tests fluorobenzonitrile response curvature and transfer from the related bromonitrile family.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "dccd8753d89546cbf994",
+      "reason": "m75 at 20/1, 100 ul extends the now-smooth measured 100-ul sequence through 10/1 (d4d7270df69266029f44; f7684c557ad58e3a1b0b; f82f2844c7e27afd32bb; 11fef346c358d54d3059). It tests whether the higher-ratio transition depends on loading.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "ab1062a71079c605f750",
+      "reason": "m92 at 10/1, 100 ul bridges measured EA-loaded 5/1 and 20/1 records (d1eeb016c4cf20b87e92; bbb514661c0a49694d6a). The label targets its conditional response curve after recent finish underprediction, while avoiding a causal solvent claim.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "fbfb34ddee14b1ea50b1",
+      "reason": "m203 at 10/1, 50 ul connects measured 2/1 and 20/1 at the same loading (9139c55b31e4e4b0e062; 9ed7c1fb1c2cc499bbf9). Comparison with measured 10/1, 150 ul (04ea307c7b7f3321cc20) tests where its endpoint-specific loading association appears.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "39963f2ef0f22d86beed",
+      "reason": "m58 at 20/1, 50 ul fills the common-loading gap between 10/1 at 8.83/14.98 mL and 50/1 at 27.23/45.56 mL (aafc5710406e440a4c8f; 6b8fefaf0647d2239858). This locates curvature in a phenol whose latest 50/1 prediction was already accurate.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "8fa8d7ec035c6a829dc4",
+      "reason": "m156 at 50/1, 50 ul tests a donor-free exception to broadly compact retention. Measured 20/1, 50 ul is 10.16/14.10 mL, while 50/1, 150 ul is 5.82/22.52 mL (4cacfd98f3f85dc0dc0e; ce9886eee330bc401615); this separates strength from loading.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "434e465cfa7e0034f233",
+      "reason": "m211 at 20/1, 50 ul fills the gap between measured 10/1 and 50/1 at that loading (d119d77f545c029deace; 35f2be5f5aa14265e8a4). It tests whether the low-loading onset levels off before the finish expands sharply.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "6802f0b28c5a0c7b4c2a",
+      "reason": "The EA-only m173 point at 2000-ul loading-solvent volume anchors a carboxylic-acid curve with unusually broad measured intervals. Its direct reference is 5/1 at the same recorded density, loading, and solvent volume (1e775e7d8dcbf48fd6f8).",
+      "hypothesis_id": null
+    },
+    {
+      "id": "0b8c7bc2949fb8070c94",
+      "reason": "Near-repeat m73 at 0/1, 100 ul tests the compact measured result b187c8a6f7beb2c7f61f against atypical records at other loadings. The recorded density differs only from 1.049 to 1.0491; the experiment probes reproducibility, not a hypothesized effect of that tiny change.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "45dca237351265a8f169",
+      "reason": "Near-repeat m73 at 1/1, 100 ul complements the selected 0/1 row. Measured 1/1 at nearly identical inputs was 18.60/18.96 mL (2cf789c87f7c6325c020); repetition can distinguish a recurring recorded regime from heterogeneous observations.",
+      "hypothesis_id": "H7"
+    },
+    {
+      "id": "b43781cffcdb47081a21",
+      "reason": "m99 at 2/1, 150 ul supplies the missing lower anchor for measured 5/1 and 10/1 at the same loading (6ce607e4fe208a186dff; 7bbdec21c428010dd67b). It tests where hydroxyester retention begins rising and whether onset and finish grow together.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "4d08b9494002d348513d",
+      "reason": "m135 at 1/1, 100 ul begins a matched low-ratio experiment for a primary benzylic alcohol. Existing EA-only and 10/1 records span 5.34/8.94 to 39.39/66.36 mL (aff6404c31450d670256; 75232f4ee5de52a0499e), leaving the early slope unmeasured.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "22f4e0f26e7ff02e1054",
+      "reason": "m135 at 2/1, 100 ul completes the matched 1/1-to-2/1 test. Together with measured 5/1, 150 ul (f9f0f4e29dbd30c000ee), it distinguishes gradual early growth from a sharper transition and tests transfer from the recent m51 alcohol curve.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "66178a861f4bf31fa2e1",
+      "reason": "m198 at 2/1, 100 ul anchors the ortho-nitrobenzaldehyde curve below the latest measured 5/1 result of 6.93/23.01 mL (4da6e3b93f29af1efa94). It tests early endpoint behavior before the well-established 20/1 and 50/1 growth.",
+      "hypothesis_id": "H6"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Solvent-strength response is strongly scaffold dependent, including differences in onset curvature and finish growth among carbonyl, nitrile, ether, and donor-free structures. Uncovered intermediate segments can teach these graph-condition interactions without assuming universal monotonic behavior.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "aed6d224edcb21e5d658",
+        "634f21e11a8442494ce3",
+        "855456da9ea892f7216b",
+        "0c5c35afb3a24375c153",
+        "6b8e53d2d8c8a90a7216",
+        "d3047299bd8817ee87dd",
+        "22300151ccec3f1f1c24",
+        "52e05a1a506d6326fa3f",
+        "f7d57d8bb988f7016502"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Local anchors can distinguish real structure-dependent slopes from interpolation artifacts and reduce transfer of large tail corrections into compact-response families.",
+      "next_discriminating_question": "Do the selected moderate-ratio ether, ester, nitrile, and carbonyl points follow their predicted transition shapes, and does m178 retain its predicted low-ratio onset reversal?"
+    },
+    {
+      "id": "H2",
+      "content": "m75 has a smooth measured low-to-moderate-ratio response at 100 ul, but its recorded 20/1-to-50/1 direction differs between 50-ul and 150-ul loadings. A reproducible high-ratio loading interaction remains possible, but is not established.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "d4d7270df69266029f44",
+        "f7684c557ad58e3a1b0b",
+        "f82f2844c7e27afd32bb",
+        "11fef346c358d54d3059",
+        "3726956d81fe3954e5b7",
+        "28e9fea3e3293f2b8a0e",
+        "e35fdc08a1113b193889",
+        "9249ed2c527f70995033"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A third-loading anchor at 20/1 helps determine whether the model should learn a condition interaction or avoid extending isolated high-ratio behavior across loadings.",
+      "next_discriminating_question": "Does the 100-ul sequence continue smoothly from 10/1 to 20/1, and where does it sit relative to the measured 50-ul and 150-ul responses?"
+    },
+    {
+      "id": "H4",
+      "content": "m92 finish variation persists under identical recorded EA-loading conditions, while a stable EA-versus-PE loading-solvent effect remains unresolved. Its conditional strength-response curve should be calibrated separately from any causal solvent interpretation.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "f7d6c68ef2b3f637bd05",
+        "f6650af9162e038d4108",
+        "8b58e9d7a710f55e49d3",
+        "bbb514661c0a49694d6a",
+        "00a89de0e6cc7377a84b",
+        "95a3dcfe4436e929aa30",
+        "e626b5b8083ea1fd02f2"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The 10/1 label can improve the conditional mean and endpoint slope without forcing the model to explain unrecorded variation through solvent identity or loading volume.",
+      "next_discriminating_question": "At 100 ul, does the 10/1 EA-loaded response lie between the measured 5/1 and 20/1 ranges, particularly for V2?"
+    },
+    {
+      "id": "H5",
+      "content": "Hydroxyl-containing scaffolds require distinct onset and finish response curves. The measured tertiary alcohol, primary benzylic alcohol, phenol, and hydroxyester records do not support one shared retention or loading correction.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "080258046c2cae5fb2ab",
+        "9ed7c1fb1c2cc499bbf9",
+        "66747ae127e03516ffda",
+        "4fb92bd1fab3ba235858",
+        "bf09d868ed4d68a97b40",
+        "68a01853008546de06a1",
+        "6ce607e4fe208a186dff",
+        "7bbdec21c428010dd67b",
+        "f433bc672465387d951a",
+        "75232f4ee5de52a0499e"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The selected lower and intermediate anchors discriminate onset shifts from interval expansion across different hydrogen-bonding environments, improving structural transfer.",
+      "next_discriminating_question": "Do m135 and m99 begin their steep responses gradually, and does m203 at 10/1 preserve the loading contrast observed at 20/1?"
+    },
+    {
+      "id": "H6",
+      "content": "A nitro group alone does not establish a long-tail regime. Nitrocarbonyl scaffolds have measured weak-eluent growth, whereas m201 nitroarene is compact through 5/1; its higher-ratio transition remains unmeasured and may be weaker or later.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "40dc5fb2b982ad272131",
+        "3e69cf586f3eb0f0fa8c",
+        "4da6e3b93f29af1efa94",
+        "163874b97308a1ea2507",
+        "8ab554cd154e9749790b",
+        "a5f9179bfb146ad70953"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The m201 fixed-loading extension tests whether tail behavior transfers appropriately across nitro-containing graphs, while the m198 anchor constrains positional and carbonyl-environment effects.",
+      "next_discriminating_question": "Does m201 develop the predicted substantial 50/1 response, and how does its 5/1-to-10/1 transition compare with nitrobenzaldehyde observations?"
+    },
+    {
+      "id": "H7",
+      "content": "The atypical low-ratio m73 records may recur at approximately matched inputs, or they may reflect heterogeneity not captured by the catalog. Their near-zero or inverted recorded intervals should not yet be interpreted as a clean chromatographic mechanism.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "3d5a3094cb10eee37b37",
+        "2732471e4009311396ed",
+        "a387411cbcb6be48bde4",
+        "2cf789c87f7c6325c020"
+      ],
+      "contradicting_observed_ids": [
+        "b187c8a6f7beb2c7f61f"
+      ],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Two near-repeat labels can clarify the conditional average in a persistent anomalous region and limit overfitting of heterogeneous records to tiny feature differences. They cannot identify absent experimental variables.",
+      "next_discriminating_question": "At 100 ul, do the compact 0/1 and atypical 1/1 responses recur when measured again with practically identical recorded conditions?"
+    }
+  ],
+  "feedback_interpretation": "The latest m75 measurements support a smooth 100-ul sequence from 1/1 through 10/1, so I reduced that investigation to one new 20/1 anchor rather than repeating the lower ratios. The latest m81 10/1, 100-ul finish, 16.16 mL (79a8af9fd69d3ddbf3e3), agrees with the earlier 100-ul finish of 16.73 mL (eb6c235e6ed90084bfc9) and the 150-ul finish of 17.42 mL (390d6dfe33afc329fb17). This weakens the previous suggestion of a deterministic high-loading short-finish rule; m81 receives no slot. For m92, the new 2/1 finish of 17.61 mL differs from the earlier identical-input 10.32 mL result, while the two 20/1 measurements are closer. I therefore target an unmeasured intermediate condition without treating variability as evidence for a causal loading-solvent effect. The m203 20/1, 100-ul result supports a compact finish near the 150-ul observation, motivating a lower-ratio loading contrast. Recent donor-free measurements were mostly close at acquisition, and the latest m58 50/1 prediction was nearly exact, reducing their failure-repair priority. I also corrected two memory issues against the supplied tables: 0/1 means EA-only under the recorded PE/EA convention, and ede97e1f4b6e7fe9a7eb is an unmeasured candidate, not observed evidence.",
+  "batch_rationale": "The batch emphasizes remaining gaps in conditional response surfaces rather than repeatedly measuring already calibrated extremes. The m201, m45, m178, m116, m55, and m135 groups are linked local experiments whose labels distinguish transition shape, endpoint behavior, and structural transfer. Common benzoate conditions receive several slots because their response segments are uncovered and occur repeatedly in the eligible Row pool. The phosphorus-containing scaffold and acid/base baselines extend coverage of interaction environments that simple polarity summaries may miss. Focused m75, m92, m203, m58, and m99 measurements use recent feedback to resolve specific remaining questions; the m73 pair addresses reproducibility and the limits imposed by missing variables. CW distance and quantile spans are secondary evidence, not calibrated epistemic uncertainty, and crossed quantiles are treated as model-behavior warnings. Together these measurements should improve graph-condition interactions, onset-versus-finish calibration, and conditional averages across ordinary and long-tail rows after retraining."
+}

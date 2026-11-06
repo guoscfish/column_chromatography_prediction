@@ -1,0 +1,246 @@
+{
+  "type": "selection",
+  "packet_sha256": "6ccbd63005e953fc6e41255d6a473cd5eef556833ded15eb91aa4a7f8572ca86",
+  "batch_strategy": "Use a broad but structured batch of legal condition-structure rows. Same-molecule ratio curves, loading contrasts, high-width boundary rows, compact controls, and chemically distinct oxygenated or aromatic graphs are combined to repair shared retention representations and improve generalization.",
+  "choices": [
+    {
+      "id": "df308aed7311226e9b70",
+      "reason": "m136 at 5/1 and 100 uL extends the measured 1/1 and 2/1 curve in 1725cb0256c8ffcff22e and 0176b6e3af99b142d3f8. It tests whether the compact neutral-aromatic response remains stable as the mobile phase becomes PE-rich.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "aff6404c31450d670256",
+      "reason": "m135 at 0/1 with 100 uL DCM tests amount transfer against the same-solvent higher-load region represented by measured 53dc2340c848330a9220. This is a compact oxygenated control for the loading feature.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "b94677e12c4d6aa11d9b",
+      "reason": "m6 at 50/1 and 50 uL has wide predicted endpoint ranges and high CW distance. Its brominated oxygen heteroaromatic graph probes a PE-rich boundary where the model predicts substantially later elution than compact aromatic controls.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "6ce607e4fe208a186dff",
+      "reason": "m99 at 5/1 with 150 uL and 1000 uL DCM samples a high-width transition between measured 2/1 and 10/1 m99 rows such as 30456dafbfe681b5af70 and d8fcb58722028dbf9c02. It tests whether the late regime is ratio-driven, loading-driven, or both.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "477241eeda24d5f7e750",
+      "reason": "m59 at 10/1 and 50 uL fills a lower-amount point in an oxygenated aldehyde curve. The prediction is intermediate and broad enough to distinguish a smooth ratio response from a loading-dependent finish shift.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "6e3dfb8b45e7c629cca9",
+      "reason": "m109 at 10/1 and 150 uL supplies a higher-load, moderate-ratio aromatic ether point. It tests whether the compact prediction persists at high sample amount and provides a structural control for late oxygenated responses.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "902f3082ba7241022d82",
+      "reason": "m101 uses only 34 uL DCM and 50 uL sample amount, making it a direct loading-solvent-volume probe in a halogenated benzoate. Its label can separate dilution-volume effects from molecular retention.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "bff992c553be5fcbab99",
+      "reason": "m154 at 20/1 and 150 uL is a high-PE, halogenated anisole-like graph with a compact prediction but nontrivial endpoint widths. It explores whether weak-solvent effects remain small for this low-HBA structure.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "30ae74055d1ffabed86a",
+      "reason": "m5 at 2/1 and 100 uL with 500 uL DCM is a compact dibromoaromatic control. It anchors the low-retention region against oxygenated and carbonyl graphs while testing loading-solvent volume.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "ebf7b4153d41109de784",
+      "reason": "m112 at 20/1 with only 30 uL sample and 600 uL DCM samples a low-amount, PE-rich condition with wide V1 uncertainty diagnostics. This can reveal whether the predicted late response survives reduced loading.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "303a8a967047b5307933",
+      "reason": "m91 at 2/1 and 150 uL provides an intermediate solvent-ratio point for a highly oxygenated small molecule. It helps constrain whether multiple acceptors shift onset and finish together or separately.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "9d3a4d340c6dfd54a0e9",
+      "reason": "m100 at 0/1 and 100 uL is a compact PE-free anchor for a tert-butyl aromatic ester. It supplies a low-strength control that can prevent corrections learned from late multifunctional rows from spreading to hydrophobic esters.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "efc1e677ddbcf36b5ef9",
+      "reason": "m185 at 20/1 and 100 uL tests the high-PE side of the aldehyde response after measured m185 rows showed different endpoints across loading and ratio. Its broad predicted V2 range makes it useful for separating onset and finish behavior.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "60c07f57327c89c83ae9",
+      "reason": "m58 at 5/1 and 50 uL tests a low-amount phenolic aromatic under weak mobile phase. It contrasts donor-containing behavior with neutral aromatics and probes whether a donor changes finish more than onset.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "be66ef4a8fe93b0cc2bb",
+      "reason": "m152 at 2/1 and 150 uL is a high-loading, halogenated aromatic ether with compact predicted endpoints. It expands coverage of high-MW, low-donor structures where amount and solvent effects may differ from carbonyl systems.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "2e6a6b82f8ddb64a9011",
+      "reason": "m130 at 0/1 and 100 uL gives a compact neutral nitrile-aromatic control. It tests whether the model's condition response for low-HBA aromatic graphs remains smooth in the PE-free limit.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "9e971ba2075fa0b7d8fb",
+      "reason": "m158 at 50/1 and 100 uL samples a sulfur-containing heteroaromatic at a PE-rich boundary. The predicted finish is much later than the onset, providing a useful endpoint-shape contrast to compact halogenated aromatics.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "fb65053351114fb51265",
+      "reason": "m131 at 2/1 and 50 uL probes a low-amount diaryl ketone condition. It can connect compact low-ratio behavior to the much later measured m131 weak-solvent rows and test whether the transition is monotone.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "a98f3e4664fd05c0f82c",
+      "reason": "m8 at 1/1 and 100 uL is an oxygen heteroaromatic condition with moderate predicted width. It provides a compact/intermediate control for transferring corrections among brominated and oxygenated aromatic graphs.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "4fd617ffb65c4435f9bb",
+      "reason": "m213 at 0/1 and 50 uL is a low-amount, compact ether-like aromatic control with very low CW distance. It helps calibrate the common compact region while retaining condition novelty.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "c09610c4f397a91e89fb",
+      "reason": "m102 at 10/1 and 50 uL has wide V1 and V2 diagnostics and low loading amount. Its label tests a possible amount-by-ratio interaction in a chloroaromatic ester without relying on a high-retention prediction.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "ada006a63d5f5bb2d92f",
+      "reason": "m157 at 0/1 with 100 uL and 900 uL DCM samples a heavy diiodoaromatic in a compact predicted regime. It tests whether unusually large loading-solvent volume changes the response of a nonpolar graph.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "8e99350aac88fae9186b",
+      "reason": "m186 at 0/1 and 100 uL with 800 uL DCM supplies a low-strength aldehyde/phenol condition. It complements measured high-ratio positional bromophenol rows and tests whether donor-rich graphs remain compact with strong mobile phase.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "41698a7e43ae891782ab",
+      "reason": "m100 at 1/1 and 150 uL provides an amount and solvent-ratio contrast to the selected 0/1 m100 row. The pair can distinguish sample amount from mobile-phase effects in a relatively hydrophobic ester.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "f92eb849bab96551864b",
+      "reason": "m70 at 0/1 and 100 uL is a compact long-chain aromatic ketone control. It helps anchor the hydrophobic low-retention manifold against the much broader carbonyl failures in the measured data.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "d986bfbae07ee7fbad9c",
+      "reason": "m170 at 10/1 and 150 uL tests a chlorinated ketone at high loading and moderate solvent strength. Its predicted finish is later than the onset, providing a structurally distinct endpoint-shape label.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "f91e857aa14399ede600",
+      "reason": "m51 at 0/1 and 150 uL probes a donor-containing secondary alcohol in PE-free mobile phase. Its predicted compact finish and high amount make it useful for separating loading effects from donor-driven retention.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "c496cacfd9e40e5e6f71",
+      "reason": "m73 at 20/1 and 50 uL extends the unusual ester response around measured 1/1 rows, including 2cf789c87f7c6325c020. It tests whether the near-coincident endpoint behavior is localized or persists into weaker solvent.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "76066d9a67f992290a6b",
+      "reason": "m34 at 0/1 and 100 uL is a compact aromatic ketone/halide control with moderate predicted finish. It helps distinguish structural halogen effects from the late PE-rich behavior of related carbonyl graphs.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "6ee03cf62adedf0716b3",
+      "reason": "m41 at 10/1 and 150 uL samples a methyl aromatic ketone at high loading. Its predicted later onset and finish provide a response-curve point between compact acetophenones and late aromatic carbonyl examples.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "bb586f37335be959683c",
+      "reason": "m126 at 1/1 and 100 uL is a compact anisole-like control. Comparing it with measured neutral-aromatic rows tests whether the model preserves a stable low-retention manifold across PE/EA ratios.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "85c21f6446e32913c1a9",
+      "reason": "m55 at 30/1 and 100 uL extends an ester response into a very PE-rich condition. Its prediction tests whether late behavior develops smoothly with solvent ratio or remains compact for this less polar ester graph.",
+      "hypothesis_id": "H1"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Solvent-ratio responses are graph-specific and often alter V1 and V2 differently; a single polarity correction will not transfer across aromatic carbonyl, ester, sulfur, and oxygenated graphs.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "c476eca5614cf9aa12d8",
+        "08155ffdcb0d27576050",
+        "b5e6e9a4b5c6f0f838bd",
+        "122fbec0df9ecf1c5d89",
+        "7d9c7f40bc71ee7c4ef0",
+        "2efa93ea474f798b712a"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The selected ratio curves span compact, intermediate, and late predicted regimes and can teach separate onset and finish responses across chemically distinct graphs.",
+      "next_discriminating_question": "Which selected graphs shift onset first, which broaden finish first, and which remain compact as PE fraction increases?"
+    },
+    {
+      "id": "H2",
+      "content": "Loading amount and recorded loading-solvent volume can interact with solvent ratio, with finish often more sensitive than onset; the strength and generality of this effect remain graph-dependent.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "aa43fe84c0d8c825fe58",
+        "5e276c1730fc0a9deba7",
+        "4862e2fb71344ce16021",
+        "4c32851430464f0ed684",
+        "69b09343d0b9995c3ae4",
+        "dbb94bf062fc0e640258",
+        "00a89de0e6cc7377a84b",
+        "e93e08d6bc42e91e2679"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The batch includes low and high sample amounts, unusual DCM volumes, and repeated condition families so retraining can learn conditional loading effects rather than a global shift.",
+      "next_discriminating_question": "Do amount and loading-solvent-volume effects reproduce across neutral, donor-containing, ester, and heteroaromatic graphs?"
+    },
+    {
+      "id": "H3",
+      "content": "The predictor may transfer isolated neutral-aromatic or strong-solvent anomalies too broadly; local brackets are needed before learning a shared condition peak.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "cd3c75eca39365e943e4",
+        "08812599cc0ffd09d9bd",
+        "0176b6e3af99b142d3f8",
+        "3f6b817d855e67b3b406",
+        "9f450a70d44f4384353f",
+        "18355dfa0f6e519b7bf6",
+        "98dd7f94e58da879b609"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Compact controls and nearby ratio points can prevent erroneous local behavior from propagating through common Morgan-similar molecules.",
+      "next_discriminating_question": "Are the remaining elevated predictions localized to particular molecular graphs, or do they recur across neighboring ratios and structures?"
+    },
+    {
+      "id": "H4",
+      "content": "Late-regime failures are strongly dependent on functional-group arrangement and structural environment; severe corrections for basic, donor-rich, or multifunctional graphs should not spread to compact hydrophobic or halogenated controls.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "49201b5817f204116f7f",
+        "a17bcdddcf0799baeee2",
+        "96710afeabc594baa359",
+        "efd84dffe823b6298db6",
+        "2b97a1e0a6a4b944b760",
+        "aa83ae83c0fa0cc37777"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The batch supplies boundary and control labels across low-HBA aromatics, heteroaromatics, donors, and carbonyl compounds to constrain structure-condition transfer across the Row-distribution.",
+      "next_discriminating_question": "Which structural contexts predict late finishes at weak solvent while preserving early onset, and which remain compact despite similar descriptors?"
+    }
+  ],
+  "feedback_interpretation": "Previous outcomes strengthened conditional loading and graph-specific response hypotheses. m177 showed a large finish contrast with loading at 10/1 and 50/1, while the compact 100 uL 50/1 row prevented a universal loading correction. m125 showed finish sensitivity to recorded DCM volume and rejected the predicted 5/1 finish reversal. Several predicted strong-solvent peaks for m156, m132, m136, m164, m185, and m29 were weakened by compact measurements, so this batch emphasizes local brackets and compact controls. Severe failures for m78, m90, m159, m66, m11, and m199 continue to support structural rather than descriptor-only transfer. Historical acquisition errors are treated as evidence about model behavior at acquisition time, not as current residuals.",
+  "batch_rationale": "The 32 rows cover four learning needs. Same-molecule and related-graph ratio points probe onset-versus-finish curvature. Loading amount and DCM-volume contrasts target the strongest recent failure mode. Compact halogenated, hydrophobic, and low-HBA controls constrain overcorrection from severe late examples. High-width or high-CW candidates explore model-space boundaries, while lower-width rows anchor the compact manifold. Together they broaden condition and functional-group coverage while retaining meaningful local comparisons, which should improve retrained V1/V2 accuracy across both ordinary compact rows and underrepresented late-retention regimes."
+}

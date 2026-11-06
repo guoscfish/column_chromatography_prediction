@@ -1,0 +1,826 @@
+{
+  "captured_shanghai": "2026-11-06T14:42:13.721547+08:00",
+  "study": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101",
+  "source_files_deleted": false,
+  "api_calls": 0,
+  "training_calls": 0,
+  "archive_format": "gzip JSONL: path, sha256, raw_utf8 (original bytes recoverable)",
+  "seeds": {
+    "157": {
+      "archive": "seed_157_receipts.jsonl.gz",
+      "sha256": "50654aef26c22d69ceeda4d378422f0a6b7a7e55691bfe7252add9087f891b46",
+      "bytes": 8261534,
+      "file_counts": {
+        "attempt": 28046,
+        "started": 28047,
+        "stream": 28271,
+        "turn": 112,
+        "rejected": 97
+      },
+      "attempt_results": {
+        "HTTP None | RemoteProtocolError | ": 115,
+        "HTTP None | FatalProtocolError | provider HTTP 522": 1,
+        "HTTP None | ReadTimeout | ": 10,
+        "HTTP None | ConnectError | ": 3040,
+        "success": 112,
+        "HTTP None | ConnectTimeout | ": 39,
+        "HTTP 429 | HTTPStatusError | ": 22846,
+        "HTTP None | FatalProtocolError | provider HTTP 403": 1,
+        "HTTP 403 | FatalProtocolError | ": 1816,
+        "HTTP None | WallClockInactivityTimeout | ": 14,
+        "HTTP 502 | HTTPStatusError | ": 28,
+        "HTTP None | ReadError | ": 23,
+        "HTTP None | FatalProtocolError | provider terminal code: upstream_error": 1
+      },
+      "logical_rejections": {
+        "hypothesis H2 cites unobserved evidence in supporting_observed_ids: ['19f19f196ba5787a01b0', '17902fa9c7f8ea9b456e', '247846e36e9c012df30f', '5258960e057b56ed51f8', 'a60552f4d1a5ced4641f8', '6aa69f7c2b8244353a75', '59b54ad3a60a52cc2b2c', 'b86ace0ccafe0af8ceec']; only observed-table IDs are allowed": 1,
+        "must select distinct legal supplied candidate IDs": 12,
+        "hypothesis H5 cites unobserved evidence in supporting_observed_ids: ['59752d0b8c96b9efb90c', '9e3f598e00375ec93d9b', '9cd02352c2ed7a3e232', '53c0ebdf849859e3432e']; only observed-table IDs are allowed": 1,
+        "hypothesis H1 cites unobserved evidence in supporting_observed_ids: ['c6924324ddd95f249df6', '351c17dfa8f46a8cb40a', '9cd02352c2ed7a3e232', '95d1d257dfea69f178f8', '9e3f598e00375ec93d9b']; only observed-table IDs are allowed": 1,
+        "hypothesis H2 cites unobserved evidence in supporting_observed_ids: ['9bd998a328b109ef639e', 'c6ce120d2546ceadde09', '03744855d469f4cca7e6', 'dbb94bf062fc0e640258', 'f4fb5c03b8e8996e75f6', '7383949c431e18f39597', '542f504077b58e444bc2', '93bcd806b8dcb8c0cab']; only observed-table IDs are allowed": 1,
+        "selection packet binding mismatch": 81
+      },
+      "per_round_attempt_results": {
+        "round_00": {
+          "HTTP None | RemoteProtocolError | ": 5,
+          "HTTP None | FatalProtocolError | provider HTTP 522": 1,
+          "HTTP None | ReadTimeout | ": 1,
+          "HTTP None | ConnectError | ": 1,
+          "success": 1
+        },
+        "round_01": {
+          "success": 1
+        },
+        "round_02": {
+          "success": 1
+        },
+        "round_03": {
+          "HTTP None | RemoteProtocolError | ": 1,
+          "HTTP None | ConnectError | ": 4,
+          "HTTP None | ConnectTimeout | ": 3,
+          "success": 1
+        },
+        "round_04": {
+          "success": 3
+        },
+        "round_05": {
+          "success": 5
+        },
+        "round_06": {
+          "success": 1
+        },
+        "round_07": {
+          "success": 1
+        },
+        "round_08": {
+          "HTTP 429 | HTTPStatusError | ": 34,
+          "HTTP None | RemoteProtocolError | ": 2,
+          "success": 3
+        },
+        "round_09": {
+          "HTTP None | FatalProtocolError | provider HTTP 403": 1,
+          "HTTP None | ConnectError | ": 1,
+          "HTTP 403 | FatalProtocolError | ": 14,
+          "success": 4,
+          "HTTP None | RemoteProtocolError | ": 1
+        },
+        "round_10": {
+          "HTTP None | RemoteProtocolError | ": 8,
+          "success": 1
+        },
+        "round_11": {
+          "HTTP None | RemoteProtocolError | ": 6,
+          "HTTP None | ConnectError | ": 114,
+          "HTTP None | WallClockInactivityTimeout | ": 1,
+          "success": 1
+        },
+        "round_12": {
+          "success": 4
+        },
+        "round_13": {
+          "success": 1
+        },
+        "round_14": {
+          "success": 3,
+          "HTTP None | ConnectTimeout | ": 5,
+          "HTTP None | ConnectError | ": 1,
+          "HTTP None | RemoteProtocolError | ": 1,
+          "HTTP None | ReadTimeout | ": 1
+        },
+        "round_15": {
+          "success": 81,
+          "HTTP None | ConnectError | ": 2919,
+          "HTTP 429 | HTTPStatusError | ": 22812,
+          "HTTP 502 | HTTPStatusError | ": 28,
+          "HTTP None | WallClockInactivityTimeout | ": 13,
+          "HTTP None | RemoteProtocolError | ": 91,
+          "HTTP None | ConnectTimeout | ": 31,
+          "HTTP None | ReadTimeout | ": 8,
+          "HTTP 403 | FatalProtocolError | ": 1802,
+          "HTTP None | ReadError | ": 23,
+          "HTTP None | FatalProtocolError | provider terminal code: upstream_error": 1
+        }
+      }
+    },
+    "887": {
+      "archive": "seed_887_receipts.jsonl.gz",
+      "sha256": "4e78d86b9297047fa7d05479940e432a05c786db77ca043e7ff5406c56de72da",
+      "bytes": 6999501,
+      "file_counts": {
+        "attempt": 27161,
+        "started": 27162,
+        "stream": 27264,
+        "turn": 51,
+        "rejected": 22
+      },
+      "attempt_results": {
+        "HTTP None | ConnectTimeout | ": 51,
+        "HTTP None | ReadTimeout | ": 7,
+        "HTTP None | ConnectError | ": 2559,
+        "HTTP None | RemoteProtocolError | ": 127,
+        "success": 51,
+        "HTTP None | FatalProtocolError | provider terminal code: upstream_http2_stream_error": 1,
+        "HTTP 429 | HTTPStatusError | ": 22502,
+        "HTTP None | FatalProtocolError | provider HTTP 403": 1,
+        "HTTP 403 | FatalProtocolError | ": 1792,
+        "HTTP 502 | HTTPStatusError | ": 30,
+        "HTTP None | ReadError | ": 29,
+        "HTTP None | WallClockInactivityTimeout | ": 9,
+        "HTTP None | JSONDecodeError | ": 1,
+        "HTTP 524 | FatalProtocolError | ": 1
+      },
+      "logical_rejections": {
+        "hypothesis H3 cites unobserved evidence in supporting_observed_ids: ['5a279bc25d91d033acdc', '48853fd78c77153b963a', 'a6145bb0c9947f9515df', '1211905ebc8972913270', '614873124b330a924c']; only observed-table IDs are allowed": 1,
+        "must select distinct legal supplied candidate IDs": 17,
+        "hypothesis H1 cites unobserved evidence in supporting_observed_ids: ['ce8391d5c053e7fad6e4', '89425cdfb228a6ebf75d', '334f7f55dcbf278e47ec', '855832bd4005ac7abdc', '22f82413c75481d74e9b', '51f4126a3aadb3239225', '70cba7a21b5a01fb8e73']; only observed-table IDs are allowed": 1,
+        "hypothesis H1 cites unobserved evidence in supporting_observed_ids: ['4798da99427413ab47cc', '4e5ead91320bd24d485e4', 'a19f98569910dc7fd6c4', '8f5452ff0e84ab2e2057', '8fb7f07df563e78786b2', '10ea0c665f5ba7c91bbf', 'c6924324ddd95f249df6']; only observed-table IDs are allowed": 1,
+        "hypothesis H2 cites unobserved evidence in supporting_observed_ids: ['c6924324ddd95f249df6', '2d178efe0181baca2bd5', 'b7953b4cf8c561ff4cfe', '60b7eed7a46a03b366b2', '9ef318afb1f6bac186ff']; only observed-table IDs are allowed": 1,
+        "hypothesis H2 cites unobserved evidence in supporting_observed_ids: ['2cf4f6424b85ab121943', 'c627405cf70a0daacc94', '80f6a235bb59c2a7ea59', 'ac81adfab5ec8ce768db', 'b6bf451b4911ee22d4a4', '00043aebb2540e369a7b', 'f4fb5c03b8e8996e75f6', '55dfd30fde788076a355', '3a095d5f05f6d477a6c0']; only observed-table IDs are allowed": 1
+      },
+      "per_round_attempt_results": {
+        "round_00": {
+          "HTTP None | ConnectTimeout | ": 2,
+          "HTTP None | ReadTimeout | ": 1,
+          "HTTP None | ConnectError | ": 1,
+          "HTTP None | RemoteProtocolError | ": 3,
+          "success": 1
+        },
+        "round_01": {
+          "HTTP None | RemoteProtocolError | ": 1,
+          "success": 1
+        },
+        "round_02": {
+          "success": 1
+        },
+        "round_03": {
+          "success": 1
+        },
+        "round_04": {
+          "HTTP None | ConnectTimeout | ": 4,
+          "HTTP None | ConnectError | ": 1,
+          "HTTP None | RemoteProtocolError | ": 1,
+          "success": 2
+        },
+        "round_05": {
+          "success": 1
+        },
+        "round_06": {
+          "success": 2
+        },
+        "round_07": {
+          "HTTP None | FatalProtocolError | provider terminal code: upstream_http2_stream_error": 1,
+          "success": 2
+        },
+        "round_08": {
+          "HTTP 429 | HTTPStatusError | ": 35,
+          "HTTP None | ConnectError | ": 1,
+          "success": 2
+        },
+        "round_09": {
+          "HTTP None | RemoteProtocolError | ": 1,
+          "success": 2,
+          "HTTP None | FatalProtocolError | provider HTTP 403": 1,
+          "HTTP None | ConnectError | ": 3,
+          "HTTP 403 | FatalProtocolError | ": 12
+        },
+        "round_10": {
+          "success": 1
+        },
+        "round_11": {
+          "HTTP None | RemoteProtocolError | ": 1,
+          "success": 3
+        },
+        "round_12": {
+          "HTTP None | RemoteProtocolError | ": 1,
+          "success": 2
+        },
+        "round_13": {
+          "HTTP None | RemoteProtocolError | ": 1,
+          "HTTP None | ConnectError | ": 85,
+          "success": 1
+        },
+        "round_14": {
+          "HTTP None | ConnectTimeout | ": 1,
+          "success": 1
+        },
+        "round_15": {
+          "success": 1
+        },
+        "round_16": {
+          "success": 2
+        },
+        "round_17": {
+          "HTTP None | ConnectTimeout | ": 5,
+          "success": 4,
+          "HTTP None | ConnectError | ": 1,
+          "HTTP None | RemoteProtocolError | ": 1
+        },
+        "round_18": {
+          "success": 1
+        },
+        "round_19": {
+          "success": 2,
+          "HTTP 429 | HTTPStatusError | ": 6495,
+          "HTTP None | ConnectError | ": 500,
+          "HTTP 502 | HTTPStatusError | ": 3,
+          "HTTP None | ReadError | ": 4,
+          "HTTP None | WallClockInactivityTimeout | ": 1,
+          "HTTP None | ConnectTimeout | ": 2,
+          "HTTP None | RemoteProtocolError | ": 1,
+          "HTTP None | ReadTimeout | ": 1
+        },
+        "round_20": {
+          "HTTP None | RemoteProtocolError | ": 2,
+          "HTTP None | ConnectError | ": 100,
+          "success": 2
+        },
+        "round_21": {
+          "success": 3
+        },
+        "round_22": {
+          "HTTP None | RemoteProtocolError | ": 11,
+          "HTTP 403 | FatalProtocolError | ": 1780,
+          "HTTP None | ConnectError | ": 640,
+          "HTTP 502 | HTTPStatusError | ": 12,
+          "HTTP None | ReadError | ": 3,
+          "HTTP None | ConnectTimeout | ": 2,
+          "HTTP None | WallClockInactivityTimeout | ": 3,
+          "HTTP None | JSONDecodeError | ": 1,
+          "HTTP 524 | FatalProtocolError | ": 1,
+          "success": 1
+        },
+        "round_23": {
+          "success": 2
+        },
+        "round_24": {
+          "HTTP None | ReadTimeout | ": 5,
+          "HTTP None | ConnectError | ": 1088,
+          "HTTP None | RemoteProtocolError | ": 97,
+          "HTTP None | WallClockInactivityTimeout | ": 4,
+          "HTTP None | ConnectTimeout | ": 18,
+          "success": 3,
+          "HTTP 429 | HTTPStatusError | ": 6463,
+          "HTTP None | ReadError | ": 18,
+          "HTTP 502 | HTTPStatusError | ": 14
+        },
+        "round_25": {
+          "success": 1
+        },
+        "round_26": {
+          "success": 2,
+          "HTTP None | ConnectTimeout | ": 4,
+          "HTTP None | ConnectError | ": 5
+        },
+        "round_27": {
+          "HTTP None | ConnectTimeout | ": 7,
+          "HTTP None | ConnectError | ": 9,
+          "success": 2,
+          "HTTP None | RemoteProtocolError | ": 3,
+          "HTTP None | ReadError | ": 1
+        },
+        "round_28": {
+          "success": 1
+        },
+        "round_29": {
+          "success": 1,
+          "HTTP 429 | HTTPStatusError | ": 9509,
+          "HTTP 502 | HTTPStatusError | ": 1,
+          "HTTP None | ConnectTimeout | ": 6,
+          "HTTP None | ReadError | ": 3,
+          "HTTP None | ConnectError | ": 125,
+          "HTTP None | RemoteProtocolError | ": 3,
+          "HTTP None | WallClockInactivityTimeout | ": 1
+        }
+      }
+    },
+    "2357": {
+      "archive": "seed_2357_receipts.jsonl.gz",
+      "sha256": "2dee573a7b0f27f652fd7722ff979975ae6ea9cf2f5f06d39bdcb5be4ef2de48",
+      "bytes": 6894176,
+      "file_counts": {
+        "attempt": 27619,
+        "started": 27620,
+        "stream": 27708,
+        "turn": 44,
+        "rejected": 17
+      },
+      "attempt_results": {
+        "HTTP None | RemoteProtocolError | ": 94,
+        "HTTP None | ConnectTimeout | ": 46,
+        "HTTP None | ConnectError | ": 2826,
+        "success": 44,
+        "HTTP None | ReadTimeout | ": 8,
+        "HTTP 429 | HTTPStatusError | ": 22615,
+        "HTTP None | FatalProtocolError | provider HTTP 403": 1,
+        "HTTP 403 | FatalProtocolError | ": 1930,
+        "HTTP 502 | HTTPStatusError | ": 26,
+        "HTTP None | WallClockInactivityTimeout | ": 8,
+        "HTTP None | ReadError | ": 20,
+        "HTTP None | FatalProtocolError | provider terminal code: upstream_error": 1
+      },
+      "logical_rejections": {
+        "must select distinct legal supplied candidate IDs": 16,
+        "hypothesis H2 cites unobserved evidence in supporting_observed_ids: ['5e1a63da794d99ec88fb', '55f2352b50967352163e', '00043aebb2540e369a7b', 'f4fb5c03b8e8996e75f6', 'dd4f07e349873053fd73', '4c32851430464f0ed684', '9862563d18aae2868342', '8b58e9d7a710f55e49b8']; only observed-table IDs are allowed": 1
+      },
+      "per_round_attempt_results": {
+        "round_00": {
+          "HTTP None | RemoteProtocolError | ": 4,
+          "HTTP None | ConnectTimeout | ": 1,
+          "HTTP None | ConnectError | ": 2,
+          "success": 1
+        },
+        "round_01": {
+          "success": 1
+        },
+        "round_02": {
+          "success": 1
+        },
+        "round_03": {
+          "success": 2
+        },
+        "round_04": {
+          "HTTP None | ConnectError | ": 3,
+          "HTTP None | ConnectTimeout | ": 2,
+          "HTTP None | ReadTimeout | ": 1,
+          "success": 2
+        },
+        "round_05": {
+          "HTTP None | RemoteProtocolError | ": 2,
+          "success": 1
+        },
+        "round_06": {
+          "success": 2
+        },
+        "round_07": {
+          "success": 1
+        },
+        "round_08": {
+          "success": 2,
+          "HTTP 429 | HTTPStatusError | ": 36,
+          "HTTP None | RemoteProtocolError | ": 3,
+          "HTTP None | FatalProtocolError | provider HTTP 403": 1,
+          "HTTP 403 | FatalProtocolError | ": 12
+        },
+        "round_09": {
+          "success": 2
+        },
+        "round_10": {
+          "HTTP None | RemoteProtocolError | ": 2,
+          "success": 3
+        },
+        "round_11": {
+          "success": 3
+        },
+        "round_12": {
+          "HTTP None | RemoteProtocolError | ": 3,
+          "HTTP None | ConnectError | ": 66,
+          "success": 1
+        },
+        "round_13": {
+          "success": 1
+        },
+        "round_14": {
+          "success": 2
+        },
+        "round_15": {
+          "HTTP None | ConnectError | ": 110,
+          "HTTP None | ConnectTimeout | ": 8,
+          "HTTP None | RemoteProtocolError | ": 1,
+          "success": 1
+        },
+        "round_16": {
+          "success": 1
+        },
+        "round_17": {
+          "success": 1
+        },
+        "round_18": {
+          "success": 2,
+          "HTTP 429 | HTTPStatusError | ": 6566,
+          "HTTP None | ConnectError | ": 758,
+          "HTTP 502 | HTTPStatusError | ": 3,
+          "HTTP None | RemoteProtocolError | ": 2,
+          "HTTP None | WallClockInactivityTimeout | ": 2,
+          "HTTP None | ReadError | ": 1,
+          "HTTP None | ConnectTimeout | ": 2,
+          "HTTP None | ReadTimeout | ": 1
+        },
+        "round_19": {
+          "HTTP None | RemoteProtocolError | ": 4,
+          "HTTP None | ConnectError | ": 99,
+          "success": 2
+        },
+        "round_20": {
+          "success": 2,
+          "HTTP None | RemoteProtocolError | ": 1
+        },
+        "round_21": {
+          "HTTP 403 | FatalProtocolError | ": 1918,
+          "HTTP None | ConnectError | ": 655,
+          "HTTP 502 | HTTPStatusError | ": 10,
+          "HTTP None | RemoteProtocolError | ": 8,
+          "HTTP None | ReadError | ": 8,
+          "HTTP None | WallClockInactivityTimeout | ": 3,
+          "success": 4,
+          "HTTP None | ConnectTimeout | ": 1
+        },
+        "round_22": {
+          "HTTP None | FatalProtocolError | provider terminal code: upstream_error": 1,
+          "HTTP None | RemoteProtocolError | ": 57,
+          "HTTP None | ReadTimeout | ": 5,
+          "HTTP None | ConnectTimeout | ": 20,
+          "HTTP 429 | HTTPStatusError | ": 6396,
+          "HTTP None | ConnectError | ": 815,
+          "HTTP None | ReadError | ": 9,
+          "HTTP None | WallClockInactivityTimeout | ": 3,
+          "HTTP 502 | HTTPStatusError | ": 11,
+          "success": 1
+        },
+        "round_23": {
+          "success": 2
+        },
+        "round_24": {
+          "HTTP None | ConnectTimeout | ": 6,
+          "HTTP None | ConnectError | ": 13,
+          "HTTP None | RemoteProtocolError | ": 1,
+          "success": 1
+        },
+        "round_25": {
+          "HTTP None | ReadTimeout | ": 1,
+          "HTTP None | ConnectTimeout | ": 2,
+          "success": 1
+        },
+        "round_26": {
+          "success": 1
+        },
+        "round_27": {
+          "HTTP 429 | HTTPStatusError | ": 9617,
+          "HTTP 502 | HTTPStatusError | ": 2,
+          "HTTP None | RemoteProtocolError | ": 6,
+          "HTTP None | ConnectError | ": 305,
+          "HTTP None | ConnectTimeout | ": 4,
+          "HTTP None | ReadError | ": 2
+        }
+      }
+    },
+    "6101": {
+      "archive": "seed_6101_receipts.jsonl.gz",
+      "sha256": "a8eaac998fe9e11893ed9a12e7495eaa641b98368cdf5aca79cc9e9fd6cc3ddb",
+      "bytes": 6921502,
+      "file_counts": {
+        "attempt": 26793,
+        "started": 26794,
+        "stream": 26896,
+        "turn": 51,
+        "rejected": 24
+      },
+      "attempt_results": {
+        "HTTP None | RemoteProtocolError | ": 71,
+        "HTTP None | ConnectError | ": 2155,
+        "HTTP None | ReadTimeout | ": 9,
+        "success": 51,
+        "HTTP None | ConnectTimeout | ": 34,
+        "HTTP None | ReadError | ": 20,
+        "HTTP 429 | HTTPStatusError | ": 22554,
+        "HTTP None | FatalProtocolError | provider HTTP 403": 1,
+        "HTTP 403 | FatalProtocolError | ": 1868,
+        "HTTP 502 | HTTPStatusError | ": 19,
+        "HTTP None | WallClockInactivityTimeout | ": 10,
+        "HTTP None | FatalProtocolError | provider terminal code: upstream_error": 1
+      },
+      "logical_rejections": {
+        "hypothesis H1 cites unobserved evidence in supporting_observed_ids: ['5e276c1730fc0a9deba', 'a738b1f204da6fcfd385', '79ff49052bce33597828', '59e942d4a3b5dfc412a2', 'e2f15590b7142490599b', '1844eab177de5d01fab6']; only observed-table IDs are allowed": 1,
+        "hypothesis H4 cites unobserved evidence in supporting_observed_ids: ['aa43fe84c0d8c825fe58', '5e276c1730fc0a9deba', '9a32b65bc21fdc5f7286', '65fcce0299e031dedeb8', 'a6a0404c3ad65c6d9326']; only observed-table IDs are allowed": 1,
+        "must select distinct legal supplied candidate IDs": 17,
+        "hypothesis H3 cites unobserved evidence in supporting_observed_ids: ['65f4f125b5e1f8137bd9', '51f4126a3aadb3239225', '49201b5817f204116f7f', '9e3ce3497298084abd83', '9cd02352c2ed7a3e232', 'b4e0e9dc92fca2c88b90']; only observed-table IDs are allowed": 1,
+        "hypothesis H3 cites unobserved evidence in supporting_observed_ids: ['6f548d72f01fc85debdc', '49201b5817f204116f7f', '9e3ce3497298084abd83', '9cd02352c2ed7a3e232', 'b4e0e9dc92fca2c88b90', '17902fa9c7f8ea9b456e']; only observed-table IDs are allowed": 1,
+        "hypothesis H3 cites unobserved evidence in supporting_observed_ids: ['9e3ce3497298084abd83', '9cd02352c2ed7a3e232', '49201b5817f204116f7f', '51f4126a3aadb3239225', 'b4e0e9dc92fca2c88b90', '17902fa9c7f8ea9b456e']; only observed-table IDs are allowed": 1,
+        "hypothesis H3 cites unobserved evidence in supporting_observed_ids: ['19f19f196ba5787a01b0', 'facbcedbecb46072b04c', '549daca56bed1c9d2bcc', '06ebbf6e52fa3ea6aef']; only observed-table IDs are allowed": 1,
+        "selection packet binding mismatch": 1
+      },
+      "per_round_attempt_results": {
+        "round_00": {
+          "HTTP None | RemoteProtocolError | ": 4,
+          "HTTP None | ConnectError | ": 3,
+          "HTTP None | ReadTimeout | ": 1,
+          "success": 1
+        },
+        "round_01": {
+          "HTTP None | RemoteProtocolError | ": 1,
+          "success": 3,
+          "HTTP None | ConnectError | ": 4,
+          "HTTP None | ConnectTimeout | ": 3,
+          "HTTP None | ReadError | ": 1
+        },
+        "round_02": {
+          "success": 1
+        },
+        "round_03": {
+          "success": 1
+        },
+        "round_04": {
+          "HTTP None | RemoteProtocolError | ": 1,
+          "success": 1
+        },
+        "round_05": {
+          "success": 6,
+          "HTTP 429 | HTTPStatusError | ": 35,
+          "HTTP None | RemoteProtocolError | ": 1,
+          "HTTP None | ConnectError | ": 1
+        },
+        "round_06": {
+          "HTTP None | FatalProtocolError | provider HTTP 403": 1,
+          "HTTP 403 | FatalProtocolError | ": 13,
+          "HTTP None | ConnectError | ": 2,
+          "success": 3
+        },
+        "round_07": {
+          "success": 3
+        },
+        "round_08": {
+          "success": 3
+        },
+        "round_09": {
+          "HTTP None | RemoteProtocolError | ": 2,
+          "success": 3
+        },
+        "round_10": {
+          "success": 2
+        },
+        "round_11": {
+          "success": 1
+        },
+        "round_12": {
+          "success": 1
+        },
+        "round_13": {
+          "success": 1
+        },
+        "round_14": {
+          "success": 3,
+          "HTTP None | ConnectError | ": 6,
+          "HTTP None | ConnectTimeout | ": 5,
+          "HTTP None | RemoteProtocolError | ": 4,
+          "HTTP None | ReadTimeout | ": 1
+        },
+        "round_15": {
+          "success": 2
+        },
+        "round_16": {
+          "success": 2,
+          "HTTP 429 | HTTPStatusError | ": 6432,
+          "HTTP None | ConnectError | ": 647,
+          "HTTP 502 | HTTPStatusError | ": 3,
+          "HTTP None | RemoteProtocolError | ": 2,
+          "HTTP None | WallClockInactivityTimeout | ": 1,
+          "HTTP None | ConnectTimeout | ": 2,
+          "HTTP None | ReadError | ": 1,
+          "HTTP None | ReadTimeout | ": 1
+        },
+        "round_17": {
+          "HTTP None | RemoteProtocolError | ": 1,
+          "HTTP None | ConnectError | ": 93,
+          "success": 2
+        },
+        "round_18": {
+          "success": 3
+        },
+        "round_19": {
+          "HTTP None | RemoteProtocolError | ": 1,
+          "success": 1
+        },
+        "round_20": {
+          "HTTP 403 | FatalProtocolError | ": 1855,
+          "HTTP None | ConnectError | ": 1283,
+          "HTTP 502 | HTTPStatusError | ": 16,
+          "HTTP None | ReadError | ": 16,
+          "HTTP None | RemoteProtocolError | ": 50,
+          "HTTP None | WallClockInactivityTimeout | ": 8,
+          "HTTP None | FatalProtocolError | provider terminal code: upstream_error": 1,
+          "HTTP None | ReadTimeout | ": 4,
+          "HTTP 429 | HTTPStatusError | ": 6638,
+          "HTTP None | ConnectTimeout | ": 16,
+          "success": 2
+        },
+        "round_21": {
+          "success": 1
+        },
+        "round_22": {
+          "success": 1
+        },
+        "round_23": {
+          "HTTP None | ConnectTimeout | ": 2,
+          "HTTP None | ConnectError | ": 3,
+          "HTTP None | RemoteProtocolError | ": 1,
+          "success": 1
+        },
+        "round_24": {
+          "HTTP None | ConnectError | ": 5,
+          "success": 1
+        },
+        "round_25": {
+          "HTTP None | ReadTimeout | ": 1,
+          "HTTP None | ConnectTimeout | ": 2,
+          "HTTP None | ConnectError | ": 2,
+          "HTTP None | RemoteProtocolError | ": 2,
+          "success": 1
+        },
+        "round_26": {
+          "success": 1
+        },
+        "round_27": {
+          "HTTP 429 | HTTPStatusError | ": 9449,
+          "HTTP None | ConnectError | ": 106,
+          "HTTP None | ConnectTimeout | ": 4,
+          "HTTP None | ReadTimeout | ": 1,
+          "HTTP None | ReadError | ": 2,
+          "HTTP None | RemoteProtocolError | ": 1,
+          "HTTP None | WallClockInactivityTimeout | ": 1
+        }
+      }
+    },
+    "12203": {
+      "archive": "seed_12203_receipts.jsonl.gz",
+      "sha256": "43d0ff477983faef0af668bc024ed888ca2ca5fe70459b2e00ef83c52895d0d6",
+      "bytes": 7407992,
+      "file_counts": {
+        "attempt": 27707,
+        "started": 27708,
+        "rejected": 59,
+        "stream": 27874,
+        "turn": 83
+      },
+      "attempt_results": {
+        "HTTP None | RemoteProtocolError | ": 114,
+        "HTTP None | ReadTimeout | ": 11,
+        "HTTP None | ConnectError | ": 3265,
+        "success": 83,
+        "HTTP None | ConnectTimeout | ": 44,
+        "HTTP 429 | HTTPStatusError | ": 22256,
+        "HTTP None | FatalProtocolError | provider HTTP 403": 1,
+        "HTTP 403 | FatalProtocolError | ": 1876,
+        "HTTP None | WallClockInactivityTimeout | ": 13,
+        "HTTP None | ReadError | ": 17,
+        "HTTP 502 | HTTPStatusError | ": 27
+      },
+      "logical_rejections": {
+        "must select distinct legal supplied candidate IDs": 23,
+        "selection packet binding mismatch": 33,
+        "hypotheses must contain zero to eight entries": 1,
+        "hypothesis H5 cites unobserved evidence in supporting_observed_ids: ['f2f1228ed527e78379ef', '7df9f96b58c06a0c86c2', '4557a201acb370fccbfa', '2f1ff409bb879ae9d5e6']; only observed-table IDs are allowed": 1,
+        "hypothesis H1 cites unobserved evidence in supporting_observed_ids: ['49201b5817f204116f7f', '96710afeabc594baa359', 'a17bcdddcf0799baeee2', '35f2be5f5aa14265e8a']; only observed-table IDs are allowed": 1
+      },
+      "per_round_attempt_results": {
+        "round_00": {
+          "HTTP None | RemoteProtocolError | ": 3,
+          "HTTP None | ReadTimeout | ": 1,
+          "HTTP None | ConnectError | ": 2,
+          "success": 3
+        },
+        "round_01": {
+          "success": 3
+        },
+        "round_02": {
+          "success": 1
+        },
+        "round_03": {
+          "HTTP None | RemoteProtocolError | ": 1,
+          "HTTP None | ConnectError | ": 6,
+          "HTTP None | ConnectTimeout | ": 2,
+          "success": 1
+        },
+        "round_04": {
+          "HTTP None | RemoteProtocolError | ": 1,
+          "success": 1
+        },
+        "round_05": {
+          "success": 1
+        },
+        "round_06": {
+          "success": 1
+        },
+        "round_07": {
+          "success": 2
+        },
+        "round_08": {
+          "success": 1
+        },
+        "round_09": {
+          "HTTP 429 | HTTPStatusError | ": 35,
+          "HTTP None | ConnectError | ": 55,
+          "success": 11,
+          "HTTP None | FatalProtocolError | provider HTTP 403": 1,
+          "HTTP 403 | FatalProtocolError | ": 15,
+          "HTTP None | RemoteProtocolError | ": 2
+        },
+        "round_10": {
+          "success": 1
+        },
+        "round_11": {
+          "HTTP None | RemoteProtocolError | ": 2,
+          "success": 2
+        },
+        "round_12": {
+          "success": 3
+        },
+        "round_13": {
+          "HTTP None | RemoteProtocolError | ": 4,
+          "HTTP None | ConnectError | ": 182,
+          "HTTP None | WallClockInactivityTimeout | ": 2,
+          "success": 2,
+          "HTTP None | ReadError | ": 1
+        },
+        "round_14": {
+          "success": 2
+        },
+        "round_15": {
+          "HTTP None | RemoteProtocolError | ": 4,
+          "HTTP None | ConnectError | ": 191,
+          "HTTP None | ConnectTimeout | ": 5,
+          "HTTP None | ReadError | ": 2,
+          "success": 2
+        },
+        "round_16": {
+          "success": 33,
+          "HTTP None | ConnectError | ": 1661,
+          "HTTP 429 | HTTPStatusError | ": 6202,
+          "HTTP 502 | HTTPStatusError | ": 12,
+          "HTTP None | ConnectTimeout | ": 4,
+          "HTTP None | ReadError | ": 4,
+          "HTTP None | WallClockInactivityTimeout | ": 6,
+          "HTTP None | RemoteProtocolError | ": 21,
+          "HTTP None | ReadTimeout | ": 3,
+          "HTTP 403 | FatalProtocolError | ": 1861
+        },
+        "round_17": {
+          "HTTP None | RemoteProtocolError | ": 1,
+          "success": 1
+        },
+        "round_18": {
+          "HTTP None | ReadTimeout | ": 7,
+          "HTTP None | ConnectTimeout | ": 4,
+          "HTTP None | WallClockInactivityTimeout | ": 1,
+          "HTTP None | RemoteProtocolError | ": 4,
+          "HTTP None | ConnectError | ": 213,
+          "success": 2
+        },
+        "round_19": {
+          "HTTP None | ConnectTimeout | ": 14,
+          "HTTP None | RemoteProtocolError | ": 68,
+          "success": 2,
+          "HTTP 429 | HTTPStatusError | ": 6808,
+          "HTTP None | ConnectError | ": 845,
+          "HTTP None | WallClockInactivityTimeout | ": 3,
+          "HTTP 502 | HTTPStatusError | ": 14,
+          "HTTP None | ReadError | ": 8
+        },
+        "round_20": {
+          "success": 2
+        },
+        "round_21": {
+          "success": 3,
+          "HTTP None | ConnectTimeout | ": 5,
+          "HTTP None | ConnectError | ": 6
+        },
+        "round_22": {
+          "HTTP None | RemoteProtocolError | ": 2,
+          "HTTP None | ConnectTimeout | ": 5,
+          "HTTP None | ConnectError | ": 8,
+          "success": 1
+        },
+        "round_23": {
+          "success": 2
+        },
+        "round_24": {
+          "HTTP 429 | HTTPStatusError | ": 9211,
+          "HTTP 502 | HTTPStatusError | ": 1,
+          "HTTP None | ConnectError | ": 96,
+          "HTTP None | RemoteProtocolError | ": 1,
+          "HTTP None | ConnectTimeout | ": 5,
+          "HTTP None | ReadError | ": 2,
+          "HTTP None | WallClockInactivityTimeout | ": 1
+        }
+      }
+    }
+  }
+}
