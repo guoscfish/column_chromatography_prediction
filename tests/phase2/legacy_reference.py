@@ -31,6 +31,13 @@ def source(path, commit=FROZEN_COMMIT):
                                     'show', commit + ':' + path]).decode()
 
 
+def constant(path, name, commit=FROZEN_COMMIT):
+    for node in ast.parse(source(path, commit)).body:
+        if isinstance(node, ast.Assign) and any(isinstance(t, ast.Name) and t.id == name for t in node.targets):
+            return ast.literal_eval(node.value)
+    raise ValueError('missing pinned literal constant: ' + name)
+
+
 def load(path, names, *, injected=None, commit=FROZEN_COMMIT):
     content = source(path, commit)
     tree = ast.parse(content, filename=path)

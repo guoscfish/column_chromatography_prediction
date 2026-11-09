@@ -1,0 +1,14 @@
+{
+  "schema_version": 2,
+  "execution_mode": "offline_synthetic",
+  "feature_dimension": 128,
+  "run": {"seed": 157, "acquisition_seed": 1234, "acquisition": "lcmd", "representation": "latent", "batch_size": 2, "target_budget": 6},
+  "initial_ids": ["L0", "L1"],
+  "candidate_ids": ["U0", "U1", "U2", "U3"],
+  "validation_ids": ["V0", "V1"],
+  "feature_vectors": {"L0": [0.0, 0.0], "L1": [10.0, 0.0], "U0": [1.0, 0.0], "U1": [3.0, 1.0], "U2": [7.0, 1.0], "U3": [9.0, 0.0]},
+  "initial_labels": {"L0": [1.0, 2.0], "L1": [3.0, 6.0]},
+  "validation_labels": {"V0": [1.2, 2.2], "V1": [3.2, 4.2]},
+  "validation_predictions": {"V0": [0.0, 1.0, 2.0, 1.0, 2.0, 3.0], "V1": [2.0, 3.0, 4.0, 3.0, 4.0, 5.0]},
+  "synthetic_reveal_values": {"U0": [2.0, 4.0], "U1": [2.0, 4.0], "U2": [2.0, 4.0], "U3": [2.0, 4.0]}
+}

@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "stable_acquisitions": {
+    "random": {
+      "status": "MIGRATED_NUMERICAL_CORE",
+      "source_commit": "16eca74769f664bc378a58ccbf380a806723f587",
+      "normalization": "explicit effective RNG seed; historical control seed remains an explicit mapping",
+      "profiles": {
+        "independent_batch": "Explicit effective seed passed to np.default_rng.choice over current U_t",
+        "historical_sequential_fixed32": "One original U0 permutation, effective seed=outer_seed*1_000_003+900_001, exact 32-ID slices; zero-based new API round"
+      }
+    },
+    "lcmd": {
+      "status": "MIGRATED_NUMERICAL_CORE",
+      "source_commit": "16eca74769f664bc378a58ccbf380a806723f587",
+      "normalization": "Euclidean squared distance with existing L centers"
+    },
+    "maxdet": {
+      "status": "MIGRATED_NUMERICAL_CORE",
+      "source_commit": "16eca74769f664bc378a58ccbf380a806723f587",
+      "normalization": "current-L RMS scaling plus conditional information inverse"
+    },
+    "ivr": {
+      "status": "MIGRATED_NUMERICAL_CORE",
+      "source_commit": "16eca74769f664bc378a58ccbf380a806723f587",
+      "normalization": "fixed L+U universe RMS scaling and fixed-kernel integrated variance"
+    },
+    "hybrid": {
+      "status": "MIGRATED_NUMERICAL_CORE",
+      "source_commit": "16eca74769f664bc378a58ccbf380a806723f587",
+      "normalization": "top ceil(25% U) ensemble disagreement followed by 128D latent k-center"
+    }
+  },
+  "stable_representations": [
+    "latent_128",
+    "q50_countsketch_512",
+    "cw_linear_autograd_512",
+    "fixed_alpha_gradient_latent_640"
+  ],
+  "archived_agent_protocols": {
+    "Free": {
+      "status": "HISTORICAL_FROZEN",
+      "source_commit": "16eca74769f664bc378a58ccbf380a806723f587",
+      "source_path": "src/qgeognn_al/active_learning_v2/scientist_full_delivery.py",
+      "source_sha256": "ae5b74d5cff50bb3142986812a94f495761ade0318b395232224ccf1d7f28eb4",
+      "new_runner_adapter": false,
+      "reason": "Protocol prompt, catalogue and retry rules are not interchangeable; restore immutable source for historical replay. Generic packet contracts do not claim output/LLM equivalence."
+    },
+    "CW": {
+      "status": "HISTORICAL_FROZEN",
+      "source_commit": "16eca74769f664bc378a58ccbf380a806723f587",
+      "source_path": "src/qgeognn_al/active_learning_v2/nocw_inputs.py",
+      "source_sha256": "9ffee2df0cfa056d7f0903379595bd35b28b11aaad6da26894911b7372d37a8b",
+      "new_runner_adapter": false,
+      "reason": "Protocol prompt, catalogue and retry rules are not interchangeable; restore immutable source for historical replay. Generic packet contracts do not claim output/LLM equivalence."
+    },
+    "NoCW": {
+      "status": "HISTORICAL_FROZEN",
+      "source_commit": "16eca74769f664bc378a58ccbf380a806723f587",
+      "source_path": "src/qgeognn_al/active_learning_v2/nocw_inputs.py",
+      "source_sha256": "9ffee2df0cfa056d7f0903379595bd35b28b11aaad6da26894911b7372d37a8b",
+      "new_runner_adapter": false,
+      "reason": "Protocol prompt, catalogue and retry rules are not interchangeable; restore immutable source for historical replay. Generic packet contracts do not claim output/LLM equivalence."
+    },
+    "V3": {
+      "status": "HISTORICAL_FROZEN",
+      "source_commit": "16eca74769f664bc378a58ccbf380a806723f587",
+      "source_path": "src/qgeognn_al/active_learning_v3/selector.py",
+      "source_sha256": "9ac9f1b8fcd967a45b5aced085ba5ce7c190b3d585acde96a9be88d4e6656441",
+      "new_runner_adapter": false,
+      "reason": "Protocol prompt, catalogue and retry rules are not interchangeable; restore immutable source for historical replay. Generic packet contracts do not claim output/LLM equivalence."
+    },
+    "V3_2": {
+      "status": "HISTORICAL_FROZEN",
+      "source_commit": "16eca74769f664bc378a58ccbf380a806723f587",
+      "source_path": "src/qgeognn_al/active_learning_v3_2/selector.py",
+      "source_sha256": "6401df6bd036d25421070469770923b2877061d3eeff2b80371d5f707ba2e0bd",
+      "new_runner_adapter": false,
+      "reason": "Protocol prompt, catalogue and retry rules are not interchangeable; restore immutable source for historical replay. Generic packet contracts do not claim output/LLM equivalence."
+    }
+  },
+  "active_agent_adapter": "provided_authorized_plan_v1",
+  "provider_execution_supported": false,
+  "never_infer": "offline ranking does not establish AULC improvement"
+}
