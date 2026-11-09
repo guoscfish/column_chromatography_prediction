@@ -1,0 +1,32 @@
+{
+  "baseline_commit": "16eca74769f664bc378a58ccbf380a806723f587",
+  "tests": {
+    "passed": 101,
+    "failed": 0,
+    "junit": "tests.xml",
+    "log": "tests.log",
+    "warnings": 118
+  },
+  "legacy_hygiene": {
+    "exit_code": 1,
+    "research_scope_violations": 0,
+    "retirement_violation_reasons": {
+      "retained_record_missing": 118
+    },
+    "protected_worktree_missing": 12,
+    "reason": "Intentional sparse checkout: historical retained records and protected data/checkpoints not materialized; independent object recoverability is checked separately"
+  },
+  "implementation": {
+    "migrated_components": 2,
+    "new_public_api_python_files": 12,
+    "deleted_old_entrypoints": 2,
+    "deferred_retirement_candidates": 135
+  },
+  "not_executed": [
+    "real-data/archived-trained-checkpoint end-to-end regression",
+    "QGeoGNN training",
+    "provider or paid LLM request",
+    "new real selections/reveals",
+    "main merge or main source mutation"
+  ]
+}

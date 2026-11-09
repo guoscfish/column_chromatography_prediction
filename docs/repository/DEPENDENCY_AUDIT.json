@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "source_commit": "16eca74769f664bc378a58ccbf380a806723f587",
+  "source_head_description": "16eca74769f664bc378a58ccbf380a806723f587 Resume CW experiment past pinned historical authentication failures",
+  "baseline_python_files": 820,
+  "inventory_python_files": 875,
+  "new_candidate_python_files": 24,
+  "uncommitted_runtime_python_files": 31,
+  "scanned_text_blobs": 3066,
+  "metadata_allowlist": "(?:^|/)(?:[^/]*(?:protocol|manifest|config|freeze|contract)[^/]*|RESEARCH_SCOPE|PROTECTED_ARTIFACTS)\\.json$",
+  "excluded_payload_pattern": "(?:^|/)(?:requests?|responses?|raw|turns?|attempts?|streams?)(?:/|_)|(?:request|response|catalogue|catalog|feedback|prediction|label|selection)(?:\\b|_)",
+  "parse_errors": {},
+  "frozen_compatibility_paths": [
+    "src/qgeognn_al/t1_formal.py",
+    "src/qgeognn_al/t1b1.py",
+    "src/qgeognn_al/transfer/__init__.py",
+    "src/qgeognn_al/transfer/adaptation.py",
+    "src/qgeognn_al/transfer/adaptive_readout.py",
+    "src/qgeognn_al/transfer/architecture_headroom.py",
+    "src/qgeognn_al/transfer/baseline.py",
+    "src/qgeognn_al/transfer/calibration.py",
+    "src/qgeognn_al/transfer/center_width.py",
+    "src/qgeognn_al/transfer/column_conditioned.py",
+    "src/qgeognn_al/transfer/column_conditioned_multitask.py",
+    "src/qgeognn_al/transfer/column_physics.py",
+    "src/qgeognn_al/transfer/conditional_scaling.py",
+    "src/qgeognn_al/transfer/controlled_conditional_extension.py",
+    "src/qgeognn_al/transfer/evaluation.py",
+    "src/qgeognn_al/transfer/full_data.py",
+    "src/qgeognn_al/transfer/hierarchical_cw_corrected.py",
+    "src/qgeognn_al/transfer/joint_hierarchical_latent.py",
+    "src/qgeognn_al/transfer/matched_calibration.py",
+    "src/qgeognn_al/transfer/pcgrad.py",
+    "src/qgeognn_al/transfer/protocol.py",
+    "src/qgeognn_al/transfer/residual_diagnostics.py",
+    "src/qgeognn_al/transfer/scaling_audit.py",
+    "src/qgeognn_al/transfer/shared_center_width.py",
+    "src/qgeognn_al/transfer/source_anchored.py",
+    "src/qgeognn_al/transfer/source_augmentation.py",
+    "src/qgeognn_al/transfer/structured_center_width.py",
+    "src/qgeognn_al/transfer/varying_coefficient.py"
+  ],
+  "protected_paths": [
+    {
+      "path": "experiments/e0_4g_baseline/checkpoints/best.pt",
+      "role": "authoritative_source_checkpoint_seed42"
+    },
+    {
+      "path": "experiments/e1_signal_qualification/source_members/member_seed_525/checkpoints/best.pt",
+      "role": "authoritative_source_checkpoint_seed525"
+    },
+    {
+      "path": "experiments/e1_signal_qualification/source_members/member_seed_1101/checkpoints/best.pt",
+      "role": "authoritative_source_checkpoint_seed1101"
+    },
+    {
+      "path": "experiments/e0_4g_baseline/graph_cache_4g.pt",
+      "role": "active_4g_graph_cache"
+    },
+    {
+      "path": "experiments/e0_8g_transfer/graph_cache_8g_only.pt",
+      "role": "active_8g_graph_cache"
+    },
+    {
+      "path": "experiments/e0_4g_baseline/canonical_4g.csv",
+      "role": "canonical_source_dataset"
+    },
+    {
+      "path": "experiments/g0_3_threshold_sensitivity/canonical_8g_no_threshold.csv",
+      "role": "canonical_target_dataset"
+    },
+    {
+      "path": "experiments/e0_4g_baseline/scaler.json",
+      "role": "frozen_source_scaler"
+    },
+    {
+      "path": "experiments/e1_signal_qualification/source_members/member_seed_525/scaler.json",
+      "role": "source_member_scaler"
+    },
+    {
+      "path": "experiments/e1_signal_qualification/source_members/member_seed_1101/scaler.json",
+      "role": "source_member_scaler"
+    },
+    {
+      "path": "experiments/d28_al_engineering/partitions",
+      "role": "frozen_e2_e4_partitions"
+    },
+    {
+      "path": "experiments/e4_a2a_low_budget_preregistration/partitions",
+      "role": "frozen_low_label_partitions"
+    }
+  ],
+  "runtime_snapshot_available": true,
+  "risk_counts": {
+    "LIVE_BLOCKER": 461,
+    "FROZEN_HASH_BLOCKER": 200,
+    "UNKNOWN": 188,
+    "SAFE": 22,
+    "IMPORT_BLOCKER": 4
+  },
+  "limits": [
+    "Source-only static audit, not proof of arbitrary runtime/reflection/pickle reachability",
+    "Manifest references are an allowlist; raw provider payloads, tables and checkpoint contents never parsed",
+    "Code-hash blanket protects every original src/qgeognn_al and application Python file",
+    "Subprocess/dynamic edges conservatively overapproximate textual mentions",
+    "Python under ignored live directories is not imported or copied; inspect runtime snapshot metadata separately",
+    "Git history availability/content identity is checked; historical execution is not replayed"
+  ],
+  "retirement_decision_validations": [
+    {
+      "path": "scripts/studies/plot_free_cw_snapshot_20261102.py",
+      "gate": {
+        "safe": true,
+        "blockers": []
+      }
+    },
+    {
+      "path": "scripts/studies/plot_free_rerun_audit_20261103.py",
+      "gate": {
+        "safe": true,
+        "blockers": []
+      }
+    }
+  ],
+  "gate3": "STOP: do not merge, push or delete active main files"
+}

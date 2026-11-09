@@ -1,0 +1,29 @@
+{
+  "python": "3.11.14",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "packages": {
+    "numpy": "2.4.6",
+    "pandas": "3.0.5",
+    "torch": "2.10.0",
+    "torch-geometric": "2.7.0",
+    "rdkit": "2025.9.3",
+    "scipy": "1.17.1",
+    "scikit-learn": "1.9.0",
+    "matplotlib": "3.10.8",
+    "mordred": "1.2.0",
+    "pytest": "9.1.1",
+    "setuptools": "80.10.1"
+  },
+  "validation_process_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "KMP_DUPLICATE_LIB_OK": "TRUE",
+    "MPLCONFIGDIR": "/private/tmp/column_refactor_mpl"
+  },
+  "limitations": [
+    "Existing duplicate OpenMP runtime requires process-local workaround; live environment unchanged",
+    "No pretrained checkpoint or real sealed data loaded; synthetic baseline is explicit"
+  ]
+}

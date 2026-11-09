@@ -1,0 +1,590 @@
+{
+  "git": {
+    "local_branches": [
+      {
+        "branch": "codex/archive-transfer-20261028",
+        "commit": "dadd2281fba01eb4414128cbf9feb2859c78544b",
+        "commits_only_on_branch_vs_current": 1,
+        "commits_only_on_branch_vs_main": null,
+        "worktree": null
+      },
+      {
+        "branch": "codex/repository-architecture-20261109",
+        "commit": "16eca74769f664bc378a58ccbf380a806723f587",
+        "commits_only_on_branch_vs_current": 0,
+        "commits_only_on_branch_vs_main": null,
+        "worktree": "/Users/fish/Documents/GitHub/column_chromatography_refactor"
+      }
+    ]
+  },
+  "protected_artifacts": [
+    {
+      "exists": false,
+      "kind": "missing",
+      "path": "experiments/e0_4g_baseline/checkpoints/best.pt",
+      "role": "authoritative_source_checkpoint_seed42"
+    },
+    {
+      "exists": false,
+      "kind": "missing",
+      "path": "experiments/e1_signal_qualification/source_members/member_seed_525/checkpoints/best.pt",
+      "role": "authoritative_source_checkpoint_seed525"
+    },
+    {
+      "exists": false,
+      "kind": "missing",
+      "path": "experiments/e1_signal_qualification/source_members/member_seed_1101/checkpoints/best.pt",
+      "role": "authoritative_source_checkpoint_seed1101"
+    },
+    {
+      "exists": false,
+      "kind": "missing",
+      "path": "experiments/e0_4g_baseline/graph_cache_4g.pt",
+      "role": "active_4g_graph_cache"
+    },
+    {
+      "exists": false,
+      "kind": "missing",
+      "path": "experiments/e0_8g_transfer/graph_cache_8g_only.pt",
+      "role": "active_8g_graph_cache"
+    },
+    {
+      "exists": false,
+      "kind": "missing",
+      "path": "experiments/e0_4g_baseline/canonical_4g.csv",
+      "role": "canonical_source_dataset"
+    },
+    {
+      "exists": false,
+      "kind": "missing",
+      "path": "experiments/g0_3_threshold_sensitivity/canonical_8g_no_threshold.csv",
+      "role": "canonical_target_dataset"
+    },
+    {
+      "exists": false,
+      "kind": "missing",
+      "path": "experiments/e0_4g_baseline/scaler.json",
+      "role": "frozen_source_scaler"
+    },
+    {
+      "exists": false,
+      "kind": "missing",
+      "path": "experiments/e1_signal_qualification/source_members/member_seed_525/scaler.json",
+      "role": "source_member_scaler"
+    },
+    {
+      "exists": false,
+      "kind": "missing",
+      "path": "experiments/e1_signal_qualification/source_members/member_seed_1101/scaler.json",
+      "role": "source_member_scaler"
+    },
+    {
+      "exists": false,
+      "kind": "missing",
+      "path": "experiments/d28_al_engineering/partitions",
+      "role": "frozen_e2_e4_partitions"
+    },
+    {
+      "exists": false,
+      "kind": "missing",
+      "path": "experiments/e4_a2a_low_budget_preregistration/partitions",
+      "role": "frozen_low_label_partitions"
+    }
+  ],
+  "repository": "/Users/fish/Documents/GitHub/column_chromatography_refactor",
+  "research_scope": {
+    "archive_commit": "dadd2281fba01eb4414128cbf9feb2859c78544b",
+    "branch": "codex/archive-transfer-20261028",
+    "markdown_before": 362,
+    "merged_document_count": 38,
+    "removed_file_count": 4240,
+    "violations": []
+  },
+  "retirements": {
+    "consolidated_document_count": 23,
+    "removed_lines": 98827,
+    "retired_script_count": 40,
+    "source_commit": "0e7b2ee940e3f71c6dbc7400c420694855eec597",
+    "violations": [
+      {
+        "path": "scripts/e4_preregistration_preflight.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "scripts/studies/audit_column_conditioned_multitask_evidence.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "scripts/studies/audit_column_conditioned_pcgrad_evidence.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "scripts/studies/run_filtered_transfer_headroom_audit.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "scripts/studies/run_full_data_architecture_headroom.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "scripts/studies/run_full_data_joint_hierarchical_latent.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "scripts/studies/run_row_column_selective_latent_audit.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "scripts/studies/run_traditional_transfer_formal_row.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "scripts/studies/summarize_column_conditioned_pcgrad.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "scripts/studies/summarize_next_transfer_diagnostics.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "scripts/studies/summarize_traditional_transfer_formal_row.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/llm_model_switch_20261012/plot_switch.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/AUDIT.json",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/METHODS_APPENDIX.md",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/OUTPUT_SHA256.csv",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/README.md",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/experiment_status.csv",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/fig10_overview.png",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/fig10_overview.svg",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/fig10_summary.csv",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/fig10_summary_table.png",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/fig10_summary_table.svg",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/fig10_summary_wide.csv",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/fig10_validation_curves.csv",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/fig11_factorial_curves.png",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/fig11_factorial_curves.svg",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/fig11_paired_aulc.png",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/fig11_paired_aulc.svg",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/fig11_paired_effects.csv",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/fig11_summary.csv",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/fig11_validation_curves.csv",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/fig12_branch_summary.csv",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/fig12_reversal_values.csv",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/fig12_same_state_branching.png",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/fig12_same_state_branching.svg",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/fig12_winner_audit.csv",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/figures/slide13_cw32_vs_cw16_llm16_333_813.png",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/figures/slide13_cw32_vs_cw16_llm16_333_813.svg",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/reports/active_learning_latest/REPORT.md",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/reports/active_learning_latest/snapshot.json",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/scripts/report_active_learning_snapshot.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/scripts/studies/build_qgeognn_v2_row_master_report.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/src/qgeognn_al/active_learning_v2/benchmark_protocol.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/src/qgeognn_al/active_learning_v2/coverage.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/src/qgeognn_al/active_learning_v2/cw_factorial.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/src/qgeognn_al/active_learning_v2/cw_factorial_study.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/src/qgeognn_al/active_learning_v2/cw_factorial_to1005.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/src/qgeognn_al/active_learning_v2/fused_features.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/src/qgeognn_al/active_learning_v2/fused_maxdet_runner.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/src/qgeognn_al/active_learning_v2/gradient_features.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/src/qgeognn_al/active_learning_v2/gradient_transforms.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/src/qgeognn_al/active_learning_v2/ivr.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/src/qgeognn_al/active_learning_v2/lcmd.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/src/qgeognn_al/active_learning_v2/maxdet.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/src/qgeognn_al/active_learning_v2/same_state_branching.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/src/qgeognn_al/active_learning_v2/sequential_acquisition.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/src/qgeognn_al/active_learning_v2/sequential_protocol.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/src/qgeognn_al/active_learning_v2/sequential_runner.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/src/qgeognn_al/active_learning_v2/uncertainty.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/src/qgeognn_al/evaluation/point.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/src/qgeognn_al/models/qgeognn_v2.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/src/qgeognn_al/training/predictor.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_1005/COMPLETION_RECHECK.json",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_1005/DELIVERY_AUDIT.json",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_1005/GLOBAL_FREEZE.json",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_1005/RESULTS.md",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_1005/REUSE_GEOMETRY_AUDIT.json",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_1005/RUN_STATE.json",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_1005/validation_curves.csv",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_1005/validation_summary.csv",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/studies/active_learning/qgeognn_v2_row_cw_selector_factorial/RESULTS.md",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/studies/active_learning/qgeognn_v2_row_cw_selector_factorial/REUSE_MANIFEST.json",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/studies/active_learning/qgeognn_v2_row_cw_selector_factorial/protocol.json",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/studies/active_learning/qgeognn_v2_row_cw_selector_factorial/reuse_compatibility.json",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/studies/active_learning/qgeognn_v2_row_cw_selector_factorial/validation_curves.csv",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/studies/active_learning/qgeognn_v2_row_cw_selector_factorial/validation_summary.csv",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/studies/active_learning/qgeognn_v2_row_master_report/MASTER_REPORT.md",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/studies/active_learning/qgeognn_v2_same_state_branching/FINAL_REPORT.md",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/studies/active_learning/qgeognn_v2_same_state_branching/postfreeze_artifact_manifest.json",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/studies/active_learning/qgeognn_v2_same_state_branching/results/branch_results.csv",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/frozen_inputs/studies/active_learning/qgeognn_v2_same_state_branching/results/winner_matrix.csv",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/input_sources.csv",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/method_mapping_audit.csv",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/methods_two_layer.png",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/methods_two_layer.svg",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/numerical_audit.csv",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/overview_fit_receipts.csv",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/plot_reporting_only.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/plot_slide13_cw32_vs_cw16_llm16.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_al/retained_fit_hash_audit.csv",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_transfer/figures/slide18_b100_compound_rmse_comparison.png",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_transfer/figures/slide18_b100_compound_rmse_comparison.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_transfer/figures/slide18_b100_compound_rmse_comparison.svg",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_transfer/figures/slide18_filtered_row_learning_curve.png",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_transfer/figures/slide18_filtered_row_learning_curve.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_transfer/figures/slide18_filtered_row_learning_curve.svg",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_transfer/figures/slide18_full_data_row_rmse_comparison.png",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_transfer/figures/slide18_full_data_row_rmse_comparison.py",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_transfer/figures/slide18_full_data_row_rmse_comparison.svg",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_transfer/frozen_inputs/studies/transfer/filtered_row_learning_curve_20261013/all_predictions_frozen.json",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_transfer/frozen_inputs/studies/transfer/filtered_row_learning_curve_20261013/completion_audit.json",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_transfer/frozen_inputs/studies/transfer/filtered_row_learning_curve_20261013/protocol.json",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_transfer/frozen_inputs/studies/transfer/filtered_row_learning_curve_20261013/summary.csv",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_transfer/frozen_inputs/studies/transfer/filtered_row_learning_curve_b200_20261013/all_predictions_frozen.json",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_transfer/frozen_inputs/studies/transfer/filtered_row_learning_curve_b200_20261013/completion_audit.json",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_transfer/frozen_inputs/studies/transfer/filtered_row_learning_curve_b200_20261013/protocol.json",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_transfer/frozen_inputs/studies/transfer/filtered_row_learning_curve_b200_20261013/summary.csv",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_transfer/frozen_inputs/studies/transfer/matched_rmse_benchmark/MATCHED_RMSE_REPORT.md",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_transfer/frozen_inputs/studies/transfer/matched_rmse_benchmark/budget100_summary.csv",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_transfer/frozen_inputs/studies/transfer/matched_rmse_benchmark/protocol.json",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_transfer/frozen_inputs/studies/transfer/row_full_data_rmse_completion_20261013/all_predictions_frozen.json",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_transfer/frozen_inputs/studies/transfer/row_full_data_rmse_completion_20261013/completion_audit.json",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_transfer/frozen_inputs/studies/transfer/row_full_data_rmse_completion_20261013/protocol.json",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/ppt_202610_transfer/frozen_inputs/studies/transfer/row_full_data_rmse_completion_20261013/summary.csv",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/dual_expert_two_seeds_to813_20261014/comparison_20261017_153850_685_365.png",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/dual_expert_two_seeds_to813_20261014/comparison_updated_685_365.png",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/latest_five_strategy_comparison_20261018/comparison_20261022_025503.png",
+        "reason": "retained_record_missing"
+      },
+      {
+        "path": "reports/active_learning_status_20261005/report_and_figures.zip",
+        "reason": "retained_record_missing"
+      }
+    ]
+  },
+  "schema_version": 4,
+  "tracked": {
+    "path_count": 1001,
+    "protected_runtime_exceptions": [],
+    "study_runtime_candidate_count": 0,
+    "study_runtime_candidates": []
+  }
+}
