@@ -1,0 +1,140 @@
+{
+  "checked_utc": "2026-11-09T14:42:25.757705+00:00",
+  "active_runtime": {
+    "entry": "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/five_parallel_lagging_20261109/controller_overlay.py",
+    "controller_entry": "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/five_parallel_lagging_20261109/controller_overlay.py",
+    "supervisor_pid": 13886,
+    "status": "progress/persistent_supervisor.json",
+    "launch": "five_parallel_lagging_20261109/launch.json",
+    "maximum_seed_workers": 5,
+    "maximum_expensive_compute": 5,
+    "target_budget": 1485,
+    "distinct_keys": 5,
+    "transport_attempt_cap": null,
+    "answer_attempt_cap": null,
+    "caffeinate_pid": 13887,
+    "transport_recovery_authorization": "five_parallel_lagging_20261109/authorization.json",
+    "transport_backoff_seconds": 0,
+    "priority": "completed_rounds_ascending_then_seed_ascending",
+    "authorization_sha256": "37993819c83c39e098de435125b52f451f6fbf6d4188ac4135b1da8ebeb064b7"
+  },
+  "supervisor": {
+    "pid": 13886,
+    "phase": "RUNNING",
+    "updated_utc": "2026-11-09T14:42:21.915230+00:00",
+    "target_budget": 1485,
+    "maximum_seed_workers": 5,
+    "maximum_expensive_compute": 5,
+    "priority_order": [
+      157,
+      887,
+      2357,
+      6101,
+      12203
+    ],
+    "active_seeds": [
+      157,
+      887,
+      2357,
+      6101,
+      12203
+    ],
+    "migration_draining": false,
+    "transport_attempt_cap": null,
+    "answer_attempt_cap": null,
+    "five_parallel_authorization_sha256": "37993819c83c39e098de435125b52f451f6fbf6d4188ac4135b1da8ebeb064b7",
+    "seeds": [
+      {
+        "seed": 157,
+        "pid": 77483,
+        "supervision": "RUNNING",
+        "completed_rounds": 24,
+        "current_budget": 1101,
+        "progress": {
+          "seed": 157,
+          "phase": "ADVANCING",
+          "updated_utc": "2026-11-09T14:34:35.368430+00:00",
+          "pid": 77483,
+          "round": 24,
+          "next_budget": 1133,
+          "target_budget": 1485
+        }
+      },
+      {
+        "seed": 887,
+        "pid": 75696,
+        "supervision": "RUNNING",
+        "completed_rounds": 32,
+        "current_budget": 1357,
+        "progress": {
+          "seed": 887,
+          "phase": "ADVANCING",
+          "updated_utc": "2026-11-09T14:34:21.350579+00:00",
+          "pid": 75696,
+          "round": 32,
+          "next_budget": 1389,
+          "target_budget": 1485
+        }
+      },
+      {
+        "seed": 2357,
+        "pid": 1816,
+        "supervision": "RUNNING",
+        "completed_rounds": 32,
+        "current_budget": 1357,
+        "progress": {
+          "seed": 2357,
+          "phase": "SELECTING",
+          "updated_utc": "2026-11-09T14:40:08.898686+00:00",
+          "pid": 1816,
+          "round": 32,
+          "current_budget": 1357,
+          "turn": 0,
+          "attempt": 58,
+          "transport_attempt_number": 59,
+          "transport_attempt_cap": null,
+          "target_budget": 1485
+        }
+      },
+      {
+        "seed": 6101,
+        "pid": 11756,
+        "supervision": "RUNNING",
+        "completed_rounds": 32,
+        "current_budget": 1357,
+        "progress": {
+          "seed": 6101,
+          "phase": "SELECTING",
+          "updated_utc": "2026-11-09T14:40:54.469802+00:00",
+          "pid": 11756,
+          "round": 32,
+          "current_budget": 1357,
+          "target_budget": 1485,
+          "credential_alias": "existing-independent-seed-6101",
+          "parallel_amendment_sha256": "d6ebd14b12e5155ef615206f7f715124a571ddc34269fe65b14c0b5f9c9b57db"
+        }
+      },
+      {
+        "seed": 12203,
+        "pid": 14189,
+        "supervision": "RUNNING",
+        "completed_rounds": 32,
+        "current_budget": 1357,
+        "progress": {
+          "seed": 12203,
+          "phase": "QUEUED",
+          "updated_utc": "2026-11-09T14:39:17.832125+00:00",
+          "pid": 38564,
+          "completed_rounds": 32,
+          "current_budget": 1357,
+          "final_budget": null,
+          "target_budget": 1485
+        }
+      }
+    ]
+  },
+  "lock_owners_lsof": "p1816\nf3\nn/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/locks/worker_seed_2357.lock\np11756\nf3\nn/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/locks/worker_seed_6101.lock\nf5\nn/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/locks/new_free_resource.lock\np13886\nf3\nn/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/locks/supervisor.lock\np14189\nf3\nn/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/locks/worker_seed_12203.lock\np75696\nf3\nn/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/locks/worker_seed_887.lock\nf4\nn/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/locks/new_free_resource_1.lock\np77483\nf3\nn/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/locks/worker_seed_157.lock\nf4\nn/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/locks/new_free_resource_3.lock\n",
+  "process_commands": " 1816 Ss     0.8 09:39 /Users/fish/miniforge3/envs/fish/bin/python /Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/four_parallel_lagging_20261109/controller_overlay.py worker --seed 2357 --allow-paid-llm --allow-training --allow-label-reveal\n11756 Rs    85.1 03:07 /Users/fish/miniforge3/envs/fish/bin/python /Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/four_parallel_lagging_20261109/controller_overlay.py worker --seed 6101 --allow-paid-llm --allow-training --allow-label-reveal\n13886 Ss    37.9 01:11 /Users/fish/miniforge3/envs/fish/bin/python /Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/five_parallel_lagging_20261109/controller_overlay.py supervise --allow-paid-llm --allow-training --allow-label-reveal\n13887 Ss     0.0 01:11 /usr/bin/caffeinate -i -w 13886\n14189 Rs    39.7 00:57 /Users/fish/miniforge3/envs/fish/bin/python /Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/five_parallel_lagging_20261109/controller_overlay.py worker --seed 12203 --allow-paid-llm --allow-training --allow-label-reveal\n75696 Rs   121.5 26:46 /Users/fish/miniforge3/envs/fish/bin/python /Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/four_parallel_lagging_20261109/controller_overlay.py worker --seed 887 --allow-paid-llm --allow-training --allow-label-reveal\n77483 Rs   132.0 25:26 /Users/fish/miniforge3/envs/fish/bin/python /Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/four_parallel_lagging_20261109/controller_overlay.py worker --seed 157 --allow-paid-llm --allow-training --allow-label-reveal\n",
+  "authorization_sha256": "37993819c83c39e098de435125b52f451f6fbf6d4188ac4135b1da8ebeb064b7",
+  "NoCW_signaled": false
+}
