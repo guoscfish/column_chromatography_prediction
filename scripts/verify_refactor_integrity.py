@@ -18,7 +18,8 @@ import subprocess
 
 BASELINE_COMMIT = '16eca74769f664bc378a58ccbf380a806723f587'
 DEFAULT_ACTIVE = Path('/Users/fish/Documents/GitHub/column_chromatography_prediction')
-DEFAULT_CANDIDATE = Path('/Users/fish/Documents/GitHub/column_chromatography_refactor')
+DEFAULT_CANDIDATE = Path(__file__).resolve().parents[1]
+REFACTOR_BRANCH = 'codex/repository-architecture-20261109'
 PYTHON_ROOTS = ('src/', 'application/', 'scripts/')
 SEALED_ROOTS = ('experiments/', 'studies/', 'reports/')
 SOURCE_SCOPES = ('src', 'application', 'scripts',
@@ -191,47 +192,104 @@ def check_recoverability(candidate, baseline, current_index, approved, protectio
             'truth_and_checkpoint_contents_opened': 0}
 
 
-def check_clone(candidate, active):
+def repository_path(repository, *revision_args):
+    value = Path(git(repository, 'rev-parse', *revision_args).strip())
+    return (value if value.is_absolute() else repository / value).resolve()
+
+
+def check_workspace_isolation(candidate, active, expected_active_head=BASELINE_COMMIT):
+    """Allow either a private clone or a controlled linked worktree of active.
+
+    Linked worktrees intentionally share objects and refs. Their source tree,
+    Git directory, HEAD and index must be separate from the running main tree.
+    Every Git query is read-only and uses GIT_OPTIONAL_LOCKS=0 through git().
+    """
+    candidate, active = Path(candidate).resolve(), Path(active).resolve()
     failures, samples = [], []
-    if not (candidate / '.git').is_dir():
-        failures.append('candidate .git must be an independent directory, not a worktree pointer')
-    common = Path(git(candidate, 'rev-parse', '--git-common-dir').strip())
-    if not common.is_absolute():
-        common = candidate / common
-    if common.resolve() != (candidate / '.git').resolve():
-        failures.append('candidate shares an external Git common directory')
+    if candidate == active or active in candidate.parents or candidate in active.parents:
+        return {'passed': False, 'mode': 'invalid',
+                'failures': ['candidate and active source directories must be separate and not nested']}
+    candidate_top = repository_path(candidate, '--show-toplevel')
+    active_top = repository_path(active, '--show-toplevel')
+    if candidate_top != candidate or active_top != active:
+        failures.append('supplied source directories must be their own Git worktree roots')
+    candidate_git = repository_path(candidate, '--git-dir')
+    active_git = repository_path(active, '--git-dir')
+    common = repository_path(candidate, '--git-common-dir')
+    active_common = repository_path(active, '--git-common-dir')
+    candidate_head = repository_path(candidate, '--git-path', 'HEAD')
+    active_head = repository_path(active, '--git-path', 'HEAD')
+    candidate_index = repository_path(candidate, '--git-path', 'index')
+    active_index = repository_path(active, '--git-path', 'index')
+    separate_metadata = {}
+    for label, left, right in [('HEAD', candidate_head, active_head),
+                                ('index', candidate_index, active_index)]:
+        independent = (left != right and left.is_file() and right.is_file()
+                       and not os.path.samefile(left, right))
+        separate_metadata[label] = independent
+        if not independent:
+            failures.append(f'candidate {label} must be a separate existing file from active {label}')
+        if left.parent != candidate_git:
+            failures.append(f'candidate {label} must belong to the candidate Git directory')
+    if candidate_git == active_git:
+        failures.append('candidate Git directory must be distinct from active Git directory')
+    if os.environ.get('GIT_ALTERNATE_OBJECT_DIRECTORIES'):
+        failures.append('Git alternate object environment variable is set')
     alternates = common / 'objects/info/alternates'
     if alternates.exists() and alternates.read_text().strip():
         failures.append('candidate has object alternates')
-    if os.environ.get('GIT_ALTERNATE_OBJECT_DIRECTORIES'):
-        failures.append('Git alternate object environment variable is set')
-    original_objects = active / '.git/objects'
-    candidate_objects = common / 'objects'
-    relative_samples = []
-    for path in sorted(candidate_objects.glob('pack/*')):
-        if path.is_file():
-            relative_samples.append(path.relative_to(candidate_objects))
-    for prefix in sorted(candidate_objects.iterdir()):
-        if prefix.is_dir() and len(prefix.name) == 2:
-            relative_samples.extend(path.relative_to(candidate_objects) for path in sorted(prefix.iterdir())[:2] if path.is_file())
-        if len(relative_samples) >= 24:
-            break
-    for name in relative_samples[:24]:
-        left, right = original_objects / name, candidate_objects / name
-        sample = {'object_file': str(name), 'candidate_link_count': right.stat().st_nlink,
-                  'same_inode': False, 'matching_source_object_file': left.is_file()}
-        if right.stat().st_nlink != 1:
-            failures.append(f'candidate Git object has multiple hard links: {name}')
-        if left.is_file() and right.is_file():
-            a, b = left.stat(), right.stat()
-            linked = (a.st_dev, a.st_ino) == (b.st_dev, b.st_ino)
-            sample['same_inode'] = linked
-            if linked:
-                failures.append(f'hardlinked object file: {name}')
-        samples.append(sample)
-    return {'passed': not failures, 'common_git_directory': str(common.resolve()),
-            'shared_object_file_samples': samples, 'hardlink_check_scope': 'up to 24 matching pack/loose object files',
-            'failures': failures}
+    shared = common == active_common
+    mode = 'linked_worktree' if shared else 'independent_clone'
+    details = {}
+    if shared:
+        pointer = candidate / '.git'
+        if not pointer.is_file() or pointer.is_symlink():
+            failures.append('linked candidate must have a regular .git worktree pointer')
+        if not candidate_git.is_relative_to(active_common / 'worktrees'):
+            failures.append('linked Git directory must belong to active repository worktrees')
+        candidate_branch = git(candidate, 'symbolic-ref', '--short', 'HEAD').strip()
+        active_branch = git(active, 'symbolic-ref', '--short', 'HEAD').strip()
+        active_commit = git(active, 'rev-parse', 'HEAD').strip()
+        main_commit = git(active, 'rev-parse', 'refs/heads/main').strip()
+        if candidate_branch != REFACTOR_BRANCH:
+            failures.append('linked candidate must use the authorized refactor branch')
+        if active_branch != 'main' or active_commit != expected_active_head or main_commit != expected_active_head:
+            failures.append('active main and HEAD must remain at the protected baseline commit')
+        details.update(candidate_branch=candidate_branch, active_branch=active_branch,
+                       active_head=active_commit, main_commit=main_commit,
+                       hardlink_check_scope='objects intentionally shared; HEAD/index independence checked')
+    else:
+        if not (candidate / '.git').is_dir() or common != (candidate / '.git').resolve():
+            failures.append('independent candidate must own its .git/common directory')
+        original_objects = active_common / 'objects'
+        candidate_objects = common / 'objects'
+        relative_samples = []
+        for path in sorted(candidate_objects.glob('pack/*')):
+            if path.is_file():
+                relative_samples.append(path.relative_to(candidate_objects))
+        for prefix in sorted(candidate_objects.iterdir()):
+            if prefix.is_dir() and len(prefix.name) == 2:
+                relative_samples.extend(path.relative_to(candidate_objects) for path in sorted(prefix.iterdir())[:2] if path.is_file())
+            if len(relative_samples) >= 24:
+                break
+        for name in relative_samples[:24]:
+            left, right = original_objects / name, candidate_objects / name
+            sample = {'object_file': str(name), 'candidate_link_count': right.stat().st_nlink,
+                      'same_inode': False, 'matching_source_object_file': left.is_file()}
+            if right.stat().st_nlink != 1:
+                failures.append(f'candidate Git object has multiple hard links: {name}')
+            if left.is_file():
+                linked = os.path.samefile(left, right)
+                sample['same_inode'] = linked
+                if linked:
+                    failures.append(f'hardlinked object file: {name}')
+            samples.append(sample)
+        details['hardlink_check_scope'] = 'up to 24 matching pack/loose object files'
+    return {'passed': not failures, 'mode': mode, 'objects_shared': shared,
+            'candidate_git_directory': str(candidate_git), 'active_git_directory': str(active_git),
+            'common_git_directory': str(common), 'active_common_git_directory': str(active_common),
+            'separate_metadata': separate_metadata, 'shared_object_file_samples': samples,
+            **details, 'failures': failures}
 
 
 def check_active(active, manifest, snapshot, expected_head):
@@ -304,7 +362,7 @@ def audit(candidate=DEFAULT_CANDIDATE, active=DEFAULT_ACTIVE, baseline_commit=BA
         'baseline_python_bytes': check_preserved_source(candidate, baseline, current_index, skipped, approved, baseline_commit),
         'frozen_and_compatibility': check_frozen(candidate, baseline, current_index, snapshot, scope['frozen_llm_compatibility_paths'], baseline_commit),
         'object_recoverability_and_protection': check_recoverability(candidate, baseline, current_index, approved, protection, baseline_commit),
-        'independent_clone': check_clone(candidate, active),
+        'workspace_isolation': check_workspace_isolation(candidate, active, baseline_commit),
         'active_repository_unchanged': check_active(active, manifest, snapshot, snapshot['head']),
     }
     return {'schema_version': 1, 'checked_at_utc': datetime.now(timezone.utc).isoformat(),

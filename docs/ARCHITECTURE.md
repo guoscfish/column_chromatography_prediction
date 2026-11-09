@@ -1,6 +1,6 @@
 # 隔离重构候选架构
 
-基线为 `16eca74769f664bc378a58ccbf380a806723f587`。本分支位于独立 clone，原 main 仍承载 CW-Free；候选新增源码会改变旧 benchmark 的全目录 code hash，因此这不是旧冻结协议的可替代运行树。历史报告不重算。
+基线为 `16eca74769f664bc378a58ccbf380a806723f587`。本分支位于原仓库的受控 linked worktree，与实验运行目录共用 Git 历史，源码目录、HEAD 和 index 独立，原 main 仍承载 CW-Free；候选新增源码会改变旧 benchmark 的全目录 code hash，因此这不是旧冻结协议的可替代运行树。历史报告不重算。
 
 ## 当前调用关系与候选调用关系
 
@@ -41,7 +41,7 @@ flowchart LR
 
 ## 配置驱动的最小完整路径
 
-在本候选 clone 中运行：
+在重构分支的工作树中运行：
 
 ```sh
 OMP_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 python -m scripts.run_offline_selection \
@@ -51,7 +51,7 @@ OMP_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 python -m scripts.run_offline_select
 
 输出为统一 envelope：`sha256` 绑定 `payload`，包含 code_commit、dataset_hash、split_hash、model_checkpoint_hash、protocol_hash、representation、acquisition、seed、budget、selected_ids、trace、feature_hash 和权限 provenance。当前示例的模型/数据哈希明确属于合成资源。示例保留算法基线 commit；实际执行候选 commit 另在报告和 lab lock 中绑定，避免自引用 commit hash。
 
-扩展新方法优先在独立 `column_chromatography_lab` 登记。新 acquisition 实现纯函数，经合法候选/确定性回归验证后注册；新 representation 只生成向量和 provenance。主工作流独占后续状态变更。当前CLI不负责启动正式实验，不能通过配置打开训练或测试真值。
+本次公共 API 不依赖 lab；先前独立 lab 的完整提交已归档到原仓库 `refs/archive/column_chromatography_lab-20261109`，两个独立副本不再作为项目入口。未来需要开发新科学方法时，可按归档规程另建实验工作区登记。新 acquisition 实现纯函数，经合法候选/确定性回归验证后注册；新 representation 只生成向量和 provenance。主工作流独占后续状态变更。当前CLI不负责启动正式实验，不能通过配置打开训练或测试真值。
 
 ## 验证范围
 

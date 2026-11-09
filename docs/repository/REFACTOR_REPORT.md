@@ -1,10 +1,10 @@
 # 隔离工程重构交付报告（2026-11-09）
 
-已完成附件 Gate 0–2 中可安全实施的审计、最小公共 API、真实删减与离线验证；Gate 3 按要求停止。候选位于 `/Users/fish/Documents/GitHub/column_chromatography_refactor`，分支 `codex/repository-architecture-20261109`。独立孵化仓库位于同级 `column_chromatography_lab`。均为本地交付，没有推送或合并活跃 main。公共实现提交为 `0c537fe70ac50faf463cf30b7ae59e3120ae7307`；lab提交为 `71e50d7911a4dacf2a317810778cd4a99e67ca24`。后续交付索引提交只补充证据，不改变这份固定接口代码。
+已完成附件 Gate 0–2 中可安全实施的审计、最小公共 API、真实删减与离线验证；Gate 3 按要求停止。按用户最终指示，成果已迁入原 `/Users/fish/Documents/GitHub/column_chromatography_prediction` 仓库的 `codex/repository-architecture-20261109` 分支。原实验目录停留 main，开发使用同一仓库的 linked worktree：`/Users/fish/.codex/worktrees/repository-architecture-20261109/column_chromatography_prediction`。不是新 GitHub 项目，也没有向远端推送或合并 main。具体迁入、归档和副本清理证据见 [BRANCH_LAYOUT.md](BRANCH_LAYOUT.md)。公共实现提交 `0c537fe70ac50faf463cf30b7ae59e3120ae7307` 与交付索引 `ddf36aa135a191e3b0a9af54fd9dab4e47ac4924` 保留原身份。
 
 ## 基线与原实验保护
 
-独立 clone 从已提交的 `16eca74769f664bc378a58ccbf380a806723f587` 初始化；无对象 alternates，无硬链接共享抽样命中，拥有自己的 `.git`。没有复制原工作树未提交 runtime、keys 或原始请求。候选采用稀疏展开，只读取代码、文档和允许的元数据；数据/历史工件在独立 Git 对象中保留身份，不解析真实标签。原源码、控制器、锁、运行目录及恢复授权没有由本任务写入、移动或接管。
+初次实现和101项测试在从已提交 `16eca74769f664bc378a58ccbf380a806723f587` 初始化的独立 clone 中完成；该阶段无对象 alternates，无硬链接共享抽样命中。后续提交现已迁入原仓库，当前 linked worktree 共用其 Git 对象，但具有独立源码目录、HEAD 和 index；最新隔离验证见 `validation/branch_layout_integrity.json`。没有复制原工作树未提交 runtime、keys 或原始请求。候选采用稀疏展开，只读取代码、文档和允许的元数据；数据/历史工件在独立 Git 对象中保留身份，不解析真实标签。原源码、控制器、锁、运行目录及恢复授权没有由本任务写入、移动或接管。
 
 18:48（Asia/Shanghai）的非原子只读快照显示 CW-Free 尚未完成：
 
@@ -22,7 +22,7 @@
 
 ## 逐文件审计与实际删减
 
-`CODE_INVENTORY.csv` 共875行：820个基线Python、24个新增候选Python、31个仅登记路径/哈希的未提交运行Python；AST解析失败0。审计覆盖相对导入、脚本/子进程、动态字符串、shell、测试、元数据、Git身份、frozen_source/全目录hash约束和当前运行索引。风险为 LIVE_BLOCKER461、FROZEN_HASH_BLOCKER200、IMPORT_BLOCKER4、UNKNOWN188、SAFE22；这是静态证据分类，不是对任意反射/外部调用的完备证明。库存是在首次提交前生成的快照；新文件的候选字节哈希由交付索引中的固定实现提交绑定，UNCOMMITTED_CANDIDATE表示采集时状态，不表示交付工作树仍有未提交源码。
+`CODE_INVENTORY.csv` 共876行：820个基线Python、25个新增候选Python、31个仅登记路径/哈希的未提交运行Python；AST解析失败0。审计覆盖相对导入、脚本/子进程、动态字符串、shell、测试、元数据、Git身份、frozen_source/全目录hash约束和当前运行索引。风险为 LIVE_BLOCKER461、FROZEN_HASH_BLOCKER200、IMPORT_BLOCKER4、UNKNOWN188、SAFE23；这是静态证据分类，不是对任意反射/外部调用的完备证明。库存是在首次提交前生成的快照；新文件的候选字节哈希由交付索引中的固定实现提交绑定，UNCOMMITTED_CANDIDATE表示采集时状态，不表示交付工作树仍有未提交源码。
 
 137个历史退役候选中，真实退役2个，暂缓135个。删减仅发生于候选分支：
 
@@ -43,7 +43,7 @@
 
 ## 已真实执行的验证
 
-候选clone完整安全测试：**101 passed，0 failed，118条现有依赖警告，51.71秒**。命令和环境见 [tests.log](validation/tests.log)、[JUnit](validation/tests.xml)、[environment.json](validation/environment.json)。
+初次候选clone安全测试为101 passed。按最终布局迁入原仓库、归档lab并删除两个独立副本后，在重构分支linked worktree重新执行完整安全测试：**105 passed，0 failed，0 skipped，118条现有依赖警告，53.44秒**。新增4项工作树隔离测试覆盖同仓库独立HEAD/index、错误分支/移动main拒绝、旧独立clone模式及同路径/套娃拒绝。最新命令与结果见 [branch_tests.log](validation/branch_tests.log)、[JUnit](validation/branch_tests.xml)、[environment.json](validation/environment.json)；初次结果仍保留为历史证据。
 
 覆盖实际合成QGeoGNN 458,952参数、5节点层/4边角更新、128维hidden、六输出顺序、固定合成checkpoint严格加载与损坏拒绝、512 CountSketch固定seed/顺序、q50 MSE+软交叉及V1:V2=1:1、train-only归一化；LCMD新旧选择/距离/trace逐元素一致，latent新旧逐元素一致。固定合成数值快照事前容差 `rtol=0, atol=1e-6`。现有MaxDet、IVR、Hybrid在合成输入上通过；未把“NRMSE差不多”当作等价。
 
@@ -55,11 +55,11 @@
 
 模型测试使用当前fish环境；其重复OpenMP库需要子进程级 `KMP_DUPLICATE_LIB_OK=TRUE`。该限制与118条依赖警告记录在验证环境中，没有改原运行环境或安装依赖。
 
-## lab 与晋升门槛
+## lab 的归档与晋升门槛
 
-独立lab具有自己的Git、experiments/tests/configs/reports/shared/scripts、registry.csv和PROJECT_BASELINE.lock.json。通过候选提交的独立源码快照（SHA逐文件、444/555、无软/硬链接）使用固定接口；不指向活跃 main 的可写路径。Git clone不能保存只读权限，prepare_baseline先验全部哈希再恢复权限。合成demo在隔离Python进程运行，拒绝错误commit和非synthetic来源。lab的9项测试通过；179份只读源码逐文件及Git提交对象SHA全部核验，验证与具体提交见同目录 `LAB_DELIVERY.json`。
+lab 不是公共 API 或离线 demo 的依赖。它按原附件建立，用于未来科学方法孵化；按用户最新指示，不再保留独立 lab 目录。完整原提交 `71e50d7911a4dacf2a317810778cd4a99e67ca24` 已保留在原仓库 `refs/archive/column_chromatography_lab-20261109`，包含登记表、PROJECT_BASELINE.lock.json、179份固定源码、9项已通过测试及合成结果。恢复不依赖删除的副本。
 
-未复制真实数据、预训练检查点或keys；lock中的原资源哈希只是审计来源，不是数据授权。真实科学实验处于未就绪状态。registry只登记合成工程smoke和研究idea。GP/融合/分位约束/CW物理参数化未实现。晋升需独立科学收益或长期复用证据、对照/成本/泄漏/回归/审查、可核验文件SHA及用户明确批准。
+`LAB_DELIVERY.json` 保留早期交付证据，新增归档状态；其中旧目录路径仅表示历史采集位置，不是当前依赖。没有为迁入再复制 vendor 源码到稳定分支。未来新方法仍须先取得独立可复核的收益或长期复用证据，再经成本/预算/泄漏/回归/代码审查与用户明确批准后晋升。GP/融合/分位约束/CW物理参数化未在本次实现。
 
 ## 保留的入口和下一阶段阻碍
 

@@ -1,7 +1,7 @@
 """Integration checks for the actual candidate and untouched running repository.
 
 Set REFACTOR_REPOSITORY/REFACTOR_ACTIVE_MANIFEST/REFACTOR_RUNTIME_SNAPSHOT when
-the candidate or audit artifacts are located outside the standard sibling paths.
+the candidate or audit artifacts need explicit paths; the default is this worktree.
 No scientific runner, controller, label table or model is imported.
 """
 import importlib.util
@@ -42,8 +42,8 @@ class RepositoryIntegrityTests(unittest.TestCase):
     def test_sparse_data_and_protected_artifacts_have_git_objects(self):
         self.assert_check('object_recoverability_and_protection')
 
-    def test_candidate_git_storage_is_independent(self):
-        self.assert_check('independent_clone')
+    def test_candidate_sources_head_and_index_are_isolated(self):
+        self.assert_check('workspace_isolation')
 
     def test_running_main_sources_and_frozen_identities_are_untouched(self):
         self.assert_check('active_repository_unchanged')

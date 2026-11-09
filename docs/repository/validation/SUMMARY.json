@@ -1,11 +1,15 @@
 {
   "baseline_commit": "16eca74769f664bc378a58ccbf380a806723f587",
   "tests": {
-    "passed": 101,
+    "passed": 105,
     "failed": 0,
-    "junit": "tests.xml",
-    "log": "tests.log",
-    "warnings": 118
+    "skipped": 0,
+    "warnings": 118,
+    "seconds": 53.44,
+    "junit": "branch_tests.xml",
+    "log": "branch_tests.log",
+    "layout": "linked_worktree_of_original_repository",
+    "old_independent_directories_deleted_before_tests": true
   },
   "legacy_hygiene": {
     "exit_code": 1,
@@ -35,5 +39,22 @@
     "passed": 9,
     "failed": 0,
     "readonly_snapshot_files_verified": 179
+  },
+  "initial_clone_tests": {
+    "passed": 101,
+    "failed": 0,
+    "junit": "tests.xml",
+    "log": "tests.log",
+    "warnings": 118
+  },
+  "original_repository": "/Users/fish/Documents/GitHub/column_chromatography_prediction",
+  "refactor_branch": "codex/repository-architecture-20261109",
+  "worktree": "/Users/fish/.codex/worktrees/repository-architecture-20261109/column_chromatography_prediction",
+  "lab_delivery_status": "ARCHIVED_ONLY_NOT_A_RUNTIME_DEPENDENCY",
+  "lab_archive_ref": "refs/archive/column_chromatography_lab-20261109",
+  "validated_layout_source_sha256": {
+    "scripts/verify_refactor_integrity.py": "64d87b51b7d04d7a6faee36d0f45f93c18706e3f42549c7afd1ad3f9a4519903",
+    "tests/refactor/test_repository_integrity.py": "47bf00eae5ad6adf894b8b30842926bb7df9aca94c56050bacfa9f6e47720216",
+    "tests/refactor/test_workspace_isolation.py": "1e4000a9a369fa94c7fd259706f76583ca0800496ee911ca40f02d09b3b4c36d"
   }
 }
