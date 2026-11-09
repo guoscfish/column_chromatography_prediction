@@ -1,6 +1,6 @@
 # 隔离工程重构交付报告（2026-11-09）
 
-已完成附件 Gate 0–2 中可安全实施的审计、最小公共 API、真实删减与离线验证；Gate 3 按要求停止。候选位于 `/Users/fish/Documents/GitHub/column_chromatography_refactor`，分支 `codex/repository-architecture-20261109`。独立孵化仓库位于同级 `column_chromatography_lab`。均为本地交付，没有推送或合并活跃 main。
+已完成附件 Gate 0–2 中可安全实施的审计、最小公共 API、真实删减与离线验证；Gate 3 按要求停止。候选位于 `/Users/fish/Documents/GitHub/column_chromatography_refactor`，分支 `codex/repository-architecture-20261109`。独立孵化仓库位于同级 `column_chromatography_lab`。均为本地交付，没有推送或合并活跃 main。公共实现提交为 `0c537fe70ac50faf463cf30b7ae59e3120ae7307`；lab提交为 `71e50d7911a4dacf2a317810778cd4a99e67ca24`。后续交付索引提交只补充证据，不改变这份固定接口代码。
 
 ## 基线与原实验保护
 
@@ -18,11 +18,11 @@
 
 目标仍为每 seed L1485；不得把以上快照当作此刻最新进度。completed fit 以连续完成回执及六项工件哈希相符为准，accepted 仅以 batch_freeze 存在为准，未读取选择值/标签。Supervisor PID 90623 和识别到的 workers/五个旧监控进程均以原 main 为 cwd。采集只读；没有发送信号、获取锁、重启或调用恢复链。263/263 CW 冻结代码、263/263 原始源快照、45/45 恢复授权绑定匹配；最终完整性检查复核原 main 的 565 个源码与 13 个运行目录身份。
 
-完整证据：[运行依赖](RUNTIME_AND_FROZEN_DEPENDENCIES.md)、[结构化快照](runtime_snapshot_20261109/RUNTIME_SNAPSHOT.json)、[最终完整性](validation/integrity.json)。runtime 会正常继续变化，不能声称其全部字节不变。
+完整证据：[运行依赖](RUNTIME_AND_FROZEN_DEPENDENCIES.md)、[结构化快照](runtime_snapshot_20261109/RUNTIME_SNAPSHOT.json)、[最终完整性](validation/integrity.json)。19:06（Asia/Shanghai）交付前再次只读观察supervisor元数据，仍为RUNNING，active seeds为157/887/12203，见 `validation/runtime_delivery.json`。runtime 会正常继续变化，不能声称其全部字节不变。
 
 ## 逐文件审计与实际删减
 
-`CODE_INVENTORY.csv` 共875行：820个基线Python、24个新增候选Python、31个仅登记路径/哈希的未提交运行Python；AST解析失败0。审计覆盖相对导入、脚本/子进程、动态字符串、shell、测试、元数据、Git身份、frozen_source/全目录hash约束和当前运行索引。风险为 LIVE_BLOCKER461、FROZEN_HASH_BLOCKER200、IMPORT_BLOCKER4、UNKNOWN188、SAFE22；这是静态证据分类，不是对任意反射/外部调用的完备证明。
+`CODE_INVENTORY.csv` 共875行：820个基线Python、24个新增候选Python、31个仅登记路径/哈希的未提交运行Python；AST解析失败0。审计覆盖相对导入、脚本/子进程、动态字符串、shell、测试、元数据、Git身份、frozen_source/全目录hash约束和当前运行索引。风险为 LIVE_BLOCKER461、FROZEN_HASH_BLOCKER200、IMPORT_BLOCKER4、UNKNOWN188、SAFE22；这是静态证据分类，不是对任意反射/外部调用的完备证明。库存是在首次提交前生成的快照；新文件的候选字节哈希由交付索引中的固定实现提交绑定，UNCOMMITTED_CANDIDATE表示采集时状态，不表示交付工作树仍有未提交源码。
 
 137个历史退役候选中，真实退役2个，暂缓135个。删减仅发生于候选分支：
 
@@ -57,7 +57,7 @@
 
 ## lab 与晋升门槛
 
-独立lab具有自己的Git、experiments/tests/configs/reports/shared/scripts、registry.csv和PROJECT_BASELINE.lock.json。通过候选提交的独立源码快照（SHA逐文件、444/555、无软/硬链接）使用固定接口；不指向活跃 main 的可写路径。Git clone不能保存只读权限，prepare_baseline先验全部哈希再恢复权限。合成demo在隔离Python进程运行，拒绝错误commit和非synthetic来源。lab验证与具体提交见同目录 `LAB_DELIVERY.json`。
+独立lab具有自己的Git、experiments/tests/configs/reports/shared/scripts、registry.csv和PROJECT_BASELINE.lock.json。通过候选提交的独立源码快照（SHA逐文件、444/555、无软/硬链接）使用固定接口；不指向活跃 main 的可写路径。Git clone不能保存只读权限，prepare_baseline先验全部哈希再恢复权限。合成demo在隔离Python进程运行，拒绝错误commit和非synthetic来源。lab的9项测试通过；179份只读源码逐文件及Git提交对象SHA全部核验，验证与具体提交见同目录 `LAB_DELIVERY.json`。
 
 未复制真实数据、预训练检查点或keys；lock中的原资源哈希只是审计来源，不是数据授权。真实科学实验处于未就绪状态。registry只登记合成工程smoke和研究idea。GP/融合/分位约束/CW物理参数化未实现。晋升需独立科学收益或长期复用证据、对照/成本/泄漏/回归/审查、可核验文件SHA及用户明确批准。
 
