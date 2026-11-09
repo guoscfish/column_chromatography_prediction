@@ -1,0 +1,169 @@
+{
+  "checked_utc": "2026-11-09T14:16:49.237943+00:00",
+  "active_runtime": {
+    "entry": "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/four_parallel_lagging_20261109/controller_overlay.py",
+    "controller_entry": "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/four_parallel_lagging_20261109/controller_overlay.py",
+    "supervisor_pid": 75473,
+    "status": "progress/persistent_supervisor.json",
+    "launch": "four_parallel_lagging_20261109/launch.json",
+    "maximum_seed_workers": 4,
+    "maximum_expensive_compute": 4,
+    "target_budget": 1485,
+    "distinct_keys": 5,
+    "transport_attempt_cap": null,
+    "answer_attempt_cap": null,
+    "caffeinate_pid": 75474,
+    "transport_recovery_authorization": "four_parallel_lagging_20261109/authorization.json",
+    "transport_backoff_seconds": 0,
+    "priority": "completed_rounds_ascending_then_seed_ascending",
+    "authorization_sha256": "4ce30c6b9f302d851965c98ddc9f5b31c639bfc46c55630237497c42da1baed3"
+  },
+  "supervisor": {
+    "pid": 75473,
+    "phase": "RUNNING",
+    "updated_utc": "2026-11-09T14:16:48.657832+00:00",
+    "target_budget": 1485,
+    "maximum_seed_workers": 4,
+    "maximum_expensive_compute": 4,
+    "priority_order": [
+      157,
+      6101,
+      12203,
+      887,
+      2357
+    ],
+    "active_seeds": [
+      157,
+      887,
+      6101,
+      12203
+    ],
+    "migration_draining": false,
+    "transport_attempt_cap": null,
+    "answer_attempt_cap": null,
+    "four_parallel_authorization_sha256": "4ce30c6b9f302d851965c98ddc9f5b31c639bfc46c55630237497c42da1baed3",
+    "seeds": [
+      {
+        "seed": 157,
+        "pid": 26323,
+        "supervision": "RUNNING",
+        "completed_rounds": 23,
+        "current_budget": 1069,
+        "progress": {
+          "seed": 157,
+          "phase": "ADVANCING",
+          "updated_utc": "2026-11-09T14:00:44.799489+00:00",
+          "pid": 26323,
+          "round": 23,
+          "next_budget": 1101,
+          "target_budget": 1485
+        }
+      },
+      {
+        "seed": 887,
+        "pid": 75696,
+        "supervision": "RUNNING",
+        "completed_rounds": 32,
+        "current_budget": 1357,
+        "progress": {
+          "seed": 887,
+          "phase": "QUEUED",
+          "updated_utc": "2026-11-09T13:39:54.574783+00:00",
+          "pid": 72538,
+          "completed_rounds": 32,
+          "current_budget": 1357,
+          "final_budget": null,
+          "target_budget": 1485
+        }
+      },
+      {
+        "seed": 2357,
+        "pid": null,
+        "supervision": "QUEUED_LAGGING_PRIORITY",
+        "completed_rounds": 32,
+        "current_budget": 1357,
+        "progress": {
+          "seed": 2357,
+          "phase": "QUEUED",
+          "updated_utc": "2026-11-09T13:51:25.114355+00:00",
+          "pid": 83122,
+          "completed_rounds": 32,
+          "current_budget": 1357,
+          "final_budget": null,
+          "target_budget": 1485
+        }
+      },
+      {
+        "seed": 6101,
+        "pid": 22666,
+        "supervision": "RUNNING",
+        "completed_rounds": 31,
+        "current_budget": 1325,
+        "progress": {
+          "seed": 6101,
+          "phase": "ADVANCING",
+          "updated_utc": "2026-11-09T14:01:16.748742+00:00",
+          "pid": 22666,
+          "round": 31,
+          "next_budget": 1357,
+          "target_budget": 1485
+        }
+      },
+      {
+        "seed": 12203,
+        "pid": 38564,
+        "supervision": "RUNNING",
+        "completed_rounds": 31,
+        "current_budget": 1325,
+        "progress": {
+          "seed": 12203,
+          "phase": "SELECTING",
+          "updated_utc": "2026-11-09T14:09:22.870601+00:00",
+          "pid": 38564,
+          "round": 31,
+          "current_budget": 1325,
+          "turn": 0,
+          "attempt": 51,
+          "transport_attempt_number": 52,
+          "transport_attempt_cap": null,
+          "target_budget": 1485
+        }
+      }
+    ]
+  },
+  "lock_owners_lsof": "p22666\nf3\nn/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/locks/worker_seed_6101.lock\nf4\nn/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/locks/new_free_resource_1.lock\np26323\nf3\nn/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/locks/worker_seed_157.lock\nf4\nn/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/locks/new_free_resource.lock\np38564\nf3\nn/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/locks/worker_seed_12203.lock\np75473\nf3\nn/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/locks/supervisor.lock\np75696\nf3\nn/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/locks/worker_seed_887.lock\n",
+  "lock_check_exit_code": 1,
+  "monitor_snapshot": {
+    "checked_shanghai": "2026-11-09T22:16:12.792989+08:00",
+    "attempts": {
+      "157": 34226,
+      "887": 32928,
+      "2357": 33723,
+      "6101": 32768,
+      "12203": 33882
+    },
+    "rounds": {
+      "157": 23,
+      "887": 32,
+      "2357": 32,
+      "6101": 31,
+      "12203": 31
+    },
+    "accepted": {
+      "157": 24,
+      "887": 32,
+      "2357": 32,
+      "6101": 32,
+      "12203": 31
+    },
+    "phases": {
+      "157": "ADVANCING",
+      "887": "QUEUED",
+      "2357": "QUEUED",
+      "6101": "ADVANCING",
+      "12203": "SELECTING"
+    }
+  },
+  "authorization_sha256": "4ce30c6b9f302d851965c98ddc9f5b31c639bfc46c55630237497c42da1baed3",
+  "NoCW_signaled": false
+}
