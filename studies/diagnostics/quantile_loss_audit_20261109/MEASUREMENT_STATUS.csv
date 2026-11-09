@@ -1,0 +1,14 @@
+task,status,scope,reason
+A0 qualification quantile rates/coverage/enrichment,HISTORICAL_MEASURED,3 seeds x row/compound qualification; historically disclosed test,Reuse published aggregate; no repeat forward or test-label access
+A0 8g loss controls,HISTORICAL_MEASURED,4g to 8g transfer fine tuning,Not controlled evidence about 4g active learning loss weights
+A0 R0/R1 ladder,HISTORICAL_MEASURED,Several training knobs changed jointly,Cannot isolate 1:0.5 versus 1:1 causal effect in 4g AL
+A1 checkpoint loss and grouped gradients,NEW_OFFLINE_MEASURED,"5 row seeds at L333, authorized L0","Eval-mode frozen-state derivatives, no optimizer update"
+A1 actual Adam-update competition and training-trajectory dominance,NOT_MEASURED,Optimizer state and full historical training trajectories,Checkpoint gradient geometry is not actual optimizer history; no retraining authorized
+A2 raw quantiles and separate inference sorting,NEW_OFFLINE_MEASURED,5 row seeds L333 train and validation,No sorting before raw crossing/coverage measurement
+A3 width error ranking and feasible-signal controls,NEW_OFFLINE_MEASURED,5 row seeds L333 validation; grouped fixed-fold ridge,"Controls both q50, latent distance, full-network q50 gradient norms and conditions"
+A3 same-seed K3 ensemble control,NOT_MEASURED,No matching same-seed K3 ensemble frozen outputs in selected snapshot,Different outer seeds must not be pooled to fabricate an ensemble
+A1-A3 budgets L525/L1005/L1485,NOT_MEASURED,Current five AL seeds at later budgets,No additional role-verified immutable snapshot prepared; no new training for symmetry
+A1-A3 compound AL diagnosis,NOT_MEASURED,Current AL compound cohort,Selected current AL protocol is row; historical compound qualification is only boundary evidence
+U width/crossing without labels,NOT_MEASURED,Current candidate U,Optional descriptive branch not needed for current training/validation gap; no U truth accessed
+Quantile width improves learning efficiency/AULC,HYPOTHESIS,Future preregistered matched-seed AL experiment,Offline correlation or enrichment cannot establish AULC gains
+Changing target loss weight resolves gradient imbalance,HYPOTHESIS,Future controlled 4g weight study,No weight changes or causal experiment performed
