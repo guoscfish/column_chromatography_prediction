@@ -27,7 +27,7 @@ def evidence():
         path = Path(destination)
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps({'source_commit': legacy.FROZEN_COMMIT,
-                                    'scope': 'synthetic deterministic boundary regression; no actual AL selection',
+                                    'scope': 'pinned old/new numerical kernels, optional real checkpoints and saved historical batches; no new scientific acquisition/freeze/reveal',
                                     'records': RECORDS}, indent=2)+'\n')
 
 
@@ -503,6 +503,9 @@ def test_full_frozen_universe_replays_actual_lcmd_and_other_numerical_kernels(ro
     record('full_frozen_LCMD', f'seed=157/L{item["budget"]}->L{item["budget"]+32}',
            list(selected), list(result.selected_ids), result.trace)
     RECORDS[-1].update(input_features_sha256=item['files']['acquisition_artifacts/current_gradient_features.npz']['sha256'],
+                       evaluation_checkpoint_sha256=contract['evaluation_checkpoint_sha256'],
+                       source_round=round_index, representation_refresh='current_fit',
+                       centers_L_t_ids_hash=contract['L_t_ids_hash'],
                        universe_rows=3330, historical_LCMD_selection_replayed=True,
                        MaxDet_IVR='counterfactual numerical equivalence only; no new actual selection/freeze/reveal',
                        historical_trace_tolerance={'rtol':1e-12, 'atol':1e-8})

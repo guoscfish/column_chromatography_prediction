@@ -137,8 +137,8 @@ def restore(repository, protocol_id, destination, registry=DEFAULT_REGISTRY):
         raise ValueError('restoration requires a new absent destination')
     destination = requested_destination.resolve()
     active = Path(json.loads(Path(registry).read_text())['active_repository']).resolve()
-    if active == destination or active in destination.parents or destination in active.parents:
-        raise ValueError('historical source must be outside the active source directory')
+    if any(protected == destination or protected in destination.parents or destination in protected.parents for protected in {active, repository}):
+        raise ValueError('historical source must be outside the active and candidate source directories')
     for parent in destination.parents:
         if parent.exists() and parent.is_symlink():
             raise ValueError('restoration destination parents must not be symlinks')

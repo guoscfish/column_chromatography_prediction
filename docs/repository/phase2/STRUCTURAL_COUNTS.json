@@ -1,0 +1,1146 @@
+{
+  "schema_version": 1,
+  "source_commit": "4ee480378b0293f1985e3ee4a09df2c78f77901e",
+  "before_python_files": 843,
+  "after_inventory_python_files": 526,
+  "legacy_versions": {
+    "active_learning_v2": {
+      "before": 81,
+      "after": 0
+    },
+    "active_learning_v3": {
+      "before": 11,
+      "after": 0
+    },
+    "active_learning_v3_2": {
+      "before": 12,
+      "after": 0
+    }
+  },
+  "legacy_protocol_directories_before": 3,
+  "legacy_protocol_directories_after": 0,
+  "stable_src_python_before": 174,
+  "stable_src_python_after": 38,
+  "representation_acquisition_modules_after": 11,
+  "active_algorithm_implementation_files_after": 9,
+  "recoverable_deleted_python_files": 368,
+  "recoverable_deleted_lines": 74288,
+  "recoverable_deleted_source_artifacts": 374,
+  "recoverable_deleted_text_artifact_lines_including_docs_fixtures": 77441,
+  "remaining_stable_runtime_references_to_retired_source": [],
+  "duplicate_functions_before": {
+    "duplicate_top_level_function_groups": 80,
+    "excess_function_copies": 105,
+    "groups": [
+      [
+        {
+          "path": "src/qgeognn_al/acquisitions/lcmd.py",
+          "function": "_squared_distances",
+          "line": 26
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/lcmd.py",
+          "function": "_squared_distances",
+          "line": 20
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/acquisitions/lcmd.py",
+          "function": "lcmd_tp_select",
+          "line": 39
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/lcmd.py",
+          "function": "lcmd_tp_select",
+          "line": 33
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/center_width_performance.py",
+          "function": "read_json",
+          "line": 34
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_factorial_study.py",
+          "function": "read",
+          "line": 26
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_ivr_portfolio_study.py",
+          "function": "read_json",
+          "line": 35
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/dialog_bridge.py",
+          "function": "read",
+          "line": 43
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/dialog_study.py",
+          "function": "read",
+          "line": 50
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/efficiency_reporting.py",
+          "function": "read_json",
+          "line": 26
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/full_pool_study.py",
+          "function": "read",
+          "line": 47
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/llm_screen.py",
+          "function": "read",
+          "line": 57
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v3/artifacts.py",
+          "function": "read",
+          "line": 25
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_factorial_extension.py",
+          "function": "main",
+          "line": 223
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_factorial_to1005.py",
+          "function": "main",
+          "line": 263
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_lcmd_extension_runner.py",
+          "function": "_json",
+          "line": 47
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_lcmd_extension_study.py",
+          "function": "_json",
+          "line": 44
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_lcmd_to_1005_runner.py",
+          "function": "read_json",
+          "line": 29
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_lcmd_to_1005_study.py",
+          "function": "read_json",
+          "line": 46
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_lcmd_to_653_runner.py",
+          "function": "read_json",
+          "line": 45
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_lcmd_to_653_study.py",
+          "function": "read_json",
+          "line": 45
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/fused_maxdet_runner.py",
+          "function": "_json",
+          "line": 44
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/fused_maxdet_study.py",
+          "function": "_json",
+          "line": 115
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/maxdet_runner.py",
+          "function": "_json",
+          "line": 47
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/maxdet_study.py",
+          "function": "_json",
+          "line": 56
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching.py",
+          "function": "read_json",
+          "line": 59
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching_cw_hybrid.py",
+          "function": "read_json",
+          "line": 63
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/sequential_runner.py",
+          "function": "_json",
+          "line": 59
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/short_sequential_runner.py",
+          "function": "_json",
+          "line": 48
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/short_sequential_study.py",
+          "function": "_json",
+          "line": 96
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_lcmd_extension_runner.py",
+          "function": "_write_json_once",
+          "line": 51
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/short_sequential_runner.py",
+          "function": "_write_json_once",
+          "line": 52
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_lcmd_extension_runner.py",
+          "function": "_write_csv_once",
+          "line": 59
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/short_sequential_runner.py",
+          "function": "_write_csv_once",
+          "line": 60
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_lcmd_extension_study.py",
+          "function": "split_path",
+          "line": 105
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_lcmd_to_1005_study.py",
+          "function": "split_path",
+          "line": 74
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_lcmd_to_653_study.py",
+          "function": "split_path",
+          "line": 73
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/short_sequential_study.py",
+          "function": "split_path",
+          "line": 100
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_lcmd_extension_study.py",
+          "function": "source_method_root",
+          "line": 109
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_lcmd_to_1005_study.py",
+          "function": "source_root",
+          "line": 78
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_lcmd_to_653_study.py",
+          "function": "source_root",
+          "line": 77
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_lcmd_to_1005_reporting.py",
+          "function": "_validate_grid",
+          "line": 30
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_lcmd_to_653_reporting.py",
+          "function": "_validate_grid",
+          "line": 30
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_lcmd_to_1005_reporting.py",
+          "function": "_table_rows",
+          "line": 212
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_lcmd_to_653_reporting.py",
+          "function": "_table_rows",
+          "line": 238
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_lcmd_to_1005_study.py",
+          "function": "source_anchor",
+          "line": 82
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_lcmd_to_653_study.py",
+          "function": "source_anchor",
+          "line": 81
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_lcmd_to_1005_study.py",
+          "function": "comparator_sources",
+          "line": 101
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_lcmd_to_653_study.py",
+          "function": "comparator_sources",
+          "line": 111
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_lcmd_to_1005_study.py",
+          "function": "_preprocessing",
+          "line": 110
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/cw_lcmd_to_653_study.py",
+          "function": "_preprocessing",
+          "line": 120
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/dialog_study.py",
+          "function": "audit_cw_reuse",
+          "line": 92
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/full_pool_study.py",
+          "function": "audit_cw_reuse",
+          "line": 84
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/dialog_study.py",
+          "function": "refreeze_preselection",
+          "line": 172
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/full_pool_study.py",
+          "function": "refreeze_preselection",
+          "line": 155
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/dialog_study.py",
+          "function": "validate",
+          "line": 187
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/full_pool_study.py",
+          "function": "validate",
+          "line": 170
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/dialog_study.py",
+          "function": "_card",
+          "line": 227
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/full_pool_study.py",
+          "function": "_card",
+          "line": 210
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/dialog_study.py",
+          "function": "_observed",
+          "line": 240
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/full_pool_study.py",
+          "function": "_observed",
+          "line": 223
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/dialog_study.py",
+          "function": "_catalog",
+          "line": 257
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/full_pool_study.py",
+          "function": "_catalog",
+          "line": 240
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/dialog_study.py",
+          "function": "_feedback_records",
+          "line": 276
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/full_pool_study.py",
+          "function": "_feedback_records",
+          "line": 259
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/fused_maxdet_runner.py",
+          "function": "_phase_budget",
+          "line": 74
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/maxdet_runner.py",
+          "function": "_phase_label_budget",
+          "line": 90
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/ivr_study.py",
+          "function": "now",
+          "line": 54
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching.py",
+          "function": "now",
+          "line": 55
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching_cw_hybrid.py",
+          "function": "now",
+          "line": 59
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/ivr_study.py",
+          "function": "exclusive_lock",
+          "line": 59
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching.py",
+          "function": "exclusive_lock",
+          "line": 82
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching_cw_hybrid.py",
+          "function": "exclusive_lock",
+          "line": 86
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/maxdet_study.py",
+          "function": "package_versions",
+          "line": 82
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/sequential_protocol.py",
+          "function": "package_versions",
+          "line": 103
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/runner.py",
+          "function": "make_label_scrubbed_graphs",
+          "line": 88
+        },
+        {
+          "path": "src/qgeognn_al/transfer/full_data.py",
+          "function": "make_label_scrubbed_graphs",
+          "line": 268
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching.py",
+          "function": "write_json_once",
+          "line": 63
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching_cw_hybrid.py",
+          "function": "write_json_once",
+          "line": 67
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching.py",
+          "function": "hashes",
+          "line": 73
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching_cw_hybrid.py",
+          "function": "hashes",
+          "line": 77
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching.py",
+          "function": "assert_hashes",
+          "line": 77
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching_cw_hybrid.py",
+          "function": "assert_hashes",
+          "line": 81
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching.py",
+          "function": "_round_for_budget",
+          "line": 95
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching_cw_hybrid.py",
+          "function": "_round_for_budget",
+          "line": 99
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching.py",
+          "function": "_id_lists",
+          "line": 101
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching_cw_hybrid.py",
+          "function": "_id_lists",
+          "line": 105
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching.py",
+          "function": "load_anchor_bank",
+          "line": 290
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching_cw_hybrid.py",
+          "function": "load_anchor_bank",
+          "line": 323
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching.py",
+          "function": "_positions",
+          "line": 308
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching_cw_hybrid.py",
+          "function": "_positions",
+          "line": 360
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching.py",
+          "function": "feature_diagnostics",
+          "line": 314
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching_cw_hybrid.py",
+          "function": "feature_diagnostics",
+          "line": 366
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching.py",
+          "function": "_validation_slopes",
+          "line": 385
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching_cw_hybrid.py",
+          "function": "_validation_slopes",
+          "line": 441
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching.py",
+          "function": "_anchor_key",
+          "line": 397
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching_cw_hybrid.py",
+          "function": "_anchor_key",
+          "line": 453
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching.py",
+          "function": "_lineage_path",
+          "line": 401
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching_cw_hybrid.py",
+          "function": "_lineage_path",
+          "line": 457
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching.py",
+          "function": "_anchor_runtime",
+          "line": 405
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching_cw_hybrid.py",
+          "function": "_anchor_runtime",
+          "line": 461
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching.py",
+          "function": "_overlap_rows",
+          "line": 437
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching_cw_hybrid.py",
+          "function": "_overlap_rows",
+          "line": 506
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching.py",
+          "function": "_fit",
+          "line": 552
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching_cw_hybrid.py",
+          "function": "_fit",
+          "line": 673
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching.py",
+          "function": "_best_validation_row",
+          "line": 577
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching_cw_hybrid.py",
+          "function": "_best_validation_row",
+          "line": 698
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching.py",
+          "function": "_advance",
+          "line": 591
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching_cw_hybrid.py",
+          "function": "_advance",
+          "line": 712
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching.py",
+          "function": "_verify_branch",
+          "line": 602
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching_cw_hybrid.py",
+          "function": "_verify_branch",
+          "line": 723
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching.py",
+          "function": "stage_check",
+          "line": 753
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching_cw_hybrid.py",
+          "function": "stage_check",
+          "line": 886
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching.py",
+          "function": "global_freeze",
+          "line": 794
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching_cw_hybrid.py",
+          "function": "global_freeze",
+          "line": 927
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching.py",
+          "function": "_verify_global_branch_freeze",
+          "line": 817
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching_cw_hybrid.py",
+          "function": "_verify_global_branch_freeze",
+          "line": 950
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching.py",
+          "function": "_rank",
+          "line": 834
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching_cw_hybrid.py",
+          "function": "_rank",
+          "line": 967
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching.py",
+          "function": "_write_report",
+          "line": 958
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v2/same_state_branching_cw_hybrid.py",
+          "function": "_write_report",
+          "line": 1091
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v3/predictor.py",
+          "function": "arrays",
+          "line": 58
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v3_2/predictor.py",
+          "function": "arrays",
+          "line": 58
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v3/protocol.py",
+          "function": "validate",
+          "line": 37
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v3_2/protocol.py",
+          "function": "validate",
+          "line": 37
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v3/protocol.py",
+          "function": "lock_protocol",
+          "line": 63
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v3_2/protocol.py",
+          "function": "lock_protocol",
+          "line": 63
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v3/schema.py",
+          "function": "dumps",
+          "line": 26
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v3_2/schema.py",
+          "function": "dumps",
+          "line": 27
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v3/schema.py",
+          "function": "exact",
+          "line": 30
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v3_2/schema.py",
+          "function": "exact",
+          "line": 31
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v3/schema.py",
+          "function": "text",
+          "line": 35
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v3_2/schema.py",
+          "function": "text",
+          "line": 36
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v3/schema.py",
+          "function": "items",
+          "line": 40
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v3_2/schema.py",
+          "function": "items",
+          "line": 41
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v3/schema.py",
+          "function": "ids",
+          "line": 45
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v3_2/schema.py",
+          "function": "ids",
+          "line": 46
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v3/schema.py",
+          "function": "empty_working_state",
+          "line": 51
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v3_2/schema.py",
+          "function": "empty_working_state",
+          "line": 52
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v3/schema.py",
+          "function": "validate_working_state",
+          "line": 55
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v3_2/schema.py",
+          "function": "validate_working_state",
+          "line": 56
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v3/study.py",
+          "function": "directory",
+          "line": 22
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v3_2/study.py",
+          "function": "directory",
+          "line": 22
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v3/study.py",
+          "function": "initial_contract",
+          "line": 28
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v3_2/study.py",
+          "function": "initial_contract",
+          "line": 28
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v3/study.py",
+          "function": "verify_files",
+          "line": 113
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v3_2/study.py",
+          "function": "verify_files",
+          "line": 113
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v3/study.py",
+          "function": "audit_stage",
+          "line": 119
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v3_2/study.py",
+          "function": "audit_stage",
+          "line": 119
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v3/study.py",
+          "function": "audit_batch",
+          "line": 132
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v3_2/study.py",
+          "function": "audit_batch",
+          "line": 132
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v3/study.py",
+          "function": "state",
+          "line": 169
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v3_2/study.py",
+          "function": "state",
+          "line": 169
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v3/study.py",
+          "function": "stage",
+          "line": 270
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v3_2/study.py",
+          "function": "stage",
+          "line": 271
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v3/study.py",
+          "function": "freeze_batch",
+          "line": 275
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v3_2/study.py",
+          "function": "freeze_batch",
+          "line": 276
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v3/study.py",
+          "function": "select",
+          "line": 307
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v3_2/study.py",
+          "function": "select",
+          "line": 308
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v3/study.py",
+          "function": "advance",
+          "line": 323
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v3_2/study.py",
+          "function": "advance",
+          "line": 324
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v3/study.py",
+          "function": "status",
+          "line": 333
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v3_2/study.py",
+          "function": "status",
+          "line": 334
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v3/transport.py",
+          "function": "build_request",
+          "line": 64
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v3_2/transport.py",
+          "function": "build_request",
+          "line": 66
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v3/transport.py",
+          "function": "cli_call",
+          "line": 82
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v3_2/transport.py",
+          "function": "cli_call",
+          "line": 84
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v3/transport.py",
+          "function": "failure_receipt",
+          "line": 182
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v3_2/transport.py",
+          "function": "failure_receipt",
+          "line": 203
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v3/transport.py",
+          "function": "call_with_retries",
+          "line": 192
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v3_2/transport.py",
+          "function": "call_with_retries",
+          "line": 213
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/active_learning_v3/transport.py",
+          "function": "usage_counts",
+          "line": 223
+        },
+        {
+          "path": "src/qgeognn_al/active_learning_v3_2/transport.py",
+          "function": "usage_counts",
+          "line": 244
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/artifacts.py",
+          "function": "sha256_file",
+          "line": 17
+        },
+        {
+          "path": "src/qgeognn_al/transfer/full_data.py",
+          "function": "sha256_file",
+          "line": 40
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/condition_complete_v2.py",
+          "function": "fit_condition_normalization",
+          "line": 65
+        },
+        {
+          "path": "src/qgeognn_al/schemas/conditions.py",
+          "function": "fit_condition_normalization",
+          "line": 64
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/condition_complete_v2.py",
+          "function": "condition_complete_v2_schema",
+          "line": 94
+        },
+        {
+          "path": "src/qgeognn_al/schemas/conditions.py",
+          "function": "condition_schema",
+          "line": 93
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/condition_complete_v2.py",
+          "function": "condition_branch_config_hash",
+          "line": 146
+        },
+        {
+          "path": "src/qgeognn_al/schemas/conditions.py",
+          "function": "condition_branch_config_hash",
+          "line": 145
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/historical/clean_fusion.py",
+          "function": "_stable_hash",
+          "line": 39
+        },
+        {
+          "path": "src/qgeognn_al/historical/clean_schema.py",
+          "function": "_stable_hash",
+          "line": 31
+        }
+      ],
+      [
+        {
+          "path": "src/qgeognn_al/transfer/calibration.py",
+          "function": "_two_targets",
+          "line": 20
+        },
+        {
+          "path": "src/qgeognn_al/transfer/matched_calibration.py",
+          "function": "_two_targets",
+          "line": 17
+        }
+      ]
+    ],
+    "noninit_reexport_modules": [
+      "src/qgeognn_al/active_learning_v3_2/artifacts.py"
+    ],
+    "definition": "Exact normalized AST of top-level functions, excluding docstring/function name but retaining argument names/constants; not semantic equivalence"
+  },
+  "duplicate_functions_after": {
+    "duplicate_top_level_function_groups": 0,
+    "excess_function_copies": 0,
+    "groups": [],
+    "noninit_reexport_modules": [],
+    "definition": "Exact normalized AST of top-level functions, excluding docstring/function name but retaining argument names/constants; not semantic equivalence"
+  },
+  "parse_errors_before": {},
+  "parse_errors_after": {},
+  "safety": {
+    "truth_tables_opened": 0,
+    "checkpoint_payloads_opened": 0,
+    "active_files_written": 0
+  },
+  "limits": [
+    "Source-only graph; arbitrary reflection and external consumers cannot be proven absent",
+    "Path-literal edges conservatively overapproximate basename mentions",
+    "Frozen source outside stable roots remains evidence; restoring its formal runner requires its immutable Git source ref",
+    "Only fully overlaid src/scripts/tests/tools scopes are considered candidate retirements in partial scratch trees"
+  ]
+}

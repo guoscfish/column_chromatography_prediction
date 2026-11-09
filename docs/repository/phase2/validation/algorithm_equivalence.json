@@ -1,6 +1,6 @@
 {
   "source_commit": "16eca74769f664bc378a58ccbf380a806723f587",
-  "scope": "synthetic deterministic boundary regression; no actual AL selection",
+  "scope": "pinned old/new numerical kernels, optional real checkpoints and saved historical batches; no new scientific acquisition/freeze/reveal",
   "records": [
     {
       "method": "LCMD",
@@ -520,6 +520,10 @@
       "trace_sha256": "5943ee4d93f06c2b3a3a31f71df27ed30b930ca8db9f4ee0270968f1f97f9d15",
       "numerical_scores_and_trace_equal": true,
       "input_features_sha256": "80c9a397f0c2d1b7caf8377929b046f24ed324718508ec35f6c6043672854147",
+      "evaluation_checkpoint_sha256": "87e92ccdabc1dd64ecf89a3061624450ce125906c4cbb988d7263b190991b1c0",
+      "source_round": 0,
+      "representation_refresh": "current_fit",
+      "centers_L_t_ids_hash": "1171988daf4e91eb3d866b44b1ba07f04a36e6f88eb953eda831b9c64c66854d",
       "universe_rows": 3330,
       "historical_LCMD_selection_replayed": true,
       "MaxDet_IVR": "counterfactual numerical equivalence only; no new actual selection/freeze/reveal",
@@ -603,6 +607,10 @@
       "trace_sha256": "d5fccdbfc00d0df323a1d03470b661edf08b94c419515f0759f3b2058d754311",
       "numerical_scores_and_trace_equal": true,
       "input_features_sha256": "abe446d3b61a82f314f1219ab7f8748e7812e7ad172ed2266aeb00ba3f6f8983",
+      "evaluation_checkpoint_sha256": "fe86aa20290cf8c2d0898237d17e8a0500ebbc55fbf12677d4d7c2024863df73",
+      "source_round": 6,
+      "representation_refresh": "current_fit",
+      "centers_L_t_ids_hash": "95e42d566288ab36ff2902a997575f1fadf19fef9eecb8c3615f47444234215a",
       "universe_rows": 3330,
       "historical_LCMD_selection_replayed": true,
       "MaxDet_IVR": "counterfactual numerical equivalence only; no new actual selection/freeze/reveal",
@@ -686,6 +694,10 @@
       "trace_sha256": "96c2dc292fdaf08cb79b3852d4d7b250bd42508f0003d6076de9b67329bbf243",
       "numerical_scores_and_trace_equal": true,
       "input_features_sha256": "8dea3454e6e310786621c30894d0e938365db16ef2467706a8fd31f7624a8433",
+      "evaluation_checkpoint_sha256": "3e6885cb697804881819af5f30f49fdf26085e0f58ba0526924596b138390c1e",
+      "source_round": 20,
+      "representation_refresh": "current_fit",
+      "centers_L_t_ids_hash": "732f896e749753f91e325186d247508a80199fd19786fd4223c5bfc7dd2c50ca",
       "universe_rows": 3330,
       "historical_LCMD_selection_replayed": true,
       "MaxDet_IVR": "counterfactual numerical equivalence only; no new actual selection/freeze/reveal",
@@ -1303,68 +1315,5 @@
       "trace_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
       "numerical_scores_and_trace_equal": true
     }
-  ],
-  "temporal_scientific_contract": {
-    "source_commit": "16eca74769f664bc378a58ccbf380a806723f587",
-    "historical_LCMD_sequential_source": "src/qgeognn_al/active_learning_v2/sequential_runner.py:_acquire_next",
-    "representation_refresh": "current_fit",
-    "feature_snapshot_meaning": "Each saved file is immutable for replay; it is not one L333 representation reused across rounds.",
-    "centers": "current ordered L_t, not only L0",
-    "frozen_initial_preprocessing": [
-      "endpoint population scales estimated on L0",
-      "graph/condition normalization fitted on L0",
-      "CountSketch seed/mapping and parameter order",
-      "CW linear transform estimated on L0 labels"
-    ],
-    "fusion_block_normalization": "gradient and latent blocks each divided by current L_t RMS norm; not fixed L0 block RMS",
-    "IVR": "current-model gradients, but fixed original L0+U0 reference universe and order",
-    "rounds": [
-      {
-        "seed": 157,
-        "source_round": 0,
-        "active_labels": 333,
-        "feature_sha256": "80c9a397f0c2d1b7caf8377929b046f24ed324718508ec35f6c6043672854147",
-        "evaluation_checkpoint_sha256": "87e92ccdabc1dd64ecf89a3061624450ce125906c4cbb988d7263b190991b1c0",
-        "actual_checkpoint_file_sha_verified": true,
-        "feature_recomputed_from_current_model": true,
-        "centers_are_current_L_t": true,
-        "L0_endpoint_scales": {
-          "V1": 6.502957820892334,
-          "V2": 13.158523559570312
-        },
-        "sketch_seed": 4000194
-      },
-      {
-        "seed": 157,
-        "source_round": 6,
-        "active_labels": 525,
-        "feature_sha256": "abe446d3b61a82f314f1219ab7f8748e7812e7ad172ed2266aeb00ba3f6f8983",
-        "evaluation_checkpoint_sha256": "fe86aa20290cf8c2d0898237d17e8a0500ebbc55fbf12677d4d7c2024863df73",
-        "actual_checkpoint_file_sha_verified": true,
-        "feature_recomputed_from_current_model": true,
-        "centers_are_current_L_t": true,
-        "L0_endpoint_scales": {
-          "V1": 6.502957820892334,
-          "V2": 13.158523559570312
-        },
-        "sketch_seed": 4000194
-      },
-      {
-        "seed": 157,
-        "source_round": 20,
-        "active_labels": 973,
-        "feature_sha256": "8dea3454e6e310786621c30894d0e938365db16ef2467706a8fd31f7624a8433",
-        "evaluation_checkpoint_sha256": "3e6885cb697804881819af5f30f49fdf26085e0f58ba0526924596b138390c1e",
-        "actual_checkpoint_file_sha_verified": true,
-        "feature_recomputed_from_current_model": true,
-        "centers_are_current_L_t": true,
-        "L0_endpoint_scales": {
-          "V1": 6.502957820892334,
-          "V2": 13.158523559570312
-        },
-        "sketch_seed": 4000194
-      }
-    ],
-    "scope_limit": "Exact conditional-on-input numerical kernels and three saved historical LCMD batches are verified. This is not full historical fit/retrain/checkpoint-selection/LLM workflow equivalence; no new training executed."
-  }
+  ]
 }

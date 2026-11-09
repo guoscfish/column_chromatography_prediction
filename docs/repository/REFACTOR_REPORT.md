@@ -1,5 +1,7 @@
 # 隔离工程重构交付报告（2026-11-09）
 
+> 本文为第一期交付历史记录，绑定 `4ee480378b0293f1985e3ee4a09df2c78f77901e`。下列目录保留、待迁移与测试计数描述当时状态。当前第二期清理结果及验证见 [NEW_ARCHITECTURE.md](phase2/NEW_ARCHITECTURE.md) 和 [TEST_REPORT.md](phase2/TEST_REPORT.md)；科学复盘已按用户要求单独提交到 main。
+
 已完成附件 Gate 0–2 中可安全实施的审计、最小公共 API、真实删减与离线验证；Gate 3 按要求停止。按用户最终指示，成果已迁入原 `/Users/fish/Documents/GitHub/column_chromatography_prediction` 仓库的 `codex/repository-architecture-20261109` 分支。原实验目录停留 main，开发使用同一仓库的 linked worktree：`/Users/fish/.codex/worktrees/repository-architecture-20261109/column_chromatography_prediction`。不是新 GitHub 项目，也没有向远端推送或合并 main。具体迁入、归档和副本清理证据见 [BRANCH_LAYOUT.md](BRANCH_LAYOUT.md)。公共实现提交 `0c537fe70ac50faf463cf30b7ae59e3120ae7307` 与交付索引 `ddf36aa135a191e3b0a9af54fd9dab4e47ac4924` 保留原身份。
 
 ## 基线与原实验保护

@@ -1,17 +1,27 @@
 # 柱色谱 QGeoGNN 与主动学习
 
-重构成果属于原 `column_chromatography_prediction` 仓库的 `codex/repository-architecture-20261109` 分支，基线 `16eca74769f664bc378a58ccbf380a806723f587`。实验运行目录继续停留在 main；本目录是同一 Git 仓库的独立工作树。分支归属、工作路径与保护验证见 [BRANCH_LAYOUT.md](docs/repository/BRANCH_LAYOUT.md)。不得直接在实验目录切换到重构代码或自动合并 main。
+这里是原仓库的重构分支 `codex/repository-architecture-20261109`。新代码在独立 linked worktree 中开发；运行 CW-Free 的原目录继续使用 `main`。当前重构没有合并进 `main`。
 
-新公共接口拆分表示、选样、工作流与代理计划验证。完整职责、迁移映射与退出门槛见 [架构](docs/ARCHITECTURE.md)；逐文件决策见 [CODE_INVENTORY.csv](docs/repository/CODE_INVENTORY.csv)，[重构报告](docs/repository/REFACTOR_REPORT.md)，[运行与冻结依赖](docs/repository/RUNTIME_AND_FROZEN_DEPENDENCIES.md)。
+日常开发入口只有三层：
 
-在具有 NumPy 的环境运行合成离线示例：
+| 目录 | 负责什么 |
+| --- | --- |
+| `src/qgeognn_al/predictor/` | 模型、图与条件输入、预处理、训练、原始六输出推理 |
+| `src/qgeognn_al/al/` | 表示、选样、代理计划、回合状态机、评价 |
+| `src/qgeognn_al/infra/` | 身份、哈希、授权资源、工件 |
+
+先从 [NEW_ARCHITECTURE.md](docs/repository/phase2/NEW_ARCHITECTURE.md) 了解调用关系与方法边界，再查看 [TEST_REPORT.md](docs/repository/phase2/TEST_REPORT.md) 的实测范围。旧 `active_learning_v2/v3/v3_2`、transfer 和历史专用 runner 已从候选稳定源码退出；历史实验通过固定 Git 来源恢复，不能直接用新代码替换其冻结运行树。
+
+在此工作树中运行一个完整的合成离线回合示例：
 
 ```sh
-python -m scripts.run_offline_selection --config configs/offline_selection.synthetic.json --output /tmp/column_selection_demo.json
+python -m scripts.run_al --config configs/offline_synthetic.json --output /private/tmp/column_al_demo
 ```
 
-它完成 config → 授权表示 → LCMD → selected_ids/trace → 磁盘冻结。实际模型的 latent 提取接口及冻结数值对照见 `representations/latent.py` 和 `tests/refactor/`。CLI示例没有训练、真值揭示或LLM请求。
+首次运行时输出目录须为新目录；相同代码身份和配置可以恢复已有回合。示例执行合成 fit → 验证 → 反馈 → 选样 → 持久冻结 → 合成标签揭示 → 下一轮 fit，预算从 2 到 6。`requirements-core.txt` 列出所需 NumPy/SciPy 版本；模型和测试依赖另见 `requirements-predictor.txt`、`requirements-test.txt`。请在独立环境准备依赖。此次工作没有安装包或更改正在运行实验的环境。
 
-候选只展开源码、测试与文档。数据/历史结果仍在 Git 对象中可追溯，运行缓存和keys没有复制。读取真实训练数据或检查点前，须准备独立、只读、有SHA的授权快照。已有冻结入口保留原字节；历史文档索引仍由 `docs/repository/RESEARCH_SCOPE.json` 与 `RETIREMENTS.json` 维护，本次真实删减另见 `RETIREMENT_MANIFEST.json`。
+CLI 目前只开放 `offline_synthetic`，不加载真实标签、训练科学模型或调用 LLM。生产模型后端已有独立实现，但默认关闭训练；完整科学重训练尚未验证。Free/CW/NoCW/V3 的旧提示词、重试和协议仍是历史来源，没有冒充兼容的新 LLM adapter。
 
-本次不需要独立 lab 作为运行依赖。先前的 lab 已按用户要求归档到原仓库 `refs/archive/column_chromatography_lab-20261109`，其代码、登记表、基线锁和测试记录可恢复；恢复方法见工作树说明。未来新方法仍须先独立验证科学收益或复用价值，再经用户确认提取最小核心实现。分位头、损失、训练协议与现有实验选择均未在工程重构中更改。
+分位数与损失复盘按用户要求单独提交到 `main`：`fcb51852c8bb6e38403fe95a302287a0a1779d47`，目录 `studies/diagnostics/quantile_loss_audit_20261109/`。本分支仅保留 [科学审计索引](docs/repository/phase2/SCIENCE_AUDIT.md)，不复制分析结果。
+
+清理的逐文件依据见 [MIGRATION_MAP.csv](docs/repository/phase2/MIGRATION_MAP.csv)、[INVENTORY.csv](docs/repository/phase2/INVENTORY.csv)、[DELETION_PROOF.csv](docs/repository/phase2/DELETION_PROOF.csv)。历史恢复方法见架构文档。当前实验结束并得到正式切换授权前，继续保留 `main` 的旧源码和运行目录。
