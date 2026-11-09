@@ -1,0 +1,7 @@
+# Manual resume on 2026-11-09
+
+After the five seed workers stopped on provider HTTP401, the user explicitly requested “帮我重新开始跑”. This independent overlay permits replay past only the five historical terminal failures listed by path, byte SHA256 and canonical record fingerprint in `authorization.json`. The prior FAILED_CLOSED states are likewise pinned by fingerprint to allow dispatch. A fresh HTTP401 has a different receipt/state and remains fatal; this is not an unlimited authentication retry amendment.
+
+The complete three-parallel scheduler and previous recovery chain are retained. Its dispatch ENTRY is bound to this wrapper, keeping the policy active in every subsequent worker and watchdog. API/seed workers <=3, expensive computation <=3, lagging seeds first, original gpt-6.1-sol/xhigh, complete inputs, all validators and training protocol unchanged. Accepted batches, completed models and cumulative attempt counters are reused. NoCW is not modified or signaled.
+
+The launch checks all completed-marker file hashes, no active seed lease, no pending request, and the exact old supervisor identity before replacing only the Free controller. All original failed receipts remain unchanged. `launch.json` records the original states, counters and current controller. Run `test_overlay.py` for five offline boundary checks and `controller_overlay.py validate` for the complete frozen authorization chain.
