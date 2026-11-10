@@ -1,55 +1,43 @@
 # 当前研究状态
 
-更新：2026-10-29。本页是项目级结论与下一步的唯一入口；具体数值、冻结门槛和使用过的数据以链接的实验报告及协议为准。
+状态：`CURRENT`。更新：2026-11-10。本页维护项目级结论与下一步；原始数值、预算、模型/Prompt 身份及标签消费以冻结协议与权威报告为准。工程设计见 [系统架构](ARCHITECTURE.md)，报告分类见 [reports 索引](../reports/README.md)。
 
-## 本轮执行
+## 当前优先事项
 
-五seed Free LLM32 / LCMD32延长实验已完成，每条达到1485标签。以[最终自动生成报告](../reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md)为唯一数值入口；[最终核验](../reports/free_lcmd_five_seeds_to1485_20261026/final_audit.json)覆盖全部十条的37拟合、36批次及历史授权例外。监控已在核验完成后删除。
+CW-visible Free LLM32 五 seed 研究按 `ACTIVE_RUNTIME` 保护，目标为每 seed L1485。本轮文档清理不判定其已完成、不接管运行或续跑、不修改中途模型头、loss、Prompt、预算和冻结规则。本轮开始时 main 为 `b1a6ed7a7bdca05487eb13ddd7b62c8a70870b28`，与候选差异独立保留，不自动合并。
 
-- Free与LCMD均已完成五seed的同预算比较；端点误差和全程学习曲线面积分别解释，不在导航页重复抄写数值。
-- LCMD使用原冻结梯度特征实现与corrected LCMD-TP，保留同初始化及validation划分；Free旧157/6101保留Astra/high前缀，887/12203有显式限定的逻辑纠正amendment。全部解释与证据链接在当前报告中。
-- 3330标签全训练集参考与后段平台期比较见[validation参考分析](../reports/free_lcmd_five_seeds_to1485_20261026/analysis/full_reference_validation_comparison_20261028.json)。未新增test评价，不能把validation平台期解释成无剩余泛化空间。
-- 双专家seed157已完成1005，seed6101到525后连接故障停止；不能称为两seed1005完成。[核验记录](../reports/dual_expert_two_seeds_to1005_20261021/verified_final_status.json)。该停止记录不影响独立的Free / LCMD续跑。
-- CW七臂×两seed1005扩展完成，Whitening按要求停525；[完整结果](../studies/active_learning/qgeognn_v2_row_cw_selector_extension_to_1005/RESULTS.md)保留原开发门槛与探索性解释。
+已发布的 [2026-11-09 20:06 快照](https://github.com/guoscfish/column_chromatography_prediction/tree/b1a6ed7a7bdca05487eb13ddd7b62c8a70870b28/reports/free_cw_overview_20261109_2005) 使用当时共同完成预算，不是实时进度或 L1485 最终结果。[该版本研究入口](https://github.com/guoscfish/column_chromatography_prediction/blob/b1a6ed7a7bdca05487eb13ddd7b62c8a70870b28/studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/README.md) 说明冻结协议及修订来源，其中更早进度也须按原日期阅读。
 
-[2026-10-13两seed快照](../reports/active_learning_latest/REPORT.md)和各阶段报告均为日期固定的历史记录，不作为当前进度。
+候选实现仍只开放合成 CLI，不是已验证的真实科学 runner。完整生产重训练、真实 K3 和历史 LLM 协议的验证范围见 [二期测试报告](repository/phase2/TEST_REPORT.md)。
 
-## 预测器
+## 已确认的证据
 
-**QGeoGNN-V2 已完成 4g 点预测资格验证**，状态为 `4G_POINT_PREDICTOR_QUALIFIED_FOR_TRANSFER_STUDIES（历史判定码，保留原标识）`。
+| 研究身份 | 结论和限制 | 权威入口 |
+| --- | --- | --- |
+| QGeoGNN-V2 4g 点预测 | 458,952 个有效参数；三固定 seed 的 row/compound 资格验证完成。Clean 为失败结构尝试。点预测资格不授予校准 UQ 资格。 | [工程验证](../studies/predictor/final_v2_engineering/README.md)、[资格报告](../studies/predictor/final_4g_qualification/FINAL_4G_QUALIFICATION_REPORT.md) |
+| Sequential B32，L333→1005 | LCMD/Hybrid 对 Random 有收益；原分类 NO_CLEAR_SEQUENTIAL_AL_GAIN 未区分两者最佳/相近，不能改写为“对 Random 无收益”。 | [主动学习索引](../studies/active_learning/README.md) 中对应结果 |
+| Static / Adaptive，固定 L653 | Adaptive 端点更好而 AULC 未改善；单一端点不证明全曲线优势。 | [固定预算对照](../studies/active_learning/qgeognn_v2_batch_adaptivity/FINAL_REPORT.md) |
+| Free LLM32 / LCMD32，五 seed L1485 | 已完成十条同预算轨迹；历史模型前缀与显式 amendment 限制随结果解释。validation 平台期不等于无剩余泛化空间。 | [最终报告](../reports/free_lcmd_five_seeds_to1485_20261026/REPORT.md) |
+| IVR / 数值机制及 CW 探索 | NO_CLEAR_IVR_IMPROVEMENT、STOP_BEFORE_GATE_C 等否定/部分证据保留；开发性多臂/短程结果不替代当前五 seed 长程研究。 | [主动学习索引](../studies/active_learning/README.md) |
+| 双专家历史扩展 | seed157 完成 L1005，seed6101 在 L525 后连接故障停止；不是两 seed L1005 完成。 | [固定终态核验](https://github.com/guoscfish/column_chromatography_prediction/blob/0e33a86d3dea3945acb0a638ca78a8f5065980a5/reports/dual_expert_two_seeds_to1005_20261021/verified_final_status.json) |
 
-- 458,952 个参数均有梯度；与 R2-pruned 在 4,163 行上的六输出完全相同。
-- 三个固定种子的 row / compound 六次验证完成。Row 插值和新 target-compound 泛化是不同任务。
-- Clean 是 `FAILED_POINT_PERFORMANCE_ARCHITECTURE_EXPERIMENT`，仅作历史负结果。
-- 当前分位数头可用于点预测，但覆盖率和 crossing 不足以支持已合格的 UQ；主动迁移仍需独立验证。
+以上结论属于各自模型、划分、人群与协议，不能混成跨方法通用排名。原始实验保持独立身份、采样序列及失败/授权记录。
 
-证据：[工程验证](../studies/predictor/final_v2_engineering/README.md)、[4g 正式报告](../studies/predictor/final_4g_qualification/FINAL_4G_QUALIFICATION_REPORT.md)、[分位数审计](../studies/predictor/final_4g_qualification/README.md#记录-3)。
+## 分位数和损失：事实与假设
 
-## 4g 主动学习
+完整诊断按用户要求只保留在 main 的 [fcb51852 科学报告](https://github.com/guoscfish/column_chromatography_prediction/blob/fcb51852c8bb6e38403fe95a302287a0a1779d47/studies/diagnostics/quantile_loss_audit_20261109/SCIENCE_AUDIT.md)，候选不复制 CSV 或图。
 
-| 已完成工作 | 结论 |
-| --- | --- |
-| LCMD one-step pilot | 大批量一次选点有正信号；不等于完整曲线或 compound 鲁棒性 |
-| B32 / B16 benchmark、Hybrid extension | B32 LCMD 有正信号；不同新增预算不能单独识别 batch-size effect |
-| Sequential B32，333→1005 标签 | LCMD / Hybrid 平均 AULC 比 Random 低约 23%，均 5/5 种子获胜 |
-| Kernel-IVR extension | `NO_CLEAR_IVR_IMPROVEMENT`；AULC 比 LCMD 差约 4.28%，仅 1/5 获胜 |
-| IVR mechanism audit | `STOP_BEFORE_GATE_C`；稳定性门槛未过，没有新增训练或效果验证 |
-| Phase 0 efficiency review | 重新整理端点、AULC、N80/N90/N95 与计算成本，没有重新训练 |
+- `NEW_OFFLINE_MEASURED`：五 seed 冻结 L333 eval 模型中，V2 的共享 backbone 梯度范数更大，条件分支有异质性；不等于整个 Adam 轨迹或 loss 权重因果试验。
+- 原始六输出存在交叉，名义中央80%覆盖在 seed 间波动。q50 用 MSE 学习，不是已校准中位数；排序后处理不是硬约束。
+- 固定辅助模型在可用 q50/gradient/latent/条件控制信号后，加入宽度和 crossing 标志未得总体增量收益；不证明所有预算和模型下永远无效。
+- `NOT_MEASURED`：其他预算、当前 compound AL、匹配 seed/budget 的真实 K3、实际 Adam 更新竞争和正式 AL 效率增益。
 
-Sequential 的原始分类 `NO_CLEAR_SEQUENTIAL_AL_GAIN` 保留不改：它未确定 LCMD 与 Hybrid 的最佳/相近类别，不能解释成“对 Random 无收益”。约 650 标签后改善放缓，稳定达到 N90/N95 仍未解决。
+`HYPOTHESIS`：loss 重加权、硬非交叉头或 crossing 严重度可能有价值，但当前不足以将 V2 权重从1改为0.5，也不足以把 crossing 解释为可减少的 epistemic uncertainty。后续先独立预注册预测器消融与增量误差信号检验，再决定是否开展匹配 seed/budget 的 AL 对照；不在当前运行中途换方法。
 
-[Phase 1固定预算Static / Adaptive对照](../studies/active_learning/qgeognn_v2_batch_adaptivity/FINAL_REPORT.md)已完成：均333+320=653标签；Adaptive端点0.436791优于Static的0.451013，但AULC未改善，不能宣称完整曲线优势。后续LLM轨迹状态见上方当前报告。
+## 数据与后续门槛
 
-[Phase 2 实施方案](research/主动学习方法沿革.md#记录-7) 是后续设计。全部已完成证据见[主动学习索引](../studies/active_learning/README.md)。
+曝光事实见 [数据消费登记](data_consumption_register.json)；已用于拟合、选模、测试评价或诊断的数据不能重新命名为盲确认集。row 插值、target-compound holdout、source-unseen OOD 是不同任务。测试真值不用于选点或事后挑模型，固定 validation 标签成本须单独披露。
 
-## 迁移学习已归档
+迁移学习自 2026-10-28 归档停止维护，固定来源 [dadd2281](https://github.com/guoscfish/column_chromatography_prediction/tree/dadd2281fba01eb4414128cbf9feb2859c78544b)。当前不安排跨柱后续训练，恢复路径见 [文档指南](README.md)。
 
-自 2026-10-28 起，迁移学习保存在 `codex/archive-transfer-20261028` 并停止维护，main 不再安排迁移或主动迁移的后续实验。原有结果、限制与判断见归档分支的迁移索引；[阅读和复现方式](README.md#迁移学习归档)及[分离清单](repository/RESEARCH_SCOPE.json)保留恢复信息。
-
-## 解释边界
-
-- main 当前研究 4g 主动学习与 LLM 选样；跨柱迁移已冻结归档。
-- Row、target-compound holdout、source-unseen OOD 不能互换；target-compound holdout 不等于源模型没见过该分子。
-- 低标签无阈值、过滤后 FULL-data、旧论文复现的总体与尺度不同，不能混合排名。
-- 复用已暴露测试集的结果是开发性证据。不得按测试结果改冻结规则或追加候选。
-- 历史报告中的“下一步”记录当时决策，不覆盖本页。新实验只更新本页和该研究目录，不再追加一套项目级计划。
+当前先完成并审计 CW-Free，保留负结果和异常解释，再按新授权安排正式科学切换或消融。文档清理、工程测试和离线相关性不替代独立科学确认。

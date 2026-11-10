@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "baseline": "0e33a86d3dea3945acb0a638ca78a8f5065980a5",
+  "observed_main_head": "b1a6ed7a7bdca05487eb13ddd7b62c8a70870b28",
+  "tracked_artifact_files": 22293,
+  "tracked_artifact_bytes": 1506652901,
+  "all_tracked_source_universe": 22373,
+  "decoded_dependency_source_files": 845,
+  "registered_protected_paths": [
+    "experiments/d28_al_engineering/partitions",
+    "experiments/e0_4g_baseline/canonical_4g.csv",
+    "experiments/e0_4g_baseline/checkpoints/best.pt",
+    "experiments/e0_4g_baseline/graph_cache_4g.pt",
+    "experiments/e0_4g_baseline/scaler.json",
+    "experiments/e0_8g_transfer/graph_cache_8g_only.pt",
+    "experiments/e1_signal_qualification/source_members/member_seed_1101/checkpoints/best.pt",
+    "experiments/e1_signal_qualification/source_members/member_seed_1101/scaler.json",
+    "experiments/e1_signal_qualification/source_members/member_seed_525/checkpoints/best.pt",
+    "experiments/e1_signal_qualification/source_members/member_seed_525/scaler.json",
+    "experiments/e4_a2a_low_budget_preregistration/partitions",
+    "experiments/g0_3_threshold_sensitivity/canonical_8g_no_threshold.csv"
+  ],
+  "machine_contracts": [
+    "docs/PROTECTED_ARTIFACTS.json",
+    "docs/PRUNE_MANIFEST.csv",
+    "docs/data_consumption_register.json",
+    "docs/repository/RESEARCH_SCOPE.json",
+    "docs/repository/RETIREMENTS.json"
+  ],
+  "registered_protection_git_coverage": [
+    {
+      "path": "experiments/d28_al_engineering/partitions",
+      "tracked_files": 12,
+      "candidate_path_exists": false,
+      "note": "A missing/ignored artifact has no Git-payload recovery guarantee."
+    },
+    {
+      "path": "experiments/e0_4g_baseline/canonical_4g.csv",
+      "tracked_files": 1,
+      "candidate_path_exists": false,
+      "note": "A missing/ignored artifact has no Git-payload recovery guarantee."
+    },
+    {
+      "path": "experiments/e0_4g_baseline/checkpoints/best.pt",
+      "tracked_files": 1,
+      "candidate_path_exists": false,
+      "note": "A missing/ignored artifact has no Git-payload recovery guarantee."
+    },
+    {
+      "path": "experiments/e0_4g_baseline/graph_cache_4g.pt",
+      "tracked_files": 1,
+      "candidate_path_exists": false,
+      "note": "A missing/ignored artifact has no Git-payload recovery guarantee."
+    },
+    {
+      "path": "experiments/e0_4g_baseline/scaler.json",
+      "tracked_files": 1,
+      "candidate_path_exists": false,
+      "note": "A missing/ignored artifact has no Git-payload recovery guarantee."
+    },
+    {
+      "path": "experiments/e0_8g_transfer/graph_cache_8g_only.pt",
+      "tracked_files": 1,
+      "candidate_path_exists": false,
+      "note": "A missing/ignored artifact has no Git-payload recovery guarantee."
+    },
+    {
+      "path": "experiments/e1_signal_qualification/source_members/member_seed_1101/checkpoints/best.pt",
+      "tracked_files": 1,
+      "candidate_path_exists": false,
+      "note": "A missing/ignored artifact has no Git-payload recovery guarantee."
+    },
+    {
+      "path": "experiments/e1_signal_qualification/source_members/member_seed_1101/scaler.json",
+      "tracked_files": 1,
+      "candidate_path_exists": false,
+      "note": "A missing/ignored artifact has no Git-payload recovery guarantee."
+    },
+    {
+      "path": "experiments/e1_signal_qualification/source_members/member_seed_525/checkpoints/best.pt",
+      "tracked_files": 1,
+      "candidate_path_exists": false,
+      "note": "A missing/ignored artifact has no Git-payload recovery guarantee."
+    },
+    {
+      "path": "experiments/e1_signal_qualification/source_members/member_seed_525/scaler.json",
+      "tracked_files": 1,
+      "candidate_path_exists": false,
+      "note": "A missing/ignored artifact has no Git-payload recovery guarantee."
+    },
+    {
+      "path": "experiments/e4_a2a_low_budget_preregistration/partitions",
+      "tracked_files": 3,
+      "candidate_path_exists": false,
+      "note": "A missing/ignored artifact has no Git-payload recovery guarantee."
+    },
+    {
+      "path": "experiments/g0_3_threshold_sensitivity/canonical_8g_no_threshold.csv",
+      "tracked_files": 1,
+      "candidate_path_exists": false,
+      "note": "A missing/ignored artifact has no Git-payload recovery guarantee."
+    }
+  ],
+  "strict_study_prefixes": [
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/",
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/",
+    "studies/active_learning/qgeognn_v2_row_llm_nocw_ablation/"
+  ],
+  "strict_report_prefixes": [
+    "reports/free_lcmd_five_seeds_to1485_20261026/",
+    "reports/free_llm_five_seeds_to1485_20261024/",
+    "reports/cw_retry_evidence_20261106_1445/",
+    "reports/llm_eight_to1549_20261018/"
+  ],
+  "decisions": {
+    "KEEP_SCIENTIFIC_OR_UNREVIEWED": 723,
+    "KEEP_PROTECTED": 21457,
+    "REVIEW_DOCUMENT_REFERENCES": 5,
+    "ELIGIBLE_AFTER_REMOTE_RECOVERY_GATE": 39,
+    "BLOCKED_MACHINE_REFERENCE": 32,
+    "DEFERRED_DERIVED_REGENERATION_NOT_PROVEN": 37
+  },
+  "proposal_decisions": {
+    "REVIEW_DOCUMENT_REFERENCES": 5,
+    "ELIGIBLE_AFTER_REMOTE_RECOVERY_GATE": 39,
+    "BLOCKED_MACHINE_REFERENCE": 32,
+    "DEFERRED_DERIVED_REGENERATION_NOT_PROVEN": 37,
+    "KEEP_PROTECTED": 2
+  },
+  "safety": {
+    "main_files_written": 0,
+    "scientific_modules_imported": 0,
+    "training_or_provider_calls": 0,
+    "labels_revealed": 0,
+    "data_checkpoint_payloads_decoded": 0,
+    "files_deleted": 0
+  },
+  "limits": [
+    "Static reference scan is conservative; arbitrary reflection and external consumers are not proven absent.",
+    "Main references describe a separate physical source root; no main cleanup is authorized.",
+    "Nondecoded research payloads retain Git blob identity and size, never a fabricated SHA256.",
+    "Ignored/untracked checkpoints, original labels and runtime are not recoverable merely from a Git tag.",
+    "Remote availability and actual source restoration are a separate mandatory gate before deletion.",
+    "Active process observations and runtime source hashes are supplied by the independent protection receipt.",
+    "A proposed directory is not blanket deletion authority; per-file protections and references override it.",
+    "The auditor policy and its isolated temporary-repository test fixtures are excluded from self-referential dependency inference.",
+    "Closed-proposal references assume those callers retire together; the actual selected-subset deletion plan must recheck retained callers.",
+    "Derived image/PDF regeneration has not been demonstrated; Git recoverability alone is not proof of derivation reproducibility."
+  ]
+}
