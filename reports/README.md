@@ -58,4 +58,4 @@ main 的 [CW 五 seed 概览（2026-11-09 20:06）](https://github.com/guoscfish
 
 上述若干目录同时保存控制器、恢复授权、日志和人读报告。目录级分类不能代替逐文件依赖审计，也不是整目录删除授权。原始数据、checkpoint、选择/标签账本、冻结来源、授权、协议和 test 消费声明继续受保护。Git 固定提交只恢复已跟踪字节，本地 ignored runtime/原始请求必须依独立资源来源恢复。
 
-本轮实际退出数量和每文件 SHA/blob/recovery 来源见 [清理报告](../docs/repository/releases/document-cleanup-20261110/CLEANUP_REPORT.md) 与 [工程审计导航](../docs/repository/README.md)。更多科学证据入口见 [studies](../studies/README.md) 与 [experiments](../experiments/INDEX.md)。
+本轮已用固定聚合输入及固定绘图源码在独立目录重建可退役的旧阶段曲线，原始曲线、协议、偏差说明和运行恢复证据分别保留；生成图不是新实验结果。实际退出数量和每文件 SHA/blob/recovery 来源见 [清理报告](../docs/repository/releases/redundancy-cleanup-20261110/CLEANUP_REPORT.md) 与 [工程审计导航](../docs/repository/README.md)。更多科学证据入口见 [studies](../studies/README.md) 与 [experiments](../experiments/INDEX.md)。

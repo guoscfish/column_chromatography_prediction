@@ -5,6 +5,7 @@ Never changes Git refs, source, processes, runtime resources or environments.
 from __future__ import annotations
 import argparse
 import csv
+import gzip
 import hashlib
 import json
 from pathlib import Path
@@ -13,6 +14,7 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 RELEASE = 'docs/repository/releases/document-cleanup-20261110'
+CURRENT_RELEASE = 'docs/repository/releases/redundancy-cleanup-20261110'
 BRANCHES = {'main', 'codex/archive-transfer-20261028', 'codex/repository-architecture-20261109'}
 MACHINE_CONTRACTS = ('docs/PROTECTED_ARTIFACTS.json', 'docs/data_consumption_register.json',
                      'docs/PRUNE_MANIFEST.csv', 'docs/repository/RESEARCH_SCOPE.json',
@@ -35,11 +37,34 @@ def git_path(root, name):
     return (value if value.is_absolute() else root/value).resolve()
 
 
-def verify(root, release):
-    root, release = Path(root).resolve(), Path(release).resolve()
+def load_release(release):
+    """Read the current compact receipt or the unchanged historical format."""
+    release = Path(release)
+    compact = release/'TEST_RESULTS.json'
+    if compact.is_file():
+        result = json.loads(compact.read_text())
+        if result.get('schema_version') != 2:
+            raise ValueError('unsupported compact cleanup receipt schema')
+        baseline = result['protection_baseline']
+        remote = result['remote_recovery']
+        with gzip.open(release/'ACTUAL_REMOVALS.csv.gz', 'rt', newline='') as stream:
+            deletions = list(csv.DictReader(stream))
+        return baseline, remote, deletions
     baseline = json.loads((release/'MAIN_BASELINE.json').read_text())
     remote = json.loads((release/'REMOTE_RECOVERY.json').read_text())
-    deletions = list(csv.DictReader((release/'DELETED_FILES.csv').open()))
+    with (release/'DELETED_FILES.csv').open() as stream:
+        deletions = list(csv.DictReader(stream))
+    return baseline, remote, deletions
+
+
+def default_release(root):
+    current = Path(root)/CURRENT_RELEASE
+    return current if (current/'TEST_RESULTS.json').is_file() else Path(root)/RELEASE
+
+
+def verify(root, release):
+    root, release = Path(root).resolve(), Path(release).resolve()
+    baseline, remote, deletions = load_release(release)
     main = Path(baseline['main_root']).resolve()
     failures = []
     if root == main or root in main.parents or main in root.parents:
@@ -124,9 +149,9 @@ def main():
     parser.add_argument('--release', type=Path)
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
-    release = args.release or args.repository/RELEASE
+    release = args.release or default_release(args.repository)
     result = verify(args.repository, release)
-    active = Path(json.loads((release/'MAIN_BASELINE.json').read_text())['main_root']).resolve()
+    active = Path(load_release(release)[0]['main_root']).resolve()
     if args.output.resolve() == active or active in args.output.resolve().parents:
         parser.error('report output must stay outside main')
     args.output.parent.mkdir(parents=True, exist_ok=True)

@@ -21,9 +21,10 @@ NAVIGATION = {
     'experiments/HISTORICAL_DECISIONS.md', 'reports/README.md',
     'studies/README.md', 'studies/active_learning/README.md',
     'studies/active_learning/CW_RESEARCH_INDEX.md', 'studies/predictor/README.md',
-    'docs/repository/releases/document-cleanup-20261110/CLEANUP_REPORT.md',
+    'docs/repository/releases/redundancy-cleanup-20261110/CLEANUP_REPORT.md',
 }
 HISTORICAL_REFS = (
+    '382fc755c1c22058c18d4b0593f6a686b9a48e31',
     '0e33a86d3dea3945acb0a638ca78a8f5065980a5',
     '4ee480378b0293f1985e3ee4a09df2c78f77901e',
     '16eca74769f664bc378a58ccbf380a806723f587',

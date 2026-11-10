@@ -6,7 +6,7 @@
 
 原子/键类别描述拓扑；键长进入 atom-bond 图连续特征，键角与分子描述符进入 bond-angle 图。现有图构造见 [data.py](../../src/qgeognn_al/predictor/data.py)，原编码器见 [application/QGeoGNN.py](../../application/QGeoGNN.py)。
 
-V2 保留旧 backbone 实际消费的条件通路，在 graph/sample 层补齐未消费条件。构造 edge_attr 列不等于旧 encoder 确实消费了该语义，见 [paper/code 合同审计](PAPER_CODE_CONTRACT_AUDIT.md) 和 [V2 语义审计](../../studies/predictor/semantic_input_audit/README.md)。
+V2 保留旧 backbone 实际消费的条件通路，在 graph/sample 层补齐未消费条件。构造 edge_attr 列不等于旧 encoder 确实消费了该语义，见 [paper/code 合同审计](PAPER_CODE_CONTRACT_AUDIT.md) 和 [V2 语义审计](../../studies/i0_predictor_semantic_audit/README.md)。
 
 | 条件 | 类型与物理语义 | 当前实现 |
 | --- | --- | --- |

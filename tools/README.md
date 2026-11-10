@@ -10,7 +10,7 @@
 | [plot_saved_validation.py](plot_saved_validation.py) | 保存的 validation snapshot / rerun-audit 离线绘图 | 向配置指定 snapshot_directory 写图；rerun-audit 还核对已有模型与历史。使用独立授权快照，不随意重绘运行中报告目录。 |
 | [audit_research_artifacts.py](audit_research_artifacts.py) | 本轮逐文件研究产物、保护边界与类型引用审查 | 只生成计划；`--compress`将大清单压缩为确定性gzip。没有自动删除；闭合候选组不能替代实际删除子集的依赖复核。 |
 | [check_documentation_links.py](check_documentation_links.py) | 全量Markdown相对链接、anchor与固定Git来源 | 区分Git稀疏目标和实际缺失；当前导航失败即非零退出；历史原文独立解析且不改写。 |
-| [verify_cleanup_release.py](verify_cleanup_release.py) | 本轮main保护、科学代码不变、实际删除集合与远端恢复收据复查 | 绑定本轮main和原重构分支；核对固定独立fetch收据，本工具本身不重新联网、不删文件。 |
+| [verify_cleanup_release.py](verify_cleanup_release.py) | 当前main保护、科学代码不变、实际删除集合与远端恢复收据复查 | 默认读取当前 compact TEST_RESULTS + ACTUAL_REMOVALS.csv.gz；仍可解析旧格式做历史固定状态对照。核对独立fetch收据，不重新联网、不删文件。 |
 
 本轮新文档/产物审计工具和收据从 [工程审计导航](../docs/repository/README.md) 查找。上述四个既有工具用途独立，不作为重复历史脚本删除。
 
@@ -37,3 +37,5 @@ python tools/history_restore.py --protocol scientific_source \
 `--protocol phase1_candidate` 恢复一期候选。固定来源见 [HISTORICAL_PROTOCOLS.json](../docs/repository/phase2/HISTORICAL_PROTOCOLS.json)，更早研究使用自己的 BASE_COMMIT。源码恢复不等于被忽略的 runtime、真实 checkpoint、完整请求或凭据已备份；远端来源与本地独有 ref 分别核查。
 
 工具不安装或升级运行中环境。不要为了文档清理运行旧恢复控制器、改锁、重训练、接受新选点或发起付费 LLM。
+
+本轮当前验收使用 `docs/repository/releases/redundancy-cleanup-20261110/` 的四件紧凑交付；原工程收据从固定提交恢复，不在工作树重复保存。旧收据只能描述当时固定候选，不能代替当前完整删除集合的验收。

@@ -8,9 +8,10 @@
 | --- | --- | --- |
 | 一期源码隔离/最小 API（2026-11-09） | FROZEN_HISTORICAL；不是当前目录布局 | [固定完整审计包](https://github.com/guoscfish/column_chromatography_prediction/tree/0e33a86d3dea3945acb0a638ca78a8f5065980a5/docs/repository)，含一期报告、PID快照、105项历史测试与退休候选；本轮只退出通过逐文件门槛的副本 |
 | 二期单一 AL 架构（2026-11-09） | FROZEN_HISTORICAL release；[91项测试与科学边界](phase2/TEST_REPORT.md) | [迁移/删除/恢复锁](phase2/HISTORICAL_PROTOCOLS.json)、[374项源码退出证明](phase2/DELETION_PROOF.csv)、[完整固定版本](https://github.com/guoscfish/column_chromatography_prediction/tree/0e33a86d3dea3945acb0a638ca78a8f5065980a5/docs/repository/phase2) |
-| 文档与研究产物清理（2026-11-10） | CURRENT 工程审计；[清理报告](releases/document-cleanup-20261110/CLEANUP_REPORT.md) | 单一版本包 [document-cleanup-20261110/](releases/document-cleanup-20261110/)，保存逐文件清单、类型引用、远端恢复、实际删除和 main 保护证明 |
+| 文档导航与首批产物清理（2026-11-10） | FROZEN_HISTORICAL；[39份副本退出的固定报告](https://github.com/guoscfish/column_chromatography_prediction/blob/382fc755c1c22058c18d4b0593f6a686b9a48e31/docs/repository/releases/document-cleanup-20261110/CLEANUP_REPORT.md) | [完整固定收据](https://github.com/guoscfish/column_chromatography_prediction/tree/382fc755c1c22058c18d4b0593f6a686b9a48e31/docs/repository/releases/document-cleanup-20261110)，不再作为本轮实时库存 |
+| 全仓库冗余与可用性验收（2026-11-10） | CURRENT；[本轮总报告](releases/redundancy-cleanup-20261110/CLEANUP_REPORT.md) | [实际退出清单](releases/redundancy-cleanup-20261110/ACTUAL_REMOVALS.csv.gz)、[逐项阻塞](releases/redundancy-cleanup-20261110/BLOCKED.csv)、[本轮测试](releases/redundancy-cleanup-20261110/TEST_RESULTS.json) |
 
-一期可从固定 `0e33a86d3dea3945acb0a638ca78a8f5065980a5` 恢复原始字节，不在当前 docs 再复制一套。二期的机器锁继续保留原路径，因为恢复工具及既有验收明确依赖它们；本轮不移动或重算二期冻结收据。版本包索引集中，文件本身不因“导航收敛”而重复迁移。
+一期可从固定 `0e33a86d3dea3945acb0a638ca78a8f5065980a5` 恢复原始字节，不在当前 docs 再复制一套。二期恢复工具直接读取的机器锁继续保留原路径、原字节；它们与仅用于历史展示的库存、重复JUnit和中间导出分开处理。确认不再被工具读取的旧收据以固定提交检索，不再复制为另一套本地审计包。
 
 ## 仍在原路径的机器契约
 

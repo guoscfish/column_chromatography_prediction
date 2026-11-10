@@ -1,6 +1,6 @@
 # experiments 证据与恢复索引
 
-本页区分候选基线 Git 树中实际保留的 21 个研究目录与仅在跨柱归档中存在的目录，替代“每个旧目录都仍在当前工作树”的过时说法。清单按固定 `0e33a86d3dea` Git 树核对；稀疏 checkout 不展开二进制或表格，不意味着文件被删。
+本页区分候选基线 Git 树中实际保留的 21 个研究目录与仅在跨柱归档中存在的目录，替代“每个旧目录都仍在当前工作树”的过时说法。科学身份以固定 `0e33a86d3dea` 来源核对，本轮清理基线为 `382fc755c1c2`；稀疏 checkout 不展开二进制或表格，不意味着文件被删。
 
 状态统一含义：`CURRENT` 为本候选的主要阅读入口；`FROZEN_HISTORICAL` 为保留原身份的科学证据；`ARCHIVED_SOURCE` 为从固定 Git 来源恢复的历史内容；`SUPERSEDED` 为已被后续阶段取代的方案或快照；`ACTIVE_RUNTIME` 为 main 上受保护的运行项目，不能在候选执行或移动。状态不是新训练/揭示标签的授权。
 
@@ -56,3 +56,11 @@
 [历史决策摘要](HISTORICAL_DECISIONS.md) 收敛旧 decision/register/roadmap 阅读入口，原文按固定提交保留。新研究决策只看 [NEXT_STAGE_DECISION](../docs/NEXT_STAGE_DECISION.md)。[原 Predictor Freeze](https://github.com/guoscfish/column_chromatography_prediction/tree/0e33a86d3dea3945acb0a638ca78a8f5065980a5/experiments/PREDICTOR_FREEZE.md) 是旧 Gate0 身份合同，不覆盖后来的独立 V2。
 
 数据与真值使用声明见 [data_consumption_register](../docs/data_consumption_register.json)。尤其 E2 failure、D45/D46 的 test 已用于事后诊断，不再是未使用的确认集。可恢复 Git 源码不等于可恢复 ignored checkpoint/请求/runtime；后者必须有独立资源来源和原 SHA，不在本轮凭空补造。
+
+## 本轮逐文件清理与保留边界
+
+本轮结果以 [全仓库冗余验收](../docs/repository/releases/redundancy-cleanup-20261110/CLEANUP_REPORT.md) 为准，不把目录级“SUPERSEDED”当作删除授权。`e2_random_smoke` 的 manifest 明确绑定checkpoint、reveal后选择、split/scaler和test使用事实；`e2_4g_compound_preflight` 也绑定原Round0模型、特征和dry-run选择。它们不能只因被后续pilot覆盖而整目录删除。
+
+`reproductions/d46_oracle_reliability_smoke` 的四张纯aggregate图已用固定历史绘图逻辑和跟踪输入在隔离目录实际重建、逐像素比较；此验证不运行训练、不读取原始test预测。缺少独立paired-mean CI输入的forest、原协议/配置/来源/fit/reset/消费声明仍保留，不能由四图可重建推导整个旧实验可完整重训复现。
+
+保留的跨柱兼容资源已逐文件与 `dadd2281fba01eb4414128cbf9feb2859c78544b` 比较 Git blob；相同并不解除保护清单或历史消费者。真实模型、原数据、partition/scaler/cache及ignored runtime恢复能力仍须单独验证。

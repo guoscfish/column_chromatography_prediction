@@ -86,3 +86,29 @@ def test_rename_similarity_does_not_hide_an_actual_removed_path(tmp_path, monkey
     (candidate/'new-report.md').write_text('historical report\n')
     git(candidate,'add','new-report.md')
     assert guard.verify(candidate,release)['passed']
+
+
+def compact_receipt(release):
+    import gzip
+    baseline=json.loads((release/'MAIN_BASELINE.json').read_text())
+    remote=json.loads((release/'REMOTE_RECOVERY.json').read_text())
+    (release/'TEST_RESULTS.json').write_text(json.dumps({'schema_version':2,'protection_baseline':baseline,'remote_recovery':remote}))
+    with gzip.open(release/'ACTUAL_REMOVALS.csv.gz','wb') as f:f.write((release/'DELETED_FILES.csv').read_bytes())
+    for name in ['MAIN_BASELINE.json','REMOTE_RECOVERY.json','DELETED_FILES.csv']:(release/name).unlink()
+
+
+def test_compact_release_keeps_the_same_strict_guards(tmp_path, monkeypatch):
+    main,candidate,release=fixture(tmp_path,monkeypatch)
+    compact_receipt(release)
+    assert guard.verify(candidate,release)['passed']
+    result=json.loads((release/'TEST_RESULTS.json').read_text())
+    result['remote_recovery']['files'][0]['sha256']='0'*64
+    (release/'TEST_RESULTS.json').write_text(json.dumps(result))
+    assert not guard.verify(candidate,release)['passed']
+
+
+def test_current_default_does_not_require_old_receipt_copies(tmp_path, monkeypatch):
+    current=tmp_path/guard.CURRENT_RELEASE;current.mkdir(parents=True)
+    assert guard.default_release(tmp_path)==tmp_path/guard.RELEASE
+    (current/'TEST_RESULTS.json').write_text('{}')
+    assert guard.default_release(tmp_path)==current
