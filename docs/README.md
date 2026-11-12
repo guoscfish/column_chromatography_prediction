@@ -1,6 +1,6 @@
 # 当前文档
 
-Framework V2 只保留日常设计、科学合同与研究状态。旧施工报告、清理库存、分阶段测试日志和历史方案从 [固定历史快照](https://github.com/guoscfish/column_chromatography_prediction/tree/973ccaf8cb436e129ba3facc79d42853263923ce) 查阅，原始字节不重写。
+日常树只保留日常设计、科学合同与研究状态。旧施工报告、清理库存、分阶段测试日志和历史方案从 [固定历史快照](https://github.com/guoscfish/column_chromatography_prediction/tree/973ccaf8cb436e129ba3facc79d42853263923ce) 查阅，原始字节不重写。
 
 | 问题 | 入口 |
 | --- | --- |
@@ -10,7 +10,9 @@ Framework V2 只保留日常设计、科学合同与研究状态。旧施工报�
 | 输入单位、条件与标签权限 | [INPUT_SCHEMA](model/INPUT_SCHEMA.md) |
 | 当前模型、loss、评分科学身份 | [CODE_CONTRACT](model/CODE_CONTRACT.md) |
 | 少量权威结果与负结果 | [research](../research/README.md) |
-| 本次框架验收 | [FRAMEWORK_V2_ACCEPTANCE](FRAMEWORK_V2_ACCEPTANCE.md) |
+| 逐profile实际能力 | [CAPABILITY_MATRIX](CAPABILITY_MATRIX.md) |
+| 等价证据、阻塞与精简统计 | [EQUIVALENCE_REPORT](EQUIVALENCE_REPORT.md) |
+| main方法的版本及迁移身份 | [LEGACY_TO_NEW_CAPABILITY_MATRIX](LEGACY_TO_NEW_CAPABILITY_MATRIX.md) |
 
 数据/权限合同位于 [protected_artifacts](../configs/protected_artifacts.json)、[data_consumption_register](../configs/data_consumption_register.json)。原论文/发布代码与历史项目实现的详细比较保留在 [归档paper/code审计](https://github.com/guoscfish/column_chromatography_prediction/blob/973ccaf8cb436e129ba3facc79d42853263923ce/docs/model/PAPER_CODE_CONTRACT_AUDIT.md)；其中“current Clean”描述原审计时期，不能替代当前独立V2合同。
 

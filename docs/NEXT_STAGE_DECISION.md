@@ -1,6 +1,6 @@
 # 当前研究状态
 
-更新：2026-11-11。此处区分已测事实、假设与运行保护；原始完整证据统一从 [archive973](https://github.com/guoscfish/column_chromatography_prediction/tree/973ccaf8cb436e129ba3facc79d42853263923ce) 恢复，精炼结果见 [research](../research/README.md)。
+更新：2026-11-12。此处区分已测事实、假设与运行保护；原始完整证据统一从 [archive973](https://github.com/guoscfish/column_chromatography_prediction/tree/973ccaf8cb436e129ba3facc79d42853263923ce) 恢复，精炼结果见 [research](../research/README.md)。
 
 ## 已确认事实
 
@@ -11,7 +11,7 @@
 | CW/NoCW | NoCW的共同L973历史快照与当前main CW-Free目标L1485分别保留，阶段进度不是最终结果；框架收敛不判断main任务已完成。[来源](../research/CW_NOCW.md) |
 | GP/IVR | 开发GP未通过正式AL门槛，IVR完整历史探索未建立明确AULC收益，25态机制audit止于Gate C之前；不同指标/数据角色不混排。[来源](../research/NEGATIVE_RESULTS.md) |
 
-当前框架只资格化合成CLI、多轮工程状态机、数值核心、已有checkpoint推理及受限历史回归。真实生产多轮训练、真实K3、LLM provider/Prompt端到端 **NOT_VERIFIED**。当前机器具备授权私有fixture，不代表fresh clone自动拥有模型、原始runtime或数据权限。
+当前已实现统一CLI、真实Row数据/拟合路径、各LLM profile完整packet和受控provider；本轮验收范围为合成状态机、确定性初始化/划分、数值核心、已有checkpoint推理与30个真实录制选择回合、五seed两轮真实K3冻结checkpoint及匹配预算validation回归。详见 [能力矩阵](CAPABILITY_MATRIX.md)。真实生产多轮训练、真实K3、LLM provider/Prompt端到端 **NOT_VERIFIED**。当前机器具备授权私有fixture，不代表fresh clone自动拥有模型、原始runtime或数据权限。
 
 ## 现阶段边界
 

@@ -5,6 +5,7 @@ import hashlib
 import json
 import math
 import random
+import stat
 from pathlib import Path
 
 import numpy as np
@@ -26,7 +27,11 @@ def atomic_json(path, value):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(path.suffix + ".tmp")
-    tmp.write_text(json.dumps(value, indent=2) + "\n")
+    for candidate in (path,tmp):
+        if candidate.is_symlink() or (candidate.exists() and (not stat.S_ISREG(candidate.stat().st_mode) or candidate.stat().st_nlink!=1)):
+            raise ValueError('JSON output target or temporary file is linked/nonregular')
+    with tmp.open('x') as stream:
+        stream.write(json.dumps(value, indent=2) + '\n')
     tmp.replace(path)
 
 

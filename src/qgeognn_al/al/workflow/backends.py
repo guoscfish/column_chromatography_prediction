@@ -1,7 +1,7 @@
-"""Explicit scientific backend and synthetic lifecycle fixture.
+"""Shared predictor representation backend and a synthetic lifecycle fixture.
 
-QGeoGNN fitting is implemented but denied unless a future caller supplies an
-explicit training capability. Current engineering checks never grant it.
+Real Row fitting uses the single transaction in row_backend/row_fit. No model
+optimization is available from the earlier generic backend scaffold.
 """
 from __future__ import annotations
 from dataclasses import asdict
@@ -73,11 +73,11 @@ class SyntheticBackend:
 
 
 class QGeoGNNBackend:
-    """One production fit/predict/representation path with frozen initialization.
+    """Shared frozen-initialization predictor representation/validation backend.
 
-    Uses the unmodified predictor training recipe. It is not activated by the
-    synthetic CLI and this refactor task never authorizes a new scientific fit.
-    Feature graphs must contain no labels; only the workflow injects L/validation.
+    Row fitting is implemented only by QGeoGNNRowBackend through the source
+    recipe and its complete transaction; no earlier scaffold fit path remains.
+    Feature graphs contain no labels; only the Row fitter injects L/validation.
     """
     kind = 'qgeognn'
 
@@ -132,35 +132,7 @@ class QGeoGNNBackend:
     def fit(self, *, seed, labeled_ids, labels, validation_ids, validation_labels):
         if not self.allow_training:
             raise PermissionError('new scientific training requires separate explicit authorization')
-        import torch
-        from ...predictor import build_predictor, load_predictor_checkpoint
-        from ...predictor.training import train_source, seed_everything
-        if set(labeled_ids) != set(labels) or set(validation_ids) != set(validation_labels) or set(labeled_ids) & set(validation_ids):
-            raise ValueError('training labels or validation role drift')
-        if self.config.get('outer_seed', seed) != seed:
-            raise ValueError('training config belongs to another outer seed')
-        ids = tuple(labeled_ids) + tuple(validation_ids)
-        atom, angle = self._graphs(ids, {**labels, **validation_labels})
-        # Every round begins from identical parameter values. No warm-start update.
-        model = build_predictor(self.normalization)
-        model.load_state_dict(self.initial_state, strict=True)
-        from ..representations.latent import predictor_state_hash
-        if predictor_state_hash(model) != self.initial_state_hash:
-            raise ValueError('initial state changed before fitting')
-        config = dict(self.config)
-        if 'seed' not in config:
-            raise ValueError('effective frozen training seed must be explicit')
-        seed_everything(config['seed'])
-        folder = self.root / ('seed_' + str(seed)); folder.mkdir(parents=True, exist_ok=True)
-        checkpoint = folder / ('L' + str(len(labeled_ids)) + '_' + content_hash(list(labeled_ids))[:16] + '.pt')
-        train_source(model, atom, angle, list(range(len(labeled_ids))), list(range(len(labeled_ids), len(ids))),
-                     self.preprocessing, config, checkpoint)
-        fitted = load_predictor_checkpoint(checkpoint); digest = sha256_file(checkpoint)
-        self._models[digest] = fitted
-        return {'seed': seed, 'initial_state_hash': self.initial_state_hash,
-                'labeled_ids_hash': content_hash(list(labeled_ids)), 'checkpoint_hash': digest,
-                'checkpoint_path': str(checkpoint), 'effective_training_seed': config['seed'],
-                'training_performed': True, 'backend': 'qgeognn_v2'}
+        raise NotImplementedError('use QGeoGNNRowBackend for the single source-qualified Row fit transaction')
 
     def _model(self, fit):
         from ...predictor import load_predictor_checkpoint
@@ -184,9 +156,9 @@ class QGeoGNNBackend:
         if kind == 'latent':
             return extract_latent(model, **kwargs)
         scales = tuple(self.preprocessing['target_scales'][name] for name in ['V1', 'V2'])
-        gradient = extract_gradient(model, **kwargs, scales=scales, sketch_seed=parameters['sketch_seed'],
+        gradient = extract_gradient(model, **kwargs, sketch_seed=parameters['sketch_seed'],
                                     kind='center_width' if kind == 'center_width' else 'gradient',
-                                    **({'l0_ids': self.l0_ids, 'l0_targets': self.l0_targets} if kind == 'center_width' else {}))
+                                    **({'l0_ids': self.l0_ids, 'l0_targets': self.l0_targets} if kind == 'center_width' else {'scales': scales}))
         if kind == 'fused':
             return fuse_snapshots(gradient, extract_latent(model, **kwargs), alpha=parameters['alpha'])
         return gradient

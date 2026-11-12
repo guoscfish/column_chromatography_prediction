@@ -10,4 +10,4 @@
 - 原loss未按target sigma标准化；评价Combined NRMSE为 `sqrt(0.5*((RMSE1/sigma1)^2+(RMSE2/sigma2)^2))`，不可把raw loss份额与该误差贡献混同。AULC必须注明预算网格、数据角色与归一化。
 - checkpoint/图/表示绑定输入schema、初始化/训练来源、数据/划分、scaler与有序ID/hash。恢复前需匹配这些身份；同名文件不能代替精确SHA。
 
-本分支仅验证合成runner、纯数值核心及已有模型推理。训练函数存在不代表真实生产AL、K3 ensemble或LLM协议端到端已资格化。正式科学切换仍需独立验收与授权。
+已验证的范围扩展为固定Row划分/初始化、已有checkpoint推理、数值核心与真实录制LLM选择层。真实Row训练/完整packet/受控provider路径已实现，完整多轮训练、K3、LLM与新NRMSE/AULC仍未资格化，详见 [能力矩阵](../CAPABILITY_MATRIX.md) 和 [等价报告](../EQUIVALENCE_REPORT.md)。正式科学切换仍需独立验收与授权。

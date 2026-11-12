@@ -4,6 +4,7 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 import json
 import os
+import stat
 from typing import Callable, Mapping, Protocol
 
 import numpy as np
@@ -19,18 +20,24 @@ def write_envelope(path: Path, payload, *, exclusive=False):
     payload = {'schema_version': 2, **payload}
     envelope = {'sha256': content_hash(payload), 'payload': payload}
     path = Path(path)
+    for candidate in (path,path.with_name(path.name+'.tmp')):
+        if candidate.is_symlink() or (candidate.exists() and (not stat.S_ISREG(candidate.stat().st_mode) or candidate.stat().st_nlink!=1)):
+            raise ValueError('artifact target or temporary file is linked/nonregular')
     if exclusive:
         with path.open('xb') as stream:
             stream.write(canonical_bytes(envelope) + b'\n'); stream.flush(); os.fsync(stream.fileno())
     else:
         temporary = path.with_name(path.name + '.tmp')
-        with temporary.open('wb') as stream:
+        with temporary.open('xb') as stream:
             stream.write(canonical_bytes(envelope) + b'\n'); stream.flush(); os.fsync(stream.fileno())
         temporary.replace(path)
     return envelope
 
 
 def read_envelope(path: Path):
+    path=Path(path)
+    if path.is_symlink() or (path.exists() and (not stat.S_ISREG(path.stat().st_mode) or path.stat().st_nlink!=1)):
+        raise ValueError('artifact receipt must be an independent regular file')
     envelope = json.loads(Path(path).read_bytes())
     if (set(envelope) != {'sha256', 'payload'} or envelope['payload'].get('schema_version') != 2
             or content_hash(envelope['payload']) != envelope['sha256']):
@@ -109,13 +116,14 @@ class Backend(Protocol):
 
 
 class LabelBroker:
-    def __init__(self, *, spec: RunSpec, initial_labels, validation_labels, reveal: Callable | None):
+    def __init__(self, *, spec: RunSpec, initial_labels, validation_labels, reveal: Callable | None, ready: Callable | None = None):
         self.scope = spec.scope
         self.kind = spec.execution_mode
         self.initial = label_values(initial_labels, spec.initial_ids)
         self.validation = label_values(validation_labels, spec.validation_ids)
         self.candidates = set(spec.candidate_ids)
         self.callback = reveal
+        self.ready = ready
         self._contract = self.contract_hash
 
     @property
@@ -135,6 +143,10 @@ class LabelBroker:
         return label_values(self.callback(tuple(ids), freeze_hash), ids)
 
 
+class AwaitingLabels(RuntimeError):
+    """A frozen batch has no explicit label receipts yet; nothing was dispatched."""
+
+
 class AmbiguousFit(RuntimeError):
     """A fit started without a receipt; never silently retrain on resume."""
 
@@ -144,8 +156,9 @@ class AmbiguousReveal(RuntimeError):
 
 
 class RoundWorkflow:
-    def __init__(self, directory: Path, *, spec: RunSpec, backend: Backend, labels: LabelBroker, forbidden_output_roots=()):
+    def __init__(self, directory: Path, *, spec: RunSpec, backend: Backend, labels: LabelBroker, forbidden_output_roots=(), selector=None):
         self.root, self.spec, self.backend, self.labels = Path(directory), spec, backend, labels
+        self.selector = selector
         absolute = self.root.absolute()
         if any(p.is_symlink() for p in [absolute, *absolute.parents]):
             raise ValueError('workflow output symlinks are forbidden')
@@ -163,7 +176,8 @@ class RoundWorkflow:
             self.state = self._load(path)
         else:
             self.state = {'schema_version': 2, 'scope': spec.scope, 'backend_contract_hash': backend.contract_hash,
-                          'label_contract_hash': labels.contract_hash, 'round': 0, 'phase': 'fit_pending',
+                          'label_contract_hash': labels.contract_hash, 'selector_contract_hash': None if selector is None else selector.contract_hash,
+                          'round': 0, 'phase': 'fit_pending',
                           'labeled_ids': list(spec.initial_ids), 'candidate_ids': list(spec.candidate_ids),
                           'labels': label_values(labels.initial, spec.initial_ids), 'fit': None, 'validation': None}
             self._save()
@@ -180,6 +194,8 @@ class RoundWorkflow:
 
     def _validate_state(self):
         self.labels.verify()
+        if self.state.get('selector_contract_hash') != (None if self.selector is None else self.selector.contract_hash):
+            raise ValueError('selector profile or provider/packet contract changed on resume')
         if self.state.get('backend_contract_hash') != self.backend.contract_hash or self.state.get('label_contract_hash') != self.labels.contract_hash:
             raise ValueError('backend recipe or initial/validation labels changed on resume')
         labeled = sample_ids(self.state['labeled_ids'], name='state L')
@@ -236,12 +252,19 @@ class RoundWorkflow:
                 raise ValueError('fit receipt label identity drift')
             fit = receipt['fit']
         else:
+            context = dict(seed=self.spec.seed, labeled_ids=tuple(self.state['labeled_ids']),
+                           labels=label_values(self.state['labels'], self.state['labeled_ids']), validation_ids=self.spec.validation_ids,
+                           validation_labels=label_values(self.labels.validation, self.spec.validation_ids))
             if marker.exists():
-                raise AmbiguousFit('fit started without receipt; explicit reconciliation required')
-            write_envelope(marker, {'scope': self.spec.scope, 'labeled_ids_hash': content_hash(self.state['labeled_ids'])}, exclusive=True)
-            fit = self.backend.fit(seed=self.spec.seed, labeled_ids=tuple(self.state['labeled_ids']),
-                                   labels=label_values(self.state['labels'], self.state['labeled_ids']), validation_ids=self.spec.validation_ids,
-                                   validation_labels=label_values(self.labels.validation, self.spec.validation_ids))
+                started=self._load(marker)
+                if started['labeled_ids_hash']!=content_hash(self.state['labeled_ids']):
+                    raise ValueError('interrupted fit label identity drift')
+                if not hasattr(self.backend,'recover_fit'):
+                    raise AmbiguousFit('fit started without receipt; explicit reconciliation required')
+                fit=self.backend.recover_fit(**context)
+            else:
+                write_envelope(marker, {'scope': self.spec.scope, 'labeled_ids_hash': content_hash(self.state['labeled_ids'])}, exclusive=True)
+                fit = self.backend.fit(**context)
             write_envelope(receipt_path, {'scope': self.spec.scope, 'labeled_ids_hash': content_hash(self.state['labeled_ids']), 'fit_context_hash': self._fit_context_hash(), 'fit': fit}, exclusive=True)
         required = {'checkpoint_hash', 'initial_state_hash', 'labeled_ids_hash', 'seed'}
         if not required <= set(fit):
@@ -281,7 +304,7 @@ class RoundWorkflow:
                 or snapshot.config.kind != self.spec.representation or snapshot.predictor.dataset_hash != self.spec.dataset_hash
                 or snapshot.predictor.split_hash != self.spec.split_hash or snapshot.predictor.protocol_hash != self.spec.protocol_hash):
             raise ValueError('representation is not bound to current fit and L/U identities')
-        if numerical_signals is None and hasattr(self.backend, 'numerical_signals'):
+        if self.selector is None and numerical_signals is None and hasattr(self.backend, 'numerical_signals'):
             numerical_signals = self.backend.numerical_signals(fit=self.state['fit'], authorization=authorization, acquisition=self.spec.acquisition)
         if self.spec.acquisition == 'random' and self.spec.random_profile == 'fixed_trajectory':
             numerical_signals = {'profile': 'fixed_trajectory', 'original_candidate_ids': self.spec.candidate_ids,
@@ -291,7 +314,12 @@ class RoundWorkflow:
             if 'reference_ids' in numerical_signals and tuple(numerical_signals['reference_ids']) != self.spec.reference_ids:
                 raise ValueError('fixed reference universe order changed')
             numerical_signals['reference_ids'] = self.spec.reference_ids
-        if agent_plan is None:
+        if self.selector is not None:
+            if agent_plan is not None:
+                raise ValueError('cannot override a bound profile selector with a provided plan')
+            selection = self.selector.select(snapshot=snapshot, state=json.loads(json.dumps(self.state)),
+                                             budget=count, spec=self.spec)
+        elif agent_plan is None:
             selection = select(snapshot, acquisition=self.spec.acquisition, budget=count,
                                seed=self.spec.acquisition_seed, numerical_signals=numerical_signals).to_dict()
         else:
@@ -300,6 +328,12 @@ class RoundWorkflow:
                          'budget': count, 'feature_hash': snapshot.sha256,
                          'trace': [{'sample_id': value, 'selection_order': i} for i, value in enumerate(ids)],
                          'audit': {'provider_invoked': False}}
+        if set(selection) != {'selected_ids','acquisition','seed','budget','feature_hash','trace','audit'}:
+            raise ValueError('selector cannot override reserved freeze identity fields')
+        if selection['budget'] != count or selection['feature_hash'] != snapshot.sha256:
+            raise ValueError('selector budget or feature binding mismatch')
+        if [r.get('sample_id') for r in selection['trace']] != list(selection['selected_ids']):
+            raise ValueError('selection trace order differs from selected IDs')
         chosen = selection['selected_ids']
         if len(set(chosen)) != count or not set(chosen) <= set(self.state['candidate_ids']):
             raise ValueError('acquisition violated the authorized budget or candidate set')
@@ -337,6 +371,8 @@ class RoundWorkflow:
         else:
             if marker.exists():
                 raise AmbiguousReveal('reveal started without a receipt; explicit reconciliation required')
+            if self.labels.ready is not None and not self.labels.ready(ids, envelope['sha256']):
+                raise AwaitingLabels('frozen batch is awaiting explicitly authorized label receipts')
             write_envelope(marker, {'scope': self.spec.scope, 'freeze_hash': envelope['sha256']}, exclusive=True)
             values = self.labels.reveal(ids=ids, scope=self.spec.scope, freeze_hash=envelope['sha256'])
             write_envelope(receipt_path, {'scope': self.spec.scope, 'freeze_hash': envelope['sha256'], 'labels': values}, exclusive=True)

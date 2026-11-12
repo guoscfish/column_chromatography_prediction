@@ -68,6 +68,8 @@ def test_provided_packet_has_no_truth_channel_and_cannot_cross_seed_or_round():
         with pytest.raises(ValueError, match='binding mismatch'):
             validate_bound_plan(response, make_packet(rows, **modified))
     registry = json.loads((Path(__file__).resolve().parents[1]/'configs/method_registry.json').read_text())
-    assert registry['provider_execution_supported'] is False
+    assert registry['provider_execution_supported'] is True
+    assert registry['provider_authorization_required'] is True and registry['full_ready'] is False
+    assert all(p['runner_adapter_implemented'] and p['trajectory_equivalence']=='NOT_VERIFIED' for p in registry['agent_profiles'].values())
     assert all(profile['new_runner_adapter'] is False and profile['status'] == 'HISTORICAL_FROZEN'
                for profile in registry['archived_agent_protocols'].values())

@@ -37,3 +37,7 @@ python -m tools.plot_saved_validation \
 曲线图需要已有的matplotlib依赖，见 `requirements-predictor.txt`。图只写入独立新文件，不修改报告/manifest，不哈希或加载checkpoint，不读取原始标签。返回输入SHA与实际点数，保留每个seed及method的原始预算序列；不同实验不能因同图显示就视为同一科学对照。
 
 历史一次性库存、清理验证器及其测试均由固定archive读取，不作为未来运行依赖。
+
+## 统一框架来源
+
+完整旧研究仍从973ccaf8默认入口恢复。当前main科学源码与V2精简树另外固定为 `archive/framework-v3-main-source-20261112`（b1a6ed7a）和 `archive/framework-v3-pre-migration-20261112`（33f0ab460）；两标签均经独立HTTPS clone取回源码并比SHA。显式fetch后可 `git show <固定commit>:<path>` 阅读，或向独立新目录git archive。当前模型/训练/LLM选择能力与真实在线资格见 [能力矩阵](../docs/CAPABILITY_MATRIX.md)，不要把source restore当完整旧实验复跑。
