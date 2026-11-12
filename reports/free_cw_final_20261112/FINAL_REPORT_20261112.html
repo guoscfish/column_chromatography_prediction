@@ -1,0 +1,45 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>CW-visible Free32 五 seed 终态报告</title><style>body{font:16px/1.65 system-ui,sans-serif;max-width:1250px;margin:48px auto;padding:0 24px;color:#182436;background:#fafbfd}h1{font-size:32px}h2{margin-top:36px;font-size:23px}table{border-collapse:collapse;width:100%;background:white;margin:18px 0;font-size:14px}th,td{padding:10px 12px;border-bottom:1px solid #dce3eb;text-align:left;font-variant-numeric:tabular-nums}th{background:#edf4f5}a{color:#087f8c}img{width:100%;height:auto}p{max-width:1100px}.lead{font-size:20px;color:#087f8c}.muted{color:#536174}</style><body>
+<h1>CW-visible Free32 · 五 seed 终态报告</h1>
+<p class="lead">180 / 180 批全部接受并完成训练；五个 seed 均完成 36 轮，L333 → L1485。</p>
+<p>157 最后一批完成于上海时间 2026年11月12日11:17:39。终态离线核验：2026-11-12T11:32:11.367677+08:00。模型 gpt-6.1-sol，reasoning effort xhigh；累计传输尝试 173511，成功响应轮次 430。</p>
+<h2>终态核验</h2>
+<p>五条冻结轨迹，每条新增1152个不重复的训练样本；180个完成标记、每批完整输入与候选池、请求及纠错历史、成功回执、选点冻结、标签揭示回执、模型与预测冻结绑定均通过核验。共核对 350487 个文件哈希。全部开始的请求均有本地回执；仅保留精确授权的五份历史401回执，没有新增未决请求。</p>
+<p>报告与核验未发起选点请求、未训练模型、未读取测试真值，未将监控指标回填选点输入或记忆。价格未经核实，保留 usage 与回执，不推算货币费用。NoCW 未修改、停止或发送信号。</p>
+<table><thead><tr><th>seed</th><th>完成轮数</th><th>最终 L</th><th>终点验证 NRMSE</th><th>全程归一化 AULC</th><th>累计传输尝试</th></tr></thead><tbody><tr><td>157</td><td>36</td><td>1485</td><td>0.297385</td><td>0.474008</td><td>39954</td></tr><tr><td>887</td><td>36</td><td>1485</td><td>0.286149</td><td>0.392782</td><td>32938</td></tr><tr><td>2357</td><td>36</td><td>1485</td><td>0.322276</td><td>0.428492</td><td>33801</td></tr><tr><td>6101</td><td>36</td><td>1485</td><td>0.360925</td><td>0.521933</td><td>32781</td></tr><tr><td>12203</td><td>36</td><td>1485</td><td>0.346779</td><td>0.453758</td><td>34037</td></tr></tbody></table>
+<h2>五 seed 共同预算节点</h2>
+<p>下表均为固定同五个 seed 的均值 ± 样本标准差（ddof=1）。NRMSE及AULC均越低越好。</p>
+<table><thead><tr><th>预算 L</th><th>终点验证 NRMSE</th><th>L333起原始曲线归一化 AULC</th></tr></thead><tbody><tr><td>525</td><td>0.585789 ± 0.093782</td><td>0.652486 ± 0.135550</td></tr><tr><td>813</td><td>0.459699 ± 0.076485</td><td>0.581260 ± 0.092452</td></tr><tr><td>1005</td><td>0.378752 ± 0.042341</td><td>0.532876 ± 0.072537</td></tr><tr><td>1389</td><td>0.324466 ± 0.037250</td><td>0.466035 ± 0.051168</td></tr><tr><td>1485</td><td>0.322703 ± 0.031694</td><td>0.454195 ± 0.048511</td></tr></tbody></table>
+<h2>公平共同预算比较</h2>
+<p>每个参考方法分别采用同五个 seed 均已完成的共同预算。Δ = 本次 CW-visible Free32 − 参考方法；负值表示本次误差较低。AULC使用L333起的全部原始、非单调曲线做梯形积分，再除以预算跨度；没有平滑、累计最优或单调包络。</p>
+<h3>全程原始曲线 AULC</h3>
+<table><thead><tr><th>参考方法</th><th>共同 L</th><th>本次 AULC</th><th>参考 AULC</th><th>逐seed配对 Δ（均值 ± 样本SD）</th></tr></thead><tbody><tr><td>历史 Free（混合模型）</td><td>1485</td><td>0.454195 ± 0.048511</td><td>0.439159 ± 0.057253</td><td>0.015036 ± 0.010130</td></tr><tr><td>NoCW</td><td>1005</td><td>0.532876 ± 0.072537</td><td>0.497741 ± 0.065443</td><td>0.035136 ± 0.011625</td></tr><tr><td>数值 Hybrid32</td><td>1005</td><td>0.532876 ± 0.072537</td><td>0.438420 ± 0.067272</td><td>0.094457 ± 0.022168</td></tr><tr><td>Gradient-LCMD32</td><td>1485</td><td>0.454195 ± 0.048511</td><td>0.417049 ± 0.049452</td><td>0.037145 ± 0.015703</td></tr></tbody></table>
+<h3>共同预算终点误差</h3>
+<table><thead><tr><th>参考方法</th><th>共同 L</th><th>本次验证 NRMSE</th><th>参考验证 NRMSE</th><th>逐seed配对 Δ（均值 ± 样本SD）</th></tr></thead><tbody><tr><td>历史 Free（混合模型）</td><td>1485</td><td>0.322703 ± 0.031694</td><td>0.334085 ± 0.037097</td><td>-0.011382 ± 0.017314</td></tr><tr><td>NoCW</td><td>1005</td><td>0.378752 ± 0.042341</td><td>0.405025 ± 0.046221</td><td>-0.026273 ± 0.059947</td></tr><tr><td>数值 Hybrid32</td><td>1005</td><td>0.378752 ± 0.042341</td><td>0.351918 ± 0.039880</td><td>0.026834 ± 0.030787</td></tr><tr><td>Gradient-LCMD32</td><td>1485</td><td>0.322703 ± 0.031694</td><td>0.347582 ± 0.030467</td><td>-0.024879 ± 0.013563</td></tr></tbody></table>
+<p>本次全程AULC高于四个参考方法；共同预算终点NRMSE低于历史Free、NoCW与Gradient-LCMD，高于数值Hybrid。终点改善与全程表现是不同结果，不能互相替代。</p>
+<h3>各 seed 配对差值</h3>
+<h4>历史 Free（混合模型） · L1485</h4>
+<table><thead><tr><th>seed</th><th>本次 AULC</th><th>参考 AULC</th><th>AULC Δ</th><th>终点 NRMSE Δ</th></tr></thead><tbody><tr><td>157</td><td>0.474008</td><td>0.471574</td><td>+0.002434</td><td>-0.034370</td></tr><tr><td>887</td><td>0.392782</td><td>0.368170</td><td>+0.024612</td><td>+0.011449</td></tr><tr><td>2357</td><td>0.428492</td><td>0.406254</td><td>+0.022238</td><td>-0.017664</td></tr><tr><td>6101</td><td>0.521933</td><td>0.516033</td><td>+0.005900</td><td>-0.014843</td></tr><tr><td>12203</td><td>0.453758</td><td>0.433764</td><td>+0.019994</td><td>-0.001484</td></tr></tbody></table>
+<h4>NoCW · L1005</h4>
+<table><thead><tr><th>seed</th><th>本次 AULC</th><th>参考 AULC</th><th>AULC Δ</th><th>终点 NRMSE Δ</th></tr></thead><tbody><tr><td>157</td><td>0.589655</td><td>0.556560</td><td>+0.033096</td><td>-0.102181</td></tr><tr><td>887</td><td>0.451581</td><td>0.430235</td><td>+0.021346</td><td>-0.047210</td></tr><tr><td>2357</td><td>0.484011</td><td>0.441695</td><td>+0.042315</td><td>+0.014562</td></tr><tr><td>6101</td><td>0.624945</td><td>0.574143</td><td>+0.050802</td><td>-0.047956</td></tr><tr><td>12203</td><td>0.514190</td><td>0.486071</td><td>+0.028119</td><td>+0.051421</td></tr></tbody></table>
+<h4>数值 Hybrid32 · L1005</h4>
+<table><thead><tr><th>seed</th><th>本次 AULC</th><th>参考 AULC</th><th>AULC Δ</th><th>终点 NRMSE Δ</th></tr></thead><tbody><tr><td>157</td><td>0.589655</td><td>0.457923</td><td>+0.131732</td><td>+0.006686</td></tr><tr><td>887</td><td>0.451581</td><td>0.371556</td><td>+0.080025</td><td>+0.023841</td></tr><tr><td>2357</td><td>0.484011</td><td>0.401420</td><td>+0.082591</td><td>+0.022609</td></tr><tr><td>6101</td><td>0.624945</td><td>0.545111</td><td>+0.079834</td><td>+0.001889</td></tr><tr><td>12203</td><td>0.514190</td><td>0.416087</td><td>+0.098104</td><td>+0.079144</td></tr></tbody></table>
+<h4>Gradient-LCMD32 · L1485</h4>
+<table><thead><tr><th>seed</th><th>本次 AULC</th><th>参考 AULC</th><th>AULC Δ</th><th>终点 NRMSE Δ</th></tr></thead><tbody><tr><td>157</td><td>0.474008</td><td>0.414992</td><td>+0.059016</td><td>-0.033023</td></tr><tr><td>887</td><td>0.392782</td><td>0.349426</td><td>+0.043356</td><td>-0.017944</td></tr><tr><td>2357</td><td>0.428492</td><td>0.412415</td><td>+0.016077</td><td>-0.043952</td></tr><tr><td>6101</td><td>0.521933</td><td>0.489007</td><td>+0.032926</td><td>-0.019836</td></tr><tr><td>12203</td><td>0.453758</td><td>0.419406</td><td>+0.034352</td><td>-0.009641</td></tr></tbody></table>
+<h2>完整学习曲线</h2>
+<p><a href="final_curves_20261112/overall_curves.pdf">下载 PDF</a> · <a href="final_curves_20261112/overall_curves.svg">下载 SVG</a></p>
+<img src="final_curves_20261112/overall_curves.png" alt="五seed完整原始验证学习曲线及参考方法均值">
+<h2>历史标记与解释范围</h2>
+<p>157: Astra/high prefix through L525; 6101: through L653; one historical unknown accepted ID-copy record; 887/2357/12203 Sol/xhigh from L333</p>
+<p>历史Free保留混合模型标记。API随机性、运行日期与不可见后端差异仍存在；这些比较不单独证明CW的因果效果。NoCW的共同预算为L1005，不外推到L1485。</p>
+<h2>可复核原始产物</h2>
+<ul>
+<li><a href="final_verification_20261112.json">终态独立核验与文件哈希</a></li>
+
+<li><a href="final_audit_20261112.py">本地离线核验脚本</a></li>
+<li><a href="REPORT.md">自动报告</a></li>
+<li><a href="comparison_summary.json">全部共同预算比较及均值/样本标准差</a></li>
+<li><a href="paired_differences.csv">逐seed、逐预算、逐指标配对值</a></li>
+<li><a href="validation_curves.csv">全部原始非单调验证曲线</a></li>
+<li><a href="completion.csv">各方法各seed实际完成预算</a></li>
+<li><a href="costs.json.gz">完整传输回执与usage汇总</a></li>
+</ul><p class="muted">本目录为用户授权的结果Git归档。原始模型、全量输入与候选池、凭据、运行日志及此前约定仅本地保留的控制器代码/授权/切换证据仍保留本地；归档范围和哈希见publication_manifest.json。</p></body></html>
