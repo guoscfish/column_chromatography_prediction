@@ -1,41 +1,39 @@
-# 离线工具
+# 日常离线工具
 
-状态：`CURRENT`。这些工具处理库存、历史恢复、运行保护或已有曲线，不是科学实验 runner。候选唯一回合入口 [scripts/run_al.py](../scripts/run_al.py) 目前只开放合成生命周期，见 [系统架构](../docs/ARCHITECTURE.md)。
+仅保留固定历史恢复、当前文档检查与已保存曲线的可视化。模型和AL入口见 [架构](../docs/ARCHITECTURE.md)；`scripts/run_al.py` 当前只执行合成生命周期。
 
-| 工具 | 用途 | 写入与边界 |
+| 工具 | 长期用途 | 边界 |
 | --- | --- | --- |
-| [build_migration_inventory.py](build_migration_inventory.py) | 二期源码库存、多类型依赖图、删除证明与结构计数 | 读取固定基线和候选，不读真值/checkpoint。默认输出为二期验收目录，复查应写独立临时目录，不覆盖旧收据。 |
-| [history_restore.py](history_restore.py) | 固定 scientific_source / phase1_candidate 的源码恢复、hash与环境核验 | 新建 source-only detached worktree；目标须不存在且在 main/candidate 之外，不展开数据或执行旧 controller/provider/training。 |
-| [verify_runtime_isolation.py](verify_runtime_isolation.py) | 二期 Gate0 的 source/frozen 身份与工作树隔离 | 固定二期验收工具，绑定 architecture 分支及限定的诊断提交收据。不能将新一轮 main 的合法推进判成清理修改；本轮保护须单独固定 baseline。 |
-| [plot_saved_validation.py](plot_saved_validation.py) | 保存的 validation snapshot / rerun-audit 离线绘图 | 向配置指定 snapshot_directory 写图；rerun-audit 还核对已有模型与历史。使用独立授权快照，不随意重绘运行中报告目录。 |
-| [audit_research_artifacts.py](audit_research_artifacts.py) | 本轮逐文件研究产物、保护边界与类型引用审查 | 只生成计划；`--compress`将大清单压缩为确定性gzip。没有自动删除；闭合候选组不能替代实际删除子集的依赖复核。 |
-| [check_documentation_links.py](check_documentation_links.py) | 全量Markdown相对链接、anchor与固定Git来源 | 区分Git稀疏目标和实际缺失；当前导航失败即非零退出；历史原文独立解析且不改写。 |
-| [verify_cleanup_release.py](verify_cleanup_release.py) | 当前main保护、科学代码不变、实际删除集合与远端恢复收据复查 | 默认读取当前 compact TEST_RESULTS + ACTUAL_REMOVALS.csv.gz；仍可解析旧格式做历史固定状态对照。核对独立fetch收据，不重新联网、不删文件。 |
+| [history_restore.py](history_restore.py) | 从 `configs/archive_manifest.json` 固定完整历史恢复明确选中的Git路径；旧 scientific_source/phase1_candidate 保留整套源码hash验证 | 不隐式fetch，不借live目录，不执行被恢复的controller/模型；不恢复ignored/私有工件或环境 |
+| [check_documentation_links.py](check_documentation_links.py) | 检查当前Markdown相对目标、标题锚点与明确的pinned Git引用 | 不把失效相对链接自动解释成旧版本；本地缺归档对象标未核验，可用严格选项拒绝 |
+| [plot_saved_validation.py](plot_saved_validation.py) | 对已公开aggregate `{seed: {method: [{labels, nrmse}]}}` 原序列作图 | 不平滑、平均或外推预算；方法模型前缀/预算可能不同，必须同时看来源说明 |
 
-本轮新文档/产物审计工具和收据从 [工程审计导航](../docs/repository/README.md) 查找。上述四个既有工具用途独立，不作为重复历史脚本删除。
+## 恢复历史原文
 
-## 复核命令
-
-从候选根目录将源码库存写到独立目录：
+先显式取回唯一历史入口，再选择要恢复的路径：
 
 ```sh
-python tools/build_migration_inventory.py --repository "$PWD" --candidate "$PWD" \
-  --source-commit 4ee480378b0293f1985e3ee4a09df2c78f77901e \
-  --output /private/tmp/column_migration_recheck
+git fetch origin tag archive/framework-v2-pretrim-20261111
+python tools/history_restore.py \
+  --path studies/active_learning/qgeognn_v2_ivr_mechanism_audit \
+  --destination /private/tmp/column_ivr_history \
+  --output /private/tmp/column_ivr_restore.json
 ```
 
-此工具针对 Python 迁移，不是研究产物删除授权，不修改原冻结清单。
+可重复 `--path`。目标必须是新的独立目录，不能位于任何现用Git工作树中；文件恢复为只读。`--source-only` 只恢复历史源码/config/tests，不展开研究数据；`--protocol scientific_source` 或 `--protocol phase1_candidate` 使用 [历史科学源码合同](../configs/historical_protocols.json) 进行whole-source、旧benchmark hash与已安装包元数据核对。旧登记中的本机路径仅为历史元数据，工具从当前Git的worktree registry发现保护目录，在clean clone中不会读取原main。
 
-恢复固定科学来源到新独立目录：
+这些都是 **tracked source/bytes restoration**，不代表能重新执行历史训练，也不证明 ignored checkpoint、LLM原始请求、凭据、外部资源已备份。工具不导入恢复出的代码；旧hash函数只在明确的legacy source profile下以已验证源码中的纯AST片段检查。
+
+## 当前文档与曲线
 
 ```sh
-python tools/history_restore.py --protocol scientific_source \
-  --destination /private/tmp/column_history_source \
-  --output /private/tmp/column_history_verification.json
+python tools/check_documentation_links.py --output /private/tmp/column_links.json
+python tools/check_documentation_links.py --require-archive-objects --output /private/tmp/column_links_strict.json
+python -m tools.plot_saved_validation \
+  --input research/free_lcmd_validation_curves.json \
+  --output /private/tmp/column_saved_validation.png
 ```
 
-`--protocol phase1_candidate` 恢复一期候选。固定来源见 [HISTORICAL_PROTOCOLS.json](../docs/repository/phase2/HISTORICAL_PROTOCOLS.json)，更早研究使用自己的 BASE_COMMIT。源码恢复不等于被忽略的 runtime、真实 checkpoint、完整请求或凭据已备份；远端来源与本地独有 ref 分别核查。
+曲线图需要已有的matplotlib依赖，见 `requirements-predictor.txt`。图只写入独立新文件，不修改报告/manifest，不哈希或加载checkpoint，不读取原始标签。返回输入SHA与实际点数，保留每个seed及method的原始预算序列；不同实验不能因同图显示就视为同一科学对照。
 
-工具不安装或升级运行中环境。不要为了文档清理运行旧恢复控制器、改锁、重训练、接受新选点或发起付费 LLM。
-
-本轮当前验收使用 `docs/repository/releases/redundancy-cleanup-20261110/` 的四件紧凑交付；原工程收据从固定提交恢复，不在工作树重复保存。旧收据只能描述当时固定候选，不能代替当前完整删除集合的验收。
+历史一次性库存、清理验证器及其测试均由固定archive读取，不作为未来运行依赖。

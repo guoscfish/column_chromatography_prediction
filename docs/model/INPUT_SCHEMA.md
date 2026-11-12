@@ -1,12 +1,12 @@
 # QGeoGNN-V2 输入语义
 
-状态：`CURRENT`。更新：2026-11-10。本页说明候选 [predictor 包](../../src/qgeognn_al/predictor/) 现有 V2 输入，不修改特征或模型。旧版 Clean 方案说明固定在 [清理前版本](https://github.com/guoscfish/column_chromatography_prediction/blob/0e33a86d3dea3945acb0a638ca78a8f5065980a5/docs/model/INPUT_SCHEMA.md)，标记为 `SUPERSEDED`；Clean 是失败的独立结构试验，不能套到当前 V2。
+状态：`CURRENT`。更新：2026-11-11。本页说明候选 [predictor 包](../../src/qgeognn_al/predictor/) 现有 V2 输入，不修改特征或模型。本页以 [清理前V2语义](https://github.com/guoscfish/column_chromatography_prediction/blob/973ccaf8cb436e129ba3facc79d42853263923ce/docs/model/INPUT_SCHEMA.md) 为来源；旧Clean是失败的独立结构试验，不能套到当前V2。其原始沿革指针在该固定历史版本中检索。
 
 ## 图和条件
 
 原子/键类别描述拓扑；键长进入 atom-bond 图连续特征，键角与分子描述符进入 bond-angle 图。现有图构造见 [data.py](../../src/qgeognn_al/predictor/data.py)，原编码器见 [application/QGeoGNN.py](../../application/QGeoGNN.py)。
 
-V2 保留旧 backbone 实际消费的条件通路，在 graph/sample 层补齐未消费条件。构造 edge_attr 列不等于旧 encoder 确实消费了该语义，见 [paper/code 合同审计](PAPER_CODE_CONTRACT_AUDIT.md) 和 [V2 语义审计](../../studies/i0_predictor_semantic_audit/README.md)。
+V2 保留旧 backbone 实际消费的条件通路，在 graph/sample 层补齐未消费条件。构造 edge_attr 列不等于旧 encoder 确实消费了该语义，见 [当前代码合同](CODE_CONTRACT.md) 与 [归档I0语义审计](https://github.com/guoscfish/column_chromatography_prediction/blob/973ccaf8cb436e129ba3facc79d42853263923ce/studies/i0_predictor_semantic_audit/README.md)。
 
 | 条件 | 类型与物理语义 | 当前实现 |
 | --- | --- | --- |

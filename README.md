@@ -1,17 +1,47 @@
-# 柱色谱 QGeoGNN 与主动学习
+# QGeoGNN 主动学习科研框架 V2
 
-本项目研究 4g 柱色谱的 QGeoGNN 点预测与主动学习。重构和文档清理都在 `codex/repository-architecture-20261109` 的独立 linked worktree 继续；原工作目录的 `main` 承载 CW-Free，不接受本轮代码替换或自动合并。
+面向柱色谱点预测、表示、数值选点和受控 Agent 的单一稳定 API。日常只维护 `predictor / al / infra`；权威科研摘要从 [research](research/README.md) 查找，完整历史统一通过远端 `archive/framework-v2-pretrim-20261111`（固定提交 `973ccaf8cb436e129ba3facc79d42853263923ce`）恢复。
 
-从 [文档导航](docs/README.md) 找资料，查看 [当前研究状态](docs/NEXT_STAGE_DECISION.md) 区分确认结果、假设与运行中工作；实现职责统一在 [系统架构](docs/ARCHITECTURE.md)。科学证据从 [研究总索引](studies/README.md)、[历史 experiments 索引](experiments/INDEX.md) 和 [报告索引](reports/README.md) 进入。
+**本分支目前仅验证合成 runner + 数值核心 + 已有模型推理，生产真实训练 / LLM / 真实 K3 仍未资格化。** 原 `main` 的 CW-Free 与其运行目录独立保护，未在本轮合并或替换。
 
-稳定源码只有三层：`predictor/` 负责模型与训练输入，`al/` 负责表示、选样、回合和评价，`infra/` 负责身份、资源与工件。候选 CLI 目前开放合成生命周期演示：
+## 五分钟开始
+
+在独立 Python 环境安装所需依赖，从仓库根目录执行：
 
 ```sh
-python -m scripts.run_al --config configs/offline_synthetic.json --output /private/tmp/column_al_demo
+python -m pip install -r requirements-core.txt
+python -m scripts.run_al --config configs/offline_synthetic.json --output /private/tmp/qgeognn_al_demo
+# 同一代码身份和配置恢复，不重复已经持久化的回合
+python -m scripts.run_al --config configs/offline_synthetic.json --output /private/tmp/qgeognn_al_demo
 ```
 
-首次运行使用新目录；同代码身份和配置可恢复已有回合。该命令不训练真实模型、不揭示真实标签、不调用 LLM。真实后端默认关闭训练，完整生产重训练、真实 K3 与历史 LLM 协议仍有验证边界，见 [二期测试报告](docs/repository/phase2/TEST_REPORT.md)。依赖分别列在 [核心依赖](requirements-core.txt)、[模型依赖](requirements-predictor.txt)、[测试依赖](requirements-test.txt)；在独立环境准备，不更改运行中的实验环境。
+首次输出目录须全新，勿指向 main。示例预算2→6，完成两轮合成 fit→validate→feedback→select→freeze→reveal；fit 是 fixture，不优化权重，标签为明确合成值。它不读取真实候选标签或调用 provider。
 
-分位数与损失复盘按用户要求保留在 main 的独立提交：[2026-11-09 科学诊断](https://github.com/guoscfish/column_chromatography_prediction/blob/fcb51852c8bb6e38403fe95a302287a0a1779d47/studies/diagnostics/quantile_loss_audit_20261109/SCIENCE_AUDIT.md)。这里仅维护来源链接，不复制 CSV 或图。
+- **模型**：[predictor](src/qgeognn_al/predictor/)，图/编码器仍依赖 [application](application/)。使用模型推理前另准备 `requirements-predictor.txt` 与授权、hash匹配的 checkpoint / 图缓存；Git 归档不替代私有资源。
+- **组合方法**：[架构与API示例](docs/ARCHITECTURE.md) 展示授权 `FeatureSnapshot` → `select`；表示与acquisition分开，方法身份见 [registry](configs/method_registry.json)。
+- **科研依据**：[预测器资格](research/PREDICTOR.md)、[五seed Free/LCMD](research/FIVE_SEED_AL.md)、[CW/NoCW边界](research/CW_NOCW.md)、[GP/IVR重要负结果](research/NEGATIVE_RESULTS.md)。
+- **数据与权限**：[保护登记](configs/protected_artifacts.json)、[真值消费](configs/data_consumption_register.json)；已使用的test或validation不是新的盲确认集。
+- **验收范围**：[Framework V2验收](docs/FRAMEWORK_V2_ACCEPTANCE.md)；当前状态见 [NEXT_STAGE_DECISION](docs/NEXT_STAGE_DECISION.md)。
 
-[工程审计导航](docs/repository/README.md) 区分历次清理的固定版本、逐文件来源和恢复证明。[保护产物登记](docs/PROTECTED_ARTIFACTS.json)、[数据消费登记](docs/data_consumption_register.json)、[历史协议恢复锁](docs/repository/phase2/HISTORICAL_PROTOCOLS.json) 保持原路径。Git 不自动备份被忽略的模型、原始 runtime 或凭据；复现实验仍须按协议准备授权资源。
+测试按能力划分，使用测试依赖环境：
+
+```sh
+python -m pip install -r requirements-test.txt
+python -m pytest -m unit
+python -m pytest -m frozen_regression
+python -m pytest -m historical_archive
+```
+
+后两类需要明确的历史Git对象或授权只读fixture。缺失时按 `BLOCKED` 报告，不能把 synthetic pass 当作真实 checkpoint 或完整历史实验复现。
+
+## 查阅或恢复历史
+
+完整历史的唯一主入口是 [固定973ccaf8快照](https://github.com/guoscfish/column_chromatography_prediction/tree/973ccaf8cb436e129ba3facc79d42853263923ce)。例如只恢复原IVR报告到新独立目录：
+
+```sh
+git fetch origin tag archive/framework-v2-pretrim-20261111
+mkdir -p /private/tmp/qgeognn_history
+git archive archive/framework-v2-pretrim-20261111 studies/active_learning/qgeognn_v2_ivr_mechanism_audit/FINAL_REPORT.md | tar -x -C /private/tmp/qgeognn_history
+```
+
+更完整的受控源码恢复见 [历史来源配置](configs/archive_manifest.json) 与 [工具说明](tools/README.md)。旧研究的相对链接、Prompt、冻结账本和源码应在原历史版本中解释。tracked Git字节可恢复，不代表 ignored checkpoint、原始runtime、私有请求、凭据或原环境已备份。不要向正在运行的main覆盖历史文件。

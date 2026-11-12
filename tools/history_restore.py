@@ -1,7 +1,9 @@
-"""Restore immutable historical source in an isolated detached Git worktree.
+"""Restore pinned historical bytes into an independent, read-only snapshot.
 
-No scientific module/controller is imported and no data/checkpoint is expanded.
-The original main worktree, its HEAD, index and running resources are untouched.
+The default archive is declared in configs/archive_manifest.json. Explicit paths
+or source-only mode never execute restored code. A fixed legacy source profile
+also retains its whole-source/hash/environment verification. No live fallback,
+implicit fetch, training or provider invocation is performed.
 """
 from __future__ import annotations
 import argparse
@@ -15,13 +17,14 @@ import re
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_REGISTRY = ROOT / 'docs/repository/phase2/HISTORICAL_PROTOCOLS.json'
+DEFAULT_REGISTRY = ROOT / 'configs/historical_protocols.json'
+DEFAULT_ARCHIVE_MANIFEST = ROOT / 'configs/archive_manifest.json'
 
 
 def git(repository, *arguments, binary=False):
     completed = subprocess.run(['git', '--no-optional-locks', '-c', 'gc.auto=0', '-c', 'maintenance.auto=false',
                                 '-C', str(repository), *arguments], capture_output=True,
-                               text=not binary, env={**os.environ, 'GIT_OPTIONAL_LOCKS': '0'}, check=False)
+                               text=not binary, env={**os.environ, 'GIT_OPTIONAL_LOCKS': '0', 'GIT_NO_LAZY_FETCH': '1', 'GIT_NO_REPLACE_OBJECTS': '1', 'GIT_TERMINAL_PROMPT': '0'}, check=False)
     if completed.returncode:
         error = completed.stderr.decode(errors='replace') if binary else completed.stderr
         raise RuntimeError(f'git {arguments[0]} failed: {error[:400]}')
@@ -45,6 +48,127 @@ def normalize_path(value):
     return path
 
 
+def protected_worktrees(repository):
+    """Discover this Git repository's source roots, never a captured local path."""
+    repository = Path(repository).resolve()
+    roots, current, primary = {repository}, None, repository
+    for line in git(repository, 'worktree', 'list', '--porcelain').splitlines():
+        if line.startswith('worktree '):
+            current = Path(line[9:]).resolve()
+            roots.add(current)
+        elif line == 'branch refs/heads/main' and current is not None:
+            primary = current
+    return roots, primary
+
+
+def independent_destination(repository, destination, extra_protected=()):
+    requested = Path(destination).absolute()
+    if requested.exists() or requested.is_symlink():
+        raise ValueError('restoration requires a new absent destination')
+    for parent in requested.parents:
+        if parent.exists() and parent.is_symlink():
+            raise ValueError('restoration destination parents must not be symlinks')
+    destination = requested.resolve()
+    roots, primary = protected_worktrees(repository)
+    roots.update(Path(p).resolve() for p in extra_protected)
+    if any(p == destination or p in destination.parents or destination in p.parents for p in roots):
+        raise ValueError('historical source must be outside the active and candidate source directories')
+    return destination, primary
+
+
+def archive_identity(repository, manifest=DEFAULT_ARCHIVE_MANIFEST):
+    payload = json.loads(Path(manifest).read_text())
+    commit, tag = payload['archive_commit'], payload['archive_tag']
+    if not re.fullmatch('[0-9a-f]{40}', commit):
+        raise ValueError('archive must pin a full commit SHA')
+    try:
+        resolved, tag_verified = resolve_protocol(repository, {'commit': commit, 'tag': tag})
+    except RuntimeError as error:
+        raise ValueError('Pinned archive is unavailable locally. Explicitly fetch its declared tag before restoring.') from error
+    return resolved, tag, tag_verified
+
+
+def restore_archive(repository, destination, *, paths=(), source_only=False,
+                    manifest=DEFAULT_ARCHIVE_MANIFEST, extra_protected=()):
+    """Restore selected tracked bytes without a checkout/index mutation or IO hooks."""
+    repository = Path(repository).resolve()
+    destination, _ = independent_destination(repository, destination, extra_protected)
+    if bool(paths) == bool(source_only):
+        raise ValueError('choose explicit archive paths or source-only mode')
+    normalized = [normalize_path(value).as_posix() for value in paths]
+    commit, tag, tag_verified = archive_identity(repository, manifest)
+    args = ['ls-tree', '-r', '-z', commit]
+    if normalized:
+        args += ['--', *normalized]
+    files = []
+    for item in git(repository, *args, binary=True).split(b'\0'):
+        if not item:
+            continue
+        meta, raw_name = item.split(b'\t', 1)
+        mode, kind, oid = meta.decode().split()
+        name = raw_name.decode()
+        normalize_path(name)
+        if source_only and not (name.startswith(('src/', 'application/', 'scripts/', 'tests/', 'configs/'))
+                                or (name.startswith('requirements-') and '/' not in name)
+                                or name in ('pytest.ini', '.gitignore', '.gitattributes')):
+            continue
+        if kind != 'blob' or mode not in ('100644', '100755'):
+            raise ValueError('archive restore refuses symlinks/submodules/non-regular entries: ' + name)
+        files.append((name, oid, mode))
+    if not files:
+        raise ValueError('selected archive paths contain no tracked regular files')
+    if any(not any(name == path or name.startswith(path + '/') for name, _, _ in files) for path in normalized):
+        raise ValueError('an explicit archive path did not resolve')
+    destination.mkdir(parents=True)
+    process = subprocess.Popen(['git', '--no-optional-locks', '-C', str(repository), 'cat-file', '--batch'],
+                               stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                               env={**os.environ, 'GIT_NO_LAZY_FETCH': '1', 'GIT_NO_REPLACE_OBJECTS': '1', 'GIT_TERMINAL_PROMPT': '0'})
+    records = []
+    completed = False
+    try:
+        for name, oid, mode in files:
+            process.stdin.write((oid + '\n').encode())
+            process.stdin.flush()
+            header = process.stdout.readline().split()
+            if len(header) != 3 or header[0].decode() != oid or header[1] != b'blob':
+                raise ValueError('invalid archive blob boundary')
+            remaining = int(header[2])
+            size, digest = remaining, hashlib.sha256()
+            output = destination/name
+            output.parent.mkdir(parents=True, exist_ok=True)
+            with output.open('xb') as stream:
+                while remaining:
+                    chunk = process.stdout.read(min(1024 * 1024, remaining))
+                    if not chunk:
+                        raise ValueError('truncated archive blob')
+                    stream.write(chunk)
+                    digest.update(chunk)
+                    remaining -= len(chunk)
+            if process.stdout.read(1) != b'\n':
+                raise ValueError('invalid archive blob trailer')
+            output.chmod(0o555 if mode == '100755' else 0o444)
+            records.append({'path': name, 'git_blob': oid, 'bytes': size, 'sha256': digest.hexdigest()})
+        completed = True
+    finally:
+        if not completed:
+            process.stdout.close()
+        try:
+            process.stdin.close()
+        except BrokenPipeError:
+            pass
+        returncode = process.wait()
+        if completed:
+            process.stdout.close()
+            if returncode != 0:
+                raise ValueError('archive batch reader failed')
+    return {'passed': True, 'archive_commit': commit, 'archive_tag': tag, 'tag_verified': tag_verified,
+            'destination': str(destination), 'source_only': bool(source_only), 'files_restored': len(records),
+            'files': records, 'scope': 'TRACKED_GIT_BYTES_ONLY',
+            'controllers_or_training_or_provider_calls': 0,
+            'limits': ['Ignored/private/uncommitted resources are not restored.',
+                       'No restored code was imported or executed; this is not full experiment/environment reproduction.']}
+
+
 def load_protocol(registry, protocol_id):
     payload = json.loads(Path(registry).read_text())
     protocol = payload['protocols'][protocol_id]
@@ -66,7 +190,7 @@ def resolve_protocol(repository, protocol):
     if reference:
         result = subprocess.run(['git', '--no-optional-locks', '-C', str(repository), 'rev-parse',
                                  '--verify', '--quiet', reference + '^{commit}'], capture_output=True,
-                                text=True, env={**os.environ, 'GIT_OPTIONAL_LOCKS': '0'})
+                                text=True, env={**os.environ, 'GIT_OPTIONAL_LOCKS': '0', 'GIT_NO_LAZY_FETCH': '1', 'GIT_NO_REPLACE_OBJECTS': '1', 'GIT_TERMINAL_PROMPT': '0'})
         if result.returncode == 0:
             if result.stdout.strip() != commit:
                 raise ValueError('historical tag moved away from its pinned commit')
@@ -132,16 +256,7 @@ def verify_restored(path, protocol):
 
 def restore(repository, protocol_id, destination, registry=DEFAULT_REGISTRY):
     repository = Path(repository).resolve()
-    requested_destination = Path(destination).absolute()
-    if requested_destination.exists() or requested_destination.is_symlink():
-        raise ValueError('restoration requires a new absent destination')
-    destination = requested_destination.resolve()
-    active = Path(json.loads(Path(registry).read_text())['active_repository']).resolve()
-    if any(protected == destination or protected in destination.parents or destination in protected.parents for protected in {active, repository}):
-        raise ValueError('historical source must be outside the active and candidate source directories')
-    for parent in destination.parents:
-        if parent.exists() and parent.is_symlink():
-            raise ValueError('restoration destination parents must not be symlinks')
+    destination, active = independent_destination(repository, destination)
     protocol = load_protocol(registry, protocol_id)
     commit, tag_verified = resolve_protocol(repository, protocol)
     before_head = git(active, 'rev-parse', 'HEAD').strip()
@@ -154,7 +269,7 @@ def restore(repository, protocol_id, destination, registry=DEFAULT_REGISTRY):
     # Settings and index belong to the new historical worktree only. Scientific
     # data, result tables and checkpoints are deliberately absent.
     git(destination, 'sparse-checkout', 'set', '--no-cone', '/src/', '/application/', '/scripts/', '/tests/',
-        '/docs/', '/README.md', '/pytest.ini', '/.gitignore', '/.gitattributes')
+        '/README.md', '/pytest.ini', '/.gitignore', '/.gitattributes')
     git(destination, 'read-tree', '-mu', 'HEAD')
     for folder in ('src', 'application', 'scripts', 'tests'):
         for file in (destination / folder).rglob('*.py'):
@@ -172,18 +287,29 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--repository', type=Path, default=ROOT)
     parser.add_argument('--registry', type=Path, default=DEFAULT_REGISTRY)
-    parser.add_argument('--protocol', choices=['scientific_source', 'phase1_candidate'], default='scientific_source')
+    parser.add_argument('--archive-manifest', type=Path, default=DEFAULT_ARCHIVE_MANIFEST)
+    parser.add_argument('--protocol', choices=['scientific_source', 'phase1_candidate'])
+    parser.add_argument('--path', action='append', default=[], help='Exact archived file or directory; repeat for multiple paths')
+    parser.add_argument('--source-only', action='store_true', help='Restore only archived code/config/tests, not research payloads')
+    parser.add_argument('--protected-root', type=Path, action='append', default=[])
     parser.add_argument('--destination', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     output = args.output.resolve()
-    active = Path(json.loads(args.registry.read_text())['active_repository']).resolve()
-    if output == active or active in output.parents:
-        parser.error('report output must be outside the active source directory')
-    result = restore(args.repository, args.protocol, args.destination, args.registry)
+    roots, _ = protected_worktrees(args.repository)
+    roots.update(p.resolve() for p in args.protected_root)
+    if any(output == root or root in output.parents for root in roots):
+        parser.error('report output must be outside active source directories')
+    if args.protocol:
+        if args.path or args.source_only:
+            parser.error('--protocol cannot be combined with --path/--source-only')
+        result = restore(args.repository, args.protocol, args.destination, args.registry)
+    else:
+        result = restore_archive(args.repository, args.destination, paths=args.path, source_only=args.source_only,
+                                 manifest=args.archive_manifest, extra_protected=args.protected_root)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(result, indent=2) + '\n')
-    print(json.dumps({k: v for k, v in result.items() if k not in ('environment', 'failures')}, indent=2))
+    print(json.dumps({k: v for k, v in result.items() if k not in ('environment', 'failures', 'files')}, indent=2))
     return 0 if result['passed'] else 1
 
 
