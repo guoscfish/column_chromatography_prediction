@@ -1,0 +1,37 @@
+{
+  "checked_utc": "2026-11-16T06:49:06.426730+00:00",
+  "observations": {
+    "worker_destination": "token4research.cn:443",
+    "worker_route_interface": "utun4",
+    "tunnel_application": "Karing",
+    "current_outbound_chain": [
+      "direct_out"
+    ],
+    "current_rule": "cn[geosite] => route(direct_out)",
+    "system_proxy_configured": false,
+    "model_calls_cancelled": 0,
+    "vpn_restarts": 0,
+    "routing_changes": 0,
+    "external_diagnostic_requests": 0,
+    "local_controller_read_only": true
+  },
+  "interpretation": "A TUN interface alone does not prove a proxy-node path. The local connection controller confirms both current scientific API connections use direct_out. No routing repair is justified by this observation. DNS errors for other applications at nearby times do not prove they caused the established API streams to disconnect.",
+  "preserved_failure_summary": {
+    "seed157_round33_failed_requests": 7,
+    "seed887_round33_failed_requests": 10,
+    "paired_disconnect_utc": [
+      "2026-11-16T06:29:46.555874+00:00",
+      "2026-11-16T06:29:48.223615+00:00"
+    ]
+  },
+  "first_new_accepted_batch": {
+    "seed": 157,
+    "acquisition_number": 34,
+    "completed_utc": "2026-11-16T06:47:45.838080+00:00",
+    "audit": "reports/stall_174_first_new_batch_seed157_20261116.json",
+    "sha256": "74f276a36889c2f3390c6acf6230d5cc05f4346479e52cc6196da8cc17c14c26",
+    "fit_count_not_incremented": true
+  },
+  "billing_status": "unknown",
+  "source_test_label_reads": 0
+}

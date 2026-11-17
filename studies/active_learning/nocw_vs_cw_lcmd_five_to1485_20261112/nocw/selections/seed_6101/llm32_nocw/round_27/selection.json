@@ -1,0 +1,234 @@
+{
+  "type": "selection",
+  "packet_sha256": "7884d807182de0704fb36e726baf5d7895adf44111cb79c63de2df3b013fbbe0",
+  "batch_strategy": "Select 32 experiments that resolve specific structure-condition ambiguities: matched ratio/loading contrasts, loading-solvent-volume contrasts, missing transition points, and endpoint-ordering failures. Include one deliberate repeat to distinguish a nonlinear loading response from record dispersion. Freeze every selected ID and its supplied V1/V2 point predictions below before measurement. Treat quantile spreads as single-predictor signals, not calibrated epistemic uncertainty.",
+  "choices": [
+    {
+      "id": "4a4b159460fe624a95fc",
+      "reason": "m210 at 50/1, 50 mg tests whether the broad finish measured at 150 mg in e26e37dd7637158bb41c transfers to lower loading. Together with the selected 20/1 high-load point and measured 8894e4be81344ed2e831, it completes a ratio/loading rectangle. Frozen V1/V2: 5.702047348022461/19.612354278564453 mL.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "6cd0b95c2c8fa8799572",
+      "reason": "m210 at 20/1, 150 mg supplies the other missing corner of the 20/1 versus 50/1 loading experiment. Compare 8894e4be81344ed2e831 and e26e37dd7637158bb41c; 8303c53f92ada6350f8a also shows a broad high-load finish at 5/1. Frozen V1/V2: 5.942466735839844/13.07758903503418 mL.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "03744855d469f4cca7e6",
+      "reason": "m125 at 1/1, 150 mg in 300 uL DCM pairs with the selected 500 uL condition. The measured 100 mg pair 4c32851430464f0ed684/dbb94bf062fc0e640258 has substantially different finishes; this tests persistence at higher amount despite nearly invariant model forecasts. Frozen V1/V2: 10.182974815368652/28.2003116607666 mL.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "9bd998a328b109ef639e",
+      "reason": "m125 at 1/1, 150 mg in 500 uL DCM isolates recorded loading-solvent volume against the selected 300 uL point. Existing low- and middle-amount pairs suggest a finish association, but measurement variability remains an alternative explanation. Frozen V1/V2: 10.063478469848633/28.260089874267578 mL.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "dd4f07e349873053fd73",
+      "reason": "m125 at 0/1, 100 mg in 500 uL DCM provides a stronger-eluent control for the volume contrast. Compare the measured 300 uL condition e7ed7ca4a53258b73ba2. It tests whether the large differences at 1/1 and 2/1 are strength-dependent. Frozen V1/V2: 5.491706371307373/10.603256225585938 mL.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "686562279e2bfb73ef1e",
+      "reason": "m28 at 1/1 and 58.4 mg fills a missing strong-eluent transition for acetoxybenzaldehyde. Measured cc1f4899902d6f44bef2, 5522a1ec1f8e39cedb13, and 351c17dfa8f46a8cb40a establish strongly changing finishes across ratios. Pairing two amounts tests the interpolation locally. Frozen V1/V2: 6.504850387573242/30.18730354309082 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "9845fd896eb72b0e149f",
+      "reason": "m28 at 1/1 and 175.2 mg pairs with the selected lower amount at identical loading solvent and volume. Compare its measured 0/1 anchor cc1f4899902d6f44bef2 and 5/1 anchor 050e2fab4b407ea058cb to separate ratio response from amount effects near the transition. Frozen V1/V2: 5.854404926300049/30.532222747802734 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "a83fb14090f1518df5a7",
+      "reason": "m195 at 20/1 and 50 mg probes an unresolved onset regime. The 100 mg record 783cf2454912fc14bb80 and higher-load a917c928912c74862968 differ sharply; the latter has V2 below V1. This independent amount point helps assess interpolation without treating that inconsistent endpoint pair as a reliable trend. Frozen V1/V2: 19.325298309326172/28.923669815063477 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "6f827d26c4f82a1bfa90",
+      "reason": "m90 at 1/1 and 166.05 mg fills the gap between the strong-eluent anchor f868ccbcbf392038fe36 and the retained 2/1 and 5/1 regimes represented by 6a4e95d2a3cca31094a1 and 855832bd4005ac7abdc6. It teaches the onset of the pyridyl-ester response. Frozen V1/V2: 10.9981050491333/22.541080474853516 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "79ff49052bce33597828",
+      "reason": "m159 at 10/1 and 150 mg tests the predicted early-onset/broad-finish bridge between 5/1 anchor 6aa69f7c2b8244353a75 and 20/1 anchor a738b1f204da6fcfd385. This missing ratio can locate the transition for the nitrile-plus-benzophenone environment. Frozen V1/V2: 5.651886940002441/31.001466751098633 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "a1dc71bed9d8f372c9e5",
+      "reason": "m159 at 20/1 and 50 mg adds an amount contrast to measured a738b1f204da6fcfd385. The current lower-load forecast starts earlier than that measured middle-load record; measuring it tests whether the amount response is represented correctly near a steep ratio transition. Frozen V1/V2: 19.05327033996582/48.85808563232422 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "3b2c663a28a9f32bd1d3",
+      "reason": "m37 at 20/1 and 201.75 mg extends nitroacetophenone loading coverage against measured middle-load b6f1b33a5491968c645e and stronger-eluent high-load 65f6e8326897810ec715. It tests endpoint-specific amount effects in a retained multiacceptor family. Frozen V1/V2: 42.99576950073242/92.05200958251953 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "bc7f0f83b39a1ec3a79f",
+      "reason": "m105 at 1/1 and 117.4 mg begins a fixed-loading ratio contrast with the selected 5/1 point. The model predicts a finish maximum here relative to 5/1; measured 0/1 bc780f413159cf9913d4 and 10/1 c838aaaa480481570d39 bracket this untested shape. Frozen V1/V2: 6.047794342041016/16.148658752441406 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "7cc7aba732355d335c3d",
+      "reason": "m105 at 5/1 and 117.4 mg completes the matched contrast. Measuring both ratios tests the predicted finish decrease as the eluent weakens, without imposing monotonicity or reviving a universal finish-hump explanation. The salicylate environment supplies a useful donor/ester control. Frozen V1/V2: 5.115048408508301/12.460840225219727 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "c40d715383d042030e93",
+      "reason": "m127 at 5/1 and 54.5 mg fills the stronger side of the measured 10/1 point 4b408fbbcfc4c054f284. With the selected 20/1 point, it tests the forecast onset plateau followed by a rise while holding amount, PE loading solvent, and 300 uL volume fixed. Frozen V1/V2: 7.288908958435059/21.491905212402344 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "8143c4fff6f999b7ad0e",
+      "reason": "m127 at 20/1 and 54.5 mg completes the local 5/1\u201310/1\u201320/1 curve around measured 4b408fbbcfc4c054f284. It determines whether the ortho-methoxy ketone's onset changes abruptly while its finish rises, improving substituted-carbonyl condition transfer. Frozen V1/V2: 15.586024284362793/36.39509201049805 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "5ab2073d8b67153b8455",
+      "reason": "m168 at 5/1, 80 mg in 400 uL DCM extends an exactly matched curve containing 10/1 record 24185c2e4a422e72a4c2 and 20/1 record 6f3318dd8909f20a1177. It tests whether a nearly constant onset and changing finish extend to stronger eluent in this beta-diketone. Frozen V1/V2: 5.771117210388184/18.269641876220703 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "b6788273a51c50c0e948",
+      "reason": "m26 at 10/1 and 150 mg tests the reach of the correction suggested by recent 5/1 record f394f6b40e55953df8e1. Its predicted finish remains near that measured 5/1 finish, before the later 20/1 regime in 95e11ec70cd7b493e3f8. Frozen V1/V2: 5.732273101806641/20.290325164794922 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "4d3b1628cd2311585f50",
+      "reason": "m86 at 1/1 and 175.5 mg starts a matched ratio experiment with the selected 2/1 point. Measured 0/1 record 0f9c311bea99fb35cf5f and 5/1 record 9bc73e0c27d4d6b44abb bracket a large amino-ester retention transition at this amount and loading context. Frozen V1/V2: 6.7065749168396/16.961896896362305 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "073e6abf4d3bfffc2761",
+      "reason": "m86 at 2/1 and 175.5 mg completes the matched bridge toward its retained 5/1 regime. Comparison with measured middle-load 70593725787c65a74951 also constrains amount sensitivity, helping distinguish amino-ester response from generic polarity effects. Frozen V1/V2: 10.853339195251465/23.074281692504883 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "c0094343ab6bb16bc58b",
+      "reason": "m194 at 1/1 and 58.85 mg tests whether the broad finish measured at 176.55 mg in e8185e062559aff5c99e persists at lower amount. Together with d7895c522a1a46a1175c, it checks loading dependence of an unusually broad strong-eluent aldehyde/ether interval. Frozen V1/V2: 5.358461380004883/26.13228988647461 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "d70e9c59006d0176fc5a",
+      "reason": "Deliberately repeat m80 at 1/1 and 105.5 mg. Record 55dfd30fde788076a355 has a much later finish than the lower- and higher-amount records 29c10ff03e1b36b3d26d and 9f2784e0f5c807ccfa0f. A repeat discriminates a reproducible loading effect from dispersion. Frozen V1/V2: 5.34672737121582/10.290943145751953 mL.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "153cd671a94c0407cc6b",
+      "reason": "m203 at 0/1 and 100 mg directly tests a point forecast with V2 below V1. Pairing it with 1/1 distinguishes an isolated endpoint-ordering failure from an incorrect strong-eluent response; measured 9139c55b31e4e4b0e062 anchors the nearby 2/1 regime. Frozen V1/V2: 8.177144050598145/8.145721435546875 mL.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "2d389074e8eee38a47d4",
+      "reason": "m203 at 1/1 and 100 mg completes the fixed-loading strong-eluent pair. The model forecasts an earlier onset here than in pure EA; measuring both tests that unverified inversion for a sterically hindered tertiary alcohol, with 9139c55b31e4e4b0e062 as a measured reference. Frozen V1/V2: 6.684317111968994/8.201414108276367 mL.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "5523d9c41009b84d3135",
+      "reason": "m75 at 1/1 and 109.5 mg tests a very narrow predicted elution interval and an onset later than its measured 5/1 anchor f82f2844c7e27afd32bb. It adds a strong-eluent phenylmalonate control for transfer from the structurally related but differently behaving diesters. Frozen V1/V2: 7.699654579162598/8.262434959411621 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "11fef346c358d54d3059",
+      "reason": "m75 at 10/1 and 109.5 mg fills the intermediate ratio beyond measured 5/1 record f82f2844c7e27afd32bb. Combined with the selected 1/1 point, it teaches the local response shape of a phenyl-substituted diester rather than assuming an acceptor-count rule. Frozen V1/V2: 8.477225303649902/17.32926368713379 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "28e9fea3e3293f2b8a0e",
+      "reason": "m75 at 50/1 and 54.75 mg extends measured 20/1 record 3726956d81fe3954e5b7 at identical loading. This tests the weak-eluent slope for a phenylmalonate family with less complete condition coverage; its value is the response contrast, not its predicted late finish. Frozen V1/V2: 28.61269760131836/58.88875961303711 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "386303f0b10c49ce93b4",
+      "reason": "m31 at 1/1 and 50 mg supplies the first point of a matched strong-ratio bridge. Measured 0/1 record 6c6e575f7751f607a167 and 5/1 record 156594686f5cf7182bcc bracket a steep cyano-acetophenone response; the new labels locate where it develops. Frozen V1/V2: 5.164702892303467/16.596181869506836 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "2a4de703709973e74dd2",
+      "reason": "m31 at 2/1 and 50 mg completes the matched 1/1\u20132/1\u20135/1 bridge with measured 156594686f5cf7182bcc. It constrains both endpoint slopes before the much later 10/1 record b3d9bb5afa82b99f2a11, offering transferable carbonyl/nitrile interaction information. Frozen V1/V2: 7.428937911987305/23.266437530517578 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "bfd6d9785c1b89dd9c11",
+      "reason": "m71 at 5/1 and 66.05 mg pairs with its selected 50/1 condition. Measured e4a7e43d15fcdee2ba1d and bd62986a3ea6d28161ec anchor stronger eluents; the model forecasts a declining onset and a changing finish. The pair tests that response for a long-chain bromothiophene. Frozen V1/V2: 3.782613515853882/7.9259443283081055 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "7e981ba02c83f74f5e65",
+      "reason": "m71 at 50/1 and 66.05 mg tests the forecast of an onset earlier than its measured strong-eluent records while finishing later. The fixed-loading 5/1 contrast can reveal whether this reflects a genuine structure-condition response or model extrapolation in low-TPSA sulfur chemistry. Frozen V1/V2: 2.079517126083374/14.3021821975708 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "4451265787d29526a93a",
+      "reason": "m92 at 1/1 and 173.25 mg in EA tests amount sensitivity against measured low-load EA record 00a89de0e6cc7377a84b. The different low-load PE result e626b5b8083ea1fd02f2 cautions against pooling loading-solvent contexts; this label extends the EA-specific response. Frozen V1/V2: 5.3805012702941895/15.838757514953613 mL.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "For m210, loading amount and PE/EA can affect the finish substantially more than the onset. The newly measured broad finish at 50/1 may reflect a ratio response, an amount interaction, or both; it does not establish a universal correction for donor-free aromatics.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "daeabe69828349fa8e49",
+        "8303c53f92ada6350f8a",
+        "8894e4be81344ed2e831",
+        "e26e37dd7637158bb41c",
+        "d0c3cf60cb8fef1f9e7d"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "A completed ratio/loading rectangle can teach separate onset and finish responses and reduce inappropriate transfer of a high-load tail to every amount or neighboring aromatic scaffold.",
+      "next_discriminating_question": "At 20/1 and 50/1, do the 50 mg and 150 mg finishes show a consistent amount effect, or does that effect change with ratio?"
+    },
+    {
+      "id": "H2",
+      "content": "For m125, the association between recorded DCM loading volume and V2 may depend on mobile-phase strength and amount. Several 500 uL records finish later than comparable 300 uL records, while the current predictions are nearly volume-invariant. A causal volume effect remains unproven because record dispersion and missing experimental information are alternatives.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "00043aebb2540e369a7b",
+        "f4fb5c03b8e8996e75f6",
+        "4c32851430464f0ed684",
+        "dbb94bf062fc0e640258",
+        "19f19f196ba5787a01b0",
+        "facbcedbecb46072b04c",
+        "c8d43713db33bf820a1d",
+        "69b09343d0b9995c3ae4"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "These contrasts test whether loading-solvent volume needs a condition-dependent effect rather than an almost constant adjustment. They also help assess how much apparent volume sensitivity is reproducible.",
+      "next_discriminating_question": "Does the 300 versus 500 uL finish difference persist at 1/1 and 150 mg, and is it attenuated at 0/1 and 100 mg?"
+    },
+    {
+      "id": "H3",
+      "content": "The unusually late m80 finish at 1/1 and 105.5 mg could be a reproducible nonlinear loading response, but it could also be record dispersion. The existing lower- and higher-amount records do not justify treating the middle-amount value as a smooth loading trend.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "55dfd30fde788076a355",
+        "29c10ff03e1b36b3d26d",
+        "9f2784e0f5c807ccfa0f"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A repeat can distinguish a potentially learnable amount interaction from an isolated label that otherwise pulls predictions toward an unsupported intermediate finish.",
+      "next_discriminating_question": "Does an independent label at the identical middle-amount tuple reproduce the approximately 15.66 mL finish or resemble the shorter neighboring-amount finishes?"
+    },
+    {
+      "id": "H4",
+      "content": "The m203 strong-eluent forecasts may contain a local model artifact: the 0/1 point prediction reverses endpoint order and predicts a later onset than 1/1 at identical loading. The actual strong-eluent response has not been established by these predictions.",
+      "basis": "mixed",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "Paired labels can repair endpoint consistency and strong-eluent response for a hindered tertiary alcohol, while helping prevent an onset error from being compensated by a finish error.",
+      "next_discriminating_question": "What are the measured V1/V2 values at 0/1 and 1/1 with 100 mg in 400 uL DCM, and does the predicted onset inversion persist?"
+    }
+  ],
+  "feedback_interpretation": "Most latest acquisition errors were modest, so the new batch emphasizes unresolved interactions and response boundaries rather than broad endpoint offsets. The largest recent finish miss was m210 at 50/1: e26e37dd7637158bb41c finished at 20.51 mL, 9.10 mL later than its acquisition prediction. The current 50/1 low-load forecast is already 19.61 mL, making a loading contrast more useful than assuming persistent global underprediction. The m157 finish overprediction in 6348f80546c20a88b318 and m131 onset overprediction in 9bef8796fc48c4836e6b also appear partly absorbed by current nearby forecasts, reducing their priority. Recent m73 record b187c8a6f7beb2c7f61f supports an early strong-eluent onset, but the broader m73 trajectory contains incompatible nearby records; I do not infer a causal effect from tiny density differences. The earlier broad ether finish-hump interpretation remains weakened: the m105 contrasts test a specific predicted shape locally. Finally, m26 is a beta-diketone, correcting its earlier ketone/ester description; its recent overprediction in f394f6b40e55953df8e1 motivates a neighboring ratio measurement. All amounts in this plan use the supplied density-times-volume product.",
+  "batch_rationale": "The batch combines informative local experiments across populated Row families. The m210 rectangle separates ratio and amount effects on onset and finish. The m125 contrasts test a possible strength-dependent association with loading-solvent volume, and the m80 repeat addresses whether an isolated middle-amount finish is reproducible. Paired m203 measurements target a concrete endpoint-ordering failure. Missing ratio points for amino and pyridyl esters, nitrile/carbonyl compounds, acetoxybenzaldehyde, methoxy ketones, salicylate, and phenylmalonate constrain scaffold-specific transitions that can be poorly interpolated even after extreme conditions have been measured. The beta-diketone and bromothiophene experiments test contrasting onset/finish response shapes at controlled loading. All selected molecules already occur in the observed data; exploration here concerns uncovered condition relationships and transfer between related chemical environments. The selections avoid duplicate candidate IDs and duplicate batch tuples, with one intentional repeat of an observed tuple. Together, these labels should improve generalization by teaching when amount, solvent strength, and loading context modify each endpoint differently. Broad elution intervals are treated as chromatographic responses, and single-model quantile spreads are not treated as calibrated epistemic uncertainty."
+}

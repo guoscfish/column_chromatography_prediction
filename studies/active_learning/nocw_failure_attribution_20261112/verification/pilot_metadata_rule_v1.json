@@ -1,0 +1,22 @@
+{
+  "version": "nocw_fixed_label_pilot_metadata_v1",
+  "status": "FIXED_BEFORE_H_FEASIBILITY_COUNTS_AND_RESPONSE_ANALYSIS",
+  "outer_seeds": [157, 887],
+  "seed_selection": "Ascending numeric order of the five historical confirmation seeds; first two, independent of outcomes and gain",
+  "source_method": "nocw",
+  "available_label_budgets": [525, 1005],
+  "metadata_source": "studies/active_learning/nocw_free_selection_diagnostics_20261101/snapshot_inputs.json.xz metadata and initial IDs; current NoCW contract L_t IDs",
+  "holdout_eligibility": "IDs acquired after L333 and present in the current L_t; exclude every molecular-plus-five-recorded-conditions group also present in L333",
+  "pair_rule": "Same canonical molecule, exactly one of the five recorded condition fields differs. PE/EA is compared by exact rational ratio; continuous values by Decimal strings; no rounded matching.",
+  "group_rule": "Connected components of strict-single-factor edges plus same-recorded-condition identity edges among eligible rows. All component endpoints and all identical-condition rows are held out together. Components are never split.",
+  "minimum_qualified_components": 10,
+  "minimum_volume_components": 2,
+  "minimum_volume_molecules": 2,
+  "volume_role": "Primary mechanism subgroup. Other single-factor axes provide valid control groups and can fill the ten-component H.",
+  "selection": "Take exactly ten components if qualified. Priority components containing a sample-volume-only pair, then stable sha256 of sorted component row IDs; do not use labels, residuals, predictions or validation gain. If ten components are not possible or volume minima fail, skip state without reducing criteria.",
+  "holdout_truth_usage": "After model protocol freeze, used only for final held-out pair error; never for checkpoint selection or changing the model.",
+  "target_scaling": "Reuse frozen original L333 target scales. H excludes L333 and same-condition groups shared with L333.",
+  "fit_limit": "At most four eligible states times two model arms times two paired training seeds = sixteen successful fits. No training before root approval and C gate.",
+  "no_response_based_selection": true,
+  "no_training_performed": true
+}

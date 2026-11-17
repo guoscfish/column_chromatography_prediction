@@ -1,0 +1,19 @@
+{
+  "status": "passed_no_blocking_issues",
+  "reviewer": "independent historical_audit subagent",
+  "phase1_raw_fits_independently_reaggregated": 208,
+  "metric_rows": 832,
+  "maximum_aggregate_metric_difference": 7.2e-15,
+  "candidate_groups": 10,
+  "complete_fits_per_candidate": 16,
+  "all_screen_gates_failed": true,
+  "checks": [
+    "mean/RMSE unchanged after temperature",
+    "interval width scales by sqrt(alpha)",
+    "observation-latent equals likelihood noise",
+    "full-L A40 replay within 1e-6",
+    "Phase3 paired metrics and template overlaps consistent",
+    "molecular-group vs Row and GNN exposure limits explicit",
+    "no T5/LoRA effectiveness or AL completion claims"
+  ]
+}

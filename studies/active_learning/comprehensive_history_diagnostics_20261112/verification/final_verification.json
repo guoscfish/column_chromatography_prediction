@@ -1,0 +1,62 @@
+{
+  "status": "PASS_WITH_DISCLOSED_SCOPE_DEVIATION",
+  "completed_shanghai": "2026-11-12T17:19:41.216737+08:00",
+  "source_files_checked": 4587,
+  "source_bytes": 3088118671,
+  "output_files": 122,
+  "output_bytes": 26303633,
+  "figures_png": 15,
+  "structure": {
+    "required_reports": 14,
+    "local_links_checked": 101,
+    "broken_links": []
+  },
+  "boundary_checks": {
+    "nonmonotone_area": 0.475,
+    "best_so_far_rejected": true,
+    "single_point_and_missing_round_rejected": true,
+    "main_curve_points": 1088,
+    "additional_curve_points": 238,
+    "linked_batches": 873,
+    "hypotheses": 871,
+    "model_batches": 180
+  },
+  "independent_reviews": {
+    "independent_learning_review.json": "PASS",
+    "independent_gain_review.json": "PASS_AFTER_CORRECTIONS",
+    "independent_synthesis_review.json": "PASS_AFTER_REVISIONS",
+    "model_synthesis_review.json": "PASS_AFTER_CORRECTIONS",
+    "model_independent_verification.json": "PASS",
+    "behavior_checks.json": "PASS"
+  },
+  "git": {
+    "branch": "main",
+    "head": "44be2c0070219d71b2560604f8234a390cc14304",
+    "new_analysis_untracked": true,
+    "preexisting_changed_untracked_files_checked": 959,
+    "unchanged_preexisting_files": 957,
+    "live_monitor_files_changed_since_start": [
+      "reports/llm_eight_to1549_20261018/live_status.json",
+      "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1549_20261018/recovery_monitor_status.json"
+    ],
+    "unexpected_source_mutations": [],
+    "preexisting_deleted": [],
+    "new_changes_outside_study": [],
+    "committed": false,
+    "pushed": false,
+    "note": "Known pre-existing monitoring scripts remain active; their two live status files are not frozen inputs or analysis writes."
+  },
+  "scientific_limits": "observational histories, five correlated seeds, selected-only residuals, not causal validation",
+  "analysis_scripts_test_truth_files_opened": 0,
+  "session_wide_zero_label_file_contact_claim": false,
+  "scope_deviation": {
+    "incident": "verification/label_access_incident.json",
+    "incidental_manifest_rows": 3,
+    "used_in_analysis": false
+  },
+  "new_paid_llm_requests": 0,
+  "new_training_runs": 0,
+  "new_selections": 0,
+  "historical_sources_modified_by_analysis": false,
+  "checks_not_claimed": "Hash/identity/arithmetic checks do not establish chemical truth, causal efficacy, independent validation or provider billing."
+}

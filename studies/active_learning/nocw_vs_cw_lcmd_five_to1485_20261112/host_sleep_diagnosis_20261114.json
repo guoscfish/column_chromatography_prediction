@@ -1,0 +1,29 @@
+{
+  "checked_utc": "2026-11-14T07:26:34.065367+00:00",
+  "source": "read-only pmset -g log and pmset -g assertions",
+  "timezone": "Asia/Shanghai",
+  "observed_events": [
+    {
+      "local_time": "2026-11-14 09:55:13 +0800",
+      "event": "Entering Sleep state due to Clamshell Sleep",
+      "power": "battery"
+    },
+    {
+      "local_time": "2026-11-14 13:52:54 to15:22:06 +0800",
+      "event": "repeated Maintenance Sleep, DarkWake, Sleep Service Back to Sleep"
+    },
+    {
+      "local_time": "2026-11-14 15:22:22 +0800",
+      "event": "DarkWake to FullWake due to UserActivity Assertion",
+      "power": "AC"
+    }
+  ],
+  "observed_effects": "Transport failures (SSL unexpected EOF, broken pipe, server disconnected) and backoff deadlines older than wall time while workers remained alive. Sleep timing explains long elapsed intervals without equivalent awake progress; network retry policy is unchanged.",
+  "diagnosis_scope": "Host sleep documented; individual upstream network failure causes are not separately proven.",
+  "repair": "Temporary AC-only -s -w assertions added for each existing worker; original -i assertions retained; no global power settings changed.",
+  "keep_awake_record": "ac_power_keep_awake_20261114.json",
+  "worker_restarts": 0,
+  "active_requests_interrupted": false,
+  "new_provider_probes": 0,
+  "user_action": "Keep laptop connected to power with lid open during this local experiment."
+}

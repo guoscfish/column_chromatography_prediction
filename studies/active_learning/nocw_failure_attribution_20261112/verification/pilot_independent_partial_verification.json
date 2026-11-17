@@ -1,0 +1,71 @@
+{
+  "status": "PARTIAL_COMPLETED_FITS_VERIFIED",
+  "successful_fits_checked": 8,
+  "successful_fit_cap": 16,
+  "distinct_slots": 8,
+  "initialization_arm_pairs": 4,
+  "frozen_design_and_source_hashes_unchanged": true,
+  "fresh_initialized_models_reconstructed_without_fitting": 4,
+  "state_isolation_checks": [
+    {
+      "seed": 157,
+      "available_budget": 525,
+      "actual_train_rows": 492,
+      "H_rows": 33,
+      "H_groups": 10,
+      "H_L333_train_validation_recorded_key_disjoint": true,
+      "H_molecules_unseen_in_train": 2
+    },
+    {
+      "seed": 157,
+      "available_budget": 1005,
+      "actual_train_rows": 958,
+      "H_rows": 47,
+      "H_groups": 10,
+      "H_L333_train_validation_recorded_key_disjoint": true,
+      "H_molecules_unseen_in_train": 3
+    },
+    {
+      "seed": 887,
+      "available_budget": 525,
+      "actual_train_rows": 490,
+      "H_rows": 35,
+      "H_groups": 10,
+      "H_L333_train_validation_recorded_key_disjoint": true,
+      "H_molecules_unseen_in_train": 1
+    },
+    {
+      "seed": 887,
+      "available_budget": 1005,
+      "actual_train_rows": 960,
+      "H_rows": 45,
+      "H_groups": 10,
+      "H_L333_train_validation_recorded_key_disjoint": true,
+      "H_molecules_unseen_in_train": 1
+    }
+  ],
+  "validation_formula_max_error": 0.0,
+  "H_point_formula_max_error": 0.0,
+  "all_history_formula_max_error": 0.0,
+  "pair_scalar_checks": 2360,
+  "pair_scalar_max_error": 0.0,
+  "H_groups_reaggregated": 264,
+  "H_group_max_error": 0.0,
+  "frozen_H_forward_max_error": 0.0,
+  "frozen_H_forwards_performed": false,
+  "public_summaries": {
+    "status": "not_checked_until_complete"
+  },
+  "canonical_truth_columns_numericized_by_this_check": 0,
+  "observed_truth_source": "state L allowlist; accepted terminal feedback where needed",
+  "test_truth_reads": 0,
+  "unacquired_truth_reads": 0,
+  "training_calls": 0,
+  "llm_calls": 0,
+  "limitations": [
+    "Hashes/metrics verify execution and arithmetic, not hypothesis causality",
+    "Two outer seeds and two training replicates are not16 independent studies",
+    "H contains both seen and unseen molecules; cross-budget H differs"
+  ],
+  "verification_script_sha256": "54a5782d5064dd2738089f869d147ddc232e1c419e78c7c6a98757437a42475a"
+}

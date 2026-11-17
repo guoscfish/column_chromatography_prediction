@@ -1,0 +1,90 @@
+{
+  "status": "PASS_FOR_SINGLE_PREDEFINED_FUSION_PILOT",
+  "created_shanghai": "2026-11-12T20:30:20.466061+08:00",
+  "outer_seed_rule": "numerically smallest two of existing confirmation seeds: 157,887; independent of labels/gain",
+  "budgets": [
+    525,
+    1005
+  ],
+  "input_implementation_qualified": true,
+  "frozen_states": [
+    {
+      "seed": 157,
+      "budget": 525,
+      "checkpoint_sha256": "33f5232e9b951267f48924d1313a82ace7344f5fd08ab67b57c77a02fdf6c081",
+      "weights_unchanged": true,
+      "real_candidate_pairs": 96,
+      "derivative_rows": 32,
+      "zero_sentinel_graphs": 4163
+    },
+    {
+      "seed": 157,
+      "budget": 1005,
+      "checkpoint_sha256": "810d8517befdbb9c3f84c34f7877466485f817836bde9cfb0360be1b22c3c13f",
+      "weights_unchanged": true,
+      "real_candidate_pairs": 96,
+      "derivative_rows": 32,
+      "zero_sentinel_graphs": 4163
+    },
+    {
+      "seed": 887,
+      "budget": 525,
+      "checkpoint_sha256": "65816f2d699e049e4bda027e39e8993e2e02c811aade87930b755b52660935cc",
+      "weights_unchanged": true,
+      "real_candidate_pairs": 104,
+      "derivative_rows": 32,
+      "zero_sentinel_graphs": 4163
+    },
+    {
+      "seed": 887,
+      "budget": 1005,
+      "checkpoint_sha256": "2f724012ccc1195779c51f6dfe8a4ce77a04a8b56338a30398a1fc32ef9cef49",
+      "weights_unchanged": true,
+      "real_candidate_pairs": 104,
+      "derivative_rows": 32,
+      "zero_sentinel_graphs": 4163
+    }
+  ],
+  "zero_sentinel_graphs": true,
+  "all_input_roundtrips_pass": true,
+  "pair_domain": "real outer-train row metadata only; no artificial chemistry inference and no candidate labels",
+  "numerical_evidence": {
+    "sample_volume_mean_abs_q50_delta_ml_ranges": {
+      "V1": [
+        0.002891064,
+        0.04491176
+      ],
+      "V2": [
+        0.001091287,
+        0.04557042
+      ]
+    },
+    "PE_EA_mean_abs_q50_delta_ml_ranges": {
+      "V1": [
+        3.507224,
+        4.707977
+      ],
+      "V2": [
+        6.735503,
+        8.531864
+      ]
+    },
+    "loading_backbone_pool_delta_l2": 0.0,
+    "local_mass_gradients_nonzero": true
+  },
+  "mechanism": "Loading amount/solvent/volume enter completion branch; its 128D residual is added to pooled molecular vector before a Linear+ReLU six-output head. Within fixed positive head activation and fixed condition-hidden region, loading partial has no explicit molecular representation factor. Density×V and activation boundaries remain interactions/limitations.",
+  "qualified_unique_change": "p+r+r*tanh(nonaffine layer_norm(p)); add a bounded explicit molecule-conditioned factor with no extra parameters; r=0 gives identical initialization function.",
+  "what_gate_does_not_claim": [
+    "not proof this change improves validation",
+    "not identification of irreducible noise",
+    "no new acquisition rule warranted",
+    "pilot must preserve loss/preprocessing/training budget and use isolated H"
+  ],
+  "maximum_successful_fits": 16,
+  "training_permission": "parent root must explicitly release execution after inspecting frozen pilot protocol",
+  "source_outputs": {
+    "tables/condition_frozen_probe_summary.csv": "0c92d63aa79045f9b0e3fffb4fac241f147dac5b67d7b559dd055198fdb488c9",
+    "tables/condition_gradient_summary.csv": "5b088c4ec40d4e41dbf533b8d4d68adc830a6891d612a8c0a369d552f62b1513",
+    "verification/condition_frozen_model_checks.json": "16bac394f8083e5cead23f36dbffd56a115a01f1f7450b08db04ee45cb6e0974"
+  }
+}

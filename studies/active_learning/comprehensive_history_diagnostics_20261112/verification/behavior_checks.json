@@ -1,0 +1,236 @@
+{
+  "status": "PASS",
+  "batch_rows": 873,
+  "selected_row_records": 27936,
+  "cw_complete_batches": 180,
+  "geometry_rows": 1251,
+  "geometry_new_rows": 368,
+  "batches_by_method": {
+    "gradient_lcmd32": 180,
+    "historical_free_mixed_model": 180,
+    "new_free_cw_sol61_xhigh": 180,
+    "nocw": 123,
+    "numerical_hybrid32": 105,
+    "random32": 105
+  },
+  "geometry_self_check": {
+    "passed": true,
+    "analytic_distance_checks": 5,
+    "fixed_reference_and_zero_checks": 3,
+    "chunk_parity": true,
+    "deterministic_reference": true,
+    "duplicate_id_rejected": true
+  },
+  "independent_pair_rechecks": [
+    {
+      "method": "gradient_lcmd32",
+      "seed": 2357,
+      "round": 3,
+      "status": "PASS"
+    },
+    {
+      "method": "gradient_lcmd32",
+      "seed": 2357,
+      "round": 10,
+      "status": "PASS"
+    },
+    {
+      "method": "gradient_lcmd32",
+      "seed": 2357,
+      "round": 17,
+      "status": "PASS"
+    },
+    {
+      "method": "gradient_lcmd32",
+      "seed": 2357,
+      "round": 28,
+      "status": "PASS"
+    },
+    {
+      "method": "historical_free_mixed_model",
+      "seed": 2357,
+      "round": 3,
+      "status": "PASS"
+    },
+    {
+      "method": "historical_free_mixed_model",
+      "seed": 2357,
+      "round": 10,
+      "status": "PASS"
+    },
+    {
+      "method": "historical_free_mixed_model",
+      "seed": 2357,
+      "round": 17,
+      "status": "PASS"
+    },
+    {
+      "method": "historical_free_mixed_model",
+      "seed": 2357,
+      "round": 28,
+      "status": "PASS"
+    },
+    {
+      "method": "new_free_cw_sol61_xhigh",
+      "seed": 2357,
+      "round": 3,
+      "status": "PASS"
+    },
+    {
+      "method": "new_free_cw_sol61_xhigh",
+      "seed": 2357,
+      "round": 10,
+      "status": "PASS"
+    },
+    {
+      "method": "new_free_cw_sol61_xhigh",
+      "seed": 2357,
+      "round": 17,
+      "status": "PASS"
+    },
+    {
+      "method": "new_free_cw_sol61_xhigh",
+      "seed": 2357,
+      "round": 28,
+      "status": "PASS"
+    },
+    {
+      "method": "nocw",
+      "seed": 2357,
+      "round": 3,
+      "status": "PASS"
+    },
+    {
+      "method": "nocw",
+      "seed": 2357,
+      "round": 10,
+      "status": "PASS"
+    },
+    {
+      "method": "nocw",
+      "seed": 2357,
+      "round": 17,
+      "status": "PASS"
+    },
+    {
+      "method": "numerical_hybrid32",
+      "seed": 2357,
+      "round": 3,
+      "status": "PASS"
+    },
+    {
+      "method": "numerical_hybrid32",
+      "seed": 2357,
+      "round": 10,
+      "status": "PASS"
+    },
+    {
+      "method": "numerical_hybrid32",
+      "seed": 2357,
+      "round": 17,
+      "status": "PASS"
+    },
+    {
+      "method": "random32",
+      "seed": 2357,
+      "round": 3,
+      "status": "PASS"
+    },
+    {
+      "method": "random32",
+      "seed": 2357,
+      "round": 10,
+      "status": "PASS"
+    },
+    {
+      "method": "random32",
+      "seed": 2357,
+      "round": 17,
+      "status": "PASS"
+    }
+  ],
+  "independent_geometry_rechecks": [
+    {
+      "seed": 2357,
+      "round": 0,
+      "space": "raw_gradient",
+      "independent_engine": "scipy.cdist",
+      "status": "PASS"
+    },
+    {
+      "seed": 2357,
+      "round": 0,
+      "space": "cw_gradient",
+      "independent_engine": "scipy.cdist",
+      "status": "PASS"
+    },
+    {
+      "seed": 2357,
+      "round": 3,
+      "space": "raw_gradient",
+      "independent_engine": "scipy.cdist",
+      "status": "PASS"
+    },
+    {
+      "seed": 2357,
+      "round": 3,
+      "space": "cw_gradient",
+      "independent_engine": "scipy.cdist",
+      "status": "PASS"
+    },
+    {
+      "seed": 2357,
+      "round": 10,
+      "space": "raw_gradient",
+      "independent_engine": "scipy.cdist",
+      "status": "PASS"
+    },
+    {
+      "seed": 2357,
+      "round": 10,
+      "space": "cw_gradient",
+      "independent_engine": "scipy.cdist",
+      "status": "PASS"
+    },
+    {
+      "seed": 2357,
+      "round": 17,
+      "space": "raw_gradient",
+      "independent_engine": "scipy.cdist",
+      "status": "PASS"
+    },
+    {
+      "seed": 2357,
+      "round": 17,
+      "space": "cw_gradient",
+      "independent_engine": "scipy.cdist",
+      "status": "PASS"
+    },
+    {
+      "seed": 2357,
+      "round": 28,
+      "space": "raw_gradient",
+      "independent_engine": "scipy.cdist",
+      "status": "PASS"
+    },
+    {
+      "seed": 2357,
+      "round": 28,
+      "space": "cw_gradient",
+      "independent_engine": "scipy.cdist",
+      "status": "PASS"
+    }
+  ],
+  "safety": {
+    "training": 0,
+    "api_calls": 0,
+    "unselected_target_reads": 0,
+    "test_target_reads": 0
+  },
+  "metadata_scope": "target-free old snapshot plus accepted contracts/freeze; no raw response table",
+  "old_results_reused": "studies/active_learning/nocw_free_selection_diagnostics_20261101",
+  "limitations": [
+    "128-point reference; 16 random batches; descriptive not causal",
+    "Scaffold empty strings form an acyclic bucket"
+  ]
+}

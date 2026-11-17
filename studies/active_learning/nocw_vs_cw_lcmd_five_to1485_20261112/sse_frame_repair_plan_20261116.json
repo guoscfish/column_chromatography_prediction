@@ -1,0 +1,56 @@
+{
+  "created_utc": "2026-11-16T07:55:03.297086+00:00",
+  "seeds": [
+    157,
+    887
+  ],
+  "source_workers": {
+    "157": {
+      "seed": 157,
+      "pid": 44755,
+      "keep_awake_pid": 44756,
+      "mode": "limited",
+      "worker_script": "repair_nocw_history_replay_20261115.py",
+      "log": "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/progress/nocw_157_history_repair_20261115.log",
+      "not_before_utc": "2026-11-15T10:07:59.131516+00:00",
+      "dispatched_utc": "2026-11-15T10:07:59.131674+00:00"
+    },
+    "887": {
+      "seed": 887,
+      "pid": 44757,
+      "keep_awake_pid": 44758,
+      "mode": "limited",
+      "worker_script": "repair_nocw_history_replay_20261115.py",
+      "log": "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/progress/nocw_887_history_repair_20261115.log",
+      "not_before_utc": "2026-11-15T10:07:59.133877+00:00",
+      "dispatched_utc": "2026-11-15T10:07:59.133893+00:00"
+    }
+  },
+  "script_sha256": "d897be9b2f1f49dcaae0a0546318dc8d17158af579bcef3232d23f6b5423ba4e",
+  "test_sha256": "bb35a64adc86c863780484bfedf6b28887b9ca34ad923f704f8b3ec0b39de69a",
+  "history_repair_sha256": "513aa18c9ca127dd59268ae9ec61af0c32d0c76b2597d1c2691eaf7c708f5785",
+  "preflight": "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/reports/sse_frame_repair_preflight_20261116.json",
+  "preflight_sha256": "9c9153244ba6fa7690906860391e7fb39b1fe6a1e14b6d4d32dd076b5464a240",
+  "scientific_protocol": {
+    "status": "VALID",
+    "protocol_sha256": "fbf5bf0e7d4e304d11d0afdab2eb09bf1833ddbe1a604e3889159fdca50ea89a",
+    "comparison_protocol_sha256": "686b7b88f7b2d25c32d4b1422228f960346dba3099ffe80288a6010d24321f29",
+    "target_budget": 1485
+  },
+  "change": "Insert a missing blank SSE separator only after a complete typed JSON event and before a new JSON object data record; retain raw received lines and framing receipts. Frozen transport validates all completed results.",
+  "handover": "Healthy exact source PID only; SELECTING + original WAITING_RETRY + future retry deadline + zero unresolved attempt starts. Freeze/recheck before termination. Never stop a request or training task. No abnormal worker restart.",
+  "preserved": [
+    "all existing source files and receipts",
+    "all request messages and body parameters",
+    "full supplied candidate pool",
+    "selection and correction rules",
+    "original network retries/backoff/deadline",
+    "same model, endpoint, independent keys, TLS validation and keepalive",
+    "original saved upstream/401 history reconciliation",
+    "request FIFO maximum3",
+    "independent two compute slots"
+  ],
+  "source_test_label_reads": 0,
+  "paid_probes": false,
+  "billing_status": "unknown"
+}

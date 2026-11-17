@@ -1,0 +1,21 @@
+{
+  "random_seed": 20261116,
+  "random_batches": 500,
+  "reference_size": 128,
+  "continuous_bins": [4, 8, 16],
+  "maximum_budget": 1485,
+  "common_seeds": [157, 6101],
+  "methods": ["historical_free_mixed_model", "new_free_cw_sol61_xhigh", "nocw", "cw_gradient_lcmd32", "free16_lcmd16"],
+  "snapshot": "states.json.xz",
+  "sources": {
+    "old_snapshot_directory": "studies/active_learning/nocw_free_selection_diagnostics_20261101",
+    "paired_campaign_directory": "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112",
+    "new_cw_directory": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101",
+    "saved_curve_tables": [
+      "reports/free_cw_final_20261112/validation_curves.csv",
+      "reports/six_methods_both_free_20261112/validation_curves.csv",
+      "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/reports/final_five_seed_L1485_20261116/validation_curves.csv"
+    ]
+  },
+  "policy": "Read frozen ID metadata, candidate predictions and saved validation summaries only; never train or query labels."
+}

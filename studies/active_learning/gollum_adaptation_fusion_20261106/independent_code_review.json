@@ -1,0 +1,38 @@
+{
+  "date": "2026-11-06",
+  "scope": "Independent read-only code review and engineering tests; no scientific performance claim",
+  "test_command": "python -m pytest -q test_legacy_gradients.py test_controlled_gradients.py test_phase1.py test_kernel_fusion.py",
+  "tests_passed": 31,
+  "pytest_seconds": 5.44,
+  "test_truth_access_count": 0,
+  "new_U_response_reads": 0,
+  "code_modified": false,
+  "source_hashes_at_review": {
+    "gp_training.py": "4dcca8c0c7cf3bfd587151760a4322045b80f6cae4b3aab40b90f4afe6c4066f",
+    "data_boundary.py": "289479de7f042546c9355716a3437217175ccdb1a496c44c5d0d0ad54826140d",
+    "run_phase1.py": "639a55092651114ed491611d2a0557f528ae70084aeb3761e8ac78fff4826932",
+    "kernel_fusion.py": "afb5b0979bc5c4d7100771dd77a71720023224436f145d2ac00d49d7b50d599f",
+    "run_phase3.py": "307cc890a1a131fdab175fdf3efdc1212acd8a0bfde0bd576351c86c9052edc1",
+    "lora_adaptation.py": "d40dace66aa5c2837a1aefd9c41c190f6ec5da9aec04c3faaf2d0fca4384e2df",
+    "text_embeddings.py": "f852ce6ad3cc641910576b13dba0298ed376e8d561c76bf247ceedf3314766d1",
+    "summarize_phase1.py": "d2a3b95d1dd78ab1dd4181d34ea539b84a465c3bb666a26de0c60e4f1f2bf543"
+  },
+  "findings": [
+    {
+      "id": "partial_matrix_gate",
+      "severity": "conditional",
+      "detail": "Reporter originally computed gate ratios only over finite results; require frozen expected denominator and complete state/seed/init support before any pass."
+    },
+    {
+      "id": "phase3_code_freeze_proof",
+      "severity": "evidence_limit",
+      "detail": "Per-fit receipts bind config and input hashes; final source hashes alone do not establish that those exact sources were frozen before scoring."
+    },
+    {
+      "id": "representation_exposure",
+      "severity": "evidence_limit",
+      "detail": "GNN/Fusion internal check remains conditional on GNN trained using all Lt labels."
+    }
+  ],
+  "training_objective_review": "Actual legacy/controlled gradients and Torch-Numpy consistency passed; regularization/noise bound/staged freeze checked; additive actual gradient and lambda=0 nesting covered."
+}

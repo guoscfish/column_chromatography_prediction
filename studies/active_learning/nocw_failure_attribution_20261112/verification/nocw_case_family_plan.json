@@ -1,0 +1,14 @@
+{
+  "cases": "exactly the already frozen 45 seed x phase x gain-category positions; no case added/dropped",
+  "groups": "high_gain, minimum_gain_case, near_zero; phase and seed equally weighted",
+  "family": "existing RDKit Murcko, includeChirality=False; preserve empty acyclic bucket",
+  "metrics": [
+    "max slot share",
+    "HHI=sum(scaffold slot fraction squared)",
+    "same-U reference",
+    "exact expected HHI of uniform without-replacement size32 sample"
+  ],
+  "temporal_reference": "up to three immediately preceding real accepted batches of the same seed/method; no future rows",
+  "label_access": "none; source metadata has id/smiles/conditions only; gain values not loaded or used",
+  "purpose": "descriptive family concentration check only; no acquisition rule/model/H change"
+}

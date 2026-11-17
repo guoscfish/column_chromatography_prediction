@@ -1,0 +1,93 @@
+{
+  "status": "PASS_AFTER_CORRECTIONS",
+  "reviewer": "behavior subagent independent of gain-analysis author",
+  "review_date": "2026-11-12 Asia/Shanghai",
+  "blocking_findings_remaining": 0,
+  "checks": {
+    "joined_batches": 873,
+    "temporal_alignment_max_error": 3.7969627442180354e-14,
+    "all_preselection_checkpoint_sha_match": true,
+    "cw_raw_and_cw_geometry_rows": 360,
+    "per_seed_space_rows": 36,
+    "geometry_joined_values_checked": 5004,
+    "independent_correlation_checks": {
+      "spearman": 1955,
+      "partial_rank_correlation": 425,
+      "partial_rank_without_before": 425
+    },
+    "independent_orthogonal_projection_max_error": 1.4710455076283324e-15,
+    "summary_max_error": 0.0,
+    "model_reasoning_round_alignment": "180 each, all aligned",
+    "constant_features": "undefined correlations remain NA",
+    "pseudo_independence": "no batch-level p-values; bootstrap samples seed correlations",
+    "information_roles": "selected residuals post-reveal; validation gain and before score offline only; raw/cw/latent separately named",
+    "visual_qa": "two revised PNGs reviewed; explicit colorbars outside seed panels; no data occlusion"
+  },
+  "resolved_findings": [
+    {
+      "id": "R1",
+      "severity": "P2",
+      "problem": "Colorbars covered seed12203 data in both gain figures",
+      "resolution": "Explicit external cax; inspected corrected figures"
+    },
+    {
+      "id": "R2",
+      "severity": "P2",
+      "problem": "Loading-contrast label ambiguous for sample-volume-only feature",
+      "resolution": "Changed to sample-volume contrast to history"
+    },
+    {
+      "id": "R3",
+      "severity": "P2",
+      "problem": "14-digit joint export changed a near-equal HHI rank; independent partial differed 0.005443",
+      "resolution": "17-digit export, round-trip CSV parsing, documented 12-decimal ranking tie rule; all statistics independently pass"
+    },
+    {
+      "id": "R4",
+      "severity": "P2",
+      "problem": "Gain shares before-NRMSE with adjustment; selected-CW and correction-count signs sensitive to adjustment",
+      "resolution": "Report explicitly discusses mathematical coupling/regression to mean; partial_rank_without_before added with 4/5 counterexamples"
+    }
+  ],
+  "remaining_limits": [
+    "Five overlapping-split seed trajectories do not identify causal acquisition effects; reported bootstrap remains descriptive",
+    "Budget+phase and before-NRMSE are partial state controls, not repeated identical-state training replicates",
+    "Reference coverage percentiles use 128 references and 16 random batches; state-normalized proxies are not common information utility",
+    "Behavior regressions cover six method identities; the extra two-seed arms lack full acquisition features and are disclosed",
+    "Protocol label-access incident is disclosed; this review examined derived allowed files only and does not erase that incident"
+  ],
+  "sources": [
+    {
+      "path": "scripts/analyze_gain_links.py",
+      "sha256": "751ebdb0d28766c47a84991cdd7432d3cbba43d91c96d6b15b7188ee0e65a643"
+    },
+    {
+      "path": "ACQUISITION_VS_LEARNING_GAIN.md",
+      "sha256": "a3dbde8a2391f048acf62843af2acd36bf7c98e1a7437a71556eda17e08e28eb"
+    },
+    {
+      "path": "PROTOCOL_AND_FAIRNESS_AUDIT.md",
+      "sha256": "a6db0e405ab1182f1430689849a2d90b45bdc7ecd62459727ef00a401357aeed"
+    },
+    {
+      "path": "tables/gain_linked_batches.csv",
+      "sha256": "3f0f9e18f93c3d7855c898fe19cd0cc8172ba69ca08b385a106dd55b1c5be0bd"
+    },
+    {
+      "path": "tables/gain_feature_seed_correlations.csv",
+      "sha256": "aaeb757f8c137d8f80540967c5e8c1ad4eabcd9dd96b3d2f5992e87649f6a0e3"
+    },
+    {
+      "path": "tables/gain_feature_summary.csv",
+      "sha256": "ac17afcadf9a5a082e0067e5f8818f01dd9ed18c2cb94d0c06e4d4d8b39c760a"
+    },
+    {
+      "path": "figures/gain_feature_correlations.png",
+      "sha256": "0cb95ece82bcadcf1dd92c5d643d0a167a8a181ac43100346a4c263f350b17a0"
+    },
+    {
+      "path": "figures/gain_coverage_scatter.png",
+      "sha256": "1990dd8894ee3869bdc6e4f114c19b8362f8444e5066723f7dcf3163d7fd1a91"
+    }
+  ]
+}

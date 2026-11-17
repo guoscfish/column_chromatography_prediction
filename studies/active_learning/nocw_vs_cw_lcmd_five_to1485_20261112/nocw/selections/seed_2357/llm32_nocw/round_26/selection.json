@@ -1,0 +1,260 @@
+{
+  "type": "selection",
+  "packet_sha256": "19bd8f8fc3807925cd2d9e28ba1b2158908fa2bc4058d2518c2e29e8dd4bbc75",
+  "batch_strategy": "Use matched solvent-ratio and loading contrasts to test transfer of recent corrections, delimit propagation from unusual labels, and fill informative condition gaps. Prioritize relationships that can improve both endpoint predictions across related rows; use quantile widths only as secondary evidence.",
+  "choices": [
+    {
+      "id": "f82cfd3b57735b0ead3c",
+      "reason": "m199 at 5/1, 50 ul forecasts 27.84/53.66 mL. Recent 150 ul measurements 6bd128bde2e137ea54f3 and aa83ae83c0fa0cc37777 rejected the predicted solvent-response plateau. With measured low-load 2/1 row 9ddc2e8babb52ee8e772, this establishes a second loading-specific slope and tests whether the corrected retention transfers across amount.",
+      "hypothesis_id": "H_sulfoxide26"
+    },
+    {
+      "id": "e6544a01d42439a41712",
+      "reason": "m25 at 20/1, 50 ul forecasts 25.79/53.57 mL. Measurements d21f08a7e8eaa163ecfc and 3fc05dc2025715e68174 gave 12.19/25.05 at 10/1 and 42.22/88.03 at 50/1, both at 100 ul. This locates the intermediate response while the selected 150 ul counterpart distinguishes solvent response from loading association.",
+      "hypothesis_id": "H_curve26"
+    },
+    {
+      "id": "0af9d219be9872711215",
+      "reason": "m25 at 20/1, 150 ul forecasts 25.67/53.58 mL, almost identical to the selected 50 ul forecast. The methyl ketoester contrast f402144b8672dd5ab2ab versus d448d8de2d8dacec62c3 showed earlier onset with stable completion at higher loading. This tests whether that endpoint-specific association transfers to the tert-butyl ester.",
+      "hypothesis_id": "H_loading26"
+    },
+    {
+      "id": "74701496b6fc5465eea7",
+      "reason": "m25 at 50/1, 150 ul forecasts 39.86/86.69 mL. Measured 100 ul row 3fc05dc2025715e68174 was 42.22/88.03. Alongside selected 20/1 at 150 ul, this supplies a fixed-loading ratio contrast and tests whether loading changes onset more than completion in the weak-mobile-phase regime.",
+      "hypothesis_id": "H_loading26"
+    },
+    {
+      "id": "50fbcf5ece9bd5fc2d70",
+      "reason": "m127 at 5/1, 150 ul forecasts 16.85/30.70 mL. Neighboring-amount 50/1 measurements 52b9af4df1f1e7cd4d9b and c82167c626a1495ef750 did not reproduce the central near-coincident interval. This tests whether the current late 5/1 prediction is another unsupported transfer or a real local response.",
+      "hypothesis_id": "H_collapse26"
+    },
+    {
+      "id": "ebdeaba52880c7eade16",
+      "reason": "m127 at 20/1, 150 ul forecasts 10.43/17.12 mL, earlier than its selected 5/1 forecast at identical loading. Together these labels test a predicted decrease in both endpoints as EA decreases, while measured c82167c626a1495ef750 anchors 50/1 at 1.01/23.71. The result can constrain how far the unusual central 50/1 label influences the response curve.",
+      "hypothesis_id": "H_collapse26"
+    },
+    {
+      "id": "c40d715383d042030e93",
+      "reason": "m127 at 5/1, 50 ul forecasts 17.02/30.73 mL, nearly invariant relative to selected 150 ul. At 50/1, measured 52b9af4df1f1e7cd4d9b and c82167c626a1495ef750 had similar completion but very different onset. This tests whether that loading association is ratio-specific rather than imposing a common amount response.",
+      "hypothesis_id": "H_loading26"
+    },
+    {
+      "id": "7654254c03d9de79740f",
+      "reason": "m195 at 50/1, 50 ul forecasts 30.30/46.60 mL. New low-load 20/1 row a83fb14090f1518df5a7 measured 11.65/24.74, unlike the near-coincident high-load label a917c928912c74862968. This measures the missing weak-ratio extension without assuming that the unusual high-load onset transfers to lower loading.",
+      "hypothesis_id": "H_collapse26"
+    },
+    {
+      "id": "79362765eb92377a5970",
+      "reason": "m195 at 50/1, 150 ul forecasts 30.18/46.61 mL, essentially the same as selected 50 ul. Their matched contrast tests whether the pronounced amount-associated difference at 20/1, represented by a83fb14090f1518df5a7 and a917c928912c74862968, persists at 50/1 or remains local to one recorded condition.",
+      "hypothesis_id": "H_loading26"
+    },
+    {
+      "id": "f15b726ca5b4897ed80c",
+      "reason": "m61 at 10/1, 50 ul forecasts 5.01/17.51 mL. Recent 100 ul row 859ae738b615cf17b849 measured 3.04/17.24, with onset earlier than the 5/1 measurement 994a1f65509549a84ede. This checks transfer of the unusual onset response across loading and pairs with selected 5/1 at the same 50 ul amount.",
+      "hypothesis_id": "H_nonmonotone26"
+    },
+    {
+      "id": "e75030664990b64e9c05",
+      "reason": "m61 at 5/1, 50 ul forecasts 8.02/15.80 mL. Together with selected 10/1 at identical loading, it tests the predicted onset reversal directly. Measured 994a1f65509549a84ede and 859ae738b615cf17b849 establish the corresponding reversal at 100 ul, but do not establish its cause or reproducibility across amounts.",
+      "hypothesis_id": "H_nonmonotone26"
+    },
+    {
+      "id": "04ea307c7b7f3321cc20",
+      "reason": "m203 at 10/1, 150 ul forecasts 17.93/24.47 mL, close to low-load measurement fbfb34ddee14b1ea50b1. At 20/1, measurements 9ed7c1fb1c2cc499bbf9 and 66747ae127e03516ffda instead shifted both endpoints earlier with amount. This tests a ratio-by-loading interaction rather than extending the 20/1 correction uniformly.",
+      "hypothesis_id": "H_loading26"
+    },
+    {
+      "id": "e8185e062559aff5c99e",
+      "reason": "m194 at 1/1, 150 ul forecasts 6.20/34.67 mL. The 100 ul anchor 4a39c1f64d17e050e4a5 measured 4.35/36.18, whereas pure-EA high-load row d7895c522a1a46a1175c was 3.87/24.99. This anchors the selected fixed-loading 1/1, 2/1, 5/1 curve and tests whether long completion at 1/1 transfers across amount.",
+      "hypothesis_id": "H_nonmonotone26"
+    },
+    {
+      "id": "8fb7f07df563e78786b2",
+      "reason": "m181 at 5/1, 100 ul forecasts 7.05/12.59 mL. Measured 20/1 row 10ea0c665f5ba7c91bbf was 32.91/52.53. With selected 10/1 at identical loading, this locates the lactone's response rise and tests transfer from ordinary cyclic ketones, whose weak-ratio outcomes differ in a36291cab664852df5e5 and 52348febee6695107c49.",
+      "hypothesis_id": "H_curve26"
+    },
+    {
+      "id": "989b2145455d703d3b6d",
+      "reason": "m181 at 10/1, 100 ul forecasts 12.77/21.08 mL. The same-loading 20/1 anchor 10ea0c665f5ba7c91bbf is substantially later, and 50/1 high-load row 3163a9b58f1a52a1992c is later again. This missing intermediate, paired with selected 5/1, distinguishes a delayed steep rise from underprediction throughout the intermediate-ratio region.",
+      "hypothesis_id": "H_curve26"
+    },
+    {
+      "id": "48679ae48dd485ffb7a6",
+      "reason": "m91 at 50/1, 150 ul forecasts 7.76/22.33 mL. Measured 10/1 at the same loading, 10aed2ae6d65e00f993a, was 7.82/12.53. This tests whether completion grows while onset remains short in this acetylenic diester, providing a transfer boundary against the persistently compact weak-ratio malonate measurements 9c10e0827e86bb3c7681 and f7d57d8bb988f7016502.",
+      "hypothesis_id": "H_curve26"
+    },
+    {
+      "id": "c7e762106a9ec0d9ea75",
+      "reason": "m97 at 50/1, 150 ul forecasts 20.38/33.05 mL. Measured 10/1 high-load row 51da06b530ccda00427a was 10.56/18.58. With selected 20/1 at the same loading, this measures an uncovered weak-ratio curve for a bromophenylacetate and supports comparison with the selected naphthylacetate curve.",
+      "hypothesis_id": "H_curve26"
+    },
+    {
+      "id": "d737499ef6500d57b008",
+      "reason": "m97 at 20/1, 150 ul forecasts 14.78/25.32 mL. This bridges measured 10/1 row 51da06b530ccda00427a and selected 50/1 without changing loading. It determines whether the predicted gradual extension is supported, rather than importing the sharper responses observed in ketoesters or other substituted carbonyl families.",
+      "hypothesis_id": "H_curve26"
+    },
+    {
+      "id": "67fa39740fcf946a3154",
+      "reason": "m98 at 50/1, 150 ul forecasts 24.64/43.73 mL. Its measured 20/1 low-load anchor 3cd0aa35793392d15513 was 15.35/28.14. The selected high-load 20/1 point removes the loading mismatch for the new ratio contrast; comparison with m97 then tests aromatic-environment transfer while retaining their different densities.",
+      "hypothesis_id": "H_curve26"
+    },
+    {
+      "id": "c1b9b6fc781ab8519301",
+      "reason": "m87 at 5/1, 150 ul forecasts 9.08/18.05 mL. Measured 20/1 high-load row 6d54149d618f026681ef was 11.14/30.00, and 50/1 row b7cbf8a3f54b6d586198 at 100 ul was 21.59/49.30. With selected 10/1, this fills the lower part of the methoxybenzoate curve rather than assuming a generic ether or ester correction.",
+      "hypothesis_id": "H_curve26"
+    },
+    {
+      "id": "ef809aee1c6b06021475",
+      "reason": "m87 at 10/1, 150 ul forecasts 8.51/18.51 mL, nearly unchanged completion and slightly earlier onset than selected 5/1. Paired labels at fixed loading test this plateau before the measured rise to 20/1 in 6d54149d618f026681ef, an informative distinction after the sulfoxide plateau forecast failed.",
+      "hypothesis_id": "H_curve26"
+    },
+    {
+      "id": "2bb48a2862bf80c30a36",
+      "reason": "m194 at 2/1, 150 ul forecasts 7.62/18.00 mL, a large completion decrease from its selected 1/1 forecast. Measured 4a39c1f64d17e050e4a5 supplies the long 1/1 anchor at 100 ul. This directly tests whether the predicted completion valley is a reproducible condition association or propagation from sparsely supported labels.",
+      "hypothesis_id": "H_nonmonotone26"
+    },
+    {
+      "id": "3f59bb6766ef6551502f",
+      "reason": "m194 at 5/1, 150 ul forecasts 12.54/28.56 mL. Together with selected 1/1 and 2/1 at identical loading, it tests both sides of the predicted completion valley. Existing pure-EA rows 12400c6c61643f9c79b5 and d7895c522a1a46a1175c already show appreciable completion variation across amounts, so a simple monotone correction is not established.",
+      "hypothesis_id": "H_nonmonotone26"
+    },
+    {
+      "id": "b0571346163b8f77528d",
+      "reason": "m129 at 1/1, 100 ul forecasts 8.05/23.47 mL. Measured 5/1 row cf8ab33c25ad391a584c was 6.10/17.18, while 10/1 row 4c46ceefd6147b1e0a7a was 10.18/24.26. With selected 2/1, this tests the unexpectedly long strong-solvent completion forecast for the thioether aldehyde.",
+      "hypothesis_id": "H_nonmonotone26"
+    },
+    {
+      "id": "e05652bb38d9efd5b11e",
+      "reason": "m129 at 2/1, 100 ul forecasts 9.24/17.31 mL, shorter completion than selected 1/1. These matched labels determine whether the predicted reversal is local to this scaffold. The related thioether ketone measurement 34a20bc9c1f8c8bdf357 at 2/1 provides a structural comparison without establishing interchangeable retention.",
+      "hypothesis_id": "H_nonmonotone26"
+    },
+    {
+      "id": "84cd955ed2d585ae02fe",
+      "reason": "m62 at 2/1, 50 ul forecasts 7.95/7.85 mL, with reversed predicted endpoints. Measured 5/1 low-load row dc68091ba8b0648c216f was 6.67/8.92, whereas high-load 1/1 row b3b38f7212d8649d9ac1 was near-coincident at 12.24/12.26. This tests whether interval collapse has transferred beyond its measured condition, a concern strengthened by the m127 feedback.",
+      "hypothesis_id": "H_nonmonotone26"
+    },
+    {
+      "id": "3874d078a42b664f6dcc",
+      "reason": "m12 at 2/1, 150 ul forecasts 8.34/27.74 mL. Low-load 2/1 row c8f65df578125328ba0e measured 8.78/29.86, while measured weak-ratio rows such as e6aa01e185a9653117cd are more compact. This checks transfer of unexpectedly long completion within a hydrocarbon scaffold and prevents polar-group priors from dominating all response learning.",
+      "hypothesis_id": "H_nonmonotone26"
+    },
+    {
+      "id": "9bc73e0c27d4d6b44abb",
+      "reason": "m86 at 5/1, 150 ul forecasts 29.22/62.65 mL. Measured 100 ul row 3ccd6444c8a55917fbf8 was 28.73/57.53, and recent 2/1 row 70593725787c65a74951 was much more compact. This tests the predicted increase in completion with amount in a donor-containing aminoester, contrasting with completion-stable loading series.",
+      "hypothesis_id": "H_loading26"
+    },
+    {
+      "id": "4d3dddb7f2bd6bdeb5ea",
+      "reason": "m98 at 20/1, 150 ul forecasts 17.72/29.23 mL. Measured low-load 3cd0aa35793392d15513 was 15.35/28.14. This both tests loading transfer and provides the fixed-loading anchor for selected 50/1, making the naphthylacetate response interpretable alongside the matched m97 curve.",
+      "hypothesis_id": "H_loading26"
+    },
+    {
+      "id": "9862563d18aae2868342",
+      "reason": "m92 at 50/1, 100 ul forecasts 18.41/54.36 mL. Initial high-load row 9bbd36c8b484b5609808 measured 20.51/62.21. With selected 20/1 at 100 ul, this tests whether the alpha-ketoester retains a steep completion rise across loading, rather than inheriting the response shape of beta-ketoesters.",
+      "hypothesis_id": "H_curve26"
+    },
+    {
+      "id": "bbb514661c0a49694d6a",
+      "reason": "m92 at 20/1, 100 ul forecasts 6.12/22.49 mL. Measured high-load row e9dc948c0e68a88eb621 was 5.42/21.38, while the 50/1 high-load anchor 9bbd36c8b484b5609808 was much later. This supplies the matched lower-ratio endpoint for selected 50/1 and tests the predicted early onset independently of completion.",
+      "hypothesis_id": "H_curve26"
+    },
+    {
+      "id": "fea75df17d0bf593243f",
+      "reason": "m110 at 20/1, 50 ul forecasts 17.20/24.88 mL. Same-loading observations 8d48112406e3064efdbc at 10/1 and d3047299bd8817ee87dd at 50/1 were 9.30/14.30 and 25.13/36.05. This fills a consequential gap in a carbonyl-free aromatic ether curve, testing where solvent-response corrections transfer beyond carbonyl chemistry.",
+      "hypothesis_id": "H_curve26"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H_sulfoxide26",
+      "content": "Diphenyl sulfoxide has a steep measured solvent response from 2/1 through 10/1 at 150 ul. The previous plateau forecast is rejected; transfer of the corrected 5/1 response to lower loading remains untested.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "d49f2ae16cf70d54ccf4",
+        "6bd128bde2e137ea54f3",
+        "aa83ae83c0fa0cc37777"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "A matched low-load slope can teach whether the large correction belongs to the sulfoxide-solvent relationship across amounts, limiting reliance on one loading series.",
+      "next_discriminating_question": "Does 5/1 at 50 ul retain the late onset and completion measured at 150 ul, relative to its measured low-load 2/1 anchor?"
+    },
+    {
+      "id": "H_curve26",
+      "content": "Solvent-response shape and endpoint corrections remain scaffold-specific. The tert-butyl ketoester is compact at 10/1 but much later at 50/1; dibenzalacetone is substantially later than chalcone at 50/1, while salicylaldehyde and methyl anthranilate were more compact than their acquisition forecasts. A common increase in weak-ratio retention is unsupported.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "d21f08a7e8eaa163ecfc",
+        "3fc05dc2025715e68174",
+        "c9bef93a79964dc6ede1",
+        "683b6279a87805548c7c",
+        "619663c2b3ffb3a6c497",
+        "302e458c5ed2285ca328"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Intermediate and matched-ratio labels distinguish response curvature from structural transfer and constrain V1 and V2 separately across ester, lactone, aromatic ether, and carbonyl environments.",
+      "next_discriminating_question": "Where do the m25 and lactone curves rise, and do the selected ordinary ester and aromatic ether curves exhibit gradual increases, plateaus, or endpoint-specific changes?"
+    },
+    {
+      "id": "H_loading26",
+      "content": "Loading associations depend on scaffold, ratio, and endpoint. Recent m82, m95, m37, and m41 contrasts largely preserve completion while shifting onset, whereas m203 at 20/1 shifts both endpoints and m33 shows a different completion association. Nearly invariant amount forecasts require local testing rather than a universal correction.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "ac81adfab5ec8ce768db",
+        "b6bf451b4911ee22d4a4",
+        "f402144b8672dd5ab2ab",
+        "d448d8de2d8dacec62c3",
+        "9ed7c1fb1c2cc499bbf9",
+        "66747ae127e03516ffda",
+        "570497bf792f134f2223",
+        "c356230277dfc98406e0"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched amount contrasts identify endpoint-specific associations and ratio interactions that can generalize across many remaining condition rows. Density times sample volume is the recorded loading feature; these observations do not establish an additional concentration variable or a universal causal mechanism.",
+      "next_discriminating_question": "Do m25, m127, m195, m98, and m86 follow their nearly flat predicted amount responses, and does m203 preserve completion at 10/1 despite its measured completion shift at 20/1?"
+    },
+    {
+      "id": "H_collapse26",
+      "content": "The proposal that the near-coincident m127 50/1 and m195 20/1 labels define an amount-independent collapsed-interval regime is rejected. Their neighboring measured amounts have ordinary positive intervals, although the central labels remain part of the recorded evidence.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "a3ae677aae8a8faf5786",
+        "a917c928912c74862968"
+      ],
+      "contradicting_observed_ids": [
+        "52b9af4df1f1e7cd4d9b",
+        "c82167c626a1495ef750",
+        "a83fb14090f1518df5a7"
+      ],
+      "confidence": "low",
+      "status": "rejected",
+      "why_it_matters_for_model_learning": "The new labels show that propagating one unusual interval across amounts can create large acquisition errors. Measurements in adjacent ratio regimes can delimit that influence without discarding observations or inventing an adsorption threshold.",
+      "next_discriminating_question": "Do m127's predicted 5/1-to-20/1 decrease and m195's elevated 50/1 onset survive matched loading measurements?"
+    },
+    {
+      "id": "H_nonmonotone26",
+      "content": "Unexpected endpoint reversals and near-coincident intervals can be local in the recorded data. Nonmonotone forecasts therefore need neighboring-condition measurements to distinguish genuine recorded associations from unsupported transfer; nonmonotonicity alone does not establish prediction error or a mechanism.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "994a1f65509549a84ede",
+        "859ae738b615cf17b849",
+        "c8f65df578125328ba0e",
+        "e6aa01e185a9653117cd",
+        "4a39c1f64d17e050e4a5",
+        "b3b38f7212d8649d9ac1"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The selected local curves test whether unusual onset and completion behavior extends across ratios or amounts. This can prevent both inappropriate propagation of isolated labels and inappropriate imposition of a global monotone response.",
+      "next_discriminating_question": "Does the m61 onset reversal persist at 50 ul, do m194 and m129 reproduce their predicted completion decreases, and do m62 and m12 transfer their unusual local patterns across conditions?"
+    }
+  ],
+  "feedback_interpretation": "The largest change is rejection of the sulfoxide plateau: m199 measured 27.42/52.38 at 5/1 and 57.86/114.60 at 10/1, with acquisition-time V2 underpredictions of 30.62 and 87.56 mL. Its current 5/1 forecasts have moved upward, so the next useful test is transfer across loading rather than treating those historical errors as current residuals. m25 measured only 12.19/25.05 at 10/1 but 42.22/88.03 at 50/1, supporting an intermediate-ratio experiment rather than a uniform ketoester completion correction. Dibenzalacetone's 50/1 completion of 68.68, versus chalcone's 30.40, further limits conjugated-ketone transfer. Conversely, m197 completion was overpredicted at acquisition by approximately 21\u201326 mL, and m104 remained compact at 50/1, producing a 31.09 mL completion overprediction. The methyl-versus-ethyl anthranilate distinction is strengthened, without establishing a molecular mechanism. The m127 neighboring amounts measured 11.65/23.65 and 1.01/23.71 rather than reproducing the central 35.44/35.52 label; low-load m195 likewise did not reproduce its high-load near-coincident interval. This rejects broad interval-collapse transfer and motivates tests of the remaining unusual local curves. Loading evidence also became more specific: m82 and m95 largely preserved completion across amount, m41 did likewise at 50/1, while m203 at 20/1 shifted completion earlier by about 10 mL. The m61 10/1 onset of 3.04 was unexpectedly earlier than its measured 5/1 onset, so I test its locality rather than assume a smooth response. Finally, the m134 and m131 floor forecasts were contradicted by nonzero measured onsets, and m91 returned a positive interval. Current forecasts at those measured conditions are substantially corrected, reducing the value of immediately sampling more near-identical floor cases.",
+  "batch_rationale": "The batch combines failure repair with condition-response measurements that make the repairs transferable. The m199 low-load slope tests a major newly uncovered sulfoxide relationship. The three m25 points separate intermediate-ratio curvature, amount association, and weak-ratio response. Matched m97 and m98 curves, the m87 and lactone curves, the m92 pair, and the m110 intermediate supply complementary structural environments where labels can distinguish scaffold-specific slopes from generic polarity corrections. The m127 and m195 neighborhoods delimit influence from unusual measured intervals, while m61, m194, m129, m62, and m12 test specific reversals or interval behavior with controlled local contrasts. The m203 and m86 points add loading questions in donor-containing environments; m91 tests independent onset and completion response in a short-onset diester regime. Multiple points on a molecule are included where they establish a curve or discriminate competing explanations, and identical-tuple aliases are not used to inflate the batch. Extensive measured coverage of ordinary compact hydrocarbon and halogenated rows makes further routine variants less compelling than these remaining relationship gaps. Quantile widths are single-predictor summaries and were not treated as calibrated epistemic uncertainty; elution interval widths were not treated as uncertainty. Unrecorded variation remains a limitation, especially around irregular labels. There are no pending experiments. All 32 IDs and their supplied premeasurement forecasts are fixed by this packet before any new label reveal."
+}

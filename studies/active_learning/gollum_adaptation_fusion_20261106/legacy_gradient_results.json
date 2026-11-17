@@ -1,0 +1,175 @@
+{
+  "legacy_source": "studies/active_learning/representation_gp_benchmark_20261104/gp_models.py",
+  "legacy_source_sha256": "86eaaccd67da3679ea08e095f7f81cc54d5265b1a20fb219aa55e48cffd49118",
+  "scope": "synthetic-only actual legacy closure; no historical responses read",
+  "finite_difference": {
+    "fixed_initial": {
+      "objective": 16.62125630844554,
+      "parameter_count": 3,
+      "step": 1e-05,
+      "max_absolute_error": 2.522357878120829e-10,
+      "max_scaled_error": 1.2703970106026213e-10,
+      "groups": {
+        "log_signal": {
+          "count": 1,
+          "analytic_gradient_norm": 0.30591994630994224,
+          "max_absolute_error": 4.588729396459712e-11,
+          "max_scaled_error": 4.588729396459712e-11
+        },
+        "log_noise": {
+          "count": 1,
+          "analytic_gradient_norm": 0.47828645309510726,
+          "max_absolute_error": 1.4325984842855632e-11,
+          "max_scaled_error": 1.4325984842855632e-11
+        },
+        "log_lengthscale": {
+          "count": 1,
+          "analytic_gradient_norm": 1.9854878884863965,
+          "max_absolute_error": 2.522357878120829e-10,
+          "max_scaled_error": 1.2703970106026213e-10
+        }
+      },
+      "passed": true
+    },
+    "fixed_shifted": {
+      "objective": 17.161022582143982,
+      "parameter_count": 3,
+      "step": 1e-05,
+      "max_absolute_error": 5.27342169931444e-10,
+      "max_scaled_error": 1.7545701818729774e-10,
+      "groups": {
+        "log_signal": {
+          "count": 1,
+          "analytic_gradient_norm": 4.612888101333559,
+          "max_absolute_error": 2.9396041156815045e-11,
+          "max_scaled_error": 6.372589256637179e-12
+        },
+        "log_noise": {
+          "count": 1,
+          "analytic_gradient_norm": 0.08621345403644605,
+          "max_absolute_error": 3.098155065828223e-11,
+          "max_scaled_error": 3.098155065828223e-11
+        },
+        "log_lengthscale": {
+          "count": 1,
+          "analytic_gradient_norm": 3.0055347759072726,
+          "max_absolute_error": 5.27342169931444e-10,
+          "max_scaled_error": 1.7545701818729774e-10
+        }
+      },
+      "passed": true
+    },
+    "projected_initial": {
+      "objective": 31.35799152541126,
+      "parameter_count": 21,
+      "step": 1e-05,
+      "max_absolute_error": 2.8554488551435497e-08,
+      "max_scaled_error": 1.6657855606697046e-09,
+      "groups": {
+        "log_signal": {
+          "count": 1,
+          "analytic_gradient_norm": 2.877647004874163,
+          "max_absolute_error": 9.892322516691365e-10,
+          "max_scaled_error": 3.4376428032818944e-10
+        },
+        "log_noise": {
+          "count": 1,
+          "analytic_gradient_norm": 14.055296884504596,
+          "max_absolute_error": 4.3596237730980647e-10,
+          "max_scaled_error": 3.101765696439433e-11
+        },
+        "log_lengthscale": {
+          "count": 1,
+          "analytic_gradient_norm": 11.1049608346597,
+          "max_absolute_error": 3.857767438830706e-10,
+          "max_scaled_error": 3.473913592554262e-11
+        },
+        "projection_weight": {
+          "count": 15,
+          "analytic_gradient_norm": 36.542851717127014,
+          "max_absolute_error": 2.8554488551435497e-08,
+          "max_scaled_error": 1.6657855606697046e-09
+        },
+        "projection_bias": {
+          "count": 3,
+          "analytic_gradient_norm": 3.4760459958114236,
+          "max_absolute_error": 1.4432077755088812e-10,
+          "max_scaled_error": 1.4432077755088812e-10
+        }
+      },
+      "passed": true
+    },
+    "projected_shifted": {
+      "objective": 49.75811631158045,
+      "parameter_count": 21,
+      "step": 1e-05,
+      "max_absolute_error": 9.245452625705752e-09,
+      "max_scaled_error": 4.91504373657566e-09,
+      "groups": {
+        "log_signal": {
+          "count": 1,
+          "analytic_gradient_norm": 4.409772579166346,
+          "max_absolute_error": 3.624253785972087e-09,
+          "max_scaled_error": 8.218686385539729e-10
+        },
+        "log_noise": {
+          "count": 1,
+          "analytic_gradient_norm": 34.5630761946239,
+          "max_absolute_error": 2.4729729375394527e-10,
+          "max_scaled_error": 7.1549561260013545e-12
+        },
+        "log_lengthscale": {
+          "count": 1,
+          "analytic_gradient_norm": 16.789209708702753,
+          "max_absolute_error": 1.8677681623557874e-10,
+          "max_scaled_error": 1.1124812869344551e-11
+        },
+        "projection_weight": {
+          "count": 15,
+          "analytic_gradient_norm": 19.771134382673498,
+          "max_absolute_error": 9.245452625705752e-09,
+          "max_scaled_error": 4.91504373657566e-09
+        },
+        "projection_bias": {
+          "count": 3,
+          "analytic_gradient_norm": 6.272638468799226,
+          "max_absolute_error": 4.611096171558415e-09,
+          "max_scaled_error": 2.3247118344996673e-09
+        }
+      },
+      "passed": true
+    }
+  },
+  "kernel_consistency": {
+    "fixed": {
+      "max_training_covariance_absolute_error_standardized": 4.440892098500626e-16,
+      "raw_nll_jacobian_error": 3.552713678800501e-15,
+      "max_posterior_mean_absolute_error": 1.7763568394002505e-15,
+      "max_posterior_covariance_absolute_error": 2.6645352591003757e-15,
+      "jitter": 0.0,
+      "observation_noise_added_once": true,
+      "train_query_transform_consistent": true,
+      "passed": true
+    },
+    "projected": {
+      "max_training_covariance_absolute_error_standardized": 4.440892098500626e-16,
+      "raw_nll_jacobian_error": 1.4210854715202004e-14,
+      "max_posterior_mean_absolute_error": 1.7763568394002505e-15,
+      "max_posterior_covariance_absolute_error": 1.7763568394002505e-15,
+      "jitter": 0.0,
+      "observation_noise_added_once": true,
+      "train_query_transform_consistent": true,
+      "passed": true
+    }
+  },
+  "limitations": [
+    "Finite differences cover small synthetic float64 systems, not every historical fitted point.",
+    "The zero-jitter branch is tested; gradients through a changing jitter branch are not claimed.",
+    "No claim of convergence, calibration, or downstream AL performance follows from these tests."
+  ],
+  "test_count": 6,
+  "success": true,
+  "failures": 0,
+  "errors": 0,
+  "legacy_source_unchanged": true
+}

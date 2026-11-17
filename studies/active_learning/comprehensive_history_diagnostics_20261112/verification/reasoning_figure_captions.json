@@ -1,0 +1,38 @@
+{
+  "reasoning_memory_dynamics.png": {
+    "source": "tables/reasoning_batches.csv; hash-bound preselection memory and hypothesis references",
+    "methods": [
+      "new_free_cw_sol61_xhigh"
+    ],
+    "seeds": [
+      157,
+      887,
+      2357,
+      6101,
+      12203
+    ],
+    "batch_n": 180,
+    "nonempty_evidence_batches_by_phase": [
+      27,
+      39,
+      29,
+      72
+    ],
+    "definition": "per-batch citation-occurrence fractions or molecule HHI, then mean within seed/phase; empty evidence batches excluded. r0 has empty prior selected/top8 memory and contributes 0 where evidence exists. HHI is unitless. Repeated citation occurrences retained.",
+    "limits": "Citations are not attention, scientific correctness, or actual acquisition preference; no causal memory benefit inferred."
+  },
+  "reasoning_states_and_discriminating_case.png": {
+    "source": "tables/reasoning_summary.csv, reasoning_batches.csv, reasoning_case_evidence.csv",
+    "hypothesis_n_by_phase": [
+      143,
+      197,
+      134,
+      397
+    ],
+    "batch_n": 180,
+    "case_rows": 2,
+    "case_condition": "m117; 150 uL sample, DCM 600 uL; only PE/EA varies",
+    "units": "hypothesis/legality fractions unitless; volumes mL",
+    "limits": "Confidence/status are LLM self-reports. The 2-row case tests recorded response direction; no independent experimental replicate or causal AL gain."
+  }
+}

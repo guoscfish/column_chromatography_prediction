@@ -1,0 +1,54 @@
+{
+  "status": "blocked_offline_model_load",
+  "record_kind": "pretrained_engineering_preflight_not_executed",
+  "model": "Qwen/Qwen3-Embedding-0.6B",
+  "requested_revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+  "exception_type": "OSError",
+  "reason": "We couldn't connect to 'https://huggingface.co' to load the files, and couldn't find them in the cached files.\nCheck your internet connection or see how to run the library in offline mode at 'https://huggingface.co/docs/transformers/installation#offline-mode'.",
+  "local_files_only": true,
+  "model_downloads": 0,
+  "pretrained_weights_loaded": false,
+  "performance_claims_allowed": false,
+  "resource_audit": {
+    "audit_date": "2026-11-06",
+    "python": "/Users/fish/miniforge3/envs/chromatography/bin/python",
+    "python_version": "3.11.14 | packaged by conda-forge | (main, Oct 22 2025, 22:56:31) [Clang 19.1.7 ]",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "packages": {
+      "torch": "2.13.0",
+      "transformers": "5.4.0",
+      "peft": null,
+      "gpytorch": null,
+      "botorch": null,
+      "sentencepiece": null,
+      "safetensors": "0.7.0",
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "pytest": "9.1.1"
+    },
+    "device": {
+      "cuda_available": false,
+      "mps_built": true,
+      "mps_available": false,
+      "torch_threads": 1
+    },
+    "disk_free_gib": 202.02626419067383,
+    "model_cache_inventory": [
+      {
+        "cache": "/Users/fish/.cache/huggingface/hub",
+        "model": "models--Qwen--Qwen1.5-0.5B-Chat",
+        "weight_files": [
+          {
+            "path": "/Users/fish/.cache/huggingface/hub/models--Qwen--Qwen1.5-0.5B-Chat/snapshots/4d14e384a4b037942bb3f3016665157c8bcb70ea/model.safetensors",
+            "bytes": 1239173352
+          }
+        ]
+      }
+    ],
+    "model_downloads": 0,
+    "dependency_installs": 0,
+    "paid_api_calls": 0
+  },
+  "elapsed_seconds": 6.891704832902178,
+  "process_peak_rss_bytes": 444940288
+}

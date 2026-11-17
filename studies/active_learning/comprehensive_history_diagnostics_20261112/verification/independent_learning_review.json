@@ -1,0 +1,19 @@
+{
+  "reviewer": "reasoning subagent independent arithmetic review",
+  "review_scope": "learning script read; Decimal weighted-mean AULC independent of numpy trapezoid; all stage areas; gain telescoping; baseline identity; paired deltas; original published score table",
+  "curve_rows": 1088,
+  "stage_rows": 222,
+  "gain_rows": 1054,
+  "paired_rows": 504,
+  "max_decimal_aulc_error": "6.6666666666667E-15",
+  "max_gain_telescoping_error": 2.2537527399890678e-14,
+  "max_paired_delta_error": 1.0061396160665481e-14,
+  "max_original_published_score_error": 3.175237850427948e-14,
+  "baseline_one_value_per_seed": true,
+  "status": "PASS",
+  "caveats": [
+    "total_gain has opposite preferable sign to AULC/endpoint; negative_deltas must not be read as wins for total_gain",
+    "raw full_run AULC and training costs span method-specific maximum budgets; use paired/common-budget tables for rankings",
+    "threshold crossings are right-censored at method-specific endpoints; no unpaired mean threshold ranking"
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "version": "nocw_condition_interaction_pilot_v1",
+  "single_change": "z=p+r+r*tanh(nonaffine_layer_norm(p))",
+  "new_parameters": 0,
+  "total_parameters_per_arm": 458952,
+  "outer_seeds": [
+    157,
+    887
+  ],
+  "available_budgets": [
+    525,
+    1005
+  ],
+  "training_replicates": [
+    0,
+    1
+  ],
+  "maximum_successful_fits": 16,
+  "initialization_seed": "outer_seed+2000003+replicate*1000033",
+  "training_rng_seed": "outer_seed+3000017+replicate*1000033",
+  "training": {
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0,
+    "batch_size": 2048,
+    "maximum_epochs": 1000,
+    "patience": 100,
+    "cpu_threads": 2
+  },
+  "execution_schedule": {
+    "maximum_concurrent_workers": 2,
+    "outer_seed_per_worker": [
+      157,
+      887
+    ],
+    "slots_per_worker": 8,
+    "maximum_total_CPU_threads": 4
+  },
+  "checkpoint_selection": "original 416 validation combined NRMSE; never H",
+  "labels_for_H_selection": false,
+  "training_label_source": "same-state NoCW observed + accepted terminal feedback",
+  "validation_label_source": "416 explicit allowed validation IDs; streaming canonical target store, no other numeric targets",
+  "holdout_qualification_sha256": "393d77372c557b944da3414715a004b56351c8a1f6a9631ac6dbb527f41d3b9c",
+  "metadata_rule_sha256": "e1e8c2fceb297b08382421103be69a7dd3e34e9aaf0e80677a15c49b45ea9e85",
+  "script_sha256": "2e243a7b9c02c264499226ed1396a44b6047fc38a327a2391154bc38844c329a",
+  "protocol_sha256": "7b21b932b3b3695cd124490f40640643e557523095a13806d146005f3652a504",
+  "C_gate_sha256": "7ed5248af20399cf9adae3d41a5c7177d6b40b346ea91b315503827715ea769d",
+  "root_release_sha256": "621416abdc9dbaf0b3bd27cf584a3a5be1fa526c1bc6a968e3815c55e946546f",
+  "data_sources": {
+    "studies/active_learning/nocw_failure_attribution_20261112/verification/pilot_metadata_rule.json": "e1e8c2fceb297b08382421103be69a7dd3e34e9aaf0e80677a15c49b45ea9e85",
+    "studies/active_learning/nocw_free_selection_diagnostics_20261101/snapshot_inputs.json.xz": "1d53427331bc02140139bb664b7b0a4d3a744119b1448e9cb8ff7bfef1729fdf",
+    "experiments/e0_4g_baseline/canonical_4g.csv": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+    "studies/active_learning/qgeognn_v2_row_llm_nocw_ablation/revisions/five_seed_nocw_to1005_20261029/selections/seed_157/llm32_nocw/round_06/contract.json": "5f2fb9bc353a43f121359f5d9985d080d13b83c9e45cec98c7c7af7274200db7",
+    "studies/active_learning/qgeognn_v2_row_llm_nocw_ablation/revisions/five_seed_nocw_to1389_20261101/selections/seed_157/llm32_nocw/round_21/contract.json": "9ffc5c8f7188d2370accc71c05ad4ad5b906cf4494fb85796c14548fb60662d3",
+    "studies/active_learning/qgeognn_v2_row_llm_nocw_ablation/revisions/five_seed_nocw_to1005_20261029/selections/seed_887/llm32_nocw/round_06/contract.json": "d80da4edac2520440b76f6b5f70f2cce5ff72fdce3e5af65eddc5bd12ac26f03",
+    "studies/active_learning/qgeognn_v2_row_llm_nocw_ablation/revisions/five_seed_nocw_to1389_20261101/selections/seed_887/llm32_nocw/round_21/contract.json": "a0970ef9d8f7ae1ee02e14aa5d56bf2d1177d4a13fffd06e263fd395ee280740",
+    "studies/active_learning/qgeognn_v2_row_llm_nocw_ablation/revisions/five_seed_nocw_to1005_20261029/selections/seed_157/llm32_nocw/round_06/input.json": "0db7be399feda62937c2b488a22b8a0454bb6d4e0d4a10e8b0642d5549e69ffb",
+    "studies/active_learning/qgeognn_v2_row_llm_nocw_ablation/revisions/five_seed_nocw_to1389_20261101/selections/seed_157/llm32_nocw/round_21/input.json": "d779fb063fb0b81e32bcf9cd8b1f39b550b7aa7282ed8ec25e57d58fc4abdc56",
+    "studies/active_learning/qgeognn_v2_row_llm_nocw_ablation/revisions/five_seed_nocw_to1005_20261029/selections/seed_887/llm32_nocw/round_06/input.json": "62ed78c161ad6b7b640103e82818bde1c1386eefa733c65289d052d61585f0d0",
+    "studies/active_learning/qgeognn_v2_row_llm_nocw_ablation/revisions/five_seed_nocw_to1389_20261101/selections/seed_887/llm32_nocw/round_21/input.json": "3d79f441bc13b1b4e980fc9f55055aa022313794bbee0d379a3c0b2472a7c26d",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/context.json": "dec8dcb1f80afc3511a2ea867fc342f5506f81902ec8425c2dc25fbc25e50757",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/scrubbed_graphs.pt": "29c2d4c5d9b4b0165c7ef5d400c0d7a5ae53795e10aea67318f68705ec9d9239",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/context.json": "bdcd5280205ab331b8ff1b5f58e7988822cffc3ec47529318d0f97dba5c17093",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/scrubbed_graphs.pt": "29c2d4c5d9b4b0165c7ef5d400c0d7a5ae53795e10aea67318f68705ec9d9239"
+  },
+  "source_hashes": {
+    "src/qgeognn_al/models/qgeognn_v2.py": "0058ae546ed0aeb84762b1b26f343a9b622f49a2fb45aefb2434e679ba2547e2",
+    "src/qgeognn_al/schemas/conditions.py": "19475ed0f3188124232f1368f18385e920194c135898cccda2f2f25f68d809df",
+    "src/qgeognn_al/training/predictor.py": "f3e7ff3033a2fa4dcb240ae3f925c4ce13f0efe4effa02c7dfc175f3c5c72144",
+    "src/qgeognn_al/evaluation/point.py": "48b000accf3715ed6c1304ccaa9a346275ed5068ec8d2ffcc217cee72e7fc82e"
+  }
+}

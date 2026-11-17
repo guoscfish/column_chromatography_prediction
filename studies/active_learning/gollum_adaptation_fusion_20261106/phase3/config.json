@@ -1,0 +1,52 @@
+{
+  "schema": "additive-kernel-pilot-v1",
+  "seeds": [
+    157,
+    887
+  ],
+  "budgets": [
+    333,
+    813
+  ],
+  "endpoints": [
+    "V1",
+    "V2"
+  ],
+  "candidate_count": 256,
+  "validation_rows": 416,
+  "batch_size": 32,
+  "methods": [
+    "gnn_lambda0",
+    "additive_fixed1",
+    "additive_learned",
+    "gnn_capacity_control"
+  ],
+  "max_iter": 200,
+  "initialization": 17,
+  "lambda_bounds_log": [
+    -9.0,
+    9.0
+  ],
+  "log_signal_noise_bounds": [
+    -9.0,
+    9.0
+  ],
+  "log_lengthscale_bounds": [
+    -5.0,
+    5.0
+  ],
+  "training": "exact float64 MLL on current L_t responses only; no projection or encoder optimization",
+  "evaluation": "previously checkpoint-selected validation; development evidence only",
+  "feature_processing": "separate L_t block-centered global RMS; no PCA",
+  "noise_regularization": "none; compare frozen-kernel behavior independently of Phase1 projection",
+  "capacity_control": "two GNN Matern52 components, learned lambda and two lengthscales; same five scalars as learned fusion",
+  "candidate_policy": "reuse sealed 256 SHA256-ranked current U rows and IDs without response queries",
+  "test_truth_access_count": 0,
+  "future_U_label_reads": 0,
+  "new_gnn_fits": 0,
+  "new_lm_forwards": 0,
+  "model_downloads": 0,
+  "dependency_installs": 0,
+  "al_trajectories_started": 0,
+  "expansion": "none; only two development seeds and L333/L813; all failures retained"
+}

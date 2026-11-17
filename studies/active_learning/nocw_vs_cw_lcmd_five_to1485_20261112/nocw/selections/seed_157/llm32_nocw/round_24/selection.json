@@ -1,0 +1,275 @@
+{
+  "type": "selection",
+  "packet_sha256": "5d5330de4e924f2daf4da5410913d4c649c7be166ebda1d2e6cc381de861aee5",
+  "batch_strategy": "Select 32 new recorded condition tuples around unresolved solvent-response curves, loading-associated endpoint changes, and plausible structural transfer failures. Use matched composition or loading contrasts where available, with moderate-retention references to constrain transfer of large-tail corrections. Higher PE/EA means less EA and weaker mobile-phase elution strength. The supplied predictions are frozen in each choice before measurement.",
+  "choices": [
+    {
+      "id": "477241eeda24d5f7e750",
+      "reason": "m59, 10/1, 50 uL: begins a matched-loading curve beyond measured 5/1 observation 6209df8dd01072ab8a47 (8.53/14.31 mL). Tests where the predicted steep aldehyde response begins. Frozen V1/V2: 18.676376342773438/30.526548385620117 mL.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "87996db5ddb7565fe66f",
+      "reason": "m59, 20/1, 50 uL: the middle point distinguishes gradual growth from a sharp response transition between the selected 10/1 and 50/1 points. Existing 5/1 evidence is 6209df8dd01072ab8a47. Frozen V1/V2: 37.115623474121094/65.50899505615234 mL.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "44c8b389a6faf44f1f4c",
+      "reason": "m59, 50/1, 50 uL: tests a large predicted weak-eluent tail in a region with no supplied measurements for this molecule. Together with two intermediate ratios, it can establish or reject the extrapolated curve. Frozen V1/V2: 53.37887954711914/101.9581069946289 mL.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "1c52010cfa0344fd2b6b",
+      "reason": "m39, 10/1, 100 uL: bridges measured 5/1 and 20/1 behavior represented by 8641d0ec9c4b21727b9a and 5524670e4337370c2ef6. Provides a related methylenedioxy aromatic carbonyl reference for m59; loading differs from those anchors. Frozen V1/V2: 24.044307708740234/40.41775131225586 mL.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "20913a7c2077b80b7351",
+      "reason": "m120, 5/1, 150 uL: resolves the large loading-associated discrepancy between 71abc36775b6cce56da7 at 50 uL (50.73/71.53) and e4fd83fb3852eb354a66 at 100 uL (14.67/19.14). Tests persistence versus an anomalous local observation. Frozen V1/V2: 31.450382232666016/45.267189025878906 mL.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "a5f9f0327623c4752e2e",
+      "reason": "m120, 2/1, 150 uL: supplies a composition contrast at the same loading as the selected 5/1 point and a loading contrast to 4ee22742c686bdbb1cb9 at 50 uL. Helps distinguish composition sensitivity from the unusual 5/1 loading pattern. Frozen V1/V2: 17.124357223510742/26.055931091308594 mL.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "ce14dd2481560a984aea",
+      "reason": "m177, 10/1, 100 uL: fills a loading gap next to aef5cafc63ca445e92fa at 150 uL (5.12/46.72). Tests whether early onset with late completion persists at intermediate loading. Frozen V1/V2: 6.23166561126709/43.247161865234375 mL.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "4862e2fb71344ce16021",
+      "reason": "m177, 50/1, 100 uL: interpolates between 5b706e17e8412d02342f at 50 uL (21.33/59.88) and b514312eda7950cdcf1c at 150 uL (4.49/81.30). Especially informative for learning different loading responses of V1 and V2. Frozen V1/V2: 12.789087295532227/60.05518341064453 mL.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "902937db42f82f467718",
+      "reason": "m202, 10/1, 100 uL: tests the missing middle loading between 7de812bda21b4dfe46dc at 50 uL (14.79/21.41) and cb446680f62351d087a9 at 150 uL (4.62/9.38). Covers the unusual recorded charged-P scaffold without assuming additional chemistry. Frozen V1/V2: 9.075445175170898/17.345558166503906 mL.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "c6ce120d2546ceadde09",
+      "reason": "m125, 0/1, 150 uL, 500-uL DCM plug: extends the plug-volume contrast seen at 100 uL in e7ed7ca4a53258b73ba2 and dd4f07e349873053fd73, whose V2 values are 11.22 and 22.11 mL. Tests whether the longer finish persists with increased loading. Frozen V1/V2: 7.110668659210205/14.240195274353027 mL.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "5307ce95bcee2886afe0",
+      "reason": "m65, 50/1, 100 uL: extends a meta-fluoro aryl ketone beyond measured 5/1 anchor c88ecd4aff975383199f. Paired with m64 at identical recorded loading settings, tests the predicted halogen-dependent weak-eluent response. Frozen V1/V2: 8.37609577178955/21.999298095703125 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "05c8e4d5f25c1295f231",
+      "reason": "m64, 50/1, 100 uL: complements the selected fluoro analogue and measured 10/1 anchor 84e56cf199f91314159c (6.13/13.09). Determines whether the larger predicted weak-eluent retention of the bromo analogue is reproducible. Frozen V1/V2: 13.313821792602539/26.610857009887695 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "cd12334b3ac8c4cb255a",
+      "reason": "m103, 10/1, 150 uL: adds an intermediate ratio above measured 5/1 observation 96d0f62092b2b6aec96b. With the selected 50/1 point, tests the slope underlying the predicted iodobenzoate tail. Frozen V1/V2: 10.339601516723633/20.941341400146484 mL.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "9f3b75bc3a2c4004a893",
+      "reason": "m103, 50/1, 150 uL: tests a large predicted response in an unmeasured weak-eluent region. The selected 10/1 point and measured 96d0f62092b2b6aec96b provide a condition curve rather than an isolated extreme. Frozen V1/V2: 31.688486099243164/52.22914505004883 mL.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "8d79808de7b5a47aefcd",
+      "reason": "m102, 50/1, 150 uL: provides the chloro ester comparison to m103 at the same ratio, sample amount, loading solvent, and plug volume. Extends measured 20/1 evidence 07f6d8c342b66a49bb4e, although that anchor uses 100 uL. Frozen V1/V2: 12.918379783630371/22.36815643310547 mL.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "fd8b5ea3b704959cd1ab",
+      "reason": "m127, 2/1, 100 uL: predicted V2 exceeds the measured 5/1 finish in 81ac865dd40a21b73e6d despite the stronger eluent. Tests whether this inversion is real or an interpolation failure, using identical loading settings. Frozen V1/V2: 10.416010856628418/23.956130981445312 mL.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "b0a156972380db9bb945",
+      "reason": "m127, 10/1, 150 uL: fills the gap between 50fbcf5ece9bd5fc2d70 at 5/1 and ebdeaba52880c7eade16 at 20/1. Both measured onsets are near 5 mL, whereas the middle-ratio prediction is appreciably later. Frozen V1/V2: 11.283584594726562/24.497039794921875 mL.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "de833d1e7905f1cc3be9",
+      "reason": "m118, 5/1, 150 uL: adds a missing point below loading-matched 10/1 observation ea004678fc850c759752 (19.16/30.41). Tests the transition toward delayed elution in a methoxy aromatic aldehyde and constrains endpoint-specific interpolation. Frozen V1/V2: 9.039907455444336/25.503814697265625 mL.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "7d9c7f40bc71ee7c4ef0",
+      "reason": "m190, 50/1, 100 uL: explores beyond measured strong-eluent points 88cccd3e55677c52f9b7 and 03e8372f11ac433be4fa. Tests whether the ortho-OH/aldehyde environment remains moderate under weak eluent; intramolecular H-bond shielding is only a prior. Frozen V1/V2: 10.644625663757324/29.963546752929688 mL.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "0ac58929e586a4da4056",
+      "reason": "m198, 50/1, 150 uL: extends loading-matched 20/1 observation 857ae40d0fdf1c7e387e (23.51/56.04). Tests continued growth versus saturation of an ortho-nitro aldehyde response and adds a chemically meaningful broad-endpoint comparison. Frozen V1/V2: 32.43840789794922/70.74861907958984 mL.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "3ccd6444c8a55917fbf8",
+      "reason": "m86, 5/1, 100 uL: fills the loading midpoint between c70b471334f9747d6f98 at 50 uL and 9bc73e0c27d4d6b44abb at 150 uL. Those labels show a larger onset change than finish change, providing an aminobenzoate loading reference. Frozen V1/V2: 30.882118225097656/59.62077713012695 mL.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "0d588f7534b7a34cb10a",
+      "reason": "m53, 50/1, 150 uL: extends the same-loading 10/1 and 20/1 observations 87d4aa727f2254c554ac and c5b88ffca991e883ab64. Supplies a moderate aliphatic aldehyde curve against which the much steeper m59 prediction can be assessed. Frozen V1/V2: 17.542179107666016/39.7390022277832 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "e511eaf853100c310877",
+      "reason": "m115, 10/1, 50 uL: tests whether the relatively short finish at 10/1 in 5f2fc9606fb31b009ccc is loading-specific. The measured 5/1 point cfc3cd7290e349d095d4 finishes later at 100 uL, so a universal composition adjustment is inappropriate. Frozen V1/V2: 12.35736083984375/26.48821449279785 mL.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "2bd4f8787a951ef0ee04",
+      "reason": "m194, 2/1, 50 uL: predicted V2 exceeds the loading-matched 5/1 measurement c393010c592b487413e2. Existing 2/1 evidence 2bb48a2862bf80c30a36 uses 150 uL; this label separates loading from a possible composition-response inversion. Frozen V1/V2: 8.936392784118652/28.4495792388916 mL.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "dc419b3ce4e1382aae7a",
+      "reason": "m35, 20/1, 50 uL: bridges loading-matched 10/1 and 50/1 measurements a97a618319325a403c10 and 20a5a5008211ea15a65a. Establishes an iodine-containing ketone curve for interpreting the selected iodobenzoate extrapolation. Frozen V1/V2: 16.623165130615234/30.39095687866211 mL.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "93bcd806b8dcb8c0cab9",
+      "reason": "m72, 10/1, 50 uL, DCM: fills a matched-loading composition gap between cd638c08f0b730d298e8 at 5/1 and 1b1a9ec85268aa66d327 at 20/1, where V2 rises from 31.20 to 112.07 mL. Tests the location and shape of that transition. Frozen V1/V2: 21.93927574157715/57.30459213256836 mL.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "b4351e5f05f6d477a6c0",
+      "reason": "m21, 50/1, 50 uL: extends loading-matched 10/1 observation 487606cee9b08ded91f3, whose finish was overpredicted by 9.33 mL at acquisition. Tests whether the repaired compact region transitions to the predicted moderate weak-eluent response. Frozen V1/V2: 13.941206932067871/25.397077560424805 mL.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "1e12081e646a951776b1",
+      "reason": "m47, 2/1, 150 uL: pairs with the selected pure-EA point and measured 5/1 observation 28d8efb10e9abe6740a6 at identical loading. Establishes a beta-ketonitrile response curve for transfer across carbonyl-plus-nitrile environments. Frozen V1/V2: 8.502547264099121/15.984997749328613 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "02c053f1544310b38b17",
+      "reason": "m47, 0/1, 150 uL: supplies the strong-eluent baseline for the selected 2/1 point and measured 5/1 anchor 28d8efb10e9abe6740a6. Separates baseline retention from composition sensitivity in this sparsely measured scaffold. Frozen V1/V2: 5.086248874664307/11.148327827453613 mL.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "5b445b457a8b897a2d6c",
+      "reason": "m94, 10/1, 150 uL: complements the 100-uL measurement 668279c54bbf75e86496 (21.34/45.11) and the strongly retained 20/1 region represented by ffc70e28db22d1cc1f3f. Tests loading transfer in a beta-ketoester rather than assuming near-invariant endpoints. Frozen V1/V2: 21.89175796508789/42.01300048828125 mL.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "ac81adfab5ec8ce768db",
+      "reason": "m82, 20/1, 50 uL: contrasts directly with the 150-uL measurement 07a55cdab65b05f31561 (24.32/66.92). Tests loading effects on onset and finish in the broad ethyl-acetoacetate region and complements the selected related beta-ketoester point. Frozen V1/V2: 22.34752082824707/56.22962188720703 mL.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "66747ae127e03516ffda",
+      "reason": "m203, 20/1, 150 uL: tests persistence of the delayed-onset, relatively compact interval measured at 50 uL in 9ed7c1fb1c2cc499bbf9 (37.76/44.96). Provides a tertiary-alcohol boundary for learning which loading corrections affect onset versus completion. Frozen V1/V2: 34.64978790283203/42.39899444580078 mL.",
+      "hypothesis_id": "H2"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "The steep predicted weak-eluent response of m59 may be genuine or may overtransfer behavior from related methylenedioxy aromatic carbonyls. Its side-chain aldehyde and m39's conjugated ketone need separate condition-response evidence.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "6209df8dd01072ab8a47",
+        "8641d0ec9c4b21727b9a",
+        "5524670e4337370c2ef6"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A matched-loading three-ratio curve can distinguish a learned structural relationship from an unsupported tail extrapolation, with transfer value across aldehydes, ketones, and aromatic ethers.",
+      "next_discriminating_question": "Does m59 increase gradually or sharply from 10/1 through 20/1 to 50/1, and does the m39 intermediate point support the proposed structural analogy?"
+    },
+    {
+      "id": "H2",
+      "content": "Some scaffolds show substantial loading-associated changes that differ between V1 and V2. The model's generally small loading sensitivity may miss these patterns, but isolated discrepancies do not establish a universal loading law or prove loading is the sole cause.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "71abc36775b6cce56da7",
+        "e4fd83fb3852eb354a66",
+        "5b706e17e8412d02342f",
+        "b514312eda7950cdcf1c",
+        "7de812bda21b4dfe46dc",
+        "cb446680f62351d087a9",
+        "c70b471334f9747d6f98",
+        "9bc73e0c27d4d6b44abb"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Intermediate loading labels and same-loading composition pairs can teach conditional endpoint responses across alcohols, aminobenzoates, nitro ketones, charged-P structures, and beta-ketoesters. They also help distinguish reproducible relationships from local variability.",
+      "next_discriminating_question": "Do missing loading midpoints follow the measured neighboring loads, and do larger-load extensions preserve early-onset tails or delayed-onset compact intervals?"
+    },
+    {
+      "id": "H3",
+      "content": "The model's large predicted divergence between iodinated m103 and chlorinated m102 at 50/1 may reflect a real ester response or overtransfer from iodine-containing ketones. Iodine substitution alone is insufficient chemical evidence for the predicted magnitude.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "96d0f62092b2b6aec96b",
+        "07f6d8c342b66a49bb4e",
+        "a97a618319325a403c10",
+        "20a5a5008211ea15a65a"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "The ester comparison holds recorded loading conditions fixed, while an intermediate iodoketone point supplies a functional-group reference. This can correct atom- or scaffold-level transfer across common halogenated aromatic rows.",
+      "next_discriminating_question": "Does m103 develop the predicted steep curve, and how large is its 50/1 difference from m102 under identical recorded loading conditions?"
+    },
+    {
+      "id": "H4",
+      "content": "Apparent composition-response inversions in m127, m115, and m194 require local tests. They could reflect genuine endpoint-specific behavior, loading dependence, measurement variability, or model interpolation failure; neither a universal monotonic correction nor a universal inversion is justified.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "81ac865dd40a21b73e6d",
+        "15d6bc57a87392fbeb98",
+        "50fbcf5ece9bd5fc2d70",
+        "ebdeaba52880c7eade16",
+        "5f2fc9606fb31b009ccc",
+        "cfc3cd7290e349d095d4",
+        "c393010c592b487413e2",
+        "2bb48a2862bf80c30a36"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "These measurements discriminate between smooth interpolation, onset-only anomalies, and loading-associated finish changes in frequently represented aromatic carbonyl families.",
+      "next_discriminating_question": "Does m127 really finish later at 2/1 than at 5/1, does its 10/1 onset rise above both adjacent measured ratios, and do the m115 and m194 inversions persist after changing or matching loading?"
+    },
+    {
+      "id": "H5",
+      "content": "Weak-eluent responses can be dominated by later completion, delayed onset, or both. Observed early-onset tails and delayed-onset compact intervals show that V1 and V2 need structure- and condition-specific learning rather than a shared shift based on polarity or carbonyl presence alone.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "0b9a59526d7d4ce5f872",
+        "b514312eda7950cdcf1c",
+        "9ed7c1fb1c2cc499bbf9",
+        "487606cee9b08ded91f3",
+        "1b1a9ec85268aa66d327"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Labels spanning moderate carbonyl responses and broad polar responses can constrain how corrections transfer between endpoints and chemical families. Elution interval width is a response feature, not an uncertainty estimate.",
+      "next_discriminating_question": "Which new weak-eluent points preserve early onset, which delay onset substantially, and where do intermediate-ratio labels locate the onset and finish transitions?"
+    },
+    {
+      "id": "H6",
+      "content": "For m125, larger recorded DCM loading plugs are associated with later completion at 0/1 and 1/1. This may be a learnable plug-volume interaction, although procedural variability and the inconsistent onset pattern limit causal attribution.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "e7ed7ca4a53258b73ba2",
+        "dd4f07e349873053fd73",
+        "4c32851430464f0ed684",
+        "dbb94bf062fc0e640258"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "A further loading level tests whether the plug-volume association generalizes within a molecule and can inform other rows with large loading-solvent volumes.",
+      "next_discriminating_question": "At 150-uL sample loading in pure EA, does the 500-uL DCM plug retain the later finish seen at 100 uL?"
+    }
+  ],
+  "feedback_interpretation": "Recent outcomes reinforce local corrections and separate treatment of V1 and V2. For m21, 487606cee9b08ded91f3 showed a 9.33-mL acquisition-time V2 overprediction, supporting a new weak-eluent endpoint to test where a moderate response actually begins. The m182 outcome db26f51c86dc787ac633 also weakened broad extrapolation, while m210 outcome 8303c53f92ada6350f8a showed that a nonpolar compound can still have a loading-associated late finish. The compact m80, m112, m126, and heavy-halogen observations already provide substantial coverage, so their recent results favor fewer additional routine repeats. These historical errors are not current-model residuals. I also corrected the preceding prose using the observed table: ac76ec24edfe8aec7fb2 is m56 at 40/1, not m126, and 27bac953781c17a3a74b uses 50 uL of m177, not high loading. Higher PE/EA ratios reduce EA content and weaken elution strength.",
+  "batch_rationale": "The batch contains 32 distinct new recorded condition tuples across 25 known molecules. Its largest local experiment is the three-point m59 curve, which tests a consequential but unmeasured model extrapolation; m39 and m53 provide related carbonyl references. The m103/m102 comparison and m35 interpolation test structural transfer across halogenated esters and ketones. Loading contrasts in m120, m177, m202, m86, m94, m82, and m203 address measured endpoint differences that a nearly loading-invariant predictor may miss. The m125 extension tests a recorded loading-solvent-volume interaction. Local m127, m115, and m194 experiments challenge apparent response inversions, while m118, m190, m198, m72, m21, and m47 extend useful intermediate or weak-eluent regions. Moderate-response references accompany broad-response exploration, so learning from unusual tails has boundaries. Quantile calibration remains unverified; acquisition is driven primarily by measured contrasts, missing condition relationships, and discrimination between plausible response patterns. Together these labels may improve interpolation and structural transfer across common Row-distribution families while identifying where onset and completion require different corrections."
+}

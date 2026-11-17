@@ -1,0 +1,266 @@
+{
+  "type": "selection",
+  "packet_sha256": "019d96ee5b043a1eeb46e8a03bd3d75e276ad0a5d9ca2c14d5cb57ea8a4bc2f6",
+  "batch_strategy": "Select 32 experiments using the supplied, frozen premeasurement predictions. Emphasize controlled loading and solvent-ratio contrasts where measured endpoint behavior conflicts with the predictor's nearly invariant loading response. Complete local experiments for common aromatic carbonyls, phenols, esters, and basic heteroaromatics, with a small amount of exploration in sparsely covered benzofuran conditions. Use quantile spreads only as model diagnostics; their frequent zero V2 lower bounds and quantile crossings make them unsuitable as calibrated epistemic uncertainty.",
+  "choices": [
+    {
+      "id": "5c2bc1d92128a17d996d",
+      "reason": "m125 at 2/1, 50 uL, and 300 uL DCM begins a loading-by-loading-solvent-volume experiment. At 100 uL, c8d43713db33bf820a1d and 69b09343d0b9995c3ae4 have very different completion volumes despite almost identical current predictions for the corresponding conditions.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "cc2a23d8eb9de61d2ab3",
+      "reason": "Match the preceding m125 condition with 500 uL DCM while holding sample loading fixed. This tests whether the large solvent-volume association measured at 100 uL also occurs at lower loading; 00043aebb2540e369a7b and f4fb5c03b8e8996e75f6 provide a second, 1/1 precedent.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "19f19f196ba5787a01b0",
+      "reason": "m125 at 2/1 and 150 uL with 300 uL DCM supplies the high-loading corner. Together with the selected 50 uL condition and measured c8d43713db33bf820a1d, it tests loading dependence at fixed mobile phase and loading-solvent volume.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "facbcedbecb46072b04c",
+      "reason": "Complete the m125 2-by-2 experiment with 150 uL sample and 500 uL DCM. The predictor assigns essentially the same endpoints to all four corners; the labels can distinguish a repeatable conditional surface from the heterogeneous behavior already seen in 69b09343d0b9995c3ae4 and 9bd998a328b109ef639e.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "98020153aa4fb9db9b52",
+      "reason": "Acetophenone at 10/1 and 50 uL is predicted to start at 8.25 mL, slightly before both measured 5/1 onsets in 36919bba0092c5813f87 and d2df3bff96e996e37f5d. Test that ordering and establish a common-ketone intermediate anchor without assuming strict monotonicity.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "79aff1183a902fa3fb7e",
+      "reason": "Add acetophenone at 20/1 with the same loading as the selected 10/1 point. These labels bridge the measured 5/1 results and cb42a00d7b000827217c at 50/1, distinguishing onset curvature from completion growth in common Row chemistry.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "6e66ea6808d3ce077e47",
+      "reason": "p-Methylacetophenone at 2/1 and 100 uL fills the loading midpoint between d73810c9779aede1ff57 and 05a6276f67b3cca8cc7f, whose V2 values are 8.24 and 15.79 mL. The almost loading-invariant prediction makes this a direct test of whether the intermediate response is learnable.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "6a0f32348abbc91f704c",
+      "reason": "Measure the same p-methylacetophenone loading at 5/1, creating a fixed-loading ratio contrast with the selected 2/1 point. Comparison with 6e1413072d0468278d36 at lower loading tests whether strong-eluent broadening persists or changes with ratio.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "9d3546df38b38ba16da5",
+      "reason": "The dimethyl acetophenone m33 at 5/1 and 50 uL anchors a loading contrast near the recent V2 underprediction in 068ecbf94a9e12b1b908. It tests whether that completion behavior extends from 2/1 to 5/1 and transfers across methyl substitution patterns.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "211d35ba2d70d66634dc",
+      "reason": "Pair m33 at 5/1 and 150 uL with the selected 50 uL condition. Both predictions are about 5.44/12.29 mL, whereas 003ad1a9637ac1b7c0fd shows a broad high-loading interval even at 0/1. This tests a scaffold-specific loading response rather than imposing the m32 pattern.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "3ae1262572c1d989fe91",
+      "reason": "m58 at 10/1 and 150 uL locates the phenolic response between measured strong-eluent conditions b8444451034b5fb66fa0 and cb61bc1a02701d243cae and the late 50/1 observations. Its predicted 8.78/17.19 mL remains an untested intermediate response.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "014a5a6687748dfc0ebf",
+      "reason": "Add m58 at 20/1 with exactly the same loading as the selected 10/1 condition. The pair tests where onset and completion begin accelerating, informed by 6b8fefaf0647d2239858 and 68a01853008546de06a1 at 50/1, while allowing loading differences from those anchors.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "80f546c47198fa7c6dbf",
+      "reason": "The trifluoromethoxyphenol m209 at 50/1 extends beyond measured 10/1 and 20/1 behavior in 9b1545dfa05c9439870b and bd3435c0f9b14ec7997d. Test whether its predicted late completion follows the phenolic response or develops a distinct tail; loading differs from those measured anchors.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "87265e4a49086b6ac4eb",
+      "reason": "The cyclic ester m181 at 20/1 and 50 uL extends the same-loading 10/1 observation 2cc7c8ae52cdb25ca284, which was historically underpredicted at both endpoints. This missing intermediate ratio can identify curvature before the late 50/1 behavior measured at higher loading in 3163a9b58f1a52a1992c.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "3c041f5186a291c3b313",
+      "reason": "Ethyl acetoacetate at 10/1 and 50 uL fills a ratio gap between same-loading 2/1 and 20/1 observations 6b38c8782f95c673c809 and ac81adfab5ec8ce768db. It directly tests where the long completion interval develops after the accurate recent strong-eluent anchor.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "28e9fea3e3293f2b8a0e",
+      "reason": "Phenylmalonate m75 at 50/1 tests the unmeasured weak-eluent extension of its diester curve. ce3b9d9cbe1699c7eef9 supplies a same-loading 10/1 anchor, while e35fdc08a1113b193889 supplies 20/1 evidence at higher loading; this helps separate diester topology from generic multi-carbonyl corrections.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "48679ae48dd485ffb7a6",
+      "reason": "The acetylenic diester m91 at 50/1 probes whether the modest retention measured at 20/1 in bc98537714d620facf79 and 93f10a8edf06f7acae26 persists into weaker eluent. It is a useful counterexample to predicting long completion solely from four acceptors; the selected loading is higher.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "bd2e9fee67bbba1155df",
+      "reason": "2-Phenylpyridine at 20/1 and 100 uL begins a fixed-loading weak-eluent pair. The lower-loading observations 434e465cfa7e0034f233 and 35f2be5f5aa14265e8a4 show decreasing onset but strongly increasing completion from 20/1 to 50/1, an endpoint ordering worth testing at another loading.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "449b809e4efaaf2af86a",
+      "reason": "Complete the 2-phenylpyridine pair at 50/1 and 100 uL. The predicted 24.50/61.12 mL can be compared with the selected 20/1 label and measured lower-loading 35f2be5f5aa14265e8a4 to test whether completion growth and loading effects remain endpoint-asymmetric.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "61b73b8065ae2ece22eb",
+      "reason": "Methylquinoline at 5/1 and 150 uL extends the loading series in 04a2e8ad27ca641a3a12 and 51f5ae6a991eea9e720e. Those measurements show an onset decrease with loading but nearly unchanged completion, whereas the current predictions barely respond to loading.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "76b4150b436d217e5b3e",
+      "reason": "Fluorenone at 50/1 and 100 uL adds a missing weak-eluent condition for a planar fused ketone. The broad measured interval in 204c95299f49a2bcdb61 and strong-eluent completion in 9948433906d4afa41345 motivate testing whether V2 grows while V1 remains comparatively early.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "8e4d62928039d2200288",
+      "reason": "The acetylfluorene m38 at 10/1 and 100 uL connects 7b341f30a27433562690 at 5/1 to d1e922c04dbd0c9f6c06 at 10/1 and higher loading. Together with cace6f00c46aea69fe39, it tests the onset acceleration that differs from the fused-ring carbonyl environment of fluorenone.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "ea004678fc850c759752",
+      "reason": "p-Anisaldehyde at 10/1 and 150 uL tests whether the anomalously early low-loading result 2cc254396123c76b9a13 generalizes. With the selected 5/1, 100 uL point, it completes a ratio-by-loading rectangle using measured de833d1e7905f1cc3be9 and 319e89d7000731f64e7f.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "98586ac2d6d266ddb78c",
+      "reason": "p-Anisaldehyde at 5/1 and 100 uL supplies the other missing rectangle corner. This allows direct ratio contrasts at both 100 and 150 uL and loading contrasts at both ratios, helping distinguish a conditional response from the unusual 10/1 observations.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "fcb9019ffbdb889489f7",
+      "reason": "o-Nitrobenzaldehyde at 10/1 and 100 uL fills the gap between 4da6e3b93f29af1efa94's condition prediction and measured 20/1 behavior; measured anchors are 5a279bc25d91d033acdc at 5/1 and 163874b97308a1ea2507 at 20/1. Compare with para-isomer 38e6b8bf0f089fcadd80 only as a different carbonyl scaffold, and with para-aldehyde a01a137fa48c1391b9e7 for positional transfer.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "52b9af4df1f1e7cd4d9b",
+      "reason": "o-Methoxyacetophenone at 50/1 and 50 uL tests an unresolved loading region: a3ae677aae8a8faf5786 and c82167c626a1495ef750 have radically different onsets at 100 and 150 uL. Treat those unusual intervals as heterogeneous evidence; a new loading anchor can constrain their transfer to related oxygenated ketones.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "f2f1228ed527e78379ef",
+      "reason": "The neutral fused aromatic m4 at 50/1 and 100 uL fills the middle of a loading curve whose 150 uL endpoint is measured in 10c3ccc6c179f32c6ff3. The recent completion underprediction in c8324c0c30b89615c5fe makes this a targeted test of broad intervals without polar functionality.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "42b3b7216aee53ebe1cc",
+      "reason": "Add m4 at 50/1 and 50 uL to complete that loading curve. Lower- and higher-loading 20/1 observations 2df9d2f88ac69c5229e5 and c8324c0c30b89615c5fe differ substantially in V2; test whether the loading association persists at 50/1 despite flat predictions.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "a92f7617b135de150588",
+      "reason": "Nitrophenethyl alcohol at 2/1 and 50 uL extends the loading series in 3fbf4a3d05e84138e1e2 and f91285c618eacb53538b. This donor/nitro context already has long completion under relatively strong eluent, providing a discriminating contrast to the later phenolic transitions.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "19e5d078bc0eb8a91e1e",
+      "reason": "Bromobenzofuran at 50/1 and 50 uL provides a weak-eluent exploration point for sparse supplied coverage, including bb387f1af7263b2445fb at 5/1 and higher loading. Pair it with the selected 10/1 point to test the predicted completion increase associated with its heteroaromatic oxygen environment.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "a421784c91de559c18e0",
+      "reason": "The multi-carbonyl acrylate m13 at 5/1 and 100 uL interpolates between 1cc3b837c6561b1c0a23 and 5d530b2f228ed39ff952: onset changes appreciably with loading while completion remains near 40\u201344 mL. Its much shorter completion than ether-containing acetoacetate d1172a49fca1e196a59f helps teach topology-specific transfer.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "1525a3663c8d039331ed",
+      "reason": "Bromobenzofuran at 10/1 and 50 uL establishes the moderate-ratio anchor for the selected 50/1 condition. The matched pair separates its ratio response from loading differences relative to bb387f1af7263b2445fb and tests transfer from better represented aromatic ethers.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Loading and loading-solvent-volume associations are scaffold- and ratio-dependent. Some substantial endpoint changes may be predictable from the recorded conditions, although the current predictor nearly averages over these contrasts and some variation may remain unexplained.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "00043aebb2540e369a7b",
+        "f4fb5c03b8e8996e75f6",
+        "c8d43713db33bf820a1d",
+        "69b09343d0b9995c3ae4",
+        "74cf50c6ec476a394b01",
+        "c4b5a5499258f39b7ac1",
+        "2df9d2f88ac69c5229e5",
+        "c8324c0c30b89615c5fe"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Balanced contrasts can improve conditional endpoint supervision and reveal where a common loading correction would fail. They also distinguish consistent recorded-condition associations from isolated heterogeneous labels.",
+      "next_discriminating_question": "Does the m125 solvent-volume association at 2/1 persist at both 50 and 150 uL, and does neutral m4 show a consistent V2 loading curve at 50/1?"
+    },
+    {
+      "id": "H2",
+      "content": "Ester and multi-carbonyl weak-eluent responses differ strongly by topology; completion growth cannot be inferred from carbonyl or acceptor count alone.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "ac81adfab5ec8ce768db",
+        "3fc05dc2025715e68174",
+        "d1172a49fca1e196a59f",
+        "2cc7c8ae52cdb25ca284",
+        "f7d57d8bb988f7016502",
+        "bc98537714d620facf79"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Missing intermediate and weak-eluent labels can teach when ester topology delays onset, broadens completion, or retains a modest interval, limiting inappropriate transfer across acceptor-rich families.",
+      "next_discriminating_question": "Where do the m82 and m181 curves accelerate, and do phenylmalonate and the acetylenic diester preserve their distinct completion responses at 50/1?"
+    },
+    {
+      "id": "H3",
+      "content": "Donor-containing scaffolds have distinct response shapes. The location of phenolic curvature remains unresolved, while nitroalcohol observations show that long completion can already occur at comparatively strong eluent.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "b8444451034b5fb66fa0",
+        "6b8fefaf0647d2239858",
+        "68a01853008546de06a1",
+        "9b1545dfa05c9439870b",
+        "bd3435c0f9b14ec7997d",
+        "3fbf4a3d05e84138e1e2",
+        "f91285c618eacb53538b"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Matched ratio anchors can distinguish delayed onset from completion growth and prevent a uniform donor-based retention or interval correction.",
+      "next_discriminating_question": "How much of m58's weak-eluent response develops between 10/1 and 20/1, and does m209 continue its measured completion growth toward 50/1?"
+    },
+    {
+      "id": "H4",
+      "content": "Common aromatic ketones and aldehydes require endpoint-specific ratio responses conditioned on substitution, ring topology, neighboring heteroatoms, and loading. Smooth solvent-response curves are useful priors, but unusual supplied observations require direct tests.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "36919bba0092c5813f87",
+        "d2df3bff96e996e37f5d",
+        "cb42a00d7b000827217c",
+        "05a6276f67b3cca8cc7f",
+        "068ecbf94a9e12b1b908",
+        "24a9086a8e2c8015c232",
+        "cace6f00c46aea69fe39",
+        "b645df00945e594953a6"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "These abundant Row families offer broad generalization value. Local ratio and loading experiments supervise onset and completion separately instead of spreading a single correction across aromatic carbonyls.",
+      "next_discriminating_question": "Do the new acetophenone intermediates, methyl-ketone loading contrasts, and anisaldehyde rectangle reveal consistent conditional curves or persistent unexplained heterogeneity?"
+    },
+    {
+      "id": "H5",
+      "content": "Basic heteroaromatic completion can grow much more strongly than onset under weak eluent, with substitution and loading changing that balance. Strong-eluent accuracy does not establish the weak-eluent response.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "434e465cfa7e0034f233",
+        "35f2be5f5aa14265e8a4",
+        "d119d77f545c029deace",
+        "04a2e8ad27ca641a3a12",
+        "51f5ae6a991eea9e720e",
+        "b6229f0445560a4a54ed"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Fixed-loading ratio contrasts and a complementary loading extension can improve transfer among basic nitrogen environments while keeping onset and completion slopes distinct.",
+      "next_discriminating_question": "At 100 uL, does 2-phenylpyridine reproduce the large 20/1-to-50/1 completion increase seen at lower loading, and does methylquinoline retain stable completion as loading increases at 5/1?"
+    }
+  ],
+  "feedback_interpretation": "Recent acquisition outcomes shifted emphasis toward controlled endpoint and loading experiments. The m181 10/1 label was underpredicted by 7.01/6.25 mL, supporting a missing cyclic-ester response anchor. m58's strong-eluent errors were small compared with its 50/1 underprediction, but those endpoints do not locate the intervening curvature. The recent m32 and m33 results exposed V2 underpredictions of 5.82 and 4.02 mL under strong eluent, motivating loading contrasts within ordinary ketones. Neutral m4 also had a 6.23 mL V2 underprediction, weakening an explanation that attributes every long interval to polar functionality. Conversely, recent m168 and strong-eluent m82 results were close to their acquisition predictions, reducing the value of further similar baseline labels. The moderate recent amino-ester and methylquinoline errors favor local nitrogen response tests over a nitrogen-wide adjustment. Historical acquisition errors guide these priorities; they are not treated as current-model residuals.",
+  "batch_rationale": "The batch contains several connected experiments rather than independent selections of large predictions. Four m125 conditions complete a loading-by-loading-solvent-volume experiment around an existing 100 uL contrast. Two m4 conditions complete a neutral weak-eluent loading curve. Common-ketone measurements supply a fixed-loading acetophenone ratio series, loading midpoints for p-methylacetophenone, and a matched dimethyl-ketone loading pair. Two anisaldehyde measurements complete a rectangle with existing opposite corners, making its unusual observations more interpretable. Phenolic, ester, and nitrogen measurements fill scientifically meaningful response gaps, while fused carbonyls, nitro substitution, and benzofuran test transfer across atom environments. Existing accurate baselines and modest-retention diesters constrain overgeneralization from failure regions. Many supplied predictions barely change with loading, so these experiments may improve conditional fitting or establish more representative averages where variation remains unexplained. No causal loading mechanism or absent experimental variable is assumed. This allocation targets relationships shared across many Row conditions while retaining focused exploration of less covered responses."
+}

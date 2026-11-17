@@ -1,0 +1,202 @@
+{
+  "checked_utc": "2026-11-14T00:40:51.725707+00:00",
+  "automation_id": "nocw-lcmd32-l1485",
+  "per_seed": [
+    {
+      "method": "nocw",
+      "seed": 157,
+      "completed_rounds": 27,
+      "completed_budget": 1197,
+      "latest_fit_receipt": "nocw/runtime/seed_157/llm32_nocw/round_27/prediction_freeze.json",
+      "metric": 0.3874525412046782,
+      "last_valid_progress_utc": "2026-11-13T16:57:45.741595+00:00"
+    },
+    {
+      "method": "cw",
+      "seed": 157,
+      "completed_rounds": 36,
+      "completed_budget": 1485,
+      "latest_fit_receipt": "cw_lcmd/runtime/seed_157/center_width_lcmd/round_36/fit_receipt.json",
+      "metric": 0.3210891845196956,
+      "last_valid_progress_utc": "2026-11-13T16:37:39.878843+00:00"
+    },
+    {
+      "method": "nocw",
+      "seed": 887,
+      "completed_rounds": 24,
+      "completed_budget": 1101,
+      "latest_fit_receipt": "nocw/runtime/seed_887/llm32_nocw/round_24/prediction_freeze.json",
+      "metric": 0.32599877036613756,
+      "last_valid_progress_utc": "2026-11-13T17:19:49.671760+00:00"
+    },
+    {
+      "method": "cw",
+      "seed": 887,
+      "completed_rounds": 36,
+      "completed_budget": 1485,
+      "latest_fit_receipt": "cw_lcmd/runtime/seed_887/center_width_lcmd/round_36/fit_receipt.json",
+      "metric": 0.2942850078069818,
+      "last_valid_progress_utc": "2026-11-13T23:48:57.029199+00:00"
+    },
+    {
+      "method": "nocw",
+      "seed": 2357,
+      "completed_rounds": 28,
+      "completed_budget": 1229,
+      "latest_fit_receipt": "nocw/runtime/seed_2357/llm32_nocw/round_28/prediction_freeze.json",
+      "metric": 0.3989911437419851,
+      "last_valid_progress_utc": "2026-11-13T16:47:45.089624+00:00"
+    },
+    {
+      "method": "cw",
+      "seed": 2357,
+      "completed_rounds": 36,
+      "completed_budget": 1485,
+      "latest_fit_receipt": "cw_lcmd/runtime/seed_2357/center_width_lcmd/round_36/fit_receipt.json",
+      "metric": 0.3204339376711008,
+      "last_valid_progress_utc": "2026-11-13T22:46:18.236050+00:00"
+    },
+    {
+      "method": "nocw",
+      "seed": 6101,
+      "completed_rounds": 28,
+      "completed_budget": 1229,
+      "latest_fit_receipt": "nocw/runtime/seed_6101/llm32_nocw/round_28/prediction_freeze.json",
+      "metric": 0.44019817498567043,
+      "last_valid_progress_utc": "2026-11-13T13:58:25.965719+00:00"
+    },
+    {
+      "method": "cw",
+      "seed": 6101,
+      "completed_rounds": 36,
+      "completed_budget": 1485,
+      "latest_fit_receipt": "cw_lcmd/runtime/seed_6101/center_width_lcmd/round_36/fit_receipt.json",
+      "metric": 0.39286565924011657,
+      "last_valid_progress_utc": "2026-11-13T21:37:07.849507+00:00"
+    },
+    {
+      "method": "nocw",
+      "seed": 12203,
+      "completed_rounds": 30,
+      "completed_budget": 1293,
+      "latest_fit_receipt": "nocw/runtime/seed_12203/llm32_nocw/round_30/prediction_freeze.json",
+      "metric": 0.3762208926346734,
+      "last_valid_progress_utc": "2026-11-13T17:38:00.957022+00:00"
+    },
+    {
+      "method": "cw",
+      "seed": 12203,
+      "completed_rounds": 36,
+      "completed_budget": 1485,
+      "latest_fit_receipt": "cw_lcmd/runtime/seed_12203/center_width_lcmd/round_36/fit_receipt.json",
+      "metric": 0.36663063137862456,
+      "last_valid_progress_utc": "2026-11-13T23:09:37.711541+00:00"
+    }
+  ],
+  "totals": {
+    "nocw": 137,
+    "cw": 180
+  },
+  "new_progress": [],
+  "live_workers": 0,
+  "completed_trajectories": [
+    {
+      "method": "cw",
+      "seed": 157,
+      "budget": 1485,
+      "deep_audit": "reports/first_completed_CW_seed157_validation_audit.json"
+    },
+    {
+      "method": "cw",
+      "seed": 6101,
+      "budget": 1485,
+      "deep_audit": "reports/completed_CW_seed6101_validation_audit.json"
+    },
+    {
+      "method": "cw",
+      "seed": 2357,
+      "budget": 1485,
+      "deep_audit": "reports/completed_CW_seed2357_validation_audit.json"
+    },
+    {
+      "method": "cw",
+      "seed": 12203,
+      "budget": 1485,
+      "deep_audit": "reports/completed_CW_seed12203_validation_audit.json"
+    },
+    {
+      "method": "cw",
+      "seed": 887,
+      "budget": 1485,
+      "deep_audit": "reports/completed_CW_seed887_validation_audit.json"
+    }
+  ],
+  "failures": [
+    {
+      "method": "nocw",
+      "seed": 157,
+      "reason": "provider terminal failure code: upstream_error",
+      "completed_rounds": 27,
+      "completed_budget": 1197,
+      "recovery_status": "PREPARED_AWAITING_EXPLICIT_ALL_FIVE_RECOVERY_APPROVAL",
+      "pending_user_question": true
+    },
+    {
+      "method": "nocw",
+      "seed": 887,
+      "reason": "provider terminal failure code: upstream_error",
+      "completed_rounds": 24,
+      "completed_budget": 1101,
+      "recovery_status": "PREPARED_AWAITING_EXPLICIT_ALL_FIVE_RECOVERY_APPROVAL",
+      "pending_user_question": true
+    },
+    {
+      "method": "nocw",
+      "seed": 2357,
+      "reason": "provider terminal failure code: upstream_error",
+      "completed_rounds": 28,
+      "completed_budget": 1229,
+      "recovery_status": "PREPARED_AWAITING_EXPLICIT_ALL_FIVE_RECOVERY_APPROVAL",
+      "pending_user_question": true
+    },
+    {
+      "method": "nocw",
+      "seed": 6101,
+      "reason": "provider terminal failure code: upstream_error",
+      "completed_rounds": 28,
+      "completed_budget": 1229,
+      "recovery_status": "PREPARED_AWAITING_EXPLICIT_ALL_FIVE_RECOVERY_APPROVAL",
+      "pending_user_question": true
+    },
+    {
+      "method": "nocw",
+      "seed": 12203,
+      "reason": "provider terminal failure code: upstream_error",
+      "completed_rounds": 30,
+      "completed_budget": 1293,
+      "recovery_status": "PREPARED_AWAITING_EXPLICIT_ALL_FIVE_RECOVERY_APPROVAL",
+      "pending_user_question": true
+    }
+  ],
+  "known_waiting_issue": "Multiple live workers have waited a long time for two busy compute slots. Confirm progress and distinguish queue delay from dead processes; avoid duplicate alerts.",
+  "keep_awake_active": false,
+  "notified_events": [
+    "CW_SEED157_VERIFIED_L1485",
+    "NOCW_UPSTREAM_STOP_887_R24_2357_R28_20261114",
+    "ALL_FIVE_NOCW_UPSTREAM_STOP_20261114",
+    "PAIRED_ALL_FIVE_L1005_VERIFIED_20261114",
+    "ALL_FIVE_CW_VERIFIED_L1485_20261114"
+  ],
+  "recovery_plan": "upstream_recovery_all_five_plan_20261114.json",
+  "decision": "DONT_NOTIFY",
+  "reason": "Frozen progress unchanged: CW180/180 verified, NoCW137/180 halted with43 rounds remaining. No recovery authorization or launch. Existing upstream failures already notified; await user confirmation without restarting.",
+  "milestone_L1005_report": "reports/milestone_L1005_20261114/summary.json",
+  "compute_status": {
+    "cw_157": "VERIFIED_COMPLETE",
+    "cw_887": "VERIFIED_COMPLETE",
+    "cw_2357": "VERIFIED_COMPLETE",
+    "cw_6101": "VERIFIED_COMPLETE",
+    "cw_12203": "VERIFIED_COMPLETE"
+  },
+  "cw_completion_summary": "reports/cw_five_complete_20261114/summary.json"
+}

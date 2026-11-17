@@ -1,0 +1,267 @@
+{
+  "type": "selection",
+  "packet_sha256": "d6c3bfcabefe9017bf5b4ec7e0e046863071bfd9c881c4f5488b9f89c34aa8e9",
+  "batch_strategy": "condition-response coverage with endpoint-failure repair, matched ratio and loading contrasts, and strong-eluent anchors",
+  "choices": [
+    {
+      "id": "cd29e6174c638a44ccc9",
+      "reason": "m54 at 20/1 and 50 ul adds a moderate weak-eluent point for a common aryl ketone family, improving interpolation between compact and delayed carbonyl rows.",
+      "hypothesis_id": "H_TAIL"
+    },
+    {
+      "id": "6e4be94a2a9069414c1c",
+      "reason": "m41 at 0/1 and 150 ul supplies a strong-eluent anchor for a compact methyl aryl ketone, helping constrain transfer from weak-eluent carbonyl failures such as 8b9ff1a26d840aaa6a49.",
+      "hypothesis_id": "H_TAIL"
+    },
+    {
+      "id": "af576fcceff1771557c3",
+      "reason": "m137 at 1/1 provides a common halogenated hydrocarbon anchor with no donor or acceptor, useful for separating simple compact behavior from polar tail corrections.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "dafe887ed8c49efe19b9",
+      "reason": "m135 at 1/1 and low amount supplies a strong-eluent alcohol point. It tests local alcohol onset behavior against the amount- and scaffold-dependent observations f15b726ca5b4897ed80c and 859ae738b615cf17b849.",
+      "hypothesis_id": "H_ALCOHOL"
+    },
+    {
+      "id": "f2d70789748f1f0b5076",
+      "reason": "m2 at 5/1 fills an intermediate-strength point for a donor-free dibromide scaffold, improving coverage of condition effects in compact nonpolar chemistry.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "32326acee85181b5df10",
+      "reason": "m72 at 5/1 and 50 ul directly probes the low-amount region of an inconsistent response curve. It helps distinguish reproducible amount-by-ratio behavior from the conflicting m72 outcomes 93bcd806b8dcb8c0cab and 7383949c431e18f39597.",
+      "hypothesis_id": "H_LOADING"
+    },
+    {
+      "id": "073bc395a08f48db4fc0",
+      "reason": "m118 at 0/1 provides a strong-eluent aldehyde anchor before the measured 2/1 and 10/1 responses, supporting separate learning of onset and completion.",
+      "hypothesis_id": "H_TAIL"
+    },
+    {
+      "id": "3cd6baf11210b3dcfb43",
+      "reason": "m104 at 10/1 and 100 ul adds an aminoester condition in a region where nitrogen-containing compounds show scaffold-specific delayed responses.",
+      "hypothesis_id": "H_N"
+    },
+    {
+      "id": "a86de29046ff51f1300b",
+      "reason": "m80 at 2/1 and 150 ul supplies an ester-family intermediate point while retaining a PE loading solvent, useful for separating solvent-strength effects from loading amount.",
+      "hypothesis_id": "H_EST"
+    },
+    {
+      "id": "b81fe27eac5700614ba2",
+      "reason": "m155 at 2/1 and high amount gives a donor-free fluorinated aromatic anchor between compact and broad-completion fluorinated rows, improving boundary calibration.",
+      "hypothesis_id": "H_TAIL"
+    },
+    {
+      "id": "cb42a00d7b000827217c",
+      "reason": "m42 at 50/1 targets a high-ratio aryl ketone boundary where related measured carbonyl rows such as 8b9ff1a26d840aaa6a49 show large endpoint errors.",
+      "hypothesis_id": "H_TAIL"
+    },
+    {
+      "id": "b0121185356dad207689",
+      "reason": "m97 at 1/1 and 50 ul adds a low-amount ester anchor before stronger weak-eluent responses, helping the model learn local ester curvature.",
+      "hypothesis_id": "H_EST"
+    },
+    {
+      "id": "38c7016974af225a3cde",
+      "reason": "m122 at 1/1 and 50 ul expands the ether and halogenated aromatic family at low loading, testing whether acceptor-rich and donor-free analogies transfer locally.",
+      "hypothesis_id": "H_EST"
+    },
+    {
+      "id": "fce2741d123dd81a8fa6",
+      "reason": "m15 at 20/1 and 50 ul samples a weak-eluent acrylate condition and broadens coverage of ester response behavior without duplicating the selected m56 ratio pair.",
+      "hypothesis_id": "H_EST"
+    },
+    {
+      "id": "47517ae6403bfcb12df7",
+      "reason": "m10 at 10/1 and 150 ul tests a high-loading aromatic hydrocarbon response in the middle of its ratio range, useful for separating loading effects from weak-eluent curvature.",
+      "hypothesis_id": "H_LOADING"
+    },
+    {
+      "id": "97fe38c6942b67ea70b2",
+      "reason": "m16 at 50/1 and 50 ul probes a high-ratio long-chain acrylate regime, adding chemically distinct endpoint information to the ester family.",
+      "hypothesis_id": "H_EST"
+    },
+    {
+      "id": "5a32e0aa027d68fcb9f3",
+      "reason": "m22 at 50/1 and 100 ul extends a donor-free acrylate response into a weak-eluent tail region, testing whether broad completion is local to specific ether environments.",
+      "hypothesis_id": "H_EST"
+    },
+    {
+      "id": "9dd4e8dae2357c6de73e",
+      "reason": "m100 at 20/1 and 50 ul fills a weak-eluent ester condition at low amount and can constrain transfer between compact and delayed benzoate-like rows.",
+      "hypothesis_id": "H_EST"
+    },
+    {
+      "id": "cb839ce268b9ea4fa20b",
+      "reason": "m56 at 10/1 and 50 ul is the first member of a matched same-amount ratio curve; it tests where its completion begins to grow under PE-rich conditions.",
+      "hypothesis_id": "H_EST"
+    },
+    {
+      "id": "ffa53b3aa054bc392704",
+      "reason": "m196 at 20/1 and 100 ul adds a halogenated fused-ring aldehyde point in a high-width region, helping repair scaffold-specific completion tails.",
+      "hypothesis_id": "H_TAIL"
+    },
+    {
+      "id": "d22eb7805d90b684e45f",
+      "reason": "m48 at 0/1 supplies a compact low-polarity anchor for a less represented functional environment, improving broad chemical coverage without assuming a universal retention rule.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "636bb485cffdeb41ee1c",
+      "reason": "m132 at 5/1 and 50 ul provides a compact hydrocarbon control at intermediate strength, useful against the anomalous low-loading m133 observation a7a814c9db59a62411a2.",
+      "hypothesis_id": "H_LOADING"
+    },
+    {
+      "id": "513b3a56de5558e0b2ce",
+      "reason": "m170 at 1/1 and 150 ul anchors a chloroalkyl aryl ketone before weaker-eluent carbonyl transitions, improving local onset and completion interpolation.",
+      "hypothesis_id": "H_TAIL"
+    },
+    {
+      "id": "40dbbf2e58a6065b2b52",
+      "reason": "m198 at 0/1 and 100 ul supplies a strong-eluent nitrobenzaldehyde anchor before the large endpoint changes seen in related nitro and aldehyde rows.",
+      "hypothesis_id": "H_TAIL"
+    },
+    {
+      "id": "60f62af0f813d1d7e740",
+      "reason": "m56 at 20/1 and 50 ul pairs with cb839ce268b9ea4fa20b at fixed amount and loading solvent, directly measuring the ratio response of the same ester scaffold.",
+      "hypothesis_id": "H_EST"
+    },
+    {
+      "id": "39963f2ef0f22d86beed",
+      "reason": "m58 at 20/1 and 50 ul adds a weak-eluent phenol condition at low amount, testing whether alcohol and phenol tails share or diverge in onset and completion.",
+      "hypothesis_id": "H_ALCOHOL"
+    },
+    {
+      "id": "7945dfcb6be718f22113",
+      "reason": "m159 at 0/1 and 100 ul is a strong-eluent anchor for the catastrophic delayed response measured at 50/1 in a nitrile benzophenone; it helps locate where the tail begins.",
+      "hypothesis_id": "H_TAIL"
+    },
+    {
+      "id": "592318a94c7b0ce1eb88",
+      "reason": "m133 at 50/1 and 150 ul tests amount transfer in a compact hydrocarbon family with the extreme low-loading counterexample a7a814c9db59a62411a2.",
+      "hypothesis_id": "H_LOADING"
+    },
+    {
+      "id": "a01ddd20ae3501ca9881",
+      "reason": "m166 at 1/1 and 150 ul supplies an earlier anchor for a two-carbonyl aromatic scaffold whose weaker-eluent completion is uncertain, separating onset from endpoint growth.",
+      "hypothesis_id": "H_TAIL"
+    },
+    {
+      "id": "18355dfa0f6e519b7bf6",
+      "reason": "m29 at 0/1 and 100 ul provides a strong-eluent aryl ketone control for learning how much delayed behavior is introduced by weaker solvent strength.",
+      "hypothesis_id": "H_TAIL"
+    },
+    {
+      "id": "f61d410c5d674ab2fa28",
+      "reason": "m192 at 10/1 and 50 ul fills an intermediate halogenated aldehyde condition between strong-eluent anchors and weak-eluent tail behavior, improving curve shape learning.",
+      "hypothesis_id": "H_TAIL"
+    },
+    {
+      "id": "7bb758eca7db78231165",
+      "reason": "m91 at 2/1 and 50 ul adds a compact multi-ester anchor in a high-uncertainty condition region, helping distinguish broad acceptor-count effects from local structure behavior.",
+      "hypothesis_id": "H_EST"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H_TAIL",
+      "content": "Large completion errors cluster in scaffold-specific aromatic carbonyl, sulfur-containing, nitrile, and fused-ring environments rather than following one universal polarity correction.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "49201b5817f204116f7f",
+        "a17bcdddcf0799baeee2",
+        "0c5c35afb3a24375c153",
+        "48853fd78c77153b963a",
+        "b514312eda7950cdcf1c",
+        "f90a5a5a54509c085ebd",
+        "92f7fe9d8581717a9949"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Strong and intermediate condition anchors allow QGeoGNN to learn where completion tails begin instead of averaging compact and delayed rows.",
+      "next_discriminating_question": "Which structural and solvent-strength features distinguish gradual completion growth from abrupt long-tail transitions?"
+    },
+    {
+      "id": "H_N",
+      "content": "Nitrogen-containing molecules require structure-specific eluent-response curves; aromatic nitrogen, aminoesters, and aliphatic amines should not inherit one common delayed-retention correction.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "49201b5817f204116f7f",
+        "d119d77f545c029deace",
+        "449b809e4efaaf2af86a",
+        "bd2e9fee67bbba1155df",
+        "6d21e9ec887b3408c612",
+        "f8dff14aa7f68363fa60",
+        "d5234e966aa231be05e5",
+        "ab4326dd3bd3b0e07f81"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Local aminoester and aromatic nitrogen anchors can improve conditional transfer across a high-error heteroatom family.",
+      "next_discriminating_question": "Which nitrogen environment and solvent-strength features predict a compact-to-delayed transition?"
+    },
+    {
+      "id": "H_LOADING",
+      "content": "Loading amount and loading package interact with retention in some local series, but recorded amount is not a reliable universal deterministic correction.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "c0094343ab6bb16bc58b",
+        "e8185e062559aff5c99e",
+        "d7895c522a1a46a1175c",
+        "dbb94bf062fc0e640258"
+      ],
+      "contradicting_observed_ids": [
+        "93bcd806b8dcb8c0cab9",
+        "7383949c431e18f39597",
+        "5879dc8ccb560446d54c",
+        "a9500e468002e41eceeb"
+      ],
+      "confidence": "medium",
+      "status": "weakened",
+      "why_it_matters_for_model_learning": "Matched amount and ratio points can teach useful interactions while limiting overfitting to a global loading correction.",
+      "next_discriminating_question": "Which molecule-condition families show reproducible amount effects after ratio and loading solvent are controlled?"
+    },
+    {
+      "id": "H_EST",
+      "content": "Ester, ether, acrylate, and multi-carbonyl ester families have distinct local retention curves that are poorly represented by acceptor counts alone.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "08155ffdcb0d27576050",
+        "4756b7ebb0be7c63e552",
+        "d1172a49fca1e196a59f",
+        "374b71ac526fe1051993",
+        "b4351e5f05f6d477a6c0",
+        "c86b03e1b275528444a6"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The selected ester-family points create local condition curves that can improve transfer among common acceptor-rich rows.",
+      "next_discriminating_question": "Do the ester-family curves preserve their distinct endpoint growth after ratio and amount are varied?"
+    },
+    {
+      "id": "H_ALCOHOL",
+      "content": "Alcohol and phenol onset and completion respond differently, with scaffold, amount, and eluent strength jointly controlling the response.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "f15b726ca5b4897ed80c",
+        "859ae738b615cf17b849",
+        "067260cef0fb89f79291",
+        "09b1bb29e7a0e3565a0d",
+        "48853fd78c77153b963a",
+        "b7cf293311f83700cd9a"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Alcohol and phenol anchors can repair endpoint-specific transfer without imposing one generic OH correction.",
+      "next_discriminating_question": "Where do loading and ring attachment change the onset transition, and does completion remain broad afterward?"
+    }
+  ],
+  "feedback_interpretation": "The previous round reinforced that pure-EA and weak-eluent completion tails are scaffold-specific, especially for m125, m92, m159, m178, m205, m177, and m128. It also weakened a universal loading law: m72 and related amount series show substantial local structure but inconsistent transfer. Nitrogen and alcohol outcomes continue to support separate endpoint curves and stronger-eluent anchors. The corrected batch therefore emphasizes legal candidate rows that connect strong anchors to weak-eluent boundary conditions, while retaining matched amount and ratio pairs for estimating reproducible interactions.",
+  "batch_rationale": "The batch contains 32 distinct supplied candidates. It combines strong-eluent anchors, weak-eluent boundary points, and same-molecule ratio or amount contrasts across carbonyl, ester, nitrogen, alcohol, phenol, hydrocarbon, and halogenated families. The m56 pair directly measures a ratio curve; m72, m80, m10, m132, and m133 probe loading transfer; m159, m166, m192, m198, m42, and related carbonyl rows repair high-impact endpoint failures. This mix should improve QGeoGNN generalization by teaching conditional structure-condition-retention relationships rather than applying a single polarity, loading, or functional-group correction."
+}

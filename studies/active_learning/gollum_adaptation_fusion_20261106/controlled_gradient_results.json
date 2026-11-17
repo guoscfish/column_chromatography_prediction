@@ -1,0 +1,103 @@
+{
+  "source": "gp_training.py",
+  "source_sha256": "4dcca8c0c7cf3bfd587151760a4322045b80f6cae4b3aab40b90f4afe6c4066f",
+  "scope": "Actual intercepted optimizer closures; synthetic float64 systems only",
+  "finite_difference": {
+    "converged_stage1": {
+      "parameter_count": 21,
+      "objective": 49.75811631158044,
+      "max_absolute_error": 1.0666418859273108e-08,
+      "max_scaled_error": 5.670454149557028e-09,
+      "analytic_gradient_norm": 43.888194779645815,
+      "passed": true
+    },
+    "noise_floor_stage1": {
+      "parameter_count": 21,
+      "objective": 49.75811631158044,
+      "max_absolute_error": 1.0666418859273108e-08,
+      "max_scaled_error": 5.670454149557028e-09,
+      "analytic_gradient_norm": 43.888194779645815,
+      "passed": true
+    },
+    "original_stage1": {
+      "parameter_count": 21,
+      "objective": 49.75811631158044,
+      "max_absolute_error": 1.0666418859273108e-08,
+      "max_scaled_error": 5.670454149557028e-09,
+      "analytic_gradient_norm": 43.888194779645815,
+      "passed": true
+    },
+    "regularized_stage1": {
+      "parameter_count": 21,
+      "objective": 49.86276039694091,
+      "max_absolute_error": 1.0559875418536535e-08,
+      "max_scaled_error": 5.673167378779775e-09,
+      "analytic_gradient_norm": 43.87518488036978,
+      "passed": true
+    },
+    "staged_stage1": {
+      "parameter_count": 21,
+      "objective": 49.75811631158044,
+      "max_absolute_error": 1.0666418859273108e-08,
+      "max_scaled_error": 5.670454149557028e-09,
+      "analytic_gradient_norm": 43.888194779645815,
+      "passed": true
+    },
+    "staged_stage2": {
+      "parameter_count": 3,
+      "objective": 49.75811631158044,
+      "max_absolute_error": 4.334828496155296e-09,
+      "max_scaled_error": 9.830050004471548e-10,
+      "analytic_gradient_norm": 38.677252912766974,
+      "passed": true
+    }
+  },
+  "kernel_consistency": {
+    "converged": {
+      "covariance_error_standardized": 2.7755575615628914e-16,
+      "raw_nll_jacobian_error": 3.552713678800501e-14,
+      "penalty": 0.0,
+      "train_query_transform_consistent": true,
+      "fixed_representation_in_second_stage": false,
+      "passed": true
+    },
+    "noise_floor": {
+      "covariance_error_standardized": 2.7755575615628914e-16,
+      "raw_nll_jacobian_error": 3.552713678800501e-14,
+      "penalty": 0.0,
+      "train_query_transform_consistent": true,
+      "fixed_representation_in_second_stage": false,
+      "passed": true
+    },
+    "original": {
+      "covariance_error_standardized": 2.7755575615628914e-16,
+      "raw_nll_jacobian_error": 3.552713678800501e-14,
+      "penalty": 0.0,
+      "train_query_transform_consistent": true,
+      "fixed_representation_in_second_stage": false,
+      "passed": true
+    },
+    "regularized": {
+      "covariance_error_standardized": 2.7755575615628914e-16,
+      "raw_nll_jacobian_error": 3.552713678800501e-14,
+      "penalty": 0.10464408536047212,
+      "train_query_transform_consistent": true,
+      "fixed_representation_in_second_stage": false,
+      "passed": true
+    },
+    "staged": {
+      "covariance_error_standardized": 2.220446049250313e-16,
+      "raw_nll_jacobian_error": 3.552713678800501e-14,
+      "penalty": 0.0,
+      "train_query_transform_consistent": true,
+      "fixed_representation_in_second_stage": true,
+      "passed": true
+    }
+  },
+  "original_matches_legacy": true,
+  "test_count": 6,
+  "success": true,
+  "failures": 0,
+  "errors": 0,
+  "source_unchanged": true
+}

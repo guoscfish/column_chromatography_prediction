@@ -1,0 +1,161 @@
+{
+  "verified_utc": "2026-11-13T23:57:05.897739+00:00",
+  "method": "CW-gradient LCMD32",
+  "status": "ALL_FIVE_VERIFIED_COMPLETE",
+  "seeds": [
+    157,
+    887,
+    2357,
+    6101,
+    12203
+  ],
+  "rounds_per_seed": 36,
+  "evaluation_points_per_seed": 37,
+  "total_evaluation_points": 185,
+  "initial_budget": 333,
+  "batch_size": 32,
+  "final_budget": 1485,
+  "unique_additional_ids_per_seed": 1152,
+  "metric_source": "saved validation only",
+  "test_truth_reads": 0,
+  "curves": "raw non-monotonic, no smoothing or cumulative minima",
+  "per_seed": [
+    {
+      "seed": 157,
+      "completed_rounds": 36,
+      "evaluation_points": 37,
+      "final_budget": 1485,
+      "new_unique_training_ids": 1152,
+      "L1005_validation_nrmse": 0.3350513158036498,
+      "AULC_333_1005": 0.4576940472658261,
+      "L1389_validation_nrmse": 0.3182795722146297,
+      "AULC_333_1389": 0.4098257637787084,
+      "L1485_validation_nrmse": 0.3210891845196956,
+      "AULC_333_1485": 0.40193081790955
+    },
+    {
+      "seed": 887,
+      "completed_rounds": 36,
+      "evaluation_points": 37,
+      "final_budget": 1485,
+      "new_unique_training_ids": 1152,
+      "L1005_validation_nrmse": 0.2956025434851255,
+      "AULC_333_1005": 0.3663257856791543,
+      "L1389_validation_nrmse": 0.29423948878494205,
+      "AULC_333_1389": 0.34212355541800943,
+      "L1485_validation_nrmse": 0.2942850078069818,
+      "AULC_333_1485": 0.3380392026898876
+    },
+    {
+      "seed": 2357,
+      "completed_rounds": 36,
+      "evaluation_points": 37,
+      "final_budget": 1485,
+      "new_unique_training_ids": 1152,
+      "L1005_validation_nrmse": 0.3352961920743281,
+      "AULC_333_1005": 0.41587086185376354,
+      "L1389_validation_nrmse": 0.33988608135793796,
+      "AULC_333_1389": 0.387492683605812,
+      "L1485_validation_nrmse": 0.3204339376711008,
+      "AULC_333_1485": 0.3828045743658639
+    },
+    {
+      "seed": 6101,
+      "completed_rounds": 36,
+      "evaluation_points": 37,
+      "final_budget": 1485,
+      "new_unique_training_ids": 1152,
+      "L1005_validation_nrmse": 0.4019974046689627,
+      "AULC_333_1005": 0.5423633157453502,
+      "L1389_validation_nrmse": 0.36626266175917777,
+      "AULC_333_1389": 0.4882488432923478,
+      "L1485_validation_nrmse": 0.39286565924011657,
+      "AULC_333_1485": 0.4794747619313522
+    },
+    {
+      "seed": 12203,
+      "completed_rounds": 36,
+      "evaluation_points": 37,
+      "final_budget": 1485,
+      "new_unique_training_ids": 1152,
+      "L1005_validation_nrmse": 0.4064429674179684,
+      "AULC_333_1005": 0.47096501032350685,
+      "L1389_validation_nrmse": 0.36602425224217927,
+      "AULC_333_1389": 0.43634619808050185,
+      "L1485_validation_nrmse": 0.36663063137862456,
+      "AULC_333_1485": 0.43025417163600227
+    }
+  ],
+  "aggregate": {
+    "L1005_validation_nrmse": {
+      "mean": 0.3548780846900069,
+      "sample_sd": 0.047878253189846634
+    },
+    "AULC_333_1005": {
+      "mean": 0.4506438041735202,
+      "sample_sd": 0.06556258824668089
+    },
+    "L1389_validation_nrmse": {
+      "mean": 0.3369384112717734,
+      "sample_sd": 0.03116864140060274
+    },
+    "AULC_333_1389": {
+      "mean": 0.4128074088350759,
+      "sample_sd": 0.05452388762430661
+    },
+    "L1485_validation_nrmse": {
+      "mean": 0.3390608841233039,
+      "sample_sd": 0.03978023695807755
+    },
+    "AULC_333_1485": {
+      "mean": 0.4065007057065312,
+      "sample_sd": 0.05281762948073052
+    }
+  },
+  "audits": {
+    "157": {
+      "audit": "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/reports/first_completed_CW_seed157_validation_audit.json",
+      "sha256": "68e44b7ab1f888c2f45b4f76d2c259f26766e713961cf1ea02a67e469a18570f",
+      "source_files_rechecked": 53
+    },
+    "887": {
+      "audit": "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/reports/completed_CW_seed887_validation_audit.json",
+      "sha256": "704634b945a9ca7caa86a244755e7e4c1e5ce96172fb1dfa2b8718b62c512c15",
+      "source_files_rechecked": 184
+    },
+    "2357": {
+      "audit": "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/reports/completed_CW_seed2357_validation_audit.json",
+      "sha256": "cfecaae2801f31f16e5d90581a3bcd7e295aaf1bfe1cb62ff0a3994a476c7058",
+      "source_files_rechecked": 184
+    },
+    "6101": {
+      "audit": "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/reports/completed_CW_seed6101_validation_audit.json",
+      "sha256": "135055b94ed237a1efcb6ce62aad156de6d13c6059b315828ba61b5b2cef4187",
+      "source_files_rechecked": 53
+    },
+    "12203": {
+      "audit": "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/reports/completed_CW_seed12203_validation_audit.json",
+      "sha256": "037efe3e46036d72efc0479445bc770e5ecf7a0d3acdf495fc9c50102484b7fa",
+      "source_files_rechecked": 184
+    }
+  },
+  "source_hashes": {
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/reports/first_completed_CW_seed157_validation_audit.json": "68e44b7ab1f888c2f45b4f76d2c259f26766e713961cf1ea02a67e469a18570f",
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/reports/completed_CW_seed887_validation_audit.json": "704634b945a9ca7caa86a244755e7e4c1e5ce96172fb1dfa2b8718b62c512c15",
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/reports/completed_CW_seed2357_validation_audit.json": "cfecaae2801f31f16e5d90581a3bcd7e295aaf1bfe1cb62ff0a3994a476c7058",
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/reports/completed_CW_seed6101_validation_audit.json": "135055b94ed237a1efcb6ce62aad156de6d13c6059b315828ba61b5b2cef4187",
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/reports/completed_CW_seed12203_validation_audit.json": "037efe3e46036d72efc0479445bc770e5ecf7a0d3acdf495fc9c50102484b7fa",
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/reports/validation_curves.csv": "282b12c75ddfbb935e79a75463a9653fc6c7b385f969409c4fbd8f91d19d511c"
+  },
+  "paired_comparison_complete": false,
+  "nocw_completed_rounds": {
+    "157": 27,
+    "887": 24,
+    "2357": 28,
+    "6101": 28,
+    "12203": 30
+  },
+  "nocw_remaining_rounds": 43,
+  "nocw_status": "KNOWN_UPSTREAM_FAILURES_AWAITING_EXPLICIT_RECOVERY_APPROVAL",
+  "supervisor_and_keep_awake": "ended after last original CW worker completed; no live experiment workers"
+}

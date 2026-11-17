@@ -1,0 +1,39 @@
+{
+  "status": "PASS_AFTER_CORRECTIONS",
+  "reviewer": "condition_mechanism independent of root E implementation",
+  "reviewed_shanghai": "2026-11-12T20:46:18.360696+08:00",
+  "scope": "E1/E2 boundaries, feedback transformation, obvious-contradiction gate, placebo information equality, randomness and cost identification; no LLM/training/new selection",
+  "independent_data_checks": "next_al_independent_data_checks.json",
+  "resolved_findings": [
+    {
+      "issue": "Pilot L_t minus H training variation cannot bound future L_t plus B branch noise",
+      "correction": "Protocol treats pilot variation only as planning proxy; formal evaluation crosses separate fit seeds within each LLM proposal; E1 32 fits/16 complete answers and E2 56 fits/24 answers for two-seed two-budget screening"
+    },
+    {
+      "issue": "ID replay mock did not check hidden numerical evidence visibility",
+      "correction": "visible_evidence_ids and validate_visible_evidence added; hidden post-L333 citations rejected; old accepted response replay explicitly choices-ID-only, not full scientific-response validation"
+    },
+    {
+      "issue": "Permutation groups indexed loading solvent by position without schema assertion",
+      "correction": "condition_columns exact order now asserted"
+    },
+    {
+      "issue": "Historical absolute error convention must remain repository-consistent",
+      "correction": "max absolute endpoint error retained; independent check verifies max convention"
+    }
+  ],
+  "remaining_findings": [],
+  "accepted_limits": [
+    "E1 typed memory standardization changes the estimand from original free-text memory",
+    "Three shuffled states fail obvious-mismatch screen; the remaining state is not proof of semantic equivalence",
+    "Outer-seed n=2 is an engineering/mechanism screen, not independent confirmation",
+    "Geometry attachment is mock only; no actual new acquisition was generated",
+    "Visibility and input checks do not establish scientific evidence correctness"
+  ],
+  "source_hashes": {
+    "scripts/next_al_precheck.py": "334a09963ce80a8d8f9bb1af0e52d4dc77c0d509abdce3abbdc79c190563b0b5",
+    "NEXT_AL_EXPERIMENT_PROTOCOL.md": "0965e2cb42fb37fff61502a9d751de05ba923c486f51509cf96da3722d4ecc47",
+    "scripts/verify_next_al_independent.py": "975f5a0b2efb0dc6ac7abbfbab415441d0dc88cc91328c3c527d9b1e78e9e3f3",
+    "verification/next_al_independent_data_checks.json": "bd3cfe5a269cc0746668e07356797898d97f3684b34897ff02b57e62383c24c2"
+  }
+}

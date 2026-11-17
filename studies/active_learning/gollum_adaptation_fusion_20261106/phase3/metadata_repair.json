@@ -1,0 +1,232 @@
+{
+  "bug": "GP audit seed (initialization17) overwrote outer trajectory seed in fit-only metadata merge",
+  "fix": "Preserve outer seed; retain optimizer seed separately; no fit or prediction recomputed",
+  "affected_records": 32,
+  "prediction_metrics_acquisitions_unchanged": true,
+  "repairs": [
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_157_L333/additive_fixed1_V1.json",
+      "before_sha256": "c08e73b4aa14b22df6d99363989c07d504c91727ac78057555042c1d6d1fdcb3",
+      "after_sha256": "bb3941bf32a0dcb43e3ca267ec79733ae676a6f4e914b2430d6092da549e360d",
+      "trajectory_seed": 157,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_157_L333/additive_fixed1_V2.json",
+      "before_sha256": "35d9e2f34294fb06118313d2d703db2f11b8cd9211b25056fc388d155a9b907c",
+      "after_sha256": "0787273aca6d5b2e5f919c4777938463780c86a9a676b7a0398699d64bcd89b4",
+      "trajectory_seed": 157,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_157_L333/additive_learned_V1.json",
+      "before_sha256": "77e9e1f8e227374181c199e3d88ffdf6e409d24aacf289ba5e65f1ac2e066fde",
+      "after_sha256": "ef419b824c9bcbe6dab6924f6503d05ed284bae5bae36bfcabf580cf683329b1",
+      "trajectory_seed": 157,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_157_L333/additive_learned_V2.json",
+      "before_sha256": "9368e8ed2843740ea36e4f62a5828fae8a89fda71d8614dc696cac046c99c01b",
+      "after_sha256": "061f2101f8596ffe969ab0a091ee5d15f73e7e88750b329c3a3f4a8f64cab722",
+      "trajectory_seed": 157,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_157_L333/gnn_capacity_control_V1.json",
+      "before_sha256": "a2be88c50fac4f0f7dea3fd7482da4785d642912e5f158106700a1bc4c551642",
+      "after_sha256": "a85bbc093bb34ef284d7a817269fac33f6753d230aae0e97e9dff23faa3138fa",
+      "trajectory_seed": 157,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_157_L333/gnn_capacity_control_V2.json",
+      "before_sha256": "a240e2edfd069dfae21bb0ef0558795c6e3c38f85056504475ca4fee8bcf5439",
+      "after_sha256": "3c6f831f32b345f448c7b567850a04a15f1e4e79176b5c398b4b1475e747dcba",
+      "trajectory_seed": 157,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_157_L333/gnn_lambda0_V1.json",
+      "before_sha256": "8695b7596c675e489fad61fa216c13a8d5ffe6692063810740db6b27eae3c94c",
+      "after_sha256": "735e034ddd2f12dae641bee17156ba45732d69dce6f840dcb991e85326868abd",
+      "trajectory_seed": 157,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_157_L333/gnn_lambda0_V2.json",
+      "before_sha256": "ecd4a78a8739832e26de289489c5058e7b31564eff8a0ed051d42305d5c018cb",
+      "after_sha256": "be7bf34d0d6e64b10ba1afbff3076bc10ee143c72f06e38daa1916806b91d0f6",
+      "trajectory_seed": 157,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_157_L813/additive_fixed1_V1.json",
+      "before_sha256": "78a46bc9e7c1f875340d11874f6eaa79e931a8504ba59b36be59e52d1bcfcd5e",
+      "after_sha256": "3637118e02cc8a21ea7fb28064dbb24c41411ad42cb6724a7c1bc70211b9cfcd",
+      "trajectory_seed": 157,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_157_L813/additive_fixed1_V2.json",
+      "before_sha256": "29904691307aa8ac1d34ca51adfffadcef95cbfd339cab165e36612d47d87915",
+      "after_sha256": "9d989e13267c5ee6e7ed6dbfb92229ceae9c7150b52f714270c8795f278815b8",
+      "trajectory_seed": 157,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_157_L813/additive_learned_V1.json",
+      "before_sha256": "c262d45b866fd8aa983313cb9fea1bef9a9dd43ca62d66975433573c37e26ba3",
+      "after_sha256": "4b7dc0492db91f93684af24b33549b0c495bd14c8a8a5f0c4b4c0ab96f804594",
+      "trajectory_seed": 157,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_157_L813/additive_learned_V2.json",
+      "before_sha256": "ef2b3af20a6923a0a53c6dbdc3dcb57b465476fb43342a07ca205240fdf86be0",
+      "after_sha256": "d226a057af75aab070be64f180966149c6eda3701e804628aafe7c21c217ae77",
+      "trajectory_seed": 157,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_157_L813/gnn_capacity_control_V1.json",
+      "before_sha256": "74622aed7c4647b75b312fd12c19f9d831f5abf9354167251cb275dfa9ece660",
+      "after_sha256": "29c4028935770ae92014feba8f09f8ff991a11de5864469cb2e6827358ed17b9",
+      "trajectory_seed": 157,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_157_L813/gnn_capacity_control_V2.json",
+      "before_sha256": "c019bcc6b044bf46c046799db3d6ba649e43aa849404ba0a1301654da11cf8ac",
+      "after_sha256": "3eea88c1c2c49f7a6e83a3bebd352a977adf9d41c26a2ae80acb4f46dd358231",
+      "trajectory_seed": 157,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_157_L813/gnn_lambda0_V1.json",
+      "before_sha256": "cba37f075d6bd2c7714d1b663de3c6854d630811c340322d1997476432846c44",
+      "after_sha256": "5196967dd7d721f50d9a2d8b940d9082664d7d145f29f570d1c1a18b69b0bf22",
+      "trajectory_seed": 157,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_157_L813/gnn_lambda0_V2.json",
+      "before_sha256": "5cbaf8c4352e08548ad88eadbda9206be7d2306d8368e5864d37c942a5c076fa",
+      "after_sha256": "cb059af44b3eb68420ad0b1dc99a1aaa5bfb190b95d1ed011baef4d52750bf61",
+      "trajectory_seed": 157,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_887_L333/additive_fixed1_V1.json",
+      "before_sha256": "a3adf925e9592d79a8982639a19344084bb41d7e59c51d35104c187cdedf0aa8",
+      "after_sha256": "34a30916247fb82db19c9caee8c3ed4694486625267132a9364bae7b71af580c",
+      "trajectory_seed": 887,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_887_L333/additive_fixed1_V2.json",
+      "before_sha256": "0d4ab33a0a0f29877c9f5a6dce5911e88912a3bbcb2262b4b0c4c3661107a940",
+      "after_sha256": "fb32cca5d62a1d96ec0dbf2193cd626832f99341d016236f205e8c2673b6303b",
+      "trajectory_seed": 887,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_887_L333/additive_learned_V1.json",
+      "before_sha256": "bc4545ba7dc9668a65c9ac2d84c048e0ca6eb50015e12fb8d2056ecadfc10874",
+      "after_sha256": "43b53661a810cfb2843a2ed1adc654a0a509558baa625dc8dee027bf2be61c49",
+      "trajectory_seed": 887,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_887_L333/additive_learned_V2.json",
+      "before_sha256": "fac29384e364e8d066446f1df3f65995a100197581f08f8c845fe92b1ccd15e5",
+      "after_sha256": "321012b4da1e7374d3e09f9f3e591193a3d41947f5eace2af9e70ce5d165380a",
+      "trajectory_seed": 887,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_887_L333/gnn_capacity_control_V1.json",
+      "before_sha256": "fbc69c5ab1852050e201a63750e168bf65b61129922db4f413a9951ed8af29a2",
+      "after_sha256": "dfeeb39e407b774acbe6c2a5e3dad50c471a0e7eea4c47a9d96ede813ec95131",
+      "trajectory_seed": 887,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_887_L333/gnn_capacity_control_V2.json",
+      "before_sha256": "b5215f2c2c77d1f9c431818e259c5185c64036ed25485bb1790cb6081b0b7142",
+      "after_sha256": "244038d17148943448d7f2bec50f4e74f2e86163635839ddeb3f834cd37600b7",
+      "trajectory_seed": 887,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_887_L333/gnn_lambda0_V1.json",
+      "before_sha256": "d32dbf7002ceb1d6937f73213711217375c090bfbbc2422b79144ccaed5f8dfb",
+      "after_sha256": "3017796182878aae0dbb76cab4c8166e4d2cb24e1759f89ff4bc339dec51f14e",
+      "trajectory_seed": 887,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_887_L333/gnn_lambda0_V2.json",
+      "before_sha256": "26b6ab664bedcd3ab9519850cca14fc804a2de498d41bb6f4c251afb0bb69407",
+      "after_sha256": "62b4782b9b46db87771e2b5c3dc90d8353faee10dddf73ef751dad3293ac49ae",
+      "trajectory_seed": 887,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_887_L813/additive_fixed1_V1.json",
+      "before_sha256": "7d20d5b0be45fbd4390678aa9c636ec1322688d5745c9218b391142df9ac6fb1",
+      "after_sha256": "fff0fbbfa3027b39d00f788b81ac91e0a517615756ea45945b130565b4a125a6",
+      "trajectory_seed": 887,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_887_L813/additive_fixed1_V2.json",
+      "before_sha256": "f0321a87b2f07385a93edbf08b213906faa544b70e136110b9e5e85c17a9aa28",
+      "after_sha256": "c6be60887cc84175010737c225ae809b8d64528121bee10fe7af1ad2c379391a",
+      "trajectory_seed": 887,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_887_L813/additive_learned_V1.json",
+      "before_sha256": "b485930ba01b3648b5a50bb039a08e5e0cdcb73d3063e4e3086380e6db9245b6",
+      "after_sha256": "9a80926402ed6fc80818a82b2ce40ab9fc05c54d567fa0702f5487a67961f1f0",
+      "trajectory_seed": 887,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_887_L813/additive_learned_V2.json",
+      "before_sha256": "c289702e60173e0191df94e48b04b4fe6f7fb30095a7f8df7b350e8341170959",
+      "after_sha256": "b99c79535852223ad1fd68ff1522e903ebc667889eb6692599b4785c22002c31",
+      "trajectory_seed": 887,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_887_L813/gnn_capacity_control_V1.json",
+      "before_sha256": "970cfdb90b33d77f7849e5ff7140db56d434c24c5ea749dc6f5d0e765831f2b9",
+      "after_sha256": "51debff80b9ef9d07a5982115a073c6a0079a074b02618ad6a38fdefc475f83f",
+      "trajectory_seed": 887,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_887_L813/gnn_capacity_control_V2.json",
+      "before_sha256": "5a11a0774f57b493c3990454270d89c337c4f02c037bc1a3c67168cd1b0ce2e9",
+      "after_sha256": "80e1bfc097f8d0ca38a1daa37887942605e6e425bd37a55289a6e37896458479",
+      "trajectory_seed": 887,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_887_L813/gnn_lambda0_V1.json",
+      "before_sha256": "27321f740e9586fb653c8b269fd4d7b40e2dbefa1779ec0c6df53f999119dc1c",
+      "after_sha256": "077688fb1449f8d073fce949c8689bbf72c0973288d2d74b88734aa9f2189a10",
+      "trajectory_seed": 887,
+      "optimizer_seed": 17
+    },
+    {
+      "path": "studies/active_learning/gollum_adaptation_fusion_20261106/phase3/results/seed_887_L813/gnn_lambda0_V2.json",
+      "before_sha256": "b7de152f4f0f1ca356e31fc6ad1b4e17e88cee4bc4b36c524c8bfea0bd13b8a8",
+      "after_sha256": "c50e711420937c94645d709be79bcb8d7191f6b116639fd3c03699b685a8e055",
+      "trajectory_seed": 887,
+      "optimizer_seed": 17
+    }
+  ]
+}

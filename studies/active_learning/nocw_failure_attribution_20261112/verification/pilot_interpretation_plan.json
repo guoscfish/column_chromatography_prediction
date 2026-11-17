@@ -1,0 +1,25 @@
+{
+  "status": "DESCRIPTIVE_ANALYSIS_RULE_SET_AFTER_INITIAL_VALIDATION_RESULTS; NOT_PREREGISTERED_OR_BLINDED",
+  "timing_disclosure": "The rule was written after training started and initial full paired validation scores for L525 had been reported in the chat (157 baseline0.673731 vs interaction0.642934; 887 baseline0.488398 vs interaction0.496215), even though root had not opened interaction fit_audits or H metrics. Not knowing H and not opening audit files does not imply intervention blinding. Use only as descriptive direction summary.",
+  "created_shanghai": "2026-11-12T20:54:59.635532+08:00",
+  "primary_unit": "outer seed. Four seed-budget state means average the two paired training replicates; eight paired fits are not independent experiments.",
+  "row_metric": "original fixed-L333-scale validation combined NRMSE; paired delta interaction minus baseline; lower is better",
+  "mechanism_metric": "H sample-volume pair absolute difference error: within component mean then molecule mean; endpoint balanced normalized MAE Q=0.5*(MAE_deltaV1/s1 + MAE_deltaV2/s2). Also report all raw mL values, sign, amplitude and PE/EA controls.",
+  "descriptive_stable_support_rule": {
+    "row": "Both outer seeds improve after averaging budgets/replicates; >=3 of4 state means improve; no state relative NRMSE regression >1%",
+    "condition": "Both outer seeds improve Q; >=3 of4 state means improve Q"
+  },
+  "failure_interpretation": "If either rule fails, no stable joint support for this one fusion control; do not search another architecture. Does not reject all H3 mechanisms or identify irreducible noise.",
+  "all_results_retained": true,
+  "H_not_used_for_checkpoint_or_architecture": true,
+  "hypothesis_tests_or_pvalues": false,
+  "no_new_training_or_acquisition_from_analysis": true,
+  "correction_record": {
+    "corrected_shanghai": "2026-11-12T21:56:12.615163+08:00",
+    "original_v1_sha256": "02b6d3dae5fd7f5502da31df7b56bb3fcf1e4180126c1bf5b2c2fa4067b1e3d8",
+    "original_bytes_preserved": "verification/pilot_interpretation_plan_v1.json",
+    "rules_changed": false,
+    "model_H_loss_preprocessing_budget_or_stop_changed": false,
+    "reason": "Reviewer identified the original timing wording overstated ignorance of intervention validation outcomes."
+  }
+}

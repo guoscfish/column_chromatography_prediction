@@ -1,0 +1,111 @@
+{
+  "reviewer": "independent model_signals subtask; did not edit root synthesis documents",
+  "status": "PASS_AFTER_CORRECTIONS",
+  "reviewed_documents": [
+    {
+      "path": "MASTER_REPORT.md",
+      "sha256": "fdbbfa899230a72e0320edc3231b5030b90113f546e463260ba28fd419f84600"
+    },
+    {
+      "path": "NEXT_STAGE_DECISION.md",
+      "sha256": "1457089bcfef9b015d34b01a0f3b91eba2437bf120b9939b21e47a8dd4e1b943"
+    },
+    {
+      "path": "RESEARCH_DIRECTIONS.md",
+      "sha256": "2c6a95a06f4c8ceb80518f149507d2dc7fe0701288dda7b89abffb88e1ff759a"
+    }
+  ],
+  "quantitative_quotes": {
+    "single_factor_sample_volume_pairs": 165,
+    "molecules_in_those_pairs": 93,
+    "observed_absolute_V1_V2_deltas_ml": [
+      2.696,
+      2.287
+    ],
+    "predicted_absolute_V1_V2_deltas_ml": [
+      0.263,
+      0.153
+    ],
+    "full_selected_raw80_coverage": [
+      0.6321180556,
+      0.5729166667
+    ],
+    "late_phase_selected_raw80_coverage": [
+      0.6208333333,
+      0.5554166667
+    ],
+    "same_recorded_conditions_unique_groups": 87,
+    "result": "Quoted model/quantile figures match source aggregate tables, with selected-population and observational limitations retained"
+  },
+  "findings": [
+    {
+      "id": "MSR-1",
+      "severity": "material_cost_correction",
+      "finding": "Hybrid32 requires a qualified same-state K=3 ensemble. Original 40-fit plan counted only endpoint fits, not 20 additional acquisition member fits at 10 new-CW states.",
+      "recommended_fix": "Use raw Gradient-LCMD32 for the minimum 4-arm screen, or explicitly add ensemble fitting cost. Replacing raw with Hybrid adds 20 fits for one round / 60 for three; adding a fifth Hybrid arm adds endpoint fits too, totaling +30 / +90.",
+      "current_status": "RESOLVED: minimum screen uses raw Gradient-LCMD32; Hybrid replacement +20/+60 and fifth-arm addition +30/+90 fits stated explicitly."
+    },
+    {
+      "id": "MSR-2",
+      "severity": "scientific_scope_clarification",
+      "finding": "Two fixed-label models can test whether conditional signal is learnable; they cannot identify irreducible noise versus missing variables. Both models failing is not a noise estimate.",
+      "recommended_fix": "Describe experiment 1 as a test of learnable condition signal. Require verified replicate metadata or repeated measurements to estimate measurement variability; preserve failure as inconclusive.",
+      "current_status": "RESOLVED: synthesis now states condition learnability test does not identify irreducible noise; replicate metadata/repeated measurement needed."
+    },
+    {
+      "id": "MSR-3",
+      "severity": "future_protocol_boundary",
+      "finding": "Removing held-out pairs from L525/L1005 changes effective training size and excludes reuse of historical checkpoints that saw those pairs. Shared endpoints and same-condition duplicates must be held out together.",
+      "recommended_fix": "Report actual |L_t minus H|. Prefer H from acquired L_t minus L333 and exclude condition groups overlapping L333, to retain the original target-scale convention without held-out-response scaling. Refit both arms from scratch, pairing shared-layer initialization.",
+      "current_status": "RESOLVED: actual |L_t minus H|; whole-pair and identical-condition grouping; scratch refit/no checkpoint reuse; H restricted to L_t minus L333 and no overlapping L333 condition groups; metadata-only minimum 10 isolated pair-group feasibility gate, otherwise no execution or response-driven state substitution."
+    }
+  ],
+  "cost_checks": {
+    "experiment1_fixed_model_fits": 60,
+    "experiment2_raw_lcmd_four_arm_endpoint_fits": 40,
+    "experiment3_factorial_endpoint_fits": 20,
+    "minimum_three_screens_fits_with_raw_lcmd": 120,
+    "minimum_llm_complete_responses": 50,
+    "critic_three_round_complete_responses_with_initial_shared_proposal": 130,
+    "response_counts_exclude_corrections_and_transport_attempts": true,
+    "monetary_cost_not_invented": true
+  },
+  "privacy_scan": {
+    "snapshot_files_scanned": 117,
+    "extension_counts": {
+      ".md": 12,
+      ".csv": 53,
+      ".json": 22,
+      ".pdf": 4,
+      ".png": 15,
+      ".py": 11
+    },
+    "json_raw_packet_request_shape_keys_found": 0,
+    "credential_pattern_matches": 0,
+    "csv_cells_longer_than_3000_chars": 0,
+    "direct_response_table": "tables/reasoning_case_evidence.csv",
+    "direct_response_case_rows": 27,
+    "case_rows_exactly_matched_to_accepted_feedback": 27,
+    "other_label_like_fields": "Aggregate bias_pred_minus_true fields, not row truth exports",
+    "conclusion": "No complete private packet/request, credential, or newly exported unauthorized label identified. Authorized bounded case values match accepted feedback.",
+    "limitation": "Pattern/schema scan plus source matching is a scoped snapshot, not a universal proof; files were being assembled concurrently. The disclosed earlier label-access incident remains separate and is not erased."
+  },
+  "retained_uncertainties": [
+    "Selected calibration is not population validation calibration",
+    "Condition-response pairs do not establish causal treatment effects",
+    "Outer seed contains split and initialization variation",
+    "No GP/IVR reliability qualification is implied by gain correlation",
+    "Future thresholds are proposals, not retrospective preregistration"
+  ],
+  "no_root_documents_modified_by_reviewer": true,
+  "future_protocol_note": "H/L333/scaling boundary and metadata-only feasibility gate now explicitly included. The exact model/target control, group membership, and proposed thresholds must still be frozen before future execution, as the report states.",
+  "unresolved_material_synthesis_findings": 0,
+  "final_refresh_checks": {
+    "H_restricted_to_acquired_non_L333_and_group_exclusion": true,
+    "minimum_10_pair_metadata_feasibility_gate": true,
+    "critic_placebo_share_condition_table_and_schema": true,
+    "explicit_structure_bundle_distinguished_from_pretrained_knowledge": true,
+    "120_successful_fits_is_conditional_plan_excluding_failures": true,
+    "additional_material_findings": 0
+  }
+}

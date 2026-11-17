@@ -1,0 +1,105 @@
+{
+  "status": "PASS_FORMAL_RECOMPUTATION_IDENTICAL_SCIENTIFIC_OUTPUTS",
+  "reason": "collect regenerated the snapshot after Hybrid proposal-audit metadata was added; the provenance change was not bypassed.",
+  "formal_rerun_command": "/Users/fish/miniforge3/envs/chromatography/bin/python -B studies/active_learning/llm_decision_behavior_audit_20261116/preferences.py --states studies/active_learning/llm_decision_behavior_audit_20261116/states.json.xz --bootstrap 100 --negative-seeds 7001 7002 7003",
+  "old_states_sha256": "42b3c16252f27efc478a8222abe3d4ae75aafd03645cbd9804624e0b2799c793",
+  "current_states_sha256": "f761b8266fecfed31930de2d6e35340ef41c15a6d26c473c328b3b52f27fa489",
+  "old_states_reconstructed_sha256": "42b3c16252f27efc478a8222abe3d4ae75aafd03645cbd9804624e0b2799c793",
+  "reconstruction_matches_old_bytes": true,
+  "only_removed_fields": [
+    "observable_selection_proposals",
+    "observable_nonfinal_proposals"
+  ],
+  "removed_fields_n": 142,
+  "removed_fields_used_by_preferences": false,
+  "used_state_fields": [
+    "method",
+    "seed",
+    "round",
+    "L_before",
+    "L_after",
+    "selected_ids",
+    "labeled_ids",
+    "unlabeled_ids",
+    "source",
+    "source_sha256",
+    "checkpoint_sha256"
+  ],
+  "used_field_projection_sha256": "ea30d8b7de2b6c911afb86f3b0e70d1326906f46c0bd6a837f54da48686dba23",
+  "state_content_stable_during_rerun": true,
+  "states_n": 791,
+  "selected_events_n": 25312,
+  "changed_input_paths": [
+    "studies/active_learning/llm_decision_behavior_audit_20261116/states.json.xz"
+  ],
+  "other_input_hashes_unchanged_n": 2003,
+  "input_sources_n": 2004,
+  "scientific_tables_byte_identical": true,
+  "maximum_absolute_coefficient_difference": 0.0,
+  "maximum_absolute_selected_percentile_difference": 0.0,
+  "maximum_absolute_bootstrap_bound_difference": 0.0,
+  "coefficient_rows": 744,
+  "percentile_rows": 2708,
+  "bootstrap_rows": 22,
+  "all_optimizer_success": true,
+  "output_comparison": {
+    "behavior_preferences.csv": {
+      "before_sha256": "983afa18f55fed1b532fa57ee3a300c75d6d9062230fa2de5752d6d44569fbd3",
+      "after_sha256": "983afa18f55fed1b532fa57ee3a300c75d6d9062230fa2de5752d6d44569fbd3",
+      "bytes_identical": true,
+      "before_bytes": 134446,
+      "after_bytes": 134446
+    },
+    "candidate_score_percentiles.csv": {
+      "before_sha256": "54b03757c3997c11af50ca8810a18306f1bacdc1230d64e295c5dfbeb5f44d08",
+      "after_sha256": "54b03757c3997c11af50ca8810a18306f1bacdc1230d64e295c5dfbeb5f44d08",
+      "bytes_identical": true,
+      "before_bytes": 335573,
+      "after_bytes": 335573
+    },
+    "preference_state_coverage.csv": {
+      "before_sha256": "341204fb04e03483455c0d69c024b58235c21921642e07c158fe5f6b49859333",
+      "after_sha256": "341204fb04e03483455c0d69c024b58235c21921642e07c158fe5f6b49859333",
+      "bytes_identical": true,
+      "before_bytes": 276105,
+      "after_bytes": 276105
+    },
+    "preference_collinearity.csv": {
+      "before_sha256": "b4ba8579f5089a83c97b632a3da10ffbd87c071d78f0f49e0e90b8540c5e3be2",
+      "after_sha256": "b4ba8579f5089a83c97b632a3da10ffbd87c071d78f0f49e0e90b8540c5e3be2",
+      "bytes_identical": true,
+      "before_bytes": 289377,
+      "after_bytes": 289377
+    },
+    "preference_standardization.csv": {
+      "before_sha256": "0424234a4892fea53d41052d88805ccf973ccb72129be47e02b80e892977f9e1",
+      "after_sha256": "0424234a4892fea53d41052d88805ccf973ccb72129be47e02b80e892977f9e1",
+      "bytes_identical": true,
+      "before_bytes": 310,
+      "after_bytes": 310
+    },
+    "preference_negative_sensitivity.csv": {
+      "before_sha256": "064a36c38b9e3626b4e255a9f8daa46613f545d02ecc5254d7db858b10b37955",
+      "after_sha256": "064a36c38b9e3626b4e255a9f8daa46613f545d02ecc5254d7db858b10b37955",
+      "bytes_identical": true,
+      "before_bytes": 23742,
+      "after_bytes": 23742
+    },
+    "preference_campaign_bootstrap.csv": {
+      "before_sha256": "7ddd2841b5a836f008cf7f3e41220031d31f7821893bd82c98ae619dc2adb08f",
+      "after_sha256": "7ddd2841b5a836f008cf7f3e41220031d31f7821893bd82c98ae619dc2adb08f",
+      "bytes_identical": true,
+      "before_bytes": 5052,
+      "after_bytes": 5052
+    },
+    "preference_verification.json": {
+      "before_sha256": "8f7fc7ef4baee07cdd5a458f1373609f1c8c7c2177796eab4e6825a25345e200",
+      "after_sha256": "9b71b5eed6114e05e3ea12b67beb80f611bfbda72424fde8aad0038aebe4c5db",
+      "bytes_identical": false,
+      "before_bytes": 572438,
+      "after_bytes": 572438
+    }
+  },
+  "new_preference_manifest_sha256": "9b71b5eed6114e05e3ea12b67beb80f611bfbda72424fde8aad0038aebe4c5db",
+  "note": "Only the formally regenerated provenance JSON changed; all seven scientific CSV tables are byte-identical. No historical input was edited."
+}

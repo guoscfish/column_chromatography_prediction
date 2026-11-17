@@ -1,0 +1,252 @@
+{
+  "type": "selection",
+  "packet_sha256": "1fb519b55d5020c2efa382ae96c0a98ab2a76285b295b282a7332f8713b24db7",
+  "batch_strategy": "Freeze these 32 IDs and their supplied QGeoGNN premeasurement predictions as one batch. Use local experiments to distinguish reproducible condition responses from isolated unusual labels, repair strong-solvent completion behavior, and test scaffold-dependent loading and loading-solvent effects. Quantile widths inform the choices as single-predictor spread, without assuming calibrated epistemic uncertainty.",
+  "choices": [
+    {
+      "id": "812adebe27af25dc2242",
+      "reason": "Revisit m84 at the exact recorded 40/1, 100 ul condition of 6c387793968257d2f169, which measured 3.50/4.45 mL. Another catalog label at this tuple can distinguish reproducible early completion from variation unexplained by recorded features before the model spreads this correction to neighboring ester rows.",
+      "hypothesis_id": "H84"
+    },
+    {
+      "id": "19ac0f010c25e2c5360d",
+      "reason": "m84 at 40/1, 50 ul changes loading while preserving the anomalous row's ratio and loading-solvent conditions. Together with the selected 100 ul revisit, it tests whether the short interval in 6c387793968257d2f169 extends across amounts or is localized to one recorded condition.",
+      "hypothesis_id": "H84"
+    },
+    {
+      "id": "e1b9d0166a4779c27067",
+      "reason": "m84 at 30/1, 50 ul brackets the selected 40/1 point against measured 20/1, 50 ul row b819ee3c169e34252d65. This fixes loading while locating the forecast decrease in V2, separating solvent-response curvature from the loading difference in the original anomaly.",
+      "hypothesis_id": "H84"
+    },
+    {
+      "id": "35a1d2abee0780ee1d48",
+      "reason": "m197 at 1/1, 150 ul tests loading transfer after 739f955977aa740524e5 measured 4.98/29.44 mL at 50 ul, with an acquisition-time V2 underestimate of 11.31 mL. The high-loading 2/1 anchor 44fdbadc2762d6900093 helps separate onset, completion, and solvent effects.",
+      "hypothesis_id": "H_tail"
+    },
+    {
+      "id": "c86f06310e89b93ed6ac",
+      "reason": "m197 at 0/1, 50 ul supplies a same-loading strong-solvent endpoint beside 739f955977aa740524e5 at 1/1 and a91850e587e062097c02 at 5/1. It tests whether the long 1/1 completion interval contracts in neat EA or persists farther into strong solvent.",
+      "hypothesis_id": "H_tail"
+    },
+    {
+      "id": "c0094343ab6bb16bc58b",
+      "reason": "m194 at 1/1, 50 ul tests the low-loading end of a scaffold with measured V2 values of 36.18 mL at 100 ul in 4a39c1f64d17e050e4a5 and 27.33 mL at 150 ul in e8185e062559aff5c99e. Its broad forecast makes a direct loading-response label useful.",
+      "hypothesis_id": "H_tail"
+    },
+    {
+      "id": "ab5af30c3befe81e6244",
+      "reason": "m194 at 0/1, 50 ul forms a fixed-loading solvent pair with the selected 1/1 row. Existing 0/1 records 12400c6c61643f9c79b5 and d7895c522a1a46a1175c show substantially different completion volumes at 100 and 150 ul, so loading transfer should be measured rather than assumed.",
+      "hypothesis_id": "H_tail"
+    },
+    {
+      "id": "e76b02e4aa682c4153d0",
+      "reason": "m191 at 1/1, 50 ul forecasts early onset but V2 near 37.27 mL. This predicted strong-solvent completion peak is unmeasured. The low-loading 0/1 anchor f75bc5da37a9811ca823 and selected 2/1 point can determine whether that behavior is real or a model interpolation failure.",
+      "hypothesis_id": "H_tail"
+    },
+    {
+      "id": "b52b86b1b9a2a78f0452",
+      "reason": "m191 at 2/1, 50 ul supplies the neighboring ratio needed to interpret its selected 1/1 forecast. With f75bc5da37a9811ca823 at 0/1 and b0802294da4fd71d0f9d at 10/1, it adds a controlled segment of the dialdehyde response instead of inferring it from other aldehydes.",
+      "hypothesis_id": "H_tail"
+    },
+    {
+      "id": "b655d7de0986cbd0d622",
+      "reason": "m128 at 1/1, 50 ul directly follows measured 0/1 row 117874b15293a4b5e3e1 at identical loading. The model forecasts a marked completion decrease. Measuring this methylthio acetophenone tests whether the strong-solvent behavior seen in oxygenated aldehydes transfers to a different functional environment.",
+      "hypothesis_id": "H_tail"
+    },
+    {
+      "id": "7de812bda21b4dfe46dc",
+      "reason": "m202 at 10/1, 50 ul tests whether the steep response measured at 100 ul in 902937db42f82f467718 transfers to lower loading. Its measured 5/1, 50 ul anchor 4f88870ad666191b8ea7 is much earlier. This can distinguish a reproducible ratio transition from behavior confined to the 100 ul row.",
+      "hypothesis_id": "H202"
+    },
+    {
+      "id": "b5e6e9a4b5c6f0f838bd",
+      "reason": "m78 at 10/1, 150 ul fills the fixed-loading gap between measured 5/1 row 6000105cb6734cff8146 and 20/1 row c65ac14ffed8749381c1. It locates the rise toward the very late weak-solvent response and tests transfer across beta-dicarbonyl substitution patterns.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "2b97a1e0a6a4b944b760",
+      "reason": "m78 at 50/1, 50 ul completes a loading comparison with 61771d230b285babe4b6 and eb3bc3fba39e57adbc2f. Those measured 100 and 150 ul rows have different onsets but completion near 98\u201399 mL. The new label tests whether that endpoint asymmetry persists at low amount.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "5e784130c58b8175024e",
+      "reason": "m67 at 10/1, 150 ul adds a matched-ratio loading contrast to 2d11f1fe488a0c917ffe at 100 ul. The measured 5/1, 150 ul row cb6d3ef1b6dde291fbac provides a same-loading solvent anchor. This helps learn secondary-alcohol response without transferring the irregular m61 curve wholesale.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "80f6a235bb59c2a7ea59",
+      "reason": "m67 at 20/1, 150 ul pairs with the selected 10/1 row and measured 20/1, 100 ul record c627405cf70a0daacc94. It tests whether the loading association changes as EA decreases; the current forecast gives little V2 change despite substantial predictor spread.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "080258046c2cae5fb2ab",
+      "reason": "m203 at 20/1, 100 ul lies between measured 50 ul row 9ed7c1fb1c2cc499bbf9 and 150 ul row 66747ae127e03516ffda. Both endpoints move across those amounts. This tests interpolation for a hindered tertiary alcohol with a comparatively short elution interval.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "0b8c6c59ae5e24b420e5",
+      "reason": "m208 at 20/1, 100 ul extends the same-loading iodophenol curve beyond measured 10/1 row 457b3def1714039eadb3. The forecast implies only a modest further V2 increase, with broad spread. Its label tests a plateau against continued solvent sensitivity in phenolic chemistry.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "1b4be0410f927930d56e",
+      "reason": "m209 at 20/1, 50 ul extends measured loading records bd3435c0f9b14ec7997d and 29b39881584c4fec1c58. Their V2 values are close while onset changes appreciably. The low-loading forecast does not simply continue that onset ordering, making it a useful test of endpoint-specific loading transfer.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "8f9a7ca0380c405ee685",
+      "reason": "m38 at 20/1, 100 ul extends acetylfluorene beyond the measured 10/1, 50 ul anchor 86fb9a8fd6633397d670. It tests the intermediate-to-weak solvent response of a fused aromatic ketone while retaining its unusually large 1000 ul DCM loading volume as an explicit condition.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "8b9ff1a26d840aaa6a49",
+      "reason": "m40 at 50/1, 50 ul tests a forecast onset near-plateau beyond measured 20/1 row ff9bcaab8e95f60d70bc, while predicted completion increases. This discriminates endpoint slopes for acetyl naphthalene and provides a structural comparison to the acetophenone response measured in cb42a00d7b000827217c.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "605436d35600502e8c2e",
+      "reason": "m30 at 50/1, 100 ul extends a fixed-loading para-bromoacetophenone curve anchored by 2420964caf34a1de2a5d at 10/1 and f79cf892a214e3af8f61 at 20/1. It tests weak-solvent curvature and improves transfer among the many substituted aromatic-ketone rows.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "93d0b949ca6dc0685979",
+      "reason": "m35 at 50/1, 150 ul follows measured 20/1 row e97ed592e525b9c30dec at identical loading. The forecast slightly decreases onset while increasing completion. This tests the predicted flattening for the iodine analogue; comparisons with other halogens will retain their different loading amounts.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "99a3c4452ddfa8ff12c0",
+      "reason": "m89 at 20/1, 150 ul closes a fixed-loading curve between 4b39568fb3ff725fec83 at 10/1 and 547923973b121019625f at 50/1. The recent 10/1 acquisition overpredicted both endpoints, so this tests whether that correction persists into the rising anthranilate response.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "79515e25d0daceed2ce8",
+      "reason": "m104 at 1/1, 150 ul tests loading behavior beside 3b06e84c0031a956a438 at 50 ul and 9fa7a350e402312e5860 at 100 ul. Those measured onsets differ substantially. This constrains methyl anthranilate directly rather than imposing the ethyl anthranilate loading response.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "857ae40d0fdf1c7e387e",
+      "reason": "m198 at 20/1, 150 ul extends measured ortho-nitrobenzaldehyde rows cdaf95461fe3b3d80075 and 163874b97308a1ea2507. The forecast lowers V2 relative to the 100 ul observation, whereas V2 increased from 50 to 100 ul. This distinguishes loading curvature from a nearly constant completion response.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "95a3dcfe4436e929aa30",
+      "reason": "m92 at 1/1, 50 ul with EA loading forms an exact molecule, amount, mobile-phase, and loading-volume match to the selected PE-loading row. Measured EA-loading anchors 10a4c811b70ba8155044 and 00f7bff5f3dab9ed9f49 help place this solvent-identity experiment on its existing response curve.",
+      "hypothesis_id": "H_plug"
+    },
+    {
+      "id": "e626b5b8083ea1fd02f2",
+      "reason": "m92 at 1/1, 50 ul with PE loading is the controlled counterpart to the selected EA-loading row. The supplied forecasts differ little, particularly for V2. Measuring both tests whether that model insensitivity is justified when the loading plug changes solvent identity.",
+      "hypothesis_id": "H_plug"
+    },
+    {
+      "id": "24185c2e4a422e72a4c2",
+      "reason": "m168 at 10/1, 100 ul in 400 ul DCM differs only in loading-solvent volume from measured 300 ul record 4c7a167609de5f3e01c2. It tests whether loading-volume associations found for other carbonyl scaffolds transfer to this diaryl beta-diketone at fixed sample amount.",
+      "hypothesis_id": "H_plug"
+    },
+    {
+      "id": "c3feac62808af7335473",
+      "reason": "m3 at 1/1, 50 ul follows the same-loading 0/1 measurement bd04bce318b9a6fe2f60, whose completion was underestimated at acquisition. This donor-free polyaryl control tests whether the completion correction persists at a neighboring ratio without invoking polar silica interactions.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "9d3f3505ff1be86befbe",
+      "reason": "m12 at 2/1, 100 ul lies between measured loading extremes c8f65df578125328ba0e and 3874d078a42b664f6dcc, which differ markedly in both endpoints. The middle amount tests whether a smooth loading response explains this donor-free scaffold's unusual strong-solvent interval.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "cd3c75eca39365e943e4",
+      "reason": "m156 at 2/1, 50 ul tests a narrow predicted interval between measured 5/1 row c11cd3254f56bcefba08 and 20/1 row 4cacfd98f3f85dc0dc0e. Its crossed V1 quantiles make the negative quantile width unsuitable as confidence evidence. The label probes an apparently precise but internally inconsistent prediction region.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "8a5443659239e3b52e14",
+      "reason": "m94 at 5/1, 150 ul fills the fixed-loading gap between 852d4f3443a81d662552 at 2/1 and 5b445b457a8b897a2d6c at 10/1. With low-loading 5/1 anchor 20d4b1612cbdd88b6755, it tests ratio-dependent loading transfer for a cyclopropyl beta-ketoester.",
+      "hypothesis_id": "H_loading"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H84",
+      "content": "The early, short m84 interval recorded at 40/1 and 100 ul may be a reproducible local condition response or an isolated label not explained by the recorded features. It should not yet determine a broad weak-solvent ester correction.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "6c387793968257d2f169",
+        "b819ee3c169e34252d65",
+        "c16aef24cbedd5b1b875"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "A localized response and unexplained label variation require different generalization behavior. Bracketing the point limits inappropriate transfer while providing useful ester ratio and loading coverage.",
+      "next_discriminating_question": "Does another 40/1, 100 ul label remain early, and do the 30/1 and 40/1 labels at 50 ul show a corresponding decrease?"
+    },
+    {
+      "id": "H_tail",
+      "content": "Some aromatic oxygen-containing scaffolds have extended completion at strong mobile phase without similarly delayed onset. Their local ratio and loading associations can be nonmonotonic, so V1 and V2 need separate conditional mappings. This does not establish a universal inverse solvent-strength response or a mechanism.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "739f955977aa740524e5",
+        "454eb2207b9abc0b2a6d",
+        "4a39c1f64d17e050e4a5",
+        "66c6a533f485d5277f2f",
+        "966254b5be3c8ec5edd3"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Several historical failures primarily missed V2. Labels around strong-solvent response changes can teach when completion remains broad even though onset is early, rather than shifting both endpoints together.",
+      "next_discriminating_question": "How do m197 and m194 change between 0/1 and 1/1 at controlled loading, and is the predicted m191 completion peak independently observed?"
+    },
+    {
+      "id": "H_loading",
+      "content": "Loading corrections depend on scaffold and PE/EA and can differ between endpoints. Some measured weak-solvent curves move onset substantially while completion stays similar; other recorded curves change completion as well. A shared amount correction is therefore unlikely to capture all local responses.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "61771d230b285babe4b6",
+        "eb3bc3fba39e57adbc2f",
+        "bd3435c0f9b14ec7997d",
+        "29b39881584c4fec1c58",
+        "bbb514661c0a49694d6a",
+        "e9dc948c0e68a88eb621"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Loading amount is density times sample volume, and its interaction with structure and solvent strength affects many catalog rows. Controlled missing amounts and ratios can improve both endpoint heads without inventing absent concentration variables.",
+      "next_discriminating_question": "Do the selected low, middle, and high-loading labels continue the observed endpoint-specific trends, and do those trends change between neighboring ratios?"
+    },
+    {
+      "id": "H202",
+      "content": "The steep m202 increase from 5/1 to 10/1 may reproduce at 50 ul rather than being confined to the measured 100 ul condition. Its recorded formal charge and phosphorus environment are chemical context, not evidence for a particular solution species or retention mechanism.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "86258f5c8ffdb874521f",
+        "902937db42f82f467718",
+        "4f88870ad666191b8ea7"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "The 100 ul transition previously produced a very large acquisition-time error. A second loading can establish whether the correction should transfer across this molecule's rows or remain narrowly condition-specific.",
+      "next_discriminating_question": "Does the 10/1, 50 ul label remain much later than its measured 5/1 counterpart?"
+    },
+    {
+      "id": "H_plug",
+      "content": "At fixed molecule, mobile phase, and sample amount, loading-solvent identity or volume may provide predictive information beyond the amount feature. Existing volume contrasts show associations, while the selected candidate comparisons receive nearly invariant forecasts; causality and transfer remain unresolved.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "e7ed7ca4a53258b73ba2",
+        "dd4f07e349873053fd73",
+        "03744855d469f4cca7e6",
+        "9bd998a328b109ef639e"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Controlled contrasts can reveal whether the predictor underuses recorded loading conditions, or whether previously observed differences are specific to a scaffold or unexplained variation.",
+      "next_discriminating_question": "Does m92 distinguish PE from EA loading at otherwise identical conditions, and does changing DCM loading volume from 300 to 400 ul affect m168 at fixed amount?"
+    }
+  ],
+  "feedback_interpretation": "The latest outcomes strengthen endpoint-specific planning. m197 at 1/1 had an acquisition-time V2 underestimate of 11.31 mL with nearly correct onset, while m84 at 40/1 had a V2 overestimate of 14.74 mL and measured a short 3.50\u20134.45 mL interval. These opposite outcomes favor controlled local experiments over a global completion adjustment. m165 also had nearly correct onset but underestimated completion, and the m3 and m68 strong-solvent results show that completion misses extend into donor-free chemistry. Conversely, the recent m137, m151, and m185 labels were close to their acquisition forecasts, reducing the value of another broad set of similar controls. Ethyl anthranilate remained overpredicted at 10/1 and high loading, motivating a same-loading intermediate-ratio label. I also corrected prior structural descriptions from the supplied SMILES: m87 is a methoxybenzoate, m112 a brominated anisole, m182 fluorenone, and m215 naphthalene. Their outcomes should be interpreted using those structures. Historical acquisition errors guide region selection here; they are not treated as current-model residuals.",
+  "batch_rationale": "All selected molecules already occur in L_t, so the expected gain comes chiefly from learning missing structure-condition relationships. Three m84 rows discriminate a localized unusual response from variation outside the recorded features. Strong-solvent experiments across several aromatic functional environments target completion behavior and predicted response reversals, while fixed-loading ratio gaps and missing amounts test how V1 and V2 respond separately. The m92 solvent pair and m168 loading-volume contrast provide controlled tests of recorded loading features. Aromatic-ketone, beta-dicarbonyl, alcohol, phenol, aminoester, and donor-free probes extend these questions across recurring catalog chemistry. The donor-free controls also test whether corrections inferred from polar compounds transfer appropriately. I avoided selecting multiple interchangeable candidate rows at the same tuple; the m84 revisit is deliberate. This batch should improve generalization across the Row-distribution by identifying which endpoint, solvent, and loading corrections transfer and which require scaffold-specific treatment."
+}

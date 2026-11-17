@@ -1,0 +1,31 @@
+{
+  "command": [
+    "/Users/fish/miniforge3/envs/chromatography/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "studies/active_learning/gollum_adaptation_fusion_20261106/phase2/tests/test_phase2.py"
+  ],
+  "returncode": 0,
+  "stdout": ".......                                                                  [100%]\n7 passed in 9.80s\n",
+  "stderr": "",
+  "source_sha256": {
+    "text_embeddings.py": "f852ce6ad3cc641910576b13dba0298ed376e8d561c76bf247ceedf3314766d1",
+    "lora_adaptation.py": "d40dace66aa5c2837a1aefd9c41c190f6ec5da9aec04c3faaf2d0fca4384e2df",
+    "phase2/preflight.py": "09a8043ddc23c2fdedfa643965b9ced3220c7903d136062cf1b0cb51d9d7123d",
+    "phase2/tests/test_phase2.py": "5d62859b88f97c3d5735460568beaf646f55e22fa172977d8bda9d29c3eed018"
+  },
+  "finite_difference_tolerance": {
+    "eps": 1e-06,
+    "relative": 0.0002,
+    "absolute": 1e-06
+  },
+  "feature_gradcheck": {
+    "eps": 1e-06,
+    "relative": 0.0001,
+    "absolute": 1e-05
+  },
+  "performance_evidence": false,
+  "model_downloads": 0,
+  "dependency_installs": 0
+}

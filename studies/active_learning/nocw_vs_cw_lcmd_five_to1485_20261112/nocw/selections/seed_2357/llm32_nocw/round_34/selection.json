@@ -1,0 +1,277 @@
+{
+  "type": "selection",
+  "packet_sha256": "d448b5a6834b9830755bf5b83883374ea497e521a0900ca9387244781e7caa29",
+  "batch_strategy": "Select 32 experiments that fill informative gaps in scaffold-specific ratio and loading responses, follow recent endpoint failures, test specific predicted bends, and revisit two conditions with evidence of unusual or inconsistent behavior. Matched comparisons receive priority over redundant coverage. All selections bind to the supplied premeasurement forecasts; none depend on new labels.",
+  "choices": [
+    {
+      "id": "6b38c8782f95c673c809",
+      "reason": "m82 at 2/1, 50 ul fills the low-amount gap immediately below the recently measured 5/1 condition 3ca8d2ff798fad4faffc, which finished at 36.83 mL. The forecast is 7.65/18.09 mL. Together these conditions locate the steep response without confounding ratio with amount.",
+      "hypothesis_id": "H_curve"
+    },
+    {
+      "id": "cd2c80dae2f32a52732f",
+      "reason": "m82 at 5/1, 150 ul supplies a threefold amount contrast to 3ca8d2ff798fad4faffc at unchanged loading solvent and plug volume. The forecast, 13.58/33.21 mL, is nearly amount-insensitive; the label tests whether the historical V2 underprediction transfers to higher loading.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "cfaceffb933d8cc2f151",
+      "reason": "m95 at 1/1, 50 ul fills a strong-eluent baseline for methyl acetoacetate. Measured 2/1 row 8d018e521e8e6bbc53c2 and 5/1 row cd566862a517dd7cdc8d anchor its rise. This helps distinguish methyl, ethyl and tert-butyl beta-ketoester responses rather than sharing one carbonyl correction.",
+      "hypothesis_id": "H_transfer"
+    },
+    {
+      "id": "b008f92639d8bb738954",
+      "reason": "m25 at 5/1, 50 ul fills an intermediate-ratio gap for the tert-butyl beta-ketoester. Its 9.07/17.72 mL forecast can be connected to the accurate 1/1 observation 9ea628a740f0855c4dbe and the later 20/1 observation e6544a01d42439a41712, improving transfer within this recurring chemical family.",
+      "hypothesis_id": "H_transfer"
+    },
+    {
+      "id": "35944fdd59ac331c3fcb",
+      "reason": "m95 at 10/1, 150 ul completes an amount bracket with 41f57dc6d50ee162801a at 50 ul and 45e24a16b44a89653e4b at 100 ul. Those labels show onset movement with relatively stable completion. The new label tests whether that endpoint-specific response continues at higher amount.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "3da92f4c69a3c88d3585",
+      "reason": "m74 at 20/1, 150 ul tests amount dependence below the recent 50/1 V2 failure 0434c2f9b75e25782a13. The forecast is 11.65/19.99 mL, while measured 20/1, 100 ul row b98a7974de322ed42ec0 finished at 24.60 mL. This determines whether completion changes are confined to the weaker-eluent regime.",
+      "hypothesis_id": "H_failure"
+    },
+    {
+      "id": "3c273e7c71bbc8fb4fc9",
+      "reason": "m4 at 5/1, 50 ul is the low-amount counterpart of recent high-amount row 111bfd60a27716526dc8, whose V2 was underpredicted by 5.15 mL at acquisition. Existing 10/1 observations also show later completion at higher amount. This tests whether that loading response persists at 5/1.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "1525a3663c8d039331ed",
+      "reason": "m8 at 10/1, 50 ul begins a fixed-loading test of its apparently decreasing completion curve. Compare the 18.03 mL V2 forecast with measured 50/1, 50 ul row 19e5d078bc0eb8a91e1e at 12.28 mL. This removes the amount confounding in the existing cross-ratio observations.",
+      "hypothesis_id": "H_m8"
+    },
+    {
+      "id": "6a4be1a58bc5ec9ed008",
+      "reason": "m8 at 20/1, 50 ul completes the intermediate point between the selected 10/1 condition and measured 50/1 row 19e5d078bc0eb8a91e1e. Its 15.21 mL completion forecast tests whether the downward curve is reproducible at fixed recorded conditions or is a prediction artifact.",
+      "hypothesis_id": "H_m8"
+    },
+    {
+      "id": "12aed585647de3f03908",
+      "reason": "m8 at 50/1, 150 ul changes amount while retaining the ratio and setup of 19e5d078bc0eb8a91e1e. The 4.63/13.43 mL forecast tests whether the unexpectedly early low-amount completion extends across loading, helping distinguish a scaffold response from an amount-specific exception.",
+      "hypothesis_id": "H_m8"
+    },
+    {
+      "id": "e19bda1298f299931245",
+      "reason": "m56 at 30/1, 50 ul fills the gap between measured 20/1 row ae6ebf89dbdd202b5247 and 40/1 row ac76ec24edfe8aec7fb2. The paired high-amount selection tests a local response before the more variable 50/1 and 100/1 records, without treating those disagreements as established loading effects.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "c7ab6c7042f1d1d26570",
+      "reason": "m56 at 30/1, 150 ul pairs with the selected 50 ul condition at identical solvent setup. Forecast completion changes by less than 0.04 mL across the pair. Measuring both tests this near-flat loading prediction and provides a local bridge to the later completion measured in b4c266d3fe67315f0adf.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "e6d0dc8ca50b71d5f807",
+      "reason": "m75 at 10/1, 100 ul fills the missing point between measured 5/1 row f82f2844c7e27afd32bb and 20/1 row 1effe6f049d068dc08cf. The current 13.41/22.91 mL forecast suggests a smooth rise after earlier forecast extrema failed. This label tests the repaired interpolation directly.",
+      "hypothesis_id": "H_curve"
+    },
+    {
+      "id": "3726956d81fe3954e5b7",
+      "reason": "m75 at 20/1, 50 ul forecasts 20.56/30.58 mL. Comparison with 100 ul row 1effe6f049d068dc08cf and the much earlier 50/1, 50 ul row 28e9fea3e3293f2b8a0e distinguishes a localized ratio reversal from generally early behavior at low amount.",
+      "hypothesis_id": "H_curve"
+    },
+    {
+      "id": "f394f6b40e55953df8e1",
+      "reason": "m26 at 5/1, 100 ul tests a predicted local completion dip. Measured 2/1 row 99b6aac7dd5c18caba18 finished at 22.50 mL and 10/1 row ba0d2f91eb0b005857f8 at 19.89 mL; the missing 5/1 point forecasts 17.17 mL. A fixed-amount label distinguishes a real local exception from interpolation error.",
+      "hypothesis_id": "H_curve"
+    },
+    {
+      "id": "6020a000a87663526cc8",
+      "reason": "m26 at 50/1, 150 ul extends the loading response around measured 100 ul row fa851bcd2cdb1d84b91f. Its 13.11/32.03 mL forecast is nearly unchanged from lower-amount predictions. This tests whether onset and completion respond separately in a beta-diketone at weak eluent strength.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "fe212637596386c24049",
+      "reason": "m163 at 50/1, 50 ul explores an unmeasured weak-eluent regime for ortho-fluorobenzonitrile. Measured 5/1 row d17626bc1e62c46d095f and 20/1 row 539544adb51a91c9a465 establish increasing retention. The 28.26/59.10 mL forecast tests how that response transfers beyond the observed range.",
+      "hypothesis_id": "H_transfer"
+    },
+    {
+      "id": "741f33ecf2e66f9958fd",
+      "reason": "m163 at 50/1, 150 ul pairs with the selected 50 ul endpoint. The model forecasts almost identical completion across a threefold amount change. Measuring both tests whether a weak-eluent nitrile response has the onset/completion asymmetry seen in other scaffolds.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "5ff3e81c102706da6a30",
+      "reason": "m144 at 50/1, 100 ul fills the weak-eluent endpoint for ortho-tolunitrile. Its 21.48/41.38 mL forecast extends measured 20/1 evidence 4c3dce39521dcb1793a1 and complements the m163 selections and measured m162 endpoint dc73b789d0821495353b. Loading-solvent differences remain explicit in these family comparisons.",
+      "hypothesis_id": "H_transfer"
+    },
+    {
+      "id": "c53330d840e277502386",
+      "reason": "m130 at 20/1, 100 ul tests the predicted 3.57/9.58 mL trough between moderate-ratio forecasts and the later 50/1 behavior measured in b51a88b6dc4049704214. This adds a discriminating aryl-nitrile condition rather than assuming all nitriles share the steeper m163 response.",
+      "hypothesis_id": "H_curve"
+    },
+    {
+      "id": "810b16f35a3a86f451ce",
+      "reason": "m87 at 50/1, 50 ul adds a low-amount endpoint to measured 100 ul row b7cbf8a3f54b6d586198. The 20.02/45.21 mL forecast tests whether extended completion in this methoxybenzoate transfers across amount, complementing the recent ester failures without imposing a universal upward V2 correction.",
+      "hypothesis_id": "H_failure"
+    },
+    {
+      "id": "6ac700cf79bf6e05982e",
+      "reason": "m34 at 20/1, 50 ul starts a matched amount pair in the gap between measured 10/1 and 50/1 curves. Rows 084212942b840ae3c1c7 and 01ed985e6ebf7d4a3dc8 show substantial onset movement but almost unchanged completion at 10/1. This tests transfer of that interaction to 20/1.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "bed2f1430d0964e86fcb",
+      "reason": "m34 at 20/1, 150 ul completes the selected amount pair. Forecasts differ by only about 0.21 mL in V1 and 0.04 mL in V2. The labels can teach whether the measured endpoint-specific amount response interpolates across solvent ratio or requires another local correction.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "0b8c7bc2949fb8070c94",
+      "reason": "m73 at 0/1, 100 ul is a near-repeat of b187c8a6f7beb2c7f61f, with only a tiny recorded density difference. Its 10.87/15.40 mL forecast conflicts with that early observation, while 3d5a3094cb10eee37b37 and 9955b65d41bf10d27b48 disagree at 50 ul. The label helps estimate the conditional response without inventing a loading mechanism.",
+      "hypothesis_id": "H_variation"
+    },
+    {
+      "id": "4f828f86817f7db919d4",
+      "reason": "This eligible repeat of m12 at 2/1, 50 ul revisits c8f65df578125328ba0e, which finished at 29.86 mL, versus roughly 16\u201317 mL at higher amounts in 9d3f3505ff1be86befbe and 3874d078a42b664f6dcc. It tests whether the unusual low-amount endpoint recurs or reflects variation unresolved by recorded features.",
+      "hypothesis_id": "H_variation"
+    },
+    {
+      "id": "afbb3431f3c1f6b3fc84",
+      "reason": "m12 at 1/1, 100 ul adds a missing amount baseline next to the selected 2/1 repeat. Initial row 303e517db71305479cf8 anchors 1/1 at 50 ul. This tests whether the strong amount response suggested near 2/1 is localized, while adding information about a nonpolar scaffold with extended elution intervals.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "27d20ccfd8f7234015f4",
+      "reason": "m88 at 2/1, 50 ul fills the low-amount side of measured meta-aminobenzoate row ca6feb29f6758377a65f. Its label helps connect the moderate 2/1 response to the much later 5/1 observations, including d2921349ba8d9cef15a4, and tests transfer among amino-substitution environments.",
+      "hypothesis_id": "H_transfer"
+    },
+    {
+      "id": "073e6abf4d3bfffc2761",
+      "reason": "m86 at 2/1, 150 ul extends measured 100 ul row 70593725787c65a74951 before the large 5/1 rise documented by 3ccd6444c8a55917fbf8. This supplies a para-aminobenzoate loading contrast and tests whether onset and completion change together near the start of its steep solvent response.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "3c720f4b187382a3d563",
+      "reason": "m89 at 2/1, 50 ul completes a low-amount point for the ortho-amino ester alongside measured 100 ul row 6fe6280def3960fa4f99. Comparing its response with the m88 selection tests topology-dependent transfer; the PE versus DCM loading difference prevents interpreting the comparison as a pure positional effect.",
+      "hypothesis_id": "H_transfer"
+    },
+    {
+      "id": "80de1b57c56257d2ecae",
+      "reason": "m166 at 20/1, 100 ul tests a forecast completion plateau at 22.45 mL after recent 10/1 row fc672dc6f3ecc1d0492c finished at 24.15 mL. The unchanged amount and setup isolate ratio, while low-amount 20/1 evidence 7ac16a6d90180a350ff0 provides a second reference.",
+      "hypothesis_id": "H_curve"
+    },
+    {
+      "id": "fa6fd34875fdc7acf6c1",
+      "reason": "m167 at 50/1, 150 ul extends the phenyl trifluorinated beta-diketone beyond low-amount endpoint f4c58d48258027bb5485. Together with the m166 selection and existing m166 labels, it tests whether replacing phenyl with naphthyl changes completion response beyond what shared beta-diketone features predict.",
+      "hypothesis_id": "H_transfer"
+    },
+    {
+      "id": "bf09d868ed4d68a97b40",
+      "reason": "m51 at 5/1, 50 ul fills the low-amount counterpart of 7eb97a2a0856e78a4b76 and precedes the steep 10/1 rise measured in 4fb92bd1fab3ba235858. This adds a tertiary-alcohol response where steric environment may limit transfer from secondary alcohols, while directly testing amount dependence at fixed setup.",
+      "hypothesis_id": "H_loading"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H_failure",
+      "content": "Consequential completion errors remain localized to scaffold and condition. Recent m82, m74 and m4 acquisitions underestimated V2, whereas m8 overestimated it and m91 was accurate. A common upward correction for oxygenated or carbonyl-containing molecules would therefore be inadequate.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "3ca8d2ff798fad4faffc",
+        "0434c2f9b75e25782a13",
+        "111bfd60a27716526dc8",
+        "19e5d078bc0eb8a91e1e",
+        "93f10a8edf06f7acae26"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The retrained model needs conditional endpoint corrections that preserve accurate early and moderate predictions while repairing completion failures. Historical acquisition errors identify useful neighborhoods, although they are not current-model residuals.",
+      "next_discriminating_question": "Do new amount and ratio points for m82, m74, m4 and the related ester m87 retain their local completion patterns?"
+    },
+    {
+      "id": "H_loading",
+      "content": "Loading responses can affect V1 and V2 differently and depend on scaffold and solvent ratio. Several current candidate pairs predict almost no amount effect despite measured onset shifts or completion changes in nearby conditions. These interactions may generalize, but a single loading slope is insufficient.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "e21a50fea625cd4d71f8",
+        "971b4f8e32cbdf087dd8",
+        "084212942b840ae3c1c7",
+        "01ed985e6ebf7d4a3dc8",
+        "3c041f5186a291c3b313",
+        "5b7151c95c4e964a121b"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched amount contrasts provide training information about endpoint-specific interactions, including regions where the predictor currently produces nearly flat loading responses. Sample amount is the supplied density-times-volume feature.",
+      "next_discriminating_question": "Which selected fixed-ratio comparisons show onset movement, completion movement, both, or neither, and does the pattern transfer between nearby chemical families?"
+    },
+    {
+      "id": "H_curve",
+      "content": "Solvent response can contain scaffold-specific steep regions, plateaus and local reversals. The measured m75 rise from 5/1 to 20/1 at 100 ul is established, but the detailed intermediate curve and current forecast bends for m26, m130 and m166 remain unresolved.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "f82f2844c7e27afd32bb",
+        "1effe6f049d068dc08cf",
+        "99b6aac7dd5c18caba18",
+        "ba0d2f91eb0b005857f8",
+        "5879dc8ccb560446d54c",
+        "7d402b3fad455f06fe68"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Fixed-amount gap measurements distinguish smooth interpolation from genuine exceptions and can remove unsupported extrema without forcing every scaffold onto one monotonic response.",
+      "next_discriminating_question": "Does m75 at 10/1 follow a smooth rise, and do the selected m26 5/1, m130 20/1 and m166 20/1 labels support their forecast dips or plateaus?"
+    },
+    {
+      "id": "H_m8",
+      "content": "m8 may have decreasing completion volume between PE/EA 10/1 and 50/1, despite the weaker mobile phase at larger ratios. Existing observations motivating this possibility differ in amount, so an amount effect, a local exception and unexplained variation remain competing explanations.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "52ba04ff53084b79a0c9",
+        "5806c857509e09634010",
+        "19e5d078bc0eb8a91e1e"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The recent large overprediction makes this a useful repair region. A fixed-loading ratio series can determine whether the current decreasing forecast should be retained or corrected.",
+      "next_discriminating_question": "At 50 ul and unchanged DCM setup, do V2 values decrease across 10/1, 20/1 and 50/1, and does the 50/1 endpoint persist at 150 ul?"
+    },
+    {
+      "id": "H_variation",
+      "content": "Some records with identical recorded molecule and conditions disagree substantially. Deterministic ratio and loading effects cannot explain every such disagreement. Experimental variation, unrecorded variables or record issues are possible explanations, but the supplied evidence does not identify their cause.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "6291930c715370a3b84f",
+        "5c11321c1ad5aec4ddf1",
+        "81cd2078a0008c2c9cd9",
+        "781b8d96d8bc7c124dc9",
+        "3d5a3094cb10eee37b37",
+        "9955b65d41bf10d27b48"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Targeted repeats can improve estimates of conditional behavior and prevent unusual records from inducing spurious deterministic response curves. Additional labels cannot themselves eliminate variation unexplained by available features.",
+      "next_discriminating_question": "Does the m12 repeat reproduce its unusually late low-amount completion, and does the m73 near-repeat support its ordinary early baseline or the anomalous later records?"
+    },
+    {
+      "id": "H_transfer",
+      "content": "Related molecules sharing functional-group counts can have different condition-response curves. Topology, substitution environment and recorded loading setup need joint learning within beta-carbonyl esters, aminobenzoates and aryl nitriles. Steric shielding and intramolecular hydrogen bonding are plausible chemical priors, not established explanations for the observed differences.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "3ccd6444c8a55917fbf8",
+        "d2921349ba8d9cef15a4",
+        "e513420e1b7414424e7c",
+        "3ca8d2ff798fad4faffc",
+        "45e24a16b44a89653e4b",
+        "d21f08a7e8eaa163ecfc",
+        "dc73b789d0821495353b",
+        "b51a88b6dc4049704214"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Family-linked labels can teach transferable structure-condition interactions while limiting erroneous descriptor-level pooling. Between-molecule comparisons retain their actual amount, solvent and plug-volume differences.",
+      "next_discriminating_question": "Do missing strong-eluent baselines, intermediate-ratio points and weak-eluent endpoints preserve distinct family responses after the recorded setup differences are accounted for?"
+    }
+  ],
+  "feedback_interpretation": "The latest outcomes weaken any universal late-completion correction. At acquisition, m82 5/1 underestimated V2 by 10.84 mL and m74 50/1 by 13.23 mL with much smaller V1 errors; m4 and m56 also underestimated completion. In contrast, m8 50/1 overestimated V2 by 12.05 mL, while m91, m28 and m117 were close at their newly measured conditions. I therefore prioritize conditional comparisons rather than applying a polarity-wide offset. The m75 1/1 result supplies an early baseline, while earlier measured 5/1 and 20/1 labels still establish a steep rise worth interpolating. Recent m56 50/1, 100 ul completion of 23.27 mL differs from an older identical-condition value of 17.10 mL; the conflicting 100/1 low-amount records likewise weaken the interpretation of one short endpoint as a reproducible ratio effect. Accurate m157 and m124 outcomes do not independently establish a loading-plug-volume effect because they were not matched volume contrasts. I also correct earlier descriptions using the supplied structures: m105 is a hydroxybenzoate, m59 is a methylenedioxy-substituted aldehyde, and increasing PE/EA means less EA and weaker mobile-phase elution strength; 0/1 is pure EA.",
+  "batch_rationale": "The batch uses the available pool mainly to resolve condition relationships within already represented molecules. Its strongest local experiments are the m82 ratio/loading additions, the three m8 conditions, the m56 and m34 amount pairs, and the m75 transition measurements. These can teach separate mappings for onset and completion and discriminate between real curve shape, loading interaction and unsupported prediction extrema. The nitrile, aminobenzoate and beta-carbonyl selections extend those lessons across related structures and recorded setups, while m4 and m12 prevent the plan from equating informative retention behavior with high polarity alone. Two targeted repeat or near-repeat measurements address unusual records; most selections add missing condition points. Quantile widths receive limited weight because the supplied V2 q10 values are zero and some endpoint quantiles cross their medians, so these widths are neither calibrated epistemic uncertainty nor elution-interval widths. The expected benefit is better interpolation and more reliable transfer across the Row-distribution, including early, moderate and extended completion regimes, rather than maximizing retention or optimizing the selected chromatographic runs."
+}

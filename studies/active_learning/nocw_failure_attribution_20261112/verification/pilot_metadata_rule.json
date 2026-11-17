@@ -1,0 +1,29 @@
+{
+  "version": "nocw_fixed_label_pilot_metadata_v2",
+  "status": "ROOT_LEAKAGE_REVIEW_AMENDMENT_BEFORE_ANY_TRAINING_OR_MODEL_OUTCOME",
+  "outer_seeds": [
+    157,
+    887
+  ],
+  "seed_selection": "Ascending numeric order of the five historical confirmation seeds; first two, independent of outcomes and gain",
+  "source_method": "nocw",
+  "available_label_budgets": [
+    525,
+    1005
+  ],
+  "metadata_source": "experiments/e0_4g_baseline/canonical_4g.csv read with exact X-only usecols and dtype=str; previous label-free snapshot for role IDs",
+  "holdout_eligibility": "IDs acquired after L333 and present in the current L_t; exclude every molecular-plus-five-recorded-conditions group also present in L333; additionally exclude entire same-recorded-condition groups represented in validation",
+  "pair_rule": "Same canonical molecule, exactly one of the five recorded condition fields differs. PE/EA is compared by exact rational ratio; continuous values by Decimal strings; no rounded matching.",
+  "group_rule": "Connected components of strict-single-factor edges plus same-recorded-condition identity edges among eligible rows. All component endpoints and all identical-condition rows are held out together. Components are never split.",
+  "minimum_qualified_components": 10,
+  "minimum_volume_components": 2,
+  "minimum_volume_molecules": 2,
+  "volume_role": "Primary mechanism subgroup. Other single-factor axes provide valid control groups and can fill the ten-component H.",
+  "selection": "Take exactly ten components if qualified. Priority components containing a sample-volume-only pair, then stable sha256 of sorted component row IDs; do not use labels, residuals, predictions or validation gain. If ten components are not possible or volume minima fail, skip state without reducing criteria.",
+  "holdout_truth_usage": "After model protocol freeze, used only for final held-out pair error; never for checkpoint selection or changing the model.",
+  "target_scaling": "Reuse frozen original L333 target scales. H excludes L333 and same-condition groups shared with L333.",
+  "fit_limit": "At most four eligible states times two model arms times two paired training seeds = sixteen successful fits. No training before root approval and C gate.",
+  "no_response_based_selection": true,
+  "no_training_performed": true,
+  "amendment": "Root X-only review found one v1 H row in 157/L1005 and one in 887/L525 share full recorded conditions with validation. V2 excludes these keys before graph construction, retains all thresholds/model/seed/order rules. Authorized observed values had been parsed only to verify ID availability; none used for H or amendment."
+}

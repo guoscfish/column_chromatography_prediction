@@ -1,0 +1,273 @@
+{
+  "type": "selection",
+  "packet_sha256": "f17b2a8c2e49500389f9f265c9ab730afba20398123fedc8484176298dd90180",
+  "batch_strategy": "Broad structure-condition calibration with endpoint and loading controls. The batch covers oxygenated carbonyls, aromatic controls, donor and acceptor environments, unusual halogenated scaffolds, and matched loading or solvent-response settings.",
+  "choices": [
+    {
+      "id": "b4349d7740d7c02829ef",
+      "reason": "m88 at pure EA and low loading provides a strong-eluent amino-ester baseline. It complements the measured anthranilate outcome 79515e25d0daceed2ce8 and helps separate donor-plus-ester behavior from weaker-eluent completion tails.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "8fdf94a48f481ec3e125",
+      "reason": "m187 is a donor-free halogenated aromatic aldehyde at pure EA. This is a neutral carbonyl control for testing whether corrections learned from donor-rich and nitrocarbonyl rows spill into ordinary aromatic aldehydes.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "31c0776f3608c0708c2c",
+      "reason": "m82 is a compact multi-acceptor carbonyl at 1/1 with moderate loading. It adds routine oxygen-rich supervision between stronger and weaker eluent conditions and constrains broad completion corrections.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "f9f0f4e29dbd30c000ee",
+      "reason": "m135 at 5/1 and high loading extends the primary-alcohol response beyond the measured 5/1 low-loading point a5446977630484ca5fe1 and the 10/1 point d05a91dc8e32e9edd7d.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "8532b67875eadcc6397c",
+      "reason": "m9 is a donor-free, low-polarity aromatic control at 2/1. It tests baseline retention and loading transfer without invoking carbonyl or donor corrections.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "0ba3183db9fd2bc51744",
+      "reason": "m201 is a nitroaryl halide at 1/1. It supplies an early strong-eluent point for a strong-acceptor environment and tests whether nitro effects transfer from measured nitrocarbonyl failures.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "752c884154a739045315",
+      "reason": "m98 at 20/1 probes a neutral aromatic ester in a weak-eluent region. It constrains completion tails while guarding against overcorrection from donor-rich and multi-carbonyl compounds.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "790d27f0fa045d91f307",
+      "reason": "m92 at 5/1 with EA loading adds an intermediate alpha-ketoester point. It complements the measured 50/1 row 7b42519983cf93dd7efd and tests whether the completion slope is smooth across solvent ratio.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "1017f3210c25ff6e6cc1",
+      "reason": "m184 at 2/1 provides a stronger-eluent aromatic aldehyde anchor at moderate loading. Together with the measured m184 point b75ac5668dddb9154807, it helps establish a routine halogenated-carbonyl response curve.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "53a9a2469f8d4ead8732",
+      "reason": "m45 repeats an acid-bearing condition in a structurally unusual interaction regime. Comparison with measured m45 row 129036e0bccc4ff7e848 tests reproducibility of the extreme high-ratio behavior.",
+      "hypothesis_id": "H6"
+    },
+    {
+      "id": "a47a3987d45e7c542d38",
+      "reason": "m123 at 50/1 and high loading probes a weak-eluent ether-rich aromatic environment. Its broad predicted interval makes it useful for completion calibration at a condition where neutral oxygen compounds may diverge.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "09451a20997310593b6e",
+      "reason": "m95 at pure EA is a small multi-carbonyl control. It supplies a strong-eluent endpoint anchor against the large and variable completion responses seen in related oxygen-rich compounds.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "97be17292620713a15c8",
+      "reason": "m17 is a fluorinated acrylate at 2/1. It tests whether an ester with an electron-withdrawing substituent follows the simple acrylate response learned from measured oxygen-rich rows.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "ace363e8314f9f7d27a6",
+      "reason": "m80 at 5/1 with PE loading is an ordinary multi-acceptor control. It adds a loading-solvent setting distinct from measured m80 row 55dfd30fde788076a355 and tests reproducibility of loading effects.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "99a3c4452ddfa8ff12c0",
+      "reason": "m89 at 20/1 and PE loading probes an amino-benzoate under weak eluent. It extends the measured amino-ester evidence, including 1cee9fb4b0731101f3a6 and fd5fa962575144327bf4, into a strong donor-acceptor interaction region.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "b23c792edccd16573efa",
+      "reason": "m189 at pure EA is a neutral biphenyl aldehyde control. It helps calibrate aromaticity and carbonyl topology before applying weak-eluent corrections.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "ebb30a10744d1458c592",
+      "reason": "m122 at 2/1 supplies an ether-rich halogenated aromatic control at an intermediate ratio. It helps distinguish simple hydrophobic effects from the oxygen-rich completion behavior supported by 780b13846ace50ede763.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "0b3add03839ff1700084",
+      "reason": "m69 at 10/1 is a routine aromatic ketone at moderate loading. It provides ordinary weak-eluent supervision to prevent the retrained model from fitting only chemically unusual high-error rows.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "658d43a24dbaba3e5104",
+      "reason": "m113 at 50/1 probes a donor-free anisole-like halogenated aromatic at very weak eluent. It tests whether high-ratio predictions remain reasonable for a low-polarity scaffold.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "68c511d842fc030aa84b",
+      "reason": "m18 at pure EA and low volume extends the long-chain acrylate family. This tests whether hydrophobic size and low polarity alter the loading and endpoint behavior learned from more compact acrylates.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "467369f114586bba5b10",
+      "reason": "m153 is a heavily halogenated ether at 2/1. It adds a structurally distinct low-donor control for transfer across high molecular weight and halogen content.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "7bfad75485e830b6d460",
+      "reason": "m116 at 50/1 and low loading is a neutral dimethoxy aromatic in a weak-eluent region. It can reveal whether completion broadening is being overgeneralized from carbonyl and donor scaffolds.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "3ef36e4ee22e16660eb4",
+      "reason": "m99 at 1/1 with very high loading directly tests loading sensitivity in a hydroxy-ester. It complements the donor and loading failures represented by 5885d427a26f03e522f3 and 1211905ebc8972913270.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "2398166df14947ad4be8",
+      "reason": "m104 at pure EA and low loading gives a strong-eluent anthranilate anchor. Comparison with measured m104 rows such as 79515e25d0daceed2ce8 tests whether donor-acceptor proximity changes onset and completion differently.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "f7d57d8bb988f7016502",
+      "reason": "m80 at 50/1 and PE loading extends a neutral multi-acceptor response into a very weak mobile phase. It provides a routine control for completion-tail repair.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "54a3411006f7051f1053",
+      "reason": "m174 at 10/1 and PE loading probes a diaryl ester-like environment at an intermediate weak-eluent condition. It tests transfer from neutral carbonyl families without selecting solely on predicted volume.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "b7ebe910f1966ad518b8",
+      "reason": "m62 is a boronate ester at 10/1 with low loading, adding a functional group underrepresented in the targeted failure regions. It tests whether the model's acceptor and heteroatom representation transfers to boron-containing structures.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "20a3e65ac978c57b9f94",
+      "reason": "m184 at 5/1 and low loading supplies a second point on the halogenated aldehyde response. Together with measured m184 row b75ac5668dddb9154807, it separates ratio effects from loading effects.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "1a53d7b807a4a60e963e",
+      "reason": "m183 at 10/1 extends the aldehyde response between measured stronger-eluent rows 64183c43d0683f720535 and 19ed94b603c3b308ed84. It tests whether completion and onset interpolate together.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "2d5adb5a4d8b98e22d1e",
+      "reason": "m2 at 10/1 is a donor-free dibrominated hydrocarbon control. It tests condition and loading transfer in a low-polarity scaffold that should not inherit oxygen-rich corrections.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "34259c4476a7a0ae27e7",
+      "reason": "m126 anisole at pure EA supplies a neutral single-acceptor baseline. It complements the measured anisole condition 0f694957922ad0e10db2 and helps constrain spillover from donor and multi-carbonyl corrections.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "a4923e4c1f935a466f3b",
+      "reason": "m41 at 50/1 and PE loading is an ordinary aromatic ketone at weak eluent. It adds a routine high-ratio endpoint point for generalization across the large neutral portion of the Row-distribution.",
+      "hypothesis_id": "H3"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Oxygen-rich carbonyl scaffolds require topology-specific PE/EA response curves; acceptor count alone does not explain onset and completion.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "d1172a49fca1e196a59f",
+        "e3a799d0fa90b649a157",
+        "780b13846ace50ede763",
+        "0389a6366b3a51fad8b5",
+        "90392022474cdfb260c0"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "This batch adds multi-acceptor esters, acrylates, aldehydes, and neutral aromatic controls across strong and weak eluent conditions, improving transfer of topology-specific response curves.",
+      "next_discriminating_question": "Do added oxygen atoms change both endpoints smoothly, or mainly create scaffold-specific V2 tails at particular ratios?"
+    },
+    {
+      "id": "H2",
+      "content": "Alcohol and phenolic donor responses depend strongly on scaffold and condition, and onset changes need not track completion changes.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "9ed7c1fb1c2cc499bbf9",
+        "5885d427a26f03e522f3",
+        "73502a52708e4f9c2391",
+        "1211905ebc8972913270",
+        "e8f592c469b2f3c136d8"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The primary alcohol and hydroxy-ester rows add donor-family supervision at different loadings and ratios, helping retraining learn endpoint-specific donor effects.",
+      "next_discriminating_question": "Which donor scaffolds share a solvent-response shape after loading adjustment, and which retain a distinct completion tail?"
+    },
+    {
+      "id": "H3",
+      "content": "Completion requires direct local calibration: historical V2 errors occur in both directions and cannot be repaired reliably through a universal shift or by inferring V2 from V1.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "55dfd30fde788076a355",
+        "0dfdfd6dce2d3f41a427",
+        "b51a88b6dc4049704214",
+        "90392022474cdfb260c0",
+        "1e337f272ca5d688e8ff"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Several routine and weak-eluent carbonyl controls provide direct V2 supervision and reduce the risk that retraining overfits only severe failure rows.",
+      "next_discriminating_question": "Which completion tails are reproducible condition effects, and which remain unexplained by the catalog features?"
+    },
+    {
+      "id": "H4",
+      "content": "Some apparent loading and loading-solvent-volume effects are scaffold- and endpoint-specific, while matched candidate predictions are often nearly invariant to loading. Their reproducibility remains unresolved.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "00043aebb2540e369a7b",
+        "f4fb5c03b8e8996e75f6",
+        "03744855d469f4cca7e6",
+        "9bd998a328b109ef639e",
+        "143bf510fe2028583763",
+        "769f1d04efb22c05cfdf"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Repeated m80, m99, m104, and m184 loading settings test whether loading variables provide generalizable signal or only scaffold-specific variation.",
+      "next_discriminating_question": "Do loading changes reproducibly affect onset, completion, or both across chemically different scaffolds?"
+    },
+    {
+      "id": "H5",
+      "content": "Nitrile, amino, nitrocarbonyl, and basic heteroaromatic environments require context-specific condition slopes rather than a common strong-acceptor correction.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "49201b5817f204116f7f",
+        "b51a88b6dc4049704214",
+        "efb7617d566fb19d9217",
+        "9e3ce3497298084abd83",
+        "0ac58929e586a4da4056"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The amino-ester, nitroaryl, and heteroatom-rich rows add early and intermediate condition points that can refine context-dependent strong-interaction slopes.",
+      "next_discriminating_question": "Can the model transfer solvent-response shape across related acceptor environments without erasing positional and donor effects?"
+    },
+    {
+      "id": "H6",
+      "content": "Strongly interacting, acid-bearing, and unusual heteroatom environments form a distinct modeling failure region that needs targeted calibration; the data do not establish one common physical transition mechanism.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "129036e0bccc4ff7e848",
+        "902937db42f82f467718",
+        "4862e2fb71344ce16021",
+        "aa83ae83c0fa0cc37777"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The acid-bearing candidate and heteroatom-rich controls test whether QGeoGNN can recognize when neutral-analogy transfer fails.",
+      "next_discriminating_question": "Are the large errors best explained by distinct interaction classes, solvent-response transitions, or irreducible variability?"
+    }
+  ],
+  "feedback_interpretation": "Recent outcomes reinforce local, endpoint-specific calibration. The m94 rows ffc70e28db22d1cc1f3f and 5b445b457a8b897a2d6 show similarly sized but opposite-signed endpoint errors, while ordinary controls such as 9e94f0a4a224512b06cc, c53330d840e277502386, and b75ac5668dddb9154807 are comparatively accurate. Severe failures remain concentrated in nitrocarbonyl, charged, acid-bearing, donor-rich, and unusual heteroatom environments, so this batch combines targeted interaction coverage with neutral controls and loading contrasts.",
+  "batch_rationale": "The batch improves generalization through broad local coverage rather than a single failure class. It includes strong-eluent baselines, weak-eluent endpoints, oxygen-rich carbonyls, amino and donor-containing compounds, halogenated controls, and a boronate ester. Repeated or closely related loading settings for m80, m99, m104, and m184 test whether loading variables are reproducible. Neutral anisole, ketone, aldehyde, and hydrocarbon rows constrain spillover from corrections learned on severe failures, while amino, acid-bearing, and heteroatom-rich rows expose underrepresented structure-condition interactions. These labels should improve both V1 and V2 accuracy across routine and difficult regions of the Row-distribution."
+}

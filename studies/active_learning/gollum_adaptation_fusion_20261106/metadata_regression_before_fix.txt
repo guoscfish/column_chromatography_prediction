@@ -1,0 +1,19 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+____________ test_actual_structured_results_have_correct_provenance ____________
+
+    def test_actual_structured_results_have_correct_provenance():
+        files=sorted((HERE/'phase1').glob('*_structured_frozen_*.json'))
+        assert files
+        for p in files:
+            d=json.loads(p.read_text())
+>           assert d['representation_provenance']==expected_provenance('structured')
+E           AssertionError: assert 'historical_G...ional_GP_only' == 'structured_r...nt_covariates'
+E             
+E             - structured_response_independent_covariates
+E             + historical_GNN_saw_all_Lt_conditional_GP_only
+
+studies/active_learning/gollum_adaptation_fusion_20261106/test_report_metadata.py:12: AssertionError
+=========================== short test summary info ============================
+FAILED studies/active_learning/gollum_adaptation_fusion_20261106/test_report_metadata.py::test_actual_structured_results_have_correct_provenance
+1 failed in 2.22s

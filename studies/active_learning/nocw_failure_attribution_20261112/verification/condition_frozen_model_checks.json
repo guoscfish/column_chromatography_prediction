@@ -1,0 +1,46 @@
+{
+  "status": "PASS",
+  "states": [
+    {
+      "seed": 157,
+      "budget": 525,
+      "checkpoint_sha256": "33f5232e9b951267f48924d1313a82ace7344f5fd08ab67b57c77a02fdf6c081",
+      "weights_unchanged": true,
+      "real_candidate_pairs": 96,
+      "derivative_rows": 32,
+      "zero_sentinel_graphs": 4163
+    },
+    {
+      "seed": 157,
+      "budget": 1005,
+      "checkpoint_sha256": "810d8517befdbb9c3f84c34f7877466485f817836bde9cfb0360be1b22c3c13f",
+      "weights_unchanged": true,
+      "real_candidate_pairs": 96,
+      "derivative_rows": 32,
+      "zero_sentinel_graphs": 4163
+    },
+    {
+      "seed": 887,
+      "budget": 525,
+      "checkpoint_sha256": "65816f2d699e049e4bda027e39e8993e2e02c811aade87930b755b52660935cc",
+      "weights_unchanged": true,
+      "real_candidate_pairs": 104,
+      "derivative_rows": 32,
+      "zero_sentinel_graphs": 4163
+    },
+    {
+      "seed": 887,
+      "budget": 1005,
+      "checkpoint_sha256": "2f724012ccc1195779c51f6dfe8a4ce77a04a8b56338a30398a1fc32ef9cef49",
+      "weights_unchanged": true,
+      "real_candidate_pairs": 104,
+      "derivative_rows": 32,
+      "zero_sentinel_graphs": 4163
+    }
+  ],
+  "pair_selection": "fixed hash, at most32 disjoint actual row pairs per axis/seed; same set at both budgets",
+  "derivative_selection": "fixed hash, first32 distinct molecules per seed; real X coordinates",
+  "test_truth_reads": 0,
+  "training_calls": 0,
+  "llm_calls": 0
+}

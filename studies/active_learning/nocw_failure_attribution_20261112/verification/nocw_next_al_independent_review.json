@@ -1,0 +1,50 @@
+{
+  "status": "PASS_WITH_FUTURE_PROTOCOL_NOTES",
+  "reviewer": "independent NoCW scientific-chain subtask",
+  "scope": "E1 feedback-side-channel closure, scientific interpretation, E2 content/placebo isolation and meaning of hypothesis/learning outcomes",
+  "checks": {
+    "four_hidden_packets_constructed": [
+      [
+        157,
+        525
+      ],
+      [
+        157,
+        1005
+      ],
+      [
+        887,
+        525
+      ],
+      [
+        887,
+        1005
+      ]
+    ],
+    "postL333_responses_and_errors_hidden": true,
+    "old_science_prose_removed_in_all_E1_arms": true,
+    "hidden_top8_empty_and_recent_outcomes_do_not_reveal_responses": true,
+    "L333_truth_and_candidate_payload_unchanged": true,
+    "typed_feedback_effect_not_mislabeled_full_original_memory_effect": true,
+    "permutation_obvious_contradiction_flag_respected": true,
+    "E2_same_identity_condition_feedback_in_placebo_and_critic": true,
+    "no_total_score_surrogate_or_new_acquisition": true
+  },
+  "scientific_limits": [
+    "feedback-hidden checkpoint still encodes training outcomes; effect is explicit-channel conditional effect",
+    "permutation that creates obvious contradictions is a stress test, not proof of scientific feedback use",
+    "a condition-test graph is not semantic falsifiability or hypothesis confirmation",
+    "single-batch row gain is not long-run AULC or causal value of a single chemical test"
+  ],
+  "future_protocol_notes": [
+    "Randomize and block arm request order to reduce time/provider drift; preserve served-model identity and blind scientific adjudication.",
+    "If the model pilot is skipped or does not identify a usable training-noise range, the proposed noise-based Go gate is unavailable and must be calibrated under an explicitly authorized fixed-label replicate experiment rather than treating NA as passing."
+  ],
+  "new_api_calls": 0,
+  "new_training": 0,
+  "test_truth_reads": 0,
+  "sources": {
+    "studies/active_learning/nocw_failure_attribution_20261112/NEXT_AL_EXPERIMENT_PROTOCOL.md": "c5dc5bc6117e6e3175d475c3dd6750bec1dc7e93ceaa859d16180c7189f8a6ad",
+    "studies/active_learning/nocw_failure_attribution_20261112/scripts/next_al_precheck.py": "334a09963ce80a8d8f9bb1af0e52d4dc77c0d509abdce3abbdc79c190563b0b5"
+  }
+}

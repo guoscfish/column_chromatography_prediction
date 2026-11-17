@@ -1,0 +1,38 @@
+{
+  "training_authorized": true,
+  "successful_fit_cap": 16,
+  "authorization_basis": "Current user request D1-D3 explicitly permits <=16 qualified successful fits after C gate; no additional user confirmation required",
+  "created_shanghai": "2026-11-12T20:43:48.018992+08:00",
+  "outer_seeds": [
+    157,
+    887
+  ],
+  "available_budgets": [
+    525,
+    1005
+  ],
+  "arms": [
+    "baseline",
+    "interaction"
+  ],
+  "training_replicates": [
+    0,
+    1
+  ],
+  "max_workers": 2,
+  "cpu_threads_per_fit": 2,
+  "single_change": "p+r+r*tanh(nonaffine_layer_norm(p)); no added parameters",
+  "protocol_sha256": "7b21b932b3b3695cd124490f40640643e557523095a13806d146005f3652a504",
+  "script_sha256": "2e243a7b9c02c264499226ed1396a44b6047fc38a327a2391154bc38844c329a",
+  "C_gate_sha256": "7ed5248af20399cf9adae3d41a5c7177d6b40b346ea91b315503827715ea769d",
+  "H_qualification_sha256": "393d77372c557b944da3414715a004b56351c8a1f6a9631ac6dbb527f41d3b9c",
+  "preflight_sha256": "18c767c5f2e70d1fc2ad8e9a80779b9d3fbb583a08a818abe4a52cbc9c02574b",
+  "root_review": "v1 H/validation duplicate-condition leakage corrected before training; v2 same ten-component rule; no outcome-based redesign",
+  "constraints": [
+    "No API or new selection",
+    "Original objective/preprocessing/epoch budget fixed",
+    "No further structure or seed search",
+    "All H/eval/checkpoints local-only runtime",
+    "Stop on any failure; no automatic retries or cap expansion"
+  ]
+}

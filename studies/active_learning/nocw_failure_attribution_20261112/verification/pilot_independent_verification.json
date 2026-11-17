@@ -1,0 +1,98 @@
+{
+  "status": "PASS",
+  "successful_fits_checked": 16,
+  "successful_fit_cap": 16,
+  "distinct_slots": 16,
+  "initialization_arm_pairs": 8,
+  "frozen_design_and_source_hashes_unchanged": true,
+  "fresh_initialized_models_reconstructed_without_fitting": 4,
+  "state_isolation_checks": [
+    {
+      "seed": 157,
+      "available_budget": 525,
+      "actual_train_rows": 492,
+      "H_rows": 33,
+      "H_groups": 10,
+      "H_L333_train_validation_recorded_key_disjoint": true,
+      "H_molecules_unseen_in_train": 2
+    },
+    {
+      "seed": 157,
+      "available_budget": 1005,
+      "actual_train_rows": 958,
+      "H_rows": 47,
+      "H_groups": 10,
+      "H_L333_train_validation_recorded_key_disjoint": true,
+      "H_molecules_unseen_in_train": 3
+    },
+    {
+      "seed": 887,
+      "available_budget": 525,
+      "actual_train_rows": 490,
+      "H_rows": 35,
+      "H_groups": 10,
+      "H_L333_train_validation_recorded_key_disjoint": true,
+      "H_molecules_unseen_in_train": 1
+    },
+    {
+      "seed": 887,
+      "available_budget": 1005,
+      "actual_train_rows": 960,
+      "H_rows": 45,
+      "H_groups": 10,
+      "H_L333_train_validation_recorded_key_disjoint": true,
+      "H_molecules_unseen_in_train": 1
+    }
+  ],
+  "validation_formula_max_error": 0.0,
+  "H_point_formula_max_error": 0.0,
+  "all_history_formula_max_error": 0.0,
+  "pair_scalar_checks": 6520,
+  "pair_scalar_max_error": 0.0,
+  "H_groups_reaggregated": 552,
+  "H_group_max_error": 0.0,
+  "frozen_H_forward_max_error": 0.0,
+  "frozen_H_forwards_performed": true,
+  "public_summaries": {
+    "status": "PASS",
+    "paired_validation_rows": 8,
+    "condition_scalar_checks": 360,
+    "max_error": 7.105427357601002e-15,
+    "joint_state_outer_aggregation": {
+      "status": "PASS",
+      "Q_fit_slots": 16,
+      "state_rows": 4,
+      "outer_rows": 2,
+      "aggregate_scalar_checks": 84,
+      "max_aggregate_error": 1.1102230246251565e-16,
+      "independent_joint_status": "NO_STABLE_JOINT_SUPPORT_FOR_THIS_SINGLE_CHANGE",
+      "row_criterion_pass": true,
+      "condition_Q_criterion_pass": false,
+      "interpretation_rule_scope": "Descriptive rule written after initial intervention validation results; verified arithmetic, not preregistered efficacy inference",
+      "outer_effects_independently_recomputed": [
+        {
+          "seed": 157,
+          "row_delta": -0.020801609435031468,
+          "Q_delta": -0.008313118222721363
+        },
+        {
+          "seed": 887,
+          "row_delta": -0.004136211115989483,
+          "Q_delta": 0.0006967166782906598
+        }
+      ]
+    }
+  },
+  "canonical_truth_columns_numericized_by_this_check": 0,
+  "observed_truth_source": "state L allowlist; accepted terminal feedback where needed",
+  "test_truth_reads": 0,
+  "unacquired_truth_reads": 0,
+  "training_calls": 0,
+  "llm_calls": 0,
+  "limitations": [
+    "Hashes/metrics verify execution and arithmetic, not hypothesis causality",
+    "Two outer seeds and two training replicates are not16 independent studies",
+    "H contains both seen and unseen molecules; cross-budget H differs"
+  ],
+  "verification_script_sha256": "3acd7c505eccf7710ca7b58663134cd352cec4e5ec8546981f590cd9d2f11cf1"
+}

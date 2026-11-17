@@ -1,0 +1,300 @@
+{
+  "type": "selection",
+  "packet_sha256": "5daa4e48203588a1efc7cc3aba73c105ae3268190cb697833306222ba628ab9f",
+  "batch_strategy": "Select these 32 distinct supplied candidate IDs and freeze their supplied forecasts before measurement. Prioritize conditional model failures, informative loading contrasts, missing solvent-response points, and one targeted reproducibility check. Quantile spreads are secondary diagnostics from the single predictor.",
+  "choices": [
+    {
+      "id": "e7ed7ca4a53258b73ba2",
+      "reason": "Measure m125 in pure EA at 100 ul with a 300-ul DCM plug. Its measured 500-ul counterpart provides a direct contrast. The confirmed plug association at 1/1 makes this a useful test of transfer to stronger eluent.",
+      "hypothesis_id": "H_PACKAGE"
+    },
+    {
+      "id": "55f2352b50967352163e",
+      "reason": "This pure-EA m125 experiment at 50 ul and a 300-ul plug forms a matched plug contrast with the selected 500-ul experiment. Together with the selected 100-ul point, it tests amount-by-plug dependence where forecasts are nearly invariant.",
+      "hypothesis_id": "H_PACKAGE"
+    },
+    {
+      "id": "5e1a63da794d99ec88fb",
+      "reason": "Complete the pure-EA, 50-ul m125 plug contrast using 500 ul DCM. Existing 1/1 observations support a substantial completion association with plug volume; this pair tests its persistence without changing sample amount.",
+      "hypothesis_id": "H_PACKAGE"
+    },
+    {
+      "id": "4451265787d29526a93a",
+      "reason": "The observed table leaves m92 at 1/1, 150 ul and EA loading unmeasured. Its measured 50- and 100-ul endpoints differ substantially. This point distinguishes a continuing amount response from an isolated middle-amount elevation.",
+      "hypothesis_id": "H_LOADING"
+    },
+    {
+      "id": "017b0f98188f8ff58935",
+      "reason": "Measure m72 at 1/1 and 150 ul with DCM loading. Recent 100-ul DCM and PE loading packages gave similar endpoints. This point completes the DCM amount series and contrasts with the measured PE-loaded 150-ul condition.",
+      "hypothesis_id": "H_LOADING"
+    },
+    {
+      "id": "db2709229820b71e283b",
+      "reason": "Use this eligible repeat of m81 at 20/1 and 100 ul to test its recently measured short completion. Reproducibility determines whether the difference from the 150-ul result should motivate an amount interaction or remain unexplained variability.",
+      "hypothesis_id": "H_LOADING"
+    },
+    {
+      "id": "36786ca0d1deaa0687ba",
+      "reason": "m99 at 1/1 and 100 ul is predicted to finish later than the selected 2/1 point despite stronger eluent. Its measured pure-EA condition is compact. This tests a completion peak in a hydroxyester with a fixed large DCM plug.",
+      "hypothesis_id": "H_OH"
+    },
+    {
+      "id": "ad67d712133eac45ff64",
+      "reason": "Pair m99 at 2/1 and 100 ul with its selected 1/1 point to isolate the ratio response at unchanged loading. A measured 150-ul 2/1 reference adds amount context. The pair tests whether the predicted completion peak is supported.",
+      "hypothesis_id": "H_OH"
+    },
+    {
+      "id": "401216df342ee56f834b",
+      "reason": "m61 at 1/1 and 50 ul locates where its onset-associated amount differences begin. Higher amounts have similar measured 1/1 onset, whereas the recent low-loading 10/1 experiment began substantially later than its 100-ul counterpart.",
+      "hypothesis_id": "H_OH"
+    },
+    {
+      "id": "18493dd4e68cac01205f",
+      "reason": "Measure m67 at 2/1 and 100 ul alongside the selected 5/1 point. The model predicts both endpoints slightly later at 2/1. This tests whether a nonmonotone feature resembling the recently challenged hydrophobic peaks also occurs in this alcohol.",
+      "hypothesis_id": "H_OH"
+    },
+    {
+      "id": "47f2e980caaa77baa535",
+      "reason": "This m67 5/1 point and its selected 2/1 counterpart connect to measured 10/1 behavior at the same 100-ul loading. A measured 150-ul 5/1 reference helps distinguish ratio curvature from amount dependence.",
+      "hypothesis_id": "H_OH"
+    },
+    {
+      "id": "ab4326dd3bd3b0e07f81",
+      "reason": "Pure-EA m212 at 100 ul anchors the strong-eluent end of a secondary amine whose measured 5/1 and 10/1 conditions are much later. Its label tests the predicted contraction of both endpoints.",
+      "hypothesis_id": "H_N"
+    },
+    {
+      "id": "6a11b71a3fb682d5f6da",
+      "reason": "m212 at 1/1 and 100 ul forms a fixed-loading ratio contrast with the selected pure-EA experiment. A measured 150-ul 1/1 reference supplies amount context. This constrains how the amine's delayed response begins.",
+      "hypothesis_id": "H_N"
+    },
+    {
+      "id": "ebf38d80f4c5674cf120",
+      "reason": "Pair this 50-ul m212 1/1 point with the selected 100-ul point. Measured 5/1 records differ greatly across these amounts. This tests whether that association already exists under stronger eluent or remains localized.",
+      "hypothesis_id": "H_N"
+    },
+    {
+      "id": "f8dff14aa7f68363fa60",
+      "reason": "Measure tertiary-amino acrylate m19 in pure EA at 100 ul. Its measured 2/1 condition is appreciably retained, while this forecast is compact. This adds an aliphatic-basic anchor without assuming transfer of the aromatic-nitrogen response.",
+      "hypothesis_id": "H_N"
+    },
+    {
+      "id": "547923973b121019625f",
+      "reason": "m89 at 50/1 and 150 ul extends its matched-amount curve beyond measured 20/1 conditions. Large measured endpoints at 100 ul and 50/1 motivate testing how the delayed aminoester regime transfers across amount.",
+      "hypothesis_id": "H_N"
+    },
+    {
+      "id": "dd2b6cb835831e798229",
+      "reason": "The m215 pure-EA forecast is substantially later than measured 1/1 and 2/1 conditions at the same loading. This tests a remaining anomalous strong-eluent peak after the previous hydrophobic 2/1 probes mostly contradicted delayed forecasts.",
+      "hypothesis_id": "H_COMPACT"
+    },
+    {
+      "id": "1d1e8e2d695f325f148e",
+      "reason": "Measure biphenyl m210 in pure EA at the same amount and DCM plug size as selected naphthalene m215. Measured low-loading biphenyl already has broad completion in pure EA. This comparison tests scaffold specificity without imposing universally narrow hydrocarbon intervals.",
+      "hypothesis_id": "H_COMPACT"
+    },
+    {
+      "id": "c06e784aecc76cea9d63",
+      "reason": "m209 at 10/1 and 150 ul fills the matched-amount gap before measured 20/1 and 50/1 conditions. Comparison with measured 50-ul 10/1 behavior tests where phenolic onset and completion acquire different amount responses.",
+      "hypothesis_id": "H_TAIL"
+    },
+    {
+      "id": "e3aa0a6706a5d307bd26",
+      "reason": "m192 in pure EA at 150 ul supplies a stronger-eluent anchor for a halogenated aldehyde with measured completion growth from 1/1 through 50/1. It tests whether the modest forecast preserves that scaffold's response at unchanged high loading.",
+      "hypothesis_id": "H_TAIL"
+    },
+    {
+      "id": "92f7fe9d8581717a9949",
+      "reason": "m128 at 10/1 and 100 ul extends its measured 2/1 response at unchanged loading. The model predicts substantial completion growth but little onset change. This tests endpoint-specific transfer within a sulfur-containing aryl ketone environment.",
+      "hypothesis_id": "H_TAIL"
+    },
+    {
+      "id": "eb8fe82f34df6bf3ff38",
+      "reason": "m183 at 20/1 and 100 ul pairs with the selected 50/1 experiment to measure weak-eluent curvature at fixed loading. Measured 10/1 observations at neighboring amounts provide context for distinguishing amount variation from ratio response.",
+      "hypothesis_id": "H_TAIL"
+    },
+    {
+      "id": "cf5c7a2e1940e3c09dd5",
+      "reason": "Extend the selected m183 20/1 point to 50/1 at unchanged loading. Related flexible aldehydes have long measured completion at 50/1. This tests whether that behavior transfers to the simpler phenylpropionaldehyde environment.",
+      "hypothesis_id": "H_TAIL"
+    },
+    {
+      "id": "0abac89ea336b403f597",
+      "reason": "m118 at 2/1 and 100 ul adds a missing stronger-eluent condition before its unusual measured 10/1 onset/completion combination. The recent 150-ul 5/1 label adds context without making a pure amount comparison.",
+      "hypothesis_id": "H_TAIL"
+    },
+    {
+      "id": "09b1bb29e7a0e3565a0d",
+      "reason": "Pure-EA m204 at 150 ul anchors a primary alcohol with strongly delayed measured 5/1 and 10/1 behavior at matched loading. This constrains how far delayed-alcohol corrections should extend toward strong eluent.",
+      "hypothesis_id": "H_OH"
+    },
+    {
+      "id": "b7953b4cf8c561ff4cfe",
+      "reason": "m107 at 1/1 and 150 ul precedes measured 2/1 and 5/1 conditions at the same loading. It locates the strong-eluent contraction of this ether-bearing beta-ketoester's long completion response.",
+      "hypothesis_id": "H_ESTER"
+    },
+    {
+      "id": "c86b03e1b275528444a6",
+      "reason": "m20 at 5/1 and 100 ul fills an ether-acrylate response gap before measured 10/1 behavior. Paired with the selected phenoxyethyl acrylate condition, it tests how ether environment and recorded loading conditions modify the intermediate-strength response.",
+      "hypothesis_id": "H_ESTER"
+    },
+    {
+      "id": "c11d5c3acbc28dddd0cf",
+      "reason": "Measure m21 at 5/1 and 100 ul alongside m20 at the same ratio and sample volume, retaining their different densities and loading solvents explicitly. Existing stronger- and weaker-eluent observations leave a consequential ratio gap.",
+      "hypothesis_id": "H_ESTER"
+    },
+    {
+      "id": "027bbff1ac308c5dd7a1",
+      "reason": "m74 at 50/1 and 100 ul connects measured 100-ul 10/1 behavior with a 150-ul 50/1 reference. This tests amount transfer in bromomalonate, whose delayed completion contrasts with measured compact unsubstituted malonate behavior.",
+      "hypothesis_id": "H_ESTER"
+    },
+    {
+      "id": "2a14de0306254a123d5d",
+      "reason": "Measure pentafluorobenzene m156 at 20/1 and 100 ul between measured 10/1 and 50/1 conditions that use different amounts. This supplies a donor-free completion-growth control and tests whether its broad interval develops smoothly.",
+      "hypothesis_id": "H_TAIL"
+    },
+    {
+      "id": "7f3a3fa577dc73897305",
+      "reason": "m62 at 20/1 and 100 ul explores the missing response between compact 2/1 and later 50/1 observations, acknowledging their different amounts. The crowded boronate environment adds conditional information poorly represented by carbonyl analogies.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "942c95c0b3a64c876639",
+      "reason": "m202 at 2/1 and 150 ul tests the predicted retention peak between measured pure-EA and 10/1 conditions at the same amount. It helps localize the very different measured 100-ul 10/1 regime without assuming its mechanism.",
+      "hypothesis_id": "H_LOADING"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H_PACKAGE",
+      "content": "m125 has a substantial, ratio-dependent association between DCM plug volume and completion. Its recurrence at 1/1 and 2/1 does not establish a universal plug effect or guarantee persistence in pure EA.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "dbb94bf062fc0e640258",
+        "4c32851430464f0ed684",
+        "03744855d469f4cca7e6",
+        "9bd998a328b109ef639e",
+        "69b09343d0b9995c3ae4",
+        "c8d43713db33bf820a1d"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The predictor barely distinguishes the selected pure-EA plug conditions. Labels can teach scaffold-by-eluent-by-loading interactions instead of averaging substantially different completion regimes.",
+      "next_discriminating_question": "Does the 300-versus-500-ul completion association persist in pure EA, and does its size depend on sample amount?"
+    },
+    {
+      "id": "H_LOADING",
+      "content": "Recorded loading amount is not yet established as the dominant reproducible explanation for large endpoint shifts. Some local amount associations are coherent, but identical-condition differences prevent a general deterministic interpretation.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "c0094343ab6bb16bc58b",
+        "e8185e062559aff5c99e",
+        "ab5af30c3befe81e6244",
+        "12400c6c61643f9c79b5",
+        "d7895c522a1a46a1175c"
+      ],
+      "contradicting_observed_ids": [
+        "93bcd806b8dcb8c0cab9",
+        "7383949c431e18f39597",
+        "5879dc8ccb560446d54c",
+        "a9500e468002e41eceeb"
+      ],
+      "confidence": "low",
+      "status": "weakened",
+      "why_it_matters_for_model_learning": "Recorded-feature interactions should be learned locally, while unexplained variation should not become a universal amount correction. The targeted repeat tests the reproducibility of an influential short-completion result.",
+      "next_discriminating_question": "Do missing m92 and m72 amount points form coherent responses, does m81 reproduce its short completion, and does m202 retain a ratio peak at fixed high amount?"
+    },
+    {
+      "id": "H_OH",
+      "content": "Alcohol onset requires joint structural, amount, and eluent context. Higher-loading m61's early onset does not transfer automatically to low-loading m61 or related alcohols, while completion may change much less than onset.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "f15b726ca5b4897ed80c",
+        "859ae738b615cf17b849",
+        "067260cef0fb89f79291",
+        "994a1f65509549a84ede",
+        "2d11f1fe488a0c917ffe",
+        "4b3e648044ebe5372a27"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "This prevents a scaffold-specific onset correction from becoming a generic OH effect. The selected alcohol and hydroxyester curves also test apparent ratio peaks at controlled loading.",
+      "next_discriminating_question": "At what solvent strength does m61's amount association emerge, and are the predicted m67 onset peak and m99 completion peak supported by fixed-loading pairs?"
+    },
+    {
+      "id": "H_COMPACT",
+      "content": "The delayed 2/1 predictions were overgeneralized across recently tested hydrophobic compounds. Compact retention remains a useful local prior, with the extreme low-loading m133 observation an unresolved counterexample and broad completion still possible in donor-free aromatics.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "5cc672fc502a8346577f",
+        "46c735b7777de5b68d5b",
+        "08812599cc0ffd09d9bd",
+        "28c0b15a1130ac8060fb"
+      ],
+      "contradicting_observed_ids": [
+        "a7a814c9db59a62411a2"
+      ],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Suspicious ratio peaks can affect common rows even when quantile spreads are modest. Pure-EA comparisons test another such feature while preserving legitimate scaffold-specific completion differences.",
+      "next_discriminating_question": "Does naphthalene elute later in pure EA than at 1/1 and 2/1, and does matched-loading biphenyl support a shared or localized response?"
+    },
+    {
+      "id": "H_N",
+      "content": "Nitrogen-containing molecules need structure-specific eluent-response curves and stronger-eluent anchors. Aromatic nitrogen, aminoesters, and aliphatic amines should not inherit a common delayed-retention correction across all ratios and amounts.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "49201b5817f204116f7f",
+        "9a58eec5ad3051be568a",
+        "bea7a84fdcea344896f4",
+        "252c027cf5a42b92c953",
+        "d5234e966aa231be05e5",
+        "249b884b29177edb9df5"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Recent quinoline anchors support ordinary stronger-eluent regimes despite large historical weak-eluent failures. Extending that constraint to distinct amine environments can improve conditional transfer.",
+      "next_discriminating_question": "Do m212 and m19 become compact in pure EA, does m212's amount association persist at 1/1, and does m89's delayed 50/1 response transfer to 150 ul?"
+    },
+    {
+      "id": "H_TAIL",
+      "content": "Onset and completion have distinct structure-dependent response curves. Long completion can coexist with early onset, while other scaffolds develop delayed onset at weaker eluent; donor counts and broad carbonyl categories do not determine the transition.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "95d1d257dfea69f178f8",
+        "35a1d2abee0780ee1d48",
+        "80de1b57c56257d2ecae",
+        "4df3d7b92b603fe8522f",
+        "111bfd60a27716526dc8",
+        "d1774335b45258bc173a"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Separate endpoint learning can repair completion errors without imposing delayed onset on every related row. Selected aldehyde, sulfur-containing ketone, phenol, and donor-free aromatic conditions test different parts of these curves.",
+      "next_discriminating_question": "Do missing aldehyde and ketone conditions show gradual completion growth or separate onset transitions, and how do m209 and m156 constrain transfer across functional-group environments?"
+    },
+    {
+      "id": "H_ESTER",
+      "content": "Measured ester and ether-containing families span very different retention responses. Local functional-group environment together with recorded conditions is likely more informative than acceptor counts alone, although present comparisons do not isolate a single causal structural feature.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "08155ffdcb0d27576050",
+        "4756b7ebb0be7c63e552",
+        "d1172a49fca1e196a59f",
+        "374b71ac526fe1051993",
+        "b4351e5f05f6d477a6c0"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Compact malonate, delayed beta-ketoester, and ether-acrylate examples can otherwise be conflated by broad polarity features. Intermediate-ratio and matched-amount labels constrain structural interactions among these rows.",
+      "next_discriminating_question": "Do m20 and m21 differ at 5/1 as forecast, and do the new m107 and m74 points preserve their distinct stronger- and weaker-eluent responses?"
+    }
+  ],
+  "feedback_interpretation": "Latest m125 outcomes strengthen a specific plug-volume association: at 1/1, both 100- and 150-ul samples finish near 38\u201339 mL with 500-ul plugs, versus about 20 mL with 300-ul plugs. The new m72 package contrast is small, so the package hypothesis should remain scaffold-specific. Low-loading m61 measured 11.11/15.86 mL, weakening the proposed persistence of very early onset across amounts and strengthening endpoint-specific condition modeling. The hydrophobic 2/1 probes mostly rejected delayed forecasts, redirecting attention to remaining suspicious condition peaks. The m208 outcome confirms that weak-eluent phenolic responses can still be badly underestimated, while related phenol and beta-diketone outcomes argue against a universal tail correction. The m194 pure-EA series supports a local completion increase at 150 ul, but conflicting identical-condition observations elsewhere still weaken a general loading law. The supplied recent feedback attributes one outcome to m92 whereas the observed table assigns that record to m142. I use observed-table attribution; m92 at 1/1, 150 ul with EA loading remains an unmeasured condition in that table.",
+  "batch_rationale": "The batch focuses on relationships retraining can learn from the catalog's recorded inputs. Three m125 experiments test transfer of a strengthened plug association. Missing m92 and m72 amount points and one m81 repeat distinguish useful loading relationships from unexplained variation. Fixed-loading alcohol, hydroxyester, aldehyde, and amine contrasts test response curvature and separate onset changes from completion changes. Strong-eluent anchors constrain the spread of delayed-retention corrections, while the naphthalene/biphenyl comparison targets a suspicious prediction in common hydrophobic chemistry. Ester/ether conditions and the boronate point extend conditional coverage where broad polarity descriptors offer weak guidance. Multiple points on a molecule serve explicit comparisons; other choices fill consequential gaps. This may improve overall Row-distribution accuracy through better structure-condition interactions and distinct V1/V2 responses, without selecting for maximal elution volume or treating interval width as uncertainty."
+}

@@ -1,0 +1,48 @@
+{
+  "verified_utc": "2026-11-16T08:23:41.476719+00:00",
+  "both_healthy_backoff_handovers_verified": true,
+  "entries": [
+    {
+      "seed": 157,
+      "pid": 66635,
+      "keep_awake_pid": 66636,
+      "old_pid": 44755,
+      "original_not_before_utc": "2026-11-16T08:08:04.143995+00:00",
+      "handover_receipt": "progress/sse_frame_handover_seed_157_20261116.json",
+      "handover_sha256": "9e9bcf66a87b0d7ec0cbdb255079acc1a15d4faadd1b6ceaa8d03a6b6e3da1f8"
+    },
+    {
+      "seed": 887,
+      "pid": 81350,
+      "keep_awake_pid": 81351,
+      "old_pid": 44757,
+      "original_not_before_utc": "2026-11-16T08:15:53.949316+00:00",
+      "handover_receipt": "progress/sse_frame_handover_seed_887_20261116.json",
+      "handover_sha256": "2fe1f3179efe3dceaa18e4f033450db08434b50bc6a638e57725f40c85bb261c"
+    }
+  ],
+  "controller_finished_normally_after_both_adopted": true,
+  "first_repair_request_wire_verified": {
+    "receipt": "nocw/selections/seed_157/llm32_nocw/round_34/stream_00_06.framing_receipt.json",
+    "wire_sha256": "5930f18a3914d6b91adcf51c378bcffefc491ae4ac6faa406c2ac418237e363b",
+    "inserted_blank_separators": 0,
+    "received_lines": 549,
+    "event_types": {
+      "response.created": 1,
+      "response.in_progress": 1,
+      "response.output_item.added": 18,
+      "response.reasoning_summary_part.added": 31,
+      "response.reasoning_summary_text.delta": 31,
+      "response.reasoning_summary_text.done": 31,
+      "response.reasoning_summary_part.done": 31,
+      "response.output_item.done": 17
+    },
+    "provider_error_codes": [],
+    "response_completed_seen": false
+  },
+  "old_preflight_requests_and_receipts_unchanged": true,
+  "request_or_training_cancelled": false,
+  "abnormal_workers_restarted": false,
+  "source_test_label_reads": 0,
+  "billing_status": "unknown"
+}

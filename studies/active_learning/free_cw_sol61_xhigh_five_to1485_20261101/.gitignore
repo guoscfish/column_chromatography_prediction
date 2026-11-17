@@ -14,3 +14,15 @@
 # Python and test caches are not scientific results.
 __pycache__/
 .pytest_cache/
+
+# Completed CW evidence is retained losslessly in reports/free_cw_final_20261112.
+# Existing tracked historical evidence remains tracked.
+/selections/
+# Local worker identities and handovers are not scientific result snapshots.
+/*/dispatch/
+/*/handover/
+/*/worker_exits/
+/*/restart_after_seed_*.json
+# These controllers and authorization/switch records were designated local-only.
+/selection3_compute5_20261109/
+/selection3_compute5_offline_audit_fix_20261110/

@@ -1,0 +1,27 @@
+{
+  "review": "root pre-training leakage audit",
+  "created_shanghai": "2026-11-12T20:38:03.531759+08:00",
+  "initial_qualification": "v1 metadata rule; before any model pilot fit",
+  "X_only_source": "experiments/e0_4g_baseline/canonical_4g.csv",
+  "X_only_columns": [
+    "sample_id",
+    "canonical_smiles",
+    "PE/EA",
+    "Density g/ml",
+    "V/ul",
+    "loading solvent",
+    "Volume of loading solvent/ul"
+  ],
+  "no_target_columns_loaded_in_this_review": true,
+  "v1_H_rows_sharing_validation_recorded_keys": {
+    "157_L525": 0,
+    "157_L1005": 1,
+    "887_L525": 1,
+    "887_L1005": 0
+  },
+  "finding": "H must also avoid validation exact recorded-condition keys to prevent checkpoint-selection contamination",
+  "action": "preserve v1; add label-independent validation-key exclusion and rebuild using original SHA priority, same ten-component/two-volume-molecule criteria",
+  "outcome_based_redesign": false,
+  "model_changes_tested": 0,
+  "successful_pilot_fits_at_review": 0
+}

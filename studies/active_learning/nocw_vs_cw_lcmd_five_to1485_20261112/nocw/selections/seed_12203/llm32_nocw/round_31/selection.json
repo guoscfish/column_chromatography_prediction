@@ -1,0 +1,241 @@
+{
+  "type": "selection",
+  "packet_sha256": "b0e2816a9b99b20249c7f77187b0ce86dac00da9e3df68fa88aa4ddf3a8afb0e",
+  "batch_strategy": "Preserve the 32 candidate choices while correcting the packet binding. Measure scaffold-specific onset and completion responses across PE/EA ratios, add loading contrasts against existing observations, and retain compact controls. Higher PE/EA means a more PE-rich, weaker normal-phase eluent; 0/1 is pure EA. Predictor quantile widths are screening signals, not calibrated epistemic uncertainty.",
+  "choices": [
+    {
+      "id": "65f6e8326897810ec715",
+      "reason": "m37 at 5/1 and 150 ul extends the nitroacetophenone loading series at an intermediate ratio. Its label can distinguish loading-dependent completion from the scaffold's ratio response.",
+      "hypothesis_id": "H_LOADING"
+    },
+    {
+      "id": "6344eef305d5c2c9e159",
+      "reason": "m5 at 50/1 tests a dibromonaphthalene under weak, PE-rich eluent. An early or moderately broad result would constrain delayed-retention corrections in donor-free aromatic chemistry.",
+      "hypothesis_id": "H_COMPACT"
+    },
+    {
+      "id": "4a49effd313865c10fae",
+      "reason": "Anisole at 50/1 supplies a simple ether control under weak eluent. It helps separate the response of one ether oxygen from that of multifunctional oxygenated scaffolds.",
+      "hypothesis_id": "H_COMPACT"
+    },
+    {
+      "id": "9a88037c2284c65ce635",
+      "reason": "m49 at 20/1 tests a bulky aromatic aldehyde whose predicted onset remains early while completion increases. This can teach the model how steric environment affects the two endpoints differently.",
+      "hypothesis_id": "H_ENDPOINT"
+    },
+    {
+      "id": "5c9d8ece8d174d7a0e5f",
+      "reason": "m88 in pure EA provides a strong-eluent amino-ester baseline. Its label constrains the low-retention end of the response for an aniline-containing scaffold.",
+      "hypothesis_id": "H_RATIO"
+    },
+    {
+      "id": "22f5284ebc07b484fc2d",
+      "reason": "m170 at 20/1 and 50 ul complements existing higher-loading conditions. It tests whether onset and completion respond differently to loading in an aryl ketone bearing a chloroalkyl side chain.",
+      "hypothesis_id": "H_LOADING"
+    },
+    {
+      "id": "7e70e0d2553228179804",
+      "reason": "m52 at 1/1 and 50 ul anchors a simple bromoalkene at lower loading. This control helps prevent corrections for strongly adsorbing compounds from shifting ordinary nonpolar rows.",
+      "hypothesis_id": "H_COMPACT"
+    },
+    {
+      "id": "87ada91b7803cfd9f767",
+      "reason": "m98 at 5/1 and 100 ul fills a loading point in the naphthylacetate ester response. It tests transfer between lower and higher loading without changing scaffold or loading-solvent identity.",
+      "hypothesis_id": "H_LOADING"
+    },
+    {
+      "id": "1e46d0444dfa1065fc00",
+      "reason": "m188 at 2/1 and 50 ul supplies a low-loading halogenated aldehyde reference. It helps distinguish loading response from halogen substitution and carbonyl effects.",
+      "hypothesis_id": "H_LOADING"
+    },
+    {
+      "id": "d01d365af220241485ec",
+      "reason": "m17 at 50/1 tests a fluorinated acrylate under weak eluent. It extends the ratio response beyond the measured intermediate-ratio region and can distinguish onset delay from completion broadening.",
+      "hypothesis_id": "H_RATIO"
+    },
+    {
+      "id": "ba5381d85ba24754040c",
+      "reason": "m7 at 50/1 and 150 ul is a fused, donor-free aromatic control. Its completion label can constrain scaffold-specific broadening while preserving an early-onset branch.",
+      "hypothesis_id": "H_COMPACT"
+    },
+    {
+      "id": "51b57cfd0a20117aab60",
+      "reason": "m157 at 50/1 and 100 ul adds a loading point with the catalog's fixed 900-ul DCM plug. It tests whether the modest predicted loading response is adequate in a heavy-atom hydrocarbon.",
+      "hypothesis_id": "H_LOADING"
+    },
+    {
+      "id": "c311fd559f5c65c17475",
+      "reason": "m1 at 5/1 and 100 ul provides a central-ratio alkyl-bromide control. It checks the ordinary hydrophobic response between existing loading and ratio conditions.",
+      "hypothesis_id": "H_COMPACT"
+    },
+    {
+      "id": "6fe77425f0d00758ebb8",
+      "reason": "m134 at 1/1 supplies a relatively EA-rich aromatic aldehyde reference. It helps constrain baseline onset and completion before corrections are transferred to PE-rich conditions.",
+      "hypothesis_id": "H_RATIO"
+    },
+    {
+      "id": "a9c2201879463031bf75",
+      "reason": "m78 in pure EA establishes the strong-eluent end of a beta-keto ester response. This anchors the baseline for a scaffold with pronounced retention changes at PE-rich ratios.",
+      "hypothesis_id": "H_RATIO"
+    },
+    {
+      "id": "ae66743d0808a4a8cc80",
+      "reason": "m112 at 50/1 and 100 ul complements existing 30- and 120-ul loading neighborhoods with the same 600-ul DCM plug. It tests sample-loading sensitivity of completion in a halogenated ether.",
+      "hypothesis_id": "H_LOADING"
+    },
+    {
+      "id": "5079d0dfcde65893b224",
+      "reason": "m117 at 2/1 and 100 ul provides the more EA-rich endpoint of a matched ratio pair. It also interpolates between existing sample-loading levels in a phenolic aldehyde.",
+      "hypothesis_id": "H_ENDPOINT"
+    },
+    {
+      "id": "c7e762106a9ec0d9ea75",
+      "reason": "m97 at 50/1 and 150 ul extends the weak-eluent response of an aromatic ester. Its label tests whether loading changes onset, completion, or both in this delayed-retention neighborhood.",
+      "hypothesis_id": "H_LOADING"
+    },
+    {
+      "id": "79515e25d0daceed2ce8",
+      "reason": "m104 at 1/1 and 150 ul calibrates an ortho-amino ester under relatively EA-rich eluent. It constrains transfer from more delayed amino-ester structures and conditions.",
+      "hypothesis_id": "H_RATIO"
+    },
+    {
+      "id": "8dce8486dfe67a190d0d",
+      "reason": "m32 at 20/1 and 150 ul tests the higher-loading response of para-methylacetophenone. The label can establish whether completion grows independently of the onset shift.",
+      "hypothesis_id": "H_ENDPOINT"
+    },
+    {
+      "id": "f3dce4b948dcaf6a3407",
+      "reason": "m196 in pure EA adds a strong-eluent baseline for a brominated fused aromatic aldehyde with a 700-ul DCM plug. It helps localize corrections involving fused geometry and carbonyl substitution.",
+      "hypothesis_id": "H_ENDPOINT"
+    },
+    {
+      "id": "34a133db8364fd665ae6",
+      "reason": "m167 at 5/1 and 100 ul supplies an intermediate loading point for a fluorinated diketone. It tests the predicted early-onset, broader-completion response without assuming that acceptor count determines retention.",
+      "hypothesis_id": "H_ENDPOINT"
+    },
+    {
+      "id": "0b9226171e1caa865abb",
+      "reason": "m74 at 1/1 and 50 ul is a brominated diester calibration condition. A label here constrains the ordinary EA-rich response before broad corrections from PE-rich diester rows are transferred.",
+      "hypothesis_id": "H_RATIO"
+    },
+    {
+      "id": "de3b76c31de84a3a4721",
+      "reason": "m140 at 1/1 and 50 ul provides a low-loading iodotoluene control. It tests whether heavy-atom hydrocarbon onset and completion remain in the ordinary range.",
+      "hypothesis_id": "H_COMPACT"
+    },
+    {
+      "id": "8668ae8196d5d6347a4b",
+      "reason": "m184 at 10/1 and 50 ul adds a low-loading dibromobenzaldehyde condition. It can resolve whether completion broadening is reproducible across loading levels despite an early predicted onset.",
+      "hypothesis_id": "H_ENDPOINT"
+    },
+    {
+      "id": "4fc25128f65d2cf6e786",
+      "reason": "m15 in pure EA and at 100 ul fills the central loading point for a simple cyclohexyl acrylate. This anchors an ordinary ester response under the strongest supplied mobile phase.",
+      "hypothesis_id": "H_RATIO"
+    },
+    {
+      "id": "ee6b3465557d832e0b90",
+      "reason": "m144 in pure EA and at 50 ul provides an aromatic nitrile baseline. It separates a nitrile acceptor's response from the distinct silica interactions possible for basic aromatic nitrogen.",
+      "hypothesis_id": "H_RATIO"
+    },
+    {
+      "id": "72231b208c5287c32d70",
+      "reason": "m117 at 20/1 matches the selected 2/1 condition in sample loading and DCM plug. This clean ratio contrast tests whether weaker eluent changes onset and completion proportionally.",
+      "hypothesis_id": "H_ENDPOINT"
+    },
+    {
+      "id": "067260cef0fb89f79291",
+      "reason": "m61 at 5/1 and 150 ul tests secondary benzylic alcohol loading response. It helps distinguish effects of OH environment from the more delayed responses of other aromatic alcohol geometries.",
+      "hypothesis_id": "H_LOADING"
+    },
+    {
+      "id": "1666061cb3649389f1d5",
+      "reason": "m80 in pure EA and at 50 ul supplies a low-loading diethyl malonate control. It constrains baseline predictions for an acceptor-rich scaffold that need not share aromatic carbonyl tail behavior.",
+      "hypothesis_id": "H_COMPACT"
+    },
+    {
+      "id": "52a57885ba0618c6880c",
+      "reason": "m109 at 1/1 and 50 ul adds a halogenated anisole calibration row. It tests transfer across aromatic ethers while anchoring the relatively EA-rich, low-loading region.",
+      "hypothesis_id": "H_COMPACT"
+    },
+    {
+      "id": "2ea3aaf8c11138b62a49",
+      "reason": "m18 at 10/1 and 50 ul probes a long-chain acrylate. Its label tests whether the predicted early completion and loading response transfer from aromatic esters to a flexible, hydrophobic ester.",
+      "hypothesis_id": "H_COMPACT"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H_RATIO",
+      "content": "Increasing the recorded PE/EA ratio weakens the normal-phase eluent and often increases retention, but the magnitude and shape of the V1/V2 response depend on scaffold and loading. Pure EA is the 0/1 endpoint.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "47eb0d497e8c772aade3",
+        "b6f1b33a5491968c645e",
+        "0a79a24271d119590ae6",
+        "b85305d91a9e7cfa6005"
+      ],
+      "contradicting_observed_ids": [
+        "08155ffdcb0d27576050",
+        "37c15d90032e66347ed6"
+      ],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched ratio labels can teach nonlinear scaffold-dependent responses while preventing a universal retention increase from being imposed on relatively insensitive compounds.",
+      "next_discriminating_question": "Which scaffolds show proportional endpoint shifts, completion-dominated growth, or little response as the eluent becomes more PE-rich?"
+    },
+    {
+      "id": "H_ENDPOINT",
+      "content": "Onset and completion require distinct corrections: some scaffolds have early onset with a long elution interval even under EA-rich conditions, whereas related compounds have shorter intervals.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "ff3ee95fed58907ff8b3",
+        "d6f36b5de45565d68603",
+        "f31a89256d8ee4192d55",
+        "037298044b4fc8868e5e"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Learning V1 and V2 condition responses separately can repair completion underprediction without introducing artificial onset delay. Elution interval width remains distinct from predictive uncertainty.",
+      "next_discriminating_question": "Does the matched phenolic-aldehyde ratio pair change onset and completion proportionally, and how does this compare with ordinary carbonyl and fused-ring controls?"
+    },
+    {
+      "id": "H_LOADING",
+      "content": "Loading can affect onset and completion differently, but disagreements between records with identical supplied conditions mean that loading alone cannot explain all observed tail variation.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "b514312eda7950cdcf1c",
+        "4862e2fb71344ce16021",
+        "7383949c431e18f39597",
+        "93bcd806b8dcb8c0cab9",
+        "5fc63f69bdf7f0b71bbc"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Additional loading points can improve conditional predictions and test reproducibility without forcing an unsupported deterministic loading threshold. At fixed density, sample volume and loading amount covary.",
+      "next_discriminating_question": "Do intermediate loading labels follow a consistent local response, or does substantial variation remain at the same recorded conditions?"
+    },
+    {
+      "id": "H_COMPACT",
+      "content": "Corrections for strongly delayed polar scaffolds should remain localized because many donor-free hydrophobic and ordinary ester conditions retain early onset and modest completion volumes.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "a49c6f33892af620bdd9",
+        "88ede3f01ace054a169b",
+        "f62720d3fc5dbb0e173d",
+        "08155ffdcb0d27576050"
+      ],
+      "contradicting_observed_ids": [
+        "f2f1228ed527e78379ef"
+      ],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Ordinary controls constrain correction spread across the common compact portion of the Row-distribution, while the fused-aromatic exception prevents donor-free structure from becoming an absolute compactness rule.",
+      "next_discriminating_question": "Which donor-free scaffolds preserve early onset but acquire a longer completion interval in PE-rich eluent?"
+    }
+  ],
+  "feedback_interpretation": "The latest outcomes strengthened the need for separate onset and completion learning: the phenolic aldehyde showed a substantial completion underestimate even in pure EA, while the matched diketone and several ordinary controls were predicted more closely. The aryl ester and diarylmethane outcomes also showed completion overprediction, weakening a blanket upward tail correction. Historical same-condition disagreements limit confidence in purely mechanistic loading explanations. These lessons favor local ratio and loading comparisons plus ordinary controls. Earlier descriptions of high PE/EA as stronger eluent were incorrect; higher PE/EA is weaker, and 0/1 is pure EA.",
+  "batch_rationale": "The preserved batch spans the supplied chemical families and conditions, including a matched m117 ratio pair, loading points that complement existing measurements, PE-rich carbonyl and ester probes, EA-rich baselines, and hydrophobic controls. Its information value comes from distinguishing scaffold-dependent endpoint responses and checking correction transfer across ordinary rows. Quantile widths guide attention but do not establish error or calibrated uncertainty. Retraining may benefit from better conditional endpoint estimates while remaining constrained by variability and information absent from the catalog."
+}

@@ -1,0 +1,269 @@
+{
+  "type": "selection",
+  "packet_sha256": "7aa048c04c83cb721ddb86a75c2109a7d98ad9c463ee4656e7b27017e3dbd5b7",
+  "batch_strategy": "Select 32 distinct supplied candidates using the same frozen premeasurement predictions. Combine follow-up of historical failures with controlled solvent and loading comparisons and tests of chemical transfer into uncovered families. Quantile widths are treated as single-model dispersion signals, without assuming calibrated epistemic uncertainty.",
+  "choices": [
+    {
+      "id": "f90a5a5a54509c085ebd",
+      "reason": "Cinnamic acid m173 at 1/1 fills the solvent-strength gap between measured 0/1 and 2/1 at the same sample loading and 2000-ul DCM plug. Its historical V2 underestimate motivates learning completion independently of onset.",
+      "hypothesis_id": "H_tail"
+    },
+    {
+      "id": "efe14b6a1dc3741d71ba",
+      "reason": "For oxime m11, retain the measured 50-ul sample loading and change 2/1 to 10/1. The current prediction rises to approximately 18.43/45.47 mL despite the modest measured 2/1 window, testing whether a delayed-elution regime actually emerges at weaker solvent.",
+      "hypothesis_id": "H_ratio"
+    },
+    {
+      "id": "358461ff3742e78ea3b6",
+      "reason": "Measure m204 at 10/1 with 100-ul sample loading against its measured 150-ul condition, which had a historical V2 error of -31.85 mL. This isolates loading at the failure condition and connects to the existing 5/1, 100-ul anchor.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "53c1be5b96937954b9fa",
+      "reason": "m204 at 2/1, 100 ul extends a fixed-loading response curve through measured 5/1 and the selected 10/1 point. It locates the transition into delayed alcohol elution rather than supplying another extreme endpoint.",
+      "hypothesis_id": "H_ratio"
+    },
+    {
+      "id": "b9567f94a7b303ec27d4",
+      "reason": "m124 at 0/1 doubles sample loading while retaining the loading solvent and plug volume of the measured 18.51/18.55-mL example. It tests whether the unusual delayed, very narrow interval extends to adjacent loading, while leaving variability versus loading unresolved.",
+      "hypothesis_id": "H_variability"
+    },
+    {
+      "id": "efdf8ecb78c9906ac5b4",
+      "reason": "Methyl 4-iodobenzoate m103 at 5/1, 100 ul tests a predicted retention maximum relative to its measured 20/1 condition. The earlier acquisition overpredicted both endpoints by about 17 mL; this label tests the revised surrounding response.",
+      "hypothesis_id": "H_ratio"
+    },
+    {
+      "id": "656a6ed1f18a582de4c3",
+      "reason": "Unobserved methyl 4-chlorobenzoate m102 at 5/1 complements the selected iodobenzoate at the same ratio. It tests transfer within para-halobenzoate esters after the m103 failure; different sample amounts and plug volumes remain explicit covariates.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "918504cfbad81b27c08e",
+      "reason": "m44 at 10/1 retains the 50-ul sample loading of its measured 50/1 row, where onset was historically underestimated by 10.18 mL. This constrains the onset-response slope for an ortho-substituted aromatic ketone and can transfer to numerous acetophenone rows.",
+      "hypothesis_id": "H_ratio"
+    },
+    {
+      "id": "020187ef7e68c736fde7",
+      "reason": "m25 at 2/1, 50 ul directly contrasts with its 150-ul measurement, which eluted substantially earlier than previously predicted. The label tests a loading-associated difference without assuming a universal loading direction for beta-ketoesters.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "d73810c9779aede1ff57",
+      "reason": "m32 at 2/1, 50 ul completes the 1/1-versus-2/1 by 50-versus-150-ul comparison. This separates the previously confounded ratio and loading contrasts behind the historical V2 underestimate.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "fa5d86f56c1c38fa9416",
+      "reason": "m81 at 1/1, 50 ul supplies the missing low-loading counterpart to its measured 1/1, 150-ul row and a fixed-loading ratio contrast with measured 2/1, 50 ul. It helps distinguish solvent and loading contributions to the short 1/1 interval.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "bee82d193ec1ce4fde27",
+      "reason": "m81 at 2/1, 150 ul completes the second loading-by-ratio comparison. Together with the selected 1/1, 50-ul point and two measured corners, it tests interactions that the model's nearly identical loading predictions may omit.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "7e1ad2272fdd31ba90c8",
+      "reason": "New beta-ketoester m78 at 1/1 establishes a compact predicted anchor, approximately 5.52/8.78 mL, for its paired 10/1 experiment at identical recorded loading conditions. Benzyl substitution provides a structural bridge among the measured beta-ketoester families.",
+      "hypothesis_id": "H_ratio"
+    },
+    {
+      "id": "b5e6e9a4b5c6f0f838bd",
+      "reason": "At the same m78 sample loading and DCM plug as the selected 1/1 point, the 10/1 prediction expands to approximately 22.78/41.79 mL. The pair tests an inferred solvent response in an unmeasured beta-ketoester after the contrasting m25 and m32 feedback.",
+      "hypothesis_id": "H_ratio"
+    },
+    {
+      "id": "cf8ab33c25ad391a584c",
+      "reason": "New thioether aldehyde m129 at 5/1 has a striking predicted 31.42/50.63-mL window. Measured thioether ketone m128 provides a nearby chemical reference but does not establish this prediction; the label tests potentially exaggerated transfer within sulfur-containing aryl carbonyls.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "cfc3cd7290e349d095d4",
+      "reason": "New para-methoxyacetophenone m115 at 5/1 tests donor placement relative to measured ortho isomer m127. Alongside selected m129, it adds related oxygen- and sulfur-substituted carbonyl labels without treating heteroatom counts as sufficient predictors.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "4da6e3b93f29af1efa94",
+      "reason": "New ortho-nitrobenzaldehyde m198 at 5/1 probes positional transfer from measured para-nitrobenzaldehyde m193. Its predicted window is much more compact than the para isomer's 5/1 prediction, so measurement tests whether that inferred structural distinction is warranted.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "d2921349ba8d9cef15a4",
+      "reason": "Ethyl meta-aminobenzoate m88 fills a missing positional isomer between observed ortho m89 and para m86. A 5/1 label tests amino-group accessibility and ester placement, with differences in loading solvent and plug volume retained as covariates.",
+      "hypothesis_id": "H_N"
+    },
+    {
+      "id": "6b7209c2e8154837a8c7",
+      "reason": "New para-aminoacetophenone m36 at 2/1 tests transfer between aminoaryl esters and aminoaryl ketones. Existing nitrogen-containing measurements motivate the question but do not establish this candidate's retention.",
+      "hypothesis_id": "H_N"
+    },
+    {
+      "id": "304fb0fdb486ae4b7a07",
+      "reason": "Tertiary-amino acrylate m19 is unmeasured yet predicted to elute at approximately 6.17/9.12 mL at 2/1. Basic amine-silica interactions make this a useful test of a potentially overconfident compact prediction and transfer from ordinary acrylate esters.",
+      "hypothesis_id": "H_N"
+    },
+    {
+      "id": "9e3ce3497298084abd83",
+      "reason": "New methyl-substituted quinoline m146 at 10/1 tests transfer from measured quinoline and phenylpyridine. The predicted 33.31/54.48-mL window may capture a substitution effect or an unsupported attenuation of nitrogen-heteroaromatic solvent sensitivity.",
+      "hypothesis_id": "H_N"
+    },
+    {
+      "id": "855832bd4005ac7abdc6",
+      "reason": "New pyridyl ester m90 at 5/1 is paired with pyridyl ketone m66 at the same ratio, nearly equal sample amount and identical loading solvent and plug volume. This tests whether similar predictions conceal functional-group-dependent pyridine interactions.",
+      "hypothesis_id": "H_N"
+    },
+    {
+      "id": "49201b5817f204116f7f",
+      "reason": "New pyridyl ketone m66 at 5/1 complements m90 under closely matched loading conditions. Relative to the many measured carbocyclic aryl ketones, it adds information about introducing basic aromatic nitrogen.",
+      "hypothesis_id": "H_N"
+    },
+    {
+      "id": "04c495d5b53e3b1bceb7",
+      "reason": "New ortho-isopropylphenol m58 has low similarity to measured structures and a predicted moderate 10/1 window. It tests steric accessibility of a phenolic donor against observed phenol-family behavior; strong retention remains a possibility rather than an established outcome.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "62d7ea74ab73fa6214b4",
+      "reason": "New secondary alcohol m60 at 5/1 provides a useful structural follow-up to the primary-alcohol failure in m204. Comparison with measured m204 at 5/1 tests how OH placement and substitution affect onset and completion.",
+      "hypothesis_id": "H_tail"
+    },
+    {
+      "id": "48853fd78c77153b963a",
+      "reason": "New naphthylethanol m205 at 5/1 extends primary-alcohol coverage from phenyl to fused aromatic substitution. Its comparison with selected naphthylmethanol m206 tests combined effects of OH spacing and ring attachment position, while acknowledging different DCM plug volumes.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "614873124b33029a924c",
+      "reason": "New naphthylmethanol m206 at 5/1 is predicted almost identically to m205 despite their structural differences. Its label tests that apparent equivalence and provides a bridge to measured benzyl alcohols and the broader alcohol family.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "634f21e11a8442494ce3",
+      "reason": "New dibenzoylbenzene m178 at 10/1 is predicted to start near 3.82 mL despite two aromatic ketones. This tests a compact-onset extrapolation in a multifunctional aromatic structure without assuming that additional carbonyls must increase retention.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "8b556440cbbd8224f6ff",
+      "reason": "New m106 places an ether remotely along an aryl-ketone side chain and includes a trifluoromethyl substituent. Its modest 5/1 prediction tests functional-group spacing and flexibility outside the densely observed acetophenone family.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "39815ababe97d7acc107",
+      "reason": "New fused ether-aldehyde m194 at 5/1 tests ring-constrained oxygen placement with low similarity to observed structures. Measured carbonyl/ether compounds show distinct retention patterns, making this a useful test of transfer beyond acceptor counts.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "8ba20040f2501c52bfa0",
+      "reason": "Fluorinated acrylate m17 at 1/1 starts a fixed-loading solvent test. Its predicted 8.69/16.83-mL window is later than the selected 5/1 prediction, creating a concrete test of a potentially unsupported response reversal in an unmeasured ester.",
+      "hypothesis_id": "H_acrylate"
+    },
+    {
+      "id": "0bdf4a7ec97a56adeb40",
+      "reason": "m17 at 5/1 holds sample loading and DCM plug fixed relative to the selected 1/1 point, yet predicts approximately 3.34/7.90 mL. Measuring both tests whether weaker mobile phase advances both endpoints or the model has learned an erroneous response shape.",
+      "hypothesis_id": "H_acrylate"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H_tail",
+      "content": "Long completion intervals and delayed onset require separate, molecule-specific relationships. Strong silica interactions can produce long intervals, but polarity, donor counts and broad prediction quantiles alone do not reliably identify that regime.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "6802f0b28c5a0c7b4c2a",
+        "73502a52708e4f9c2391",
+        "d1172a49fca1e196a59f",
+        "3e41bb94c582476b5b6a",
+        "ac6cfe67adcb860efabf"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Feedback contains both severe V2 underestimates and false tail predictions. Labels distinguishing onset from completion can correct opposing failures without globally increasing predicted retention.",
+      "next_discriminating_question": "Do acid and alcohol follow-ups preserve long completion intervals across solvent strength, and how does OH placement change the onset-versus-completion response?"
+    },
+    {
+      "id": "H_ratio",
+      "content": "PE/EA response is molecule-specific: some structures show large changes or transitions, while others change little over PE-rich conditions. A uniform translation of both endpoints is inadequate.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "1ce749f818905d3c61d4",
+        "449b809e4efaaf2af86a",
+        "be2d8614d178068a6f1e",
+        "d1093ff4ef84f3dc68c3",
+        "b7b1a1bb666c8cc99bad",
+        "73502a52708e4f9c2391"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Controlled solvent contrasts locate response transitions and distinguish real structural sensitivity from extrapolated tails. Nearly flat m14 feedback counterbalances strongly retained families.",
+      "next_discriminating_question": "At fixed loading, where do m204, m11, m44 and m78 depart from compact elution, and does the model place those transitions correctly?"
+    },
+    {
+      "id": "H_loading",
+      "content": "Loading effects may depend on molecule and PE/EA ratio, but their direction and magnitude remain unresolved. The current predictor's near-invariance across loading could conceal useful signal or reflect variability in recorded labels.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "fd1f64e4a600c1da7a51",
+        "074316ec711541809840",
+        "9eec792e8b2ea194dd3c",
+        "fa12b8327b9b59795c56",
+        "05a6276f67b3cca8cc7f",
+        "36c9891cc52de490659d",
+        "06c0c99f1cfb752ed34b",
+        "ac6cfe67adcb860efabf"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Completing loading-by-ratio comparisons supplies interpretable condition coverage and reduces attribution of loading-associated endpoint changes entirely to structure or solvent strength.",
+      "next_discriminating_question": "Do the completed m32 and m81 comparisons show consistent loading effects within each ratio, and do m25 and m204 follow similar patterns?"
+    },
+    {
+      "id": "H_N",
+      "content": "Basic nitrogen accessibility and structural environment may create distinct solvent sensitivities across pyridyl compounds, quinolines, aminoaryl carbonyls and tertiary-amino esters. Generic polarity transfer may miss these differences.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "1ce749f818905d3c61d4",
+        "449b809e4efaaf2af86a",
+        "e47aebe2660b9e1528de",
+        "302e458c5ed2285ca328"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Observed nitrogen-containing compounds span compact and strongly delayed behavior. Missing families test transfer across this range, including compact predictions that could otherwise escape acquisition.",
+      "next_discriminating_question": "Which nitrogen environments retain strong PE/EA sensitivity, and are the compact prediction for m19 and similar predictions for m66 and m90 justified?"
+    },
+    {
+      "id": "H_acrylate",
+      "content": "The predicted decrease in both endpoints from 1/1 to 5/1 for fluorinated acrylate m17 may be an unsupported solvent-response reversal introduced by transfer from other ester structures.",
+      "basis": "model_behavior",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "low",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "A fixed-loading pair directly tests a specific response-shape concern. Either outcome provides information about structure-condition interactions in acrylates.",
+      "next_discriminating_question": "With all recorded loading variables fixed, do measured V1 and V2 decrease as predicted from 1/1 to 5/1, or does the response reverse direction?"
+    },
+    {
+      "id": "H_variability",
+      "content": "Some measured labels differ substantially at identical recorded conditions, so isolated surprising intervals cannot all be assigned confidently to solvent or loading mechanisms.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "6a53fc46345dc50021ae",
+        "4df0734ab058c0eeed78",
+        "00f7bff5f3dab9ed9f49",
+        "790d27f0fa045d91f307"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Recognizing recorded-condition variability prevents overinterpreting single anomalies and favors local comparisons across neighboring rows. The catalog does not establish the source of that variability.",
+      "next_discriminating_question": "Does m124's unusual pure-EA delay persist at adjacent loading, and do completed loading comparisons show consistent patterns rather than isolated endpoint excursions?"
+    }
+  ],
+  "feedback_interpretation": "Previous outcomes support a real long-interval regime but weaken polarity or broad quantiles as tail classifiers. m173 and m204 had historical V2 underestimates of 27.55 and 31.85 mL, whereas m11, m103 and m25 were substantially overpredicted. m124 exposed a delayed-onset failure with an exceptionally narrow measured interval. These opposing errors motivate local response tests and related chemical labels rather than uniformly selecting large predicted volumes. The m14 measurements at 10/1 and 50/1 were nearly unchanged, reinforcing molecule-specific solvent response. The m32 and m81 acquisitions changed ratio and loading together and therefore did not independently establish loading effects; this batch completes those comparisons. Identical-condition differences in measured m72 and m92 limit causal interpretation of individual surprises. Chemical interpretation also uses 0/1 correctly as pure EA mobile phase and DCM as loading solvent; m103 is a monoiodo ester and m199 is a sulfoxide.",
+  "batch_rationale": "The batch turns historical failures into discriminating local experiments while expanding coverage where predictions depend on chemical transfer. Additions for m32 and m81 complete two loading-by-ratio comparisons. m204 connects a major historical failure to a fixed-loading solvent curve and a loading contrast. Follow-ups on m11, m103, m44 and m173 test whether corrected measurements support surrounding predictions, while one adjacent-loading measurement examines the unusual m124 result. Exploration targets reusable structural distinctions: beta-ketoester substitution, amino-group position, pyridyl ester versus ketone, quinoline substitution, OH spacing and attachment position, sulfur versus oxygen environments, and constrained versus remote ether placement. The m78 and m17 pairs provide controlled solvent-response information for new molecules; m17 tests a specific predicted reversal. Compact predictions for m19, m178 and the stronger-solvent m78 point cover plausible failures outside the high-volume tail. Several routine halogenated references performed reasonably in the previous batch, reducing the immediate value of additional near-equivalent references. Together, these labels may improve structure-condition interpolation and transfer across the Row-distribution, with recorded-condition variability limiting confidence in individual mechanistic interpretations."
+}

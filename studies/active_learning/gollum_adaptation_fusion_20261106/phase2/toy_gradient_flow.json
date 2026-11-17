@@ -1,0 +1,1187 @@
+{
+  "status": "passed_engineering_preflight",
+  "record_kind": "toy_random_network_not_T5_or_performance_evidence",
+  "n_rows": 8,
+  "variants": [
+    {
+      "variant": "frozen",
+      "seed": 17,
+      "lora": null,
+      "checks": {
+        "frozen_base_bitwise_unchanged": true,
+        "frozen_base_has_no_gradients": true,
+        "full_covariance_rows_each_step": true,
+        "cholesky_success_each_step": true,
+        "gp_all_gradients_finite": true,
+        "gp_nonzero_gradient": true,
+        "gp_updates": true
+      },
+      "parameter_groups": {
+        "lora": {
+          "applicable": false
+        },
+        "projection": {
+          "applicable": false
+        },
+        "gp": {
+          "applicable": true,
+          "gradients": {
+            "log_lengthscale": {
+              "finite": true,
+              "norm": 0.04400523776123015,
+              "max_parameter_update": 0.5586999973058112
+            },
+            "log_signal": {
+              "finite": true,
+              "norm": 0.08140181964458838,
+              "max_parameter_update": 0.5638541877575874
+            },
+            "log_noise_excess": {
+              "finite": true,
+              "norm": 0.06888483545813968,
+              "max_parameter_update": 0.5607372602236284
+            },
+            "mean": {
+              "finite": true,
+              "norm": 0.03299649350050482,
+              "max_parameter_update": 0.06688509179973981
+            }
+          }
+        }
+      },
+      "training": {
+        "status": "step_limit_preflight_not_convergence",
+        "steps": 3,
+        "optimizer": "AdamW",
+        "ft_lr": 0.002,
+        "gp_lr": 0.2,
+        "weight_decay": 0.001,
+        "clip_norm": 1.0,
+        "clip_position": "after_backward_before_every_optimizer_step",
+        "scheduler": "StepLR(gamma=0.95, step_size=1)",
+        "full_batch": true,
+        "target_standardization": "training_only_sample_std_ddof1",
+        "seconds": 0.03333279211074114,
+        "history": [
+          {
+            "step": 1,
+            "mean_nll_before_step": 1.5014532737423805,
+            "gradient_norm_before_clip": 0.16854117263994917,
+            "gradient_groups": {
+              "feature": 0.0,
+              "gp": 0.16854117263994917
+            },
+            "diagnostics_before_step": {
+              "n_train": 8,
+              "cholesky_info": 0,
+              "jitter": 1e-08,
+              "noise_variance": 1.0001,
+              "signal_variance": 1.0,
+              "lengthscale": 1.0,
+              "full_nll": 12.011626189939044,
+              "gp_dtype": "float64"
+            }
+          },
+          {
+            "step": 2,
+            "mean_nll_before_step": 1.459692152505219,
+            "gradient_norm_before_clip": 0.158044948032893,
+            "gradient_groups": {
+              "feature": 0.0,
+              "gp": 0.158044948032893
+            },
+            "diagnostics_before_step": {
+              "n_train": 8,
+              "cholesky_info": 0,
+              "jitter": 1e-08,
+              "noise_variance": 0.8188307671538677,
+              "signal_variance": 0.8187307666307345,
+              "lengthscale": 0.8187308572767829,
+              "full_nll": 11.677537220041753,
+              "gp_dtype": "float64"
+            }
+          },
+          {
+            "step": 3,
+            "mean_nll_before_step": 1.4128327919905175,
+            "gradient_norm_before_clip": 0.11998585888052112,
+            "gradient_groups": {
+              "feature": 0.0,
+              "gp": 0.1199858588805211
+            },
+            "diagnostics_before_step": {
+              "n_train": 8,
+              "cholesky_info": 0,
+              "jitter": 1e-08,
+              "noise_variance": 0.6789591592524074,
+              "signal_variance": 0.6783309118456583,
+              "lengthscale": 0.6803603577177092,
+              "full_nll": 11.30266233592414,
+              "gp_dtype": "float64"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "variant": "projection",
+      "seed": 17,
+      "lora": null,
+      "checks": {
+        "frozen_base_bitwise_unchanged": true,
+        "frozen_base_has_no_gradients": true,
+        "full_covariance_rows_each_step": true,
+        "cholesky_success_each_step": true,
+        "projection_all_gradients_finite": true,
+        "projection_nonzero_gradient": true,
+        "projection_updates": true,
+        "gp_all_gradients_finite": true,
+        "gp_nonzero_gradient": true,
+        "gp_updates": true
+      },
+      "parameter_groups": {
+        "lora": {
+          "applicable": false
+        },
+        "projection": {
+          "applicable": true,
+          "gradients": {
+            "linear.weight": {
+              "finite": true,
+              "norm": 0.12418923803176937,
+              "max_parameter_update": 0.005714828850012121
+            },
+            "linear.bias": {
+              "finite": true,
+              "norm": 0.044032544902632566,
+              "max_parameter_update": 0.005710194646487596
+            }
+          }
+        },
+        "gp": {
+          "applicable": true,
+          "gradients": {
+            "log_lengthscale": {
+              "finite": true,
+              "norm": 0.08276935841486746,
+              "max_parameter_update": 0.5533178178327035
+            },
+            "log_signal": {
+              "finite": true,
+              "norm": 0.07244637786462149,
+              "max_parameter_update": 0.5632856737201293
+            },
+            "log_noise_excess": {
+              "finite": true,
+              "norm": 0.03107558464597806,
+              "max_parameter_update": 0.551262212214701
+            },
+            "mean": {
+              "finite": true,
+              "norm": 0.02695260725145412,
+              "max_parameter_update": 0.028643697690997588
+            }
+          }
+        }
+      },
+      "training": {
+        "status": "step_limit_preflight_not_convergence",
+        "steps": 3,
+        "optimizer": "AdamW",
+        "ft_lr": 0.002,
+        "gp_lr": 0.2,
+        "weight_decay": 0.001,
+        "clip_norm": 1.0,
+        "clip_position": "after_backward_before_every_optimizer_step",
+        "scheduler": "StepLR(gamma=0.95, step_size=1)",
+        "full_batch": true,
+        "target_standardization": "training_only_sample_std_ddof1",
+        "seconds": 0.005855749826878309,
+        "history": [
+          {
+            "step": 1,
+            "mean_nll_before_step": 1.523932112423775,
+            "gradient_norm_before_clip": 0.1812919856522829,
+            "gradient_groups": {
+              "feature": 0.11941356108210249,
+              "gp": 0.13640815771587317
+            },
+            "diagnostics_before_step": {
+              "n_train": 8,
+              "cholesky_info": 0,
+              "jitter": 1e-08,
+              "noise_variance": 1.0001,
+              "signal_variance": 1.0,
+              "lengthscale": 1.0,
+              "full_nll": 12.1914568993902,
+              "gp_dtype": "float64"
+            }
+          },
+          {
+            "step": 2,
+            "mean_nll_before_step": 1.4840687563071566,
+            "gradient_norm_before_clip": 0.18322077358831043,
+            "gradient_groups": {
+              "feature": 0.1316147480426822,
+              "gp": 0.12746532850920753
+            },
+            "diagnostics_before_step": {
+              "n_train": 8,
+              "cholesky_info": 0,
+              "jitter": 1e-08,
+              "noise_variance": 0.8188307750879549,
+              "signal_variance": 0.8187307678484806,
+              "lengthscale": 0.8187308184606819,
+              "full_nll": 11.872550050457253,
+              "gp_dtype": "float64"
+            }
+          },
+          {
+            "step": 3,
+            "mean_nll_before_step": 1.442707349688595,
+            "gradient_norm_before_clip": 0.17650272295453864,
+            "gradient_groups": {
+              "feature": 0.1317643041704157,
+              "gp": 0.11743670361881244
+            },
+            "diagnostics_before_step": {
+              "n_train": 8,
+              "cholesky_info": 0,
+              "jitter": 1e-08,
+              "noise_variance": 0.6803987372003175,
+              "signal_variance": 0.6783759327387648,
+              "lengthscale": 0.6825929825197118,
+              "full_nll": 11.54165879750876,
+              "gp_dtype": "float64"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "variant": "lora",
+      "seed": 17,
+      "lora": {
+        "backend": "native_torch_rsLoRA",
+        "settings": {
+          "rank": 4,
+          "alpha": 16.0,
+          "dropout": 0.0,
+          "target_ratio": 0.25,
+          "from_top": true
+        },
+        "target_modules": [
+          "encoder.block.3.linear"
+        ],
+        "trainable_parameters": 64,
+        "frozen_parameters": 544
+      },
+      "checks": {
+        "frozen_base_bitwise_unchanged": true,
+        "frozen_base_has_no_gradients": true,
+        "full_covariance_rows_each_step": true,
+        "cholesky_success_each_step": true,
+        "lora_all_gradients_finite": true,
+        "lora_nonzero_gradient": true,
+        "lora_updates": true,
+        "gp_all_gradients_finite": true,
+        "gp_nonzero_gradient": true,
+        "gp_updates": true
+      },
+      "parameter_groups": {
+        "lora": {
+          "applicable": true,
+          "gradients": {
+            "encoder.block.3.linear.lora_A": {
+              "finite": true,
+              "norm": 0.0008517238893546164,
+              "max_parameter_update": 0.002965092658996582
+            },
+            "encoder.block.3.linear.lora_B": {
+              "finite": true,
+              "norm": 0.023814700543880463,
+              "max_parameter_update": 0.005712013691663742
+            }
+          }
+        },
+        "projection": {
+          "applicable": false
+        },
+        "gp": {
+          "applicable": true,
+          "gradients": {
+            "log_lengthscale": {
+              "finite": true,
+              "norm": 0.043086035219774374,
+              "max_parameter_update": 0.5592843397011362
+            },
+            "log_signal": {
+              "finite": true,
+              "norm": 0.08134681722985165,
+              "max_parameter_update": 0.5638361349498487
+            },
+            "log_noise_excess": {
+              "finite": true,
+              "norm": 0.06930804112693327,
+              "max_parameter_update": 0.5609024687348412
+            },
+            "mean": {
+              "finite": true,
+              "norm": 0.03299190796617781,
+              "max_parameter_update": 0.06688194981733862
+            }
+          }
+        }
+      },
+      "training": {
+        "status": "step_limit_preflight_not_convergence",
+        "steps": 3,
+        "optimizer": "AdamW",
+        "ft_lr": 0.002,
+        "gp_lr": 0.2,
+        "weight_decay": 0.001,
+        "clip_norm": 1.0,
+        "clip_position": "after_backward_before_every_optimizer_step",
+        "scheduler": "StepLR(gamma=0.95, step_size=1)",
+        "full_batch": true,
+        "target_standardization": "training_only_sample_std_ddof1",
+        "seconds": 0.004514917032793164,
+        "history": [
+          {
+            "step": 1,
+            "mean_nll_before_step": 1.5014532737423805,
+            "gradient_norm_before_clip": 0.17177684625476006,
+            "gradient_groups": {
+              "feature": 0.03318370275286067,
+              "gp": 0.16854117263994917
+            },
+            "diagnostics_before_step": {
+              "n_train": 8,
+              "cholesky_info": 0,
+              "jitter": 1e-08,
+              "noise_variance": 1.0001,
+              "signal_variance": 1.0,
+              "lengthscale": 1.0,
+              "full_nll": 12.011626189939044,
+              "gp_dtype": "float64"
+            }
+          },
+          {
+            "step": 2,
+            "mean_nll_before_step": 1.4594514324222618,
+            "gradient_norm_before_clip": 0.16097371477027114,
+            "gradient_groups": {
+              "feature": 0.03034968943113751,
+              "gp": 0.158086790121297
+            },
+            "diagnostics_before_step": {
+              "n_train": 8,
+              "cholesky_info": 0,
+              "jitter": 1e-08,
+              "noise_variance": 0.8188307671538677,
+              "signal_variance": 0.8187307666307345,
+              "lengthscale": 0.8187308572767829,
+              "full_nll": 11.675611459378095,
+              "gp_dtype": "float64"
+            }
+          },
+          {
+            "step": 3,
+            "mean_nll_before_step": 1.412430610864153,
+            "gradient_norm_before_clip": 0.12220330214878135,
+            "gradient_groups": {
+              "feature": 0.023829926360236137,
+              "gp": 0.11985733878443967
+            },
+            "diagnostics_before_step": {
+              "n_train": 8,
+              "cholesky_info": 0,
+              "jitter": 1e-08,
+              "noise_variance": 0.6789281223619341,
+              "signal_variance": 0.6783351247922224,
+              "lengthscale": 0.680168094299582,
+              "full_nll": 11.299444886913223,
+              "gp_dtype": "float64"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "variant": "lora_projection",
+      "seed": 17,
+      "lora": {
+        "backend": "native_torch_rsLoRA",
+        "settings": {
+          "rank": 4,
+          "alpha": 16.0,
+          "dropout": 0.0,
+          "target_ratio": 0.25,
+          "from_top": true
+        },
+        "target_modules": [
+          "encoder.block.3.linear"
+        ],
+        "trainable_parameters": 64,
+        "frozen_parameters": 544
+      },
+      "checks": {
+        "frozen_base_bitwise_unchanged": true,
+        "frozen_base_has_no_gradients": true,
+        "full_covariance_rows_each_step": true,
+        "cholesky_success_each_step": true,
+        "lora_all_gradients_finite": true,
+        "lora_nonzero_gradient": true,
+        "lora_updates": true,
+        "projection_all_gradients_finite": true,
+        "projection_nonzero_gradient": true,
+        "projection_updates": true,
+        "gp_all_gradients_finite": true,
+        "gp_nonzero_gradient": true,
+        "gp_updates": true
+      },
+      "parameter_groups": {
+        "lora": {
+          "applicable": true,
+          "gradients": {
+            "encoder.block.3.linear.lora_A": {
+              "finite": true,
+              "norm": 0.0020067188888788223,
+              "max_parameter_update": 0.0029655247926712036
+            },
+            "encoder.block.3.linear.lora_B": {
+              "finite": true,
+              "norm": 0.0742650106549263,
+              "max_parameter_update": 0.005713401362299919
+            }
+          }
+        },
+        "projection": {
+          "applicable": true,
+          "gradients": {
+            "linear.weight": {
+              "finite": true,
+              "norm": 0.12287862588780649,
+              "max_parameter_update": 0.005714302425937234
+            },
+            "linear.bias": {
+              "finite": true,
+              "norm": 0.04331079665409656,
+              "max_parameter_update": 0.0057083361881594945
+            }
+          }
+        },
+        "gp": {
+          "applicable": true,
+          "gradients": {
+            "log_lengthscale": {
+              "finite": true,
+              "norm": 0.08173117740799042,
+              "max_parameter_update": 0.5536560199878308
+            },
+            "log_signal": {
+              "finite": true,
+              "norm": 0.07212032470393233,
+              "max_parameter_update": 0.5631743571120361
+            },
+            "log_noise_excess": {
+              "finite": true,
+              "norm": 0.032316689748902304,
+              "max_parameter_update": 0.5523929429331771
+            },
+            "mean": {
+              "finite": true,
+              "norm": 0.027064926881570764,
+              "max_parameter_update": 0.02881460783694295
+            }
+          }
+        }
+      },
+      "training": {
+        "status": "step_limit_preflight_not_convergence",
+        "steps": 3,
+        "optimizer": "AdamW",
+        "ft_lr": 0.002,
+        "gp_lr": 0.2,
+        "weight_decay": 0.001,
+        "clip_norm": 1.0,
+        "clip_position": "after_backward_before_every_optimizer_step",
+        "scheduler": "StepLR(gamma=0.95, step_size=1)",
+        "full_batch": true,
+        "target_standardization": "training_only_sample_std_ddof1",
+        "seconds": 0.007911042077466846,
+        "history": [
+          {
+            "step": 1,
+            "mean_nll_before_step": 1.523932112423775,
+            "gradient_norm_before_clip": 0.19326025881284656,
+            "gradient_groups": {
+              "feature": 0.13690267387778646,
+              "gp": 0.13640815771587317
+            },
+            "diagnostics_before_step": {
+              "n_train": 8,
+              "cholesky_info": 0,
+              "jitter": 1e-08,
+              "noise_variance": 1.0001,
+              "signal_variance": 1.0,
+              "lengthscale": 1.0,
+              "full_nll": 12.1914568993902,
+              "gp_dtype": "float64"
+            }
+          },
+          {
+            "step": 2,
+            "mean_nll_before_step": 1.4835182073569706,
+            "gradient_norm_before_clip": 0.19681756653198182,
+            "gradient_groups": {
+              "feature": 0.14995409862001235,
+              "gp": 0.12747910313337513
+            },
+            "diagnostics_before_step": {
+              "n_train": 8,
+              "cholesky_info": 0,
+              "jitter": 1e-08,
+              "noise_variance": 0.8188307750879549,
+              "signal_variance": 0.8187307678484806,
+              "lengthscale": 0.8187308184606819,
+              "full_nll": 11.868145658855765,
+              "gp_dtype": "float64"
+            }
+          },
+          {
+            "step": 3,
+            "mean_nll_before_step": 1.441588895319901,
+            "gradient_norm_before_clip": 0.19013812304346522,
+            "gradient_groups": {
+              "feature": 0.14998100279315502,
+              "gp": 0.11686832461932795
+            },
+            "diagnostics_before_step": {
+              "n_train": 8,
+              "cholesky_info": 0,
+              "jitter": 1e-08,
+              "noise_variance": 0.6802240712931796,
+              "signal_variance": 0.6783973291721087,
+              "lengthscale": 0.6825001816512264,
+              "full_nll": 11.532711162559208,
+              "gp_dtype": "float64"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "variant": "frozen",
+      "seed": 29,
+      "lora": null,
+      "checks": {
+        "frozen_base_bitwise_unchanged": true,
+        "frozen_base_has_no_gradients": true,
+        "full_covariance_rows_each_step": true,
+        "cholesky_success_each_step": true,
+        "gp_all_gradients_finite": true,
+        "gp_nonzero_gradient": true,
+        "gp_updates": true
+      },
+      "parameter_groups": {
+        "lora": {
+          "applicable": false
+        },
+        "projection": {
+          "applicable": false
+        },
+        "gp": {
+          "applicable": true,
+          "gradients": {
+            "log_lengthscale": {
+              "finite": true,
+              "norm": 0.04400523776123015,
+              "max_parameter_update": 0.5586999973058112
+            },
+            "log_signal": {
+              "finite": true,
+              "norm": 0.08140181964458838,
+              "max_parameter_update": 0.5638541877575874
+            },
+            "log_noise_excess": {
+              "finite": true,
+              "norm": 0.06888483545813968,
+              "max_parameter_update": 0.5607372602236284
+            },
+            "mean": {
+              "finite": true,
+              "norm": 0.03299649350050482,
+              "max_parameter_update": 0.06688509179973981
+            }
+          }
+        }
+      },
+      "training": {
+        "status": "step_limit_preflight_not_convergence",
+        "steps": 3,
+        "optimizer": "AdamW",
+        "ft_lr": 0.002,
+        "gp_lr": 0.2,
+        "weight_decay": 0.001,
+        "clip_norm": 1.0,
+        "clip_position": "after_backward_before_every_optimizer_step",
+        "scheduler": "StepLR(gamma=0.95, step_size=1)",
+        "full_batch": true,
+        "target_standardization": "training_only_sample_std_ddof1",
+        "seconds": 0.005289833061397076,
+        "history": [
+          {
+            "step": 1,
+            "mean_nll_before_step": 1.5014532737423805,
+            "gradient_norm_before_clip": 0.16854117263994917,
+            "gradient_groups": {
+              "feature": 0.0,
+              "gp": 0.16854117263994917
+            },
+            "diagnostics_before_step": {
+              "n_train": 8,
+              "cholesky_info": 0,
+              "jitter": 1e-08,
+              "noise_variance": 1.0001,
+              "signal_variance": 1.0,
+              "lengthscale": 1.0,
+              "full_nll": 12.011626189939044,
+              "gp_dtype": "float64"
+            }
+          },
+          {
+            "step": 2,
+            "mean_nll_before_step": 1.459692152505219,
+            "gradient_norm_before_clip": 0.158044948032893,
+            "gradient_groups": {
+              "feature": 0.0,
+              "gp": 0.158044948032893
+            },
+            "diagnostics_before_step": {
+              "n_train": 8,
+              "cholesky_info": 0,
+              "jitter": 1e-08,
+              "noise_variance": 0.8188307671538677,
+              "signal_variance": 0.8187307666307345,
+              "lengthscale": 0.8187308572767829,
+              "full_nll": 11.677537220041753,
+              "gp_dtype": "float64"
+            }
+          },
+          {
+            "step": 3,
+            "mean_nll_before_step": 1.4128327919905175,
+            "gradient_norm_before_clip": 0.11998585888052112,
+            "gradient_groups": {
+              "feature": 0.0,
+              "gp": 0.1199858588805211
+            },
+            "diagnostics_before_step": {
+              "n_train": 8,
+              "cholesky_info": 0,
+              "jitter": 1e-08,
+              "noise_variance": 0.6789591592524074,
+              "signal_variance": 0.6783309118456583,
+              "lengthscale": 0.6803603577177092,
+              "full_nll": 11.30266233592414,
+              "gp_dtype": "float64"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "variant": "projection",
+      "seed": 29,
+      "lora": null,
+      "checks": {
+        "frozen_base_bitwise_unchanged": true,
+        "frozen_base_has_no_gradients": true,
+        "full_covariance_rows_each_step": true,
+        "cholesky_success_each_step": true,
+        "projection_all_gradients_finite": true,
+        "projection_nonzero_gradient": true,
+        "projection_updates": true,
+        "gp_all_gradients_finite": true,
+        "gp_nonzero_gradient": true,
+        "gp_updates": true
+      },
+      "parameter_groups": {
+        "lora": {
+          "applicable": false
+        },
+        "projection": {
+          "applicable": true,
+          "gradients": {
+            "linear.weight": {
+              "finite": true,
+              "norm": 0.07024812423284352,
+              "max_parameter_update": 0.005715459680223717
+            },
+            "linear.bias": {
+              "finite": true,
+              "norm": 0.013954531856048013,
+              "max_parameter_update": 0.0057082179735211975
+            }
+          }
+        },
+        "gp": {
+          "applicable": true,
+          "gradients": {
+            "log_lengthscale": {
+              "finite": true,
+              "norm": 0.0545330243988793,
+              "max_parameter_update": 0.5648831174268946
+            },
+            "log_signal": {
+              "finite": true,
+              "norm": 0.07787791568372177,
+              "max_parameter_update": 0.5635331445157676
+            },
+            "log_noise_excess": {
+              "finite": true,
+              "norm": 0.05733698429785282,
+              "max_parameter_update": 0.5595905278095024
+            },
+            "mean": {
+              "finite": true,
+              "norm": 0.02900511559205967,
+              "max_parameter_update": 0.03601480060042862
+            }
+          }
+        }
+      },
+      "training": {
+        "status": "step_limit_preflight_not_convergence",
+        "steps": 3,
+        "optimizer": "AdamW",
+        "ft_lr": 0.002,
+        "gp_lr": 0.2,
+        "weight_decay": 0.001,
+        "clip_norm": 1.0,
+        "clip_position": "after_backward_before_every_optimizer_step",
+        "scheduler": "StepLR(gamma=0.95, step_size=1)",
+        "full_batch": true,
+        "target_standardization": "training_only_sample_std_ddof1",
+        "seconds": 0.00734729110263288,
+        "history": [
+          {
+            "step": 1,
+            "mean_nll_before_step": 1.5096582162653767,
+            "gradient_norm_before_clip": 0.17362436936499223,
+            "gradient_groups": {
+              "feature": 0.07111711395329232,
+              "gp": 0.15839121737124723
+            },
+            "diagnostics_before_step": {
+              "n_train": 8,
+              "cholesky_info": 0,
+              "jitter": 1e-08,
+              "noise_variance": 1.0001,
+              "signal_variance": 1.0,
+              "lengthscale": 1.0,
+              "full_nll": 12.077265730123013,
+              "gp_dtype": "float64"
+            }
+          },
+          {
+            "step": 2,
+            "mean_nll_before_step": 1.4661054800442048,
+            "gradient_norm_before_clip": 0.16325582825447338,
+            "gradient_groups": {
+              "feature": 0.07303277132601294,
+              "gp": 0.146009177011229
+            },
+            "diagnostics_before_step": {
+              "n_train": 8,
+              "cholesky_info": 0,
+              "jitter": 1e-08,
+              "noise_variance": 0.8188307690531995,
+              "signal_variance": 0.8187307670373452,
+              "lengthscale": 0.8187308172127251,
+              "full_nll": 11.728843840353639,
+              "gp_dtype": "float64"
+            }
+          },
+          {
+            "step": 3,
+            "mean_nll_before_step": 1.421322269432924,
+            "gradient_norm_before_clip": 0.13526705037726328,
+            "gradient_groups": {
+              "feature": 0.07162072268243651,
+              "gp": 0.11475036819204809
+            },
+            "diagnostics_before_step": {
+              "n_train": 8,
+              "cholesky_info": 0,
+              "jitter": 1e-08,
+              "noise_variance": 0.6790228660785667,
+              "signal_variance": 0.6783806874201359,
+              "lengthscale": 0.6787651469089809,
+              "full_nll": 11.370578155463392,
+              "gp_dtype": "float64"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "variant": "lora",
+      "seed": 29,
+      "lora": {
+        "backend": "native_torch_rsLoRA",
+        "settings": {
+          "rank": 4,
+          "alpha": 16.0,
+          "dropout": 0.0,
+          "target_ratio": 0.25,
+          "from_top": true
+        },
+        "target_modules": [
+          "encoder.block.3.linear"
+        ],
+        "trainable_parameters": 64,
+        "frozen_parameters": 544
+      },
+      "checks": {
+        "frozen_base_bitwise_unchanged": true,
+        "frozen_base_has_no_gradients": true,
+        "full_covariance_rows_each_step": true,
+        "cholesky_success_each_step": true,
+        "lora_all_gradients_finite": true,
+        "lora_nonzero_gradient": true,
+        "lora_updates": true,
+        "gp_all_gradients_finite": true,
+        "gp_nonzero_gradient": true,
+        "gp_updates": true
+      },
+      "parameter_groups": {
+        "lora": {
+          "applicable": true,
+          "gradients": {
+            "encoder.block.3.linear.lora_A": {
+              "finite": true,
+              "norm": 0.0007055755704641342,
+              "max_parameter_update": 0.0029635578393936157
+            },
+            "encoder.block.3.linear.lora_B": {
+              "finite": true,
+              "norm": 0.02986319735646248,
+              "max_parameter_update": 0.005700426176190376
+            }
+          }
+        },
+        "projection": {
+          "applicable": false
+        },
+        "gp": {
+          "applicable": true,
+          "gradients": {
+            "log_lengthscale": {
+              "finite": true,
+              "norm": 0.04270128775521069,
+              "max_parameter_update": 0.559569161631744
+            },
+            "log_signal": {
+              "finite": true,
+              "norm": 0.08131180695777555,
+              "max_parameter_update": 0.5638230217204127
+            },
+            "log_noise_excess": {
+              "finite": true,
+              "norm": 0.06929293464438978,
+              "max_parameter_update": 0.560906187942049
+            },
+            "mean": {
+              "finite": true,
+              "norm": 0.03294550763078749,
+              "max_parameter_update": 0.06686003134685536
+            }
+          }
+        }
+      },
+      "training": {
+        "status": "step_limit_preflight_not_convergence",
+        "steps": 3,
+        "optimizer": "AdamW",
+        "ft_lr": 0.002,
+        "gp_lr": 0.2,
+        "weight_decay": 0.001,
+        "clip_norm": 1.0,
+        "clip_position": "after_backward_before_every_optimizer_step",
+        "scheduler": "StepLR(gamma=0.95, step_size=1)",
+        "full_batch": true,
+        "target_standardization": "training_only_sample_std_ddof1",
+        "seconds": 0.005995665909722447,
+        "history": [
+          {
+            "step": 1,
+            "mean_nll_before_step": 1.5014532737423805,
+            "gradient_norm_before_clip": 0.17430159650950194,
+            "gradient_groups": {
+              "feature": 0.04444006870703478,
+              "gp": 0.16854117263994917
+            },
+            "diagnostics_before_step": {
+              "n_train": 8,
+              "cholesky_info": 0,
+              "jitter": 1e-08,
+              "noise_variance": 1.0001,
+              "signal_variance": 1.0,
+              "lengthscale": 1.0,
+              "full_nll": 12.011626189939044,
+              "gp_dtype": "float64"
+            }
+          },
+          {
+            "step": 2,
+            "mean_nll_before_step": 1.4593877339522139,
+            "gradient_norm_before_clip": 0.16287906736287244,
+            "gradient_groups": {
+              "feature": 0.03965557181632344,
+              "gp": 0.15797792978086408
+            },
+            "diagnostics_before_step": {
+              "n_train": 8,
+              "cholesky_info": 0,
+              "jitter": 1e-08,
+              "noise_variance": 0.8188307671538677,
+              "signal_variance": 0.8187307666307345,
+              "lengthscale": 0.8187308572767829,
+              "full_nll": 11.675101871617711,
+              "gp_dtype": "float64"
+            }
+          },
+          {
+            "step": 3,
+            "mean_nll_before_step": 1.4124139698132332,
+            "gradient_norm_before_clip": 0.12334599946739447,
+            "gradient_groups": {
+              "feature": 0.029871530571827627,
+              "gp": 0.11967425450519344
+            },
+            "diagnostics_before_step": {
+              "n_train": 8,
+              "cholesky_info": 0,
+              "jitter": 1e-08,
+              "noise_variance": 0.678923982507485,
+              "signal_variance": 0.6783387242189385,
+              "lengthscale": 0.6800454175353114,
+              "full_nll": 11.299311758505866,
+              "gp_dtype": "float64"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "variant": "lora_projection",
+      "seed": 29,
+      "lora": {
+        "backend": "native_torch_rsLoRA",
+        "settings": {
+          "rank": 4,
+          "alpha": 16.0,
+          "dropout": 0.0,
+          "target_ratio": 0.25,
+          "from_top": true
+        },
+        "target_modules": [
+          "encoder.block.3.linear"
+        ],
+        "trainable_parameters": 64,
+        "frozen_parameters": 544
+      },
+      "checks": {
+        "frozen_base_bitwise_unchanged": true,
+        "frozen_base_has_no_gradients": true,
+        "full_covariance_rows_each_step": true,
+        "cholesky_success_each_step": true,
+        "lora_all_gradients_finite": true,
+        "lora_nonzero_gradient": true,
+        "lora_updates": true,
+        "projection_all_gradients_finite": true,
+        "projection_nonzero_gradient": true,
+        "projection_updates": true,
+        "gp_all_gradients_finite": true,
+        "gp_nonzero_gradient": true,
+        "gp_updates": true
+      },
+      "parameter_groups": {
+        "lora": {
+          "applicable": true,
+          "gradients": {
+            "encoder.block.3.linear.lora_A": {
+              "finite": true,
+              "norm": 0.0023950894828885794,
+              "max_parameter_update": 0.0029646866023540497
+            },
+            "encoder.block.3.linear.lora_B": {
+              "finite": true,
+              "norm": 0.07175502181053162,
+              "max_parameter_update": 0.005711985751986504
+            }
+          }
+        },
+        "projection": {
+          "applicable": true,
+          "gradients": {
+            "linear.weight": {
+              "finite": true,
+              "norm": 0.0692001847423389,
+              "max_parameter_update": 0.00571628308011396
+            },
+            "linear.bias": {
+              "finite": true,
+              "norm": 0.013165211689619009,
+              "max_parameter_update": 0.005707105012942056
+            }
+          }
+        },
+        "gp": {
+          "applicable": true,
+          "gradients": {
+            "log_lengthscale": {
+              "finite": true,
+              "norm": 0.05259915112953281,
+              "max_parameter_update": 0.5655703491368297
+            },
+            "log_signal": {
+              "finite": true,
+              "norm": 0.07762545983477201,
+              "max_parameter_update": 0.5634560438430521
+            },
+            "log_noise_excess": {
+              "finite": true,
+              "norm": 0.058744785983699935,
+              "max_parameter_update": 0.5602347047437062
+            },
+            "mean": {
+              "finite": true,
+              "norm": 0.028713588532240875,
+              "max_parameter_update": 0.03571162374902022
+            }
+          }
+        }
+      },
+      "training": {
+        "status": "step_limit_preflight_not_convergence",
+        "steps": 3,
+        "optimizer": "AdamW",
+        "ft_lr": 0.002,
+        "gp_lr": 0.2,
+        "weight_decay": 0.001,
+        "clip_norm": 1.0,
+        "clip_position": "after_backward_before_every_optimizer_step",
+        "scheduler": "StepLR(gamma=0.95, step_size=1)",
+        "full_batch": true,
+        "target_standardization": "training_only_sample_std_ddof1",
+        "seconds": 0.006334875011816621,
+        "history": [
+          {
+            "step": 1,
+            "mean_nll_before_step": 1.5096582162653767,
+            "gradient_norm_before_clip": 0.18953120322316538,
+            "gradient_groups": {
+              "feature": 0.10408793796812571,
+              "gp": 0.15839121737124723
+            },
+            "diagnostics_before_step": {
+              "n_train": 8,
+              "cholesky_info": 0,
+              "jitter": 1e-08,
+              "noise_variance": 1.0001,
+              "signal_variance": 1.0,
+              "lengthscale": 1.0,
+              "full_nll": 12.077265730123013,
+              "gp_dtype": "float64"
+            }
+          },
+          {
+            "step": 2,
+            "mean_nll_before_step": 1.4653825971592283,
+            "gradient_norm_before_clip": 0.18064652320305688,
+            "gradient_groups": {
+              "feature": 0.10621489209747957,
+              "gp": 0.14612174139461434
+            },
+            "diagnostics_before_step": {
+              "n_train": 8,
+              "cholesky_info": 0,
+              "jitter": 1e-08,
+              "noise_variance": 0.8188307690531995,
+              "signal_variance": 0.8187307670373452,
+              "lengthscale": 0.8187308172127251,
+              "full_nll": 11.723060777273826,
+              "gp_dtype": "float64"
+            }
+          },
+          {
+            "step": 3,
+            "mean_nll_before_step": 1.4200044299675074,
+            "gradient_norm_before_clip": 0.15226395087690323,
+            "gradient_groups": {
+              "feature": 0.1005808541898263,
+              "gp": 0.11431449059842229
+            },
+            "diagnostics_before_step": {
+              "n_train": 8,
+              "cholesky_info": 0,
+              "jitter": 1e-08,
+              "noise_variance": 0.6789130950521535,
+              "signal_variance": 0.6783948626481295,
+              "lengthscale": 0.6785927083236855,
+              "full_nll": 11.36003543974006,
+              "gp_dtype": "float64"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "performance_claims_allowed": false,
+  "pretrained_weights_loaded": false,
+  "resource_audit": {
+    "audit_date": "2026-11-06",
+    "python": "/Users/fish/miniforge3/envs/chromatography/bin/python",
+    "python_version": "3.11.14 | packaged by conda-forge | (main, Oct 22 2025, 22:56:31) [Clang 19.1.7 ]",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "packages": {
+      "torch": "2.13.0",
+      "transformers": "5.4.0",
+      "peft": null,
+      "gpytorch": null,
+      "botorch": null,
+      "sentencepiece": null,
+      "safetensors": "0.7.0",
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "pytest": "9.1.1"
+    },
+    "device": {
+      "cuda_available": false,
+      "mps_built": true,
+      "mps_available": false,
+      "torch_threads": 1
+    },
+    "disk_free_gib": 202.9697723388672,
+    "model_cache_inventory": [
+      {
+        "cache": "/Users/fish/.cache/huggingface/hub",
+        "model": "models--Qwen--Qwen1.5-0.5B-Chat",
+        "weight_files": [
+          {
+            "path": "/Users/fish/.cache/huggingface/hub/models--Qwen--Qwen1.5-0.5B-Chat/snapshots/4d14e384a4b037942bb3f3016665157c8bcb70ea/model.safetensors",
+            "bytes": 1239173352
+          }
+        ]
+      }
+    ],
+    "model_downloads": 0,
+    "dependency_installs": 0,
+    "paid_api_calls": 0
+  },
+  "elapsed_seconds": 1.9509495829697698,
+  "process_peak_rss_bytes": 293126144
+}

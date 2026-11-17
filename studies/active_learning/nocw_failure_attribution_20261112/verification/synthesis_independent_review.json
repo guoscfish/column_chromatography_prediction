@@ -1,0 +1,175 @@
+{
+  "status": "PASS_AFTER_REVISIONS",
+  "reviewer": "NoCW scientific-chain agent, independent synthesis review",
+  "reviewed_shanghai": "2026-11-13T13:06:10.587975+08:00",
+  "blocking_findings_remaining": [],
+  "checks": {
+    "all_seven_user_decision_questions_directly_addressed": true,
+    "sixteen_expected_successful_fit_slots": true,
+    "paired_initialization_train_and_H_identity": true,
+    "validation_formula_max_error": 9.2148511043888e-15,
+    "state_Row_and_Q_scalar_max_error": 7.216449660063518e-15,
+    "state_Row_means_improve": 4,
+    "state_Q_means_improve": 2,
+    "paired_Row_improved": 5,
+    "paired_Row_worsened": 3,
+    "Row_improved_pairs_by_training_replicate": {
+      "0": 1,
+      "1": 4
+    },
+    "outer_effects_independently_recomputed": [
+      {
+        "seed": 157,
+        "row_delta_mean": -0.020801609435031454,
+        "Q_delta_mean": -0.008313118222721363
+      },
+      {
+        "seed": 887,
+        "row_delta_mean": -0.004136211115989469,
+        "Q_delta_mean": 0.0006967166782906736
+      }
+    ],
+    "Row_only_branch_preserves_prediction_signal_without_claiming_loading_repair": true,
+    "posthoc_rule_timing_and_prior_score_exposure_disclosed": true,
+    "H_not_a_fixed_cross_budget_learning_curve_and_contains_unseen_molecules": true,
+    "E1_typed_input_conditional_effect_and_length_limit_disclosed": true,
+    "E1_permutation_warning_not_used_as_primary_causal_control": true,
+    "E2_raw_geometry_placebo_and_numeric_baseline_distinguished": true,
+    "costs_independently_counted": {
+      "E1_two_seed_two_state_two_LLM_repeats_fixed_training": {
+        "fits": 16,
+        "minimum_complete_responses": 16
+      },
+      "E1_with_crossed_two_training_seeds": {
+        "fits": 32,
+        "minimum_complete_responses": 16
+      },
+      "E2_fixed_training_with_raw_reuse": {
+        "unique_fits": 28,
+        "minimum_complete_responses": 24
+      },
+      "E2_with_crossed_two_training_seeds": {
+        "unique_fits": 56,
+        "minimum_complete_responses": 24
+      },
+      "additional_full_L_initial_fits_if_changing_learner": 4
+    },
+    "no_claim_of_pretrained_chemistry_or_new_AL_causal_gain": true
+  },
+  "resolved_substantive_findings": [
+    "Added separate Row-pass/Q-fail interpretation instead of collapsing into no support",
+    "Clarified endpoint-disjoint components are not independent studies",
+    "Labeled absolute difference metrics and molecule/seed weighting",
+    "Preserved replicate0 1/4 versus replicate1 4/4 heterogeneity",
+    "Used common105 reliability comparator while retaining CW180 context",
+    "Separated existing historical data, frozen software behavior and algorithmic intervention evidence"
+  ],
+  "remaining_scientific_limits": [
+    "Two outer seeds and two paired training seeds, not16 independent studies",
+    "Mean Row improvement is initialization-dependent; three reverse pairs all occur in replicate0",
+    "Q sign improvement in887/L525 is only about4e-6 and is not a substantive repaired loading response",
+    "No direct attribution of AULC loss to H1/H2/H3 or a single hypothesis",
+    "Code change also alters gradient conditioning and all completion channels",
+    "No independent experiment noise floor or new held-out dataset confirmation",
+    "The interpretation gate is transparently post-hoc and used only descriptively"
+  ],
+  "workspace_check": {
+    "preexisting_files_hashed": 1084,
+    "deleted": [],
+    "changed_preexisting_paths": [
+      "reports/llm_eight_to1549_20261018/live_status.json",
+      "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1549_20261018/recovery_monitor_status.json"
+    ],
+    "external_new_paths_observed": 5305,
+    "external_inventory_content_read": false,
+    "external_new_paths_used_as_sources": false,
+    "note": "External additions are preserved and observed through git paths only, not attributed to this task; finalizer must refresh live status."
+  },
+  "scope": "Aggregate tables and final report/source review; raw-H forward/label checks are attributed to the separate pilot independent verifier, not claimed as own checks",
+  "new_fits": 0,
+  "new_paid_LLM_calls": 0,
+  "new_AL_selections": 0,
+  "test_truth_reads": 0,
+  "sources": [
+    {
+      "path": "studies/active_learning/nocw_failure_attribution_20261112/RESEARCH_DECISION.md",
+      "sha256": "ab6c82e52713464122fd1d5bad299fa1de93b928e5e56f5d806dc3457f54edaa",
+      "role": "final prose/source review; no model execution"
+    },
+    {
+      "path": "studies/active_learning/nocw_failure_attribution_20261112/MODEL_PILOT_RESULTS.md",
+      "sha256": "7addb300bb0933b72466985a24e4e9222e286b6c347f9d98ebc38814bf20d798",
+      "role": "final prose/source review; no model execution"
+    },
+    {
+      "path": "studies/active_learning/nocw_failure_attribution_20261112/NEXT_AL_EXPERIMENT_PROTOCOL.md",
+      "sha256": "7c91e9d43b78aafa5c39bebd46898642b7001f9df9e7f8c1677e64f22260c583",
+      "role": "final prose/source review; no model execution"
+    },
+    {
+      "path": "studies/active_learning/nocw_failure_attribution_20261112/README.md",
+      "sha256": "9d664c84b5ba5b8c3933d1a06ef7132c9dbe42a20b3226be01573d8592b7684f",
+      "role": "final prose/source review; no model execution"
+    },
+    {
+      "path": "studies/active_learning/nocw_failure_attribution_20261112/MODEL_PILOT_PROTOCOL.md",
+      "sha256": "7b21b932b3b3695cd124490f40640643e557523095a13806d146005f3652a504",
+      "role": "final prose/source review; no model execution"
+    },
+    {
+      "path": "studies/active_learning/nocw_failure_attribution_20261112/scripts/write_research_decision.py",
+      "sha256": "fd85623ab6401deb1dc7dc83280868c380cc0fd83c9c4b6f66bc5cb56c820319",
+      "role": "final prose/source review; no model execution"
+    },
+    {
+      "path": "studies/active_learning/nocw_failure_attribution_20261112/scripts/finalize_attribution.py",
+      "sha256": "65deb88fc23a6855120caf2352e56dbc5c2774d3923fdaa535ad0eb19929c89a",
+      "role": "final prose/source review; no model execution"
+    },
+    {
+      "path": "studies/active_learning/nocw_failure_attribution_20261112/tables/pilot_fit_results.csv",
+      "sha256": "b48ebfa69903be7b8e2772532bb0e29cae8da01c0954035b06269bcdd49ebab2",
+      "role": "sixteen completed fit aggregate metrics"
+    },
+    {
+      "path": "studies/active_learning/nocw_failure_attribution_20261112/tables/pilot_joint_interpretation.csv",
+      "sha256": "948b22b0c9d01b91f27f75e4252fc1cec591bd7653116e6ee4c461e807e26687",
+      "role": "state aggregate interpretation"
+    },
+    {
+      "path": "studies/active_learning/nocw_failure_attribution_20261112/tables/pilot_volume_summary.csv",
+      "sha256": "3bb2994467e7d0f26577f0dbab561799bde9156cad2194bf615fe05337a3fda8",
+      "role": "component/molecule aggregate difference metrics"
+    },
+    {
+      "path": "studies/active_learning/comprehensive_history_diagnostics_20261112/tables/normalization_scales.csv",
+      "sha256": "fd1c7b9bb0b1e40dca6f729970e19ec88c58916e9cbe6a61a269c90b12175c6d",
+      "role": "frozen L333 target scales"
+    },
+    {
+      "path": "studies/active_learning/nocw_failure_attribution_20261112/verification/pilot_execution_status.json",
+      "sha256": "9d61954f9a90cc54c959fe1ff31d54cce97680984d842a83329095b8d230f894",
+      "role": "global successful fit count"
+    },
+    {
+      "path": "studies/active_learning/nocw_failure_attribution_20261112/verification/pilot_joint_interpretation.json",
+      "sha256": "3bd26b721183f9a6113b8a4e014a128beb580779819ac42a7a4834d9c10eadf2",
+      "role": "explicitly post-hoc descriptive verdict"
+    },
+    {
+      "path": "studies/active_learning/nocw_failure_attribution_20261112/verification/pilot_interpretation_plan.json",
+      "sha256": "dadf2d8639c10c4a9f6e7fb4efcb19934b6119ee6c42eb458ebf1b76f9237775",
+      "role": "timing and interpretation limits"
+    },
+    {
+      "path": "studies/active_learning/nocw_failure_attribution_20261112/verification/pilot_independent_verification.json",
+      "sha256": "a04a366777740702fb7439bf3002b008ff453c1e33db3d1b820ce619494fe9ba",
+      "role": "other verifier execution/arithmetic evidence; not recounted as own raw-H checks"
+    },
+    {
+      "path": "studies/active_learning/nocw_failure_attribution_20261112/verification/repository_start.json",
+      "sha256": "6c9c95eea7da99b0b77776c229294f70ab9ba306bd7c9194d2772cf436f98d33",
+      "role": "pre-task captured file identities"
+    }
+  ]
+}

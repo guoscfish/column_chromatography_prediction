@@ -1,0 +1,247 @@
+{
+  "type": "selection",
+  "packet_sha256": "1b032b0813bb88bbfebd568cee3af65975cd46da2071577409bffa2b1dbc1204",
+  "batch_strategy": "Select matched loading contrasts, missing points on molecule-specific PE/EA response curves, and strong-eluent anchors around endpoint-specific failures. Use the supplied premeasurement predictions unchanged for all 32 choices. Treat quantile widths as predictor dispersion, not calibrated epistemic uncertainty. Measured-evidence IDs appear only in the typed observed-ID lists.",
+  "choices": [
+    {
+      "id": "30456dafbfe681b5af70",
+      "reason": "Methyl mandelate at 2/1 and 50 uL forms the low-loading half of a controlled comparison. Its measured 10/1 loading contrast suggests that onset and completion need not shift together; this point tests whether that association begins at stronger eluent.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "ad67d712133eac45ff64",
+      "reason": "Methyl mandelate at 2/1 and 100 uL completes the matched loading comparison, with the measured 150 uL condition providing a third reference. The model predicts almost no difference between the selected loadings, so the labels can expose a missing interaction or support pooling.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "aa3d61e39adc96782513",
+      "reason": "Methoxyethyl acetoacetate at 1/1 and 50 uL completes strong-eluent loading coverage beside measured 100 and 150 uL conditions. Larger loading-associated onset differences occur in its measured 2/1 and 5/1 curves; this label helps locate where they emerge.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "c6a55a8d89f33c69899b",
+      "reason": "Ethyl anthranilate at 10/1 and 100 uL tests whether the latest 5/1 completion overprediction persists as eluent weakens. Measured low-loading 10/1 and middle-loading 20/1 points provide local references, allowing a ratio-dependent correction rather than a uniform aminoester offset.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "440a69ce36cce63356a5",
+      "reason": "Methyl anthranilate under pure EA and 100 uL adds a baseline at the loading of existing 1/1 through 20/1 observations. The latest low-loading 20/1 result exposed a completion-specific failure; this baseline helps distinguish that local behavior from a general aminoester endpoint bias.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "9ea972636933bded6999",
+      "reason": "Methyl anthranilate at 10/1 and 150 uL fills the gap before its unusually short high-loading 20/1 results. Comparison with the measured 100 uL 10/1 condition tests whether the apparent loading association is already present at 10/1 or develops later.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "c5879e8f93b99dcf6b34",
+      "reason": "The methylenedioxy aromatic ketone m39 at 1/1 and 50 uL supplies the missing strong-eluent end of its low-loading curve. Its latest 10/1 low-loading prediction was close to measurement, so this point tests whether that successful transfer extends to the baseline.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "8aa79ce56a84843f3849",
+      "reason": "m39 at 5/1 and 100 uL tests a loading midpoint where the earlier 150 uL acquisition overpredicted both endpoints. Together with measured 10/1 and 20/1 anchors, it can constrain the extent of the intermediate-ratio correction without flattening the entire curve.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "4ee22742c686bdbb1cb9",
+      "reason": "Methoxybenzyl alcohol at 2/1 and 50 uL forms a low-loading contrast with the measured 150 uL condition. The high-loading onset decreased between recorded 1/1 and 2/1 measurements, so a low-loading label helps assess whether that shape transfers or reflects local variability.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "71abc36775b6cce56da7",
+      "reason": "Methoxybenzyl alcohol at 5/1 and 50 uL extends the selected low-loading 2/1 point to a ratio with a measured 100 uL reference. The pair tests whether a loading correction remains consistent as retention grows in this donor-and-ether environment.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "18493dd4e68cac01205f",
+      "reason": "1-Phenylpropanol at 2/1 and 100 uL bridges strong-eluent behavior and its measured 5/1\u201320/1 growth. The high-loading 2/1 observation was substantially below its acquisition prediction, making this midpoint useful for separating loading-associated onset and completion behavior.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "426ed16e4b39d346244b",
+      "reason": "The tertiary alcohol m51 at 2/1 and 150 uL fills the ratio gap between the latest measured 1/1 anchor and the 5/1 condition. It provides a controlled response-shape comparison with secondary alcohols without assuming a shared donor correction.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "95d1d257dfea69f178f8",
+      "reason": "Iodophenol at 50/1 and 150 uL tests the predicted flattening beyond its measured 20/1 response. The related trifluoromethoxyphenol has a long measured weak-eluent completion volume, so this label discriminates substituent-specific endpoint growth within phenols.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "a91850e587e062097c02",
+      "reason": "Salicylaldehyde at 5/1 and 50 uL completes a loading comparison with measured 100 and 150 uL conditions. It tests whether the broad completion interval and relatively early onset transfer to low loading in an ortho donor\u2013carbonyl environment.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "04ecdea4151183669394",
+      "reason": "The brominated hydroxybenzaldehyde m186 under pure EA and 50 uL supplies a missing strong-eluent baseline. Its measured intermediate-ratio response has early onset and appreciable completion volume; the baseline can reveal whether that endpoint separation persists under stronger eluent.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "47328994eb7953d68919",
+      "reason": "m186 at 1/1 and 50 uL forms a fixed-loading ratio contrast with the selected pure-EA condition. This pair helps distinguish a structure-specific strong-eluent completion response from the recent overprediction seen for other aromatic aldehydes.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "2afa724a60f596feafb1",
+      "reason": "Methyl naphthylacetate at 5/1 and 50 uL extends its measured low-loading 2/1 anchor. It tests where completion growth begins for a fused-aromatic ester and provides a connectivity comparison with phenylacetate and aromatic benzoate families.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "3cd0aa35793392d15513",
+      "reason": "Methyl naphthylacetate at 20/1 and 50 uL extends the same low-loading response experiment. A measured 100 uL 20/1 point and weak-eluent measurements at larger loadings allow the new label to distinguish ratio curvature from loading transfer.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "2712213ca28bcadbfa61",
+      "reason": "Methyl bromomethylbenzoate at 50/1 and approximately 100 mg fills a weak-eluent gap beyond its measured 20/1 condition. It tests the predicted increase in both endpoints for an aromatic ester with an additional benzylic halide, broadening transfer beyond simple aryl-halogen esters.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "10a4c811b70ba8155044",
+      "reason": "Methyl benzoylformate at 2/1 and 50 uL adds a missing point between strong-eluent and 5/1 measurements. Its EA loading solvent and adjacent carbonyl connectivity make this a useful test of whether corrections learned for DCM-loaded beta-ketoesters transfer appropriately.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "1bbaa0ee75bb2350dc58",
+      "reason": "The naphthyl trifluorinated diketone m166 at 2/1 and 150 uL fills its early-ratio response curve. Existing strong- and weak-eluent measurements show much more movement in completion than onset, so the label helps locate the start of that endpoint separation.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "e9a7d193dc3d83532c1f",
+      "reason": "m166 at 50/1 and 50 uL tests loading transfer at the weak-eluent endpoint beside the measured 150 uL result. This complements the selected early-ratio condition and checks whether broad completion with early onset remains stable across loading.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "486e498e45d084ced568",
+      "reason": "Fluorenone at 50/1 and 50 uL extends low-loading coverage beside measured 100 and 150 uL weak-eluent observations. Its broad completion interval with comparatively early onset offers a useful structural contrast to ordinary aromatic ketones and lactones.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "827a3b0963882acf7f7a",
+      "reason": "The lactone m181 at 5/1 and 150 uL adds the high-loading counterpart to measured 50 and 100 uL conditions. Its later-ratio curve becomes steep, making this point useful for learning where loading affects onset or completion before that transition.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "5ff3e81c102706da6a30",
+      "reason": "Ortho-tolunitrile at 50/1 and 100 uL fills a weak-eluent loading comparison with the measured 150 uL condition. It provides a nitrile reference without a hydrogen-bond donor, helping separate ordinary nitrile ratio response from aminoester and aminonitrile behavior.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "692318a7ef5974282184",
+      "reason": "Acetophenone oxime at 1/1 and 50 uL supplies a low-loading strong-eluent anchor beside the measured 100 uL point. Its measured weak-eluent completion grows strongly; this baseline helps avoid transferring that late-ratio behavior to all conditions of a donor-and-acceptor nitrogen scaffold.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "715cf6b265c19d80e943",
+      "reason": "Diphenyl sulfoxide at 1/1 and 50 uL adds the low-loading counterpart to its measured high-loading baseline. Its large historical 10/1 underprediction motivates testing the boundary between ordinary strong-eluent behavior and steep later-ratio growth.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "51691caac0be166b02c7",
+      "reason": "The formally charged P/O scaffold under pure EA and 150 uL establishes a missing baseline at the loading of its anomalously short recorded 10/1 result. This can localize the discrepancy without applying a global charge-related shift; solution speciation remains unspecified.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "4466eabae9624380fbc6",
+      "reason": "Nitrobenzophenone under pure EA and 150 uL tests whether its long high-loading weak-eluent completion volumes are confined to those ratios. The supplied prediction remains modest, so this is a boundary test rather than selection for an extreme predicted volume.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "4df0734ab058c0eeed78",
+      "reason": "Ethyl aminocrotonate at 1/1 and 50 uL with DCM loading fills a low-loading strong-eluent gap. Its measured 10/1 and 20/1 results change sharply and have produced large historical errors, making the baseline valuable for locating the onset of that response.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "38f45f2503d6739a07ad",
+      "reason": "Dimethylbenzaldehyde m134 under pure EA and 50 uL tests whether the long completion volume measured at 150 uL transfers to low loading. Its predicted completion remains broad, providing a direct check against a generic strong-eluent aldehyde correction.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "480c3ccae36541513345",
+      "reason": "Ortho-methylbenzaldehyde under pure EA and 100 uL tests a predicted completion maximum above its measured 1/1 value. Alongside m134 and the hydroxybenzaldehyde pair, it distinguishes substituent-specific broad completion from a shared aromatic-aldehyde prediction bias.",
+      "hypothesis_id": "H3"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Loading associations are molecule- and ratio-specific and can affect onset and completion differently. The current predictor's nearly loading-invariant outputs may miss some relationships, although unrecorded variability can also contribute to the observed contrasts.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "655dc9dfb978b4ffd624",
+        "10f14f6ee69ba06bbe68",
+        "6ce2b891280aed137ab8",
+        "6c4eacf7845534254af9",
+        "d8fcb58722028dbf9c02",
+        "7bbdec21c428010dd67b",
+        "a5f9f0327623c4752e2e",
+        "56f8cdbb3999b366d947"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched loading conditions and missing loading midpoints can constrain endpoint-specific interactions instead of encouraging a universal loading offset. These comparisons establish recorded associations, not a causal mechanism.",
+      "next_discriminating_question": "Do the selected mandelate, aminoester, alcohol, lactone, salicylaldehyde, and diketone conditions show loading effects with different directions or different dependence on PE/EA?"
+    },
+    {
+      "id": "H2",
+      "content": "PE/EA response curvature and endpoint coupling depend on molecular connectivity and donor/acceptor environment. A correction learned for one oxygen- or nitrogen-containing scaffold should not impose one curve on related structures.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "d824f03d11ae777a2d00",
+        "0892bc6cad36949f9030",
+        "c496cacfd9e40e5e6f71",
+        "b4351e5f05f6d477a6c0",
+        "20acd2ae49790ab82053",
+        "b66aa101a244885dd587",
+        "76b4150b436d217e5b3e",
+        "7383949c431e18f39597"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Measurements in gaps between existing ratio anchors can constrain curvature and identify where onset and completion need separate corrections. Structural comparisons among esters, ketones, phenols, oximes, and aminoesters can improve shared representations.",
+      "next_discriminating_question": "Where do the selected response curves steepen or flatten, and does the transition occur in V1, V2, or both?"
+    },
+    {
+      "id": "H3",
+      "content": "Strong-eluent completion volumes of aromatic aldehydes vary with structure and loading. Recent completion overpredictions warrant local tests but do not justify universally shortening aldehyde V2.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "686562279e2bfb73ef1e",
+        "9845fd896eb72b0e149f",
+        "e76b02e4aa682c4153d0",
+        "493af6122d46790dafb3",
+        "966254b5be3c8ec5edd3",
+        "9494caa86cfeaed1f207"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Strong-eluent structural and loading comparisons can prevent corrections for one short or broad completion interval from spreading across all aldehydes. Recorded endpoint differences do not establish a common physical tailing mechanism.",
+      "next_discriminating_question": "Do the predicted pure-EA completion maxima survive measurement, and does the brominated hydroxybenzaldehyde retain appreciable endpoint separation under both pure EA and 1/1?"
+    },
+    {
+      "id": "H4",
+      "content": "Large weak-eluent failures in sulfoxide, formally charged P/O, and nitrobenzophenone environments cannot be summarized by one polarity correction. Their strong-eluent baselines may remain comparatively ordinary despite later-ratio discrepancies.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "aa83ae83c0fa0cc37777",
+        "741e52b1633ebf2743f3",
+        "902937db42f82f467718",
+        "cb446680f62351d087a9",
+        "4862e2fb71344ce16021",
+        "b514312eda7950cdcf1c"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Loading-specific strong-eluent anchors can localize difficult labels to particular conditions and reduce inappropriate transfer of extreme observations across every row for those atom environments. Missing speciation and other unrecorded factors limit mechanistic conclusions.",
+      "next_discriminating_question": "At the selected loadings, do the strong-eluent measurements remain near the modest supplied predictions despite much larger or inconsistent weak-eluent observations?"
+    }
+  ],
+  "feedback_interpretation": "The latest methyl-anthranilate result sharpened the priority from generic nitrogen coverage to completion-specific loading behavior: onset error was only +0.16 mL while completion error was -13.85 mL. Shorter high-loading 20/1 results make missing strong-eluent and 10/1 loading conditions useful for locating that association. Conversely, the latest acetoxybenzaldehyde and terephthalaldehyde measurements overpredicted completion by 10.14 and 6.52 mL. Earlier underprediction of high-loading methoxybenzaldehyde completion weakens any universal aromatic-aldehyde correction, motivating structural comparisons at the strong-eluent boundary. The latest low-loading m39 measurement was much closer to prediction than earlier intermediate-ratio acquisitions, so its follow-up targets baseline and loading gaps. Accurate recent aminonitrile predictions and mostly modest errors for several simple halides and ethers reduce the value of another batch dominated by routine nonpolar anchors. Historical errors are acquisition-time evidence, not current-model residuals.",
+  "batch_rationale": "The 32 choices combine controlled local comparisons with targeted structural coverage. The matched mandelate loading experiment and loading gaps across aminoesters, alcohols, salicylaldehyde, a lactone, and a diketone test whether onset and completion require different loading interactions. Fixed-loading ratio comparisons for methoxybenzyl alcohol, methyl naphthylacetate, and brominated hydroxybenzaldehyde help separate those interactions from solvent-response curvature. Strong-eluent aldehyde measurements address the latest completion failures, while sulfoxide, P/O, and nitrobenzophenone baselines localize difficult heteroatom behavior. Aromatic ester, alpha-ketoester, nitrile, oxime, fluorenone, and aminocrotonate conditions provide comparisons that can generalize beyond one anomalous molecule. Some conditions overlap measured tuples; they remain eligible and can add information about recorded variability and endpoint calibration. The batch seeks useful structure\u2013condition relationships for retraining across the Row-distribution. Elution interval width is not interpreted as uncertainty, and no concentration, pH, flow, or speciation variables are assumed."
+}

@@ -1,0 +1,257 @@
+{
+  "type": "selection",
+  "packet_sha256": "ac3f6ccf0579a0f46e694721d6a6036c9ad0f484f3f7f0f7aca3536aa2f7a742",
+  "batch_strategy": "Select 32 distinct eligible candidate IDs from the same supplied pool, combining endpoint failure repair, local condition-response experiments, loading contrasts, and neutral controls. All predictions remain the supplied premeasurement predictions; measured evidence IDs appear only in hypothesis evidence lists.",
+  "choices": [
+    {
+      "id": "ffc70e28db22d1cc1f3f",
+      "reason": "m94 at 20/1 and 50 uL completes a loading contrast with existing 100 and 150 uL observations. Supplied V1/V2 predictions are 38.53/86.78 mL. This tests whether the model misses loading dependence within a steep beta-ketoester response.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "5b445b457a8b897a2d6c",
+      "reason": "m94 at 10/1 and 150 uL connects the selected 20/1 point to existing 5/1, 10/1, and 20/1 observations. The existing loading anchors make this pair useful for separating solvent response from loading effects.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "9e94f0a4a224512b06cc",
+      "reason": "m13 at 1/1 and 100 uL fills the stronger-eluent portion of a multi-carbonyl ester curve. Its supplied prediction is 6.65/20.91 mL; the label can distinguish early completion broadening from the much later response at weaker eluent.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "5695d3c04943153386bb",
+      "reason": "Methoxyethyl acrylate m20 at 10/1 and 50 uL extends coverage beyond its measured 1/1 and 5/1 conditions. It tests transfer from simple acrylates to an additional ether acceptor without selecting on predicted volume alone.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "aa3ac48b626bc54d5dc6",
+      "reason": "m107 at 1/1 and 50 uL completes a loading comparison with existing 100 and 150 uL observations. This supplies a baseline for the methoxyethyl beta-ketoester family before its large response at 5/1.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "9845fd896eb72b0e149f",
+      "reason": "m28 at 1/1 and 150 uL fills a ratio gap between pure EA and the measured 2/1 and 5/1 conditions. This tests where the acetoxybenzaldehyde completion tail begins to develop.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "351c17dfa8f46a8cb40a",
+      "reason": "m28 at 10/1 and 100 uL supplies the intermediate loading between measured 50 and 150 uL anchors. Its supplied 43.81/83.09 mL prediction tests whether onset and completion interpolate differently.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "761c3f82d640da44966c",
+      "reason": "m125 at 5/1, 50 uL, and 500 uL DCM loading solution enables a direct loading-solvent-volume comparison with the measured 300 uL condition. It can distinguish injection-volume effects from a scaffold-wide retention correction.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "4c32851430464f0ed684",
+      "reason": "m125 at 1/1, 100 uL, and 300 uL DCM loading solution fills a loading gap within the smaller injection-volume series. The supplied 10.85/29.93 mL prediction tests whether the model averages across distinct completion responses.",
+      "hypothesis_id": "H4"
+    },
+    {
+      "id": "8232ed63909910ce88f2",
+      "reason": "Methoxybenzophenone m114 at 20/1 and 100 uL fills a loading gap between measured 50 and 150 uL conditions. This gives completion supervision in a family with substantial weak-eluent tails.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "8a00e449393f9942971d",
+      "reason": "m114 at 5/1 and 50 uL pairs with the selected 20/1 condition and existing loading anchors. It tests whether the diaryl ketone completion response grows smoothly as the mobile phase weakens.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "b1801204c2c4a34a9278",
+      "reason": "Hydroxy-methoxybenzaldehyde m117 at 50/1 and 50 uL completes a loading comparison with measured 100 and 150 uL conditions. It tests onset and completion separately without treating the anomalous endpoint ordering at another ratio as a physical transition.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "02425f554db74d9809d2",
+      "reason": "m117 at 1/1 and 50 uL provides a stronger-eluent anchor for the selected 50/1 point. The pair helps separate donor-containing scaffold response from unexplained variation at intermediate ratios.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "1aceeb0ee0419209d1c7",
+      "reason": "Naphthylethanol m205 at 1/1 and 150 uL fills the high-loading baseline before its steep 2/1-to-5/1 response. Existing lower-loading observations allow an endpoint-specific loading comparison.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "18d13a057c8c8b316800",
+      "reason": "Naphthylmethanol m206 in pure EA at 100 uL supplies a baseline between existing loading anchors. It helps distinguish primary-alcohol topology effects from the large retention response at weaker mobile phases.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "bdfa3c592507c0609ee1",
+      "reason": "m72 at 5/1, 50 uL, with PE loading provides an independent row at a previously measured condition. This helps assess variability and loading-solvent transfer in an enamine ester family with markedly different completion responses across ratios.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "857ae40d0fdf1c7e387e",
+      "reason": "Ortho-nitrobenzaldehyde m198 at 20/1 and 150 uL completes a loading comparison between existing 50 and 100 uL anchors. It constrains nitrocarbonyl condition response without assuming a universal nitro correction.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "a5446977630484ca5fe1",
+      "reason": "Methylbenzyl alcohol m135 at 5/1 and 50 uL completes the loading series at an intermediate retention condition. This can distinguish loading-dependent onset shifts from completion broadening within an accessible primary alcohol.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "5e45395722fa0dcc1d00",
+      "reason": "Secondary alcohol m60 at 10/1 and 150 uL completes a loading comparison with measured 50 and 100 uL conditions. The supplied 38.86/58.36 mL prediction tests transfer of the observed donor-family response to higher loading.",
+      "hypothesis_id": "H2"
+    },
+    {
+      "id": "fd5fa962575144327bf4",
+      "reason": "Para-aminobenzonitrile m160 in pure EA at 100 uL supplies a stronger-eluent baseline. Comparison with measured 1/1, 2/1, and 5/1 conditions tests how combined donor and nitrile environments change condition slope.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "f9d4d16c9703edbbe541",
+      "reason": "Meta-aminobenzonitrile m161 at 1/1 and 150 uL completes a loading series and complements the selected para isomer. This tests positional environment effects while retaining measured same-scaffold condition anchors.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "cf36dbeee8bb51632d84",
+      "reason": "Methylquinoline m146 at 2/1 and 50 uL fills a lower-loading condition before its steep weak-eluent response. It tests whether basic heteroaromatic onset and completion slopes transfer across loading amounts.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "7b42519983cf93dd7efd",
+      "reason": "Methyl benzoylformate m92 at 50/1, 100 uL, with EA loading provides another row at a measured tuple. Existing observations show appreciable endpoint variation, so this label helps distinguish reproducibility limits from systematic alpha-ketoester completion bias.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "c53330d840e277502386",
+      "reason": "Dimethylbenzonitrile m130 at 20/1 and 100 uL fills an intermediate-ratio/loading gap. Recent contrasting errors at 1/1 and 50/1 make this useful for testing local nitrile response rather than an additive acceptor offset.",
+      "hypothesis_id": "H5"
+    },
+    {
+      "id": "8a4623d640cc619f2639",
+      "reason": "Ethyl methoxybenzoate m87 at 50/1 and 150 uL completes a loading comparison with measured 50 and 100 uL conditions. This neutral ether-plus-ester scaffold constrains transfer from more strongly interacting carbonyl families.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "79515e25d0daceed2ce8",
+      "reason": "Methyl anthranilate m104 at 1/1 and 150 uL fills the high-loading baseline for an ortho-amino ester. It tests whether donor/acceptor proximity and loading explain its nonuniform response across ratios.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "038c2ece456c59cf6285",
+      "reason": "Naphthylacetate ester m98 at 1/1 and 100 uL fills the stronger-eluent region of an otherwise well-anchored curve. Its label provides an ordinary aromatic ester constraint against overcorrecting oxygen-rich completion tails.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "a2ecf2b2f28094d70368",
+      "reason": "Dimethyl acetylenedicarboxylate m91 at 5/1 and 100 uL adds a loading contrast to the recent completion failure at 50 uL. Its supplied 8.15/10.24 mL prediction tests whether compact multi-acceptor behavior remains distinct from beta-ketoesters.",
+      "hypothesis_id": "H1"
+    },
+    {
+      "id": "02ddeed8a16d3adf3e28",
+      "reason": "m91 at 2/1 and 100 uL pairs with the selected 5/1 point at identical loading conditions. As an additional row at a measured tuple, it also helps assess variability before attributing endpoint changes to solvent ratio.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "b3e21424d2010c374094",
+      "reason": "Naphthaldehyde m195 at 1/1 and 100 uL supplies a stronger-eluent anchor for a family with good recent intermediate-ratio predictions but variable weaker-eluent onset. This constrains where tail corrections should apply.",
+      "hypothesis_id": "H3"
+    },
+    {
+      "id": "0f694957922ad0e10db2",
+      "reason": "Anisole m126 at 2/1 and 100 uL is a neutral single-acceptor control between existing loading anchors. It constrains spillover from corrections learned on donor-rich and multi-carbonyl compounds.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "b75ac5668dddb9154807",
+      "reason": "2,6-Dibromobenzaldehyde m184 at 2/1 and 100 uL supplies a sterically shielded, donor-free carbonyl control. Existing 50 and 150 uL observations make it useful for checking whether loading corrections transfer to simpler aromatic aldehydes.",
+      "hypothesis_id": null
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "content": "Oxygen-rich carbonyl scaffolds require topology-specific PE/EA response curves; acceptor count alone does not explain onset and completion.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "d1172a49fca1e196a59f",
+        "e3a799d0fa90b649a157",
+        "780b13846ace50ede763",
+        "0389a6366b3a51fad8b5",
+        "90392022474cdfb260c0"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The selected acrylate, beta-ketoester, aromatic aldehyde, amino ester, and neutral methoxybenzoate conditions teach which oxygen-containing environments share response shapes and which need separate calibration.",
+      "next_discriminating_question": "At matched loading, do additional oxygen atoms alter both endpoints smoothly, or primarily change completion over particular solvent-ratio ranges?"
+    },
+    {
+      "id": "H2",
+      "content": "Alcohol and phenolic donor responses depend strongly on scaffold and condition, and onset changes need not track completion changes.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "9ed7c1fb1c2cc499bbf9",
+        "5885d427a26f03e522f3",
+        "73502a52708e4f9c2391",
+        "1211905ebc8972913270",
+        "e8f592c469b2f3c136d8"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The alcohol and hydroxy-aldehyde selections add loading and solvent-response supervision across benzylic, nonbenzylic, fused aromatic, and phenolic environments.",
+      "next_discriminating_question": "How much donor-family response transfers across topology after accounting for loading, and which endpoint retains a scaffold-specific difference?"
+    },
+    {
+      "id": "H3",
+      "content": "Completion requires direct local calibration: historical V2 errors occur in both directions and cannot be repaired reliably through a universal shift or by inferring V2 from V1.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "55dfd30fde788076a355",
+        "0dfdfd6dce2d3f41a427",
+        "b51a88b6dc4049704214",
+        "90392022474cdfb260c0",
+        "1e337f272ca5d688e8ff"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Carbonyl completion points and a few repeated condition tuples provide supervision for endpoint decoupling while helping distinguish systematic bias from unexplained label variability.",
+      "next_discriminating_question": "Which completion differences are reproducible condition effects, and which reflect variation that the recorded features cannot explain?"
+    },
+    {
+      "id": "H4",
+      "content": "Some apparent loading and loading-solvent-volume effects are scaffold- and endpoint-specific, while the supplied predictions are nearly invariant to loading in many matched candidate groups. Their reproducibility remains unresolved.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "00043aebb2540e369a7b",
+        "f4fb5c03b8e8996e75f6",
+        "03744855d469f4cca7e6",
+        "9bd998a328b109ef639e",
+        "143bf510fe2028583763",
+        "769f1d04efb22c05cfdf"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The m94, m107, m28, and m125 selections complete useful loading comparisons; the m125 injection-volume contrast tests a recorded variable that may otherwise be averaged away.",
+      "next_discriminating_question": "Do new matched labels reproduce the apparent loading or injection-volume dependence, and does that dependence affect onset, completion, or both?"
+    },
+    {
+      "id": "H5",
+      "content": "Nitrile, amino, nitrocarbonyl, and basic heteroaromatic environments require context-specific condition slopes rather than a common strong-acceptor correction.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "49201b5817f204116f7f",
+        "b51a88b6dc4049704214",
+        "efb7617d566fb19d9217",
+        "9e3ce3497298084abd83",
+        "0ac58929e586a4da4056"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The amino-nitrile isomers, simple aromatic nitrile, methylquinoline, and nitrobenzaldehyde conditions distinguish donor/acceptor combinations and basicity from a generic polarity effect.",
+      "next_discriminating_question": "Can the model transfer solvent-response shape across related acceptor environments while preserving the substantial differences between scaffolds?"
+    }
+  ],
+  "feedback_interpretation": "Recent feedback supports local endpoint calibration: substantial completion errors coexist with accurate ordinary carbonyl and ester predictions, so a global retention correction is inappropriate. The recent diethyl malonate and conjugated ketone outcomes also show that selecting only chemically unusual structures would miss useful failure regions. I weaken the earlier claim of a physical acid regime transition because near-zero negative completion and reversed endpoint labels do not establish such a mechanism. Repeated condition tuples show unexplained variability, so loading effects remain hypotheses rather than established causes. I use the catalog assignments and solvent convention consistently: m125 is dimethoxybenzaldehyde, m87 is a methoxybenzoate ester, 0/1 is pure EA, and increasing PE/EA weakens the mobile phase.",
+  "batch_rationale": "This batch combines response-curve completion with targeted endpoint repair. Several measurements fill loading gaps between existing anchors, making them more interpretable than isolated high-retention points. The m125 loading-solvent-volume comparison tests a potentially underused recorded feature, while the m91 ratio pair tests solvent response at fixed loading. Amino-nitrile isomers and methylquinoline probe transfer across strong-interaction environments; donor-containing compounds test scaffold-sensitive onset and completion. Additional rows at a few measured tuples help assess reproducibility, and anisole, a shielded aromatic aldehyde, and ordinary aromatic esters constrain overcorrection. These labels may improve overall Row-distribution accuracy by refining structure-condition interactions and endpoint-specific response shapes. Quantile widths are treated as descriptive single-predictor outputs, not calibrated epistemic uncertainty."
+}

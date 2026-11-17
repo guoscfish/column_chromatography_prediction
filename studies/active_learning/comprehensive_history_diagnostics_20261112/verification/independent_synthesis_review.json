@@ -1,0 +1,116 @@
+{
+  "reviewer": "reasoning subagent; independent critical synthesis review",
+  "review_date_client": "2026-11-12 Asia/Shanghai",
+  "status": "PASS_AFTER_REVISIONS",
+  "reviewed_files": [
+    {
+      "path": "studies/active_learning/comprehensive_history_diagnostics_20261112/MASTER_REPORT.md",
+      "sha256": "fdbbfa899230a72e0320edc3231b5030b90113f546e463260ba28fd419f84600"
+    },
+    {
+      "path": "studies/active_learning/comprehensive_history_diagnostics_20261112/RESEARCH_DIRECTIONS.md",
+      "sha256": "2c6a95a06f4c8ceb80518f149507d2dc7fe0701288dda7b89abffb88e1ff759a"
+    },
+    {
+      "path": "studies/active_learning/comprehensive_history_diagnostics_20261112/NEXT_STAGE_DECISION.md",
+      "sha256": "1457089bcfef9b015d34b01a0f3b91eba2437bf120b9939b21e47a8dd4e1b943"
+    },
+    {
+      "path": "studies/active_learning/comprehensive_history_diagnostics_20261112/PROTOCOL_AND_FAIRNESS_AUDIT.md",
+      "sha256": "c80fa9d912005b398d9da93a9ad442659dd6b3266134d38d5bf9f79b5f45d332"
+    },
+    {
+      "path": "studies/active_learning/comprehensive_history_diagnostics_20261112/verification/label_access_incident.json",
+      "sha256": "3608a400314b87a70cc0b591a3ce32b9604f4895246815876f47c369bf30e1f6"
+    }
+  ],
+  "checks_passed": [
+    "Performance claims retain common budgets, seed-level sample SD, mixed-model history and endpoint/AULC distinction.",
+    "Scientific identity errors are explicitly a detection lower bound; legal references are not equated to true science.",
+    "887 r9–11 positive and negative gains retained; no single-case causal attribution.",
+    "Top-8 citation decrease and seed-2357 concentration of repetitions counter the preferred memory-lock-in story.",
+    "One-batch screen distinguished from convergence/long-term memory evidence; future extension requires separate authorization.",
+    "Study-wide search-scope deviation is disclosed in master, protocol and incident artifact without reproducing incidental values.",
+    "Scripts were not claimed to prove session-wide zero contact; no independent role inference attempted on the incident rows.",
+    "Delivered response-bearing tabular cases are 27 accepted selected-feedback excerpts, not a full canonical label table; no complete private packet exported by reasoning module.",
+    "Independent learning arithmetic review already passed: see independent_learning_review.json."
+  ],
+  "issues": [
+    {
+      "id": "SYN-1",
+      "severity": "P1",
+      "status": "RESOLVED_REVIEWED",
+      "location": "RESEARCH_DIRECTIONS route1; NEXT_STAGE_DECISION experiment2/costs",
+      "finding": "Original Numerical Hybrid baseline omitted at least two same-state acquisition members per state; 10 states add20 fits.",
+      "resolution": "Main baseline changed to raw Gradient-LCMD32; optional Hybrid replacement/additional-arm costs explicitly added, including three-round costs."
+    },
+    {
+      "id": "SYN-2",
+      "severity": "P1",
+      "status": "RESOLVED_REVIEWED",
+      "location": "PROTOCOL_AND_FAIRNESS_AUDIT information/output boundary",
+      "finding": "Original blanket claim of no row-level true responses contradicted authorized case excerpts.",
+      "resolution": "Now excludes full response tables and explicitly discloses 27 selected-feedback case excerpts with time/source. Excerpts themselves are within user authorization."
+    },
+    {
+      "id": "SYN-3",
+      "severity": "P1",
+      "status": "RESOLVED_REVIEWED",
+      "location": "NEXT_STAGE_DECISION experiment2; RESEARCH_DIRECTIONS route1",
+      "finding": "Geometry critic also supplied condition-difference feedback absent from placebo, confounding geometry attribution.",
+      "resolution": "Critic/placebo now share deterministic condition differences, identity/schema, protection and near-matched token/response budgets; geometry is the intended difference."
+    },
+    {
+      "id": "SYN-4",
+      "severity": "P2",
+      "status": "RESOLVED_REVIEWED",
+      "location": "NEXT_STAGE_DECISION experiment2 failure interpretation",
+      "finding": "Not beating placebo does not prove a re-answer/diversity explanation.",
+      "resolution": "Now states numerical contribution unconfirmed and re-answer/diversity/noise not excluded."
+    },
+    {
+      "id": "SYN-5",
+      "severity": "P2",
+      "status": "RESOLVED_REVIEWED",
+      "location": "NEXT_STAGE_DECISION experiment1; RESEARCH_DIRECTIONS route4",
+      "finding": "Holding out acquired pairs changes actual fit size and disallows reuse of checkpoints that saw the held-out group.",
+      "resolution": "Now defines H, holds out identical-condition groups, records |L_t\\H| and requires scratch fits; noise identification limitation retained."
+    },
+    {
+      "id": "SYN-6",
+      "severity": "P2",
+      "status": "RESOLVED_REVIEWED",
+      "location": "NEXT_STAGE_DECISION experiment3 (currently structure-knowledge wording); RESEARCH_DIRECTIONS route6",
+      "finding": "Removing SMILES, descriptors and chemical prose measures a bundled explicit-input effect; it does not isolate pretrained chemical knowledge. Retained predictions/CW/similarity may still encode chemistry.",
+      "requested_change": "Name estimand as the conditional contribution of explicit SMILES/descriptor/chemical-text visibility; specify which derived numeric signals are held fixed. Do not interpret it as all chemical knowledge removed or as uniquely pretrained knowledge.",
+      "resolution": "Estimand narrowed to explicit SMILES/descriptor/chemical-text input package, with q50/quantile/CW/Morgan numeric signals held; pretrained-knowledge isolation explicitly disclaimed."
+    },
+    {
+      "id": "SYN-7",
+      "severity": "P2",
+      "status": "RESOLVED_REVIEWED",
+      "location": "NEXT_STAGE_DECISION experiment2/3 success criteria",
+      "finding": "Five-seed directional thresholds have no fixed rule for pooling early/late states or choosing among factorial main effects/interactions.",
+      "requested_change": "Define primary experiment2 effect as within-seed average across the two prespecified states, with stage interaction secondary; predefine chemical-input and feedback main effects in experiment3 and treat interaction as exploratory, rather than choosing a favorable contrast post hoc.",
+      "resolution": "Critic primary effect now equal-weights two states within seed before five-seed aggregation. Feedback is factorial primary, explicit-structure package secondary, interaction exploratory."
+    },
+    {
+      "id": "SYN-8",
+      "severity": "P3",
+      "status": "RESOLVED_REVIEWED",
+      "location": "NEXT_STAGE_DECISION budget paragraph",
+      "finding": "The underlying planned count120 is correct after baseline change; wording max120/reusable fits should distinguish operational reruns and experiment1 fresh fits.",
+      "requested_change": "Say planned120 successful model fits excluding reruns and optional Hybrid members; clarify experiment1 all60 are fresh. Reuse only byte-identical legal state/selection/initialization/rules in other experiments if admissible and explicitly recorded.",
+      "resolution": "Budget now states planned120 successful fits after metadata feasibility, all60 experiment1 fits fresh, reruns/optional Hybrid members extra; only exact admissible data/initialization/rules/selection matches may be reused elsewhere."
+    }
+  ],
+  "data_boundary_review": {
+    "incident_reference": "verification/label_access_incident.json",
+    "incidental_label_values_reopened_for_review": false,
+    "roles_of_incident_rows_reinferred": false,
+    "script_search_for_incident_filename": "No occurrence in analyze_model_signals.py opener/source audit",
+    "case_excerpt_scope": "27 selected events; source hashes authenticated; observed values explicitly post-selection",
+    "limit": "This is an artifact/dataflow audit, not a proof that an incidental value could never influence cognition; authors transparently exclude those values and disclose exposure."
+  },
+  "overall_assessment": "All substantive and wording findings have been addressed and independently re-read. Historical findings, seed caveats, causal boundaries, negative evidence, planned controls/costs and label-access incident disclosure are acceptable within explicitly stated scope. This review does not certify scientific causality or full semantic correctness of all871 hypotheses."
+}

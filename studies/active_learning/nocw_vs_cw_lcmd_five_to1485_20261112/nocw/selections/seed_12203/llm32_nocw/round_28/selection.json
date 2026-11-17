@@ -1,0 +1,291 @@
+{
+  "type": "selection",
+  "packet_sha256": "9a1d93e82262a223955474aae466cc2533f442d92c355170d42530c55a95340d",
+  "batch_strategy": "Targeted failure repair with matched ratio and loading response curves, solvent-specific EA coverage, basic heteroaromatic controls, and compact donor-free anchors.",
+  "choices": [
+    {
+      "id": "43c92df186ee75e5faba",
+      "reason": "A donor-free biphenyl anchor at 2/1 DCM tests ordinary hydrophobic aromatic calibration against compact strong-ratio observations such as 00a82096f4ac4e03ea01 and f426aea97f298c587872.",
+      "hypothesis_id": "H_COMPACT_CALIBRATION"
+    },
+    {
+      "id": "e6cc0bf41a57589c64b6",
+      "reason": "This low-ratio PE hydrophobe provides a simple compact reference with modest loading amount, helping constrain corrections that might otherwise spread from tail-prone families such as 0c5c35afb3a24375c153.",
+      "hypothesis_id": "H_COMPACT_CALIBRATION"
+    },
+    {
+      "id": "e0a92c0479d7c7f570eb",
+      "reason": "The fused donor-free hydrocarbon at 10/1 PE tests whether stronger solvent creates an endpoint tail in a simple scaffold, separating ratio effects from the localized carbonyl failures in cdc8c1db00222994a1aa.",
+      "hypothesis_id": "H_TAIL_BIFURCATION"
+    },
+    {
+      "id": "4b7a3142ef8f135eaf39",
+      "reason": "A brominated nonpolar molecule at 1/1 PE supplies a heavy-atom compact control without donor, acceptor, or basic nitrogen functionality.",
+      "hypothesis_id": "H_COMPACT_CALIBRATION"
+    },
+    {
+      "id": "4a54ee0e355066ed7429",
+      "reason": "This phenolic aldehyde at 2/1 with a large DCM plug begins a matched donor-geometry and ratio series; it tests whether the donor-containing delay seen in 48853fd78c77153b963a depends on scaffold and condition.",
+      "hypothesis_id": "H_DONOR_GEOMETRY"
+    },
+    {
+      "id": "79faae5899539a97f8d9",
+      "reason": "The same phenolic aldehyde at 10/1 and larger sample volume provides a ratio/loading contrast for separating donor geometry from plug and amount effects, informed by 035c26f2979b6bb5c0b5 and e84314bcd7ec5ba57283.",
+      "hypothesis_id": "H_LOADING_INTERACTION"
+    },
+    {
+      "id": "1723e818bb3500feacec",
+      "reason": "The 20/1 phenolic aldehyde point extends the same scaffold to strong solvent while returning to the smaller sample volume, testing whether onset and completion shift independently.",
+      "hypothesis_id": "H_DONOR_GEOMETRY"
+    },
+    {
+      "id": "376ba323d8d487f80cee",
+      "reason": "This broad-interval m96 condition at 20/1 DCM probes whether a sulfur-containing acceptor-rich scaffold enters the localized completion-tail regime represented by 5e5b7c697bc0c268b288.",
+      "hypothesis_id": "H_TAIL_BIFURCATION"
+    },
+    {
+      "id": "93ce299d2e2f5bf83250",
+      "reason": "The matched m96 5/1 point supplies a lower-strength reference, allowing the retrained model to distinguish smooth ratio movement from a strong-ratio endpoint transition.",
+      "hypothesis_id": "H_TAIL_BIFURCATION"
+    },
+    {
+      "id": "4003f255f44e82ee0975",
+      "reason": "A fused ketone at 0/1 DCM has a wide endpoint prediction range and can separate onset calibration from completion calibration, extending the V1/V2 separation seen in 36919bba0092c5813f87.",
+      "hypothesis_id": "H_ONSET_ENDPOINT"
+    },
+    {
+      "id": "374b71ac526fe1051993",
+      "reason": "This acceptor-rich nonaromatic condition has broad predicted endpoints and tests whether completion corrections learned from aromatic carbonyls generalize to a different scaffold class.",
+      "hypothesis_id": "H_TAIL_BIFURCATION"
+    },
+    {
+      "id": "cf745fe561945306c1b8",
+      "reason": "A donor-free methoxy benzophenone at 0/1 supplies a neutral aromatic acceptor baseline against which strong-ratio tail candidates can be localized, following the compact controls 00a82096f4ac4e03ea01 and 26dcd18f16fc8db30898.",
+      "hypothesis_id": "H_COMPACT_CALIBRATION"
+    },
+    {
+      "id": "e2f15590b7142490599b",
+      "reason": "This EA-loaded m92 point at 10/1 samples the solvent-specific endpoint surface implicated by the large V2 underestimation in b7880e59ff4586b29a28.",
+      "hypothesis_id": "H_EA_ENDPOINT"
+    },
+    {
+      "id": "f7d6c68ef2b3f637bd05",
+      "reason": "The same m92 and EA loading at 2/1 provides an intermediate-ratio anchor for determining whether the EA response is smooth or threshold-like.",
+      "hypothesis_id": "H_EA_ENDPOINT"
+    },
+    {
+      "id": "7caf1db075b91197ba34",
+      "reason": "The m92 50/1 EA point tests the high-ratio end of the EA endpoint curve, extending the strong EA behavior observed in 1844eab177de5d01fab6.",
+      "hypothesis_id": "H_EA_ENDPOINT"
+    },
+    {
+      "id": "6c1c34b12c66ebcf39a4",
+      "reason": "The m92 5/1 EA point adds a lower-strength condition with the same loading solvent and amount, helping separate EA ratio effects from loading effects.",
+      "hypothesis_id": "H_EA_ENDPOINT"
+    },
+    {
+      "id": "04a2e8ad27ca641a3a12",
+      "reason": "This broad-interval fused nitrogen heteroaromatic targets the basic scaffold region highlighted by the severe m66 failure 49201b5817f204116f7f and the m90 observations 0460dfc4e1747f0fc92c.",
+      "hypothesis_id": "H_BASIC_HETEROAROMATIC"
+    },
+    {
+      "id": "a185774933bd6bb12c07",
+      "reason": "A less polar pyridyl-biphenyl control tests whether delayed behavior is driven by ring-nitrogen adsorption itself or requires neighboring carbonyl and ester functionality.",
+      "hypothesis_id": "H_BASIC_HETEROAROMATIC"
+    },
+    {
+      "id": "e27ccbecd9b65fd452dd",
+      "reason": "This bromobenzonitrile condition probes a compact heavy-atom acceptor with a nitrile, testing whether acceptor addition alone produces the localized onset and completion shifts seen in 605436d35600502e8c2e.",
+      "hypothesis_id": "H_ONSET_ENDPOINT"
+    },
+    {
+      "id": "10e9b7df144481e03cfc",
+      "reason": "A chlorinated aliphatic ketone at 5/1 supplies a nonfused carbonyl reference for determining whether onset and completion corrections transfer beyond aromatic ketones.",
+      "hypothesis_id": "H_ONSET_ENDPOINT"
+    },
+    {
+      "id": "0a556ab193222863f8b8",
+      "reason": "This heavy aromatic ether is a donor-free heteroatom control with moderate predicted endpoints, useful for limiting overcorrection from donor and basic nitrogen regions.",
+      "hypothesis_id": "H_COMPACT_CALIBRATION"
+    },
+    {
+      "id": "a49c6f33892af620bdd9",
+      "reason": "The high-ratio biphenyl-like molecule tests whether a large predicted interval in a neutral hydrophobic scaffold reflects a real tail or model spread unsupported by compact controls.",
+      "hypothesis_id": "H_COMPACT_CALIBRATION"
+    },
+    {
+      "id": "f62720d3fc5dbb0e173d",
+      "reason": "A strongly halogenated aromatic at 20/1 tests mass and halogenation transfer without donors or basic nitrogen, extending the heavy-atom calibration region.",
+      "hypothesis_id": "H_COMPACT_CALIBRATION"
+    },
+    {
+      "id": "c25aed72c162a62800ce",
+      "reason": "This heavily aromatic donor-free structure at 20/1 DCM has a broad predicted range and tests whether molecular size alone produces completion tails.",
+      "hypothesis_id": "H_COMPACT_CALIBRATION"
+    },
+    {
+      "id": "c698c0c44dc3e81c2f47",
+      "reason": "A brominated diester at 5/1 PE supplies acceptor-rich and heavy-atom coverage for endpoint-separated carbonyl corrections.",
+      "hypothesis_id": "H_ONSET_ENDPOINT"
+    },
+    {
+      "id": "8b6c17e7b3be7de3c26b",
+      "reason": "This bromo-fluoro anisole at 10/1 is a donor-free aromatic ether control that tests whether strong-ratio corrections remain localized, complementing 26dcd18f16fc8db30898.",
+      "hypothesis_id": "H_COMPACT_CALIBRATION"
+    },
+    {
+      "id": "4e01f3a3b2efd49f7fbc",
+      "reason": "The broad predicted interval for this dimethyl aromatic aldehyde at 10/1 PE tests whether aldehyde-containing structures show a completion transition distinct from compact ketone and ether controls.",
+      "hypothesis_id": "H_ONSET_ENDPOINT"
+    },
+    {
+      "id": "c6159dcb5802e62284d1",
+      "reason": "This high-ratio m123 aromatic ether condition samples a donor-free endpoint region with broad predicted uncertainty, testing whether localized corrections extend to another ether scaffold.",
+      "hypothesis_id": "H_TAIL_BIFURCATION"
+    },
+    {
+      "id": "075248a5ddcd4b5d091f",
+      "reason": "A moderate-ratio keto ester with a narrower interval supplies an acceptor-rich calibration point against which broad carbonyl-tail candidates can be compared.",
+      "hypothesis_id": "H_ONSET_ENDPOINT"
+    },
+    {
+      "id": "2e23828691c3f9bebd0b",
+      "reason": "This high-ratio simple hydrocarbon is a compactness check for ordinary nonpolar molecules and helps prevent strong-solvent tail corrections from spreading globally.",
+      "hypothesis_id": "H_COMPACT_CALIBRATION"
+    },
+    {
+      "id": "2efbe9ba7cc21641c47c",
+      "reason": "A brominated ester at 1/1 DCM provides a moderate-loading acceptor and halogen control for separating ordinary ester response from the severe endpoint behavior in 5a7caf93a900dfc9dc85.",
+      "hypothesis_id": "H_ONSET_ENDPOINT"
+    },
+    {
+      "id": "6e2d6c528ed6d4a81f3a",
+      "reason": "This bromonitrobenzene at 0/1 supplies a heavy, acceptor-rich baseline for testing whether nitro functionality shifts onset or completion independently of strong ratio.",
+      "hypothesis_id": "H_ONSET_ENDPOINT"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H_COMPACT_CALIBRATION",
+      "content": "Many donor-free hydrophobic, heavy-atom, and simple aromatic ether structures remain relatively compact across ordinary conditions, but strong ratio or heavy atoms alone do not guarantee compactness.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "00a82096f4ac4e03ea01",
+        "7aebc58989fa288b11fc",
+        "26dcd18f16fc8db30898",
+        "f426aea97f298c587872",
+        "e514cee27f046099a732"
+      ],
+      "contradicting_observed_ids": [
+        "605436d35600502e8c2e"
+      ],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Compact anchors constrain the correction field and prevent localized tail failures from degrading the larger ordinary subset.",
+      "next_discriminating_question": "Which donor-free aromatic, fused-ring, and heavy-atom structures remain compact at high ratio, and which acquire scaffold-specific completion tails?"
+    },
+    {
+      "id": "H_TAIL_BIFURCATION",
+      "content": "Completion tails are localized to scaffold, solvent ratio, and loading neighborhoods; similarly predicted structures can occupy very different V2 endpoint regimes.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "cdc8c1db00222994a1aa",
+        "0c5c35afb3a24375c153",
+        "b514312eda7950cdcf1c",
+        "7383949c431e18f39597",
+        "f90a5a5a54509c085ebd"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched ratio and scaffold contrasts can teach when completion corrections should switch on without applying a global broadening offset.",
+      "next_discriminating_question": "Do acceptor-rich families show smooth tail growth with ratio, or scaffold-specific switching boundaries?"
+    },
+    {
+      "id": "H_EA_ENDPOINT",
+      "content": "EA-loaded acceptor-rich compounds have a solvent- and ratio-dependent endpoint curve that is not represented adequately by one global polarity correction or by DCM-derived behavior.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "b7880e59ff4586b29a28",
+        "4b8ba288d549f6cfc94b",
+        "1844eab177de5d01fab6",
+        "f7cc49c21fea55ed9087",
+        "d1eeb016c4cf20b87e92"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "A solvent-specific EA response surface should improve transfer to the EA portion of the Row-distribution.",
+      "next_discriminating_question": "Does the EA endpoint shift mainly with PE/EA ratio, loading amount, or their interaction?"
+    },
+    {
+      "id": "H_BASIC_HETEROAROMATIC",
+      "content": "Basic or ring-nitrogen-containing aromatic scaffolds can enter delayed onset and completion regimes that are not predictable from neutral carbonyl or ester analogues alone.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "49201b5817f204116f7f",
+        "0460dfc4e1747f0fc92c",
+        "434e465cfa7e0034f233",
+        "810b065b0b86ff8c9aae"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Basic heteroaromatic measurements can repair a chemically coherent high-loss region and test transfer across fused and ester-bearing scaffolds.",
+      "next_discriminating_question": "Are delayed labels driven primarily by basic ring nitrogen, neighboring carbonyl or ester groups, or ratio and loading interactions?"
+    },
+    {
+      "id": "H_DONOR_GEOMETRY",
+      "content": "Donor-containing aromatic and aliphatic structures separate into geometry-specific adsorption regimes; donor count alone does not determine delayed onset or completion.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "48853fd78c77153b963a",
+        "035c26f2979b6bb5c0b5",
+        "ec6846c0fcb7df17c97d",
+        "6be742f06dddb42eb929",
+        "08812206a257481691c4"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Geometry controls reduce the risk that the model learns one generic HBD penalty and help represent attachment-position and scaffold effects.",
+      "next_discriminating_question": "Which phenolic and fused-ring donor geometries remain compact at low ratio and which develop delayed completion?"
+    },
+    {
+      "id": "H_LOADING_INTERACTION",
+      "content": "Loading amount, sample volume, and loading-solvent volume interact with ratio in tail-prone scaffolds, with V2 often more sensitive than V1.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "b514312eda7950cdcf1c",
+        "4862e2fb71344ce16021",
+        "7383949c431e18f39597",
+        "8e701efd2ee4729edc4b",
+        "e84314bcd7ec5ba57283"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Matched loading and plug-volume contrasts teach whether corrections should act on onset, completion, or interval width.",
+      "next_discriminating_question": "Are loading effects reproducible within each scaffold, or confined to particular ratio and loading-solvent cells?"
+    },
+    {
+      "id": "H_ONSET_ENDPOINT",
+      "content": "Carbonyl, ester, nitro, and related acceptor-rich families can show condition-dependent V1 changes that are not proportional to V2 changes.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "36919bba0092c5813f87",
+        "5a7caf93a900dfc9dc85",
+        "bb8ba62a93aefa66d0f6",
+        "e84314bcd7ec5ba57283",
+        "605436d35600502e8c2e"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Endpoint-separated contrasts let QGeoGNN learn onset and completion corrections independently rather than transferring a V2-tail residual into V1.",
+      "next_discriminating_question": "Which neutral, halogenated, nitro, and ester-bearing carbonyls show an onset threshold while completion remains locally smooth?"
+    }
+  ],
+  "feedback_interpretation": "Recent feedback reinforced that the largest remaining losses are localized completion tails, basic heteroaromatics, donor-containing geometries, and unusual loading neighborhoods. The m96, m182, m20, m123, and basic nitrogen candidates therefore target broad model regions, while matched m186 and m92 series provide response-curve information. Compact donor-free and heavy-atom controls remain necessary because 00a82096f4ac4e03ea01, 7aebc58989fa288b11fc, f426aea97f298c587872, and e514cee27f046099a732 were reasonably calibrated. EA measurements are expanded because b7880e59ff4586b29a28 and 1844eab177de5d01fab6 showed strong V2 underestimation. The batch also retains loading contrasts because e84314bcd7ec5ba57283 showed that a broad predicted plug-volume effect need not transfer globally.",
+  "batch_rationale": "The batch combines local response curves with broad chemical coverage. Four m92 EA points map solvent-specific ratio behavior; three m186 points test donor geometry, ratio, and amount; two m96 points test a completion-tail boundary; and high-width m182, m20, m123, and m146 candidates repair broad endpoint regions. Basic heteroaromatic, nitro, ester, and halogenated controls test whether corrections transfer across functional groups. Biphenyl, hydrocarbon, ether, and heavy-atom anchors constrain correction spread. This balance should improve V1/V2 generalization by teaching localized structure-condition interactions while preserving calibration over ordinary rows."
+}

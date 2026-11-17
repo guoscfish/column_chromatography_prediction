@@ -1,0 +1,12 @@
+{
+  "status": "DISCLOSED_SCOPE_DEVIATION_EXCLUDED_FROM_ANALYSIS",
+  "actor": "model_signals research subtask",
+  "operation": "Read-only ripgrep text search for source unit-conversion semantics; directory scope mistakenly included a label-bearing dataset manifest",
+  "file": "studies/predictor/final_4g_qualification/splits/qualification_dataset_manifest.csv",
+  "matching_rows_output": 3,
+  "roles": "not determined; no role inference or further opening of this manifest",
+  "handling": "Incidental values were not used in computations, recommendations, or delivered data artifacts. No values are copied into this incident report.",
+  "subsequent_search_constraint": "Limit source-unit searches to explicitly named Python files or *.py/*.md files; do not search dataset directories or label manifests",
+  "script_scope": "analyze_model_signals.py opens only preselection catalogs verified by contract SHA, matching accepted selected feedback from published archives, and source semantics files; it never opens a canonical label table or a test-truth file",
+  "session_wide_zero_label_file_contact_claim": false
+}

@@ -1,0 +1,106 @@
+{
+  "checked_utc": "2026-11-14T08:31:46.015512+00:00",
+  "observation": "All five NoCW workers received HTTP429 at the authorized responses endpoint; current bottleneck is provider refusal, not compute queue or TLS handshake.",
+  "actual_completed_rounds": {
+    "nocw": 146,
+    "cw": 180
+  },
+  "remaining_nocw_rounds": 34,
+  "entries": [
+    {
+      "seed": 157,
+      "actual_completed_rounds": 28,
+      "actual_completed_budget": 1229,
+      "pending_turn": 1,
+      "http429_count_in_current_turn": 14,
+      "first_429_utc": "2026-11-14T07:34:19.073444+00:00",
+      "latest_429": {
+        "path": "nocw/selections/seed_157/llm32_nocw/round_28/attempt_01_13.json",
+        "sha256": "5e51a26da847c635119f74e9c63ae2ddbbcd22d108049f843304f506cb64243e",
+        "recorded_utc": "2026-11-14T08:27:26.826195+00:00",
+        "elapsed_seconds": 2.595159334130585,
+        "error_type": "HTTPStatusError"
+      }
+    },
+    {
+      "seed": 887,
+      "actual_completed_rounds": 26,
+      "actual_completed_budget": 1165,
+      "pending_turn": 0,
+      "http429_count_in_current_turn": 4,
+      "first_429_utc": "2026-11-14T08:23:37.484591+00:00",
+      "latest_429": {
+        "path": "nocw/selections/seed_887/llm32_nocw/round_26/attempt_00_04.json",
+        "sha256": "1ab92899da27f43106b492105c40614d404d2cb19dde6bbfb8110df80229d19b",
+        "recorded_utc": "2026-11-14T08:30:46.920469+00:00",
+        "elapsed_seconds": 2.578746624989435,
+        "error_type": "HTTPStatusError"
+      }
+    },
+    {
+      "seed": 2357,
+      "actual_completed_rounds": 31,
+      "actual_completed_budget": 1325,
+      "pending_turn": 0,
+      "http429_count_in_current_turn": 12,
+      "first_429_utc": "2026-11-14T07:47:56.340900+00:00",
+      "latest_429": {
+        "path": "nocw/selections/seed_2357/llm32_nocw/round_31/attempt_00_11.json",
+        "sha256": "527a202441b561918cf2dc31af6c7b4637d3dd5b7f32f33a17497a8e1ffb6eb1",
+        "recorded_utc": "2026-11-14T08:31:00.653952+00:00",
+        "elapsed_seconds": 8.142541500041261,
+        "error_type": "HTTPStatusError"
+      }
+    },
+    {
+      "seed": 6101,
+      "actual_completed_rounds": 30,
+      "actual_completed_budget": 1293,
+      "pending_turn": 0,
+      "http429_count_in_current_turn": 12,
+      "first_429_utc": "2026-11-14T07:47:23.673944+00:00",
+      "latest_429": {
+        "path": "nocw/selections/seed_6101/llm32_nocw/round_30/attempt_00_11.json",
+        "sha256": "4f4bdb3c5eaee9129d6381898bf3164356d410de2dc9e4e910afba24c6a0f892",
+        "recorded_utc": "2026-11-14T08:30:26.079889+00:00",
+        "elapsed_seconds": 2.0078698750585318,
+        "error_type": "HTTPStatusError"
+      }
+    },
+    {
+      "seed": 12203,
+      "actual_completed_rounds": 31,
+      "actual_completed_budget": 1325,
+      "pending_turn": 16,
+      "http429_count_in_current_turn": 15,
+      "first_429_utc": "2026-11-14T07:31:21.802627+00:00",
+      "latest_429": {
+        "path": "nocw/selections/seed_12203/llm32_nocw/round_31/attempt_16_14.json",
+        "sha256": "2543e8b3b89328d73b1e64bd019cdc5a11ca2d31d2a651ea3f53045b791a5490",
+        "recorded_utc": "2026-11-14T08:29:34.248694+00:00",
+        "elapsed_seconds": 3.0430859168991446,
+        "error_type": "HTTPStatusError"
+      }
+    }
+  ],
+  "tls_diagnostic": {
+    "performed_utc_approximately": "2026-11-14T08:30:00+00:00",
+    "hostname": "token4research.cn",
+    "resolved_addresses": [
+      "104.21.38.70",
+      "172.67.219.213"
+    ],
+    "peer": "104.21.38.70",
+    "result": "SUCCESS",
+    "protocol": "TLSv1.2",
+    "elapsed_seconds": 0.856,
+    "http_requests_sent": 0,
+    "api_credentials_sent": false,
+    "experiment_data_sent": false,
+    "paid_model_probes": 0
+  },
+  "specific_rate_concurrency_or_quota_cause": "Not established by saved receipts; do not infer insufficient quota.",
+  "action": "Keep original approved backoff/retry policy; do not restart active workers, alter endpoint, credentials, request scope, selection or fit settings.",
+  "billing_status": "unknown; existing failed and interrupted request receipts retained",
+  "test_truth_reads": 0
+}

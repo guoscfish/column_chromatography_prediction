@@ -128,3 +128,5 @@ git worktree add --detach ../column_chromatography_transfer_archive codex/archiv
 本次新增迁移归档和文档合并，Markdown 从 362 份减少到 169 份，其中 38 份零散文档合并到现有入口。Free LLM 的必要冻结源码、协议、记录与原设计继续在 main 保留。使用根目录的验证命令检查代码与报告，用 `scripts/audit_repository_hygiene.py` 核验保护锚点、退役恢复、归档树及是否重新引入已移出的模块。审计只读，不会训练、调用 LLM 或展开封存测试标签。
 
 2026-10-30 补充整理：NoCW 最新进度与续跑说明集中到其结果报告，主入口统一链接；清理 3 份已完成控制器备份、3 张逐字节重复的图和 1 个内容完全展开保留的图包，共 7 文件、2,337,497 字节。原提交、SHA 与保留去向继续记入上述登记。两份新的离线机制分析保留其完整审计材料。
+
+2026-11-17 推送前整理：删除 298 个未跟踪的 Python/pytest 缓存与 Finder 元数据文件，共 7,122,750 字节。CW 新增的 316 个选点/拒绝记录已逐文件核验与 `reports/free_cw_final_20261112/` 无损归档一致，重复原件、机器进程交接状态及此前约定仅本地保留的两个 `selection3_compute5*` 控制器目录不再新增到 Git，本地文件保留。NoCW 的 6,782 个传输/回答 JSON 无损压缩为 5,032,136 字节并逐条反解核验，入口见[该研究的 Git 归档说明](../studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/README.md#git-归档2026-11-17)；原始 SSE wire 镜像留本地。GOLLuM 已被冻结清单引用的科学 JSON/CSV、研究源码和最终报告继续保留，未删除模型、训练运行目录、原始请求或实验回执。

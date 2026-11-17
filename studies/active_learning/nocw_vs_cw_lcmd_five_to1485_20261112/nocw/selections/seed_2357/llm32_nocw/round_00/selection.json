@@ -1,0 +1,231 @@
+{
+  "type": "selection",
+  "packet_sha256": "095379dd0d99f51117677e7385f97cade5741a487f41019e0c5baa30ec658670",
+  "batch_strategy": "A mixed batch of fixed molecule condition response probes, loading contrasts, late tail coverage, and chemically diverse uncertainty reduction.",
+  "choices": [
+    {
+      "id": "e83cbe662d2235b30b7e",
+      "reason": "The model gives broad V1/V2 intervals for this aldehyde containing scaffold at 5/1, so the label can teach structure dependent uncertainty in a moderately late elution region.",
+      "hypothesis_id": "structure_condition_response"
+    },
+    {
+      "id": "c098b72af1f4e81425e7",
+      "reason": "A halogenated aromatic aldehyde at 5/1 with a distinct loading amount provides a useful transfer point for halogen and carbonyl effects across the catalog.",
+      "hypothesis_id": "functional_group_transfer"
+    },
+    {
+      "id": "08d345874afeaea97b5e",
+      "reason": "The prediction has a very broad V1 interval and late V2, making it a high information probe of a possible broad or multimodal retention regime.",
+      "hypothesis_id": "model_uncertainty"
+    },
+    {
+      "id": "70dd45e8e1ff8116c181",
+      "reason": "This low strength 0/1 point has a broad predicted V1 interval and supplies a low eluent anchor for aromatic ketone response learning.",
+      "hypothesis_id": "structure_condition_response"
+    },
+    {
+      "id": "f62720d3fc5dbb0e173d",
+      "reason": "The molecule is novel to the observed set and the 20/1 prediction tests transfer of high solvent strength behavior to a heavily halogenated aromatic scaffold.",
+      "hypothesis_id": "functional_group_transfer"
+    },
+    {
+      "id": "29cb91974ec3630e8b9e",
+      "reason": "A small nonpolar aromatic at 5/1 provides a simple retention control against the more polar and strongly tailing compounds in the batch.",
+      "hypothesis_id": "structure_condition_response"
+    },
+    {
+      "id": "8b51e50fec9dd89974f1",
+      "reason": "This 5/1 halogenated aromatic is a useful loading contrast to observed m151 at the same ratio but lower loading, including observed ID 20378a5e217e0ef26df6.",
+      "hypothesis_id": "structure_condition_response"
+    },
+    {
+      "id": "6e43092f4f4c8b322f4d",
+      "reason": "The 10/1 PE prediction can be compared with observed m148 at 2/1, 88a49888519467ea1b90, and with the higher loading 10/1 point a5bad8587c652e0b8011 to learn solvent and loading response.",
+      "hypothesis_id": "structure_condition_response"
+    },
+    {
+      "id": "95c74e404e629c201615",
+      "reason": "This aromatic ester candidate has a substantial predicted V1 interval at 10/1 DCM and adds coverage of a sparsely represented structure condition region.",
+      "hypothesis_id": "model_uncertainty"
+    },
+    {
+      "id": "c4bb286978fe9078a303",
+      "reason": "The polar multifunctional scaffold has broad predicted endpoint intervals and is a useful novel chemistry probe for separating polarity effects from generic loading effects.",
+      "hypothesis_id": "functional_group_transfer"
+    },
+    {
+      "id": "f79cf892a214e3af8f61",
+      "reason": "The model predicts a long V2 tail at 20/1 DCM for this bromo aromatic ketone, testing whether high strength conditions broaden the tail in this family.",
+      "hypothesis_id": "late_tail"
+    },
+    {
+      "id": "0f35c2146c21fa6ac372",
+      "reason": "This 5/1 point samples a lower strength condition for the aromatic ketone family; observed m40 at 20/1 DCM, ff9bcaab8e95f60d70bc, provides a useful high strength anchor.",
+      "hypothesis_id": "structure_condition_response"
+    },
+    {
+      "id": "dc68091ba8b0648c216f",
+      "reason": "The 5/1 PE point has a broad predicted V2 interval and contrasts with observed m62 at the same ratio but higher loading, 899e3f4f8af9b2c20b3b, directly testing loading sensitivity.",
+      "hypothesis_id": "structure_condition_response"
+    },
+    {
+      "id": "9c6788682bd290734686",
+      "reason": "This 2/1 point complements observed m176 at 10/1 DCM, 3786b3156365f77c03ce, and helps establish the condition response of a halogenated benzophenone scaffold.",
+      "hypothesis_id": "structure_condition_response"
+    },
+    {
+      "id": "f7328e944d0c3c8931da",
+      "reason": "The 2/1 point extends observed m137 at 0/1 DCM, 530217d6ee1ada65ac65, and tests whether the predicted shift with solvent strength is transferable.",
+      "hypothesis_id": "structure_condition_response"
+    },
+    {
+      "id": "7f81423ec4cb301b12bf",
+      "reason": "This low strength m144 point complements observed m144 at 2/1 DCM, 186ff43c8f3dcf2ed444, giving a local condition response for a nitrile aromatic.",
+      "hypothesis_id": "structure_condition_response"
+    },
+    {
+      "id": "c5cf43c25a1071ceb950",
+      "reason": "The 2/1 label fills a condition gap before the much stronger 50/1 observed m103 point, 471287eecf7b94603e9e, and tests the steepness of that response.",
+      "hypothesis_id": "structure_condition_response"
+    },
+    {
+      "id": "5fd49a50595624496938",
+      "reason": "This high ratio point probes a potentially late V2 regime and complements the lower ratio observed m116 point 59752d0b8c96b9efb90c.",
+      "hypothesis_id": "late_tail"
+    },
+    {
+      "id": "5c2bc1d92128a17d996d",
+      "reason": "The model predicts a very broad interval for m125 at 2/1 and 50 ul; observed m125 at the same ratio with 150 ul, 19f19f196ba5787a01b0, makes this a direct loading contrast.",
+      "hypothesis_id": "structure_condition_response"
+    },
+    {
+      "id": "51f5ae6a991eea9e720e",
+      "reason": "This novel heteroatom containing scaffold has a wide predicted V1 interval and samples a high retention family absent from the measured anchors.",
+      "hypothesis_id": "functional_group_transfer"
+    },
+    {
+      "id": "4f84797fc03e8f4f2473",
+      "reason": "The candidate expands coverage of aromatic ester behavior at strong PE rich conditions, where endpoint shifts may generalize to related catalog rows.",
+      "hypothesis_id": "structure_condition_response"
+    },
+    {
+      "id": "183af335033005f96b97",
+      "reason": "The 50 ul m36 point can be compared with the higher loading observed m36 point 6b7209c2e8154837a8c7 to learn how loading changes a broad polar interval.",
+      "hypothesis_id": "structure_condition_response"
+    },
+    {
+      "id": "bae9d67e095423d8edd2",
+      "reason": "The unusually wide predicted V1 interval is a targeted uncertainty reduction opportunity for an aromatic dialdehyde like scaffold.",
+      "hypothesis_id": "model_uncertainty"
+    },
+    {
+      "id": "30d5da2fe6827f118117",
+      "reason": "This 2/1 PE point adds an intermediate condition for ester retention and complements observed m83 at nearby lower ratio conditions, including 4eb9255929f1ff9900ba.",
+      "hypothesis_id": "structure_condition_response"
+    },
+    {
+      "id": "956e1a3a4931a3109447",
+      "reason": "The 10/1 point samples m153 before the stronger observed 20/1 DCM point eb4799360e268e3bbc88, testing monotonicity of the halogenated aromatic response.",
+      "hypothesis_id": "structure_condition_response"
+    },
+    {
+      "id": "a8ad1c1e7d0c3c312f29",
+      "reason": "A low strength point for this iodine phenol scaffold tests whether the model transfers the polar aromatic response seen in related observed rows such as m208 and m72.",
+      "hypothesis_id": "functional_group_transfer"
+    },
+    {
+      "id": "5ce90b59d89383abc568",
+      "reason": "This 20/1 m151 point extends the lower ratio m151 evidence and tests whether the high ratio response remains smooth at increased solvent strength.",
+      "hypothesis_id": "structure_condition_response"
+    },
+    {
+      "id": "b522f87b2ab193018419",
+      "reason": "The 20/1 PE point complements observed m22 at 10/1 PE, cacb6e56d0b2fc61cde2, and is informative for ratio response in an acrylate aromatic ester.",
+      "hypothesis_id": "structure_condition_response"
+    },
+    {
+      "id": "d9c8c8af50a10bf07765",
+      "reason": "The model predicts a very late and broad m117 response at 50/1; observed m117 at 1/1 and 50 ul, 02425f554db74d9809d2, makes this a strong tail extrapolation test.",
+      "hypothesis_id": "late_tail"
+    },
+    {
+      "id": "4d3b1628cd2311585f50",
+      "reason": "This polar ester point has moderate uncertainty and broadens coverage of donor acceptor rich structures without duplicating an observed tuple.",
+      "hypothesis_id": "functional_group_transfer"
+    },
+    {
+      "id": "cf2b5bd61a8fa92f67a8",
+      "reason": "The m186 point tests a halogenated phenol aldehyde scaffold at low ratio and can reveal whether hydrogen bonding produces a family specific offset.",
+      "hypothesis_id": "functional_group_transfer"
+    },
+    {
+      "id": "5e276c1730fc0a9deba7",
+      "reason": "The 20/1 point for m177 complements the observed lower ratio m177 point bef81d4dd93af26c12a9 and tests condition driven changes in a nitro benzophenone family.",
+      "hypothesis_id": "structure_condition_response"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "structure_condition_response",
+      "content": "Retention depends strongly on the interaction between solvent ratio, loading amount, and molecular scaffold, so condition response measurements should improve generalization beyond structure only interpolation.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "88a49888519467ea1b90",
+        "ff9bcaab8e95f60d70bc",
+        "19f19f196ba5787a01b0",
+        "9bbd36c8b484b5609808"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Observed same or related molecules shift substantially across solvent ratio and loading, so local response points can teach interaction terms that are otherwise weakly identified.",
+      "next_discriminating_question": "Are the condition responses smooth and transferable within chemical families, or do particular scaffolds show threshold like shifts?"
+    },
+    {
+      "id": "late_tail",
+      "content": "Some polar, highly retained, or strongly loaded compounds develop unusually late V2 values and broad elution intervals under strong conditions.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "a2f83665cfe821271b30",
+        "449b809e4efaaf2af86a",
+        "a5f9179bfb146ad70953",
+        "e8f592c469b2f3c136d8",
+        "b51b5dbcd2a38b174973"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Late V2 errors contribute strongly to overall loss and occur across several chemical families, so tail labels can improve calibration in a high impact region.",
+      "next_discriminating_question": "Do strong condition changes produce similarly late tails across related scaffolds, or are the largest predicted tails overestimates?"
+    },
+    {
+      "id": "functional_group_transfer",
+      "content": "Hydrogen bond donors, acceptors, halogens, and scaffold environment can produce family specific retention offsets that are not captured by simple hydrophobicity trends.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "9de8f9fed06ef9d5befa",
+        "85924bdd0693438dc23a",
+        "a2f83665cfe821271b30",
+        "f868ccbcbf392038fe36"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The observed catalog contains polar and heteroatom rich compounds with both ordinary and unusually broad intervals; additional family transfer points can improve structural representation.",
+      "next_discriminating_question": "Under comparable conditions, do polar and halogenated families share a common solvent response or require separate learned offsets?"
+    },
+    {
+      "id": "model_uncertainty",
+      "content": "Large predicted quantile widths identify regions where labels may provide more useful corrective information than routine low uncertainty points.",
+      "basis": "model_behavior",
+      "supporting_observed_ids": [],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "proposed",
+      "why_it_matters_for_model_learning": "Several selected rows have broad V1 or V2 intervals, so their labels can repair poorly learned structure condition regions and improve endpoint calibration.",
+      "next_discriminating_question": "Do the measured endpoints for broad interval candidates fall outside current intervals or reveal a systematic direction of error?"
+    }
+  ],
+  "feedback_interpretation": "",
+  "batch_rationale": "The batch contains several fixed molecule condition contrasts, including m151, m148, m176, m137, m103, m116, m125, m151 again at a stronger ratio, m22, and m117. These points teach solvent ratio and loading response. Other choices target broad predicted intervals and late V2 tails, where endpoint errors are likely to have high impact. Novel or less covered polar and halogenated scaffolds test transfer of functional group effects across the catalog. The batch is diverse in molecule and condition but remains chemically organized around response curves, tail behavior, and uncertainty reduction, which should improve generalization over the Row distribution."
+}

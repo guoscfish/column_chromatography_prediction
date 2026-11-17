@@ -1,0 +1,275 @@
+{
+  "type": "selection",
+  "packet_sha256": "7535d414ec30fae2f7c740b7ef937a81e83f123fcb18b63c7eb96c7d0aaca5ad",
+  "batch_strategy": "Select 32 distinct supplied candidates to resolve endpoint-specific loading effects, missing solvent-response segments, and information in recorded loading-solvent volume. Favor controlled comparisons and discriminating interpolation tests. The supplied premeasurement forecasts remain fixed; quantile widths are secondary evidence rather than calibrated epistemic uncertainty.",
+  "choices": [
+    {
+      "id": "e9e7a737df389d5fcc13",
+      "reason": "m208 at 10/1, 50 ul begins a controlled amount pair. Its nearly amount-invariant forecast tests whether the onset-sensitive, completion-stable loading association observed at 20/1 already applies at 10/1.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "60f6bc343299a27882d2",
+      "reason": "m208 at 10/1, 150 ul completes the amount pair and extends a fixed-loading solvent comparison to 20/1. Both labels help locate where onset becomes sensitive to amount while completion remains comparatively stable.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "dc419b3ce4e1382aae7a",
+      "reason": "m35 at 20/1, 50 ul tests whether its weak-solvent onset association with amount transfers to stronger solvent. Existing high-loading coverage at this ratio makes the new label a direct test of ratio-by-amount transfer for the iodine-substituted ketone.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "3092a6310ab5c25cb83c",
+      "reason": "m78 at 10/1, 100 ul fills the middle-loading solvent-response gap. Comparison with the measured high-loading 10/1 condition and the completed 50/1 amount series tests whether onset and completion loading associations change before the large weak-solvent rise.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "26ead7c5ee68643c421e",
+      "reason": "m67 at 2/1, 50 ul begins a fixed-ratio amount contrast. This tests whether its substantial weak-solvent onset association persists in stronger solvent despite nearly invariant candidate forecasts.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "56f8cdbb3999b366d947",
+      "reason": "m67 at 2/1, 150 ul completes the selected amount pair. Measuring both endpoints distinguishes strong-solvent amount invariance from transfer of the onset-sensitive pattern found at 20/1.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "b176d0d8203294517e53",
+      "reason": "m33 at 10/1, 50 ul begins an amount pair within a missing solvent segment. It tests where completion starts increasing with weaker solvent and whether the nonlinear 50/1 loading association already appears at 10/1.",
+      "hypothesis_id": "H_completion"
+    },
+    {
+      "id": "ba4d64425eed071718e4",
+      "reason": "m33 at 10/1, 150 ul completes the pair. The forecast completion is almost unchanged from 50 ul, providing a direct test of whether the measured weak-solvent completion sensitivity transfers to an intermediate ratio.",
+      "hypothesis_id": "H_completion"
+    },
+    {
+      "id": "17fd49e7bf1b8c8b08f7",
+      "reason": "m33 at 0/1, 50 ul completes loading coverage beside measured middle and high amounts. Its completion forecast lies below both higher-amount observations, testing strong-solvent interpolation separately from the different 50/1 response.",
+      "hypothesis_id": "H_completion"
+    },
+    {
+      "id": "b1fcf9bf2e03028d2ef8",
+      "reason": "m205 at 1/1, 50 ul fills a missing strong-solvent segment. Together with the selected neat-EA row at the same amount, it locates response curvature and enables comparison with m206 while retaining their different DCM loading volumes.",
+      "hypothesis_id": "H_OH_curve"
+    },
+    {
+      "id": "5910d3761883c7036a58",
+      "reason": "m205 at 0/1, 50 ul supplies the fixed-amount strong-solvent endpoint for the selected 1/1 experiment. It also tests transfer from existing higher-amount neat-EA observations without assuming that an alcohol-wide amount correction applies.",
+      "hypothesis_id": "H_OH_curve"
+    },
+    {
+      "id": "fe69b1dbb4d976f830cd",
+      "reason": "m206 at 1/1, 50 ul fills the segment between neat EA and the steep later solvent response. Comparison with selected m205 at the same sample volume tests whether their setup-dependent response difference already appears at 1/1.",
+      "hypothesis_id": "H_OH_curve"
+    },
+    {
+      "id": "714004602e6452764d9a",
+      "reason": "m199 at 5/1, 100 ul fills the middle amount between measured loading endpoints. This tests onset and completion interpolation in the sulfoxide's steep solvent-response region, where the two endpoints may need different amount corrections.",
+      "hypothesis_id": "H_tail"
+    },
+    {
+      "id": "ff3ee95fed58907ff8b3",
+      "reason": "m197 at 0/1, 100 ul forecasts a completion trough below both measured loading endpoints. The label discriminates a genuine nonlinear amount response from an unsupported interpolation shape without imposing monotonicity.",
+      "hypothesis_id": "H_tail"
+    },
+    {
+      "id": "0f67c3fedac7ca8b7479",
+      "reason": "m168 at 2/1, 150 ul in 300 ul DCM begins an exact loading-volume pair at a new sample amount. It tests whether the repeated completion association with DCM volume transfers across ratio and amount.",
+      "hypothesis_id": "H_plug"
+    },
+    {
+      "id": "8266be447d80335d4f72",
+      "reason": "m168 at 2/1, 150 ul in 400 ul DCM completes the volume pair. Nearly identical forecasts make the two labels useful for assessing loading-volume information independently of sample amount.",
+      "hypothesis_id": "H_plug"
+    },
+    {
+      "id": "5024a0270c82cc68fd48",
+      "reason": "m88 at 0/1, 150 ul in 200 ul DCM forms the high-loading endpoint of a selected amount pair. Both endpoint forecasts finish earlier than the measured middle amount, testing completion interpolation on an amino ester.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "b4349d7740d7c02829ef",
+      "reason": "m88 at 0/1, 50 ul in 200 ul DCM completes the amount pair around existing 100 ul coverage. This distinguishes a real middle-amount completion peak from broader underprediction of the neat-EA interval.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "e7bf6bd74f8498f1cb11",
+      "reason": "m216 at 2/1, 100 ul extends loading coverage from the measured low amount. It tests whether the onset-sensitive loading association in its weaker-solvent quinoline series is already present at 2/1.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "ecd17c7ea435a1e33f6b",
+      "reason": "m211 at 2/1, 50 ul completes an amount comparison with measured 100 and 150 ul conditions. The label tests whether low-loading onset behavior transfers to a pyridyl aromatic under these recorded conditions.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "b21061720e23b7a5bdcb",
+      "reason": "m160 at 2/1, 50 ul adds a low-loading counterpart to existing middle-loading coverage. The measured meta-isomer at the same conditions also permits a positional comparison within amino-nitrile chemistry.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "56151359aadfa5411fc6",
+      "reason": "m146 at 2/1, 150 ul bridges its fixed-loading 1/1 and 5/1 observations and adds an amount comparison at 2/1. This locates the onset of solvent-dependent loading sensitivity in a methylquinoline environment.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "36b45fbdbace5950c108",
+      "reason": "m174 at 100/1, 150 ul tests transfer of the measured low-loading retention rise. Together with the selected middle amount, it distinguishes a smooth amount response from nonlinear behavior or insufficient transfer of the high-ratio curve.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "5b1b0390c90ceb580c5e",
+      "reason": "m38 at 5/1, 150 ul fills a fixed-loading solvent gap above 2/1. Paired with selected 10/1, it determines where completion begins rising after the recent neat-EA result weakened transfer of a broad strong-solvent interval.",
+      "hypothesis_id": "H_tail"
+    },
+    {
+      "id": "d1e922c04dbd0c9f6c06",
+      "reason": "m38 at 10/1, 150 ul completes the selected solvent-response segment and adds an amount comparison with measured low-loading coverage. This constrains solvent slope separately from loading transfer for a fused aromatic ketone.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "80eea92895f0bd1c8d5a",
+      "reason": "m28 at 0/1, 50 ul supplies missing low-loading coverage for an aldehyde-plus-acetate scaffold. It extends the fixed-amount curve toward stronger solvent and tests completion transfer from higher loading without borrowing the different m38 or m197 response.",
+      "hypothesis_id": "H_tail"
+    },
+    {
+      "id": "37b8d0f56019b0d4fad3",
+      "reason": "m185 at 5/1, 50 ul begins a controlled solvent pair. The forecasts give a slight endpoint decrease from 5/1 to 10/1 before the measured 20/1 rise, allowing a plateau to be distinguished from a missed intermediate response.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "966bc0aaa6c98ecfa2ee",
+      "reason": "m185 at 10/1, 50 ul completes the response pair. Existing 20/1 coverage and a measured dibromo-aldehyde comparison at the same conditions make this informative about positional halogen environment and scaffold-specific solvent curvature.",
+      "hypothesis_id": null
+    },
+    {
+      "id": "53becf1a41d72abcc45a",
+      "reason": "m191 at 2/1, 150 ul adds the high-loading counterpart to measured low-loading coverage and extends below its 5/1 curve. It tests whether the corrected strong-solvent response transfers across amount after the unsupported low-loading completion peak was weakened.",
+      "hypothesis_id": "H_tail"
+    },
+    {
+      "id": "40d5f6dbba8de32e9852",
+      "reason": "m128 at 2/1, 50 ul supplies both a same-ratio amount comparison and a fixed-amount contrast with 1/1. Its forecast is below the measured high-loading result at both endpoints, testing loading transfer for a thioether-substituted ketone.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "a595d5f1882c39914392",
+      "reason": "m19 at 1/1, 50 ul extends strong-solvent loading coverage beyond the measured high amount. This tests transfer from secondary amines and aromatic nitrogen environments to a tertiary-amine acrylate scaffold.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "2424b103c34d3d2b6a9a",
+      "reason": "m174 at 100/1, 100 ul supplies the middle amount between measured low loading and selected high loading. Nearly identical middle- and high-loading forecasts make the full comparison informative about onset sensitivity, completion sensitivity, and nonlinear amount response.",
+      "hypothesis_id": "H_loading"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H_loading",
+      "content": "Loading associations depend on scaffold and PE/EA and can differ between V1 and V2. Recent m67 and m208 series support substantial onset movement with comparatively stable completion. The smaller m209 onset contrast at 5/1 than at 20/1 supports ratio dependence. These observations do not establish a universal loading direction or correction.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "2cf4f6424b85ab121943",
+        "c627405cf70a0daacc94",
+        "80f6a235bb59c2a7ea59",
+        "5a7a5139767fda9f7e9a",
+        "0b8c6c59ae5e24b420e5",
+        "b66aa101a244885dd587",
+        "534afc6bd39a8f7923d8",
+        "edfbbb86c05a0aeb1bfb",
+        "1b4be0410f927930d56e",
+        "29b39881584c4fec1c58",
+        "20a5a5008211ea15a65a",
+        "93d0b949ca6dc0685979",
+        "2b97a1e0a6a4b944b760",
+        "61771d230b285babe4b6",
+        "eb3bc3fba39e57adbc2f"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Many remaining forecasts change little with amount. Controlled missing conditions can teach when that invariance is appropriate and when onset and completion need different amount-by-ratio mappings across recurring chemical environments.",
+      "next_discriminating_question": "Do the m208 10/1 and m67 2/1 amount pairs retain their weak-solvent onset associations, and do the amino ester, aromatic nitrogen, and carbonyl examples require different endpoint corrections?"
+    },
+    {
+      "id": "H_completion",
+      "content": "For m33, completion has a nonlinear association with amount at 50/1: the measured 100 ul value is close to 150 ul and substantially above 50 ul. Whether this behavior extends to intermediate ratios remains unresolved; the strong-solvent amount response may differ.",
+      "basis": "observed_data",
+      "supporting_observed_ids": [
+        "570497bf792f134f2223",
+        "d2c44b46eb306c56f241",
+        "c356230277dfc98406e0",
+        "d13724f7a4b6c8bb3628",
+        "915cf3a7c8100cb7ce1f",
+        "003ad1a9637ac1b7c0fd"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The latest middle-amount completion was substantially underpredicted at acquisition. An intermediate-ratio amount pair and the missing neat-EA low-loading endpoint distinguish a local weak-solvent effect from a broader completion-loading relationship.",
+      "next_discriminating_question": "At 10/1, do 50 and 150 ul have similar completion as forecast, and does the missing neat-EA low-loading label support completion below both measured higher amounts?"
+    },
+    {
+      "id": "H_plug",
+      "content": "Recorded loading-solvent identity and loading-solvent volume can carry predictive information beyond sample amount. Three m168 volume contrasts associate 400 ul DCM with earlier completion than 300 ul, while the m92 identity pair differs more strongly. Reproducibility, causality, and transfer across sample amounts remain unresolved.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "e7acdb127fe6371def7f",
+        "e62c5d7d6c19714760e3",
+        "4c7a167609de5f3e01c2",
+        "24185c2e4a422e72a4c2",
+        "ea810ad3e836415369bd",
+        "5ab2073d8b67153b8455",
+        "95a3dcfe4436e929aa30",
+        "e626b5b8083ea1fd02f2"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "The predictor gives nearly identical forecasts to the selected volume pair. Its labels can reveal underused recorded information or establish a boundary that prevents applying a common volume adjustment indiscriminately.",
+      "next_discriminating_question": "Does the m168 completion association with loading volume persist at 2/1 and 150 ul sample volume?"
+    },
+    {
+      "id": "H_tail",
+      "content": "Completion requires scaffold-, ratio-, and amount-dependent mappings. The recent m194 2/1 low-loading label again failed to reproduce a forecast broad interval, whereas m197 retained extended completion in neat EA at both measured amounts. The m38 neat-EA and m31 2/1 results also weaken transfer of unsupported broad strong-solvent intervals.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "2bd4f8787a951ef0ee04",
+        "c0094343ab6bb16bc58b",
+        "0e74da1f30505a8699c4",
+        "c86f06310e89b93ed6ac",
+        "739f955977aa740524e5",
+        "3c1875eb669056c6c621",
+        "2a4de703709973e74dd2",
+        "064249131c1c3106e540"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Recent completion errors had different signs across scaffolds and conditions. Missing amount and ratio segments can repair local response shapes without imposing a global completion shift or treating elution interval width as uncertainty.",
+      "next_discriminating_question": "Is the forecast middle-amount m197 neat-EA completion trough supported, and do the selected m199, m191, m38, and m28 conditions follow their forecast endpoint-specific response shapes?"
+    },
+    {
+      "id": "H_OH_curve",
+      "content": "The m205 and m206 scaffold-plus-loading setups show substantially different solvent responses despite similar calculated LogP and one OH group each. Whether the response difference already appears at 1/1 remains unknown. Their different DCM loading volumes prevent a purely structural causal interpretation.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "c973d4c257be9ef08216",
+        "91b6bda771851a5c78ac",
+        "13bfaf03c35b4cff3bd5",
+        "e8f592c469b2f3c136d8",
+        "cdf40bcb3f4392f8d7d1",
+        "988724a9391bf1618fda",
+        "b0f83f107759037eea65"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "These labels test how OH structural environment and recorded loading conditions jointly affect solvent-response curvature beyond a shared donor count or bulk-polarity correction.",
+      "next_discriminating_question": "Do the selected low-loading 1/1 labels reveal the m205-versus-m206 setup difference already in stronger solvent, and does the m205 neat-EA endpoint support the forecast local curve?"
+    }
+  ],
+  "feedback_interpretation": "The latest outcomes strengthen conditional loading reasoning while weakening several broad completion transfers. The completed m67 and m208 20/1 series show large onset shifts with much smaller completion changes, and m35 adds a similar weak-solvent onset association. The much smaller m209 contrast at 5/1 makes locating ratio dependence more useful than assuming a common loading correction. The m33 middle-loading 50/1 completion was close to the high-loading value and above the low-loading value, motivating a new intermediate-ratio amount pair. The m194 2/1 low-loading result again contradicted the forecast broad interval; the m38 neat-EA and m31 2/1 outcomes also weakened such transfer, while m197 remained extended in neat EA. The m168 5/1 volume pair repeated the direction of its earlier modest completion association, motivating a new-amount contrast. The m84 revisit again produced an ordinary longer interval, so the transferable short-interval interpretation is retired and receives no further allocation. The new m73 result again has V2 below V1; this remains a recorded endpoint inconsistency rather than a retention mechanism. Historical acquisition errors are not treated as current-model residuals.",
+  "batch_rationale": "The batch combines controlled local experiments with targeted transfer tests. Amount pairs for m208, m67, m33, m88, and m174 challenge near-invariant forecasts, while missing amounts extend these questions across phenols, beta-keto esters, aromatic ketones, and nitrogen-containing scaffolds. The m168 volume pair isolates a recorded condition that the predictor currently uses weakly. Fixed-loading solvent segments for m38, m185, and m205, together with the m205/m206 comparison, address curve shape separately from amount. The m197 and m199 middle amounts test specific unsupported interpolation shapes. These experiments are intended to improve the retrained predictor's mapping of structure and recorded conditions to each endpoint across the Row-distribution; selection does not optimize retention or separation performance."
+}

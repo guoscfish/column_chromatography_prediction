@@ -1,0 +1,17 @@
+{
+  "status": "ANALYSIS_RULE_FIXED_BEFORE_READING_ANY_INTERACTION_FIT_AUDIT_OR_H_RESULTS",
+  "timing_disclosure": "Two baseline fits have completed and their validation progress has been reported; neither root nor this plan uses intervention or heldout results. This is not a claim of before-training preregistration.",
+  "created_shanghai": "2026-11-12T20:54:59.635532+08:00",
+  "primary_unit": "outer seed. Four seed-budget state means average the two paired training replicates; eight paired fits are not independent experiments.",
+  "row_metric": "original fixed-L333-scale validation combined NRMSE; paired delta interaction minus baseline; lower is better",
+  "mechanism_metric": "H sample-volume pair absolute difference error: within component mean then molecule mean; endpoint balanced normalized MAE Q=0.5*(MAE_deltaV1/s1 + MAE_deltaV2/s2). Also report all raw mL values, sign, amplitude and PE/EA controls.",
+  "descriptive_stable_support_rule": {
+    "row": "Both outer seeds improve after averaging budgets/replicates; >=3 of4 state means improve; no state relative NRMSE regression >1%",
+    "condition": "Both outer seeds improve Q; >=3 of4 state means improve Q"
+  },
+  "failure_interpretation": "If either rule fails, no stable joint support for this one fusion control; do not search another architecture. Does not reject all H3 mechanisms or identify irreducible noise.",
+  "all_results_retained": true,
+  "H_not_used_for_checkpoint_or_architecture": true,
+  "hypothesis_tests_or_pvalues": false,
+  "no_new_training_or_acquisition_from_analysis": true
+}

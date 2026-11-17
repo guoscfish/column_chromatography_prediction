@@ -1,0 +1,259 @@
+{
+  "type": "selection",
+  "packet_sha256": "51b8e958436f74b2c6490b2e562e5823c6fea212f7783e5772f391c832fc6d95",
+  "batch_strategy": "Scaffold gated response curves with matched loading perturbations, endpoint focused tail probes, and a small set of ordinary carbonyl and neutral controls.",
+  "choices": [
+    {
+      "id": "a7bc3fb68bdecbbe086f",
+      "reason": "m117 at 10/1 with 100 ul loading volume samples the transition between the observed 2/1 reversal in 408ce1a4e23492a3ef31 and the late tail at 20/1 in 7e834c7b870ef7024d35. It can locate a V2 onset threshold without assuming monotonic response.",
+      "hypothesis_id": "H_threshold"
+    },
+    {
+      "id": "b1801204c2c4a34a9278",
+      "reason": "This m117 50/1 point at lower loading volume tests whether the donor containing aldehyde returns to a broad completion tail at very high PE after its large 2/1 overprediction. It directly extends the observed m117 condition curve.",
+      "hypothesis_id": "H_tail"
+    },
+    {
+      "id": "cac9ff0c40665baf313f",
+      "reason": "The m117 2/1, 150 ul, 600 ul DCM point is a matched loading comparison to the 0/1 point 25de8af35e546add9783. Their difference separates solvent response from the loading interaction seen in 408ce1a4e23492a3ef31.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "25de8af35e546add9783",
+      "reason": "A weak condition point for m117 anchors the same high loading and loading solvent used in cac9ff0c40665baf313f. It constrains whether the model should learn a baseline shift or a condition dependent transition.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "b0b245affce834e336c5",
+      "reason": "m107 at 0/1 provides a low strength anchor for the multifunctional ester family that produced the severe V2 error in d1172a49fca1e196a59f. It helps distinguish a broad scaffold offset from a PE gated tail.",
+      "hypothesis_id": "H_tail"
+    },
+    {
+      "id": "143bf510fe2028583763",
+      "reason": "The m107 2/1 point uses much lower loading amount than b7953b4cf8c561ff4cfe and tests whether the large m107 errors are driven by solvent strength, amount, or their interaction.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "b7953b4cf8c561ff4cfe",
+      "reason": "This intermediate m107 point keeps the scaffold and ratio near the lower loading point while increasing amount. It supplies a local response surface around the severe observed 5/1 failure d1172a49fca1e196a59f.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "073bc395a08f48db4fc0",
+      "reason": "m118 at 0/1 is a weak condition anchor for the aldehyde family with the extreme high ratio error in 2d178efe0181baca2bd5. It tests whether the late tail is absent at weak strength before applying a correction.",
+      "hypothesis_id": "H_threshold"
+    },
+    {
+      "id": "4e7e45a513ce579c5ce3",
+      "reason": "The m118 2/1 point at larger loading volume probes the beginning of the condition curve between ordinary weak behavior and the observed 50/1 tail in 2d178efe0181baca2bd5.",
+      "hypothesis_id": "H_threshold"
+    },
+    {
+      "id": "34a20bc9c1f8c8bdf357",
+      "reason": "This m177 0/1 point at the same unusually large loading solvent volume as the other selected m177 points establishes a low strength loading baseline for the highly inconsistent observed m177 endpoints 4862e2fb71344ce16021, 5b706e17e8412d02342f, and b514312eda7950cdcf1c.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "61764a2e9f71f1caa18e",
+      "reason": "The m177 1/1 point is a matched loading perturbation against 34a20bc9c1f8c8bdf357. It tests whether the strong amount and volume dependence begins before PE enrichment becomes substantial.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "5f8a81445707df0eaad0",
+      "reason": "This m177 2/1 point changes both ratio and loading volume in a controlled local series. It helps discriminate a ratio threshold from the nonmonotone loading behavior observed across 4862e2fb71344ce16021, 5b706e17e8412d02342f, and b514312eda7950cdcf1c.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "5442611ea6789d42bc86",
+      "reason": "The m177 10/1 point extends the same high loading regime toward stronger PE. Its V2 label can reveal whether the observed endpoint asymmetry is a gradual response or a scaffold specific jump.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "c343983d41d51a6a66c3",
+      "reason": "m209 at 2/1 supplies an intermediate point for a donor containing phenol family whose strong condition failed in 80f546c47198fa7c6dbf. It is useful for locating the onset before the extreme tail.",
+      "hypothesis_id": "H_threshold"
+    },
+    {
+      "id": "fe7d7af2c919facfe5f5",
+      "reason": "This lower volume m209 10/1 point tests whether the donor tail depends mainly on PE ratio or also on loading amount and volume. It complements the observed high ratio failure 80f546c47198fa7c6dbf.",
+      "hypothesis_id": "H_loading"
+    },
+    {
+      "id": "29b39881584c4fec1c58",
+      "reason": "The m209 20/1 point at larger loading volume extends the response curve toward the observed 50/1 tail. It can teach the model whether V2 broadening accelerates after an intermediate threshold.",
+      "hypothesis_id": "H_threshold"
+    },
+    {
+      "id": "07b65328a3ec1d825fef",
+      "reason": "A weak m209 anchor prevents the retraining signal from being represented only by late donor failures. Comparing it with 29b39881584c4fec1c58 and 80f546c47198fa7c6dbf tests localized rather than global donor correction.",
+      "hypothesis_id": "H_tail"
+    },
+    {
+      "id": "c28747d70e7b51a1cc95",
+      "reason": "m193 at 20/1 and high loading amount probes the upper condition response of a nitro aldehyde. It tests transfer from the measured N rich carbonyl failure a01a137fa48c1391b9e7 without assuming all nitrogen scaffolds share one offset.",
+      "hypothesis_id": "H_N"
+    },
+    {
+      "id": "c08c4700ae34281b3318",
+      "reason": "This m193 10/1 point provides an intermediate nitrogen carbonyl condition against the stronger point c28747d70e7b51a1cc95 and the observed a01a137fa48c1391b9e7. It is especially informative for V2 curvature.",
+      "hypothesis_id": "H_N"
+    },
+    {
+      "id": "fcb9019ffbdb889489f7",
+      "reason": "m198 at 10/1 samples the onset of the nitro aldehyde tail between weak nitrogen controls and the measured high ratio failure 8ab554cd154e9749790b. It tests whether nitrogen and carbonyl effects are additive or thresholded.",
+      "hypothesis_id": "H_N"
+    },
+    {
+      "id": "2efa93ea474f798b712a",
+      "reason": "The high ratio m186 point probes a donor containing dibromo aldehyde with a large predicted interval. It tests whether halogenation suppresses, preserves, or amplifies the donor tail relative to the observed polar failures.",
+      "hypothesis_id": "H_tail"
+    },
+    {
+      "id": "d035281432e410405550",
+      "reason": "m114 at 20/1 and low volume targets a benzophenone ether family at an intermediate strong condition. It bridges ordinary m114 behavior and the severe high ratio endpoint error in 0cf0d36290765378ae8d.",
+      "hypothesis_id": "H_threshold"
+    },
+    {
+      "id": "26312dfbe197eac03eb4",
+      "reason": "This weaker m114 point anchors the same scaffold before the strong condition. The pair with d035281432e410405550 can show whether the large endpoint shift is condition gated rather than a fixed benzophenone correction.",
+      "hypothesis_id": "H_threshold"
+    },
+    {
+      "id": "a15744dbeb99bc224e40",
+      "reason": "m40 is a relatively simple ketone control at 20/1. Its label tests whether ordinary carbonyls can enter a late regime, complementing the close lower condition point 551ec1f8caaa42f2e478 and the severe 50/1 observation 4e93e36ab850bab3d594.",
+      "hypothesis_id": "H_gate"
+    },
+    {
+      "id": "c096c324a71974b6ab37",
+      "reason": "This strong PE m34 ketone point directly probes the porous structural gate suggested by the measured severe ordinary carbonyl row 6998dee6f6e69401798a. It can prevent a donor only correction from missing common high ratio carbonyl failures.",
+      "hypothesis_id": "H_gate"
+    },
+    {
+      "id": "a4898d78d5aa9b218bf4",
+      "reason": "m42 at 20/1 in PE supplies another ordinary ketone control at strong solvent strength. Comparing it with the observed high ratio m42 row cb42a00d7b000827217c tests how transferable the ordinary carbonyl tail is across small scaffold changes.",
+      "hypothesis_id": "H_gate"
+    },
+    {
+      "id": "027bbff1ac308c5dd7a1",
+      "reason": "The high ratio m74 multi acceptor ester point extends the measured intermediate response in 12ee64241e59d6b88e7a. It tests whether ester rich molecules show a separate V2 threshold from donor containing scaffolds.",
+      "hypothesis_id": "H_threshold"
+    },
+    {
+      "id": "fd1d673cc647d6745303",
+      "reason": "m96 at 50/1 probes a strong condition endpoint tail after lower ratio m96 measurements were comparatively ordinary. It tests whether the large observed m96 response at 5bad82a6cffd60e7a6c9 is reproducible across loading volume.",
+      "hypothesis_id": "H_threshold"
+    },
+    {
+      "id": "65723de539453b98b181",
+      "reason": "This weak m146 nitrogen fused aromatic point anchors the family before the severe high condition error in 9e3ce3497298084abd83. It helps avoid applying a nitrogen correction to already calibrated weak rows.",
+      "hypothesis_id": "H_N"
+    },
+    {
+      "id": "04a2e8ad27ca641a3a12",
+      "reason": "m146 at 5/1 and lower loading volume samples the intermediate nitrogen condition between the weak anchor 65723de539453b98b181 and the high retention observation 9e3ce3497298084abd83.",
+      "hypothesis_id": "H_N"
+    },
+    {
+      "id": "491446b4f7b8acf5b165",
+      "reason": "m121 is a neutral, non donor aromatic ether at 50/1. It provides a strong ratio central calibration point against the close observed m121 row 86572966d599edee5d41 and tests whether PE corrections should remain localized.",
+      "hypothesis_id": "H_gate"
+    },
+    {
+      "id": "00024cd15c1b4e6c6ef8",
+      "reason": "m55 at 30/1 is an ordinary ester control near the strong ratio edge. It complements the close observed m55 point 7937e75a777f4bf48438 and constrains overcorrection from rare late tails.",
+      "hypothesis_id": "H_gate"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H_tail",
+      "content": "Late V2 tails are strongly scaffold and condition dependent, with donor containing, multifunctional carbonyl, and heteroatom rich structures often requiring endpoint specific corrections.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "c4bb286978fe9078a303",
+        "2d178efe0181baca2bd5",
+        "d1172a49fca1e196a59f",
+        "80f546c47198fa7c6dbf",
+        "a17bcdddcf0799baeee2"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "V2 errors dominate several important failure clusters, so retraining needs nonlinear condition features and endpoint specific structural representations rather than a single global solvent correction.",
+      "next_discriminating_question": "Do the selected local curves show a common onset for donor and multifunctional tails, or separate scaffold specific transitions?"
+    },
+    {
+      "id": "H_loading",
+      "content": "Loading amount and loading volume interact with strongly retained scaffolds and can shift V1 and V2 asymmetrically and nonmonotonically.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "4862e2fb71344ce16021",
+        "5b706e17e8412d02342f",
+        "b514312eda7950cdcf1c",
+        "408ce1a4e23492a3ef31"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "The recorded loading features explain neither the size nor direction of several matched endpoint changes unless scaffold interactions are learned explicitly.",
+      "next_discriminating_question": "Can matched loading and ratio series reproduce the large m177 and m117 endpoint changes across related polar scaffolds?"
+    },
+    {
+      "id": "H_gate",
+      "content": "Structural gating remains useful, but it is porous: many neutral controls are close while some ordinary carbonyls also develop strong PE tails.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "42685cebd51bb8d957c0",
+        "7937e75a777f4bf48438",
+        "a68d5f44aba74a6e6d91",
+        "86572966d599edee5d41"
+      ],
+      "contradicting_observed_ids": [
+        "ddf2f769007f3d9f75fd",
+        "92614816a3b3942bf123",
+        "6998dee6f6e69401798a"
+      ],
+      "confidence": "medium",
+      "status": "weakened",
+      "why_it_matters_for_model_learning": "A donor only correction would miss common ordinary carbonyl failures, while a global PE correction would damage the many close neutral rows.",
+      "next_discriminating_question": "Do the selected m40, m34, and m42 strong ratio controls show a reproducible ordinary carbonyl tail or isolated scaffold behavior?"
+    },
+    {
+      "id": "H_N",
+      "content": "Nitrogen containing carbonyl and fused heteroaromatic families form a high retention regime, but transfer across nitrogen scaffolds is incomplete and condition dependent.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "49201b5817f204116f7f",
+        "9e3ce3497298084abd83",
+        "c76d0420b34df595c0c9"
+      ],
+      "contradicting_observed_ids": [
+        "73155d7feac7857188dd",
+        "70714ec13048a5060224"
+      ],
+      "confidence": "medium",
+      "status": "unresolved",
+      "why_it_matters_for_model_learning": "Nitrogen sensitive features could repair large errors in m66, m90, and m146 while avoiding overcorrection of m104 and weak m211 conditions.",
+      "next_discriminating_question": "Do the m193, m198, and m146 points share a nitrogen dependent V2 correction after ratio and loading are accounted for?"
+    },
+    {
+      "id": "H_threshold",
+      "content": "Several acceptor rich and heteroatom containing scaffolds remain ordinary at weak or intermediate conditions and develop a late V2 tail beyond a scaffold specific threshold.",
+      "basis": "mixed",
+      "supporting_observed_ids": [
+        "8b6fc534edc07d5b79be",
+        "f402144b8672dd5ab2ab",
+        "7e834c7b870ef7024d35",
+        "80f546c47198fa7c6dbf",
+        "12ee64241e59d6b88e7a"
+      ],
+      "contradicting_observed_ids": [],
+      "confidence": "high",
+      "status": "supported",
+      "why_it_matters_for_model_learning": "Threshold points teach nonlinear condition response and reduce the risk of interpolating one solvent strength trend across chemically distinct scaffolds.",
+      "next_discriminating_question": "Do the selected intermediate points locate the onset before the strongest PE conditions for ester, aldehyde, nitro, and donor families?"
+    }
+  ],
+  "feedback_interpretation": "Recent labels strengthened the endpoint asymmetric and scaffold local tail interpretation: m117 changed from a large V1/V2 overprediction at 2/1 to an underprediction at 20/1, and m177 showed very different endpoints across loading amount and volume. These outcomes support explicit loading interactions and weaken the earlier assumption that ordinary carbonyls remain protected from PE driven tails; m167 and the strong m44 and m34 carbonyl behavior show that the gate is porous. The m95 and m209 response patterns continue to support scaffold specific thresholds. Nitrogen evidence remains mixed because m211 weak conditions are close and m104 can be overpredicted even while m66, m90, and m146 produce severe tails.",
+  "batch_rationale": "The batch concentrates on informative local experiments rather than maximizing retention. Matched m117, m107, m177, and m209 points probe condition curvature, loading effects, and V2 onset around previously measured failures. m193, m198, m186, and m146 extend nitrogen, donor, and heteroatom coverage into intermediate regimes where competing structural explanations can be separated. Strong ordinary carbonyl controls m40, m34, and m42 test whether the revised porous gate generalizes beyond donor rich scaffolds, while m121 and m55 preserve calibration for common neutral and ester rows. Together these labels repair observed failure regions, constrain corrections against the central Row distribution, and improve transfer across scaffold, solvent ratio, and loading space."
+}
