@@ -1,0 +1,480 @@
+{
+  "status": "INCOMPLETE_POSTERIOR_QUALIFICATION",
+  "run_allowed": false,
+  "selected_family_by_seed": {
+    "157": "gp_matern32",
+    "887": null,
+    "2357": "blr_coregionalized",
+    "6101": null,
+    "12203": "gp_matern32"
+  },
+  "by_seed": {
+    "157": {
+      "status": "QUALIFIED",
+      "selected_family": "gp_matern32",
+      "formal_arms": [
+        "posterior_epig_conditional_greedy32",
+        "posterior_ivr_conditional_greedy32"
+      ],
+      "models": [
+        {
+          "seed": 157,
+          "family": "gp_rbf",
+          "qualified": false,
+          "reasons": [
+            "V1 coverage80=0.918919 outside [0.7, 0.9]",
+            "V2 coverage80=0.924925 outside [0.7, 0.9]"
+          ],
+          "mean_marginal_nlpd": 3.514121083838874,
+          "joint_nlpd_degradation_per_scalar": 0.003369580863755791
+        },
+        {
+          "seed": 157,
+          "family": "gp_matern32",
+          "qualified": true,
+          "reasons": [],
+          "mean_marginal_nlpd": 3.5374213800158776,
+          "joint_nlpd_degradation_per_scalar": 0.02853699881434091
+        },
+        {
+          "seed": 157,
+          "family": "blr_independent",
+          "qualified": false,
+          "reasons": [
+            "V1 coverage80=0.933934 outside [0.7, 0.9]",
+            "V2 coverage80=0.942943 outside [0.7, 0.9]"
+          ],
+          "mean_marginal_nlpd": 3.5493380761725604,
+          "joint_nlpd_degradation_per_scalar": -0.0009567567685742814
+        },
+        {
+          "seed": 157,
+          "family": "blr_coregionalized",
+          "qualified": false,
+          "reasons": [
+            "V1 coverage80=0.915916 outside [0.7, 0.9]",
+            "V2 coverage80=0.924925 outside [0.7, 0.9]"
+          ],
+          "mean_marginal_nlpd": 3.5791639172192005,
+          "joint_nlpd_degradation_per_scalar": -0.3730395909985237
+        }
+      ]
+    },
+    "887": {
+      "status": "NO_QUALIFIED_POSTERIOR",
+      "selected_family": null,
+      "formal_arms": [
+        "posterior_epig_conditional_greedy32",
+        "posterior_ivr_conditional_greedy32"
+      ],
+      "models": [
+        {
+          "seed": 887,
+          "family": "gp_rbf",
+          "qualified": false,
+          "reasons": [
+            "V1 coverage80=0.909910 outside [0.7, 0.9]"
+          ],
+          "mean_marginal_nlpd": 3.7764535320902737,
+          "joint_nlpd_degradation_per_scalar": -0.014661711590466957
+        },
+        {
+          "seed": 887,
+          "family": "gp_matern32",
+          "qualified": false,
+          "reasons": [
+            "V1 coverage80=0.909910 outside [0.7, 0.9]"
+          ],
+          "mean_marginal_nlpd": 3.7844022501950256,
+          "joint_nlpd_degradation_per_scalar": 0.002885782383444724
+        },
+        {
+          "seed": 887,
+          "family": "blr_independent",
+          "qualified": false,
+          "reasons": [
+            "V1 coverage80=0.918919 outside [0.7, 0.9]",
+            "V2 coverage80=0.915916 outside [0.7, 0.9]"
+          ],
+          "mean_marginal_nlpd": 3.823761372621803,
+          "joint_nlpd_degradation_per_scalar": -0.007529260375633988
+        },
+        {
+          "seed": 887,
+          "family": "blr_coregionalized",
+          "qualified": false,
+          "reasons": [
+            "V1 coverage80=0.906907 outside [0.7, 0.9]"
+          ],
+          "mean_marginal_nlpd": 3.869700556704312,
+          "joint_nlpd_degradation_per_scalar": -0.4051040329021853
+        }
+      ]
+    },
+    "2357": {
+      "status": "QUALIFIED",
+      "selected_family": "blr_coregionalized",
+      "formal_arms": [
+        "posterior_epig_conditional_greedy32",
+        "posterior_ivr_conditional_greedy32"
+      ],
+      "models": [
+        {
+          "seed": 2357,
+          "family": "gp_rbf",
+          "qualified": false,
+          "reasons": [
+            "V1 coverage80=0.909910 outside [0.7, 0.9]",
+            "V2 coverage80=0.909910 outside [0.7, 0.9]"
+          ],
+          "mean_marginal_nlpd": 3.610892769640011,
+          "joint_nlpd_degradation_per_scalar": -0.010326199485518531
+        },
+        {
+          "seed": 2357,
+          "family": "gp_matern32",
+          "qualified": false,
+          "reasons": [
+            "V1 coverage80=0.909910 outside [0.7, 0.9]",
+            "V2 coverage80=0.915916 outside [0.7, 0.9]"
+          ],
+          "mean_marginal_nlpd": 3.6132869472212503,
+          "joint_nlpd_degradation_per_scalar": -0.010243096169668972
+        },
+        {
+          "seed": 2357,
+          "family": "blr_independent",
+          "qualified": false,
+          "reasons": [
+            "V1 coverage80=0.915916 outside [0.7, 0.9]",
+            "V2 coverage80=0.912913 outside [0.7, 0.9]"
+          ],
+          "mean_marginal_nlpd": 3.692313954008728,
+          "joint_nlpd_degradation_per_scalar": -0.006955813659840733
+        },
+        {
+          "seed": 2357,
+          "family": "blr_coregionalized",
+          "qualified": true,
+          "reasons": [],
+          "mean_marginal_nlpd": 3.722258832315303,
+          "joint_nlpd_degradation_per_scalar": -0.3668470872745348
+        }
+      ]
+    },
+    "6101": {
+      "status": "NO_QUALIFIED_POSTERIOR",
+      "selected_family": null,
+      "formal_arms": [
+        "posterior_epig_conditional_greedy32",
+        "posterior_ivr_conditional_greedy32"
+      ],
+      "models": [
+        {
+          "seed": 6101,
+          "family": "gp_rbf",
+          "qualified": false,
+          "reasons": [
+            "V1 coverage80=0.906907 outside [0.7, 0.9]"
+          ],
+          "mean_marginal_nlpd": 3.3779021317722977,
+          "joint_nlpd_degradation_per_scalar": -0.012433004311500776
+        },
+        {
+          "seed": 6101,
+          "family": "gp_matern32",
+          "qualified": false,
+          "reasons": [
+            "V1 coverage80=0.912913 outside [0.7, 0.9]"
+          ],
+          "mean_marginal_nlpd": 3.3733498724153526,
+          "joint_nlpd_degradation_per_scalar": -0.01220107515312474
+        },
+        {
+          "seed": 6101,
+          "family": "blr_independent",
+          "qualified": false,
+          "reasons": [
+            "V1 coverage80=0.915916 outside [0.7, 0.9]"
+          ],
+          "mean_marginal_nlpd": 3.42813079407843,
+          "joint_nlpd_degradation_per_scalar": -0.0046696656307744595
+        },
+        {
+          "seed": 6101,
+          "family": "blr_coregionalized",
+          "qualified": false,
+          "reasons": [
+            "V1 coverage80=0.906907 outside [0.7, 0.9]"
+          ],
+          "mean_marginal_nlpd": 3.4436503054209027,
+          "joint_nlpd_degradation_per_scalar": -0.19448272433611075
+        }
+      ]
+    },
+    "12203": {
+      "status": "QUALIFIED",
+      "selected_family": "gp_matern32",
+      "formal_arms": [
+        "posterior_epig_conditional_greedy32",
+        "posterior_ivr_conditional_greedy32"
+      ],
+      "models": [
+        {
+          "seed": 12203,
+          "family": "gp_rbf",
+          "qualified": false,
+          "reasons": [
+            "V1 coverage80=0.900901 outside [0.7, 0.9]"
+          ],
+          "mean_marginal_nlpd": 3.720449444801548,
+          "joint_nlpd_degradation_per_scalar": 0.0397204354174819
+        },
+        {
+          "seed": 12203,
+          "family": "gp_matern32",
+          "qualified": true,
+          "reasons": [],
+          "mean_marginal_nlpd": 3.6681763288889124,
+          "joint_nlpd_degradation_per_scalar": 0.040309699196664564
+        },
+        {
+          "seed": 12203,
+          "family": "blr_independent",
+          "qualified": false,
+          "reasons": [
+            "V1 coverage80=0.903904 outside [0.7, 0.9]",
+            "V2 coverage80=0.924925 outside [0.7, 0.9]"
+          ],
+          "mean_marginal_nlpd": 3.785855485137672,
+          "joint_nlpd_degradation_per_scalar": -0.004727596207241724
+        },
+        {
+          "seed": 12203,
+          "family": "blr_coregionalized",
+          "qualified": false,
+          "reasons": [
+            "V1 coverage80=0.900901 outside [0.7, 0.9]",
+            "V2 coverage80=0.906907 outside [0.7, 0.9]"
+          ],
+          "mean_marginal_nlpd": 3.8075037809099292,
+          "joint_nlpd_degradation_per_scalar": -0.3406342193479694
+        }
+      ]
+    }
+  },
+  "freeze_sha256": "3c5ad14d80c1c2893c6b09d0f3601e008bf2a7c7c222e712a7fe20954ca89c6e",
+  "models": [
+    {
+      "seed": 157,
+      "family": "gp_rbf",
+      "qualified": false,
+      "reasons": [
+        "V1 coverage80=0.918919 outside [0.7, 0.9]",
+        "V2 coverage80=0.924925 outside [0.7, 0.9]"
+      ],
+      "mean_marginal_nlpd": 3.514121083838874,
+      "joint_nlpd_degradation_per_scalar": 0.003369580863755791
+    },
+    {
+      "seed": 157,
+      "family": "gp_matern32",
+      "qualified": true,
+      "reasons": [],
+      "mean_marginal_nlpd": 3.5374213800158776,
+      "joint_nlpd_degradation_per_scalar": 0.02853699881434091
+    },
+    {
+      "seed": 157,
+      "family": "blr_independent",
+      "qualified": false,
+      "reasons": [
+        "V1 coverage80=0.933934 outside [0.7, 0.9]",
+        "V2 coverage80=0.942943 outside [0.7, 0.9]"
+      ],
+      "mean_marginal_nlpd": 3.5493380761725604,
+      "joint_nlpd_degradation_per_scalar": -0.0009567567685742814
+    },
+    {
+      "seed": 157,
+      "family": "blr_coregionalized",
+      "qualified": false,
+      "reasons": [
+        "V1 coverage80=0.915916 outside [0.7, 0.9]",
+        "V2 coverage80=0.924925 outside [0.7, 0.9]"
+      ],
+      "mean_marginal_nlpd": 3.5791639172192005,
+      "joint_nlpd_degradation_per_scalar": -0.3730395909985237
+    },
+    {
+      "seed": 887,
+      "family": "gp_rbf",
+      "qualified": false,
+      "reasons": [
+        "V1 coverage80=0.909910 outside [0.7, 0.9]"
+      ],
+      "mean_marginal_nlpd": 3.7764535320902737,
+      "joint_nlpd_degradation_per_scalar": -0.014661711590466957
+    },
+    {
+      "seed": 887,
+      "family": "gp_matern32",
+      "qualified": false,
+      "reasons": [
+        "V1 coverage80=0.909910 outside [0.7, 0.9]"
+      ],
+      "mean_marginal_nlpd": 3.7844022501950256,
+      "joint_nlpd_degradation_per_scalar": 0.002885782383444724
+    },
+    {
+      "seed": 887,
+      "family": "blr_independent",
+      "qualified": false,
+      "reasons": [
+        "V1 coverage80=0.918919 outside [0.7, 0.9]",
+        "V2 coverage80=0.915916 outside [0.7, 0.9]"
+      ],
+      "mean_marginal_nlpd": 3.823761372621803,
+      "joint_nlpd_degradation_per_scalar": -0.007529260375633988
+    },
+    {
+      "seed": 887,
+      "family": "blr_coregionalized",
+      "qualified": false,
+      "reasons": [
+        "V1 coverage80=0.906907 outside [0.7, 0.9]"
+      ],
+      "mean_marginal_nlpd": 3.869700556704312,
+      "joint_nlpd_degradation_per_scalar": -0.4051040329021853
+    },
+    {
+      "seed": 2357,
+      "family": "gp_rbf",
+      "qualified": false,
+      "reasons": [
+        "V1 coverage80=0.909910 outside [0.7, 0.9]",
+        "V2 coverage80=0.909910 outside [0.7, 0.9]"
+      ],
+      "mean_marginal_nlpd": 3.610892769640011,
+      "joint_nlpd_degradation_per_scalar": -0.010326199485518531
+    },
+    {
+      "seed": 2357,
+      "family": "gp_matern32",
+      "qualified": false,
+      "reasons": [
+        "V1 coverage80=0.909910 outside [0.7, 0.9]",
+        "V2 coverage80=0.915916 outside [0.7, 0.9]"
+      ],
+      "mean_marginal_nlpd": 3.6132869472212503,
+      "joint_nlpd_degradation_per_scalar": -0.010243096169668972
+    },
+    {
+      "seed": 2357,
+      "family": "blr_independent",
+      "qualified": false,
+      "reasons": [
+        "V1 coverage80=0.915916 outside [0.7, 0.9]",
+        "V2 coverage80=0.912913 outside [0.7, 0.9]"
+      ],
+      "mean_marginal_nlpd": 3.692313954008728,
+      "joint_nlpd_degradation_per_scalar": -0.006955813659840733
+    },
+    {
+      "seed": 2357,
+      "family": "blr_coregionalized",
+      "qualified": true,
+      "reasons": [],
+      "mean_marginal_nlpd": 3.722258832315303,
+      "joint_nlpd_degradation_per_scalar": -0.3668470872745348
+    },
+    {
+      "seed": 6101,
+      "family": "gp_rbf",
+      "qualified": false,
+      "reasons": [
+        "V1 coverage80=0.906907 outside [0.7, 0.9]"
+      ],
+      "mean_marginal_nlpd": 3.3779021317722977,
+      "joint_nlpd_degradation_per_scalar": -0.012433004311500776
+    },
+    {
+      "seed": 6101,
+      "family": "gp_matern32",
+      "qualified": false,
+      "reasons": [
+        "V1 coverage80=0.912913 outside [0.7, 0.9]"
+      ],
+      "mean_marginal_nlpd": 3.3733498724153526,
+      "joint_nlpd_degradation_per_scalar": -0.01220107515312474
+    },
+    {
+      "seed": 6101,
+      "family": "blr_independent",
+      "qualified": false,
+      "reasons": [
+        "V1 coverage80=0.915916 outside [0.7, 0.9]"
+      ],
+      "mean_marginal_nlpd": 3.42813079407843,
+      "joint_nlpd_degradation_per_scalar": -0.0046696656307744595
+    },
+    {
+      "seed": 6101,
+      "family": "blr_coregionalized",
+      "qualified": false,
+      "reasons": [
+        "V1 coverage80=0.906907 outside [0.7, 0.9]"
+      ],
+      "mean_marginal_nlpd": 3.4436503054209027,
+      "joint_nlpd_degradation_per_scalar": -0.19448272433611075
+    },
+    {
+      "seed": 12203,
+      "family": "gp_rbf",
+      "qualified": false,
+      "reasons": [
+        "V1 coverage80=0.900901 outside [0.7, 0.9]"
+      ],
+      "mean_marginal_nlpd": 3.720449444801548,
+      "joint_nlpd_degradation_per_scalar": 0.0397204354174819
+    },
+    {
+      "seed": 12203,
+      "family": "gp_matern32",
+      "qualified": true,
+      "reasons": [],
+      "mean_marginal_nlpd": 3.6681763288889124,
+      "joint_nlpd_degradation_per_scalar": 0.040309699196664564
+    },
+    {
+      "seed": 12203,
+      "family": "blr_independent",
+      "qualified": false,
+      "reasons": [
+        "V1 coverage80=0.903904 outside [0.7, 0.9]",
+        "V2 coverage80=0.924925 outside [0.7, 0.9]"
+      ],
+      "mean_marginal_nlpd": 3.785855485137672,
+      "joint_nlpd_degradation_per_scalar": -0.004727596207241724
+    },
+    {
+      "seed": 12203,
+      "family": "blr_coregionalized",
+      "qualified": false,
+      "reasons": [
+        "V1 coverage80=0.900901 outside [0.7, 0.9]",
+        "V2 coverage80=0.906907 outside [0.7, 0.9]"
+      ],
+      "mean_marginal_nlpd": 3.8075037809099292,
+      "joint_nlpd_degradation_per_scalar": -0.3406342193479694
+    }
+  ],
+  "new_QGeoGNN_fits": 0,
+  "future_U_labels_read": 0,
+  "validation_labels_read": 0,
+  "test_labels_read": 0,
+  "evidence": "train-only L333 OOF development qualification",
+  "qualification_auxiliary_fits": 60,
+  "fit_attempts": 60,
+  "elapsed_seconds_this_invocation": 3.1440088748931885
+}

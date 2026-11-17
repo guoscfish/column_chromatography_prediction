@@ -1,0 +1,138 @@
+{
+  "status": "PASS",
+  "stage1_freeze_sha256": "3c5ad14d80c1c2893c6b09d0f3601e008bf2a7c7c222e712a7fe20954ca89c6e",
+  "stage2_freeze_sha256": "bbee7fd3f5bfe9ae3ab37a8eb21ecf44a376a2e6cc71a0c263fdd8b78843f3be",
+  "stage2_scientific_code_hashes_verified": 7,
+  "identity_states_checked": 20,
+  "identity_mean_max_abs_difference_ml": 0.0,
+  "identity_covariance_max_abs_difference_ml2": 0.0,
+  "identity_metrics_max_abs_difference": 0.0,
+  "identity_fold_joint_metrics_max_abs_difference": 0.0,
+  "local_completed_fit_attempts": 240,
+  "global_reserved_fit_attempts": 240,
+  "global_and_local_per_seed_family_counts_match": true,
+  "interrupted_or_incomplete_local_attempts": 0,
+  "cache_complete_receipts_verified": 300,
+  "outer_boundaries_checked": 60,
+  "temperatures_recomputed": 180,
+  "most_extreme_nll_temperature": {
+    "seed": 12203,
+    "family": "gp_matern32",
+    "outer_fold": 2,
+    "endpoint": "V2",
+    "width_temperature": 10.668110120009457,
+    "maximum_inner_abs_standardized_residual": 157.44199522710883,
+    "largest_inner_residual_fraction_of_squared_sum": 0.9810998634372493,
+    "scope": "observed outer-training-side inner OOF only; not an unlabeled-pool oracle"
+  },
+  "temperature_max_abs_recomputation_error": 0.0,
+  "temperature_width_ranges_by_scheme": {
+    "central80": {
+      "min": 0.44428429191612256,
+      "max": 0.9406786429354447
+    },
+    "identity": {
+      "min": 1.0,
+      "max": 1.0
+    },
+    "nll": {
+      "min": 0.9615453841987706,
+      "max": 10.668110120009457
+    }
+  },
+  "schemes": [
+    {
+      "calibration": "identity",
+      "candidate_states": 20,
+      "qualified_states": 3,
+      "failure_reason_counts": {
+        "V1 coverage80": 17,
+        "V2 coverage80": 9
+      },
+      "coverage80_range": [
+        0.8588588588588588,
+        0.9429429429429428
+      ],
+      "coverage95_range": [
+        0.933933933933934,
+        0.957957957957958
+      ],
+      "standardized_residual_rms_range": [
+        0.9789524467536596,
+        1.2371891780127595
+      ],
+      "mean_marginal_nlpd": 3.6339066407734135
+    },
+    {
+      "calibration": "nll",
+      "candidate_states": 20,
+      "qualified_states": 0,
+      "failure_reason_counts": {
+        "V1 coverage80": 20,
+        "V2 coverage80": 17,
+        "V2 coverage95": 1,
+        "V2 standardized_residual_rms": 1
+      },
+      "coverage80_range": [
+        0.8828828828828829,
+        0.9669669669669668
+      ],
+      "coverage95_range": [
+        0.93993993993994,
+        0.990990990990991
+      ],
+      "standardized_residual_rms_range": [
+        0.4638522056257462,
+        1.037769132555418
+      ],
+      "mean_marginal_nlpd": 3.6739979708739825
+    },
+    {
+      "calibration": "central80",
+      "candidate_states": 20,
+      "qualified_states": 0,
+      "failure_reason_counts": {
+        "V1 standardized_residual_rms": 20,
+        "V2 standardized_residual_rms": 18,
+        "V1 coverage95": 3,
+        "joint": 2,
+        "V2 coverage95": 4
+      },
+      "coverage80_range": [
+        0.7657657657657657,
+        0.8258258258258259
+      ],
+      "coverage95_range": [
+        0.8438438438438438,
+        0.9309309309309308
+      ],
+      "standardized_residual_rms_range": [
+        1.4083777211841284,
+        2.191033477239054
+      ],
+      "mean_marginal_nlpd": 4.129798937396977
+    }
+  ],
+  "selected_family_by_seed": {
+    "157": "gp_matern32",
+    "887": null,
+    "2357": "blr_coregionalized",
+    "6101": null,
+    "12203": "gp_matern32"
+  },
+  "selected_calibration_by_seed": {
+    "157": "identity",
+    "887": null,
+    "2357": "identity",
+    "6101": null,
+    "12203": "identity"
+  },
+  "formal_QGeoGNN_fits": 0,
+  "finalization_model_fits": 0,
+  "new_QA_model_fits": 0,
+  "new_QA_U_labels_read": 0,
+  "new_QA_validation_labels_read": 0,
+  "new_QA_test_labels_read": 0,
+  "formal_efficacy": "NOT_EVALUATED; finite stage-2 calibration completed, original AL objective remains incomplete",
+  "audit_script_sha256": "93c47fea71fee04142b45511da4eaf1528ae8b2938ae3a52a253afa393139650"
+}
