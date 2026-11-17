@@ -1,0 +1,86 @@
+{
+  "frozen_unix": 1794905508.381532,
+  "fits": [
+    {
+      "seed": 157,
+      "kind": "A_original"
+    },
+    {
+      "seed": 157,
+      "kind": "B_amount_skip"
+    },
+    {
+      "seed": 157,
+      "kind": "C_volume_skip"
+    },
+    {
+      "seed": 887,
+      "kind": "A_original"
+    },
+    {
+      "seed": 887,
+      "kind": "B_amount_skip"
+    },
+    {
+      "seed": 887,
+      "kind": "C_volume_skip"
+    },
+    {
+      "seed": 2357,
+      "kind": "A_original"
+    },
+    {
+      "seed": 2357,
+      "kind": "B_amount_skip"
+    },
+    {
+      "seed": 2357,
+      "kind": "C_volume_skip"
+    },
+    {
+      "seed": 6101,
+      "kind": "A_original"
+    },
+    {
+      "seed": 6101,
+      "kind": "B_amount_skip"
+    },
+    {
+      "seed": 6101,
+      "kind": "C_volume_skip"
+    },
+    {
+      "seed": 12203,
+      "kind": "A_original"
+    },
+    {
+      "seed": 12203,
+      "kind": "B_amount_skip"
+    },
+    {
+      "seed": 12203,
+      "kind": "C_volume_skip"
+    }
+  ],
+  "maximum_fits": 15,
+  "main_row_metric": "original validation combined NRMSE using L333 scales",
+  "mechanism_metric": "arithmetic mean of held-out V1/V2 difference MAE in mL, also report both endpoints separately",
+  "direction_actual_thresholds_ml": [
+    0.1,
+    0.5,
+    1.0
+  ],
+  "flat_prediction_threshold_ml": 0.1,
+  "mechanism_gate": {
+    "local_relative_improvement": 0.2,
+    "positive_outer_seeds": 4,
+    "row_relative_worsening_max": 0.01
+  },
+  "row_relevance_gate": {
+    "row_relative_improvement": 0.01,
+    "nonworse_outer_seeds": 4
+  },
+  "no_hyperparameter_search": true,
+  "no_early_stopping_on_heldout": true,
+  "future_decisions": "B/C both fail: stop simple residual route. B improves C no extra: existing amount transmission. C better than B: volume representation candidate, not physical causality. Local-only improvement: no global AL explanation."
+}

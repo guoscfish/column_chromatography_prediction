@@ -1,0 +1,1285 @@
+{
+  "status": "PASS_FOR_15_RAW_SAMPLES",
+  "sampling_rule": "Use main diagnostic CSV only to locate the lowest-round prefix case in each of 15 method x seed campaigns; independently inspect those raw files; do not rerun the 540-state census",
+  "prefix_identity_function_imported": false,
+  "samples": [
+    {
+      "method": "historical_free_mixed_model",
+      "seed": 157,
+      "round": 1,
+      "L_before": 365,
+      "source": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_157/free_llm32_scientist_v2/round_01/batch_freeze.json",
+      "pool_n": 2965,
+      "ordered_prefix_raw_verified": true,
+      "selection_freeze_order_equal": true,
+      "selection_source_sha256": "3273621dee7b6ea368ff27b09c396b548018a7f7e55949560756febefb5c0aa8",
+      "selected_id_order_sha256": "70f74f7cede7b125a99a751577c3144b98c8c66128d2f995ab895bbf40d63638",
+      "raw_first32_order_sha256": "70f74f7cede7b125a99a751577c3144b98c8c66128d2f995ab895bbf40d63638",
+      "accepted_receipt": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_157/free_llm32_scientist_v2/round_01/turn_01.json",
+      "accepted_receipt_exact_plan_match": true,
+      "accepted_receipt_sha256": "770ad3bbfbb3a1500db65fdc032f293a7d027f29662ea100021a2363cabcef1c",
+      "accepted_request_sha256": "d46a82a54910e54b1f4c409b1080e67e3752c75a0f6ce63e8b1e8c85b8fa3a6d",
+      "accepted_response_id_sha256": "a5f9d1c19a0899ae1b0ff31eea357b01d0d131dc1409c7ba4cfcdc5bc76f73b2",
+      "served_model": "gpt-6-astra",
+      "previous_parseable_plans": 1,
+      "first_plan_source": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_157/free_llm32_scientist_v2/round_01/turn_00.json",
+      "first_choices": 32,
+      "first_unique_ids": 32,
+      "first_legal_id_occurrences": 31,
+      "first_unique_legal_ids": 31,
+      "first_final_overlap": 0,
+      "first_plan_is_prefix": false,
+      "first_plan_equals_final_order": false,
+      "all_earlier_plans_nonprefix": true,
+      "corrections": [
+        {
+          "source": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_157/free_llm32_scientist_v2/round_01/rejected_turn_00.json",
+          "error_excerpt": "must select distinct legal supplied candidate IDs",
+          "instruction": "Return a corrected final JSON selection from the SAME complete catalog. No queries. Only observed-table IDs may be cited as measured evidence; use empty evidence lists for prediction-only hypotheses.",
+          "prefix_instruction_found": false
+        }
+      ],
+      "earlier_plans": [
+        {
+          "turn_name": "turn_00.json",
+          "choices": 32,
+          "unique_legal_ids": 31,
+          "final_overlap": 0,
+          "is_prefix": false
+        }
+      ],
+      "accepted_response_id_present": true
+    },
+    {
+      "method": "historical_free_mixed_model",
+      "seed": 887,
+      "round": 3,
+      "L_before": 429,
+      "source": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_887/free_llm32_scientist_v2/round_03/batch_freeze.json",
+      "pool_n": 2901,
+      "ordered_prefix_raw_verified": true,
+      "selection_freeze_order_equal": true,
+      "selection_source_sha256": "0abe43eb8c9542224e579fdfbb0e3b022439a60bfc8a85065518fb5b55a58559",
+      "selected_id_order_sha256": "43ff7deef12b31927ff15f20d967c0878ada54c3b4452d8ea1e4af87cb6c8d04",
+      "raw_first32_order_sha256": "43ff7deef12b31927ff15f20d967c0878ada54c3b4452d8ea1e4af87cb6c8d04",
+      "accepted_receipt": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_887/free_llm32_scientist_v2/round_03/turn_02.json",
+      "accepted_receipt_exact_plan_match": true,
+      "accepted_receipt_sha256": "1ca75a0846ddbc96071cb6b19e557150f4dda6f5e67843807d6277d3fdd0e552",
+      "accepted_request_sha256": "c8c74d40974bd1ba646d2dc393ce0e2194655a81ce0f7d56a6e727305bf232f8",
+      "accepted_response_id_sha256": "e38d4afd92b8cf2274879465ff8a4066b712bfad198c1de43978962fbe0bd1a2",
+      "served_model": "gpt-6.1-sol",
+      "previous_parseable_plans": 2,
+      "first_plan_source": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_887/free_llm32_scientist_v2/round_03/turn_00.json",
+      "first_choices": 32,
+      "first_unique_ids": 32,
+      "first_legal_id_occurrences": 31,
+      "first_unique_legal_ids": 31,
+      "first_final_overlap": 1,
+      "first_plan_is_prefix": false,
+      "first_plan_equals_final_order": false,
+      "all_earlier_plans_nonprefix": true,
+      "corrections": [
+        {
+          "source": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_887/free_llm32_scientist_v2/round_03/rejected_turn_00.json",
+          "error_excerpt": "must select distinct legal supplied candidate IDs",
+          "instruction": "Return a corrected final JSON selection from the SAME complete catalog. No queries. Only observed-table IDs may be cited as measured evidence; use empty evidence lists for prediction-only hypotheses.",
+          "prefix_instruction_found": false
+        },
+        {
+          "source": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_887/free_llm32_scientist_v2/round_03/rejected_turn_01.json",
+          "error_excerpt": "must select distinct legal supplied candidate IDs",
+          "instruction": "Return a corrected final JSON selection from the SAME complete catalog. No queries. Only observed-table IDs may be cited as measured evidence; use empty evidence lists for prediction-only hypotheses.",
+          "prefix_instruction_found": false
+        }
+      ],
+      "earlier_plans": [
+        {
+          "turn_name": "turn_00.json",
+          "choices": 32,
+          "unique_legal_ids": 31,
+          "final_overlap": 1,
+          "is_prefix": false
+        },
+        {
+          "turn_name": "turn_01.json",
+          "choices": 32,
+          "unique_legal_ids": 31,
+          "final_overlap": 1,
+          "is_prefix": false
+        }
+      ],
+      "accepted_response_id_present": true
+    },
+    {
+      "method": "historical_free_mixed_model",
+      "seed": 2357,
+      "round": 0,
+      "L_before": 333,
+      "source": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_2357/free_llm32_scientist_v2/round_00/batch_freeze.json",
+      "pool_n": 2997,
+      "ordered_prefix_raw_verified": true,
+      "selection_freeze_order_equal": true,
+      "selection_source_sha256": "c6aff9c0955b61cb70e068f6796a7068012cc233c146ed2477c43598a281c68c",
+      "selected_id_order_sha256": "7b215ce3f191bef579094d4fa247ab48d0a484e5bc80b93e8ebf98d76c2b8eb7",
+      "raw_first32_order_sha256": "7b215ce3f191bef579094d4fa247ab48d0a484e5bc80b93e8ebf98d76c2b8eb7",
+      "accepted_receipt": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_2357/free_llm32_scientist_v2/round_00/turn_01.json",
+      "accepted_receipt_exact_plan_match": true,
+      "accepted_receipt_sha256": "85121a87ac752a02275b1cb14220d245e1b23d541338cea7cdbd235d9e8069ef",
+      "accepted_request_sha256": "90ccd186e4da76b3a685808bac6ec568d72e63b736ced9ec07e5fd6c6a96e3c6",
+      "accepted_response_id_sha256": "60e2ae584b78559fee44ce44a93ea8b703402fc1270e05841a39233747119802",
+      "served_model": "gpt-6.1-sol",
+      "previous_parseable_plans": 1,
+      "first_plan_source": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_2357/free_llm32_scientist_v2/round_00/turn_00.json",
+      "first_choices": 32,
+      "first_unique_ids": 32,
+      "first_legal_id_occurrences": 31,
+      "first_unique_legal_ids": 31,
+      "first_final_overlap": 3,
+      "first_plan_is_prefix": false,
+      "first_plan_equals_final_order": false,
+      "all_earlier_plans_nonprefix": true,
+      "corrections": [
+        {
+          "source": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_2357/free_llm32_scientist_v2/round_00/rejected_turn_00.json",
+          "error_excerpt": "must select distinct legal supplied candidate IDs",
+          "instruction": "Return a corrected final JSON selection from the SAME complete catalog. No queries. Only observed-table IDs may be cited as measured evidence; use empty evidence lists for prediction-only hypotheses.",
+          "prefix_instruction_found": false
+        }
+      ],
+      "earlier_plans": [
+        {
+          "turn_name": "turn_00.json",
+          "choices": 32,
+          "unique_legal_ids": 31,
+          "final_overlap": 3,
+          "is_prefix": false
+        }
+      ],
+      "accepted_response_id_present": true
+    },
+    {
+      "method": "historical_free_mixed_model",
+      "seed": 6101,
+      "round": 18,
+      "L_before": 909,
+      "source": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_6101/free_llm32_scientist_v2/round_18/batch_freeze.json",
+      "pool_n": 2421,
+      "ordered_prefix_raw_verified": true,
+      "selection_freeze_order_equal": true,
+      "selection_source_sha256": "76b15ef3399f5d21c90e50244572e9a5caf5f5a30bdbfc0872d13d90d4f06513",
+      "selected_id_order_sha256": "e378314b710059a8fca9078f33295047ee9d7aeedc36affb2160f6633ad06a87",
+      "raw_first32_order_sha256": "e378314b710059a8fca9078f33295047ee9d7aeedc36affb2160f6633ad06a87",
+      "accepted_receipt": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_6101/free_llm32_scientist_v2/round_18/turn_01.json",
+      "accepted_receipt_exact_plan_match": true,
+      "accepted_receipt_sha256": "8ec4248e65d88667458b11bcd06e633d169e6fabf984fb4f690e2bfc437eb9ff",
+      "accepted_request_sha256": "735f98685b90d4f22165ebf3f7c142fa2cbc2eb0fe2c7a1c26cce0c7ed6e2e82",
+      "accepted_response_id_sha256": "4463653865f09ce3395f7db2e05e3e2f923b982ce9d2ead55c4de142e7855951",
+      "served_model": "gpt-6.1-sol",
+      "previous_parseable_plans": 1,
+      "first_plan_source": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_6101/free_llm32_scientist_v2/round_18/turn_00.json",
+      "first_choices": 32,
+      "first_unique_ids": 32,
+      "first_legal_id_occurrences": 29,
+      "first_unique_legal_ids": 29,
+      "first_final_overlap": 6,
+      "first_plan_is_prefix": false,
+      "first_plan_equals_final_order": false,
+      "all_earlier_plans_nonprefix": true,
+      "corrections": [
+        {
+          "source": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_6101/free_llm32_scientist_v2/round_18/rejected_turn_00.json",
+          "error_excerpt": "must select distinct legal supplied candidate IDs",
+          "instruction": "Return a corrected final JSON selection from the SAME complete catalog. No queries. Only observed-table IDs may be cited as measured evidence; use empty evidence lists for prediction-only hypotheses.",
+          "prefix_instruction_found": false
+        }
+      ],
+      "earlier_plans": [
+        {
+          "turn_name": "turn_00.json",
+          "choices": 32,
+          "unique_legal_ids": 29,
+          "final_overlap": 6,
+          "is_prefix": false
+        }
+      ],
+      "accepted_response_id_present": true
+    },
+    {
+      "method": "historical_free_mixed_model",
+      "seed": 12203,
+      "round": 0,
+      "L_before": 333,
+      "source": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_12203/free_llm32_scientist_v2/round_00/batch_freeze.json",
+      "pool_n": 2997,
+      "ordered_prefix_raw_verified": true,
+      "selection_freeze_order_equal": true,
+      "selection_source_sha256": "865bb54600cdbd94335e8067ba61e454c2db83ebf8b73348550f8a0ab5ac0a7b",
+      "selected_id_order_sha256": "3ef9ebd678daaf91d2abb50bdaf352022ee979bf069565de4ff796e923644b0d",
+      "raw_first32_order_sha256": "3ef9ebd678daaf91d2abb50bdaf352022ee979bf069565de4ff796e923644b0d",
+      "accepted_receipt": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_12203/free_llm32_scientist_v2/round_00/turn_01.json",
+      "accepted_receipt_exact_plan_match": true,
+      "accepted_receipt_sha256": "0cf71f3e0d5ada6336622ce031b2621dc2161fbfe436aef93e6e30a505f89f1a",
+      "accepted_request_sha256": "c63a72d0ae855eaa64c5eda450e132c99b98df210f746843277cd6960204d0e3",
+      "accepted_response_id_sha256": "696e2c033aaa08a44327cb02c836b5825bed96b7fd5750a4764be7329ba78511",
+      "served_model": "gpt-6.1-sol",
+      "previous_parseable_plans": 1,
+      "first_plan_source": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_12203/free_llm32_scientist_v2/round_00/turn_00.json",
+      "first_choices": 32,
+      "first_unique_ids": 32,
+      "first_legal_id_occurrences": 31,
+      "first_unique_legal_ids": 31,
+      "first_final_overlap": 1,
+      "first_plan_is_prefix": false,
+      "first_plan_equals_final_order": false,
+      "all_earlier_plans_nonprefix": true,
+      "corrections": [
+        {
+          "source": "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_12203/free_llm32_scientist_v2/round_00/rejected_turn_00.json",
+          "error_excerpt": "must select distinct legal supplied candidate IDs",
+          "instruction": "Return a corrected final JSON selection from the SAME complete catalog. No queries. Only observed-table IDs may be cited as measured evidence; use empty evidence lists for prediction-only hypotheses.",
+          "prefix_instruction_found": false
+        }
+      ],
+      "earlier_plans": [
+        {
+          "turn_name": "turn_00.json",
+          "choices": 32,
+          "unique_legal_ids": 31,
+          "final_overlap": 1,
+          "is_prefix": false
+        }
+      ],
+      "accepted_response_id_present": true
+    },
+    {
+      "method": "new_free_cw_sol61_xhigh",
+      "seed": 157,
+      "round": 5,
+      "L_before": 493,
+      "source": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_157/free_cw_sol61_xhigh_rerun32/round_05/batch_freeze.json",
+      "pool_n": 2837,
+      "ordered_prefix_raw_verified": true,
+      "selection_freeze_order_equal": true,
+      "selection_source_sha256": "d2f82178fcf9f8757d16d7d6078c598be61ad7f0739daf704fb5765da20038f7",
+      "selected_id_order_sha256": "7f133f5673172c99105ae9bcc00a6c1fde5e525769c87a0684dd06f2b3272dd2",
+      "raw_first32_order_sha256": "7f133f5673172c99105ae9bcc00a6c1fde5e525769c87a0684dd06f2b3272dd2",
+      "accepted_receipt": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_157/free_cw_sol61_xhigh_rerun32/round_05/turn_04.json",
+      "accepted_receipt_exact_plan_match": true,
+      "accepted_receipt_sha256": "c7394b35cd3ee1a0aedfddbe2d63d1c2c156d9d981aae8a413bb92516a8b4bbc",
+      "accepted_request_sha256": "cf9f5512800ddf0e404984b9ae246da163ac02c2edc90615a1c379ab623ba7b7",
+      "accepted_response_id_sha256": "1a944a53174aaf5c2c1cc002b2b01556cf896dca280d998dabd53477329e2d4b",
+      "served_model": "gpt-6.1-sol",
+      "previous_parseable_plans": 4,
+      "first_plan_source": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_157/free_cw_sol61_xhigh_rerun32/round_05/turn_00.json",
+      "first_choices": 32,
+      "first_unique_ids": 32,
+      "first_legal_id_occurrences": 30,
+      "first_unique_legal_ids": 30,
+      "first_final_overlap": 0,
+      "first_plan_is_prefix": false,
+      "first_plan_equals_final_order": false,
+      "all_earlier_plans_nonprefix": true,
+      "corrections": [
+        {
+          "source": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_157/free_cw_sol61_xhigh_rerun32/round_05/rejected_00.json",
+          "error_excerpt": "must select distinct legal supplied candidate IDs",
+          "instruction": "Return corrected final JSON from the SAME complete pool. Exactly 32 distinct candidate IDs. Measured evidence belongs only in typed observed-ID lists. No queries or tools.",
+          "prefix_instruction_found": false
+        },
+        {
+          "source": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_157/free_cw_sol61_xhigh_rerun32/round_05/rejected_01.json",
+          "error_excerpt": "must select distinct legal supplied candidate IDs",
+          "instruction": "Return corrected final JSON from the SAME complete pool. Exactly 32 distinct candidate IDs. Measured evidence belongs only in typed observed-ID lists. No queries or tools.",
+          "prefix_instruction_found": false
+        },
+        {
+          "source": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_157/free_cw_sol61_xhigh_rerun32/round_05/rejected_02.json",
+          "error_excerpt": "must select distinct legal supplied candidate IDs",
+          "instruction": "Return corrected final JSON from the SAME complete pool. Exactly 32 distinct candidate IDs. Measured evidence belongs only in typed observed-ID lists. No queries or tools.",
+          "prefix_instruction_found": false
+        },
+        {
+          "source": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_157/free_cw_sol61_xhigh_rerun32/round_05/rejected_03.json",
+          "error_excerpt": "must select distinct legal supplied candidate IDs",
+          "instruction": "Return corrected final JSON from the SAME complete pool. Exactly 32 distinct candidate IDs. Measured evidence belongs only in typed observed-ID lists. No queries or tools.",
+          "prefix_instruction_found": false
+        }
+      ],
+      "earlier_plans": [
+        {
+          "turn_name": "turn_00.json",
+          "choices": 32,
+          "unique_legal_ids": 30,
+          "final_overlap": 0,
+          "is_prefix": false
+        },
+        {
+          "turn_name": "turn_01.json",
+          "choices": 32,
+          "unique_legal_ids": 31,
+          "final_overlap": 0,
+          "is_prefix": false
+        },
+        {
+          "turn_name": "turn_02.json",
+          "choices": 32,
+          "unique_legal_ids": 31,
+          "final_overlap": 0,
+          "is_prefix": false
+        },
+        {
+          "turn_name": "turn_03.json",
+          "choices": 32,
+          "unique_legal_ids": 31,
+          "final_overlap": 0,
+          "is_prefix": false
+        }
+      ],
+      "accepted_response_id_present": true
+    },
+    {
+      "method": "new_free_cw_sol61_xhigh",
+      "seed": 887,
+      "round": 8,
+      "L_before": 589,
+      "source": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_887/free_cw_sol61_xhigh_rerun32/round_08/batch_freeze.json",
+      "pool_n": 2741,
+      "ordered_prefix_raw_verified": true,
+      "selection_freeze_order_equal": true,
+      "selection_source_sha256": "045a4b0d5ebe5eebcd17534d6ea096535741660a2496318de0c6fb3c1ddbee1c",
+      "selected_id_order_sha256": "248f7a2bd08b6649b2045219f8de33736e33d86ea8cd6c63e0f6b63d9282fc29",
+      "raw_first32_order_sha256": "248f7a2bd08b6649b2045219f8de33736e33d86ea8cd6c63e0f6b63d9282fc29",
+      "accepted_receipt": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_887/free_cw_sol61_xhigh_rerun32/round_08/turn_01.json",
+      "accepted_receipt_exact_plan_match": true,
+      "accepted_receipt_sha256": "743dd63462a308cb71ea77054d050eea969b58da376087bec5df3a30197e6831",
+      "accepted_request_sha256": "e3bdf3f53217b074a6d36f79145cffe658ac4f4d4aa5ed1608378a077122f9d6",
+      "accepted_response_id_sha256": "d1db475bb58be1a3c98210a783fc1583798cc3fbc34eb3c7cb6d1912aaf2ac39",
+      "served_model": "gpt-6.1-sol",
+      "previous_parseable_plans": 1,
+      "first_plan_source": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_887/free_cw_sol61_xhigh_rerun32/round_08/turn_00.json",
+      "first_choices": 32,
+      "first_unique_ids": 32,
+      "first_legal_id_occurrences": 31,
+      "first_unique_legal_ids": 31,
+      "first_final_overlap": 4,
+      "first_plan_is_prefix": false,
+      "first_plan_equals_final_order": false,
+      "all_earlier_plans_nonprefix": true,
+      "corrections": [
+        {
+          "source": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_887/free_cw_sol61_xhigh_rerun32/round_08/rejected_00.json",
+          "error_excerpt": "must select distinct legal supplied candidate IDs",
+          "instruction": "Return corrected final JSON from the SAME complete pool. Exactly 32 distinct candidate IDs. Measured evidence belongs only in typed observed-ID lists. No queries or tools.",
+          "prefix_instruction_found": false
+        }
+      ],
+      "earlier_plans": [
+        {
+          "turn_name": "turn_00.json",
+          "choices": 32,
+          "unique_legal_ids": 31,
+          "final_overlap": 4,
+          "is_prefix": false
+        }
+      ],
+      "accepted_response_id_present": true
+    },
+    {
+      "method": "new_free_cw_sol61_xhigh",
+      "seed": 2357,
+      "round": 6,
+      "L_before": 525,
+      "source": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_2357/free_cw_sol61_xhigh_rerun32/round_06/batch_freeze.json",
+      "pool_n": 2805,
+      "ordered_prefix_raw_verified": true,
+      "selection_freeze_order_equal": true,
+      "selection_source_sha256": "e7fc9f4f69adc6ecb2f38472f11cb316bba8e2639471dd3df37cb7643f237cd1",
+      "selected_id_order_sha256": "b01fc9c94fa26e0eef5cd3516fce8c1cd2506934699e5ae4eb5b36149dba434b",
+      "raw_first32_order_sha256": "b01fc9c94fa26e0eef5cd3516fce8c1cd2506934699e5ae4eb5b36149dba434b",
+      "accepted_receipt": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_2357/free_cw_sol61_xhigh_rerun32/round_06/turn_01.json",
+      "accepted_receipt_exact_plan_match": true,
+      "accepted_receipt_sha256": "f28f9097161d1e414e5a03380d417f1430f78128c06234898dbcb106d2bfc6e0",
+      "accepted_request_sha256": "806f4e4fd920f93afe4a889dde654ad4c2e41c8746f0c50f30ea62a1311d8304",
+      "accepted_response_id_sha256": "9fe141ed5a47909a511ce62d33a2b5d5033ebdeb341e1f9c15973b416b233ed9",
+      "served_model": "gpt-6.1-sol",
+      "previous_parseable_plans": 1,
+      "first_plan_source": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_2357/free_cw_sol61_xhigh_rerun32/round_06/turn_00.json",
+      "first_choices": 32,
+      "first_unique_ids": 32,
+      "first_legal_id_occurrences": 31,
+      "first_unique_legal_ids": 31,
+      "first_final_overlap": 4,
+      "first_plan_is_prefix": false,
+      "first_plan_equals_final_order": false,
+      "all_earlier_plans_nonprefix": true,
+      "corrections": [
+        {
+          "source": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_2357/free_cw_sol61_xhigh_rerun32/round_06/rejected_00.json",
+          "error_excerpt": "must select distinct legal supplied candidate IDs",
+          "instruction": "Return corrected final JSON from the SAME complete pool. Exactly 32 distinct candidate IDs. Measured evidence belongs only in typed observed-ID lists. No queries or tools.",
+          "prefix_instruction_found": false
+        }
+      ],
+      "earlier_plans": [
+        {
+          "turn_name": "turn_00.json",
+          "choices": 32,
+          "unique_legal_ids": 31,
+          "final_overlap": 4,
+          "is_prefix": false
+        }
+      ],
+      "accepted_response_id_present": true
+    },
+    {
+      "method": "new_free_cw_sol61_xhigh",
+      "seed": 6101,
+      "round": 5,
+      "L_before": 493,
+      "source": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_6101/free_cw_sol61_xhigh_rerun32/round_05/batch_freeze.json",
+      "pool_n": 2837,
+      "ordered_prefix_raw_verified": true,
+      "selection_freeze_order_equal": true,
+      "selection_source_sha256": "2b4f63e5219388dc2600f7cc746e2a26d8249a995162d65e8481da48ff1251e8",
+      "selected_id_order_sha256": "a24887adce543f53855e0959cbc7a9842b43206be890e0f22e8953bc8ce3bdbf",
+      "raw_first32_order_sha256": "a24887adce543f53855e0959cbc7a9842b43206be890e0f22e8953bc8ce3bdbf",
+      "accepted_receipt": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_6101/free_cw_sol61_xhigh_rerun32/round_05/turn_05.json",
+      "accepted_receipt_exact_plan_match": true,
+      "accepted_receipt_sha256": "340e500f5d7c579401a5d273827f08456aee72752d1a7417f7601c545442c490",
+      "accepted_request_sha256": "18472cc24f3f32a0752af6e014d01efa075b5a605413875518201eda2bda03fb",
+      "accepted_response_id_sha256": "067010e82855e5a320114e4c130b4771aa8bd43860db9276796f17e13401a50e",
+      "served_model": "gpt-6.1-sol",
+      "previous_parseable_plans": 5,
+      "first_plan_source": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_6101/free_cw_sol61_xhigh_rerun32/round_05/turn_00.json",
+      "first_choices": 32,
+      "first_unique_ids": 32,
+      "first_legal_id_occurrences": 31,
+      "first_unique_legal_ids": 31,
+      "first_final_overlap": 1,
+      "first_plan_is_prefix": false,
+      "first_plan_equals_final_order": false,
+      "all_earlier_plans_nonprefix": true,
+      "corrections": [
+        {
+          "source": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_6101/free_cw_sol61_xhigh_rerun32/round_05/rejected_00.json",
+          "error_excerpt": "must select distinct legal supplied candidate IDs",
+          "instruction": "Return corrected final JSON from the SAME complete pool. Exactly 32 distinct candidate IDs. Measured evidence belongs only in typed observed-ID lists. No queries or tools.",
+          "prefix_instruction_found": false
+        },
+        {
+          "source": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_6101/free_cw_sol61_xhigh_rerun32/round_05/rejected_01.json",
+          "error_excerpt": "must select distinct legal supplied candidate IDs",
+          "instruction": "Return corrected final JSON from the SAME complete pool. Exactly 32 distinct candidate IDs. Measured evidence belongs only in typed observed-ID lists. No queries or tools.",
+          "prefix_instruction_found": false
+        },
+        {
+          "source": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_6101/free_cw_sol61_xhigh_rerun32/round_05/rejected_02.json",
+          "error_excerpt": "must select distinct legal supplied candidate IDs",
+          "instruction": "Return corrected final JSON from the SAME complete pool. Exactly 32 distinct candidate IDs. Measured evidence belongs only in typed observed-ID lists. No queries or tools.",
+          "prefix_instruction_found": false
+        },
+        {
+          "source": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_6101/free_cw_sol61_xhigh_rerun32/round_05/rejected_03.json",
+          "error_excerpt": "must select distinct legal supplied candidate IDs",
+          "instruction": "Return corrected final JSON from the SAME complete pool. Exactly 32 distinct candidate IDs. Measured evidence belongs only in typed observed-ID lists. No queries or tools.",
+          "prefix_instruction_found": false
+        },
+        {
+          "source": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_6101/free_cw_sol61_xhigh_rerun32/round_05/rejected_04.json",
+          "error_excerpt": "must select distinct legal supplied candidate IDs",
+          "instruction": "Return corrected final JSON from the SAME complete pool. Exactly 32 distinct candidate IDs. Measured evidence belongs only in typed observed-ID lists. No queries or tools.",
+          "prefix_instruction_found": false
+        }
+      ],
+      "earlier_plans": [
+        {
+          "turn_name": "turn_00.json",
+          "choices": 32,
+          "unique_legal_ids": 31,
+          "final_overlap": 1,
+          "is_prefix": false
+        },
+        {
+          "turn_name": "turn_01.json",
+          "choices": 32,
+          "unique_legal_ids": 31,
+          "final_overlap": 1,
+          "is_prefix": false
+        },
+        {
+          "turn_name": "turn_02.json",
+          "choices": 32,
+          "unique_legal_ids": 31,
+          "final_overlap": 1,
+          "is_prefix": false
+        },
+        {
+          "turn_name": "turn_03.json",
+          "choices": 32,
+          "unique_legal_ids": 30,
+          "final_overlap": 30,
+          "is_prefix": false
+        },
+        {
+          "turn_name": "turn_04.json",
+          "choices": 32,
+          "unique_legal_ids": 31,
+          "final_overlap": 31,
+          "is_prefix": false
+        }
+      ],
+      "accepted_response_id_present": true
+    },
+    {
+      "method": "new_free_cw_sol61_xhigh",
+      "seed": 12203,
+      "round": 0,
+      "L_before": 333,
+      "source": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_12203/free_cw_sol61_xhigh_rerun32/round_00/batch_freeze.json",
+      "pool_n": 2997,
+      "ordered_prefix_raw_verified": true,
+      "selection_freeze_order_equal": true,
+      "selection_source_sha256": "3f559be2ac39a02a1f00abe770119b028234630266d76417bf46ee66e5bb391e",
+      "selected_id_order_sha256": "3ef9ebd678daaf91d2abb50bdaf352022ee979bf069565de4ff796e923644b0d",
+      "raw_first32_order_sha256": "3ef9ebd678daaf91d2abb50bdaf352022ee979bf069565de4ff796e923644b0d",
+      "accepted_receipt": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_12203/free_cw_sol61_xhigh_rerun32/round_00/turn_02.json",
+      "accepted_receipt_exact_plan_match": true,
+      "accepted_receipt_sha256": "b56415f123a8cb9ac54570fc19a233a962772336af215642b46f8fe8f817116d",
+      "accepted_request_sha256": "7575e11acbddcecba59874f625c672262e050aa30ad84b844c3aaa196204a417",
+      "accepted_response_id_sha256": "c224f7593f8a6c50e2e0cb9617f0ab01fd03698cb3fdea1efbdaf173fe4f90e8",
+      "served_model": "gpt-6.1-sol",
+      "previous_parseable_plans": 2,
+      "first_plan_source": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_12203/free_cw_sol61_xhigh_rerun32/round_00/turn_00.json",
+      "first_choices": 32,
+      "first_unique_ids": 32,
+      "first_legal_id_occurrences": 31,
+      "first_unique_legal_ids": 31,
+      "first_final_overlap": 2,
+      "first_plan_is_prefix": false,
+      "first_plan_equals_final_order": false,
+      "all_earlier_plans_nonprefix": true,
+      "corrections": [
+        {
+          "source": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_12203/free_cw_sol61_xhigh_rerun32/round_00/rejected_00.json",
+          "error_excerpt": "must select distinct legal supplied candidate IDs",
+          "instruction": "Return corrected final JSON from the SAME complete pool. Exactly 32 distinct candidate IDs. Measured evidence belongs only in typed observed-ID lists. No queries or tools.",
+          "prefix_instruction_found": false
+        },
+        {
+          "source": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_12203/free_cw_sol61_xhigh_rerun32/round_00/rejected_01.json",
+          "error_excerpt": "must select distinct legal supplied candidate IDs",
+          "instruction": "Return corrected final JSON from the SAME complete pool. Exactly 32 distinct candidate IDs. Measured evidence belongs only in typed observed-ID lists. No queries or tools.",
+          "prefix_instruction_found": false
+        }
+      ],
+      "earlier_plans": [
+        {
+          "turn_name": "turn_00.json",
+          "choices": 32,
+          "unique_legal_ids": 31,
+          "final_overlap": 2,
+          "is_prefix": false
+        },
+        {
+          "turn_name": "turn_01.json",
+          "choices": 32,
+          "unique_legal_ids": 31,
+          "final_overlap": 8,
+          "is_prefix": false
+        }
+      ],
+      "accepted_response_id_present": true
+    },
+    {
+      "method": "nocw",
+      "seed": 157,
+      "round": 5,
+      "L_before": 493,
+      "source": "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_157/llm32_nocw/round_05/batch_freeze.json",
+      "pool_n": 2837,
+      "ordered_prefix_raw_verified": true,
+      "selection_freeze_order_equal": true,
+      "selection_source_sha256": "786273cbaec8b899866715a015f4be139f973ecb966fa36475e7b2857b49f75e",
+      "selected_id_order_sha256": "7f84a2c5f326196312e145ab380d6c567ce46296bcccc05293211878342317c4",
+      "raw_first32_order_sha256": "7f84a2c5f326196312e145ab380d6c567ce46296bcccc05293211878342317c4",
+      "accepted_receipt": "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_157/llm32_nocw/round_05/turn_01.json",
+      "accepted_receipt_exact_plan_match": true,
+      "accepted_receipt_sha256": "fa007414592c28a4a62506f41cb3e8e2641fbee9281ced02409d173daef4c808",
+      "accepted_request_sha256": "07bbdfb2ab78d0720f83f906031ba12bbcd9d224926824455c6e58571be9c19b",
+      "accepted_response_id_sha256": "d15d4236473f7f7e23c34e3e8fb7a2ed905dee57aef896abeb56f42558eed3bc",
+      "served_model": "gpt-6.1-sol",
+      "previous_parseable_plans": 1,
+      "first_plan_source": "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_157/llm32_nocw/round_05/turn_00.json",
+      "first_choices": 32,
+      "first_unique_ids": 32,
+      "first_legal_id_occurrences": 29,
+      "first_unique_legal_ids": 29,
+      "first_final_overlap": 0,
+      "first_plan_is_prefix": false,
+      "first_plan_equals_final_order": false,
+      "all_earlier_plans_nonprefix": true,
+      "corrections": [
+        {
+          "source": "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_157/llm32_nocw/round_05/rejected_00.json",
+          "error_excerpt": "must select distinct legal supplied candidate IDs",
+          "instruction": "Return corrected final JSON from the SAME complete pool. Exactly 32 distinct candidate IDs. Measured evidence belongs only in typed observed-ID lists. No queries or tools.",
+          "prefix_instruction_found": false
+        }
+      ],
+      "earlier_plans": [
+        {
+          "turn_name": "turn_00.json",
+          "choices": 32,
+          "unique_legal_ids": 29,
+          "final_overlap": 0,
+          "is_prefix": false
+        }
+      ],
+      "accepted_response_id_present": true
+    },
+    {
+      "method": "nocw",
+      "seed": 887,
+      "round": 7,
+      "L_before": 557,
+      "source": "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_887/llm32_nocw/round_07/batch_freeze.json",
+      "pool_n": 2773,
+      "ordered_prefix_raw_verified": true,
+      "selection_freeze_order_equal": true,
+      "selection_source_sha256": "d33b034bc74d45ab06cf553085396b071653d0a455387a5c7add2e1f06cf8c3d",
+      "selected_id_order_sha256": "4221e0d577e0ba5ce070d3f50324c66b210a4fae166e7e536abf5d90bc10e40a",
+      "raw_first32_order_sha256": "4221e0d577e0ba5ce070d3f50324c66b210a4fae166e7e536abf5d90bc10e40a",
+      "accepted_receipt": "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_887/llm32_nocw/round_07/turn_01.json",
+      "accepted_receipt_exact_plan_match": true,
+      "accepted_receipt_sha256": "f5f6309722853b6e87a4a4c4947802f1053c6e15aa870e278a4cf643634fe9c8",
+      "accepted_request_sha256": "e86e8e218d59bc0af4dfbafcdc90154a12745bb028e32e6cb26c326006b5f370",
+      "accepted_response_id_sha256": "224a4588a89cd6dfcfa6c18aa0fb13aeaa19afd4080cd228f07e443e2114dceb",
+      "served_model": "gpt-6.1-sol",
+      "previous_parseable_plans": 1,
+      "first_plan_source": "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_887/llm32_nocw/round_07/turn_00.json",
+      "first_choices": 32,
+      "first_unique_ids": 32,
+      "first_legal_id_occurrences": 31,
+      "first_unique_legal_ids": 31,
+      "first_final_overlap": 2,
+      "first_plan_is_prefix": false,
+      "first_plan_equals_final_order": false,
+      "all_earlier_plans_nonprefix": true,
+      "corrections": [
+        {
+          "source": "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_887/llm32_nocw/round_07/rejected_00.json",
+          "error_excerpt": "must select distinct legal supplied candidate IDs",
+          "instruction": "Return corrected final JSON from the SAME complete pool. Exactly 32 distinct candidate IDs. Measured evidence belongs only in typed observed-ID lists. No queries or tools.",
+          "prefix_instruction_found": false
+        }
+      ],
+      "earlier_plans": [
+        {
+          "turn_name": "turn_00.json",
+          "choices": 32,
+          "unique_legal_ids": 31,
+          "final_overlap": 2,
+          "is_prefix": false
+        }
+      ],
+      "accepted_response_id_present": true
+    },
+    {
+      "method": "nocw",
+      "seed": 2357,
+      "round": 0,
+      "L_before": 333,
+      "source": "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_2357/llm32_nocw/round_00/batch_freeze.json",
+      "pool_n": 2997,
+      "ordered_prefix_raw_verified": true,
+      "selection_freeze_order_equal": true,
+      "selection_source_sha256": "82c32ed6e4296dad2a15c47561fe7ee5ad1b8142da6c564188add9dc0eeddffb",
+      "selected_id_order_sha256": "7b215ce3f191bef579094d4fa247ab48d0a484e5bc80b93e8ebf98d76c2b8eb7",
+      "raw_first32_order_sha256": "7b215ce3f191bef579094d4fa247ab48d0a484e5bc80b93e8ebf98d76c2b8eb7",
+      "accepted_receipt": "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_2357/llm32_nocw/round_00/turn_01.json",
+      "accepted_receipt_exact_plan_match": true,
+      "accepted_receipt_sha256": "3ae76691667f8986f8a3b9a0166e5f9aaede73ac740e399f9dd736b9be8233bc",
+      "accepted_request_sha256": "0f9584aaefadab1d055a60b7e37046f61bd3f8b9ccc38fffe85004ccbd1efc2a",
+      "accepted_response_id_sha256": "5020cdad94b8964b2cb5b788ed43b0e4430675656c61121dda0d4059a51385cc",
+      "served_model": "gpt-6.1-sol",
+      "previous_parseable_plans": 1,
+      "first_plan_source": "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_2357/llm32_nocw/round_00/turn_00.json",
+      "first_choices": 32,
+      "first_unique_ids": 32,
+      "first_legal_id_occurrences": 31,
+      "first_unique_legal_ids": 31,
+      "first_final_overlap": 1,
+      "first_plan_is_prefix": false,
+      "first_plan_equals_final_order": false,
+      "all_earlier_plans_nonprefix": true,
+      "corrections": [
+        {
+          "source": "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_2357/llm32_nocw/round_00/rejected_00.json",
+          "error_excerpt": "must select distinct legal supplied candidate IDs",
+          "instruction": "Return corrected final JSON from the SAME complete pool. Exactly 32 distinct candidate IDs. Measured evidence belongs only in typed observed-ID lists. No queries or tools.",
+          "prefix_instruction_found": false
+        }
+      ],
+      "earlier_plans": [
+        {
+          "turn_name": "turn_00.json",
+          "choices": 32,
+          "unique_legal_ids": 31,
+          "final_overlap": 1,
+          "is_prefix": false
+        }
+      ],
+      "accepted_response_id_present": true
+    },
+    {
+      "method": "nocw",
+      "seed": 6101,
+      "round": 3,
+      "L_before": 429,
+      "source": "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_6101/llm32_nocw/round_03/batch_freeze.json",
+      "pool_n": 2901,
+      "ordered_prefix_raw_verified": true,
+      "selection_freeze_order_equal": true,
+      "selection_source_sha256": "92ccd5704e9f452d6ec98dc2de394d8258e85964fbbaa24c8dc23fb8433e1a6a",
+      "selected_id_order_sha256": "72246363bbfcd4c8479783a33c18cb3487976a0164999e998cb904bf0c2e72ba",
+      "raw_first32_order_sha256": "72246363bbfcd4c8479783a33c18cb3487976a0164999e998cb904bf0c2e72ba",
+      "accepted_receipt": "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_6101/llm32_nocw/round_03/turn_01.json",
+      "accepted_receipt_exact_plan_match": true,
+      "accepted_receipt_sha256": "72c82b4cb50cdf03080c982e72999cd16b41ce9cc73233326bb3bfe1fe011d0c",
+      "accepted_request_sha256": "635319b0bd298c568f1b66e744efdef80fa82de615d949b642d811c680e7262b",
+      "accepted_response_id_sha256": "0d86c4745750b472736f88f3a200a7e0fc972f7858d27c5f562c1c0336a601e7",
+      "served_model": "gpt-6.1-sol",
+      "previous_parseable_plans": 1,
+      "first_plan_source": "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_6101/llm32_nocw/round_03/turn_00.json",
+      "first_choices": 32,
+      "first_unique_ids": 32,
+      "first_legal_id_occurrences": 31,
+      "first_unique_legal_ids": 31,
+      "first_final_overlap": 1,
+      "first_plan_is_prefix": false,
+      "first_plan_equals_final_order": false,
+      "all_earlier_plans_nonprefix": true,
+      "corrections": [
+        {
+          "source": "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_6101/llm32_nocw/round_03/rejected_00.json",
+          "error_excerpt": "must select distinct legal supplied candidate IDs",
+          "instruction": "Return corrected final JSON from the SAME complete pool. Exactly 32 distinct candidate IDs. Measured evidence belongs only in typed observed-ID lists. No queries or tools.",
+          "prefix_instruction_found": false
+        }
+      ],
+      "earlier_plans": [
+        {
+          "turn_name": "turn_00.json",
+          "choices": 32,
+          "unique_legal_ids": 31,
+          "final_overlap": 1,
+          "is_prefix": false
+        }
+      ],
+      "accepted_response_id_present": true
+    },
+    {
+      "method": "nocw",
+      "seed": 12203,
+      "round": 0,
+      "L_before": 333,
+      "source": "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_12203/llm32_nocw/round_00/batch_freeze.json",
+      "pool_n": 2997,
+      "ordered_prefix_raw_verified": true,
+      "selection_freeze_order_equal": true,
+      "selection_source_sha256": "be905fd13a6999150ba9dca64dab58a340ee31812a6ff8938befafd8bf97d6dd",
+      "selected_id_order_sha256": "3ef9ebd678daaf91d2abb50bdaf352022ee979bf069565de4ff796e923644b0d",
+      "raw_first32_order_sha256": "3ef9ebd678daaf91d2abb50bdaf352022ee979bf069565de4ff796e923644b0d",
+      "accepted_receipt": "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_12203/llm32_nocw/round_00/turn_01.json",
+      "accepted_receipt_exact_plan_match": true,
+      "accepted_receipt_sha256": "d4fd06d98cdb75f9cdb097eae00ca6330c42b81e947d7fbe1c7a215d71e2f94e",
+      "accepted_request_sha256": "59994d8f19dd727577f9493aacb6452d6ce53b08ef0ebcc581835a867d1ff97c",
+      "accepted_response_id_sha256": "f54c451ffdd24e240ebf22bcab1be8010925de68072091f8633f219ebcda49b6",
+      "served_model": "gpt-6.1-sol",
+      "previous_parseable_plans": 1,
+      "first_plan_source": "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_12203/llm32_nocw/round_00/turn_00.json",
+      "first_choices": 32,
+      "first_unique_ids": 32,
+      "first_legal_id_occurrences": 31,
+      "first_unique_legal_ids": 31,
+      "first_final_overlap": 1,
+      "first_plan_is_prefix": false,
+      "first_plan_equals_final_order": false,
+      "all_earlier_plans_nonprefix": true,
+      "corrections": [
+        {
+          "source": "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_12203/llm32_nocw/round_00/rejected_00.json",
+          "error_excerpt": "must select distinct legal supplied candidate IDs",
+          "instruction": "Return corrected final JSON from the SAME complete pool. Exactly 32 distinct candidate IDs. Measured evidence belongs only in typed observed-ID lists. No queries or tools.",
+          "prefix_instruction_found": false
+        }
+      ],
+      "earlier_plans": [
+        {
+          "turn_name": "turn_00.json",
+          "choices": 32,
+          "unique_legal_ids": 31,
+          "final_overlap": 1,
+          "is_prefix": false
+        }
+      ],
+      "accepted_response_id_present": true
+    }
+  ],
+  "unique_correction_instructions": [
+    {
+      "instruction": "Return a corrected final JSON selection from the SAME complete catalog. No queries. Only observed-table IDs may be cited as measured evidence; use empty evidence lists for prediction-only hypotheses.",
+      "count": 6
+    },
+    {
+      "instruction": "Return corrected final JSON from the SAME complete pool. Exactly 32 distinct candidate IDs. Measured evidence belongs only in typed observed-ID lists. No queries or tools.",
+      "count": 18
+    }
+  ],
+  "source_manifest": {
+    "studies/active_learning/decision_mechanism_followup_20261117/llm_display_prefix_batches.csv": {
+      "sha256": "0585a5a3c40e6c7561170e155a64af54e9b42e0957e3579b9b5641b3b6bb407a",
+      "bytes": 376843
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_157/free_llm32_scientist_v2/round_01/batch_freeze.json": {
+      "sha256": "8a766263f58442406f8118e9b0a5fcfeef991e366bf5bfd15e1dbb7185675299",
+      "bytes": 89191
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_157/free_llm32_scientist_v2/round_01/selection.json": {
+      "sha256": "3273621dee7b6ea368ff27b09c396b548018a7f7e55949560756febefb5c0aa8",
+      "bytes": 17701
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_157/free_llm32_scientist_v2/round_01/input.json": {
+      "sha256": "b1ab220dbf44d243662ca478e21b9cd6eed2d81040f54c82f85aa9751fe4bce6",
+      "bytes": 1726937
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_157/free_llm32_scientist_v2/round_01/turn_00.json": {
+      "sha256": "e01b644799574f4fbafdb0c81c4670fc655cd9e9ead6959a7245719ae4c6855a",
+      "bytes": 26025
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_157/free_llm32_scientist_v2/round_01/turn_01.json": {
+      "sha256": "770ad3bbfbb3a1500db65fdc032f293a7d027f29662ea100021a2363cabcef1c",
+      "bytes": 20372
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_157/free_llm32_scientist_v2/round_01/rejected_turn_00.json": {
+      "sha256": "906d7b4d244c0c84671b44464409fdbbddb6852edf309e8680d75868425b606f",
+      "bytes": 287
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_887/free_llm32_scientist_v2/round_03/batch_freeze.json": {
+      "sha256": "d939a5e46aec0be41f2fcd4babba4d82f016105a83b72befd412573631f6e57d",
+      "bytes": 87582
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_887/free_llm32_scientist_v2/round_03/selection.json": {
+      "sha256": "0abe43eb8c9542224e579fdfbb0e3b022439a60bfc8a85065518fb5b55a58559",
+      "bytes": 18241
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_887/free_llm32_scientist_v2/round_03/input.json": {
+      "sha256": "6b139f49692237838bc87386a6807376c286e41748bd24da7514e73377379bdc",
+      "bytes": 1733474
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_887/free_llm32_scientist_v2/round_03/turn_00.json": {
+      "sha256": "4e0dc5e551c24e7bff63659f0dab81c8af5001fe8bbf2763656762596db7fc43",
+      "bytes": 29502
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_887/free_llm32_scientist_v2/round_03/turn_01.json": {
+      "sha256": "be95cdc4c13c60a1dda9059bb1e30e98b147f0f86d372dafb1f80a6352717b3d",
+      "bytes": 20413
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_887/free_llm32_scientist_v2/round_03/turn_02.json": {
+      "sha256": "1ca75a0846ddbc96071cb6b19e557150f4dda6f5e67843807d6277d3fdd0e552",
+      "bytes": 22717
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_887/free_llm32_scientist_v2/round_03/rejected_turn_00.json": {
+      "sha256": "906d7b4d244c0c84671b44464409fdbbddb6852edf309e8680d75868425b606f",
+      "bytes": 287
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_887/free_llm32_scientist_v2/round_03/rejected_turn_01.json": {
+      "sha256": "906d7b4d244c0c84671b44464409fdbbddb6852edf309e8680d75868425b606f",
+      "bytes": 287
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_2357/free_llm32_scientist_v2/round_00/batch_freeze.json": {
+      "sha256": "5b7fb1281f44eb2b91444879e7e78b2a398061bec79d3b723df665748a1c3d0f",
+      "bytes": 90085
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_2357/free_llm32_scientist_v2/round_00/selection.json": {
+      "sha256": "c6aff9c0955b61cb70e068f6796a7068012cc233c146ed2477c43598a281c68c",
+      "bytes": 13222
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_2357/free_llm32_scientist_v2/round_00/input.json": {
+      "sha256": "96458033594324534a9547ad23759a3d639f53532e84390265828ab585fd0f51",
+      "bytes": 1717099
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_2357/free_llm32_scientist_v2/round_00/turn_00.json": {
+      "sha256": "65db26515c8c342c0ed550bbda9b3be42a9dafec3c328172b90fdbcb28215d83",
+      "bytes": 25631
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_2357/free_llm32_scientist_v2/round_00/turn_01.json": {
+      "sha256": "85121a87ac752a02275b1cb14220d245e1b23d541338cea7cdbd235d9e8069ef",
+      "bytes": 16665
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_2357/free_llm32_scientist_v2/round_00/rejected_turn_00.json": {
+      "sha256": "906d7b4d244c0c84671b44464409fdbbddb6852edf309e8680d75868425b606f",
+      "bytes": 287
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_6101/free_llm32_scientist_v2/round_18/batch_freeze.json": {
+      "sha256": "d6938c56a09a09c59dcae9dd47d21535d93575fad41a8c2bf8b38b9600df4275",
+      "bytes": 73959
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_6101/free_llm32_scientist_v2/round_18/selection.json": {
+      "sha256": "76b15ef3399f5d21c90e50244572e9a5caf5f5a30bdbfc0872d13d90d4f06513",
+      "bytes": 10033
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_6101/free_llm32_scientist_v2/round_18/input.json": {
+      "sha256": "eb5cf09dba96c17e2d712bb9444cb71c423c8772eab99995cbd24b7e097c77b1",
+      "bytes": 1765248
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_6101/free_llm32_scientist_v2/round_18/turn_00.json": {
+      "sha256": "c7c317ec99ee09d4507449682e55215e6c8d8330ccfae760ad96b83f3bad86e0",
+      "bytes": 28086
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_6101/free_llm32_scientist_v2/round_18/turn_01.json": {
+      "sha256": "8ec4248e65d88667458b11bcd06e633d169e6fabf984fb4f690e2bfc437eb9ff",
+      "bytes": 15713
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_hybrid_free_to1005_20261013/selections/seed_6101/free_llm32_scientist_v2/round_18/rejected_turn_00.json": {
+      "sha256": "906d7b4d244c0c84671b44464409fdbbddb6852edf309e8680d75868425b606f",
+      "bytes": 287
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_12203/free_llm32_scientist_v2/round_00/batch_freeze.json": {
+      "sha256": "73d2187b23a02b4732f5fe042fc6a3f4d21f505f2e30337babc1a2888e1f3bfd",
+      "bytes": 90082
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_12203/free_llm32_scientist_v2/round_00/selection.json": {
+      "sha256": "865bb54600cdbd94335e8067ba61e454c2db83ebf8b73348550f8a0ab5ac0a7b",
+      "bytes": 11227
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_12203/free_llm32_scientist_v2/round_00/input.json": {
+      "sha256": "2913c356f611633bb71b57d8f09f37d36b600a711fbdae6ad18f1da3e72caedf",
+      "bytes": 1717445
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_12203/free_llm32_scientist_v2/round_00/turn_00.json": {
+      "sha256": "7f3284df504fe028e7e00e77ed651749da68dd76b893f546ac8a655dce33cbc3",
+      "bytes": 25681
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_12203/free_llm32_scientist_v2/round_00/turn_01.json": {
+      "sha256": "0cf71f3e0d5ada6336622ce031b2621dc2161fbfe436aef93e6e30a505f89f1a",
+      "bytes": 17196
+    },
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol61_xhigh_free_five_seeds_to1005_20261023/selections/seed_12203/free_llm32_scientist_v2/round_00/rejected_turn_00.json": {
+      "sha256": "906d7b4d244c0c84671b44464409fdbbddb6852edf309e8680d75868425b606f",
+      "bytes": 287
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_157/free_cw_sol61_xhigh_rerun32/round_05/batch_freeze.json": {
+      "sha256": "c8ae78400df9eef7751807c2e4e4cc2a644ab2b348d68fca1f38e25ead08698c",
+      "bytes": 8287
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_157/free_cw_sol61_xhigh_rerun32/round_05/selection.json": {
+      "sha256": "d2f82178fcf9f8757d16d7d6078c598be61ad7f0739daf704fb5765da20038f7",
+      "bytes": 12756
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_157/free_cw_sol61_xhigh_rerun32/round_05/input.json": {
+      "sha256": "33a48fb7e559535b109ac0d8db55f3acaa888e39bb71d9eb4e800d6e7a1dad44",
+      "bytes": 1716343
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_157/free_cw_sol61_xhigh_rerun32/round_05/turn_00.json": {
+      "sha256": "e91affed054e07a73a44c20a6f25a9dc15849b94131a140690a25a00a8fa7ad0",
+      "bytes": 28073
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_157/free_cw_sol61_xhigh_rerun32/round_05/turn_01.json": {
+      "sha256": "ad52056f866de68522529ba559f826a7c117eae34e051a4933fc9e3218972d5c",
+      "bytes": 20998
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_157/free_cw_sol61_xhigh_rerun32/round_05/turn_02.json": {
+      "sha256": "70260052cd751e17a3131f52f78f60a71b4dec70c9e76fc664aeec116072ffb0",
+      "bytes": 19790
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_157/free_cw_sol61_xhigh_rerun32/round_05/turn_03.json": {
+      "sha256": "e20dff6b7e8b182e287da652bd9710a54bd9b053689abd36eb5eaea7516acd4d",
+      "bytes": 21779
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_157/free_cw_sol61_xhigh_rerun32/round_05/turn_04.json": {
+      "sha256": "c7394b35cd3ee1a0aedfddbe2d63d1c2c156d9d981aae8a413bb92516a8b4bbc",
+      "bytes": 19135
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_157/free_cw_sol61_xhigh_rerun32/round_05/rejected_00.json": {
+      "sha256": "2d30c60678f9c5eb4b201b815c5e90277839f3604043f8e448c5a043e0aa07b6",
+      "bytes": 259
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_157/free_cw_sol61_xhigh_rerun32/round_05/rejected_01.json": {
+      "sha256": "2d30c60678f9c5eb4b201b815c5e90277839f3604043f8e448c5a043e0aa07b6",
+      "bytes": 259
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_157/free_cw_sol61_xhigh_rerun32/round_05/rejected_02.json": {
+      "sha256": "2d30c60678f9c5eb4b201b815c5e90277839f3604043f8e448c5a043e0aa07b6",
+      "bytes": 259
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_157/free_cw_sol61_xhigh_rerun32/round_05/rejected_03.json": {
+      "sha256": "2d30c60678f9c5eb4b201b815c5e90277839f3604043f8e448c5a043e0aa07b6",
+      "bytes": 259
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_887/free_cw_sol61_xhigh_rerun32/round_08/batch_freeze.json": {
+      "sha256": "24ceecc572a149828d08a2a990c2bfb8ddebe3f634002351a64cd5be46ba4739",
+      "bytes": 13939
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_887/free_cw_sol61_xhigh_rerun32/round_08/selection.json": {
+      "sha256": "045a4b0d5ebe5eebcd17534d6ea096535741660a2496318de0c6fb3c1ddbee1c",
+      "bytes": 11684
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_887/free_cw_sol61_xhigh_rerun32/round_08/input.json": {
+      "sha256": "19244d1cde1efa372436d29d847cee1d4a7a600f84933768ce0cad4f461be57c",
+      "bytes": 1718454
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_887/free_cw_sol61_xhigh_rerun32/round_08/turn_00.json": {
+      "sha256": "a72eed699a3863f2e98833bcc62ef6b43cb69a2665bea9344741866f1642e6ea",
+      "bytes": 25991
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_887/free_cw_sol61_xhigh_rerun32/round_08/turn_01.json": {
+      "sha256": "743dd63462a308cb71ea77054d050eea969b58da376087bec5df3a30197e6831",
+      "bytes": 16414
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_887/free_cw_sol61_xhigh_rerun32/round_08/rejected_00.json": {
+      "sha256": "2d30c60678f9c5eb4b201b815c5e90277839f3604043f8e448c5a043e0aa07b6",
+      "bytes": 259
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_2357/free_cw_sol61_xhigh_rerun32/round_06/batch_freeze.json": {
+      "sha256": "c1059bcfdbfd6de49747513e28713fb59df0e375af5df2a22eff7374ed81b18c",
+      "bytes": 6882
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_2357/free_cw_sol61_xhigh_rerun32/round_06/selection.json": {
+      "sha256": "e7fc9f4f69adc6ecb2f38472f11cb316bba8e2639471dd3df37cb7643f237cd1",
+      "bytes": 13741
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_2357/free_cw_sol61_xhigh_rerun32/round_06/input.json": {
+      "sha256": "239a67d9f31964f9e8dad074bb40d3c2ee0cdb447a4f1845423c806dbeb1ac71",
+      "bytes": 1721850
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_2357/free_cw_sol61_xhigh_rerun32/round_06/turn_00.json": {
+      "sha256": "bd5503e0f7fe396da4d68cc64851c96f209988b3bc56a21d6133449f02fbbccf",
+      "bytes": 22041
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_2357/free_cw_sol61_xhigh_rerun32/round_06/turn_01.json": {
+      "sha256": "f28f9097161d1e414e5a03380d417f1430f78128c06234898dbcb106d2bfc6e0",
+      "bytes": 18574
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_2357/free_cw_sol61_xhigh_rerun32/round_06/rejected_00.json": {
+      "sha256": "2d30c60678f9c5eb4b201b815c5e90277839f3604043f8e448c5a043e0aa07b6",
+      "bytes": 259
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_6101/free_cw_sol61_xhigh_rerun32/round_05/batch_freeze.json": {
+      "sha256": "611912d6d5051e432d413452c86963a2aae690c1b0f6576490cda204c3c29ea7",
+      "bytes": 15999
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_6101/free_cw_sol61_xhigh_rerun32/round_05/selection.json": {
+      "sha256": "2b4f63e5219388dc2600f7cc746e2a26d8249a995162d65e8481da48ff1251e8",
+      "bytes": 9902
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_6101/free_cw_sol61_xhigh_rerun32/round_05/input.json": {
+      "sha256": "3ae7e8c180cece48572dd4572fe630f49faad4cb777a1d249f72ff166e3c408f",
+      "bytes": 1768486
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_6101/free_cw_sol61_xhigh_rerun32/round_05/turn_00.json": {
+      "sha256": "e3c696b74888ac8aeae8aff85f05421513357bbfebdd2ca7790574db70b3e0af",
+      "bytes": 31863
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_6101/free_cw_sol61_xhigh_rerun32/round_05/turn_01.json": {
+      "sha256": "b0ddbb968307a5eb9f738d186f7425e87e78ac49ed2dc02baa06dd670e4b2ce2",
+      "bytes": 22325
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_6101/free_cw_sol61_xhigh_rerun32/round_05/turn_02.json": {
+      "sha256": "a7ebe154779286608b5f9e86ec4a85aafac84b11f3024f8b5cfe810fcdb552f2",
+      "bytes": 19327
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_6101/free_cw_sol61_xhigh_rerun32/round_05/turn_03.json": {
+      "sha256": "5a9ef7774ba2b4e46dc267489189088152f2ebf761f22af26e55cfddc8d57e1f",
+      "bytes": 21871
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_6101/free_cw_sol61_xhigh_rerun32/round_05/turn_04.json": {
+      "sha256": "2590b8c0395f812fc7e1a2d3af4486b710689663bbb59f2e921b653c493a1911",
+      "bytes": 20217
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_6101/free_cw_sol61_xhigh_rerun32/round_05/turn_05.json": {
+      "sha256": "340e500f5d7c579401a5d273827f08456aee72752d1a7417f7601c545442c490",
+      "bytes": 16860
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_6101/free_cw_sol61_xhigh_rerun32/round_05/rejected_00.json": {
+      "sha256": "2d30c60678f9c5eb4b201b815c5e90277839f3604043f8e448c5a043e0aa07b6",
+      "bytes": 259
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_6101/free_cw_sol61_xhigh_rerun32/round_05/rejected_01.json": {
+      "sha256": "2d30c60678f9c5eb4b201b815c5e90277839f3604043f8e448c5a043e0aa07b6",
+      "bytes": 259
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_6101/free_cw_sol61_xhigh_rerun32/round_05/rejected_02.json": {
+      "sha256": "2d30c60678f9c5eb4b201b815c5e90277839f3604043f8e448c5a043e0aa07b6",
+      "bytes": 259
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_6101/free_cw_sol61_xhigh_rerun32/round_05/rejected_03.json": {
+      "sha256": "2d30c60678f9c5eb4b201b815c5e90277839f3604043f8e448c5a043e0aa07b6",
+      "bytes": 259
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_6101/free_cw_sol61_xhigh_rerun32/round_05/rejected_04.json": {
+      "sha256": "2d30c60678f9c5eb4b201b815c5e90277839f3604043f8e448c5a043e0aa07b6",
+      "bytes": 259
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_12203/free_cw_sol61_xhigh_rerun32/round_00/batch_freeze.json": {
+      "sha256": "466c906ff50b87c98749b4b09d70c3910ca5a00fdbf4d7fdd91df75c9a75942e",
+      "bytes": 8523
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_12203/free_cw_sol61_xhigh_rerun32/round_00/selection.json": {
+      "sha256": "3f559be2ac39a02a1f00abe770119b028234630266d76417bf46ee66e5bb391e",
+      "bytes": 12190
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_12203/free_cw_sol61_xhigh_rerun32/round_00/input.json": {
+      "sha256": "fa37112f36b6943e38b07efa588f3633d28af25c2080cde513261893b56e6d32",
+      "bytes": 1717445
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_12203/free_cw_sol61_xhigh_rerun32/round_00/turn_00.json": {
+      "sha256": "d9098319f2d3c7e988234e22a45ee656a03b25a0c024f81ed240751137aabad2",
+      "bytes": 21471
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_12203/free_cw_sol61_xhigh_rerun32/round_00/turn_01.json": {
+      "sha256": "fde656dc51f19d182979083d7540048b9cc27a043984330914d1f552c8bed4f7",
+      "bytes": 17760
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_12203/free_cw_sol61_xhigh_rerun32/round_00/turn_02.json": {
+      "sha256": "b56415f123a8cb9ac54570fc19a233a962772336af215642b46f8fe8f817116d",
+      "bytes": 16498
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_12203/free_cw_sol61_xhigh_rerun32/round_00/rejected_00.json": {
+      "sha256": "2d30c60678f9c5eb4b201b815c5e90277839f3604043f8e448c5a043e0aa07b6",
+      "bytes": 259
+    },
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_12203/free_cw_sol61_xhigh_rerun32/round_00/rejected_01.json": {
+      "sha256": "2d30c60678f9c5eb4b201b815c5e90277839f3604043f8e448c5a043e0aa07b6",
+      "bytes": 259
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_157/llm32_nocw/round_05/batch_freeze.json": {
+      "sha256": "53cc80c30697b34e15e9295ac13d69652fce97642c909ff01b7a8ec73f201a43",
+      "bytes": 6865
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_157/llm32_nocw/round_05/selection.json": {
+      "sha256": "786273cbaec8b899866715a015f4be139f973ecb966fa36475e7b2857b49f75e",
+      "bytes": 13238
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_157/llm32_nocw/round_05/input.json": {
+      "sha256": "c59c8a23616d7cb0d5fad918ab601b1ac75fff05fdf1f776e550882f98455538",
+      "bytes": 1680753
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_157/llm32_nocw/round_05/turn_00.json": {
+      "sha256": "8eaa46e3688c7dbf09c7538c2dd75d06d48cc1a312863dceb8ee4eb8fd499063",
+      "bytes": 28634
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_157/llm32_nocw/round_05/turn_01.json": {
+      "sha256": "fa007414592c28a4a62506f41cb3e8e2641fbee9281ced02409d173daef4c808",
+      "bytes": 17881
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_157/llm32_nocw/round_05/rejected_00.json": {
+      "sha256": "2d30c60678f9c5eb4b201b815c5e90277839f3604043f8e448c5a043e0aa07b6",
+      "bytes": 259
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_887/llm32_nocw/round_07/batch_freeze.json": {
+      "sha256": "5f0f5d265f93acf72d9c37709c8258142332d0bf6a4eeda31fb6820272621f93",
+      "bytes": 7437
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_887/llm32_nocw/round_07/selection.json": {
+      "sha256": "d33b034bc74d45ab06cf553085396b071653d0a455387a5c7add2e1f06cf8c3d",
+      "bytes": 16977
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_887/llm32_nocw/round_07/input.json": {
+      "sha256": "e90d572c2ddd6f605eec09e7b8fdbfefab1c28711b6b4c38ffaebb5f4b616f59",
+      "bytes": 1675293
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_887/llm32_nocw/round_07/turn_00.json": {
+      "sha256": "859fa1e14fa798fee9f885ea17d307d1c625bed2c44c5cace43932d87dbaceff",
+      "bytes": 26099
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_887/llm32_nocw/round_07/turn_01.json": {
+      "sha256": "f5f6309722853b6e87a4a4c4947802f1053c6e15aa870e278a4cf643634fe9c8",
+      "bytes": 21023
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_887/llm32_nocw/round_07/rejected_00.json": {
+      "sha256": "2d30c60678f9c5eb4b201b815c5e90277839f3604043f8e448c5a043e0aa07b6",
+      "bytes": 259
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_2357/llm32_nocw/round_00/batch_freeze.json": {
+      "sha256": "daafb4ffae2a11abf82dd4e025314d0bfd847e43274768ad72157d1991ad97e9",
+      "bytes": 8433
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_2357/llm32_nocw/round_00/selection.json": {
+      "sha256": "82c32ed6e4296dad2a15c47561fe7ee5ad1b8142da6c564188add9dc0eeddffb",
+      "bytes": 13373
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_2357/llm32_nocw/round_00/input.json": {
+      "sha256": "eef90e0023e59836c5c1104b515b54c15a42d50f1725e33fc396565095475e81",
+      "bytes": 1666472
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_2357/llm32_nocw/round_00/turn_00.json": {
+      "sha256": "c392591da3630f92d493b1d0bc8f0442aba2ee47f925db24c8c6ce4f118bb50b",
+      "bytes": 23450
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_2357/llm32_nocw/round_00/turn_01.json": {
+      "sha256": "3ae76691667f8986f8a3b9a0166e5f9aaede73ac740e399f9dd736b9be8233bc",
+      "bytes": 18550
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_2357/llm32_nocw/round_00/rejected_00.json": {
+      "sha256": "2d30c60678f9c5eb4b201b815c5e90277839f3604043f8e448c5a043e0aa07b6",
+      "bytes": 259
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_6101/llm32_nocw/round_03/batch_freeze.json": {
+      "sha256": "91874e000c16fc070b463cd92c7d46de2f0bf9e7e17aa31724f96d53bed0184d",
+      "bytes": 6867
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_6101/llm32_nocw/round_03/selection.json": {
+      "sha256": "92ccd5704e9f452d6ec98dc2de394d8258e85964fbbaa24c8dc23fb8433e1a6a",
+      "bytes": 15625
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_6101/llm32_nocw/round_03/input.json": {
+      "sha256": "d9285c9ad15c05c6bb6bf300577b046b25d8aaf9b521cc9d9a0de63d3327fb78",
+      "bytes": 1717228
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_6101/llm32_nocw/round_03/turn_00.json": {
+      "sha256": "9071eeafb6f69acbb07a328c0a421469012a8f2db264453e4d7eb9d0380bb82f",
+      "bytes": 25855
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_6101/llm32_nocw/round_03/turn_01.json": {
+      "sha256": "72c82b4cb50cdf03080c982e72999cd16b41ce9cc73233326bb3bfe1fe011d0c",
+      "bytes": 20628
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_6101/llm32_nocw/round_03/rejected_00.json": {
+      "sha256": "2d30c60678f9c5eb4b201b815c5e90277839f3604043f8e448c5a043e0aa07b6",
+      "bytes": 259
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_12203/llm32_nocw/round_00/batch_freeze.json": {
+      "sha256": "de116b7413579eb897a3030d88f16e39c1664e5c5fcdd749f727933ebdbd0905",
+      "bytes": 9411
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_12203/llm32_nocw/round_00/selection.json": {
+      "sha256": "be905fd13a6999150ba9dca64dab58a340ee31812a6ff8938befafd8bf97d6dd",
+      "bytes": 11604
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_12203/llm32_nocw/round_00/input.json": {
+      "sha256": "94a3ede3dc4622bf0c66faa97abead25a144e692964750f46d146c9aba28de95",
+      "bytes": 1666793
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_12203/llm32_nocw/round_00/turn_00.json": {
+      "sha256": "43bb0f606c7195c9a038257bdbfc86506c4708244421f0631f2635e0706e42ce",
+      "bytes": 22175
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_12203/llm32_nocw/round_00/turn_01.json": {
+      "sha256": "d4fd06d98cdb75f9cdb097eae00ca6330c42b81e947d7fbe1c7a215d71e2f94e",
+      "bytes": 16374
+    },
+    "studies/active_learning/nocw_vs_cw_lcmd_five_to1485_20261112/nocw/selections/seed_12203/llm32_nocw/round_00/rejected_00.json": {
+      "sha256": "2d30c60678f9c5eb4b201b815c5e90277839f3604043f8e448c5a043e0aa07b6",
+      "bytes": 259
+    }
+  },
+  "input_projection": "Decode only candidates top-level JSON table; observed/history/feedback payloads are not decoded or inspected",
+  "response_id_policy": "Store hashes only; no plaintext response IDs in output",
+  "test_truth_reads": 0,
+  "feedback_files_opened": 0,
+  "new_llm_calls": 0,
+  "new_training": 0,
+  "limits": "Order linkage is visible saved behavior, not an attribution to internal reasoning, provider layer, automatic fallback or causal Row loss",
+  "accepted_response_ids_present": 15
+}

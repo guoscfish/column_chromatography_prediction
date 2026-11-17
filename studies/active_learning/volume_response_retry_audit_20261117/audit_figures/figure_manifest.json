@@ -1,0 +1,63 @@
+{
+  "status": "PASS",
+  "inputs": [
+    {
+      "path": "studies/active_learning/volume_response_retry_audit_20261117/frozen_response_seed_budget.csv",
+      "sha256": "b96098f3a8036e642face5aa8a77b9f2cbb6c8e85b88b77dc62abb401f18df3a",
+      "bytes": 5207
+    },
+    {
+      "path": "studies/active_learning/volume_response_retry_audit_20261117/prefix_by_first_failure.csv",
+      "sha256": "e8a7cf39e8b19f0627e288b4a7ec6e6b872f4784828ae8b408e4de05caba3d18",
+      "bytes": 864
+    },
+    {
+      "path": "studies/active_learning/volume_response_retry_audit_20261117/retry_case_batches.csv",
+      "sha256": "603b625e37105cb0f342e7ec546ef10478bb4514c75ec1864c15e147e168a88f",
+      "bytes": 882994
+    },
+    {
+      "path": "studies/active_learning/volume_response_retry_audit_20261117/local_repair_summary.csv",
+      "sha256": "5257179d2b084a86a897538b810747ae4d6f5e0db275f78c5631a2e91c9066ec",
+      "bytes": 228
+    },
+    {
+      "path": "studies/active_learning/volume_response_retry_audit_20261117/local_repair_cases.csv",
+      "sha256": "95e60e9f3deb9d0e0748fd6d0ae47074561ff799791144a59e8dedd5e17dbb09",
+      "bytes": 62351
+    }
+  ],
+  "outputs": [
+    {
+      "path": "studies/active_learning/volume_response_retry_audit_20261117/audit_figures/a2_frozen_condition_amplitudes.png",
+      "sha256": "c54d0706b0df25f763719427b837a87fc9db37de875afbca3e1c6f85b6c60018"
+    },
+    {
+      "path": "studies/active_learning/volume_response_retry_audit_20261117/audit_figures/a2_frozen_condition_amplitudes.pdf",
+      "sha256": "5a9cdb8ca95655670515cb484888b27e05595ef796c06db14bd520b941668c51"
+    },
+    {
+      "path": "studies/active_learning/volume_response_retry_audit_20261117/audit_figures/c2_first_failure_and_prefix.png",
+      "sha256": "b3cc6c7e89c3706f7afb9205496f22175f1bced2e055b76c5aa41f49a8e26a16"
+    },
+    {
+      "path": "studies/active_learning/volume_response_retry_audit_20261117/audit_figures/c2_first_failure_and_prefix.pdf",
+      "sha256": "3467f64c97e48f21363bc98e2a336cec32f590c18af61fa8daa1ae928716ac1a"
+    },
+    {
+      "path": "studies/active_learning/volume_response_retry_audit_20261117/audit_figures/c4_local_repair_preservation_and_gaps.png",
+      "sha256": "a56864ed91337da241e5d4d5dddcf14b9ae58b2375982fb885156875c6a819d3"
+    },
+    {
+      "path": "studies/active_learning/volume_response_retry_audit_20261117/audit_figures/c4_local_repair_preservation_and_gaps.pdf",
+      "sha256": "b0bd5a8f5835fd09fc94757a7e87d799fe8cb0e5d1d1e56975974ab25205f684"
+    }
+  ],
+  "script_sha256": "4fd12a9ad89e18d20dfd0bf5cac6e98409897eeab50cd60b6917347c8b86f86a",
+  "new_fits": 0,
+  "new_model_inference": 0,
+  "new_llm_calls": 0,
+  "fit_result_files_read": [],
+  "manual_case_policy": "Keep historical seed157 round5 in full-540 category denominator, explicitly annotate; exclude from prefix-only 127 cohort",
+  "a2_aggregation": "Mean within each seed, then equal weight to five seeds. Whiskers are min/max, not confidence intervals."
+}

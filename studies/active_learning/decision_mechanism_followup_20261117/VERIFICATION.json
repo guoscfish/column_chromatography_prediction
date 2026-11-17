@@ -1,0 +1,53 @@
+{
+  "status": "PASS_WITH_IDENTIFIABILITY_LIMITS",
+  "metadata_states": 791,
+  "accepted_feedback_states": 611,
+  "model_pair_endpoint_scope_events": 6938,
+  "reused_new_cw_volume_pairs": 165,
+  "hybrid_llm_internal_volume_pairs": 61,
+  "hybrid_full32_volume_pairs": 81,
+  "exact_lcmd_counterfactual_states": 71,
+  "lcmd_trace_rows": 2272,
+  "candidate_comparison_events": 2272,
+  "counterfactual_candidate_truth_used": false,
+  "response_summary_independent_rows": 1620,
+  "response_summary_max_abs_error": 7.105427357601002e-15,
+  "phase_rows": 8,
+  "decimal_phase_AULC_max_error": 2.220446049250313e-16,
+  "llm_batches": 540,
+  "accepted_prefix_batches": 127,
+  "prefix_independent_raw_cases": 15,
+  "initial_same_checkpoint_states": 15,
+  "future_model_holdout_cohorts": 10,
+  "summary_chinese_characters": 1605,
+  "figures_png": 4,
+  "local_links_checked": 48,
+  "repository_commit": "12c42c81e3cf0b85eef8f9aa9bb86c94b5f0249c",
+  "input_files": 5501,
+  "tests": {
+    "returncode": 0,
+    "command": "python -B -m pytest -q -p no:cacheprovider tests"
+  },
+  "independent_checks": [
+    "20 scalar LCMD trace cases",
+    "142 metadata groups",
+    "1620 response summary rows",
+    "Decimal phase AULC",
+    "15 raw correction-prefix paths"
+  ],
+  "previous_study_unchanged": true,
+  "new_changes_outside_study": [],
+  "preexisting_monitors_changed": [
+    "reports/llm_eight_to1549_20261018/live_status.json",
+    "studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1549_20261018/recovery_monitor_status.json"
+  ],
+  "new_training": 0,
+  "new_llm_calls": 0,
+  "new_label_queries": 0,
+  "test_or_unobserved_truth_used": 0,
+  "decisions": {
+    "hybrid_three_more_seeds": "Conditional Go; do not launch yet",
+    "full_nocw_rerun": "No-Go",
+    "first_new_experiment": "Go for designed fixed-label 10-fit model control; not executed"
+  }
+}

@@ -1,0 +1,209 @@
+{
+  "status": "PASS_WITH_DESIGN_LIMITATIONS",
+  "reviewed_scripts": [
+    "model_learnability.py"
+  ],
+  "raw_feedback_projection": "two prespecified NewCW volume pairs only; full accepted-batch JSON processed for semantic hash, other endpoint truth values not projected",
+  "selected_feedback_scalar_checks": [
+    {
+      "seed": 157,
+      "round": 3,
+      "pair_key": "165ded8bdbfc7193",
+      "feedback_semantic_sha256": "5eb5e5b5be230a7fae4908a3cf5a7a5640adc57452e8eb02012ac0848778a600",
+      "semantic_sha_differs_from_file_sha": true,
+      "frozen_before_reveal": true,
+      "receipt_role": "u0",
+      "acquisitions_frozen": true,
+      "projected_differences": [
+        {
+          "target": "V1",
+          "actual_delta_ml": -7.616668701171875,
+          "predicted_delta_ml": -0.19466590881347656,
+          "max_error": 0.0
+        },
+        {
+          "target": "V2",
+          "actual_delta_ml": 0.133331298828125,
+          "predicted_delta_ml": 0.14324951171875,
+          "max_error": 0.0
+        }
+      ]
+    },
+    {
+      "seed": 887,
+      "round": 7,
+      "pair_key": "2cadf5f2052471a0",
+      "feedback_semantic_sha256": "04ca202cf2653427cd4c8d1e0eeff0994084d9cf59bd84f2a5e867937c58d86a",
+      "semantic_sha_differs_from_file_sha": true,
+      "frozen_before_reveal": true,
+      "receipt_role": "u0",
+      "acquisitions_frozen": true,
+      "projected_differences": [
+        {
+          "target": "V1",
+          "actual_delta_ml": -1.2583332061767578,
+          "predicted_delta_ml": -0.0020999908447265625,
+          "max_error": 0.0
+        },
+        {
+          "target": "V2",
+          "actual_delta_ml": -0.08333396911621094,
+          "predicted_delta_ml": 0.000629425048828125,
+          "max_error": 0.0
+        }
+      ]
+    }
+  ],
+  "newcw_volume_pairs_per_seed": [
+    {
+      "seed": 157,
+      "target": "V1",
+      "n_pairs": 55,
+      "observed_abs_mean": 2.026363667574796,
+      "predicted_abs_mean": 0.9988001346588135
+    },
+    {
+      "seed": 157,
+      "target": "V2",
+      "n_pairs": 55,
+      "observed_abs_mean": 2.3234091065146707,
+      "predicted_abs_mean": 0.6285820614207874
+    },
+    {
+      "seed": 887,
+      "target": "V1",
+      "n_pairs": 21,
+      "observed_abs_mean": 3.246428506714957,
+      "predicted_abs_mean": 0.008223601749965124
+    },
+    {
+      "seed": 887,
+      "target": "V2",
+      "n_pairs": 21,
+      "observed_abs_mean": 1.3059524354480563,
+      "predicted_abs_mean": 0.006051790146600632
+    },
+    {
+      "seed": 2357,
+      "target": "V1",
+      "n_pairs": 28,
+      "observed_abs_mean": 2.0550892097609386,
+      "predicted_abs_mean": 0.03342212949480329
+    },
+    {
+      "seed": 2357,
+      "target": "V2",
+      "n_pairs": 28,
+      "observed_abs_mean": 2.275357178279332,
+      "predicted_abs_mean": 0.012062481471470423
+    },
+    {
+      "seed": 6101,
+      "target": "V1",
+      "n_pairs": 27,
+      "observed_abs_mean": 4.25617273207064,
+      "predicted_abs_mean": 0.07305242397167065
+    },
+    {
+      "seed": 6101,
+      "target": "V2",
+      "n_pairs": 27,
+      "observed_abs_mean": 2.2662037390249745,
+      "predicted_abs_mean": 0.05225997500949436
+    },
+    {
+      "seed": 12203,
+      "target": "V1",
+      "n_pairs": 34,
+      "observed_abs_mean": 1.897818691590253,
+      "predicted_abs_mean": 0.2019948959350586
+    },
+    {
+      "seed": 12203,
+      "target": "V2",
+      "n_pairs": 34,
+      "observed_abs_mean": 3.2635293708128086,
+      "predicted_abs_mean": 0.06878580766565659
+    }
+  ],
+  "newcw_equal_seed_means": {
+    "V1": {
+      "observed_abs_mean": 2.6963745615423167,
+      "predicted_abs_mean": 0.2630986371620622
+    },
+    "V2": {
+      "observed_abs_mean": 2.2868903660159683,
+      "predicted_abs_mean": 0.1535484231428019
+    }
+  },
+  "hybrid_volume_pair_source_counts": [
+    {
+      "seed": 157,
+      "LL": 34,
+      "NN": 0,
+      "LN": 9,
+      "all32": 43
+    },
+    {
+      "seed": 6101,
+      "LL": 27,
+      "NN": 0,
+      "LN": 11,
+      "all32": 38
+    }
+  ],
+  "allocation_cross_implementation_rows": 2700,
+  "allocation_max_error": 0.0,
+  "meaningful_direction_category_partition_rows": 1567,
+  "direction_threshold_rule": "abs(actual)>t, abs(predicted)>=0.1 nonflat; raw sign accuracy is not amplitude accuracy",
+  "holdout_metadata_checks": {
+    "cohorts": 10,
+    "response_series_per_cohort": 10,
+    "no_L333_same_series": true,
+    "entire_same_series_held_out": true,
+    "full_duplicate_condition_groups_isolated": true,
+    "L1005_held_rows": [
+      23,
+      24,
+      21,
+      20,
+      21
+    ],
+    "labels_read_for_planning": false
+  },
+  "pure_cw_response_pairs": 0,
+  "new_fits": 0,
+  "new_llm_calls": 0,
+  "test_truth_reads": 0,
+  "unrevealed_truth_reads": 0,
+  "source_sha256": {
+    "studies/active_learning/decision_mechanism_followup_20261117/model_learnability.py": "bf3ad76266dfc6ea8760c0e60a141b750b485b29fd7ce854a962101f3a6420d1",
+    "studies/active_learning/decision_mechanism_followup_20261117/config.json": "80438f896b8c7332d65d15e59d915cd49472eeeab9c00c5a9d582175e8e040b2",
+    "studies/active_learning/decision_mechanism_followup_20261117/condition_response_pairs.csv": "a3b1dfefdbc253f57e764c9293e766d28dea465029ac29359147a9093488e409",
+    "studies/active_learning/decision_mechanism_followup_20261117/response_seed_summary.csv": "b73a79ff312f3a30d75486814e4ea9844c41e2ebbd2dc2ca3fd36dd7b359445d",
+    "studies/active_learning/decision_mechanism_followup_20261117/response_phase_summary.csv": "7d91405a93ff52975bbc95338cf4c5b0eae4889c34ef6594fff571534ad4d96a",
+    "studies/active_learning/decision_mechanism_followup_20261117/condition_allocation.csv": "da2cdb43b9ffad100ae53e7d96542f56394fdaa6ab994e7fcdc7a36d8eae1f25",
+    "studies/active_learning/decision_mechanism_followup_20261117/condition_factor_allocation.csv": "d04d39243c5dfb91a43b0d328e8c4f204595624edc3632f72615f96d8eaf5567",
+    "studies/active_learning/decision_mechanism_followup_20261117/model_control_feasibility.csv": "f6475b69cc335d8b0fdf3c842754c2a55e315c1651ee87832456119e9f8d0437",
+    "studies/active_learning/decision_mechanism_followup_20261117/model_control_holdouts.csv": "65649190ed7827d9d078860ffd52682f36244ea573a66f7b11188f413538c528",
+    "studies/active_learning/decision_mechanism_followup_20261117/model_state_coverage.csv": "abf64aab2d0eb399a677ce38515d882576625676aeaca70b348b7a82aca13370",
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_157/free_cw_sol61_xhigh_rerun32/round_03/batch_freeze.json": "fc75be79e527de90a3784a1e541213c7d5cc7c710a982556853d92849763d42e",
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_157/free_cw_sol61_xhigh_rerun32/round_03/feedback.json": "a488a41491a6b1b0f84ceada225376adc2a8f475e83948e7194f612e34454d04",
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_157/free_cw_sol61_xhigh_rerun32/round_03/label_access_receipt.json": "2c028cfb47cc196a8d79e33d0fae910d75488b5ecf4f40a5612db2d87816f114",
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_887/free_cw_sol61_xhigh_rerun32/round_07/batch_freeze.json": "19557b6a549ccb95e1d1a03621dda7039ee3d6120238d3c0c979af6236553d13",
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_887/free_cw_sol61_xhigh_rerun32/round_07/feedback.json": "d0278ae0e11d88b247560f24a21b8e47a6b68e40aecfe01faaa28ae25c203ed5",
+    "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/selections/seed_887/free_cw_sol61_xhigh_rerun32/round_07/label_access_receipt.json": "daed02856cbfd97d80528d08fe4733f17236f135b68bd183c7edddfc057e8f03"
+  },
+  "future_control_design_review": {
+    "budget": 1005,
+    "seeds": 5,
+    "arms": 2,
+    "training_rngs": 1,
+    "proposed_fits": 10,
+    "executed_fits": 0,
+    "new_llm_calls": 0,
+    "new_labels": 0,
+    "intervention": "two zero-init coefficients, one per endpoint, for existing standardized loading_amount; shared across each endpoint three quantiles in pre-ReLU head linear value; preserve existing ReLU/clamp; no independent width parameter",
+    "limits": "No global model-bottleneck rejection from failure; local response-only improvement does not explain AL gap"
+  }
+}

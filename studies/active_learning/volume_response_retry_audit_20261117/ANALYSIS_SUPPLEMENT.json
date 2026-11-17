@@ -1,0 +1,12 @@
+{
+  "frozen_unix": 1794905941.626702,
+  "purpose": "Descriptive robustness only: average pair metrics within series and then series within seed. Primary predeclared pair metric and all gates unchanged.",
+  "completed_fits_at_declaration": 1,
+  "gate_changes": false,
+  "validation_overlap_sensitivity": {
+    "declared_unix": 1794905990.939708,
+    "completed_fits_at_declaration": 1,
+    "definition": "Exclude whole held-out volume series with any original validation row of same molecule and non-volume covariates; no retraining, checkpoint changes or gate changes.",
+    "trigger": "Metadata-only independent QA identified validation-related series and two exact condition duplicates."
+  }
+}

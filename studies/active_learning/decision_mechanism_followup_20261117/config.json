@@ -1,0 +1,13 @@
+{
+  "historical_states": "studies/active_learning/llm_decision_behavior_audit_20261116/states.json.xz",
+  "historical_curves": "studies/active_learning/llm_decision_behavior_audit_20261116/row_curves.csv",
+  "fixed_scales_protocol": "studies/active_learning/free_cw_sol61_xhigh_five_to1485_20261101/protocol.json",
+  "reused_model_pairs": "studies/active_learning/comprehensive_history_diagnostics_20261112/tables/model_same_batch_single_factor_response.csv",
+  "phase_boundaries": [333, 525, 813, 1005, 1453],
+  "observed_change_thresholds_ml": [0.1, 0.5, 1.0],
+  "prediction_flat_threshold_ml": 0.1,
+  "model_control_budgets": [525, 1005],
+  "model_control_holdout_salt": "conditional_learnability_20261117_v1",
+  "model_control_min_pair_groups": 10,
+  "policy": "Accepted same-batch feedback only for postdecision response audit; never use it to score counterfactual candidates. No training, new labels or LLM calls."
+}
