@@ -45,7 +45,19 @@ def aulc(frame,lo,hi):
 
 
 def report(study=HERE,verify_files=True):
-    study=Path(study);rows=[];input_hashes={}
+    study=Path(study);rows=[];input_hashes={};archive_hashes={}
+    def archive(source,relative):
+        """Export immutable small receipts outside ignored training runtime."""
+        target=study/'receipts'/relative;target.parent.mkdir(parents=True,exist_ok=True)
+        data=source.read_bytes()
+        if target.exists() and target.read_bytes()!=data:
+            raise RuntimeError(f'archived immutable scientific receipt changed: {target}')
+        if not target.exists():target.write_bytes(data)
+        archive_hashes[str(target.relative_to(study))]=hashlib.sha256(data).hexdigest()
+    for pattern in ('seed_*/*/round_*/selection*.json','seed_*/*/round_*/state.json',
+                    'seed_*/*/round_*/label_access_attempt_*.json'):
+        for source in sorted((study/'runtime').glob(pattern)):
+            archive(source,source.relative_to(study/'runtime'))
     for p in sorted((study/'runtime').glob('seed_*/*/round_*/fit_receipt.json')):
         r=read(p);seed=int(r['seed']);arm=r['arm'];round_index=int(r['round'])
         if seed not in SEEDS or arm not in ARMS or r['budget'] != 333+32*round_index:
@@ -58,6 +70,8 @@ def report(study=HERE,verify_files=True):
             for name,expected in files.items():
                 if sha(model/name) != expected:raise RuntimeError(f'fit artifact drift: {model/name}')
         input_hashes[str(p.relative_to(study))]=sha(p)
+        archive(p,p.relative_to(study/'runtime'))
+        archive(model/'fit_audit.json',p.parent.relative_to(study/'runtime')/'model_fit_audit.json')
         rows.append({'seed':seed,'arm':arm,'round':round_index,'budget':r['budget'],
             **r['validation'],'training_seconds':float(r.get('training_seconds',0)),
             'reused_L333':bool(r['reused']),'checkpoint_sha256':r['checkpoint_sha256'],
@@ -95,6 +109,7 @@ def report(study=HERE,verify_files=True):
     success=int((~curves.reused_L333).sum()) if len(curves) else 0
     ledger_path=study/'runtime/compute_budget.json'
     ledger=read(ledger_path) if ledger_path.exists() else {}
+    dump(study/'compute_ledger_snapshot.json',ledger)
     attempts=ledger.get('attempts',[])
     costs={'successful_downstream_fits_verified':success,'target_successful_fits':210,
            'qgeognn_attempts':sum(a['kind']=='qgeognn' for a in attempts),
@@ -112,6 +127,7 @@ def report(study=HERE,verify_files=True):
         'primary_efficacy_evaluated':complete,'original_five_seed_gate_satisfied':False,
         'test_labels_evaluated':0,'study_type':'post-stage1/stage2 exploratory development study',
         'receipt_hashes':input_hashes,'generated_unix':time.time()}
+    summary['archived_scientific_receipt_hashes']=archive_hashes
     if complete:
         diff=np.asarray([p['EPIG_minus_IVR_AULC_full'] for p in pairs],float)
         summary['paired_AULC_mean']=float(diff.mean());summary['paired_AULC_sample_SD']=float(diff.std(ddof=1))
@@ -173,4 +189,4 @@ if __name__=='__main__':
         try:fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
         except BlockingIOError:
             print(json.dumps({'status':'ANOTHER_REPORT_WRITER_ACTIVE'}));raise SystemExit(0)
-        result=report(args.study);print(json.dumps({k:v for k,v in result.items() if k!='receipt_hashes'},indent=2))
+        result=report(args.study);print(json.dumps({k:v for k,v in result.items() if k not in {'receipt_hashes','archived_scientific_receipt_hashes'}},indent=2))

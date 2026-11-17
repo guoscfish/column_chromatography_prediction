@@ -38,4 +38,6 @@ KMP_DUPLICATE_LIB_OK=TRUE OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 /Users/fish/m
 
 不要覆盖checkpoint或改动已封存决策文件。原初次代理汇总入口有已披露PCA缓存复用问题，完成后使用`surrogate_verify.py`，从零重跑应在隔离空结果副本中进行。主AL恢复路径有独立hash/state/partial-fit测试。
 
+小型不可变选点/标签访问/模型审计/拟合回执自动导出到`receipts/`，完整计算账目快照为`compute_ledger_snapshot.json`，模型checkpoint保持在本地runtime并逐次哈希验证。`VERIFICATION.json`是审计交付时的静态快照；运行完成状态以自动刷新`reporting_manifest.json`为准。
+
 导出：`validation_curves.csv`、`per_seed/seed_*_curves.csv`、`seed_metrics.csv`、`paired_differences.csv`、`compute_cost.json`及`figures/validation_learning_curves.png`。只有全部22预算点齐全时才计算完整AULC；不插值、不作best-so-far，不把fold/轮次当独立重复。未调用付费LLM API；未评估test标签；未来U标签只在不可变合法选点之后揭示。

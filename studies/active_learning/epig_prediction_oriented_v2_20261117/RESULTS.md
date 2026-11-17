@@ -2,14 +2,14 @@
 
 This is a post-stage1/stage2 exploratory development study. The original five-seed probability gate remains unsatisfied. All numbers below come from completed fit receipts, with checkpoint hashes verified. No test targets are evaluated.
 
-Completed downstream QGeoGNN fits: **3/210**. Complete L333–L1005 seed pairs: **0/5**.
+Completed downstream QGeoGNN fits: **5/210**. Complete L333–L1005 seed pairs: **0/5**.
 
 **Primary five-seed efficacy is not yet evaluated.** Missing budgets are not interpolated and partial curves are not substitutes for the required learning window. No EPIG failure or success verdict follows from this snapshot.
 
 | Seed | Arm | Completed fits | Last budget | Full AULC | L1005 NRMSE |
 |---|---|---:|---:|---:|---:|
-| 157 | EPIG | 2/21 | 397 | pending | pending |
-| 157 | IVR | 1/21 | 365 | pending | pending |
+| 157 | EPIG | 3/21 | 429 | pending | pending |
+| 157 | IVR | 2/21 | 397 | pending | pending |
 | 887 | EPIG | 0/21 | pending | pending | pending |
 | 887 | IVR | 0/21 | pending | pending | pending |
 | 2357 | EPIG | 0/21 | pending | pending | pending |

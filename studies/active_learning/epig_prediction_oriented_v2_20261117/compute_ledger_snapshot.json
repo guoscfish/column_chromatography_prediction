@@ -1,0 +1,122 @@
+{
+  "limits": {
+    "target_successful_qgeognn_fits": 210,
+    "qgeognn_attempts_max": 231,
+    "qgeognn_active_hours": 72,
+    "auxiliary_active_hours": 12,
+    "total_active_hours": 84,
+    "max_fit_attempts_per_key": 3,
+    "auxiliary_model_fits_max": 300,
+    "auxiliary_attempts_max": 330
+  },
+  "created_unix": 1794933472.516493,
+  "attempts": [
+    {
+      "key": "157:posterior_epig_conditional_greedy32:0",
+      "kind": "auxiliary",
+      "status": "COMPLETED",
+      "started_unix": 1794933476.425079,
+      "last_heartbeat_seconds": 8.035801958991215,
+      "active_seconds": 8.909373125061393,
+      "ended_unix": 1794933485.334935
+    },
+    {
+      "key": "157:posterior_epig_conditional_greedy32:1",
+      "kind": "qgeognn",
+      "status": "COMPLETED",
+      "started_unix": 1794933485.6002188,
+      "last_heartbeat_seconds": 82.39067216706462,
+      "active_seconds": 83.63968345802277,
+      "ended_unix": 1794933569.242668
+    },
+    {
+      "key": "157:posterior_ivr_conditional_greedy32:0",
+      "kind": "auxiliary",
+      "status": "COMPLETED",
+      "started_unix": 1794933569.3087711,
+      "last_heartbeat_seconds": 4.015665916958824,
+      "active_seconds": 5.761013499926776,
+      "ended_unix": 1794933575.070233
+    },
+    {
+      "key": "157:posterior_ivr_conditional_greedy32:1",
+      "kind": "qgeognn",
+      "status": "COMPLETED",
+      "started_unix": 1794933575.352064,
+      "last_heartbeat_seconds": 74.33079362497665,
+      "active_seconds": 75.73460429115221,
+      "ended_unix": 1794933651.0891452
+    },
+    {
+      "key": "157:posterior_epig_conditional_greedy32:1",
+      "kind": "auxiliary",
+      "status": "COMPLETED",
+      "started_unix": 1794933651.1720262,
+      "last_heartbeat_seconds": 10.045945000136271,
+      "active_seconds": 10.982603959040716,
+      "ended_unix": 1794933662.1551979
+    },
+    {
+      "key": "157:posterior_epig_conditional_greedy32:2",
+      "kind": "qgeognn",
+      "status": "COMPLETED",
+      "started_unix": 1794933662.423231,
+      "last_heartbeat_seconds": 88.37321229209192,
+      "active_seconds": 89.42582233296707,
+      "ended_unix": 1794933751.851976
+    },
+    {
+      "key": "157:posterior_ivr_conditional_greedy32:1",
+      "kind": "auxiliary",
+      "status": "COMPLETED",
+      "started_unix": 1794933751.914434,
+      "last_heartbeat_seconds": 4.02030162489973,
+      "active_seconds": 5.747922665905207,
+      "ended_unix": 1794933757.6627688
+    },
+    {
+      "key": "157:posterior_ivr_conditional_greedy32:2",
+      "kind": "qgeognn",
+      "status": "COMPLETED",
+      "started_unix": 1794933757.928436,
+      "last_heartbeat_seconds": 124.5863320408389,
+      "active_seconds": 125.99789616581984,
+      "ended_unix": 1794933883.930377
+    },
+    {
+      "key": "157:posterior_epig_conditional_greedy32:2",
+      "kind": "auxiliary",
+      "status": "COMPLETED",
+      "started_unix": 1794933884.009156,
+      "last_heartbeat_seconds": 8.039601291064173,
+      "active_seconds": 9.956570333102718,
+      "ended_unix": 1794933893.9662778
+    },
+    {
+      "key": "157:posterior_epig_conditional_greedy32:3",
+      "kind": "qgeognn",
+      "status": "COMPLETED",
+      "started_unix": 1794933894.271779,
+      "last_heartbeat_seconds": 130.55128466710448,
+      "active_seconds": 131.28611995792016,
+      "ended_unix": 1794934025.5620868
+    },
+    {
+      "key": "157:posterior_ivr_conditional_greedy32:2",
+      "kind": "auxiliary",
+      "status": "RUNNING",
+      "started_unix": 1794934025.641072,
+      "last_heartbeat_seconds": 4.012435459066182
+    }
+  ],
+  "active_seconds": {
+    "qgeognn": 506.08412620588206,
+    "auxiliary": 41.35748358303681
+  },
+  "external_reservations": {
+    "auxiliary_successful_fits": 65,
+    "auxiliary_attempts": 65,
+    "auxiliary_active_seconds": 9000,
+    "nature": "upper-bound reservation for offline C/D and reference; not actual consumption"
+  }
+}
