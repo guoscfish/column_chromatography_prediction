@@ -1,0 +1,71 @@
+{
+  "schema": "epig-v2-reference-audit-v1",
+  "nature": "post-stage1/stage2 exploratory development study",
+  "seeds": [
+    157,
+    887,
+    2357,
+    6101,
+    12203
+  ],
+  "family": "gp_matern32",
+  "features": "unchanged F0/PCA16",
+  "posterior": "reuse hash-verified original full L333 cache, no refit, no new truth read",
+  "outputs": "original fixed L333 endpoint scales; independent future label replicates",
+  "distributions": {
+    "P1": "all 3330 outer-training X rows",
+    "P2": "all current 2997 U X rows"
+  },
+  "settings": [
+    "full",
+    "coupled_M256",
+    "coupled_M1024",
+    "coupled_M2048",
+    "legacy_M256",
+    "legacy_M1024",
+    "legacy_M2048"
+  ],
+  "objectives": [
+    "epig",
+    "ivr",
+    "bald"
+  ],
+  "batch_size": 32,
+  "coupling": "sha256(epig_v2_crn:seed:row_id), shared across P1/P2",
+  "maximum_active_seconds": 7200,
+  "new_surrogate_fits": 0,
+  "new_gnn_fits": 0,
+  "memory": "disk-backed float64 independent-channel target-candidate cross cache; requests <=64x256 rows; no full covariance call",
+  "comparisons": "score MAE/max/relativeL2, Spearman, pointwise Top32, conditional greedy B32 overlap, own-target and common full-P1 batch MI",
+  "dependencies": {
+    "experiments/e0_4g_baseline/canonical_4g.csv": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+    "experiments/e0_4g_baseline/graph_cache_4g.pt": "a48f8ea1ce4f89c5a1ea6d17466e7c7ffa0439edb8ec79bd8b765bad3a97c3ee",
+    "studies/active_learning/epig_prediction_oriented_20261117/freeze.json": "3c5ad14d80c1c2893c6b09d0f3601e008bf2a7c7c222e712a7fe20954ca89c6e",
+    "studies/active_learning/epig_prediction_oriented_20261117/features.json": "e5557ffe85ffe4b69d17a70a79fe3983e7ddfadf4adc95998a5ea7c5965f2e48",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/splits/row_seed_157.csv": "e1718212472ae86f5ca3f16c4d8e3905c043b06bf4830e87b5a9d0bb64577472",
+    "studies/active_learning/epig_prediction_oriented_20261117/acquisition/models/seed_157_gp_matern32/model.pkl": "5f3b4d56dea3e7e15bf2169e4cea3a4d6708ce9188a73a3bdb3410809505fcd3",
+    "studies/active_learning/epig_prediction_oriented_20261117/acquisition/models/seed_157_gp_matern32/fit_audit.json": "4397e2b7e2ad273f54257d0bcd6ace6ebd2187e47bb3b930c5753182b80a4254",
+    "studies/active_learning/epig_prediction_oriented_20261117/acquisition/models/seed_157_gp_matern32/complete.json": "06dac73e4d0eb2047d920169ac888f27e1ab6aed4f941c4d541f57bd8cb981c7",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/splits/row_seed_887.csv": "0413fb5c356dc14b1d2c056379ef09f1925835e64fa41fa86dc12aa8703a1807",
+    "studies/active_learning/epig_prediction_oriented_20261117/acquisition/models/seed_887_gp_matern32/model.pkl": "2203b2c86ce0a9823843272bdbef5ad447b85348c6092d2fb2425e66c0122a99",
+    "studies/active_learning/epig_prediction_oriented_20261117/acquisition/models/seed_887_gp_matern32/fit_audit.json": "a9399c92fcee477ad8ceaea0b3571bd5ec7fd01a899e342598db9b799a74629d",
+    "studies/active_learning/epig_prediction_oriented_20261117/acquisition/models/seed_887_gp_matern32/complete.json": "a4acde3f5822b586fd812e3c6df83b76c9306a919dd3238d88c228a4494e1e72",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/splits/row_seed_2357.csv": "360d81a9e239d7bbf6e2f89f5ce7db7e119f0783f5e134df122ac08a6fc1f1e7",
+    "studies/active_learning/epig_prediction_oriented_20261117/acquisition/models/seed_2357_gp_matern32/model.pkl": "3f6107ccfd145125785f81d08f00e9cb23f66c378da756b9cc1394bc9c106280",
+    "studies/active_learning/epig_prediction_oriented_20261117/acquisition/models/seed_2357_gp_matern32/fit_audit.json": "2ea96f6226f53500bf2cdf43ce2c6b0dac2d013dff535f32a9de527be0d27037",
+    "studies/active_learning/epig_prediction_oriented_20261117/acquisition/models/seed_2357_gp_matern32/complete.json": "dd8c4f1485c7c5bc864aa190fd7f47926f09db232a392593aaaf3bf6ba4fa823",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/splits/row_seed_6101.csv": "3c8c809b2b6e63bd0b3d2f28032f0ae60adc66078fafb5e459d4d510d599e338",
+    "studies/active_learning/epig_prediction_oriented_20261117/acquisition/models/seed_6101_gp_matern32/model.pkl": "c19d7980bdc4ee3990a559bd0ad4b401ebf89900a46818b7c8d360c5e91c5fd7",
+    "studies/active_learning/epig_prediction_oriented_20261117/acquisition/models/seed_6101_gp_matern32/fit_audit.json": "5312aa2bbe8a38e0aebcd8a7ded48ee2b3836ca2e9952efe30fcbfa1046e0af8",
+    "studies/active_learning/epig_prediction_oriented_20261117/acquisition/models/seed_6101_gp_matern32/complete.json": "74078e84eb9000c6bb0e28ce36ebe89a00e3835c53405b592feea240203f21cb",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/splits/row_seed_12203.csv": "48f674a428b2c05d788074753105c3bba9bd3e3764f32c1c633d87d228961d35",
+    "studies/active_learning/epig_prediction_oriented_20261117/acquisition/models/seed_12203_gp_matern32/model.pkl": "7fbe7e597abdac897570fe5d43e7059fa7144a64460c1e905a4e9d35d937a32f",
+    "studies/active_learning/epig_prediction_oriented_20261117/acquisition/models/seed_12203_gp_matern32/fit_audit.json": "04d851676b0db69308eb15a3378e12b3d3b9e406c5f7c4b52aaa05ddfe85e4d6",
+    "studies/active_learning/epig_prediction_oriented_20261117/acquisition/models/seed_12203_gp_matern32/complete.json": "923172ef16563249925774e2200105a7bf0e469d34e0ea4d8a7f379ed765ae37"
+  },
+  "code": {
+    "acquisition_v2.py": "6642f2149638f34a670efdf8ffec110df85d0d6b6bde86f3e7d553eb80ff2472",
+    "reference_audit.py": "9013edce191bf3bc0911a9c145c17449f32319cf78b7403e1031a0068c3dd4e0",
+    "math_oracle.py": "87dd3f2b860c301dc734a63a773334ecd53febece86bdbb3ef8180952f9f69f9"
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "family": "study_local_independent_exact_gp",
+  "kernel": "matern32",
+  "n_train": 222,
+  "n_outputs": 2,
+  "feature_dimension": 16,
+  "grouped": false,
+  "maxiter": 200,
+  "restarts": 3,
+  "fit_seconds": 0.15130566712468863,
+  "pca_retained_standardized_input_variance_fraction": 0.9874342474210122,
+  "restart_audit": [
+    {
+      "endpoint": 0,
+      "restart": 0,
+      "nll": 294.5960318932856,
+      "optimizer_success": true,
+      "nit": 15,
+      "nfev": 20,
+      "gradient_max_abs": 0.0016820027248698466
+    },
+    {
+      "endpoint": 0,
+      "restart": 1,
+      "nll": 294.5960318701764,
+      "optimizer_success": true,
+      "nit": 18,
+      "nfev": 21,
+      "gradient_max_abs": 0.00011307152795581032
+    },
+    {
+      "endpoint": 0,
+      "restart": 2,
+      "nll": 294.5960318877012,
+      "optimizer_success": true,
+      "nit": 17,
+      "nfev": 23,
+      "gradient_max_abs": 0.001440856055229034
+    },
+    {
+      "endpoint": 1,
+      "restart": 0,
+      "nll": 276.51707833437933,
+      "optimizer_success": true,
+      "nit": 13,
+      "nfev": 16,
+      "gradient_max_abs": 0.00013108997722355298
+    },
+    {
+      "endpoint": 1,
+      "restart": 1,
+      "nll": 276.5170783423122,
+      "optimizer_success": true,
+      "nit": 13,
+      "nfev": 16,
+      "gradient_max_abs": 0.00039993148381757435
+    },
+    {
+      "endpoint": 1,
+      "restart": 2,
+      "nll": 276.51707836239063,
+      "optimizer_success": true,
+      "nit": 11,
+      "nfev": 17,
+      "gradient_max_abs": 0.0009090298610381353
+    }
+  ],
+  "parameters": [
+    {
+      "signal_variance": 1.1149736988176353,
+      "lengthscale": 2.5856291895975443,
+      "noise_variance_scaled": 0.11753072812497899,
+      "nll": 294.5960318701764,
+      "optimizer_success": true,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+      "nit": 18,
+      "nfev": 21,
+      "gradient_max_abs": 0.00011307152795581032
+    },
+    {
+      "signal_variance": 1.5215791497553879,
+      "lengthscale": 4.253837347666131,
+      "noise_variance_scaled": 0.13769993084244422,
+      "nll": 276.51707833437933,
+      "optimizer_success": true,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+      "nit": 13,
+      "nfev": 16,
+      "gradient_max_abs": 0.00013108997722355298
+    }
+  ]
+}

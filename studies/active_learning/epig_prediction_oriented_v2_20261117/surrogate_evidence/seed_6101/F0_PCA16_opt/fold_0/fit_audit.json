@@ -1,0 +1,92 @@
+{
+  "family": "study_local_independent_exact_gp",
+  "kernel": "matern32",
+  "n_train": 222,
+  "n_outputs": 2,
+  "feature_dimension": 16,
+  "grouped": false,
+  "maxiter": 200,
+  "restarts": 3,
+  "fit_seconds": 0.11696662497706711,
+  "pca_retained_standardized_input_variance_fraction": 0.9902434528917771,
+  "restart_audit": [
+    {
+      "endpoint": 0,
+      "restart": 0,
+      "nll": 290.9933755706331,
+      "optimizer_success": true,
+      "nit": 13,
+      "nfev": 15,
+      "gradient_max_abs": 0.0011184575511900845
+    },
+    {
+      "endpoint": 0,
+      "restart": 1,
+      "nll": 290.9933755604061,
+      "optimizer_success": true,
+      "nit": 12,
+      "nfev": 14,
+      "gradient_max_abs": 0.0006188029744861986
+    },
+    {
+      "endpoint": 0,
+      "restart": 2,
+      "nll": 290.9933755567873,
+      "optimizer_success": true,
+      "nit": 12,
+      "nfev": 16,
+      "gradient_max_abs": 0.00020949517991541988
+    },
+    {
+      "endpoint": 1,
+      "restart": 0,
+      "nll": 267.4774965402798,
+      "optimizer_success": true,
+      "nit": 13,
+      "nfev": 17,
+      "gradient_max_abs": 0.00020269901333159858
+    },
+    {
+      "endpoint": 1,
+      "restart": 1,
+      "nll": 267.47749653990877,
+      "optimizer_success": true,
+      "nit": 9,
+      "nfev": 12,
+      "gradient_max_abs": 7.40779666502593e-07
+    },
+    {
+      "endpoint": 1,
+      "restart": 2,
+      "nll": 267.47749654088665,
+      "optimizer_success": true,
+      "nit": 10,
+      "nfev": 13,
+      "gradient_max_abs": 0.00012244498340585608
+    }
+  ],
+  "parameters": [
+    {
+      "signal_variance": 0.6466188358389164,
+      "lengthscale": 5.9033610466262685,
+      "noise_variance_scaled": 0.5780820209388254,
+      "nll": 290.9933755567873,
+      "optimizer_success": true,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+      "nit": 12,
+      "nfev": 16,
+      "gradient_max_abs": 0.00020949517991541988
+    },
+    {
+      "signal_variance": 2.346899417936194,
+      "lengthscale": 10.501884217198343,
+      "noise_variance_scaled": 0.390308521850436,
+      "nll": 267.47749653990877,
+      "optimizer_success": true,
+      "optimizer_message": "CONVERGENCE: NORM OF PROJECTED GRADIENT <= PGTOL",
+      "nit": 9,
+      "nfev": 12,
+      "gradient_max_abs": 7.40779666502593e-07
+    }
+  ]
+}
