@@ -1,0 +1,64 @@
+{
+  "inputs": [
+    {
+      "path": "experiments/e0_4g_baseline/canonical_4g.csv",
+      "sha256": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+      "bytes": 1109690
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/protocol.json",
+      "sha256": "adba1a1b43d2503fe423cb61b39bbd423b434204cd012ad5e83cad7b460027ae",
+      "bytes": 1324
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/splits/split_manifest.json",
+      "sha256": "c53c8b4299836b6de78ca0a8bf0b367842530549b25bbb09a60539e8df8f78dd",
+      "bytes": 3999
+    },
+    {
+      "path": "src/qgeognn_al/active_learning_v2/protocol.py",
+      "sha256": "919f7382544e1f89eeb8381ca1b53bf0a206637580c6019b966348b8fb8777d1",
+      "bytes": 8039
+    },
+    {
+      "path": "src/qgeognn_al/transfer/protocol.py",
+      "sha256": "c842982f821b165c955734e06b643abf15243b1d70a5360088579a11a951c201",
+      "bytes": 3867
+    },
+    {
+      "path": "scripts/studies/run_final_4g_qualification.py",
+      "sha256": "25e6ad001c5a675e5b9ed225d64d1bd14b4f37fa862882e7878d0fad05bfc049",
+      "bytes": 11163
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/data_boundary.py",
+      "sha256": "37fc29a97a176a2e4f1728fb12165b090bb837f4143804804f742f3808d8f92b",
+      "bytes": 31335
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/splits/row_seed_42.csv",
+      "sha256": "a8a4a322cd9c75253b1a4ed8c5c91ededed74a933df2db2685015c8b3e008008",
+      "bytes": 243753
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/splits/row_seed_525.csv",
+      "sha256": "58876dc5a9033a0584da964e1e52bd0fa5d1aeba8131410060cce947fe11d0a1",
+      "bytes": 247916
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/splits/row_seed_1101.csv",
+      "sha256": "fb51a225dd2b802b4dbc2982fa45166a7c11962fef9add2015e6637a1a2a6bf1",
+      "bytes": 252079
+    }
+  ],
+  "canonical_feature_columns": [
+    "sample_id",
+    "canonical_smiles",
+    "Density g/ml",
+    "V/ul",
+    "loading solvent",
+    "Volume of loading solvent/ul",
+    "PE/EA"
+  ],
+  "target_access": "CLI covariates only; target values projected zero; one initial text-inspection exception recorded separately"
+}

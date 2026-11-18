@@ -1,0 +1,663 @@
+{
+  "status": "PASS",
+  "execution_scope": "checkpoint_audit.py automated run; preliminary shell incident separately disclosed below",
+  "training_runs": 0,
+  "api_calls": 0,
+  "inference_calls": 0,
+  "target_csv_files_read": [],
+  "label_arrays_read": [],
+  "numerical_prediction_caches_read": [],
+  "preliminary_shell_incident": {
+    "file": "studies/predictor/final_4g_qualification/splits/qualification_dataset_manifest.csv",
+    "operation": "An initial sed command mistakenly listed this target-bearing file after row_seed_42.csv; sed cumulative line numbers meant only the first four split-metadata lines were output.",
+    "target_values_returned": 0,
+    "target_ids_returned": 0,
+    "disclosed_to_parent": true,
+    "target_file_not_used_by_loader": true
+  },
+  "downstream_scoring_must_exclude_global_quarantine": true,
+  "original_training_identity_unchanged_by_quarantine": true,
+  "official_engineering_evidence": "Previously measured full 4163-row R2-pruned/V2 exact output equivalence; not re-evaluated here.",
+  "qualification_models_are_native_v2": true,
+  "conversion_performed": false,
+  "identities": [
+    {
+      "seed": 42,
+      "model_role": "formal Row seed (not AL budget)",
+      "checkpoint_path": "studies/predictor/final_4g_qualification/runtime/row/seed_42/best.pt",
+      "checkpoint_sha256": "fce9edebc294fd179c7c7dc27ab2badea049c77fdad03a6cf0c317c63df544b0",
+      "checkpoint_schema_version": 1,
+      "model_variant": "qgeognn_v2",
+      "split_path": "studies/predictor/final_4g_qualification/splits/row_seed_42.csv",
+      "split_sha256": "a8a4a322cd9c75253b1a4ed8c5c91ededed74a933df2db2685015c8b3e008008",
+      "role_counts": {
+        "train": 3330,
+        "test": 417,
+        "validation": 416
+      },
+      "domain_rows": 4163,
+      "training_rows": 3330,
+      "fit_ids_hash": "5f0fbc143e13c77d15714729b0b2b4438de33b5c0ad776201ee6f4f0b5283d77",
+      "normalization": {
+        "loading_amount_min": 30.0,
+        "loading_amount_max": 327.29998779296875,
+        "loading_volume_min": 200.0,
+        "loading_volume_max": 2000.0,
+        "fit_dataset": "4g",
+        "fit_role": "source_train",
+        "fit_row_count": 3330,
+        "fit_ids_hash": "5f0fbc143e13c77d15714729b0b2b4438de33b5c0ad776201ee6f4f0b5283d77",
+        "eluent_scaler_sha256": "858d5afa5b5861427031dfea1f3d82189070af8f61b7710337de9e08b13e8266"
+      },
+      "preprocessing": {
+        "scaler": {
+          "descriptor": {
+            "min": [
+              106.00885009765625,
+              0.0,
+              0.0,
+              0.0,
+              -0.6642000079154968,
+              1.87009596824646,
+              317.4486083984375,
+              0.11138497292995453,
+              0.052911177277565,
+              0.023961281403899193,
+              0.0,
+              0.20014657080173492,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "max": [
+              408.01220703125,
+              12.0,
+              1.0,
+              5.0,
+              7.736499786376953,
+              7.203703880310059,
+              24009.255859375,
+              0.5370063185691833,
+              0.3233283460140228,
+              0.33165669441223145,
+              0.38679033517837524,
+              2.5147390365600586,
+              69.66999816894531,
+              69.66999816894531,
+              0.11178451031446457,
+              90.9955062866211
+            ]
+          },
+          "eluent": {
+            "min": [
+              86.1287841796875,
+              0.2603960335254669,
+              1.0,
+              0.0,
+              0.019801979884505272,
+              0.5694000124931335
+            ],
+            "max": [
+              88.05242919921875,
+              26.299999237060547,
+              2.9801981449127197,
+              0.0,
+              2.0,
+              2.5666277408599854
+            ]
+          }
+        },
+        "target_scales": {
+          "V1": 7.8796590346317394,
+          "V2": 16.076509553562932
+        },
+        "fit_role": "source_train",
+        "fit_rows": 3330,
+        "fit_ids_hash": "5f0fbc143e13c77d15714729b0b2b4438de33b5c0ad776201ee6f4f0b5283d77",
+        "validation_rows_used": 0,
+        "test_rows_used": 0,
+        "target_rows_used": 0
+      },
+      "scaler_path": "studies/predictor/final_4g_qualification/runtime/row/seed_42/scaler.json",
+      "scaler_sha256": "858d5afa5b5861427031dfea1f3d82189070af8f61b7710337de9e08b13e8266",
+      "training_config": {
+        "model_variant": "qgeognn_v2",
+        "optimizer": "Adam",
+        "learning_rate": 0.001,
+        "weight_decay": 0.0,
+        "batch_size": 2048,
+        "maximum_epochs": 1000,
+        "patience": 100,
+        "shuffle": "deterministic_each_epoch",
+        "loss_weights": {
+          "V1": 1.0,
+          "V2": 1.0
+        },
+        "checkpoint_selection": "validation_combined_normalized_rmse",
+        "normalization": "source_train_only",
+        "test_during_training": false,
+        "initialization": "direct_standalone_seeded_construction; no historical initializer used",
+        "8g_rows_used": 0,
+        "head_changed": false,
+        "architecture_search": false,
+        "mode": "row",
+        "seed": 42,
+        "split_sha256": "a8a4a322cd9c75253b1a4ed8c5c91ededed74a933df2db2685015c8b3e008008",
+        "cpu_threads": 2,
+        "config_hash": "cfe576ecab8e04bfee0f5d90028f7798996491e529c1e3ff819599ae53b63038"
+      },
+      "provenance": {
+        "epoch": 95,
+        "validation_selection_score": 0.2791525916267682,
+        "split_sha256": "a8a4a322cd9c75253b1a4ed8c5c91ededed74a933df2db2685015c8b3e008008"
+      },
+      "parameter_count": 458952,
+      "best_epoch": 95,
+      "epochs_run": 195,
+      "output_order": [
+        "V1_q10",
+        "V1_q50",
+        "V1_q90",
+        "V2_q10",
+        "V2_q50",
+        "V2_q90"
+      ],
+      "output_unit": "mL; target scales normalize evaluation only",
+      "input_schema_hash": "523d755f101cc322b3ad79a316d147a6ed441706f3bab00d391ea8b8b938e516",
+      "official_loader": "src.qgeognn_al.models.qgeognn_v2.load_predictor_checkpoint",
+      "native_v2": true,
+      "conversion_performed": false,
+      "loader_state_bitwise_equal": true,
+      "engineering_evidence_path": "studies/predictor/final_v2_engineering/equivalence_audit.json",
+      "engineering_evidence_sha256": "b945e9d6184b38c083f9d74d9498df4ed848a9454edc934db76586f4bb5dc82a",
+      "source_data_path": "experiments/e0_4g_baseline/canonical_4g.csv",
+      "source_data_sha256_recorded_only": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+      "molecular_graph_cache_path": "experiments/e0_4g_baseline/graph_cache_4g.pt",
+      "molecular_graph_cache_sha256_recorded_only": "a48f8ea1ce4f89c5a1ea6d17466e7c7ffa0439edb8ec79bd8b765bad3a97c3ee"
+    },
+    {
+      "seed": 525,
+      "model_role": "formal Row seed (not AL budget)",
+      "checkpoint_path": "studies/predictor/final_4g_qualification/runtime/row/seed_525/best.pt",
+      "checkpoint_sha256": "d86d314c55a4d6068a58d965755b2b4e5a664f5e18d877016f2da5af85acae07",
+      "checkpoint_schema_version": 1,
+      "model_variant": "qgeognn_v2",
+      "split_path": "studies/predictor/final_4g_qualification/splits/row_seed_525.csv",
+      "split_sha256": "58876dc5a9033a0584da964e1e52bd0fa5d1aeba8131410060cce947fe11d0a1",
+      "role_counts": {
+        "train": 3330,
+        "test": 417,
+        "validation": 416
+      },
+      "domain_rows": 4163,
+      "training_rows": 3330,
+      "fit_ids_hash": "b7b1bd44d325fdb6b3f49b039bc20804f81781a193c704217a05a8cef9361427",
+      "normalization": {
+        "loading_amount_min": 30.0,
+        "loading_amount_max": 327.29998779296875,
+        "loading_volume_min": 200.0,
+        "loading_volume_max": 2000.0,
+        "fit_dataset": "4g",
+        "fit_role": "source_train",
+        "fit_row_count": 3330,
+        "fit_ids_hash": "b7b1bd44d325fdb6b3f49b039bc20804f81781a193c704217a05a8cef9361427",
+        "eluent_scaler_sha256": "858d5afa5b5861427031dfea1f3d82189070af8f61b7710337de9e08b13e8266"
+      },
+      "preprocessing": {
+        "scaler": {
+          "descriptor": {
+            "min": [
+              106.00885009765625,
+              0.0,
+              0.0,
+              0.0,
+              -0.6642000079154968,
+              1.87009596824646,
+              317.4486083984375,
+              0.11138497292995453,
+              0.052911177277565,
+              0.023961281403899193,
+              0.0,
+              0.20014657080173492,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "max": [
+              408.01220703125,
+              12.0,
+              1.0,
+              5.0,
+              7.736499786376953,
+              7.203703880310059,
+              24009.255859375,
+              0.5370063185691833,
+              0.3233283460140228,
+              0.33165669441223145,
+              0.38679033517837524,
+              2.5147390365600586,
+              69.66999816894531,
+              69.66999816894531,
+              0.11178451031446457,
+              90.9955062866211
+            ]
+          },
+          "eluent": {
+            "min": [
+              86.1287841796875,
+              0.2603960335254669,
+              1.0,
+              0.0,
+              0.019801979884505272,
+              0.5694000124931335
+            ],
+            "max": [
+              88.05242919921875,
+              26.299999237060547,
+              2.9801981449127197,
+              0.0,
+              2.0,
+              2.5666277408599854
+            ]
+          }
+        },
+        "target_scales": {
+          "V1": 7.77978466200197,
+          "V2": 15.796294775217694
+        },
+        "fit_role": "source_train",
+        "fit_rows": 3330,
+        "fit_ids_hash": "b7b1bd44d325fdb6b3f49b039bc20804f81781a193c704217a05a8cef9361427",
+        "validation_rows_used": 0,
+        "test_rows_used": 0,
+        "target_rows_used": 0
+      },
+      "scaler_path": "studies/predictor/final_4g_qualification/runtime/row/seed_525/scaler.json",
+      "scaler_sha256": "858d5afa5b5861427031dfea1f3d82189070af8f61b7710337de9e08b13e8266",
+      "training_config": {
+        "model_variant": "qgeognn_v2",
+        "optimizer": "Adam",
+        "learning_rate": 0.001,
+        "weight_decay": 0.0,
+        "batch_size": 2048,
+        "maximum_epochs": 1000,
+        "patience": 100,
+        "shuffle": "deterministic_each_epoch",
+        "loss_weights": {
+          "V1": 1.0,
+          "V2": 1.0
+        },
+        "checkpoint_selection": "validation_combined_normalized_rmse",
+        "normalization": "source_train_only",
+        "test_during_training": false,
+        "initialization": "direct_standalone_seeded_construction; no historical initializer used",
+        "8g_rows_used": 0,
+        "head_changed": false,
+        "architecture_search": false,
+        "mode": "row",
+        "seed": 525,
+        "split_sha256": "58876dc5a9033a0584da964e1e52bd0fa5d1aeba8131410060cce947fe11d0a1",
+        "cpu_threads": 2,
+        "config_hash": "f7eb72d5e50e605de8de99bd36b30f5790ac8bf3c30ca7079693dd9fa93b2abe"
+      },
+      "provenance": {
+        "epoch": 318,
+        "validation_selection_score": 0.2774948025630275,
+        "split_sha256": "58876dc5a9033a0584da964e1e52bd0fa5d1aeba8131410060cce947fe11d0a1"
+      },
+      "parameter_count": 458952,
+      "best_epoch": 318,
+      "epochs_run": 418,
+      "output_order": [
+        "V1_q10",
+        "V1_q50",
+        "V1_q90",
+        "V2_q10",
+        "V2_q50",
+        "V2_q90"
+      ],
+      "output_unit": "mL; target scales normalize evaluation only",
+      "input_schema_hash": "523d755f101cc322b3ad79a316d147a6ed441706f3bab00d391ea8b8b938e516",
+      "official_loader": "src.qgeognn_al.models.qgeognn_v2.load_predictor_checkpoint",
+      "native_v2": true,
+      "conversion_performed": false,
+      "loader_state_bitwise_equal": true,
+      "engineering_evidence_path": "studies/predictor/final_v2_engineering/equivalence_audit.json",
+      "engineering_evidence_sha256": "b945e9d6184b38c083f9d74d9498df4ed848a9454edc934db76586f4bb5dc82a",
+      "source_data_path": "experiments/e0_4g_baseline/canonical_4g.csv",
+      "source_data_sha256_recorded_only": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+      "molecular_graph_cache_path": "experiments/e0_4g_baseline/graph_cache_4g.pt",
+      "molecular_graph_cache_sha256_recorded_only": "a48f8ea1ce4f89c5a1ea6d17466e7c7ffa0439edb8ec79bd8b765bad3a97c3ee"
+    },
+    {
+      "seed": 1101,
+      "model_role": "formal Row seed (not AL budget)",
+      "checkpoint_path": "studies/predictor/final_4g_qualification/runtime/row/seed_1101/best.pt",
+      "checkpoint_sha256": "df37cdff353536e825ae269ca03418024913adc39d6061f143c8c5d63aca5901",
+      "checkpoint_schema_version": 1,
+      "model_variant": "qgeognn_v2",
+      "split_path": "studies/predictor/final_4g_qualification/splits/row_seed_1101.csv",
+      "split_sha256": "fb51a225dd2b802b4dbc2982fa45166a7c11962fef9add2015e6637a1a2a6bf1",
+      "role_counts": {
+        "train": 3330,
+        "test": 417,
+        "validation": 416
+      },
+      "domain_rows": 4163,
+      "training_rows": 3330,
+      "fit_ids_hash": "8bc44319c7c53a916b82095e574f997902b719e76410a590a9c76d1918817532",
+      "normalization": {
+        "loading_amount_min": 30.0,
+        "loading_amount_max": 327.29998779296875,
+        "loading_volume_min": 200.0,
+        "loading_volume_max": 2000.0,
+        "fit_dataset": "4g",
+        "fit_role": "source_train",
+        "fit_row_count": 3330,
+        "fit_ids_hash": "8bc44319c7c53a916b82095e574f997902b719e76410a590a9c76d1918817532",
+        "eluent_scaler_sha256": "858d5afa5b5861427031dfea1f3d82189070af8f61b7710337de9e08b13e8266"
+      },
+      "preprocessing": {
+        "scaler": {
+          "descriptor": {
+            "min": [
+              106.00885009765625,
+              0.0,
+              0.0,
+              0.0,
+              -0.6642000079154968,
+              1.87009596824646,
+              317.4486083984375,
+              0.11138497292995453,
+              0.052911177277565,
+              0.023961281403899193,
+              0.0,
+              0.20014657080173492,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "max": [
+              408.01220703125,
+              12.0,
+              1.0,
+              5.0,
+              7.736499786376953,
+              7.203703880310059,
+              24009.255859375,
+              0.5370063185691833,
+              0.3233283460140228,
+              0.33165669441223145,
+              0.38679033517837524,
+              2.5147390365600586,
+              69.66999816894531,
+              69.66999816894531,
+              0.11178451031446457,
+              90.9955062866211
+            ]
+          },
+          "eluent": {
+            "min": [
+              86.1287841796875,
+              0.2603960335254669,
+              1.0,
+              0.0,
+              0.019801979884505272,
+              0.5694000124931335
+            ],
+            "max": [
+              88.05242919921875,
+              26.299999237060547,
+              2.9801981449127197,
+              0.0,
+              2.0,
+              2.5666277408599854
+            ]
+          }
+        },
+        "target_scales": {
+          "V1": 7.872146175179128,
+          "V2": 16.19465068300286
+        },
+        "fit_role": "source_train",
+        "fit_rows": 3330,
+        "fit_ids_hash": "8bc44319c7c53a916b82095e574f997902b719e76410a590a9c76d1918817532",
+        "validation_rows_used": 0,
+        "test_rows_used": 0,
+        "target_rows_used": 0
+      },
+      "scaler_path": "studies/predictor/final_4g_qualification/runtime/row/seed_1101/scaler.json",
+      "scaler_sha256": "858d5afa5b5861427031dfea1f3d82189070af8f61b7710337de9e08b13e8266",
+      "training_config": {
+        "model_variant": "qgeognn_v2",
+        "optimizer": "Adam",
+        "learning_rate": 0.001,
+        "weight_decay": 0.0,
+        "batch_size": 2048,
+        "maximum_epochs": 1000,
+        "patience": 100,
+        "shuffle": "deterministic_each_epoch",
+        "loss_weights": {
+          "V1": 1.0,
+          "V2": 1.0
+        },
+        "checkpoint_selection": "validation_combined_normalized_rmse",
+        "normalization": "source_train_only",
+        "test_during_training": false,
+        "initialization": "direct_standalone_seeded_construction; no historical initializer used",
+        "8g_rows_used": 0,
+        "head_changed": false,
+        "architecture_search": false,
+        "mode": "row",
+        "seed": 1101,
+        "split_sha256": "fb51a225dd2b802b4dbc2982fa45166a7c11962fef9add2015e6637a1a2a6bf1",
+        "cpu_threads": 2,
+        "config_hash": "46663ea315720f4211366dbe07cd09db2393a3ab859ee7fbb299cc5c7b8eb37f"
+      },
+      "provenance": {
+        "epoch": 67,
+        "validation_selection_score": 0.3878365683016055,
+        "split_sha256": "fb51a225dd2b802b4dbc2982fa45166a7c11962fef9add2015e6637a1a2a6bf1"
+      },
+      "parameter_count": 458952,
+      "best_epoch": 67,
+      "epochs_run": 167,
+      "output_order": [
+        "V1_q10",
+        "V1_q50",
+        "V1_q90",
+        "V2_q10",
+        "V2_q50",
+        "V2_q90"
+      ],
+      "output_unit": "mL; target scales normalize evaluation only",
+      "input_schema_hash": "523d755f101cc322b3ad79a316d147a6ed441706f3bab00d391ea8b8b938e516",
+      "official_loader": "src.qgeognn_al.models.qgeognn_v2.load_predictor_checkpoint",
+      "native_v2": true,
+      "conversion_performed": false,
+      "loader_state_bitwise_equal": true,
+      "engineering_evidence_path": "studies/predictor/final_v2_engineering/equivalence_audit.json",
+      "engineering_evidence_sha256": "b945e9d6184b38c083f9d74d9498df4ed848a9454edc934db76586f4bb5dc82a",
+      "source_data_path": "experiments/e0_4g_baseline/canonical_4g.csv",
+      "source_data_sha256_recorded_only": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+      "molecular_graph_cache_path": "experiments/e0_4g_baseline/graph_cache_4g.pt",
+      "molecular_graph_cache_sha256_recorded_only": "a48f8ea1ce4f89c5a1ea6d17466e7c7ffa0439edb8ec79bd8b765bad3a97c3ee"
+    }
+  ],
+  "sources": [
+    {
+      "path": "scripts/studies/run_final_4g_qualification.py",
+      "sha256": "25e6ad001c5a675e5b9ed225d64d1bd14b4f37fa862882e7878d0fad05bfc049",
+      "bytes": 11163
+    },
+    {
+      "path": "scripts/studies/run_final_v2_engineering.py",
+      "sha256": "dbabd402a1cb73b69a2058d73df843a8703b441d28c87788bfc1aba84e7f3ec4",
+      "bytes": 5223
+    },
+    {
+      "path": "src/qgeognn_al/historical/conversion.py",
+      "sha256": "658ca5a86235a1c2d151885b30d2cb8b1f58d22c4f3f58043b303573307114bf",
+      "bytes": 1329
+    },
+    {
+      "path": "src/qgeognn_al/models/qgeognn_v2.py",
+      "sha256": "0058ae546ed0aeb84762b1b26f343a9b622f49a2fb45aefb2434e679ba2547e2",
+      "bytes": 5934
+    },
+    {
+      "path": "src/qgeognn_al/schemas/conditions.py",
+      "sha256": "19475ed0f3188124232f1368f18385e920194c135898cccda2f2f25f68d809df",
+      "bytes": 7450
+    },
+    {
+      "path": "src/qgeognn_al/training/predictor.py",
+      "sha256": "f3e7ff3033a2fa4dcb240ae3f925c4ce13f0efe4effa02c7dfc175f3c5c72144",
+      "bytes": 5608
+    },
+    {
+      "path": "studies/predictor/clean_4g_baseline_qualification/splits/row_seed_1101.csv",
+      "sha256": "fb51a225dd2b802b4dbc2982fa45166a7c11962fef9add2015e6637a1a2a6bf1",
+      "bytes": 252079
+    },
+    {
+      "path": "studies/predictor/clean_4g_baseline_qualification/splits/row_seed_42.csv",
+      "sha256": "a8a4a322cd9c75253b1a4ed8c5c91ededed74a933df2db2685015c8b3e008008",
+      "bytes": 243753
+    },
+    {
+      "path": "studies/predictor/clean_4g_baseline_qualification/splits/row_seed_525.csv",
+      "sha256": "58876dc5a9033a0584da964e1e52bd0fa5d1aeba8131410060cce947fe11d0a1",
+      "bytes": 247916
+    },
+    {
+      "path": "studies/predictor/clean_4g_baseline_qualification/splits/split_manifest.json",
+      "sha256": "b10b890dcbef0e63ce1a558476fdb3cedf319c18a441dab03060f95b9f7b37c9",
+      "bytes": 4759
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/FINAL_4G_QUALIFICATION_REPORT.md",
+      "sha256": "d3c117d1846c931bf7b16d08578c6ca1044a161729d5e337d9492c99df9ae9b5",
+      "bytes": 8145
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/README.md",
+      "sha256": "de58b704ed74a012750616c92b7685ebd6bb8e9413b00aa1baf64845ec035e79",
+      "bytes": 7225
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/protocol.json",
+      "sha256": "adba1a1b43d2503fe423cb61b39bbd423b434204cd012ad5e83cad7b460027ae",
+      "bytes": 1324
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/results/row/seed_1101/config.json",
+      "sha256": "594fa94c6e8ceda798b56e9cc4b7b99c04b8e8c2e7abf87ee1861c2b9c0b535b",
+      "bytes": 803
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/results/row/seed_1101/normalization.json",
+      "sha256": "45c2d4497f813d29da5e77f430e648b44e03ea9833da5507a78611a323f96d4f",
+      "bytes": 1890
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/results/row/seed_1101/run_summary.json",
+      "sha256": "fc434ebb93eb31593aaf79f7f65595cefa62db65e71238344647d4ea9feba5c0",
+      "bytes": 1436
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/results/row/seed_42/config.json",
+      "sha256": "b92db348345b0c12a3c46333f47b15236eb352b89fadfce2b7877b5d32e1d271",
+      "bytes": 801
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/results/row/seed_42/normalization.json",
+      "sha256": "7035226a48cd7820f11641a56bfacc486e6bb695e009718b30de087a523a485f",
+      "bytes": 1892
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/results/row/seed_42/run_summary.json",
+      "sha256": "62af14200fd11d190a4927ddc0952d81b1517db43a1e038961a18be9f2c6ec9e",
+      "bytes": 1431
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/results/row/seed_525/config.json",
+      "sha256": "dd6302eed87f98c63c1a5610db2c809d127a607f9ac193e0aefec8e6bdfade64",
+      "bytes": 802
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/results/row/seed_525/normalization.json",
+      "sha256": "352b9fb8797da03840c5fbfa9ef7e24bd00047804ded1843db6a8615835bb178",
+      "bytes": 1890
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/results/row/seed_525/run_summary.json",
+      "sha256": "ed7fcfab4e791ae1ba670ed1cdbf4819a3ddee41d21d335bb3a132eea3d8454a",
+      "bytes": 1436
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/runtime/row/seed_1101/best.pt",
+      "sha256": "df37cdff353536e825ae269ca03418024913adc39d6061f143c8c5d63aca5901",
+      "bytes": 1918123
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/runtime/row/seed_1101/scaler.json",
+      "sha256": "858d5afa5b5861427031dfea1f3d82189070af8f61b7710337de9e08b13e8266",
+      "bytes": 1030
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/runtime/row/seed_42/best.pt",
+      "sha256": "fce9edebc294fd179c7c7dc27ab2badea049c77fdad03a6cf0c317c63df544b0",
+      "bytes": 1918123
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/runtime/row/seed_42/scaler.json",
+      "sha256": "858d5afa5b5861427031dfea1f3d82189070af8f61b7710337de9e08b13e8266",
+      "bytes": 1030
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/runtime/row/seed_525/best.pt",
+      "sha256": "d86d314c55a4d6068a58d965755b2b4e5a664f5e18d877016f2da5af85acae07",
+      "bytes": 1918123
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/runtime/row/seed_525/scaler.json",
+      "sha256": "858d5afa5b5861427031dfea1f3d82189070af8f61b7710337de9e08b13e8266",
+      "bytes": 1030
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/splits/row_seed_1101.csv",
+      "sha256": "fb51a225dd2b802b4dbc2982fa45166a7c11962fef9add2015e6637a1a2a6bf1",
+      "bytes": 252079
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/splits/row_seed_42.csv",
+      "sha256": "a8a4a322cd9c75253b1a4ed8c5c91ededed74a933df2db2685015c8b3e008008",
+      "bytes": 243753
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/splits/row_seed_525.csv",
+      "sha256": "58876dc5a9033a0584da964e1e52bd0fa5d1aeba8131410060cce947fe11d0a1",
+      "bytes": 247916
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/splits/split_manifest.json",
+      "sha256": "c53c8b4299836b6de78ca0a8bf0b367842530549b25bbb09a60539e8df8f78dd",
+      "bytes": 3999
+    },
+    {
+      "path": "studies/predictor/final_v2_engineering/README.md",
+      "sha256": "65fff6fa1aca18fc09b7fbbcae7b9400c07fc95310daf381c167481ffac75e96",
+      "bytes": 991
+    },
+    {
+      "path": "studies/predictor/final_v2_engineering/equivalence_audit.json",
+      "sha256": "b945e9d6184b38c083f9d74d9498df4ed848a9454edc934db76586f4bb5dc82a",
+      "bytes": 27847
+    }
+  ],
+  "audit_script_sha256": "b43e2904928ebf4031712cdaa386cd7fb0db5e0560e03cf95e6d1695fb077ed1"
+}

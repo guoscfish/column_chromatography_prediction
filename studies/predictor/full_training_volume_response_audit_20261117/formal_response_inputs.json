@@ -1,0 +1,209 @@
+{
+  "status": "PASS_WITH_DISCLOSED_TEXT_INSPECTION_INCIDENT",
+  "inputs": [
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/LABEL_BOUNDARY_INCIDENT.json",
+      "sha256": "fdaf9cd6df3fead8189f136326d46c3f42bb1c2f5b9f9eb3e0fcd4f98d63a876",
+      "bytes": 2529
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/formal_pairs.csv",
+      "sha256": "d0cb9b4f10aceb5762022e1946770ee663f295a3cde672ec29b9e5bc052f734b",
+      "bytes": 26160130
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/formal_split_roles.csv",
+      "sha256": "5f5b8a8026fe1db060323b8e81f2c63d5f5522b3c9eada2138db3ff2a0515643",
+      "bytes": 1005150
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/covariate_duplicate_groups.csv",
+      "sha256": "7915ed5469f8005e1ab96928d9525afb64d13aeca66836089cc3c5d6d5b7e678",
+      "bytes": 273207
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/checkpoint_audit_manifest.json",
+      "sha256": "a10724bc7ffea14a2dd485cfbfc0809f14f97a53d672ce823d83caec46da7e66",
+      "bytes": 25125
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/data_boundary.py",
+      "sha256": "37fc29a97a176a2e4f1728fb12165b090bb837f4143804804f742f3808d8f92b",
+      "bytes": 31335
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/common.py",
+      "sha256": "b7a458eed30c18cd3fe40b151783a9944cf31188e31f528bc62bffbc2148a7ce",
+      "bytes": 3360
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/ANALYSIS_PLAN.json",
+      "sha256": "37c50bcc13b4441eda9e57d22ada001d2684ff728dca36edb2976c57511e44b2",
+      "bytes": 2787
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/data_boundary_inputs.json",
+      "sha256": "7e8b3087bec91c7966b209b3982aa10882ce95f46b444361ab7e0e924cdbe899",
+      "bytes": 2255
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/FORMAL_PREDICTION_MANIFEST.json",
+      "sha256": "4ae28a2e03411d580699562d0b759a31a754b87ce5b33e59789b2ff11c98f8e2",
+      "bytes": 20583
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/formal_predictions_seed_42.csv",
+      "sha256": "d75901574b403aec422951680ce66e63d90758a39420c2e722b5d6c58068acfa",
+      "bytes": 318587
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/formal_predictions_seed_525.csv",
+      "sha256": "f33be3396c1f4910cead88524980cad419cee9ed52bd0c3128ad338b0491ac07",
+      "bytes": 318384
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/formal_predictions_seed_1101.csv",
+      "sha256": "7dfc28f8b5cf6aa6fa5546379bc04db68973e8a2443c5d0c726c476400160cbe",
+      "bytes": 318624
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/analyze_formal.py",
+      "sha256": "ace9f1a50f08a8ca68995fbdf6c610df5d449133575554885769bb155118538e",
+      "bytes": 24324
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/results/row/seed_42/metrics.json",
+      "sha256": "bd1546da5d116bf57336e2c2fc302570ece49caa618ed8e69b3a95f451eff56c",
+      "bytes": 917
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/results/row/seed_525/metrics.json",
+      "sha256": "42cf46701b75e7e4b644fe5fb148f29ff7f8d140b5d25153214c55a1823d800f",
+      "bytes": 918
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/results/row/seed_1101/metrics.json",
+      "sha256": "6a7e2d0b9ca2e870b228e7405452b94e9487525255de5de1a250f5f67bd9f230",
+      "bytes": 919
+    },
+    {
+      "path": "src/qgeognn_al/evaluation/point.py",
+      "sha256": "48b000accf3715ed6c1304ccaa9a346275ed5068ec8d2ffcc217cee72e7fc82e",
+      "bytes": 780
+    }
+  ],
+  "original_training_rows_per_model": 3330,
+  "scoring_train_rows": {
+    "42": 3327,
+    "525": 3328,
+    "1101": 3328
+  },
+  "scoring_validation_rows_per_model": 416,
+  "test_labels_projected": 0,
+  "quarantined_ids": [
+    "9a478db27ef04d7bb59c",
+    "bfe9ce431b45599fd5e6",
+    "c32ed74eba9d7dfc4860"
+  ],
+  "numeric_label_requests": [
+    {
+      "purpose": "initial_fit",
+      "requested_rows": 3327,
+      "requested_ids_hash": "87ebfb4c13c61d34d547d2a815afb95a6d703161917e805392512c0d0d9a8384",
+      "roles": "l0",
+      "acquisitions_frozen": false,
+      "predictions_frozen": false,
+      "row_seed": 42,
+      "source_role": "train",
+      "source_sha256": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+      "split_sha256": "a8a4a322cd9c75253b1a4ed8c5c91ededed74a933df2db2685015c8b3e008008",
+      "adapter_train_role": "l0",
+      "test_targets_projected": 0
+    },
+    {
+      "purpose": "initial_fit",
+      "requested_rows": 416,
+      "requested_ids_hash": "9827fcc7b736b9984f545771e97efee5e6503c32214cff5b868697d4c293db3d",
+      "roles": "validation",
+      "acquisitions_frozen": false,
+      "predictions_frozen": false,
+      "row_seed": 42,
+      "source_role": "validation",
+      "source_sha256": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+      "split_sha256": "a8a4a322cd9c75253b1a4ed8c5c91ededed74a933df2db2685015c8b3e008008",
+      "adapter_train_role": "l0",
+      "test_targets_projected": 0
+    },
+    {
+      "purpose": "initial_fit",
+      "requested_rows": 3328,
+      "requested_ids_hash": "8165f01c49680f218e4a2efafafeebef3c549266b2ba77c5660e758b9ceee0b7",
+      "roles": "l0",
+      "acquisitions_frozen": false,
+      "predictions_frozen": false,
+      "row_seed": 525,
+      "source_role": "train",
+      "source_sha256": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+      "split_sha256": "58876dc5a9033a0584da964e1e52bd0fa5d1aeba8131410060cce947fe11d0a1",
+      "adapter_train_role": "l0",
+      "test_targets_projected": 0
+    },
+    {
+      "purpose": "initial_fit",
+      "requested_rows": 416,
+      "requested_ids_hash": "b8bbef959328d1c56e4322be7f4c61d1aae8bd32d962bae17b3b802efe113167",
+      "roles": "validation",
+      "acquisitions_frozen": false,
+      "predictions_frozen": false,
+      "row_seed": 525,
+      "source_role": "validation",
+      "source_sha256": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+      "split_sha256": "58876dc5a9033a0584da964e1e52bd0fa5d1aeba8131410060cce947fe11d0a1",
+      "adapter_train_role": "l0",
+      "test_targets_projected": 0
+    },
+    {
+      "purpose": "initial_fit",
+      "requested_rows": 3328,
+      "requested_ids_hash": "ad84d2c4bb5459c697c9b64a804b46f8b681adeadb3ccade7e18ec52b550566c",
+      "roles": "l0",
+      "acquisitions_frozen": false,
+      "predictions_frozen": false,
+      "row_seed": 1101,
+      "source_role": "train",
+      "source_sha256": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+      "split_sha256": "fb51a225dd2b802b4dbc2982fa45166a7c11962fef9add2015e6637a1a2a6bf1",
+      "adapter_train_role": "l0",
+      "test_targets_projected": 0
+    },
+    {
+      "purpose": "initial_fit",
+      "requested_rows": 416,
+      "requested_ids_hash": "8056d1ca56cbac7576d84f49630337d29f34c3adea80c15287aafdff7fbe3026",
+      "roles": "validation",
+      "acquisitions_frozen": false,
+      "predictions_frozen": false,
+      "row_seed": 1101,
+      "source_role": "validation",
+      "source_sha256": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+      "split_sha256": "fb51a225dd2b802b4dbc2982fa45166a7c11962fef9add2015e6637a1a2a6bf1",
+      "adapter_train_role": "l0",
+      "test_targets_projected": 0
+    }
+  ],
+  "source_csv_sha256_verified_before_each_boundary": true,
+  "pair_endpoint_scoring_identity_complete": true,
+  "model_fits": 0,
+  "model_forward_calls_in_this_script": 0,
+  "llm_api_calls": 0,
+  "original_predictions_with_truth_opened": false,
+  "per_model_then_equal_model_aggregation": true,
+  "paired_scientific_independence_claim": false,
+  "validation_historical_metric_check": {
+    "n_checks": 21,
+    "tolerance": 1e-06,
+    "all_passed": true,
+    "max_absolute_difference": 1.8552284419826037e-07,
+    "formula": "RMS of two source-scale-normalized endpoint RMSEs; official point.py"
+  }
+}
