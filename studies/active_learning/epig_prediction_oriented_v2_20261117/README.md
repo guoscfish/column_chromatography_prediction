@@ -1,5 +1,7 @@
 # EPIG v2：代码审计、实际诊断与全长效能运行
 
+**当前状态：用户要求暂停，178/210成功拟合已保存；worker和supervisor均已停止，不会自动续跑。**
+
 研究性质：**post-stage1/stage2 exploratory development study**。原研究及Stage1/2资格未修改。新分支为`codex/epig-prediction-oriented-v2-20261117`；协议提交`fd5d676ab`，执行freeze及启动回执提交`11980b406`。新主研究封存于`freeze.json`，旧研究2323文件的逐项不变校验见`evidence/original_preservation_check.json`。
 
 已经实际完成：143项组合预检、另7项supervisor/代理数值测试；独立dense Gaussian135项比较；70个全量/共同抽样参考状态及60个原采集状态完全复现；60次honest OOF辅助fit和5次明确标为encoder条件诊断的BLR fit。详见下列审计文件及各自JSON/CSV回执。

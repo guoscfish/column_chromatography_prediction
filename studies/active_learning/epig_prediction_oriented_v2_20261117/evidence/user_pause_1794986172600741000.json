@@ -1,0 +1,71 @@
+{
+  "schema": "epig-v2-explicit-user-pause",
+  "reason": "user requested: 先暂停不跑",
+  "paused_unix": 1794986172.600647,
+  "successful_qgeognn_fits": 178,
+  "qgeognn_attempts": 179,
+  "running_attempts": 0,
+  "stopped_processes": [
+    {
+      "pid": 74301,
+      "role": "supervisor",
+      "signal": "SIGTERM"
+    },
+    {
+      "pid": 74302,
+      "role": "training_worker",
+      "signal": "SIGINT"
+    }
+  ],
+  "supervisor_worker_and_caffeinate_absent": true,
+  "both_OS_locks_released": true,
+  "training_active_seconds": 35168.34850208787,
+  "auxiliary_active_seconds": 1790.047631244408,
+  "interruption_records": [
+    {
+      "key": "12203:posterior_epig_conditional_greedy32:6",
+      "kind": "qgeognn",
+      "status": "FAILED_OR_INTERRUPTED",
+      "started_unix": 1794985992.4371378,
+      "last_heartbeat_seconds": 96.45767579204403,
+      "active_seconds": 97.7757574999705,
+      "ended_unix": 1794986090.217352,
+      "error_type": "KeyboardInterrupt",
+      "error": ""
+    }
+  ],
+  "partial_model_files_preserved": {
+    "runtime/seed_12203/posterior_epig_conditional_greedy32/round_06/model/best.pt": "b4bdd185521197a8028b0b69b5e5411b43e2e7251a9ffe5db250d2a5b041e5b3"
+  },
+  "previous_execution_status": {
+    "status": "FAILED_PRESERVED_FOR_RESUME",
+    "reason": "",
+    "error_type": "KeyboardInterrupt",
+    "completed_trajectories": 8,
+    "successful_new_fits": 178,
+    "new_fit_attempts": 179,
+    "active_seconds": {
+      "qgeognn": 35168.34850208787,
+      "auxiliary": 1790.047631244408
+    },
+    "test_labels_read": 0,
+    "efficacy": "INCOMPLETE_NOT_A_NO_GO"
+  },
+  "previous_supervisor_status": {
+    "schema": "epig-v2-supervisor",
+    "launches": [
+      {
+        "pid": 74302,
+        "started_unix": 1794933467.5577018,
+        "log": "runtime/worker_00.log",
+        "last_report_exit_code": 0,
+        "last_observed_unix": 1794986061.697855
+      }
+    ],
+    "status": "RUNNING",
+    "supervisor_pid": 74301
+  },
+  "resume_requires_explicit_user_instruction": true,
+  "no_new_training_launched": true,
+  "test_labels_read": 0
+}
