@@ -1,0 +1,35 @@
+{
+  "problem": "Initial new combined NRMSE used arithmetic mean of normalized endpoint RMSEs.",
+  "corrected_formula": "sqrt(0.5*sum((rmse_target/source_train_scale_target)**2))",
+  "source": "src/qgeognn_al/evaluation/point.py",
+  "new_inference_calls_for_fix": 0,
+  "local_pair_response_metrics_changed": false,
+  "complete_validation_rows": 416,
+  "tolerance": 1e-06,
+  "checks": [
+    {
+      "row_seed": 42,
+      "source_role": "validation",
+      "erroneous_arithmetic_mean": 0.27632671461869823,
+      "corrected_official_RMS": 0.2791525869633589,
+      "historical_official_value": 0.2791525916267682,
+      "absolute_difference_from_historical": 4.66340932536724e-09
+    },
+    {
+      "row_seed": 525,
+      "source_role": "validation",
+      "erroneous_arithmetic_mean": 0.27303571585943204,
+      "corrected_official_RMS": 0.2774947919811479,
+      "historical_official_value": 0.2774948025630275,
+      "absolute_difference_from_historical": 1.0581879594795396e-08
+    },
+    {
+      "row_seed": 1101,
+      "source_role": "validation",
+      "erroneous_arithmetic_mean": 0.38380598527575727,
+      "corrected_official_RMS": 0.3878365530870217,
+      "historical_official_value": 0.3878365683016055,
+      "absolute_difference_from_historical": 1.5214583815037486e-08
+    }
+  ]
+}
