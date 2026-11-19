@@ -1,0 +1,50 @@
+{
+  "schema": "epig-final-audit-preflight",
+  "created_unix": 1794996488.504415,
+  "status": "READY_AFTER_FULL_COMPLETION",
+  "reuse_mode": "normal import of unchanged audit_completed_fits.py; only OUT redirected into fresh final evidence directory",
+  "final_audit_sha256": "45b905a912bf490a0234ab02eeb010ee9bcaaec30e5ef377e6cf7e7e7d9b1448",
+  "existing_audit_sha256": "2dd299b829450a81a033bf37015cbba2f854a8ad49153a9903f8ea32fdb135bf",
+  "source_bytes_unchanged": true,
+  "existing_in_progress_evidence_hashes": {
+    "evidence/runner/in_progress_learning_QA_20261118_selections.csv": "a3efe246c39ca94dc669a5bc415e5b8537a9023e3a4e3d7bf84bfb2a22ac651a",
+    "evidence/runner/in_progress_learning_QA_20261118.json": "eea2faa812d5190b7936dca9abb867639062db73f4a4e98b294e6449bc77febe",
+    "evidence/runner/in_progress_learning_QA_20261118.md": "bdf8b6a9247d8b342b937983d0e9c68b1e513251e5627afab8b952741dda213c",
+    "evidence/runner/in_progress_learning_QA_20261118_fits.csv": "d0fbf51601b32d4d3fcb2612f22ad9b590f9300b909b7557a0f4b157ee986e05",
+    "evidence/runner/in_progress_learning_QA_20261118_metrics.csv": "2d027a071ddb98d748a7f8052dd707764e9bef8cf332012c4a01c76f08ed3fb9"
+  },
+  "gate_validation": {
+    "ready": false,
+    "reasons": [
+      "report is not COMPLETE_L1005",
+      "report lacks all 210 fits/five complete seed pairs",
+      "worker is not completed at 210 successful fits",
+      "ledger does not contain exactly 210 unique successful neural fits",
+      "ledger still has a running operation",
+      "expected 220 completed fit receipts including ten reused initial fits",
+      "missing trajectory seal: 12203/posterior_epig_conditional_greedy32",
+      "missing trajectory seal: 12203/posterior_ivr_conditional_greedy32"
+    ],
+    "report_status": "INCOMPLETE_RUNNING_OR_PRESERVED",
+    "worker_status": "RUNNING",
+    "report_successful_fits": 181,
+    "ledger_unique_successes": 181,
+    "neural_attempts": 183,
+    "completed_fit_receipts": 191,
+    "trajectory_seals": 8,
+    "metadata_sha256": {
+      "report": "bce5adb016ba52230e59e1ba29507b6761088fedba81445ff469986eeeee180c",
+      "worker": "989c1f97c4988049a714c8f4cf03acb27d27479740753f134ddd3019fdb7e200",
+      "ledger": "c1b975326500624ca4558853dcfc871a09e11aa2a42c27fd16517f02d46454f9"
+    }
+  },
+  "syntax_compile": "PASS",
+  "live_incomplete_gate_observed": "NOT_READY_NO_AUDIT_RUN; no scientific auditor execution",
+  "no_AST_transform": true,
+  "extra_tests_added": 0,
+  "new_training_fits": 0,
+  "source_targets_read": 0,
+  "invocation": "/Users/fish/miniforge3/envs/fish/bin/python /Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/epig_prediction_oriented_v2_20261117/audit_final_state.py",
+  "scope": "210 downstream fits,220 receipts,210 acquisition/access chains,458952 parameters and independent initialization/fixed scales, all ten sealed curves,70 AULC/segment/milestone comparisons; physical metrics checked by existing all-fit auditor",
+  "output": "fresh evidence/runner/final_learning_QA_<UTC timestamp>/final_manifest.json plus metric comparisons CSV and unchanged auditor outputs in subdirectory"
+}

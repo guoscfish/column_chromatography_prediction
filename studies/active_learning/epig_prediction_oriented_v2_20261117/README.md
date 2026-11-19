@@ -1,12 +1,12 @@
 # EPIG v2：代码审计、实际诊断与全长效能运行
 
-**当前状态：用户要求暂停，178/210成功拟合已保存；worker和supervisor均已停止，不会自动续跑。**
+主实验曾在完成 178/210 次拟合时暂停，随后按原封存协议恢复。当前进度和完成证据见 `RESULTS.md` 与 `reporting_manifest.json`。
 
 研究性质：**post-stage1/stage2 exploratory development study**。原研究及Stage1/2资格未修改。新分支为`codex/epig-prediction-oriented-v2-20261117`；协议提交`fd5d676ab`，执行freeze及启动回执提交`11980b406`。新主研究封存于`freeze.json`，旧研究2323文件的逐项不变校验见`evidence/original_preservation_check.json`。
 
 已经实际完成：143项组合预检、另7项supervisor/代理数值测试；独立dense Gaussian135项比较；70个全量/共同抽样参考状态及60个原采集状态完全复现；60次honest OOF辅助fit和5次明确标为encoder条件诊断的BLR fit。详见下列审计文件及各自JSON/CSV回执。
 
-完整五seed两臂L333→L1005实验已经启动，目标210次成功QGeoGNN后续fit，最多231次尝试，单key最多3次；训练72h、辅助12h累计活动预算（不把停机算训练）。保持原458952参数、scratch、1000epoch/patience100、固定L333尺度与validation checkpoint。当前真实完成数以自动刷新报告为准，**启动不等于完成，未完成不作EPIG有效/无效判断**。历史单臂105fits耗时15.66h，两臂外推约31.32h；该估计不保证完成时间。
+五个 seed 的 EPIG 和 IVR 都已从 L333 跑到 L1005。QGeoGNN 完成 **210/210** 次后续拟合，211 次尝试含一次用户暂停中断。QGeoGNN 累计活动 11.55 小时，在线辅助计算 0.59 小时。五个 seed 的全程验证集 AULC 均偏向 EPIG，平均为 **0.58636 对 0.60163**，低 2.54%。L1005 终点上 EPIG 在 2/5 个 seed 的 NRMSE 更低。独立审计核验了 220 份拟合回执（含 10 份复用的初始拟合）、210 次选点和 70 项指标。[最终审计](evidence/runner/final_learning_QA_20261118T115416_053112Z/final_manifest.json)
 
 | 文件 | 内容 |
 |---|---|
@@ -16,7 +16,7 @@
 | [FEATURE_AND_SURROGATE_AUDIT.md](FEATURE_AND_SURROGATE_AUDIT.md) | 特征、优化、均值/噪声、有限OOF与encoder可行性 |
 | [PREDICTIVE_DEPENDENCE_VALIDATION.md](PREDICTIVE_DEPENDENCE_VALIDATION.md) | full/block/diagonal NLPD、条件logscore、残差与条件校准 |
 | [EXPERIMENT_PROTOCOL.md](EXPERIMENT_PROTOCOL.md) | 独立探索性协议与有限资源/访问预算 |
-| [RESULTS.md](RESULTS.md) | 自动更新的已完成真实Row拟合；未完成明确留空 |
+| [RESULTS.md](RESULTS.md) | 五个 seed 的完整学习曲线结果与 L1005 指标 |
 | [MECHANISM_ANALYSIS.md](MECHANISM_ANALYSIS.md) | 信息价值与真实学习收益之间的证据边界 |
 | [LIMITATIONS.md](LIMITATIONS.md) | 未测模型因素、有限样本、复用验证与外推限制 |
 | [NEXT_STAGE_DECISION.md](NEXT_STAGE_DECISION.md) | 随实际完成状态更新的下一阶段判断 |
