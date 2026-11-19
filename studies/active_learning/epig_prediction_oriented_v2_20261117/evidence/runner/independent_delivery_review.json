@@ -1,0 +1,82 @@
+{
+  "schema": "epig-v2-independent-delivery-review",
+  "created_unix": 1794933259.17454,
+  "reviewed_sha256": {
+    "supervisor.py": "74905ac59ffbc70996ba18f910b05b0216070968f887b30381c371612e3afcdb",
+    "report_study.py": "46798c4f54144af698b1b79073478b93b894a5763d613fdf2ce16e60a321d598",
+    "run_exploratory.py": "b5b7ce4ad3ed63db7d33f3bc92c9ede9b8e30705ec656228b6d4dd3f7b247a47",
+    "exploratory_runner.py": "4e764c6f089703642e8d393a78ee3a981a0c04e58ff2112fdcbc7884ed532c7c"
+  },
+  "review_type": "independent source and artifact-layout review; no training/label access",
+  "runner_test_result": "16 tests passed; evidence/runner/tests.xml",
+  "checks_passed": [
+    "callback only current-L targets and masked outer inputs",
+    "fixed L333 endpoint normalization consistent with original callback",
+    "exact full finite P1 references; no sampled reference in primary callback",
+    "conditional B32 plus explicit batch MI/chain-rule consistency",
+    "same original predictor fit/config/initialization path",
+    "paired all-five-seed schedule and no efficacy stop",
+    "immutable selection before restricted reveal",
+    "neural attempts versus success target separated",
+    "active-time and finite retry/accounting controls",
+    "nonmonotone metric curves and complete-window AULC only",
+    "physical endpoint MAE/RMSE retained",
+    "seed-level paired summary avoids row/fold pseudo-replication"
+  ],
+  "findings": [
+    {
+      "id": "R1",
+      "severity": "reporting-accounting",
+      "file": "report_study.py",
+      "actual": "costs reads offline_reservations but ledger writes external_reservations",
+      "impact": "reserved65 fits/2.5h omitted from generated compute_cost",
+      "reported_to_root": true,
+      "resolution": "root changed report to external_reservations",
+      "resolved": true
+    },
+    {
+      "id": "R2",
+      "severity": "operational-recovery",
+      "file": "supervisor.py",
+      "actual": "restart launches worker without checking whether prior worker still holds exploratory.lock",
+      "impact": "original worker remains safely locked, but duplicate fails and replacement supervisor can falsely pause while old worker runs",
+      "reported_to_root": true,
+      "suggestion": "probe held worker lock and observe original worker before a new launch",
+      "resolution": "root added OS-lock adoption before launch",
+      "resolved": true
+    },
+    {
+      "id": "R3",
+      "severity": "reporting-accounting",
+      "file": "report_study.py",
+      "actual": "evidence/surrogate/summary.json and evidence/reference/summary.json do not exist in actual artifact layout",
+      "impact": "actual_offline_costs remains empty",
+      "reported_to_root": true,
+      "actual_sources": [
+        "surrogate_evidence/compute_ledger.json",
+        "reference/status.json",
+        "reference/report/manifest.json"
+      ],
+      "resolution": "root changed actual cost sources to actual surrogate/reference artifacts",
+      "resolved": true
+    }
+  ],
+  "conclusion": "All concrete findings were reported and fixed; three real-lock/adoption tests passed. No demonstrated input/training/long-run recovery blocker to starting the full 210-fit design remains in this review.",
+  "labels_read": 0,
+  "new_fits": 0,
+  "frozen_files_modified_by_review": false,
+  "followup_reviewed_unix": 1794933340.97502,
+  "followup_sha256": {
+    "supervisor.py": "74905ac59ffbc70996ba18f910b05b0216070968f887b30381c371612e3afcdb",
+    "report_study.py": "35e2218e7bf4739fcc7edf4c69d094cc100b687d14ca7dd79683dafb1ea49240",
+    "run_exploratory.py": "b5b7ce4ad3ed63db7d33f3bc92c9ede9b8e30705ec656228b6d4dd3f7b247a47"
+  },
+  "supervisor_tests": {
+    "passed": 3,
+    "seconds": 0.06,
+    "junit": "evidence/runner/supervisor_tests.xml",
+    "actual_subprocess_lock_test": true,
+    "stale_pid_text_test": true,
+    "no_duplicate_launch_while_held_test": true
+  }
+}

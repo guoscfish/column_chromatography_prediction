@@ -1,0 +1,36 @@
+{
+  "input": {
+    "seed": 887,
+    "model": "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/lcmd/round_00/model/best.pt",
+    "model_sha256": "8a9c26efc0e8fd25420e56177f8becc8d12ddec204e564c6037fe58c12587059",
+    "cache": "/Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/scrubbed_graphs.pt",
+    "cache_sha256": "29c2d4c5d9b4b0165c7ef5d400c0d7a5ae53795e10aea67318f68705ec9d9239",
+    "cache_contract_sha256": "c7325d295d52d8bee94429ddec924f7c43db26212acc4cfce2017ba9aa254a38",
+    "context_sha256": "bdcd5280205ab331b8ff1b5f58e7988822cffc3ec47529318d0f97dba5c17093",
+    "legacy_protocol_sha256": "267e69ebda70e4a0ab10a1c22cfa4fc010e07043e209591c82c2b79ad559f5d0",
+    "split_sha256": "0413fb5c356dc14b1d2c056379ef09f1925835e64fa41fa86dc12aa8703a1807",
+    "target_scales": {
+      "V1": 8.277901649475098,
+      "V2": 17.182220458984375
+    },
+    "dtype": "original float32",
+    "prediction_inputs": "outer_train_only; original L333 model; no labels assigned",
+    "predict_batch_size": 256,
+    "torch_threads": 1
+  },
+  "npz_sha256": "489d890d5374ba94fd80cd09f20a5c27d92df09ed48c866e2d63f885de8034e3",
+  "source_labels_read": 0,
+  "test_labels_read": 0,
+  "validation_labels_read": 0,
+  "new_gnn_fits": 0,
+  "graph_labels_verified_zero": 4163,
+  "prediction_rows": 3330,
+  "inference_seconds": 2.831923041958362,
+  "process_peak_rss_bytes": 1017823232,
+  "format_repair": {
+    "preserved_npz_sha256": "148204f266b4f3665712e0d7f9c2ca563c819204a9d6cda1b6dcebafeda952f6",
+    "reason": "pandas string conversion initially saved object dtype; converted the identical strings to Unicode without new inference",
+    "prediction_values_changed": false,
+    "new_inference_calls": 0
+  }
+}

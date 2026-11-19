@@ -1,0 +1,1058 @@
+{
+  "schema": "epig-v2-resource-preflight",
+  "created_unix": 1794932747.0511842,
+  "original_freeze_verified": true,
+  "original_freeze_commit": "b1f54b5132f671ab1c6068127fe8cc313df5b3ac",
+  "current_commit": {
+    "exit_code": 0,
+    "stdout": "f27c1bbca2296ea6ac38b713cc9ec1eec8153be4"
+  },
+  "python": "/Users/fish/miniforge3/envs/fish/bin/python",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "hardware": {
+    "exit_code": 0,
+    "stdout": "25769803776\n10\narm64"
+  },
+  "disk_free_bytes": 213790638080,
+  "disk_total_bytes": 494384795648,
+  "initial_checkpoint_records": [
+    {
+      "seed": 157,
+      "model_directory": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_00/model",
+      "hashes": {
+        "best.pt": "87e92ccdabc1dd64ecf89a3061624450ce125906c4cbb988d7263b190991b1c0",
+        "predictions.csv.gz": "449bcacedb3708db5846031c7a1db5ae7df047fe78b44a58088bf3f34a1b4374",
+        "history.csv": "993b919837685573e12b7f19fa88406e0954a1cdfe69eb6fd7b7ed513124ec99",
+        "fit_audit.json": "e3bdbf15ae810f93f9af0ddca3f30caf0c8cbd95b8824c68bc9e5216c968a886"
+      },
+      "parameter_count": 458952,
+      "initialization_hash": "27933d44c40fa421228312c0940f971cf44564d39c1cf128e0b3b1acf85d75f6"
+    },
+    {
+      "seed": 887,
+      "model_directory": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/lcmd/round_00/model",
+      "hashes": {
+        "best.pt": "8a9c26efc0e8fd25420e56177f8becc8d12ddec204e564c6037fe58c12587059",
+        "predictions.csv.gz": "1137ddfc35f1f7d88cd628d23dbf2564b67638dc7314369c3f6f7d1381fd1b12",
+        "history.csv": "97cd6fc5f99c5f3638eb6019834c582cb5f1b3d86de4bd27358b318f8e0be59e",
+        "fit_audit.json": "8b724191b74213ae8e75d45f1dcfe919b7ec8cf8508fb659021b4ed4ad009cb8"
+      },
+      "parameter_count": 458952,
+      "initialization_hash": "e8b80a6fa0e13af4ceeba87cca4c19aaa0d0938540f1b23a12735ab6b1248e71"
+    },
+    {
+      "seed": 2357,
+      "model_directory": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_2357/lcmd/round_00/model",
+      "hashes": {
+        "best.pt": "ac34c895d573510f86f9aa1dd0b7b0c565dbf3fd80fa3763acab92c787de6731",
+        "predictions.csv.gz": "ce08c9fb98898c2a749a9a654941ddd758aebf85fcb49da17d31e45de23feade",
+        "history.csv": "493b208e468c59c2d6e2facae3e6b1976383b782accf3832a2b9ae48e3729bca",
+        "fit_audit.json": "ae87d19efa9db359d90cea96cef9c8f1a69648f4a814cf1a930064c3485c31c5"
+      },
+      "parameter_count": 458952,
+      "initialization_hash": "761e40935fce4cc37fdc21db5be633cb18f6cf02ce4362e6355a055575290877"
+    },
+    {
+      "seed": 6101,
+      "model_directory": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_00/model",
+      "hashes": {
+        "best.pt": "bcfffa247c3d24c8c74993ddb66cb59741ae14b1e67e8ed9543a8d1af7c6c494",
+        "predictions.csv.gz": "89765310b8808be70c1741341e8aa8bb48d81c8c7b0a0fc4986ea04c3413639c",
+        "history.csv": "89ee3dfd2fc417158596c4b67525d2ee8cb89a56af615bbbd4a0f8fc08665a3a",
+        "fit_audit.json": "223e6cada0c5d5f806e837f0f3df0c77ddae02b06f481c6f8d23d1b2dda13d1a"
+      },
+      "parameter_count": 458952,
+      "initialization_hash": "ef0ea4900be1f13286fc526f0879dd94042983508662334d8032785ced026f7d"
+    },
+    {
+      "seed": 12203,
+      "model_directory": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_12203/lcmd/round_00/model",
+      "hashes": {
+        "best.pt": "114ba06d0fde3bce6c05f7ec2c642ed2b1c9b50a0a235c9bce06530d7bc9be5a",
+        "predictions.csv.gz": "1cbb38bd8e446e65e98d5f130b7b66b80c27366de787b49122a09e1d31fa0a1c",
+        "history.csv": "51e38e924f313eab978c452a1fac9b38d9884ca3c8ee17d94d29de0075f01de3",
+        "fit_audit.json": "5974bdca5f7040de30758c1470cb0b60e5ce0fd48183ca03a9bb9241e8b213ea"
+      },
+      "parameter_count": 458952,
+      "initialization_hash": "55c4f0a50df1a2836d1f1319de2ffe0fb6810d085764fbb6368246d326cd7410"
+    }
+  ],
+  "initial_checkpoints_present": 5,
+  "historical_cost_reference": "same original training protocol; LCMD trajectories are descriptive cost evidence",
+  "historical_downstream_fits": 105,
+  "historical_training_seconds": 56371.126164619986,
+  "estimated_two_arm_seconds_at_historical_cost": 112742.25232923997,
+  "historical_median_fit_seconds": 474.623950875015,
+  "historical_max_fit_seconds": 1434.2714261660003,
+  "historical_fit_costs": [
+    {
+      "seed": 157,
+      "round": 1,
+      "training_seconds": 292.61016908299644,
+      "epochs_run": 180,
+      "budget": 365,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_01/model/fit_audit.json",
+      "sha256": "2d2b5c5e579a710d17d91c3da7d4cfc0a62a3e1ac20f008ea73543c24a181ac6"
+    },
+    {
+      "seed": 157,
+      "round": 2,
+      "training_seconds": 278.903063707985,
+      "epochs_run": 165,
+      "budget": 397,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_02/model/fit_audit.json",
+      "sha256": "f0e1c34b45153c9b19209f6c965f9039c7cc4fffb2ff21b2335b08b1585cf4ea"
+    },
+    {
+      "seed": 157,
+      "round": 3,
+      "training_seconds": 391.8645252920105,
+      "epochs_run": 227,
+      "budget": 429,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_03/model/fit_audit.json",
+      "sha256": "462bad2fa8c58c7ca482e6a7cc829d75e3039de9408adf2149960c4887c009c7"
+    },
+    {
+      "seed": 157,
+      "round": 4,
+      "training_seconds": 506.0300605829689,
+      "epochs_run": 241,
+      "budget": 461,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_04/model/fit_audit.json",
+      "sha256": "f6ee0af1f8a0bebeacd7f38b0dabed02433d212b11e617f035e05d0b205f3646"
+    },
+    {
+      "seed": 157,
+      "round": 5,
+      "training_seconds": 862.4172239580075,
+      "epochs_run": 372,
+      "budget": 493,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_05/model/fit_audit.json",
+      "sha256": "b7367e9058d6db27f60419f9c51b7dd7ce6ffd067a9028c15e9725366572f441"
+    },
+    {
+      "seed": 157,
+      "round": 6,
+      "training_seconds": 841.0265644579777,
+      "epochs_run": 369,
+      "budget": 525,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_06/model/fit_audit.json",
+      "sha256": "d43d3e71a6a24d67579cb99541e86cac88def5d67803cfc8234906fb614f65b0"
+    },
+    {
+      "seed": 157,
+      "round": 7,
+      "training_seconds": 694.0263524579932,
+      "epochs_run": 300,
+      "budget": 557,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_07/model/fit_audit.json",
+      "sha256": "f3f25c89fbab92b1702bf2f4b8207bf2a9e574534e62703a5ffcdb5c833758eb"
+    },
+    {
+      "seed": 157,
+      "round": 8,
+      "training_seconds": 1434.2714261660003,
+      "epochs_run": 716,
+      "budget": 589,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_08/model/fit_audit.json",
+      "sha256": "c9918879994482d5fcda213b05f3a91b255bb67d036a5f626131f547059c43f9"
+    },
+    {
+      "seed": 157,
+      "round": 9,
+      "training_seconds": 959.2153199579916,
+      "epochs_run": 377,
+      "budget": 621,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_09/model/fit_audit.json",
+      "sha256": "e93d6209118a9c1458858dddd386166fbbcb2d0535c30e3a7b3bccdb6d8a27ba"
+    },
+    {
+      "seed": 157,
+      "round": 10,
+      "training_seconds": 965.6349822080228,
+      "epochs_run": 435,
+      "budget": 653,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_10/model/fit_audit.json",
+      "sha256": "b853b4e876a2d8f658a390860f913a1d62666588345feb97e37d398505c71910"
+    },
+    {
+      "seed": 157,
+      "round": 11,
+      "training_seconds": 703.8934690410388,
+      "epochs_run": 327,
+      "budget": 685,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_11/model/fit_audit.json",
+      "sha256": "abc866424fed425ece5ada2fcc50c32d4c78d5a4ad73a733a7ccd26405d2bdb1"
+    },
+    {
+      "seed": 157,
+      "round": 12,
+      "training_seconds": 1361.4743421250023,
+      "epochs_run": 627,
+      "budget": 717,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_12/model/fit_audit.json",
+      "sha256": "b4e4df7336933cb1cd0d63e019ad88b59d4368ca7852650de4a547b39a28a2fe"
+    },
+    {
+      "seed": 157,
+      "round": 13,
+      "training_seconds": 1215.2213788329973,
+      "epochs_run": 758,
+      "budget": 749,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_13/model/fit_audit.json",
+      "sha256": "37bd2ff81b10869d4a82d09aa36431e21b16acbc59d6eaca3c358a7cbf01a45b"
+    },
+    {
+      "seed": 157,
+      "round": 14,
+      "training_seconds": 494.4772256669821,
+      "epochs_run": 440,
+      "budget": 781,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_14/model/fit_audit.json",
+      "sha256": "2f3a6ccceb98be2a254e6ccc7b5f6a4b0c2de959ef00865dc175f5431e712f09"
+    },
+    {
+      "seed": 157,
+      "round": 15,
+      "training_seconds": 474.623950875015,
+      "epochs_run": 455,
+      "budget": 813,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_15/model/fit_audit.json",
+      "sha256": "3246aee1ab0f5805fd0d9b3d34d2483de2058c790f24f04aebe514ced155f51f"
+    },
+    {
+      "seed": 157,
+      "round": 16,
+      "training_seconds": 386.5825101659866,
+      "epochs_run": 373,
+      "budget": 845,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_16/model/fit_audit.json",
+      "sha256": "827b09262d76c3e468f72d3302457d685b0393a438c9cd0d3f6848f77e422249"
+    },
+    {
+      "seed": 157,
+      "round": 17,
+      "training_seconds": 859.488784333982,
+      "epochs_run": 715,
+      "budget": 877,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_17/model/fit_audit.json",
+      "sha256": "fa7df4a3fa90d38a9bff9a3e5f3c61d99f56d241adfd046bb3506210ee3676bc"
+    },
+    {
+      "seed": 157,
+      "round": 18,
+      "training_seconds": 760.323012333014,
+      "epochs_run": 474,
+      "budget": 909,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_18/model/fit_audit.json",
+      "sha256": "c01bda10bdda599905638e3d48b935c3a94c893ecec3f963cfb4dfca9145f420"
+    },
+    {
+      "seed": 157,
+      "round": 19,
+      "training_seconds": 710.0880897500319,
+      "epochs_run": 342,
+      "budget": 941,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_19/model/fit_audit.json",
+      "sha256": "4ad35764ad0a2fb49d9210fa29561f10548a9a02639edd2162c42f2c0b136f7e"
+    },
+    {
+      "seed": 157,
+      "round": 20,
+      "training_seconds": 821.530307042005,
+      "epochs_run": 615,
+      "budget": 973,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_20/model/fit_audit.json",
+      "sha256": "4d8e50d84c599d8b7add2383dd7414a99862ddec1b131c29bb18162568f41be6"
+    },
+    {
+      "seed": 157,
+      "round": 21,
+      "training_seconds": 431.1702384590171,
+      "epochs_run": 335,
+      "budget": 1005,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_21/model/fit_audit.json",
+      "sha256": "c124697259632e0c76551913e70dde4567f2b1ed8481d49032d1e1f3102de760"
+    },
+    {
+      "seed": 887,
+      "round": 1,
+      "training_seconds": 339.40000137500465,
+      "epochs_run": 188,
+      "budget": 365,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/lcmd/round_01/model/fit_audit.json",
+      "sha256": "d8c0ce4375dfb0ca99e9dfedd944fdbbaa8191076cb1f83098ee07f6d0016920"
+    },
+    {
+      "seed": 887,
+      "round": 2,
+      "training_seconds": 368.699478333001,
+      "epochs_run": 231,
+      "budget": 397,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/lcmd/round_02/model/fit_audit.json",
+      "sha256": "739b915d9c55146b8bff287ed7e40985709c2a17d79b34e8a686655601f4361c"
+    },
+    {
+      "seed": 887,
+      "round": 3,
+      "training_seconds": 323.9215809170273,
+      "epochs_run": 191,
+      "budget": 429,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/lcmd/round_03/model/fit_audit.json",
+      "sha256": "51a9cce234e0049188525c1f7565bda4af58b1d0c21a800ec3d9e187436ff7f8"
+    },
+    {
+      "seed": 887,
+      "round": 4,
+      "training_seconds": 357.16723749996163,
+      "epochs_run": 205,
+      "budget": 461,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/lcmd/round_04/model/fit_audit.json",
+      "sha256": "1f690a6fbaac3c8d563c4832fc488a3d06cfa32283ed642f6daaf1fdaffa70f4"
+    },
+    {
+      "seed": 887,
+      "round": 5,
+      "training_seconds": 393.4590498750331,
+      "epochs_run": 244,
+      "budget": 493,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/lcmd/round_05/model/fit_audit.json",
+      "sha256": "1765e3d4a225de729ae9b44c8fa2d44f5cbe8235fb4055b5aa376649808afabd"
+    },
+    {
+      "seed": 887,
+      "round": 6,
+      "training_seconds": 330.4590161659871,
+      "epochs_run": 238,
+      "budget": 525,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/lcmd/round_06/model/fit_audit.json",
+      "sha256": "3fa801867cc5303462127a9ff7ba554b8f3fff5467b91f39098f0b251513febd"
+    },
+    {
+      "seed": 887,
+      "round": 7,
+      "training_seconds": 342.204707124969,
+      "epochs_run": 250,
+      "budget": 557,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/lcmd/round_07/model/fit_audit.json",
+      "sha256": "5730b216792d0e530080704a916dee57ace89a90743c3f8548dd009674a36d93"
+    },
+    {
+      "seed": 887,
+      "round": 8,
+      "training_seconds": 351.528761708003,
+      "epochs_run": 235,
+      "budget": 589,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/lcmd/round_08/model/fit_audit.json",
+      "sha256": "f7d7ae5fdff5264e9c554ff085c114ee295c6dc47254af443fd975a8cd3cdf79"
+    },
+    {
+      "seed": 887,
+      "round": 9,
+      "training_seconds": 414.8053014590405,
+      "epochs_run": 243,
+      "budget": 621,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/lcmd/round_09/model/fit_audit.json",
+      "sha256": "dc805361c7142f84f8fdbcad87d5d953aea8beb7de8154fa57aac3323069da5b"
+    },
+    {
+      "seed": 887,
+      "round": 10,
+      "training_seconds": 466.45362458302407,
+      "epochs_run": 245,
+      "budget": 653,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/lcmd/round_10/model/fit_audit.json",
+      "sha256": "1896bd215c96b3573951c0fa4f7032aafcc23901f6243a9717252f4e0865c141"
+    },
+    {
+      "seed": 887,
+      "round": 11,
+      "training_seconds": 570.6561727090157,
+      "epochs_run": 268,
+      "budget": 685,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/lcmd/round_11/model/fit_audit.json",
+      "sha256": "89bae3146a92917d4bd1070cd2a9956b7598dd0cb9bfaa62f9aedbbcdf7d0cd4"
+    },
+    {
+      "seed": 887,
+      "round": 12,
+      "training_seconds": 446.5790474580135,
+      "epochs_run": 202,
+      "budget": 717,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/lcmd/round_12/model/fit_audit.json",
+      "sha256": "530e677330924c73e6cf5a261aca6347d5ab232e827259720a49375b56a20fa3"
+    },
+    {
+      "seed": 887,
+      "round": 13,
+      "training_seconds": 664.3160131250042,
+      "epochs_run": 244,
+      "budget": 749,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/lcmd/round_13/model/fit_audit.json",
+      "sha256": "bc288de47436e6b28bd9bc5115646b1bb2325a48b4e5059d0b038cfcd6433574"
+    },
+    {
+      "seed": 887,
+      "round": 14,
+      "training_seconds": 814.2288488330087,
+      "epochs_run": 256,
+      "budget": 781,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/lcmd/round_14/model/fit_audit.json",
+      "sha256": "2a3bda6e7aee95eb0ab3e45dd0e170b6f06a6a927630e77b0a9d6c0254fe5b6d"
+    },
+    {
+      "seed": 887,
+      "round": 15,
+      "training_seconds": 871.1950872499729,
+      "epochs_run": 278,
+      "budget": 813,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/lcmd/round_15/model/fit_audit.json",
+      "sha256": "e98d95a10f54f013097cc9f097ec9b48b6cb66e84360232b02f2f9110ea1754b"
+    },
+    {
+      "seed": 887,
+      "round": 16,
+      "training_seconds": 734.423759792,
+      "epochs_run": 237,
+      "budget": 845,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/lcmd/round_16/model/fit_audit.json",
+      "sha256": "12b3863e507a3539da148d770c06462489d6cbc3d25a0b33d0187c93ebea7a47"
+    },
+    {
+      "seed": 887,
+      "round": 17,
+      "training_seconds": 633.8105364579824,
+      "epochs_run": 223,
+      "budget": 877,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/lcmd/round_17/model/fit_audit.json",
+      "sha256": "458db1ed1a4561150f6920379e710ce3853df889db51e93d5e2d784ee5b18b17"
+    },
+    {
+      "seed": 887,
+      "round": 18,
+      "training_seconds": 620.3897279999801,
+      "epochs_run": 233,
+      "budget": 909,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/lcmd/round_18/model/fit_audit.json",
+      "sha256": "610cf07e2469fd9c5f96845d2e6977e234278e39a6d8f544fc80cde3040db276"
+    },
+    {
+      "seed": 887,
+      "round": 19,
+      "training_seconds": 945.9807661669911,
+      "epochs_run": 263,
+      "budget": 941,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/lcmd/round_19/model/fit_audit.json",
+      "sha256": "ace59532ce4f5251534045cbfb16b9a5fbcd8b42829ed5590c4894b7ec6ed58f"
+    },
+    {
+      "seed": 887,
+      "round": 20,
+      "training_seconds": 608.1971617080271,
+      "epochs_run": 221,
+      "budget": 973,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/lcmd/round_20/model/fit_audit.json",
+      "sha256": "5035df0282ff9b3d0580eab2d20d8906bdc42e3de22918bdb0c15cbafdb8e46d"
+    },
+    {
+      "seed": 887,
+      "round": 21,
+      "training_seconds": 747.5780384999816,
+      "epochs_run": 254,
+      "budget": 1005,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/lcmd/round_21/model/fit_audit.json",
+      "sha256": "e16d8c77d0fa448c9e1edc0a67b4238849e14da94a5cd2ae432e34b2a75f6ee2"
+    },
+    {
+      "seed": 2357,
+      "round": 1,
+      "training_seconds": 321.98989995796,
+      "epochs_run": 188,
+      "budget": 365,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_2357/lcmd/round_01/model/fit_audit.json",
+      "sha256": "4a78814377219f1a13b082f9e3763a81aeb5515459b6ea431acb5a5f805f0995"
+    },
+    {
+      "seed": 2357,
+      "round": 2,
+      "training_seconds": 418.31354783294955,
+      "epochs_run": 176,
+      "budget": 397,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_2357/lcmd/round_02/model/fit_audit.json",
+      "sha256": "0945ab2595b912f68b1c2dc2dac957df9d70e9585c53eae1dd94d6aac1c5e94f"
+    },
+    {
+      "seed": 2357,
+      "round": 3,
+      "training_seconds": 436.4400720410049,
+      "epochs_run": 204,
+      "budget": 429,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_2357/lcmd/round_03/model/fit_audit.json",
+      "sha256": "ac693da8e47a3a87467dc62eccb93fffb455c36110d619e6004f89057204a5f3"
+    },
+    {
+      "seed": 2357,
+      "round": 4,
+      "training_seconds": 404.09664716699626,
+      "epochs_run": 189,
+      "budget": 461,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_2357/lcmd/round_04/model/fit_audit.json",
+      "sha256": "832a696086bb4b06e4e1e21dd2b57c527522a85817a5d8f3241ee6807391407e"
+    },
+    {
+      "seed": 2357,
+      "round": 5,
+      "training_seconds": 327.1285016249749,
+      "epochs_run": 178,
+      "budget": 493,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_2357/lcmd/round_05/model/fit_audit.json",
+      "sha256": "91195d26df0780ef0774acddaf824d9b4b082c62d0a16ed65b0a47fbc84c1fc0"
+    },
+    {
+      "seed": 2357,
+      "round": 6,
+      "training_seconds": 371.0168085419573,
+      "epochs_run": 213,
+      "budget": 525,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_2357/lcmd/round_06/model/fit_audit.json",
+      "sha256": "9ac1ce8e75ac31a7f48ff9d9e3962d584ce98098b385941119abd657e10b3b77"
+    },
+    {
+      "seed": 2357,
+      "round": 7,
+      "training_seconds": 362.8006445420324,
+      "epochs_run": 199,
+      "budget": 557,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_2357/lcmd/round_07/model/fit_audit.json",
+      "sha256": "785d8b475574a32e864610d302e701a2aff0298b1c2b98c3b435ac471089e89b"
+    },
+    {
+      "seed": 2357,
+      "round": 8,
+      "training_seconds": 348.35189758299384,
+      "epochs_run": 180,
+      "budget": 589,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_2357/lcmd/round_08/model/fit_audit.json",
+      "sha256": "9db11307c03daaccaca38aba72cb75da7427372bace5f565800ccdcf0dba0f32"
+    },
+    {
+      "seed": 2357,
+      "round": 9,
+      "training_seconds": 341.9767484589829,
+      "epochs_run": 202,
+      "budget": 621,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_2357/lcmd/round_09/model/fit_audit.json",
+      "sha256": "d69662092b52245c87641584e55539882365b747367762081cf1eda7259de107"
+    },
+    {
+      "seed": 2357,
+      "round": 10,
+      "training_seconds": 464.7290338750463,
+      "epochs_run": 283,
+      "budget": 653,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_2357/lcmd/round_10/model/fit_audit.json",
+      "sha256": "1a184833f54530cd2d05bfa276ea8287908b34b182d136beaccfb21dda0d6cad"
+    },
+    {
+      "seed": 2357,
+      "round": 11,
+      "training_seconds": 371.08404204202816,
+      "epochs_run": 228,
+      "budget": 685,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_2357/lcmd/round_11/model/fit_audit.json",
+      "sha256": "7a67cb1577e288f2cb67106084810d4d9e13a586a3d07b31b47a0ba6478150f3"
+    },
+    {
+      "seed": 2357,
+      "round": 12,
+      "training_seconds": 393.26362404203974,
+      "epochs_run": 214,
+      "budget": 717,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_2357/lcmd/round_12/model/fit_audit.json",
+      "sha256": "bf372e59b1b2347b066eb7faa5206c8e46f1fb3769af21542568c5be2a903e07"
+    },
+    {
+      "seed": 2357,
+      "round": 13,
+      "training_seconds": 528.8096753330319,
+      "epochs_run": 277,
+      "budget": 749,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_2357/lcmd/round_13/model/fit_audit.json",
+      "sha256": "528defbb3fe15451f9888940e9ac9fc887be90b26b99adf1f17a4ea8394d86ce"
+    },
+    {
+      "seed": 2357,
+      "round": 14,
+      "training_seconds": 558.2117622090154,
+      "epochs_run": 234,
+      "budget": 781,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_2357/lcmd/round_14/model/fit_audit.json",
+      "sha256": "fa00a3faeaa912e941dfd3dc8d0442cd9fd38f06c04b9012383fa1edc9bf4e33"
+    },
+    {
+      "seed": 2357,
+      "round": 15,
+      "training_seconds": 514.5338824999635,
+      "epochs_run": 197,
+      "budget": 813,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_2357/lcmd/round_15/model/fit_audit.json",
+      "sha256": "b4c6413b599e841510a03e50e888eeddd09de4050d533bc97385e954667b4069"
+    },
+    {
+      "seed": 2357,
+      "round": 16,
+      "training_seconds": 720.5655176250148,
+      "epochs_run": 241,
+      "budget": 845,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_2357/lcmd/round_16/model/fit_audit.json",
+      "sha256": "d66a834283934f030f7e570c68e437ceff5a817947cbe590ca2b972528e05cf9"
+    },
+    {
+      "seed": 2357,
+      "round": 17,
+      "training_seconds": 649.896344290988,
+      "epochs_run": 197,
+      "budget": 877,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_2357/lcmd/round_17/model/fit_audit.json",
+      "sha256": "c931082bd81559aa62ac270ef4c18f01749008f75030247b0160d2d940f61e2f"
+    },
+    {
+      "seed": 2357,
+      "round": 18,
+      "training_seconds": 932.76297458302,
+      "epochs_run": 261,
+      "budget": 909,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_2357/lcmd/round_18/model/fit_audit.json",
+      "sha256": "ff13eeb5fa215664e7cf361177bb5e528412571c929871c0432e1b929a18c25e"
+    },
+    {
+      "seed": 2357,
+      "round": 19,
+      "training_seconds": 874.1961281669792,
+      "epochs_run": 269,
+      "budget": 941,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_2357/lcmd/round_19/model/fit_audit.json",
+      "sha256": "74169f7fa6a8abaf8852d269fd69b01bc86797e1508d501f21f38627c5327ddd"
+    },
+    {
+      "seed": 2357,
+      "round": 20,
+      "training_seconds": 722.519453749992,
+      "epochs_run": 240,
+      "budget": 973,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_2357/lcmd/round_20/model/fit_audit.json",
+      "sha256": "71ceb295f54af461b2708667c7a4ec74aec275e07dfc0b303f50bb1aa56d04fb"
+    },
+    {
+      "seed": 2357,
+      "round": 21,
+      "training_seconds": 828.8680334580131,
+      "epochs_run": 286,
+      "budget": 1005,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_2357/lcmd/round_21/model/fit_audit.json",
+      "sha256": "149952319fba8caa45584a0a55bf7f6623f186fcd721837c369af293f5ceec44"
+    },
+    {
+      "seed": 6101,
+      "round": 1,
+      "training_seconds": 196.9542285000207,
+      "epochs_run": 182,
+      "budget": 365,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_01/model/fit_audit.json",
+      "sha256": "10d1fcd4bdf495defc65099a1bcbad2aedc583f8618763b23ba4fbf420ef5db1"
+    },
+    {
+      "seed": 6101,
+      "round": 2,
+      "training_seconds": 182.4185099999886,
+      "epochs_run": 154,
+      "budget": 397,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_02/model/fit_audit.json",
+      "sha256": "9cfeff86288ee27c53695ff2c5ab699f91d2079999ef9fe0f9b8a4cddec2236b"
+    },
+    {
+      "seed": 6101,
+      "round": 3,
+      "training_seconds": 282.8229495419655,
+      "epochs_run": 219,
+      "budget": 429,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_03/model/fit_audit.json",
+      "sha256": "ef204a28c355382ffbed222221db7569d7d7a0c3a29966a215bfbda0ab2b8a50"
+    },
+    {
+      "seed": 6101,
+      "round": 4,
+      "training_seconds": 339.53381337499013,
+      "epochs_run": 224,
+      "budget": 461,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_04/model/fit_audit.json",
+      "sha256": "3cf8d0bd13bd79c721e956ebf15e4627387eb4248f9490fa99576b13cb57fbb6"
+    },
+    {
+      "seed": 6101,
+      "round": 5,
+      "training_seconds": 385.8214496250148,
+      "epochs_run": 244,
+      "budget": 493,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_05/model/fit_audit.json",
+      "sha256": "180604a5dc6192766ff48790717731a23a36dbd8ae1cd9a1d9886be7a09dcb7a"
+    },
+    {
+      "seed": 6101,
+      "round": 6,
+      "training_seconds": 306.73794766596984,
+      "epochs_run": 164,
+      "budget": 525,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_06/model/fit_audit.json",
+      "sha256": "00b8e8bf8c32e8c1506ddfccbefcebbb5d667403eb63f717f3f720970eed065a"
+    },
+    {
+      "seed": 6101,
+      "round": 7,
+      "training_seconds": 609.442687999981,
+      "epochs_run": 320,
+      "budget": 557,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_07/model/fit_audit.json",
+      "sha256": "ee01f6a2563942edfd2ab614a07707d227e95d339165c2c6992f1d52b1df5250"
+    },
+    {
+      "seed": 6101,
+      "round": 8,
+      "training_seconds": 428.0117572500021,
+      "epochs_run": 190,
+      "budget": 589,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_08/model/fit_audit.json",
+      "sha256": "6ffe4a253f160ed0311b858b96b4491751ab1907689018278dc451ad4edf4969"
+    },
+    {
+      "seed": 6101,
+      "round": 9,
+      "training_seconds": 363.44228966598166,
+      "epochs_run": 168,
+      "budget": 621,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_09/model/fit_audit.json",
+      "sha256": "a4b353b4ff8846846efdfb18778c3551fc9f14bd214f6199a5c573dd9f918223"
+    },
+    {
+      "seed": 6101,
+      "round": 10,
+      "training_seconds": 716.0349073340185,
+      "epochs_run": 251,
+      "budget": 653,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_10/model/fit_audit.json",
+      "sha256": "3c5fef0ca287956c1e5463929a1d672e88a88ddffe05db1e5df26b7a44e38375"
+    },
+    {
+      "seed": 6101,
+      "round": 11,
+      "training_seconds": 538.4069956249441,
+      "epochs_run": 175,
+      "budget": 685,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_11/model/fit_audit.json",
+      "sha256": "9b3de277817f51ea2d0fccaf09370750ef682c425f2e131c0130843f23cb92c6"
+    },
+    {
+      "seed": 6101,
+      "round": 12,
+      "training_seconds": 700.6019375420292,
+      "epochs_run": 274,
+      "budget": 717,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_12/model/fit_audit.json",
+      "sha256": "0275b02b3cd00f2625fa65b5457b45754380ebc2cdb2a45e986e89cfc40a52e5"
+    },
+    {
+      "seed": 6101,
+      "round": 13,
+      "training_seconds": 488.3639098330168,
+      "epochs_run": 202,
+      "budget": 749,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_13/model/fit_audit.json",
+      "sha256": "419dbb755797addb816119b4c2af39b81b41250c0053f3e96ac17289c58e1ac8"
+    },
+    {
+      "seed": 6101,
+      "round": 14,
+      "training_seconds": 707.9719387089717,
+      "epochs_run": 284,
+      "budget": 781,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_14/model/fit_audit.json",
+      "sha256": "3d79c1c2fc2b4dc2f7b0220ec016cf8769fe0e2f6824af1c628b0932f55bcd10"
+    },
+    {
+      "seed": 6101,
+      "round": 15,
+      "training_seconds": 517.4527498749667,
+      "epochs_run": 199,
+      "budget": 813,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_15/model/fit_audit.json",
+      "sha256": "e4f2c39a072fda1c793d0ea35676a24dc3315c8f5691ec09288384b2f1dc225c"
+    },
+    {
+      "seed": 6101,
+      "round": 16,
+      "training_seconds": 689.8676032920484,
+      "epochs_run": 217,
+      "budget": 845,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_16/model/fit_audit.json",
+      "sha256": "713e1bad6afd480fbe114bba11378181fea7032e1b6a6baa33e1bbca2b8e082a"
+    },
+    {
+      "seed": 6101,
+      "round": 17,
+      "training_seconds": 845.8481749169878,
+      "epochs_run": 298,
+      "budget": 877,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_17/model/fit_audit.json",
+      "sha256": "0a1dd50d225e3f22bbfb432b010e7ff69673d4a724a562d0677f283f208418d7"
+    },
+    {
+      "seed": 6101,
+      "round": 18,
+      "training_seconds": 595.8553520829882,
+      "epochs_run": 222,
+      "budget": 909,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_18/model/fit_audit.json",
+      "sha256": "388cfdb92186e2403f52394867be2132c9da6199b2234c4a4bfcc4f27b5601c1"
+    },
+    {
+      "seed": 6101,
+      "round": 19,
+      "training_seconds": 779.5946750000003,
+      "epochs_run": 277,
+      "budget": 941,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_19/model/fit_audit.json",
+      "sha256": "581b9c703f804269aebec511d7ad9a6fa6f266e4a265e2d94d7a6cf3d711cf94"
+    },
+    {
+      "seed": 6101,
+      "round": 20,
+      "training_seconds": 605.3661063750042,
+      "epochs_run": 222,
+      "budget": 973,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_20/model/fit_audit.json",
+      "sha256": "0317f6aa6b7d0175351cfd75758dcf6c60e377c0a96a47c581d583cd3cdd9150"
+    },
+    {
+      "seed": 6101,
+      "round": 21,
+      "training_seconds": 450.1869931250112,
+      "epochs_run": 230,
+      "budget": 1005,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_21/model/fit_audit.json",
+      "sha256": "bc2a310778040aea19cf5a3555dc99f7eeb4ebfbd55224926645ca24932ed6af"
+    },
+    {
+      "seed": 12203,
+      "round": 1,
+      "training_seconds": 163.73514083301416,
+      "epochs_run": 157,
+      "budget": 365,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_12203/lcmd/round_01/model/fit_audit.json",
+      "sha256": "0d5f98a797c607dca3102ec6333c8fbdecf6960c1e58d7bc7d594a83471257e6"
+    },
+    {
+      "seed": 12203,
+      "round": 2,
+      "training_seconds": 160.9485931249801,
+      "epochs_run": 157,
+      "budget": 397,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_12203/lcmd/round_02/model/fit_audit.json",
+      "sha256": "9da930ead4d8e90feae428385285a2cc2846687f2b8e4c248860f97e7b6b2655"
+    },
+    {
+      "seed": 12203,
+      "round": 3,
+      "training_seconds": 174.92028987500817,
+      "epochs_run": 169,
+      "budget": 429,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_12203/lcmd/round_03/model/fit_audit.json",
+      "sha256": "f9d365ba83fc8888b6a9a8e254f118899256df0b8274855410f9818d89202168"
+    },
+    {
+      "seed": 12203,
+      "round": 4,
+      "training_seconds": 185.22839891602052,
+      "epochs_run": 167,
+      "budget": 461,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_12203/lcmd/round_04/model/fit_audit.json",
+      "sha256": "4f3f31c1b1db07c5b5323ad569e4aac1483ab82a3ea6133fe4fb4bc1366452da"
+    },
+    {
+      "seed": 12203,
+      "round": 5,
+      "training_seconds": 193.9329381659627,
+      "epochs_run": 172,
+      "budget": 493,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_12203/lcmd/round_05/model/fit_audit.json",
+      "sha256": "f3fb80dde9a0a19b7fe570d1063cc9e6527611dd51cb29d1f5b2b1b31516fed1"
+    },
+    {
+      "seed": 12203,
+      "round": 6,
+      "training_seconds": 203.6155303340056,
+      "epochs_run": 180,
+      "budget": 525,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_12203/lcmd/round_06/model/fit_audit.json",
+      "sha256": "afc72c85015d2a11186518c45aade21b0726ab2fe0d0d2ad512b4f4cc04e6ee5"
+    },
+    {
+      "seed": 12203,
+      "round": 7,
+      "training_seconds": 318.52763133397093,
+      "epochs_run": 209,
+      "budget": 557,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_12203/lcmd/round_07/model/fit_audit.json",
+      "sha256": "7b70acd24e9fee3446788b61df1127bfced8076df4bb4ca31b890854e62cd0f2"
+    },
+    {
+      "seed": 12203,
+      "round": 8,
+      "training_seconds": 377.08954324998194,
+      "epochs_run": 228,
+      "budget": 589,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_12203/lcmd/round_08/model/fit_audit.json",
+      "sha256": "79216c757a3f881d08a8a6f67fcba643770750d518c081feec3df2145d70c78e"
+    },
+    {
+      "seed": 12203,
+      "round": 9,
+      "training_seconds": 332.96827658300754,
+      "epochs_run": 196,
+      "budget": 621,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_12203/lcmd/round_09/model/fit_audit.json",
+      "sha256": "745d9c0c248be8a8f14d3c740a85ff172b440bcb0e76d33d0d516e4aca566104"
+    },
+    {
+      "seed": 12203,
+      "round": 10,
+      "training_seconds": 299.93348333303584,
+      "epochs_run": 174,
+      "budget": 653,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_12203/lcmd/round_10/model/fit_audit.json",
+      "sha256": "b295f26acf28ec03a9bb95821131e73d2e727c8dffcd0ccd591e598a3ffcec4f"
+    },
+    {
+      "seed": 12203,
+      "round": 11,
+      "training_seconds": 345.94522116601,
+      "epochs_run": 181,
+      "budget": 685,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_12203/lcmd/round_11/model/fit_audit.json",
+      "sha256": "3b2b10b86e86258c1e54cb6596184e79cc3bb8310360ec4f8027009f62cf5783"
+    },
+    {
+      "seed": 12203,
+      "round": 12,
+      "training_seconds": 330.5583541250089,
+      "epochs_run": 166,
+      "budget": 717,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_12203/lcmd/round_12/model/fit_audit.json",
+      "sha256": "b7a12d11cb8af593d02bd8c0fb5e0881d726470a7fa8de9d654553fddc9d7a44"
+    },
+    {
+      "seed": 12203,
+      "round": 13,
+      "training_seconds": 462.6113752499805,
+      "epochs_run": 221,
+      "budget": 749,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_12203/lcmd/round_13/model/fit_audit.json",
+      "sha256": "e0e24fd46793fb0370b41cac6044d474d411c24bfcf311f6501f93a687dd9bc0"
+    },
+    {
+      "seed": 12203,
+      "round": 14,
+      "training_seconds": 434.0562466250267,
+      "epochs_run": 196,
+      "budget": 781,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_12203/lcmd/round_14/model/fit_audit.json",
+      "sha256": "80c2dd4317d4ad8cd6bbffd0e03eba553da9208253ed04d351da20311a2fed98"
+    },
+    {
+      "seed": 12203,
+      "round": 15,
+      "training_seconds": 460.2959266669932,
+      "epochs_run": 200,
+      "budget": 813,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_12203/lcmd/round_15/model/fit_audit.json",
+      "sha256": "1e13f3f23503bc5b2a841c93af09f229d483ab6d47b9ba16a67e14c181bf3796"
+    },
+    {
+      "seed": 12203,
+      "round": 16,
+      "training_seconds": 521.9618222090066,
+      "epochs_run": 224,
+      "budget": 845,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_12203/lcmd/round_16/model/fit_audit.json",
+      "sha256": "12e5bbb32cc9b953f46b92881b8e32db7d229368ca10642cfb12d2033a351145"
+    },
+    {
+      "seed": 12203,
+      "round": 17,
+      "training_seconds": 619.0805823749979,
+      "epochs_run": 257,
+      "budget": 877,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_12203/lcmd/round_17/model/fit_audit.json",
+      "sha256": "fcc22bab8a52141951768c3a0dc1de05ebd16a943467f1f1026037557833ca5d"
+    },
+    {
+      "seed": 12203,
+      "round": 18,
+      "training_seconds": 549.0488621249679,
+      "epochs_run": 221,
+      "budget": 909,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_12203/lcmd/round_18/model/fit_audit.json",
+      "sha256": "7f49e6ec54bfde6beb7137950725ecc3a41bfb8e941f47afe86102ff826da233"
+    },
+    {
+      "seed": 12203,
+      "round": 19,
+      "training_seconds": 594.3802578329924,
+      "epochs_run": 238,
+      "budget": 941,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_12203/lcmd/round_19/model/fit_audit.json",
+      "sha256": "c5d69716c387e68c9f4c3d32fd9e8eca7bd910b2f6dfde18b2835dd27068bbc9"
+    },
+    {
+      "seed": 12203,
+      "round": 20,
+      "training_seconds": 596.8331530410214,
+      "epochs_run": 224,
+      "budget": 973,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_12203/lcmd/round_20/model/fit_audit.json",
+      "sha256": "d6aa03f744247d8f77e3094030d35aa7f3dd06aaf29d2f6d6b1efb57cd2957ae"
+    },
+    {
+      "seed": 12203,
+      "round": 21,
+      "training_seconds": 632.8354049580521,
+      "epochs_run": 249,
+      "budget": 1005,
+      "audit_path": "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_12203/lcmd/round_21/model/fit_audit.json",
+      "sha256": "3c6e5d60854224f5fc0eb653c5e6ec92e3285c9fbcacde44113c5c065eabfc65"
+    }
+  ],
+  "locks": [
+    {
+      "path": "studies/active_learning/epig_prediction_oriented_20261117/runtime/formal.lock",
+      "exists": false,
+      "held": false
+    },
+    {
+      "path": "studies/active_learning/epig_prediction_oriented_v2_20261117/runtime/exploratory.lock",
+      "exists": false,
+      "held": false
+    }
+  ],
+  "process_inventory": {
+    "exit_code": 0,
+    "stdout": " 1177     1   0.0  0.0 34-09:56:18 /Applications/Nutstore.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension -AppleLanguages (\"zh-Hans-CN\")\n 2802     1   0.0  0.0 34-09:45:33 /usr/bin/ssh-agent -l\n42990     1   0.0  0.1 22-15:18:16 /Applications/Nutstore.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension -AppleLanguages (\"zh-Hans\", \"zh-Hans-CN\")\n48458 96918  97.3  3.6       01:10 /Users/fish/miniforge3/envs/fish/bin/python studies/active_learning/epig_prediction_oriented_v2_20261117/reference_audit.py\n50663 96918  80.2  2.2       00:05 /Users/fish/miniforge3/envs/fish/bin/python studies/active_learning/epig_prediction_oriented_v2_20261117/resource_preflight.py\n55446     1   0.0  0.1 26-07:06:57 /Applications/Nutstore.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension -AppleLanguages (\"zh-Hans\", \"zh-Hans-CN\")\n60819     1   0.0  0.1    02:22:31 /System/Library/Frameworks/FinderSync.framework/Versions/A/XPCServices/IsExtensionEnabled.xpc/Contents/MacOS/IsExtensionEnabled\n61738     1   0.0  0.0    02:22:00 /System/Library/Frameworks/Contacts.framework/Support/postersyncd\n71130     1   0.0  0.0 30-13:13:02 /Users/fish/miniforge3/envs/fish/bin/python -u /Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1549_20261018/observe_completion1549.py\n71132     1   0.0  0.1 30-13:13:02 /Users/fish/miniforge3/envs/fish/bin/python -u /Users/fish/Documents/GitHub/column_chromatography_prediction/studies/active_learning/qgeognn_v2_row_llm_scientist_v2/revisions/sol_xhigh_all_strategies_to1549_20261018/monitor_recovery1549.py\n71134     1   0.0  0.1 30-13:13:02 /Users/fish/miniforge3/envs/fish/bin/python -u /Users/fish/Documents/GitHub/column_chromatography_prediction/reports/llm_eight_to1549_20261018/monitor_live.py\n71136     1   0.0  0.0 30-13:13:02 /Users/fish/miniforge3/envs/fish/bin/python -u /Users/fish/Documents/GitHub/column_chromatography_prediction/reports/llm_eight_to1549_20261018/finalize_completed1549.py\n92410     1   0.0  0.1 05-13:34:26 /Applications/Nutstore.app/Contents/PlugIns/FinderSyncExtension.appex/Contents/MacOS/FinderSyncExtension -AppleLanguages (\"en\", \"zh-Hans-CN\")\n96751     1   0.0  0.0 30-08:05:22 /Users/fish/miniforge3/envs/fish/bin/python -u /Users/fish/Documents/GitHub/column_chromatography_prediction/reports/llm_eight_to1549_20261018/update_progress.py\n97677 97667   0.0  0.0    14:22:34 /Users/fish/.vscode/extensions/ms-python.vscode-python-envs-1.42.0-darwin-arm64/python-env-tools/bin/pet server\n97697 97668   0.0  0.0    14:22:34 /Users/fish/.vscode/extensions/ms-python.vscode-python-envs-1.42.0-darwin-arm64/python-env-tools/bin/pet server\n97723 97667   0.0  1.4    14:22:33 /Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin) /Users/fish/.vscode/extensions/ms-python.vscode-pylance-2026.4.1/dist/server.bundle.js --cancellationReceive=file:ea644ecf85f7f5740dba76e74bd91fb606ed382010 --node-ipc --clientProcessId=97667"
+  },
+  "labels_read": {
+    "l0": 0,
+    "future_U": 0,
+    "validation": 0,
+    "test": 0
+  },
+  "note": "No training or target CSV is read by this preflight. Process/hardware sandbox failures are explicit, not evidence of absent resources.",
+  "dependency_ready": true
+}

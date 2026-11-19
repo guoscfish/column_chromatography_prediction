@@ -1,0 +1,70 @@
+{
+  "frozen_unix": 1794915104.945756,
+  "formal_seeds": [
+    42,
+    525,
+    1101
+  ],
+  "AL_seeds": [
+    157,
+    887,
+    2357,
+    6101,
+    12203
+  ],
+  "AL_budgets": [
+    525,
+    1005,
+    1485
+  ],
+  "new_fits": 0,
+  "API_calls": 0,
+  "new_experimental_reveals": 0,
+  "quarantined_ids": [
+    "c32ed74eba9d7dfc4860",
+    "9a478db27ef04d7bb59c",
+    "bfe9ce431b45599fd5e6"
+  ],
+  "primary_units": "mL, sample volume uL; observed strict one-factor pairs only",
+  "aggregation": "pair mean within seed/endpoint, then equal formal model means; molecule and series stratifications are descriptive. Crossed AL/formal seeds are not paired randomized replications.",
+  "thresholds_ml": [
+    0.1,
+    0.5,
+    1.0
+  ],
+  "main_direction_threshold_ml": 0.5,
+  "prediction_flat_threshold_ml": 0.1,
+  "validation_sparse_reference": {
+    "minimum_pairs": 20,
+    "minimum_series": 10,
+    "minimum_molecules": 5,
+    "scope": "descriptive engineering coverage flags, not power or significance guarantees"
+  },
+  "response_reference_bands": {
+    "severe_amplitude_compression_ratio_below": 0.2,
+    "rough_amplitude_recovery_ratio_interval": [
+      0.5,
+      1.5
+    ],
+    "difference_MAE_reduction_vs_zero_response_reference": 0.2,
+    "scope": "report each endpoint and all three formal seeds; do not force one binary pass from pooled pairs"
+  },
+  "decision_logic": [
+    "train and validation recover: architecture has capacity, study early label coverage; no LLM value claim",
+    "train improves but validation poor: separate coverage/interactions/overfit/noise",
+    "train remains compressed: data scale alone insufficient under these trained models; diagnose branch/loss/dynamics, no automatic architecture change",
+    "seed heterogeneity: all three reported; no best-seed selection"
+  ],
+  "matched_primary": "same exact pair IDs present at L525 and L1005 for each AL seed, legally train/val in the evaluated formal split and no quarantined endpoint; L1485 is an all-five-seed existing-checkpoint extension",
+  "curve_pool": "15 metadata-hash ordered volume series from legal common AL pairs, maximum3 per ALseed, at least2 observed levels; freeze IDs before predicting curves",
+  "curve_grid_ul": [
+    30,
+    60,
+    90,
+    120,
+    150
+  ],
+  "curve_support": "global domain30..150; outside per-series observed min/max marked local extrapolation; curves do not score errors at synthetic levels",
+  "curve_examples": "within frozen pool: first hash qualifying recovered(span>=1mL and >=5x AL1005), all-formal-flat(span<.1mL), or formal seed spread>1mL; absent types explicitly absent; all pool curves exported",
+  "label_boundary_exception": "Separate incident record; no claim of zero historical test-value visibility; quarantine applied before all numeric scoring"
+}

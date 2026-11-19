@@ -1,0 +1,93 @@
+{
+  "status": "DISCLOSED_TEXT_INSPECTION_INCIDENT_GLOBAL_QUARANTINE",
+  "command": "head -4 qualification_dataset_manifest.csv",
+  "source": "studies/predictor/final_4g_qualification/splits/qualification_dataset_manifest.csv",
+  "visible_header_rows": 1,
+  "visible_target_rows": 3,
+  "displayed_lines": 4,
+  "quarantined_ids": [
+    "9a478db27ef04d7bb59c",
+    "bfe9ce431b45599fd5e6",
+    "c32ed74eba9d7dfc4860"
+  ],
+  "previewed_id_roles": [
+    {
+      "sample_id": "9a478db27ef04d7bb59c",
+      "row_seed": 42,
+      "source_role": "train",
+      "source_row": 3
+    },
+    {
+      "sample_id": "9a478db27ef04d7bb59c",
+      "row_seed": 525,
+      "source_role": "train",
+      "source_row": 3
+    },
+    {
+      "sample_id": "9a478db27ef04d7bb59c",
+      "row_seed": 1101,
+      "source_role": "train",
+      "source_row": 3
+    },
+    {
+      "sample_id": "bfe9ce431b45599fd5e6",
+      "row_seed": 42,
+      "source_role": "train",
+      "source_row": 4
+    },
+    {
+      "sample_id": "bfe9ce431b45599fd5e6",
+      "row_seed": 525,
+      "source_role": "test",
+      "source_row": 4
+    },
+    {
+      "sample_id": "bfe9ce431b45599fd5e6",
+      "row_seed": 1101,
+      "source_role": "train",
+      "source_row": 4
+    },
+    {
+      "sample_id": "c32ed74eba9d7dfc4860",
+      "row_seed": 42,
+      "source_role": "train",
+      "source_row": 2
+    },
+    {
+      "sample_id": "c32ed74eba9d7dfc4860",
+      "row_seed": 525,
+      "source_role": "train",
+      "source_row": 2
+    },
+    {
+      "sample_id": "c32ed74eba9d7dfc4860",
+      "row_seed": 1101,
+      "source_role": "test",
+      "source_row": 2
+    }
+  ],
+  "target_values_copied_into_artifacts": false,
+  "numeric_projection_rows": 0,
+  "used_for_metrics_or_models_or_selection": false,
+  "affected_test_id_roles": [
+    {
+      "sample_id": "c32ed74eba9d7dfc4860",
+      "row_seed": 1101,
+      "source_role": "test"
+    },
+    {
+      "sample_id": "bfe9ce431b45599fd5e6",
+      "row_seed": 525,
+      "source_role": "test"
+    }
+  ],
+  "secondary_open_without_numeric_display": {
+    "agent": "protocol",
+    "operation": "sed with split CSV first and target manifest second; cumulative line numbering",
+    "additional_preview_ids": [],
+    "visible_target_rows": 0,
+    "numeric_projection_rows": 0,
+    "scope": "target file opened/streamed; only the first split CSV lines were displayed"
+  },
+  "remedy": "All three previewed IDs are globally quarantined in every seed; role-gated label access and scored pairs reject them before numeric projection."
+}

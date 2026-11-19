@@ -1,0 +1,139 @@
+{
+  "successful_downstream_fits_verified": 210,
+  "target_successful_fits": 210,
+  "qgeognn_attempts": 211,
+  "failures": [
+    {
+      "key": "12203:posterior_epig_conditional_greedy32:6",
+      "kind": "qgeognn",
+      "status": "FAILED_OR_INTERRUPTED",
+      "started_unix": 1794985992.4371378,
+      "last_heartbeat_seconds": 96.45767579204403,
+      "active_seconds": 97.7757574999705,
+      "ended_unix": 1794986090.217352,
+      "error_type": "KeyboardInterrupt",
+      "error": ""
+    }
+  ],
+  "active_seconds_completed_and_failed": {
+    "qgeognn": 41591.752929123584,
+    "auxiliary": 2107.742437195033
+  },
+  "running_operations": [],
+  "offline_reservations": {
+    "auxiliary_successful_fits": 65,
+    "auxiliary_attempts": 65,
+    "auxiliary_active_seconds": 9000,
+    "nature": "upper-bound reservation for offline C/D and reference; not actual consumption"
+  },
+  "actual_offline_costs": {
+    "surrogate": {
+      "status": "COMPLETE",
+      "model_fits": 60,
+      "endpoint_optimization_starts": 360,
+      "active_seconds": 12.297106917016208,
+      "ru_maxrss_bytes_macos": 580124672,
+      "protocol_sha256": "584d8fe34839572f8e92e97eca3dc754a2ab2d98f5645955c8fa0cff8a12c31d",
+      "future_U_labels_read": 0,
+      "validation_labels_read": 0,
+      "test_labels_read": 0,
+      "files": {
+        "joint_conditional_logscore.csv": "078607644079509e316c5cd91b37788deae587604a306209117c650e35095316",
+        "conditional_calibration.csv": "51c13b614b04354a74261e1c352281ebd0385bf226e0c7c3447790e4e4237434",
+        "old_joint_dependence.csv": "c02bf3b211d5910cc3c31f5270eb6deeec4782e9b86299fe9ba03f9d408fda4c",
+        "pca_coordinate_retention.csv": "418894758961e85b10b9b127308fcc234ab562b07004bff9a4a7bd6328ce70d4",
+        "old_optimizer_parameters.csv": "cb0f79d3269a4bcc070d016b820f423a2417a3f8dea9e820384c21582f838ac5",
+        "oof_metrics.csv": "3a42cf8ede4f78856a5c63a49dffe7d9caa7a9fe67b61ca43628d29b3415c2c6",
+        "residual_shape.csv": "2311ca2f0fa63b027504e7ca980288f8b98722f3c441ae048c7ef3ec2cb9e6f3"
+      }
+    },
+    "surrogate_followup": {
+      "status": "COMPLETE",
+      "new_model_fits": 5,
+      "restored_fold_models_no_new_fit": 20,
+      "old_fullL333_models_reused": 5,
+      "active_seconds": 47.511759124929085,
+      "ru_maxrss_bytes_macos": 1275625472,
+      "future_U_labels_read": 0,
+      "validation_labels_read": 0,
+      "test_labels_read": 0,
+      "protocol_sha256": "7f5485bab6d7fdc51425c7df0b96402d0cd836c0d94cdabe39bcf360c8f61c30",
+      "outputs": {
+        "ranking_comparisons.csv": "05784a830b273b76e78a97053557dfe357c616bf218bb8c0209d94d60daf5968",
+        "score_summary.csv": "f482e599e197b1efc40db199d9a7ef43ab9d60c06586d72e5649720212981515"
+      }
+    },
+    "reference": {
+      "completed_seeds": [
+        157,
+        12203,
+        887,
+        6101,
+        2357
+      ],
+      "reference_protocol_sha256": "851ac28a195209620c73e7f1b19c4e64e362a8b703ecff6623e551f5540fba2b",
+      "elapsed_this_invocation_seconds": 447.41848629084416,
+      "process_peak_rss_bytes": 1124319232,
+      "label_access": "none; only feature CSV columns and prefit models",
+      "future_U_labels_read": 0,
+      "test_labels_read": 0,
+      "costs": [
+        {
+          "cross_cache_bytes_on_disk": 159680160,
+          "maximum_covariance_request_rows": [
+            64,
+            256
+          ],
+          "cache_build_seconds": 0.758656790945679,
+          "process_peak_rss_bytes": 1101299712,
+          "labels_read": 0,
+          "new_fits": 0
+        },
+        {
+          "cross_cache_bytes_on_disk": 159680160,
+          "maximum_covariance_request_rows": [
+            64,
+            256
+          ],
+          "cache_build_seconds": 1.2579666250385344,
+          "process_peak_rss_bytes": 1124319232,
+          "labels_read": 0,
+          "new_fits": 0
+        },
+        {
+          "cross_cache_bytes_on_disk": 159680160,
+          "maximum_covariance_request_rows": [
+            64,
+            256
+          ],
+          "cache_build_seconds": 0.862683332990855,
+          "process_peak_rss_bytes": 1112866816,
+          "labels_read": 0,
+          "new_fits": 0
+        },
+        {
+          "cross_cache_bytes_on_disk": 159680160,
+          "maximum_covariance_request_rows": [
+            64,
+            256
+          ],
+          "cache_build_seconds": 0.7851185000035912,
+          "process_peak_rss_bytes": 1124319232,
+          "labels_read": 0,
+          "new_fits": 0
+        },
+        {
+          "cross_cache_bytes_on_disk": 159680160,
+          "maximum_covariance_request_rows": [
+            64,
+            256
+          ],
+          "cache_build_seconds": 0.7644371669739485,
+          "process_peak_rss_bytes": 1124319232,
+          "labels_read": 0,
+          "new_fits": 0
+        }
+      ]
+    }
+  }
+}

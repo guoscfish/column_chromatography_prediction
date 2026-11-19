@@ -1,0 +1,48 @@
+{
+  "schema": "epig-v2-frozen-encoder-feasibility-1",
+  "study_type": "post-stage1/stage2 exploratory development study",
+  "seeds": [
+    157,
+    887,
+    2357,
+    6101,
+    12203
+  ],
+  "budget": {
+    "new_model_fits": 5,
+    "active_seconds_max": 300,
+    "automatic_retries": 0,
+    "threads": 1
+  },
+  "encoder": "original seed-local L333 QGeoGNN-V2 extract_representation128, supervised with all L333; conditional diagnostic, not honest OOF",
+  "new_model": "independent Gaussian BayesianLinearSurrogate on frozen encoder representation, PCA16, maxiter60, all L333, target divided by fixed L333 ddof0 scales",
+  "qualification_claim": false,
+  "adopt_for_primary_AL": false,
+  "future_U_labels_read": 0,
+  "validation_labels_read": 0,
+  "test_labels_read": 0,
+  "ranking": "P1 complete3330 X, original U2997 candidates, objectives EPIG/IVR/BALD, streaming128x128 covariance blocks; report scores and top32, no new GNN fit",
+  "feature_ranking": "reconstruct each configuration's already-fitted fold0 (222 labels) posterior; same L222 and U2997/X3330 for all four feature configs; diagnostic scope differs from L333 main AL",
+  "files": {
+    "studies/active_learning/epig_prediction_oriented_v2_20261117/surrogate_followup.py": "cc019c06dfdbf78f8322bde7af4f862fe6ff733f7a170399eedd7bcd6b53d236",
+    "studies/active_learning/epig_prediction_oriented_v2_20261117/surrogate_v2.py": "e6590798550628a870ac2d5894e1819d0373740ec45eda3daa2d5f435a67de8c"
+  },
+  "dependencies": {
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/lcmd/round_00/model/best.pt": "87e92ccdabc1dd64ecf89a3061624450ce125906c4cbb988d7263b190991b1c0",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/scrubbed_graphs.pt": "29c2d4c5d9b4b0165c7ef5d400c0d7a5ae53795e10aea67318f68705ec9d9239",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_157/scrubbed_graphs.pt.contract.json": "3dff32b359e57a0c4c4785bfab28b9a4a3f22a572c02466a67b55eb41fd06195",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/lcmd/round_00/model/best.pt": "8a9c26efc0e8fd25420e56177f8becc8d12ddec204e564c6037fe58c12587059",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/scrubbed_graphs.pt": "29c2d4c5d9b4b0165c7ef5d400c0d7a5ae53795e10aea67318f68705ec9d9239",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_887/scrubbed_graphs.pt.contract.json": "c7325d295d52d8bee94429ddec924f7c43db26212acc4cfce2017ba9aa254a38",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_2357/lcmd/round_00/model/best.pt": "ac34c895d573510f86f9aa1dd0b7b0c565dbf3fd80fa3763acab92c787de6731",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_2357/scrubbed_graphs.pt": "29c2d4c5d9b4b0165c7ef5d400c0d7a5ae53795e10aea67318f68705ec9d9239",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_2357/scrubbed_graphs.pt.contract.json": "b1264561e8b470657ba26b8ef1f8f892ee3471929cac28ffaa8d1847ea86036d",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/lcmd/round_00/model/best.pt": "bcfffa247c3d24c8c74993ddb66cb59741ae14b1e67e8ed9543a8d1af7c6c494",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/scrubbed_graphs.pt": "29c2d4c5d9b4b0165c7ef5d400c0d7a5ae53795e10aea67318f68705ec9d9239",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_6101/scrubbed_graphs.pt.contract.json": "a4a0c41ff1fe6bb0159b0156e43f434de09d02880682d1c1a2dfd22d984341df",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_12203/lcmd/round_00/model/best.pt": "114ba06d0fde3bce6c05f7ec2c642ed2b1c9b50a0a235c9bce06530d7bc9be5a",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_12203/scrubbed_graphs.pt": "29c2d4c5d9b4b0165c7ef5d400c0d7a5ae53795e10aea67318f68705ec9d9239",
+    "studies/active_learning/qgeognn_v2_row_sequential_b32/runtime/seed_12203/scrubbed_graphs.pt.contract.json": "d3deab0f04d8f432f1239998e3b4f8f120787ec1d90727975f36687ab568ff0d"
+  },
+  "parent_surrogate_protocol_sha256": "584d8fe34839572f8e92e97eca3dc754a2ab2d98f5645955c8fa0cff8a12c31d"
+}

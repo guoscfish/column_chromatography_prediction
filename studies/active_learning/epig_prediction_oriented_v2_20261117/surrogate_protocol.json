@@ -1,0 +1,61 @@
+{
+  "schema": "epig-v2-surrogate-diagnostic-1",
+  "study_type": "post-stage1/stage2 exploratory development study",
+  "seeds": [
+    157,
+    887,
+    2357,
+    6101,
+    12203
+  ],
+  "folds": 3,
+  "fold_seed": "outer_seed+910007, same folds as v1",
+  "configs": {
+    "F0_PCA16_opt": {
+      "feature": "F0",
+      "grouped": false,
+      "max_components": 16
+    },
+    "F1_PCA16_opt": {
+      "feature": "F1",
+      "grouped": false,
+      "max_components": 16
+    },
+    "F2_PCA16_opt": {
+      "feature": "F1",
+      "grouped": true,
+      "max_components": 16
+    },
+    "F2_full_opt": {
+      "feature": "F1",
+      "grouped": true,
+      "max_components": null
+    }
+  },
+  "kernel": "matern32",
+  "maxiter": 200,
+  "restarts": 3,
+  "mean": "constant training-side empirical mean; existing BLR linear mean is audited, not changed here",
+  "noise": "independent endpoint homoscedastic Gaussian; residual conditional structure diagnosed, not assumed fixed",
+  "group_scaling": "after fold-local z standardization, molecular16/eluent6/solvent3/loading6 each weighted 1/sqrt(group_dim), then optional PCA",
+  "label_access": "seed-local original L333 only; no future U, validation, or test labels",
+  "model_selection": "none; all four finite variants reported, not adopted by primary AL",
+  "budget": {
+    "model_fits_max": 60,
+    "endpoint_optimization_starts_max": 360,
+    "active_seconds_max": 1800,
+    "automatic_retries": 0,
+    "threads": 1
+  },
+  "condition_groups": "PE/EA EA fraction, density, sample-volume, loading-solvent-volume quartiles with duplicate cuts dropped; solvent categories; sigma quartiles; molecule with n>=4",
+  "cross_sample_logscore": "each held-out row conditional on other held-out rows, both endpoints kept together; diagnostic only, L333 known labels; no future-label acquisition utility",
+  "coverage_uncertainty": "descriptive Wilson95 intervals; OOF row dependence and outer-seed overlap preclude independent-binomial guarantees",
+  "files": {
+    "studies/active_learning/epig_prediction_oriented_v2_20261117/surrogate_audit.py": "68aae39e36d5ad35722983b8513ce2d0563d08ca8eb57f4891027b98091ab46b",
+    "studies/active_learning/epig_prediction_oriented_v2_20261117/surrogate_v2.py": "e6590798550628a870ac2d5894e1819d0373740ec45eda3daa2d5f435a67de8c",
+    "src/qgeognn_al/active_learning_v2/epig_models.py": "af453e4d11275021be52f08caa16b8e48dc91ae8ab78a2e0d9e8ce52294e8791"
+  },
+  "source_sha256": "6cbe81311177ae178d10ff75a8f07c41c99a18648ec6104d2ffedca6e912d51c",
+  "graph_cache_sha256": "a48f8ea1ce4f89c5a1ea6d17466e7c7ffa0439edb8ec79bd8b765bad3a97c3ee",
+  "original_freeze_sha256": "3c5ad14d80c1c2893c6b09d0f3601e008bf2a7c7c222e712a7fe20954ca89c6e"
+}

@@ -1,0 +1,352 @@
+{
+  "status": "PASS_WITH_DISCLOSED_LABEL_BOUNDARY_EXCEPTION",
+  "new_fits": 0,
+  "new_inference_calls": 0,
+  "API_calls": 0,
+  "raw_target_files_read": [],
+  "legacy_formal_prediction_caches_read": [],
+  "label_interfaces_called": 0,
+  "truth_scope": "Only already-authorized derived delta_true in this study; no independent reopening of absolute targets.",
+  "boundary_exception": "Initial text preview included source-test role values; three IDs globally quarantined. This QA does not claim the whole study had zero test-value visibility.",
+  "quarantine_ids": [
+    "9a478db27ef04d7bb59c",
+    "bfe9ce431b45599fd5e6",
+    "c32ed74eba9d7dfc4860"
+  ],
+  "formal_prediction_rows": [
+    {
+      "seed": 42,
+      "rows": 3743,
+      "train": 3327,
+      "validation": 416
+    },
+    {
+      "seed": 525,
+      "rows": 3744,
+      "train": 3328,
+      "validation": 416
+    },
+    {
+      "seed": 1101,
+      "rows": 3744,
+      "train": 3328,
+      "validation": 416
+    }
+  ],
+  "formal_scored_pair_endpoint_events": 82056,
+  "formal_unique_model_axis_pairs": 41028,
+  "matched_endpoint_method_events": 33296,
+  "matched_unique_formal_axis_pairs": 3453,
+  "exported_roles_match_three_hash_locked_original_splits": true,
+  "four_method_identical_pair_sets": true,
+  "source_test_scored_events": 0,
+  "quarantined_scored_events": 0,
+  "formal_prediction_delta_max_error": 1.4210854715202004e-14,
+  "matched_prediction_delta_max_error": 1.4210854715202004e-14,
+  "matched_CSV_float64_subtraction_max_error_ml": 8.178710942274847e-06,
+  "matched_precision": "Formal CSV float64 subtraction; AL native float32 subtraction. Casting saved AL predictions back to float32 reproduces every released AL delta exactly.",
+  "checks": [
+    {
+      "check": "formal_response_per_model",
+      "rows": 108,
+      "max_absolute_difference": 1.7763568394002505e-15,
+      "tolerance": 2e-10,
+      "status": "PASS"
+    },
+    {
+      "check": "formal_response_equal_models",
+      "rows": 36,
+      "max_absolute_difference": 2.842170943040401e-14,
+      "tolerance": 2e-10,
+      "status": "PASS"
+    },
+    {
+      "check": "matched_seed_metrics",
+      "rows": 1872,
+      "max_absolute_difference": 7.105427357601002e-15,
+      "tolerance": 2e-10,
+      "status": "PASS"
+    },
+    {
+      "check": "matched_global_nontest_metrics",
+      "rows": 1824,
+      "max_absolute_difference": 7.105427357601002e-15,
+      "tolerance": 2e-10,
+      "status": "PASS"
+    }
+  ],
+  "row_RMS_checks": [
+    {
+      "seed": 42,
+      "role": "train",
+      "recomputed_official_RMS": 0.24292008072180551
+    },
+    {
+      "seed": 42,
+      "role": "validation",
+      "recomputed_official_RMS": 0.2791525869633589
+    },
+    {
+      "seed": 525,
+      "role": "train",
+      "recomputed_official_RMS": 0.20347870899287213
+    },
+    {
+      "seed": 525,
+      "role": "validation",
+      "recomputed_official_RMS": 0.2774947919811479
+    },
+    {
+      "seed": 1101,
+      "role": "train",
+      "recomputed_official_RMS": 0.27463185077252283
+    },
+    {
+      "seed": 1101,
+      "role": "validation",
+      "recomputed_official_RMS": 0.3878365530870217
+    }
+  ],
+  "official_validation_aggregate_checks": 21,
+  "curve_pool_metadata_hash_reconstruction": true,
+  "curve_cases": 15,
+  "curve_rows": 900,
+  "curve_locally_supported_rows": 648,
+  "curve_local_extrapolation_rows": 252,
+  "curve_overlap_prediction_checks": 120,
+  "curve_overlap_prediction_max_error_ml": 1.1335937500689397e-05,
+  "curve_scope": "Local support is the whole source metadata min/max, including unlabelled covariates; interpolation inside bounds is not proof of experimental support at every synthetic level. Curves measure sensitivity, never true error.",
+  "remaining_limits": [
+    "No model forward was independently repeated here.",
+    "Row RMS is independently recomputed from released endpoint RMSE; absolute-label Row errors are not re-scored.",
+    "Pool order independently rebuilt using metadata hashes; temporal claim also relies on frozen plan, pool timestamp, and source code order, not a signed external timestamp."
+  ],
+  "sources": [
+    {
+      "path": "studies/predictor/final_4g_qualification/splits/row_seed_1101.csv",
+      "sha256": "fb51a225dd2b802b4dbc2982fa45166a7c11962fef9add2015e6637a1a2a6bf1",
+      "bytes": 252079
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/splits/row_seed_42.csv",
+      "sha256": "a8a4a322cd9c75253b1a4ed8c5c91ededed74a933df2db2685015c8b3e008008",
+      "bytes": 243753
+    },
+    {
+      "path": "studies/predictor/final_4g_qualification/splits/row_seed_525.csv",
+      "sha256": "58876dc5a9033a0584da964e1e52bd0fa5d1aeba8131410060cce947fe11d0a1",
+      "bytes": 247916
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/ANALYSIS_PLAN.json",
+      "sha256": "37c50bcc13b4441eda9e57d22ada001d2684ff728dca36edb2976c57511e44b2",
+      "bytes": 2787
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/CURVE_POOL.json",
+      "sha256": "c5087f31272f0448fe3a1e8fd26791af9aa43f06092c46f5f7b206c61d994ff3",
+      "bytes": 7321
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/FORMAL_PREDICTION_MANIFEST.json",
+      "sha256": "4ae28a2e03411d580699562d0b759a31a754b87ce5b33e59789b2ff11c98f8e2",
+      "bytes": 20583
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/LABEL_BOUNDARY_INCIDENT.json",
+      "sha256": "fdaf9cd6df3fead8189f136326d46c3f42bb1c2f5b9f9eb3e0fcd4f98d63a876",
+      "bytes": 2529
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/MATCHED_PREDICTION_MANIFEST.json",
+      "sha256": "f120f8a881c4b88e193c11fdf90062019bce5e33b3f5ea7f23ac8a0ec5b195c0",
+      "bytes": 6522
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/al_common_pair_exposure.csv",
+      "sha256": "5c386416dd22614d00c371730d0009fb09b8048ddcf30b67d0b23a28bbc498a9",
+      "bytes": 1812775
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/al_predictions_seed_12203_L1005.csv",
+      "sha256": "018e9ea840f0ef4fd47085fa5dabbf45b89f395a79233fd198a810f9f73617c5",
+      "bytes": 26588
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/al_predictions_seed_12203_L1485.csv",
+      "sha256": "aba067cdb7fa5fc660b269f851c5ad3f80e5ac40077b3e22d614c3b7d1af6633",
+      "bytes": 26585
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/al_predictions_seed_12203_L525.csv",
+      "sha256": "9d6561cccc020d092c6eb4b6f5166f54adfdc92423944aa9c898f9607dd24aa2",
+      "bytes": 26580
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/al_predictions_seed_157_L1005.csv",
+      "sha256": "438bd82c8d29bf55fc286ae3ed5049a08b90df603e5e3eee53e32010903c6fff",
+      "bytes": 25977
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/al_predictions_seed_157_L1485.csv",
+      "sha256": "1a9118011144c964fc41ac293984b0d48c09618e180f7147053ba95db5fcd3ad",
+      "bytes": 27981
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/al_predictions_seed_157_L525.csv",
+      "sha256": "b108aaadddb7b785983df526bfafa8a7ea7f6ad04468975e3fd1e6043f65491e",
+      "bytes": 26032
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/al_predictions_seed_2357_L1005.csv",
+      "sha256": "49d3fa336c752d8b312ea3f34caf9b184e199962b4b37f0f3a8a2ebcd18f1c23",
+      "bytes": 27400
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/al_predictions_seed_2357_L1485.csv",
+      "sha256": "62823d38425efdc5c460a9d78904fada833773625edb9f5000083260d2168e93",
+      "bytes": 27388
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/al_predictions_seed_2357_L525.csv",
+      "sha256": "bab0efec1f4daad41eeb17bd1afa231bc8f58e404bcf6e7e4e7676d2c80fdd50",
+      "bytes": 25526
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/al_predictions_seed_6101_L1005.csv",
+      "sha256": "9756325d8e5661b6512915f4dec60bb8079f834493286664b74078f53072dfc4",
+      "bytes": 26100
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/al_predictions_seed_6101_L1485.csv",
+      "sha256": "4279dbfbe3e692ac6bb23d97e4b163158993d282923bcde2207e4c5d4f29a3a9",
+      "bytes": 26075
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/al_predictions_seed_6101_L525.csv",
+      "sha256": "e3a616f5890d448c4b9b2e9d9358f341cc87f763275a8c3e21bb2a9e6c07803d",
+      "bytes": 26094
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/al_predictions_seed_887_L1005.csv",
+      "sha256": "1c1a92e4b83a70fc086699f41599f3a78c8e224add55314f7d29fcdd80db2fe5",
+      "bytes": 25936
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/al_predictions_seed_887_L1485.csv",
+      "sha256": "69b5c0cfdb43800e4cb9728b2bda0cb4a85ca659e62e05025c1879d2277283da",
+      "bytes": 25918
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/al_predictions_seed_887_L525.csv",
+      "sha256": "cf8cf92f9d980d92f768a5a615423e592e5c965a1beb52bb65caabbcca536761",
+      "bytes": 25929
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/analyze_formal.py",
+      "sha256": "ace9f1a50f08a8ca68995fbdf6c610df5d449133575554885769bb155118538e",
+      "bytes": 24324
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/common.py",
+      "sha256": "b7a458eed30c18cd3fe40b151783a9944cf31188e31f528bc62bffbc2148a7ce",
+      "bytes": 3360
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/controlled_volume_curves.csv",
+      "sha256": "0aeb42ce3c7c8f857ede5f46aec57700b6bad146798e6e8f4ce4b58501ebe2f1",
+      "bytes": 144441
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/curve_authorized_observations.csv",
+      "sha256": "b4cf1afdabda1b2804c545e953db5ff841b1a4846a39325f8c18de1d11253cff",
+      "bytes": 6659
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/formal_pairs.csv",
+      "sha256": "d0cb9b4f10aceb5762022e1946770ee663f295a3cde672ec29b9e5bc052f734b",
+      "bytes": 26160130
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/formal_predictions_seed_1101.csv",
+      "sha256": "7dfc28f8b5cf6aa6fa5546379bc04db68973e8a2443c5d0c726c476400160cbe",
+      "bytes": 318624
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/formal_predictions_seed_42.csv",
+      "sha256": "d75901574b403aec422951680ce66e63d90758a39420c2e722b5d6c58068acfa",
+      "bytes": 318587
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/formal_predictions_seed_525.csv",
+      "sha256": "f33be3396c1f4910cead88524980cad419cee9ed52bd0c3128ad338b0491ac07",
+      "bytes": 318384
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/formal_response_equal_models.csv",
+      "sha256": "e7d6dbdef8822a3c2ee6681827df6c8da5b02d796f4d8e71b75492ae8dcb1cd4",
+      "bytes": 24037
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/formal_response_inputs.json",
+      "sha256": "4fc195eafa718f011c081b68ebf83fa28a47a130acac7d4bf2e9cb445926e334",
+      "bytes": 8369
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/formal_response_pairs.csv",
+      "sha256": "78e9e021a8062b592c8bf1d25057fcacebd34f12ac60e098225fc0b4f2d9c591",
+      "bytes": 55651666
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/formal_response_per_model.csv",
+      "sha256": "88a5d1c7e37ffebdfbf340c327af44929d1f41a3efd48c77cebcc396f0634485",
+      "bytes": 25482
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/formal_row_metric_R1_fix.json",
+      "sha256": "3493ff9b9c49cce0a3f648ed5fef7772a7b179758a28f94697b34bcb688452ce",
+      "bytes": 1294
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/formal_row_metrics.csv",
+      "sha256": "fa8db2fcbdf82974277be28efce0e503be58707c2b9506ce28c56cd432097b5b",
+      "bytes": 1714
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/formal_split_roles.csv",
+      "sha256": "5f5b8a8026fe1db060323b8e81f2c63d5f5522b3c9eada2138db3ff2a0515643",
+      "bytes": 1005150
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/formal_validation_metric_checks.csv",
+      "sha256": "088004872b64e47430f7894b91bb0de414d9dcb357c7927cc9727d6aacaf6ad7",
+      "bytes": 1885
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/matched_and_curves.py",
+      "sha256": "870bcc2b9a12d7fe66c5400694e99f838605b0e07a765cb45db5a37179250d7d",
+      "bytes": 9655
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/matched_global_nontest_metrics.csv",
+      "sha256": "788e33f6af4764ea67b01719296c0c530cddb62fb88a3f0c81a1ba0f926e01ca",
+      "bytes": 331848
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/matched_response_pairs.csv",
+      "sha256": "43d6ec3d70c17430fbef05f599bef1546242d4675e8244126833df62af295762",
+      "bytes": 9434938
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/matched_seed_metrics.csv",
+      "sha256": "63e7417340448705a16de5ebf668f7c2229ebc969d3c2570f7f879abc3fd4e25",
+      "bytes": 347616
+    },
+    {
+      "path": "studies/predictor/full_training_volume_response_audit_20261117/source_metadata.csv",
+      "sha256": "c7e39e6f6ffe3eac9ca2fa39178b5d442081697b75b87287247a5ffc2a93a9b0",
+      "bytes": 309654
+    }
+  ],
+  "script_sha256": "4eaa93248e5f9125843bf230d806c30281f517e246f0873e643ef1ea294a822b"
+}
