@@ -1,0 +1,177 @@
+{
+  "raw_rows": 4243,
+  "raw_missing_metadata": {
+    "CAS": 0,
+    "name": 0,
+    "Purity": 0,
+    "Density g/ml": 0,
+    "V/ul": 0,
+    "loading solvent": 0,
+    "Volume of loading solvent/ul": 0,
+    "PE/EA": 0,
+    "Flow mL/min": 0,
+    "Ending time": 0,
+    "column_specs": 0,
+    "smiles": 14
+  },
+  "canonical_rows": 4163,
+  "canonical_molecules": 217,
+  "full_conditions": 4132,
+  "canonical_repeated_conditions": 31,
+  "canonical_repeated_rows": 62,
+  "n_science": 3746,
+  "n_coherent": 3740,
+  "canonical_cas": 220,
+  "multi_cas_for_smiles": 3,
+  "multi_smiles_for_cas": 0,
+  "original_decisions": {
+    "keep": 4163,
+    "drop": 80
+  },
+  "excluded_reasons": {
+    "over_v2_legacy_threshold": 49,
+    "over_v1_legacy_threshold": 60,
+    "invalid_smiles": 14,
+    "reader_rejects_t1": 14
+  },
+  "ranges": {
+    "column_specs": {
+      "n": 1,
+      "min": "Silica-CS 4g",
+      "max": "Silica-CS 4g"
+    },
+    "Purity": {
+      "n": 39,
+      "min": "0.8",
+      "max": "AR"
+    },
+    "Density g/ml": {
+      "n": 151,
+      "min": 0.77,
+      "max": 2.182
+    },
+    "ea": {
+      "n": 10,
+      "min": 0.009900990099009901,
+      "max": 1.0
+    },
+    "V/ul": {
+      "n": 8,
+      "min": 30.0,
+      "max": 150.0
+    },
+    "Volume of loading solvent/ul": {
+      "n": 11,
+      "min": 200,
+      "max": 2000
+    },
+    "Flow mL/min": {
+      "n": 5,
+      "min": 4,
+      "max": 10
+    },
+    "loading solvent": {
+      "n": 3,
+      "min": "DCM",
+      "max": "PE"
+    }
+  },
+  "qualification_split_sizes": {
+    "row_seed_1101": {
+      "train": 3330,
+      "test": 417,
+      "validation": 416
+    },
+    "compound_seed_525": {
+      "train": 3321,
+      "validation": 428,
+      "test": 414
+    },
+    "row_seed_42": {
+      "train": 3330,
+      "test": 417,
+      "validation": 416
+    },
+    "compound_seed_42": {
+      "train": 3401,
+      "validation": 389,
+      "test": 373
+    },
+    "row_seed_525": {
+      "train": 3330,
+      "test": 417,
+      "validation": 416
+    },
+    "compound_seed_1101": {
+      "train": 3275,
+      "test": 458,
+      "validation": 430
+    }
+  },
+  "condition_levels": {
+    "V/ul": [
+      30.0,
+      34.01360544,
+      50.0,
+      68.02721088,
+      100.0,
+      102.0408163,
+      120.0,
+      150.0
+    ],
+    "Volume of loading solvent/ul": [
+      200,
+      300,
+      400,
+      500,
+      600,
+      700,
+      800,
+      900,
+      1000,
+      1500,
+      2000
+    ],
+    "Flow mL/min": [
+      4,
+      5,
+      6,
+      8,
+      10
+    ],
+    "loading solvent": [
+      "DCM",
+      "EA",
+      "PE"
+    ],
+    "PE/EA": [
+      "0/1",
+      "1/1",
+      "10/1",
+      "100/1",
+      "2/1",
+      "20/1",
+      "30/1",
+      "40/1",
+      "5/1",
+      "50/1"
+    ],
+    "ea": [
+      0.009900990099009901,
+      0.0196078431372549,
+      0.024390243902439025,
+      0.03225806451612903,
+      0.047619047619047616,
+      0.09090909090909091,
+      0.16666666666666666,
+      0.3333333333333333,
+      0.5,
+      1.0
+    ]
+  },
+  "canonical_quality_flags": {
+    "none": 4155,
+    "t1_gt_t2": 7,
+    "negative_label;t1_gt_t2": 1
+  }
+}
