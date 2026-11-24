@@ -1,0 +1,34 @@
+field,raw_4g,canonical_4g,current_predictor_input,historical_LLM_candidate,historical_LLM_observed_or_memory,allowed_preselection_for_U,pure_llm_v3,meaning_or_boundary
+CAS,yes,yes,no,no,no,yes,candidate_and_observed,Raw reagent identifier kept independently of canonical SMILES
+name,yes,yes,no,no,no,yes,candidate_and_observed,Raw reagent name preserved including inconsistent or alias spellings
+Purity,yes,yes,no,no,no,yes,candidate_and_observed,purity_raw plus purity_kind and numeric purity_fraction when unambiguous
+Density g/ml,yes,yes,through_product,yes,observed_card,yes,candidate_and_observed,Both source precision and raw text retained
+V/ul,yes,yes,through_product,yes,observed_card,yes,candidate_and_observed,Sample volume in microliters separate from solvent volume
+loading solvent,yes,yes,categorical_embedding,yes,observed_card,yes,candidate_and_observed,Loading solvent separate from mobile phase
+Volume of loading solvent/ul,yes,yes,yes,yes,observed_card,yes,candidate_and_observed,Loading solvent volume in microliters
+PE/EA,yes,yes,weighted_eluent_descriptors,yes,observed_card,yes,candidate_and_observed,Raw a/b plus EA recorded fraction b/(a+b)
+Flow mL/min,yes,yes,no_in_X,no,no,yes,candidate_and_observed,E0 uses to derive V1/V2 outcomes from source times
+Ending time,yes,yes,no,no,no,background_provenance_only,sidecar_only,Exclude as an experimental outcome or acquisition timing proxy
+column_specs,yes,yes,no,no,no,yes,global_constant,Silica-CS 4g throughout the formal Row benchmark
+t1,yes,yes,target_derivation_only,no,no,no,excluded,E0 time source for V1
+t2,yes,yes,target_derivation_only,no,no,no,excluded,E0 time source for V2
+smiles,yes,yes,through_canonical_structure,canonicalized,canonicalized,yes,sidecar_only,Raw display or provenance spelling retained behind canonical structure
+verified t1,yes,yes,no,no,no,no,excluded,Verification column never substituted for t1 in E0
+verified t2,yes,yes,no,no,no,no,excluded,Verification column never substituted for t2 in E0
+sample_id,derived,yes,alignment_only,opaque_long_id,opaque_long_id,yes,host_map_or_legacy_id,E0 SHA256 prefix from source hash and source row
+source_row_1based,derived,yes,no,no,no,background_provenance_only,sidecar_only,Historical CSV header-offset record number
+source_file,source_provenance,E0_manifest_only,no,no,no,background_provenance_only,manifest_only,Source names or hashes are provenance
+canonical_smiles,canonicalized,yes,structure_key,yes,observed_card,yes,shared_molecule_dictionary,Structure identity independent of reagent CAS/name
+V1_ml,derived,yes,training_target_only,no,current_observed_only,no,authorized_observed_only,Actual outcome allowed for already observed rows
+V2_ml,derived,yes,training_target_only,no,current_observed_only,no,authorized_observed_only,Actual outcome allowed for already observed rows
+decision,derived,yes,no,no,no,no,excluded,Retained-row administrative value can derive from labels
+decision_reason,derived,yes,no,no,no,no,excluded,E0 exclusion reasoning includes target-based filters
+quality_flags,derived,yes,no,no,no,no,excluded,Contains target-order and label-validity information
+reviewer,derived,yes,no,no,no,no,excluded,Administrative provenance
+nominal_loading_amount_mg,derived,not_column,yes,yes,observed_card,yes,candidate_and_observed,Density times sample volume gives nominal milligrams
+EA_fraction,derived,not_column,through_weighted_descriptors,implicit_ratio,implicit_ratio,yes,candidate_and_observed,EA share of the recorded ratio with exact a/b retained
+molecular_descriptors,derived,graph_cache_or_computed,predictor_graph_descriptors,yes,observed_card,yes,shared_molecule_dictionary,Prompt descriptor subset is separate from full predictor representation
+prediction_q10_q50_q90,derived,not_column,model_output,yes,acquisition_feedback_as_archived,yes,candidate_prediction_and_frozen_history,q50 is MSE-trained center estimate in this predictor
+prediction_q90_minus_q10,derived,not_column,model_output_difference,yes,acquisition_feedback_as_archived,yes,candidate_prediction,Preserve sign including crossing
+observed_acquisition_error,derived,not_column,no,no,observed_and_feedback,no,authorized_observed_only,Acquisition prediction minus observed V at that checkpoint
+unobserved_or_held_out_residual,derived,not_selector_artifact,no,no,no,no,excluded,Forbidden label-derived data outside authorized observations
