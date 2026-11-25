@@ -1,5 +1,5 @@
 """Bound provider requests, immutable receipts and bounded transport retries."""
-from contextlib import contextmanager
+from contextlib import contextmanager, nullcontext
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
@@ -139,6 +139,15 @@ def retry_http(status, headers):
     return TransportFailure(f"http_{status}", ambiguous=status >= 500)
 
 
+def _may_reconcile_previous(previous, decision):
+    if previous["status"] != "stopped":
+        return False
+    if previous.get("ambiguous"):
+        return True
+    rejected_before_execution = {"http_401", "http_403", "http_429", "credential_file_error"}
+    return decision == "confirmed_not_processed" and previous.get("error") in rejected_before_execution
+
+
 def terminal_record(log, index):
     standard = log / f"attempt_{index:02d}.terminal.json"
     recovery = log / f"attempt_{index:02d}.recovery.terminal.json"
@@ -146,7 +155,8 @@ def terminal_record(log, index):
         old = read(standard)
         saved = read(recovery)
         authorization = read(log / f"attempt_{index:02d}.reconciliation.json")
-        if (not old.get("ambiguous") or saved["supersedes_sha256"] != digest(old)
+        if (not _may_reconcile_previous(old, authorization["decision"])
+                or saved["supersedes_sha256"] != digest(old)
                 or saved["reconciliation_sha256"] != digest(authorization)):
             raise TransportStop("reconciled receipt mismatch")
         return saved
@@ -157,7 +167,8 @@ def terminal_record(log, index):
     return saved
 
 
-def run_request(directory, request, config, call, *, sleep=time.sleep, jitter=random.random, now=time.time):
+def run_request(directory, request, config, call, *, sleep=time.sleep, jitter=random.random, now=time.time,
+                attempt_slot=None):
     """Call inside round_lock. Retry confirmed rejection only, never ambiguous completion."""
     check_request(request, request["binding"], config)
     log = directory / f"turn_{request['logical_index']:02d}"
@@ -176,37 +187,43 @@ def run_request(directory, request, config, call, *, sleep=time.sleep, jitter=ra
         elif terminal_path.exists():
             raise TransportStop("terminal receipt has no started receipt")
         else:
-            attempt_id = uuid4().hex
-            started = {"request_id": request_id, "attempt": index, "attempt_id": attempt_id,
-                       "started_unix": now()}
-            once(started_path, started)
-            start = time.monotonic()
-            evidence = {}
-            try:
-                reply = call(request, config)
-                evidence = {"response_id": reply.response_id, "served_model": reply.served_model,
-                            "usage": reply.usage, "provider_request_id": reply.provider_request_id,
-                            "provider_status": reply.status}
-                _validate_reply(reply, config)
-            except TransportFailure as error:
-                delay = max(error.retry_after or 0, min(config.max_delay_seconds,
-                    config.base_delay_seconds * 2 ** index * (1 + jitter() * 0.25)))
-                if error.code == "http_429":
-                    rates += 1
-                can_retry = (
-                    error.retryable and not error.ambiguous and delay <= config.max_delay_seconds
-                    and rates < config.rate_limit_threshold and index + 1 < config.transport_attempts
-                )
-                saved = {**started, **evidence, "status": "retryable" if can_retry else "stopped",
-                         "error": error.code, "ambiguous": error.ambiguous,
-                         "retry_after_seconds": error.retry_after, "rate_limit_count": rates,
-                         "circuit_open": rates >= config.rate_limit_threshold or delay > config.max_delay_seconds,
-                         "not_before_unix": now() + delay,
-                         "elapsed_seconds": time.monotonic() - start}
-            else:
-                saved = {**started, **evidence, "status": "completed", "text": reply.text,
-                         "answer_sha256": digest(reply.text), "elapsed_seconds": time.monotonic() - start}
-            once(terminal_path, saved)
+            scope = attempt_slot(request, config) if attempt_slot else nullcontext()
+            # Obtain a physical slot before writing started. Queued work has not reached the provider.
+            with scope as credential_id:
+                attempt_id = uuid4().hex
+                started = {"request_id": request_id, "attempt": index, "attempt_id": attempt_id,
+                           "started_unix": now()}
+                if credential_id is not None:
+                    started["credential_id"] = credential_id
+                once(started_path, started)
+                start = time.monotonic()
+                evidence = {}
+                try:
+                    reply = call(request, config)
+                    evidence = {"response_id": reply.response_id, "served_model": reply.served_model,
+                                "usage": reply.usage, "provider_request_id": reply.provider_request_id,
+                                "provider_status": reply.status}
+                    _validate_reply(reply, config)
+                except TransportFailure as error:
+                    evidence.update(getattr(error, "reply_identity", None) or {})
+                    delay = max(error.retry_after or 0, min(config.max_delay_seconds,
+                        config.base_delay_seconds * 2 ** index * (1 + jitter() * 0.25)))
+                    if error.code == "http_429":
+                        rates += 1
+                    can_retry = (
+                        error.retryable and not error.ambiguous and delay <= config.max_delay_seconds
+                        and rates < config.rate_limit_threshold and index + 1 < config.transport_attempts
+                    )
+                    saved = {**started, **evidence, "status": "retryable" if can_retry else "stopped",
+                             "error": error.code, "ambiguous": error.ambiguous,
+                             "retry_after_seconds": error.retry_after, "rate_limit_count": rates,
+                             "circuit_open": rates >= config.rate_limit_threshold or delay > config.max_delay_seconds,
+                             "not_before_unix": now() + delay,
+                             "elapsed_seconds": time.monotonic() - start}
+                else:
+                    saved = {**started, **evidence, "status": "completed", "text": reply.text,
+                             "answer_sha256": digest(reply.text), "elapsed_seconds": time.monotonic() - start}
+                once(terminal_path, saved)
         saved = terminal_record(log, index)
         if any(saved.get(k) != started[k] for k in started):
             raise TransportStop("terminal receipt mismatch")
@@ -240,7 +257,8 @@ def reconcile(directory, request, attempt, *, authorization, config, reply=None)
         if (
             started["request_id"] != request["request_id"] or started["attempt"] != attempt
             or recovered.exists() or previous is not None and (
-                not previous.get("ambiguous") or any(previous.get(k) != v for k, v in started.items())
+                not _may_reconcile_previous(previous, authorization.get("decision"))
+                or any(previous.get(k) != v for k, v in started.items())
             )
         ):
             raise TransportStop("attempt is not awaiting reconciliation")
@@ -251,6 +269,8 @@ def reconcile(directory, request, attempt, *, authorization, config, reply=None)
             for k in ("authorized_by", "evidence")
         ):
             raise PermissionError("recovery requires request-bound human authorization and evidence")
+        if not reply and attempt + 1 >= config.transport_attempts:
+            raise TransportStop("no physical attempt remains in this logical request")
         if reply:
             _validate_reply(reply, config)
             saved = {**started, "status": "completed", "text": reply.text, "answer_sha256": digest(reply.text),
