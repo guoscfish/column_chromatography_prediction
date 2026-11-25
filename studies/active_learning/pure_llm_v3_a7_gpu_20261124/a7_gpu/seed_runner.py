@@ -114,6 +114,9 @@ def _stage(root, state, snapshot, scope, contract):
     )):
         raise ValueError("L333 memory must start empty")
     binding = {**stage.binding, "a7_formal": scope}
+    fixed_reference_repair = contract.profile.get("fixed_reference_repair")
+    if fixed_reference_repair is not None:
+        binding["fixed_reference_repair"] = fixed_reference_repair
     representation = contract.profile.get("wire_representation")
     if representation is None:
         return replace(stage, binding=binding)
@@ -229,6 +232,12 @@ def _verify_selection(directory, state, scope, config, batch_size, *, stage=None
             or read(turn / "decision.json")["state"] != "legal"):
         raise ValueError("freeze is missing its accepted Responses receipt or legal plan")
     plan = read(directory / "selection.json")
+    fixed_reference_repair = binding.get("fixed_reference_repair")
+    if fixed_reference_repair is not None:
+        expected_projection = {"raw_reply_sha256": answer["answer_sha256"],
+            "projected_plan_sha256": digest(plan), "reference_repair_sha256": digest(fixed_reference_repair)}
+        if read(turn / "response_projection.json") != expected_projection:
+            raise ValueError("the accepted plan does not match the archived scoped response projection")
     if stage is not None:
         if freeze["binding"] != stage.binding or not _validation(stage, plan).valid:
             raise ValueError("frozen plan failed validation against the reconstructed A7 packet")
@@ -425,7 +434,7 @@ def _import_boundary(directory, scope, boundary, expected, backend, batch_size, 
 
 def run_seed(*, root, run_directory, contract, authorization, seed, backend, call, anchor_run=None,
              max_rounds=None, api_slot=None, fit_slot=None, transport_options=None, mock=False,
-             resume_boundary=None, boundary_user_message=None):
+             resume_boundary=None, boundary_user_message=None, response_projection=None):
     """Resume a contiguous prefix from L333 or from an externally verified, contract-bound boundary."""
     authorization = verify_authorization(contract, authorization)
     if seed not in contract.seed_ids or getattr(backend, "seed", None) != seed:
@@ -537,7 +546,7 @@ def run_seed(*, root, run_directory, contract, authorization, seed, backend, cal
                     if _paused(run, directory):
                         break
                     select_stage(stage, round_dir, contract.transport, authorized_call, mock=mock,
-                                 retry_options=retry_options)
+                                 retry_options=retry_options, response_projection=response_projection)
                 freeze = _verify_selection(round_dir, state, scope, contract.transport, contract.batch_size, stage=stage)
                 if "wire_representation" in stage.binding:
                     record_batch_diagnostics(round_dir, freeze, stage.context.candidates, stage.context.observed)

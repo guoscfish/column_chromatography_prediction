@@ -239,9 +239,14 @@ def _next_messages(stage, repair=None):
     return [*stage.messages, {"role": "user", "content": instruction + "\n" + dumps(projected)}]
 
 
-def select_stage(stage, directory, config, call, *, mock, retry_options=None):
+def select_stage(stage, directory, config, call, *, mock, retry_options=None, response_projection=None):
     """Persist each phase and resume deterministically from complete response receipts."""
     retry_options = retry_options or {}
+    reference_repair = stage.binding.get("fixed_reference_repair")
+    if (response_projection is None) != (reference_repair is None):
+        raise PermissionError("the response projection must match an explicitly bound repair")
+    if response_projection is not None and (mock or config.logical_replies != 1 or config.transport_attempts != 1):
+        raise PermissionError("the scoped reference repair authorizes one real attempt")
     with round_lock(directory):
         if digest(stage.packet) != stage.binding["packet_sha256"] or (
             digest(stage.messages) != stage.binding["base_messages_sha256"]
@@ -281,6 +286,14 @@ def select_stage(stage, directory, config, call, *, mock, retry_options=None):
                 once(turn / "decision.json", {"state": "malformed_complete_response"})
                 repair = repair or {"mode": "full_replan", "errors": [{"code": "parse_error", "path": ""}]}
                 continue
+            if response_projection is not None:
+                try:
+                    response = response_projection(response)
+                except ResponseFormatError:
+                    once(turn / "decision.json", {"state": "patch_rejected", "reason": "outside_scoped_reference_repair"})
+                    continue
+                once(turn / "response_projection.json", {"raw_reply_sha256": answer["answer_sha256"],
+                     "projected_plan_sha256": digest(response), "reference_repair_sha256": digest(reference_repair)})
             if repair is not None and repair["mode"] == "patch":
                 try:
                     response = apply_repair(proposal, repair, response, binding=stage.binding,
