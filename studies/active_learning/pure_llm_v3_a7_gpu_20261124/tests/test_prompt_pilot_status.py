@@ -1,7 +1,8 @@
+import hashlib
 import json
 
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.prompt_pilot_status import (
-    local_progress, pending_attempt,
+    UNSTARTED_ANCHORS, local_progress, pending_attempt, remote_seed,
 )
 
 
@@ -80,3 +81,22 @@ def test_completed_transport_can_still_fail_scientific_validation(tmp_path):
     assert active["status"] == "completed"
     assert active["selection"] == "rejected"
     assert active["selection_errors"] == {"unexpected_field": 2, "multifactor_mismatch": 1}
+
+
+
+def test_unstarted_seeds_show_only_verified_original_anchor(tmp_path, monkeypatch):
+    runs = tmp_path / "purellm_a7/runs"
+    checkpoint = (tmp_path / "formal_cuda/row4g_b32_20261124/trajectories"
+                  / "random-6101/rounds/random/round_00/model/best.pt")
+    checkpoint.parent.mkdir(parents=True)
+    checkpoint.write_bytes(b"original checkpoint")
+    monkeypatch.setitem(UNSTARTED_ANCHORS, 6101, hashlib.sha256(checkpoint.read_bytes()).hexdigest())
+
+    state = remote_seed(runs, 6101)
+    assert (state["phase"], state["labels"], state["completed_rounds"]) == ("l333_anchor_verified", 333, 0)
+    assert state["run"] is None and not state["worker_active"]
+
+    checkpoint.write_bytes(b"changed checkpoint")
+    state = remote_seed(runs, 6101)
+    assert state["phase"] == "l333_anchor_unverified"
+    assert state["labels"] is None and state["checkpoint_sha256"] is None

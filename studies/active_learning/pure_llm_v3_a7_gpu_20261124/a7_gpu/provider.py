@@ -7,7 +7,7 @@ import time
 
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, once
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
-    ProviderReply, TransportFailure, check_request, collect_completed, retry_http,
+    RESPONSES_STREAM, ProviderReply, TransportFailure, check_request, collect_completed, retry_http,
 )
 
 from .credentials import api_key, key_text
@@ -261,6 +261,8 @@ def call_responses(request, config, *, model_lock, capture_response=None, captur
     if lease is None:
         raise TransportFailure("missing_physical_api_lease")
     check_request(request, request["binding"], config)
+    if config.wire_mode != RESPONSES_STREAM:
+        raise TransportFailure("background_dispatcher_required")
     if not sdk_status(config)["matches"]:
         lease.outcome("sdk_version_mismatch")
         raise TransportFailure("sdk_version_mismatch")

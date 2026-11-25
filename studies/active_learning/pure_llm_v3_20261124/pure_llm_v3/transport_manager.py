@@ -18,6 +18,10 @@ class TransportStop(RuntimeError):
     pass
 
 
+RESPONSES_STREAM = "responses_stream"
+RESPONSES_BACKGROUND = "responses_background"
+
+
 UNKNOWN_REPLAY_DECISION = "authorized_replay_unknown"
 REPLAY_AUTH_FIELDS = {"decision", "authorized_by", "authorization_reference", "accept_duplicate_billing_risk",
                       "contract_sha256", "request_id", "attempt_id", "bridge_result_sha256",
@@ -47,13 +51,14 @@ class TransportConfig:
     base_delay_seconds: float = 2
     max_delay_seconds: float = 60
     rate_limit_threshold: int = 2
-    wire_mode: str = "responses_stream"
+    wire_mode: str = RESPONSES_STREAM
     sdk_version: str = "offline"
 
     def __post_init__(self):
         endpoint = urlparse(self.base_url)
         if (endpoint.scheme != "https" or not endpoint.hostname or endpoint.username or endpoint.password
-                or endpoint.query or endpoint.fragment or self.wire_mode != "responses_stream"):
+                or endpoint.query or endpoint.fragment
+                or self.wire_mode not in (RESPONSES_STREAM, RESPONSES_BACKGROUND)):
             raise ValueError("unsupported Responses endpoint")
         budgets = (self.max_output_tokens, self.transport_attempts, self.logical_replies, self.rate_limit_threshold)
         if any(type(v) is not int or v < 1 for v in budgets) or not (
@@ -83,8 +88,13 @@ class ProviderReply:
 
 
 def wire_payload(messages, config):
-    return {"model": config.requested_model, "reasoning": {"effort": config.reasoning_effort},
-            "input": messages, "max_output_tokens": config.max_output_tokens, "stream": True, "store": False}
+    background = config.wire_mode == RESPONSES_BACKGROUND
+    payload = {"model": config.requested_model, "reasoning": {"effort": config.reasoning_effort},
+               "input": messages, "max_output_tokens": config.max_output_tokens,
+               "stream": not background, "store": False}
+    if background:
+        payload["background"] = True
+    return payload
 
 
 def make_request(binding, logical_index, messages, config):

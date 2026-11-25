@@ -21,13 +21,18 @@ DIRECT = "a7-gpt62-astra-xhigh-ssh-v8-direct-one"
 DIRECT_887 = "a7-gpt62-astra-xhigh-ssh-v9-direct-one"
 REPAIR = "a7-gpt62-astra-xhigh-ssh-v10-targeted-repair"
 DIRECT_FULL = "a7-gpt62-astra-xhigh-ssh-v11-direct-full"
+BACKGROUND = "a7-gpt62-astra-xhigh-background-v12"
 PILOT_ROUNDS = 10
 TARGET_ROUNDS = 36
 TARGET_LABELS = 1485
 ORIGINAL = "a7-gpt62-astra-xhigh-ssh-v4-pilot-3x10"
 FIRST_887 = "a7-gpt62-astra-xhigh-ssh-v5-prompt-pilot-887"
 PILOT = "24f01791f4e6e16e9b644dc2165fe1557eeaa7030087df2b726485ad9878e410"
-SEEDS = (157, 887, 2357)
+SEEDS = (157, 887, 2357, 6101, 12203)
+UNSTARTED_ANCHORS = {
+    6101: "6959c9417166245403dad173ca82347336de53a37d643591ca449b0cf2a929c4",
+    12203: "e056a9924b408e8885e7fa619f0ce63a44b8b3b47a2126d57c1fdc80e3df428d",
+}
 KEYS = ("key_01", "key_02", "key_03")
 SHA = re.compile(r"[a-f0-9]{64}\Z")
 IDENTITY = re.compile(r"[a-f0-9]{32}\Z")
@@ -142,6 +147,15 @@ def dispatch_contract(run, seed):
 
 
 def remote_seed(runs, seed):
+    background = runs / BACKGROUND
+    background_contract = fallback_contract(background)
+    if background_contract:
+        record = read_json(background / "formal_contract.json")
+        profile = record.get("profile", {})
+        if (tuple(profile.get("confirmation_seeds", ())) != SEEDS
+                or profile.get("provider_capability") != "verified_route"
+                or (record.get("predecessor") or {}).get("dispatcher_module") != "dispatch_prepared_background"):
+            background_contract = None
     direct_full = runs / f"{DIRECT_FULL}-{seed}"
     full = runs / f"{FULL}-{seed}"
     direct = runs / f"{DIRECT_887 if seed == 887 else DIRECT}-{seed}"
@@ -150,7 +164,13 @@ def remote_seed(runs, seed):
     repair = runs / f"{REPAIR}-{seed}"
     direct_full_contract, full_contract, repair_contract, direct_contract, continuation_contract = (
         dispatch_contract(run, seed) for run in (direct_full, full, repair, direct, continuation))
-    if direct_full_contract:
+    if background_contract:
+        run, contract, segment = background, background_contract, "background"
+        ancestors = tuple(path for path, approved in (
+            (direct_full, direct_full_contract), (repair, repair_contract), (direct, direct_contract),
+            (continuation, continuation_contract), (fallback, fallback_contract(fallback)),
+        ) if approved)
+    elif direct_full_contract:
         run, contract, segment = direct_full, direct_full_contract, "v11"
         ancestors = tuple(path for path, approved in (
             (repair, repair_contract), (direct, direct_contract), (continuation, continuation_contract),
@@ -171,12 +191,31 @@ def remote_seed(runs, seed):
     else:
         run, contract, segment = fallback, fallback_contract(fallback), "historical"
         ancestors = ()
+    if seed in UNSTARTED_ANCHORS and not background_contract and not any(
+        (path / f"seed_{seed}").exists() for path in (run, *ancestors)
+    ):
+        anchor = (runs.parent.parent / "formal_cuda/row4g_b32_20261124/trajectories"
+                  / f"random-{seed}/rounds/random/round_00/model/best.pt")
+        expected = UNSTARTED_ANCHORS[seed]
+        verified = checksum(anchor) == expected
+        return {"seed": seed, "run": None, "contract_sha256": None, "segment": "anchor",
+                "continuation": False, "target_rounds": TARGET_ROUNDS, "target_labels": TARGET_LABELS,
+                "completed_rounds": 0 if verified else None, "labels": 333 if verified else None,
+                "phase": "l333_anchor_verified" if verified else "l333_anchor_unverified",
+                "worker_pid": None, "worker_active": False, "worker_error": None, "coordinator_pid": None,
+                "coordinator_active": False, "gpu": None, "api": {},
+                "checkpoint_sha256": expected if verified else None}
     directory = run / f"seed_{seed}"
     latest, metrics = latest_round(directory)
     for ancestor in ancestors:
         if latest is not None:
             break
         latest, metrics = latest_round(ancestor / f"seed_{seed}")
+    if background_contract and latest is None:
+        lane = record["predecessor"].get("lanes", {}).get(str(seed), {})
+        start, checkpoint = lane.get("start_round"), lane.get("checkpoint_sha256")
+        if type(start) is int and 0 <= start < TARGET_ROUNDS and isinstance(checkpoint, str) and SHA.fullmatch(checkpoint):
+            latest, metrics = start, {"checkpoint_sha256": checkpoint}
     worker = read_json(run / "workers" / f"seed_{seed}.json")
     coordinator = pid(read_json(run / "coordinator_generation.json").get("pid"))
     coordinator_live = live(coordinator, run=run)
@@ -188,7 +227,7 @@ def remote_seed(runs, seed):
     phase = safe_code(worker.get("status")) or "waiting_to_start"
     if latest == TARGET_ROUNDS:
         phase = "complete"
-    elif latest == PILOT_ROUNDS and segment not in ("v6", "v11"):
+    elif latest == PILOT_ROUNDS and segment not in ("v6", "v11", "background"):
         phase = "awaiting_v6_handoff"
     elif paused:
         phase = "paused"
@@ -209,7 +248,7 @@ def remote_seed(runs, seed):
     elif not worker_live and phase == "initializing":
         phase = "worker_stopped"
     return {"seed": seed, "run": run.name, "contract_sha256": contract, "segment": segment,
-            "continuation": segment in ("v11", "v6", "v5", "direct", "repair"), "target_rounds": TARGET_ROUNDS, "target_labels": TARGET_LABELS,
+            "continuation": segment in ("background", "v11", "v6", "v5", "direct", "repair"), "target_rounds": TARGET_ROUNDS, "target_labels": TARGET_LABELS,
             "completed_rounds": latest, "labels": 333 + latest * 32 if latest is not None else None,
             "phase": phase, "worker_pid": worker_pid, "worker_active": worker_live,
             "worker_error": safe_code(worker.get("error_type")), "coordinator_pid": coordinator,
@@ -271,15 +310,18 @@ def local_progress(spool, seed, active):
             "event_type": safe_code(status.get("event_type")), "usage": usage(status.get("usage")),
             **ids,
             "first_output_seconds": first_text if type(first_text) in (int, float) else None,
-            "complete_event_seen": "response.completed" in events or status.get("event_type") == "response.completed",
+            "complete_event_seen": "response.completed" in events or status.get("event_type") in {"response.completed", "background.completed"},
             "raw_response_saved": (attempt / "raw_provider_response.json").is_file()
                                   and (attempt / "provider_capture_receipt.json").is_file()}
 
 
 def dispatcher_pid(seed, segment):
-    suffix = {"v11": "v11-direct-full", "v6": "v6-full", "v5": "v5-continuation", "direct": ("v9-direct" if seed == 887 else "v8-direct"),
-              "repair": "v10-targeted-repair"}[segment]
-    label = f"gui/{os.getuid()}/com.purellm.a7-{suffix}-{seed}"
+    if segment == "background":
+        label = f"gui/{os.getuid()}/com.purellm.a7-background-v12"
+    else:
+        suffix = {"v11": "v11-direct-full", "v6": "v6-full", "v5": "v5-continuation", "direct": ("v9-direct" if seed == 887 else "v8-direct"),
+                  "repair": "v10-targeted-repair"}[segment]
+        label = f"gui/{os.getuid()}/com.purellm.a7-{suffix}-{seed}"
     lines = command_lines(["/bin/launchctl", "print", label])
     for line in lines or ():
         if match := re.fullmatch(r"\s*pid = ([0-9]+)\s*", line):
@@ -289,6 +331,9 @@ def dispatcher_pid(seed, segment):
 
 def mac_report(private, seeds):
     pool = private / "spool" / PILOT / "key_pool/key_pool.sqlite3"
+    background = next((row for row in seeds if row.get("segment") == "background"), None)
+    if background and isinstance(contract := background.get("contract_sha256"), str) and SHA.fullmatch(contract):
+        pool = private / "spool" / contract / "key_pool/key_pool.sqlite3"
     keys, queue, limits = [], [], {}
     try:
         with sqlite3.connect(f"{pool.as_uri()}?mode=ro", uri=True, timeout=2) as conn:
@@ -337,7 +382,7 @@ def show(view):
         rounds = row["completed_rounds"] if row["completed_rounds"] is not None else "—"
         print(f"seed {row['seed']}  L{row['labels'] or '—'}/L{row['target_labels']}  "
               f"rounds {rounds}/{row['target_rounds']}  {row['phase']}  worker {row['worker_pid'] or '—'}  "
-              f"coordinator {row['coordinator_pid'] or '—'}  Mac {row.get('dispatcher_pid') or '—'}  {row['run']}")
+              f"coordinator {row['coordinator_pid'] or '—'}  Mac {row.get('dispatcher_pid') or '—'}  {row['run'] or '—'}")
         if api or provider:
             sealed = ("已回传" if provider.get("delivered") else "已封存待回传" if provider.get("sealed")
                       else "待封存" if provider else "未见当前回执")

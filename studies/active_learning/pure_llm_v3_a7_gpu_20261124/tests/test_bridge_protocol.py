@@ -1,6 +1,7 @@
 """Offline bridge validation and transport state-machine tests."""
 
 from copy import deepcopy
+from dataclasses import replace
 import os
 
 import pytest
@@ -8,7 +9,7 @@ import pytest
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, dumps, once, read
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.response_schema import SCHEMA_VERSION
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
-    ProviderReply, TransportConfig, TransportFailure, TransportStop, make_request, round_lock, run_request,
+    RESPONSES_BACKGROUND, ProviderReply, TransportConfig, TransportFailure, TransportStop, make_request, round_lock, run_request,
 )
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.bridge_protocol import (
     BridgeCourier, BridgePending, make_job, make_result, read_bridge_json, validate_result, verify_job, verify_result,
@@ -189,3 +190,23 @@ def test_courier_rejects_broad_permissions_and_existing_model_lock_drift(setup_b
     foreign.mkdir(mode=0o755)
     with pytest.raises(PermissionError, match="spool directory must be private"):
         BridgeCourier(foreign, contract_sha256=CONTRACT, authorization_sha256=AUTHORIZATION)
+
+
+
+def test_background_lifecycle_flags_are_signed_into_the_bridge_job(setup_bridge):
+    streaming, source, started, _ = setup_bridge
+    background = replace(streaming, wire_mode=RESPONSES_BACKGROUND)
+    request = make_request(source["binding"], 0, source["payload"]["input"], background)
+    assert request["payload"] == {**source["payload"], "stream": False, "background": True}
+    assert "background" not in source["payload"] and source["payload"]["stream"] is True
+    assert request["payload_sha256"] != source["payload_sha256"]
+    assert request["request_id"] != source["request_id"]
+
+    started = {**started, "request_id": request["request_id"]}
+    job = make_job(request, background, started)
+    assert verify_job(job, authorization_sha256=AUTHORIZATION, contract_sha256=CONTRACT) == (request, background, started)
+    forged = deepcopy(job)
+    forged["request"]["payload"]["background"] = False
+    forged["job_sha256"] = digest({key: value for key, value in forged.items() if key != "job_sha256"})
+    with pytest.raises(ValueError, match="request identity"):
+        verify_job(forged)

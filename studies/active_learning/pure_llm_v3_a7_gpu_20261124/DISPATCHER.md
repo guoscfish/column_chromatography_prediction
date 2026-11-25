@@ -207,3 +207,13 @@ python -m pytest -q "$study/tests" studies/active_learning/pure_llm_v3_20261124/
 ```
 
 合成测试核验请求原样往返、外部 seed 响应拒收、Mac 节点响应回传失败后原收据可重投递，以及 GPU 节点等待时不揭示标签和不占用 GPU。Mac Key 池复用已有五进程测试，覆盖三 Key 动态分配、等待队列、公平退出与中断释放。实机的 provider 模型版本、推理等级及超长上下文能力留给正式 seed 157 的首轮。
+
+### Five-seed recovery with background Responses
+
+The prepared cohort continues 157 and 2357 at L365, 887 at L493, and 6101 and 12203 at the original CUDA L333 anchors. Use `prepare_five_seed_boundaries.py` with the immutable V11 release, its runs parent, and a separate private GPFS preparation directory. It verifies old receipts, retains their failures, and runs only CUDA inference from the two original anchors. It writes `five_seed_boundary_draft.json` and the per-seed state and memory files. The remaining cohort starts with 173 selection rounds.
+
+Use `run_prepared_five_seed.py contract` against that draft and a route policy. The policy binds the SDK, endpoint, model, timeouts, retrieval evidence, and `dispatch_prepared_background` as the Mac entry point. A policy with `qualification: null` only generates a draft. Before `run` or `resume`, the route needs a positive background acknowledgement and completed retrieval of the same ID, plus the exact formal authorization. A new long scientific request counts toward the cohort. Store provider-specific credentials only in the private Mac Key Pool configuration for that service. For the five-seed unified status command, use a private spool named by the contract SHA and pass its `key_pool` subdirectory as `--shared-key-pool-dir`.
+
+`dispatch_prepared_background.py` reserves one POST per physical attempt. It saves the accepted response ID before polling, retrieves with the original Key, and can continue GETs while SSH is unavailable. It only uploads a validated terminal response. An unknown initial submission pauses new POSTs while preserving existing retrievals. A 429 follows the shared or credential scope and Retry-After from its receipt.
+
+On November 25, the short Token4Research Astra/xhigh test returned a correct synchronous answer with `background:false`; a separate invocation using the same Key and response ID returned 404. This is a failed qualification for the tested background route. Its private ledger retains the actual response and sanitized GET receipt. A compatible provider credential and a successful same-ID retrieval are needed before launching the cohort.
