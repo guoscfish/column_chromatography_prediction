@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 import json
 import os
 from pathlib import Path
+import plistlib
 import re
 import shlex
 import subprocess
@@ -170,7 +171,17 @@ def mac_status(args):
     if args.version == "v1":
         return {"mode": "remote_direct"}
     spool = args.spool_dir.expanduser().absolute()
-    command = [sys.executable, "-B", "-m", f"{MODULE}.dispatcher", "status", "--spool-dir", str(spool)]
+    python = args.mac_python
+    agent = spool / "dispatcher.launch-agent.runtime.plist"
+    if python is None and agent.is_file():
+        with agent.open("rb") as source:
+            invocation = plistlib.load(source).get("ProgramArguments", [])
+        if invocation and invocation[0] == "/usr/bin/caffeinate" and len(invocation) > 2 and invocation[1] == "-i":
+            invocation = invocation[2:]
+        if invocation and Path(invocation[0]).is_absolute() and Path(invocation[0]).is_file():
+            python = invocation[0]
+    command = [str(python or sys.executable), "-B", "-m", f"{MODULE}.dispatcher",
+               "status", "--spool-dir", str(spool)]
     runtime = args.repo.expanduser()
     if not runtime.is_dir() and not spool.exists():
         return {"mode": "not_staged"}
@@ -293,6 +304,7 @@ def main():
     internal.add_argument("--mac-resume-check", action="store_true", help=argparse.SUPPRESS)
     internal.add_argument("--mac-stop-check", action="store_true", help=argparse.SUPPRESS)
     parser.add_argument("--repo", type=Path)
+    parser.add_argument("--mac-python", type=Path)
     parser.add_argument("--spool-dir", type=Path)
     parser.add_argument("--ssh-host", default=os.environ.get("A7_SSH_HOST", "eit-hpc"))
     parser.add_argument("--remote-release")
