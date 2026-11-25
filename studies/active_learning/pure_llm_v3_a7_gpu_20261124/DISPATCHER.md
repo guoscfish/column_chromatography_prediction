@@ -61,6 +61,12 @@ Key 池路径可用 `PURE_LLM_KEY_POOL_CONFIG` 指定。并发上限取决于 pr
 
 SSH 传输携带 GPU 侧生成的原请求及尝试身份。GPFS 将该运行和每个尝试绑定到同一个 Mac 私有 spool 标识。Mac 将完整的服务商终态 JSON、原始回答文本和用量落盘后才回传 GPFS。回传中断时，使用同一个 spool 恢复，派发器转发原完成收据。若完整终态文件已落盘但正式回执还没封存，派发器会从同一份原始返回重建回执。其他 spool 无法重新领取或重发该尝试。若 provider 请求已开始而终态未知，暂停该尝试并按原请求和尝试 ID 对账。GPU 在等候 Mac 时保留当前轮 L/U 和尝试身份，并释放 GPU 槽给训练工作。发生 seed 或 checkpoint 错绑、消息篡改、模型身份不符、认证或权限故障时进入对应的失败或等待状态。
 
+## 服务商流中途结束
+
+Mac 侧在收到 HTTP 回执和流式生命周期事件时记录进度，包括可用的服务商请求 ID 和响应 ID。进度记录留在当前尝试的私密 spool。收到有效的 `response.completed` 后立刻封存终态，已经完整的结果可从 Mac 收据恢复。完整终态之前发生断流时，保留诊断记录和尝试身份，按执行状态未知对账。流事件中的部分答案只用于传输，科学选择仍以完整回执和 GPU 校验为准。
+
+使用已有响应 ID 查询属于读取原状态。只有服务商支持且能够访问原结果时，才能用取回的完整响应走 `import_completed`。2026-11-25 的合成长流诊断复现了 HTTP 200 后响应体协议错误，随后读同一个响应 ID 返回 404。按服务商日志确认原请求状态时，优先提供已保存的请求 ID、响应 ID 和出错时间。服务商切换、启用后台模式或改动数据保留需要对应的新合同。 [OpenAI 响应查询接口](https://developers.openai.com/api/reference/resources/responses/methods/retrieve) · [后台模式与存储](https://developers.openai.com/api/docs/guides/background)
+
 ## 运行检查
 
 - 对照旧云端运行记录，核实最后一个合法状态和批次边界。新运行位于独立 GPFS 路径，与数值基线共用同一物理 GPU 锁。

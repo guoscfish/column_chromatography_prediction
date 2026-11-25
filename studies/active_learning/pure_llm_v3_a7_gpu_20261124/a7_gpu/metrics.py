@@ -1,14 +1,18 @@
 """Summarize immutable A7 validation, acquisition and transport receipts."""
 
 import argparse
-from collections import Counter
+from collections import Counter, defaultdict
+from itertools import combinations
 import json
 import math
 from pathlib import Path
 import re
 from statistics import mean, stdev
 
-from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import file_digest, read
+from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.metadata_view import (
+    CONDITION_AXES, _condition_value, condition_changes,
+)
+from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import file_digest, once, read
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import terminal_record
 
 from .formal_contract import SEEDS
@@ -20,6 +24,7 @@ SCORE = "combined_normalized_rmse"
 ENDPOINT_METRICS = (SCORE, *(f"{target}_{metric}" for target in ("V1", "V2")
                             for metric in ("rmse", "mae", "r2")))
 ATTEMPT_PATH = re.compile(r"attempt_(\d{2})\.started\.json")
+ACQUISITION_DIAGNOSTICS = "acquisition_diagnostics.json"
 
 
 def optional(path):
@@ -125,6 +130,86 @@ def _repair_metrics(choices, first, first_repair):
     }
 
 
+def _recorded_conditions(rows):
+    return [
+        tuple(_condition_value(axis, row["conditions"][axis])
+              if row["conditions"].get(axis) not in (None, "") else None for axis in CONDITION_AXES)
+        for row in rows
+    ]
+
+
+def _coverage(before, added):
+    observed, selected = _recorded_conditions(before), _recorded_conditions(added)
+
+    def increment(prior, batch):
+        return {"before": len(prior), "added": len(batch - prior), "after": len(prior | batch)}
+
+    axes = {}
+    for index, axis in enumerate(CONDITION_AXES):
+        prior_values = {values[index] for values in observed if values[index] is not None}
+        batch_values = {values[index] for values in selected if values[index] is not None}
+        axes[axis] = increment(prior_values, batch_values)
+    return {"levels": axes, "complete_profiles": increment(
+        {values for values in observed if None not in values},
+        {values for values in selected if None not in values},
+    )}
+
+
+def _contrast_counts(pairs):
+    counts = dict(replicate=0, single_factor=0, multifactor=0, unclassified_missing_axes=0)
+    for left, right in pairs:
+        conditions = left["conditions"], right["conditions"]
+        axes = tuple(axis for axis in CONDITION_AXES if all(row.get(axis) not in (None, "") for row in conditions))
+        changed = len(condition_changes(*conditions, axes=axes))
+        if changed > 1:
+            counts["multifactor"] += 1
+        elif len(axes) != len(CONDITION_AXES):
+            counts["unclassified_missing_axes"] += 1
+        else:
+            counts["single_factor" if changed else "replicate"] += 1
+    return counts
+
+
+def record_batch_diagnostics(directory, freeze, candidates, observed):
+    """Persist scope-bound summaries of the accepted batch before reading its new labels."""
+    choice_path = directory / "selection.json"
+    if file_digest(choice_path) != freeze["selection_file_sha256"]:
+        raise ValueError("acquisition diagnostics require the frozen choice file")
+    plan = read(choice_path)
+    selected = [candidates[choice["candidate_id"]] for choice in plan["choices"]]
+    selected_by_molecule, observed_by_molecule = defaultdict(list), defaultdict(list)
+    for row in selected:
+        selected_by_molecule[row["molecule_id"]].append(row)
+    for row in observed.values():
+        observed_by_molecule[row["molecule_id"]].append(row)
+    new_molecules = selected_by_molecule.keys() - observed_by_molecule.keys()
+    new_molecule_rows = sum(len(selected_by_molecule[molecule]) for molecule in new_molecules)
+    updates = plan["hypothesis_updates"]
+    once(directory / ACQUISITION_DIAGNOSTICS, {
+        "freeze_sha256": freeze["freeze_sha256"],
+        "selection_file_sha256": freeze["selection_file_sha256"],
+        "selection_molecules": len(selected_by_molecule),
+        "new_molecules": len(new_molecules),
+        "new_molecule_fraction": len(new_molecules) / len(selected_by_molecule),
+        "rows_on_new_molecules": new_molecule_rows,
+        "row_fraction_on_new_molecules": new_molecule_rows / len(selected),
+        "condition_coverage": _coverage(observed.values(), selected),
+        "same_molecule_pairs": {
+            "within_batch": _contrast_counts(
+                pair for rows in selected_by_molecule.values() for pair in combinations(rows, 2)
+            ),
+            "with_existing_observations": _contrast_counts(
+                (row, earlier) for row in selected for earlier in observed_by_molecule.get(row["molecule_id"], ())
+            ),
+        },
+        "hypothesis_update_operations": dict(Counter(update["operation"] for update in updates)),
+        "hypothesis_update_support_references": sum(len(update["supporting_observed_ids"]) for update in updates),
+        "hypothesis_update_counterexample_references": sum(
+            len(update["contradicting_observed_ids"]) for update in updates
+        ),
+    })
+
+
 def _batch_summary(directory, freeze, turns):
     selection = directory / "selection.json"
     if file_digest(selection) != freeze["selection_file_sha256"]:
@@ -139,6 +224,9 @@ def _batch_summary(directory, freeze, turns):
         raise ValueError("batch does not have a recorded accepted logical decision")
     molecule_counts = Counter(choice["molecule_id"] for choice in choices)
     relationships = Counter(ref["relationship"] for choice in choices for ref in choice.get("references", []))
+    diagnostics = optional(directory / ACQUISITION_DIAGNOSTICS)
+    if diagnostics and any(diagnostics[key] != freeze[key] for key in ("freeze_sha256", "selection_file_sha256")):
+        raise ValueError("acquisition diagnostics differ from the frozen selection")
     return {
         "batch_sealed": True, "accepted_logical_index": accepted,
         "accepted_after_correction": accepted > 0,
@@ -146,6 +234,7 @@ def _batch_summary(directory, freeze, turns):
                                               for t in turns.values()),
         "molecule_count": len(molecule_counts), "max_rows_one_molecule": max(molecule_counts.values()),
         "relationship_counts": dict(relationships), "hypothesis_updates": len(plan.get("hypothesis_updates", [])),
+        **({"acquisition_diagnostics": diagnostics} if diagnostics else {}),
         **_repair_metrics(choices, turns.get(0), (turns.get(1) or {}).get("repair")),
     }
 
@@ -188,7 +277,7 @@ def _round_metrics(directory, index):
     }
 
 
-def _seed_snapshot(root, seed):
+def _seed_snapshot(root, seed, planned_rounds=ROUNDS):
     directory = root / f"seed_{seed}"
     initial_path = directory / "initial"
     contract = optional(directory / "seed_contract.json")
@@ -196,7 +285,7 @@ def _seed_snapshot(root, seed):
     initial = optional(initial_path / "initial.json")
     if initial:
         curve.append(_sealed_metrics(initial_path, initial, 0))
-    for number in range(ROUNDS):
+    for number in range(planned_rounds):
         current = directory / f"round_{number:02d}"
         if current.is_dir():
             rounds.append(_round_metrics(current, number))
@@ -225,7 +314,8 @@ def _seed_snapshot(root, seed):
         "latest_budget": curve[-1]["active_labels"] if curve else None,
         "acquisitions_with_committed_feedback_and_fit": max(0, len(curve) - 1),
         "validation_curve": curve, "label_aulc_through_latest": aulc(curve),
-        "milestones": {str(point["active_labels"]): point for point in curve if point["active_labels"] in MILESTONES},
+        "milestones": {str(point["active_labels"]): point for point in curve
+                       if point["active_labels"] in (*MILESTONES, INITIAL + BATCH * planned_rounds)},
         "first_response_legality": {"legal": numerator, "evaluated": denominator,
                                     "fraction": numerator / denominator if denominator else None},
         "total_physical_attempts_started": sum(row["physical_attempts_started"] for row in rounds),
@@ -248,20 +338,30 @@ def _statistics(values):
 def snapshot(root):
     """Read only scope-bound artifacts. Never prepare features, reveal labels, or fit."""
     root = Path(root)
-    seeds = [_seed_snapshot(root, seed) for seed in SEEDS]
+    profile = (optional(root / "formal_contract.json") or {}).get("profile", {})
+    pilot = profile.get("requires_initial_qualification") is False
+    planned_seeds = SEEDS[:3] if pilot else SEEDS
+    planned_rounds = 10 if pilot else ROUNDS
+    target = INITIAL + BATCH * planned_rounds
+    if pilot and (profile.get("confirmation_seeds"), profile.get("target_labels")) != (list(planned_seeds), target):
+        raise ValueError("invalid pilot status scope")
+    seeds = [_seed_snapshot(root, seed, planned_rounds) for seed in planned_seeds]
     formal = [row for row in seeds if row["mock"] is False]
     endpoints = {}
-    for budget in MILESTONES:
+    for budget in MILESTONES if not pilot else (525, target):
         measured = [row["milestones"][str(budget)] for row in formal if str(budget) in row["milestones"]]
         endpoints[str(budget)] = {metric: _statistics([point[metric] for point in measured if point[metric] is not None])
                                   for metric in ENDPOINT_METRICS}
-    terminal = [row["label_aulc_through_latest"] for row in formal if row["latest_budget"] == 1485]
+    terminal = [row["label_aulc_through_latest"] for row in formal if row["latest_budget"] == target]
     return {"scope": "A7 M2 validation and execution receipts",
             "initialized": (root / "formal_contract.json").is_file(),
             "paused": (root / "pause.request").is_file(),
             "launch_qualification_recorded": (root / "qualification.json").is_file(),
-            "five_seed_complete": len(terminal) == len(SEEDS),
-            "formal_seed_milestones": endpoints, "formal_label_aulc_L333_L1485": _statistics(terminal),
+            "planned_seeds": list(planned_seeds), "planned_rounds": planned_rounds, "target_labels": target,
+            "scope_complete": len(terminal) == len(planned_seeds),
+            "five_seed_complete": not pilot and len(terminal) == len(SEEDS),
+            "formal_seed_milestones": endpoints,
+            f"formal_label_aulc_L333_L{target}": _statistics(terminal),
             "seeds": seeds}
 
 

@@ -7,9 +7,12 @@ from contextlib import contextmanager, nullcontext
 from dataclasses import asdict
 from datetime import datetime, timezone
 import fcntl
+import math
 import os
 from pathlib import Path
+import re
 import stat
+from tempfile import NamedTemporaryFile
 import time
 from uuid import uuid4
 
@@ -19,10 +22,19 @@ from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager 
 )
 
 from .bridge_protocol import _check_raw, make_result, private_directory, read_bridge_json, validate_result, verify_job
-from .formal_contract import OFFLINE, PROFILE, ROOT, STUDY, _profile
+from .compact_payload import validate_wire_representation
+from .formal_contract import OFFLINE, PROFILE, ROOT, STUDY, _profile, request_timeouts
 from .key_pool import LEASE, KeyPool, load_pool
-from .provider import call_responses, recover_completed_response, sdk_status
+from .provider import NETWORK_PHASES, PROGRESS_MILESTONES, call_responses, recover_completed_response, sdk_status
 from .ssh_courier import ATTEMPT_ID, GPU_PYTHON, SHA256, CourierUnavailable, SSHCourier, verify_info, verify_list
+
+PROGRESS_FILENAME = "provider_progress.json"
+PROGRESS_PHASES = {"request_dispatched", "http_phase", "http_headers", "sse_event", "transport_completed",
+                   "transport_failure"}
+PROGRESS_TOKENS = ("provider_request_id", "response_id", "model", "event_type", "error_type",
+                   "provider_error_code", "provider_error_param", "provider_incomplete_reason")
+PROGRESS_TOKEN = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}")
+USAGE_FIELDS = ("input_tokens", "cached_tokens", "output_tokens", "reasoning_tokens", "total_tokens")
 
 
 class RemotePaused(RuntimeError):
@@ -64,6 +76,102 @@ def _lease_dispatched(lease):
     return bool(record["dispatched"])
 
 
+def _valid_elapsed(value):
+    return type(value) in (int, float) and math.isfinite(value) and value >= 0
+
+
+def _transport_progress(attempt, job):
+    """Keep the latest phase and earlier identity milestones in a private spool record."""
+    request = job["request"]
+    binding = request["binding"]
+    snapshot = {"attempt_id": attempt.name, "job_sha256": job["job_sha256"],
+                "request_id": request["request_id"], "seed": binding["seed"], "round": binding["round"],
+                "logical_index": request["logical_index"], "first_phase_seconds": {}}
+
+    def save(event):
+        phase = event.get("phase")
+        elapsed = event.get("elapsed_seconds")
+        if phase not in PROGRESS_PHASES or not _valid_elapsed(elapsed):
+            return
+        snapshot.update(phase=phase, elapsed_seconds=elapsed, updated_utc=stamp())
+        snapshot["first_phase_seconds"].setdefault(phase, elapsed)
+        status = event.get("http_status")
+        if type(status) is int and 100 <= status <= 599:
+            snapshot["http_status"] = status
+        for field in PROGRESS_TOKENS:
+            token = event.get(field)
+            if isinstance(token, str) and PROGRESS_TOKEN.fullmatch(token) and not token.lower().startswith("sk-"):
+                snapshot[field] = token
+        if phase == "http_phase":
+            network_phase, state = event.get("network_phase"), event.get("network_state")
+            duration = event.get("phase_duration_seconds")
+            if network_phase in NETWORK_PHASES.values() and state in ("complete", "failed") and _valid_elapsed(duration):
+                snapshot.setdefault("network_phases", {})[network_phase] = {
+                    "state": state, "duration_seconds": duration, "observed_seconds": elapsed,
+                }
+            if type(event.get("explicit_proxy")) is bool:
+                snapshot["explicit_proxy"] = event["explicit_proxy"]
+        if phase == "sse_event":
+            count = event.get("sse_event_count")
+            if type(count) is int and count > 0:
+                snapshot.setdefault("first_sse_seconds", elapsed)
+                snapshot.update(last_sse_seconds=elapsed, sse_event_count=count)
+                interval = event.get("sse_interval_seconds")
+                if _valid_elapsed(interval):
+                    snapshot["last_sse_interval_seconds"] = interval
+                kind = event.get("event_type")
+                if kind in PROGRESS_MILESTONES:
+                    snapshot.setdefault("sse_milestones", {}).setdefault(kind, {
+                        "elapsed_seconds": elapsed, "interval_seconds": interval if _valid_elapsed(interval) else None,
+                    })
+        if phase == "transport_completed":
+            snapshot["complete_terminal_captured"] = True
+            usage = event.get("usage")
+            if type(usage) is dict:
+                snapshot["usage"] = {field: usage[field] for field in USAGE_FIELDS
+                                     if type(usage.get(field)) is int and usage[field] >= 0}
+        with NamedTemporaryFile(dir=attempt, delete=False) as stream:
+            temporary = Path(stream.name)
+            try:
+                stream.write((dumps(snapshot, sort_keys=True) + "\n").encode())
+                stream.flush()
+                os.fsync(stream.fileno())
+                os.replace(temporary, attempt / PROGRESS_FILENAME)
+                dir_fd = os.open(attempt, os.O_RDONLY)
+                try:
+                    os.fsync(dir_fd)
+                finally:
+                    os.close(dir_fd)
+            finally:
+                temporary.unlink(missing_ok=True)
+
+    return save
+
+
+def _recent_provider_progress(path, started, results, *, limit=6):
+    observed = []
+    for identity in started:
+        attempt = path / "attempts" / identity
+        try:
+            _private_directory(attempt)
+            progress = attempt / PROGRESS_FILENAME
+            updated = progress.stat().st_mtime_ns
+            observed.append((identity not in results, updated, identity, progress))
+        except OSError:
+            continue
+    view = []
+    for open_attempt, _, identity, path in sorted(observed, reverse=True)[:limit]:
+        try:
+            progress = read_bridge_json(path)
+            marker = read_bridge_json(path.parent / "started.json")
+        except (OSError, ValueError):
+            continue
+        if (type(progress) is dict and type(marker) is dict and progress.get("attempt_id") == identity
+                and marker.get("attempt_id") == identity and progress.get("job_sha256") == marker.get("job_sha256")):
+            view.append({**progress, "sealed": not open_attempt})
+    return view
+
+
 def verify_local_source(info, root=ROOT):
     """Bind paid execution to the same approved transport code as the GPFS endpoint."""
     needed = [STUDY / "a7_gpu" / name for name in (
@@ -71,6 +179,8 @@ def verify_local_source(info, root=ROOT):
         "key_pool.py", "provider.py", "ssh_courier.py",
     )]
     needed.append(OFFLINE / "pure_llm_v3" / "transport_manager.py")
+    if info["contract"].get("profile", {}).get("wire_representation") is not None:
+        needed.append(STUDY / "a7_gpu" / "compact_payload.py")
     approved = info["contract"].get("source_sha256", {})
     for path in needed:
         if approved.get(path.as_posix()) != file_digest(Path(root) / path):
@@ -85,9 +195,13 @@ class Dispatcher:
         if type(mock) is not bool or (mock and pool is not None) or (not mock and call is not None):
             raise ValueError("mock transport and paid credential leasing must remain separate")
         self.info = verify_info(info, expected_contract=contract_sha256, expected_mock=mock)
-        if self.info["contract"].get("profile", {}).get("transport") != asdict(transport):
+        profile = self.info["contract"].get("profile", {})
+        if profile.get("transport") != asdict(transport):
             raise PermissionError("remote formal transport differs from the reviewed local A7 profile")
         self.transport = transport
+        self.timeouts = request_timeouts(profile)
+        representation = profile.get("wire_representation")
+        self.wire_representation = None if representation is None else dict(validate_wire_representation(representation))
         self.mock = mock
         self.pool = pool
         self.call = call
@@ -118,6 +232,7 @@ class Dispatcher:
         request, config, started = verify_job(
             job, contract_sha256=self.info["contract_sha256"],
             authorization_sha256=self.info["authorization_sha256"],
+            wire_representation=self.wire_representation,
         )
         if config != self.transport or request["binding"]["a7_formal"]["mock"] is not self.mock:
             raise PermissionError("bridge attempt uses foreign transport or mock mode")
@@ -217,7 +332,8 @@ class Dispatcher:
                         else:
                             reply = call_responses(request, config,
                                                    model_lock=self.path / "provider_model_lock.json",
-                                                   capture_response=capture, capture_receipt=capture_receipt)
+                                                   capture_response=capture, capture_receipt=capture_receipt,
+                                                   progress=_transport_progress(attempt, job), timeouts=self.timeouts)
                         model_identity = self._model_lock(reply)
                     except TransportFailure as error:
                         failure = error
@@ -306,6 +422,7 @@ def spool_status(path):
             "jobs": sum(1 for _ in (path / "jobs").glob("*.json")), "sealed_results": len(results),
             "delivered_results": sum(1 for _ in (path / "delivered").glob("*.json")),
             "open_or_ambiguous_count": len(started - results),
+            "provider_progress": _recent_provider_progress(path, started, results),
             "key_pool": KeyPool(path / "key_pool").status(readonly=True)}
 
 
@@ -426,7 +543,12 @@ def main():
     verify_info(info, expected_contract=args.contract_sha, expected_mock=expected_mock)
     if args.action == "run" and args.execute_paid:
         verify_local_source(info)
-    _, config = _profile(args.config)
+    profile, config = _profile(args.config)
+    remote_profile = info["contract"].get("profile", {})
+    if request_timeouts(profile) != request_timeouts(remote_profile):
+        raise PermissionError("remote and local A7 timeout policies differ")
+    if profile.get("wire_representation") != remote_profile.get("wire_representation"):
+        raise PermissionError("remote and local A7 wire representations differ")
     mock_reply = ProviderReply(**read(args.mock_reply)) if args.mock_reply else None
     dispatcher = Dispatcher(args.spool_dir, info=info, contract_sha256=args.contract_sha, transport=config,
                             mock=expected_mock, call=(lambda *_: mock_reply) if mock_reply else None)

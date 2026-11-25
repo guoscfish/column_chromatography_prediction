@@ -52,3 +52,35 @@ def test_local_repair_preservation_compares_full_locked_choices():
     )
     assert summary == {"initial_locked_choices": 2, "retained_initial_legal_id_count": 2,
                        "retained_initial_legal_choice_count": 1}
+
+
+def test_pilot_scope_and_frozen_acquisition_diagnostics(tmp_path):
+    once(tmp_path / "formal_contract.json", {
+        "profile": {"confirmation_seeds": [157, 887, 2357], "target_labels": 653,
+                    "requires_initial_qualification": False},
+    })
+    report = metrics.snapshot(tmp_path)
+    assert report["planned_rounds"] == 10 and report["target_labels"] == 653
+    assert [row["seed"] for row in report["seeds"]] == [157, 887, 2357]
+    assert not report["scope_complete"]
+
+    round_dir = tmp_path / "seed_157" / "round_00"
+    selection = round_dir / "selection.json"
+    base = dict.fromkeys(metrics.CONDITION_AXES, "")
+    base.update({"CAS": "1", "column_specs": "4g", "purity_raw": "99%",
+                 "PE/EA": "5/1", "flow": "2", "density": "1",
+                 "sample_volume": "5", "loading_solvent": "DCM", "loading_solvent_volume": "20"})
+    once(selection, {"choices": [{"candidate_id": "C-1"}, {"candidate_id": "C-2"},
+                                  {"candidate_id": "C-3"}], "hypothesis_updates": []})
+    freeze = {"selection_file_sha256": file_digest(selection), "freeze_sha256": "f" * 64}
+    observed = {"O-1": {"molecule_id": "M-1", "conditions": base}}
+    candidates = {"C-1": {"molecule_id": "M-1", "conditions": {**base, "flow": "3"}},
+                  "C-2": {"molecule_id": "M-2", "conditions": base},
+                  "C-3": {"molecule_id": "M-2", "conditions": {**base, "flow": "3", "PE/EA": "8/1"}}}
+    metrics.record_batch_diagnostics(round_dir, freeze, candidates, observed)
+    report = metrics.optional(round_dir / metrics.ACQUISITION_DIAGNOSTICS)
+    assert report["freeze_sha256"] == freeze["freeze_sha256"]
+    assert report["new_molecules"] == 1 and report["row_fraction_on_new_molecules"] == pytest.approx(2 / 3)
+    assert report["condition_coverage"]["complete_profiles"]["added"] == 2
+    assert report["same_molecule_pairs"]["within_batch"]["multifactor"] == 1
+    assert report["same_molecule_pairs"]["with_existing_observations"]["single_factor"] == 1

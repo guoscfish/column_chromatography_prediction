@@ -14,7 +14,7 @@ from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager 
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.bridge_protocol import (
     BridgeCourier, make_job, make_result, verify_job, verify_result,
 )
-from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu import bridge_endpoint
+from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu import bridge_endpoint, scheduler
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.dispatcher import Dispatcher, run_dispatcher, spool_status
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.formal_contract import SSH_API
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.provider import verify_reported_model
@@ -27,15 +27,15 @@ from studies.active_learning.pure_llm_v3_a7_gpu_20261124.tests.test_seed_runner 
 )
 
 
-def make_sample_job(formal, seed=157, *, mock=True):
+def make_sample_job(formal, seed=157, *, mock=True, round_index=0):
     contract, approval = formal
     scope = {"contract_sha256": contract.digest, "authorization_sha256": digest(approval),
              "seed": seed, "mock": mock}
-    packet = {"seed": seed, "round": 0, "layout": "B", "compression": "lossless",
+    packet = {"seed": seed, "round": round_index, "layout": "B", "compression": "lossless",
               "selection_count": 32, "memory": {"mode": "M2"}}
     messages = [{"role": "system", "content": "Synthetic A7 task."},
                 {"role": "user", "content": dumps(packet)}]
-    binding = {"seed": seed, "round": 0, "arm": "A7", "checkpoint_sha256": "d" * 64,
+    binding = {"seed": seed, "round": round_index, "arm": "A7", "checkpoint_sha256": "d" * 64,
                "packet_sha256": digest(packet), "mapping_sha256": "a" * 64, "state_sha256": "b" * 64,
                "base_messages_sha256": digest(messages), "prompt_sha256": digest(messages[0]["content"]),
                "split_sha256": "e" * 64, "schema_version": SCHEMA_VERSION, "prompt_version": "v3", "a7_formal": scope}
@@ -133,6 +133,36 @@ def test_gpfs_endpoint_checks_staged_authority_and_durable_dispatcher_claim(tmp_
     assert first == {"attempt_id": identity, "result_sha256": result["result_sha256"]}
     assert bridge_endpoint.exchange(run, "put", identity, result, dispatcher_id="b" * 32) == first
     assert bridge_endpoint.exchange(run, "list")["attempt_ids"] == []
+
+
+def test_one_gpu_pilot_starts_three_workers_and_caps_bridge_rounds(tmp_path, formal, monkeypatch):
+    base, approval = formal
+    run, lease_root = tmp_path / "pilot", tmp_path / "leases"
+    lease_root.mkdir()
+    profile = {**base.profile, "confirmation_seeds": [157, 887, 2357],
+               "initial_labels": 333, "target_labels": 653, "requires_initial_qualification": False,
+               "transport": asdict(base.transport)}
+    contract = replace(base, profile=profile, gpu_slots=(0,), lease_root=str(lease_root),
+                       api_execution=SSH_API, run_directory=str(run), predecessor={"synthetic": True})
+    approval = {**approval, "contract_sha256": contract.digest}
+    started = []
+
+    def start(_ctx, _root, run, _contract, _approval, _pool, seed, gpu, stop, _generation):
+        started.append((seed, gpu, stop))
+
+        def join():
+            assert started == [(157, 0, 10), (887, 0, 10), (2357, 0, 10)]
+            once(run / "workers" / f"seed_{seed}.json", {"status": "complete"})
+
+        return SimpleNamespace(exitcode=0, join=join)
+
+    monkeypatch.setattr(scheduler, "_start", start)
+    assert scheduler._run(tmp_path, run, contract, approval, None, resume=False) == 0
+    assert not (run / "qualification.json").exists()
+    job, _, marker = make_sample_job((contract, approval), seed=2357, mock=False, round_index=10)
+    once(run / "bridge/outbox" / f"{marker['attempt_id']}.json", job)
+    with pytest.raises(ValueError, match="outside the authorized run"):
+        bridge_endpoint.exchange(run, "get", marker["attempt_id"])
 
 
 @pytest.mark.parametrize("upload_reached_gpfs", [False, True])

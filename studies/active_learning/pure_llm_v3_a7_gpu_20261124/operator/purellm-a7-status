@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read-only local and GPU status for PureLLM-A7 v3, v2, or v1."""
+"""Read-only local and GPU status for PureLLM-A7."""
 import argparse
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
@@ -37,16 +37,20 @@ TOKEN_FIELDS = ("input_tokens", "output_tokens", "reasoning_tokens", "cached_tok
 def version_record(version):
     if version in HISTORY:
         return HISTORY[version]
-    record = json.loads((PRIVATE_ROOT / "purellm-a7-v3.json").read_text())
+    effort, run = {
+        "v3": ("max", "a7-gpt62-max-ssh-v3"),
+        "v4": ("xhigh", "a7-gpt62-astra-xhigh-ssh-v4"),
+        "v4-pilot": ("xhigh", "a7-gpt62-astra-xhigh-ssh-v4-pilot-3x10"),
+    }[version]
+    record = json.loads((PRIVATE_ROOT / f"purellm-a7-{version}.json").read_text())
     if not isinstance(record, dict) or set(record) != set(HISTORY["v2"]) or any(
         not isinstance(value, str) for value in record.values()
     ):
-        raise ValueError("invalid PureLLM-A7 v3 operator settings")
-    effort = record["reasoning_effort"]
-    if effort != "max" or record["run_basename"] != "a7-gpt62-max-ssh-v3" or any(
+        raise ValueError(f"invalid PureLLM-A7 {version} operator settings")
+    if record["reasoning_effort"] != effort or record["run_basename"] != run or any(
         re.fullmatch(r"[0-9a-f]{64}", record[key]) is None for key in ("contract_sha256", "release_sha256")
     ):
-        raise ValueError("invalid PureLLM-A7 v3 contract, release, or run name")
+        raise ValueError(f"invalid PureLLM-A7 {version} contract, release, or run name")
     return record
 
 # Execute against the installed release. Only the safe summary is sent back over SSH.
@@ -103,6 +107,8 @@ print(json.dumps({
     "authorization_matches": authorized,
     "qualified_L365": report["launch_qualification_recorded"],
     "five_seed_complete": report["five_seed_complete"],
+    "scope_complete": report.get("scope_complete", report["five_seed_complete"]),
+    "target_labels": report.get("target_labels", 1485),
     "seed157_round0": first,
     "api_pending": len(pool.get("pending_attempt_ids", ())),
     "seeds": [{"seed": row["seed"], "labels": row["latest_budget"], "stage": row["stage"],
@@ -193,6 +199,7 @@ def mac_status(args):
             "shared_disabled": bool(limits.get("shared_disabled")),
             "queue": [{name: row.get(name) for name in ("seed", "round", "logical_index", "state", "key_id")}
                       for row in pool.get("queue", ())],
+            "provider_progress": source.get("provider_progress", []),
             "keys": keys}
 
 
@@ -214,7 +221,7 @@ def value(view, name):
 def show(report):
     version = report["version"]
     effort = report["reasoning_effort"]
-    print(f"A7/M2 {version}  {report['checked_at']}  gpt-6.2-sol / {effort}")
+    print(f"A7/M2 {version}  {report['checked_at']}  {report['requested_model']} / {effort}")
     mac, gpu = report["mac"], report["gpu"]
     if mac.get("error"):
         print(f"Mac 状态暂不可用  {mac['error']}")
@@ -230,6 +237,13 @@ def show(report):
         for job in mac["queue"]:
             print(f"  seed {job['seed']} round {job['round']} turn {job['logical_index']}  "
                   f"{job['state']}  {value(job, 'key_id')}")
+        for trace in mac.get("provider_progress", ()):
+            state = "已封存" if trace["sealed"] else "尚未封存"
+            print(f"  seed {trace['seed']} round {trace['round']} turn {trace['logical_index']}  {state}  "
+                  f"{trace['phase']}  {trace['elapsed_seconds']:.1f}s  HTTP {value(trace, 'http_status')}  "
+                  f"流事件 {value(trace, 'event_type')}  错误 {value(trace, 'error_type')}")
+            print(f"    请求 {value(trace, 'provider_request_id')}  响应 {value(trace, 'response_id')}  "
+                  f"观测时间 {trace['updated_utc']}")
         for row in mac['keys']:
             print(f"  {row['id']} {row['status']}  请求 {row['requests']} / 完整 {row['completed']} / "
                   f"失败 {row['failures']} / 修复 {row['corrective_requests']}  tokens {row['usage'] or '—'}")
@@ -272,7 +286,7 @@ def show(report):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--version", choices=("v1", "v2", "v3"), default="v3")
+    parser.add_argument("--version", choices=("v1", "v2", "v3", "v4", "v4-pilot"), default="v3")
     parser.add_argument("--json", action="store_true", help="emit the safe structured summary")
     internal = parser.add_mutually_exclusive_group()
     internal.add_argument("--operator-config", action="store_true", help=argparse.SUPPRESS)
@@ -302,10 +316,11 @@ def main():
         try:
             view = gpu_status(args)
         except (OSError, subprocess.SubprocessError, ValueError, KeyError):
-            sys.exit("Could not verify the v3 authorization and Coordinator over SSH.")
+            sys.exit("Could not verify the authorization and Coordinator over SSH.")
         coordinator = view["coordinator"]
-        if args.version != "v3" or not view["authorization_matches"] or not coordinator["active"] or coordinator["paused"]:
-            sys.exit("Start or resume the authorized v3 GPU Coordinator before starting the Mac Dispatcher.")
+        if (args.version not in ("v3", "v4", "v4-pilot") or not view["authorization_matches"]
+                or not coordinator["active"] or coordinator["paused"]):
+            sys.exit("Start or resume the authorized GPU Coordinator before starting the Mac Dispatcher.")
         return 0
     if args.mac_stop_check:
         state = mac_status(args)
@@ -315,6 +330,7 @@ def main():
     report = {
         "checked_at": datetime.now(timezone.utc).astimezone().isoformat(timespec="seconds"),
         "version": args.version,
+        "requested_model": "gpt-6.2-astra" if args.version.startswith("v4") else "gpt-6.2-sol",
         "run_directory": args.run_dir,
         **settings,
     }

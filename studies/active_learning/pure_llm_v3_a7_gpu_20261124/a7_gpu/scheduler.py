@@ -14,7 +14,9 @@ from uuid import uuid4
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, dumps, once, read
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import ProviderReply, TransportStop
 
-from .formal_contract import DIRECT_API, LEASE_ROOT, PROFILE, ROOT, SEEDS, SSH_API, load_contract, verify_authorization
+from .formal_contract import (
+    DIRECT_API, LEASE_ROOT, PROFILE, ROOT, SEEDS, SSH_API, load_contract, request_timeouts, verify_authorization,
+)
 from .key_pool import KeyPool, load_pool
 from .provider import call_responses, sdk_status, verify_reported_model
 
@@ -102,10 +104,12 @@ def _provider_wiring(run, contract, approval, pool_config, seed):
     if contract.api_execution == SSH_API:
         from .bridge_protocol import BridgeCourier
 
+        timeouts = request_timeouts(contract.profile)
         courier = BridgeCourier(
             run / "bridge", authorization_sha256=digest(approval), contract_sha256=contract.digest,
             model_lock=run / "provider_model_lock.json", pause=partial(_pause_requested, run, seed),
-            wait_seconds=1800,
+            wait_seconds=timeouts.bridge_wait_seconds if timeouts is not None else 1800,
+            wire_representation=contract.profile.get("wire_representation"),
         )
         return _no_platform_api, {"managed_attempt": courier}
     pool = KeyPool(run / "api", pool_config)
@@ -158,8 +162,8 @@ def _start(ctx, root, run, contract, approval, pool, seed, gpu, stop, generation
     return process
 
 
-def _assert_no_old_workers(run):
-    for seed in SEEDS:
+def _assert_no_old_workers(run, seeds):
+    for seed in seeds:
         with _lock(run / "workers" / f"seed_{seed}.lock", busy="an earlier seed worker is still alive"):
             pass
 
@@ -180,7 +184,7 @@ def _run(root, run, contract, approval, pool, *, resume):
     ctx = multiprocessing.get_context("spawn")
     run.mkdir(parents=True, exist_ok=True, mode=0o700)
     with _lock(run / "coordinator.lock", busy="an A7 coordinator is already active"):
-        _assert_no_old_workers(run)
+        _assert_no_old_workers(run, contract.seed_ids)
         once(run / "formal_contract.json", contract.record())
         once(run / "authorization.json", approval)
         if _pause_requested(run) and not resume:
@@ -196,22 +200,23 @@ def _run(root, run, contract, approval, pool, *, resume):
         _atomic_status(run / "coordinator_generation.json", {"id": generation, "pid": os.getpid()})
         if resume:
             (run / "pause.request").unlink(missing_ok=True)
-        if qualification_status(run, contract, approval) is None:
-            seed = contract.qualification_seed
-            test = _start(ctx, root, run, contract, approval, pool, seed, contract.gpu_slots[0], 1, generation)
-            test.join()
-            if test.exitcode or _pause_requested(run) or qualification_status(run, contract, approval) is None:
-                print(dumps({"status": "qualification_paused_or_failed", "seed": seed,
-                             "worker_exit": test.exitcode}))
-                return 1
-        if not (run / "provider_model_lock.json").is_file():
-            raise TransportStop("qualification is missing the provider model identity lock")
+        if contract.requires_initial_qualification:
+            if qualification_status(run, contract, approval) is None:
+                seed = contract.qualification_seed
+                test = _start(ctx, root, run, contract, approval, pool, seed, contract.gpu_slots[0], 1, generation)
+                test.join()
+                if test.exitcode or _pause_requested(run) or qualification_status(run, contract, approval) is None:
+                    print(dumps({"status": "qualification_paused_or_failed", "seed": seed,
+                                 "worker_exit": test.exitcode}))
+                    return 1
+            if not (run / "provider_model_lock.json").is_file():
+                raise TransportStop("qualification is missing the provider model identity lock")
         workers = {}
         for index, seed in enumerate(contract.seed_ids):
             if _pause_requested(run):
                 break
             gpu = contract.gpu_slots[index % len(contract.gpu_slots)]
-            workers[seed] = _start(ctx, root, run, contract, approval, pool, seed, gpu, None, generation)
+            workers[seed] = _start(ctx, root, run, contract, approval, pool, seed, gpu, contract.rounds, generation)
         for proc in workers.values():
             proc.join()
         ends = {str(seed): proc.exitcode for seed, proc in workers.items()}
@@ -324,7 +329,12 @@ def main():
     if args.action == "status":
         report = snapshot(run)
         contract_file = run / "formal_contract.json"
-        bridge = contract_file.is_file() and read(contract_file).get("api_execution") == SSH_API
+        contract_record = read(contract_file) if contract_file.is_file() else {}
+        profile = contract_record.get("profile", {})
+        scoped_seeds = set(profile.get("confirmation_seeds", SEEDS))
+        gate_required = profile.get("requires_initial_qualification", True)
+        report["seeds"] = [row for row in report["seeds"] if row["seed"] in scoped_seeds]
+        bridge = contract_record.get("api_execution") == SSH_API
         if bridge:
             from .bridge_endpoint import exchange
 
@@ -337,7 +347,8 @@ def main():
         else:
             pool = KeyPool(run / "api").status()
             api = {row["seed"]: row["state"] for row in pool.get("queue", [])}
-        gpu_jobs = [read(path) for path in sorted((run / "gpu").glob("seed_*.json"))]
+        gpu_jobs = [read(run / "gpu" / f"seed_{seed}.json") for seed in sorted(scoped_seeds)
+                    if (run / "gpu" / f"seed_{seed}.json").is_file()]
         gpu = {row["seed"]: row["stage"] for row in gpu_jobs if row["stage"] != "idle"}
         for row in report["seeds"]:
             seed, worker = row["seed"], row["worker"] or {}
@@ -347,7 +358,8 @@ def main():
                 stage = "gpu_" + gpu[seed]
             elif seed in api:
                 stage = "api_" + api[seed]
-            elif seed != 157 and not report["launch_qualification_recorded"]:
+            elif (gate_required and seed != profile.get("qualification_seed", 157)
+                  and not report["launch_qualification_recorded"]):
                 stage = "awaiting_first_round_qualification"
             else:
                 stage = worker.get("status", "not_started")

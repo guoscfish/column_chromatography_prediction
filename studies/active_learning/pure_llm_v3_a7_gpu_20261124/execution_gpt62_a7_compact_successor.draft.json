@@ -1,0 +1,71 @@
+{
+  "schema": "pure_llm_a7_successor_review_draft_v1",
+  "status": "draft_offline_only",
+  "predecessor": {
+    "run_directory": "/1/column_chromatography_prediction/purellm_a7/runs/a7-gpt62-max-ssh-v3",
+    "contract_sha256": "8c6e505da7e8ac957dfcb616e6814e72fa51183a872bc5f4cde83ce5f6737570",
+    "release_sha256": "9a40ccc19fa402b4f2097a85da3fc145fe5e4a6b8c4b367ab7554353dbeda06e",
+    "request_id": "e5ce1c13338813b54dac1f919f7a67cd1930e9754aec04350dbf28cabb2160bc",
+    "attempt_id": "8262eddaac1f4893b013bf5528960bd6",
+    "execution_and_billing": "unresolved"
+  },
+  "proposed_run_directory": "/1/column_chromatography_prediction/purellm_a7/runs/a7-gpt62-max-ssh-v4-compact",
+  "scientific_scope": {
+    "arm": "A7",
+    "memory": "M2",
+    "seeds": [157, 887, 2357, 6101, 12203],
+    "initial_labels": 333,
+    "target_labels": 1485,
+    "batch_size": 32,
+    "initial_candidates": 2997,
+    "qualification_seed": 157,
+    "initial_checkpoint_sha256_by_seed": {
+      "157": "affd5fc2c046beb35a666ba2d81bce6e5293244d8e0e0e58deaf5b7879ca8e46",
+      "887": "78e6a2fc8edcdd6fa11361e6b2ca28342ce17640babd4a85a95098c5678ed588",
+      "2357": "81b3d29462746e26f7634d5e911375067708c6d0d739cab565be6aea7c4591ca",
+      "6101": "6959c9417166245403dad173ca82347336de53a37d643591ca449b0cf2a929c4",
+      "12203": "e056a9924b408e8885e7fa619f0ce63a44b8b3b47a2126d57c1fdc80e3df428d"
+    },
+    "training_and_assets": "identical_to_predecessor",
+    "numerical_prefiltering": false,
+    "numerical_fallback_selection": false
+  },
+  "proposed_wire": {
+    "schema": "a7_grouped_tables_v1",
+    "compression": "rounded_display",
+    "feature_precision": 3,
+    "crossing_guard": true,
+    "visible_widths": true,
+    "preserve_full_precision_host_packet": true,
+    "bind_authoritative_packet_and_transmitted_payload_sha256": true
+  },
+  "proposed_transport": {
+    "api_execution": "mac_ssh_dispatch_v1",
+    "provider": "token4research",
+    "base_url": "https://token4research.cn/v1",
+    "requested_model": "gpt-6.2-sol",
+    "served_model": "gpt-6.2-sol",
+    "reasoning_effort": "max",
+    "wire_mode": "responses_stream",
+    "sdk_version": "2.28.0",
+    "store": false,
+    "max_output_tokens": 32768,
+    "api_parallelism": 3,
+    "logical_replies": 3,
+    "transport_attempts": 2,
+    "timeout_seconds": 1800,
+    "request_timeouts": {
+      "connect_seconds": 30,
+      "write_seconds": 120,
+      "read_idle_seconds": 900,
+      "total_seconds": 1800,
+      "bridge_margin_seconds": 600
+    },
+    "bridge_wait_seconds": 4200
+  },
+  "formal_release_sha256": null,
+  "formal_contract_sha256": null,
+  "authorize_paid_api": false,
+  "authorize_label_reveal": false,
+  "authorize_cuda_training": false
+}

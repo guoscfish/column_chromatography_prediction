@@ -13,6 +13,7 @@ from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager 
     ProviderReply, TransportConfig, TransportFailure, TransportStop, check_request,
 )
 
+from .compact_payload import FORMAT_SUFFIX, WIDTHS, validate_wire_representation
 from .provider import verify_reported_model
 
 
@@ -37,6 +38,7 @@ SENSITIVE_FIELDS = {
     "apikey", "authorization", "clientsecret", "password", "accesstoken", "refreshtoken",
     "proxyauthorization", "signaturesecret", "token4researchapikey",
 }
+_UNSPECIFIED_WIRE = object()
 
 
 class BridgePending(TransportStop):
@@ -84,13 +86,27 @@ def _validate_binding(request, authorization_sha256, contract_sha256):
             or any(type(message) is not dict or set(message) != {"role", "content"}
                    or message["role"] != role or not isinstance(message["content"], str)
                    for message, role in zip(messages, roles, strict=True))
-            or digest(messages[:2]) != binding["base_messages_sha256"]
-            or digest(messages[0]["content"]) != binding["prompt_sha256"]):
+            or digest(messages[:2]) != binding["base_messages_sha256"]):
         raise ValueError("bridge request messages differ from the staged base prompt")
     packet = parse_response(messages[1]["content"])
-    if (type(packet) is not dict or digest(packet) != binding["packet_sha256"]
+    if type(packet) is not dict:
+        raise ValueError("bridge packet differs from the staged A7/M2 input")
+    prompt, packet_sha, compression = messages[0]["content"], binding["packet_sha256"], "lossless"
+    if "wire_representation" in binding:
+        profile = validate_wire_representation(binding["wire_representation"])
+        if (not prompt.endswith(FORMAT_SUFFIX) or not _matches(SHA256, binding.get("wire_packet_sha256"))
+                or not _matches(SHA256, binding.get("authoritative_base_messages_sha256"))
+                or packet.get("wire_schema") != profile["schema"] or packet.get("source_compression") != "lossless"
+                or type(packet.get("feature_precision")) is not int
+                or packet["feature_precision"] != profile["feature_precision"] or packet.get("crossing_guard") is not True
+                or type(packet.get("derived")) is not dict
+                or any(set(fields) & set(WIDTHS) for fields in packet["derived"].values())):
+            raise ValueError("bridge packet differs from the approved compact wire representation")
+        prompt = prompt.removesuffix(FORMAT_SUFFIX)
+        packet_sha, compression = binding["wire_packet_sha256"], profile["compression"]
+    if (digest(prompt) != binding["prompt_sha256"] or digest(packet) != packet_sha
             or (packet.get("seed"), packet.get("round"), packet.get("layout"), packet.get("compression"))
-            != (binding["seed"], binding["round"], "B", "lossless")
+            != (binding["seed"], binding["round"], "B", compression)
             or packet.get("selection_count") != 32 or type(packet.get("memory")) is not dict
             or packet["memory"].get("mode") != "M2"):
         raise ValueError("bridge packet differs from the staged A7/M2 input")
@@ -106,7 +122,7 @@ def make_job(request, config, started):
     return {**payload, "job_sha256": digest(payload)}
 
 
-def verify_job(job, *, authorization_sha256=None, contract_sha256=None):
+def verify_job(job, *, authorization_sha256=None, contract_sha256=None, wire_representation=_UNSPECIFIED_WIRE):
     if type(job) is not dict or set(job) != JOB_FIELDS or job["version"] != JOB_VERSION:
         raise ValueError("unexpected bridge job envelope")
     request, started = job["request"], job["started"]
@@ -114,6 +130,8 @@ def verify_job(job, *, authorization_sha256=None, contract_sha256=None):
     if job != make_job(request, config, started):
         raise ValueError("bridge job digest or identities drifted")
     _validate_binding(request, authorization_sha256, contract_sha256)
+    if wire_representation is not _UNSPECIFIED_WIRE and request["binding"].get("wire_representation") != wire_representation:
+        raise ValueError("bridge job differs from the contract's wire representation")
     return request, config, started
 
 
@@ -314,7 +332,7 @@ class BridgeCourier:
     """GPU-side handoff. The Mac is the only provider caller."""
 
     def __init__(self, directory, *, authorization_sha256, contract_sha256, model_lock=None,
-                 pause=None, wait_seconds=900, poll_seconds=0.25):
+                 pause=None, wait_seconds=900, poll_seconds=0.25, wire_representation=None):
         if (not _matches(SHA256, authorization_sha256) or not _matches(SHA256, contract_sha256)
                 or not _duration(wait_seconds) or not _duration(poll_seconds) or poll_seconds == 0):
             raise ValueError("bridge courier needs exact approval hashes and finite wait settings")
@@ -323,6 +341,8 @@ class BridgeCourier:
         self.results = private_directory(self.directory / "results")
         self.authorization_sha256 = authorization_sha256
         self.contract_sha256 = contract_sha256
+        self.wire_representation = (None if wire_representation is None
+                                    else dict(validate_wire_representation(wire_representation)))
         self.model_lock = Path(model_lock) if model_lock is not None else self.directory.parent / "provider_model_lock.json"
         self.pause = pause
         self.wait_seconds = wait_seconds
@@ -330,7 +350,8 @@ class BridgeCourier:
 
     def __call__(self, request, config, started):
         job = make_job(request, config, started)
-        verify_job(job, authorization_sha256=self.authorization_sha256, contract_sha256=self.contract_sha256)
+        verify_job(job, authorization_sha256=self.authorization_sha256, contract_sha256=self.contract_sha256,
+                   wire_representation=self.wire_representation)
         name = f"{job['attempt_id']}.json"
         deadline = time.monotonic() + self.wait_seconds
         if self.pause is not None and self.pause():

@@ -8,6 +8,7 @@ import sys
 
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, dumps, once, read
 
+from .compact_payload import AUTHORITATIVE_PACKET_FILE
 from .formal_contract import AUTH_KEYS, SSH_API
 
 SCHEMA = "purellm_a7_ssh_bridge_v1"
@@ -39,18 +40,21 @@ def _job(run, attempt_id, authority):
     if not isinstance(attempt_id, str) or not ATTEMPT.fullmatch(attempt_id):
         raise ValueError("invalid physical attempt identity")
     job = read_bridge_json(run / "bridge/outbox" / f"{attempt_id}.json")
+    contract = authority["contract"]
+    profile = contract["profile"]
+    representation = profile.get("wire_representation")
+    rounds = (profile["target_labels"] - profile["initial_labels"]) // profile["batch_size"]
     verify_job(job, authorization_sha256=authority["authorization_sha256"],
-               contract_sha256=authority["contract_sha256"])
+               contract_sha256=authority["contract_sha256"], wire_representation=representation)
     request, started = job["request"], job["started"]
     binding = request["binding"]
     scope = {"contract_sha256": authority["contract_sha256"],
              "authorization_sha256": authority["authorization_sha256"],
              "seed": binding["seed"], "mock": False}
-    contract = authority["contract"]
     if (
         started["attempt_id"] != attempt_id or binding["a7_formal"] != scope
-        or binding["seed"] not in contract["profile"]["confirmation_seeds"]
-        or not 0 <= binding["round"] < 36 or request["configuration"] != contract["profile"]["transport"]
+        or binding["seed"] not in profile["confirmation_seeds"]
+        or not 0 <= binding["round"] < rounds or request["configuration"] != profile["transport"]
     ):
         raise ValueError("outbox job is outside the authorized run")
     turn = run / f"seed_{binding['seed']}/round_{binding['round']:02d}/turn_{request['logical_index']:02d}"
@@ -61,6 +65,8 @@ def _job(run, attempt_id, authority):
         or read(turn / "formal_request_authorization.json") != expected_grant
     ):
         raise ValueError("job differs from the coordinator's staged physical attempt")
+    if representation is not None and digest(read(turn.parent / AUTHORITATIVE_PACKET_FILE)) != binding["packet_sha256"]:
+        raise ValueError("authoritative A7 packet differs from the staged physical attempt")
     return job
 
 

@@ -1,4 +1,5 @@
 """Explicit credential-scoped Responses clients on the frozen A7 provider contract."""
+import asyncio
 from dataclasses import replace
 from importlib.metadata import PackageNotFoundError, version
 import re
@@ -13,6 +14,16 @@ from .credentials import api_key, key_text
 from .key_pool import LEASE
 
 TOKEN = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}")
+LIFECYCLE_EVENTS = {
+    "response.created", "response.queued", "response.in_progress", "response.completed",
+    "response.incomplete", "response.failed", "error",
+}
+PROGRESS_MILESTONES = LIFECYCLE_EVENTS | {
+    "response.output_item.added", "response.output_item.done", "response.output_text.delta", "response.output_text.done",
+}
+PROGRESS_INTERVAL_SECONDS = 5
+NETWORK_PHASES = {"connect_tcp": "dns_tcp", "start_tls": "tls", "send_request_headers": "send_headers",
+                  "send_request_body": "send_body", "receive_response_headers": "receive_headers"}
 
 
 def sdk_status(config):
@@ -42,33 +53,131 @@ def http_failure(status, headers, body):
     return retry_http(status, headers), scope
 
 
-def _collect(stream, deadline, capture_response=None, capture_receipt=None):
-    declared = {}
-    terminal = None
+def _progress_token(value):
+    if isinstance(value, str) and TOKEN.fullmatch(value):
+        return value
+    return None
 
-    def watch():
-        nonlocal terminal
+
+def _headers_progress(response, report):
+    details = {"http_status": response.status_code}
+    provider_request_id = _progress_token(response.headers.get("x-request-id"))
+    if provider_request_id is not None:
+        details["provider_request_id"] = provider_request_id
+    report("http_headers", **details)
+
+
+class _EventDeadline(TransportFailure):
+    def __init__(self):
+        super().__init__("timeout", ambiguous=True)
+
+
+class _WallDeadline(TransportFailure):
+    def __init__(self):
+        super().__init__("timeout", ambiguous=True)
+
+
+class _StreamEvidence:
+    def __init__(self, response, deadline, report):
+        self.headers = response.headers
+        self.deadline = deadline
+        self.report = report
+        self.response_id = None
+        self.reported_events = set()
+        self.event_count = 0
+        self.last_event = None
+        self.last_report = None
+        if report is not None:
+            _headers_progress(response, report)
+
+    def _report_event(self, received, event, response, interval):
+        kind = event.type
+        error = event if kind == "error" else getattr(response, "error", None)
+        details = {field: value for field, raw in (
+            ("event_type", kind), ("response_id", getattr(response, "id", None)),
+            ("model", getattr(response, "model", None)),
+            ("provider_error_code", getattr(error, "code", None)),
+            ("provider_error_param", getattr(error, "param", None)),
+            ("provider_incomplete_reason", getattr(getattr(response, "incomplete_details", None), "reason", None)),
+        ) if (value := _progress_token(raw)) is not None}
+        if interval is not None:
+            details["sse_interval_seconds"] = interval
+        self.report("sse_event", observed_at=received, sse_event_count=self.event_count, **details)
+
+    def observe(self, event):
+        received = time.monotonic()
+        kind = event.type
+        response = getattr(event, "response", None) if kind in LIFECYCLE_EVENTS else None
+        response_id = getattr(response, "id", None)
+        if isinstance(response_id, str) and response_id:
+            if self.response_id is not None and response_id != self.response_id:
+                raise TransportFailure("response_id_mismatch", ambiguous=True)
+            self.response_id = response_id
+        if self.report is not None:
+            self.event_count += 1
+            interval = None if self.last_event is None else received - self.last_event[0]
+            self.last_event = received, event, response, interval
+            milestone = kind in PROGRESS_MILESTONES and kind not in self.reported_events
+            if milestone or self.last_report is None or received - self.last_report >= PROGRESS_INTERVAL_SECONDS:
+                self._report_event(*self.last_event)
+                self.last_report = received
+                if milestone:
+                    self.reported_events.add(kind)
+        if self.deadline is not None and received > self.deadline:
+            raise _EventDeadline()
+        if kind in {"response.incomplete", "response.failed", "error"}:
+            raise TransportFailure(kind, ambiguous=True)
+        if kind == "response.completed":
+            if not isinstance(response_id, str) or not response_id or getattr(response, "status", None) != "completed":
+                raise TransportFailure("incomplete_response", ambiguous=True)
+            return True
+        return False
+
+    def flush(self):
+        if self.last_event is not None and self.last_event[0] != self.last_report:
+            self._report_event(*self.last_event)
+
+    def complete(self, event, capture_response, capture_receipt):
+        terminal = event.response
+        extras = getattr(terminal, "model_extra", {}) or {}
+        reasoning = getattr(terminal, "reasoning", None)
+        model_version = extras.get("model_version")
+        declared = {"model_version": self.headers.get("x-model-version") if model_version is None else model_version,
+                    "reported_reasoning_effort": getattr(reasoning, "effort", None)}
+        reply = collect_completed((event,))
+        reply = replace(reply, provider_request_id=reply.provider_request_id or self.headers.get("x-request-id"))
+        if capture_response is not None:
+            raw = terminal.model_dump(mode="json", exclude_unset=True)
+            if capture_receipt is not None:
+                capture_receipt({"raw_response_sha256": digest(raw),
+                                 "provider_request_id": reply.provider_request_id, **declared})
+            capture_response(raw)
+        if self.report is not None:
+            self.report("transport_completed", usage=reply.usage)
+        return reply, declared
+
+
+def _collect(stream, deadline, capture_response=None, capture_receipt=None, *, report=None):
+    evidence = _StreamEvidence(stream.response, deadline, report)
+    try:
         for event in stream:
-            if event.type == "response.completed":
-                terminal = event.response
-                extras = getattr(terminal, "model_extra", {}) or {}
-                reasoning = getattr(terminal, "reasoning", None)
-                declared.update(model_version=extras.get("model_version"),
-                                reported_reasoning_effort=getattr(reasoning, "effort", None))
-            yield event
+            if evidence.observe(event):
+                # A definitive completion does not need [DONE] or a clean EOF.
+                return evidence.complete(event, capture_response, capture_receipt)
+    finally:
+        evidence.flush()
+    raise TransportFailure("sse_missing_completion", ambiguous=True)
 
-    reply = collect_completed(watch(), deadline=deadline)
-    headers = stream.response.headers
-    if declared.get("model_version") is None:
-        declared["model_version"] = headers.get("x-model-version")
-    reply = replace(reply, provider_request_id=reply.provider_request_id or headers.get("x-request-id"))
-    if capture_response is not None:
-        raw = terminal.model_dump(mode="json", exclude_unset=True)
-        if capture_receipt is not None:
-            capture_receipt({"raw_response_sha256": digest(raw),
-                             "provider_request_id": reply.provider_request_id, **declared})
-        capture_response(raw)
-    return reply, declared
+
+async def _collect_async(stream, deadline, capture_response, capture_receipt, report):
+    evidence = _StreamEvidence(stream.response, deadline, report)
+    try:
+        async for event in stream:
+            if evidence.observe(event):
+                return evidence.complete(event, capture_response, capture_receipt)
+    finally:
+        evidence.flush()
+    raise TransportFailure("sse_missing_completion", ambiguous=True)
 
 
 def verify_reported_model(config, reply, declared):
@@ -137,7 +246,8 @@ def recover_completed_response(raw, config, *, model_lock, metadata=None):
     return reply, _lock_model(model_lock, config, reply, declared)
 
 
-def call_responses(request, config, *, model_lock, capture_response=None, capture_receipt=None):
+def call_responses(request, config, *, model_lock, capture_response=None, capture_receipt=None, progress=None,
+                   timeouts=None):
     """Only the authorized runner can call this with an acquired physical lease."""
     import httpx
     import openai
@@ -151,30 +261,53 @@ def call_responses(request, config, *, model_lock, capture_response=None, captur
         raise TransportFailure("sdk_version_mismatch")
     reply = None
     scope = "shared"
+    started = time.monotonic()
+
+    def report(phase, *, observed_at=None, **fields):
+        if progress is not None:
+            try:
+                elapsed = (time.monotonic() if observed_at is None else observed_at) - started
+                progress({"phase": phase, "elapsed_seconds": elapsed, **fields})
+            except OSError:
+                # Status is observational. An unavailable status file must not drop the response.
+                pass
+
+    error_type = None
     try:
         # A client gets one immutable key, no mutation of the process-wide environment.
         if lease.path is None:
             with api_key() as (value, _):
-                return _call_with_key(value, request, config, model_lock, lease, capture_response, capture_receipt)
+                return _call_with_key(value, request, config, model_lock, lease, capture_response, capture_receipt,
+                                      report if progress is not None else None, timeouts)
         with key_text(lease.path) as value:
-            return _call_with_key(value, request, config, model_lock, lease, capture_response, capture_receipt)
+            return _call_with_key(value, request, config, model_lock, lease, capture_response, capture_receipt,
+                                  report if progress is not None else None, timeouts)
     except (PermissionError, FileNotFoundError):
         failure = TransportFailure("credential_file_error")
     except openai.APIStatusError as error:
         failure, scope = http_failure(error.status_code, error.response.headers, error.body)
-    except (openai.APITimeoutError, httpx.TimeoutException):
+    except _EventDeadline as error:
+        failure, error_type = error, "event_deadline_exceeded"
+    except _WallDeadline as error:
+        failure, error_type = error, "hard_wall_deadline"
+    except (openai.APITimeoutError, httpx.TimeoutException) as error:
         failure = TransportFailure("timeout", ambiguous=True)
+        error_type = type(error.__cause__ or error).__name__
     except openai.APIConnectionError as error:
         failure = (TransportFailure("connect_error", retryable=True) if isinstance(error.__cause__, httpx.ConnectError)
                    else TransportFailure("connection_interrupted", ambiguous=True))
-    except (ValueError, httpx.TransportError):
+        error_type = type(error.__cause__ or error).__name__
+    except (ValueError, httpx.TransportError) as error:
         failure = TransportFailure("sse_frame_error", ambiguous=True)
-    except openai.OpenAIError:
+        error_type = type(error).__name__
+    except openai.OpenAIError as error:
         failure = TransportFailure("sdk_error", ambiguous=True)
+        error_type = type(error).__name__
     except _ReturnedResponseError as error:
         reply, failure = error.reply, error.failure
     except TransportFailure as error:
         failure = error
+    report("transport_failure", error_type=error_type or failure.code)
     lease.outcome(failure.code, scope=scope, retry_after=failure.retry_after,
                   usage=reply.usage if reply else None, response_complete=reply is not None)
     if reply is not None:
@@ -191,17 +324,134 @@ class _ReturnedResponseError(Exception):
         self.failure = failure
 
 
-def _call_with_key(key, request, config, model_lock, lease, capture_response, capture_receipt):
+def _trace_request(report):
+    async def attach(request):
+        started = {}
+        observed_proxy = None
+        direct_tls = False
+
+        async def trace(name, info):
+            nonlocal observed_proxy, direct_tls
+            source, stage, state = name.rsplit(".", 2)
+            phase = NETWORK_PHASES.get(stage)
+            if phase is None:
+                return
+            if source in ("proxy", "socks"):
+                observed_proxy = True
+            observed = time.monotonic()
+            step = source, stage
+            if state == "started":
+                started[step] = observed
+                if stage == "send_request_headers":
+                    # Read the method only. CONNECT identifies an HTTP tunnel even if it fails
+                    # before upgrading to the provider's TLS connection.
+                    method = getattr(info.get("request"), "method", None)
+                    if method == b"CONNECT":
+                        observed_proxy = True
+                    elif method == b"POST" and direct_tls and observed_proxy is None:
+                        observed_proxy = False
+            elif state in ("complete", "failed") and step in started:
+                details = {"network_phase": phase, "network_state": state,
+                           "phase_duration_seconds": observed - started.pop(step)}
+                if stage == "start_tls" and source == "connection" and state == "complete":
+                    direct_tls = True
+                if observed_proxy is not None:
+                    details["explicit_proxy"] = observed_proxy
+                report("http_phase", observed_at=observed, **details)
+
+        request.extensions["trace"] = trace
+    return attach
+
+
+async def _hard_wall_call(key, request, config, lease, capture_response, capture_receipt, report, timeouts):
+    import httpx
+    import openai
+
+    sdk_timeout = httpx.Timeout(connect=timeouts.connect_seconds, pool=timeouts.connect_seconds,
+                                write=timeouts.write_seconds, read=timeouts.read_idle_seconds)
+    event_hooks = {"request": [_trace_request(report)]} if report is not None else None
+    reply = None
+    deadline = time.monotonic() + timeouts.total_seconds
+    alarm = asyncio.timeout(timeouts.total_seconds)
+    try:
+        async with alarm:
+            async with httpx.AsyncClient(timeout=sdk_timeout, follow_redirects=False, event_hooks=event_hooks) as http:
+                async with openai.AsyncOpenAI(api_key=key, base_url=config.base_url, timeout=sdk_timeout,
+                                              http_client=http, max_retries=0) as client:
+                    lease.dispatched()
+                    if report is not None:
+                        report("request_dispatched")
+                    stream = await client.responses.create(
+                        **request["payload"], extra_headers={"X-Client-Request-Id": request["request_id"]})
+                    async with stream:
+                        reply = await _collect_async(stream, deadline, capture_response, capture_receipt, report)
+    except TimeoutError as error:
+        if not alarm.expired():
+            raise
+        if reply is None:
+            raise _WallDeadline() from error
+        if report is not None:
+            report("sse_event", event_type="close_after_completed", error_type="hard_wall_deadline")
+    except (httpx.TransportError, openai.APIConnectionError) as error:
+        if reply is None:
+            raise
+        if report is not None:
+            report("sse_event", event_type="close_after_completed", error_type=type(error).__name__)
+    return reply
+
+
+def _run_hard_wall(*args):
+    # asyncio.run drains its default executor at exit. A cancelled OS DNS lookup may still be
+    # running in that executor, so close this private loop without waiting for the resolver thread.
+    loop = asyncio.new_event_loop()
+    try:
+        return loop.run_until_complete(_hard_wall_call(*args))
+    finally:
+        try:
+            # A terminal event ends the iterator early. Finalize suspended generators within a
+            # bounded local cleanup allowance without draining the default resolver executor.
+            loop.run_until_complete(asyncio.wait_for(loop.shutdown_asyncgens(), timeout=.1))
+        except TimeoutError:
+            pass
+        finally:
+            loop.close()
+
+
+def _call_with_key(key, request, config, model_lock, lease, capture_response, capture_receipt, report, timeouts):
+    import httpx
     import openai
 
     deadline = time.monotonic() + config.timeout_seconds
-    with openai.OpenAI(api_key=key, base_url=config.base_url, timeout=config.timeout_seconds,
-                       max_retries=0) as client:
-        lease.dispatched()
-        with client.responses.create(
-            **request["payload"], extra_headers={"X-Client-Request-Id": request["request_id"]}
-        ) as stream:
-            reply, declared = _collect(stream, deadline, capture_response, capture_receipt)
+
+    def private_report(phase, **fields):
+        report(phase, **{name: value for name, value in fields.items() if not isinstance(value, str) or key not in value})
+
+    reply = None
+    try:
+        if timeouts is not None:
+            reply, declared = _run_hard_wall(key, request, config, lease, capture_response, capture_receipt,
+                                             private_report if report is not None else None, timeouts)
+        else:
+            with openai.OpenAI(api_key=key, base_url=config.base_url, timeout=config.timeout_seconds,
+                               max_retries=0) as client:
+                lease.dispatched()
+                if report is not None:
+                    private_report("request_dispatched")
+                with client.responses.create(
+                    **request["payload"], extra_headers={"X-Client-Request-Id": request["request_id"]}
+                ) as stream:
+                    reply, declared = _collect(stream, deadline, capture_response, capture_receipt,
+                                               report=private_report if report is not None else None)
+    except openai.APIStatusError as error:
+        if report is not None:
+            _headers_progress(error.response, private_report)
+        raise
+    except (httpx.TransportError, openai.APIConnectionError) as error:
+        if reply is None:
+            raise
+        # Only stream/client cleanup ran after the response was verified and captured.
+        if report is not None:
+            private_report("sse_event", event_type="close_after_completed", error_type=type(error).__name__)
     try:
         if not reply.response_id or reply.status != "completed":
             raise TransportFailure("incomplete_response", ambiguous=True)

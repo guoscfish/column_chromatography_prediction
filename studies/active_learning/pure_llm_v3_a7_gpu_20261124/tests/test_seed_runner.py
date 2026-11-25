@@ -17,6 +17,10 @@ from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import dig
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
     ProviderReply, TransportFailure, TransportStop,
 )
+from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.bridge_protocol import make_job, verify_job
+from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.compact_payload import (
+    AUTHORITATIVE_PACKET_FILE, FORMAT_SUFFIX, FORMAL_WIRE_REPRESENTATION, expand_packet,
+)
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.formal_contract import (
     FormalContract, TransportConfig,
 )
@@ -146,6 +150,8 @@ class MockProvider:
         self.requests.append(request["request_id"])
         inputs = request["payload"]["input"]
         packet = json.loads(inputs[1]["content"])
+        if "wire_schema" in packet:
+            packet = expand_packet(packet)
         cards = list(decode_context(packet)["candidates"].values())
         if request["logical_index"] == 0:
             choices = [choice(card) for card in cards[:32]]
@@ -208,6 +214,70 @@ def test_qualification_and_freeze_resume_with_local_repair(tmp_path, metadata, f
     assert qualification_status(run, *formal, mock=True)["status"] == "qualified"
     assert execute(run, formal, gated, MockProvider(), max_rounds=1).completed_rounds == 1
     assert gated.reveal_calls == 1 and first.reveal_calls == 1
+
+
+def test_pilot_seed_starts_without_gate_and_resumes_to_its_bound(tmp_path, metadata, formal):
+    base, approval = formal
+    contract = replace(base, profile={**base.profile, "confirmation_seeds": [157, 887, 2357],
+                                      "target_labels": 34, "requires_initial_qualification": False})
+    configured = contract, {**approval, "contract_sha256": contract.digest}
+    backend, provider = SyntheticBackend(887, metadata), MockProvider()
+    with pytest.raises(ValueError, match="outside the formal round schedule"):
+        execute(tmp_path, configured, backend, provider, max_rounds=2)
+    result = execute(tmp_path, configured, backend, provider, max_rounds=1)
+    assert (result.status, result.completed_rounds, result.active_labels) == ("complete", 1, 34)
+    assert execute(tmp_path, configured, backend, provider) == result
+    assert len(provider.requests) == backend.reveal_calls == backend.fit_calls == 1
+    assert not (tmp_path / "qualification.json").exists() and not seed_directory(tmp_path, 157).exists()
+
+
+def test_compact_approval_keeps_authoritative_packet_and_repairs(tmp_path, metadata, formal, monkeypatch):
+    monkeypatch.setattr(f"{__name__}.MOCK_PREDICTIONS", [1.123456, 2.0, 3.0, 4.0, 5.0, 6.0])
+    contract, approval = formal
+    representation = dict(FORMAL_WIRE_REPRESENTATION)
+    contract = replace(contract, profile={**contract.profile, "wire_representation": representation})
+    approval = {**approval, "contract_sha256": contract.digest}
+    configured = contract, approval
+    provider, backend = MockProvider(invalid_first=True), SyntheticBackend(157, metadata)
+    assert execute(tmp_path, configured, backend, provider, max_rounds=1).completed_rounds == 1
+    round_dir = round_directory(seed_directory(tmp_path, 157), 0)
+    authority_path = round_dir / AUTHORITATIVE_PACKET_FILE
+    authority = read(authority_path)
+    first, repair = [read(round_dir / f"turn_{idx:02d}" / "request.json") for idx in range(2)]
+    messages, binding = first["payload"]["input"], first["binding"]
+    assert first["request_id"] != repair["request_id"]
+    assert first["payload_sha256"] != repair["payload_sha256"]
+    assert messages == repair["payload"]["input"][:2]
+    assert binding == repair["binding"] == read(round_dir / "batch_freeze.json")["binding"]
+    assert digest(authority) == binding["packet_sha256"]
+    assert digest(messages) == binding["base_messages_sha256"]
+    assert messages[0]["content"].endswith(FORMAT_SUFFIX)
+    assert "fictional diagnostic catalog" not in messages[0]["content"]
+    compact = json.loads(messages[1]["content"])
+    assert digest(compact) == binding["wire_packet_sha256"] != binding["packet_sha256"]
+    full, shown = decode_context(authority), decode_context(expand_packet(compact))
+    assert len(shown["candidates"]) == 72 and len(shown["observed"]) == 2
+    assert full["observed"] == shown["observed"] or all(
+        shown["observed"][key]["conditions"] == row["conditions"] and
+        all(shown["observed"][key][field] == row[field] for field in ("V1_ml", "V2_ml"))
+        for key, row in full["observed"].items()
+    )
+    for key, row in full["candidates"].items():
+        assert shown["candidates"][key]["conditions"] == row["conditions"]
+        assert row["pred_V1_q10_ml"] == 1.123456 and shown["candidates"][key]["pred_V1_q10_ml"] == 1.123
+    for request in (first, repair):
+        started = {"request_id": request["request_id"], "attempt": 0, "attempt_id": "c" * 32,
+                   "started_unix": 100.0, "transport": "mac_bridge"}
+        job = make_job(request, contract.transport, started)
+        assert verify_job(job, wire_representation=representation)[0] == request
+        with pytest.raises(ValueError, match="contract's wire representation"):
+            verify_job(job, wire_representation=None)
+    assert execute(tmp_path, configured, backend, provider, max_rounds=1).completed_rounds == 1
+    assert len(provider.requests) == 2 and backend.reveal_calls == 1
+    authority["candidate_count"] -= 1
+    authority_path.write_text(json.dumps(authority))
+    with pytest.raises(ValueError, match="authoritative A7 packet"):
+        execute(tmp_path, configured, backend, provider, max_rounds=1)
 
 
 def test_safe_pause_and_completed_prefix_resume(tmp_path, metadata, formal, monkeypatch):

@@ -1,5 +1,6 @@
 """Freeze deployment content and the one authorization covering all formal rounds."""
 from dataclasses import asdict, dataclass
+import math
 from pathlib import Path
 import re
 
@@ -11,9 +12,16 @@ STUDY = Path("studies/active_learning/pure_llm_v3_a7_gpu_20261124")
 OFFLINE = Path("studies/active_learning/pure_llm_v3_20261124")
 PROFILE = STUDY / "execution_gpt62_ultra_a7.json"
 PROFILE_V3 = STUDY / "execution_gpt62_a7_v3.json"
+PROFILE_V4 = STUDY / "execution_gpt62_astra_xhigh_a7_v4.json"
+PROFILE_V4_PILOT = STUDY / "execution_gpt62_astra_xhigh_a7_v4_pilot.json"
+V4_RUN_NAME = "a7-gpt62-astra-xhigh-ssh-v4"
+V4_PILOT_RUN_NAME = "a7-gpt62-astra-xhigh-ssh-v4-pilot-3x10"
 DIRECT_API = "direct_platform"
 SSH_API = "mac_ssh_dispatch_v1"
 SEEDS = (157, 887, 2357, 6101, 12203)
+_PILOT_PROFILE_SCOPE = {"confirmation_seeds": list(SEEDS[:3]), "target_labels": 653,
+                        "requires_initial_qualification": False,
+                        "provider_capability": "unverified_until_each_seed_round0"}
 NUMERIC_STUDY = Path("studies/active_learning/qgeognn_v2_row_sequential_b32")
 METADATA_STUDY = Path("studies/active_learning/qgeognn_v2_row_small_batch_benchmark")
 E0 = Path("experiments/e0_4g_baseline")
@@ -26,6 +34,41 @@ ASSETS = (
 )
 AUTH_KEYS = {"scope", "contract_sha256", "authorized_by", "authorization_reference",
              "authorize_paid_api", "authorize_label_reveal", "authorize_cuda_training"}
+
+
+@dataclass(frozen=True)
+class RequestTimeouts:
+    """Opt-in Mac transport policy, copied from the exact approved profile."""
+
+    connect_seconds: float = 30
+    write_seconds: float = 120
+    read_idle_seconds: float = 900
+    total_seconds: float = 1800
+    bridge_margin_seconds: float = 600
+
+    def __post_init__(self):
+        timings = (self.connect_seconds, self.write_seconds, self.read_idle_seconds, self.total_seconds,
+                   self.bridge_margin_seconds)
+        if any(type(value) not in (int, float) or not math.isfinite(value) or value <= 0
+               for value in timings):
+            raise ValueError("request timeouts need positive finite durations")
+        if not (self.connect_seconds <= 120 and self.total_seconds <= 3600 and
+                self.bridge_margin_seconds <= 1800 and max(timings[:3]) <= self.total_seconds):
+            raise ValueError("request timeout durations are outside their supported bounds")
+
+    @property
+    def bridge_wait_seconds(self):
+        # Five seeds using three Keys can put one full execution ahead of this job.
+        return 2 * self.total_seconds + self.bridge_margin_seconds
+
+
+def request_timeouts(profile):
+    if "request_timeouts" not in profile:
+        return None
+    policy = profile["request_timeouts"]
+    if type(policy) is not dict or set(policy) != set(RequestTimeouts.__dataclass_fields__):
+        raise ValueError("Mac request timeout policy must bind all of its durations")
+    return RequestTimeouts(**policy)
 
 
 @dataclass(frozen=True)
@@ -66,6 +109,10 @@ class FormalContract:
         return self.profile["qualification_seed"]
 
     @property
+    def requires_initial_qualification(self):
+        return self.profile.get("requires_initial_qualification", True)
+
+    @property
     def api_slots(self):
         return self.profile["api_parallelism"]
 
@@ -96,25 +143,44 @@ class FormalContract:
 
 def _profile(path):
     profile = read(path)
+    name = Path(path).name
+    pilot = name == PROFILE_V4_PILOT.name
+    v4 = name == PROFILE_V4.name or pilot
     expected = {"schema": "pure_llm_v3_a7_formal_v1", "arm": "A7", "memory": "M2", "device": "cuda",
                 "confirmation_seeds": list(SEEDS), "qualification_seed": 157,
                 "initial_labels": 333, "target_labels": 1485, "initial_pool": 2997, "validation": 416,
                 "test": 417, "batch_size": 32, "api_parallelism": 3, "store": False,
                 "provider_capability": "unverified_until_formal_round0"}
-    if set(profile) != {*expected, "transport", "verified_served_model_reference"} or any(
+    if pilot:
+        expected.update(_PILOT_PROFILE_SCOPE)
+    legacy_fields = {*expected, "transport", "verified_served_model_reference"}
+    profile_fields = ((legacy_fields | {"request_timeouts", "wire_representation"},) if v4
+                      else (legacy_fields, legacy_fields | {"request_timeouts"}))
+    if set(profile) not in profile_fields or any(
         type(profile[k]) is not type(v) or profile[k] != v for k, v in expected.items()
     ):
         raise ValueError("formal A7/M2 scientific contract differs from its registered values")
+    timeouts = request_timeouts(profile)
     if set(profile["transport"]) != set(TransportConfig.__dataclass_fields__):
         raise ValueError("formal transport configuration fields differ")
     transport = TransportConfig(**profile["transport"])
-    effort = "max" if Path(path).name == PROFILE_V3.name else "ultra"
+    effort = "max" if timeouts is not None or name == PROFILE_V3.name else "ultra"
     wire = {"requested_model": "gpt-6.2-sol", "reasoning_effort": effort, "provider": "token4research",
             "base_url": "https://token4research.cn/v1", "max_output_tokens": 32768,
             "wire_mode": "responses_stream", "transport_attempts": 2, "logical_replies": 3,
             "rate_limit_threshold": 2}
+    if v4:
+        from .compact_payload import validate_wire_representation
+
+        validate_wire_representation(profile["wire_representation"])
+        if timeouts != RequestTimeouts():
+            raise ValueError("v4 requires the registered Mac and GPU bridge timeout policy")
+        wire.update(requested_model="gpt-6.2-astra", served_model="gpt-6.2-astra", reasoning_effort="xhigh",
+                    sdk_version="2.28.0", base_delay_seconds=4, max_delay_seconds=90)
     if any(getattr(transport, k) != v for k, v in wire.items()):
         raise ValueError("formal provider, reasoning and budget are fixed")
+    if timeouts is not None and transport.timeout_seconds != timeouts.total_seconds:
+        raise ValueError("the physical request ceiling must match the transport audit configuration")
     verified = profile["verified_served_model_reference"]
     if transport.served_model != transport.requested_model and not (
         re.fullmatch(r"gpt-6\.2-sol-[A-Za-z0-9][A-Za-z0-9._-]{0,79}", transport.served_model)
@@ -130,9 +196,16 @@ def load_contract(root, config_path, *, anchor_root=None, gpu_slots=(), lease_ro
                   run_directory=None, api_execution=DIRECT_API, predecessor_run=None):
     root = Path(root)
     profile, transport = _profile(config_path)
+    name = Path(config_path).name
+    pilot = name == PROFILE_V4_PILOT.name
+    v4 = name == PROFILE_V4.name or pilot
+    if not v4 and request_timeouts(profile) is not None:
+        raise PermissionError("a Mac timeout policy requires a separately reviewed successor contract after v3 reconciliation")
     slots = tuple(gpu_slots)
     if len(slots) != len(set(slots)) or any(type(gpu) is not int or gpu < 0 for gpu in slots):
         raise ValueError("physical GPU slots must be distinct nonnegative indices")
+    if pilot and slots != (0,):
+        raise ValueError("the three-seed pilot requires physical GPU slot 0 alone")
     code = [
         *sorted((root / STUDY / "a7_gpu").glob("*.py")),
         *sorted((root / OFFLINE / "pure_llm_v3").glob("*.py")),
@@ -146,9 +219,9 @@ def load_contract(root, config_path, *, anchor_root=None, gpu_slots=(), lease_ro
     anchors = str(Path(anchor_root).resolve()) if anchor_root else None
     lease = str(Path(lease_root).resolve())
     predecessor = None
-    v3 = Path(config_path).name == PROFILE_V3.name
+    v3 = name == PROFILE_V3.name
     if api_execution == SSH_API:
-        from .supersession import PREDECESSOR_SHA256, V2_SHA256, inspect_predecessor, verify_v3_anchors
+        from .supersession import PREDECESSOR_SHA256, V2_SHA256, V3_SHA256, inspect_predecessor, verify_v3_anchors
 
         if predecessor_run is None or run_path is None or anchors is None:
             raise ValueError("SSH execution needs a separate run and its original shared CUDA anchors")
@@ -157,7 +230,19 @@ def load_contract(root, config_path, *, anchor_root=None, gpu_slots=(), lease_ro
         if run_path == old_run or run_path.parent != old_run.parent:
             raise ValueError("SSH execution needs its own sibling run directory")
         expected_profile = original["profile"]
-        if v3:
+        if v4:
+            from .compact_payload import FORMAL_WIRE_REPRESENTATION
+
+            registered_run = V4_PILOT_RUN_NAME if pilot else V4_RUN_NAME
+            if original["contract_sha256"] != V3_SHA256 or run_path.name != registered_run:
+                raise ValueError("v4 requires the audited v3 predecessor and its own registered run name")
+            expected_profile = {**expected_profile, "transport": {
+                **expected_profile["transport"], "requested_model": "gpt-6.2-astra",
+                "served_model": "gpt-6.2-astra", "reasoning_effort": "xhigh", "timeout_seconds": 1800,
+            }, "request_timeouts": asdict(RequestTimeouts()), "wire_representation": FORMAL_WIRE_REPRESENTATION}
+            if pilot:
+                expected_profile.update(_PILOT_PROFILE_SCOPE)
+        elif v3:
             if (original["contract_sha256"] != V2_SHA256
                     or run_path.name != f"a7-gpt62-{transport.reasoning_effort}-ssh-v3"):
                 raise ValueError("v3 reasoning change requires the approved v2 predecessor and its own run name")
@@ -166,12 +251,13 @@ def load_contract(root, config_path, *, anchor_root=None, gpu_slots=(), lease_ro
             }}
         elif original["contract_sha256"] != PREDECESSOR_SHA256:
             raise ValueError("the original SSH profile needs the approved direct-run predecessor")
+        inherited_slots = (0,) if pilot else tuple(original["gpu_slots"])
         expected = (expected_profile, original["asset_sha256"], original["anchor_root"],
-                    tuple(original["gpu_slots"]), original["lease_root"])
+                    inherited_slots, original["lease_root"])
         if (profile, assets, anchors, slots, lease) != expected:
             raise ValueError("SSH execution must retain the approved A7 scientific profile and GPU inputs")
         predecessor = {**original, "initial_checkpoint_sha256_by_seed": verify_v3_anchors(anchors)} if v3 else original
-    elif api_execution != DIRECT_API or predecessor_run is not None or v3:
+    elif api_execution != DIRECT_API or predecessor_run is not None or v3 or v4:
         raise ValueError("unsupported API execution mode or predecessor binding")
     return FormalContract(profile, transport, sources, assets, anchors, slots, lease,
                           str(run_path) if run_path else None, api_execution, predecessor)

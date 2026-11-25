@@ -25,6 +25,8 @@ SPLIT = f"{STUDIES}/qgeognn_v2_row_sequential_b32"
 SEEDS = (157, 887, 2357, 6101, 12203)
 PROFILE = "execution_gpt62_ultra_a7.json"
 PROFILE_V3 = "execution_gpt62_a7_v3.json"
+PROFILE_V4 = "execution_gpt62_astra_xhigh_a7_v4.json"
+PROFILE_V4_PILOT = "execution_gpt62_astra_xhigh_a7_v4_pilot.json"
 RELEASE_MANIFEST = "release_manifest.json"
 RELEASE_SCHEMA = "purellm-v3-a7-gpu-release-v2"
 REVIEWED_TRANSPORT = f"{PUBLISHED}/pure_llm_v3/transport_manager.py"
@@ -46,9 +48,11 @@ ASSETS = {
     )),
 }
 FORMAL_FILES = {
-    f"{FORMAL}/{PROFILE}", f"{FORMAL}/{PROFILE_V3}", f"{FORMAL}/deployment.py",
+    f"{FORMAL}/{PROFILE}", f"{FORMAL}/{PROFILE_V3}", f"{FORMAL}/{PROFILE_V4}",
+    f"{FORMAL}/{PROFILE_V4_PILOT}", f"{FORMAL}/deployment.py",
     f"{FORMAL}/DEPLOYMENT.md", f"{FORMAL}/README.md",
     f"{FORMAL}/OFFLINE_TEST_REPORT.md", f"{FORMAL}/DISPATCHER.md",
+    f"{FORMAL}/ASTRA_XHIGH_BASELINE.md",
     f"{FORMAL}/requirements_provider.txt", f"{FORMAL}/key_pool.example.json",
     f"{FORMAL}/formal_authorization.template.json",
 }
@@ -57,6 +61,8 @@ REQUIRED_FORMAL = {
     *(f"{FORMAL}/a7_gpu/{name}.py" for name in ("backend", "bridge_endpoint", "bridge_protocol", "credentials", "cuda_runtime", "dispatcher",
           "formal_contract", "key_pool", "metrics", "provider", "scheduler", "seed_runner", "ssh_courier", "supersession")),
 }
+V4_PROFILES = {f"{FORMAL}/{name}" for name in (PROFILE_V4, PROFILE_V4_PILOT)}
+V4_ENCODER = f"{FORMAL}/a7_gpu/compact_payload.py"
 
 
 def sha(raw):
@@ -122,6 +128,8 @@ def formal_inputs(repo):
         files[name] = path.read_bytes()
     if missing := REQUIRED_FORMAL - files.keys():
         raise ValueError(f"the formal overlay is incomplete: {sorted(missing)}")
+    if V4_PROFILES & files.keys() and V4_ENCODER not in files:
+        raise ValueError("the Astra/xhigh release is missing its compact encoder")
     return files
 
 
@@ -188,6 +196,8 @@ def read_archive(path):
             or set(files) != records.keys() | {RELEASE_MANIFEST}
             or not (ASSETS | REQUIRED_FORMAL | {REVIEWED_TRANSPORT}) <= records.keys()):
         raise ValueError("archive manifest identity or coverage differs")
+    if V4_PROFILES & files.keys() and V4_ENCODER not in files:
+        raise ValueError("the Astra/xhigh release is missing its compact encoder")
     check_reviewed_transport(files[REVIEWED_TRANSPORT])
     for name, record in records.items():
         payload = files[name]

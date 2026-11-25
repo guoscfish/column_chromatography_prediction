@@ -5,7 +5,9 @@ from dataclasses import asdict, replace
 import pytest
 
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, file_digest, once
+from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import TransportFailure
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu import dispatcher, ssh_courier
+from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.formal_contract import RequestTimeouts
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.key_pool import KeyPool, PoolConfig
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.tests.test_distributed_a7 import make_sample_job
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.tests.test_seed_runner import formal  # noqa: F401
@@ -77,6 +79,61 @@ def test_unknown_or_unbound_started_is_never_resent(staged):
     assert mac.dispatch(identity, before_call=lambda *_: pytest.fail("already started")) == "open_or_ambiguous"
     assert mac.pending() == []
     assert dispatcher.spool_status(mac.path)["open_or_ambiguous_count"] == 1
+
+
+def test_stream_progress_keeps_early_ids_after_ambiguous_failure(tmp_path, formal, monkeypatch):
+    base, approval = formal
+    timeouts = RequestTimeouts()
+    contract = replace(base, profile={**base.profile, "transport": asdict(base.transport),
+                                      "request_timeouts": asdict(timeouts)})
+    approval = {**approval, "contract_sha256": contract.digest}
+    info = {"schema": ssh_courier.SCHEMA, "contract_sha256": contract.digest,
+            "authorization_sha256": digest(approval), "contract": contract.record(), "mock": False, "paused": False}
+    job, _, started = make_sample_job((contract, approval), mock=False)
+    key = tmp_path / "fixture-key"
+    key.write_text("synthetic-key")
+    key.chmod(0o600)
+    spool = tmp_path / "spool"
+    pool = KeyPool(spool / "key_pool", PoolConfig(1, {"test-slot": key}))
+    mac = dispatcher.Dispatcher(spool, info=info, contract_sha256=contract.digest, transport=contract.transport,
+                                mock=False, pool=pool)
+    pool.prepare()
+    attempt = mac.accept(job)
+
+    def interrupt(_request, _config, *, progress, **kwargs):
+        assert kwargs["timeouts"] == timeouts
+        lease = dispatcher.LEASE.get()
+        lease.dispatched()
+        progress({"phase": "http_phase", "elapsed_seconds": 1, "network_phase": "tls", "network_state": "complete",
+                  "phase_duration_seconds": .5, "explicit_proxy": False})
+        progress({"phase": "http_headers", "elapsed_seconds": 2, "http_status": 200,
+                  "provider_request_id": "req-fixture", "authorization": "synthetic-key"})
+        progress({"phase": "sse_event", "elapsed_seconds": 3, "event_type": "response.created",
+                  "response_id": "resp-fixture", "text": "synthetic unpublished text", "model": "sk-fake-key",
+                  "sse_event_count": 1})
+        live, = dispatcher.spool_status(spool)["provider_progress"]
+        assert live["event_type"] == "response.created" and live["sealed"] is False
+        progress({"phase": "sse_event", "elapsed_seconds": 4, "event_type": "response.in_progress",
+                  "sse_event_count": 2, "sse_interval_seconds": 1})
+        progress({"phase": "transport_failure", "elapsed_seconds": 8, "error_type": "RemoteProtocolError"})
+        lease.outcome("sse_frame_error")
+        raise TransportFailure("sse_frame_error", ambiguous=True)
+
+    monkeypatch.setattr(dispatcher, "call_responses", interrupt)
+    assert attempt == started["attempt_id"]
+    assert mac.dispatch(attempt, before_call=lambda *_: None) == "sealed"
+    trace, = dispatcher.spool_status(spool)["provider_progress"]
+    assert (trace["response_id"], trace["provider_request_id"], trace["error_type"], trace["http_status"],
+            trace["sealed"]) == ("resp-fixture", "req-fixture", "RemoteProtocolError", 200, True)
+    assert trace["network_phases"]["tls"] == {"state": "complete", "duration_seconds": .5, "observed_seconds": 1}
+    assert trace["explicit_proxy"] is False
+    assert [trace[field] for field in ("first_sse_seconds", "last_sse_seconds", "sse_event_count")] == [3, 4, 2]
+    assert trace["sse_milestones"]["response.in_progress"] == {"elapsed_seconds": 4, "interval_seconds": 1}
+    progress_file = spool / "attempts" / attempt / dispatcher.PROGRESS_FILENAME
+    assert progress_file.stat().st_mode & 0o777 == 0o600
+    assert trace.keys().isdisjoint({"authorization", "model", "text"})
+    assert mac.result(attempt)["outcome"]["failure"]["ambiguous"] is True
+    assert mac.dispatch(attempt, before_call=lambda *_: pytest.fail("attempt must not be resent")) == "sealed"
 
 
 def test_readonly_key_pool_status_does_not_prune_or_open_credentials(tmp_path, monkeypatch):

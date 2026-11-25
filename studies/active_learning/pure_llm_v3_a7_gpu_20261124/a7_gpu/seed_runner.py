@@ -4,6 +4,7 @@ from contextlib import contextmanager, nullcontext
 from dataclasses import asdict, dataclass, replace
 from datetime import datetime, timezone
 import hashlib
+import json
 import math
 from pathlib import Path
 import re
@@ -18,7 +19,9 @@ from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager 
     TransportStop, check_request, make_request, reconcile, round_lock, terminal_record,
 )
 
+from .compact_payload import AUTHORITATIVE_PACKET_FILE, formal_wire_messages
 from .formal_contract import OFFLINE, verify_authorization
+from .metrics import record_batch_diagnostics
 
 FIT_ARTIFACTS = (
     "best.pt", "predictions.csv.gz", "fit_audit.json", "history.csv", "validation_metrics.json", "fit_device.json",
@@ -108,7 +111,16 @@ def _stage(root, state, snapshot, scope, contract):
         "latest_feedback", "hypotheses", "archived_hypotheses", "previous_feedback_interpretation"
     )):
         raise ValueError("L333 memory must start empty")
-    return replace(stage, binding={**stage.binding, "a7_formal": scope})
+    binding = {**stage.binding, "a7_formal": scope}
+    representation = contract.profile.get("wire_representation")
+    if representation is None:
+        return replace(stage, binding=binding)
+    outgoing = formal_wire_messages(stage.messages, stage.packet, representation)
+    binding.update(wire_representation=dict(representation),
+                   authoritative_base_messages_sha256=binding["base_messages_sha256"],
+                   wire_packet_sha256=digest(json.loads(outgoing[1]["content"])),
+                   base_messages_sha256=digest(outgoing))
+    return replace(stage, messages=outgoing, binding=binding)
 
 
 def _initial_state(directory, backend, contract, scope, anchor_run, fit_slot):
@@ -198,6 +210,11 @@ def _verify_selection(directory, state, scope, config, batch_size, *, stage=None
     turn = directory / f"turn_{freeze['accepted_logical_index']:02d}"
     request = read(turn / "request.json")
     check_request(request, binding, config)
+    if "wire_representation" in binding and (
+        digest(read(directory / AUTHORITATIVE_PACKET_FILE)) != binding["packet_sha256"]
+        or any(digest(item["payload"]["input"][:2]) != binding["base_messages_sha256"] for item in (first, request))
+    ):
+        raise ValueError("authoritative A7 packet or accepted compact wire input drift")
     attempt = freeze["accepted_attempt"]
     answer = terminal_record(turn, attempt)
     started = read(turn / f"attempt_{attempt:02d}.started.json")
@@ -330,7 +347,9 @@ def _fit_scope(grant, round_index, feedback_file, labeled, unlabeled):
 
 
 def qualification_status(run_directory, contract, authorization, *, mock=False):
-    """Return the intact first-turn gate receipt or None while qualification is pending."""
+    """Return the intact first-turn gate receipt when this contract requires one."""
+    if not contract.requires_initial_qualification:
+        return None
     run_directory = Path(run_directory)
     path = run_directory / "qualification.json"
     if not path.exists():
@@ -388,7 +407,8 @@ def run_seed(*, root, run_directory, contract, authorization, seed, backend, cal
     attempt_slot = options.get("attempt_slot")
     managed_attempt = options.get("managed_attempt")
     scope = _scope(contract, authorization, seed, mock)
-    if seed != contract.qualification_seed and qualification_status(run, contract, authorization, mock=mock) is None:
+    gate_seed = contract.qualification_seed if contract.requires_initial_qualification else None
+    if gate_seed is not None and seed != gate_seed and qualification_status(run, contract, authorization, mock=mock) is None:
         return SeedProgress(seed, "awaiting_qualification", 0, contract.initial_labels)
     phase, index, completed = "initial", 0, 0
     with round_lock(directory):
@@ -407,7 +427,7 @@ def run_seed(*, root, run_directory, contract, authorization, seed, backend, cal
                 if (next_dir / "transition.json").exists():
                     state, snapshot = _successor(round_dir, state, next_dir, scope, contract.transport, contract, backend)
                     completed = index + 1
-                    if index == 0 and seed == contract.qualification_seed:
+                    if index == 0 and seed == gate_seed:
                         _qualify(root, run, scope, contract, round_dir, state, snapshot)
                     continue
                 if _paused(run, directory) or index >= stop:
@@ -417,6 +437,8 @@ def run_seed(*, root, run_directory, contract, authorization, seed, backend, cal
                 stage = _stage(root, state, snapshot, scope, contract)
                 if _paused(run, directory):
                     break
+                if "wire_representation" in stage.binding:
+                    once(round_dir / AUTHORITATIVE_PACKET_FILE, stage.packet)
                 first = make_request(stage.binding, 0, stage.messages, contract.transport)
                 once(round_dir / "authorization.json", _selection_grant(scope, first["request_id"]))
                 once(round_dir / "turn_00" / "formal_request_authorization.json",
@@ -454,6 +476,8 @@ def run_seed(*, root, run_directory, contract, authorization, seed, backend, cal
                     select_stage(stage, round_dir, contract.transport, authorized_call, mock=mock,
                                  retry_options=retry_options)
                 freeze = _verify_selection(round_dir, state, scope, contract.transport, contract.batch_size, stage=stage)
+                if "wire_representation" in stage.binding:
+                    record_batch_diagnostics(round_dir, freeze, stage.context.candidates, stage.context.observed)
                 if _paused(run, directory):
                     break
                 grant = _fit_grant(scope, freeze, contract.device)
@@ -500,7 +524,7 @@ def run_seed(*, root, run_directory, contract, authorization, seed, backend, cal
                 once(next_dir / "transition.json", _transition_record(
                     scope, freeze, next_source, feedback_file, fit_dir, fit))
                 state, snapshot, completed = new_state, next_memory, index + 1
-                if index == 0 and seed == contract.qualification_seed:
+                if index == 0 and seed == gate_seed:
                     _qualify(root, run, scope, contract, round_dir, state, snapshot)
         except Exception as error:
             _event(directory, scope, phase, "failed", index, error)

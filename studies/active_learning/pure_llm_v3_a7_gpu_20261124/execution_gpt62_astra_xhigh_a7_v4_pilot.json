@@ -1,0 +1,51 @@
+{
+  "schema": "pure_llm_v3_a7_formal_v1",
+  "arm": "A7",
+  "memory": "M2",
+  "device": "cuda",
+  "confirmation_seeds": [157, 887, 2357],
+  "qualification_seed": 157,
+  "initial_labels": 333,
+  "target_labels": 653,
+  "initial_pool": 2997,
+  "validation": 416,
+  "test": 417,
+  "batch_size": 32,
+  "api_parallelism": 3,
+  "store": false,
+  "provider_capability": "unverified_until_each_seed_round0",
+  "requires_initial_qualification": false,
+  "transport": {
+    "provider": "token4research",
+    "base_url": "https://token4research.cn/v1",
+    "requested_model": "gpt-6.2-astra",
+    "served_model": "gpt-6.2-astra",
+    "reasoning_effort": "xhigh",
+    "max_output_tokens": 32768,
+    "timeout_seconds": 1800,
+    "transport_attempts": 2,
+    "logical_replies": 3,
+    "rate_limit_threshold": 2,
+    "base_delay_seconds": 4,
+    "max_delay_seconds": 90,
+    "wire_mode": "responses_stream",
+    "sdk_version": "2.28.0"
+  },
+  "request_timeouts": {
+    "connect_seconds": 30,
+    "write_seconds": 120,
+    "read_idle_seconds": 900,
+    "total_seconds": 1800,
+    "bridge_margin_seconds": 600
+  },
+  "wire_representation": {
+    "schema": "a7_grouped_tables_v1",
+    "compression": "rounded_display",
+    "feature_precision": 3,
+    "crossing_guard": true,
+    "visible_widths": true,
+    "preserve_full_precision_host_packet": true,
+    "bind_authoritative_packet_and_transmitted_payload_sha256": true
+  },
+  "verified_served_model_reference": null
+}
