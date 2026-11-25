@@ -83,3 +83,18 @@ Key 池路径、用户端静默录入和一次正式授权见 [正式运行说�
 - 在该目录实际准备五份公共图缓存并用合成模型预测构造正式 A7/M2 请求。五个 seed 的 L/U 都为 333/2997，初始历史为空。按 seed 157、887、2357、6101、12203 的请求 JSON 序列化字节数为 506191、506223、506323、506950、506611。这次未训练、未发 API，也未揭示新候选标签。
 - 已对当时的部署包执行完整打包、校验安装和两套 CLI 导入。在干净安装目录通过 scheduler 五 seed 合成预检，得到上述同样的 5 个请求字节数。
 - CPU-only 主机分别拒绝 CUDA 构建和单卡设备资格。部署 allowlist、正式资产覆盖、整体 SHA、fresh destination 与 tar 软链接拒绝的回归测试全部通过。
+
+## 在同一基础镜像的新容器恢复
+
+`environment/venv` 和 A7 的 SDK overlay 位于 GPFS。2026-11-25 的实机检查确认 venv 使用基础镜像的 `/usr/bin/python3.12`、Python 3.12.3、x86_64 和 glibc 2.39。CUDA 训练环境为 PyTorch 2.10.0+cu128；独立 overlay 提供 OpenAI 2.28.0，沿用共享环境中的 HTTPX 0.28.1。保留相同基础镜像、驱动、GPU 可见性和绝对挂载路径，可重新使用这两处目录。跨新容器的恢复仍需在目标容器实际验证。
+
+1. 在同基础镜像的新容器挂载原 GPFS 到相同的 `/1/column_chromatography_prediction`。保留原 release、run、GPU lease 路径和合同。不要把正在运行的目录改作新的轨迹。
+2. 用原 venv 解释器并显式设置原 SDK overlay。核对基础解释器、软件版本和 CUDA 可见性，重新运行 `contract` 并比较原批准 SHA。
+3. 在新容器的私密 `/root/.config/purellm/` 重新配置 Key，或在任务环境注入平台 Secret。Key 不属于 GPFS、部署包或镜像。使用原正式授权，核对旧 worker 已退出。对状态未知的请求先作对账，再执行原命令的 `resume`。
+
+```bash
+remote=/1/column_chromatography_prediction
+py="$remote/environment/venv/bin/python"
+export PYTHONPATH="$remote/purellm_a7/provider/openai-2.28.0"
+"$py" -B -c 'import sys, torch, openai; print(sys._base_executable, sys.version.split()[0]); print(torch.__version__, torch.version.cuda, torch.cuda.device_count(), openai.__version__)'
+```
