@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Show A7 v6 and predecessor progress, GPUs and the shared Mac Key Pool."""
 import argparse
+from collections import Counter
 from datetime import datetime
 import hashlib
 import json
@@ -108,9 +109,14 @@ def pending_attempt(run, directory, index):
         record = read_json(path.with_name(f"{stem}.recovery.terminal.json")) or read_json(path.with_name(f"{stem}.terminal.json"))
         returned = (run / "bridge/results" / f"{identity}.json").is_file()
         status = safe_code(record.get("status")) or ("returned_from_mac" if returned else "waiting_for_mac")
+        decision = read_json(path.parent / "decision.json")
+        diagnosis = decision.get("diagnosis") or {}
+        errors = Counter(code for entry in diagnosis.get("errors", ()) if isinstance(entry, dict)
+                         if (code := safe_code(entry.get("code"))) is not None)
         return {"status": status, "failure": safe_code(record.get("error")), "ambiguous": record.get("ambiguous") is True,
                 "round": index, "turn": int(path.parent.name[-2:]), "attempt": started.get("attempt"),
-                "attempt_id": identity, "returned_from_mac": returned}
+                "attempt_id": identity, "returned_from_mac": returned,
+                "selection": safe_code(decision.get("state")), "selection_errors": dict(errors)}
     return {}
 
 
@@ -174,6 +180,8 @@ def remote_seed(runs, seed):
         phase = "paused"
     elif latest == (5 if seed == 887 else 2) and segment == "direct":
         phase = "direct_round_complete"
+    elif phase == "failed" and api.get("selection") in {"rejected", "malformed_complete_response", "patch_rejected"}:
+        phase = "selection_rejected"
     elif phase in {"paused", "failed", "bridge_pending"}:
         pass
     elif worker_live and gpu.get("stage") in ("waiting", "cuda"):
@@ -323,6 +331,8 @@ def show(view):
                   f"Mac {provider.get('phase', '—')} ({sealed})  HTTP {provider.get('http_status', '—')}  "
                   f"{evidence}  SSE {provider.get('sse_event_count', '—')}  "
                   f"latest event {provider.get('progress_age_seconds', '—')} s ago  tokens {provider.get('usage') or '—'}")
+            if api.get("selection"):
+                print(f"  A7 校验 {api['selection']}  {api['selection_errors'] or '—'}")
     for gpu in view.get("gpus") or ():
         print(f"GPU {gpu} (MiB used, MiB total, utilization %)")
     for process in view.get("gpu_processes") or ():

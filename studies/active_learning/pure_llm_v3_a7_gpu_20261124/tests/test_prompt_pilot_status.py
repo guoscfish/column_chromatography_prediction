@@ -62,3 +62,21 @@ def test_reports_matching_completion_and_delivery_separately(tmp_path):
         "attempt_id": identity, "result_sha256": result_sha,
     })
     assert local_progress(tmp_path, 887, active)["delivered"]
+
+
+def test_completed_transport_can_still_fail_scientific_validation(tmp_path):
+    identity = "4" * 32
+    directory = tmp_path / "seed_887"
+    turn = directory / "round_04/turn_00"
+    write_json(turn / "attempt_00.started.json", {"attempt_id": identity, "attempt": 0})
+    write_json(turn / "attempt_00.terminal.json", {"status": "completed"})
+    write_json(turn / "decision.json", {"state": "rejected", "diagnosis": {"errors": [
+        {"code": "unexpected_field", "path": "/choices/0/references/0"},
+        {"code": "unexpected_field", "path": "/choices/1/references/0"},
+        {"code": "multifactor_mismatch", "path": "/choices/2/references/0/relationship"},
+    ]}})
+
+    active = pending_attempt(tmp_path, directory, 4)
+    assert active["status"] == "completed"
+    assert active["selection"] == "rejected"
+    assert active["selection_errors"] == {"unexpected_field": 2, "multifactor_mismatch": 1}
