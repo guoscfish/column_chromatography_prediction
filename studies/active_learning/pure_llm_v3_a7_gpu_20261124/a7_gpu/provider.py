@@ -77,6 +77,11 @@ class _WallDeadline(TransportFailure):
         super().__init__("timeout", ambiguous=True)
 
 
+class _PrePostConnectTimeout(TransportFailure):
+    def __init__(self):
+        super().__init__("connect_error", retryable=True)
+
+
 class _StreamEvidence:
     def __init__(self, response, deadline, report):
         self.headers = response.headers
@@ -290,6 +295,8 @@ def call_responses(request, config, *, model_lock, capture_response=None, captur
         failure, error_type = error, "event_deadline_exceeded"
     except _WallDeadline as error:
         failure, error_type = error, "hard_wall_deadline"
+    except _PrePostConnectTimeout as error:
+        failure, error_type = error, "connect_timeout_before_post"
     except (openai.APITimeoutError, httpx.TimeoutException) as error:
         failure = TransportFailure("timeout", ambiguous=True)
         error_type = type(error.__cause__ or error).__name__
@@ -324,7 +331,17 @@ class _ReturnedResponseError(Exception):
         self.failure = failure
 
 
-def _trace_request(report):
+class _TransmissionEvidence:
+    def __init__(self):
+        self.post_may_have_started = False
+        self.failed_connection = None
+
+    def proves_pre_post_timeout(self, cause):
+        return (not self.post_may_have_started and self.failed_connection is not None
+                and (cause is self.failed_connection or cause.__cause__ is self.failed_connection))
+
+
+def _trace_request(report, transmission):
     async def attach(request):
         started = {}
         observed_proxy = None
@@ -340,24 +357,36 @@ def _trace_request(report):
                 observed_proxy = True
             observed = time.monotonic()
             step = source, stage
+            exchange = stage in ("send_request_headers", "send_request_body", "receive_response_headers")
+            if exchange and state in ("complete", "failed") and step not in started:
+                transmission.post_may_have_started = True
             if state == "started":
                 started[step] = observed
-                if stage == "send_request_headers":
-                    # Read the method only. CONNECT identifies an HTTP tunnel even if it fails
-                    # before upgrading to the provider's TLS connection.
+                if stage in ("connect_tcp", "start_tls"):
+                    transmission.failed_connection = None
+                if exchange:
                     method = getattr(info.get("request"), "method", None)
-                    if method == b"CONNECT":
-                        observed_proxy = True
-                    elif method == b"POST" and direct_tls and observed_proxy is None:
-                        observed_proxy = False
+                    # The proxy CONNECT cannot transmit the provider POST. Treat missing method
+                    # evidence conservatively once a send or response callback begins.
+                    if method != b"CONNECT":
+                        transmission.post_may_have_started = True
+                    if stage == "send_request_headers":
+                        if method == b"CONNECT":
+                            observed_proxy = True
+                        elif method == b"POST" and direct_tls and observed_proxy is None:
+                            observed_proxy = False
             elif state in ("complete", "failed") and step in started:
+                if (state == "failed" and stage in ("connect_tcp", "start_tls")
+                        and source in ("connection", "proxy", "socks")):
+                    transmission.failed_connection = info.get("exception")
                 details = {"network_phase": phase, "network_state": state,
                            "phase_duration_seconds": observed - started.pop(step)}
                 if stage == "start_tls" and source == "connection" and state == "complete":
                     direct_tls = True
                 if observed_proxy is not None:
                     details["explicit_proxy"] = observed_proxy
-                report("http_phase", observed_at=observed, **details)
+                if report is not None:
+                    report("http_phase", observed_at=observed, **details)
 
         request.extensions["trace"] = trace
     return attach
@@ -369,7 +398,8 @@ async def _hard_wall_call(key, request, config, lease, capture_response, capture
 
     sdk_timeout = httpx.Timeout(connect=timeouts.connect_seconds, pool=timeouts.connect_seconds,
                                 write=timeouts.write_seconds, read=timeouts.read_idle_seconds)
-    event_hooks = {"request": [_trace_request(report)]} if report is not None else None
+    transmission = _TransmissionEvidence()
+    event_hooks = {"request": [_trace_request(report, transmission)]}
     reply = None
     deadline = time.monotonic() + timeouts.total_seconds
     alarm = asyncio.timeout(timeouts.total_seconds)
@@ -383,6 +413,7 @@ async def _hard_wall_call(key, request, config, lease, capture_response, capture
                         report("request_dispatched")
                     stream = await client.responses.create(
                         **request["payload"], extra_headers={"X-Client-Request-Id": request["request_id"]})
+                    transmission.post_may_have_started = True
                     async with stream:
                         reply = await _collect_async(stream, deadline, capture_response, capture_receipt, report)
     except TimeoutError as error:
@@ -394,6 +425,9 @@ async def _hard_wall_call(key, request, config, lease, capture_response, capture
             report("sse_event", event_type="close_after_completed", error_type="hard_wall_deadline")
     except (httpx.TransportError, openai.APIConnectionError) as error:
         if reply is None:
+            cause = error.__cause__ if isinstance(error, openai.APITimeoutError) else error
+            if isinstance(cause, httpx.ConnectTimeout) and transmission.proves_pre_post_timeout(cause):
+                raise _PrePostConnectTimeout() from error
             raise
         if report is not None:
             report("sse_event", event_type="close_after_completed", error_type=type(error).__name__)

@@ -181,7 +181,8 @@ def async_mock_provider(tmp_path, monkeypatch):
 
     monkeypatch.setattr(provider, "api_key", fake_key)
 
-    def call(source, *, proxy=False, resolver=None, close=None):
+    def call(source, *, proxy=False, resolver=None, close=None, before_response=None, with_progress=True,
+             fail_connect_tcp=False):
         progress, receipt, raw, outcomes, requests = [], [], [], [], []
 
         class MockStream(httpx.AsyncByteStream):
@@ -194,11 +195,12 @@ def async_mock_provider(tmp_path, monkeypatch):
                     await close()
 
         async def handler(item):
-            requests.append(item.method)
             assert item.extensions["timeout"] == {"connect": .1, "read": .9, "write": .2, "pool": .1}
             if resolver is not None:
                 await asyncio.get_running_loop().run_in_executor(None, resolver)
             trace = item.extensions["trace"]
+            if before_response is not None:
+                await before_response(trace, item)
             network = "proxy" if proxy else "connection"
             for phase in ("connection.connect_tcp", f"{network}.start_tls", "http11.send_request_body"):
                 for state in ("started", "complete"):
@@ -210,7 +212,25 @@ def async_mock_provider(tmp_path, monkeypatch):
         class MockClient(original_http_client):
             def __init__(self, **kwargs):
                 assert kwargs["follow_redirects"] is False
-                super().__init__(**kwargs, transport=httpx.MockTransport(handler))
+                transport = httpx.MockTransport(handler)
+                if fail_connect_tcp:
+                    httpcore = pytest.importorskip("httpcore")
+
+                    class BlockedTCP(httpcore.AsyncNetworkBackend):
+                        async def connect_tcp(self, host, port, timeout, **_kwargs):
+                            assert (host, port, timeout) == ("example.invalid", 443, .1)
+                            raise httpcore.ConnectTimeout(secret)
+
+                    # Exercise the real HTTPcore trace and HTTPX/SDK exception wrappers.
+                    transport = httpx.AsyncHTTPTransport()
+                    transport._pool._network_backend = BlockedTCP()
+                super().__init__(**kwargs, transport=transport)
+
+            async def send(self, item, **kwargs):
+                requests.append(item.method)
+                assert json.loads(item.content) == request["payload"]
+                assert item.headers["x-client-request-id"] == request["request_id"]
+                return await super().send(item, **kwargs)
 
         monkeypatch.setattr(httpx, "AsyncClient", MockClient)
         token = provider.LEASE.set(SimpleNamespace(path=None, dispatched=lambda: None,
@@ -220,7 +240,7 @@ def async_mock_provider(tmp_path, monkeypatch):
             try:
                 result = provider.call_responses(request, config, model_lock=tmp_path / "async-lock.json",
                                                  capture_response=raw.append, capture_receipt=receipt.append,
-                                                 progress=progress.append, timeouts=policy)
+                                                 progress=progress.append if with_progress else None, timeouts=policy)
             except TransportFailure as error:
                 result = error
         finally:
@@ -308,3 +328,74 @@ def test_predeadline_completion_survives_stalled_stream_teardown(async_mock_prov
     assert check.outcomes == ["completed"] and check.requests == ["POST"]
     assert check.progress[-1]["error_type"] == "hard_wall_deadline"
     assert .9 <= check.elapsed < 3
+
+
+@pytest.mark.parametrize("with_progress", (False, True))
+def test_traced_tcp_connect_timeout_is_a_bounded_retry_without_progress_dependency(async_mock_provider,
+                                                                                  with_progress):
+    check = async_mock_provider(None, with_progress=with_progress, fail_connect_tcp=True)
+    assert (check.result.code, check.result.ambiguous, check.result.retryable) == ("connect_error", False, True)
+    assert check.outcomes == ["connect_error"] and check.requests == ["POST"]
+    assert not check.raw and not check.receipt
+    if with_progress:
+        assert check.progress[-2]["network_phase"] == "dns_tcp" and check.progress[-2]["network_state"] == "failed"
+        assert check.progress[-1]["error_type"] == "connect_timeout_before_post"
+    else:
+        assert not check.progress
+    assert "test-key-canary" not in json.dumps(check.progress)
+    assert "test-key-canary" not in str(check.result)
+
+
+def test_proxy_connect_tunnel_timeout_before_provider_post_is_retryable(async_mock_provider):
+    httpx = pytest.importorskip("httpx")
+    httpcore = pytest.importorskip("httpcore")
+
+    async def fail(trace, _item):
+        tunnel = {"request": SimpleNamespace(method=b"CONNECT")}
+        for stage in ("send_request_headers", "send_request_body", "receive_response_headers"):
+            await trace(f"http11.{stage}.started", tunnel)
+            await trace(f"http11.{stage}.complete", {})
+        cause = httpcore.ConnectTimeout("proxy opened a tunnel but upstream TLS timed out")
+        await trace("proxy.start_tls.started", {})
+        await trace("proxy.start_tls.failed", {"exception": cause})
+        raise httpx.ConnectTimeout(str(cause)) from cause
+
+    check = async_mock_provider(None, before_response=fail)
+    assert (check.result.code, check.result.ambiguous, check.result.retryable) == ("connect_error", False, True)
+    assert check.outcomes == ["connect_error"] and check.requests == ["POST"]
+    assert any(row.get("explicit_proxy") is True for row in check.progress)
+
+
+@pytest.mark.parametrize(("exception_name", "evidence", "code"), (
+    ("ConnectTimeout", "post_started", "timeout"),
+    ("ConnectTimeout", "unknown_method", "timeout"),
+    ("ConnectTimeout", "send_without_start", "timeout"),
+    ("ConnectTimeout", "no_trace", "timeout"),
+    ("ConnectTimeout", "unrelated_failure", "timeout"),
+    ("ReadTimeout", "traced", "timeout"),
+    ("WriteTimeout", "traced", "timeout"),
+    ("RemoteProtocolError", "traced", "connection_interrupted"),
+))
+def test_only_causally_bound_unsent_connect_timeout_is_retryable(async_mock_provider, exception_name, evidence, code):
+    httpx = pytest.importorskip("httpx")
+    httpcore = pytest.importorskip("httpcore")
+
+    async def fail(trace, item):
+        cause = httpcore.ConnectTimeout("offline connect timeout")
+        if evidence != "no_trace":
+            await trace("connection.connect_tcp.started", {})
+            await trace("connection.connect_tcp.failed", {"exception": cause})
+        if evidence == "post_started":
+            await trace("http11.send_request_headers.started", {"request": item})
+        if evidence == "unknown_method":
+            await trace("http11.send_request_body.started", {})
+        if evidence == "send_without_start":
+            await trace("http11.send_request_headers.failed", {})
+        if evidence == "unrelated_failure":
+            cause = httpcore.ConnectTimeout("a different failed connection")
+        raise getattr(httpx, exception_name)("offline failure") from cause
+
+    check = async_mock_provider(None, before_response=fail)
+    assert (check.result.code, check.result.ambiguous, check.result.retryable) == (code, True, False)
+    assert check.outcomes == [code] and check.requests == ["POST"]
+    assert not check.raw and not check.receipt
