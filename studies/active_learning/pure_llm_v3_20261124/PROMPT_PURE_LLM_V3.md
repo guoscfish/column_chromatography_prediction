@@ -22,3 +22,5 @@ Return one JSON object using the following keys.
 - batch_review reports the outcome of the joint batch check briefly.
 
 A reference object has reference_id, reference_kind (observed or candidate), relationship (single_factor_contrast, cross_molecule_analogy, condition_response, replicate, multifactor_contrast, prediction_comparison, observed_evidence). Add changed_axis only to a single_factor_contrast, using the exact changed condition key. Keep prose concise. Use typed reference fields for row IDs. Return the plan alone.
+
+Response format check. Use exactly one key, "PE/EA", in each condition_anchor object. Copy the selected candidate's decoded raw "PE/EA" value character for character as a JSON string. Preserve punctuation and spacing. Return one JSON object using the registered keys. Include exactly 32 unique current candidate IDs with their matching molecule IDs. Follow the existing requirements for reasons, typed references, and hypothesis updates.

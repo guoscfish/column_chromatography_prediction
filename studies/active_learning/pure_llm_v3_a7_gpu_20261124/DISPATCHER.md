@@ -176,6 +176,12 @@ nohup "$gpu_python" -B -u -m "$base.scheduler" resume "${common[@]}" \
 
 恢复时先确认旧协调器已退出，再从原运行目录执行 `recovery/resume-authorized-replay.sh`。该入口校验原发布包、附录 SHA 和补跑源码。每个 `attempt_01.replay_link.json` 保留新旧物理尝试的关联。中断时继续同一个已预留尝试。补跑耗尽后按原故障停止规则处理。
 
+### 改进提示后的 pilot 延续
+
+原版三 seed pilot 保留暂停状态及完整回执。seed 887 第四轮从已验证的 L429 生成一条独立新请求。新系统提示只追加 `condition_anchor` 格式约束。首轮请求的用户数据逐字节复用原始候选包，消息中没有旧第四轮首答或纠错内容。旧提示已取得并通过验证的首轮回执可直接用于冻结和训练。
+
+新版后续轨迹从各 seed 已验证的持久化 checkpoint 独立启动，在总计第十轮停止。每条轨迹有独立运行目录、授权和 Mac spool，共用原三 Key 状态数据库和单卡 GPU lease。操作入口位于各运行目录的 `operator/launch.sh`。恢复时等待此前协调器退出，执行该脚本的 `resume` 完成原尝试的断点恢复。Mac 使用该 spool 的原 launchd 服务恢复传输。
+
 ## 离线复测
 
 ```bash

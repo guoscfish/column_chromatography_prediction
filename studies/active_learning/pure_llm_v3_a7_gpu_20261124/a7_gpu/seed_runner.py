@@ -12,7 +12,9 @@ from uuid import uuid4
 
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.context_builder import TARGETS
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.frozen_state import FrozenState
+from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.memory_manager import MemoryManager
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, file_digest, once, read
+from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.response_schema import parse_response
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.runner import _validation, select_stage, stage_state
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.trajectory import _build_feedback, _next_snapshot
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
@@ -384,9 +386,47 @@ def _qualify(root, run, scope, contract, round_dir, state, snapshot):
     })
 
 
+def pin_boundary_user_message(stage, message, expected_sha):
+    """Keep the approved original user message bytes after verifying the compact packet."""
+    if (type(message) is not dict or set(message) != {"role", "content"}
+            or message["role"] != "user" or not isinstance(message["content"], str)
+            or digest(message) != expected_sha):
+        raise PermissionError("the boundary user message differs from the formal contract")
+    if digest(parse_response(message["content"])) != stage.binding.get("wire_packet_sha256"):
+        raise ValueError("the boundary user message differs from the reconstructed scientific packet")
+    messages = [stage.messages[0], message, *stage.messages[2:]]
+    return replace(stage, messages=messages, binding={**stage.binding, "base_messages_sha256": digest(messages)})
+
+
+def _import_boundary(directory, scope, boundary, expected, backend, batch_size, user_message):
+    state, snapshot, start = boundary
+    if not isinstance(state, FrozenState) or type(snapshot) is not dict:
+        raise ValueError("resuming a boundary requires its exact frozen state and memory snapshot")
+    encoded = asdict(state)
+    identity = {"round": start, "state_sha256": digest(encoded), "memory_sha256": digest(snapshot)}
+    if user_message is not None:
+        identity["user_message_sha256"] = digest(user_message)
+    if identity != expected:
+        raise PermissionError("the supplied start boundary differs from the formal contract")
+    _state_roles(state, backend, scope, start, batch_size)
+    MemoryManager.from_snapshot(snapshot, seed=scope["seed"])
+    if set(snapshot["rounds"]) != {str(index) for index in range(start)}:
+        raise ValueError("boundary memory must contain exactly the completed prior rounds")
+    round_dir = round_directory(directory, start)
+    source = round_dir / "source.json"
+    memory = round_dir / "boundary_memory.json"
+    once(source, encoded)
+    once(memory, snapshot)
+    if user_message is not None:
+        once(round_dir / "boundary_user_message.json", user_message)
+    once(directory / "boundary.json", {"formal_run": scope, **identity})
+    return FrozenState(**read(source)), read(memory)
+
+
 def run_seed(*, root, run_directory, contract, authorization, seed, backend, call, anchor_run=None,
-             max_rounds=None, api_slot=None, fit_slot=None, transport_options=None, mock=False):
-    """Resume a seed's contiguous completed prefix and run each remaining authorized step."""
+             max_rounds=None, api_slot=None, fit_slot=None, transport_options=None, mock=False,
+             resume_boundary=None, boundary_user_message=None):
+    """Resume a contiguous prefix from L333 or from an externally verified, contract-bound boundary."""
     authorization = verify_authorization(contract, authorization)
     if seed not in contract.seed_ids or getattr(backend, "seed", None) != seed:
         raise ValueError("backend seed is outside the authorized run")
@@ -396,11 +436,26 @@ def run_seed(*, root, run_directory, contract, authorization, seed, backend, cal
     stop = contract.rounds if max_rounds is None else max_rounds
     if type(stop) is not int or not 0 <= stop <= contract.rounds:
         raise ValueError("requested stop is outside the formal round schedule")
+    expected_boundary = contract.profile.get("resume_boundaries", {}).get(str(seed))
+    if (resume_boundary is None) != (expected_boundary is None):
+        raise PermissionError("the supplied boundary and formal authorization must agree")
+    pinned_message_sha = None if expected_boundary is None else expected_boundary.get("user_message_sha256")
+    if (boundary_user_message is None) != (pinned_message_sha is None):
+        raise PermissionError("the supplied boundary user message and formal authorization must agree")
+    start = 0
+    if resume_boundary is not None:
+        if contract.requires_initial_qualification:
+            raise PermissionError("an imported boundary requires an explicitly ungated contract")
+        if type(resume_boundary) is not tuple or len(resume_boundary) != 3:
+            raise ValueError("a resume boundary must supply the state, memory snapshot and round")
+        start = resume_boundary[2]
+        if type(start) is not int or not 0 <= start <= stop or start >= contract.rounds:
+            raise ValueError("start boundary is outside the authorized round schedule")
     root, run = Path(root), Path(run_directory)
     directory = seed_directory(run, seed)
     anchor_run = None if anchor_run is None else Path(anchor_run).resolve()
     expected_anchor = Path(contract.anchor_root) / f"random-{seed}" if contract.anchor_root else None
-    if anchor_run != expected_anchor:
+    if anchor_run != expected_anchor and (resume_boundary is None or anchor_run is not None):
         raise ValueError("initial GPU anchor differs from the formal authorization")
     api_slot, fit_slot = api_slot or nullcontext, fit_slot or nullcontext
     options = dict(transport_options or {})
@@ -410,18 +465,24 @@ def run_seed(*, root, run_directory, contract, authorization, seed, backend, cal
     gate_seed = contract.qualification_seed if contract.requires_initial_qualification else None
     if gate_seed is not None and seed != gate_seed and qualification_status(run, contract, authorization, mock=mock) is None:
         return SeedProgress(seed, "awaiting_qualification", 0, contract.initial_labels)
-    phase, index, completed = "initial", 0, 0
+    phase, index, completed = "initial", start, start
     with round_lock(directory):
         once(directory / "seed_contract.json", {"formal_run": scope, "device": contract.device})
         try:
-            if _paused(run, directory) and not (directory / "initial" / "initial.json").exists():
+            if (resume_boundary is None and _paused(run, directory)
+                    and not (directory / "initial" / "initial.json").exists()):
                 _event(directory, scope, phase, "paused", index)
                 return SeedProgress(seed, "paused", 0, contract.initial_labels)
             _approved_assets(root, contract, scope)
-            state = _initial_state(directory, backend, contract, scope, anchor_run, fit_slot)
-            snapshot = None
+            if resume_boundary is None:
+                state = _initial_state(directory, backend, contract, scope, anchor_run, fit_slot)
+                snapshot = None
+            else:
+                phase = "import_boundary"
+                state, snapshot = _import_boundary(directory, scope, resume_boundary, expected_boundary,
+                                                   backend, contract.batch_size, boundary_user_message)
             # Verify the completed prefix before applying a pause or an earlier stop boundary.
-            for index in range(contract.rounds):
+            for index in range(start, contract.rounds):
                 round_dir, next_dir = (round_directory(directory, n) for n in (index, index + 1))
                 phase = "verify_prefix"
                 if (next_dir / "transition.json").exists():
@@ -435,6 +496,8 @@ def run_seed(*, root, run_directory, contract, authorization, seed, backend, cal
                 phase = "stage"
                 prior = _state_roles(state, backend, scope, index, contract.batch_size)
                 stage = _stage(root, state, snapshot, scope, contract)
+                if index == start and boundary_user_message is not None:
+                    stage = pin_boundary_user_message(stage, boundary_user_message, pinned_message_sha)
                 if _paused(run, directory):
                     break
                 if "wire_representation" in stage.binding:
