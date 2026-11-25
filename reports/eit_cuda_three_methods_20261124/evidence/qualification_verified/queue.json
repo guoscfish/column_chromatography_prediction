@@ -1,0 +1,296 @@
+{
+  "created": "2026-11-24T13:58:21+08:00",
+  "git_head": "b6b03b9eb62ebc75b7e60a10fbe078492d7efd92",
+  "cutoff": null,
+  "enabled_qualifications": [
+    "cw_lcmd",
+    "hybrid"
+  ],
+  "admitted": {
+    "hybrid": "/1/column_chromatography_prediction/formal_cuda/row4g_b32_20261124/qualification/hybrid_qualification.json",
+    "cw_lcmd": "/1/column_chromatography_prediction/formal_cuda/row4g_b32_20261124/qualification/cw_lcmd_qualification.json",
+    "random": "prior CUDA audit"
+  },
+  "tasks": [
+    {
+      "name": "random-157",
+      "method": "random",
+      "seed": 157,
+      "qualification": null,
+      "state": "running",
+      "attempts": [
+        {
+          "state": "running",
+          "started": "2026-11-24T13:58:24+08:00",
+          "gpu": 0,
+          "slot": 0,
+          "worker_pid": 5405,
+          "pid": 5407,
+          "argv": [
+            "/1/column_chromatography_prediction/environment/venv/bin/python",
+            "-u",
+            "-m",
+            "scripts.studies.run_qgeognn_cuda_three_methods",
+            "--method",
+            "random",
+            "--seed",
+            "157",
+            "--output",
+            "/1/column_chromatography_prediction/formal_cuda/row4g_b32_20261124/trajectories/random-157",
+            "--git-head",
+            "b6b03b9eb62ebc75b7e60a10fbe078492d7efd92"
+          ],
+          "output": "/1/column_chromatography_prediction/formal_cuda/row4g_b32_20261124/trajectories/random-157"
+        }
+      ]
+    },
+    {
+      "name": "qual-cw_lcmd-157-a",
+      "method": "cw_lcmd",
+      "seed": 157,
+      "qualification": "a",
+      "state": "succeeded",
+      "attempts": [
+        {
+          "state": "succeeded",
+          "started": "2026-11-24T13:58:24+08:00",
+          "gpu": 1,
+          "slot": 1,
+          "worker_pid": 5406,
+          "pid": 5408,
+          "argv": [
+            "/1/column_chromatography_prediction/environment/venv/bin/python",
+            "-u",
+            "-m",
+            "scripts.studies.run_qgeognn_cuda_three_methods",
+            "--method",
+            "cw_lcmd",
+            "--seed",
+            "157",
+            "--output",
+            "/1/column_chromatography_prediction/formal_cuda/row4g_b32_20261124/qualification/qual-cw_lcmd-157-a",
+            "--git-head",
+            "b6b03b9eb62ebc75b7e60a10fbe078492d7efd92",
+            "--rounds",
+            "1",
+            "--qualification"
+          ],
+          "output": "/1/column_chromatography_prediction/formal_cuda/row4g_b32_20261124/qualification/qual-cw_lcmd-157-a",
+          "finished": "2026-11-24T14:06:19+08:00",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "qual-hybrid-157-a",
+      "method": "hybrid",
+      "seed": 157,
+      "qualification": "a",
+      "state": "succeeded",
+      "attempts": [
+        {
+          "state": "succeeded",
+          "started": "2026-11-24T14:06:19+08:00",
+          "gpu": 1,
+          "slot": 1,
+          "worker_pid": 5406,
+          "pid": 5906,
+          "argv": [
+            "/1/column_chromatography_prediction/environment/venv/bin/python",
+            "-u",
+            "-m",
+            "scripts.studies.run_qgeognn_cuda_three_methods",
+            "--method",
+            "hybrid",
+            "--seed",
+            "157",
+            "--output",
+            "/1/column_chromatography_prediction/formal_cuda/row4g_b32_20261124/qualification/qual-hybrid-157-a",
+            "--git-head",
+            "b6b03b9eb62ebc75b7e60a10fbe078492d7efd92",
+            "--rounds",
+            "1",
+            "--qualification"
+          ],
+          "output": "/1/column_chromatography_prediction/formal_cuda/row4g_b32_20261124/qualification/qual-hybrid-157-a",
+          "finished": "2026-11-24T14:09:09+08:00",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "qual-hybrid-157-b",
+      "method": "hybrid",
+      "seed": 157,
+      "qualification": "b",
+      "state": "succeeded",
+      "attempts": [
+        {
+          "state": "succeeded",
+          "started": "2026-11-24T14:09:09+08:00",
+          "gpu": 1,
+          "slot": 1,
+          "worker_pid": 5406,
+          "pid": 6101,
+          "argv": [
+            "/1/column_chromatography_prediction/environment/venv/bin/python",
+            "-u",
+            "-m",
+            "scripts.studies.run_qgeognn_cuda_three_methods",
+            "--method",
+            "hybrid",
+            "--seed",
+            "157",
+            "--output",
+            "/1/column_chromatography_prediction/formal_cuda/row4g_b32_20261124/qualification/qual-hybrid-157-b",
+            "--git-head",
+            "b6b03b9eb62ebc75b7e60a10fbe078492d7efd92",
+            "--rounds",
+            "1",
+            "--qualification"
+          ],
+          "output": "/1/column_chromatography_prediction/formal_cuda/row4g_b32_20261124/qualification/qual-hybrid-157-b",
+          "finished": "2026-11-24T14:11:39+08:00",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "hybrid-157",
+      "method": "hybrid",
+      "seed": 157,
+      "qualification": null,
+      "state": "running",
+      "attempts": [
+        {
+          "state": "running",
+          "started": "2026-11-24T14:12:44+08:00",
+          "gpu": 1,
+          "slot": 1,
+          "worker_pid": 5406,
+          "pid": 6288,
+          "argv": [
+            "/1/column_chromatography_prediction/environment/venv/bin/python",
+            "-u",
+            "-m",
+            "scripts.studies.run_qgeognn_cuda_three_methods",
+            "--method",
+            "hybrid",
+            "--seed",
+            "157",
+            "--output",
+            "/1/column_chromatography_prediction/formal_cuda/row4g_b32_20261124/trajectories/hybrid-157",
+            "--git-head",
+            "b6b03b9eb62ebc75b7e60a10fbe078492d7efd92"
+          ],
+          "output": "/1/column_chromatography_prediction/formal_cuda/row4g_b32_20261124/trajectories/hybrid-157"
+        }
+      ]
+    },
+    {
+      "name": "cw_lcmd-157",
+      "method": "cw_lcmd",
+      "seed": 157,
+      "qualification": null,
+      "state": "pending",
+      "attempts": []
+    },
+    {
+      "name": "random-887",
+      "method": "random",
+      "seed": 887,
+      "qualification": null,
+      "state": "pending",
+      "attempts": []
+    },
+    {
+      "name": "hybrid-887",
+      "method": "hybrid",
+      "seed": 887,
+      "qualification": null,
+      "state": "pending",
+      "attempts": []
+    },
+    {
+      "name": "cw_lcmd-887",
+      "method": "cw_lcmd",
+      "seed": 887,
+      "qualification": null,
+      "state": "pending",
+      "attempts": []
+    },
+    {
+      "name": "random-2357",
+      "method": "random",
+      "seed": 2357,
+      "qualification": null,
+      "state": "pending",
+      "attempts": []
+    },
+    {
+      "name": "hybrid-2357",
+      "method": "hybrid",
+      "seed": 2357,
+      "qualification": null,
+      "state": "pending",
+      "attempts": []
+    },
+    {
+      "name": "cw_lcmd-2357",
+      "method": "cw_lcmd",
+      "seed": 2357,
+      "qualification": null,
+      "state": "pending",
+      "attempts": []
+    },
+    {
+      "name": "random-6101",
+      "method": "random",
+      "seed": 6101,
+      "qualification": null,
+      "state": "pending",
+      "attempts": []
+    },
+    {
+      "name": "hybrid-6101",
+      "method": "hybrid",
+      "seed": 6101,
+      "qualification": null,
+      "state": "pending",
+      "attempts": []
+    },
+    {
+      "name": "cw_lcmd-6101",
+      "method": "cw_lcmd",
+      "seed": 6101,
+      "qualification": null,
+      "state": "pending",
+      "attempts": []
+    },
+    {
+      "name": "random-12203",
+      "method": "random",
+      "seed": 12203,
+      "qualification": null,
+      "state": "pending",
+      "attempts": []
+    },
+    {
+      "name": "hybrid-12203",
+      "method": "hybrid",
+      "seed": 12203,
+      "qualification": null,
+      "state": "pending",
+      "attempts": []
+    },
+    {
+      "name": "cw_lcmd-12203",
+      "method": "cw_lcmd",
+      "seed": 12203,
+      "qualification": null,
+      "state": "pending",
+      "attempts": []
+    }
+  ],
+  "held_admissions": {}
+}

@@ -1,0 +1,51 @@
+{
+  "input": {
+    "outer_seed": 157,
+    "method": "cw_lcmd",
+    "historical_method": "center_width_lcmd",
+    "source_round": 0,
+    "acquisition_round": 1,
+    "L_t_ids_hash": "1171988daf4e91eb3d866b44b1ba07f04a36e6f88eb953eda831b9c64c66854d",
+    "U_t_ids_hash": "2d5225ceee78487280509f7b1352724a9a87b095ebccf0041d9fe2b5b7e5bf47",
+    "ordered_current_ids_hash": "d4715c2f9fe3a6b2466ad8c2360fe0166ba5cad58d970eb3eabb1c41d723c8d5",
+    "evaluation_checkpoint_sha256": "affd5fc2c046beb35a666ba2d81bce6e5293244d8e0e0e58deaf5b7879ca8e46",
+    "evaluation_checkpoint_state_hash": "fa79af53da5e22a3a64f2407e3d15f73e015d3c7086d7f15c6bb541aa65e9b8f",
+    "center_width_transform": {
+      "definition": "[(V1+V2)/(2*s_C), (V2-V1)/s_W]",
+      "center_population_std": 9.627325088483525,
+      "width_population_std": 7.754280767170251,
+      "transform_matrix": [
+        [
+          0.05193550601071049,
+          0.05193550601071049
+        ],
+        [
+          -0.12896102553234312,
+          0.12896102553234312
+        ]
+      ],
+      "target_source": "L0_labels_only",
+      "scale_ddof": 0
+    },
+    "sketch_dimension": 512,
+    "sketch_seed": 4000194,
+    "batch_size": 32,
+    "centers_are_current_L_t": true,
+    "test_truth_access_count": 0
+  },
+  "metadata": {
+    "definition": "current_CW_q50_full_network_512D_CountSketch_corrected_LCMD_TP",
+    "center_count": 333,
+    "gradient_extraction_seconds": 352.8435014798306,
+    "selector_seconds": 0.26280906703323126
+  },
+  "selected_ids_ordered_hash": "b7a21d52ae3f0666a73171fe3d0e5009984d71e2e35f5c2e6cf992f948d45a2f",
+  "selected_ids_set_hash": "9d89d408c4100be357b7ac9de8729ecd8469c742825407f04e91d7bacb87838a",
+  "files": {
+    "acquisition_artifacts/current_center_width_gradient_features.npz": "b41b181a210404a8e4a16c7e483c59d022f95520e772b3cfb91a97dd48064c16",
+    "acquisition_artifacts/gradient_audit.json": "e5a41bd6a3b07004a7bf111a48fb142b53865535c50c2b7c431f0fb0dce26dc9",
+    "acquisition_artifacts/gradient_parameters.csv": "433cabab579584313d8ef4d421b1a56284a7d591c507673c570208aefbb3673b",
+    "acquisition_artifacts/lcmd_trace.csv": "a09dc4e17857b8045efc0ca37ee7cb0de37f7c2009af9353f1a2fee7da34b9ac",
+    "acquisition_artifacts/selected_next_batch.csv": "ba679d5330910b00279b44c0cb279a7faf48907b25a10d0a6215377f2856cd23"
+  }
+}

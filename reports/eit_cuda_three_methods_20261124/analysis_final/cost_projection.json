@@ -1,0 +1,49 @@
+{
+  "instance_price_cny_per_hour": 6.0,
+  "gpu_slots": 2,
+  "per_method": [
+    {
+      "method": "random",
+      "rounds_measured": 185,
+      "rounds_remaining": 0,
+      "measured_round_seconds_sum": 9583.129420477897,
+      "measured_main_fit_seconds_sum": 9554.076050324831,
+      "measured_aux_fit_seconds_sum": 0.0,
+      "extrapolated_future_worker_seconds": 0.0,
+      "future_rounds_without_same_budget_measurement": 0
+    },
+    {
+      "method": "hybrid",
+      "rounds_measured": 185,
+      "rounds_remaining": 0,
+      "measured_round_seconds_sum": 34248.14971601451,
+      "measured_main_fit_seconds_sum": 11409.767013327219,
+      "measured_aux_fit_seconds_sum": 22630.6838384266,
+      "extrapolated_future_worker_seconds": 0.0,
+      "future_rounds_without_same_budget_measurement": 0
+    },
+    {
+      "method": "center_width_lcmd",
+      "rounds_measured": 185,
+      "rounds_remaining": 0,
+      "measured_round_seconds_sum": 74485.75917106913,
+      "measured_main_fit_seconds_sum": 10678.510014499538,
+      "measured_aux_fit_seconds_sum": 0.0,
+      "extrapolated_future_worker_seconds": 0.0,
+      "future_rounds_without_same_budget_measurement": 0
+    }
+  ],
+  "projection": {
+    "future_two_slot_ideal_instance_hours": 0.0,
+    "future_ideal_instance_cost_cny": 0.0
+  },
+  "observed_combined_throughput": {
+    "elapsed_calendar_hours_since_first_attempt": 17.823888888888888,
+    "sealed_training_epochs_per_elapsed_hour": 13151.394819686438,
+    "basis": "first formal or qualification attempt to last observed attempt; includes any lease gaps"
+  },
+  "completed_rounds": 555,
+  "total_rounds": 555,
+  "projection_basis": "observed mean round time per method/budget; fallback to same method mean",
+  "projection_excludes": "restarts, scheduler idle/tail effects and unmeasured setup"
+}

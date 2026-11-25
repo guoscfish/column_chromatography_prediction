@@ -1,0 +1,82 @@
+{
+  "input": {
+    "study": "qgeognn_v2_row_sequential_b32",
+    "preregistration_commit": "a419ea75e7894004aef393cb3734a7ae5e1356a1",
+    "outer_seed": 157,
+    "method": "random",
+    "round": 3,
+    "active_label_count": 429,
+    "unlabeled_count": 2901,
+    "L_t_ids_hash": "f1887857d90156cdf3ea01f2f8401e22801aeb3d007313dd5bae9813d98013ed",
+    "U_t_ids_hash": "99df5035081646b82aa27c65ad52d114cbde1b270162a407c263fef220a03fd1",
+    "ordered_L_t_hash": "32dfe293a0175d55e9447d963593e784583b7b5b164c342d8c277a649579b17d",
+    "ordered_U_t_hash": "4b5cb14bbbb2a17e79c8da5c3e543f6047cdd1f2a9238c77341099e9b4cc6850",
+    "incoming_selected_ids_hash": "c35108c54539441188137ea4dad01da01f17b91346ef2ab0f2debd31e8058376",
+    "model_initialization_seed": 2000160,
+    "training_config": {
+      "model_variant": "qgeognn_v2",
+      "optimizer": "Adam",
+      "learning_rate": 0.001,
+      "weight_decay": 0.0,
+      "batch_size": 2048,
+      "maximum_epochs": 1000,
+      "patience": 100,
+      "shuffle": "deterministic_each_epoch",
+      "loss_weights": {
+        "V1": 1.0,
+        "V2": 1.0
+      },
+      "checkpoint_selection": "validation_combined_normalized_rmse",
+      "test_during_training": false,
+      "architecture_changed": false,
+      "head_changed": false,
+      "condition_branch_changed": false,
+      "seed": 3000174,
+      "outer_seed": 157,
+      "cpu_threads": 2,
+      "split_sha256": "04c95c597835cc930f318d0f05177f274aec3112212ea39ab6ab62472cab5969"
+    },
+    "endpoint_scales": {
+      "V1": 6.502957820892334,
+      "V2": 13.158523559570312
+    },
+    "endpoint_scales_fit_ids_hash": "1171988daf4e91eb3d866b44b1ba07f04a36e6f88eb953eda831b9c64c66854d",
+    "acquisition_config": {
+      "batch_size": 32,
+      "hybrid": "current_K3_q50_top25_then_current_latent_farthest_first",
+      "lcmd": "current_full_network_q50_512D_CountSketch_corrected_TP_squared_euclidean",
+      "random_seed": 157900472
+    },
+    "code_hash": "5dd283bcb32e0da86ce913f000df5b96b20e87ad143792a5a18a04afd3c27410",
+    "test_truth_access_count": 0
+  },
+  "status": "FROZEN_BEFORE_TEST_TRUTH",
+  "evaluation_fit_contract_hash": "d45d17731308ed579dd73e3c3e7dbfec59dce43de9ceeb0928995a21b46bbdae",
+  "initialization_seed": 2000160,
+  "initialization_hash": "27933d44c40fa421228312c0940f971cf44564d39c1cf128e0b3b1acf85d75f6",
+  "checkpoint_sha256": "0b12c9528ed932495c811443559dcf6875cdee5c8453271d162fe1b6715b20f3",
+  "checkpoint_state_hash": "db63b35d6ec3451d6f042d387a3f8218754a53803efabdd76b80759cc31c1f86",
+  "prediction_sha256": "dbfba715c21deb4ec6de7a2895576f1bfea64c3ae2a80e61b790a423d73ccc76",
+  "outgoing_selected_ids_hash": "ea3277fe331a2bf4f68060f7cddc2edba8715b5824e04d29071581161122c906",
+  "acquisition_contract_hash": "d4affd8b71bf55117916d6a91849f9c5d3c35718ed8f56646ddd7458ab1d61ad",
+  "test_truth_access_count": 0,
+  "elapsed_seconds": 26.286210138816386,
+  "files": {
+    "labeled_ids.npy": "e95dbf53e5f33f1e2ee9385cd978da3574c331c9f56b88e842a2433cc2e61651",
+    "labeled_ids.npy.contract.json": "4870e1440a137d54b39f39250e5f4670a71f1135d3982245a16e643bb10ca247",
+    "unlabeled_ids.npy": "df952ee2ba01fa88255a9a0fb9a6826389b2c2a93f91a9d5167f3bf2d38d8acc",
+    "unlabeled_ids.npy.contract.json": "d49346e6f014d6cce75191f988f63d1f6dca8e630bb892a4a64d9d053e08ca04",
+    "labeled_indices.npy": "62efb522c3fbd2a1d8c5ea1570e59febaf5f1c048cd92db38aa705157df71a3f",
+    "labeled_indices.npy.contract.json": "783633a9c562e9b8802be30daf24447118fdfdeb6e35362b9a2be64def291f91",
+    "unlabeled_indices.npy": "e40d9f9dec0df6eabba18463c0d9ef98d4769a9859a33da19aaaacf3b706f88e",
+    "unlabeled_indices.npy.contract.json": "f04265dbce7457be56260545ea46fb79235a3079aeff66d747e87e9f6c9a1302",
+    "selected_batch.csv": "846fd34b23756990aed59a14649fb9aabae4d74fe7417409c15bb0290312996c",
+    "input_contract.json": "00c4525c4485d620f8ffd3dfe9620194d212a8663e25356063d20f99aee04649",
+    "validation_metrics.json": "5f773522fb93b88bf6ff651231528543c3b7ba630a9106affbefc9b38225ccee",
+    "model/best.pt": "0b12c9528ed932495c811443559dcf6875cdee5c8453271d162fe1b6715b20f3",
+    "model/predictions.csv.gz": "dbfba715c21deb4ec6de7a2895576f1bfea64c3ae2a80e61b790a423d73ccc76",
+    "model/fit_audit.json": "0495859580dd93de08f22db752c5bac695b378e440ebea25953ad2f0880cdad0",
+    "acquisition_artifacts/contract.json": "760db06ea1a37e3c45dc9fe04af0af52e3bf748c87d1cf749c5d863caf96732d",
+    "acquisition_artifacts/selected_next_batch.csv": "f09f84340d54cf0b1e13f9fb7ce6c89f2f7c0fec1e823c92d61c78bbf9e3259c"
+  }
+}

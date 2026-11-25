@@ -1,0 +1,129 @@
+{
+  "time": "2026-11-24T14:17:49+08:00",
+  "host": "bitahub-a21971383521243136300380",
+  "watchdog": {
+    "pid": 6569,
+    "start_ticks": 233364467,
+    "state": "S",
+    "ignores_sighup": true,
+    "session_id": 6568
+  },
+  "watchdog_state": {
+    "pid": 6569,
+    "hostname": "bitahub-a21971383521243136300380",
+    "started": "2026-11-24T14:17:45+08:00",
+    "state": "monitoring",
+    "automatic_task_attempt_limit": 2,
+    "slot_restart_limit": 2,
+    "slot_restarts": {
+      "0": [],
+      "1": []
+    },
+    "checked": "2026-11-24T14:17:45+08:00"
+  },
+  "active": [
+    {
+      "name": "random-157",
+      "gpu": 0,
+      "task": {
+        "pid": 5407,
+        "start_ticks": 233248373,
+        "state": "S",
+        "ignores_sighup": true,
+        "session_id": 5393
+      },
+      "worker": {
+        "pid": 5405,
+        "start_ticks": 233248369,
+        "state": "S",
+        "ignores_sighup": true,
+        "session_id": 5393
+      },
+      "sealed": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "progress_mtime_ns": 1795501068391809181,
+      "progress": {
+        "epoch": 110,
+        "best_epoch": 108,
+        "validation_score": 0.6891344802571691,
+        "best_score": 0.6874653470064261,
+        "fit": "/1/column_chromatography_prediction/formal_cuda/row4g_b32_20261124/trajectories/random-157/rounds/random/round_21/model",
+        "training_seed": 3000174,
+        "elapsed_seconds": 26.654261847026646
+      }
+    },
+    {
+      "name": "hybrid-157",
+      "gpu": 1,
+      "task": {
+        "pid": 6288,
+        "start_ticks": 233334417,
+        "state": "R",
+        "ignores_sighup": true,
+        "session_id": 5393
+      },
+      "worker": {
+        "pid": 5406,
+        "start_ticks": 233248369,
+        "state": "S",
+        "ignores_sighup": true,
+        "session_id": 5393
+      },
+      "sealed": [
+        0,
+        1
+      ],
+      "progress_mtime_ns": 1795501067627075957,
+      "progress": {
+        "epoch": 120,
+        "best_epoch": 111,
+        "validation_score": 0.6661071734964005,
+        "best_score": 0.6653648350519482,
+        "fit": "/1/column_chromatography_prediction/formal_cuda/row4g_b32_20261124/trajectories/hybrid-157/rounds/hybrid/round_02/acquisition_artifacts/ensemble_member_2",
+        "training_seed": 5000240,
+        "elapsed_seconds": 20.851922180037946
+      }
+    }
+  ],
+  "queued": [
+    "cw_lcmd-157",
+    "random-887",
+    "hybrid-887",
+    "cw_lcmd-887",
+    "random-2357",
+    "hybrid-2357",
+    "cw_lcmd-2357",
+    "random-6101",
+    "hybrid-6101",
+    "cw_lcmd-6101",
+    "random-12203",
+    "hybrid-12203",
+    "cw_lcmd-12203"
+  ],
+  "admitted": {
+    "hybrid": "/1/column_chromatography_prediction/formal_cuda/row4g_b32_20261124/qualification/hybrid_qualification.json",
+    "cw_lcmd": "/1/column_chromatography_prediction/formal_cuda/row4g_b32_20261124/qualification/cw_lcmd_qualification.json",
+    "random": "prior CUDA audit"
+  }
+}

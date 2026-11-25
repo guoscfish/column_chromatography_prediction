@@ -1,0 +1,42 @@
+# 4g Row-level CUDA 主动学习
+
+当前封存 555/555 个预算点。
+版本、数据、GPU 分配、每轮状态、指标与选样原始数据见同目录 CSV 和对应轨迹。
+
+| 方法 | 已启动轨迹 | 已完成轨迹 | 已封存预算点 |
+| --- | ---: | ---: | ---: |
+| random | 5 | 5 | 185 |
+| hybrid | 5 | 5 | 185 |
+| center_width_lcmd | 5 | 5 | 185 |
+
+测试真值读取次数为 15。全局封存校验覆盖 15 条完整轨迹后可读取测试指标。
+
+## AULC 与标签效率
+
+AULC 为预算轴上的梯形积分，除以实际预算跨度得到区间平均 NRMSE。早、中、晚段边界为 L333、L717、L1101、L1485。
+等误差标签数采用同 seed 的 Random L1485 NRMSE 作为阈值，在相邻预算点内线性插值。未达到视为右删失。
+V1、V2 分别报告 RMSE、MAE、R² 和固定 L0 标准差归一化的 NRMSE。综合 RMSE 取两端点 RMSE 的二次平均，综合 MAE 和 R² 取算术平均。
+- test 上 center_width_lcmd 相对 random 的全程配对 AULC 差为 -0.113234，样本标准差 0.041527，配对 seed 数 5。
+- test 上 hybrid 相对 center_width_lcmd 的全程配对 AULC 差为 -0.018501，样本标准差 0.021964，配对 seed 数 5。
+- test 上 hybrid 相对 random 的全程配对 AULC 差为 -0.131735，样本标准差 0.038488，配对 seed 数 5。
+- validation 上 center_width_lcmd 相对 random 的全程配对 AULC 差为 -0.134063，样本标准差 0.079914，配对 seed 数 5。
+- validation 上 hybrid 相对 center_width_lcmd 的全程配对 AULC 差为 -0.015214，样本标准差 0.014146，配对 seed 数 5。
+- validation 上 hybrid 相对 random 的全程配对 AULC 差为 -0.149277，样本标准差 0.073215，配对 seed 数 5。
+- test 的 center_width_lcmd 有 5/5 个 seed 达到配对误差阈值。
+- test 的 hybrid 有 5/5 个 seed 达到配对误差阈值。
+- test 的 random 有 5/5 个 seed 达到配对误差阈值。
+- validation 的 center_width_lcmd 有 5/5 个 seed 达到配对误差阈值。
+- validation 的 hybrid 有 5/5 个 seed 达到配对误差阈值。
+- validation 的 random 有 5/5 个 seed 达到配对误差阈值。
+
+学习曲线和配对差异均报告样本标准差。五 seed 的均值差异仅作描述性估计。
+
+## 选样诊断
+
+覆盖率的分母为同 seed 初始外训练候选范围。单因素来自同分子五项记录条件恰有一项不同的配对。批内冗余以重复分子配对比例、精确条件重复及 Morgan 指纹 Tanimoto 相似度描述。
+Hybrid32 保存入选短名单及其不确定性，报告短名单和最终选中项的信号分布，以及原始池在 128 维空间到当前标签集最近距离。CW-LCMD 报告池和入选项的梯度草图范数及选中时的最近中心平方距离。
+
+## 计算成本
+
+队列 attempt 记录实际起止时间，逐轮成本取封存训练和采集记录。预测剩余成本使用已测同预算或同方法的平均轮时。
+按已测轮时外推理想剩余实例时间为 0.00 小时，按当前费率估计 0.00 元。
