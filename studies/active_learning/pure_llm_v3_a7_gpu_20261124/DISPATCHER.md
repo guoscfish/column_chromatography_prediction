@@ -170,6 +170,12 @@ nohup "$gpu_python" -B -u -m "$base.scheduler" resume "${common[@]}" \
 # 导入完整响应时，同一命令再加 --recovered-response "$VERIFIED_RESPONSE_JSON"。
 ```
 
+### 三 seed pilot 的单次补跑授权
+
+`a7-gpt62-astra-xhigh-ssh-v4-pilot-3x10` 的补跑附录仅适用于 seed 157 的 round 0 logical 0、seed 887 的 round 3 logical 1 和 seed 2357 的 round 0 logical 0。附录锁定原合同、独立发布的执行源码，以及三笔原请求的终态和 GPFS 回执。原执行和计费状态继续记为未知。每笔只开放原预算内尚未使用的最后一个物理尝试。Mac 继续使用原 Dispatcher、发布包和 spool。
+
+恢复时先确认旧协调器已退出，再从原运行目录执行 `recovery/resume-authorized-replay.sh`。该入口校验原发布包、附录 SHA 和补跑源码。每个 `attempt_01.replay_link.json` 保留新旧物理尝试的关联。中断时继续同一个已预留尝试。补跑耗尽后按原故障停止规则处理。
+
 ## 离线复测
 
 ```bash

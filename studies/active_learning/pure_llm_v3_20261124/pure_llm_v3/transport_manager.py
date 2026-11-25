@@ -6,6 +6,7 @@ from email.utils import parsedate_to_datetime
 import fcntl
 import math
 import random
+import re
 import time
 from urllib.parse import urlparse
 from uuid import uuid4
@@ -15,6 +16,12 @@ from .records import digest, once, read
 
 class TransportStop(RuntimeError):
     pass
+
+
+UNKNOWN_REPLAY_DECISION = "authorized_replay_unknown"
+REPLAY_AUTH_FIELDS = {"decision", "authorized_by", "authorization_reference", "accept_duplicate_billing_risk",
+                      "contract_sha256", "request_id", "attempt_id", "bridge_result_sha256",
+                      "original_terminal_sha256", "next_attempt"}
 
 
 class TransportFailure(Exception):
@@ -149,9 +156,74 @@ def _may_reconcile_previous(previous, decision):
     return decision == "confirmed_not_processed" and previous.get("error") in rejected_before_execution
 
 
-def terminal_record(log, index):
+def _replay_paths(log):
+    return log / "attempt_00.replay_authorization.json", log / "attempt_00.replay.terminal.json"
+
+
+def _unknown_replay_record(request, started, previous, authorization):
+    scope = request["binding"].get("a7_formal", {})
+    if (scope.get("mock") is not False or started.get("transport") != "mac_bridge"
+            or started.get("request_id") != request["request_id"] or started.get("attempt") != 0
+            or not re.fullmatch(r"[0-9a-f]{32}", started.get("attempt_id", ""))
+            or any(previous.get(key) != value for key, value in started.items())
+            or previous.get("status") != "stopped" or previous.get("ambiguous") is not True
+            or previous.get("provider_dispatched") is not True or previous.get("circuit_open") is not False
+            or not re.fullmatch(r"[0-9a-f]{64}", previous.get("bridge_result_sha256", ""))
+            or previous.get("provider_status") == "completed" or "answer_sha256" in previous):
+        raise TransportStop("audited replay requires the original stopped ambiguous bridge attempt")
+    expected = {"decision": UNKNOWN_REPLAY_DECISION, "request_id": request["request_id"],
+                "contract_sha256": scope.get("contract_sha256"), "attempt_id": started["attempt_id"],
+                "bridge_result_sha256": previous["bridge_result_sha256"],
+                "original_terminal_sha256": digest(previous), "next_attempt": 1}
+    if (type(authorization) is not dict or set(authorization) != REPLAY_AUTH_FIELDS
+            or any(authorization[key] != value for key, value in expected.items())
+            or type(authorization["next_attempt"]) is not int
+            or not re.fullmatch(r"[0-9a-f]{64}", authorization["contract_sha256"] or "")
+            or authorization["accept_duplicate_billing_risk"] is not True
+            or any(not isinstance(authorization[key], str) or not authorization[key].strip()
+                   for key in ("authorized_by", "authorization_reference"))):
+        raise PermissionError("audited replay authorization does not bind the original unknown request")
+    return {**started, "status": "retryable", "error": UNKNOWN_REPLAY_DECISION, "ambiguous": False,
+            "prior_execution_and_billing": "unresolved", "next_attempt": 1, "elapsed_seconds": None,
+            "rate_limit_count": previous["rate_limit_count"], "not_before_unix": previous["not_before_unix"],
+            "supersedes_sha256": authorization["original_terminal_sha256"],
+            "replay_authorization_sha256": digest(authorization)}
+
+
+def _check_replay_digest(authorization, expected_sha256):
+    if not isinstance(expected_sha256, str) or digest(authorization) != expected_sha256:
+        raise PermissionError("audited replay authorization differs from the trusted digest")
+
+
+def _link_replay_attempt(log, started, replay, *, allow_create):
+    if (started.get("request_id") != replay["request_id"] or started.get("transport") != "mac_bridge"
+            or started.get("attempt") != replay["next_attempt"] or started.get("attempt_id") == replay["attempt_id"]):
+        raise TransportStop("audited replay attempt does not match its permit")
+    path = log / "attempt_01.replay_link.json"
+    expected = {"request_id": started["request_id"], "attempt": started["attempt"],
+                "attempt_id": started["attempt_id"], "original_attempt_id": replay["attempt_id"],
+                "original_terminal_sha256": replay["supersedes_sha256"],
+                "replay_authorization_sha256": replay["replay_authorization_sha256"]}
+    if not path.exists() and allow_create:
+        once(path, expected)
+    if not path.is_file() or read(path) != expected:
+        raise TransportStop("audited replay attempt link mismatch")
+
+
+def terminal_record(log, index, *, replay_authorization_sha256=None):
     standard = log / f"attempt_{index:02d}.terminal.json"
     recovery = log / f"attempt_{index:02d}.recovery.terminal.json"
+    if replay_authorization_sha256 is not None:
+        if index != 0 or recovery.exists() or (log / "attempt_00.reconciliation.json").exists():
+            raise TransportStop("audited replay conflicts with ordinary reconciliation")
+        authorization_path, receipt_path = _replay_paths(log)
+        authorization = read(authorization_path)
+        _check_replay_digest(authorization, replay_authorization_sha256)
+        expected = _unknown_replay_record(read(log / "request.json"), read(log / "attempt_00.started.json"),
+                                          read(standard), authorization)
+        if read(receipt_path) != expected:
+            raise TransportStop("audited replay receipt mismatch")
+        return expected
     if recovery.exists():
         old = read(standard)
         saved = read(recovery)
@@ -169,7 +241,7 @@ def terminal_record(log, index):
 
 
 def run_request(directory, request, config, call, *, sleep=time.sleep, jitter=random.random, now=time.time,
-                attempt_slot=None, managed_attempt=None):
+                attempt_slot=None, managed_attempt=None, replay_authorizations=None):
     """Run direct attempts or recover an immutable managed attempt without resending it here."""
     check_request(request, request["binding"], config)
     if attempt_slot is not None and managed_attempt is not None:
@@ -178,10 +250,17 @@ def run_request(directory, request, config, call, *, sleep=time.sleep, jitter=ra
     once(log / "request.json", request)
     rates = 0
     request_id = request["request_id"]
+    replay_sha256 = (replay_authorizations or {}).get(request_id)
+    replay = None
+    if replay_sha256 is not None:
+        if managed_attempt is None or config.transport_attempts != 2:
+            raise PermissionError("audited replay needs the original two-attempt managed bridge")
+        replay = terminal_record(log, 0, replay_authorization_sha256=replay_sha256)
     for index in range(config.transport_attempts):
         started_path = log / f"attempt_{index:02d}.started.json"
         terminal_path = log / f"attempt_{index:02d}.terminal.json"
         started = None
+        replaying = index == 1 and replay is not None
         if started_path.exists():
             started = read(started_path)
             if (started["request_id"], started["attempt"]) != (request_id, index):
@@ -190,6 +269,8 @@ def run_request(directory, request, config, call, *, sleep=time.sleep, jitter=ra
                 managed_attempt is None or started.get("transport") != "mac_bridge"
             ):
                 raise TransportStop("ambiguous interrupted request requires reconciliation")
+            if replaying:
+                _link_replay_attempt(log, started, replay, allow_create=not terminal_path.exists())
         elif terminal_path.exists():
             raise TransportStop("terminal receipt has no started receipt")
         if not terminal_path.exists():
@@ -205,6 +286,8 @@ def run_request(directory, request, config, call, *, sleep=time.sleep, jitter=ra
                     if credential_id is not None:
                         started["credential_id"] = credential_id
                     once(started_path, started)
+                    if replaying:
+                        _link_replay_attempt(log, started, replay, allow_create=True)
                 start = time.monotonic()
                 evidence = {}
                 try:
@@ -236,7 +319,7 @@ def run_request(directory, request, config, call, *, sleep=time.sleep, jitter=ra
                     saved = {**started, **evidence, "status": "completed", "text": reply.text,
                              "answer_sha256": digest(reply.text), "elapsed_seconds": time.monotonic() - start}
                 once(terminal_path, saved)
-        saved = terminal_record(log, index)
+        saved = replay if index == 0 and replay is not None else terminal_record(log, index)
         if any(saved.get(k) != started[k] for k in started):
             raise TransportStop("terminal receipt mismatch")
         if saved["status"] == "completed":
@@ -255,6 +338,30 @@ def run_request(directory, request, config, call, *, sleep=time.sleep, jitter=ra
     raise TransportStop("transport attempt budget exhausted")
 
 
+def authorize_ambiguous_replay(directory, request, *, authorization, config, expected_authorization_sha256):
+    """Seal the single remaining attempt under a separate, trusted risk authorization."""
+    check_request(request, request["binding"], config)
+    _check_replay_digest(authorization, expected_authorization_sha256)
+    if config.transport_attempts != 2:
+        raise PermissionError("audited replay needs the original two-attempt managed bridge")
+    log = directory / f"turn_{request['logical_index']:02d}"
+    with round_lock(directory):
+        authorization_path, receipt_path = _replay_paths(log)
+        if (log / "attempt_00.reconciliation.json").exists() or (log / "attempt_00.recovery.terminal.json").exists():
+            raise TransportStop("audited replay conflicts with ordinary reconciliation")
+        if request != read(log / "request.json"):
+            raise TransportStop("audited replay request differs from its original archive")
+        if receipt_path.exists():
+            return terminal_record(log, 0, replay_authorization_sha256=expected_authorization_sha256)
+        if any((log / f"attempt_01.{kind}.json").exists() for kind in ("started", "terminal")):
+            raise TransportStop("audited replay requires an unused second physical attempt")
+        receipt = _unknown_replay_record(request, read(log / "attempt_00.started.json"),
+                                         read(log / "attempt_00.terminal.json"), authorization)
+        once(authorization_path, authorization)
+        once(receipt_path, receipt)
+        return receipt
+
+
 def reconcile(directory, request, attempt, *, authorization, config, reply=None):
     """Import an independently recovered completion or record verified nonexecution."""
     check_request(request, request["binding"], config)
@@ -262,6 +369,8 @@ def reconcile(directory, request, attempt, *, authorization, config, reply=None)
         raise ValueError("invalid attempt index")
     log = directory / f"turn_{request['logical_index']:02d}"
     with round_lock(directory):
+        if attempt == 0 and any(path.exists() for path in _replay_paths(log)):
+            raise TransportStop("ordinary reconciliation conflicts with audited replay")
         started = read(log / f"attempt_{attempt:02d}.started.json")
         terminal = log / f"attempt_{attempt:02d}.terminal.json"
         previous = read(terminal) if terminal.exists() else None

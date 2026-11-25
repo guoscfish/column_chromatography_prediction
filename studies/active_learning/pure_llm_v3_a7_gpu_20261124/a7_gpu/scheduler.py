@@ -11,11 +11,12 @@ import subprocess
 import time
 from uuid import uuid4
 
-from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, dumps, once, read
+from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, dumps, file_digest, once, read
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import ProviderReply, TransportStop
 
 from .formal_contract import (
-    DIRECT_API, LEASE_ROOT, PROFILE, ROOT, SEEDS, SSH_API, load_contract, request_timeouts, verify_authorization,
+    DIRECT_API, LEASE_ROOT, OFFLINE, PROFILE, ROOT, SEEDS, SSH_API, STUDY, V4_PILOT_RUN_NAME,
+    load_contract, request_timeouts, verify_authorization,
 )
 from .key_pool import KeyPool, load_pool
 from .provider import call_responses, sdk_status, verify_reported_model
@@ -118,7 +119,7 @@ def _provider_wiring(run, contract, approval, pool_config, seed):
     }
 
 
-def _seed_worker(root, run, contract, approval, pool_config, seed, gpu, stop, generation):
+def _seed_worker(root, run, contract, approval, pool_config, seed, gpu, stop, generation, replay_authorizations=None):
     """Spawn one seed process before importing Torch so CUDA binding is process-local."""
     os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
     os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu)
@@ -135,6 +136,8 @@ def _seed_worker(root, run, contract, approval, pool_config, seed, gpu, stop, ge
             _atomic_status(payload, {"status": "initializing", "seed": seed, "pid": os.getpid(), "gpu": gpu})
             backend = TrainingBackend(root, run / "public_graphs" / f"seed_{seed}", seed)
             call, transport_options = _provider_wiring(run, contract, approval, pool_config, seed)
+            if replay_authorizations:
+                transport_options["replay_authorizations"] = replay_authorizations
             anchor = Path(contract.anchor_root) / f"random-{seed}" if contract.anchor_root else None
             result = run_seed(
                 root=root, run_directory=run, contract=contract, authorization=approval, seed=seed,
@@ -155,9 +158,10 @@ def _seed_worker(root, run, contract, approval, pool_config, seed, gpu, stop, ge
         raise SystemExit(1) from None
 
 
-def _start(ctx, root, run, contract, approval, pool, seed, gpu, stop, generation):
+def _start(ctx, root, run, contract, approval, pool, seed, gpu, stop, generation, replay_authorizations=None):
     process = ctx.Process(target=_seed_worker,
-        args=(root, run, contract, approval, pool, seed, gpu, stop, generation), name=f"a7-seed-{seed}")
+        args=(root, run, contract, approval, pool, seed, gpu, stop, generation, replay_authorizations),
+        name=f"a7-seed-{seed}")
     process.start()
     return process
 
@@ -168,7 +172,76 @@ def _assert_no_old_workers(run, seeds):
             pass
 
 
-def _run(root, run, contract, approval, pool, *, resume):
+
+_REPLAY_CONTRACT = "24f01791f4e6e16e9b644dc2165fe1557eeaa7030087df2b726485ad9878e410"
+_REPLAY_SCOPES = {(157, 0, 0), (887, 3, 1), (2357, 0, 0)}
+_REPLAY_SOURCES = {
+    (STUDY / "a7_gpu" / "scheduler.py").as_posix(),
+    (OFFLINE / "pure_llm_v3" / "transport_manager.py").as_posix(),
+}
+
+
+def _load_replay(path, expected_sha256, contract, runtime, run):
+    supplement = read(path)
+    if (type(supplement) is not dict or set(supplement) != {
+            "schema", "contract_sha256", "source_sha256", "attempts"}
+            or digest(supplement) != expected_sha256
+            or supplement["schema"] != "a7_v4_pilot_one_replay_after_unknown_v1"
+            or supplement["contract_sha256"] != _REPLAY_CONTRACT
+            or contract.digest != _REPLAY_CONTRACT or contract.api_execution != SSH_API
+            or run.name != V4_PILOT_RUN_NAME):
+        raise PermissionError("audited replay requires the verified pilot and the exact supplemental digest")
+    replacements = supplement["source_sha256"]
+    if type(replacements) is not dict or set(replacements) != _REPLAY_SOURCES:
+        raise PermissionError("audited replay may only replace the two registered execution modules")
+    if any(file_digest(runtime / name) != expected for name, expected in
+           (contract.source_sha256 | replacements).items()):
+        raise PermissionError("audited replay runtime does not match its base release and supplement")
+    return supplement
+
+
+def _activate_replay(run, contract, supplement):
+    from .bridge_protocol import validate_result, verify_job
+    from .seed_runner import round_directory, seed_directory
+    from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import authorize_ambiguous_replay
+
+    entries = supplement["attempts"]
+    if (type(entries) is not list or len(entries) != len(_REPLAY_SCOPES)
+            or any(type(item) is not dict or set(item) != {"seed", "round", "logical_index", "approval"}
+                   or any(type(item[key]) is not int for key in ("seed", "round", "logical_index"))
+                   or type(item["approval"]) is not dict for item in entries)
+            or {(item["seed"], item["round"], item["logical_index"]) for item in entries} != _REPLAY_SCOPES):
+        raise PermissionError("audited replay must bind exactly the three approved interrupted requests")
+    checked = []
+    for item in entries:
+        directory = round_directory(seed_directory(run, item["seed"]), item["round"])
+        turn = directory / f"turn_{item['logical_index']:02d}"
+        permit = item["approval"]
+        request = read(turn / "request.json")
+        started = read(turn / "attempt_00.started.json")
+        job_file = f"{started['attempt_id']}.json"
+        job = read(run / "bridge" / "outbox" / job_file)
+        result = read(run / "bridge" / "results" / job_file)
+        saved_request, _, saved_started = verify_job(job, contract_sha256=contract.digest,
+                                                     wire_representation=contract.profile["wire_representation"])
+        validate_result(result, job)
+        failure = result["outcome"].get("failure", {})
+        if (saved_request != request or saved_started != started
+                or result["result_sha256"] != permit.get("bridge_result_sha256")
+                or failure.get("ambiguous") is not True):
+            raise PermissionError("audited replay requires the original sealed ambiguous bridge result")
+        checked.append((directory, request, permit))
+    once(run / "recovery" / "authorized_replay_supplement.json", supplement)
+    authorizations = {}
+    for directory, request, permit in checked:
+        permit_sha = digest(permit)
+        authorize_ambiguous_replay(directory, request, authorization=permit, config=contract.transport,
+                                   expected_authorization_sha256=permit_sha)
+        authorizations[request["request_id"]] = permit_sha
+    return authorizations
+
+
+def _run(root, run, contract, approval, pool, *, resume, replay_supplement=None):
     from .seed_runner import qualification_status
 
     if not contract.gpu_slots:
@@ -189,6 +262,7 @@ def _run(root, run, contract, approval, pool, *, resume):
         once(run / "authorization.json", approval)
         if _pause_requested(run) and not resume:
             raise TransportStop("formal experiment is paused; use resume under its existing authorization")
+        replay_authorizations = _activate_replay(run, contract, replay_supplement) if replay_supplement else None
         generation = uuid4().hex
         if not bridge:
             KeyPool(run / "api", pool).prepare()
@@ -196,6 +270,7 @@ def _run(root, run, contract, approval, pool, *, resume):
             "action": "resume" if resume else "run", "authorization_sha256": digest(approval),
             "timestamp_unix": time.time(), "pool": None if bridge else pool.public(),
             "api_execution": contract.api_execution,
+            **({"replay_supplement_sha256": digest(replay_supplement)} if replay_supplement else {}),
         })
         _atomic_status(run / "coordinator_generation.json", {"id": generation, "pid": os.getpid()})
         if resume:
@@ -216,7 +291,8 @@ def _run(root, run, contract, approval, pool, *, resume):
             if _pause_requested(run):
                 break
             gpu = contract.gpu_slots[index % len(contract.gpu_slots)]
-            workers[seed] = _start(ctx, root, run, contract, approval, pool, seed, gpu, contract.rounds, generation)
+            workers[seed] = _start(ctx, root, run, contract, approval, pool, seed, gpu,
+                                   contract.rounds, generation, replay_authorizations)
         for proc in workers.values():
             proc.join()
         ends = {str(seed): proc.exitcode for seed, proc in workers.items()}
@@ -305,6 +381,9 @@ def _parse():
     parser.add_argument("--attempt", type=int)
     parser.add_argument("--reconciliation", type=Path)
     parser.add_argument("--recovered-response", type=Path)
+    parser.add_argument("--replay-supplement", type=Path)
+    parser.add_argument("--replay-supplement-sha256")
+    parser.add_argument("--base-release-root", type=Path)
     return parser.parse_args()
 
 
@@ -312,6 +391,9 @@ def main():
     from .metrics import snapshot
 
     args = _parse()
+    recovery_flags = (args.replay_supplement, args.replay_supplement_sha256, args.base_release_root)
+    if any(recovery_flags) and (not all(recovery_flags) or args.action != "resume"):
+        raise PermissionError("an audited replay requires all supplemental inputs and the resume action")
     if args.synthetic and args.action != "preflight":
         raise ValueError("synthetic data are permitted only in preflight")
     if args.action == "key-status":
@@ -378,7 +460,9 @@ def main():
     bridge = args.api_execution == SSH_API
     if bridge and (args.key_pool_config or args.single_key):
         raise PermissionError("SSH execution uses only the dispatcher-side key pool")
-    contract = load_contract(root, args.config or root / PROFILE, anchor_root=args.anchor_root,
+    contract_root = args.base_release_root.resolve() if args.base_release_root else root
+    config = args.config or contract_root / PROFILE
+    contract = load_contract(contract_root, config, anchor_root=args.anchor_root,
                              gpu_slots=gpus, lease_root=args.gpu_lease_root, run_directory=run,
                              api_execution=args.api_execution, predecessor_run=args.predecessor_run)
     if args.action == "contract":
@@ -421,7 +505,11 @@ def main():
     if args.single_key:
         raise PermissionError("the formal five-seed launcher requires a configured dynamic key pool")
     pool = None if bridge else load_pool(args.key_pool_config)
-    raise SystemExit(_run(root, run, contract, approval, pool, resume=args.action == "resume"))
+    supplement = None
+    if args.replay_supplement:
+        supplement = _load_replay(args.replay_supplement, args.replay_supplement_sha256, contract, root, run)
+    raise SystemExit(_run(contract_root, run, contract, approval, pool,
+                          resume=args.action == "resume", replay_supplement=supplement))
 
 
 if __name__ == "__main__":
