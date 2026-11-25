@@ -72,6 +72,7 @@ class ProviderReply:
     usage: dict
     status: str = "completed"
     provider_request_id: str | None = None
+    transport_evidence: dict | None = None
 
 
 def wire_payload(messages, config):
@@ -168,9 +169,11 @@ def terminal_record(log, index):
 
 
 def run_request(directory, request, config, call, *, sleep=time.sleep, jitter=random.random, now=time.time,
-                attempt_slot=None):
-    """Call inside round_lock. Retry confirmed rejection only, never ambiguous completion."""
+                attempt_slot=None, managed_attempt=None):
+    """Run direct attempts or recover an immutable managed attempt without resending it here."""
     check_request(request, request["binding"], config)
+    if attempt_slot is not None and managed_attempt is not None:
+        raise ValueError("a managed attempt cannot use a direct provider slot")
     log = directory / f"turn_{request['logical_index']:02d}"
     once(log / "request.json", request)
     rates = 0
@@ -178,31 +181,40 @@ def run_request(directory, request, config, call, *, sleep=time.sleep, jitter=ra
     for index in range(config.transport_attempts):
         started_path = log / f"attempt_{index:02d}.started.json"
         terminal_path = log / f"attempt_{index:02d}.terminal.json"
+        started = None
         if started_path.exists():
             started = read(started_path)
             if (started["request_id"], started["attempt"]) != (request_id, index):
                 raise TransportStop("started receipt mismatch")
-            if not terminal_path.exists():
+            if not terminal_path.exists() and (
+                managed_attempt is None or started.get("transport") != "mac_bridge"
+            ):
                 raise TransportStop("ambiguous interrupted request requires reconciliation")
         elif terminal_path.exists():
             raise TransportStop("terminal receipt has no started receipt")
-        else:
+        if not terminal_path.exists():
             scope = attempt_slot(request, config) if attempt_slot else nullcontext()
-            # Obtain a physical slot before writing started. Queued work has not reached the provider.
+            # Direct callers acquire a provider slot here. A managed attempt has
+            # a durable GPU reservation before it joins the Mac provider queue.
             with scope as credential_id:
-                attempt_id = uuid4().hex
-                started = {"request_id": request_id, "attempt": index, "attempt_id": attempt_id,
-                           "started_unix": now()}
-                if credential_id is not None:
-                    started["credential_id"] = credential_id
-                once(started_path, started)
+                if started is None:
+                    started = {"request_id": request_id, "attempt": index, "attempt_id": uuid4().hex,
+                               "started_unix": now()}
+                    if managed_attempt is not None:
+                        started["transport"] = "mac_bridge"
+                    if credential_id is not None:
+                        started["credential_id"] = credential_id
+                    once(started_path, started)
                 start = time.monotonic()
                 evidence = {}
                 try:
-                    reply = call(request, config)
+                    reply = (managed_attempt(request, config, started) if managed_attempt is not None
+                             else call(request, config))
                     evidence = {"response_id": reply.response_id, "served_model": reply.served_model,
                                 "usage": reply.usage, "provider_request_id": reply.provider_request_id,
                                 "provider_status": reply.status}
+                    if managed_attempt is not None:
+                        evidence.update(reply.transport_evidence or {})
                     _validate_reply(reply, config)
                 except TransportFailure as error:
                     evidence.update(getattr(error, "reply_identity", None) or {})

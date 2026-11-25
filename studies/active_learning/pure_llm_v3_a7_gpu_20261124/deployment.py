@@ -27,7 +27,7 @@ PROFILE = "execution_gpt62_ultra_a7.json"
 RELEASE_MANIFEST = "release_manifest.json"
 RELEASE_SCHEMA = "purellm-v3-a7-gpu-release-v2"
 REVIEWED_TRANSPORT = f"{PUBLISHED}/pure_llm_v3/transport_manager.py"
-REVIEWED_TRANSPORT_SHA256 = "d21bf2d73c9bb659b2b87f8caf01f949bdc72f894ffae42b11e23e8340d827c6"
+REVIEWED_TRANSPORT_SHA256 = "578d8a3c68ee73aa4b815fe65a0be5aadca3310627173932f5d8c9dbea21d2f4"
 REMOTE_ROOT = Path("/1/column_chromatography_prediction")
 MAX_RELEASE_BYTES = 32 * 1024 * 1024
 
@@ -47,13 +47,14 @@ ASSETS = {
 FORMAL_FILES = {
     f"{FORMAL}/{PROFILE}", f"{FORMAL}/deployment.py",
     f"{FORMAL}/DEPLOYMENT.md", f"{FORMAL}/README.md",
-    f"{FORMAL}/OFFLINE_TEST_REPORT.md",
+    f"{FORMAL}/OFFLINE_TEST_REPORT.md", f"{FORMAL}/DISPATCHER.md",
     f"{FORMAL}/requirements_provider.txt", f"{FORMAL}/key_pool.example.json",
     f"{FORMAL}/formal_authorization.template.json",
 }
 REQUIRED_FORMAL = {
     f"{FORMAL}/{PROFILE}", f"{FORMAL}/deployment.py",
-    *(f"{FORMAL}/a7_gpu/{name}.py" for name in ("backend", "credentials", "cuda_runtime", "formal_contract", "key_pool", "metrics", "provider", "scheduler", "seed_runner")),
+    *(f"{FORMAL}/a7_gpu/{name}.py" for name in ("backend", "bridge_endpoint", "bridge_protocol", "credentials", "cuda_runtime", "dispatcher",
+          "formal_contract", "key_pool", "metrics", "provider", "scheduler", "seed_runner", "ssh_courier", "supersession")),
 }
 
 

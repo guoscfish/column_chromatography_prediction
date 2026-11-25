@@ -1,6 +1,6 @@
 """Synthetic label and provider fixtures exercise the real A7 loop and receipts."""
 
-from contextlib import contextmanager
+from contextlib import contextmanager, nullcontext
 from dataclasses import replace
 import json
 from pathlib import Path
@@ -21,7 +21,7 @@ from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.formal_contract 
     FormalContract, TransportConfig,
 )
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.seed_runner import (
-    FIT_ARTIFACTS, PROMPT_PATH, _approved_assets, qualification_status, reconcile_attempt,
+    FIT_ARTIFACTS, PROMPT_PATH, _approved_assets, _initial_state, qualification_status, reconcile_attempt,
     round_directory, run_seed, seed_directory,
 )
 
@@ -340,3 +340,13 @@ def test_active_run_rejects_prompt_and_metadata_edits_against_frozen_digests(tmp
     asset.write_text("fixture,altered\n")
     with pytest.raises(ValueError, match="formal data, split or preprocessing asset changed"):
         _approved_assets(tmp_path, contract, {"mock": False})
+
+
+def test_seed157_rejects_initial_checkpoint_that_differs_from_predecessor(tmp_path, metadata, formal):
+    backend = SyntheticBackend(157, metadata)
+    contract = replace(formal[0], predecessor={"seed_157_initial_checkpoint_sha256": "f" * 64})
+    with pytest.raises(ValueError, match="checkpoint differs from the authenticated predecessor"):
+        _initial_state(tmp_path, backend, contract, {"seed": 157, "mock": False}, None, nullcontext)
+    assert not (tmp_path / "initial" / "source.json").exists()
+    assert not (tmp_path / "initial" / "initial.json").exists()
+    assert backend.reveal_calls == backend.fit_calls == 0

@@ -1,5 +1,5 @@
 """Cross-process FIFO API dispatch with per-key POSIX leases and a shared limit."""
-from contextlib import contextmanager
+from contextlib import closing, contextmanager
 from contextvars import ContextVar
 from dataclasses import dataclass
 import fcntl
@@ -262,11 +262,27 @@ class KeyPool:
             elif kind in ("http_401", "http_403", "credential_file_error", "quota_exhausted"):
                 driver.execute("UPDATE keys SET disabled_error=? WHERE id=?", (kind, row["key_id"]))
 
-    def status(self):
-        if not self.database.exists():
-            return {"initialized": False}
+    @contextmanager
+    def _status_connection(self, readonly):
+        if readonly:
+            uri = self.database.absolute().as_uri() + "?mode=ro"
+            with closing(sqlite3.connect(uri, uri=True, timeout=30)) as driver:
+                driver.row_factory = sqlite3.Row
+                driver.execute("BEGIN")
+                yield driver
+            return
         with self.tx() as driver:
             self._prune(driver)
+            yield driver
+
+    def status(self, *, readonly=False):
+        if not self.database.exists():
+            return {"initialized": False}
+        with self._status_connection(readonly) as driver:
+            if readonly and driver.execute(
+                "SELECT 1 FROM sqlite_master WHERE type='table' AND name='settings'"
+            ).fetchone() is None:
+                return {"initialized": False}
             limits = dict(driver.execute("SELECT * FROM settings WHERE one=1").fetchone())
             rows = [dict(r) for r in driver.execute("SELECT * FROM queue ORDER BY position")]
             busy = {row["key_id"] for row in rows if row["state"] == "busy"}

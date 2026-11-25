@@ -14,7 +14,7 @@ from uuid import uuid4
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, dumps, once, read
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import ProviderReply, TransportStop
 
-from .formal_contract import LEASE_ROOT, PROFILE, ROOT, SEEDS, load_contract, verify_authorization
+from .formal_contract import DIRECT_API, LEASE_ROOT, PROFILE, ROOT, SEEDS, SSH_API, load_contract, verify_authorization
 from .key_pool import KeyPool, load_pool
 from .provider import call_responses, sdk_status, verify_reported_model
 
@@ -94,6 +94,26 @@ def _query_gpu_status():
     return result
 
 
+def _no_platform_api(_request, _config):
+    raise PermissionError("this formal run delegates provider transport to its authorized Mac dispatcher")
+
+
+def _provider_wiring(run, contract, approval, pool_config, seed):
+    if contract.api_execution == SSH_API:
+        from .bridge_protocol import BridgeCourier
+
+        courier = BridgeCourier(
+            run / "bridge", authorization_sha256=digest(approval), contract_sha256=contract.digest,
+            model_lock=run / "provider_model_lock.json", pause=partial(_pause_requested, run, seed),
+            wait_seconds=1800,
+        )
+        return _no_platform_api, {"managed_attempt": courier}
+    pool = KeyPool(run / "api", pool_config)
+    return partial(call_responses, model_lock=run / "provider_model_lock.json"), {
+        "attempt_slot": partial(pool.attempt, pause=partial(_pause_requested, run, seed))
+    }
+
+
 def _seed_worker(root, run, contract, approval, pool_config, seed, gpu, stop, generation):
     """Spawn one seed process before importing Torch so CUDA binding is process-local."""
     os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
@@ -110,22 +130,24 @@ def _seed_worker(root, run, contract, approval, pool_config, seed, gpu, stop, ge
 
             _atomic_status(payload, {"status": "initializing", "seed": seed, "pid": os.getpid(), "gpu": gpu})
             backend = TrainingBackend(root, run / "public_graphs" / f"seed_{seed}", seed)
-            pool = KeyPool(run / "api", pool_config)
+            call, transport_options = _provider_wiring(run, contract, approval, pool_config, seed)
             anchor = Path(contract.anchor_root) / f"random-{seed}" if contract.anchor_root else None
             result = run_seed(
                 root=root, run_directory=run, contract=contract, authorization=approval, seed=seed,
                 backend=backend, anchor_run=anchor, max_rounds=stop,
-                call=partial(call_responses, model_lock=run / "provider_model_lock.json"),
-                fit_slot=partial(gpu_slot, run, seed, gpu, contract.lease_root),
-                transport_options={"attempt_slot": partial(pool.attempt, pause=partial(_pause_requested, run, seed))},
+                call=call, fit_slot=partial(gpu_slot, run, seed, gpu, contract.lease_root),
+                transport_options=transport_options,
             )
             _atomic_status(payload, {**asdict(result), "gpu": gpu, "pid": os.getpid()})
     except Exception as error:
         reason = {"error_type": type(error).__name__}
         if isinstance(error, TransportStop):
             reason["reason"] = str(error)
-        _atomic_status(payload, {"status": "paused" if _pause_requested(run, seed) else "failed",
-                                 "seed": seed, "gpu": gpu, "pid": os.getpid(), **reason})
+        from .bridge_protocol import BridgePending
+
+        status = "paused" if _pause_requested(run, seed) else (
+            "bridge_pending" if isinstance(error, BridgePending) else "failed")
+        _atomic_status(payload, {"status": status, "seed": seed, "gpu": gpu, "pid": os.getpid(), **reason})
         raise SystemExit(1) from None
 
 
@@ -150,7 +172,10 @@ def _run(root, run, contract, approval, pool, *, resume):
     for gpu in contract.gpu_slots:
         _gpu_lease_path(contract.lease_root, gpu)
     verify_authorization(contract, approval)
-    if not sdk_status(contract.transport)["matches"]:
+    bridge = contract.api_execution == SSH_API
+    if bridge and pool is not None:
+        raise ValueError("the GPU coordinator does not load a key pool for SSH execution")
+    if not bridge and not sdk_status(contract.transport)["matches"]:
         raise RuntimeError("installed OpenAI SDK does not match the authorized profile")
     ctx = multiprocessing.get_context("spawn")
     run.mkdir(parents=True, exist_ok=True, mode=0o700)
@@ -161,10 +186,12 @@ def _run(root, run, contract, approval, pool, *, resume):
         if _pause_requested(run) and not resume:
             raise TransportStop("formal experiment is paused; use resume under its existing authorization")
         generation = uuid4().hex
-        KeyPool(run / "api", pool).prepare()
+        if not bridge:
+            KeyPool(run / "api", pool).prepare()
         once(run / "events" / f"{generation}.json", {
             "action": "resume" if resume else "run", "authorization_sha256": digest(approval),
-            "timestamp_unix": time.time(), "pool": pool.public(),
+            "timestamp_unix": time.time(), "pool": None if bridge else pool.public(),
+            "api_execution": contract.api_execution,
         })
         _atomic_status(run / "coordinator_generation.json", {"id": generation, "pid": os.getpid()})
         if resume:
@@ -213,7 +240,10 @@ def _preflight(root, run, contract, pool, *, synthetic):
     from .backend import TrainingBackend
     from .cuda_runtime import qualified_packages
 
-    status = {"sdk": sdk_status(contract.transport), "provider_qualified": False, "mode": (
+    sdk = {"required_on": "mac_dispatcher", "expected": contract.transport.sdk_version} if (
+        contract.api_execution == SSH_API
+    ) else sdk_status(contract.transport)
+    status = {"sdk": sdk, "api_execution": contract.api_execution, "provider_qualified": False, "mode": (
         "synthetic_predictions_only" if synthetic else "shared_cuda_L333_inference"
     ), "credential_files": pool.status() if pool else None, "seeds": {}}
     if not synthetic:
@@ -259,6 +289,8 @@ def _parse():
     parser.add_argument("--gpus", default="")
     parser.add_argument("--gpu-lease-root", type=Path, default=LEASE_ROOT)
     parser.add_argument("--authorization", type=Path)
+    parser.add_argument("--api-execution", choices=(DIRECT_API, SSH_API), default=DIRECT_API)
+    parser.add_argument("--predecessor-run", type=Path)
     parser.add_argument("--key-pool-config", type=Path)
     parser.add_argument("--single-key", action="store_true")
     parser.add_argument("--synthetic", action="store_true", help="offline preflight only")
@@ -291,13 +323,25 @@ def main():
     run = args.run_dir.resolve()
     if args.action == "status":
         report = snapshot(run)
-        pool = KeyPool(run / "api").status()
-        api = {row["seed"]: row["state"] for row in pool.get("queue", [])}
+        contract_file = run / "formal_contract.json"
+        bridge = contract_file.is_file() and read(contract_file).get("api_execution") == SSH_API
+        if bridge:
+            from .bridge_endpoint import exchange
+
+            pending = exchange(run, "list")["attempt_ids"]
+            api = {}
+            for attempt_id in pending:
+                binding = read(run / "bridge/outbox" / f"{attempt_id}.json")["request"]["binding"]
+                api[binding["seed"]] = "waiting_for_mac"
+            pool = {"role": "mac_dispatcher", "pending_attempt_ids": pending}
+        else:
+            pool = KeyPool(run / "api").status()
+            api = {row["seed"]: row["state"] for row in pool.get("queue", [])}
         gpu_jobs = [read(path) for path in sorted((run / "gpu").glob("seed_*.json"))]
         gpu = {row["seed"]: row["stage"] for row in gpu_jobs if row["stage"] != "idle"}
         for row in report["seeds"]:
             seed, worker = row["seed"], row["worker"] or {}
-            if worker.get("status") in ("failed", "paused", "complete"):
+            if worker.get("status") in ("failed", "paused", "complete", "bridge_pending"):
                 stage = worker["status"]
             elif seed in gpu:
                 stage = "gpu_" + gpu[seed]
@@ -319,16 +363,22 @@ def main():
     if run.is_relative_to(root):
         raise ValueError("run output must be outside the isolated source checkout")
     gpus = tuple(int(index) for index in args.gpus.split(",")) if args.gpus else ()
+    bridge = args.api_execution == SSH_API
+    if bridge and (args.key_pool_config or args.single_key):
+        raise PermissionError("SSH execution uses only the dispatcher-side key pool")
     contract = load_contract(root, args.config or root / PROFILE, anchor_root=args.anchor_root,
-                             gpu_slots=gpus, lease_root=args.gpu_lease_root, run_directory=run)
+                             gpu_slots=gpus, lease_root=args.gpu_lease_root, run_directory=run,
+                             api_execution=args.api_execution, predecessor_run=args.predecessor_run)
     if args.action == "contract":
         print(dumps({"contract_sha256": contract.digest, **contract.record()}))
         return
     if args.action == "preflight":
-        try:
-            pool = load_pool(args.key_pool_config, single=args.single_key, require_usable=False)
-        except FileNotFoundError:
-            pool = None
+        pool = None
+        if not bridge:
+            try:
+                pool = load_pool(args.key_pool_config, single=args.single_key, require_usable=False)
+            except FileNotFoundError:
+                pass
         _preflight(root, run, contract, pool, synthetic=args.synthetic)
         return
     if args.authorization is None:
@@ -358,7 +408,7 @@ def main():
         return
     if args.single_key:
         raise PermissionError("the formal five-seed launcher requires a configured dynamic key pool")
-    pool = load_pool(args.key_pool_config)
+    pool = None if bridge else load_pool(args.key_pool_config)
     raise SystemExit(_run(root, run, contract, approval, pool, resume=args.action == "resume"))
 
 

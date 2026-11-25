@@ -116,7 +116,8 @@ def _initial_state(directory, backend, contract, scope, anchor_run, fit_slot):
     source, receipt = initial / "source.json", initial / "initial.json"
     anchor = str(anchor_run.resolve()) if anchor_run is not None else None
     origin = {"scope": scope, "anchor_run": anchor}
-    if receipt.exists():
+    saved = receipt.exists()
+    if saved:
         recorded = read(receipt)
         fit_name = recorded.get("fit_path", "")
         if not isinstance(fit_name, str) or not (
@@ -125,8 +126,6 @@ def _initial_state(directory, backend, contract, scope, anchor_run, fit_slot):
             raise ValueError("invalid initial artifact path")
         fit_dir = initial / fit_name
         state = FrozenState(**read(source))
-        if recorded != _initial_record(origin, fit_dir, source, state):
-            raise ValueError("L333 receipt or selected GPU anchor changed")
     else:
         # The backend validates shared anchors. A fresh fit is permitted only in this authorized path.
         fresh = anchor_run is None
@@ -138,14 +137,20 @@ def _initial_state(directory, backend, contract, scope, anchor_run, fit_slot):
         # Shared checkpoints also perform qualified CUDA inference to reconstruct U predictions.
         with nullcontext() if (fit_dir / "initial_state_receipt.json").exists() else fit_slot():
             state = backend.initial_state(anchor_run, fit_dir, allow_fresh_fit=fresh)
-        _state_roles(state, backend, scope, 0, contract.batch_size)
-        once(source, asdict(state))
-        once(receipt, _initial_record(origin, fit_dir, source, state))
-        state = FrozenState(**read(source))
     _state_roles(state, backend, scope, 0, contract.batch_size)
+    predecessor = contract.predecessor or {}
+    if (not scope["mock"] and state.seed == 157 and "seed_157_initial_checkpoint_sha256" in predecessor
+            and state.checkpoint != predecessor["seed_157_initial_checkpoint_sha256"]):
+        raise ValueError("bridge seed 157 L333 checkpoint differs from the authenticated predecessor")
     if state.provenance["resource_receipt_sha256"] != backend.cache_receipt_sha256:
         raise ValueError("current GPU training resources differ from approved L333")
-    return state
+    if saved:
+        if recorded != _initial_record(origin, fit_dir, source, state):
+            raise ValueError("L333 receipt or selected GPU anchor changed")
+        return state
+    once(source, asdict(state))
+    once(receipt, _initial_record(origin, fit_dir, source, state))
+    return FrozenState(**read(source))
 
 
 def _initial_record(origin, fit_dir, source, state):
@@ -376,6 +381,7 @@ def run_seed(*, root, run_directory, contract, authorization, seed, backend, cal
     api_slot, fit_slot = api_slot or nullcontext, fit_slot or nullcontext
     options = dict(transport_options or {})
     attempt_slot = options.get("attempt_slot")
+    managed_attempt = options.get("managed_attempt")
     scope = _scope(contract, authorization, seed, mock)
     if seed != contract.qualification_seed and qualification_status(run, contract, authorization, mock=mock) is None:
         return SeedProgress(seed, "awaiting_qualification", 0, contract.initial_labels)
@@ -426,7 +432,15 @@ def run_seed(*, root, run_directory, contract, authorization, seed, backend, cal
                     with attempt_slot(request, config) as credential_id:
                         yield credential_id
 
-                retry_options = options if attempt_slot is None else {**options, "attempt_slot": authorized_attempt_slot}
+                def authorized_managed_attempt(request, config, started):
+                    authorize_request(request, config)
+                    return managed_attempt(request, config, started)
+
+                retry_options = dict(options)
+                if attempt_slot is not None:
+                    retry_options["attempt_slot"] = authorized_attempt_slot
+                if managed_attempt is not None:
+                    retry_options["managed_attempt"] = authorized_managed_attempt
                 phase = "select"
                 existing = (round_dir / "batch_freeze.json").exists()
                 with nullcontext() if existing else api_slot():

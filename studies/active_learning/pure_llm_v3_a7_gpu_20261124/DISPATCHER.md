@@ -1,0 +1,150 @@
+# A7 的 Mac 请求派发和 GPFS 训练
+
+A7/M2 的实验协议继续使用五个 seed、B32 和 L333→L1485。计算平台读取 4g 数据、构造完整请求、校验 LLM 科学计划和局部修复、冻结合法批次，再揭示该批实验并用 CUDA 更新 QGeoGNN。Mac 用带授权绑定的完整请求调用 Token4Research，并把完整响应交回平台。模型继续固定为 `gpt-6.2-sol` 与 `ultra`。Mac 需要持续连通 GPU 平台的 SSH 和 Token4Research。
+
+## 启动边界
+
+旧云端直连运行 `a7-gpt62-ultra-v1` 仍保留为独立轨迹。Seed 157 从 L333 发起的两次物理尝试均记录连接失败，现有记录没有完整模型回答、冻结批次或后续拟合，服务商账单未独立核验。切换到 Mac 中转需要新发布包、新运行目录和新的准确合同授权。新的轨迹从同样的五份已核验 CUDA L333 初始检查点开始。首个 seed 157 的真实 round 0 直接计入该轨迹。以同一批 32 点完成 L365 并核验下一轮状态后，其余 seed 放行。 [已有运行和模型入口](REMOTE_HANDOFF_20261125.md)
+
+## 凭据和派发
+
+Mac 的 provider 凭据保存在 `~/.config/purellm`。使用当前 Mac 用户拥有的目录权限 `0700` 与文件权限 `0600`。查看或制作配置时只显示逻辑 Key 标识、权限和可用性。Mac 同时持有三把获准使用的凭据。每把 Key 最多占用一个物理请求槽，整体并发与退避仍受同一 provider 配额约束。跨主机运输使用已验证主机密钥的 SSH，收据通过 SHA256 绑定数据和授权身份。
+
+从 Mac 的 checkout 根目录运行以下命令，已有配置和凭据文件保留。保持终端静默输入。
+
+```bash
+study=studies/active_learning/pure_llm_v3_a7_gpu_20261124
+keydir="$HOME/.config/purellm"
+umask 077
+install -d -m 700 "$keydir" "$keydir/keys"
+if [ ! -e "$keydir/key_pool.json" ]; then
+  install -m 600 "$study/key_pool.example.json" "$keydir/key_pool.json"
+fi
+for id in key_01 key_02 key_03; do
+  file="$keydir/keys/$id"
+  if [ ! -e "$file" ]; then
+    printf 'Provider key for %s: ' "$id" >&2
+    IFS= read -r -s purellm_value
+    printf '\n'
+    if [ -n "$purellm_value" ]; then
+      (set -C; printf '%s\n' "$purellm_value" > "$file")
+    fi
+    unset purellm_value
+  fi
+done
+```
+
+Key 池路径可用 `PURE_LLM_KEY_POOL_CONFIG` 指定。并发上限取决于 provider 实际批准的共享额度。更换失效 Key 时先暂停派发，待运行中的请求到达已记录的终态，再更新凭据并恢复。 [Key 池模板](key_pool.example.json)
+
+SSH 传输携带 GPU 侧生成的原请求及尝试身份。GPFS 将该运行和每个尝试绑定到同一个 Mac 私有 spool 标识。Mac 将完整的服务商终态 JSON、原始回答文本和用量落盘后才回传 GPFS。回传中断时，使用同一个 spool 恢复，派发器转发原完成收据。若完整终态文件已落盘但正式回执还没封存，派发器会从同一份原始返回重建回执。其他 spool 无法重新领取或重发该尝试。若 provider 请求已开始而终态未知，暂停该尝试并按原请求和尝试 ID 对账。GPU 在等候 Mac 时保留当前轮 L/U 和尝试身份，并释放 GPU 槽给训练工作。发生 seed 或 checkpoint 错绑、消息篡改、模型身份不符、认证或权限故障时进入对应的失败或等待状态。
+
+## 运行检查
+
+- 对照旧云端运行记录，核实最后一个合法状态和批次边界。新运行位于独立 GPFS 路径，与数值基线共用同一物理 GPU 锁。
+- 核对实际部署的发布包、数据和源代码 SHA。确认五份固定 L333 锚点、完整 U2997 预测、空初始科学记忆及模型协议。
+- 核查 Mac 私有 Key 池的所有者及文件权限。凭据值留在私有读写路径。
+- 先用明确标记的 mock 工作和响应核对双向传输、摘要校验与断点重投递。完成测试后，正式运行仍取决于新合同授权。
+- 同时监看三处进度。Mac 显示待派发、正在执行、待回传与需对账。GPU 侧显示准确的轮次和是否在等候响应。正式输出中单列 GPU 物理尝试预留、Mac 实际发出、逻辑答复、合法冻结和训练完成。仅有 GPU 预留的等待项不代表已经调用服务商。
+
+## Mac 派发入口
+
+在 Mac 上从经核对的同版 checkout 根目录运行。Mac Python 需要安装锁定的 OpenAI SDK。选择一个单独的虚拟环境，并用该 release 的依赖文件安装。保留 spool 路径，使进程、SSH 或 Mac 重启后能读取同一份完成收据。
+
+```bash
+study=studies/active_learning/pure_llm_v3_a7_gpu_20261124
+base=studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu
+remote=/1/column_chromatography_prediction
+gpu_run="$remote/purellm_a7/runs/a7-gpt62-ultra-ssh-v2"
+keyconf="$HOME/.config/purellm/key_pool.json"
+mac_python="${A7_MAC_PYTHON:?指定已安装固定 SDK 的 Mac Python}"
+contract="${A7_CONTRACT_SHA256:?填写已核验并批准的新合同 SHA256}"
+spool="$HOME/.config/purellm/spool/$contract"
+umask 077
+install -d -m 700 "$spool"
+
+"$mac_python" -m pip install -r "$study/requirements_provider.txt"
+"$mac_python" -B -m "$base.scheduler" key-status --key-pool-config "$keyconf"
+dispatch=(--spool-dir "$spool" --ssh-host eit-hpc --remote-run-dir "$gpu_run"
+  --remote-root "${A7_REMOTE_RELEASE:?填写 GPU 侧新 release 的绝对路径}"
+  --contract-sha "$contract")
+
+# GPU 协调器已发布请求时，仅核查并取回可用的工作。
+"$mac_python" -B -m "$base.dispatcher" stage "${dispatch[@]}"
+"$mac_python" -B -m "$base.dispatcher" status --spool-dir "$spool"
+```
+
+以下命令仅在用户批准这一新合同之后执行。保持 Mac 网络和 SSH 可达。 `caffeinate -i` 在程序存活时抑制空闲睡眠。
+
+```bash
+nohup /usr/bin/caffeinate -i "$mac_python" -B -u -m "$base.dispatcher" run \
+  "${dispatch[@]}" --key-pool-config "$keyconf" --execute-paid --watch \
+  >> "$spool/dispatcher.log" 2>&1 </dev/null &
+dispatcher_pid=$!
+ps -p "$dispatcher_pid" -o pid=,state=
+"$mac_python" -B -m "$base.dispatcher" status --spool-dir "$spool"
+```
+
+派发器报告任务、已封存结果、已回传结果和终态待确认计数。`status` 中的 `key_pool` 提供每个逻辑 Key 的可用、占用、冷却或禁用状态，以及请求、完成、失败和已知用量。Mac 到 GPU 失联时保留其状态。修复连接后用完全相同的 spool 路径和合同重新启动。先查 GPU `status` 和 Mac `status`，确认是否有本地已封存待回传响应或上游执行状态未知的尝试。需要暂停时先在 GPU 执行 `pause`，等待已发出的调用留下响应或可对账的终态，再结束本地进程。所有 seed 达到 L1485 后可结束本地监听。保留本地 spool 与 GPU 运行记录。
+
+## 在 GPU 平台核对新合同
+
+从独立 release 根目录运行。以下路径中的 `A7_RELEASE` 应来自安装收据，`A7_AUTHORIZATION` 指向用户另行批准的私密授权。保留旧轨迹的暂停标记与收据。不同版本的合同 SHA 不可互相授权。
+
+从本说明所在提交构建并将发布包安装到 GPFS 的 `purellm_a7/releases/<发布包 SHA256>`。按部署说明的构建与安装步骤执行，核对安装器返回的 SHA。Mac checkout 使用同一提交。 [构建与安装命令](DEPLOYMENT.md#构建与安装)
+
+```bash
+remote=/1/column_chromatography_prediction
+suite="$remote/formal_cuda/row4g_b32_20261124"
+old="$remote/purellm_a7/runs/a7-gpt62-ultra-v1"
+run="$remote/purellm_a7/runs/a7-gpt62-ultra-ssh-v2"
+gpu_python="$remote/environment/venv/bin/python"
+base=studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu
+cd "${A7_RELEASE:?填写新 release 的绝对路径}" || exit
+common=(--run-dir "$run" --gpus 0,1 --gpu-lease-root "$suite"
+  --anchor-root "$suite/trajectories" --api-execution mac_ssh_dispatch_v1
+  --predecessor-run "$old")
+
+"$gpu_python" -B -m "$base.scheduler" contract "${common[@]}"
+findmnt -T "$remote" -n -o TARGET,FSTYPE
+nvidia-smi --query-gpu=index,name,memory.free,utilization.gpu --format=csv,noheader
+```
+
+对照新合同中的 GPU、锚点、当前运行目录、旧运行证据和源码清单。前序运行的摘要覆盖两次失败尝试和暂停标记。用户明确批准新 SHA 后，在源码外的私密路径复制空白模板，填写该 SHA、批准人与授权依据，并按批准范围开启 API、冻结后揭示和 CUDA 训练。核查通过后，用下列命令启动。GPU 协调器在发布首个请求后等待 Mac。 [空白授权模板](formal_authorization.template.json)
+
+```bash
+: "${A7_AUTHORIZATION:?填写正式批准的私密授权文件}"
+umask 077
+mkdir -p "$run"
+nohup "$gpu_python" -B -u -m "$base.scheduler" run "${common[@]}" \
+  --authorization "$A7_AUTHORIZATION" >> "$run/coordinator.log" 2>&1 </dev/null &
+```
+
+GPFS 保留已发布工作、已接收响应、GPU worker 进度、选择冻结、验证指标与模型。GPU worker 等待同一 Mac 尝试的时限为 30 分钟，超时会显示 `bridge_pending`，保留原尝试供恢复。新容器挂载同一持久盘后，以相同的 release 和同一个批准合同恢复。Mac 私有 spool 保持原位置和身份，不复制为第二个活跃派发器。先用 `status` 核对状态，暂停时等现有 worker 自行停在合法边界，再用 `resume`。保留共享 GPU 锁文件及原工作目录。
+
+新容器使用相同基础镜像、GPU 驱动和绝对 GPFS 挂载路径。先核对原 venv 及两张显卡可用，再以已有参数重新生成合同并与原批准 SHA 比较。分布式模式的 GPU 端只需要训练环境。SDK 和 Key 池均由 Mac 管理。容器如更新了 SSH 主机密钥，先通过平台确认新指纹并更新本机 `known_hosts`。
+
+```bash
+"$gpu_python" -B -m "$base.scheduler" status --run-dir "$run"
+"$gpu_python" -B -m "$base.scheduler" pause --run-dir "$run"
+
+# 协调器和各 worker 均退出后，再恢复同一正式版本。
+nohup "$gpu_python" -B -u -m "$base.scheduler" resume "${common[@]}" \
+  --authorization "$A7_AUTHORIZATION" >> "$run/coordinator.log" 2>&1 </dev/null &
+```
+
+若 Mac 显示已发出请求而终态待确认，暂停并确认 GPU worker 和 Mac 派发器均已退出，保留两侧的原始请求和尝试。根据服务商的独立证据，操作者只在确认未执行或取得可核验完整响应后提交对账。对账 JSON 绑定原 `request_id`、`attempt_id`、`authorized_by`、`evidence` 和 `decision`。 `confirmed_not_processed` 仍受原逻辑请求的剩余尝试预算约束。 `import_completed` 使用原返回的完整响应。 [对账字段与响应文件](README.md#恢复和评价)
+
+```bash
+"$gpu_python" -B -m "$base.scheduler" reconcile "${common[@]}" \
+  --authorization "$A7_AUTHORIZATION" --seed "$RECONCILE_SEED" --round "$ROUND_INDEX" \
+  --logical-index "$LOGICAL_INDEX" --attempt "$ATTEMPT_INDEX" --reconciliation "$RECONCILIATION_JSON"
+# 导入完整响应时，同一命令再加 --recovered-response "$VERIFIED_RESPONSE_JSON"。
+```
+
+## 离线复测
+
+```bash
+python -m pytest -q "$study/tests" studies/active_learning/pure_llm_v3_20261124/tests
+```
+
+合成测试核验请求原样往返、外部 seed 响应拒收、Mac 节点响应回传失败后原收据可重投递，以及 GPU 节点等待时不揭示标签和不占用 GPU。Mac Key 池复用已有五进程测试，覆盖三 Key 动态分配、等待队列、公平退出与中断释放。实机的 provider 模型版本、推理等级及超长上下文能力留给正式 seed 157 的首轮。

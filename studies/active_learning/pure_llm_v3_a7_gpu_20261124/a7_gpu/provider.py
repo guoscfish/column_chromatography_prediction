@@ -4,9 +4,9 @@ from importlib.metadata import PackageNotFoundError, version
 import re
 import time
 
-from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import once
+from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, once
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
-    TransportFailure, check_request, collect_completed, retry_http,
+    ProviderReply, TransportFailure, check_request, collect_completed, retry_http,
 )
 
 from .credentials import api_key, key_text
@@ -42,22 +42,33 @@ def http_failure(status, headers, body):
     return retry_http(status, headers), scope
 
 
-def _collect(stream, deadline):
+def _collect(stream, deadline, capture_response=None, capture_receipt=None):
     declared = {}
+    terminal = None
+
     def watch():
+        nonlocal terminal
         for event in stream:
             if event.type == "response.completed":
-                response = event.response
-                extras = getattr(response, "model_extra", {}) or {}
-                reasoning = getattr(response, "reasoning", None)
+                terminal = event.response
+                extras = getattr(terminal, "model_extra", {}) or {}
+                reasoning = getattr(terminal, "reasoning", None)
                 declared.update(model_version=extras.get("model_version"),
                                 reported_reasoning_effort=getattr(reasoning, "effort", None))
             yield event
+
     reply = collect_completed(watch(), deadline=deadline)
-    header = stream.response.headers
+    headers = stream.response.headers
     if declared.get("model_version") is None:
-        declared["model_version"] = header.get("x-model-version")
-    return replace(reply, provider_request_id=reply.provider_request_id or header.get("x-request-id")), declared
+        declared["model_version"] = headers.get("x-model-version")
+    reply = replace(reply, provider_request_id=reply.provider_request_id or headers.get("x-request-id"))
+    if capture_response is not None:
+        raw = terminal.model_dump(mode="json", exclude_unset=True)
+        if capture_receipt is not None:
+            capture_receipt({"raw_response_sha256": digest(raw),
+                             "provider_request_id": reply.provider_request_id, **declared})
+        capture_response(raw)
+    return reply, declared
 
 
 def verify_reported_model(config, reply, declared):
@@ -80,9 +91,53 @@ def _lock_model(lock_path, config, reply, declared):
         once(lock_path, lock)
     except ValueError:
         raise TransportFailure("provider_identity_drift") from None
+    return lock
 
 
-def call_responses(request, config, *, model_lock):
+def recover_completed_response(raw, config, *, model_lock, metadata=None):
+    """Recover the sole previously completed provider response using durable local evidence."""
+    if not isinstance(raw, dict) or raw.get("status") != "completed":
+        raise ValueError("local raw response does not prove completion")
+    reasoning = raw.get("reasoning") or {}
+    if not isinstance(reasoning, dict):
+        raise ValueError("invalid provider reasoning evidence")
+    declared = {"model_version": raw.get("model_version"),
+                "reported_reasoning_effort": reasoning.get("effort")}
+    provider_request_id = None
+    if metadata is not None:
+        if (
+            type(metadata) is not dict or set(metadata) != {
+                "raw_response_sha256", "provider_request_id", "model_version", "reported_reasoning_effort"
+            }
+            or metadata["raw_response_sha256"] != digest(raw)
+            or any(declared[k] is not None and declared[k] != metadata[k] for k in declared)
+            or metadata["provider_request_id"] is not None and not isinstance(metadata["provider_request_id"], str)
+        ):
+            raise ValueError("local recovery metadata does not match the raw provider response")
+        provider_request_id = metadata["provider_request_id"]
+        declared = {key: metadata[key] for key in declared}
+    output = raw.get("output")
+    if not isinstance(output, list):
+        raise ValueError("invalid raw provider output")
+    answer = "".join(block["text"] for item in output if item["type"] == "message"
+                     for block in item["content"] if block["type"] == "output_text")
+    measured = raw.get("usage") or {}
+    if not isinstance(measured, dict):
+        raise ValueError("invalid raw provider token usage")
+    usage = {k: measured[k] for k in ("input_tokens", "output_tokens", "total_tokens")
+             if measured.get(k) is not None}
+    for block, field in (("input_tokens_details", "cached_tokens"), ("output_tokens_details", "reasoning_tokens")):
+        count = (measured.get(block) or {}).get(field)
+        if count is not None:
+            usage[field] = count
+    if (not isinstance(raw.get("id"), str) or not raw["id"] or not answer.strip()
+            or any(type(v) is not int or v < 0 for v in usage.values())):
+        raise ValueError("raw provider completion is missing identity, answer, or consistent usage")
+    reply = ProviderReply(answer, raw["id"], raw["model"], usage, "completed", provider_request_id)
+    return reply, _lock_model(model_lock, config, reply, declared)
+
+
+def call_responses(request, config, *, model_lock, capture_response=None, capture_receipt=None):
     """Only the authorized runner can call this with an acquired physical lease."""
     import httpx
     import openai
@@ -100,9 +155,9 @@ def call_responses(request, config, *, model_lock):
         # A client gets one immutable key, no mutation of the process-wide environment.
         if lease.path is None:
             with api_key() as (value, _):
-                return _call_with_key(value, request, config, model_lock, lease)
+                return _call_with_key(value, request, config, model_lock, lease, capture_response, capture_receipt)
         with key_text(lease.path) as value:
-            return _call_with_key(value, request, config, model_lock, lease)
+            return _call_with_key(value, request, config, model_lock, lease, capture_response, capture_receipt)
     except (PermissionError, FileNotFoundError):
         failure = TransportFailure("credential_file_error")
     except openai.APIStatusError as error:
@@ -136,7 +191,7 @@ class _ReturnedResponseError(Exception):
         self.failure = failure
 
 
-def _call_with_key(key, request, config, model_lock, lease):
+def _call_with_key(key, request, config, model_lock, lease, capture_response, capture_receipt):
     import openai
 
     deadline = time.monotonic() + config.timeout_seconds
@@ -146,7 +201,7 @@ def _call_with_key(key, request, config, model_lock, lease):
         with client.responses.create(
             **request["payload"], extra_headers={"X-Client-Request-Id": request["request_id"]}
         ) as stream:
-            reply, declared = _collect(stream, deadline)
+            reply, declared = _collect(stream, deadline, capture_response, capture_receipt)
     try:
         if not reply.response_id or reply.status != "completed":
             raise TransportFailure("incomplete_response", ambiguous=True)

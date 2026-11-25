@@ -10,6 +10,8 @@ ROOT = Path(__file__).resolve().parents[4]
 STUDY = Path("studies/active_learning/pure_llm_v3_a7_gpu_20261124")
 OFFLINE = Path("studies/active_learning/pure_llm_v3_20261124")
 PROFILE = STUDY / "execution_gpt62_ultra_a7.json"
+DIRECT_API = "direct_platform"
+SSH_API = "mac_ssh_dispatch_v1"
 SEEDS = (157, 887, 2357, 6101, 12203)
 NUMERIC_STUDY = Path("studies/active_learning/qgeognn_v2_row_sequential_b32")
 METADATA_STUDY = Path("studies/active_learning/qgeognn_v2_row_small_batch_benchmark")
@@ -35,6 +37,8 @@ class FormalContract:
     gpu_slots: tuple[int, ...] = ()
     lease_root: str = str(LEASE_ROOT)
     run_directory: str | None = None
+    api_execution: str = DIRECT_API
+    predecessor: dict | None = None
 
     @property
     def seed_ids(self):
@@ -70,7 +74,7 @@ class FormalContract:
 
     def record(self):
         base = len(self.seed_ids) * self.rounds
-        return {"profile": self.profile, "source_sha256": self.source_sha256,
+        record = {"profile": self.profile, "source_sha256": self.source_sha256,
                 "asset_sha256": self.asset_sha256, "initial_policy": (
                     "reuse_verified_cuda_random_l333" if self.anchor_root else "fresh_identical_cuda_l333"
                 ), "anchor_root": self.anchor_root, "gpu_slots": list(self.gpu_slots),
@@ -79,6 +83,10 @@ class FormalContract:
                            "maximum_logical_requests": base * self.transport.logical_replies,
                            "maximum_physical_attempts": base * self.transport.logical_replies
                            * self.transport.transport_attempts}}
+        if self.api_execution != DIRECT_API:
+            record["api_execution"] = self.api_execution
+            record["predecessor"] = self.predecessor
+        return record
 
     @property
     def digest(self):
@@ -116,7 +124,8 @@ def _profile(path):
     return profile, transport
 
 
-def load_contract(root, config_path, *, anchor_root=None, gpu_slots=(), lease_root=LEASE_ROOT, run_directory=None):
+def load_contract(root, config_path, *, anchor_root=None, gpu_slots=(), lease_root=LEASE_ROOT,
+                  run_directory=None, api_execution=DIRECT_API, predecessor_run=None):
     root = Path(root)
     profile, transport = _profile(config_path)
     slots = tuple(gpu_slots)
@@ -131,10 +140,28 @@ def load_contract(root, config_path, *, anchor_root=None, gpu_slots=(), lease_ro
     ]
     sources = {path.relative_to(root).as_posix(): file_digest(path) for path in code}
     assets = {path.as_posix(): file_digest(root / path) for path in ASSETS}
-    return FormalContract(profile, transport, sources, assets,
-                          str(Path(anchor_root).resolve()) if anchor_root else None,
-                          slots, str(Path(lease_root).resolve()),
-                          str(Path(run_directory).resolve()) if run_directory is not None else None)
+    run_path = Path(run_directory).resolve() if run_directory is not None else None
+    anchors = str(Path(anchor_root).resolve()) if anchor_root else None
+    lease = str(Path(lease_root).resolve())
+    predecessor = None
+    if api_execution == SSH_API:
+        from .supersession import inspect_predecessor
+
+        if predecessor_run is None or run_path is None or anchors is None:
+            raise ValueError("SSH execution needs a separate run and its original shared CUDA anchors")
+        original = inspect_predecessor(predecessor_run)
+        old_run = Path(original["run_directory"])
+        if run_path == old_run or run_path.parent != old_run.parent:
+            raise ValueError("SSH execution needs its own sibling run directory")
+        expected = (original["profile"], original["asset_sha256"], original["anchor_root"],
+                    tuple(original["gpu_slots"]), original["lease_root"])
+        if (profile, assets, anchors, slots, lease) != expected:
+            raise ValueError("SSH execution may change transport location only, not the original A7 profile or GPU inputs")
+        predecessor = original
+    elif api_execution != DIRECT_API or predecessor_run is not None:
+        raise ValueError("unsupported API execution mode or predecessor binding")
+    return FormalContract(profile, transport, sources, assets, anchors, slots, lease,
+                          str(run_path) if run_path else None, api_execution, predecessor)
 
 
 def verify_authorization(contract, authorization):
