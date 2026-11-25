@@ -31,7 +31,7 @@ def valid_sha(value):
 
 def approved_release(value):
     path = PurePosixPath(value)
-    if str(path) != value or path.parent != A7 / "releases" or not valid_sha(path.name):
+    if str(path) != value or path.parent != A7 / "releases" or not valid_sha(path.name.removeprefix("full-")):
         raise ValueError("remote release must be an exact, SHA-addressed GPFS release directory")
     return str(path)
 
