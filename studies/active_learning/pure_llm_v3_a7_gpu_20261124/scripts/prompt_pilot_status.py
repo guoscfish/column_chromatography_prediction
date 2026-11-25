@@ -22,6 +22,7 @@ DIRECT_887 = "a7-gpt62-astra-xhigh-ssh-v9-direct-one"
 REPAIR = "a7-gpt62-astra-xhigh-ssh-v10-targeted-repair"
 DIRECT_FULL = "a7-gpt62-astra-xhigh-ssh-v11-direct-full"
 BACKGROUND = "a7-gpt62-astra-xhigh-background-v12"
+SERIAL_IPV4 = "a7-gpt62-astra-xhigh-ipv4-v13"
 PILOT_ROUNDS = 10
 TARGET_ROUNDS = 36
 TARGET_LABELS = 1485
@@ -147,15 +148,20 @@ def dispatch_contract(run, seed):
 
 
 def remote_seed(runs, seed):
-    background = runs / BACKGROUND
-    background_contract = fallback_contract(background)
-    if background_contract:
-        record = read_json(background / "formal_contract.json")
-        profile = record.get("profile", {})
-        if (tuple(profile.get("confirmation_seeds", ())) != SEEDS
-                or profile.get("provider_capability") != "verified_route"
-                or (record.get("predecessor") or {}).get("dispatcher_module") != "dispatch_prepared_background"):
-            background_contract = None
+    cohort_contract = None
+    for name, mode, dispatcher, capability in (
+        (SERIAL_IPV4, "ipv4", "dispatch_prepared_ipv4", "gated_ipv4"),
+        (BACKGROUND, "background", "dispatch_prepared_background", "verified_route"),
+    ):
+        cohort = runs / name
+        if candidate := fallback_contract(cohort):
+            record = read_json(cohort / "formal_contract.json")
+            profile = record.get("profile", {})
+            if (tuple(profile.get("confirmation_seeds", ())) == SEEDS
+                    and profile.get("provider_capability") == capability
+                    and (record.get("predecessor") or {}).get("dispatcher_module") == dispatcher):
+                cohort_contract = candidate
+                break
     direct_full = runs / f"{DIRECT_FULL}-{seed}"
     full = runs / f"{FULL}-{seed}"
     direct = runs / f"{DIRECT_887 if seed == 887 else DIRECT}-{seed}"
@@ -164,8 +170,8 @@ def remote_seed(runs, seed):
     repair = runs / f"{REPAIR}-{seed}"
     direct_full_contract, full_contract, repair_contract, direct_contract, continuation_contract = (
         dispatch_contract(run, seed) for run in (direct_full, full, repair, direct, continuation))
-    if background_contract:
-        run, contract, segment = background, background_contract, "background"
+    if cohort_contract:
+        run, contract, segment = cohort, cohort_contract, mode
         ancestors = tuple(path for path, approved in (
             (direct_full, direct_full_contract), (repair, repair_contract), (direct, direct_contract),
             (continuation, continuation_contract), (fallback, fallback_contract(fallback)),
@@ -191,7 +197,7 @@ def remote_seed(runs, seed):
     else:
         run, contract, segment = fallback, fallback_contract(fallback), "historical"
         ancestors = ()
-    if seed in UNSTARTED_ANCHORS and not background_contract and not any(
+    if seed in UNSTARTED_ANCHORS and not cohort_contract and not any(
         (path / f"seed_{seed}").exists() for path in (run, *ancestors)
     ):
         anchor = (runs.parent.parent / "formal_cuda/row4g_b32_20261124/trajectories"
@@ -211,7 +217,7 @@ def remote_seed(runs, seed):
         if latest is not None:
             break
         latest, metrics = latest_round(ancestor / f"seed_{seed}")
-    if background_contract and latest is None:
+    if cohort_contract and latest is None:
         lane = record["predecessor"].get("lanes", {}).get(str(seed), {})
         start, checkpoint = lane.get("start_round"), lane.get("checkpoint_sha256")
         if type(start) is int and 0 <= start < TARGET_ROUNDS and isinstance(checkpoint, str) and SHA.fullmatch(checkpoint):
@@ -227,7 +233,7 @@ def remote_seed(runs, seed):
     phase = safe_code(worker.get("status")) or "waiting_to_start"
     if latest == TARGET_ROUNDS:
         phase = "complete"
-    elif latest == PILOT_ROUNDS and segment not in ("v6", "v11", "background"):
+    elif latest == PILOT_ROUNDS and segment not in ("v6", "v11", "background", "ipv4"):
         phase = "awaiting_v6_handoff"
     elif paused:
         phase = "paused"
@@ -248,7 +254,7 @@ def remote_seed(runs, seed):
     elif not worker_live and phase == "initializing":
         phase = "worker_stopped"
     return {"seed": seed, "run": run.name, "contract_sha256": contract, "segment": segment,
-            "continuation": segment in ("background", "v11", "v6", "v5", "direct", "repair"), "target_rounds": TARGET_ROUNDS, "target_labels": TARGET_LABELS,
+            "continuation": segment in ("ipv4", "background", "v11", "v6", "v5", "direct", "repair"), "target_rounds": TARGET_ROUNDS, "target_labels": TARGET_LABELS,
             "completed_rounds": latest, "labels": 333 + latest * 32 if latest is not None else None,
             "phase": phase, "worker_pid": worker_pid, "worker_active": worker_live,
             "worker_error": safe_code(worker.get("error_type")), "coordinator_pid": coordinator,
@@ -316,8 +322,9 @@ def local_progress(spool, seed, active):
 
 
 def dispatcher_pid(seed, segment):
-    if segment == "background":
-        label = f"gui/{os.getuid()}/com.purellm.a7-background-v12"
+    if segment in ("background", "ipv4"):
+        service = "a7-background-v12" if segment == "background" else "a7-ipv4-v13"
+        label = f"gui/{os.getuid()}/com.purellm.{service}"
     else:
         suffix = {"v11": "v11-direct-full", "v6": "v6-full", "v5": "v5-continuation", "direct": ("v9-direct" if seed == 887 else "v8-direct"),
                   "repair": "v10-targeted-repair"}[segment]

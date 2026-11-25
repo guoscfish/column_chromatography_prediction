@@ -2,12 +2,13 @@
 import asyncio
 from dataclasses import replace
 from importlib.metadata import PackageNotFoundError, version
+from ipaddress import ip_address
 import re
 import time
 
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, once
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
-    RESPONSES_STREAM, ProviderReply, TransportFailure, check_request, collect_completed, retry_http,
+    RESPONSES_STREAM, RESPONSES_STREAM_IPV4, ProviderReply, TransportFailure, check_request, collect_completed, retry_http,
 )
 
 from .credentials import api_key, key_text
@@ -22,8 +23,11 @@ PROGRESS_MILESTONES = LIFECYCLE_EVENTS | {
     "response.output_item.added", "response.output_item.done", "response.output_text.delta", "response.output_text.done",
 }
 PROGRESS_INTERVAL_SECONDS = 5
+DIRECT_IPV4_PREFLIGHT_SECONDS = 8
 NETWORK_PHASES = {"connect_tcp": "dns_tcp", "start_tls": "tls", "send_request_headers": "send_headers",
-                  "send_request_body": "send_body", "receive_response_headers": "receive_headers"}
+                  "send_request_body": "send_body", "receive_response_headers": "receive_headers",
+                  "direct_ipv4_preflight": "direct_ipv4_preflight",
+                  "direct_ipv4_http11": "direct_ipv4_http11"}
 
 
 def sdk_status(config):
@@ -80,6 +84,12 @@ class _WallDeadline(TransportFailure):
 class _PrePostConnectTimeout(TransportFailure):
     def __init__(self):
         super().__init__("connect_error", retryable=True)
+
+
+class _IPv4PreflightFailure(TransportFailure):
+    def __init__(self, retry=None):
+        super().__init__(retry.code if retry else "connect_error", retryable=True,
+                         retry_after=retry.retry_after if retry else None)
 
 
 class _StreamEvidence:
@@ -261,8 +271,10 @@ def call_responses(request, config, *, model_lock, capture_response=None, captur
     if lease is None:
         raise TransportFailure("missing_physical_api_lease")
     check_request(request, request["binding"], config)
-    if config.wire_mode != RESPONSES_STREAM:
+    if config.wire_mode not in (RESPONSES_STREAM, RESPONSES_STREAM_IPV4):
         raise TransportFailure("background_dispatcher_required")
+    if config.wire_mode == RESPONSES_STREAM_IPV4 and timeouts is None:
+        raise TransportFailure("direct_ipv4_timeouts_required")
     if not sdk_status(config)["matches"]:
         lease.outcome("sdk_version_mismatch")
         raise TransportFailure("sdk_version_mismatch")
@@ -297,6 +309,8 @@ def call_responses(request, config, *, model_lock, capture_response=None, captur
         failure, error_type = error, "event_deadline_exceeded"
     except _WallDeadline as error:
         failure, error_type = error, "hard_wall_deadline"
+    except _IPv4PreflightFailure as error:
+        failure, error_type = error, "direct_ipv4_preflight_failed"
     except _PrePostConnectTimeout as error:
         failure, error_type = error, "connect_timeout_before_post"
     except (openai.APITimeoutError, httpx.TimeoutException) as error:
@@ -345,6 +359,8 @@ class _TransmissionEvidence:
 
 def _trace_request(report, transmission):
     async def attach(request):
+        if request.method != "POST":
+            return
         started = {}
         observed_proxy = None
         direct_tls = False
@@ -394,6 +410,39 @@ def _trace_request(report, transmission):
     return attach
 
 
+def _direct_ipv4_http11(response):
+    network = response.extensions.get("network_stream")
+    peer = network.get_extra_info("server_addr") if network is not None else None
+    return bool(peer and ip_address(peer[0]).version == 4 and response.http_version == "HTTP/1.1")
+
+
+async def _preflight_ipv4(http, base_url, report):
+    """Check the exact gateway over a credential-free request before reserving a model POST."""
+    import httpx
+
+    started = time.monotonic()
+    status = None
+    passed = False
+    try:
+        async with asyncio.timeout(DIRECT_IPV4_PREFLIGHT_SECONDS):
+            response = await http.get(f"{base_url.rstrip('/')}/models")
+            status = response.status_code
+            if status not in (200, 401) or not _direct_ipv4_http11(response):
+                retry = retry_http(status, response.headers) if status == 429 else None
+                raise _IPv4PreflightFailure(retry)
+            passed = True
+    except (TimeoutError, httpx.HTTPError, ValueError) as error:
+        raise _IPv4PreflightFailure() from error
+    finally:
+        # The route probe must not introduce a cookie to the scientific request.
+        http.cookies.clear()
+        if report is not None:
+            report("http_phase", network_phase="direct_ipv4_preflight",
+                   network_state="complete" if passed else "failed",
+                   phase_duration_seconds=time.monotonic() - started, explicit_proxy=False,
+                   event_type=f"ipv4_preflight_http_{status}" if status is not None else "ipv4_preflight_no_headers")
+
+
 async def _hard_wall_call(key, request, config, lease, capture_response, capture_receipt, report, timeouts):
     import httpx
     import openai
@@ -402,25 +451,50 @@ async def _hard_wall_call(key, request, config, lease, capture_response, capture
                                 write=timeouts.write_seconds, read=timeouts.read_idle_seconds)
     transmission = _TransmissionEvidence()
     event_hooks = {"request": [_trace_request(report, transmission)]}
+    ipv4_direct = config.wire_mode == RESPONSES_STREAM_IPV4
+    client_options = {}
+    if ipv4_direct:
+        client_options = {
+            "trust_env": False,
+            # Binding an IPv4 source constrains the resolver to A records. The HTTPS
+            # URL still supplies the original hostname for SNI and certificate checks.
+            "transport": httpx.AsyncHTTPTransport(local_address="0.0.0.0", verify=True,
+                                                 http1=True, http2=False, trust_env=False, retries=0),
+        }
     reply = None
-    deadline = time.monotonic() + timeouts.total_seconds
+    started = time.monotonic()
+    deadline = started + timeouts.total_seconds
     alarm = asyncio.timeout(timeouts.total_seconds)
+    submission_reserved = False
     try:
         async with alarm:
-            async with httpx.AsyncClient(timeout=sdk_timeout, follow_redirects=False, event_hooks=event_hooks) as http:
+            async with httpx.AsyncClient(timeout=sdk_timeout, follow_redirects=False, event_hooks=event_hooks,
+                                         **client_options) as http:
+                if ipv4_direct:
+                    await _preflight_ipv4(http, config.base_url, report)
                 async with openai.AsyncOpenAI(api_key=key, base_url=config.base_url, timeout=sdk_timeout,
                                               http_client=http, max_retries=0) as client:
                     lease.dispatched()
+                    submission_reserved = True
                     if report is not None:
                         report("request_dispatched")
                     stream = await client.responses.create(
                         **request["payload"], extra_headers={"X-Client-Request-Id": request["request_id"]})
                     transmission.post_may_have_started = True
                     async with stream:
+                        if ipv4_direct:
+                            response = stream.response
+                            if not _direct_ipv4_http11(response):
+                                raise TransportFailure("direct_ipv4_route_mismatch", ambiguous=True)
+                            if report is not None:
+                                report("http_phase", network_phase="direct_ipv4_http11", network_state="complete",
+                                       phase_duration_seconds=time.monotonic() - started, explicit_proxy=False)
                         reply = await _collect_async(stream, deadline, capture_response, capture_receipt, report)
     except TimeoutError as error:
         if not alarm.expired():
             raise
+        if ipv4_direct and not submission_reserved:
+            raise _IPv4PreflightFailure() from error
         if reply is None:
             raise _WallDeadline() from error
         if report is not None:

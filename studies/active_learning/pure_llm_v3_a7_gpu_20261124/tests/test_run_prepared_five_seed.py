@@ -93,7 +93,7 @@ def _fixture(tmp, monkeypatch):
     root, runs, preparation = tmp / "release", tmp / "runs", tmp / "preparation"
     scientific = {"arm": "A7", "memory": "M2", "device": "cuda", "initial_labels": 333, "target_labels": 1485,
                   "initial_pool": 2997, "validation": 416, "test": 417, "batch_size": 32,
-                  "requires_initial_qualification": False, "confirmation_seeds": list(runner.SEEDS)}
+                  "requires_initial_qualification": False, "qualification_seed": 157, "confirmation_seeds": list(runner.SEEDS)}
     prompt = root / runner.seed_runner.PROMPT_PATH
     once(prompt, {"prompt": "fixed"})
     source = {runner.seed_runner.PROMPT_PATH.as_posix(): file_digest(prompt)}
@@ -167,3 +167,62 @@ def test_draft_rejects_changed_boundary_or_science(tmp_path, monkeypatch):
     (args[0] / runner.seed_runner.PROMPT_PATH).write_text("changed science")
     with pytest.raises(PermissionError, match="changes approved science"):
         runner.construct(*args)
+
+
+
+@pytest.mark.parametrize("qualifies", (False, True))
+def test_serial_ipv4_runs_only_the_gate_until_the_first_transition(tmp_path, monkeypatch, qualifies):
+    root, draft_path, draft_sha, policy_path, run = _fixture(tmp_path, monkeypatch)
+    for name in ("dispatch_prepared_ipv4", "dispatch_prompt_pilot", "dispatch_prompt_successor"):
+        once(root / runner.STUDY / "scripts" / f"{name}.py", {})
+    base = route()
+    transport = {**base["transport"], "provider": "token4research",
+                 "base_url": "https://token4research.cn/v1", "wire_mode": runner.RESPONSES_STREAM_IPV4}
+    old_route = {key: transport[key] for key in ("provider", "base_url", "requested_model", "reasoning_effort")}
+    model = {"provider": transport["provider"], "requested_model": transport["requested_model"],
+             "served_model": transport["served_model"], "requested_reasoning_effort": "xhigh",
+             "reported_reasoning_effort": "xhigh", "reported_model_version": None}
+    prior = tmp_path / "old-direct-completion.json"
+    once(prior, {**old_route, "wire_mode": runner.RESPONSES_STREAM, "long_context_completed": True,
+                 "completion": {"response_id": "resp_original", "status": "completed",
+                                "model": "gpt-6.2-astra", "reasoning_effort": "xhigh"}})
+    policy = {**base, "transport": transport, "dispatcher_module": "dispatch_prepared_ipv4",
+              "qualification": {"receipt_path": str(prior), "receipt_sha256": file_digest(prior),
+                                "long_context_completed": True, "same_id_retrieval_completed": False,
+                                "model_identity": model}}
+    ipv4_policy = policy_path.with_name("ipv4.json")
+    once(ipv4_policy, policy)
+    contract, draft = runner.construct(root, draft_path, draft_sha, ipv4_policy, run)
+    assert contract.profile["provider_capability"] == "gated_ipv4"
+    assert contract.api_slots == 1
+    assert contract.predecessor["ipv4_route_gate"]["bridge_wait_seconds"] == 9600
+    assert not run.exists()
+    seen = []
+    verified = {"seed": 157, "active_labels": 397, "completed_rounds": 2}
+    results = iter([None, verified] if qualifies else [None])
+    monkeypatch.setattr(runner, "_verified_gate", lambda *_: next(results))
+
+    class Process:
+        def __init__(self, *, target, name, args):
+            self.name = name
+            self.seed = args[6]
+            self.stop = args[8] if len(args) > 8 else None
+            self.exitcode = 0 if qualifies else 1
+
+        def start(self):
+            seen.append((self.name, self.seed, self.stop))
+            if self.stop is None:
+                assert (run / "ipv4_route_gate.json").is_file()
+                once(run / "workers" / f"seed_{self.seed}.json", {"status": "complete"})
+
+        def join(self):
+            return None
+
+    monkeypatch.setattr(runner.multiprocessing, "get_context", lambda _: type("Context", (), {"Process": Process})())
+    approval = {"scope": "pure_llm_v3_a7_formal", "contract_sha256": contract.digest,
+                "authorized_by": "fixture", "authorization_reference": "offline unit test",
+                "authorize_paid_api": True, "authorize_label_reveal": True, "authorize_cuda_training": True}
+    status = runner.launch(root, run, contract, draft, draft_path, approval, resume=False)
+    assert seen[0] == ("a7-ipv4-gate-157", 157, 2)
+    assert status == (0 if qualifies else 1)
+    assert [seed for _, seed, _ in seen[1:]] == (list(runner.SEEDS) if qualifies else [])

@@ -217,3 +217,11 @@ Use `run_prepared_five_seed.py contract` against that draft and a route policy. 
 `dispatch_prepared_background.py` reserves one POST per physical attempt. It saves the accepted response ID before polling, retrieves with the original Key, and can continue GETs while SSH is unavailable. It only uploads a validated terminal response. An unknown initial submission pauses new POSTs while preserving existing retrievals. A 429 follows the shared or credential scope and Retry-After from its receipt.
 
 On November 25, the short Token4Research Astra/xhigh test returned a correct synchronous answer with `background:false`; a separate invocation using the same Key and response ID returned 404. This is a failed qualification for the tested background route. Its private ledger retains the actual response and sanitized GET receipt. A compatible provider credential and a successful same-ID retrieval are needed before launching the cohort.
+
+### Serial IPv4 recovery on the existing Token4Research route
+
+The opt-in `responses_stream_ipv4` mode signs the direct connection policy while preserving the original Responses SSE payload, Astra/xhigh and `store:false`. It keeps certificate and hostname verification, uses HTTP/1.1, and verifies the actual peer address family before accepting streamed output. An unauthenticated same-client check of the models endpoint runs before the POST. A route check that fails never submits model input.
+
+The IPv4 cohort uses the prepared five-seed draft and the authenticated prior full direct Responses receipt. That receipt is historical evidence about the same provider and wire protocol. The new route has its own live gate. The coordinator initially starts 157 alone from L365 and verifies the accepted selection and sealed CUDA L397 transition before releasing the other four workers. The Mac dispatcher submits one physical request at a time through the original shared Key Pool. The GPFS bridge wait covers a serial queue and the existing hard request deadline. Ambiguous transport failures retain their receipts and stop without an automatic new paid POST.
+
+Use the same `run_prepared_five_seed.py` contract and authorization entry point and the signed `dispatch_prepared_ipv4.py` Mac module. The cohort run name for the unified status command is `a7-gpt62-astra-xhigh-ipv4-v13`.

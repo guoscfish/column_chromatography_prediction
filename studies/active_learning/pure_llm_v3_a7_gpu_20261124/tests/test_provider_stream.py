@@ -1,5 +1,6 @@
 import asyncio
 from contextlib import contextmanager
+from dataclasses import replace
 import json
 import threading
 import time
@@ -9,7 +10,7 @@ import pytest
 
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
-    TransportConfig, TransportFailure, make_request,
+    RESPONSES_STREAM_IPV4, TransportConfig, TransportFailure, make_request,
 )
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu import provider
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.formal_contract import RequestTimeouts
@@ -182,8 +183,15 @@ def async_mock_provider(tmp_path, monkeypatch):
     monkeypatch.setattr(provider, "api_key", fake_key)
 
     def call(source, *, proxy=False, resolver=None, close=None, before_response=None, with_progress=True,
-             fail_connect_tcp=False):
-        progress, receipt, raw, outcomes, requests = [], [], [], [], []
+             fail_connect_tcp=False, ipv4=False, peer="192.0.2.1", http_version=b"HTTP/1.1", with_timeouts=True,
+             preflight_status=401, preflight_peer="192.0.2.1", preflight_delay=0, preflight_error=None):
+        progress, receipt, raw, outcomes, requests, network_options, dispatches = [], [], [], [], [], [], []
+        selected = replace(config, wire_mode=RESPONSES_STREAM_IPV4) if ipv4 else config
+        signed_request = make_request(request["binding"], request["logical_index"], request["payload"]["input"], selected)
+        assert signed_request["payload"] == request["payload"]
+        assert signed_request["payload_sha256"] == request["payload_sha256"]
+        if ipv4:
+            assert signed_request["request_id"] != request["request_id"]
 
         class MockStream(httpx.AsyncByteStream):
             async def __aiter__(self):
@@ -196,6 +204,22 @@ def async_mock_provider(tmp_path, monkeypatch):
 
         async def handler(item):
             assert item.extensions["timeout"] == {"connect": .1, "read": .9, "write": .2, "pool": .1}
+            if item.method == "GET":
+                assert ipv4 and item.url.path == "/v1/models"
+                assert "trace" not in item.extensions
+                assert "authorization" not in item.headers and "cookie" not in item.headers
+                if preflight_delay:
+                    await asyncio.sleep(preflight_delay)
+                if preflight_error is not None:
+                    raise preflight_error
+                return httpx.Response(preflight_status, headers={
+                    "Set-Cookie": "preflight=ignored; Path=/",
+                    "Retry-After": "4",
+                }, extensions={
+                    "network_stream": SimpleNamespace(get_extra_info=lambda _: (preflight_peer, 443)),
+                    "http_version": b"HTTP/1.1",
+                })
+            assert "cookie" not in item.headers
             if resolver is not None:
                 await asyncio.get_running_loop().run_in_executor(None, resolver)
             trace = item.extensions["trace"]
@@ -205,13 +229,28 @@ def async_mock_provider(tmp_path, monkeypatch):
             for phase in ("connection.connect_tcp", f"{network}.start_tls", "http11.send_request_body"):
                 for state in ("started", "complete"):
                     await trace(f"{phase}.{state}", {"authorization": secret, "request": item})
+            extensions = {}
+            if ipv4:
+                extensions = {"network_stream": SimpleNamespace(get_extra_info=lambda _: (peer, 443)),
+                              "http_version": http_version}
             return httpx.Response(200, stream=MockStream(), headers={
                 "content-type": "text/event-stream", "x-request-id": "req_stream", "authorization": secret,
-            })
+            }, extensions=extensions)
+
+        def direct_transport(**kwargs):
+            network_options.append(kwargs)
+            return httpx.MockTransport(handler)
+
+        if ipv4:
+            monkeypatch.setattr(httpx, "AsyncHTTPTransport", direct_transport)
 
         class MockClient(original_http_client):
             def __init__(self, **kwargs):
                 assert kwargs["follow_redirects"] is False
+                if ipv4:
+                    assert kwargs["trust_env"] is False
+                    super().__init__(**kwargs)
+                    return
                 transport = httpx.MockTransport(handler)
                 if fail_connect_tcp:
                     httpcore = pytest.importorskip("httpcore")
@@ -228,27 +267,98 @@ def async_mock_provider(tmp_path, monkeypatch):
 
             async def send(self, item, **kwargs):
                 requests.append(item.method)
-                assert json.loads(item.content) == request["payload"]
-                assert item.headers["x-client-request-id"] == request["request_id"]
+                assert item.url.host == "example.invalid"
+                if item.method == "POST":
+                    assert json.loads(item.content) == signed_request["payload"]
+                    assert item.headers["x-client-request-id"] == signed_request["request_id"]
                 return await super().send(item, **kwargs)
 
         monkeypatch.setattr(httpx, "AsyncClient", MockClient)
-        token = provider.LEASE.set(SimpleNamespace(path=None, dispatched=lambda: None,
+        token = provider.LEASE.set(SimpleNamespace(path=None, dispatched=lambda: dispatches.append(True),
                                                    outcome=lambda code, **details: outcomes.append(code)))
         started = time.monotonic()
         try:
             try:
-                result = provider.call_responses(request, config, model_lock=tmp_path / "async-lock.json",
+                result = provider.call_responses(signed_request, selected, model_lock=tmp_path / "async-lock.json",
                                                  capture_response=raw.append, capture_receipt=receipt.append,
-                                                 progress=progress.append if with_progress else None, timeouts=policy)
+                                                 progress=progress.append if with_progress else None,
+                                                 timeouts=policy if with_timeouts else None)
             except TransportFailure as error:
                 result = error
         finally:
             provider.LEASE.reset(token)
         return SimpleNamespace(result=result, progress=progress, receipt=receipt, raw=raw, outcomes=outcomes,
-                               elapsed=time.monotonic() - started, requests=requests)
+                               elapsed=time.monotonic() - started, requests=requests,
+                               network_options=network_options, dispatches=dispatches)
 
     return call
+
+
+def test_ipv4_transport_preserves_wire_payload_and_proves_direct_http11(async_mock_provider):
+    async def body():
+        yield _event("response.completed", status="completed")
+
+    check = async_mock_provider(body, ipv4=True)
+    assert check.result.response_id == "resp_stream"
+    assert check.requests == ["GET", "POST"] and check.dispatches == [True]
+    preflight = next(row for row in check.progress if row.get("network_phase") == "direct_ipv4_preflight")
+    assert preflight["network_state"] == "complete" and "http_status" not in preflight
+    assert check.network_options == [{
+        "local_address": "0.0.0.0", "verify": True, "http1": True, "http2": False, "trust_env": False, "retries": 0,
+    }]
+    route = next(row for row in check.progress if row.get("network_phase") == "direct_ipv4_http11")
+    assert route["network_state"] == "complete" and route["explicit_proxy"] is False
+    assert "192.0.2.1" not in json.dumps(check.progress)
+
+
+@pytest.mark.parametrize("route", [{"peer": "::1"}, {"http_version": b"HTTP/2"}])
+def test_ipv4_transport_stops_on_route_mismatch(async_mock_provider, route):
+    async def body():
+        pytest.fail("unexpected route must not consume response content")
+        yield b""
+
+    check = async_mock_provider(body, ipv4=True, **route)
+    assert check.requests == ["GET", "POST"] and check.dispatches == [True]
+    assert (check.result.code, check.result.ambiguous, check.result.retryable) == (
+        "direct_ipv4_route_mismatch", True, False,
+    )
+    assert not check.raw and not check.receipt
+
+
+@pytest.mark.parametrize(("preflight", "error_code"), [
+    ({"preflight_status": 404}, "connect_error"),
+    ({"preflight_peer": "::1"}, "connect_error"),
+    ({"preflight_status": 429}, "http_429"),
+])
+def test_ipv4_failed_preflight_never_reserves_or_sends_a_post(async_mock_provider, preflight, error_code):
+    check = async_mock_provider(None, ipv4=True, **preflight)
+    assert check.requests == ["GET"] and not check.dispatches
+    assert (check.result.code, check.result.retryable, check.result.ambiguous) == (error_code, True, False)
+    assert check.result.retry_after == (4 if error_code == "http_429" else None)
+    assert check.progress[-1]["error_type"] == "direct_ipv4_preflight_failed"
+    assert not check.raw and not check.receipt
+
+
+def test_ipv4_tls_preflight_exception_is_safe_before_post(async_mock_provider):
+    import httpx
+
+    check = async_mock_provider(None, ipv4=True, preflight_error=httpx.ConnectTimeout("synthetic timeout"))
+    assert check.requests == ["GET"] and not check.dispatches
+    assert (check.result.code, check.result.retryable, check.result.ambiguous) == ("connect_error", True, False)
+
+
+def test_ipv4_preflight_has_independent_deadline(async_mock_provider, monkeypatch):
+    monkeypatch.setattr(provider, "DIRECT_IPV4_PREFLIGHT_SECONDS", .05)
+    check = async_mock_provider(None, ipv4=True, preflight_delay=20)
+    assert .05 <= check.elapsed < .75
+    assert check.requests == ["GET"] and not check.dispatches
+    assert (check.result.code, check.result.retryable, check.result.ambiguous) == ("connect_error", True, False)
+
+
+def test_ipv4_transport_refuses_missing_bound_timeouts_before_post(async_mock_provider):
+    check = async_mock_provider(None, ipv4=True, with_timeouts=False)
+    assert not check.requests and not check.network_options
+    assert check.result.code == "direct_ipv4_timeouts_required"
 
 
 def test_hard_total_interrupts_blocked_sse_before_idle_timeout(async_mock_provider):

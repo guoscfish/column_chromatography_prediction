@@ -19,6 +19,7 @@ class TransportStop(RuntimeError):
 
 
 RESPONSES_STREAM = "responses_stream"
+RESPONSES_STREAM_IPV4 = "responses_stream_ipv4"
 RESPONSES_BACKGROUND = "responses_background"
 
 
@@ -58,7 +59,7 @@ class TransportConfig:
         endpoint = urlparse(self.base_url)
         if (endpoint.scheme != "https" or not endpoint.hostname or endpoint.username or endpoint.password
                 or endpoint.query or endpoint.fragment
-                or self.wire_mode not in (RESPONSES_STREAM, RESPONSES_BACKGROUND)):
+                or self.wire_mode not in (RESPONSES_STREAM, RESPONSES_STREAM_IPV4, RESPONSES_BACKGROUND)):
             raise ValueError("unsupported Responses endpoint")
         budgets = (self.max_output_tokens, self.transport_attempts, self.logical_replies, self.rate_limit_threshold)
         if any(type(v) is not int or v < 1 for v in budgets) or not (

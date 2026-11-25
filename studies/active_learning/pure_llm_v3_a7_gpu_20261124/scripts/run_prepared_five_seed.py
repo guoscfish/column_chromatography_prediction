@@ -15,7 +15,7 @@ from uuid import uuid4
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.memory_manager import MemoryManager
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, dumps, file_digest, once, read
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
-    RESPONSES_BACKGROUND, TransportConfig, wire_payload,
+    RESPONSES_BACKGROUND, RESPONSES_STREAM, RESPONSES_STREAM_IPV4, TransportConfig, wire_payload,
 )
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu import scheduler, seed_runner
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.bridge_protocol import BridgePending, read_bridge_json
@@ -64,6 +64,10 @@ def _verify_qualification_receipt(qualification, transport, *, background):
     expected = {key: getattr(transport, key) for key in (
         "provider", "base_url", "wire_mode", "requested_model", "reasoning_effort",
     )}
+    if transport.wire_mode == RESPONSES_STREAM_IPV4:
+        # This is evidence for the existing direct Responses protocol. The signed gate
+        # still requires a real A7 completion before the new address-family route fans out.
+        expected["wire_mode"] = RESPONSES_STREAM
     receipt_fields = {"submission", "retrieval"} if background else {"completion", "long_context_completed"}
     if (type(receipt) is not dict or set(receipt) != {*expected, *receipt_fields}
             or any(receipt[key] != value for key, value in expected.items())):
@@ -116,6 +120,11 @@ def _provider_policy(policy):
     dispatcher = policy["dispatcher_module"]
     if not isinstance(dispatcher, str) or not re.fullmatch(r"dispatch_[a-z0-9_]+", dispatcher):
         raise ValueError("the route policy must bind one installed Mac dispatcher module")
+    if transport.wire_mode == RESPONSES_STREAM_IPV4 and (
+        transport.provider != "token4research" or transport.base_url != "https://token4research.cn/v1"
+        or dispatcher != "dispatch_prepared_ipv4"
+    ):
+        raise PermissionError("the direct IPv4 gate needs the exact existing Token4Research route")
     return transport, timeout, wire["store"], qualification, dispatcher
 
 
@@ -177,6 +186,11 @@ def construct(root, draft_path, draft_sha, policy_path, run):
                    for name in ("prepare_five_seed_boundaries", "run_prepared_five_seed", dispatcher)]
     if transport.wire_mode == RESPONSES_BACKGROUND:
         route_paths.extend(STUDY / "a7_gpu" / name for name in ("background_transport.py", "background_dispatcher.py"))
+    ipv4_gate = transport.wire_mode == RESPONSES_STREAM_IPV4
+    if ipv4_gate:
+        route_paths.extend(STUDY / "scripts" / f"{name}.py" for name in (
+            "dispatch_prompt_pilot", "dispatch_prompt_successor",
+        ))
     sources.update({path.as_posix(): file_digest(root / path) for path in route_paths})
     descriptors = {}
     lanes = {}
@@ -214,7 +228,8 @@ def construct(root, draft_path, draft_sha, policy_path, run):
     remaining = sum(36 - row["start_round"] for row in lanes.values())
     if remaining != draft["remaining_first_logical_requests"]:
         raise PermissionError("the prepared budget does not match the exact remaining trajectory lengths")
-    profile = {**scientific, "store": store, "provider_capability": "verified_route" if qualification else "draft",
+    capability = ("gated_ipv4" if ipv4_gate else "verified_route") if qualification else "draft"
+    profile = {**scientific, "store": store, "provider_capability": capability,
                "verified_served_model_reference": qualification["receipt_sha256"] if qualification else None,
                "transport": asdict(transport), "request_timeouts": asdict(timing), "resume_boundaries": descriptors}
     predecessor = {"prepared_draft_sha256": draft_sha, "transport_policy_sha256": digest(policy),
@@ -224,6 +239,12 @@ def construct(root, draft_path, draft_sha, policy_path, run):
                    "execution_budget": {"first_logical_requests": remaining,
                        "maximum_logical_requests": remaining * transport.logical_replies,
                        "maximum_physical_attempts": remaining * transport.logical_replies * transport.transport_attempts}}
+    if ipv4_gate:
+        seed = profile["qualification_seed"]
+        start = lanes[str(seed)]["start_round"]
+        profile["api_parallelism"] = 1
+        predecessor["ipv4_route_gate"] = {"seed": seed, "start_round": start, "verified_round": start + 1,
+            "bridge_wait_seconds": len(SEEDS) * timing.total_seconds + timing.bridge_margin_seconds}
     contract = PreparedCohortContract(profile, transport, sources, draft["asset_sha256"], str(LEASE_ROOT / "trajectories"),
                                       (0,), str(LEASE_ROOT), str(run), SSH_API, predecessor)
     if (run / "formal_contract.json").is_file() and read(run / "formal_contract.json") != contract.record():
@@ -231,7 +252,7 @@ def construct(root, draft_path, draft_sha, policy_path, run):
     return contract, draft
 
 
-def _worker(root, run, contract, approval, preparation, row, seed, generation):
+def _worker(root, run, contract, approval, preparation, row, seed, generation, stop=None):
     os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
     os.environ["CUDA_VISIBLE_DEVICES"] = str(contract.gpu_slots[0])
     os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
@@ -247,9 +268,11 @@ def _worker(root, run, contract, approval, preparation, row, seed, generation):
             backend = TrainingBackend(root, row["cache_directory"], seed)
             boundary = read_boundary(row, seed, preparation)
             call, options = scheduler._provider_wiring(run, contract, approval, None, seed)
+            if gate := contract.predecessor.get("ipv4_route_gate"):
+                options["managed_attempt"].wait_seconds = gate["bridge_wait_seconds"]
             result = seed_runner.run_seed(
                 root=root, run_directory=run, contract=contract, authorization=approval, seed=seed, backend=backend,
-                call=call, resume_boundary=boundary, transport_options=options,
+                call=call, resume_boundary=boundary, transport_options=options, max_rounds=stop,
                 fit_slot=partial(scheduler.gpu_slot, run, seed, status["gpu"], contract.lease_root),
             )
             scheduler._atomic_status(status_path, {**status, **asdict(result)})
@@ -259,6 +282,26 @@ def _worker(root, run, contract, approval, preparation, row, seed, generation):
             scheduler._atomic_status(status_path, {**status, "status": phase, "error_type": type(error).__name__,
                                                    "reason": str(error)})
             raise
+
+
+def _verified_gate(root, run, contract, approval, preparation, row, gate):
+    """Authenticate the first exact scientific decision and CUDA fit before allowing any other seed."""
+    from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.backend import TrainingBackend
+
+    seed, start, verified = (gate[field] for field in ("seed", "start_round", "verified_round"))
+    directory = seed_runner.seed_directory(run, seed)
+    active = seed_runner.round_directory(directory, start)
+    after = seed_runner.round_directory(directory, verified)
+    transition = after / "transition.json"
+    if not transition.is_file():
+        return None
+    state, _, _ = read_boundary(row, seed, preparation)
+    scope = seed_runner._scope(contract, approval, seed, False)
+    backend = TrainingBackend(root, row["cache_directory"], seed)
+    fitted, _ = seed_runner._successor(active, state, after, scope, contract.transport, contract, backend)
+    return {"seed": seed, "completed_rounds": verified, "active_labels": contract.initial_labels + contract.batch_size * verified,
+            "checkpoint_sha256": fitted.checkpoint, "transition_sha256": file_digest(transition),
+            "contract_sha256": contract.digest}
 
 
 def launch(root, run, contract, draft, draft_path, approval, *, resume):
@@ -280,6 +323,27 @@ def launch(root, run, contract, draft, draft_path, approval, *, resume):
         scheduler._atomic_status(run / "coordinator_generation.json", {"id": generation, "pid": os.getpid()})
         if resume:
             (run / "pause.request").unlink(missing_ok=True)
+        gate = contract.predecessor.get("ipv4_route_gate")
+        if gate is not None:
+            seed = gate["seed"]
+            row = draft["boundaries"][str(seed)]
+            evidence = _verified_gate(root, run, contract, approval, draft_path.parent, row, gate)
+            saved = run / "ipv4_route_gate.json"
+            if evidence is None:
+                if saved.exists():
+                    raise PermissionError("the route gate is missing its original sealed transition")
+                initial = ctx.Process(target=_worker, name=f"a7-ipv4-gate-{seed}",
+                    args=(root, run, contract, approval, draft_path.parent, row, seed, generation, gate["verified_round"]))
+                initial.start()
+                initial.join()
+                if initial.exitcode != 0:
+                    print(dumps({"status": "ipv4_gate_paused", "seed": seed, "worker_exit": initial.exitcode}))
+                    return 1
+                evidence = _verified_gate(root, run, contract, approval, draft_path.parent, row, gate)
+            if evidence is None:
+                print(dumps({"status": "ipv4_gate_pending", "seed": seed}))
+                return 1
+            once(saved, evidence)
         workers = {}
         for seed in contract.seed_ids:
             if scheduler._pause_requested(run):
