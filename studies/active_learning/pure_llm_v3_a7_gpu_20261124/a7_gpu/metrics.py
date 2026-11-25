@@ -225,7 +225,8 @@ def _batch_summary(directory, freeze, turns):
     molecule_counts = Counter(choice["molecule_id"] for choice in choices)
     relationships = Counter(ref["relationship"] for choice in choices for ref in choice.get("references", []))
     diagnostics = optional(directory / ACQUISITION_DIAGNOSTICS)
-    if diagnostics and any(diagnostics[key] != freeze[key] for key in ("freeze_sha256", "selection_file_sha256")):
+    if diagnostics and (diagnostics["freeze_sha256"] != file_digest(directory / "batch_freeze.json")
+                        or diagnostics["selection_file_sha256"] != freeze["selection_file_sha256"]):
         raise ValueError("acquisition diagnostics differ from the frozen selection")
     return {
         "batch_sealed": True, "accepted_logical_index": accepted,

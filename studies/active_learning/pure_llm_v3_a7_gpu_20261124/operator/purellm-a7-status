@@ -56,6 +56,8 @@ def version_record(version):
 
 # Execute against the installed release. Only the safe summary is sent back over SSH.
 REMOTE_STATUS = '''
+from contextlib import redirect_stdout
+from io import StringIO
 import json
 from pathlib import Path
 import subprocess
@@ -82,8 +84,22 @@ if version == "v1" or not authorized:
     for row in report["seeds"]:
         row["stage"] = (row.get("worker") or {}).get("status", "not_started")
 else:
-    command = [sys.executable, "-B", "-m", module, "status", "--run-dir", str(run)]
-    report = json.loads(subprocess.check_output(command, text=True))
+    # Run the read-only status locally in this SSH process. The initial pilot
+    # release expects the computed freeze-file SHA next to the on-disk fields.
+    from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu import metrics, scheduler
+    from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import file_digest
+    if version == "v4-pilot":
+        batch_summary = metrics._batch_summary
+        def with_freeze_digest(directory, freeze, turns):
+            return batch_summary(directory, {
+                **freeze, "freeze_sha256": file_digest(directory / "batch_freeze.json")
+            }, turns)
+        metrics._batch_summary = with_freeze_digest
+    output = StringIO()
+    sys.argv = [module, "status", "--run-dir", str(run)]
+    with redirect_stdout(output):
+        scheduler.main()
+    report = json.loads(output.getvalue())
 generation = run / "coordinator_generation.json"
 pid = json.loads(generation.read_text()).get("pid") if generation.is_file() else None
 active = False

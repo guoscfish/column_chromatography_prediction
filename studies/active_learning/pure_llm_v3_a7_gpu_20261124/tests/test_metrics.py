@@ -84,3 +84,18 @@ def test_pilot_scope_and_frozen_acquisition_diagnostics(tmp_path):
     assert report["condition_coverage"]["complete_profiles"]["added"] == 2
     assert report["same_molecule_pairs"]["within_batch"]["multifactor"] == 1
     assert report["same_molecule_pairs"]["with_existing_observations"]["single_factor"] == 1
+
+
+def test_status_binds_diagnostics_to_the_on_disk_freeze_file(tmp_path):
+    choices = [{"candidate_id": f"C-{index:04}", "molecule_id": "M-0001"} for index in range(32)]
+    selection = tmp_path / "selection.json"
+    once(selection, {"choices": choices})
+    freeze = {"batch_ids": [choice["candidate_id"] for choice in choices],
+              "selection_file_sha256": file_digest(selection), "accepted_logical_index": 0}
+    freeze_file = tmp_path / "batch_freeze.json"
+    once(freeze_file, freeze)
+    diagnostics = {"freeze_sha256": file_digest(freeze_file),
+                   "selection_file_sha256": file_digest(selection)}
+    once(tmp_path / metrics.ACQUISITION_DIAGNOSTICS, diagnostics)
+    assert metrics._batch_summary(tmp_path, freeze, {0: {"decision": {"state": "legal"}, "answer": {}}})[
+        "acquisition_diagnostics"] == diagnostics
