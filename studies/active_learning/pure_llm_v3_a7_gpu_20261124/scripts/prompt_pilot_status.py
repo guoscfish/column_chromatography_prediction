@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Show A7 v6 and predecessor progress, GPUs and the shared Mac Key Pool."""
+"""Show A7 continuation progress, GPUs and the shared Mac Key Pool."""
 import argparse
 from collections import Counter
 from datetime import datetime
@@ -20,6 +20,7 @@ FULL = "a7-gpt62-astra-xhigh-ssh-v6-prompt-full"
 DIRECT = "a7-gpt62-astra-xhigh-ssh-v8-direct-one"
 DIRECT_887 = "a7-gpt62-astra-xhigh-ssh-v9-direct-one"
 REPAIR = "a7-gpt62-astra-xhigh-ssh-v10-targeted-repair"
+DIRECT_FULL = "a7-gpt62-astra-xhigh-ssh-v11-direct-full"
 PILOT_ROUNDS = 10
 TARGET_ROUNDS = 36
 TARGET_LABELS = 1485
@@ -141,14 +142,21 @@ def dispatch_contract(run, seed):
 
 
 def remote_seed(runs, seed):
+    direct_full = runs / f"{DIRECT_FULL}-{seed}"
     full = runs / f"{FULL}-{seed}"
     direct = runs / f"{DIRECT_887 if seed == 887 else DIRECT}-{seed}"
     continuation = runs / f"{CONTINUATION}-{seed}"
     fallback = runs / (FIRST_887 if seed == 887 else ORIGINAL)
     repair = runs / f"{REPAIR}-{seed}"
-    full_contract, repair_contract, direct_contract, continuation_contract = (
-        dispatch_contract(run, seed) for run in (full, repair, direct, continuation))
-    if full_contract:
+    direct_full_contract, full_contract, repair_contract, direct_contract, continuation_contract = (
+        dispatch_contract(run, seed) for run in (direct_full, full, repair, direct, continuation))
+    if direct_full_contract:
+        run, contract, segment = direct_full, direct_full_contract, "v11"
+        ancestors = tuple(path for path, approved in (
+            (repair, repair_contract), (direct, direct_contract), (continuation, continuation_contract),
+            (fallback, fallback_contract(fallback)),
+        ) if approved)
+    elif full_contract:
         run, contract, segment = full, full_contract, "v6"
         ancestors = (repair, direct, continuation, fallback)
     elif repair_contract:
@@ -180,7 +188,7 @@ def remote_seed(runs, seed):
     phase = safe_code(worker.get("status")) or "waiting_to_start"
     if latest == TARGET_ROUNDS:
         phase = "complete"
-    elif latest == PILOT_ROUNDS and segment != "v6":
+    elif latest == PILOT_ROUNDS and segment not in ("v6", "v11"):
         phase = "awaiting_v6_handoff"
     elif paused:
         phase = "paused"
@@ -201,7 +209,7 @@ def remote_seed(runs, seed):
     elif not worker_live and phase == "initializing":
         phase = "worker_stopped"
     return {"seed": seed, "run": run.name, "contract_sha256": contract, "segment": segment,
-            "continuation": segment in ("v6", "v5", "direct", "repair"), "target_rounds": TARGET_ROUNDS, "target_labels": TARGET_LABELS,
+            "continuation": segment in ("v11", "v6", "v5", "direct", "repair"), "target_rounds": TARGET_ROUNDS, "target_labels": TARGET_LABELS,
             "completed_rounds": latest, "labels": 333 + latest * 32 if latest is not None else None,
             "phase": phase, "worker_pid": worker_pid, "worker_active": worker_live,
             "worker_error": safe_code(worker.get("error_type")), "coordinator_pid": coordinator,
@@ -269,7 +277,7 @@ def local_progress(spool, seed, active):
 
 
 def dispatcher_pid(seed, segment):
-    suffix = {"v6": "v6-full", "v5": "v5-continuation", "direct": ("v9-direct" if seed == 887 else "v8-direct"),
+    suffix = {"v11": "v11-direct-full", "v6": "v6-full", "v5": "v5-continuation", "direct": ("v9-direct" if seed == 887 else "v8-direct"),
               "repair": "v10-targeted-repair"}[segment]
     label = f"gui/{os.getuid()}/com.purellm.a7-{suffix}-{seed}"
     lines = command_lines(["/bin/launchctl", "print", label])
@@ -322,7 +330,7 @@ def mac_report(private, seeds):
 
 
 def show(view):
-    print(f"A7 v6 status  {view.get('checked_at', '—')}")
+    print(f"A7 status  {view.get('checked_at', '—')}")
     for row in view.get("seeds", ()):
         api = row["api"]
         provider = row.get("provider") or {}
