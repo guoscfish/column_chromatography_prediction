@@ -1,8 +1,31 @@
 # A7 的 Mac 请求派发和 GPFS 训练
 
-A7/M2 的实验协议继续使用五个 seed、B32 和 L333→L1485。计算平台读取 4g 数据、构造完整请求、校验 LLM 科学计划和局部修复、冻结合法批次，再揭示该批实验并用 CUDA 更新 QGeoGNN。Mac 用带授权绑定的完整请求调用 Token4Research，并把完整响应交回平台。模型继续固定为 `gpt-6.2-sol` 与 `ultra`。Mac 需要持续连通 GPU 平台的 SSH 和 Token4Research。
+A7/M2 的实验协议继续使用五个 seed、B32 和 L333→L1485。计算平台读取 4g 数据、构造完整请求、校验 LLM 科学计划和局部修复、冻结合法批次，再揭示该批实验并用 CUDA 更新 QGeoGNN。Mac 用带授权绑定的完整请求调用 Token4Research，并把完整响应交回平台。模型固定为 `gpt-6.2-sol`，推理等级由各运行的批准合同固定。Mac 需要持续连通 GPU 平台的 SSH 和 Token4Research。
 
-## 启动边界
+## v3 正式合同
+
+V3 使用独立发布包和 GPFS 运行目录。启动所用的模型、推理等级和输出上限以 [v3 执行配置](execution_gpt62_a7_v3.json) 为准。旧 v1 和 v2 继续暂停并保留原合同和错误回执。V2 的首笔真实请求在推理参数验证阶段被拒绝，尚未产生完整回答、冻结批次、标签揭示或后续训练。V3 合同绑定旧失败证据和五份已复核的公共 CUDA L333 检查点。
+
+2026-11-25 的独立流式短请求收到 HTTP 200 和完成响应。Token4Research 报告模型 `gpt-6.2-sol` 及 `reasoning.effort=max`。正式运行的长上下文和选择结果在 seed 157 的 round 0 核验。服务商请求 ID 和用量留在 Mac 私密能力验证回执。
+
+在 GPU 新 release 根目录使用下列命令生成合同。`A7_GPU_RUN` 为新独立运行的绝对路径，`A7_AUTHORIZATION` 指向经用户批准的文件。将下面的 `common` 参数同时用于 `contract`、`run` 和 `resume`。Mac 派发器也传入其私密运行目录中同一份 `execution_gpt62_a7_v3.json` 的绝对路径作为 `--config`。
+
+```bash
+remote=/1/column_chromatography_prediction
+suite="$remote/formal_cuda/row4g_b32_20261124"
+study=studies/active_learning/pure_llm_v3_a7_gpu_20261124
+module=studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.scheduler
+gpu_python="$remote/environment/venv/bin/python"
+common=(--run-dir "$A7_GPU_RUN" --gpus 0,1 --gpu-lease-root "$suite"
+  --anchor-root "$suite/trajectories" --api-execution mac_ssh_dispatch_v1
+  --predecessor-run "$remote/purellm_a7/runs/a7-gpt62-ultra-ssh-v2"
+  --config "$PWD/$study/execution_gpt62_a7_v3.json")
+"$gpu_python" -B -m "$module" contract "${common[@]}"
+```
+
+新 SHA 获得明确批准后按 [授权模板](formal_authorization.template.json) 写入私密授权，启动 GPU Coordinator 和 Mac Dispatcher。短请求校验保存在 Mac 的独立私密目录。首个完整科学请求仍计入 seed 157 的正式 round 0，L365 核验通过后开放其余四个 seed。
+
+## v2 启动边界与通用恢复机制
 
 旧云端直连运行 `a7-gpt62-ultra-v1` 仍保留为独立轨迹。Seed 157 从 L333 发起的两次物理尝试均记录连接失败，现有记录没有完整模型回答、冻结批次或后续拟合，服务商账单未独立核验。切换到 Mac 中转需要新发布包、新运行目录和新的准确合同授权。新的轨迹从同样的五份已核验 CUDA L333 初始检查点开始。首个 seed 157 的真实 round 0 直接计入该轨迹。以同一批 32 点完成 L365 并核验下一轮状态后，其余 seed 放行。 [已有运行和模型入口](REMOTE_HANDOFF_20261125.md)
 

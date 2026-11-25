@@ -1,0 +1,76 @@
+#!/bin/bash
+set -euo pipefail
+umask 077
+
+private_root="$HOME/.config/purellm"
+case "${1:-status}" in
+  status)
+    exec "$private_root/purellm-a7-status" "${@:2}"
+    ;;
+  mac-stop|mac-resume|gpu-pause|gpu-resume)
+    if [[ $# != 1 ]]; then
+      printf 'Control actions apply only to the registered v3 run.\n' >&2
+      exit 2
+    fi
+    ;;
+  *)
+    printf 'Usage: %s [status [--version v1|v2|v3]|gpu-pause|gpu-resume|mac-stop|mac-resume]\n' "$0" >&2
+    exit 2
+    ;;
+esac
+
+settings=$("$private_root/purellm-a7-status" --operator-config)
+read -r contract release run <<< "$settings"
+spool="$private_root/spool/$contract"
+label=com.purellm.a7-ssh-v3-dispatcher
+
+case "$1" in
+  mac-stop)
+    "$private_root/purellm-a7-status" --mac-stop-check
+    domain=$(cat "$spool/launchctl-domain")
+    exec launchctl bootout "$domain/$label"
+    ;;
+  mac-resume)
+    "$private_root/purellm-a7-status" --mac-resume-check
+    domain=$(cat "$spool/launchctl-domain")
+    if launchctl print "$domain/$label" >/dev/null 2>&1; then
+      exec launchctl kickstart "$domain/$label"
+    fi
+    exec launchctl bootstrap "$domain" "$spool/dispatcher.launch-agent.runtime.plist"
+    ;;
+  gpu-pause|gpu-resume)
+    action=${1#gpu-}
+    exec ssh -T -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=10 eit-hpc "bash -s -- $action $release $run $contract" <<'REMOTE'
+set -euo pipefail
+umask 077
+root=/1/column_chromatography_prediction
+a7="$root/purellm_a7"
+suite="$root/formal_cuda/row4g_b32_20261124"
+run="$a7/runs/$3"
+old="$a7/runs/a7-gpt62-ultra-ssh-v2"
+python="$root/environment/venv/bin/python"
+module=studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.scheduler
+if [[ ! -f "$run/authorization.json" ]]; then
+  printf 'The v3 formal authorization is pending.\n' >&2
+  exit 2
+fi
+"$python" -B -c '
+import json
+from pathlib import Path
+import sys
+approval = json.loads(Path(sys.argv[1]).read_text())
+if approval.get("contract_sha256") != sys.argv[2]:
+    sys.exit("No formal authorization matches this v3 contract.")
+' "$run/authorization.json" "$4"
+cd "$a7/releases/$2"
+profile="$PWD/studies/active_learning/pure_llm_v3_a7_gpu_20261124/execution_gpt62_a7_v3.json"
+if [[ "$1" == pause ]]; then
+  exec "$python" -B -m "$module" pause --run-dir "$run"
+fi
+nohup "$python" -B -u -m "$module" resume --run-dir "$run" --gpus 0,1 --gpu-lease-root "$suite" \
+  --anchor-root "$suite/trajectories" --config "$profile" --api-execution mac_ssh_dispatch_v1 --predecessor-run "$old" \
+  --authorization "$run/authorization.json" >> "$run/coordinator.log" 2>&1 </dev/null &
+printf 'GPU Coordinator launch PID=%s\n' "$!"
+REMOTE
+    ;;
+esac

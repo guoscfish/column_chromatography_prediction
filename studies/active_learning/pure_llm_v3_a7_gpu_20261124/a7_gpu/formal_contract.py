@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[4]
 STUDY = Path("studies/active_learning/pure_llm_v3_a7_gpu_20261124")
 OFFLINE = Path("studies/active_learning/pure_llm_v3_20261124")
 PROFILE = STUDY / "execution_gpt62_ultra_a7.json"
+PROFILE_V3 = STUDY / "execution_gpt62_a7_v3.json"
 DIRECT_API = "direct_platform"
 SSH_API = "mac_ssh_dispatch_v1"
 SEEDS = (157, 887, 2357, 6101, 12203)
@@ -107,7 +108,8 @@ def _profile(path):
     if set(profile["transport"]) != set(TransportConfig.__dataclass_fields__):
         raise ValueError("formal transport configuration fields differ")
     transport = TransportConfig(**profile["transport"])
-    wire = {"requested_model": "gpt-6.2-sol", "reasoning_effort": "ultra", "provider": "token4research",
+    effort = "max" if Path(path).name == PROFILE_V3.name else "ultra"
+    wire = {"requested_model": "gpt-6.2-sol", "reasoning_effort": effort, "provider": "token4research",
             "base_url": "https://token4research.cn/v1", "max_output_tokens": 32768,
             "wire_mode": "responses_stream", "transport_attempts": 2, "logical_replies": 3,
             "rate_limit_threshold": 2}
@@ -144,8 +146,9 @@ def load_contract(root, config_path, *, anchor_root=None, gpu_slots=(), lease_ro
     anchors = str(Path(anchor_root).resolve()) if anchor_root else None
     lease = str(Path(lease_root).resolve())
     predecessor = None
+    v3 = Path(config_path).name == PROFILE_V3.name
     if api_execution == SSH_API:
-        from .supersession import inspect_predecessor
+        from .supersession import PREDECESSOR_SHA256, V2_SHA256, inspect_predecessor, verify_v3_anchors
 
         if predecessor_run is None or run_path is None or anchors is None:
             raise ValueError("SSH execution needs a separate run and its original shared CUDA anchors")
@@ -153,12 +156,22 @@ def load_contract(root, config_path, *, anchor_root=None, gpu_slots=(), lease_ro
         old_run = Path(original["run_directory"])
         if run_path == old_run or run_path.parent != old_run.parent:
             raise ValueError("SSH execution needs its own sibling run directory")
-        expected = (original["profile"], original["asset_sha256"], original["anchor_root"],
+        expected_profile = original["profile"]
+        if v3:
+            if (original["contract_sha256"] != V2_SHA256
+                    or run_path.name != f"a7-gpt62-{transport.reasoning_effort}-ssh-v3"):
+                raise ValueError("v3 reasoning change requires the approved v2 predecessor and its own run name")
+            expected_profile = {**expected_profile, "transport": {
+                **expected_profile["transport"], "reasoning_effort": transport.reasoning_effort,
+            }}
+        elif original["contract_sha256"] != PREDECESSOR_SHA256:
+            raise ValueError("the original SSH profile needs the approved direct-run predecessor")
+        expected = (expected_profile, original["asset_sha256"], original["anchor_root"],
                     tuple(original["gpu_slots"]), original["lease_root"])
         if (profile, assets, anchors, slots, lease) != expected:
-            raise ValueError("SSH execution may change transport location only, not the original A7 profile or GPU inputs")
-        predecessor = original
-    elif api_execution != DIRECT_API or predecessor_run is not None:
+            raise ValueError("SSH execution must retain the approved A7 scientific profile and GPU inputs")
+        predecessor = {**original, "initial_checkpoint_sha256_by_seed": verify_v3_anchors(anchors)} if v3 else original
+    elif api_execution != DIRECT_API or predecessor_run is not None or v3:
         raise ValueError("unsupported API execution mode or predecessor binding")
     return FormalContract(profile, transport, sources, assets, anchors, slots, lease,
                           str(run_path) if run_path else None, api_execution, predecessor)

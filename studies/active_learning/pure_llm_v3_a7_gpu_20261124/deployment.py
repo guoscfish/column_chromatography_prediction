@@ -24,6 +24,7 @@ PUBLISHED = f"{STUDIES}/pure_llm_v3_20261124"
 SPLIT = f"{STUDIES}/qgeognn_v2_row_sequential_b32"
 SEEDS = (157, 887, 2357, 6101, 12203)
 PROFILE = "execution_gpt62_ultra_a7.json"
+PROFILE_V3 = "execution_gpt62_a7_v3.json"
 RELEASE_MANIFEST = "release_manifest.json"
 RELEASE_SCHEMA = "purellm-v3-a7-gpu-release-v2"
 REVIEWED_TRANSPORT = f"{PUBLISHED}/pure_llm_v3/transport_manager.py"
@@ -45,7 +46,7 @@ ASSETS = {
     )),
 }
 FORMAL_FILES = {
-    f"{FORMAL}/{PROFILE}", f"{FORMAL}/deployment.py",
+    f"{FORMAL}/{PROFILE}", f"{FORMAL}/{PROFILE_V3}", f"{FORMAL}/deployment.py",
     f"{FORMAL}/DEPLOYMENT.md", f"{FORMAL}/README.md",
     f"{FORMAL}/OFFLINE_TEST_REPORT.md", f"{FORMAL}/DISPATCHER.md",
     f"{FORMAL}/requirements_provider.txt", f"{FORMAL}/key_pool.example.json",

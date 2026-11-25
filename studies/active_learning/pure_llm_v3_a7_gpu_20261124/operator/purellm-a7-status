@@ -1,0 +1,336 @@
+#!/usr/bin/env python3
+"""Read-only local and GPU status for PureLLM-A7 v3, v2, or v1."""
+import argparse
+from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime, timezone
+import json
+import os
+from pathlib import Path
+import re
+import shlex
+import subprocess
+import sys
+import time
+
+
+REMOTE = "/1/column_chromatography_prediction"
+PRIVATE_ROOT = Path.home() / ".config/purellm"
+HISTORY = {
+    "v1": {
+        "contract_sha256": "3adec146134e47b237c40ea3b97e51ef4b9486e3007997be67e11bbadf16d5a2",
+        "release_sha256": "6235a3df8f3c447111c927552b1e1833c877431ee12a5bba725f82e87f109525",
+        "run_basename": "a7-gpt62-ultra-v1",
+        "reasoning_effort": "ultra",
+    },
+    "v2": {
+        "contract_sha256": "cd1fbd9e7c3ac46c6ef8f0c3aa275b91ecfb921e8f308bbe98891e4b8014d522",
+        "release_sha256": "4f0843fdec71fd3d014a97554d44a91573f9de60d43d679a627301a7d43eb91f",
+        "run_basename": "a7-gpt62-ultra-ssh-v2",
+        "reasoning_effort": "ultra",
+    },
+}
+MODULE = "studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu"
+KEYS = ("key_01", "key_02", "key_03")
+TOKEN_FIELDS = ("input_tokens", "output_tokens", "reasoning_tokens", "cached_tokens", "total_tokens")
+
+
+def version_record(version):
+    if version in HISTORY:
+        return HISTORY[version]
+    record = json.loads((PRIVATE_ROOT / "purellm-a7-v3.json").read_text())
+    if not isinstance(record, dict) or set(record) != set(HISTORY["v2"]) or any(
+        not isinstance(value, str) for value in record.values()
+    ):
+        raise ValueError("invalid PureLLM-A7 v3 operator settings")
+    effort = record["reasoning_effort"]
+    if effort != "max" or record["run_basename"] != "a7-gpt62-max-ssh-v3" or any(
+        re.fullmatch(r"[0-9a-f]{64}", record[key]) is None for key in ("contract_sha256", "release_sha256")
+    ):
+        raise ValueError("invalid PureLLM-A7 v3 contract, release, or run name")
+    return record
+
+# Execute against the installed release. Only the safe summary is sent back over SSH.
+REMOTE_STATUS = '''
+import json
+from pathlib import Path
+import subprocess
+import sys
+
+run = Path(sys.argv[1])
+version = sys.argv[2]
+contract = sys.argv[3]
+try:
+    approval = json.loads((run / "authorization.json").read_text())
+except (FileNotFoundError, json.JSONDecodeError):
+    approval = {}
+authorized = isinstance(approval, dict) and approval.get("contract_sha256") == contract and all(
+    approval.get(key) is True for key in ("authorize_paid_api", "authorize_label_reveal", "authorize_cuda_training")
+)
+module = "studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.scheduler"
+if version == "v1" or not authorized:
+    # The v1 status CLI may prune stale credential lease records.
+    from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.metrics import snapshot
+    from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.scheduler import _query_gpu_status
+
+    report = snapshot(run)
+    report["gpu"] = _query_gpu_status()
+    for row in report["seeds"]:
+        row["stage"] = (row.get("worker") or {}).get("status", "not_started")
+else:
+    command = [sys.executable, "-B", "-m", module, "status", "--run-dir", str(run)]
+    report = json.loads(subprocess.check_output(command, text=True))
+generation = run / "coordinator_generation.json"
+pid = json.loads(generation.read_text()).get("pid") if generation.is_file() else None
+active = False
+if type(pid) is int and pid > 1:
+    try:
+        argv = Path(f"/proc/{pid}/cmdline").read_bytes().split(b"\\x00")
+    except (FileNotFoundError, ProcessLookupError, PermissionError):
+        argv = []
+    active = module.encode() in argv and str(run).encode() in argv
+else:
+    pid = None
+pool = report.get("api_pool", {})
+first = {}
+for seed in report["seeds"]:
+    if seed["seed"] == 157:
+        keys = ("first_response_evaluated", "first_response_legal", "local_repair_requests_logged",
+                "complete_logical_responses", "physical_attempts_started", "provider_token_usage")
+        first = {key: seed["rounds"][0].get(key) for key in keys} if seed["rounds"] else {}
+        break
+print(json.dumps({
+    "coordinator": {"pid": pid, "active": active, "paused": report["paused"]},
+    "authorization_matches": authorized,
+    "qualified_L365": report["launch_qualification_recorded"],
+    "five_seed_complete": report["five_seed_complete"],
+    "seed157_round0": first,
+    "api_pending": len(pool.get("pending_attempt_ids", ())),
+    "seeds": [{"seed": row["seed"], "labels": row["latest_budget"], "stage": row["stage"],
+               "pid": (row.get("worker") or {}).get("pid"),
+               "gpu": (row.get("worker") or {}).get("gpu"),
+               "api_attempts": row["total_physical_attempts_started"],
+               "responses": row["total_complete_logical_responses"],
+               "transport_failures": row["transport_failures"]} for row in report["seeds"]],
+    "gpu": report.get("gpu", {}),
+    "gpu_jobs": [{key: row.get(key) for key in ("seed", "gpu", "stage")}
+                 for row in report.get("gpu_jobs", []) if row.get("stage") != "idle"],
+}))
+'''
+
+
+def checked_json(command, *, script=None, cwd=None, timeout=45):
+    reply = subprocess.run(command, input=script, cwd=cwd, text=True, capture_output=True,
+                           check=True, timeout=timeout)
+    return json.loads(reply.stdout)
+
+
+def dispatcher_pids(spool, version):
+    pids = {"dispatcher_pid": None, "caffeinate_pid": None}
+    try:
+        domain = (spool / "launchctl-domain").read_text().strip()
+        if re.fullmatch(r"(?:gui|user)/[0-9]+", domain):
+            agent = f"com.purellm.a7-ssh-{version}-dispatcher"
+            job = subprocess.check_output(["/bin/launchctl", "print", f"{domain}/{agent}"],
+                                          text=True, stderr=subprocess.DEVNULL, timeout=4)
+            match = re.search(r"^\s*pid = (\d+)\s*$", job, re.MULTILINE)
+            if match:
+                pids["dispatcher_pid"] = int(match[1])
+    except (OSError, subprocess.SubprocessError):
+        pass
+    try:
+        processes = subprocess.check_output(["/bin/ps", "-ax", "-o", "pid=,command="],
+                                            text=True, stderr=subprocess.DEVNULL, timeout=4)
+    except (OSError, subprocess.SubprocessError):
+        return {**pids, "pid_probe": "unavailable"}
+    matches = []
+    for line in processes.splitlines():
+        columns = line.strip().split(maxsplit=1)
+        if len(columns) != 2 or not columns[0].isdigit():
+            continue
+        pid, command = columns
+        argv = command.split()
+        executable = Path(argv[0]).name
+        if (executable == "caffeinate" or executable.startswith("python")) and (
+            f"-m {MODULE}.dispatcher run " in command and f"--spool-dir {spool}" in command
+        ):
+            matches.append((int(pid), argv))
+    for pid, argv in matches:
+        role = "caffeinate_pid" if Path(argv[0]).name == "caffeinate" else "dispatcher_pid"
+        pids[role] = pid
+    return pids
+
+
+def mac_status(args):
+    if args.version == "v1":
+        return {"mode": "remote_direct"}
+    spool = args.spool_dir.expanduser().absolute()
+    command = [sys.executable, "-B", "-m", f"{MODULE}.dispatcher", "status", "--spool-dir", str(spool)]
+    runtime = args.repo.expanduser()
+    if not runtime.is_dir() and not spool.exists():
+        return {"mode": "not_staged"}
+    source = checked_json(command, cwd=runtime, timeout=12)
+    pool = source.get("key_pool", {})
+    by_id = {row["id"]: row for row in pool.get("keys", ()) if row["id"] in KEYS}
+    keys = []
+    for alias in KEYS:
+        row = by_id.get(alias, {})
+        keys.append({"id": alias, "status": row.get("status", "not_initialized"),
+                     "requests": row.get("requests", 0), "completed": row.get("completed", 0),
+                     "failures": row.get("failures", 0), "corrective_requests": row.get("corrective_requests", 0),
+                     "recent_error": row.get("recent_error"),
+                     "usage": {field: row.get("usage", {}).get(field) for field in TOKEN_FIELDS
+                               if row.get("usage", {}).get(field) is not None}})
+    limits = pool.get("limits", {})
+    cooldown = limits.get("shared_until", 0)
+    delivered = source.get("delivered_results", 0)
+    sealed = source.get("sealed_results", 0)
+    return {**dispatcher_pids(spool, args.version), "initialized": source.get("initialized", False),
+            "jobs": source.get("jobs", 0), "sealed": sealed, "delivered": delivered,
+            "awaiting_delivery": max(0, sealed - delivered),
+            "in_flight_or_unresolved": source.get("open_or_ambiguous_count", 0),
+            "shared_cooldown_seconds": max(0, int(cooldown - time.time())),
+            "shared_error": limits.get("shared_error"),
+            "shared_disabled": bool(limits.get("shared_disabled")),
+            "queue": [{name: row.get(name) for name in ("seed", "round", "logical_index", "state", "key_id")}
+                      for row in pool.get("queue", ())],
+            "keys": keys}
+
+
+def gpu_status(args):
+    python = args.remote_python
+    remote_command = f"cd {shlex.quote(args.remote_release)} && " + shlex.join(
+        [python, "-B", "-", args.run_dir, args.version, args.contract_sha256]
+    )
+    command = ["ssh", "-T", "-o", "BatchMode=yes", "-o", "StrictHostKeyChecking=yes", "-o", "ConnectTimeout=8",
+               "--", args.ssh_host, remote_command]
+    return checked_json(command, script=REMOTE_STATUS, timeout=45)
+
+
+def value(view, name):
+    field = view.get(name)
+    return "—" if field is None else field
+
+
+def show(report):
+    version = report["version"]
+    effort = report["reasoning_effort"]
+    print(f"A7/M2 {version}  {report['checked_at']}  gpt-6.2-sol / {effort}")
+    mac, gpu = report["mac"], report["gpu"]
+    if mac.get("error"):
+        print(f"Mac 状态暂不可用  {mac['error']}")
+    elif mac.get("mode") == "remote_direct":
+        print("历史直连运行")
+    elif mac.get("mode") == "not_staged":
+        print("Mac 传输目录尚未部署")
+    else:
+        print(f"Mac Dispatcher PID {value(mac, 'dispatcher_pid')}  caffeinate PID {value(mac, 'caffeinate_pid')}")
+        print(f"API  已接收 {mac['jobs']}，已封存 {mac['sealed']}，已回传 {mac['delivered']}，"
+              f"待回传 {mac['awaiting_delivery']}，执行中或待对账 {mac['in_flight_or_unresolved']}，"
+              f"共享冷却 {mac['shared_cooldown_seconds']} 秒")
+        for job in mac["queue"]:
+            print(f"  seed {job['seed']} round {job['round']} turn {job['logical_index']}  "
+                  f"{job['state']}  {value(job, 'key_id')}")
+        for row in mac['keys']:
+            print(f"  {row['id']} {row['status']}  请求 {row['requests']} / 完整 {row['completed']} / "
+                  f"失败 {row['failures']} / 修复 {row['corrective_requests']}  tokens {row['usage'] or '—'}")
+            if row['recent_error']:
+                print(f"    最近错误 {row['recent_error']}")
+        if mac['shared_error']:
+            print(f"  服务商共享限制 {mac['shared_error']}  熔断 {mac['shared_disabled']}")
+    if gpu.get("error"):
+        print(f"GPU 状态暂不可用  {gpu['error']}")
+        return
+    coordinator = gpu["coordinator"]
+    print(f"GPU Coordinator PID {value(coordinator, 'pid')}  "
+          f"{'运行中' if coordinator['active'] else '未运行'}  暂停 {coordinator['paused']}  "
+          f"L365 门槛 {gpu['qualified_L365']}  待 Mac 响应 {gpu['api_pending']}")
+    if not gpu["authorization_matches"]:
+        print("尚无与本合同匹配的正式授权")
+    for row in gpu['seeds']:
+        print(f"  seed {row['seed']:5d}  L{row['labels'] if row['labels'] is not None else '—'}  "
+              f"{row['stage']}  API 预留 {row['api_attempts']} / 完整 {row['responses']}  "
+              f"worker PID {value(row, 'pid')}")
+        if row['transport_failures']:
+            print(f"    传输失败 {row['transport_failures']}")
+    first = gpu["seed157_round0"]
+    if first:
+        print(f"  seed157 round0  首答合法 {value(first, 'first_response_legal')}  "
+              f"局部修复 {value(first, 'local_repair_requests_logged')}  "
+              f"tokens {first.get('provider_token_usage') or '—'}")
+    for line in gpu["gpu"].get("devices") or ():
+        fields = [item.strip() for item in line.split(',')]
+        if len(fields) == 6:
+            index, uuid, name, total, used, utilization = fields
+            jobs = [f"seed {job['seed']} {job['stage']}" for job in gpu["gpu_jobs"] if str(job['gpu']) == index]
+            processes = [row.split(',')[1].strip() for row in gpu["gpu"].get("compute_processes") or ()
+                         if row.startswith(uuid + ',') and len(row.split(',')) >= 2]
+            print(f"  GPU {index}  {name}  显存 {used}/{total} MiB  利用率 {utilization}%  "
+                  f"任务 {', '.join(jobs) or '—'}  计算 PID {', '.join(processes) or '—'}")
+    if gpu["gpu"].get("devices") is None:
+        print("  GPU 设备探针暂不可用")
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--version", choices=("v1", "v2", "v3"), default="v3")
+    parser.add_argument("--json", action="store_true", help="emit the safe structured summary")
+    internal = parser.add_mutually_exclusive_group()
+    internal.add_argument("--operator-config", action="store_true", help=argparse.SUPPRESS)
+    internal.add_argument("--mac-resume-check", action="store_true", help=argparse.SUPPRESS)
+    internal.add_argument("--mac-stop-check", action="store_true", help=argparse.SUPPRESS)
+    parser.add_argument("--repo", type=Path)
+    parser.add_argument("--spool-dir", type=Path)
+    parser.add_argument("--ssh-host", default=os.environ.get("A7_SSH_HOST", "eit-hpc"))
+    parser.add_argument("--remote-release")
+    parser.add_argument("--remote-python", default=f"{REMOTE}/environment/venv/bin/python")
+    parser.add_argument("--run-dir")
+    args = parser.parse_args()
+    try:
+        settings = version_record(args.version)
+    except (OSError, ValueError) as error:
+        parser.error(str(error))
+    contract, release, run = (settings[key] for key in ("contract_sha256", "release_sha256", "run_basename"))
+    if args.operator_config:
+        print(contract, release, run)
+        return 0
+    args.repo = args.repo or PRIVATE_ROOT / "runtime" / release
+    args.contract_sha256 = contract
+    args.spool_dir = args.spool_dir or PRIVATE_ROOT / "spool" / contract
+    args.remote_release = args.remote_release or f"{REMOTE}/purellm_a7/releases/{release}"
+    args.run_dir = args.run_dir or f"{REMOTE}/purellm_a7/runs/{run}"
+    if args.mac_resume_check:
+        try:
+            view = gpu_status(args)
+        except (OSError, subprocess.SubprocessError, ValueError, KeyError):
+            sys.exit("Could not verify the v3 authorization and Coordinator over SSH.")
+        coordinator = view["coordinator"]
+        if args.version != "v3" or not view["authorization_matches"] or not coordinator["active"] or coordinator["paused"]:
+            sys.exit("Start or resume the authorized v3 GPU Coordinator before starting the Mac Dispatcher.")
+        return 0
+    if args.mac_stop_check:
+        state = mac_status(args)
+        if state.get("in_flight_or_unresolved", 0) or state.get("awaiting_delivery", 0):
+            sys.exit("The spool has an unresolved or undelivered attempt. Check status before stopping.")
+        return 0
+    report = {
+        "checked_at": datetime.now(timezone.utc).astimezone().isoformat(timespec="seconds"),
+        "version": args.version,
+        "run_directory": args.run_dir,
+        **settings,
+    }
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        tasks = {"mac": pool.submit(mac_status, args), "gpu": pool.submit(gpu_status, args)}
+        for label, task in tasks.items():
+            try:
+                report[label] = task.result()
+            except (OSError, subprocess.SubprocessError, ValueError, KeyError) as error:
+                report[label] = {"error": type(error).__name__}
+    if args.json:
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+    else:
+        show(report)
+    return int(any("error" in report[side] for side in ("mac", "gpu")))
+
+
+if __name__ == "__main__":
+    sys.exit(main())

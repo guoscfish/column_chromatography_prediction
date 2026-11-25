@@ -139,9 +139,14 @@ def _initial_state(directory, backend, contract, scope, anchor_run, fit_slot):
             state = backend.initial_state(anchor_run, fit_dir, allow_fresh_fit=fresh)
     _state_roles(state, backend, scope, 0, contract.batch_size)
     predecessor = contract.predecessor or {}
-    if (not scope["mock"] and state.seed == 157 and "seed_157_initial_checkpoint_sha256" in predecessor
-            and state.checkpoint != predecessor["seed_157_initial_checkpoint_sha256"]):
-        raise ValueError("bridge seed 157 L333 checkpoint differs from the authenticated predecessor")
+    if not scope["mock"]:
+        anchor_digests = predecessor.get("initial_checkpoint_sha256_by_seed")
+        if anchor_digests is not None:
+            expected = anchor_digests[str(state.seed)]
+        else:
+            expected = predecessor.get("seed_157_initial_checkpoint_sha256") if state.seed == 157 else None
+        if expected is not None and state.checkpoint != expected:
+            raise ValueError(f"bridge seed {state.seed} L333 checkpoint differs from the authenticated predecessor")
     if state.provenance["resource_receipt_sha256"] != backend.cache_receipt_sha256:
         raise ValueError("current GPU training resources differ from approved L333")
     if saved:

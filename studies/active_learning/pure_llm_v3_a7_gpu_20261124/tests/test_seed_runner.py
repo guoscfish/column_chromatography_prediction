@@ -342,11 +342,15 @@ def test_active_run_rejects_prompt_and_metadata_edits_against_frozen_digests(tmp
         _approved_assets(tmp_path, contract, {"mock": False})
 
 
-def test_seed157_rejects_initial_checkpoint_that_differs_from_predecessor(tmp_path, metadata, formal):
-    backend = SyntheticBackend(157, metadata)
-    contract = replace(formal[0], predecessor={"seed_157_initial_checkpoint_sha256": "f" * 64})
+@pytest.mark.parametrize(("seed", "predecessor"), [
+    (157, {"seed_157_initial_checkpoint_sha256": "f" * 64}),
+    (887, {"initial_checkpoint_sha256_by_seed": {"887": "f" * 64}}),
+])
+def test_seed_rejects_initial_checkpoint_that_differs_from_predecessor(tmp_path, metadata, formal, seed, predecessor):
+    backend = SyntheticBackend(seed, metadata)
+    contract = replace(formal[0], predecessor=predecessor)
     with pytest.raises(ValueError, match="checkpoint differs from the authenticated predecessor"):
-        _initial_state(tmp_path, backend, contract, {"seed": 157, "mock": False}, None, nullcontext)
+        _initial_state(tmp_path, backend, contract, {"seed": seed, "mock": False}, None, nullcontext)
     assert not (tmp_path / "initial" / "source.json").exists()
     assert not (tmp_path / "initial" / "initial.json").exists()
     assert backend.reveal_calls == backend.fit_calls == 0
