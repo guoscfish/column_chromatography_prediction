@@ -16,6 +16,8 @@ ROOT = Path("/1/column_chromatography_prediction")
 RUNS = ROOT / "purellm_a7/runs"
 CONTINUATION = "a7-gpt62-astra-xhigh-ssh-v5-prompt-continuation"
 FULL = "a7-gpt62-astra-xhigh-ssh-v6-prompt-full"
+DIRECT = "a7-gpt62-astra-xhigh-ssh-v8-direct-one"
+DIRECT_887 = "a7-gpt62-astra-xhigh-ssh-v9-direct-one"
 PILOT_ROUNDS = 10
 TARGET_ROUNDS = 36
 TARGET_LABELS = 1485
@@ -131,11 +133,15 @@ def dispatch_contract(run, seed):
 
 def remote_seed(runs, seed):
     full = runs / f"{FULL}-{seed}"
+    direct = runs / f"{DIRECT_887 if seed == 887 else DIRECT}-{seed}"
     continuation = runs / f"{CONTINUATION}-{seed}"
     fallback = runs / (FIRST_887 if seed == 887 else ORIGINAL)
-    full_contract, continuation_contract = (dispatch_contract(run, seed) for run in (full, continuation))
+    full_contract, direct_contract, continuation_contract = (dispatch_contract(run, seed) for run in (full, direct, continuation))
     if full_contract:
         run, contract, segment = full, full_contract, "v6"
+        ancestors = (direct, continuation, fallback)
+    elif direct_contract:
+        run, contract, segment = direct, direct_contract, "direct"
         ancestors = (continuation, fallback)
     elif continuation_contract:
         run, contract, segment = continuation, continuation_contract, "v5"
@@ -164,6 +170,8 @@ def remote_seed(runs, seed):
         phase = "awaiting_v6_handoff"
     elif paused:
         phase = "paused"
+    elif latest == (5 if seed == 887 else 2) and segment == "direct":
+        phase = "direct_round_complete"
     elif phase in {"paused", "failed", "bridge_pending"}:
         pass
     elif worker_live and gpu.get("stage") in ("waiting", "cuda"):
@@ -175,7 +183,7 @@ def remote_seed(runs, seed):
     elif not worker_live and phase == "initializing":
         phase = "worker_stopped"
     return {"seed": seed, "run": run.name, "contract_sha256": contract, "segment": segment,
-            "continuation": segment in ("v6", "v5"), "target_rounds": TARGET_ROUNDS, "target_labels": TARGET_LABELS,
+            "continuation": segment in ("v6", "v5", "direct"), "target_rounds": TARGET_ROUNDS, "target_labels": TARGET_LABELS,
             "completed_rounds": latest, "labels": 333 + latest * 32 if latest is not None else None,
             "phase": phase, "worker_pid": worker_pid, "worker_active": worker_live,
             "worker_error": safe_code(worker.get("error_type")), "coordinator_pid": coordinator,
@@ -228,7 +236,7 @@ def local_progress(spool, seed):
 
 
 def dispatcher_pid(seed, segment):
-    suffix = "v6-full" if segment == "v6" else "v5-continuation"
+    suffix = {"v6": "v6-full", "v5": "v5-continuation", "direct": ("v9-direct" if seed == 887 else "v8-direct")}[segment]
     label = f"gui/{os.getuid()}/com.purellm.a7-{suffix}-{seed}"
     lines = command_lines(["/bin/launchctl", "print", label])
     for line in lines or ():
