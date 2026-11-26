@@ -2787,10 +2787,10 @@ def check_repeated_boundary(runs, monkeypatch, publish, seed, wave, previous, pr
                         (2357, 13), (2357, 14), (2357, 15), (2357, 16), (2357, 17), (2357, 18),
                         (6101, 11), (6101, 12), (6101, 13), (6101, 14), (6101, 15), (6101, 16), (6101, 17), (6101, 18),
                         (12203, 16), (12203, 17), (12203, 18), (12203, 19), (12203, 20), (12203, 21),
-                        (12203, 22), (12203, 23), (12203, 24), (12203, 25), (12203, 26), (12203, 27), (12203, 28), (12203, 29), (12203, 30), (12203, 31), (12203, 32), (12203, 33),
+                        (12203, 22), (12203, 23), (12203, 24), (12203, 25), (12203, 26), (12203, 27), (12203, 28), (12203, 29), (12203, 30), (12203, 31), (12203, 32), (12203, 33), (12203, 34),
                         (157, 19), (2357, 19), (6101, 19), (157, 20), (2357, 20), (6101, 20),
                         (2357, 21), (6101, 21), (157, 21), (2357, 22), (6101, 22), (157, 22), (157, 23), (2357, 23), (6101, 23), (157, 24), (2357, 24), (6101, 24), (2357, 25), (6101, 25), (157, 25),
-                        (157, 26), (2357, 26), (6101, 26)):
+                        (157, 26), (2357, 26), (6101, 26), (157, 27), (2357, 27), (6101, 27)):
         check_repeated_boundary(runs, monkeypatch, publish, seed, wave + 1, run, sha, auth, record)
 
 
@@ -3001,7 +3001,8 @@ def check_6101_r5_handoff(runs, monkeypatch, publish, parent, cached, cached_sha
                                        (2357, 22), (6101, 22), (157, 22), (12203, 29), (2357, 23), (6101, 23), (157, 23), (12203, 30),
                                        (157, 24), (2357, 24), (6101, 24), (12203, 31),
                                        (157, 25), (2357, 25), (6101, 25), (12203, 32), (2357, 26), (6101, 26), (157, 26), (12203, 33),
-                                       (157, 27), (2357, 27), (6101, 27), (12203, 34)])
+                                       (157, 27), (2357, 27), (6101, 27), (12203, 34),
+                                       (157, 28), (887, 13), (2357, 28), (6101, 28), (12203, 35)])
 def test_new_exact_reviewed_relay_pins_the_original_retired_receipt(seed, wave):
     from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.run_v13_retry_successor import SCOPES
 
@@ -3027,14 +3028,20 @@ def test_new_exact_reviewed_relay_pins_the_original_retired_receipt(seed, wave):
     if len(attempts) == 1:
         assert getattr(status, f"{old}_ATTEMPT") == attempts[0]
     else:
-        assert getattr(status, f"{old}_ATTEMPTS") == attempts
-        assert getattr(status, f"{old}_TERMINALS") == tuple(item.terminal_file_sha256 for item in review.attempts)
-        assert getattr(status, f"{old}_REPLAY_FILES") == review.replay_files
+        receipt_pin = f"{prefix}_PARENT" if (seed, wave) == (887, 13) else old
+        assert getattr(status, f"{receipt_pin}_ATTEMPTS") == attempts
+        assert getattr(status, f"{receipt_pin}_TERMINALS") == tuple(item.terminal_file_sha256 for item in review.attempts)
+        assert getattr(status, f"{receipt_pin}_REPLAY_FILES") == review.replay_files
         assert getattr(status, f"{prefix}_ARCHIVED_SSE_COUNTS") == tuple(
             item.progress.get("sse_event_count", 0) for item in review.attempts
         )
     sources = getattr(status, f"{prefix}_SOURCES")
     assert {name: sources[name] for name, _ in scope.required_sources} == dict(scope.required_sources)
+    if (seed, wave) == (887, 13):
+        previous = SCOPES[(887, 12)].archive[-1]
+        assert status.RELAY_887_WAVE12_TERMINALS == tuple(item.terminal_file_sha256 for item in previous.attempts)
+        assert status.RELAY_887_WAVE12_REPLAY_FILES == previous.replay_files
+        assert status.RELAY_887_WAVE13_FITTED_FILES == dict(scope.fitted_prefix_files)
 
 
 def test_887_r13_targeted_repair_requires_exact_retired_rejection_and_one_slot(tmp_path, monkeypatch):
