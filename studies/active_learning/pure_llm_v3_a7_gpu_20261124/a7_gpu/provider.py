@@ -15,15 +15,17 @@ from urllib.parse import urlparse
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, once
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
     RESPONSES_JSON_IPV4, RESPONSES_STREAM, RESPONSES_STREAM_IPV4, RESPONSES_WEBSOCKET_IPV4, ProviderReply,
-    ResponseMessagePhaseError, TransportFailure, check_request, collect_completed, response_output_text, retry_http,
+    ResponseMessagePhaseError, TransportFailure, check_request, collect_completed, response_id_matches_transport_alias,
+    response_output_text, retry_http,
 )
 
 from .credentials import api_key, key_text
 from .key_pool import LEASE
 
 TOKEN = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}")
-REQUEST_UUID = re.compile(r"[a-fA-F0-9]{8}(?:-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}")
 STREAM_RATE_LIMIT_ERRORS = {"rate_limit_exceeded", "rate_limit_error", "too_many_requests"}
+RELAY_SERVER_ERRORS = {"server_error", "internal_error", "internal_server_error", "upstream_error", "upstream_timeout",
+                       "service_unavailable", "model_overloaded"}
 STREAM_ERROR_FIELDS = {
     "code": STREAM_RATE_LIMIT_ERRORS | {
         "server_error", "internal_error", "internal_server_error", "upstream_error", "upstream_timeout",
@@ -188,14 +190,20 @@ class _WebSocketWriteDeadline(TransportFailure):
         super().__init__("timeout", ambiguous=True)
 
 
+def _answer_message(item):
+    return getattr(item, "type", None) == "message" and getattr(item, "phase", None) != "commentary"
+
+
 class _StreamEvidence:
     def __init__(self, response, deadline, report, *, activity=None, report_headers=True):
         self.headers = response.headers
+        self.http_status = getattr(response, "status_code", None)
         self.deadline = deadline
         self.report = report
         self.activity = activity
         self.sse_activity_at = None
         self.response_id = None
+        self.final_output_seen = False
         self.reported_events = set()
         self.event_count = 0
         self.last_event = None
@@ -222,20 +230,42 @@ class _StreamEvidence:
         received = time.monotonic()
         kind = event.type
         response = getattr(event, "response", None) if kind in LIFECYCLE_EVENTS else None
+        item = getattr(event, "item", None)
+        response_output = getattr(response, "output", None)
+        if (kind == "response.output_text.done" or kind == "response.output_item.done" and _answer_message(item)
+                or isinstance(response_output, list) and any(
+                    _answer_message(output) and getattr(output, "status", None) == "completed"
+                    for output in response_output
+                )):
+            self.final_output_seen = True
         response_id = getattr(response, "id", None)
         if isinstance(response_id, str) and response_id:
             if self.response_id is not None and response_id != self.response_id:
+                transport_id = self.headers.get("x-request-id")
+                matches_alias = response_id_matches_transport_alias(transport_id, response_id)
                 if self.report is not None:
                     identities = {field: token for field, value in (
                         ("response_id", self.response_id), ("conflicting_response_id", response_id),
                     ) if (token := _progress_token(value)) is not None}
-                    transport_id = self.headers.get("x-request-id")
-                    matches_alias = bool(isinstance(transport_id, str) and REQUEST_UUID.fullmatch(transport_id)
-                                         and response_id == f"resp_{transport_id.replace('-', '').lower()}")
                     self.report("sse_event", observed_at=received, error_type="response_id_mismatch",
                                 conflicting_event_type=kind, response_id_matches_transport_alias=matches_alias,
                                 **identities)
-                raise TransportFailure("response_id_mismatch", ambiguous=True)
+                failure = TransportFailure("response_id_mismatch", ambiguous=True)
+                if (self.http_status == 200 and matches_alias and kind == "response.failed"
+                        and getattr(response, "status", None) == "failed"
+                        and (self.deadline is None or received <= self.deadline)):
+                    error = getattr(response, "error", None)
+                    code = _progress_token(getattr(error, "code", None))
+                    if code in STREAM_RATE_LIMIT_ERRORS:
+                        raise TransportFailure("http_429", ambiguous=True,
+                                               retry_after=retry_http(429, self.headers).retry_after)
+                    if (isinstance(response_output, list) and not self.final_output_seen
+                            and (error is None or code in RELAY_SERVER_ERRORS)):
+                        failure.retry_after = retry_http(429, self.headers).retry_after or None
+                        failure.reply_identity = {"response_id": response_id, "provider_request_id": transport_id,
+                                                  "served_model": _progress_token(getattr(response, "model", None)),
+                                                  "provider_status": "failed", "usage": {}}
+                raise failure
             self.response_id = response_id
         if self.activity is not None and self.activity.observe(event):
             self.sse_activity_at = received

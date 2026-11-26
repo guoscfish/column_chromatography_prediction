@@ -166,6 +166,36 @@ def test_response_id_matching_transport_alias_still_requires_reconciliation(mock
     assert mismatch["response_id_matches_transport_alias"] is True
 
 
+@pytest.mark.parametrize(("error_code", "done", "status", "expected", "proof"), [
+    ("server_error", False, "failed", "response_id_mismatch", True),
+    ("server_error", True, "failed", "response_id_mismatch", False),
+    ("unknown_error", False, "failed", "response_id_mismatch", False),
+    ("server_error", False, "completed", "response_id_mismatch", False),
+    ("rate_limit_exceeded", False, "failed", "http_429", False),
+])
+def test_only_a_failed_http_transport_alias_without_final_carries_retry_evidence(mock_provider, error_code, done,
+                                                                                  status, expected, proof):
+    request_id = "00000001-0002-4000-8000-000000000003"
+    alias = "resp_00000001000240008000000000000003"
+
+    def body():
+        yield _event("response.created")
+        if done:
+            yield _frame("response.output_text.done", item_id="msg_fixture", text="finished text")
+        yield _frame("response.failed", response={"id": alias, "object": "response", "status": status,
+                     "model": "mock-model", "output": [], "error": {"code": error_code, "message": "private"}})
+
+    check = mock_provider(body, request_id=request_id)
+    assert check.result.code == expected and check.result.ambiguous and not check.result.retryable
+    assert not check.raw and not check.receipt
+    identity = getattr(check.result, "reply_identity", None)
+    if proof:
+        assert identity == {"response_id": alias, "provider_request_id": request_id, "served_model": "mock-model",
+                            "provider_status": "failed", "usage": {}}
+    else:
+        assert identity is None
+
+
 def test_sse_error_retains_only_structured_failure_fields(mock_provider):
     def body():
         yield _event("response.created")

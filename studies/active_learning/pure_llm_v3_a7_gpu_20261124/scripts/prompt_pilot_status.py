@@ -43,8 +43,10 @@ IPV4_CONTINUATION_DISPATCHERS = {
 }
 IPV4_EXTENSION_END_ROUNDS = {157: 4, 887: 7, 2357: 2, 6101: 2}
 BOUNDED_SSE_END_ROUNDS = {157: 4, 887: 7, 2357: 3, 6101: 2}
-RESILIENT_SEGMENTS = ("ipv4_resilient_sse", "ipv4_resilient_failure")
+RESILIENT_SEGMENTS = ("ipv4_resilient_sse", "ipv4_resilient_failure", "ipv4_relay_retry", "ipv4_cached_r7")
 FORMAL_APPROVAL_FLAGS = ("authorize_paid_api", "authorize_label_reveal", "authorize_cuda_training")
+RELAY_RETRY_SECONDS = 180
+CACHED_R7_PLAN_SHA = "d8acfb0d43235068f932f18b7f09c08554e811060f04878fe1a5a9afe8386d47"
 PILOT_ROUNDS = 10
 TARGET_ROUNDS = 36
 TARGET_LABELS = 1485
@@ -135,7 +137,39 @@ def latest_round(directory):
     return None, {}
 
 
-def pending_attempt(run, directory, index, *, failed=False):
+def _relay_wait(turn, started, terminal, contract, delay):
+    if (type(delay) is not int or delay != RELAY_RETRY_SECONDS or started.get("attempt") != 0
+            or terminal.get("status") != "stopped" or terminal.get("ambiguous") is not True
+            or (turn / "attempt_01.started.json").exists()
+            or (turn / "attempt_00.recovery.terminal.json").exists()):
+        return {}
+    permit = read_json(turn / "attempt_00.replay_authorization.json")
+    replay = read_json(turn / "attempt_00.replay.terminal.json")
+    failed_unix = seconds(terminal.get("failed_unix"))
+    prior_not_before = seconds(terminal.get("not_before_unix"))
+    not_before = seconds(replay.get("not_before_unix"))
+    terminal_sha = record_digest(terminal)
+    if (failed_unix is None or prior_not_before is None or not_before is None
+            or not_before != max(prior_not_before, failed_unix + delay)
+            or replay.get("sealed_relay_retry_seconds") != delay
+            or replay.get("status") != "retryable" or replay.get("ambiguous") is not False
+            or replay.get("error") != "authorized_replay_unknown"
+            or replay.get("supersedes_sha256") != terminal_sha
+            or replay.get("replay_authorization_sha256") != record_digest(permit)
+            or (replay.get("attempt_id"), replay.get("request_id"), replay.get("next_attempt"))
+            != (started.get("attempt_id"), started.get("request_id"), 1)
+            or (permit.get("attempt_id"), permit.get("request_id"), permit.get("next_attempt"))
+            != (started.get("attempt_id"), started.get("request_id"), 1)
+            or permit.get("contract_sha256") != contract
+            or permit.get("decision") != "authorized_replay_unknown"
+            or permit.get("original_terminal_sha256") != terminal_sha
+            or permit.get("bridge_result_sha256") != terminal.get("bridge_result_sha256")
+            or permit.get("accept_duplicate_billing_risk") is not True):
+        return {}
+    return {"relay_retry_wait_seconds": max(0, math.ceil(not_before - time.time()))}
+
+
+def pending_attempt(run, directory, index, *, failed=False, relay_retry=None, contract=None):
     if index is None:
         return {}
     skipped = 0
@@ -165,6 +199,7 @@ def pending_attempt(run, directory, index, *, failed=False):
                 "reserved_unix": seconds(started.get("started_unix")),
                 "attempt_id": identity, "returned_from_mac": returned,
                 **({"unsubmitted_reservations_skipped": skipped} if skipped else {}),
+                **_relay_wait(path.parent, started, record, contract, relay_retry),
                 "selection": safe_code(decision.get("state")), "selection_errors": dict(errors)}
     return {"status": "failed_before_bridge", "unsubmitted_reservations_skipped": skipped} if skipped else {}
 
@@ -241,6 +276,71 @@ def resilient_failure_contract(runs, seed, previous, previous_contract, recovery
         return None
     if contract := fallback_contract(run):
         return run, contract
+    return None
+
+
+def _signed_failure_successor(run, seed, previous, previous_contract, dispatcher, physical_attempts):
+    record = read_json(run / "formal_contract.json")
+    proof = record.get("predecessor") or {}
+    profile = record.get("profile", {})
+    prior_record = read_json(previous / "formal_contract.json")
+    prior_approval = read_json(previous / "authorization.json")
+    approval = read_json(run / "authorization.json")
+    boundary = profile.get("resume_boundaries", {}).get(str(seed), {})
+    start = boundary.get("round")
+    budget = proof.get("recovery_budget")
+    if (previous.name != f"{SERIAL_IPV4}-{seed}-resilient-failure-01"
+            or prior_approval.get("contract_sha256") != previous_contract
+            or proof.get("dispatcher_module") != dispatcher
+            or proof.get("previous_run_directory") != str(previous)
+            or proof.get("previous_contract_sha256") != previous_contract
+            or proof.get("previous_authorization_sha256") != record_digest(prior_approval)
+            or proof.get("seed") != seed or proof.get("round") != start or type(start) is not int
+            or not 0 <= start < TARGET_ROUNDS
+            or budget != {"maximum_logical_requests": 1, "maximum_physical_attempts": physical_attempts}
+            or any(type(value) is not int for value in budget.values())
+            or profile.get("confirmation_seeds") != [seed] or profile.get("target_labels") != TARGET_LABELS
+            or any(approval.get(name) is not True for name in FORMAL_APPROVAL_FLAGS)):
+        return None
+    prior_round, _ = latest_round(previous / f"seed_{seed}")
+    if prior_round is None:
+        prior_round = prior_record.get("profile", {}).get("resume_boundaries", {}).get(str(seed), {}).get("round")
+    if prior_round != start:
+        return None
+    if contract := fallback_contract(run):
+        return contract, start, profile, proof
+    return None
+
+
+def relay_retry_contract(runs, seed, previous, previous_contract):
+    run = runs / f"{SERIAL_IPV4}-{seed}-relay-retry-01"
+    if candidate := _signed_failure_successor(run, seed, previous, previous_contract, "dispatch_v13_relay_retry", 2):
+        contract, start, profile, _ = candidate
+        if (type(profile.get("sealed_relay_retry_seconds")) is int
+                and profile["sealed_relay_retry_seconds"] == RELAY_RETRY_SECONDS
+                and profile.get("audited_future_transport_replay") is True
+                and profile.get("replay_eligible_from_round") == start
+                and profile.get("ipv4_readiness_windows") == 3):
+            return run, contract, start, profile["ipv4_readiness_windows"]
+    return None
+
+
+def cached_r7_contract(runs, seed, previous, previous_contract):
+    if seed != 887:
+        return None
+    run = runs / f"{SERIAL_IPV4}-887-cached-r7-01"
+    if candidate := _signed_failure_successor(run, seed, previous, previous_contract, "dispatch_v13_887_cached_r7", 0):
+        contract, start, profile, proof = candidate
+        cached = proof.get("cached_import") or {}
+        generation = read_json(run / "coordinator_generation.json")
+        if (start == 7 and profile.get("replay_eligible_from_round") == 8
+                and profile.get("audited_future_transport_replay") is True
+                and profile.get("ipv4_readiness_windows") == 3
+                and cached.get("provider_post") is False and cached.get("normalized_plan_sha256") == CACHED_R7_PLAN_SHA
+                and read_json(run / "cached_response_import.json") == cached
+                and pid(generation.get("pid"))
+                and isinstance(identifier := generation.get("id"), str) and IDENTITY.fullmatch(identifier)):
+            return run, contract, start, profile["ipv4_readiness_windows"]
     return None
 
 
@@ -373,6 +473,7 @@ def remote_seed(runs, seed):
         ancestors = (run, *ancestors)
         run, contract, segment = bounded, bounded_contract, "ipv4_bounded_sse"
     recovery_round, readiness_windows = None, 0
+    relay_retry = None
     if mode == "ipv4" and (resilient := resilient_contract(
         runs, seed, run, contract, cohort_contract, follow_on_contract,
     )):
@@ -383,6 +484,15 @@ def remote_seed(runs, seed):
             ancestors = (run, *ancestors)
             run, contract = recovered
             segment = "ipv4_resilient_failure"
+            if cached := cached_r7_contract(runs, seed, run, contract):
+                ancestors = (run, *ancestors)
+                run, contract, recovery_round, readiness_windows = cached
+                segment = "ipv4_cached_r7"
+            elif relay := relay_retry_contract(runs, seed, run, contract):
+                ancestors = (run, *ancestors)
+                run, contract, recovery_round, readiness_windows = relay
+                segment = "ipv4_relay_retry"
+                relay_retry = RELAY_RETRY_SECONDS
     if seed in UNSTARTED_ANCHORS and not cohort_contract and not any(
         (path / f"seed_{seed}").exists() for path in (run, *ancestors)
     ):
@@ -417,7 +527,12 @@ def remote_seed(runs, seed):
     gpu = read_json(run / "gpu" / f"seed_{seed}.json")
     phase = safe_code(worker.get("status")) or "waiting_to_start"
     api = pending_attempt(run, directory, latest,
-                          failed=segment in RESILIENT_SEGMENTS and phase == "failed" and not worker_live)
+                          failed=segment in RESILIENT_SEGMENTS and phase == "failed" and not worker_live,
+                          relay_retry=relay_retry, contract=contract)
+    if segment == "ipv4_cached_r7" and latest == recovery_round:
+        if api.get("status") == "waiting_for_mac":
+            api["status"] = "validating_cached_response"
+        api["cached_import"] = True
     if latest == TARGET_ROUNDS:
         phase = "complete"
     elif segment in ("ipv4_extension", "ipv4_json_extension", "ipv4_ws_extension") and latest == IPV4_EXTENSION_END_ROUNDS[seed] and (
@@ -443,6 +558,8 @@ def remote_seed(runs, seed):
         pass
     elif worker_live and gpu.get("stage") in ("waiting", "cuda"):
         phase = f"gpu_{gpu['stage']}"
+    elif worker_live and "relay_retry_wait_seconds" in api:
+        phase = "relay_retry_cooldown" if api["relay_retry_wait_seconds"] else "awaiting_relay_retry"
     elif api.get("status") in {"waiting_for_mac", "returned_from_mac"}:
         phase = api["status"]
     elif worker_live and api.get("status") == "completed":
@@ -456,6 +573,7 @@ def remote_seed(runs, seed):
                                         "direct", "repair"),
             **({"recovery_round": recovery_round, "readiness_windows": readiness_windows}
                if segment in RESILIENT_SEGMENTS else {}),
+            **({"sealed_relay_retry_seconds": relay_retry} if relay_retry is not None else {}),
             "target_rounds": TARGET_ROUNDS, "target_labels": TARGET_LABELS,
             "completed_rounds": latest, "labels": 333 + latest * 32 if latest is not None else None,
             "phase": phase, "worker_pid": worker_pid, "worker_active": worker_live,
@@ -612,7 +730,9 @@ def dispatcher_pid(seed, segment):
                        "ipv4_ws_extension": "a7-ipv4-v13-6101-ws-extension-01",
                        "ipv4_bounded_sse": f"a7-ipv4-v13-{seed}-bounded-sse-01",
                        "ipv4_resilient_sse": f"a7-ipv4-v13-{seed}-resilient-sse-01",
-                       "ipv4_resilient_failure": f"a7-ipv4-v13-{seed}-resilient-failure-01"}
+                       "ipv4_resilient_failure": f"a7-ipv4-v13-{seed}-resilient-failure-01",
+                       "ipv4_relay_retry": f"a7-ipv4-v13-{seed}-relay-retry-01",
+                       "ipv4_cached_r7": "a7-ipv4-v13-887-cached-r7-01"}
     if segment in cohort_services:
         service = cohort_services[segment]
         label = f"gui/{os.getuid()}/com.purellm.{service}"
@@ -705,6 +825,10 @@ def show(view):
                   f"状态更新 {provider.get('progress_age_seconds', '—')} s 前  tokens {provider.get('usage') or '—'}")
             if skipped := api.get("unsubmitted_reservations_skipped"):
                 print(f"  已略过 {skipped} 个未提交到 bridge 的本地预留")
+            if api.get("cached_import"):
+                print("  本轮读取已归档回答，无新 API 提交")
+            if (relay_wait := api.get("relay_retry_wait_seconds")) is not None:
+                print(f"  已授权的同请求重试最早 {relay_wait} s 后可派发")
             error_details = [f"{label} {provider[field]}" for field, label in (
                 ("error_type", "传输异常"), ("provider_error_code", "SSE 错误码"),
                 ("provider_error_status", "SSE 错误状态"), ("conflicting_event_type", "ID 变化事件"),

@@ -330,6 +330,26 @@ def test_resilient_run_tracks_exact_signed_ancestor_and_launchd(tmp_path, monkey
     assert prompt_pilot_status.dispatcher_pid(seed, row["segment"]) == 1234
     assert commands[-1][-1].endswith(f"/com.purellm.a7-ipv4-v13-{seed}-resilient-failure-01")
 
+    relay = cohort.with_name(f"{cohort.name}-{seed}-relay-retry-01")
+    relay_record = {
+        **new_record, "run_directory": str(relay),
+        "profile": {**new_record["profile"], "sealed_relay_retry_seconds": 180,
+                    "audited_future_transport_replay": True, "replay_eligible_from_round": 4},
+        "predecessor": {**predecessor, "dispatcher_module": "dispatch_v13_relay_retry",
+                        "previous_run_directory": str(recovery), "previous_contract_sha256": recovery_sha,
+                        "previous_authorization_sha256": prompt_pilot_status.record_digest(
+                            prompt_pilot_status.read_json(recovery / "authorization.json")),
+                        "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 2}},
+    }
+    relay_sha = publish(relay, relay_record, **flags)
+    row = remote_seed(tmp_path, seed)
+    assert (row["run"], row["segment"], row["labels"], row["contract_sha256"]) == (
+        relay.name, "ipv4_relay_retry", 461, relay_sha,
+    )
+    assert row["recovery_round"] == 4 and row["sealed_relay_retry_seconds"] == 180
+    assert prompt_pilot_status.dispatcher_pid(seed, row["segment"]) == 1234
+    assert commands[-1][-1].endswith(f"/com.purellm.a7-ipv4-v13-{seed}-relay-retry-01")
+
 
 @pytest.mark.parametrize("seed", prompt_pilot_status.SEEDS)
 def test_each_resilient_failure_lane_requires_unchanged_seed_scope(tmp_path, seed):
@@ -361,6 +381,71 @@ def test_each_resilient_failure_lane_requires_unchanged_seed_scope(tmp_path, see
     write_json(recovery / "formal_contract.json", record)
     write_json(recovery / "authorization.json", {"contract_sha256": record_digest(record), **flags})
     assert resilient_failure_contract(tmp_path, seed, previous, previous_sha, 3) is None
+
+
+def test_cached_r7_requires_signed_predecessor_and_real_activation(tmp_path, monkeypatch):
+    seed = 887
+    prefix = prompt_pilot_status.SERIAL_IPV4
+    previous = tmp_path / f"{prefix}-{seed}-resilient-failure-01"
+    run = tmp_path / f"{prefix}-{seed}-cached-r7-01"
+    digest = prompt_pilot_status.record_digest
+    flags = dict.fromkeys(prompt_pilot_status.FORMAL_APPROVAL_FLAGS, True)
+    policy = {"confirmation_seeds": [seed], "target_labels": 1485, "ipv4_readiness_windows": 3,
+              "audited_future_transport_replay": True, "resume_boundaries": {str(seed): {"round": 7}},
+              "replay_eligible_from_round": 8}
+    prior_record = {"run_directory": str(previous), "profile": policy}
+    prior_sha = digest(prior_record)
+    prior_approval = {"contract_sha256": prior_sha, **flags}
+    write_json(previous / "formal_contract.json", prior_record)
+    write_json(previous / "authorization.json", prior_approval)
+    cached = {"provider_post": False, "normalized_plan_sha256": prompt_pilot_status.CACHED_R7_PLAN_SHA}
+    record = {"run_directory": str(run), "profile": policy, "predecessor": {
+        "dispatcher_module": "dispatch_v13_887_cached_r7", "seed": seed, "round": 7,
+        "previous_run_directory": str(previous), "previous_contract_sha256": prior_sha,
+        "previous_authorization_sha256": digest(prior_approval), "cached_import": cached,
+        "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 0},
+    }}
+    approved_sha = digest(record)
+    write_json(run / "formal_contract.json", record)
+    write_json(run / "authorization.json", {"contract_sha256": approved_sha, **flags})
+    write_json(run / "cached_response_import.json", cached)
+    assert prompt_pilot_status.cached_r7_contract(tmp_path, seed, previous, prior_sha) is None
+
+    write_json(run / "coordinator_generation.json", {"pid": 1234, "id": "4" * 32})
+    assert prompt_pilot_status.cached_r7_contract(tmp_path, seed, previous, prior_sha) == (run, approved_sha, 7, 3)
+    assert prompt_pilot_status.cached_r7_contract(tmp_path, seed, previous, "2" * 64) is None
+    commands = []
+    monkeypatch.setattr(prompt_pilot_status, "command_lines", lambda command: commands.append(command) or [])
+    prompt_pilot_status.dispatcher_pid(seed, "ipv4_cached_r7")
+    assert commands[0][-1].endswith("/com.purellm.a7-ipv4-v13-887-cached-r7-01")
+
+
+def test_relay_countdown_uses_only_bound_failed_and_replay_receipts(tmp_path, monkeypatch):
+    directory = tmp_path / "seed_157"
+    turn = directory / "round_03/turn_00"
+    contract, identity, request_id = "a" * 64, "b" * 32, "c" * 64
+    started = {"attempt_id": identity, "request_id": request_id, "attempt": 0, "transport": "mac_bridge"}
+    terminal = {**started, "status": "stopped", "ambiguous": True, "error": "http_524",
+                "failed_unix": 120, "not_before_unix": 125, "bridge_result_sha256": "d" * 64}
+    seal = prompt_pilot_status.record_digest(terminal)
+    permit = {"attempt_id": identity, "request_id": request_id, "next_attempt": 1,
+              "decision": "authorized_replay_unknown", "contract_sha256": contract,
+              "bridge_result_sha256": terminal["bridge_result_sha256"], "original_terminal_sha256": seal,
+              "accept_duplicate_billing_risk": True}
+    replay = {**started, "status": "retryable", "ambiguous": False, "error": "authorized_replay_unknown",
+              "next_attempt": 1, "sealed_relay_retry_seconds": 180, "not_before_unix": 300,
+              "supersedes_sha256": seal, "replay_authorization_sha256": prompt_pilot_status.record_digest(permit)}
+    for filename, payload in (("attempt_00.started.json", started), ("attempt_00.terminal.json", terminal),
+                              ("attempt_00.replay_authorization.json", permit), ("attempt_00.replay.terminal.json", replay)):
+        write_json(turn / filename, payload)
+    monkeypatch.setattr(prompt_pilot_status.time, "time", lambda: 200)
+    assert pending_attempt(tmp_path, directory, 3, relay_retry=180, contract=contract)["relay_retry_wait_seconds"] == 100
+    assert "relay_retry_wait_seconds" not in pending_attempt(tmp_path, directory, 3, relay_retry=180, contract="e" * 64)
+    write_json(turn / "attempt_00.replay.terminal.json", {**replay, "not_before_unix": 290})
+    assert "relay_retry_wait_seconds" not in pending_attempt(tmp_path, directory, 3, relay_retry=180, contract=contract)
+    write_json(turn / "attempt_00.replay.terminal.json", replay)
+    write_json(turn / "attempt_01.started.json", {**started, "attempt": 1, "attempt_id": "e" * 32})
+    assert "relay_retry_wait_seconds" not in pending_attempt(tmp_path, directory, 3, relay_retry=180, contract=contract)
 
 
 def test_readiness_counts_before_post_and_reports_sealed_no_post(tmp_path, monkeypatch):

@@ -10,8 +10,8 @@ import pytest
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, dumps, once, read
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.response_schema import SCHEMA_VERSION
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
-    RESPONSES_BACKGROUND, ProviderReply, TransportConfig, TransportFailure, TransportStop, make_request, round_lock,
-    run_request, terminal_record,
+    RESPONSES_BACKGROUND, SEALED_RELAY_RETRY_SECONDS, ProviderReply, TransportConfig, TransportFailure, TransportStop,
+    make_request, round_lock, run_request, terminal_record,
 )
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.bridge_protocol import (
     BridgeCourier, BridgePending, make_job, make_result, read_bridge_json, validate_result, verify_job, verify_result,
@@ -120,6 +120,106 @@ def test_future_audited_replay_preserves_exact_bridge_request_and_archives(audit
         run_request(directory, request, config, _forbidden, managed_attempt=_forbidden)
     assert all(path.read_bytes() == value for path, value in old_bytes.items())
     assert not (log / "attempt_02.started.json").exists()
+
+
+def _sealed_alias_failure(*, error="response_id_mismatch", status="failed", served_model="test-model"):
+    failure = TransportFailure(error, ambiguous=True)
+    failure.reply_identity = {"response_id": "resp_00000001000240008000000000000003",
+                              "provider_request_id": "00000001-0002-4000-8000-000000000003",
+                              "provider_status": status, "served_model": served_model, "usage": {}}
+    return failure
+
+
+def _sealed_relay_authorizer(run, request):
+    def authorize(archived, terminal, config):
+        return seed_runner._future_replay_authorization(
+            run, request["binding"]["a7_formal"], {"authorized_by": "offline fixture"}, archived, terminal, config,
+            sealed_relay_retry_seconds=SEALED_RELAY_RETRY_SECONDS,
+        )
+    return authorize
+
+
+def test_sealed_relay_retry_resumes_the_original_180_second_delay(audited_live_bridge):
+    run, config, request, bridge, _ = audited_live_bridge
+    directory = run / "seed_157" / "round_01"
+    log = directory / "turn_01"
+    clock, calls = [100.0], []
+
+    def fake_mac(managed_request, managed_config, started):
+        assert managed_request == request and managed_config == config
+        calls.append((started["attempt"], started["started_unix"]))
+        job = make_job(managed_request, managed_config, started)
+        if started["attempt"] == 0:
+            clock[0] += 10
+            result = make_result(job, failure=_sealed_alias_failure(), provider_dispatched=True,
+                                 credential_id="mock-slot-1")
+        else:
+            result = _payload(config, job)
+        name = f"{job['attempt_id']}.json"
+        once(bridge.outbox / name, job)
+        once(bridge.results / name, result)
+        return bridge(managed_request, managed_config, started)
+
+    options = {"managed_attempt": fake_mac, "replay_authorization_factory": _sealed_relay_authorizer(run, request),
+               "sealed_relay_retry_seconds": SEALED_RELAY_RETRY_SECONDS, "now": lambda: clock[0]}
+
+    def interrupt(delay):
+        assert delay == 180
+        assert not (log / "attempt_01.started.json").exists()
+        raise RuntimeError("interrupted during audited wait")
+
+    with pytest.raises(RuntimeError, match="interrupted during audited wait"):
+        run_request(directory, request, config, _forbidden, sleep=interrupt, **options)
+    original = terminal_record(log, 0)
+    authorized = read(log / "attempt_00.replay_authorization.json")
+    replay = read(log / "attempt_00.replay.terminal.json")
+    assert original["failed_unix"] == 110 and authorized["original_terminal_sha256"] == digest(original)
+    assert replay["not_before_unix"] == 290 and authorized["sealed_relay_retry_seconds"] == 180
+    assert len(list(bridge.outbox.glob("*.json"))) == 1
+    clock[0] = 190
+    with pytest.raises(TransportStop, match="has not reached its sealed delay"):
+        run_request(directory, request, config, _forbidden, sleep=lambda _: None, **options)
+    assert not (log / "attempt_01.started.json").exists()
+
+    def advance(delay):
+        assert delay == 100
+        clock[0] += delay
+
+    completed = run_request(directory, request, config, _forbidden, sleep=advance, **options)
+    assert completed["attempt"] == 1 and calls == [(0, 100.0), (1, 290.0)]
+    assert terminal_record(log, 0) == original
+    assert run_request(directory, request, config, _forbidden, sleep=_forbidden, **options) == completed
+    assert len(calls) == 2 and not (log / "attempt_02.started.json").exists()
+
+
+@pytest.mark.parametrize(("failure", "stop"), [
+    (_sealed_alias_failure(status="completed"), TransportStop),
+    (_sealed_alias_failure(error="timeout"), TransportStop),
+    (_sealed_alias_failure(served_model="other-model"), PermissionError),
+    (TransportFailure("http_429", retryable=True, retry_after=30), TransportStop),
+])
+def test_new_relay_scope_never_replays_nonqualifying_evidence(audited_live_bridge, failure, stop):
+    run, config, request, bridge, _ = audited_live_bridge
+    directory = run / "seed_157" / "round_01"
+
+    def fake_mac(managed_request, managed_config, started):
+        assert started["attempt"] == 0
+        job = make_job(managed_request, managed_config, started)
+        result = make_result(job, failure=failure, provider_dispatched=True, credential_id="mock-slot-1")
+        name = f"{job['attempt_id']}.json"
+        once(bridge.outbox / name, job)
+        once(bridge.results / name, result)
+        return bridge(managed_request, managed_config, started)
+
+    with pytest.raises(stop):
+        run_request(directory, request, config, _forbidden, managed_attempt=fake_mac, now=lambda: 100,
+                    sleep=_forbidden, sealed_relay_retry_seconds=SEALED_RELAY_RETRY_SECONDS,
+                    replay_authorization_factory=_sealed_relay_authorizer(run, request))
+    log = directory / "turn_01"
+    assert not (log / "attempt_01.started.json").exists()
+    assert not (log / "attempt_00.replay_authorization.json").exists()
+    if failure.code == "http_429":
+        assert terminal_record(log, 0)["not_before_unix"] == 130
 
 
 @pytest.mark.parametrize(("error", "dispatched", "raw", "expected"), [

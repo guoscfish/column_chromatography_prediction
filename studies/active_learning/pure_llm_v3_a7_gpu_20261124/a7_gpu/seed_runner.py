@@ -20,7 +20,8 @@ from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.runner import (
 )
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.trajectory import _build_feedback, _next_snapshot
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
-    UNKNOWN_REPLAY_DECISION, TransportStop, check_request, make_request, reconcile, round_lock, terminal_record,
+    SEALED_RELAY_RETRY_SECONDS, UNKNOWN_REPLAY_DECISION, TransportStop, check_request, is_sealed_relay_failure,
+    make_request, reconcile, round_lock, terminal_record,
 )
 
 from .compact_payload import AUTHORITATIVE_PACKET_FILE, formal_wire_messages
@@ -205,11 +206,13 @@ _AUDITED_TRANSPORT_ERRORS = frozenset({
 })
 
 
-def _future_replay_authorization(run, scope, approval, request, terminal, config):
+def _future_replay_authorization(run, scope, approval, request, terminal, config, *, sealed_relay_retry_seconds=None):
     """Approve only the unused original slot after an archived ambiguous network stop."""
     from .bridge_protocol import ATTEMPT_ID, read_bridge_json, validate_result, verify_job
 
-    if (terminal.get("error") not in _AUDITED_TRANSPORT_ERRORS or terminal.get("status") != "stopped"
+    delayed = sealed_relay_retry_seconds is not None
+    eligible = (is_sealed_relay_failure(terminal) if delayed else terminal.get("error") in _AUDITED_TRANSPORT_ERRORS)
+    if (not eligible or terminal.get("status") != "stopped"
             or terminal.get("ambiguous") is not True or terminal.get("provider_dispatched") is not True
             or terminal.get("circuit_open") is not False or terminal.get("answer_sha256") is not None):
         return None
@@ -230,7 +233,7 @@ def _future_replay_authorization(run, scope, approval, request, terminal, config
             or result["raw_response"] is not None or failure.get("ambiguous") is not True
             or failure.get("code") != terminal["error"]):
         raise PermissionError("the original ambiguous result does not match the audited transport retry")
-    return {
+    authorization = {
         "decision": UNKNOWN_REPLAY_DECISION, "authorized_by": approval["authorized_by"],
         "authorization_reference": f"Audited one-slot future transport replay under {scope['contract_sha256']}",
         "accept_duplicate_billing_risk": True, "contract_sha256": scope["contract_sha256"],
@@ -238,6 +241,16 @@ def _future_replay_authorization(run, scope, approval, request, terminal, config
         "bridge_result_sha256": result["result_sha256"], "original_terminal_sha256": digest(terminal),
         "next_attempt": 1,
     }
+    if delayed:
+        identity = failure.get("reply_identity")
+        if (type(sealed_relay_retry_seconds) is not int or sealed_relay_retry_seconds != SEALED_RELAY_RETRY_SECONDS
+                or type(identity) is not dict or failure.get("retryable") is not False
+                or not is_sealed_relay_failure({**identity, "error": failure["code"]})
+                or identity["served_model"] not in (None, config.served_model) or identity["usage"] != {}
+                or any(terminal.get(key) != value for key, value in identity.items())):
+            raise PermissionError("the archived result does not prove the exact failed relay identity")
+        authorization["sealed_relay_retry_seconds"] = sealed_relay_retry_seconds
+    return authorization
 
 
 def _verify_selection(directory, state, scope, config, batch_size, *, stage=None):
@@ -518,29 +531,37 @@ def run_seed(*, root, run_directory, contract, authorization, seed, backend, cal
         raise ValueError("initial GPU anchor differs from the formal authorization")
     api_slot, fit_slot = api_slot or nullcontext, fit_slot or nullcontext
     options = dict(transport_options or {})
-    if {"replay_authorization_factory", "attempt_limit"} & options.keys():
+    if {"replay_authorization_factory", "attempt_limit", "sealed_relay_retry_seconds"} & options.keys():
         raise PermissionError("formal retries must use the internally verified archive and bound recovery budget")
     attempt_slot = options.get("attempt_slot")
     managed_attempt = options.get("managed_attempt")
     alias_normalization = contract.profile.get("normalize_observed_reference_aliases") is True
     audit_replay = contract.profile.get("audited_future_transport_replay") is True
+    relay_delay = contract.profile.get("sealed_relay_retry_seconds")
     replay_start = contract.profile.get("replay_eligible_from_round")
-    if audit_replay and (mock or managed_attempt is None or type(replay_start) is not int or replay_start != start + 1):
-        raise PermissionError("audited future replay is limited to future rounds of a formal managed resume")
+    if relay_delay is not None and (not audit_replay or type(relay_delay) is not int
+            or relay_delay != SEALED_RELAY_RETRY_SECONDS or contract.transport.transport_attempts != 2):
+        raise PermissionError("sealed relay retry requires a signed managed two-attempt recovery")
+    expected_replay_start = start if relay_delay is not None else start + 1
+    if audit_replay and (mock or managed_attempt is None or type(replay_start) is not int
+                         or replay_start != expected_replay_start):
+        raise PermissionError("audited relay replay differs from the formal managed resume boundary")
     predecessor = contract.predecessor or {}
     cached_import = predecessor.get("cached_import")
     cached_dispatcher = predecessor.get("dispatcher_module") == "dispatch_v13_887_cached_r7"
     if cached_dispatcher or cached_import is not None:
         recovery_budget = predecessor.get("recovery_budget")
-        if (not cached_dispatcher or not audit_replay or (seed, start) != (887, 7)
+        if (not cached_dispatcher or not audit_replay or relay_delay is not None or (seed, start) != (887, 7)
                 or type(cached_import) is not dict or cached_import.get("provider_post") is not False
                 or recovery_budget != {"maximum_logical_requests": 1, "maximum_physical_attempts": 0}
                 or any(type(value) is not int for value in recovery_budget.values())):
             raise PermissionError("the cached recovery authorizes one local decision and zero provider submissions")
-    elif audit_replay and predecessor.get("recovery_budget") != {
-            "maximum_logical_requests": 1, "maximum_physical_attempts": 1
-    }:
-        raise PermissionError("the formal recovery boundary must authorize exactly one logical and physical reservation")
+    elif audit_replay:
+        recovery_budget = predecessor.get("recovery_budget")
+        if (recovery_budget != {"maximum_logical_requests": 1,
+                                "maximum_physical_attempts": 2 if relay_delay is not None else 1}
+                or any(type(value) is not int for value in recovery_budget.values())):
+            raise PermissionError("the formal recovery boundary differs from its finite logical and physical budget")
     scope = _scope(contract, authorization, seed, mock)
     gate_seed = contract.qualification_seed if contract.requires_initial_qualification else None
     if gate_seed is not None and seed != gate_seed and qualification_status(run, contract, authorization, mock=mock) is None:
@@ -613,9 +634,12 @@ def run_seed(*, root, run_directory, contract, authorization, seed, backend, cal
                     retry_options["managed_attempt"] = authorized_managed_attempt
                 if audit_replay and index >= replay_start:
                     def audited_replay(request, terminal, config):
-                        return _future_replay_authorization(run, scope, authorization, request, terminal, config)
+                        return _future_replay_authorization(run, scope, authorization, request, terminal, config,
+                                                           sealed_relay_retry_seconds=relay_delay)
 
                     retry_options["replay_authorization_factory"] = audited_replay
+                    if relay_delay is not None:
+                        retry_options["sealed_relay_retry_seconds"] = relay_delay
                 phase = "select"
                 existing = (round_dir / "batch_freeze.json").exists()
                 with nullcontext() if existing else api_slot():
@@ -623,7 +647,7 @@ def run_seed(*, root, run_directory, contract, authorization, seed, backend, cal
                         break
                     selection_options = {"normalize_observed_reference_aliases": True} if alias_normalization else {}
                     if audit_replay and index == start:
-                        retry_options["attempt_limit"] = 1
+                        retry_options["attempt_limit"] = 2 if relay_delay is not None else 1
                         selection_options["logical_reply_limit"] = 1
                     select_stage(stage, round_dir, contract.transport, authorized_call, mock=mock,
                                  retry_options=retry_options, response_projection=response_projection,

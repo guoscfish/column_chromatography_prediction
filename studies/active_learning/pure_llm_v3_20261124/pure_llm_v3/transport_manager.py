@@ -26,6 +26,8 @@ RESPONSES_BACKGROUND = "responses_background"
 
 
 UNKNOWN_REPLAY_DECISION = "authorized_replay_unknown"
+SEALED_RELAY_RETRY_SECONDS = 180
+REQUEST_UUID = re.compile(r"[a-fA-F0-9]{8}(?:-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}")
 REPLAY_AUTH_FIELDS = {"decision", "authorized_by", "authorization_reference", "accept_duplicate_billing_risk",
                       "contract_sha256", "request_id", "attempt_id", "bridge_result_sha256",
                       "original_terminal_sha256", "next_attempt"}
@@ -179,6 +181,17 @@ def _replay_paths(log):
     return log / "attempt_00.replay_authorization.json", log / "attempt_00.replay.terminal.json"
 
 
+def response_id_matches_transport_alias(request_id, response_id):
+    return bool(isinstance(request_id, str) and REQUEST_UUID.fullmatch(request_id)
+                and response_id == f"resp_{request_id.replace('-', '').lower()}")
+
+
+def is_sealed_relay_failure(record):
+    """Check the failed response identity carried by an independently verified result."""
+    return (record.get("error") == "response_id_mismatch" and record.get("provider_status") == "failed"
+            and response_id_matches_transport_alias(record.get("provider_request_id"), record.get("response_id")))
+
+
 def _unknown_replay_record(request, started, previous, authorization):
     scope = request["binding"].get("a7_formal", {})
     if (scope.get("mock") is not False or started.get("transport") != "mac_bridge"
@@ -194,7 +207,9 @@ def _unknown_replay_record(request, started, previous, authorization):
                 "contract_sha256": scope.get("contract_sha256"), "attempt_id": started["attempt_id"],
                 "bridge_result_sha256": previous["bridge_result_sha256"],
                 "original_terminal_sha256": digest(previous), "next_attempt": 1}
-    if (type(authorization) is not dict or set(authorization) != REPLAY_AUTH_FIELDS
+    delayed = type(authorization) is dict and "sealed_relay_retry_seconds" in authorization
+    fields = REPLAY_AUTH_FIELDS | ({"sealed_relay_retry_seconds"} if delayed else set())
+    if (type(authorization) is not dict or set(authorization) != fields
             or any(authorization[key] != value for key, value in expected.items())
             or type(authorization["next_attempt"]) is not int
             or not re.fullmatch(r"[0-9a-f]{64}", authorization["contract_sha256"] or "")
@@ -202,9 +217,21 @@ def _unknown_replay_record(request, started, previous, authorization):
             or any(not isinstance(authorization[key], str) or not authorization[key].strip()
                    for key in ("authorized_by", "authorization_reference"))):
         raise PermissionError("audited replay authorization does not bind the original unknown request")
-    return {**started, "status": "retryable", "error": UNKNOWN_REPLAY_DECISION, "ambiguous": False,
+    not_before = previous["not_before_unix"]
+    delay_field = {}
+    if delayed:
+        delay = authorization["sealed_relay_retry_seconds"]
+        failed = previous.get("failed_unix")
+        if (type(delay) is not int or delay != SEALED_RELAY_RETRY_SECONDS
+                or not is_sealed_relay_failure(previous)
+                or type(failed) not in (int, float) or not math.isfinite(failed) or failed < started["started_unix"]
+                or type(not_before) not in (int, float) or not math.isfinite(not_before) or not_before < failed):
+            raise PermissionError("the delayed replay requires the exact sealed relay failure and timing")
+        not_before = max(not_before, failed + delay)
+        delay_field = {"sealed_relay_retry_seconds": delay}
+    return {**started, **delay_field, "status": "retryable", "error": UNKNOWN_REPLAY_DECISION, "ambiguous": False,
             "prior_execution_and_billing": "unresolved", "next_attempt": 1, "elapsed_seconds": None,
-            "rate_limit_count": previous["rate_limit_count"], "not_before_unix": previous["not_before_unix"],
+            "rate_limit_count": previous["rate_limit_count"], "not_before_unix": not_before,
             "supersedes_sha256": authorization["original_terminal_sha256"],
             "replay_authorization_sha256": digest(authorization)}
 
@@ -218,6 +245,10 @@ def _link_replay_attempt(log, started, replay, *, allow_create):
     if (started.get("request_id") != replay["request_id"] or started.get("transport") != "mac_bridge"
             or started.get("attempt") != replay["next_attempt"] or started.get("attempt_id") == replay["attempt_id"]):
         raise TransportStop("audited replay attempt does not match its permit")
+    if replay.get("sealed_relay_retry_seconds") is not None:
+        activated = started.get("started_unix")
+        if type(activated) not in (int, float) or not math.isfinite(activated) or activated < replay["not_before_unix"]:
+            raise TransportStop("audited relay replay started before its sealed delay")
     path = log / "attempt_01.replay_link.json"
     expected = {"request_id": started["request_id"], "attempt": started["attempt"],
                 "attempt_id": started["attempt_id"], "original_attempt_id": replay["attempt_id"],
@@ -261,7 +292,7 @@ def terminal_record(log, index, *, replay_authorization_sha256=None):
 
 def run_request(directory, request, config, call, *, sleep=time.sleep, jitter=random.random, now=time.time,
                 attempt_slot=None, managed_attempt=None, replay_authorizations=None, replay_authorization_factory=None,
-                attempt_limit=None):
+                attempt_limit=None, sealed_relay_retry_seconds=None):
     """Run direct attempts or recover an immutable managed attempt without resending it here."""
     check_request(request, request["binding"], config)
     limit = config.transport_attempts if attempt_limit is None else attempt_limit
@@ -273,6 +304,9 @@ def run_request(directory, request, config, call, *, sleep=time.sleep, jitter=ra
         not callable(replay_authorization_factory) or managed_attempt is None or limit != 2
     ):
         raise PermissionError("automatic audited replay requires the two-slot managed bridge")
+    if sealed_relay_retry_seconds is not None and (type(sealed_relay_retry_seconds) is not int
+            or sealed_relay_retry_seconds != SEALED_RELAY_RETRY_SECONDS or replay_authorization_factory is None):
+        raise PermissionError("sealed relay retry requires the signed delay and audited two-slot bridge")
     log = directory / f"turn_{request['logical_index']:02d}"
     once(log / "request.json", request)
     rates = 0
@@ -283,6 +317,8 @@ def run_request(directory, request, config, call, *, sleep=time.sleep, jitter=ra
         if managed_attempt is None or limit != 2:
             raise PermissionError("audited replay needs the original two-attempt managed bridge")
         replay = terminal_record(log, 0, replay_authorization_sha256=replay_sha256)
+        if replay.get("sealed_relay_retry_seconds") != sealed_relay_retry_seconds:
+            raise PermissionError("audited relay replay differs from the registered delay")
     for index in range(limit):
         started_path = log / f"attempt_{index:02d}.started.json"
         terminal_path = log / f"attempt_{index:02d}.terminal.json"
@@ -334,14 +370,17 @@ def run_request(directory, request, config, call, *, sleep=time.sleep, jitter=ra
                         rates += 1
                     can_retry = (
                         error.retryable and not error.ambiguous and delay <= config.max_delay_seconds
-                        and rates < config.rate_limit_threshold and index + 1 < limit
+                        and rates < config.rate_limit_threshold and index + 1 < limit and sealed_relay_retry_seconds is None
                     )
+                    failed = now()
                     saved = {**started, **evidence, "status": "retryable" if can_retry else "stopped",
                              "error": error.code, "ambiguous": error.ambiguous,
                              "retry_after_seconds": error.retry_after, "rate_limit_count": rates,
                              "circuit_open": rates >= config.rate_limit_threshold or delay > config.max_delay_seconds,
-                             "not_before_unix": now() + delay,
+                             "not_before_unix": failed + delay,
                              "elapsed_seconds": time.monotonic() - start}
+                    if sealed_relay_retry_seconds is not None:
+                        saved["failed_unix"] = failed
                 else:
                     saved = {**started, **evidence, "status": "completed", "text": reply.text,
                              "answer_sha256": digest(reply.text), "elapsed_seconds": time.monotonic() - start}
@@ -358,6 +397,8 @@ def run_request(directory, request, config, call, *, sleep=time.sleep, jitter=ra
         if index == 0 and replay is None and saved["ambiguous"] and replay_authorization_factory is not None:
             authorization = replay_authorization_factory(request, saved, config)
             if authorization is not None:
+                if authorization.get("sealed_relay_retry_seconds") != sealed_relay_retry_seconds:
+                    raise PermissionError("audited relay replay differs from the registered delay")
                 replay = _seal_ambiguous_replay(log, request, authorization, digest(authorization))
                 saved = replay
         if saved["status"] != "retryable" or saved["ambiguous"]:
@@ -367,6 +408,8 @@ def run_request(directory, request, config, call, *, sleep=time.sleep, jitter=ra
         next_started = log / f"attempt_{index + 1:02d}.started.json"
         if delay > 0 and not next_started.exists():
             sleep(delay)
+            if saved.get("sealed_relay_retry_seconds") is not None and now() < saved["not_before_unix"]:
+                raise TransportStop("audited relay replay has not reached its sealed delay")
     raise TransportStop("transport attempt budget exhausted")
 
 
