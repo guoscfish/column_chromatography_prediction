@@ -1,8 +1,8 @@
 # PureLLM-A7/M2 与 Hybrid 五 seed 阶段对比
 
-验证数据快照的核验时间为北京时间 2026 年 11 月 27 日 05:29:54。PureLLM 已完成 51 轮 CUDA 训练，记录了 1,632 条冻结选点及其理由。Hybrid 为正式 CUDA Uncertainty + Diversity Hybrid32，五条轨迹均已到 L1485。
+验证数据快照的核验时间为北京时间 2026 年 11 月 27 日 05:48:21。PureLLM 已完成 54 轮 CUDA 训练，记录了 1,728 条冻结选点及其理由。Hybrid 为正式 CUDA Uncertainty + Diversity Hybrid32，五条轨迹均已到 L1485。
 
-两种方法在每个 seed 上共用同一份 L333 CUDA checkpoint、验证划分和 QGeoGNN 训练协议，每轮新增 32 个实验。图中数值来自各预算选定 checkpoint 的验证记录。左侧放大截至 L1165 的阶段性曲线，右侧展示完整预算范围。实线止于各 seed 最后一次已完成的 PureLLM 训练。颜色和标记配对同一个 seed。 [L333 配对核验](paired_l333_anchor_receipts.json) · [Hybrid 正式归档](../eit_cuda_three_methods_20261124/README.md)
+两种方法在每个 seed 上共用同一份 L333 CUDA checkpoint、验证划分和 QGeoGNN 训练协议，每轮新增 32 个实验。图中数值来自各预算选定 checkpoint 的验证记录。左侧放大截至 L1261 的阶段性曲线，右侧展示完整预算范围。实线止于各 seed 最后一次已完成的 PureLLM 训练。颜色和标记配对同一个 seed。 [L333 配对核验](paired_l333_anchor_receipts.json) · [Hybrid 正式归档](../eit_cuda_three_methods_20261124/README.md)
 
 ![PureLLM 与 Hybrid 的五 seed 验证曲线](purellm_vs_hybrid_stage.png)
 
@@ -11,7 +11,7 @@
 | Seed | PureLLM 已完成轮次 | 最新预算 | PureLLM 验证 NRMSE | 同预算 Hybrid NRMSE | 差值 |
 |---:|---:|---:|---:|---:|---:|
 | 157 | 7 | L557 | 0.4944 | 0.4759 | +0.0185 |
-| 887 | 26 | L1165 | 0.2888 | 0.3138 | -0.0251 |
+| 887 | 29 | L1261 | 0.2841 | 0.3207 | -0.0367 |
 | 2357 | 5 | L493 | 0.4282 | 0.4412 | -0.0130 |
 | 6101 | 8 | L589 | 0.5108 | 0.4954 | +0.0154 |
 | 12203 | 5 | L493 | 0.4620 | 0.5130 | -0.0510 |
@@ -30,11 +30,13 @@
 
 887 的 R20 和 R21 实际回复均带有一个未标注阶段的单空格占位消息。新解析器保留了完整的显式最终答案，两轮首答均通过 A7 校验。R22 回复直接包含显式最终答案，首答也通过校验。三轮各冻结 32 个选点并完成 CUDA 训练。L1069 的验证 NRMSE 为 **0.2919**。
 
-887 的 R23 至 R25 首答均通过 A7 校验。三轮各冻结 32 个选点并完成训练，截至 L1165 的验证 NRMSE 为 **0.2888**。原始选点顺序及理由保存在逐轮记录。
+887 的 R23 至 R25 首答均通过 A7 校验。三轮各冻结 32 个选点并完成训练，截至 L1261 的验证 NRMSE 为 **0.2888**。原始选点顺序及理由保存在逐轮记录。
+
+887 的 R26 首答中，一条假设的支持和反例证据角色冲突。一次付费局部纠错只调整该假设的证据及说明，32 个选点、顺序、理由和引用全部保留。R27 和 R28 的首答均通过 A7 校验。三轮均完成 CUDA 训练，L1261 的验证 NRMSE 为 **0.2841**。
 
 ## 数据和选点
 
-- [PureLLM 验证指标](purellm_validation_curves.csv) 包含 5 个初始检查点和 51 个后续训练点。`round=0` 对应共享 L333，`acquisition_round=0` 对应首次选点和 L365 训练。 CSV 保留每个指标文件和 checkpoint 的摘要。 [PureLLM 逐文件清单](purellm_export_manifest.json)
+- [PureLLM 验证指标](purellm_validation_curves.csv) 包含 5 个初始检查点和 54 个后续训练点。`round=0` 对应共享 L333，`acquisition_round=0` 对应首次选点和 L365 训练。 CSV 保留每个指标文件和 checkpoint 的摘要。 [PureLLM 逐文件清单](purellm_export_manifest.json)
 - [Hybrid 验证指标](hybrid_validation_curves.csv) 共 185 个检查点。 [来源和校验记录](hybrid_validation_receipts.json)
 - 每个 seed 的 JSONL 每行对应一个已冻结并完成训练的轮次，保留模型给出的理由、引用和选点顺序。 [157](selections/seed_157_accepted_rounds.jsonl) · [887](selections/seed_887_accepted_rounds.jsonl) · [2357](selections/seed_2357_accepted_rounds.jsonl) · [6101](selections/seed_6101_accepted_rounds.jsonl) · [12203](selections/seed_12203_accepted_rounds.jsonl)
 
@@ -43,5 +45,5 @@
 使用 Python 和 Matplotlib 3.10.8，在本目录运行以下命令。
 
 ```bash
-python plot_stage.py --snapshot '27 Nov 2026, 05:29:54 UTC+8'
+python plot_stage.py --snapshot '27 Nov 2026, 05:48:21 UTC+8'
 ```
