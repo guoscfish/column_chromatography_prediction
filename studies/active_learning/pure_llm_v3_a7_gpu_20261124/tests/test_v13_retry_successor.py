@@ -1,4 +1,4 @@
-from dataclasses import replace
+from dataclasses import asdict, replace
 from types import SimpleNamespace
 
 import pytest
@@ -36,7 +36,7 @@ def test_only_explicitly_reviewed_new_wave_can_reserve_its_one_current_slot():
     (157, 6, [2, 1, 1, 1, 1], 193), (157, 7, [1], 187),
     (6101, 2, [2], 199), (6101, 3, [2, 1], 199), (6101, 5, [2, 1, 1, 1], 199), (2357, 2, [2], 187),
     (2357, 5, [2, 1, 2, 1], 187),
-    (887, 1, [1], 163), (887, 3, [1, 1], 163), (887, 4, [1, 1, 1], 163),
+    (887, 1, [1], 163), (887, 3, [1, 1], 163), (887, 4, [1, 1, 1], 163), (887, 5, [1], 139),
 ])
 def test_each_prior_identity_and_new_second_slot_are_rejected(monkeypatch, seed, wave, rev_counts, physical_budget):
     scope = gpu.SCOPES[(seed, wave)]
@@ -286,6 +286,7 @@ def test_2357_previous_partial_text_telemetry_is_bound_to_the_stopped_physical_a
 
 @pytest.mark.parametrize("seed,wave,expected_not_before", [
     (2357, 3, 1795688254.0102787), (2357, 4, 1795690643.3580766), (6101, 4, 1795690796.5505776),
+    (2357, 6, 1795698146.9968047),
     (6101, 6, 1795693173.4806566),
     (12203, 8, 1795690919.9466105), (12203, 9, 1795693155.7197583), (12203, 11, 1795697031.8253946),
     (157, 8, 1795696780.5165217),
@@ -351,6 +352,26 @@ def test_2357_wave05_keeps_only_the_unused_slot_and_pins_the_signed_transport_up
     assert scope.replay_start_round == 5
     assert len(scope.required_sources) == len(gpu.QUEUE_SOURCES) + 2
     assert all(name in gpu.retry.OVERLAYS for name, _ in scope.required_sources)
+
+
+def test_2357_wave06_pins_the_exact_delivered_inactivity_failure_and_stable_transport():
+    previous = gpu.SCOPES[(2357, 5)]
+    scope = gpu.SCOPES[(2357, 6)]
+    assert scope.payload_sha256 == previous.payload_sha256
+    assert scope.original_start_round is None and scope.round == previous.round == 4
+    assert scope.original_boundary_physical_attempts == previous.boundary_physical_attempts == 1
+    assert scope.archive[:-1] == previous.archive
+    assert [len(review.attempts) for review in scope.archive] == [2, 1, 2, 1, 1]
+    assert scope.budget == {"first_logical_requests": 32, "maximum_logical_requests": 94, "maximum_physical_attempts": 188}
+    assert scope.cooldown_field == "not_before_unix" and scope.not_before_unix == 1795698146.9968047
+    assert scope.replay_start_round == 4
+    last = scope.archive[-1]
+    assert last.failure == "timeout" and last.replay_files is None
+    assert last.terminal_file_sha256 == "62945fd3e4bb2a9c4765cb9a15fce22cd2f2687748a42e55694f3efc5bb6427c"
+    assert last.progress["error_type"] == "sse_inactivity_timeout"
+    assert last.progress["event_type"] == "response.output_text.delta" and last.progress["sse_event_count"] == 831
+    assert scope.required_sources == previous.required_sources == gpu.SAME_RESPONSE_RETRY_SOURCES
+    assert all(file_digest(gpu.ROOT / name) == sha for name, sha in scope.required_sources)
 
 
 def test_12203_wave10_keeps_one_unused_equivalent_after_inactivity():
@@ -455,3 +476,68 @@ def test_157_wave08_keeps_the_reviewed_zero_post_origin_and_pins_the_new_transpo
     last = scope.archive[-1]
     assert last.failure == "timeout" and last.progress["error_type"] == "hard_wall_deadline"
     assert last.progress["event_type"] == "response.output_text.delta" and last.progress["sse_event_count"] == 2783
+
+
+def test_887_r12_carries_the_one_unused_slot_and_the_exact_fitted_prefix():
+    scope = gpu.SCOPES[(887, 5)]
+    assert (scope.original_start_round, scope.round, scope.replay_start_round) == (9, 12, 13)
+    assert scope.original_boundary_physical_attempts == 2
+    assert scope.boundary_physical_attempts + len(scope.archive[0].attempts) == 2
+    assert scope.cached_origin is None
+    assert scope.archive[0].identity == gpu._887_R9_CONTINUATION
+    assert scope.budget == {"first_logical_requests": 24, "maximum_logical_requests": 70, "maximum_physical_attempts": 139}
+    assert scope.not_before_unix == 1795697737.9016292
+    assert scope.required_sources == gpu.SCOPES[(2357, 5)].required_sources
+    assert {f"round_{i:02d}/transition.json" for i in (10, 11, 12)} <= dict(scope.fitted_prefix_files).keys()
+
+
+def test_single_reviewed_origin_does_not_require_an_untraversed_previous_pointer(tmp_path, monkeypatch):
+    scope = gpu.SCOPES[(887, 5)]
+    run, release = tmp_path / "old-run", tmp_path / "old-release"
+    parent = SimpleNamespace(predecessor={"model_identity": {"served_model": "locked"}})
+    monkeypatch.setattr(gpu.retry.bounded, "_archived", lambda actual_run, actual_release, identity:
+                        (parent, {"id": identity.contract}) if (actual_run, actual_release) == (run, release) else pytest.fail())
+    monkeypatch.setattr(gpu.retry, "_retired", lambda *args, **kwargs: (run, run))
+    monkeypatch.setattr(gpu, "_evidence", lambda *args: ({}, [], {}))
+    once(run / "provider_model_lock.json", parent.predecessor["model_identity"])
+    assert [record["contract"] for record in gpu._archives(run, release, scope)] == [parent]
+
+
+def test_exact_887_source_only_origin_replays_three_fit_verifications_and_rejects_inserted_user_message(tmp_path, monkeypatch):
+    from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu import backend
+
+    scope = gpu.SCOPES[(887, 5)]
+    directory = tmp_path / "seed_887"
+    initial = directory / "round_09"
+    active = directory / "round_12"
+    start = gpu.seed_runner.FrozenState(887, 9, "initial", {}, [], [], {"expected_observed": list(range(621))})
+    memory = {"rounds": list(range(9))}
+    descriptor = {"round": 9, "state_sha256": digest(asdict(start)), "memory_sha256": digest(memory)}
+    formal = {"scope": "old"}
+    parent = SimpleNamespace(digest=gpu._887_R9_CONTINUATION.contract, profile={"resume_boundaries": {"887": descriptor}},
+                             predecessor={"dispatcher_module": "dispatch_v13_887_r9_continuation"}, transport=object())
+    once(initial / "source.json", asdict(start))
+    once(initial / "boundary_memory.json", memory)
+    once(directory / "boundary.json", {"formal_run": formal, **descriptor})
+    states = {index: replace(start, round=index, checkpoint=(gpu._887_R12_CHECKPOINT if index == 12 else str(index)),
+                             provenance={"expected_observed": list(range(333 + 32 * index))}) for index in (10, 11, 12)}
+    for index in (10, 11, 12):
+        once(directory / f"round_{index:02d}" / "transition.json", {"round": index})
+    once(active / "source.json", asdict(states[12]))
+    reached = []
+    monkeypatch.setattr(gpu.seed_runner, "_scope", lambda *_: formal)
+    monkeypatch.setattr(backend, "TrainingBackend", lambda *_: object())
+
+    def verify_fit(prior, state, following, trusted_scope, transport, contract, cached):
+        reached.append(state.round + 1)
+        assert prior.name == f"round_{state.round:02d}" and following.name == f"round_{reached[-1]:02d}"
+        assert trusted_scope == formal and contract is parent and transport is parent.transport
+        return states[reached[-1]], {"memory_round": reached[-1]}
+
+    monkeypatch.setattr(gpu.seed_runner, "_successor", verify_fit)
+    boundary, proof = gpu._reviewed_boundary(tmp_path, directory, active, parent, {}, scope, tmp_path)
+    assert reached == [10, 11, 12] and boundary == (states[12], {"memory_round": 12}, 12)
+    assert proof["transition_12"] == file_digest(active / "transition.json")
+    once(initial / "boundary_user_message.json", {"content": "unbound"})
+    with pytest.raises(PermissionError, match="R9 continuation boundary"):
+        gpu._reviewed_boundary(tmp_path, directory, active, parent, {}, scope, tmp_path)

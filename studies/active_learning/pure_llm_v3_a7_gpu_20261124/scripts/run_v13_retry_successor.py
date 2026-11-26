@@ -356,6 +356,24 @@ SCOPES[(2357, 5)] = replace(SCOPES[(2357, 4)], wave=5, cooldown_unix=1795694625.
          "response_id": "resp_05749099683d24b3016b0812a205dc87d090ff8bd9db36de56"}),
 ))
 
+SCOPES[(2357, 6)] = replace(SCOPES[(2357, 5)], wave=6, cooldown_field="not_before_unix", cooldown_unix=1795697966.9968047,
+                              original_start_round=None, original_boundary_physical_attempts=1, boundary_physical_attempts=2,
+                              archive=(
+    *SCOPES[(2357, 5)].archive,
+    Review(retry.bounded.RunIdentity("-2357-relay-retry-05",
+        "0ea96d7929e9bdc395bd7bbf05ccdeaebceb5805c5ba73aa8f44985635d57967",
+        "ec14cc82c953da5ca45361aa2abec38f35a88d3b7319504f63941536e40db20c"),
+        "d1003c4a55978f13c25302a0e22e335e6b3e0553809c65931ec6874b102ac4e6", "a6b141a821d649e5bc2a33ec5cab1638",
+        "411bd92256e1c1cf38498e48dc1fcb655af4d69070402034af0fea9d2afd8654",
+        "42399347447ba316b457e8b8df2c0ed48913ad03c4e864ff61597a13e23cc477",
+        "62945fd3e4bb2a9c4765cb9a15fce22cd2f2687748a42e55694f3efc5bb6427c",
+        "beb8b632fc743457b12c9d1328d37806cd739d849337b93ebfb8159ffa4599e1", "timeout",
+        {"http_status": 200, "phase": "transport_failure", "error_type": "sse_inactivity_timeout",
+         "event_type": "response.output_text.delta", "sse_event_count": 831, "last_sse_seconds": 1604.6706121659372,
+         "provider_request_id": "b1a6449c-09ec-4b05-a253-aad6e5207e9f", "model": "gpt-6.2-astra",
+         "response_id": "resp_0dbb7f15ca0e4a12016b08237b136887d293cf127a7e3cd4bb"}),
+))
+
 SCOPES[(157, 4)] = replace(SCOPES[(157, 3)], wave=4, cooldown_unix=1795685449.213155, archive=(
     *SCOPES[(157, 3)].archive,
     Review(retry.bounded.RunIdentity("-157-relay-retry-03",
@@ -707,6 +725,38 @@ SCOPES[(887, 4)] = replace(SCOPES[(887, 3)], wave=4, cooldown_unix=1795687864.46
 ))
 
 
+_887_R9_CONTINUATION = retry.bounded.RunIdentity("-887-r9-continuation-01",
+    "58de5fc9e6a56844cc720404a3ceba8f8e7c8445c4f25290f175748a9d0c9d4f",
+    "d32b845eb0e8cbfbab28c523f82acba853c1e8df345e492033c2458a879658cc")
+_887_R12_CHECKPOINT = "68f0414b95ed886540b989083c5e1c58bc96304fb3178b117d8cde85e8182603"
+SCOPES[(887, 5)] = Scope(
+    887, 12, 5, "4064b0a2694a7d36ece124937bbc5c47b2c5e4e77b22b8384a2af998c15c5b38", (
+        Review(_887_R9_CONTINUATION,
+            "a53987367a8eddc7f4b0bf731e290388b42e1ade9b0c5c3416a5344f5021b2f7", "75647f5eaad9426d8f7cc13ebfa490b8",
+            "80e6838f4e2bcfbc61ebb99a80e4712f982fef48cad8abe06ee1ea33d33ef7d8",
+            "49fb3999e75a5ccc343a10ecfef40c7b796f971847b111f282cf2b1e3f771514",
+            "8cde8a42b2fbfbb4c3602142add3f0ebfcdda7e58f8e3b47c53f90a8502f0ce9",
+            "9c84d32abf0ca52029e6cb144a47255577d57e99984ea33698faa83674c79c76", "timeout",
+            {"http_status": 200, "phase": "transport_failure", "error_type": "sse_inactivity_timeout",
+             "event_type": "response.output_text.delta", "sse_event_count": 207, "last_sse_seconds": 961.4464893341064,
+             "provider_request_id": None, "model": "gpt-6.2-astra",
+             "response_id": "resp_0aceb6badc01f076016b08246221d087d2a30ef3e67e38261f"}),
+    ), "failed_unix", 1795697557.9016292, original_start_round=9, fitted_prefix_files=(
+        ("boundary.json", "b68021e483cd762af998caaeac7a5f03ff151a8f7331213a851765f2c25a67c0"),
+        ("round_09/source.json", "0b33cbe7d235940cd51ea5f0a934ec34805c9ce7b10e7c6bc9844b1daadd1cbd"),
+        ("round_09/boundary_memory.json", "f7dc25bf194a2538139d1caa566df9a64ff98a967d268132152c74782e55c2c6"),
+        ("round_09/memory.json", "a18263a6de3410b4b1841e861b8d836c9dbc9e29d123c1f7cf6c379eee65337b"),
+        ("round_10/transition.json", "8608338a1c622370eca3ff3692e79c7ed8ebd57d003f701525cc4adfd8d596e6"),
+        ("round_10/memory.json", "46196709e12b669d0ea5894ce50d41e3273e7e4b41eedc63f1577db2f7294638"),
+        ("round_11/transition.json", "08f35a25536ac2a450eb7faa827f8c385ac8d1555c7c44a89b9fb4dacb097ca4"),
+        ("round_11/memory.json", "1175f594a4c9dc046a50858f2353ef990e42062771d7bf20fe601e7487683d0f"),
+        ("round_12/source.json", "fefcfca59556ff2a8623feacbcc5dda078a44f05ad006d9c5af712fa1117e3bb"),
+        ("round_12/transition.json", "8bae92f10d48972c566ad18a4fd868c0ab904447daad26222401ab75f6664b05"),
+        ("round_12/fit_000/fit_audit.json", "76d60c67bbe4034975ec2b7c250d4ee7b7767c3527859a3505f9cd8babf5eb3a"),
+    ), required_sources=SCOPES[(2357, 5)].required_sources,
+)
+
+
 def _evidence(run, active, contract, approval, scope, review):
     if review.identity == wave157.OLD:
         request, receipts = wave157._failure(run, active, contract, approval)
@@ -737,7 +787,7 @@ def _evidence(run, active, contract, approval, scope, review):
 def _archives(failed_run, failed_release, scope):
     run, release = failed_run, failed_release
     records = []
-    for review in reversed(scope.archive):
+    for index, review in enumerate(reversed(scope.archive), 1):
         contract, approval = retry.bounded._archived(run, release, review.identity)
         directory, active = retry._retired(run, scope, require_pause=bool(records))
         request, receipts, terminal = _evidence(run, active, contract, approval, scope, review)
@@ -755,7 +805,8 @@ def _archives(failed_run, failed_release, scope):
                 raise PermissionError("a retained successor does not authenticate its immediate predecessor")
         records.append({"run": run, "release": release, "directory": directory, "active": active, "contract": contract,
                         "approval": approval, "request": request, "receipts": receipts, "terminal": terminal})
-        run, release = (Path(contract.predecessor[k]) for k in ("previous_run_directory", "previous_release_directory"))
+        if index < len(scope.archive):
+            run, release = (Path(contract.predecessor[k]) for k in ("previous_run_directory", "previous_release_directory"))
     return records
 
 
@@ -787,6 +838,39 @@ def _source_manifest(root, parent, scope):
         raise PermissionError("the successor is missing the exact reviewed transport source")
     sources.update({path.as_posix(): file_digest(root / path) for path in SIGNED_RETRY_SOURCES})
     return sources
+
+
+def _reviewed_boundary(root, directory, active, parent, approval, scope, cache):
+    if (scope.seed, scope.round, scope.original_start_round, parent.digest) != (887, 12, 9, _887_R9_CONTINUATION.contract):
+        return retry._boundary(root, directory, active, parent, approval, scope, cache)
+    descriptor = parent.profile["resume_boundaries"][str(scope.seed)]
+
+    # This signed ordinary continuation imported R9 before pinning resume user messages became mandatory.
+    # Verify that exact state and memory and every original training transition; the current R12 body is still pinned below.
+    from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.backend import TrainingBackend
+
+    prior_scope = seed_runner._scope(parent, approval, scope.seed, False)
+    start = scope.original_start_round
+    initial = seed_runner.round_directory(directory, start)
+    state = seed_runner.FrozenState(**read(initial / "source.json"))
+    memory = read(initial / "boundary_memory.json")
+    if (parent.predecessor.get("dispatcher_module") != "dispatch_v13_887_r9_continuation"
+            or descriptor != {"round": start, "state_sha256": digest(asdict(state)), "memory_sha256": digest(memory)}
+            or read(directory / "boundary.json") != {"formal_run": prior_scope, **descriptor}
+            or (initial / "boundary_user_message.json").exists()):
+        raise PermissionError("the exact R9 continuation boundary structure changed")
+    proof = {"initial_boundary": file_digest(directory / "boundary.json")}
+    backend = TrainingBackend(root, cache, scope.seed)
+    for index in range(start, scope.round):
+        prior = seed_runner.round_directory(directory, index)
+        following = seed_runner.round_directory(directory, index + 1)
+        state, memory = seed_runner._successor(prior, state, following, prior_scope, parent.transport, parent, backend)
+        proof[f"transition_{index + 1:02d}"] = file_digest(following / "transition.json")
+    if ((state.seed, state.round, state.checkpoint, len(state.provenance["expected_observed"]))
+            != (887, 12, _887_R12_CHECKPOINT, 717) or asdict(state) != read(active / "source.json")):
+        raise PermissionError("the reviewed R12 checkpoint differs from its verified L717 fit")
+    proof.update(latest_source=file_digest(active / "source.json"), latest_memory=digest(memory))
+    return (state, memory, scope.round), proof
 
 
 def construct(root, failed_release, failed_run, run, scope):
@@ -822,7 +906,7 @@ def construct(root, failed_release, failed_run, run, scope):
     cache = Path(old["cache_directory"]).resolve(strict=True)
     if file_digest(cache / "resource_receipt.json") != resources["public_resource_receipt_sha256"]:
         raise PermissionError("the original public training cache changed")
-    boundary, prefix = retry._boundary(failed_release, last["directory"], last["active"], parent, approval, scope, cache)
+    boundary, prefix = _reviewed_boundary(failed_release, last["directory"], last["active"], parent, approval, scope, cache)
     request = last["request"]
     state, memory, index = boundary
     binding = request["binding"]
