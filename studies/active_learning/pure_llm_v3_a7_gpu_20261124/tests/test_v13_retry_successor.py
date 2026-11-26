@@ -10,6 +10,13 @@ from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts import (
 )
 
 
+def assert_prior_transport_atoms(scope):
+    assert dict(scope.required_sources)[gpu.PROVIDER_SOURCE] == (
+        "9b77e82920a303b9429957372d0943a1c729fecca3c80c00d86e0411a1c74bd0"
+    )
+    assert all(file_digest(gpu.ROOT / name) == sha for name, sha in scope.required_sources if name != gpu.PROVIDER_SOURCE)
+
+
 def test_only_explicitly_reviewed_new_wave_can_reserve_its_one_current_slot():
     class Parser:
         def error(self, message):
@@ -26,7 +33,7 @@ def test_only_explicitly_reviewed_new_wave_can_reserve_its_one_current_slot():
                                                  receipt.job_sha256, receipt.result_sha256, receipt.terminal_file_sha256,
                                                  receipt.progress_file_sha256))
     with pytest.raises(ValueError, match="no individually reviewed"):
-        gpu.read_scope(Parser(), SimpleNamespace(seed=12203, wave=12))
+        gpu.read_scope(Parser(), SimpleNamespace(seed=12203, wave=13))
 
 
 @pytest.mark.parametrize("seed,wave,rev_counts,physical_budget", [
@@ -289,7 +296,7 @@ def test_2357_previous_partial_text_telemetry_is_bound_to_the_stopped_physical_a
     (2357, 6, 1795698146.9968047),
     (6101, 6, 1795693173.4806566),
     (12203, 8, 1795690919.9466105), (12203, 9, 1795693155.7197583), (12203, 11, 1795697031.8253946),
-    (157, 8, 1795696780.5165217),
+    (12203, 12, 1795699275.9433548), (157, 8, 1795696780.5165217),
 ])
 def test_conditional_second_attempt_requires_existing_delivered_failure_guard(monkeypatch, seed, wave, expected_not_before):
     previous = gpu.SCOPES[(seed, wave - 1)]
@@ -371,7 +378,7 @@ def test_2357_wave06_pins_the_exact_delivered_inactivity_failure_and_stable_tran
     assert last.progress["error_type"] == "sse_inactivity_timeout"
     assert last.progress["event_type"] == "response.output_text.delta" and last.progress["sse_event_count"] == 831
     assert scope.required_sources == previous.required_sources == gpu.SAME_RESPONSE_RETRY_SOURCES
-    assert all(file_digest(gpu.ROOT / name) == sha for name, sha in scope.required_sources)
+    assert_prior_transport_atoms(scope)
 
 
 def test_12203_wave10_keeps_one_unused_equivalent_after_inactivity():
@@ -392,7 +399,7 @@ def test_12203_wave10_keeps_one_unused_equivalent_after_inactivity():
     assert last.progress["event_type"] == "response.output_item.done" and last.progress["sse_event_count"] == 28
     assert scope.required_sources == gpu.SCOPES[(2357, 5)].required_sources
     assert len(scope.required_sources) == len(gpu.QUEUE_SOURCES) + 2
-    assert all(file_digest(gpu.ROOT / name) == sha for name, sha in scope.required_sources)
+    assert_prior_transport_atoms(scope)
 
 
 def test_12203_wave11_binds_the_exact_alias_failure_and_keeps_the_stable_transport():
@@ -411,6 +418,37 @@ def test_12203_wave11_binds_the_exact_alias_failure_and_keeps_the_stable_transpo
     assert last.progress["conflicting_event_type"] == "response.failed" and last.progress["sse_event_count"] == 25
     assert last.progress["response_id_matches_transport_alias"] is True
     assert scope.required_sources == previous.required_sources == gpu.SAME_RESPONSE_RETRY_SOURCES
+    assert_prior_transport_atoms(scope)
+
+
+def test_12203_wave12_keeps_both_exact_alias_failures_and_all_replay_links():
+    previous = gpu.SCOPES[(12203, 11)]
+    scope = gpu.SCOPES[(12203, 12)]
+    assert scope.payload_sha256 == previous.payload_sha256
+    assert scope.original_start_round == scope.round == previous.round == 5
+    assert scope.original_boundary_physical_attempts == previous.boundary_physical_attempts == 2
+    assert scope.archive[:-1] == previous.archive
+    assert [len(review.attempts) for review in scope.archive] == [2, 2, 2, 1, 1, 2]
+    assert scope.budget == {"first_logical_requests": 31, "maximum_logical_requests": 91, "maximum_physical_attempts": 182}
+    assert scope.cooldown_field == "failed_unix" and scope.not_before_unix == 1795699275.9433548
+    assert scope.replay_start_round == 5
+    first, last = scope.archive[-1].attempts
+    assert first.identity == last.identity and first.request_id == last.request_id
+    assert first.terminal_file_sha256 == "903b43ba21fbaabc38bbb313d6d902975dc05737b100be0102f0d0fbe2699fa2"
+    assert last.terminal_file_sha256 == "6ff9d185708909d691c4986010b25d0b8188aa096dfa21fb95ae78ddac08a874"
+    for attempt in (first, last):
+        assert attempt.failure == "response_id_mismatch"
+        assert attempt.progress["conflicting_event_type"] == "response.failed"
+        assert attempt.progress["response_id_matches_transport_alias"] is True and attempt.progress["sse_event_count"] == 25
+    assert last.replay_files == {
+        "attempt_00.replay_authorization.json": "0b19a39b3fe1948be32132803058b98d417a21420ae7ac08a3978dba61fa3517",
+        "attempt_00.replay.terminal.json": "ba9dda32d3025c6434533d53a1a3de0b4ecf978758fe4c6fd6cfbf84e65bc3a2",
+        "attempt_01.replay_link.json": "603fb01451eca42bee560998d456bddf67d1e50a0004dcf609ea31ad33b6fd29",
+    }
+    previous_sources = dict(previous.required_sources)
+    assert previous_sources[gpu.PROVIDER_SOURCE] == "9b77e82920a303b9429957372d0943a1c729fecca3c80c00d86e0411a1c74bd0"
+    previous_sources[gpu.PROVIDER_SOURCE] = "aacbc199e896091d4395fc036cb60bc604d91ec326a79fcff26e157d9a73705f"
+    assert dict(scope.required_sources) == previous_sources
     assert all(file_digest(gpu.ROOT / name) == sha for name, sha in scope.required_sources)
 
 

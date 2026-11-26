@@ -26,9 +26,10 @@ SIGNED_RETRY_SOURCES = tuple(STUDY / "scripts" / f"{module}.py" for module in (
 QUEUE_SOURCES = (
     ((STUDY / "a7_gpu/dispatcher.py").as_posix(), "cde7ba080ba728b7600764d733cfab8a87bbe8e537840929bc1f47cd6c2cb3fc"),
 )
+PROVIDER_SOURCE = (STUDY / "a7_gpu/provider.py").as_posix()
 SAME_RESPONSE_RETRY_SOURCES = (
     *QUEUE_SOURCES,
-    ((STUDY / "a7_gpu/provider.py").as_posix(), "9b77e82920a303b9429957372d0943a1c729fecca3c80c00d86e0411a1c74bd0"),
+    (PROVIDER_SOURCE, "9b77e82920a303b9429957372d0943a1c729fecca3c80c00d86e0411a1c74bd0"),
     ((STUDY.parent / "pure_llm_v3_20261124/pure_llm_v3/transport_manager.py").as_posix(),
      "25bb9cd757b1d14153bf1f758427d195a4a2299a9a9f840dd7619c783e76c739"),
 )
@@ -657,6 +658,44 @@ SCOPES[(12203, 11)] = replace(SCOPES[(12203, 10)], wave=11, cooldown_field="not_
          "response_id": "resp_045a309a88ab9a96016b0827f5520887d0a8494b64e6666c61",
          "conflicting_response_id": "resp_e28495c5d4e242ef8e04e706fae6752d", "conflicting_event_type": "response.failed",
          "response_id_matches_transport_alias": True}),
+))
+
+_12203_WAVE11 = retry.bounded.RunIdentity("-12203-relay-retry-11",
+    "6083e9eb70e70d536952f4c9faa91b310c3560e6934875675f55f91d7135855d",
+    "914a2a3187fc33a84ff6678bd7ecbab1f14aeb3692fd4d2dc1a340757d71001a")
+_12203_WAVE11_REQUEST = "71b0130320deaf04a0f36006a8886756c66532c5adc43d318d0c19b23ee94878"
+_12203_WAVE11_FIRST = Review(_12203_WAVE11, _12203_WAVE11_REQUEST, "6f75c90ab45748eaa054c070473ec296",
+    "ee7626ee5b00810e19377551f121599d010da056f3f34236f322b92c3cbf49bc",
+    "aec0ced68b9a2daff882ad7ab3a09ac731d14055421c41d2201ac8c747e2d4d9",
+    "903b43ba21fbaabc38bbb313d6d902975dc05737b100be0102f0d0fbe2699fa2",
+    "76d8acccb74a7380c5969fbc24cf0fe82e504d558a24c96035c132c826ee5319", "response_id_mismatch",
+    {"http_status": 200, "phase": "transport_failure", "error_type": "response_id_mismatch", "sse_event_count": 25,
+     "provider_request_id": "2bea3d9f-8d7c-4f4b-bc53-5af4384b54db", "model": "gpt-6.2-astra",
+     "response_id": "resp_0be161e1cc6bd6b0016b082d30612c87d1b23550823cea8f04",
+     "conflicting_response_id": "resp_2bea3d9f8d7c4f4bbc535af4384b54db", "conflicting_event_type": "response.failed",
+     "response_id_matches_transport_alias": True})
+SCOPES[(12203, 12)] = replace(SCOPES[(12203, 11)], wave=12, cooldown_field="failed_unix",
+                               cooldown_unix=1795699095.9433548, original_start_round=5,
+                               original_boundary_physical_attempts=2, required_sources=tuple(
+    (source, "aacbc199e896091d4395fc036cb60bc604d91ec326a79fcff26e157d9a73705f" if source == PROVIDER_SOURCE else sha)
+    for source, sha in SAME_RESPONSE_RETRY_SOURCES
+), archive=(
+    *SCOPES[(12203, 11)].archive,
+    Review(_12203_WAVE11, _12203_WAVE11_REQUEST, "6bcb5f6a31ec42a0b5c254b787202c52",
+        "6d87de5c3b77b273442ca8480732588e6f45d1a57b60462794394aa8dbd92220",
+        "efae225e919525904cf79acdd10bf7cd2c4e076ada6e2e168c7be88250bc319f",
+        "6ff9d185708909d691c4986010b25d0b8188aa096dfa21fb95ae78ddac08a874",
+        "d38fa2f6920488a978e98f9c1b6c5a9a74d9a5f44a613020e52f602b0127e77e", "response_id_mismatch",
+        {"http_status": 200, "phase": "transport_failure", "error_type": "response_id_mismatch", "sse_event_count": 25,
+         "provider_request_id": "0dac1eab-fa9b-4e8c-95a7-b6425611386b", "model": "gpt-6.2-astra",
+         "response_id": "resp_0eecca46bad6c6e3016b0830bcf4dc87d0bf5ebeabbf62be5a",
+         "conflicting_response_id": "resp_0dac1eabfa9b4e8c95a7b6425611386b", "conflicting_event_type": "response.failed",
+         "response_id_matches_transport_alias": True},
+        earlier=(_12203_WAVE11_FIRST,), replay_files={
+            "attempt_00.replay_authorization.json": "0b19a39b3fe1948be32132803058b98d417a21420ae7ac08a3978dba61fa3517",
+            "attempt_00.replay.terminal.json": "ba9dda32d3025c6434533d53a1a3de0b4ecf978758fe4c6fd6cfbf84e65bc3a2",
+            "attempt_01.replay_link.json": "603fb01451eca42bee560998d456bddf67d1e50a0004dcf609ea31ad33b6fd29",
+        }),
 ))
 
 SCOPES[(887, 1)] = Scope(

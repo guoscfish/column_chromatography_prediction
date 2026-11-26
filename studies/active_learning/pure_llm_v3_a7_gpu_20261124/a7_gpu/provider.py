@@ -117,6 +117,20 @@ def _progress_token(value):
     return None
 
 
+def _alias_failure_audit(event, response, prior_model, transport_id):
+    """Keep only recognized diagnostic fields for the stream's own failed HTTP alias."""
+    error = getattr(response, "error", None)
+    if (prior_model is None or prior_model != getattr(response, "model", None)
+            or getattr(response, "object", None) != "response"
+            or any(getattr(source, field, None) not in (None, expected)
+                   for source in (event, response, error)
+                   for field, expected in (("request_id", transport_id), ("provider_request_id", transport_id),
+                                           ("response_id", response.id)))):
+        return {}
+    return {f"provider_error_{field}": value for field in ("code", "type")
+            if isinstance(value := getattr(error, field, None), str) and value in STREAM_ERROR_FIELDS[field]}
+
+
 def _stream_error_audit(error):
     body = error.body if isinstance(error.body, dict) else {}
     fields = {}
@@ -261,17 +275,20 @@ class _StreamEvidence:
             if self.response_id is not None and response_id != self.response_id:
                 transport_id = self.headers.get("x-request-id")
                 matches_alias = response_id_matches_transport_alias(transport_id, response_id)
+                failed_alias = (self.http_status == 200 and matches_alias and kind == "response.failed"
+                                and getattr(response, "status", None) == "failed"
+                                and (self.deadline is None or received <= self.deadline))
                 if self.report is not None:
                     identities = {field: token for field, value in (
                         ("response_id", self.response_id), ("conflicting_response_id", response_id),
                     ) if (token := _progress_token(value)) is not None}
+                    error_audit = (_alias_failure_audit(event, response, self.response_model, transport_id)
+                                   if failed_alias else {})
                     self.report("sse_event", observed_at=received, error_type="response_id_mismatch",
                                 conflicting_event_type=kind, response_id_matches_transport_alias=matches_alias,
-                                **identities)
+                                **identities, **error_audit)
                 failure = TransportFailure("response_id_mismatch", ambiguous=True)
-                if (self.http_status == 200 and matches_alias and kind == "response.failed"
-                        and getattr(response, "status", None) == "failed"
-                        and (self.deadline is None or received <= self.deadline)):
+                if failed_alias:
                     error = getattr(response, "error", None)
                     code = _progress_token(getattr(error, "code", None))
                     if code in STREAM_RATE_LIMIT_ERRORS:

@@ -202,6 +202,47 @@ def test_only_a_failed_http_transport_alias_without_final_carries_retry_evidence
         assert identity is None
 
 
+@pytest.mark.parametrize(("identity", "status", "model", "event_fields", "error_fields", "expected"), [
+    ("alias", "failed", "mock-model", {}, {}, {"provider_error_code": "server_error", "provider_error_type": "api_error"}),
+    ("alias", "failed", "mock-model", {}, {"type": "private-canary-type"}, {"provider_error_code": "server_error"}),
+    ("alias", "failed", "mock-model", {}, {"code": "private-canary-code", "type": "private-canary-type"}, {}),
+    ("resp_foreign", "failed", "mock-model", {}, {}, {}),
+    ("alias", "completed", "mock-model", {}, {}, {}),
+    ("alias", "failed", "different-model", {}, {}, {}),
+    ("alias", "failed", "mock-model", {"request_id": "req_foreign"}, {}, {}),
+    ("alias", "failed", "mock-model", {}, {"response_id": "resp_foreign"}, {}),
+])
+def test_failed_alias_audit_stores_only_recognized_owned_error_fields(mock_provider, tmp_path, identity, status, model,
+                                                                      event_fields, error_fields, expected):
+    request_id = "00000001-0002-4000-8000-000000000003"
+    alias = "resp_00000001000240008000000000000003"
+
+    def body():
+        yield _event("response.created")
+        yield _frame("response.failed", response={"id": alias if identity == "alias" else identity,
+                     "object": "response", "status": status, "model": model, "output": [],
+                     "error": {"code": "server_error", "type": "api_error", "message": "private-canary-message",
+                               **error_fields}}, **event_fields)
+
+    check = mock_provider(body, request_id=request_id)
+    assert (check.result.code, check.result.retryable, check.result.ambiguous) == ("response_id_mismatch", False, True)
+    assert not check.raw and not check.receipt
+    assert "private-canary" not in json.dumps(check.progress)
+    assert check.secret not in json.dumps(check.progress)
+    mismatch = next(row for row in check.progress if row.get("conflicting_event_type") == "response.failed")
+    assert {key: value for key, value in mismatch.items() if key.startswith("provider_error_")} == expected
+    attempt = tmp_path / ("a" * 32)
+    attempt.mkdir()
+    save = dispatcher._transport_progress(attempt, {
+        "job_sha256": "b" * 64, "request": {"request_id": "c" * 64, "binding": {"seed": 157, "round": 4}, "logical_index": 0},
+    })
+    for update in check.progress:
+        save(update)
+    saved = (attempt / dispatcher.PROGRESS_FILENAME).read_text()
+    assert "private-canary" not in saved and check.secret not in saved
+    assert {key: value for key, value in json.loads(saved).items() if key.startswith("provider_error_")} == expected
+
+
 def _same_response_terminal(code="server_error", *, error_fields=None, response_fields=None, event_fields=None):
     error = {"code": code, "message": "private detail", **(error_fields or {})} if code is not None else None
     return _frame("response.failed", response={"id": "resp_stream", "object": "response", "status": "failed",
