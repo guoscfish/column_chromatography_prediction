@@ -2552,6 +2552,39 @@ def test_readiness_counts_before_post_and_reports_sealed_no_post(tmp_path, monke
     assert "readiness_retry_seconds" not in row
 
 
+def test_status_distinguishes_unauthenticated_readiness_live_model_sse_and_sealed_post(tmp_path, capsys):
+    status = prompt_pilot_status
+    identity, job_sha = "a" * 32, "6" * 64
+    active = {"attempt_id": identity, "round": 6, "turn": 0, "status": "waiting_for_mac"}
+    attempt = tmp_path / "attempts" / identity
+    write_json(tmp_path / "jobs" / f"{identity}.json", {
+        "attempt_id": identity, "job_sha256": job_sha,
+        "request": {"binding": {"seed": 887, "round": 6}, "logical_index": 0},
+    })
+    write_json(attempt / "readiness_01.json", {
+        "attempt_id": identity, "job_sha256": job_sha, "window": 1, "retry_unix": 130, "http_status": 401,
+    })
+    row = {"seed": 887, "labels": 525, "target_labels": 1485, "completed_rounds": 6,
+           "target_rounds": 36, "phase": "waiting_for_mac", "worker_pid": None, "coordinator_pid": None,
+           "run": None, "api": active}
+
+    def rendered():
+        row["provider"] = local_progress(tmp_path, 887, active, readiness_windows=3)
+        status.show({"seeds": [row], "mac": {"keys": [], "limits": {}, "queue": []}})
+        return capsys.readouterr().out
+
+    assert "模型请求 未提交" in rendered()
+    put_progress(tmp_path, identity, 6, phase="http_headers", http_status=200, sse_event_count=0)
+    assert "模型请求 待确认" in rendered()
+    put_progress(tmp_path, identity, 6, http_status=200, sse_event_count=3, event_type="response.in_progress")
+    assert "模型请求 已收到 SSE，回执待封存" in rendered()
+    assert "provider_dispatched" not in row["provider"]
+    write_json(tmp_path / "results" / f"{identity}.json", {
+        "attempt_id": identity, "job_sha256": job_sha, "result_sha256": "c" * 64, "provider_dispatched": True,
+    })
+    assert "模型请求 已提交" in rendered()
+
+
 @pytest.mark.parametrize("seed,wave", [(157, 9), (2357, 8), (6101, 9), (6101, 10), (887, 10)])
 def test_reviewed_relay_after_new_cuda_fit_requires_exact_fit_and_archive(tmp_path, monkeypatch, seed, wave):
     from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.run_v13_retry_successor import SCOPES
@@ -2754,8 +2787,8 @@ def check_repeated_boundary(runs, monkeypatch, publish, seed, wave, previous, pr
                         (2357, 13), (2357, 14), (2357, 15), (2357, 16), (2357, 17), (2357, 18),
                         (6101, 11), (6101, 12), (6101, 13), (6101, 14), (6101, 15), (6101, 16), (6101, 17), (6101, 18),
                         (12203, 16), (12203, 17), (12203, 18), (12203, 19), (12203, 20), (12203, 21),
-                        (12203, 22), (12203, 23), (12203, 24), (12203, 25), (12203, 26),
-                        (157, 19), (2357, 19), (6101, 19)):
+                        (12203, 22), (12203, 23), (12203, 24), (12203, 25), (12203, 26), (12203, 27),
+                        (157, 19), (2357, 19), (6101, 19), (157, 20), (2357, 20), (6101, 20), (2357, 21)):
         check_repeated_boundary(runs, monkeypatch, publish, seed, wave + 1, run, sha, auth, record)
 
 
@@ -2962,7 +2995,7 @@ def check_6101_r5_handoff(runs, monkeypatch, publish, parent, cached, cached_sha
                                        (2357, 16), (2357, 17), (2357, 18), (6101, 15), (6101, 16), (6101, 17),
                                        (157, 17), (157, 18), (157, 19), (2357, 19), (6101, 18), (6101, 19),
                                        (12203, 24), (12203, 25), (12203, 26), (157, 20),
-                                       (2357, 20), (6101, 20), (12203, 27)])
+                                       (2357, 20), (6101, 20), (12203, 27), (157, 21), (2357, 21), (6101, 21), (12203, 28), (2357, 22)])
 def test_new_exact_reviewed_relay_pins_the_original_retired_receipt(seed, wave):
     from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.run_v13_retry_successor import SCOPES
 
