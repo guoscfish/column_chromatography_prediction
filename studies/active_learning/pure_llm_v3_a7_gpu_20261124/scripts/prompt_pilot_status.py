@@ -5,6 +5,7 @@ from collections import Counter
 from datetime import datetime
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import re
@@ -123,6 +124,7 @@ def pending_attempt(run, directory, index):
                          if (code := safe_code(entry.get("code"))) is not None)
         return {"status": status, "failure": safe_code(record.get("error")), "ambiguous": record.get("ambiguous") is True,
                 "round": index, "turn": int(path.parent.name[-2:]), "attempt": started.get("attempt"),
+                "reserved_unix": seconds(started.get("started_unix")),
                 "attempt_id": identity, "returned_from_mac": returned,
                 "selection": safe_code(decision.get("state")), "selection_errors": dict(errors)}
     return {}
@@ -280,7 +282,19 @@ def usage(data):
     return {key: data[key] for key in TOKEN_FIELDS if isinstance(data, dict) and type(data.get(key)) is int}
 
 
-def local_progress(spool, seed, active):
+def seconds(value):
+    return value if type(value) in (int, float) and math.isfinite(value) and value >= 0 else None
+
+
+def mac_start_time(marker):
+    try:
+        parsed = datetime.fromisoformat(marker["started_utc"])
+        return parsed.timestamp() if parsed.tzinfo is not None else None
+    except (KeyError, TypeError, ValueError, OSError, OverflowError):
+        return None
+
+
+def local_progress(spool, seed, active, *, track_queue=False):
     """Report only the Mac attempt selected by the current GPFS ledger."""
     identity = active.get("attempt_id")
     if not isinstance(identity, str) or not IDENTITY.fullmatch(identity):
@@ -289,15 +303,23 @@ def local_progress(spool, seed, active):
     path = attempt / "provider_progress.json"
     status = read_json(path)
     marker = read_json(attempt / "started.json")
+    now = time.time()
+    start = mac_start_time(marker) if marker.get("attempt_id") == identity else None
+    timing = {}
+    if track_queue and (reserved := seconds(active.get("reserved_unix"))) is not None:
+        if start is not None:
+            timing["dispatch_wait_seconds"] = seconds(start - reserved)
+        elif not marker and active.get("status") == "waiting_for_mac":
+            timing = {"phase": "queued_for_dispatch", "dispatch_wait_seconds": seconds(now - reserved)}
     if (status.get("seed") != seed or status.get("attempt_id") != identity or marker.get("attempt_id") != identity
             or not marker.get("job_sha256") or status.get("job_sha256") != marker["job_sha256"]
             or status.get("round") != active.get("round") or status.get("logical_index") != active.get("turn")
             or status.get("phase") not in PHASES):
-        return {}
+        return timing
     try:
         updated = path.stat().st_mtime
     except OSError:
-        return {}
+        return timing
     result = read_json(spool / "results" / f"{identity}.json")
     ack = read_json(spool / "delivered" / f"{identity}.json")
     sealed = result.get("attempt_id") == identity and result.get("job_sha256") == marker["job_sha256"]
@@ -307,16 +329,26 @@ def local_progress(spool, seed, active):
         events = {}
     first_text_event = events.get("response.output_text.delta")
     first_text = first_text_event.get("elapsed_seconds") if isinstance(first_text_event, dict) else None
+    terminal_event = events.get("response.completed")
+    terminal_time = terminal_event.get("elapsed_seconds") if isinstance(terminal_event, dict) else None
     ids = {field: value for field in ("response_id", "provider_request_id")
            if isinstance(value := status.get(field), str) and PROVIDER_ID.fullmatch(value)}
     fields = ("round", "logical_index", "http_status", "elapsed_seconds", "sse_event_count")
     progress = {field: status[field] for field in fields if type(status.get(field)) in (int, float)}
-    return {**progress, "phase": status["phase"], "sealed": sealed, "delivered": delivered,
-            "progress_age_seconds": max(0, round(time.time() - updated)),
+    elapsed = seconds(status.get("elapsed_seconds"))
+    if not sealed and status["phase"] not in ("transport_completed", "transport_failure"):
+        if start is not None and (running := seconds(now - start)) is not None:
+            elapsed = max(elapsed or 0, running)
+    return {**timing, **progress, "phase": status["phase"], "sealed": sealed, "delivered": delivered,
+            "progress_age_seconds": max(0, round(now - updated)),
             "event_type": safe_code(status.get("event_type")), "usage": usage(status.get("usage")),
             **ids,
-            "first_output_seconds": first_text if type(first_text) in (int, float) else None,
+            "provider_elapsed_seconds": elapsed,
+            "first_output_seconds": seconds(first_text),
+            "last_sse_seconds": seconds(status.get("last_sse_seconds")),
+            "last_sse_interval_seconds": seconds(status.get("last_sse_interval_seconds")),
             "complete_event_seen": "response.completed" in events or status.get("event_type") in {"response.completed", "background.completed"},
+            "complete_event_seconds": seconds(terminal_time),
             "raw_response_saved": (attempt / "raw_provider_response.json").is_file()
                                   and (attempt / "provider_capture_receipt.json").is_file()}
 
@@ -375,10 +407,14 @@ def mac_report(private, seeds):
         if isinstance(contract, str) and SHA.fullmatch(contract):
             spool = private / "spool" / contract
             if read_json(spool / "run_binding.json").get("contract_sha256") == contract:
-                row["provider"] = local_progress(spool, row["seed"], row["api"])
+                row["provider"] = local_progress(spool, row["seed"], row["api"], track_queue=row["segment"] == "ipv4")
         if row.get("continuation"):
             row["dispatcher_pid"] = dispatcher_pid(row["seed"], row["segment"])
     return {"keys": keys, "queue": queue, "limits": limits}
+
+
+def duration_text(value):
+    return f"{value:.1f} s" if seconds(value) is not None else "—"
 
 
 def show(view):
@@ -393,13 +429,20 @@ def show(view):
         if api or provider:
             sealed = ("已回传" if provider.get("delivered") else "已封存待回传" if provider.get("sealed")
                       else "待封存" if provider else "未见当前回执")
-            evidence = ("已收到完成终态" if provider.get("complete_event_seen")
-                        else "已收到正文" if provider.get("first_output_seconds") is not None
-                        else "尚无正文" if provider else "—")
+            if provider.get("phase") == "queued_for_dispatch":
+                sealed = "等待派发"
             print(f"  API {api.get('status', '—')}  {api.get('failure') or '—'}  "
                   f"Mac {provider.get('phase', '—')} ({sealed})  HTTP {provider.get('http_status', '—')}  "
-                  f"{evidence}  SSE {provider.get('sse_event_count', '—')}  "
-                  f"latest event {provider.get('progress_age_seconds', '—')} s ago  tokens {provider.get('usage') or '—'}")
+                  f"SSE {provider.get('sse_event_count', '—')}  "
+                  f"状态更新 {provider.get('progress_age_seconds', '—')} s 前  tokens {provider.get('usage') or '—'}")
+            if provider:
+                terminal = ("—" if provider.get("phase") == "queued_for_dispatch"
+                            else "已收到" if provider.get("complete_event_seen") else "未收到")
+                print(f"  派发前等待 {duration_text(provider.get('dispatch_wait_seconds'))}  "
+                      f"API 已用时（含预检） {duration_text(provider.get('provider_elapsed_seconds'))}  "
+                      f"首段正文 {duration_text(provider.get('first_output_seconds'))}  "
+                      f"最近两条 SSE 间隔 {duration_text(provider.get('last_sse_interval_seconds'))}  "
+                      f"完成终态 {terminal} {duration_text(provider.get('complete_event_seconds'))}")
             if api.get("selection"):
                 print(f"  A7 校验 {api['selection']}  {api['selection_errors'] or '—'}")
     for gpu in view.get("gpus") or ():

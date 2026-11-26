@@ -4,6 +4,7 @@ import json
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.prompt_pilot_status import (
     UNSTARTED_ANCHORS, local_progress, pending_attempt, remote_seed,
 )
+from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts import prompt_pilot_status
 
 
 def write_json(path, value):
@@ -63,6 +64,28 @@ def test_reports_matching_completion_and_delivery_separately(tmp_path):
         "attempt_id": identity, "result_sha256": result_sha,
     })
     assert local_progress(tmp_path, 887, active)["delivered"]
+
+
+def test_dispatch_wait_is_separate_from_provider_time(tmp_path, monkeypatch):
+    identity = "5" * 32
+    active = {
+        "attempt_id": identity, "round": 4, "turn": 0,
+        "reserved_unix": 1600000000, "status": "waiting_for_mac",
+    }
+    monkeypatch.setattr(prompt_pilot_status.time, "time", lambda: 1600000070)
+    assert local_progress(tmp_path, 887, active, track_queue=True) == {
+        "phase": "queued_for_dispatch", "dispatch_wait_seconds": 70,
+    }
+
+    attempt, job_sha = put_progress(tmp_path, identity, 4, elapsed_seconds=22, last_sse_interval_seconds=11)
+    write_json(attempt / "started.json", {
+        "attempt_id": identity, "job_sha256": job_sha, "started_utc": "2020-09-13T12:27:00+00:00",
+    })
+    state = local_progress(tmp_path, 887, active, track_queue=True)
+    assert state["dispatch_wait_seconds"] == 20
+    assert state["provider_elapsed_seconds"] == 50
+    assert state["last_sse_interval_seconds"] == 11
+    assert not state["complete_event_seen"]
 
 
 def test_completed_transport_can_still_fail_scientific_validation(tmp_path):
