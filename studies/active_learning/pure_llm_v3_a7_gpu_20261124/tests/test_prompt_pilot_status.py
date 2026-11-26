@@ -2735,7 +2735,7 @@ def check_repeated_boundary(runs, monkeypatch, publish, seed, wave, previous, pr
     assert status.reviewed_relay_contract(runs, seed, wave, previous, previous_sha) is None
     checked_file.write_bytes(original)
     assert status.reviewed_relay_contract(runs, seed, wave, previous, previous_sha) == expected
-    if (seed, wave) in ((157, 10), (2357, 9), (12203, 16)):
+    if (seed, wave) in ((157, 10), (2357, 9), (2357, 10), (12203, 16), (12203, 17)):
         check_repeated_boundary(runs, monkeypatch, publish, seed, wave + 1, run, sha, auth, record)
 
 
@@ -2935,7 +2935,7 @@ def check_6101_r5_handoff(runs, monkeypatch, publish, parent, cached, cached_sha
     (stage / "batch_freeze.json").write_bytes(original)
 
 
-@pytest.mark.parametrize("seed,wave", [(887, 8), (157, 11), (2357, 10), (12203, 17)])
+@pytest.mark.parametrize("seed,wave", [(887, 8), (157, 11), (2357, 10), (2357, 11), (12203, 17), (12203, 18)])
 def test_new_exact_reviewed_relay_pins_the_original_retired_receipt(seed, wave):
     from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.run_v13_retry_successor import SCOPES
 
