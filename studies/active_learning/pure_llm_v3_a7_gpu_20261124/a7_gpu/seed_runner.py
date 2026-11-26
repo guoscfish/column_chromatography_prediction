@@ -552,6 +552,7 @@ def run_seed(*, root, run_directory, contract, authorization, seed, backend, cal
     cached_scope = {
         "dispatch_v13_887_cached_r7": (887, 7, None),
         "dispatch_v13_157_cached_r3": (157, 3, SEALED_RELAY_RETRY_SECONDS),
+        "dispatch_v13_6101_cached_r2": (6101, 2, SEALED_RELAY_RETRY_SECONDS),
     }.get(predecessor.get("dispatcher_module"))
     if cached_scope is not None or cached_import is not None:
         recovery_budget = predecessor.get("recovery_budget")
