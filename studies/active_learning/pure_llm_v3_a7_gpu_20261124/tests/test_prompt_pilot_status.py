@@ -182,3 +182,32 @@ def test_2357_extension_preserves_parent_labels_and_other_seeds(tmp_path):
     write_json(r2_continuation / "formal_contract.json", next_record)
     write_json(r2_continuation / "authorization.json", {"contract_sha256": next_sha})
     assert remote_seed(tmp_path, 2357)["run"] == r2_continuation.name
+
+
+def test_tracks_887_json_extension_only_from_its_exact_previous_run(tmp_path):
+    cohort = tmp_path / prompt_pilot_status.SERIAL_IPV4
+    streaming = cohort.with_name(f"{cohort.name}-887-extension-01")
+    whole_response = tmp_path / prompt_pilot_status.IPV4_JSON_EXTENSION
+
+    def publish(run, seeds, predecessor):
+        record = {"run_directory": str(run), "profile": {"confirmation_seeds": seeds,
+                  "provider_capability": "gated_ipv4"}, "predecessor": predecessor}
+        sha = hashlib.sha256(json.dumps(record, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+        write_json(run / "formal_contract.json", record)
+        write_json(run / "authorization.json", {"contract_sha256": sha})
+        return sha
+
+    parent = publish(cohort, list(prompt_pilot_status.SEEDS), {
+        "dispatcher_module": "dispatch_prepared_ipv4",
+        "lanes": {"887": {"start_round": 6, "checkpoint_sha256": "3" * 64}},
+    })
+    streaming_sha = publish(streaming, [887], {"parent_contract_sha256": parent,
+                                              "dispatcher_module": "dispatch_v13_lane_extension"})
+    prior = {"parent_contract_sha256": parent, "previous_contract_sha256": "a" * 64,
+             "dispatcher_module": "dispatch_v13_887_json_extension"}
+    publish(whole_response, [887], prior)
+    assert remote_seed(tmp_path, 887)["run"] == streaming.name
+
+    publish(whole_response, [887], {**prior, "previous_contract_sha256": streaming_sha})
+    current = remote_seed(tmp_path, 887)
+    assert (current["run"], current["labels"], current["phase"]) == (whole_response.name, 525, "waiting_to_start")

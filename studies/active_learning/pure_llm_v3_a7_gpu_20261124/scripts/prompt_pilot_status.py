@@ -28,6 +28,7 @@ IPV4_EXTENSION = f"{SERIAL_IPV4}-2357-extension-01"
 IPV4_CONTINUATION = f"{SERIAL_IPV4}-2357-continuation-01"
 IPV4_R2_EXTENSION = f"{SERIAL_IPV4}-2357-r2-extension-01"
 IPV4_R2_CONTINUATION = f"{SERIAL_IPV4}-2357-r2-continuation-01"
+IPV4_JSON_EXTENSION = f"{SERIAL_IPV4}-887-json-extension-01"
 IPV4_EXTENSION_DISPATCHERS = {
     157: "dispatch_v13_lane_extension",
     887: "dispatch_v13_lane_extension",
@@ -227,7 +228,20 @@ def remote_seed(runs, seed):
         and r2_follow_prior.get("dispatcher_module") == "dispatch_v13_2357_r2_continuation"
         and r2_follow_record.get("profile", {}).get("confirmation_seeds") == [seed] else None
     )
-    if r2_follow_contract:
+    json_extension = runs / IPV4_JSON_EXTENSION
+    json_record = read_json(json_extension / "formal_contract.json") if seed == 887 and extension_contract else {}
+    json_prior = json_record.get("predecessor") or {}
+    json_contract = (
+        fallback_contract(json_extension) if extension_contract
+        and json_prior.get("parent_contract_sha256") == cohort_contract
+        and json_prior.get("previous_contract_sha256") == extension_contract
+        and json_prior.get("dispatcher_module") == "dispatch_v13_887_json_extension"
+        and json_record.get("profile", {}).get("confirmation_seeds") == [seed] else None
+    )
+    if json_contract:
+        run, contract, segment = json_extension, json_contract, "ipv4_json_extension"
+        ancestors = (extension, cohort, direct_full, continuation, fallback)
+    elif r2_follow_contract:
         run, contract, segment = r2_continuation, r2_follow_contract, "ipv4_r2_continuation"
         ancestors = (r2_extension, follow_on, extension, cohort, direct_full, continuation, fallback)
     elif r2_contract:
@@ -302,7 +316,7 @@ def remote_seed(runs, seed):
     phase = safe_code(worker.get("status")) or "waiting_to_start"
     if latest == TARGET_ROUNDS:
         phase = "complete"
-    elif segment == "ipv4_extension" and latest == IPV4_EXTENSION_END_ROUNDS[seed] and (
+    elif segment in ("ipv4_extension", "ipv4_json_extension") and latest == IPV4_EXTENSION_END_ROUNDS[seed] and (
         run / "extension_completion.json"
     ).is_file():
         phase = "transport_extension_complete"
@@ -330,7 +344,8 @@ def remote_seed(runs, seed):
         phase = "worker_stopped"
     return {"seed": seed, "run": run.name, "contract_sha256": contract, "segment": segment,
             "continuation": segment in ("ipv4", "ipv4_extension", "ipv4_continuation", "ipv4_r2_extension",
-                                        "ipv4_r2_continuation", "background", "v11", "v6", "v5", "direct", "repair"),
+                                        "ipv4_r2_continuation", "ipv4_json_extension",
+                                        "background", "v11", "v6", "v5", "direct", "repair"),
             "target_rounds": TARGET_ROUNDS, "target_labels": TARGET_LABELS,
             "completed_rounds": latest, "labels": 333 + latest * 32 if latest is not None else None,
             "phase": phase, "worker_pid": worker_pid, "worker_active": worker_live,
@@ -423,7 +438,8 @@ def local_progress(spool, seed, active, *, track_queue=False):
             "last_sse_seconds": seconds(status.get("last_sse_seconds")),
             "last_sse_activity_seconds": seconds(status.get("last_sse_activity_seconds")),
             "last_sse_interval_seconds": seconds(status.get("last_sse_interval_seconds")),
-            "complete_event_seen": "response.completed" in events or status.get("event_type") in {"response.completed", "background.completed"},
+            "complete_event_seen": (status.get("complete_terminal_captured") is True or "response.completed" in events
+                                    or status.get("event_type") in {"response.completed", "background.completed"}),
             "complete_event_seconds": seconds(terminal_time),
             "raw_response_saved": (attempt / "raw_provider_response.json").is_file()
                                   and (attempt / "provider_capture_receipt.json").is_file()}
@@ -434,7 +450,8 @@ def dispatcher_pid(seed, segment):
                        "ipv4_extension": f"a7-ipv4-v13-{seed}-extension-01",
                        "ipv4_continuation": f"a7-ipv4-v13-{seed}-continuation-01",
                        "ipv4_r2_extension": "a7-ipv4-v13-2357-r2-extension-01",
-                       "ipv4_r2_continuation": "a7-ipv4-v13-2357-r2-continuation-01"}
+                       "ipv4_r2_continuation": "a7-ipv4-v13-2357-r2-continuation-01",
+                       "ipv4_json_extension": "a7-ipv4-v13-887-json-extension-01"}
     if segment in cohort_services:
         service = cohort_services[segment]
         label = f"gui/{os.getuid()}/com.purellm.{service}"
@@ -491,7 +508,7 @@ def mac_report(private, seeds):
                 row["provider"] = local_progress(
                     spool, row["seed"], row["api"],
                     track_queue=row["segment"] in ("ipv4", "ipv4_extension", "ipv4_continuation",
-                                                   "ipv4_r2_extension", "ipv4_r2_continuation"),
+                                                   "ipv4_r2_extension", "ipv4_r2_continuation", "ipv4_json_extension"),
                 )
         if row.get("continuation"):
             row["dispatcher_pid"] = dispatcher_pid(row["seed"], row["segment"])

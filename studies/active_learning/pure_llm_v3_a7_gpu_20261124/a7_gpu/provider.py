@@ -3,12 +3,14 @@ import asyncio
 from dataclasses import replace
 from importlib.metadata import PackageNotFoundError, version
 from ipaddress import ip_address
+import json
 import re
 import time
 
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, once
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
-    RESPONSES_STREAM, RESPONSES_STREAM_IPV4, ProviderReply, TransportFailure, check_request, collect_completed, retry_http,
+    RESPONSES_JSON_IPV4, RESPONSES_STREAM, RESPONSES_STREAM_IPV4, ProviderReply, TransportFailure,
+    check_request, collect_completed, retry_http,
 )
 
 from .credentials import api_key, key_text
@@ -314,6 +316,12 @@ def recover_completed_response(raw, config, *, model_lock, metadata=None):
             raise ValueError("local recovery metadata does not match the raw provider response")
         provider_request_id = metadata["provider_request_id"]
         declared = {key: metadata[key] for key in declared}
+    reply = (_json_completed_reply(raw, provider_request_id) if config.wire_mode == RESPONSES_JSON_IPV4
+             else _reply_from_raw(raw, provider_request_id))
+    return reply, _lock_model(model_lock, config, reply, declared)
+
+
+def _reply_from_raw(raw, provider_request_id):
     output = raw.get("output")
     if not isinstance(output, list):
         raise ValueError("invalid raw provider output")
@@ -331,8 +339,58 @@ def recover_completed_response(raw, config, *, model_lock, metadata=None):
     if (not isinstance(raw.get("id"), str) or not raw["id"] or not answer.strip()
             or any(type(v) is not int or v < 0 for v in usage.values())):
         raise ValueError("raw provider completion is missing identity, answer, or consistent usage")
-    reply = ProviderReply(answer, raw["id"], raw["model"], usage, "completed", provider_request_id)
-    return reply, _lock_model(model_lock, config, reply, declared)
+    return ProviderReply(answer, raw["id"], raw["model"], usage, "completed", provider_request_id)
+
+
+def _json_completed_reply(raw, provider_request_id):
+    if type(raw) is not dict or raw.get("object") != "response":
+        raise TransportFailure("invalid_json_response", ambiguous=True)
+    if raw.get("status") != "completed" or raw.get("error") is not None or raw.get("incomplete_details") is not None:
+        raise TransportFailure("incomplete_response", ambiguous=True)
+    if any(raw.get(field) is not None and raw[field] is not False for field in ("store", "background")):
+        raise TransportFailure("json_response_mode_mismatch", ambiguous=True)
+    if not _progress_token(raw.get("id")) or not _progress_token(raw.get("model")):
+        raise TransportFailure("missing_response_identity", ambiguous=True)
+    try:
+        reply = _reply_from_raw(raw, provider_request_id)
+    except (AttributeError, KeyError, TypeError, ValueError) as error:
+        raise TransportFailure("invalid_json_response", ambiguous=True) from error
+    usage = reply.usage
+    if (not {"input_tokens", "output_tokens", "total_tokens"} <= usage.keys()
+            or usage["input_tokens"] + usage["output_tokens"] != usage["total_tokens"]
+            or usage.get("cached_tokens", 0) > usage["input_tokens"]
+            or usage.get("reasoning_tokens", 0) > usage["output_tokens"]):
+        raise TransportFailure("invalid_usage")
+    return reply
+
+
+async def _collect_json(response, deadline, key, capture_response, capture_receipt, report):
+    if report is not None:
+        _headers_progress(response.http_response, report)
+    media_type = response.headers.get("content-type", "").split(";", 1)[0].strip().lower()
+    if media_type != "application/json" and not media_type.endswith("+json"):
+        raise TransportFailure("json_response_content_type_mismatch", ambiguous=True)
+    raw = await response.json()
+    if time.monotonic() > deadline:
+        raise _WallDeadline()
+    provider_request_id = _progress_token(response.headers.get("x-request-id"))
+    reply = _json_completed_reply(raw, provider_request_id)
+    reasoning = raw.get("reasoning")
+    if reasoning is not None and type(reasoning) is not dict:
+        raise TransportFailure("invalid_json_response", ambiguous=True)
+    model_version = raw.get("model_version")
+    if model_version is None:
+        model_version = response.headers.get("x-model-version")
+    declared = {"model_version": model_version, "reported_reasoning_effort": (reasoning or {}).get("effort")}
+    if key in json.dumps((raw, declared, provider_request_id), ensure_ascii=False, allow_nan=False):
+        raise TransportFailure("json_credential_echo", ambiguous=True)
+    if capture_response is not None:
+        if capture_receipt is not None:
+            capture_receipt({"raw_response_sha256": digest(raw), "provider_request_id": provider_request_id, **declared})
+        capture_response(raw)
+    if report is not None:
+        report("transport_completed", usage=reply.usage, response_id=reply.response_id, model=reply.served_model)
+    return reply, declared
 
 
 def call_responses(request, config, *, model_lock, capture_response=None, capture_receipt=None, progress=None,
@@ -345,12 +403,17 @@ def call_responses(request, config, *, model_lock, capture_response=None, captur
     if lease is None:
         raise TransportFailure("missing_physical_api_lease")
     check_request(request, request["binding"], config)
-    if config.wire_mode not in (RESPONSES_STREAM, RESPONSES_STREAM_IPV4):
+    json_response = config.wire_mode == RESPONSES_JSON_IPV4
+    if config.wire_mode not in (RESPONSES_STREAM, RESPONSES_STREAM_IPV4, RESPONSES_JSON_IPV4):
         raise TransportFailure("background_dispatcher_required")
-    if config.wire_mode == RESPONSES_STREAM_IPV4 and timeouts is None:
+    if config.wire_mode in (RESPONSES_STREAM_IPV4, RESPONSES_JSON_IPV4) and timeouts is None:
         raise TransportFailure("direct_ipv4_timeouts_required")
+    if json_response and timeouts.total_seconds != config.timeout_seconds:
+        raise TransportFailure("json_ipv4_timeout_mismatch")
+    if json_response and not (callable(capture_response) and callable(capture_receipt)):
+        raise TransportFailure("json_ipv4_capture_required")
     if sse_inactivity_seconds is not None and (
-        timeouts is None or type(sse_inactivity_seconds) not in (float, int)
+        json_response or timeouts is None or type(sse_inactivity_seconds) not in (float, int)
         or not 0 < sse_inactivity_seconds <= timeouts.total_seconds
     ):
         raise ValueError("SSE inactivity requires a positive finite timeout within the asynchronous total deadline")
@@ -408,7 +471,7 @@ def call_responses(request, config, *, model_lock, capture_response=None, captur
                    else TransportFailure("connection_interrupted", ambiguous=True))
         error_type = type(error.__cause__ or error).__name__
     except (ValueError, httpx.TransportError) as error:
-        failure = TransportFailure("sse_frame_error", ambiguous=True)
+        failure = TransportFailure("json_response_error" if json_response else "sse_frame_error", ambiguous=True)
         error_type = type(error).__name__
     except openai.OpenAIError as error:
         failure = TransportFailure("sdk_error", ambiguous=True)
@@ -503,6 +566,14 @@ def _direct_ipv4_http11(response):
     return bool(peer and ip_address(peer[0]).version == 4 and response.http_version == "HTTP/1.1")
 
 
+def _check_ipv4_response(response, started, report):
+    if not _direct_ipv4_http11(response):
+        raise TransportFailure("direct_ipv4_route_mismatch", ambiguous=True)
+    if report is not None:
+        report("http_phase", network_phase="direct_ipv4_http11", network_state="complete",
+               phase_duration_seconds=time.monotonic() - started, explicit_proxy=False)
+
+
 async def _preflight_ipv4(http, base_url, report):
     """Check the exact gateway over a credential-free request before reserving a model POST."""
     import httpx
@@ -539,7 +610,8 @@ async def _hard_wall_call(key, request, config, lease, capture_response, capture
                                 write=timeouts.write_seconds, read=timeouts.read_idle_seconds)
     transmission = _TransmissionEvidence()
     event_hooks = {"request": [_trace_request(report, transmission)]}
-    ipv4_direct = config.wire_mode == RESPONSES_STREAM_IPV4
+    json_response = config.wire_mode == RESPONSES_JSON_IPV4
+    ipv4_direct = config.wire_mode in (RESPONSES_STREAM_IPV4, RESPONSES_JSON_IPV4)
     client_options = {}
     if ipv4_direct:
         client_options = {
@@ -566,19 +638,25 @@ async def _hard_wall_call(key, request, config, lease, capture_response, capture
                     submission_reserved = True
                     if report is not None:
                         report("request_dispatched")
-                    stream = await client.responses.create(
-                        **request["payload"], extra_headers={"X-Client-Request-Id": request["request_id"]})
-                    transmission.post_may_have_started = True
-                    async with stream:
-                        if ipv4_direct:
-                            response = stream.response
-                            if not _direct_ipv4_http11(response):
-                                raise TransportFailure("direct_ipv4_route_mismatch", ambiguous=True)
-                            if report is not None:
-                                report("http_phase", network_phase="direct_ipv4_http11", network_state="complete",
-                                       phase_duration_seconds=time.monotonic() - started, explicit_proxy=False)
-                        reply = await _collect_async(stream, deadline, capture_response, capture_receipt, report,
-                                                     sse_inactivity_seconds=sse_inactivity_seconds)
+                    headers = {"X-Client-Request-Id": request["request_id"]}
+                    if json_response:
+                        # The SDK defers reading the HTTP body so headers can be observed first.
+                        # The bound API payload still requests a single JSON response, with stream=false.
+                        async with client.responses.with_streaming_response.create(
+                            **request["payload"], extra_headers=headers
+                        ) as response:
+                            transmission.post_may_have_started = True
+                            _check_ipv4_response(response.http_response, started, report)
+                            reply = await _collect_json(response, deadline, key, capture_response, capture_receipt,
+                                                        report)
+                    else:
+                        stream = await client.responses.create(**request["payload"], extra_headers=headers)
+                        transmission.post_may_have_started = True
+                        async with stream:
+                            if ipv4_direct:
+                                _check_ipv4_response(stream.response, started, report)
+                            reply = await _collect_async(stream, deadline, capture_response, capture_receipt, report,
+                                                         sse_inactivity_seconds=sse_inactivity_seconds)
     except TimeoutError as error:
         if not alarm.expired():
             raise
@@ -586,7 +664,7 @@ async def _hard_wall_call(key, request, config, lease, capture_response, capture
             raise _IPv4PreflightFailure() from error
         if reply is None:
             raise _WallDeadline() from error
-        if report is not None:
+        if report is not None and not json_response:
             report("sse_event", event_type="close_after_completed", error_type="hard_wall_deadline")
     except (httpx.TransportError, openai.APIConnectionError) as error:
         if reply is None:
@@ -594,7 +672,7 @@ async def _hard_wall_call(key, request, config, lease, capture_response, capture
             if isinstance(cause, httpx.ConnectTimeout) and transmission.proves_pre_post_timeout(cause):
                 raise _PrePostConnectTimeout() from error
             raise
-        if report is not None:
+        if report is not None and not json_response:
             report("sse_event", event_type="close_after_completed", error_type=type(error).__name__)
     return reply
 

@@ -20,6 +20,7 @@ class TransportStop(RuntimeError):
 
 RESPONSES_STREAM = "responses_stream"
 RESPONSES_STREAM_IPV4 = "responses_stream_ipv4"
+RESPONSES_JSON_IPV4 = "responses_json_ipv4"
 RESPONSES_BACKGROUND = "responses_background"
 
 
@@ -59,7 +60,8 @@ class TransportConfig:
         endpoint = urlparse(self.base_url)
         if (endpoint.scheme != "https" or not endpoint.hostname or endpoint.username or endpoint.password
                 or endpoint.query or endpoint.fragment
-                or self.wire_mode not in (RESPONSES_STREAM, RESPONSES_STREAM_IPV4, RESPONSES_BACKGROUND)):
+                or self.wire_mode not in (RESPONSES_STREAM, RESPONSES_STREAM_IPV4, RESPONSES_JSON_IPV4,
+                                          RESPONSES_BACKGROUND)):
             raise ValueError("unsupported Responses endpoint")
         budgets = (self.max_output_tokens, self.transport_attempts, self.logical_replies, self.rate_limit_threshold)
         if any(type(v) is not int or v < 1 for v in budgets) or not (
@@ -92,7 +94,7 @@ def wire_payload(messages, config):
     background = config.wire_mode == RESPONSES_BACKGROUND
     payload = {"model": config.requested_model, "reasoning": {"effort": config.reasoning_effort},
                "input": messages, "max_output_tokens": config.max_output_tokens,
-               "stream": not background, "store": False}
+               "stream": not background and config.wire_mode != RESPONSES_JSON_IPV4, "store": False}
     if background:
         payload["background"] = True
     return payload
@@ -446,6 +448,8 @@ def collect_completed(events, *, deadline=None):
 
 
 def responses_call(request, config):
+    if config.wire_mode == RESPONSES_JSON_IPV4:
+        raise TransportFailure("json_ipv4_dispatcher_required")
     # Imported only on an explicitly authorized paid execution path.
     from importlib.metadata import version
     import openai

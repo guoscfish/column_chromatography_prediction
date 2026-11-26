@@ -10,7 +10,7 @@ import pytest
 
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
-    RESPONSES_STREAM_IPV4, TransportConfig, TransportFailure, make_request,
+    RESPONSES_JSON_IPV4, RESPONSES_STREAM_IPV4, TransportConfig, TransportFailure, make_request, responses_call,
 )
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu import provider
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.formal_contract import RequestTimeouts
@@ -197,12 +197,21 @@ def async_mock_provider(tmp_path, monkeypatch):
     def call(source, *, proxy=False, resolver=None, close=None, before_response=None, with_progress=True,
              fail_connect_tcp=False, ipv4=False, peer="192.0.2.1", http_version=b"HTTP/1.1", with_timeouts=True,
              preflight_status=401, preflight_peer="192.0.2.1", preflight_delay=0, preflight_error=None,
-             sse_inactivity_seconds=None):
+             sse_inactivity_seconds=None, json_response=False, http_status=200, media_type=None, with_capture=True):
         progress, receipt, raw, outcomes, requests, network_options, dispatches = [], [], [], [], [], [], []
-        selected = replace(config, wire_mode=RESPONSES_STREAM_IPV4) if ipv4 else config
+        ipv4 = ipv4 or json_response
+        selected = (replace(config, wire_mode=RESPONSES_JSON_IPV4, requested_model="gpt-6.2-astra",
+                            served_model="gpt-6.2-astra", reasoning_effort="xhigh", timeout_seconds=policy.total_seconds)
+                    if json_response else replace(config, wire_mode=RESPONSES_STREAM_IPV4) if ipv4 else config)
         signed_request = make_request(request["binding"], request["logical_index"], request["payload"]["input"], selected)
-        assert signed_request["payload"] == request["payload"]
-        assert signed_request["payload_sha256"] == request["payload_sha256"]
+        if json_response:
+            same_sse = make_request(request["binding"], request["logical_index"], request["payload"]["input"],
+                                    replace(selected, wire_mode=RESPONSES_STREAM_IPV4))
+            assert signed_request["payload"] == {**same_sse["payload"], "stream": False}
+            assert signed_request["payload_sha256"] != same_sse["payload_sha256"]
+        else:
+            assert signed_request["payload"] == request["payload"]
+            assert signed_request["payload_sha256"] == request["payload_sha256"]
         if ipv4:
             assert signed_request["request_id"] != request["request_id"]
 
@@ -246,8 +255,9 @@ def async_mock_provider(tmp_path, monkeypatch):
             if ipv4:
                 extensions = {"network_stream": SimpleNamespace(get_extra_info=lambda _: (peer, 443)),
                               "http_version": http_version}
-            return httpx.Response(200, stream=MockStream(), headers={
-                "content-type": "text/event-stream", "x-request-id": "req_stream", "authorization": secret,
+            return httpx.Response(http_status, stream=MockStream(), headers={
+                "content-type": media_type or ("application/json; charset=utf-8" if json_response else "text/event-stream"),
+                "x-request-id": "req_stream", "authorization": secret,
             }, extensions=extensions)
 
         def direct_transport(**kwargs):
@@ -293,7 +303,8 @@ def async_mock_provider(tmp_path, monkeypatch):
         try:
             try:
                 result = provider.call_responses(signed_request, selected, model_lock=tmp_path / "async-lock.json",
-                                                 capture_response=raw.append, capture_receipt=receipt.append,
+                                                 capture_response=raw.append if with_capture else None,
+                                                 capture_receipt=receipt.append if with_capture else None,
                                                  progress=progress.append if with_progress else None,
                                                  timeouts=policy if with_timeouts else None,
                                                  sse_inactivity_seconds=sse_inactivity_seconds)
@@ -303,9 +314,111 @@ def async_mock_provider(tmp_path, monkeypatch):
             provider.LEASE.reset(token)
         return SimpleNamespace(result=result, progress=progress, receipt=receipt, raw=raw, outcomes=outcomes,
                                elapsed=time.monotonic() - started, requests=requests,
-                               network_options=network_options, dispatches=dispatches)
+                               network_options=network_options, dispatches=dispatches, config=selected,
+                               request=signed_request)
 
     return call
+
+
+def _json_payload(**changes):
+    return {
+        "id": "resp_json", "object": "response", "status": "completed", "model": "gpt-6.2-astra",
+        "store": False, "background": False, "reasoning": {"effort": "xhigh"},
+        "usage": {"input_tokens": 3, "output_tokens": 2, "total_tokens": 5,
+                  "output_tokens_details": {"reasoning_tokens": 1}, "input_tokens_details": {"cached_tokens": 2}},
+        "output": [{"type": "message", "content": [{"type": "output_text", "text": "synthetic answer"}]}],
+        "model_version": "astra-version", "vendor_field": {"record_exactly": True},
+        **changes,
+    }
+
+
+def _json_body(payload):
+    async def body():
+        content = json.dumps(payload).encode()
+        yield content[:40]
+        yield content[40:]
+    return body
+
+
+def test_ipv4_json_captures_original_response_and_recovers_without_post(async_mock_provider, tmp_path):
+    raw = _json_payload()
+    check = async_mock_provider(_json_body(raw), json_response=True)
+    assert check.requests == ["GET", "POST"] and check.dispatches == [True]
+    assert check.result.text == "synthetic answer" and check.result.provider_request_id == "req_stream"
+    assert check.outcomes == ["completed"] and check.raw == [raw]
+    assert check.receipt == [{"raw_response_sha256": digest(raw), "provider_request_id": "req_stream",
+                              "model_version": "astra-version", "reported_reasoning_effort": "xhigh"}]
+    assert check.result.usage == {"input_tokens": 3, "output_tokens": 2, "total_tokens": 5,
+                                  "reasoning_tokens": 1, "cached_tokens": 2}
+    assert any(row["phase"] == "http_headers" for row in check.progress)
+    assert all(row["phase"] != "sse_event" for row in check.progress)
+    assert check.progress[-1]["phase"] == "transport_completed"
+    assert "test-key-canary" not in json.dumps([check.progress, check.raw, check.receipt])
+    restored, identity = provider.recover_completed_response(
+        check.raw[0], check.config, model_lock=tmp_path / "recovered.json", metadata=check.receipt[0])
+    assert restored == check.result and identity["reported_reasoning_effort"] == "xhigh"
+    assert check.requests == ["GET", "POST"]
+    with pytest.raises(TransportFailure, match="json_ipv4_dispatcher_required"):
+        responses_call(check.request, check.config)
+
+
+@pytest.mark.parametrize(("payload", "error"), [
+    (_json_payload(status="in_progress"), "incomplete_response"),
+    (_json_payload(store=True), "json_response_mode_mismatch"),
+    (_json_payload(usage=None), "invalid_usage"),
+    (_json_payload(id=""), "missing_response_identity"),
+    (_json_payload(reasoning={"effort": "test-key-canary"}), "json_credential_echo"),
+])
+def test_ipv4_json_rejects_unsafe_or_nonterminal_envelopes(async_mock_provider, payload, error):
+    check = async_mock_provider(_json_body(payload), json_response=True)
+    assert check.requests == ["GET", "POST"] and check.dispatches == [True]
+    assert check.result.code == error and not check.result.retryable
+    assert not check.raw and not check.receipt
+    assert "test-key-canary" not in json.dumps(check.progress)
+
+
+@pytest.mark.parametrize(("overrides", "code"), [
+    ({"model": "other-model"}, "served_model_mismatch"),
+    ({"reasoning": {"effort": "max"}}, "served_reasoning_effort_mismatch"),
+])
+def test_ipv4_json_never_delivers_an_unapproved_model_or_effort(async_mock_provider, overrides, code):
+    check = async_mock_provider(_json_body(_json_payload(**overrides)), json_response=True)
+    assert check.requests == ["GET", "POST"] and check.result.code == code
+    assert check.receipt[0]["raw_response_sha256"] == digest(check.raw[0])
+
+
+def test_ipv4_json_only_starts_with_local_capture_and_bound_timeouts(async_mock_provider):
+    check = async_mock_provider(None, json_response=True, with_capture=False)
+    assert not check.requests and check.result.code == "json_ipv4_capture_required"
+    check = async_mock_provider(None, json_response=True, with_timeouts=False)
+    assert not check.requests and check.result.code == "direct_ipv4_timeouts_required"
+    with pytest.raises(ValueError, match="SSE inactivity"):
+        async_mock_provider(None, json_response=True, sse_inactivity_seconds=.2)
+
+
+def test_ipv4_json_missing_complete_body_has_no_retry_or_capture(async_mock_provider):
+    async def body():
+        yield b'{"object":"response", "id":"resp_json"'
+        await asyncio.sleep(20)
+
+    check = async_mock_provider(body, json_response=True)
+    assert check.requests == ["GET", "POST"] and check.dispatches == [True]
+    assert (check.result.code, check.result.ambiguous, check.result.retryable) == ("timeout", True, False)
+    assert check.progress[-1]["error_type"] == "hard_wall_deadline"
+    assert not check.raw and not check.receipt and check.elapsed < 3
+
+
+def test_ipv4_json_cannot_take_sse_or_retry_http_500(async_mock_provider):
+    async def sse():
+        pytest.fail("JSON transport must not parse an SSE body")
+        yield b""
+
+    check = async_mock_provider(sse, json_response=True, media_type="text/event-stream")
+    assert check.requests == ["GET", "POST"] and check.result.code == "json_response_content_type_mismatch"
+    assert not check.raw and not check.receipt
+    check = async_mock_provider(_json_body({"error": {"code": "server_error"}}), json_response=True, http_status=500)
+    assert check.requests == ["GET", "POST"] and check.result.code == "http_500"
+    assert check.result.ambiguous and not check.result.retryable and not check.raw and not check.receipt
 
 
 def test_ipv4_transport_preserves_wire_payload_and_proves_direct_http11(async_mock_provider):
