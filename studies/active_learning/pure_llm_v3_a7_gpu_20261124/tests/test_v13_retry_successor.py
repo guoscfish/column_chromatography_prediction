@@ -26,7 +26,7 @@ def test_only_explicitly_reviewed_new_wave_can_reserve_its_one_current_slot():
                                                  receipt.job_sha256, receipt.result_sha256, receipt.terminal_file_sha256,
                                                  receipt.progress_file_sha256))
     with pytest.raises(ValueError, match="no individually reviewed"):
-        gpu.read_scope(Parser(), SimpleNamespace(seed=12203, wave=11))
+        gpu.read_scope(Parser(), SimpleNamespace(seed=12203, wave=12))
 
 
 @pytest.mark.parametrize("seed,wave,rev_counts,physical_budget", [
@@ -287,7 +287,8 @@ def test_2357_previous_partial_text_telemetry_is_bound_to_the_stopped_physical_a
 @pytest.mark.parametrize("seed,wave,expected_not_before", [
     (2357, 3, 1795688254.0102787), (2357, 4, 1795690643.3580766), (6101, 4, 1795690796.5505776),
     (6101, 6, 1795693173.4806566),
-    (12203, 8, 1795690919.9466105), (12203, 9, 1795693155.7197583),
+    (12203, 8, 1795690919.9466105), (12203, 9, 1795693155.7197583), (12203, 11, 1795697031.8253946),
+    (157, 8, 1795696780.5165217),
 ])
 def test_conditional_second_attempt_requires_existing_delivered_failure_guard(monkeypatch, seed, wave, expected_not_before):
     previous = gpu.SCOPES[(seed, wave - 1)]
@@ -373,6 +374,25 @@ def test_12203_wave10_keeps_one_unused_equivalent_after_inactivity():
     assert all(file_digest(gpu.ROOT / name) == sha for name, sha in scope.required_sources)
 
 
+def test_12203_wave11_binds_the_exact_alias_failure_and_keeps_the_stable_transport():
+    previous = gpu.SCOPES[(12203, 10)]
+    scope = gpu.SCOPES[(12203, 11)]
+    assert scope.payload_sha256 == previous.payload_sha256
+    assert scope.original_start_round is None and scope.round == previous.round == 5
+    assert scope.original_boundary_physical_attempts == previous.boundary_physical_attempts == 1
+    assert [len(review.attempts) for review in scope.archive] == [2, 2, 2, 1, 1]
+    assert scope.budget == {"first_logical_requests": 31, "maximum_logical_requests": 91, "maximum_physical_attempts": 182}
+    assert scope.cooldown_field == "not_before_unix" and scope.not_before_unix == 1795697031.8253946
+    assert scope.replay_start_round == 5
+    last = scope.archive[-1]
+    assert last.failure == "response_id_mismatch" and last.replay_files is None
+    assert last.terminal_file_sha256 == "545be789c7eb182cc8cff91c3c3e3e88b777acc2395f2f63d520e12894ae9f56"
+    assert last.progress["conflicting_event_type"] == "response.failed" and last.progress["sse_event_count"] == 25
+    assert last.progress["response_id_matches_transport_alias"] is True
+    assert scope.required_sources == previous.required_sources == gpu.SAME_RESPONSE_RETRY_SOURCES
+    assert all(file_digest(gpu.ROOT / name) == sha for name, sha in scope.required_sources)
+
+
 def test_12203_wave07_uses_the_fitted_next_boundary_with_a_conditional_retry():
     previous = gpu.SCOPES[(12203, 6)]
     scope = gpu.SCOPES[(12203, 7)]
@@ -420,3 +440,18 @@ def test_157_wave07_carries_one_remaining_api_slot_after_the_zero_post_cached_fi
     assert scope.not_before_unix == 1795692680.964523
     assert scope.budget == {"first_logical_requests": 32, "maximum_logical_requests": 94, "maximum_physical_attempts": 187}
     assert scope.archive[0].failure == "timeout" and scope.archive[0].progress["sse_event_count"] == 1264
+
+
+def test_157_wave08_keeps_the_reviewed_zero_post_origin_and_pins_the_new_transport_sources():
+    previous = gpu.SCOPES[(157, 7)]
+    scope = gpu.SCOPES[(157, 8)]
+    assert scope.payload_sha256 == previous.payload_sha256
+    assert scope.original_start_round is None and scope.round == previous.round == 4
+    assert scope.cached_origin.review == previous.cached_origin.review
+    assert [len(review.attempts) for review in scope.archive] == [1, 1]
+    assert scope.budget == {"first_logical_requests": 32, "maximum_logical_requests": 94, "maximum_physical_attempts": 188}
+    assert scope.cooldown_field == "not_before_unix"
+    assert scope.required_sources == gpu.SCOPES[(2357, 5)].required_sources
+    last = scope.archive[-1]
+    assert last.failure == "timeout" and last.progress["error_type"] == "hard_wall_deadline"
+    assert last.progress["event_type"] == "response.output_text.delta" and last.progress["sse_event_count"] == 2783

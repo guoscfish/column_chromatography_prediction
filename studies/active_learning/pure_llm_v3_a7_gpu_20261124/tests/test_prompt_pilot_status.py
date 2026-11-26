@@ -1049,14 +1049,14 @@ def test_887_cached_r8_status_uses_the_registered_gpu_scope():
                          [(12203, 3, 2), (157, 3, 3), (157, 4, 4), (12203, 4, 3), (157, 5, 5), (12203, 5, 4),
                           (6101, 3, 3), (6101, 4, 4), (157, 6, 6), (887, 3, 2), (12203, 6, 5),
                           (887, 4, 3), (2357, 3, 3), (2357, 4, 5), (12203, 8, 4), (6101, 5, 5),
-                          (6101, 6, 6), (12203, 9, 6), (2357, 5, 6), (12203, 10, 7)])
+                          (6101, 6, 6), (12203, 9, 6), (2357, 5, 6), (12203, 10, 7), (157, 8, 2)])
 def test_reviewed_wave_status_uses_the_registered_gpu_scope(seed, wave, archive_count):
     from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts import run_v13_retry_successor
 
     scope = run_v13_retry_successor.SCOPES[(seed, wave)]
     previous = scope.archive[-1]
     assert sum(len(review.attempts) for review in scope.archive) == archive_count
-    physical = 2 if (seed, wave) in ((2357, 3), (2357, 4), (6101, 4), (6101, 6), (12203, 8), (12203, 9)) else 1
+    physical = 2 if (seed, wave) in ((2357, 3), (2357, 4), (6101, 4), (6101, 6), (12203, 8), (12203, 9), (157, 8)) else 1
     assert scope.boundary_physical_attempts == physical
     assert scope.replay_start_round == scope.round + (physical == 1)
     assert (getattr(prompt_pilot_status, f"RELAY_{seed}_WAVE{wave - 1:02d}_CONTRACT"),
@@ -1070,7 +1070,7 @@ def test_reviewed_wave_status_uses_the_registered_gpu_scope(seed, wave, archive_
         "relay_cooldown_clock": scope.cooldown_field, "relay_not_before_unix": scope.not_before_unix,
         "newly_authorized_boundary_physical_attempts": physical, "execution_budget": scope.budget,
     }
-    if seed in (6101, 887, 2357) or (seed == 12203 and wave in (8, 9, 10)):
+    if seed in (6101, 887, 2357) or (seed, wave) == (157, 8) or (seed == 12203 and wave in (8, 9, 10)):
         expected_proof["logical_index"] = 0
     assert getattr(prompt_pilot_status, f"RELAY_{seed}_WAVE{wave:02d}_PROOF") == expected_proof
     expected_attempts = tuple({"attempt": slot, "attempt_id": item.attempt_id, "job_sha256": item.job_sha256,
@@ -1086,11 +1086,14 @@ def test_reviewed_wave_status_uses_the_registered_gpu_scope(seed, wave, archive_
     observation = getattr(prompt_pilot_status, f"RELAY_{seed}_WAVE{wave:02d}_OBSERVATION", None)
     if observation is not None:
         assert observation == previous.progress
-        required = (prompt_pilot_status.RELAY_2357_WAVE05_SOURCES if (seed, wave) in ((2357, 5), (12203, 10))
+        required = (prompt_pilot_status.RELAY_2357_WAVE05_SOURCES if (seed, wave) in ((2357, 5), (12203, 10), (157, 8))
                     else prompt_pilot_status.RELAY_RETRY_QUEUE_SOURCES)
         assert required == dict(scope.required_sources)
     if seed == 887:
         assert scope.cached_origin.review == prompt_pilot_status.RELAY_887_CACHED_REVIEW
+    if (seed, wave) == (157, 8):
+        assert scope.cached_origin.review == prompt_pilot_status.RELAY_157_WAVE07_CACHED_REVIEW
+        assert scope.archive[0] == run_v13_retry_successor.SCOPES[(157, 7)].archive[0]
 
 
 @pytest.mark.parametrize("seed", prompt_pilot_status.SEEDS)
@@ -1168,7 +1171,8 @@ def test_cached_r3_requires_the_original_response_and_linked_zero_post_fit(tmp_p
     run = tmp_path / f"{status.SERIAL_IPV4}-157-cached-r3-01"
     profile = {"confirmation_seeds": [157], "target_labels": 1485, "resume_boundaries": {"157": {"round": 3}},
                "audited_future_transport_replay": True, "sealed_relay_retry_seconds": 180,
-               "replay_eligible_from_round": 4, "ipv4_readiness_windows": 3, "sse_inactivity_seconds": 900}
+               "replay_eligible_from_round": 4, "ipv4_readiness_windows": 3, "sse_inactivity_seconds": 900,
+               "request_timeouts": {"total_seconds": 3600}}
     flags = dict.fromkeys(status.FORMAL_APPROVAL_FLAGS, True)
     old = {"run_directory": str(previous), "profile": profile}
     old_contract = status.record_digest(old)
@@ -1261,6 +1265,7 @@ def test_cached_r3_requires_the_original_response_and_linked_zero_post_fit(tmp_p
     write_json(second_slot, {"attempt": 1})
     assert status.relay_retry_07_157_contract(tmp_path, run, contract) is None
     second_slot.unlink()
+    check_157_cache_wave08(tmp_path, monkeypatch, flags, previous, old_contract, next_run, next_sha, next_record)
     later = directory / "round_05"
     write_json(later / "source.json", {"checkpoint": "c" * 64})
     write_json(later / "fit_000/validation_metrics.json", {"combined_normalized_rmse": .4})
@@ -1271,6 +1276,167 @@ def test_cached_r3_requires_the_original_response_and_linked_zero_post_fit(tmp_p
     assert status.cached_r3_157_contract(tmp_path, 157, previous, old_contract) == (run, contract, 3, 3)
     write_json(run / f"bridge/outbox/{local_attempt}.json", {"unexpected": "provider transport"})
     assert status.cached_r3_157_contract(tmp_path, 157, previous, old_contract) is None
+
+
+def check_157_cache_wave08(runs, monkeypatch, flags, cache_parent, cache_parent_sha, previous, previous_sha, previous_record):
+    status = prompt_pilot_status
+    seed = 157
+    cohort = runs / status.SERIAL_IPV4
+    cohort_record = {"run_directory": str(cohort), "profile": {"confirmation_seeds": list(status.SEEDS),
+                       "provider_capability": "gated_ipv4"}, "predecessor": {"dispatcher_module": "dispatch_prepared_ipv4"}}
+    write_json(cohort / "formal_contract.json", cohort_record)
+    write_json(cohort / "authorization.json", {"contract_sha256": status.record_digest(cohort_record), **flags})
+    turn = previous / "seed_157/round_04/turn_00"
+    attempt = status.RELAY_157_WAVE07_ATTEMPT
+    terminal = {**attempt, "status": "stopped"}
+    terminal_file = turn / "attempt_00.terminal.json"
+    write_json(turn / "attempt_00.started.json", {"attempt": 0, "attempt_id": attempt["attempt_id"]})
+    write_json(terminal_file, terminal)
+    exact = {**status.RELAY_157_WAVE08_PROOF, "previous_terminal_file_sha256": status.checksum(terminal_file)}
+    monkeypatch.setattr(status, "RELAY_157_WAVE08_PROOF", exact)
+    receipt = {**attempt, "terminal_sha256": status.record_digest(terminal)}
+    old_proof = previous_record["predecessor"]
+    chain = [*old_proof["reviewed_retry_chain"], status._relay_review(previous, previous_sha,
+                                                                  status.RELAY_157_WAVE07_AUTH, exact, [receipt])]
+    run = runs / f"{status.SERIAL_IPV4}-157-relay-retry-08"
+    proof = {**old_proof, **exact, "previous_run_directory": str(previous), "previous_contract_sha256": previous_sha,
+             "previous_authorization_sha256": status.RELAY_157_WAVE07_AUTH,
+             "previous_transport_observation": status.RELAY_157_WAVE08_OBSERVATION,
+             "reviewed_retry_chain": chain, "previous_attempts": [receipt],
+             "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 2}}
+    record = {"run_directory": str(run), "budget": exact["execution_budget"], "source_sha256": status.RELAY_2357_WAVE05_SOURCES,
+              "profile": {**previous_record["profile"], "replay_eligible_from_round": 4}, "predecessor": proof}
+    sha = status.record_digest(record)
+    authorization = {"contract_sha256": sha, **flags}
+    write_json(run / "formal_contract.json", record)
+    write_json(run / "authorization.json", authorization)
+    monkeypatch.setattr(status, "RELAY_157_WAVE08_CONTRACT", sha)
+    assert status.reviewed_relay_contract(runs, seed, 8, previous, previous_sha) is None
+    monkeypatch.setattr(status, "RELAY_157_WAVE08_AUTH", status.record_digest(authorization))
+    assert status.reviewed_relay_contract(runs, seed, 8, previous, previous_sha) == (run, sha, 4, 3, exact["relay_not_before_unix"])
+    monkeypatch.setattr(status, "resilient_contract", lambda *_: (runs / "resilient", "resilient", 3, 3))
+    monkeypatch.setattr(status, "resilient_failure_contract", lambda *_: (runs / "failed", "failed"))
+    monkeypatch.setattr(status, "relay_retry_contract", lambda *_: (runs / "retry", "retry", 3, 3))
+    monkeypatch.setattr(status, "relay_retry_02_contract", lambda *_: (runs / "wave02", "wave02", 3, 3, 10))
+    contract = status.reviewed_relay_contract
+    monkeypatch.setattr(status, "reviewed_relay_contract", lambda _runs, _seed, wave, *args: (
+        contract(_runs, _seed, wave, *args) if wave == 8 else
+        (cache_parent if wave == 6 else runs / f"wave{wave}", cache_parent_sha if wave == 6 else f"wave{wave}", 3, 3, 10)
+        if wave <= 6 else None))
+    monkeypatch.setattr(status.time, "time", lambda: exact["relay_not_before_unix"] - 30)
+    row = remote_seed(runs, seed)
+    assert (row["run"], row["segment"], row["labels"]) == (run.name, "ipv4_relay_retry_08", 461)
+    assert row["api"] == {"status": "relay_boundary_cooldown", "relay_retry_wait_seconds": 30}
+    assert row["cached_import"]["provider_dispatched"] is False
+    assert row["reviewed_previous_api"] == {
+        "http_status": 200, "error_type": "hard_wall_deadline", "sse_event_count": 2783,
+        "event_type": "response.output_text.delta", "last_sse_seconds": 3561.158813457936,
+        "complete_event_seen": False, "hard_deadline_seconds": 3600,
+    }
+    assert row["boundary_api"]["maximum_physical_attempts"] == 2
+    assert row["boundary_api"]["replay_requires_verified_response_id"] is True
+    assert row["boundary_api"]["future_replay_from_round"] == 5
+    commands = []
+    monkeypatch.setattr(status, "command_lines", lambda command: commands.append(command) or [])
+    status.dispatcher_pid(seed, row["segment"])
+    assert commands[0][-1].endswith("/com.purellm.a7-ipv4-v13-157-relay-retry-08")
+    write_json(turn / "attempt_01.started.json", {"unexpected": True})
+    assert remote_seed(runs, seed)["run"] == previous.name
+
+
+def test_6101_cache_status_requires_the_exact_zero_post_l429_fit(tmp_path, monkeypatch):
+    status = prompt_pilot_status
+    seed = 6101
+    cohort = tmp_path / status.SERIAL_IPV4
+    old = tmp_path / f"{status.SERIAL_IPV4}-6101-relay-retry-06"
+    run = tmp_path / f"{status.SERIAL_IPV4}-6101-cached-r2-01"
+    flags = dict.fromkeys(status.FORMAL_APPROVAL_FLAGS, True)
+
+    def publish(path, record):
+        sha = status.record_digest(record)
+        authorization = {"contract_sha256": sha, **flags}
+        write_json(path / "formal_contract.json", record)
+        write_json(path / "authorization.json", authorization)
+        return sha, status.record_digest(authorization)
+
+    publish(cohort, {"run_directory": str(cohort), "profile": {"confirmation_seeds": list(status.SEEDS),
+                                                              "provider_capability": "gated_ipv4"},
+                     "predecessor": {"dispatcher_module": "dispatch_prepared_ipv4"}})
+    profile = {"confirmation_seeds": [seed], "target_labels": 1485, "resume_boundaries": {str(seed): {"round": 2}},
+               "audited_future_transport_replay": True, "sealed_relay_retry_seconds": 180,
+               "replay_eligible_from_round": 3, "ipv4_readiness_windows": 3,
+               "transport": {"logical_replies": 3, "transport_attempts": 2}}
+    old_sha, old_auth = publish(old, {"run_directory": str(old), "profile": profile})
+    monkeypatch.setattr(status, "RELAY_6101_WAVE06_CONTRACT", old_sha)
+    monkeypatch.setattr(status, "RELAY_6101_WAVE06_AUTH", old_auth)
+    old_turn = old / "seed_6101/round_02/turn_00"
+    write_json(old_turn / "attempt_00.terminal.json", {"status": "completed"})
+    write_json(old_turn / "decision.json", {"state": "rejected"})
+    review = {**status.CACHED_R2_6101_REVIEW,
+              "archived_terminal_file_sha256": status.checksum(old_turn / "attempt_00.terminal.json"),
+              "archived_decision_file_sha256": status.checksum(old_turn / "decision.json")}
+    monkeypatch.setattr(status, "CACHED_R2_6101_REVIEW", review)
+    attempt = review["attempt_id"]
+    write_json(old / f"bridge/outbox/{attempt}.json", {"job_sha256": review["job_sha256"]})
+    write_json(old / f"bridge/results/{attempt}.json", {"result_sha256": review["result_sha256"],
+                                                       "raw_response_sha256": review["raw_response_sha256"],
+                                                       "provider_dispatched": True})
+    mirrors = [f"/choices/{index}/references/0/{role}_id" for role, count in (("observed", 59), ("candidate", 15))
+               for index in range(count)]
+    monkeypatch.setattr(status, "CACHED_R2_6101_MIRRORS_SHA", status.record_digest(mirrors))
+    cached = {**review, "removed_paths": mirrors}
+    proof = {"previous_run_directory": str(old), "previous_contract_sha256": old_sha,
+             "previous_authorization_sha256": old_auth, "dispatcher_module": "dispatch_v13_6101_cached_r2",
+             "seed": seed, "round": 2, "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 0},
+             "execution_budget": status.CACHED_R2_6101_BUDGET, "cached_import": cached}
+    sha, auth = publish(run, {"run_directory": str(run), "profile": profile, "predecessor": proof})
+    monkeypatch.setattr(status, "CACHED_R2_6101_CONTRACT", sha)
+    monkeypatch.setattr(status, "CACHED_R2_6101_AUTH", auth)
+    write_json(run / "cached_response_import.json", cached)
+    local_attempt = "a" * 32
+    directory = run / "seed_6101"
+    terminal = directory / "round_02/turn_00/attempt_00.terminal.json"
+    write_json(terminal, {"attempt_id": local_attempt, "status": "completed", "provider_dispatched": False,
+                          "usage": {}, "cached_import_sha256": status.record_digest(cached),
+                          "imported_from_response_id": status.CACHED_R2_6101_RESPONSE})
+    assert status.cached_r2_6101_contract(tmp_path, seed, old, old_sha) is None
+    fitted = directory / "round_03"
+    metric = fitted / "fit_000/validation_metrics.json"
+    audit = fitted / "fit_000/fit_audit.json"
+    source = fitted / "source.json"
+    transition = fitted / "transition.json"
+    write_json(metric, {"combined_normalized_rmse": .80893578})
+    write_json(audit, {"device": "cuda"})
+    write_json(source, {"checkpoint": status.CACHED_R2_6101_CHECKPOINT})
+    write_json(transition, {"checkpoint_sha256": status.CACHED_R2_6101_CHECKPOINT, "fit_path": "fit_000",
+                            "source_sha256": status.checksum(source), "fit_audit_sha256": status.checksum(audit),
+                            "validation_metrics_sha256": status.checksum(metric)})
+    monkeypatch.setattr(status, "CACHED_R2_6101_TRANSITION", status.checksum(transition))
+    result = status.cached_r2_6101_contract(tmp_path, seed, old, old_sha)
+    assert result[:4] == (run, sha, 2, 3)
+    assert result[4] == {"round": 2, "fitted_labels": 429, "choice_count": 32, "removed_reference_fields": 74,
+                         "removed_observed_reference_fields": 59, "removed_candidate_reference_fields": 15,
+                         "provider_dispatched": False, "checkpoint_sha256": status.CACHED_R2_6101_CHECKPOINT,
+                         "validation_nrmse": .80893578, "future_starts_at_round": 3,
+                         "future_logical_replies": 3, "future_transport_attempts": 2}
+    monkeypatch.setattr(status, "resilient_contract", lambda *_: (tmp_path / "resilient", "resilient", 2, 3))
+    monkeypatch.setattr(status, "resilient_failure_contract", lambda *_: (tmp_path / "failed", "failed"))
+    monkeypatch.setattr(status, "relay_retry_contract", lambda *_: (tmp_path / "retry", "retry", 2, 3))
+    monkeypatch.setattr(status, "relay_retry_02_contract", lambda *_: (tmp_path / "wave02", "wave02", 2, 3, 10))
+    monkeypatch.setattr(status, "reviewed_relay_contract", lambda _runs, _seed, wave, *_: (
+        (old if wave == 6 else tmp_path / f"wave{wave}", old_sha if wave == 6 else f"wave{wave}", 2, 3, 10)
+        if wave <= 6 else None))
+    row = remote_seed(tmp_path, seed)
+    assert (row["segment"], row["labels"], row["phase"]) == ("ipv4_cached_r2_6101", 429, "cached_import_complete")
+    assert row["cached_import"] == result[4]
+    assert row["validation_nrmse"] == .80893578
+    commands = []
+    monkeypatch.setattr(status, "command_lines", lambda command: commands.append(command) or [])
+    status.dispatcher_pid(seed, row["segment"])
+    assert commands[0][-1].endswith("/com.purellm.a7-ipv4-v13-6101-cached-r2-01")
+    write_json(run / f"bridge/outbox/{local_attempt}.json", {"unexpected": "provider transport"})
+    assert status.cached_r2_6101_contract(tmp_path, seed, old, old_sha) is None
+    assert remote_seed(tmp_path, seed)["run"] == old.name
 
 
 def test_157_wave07_requires_the_exact_post_cache_producer_scope():
