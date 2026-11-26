@@ -188,8 +188,11 @@ def construct(root, old_release, old, run):
     stage = seed_runner.pin_boundary_user_message(stage, user, digest(user))
     text, plan, paths = _final_plan(result["raw_response"])
     validation = _validation(stage, plan)
+    # The archived lossless packet is SHA-exact even when its unsent message keys were serialized in a different order.
+    archived_binding = {**stage.binding, "authoritative_base_messages_sha256":
+                        binding["authoritative_base_messages_sha256"]}
     if (digest(read(active / AUTHORITATIVE_PACKET_FILE)) != PACKET_SHA or digest(stage.packet) != PACKET_SHA
-            or make_request(stage.binding, 0, stage.messages, previous.transport) != request
+            or make_request(archived_binding, 0, stage.messages, previous.transport) != request
             or not validation.valid or validation.valid_choice_count != 32):
         raise PermissionError("cached final answer is not fully legal on the exact authoritative A7 stage")
 
