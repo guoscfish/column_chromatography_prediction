@@ -300,6 +300,21 @@ def test_6101_wave07_allows_one_round_three_attempt_after_the_exact_no_post_fit(
     assert old.progress["event_type"] == "response.output_text.delta" and old.replay_files is None
 
 
+def test_6101_wave08_preserves_the_cached_fit_and_the_hard_wall_failure():
+    previous = gpu.SCOPES[(6101, 7)]
+    scope = gpu.SCOPES[(6101, 8)]
+    assert scope.round == scope.replay_start_round == 3
+    assert scope.payload_sha256 == previous.payload_sha256
+    assert scope.cached_origin == previous.cached_origin
+    assert scope.archive[:-1] == previous.archive
+    assert scope.not_before_unix == 1795704845.0379763
+    assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 2}
+    assert scope.budget == {"first_logical_requests": 33, "maximum_logical_requests": 97, "maximum_physical_attempts": 194}
+    last = scope.archive[-1]
+    assert last.attempt_id == "e674f38eefbb4e9fa50824f61f932400" and last.failure == "timeout"
+    assert last.progress["error_type"] == "hard_wall_deadline" and last.progress["sse_event_count"] == 648
+
+
 def test_2357_previous_partial_text_telemetry_is_bound_to_the_stopped_physical_attempt():
     scope = gpu.SCOPES[(2357, 2)]
     assert scope.round == scope.original_start_round == 4
@@ -589,6 +604,23 @@ def test_157_wave08_keeps_the_reviewed_zero_post_origin_and_pins_the_new_transpo
     assert last.progress["event_type"] == "response.output_text.delta" and last.progress["sse_event_count"] == 2783
 
 
+def test_157_wave09_preserves_the_three_cuda_fits_and_round_seven_payload():
+    scope = gpu.SCOPES[(157, 9)]
+    assert (scope.original_start_round, scope.round, scope.replay_start_round) == (4, 7, 7)
+    assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 2}
+    assert scope.budget == {"first_logical_requests": 29, "maximum_logical_requests": 85, "maximum_physical_attempts": 170}
+    assert scope.not_before_unix == 1795705081.8307962
+    assert scope.required_sources == gpu.SCOPES[(6101, 8)].required_sources
+    assert all(file_digest(gpu.ROOT / name) == sha for name, sha in scope.required_sources)
+    files = dict(scope.fitted_prefix_files)
+    assert {f"round_{i:02d}/transition.json" for i in range(5, 8)} <= files.keys()
+    assert {f"round_{i:02d}/memory.json" for i in range(4, 7)} <= files.keys()
+    assert scope.payload_sha256 == "a107c416d5d99771b3b14a88ee77b81c73378807da79cc849c3da05edae9e1e3"
+    old, = scope.archive
+    assert old.identity.name.endswith("-157-relay-retry-08")
+    assert old.progress["error_type"] == "hard_wall_deadline" and old.progress["sse_event_count"] == 5937
+
+
 def test_887_r12_carries_the_one_unused_slot_and_the_exact_fitted_prefix():
     scope = gpu.SCOPES[(887, 5)]
     assert (scope.original_start_round, scope.round, scope.replay_start_round) == (9, 12, 13)
@@ -652,6 +684,47 @@ def test_exact_887_source_only_origin_replays_three_fit_verifications_and_reject
     once(initial / "boundary_user_message.json", {"content": "unbound"})
     with pytest.raises(PermissionError, match="R9 continuation boundary"):
         gpu._reviewed_boundary(tmp_path, directory, active, parent, {}, scope, tmp_path)
+
+
+def test_2357_wave08_pins_the_new_l493_decision_and_both_closed_r5_slots(monkeypatch):
+    previous = gpu.SCOPES[(2357, 7)]
+    scope = gpu.SCOPES[(2357, 8)]
+    assert scope.original_start_round == previous.round == 4
+    assert scope.original_boundary_physical_attempts == previous.boundary_physical_attempts == 1
+    assert scope.round == scope.replay_start_round == 5 and scope.payload_sha256 != previous.payload_sha256
+    assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 2}
+    assert scope.budget == {"first_logical_requests": 31, "maximum_logical_requests": 91, "maximum_physical_attempts": 182}
+    assert scope.not_before_unix == 1795705060.1421165 and scope.cooldown_field == "failed_unix"
+    assert scope.required_sources == previous.required_sources
+    assert dict(scope.fitted_prefix_files)["round_05/transition.json"] == (
+        "bf855d43455d4ae2e1d2ff7d50a17b94be5c1adff2782c47fa5011d12f84703a"
+    )
+    archived, = scope.archive
+    first, second = archived.attempts
+    assert first.request_id == second.request_id and first.identity == second.identity
+    assert (first.progress["sse_event_count"], second.progress["sse_event_count"]) == (23, 25)
+    assert all(attempt.progress["provider_error_code"] == "upstream_error" and not attempt.pre_post_connect_failure
+               for attempt in archived.attempts)
+    assert archived.replay_files["attempt_01.replay_link.json"] == (
+        "969c43ad504e1c4bb2641ef163f0fa757513bcd0447a9d9e4cee144d69acc892"
+    )
+
+    dispatcher = mac.SuccessorDispatcher.__new__(mac.SuccessorDispatcher)
+    dispatcher.reviewed_scope = scope
+    admitted = []
+    monkeypatch.setattr(mac.RelayRetryDispatcher, "_check_boundary",
+                        lambda _, request, reservation: admitted.append((request, reservation)))
+    new = {"attempt": 1, "attempt_id": "a" * 32}
+    monkeypatch.setattr(mac, "time", lambda: scope.not_before_unix - 0.01)
+    with pytest.raises(PermissionError, match="cooldown"):
+        dispatcher._check_boundary({}, new)
+    monkeypatch.setattr(mac, "time", lambda: scope.not_before_unix)
+    with pytest.raises(PermissionError, match="signed physical attempts"):
+        dispatcher._check_boundary({}, {**new, "attempt_id": second.attempt_id})
+    with pytest.raises(PermissionError, match="signed physical attempts"):
+        dispatcher._check_boundary({}, {**new, "attempt": 2})
+    dispatcher._check_boundary({}, new)
+    assert admitted == [({}, new)]
 
 
 def test_2357_wave07_keeps_the_unused_physical_from_the_exact_idle_timeout():
