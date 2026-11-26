@@ -1425,6 +1425,82 @@ SCOPES[(6101, 26)] = replace(SCOPES[(6101, 25)], wave=26, cooldown_field="not_be
 ))
 
 
+_6101_WAVE26 = retry.bounded.RunIdentity(
+    "-6101-relay-retry-26",
+    "4deacbd298b90031526a2f72fa696ad36c122892ef98d9486fdebe85dc1ea9c1",
+    "77456d673746ebb844959eb8df407dcf54acf41a18613640603b2263cb23bacc",
+)
+_6101_WAVE26_REQUEST = "8b144714e29f0fd8fca18b02bf3ed4f320aef4d740dd81eb27f5773021bcb1a5"
+_6101_WAVE26_FIRST = Review(
+    _6101_WAVE26, _6101_WAVE26_REQUEST, "2f0b0d68e2c746b29d99f3d995092673",
+    "561304819eb5838261fd86b786f528104c10d786fc1c00c1537b6987f840e4ab",
+    "067c490172a55e7f65ec3f8fea2b237393579f7d2173641911b59e356206b324",
+    "9889f4c2c65df4ffd3c0ec07a94ca5c3bf5343a3a299a50f972068f3e60236ad",
+    "b96840d5c174fa5603fcf190aca6edc3f5dad3d5351f20ee57c8ab58d6a9ef64", "response_id_mismatch",
+    {"http_status": 200,
+     "phase": "transport_failure",
+     "error_type": "response_id_mismatch",
+     "event_type": "response.output_item.added",
+     "sse_event_count": 41,
+     "model": "gpt-6.2-astra",
+     "provider_request_id": "4fa968fe-fb28-4ea5-bf25-cce6a40babec",
+     "response_id": "resp_064a993b5853ff31016b08b8ed70b887d095daeabc2b6c46e7",
+     "conflicting_response_id": "resp_4fa968fefb284ea5bf25cce6a40babec",
+     "conflicting_event_type": "response.failed",
+     "response_id_matches_transport_alias": True,
+     "provider_error_code": "upstream_error",
+     "last_sse_seconds": 196.46159504214302,
+     "last_sse_activity_seconds": 196.46159504214302,
+     "elapsed_seconds": 199.329108083155,
+     "sse_milestones": {"response.created": {"elapsed_seconds": 19.193775417050347,
+                                             "interval_seconds": None},
+                        "response.in_progress": {"elapsed_seconds": 19.194788499968126,
+                                                 "interval_seconds": 0.001013082917779684},
+                        "response.output_item.added": {"elapsed_seconds": 19.19546345807612,
+                                                       "interval_seconds": 0.0006749581079930067},
+                        "response.output_item.done": {"elapsed_seconds": 32.646298666950315,
+                                                      "interval_seconds": 13.450835208874196}}},
+)
+
+SCOPES[(6101, 27)] = replace(SCOPES[(6101, 26)], wave=27, cooldown_field="not_before_unix",
+                              cooldown_unix=1795734354.2416294, original_boundary_physical_attempts=2, archive=(
+    *SCOPES[(6101, 26)].archive,
+    Review(_6101_WAVE26, _6101_WAVE26_REQUEST, "792e6c2a9c41483ab2ecdea69057b635",
+        "aecfcc46008d09d4c33d271af1d5597e341a5b75f5e500c9c08e9e3d8179b687",
+        "d4d1efd3188bb20b3944e6cc5d465861146329375685d5d167b53f48d876e4df",
+        "6ba2c8bc2cfb91026ddacf70fc240e0db538d5d136dfc0e30f219732d2c554a2",
+        "346d5eb3a4bfb93ddf5a975ffac3a23b0d78876b6d19d6f9d9f2fb74a650fe0d", "response_id_mismatch",
+        {"http_status": 200,
+         "phase": "transport_failure",
+         "error_type": "response_id_mismatch",
+         "event_type": "response.output_item.added",
+         "sse_event_count": 41,
+         "model": "gpt-6.2-astra",
+         "provider_request_id": "b49bf319-cfce-484d-a5a9-0c8634345977",
+         "response_id": "resp_049994cf5ff52009016b08ba83e0e887d2899d4da4af066dcb",
+         "conflicting_response_id": "resp_b49bf319cfce484da5a90c8634345977",
+         "conflicting_event_type": "response.failed",
+         "response_id_matches_transport_alias": True,
+         "provider_error_code": "upstream_error",
+         "last_sse_seconds": 195.8672819591593,
+         "last_sse_activity_seconds": 195.8672819591593,
+         "elapsed_seconds": 198.6679510420654,
+         "sse_milestones": {"response.created": {"elapsed_seconds": 18.739110042108223,
+                                                 "interval_seconds": None},
+                            "response.in_progress": {"elapsed_seconds": 18.740597125142813,
+                                                     "interval_seconds": 0.0014870830345898867},
+                            "response.output_item.added": {"elapsed_seconds": 18.742711042053998,
+                                                           "interval_seconds": 0.0021139169111847878},
+                            "response.output_item.done": {"elapsed_seconds": 28.471411042148247,
+                                                          "interval_seconds": 9.72870000009425}}},
+        earlier=(_6101_WAVE26_FIRST,), replay_files={
+            "attempt_00.replay_authorization.json": "b4721185709c55a35b7fe8d79ea0297947691cf100f5c2066bf3042dc1f09fa8",
+            "attempt_00.replay.terminal.json": "15f6efac4b7d9760e313234b55162b987a65cbd3d6bb1cacb027d1a80ad2ccee",
+            "attempt_01.replay_link.json": "4db3a9c432113be8f77f4cd5afc8f5d28d756b5307f3b3f4fa6b33b5b45b444e",
+        }),
+))
+
+
 _2357_OLD = retry.bounded.RunIdentity("-2357-relay-retry-01",
     "3c20dad3f4c772011e82d8684e7bfe4204a988e32f59b26b90390507ad6bb1d8",
     "5a507f2471b94d81b3eaae590d6c027bc2e8d3369a424550af0def0aea8c25f8")
@@ -2778,6 +2854,76 @@ SCOPES[(2357, 26)] = replace(SCOPES[(2357, 25)], wave=26, cooldown_field="not_be
 ))
 
 
+_2357_WAVE26 = retry.bounded.RunIdentity("-2357-relay-retry-26",
+    "7914a06ecff6d4a30fc9ce789188e9cc8758a2cf34415cb33b2c0af453e2b443",
+    "39835e467d061e2eade40505e4ea264dbb65e086717ce2665e65c639cb7da6f4")
+_2357_WAVE26_REQUEST = "3388c48537c7aed58993611fae485a21d20afe0777ea6bdc094ae4bbbd796e83"
+_2357_WAVE26_FIRST = Review(_2357_WAVE26, _2357_WAVE26_REQUEST, "0ccb81fe134c44f0bddd832be74b011a",
+    "5d73e94c0457af8e0eaa89bb2796dc56cf47447645b652ff0da4ca6264dc037f",
+    "d6a92f52f4c8753d70d6c9b37e18704f9a65005d62067c70e070120be686714b",
+    "9aea8facae60767aca52e842147a17a5f3df3afc8103850edfadb2e4413a2591",
+    "8c03cd418156da8ef850a1689c21b6b5864c8fcf1f72230da065f97daca14883", "response_id_mismatch",
+    {'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'event_type': 'response.output_item.added',
+     'sse_event_count': 41,
+     'model': 'gpt-6.2-astra',
+     'provider_request_id': 'eb30401f-6375-4295-a8ab-10dd5c406942',
+     'response_id': 'resp_0bbb38b2111c00c5016b08b79627a087d08446021594b434b9',
+     'conflicting_response_id': 'resp_eb30401f63754295a8ab10dd5c406942',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'provider_error_code': 'upstream_error',
+     'last_sse_seconds': 196.6153992919717,
+     'last_sse_activity_seconds': 196.6153992919717,
+     'elapsed_seconds': 200.00214933301322,
+     'sse_milestones': {'response.created': {'elapsed_seconds': 19.865991667145863, 'interval_seconds': None},
+                        'response.in_progress': {'elapsed_seconds': 19.867161249974743,
+                                                 'interval_seconds': 0.0011695828288793564},
+                        'response.output_item.added': {'elapsed_seconds': 19.86781583307311,
+                                                       'interval_seconds': 0.0006545830983668566},
+                        'response.output_item.done': {'elapsed_seconds': 28.639567916980013,
+                                                      'interval_seconds': 8.771752083906904}}})
+
+SCOPES[(2357, 27)] = replace(SCOPES[(2357, 26)], wave=27, cooldown_field="not_before_unix",
+                              cooldown_unix=1795734093.7636313, original_boundary_physical_attempts=2, archive=(
+    *SCOPES[(2357, 26)].archive,
+    Review(_2357_WAVE26, _2357_WAVE26_REQUEST, "9be434ac07fb46c695498bce09632916",
+        "6d800a3138288f3bd981d3380fbb49d6c5b9667a943aed2102383b458bcc9a79",
+        "f68e705121ce6f27a67bc771ec2e127de3b855afd636b190f5e9072d1cb2f3fe",
+        "9755f371d1e4e2c6144e129cc4f94b93edd93c8e431b5d8dfc233694401a2ac8",
+        "f6d60b85763355643ea686a55b93753e5b9f73f7eb926395b8d7f5ef39ea0d8b", "response_id_mismatch",
+        {'http_status': 200,
+         'phase': 'transport_failure',
+         'error_type': 'response_id_mismatch',
+         'event_type': 'response.output_item.added',
+         'sse_event_count': 41,
+         'model': 'gpt-6.2-astra',
+         'provider_request_id': '4d03255c-4500-4be5-b037-e5a4994df185',
+         'response_id': 'resp_036cb490d4e7c5bf016b08b97d33d887d2bb9ecfe550ece8fe',
+         'conflicting_response_id': 'resp_4d03255c45004be5b037e5a4994df185',
+         'conflicting_event_type': 'response.failed',
+         'response_id_matches_transport_alias': True,
+         'provider_error_code': 'upstream_error',
+         'last_sse_seconds': 197.2564327090513,
+         'last_sse_activity_seconds': 197.2564327090513,
+         'elapsed_seconds': 199.87424100004137,
+         'sse_milestones': {'response.created': {'elapsed_seconds': 19.93588316696696, 'interval_seconds': None},
+                            'response.in_progress': {'elapsed_seconds': 19.938056374900043,
+                                                     'interval_seconds': 0.0021732079330831766},
+                            'response.output_item.added': {'elapsed_seconds': 19.94104020902887,
+                                                           'interval_seconds': 0.0029838341288268566},
+                            'response.output_item.done': {'elapsed_seconds': 29.267843541922048,
+                                                          'interval_seconds': 9.326803332893178}}},
+        earlier=(_2357_WAVE26_FIRST,), replay_files={
+            "attempt_00.replay_authorization.json": "f31dbc10fefbe04dd206e5c4019a80bd70722f25647b4aca964753e98ed930f7",
+            "attempt_00.replay.terminal.json": "4cda18d6fcc22368189aa30087d425659aa846ae219fbabe5f93a9663101bcec",
+            "attempt_01.replay_link.json": "0fa90bf0207136374e16525a836c62331325bd3db835897aa4a59e31aaaff889",
+        }),
+))
+
+
 SCOPES[(157, 4)] = replace(SCOPES[(157, 3)], wave=4, cooldown_unix=1795685449.213155, archive=(
     *SCOPES[(157, 3)].archive,
     Review(retry.bounded.RunIdentity("-157-relay-retry-03",
@@ -3945,6 +4091,76 @@ SCOPES[(157, 26)] = replace(SCOPES[(157, 25)], wave=26, cooldown_field="not_befo
             "attempt_00.replay_authorization.json": "0583c5b95478424ddd9a581353311839ce7157cc4d8164a5c70d55680cad9feb",
             "attempt_00.replay.terminal.json": "76fddcecf20a9b1c59e37be4471eec91a38e0ded9616850aae99962a88a88594",
             "attempt_01.replay_link.json": "c6440a0686d16c0db3969760ff1a137ce480f37e2a7269b7390b44f241954c39",
+        }),
+))
+
+
+_157_WAVE26 = retry.bounded.RunIdentity("-157-relay-retry-26",
+    "c3128811ae5674d9092b9317b65cf7e73abf02b6a612548924bf44bda9c13d5e",
+    "a1a5928a02db08b957e10c6ff8410bd585d24c1e3bd5d7a4399c89066d1ae69a")
+_157_WAVE26_REQUEST = "c8b31c12b1e010e044849ca4d663a61cfba008bdf37d263849c36dc4edd13bff"
+_157_WAVE26_FIRST = Review(_157_WAVE26, _157_WAVE26_REQUEST, "e2c4454234bb4fbf98c2bd9997833edf",
+    "56d75fdb3942baea8de7f278ae31796137769042ce21bd23e468b449a346fed9",
+    "224179710c99520514a977cb14678849d4f75b9c8c5a6dd03be75c98c4112a9a",
+    "773dba409e12ae2f9b9f02af0e37d8eae620b685fc19c7846d3628cfb0ad381c",
+    "c80c6e235611894489490e1226951752891f8d33bb91964754f33ee745bb8ad1", "response_id_mismatch",
+    {'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'event_type': 'response.output_item.added',
+     'sse_event_count': 41,
+     'model': 'gpt-6.2-astra',
+     'provider_request_id': '6cf6f2e7-f380-4e96-b59a-6312f567871d',
+     'response_id': 'resp_0f1d5b5ea663a4f6016b08b8eca81087d0a619c14f850a65e6',
+     'conflicting_response_id': 'resp_6cf6f2e7f3804e96b59a6312f567871d',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'provider_error_code': 'upstream_error',
+     'last_sse_seconds': 196.29994170810096,
+     'last_sse_activity_seconds': 196.29994170810096,
+     'elapsed_seconds': 199.54145700018853,
+     'sse_milestones': {'response.created': {'elapsed_seconds': 19.403417916037142, 'interval_seconds': None},
+                        'response.in_progress': {'elapsed_seconds': 19.404569333186373,
+                                                 'interval_seconds': 0.0011514171492308378},
+                        'response.output_item.added': {'elapsed_seconds': 19.40523258317262,
+                                                       'interval_seconds': 0.0006632499862462282},
+                        'response.output_item.done': {'elapsed_seconds': 28.33837058302015,
+                                                      'interval_seconds': 8.933137999847531}}})
+
+SCOPES[(157, 27)] = replace(SCOPES[(157, 26)], wave=27, cooldown_field="not_before_unix",
+                              cooldown_unix=1795734343.5643582, original_boundary_physical_attempts=2, archive=(
+    *SCOPES[(157, 26)].archive,
+    Review(_157_WAVE26, _157_WAVE26_REQUEST, "3571d6d09f704437a838c8bf2024f709",
+        "312fd71fda63247abbd1e6125308b3eb4efb6e615e9284964f2c0f7ab41da902",
+        "f4e5fea219205604456fd18f36839e1af927597dd080505e782e1d064f87ed16",
+        "b6688422ffbc826efd1a1657036a7eb7cad37bee7e79baa5dc868693c8d41d3c",
+        "ed9c2d42b0e98bd95f34d1bf16267660a76e0a60384c3000615dd71f1a85c7e8", "response_id_mismatch",
+        {'http_status': 200,
+         'phase': 'transport_failure',
+         'error_type': 'response_id_mismatch',
+         'event_type': 'response.output_item.added',
+         'sse_event_count': 41,
+         'model': 'gpt-6.2-astra',
+         'provider_request_id': '59c31069-5005-4b56-bbd7-a88a7ad76918',
+         'response_id': 'resp_04128c057b9bcb48016b08ba77bbdc87d2908aa834fdebdd21',
+         'conflicting_response_id': 'resp_59c3106950054b56bbd7a88a7ad76918',
+         'conflicting_event_type': 'response.failed',
+         'response_id_matches_transport_alias': True,
+         'provider_error_code': 'upstream_error',
+         'last_sse_seconds': 197.09684495883994,
+         'last_sse_activity_seconds': 197.09684495883994,
+         'elapsed_seconds': 199.73100983398035,
+         'sse_milestones': {'response.created': {'elapsed_seconds': 19.91749866702594, 'interval_seconds': None},
+                            'response.in_progress': {'elapsed_seconds': 19.919983208877966,
+                                                     'interval_seconds': 0.002484541852027178},
+                            'response.output_item.added': {'elapsed_seconds': 19.922454458894208,
+                                                           'interval_seconds': 0.0024712500162422657},
+                            'response.output_item.done': {'elapsed_seconds': 29.07027466688305,
+                                                          'interval_seconds': 9.147820207988843}}},
+        earlier=(_157_WAVE26_FIRST,), replay_files={
+            "attempt_00.replay_authorization.json": "1a9a7f8c14382f364f5f174dfdaff25fe1f2ea76f09ddb36ca58195812da9824",
+            "attempt_00.replay.terminal.json": "5419d40ffdf083d07899d031bb21b49d170b835cc63ec73896ea88c6af1723a9",
+            "attempt_01.replay_link.json": "cff7a4ae6948a098cce7d86f35028e1bb3c9140a4bf2909baba1062ffa1062d4",
         }),
 ))
 
@@ -5241,6 +5457,76 @@ SCOPES[(12203, 33)] = replace(SCOPES[(12203, 32)], wave=33, cooldown_field="not_
 ))
 
 
+_12203_WAVE33 = retry.bounded.RunIdentity("-12203-relay-retry-33",
+    "a376053a1b6b6e3709ffd761a24d0d897ce9caed65d0b5657eec84a0aadaef93",
+    "147f9e6aa37dcd8bd955f228692a4ace6d58fd61dd83964dab28425c37b7727a")
+_12203_WAVE33_REQUEST = "edd77546fbc44799fa168710392e212deb05052e4373301bb7c5d721d66bf4a7"
+_12203_WAVE33_FIRST = Review(_12203_WAVE33, _12203_WAVE33_REQUEST, "cac2a722c57549998cc42a219ce95288",
+    "db2e709943f3381ed2328732b84072cc2e2aee3be93765e59d256b7a7b5854aa",
+    "0bebe4fe954385e9d9c40232631f1f78bdd5332c0317e83ae411c85172576ef4",
+    "6369b7e46c0eb01cdcf5cb39fbc27a7ac3856505ca1bd199de01deaf37c21249",
+    "d3c213ef752ec5373920482b03a738d7e4b48e0aab7ea865e866058b9b5c0e27", "response_id_mismatch",
+    {'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'event_type': 'response.output_item.added',
+     'sse_event_count': 41,
+     'model': 'gpt-6.2-astra',
+     'provider_request_id': '5e1a9b10-5ed0-4bf7-a799-eb74021975bf',
+     'response_id': 'resp_0404aa76b3018350016b08b9b7102887d2942d3e3a08d13a56',
+     'conflicting_response_id': 'resp_5e1a9b105ed04bf7a799eb74021975bf',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'provider_error_code': 'upstream_error',
+     'last_sse_seconds': 196.30755675002,
+     'last_sse_activity_seconds': 196.30755675002,
+     'elapsed_seconds': 198.20927099999972,
+     'sse_milestones': {'response.created': {'elapsed_seconds': 18.13923141709529, 'interval_seconds': None},
+                        'response.in_progress': {'elapsed_seconds': 18.140454499982297,
+                                                 'interval_seconds': 0.0012230828870087862},
+                        'response.output_item.added': {'elapsed_seconds': 18.141142167150974,
+                                                       'interval_seconds': 0.0006876671686768532},
+                        'response.output_item.done': {'elapsed_seconds': 27.358705250080675,
+                                                      'interval_seconds': 9.2175630829297}}})
+
+SCOPES[(12203, 34)] = replace(SCOPES[(12203, 33)], wave=34, cooldown_field="not_before_unix",
+                              cooldown_unix=1795734557.44935, original_boundary_physical_attempts=2, archive=(
+    *SCOPES[(12203, 33)].archive,
+    Review(_12203_WAVE33, _12203_WAVE33_REQUEST, "3c10b36f4fee4587aeb085be08211093",
+        "29fca5658405e18d35f90cb230a32b32e9c24d45a1d802aa3aab2b1c7745fbc4",
+        "599ddad01cf479b721bd27b194c98d0fca3e362bbf4da5e9eb747dc5b4b6de79",
+        "520997df5973966ac63e1cf9a95417e6117aa1befb46591f769615eb1de8d518",
+        "ae180f69720c0d0dc3713de44ef22a7fc06cb99739f4a3212e85b7d3e5686ce1", "response_id_mismatch",
+        {'http_status': 200,
+         'phase': 'transport_failure',
+         'error_type': 'response_id_mismatch',
+         'event_type': 'response.output_item.added',
+         'sse_event_count': 41,
+         'model': 'gpt-6.2-astra',
+         'provider_request_id': '827a4edc-c575-449c-92b9-0b50fdd1465d',
+         'response_id': 'resp_0facc47c298f5f1a016b08bb4dbdd087d1b612c067cf4afec4',
+         'conflicting_response_id': 'resp_827a4edcc575449c92b90b50fdd1465d',
+         'conflicting_event_type': 'response.failed',
+         'response_id_matches_transport_alias': True,
+         'provider_error_code': 'upstream_error',
+         'last_sse_seconds': 196.6196298331488,
+         'last_sse_activity_seconds': 196.6196298331488,
+         'elapsed_seconds': 199.24724795809016,
+         'sse_milestones': {'response.created': {'elapsed_seconds': 19.300910582998767, 'interval_seconds': None},
+                            'response.in_progress': {'elapsed_seconds': 19.302149458089843,
+                                                     'interval_seconds': 0.0012388750910758972},
+                            'response.output_item.added': {'elapsed_seconds': 19.30616966704838,
+                                                           'interval_seconds': 0.0040202089585363865},
+                            'response.output_item.done': {'elapsed_seconds': 28.662907000165433,
+                                                          'interval_seconds': 9.356737333117053}}},
+        earlier=(_12203_WAVE33_FIRST,), replay_files={
+            "attempt_00.replay_authorization.json": "369b45158d074dbe8326237e6df9caa0e2542d34816f807cf888b2d38d3903d8",
+            "attempt_00.replay.terminal.json": "52ae37aafff46e5ed4fe77dc0a862af53592de9ea6bff1e29f7756a508c4ec13",
+            "attempt_01.replay_link.json": "8fe4459507e519111f595a934c4c0fc91d8b04742fde4e8d7722b2e311f47700",
+        }),
+))
+
+
 SCOPES[(887, 1)] = Scope(
     887, 8, 1, "ac09bcae3019cc81899e246e4769bc20ec1b764ac08e52cfc6b4c35dc8324c85", (
         Review(retry.bounded.RunIdentity("-887-cached-r7-01",
@@ -5511,6 +5797,139 @@ SCOPES[(887, 11)] = Scope(
 )
 
 
+_887_R33_CONTINUATION = retry.bounded.RunIdentity(
+    "-887-r33-continuation-01",
+    "b85af24f05525a09c03617eaeca9a10d79c3fc5709726f21ef93885d42b63ec0",
+    "2efc06435a36ce310dc9bb8518a31586a219c685f9c5400a5178b9cac9440dd5",
+)
+_887_R34_CHECKPOINT = "c81f34b104de3873a9fd54dfad4323b118dcab6e208281d3c3e95db68c5fe710"
+_887_R33_REVIEWED_PARENT = {
+    "round": 33,
+    "recovery_budget": {"maximum_logical_requests": 3, "maximum_physical_attempts": 2},
+    "execution_budget": {"first_logical_requests": 3, "maximum_logical_requests": 9, "maximum_physical_attempts": 18},
+}
+_887_R34_P0 = Review(
+    _887_R33_CONTINUATION,
+    "7825e8ef5b9181aeb184569692dadbe056e2dd63c9b33e00402529c4b5119e52",
+    "675632bc2bc343dd81dc7f9db47ee122",
+    "1e8d448f693d58ef2188dbf43ecf03c71aa527efa1ab2176f2a6f66ee13346f7",
+    "b6f69ababedc0be666ff151e34fb06db260804510109bad3b3cf05df07df75b0",
+    "d3a769a01f8a051033ec04170123c00d0f0d48ebe3ecae90206abee50ed8391b",
+    "c387536bd9cf3040763ec7d600ec4f1b690a1f03e455d911082451ab1324c73f",
+    "response_id_mismatch",
+    {'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'event_type': 'response.output_item.added',
+     'conflicting_event_type': 'response.failed',
+     'provider_error_code': 'upstream_error',
+     'sse_event_count': 41,
+     'first_sse_seconds': 19.166688958881423,
+     'last_sse_seconds': 196.78388824989088,
+     'last_sse_activity_seconds': 196.78388824989088,
+     'elapsed_seconds': 199.10513362498023,
+     'model': 'gpt-6.2-astra',
+     'response_id': 'resp_0fe99ea0de84e21f016b08b8b2352c87d2951b79e0a0c9e496',
+     'provider_request_id': '312d1cf2-ce29-49fd-8d6e-e0cb01ec9a32',
+     'conflicting_response_id': 'resp_312d1cf2ce2949fd8d6ee0cb01ec9a32',
+     'response_id_matches_transport_alias': True,
+     'sse_milestones': {'response.created': {'elapsed_seconds': 19.166688958881423, 'interval_seconds': None},
+                        'response.in_progress': {'elapsed_seconds': 19.16840000008233,
+                                                 'interval_seconds': 0.0017110412009060383},
+                        'response.output_item.added': {'elapsed_seconds': 19.17076583392918,
+                                                       'interval_seconds': 0.0023658338468521833},
+                        'response.output_item.done': {'elapsed_seconds': 28.5018938339781,
+                                                      'interval_seconds': 9.33112800004892}}},
+)
+
+_887_R34_P1 = Review(
+    _887_R33_CONTINUATION,
+    "7825e8ef5b9181aeb184569692dadbe056e2dd63c9b33e00402529c4b5119e52",
+    "e9f779550dce4a6c88663a38d9e1dd0c",
+    "752160f18882c2b35e81529714690d7a8aceeaeac44bca186f2b6e76d7ec4aa2",
+    "7500a346b8f9713d5aea43bc1b892f5b98a41932cac94551959b3601260a88f8",
+    "8d40cc02f116d35e031a9d9f27a3d60875c59f58cd7877fd88155db544ac94dc",
+    "0e2c2ee7932ec868f9813c5bdbbb79c30731166230abd66fecc0266cd1aace40",
+    "response_id_mismatch",
+    {'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'event_type': 'response.output_item.added',
+     'conflicting_event_type': 'response.failed',
+     'provider_error_code': 'upstream_error',
+     'sse_event_count': 41,
+     'first_sse_seconds': 18.300744083011523,
+     'last_sse_seconds': 195.47679645800963,
+     'last_sse_activity_seconds': 195.47679645800963,
+     'elapsed_seconds': 198.23884300002828,
+     'model': 'gpt-6.2-astra',
+     'response_id': 'resp_0d2e9864d776b2a0016b08ba3ccd0487d2bbcb54da9ac57ac0',
+     'provider_request_id': '592b40d9-48c1-427d-9f7a-f9ca009cd83b',
+     'conflicting_response_id': 'resp_592b40d948c1427d9f7af9ca009cd83b',
+     'response_id_matches_transport_alias': True,
+     'sse_milestones': {'response.created': {'elapsed_seconds': 18.300744083011523, 'interval_seconds': None},
+                        'response.in_progress': {'elapsed_seconds': 18.30356779205613,
+                                                 'interval_seconds': 0.0028237090446054935},
+                        'response.output_item.added': {'elapsed_seconds': 18.30534025002271,
+                                                       'interval_seconds': 0.001772457966580987},
+                        'response.output_item.done': {'elapsed_seconds': 27.846694374922663,
+                                                      'interval_seconds': 9.541354124899954}}},
+    earlier=(_887_R34_P0,),
+    replay_files={
+        "attempt_00.replay_authorization.json": "23eaa9c35e511d785e75c542a6bd2aad14d89cb95e1b597decd7f6a01668e5a5",
+        "attempt_00.replay.terminal.json": "6fcf8ccb4ef23554bab8dc153bfeb1f07dc1139826bbdf656db8416c1e1f47bf",
+        "attempt_01.replay_link.json": "5c03d43f0cfe984293245b4730e9a8e27aab9f6866b5a630fd434e9133fbde10",
+    },
+)
+
+SCOPES[(887, 12)] = Scope(
+    887, 34, 12, "eb9170128722472e627a9ae16fa23692c1fc19c3ed6156513bde1c98e0c45a91",
+    (_887_R34_P1,), "not_before_unix", 1795734284.15188,
+    original_start_round=33,
+    fitted_prefix_files=(
+        ("boundary.json", "5ab1672a1325e8cbe63a444d2846be756c8270a62450a80c25524b972a3ccb6c"),
+        ("round_33/source.json", "51a79ba4929ff53020dfbcc5a22b596b1369ae638ac50cf051de5314ab2a2add"),
+        ("round_33/boundary_memory.json", "a98e4a5b1f3fa54f5c1f2bbbf45056e1eec201d744478c8159f0f557c8b89fb0"),
+        ("round_33/memory.json", "c8777ec320923c89d0a4a4481f2541ef2a879a43964b646f76e894c9a5632d05"),
+        ("round_33/batch_freeze.json", "cbd42d6f573d569209bfa2c4b93f0266f29573fb154485d80790e745e4507a19"),
+        ("round_33/selection.json", "1c8a22a407072bcfe69001505115db0f2e75f4e8ef620c372a131bfccb79dc61"),
+        ("round_34/source.json", "6d2a8e1612104f6fc0299994f73cb69555fc0114bae88fcee84ebe3b06bf68ea"),
+        ("round_34/transition.json", "bd0a36d764e2b7453b1df80e0d5a5ea081ae31e9853cee3769187a1e49d70b44"),
+        ("round_34/fit_000/fit_audit.json", "644002146d84a4af6814bb8ac3631e84ceabf1a61bc8e2eedeb663a2e258c8a0"),
+        ("round_34/fit_000/validation_metrics.json", "3b82ee8e65d6bbcfd862ef6bf3b10b39adfb445ff86abf583e3d227302ef1ee7"),
+        ("round_34/authoritative_packet.json", "111a5842df2244af49b73ecc68bfd40e8394a490fc4d7cad4c6c8213f0d85b7f"),
+        ("round_34/turn_00/request.json", "28547f479ce8fbe222852e6132eb169e06b31d3d72ad4e41c118a9787ce6d6cc"),
+    ),
+    required_sources=(
+        *QUEUE_SOURCES,
+        (PROVIDER_SOURCE, "aacbc199e896091d4395fc036cb60bc604d91ec326a79fcff26e157d9a73705f"),
+        ((STUDY / "a7_gpu/seed_runner.py").as_posix(),
+         "417f41255d53d7794abcdc98c0a9258141d01c076df845bfa877013c84de1792"),
+        ((STUDY.parent / "pure_llm_v3_20261124/pure_llm_v3/transport_manager.py").as_posix(),
+         "2cdc0990f81012f040a73f8d5b7226fe1d35b934f477dc1654ee071126193a3c"),
+    ),
+    boundary_physical_attempts=2,
+)
+
+
+def _reviewed_r33_parent_budget(parent, scope):
+    exact = (scope.seed, scope.round, scope.wave, scope.original_start_round, parent.digest) == (
+        887, 34, 12, 33, _887_R33_CONTINUATION.contract,
+    )
+    opt_in = parent.profile.get("full_imported_boundary_round")
+    if not exact:
+        if "full_imported_boundary_round" in parent.profile:
+            raise PermissionError("this imported normal-round profile has no reviewed successor")
+        return None
+    if (type(opt_in) is not int or opt_in != 33
+            or parent.predecessor.get("dispatcher_module") != "dispatch_v13_887_r33_continuation"
+            or parent.profile.get("replay_eligible_from_round") != 33
+            or parent.profile.get("sealed_relay_retry_seconds") != retry.COOLDOWN_SECONDS
+            or (parent.transport.logical_replies, parent.transport.transport_attempts) != (3, 2)):
+        raise PermissionError("the retired R33 normal boundary or signed transport budget changed")
+    return _887_R33_REVIEWED_PARENT
+
+
 def _evidence(run, active, contract, approval, scope, review):
     if review.identity == wave157.OLD:
         request, receipts = wave157._failure(run, active, contract, approval)
@@ -5604,6 +6023,8 @@ def _reviewed_boundary(root, directory, active, parent, approval, scope, cache):
             ("dispatch_v13_6101_r5_continuation", _6101_R6_CHECKPOINT, 525),
         (887, 32, 20, _887_R20_CONTINUATION.contract):
             ("dispatch_v13_887_r20_continuation", _887_R32_CHECKPOINT, 1357),
+        (887, 34, 33, _887_R33_CONTINUATION.contract):
+            ("dispatch_v13_887_r33_continuation", _887_R34_CHECKPOINT, 1421),
     }.get((scope.seed, scope.round, scope.original_start_round, parent.digest))
     if source_only_import is None:
         return retry._boundary(root, directory, active, parent, approval, scope, cache)
@@ -5652,7 +6073,10 @@ def construct(root, failed_release, failed_run, run, scope):
     old = parent.predecessor
     parent_start = parent.profile["resume_boundaries"][str(scope.seed)]["round"]
     cached_parent = scope.cached_origin is not None and scope.original_start_round is not None
-    if cached_parent:
+    reviewed_normal_budget = _reviewed_r33_parent_budget(parent, scope)
+    if reviewed_normal_budget is not None:
+        expected_budget = tuple(reviewed_normal_budget[key] for key in ("round", "recovery_budget", "execution_budget"))
+    elif cached_parent:
         remaining = parent.rounds - scope.round
         expected_budget = (scope.original_start_round, {"maximum_logical_requests": 1, "maximum_physical_attempts": 0},
                            {"first_logical_requests": remaining, "maximum_logical_requests": 3 * remaining,
@@ -5720,6 +6144,9 @@ def construct(root, failed_release, failed_run, run, scope):
     profile = {**parent.profile, "replay_eligible_from_round": scope.replay_start_round,
                "resume_boundaries": {str(scope.seed): descriptor},
                "sealed_relay_retry_seconds": retry.COOLDOWN_SECONDS, **header_deadline}
+    if reviewed_normal_budget is not None:
+        proof["reviewed_normal_parent_budget"] = reviewed_normal_budget
+        profile.pop("full_imported_boundary_round")
     sources = _source_manifest(root, parent, scope)
     contract = replace(parent, profile=profile, source_sha256=sources, run_directory=str(run), predecessor=proof)
     return contract, boundary, cache, request

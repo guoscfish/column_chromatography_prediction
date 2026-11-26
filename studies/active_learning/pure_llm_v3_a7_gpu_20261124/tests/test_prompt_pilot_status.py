@@ -2787,9 +2787,10 @@ def check_repeated_boundary(runs, monkeypatch, publish, seed, wave, previous, pr
                         (2357, 13), (2357, 14), (2357, 15), (2357, 16), (2357, 17), (2357, 18),
                         (6101, 11), (6101, 12), (6101, 13), (6101, 14), (6101, 15), (6101, 16), (6101, 17), (6101, 18),
                         (12203, 16), (12203, 17), (12203, 18), (12203, 19), (12203, 20), (12203, 21),
-                        (12203, 22), (12203, 23), (12203, 24), (12203, 25), (12203, 26), (12203, 27), (12203, 28), (12203, 29), (12203, 30), (12203, 31), (12203, 32),
+                        (12203, 22), (12203, 23), (12203, 24), (12203, 25), (12203, 26), (12203, 27), (12203, 28), (12203, 29), (12203, 30), (12203, 31), (12203, 32), (12203, 33),
                         (157, 19), (2357, 19), (6101, 19), (157, 20), (2357, 20), (6101, 20),
-                        (2357, 21), (6101, 21), (157, 21), (2357, 22), (6101, 22), (157, 22), (157, 23), (2357, 23), (6101, 23), (157, 24), (2357, 24), (6101, 24), (2357, 25), (6101, 25), (157, 25)):
+                        (2357, 21), (6101, 21), (157, 21), (2357, 22), (6101, 22), (157, 22), (157, 23), (2357, 23), (6101, 23), (157, 24), (2357, 24), (6101, 24), (2357, 25), (6101, 25), (157, 25),
+                        (157, 26), (2357, 26), (6101, 26)):
         check_repeated_boundary(runs, monkeypatch, publish, seed, wave + 1, run, sha, auth, record)
 
 
@@ -2999,7 +3000,8 @@ def check_6101_r5_handoff(runs, monkeypatch, publish, parent, cached, cached_sha
                                        (2357, 20), (6101, 20), (12203, 27), (157, 21), (2357, 21), (6101, 21), (12203, 28),
                                        (2357, 22), (6101, 22), (157, 22), (12203, 29), (2357, 23), (6101, 23), (157, 23), (12203, 30),
                                        (157, 24), (2357, 24), (6101, 24), (12203, 31),
-                                       (157, 25), (2357, 25), (6101, 25), (12203, 32), (2357, 26), (6101, 26), (157, 26), (12203, 33)])
+                                       (157, 25), (2357, 25), (6101, 25), (12203, 32), (2357, 26), (6101, 26), (157, 26), (12203, 33),
+                                       (157, 27), (2357, 27), (6101, 27), (12203, 34)])
 def test_new_exact_reviewed_relay_pins_the_original_retired_receipt(seed, wave):
     from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.run_v13_retry_successor import SCOPES
 
@@ -3377,3 +3379,80 @@ def test_887_r33_monitor_pins_normal_budgets_and_exact_l1389_handoff(tmp_path, m
     monkeypatch.setattr(status, "CONTINUATION_887_R33_CONTRACT", wrong_sha)
     monkeypatch.setattr(status, "CONTINUATION_887_R33_AUTH", wrong_auth)
     assert status.r33_after_887_targeted_repair(tmp_path, targeted, old) is None
+
+
+def test_887_r34_monitor_pins_the_normal_parent_and_both_terminal_receipts(tmp_path, monkeypatch):
+    status = prompt_pilot_status
+    previous = tmp_path / status.CONTINUATION_887_R33_RUN
+    run = tmp_path / f"{status.SERIAL_IPV4}-887-relay-retry-12"
+    directory = previous / "seed_887"
+    active = directory / "round_34"
+    turn = active / "turn_00"
+    old_profile = {"resume_boundaries": {"887": {"round": 33}}, "full_imported_boundary_round": 33,
+                   "replay_eligible_from_round": 33, "audited_future_transport_replay": True,
+                   "sealed_relay_retry_seconds": 180, "ipv4_readiness_windows": 3, "sse_inactivity_seconds": 900,
+                   "confirmation_seeds": [887], "target_labels": 1485, "request_timeouts": {"total_seconds": 3600}}
+    old_budget = status.CONTINUATION_887_R33_BUDGET
+    old_scope = status.CONTINUATION_887_R33_SCOPE
+
+    def publish(path, record):
+        digest = status.record_digest(record)
+        authorization = {"contract_sha256": digest, **dict.fromkeys(status.FORMAL_APPROVAL_FLAGS, True)}
+        write_json(path / "formal_contract.json", record)
+        write_json(path / "authorization.json", authorization)
+        return digest, status.record_digest(authorization)
+
+    old, old_auth = publish(previous, {"run_directory": str(previous), "profile": old_profile,
+                                      "budget": old_budget, "predecessor": {"recovery_budget": old_scope}})
+    monkeypatch.setattr(status, "CONTINUATION_887_R33_CONTRACT", old)
+    monkeypatch.setattr(status, "CONTINUATION_887_R33_AUTH", old_auth)
+    for name in status.RELAY_887_WAVE12_FITTED_FILES:
+        write_json(directory / name, {"file": name})
+    write_json(active / "transition.json", {
+        "fit_path": "fit_000", "checkpoint_sha256": status.RELAY_887_WAVE12_CHECKPOINT,
+        "source_sha256": status.checksum(active / "source.json"),
+        "validation_metrics_sha256": status.checksum(active / "fit_000/validation_metrics.json"),
+    })
+    files = {name: status.checksum(directory / name) for name in status.RELAY_887_WAVE12_FITTED_FILES}
+    monkeypatch.setattr(status, "RELAY_887_WAVE12_FITTED_FILES", files)
+
+    receipts, terminals = [], []
+    for a in status.RELAY_887_WAVE12_PREVIOUS_ATTEMPTS:
+        index = a["attempt"]
+        terminal = {**a, "status": "stopped"}
+        path = turn / f"attempt_{index:02d}.terminal.json"
+        write_json(turn / f"attempt_{index:02d}.started.json", {"attempt_id": a["attempt_id"], "attempt": index})
+        write_json(path, terminal)
+        terminals.append(status.checksum(path))
+        receipts.append({**a, "terminal_sha256": status.record_digest(terminal)})
+    monkeypatch.setattr(status, "RELAY_887_WAVE12_TERMINALS", tuple(terminals))
+    for name in status.RELAY_887_WAVE12_REPLAY_FILES:
+        write_json(turn / name, {"file": name})
+    replay = {name: status.checksum(turn / name) for name in status.RELAY_887_WAVE12_REPLAY_FILES}
+    monkeypatch.setattr(status, "RELAY_887_WAVE12_REPLAY_FILES", replay)
+    known = {**status.RELAY_887_WAVE12_PROOF, "previous_terminal_file_sha256": terminals[-1]}
+    monkeypatch.setattr(status, "RELAY_887_WAVE12_PROOF", known)
+
+    profile = {k: v for k, v in old_profile.items() if k != "full_imported_boundary_round"}
+    profile.update(resume_boundaries={"887": status.RELAY_887_WAVE12_DESCRIPTOR}, replay_eligible_from_round=34)
+    proof = {**known, "dispatcher_module": "dispatch_v13_retry_successor", "seed": 887, "round": 34,
+             "previous_run_directory": str(previous), "previous_contract_sha256": old,
+             "previous_authorization_sha256": old_auth, "recovery_budget": {"maximum_logical_requests": 1,
+                                                                            "maximum_physical_attempts": 2},
+             "previous_attempts": receipts, "checkpoint_sha256": status.RELAY_887_WAVE12_CHECKPOINT,
+             "previous_transport_observation": status.RELAY_887_WAVE12_OBSERVATION,
+             "reviewed_fitted_prefix_files": files,
+             "reviewed_normal_parent_budget": {"round": 33, "recovery_budget": old_scope, "execution_budget": old_budget},
+             "reviewed_retry_chain": [status._relay_review(previous, old, old_auth, known, receipts)]}
+    record = {"run_directory": str(run), "budget": known["execution_budget"], "source_sha256": status.RELAY_887_WAVE12_SOURCES,
+              "predecessor": proof, "profile": profile}
+    sha, auth = publish(run, record)
+    monkeypatch.setattr(status, "RELAY_887_WAVE12_CONTRACT", sha)
+    monkeypatch.setattr(status, "RELAY_887_WAVE12_AUTH", auth)
+    assert status.reviewed_relay_contract(tmp_path, 887, 12, previous, old) is None
+    (directory / "pause.request").touch()
+    assert status.reviewed_relay_contract(tmp_path, 887, 12, previous, old) == (
+        run, sha, 34, 3, known["relay_not_before_unix"],
+    )
+    write_json(turn / "attempt_01.replay_link.json", {"changed": True})
+    assert status.reviewed_relay_contract(tmp_path, 887, 12, previous, old) is None
