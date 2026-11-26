@@ -730,6 +730,57 @@ def check_887_reviewed_cached_r8(runs, monkeypatch, publish, flags, commands, ol
     })
     row = remote_seed(runs, 887)
     assert (row["labels"], row["phase"]) == (621, "targeted_repair_round_complete")
+    cached_run = runs / prompt_pilot_status.CACHED_887_R8_RUN
+    continuation_run = runs / prompt_pilot_status.CONTINUATION_887_R9_RUN
+    custody = {"provider_post": False, "projected_plan_sha256": prompt_pilot_status.CACHED_887_R8_PROJECTION}
+    receipt = cached_run / "cached_correction.json"
+    write_json(receipt, custody)
+    cached_record = {**repair_record, "run_directory": str(cached_run),
+                     "predecessor": {"dispatcher_module": "run_v13_887_r8_cached_correction", "previous_run_directory": str(repair_run),
+                                     "previous_contract_sha256": repair_sha, "previous_authorization_sha256": repair_auth,
+                                     "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 0},
+                                     "cached_correction": custody}}
+    cached_sha = publish(cached_run, cached_record, **flags)
+    cached_auth = prompt_pilot_status.record_digest(prompt_pilot_status.read_json(cached_run / "authorization.json"))
+    monkeypatch.setattr(prompt_pilot_status, "CACHED_887_R8_CONTRACT", cached_sha)
+    monkeypatch.setattr(prompt_pilot_status, "CACHED_887_R8_AUTH", cached_auth)
+    monkeypatch.setattr(prompt_pilot_status, "CACHED_887_R8_RECEIPT", prompt_pilot_status.checksum(receipt))
+    for relative in ("source.json", "transition.json", "fit_000/validation_metrics.json"):
+        write_json(cached_run / "seed_887/round_09" / relative, prompt_pilot_status.read_json(following / relative))
+    cached_fit = cached_run / "seed_887/round_09"
+    boundary = {"checkpoint_sha256": "c" * 64, "extension_source_sha256": prompt_pilot_status.checksum(cached_fit / "source.json"),
+                "extension_transition_sha256": prompt_pilot_status.checksum(cached_fit / "transition.json")}
+    monkeypatch.setattr(prompt_pilot_status, "CACHED_887_R8_BOUNDARY", boundary)
+    row = remote_seed(runs, 887)
+    assert (row["run"], row["labels"], row["phase"]) == (cached_run.name, 621, "cached_correction_round_complete")
+    assert row["archived_correction_provider_post"] is False
+    assert prompt_pilot_status.dispatcher_pid(887, row["segment"]) is None
+    next_record = {"run_directory": str(continuation_run), "source_sha256": prompt_pilot_status.CONTINUATION_887_R9_SOURCES,
+                   "profile": {**repair_record["profile"], "target_labels": 1485, "resume_boundaries": {"887": {"round": 9}},
+                               "replay_eligible_from_round": 9, "sealed_relay_retry_seconds": 180,
+                               "transport": {"requested_model": "gpt-6.2-astra", "reasoning_effort": "xhigh", "sdk_version": "2.28.0",
+                                             "logical_replies": 3, "transport_attempts": 2}},
+                   "predecessor": {**boundary, "dispatcher_module": "dispatch_v13_887_r9_continuation", "seed": 887, "round": 9,
+                                   "extension_run_directory": str(cached_run), "extension_contract_sha256": cached_sha,
+                                   "extension_authorization_sha256": cached_auth, "paid_correction_contract_sha256": repair_sha,
+                                   "paid_correction_authorization_sha256": repair_auth, "cached_correction_file_sha256": prompt_pilot_status.CACHED_887_R8_RECEIPT,
+                                   "extension_projected_plan_sha256": custody["projected_plan_sha256"],
+                                   "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 2},
+                                   "execution_budget": {"first_logical_requests": 27, "maximum_logical_requests": 79, "maximum_physical_attempts": 158}}}
+    publish(continuation_run, next_record)
+    assert remote_seed(runs, 887)["run"] == cached_run.name
+    next_sha = publish(continuation_run, next_record, **flags)
+    monkeypatch.setattr(prompt_pilot_status, "CONTINUATION_887_R9_CONTRACT", next_sha)
+    assert remote_seed(runs, 887)["run"] == cached_run.name
+    next_auth = prompt_pilot_status.record_digest(prompt_pilot_status.read_json(continuation_run / "authorization.json"))
+    monkeypatch.setattr(prompt_pilot_status, "CONTINUATION_887_R9_AUTH", next_auth)
+    row = remote_seed(runs, 887)
+    assert (row["run"], row["labels"], row["contract_sha256"]) == (continuation_run.name, 621, next_sha)
+    assert row["boundary_api"]["physical_attempts_remaining"] == 2
+    assert prompt_pilot_status.dispatcher_pid(887, row["segment"]) == 1234
+    assert commands[-1][-1].endswith("/com.purellm.a7-ipv4-v13-887-r9-continuation-01")
+    write_json(cached_fit / "source.json", {"round": 8})
+    assert remote_seed(runs, 887)["run"] == cached_run.name
     write_json(cached / "bridge/outbox" / f"{local_attempt}.json", {"unexpected": "provider attempt"})
     assert remote_seed(runs, 887)["run"] == cached.name
 

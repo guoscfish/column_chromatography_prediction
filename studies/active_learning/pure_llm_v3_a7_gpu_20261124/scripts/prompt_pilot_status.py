@@ -46,7 +46,7 @@ BOUNDED_SSE_END_ROUNDS = {157: 4, 887: 7, 2357: 3, 6101: 2}
 RESILIENT_SEGMENTS = ("ipv4_resilient_sse", "ipv4_resilient_failure", "ipv4_relay_retry",
                       "ipv4_relay_retry_02", "ipv4_relay_retry_03", "ipv4_relay_retry_04", "ipv4_relay_retry_05",
                       "ipv4_relay_retry_06", "ipv4_relay_retry_07", "ipv4_relay_retry_08", "ipv4_cached_r7", "ipv4_cached_r3",
-                      "ipv4_r8_targeted_repair")
+                      "ipv4_r8_targeted_repair", "ipv4_r8_cached_correction", "ipv4_887_r9_continuation")
 FORMAL_APPROVAL_FLAGS = ("authorize_paid_api", "authorize_label_reveal", "authorize_cuda_training")
 RELAY_RETRY_SECONDS = 180
 RELAY_RETRY_QUEUE_SOURCES = {
@@ -610,6 +610,25 @@ REPAIR_887_PARENT = "dd0501bb9680a2af013c4a5b22976b64ff1b7d691b2645e0b9dab019156
 REPAIR_887_CONTRACT = "a176ab59cc1c069ac77f67dc15516844bae3d3f6fa13fde6e7a77db73afa2247"
 REPAIR_887_AUTH = "666fca40036ab340100c819bb0ccd58fec9239aab6b2ee792f6ffcf8e2b98c92"
 REPAIR_887_RUN = f"{SERIAL_IPV4}-887-r8-targeted-repair-01"
+CACHED_887_R8_RUN = f"{SERIAL_IPV4}-887-r8-cached-correction-01"
+CACHED_887_R8_CONTRACT = "edf9e9d68b2d47924962bad4f7b3f277f85702d00cee52cfc1a2ac204790da43"
+CACHED_887_R8_AUTH = "ccb3d9b7759efcdf1911327cf35a52fe01518057146f33e037b18a6a992c8801"
+CACHED_887_R8_RECEIPT = "7cdbe9a47be2448b50f099afccab7804cac75c3361e7cd45c3f99f58f31129b1"
+CACHED_887_R8_PROJECTION = "401c78f2d7317fa6ae7dc0473382ecf7880753a2dd805fc73936188516516860"
+CACHED_887_R8_BOUNDARY = {
+    "checkpoint_sha256": "5618dce31ecc72da5cbc337f734ed3cae50075baa1d2750ff6e77e00e0287c07",
+    "extension_source_sha256": "0b33cbe7d235940cd51ea5f0a934ec34805c9ce7b10e7c6bc9844b1daadd1cbd",
+    "extension_transition_sha256": "e9dcf1774bd75453c10fd483bf953dab2cb1e08b43c10ff974b9b0a2b4b1c2c1",
+}
+CONTINUATION_887_R9_RUN = f"{SERIAL_IPV4}-887-r9-continuation-01"
+CONTINUATION_887_R9_CONTRACT = "58de5fc9e6a56844cc720404a3ceba8f8e7c8445c4f25290f175748a9d0c9d4f"
+CONTINUATION_887_R9_AUTH = "d32b845eb0e8cbfbab28c523f82acba853c1e8df345e492033c2458a879658cc"
+CONTINUATION_887_R9_SOURCES = {
+    "studies/active_learning/pure_llm_v3_a7_gpu_20261124/scripts/run_v13_887_r9_continuation.py":
+        "f10d2266cee09aaa848069e3b9760b2298419799ed5ade066ef116104dcdf4c6",
+    "studies/active_learning/pure_llm_v3_a7_gpu_20261124/scripts/dispatch_v13_887_r9_continuation.py":
+        "e5174b01905bc0ca36a7cb19b142ba683aab937a80e18e19fbfe79af424a213b",
+}
 PILOT_ROUNDS = 10
 TARGET_ROUNDS = 36
 TARGET_LABELS = 1485
@@ -1426,6 +1445,64 @@ def r8_targeted_repair(runs, seed, previous, previous_contract):
     return run, REPAIR_887_CONTRACT, 8, 3
 
 
+def r8_cached_correction(runs, previous, previous_contract):
+    if previous.name != REPAIR_887_RUN or previous_contract != REPAIR_887_CONTRACT:
+        return None
+    run = runs / CACHED_887_R8_RUN
+    approval = read_json(run / "authorization.json")
+    record = read_json(run / "formal_contract.json")
+    profile, proof = record.get("profile", {}), record.get("predecessor") or {}
+    custody = proof.get("cached_correction") or {}
+    receipt = run / "cached_correction.json"
+    if (fallback_contract(run) != CACHED_887_R8_CONTRACT or record_digest(approval) != CACHED_887_R8_AUTH
+            or any(approval.get(flag) is not True for flag in FORMAL_APPROVAL_FLAGS)
+            or proof.get("dispatcher_module") != "run_v13_887_r8_cached_correction"
+            or proof.get("previous_run_directory") != str(previous) or proof.get("previous_contract_sha256") != previous_contract
+            or proof.get("previous_authorization_sha256") != REPAIR_887_AUTH
+            or proof.get("recovery_budget") != {"maximum_logical_requests": 1, "maximum_physical_attempts": 0}
+            or custody.get("provider_post") is not False or custody.get("projected_plan_sha256") != CACHED_887_R8_PROJECTION
+            or checksum(receipt) != CACHED_887_R8_RECEIPT or read_json(receipt) != custody
+            or profile.get("confirmation_seeds") != [887] or profile.get("target_labels") != 621
+            or profile.get("resume_boundaries", {}).get("887", {}).get("round") != 8):
+        return None
+    return run, CACHED_887_R8_CONTRACT, 8, 0
+
+
+def r9_after_cached_correction(runs, previous, previous_contract):
+    following = previous / "seed_887/round_09"
+    latest, metrics = latest_round(previous / "seed_887")
+    if (previous_contract != CACHED_887_R8_CONTRACT or latest != 9
+            or metrics.get("checkpoint_sha256") != CACHED_887_R8_BOUNDARY["checkpoint_sha256"]
+            or checksum(following / "source.json") != CACHED_887_R8_BOUNDARY["extension_source_sha256"]
+            or checksum(following / "transition.json") != CACHED_887_R8_BOUNDARY["extension_transition_sha256"]):
+        return None
+    run = runs / CONTINUATION_887_R9_RUN
+    record = read_json(run / "formal_contract.json")
+    approval = read_json(run / "authorization.json")
+    profile, proof = record.get("profile", {}), record.get("predecessor") or {}
+    expected = {**CACHED_887_R8_BOUNDARY, "dispatcher_module": "dispatch_v13_887_r9_continuation",
+                "seed": 887, "round": 9, "extension_run_directory": str(previous),
+                "extension_contract_sha256": CACHED_887_R8_CONTRACT, "extension_authorization_sha256": CACHED_887_R8_AUTH,
+                "paid_correction_contract_sha256": REPAIR_887_CONTRACT, "paid_correction_authorization_sha256": REPAIR_887_AUTH,
+                "extension_projected_plan_sha256": CACHED_887_R8_PROJECTION, "cached_correction_file_sha256": CACHED_887_R8_RECEIPT,
+                "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 2},
+                "execution_budget": {"first_logical_requests": 27, "maximum_logical_requests": 79, "maximum_physical_attempts": 158}}
+    sources = record.get("source_sha256", {})
+    transport = profile.get("transport", {})
+    if (fallback_contract(run) != CONTINUATION_887_R9_CONTRACT or record_digest(approval) != CONTINUATION_887_R9_AUTH
+            or any(approval.get(flag) is not True for flag in FORMAL_APPROVAL_FLAGS)
+            or record_digest({key: proof.get(key) for key in expected}) != record_digest(expected)
+            or any(sources.get(name) != sha for name, sha in CONTINUATION_887_R9_SOURCES.items())
+            or profile.get("confirmation_seeds") != [887] or profile.get("target_labels") != TARGET_LABELS
+            or profile.get("resume_boundaries", {}).get("887", {}).get("round") != 9
+            or profile.get("ipv4_readiness_windows") != 3 or "fixed_reference_repair" in profile
+            or profile.get("replay_eligible_from_round") != 9 or profile.get("sealed_relay_retry_seconds") != RELAY_RETRY_SECONDS
+            or (transport.get("requested_model"), transport.get("reasoning_effort"), transport.get("sdk_version"),
+                transport.get("logical_replies"), transport.get("transport_attempts")) != ("gpt-6.2-astra", "xhigh", "2.28.0", 3, 2)):
+        return None
+    return run, CONTINUATION_887_R9_CONTRACT, 9, 3
+
+
 def remote_seed(runs, seed):
     cohort_contract = None
     for name, mode, dispatcher, capability in (
@@ -1596,6 +1673,15 @@ def remote_seed(runs, seed):
                     run, contract, recovery_round, readiness_windows = targeted
                     segment = "ipv4_r8_targeted_repair"
                     relay_retry = relay_boundary_not_before = None
+                    if imported := r8_cached_correction(runs, run, contract):
+                        ancestors = (run, *ancestors)
+                        run, contract, recovery_round, readiness_windows = imported
+                        segment = "ipv4_r8_cached_correction"
+                        if continued := r9_after_cached_correction(runs, run, contract):
+                            ancestors = (run, *ancestors)
+                            run, contract, recovery_round, readiness_windows = continued
+                            segment = "ipv4_887_r9_continuation"
+                            relay_retry = RELAY_RETRY_SECONDS
             if segment == "ipv4_relay_retry_06" and (cached := cached_r3_157_contract(runs, seed, run, contract)):
                 ancestors = (run, *ancestors)
                 run, contract, recovery_round, readiness_windows = cached
@@ -1681,10 +1767,16 @@ def remote_seed(runs, seed):
         boundary_api = {"maximum_logical_requests": 1, "maximum_physical_attempts": maximum,
                         "replay_delay_seconds": RELAY_RETRY_SECONDS,
                         **boundary_attempt_counts(run, directory, latest, maximum)}
+    if segment == "ipv4_887_r9_continuation" and latest == recovery_round:
+        boundary_api = {"maximum_logical_requests": 1, "maximum_physical_attempts": 2,
+                        "replay_delay_seconds": RELAY_RETRY_SECONDS,
+                        **boundary_attempt_counts(run, directory, latest, 2)}
     cached_r3 = {"round": 3, "fitted_labels": 461, "choice_count": 32, "removed_reference_fields": 79,
                  "provider_dispatched": False} if segment == "ipv4_cached_r3" else {}
     if latest == TARGET_ROUNDS:
         phase = "complete"
+    elif segment == "ipv4_r8_cached_correction" and latest == 9:
+        phase = "cached_correction_round_complete"
     elif segment == "ipv4_r8_targeted_repair" and latest == recovery_round + 1:
         phase = "targeted_repair_round_complete"
     elif segment in ("ipv4_extension", "ipv4_json_extension", "ipv4_ws_extension") and latest == IPV4_EXTENSION_END_ROUNDS[seed] and (
@@ -1732,6 +1824,7 @@ def remote_seed(runs, seed):
             **({"reviewed_previous_api": reviewed_previous_api} if reviewed_previous_api else {}),
             **({"boundary_api": boundary_api} if boundary_api else {}),
             **({"cached_import": cached_r3} if cached_r3 else {}),
+            **({"archived_correction_provider_post": False} if segment in ("ipv4_r8_cached_correction", "ipv4_887_r9_continuation") else {}),
             "target_rounds": TARGET_ROUNDS, "target_labels": TARGET_LABELS,
             "completed_rounds": latest, "labels": 333 + latest * 32 if latest is not None else None,
             "phase": phase, "worker_pid": worker_pid, "worker_active": worker_live,
@@ -1879,6 +1972,8 @@ def local_progress(spool, seed, active, *, track_queue=False, readiness_windows=
 
 
 def dispatcher_pid(seed, segment):
+    if segment == "ipv4_r8_cached_correction":
+        return None
     cohort_services = {"background": "a7-background-v12", "ipv4": "a7-ipv4-v13",
                        "ipv4_extension": f"a7-ipv4-v13-{seed}-extension-01",
                        "ipv4_continuation": f"a7-ipv4-v13-{seed}-continuation-01",
@@ -1896,6 +1991,7 @@ def dispatcher_pid(seed, segment):
                        "ipv4_relay_retry_05": f"a7-ipv4-v13-{seed}-relay-retry-05",
                        "ipv4_relay_retry_06": f"a7-ipv4-v13-{seed}-relay-retry-06",
                        "ipv4_r8_targeted_repair": "a7-ipv4-v13-887-r8-targeted-repair-01",
+                       "ipv4_887_r9_continuation": "a7-ipv4-v13-887-r9-continuation-01",
                        "ipv4_relay_retry_07": f"a7-ipv4-v13-{seed}-relay-retry-07",
                        "ipv4_relay_retry_08": f"a7-ipv4-v13-{seed}-relay-retry-08",
                        "ipv4_cached_r7": "a7-ipv4-v13-887-cached-r7-01",
@@ -1985,6 +2081,8 @@ def show(view):
                   f"{last} {duration_text(prior['last_sse_seconds'])}  未收到完整终态")
             if inactivity := prior.get("sse_inactivity_seconds"):
                 print(f"  超时判据为连续 {inactivity} s 无有效 SSE 事件")
+        if row.get("archived_correction_provider_post") is False:
+            print("  第 8 轮使用原始归档补丁，导入没有提交新的模型请求。")
         if imported := row.get("cached_import"):
             print(f"  第 {imported['round']} 轮已由归档回答训练至 L{imported['fitted_labels']}。"
                   f"保留 {imported['choice_count']} 个选点及顺序，去除 {imported['removed_reference_fields']} 个冗余引用字段，未提交新的模型请求。")
