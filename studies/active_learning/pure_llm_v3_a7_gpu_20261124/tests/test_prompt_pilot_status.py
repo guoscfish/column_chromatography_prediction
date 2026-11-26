@@ -2748,8 +2748,9 @@ def check_repeated_boundary(runs, monkeypatch, publish, seed, wave, previous, pr
     checked_file.write_bytes(original)
     assert status.reviewed_relay_contract(runs, seed, wave, previous, previous_sha) == expected
     if (seed, wave) in ((157, 10), (157, 11), (157, 12), (887, 8), (2357, 9), (2357, 10), (2357, 11), (2357, 12),
-                        (157, 13), (2357, 13), (2357, 14), (6101, 11), (6101, 12), (6101, 13),
-                        (12203, 16), (12203, 17), (12203, 18), (12203, 19), (12203, 20)):
+                        (157, 13), (157, 14), (157, 15), (2357, 13), (2357, 14), (2357, 15), (2357, 16),
+                        (6101, 11), (6101, 12), (6101, 13), (6101, 14), (6101, 15),
+                        (12203, 16), (12203, 17), (12203, 18), (12203, 19), (12203, 20), (12203, 21), (12203, 22)):
         check_repeated_boundary(runs, monkeypatch, publish, seed, wave + 1, run, sha, auth, record)
 
 
@@ -2952,7 +2953,8 @@ def check_6101_r5_handoff(runs, monkeypatch, publish, parent, cached, cached_sha
 @pytest.mark.parametrize("seed,wave", [(887, 8), (887, 9), (157, 11), (157, 12), (2357, 10), (2357, 11), (2357, 12),
                                        (2357, 13), (2357, 14), (2357, 15), (6101, 11), (6101, 12), (6101, 13),
                                        (6101, 14), (157, 13), (157, 14), (12203, 17), (12203, 18), (12203, 19),
-                                       (12203, 20), (12203, 21)])
+                                       (12203, 20), (12203, 21), (12203, 22), (12203, 23), (157, 15), (157, 16),
+                                       (2357, 16), (2357, 17), (6101, 15), (6101, 16)])
 def test_new_exact_reviewed_relay_pins_the_original_retired_receipt(seed, wave):
     from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.run_v13_retry_successor import SCOPES
 
@@ -3041,3 +3043,49 @@ def test_887_r13_targeted_repair_requires_exact_retired_rejection_and_one_slot(t
     monkeypatch.setattr(status, "REPAIR_887_R13_CONTRACT", sha)
     monkeypatch.setattr(status, "REPAIR_887_R13_AUTH", auth)
     assert status.r13_targeted_repair(tmp_path, previous, old) is None
+
+
+def test_887_r13_cached_repair_requires_real_l781_and_zero_bridge_posts(tmp_path, monkeypatch):
+    status = prompt_pilot_status
+    paid = tmp_path / status.REPAIR_887_R13_RUN
+    run = tmp_path / status.CACHED_887_R13_RUN
+    boundary = {"887": {"round": 13}}
+    paid_profile = {"confirmation_seeds": [887], "target_labels": 781, "resume_boundaries": boundary}
+
+    def publish(directory, signed):
+        sha = status.record_digest(signed)
+        approval = {"contract_sha256": sha, **dict.fromkeys(status.FORMAL_APPROVAL_FLAGS, True)}
+        write_json(directory / "formal_contract.json", signed)
+        write_json(directory / "authorization.json", approval)
+        return sha, status.record_digest(approval)
+
+    paid_sha, paid_auth = publish(paid, {"run_directory": str(paid), "profile": paid_profile})
+    monkeypatch.setattr(status, "REPAIR_887_R13_CONTRACT", paid_sha)
+    monkeypatch.setattr(status, "REPAIR_887_R13_AUTH", paid_auth)
+    for key, directory in (("CACHED_887_R13_PAID_FILES", paid), ("CACHED_887_R13_FILES", run)):
+        for name in getattr(status, key):
+            write_json(directory / name, {"fixture": name})
+    custody = {"provider_post": False, "projected_plan_sha256": status.CACHED_887_R13_PROJECTED}
+    monkeypatch.setattr(status, "CACHED_887_R13_CUSTODY_SHA", status.record_digest(custody))
+    write_json(run / "cached_correction.json", custody)
+    write_json(run / "seed_887/round_13/turn_00/attempt_00.terminal.json",
+               {"status": "completed", "provider_dispatched": False, "usage": {}, "attempt_id": status.CACHED_887_R13_ATTEMPT})
+    for key, directory in (("CACHED_887_R13_PAID_FILES", paid), ("CACHED_887_R13_FILES", run)):
+        monkeypatch.setattr(status, key, {name: status.checksum(directory / name) for name in getattr(status, key)})
+    budget = {"first_logical_requests": 1, "maximum_logical_requests": 1, "maximum_physical_attempts": 0}
+    signed = {"run_directory": str(run), "profile": paid_profile, "budget": budget,
+              "predecessor": {"dispatcher_module": "run_v13_887_r13_cached_correction", "seed": 887, "round": 13,
+                              "previous_run_directory": str(paid), "previous_contract_sha256": paid_sha,
+                              "previous_authorization_sha256": paid_auth,
+                              "execution_budget": budget, "cached_correction": custody,
+                              "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 0}}}
+    sha, auth = publish(run, signed)
+    monkeypatch.setattr(status, "CACHED_887_R13_CONTRACT", sha)
+    monkeypatch.setattr(status, "CACHED_887_R13_AUTH", auth)
+    assert status.r13_cached_correction(tmp_path, paid, paid_sha) == (run, sha, 13, 0)
+    outbox = run / "bridge/outbox" / "unexpected.json"
+    write_json(outbox, {})
+    assert status.r13_cached_correction(tmp_path, paid, paid_sha) is None
+    outbox.unlink()
+    (run / "seed_887/round_14/fit_000/best.pt").unlink()
+    assert status.r13_cached_correction(tmp_path, paid, paid_sha) is None
