@@ -271,3 +271,11 @@ On November 26, a separately approved synthetic Astra/xhigh request sent both `s
 The 887 R6 JSON extension binds one separately approved Token4Research request from the exact L525 checkpoint. Its new wire payload changes only `stream` to `false`. The original A7 messages, model, effort, output cap and `store:false` are preserved. The contract binds both earlier response-ID failures and their original archives.
 
 The Mac accepts a single complete Responses JSON object with matching identity and usage, within a 30-minute hard deadline. It saves the original object and receipt before returning it to the existing GPU-side A7 validator. The one-attempt limit remains in force after an unknown execution outcome. Any automatic continuation past L557 requires a separately bound continuation contract.
+
+The approved 887 whole-response attempt received HTTP 524 after 138.3 seconds. Its request body had already been sent and the provider execution state remains unknown. The failure was delivered to GPFS.
+
+### Single WebSocket recovery for seed 6101
+
+The 6101 R1 WebSocket extension pins the original L365 input and both earlier streaming failures. It uses one authenticated IPv4 Responses WebSocket per physical attempt with `websockets==15.0.1`. The request archive retains the exact original input and explicit HTTP stream flag. The provider frame uses the WebSocket protocol's implicit streaming with one `response.create` event and fresh connection.
+
+Effective response progress has a 900-second inactivity threshold and a 3,600-second hard deadline. WebSocket control frames do not renew the application timer. A complete response must pass identity, status, usage, and original A7 validation before it can authorize a frozen batch. The provider's authenticated upgrade and ping/pong succeeded in a credential-scoped connectivity check without creating a model response.

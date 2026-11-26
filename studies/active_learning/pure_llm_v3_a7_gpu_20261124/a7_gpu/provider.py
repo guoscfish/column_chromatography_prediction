@@ -1,16 +1,20 @@
 """Explicit credential-scoped Responses clients on the frozen A7 provider contract."""
 import asyncio
+from contextlib import AsyncExitStack
 from dataclasses import replace
 from importlib.metadata import PackageNotFoundError, version
 from ipaddress import ip_address
 import json
+import logging
 import re
+import socket
 import time
+from urllib.parse import urlparse
 
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, once
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
-    RESPONSES_JSON_IPV4, RESPONSES_STREAM, RESPONSES_STREAM_IPV4, ProviderReply, TransportFailure,
-    check_request, collect_completed, retry_http,
+    RESPONSES_JSON_IPV4, RESPONSES_STREAM, RESPONSES_STREAM_IPV4, RESPONSES_WEBSOCKET_IPV4, ProviderReply,
+    TransportFailure, check_request, collect_completed, retry_http,
 )
 
 from .credentials import api_key, key_text
@@ -37,10 +41,12 @@ SSE_OUTPUT_EVENTS = {
 }
 PROGRESS_INTERVAL_SECONDS = 5
 DIRECT_IPV4_PREFLIGHT_SECONDS = 8
+WEBSOCKETS_VERSION = "15.0.1"
+WEBSOCKET_OPENAI_VERSION = "2.28.0"
 NETWORK_PHASES = {"connect_tcp": "dns_tcp", "start_tls": "tls", "send_request_headers": "send_headers",
                   "send_request_body": "send_body", "receive_response_headers": "receive_headers",
                   "direct_ipv4_preflight": "direct_ipv4_preflight",
-                  "direct_ipv4_http11": "direct_ipv4_http11"}
+                  "direct_ipv4_http11": "direct_ipv4_http11", "direct_ipv4_websocket": "direct_ipv4_websocket"}
 
 
 def sdk_status(config):
@@ -49,6 +55,14 @@ def sdk_status(config):
     except PackageNotFoundError:
         actual = None
     return {"expected": config.sdk_version, "installed": actual, "matches": actual == config.sdk_version}
+
+
+def websocket_sdk_status():
+    try:
+        actual = version("websockets")
+    except PackageNotFoundError:
+        actual = None
+    return {"expected": WEBSOCKETS_VERSION, "installed": actual, "matches": actual == WEBSOCKETS_VERSION}
 
 
 def http_failure(status, headers, body):
@@ -95,8 +109,9 @@ class _WallDeadline(TransportFailure):
 
 
 class _SSEInactivityDeadline(TransportFailure):
-    def __init__(self):
+    def __init__(self, protocol="sse"):
         super().__init__("timeout", ambiguous=True)
+        self.protocol = protocol
 
 
 class _PrePostConnectTimeout(TransportFailure):
@@ -110,8 +125,20 @@ class _IPv4PreflightFailure(TransportFailure):
                          retry_after=retry.retry_after if retry else None)
 
 
+class _WebSocketScopedFailure(TransportFailure):
+    def __init__(self, failure, scope, *, before_send=False):
+        super().__init__(failure.code, retryable=failure.retryable, retry_after=failure.retry_after,
+                         ambiguous=failure.ambiguous and not before_send)
+        self.scope = scope
+
+
+class _WebSocketWriteDeadline(TransportFailure):
+    def __init__(self):
+        super().__init__("timeout", ambiguous=True)
+
+
 class _StreamEvidence:
-    def __init__(self, response, deadline, report, *, activity=None):
+    def __init__(self, response, deadline, report, *, activity=None, report_headers=True):
         self.headers = response.headers
         self.deadline = deadline
         self.report = report
@@ -122,7 +149,7 @@ class _StreamEvidence:
         self.event_count = 0
         self.last_event = None
         self.last_report = None
-        if report is not None:
+        if report is not None and report_headers:
             _headers_progress(response, report)
 
     def _report_event(self, received, event, response, interval):
@@ -246,9 +273,11 @@ class _SSEActivity:
 
 
 async def _collect_async(stream, deadline, capture_response, capture_receipt, report, *,
-                         sse_inactivity_seconds=None):
+                         sse_inactivity_seconds=None, websocket_complete=None):
+    protocol = "websocket" if websocket_complete is not None else "sse"
     activity = _SSEActivity() if sse_inactivity_seconds is not None else None
-    evidence = _StreamEvidence(stream.response, deadline, report, activity=activity)
+    evidence = _StreamEvidence(stream.response, deadline, report, activity=activity,
+                               report_headers=websocket_complete is None)
     clock = asyncio.get_running_loop().time
     inactivity = asyncio.timeout(sse_inactivity_seconds)
     try:
@@ -256,19 +285,21 @@ async def _collect_async(stream, deadline, capture_response, capture_receipt, re
             async for event in stream:
                 received = clock()
                 if activity is not None and received >= inactivity.when():
-                    raise _SSEInactivityDeadline()
+                    raise _SSEInactivityDeadline(protocol)
                 previous_activity = evidence.sse_activity_at
                 if evidence.observe(event):
+                    if websocket_complete is not None:
+                        return websocket_complete()
                     return evidence.complete(event, capture_response, capture_receipt)
                 if evidence.sse_activity_at != previous_activity:
                     inactivity.reschedule(received + sse_inactivity_seconds)
     except TimeoutError as error:
         if not inactivity.expired():
             raise
-        raise _SSEInactivityDeadline() from error
+        raise _SSEInactivityDeadline(protocol) from error
     finally:
         evidence.flush()
-    raise TransportFailure("sse_missing_completion", ambiguous=True)
+    raise TransportFailure(f"{protocol}_missing_completion", ambiguous=True)
 
 
 def verify_reported_model(config, reply, declared):
@@ -316,8 +347,12 @@ def recover_completed_response(raw, config, *, model_lock, metadata=None):
             raise ValueError("local recovery metadata does not match the raw provider response")
         provider_request_id = metadata["provider_request_id"]
         declared = {key: metadata[key] for key in declared}
-    reply = (_json_completed_reply(raw, provider_request_id) if config.wire_mode == RESPONSES_JSON_IPV4
-             else _reply_from_raw(raw, provider_request_id))
+    if config.wire_mode == RESPONSES_JSON_IPV4:
+        reply = _bounded_completed_reply(raw, provider_request_id, "json")
+    elif config.wire_mode == RESPONSES_WEBSOCKET_IPV4:
+        reply = _bounded_completed_reply(raw, provider_request_id, "websocket")
+    else:
+        reply = _reply_from_raw(raw, provider_request_id)
     return reply, _lock_model(model_lock, config, reply, declared)
 
 
@@ -342,19 +377,19 @@ def _reply_from_raw(raw, provider_request_id):
     return ProviderReply(answer, raw["id"], raw["model"], usage, "completed", provider_request_id)
 
 
-def _json_completed_reply(raw, provider_request_id):
+def _bounded_completed_reply(raw, provider_request_id, protocol):
     if type(raw) is not dict or raw.get("object") != "response":
-        raise TransportFailure("invalid_json_response", ambiguous=True)
+        raise TransportFailure(f"invalid_{protocol}_response", ambiguous=True)
     if raw.get("status") != "completed" or raw.get("error") is not None or raw.get("incomplete_details") is not None:
         raise TransportFailure("incomplete_response", ambiguous=True)
     if any(raw.get(field) is not None and raw[field] is not False for field in ("store", "background")):
-        raise TransportFailure("json_response_mode_mismatch", ambiguous=True)
+        raise TransportFailure(f"{protocol}_response_mode_mismatch", ambiguous=True)
     if not _progress_token(raw.get("id")) or not _progress_token(raw.get("model")):
         raise TransportFailure("missing_response_identity", ambiguous=True)
     try:
         reply = _reply_from_raw(raw, provider_request_id)
     except (AttributeError, KeyError, TypeError, ValueError) as error:
-        raise TransportFailure("invalid_json_response", ambiguous=True) from error
+        raise TransportFailure(f"invalid_{protocol}_response", ambiguous=True) from error
     usage = reply.usage
     if (not {"input_tokens", "output_tokens", "total_tokens"} <= usage.keys()
             or usage["input_tokens"] + usage["output_tokens"] != usage["total_tokens"]
@@ -362,6 +397,26 @@ def _json_completed_reply(raw, provider_request_id):
             or usage.get("reasoning_tokens", 0) > usage["output_tokens"]):
         raise TransportFailure("invalid_usage")
     return reply
+
+
+def _capture_completed_object(raw, headers, provider_request_id, key, capture_response, capture_receipt, report, protocol):
+    reply = _bounded_completed_reply(raw, provider_request_id, protocol)
+    reasoning = raw.get("reasoning")
+    if reasoning is not None and type(reasoning) is not dict:
+        raise TransportFailure(f"invalid_{protocol}_response", ambiguous=True)
+    model_version = raw.get("model_version")
+    if model_version is None:
+        model_version = headers.get("x-model-version")
+    declared = {"model_version": model_version, "reported_reasoning_effort": (reasoning or {}).get("effort")}
+    if key in json.dumps((raw, declared, provider_request_id), ensure_ascii=False, allow_nan=False):
+        raise TransportFailure(f"{protocol}_credential_echo", ambiguous=True)
+    if capture_response is not None:
+        if capture_receipt is not None:
+            capture_receipt({"raw_response_sha256": digest(raw), "provider_request_id": provider_request_id, **declared})
+        capture_response(raw)
+    if report is not None:
+        report("transport_completed", usage=reply.usage, response_id=reply.response_id, model=reply.served_model)
+    return reply, declared
 
 
 async def _collect_json(response, deadline, key, capture_response, capture_receipt, report):
@@ -374,23 +429,8 @@ async def _collect_json(response, deadline, key, capture_response, capture_recei
     if time.monotonic() > deadline:
         raise _WallDeadline()
     provider_request_id = _progress_token(response.headers.get("x-request-id"))
-    reply = _json_completed_reply(raw, provider_request_id)
-    reasoning = raw.get("reasoning")
-    if reasoning is not None and type(reasoning) is not dict:
-        raise TransportFailure("invalid_json_response", ambiguous=True)
-    model_version = raw.get("model_version")
-    if model_version is None:
-        model_version = response.headers.get("x-model-version")
-    declared = {"model_version": model_version, "reported_reasoning_effort": (reasoning or {}).get("effort")}
-    if key in json.dumps((raw, declared, provider_request_id), ensure_ascii=False, allow_nan=False):
-        raise TransportFailure("json_credential_echo", ambiguous=True)
-    if capture_response is not None:
-        if capture_receipt is not None:
-            capture_receipt({"raw_response_sha256": digest(raw), "provider_request_id": provider_request_id, **declared})
-        capture_response(raw)
-    if report is not None:
-        report("transport_completed", usage=reply.usage, response_id=reply.response_id, model=reply.served_model)
-    return reply, declared
+    return _capture_completed_object(raw, response.headers, provider_request_id, key,
+                                     capture_response, capture_receipt, report, "json")
 
 
 def call_responses(request, config, *, model_lock, capture_response=None, capture_receipt=None, progress=None,
@@ -404,14 +444,26 @@ def call_responses(request, config, *, model_lock, capture_response=None, captur
         raise TransportFailure("missing_physical_api_lease")
     check_request(request, request["binding"], config)
     json_response = config.wire_mode == RESPONSES_JSON_IPV4
-    if config.wire_mode not in (RESPONSES_STREAM, RESPONSES_STREAM_IPV4, RESPONSES_JSON_IPV4):
+    websocket_response = config.wire_mode == RESPONSES_WEBSOCKET_IPV4
+    if config.wire_mode not in (RESPONSES_STREAM, RESPONSES_STREAM_IPV4, RESPONSES_JSON_IPV4,
+                                RESPONSES_WEBSOCKET_IPV4):
         raise TransportFailure("background_dispatcher_required")
-    if config.wire_mode in (RESPONSES_STREAM_IPV4, RESPONSES_JSON_IPV4) and timeouts is None:
+    if config.wire_mode != RESPONSES_STREAM and timeouts is None:
         raise TransportFailure("direct_ipv4_timeouts_required")
     if json_response and timeouts.total_seconds != config.timeout_seconds:
         raise TransportFailure("json_ipv4_timeout_mismatch")
     if json_response and not (callable(capture_response) and callable(capture_receipt)):
         raise TransportFailure("json_ipv4_capture_required")
+    if websocket_response:
+        if timeouts.total_seconds != config.timeout_seconds:
+            raise TransportFailure("websocket_ipv4_timeout_mismatch")
+        if not (callable(capture_response) and callable(capture_receipt)):
+            raise TransportFailure("websocket_ipv4_capture_required")
+        if sse_inactivity_seconds is None:
+            raise TransportFailure("websocket_event_inactivity_required")
+        if config.sdk_version != WEBSOCKET_OPENAI_VERSION or not websocket_sdk_status()["matches"]:
+            lease.outcome("websocket_sdk_version_mismatch")
+            raise TransportFailure("websocket_sdk_version_mismatch")
     if sse_inactivity_seconds is not None and (
         json_response or timeouts is None or type(sse_inactivity_seconds) not in (float, int)
         or not 0 < sse_inactivity_seconds <= timeouts.total_seconds
@@ -458,7 +510,11 @@ def call_responses(request, config, *, model_lock, capture_response=None, captur
     except _WallDeadline as error:
         failure, error_type = error, "hard_wall_deadline"
     except _SSEInactivityDeadline as error:
-        failure, error_type = error, "sse_inactivity_timeout"
+        failure, error_type = error, f"{error.protocol}_inactivity_timeout"
+    except _WebSocketScopedFailure as error:
+        failure, scope = error, error.scope
+    except _WebSocketWriteDeadline as error:
+        failure, error_type = error, "websocket_write_timeout"
     except _IPv4PreflightFailure as error:
         failure, error_type = error, "direct_ipv4_preflight_failed"
     except _PrePostConnectTimeout as error:
@@ -471,7 +527,8 @@ def call_responses(request, config, *, model_lock, capture_response=None, captur
                    else TransportFailure("connection_interrupted", ambiguous=True))
         error_type = type(error.__cause__ or error).__name__
     except (ValueError, httpx.TransportError) as error:
-        failure = TransportFailure("json_response_error" if json_response else "sse_frame_error", ambiguous=True)
+        code = "websocket_frame_error" if websocket_response else "json_response_error" if json_response else "sse_frame_error"
+        failure = TransportFailure(code, ambiguous=True)
         error_type = type(error).__name__
     except openai.OpenAIError as error:
         failure = TransportFailure("sdk_error", ambiguous=True)
@@ -601,8 +658,164 @@ async def _preflight_ipv4(http, base_url, report):
                    event_type=f"ipv4_preflight_http_{status}" if status is not None else "ipv4_preflight_no_headers")
 
 
+async def _connect_ipv4_socket(host, port):
+    loop = asyncio.get_running_loop()
+    addresses = await loop.getaddrinfo(host, port, family=socket.AF_INET, type=socket.SOCK_STREAM)
+    if not addresses:
+        raise OSError("no IPv4 address for the approved WebSocket endpoint")
+    family, kind, protocol, _, address = addresses[0]
+    connection = socket.socket(family, kind, protocol)
+    try:
+        connection.setblocking(False)
+        await loop.sock_connect(connection, address)
+        return connection
+    except BaseException:
+        connection.close()
+        raise
+
+
+def _websocket_event_failure(event):
+    status = event.get("status")
+    details = event.get("error", event)
+    code = details.get("code") if isinstance(details, dict) else None
+    if isinstance(code, str) and code in {
+        "rate_limit_exceeded", "rate_limit_error", "insufficient_quota", "billing_hard_limit_reached",
+        "insufficient_balance",
+    }:
+        status = 429
+    if type(status) is int and 400 <= status <= 599:
+        failure, scope = http_failure(status, {}, event)
+        return _WebSocketScopedFailure(failure, scope)
+    return None
+
+
+class _WebSocketStream:
+    def __init__(self, connection):
+        import httpx
+
+        self.connection = connection
+        # The pinned SDK exposes handshake data and raw frames through its transport.
+        # Its recv_bytes() debug log would record the response itself.
+        self.socket = connection._connection
+        upgrade = self.socket.response
+        self.response = httpx.Response(upgrade.status_code, headers=list(upgrade.headers.raw_items()))
+        self.terminal = None
+        self.provider_request_id = None
+
+    async def __aiter__(self):
+        from websockets.exceptions import ConnectionClosedOK
+
+        try:
+            while True:
+                frame = await self.socket.recv(decode=False)
+                envelope = json.loads(frame)
+                if type(envelope) is not dict or not isinstance(envelope.get("type"), str):
+                    raise TransportFailure("websocket_frame_error", ambiguous=True)
+                kind = envelope["type"]
+                if kind == "error" and (failure := _websocket_event_failure(envelope)) is not None:
+                    raise failure
+                if kind == "response.completed":
+                    self.terminal = envelope.get("response")
+                    self.provider_request_id = _progress_token(envelope.get("request_id"))
+                    if isinstance(self.terminal, dict):
+                        terminal_request_id = _progress_token(self.terminal.get("request_id"))
+                        if self.provider_request_id and terminal_request_id and self.provider_request_id != terminal_request_id:
+                            raise TransportFailure("provider_request_id_mismatch", ambiguous=True)
+                        self.provider_request_id = self.provider_request_id or terminal_request_id
+                event = self.connection.parse_event(frame)
+                if getattr(event, "type", None) == kind:
+                    yield event
+                elif kind in LIFECYCLE_EVENTS:
+                    raise TransportFailure("websocket_frame_error", ambiguous=True)
+        except ConnectionClosedOK:
+            return
+
+
+async def _hard_wall_websocket_call(key, request, config, lease, capture_response, capture_receipt, report, timeouts,
+                                    sse_inactivity_seconds):
+    import httpx
+    import openai
+    from websockets.exceptions import InvalidStatus, WebSocketException
+
+    endpoint = urlparse(config.base_url)
+    frame = {"type": "response.create", **{k: v for k, v in request["payload"].items() if k != "stream"}}
+    headers = {"X-Client-Request-Id": request["request_id"]}
+    # A WebSocket debug logger sees the handshake headers, including Authorization.
+    private_logger = logging.Logger("purellm.websocket", level=logging.CRITICAL + 1)
+    started = time.monotonic()
+    deadline = started + timeouts.total_seconds
+    alarm = asyncio.timeout(timeouts.total_seconds)
+    submission_reserved = False
+    reply = None
+    try:
+        async with alarm:
+            async with httpx.AsyncClient(trust_env=False, follow_redirects=False) as http:
+                async with openai.AsyncOpenAI(api_key=key, base_url=config.base_url, http_client=http,
+                                              max_retries=0) as client, AsyncExitStack() as connection_scope:
+                    async with asyncio.timeout(timeouts.connect_seconds):
+                        sock = await _connect_ipv4_socket(endpoint.hostname, endpoint.port or 443)
+                        connection_scope.callback(sock.close)
+                        # A preconnected AF_INET socket disallows proxying and redirects. TLS
+                        # still authenticates the hostname from the approved HTTPS endpoint.
+                        connection = await connection_scope.enter_async_context(client.responses.connect(
+                            extra_headers=headers, websocket_connection_options={
+                                "sock": sock, "proxy": None, "ssl": True, "server_hostname": endpoint.hostname,
+                                "open_timeout": timeouts.connect_seconds, "close_timeout": 5,
+                                "ping_interval": 20, "ping_timeout": None, "compression": None,
+                                "max_size": 16 * 1024 * 1024, "logger": private_logger,
+                            }))
+                    stream = _WebSocketStream(connection)
+                    if stream.response.status_code != 101 or sock.family != socket.AF_INET:
+                        raise TransportFailure("direct_ipv4_route_mismatch")
+                    if report is not None:
+                        _headers_progress(stream.response, report)
+                        report("http_phase", network_phase="direct_ipv4_websocket", network_state="complete",
+                               phase_duration_seconds=time.monotonic() - started, explicit_proxy=False)
+                    lease.dispatched()
+                    submission_reserved = True
+                    if report is not None:
+                        report("request_dispatched")
+                    async with asyncio.timeout(timeouts.write_seconds):
+                        await connection.send(frame)
+                    reply = await _collect_async(
+                        stream, deadline, capture_response, capture_receipt, report,
+                        sse_inactivity_seconds=min(sse_inactivity_seconds, timeouts.read_idle_seconds),
+                        websocket_complete=lambda: _capture_completed_object(
+                            stream.terminal, stream.response.headers, stream.provider_request_id, key,
+                            capture_response, capture_receipt, report, "websocket"),
+                    )
+    except TimeoutError as error:
+        if reply is None:
+            if not submission_reserved:
+                raise _PrePostConnectTimeout() from error
+            if alarm.expired():
+                raise _WallDeadline() from error
+            raise _WebSocketWriteDeadline() from error
+    except InvalidStatus as error:
+        upgrade = httpx.Response(error.response.status_code, headers=list(error.response.headers.raw_items()))
+        if report is not None:
+            _headers_progress(upgrade, report)
+        try:
+            body = json.loads(error.response.body)
+        except (TypeError, ValueError):
+            body = None
+        failure, scope = http_failure(upgrade.status_code, upgrade.headers, body)
+        raise _WebSocketScopedFailure(failure, scope, before_send=True) from error
+    except (WebSocketException, OSError, ValueError) as error:
+        if reply is None:
+            if not submission_reserved:
+                raise TransportFailure("websocket_upgrade_failed") from error
+            if isinstance(error, WebSocketException):
+                raise TransportFailure("websocket_interrupted", ambiguous=True) from error
+            raise
+    return reply
+
+
 async def _hard_wall_call(key, request, config, lease, capture_response, capture_receipt, report, timeouts,
                           sse_inactivity_seconds):
+    if config.wire_mode == RESPONSES_WEBSOCKET_IPV4:
+        return await _hard_wall_websocket_call(key, request, config, lease, capture_response, capture_receipt, report,
+                                               timeouts, sse_inactivity_seconds)
     import httpx
     import openai
 

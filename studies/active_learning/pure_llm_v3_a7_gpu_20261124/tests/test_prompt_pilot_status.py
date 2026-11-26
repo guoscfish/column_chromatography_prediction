@@ -1,6 +1,8 @@
 import hashlib
 import json
 
+import pytest
+
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.prompt_pilot_status import (
     UNSTARTED_ANCHORS, local_progress, pending_attempt, remote_seed,
 )
@@ -184,10 +186,14 @@ def test_2357_extension_preserves_parent_labels_and_other_seeds(tmp_path):
     assert remote_seed(tmp_path, 2357)["run"] == r2_continuation.name
 
 
-def test_tracks_887_json_extension_only_from_its_exact_previous_run(tmp_path):
+@pytest.mark.parametrize("seed,index,segment,dispatcher", [
+    (887, 6, "IPV4_JSON_EXTENSION", "dispatch_v13_887_json_extension"),
+    (6101, 1, "IPV4_WS_EXTENSION", "dispatch_v13_6101_ws_extension"),
+])
+def test_tracks_transport_extension_only_from_its_exact_previous_run(tmp_path, seed, index, segment, dispatcher):
     cohort = tmp_path / prompt_pilot_status.SERIAL_IPV4
-    streaming = cohort.with_name(f"{cohort.name}-887-extension-01")
-    whole_response = tmp_path / prompt_pilot_status.IPV4_JSON_EXTENSION
+    streaming = cohort.with_name(f"{cohort.name}-{seed}-extension-01")
+    whole_response = tmp_path / getattr(prompt_pilot_status, segment)
 
     def publish(run, seeds, predecessor):
         record = {"run_directory": str(run), "profile": {"confirmation_seeds": seeds,
@@ -199,15 +205,15 @@ def test_tracks_887_json_extension_only_from_its_exact_previous_run(tmp_path):
 
     parent = publish(cohort, list(prompt_pilot_status.SEEDS), {
         "dispatcher_module": "dispatch_prepared_ipv4",
-        "lanes": {"887": {"start_round": 6, "checkpoint_sha256": "3" * 64}},
+        "lanes": {str(seed): {"start_round": index, "checkpoint_sha256": "3" * 64}},
     })
-    streaming_sha = publish(streaming, [887], {"parent_contract_sha256": parent,
+    streaming_sha = publish(streaming, [seed], {"parent_contract_sha256": parent,
                                               "dispatcher_module": "dispatch_v13_lane_extension"})
     prior = {"parent_contract_sha256": parent, "previous_contract_sha256": "a" * 64,
-             "dispatcher_module": "dispatch_v13_887_json_extension"}
-    publish(whole_response, [887], prior)
-    assert remote_seed(tmp_path, 887)["run"] == streaming.name
+             "dispatcher_module": dispatcher}
+    publish(whole_response, [seed], prior)
+    assert remote_seed(tmp_path, seed)["run"] == streaming.name
 
-    publish(whole_response, [887], {**prior, "previous_contract_sha256": streaming_sha})
-    current = remote_seed(tmp_path, 887)
-    assert (current["run"], current["labels"], current["phase"]) == (whole_response.name, 525, "waiting_to_start")
+    publish(whole_response, [seed], {**prior, "previous_contract_sha256": streaming_sha})
+    current = remote_seed(tmp_path, seed)
+    assert (current["run"], current["labels"], current["phase"]) == (whole_response.name, 333 + 32 * index, "waiting_to_start")
