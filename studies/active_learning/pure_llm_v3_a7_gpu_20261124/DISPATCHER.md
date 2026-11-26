@@ -249,3 +249,11 @@ Both original turns have an unauthenticated preflight failure followed by one am
 Set `PYTHONHASHSEED=0` for contract generation, authorization checks, and execution. This reproduces the original 887 host serialization as well as its full outgoing payload. The 887 verifier can also bind both intermediate digests if an archive needs that compatibility check. Transport failure records remain in the attempt ledger. The Mac command is `dispatch_v13_lane_extension.py --seed <seed>` with the exact child contract and authorization hashes. Restart with the existing spool and use the GPU `resume` action for the same child.
 
 After a verified extension fit, `run_v13_lane_continuation.py` and `dispatch_v13_lane_continuation.py` continue 6101 from L397 or 887 from L557. Both entries require the exact extension contract and authorization SHA. The continuation takes 34 or 29 unspent rounds respectively, retains the shorter API timeout policy, and shares the original Key Pool and single GPU lease.
+
+### Detect inactivity at the decoded SSE layer
+
+For new attempts with the signed SSE inactivity policy, the Mac starts a 900-second inactivity timer when response headers arrive. Initial lifecycle events and new decoded reasoning or output progress renew that timer. Heartbeat comments, repeated sequence frames, and empty deltas do not. A completed response is archived as soon as its valid terminal event arrives. Keep the original total deadline as a second limit.
+
+`dispatch_with_sse_inactivity.py` binds the policy to the original approved V13 or 2357 continuation, existing Mac dispatcher identity, and exact approved provider and dispatcher file hashes. The GPU release, request payload and attempt budget remain bound to the original contract. Run its `--verify-only` mode first and drain the selected Mac spool before replacing the launchd entry. An event-idle timeout seals an ambiguous transport failure. Recover an existing complete receipt if one is available, or use only a remaining physical slot through the existing authorization procedure.
+
+Unified status shows both the time since the latest decoded SSE and the time since the last event that renewed the inactivity timer. For an inconsistent response identity, the private progress receipt records both sanitized IDs and the request remains ineligible for selection.

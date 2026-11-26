@@ -31,7 +31,7 @@ from .ssh_courier import ATTEMPT_ID, GPU_PYTHON, SHA256, CourierUnavailable, SSH
 PROGRESS_FILENAME = "provider_progress.json"
 PROGRESS_PHASES = {"request_dispatched", "http_phase", "http_headers", "sse_event", "transport_completed",
                    "transport_failure"}
-PROGRESS_TOKENS = ("provider_request_id", "response_id", "model", "event_type", "error_type",
+PROGRESS_TOKENS = ("provider_request_id", "response_id", "conflicting_response_id", "model", "event_type", "error_type",
                    "provider_error_code", "provider_error_param", "provider_incomplete_reason")
 PROGRESS_TOKEN = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}")
 USAGE_FIELDS = ("input_tokens", "cached_tokens", "output_tokens", "reasoning_tokens", "total_tokens")
@@ -95,6 +95,9 @@ def _transport_progress(attempt, job):
             return
         snapshot.update(phase=phase, elapsed_seconds=elapsed, updated_utc=stamp())
         snapshot["first_phase_seconds"].setdefault(phase, elapsed)
+        activity = event.get("sse_activity_seconds")
+        if _valid_elapsed(activity) and activity <= elapsed:
+            snapshot["last_sse_activity_seconds"] = activity
         status = event.get("http_status")
         if type(status) is int and 100 <= status <= 599:
             snapshot["http_status"] = status
@@ -190,7 +193,8 @@ def verify_local_source(info, root=ROOT):
 class Dispatcher:
     """One Mac spool per exact authenticated run. No scientific operations are available."""
 
-    def __init__(self, spool, *, info, contract_sha256, transport, mock=True, pool=None, call=None):
+    def __init__(self, spool, *, info, contract_sha256, transport, mock=True, pool=None, call=None,
+                 sse_inactivity_seconds=None):
         self.path = Path(spool).expanduser().absolute()
         if type(mock) is not bool or (mock and pool is not None) or (not mock and call is not None):
             raise ValueError("mock transport and paid credential leasing must remain separate")
@@ -200,6 +204,17 @@ class Dispatcher:
             raise PermissionError("remote formal transport differs from the reviewed local A7 profile")
         self.transport = transport
         self.timeouts = request_timeouts(profile)
+        contracted_inactivity = profile.get("sse_inactivity_seconds")
+        if contracted_inactivity is not None and sse_inactivity_seconds not in (None, contracted_inactivity):
+            raise PermissionError("the dispatcher inactivity policy differs from the formal contract")
+        if sse_inactivity_seconds is None:
+            sse_inactivity_seconds = contracted_inactivity
+        if sse_inactivity_seconds is not None and (
+            self.timeouts is None or not _valid_elapsed(sse_inactivity_seconds)
+            or not 0 < sse_inactivity_seconds < self.timeouts.total_seconds
+        ):
+            raise ValueError("SSE inactivity must be positive and shorter than the async request deadline")
+        self.sse_inactivity_seconds = sse_inactivity_seconds
         representation = profile.get("wire_representation")
         self.wire_representation = None if representation is None else dict(validate_wire_representation(representation))
         self.mock = mock
@@ -330,10 +345,13 @@ class Dispatcher:
                         if self.mock:
                             reply = self.call(request, config)
                         else:
+                            inactivity = ({"sse_inactivity_seconds": self.sse_inactivity_seconds}
+                                          if self.sse_inactivity_seconds is not None else {})
                             reply = call_responses(request, config,
                                                    model_lock=self.path / "provider_model_lock.json",
                                                    capture_response=capture, capture_receipt=capture_receipt,
-                                                   progress=_transport_progress(attempt, job), timeouts=self.timeouts)
+                                                   progress=_transport_progress(attempt, job), timeouts=self.timeouts,
+                                                   **inactivity)
                         model_identity = self._model_lock(reply)
                     except TransportFailure as error:
                         failure = error

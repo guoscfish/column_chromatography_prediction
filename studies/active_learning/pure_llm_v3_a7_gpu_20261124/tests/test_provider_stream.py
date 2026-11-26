@@ -16,13 +16,17 @@ from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu import provider
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.formal_contract import RequestTimeouts
 
 
-def _event(kind, identity="resp_stream", *, status="in_progress"):
+def _frame(kind, **fields):
+    return ("data: " + json.dumps({"type": kind, **fields}) + "\n\n").encode()
+
+
+def _event(kind, identity="resp_stream", *, status="in_progress", **event_fields):
     fields = {"id": identity, "object": "response", "status": status, "model": "mock-model", "output": []}
     if status == "completed":
         fields.update(reasoning={"effort": "max"}, usage={"input_tokens": 3, "output_tokens": 2, "total_tokens": 5})
         fields["output"] = [{"id": "msg_stream", "type": "message", "role": "assistant", "status": "completed",
                               "content": [{"type": "output_text", "text": "synthetic answer", "annotations": []}]}]
-    return ("data: " + json.dumps({"type": kind, "response": fields}) + "\n\n").encode()
+    return _frame(kind, response=fields, **event_fields)
 
 
 @pytest.fixture
@@ -121,16 +125,24 @@ def test_interrupted_stream_reports_ids_and_distinguishes_transport_cause(mock_p
     assert check.secret not in json.dumps(check.progress)
 
 
-def test_completion_must_agree_with_previously_reported_response_id(mock_provider):
+@pytest.mark.parametrize(("different_id", "reported_id"), [
+    ("resp_different", "resp_different"),
+    ("test-key-canary", None),
+    ("contains whitespace", None),
+])
+def test_completion_must_agree_with_previously_reported_response_id(mock_provider, different_id, reported_id):
     def body():
         yield _event("response.created")
-        yield _event("response.completed", "resp_different", status="completed")
+        yield _event("response.completed", different_id, status="completed")
 
     check = mock_provider(body, request_id="test-key-canary")
     assert check.result.code == "response_id_mismatch" and check.result.ambiguous
     assert not check.raw and not check.receipt
     assert check.secret not in json.dumps(check.progress)
-    assert "resp_different" not in json.dumps(check.progress)
+    mismatch = next(row for row in check.progress
+                    if row["phase"] == "sse_event" and row.get("error_type") == "response_id_mismatch")
+    assert mismatch["response_id"] == "resp_stream"
+    assert mismatch.get("conflicting_response_id") == reported_id
 
 
 def test_sse_error_retains_only_structured_failure_fields(mock_provider):
@@ -184,7 +196,8 @@ def async_mock_provider(tmp_path, monkeypatch):
 
     def call(source, *, proxy=False, resolver=None, close=None, before_response=None, with_progress=True,
              fail_connect_tcp=False, ipv4=False, peer="192.0.2.1", http_version=b"HTTP/1.1", with_timeouts=True,
-             preflight_status=401, preflight_peer="192.0.2.1", preflight_delay=0, preflight_error=None):
+             preflight_status=401, preflight_peer="192.0.2.1", preflight_delay=0, preflight_error=None,
+             sse_inactivity_seconds=None):
         progress, receipt, raw, outcomes, requests, network_options, dispatches = [], [], [], [], [], [], []
         selected = replace(config, wire_mode=RESPONSES_STREAM_IPV4) if ipv4 else config
         signed_request = make_request(request["binding"], request["logical_index"], request["payload"]["input"], selected)
@@ -282,7 +295,8 @@ def async_mock_provider(tmp_path, monkeypatch):
                 result = provider.call_responses(signed_request, selected, model_lock=tmp_path / "async-lock.json",
                                                  capture_response=raw.append, capture_receipt=receipt.append,
                                                  progress=progress.append if with_progress else None,
-                                                 timeouts=policy if with_timeouts else None)
+                                                 timeouts=policy if with_timeouts else None,
+                                                 sse_inactivity_seconds=sse_inactivity_seconds)
             except TransportFailure as error:
                 result = error
         finally:
@@ -359,6 +373,74 @@ def test_ipv4_transport_refuses_missing_bound_timeouts_before_post(async_mock_pr
     check = async_mock_provider(None, ipv4=True, with_timeouts=False)
     assert not check.requests and not check.network_options
     assert check.result.code == "direct_ipv4_timeouts_required"
+
+
+def test_sse_inactivity_expires_while_waiting_for_first_event(async_mock_provider):
+    async def body():
+        await asyncio.sleep(5)
+        pytest.fail("provider wait was not cancelled")
+        yield b""
+
+    check = async_mock_provider(body, ipv4=True, sse_inactivity_seconds=.12)
+    assert check.requests == ["GET", "POST"] and check.dispatches == [True]
+    assert (check.result.code, check.result.ambiguous, check.result.retryable) == ("timeout", True, False)
+    assert check.progress[-1]["error_type"] == "sse_inactivity_timeout"
+    assert "sse_activity_seconds" not in check.progress[-1]
+    assert not check.raw and not check.receipt
+
+
+def test_sse_inactivity_ignores_repeated_and_nonprogress_frames(async_mock_provider):
+    async def body():
+        yield _event("response.created", sequence_number=0)
+        yield _event("response.in_progress", sequence_number=1)
+        yield _frame("response.output_item.done", sequence_number=2, output_index=0,
+                     item={"id": "rs_stream", "type": "reasoning", "summary": []})
+        delta = {"item_id": "msg_stream", "output_index": 1, "content_index": 0}
+        yield _frame("response.output_text.delta", sequence_number=3, delta="draft", **delta)
+        for sequence in range(4, 18):
+            await asyncio.sleep(.025)
+            yield b": relay keepalive\n\n"
+            yield _frame("heartbeat", sequence_number=sequence)
+            yield _event("response.in_progress", sequence_number=sequence)
+            yield _frame("response.output_text.delta", sequence_number=sequence, delta="", **delta)
+            yield _frame("response.output_text.delta", sequence_number=3, delta="draft", **delta)
+
+    check = async_mock_provider(body, ipv4=True, sse_inactivity_seconds=.12)
+    assert (check.result.code, check.result.ambiguous, check.result.retryable) == ("timeout", True, False)
+    assert check.progress[-1]["error_type"] == "sse_inactivity_timeout"
+    assert any(row.get("event_type") == "response.output_item.done" for row in check.progress)
+    first_text = next(row for row in check.progress if row.get("event_type") == "response.output_text.delta")
+    last_frame = [row for row in check.progress if row["phase"] == "sse_event"][-1]
+    assert first_text["elapsed_seconds"] < last_frame["elapsed_seconds"]
+    assert first_text["elapsed_seconds"] == last_frame["sse_activity_seconds"]
+    assert check.progress[-1]["sse_activity_seconds"] == first_text["elapsed_seconds"]
+    assert not check.raw and not check.receipt
+
+
+def test_meaningful_sse_progress_renews_deadline_and_terminal_is_captured(async_mock_provider):
+    async def body():
+        yield _event("response.created", sequence_number=0)
+        await asyncio.sleep(.08)
+        yield _frame("response.reasoning_summary_text.delta", sequence_number=1, item_id="rs_stream",
+                     output_index=0, summary_index=0, delta="reasoning progress")
+        await asyncio.sleep(.08)
+        yield _frame("response.output_text.delta", sequence_number=2, item_id="msg_stream",
+                     output_index=1, content_index=0, delta="synthetic answer")
+        await asyncio.sleep(.08)
+        yield _event("response.completed", status="completed", sequence_number=3)
+        pytest.fail("read after the terminal frame")
+
+    check = async_mock_provider(body, ipv4=True, sse_inactivity_seconds=.18)
+    assert check.result.text == "synthetic answer"
+    assert check.raw[0]["status"] == "completed"
+    assert check.receipt[0]["raw_response_sha256"] == digest(check.raw[0])
+    assert check.outcomes == ["completed"]
+
+
+@pytest.mark.parametrize("duration", [0, True, float("inf"), float("nan"), 2])
+def test_sse_inactivity_requires_a_valid_async_duration(async_mock_provider, duration):
+    with pytest.raises(ValueError, match="SSE inactivity"):
+        async_mock_provider(None, sse_inactivity_seconds=duration)
 
 
 def test_hard_total_interrupts_blocked_sse_before_idle_timeout(async_mock_provider):

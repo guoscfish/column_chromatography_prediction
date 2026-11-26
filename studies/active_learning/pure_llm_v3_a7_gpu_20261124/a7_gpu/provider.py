@@ -22,6 +22,17 @@ LIFECYCLE_EVENTS = {
 PROGRESS_MILESTONES = LIFECYCLE_EVENTS | {
     "response.output_item.added", "response.output_item.done", "response.output_text.delta", "response.output_text.done",
 }
+SSE_START_EVENTS = {"response.created", "response.queued", "response.in_progress"}
+SSE_DELTA_EVENTS = {
+    "response.output_text.delta", "response.reasoning_text.delta",
+    "response.reasoning_summary_text.delta", "response.refusal.delta",
+}
+SSE_OUTPUT_EVENTS = {
+    "response.output_item.added", "response.output_item.done", "response.output_text.done",
+    "response.content_part.added", "response.content_part.done", "response.reasoning_text.done",
+    "response.reasoning_summary_part.added", "response.reasoning_summary_part.done",
+    "response.reasoning_summary_text.done", "response.refusal.done",
+}
 PROGRESS_INTERVAL_SECONDS = 5
 DIRECT_IPV4_PREFLIGHT_SECONDS = 8
 NETWORK_PHASES = {"connect_tcp": "dns_tcp", "start_tls": "tls", "send_request_headers": "send_headers",
@@ -81,6 +92,11 @@ class _WallDeadline(TransportFailure):
         super().__init__("timeout", ambiguous=True)
 
 
+class _SSEInactivityDeadline(TransportFailure):
+    def __init__(self):
+        super().__init__("timeout", ambiguous=True)
+
+
 class _PrePostConnectTimeout(TransportFailure):
     def __init__(self):
         super().__init__("connect_error", retryable=True)
@@ -93,10 +109,12 @@ class _IPv4PreflightFailure(TransportFailure):
 
 
 class _StreamEvidence:
-    def __init__(self, response, deadline, report):
+    def __init__(self, response, deadline, report, *, activity=None):
         self.headers = response.headers
         self.deadline = deadline
         self.report = report
+        self.activity = activity
+        self.sse_activity_at = None
         self.response_id = None
         self.reported_events = set()
         self.event_count = 0
@@ -117,7 +135,8 @@ class _StreamEvidence:
         ) if (value := _progress_token(raw)) is not None}
         if interval is not None:
             details["sse_interval_seconds"] = interval
-        self.report("sse_event", observed_at=received, sse_event_count=self.event_count, **details)
+        self.report("sse_event", observed_at=received, sse_activity_at=self.sse_activity_at,
+                    sse_event_count=self.event_count, **details)
 
     def observe(self, event):
         received = time.monotonic()
@@ -126,8 +145,15 @@ class _StreamEvidence:
         response_id = getattr(response, "id", None)
         if isinstance(response_id, str) and response_id:
             if self.response_id is not None and response_id != self.response_id:
+                if self.report is not None:
+                    identities = {field: token for field, value in (
+                        ("response_id", self.response_id), ("conflicting_response_id", response_id),
+                    ) if (token := _progress_token(value)) is not None}
+                    self.report("sse_event", observed_at=received, error_type="response_id_mismatch", **identities)
                 raise TransportFailure("response_id_mismatch", ambiguous=True)
             self.response_id = response_id
+        if self.activity is not None and self.activity.observe(event):
+            self.sse_activity_at = received
         if self.report is not None:
             self.event_count += 1
             interval = None if self.last_event is None else received - self.last_event[0]
@@ -184,12 +210,60 @@ def _collect(stream, deadline, capture_response=None, capture_receipt=None, *, r
     raise TransportFailure("sse_missing_completion", ambiguous=True)
 
 
-async def _collect_async(stream, deadline, capture_response, capture_receipt, report):
-    evidence = _StreamEvidence(stream.response, deadline, report)
+class _SSEActivity:
+    """Recognize progress in decoded model frames independently of socket traffic."""
+
+    def __init__(self):
+        self.sequence = -1
+        self.markers = set()
+
+    def observe(self, event):
+        kind = event.type
+        sequence = getattr(event, "sequence_number", None)
+        has_sequence = type(sequence) is int and sequence >= 0
+        if has_sequence and sequence <= self.sequence:
+            return False
+        marker = None
+        if kind in SSE_START_EVENTS and getattr(getattr(event, "response", None), "id", None):
+            marker = (kind,)
+        elif kind in SSE_OUTPUT_EVENTS:
+            item_id = getattr(event, "item_id", None) or getattr(getattr(event, "item", None), "id", None)
+            indices = (getattr(event, field, None) for field in ("output_index", "content_index", "summary_index"))
+            marker = (kind, _progress_token(item_id), *(index if type(index) is int else None for index in indices))
+            if all(value is None for value in marker[1:]):
+                return False
+        elif kind not in SSE_DELTA_EVENTS or not isinstance(getattr(event, "delta", None), str) or not event.delta:
+            return False
+        if marker is not None:
+            if marker in self.markers:
+                return False
+            self.markers.add(marker)
+        if has_sequence:
+            self.sequence = sequence
+        return True
+
+
+async def _collect_async(stream, deadline, capture_response, capture_receipt, report, *,
+                         sse_inactivity_seconds=None):
+    activity = _SSEActivity() if sse_inactivity_seconds is not None else None
+    evidence = _StreamEvidence(stream.response, deadline, report, activity=activity)
+    clock = asyncio.get_running_loop().time
+    inactivity = asyncio.timeout(sse_inactivity_seconds)
     try:
-        async for event in stream:
-            if evidence.observe(event):
-                return evidence.complete(event, capture_response, capture_receipt)
+        async with inactivity:
+            async for event in stream:
+                received = clock()
+                if activity is not None and received >= inactivity.when():
+                    raise _SSEInactivityDeadline()
+                previous_activity = evidence.sse_activity_at
+                if evidence.observe(event):
+                    return evidence.complete(event, capture_response, capture_receipt)
+                if evidence.sse_activity_at != previous_activity:
+                    inactivity.reschedule(received + sse_inactivity_seconds)
+    except TimeoutError as error:
+        if not inactivity.expired():
+            raise
+        raise _SSEInactivityDeadline() from error
     finally:
         evidence.flush()
     raise TransportFailure("sse_missing_completion", ambiguous=True)
@@ -262,7 +336,7 @@ def recover_completed_response(raw, config, *, model_lock, metadata=None):
 
 
 def call_responses(request, config, *, model_lock, capture_response=None, capture_receipt=None, progress=None,
-                   timeouts=None):
+                   timeouts=None, sse_inactivity_seconds=None):
     """Only the authorized runner can call this with an acquired physical lease."""
     import httpx
     import openai
@@ -275,17 +349,28 @@ def call_responses(request, config, *, model_lock, capture_response=None, captur
         raise TransportFailure("background_dispatcher_required")
     if config.wire_mode == RESPONSES_STREAM_IPV4 and timeouts is None:
         raise TransportFailure("direct_ipv4_timeouts_required")
+    if sse_inactivity_seconds is not None and (
+        timeouts is None or type(sse_inactivity_seconds) not in (float, int)
+        or not 0 < sse_inactivity_seconds <= timeouts.total_seconds
+    ):
+        raise ValueError("SSE inactivity requires a positive finite timeout within the asynchronous total deadline")
     if not sdk_status(config)["matches"]:
         lease.outcome("sdk_version_mismatch")
         raise TransportFailure("sdk_version_mismatch")
     reply = None
     scope = "shared"
     started = time.monotonic()
+    last_sse_activity_at = None
 
-    def report(phase, *, observed_at=None, **fields):
+    def report(phase, *, observed_at=None, sse_activity_at=None, **fields):
+        nonlocal last_sse_activity_at
         if progress is not None:
             try:
                 elapsed = (time.monotonic() if observed_at is None else observed_at) - started
+                if sse_activity_at is not None:
+                    last_sse_activity_at = sse_activity_at
+                if last_sse_activity_at is not None and phase in ("sse_event", "transport_failure"):
+                    fields["sse_activity_seconds"] = last_sse_activity_at - started
                 progress({"phase": phase, "elapsed_seconds": elapsed, **fields})
             except OSError:
                 # Status is observational. An unavailable status file must not drop the response.
@@ -297,10 +382,10 @@ def call_responses(request, config, *, model_lock, capture_response=None, captur
         if lease.path is None:
             with api_key() as (value, _):
                 return _call_with_key(value, request, config, model_lock, lease, capture_response, capture_receipt,
-                                      report if progress is not None else None, timeouts)
+                                      report if progress is not None else None, timeouts, sse_inactivity_seconds)
         with key_text(lease.path) as value:
             return _call_with_key(value, request, config, model_lock, lease, capture_response, capture_receipt,
-                                  report if progress is not None else None, timeouts)
+                                  report if progress is not None else None, timeouts, sse_inactivity_seconds)
     except (PermissionError, FileNotFoundError):
         failure = TransportFailure("credential_file_error")
     except openai.APIStatusError as error:
@@ -309,6 +394,8 @@ def call_responses(request, config, *, model_lock, capture_response=None, captur
         failure, error_type = error, "event_deadline_exceeded"
     except _WallDeadline as error:
         failure, error_type = error, "hard_wall_deadline"
+    except _SSEInactivityDeadline as error:
+        failure, error_type = error, "sse_inactivity_timeout"
     except _IPv4PreflightFailure as error:
         failure, error_type = error, "direct_ipv4_preflight_failed"
     except _PrePostConnectTimeout as error:
@@ -443,7 +530,8 @@ async def _preflight_ipv4(http, base_url, report):
                    event_type=f"ipv4_preflight_http_{status}" if status is not None else "ipv4_preflight_no_headers")
 
 
-async def _hard_wall_call(key, request, config, lease, capture_response, capture_receipt, report, timeouts):
+async def _hard_wall_call(key, request, config, lease, capture_response, capture_receipt, report, timeouts,
+                          sse_inactivity_seconds):
     import httpx
     import openai
 
@@ -489,7 +577,8 @@ async def _hard_wall_call(key, request, config, lease, capture_response, capture
                             if report is not None:
                                 report("http_phase", network_phase="direct_ipv4_http11", network_state="complete",
                                        phase_duration_seconds=time.monotonic() - started, explicit_proxy=False)
-                        reply = await _collect_async(stream, deadline, capture_response, capture_receipt, report)
+                        reply = await _collect_async(stream, deadline, capture_response, capture_receipt, report,
+                                                     sse_inactivity_seconds=sse_inactivity_seconds)
     except TimeoutError as error:
         if not alarm.expired():
             raise
@@ -527,7 +616,8 @@ def _run_hard_wall(*args):
             loop.close()
 
 
-def _call_with_key(key, request, config, model_lock, lease, capture_response, capture_receipt, report, timeouts):
+def _call_with_key(key, request, config, model_lock, lease, capture_response, capture_receipt, report, timeouts,
+                   sse_inactivity_seconds):
     import httpx
     import openai
 
@@ -540,7 +630,8 @@ def _call_with_key(key, request, config, model_lock, lease, capture_response, ca
     try:
         if timeouts is not None:
             reply, declared = _run_hard_wall(key, request, config, lease, capture_response, capture_receipt,
-                                             private_report if report is not None else None, timeouts)
+                                             private_report if report is not None else None, timeouts,
+                                             sse_inactivity_seconds)
         else:
             with openai.OpenAI(api_key=key, base_url=config.base_url, timeout=config.timeout_seconds,
                                max_retries=0) as client:

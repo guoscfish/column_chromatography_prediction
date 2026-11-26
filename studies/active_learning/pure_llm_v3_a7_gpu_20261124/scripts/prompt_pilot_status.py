@@ -376,7 +376,7 @@ def local_progress(spool, seed, active, *, track_queue=False):
     first_text = first_text_event.get("elapsed_seconds") if isinstance(first_text_event, dict) else None
     terminal_event = events.get("response.completed")
     terminal_time = terminal_event.get("elapsed_seconds") if isinstance(terminal_event, dict) else None
-    ids = {field: value for field in ("response_id", "provider_request_id")
+    ids = {field: value for field in ("response_id", "conflicting_response_id", "provider_request_id")
            if isinstance(value := status.get(field), str) and PROVIDER_ID.fullmatch(value)}
     fields = ("round", "logical_index", "http_status", "elapsed_seconds", "sse_event_count")
     progress = {field: status[field] for field in fields if type(status.get(field)) in (int, float)}
@@ -391,6 +391,7 @@ def local_progress(spool, seed, active, *, track_queue=False):
             "provider_elapsed_seconds": elapsed,
             "first_output_seconds": seconds(first_text),
             "last_sse_seconds": seconds(status.get("last_sse_seconds")),
+            "last_sse_activity_seconds": seconds(status.get("last_sse_activity_seconds")),
             "last_sse_interval_seconds": seconds(status.get("last_sse_interval_seconds")),
             "complete_event_seen": "response.completed" in events or status.get("event_type") in {"response.completed", "background.completed"},
             "complete_event_seconds": seconds(terminal_time),
@@ -491,12 +492,16 @@ def show(view):
                             else "已收到" if provider.get("complete_event_seen") else "未收到")
                 elapsed = seconds(provider.get("provider_elapsed_seconds"))
                 last_event = seconds(provider.get("last_sse_seconds"))
+                last_activity = seconds(provider.get("last_sse_activity_seconds"))
                 since_event = elapsed - last_event if elapsed is not None and last_event is not None else None
+                since_activity = elapsed - last_activity if elapsed is not None and last_activity is not None else None
+                inactivity_text = (f"  距上条有效事件 {duration_text(since_activity)}"
+                                   if since_activity is not None else "")
                 print(f"  派发前等待 {duration_text(provider.get('dispatch_wait_seconds'))}  "
                       f"API 已用时（含预检） {duration_text(elapsed)}  "
                       f"首段正文 {duration_text(provider.get('first_output_seconds'))}  "
                       f"最近两条 SSE 间隔 {duration_text(provider.get('last_sse_interval_seconds'))}  "
-                      f"距上条 SSE {duration_text(since_event)}  "
+                      f"距上条 SSE {duration_text(since_event)}{inactivity_text}  "
                       f"完成终态 {terminal} {duration_text(provider.get('complete_event_seconds'))}")
             if api.get("selection"):
                 print(f"  A7 校验 {api['selection']}  {api['selection_errors'] or '—'}")
