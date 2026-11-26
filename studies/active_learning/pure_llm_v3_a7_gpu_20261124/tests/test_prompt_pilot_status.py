@@ -2460,6 +2460,14 @@ def check_12203_wave15(runs, monkeypatch, flags, previous, previous_sha, previou
     write_json(unexpected, {"unexpected": True})
     assert remote_seed(runs, 12203)["run"] == previous.name
     unexpected.unlink()
+    def publish_next(destination, candidate):
+        new_sha = status.record_digest(candidate)
+        approval = {"contract_sha256": new_sha, **flags}
+        write_json(destination / "formal_contract.json", candidate)
+        write_json(destination / "authorization.json", approval)
+        return new_sha, status.record_digest(approval)
+
+    check_repeated_boundary(runs, monkeypatch, publish_next, 12203, 16, run, sha, status.RELAY_12203_WAVE15_AUTH, record)
 
 
 def test_12203_wave07_reviewed_trace_matches_the_producer():
@@ -2647,15 +2655,21 @@ def test_reviewed_relay_after_new_cuda_fit_requires_exact_fit_and_archive(tmp_pa
     assert status.reviewed_relay_contract(tmp_path, seed, wave, previous, old_sha) is None
     mutation.write_bytes(original)
     assert status.reviewed_relay_contract(tmp_path, seed, wave, previous, old_sha) == expected
-    if seed == 2357:
-        check_2357_wave09(tmp_path, monkeypatch, publish, run, digest, auth, signed)
+    check_repeated_boundary(tmp_path, monkeypatch, publish, seed, wave + 1, run, digest, auth, signed)
 
 
-def check_2357_wave09(runs, monkeypatch, publish, previous, previous_sha, previous_auth, previous_record):
+def check_repeated_boundary(runs, monkeypatch, publish, seed, wave, previous, previous_sha, previous_auth, previous_record):
     status = prompt_pilot_status
-    turn = previous / "seed_2357/round_05/turn_00"
+    prefix = f"RELAY_{seed}_WAVE{wave:02d}"
+    previous_prefix = f"RELAY_{seed}_WAVE{wave - 1:02d}"
+    known = getattr(status, f"{prefix}_PROOF")
+    round_index = previous_record["profile"]["resume_boundaries"][str(seed)]["round"]
+    turn = previous / f"seed_{seed}/round_{round_index:02d}/turn_00"
     receipts, terminals = [], []
-    for attempt in status.RELAY_2357_WAVE08_ATTEMPTS:
+    attempts = getattr(status, f"{previous_prefix}_ATTEMPTS", None)
+    if attempts is None:
+        attempts = (getattr(status, f"{previous_prefix}_ATTEMPT"),)
+    for attempt in attempts:
         index = attempt["attempt"]
         terminal = {**attempt, "status": "stopped"}
         filename = turn / f"attempt_{index:02d}.terminal.json"
@@ -2663,38 +2677,42 @@ def check_2357_wave09(runs, monkeypatch, publish, previous, previous_sha, previo
         write_json(filename, terminal)
         terminals.append(status.checksum(filename))
         receipts.append({**attempt, "terminal_sha256": status.record_digest(terminal)})
-    for name in status.RELAY_2357_WAVE08_REPLAY_FILES:
-        write_json(turn / name, {"fixture": name})
-    monkeypatch.setattr(status, "RELAY_2357_WAVE08_TERMINALS", terminals)
-    monkeypatch.setattr(status, "RELAY_2357_WAVE08_REPLAY_FILES",
-                        {name: status.checksum(turn / name) for name in status.RELAY_2357_WAVE08_REPLAY_FILES})
-    exact = {**status.RELAY_2357_WAVE09_PROOF, "previous_terminal_file_sha256": terminals[-1]}
-    monkeypatch.setattr(status, "RELAY_2357_WAVE09_PROOF", exact)
+    checked_file = turn / "attempt_00.terminal.json"
+    if len(attempts) == 2:
+        links = getattr(status, f"{previous_prefix}_REPLAY_FILES")
+        for name in links:
+            write_json(turn / name, {"fixture": name})
+        monkeypatch.setattr(status, f"{previous_prefix}_TERMINALS", terminals)
+        monkeypatch.setattr(status, f"{previous_prefix}_REPLAY_FILES", {name: status.checksum(turn / name) for name in links})
+        checked_file = turn / "attempt_01.replay_link.json"
+    exact = {**known, "previous_terminal_file_sha256": terminals[-1]}
+    monkeypatch.setattr(status, f"{prefix}_PROOF", exact)
     old_proof = previous_record["predecessor"]
-    old_chain = old_proof["reviewed_retry_chain"]
     new_review = status._relay_review(previous, previous_sha, previous_auth, exact, receipts)
-    run = runs / f"{status.SERIAL_IPV4}-2357-relay-retry-09"
+    run = runs / f"{status.SERIAL_IPV4}-{seed}-relay-retry-{wave:02d}"
     proof = {**old_proof, **exact, "previous_run_directory": str(previous), "previous_contract_sha256": previous_sha,
              "previous_authorization_sha256": previous_auth, "previous_attempts": receipts,
-             "previous_transport_observation": status.RELAY_2357_WAVE09_OBSERVATION,
-             "reviewed_retry_chain": [*old_chain, new_review]}
-    record = {**previous_record, "run_directory": str(run), "predecessor": proof}
+             "previous_transport_observation": getattr(status, f"{prefix}_OBSERVATION"),
+             "reviewed_retry_chain": [*old_proof["reviewed_retry_chain"], new_review],
+             "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 2}}
+    record = {**previous_record, "run_directory": str(run), "predecessor": proof, "budget": exact["execution_budget"],
+              "source_sha256": getattr(status, f"{prefix}_SOURCES", previous_record["source_sha256"]),
+              "profile": {**previous_record["profile"], "replay_eligible_from_round": round_index}}
     broken = {**record, "predecessor": {**proof, "reviewed_retry_chain": [new_review]}}
     broken_sha, broken_auth = publish(run, broken)
-    monkeypatch.setattr(status, "RELAY_2357_WAVE09_CONTRACT", broken_sha)
-    monkeypatch.setattr(status, "RELAY_2357_WAVE09_AUTH", broken_auth)
-    assert status.reviewed_relay_contract(runs, 2357, 9, previous, previous_sha) is None
+    monkeypatch.setattr(status, f"{prefix}_CONTRACT", broken_sha)
+    monkeypatch.setattr(status, f"{prefix}_AUTH", broken_auth)
+    assert status.reviewed_relay_contract(runs, seed, wave, previous, previous_sha) is None
     sha, auth = publish(run, record)
-    monkeypatch.setattr(status, "RELAY_2357_WAVE09_CONTRACT", sha)
-    monkeypatch.setattr(status, "RELAY_2357_WAVE09_AUTH", auth)
-    expected = run, sha, 5, 3, exact["relay_not_before_unix"]
-    assert status.reviewed_relay_contract(runs, 2357, 9, previous, previous_sha) == expected
-    link = turn / "attempt_01.replay_link.json"
-    original = link.read_bytes()
-    write_json(link, {"modified": True})
-    assert status.reviewed_relay_contract(runs, 2357, 9, previous, previous_sha) is None
-    link.write_bytes(original)
-    assert status.reviewed_relay_contract(runs, 2357, 9, previous, previous_sha) == expected
+    monkeypatch.setattr(status, f"{prefix}_CONTRACT", sha)
+    monkeypatch.setattr(status, f"{prefix}_AUTH", auth)
+    expected = run, sha, round_index, 3, exact["relay_not_before_unix"]
+    assert status.reviewed_relay_contract(runs, seed, wave, previous, previous_sha) == expected
+    original = checked_file.read_bytes()
+    write_json(checked_file, {"modified": True})
+    assert status.reviewed_relay_contract(runs, seed, wave, previous, previous_sha) is None
+    checked_file.write_bytes(original)
+    assert status.reviewed_relay_contract(runs, seed, wave, previous, previous_sha) == expected
 
 
 def test_2357_wave09_monitor_pins_the_same_l493_request_and_four_archived_attempts():
@@ -2722,3 +2740,172 @@ def test_2357_wave09_monitor_pins_the_same_l493_request_and_four_archived_attemp
         "relay_cooldown_clock": scope.cooldown_field, "relay_not_before_unix": scope.not_before_unix,
         "newly_authorized_boundary_physical_attempts": scope.boundary_physical_attempts, "execution_budget": scope.budget,
     }
+
+
+def test_6101_cached_r4_monitor_requires_both_old_receipts_and_verified_local_cuda_fit(tmp_path, monkeypatch):
+    status = prompt_pilot_status
+    seed = 6101
+    previous = tmp_path / f"{status.SERIAL_IPV4}-6101-relay-retry-08"
+    run = tmp_path / f"{status.SERIAL_IPV4}-6101-cached-r4-01"
+    old_directory = previous / "seed_6101"
+    current_directory = run / "seed_6101"
+    archived = old_directory / "round_04"
+    old_checkpoint = status.CACHED_R4_6101_PREVIOUS_CHECKPOINT
+    old_profile = {"confirmation_seeds": [seed], "target_labels": 1485, "resume_boundaries": {str(seed): {"round": 3}},
+                   "transport": {"logical_replies": 3, "transport_attempts": 2}, "ipv4_readiness_windows": 3,
+                   "audited_future_transport_replay": True, "replay_eligible_from_round": 3, "sealed_relay_retry_seconds": 180}
+    old_approval = dict.fromkeys(status.FORMAL_APPROVAL_FLAGS, True)
+
+    def publish(directory, signed):
+        approved = {**old_approval, "contract_sha256": status.record_digest(signed)}
+        write_json(directory / "formal_contract.json", signed)
+        write_json(directory / "authorization.json", approved)
+        return approved["contract_sha256"], status.record_digest(approved)
+
+    write_json(archived / "source.json", {"checkpoint": old_checkpoint})
+    old_metrics = archived / "fit_000/validation_metrics.json"
+    write_json(old_metrics, {"combined_normalized_rmse": .66})
+    write_json(archived / "transition.json", {"checkpoint_sha256": old_checkpoint, "fit_path": "fit_000",
+                                             "source_sha256": status.checksum(archived / "source.json"),
+                                             "validation_metrics_sha256": status.checksum(old_metrics)})
+    previous_sources = {"previous/workflow.py": "1" * 64}
+    old_sha, old_auth = publish(previous, {"run_directory": str(previous), "profile": old_profile,
+                                          "source_sha256": previous_sources})
+    monkeypatch.setattr(status, "RELAY_6101_WAVE08_CONTRACT", old_sha)
+    monkeypatch.setattr(status, "RELAY_6101_WAVE08_AUTH", old_auth)
+    old_term = archived / "turn_00/attempt_00.terminal.json"
+    correction = archived / "turn_01/attempt_00.terminal.json"
+    decision = archived / "turn_00/decision.json"
+    write_json(old_term, {"status": "completed", "provider_dispatched": True})
+    write_json(correction, {"status": "stopped", "provider_dispatched": True})
+    write_json(decision, {"state": "rejected"})
+    write_json(old_directory / "pause.request", {"retired": True})
+    plan = {"choices": [{"candidate_id": f"C-{i}", "reason": "original"} for i in range(32)]}
+    batch = [f"row_{i}" for i in range(32)]
+    review = {**status.CACHED_R4_6101_REVIEW, "archived_terminal_file_sha256": status.checksum(old_term),
+              "archived_decision_file_sha256": status.checksum(decision), "normalized_plan_sha256": status.record_digest(plan),
+              "frozen_order_sha256": status.record_digest(batch), "previous_seed_pause_file_sha256": status.checksum(old_directory / "pause.request")}
+    correction_review = {**status.CACHED_R4_6101_FAILED_CORRECTION, "terminal_file_sha256": status.checksum(correction)}
+    boundaries = {"round_04/source.json": status.checksum(archived / "source.json")}
+    mirrors = [f"/choices/{i}/references/0/observed_id" for i in range(42)]
+    monkeypatch.setattr(status, "CACHED_R4_6101_REVIEW", review)
+    monkeypatch.setattr(status, "CACHED_R4_6101_FAILED_CORRECTION", correction_review)
+    monkeypatch.setattr(status, "CACHED_R4_6101_BOUNDARY_FILES", boundaries)
+    monkeypatch.setattr(status, "CACHED_R4_6101_MIRRORS_SHA", status.record_digest(mirrors))
+    write_json(previous / f"bridge/outbox/{review['attempt_id']}.json", {"job_sha256": review["job_sha256"]})
+    write_json(previous / f"bridge/results/{review['attempt_id']}.json", {
+        "provider_dispatched": True, "result_sha256": review["result_sha256"], "raw_response_sha256": review["raw_response_sha256"],
+    })
+    correction_result = previous / f"bridge/results/{correction_review['attempt_id']}.json"
+    write_json(correction_result, {"result_sha256": correction_review["result_sha256"], "raw_response_sha256": None})
+    custody = {**review, "archived_boundary_files": boundaries, "removed_paths": mirrors, "failed_correction": correction_review}
+    module = f"studies/active_learning/pure_llm_v3_a7_gpu_20261124/scripts/{status.CACHED_R4_6101_MODULE}.py"
+    child_profile = {"confirmation_seeds": [seed], "target_labels": 493, "resume_boundaries": {str(seed): {"round": 4}},
+                     "transport": {"logical_replies": 1, "transport_attempts": 1}, "ipv4_readiness_windows": 3}
+    proof = {"dispatcher_module": status.CACHED_R4_6101_MODULE, "seed": seed, "round": 4, "recovery_budget": {
+        "maximum_logical_requests": 1, "maximum_physical_attempts": 0,
+    }, "execution_budget": status.CACHED_R4_6101_BUDGET, "newly_authorized_boundary_physical_attempts": 0,
+             "checkpoint_sha256": old_checkpoint, "previous_run_directory": str(previous), "previous_contract_sha256": old_sha,
+             "previous_authorization_sha256": old_auth, "cached_selection": custody}
+    sha, auth = publish(run, {"run_directory": str(run), "profile": child_profile, "predecessor": proof,
+                               "budget": status.CACHED_R4_6101_BUDGET,
+                               "source_sha256": {**previous_sources, module: status.CACHED_R4_6101_SOURCE}})
+    monkeypatch.setattr(status, "CACHED_R4_6101_CONTRACT", sha)
+    monkeypatch.setattr(status, "CACHED_R4_6101_AUTH", auth)
+    write_json(run / "cached_response_import.json", custody)
+    status_row = lambda: status.cached_r4_6101_contract(tmp_path, seed, previous, old_sha)
+    assert status_row()[:3] == (run, sha, 4)
+    assert status_row()[3]["fitted_labels"] is None
+    assert status.dispatcher_pid(seed, "ipv4_cached_r4_6101") is None
+
+    stage = current_directory / "round_04"
+    turn = stage / "turn_00"
+    fitted = current_directory / "round_05"
+    fit = fitted / "fit_000"
+    fit.mkdir(parents=True)
+    (fit / "best.pt").write_bytes(b"checkpoint bytes")
+    checkpoint = status.checksum(fit / "best.pt")
+    monkeypatch.setattr(status, "CACHED_R4_6101_FITTED_CHECKPOINT", checkpoint)
+    formal_run = {"contract_sha256": sha}
+    write_json(turn / "attempt_00.terminal.json", {"attempt_id": "a" * 32, "status": "completed", "provider_dispatched": False, "usage": {},
+               "cached_selection_sha256": status.record_digest(custody), "response_id": review["response_id"],
+               "imported_from_response_id": review["response_id"], "request_id": "local-request"})
+    write_json(turn / "decision.json", {"state": "legal"})
+    write_json(stage / "selection.json", plan)
+    write_json(stage / "memory.json", {})
+    write_json(stage / "batch_freeze.json", {"mock": False, "label_access": False, "batch_ids": batch,
+              "binding": {"a7_formal": formal_run, "seed": seed, "round": 4, "checkpoint_sha256": old_checkpoint},
+              "accepted_logical_index": 0, "accepted_attempt": 0, "request_id": "local-request", "provider_response_id": review["response_id"],
+              "selection_file_sha256": status.checksum(stage / "selection.json"), "memory_file_sha256": status.checksum(stage / "memory.json")})
+    freeze_sha = status.checksum(stage / "batch_freeze.json")
+    grant = {"scope": "reveal_and_fit_one_frozen_batch", "formal_run": formal_run, "device": "cuda", "selection_freeze_sha256": freeze_sha}
+    write_json(fitted / "fit_authorization.json", grant)
+    write_json(fitted / "authorized_feedback.json", {"formal_grant_sha256": status.record_digest(grant),
+                                                     "selection_freeze_sha256": freeze_sha,
+                                                     "records": [{"candidate_id": i} for i in batch]})
+    write_json(fitted / "source.json", {"checkpoint": checkpoint, "round": 5})
+    write_json(fit / "fit_audit.json", {"train_rows": 493, "checkpoint_sha256": checkpoint})
+    write_json(fit / "fit_artifact_receipt.json", {"best.pt": checkpoint})
+    write_json(fit / "validation_metrics.json", {"checkpoint_sha256": checkpoint, "combined_normalized_rmse": .46})
+    write_json(fitted / "transition.json", {"formal_run": formal_run, "selection_freeze_sha256": freeze_sha, "fit_path": "fit_000",
+               "memory_file_sha256": status.checksum(stage / "memory.json"), "checkpoint_sha256": checkpoint,
+               "source_sha256": status.checksum(fitted / "source.json"), "feedback_sha256": status.checksum(fitted / "authorized_feedback.json"),
+               "fit_audit_sha256": status.checksum(fit / "fit_audit.json"), "fit_artifact_receipt_sha256": status.checksum(fit / "fit_artifact_receipt.json"),
+               "validation_metrics_sha256": status.checksum(fit / "validation_metrics.json")})
+    monkeypatch.setattr(status, "CACHED_R4_6101_LOCAL_TERMINAL", status.checksum(turn / "attempt_00.terminal.json"))
+    monkeypatch.setattr(status, "CACHED_R4_6101_TRANSITION", status.checksum(fitted / "transition.json"))
+    assert status_row()[3] == {"round": 4, "fitted_labels": 493, "choice_count": 32, "removed_reference_fields": 42,
+                               "provider_dispatched": False, "archived_failed_correction": "connection_interrupted",
+                               "checkpoint_sha256": checkpoint, "validation_nrmse": .46}
+    check_6101_r5_handoff(tmp_path, monkeypatch, publish, previous, run, sha, auth, status_row()[3])
+    (fit / "best.pt").write_bytes(b"different checkpoint bytes")
+    assert status_row()[3]["fitted_labels"] is None
+    correction_result.unlink()
+    assert status_row() is None
+
+
+def check_6101_r5_handoff(runs, monkeypatch, publish, parent, cached, cached_sha, cached_auth, imported):
+    status = prompt_pilot_status
+    run = runs / f"{status.SERIAL_IPV4}-6101-r5-continuation-01"
+    stage = cached / "seed_6101/round_04"
+    following = cached / "seed_6101/round_05"
+    transition = following / "transition.json"
+    profile = status.read_json(parent / "formal_contract.json")["profile"]
+    child = status.read_json(cached / "formal_contract.json")
+    custody = child["predecessor"]["cached_selection"]
+    handoff = {"cached_selection_file_sha256": status.checksum(cached / "cached_response_import.json"),
+               "extension_source_sha256": status.checksum(following / "source.json"),
+               "extension_fit_audit_sha256": status.checksum(following / "fit_000/fit_audit.json"),
+               "extension_freeze_sha256": status.checksum(stage / "batch_freeze.json")}
+    monkeypatch.setattr(status, "CONTINUATION_6101_R5_HANDOFF", handoff)
+    write_json(cached / "workers/seed_6101.json", {"status": "complete", "completed_rounds": 5, "active_labels": 493})
+    proof = {**handoff, "dispatcher_module": "dispatch_v13_6101_r5_continuation", "seed": 6101, "round": 5,
+             "parent_run_directory": str(parent), "parent_contract_sha256": status.RELAY_6101_WAVE08_CONTRACT,
+             "parent_authorization_sha256": status.RELAY_6101_WAVE08_AUTH,
+             "parent_seed_pause_sha256": status.CACHED_R4_6101_REVIEW["previous_seed_pause_file_sha256"],
+             "extension_run_directory": str(cached), "extension_contract_sha256": cached_sha,
+             "extension_authorization_sha256": cached_auth, "cached_local_attempt_id": "a" * 32,
+             "cached_local_terminal_sha256": status.CACHED_R4_6101_LOCAL_TERMINAL,
+             "cached_selection_sha256": status.record_digest(custody), "reviewed_cached_selection": custody,
+             "extension_transition_sha256": status.checksum(transition), "checkpoint_sha256": imported["checkpoint_sha256"],
+             "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 2},
+             "execution_budget": status.CONTINUATION_6101_R5_BUDGET}
+    boundary = {"round": 5, "state_sha256": status.record_digest(status.read_json(following / "source.json")),
+                "memory_sha256": status.record_digest(status.read_json(stage / "memory.json"))}
+    record = {"run_directory": str(run), "profile": {**profile, "resume_boundaries": {"6101": boundary},
+                                                      "replay_eligible_from_round": 5},
+              "source_sha256": {**child["source_sha256"], **status.CONTINUATION_6101_R5_SOURCES},
+              "predecessor": proof, "budget": status.CONTINUATION_6101_R5_BUDGET}
+    sha, auth = publish(run, record)
+    monkeypatch.setattr(status, "CONTINUATION_6101_R5_CONTRACT", sha)
+    monkeypatch.setattr(status, "CONTINUATION_6101_R5_AUTH", auth)
+    assert status.r5_after_6101_cached_r4(runs, cached, cached_sha, imported) == (run, sha, 5, 3)
+    assert status.r5_after_6101_cached_r4(runs, cached, cached_sha, {**imported, "fitted_labels": None}) is None
+    commands = []
+    monkeypatch.setattr(status, "command_lines", lambda command: commands.append(command) or [])
+    status.dispatcher_pid(6101, "ipv4_6101_r5_continuation")
+    assert commands[0][-1].endswith("/com.purellm.a7-ipv4-v13-6101-r5-continuation-01")
+    original = (stage / "batch_freeze.json").read_bytes()
+    write_json(stage / "batch_freeze.json", {"changed": True})
+    assert status.r5_after_6101_cached_r4(runs, cached, cached_sha, imported) is None
+    (stage / "batch_freeze.json").write_bytes(original)
