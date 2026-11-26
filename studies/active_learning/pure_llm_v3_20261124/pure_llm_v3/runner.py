@@ -16,7 +16,7 @@ from .records import digest, dumps, file_digest, once, read
 from .repair_protocol import ReplanRequested, apply_repair, build_repair_request
 from .response_schema import SCHEMA_VERSION, ResponseFormatError, parse_response
 from .transport_manager import (
-    TransportConfig, TransportStop, check_request, make_request, responses_call, round_lock, run_request,
+    TransportConfig, TransportStop, check_request, make_request, responses_call, round_lock, run_request, terminal_record,
 )
 
 ROOT = Path(__file__).resolve().parents[4]
@@ -32,6 +32,8 @@ PRESETS = {
 }
 SAFE_ID = re.compile(r"(?:[CO]-[0-9]{1,12}|[0-9a-f]{20}|H-[A-Za-z0-9_-]{1,48})\Z")
 PROTOCOL_PATH = STUDY_PATH / "execution_config.json"
+OBSERVED_ALIAS_RECEIPT = "observed_alias_normalization.json"
+OBSERVED_ALIAS_FREEZE_HASH = "observed_alias_normalization_file_sha256"
 
 
 @dataclass(frozen=True)
@@ -239,7 +241,63 @@ def _next_messages(stage, repair=None):
     return [*stage.messages, {"role": "user", "content": instruction + "\n" + dumps(projected)}]
 
 
-def select_stage(stage, directory, config, call, *, mock, retry_options=None, response_projection=None):
+def _observed_alias_projection(plan):
+    """Propose removing exact legacy aliases from complete-plan reference entries."""
+    choices = plan.get("choices") if type(plan) is dict else None
+    if type(choices) is not list:
+        return None
+    aliases = []
+    for choice_index, choice in enumerate(choices):
+        references = choice.get("references") if type(choice) is dict else None
+        if type(references) is not list:
+            return None
+        for reference_index, reference in enumerate(references):
+            if type(reference) is not dict:
+                return None
+            if "observed_id" not in reference:
+                continue
+            identity = reference.get("reference_id")
+            if (reference.get("reference_kind") != "observed" or type(identity) is not str
+                    or type(reference["observed_id"]) is not str or reference["observed_id"] != identity):
+                return None
+            aliases.append((choice_index, reference_index))
+    if not aliases:
+        return None
+    normalized = copy.deepcopy(plan)
+    paths = []
+    for choice_index, reference_index in aliases:
+        del normalized["choices"][choice_index]["references"][reference_index]["observed_id"]
+        paths.append(f"/choices/{choice_index}/references/{reference_index}/observed_id")
+    return normalized, paths
+
+
+def _observed_alias_receipt(answer, original, normalized, paths):
+    return {"policy": "exact_observed_reference_alias_v1", "request_id": answer["request_id"],
+            "provider_response_id": answer["response_id"], "raw_reply_sha256": answer["answer_sha256"],
+            "original_plan_sha256": digest(original), "removed_paths": paths,
+            "normalized_plan_sha256": digest(normalized), "normalized_plan": normalized}
+
+
+def verify_observed_alias_normalization(turn, answer, plan, freeze):
+    """Reproduce an approved projection from the archived response and freeze."""
+    path = turn / OBSERVED_ALIAS_RECEIPT
+    expected_sha = freeze.get(OBSERVED_ALIAS_FREEZE_HASH)
+    if expected_sha is None and not path.exists():
+        return
+    if (freeze["binding"].get("normalize_observed_reference_aliases") is not True
+            or expected_sha is None or not path.is_file() or file_digest(path) != expected_sha
+            or answer["request_id"] != freeze["request_id"] or answer["response_id"] != freeze["provider_response_id"]
+            or answer["answer_sha256"] != digest(answer["text"])):
+        raise ValueError("observed alias normalization receipt or approval drift")
+    original = parse_response(answer["text"])
+    projection = _observed_alias_projection(original)
+    if (projection is None or digest(projection[0]) != digest(plan)
+            or read(path) != _observed_alias_receipt(answer, original, *projection)):
+        raise ValueError("frozen plan differs from the archived observed alias normalization")
+
+
+def select_stage(stage, directory, config, call, *, mock, retry_options=None, response_projection=None,
+                 normalize_observed_reference_aliases=False):
     """Persist each phase and resume deterministically from complete response receipts."""
     retry_options = retry_options or {}
     reference_repair = stage.binding.get("fixed_reference_repair")
@@ -247,6 +305,12 @@ def select_stage(stage, directory, config, call, *, mock, retry_options=None, re
         raise PermissionError("the response projection must match an explicitly bound repair")
     if response_projection is not None and (mock or config.logical_replies != 1 or config.transport_attempts != 1):
         raise PermissionError("the scoped reference repair authorizes one real attempt")
+    alias_policy = stage.binding.get("normalize_observed_reference_aliases", False)
+    if (type(normalize_observed_reference_aliases) is not bool or alias_policy is not normalize_observed_reference_aliases
+            or (normalize_observed_reference_aliases and (
+                stage.binding["arm"] != "A7" or stage.schema != SCHEMA_VERSION or response_projection is not None
+            ))):
+        raise PermissionError("observed alias normalization requires a bound A7 policy")
     with round_lock(directory):
         if digest(stage.packet) != stage.binding["packet_sha256"] or (
             digest(stage.messages) != stage.binding["base_messages_sha256"]
@@ -268,6 +332,10 @@ def select_stage(stage, directory, config, call, *, mock, retry_options=None, re
                 raise ValueError("frozen selection hash drift")
             if saved.get("memory_file_sha256") and file_digest(directory / "memory.json") != saved["memory_file_sha256"]:
                 raise ValueError("frozen memory hash drift")
+            turn = directory / f"turn_{saved['accepted_logical_index']:02d}"
+            if OBSERVED_ALIAS_FREEZE_HASH in saved or (turn / OBSERVED_ALIAS_RECEIPT).exists():
+                answer = terminal_record(turn, saved["accepted_attempt"])
+                verify_observed_alias_normalization(turn, answer, read(directory / "selection.json"), saved)
             return saved
 
         proposal = repair = None
@@ -307,6 +375,18 @@ def select_stage(stage, directory, config, call, *, mock, retry_options=None, re
                     continue
             proposal = response
             validation = _validation(stage, proposal)
+            alias_receipt_sha256 = None
+            if (normalize_observed_reference_aliases and not validation.valid
+                    and (repair is None or repair["mode"] == "full_replan")):
+                projection = _observed_alias_projection(proposal)
+                if projection is not None:
+                    normalized, paths = projection
+                    checked = _validation(stage, normalized)
+                    if checked.valid:
+                        path = turn / OBSERVED_ALIAS_RECEIPT
+                        once(path, _observed_alias_receipt(answer, proposal, normalized, paths))
+                        alias_receipt_sha256 = file_digest(path)
+                        proposal, validation = normalized, checked
             once(turn / "decision.json", {"state": "legal" if validation.valid else "rejected",
                                           "diagnosis": validation.as_dict()})
             if validation.valid:
@@ -326,6 +406,8 @@ def select_stage(stage, directory, config, call, *, mock, retry_options=None, re
                           "selection_file_sha256": file_digest(directory / "selection.json"),
                           "memory_file_sha256": memory_hash,
                           "batch_ids": ids, "label_access": False}
+                if alias_receipt_sha256 is not None:
+                    record[OBSERVED_ALIAS_FREEZE_HASH] = alias_receipt_sha256
                 once(frozen, record)
                 return record
             repair = (build_repair_request(proposal, validation=validation, binding=stage.binding)

@@ -3,18 +3,21 @@
 from copy import deepcopy
 from dataclasses import replace
 import os
+from types import SimpleNamespace
 
 import pytest
 
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, dumps, once, read
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.response_schema import SCHEMA_VERSION
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
-    RESPONSES_BACKGROUND, ProviderReply, TransportConfig, TransportFailure, TransportStop, make_request, round_lock, run_request,
+    RESPONSES_BACKGROUND, ProviderReply, TransportConfig, TransportFailure, TransportStop, make_request, round_lock,
+    run_request, terminal_record,
 )
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.bridge_protocol import (
     BridgeCourier, BridgePending, make_job, make_result, read_bridge_json, validate_result, verify_job, verify_result,
 )
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.provider import verify_reported_model
+from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu import seed_runner
 
 
 CONTRACT = "a" * 64
@@ -56,6 +59,119 @@ def _payload(config, job, *, version="test-version-1"):
 
 def _forbidden(*_args, **_kwargs):
     pytest.fail("GPU or direct transport called a provider during bridge test")
+
+
+@pytest.fixture
+def audited_live_bridge(setup_bridge):
+    config, request, _, bridge = setup_bridge
+    scope = {**request["binding"]["a7_formal"], "mock": False}
+    messages = [*request["payload"]["input"], {"role": "user", "content": "Use the exact original repair context."}]
+    request = make_request({**request["binding"], "a7_formal": scope}, 1, messages, config)
+    run = bridge.directory.parent
+
+    def permit(archived, terminal, candidate_config):
+        return seed_runner._future_replay_authorization(run, scope, {"authorized_by": "offline fixture"},
+                                                        archived, terminal, candidate_config)
+
+    return run, config, request, bridge, permit
+
+
+def test_future_audited_replay_preserves_exact_bridge_request_and_archives(audited_live_bridge):
+    run, config, request, bridge, permit = audited_live_bridge
+    directory = run / "seed_157" / "round_01"
+    log = directory / "turn_01"
+    calls = []
+    original_files = {}
+
+    def fake_mac(managed_request, managed_config, started):
+        assert managed_request == request and managed_config == config
+        calls.append(started["attempt_id"])
+        job = make_job(managed_request, managed_config, started)
+        name = f"{job['attempt_id']}.json"
+        if started["attempt"] == 0:
+            result = make_result(job, failure=TransportFailure("timeout", ambiguous=True),
+                                 provider_dispatched=True, credential_id="mock-slot-1")
+            original_files.update({bridge.outbox / name: job, bridge.results / name: result})
+        else:
+            assert started["attempt"] == 1 and calls[0] != calls[1]
+            for path, artifact in original_files.items():
+                assert read(path) == artifact
+            grant = read(log / "attempt_00.replay_authorization.json")
+            assert grant["bridge_result_sha256"] == read(bridge.results / f"{calls[0]}.json")["result_sha256"]
+            assert grant["original_terminal_sha256"] == digest(terminal_record(log, 0))
+            assert grant["accept_duplicate_billing_risk"] is True
+            assert read(log / "attempt_01.replay_link.json")["replay_authorization_sha256"] == digest(grant)
+            result = _payload(managed_config, job)
+        once(bridge.outbox / name, job)
+        once(bridge.results / name, result)
+        return bridge(managed_request, managed_config, started)
+
+    options = {"managed_attempt": fake_mac, "replay_authorization_factory": permit,
+               "sleep": lambda _: None, "now": lambda: 0}
+    completed = run_request(directory, request, config, _forbidden, **options)
+    assert completed["attempt"] == 1
+    assert (terminal_record(log, 0)["status"], terminal_record(log, 0)["ambiguous"]) == ("stopped", True)
+    assert read(log / "attempt_00.replay.terminal.json")["prior_execution_and_billing"] == "unresolved"
+    assert read(log / "request.json") == request
+    assert len(calls) == 2
+    old_bytes = {path: path.read_bytes() for path in (*original_files, log / "attempt_00.terminal.json")}
+    assert run_request(directory, request, config, _forbidden, **{**options, "managed_attempt": _forbidden}) == completed
+    with pytest.raises(TransportStop, match="timeout"):
+        run_request(directory, request, config, _forbidden, managed_attempt=_forbidden)
+    assert all(path.read_bytes() == value for path, value in old_bytes.items())
+    assert not (log / "attempt_02.started.json").exists()
+
+
+@pytest.mark.parametrize(("error", "dispatched", "raw", "expected"), [
+    ("response_id_mismatch", True, None, TransportStop),
+    ("timeout", False, None, TransportStop),
+    ("timeout", True, {"status": "completed", "id": "captured"}, PermissionError),
+])
+def test_future_replay_does_not_resend_an_ineligible_bridge_failure(audited_live_bridge, error, dispatched, raw, expected):
+    run, config, request, bridge, permit = audited_live_bridge
+    directory = run / "seed_157" / "round_01"
+
+    def fake_mac(managed_request, managed_config, started):
+        assert started["attempt"] == 0
+        job = make_job(managed_request, managed_config, started)
+        result = make_result(job, failure=TransportFailure(error, ambiguous=True),
+                             provider_dispatched=dispatched, credential_id="mock-slot-1", raw_response=raw)
+        name = f"{job['attempt_id']}.json"
+        once(bridge.outbox / name, job)
+        once(bridge.results / name, result)
+        return bridge(managed_request, managed_config, started)
+
+    with pytest.raises(expected):
+        run_request(directory, request, config, _forbidden, managed_attempt=fake_mac,
+                    replay_authorization_factory=permit, now=lambda: 0, sleep=_forbidden)
+    log = directory / "turn_01"
+    assert not (log / "attempt_00.replay_authorization.json").exists()
+    assert not (log / "attempt_01.started.json").exists()
+
+
+def test_future_replay_does_not_authorize_a_pending_bridge_response(audited_live_bridge):
+    run, config, request, bridge, _ = audited_live_bridge
+    directory = run / "seed_157" / "round_01"
+    with pytest.raises(BridgePending):
+        run_request(directory, request, config, _forbidden, managed_attempt=bridge,
+                    replay_authorization_factory=_forbidden, now=lambda: 0, sleep=_forbidden)
+    log = directory / "turn_01"
+    assert (log / "attempt_00.started.json").is_file()
+    assert not (log / "attempt_00.terminal.json").exists()
+    assert not (log / "attempt_00.replay_authorization.json").exists()
+    assert not (log / "attempt_01.started.json").exists()
+
+
+def test_formal_seed_cannot_inject_its_own_replay_factory(tmp_path, monkeypatch):
+    monkeypatch.setattr(seed_runner, "verify_authorization", lambda _contract, approval: approval)
+    contract = SimpleNamespace(seed_ids=(157,), initial_labels=333, profile={}, rounds=36, anchor_root=None)
+    backend = SimpleNamespace(seed=157, l0_ids=range(333), is_mock=False)
+    run = tmp_path / "no-injected-replay"
+    with pytest.raises(PermissionError, match="internally verified archive"):
+        seed_runner.run_seed(root=tmp_path, run_directory=run, contract=contract, authorization={},
+                             seed=157, backend=backend, call=_forbidden,
+                             transport_options={"managed_attempt": _forbidden, "replay_authorization_factory": _forbidden})
+    assert not run.exists()
 
 
 def test_job_verifies_authorization_and_detects_payload_or_attempt_drift(setup_bridge):

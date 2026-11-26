@@ -285,3 +285,17 @@ Effective response progress has a 900-second inactivity threshold and a 3,600-se
 The shared recovery entry prepares individual contracts for 157 R3, 887 R6, 2357 R2, and 6101 R1. It verifies the original SSE jobs, latest failed recovery, authorized CUDA boundary, and unchanged scientific prompt and memory. The new contracts permit one original-input direct SSE attempt per seed and share the original three-Key scheduler plus GPU lease.
 
 Each attempt preserves the 900-second meaningful-event inactivity threshold and the 3,600-second hard deadline. A legal completed response can freeze and train exactly one batch. Future rounds are available only after the new verified checkpoint is carried into a continuation contract.
+
+### Resilient SSE continuations to L1485
+
+The `run_v13_resilient_sse` and `dispatch_v13_resilient_sse` entries use a separately approved contract for each seed. The recovery round starts from its verified CUDA checkpoint and scientific memory, and permits only one model submission of the original logical request. Later rounds retain the original limit of three logical requests and two physical slots per logical request. The signed later-round replay rule can open an unused second slot for that same request after a verified ambiguous transport failure. It preserves the original receipt and checks for a saved completion first. A signed local validation rule may resolve an exact alias of an already observed row before freezing, with the original answer and normalization receipt retained.
+
+Before the model submission, the Mac can use up to three IPv4 readiness windows, with up to two credential-free probes per window. When a transient probe failure occurs before POST, the Mac releases the Key lease and retains the same staged attempt for the next window. The SSE effective-event idle limit is 900 seconds and the hard deadline is 3,600 seconds. All five runs share the existing Key Pool and GPU lease.
+
+From the staged Mac release, use the unified read-only view to see the signed run, current label count, IPv4 readiness window, actual dispatch, and delivery status.
+
+```bash
+python3 -B -m studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.prompt_pilot_status --watch 30
+```
+
+The per-seed Mac service uses `com.purellm.a7-ipv4-v13-<seed>-resilient-sse-01`, with its private spool named by the approved contract SHA.

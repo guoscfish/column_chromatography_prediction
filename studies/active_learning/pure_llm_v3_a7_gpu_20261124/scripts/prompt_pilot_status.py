@@ -168,6 +168,34 @@ def dispatch_contract(run, seed):
     return None
 
 
+def resilient_contract(runs, seed, previous, previous_contract, cohort_contract, follow_on_contract):
+    run = runs / f"{SERIAL_IPV4}-{seed}-resilient-sse-01"
+    record = read_json(run / "formal_contract.json")
+    proof = record.get("predecessor") or {}
+    profile = record.get("profile", {})
+    parent = runs / (IPV4_CONTINUATION if seed == 2357 else SERIAL_IPV4)
+    parent_contract = follow_on_contract if seed == 2357 else cohort_contract
+    start = profile.get("resume_boundaries", {}).get(str(seed), {}).get("round")
+    approval = read_json(run / "authorization.json")
+    if (not previous_contract or not parent_contract
+            or proof.get("dispatcher_module") != "dispatch_v13_resilient_sse"
+            or proof.get("previous_run_directory") != str(previous)
+            or proof.get("previous_contract_sha256") != previous_contract
+            or proof.get("parent_run_directory") != str(parent)
+            or proof.get("parent_contract_sha256") != parent_contract
+            or proof.get("seed") != seed or proof.get("round") != start or type(start) is not int
+            or not 0 <= start < TARGET_ROUNDS
+            or proof.get("recovery_budget") != {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}
+            or profile.get("confirmation_seeds") != [seed] or profile.get("target_labels") != TARGET_LABELS
+            or profile.get("ipv4_readiness_windows") != 3
+            or any(approval.get(name) is not True for name in
+                   ("authorize_paid_api", "authorize_label_reveal", "authorize_cuda_training"))):
+        return None
+    if contract := fallback_contract(run):
+        return run, contract, start, profile["ipv4_readiness_windows"]
+    return None
+
+
 def remote_seed(runs, seed):
     cohort_contract = None
     for name, mode, dispatcher, capability in (
@@ -296,6 +324,13 @@ def remote_seed(runs, seed):
             and (bounded_contract := fallback_contract(bounded))):
         ancestors = (run, *ancestors)
         run, contract, segment = bounded, bounded_contract, "ipv4_bounded_sse"
+    recovery_round, readiness_windows = None, 0
+    if mode == "ipv4" and (resilient := resilient_contract(
+        runs, seed, run, contract, cohort_contract, follow_on_contract,
+    )):
+        ancestors = (run, *ancestors)
+        run, contract, recovery_round, readiness_windows = resilient
+        segment = "ipv4_resilient_sse"
     if seed in UNSTARTED_ANCHORS and not cohort_contract and not any(
         (path / f"seed_{seed}").exists() for path in (run, *ancestors)
     ):
@@ -340,7 +375,8 @@ def remote_seed(runs, seed):
         phase = "transport_extension_complete"
     elif segment == "ipv4_r2_extension" and latest == 3 and (run / "extension_completion.json").is_file():
         phase = "transport_extension_complete"
-    elif latest == PILOT_ROUNDS and segment not in ("v6", "v11", "background", "ipv4", "ipv4_continuation", "ipv4_r2_continuation"):
+    elif latest == PILOT_ROUNDS and segment not in ("v6", "v11", "background", "ipv4", "ipv4_continuation",
+                                                          "ipv4_r2_continuation", "ipv4_resilient_sse"):
         phase = "awaiting_v6_handoff"
     elif paused:
         phase = "paused"
@@ -363,7 +399,9 @@ def remote_seed(runs, seed):
     return {"seed": seed, "run": run.name, "contract_sha256": contract, "segment": segment,
             "continuation": segment in ("ipv4", "ipv4_extension", "ipv4_continuation", "ipv4_r2_extension",
                                         "ipv4_r2_continuation", "ipv4_json_extension", "ipv4_ws_extension",
-                                        "ipv4_bounded_sse", "background", "v11", "v6", "v5", "direct", "repair"),
+                                        "ipv4_bounded_sse", "ipv4_resilient_sse", "background", "v11", "v6", "v5", "direct", "repair"),
+            **({"recovery_round": recovery_round, "readiness_windows": readiness_windows}
+               if segment == "ipv4_resilient_sse" else {}),
             "target_rounds": TARGET_ROUNDS, "target_labels": TARGET_LABELS,
             "completed_rounds": latest, "labels": 333 + latest * 32 if latest is not None else None,
             "phase": phase, "worker_pid": worker_pid, "worker_active": worker_live,
@@ -402,7 +440,43 @@ def mac_start_time(marker):
         return None
 
 
-def local_progress(spool, seed, active, *, track_queue=False):
+def route_readiness(spool, attempt, identity, seed, active, windows):
+    """Read only receipts for the exact current reservation, before any model start."""
+    if windows != 3:
+        return {}
+    job = read_json(spool / "jobs" / f"{identity}.json")
+    job_sha = job.get("job_sha256")
+    request = job.get("request") or {}
+    binding = request.get("binding") or {}
+    if ((job.get("attempt_id"), binding.get("seed"), binding.get("round"), request.get("logical_index"))
+            != (identity, seed, active.get("round"), active.get("turn"))
+            or not isinstance(job_sha, str) or not SHA.fullmatch(job_sha)):
+        return {}
+    files = sorted(attempt.glob("readiness_[0-9][0-9].json"))
+    if not files or len(files) > windows:
+        return {}
+    for index, path in enumerate(files, 1):
+        latest = read_json(path)
+        if (path.name != f"readiness_{index:02d}.json"
+                or (latest.get("attempt_id"), latest.get("job_sha256"), latest.get("window")) != (identity, job_sha, index)
+                or seconds(latest.get("retry_unix")) is None):
+            return {}
+    ready = {"readiness_windows_used": len(files), "readiness_windows": windows}
+    if (attempt / "started.json").exists():
+        return ready
+    result = read_json(spool / "results" / f"{identity}.json")
+    ack = read_json(spool / "delivered" / f"{identity}.json")
+    result_sha = result.get("result_sha256")
+    if (result.get("attempt_id") == identity and result.get("job_sha256") == job_sha
+            and result.get("provider_dispatched") is False and (result.get("outcome") or {}).get("status") == "failed"
+            and isinstance(result_sha, str) and SHA.fullmatch(result_sha)):
+        return {**ready, "phase": "transport_failure", "provider_dispatched": False, "sealed": True,
+                "delivered": ack == {"attempt_id": identity, "result_sha256": result_sha}}
+    retry = {"readiness_retry_seconds": max(0, round(latest["retry_unix"] - time.time()))} if len(files) < windows else {}
+    return {**ready, **retry, "phase": "waiting_for_ipv4_route", "provider_dispatched": False}
+
+
+def local_progress(spool, seed, active, *, track_queue=False, readiness_windows=0):
     """Report only the Mac attempt selected by the current GPFS ledger."""
     identity = active.get("attempt_id")
     if not isinstance(identity, str) or not IDENTITY.fullmatch(identity):
@@ -413,6 +487,7 @@ def local_progress(spool, seed, active, *, track_queue=False):
     marker = read_json(attempt / "started.json")
     now = time.time()
     start = mac_start_time(marker) if marker.get("attempt_id") == identity else None
+    readiness = route_readiness(spool, attempt, identity, seed, active, readiness_windows)
     timing = {}
     if track_queue and (reserved := seconds(active.get("reserved_unix"))) is not None:
         if start is not None:
@@ -423,11 +498,11 @@ def local_progress(spool, seed, active, *, track_queue=False):
             or not marker.get("job_sha256") or status.get("job_sha256") != marker["job_sha256"]
             or status.get("round") != active.get("round") or status.get("logical_index") != active.get("turn")
             or status.get("phase") not in PHASES):
-        return timing
+        return {**timing, **readiness}
     try:
         updated = path.stat().st_mtime
     except OSError:
-        return timing
+        return {**timing, **readiness}
     result = read_json(spool / "results" / f"{identity}.json")
     ack = read_json(spool / "delivered" / f"{identity}.json")
     sealed = result.get("attempt_id") == identity and result.get("job_sha256") == marker["job_sha256"]
@@ -447,7 +522,10 @@ def local_progress(spool, seed, active, *, track_queue=False):
     if not sealed and status["phase"] not in ("transport_completed", "transport_failure"):
         if start is not None and (running := seconds(now - start)) is not None:
             elapsed = max(elapsed or 0, running)
-    return {**timing, **progress, "phase": status["phase"], "sealed": sealed, "delivered": delivered,
+    dispatch = {"provider_dispatched": result["provider_dispatched"]} if (
+        sealed and type(result.get("provider_dispatched")) is bool
+    ) else {}
+    return {**timing, **readiness, **progress, **dispatch, "phase": status["phase"], "sealed": sealed, "delivered": delivered,
             "progress_age_seconds": max(0, round(now - updated)),
             "event_type": safe_code(status.get("event_type")), "usage": usage(status.get("usage")),
             **ids,
@@ -471,7 +549,8 @@ def dispatcher_pid(seed, segment):
                        "ipv4_r2_continuation": "a7-ipv4-v13-2357-r2-continuation-01",
                        "ipv4_json_extension": "a7-ipv4-v13-887-json-extension-01",
                        "ipv4_ws_extension": "a7-ipv4-v13-6101-ws-extension-01",
-                       "ipv4_bounded_sse": f"a7-ipv4-v13-{seed}-bounded-sse-01"}
+                       "ipv4_bounded_sse": f"a7-ipv4-v13-{seed}-bounded-sse-01",
+                       "ipv4_resilient_sse": f"a7-ipv4-v13-{seed}-resilient-sse-01"}
     if segment in cohort_services:
         service = cohort_services[segment]
         label = f"gui/{os.getuid()}/com.purellm.{service}"
@@ -529,7 +608,9 @@ def mac_report(private, seeds):
                     spool, row["seed"], row["api"],
                     track_queue=row["segment"] in ("ipv4", "ipv4_extension", "ipv4_continuation",
                                                    "ipv4_r2_extension", "ipv4_r2_continuation",
-                                                   "ipv4_json_extension", "ipv4_ws_extension", "ipv4_bounded_sse"),
+                                                   "ipv4_json_extension", "ipv4_ws_extension", "ipv4_bounded_sse",
+                                                   "ipv4_resilient_sse"),
+                    readiness_windows=row.get("readiness_windows", 0),
                 )
         if row.get("continuation"):
             row["dispatcher_pid"] = dispatcher_pid(row["seed"], row["segment"])
@@ -554,11 +635,19 @@ def show(view):
                       else "待封存" if provider else "未见当前回执")
             if provider.get("phase") == "queued_for_dispatch":
                 sealed = "等待派发"
+            elif provider.get("phase") == "waiting_for_ipv4_route":
+                sealed = "预检中，尚未提交模型请求"
             print(f"  API {api.get('status', '—')}  {api.get('failure') or '—'}  "
                   f"Mac {provider.get('phase', '—')} ({sealed})  HTTP {provider.get('http_status', '—')}  "
                   f"SSE {provider.get('sse_event_count', '—')}  "
                   f"状态更新 {provider.get('progress_age_seconds', '—')} s 前  tokens {provider.get('usage') or '—'}")
-            if provider:
+            if provider.get("readiness_windows_used"):
+                retry = provider.get("readiness_retry_seconds")
+                retry_text = f"  下个窗口最早 {retry} s 后" if retry is not None else ""
+                sent = {True: "已提交", False: "未提交"}.get(provider.get("provider_dispatched"), "待确认")
+                print(f"  IPv4 预检窗口 {provider['readiness_windows_used']}/{provider['readiness_windows']}"
+                      f"  模型请求 {sent}{retry_text}")
+            if provider and provider.get("phase") != "waiting_for_ipv4_route":
                 terminal = ("—" if provider.get("phase") == "queued_for_dispatch"
                             else "已收到" if provider.get("complete_event_seen") else "未收到")
                 elapsed = seconds(provider.get("provider_elapsed_seconds"))

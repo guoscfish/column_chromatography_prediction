@@ -1,12 +1,16 @@
 """Offline tests for Mac attempt custody and recovery."""
 
 from dataclasses import asdict, replace
+from types import SimpleNamespace
+import time
 
 import pytest
 
-from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, file_digest, once
-from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import TransportFailure
-from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu import dispatcher, ssh_courier
+from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, file_digest, once, read
+from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
+    RESPONSES_STREAM_IPV4, ProviderReply, TransportFailure,
+)
+from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu import dispatcher, provider, ssh_courier
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.formal_contract import RequestTimeouts
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.key_pool import KeyPool, PoolConfig
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.tests.test_distributed_a7 import make_sample_job
@@ -40,6 +44,150 @@ def _started(mac, job, identity):
     })
     attempt.chmod(0o700)
     return attempt
+
+
+@pytest.fixture
+def readiness_run(tmp_path, formal, monkeypatch):
+    base, approval = formal
+    timeouts = RequestTimeouts()
+    transport = replace(base.transport, wire_mode=RESPONSES_STREAM_IPV4, timeout_seconds=timeouts.total_seconds)
+    contract = replace(base, transport=transport, profile={**base.profile, "transport": asdict(transport),
+        "request_timeouts": asdict(timeouts), "sse_inactivity_seconds": 900,
+        "ipv4_preflight_retry": True, "ipv4_readiness_windows": 3})
+    approval = {**approval, "contract_sha256": contract.digest}
+    info = {"schema": ssh_courier.SCHEMA, "contract_sha256": contract.digest,
+            "authorization_sha256": digest(approval), "contract": contract.record(), "mock": False, "paused": False}
+    job, request, started = make_sample_job((contract, approval), mock=False)
+    identity = started["attempt_id"]
+    spool = tmp_path / "spool"
+    key = tmp_path / "fixture-key"
+    key.write_text("synthetic-key")
+    key.chmod(0o600)
+    pool = KeyPool(spool / "key_pool", PoolConfig(1, {"test-slot": key}))
+
+    def reopen():
+        return dispatcher.Dispatcher(spool, info=info, contract_sha256=contract.digest,
+                                     transport=transport, mock=False, pool=pool)
+
+    mac = reopen()
+    pool.prepare()
+    assert mac.accept(job) == identity
+    clock = SimpleNamespace(now=10_000)
+    monkeypatch.setattr(dispatcher, "time", SimpleNamespace(time=lambda: clock.now, monotonic=time.monotonic))
+    return SimpleNamespace(mac=mac, reopen=reopen, job=job, request=request, identity=identity, clock=clock,
+                           attempt=spool / "attempts" / identity)
+
+
+def _probe_failure(lease):
+    lease.outcome("connect_error")
+    raise provider._IPv4PreflightFailure(retry_probe=True)
+
+
+def test_readiness_waits_without_start_then_same_attempt_completes_after_restart(readiness_run, monkeypatch):
+    run = readiness_run
+    starts, validations = [], []
+    start_file = run.attempt / "started.json"
+    result_path = run.mac.path / "results" / f"{run.identity}.json"
+    usage = {"input_tokens": 4, "output_tokens": 2, "total_tokens": 6}
+
+    def before_call(identity, job):
+        assert (identity, job) == (run.identity, run.job)
+        assert not start_file.exists()
+        validations.append(identity)
+
+    def call(request, config, *, ipv4_preflight_retry, before_provider_dispatch, model_lock, capture_response,
+             capture_receipt, **_):
+        assert request == run.request and ipv4_preflight_retry is True
+        lease = dispatcher.LEASE.get()
+        assert not start_file.exists() and not dispatcher._lease_dispatched(lease)
+        windows = sorted(run.attempt.glob("readiness_*.json"))
+        starts.append(read(windows[-1]))
+        if len(starts) == 1:
+            _probe_failure(lease)
+        before_provider_dispatch()
+        adopted = read(start_file)
+        assert adopted["attempt_id"] == run.identity and adopted["job_sha256"] == run.job["job_sha256"]
+        assert adopted["credential_lease_ticket"] == lease.ticket
+        assert not dispatcher._lease_dispatched(lease)
+        lease.dispatched()
+        reply = ProviderReply("{}", "resp-fixture", config.served_model, usage)
+        declared = {"model_version": None, "reported_reasoning_effort": None}
+        raw = {"id": reply.response_id, "model": reply.served_model, "status": "completed", "usage": usage,
+               "output": [{"type": "message", "content": [{"type": "output_text", "text": reply.text}]}]}
+        once(model_lock, provider.verify_reported_model(config, reply, declared))
+        capture_receipt({"raw_response_sha256": digest(raw), "provider_request_id": None, **declared})
+        capture_response(raw)
+        lease.outcome("completed", usage=usage, response_complete=True)
+        return reply
+
+    monkeypatch.setattr(dispatcher, "call_responses", call)
+    assert run.mac.dispatch(run.identity, before_call=before_call) == "waiting_for_route"
+    assert not start_file.exists() and not result_path.exists()
+    assert run.mac.pool.status(readonly=True)["keys"][0]["requests"] == 0
+    assert run.mac.pool.status(readonly=True)["queue"] == []
+    assert run.mac.dispatch(run.identity, before_call=before_call) == "waiting_for_route"
+    assert len(starts) == 1
+    run.clock.now += 16
+    resumed = run.reopen()
+    assert resumed.pending() == [run.identity] and resumed.dispatcher_id == run.mac.dispatcher_id
+    assert resumed.dispatch(run.identity, before_call=before_call) == "sealed"
+    assert [entry["window"] for entry in starts] == [1, 2]
+    assert all(entry["attempt_id"] == run.identity and entry["job_sha256"] == run.job["job_sha256"]
+               for entry in starts)
+    assert len(validations) == 3
+    result = resumed.result(run.identity)
+    assert result["provider_dispatched"] is True and result["request_id"] == run.request["request_id"]
+    assert result["outcome"]["reply"]["usage"] == usage
+    assert resumed.pool.status(readonly=True)["keys"][0]["requests"] == 1
+    assert resumed.dispatch(run.identity, before_call=lambda *_: pytest.fail("sealed attempt must not be sent")) == "sealed"
+
+
+@pytest.mark.parametrize("crash_during_last_probe", [False, True])
+def test_readiness_window_budget_survives_a_restart(readiness_run, monkeypatch, crash_during_last_probe):
+    run = readiness_run
+    probes = []
+
+    def call(request, _config, **_):
+        assert request == run.request and not (run.attempt / "started.json").exists()
+        probes.append(request["request_id"])
+        if crash_during_last_probe and len(probes) == 3:
+            raise RuntimeError("interrupted no-key probe")
+        _probe_failure(dispatcher.LEASE.get())
+
+    monkeypatch.setattr(dispatcher, "call_responses", call)
+    for window in (1, 2):
+        assert run.reopen().dispatch(run.identity, before_call=lambda *_: None) == "waiting_for_route"
+        assert len(probes) == window and not (run.attempt / "started.json").exists()
+        run.clock.now += 16
+    if crash_during_last_probe:
+        with pytest.raises(RuntimeError, match="interrupted no-key probe"):
+            run.reopen().dispatch(run.identity, before_call=lambda *_: None)
+        assert not (run.attempt / "started.json").exists()
+    resumed = run.reopen()
+    assert resumed.dispatch(run.identity, before_call=lambda *_: None) == "sealed"
+    assert len(probes) == 3 and len(list(run.attempt.glob("readiness_*.json"))) == 3
+    assert not (run.attempt / "started.json").exists()
+    result = resumed.result(run.identity)
+    assert result["provider_dispatched"] is False and result["outcome"]["failure"]["code"] == "connect_error"
+    assert result["outcome"]["failure"]["ambiguous"] is False
+    assert resumed.pending() == [] and resumed.pool.status(readonly=True)["keys"][0]["requests"] == 0
+
+
+def test_readiness_never_requeues_an_interrupted_model_post(readiness_run, monkeypatch):
+    run = readiness_run
+
+    def call(_request, _config, *, before_provider_dispatch, **_):
+        before_provider_dispatch()
+        dispatcher.LEASE.get().dispatched()
+        raise RuntimeError("interrupted after possible provider dispatch")
+
+    monkeypatch.setattr(dispatcher, "call_responses", call)
+    with pytest.raises(RuntimeError, match="interrupted after possible provider dispatch"):
+        run.mac.dispatch(run.identity, before_call=lambda *_: None)
+    resumed = run.reopen()
+    assert (run.attempt / "started.json").is_file() and resumed.pending() == []
+    assert resumed.dispatch(run.identity, before_call=lambda *_: pytest.fail("ambiguous attempt must stay closed")) == "open_or_ambiguous"
+    assert resumed.pool.status(readonly=True)["keys"][0]["requests"] == 1
 
 
 def test_restart_recovers_complete_raw_response_without_provider_or_new_key(staged):

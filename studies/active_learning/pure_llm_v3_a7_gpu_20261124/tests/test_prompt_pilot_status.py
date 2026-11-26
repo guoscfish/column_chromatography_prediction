@@ -222,3 +222,81 @@ def test_tracks_transport_extension_only_from_its_exact_previous_run(tmp_path, s
                      "dispatcher_module": "dispatch_v13_bounded_sse_recovery"}
     publish(bounded, [seed], bounded_prior)
     assert remote_seed(tmp_path, seed)["run"] == bounded.name
+
+
+def test_resilient_run_tracks_exact_signed_ancestor_and_launchd(tmp_path, monkeypatch):
+    seed = 12203
+    cohort = tmp_path / prompt_pilot_status.SERIAL_IPV4
+    resilient = cohort.with_name(f"{cohort.name}-{seed}-resilient-sse-01")
+    parent = {"run_directory": str(cohort), "profile": {"confirmation_seeds": list(prompt_pilot_status.SEEDS),
+              "provider_capability": "gated_ipv4"},
+              "predecessor": {"dispatcher_module": "dispatch_prepared_ipv4",
+                              "lanes": {str(seed): {"start_round": 4, "checkpoint_sha256": "8" * 64}}}}
+
+    def publish(run, record, **approval):
+        sha = hashlib.sha256(json.dumps(record, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+        write_json(run / "formal_contract.json", record)
+        write_json(run / "authorization.json", {"contract_sha256": sha, **approval})
+        return sha
+
+    parent_sha = publish(cohort, parent)
+    record = {
+        "run_directory": str(resilient),
+        "profile": {"confirmation_seeds": [seed], "target_labels": 1485, "ipv4_readiness_windows": 3,
+                    "resume_boundaries": {str(seed): {"round": 4}}},
+        "predecessor": {
+            "dispatcher_module": "dispatch_v13_resilient_sse", "seed": seed, "round": 4,
+            "parent_run_directory": str(cohort), "parent_contract_sha256": parent_sha,
+            "previous_run_directory": str(cohort), "previous_contract_sha256": "a" * 64,
+            "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 1},
+        },
+    }
+    flags = {"authorize_paid_api": True, "authorize_label_reveal": True, "authorize_cuda_training": True}
+    publish(resilient, record, **flags)
+    assert remote_seed(tmp_path, seed)["run"] == cohort.name
+    record["predecessor"]["previous_contract_sha256"] = parent_sha
+    publish(resilient, record)
+    assert remote_seed(tmp_path, seed)["run"] == cohort.name
+    exact = publish(resilient, record, **flags)
+
+    row = remote_seed(tmp_path, seed)
+    assert (row["run"], row["segment"], row["labels"], row["contract_sha256"]) == (
+        resilient.name, "ipv4_resilient_sse", 461, exact,
+    )
+    assert row["recovery_round"] == 4 and row["readiness_windows"] == 3
+    commands = []
+
+    def launchctl(command):
+        commands.append(command)
+        return ["  pid = 1234"]
+
+    monkeypatch.setattr(prompt_pilot_status, "command_lines", launchctl)
+    assert prompt_pilot_status.dispatcher_pid(seed, row["segment"]) == 1234
+    assert commands[0][-1].endswith(f"/com.purellm.a7-ipv4-v13-{seed}-resilient-sse-01")
+
+
+def test_readiness_counts_before_post_and_reports_sealed_no_post(tmp_path, monkeypatch):
+    identity, job_sha, result_sha = "a" * 32, "b" * 64, "c" * 64
+    active = {"attempt_id": identity, "round": 6, "turn": 0, "reserved_unix": 100, "status": "waiting_for_mac"}
+    attempt = tmp_path / "attempts" / identity
+    write_json(tmp_path / "jobs" / f"{identity}.json", {
+        "attempt_id": identity, "job_sha256": job_sha,
+        "request": {"binding": {"seed": 887, "round": 6}, "logical_index": 0},
+    })
+    write_json(attempt / "readiness_01.json", {
+        "attempt_id": identity, "job_sha256": job_sha, "window": 1, "retry_unix": 130,
+    })
+    monkeypatch.setattr(prompt_pilot_status.time, "time", lambda: 120)
+    row = local_progress(tmp_path, 887, active, track_queue=True, readiness_windows=3)
+    assert row["phase"] == "waiting_for_ipv4_route" and row["provider_dispatched"] is False
+    assert row["readiness_windows_used"] == 1 and row["readiness_retry_seconds"] == 10
+    assert "provider_elapsed_seconds" not in row
+
+    write_json(tmp_path / "results" / f"{identity}.json", {
+        "attempt_id": identity, "job_sha256": job_sha, "result_sha256": result_sha,
+        "provider_dispatched": False, "outcome": {"status": "failed"},
+    })
+    write_json(tmp_path / "delivered" / f"{identity}.json", {"attempt_id": identity, "result_sha256": result_sha})
+    row = local_progress(tmp_path, 887, active, track_queue=True, readiness_windows=3)
+    assert row["phase"] == "transport_failure" and row["delivered"] and row["provider_dispatched"] is False
+    assert "readiness_retry_seconds" not in row

@@ -8,6 +8,7 @@ import json
 import logging
 import re
 import socket
+import ssl
 import time
 from urllib.parse import urlparse
 
@@ -41,12 +42,18 @@ SSE_OUTPUT_EVENTS = {
 }
 PROGRESS_INTERVAL_SECONDS = 5
 DIRECT_IPV4_PREFLIGHT_SECONDS = 8
+DIRECT_IPV4_RETRY_PROBE_SECONDS = 20
+DIRECT_IPV4_RETRY_DELAY_SECONDS = 1
 WEBSOCKETS_VERSION = "15.0.1"
 WEBSOCKET_OPENAI_VERSION = "2.28.0"
 NETWORK_PHASES = {"connect_tcp": "dns_tcp", "start_tls": "tls", "send_request_headers": "send_headers",
                   "send_request_body": "send_body", "receive_response_headers": "receive_headers",
                   "direct_ipv4_preflight": "direct_ipv4_preflight",
                   "direct_ipv4_http11": "direct_ipv4_http11", "direct_ipv4_websocket": "direct_ipv4_websocket"}
+NETWORK_PHASES.update({name: name for name in (
+    "direct_ipv4_preflight_1", "direct_ipv4_preflight_1_dns_tcp", "direct_ipv4_preflight_1_tls",
+    "direct_ipv4_preflight_2", "direct_ipv4_preflight_2_dns_tcp", "direct_ipv4_preflight_2_tls",
+)})
 
 
 def sdk_status(config):
@@ -120,9 +127,14 @@ class _PrePostConnectTimeout(TransportFailure):
 
 
 class _IPv4PreflightFailure(TransportFailure):
-    def __init__(self, retry=None):
-        super().__init__(retry.code if retry else "connect_error", retryable=True,
+    def __init__(self, retry=None, *, retry_probe=False):
+        super().__init__(retry.code if retry else "connect_error", retryable=retry.retryable if retry else True,
                          retry_after=retry.retry_after if retry else None)
+        self.retry_probe = retry_probe
+
+
+class _ProviderDispatchGuardError(Exception):
+    pass
 
 
 class _WebSocketScopedFailure(TransportFailure):
@@ -434,7 +446,8 @@ async def _collect_json(response, deadline, key, capture_response, capture_recei
 
 
 def call_responses(request, config, *, model_lock, capture_response=None, capture_receipt=None, progress=None,
-                   timeouts=None, sse_inactivity_seconds=None):
+                   timeouts=None, sse_inactivity_seconds=None, ipv4_preflight_retry=False,
+                   before_provider_dispatch=None):
     """Only the authorized runner can call this with an acquired physical lease."""
     import httpx
     import openai
@@ -450,6 +463,10 @@ def call_responses(request, config, *, model_lock, capture_response=None, captur
         raise TransportFailure("background_dispatcher_required")
     if config.wire_mode != RESPONSES_STREAM and timeouts is None:
         raise TransportFailure("direct_ipv4_timeouts_required")
+    if type(ipv4_preflight_retry) is not bool or ipv4_preflight_retry and config.wire_mode != RESPONSES_STREAM_IPV4:
+        raise ValueError("IPv4 preflight retry requires an explicit direct SSE policy")
+    if before_provider_dispatch is not None and (not ipv4_preflight_retry or not callable(before_provider_dispatch)):
+        raise ValueError("provider dispatch guard requires an explicit IPv4 preflight retry policy")
     if json_response and timeouts.total_seconds != config.timeout_seconds:
         raise TransportFailure("json_ipv4_timeout_mismatch")
     if json_response and not (callable(capture_response) and callable(capture_receipt)):
@@ -497,10 +514,14 @@ def call_responses(request, config, *, model_lock, capture_response=None, captur
         if lease.path is None:
             with api_key() as (value, _):
                 return _call_with_key(value, request, config, model_lock, lease, capture_response, capture_receipt,
-                                      report if progress is not None else None, timeouts, sse_inactivity_seconds)
+                                      report if progress is not None else None, timeouts, sse_inactivity_seconds,
+                                      ipv4_preflight_retry, before_provider_dispatch)
         with key_text(lease.path) as value:
             return _call_with_key(value, request, config, model_lock, lease, capture_response, capture_receipt,
-                                  report if progress is not None else None, timeouts, sse_inactivity_seconds)
+                                  report if progress is not None else None, timeouts, sse_inactivity_seconds,
+                                  ipv4_preflight_retry, before_provider_dispatch)
+    except _ProviderDispatchGuardError as error:
+        raise error.__cause__ from None
     except (PermissionError, FileNotFoundError):
         failure = TransportFailure("credential_file_error")
     except openai.APIStatusError as error:
@@ -631,31 +652,104 @@ def _check_ipv4_response(response, started, report):
                phase_duration_seconds=time.monotonic() - started, explicit_proxy=False)
 
 
-async def _preflight_ipv4(http, base_url, report):
-    """Check the exact gateway over a credential-free request before reserving a model POST."""
+def _preflight_trace(phase, report):
+    started = {}
+
+    async def trace(name, _info):
+        _, stage, state = name.rsplit(".", 2)
+        if stage not in ("connect_tcp", "start_tls"):
+            return
+        now = time.monotonic()
+        if state == "started":
+            started[stage] = now
+        elif state in ("complete", "failed") and stage in started:
+            report("http_phase", network_phase=f"{phase}_{NETWORK_PHASES[stage]}", network_state=state,
+                   phase_duration_seconds=now - started.pop(stage), explicit_proxy=False)
+
+    return trace
+
+
+def _transient_preflight_error(error):
     import httpx
 
+    if not isinstance(error, (TimeoutError, httpx.TimeoutException, httpx.ConnectError, httpx.ReadError,
+                              httpx.RemoteProtocolError)):
+        return False
+    # A certificate rejection is a trust failure even when HTTPX wraps it as ConnectError.
+    while error is not None:
+        if isinstance(error, ssl.SSLCertVerificationError):
+            return False
+        error = error.__cause__
+    return True
+
+
+def _check_preflight_response(response, *, retry_policy=False):
+    status = response.status_code
+    if retry_policy and status == 403:
+        # A denial on the unauthenticated probe applies to this route, not the leased key.
+        raise _IPv4PreflightFailure(TransportFailure("ipv4_preflight_http_403"))
+    if status not in (200, 401) or not _direct_ipv4_http11(response):
+        retry = retry_http(status, response.headers) if status == 429 else None
+        raise _IPv4PreflightFailure(retry)
+
+
+async def _preflight_ipv4_once(http, url, report, *, attempt=None):
+    import httpx
+
+    phase = "direct_ipv4_preflight" if attempt is None else f"direct_ipv4_preflight_{attempt}"
+    timeout = DIRECT_IPV4_PREFLIGHT_SECONDS if attempt is None else DIRECT_IPV4_RETRY_PROBE_SECONDS
     started = time.monotonic()
     status = None
     passed = False
+    denial = None
     try:
-        async with asyncio.timeout(DIRECT_IPV4_PREFLIGHT_SECONDS):
-            response = await http.get(f"{base_url.rstrip('/')}/models")
-            status = response.status_code
-            if status not in (200, 401) or not _direct_ipv4_http11(response):
-                retry = retry_http(status, response.headers) if status == 429 else None
-                raise _IPv4PreflightFailure(retry)
+        async with asyncio.timeout(timeout):
+            if attempt is None:
+                response = await http.get(url)
+                status = response.status_code
+                _check_preflight_response(response)
+            else:
+                extensions = {"trace": _preflight_trace(phase, report)} if report is not None else {}
+                async with http.stream("GET", url, extensions=extensions) as response:
+                    status = response.status_code
+                    # Respect a denial or a shared limit even if its body never arrives.
+                    try:
+                        _check_preflight_response(response, retry_policy=True)
+                    except _IPv4PreflightFailure as error:
+                        denial = error
+                        raise
+                    await response.aread()
             passed = True
     except (TimeoutError, httpx.HTTPError, ValueError) as error:
-        raise _IPv4PreflightFailure() from error
+        if denial is not None:
+            raise denial from error
+        retry_probe = status is None and _transient_preflight_error(error)
+        raise _IPv4PreflightFailure(retry_probe=retry_probe) from error
     finally:
         # The route probe must not introduce a cookie to the scientific request.
         http.cookies.clear()
         if report is not None:
-            report("http_phase", network_phase="direct_ipv4_preflight",
-                   network_state="complete" if passed else "failed",
-                   phase_duration_seconds=time.monotonic() - started, explicit_proxy=False,
-                   event_type=f"ipv4_preflight_http_{status}" if status is not None else "ipv4_preflight_no_headers")
+            details = {"network_state": "complete" if passed else "failed",
+                       "phase_duration_seconds": time.monotonic() - started, "explicit_proxy": False,
+                       "event_type": f"ipv4_preflight_http_{status}" if status is not None else "ipv4_preflight_no_headers"}
+            if attempt is not None:
+                report("http_phase", network_phase=phase, **details)
+            report("http_phase", network_phase="direct_ipv4_preflight", **details)
+
+
+async def _preflight_ipv4(http, base_url, report, *, retry=False):
+    """Check the exact gateway without credentials or a model request reservation."""
+    url = f"{base_url.rstrip('/')}/models"
+    if not retry:
+        await _preflight_ipv4_once(http, url, report)
+        return
+    try:
+        await _preflight_ipv4_once(http, url, report, attempt=1)
+    except _IPv4PreflightFailure as error:
+        if not error.retry_probe:
+            raise
+        await asyncio.sleep(DIRECT_IPV4_RETRY_DELAY_SECONDS)
+        await _preflight_ipv4_once(http, url, report, attempt=2)
 
 
 async def _connect_ipv4_socket(host, port):
@@ -812,7 +906,7 @@ async def _hard_wall_websocket_call(key, request, config, lease, capture_respons
 
 
 async def _hard_wall_call(key, request, config, lease, capture_response, capture_receipt, report, timeouts,
-                          sse_inactivity_seconds):
+                          sse_inactivity_seconds, ipv4_preflight_retry, before_provider_dispatch):
     if config.wire_mode == RESPONSES_WEBSOCKET_IPV4:
         return await _hard_wall_websocket_call(key, request, config, lease, capture_response, capture_receipt, report,
                                                timeouts, sse_inactivity_seconds)
@@ -844,9 +938,14 @@ async def _hard_wall_call(key, request, config, lease, capture_response, capture
             async with httpx.AsyncClient(timeout=sdk_timeout, follow_redirects=False, event_hooks=event_hooks,
                                          **client_options) as http:
                 if ipv4_direct:
-                    await _preflight_ipv4(http, config.base_url, report)
+                    await _preflight_ipv4(http, config.base_url, report, retry=ipv4_preflight_retry)
                 async with openai.AsyncOpenAI(api_key=key, base_url=config.base_url, timeout=sdk_timeout,
                                               http_client=http, max_retries=0) as client:
+                    if before_provider_dispatch is not None:
+                        try:
+                            before_provider_dispatch()
+                        except Exception as error:
+                            raise _ProviderDispatchGuardError() from error
                     lease.dispatched()
                     submission_reserved = True
                     if report is not None:
@@ -908,7 +1007,7 @@ def _run_hard_wall(*args):
 
 
 def _call_with_key(key, request, config, model_lock, lease, capture_response, capture_receipt, report, timeouts,
-                   sse_inactivity_seconds):
+                   sse_inactivity_seconds, ipv4_preflight_retry, before_provider_dispatch):
     import httpx
     import openai
 
@@ -922,7 +1021,7 @@ def _call_with_key(key, request, config, model_lock, lease, capture_response, ca
         if timeouts is not None:
             reply, declared = _run_hard_wall(key, request, config, lease, capture_response, capture_receipt,
                                              private_report if report is not None else None, timeouts,
-                                             sse_inactivity_seconds)
+                                             sse_inactivity_seconds, ipv4_preflight_retry, before_provider_dispatch)
         else:
             with openai.OpenAI(api_key=key, base_url=config.base_url, timeout=config.timeout_seconds,
                                max_retries=0) as client:

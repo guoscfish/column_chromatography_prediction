@@ -7,12 +7,15 @@ import pytest
 
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.context_builder import decode_context, encode_context, read_legacy_cards
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.frozen_state import load_historical
+from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.memory_manager import MemoryManager
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.offline_examples import mock_plan
-from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, dumps, once, read
+from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, dumps, file_digest, once, read
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.runner import (
-    ROOT, PROTOCOL_PATH, _authorize, _validation, select_stage, stage_state,
+    ROOT, PROTOCOL_PATH, OBSERVED_ALIAS_FREEZE_HASH, OBSERVED_ALIAS_RECEIPT, Stage, _authorize, _validation,
+    select_stage, stage_state, verify_observed_alias_normalization,
 )
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.repair_protocol import build_repair_request
+from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.response_schema import SCHEMA_VERSION
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
     ProviderReply, TransportConfig, TransportFailure, TransportStop, collect_completed, make_request,
     reconcile, retry_http, round_lock, run_request,
@@ -176,6 +179,119 @@ def test_runner_select_repair_freeze_and_refuse_modified_packet(stages, tmp_path
         select_stage(replace(stage, packet=tampered), tmp_path, config, call, mock=True)
     with pytest.raises(PermissionError):
         _authorize(None, stage, config)
+
+
+@pytest.fixture
+def observed_alias_case():
+    def row(identity):
+        return {"id": identity, "molecule_id": "M-0001", "conditions": {"PE/EA": "2/1"},
+                "smiles": "CC", "descriptors": {}, "max_similarity_to_pending": 0.0}
+
+    candidates = {key: {**row(key), "pred_V1_ml": 1.0, "pred_V2_ml": 3.0,
+                        "pred_V1_q50_ml": 1.0, "pred_V2_q50_ml": 3.0}
+                  for index in range(1, 33) for key in (f"C-{index:04d}",)}
+    observed = {key: {**row(key), "V1_ml": 1.0, "V2_ml": 3.0}
+                for key in ("O-0033", "O-0034")}
+    mapping = {key: f"sample-{key}" for key in (*candidates, *observed)}
+    context = SimpleNamespace(seed=157, round=0, checkpoint="a" * 64, candidates=candidates, observed=observed,
+                              all_row_ids=mapping, mapping_digest=digest(mapping), facts={})
+    packet = encode_context(context, layout="B", memory={"mode": "M2"})
+    messages = [{"role": "system", "content": "Synthetic test fixture."}, {"role": "user", "content": dumps(packet)}]
+    binding = {"arm": "A7", "seed": 157, "round": 0, "packet_sha256": digest(packet),
+               "base_messages_sha256": digest(messages), "mapping_sha256": context.mapping_digest}
+    stage = Stage(packet, messages, binding, context, MemoryManager(157), SCHEMA_VERSION)
+    plan = mock_plan(stage)
+    plan["choices"][0]["references"] = [{"reference_id": "O-0033", "reference_kind": "observed",
+                                        "relationship": "observed_evidence"}]
+    plan["choices"][0]["reason"] += " Its observed comparison is O-0033."
+    assert _validation(stage, plan).valid
+    return stage, plan
+
+
+def test_exact_observed_alias_normalization_freezes_and_replays_original_choice_order(observed_alias_case, tmp_path,
+                                                                                     config):
+    stage, plan = observed_alias_case
+    stage = replace(stage, binding={**stage.binding, "normalize_observed_reference_aliases": True})
+    raw = deepcopy(plan)
+    raw["choices"][0]["references"][0]["observed_id"] = "O-0033"
+    assert not _validation(stage, raw).valid
+    calls = []
+
+    def call(request, cfg):
+        calls.append(request["logical_index"])
+        return ProviderReply(dumps(raw), "alias-reply", cfg.served_model, {})
+
+    options = {"mock": True, "normalize_observed_reference_aliases": True}
+    frozen = select_stage(stage, tmp_path, config, call, **options)
+    turn = tmp_path / "turn_00"
+    terminal = turn / "attempt_00.terminal.json"
+    saved_bytes = terminal.read_bytes()
+    saved = read(terminal)
+    receipt = turn / OBSERVED_ALIAS_RECEIPT
+    assert saved["text"] == dumps(raw)
+    assert read(receipt) == {
+        "policy": "exact_observed_reference_alias_v1",
+        "request_id": frozen["request_id"],
+        "provider_response_id": "alias-reply",
+        "raw_reply_sha256": digest(dumps(raw)),
+        "original_plan_sha256": digest(raw),
+        "removed_paths": ["/choices/0/references/0/observed_id"],
+        "normalized_plan_sha256": digest(plan),
+        "normalized_plan": plan,
+    }
+    assert frozen[OBSERVED_ALIAS_FREEZE_HASH] == file_digest(receipt)
+    assert read(tmp_path / "selection.json") == plan
+    assert frozen["accepted_logical_index"] == 0
+    assert frozen["batch_ids"] == [stage.context.all_row_ids[x["candidate_id"]] for x in plan["choices"]]
+    verify_observed_alias_normalization(turn, saved, plan, frozen)
+    assert select_stage(stage, tmp_path, config, call, **options) == frozen
+    assert terminal.read_bytes() == saved_bytes and calls == [0]
+    receipt.unlink()
+    with pytest.raises(ValueError, match="normalization receipt"):
+        select_stage(stage, tmp_path, config, call, **options)
+
+
+@pytest.mark.parametrize("failure", ["conflict", "missing_canonical", "wrong_role", "invalid_selection"])
+def test_observed_alias_normalization_never_accepts_unproven_changes(observed_alias_case, tmp_path, config, failure):
+    stage, selection = observed_alias_case
+    stage = replace(stage, binding={**stage.binding, "normalize_observed_reference_aliases": True})
+    first = selection["choices"][0]["references"][0]
+    first["observed_id"] = first["reference_id"]
+    if failure == "conflict":
+        first["observed_id"] = next(identity for identity in stage.context.observed if identity != first["reference_id"])
+    elif failure == "missing_canonical":
+        del first["reference_id"]
+    elif failure == "wrong_role":
+        first["reference_kind"] = "candidate"
+    else:
+        selection["choices"][1]["candidate_id"] = "C-9999"
+
+    def call(_request, cfg):
+        return ProviderReply(dumps(selection), "invalid-alias-reply", cfg.served_model, {})
+
+    with pytest.raises(TransportStop, match="logical response budget"):
+        select_stage(stage, tmp_path, replace(config, logical_replies=1), call, mock=True,
+                     normalize_observed_reference_aliases=True)
+    turn = tmp_path / "turn_00"
+    assert read(turn / "decision.json")["state"] == "rejected"
+    assert not (turn / OBSERVED_ALIAS_RECEIPT).exists()
+    assert not (tmp_path / "batch_freeze.json").exists()
+
+
+def test_observed_alias_normalization_is_opt_in(observed_alias_case, tmp_path, config):
+    stage, selection = observed_alias_case
+    first = selection["choices"][0]["references"][0]
+    first["observed_id"] = first["reference_id"]
+
+    def call(_request, cfg):
+        return ProviderReply(dumps(selection), "unapproved-alias-reply", cfg.served_model, {})
+
+    with pytest.raises(PermissionError, match="bound A7 policy"):
+        select_stage(stage, tmp_path, config, call, mock=True, normalize_observed_reference_aliases=True)
+    with pytest.raises(TransportStop, match="logical response budget"):
+        select_stage(stage, tmp_path, replace(config, logical_replies=1), call, mock=True)
+    assert read(tmp_path / "turn_00/decision.json")["state"] == "rejected"
+    assert not (tmp_path / "turn_00" / OBSERVED_ALIAS_RECEIPT).exists()
 
 
 def test_independent_retry_and_logical_reply_budgets(tmp_path, stages, config):

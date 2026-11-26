@@ -255,11 +255,15 @@ def terminal_record(log, index, *, replay_authorization_sha256=None):
 
 
 def run_request(directory, request, config, call, *, sleep=time.sleep, jitter=random.random, now=time.time,
-                attempt_slot=None, managed_attempt=None, replay_authorizations=None):
+                attempt_slot=None, managed_attempt=None, replay_authorizations=None, replay_authorization_factory=None):
     """Run direct attempts or recover an immutable managed attempt without resending it here."""
     check_request(request, request["binding"], config)
     if attempt_slot is not None and managed_attempt is not None:
         raise ValueError("a managed attempt cannot use a direct provider slot")
+    if replay_authorization_factory is not None and (
+        not callable(replay_authorization_factory) or managed_attempt is None or config.transport_attempts != 2
+    ):
+        raise PermissionError("automatic audited replay requires the two-slot managed bridge")
     log = directory / f"turn_{request['logical_index']:02d}"
     once(log / "request.json", request)
     rates = 0
@@ -342,6 +346,11 @@ def run_request(directory, request, config, call, *, sleep=time.sleep, jitter=ra
             _validate_reply(ProviderReply(saved["text"], saved["response_id"], saved["served_model"],
                                           saved["usage"], saved["provider_status"]), config)
             return saved
+        if index == 0 and replay is None and saved["ambiguous"] and replay_authorization_factory is not None:
+            authorization = replay_authorization_factory(request, saved, config)
+            if authorization is not None:
+                replay = _seal_ambiguous_replay(log, request, authorization, digest(authorization))
+                saved = replay
         if saved["status"] != "retryable" or saved["ambiguous"]:
             raise TransportStop(saved["error"])
         rates = saved["rate_limit_count"]
@@ -352,6 +361,23 @@ def run_request(directory, request, config, call, *, sleep=time.sleep, jitter=ra
     raise TransportStop("transport attempt budget exhausted")
 
 
+def _seal_ambiguous_replay(log, request, authorization, expected_authorization_sha256):
+    authorization_path, receipt_path = _replay_paths(log)
+    if (log / "attempt_00.reconciliation.json").exists() or (log / "attempt_00.recovery.terminal.json").exists():
+        raise TransportStop("audited replay conflicts with ordinary reconciliation")
+    if request != read(log / "request.json"):
+        raise TransportStop("audited replay request differs from its original archive")
+    if receipt_path.exists():
+        return terminal_record(log, 0, replay_authorization_sha256=expected_authorization_sha256)
+    if any((log / f"attempt_01.{kind}.json").exists() for kind in ("started", "terminal")):
+        raise TransportStop("audited replay requires an unused second physical attempt")
+    receipt = _unknown_replay_record(request, read(log / "attempt_00.started.json"),
+                                     read(log / "attempt_00.terminal.json"), authorization)
+    once(authorization_path, authorization)
+    once(receipt_path, receipt)
+    return receipt
+
+
 def authorize_ambiguous_replay(directory, request, *, authorization, config, expected_authorization_sha256):
     """Seal the single remaining attempt under a separate, trusted risk authorization."""
     check_request(request, request["binding"], config)
@@ -360,20 +386,7 @@ def authorize_ambiguous_replay(directory, request, *, authorization, config, exp
         raise PermissionError("audited replay needs the original two-attempt managed bridge")
     log = directory / f"turn_{request['logical_index']:02d}"
     with round_lock(directory):
-        authorization_path, receipt_path = _replay_paths(log)
-        if (log / "attempt_00.reconciliation.json").exists() or (log / "attempt_00.recovery.terminal.json").exists():
-            raise TransportStop("audited replay conflicts with ordinary reconciliation")
-        if request != read(log / "request.json"):
-            raise TransportStop("audited replay request differs from its original archive")
-        if receipt_path.exists():
-            return terminal_record(log, 0, replay_authorization_sha256=expected_authorization_sha256)
-        if any((log / f"attempt_01.{kind}.json").exists() for kind in ("started", "terminal")):
-            raise TransportStop("audited replay requires an unused second physical attempt")
-        receipt = _unknown_replay_record(request, read(log / "attempt_00.started.json"),
-                                         read(log / "attempt_00.terminal.json"), authorization)
-        once(authorization_path, authorization)
-        once(receipt_path, receipt)
-        return receipt
+        return _seal_ambiguous_replay(log, request, authorization, expected_authorization_sha256)
 
 
 def reconcile(directory, request, attempt, *, authorization, config, reply=None):

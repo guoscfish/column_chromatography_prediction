@@ -2,6 +2,7 @@ import asyncio
 from contextlib import contextmanager
 from dataclasses import replace
 import json
+import ssl
 import threading
 import time
 from types import SimpleNamespace
@@ -197,8 +198,10 @@ def async_mock_provider(tmp_path, monkeypatch):
     def call(source, *, proxy=False, resolver=None, close=None, before_response=None, with_progress=True,
              fail_connect_tcp=False, ipv4=False, peer="192.0.2.1", http_version=b"HTTP/1.1", with_timeouts=True,
              preflight_status=401, preflight_peer="192.0.2.1", preflight_delay=0, preflight_error=None,
-             sse_inactivity_seconds=None, json_response=False, http_status=200, media_type=None, with_capture=True):
+             sse_inactivity_seconds=None, json_response=False, http_status=200, media_type=None, with_capture=True,
+             ipv4_preflight_retry=False, preflight_sequence=(), before_provider_dispatch=None):
         progress, receipt, raw, outcomes, requests, network_options, dispatches = [], [], [], [], [], [], []
+        request_order, probe_calls = [], []
         ipv4 = ipv4 or json_response
         selected = (replace(config, wire_mode=RESPONSES_JSON_IPV4, requested_model="gpt-6.2-astra",
                             served_model="gpt-6.2-astra", reasoning_effort="xhigh", timeout_seconds=policy.total_seconds)
@@ -228,13 +231,27 @@ def async_mock_provider(tmp_path, monkeypatch):
             assert item.extensions["timeout"] == {"connect": .1, "read": .9, "write": .2, "pool": .1}
             if item.method == "GET":
                 assert ipv4 and item.url.path == "/v1/models"
-                assert "trace" not in item.extensions
                 assert "authorization" not in item.headers and "cookie" not in item.headers
-                if preflight_delay:
-                    await asyncio.sleep(preflight_delay)
-                if preflight_error is not None:
-                    raise preflight_error
-                return httpx.Response(preflight_status, headers={
+                trace = item.extensions.get("trace")
+                assert (trace is not None) == (ipv4_preflight_retry and with_progress)
+                probe_number = len(probe_calls)
+                probe_calls.append(True)
+                probe = preflight_sequence[probe_number] if preflight_sequence else {}
+                if trace is not None:
+                    for name in ("connect_tcp.started", "connect_tcp.complete", "start_tls.started"):
+                        await trace(f"connection.{name}", {"authorization": secret})
+                try:
+                    if delay := probe.get("delay", preflight_delay):
+                        await asyncio.sleep(delay)
+                    if error := probe.get("error", preflight_error):
+                        raise error
+                except (Exception, asyncio.CancelledError):
+                    if trace is not None:
+                        await trace("connection.start_tls.failed", {"authorization": secret})
+                    raise
+                if trace is not None:
+                    await trace("connection.start_tls.complete", {})
+                return httpx.Response(probe.get("status", preflight_status), stream=probe.get("stream"), headers={
                     "Set-Cookie": "preflight=ignored; Path=/",
                     "Retry-After": "4",
                 }, extensions={
@@ -288,8 +305,10 @@ def async_mock_provider(tmp_path, monkeypatch):
                     transport._pool._network_backend = BlockedTCP()
                 super().__init__(**kwargs, transport=transport)
 
-            async def send(self, item, **kwargs):
+            async def send(self, request, **kwargs):
+                item = request
                 requests.append(item.method)
+                request_order.append(item.method)
                 assert item.url.host == "example.invalid"
                 if item.method == "POST":
                     assert json.loads(item.content) == signed_request["payload"]
@@ -297,8 +316,17 @@ def async_mock_provider(tmp_path, monkeypatch):
                 return await super().send(item, **kwargs)
 
         monkeypatch.setattr(httpx, "AsyncClient", MockClient)
-        token = provider.LEASE.set(SimpleNamespace(path=None, dispatched=lambda: dispatches.append(True),
-                                                   outcome=lambda code, **details: outcomes.append(code)))
+
+        def mark_dispatched():
+            request_order.append("lease_dispatched")
+            dispatches.append(True)
+
+        def guard():
+            request_order.append("provider_guard")
+            before_provider_dispatch()
+
+        token = provider.LEASE.set(SimpleNamespace(path=None, dispatched=mark_dispatched,
+                                                   outcome=lambda code, **details: outcomes.append((code, details))))
         started = time.monotonic()
         try:
             try:
@@ -307,15 +335,20 @@ def async_mock_provider(tmp_path, monkeypatch):
                                                  capture_receipt=receipt.append if with_capture else None,
                                                  progress=progress.append if with_progress else None,
                                                  timeouts=policy if with_timeouts else None,
-                                                 sse_inactivity_seconds=sse_inactivity_seconds)
+                                                 sse_inactivity_seconds=sse_inactivity_seconds,
+                                                 ipv4_preflight_retry=ipv4_preflight_retry,
+                                                 before_provider_dispatch=guard if before_provider_dispatch else None)
             except TransportFailure as error:
+                result = error
+            except PermissionError as error:
                 result = error
         finally:
             provider.LEASE.reset(token)
-        return SimpleNamespace(result=result, progress=progress, receipt=receipt, raw=raw, outcomes=outcomes,
+        return SimpleNamespace(result=result, progress=progress, receipt=receipt, raw=raw,
+                               outcomes=[code for code, _ in outcomes], outcome_details=outcomes,
                                elapsed=time.monotonic() - started, requests=requests,
                                network_options=network_options, dispatches=dispatches, config=selected,
-                               request=signed_request)
+                               request=signed_request, request_order=request_order)
 
     return call
 
@@ -480,6 +513,112 @@ def test_ipv4_preflight_has_independent_deadline(async_mock_provider, monkeypatc
     assert .05 <= check.elapsed < .75
     assert check.requests == ["GET"] and not check.dispatches
     assert (check.result.code, check.result.retryable, check.result.ambiguous) == ("connect_error", True, False)
+
+
+@pytest.fixture
+def short_retry_preflights(monkeypatch):
+    monkeypatch.setattr(provider, "DIRECT_IPV4_RETRY_PROBE_SECONDS", .05)
+    monkeypatch.setattr(provider, "DIRECT_IPV4_RETRY_DELAY_SECONDS", .01)
+
+
+def test_opt_in_ipv4_retries_late_tls_before_guard_and_sends_one_post(async_mock_provider, short_retry_preflights):
+    async def body():
+        yield _event("response.completed", status="completed")
+
+    check = async_mock_provider(body, ipv4=True, ipv4_preflight_retry=True, before_provider_dispatch=lambda: None,
+                                preflight_sequence=[{"delay": 20}, {}])
+    assert check.requests == ["GET", "GET", "POST"] and check.dispatches == [True]
+    assert check.request_order == ["GET", "GET", "provider_guard", "lease_dispatched", "POST"]
+    assert check.result.response_id == "resp_stream"
+    phases = {row.get("network_phase"): row.get("network_state") for row in check.progress}
+    assert phases["direct_ipv4_preflight_1_dns_tcp"] == "complete"
+    assert phases["direct_ipv4_preflight_1_tls"] == "failed"
+    assert phases["direct_ipv4_preflight_1"] == "failed"
+    assert phases["direct_ipv4_preflight_2_tls"] == "complete"
+    assert phases["direct_ipv4_preflight_2"] == "complete"
+    assert "test-key-canary" not in json.dumps(check.progress)
+
+
+def test_opt_in_ipv4_failed_probes_keep_physical_attempt_available(async_mock_provider, short_retry_preflights):
+    check = async_mock_provider(None, ipv4=True, ipv4_preflight_retry=True, preflight_delay=20,
+                                before_provider_dispatch=lambda: pytest.fail("guard ran before route readiness"))
+    assert check.request_order == ["GET", "GET"] and not check.dispatches
+    assert isinstance(check.result, provider._IPv4PreflightFailure) and check.result.retry_probe
+    assert check.result.code == "connect_error" and not check.result.ambiguous
+    assert .1 <= check.elapsed < .75 and not check.raw and not check.receipt
+
+
+def test_opt_in_ipv4_keeps_shared_429_when_rejected_body_cannot_close_cleanly(async_mock_provider, short_retry_preflights):
+    import httpx
+
+    class RateLimitedBody(httpx.AsyncByteStream):
+        async def __aiter__(self):
+            pytest.fail("must respect 429 headers without reading their body")
+            yield b""
+
+        async def aclose(self):
+            raise httpx.ReadError("synthetic rate-limit response cleanup")
+
+    check = async_mock_provider(None, ipv4=True, ipv4_preflight_retry=True,
+                                preflight_sequence=[{"status": 429, "stream": RateLimitedBody()}])
+    assert check.requests == ["GET"] and not check.dispatches
+    assert (check.result.code, check.result.retry_after, check.result.retry_probe) == ("http_429", 4, False)
+    assert check.outcome_details[0][1]["scope"] == "shared"
+
+
+@pytest.mark.parametrize(("options", "code"), [
+    ({"preflight_status": 403}, "ipv4_preflight_http_403"),
+    ({"preflight_status": 404}, "connect_error"),
+    ({"preflight_peer": "::1"}, "connect_error"),
+])
+def test_opt_in_ipv4_refuses_denied_or_wrong_route_in_one_probe(async_mock_provider, short_retry_preflights, options, code):
+    check = async_mock_provider(None, ipv4=True, ipv4_preflight_retry=True, **options)
+    assert check.requests == ["GET"] and not check.dispatches
+    assert check.result.code == code and not check.result.retry_probe
+    if code == "ipv4_preflight_http_403":
+        assert not check.result.retryable
+
+
+def test_opt_in_ipv4_does_not_retry_a_certificate_error(async_mock_provider, short_retry_preflights):
+    import httpx
+
+    error = httpx.ConnectError("synthetic certificate failure")
+    error.__cause__ = ssl.SSLCertVerificationError("certificate untrusted")
+    check = async_mock_provider(None, ipv4=True, ipv4_preflight_retry=True, preflight_error=error)
+    assert check.requests == ["GET"] and not check.dispatches
+    assert check.result.code == "connect_error" and not check.result.retry_probe
+
+
+def test_opt_in_ipv4_dispatch_guard_failure_preserves_original_error(async_mock_provider, short_retry_preflights):
+    cause = PermissionError("coordinator revoked the staged attempt")
+
+    def revoked():
+        raise cause
+
+    check = async_mock_provider(None, ipv4=True, ipv4_preflight_retry=True, before_provider_dispatch=revoked)
+    assert check.result is cause and check.request_order == ["GET", "provider_guard"]
+    assert not check.dispatches and not check.outcomes
+
+
+def test_ipv4_dispatch_guard_and_retry_require_explicit_direct_sse(async_mock_provider):
+    with pytest.raises(ValueError, match="explicit IPv4 preflight retry policy"):
+        async_mock_provider(None, ipv4=True, before_provider_dispatch=lambda: None)
+    with pytest.raises(ValueError, match="explicit direct SSE policy"):
+        async_mock_provider(None, json_response=True, ipv4_preflight_retry=True)
+
+
+def test_opt_in_ipv4_does_not_retry_a_post_failure(async_mock_provider, short_retry_preflights):
+    import httpx
+
+    async def body():
+        yield _event("response.created")
+        raise httpx.ReadTimeout("synthetic timeout after submission")
+
+    check = async_mock_provider(body, ipv4=True, ipv4_preflight_retry=True, preflight_sequence=[{"delay": 20}, {}])
+    assert check.requests == ["GET", "GET", "POST"] and check.dispatches == [True]
+    assert not isinstance(check.result, provider._IPv4PreflightFailure)
+    assert check.result.code == "timeout" and check.result.ambiguous and not check.result.retryable
+    assert not check.raw and not check.receipt
 
 
 def test_ipv4_transport_refuses_missing_bound_timeouts_before_post(async_mock_provider):

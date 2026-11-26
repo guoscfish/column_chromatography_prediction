@@ -18,7 +18,7 @@ from uuid import uuid4
 
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, dumps, file_digest, once, read
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
-    ProviderReply, TransportFailure, TransportStop,
+    RESPONSES_STREAM_IPV4, ProviderReply, TransportFailure, TransportStop,
 )
 
 from .bridge_protocol import _check_raw, make_result, private_directory, read_bridge_json, validate_result, verify_job
@@ -215,6 +215,11 @@ class Dispatcher:
         ):
             raise ValueError("SSE inactivity must be positive and shorter than the async request deadline")
         self.sse_inactivity_seconds = sse_inactivity_seconds
+        self.readiness_windows = profile.get("ipv4_readiness_windows", 0)
+        if (type(self.readiness_windows) is not int or self.readiness_windows not in (0, 3)
+                or (self.readiness_windows and (mock or transport.wire_mode != RESPONSES_STREAM_IPV4
+                    or profile.get("ipv4_preflight_retry") is not True))):
+            raise PermissionError("readiness windows require the signed direct IPv4 preflight policy")
         representation = profile.get("wire_representation")
         self.wire_representation = None if representation is None else dict(validate_wire_representation(representation))
         self.mock = mock
@@ -312,19 +317,47 @@ class Dispatcher:
                 raise PermissionError("no initialized Mac credential pool for this authorized live run")
             if self.mock and self.call is None:
                 raise ValueError("an explicit mock response source is required")
+            readiness = sorted(attempt.glob("readiness_*.json")) if self.readiness_windows else []
+            if readiness:
+                latest = read_bridge_json(readiness[-1])
+                if (latest.get("attempt_id") != attempt_id or latest.get("job_sha256") != job["job_sha256"]
+                        or latest.get("window") != len(readiness) or not _valid_elapsed(latest.get("retry_unix"))):
+                    raise PermissionError("IPv4 readiness receipt does not bind the archived attempt")
+                if len(readiness) >= self.readiness_windows:
+                    before_call(attempt_id, job)
+                    failure = TransportFailure("connect_error", retryable=True)
+                    once(result_path, make_result(job, failure=failure, provider_dispatched=False))
+                    return "sealed"
+                if time.time() < latest["retry_unix"]:
+                    return "waiting_for_route"
             slot = nullcontext(None) if self.mock else self.pool.attempt(request, config, pause=pause)
             try:
                 with slot as credential_id:
                     # A slow wait for a credential must not outlive remote permission.
                     before_call(attempt_id, job)
                     lease = LEASE.get() if not self.mock else None
-                    once(attempt / "started.json", {
-                        "attempt_id": attempt_id,
-                        "job_sha256": job["job_sha256"],
-                        "credential_id": credential_id,
-                        "credential_lease_ticket": lease.ticket if lease else None,
-                        "started_utc": stamp(),
-                    })
+                    started = attempt / "started.json"
+
+                    def mark_started():
+                        once(started, {"attempt_id": attempt_id, "job_sha256": job["job_sha256"],
+                                       "credential_id": credential_id, "credential_lease_ticket": lease.ticket if lease else None,
+                                       "started_utc": stamp()})
+
+                    readiness_options = {}
+                    if self.readiness_windows:
+                        window = len(readiness) + 1
+                        once(attempt / f"readiness_{window:02d}.json", {
+                            "attempt_id": attempt_id, "job_sha256": job["job_sha256"], "window": window,
+                            "retry_unix": time.time() + 15,
+                        })
+
+                        def provider_ready():
+                            before_call(attempt_id, job)
+                            mark_started()
+
+                        readiness_options = {"ipv4_preflight_retry": True, "before_provider_dispatch": provider_ready}
+                    else:
+                        mark_started()
                     raw_path = attempt / "raw_provider_response.json"
                     capture_path = attempt / "provider_capture_receipt.json"
 
@@ -351,10 +384,17 @@ class Dispatcher:
                                                    model_lock=self.path / "provider_model_lock.json",
                                                    capture_response=capture, capture_receipt=capture_receipt,
                                                    progress=_transport_progress(attempt, job), timeouts=self.timeouts,
-                                                   **inactivity)
+                                                   **inactivity, **readiness_options)
                         model_identity = self._model_lock(reply)
                     except TransportFailure as error:
                         failure = error
+                    dispatched = True if self.mock else _lease_dispatched(lease)
+                    if not started.exists():
+                        if dispatched or reply is not None or raw_path.exists() or capture_path.exists():
+                            raise PermissionError("provider execution is missing its durable Mac start")
+                        if (self.readiness_windows and window < self.readiness_windows
+                                and getattr(failure, "retry_probe", False) is True):
+                            return "waiting_for_route"
                     raw = read(raw_path) if raw_path.exists() else None
                     if raw is not None and read_bridge_json(capture_path)["metadata"].get(
                         "raw_response_sha256"
@@ -364,7 +404,7 @@ class Dispatcher:
                         raise RuntimeError("completed provider attempt has no captured raw response")
                     result = make_result(job, reply=reply, failure=failure, credential_id=credential_id,
                                          model_identity=model_identity,
-                                         provider_dispatched=True if self.mock else _lease_dispatched(lease),
+                                         provider_dispatched=dispatched,
                                          elapsed_seconds=time.monotonic() - start, raw_response=raw)
                     once(result_path, result)
             except TransportStop:

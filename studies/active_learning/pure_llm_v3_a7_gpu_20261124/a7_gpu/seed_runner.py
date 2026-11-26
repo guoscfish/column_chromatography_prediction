@@ -15,10 +15,12 @@ from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.frozen_state impor
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.memory_manager import MemoryManager
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, file_digest, once, read
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.response_schema import parse_response
-from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.runner import _validation, select_stage, stage_state
+from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.runner import (
+    _validation, select_stage, stage_state, verify_observed_alias_normalization,
+)
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.trajectory import _build_feedback, _next_snapshot
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
-    TransportStop, check_request, make_request, reconcile, round_lock, terminal_record,
+    UNKNOWN_REPLAY_DECISION, TransportStop, check_request, make_request, reconcile, round_lock, terminal_record,
 )
 
 from .compact_payload import AUTHORITATIVE_PACKET_FILE, formal_wire_messages
@@ -114,6 +116,8 @@ def _stage(root, state, snapshot, scope, contract):
     )):
         raise ValueError("L333 memory must start empty")
     binding = {**stage.binding, "a7_formal": scope}
+    if contract.profile.get("normalize_observed_reference_aliases") is True:
+        binding["normalize_observed_reference_aliases"] = True
     fixed_reference_repair = contract.profile.get("fixed_reference_repair")
     if fixed_reference_repair is not None:
         binding["fixed_reference_repair"] = fixed_reference_repair
@@ -195,6 +199,47 @@ def _selection_grant(scope, request_id):
     return {"scope": "paid_selection_only", "formal_run": scope, "request_id": request_id}
 
 
+_AUDITED_TRANSPORT_ERRORS = frozenset({
+    "timeout", "connection_interrupted", "sse_missing_completion", "sse_frame_error",
+    "http_502", "http_503", "http_504", "http_524",
+})
+
+
+def _future_replay_authorization(run, scope, approval, request, terminal, config):
+    """Approve only the unused original slot after an archived ambiguous network stop."""
+    from .bridge_protocol import ATTEMPT_ID, read_bridge_json, validate_result, verify_job
+
+    if (terminal.get("error") not in _AUDITED_TRANSPORT_ERRORS or terminal.get("status") != "stopped"
+            or terminal.get("ambiguous") is not True or terminal.get("provider_dispatched") is not True
+            or terminal.get("circuit_open") is not False or terminal.get("answer_sha256") is not None):
+        return None
+    attempt_id = terminal.get("attempt_id")
+    if not isinstance(attempt_id, str) or not ATTEMPT_ID.fullmatch(attempt_id):
+        raise PermissionError("the audited transport retry requires the exact attempt identity")
+    job = read_bridge_json(run / "bridge/outbox" / f"{attempt_id}.json")
+    result = validate_result(read_bridge_json(run / "bridge/results" / f"{attempt_id}.json"), job)
+    original, original_config, started = verify_job(
+        job, contract_sha256=scope["contract_sha256"], authorization_sha256=scope["authorization_sha256"],
+    )
+    failure = result["outcome"].get("failure") or {}
+    if ((original, original_config) != (request, config)
+            or started["attempt"] != 0 or any(terminal.get(k) != v for k, v in started.items())
+            or terminal.get("bridge_job_sha256") != job["job_sha256"]
+            or terminal.get("bridge_result_sha256") != result["result_sha256"]
+            or result["outcome"]["status"] != "failed" or result["provider_dispatched"] is not True
+            or result["raw_response"] is not None or failure.get("ambiguous") is not True
+            or failure.get("code") != terminal["error"]):
+        raise PermissionError("the original ambiguous result does not match the audited transport retry")
+    return {
+        "decision": UNKNOWN_REPLAY_DECISION, "authorized_by": approval["authorized_by"],
+        "authorization_reference": f"Audited one-slot future transport replay under {scope['contract_sha256']}",
+        "accept_duplicate_billing_risk": True, "contract_sha256": scope["contract_sha256"],
+        "request_id": request["request_id"], "attempt_id": attempt_id,
+        "bridge_result_sha256": result["result_sha256"], "original_terminal_sha256": digest(terminal),
+        "next_attempt": 1,
+    }
+
+
 def _verify_selection(directory, state, scope, config, batch_size, *, stage=None):
     freeze = read(directory / "batch_freeze.json")
     binding, batch = freeze["binding"], freeze["batch_ids"]
@@ -232,6 +277,11 @@ def _verify_selection(directory, state, scope, config, batch_size, *, stage=None
             or read(turn / "decision.json")["state"] != "legal"):
         raise ValueError("freeze is missing its accepted Responses receipt or legal plan")
     plan = read(directory / "selection.json")
+    alias_evidence = turn / "observed_alias_normalization.json"
+    if binding.get("normalize_observed_reference_aliases") is True:
+        verify_observed_alias_normalization(turn, answer, plan, freeze)
+    elif alias_evidence.exists() or "observed_alias_normalization_file_sha256" in freeze:
+        raise ValueError("observed alias normalization is outside the approved scientific scope")
     fixed_reference_repair = binding.get("fixed_reference_repair")
     if fixed_reference_repair is not None:
         expected_projection = {"raw_reply_sha256": answer["answer_sha256"],
@@ -468,8 +518,15 @@ def run_seed(*, root, run_directory, contract, authorization, seed, backend, cal
         raise ValueError("initial GPU anchor differs from the formal authorization")
     api_slot, fit_slot = api_slot or nullcontext, fit_slot or nullcontext
     options = dict(transport_options or {})
+    if "replay_authorization_factory" in options:
+        raise PermissionError("formal future replay must use the internally verified archive")
     attempt_slot = options.get("attempt_slot")
     managed_attempt = options.get("managed_attempt")
+    alias_normalization = contract.profile.get("normalize_observed_reference_aliases") is True
+    audit_replay = contract.profile.get("audited_future_transport_replay") is True
+    replay_start = contract.profile.get("replay_eligible_from_round")
+    if audit_replay and (mock or managed_attempt is None or type(replay_start) is not int or replay_start != start + 1):
+        raise PermissionError("audited future replay is limited to future rounds of a formal managed resume")
     scope = _scope(contract, authorization, seed, mock)
     gate_seed = contract.qualification_seed if contract.requires_initial_qualification else None
     if gate_seed is not None and seed != gate_seed and qualification_status(run, contract, authorization, mock=mock) is None:
@@ -540,13 +597,20 @@ def run_seed(*, root, run_directory, contract, authorization, seed, backend, cal
                     retry_options["attempt_slot"] = authorized_attempt_slot
                 if managed_attempt is not None:
                     retry_options["managed_attempt"] = authorized_managed_attempt
+                if audit_replay and index >= replay_start:
+                    def audited_replay(request, terminal, config):
+                        return _future_replay_authorization(run, scope, authorization, request, terminal, config)
+
+                    retry_options["replay_authorization_factory"] = audited_replay
                 phase = "select"
                 existing = (round_dir / "batch_freeze.json").exists()
                 with nullcontext() if existing else api_slot():
                     if _paused(run, directory):
                         break
+                    selection_options = {"normalize_observed_reference_aliases": True} if alias_normalization else {}
                     select_stage(stage, round_dir, contract.transport, authorized_call, mock=mock,
-                                 retry_options=retry_options, response_projection=response_projection)
+                                 retry_options=retry_options, response_projection=response_projection,
+                                 **selection_options)
                 freeze = _verify_selection(round_dir, state, scope, contract.transport, contract.batch_size, stage=stage)
                 if "wire_representation" in stage.binding:
                     record_batch_diagnostics(round_dir, freeze, stage.context.candidates, stage.context.observed)
