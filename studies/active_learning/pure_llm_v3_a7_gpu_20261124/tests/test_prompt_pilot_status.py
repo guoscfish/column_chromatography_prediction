@@ -258,14 +258,14 @@ def test_tracks_transport_extension_only_from_its_exact_previous_run(tmp_path, s
     assert remote_seed(tmp_path, seed)["run"] == bounded.name
 
 
-def test_resilient_run_tracks_exact_signed_ancestor_and_launchd(tmp_path, monkeypatch):
-    seed = 12203
+@pytest.mark.parametrize(("seed", "start", "labels"), [(12203, 4, 461), (157, 3, 429)])
+def test_resilient_run_tracks_exact_signed_ancestor_and_launchd(tmp_path, monkeypatch, seed, start, labels):
     cohort = tmp_path / prompt_pilot_status.SERIAL_IPV4
     resilient = cohort.with_name(f"{cohort.name}-{seed}-resilient-sse-01")
     parent = {"run_directory": str(cohort), "profile": {"confirmation_seeds": list(prompt_pilot_status.SEEDS),
               "provider_capability": "gated_ipv4"},
               "predecessor": {"dispatcher_module": "dispatch_prepared_ipv4",
-                              "lanes": {str(seed): {"start_round": 4, "checkpoint_sha256": "8" * 64}}}}
+                              "lanes": {str(seed): {"start_round": start, "checkpoint_sha256": "8" * 64}}}}
 
     def publish(run, record, **approval):
         sha = hashlib.sha256(json.dumps(record, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
@@ -277,9 +277,9 @@ def test_resilient_run_tracks_exact_signed_ancestor_and_launchd(tmp_path, monkey
     record = {
         "run_directory": str(resilient),
         "profile": {"confirmation_seeds": [seed], "target_labels": 1485, "ipv4_readiness_windows": 3,
-                    "resume_boundaries": {str(seed): {"round": 4}}},
+                    "resume_boundaries": {str(seed): {"round": start}}},
         "predecessor": {
-            "dispatcher_module": "dispatch_v13_resilient_sse", "seed": seed, "round": 4,
+            "dispatcher_module": "dispatch_v13_resilient_sse", "seed": seed, "round": start,
             "parent_run_directory": str(cohort), "parent_contract_sha256": parent_sha,
             "previous_run_directory": str(cohort), "previous_contract_sha256": "a" * 64,
             "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 1},
@@ -295,9 +295,9 @@ def test_resilient_run_tracks_exact_signed_ancestor_and_launchd(tmp_path, monkey
 
     row = remote_seed(tmp_path, seed)
     assert (row["run"], row["segment"], row["labels"], row["contract_sha256"]) == (
-        resilient.name, "ipv4_resilient_sse", 461, exact,
+        resilient.name, "ipv4_resilient_sse", labels, exact,
     )
-    assert row["recovery_round"] == 4 and row["readiness_windows"] == 3
+    assert row["recovery_round"] == start and row["readiness_windows"] == 3
     commands = []
 
     def launchctl(command):
@@ -324,9 +324,9 @@ def test_resilient_run_tracks_exact_signed_ancestor_and_launchd(tmp_path, monkey
     recovery_sha = publish(recovery, new_record, **flags)
     row = remote_seed(tmp_path, seed)
     assert (row["run"], row["segment"], row["labels"], row["contract_sha256"]) == (
-        recovery.name, "ipv4_resilient_failure", 461, recovery_sha,
+        recovery.name, "ipv4_resilient_failure", labels, recovery_sha,
     )
-    assert row["continuation"] and row["recovery_round"] == 4 and row["readiness_windows"] == 3
+    assert row["continuation"] and row["recovery_round"] == start and row["readiness_windows"] == 3
     assert prompt_pilot_status.dispatcher_pid(seed, row["segment"]) == 1234
     assert commands[-1][-1].endswith(f"/com.purellm.a7-ipv4-v13-{seed}-resilient-failure-01")
 
@@ -334,7 +334,7 @@ def test_resilient_run_tracks_exact_signed_ancestor_and_launchd(tmp_path, monkey
     relay_record = {
         **new_record, "run_directory": str(relay),
         "profile": {**new_record["profile"], "sealed_relay_retry_seconds": 180,
-                    "audited_future_transport_replay": True, "replay_eligible_from_round": 4},
+                    "audited_future_transport_replay": True, "replay_eligible_from_round": start},
         "predecessor": {**predecessor, "dispatcher_module": "dispatch_v13_relay_retry",
                         "previous_run_directory": str(recovery), "previous_contract_sha256": recovery_sha,
                         "previous_authorization_sha256": prompt_pilot_status.record_digest(
@@ -344,26 +344,36 @@ def test_resilient_run_tracks_exact_signed_ancestor_and_launchd(tmp_path, monkey
     relay_sha = publish(relay, relay_record, **flags)
     row = remote_seed(tmp_path, seed)
     assert (row["run"], row["segment"], row["labels"], row["contract_sha256"]) == (
-        relay.name, "ipv4_relay_retry", 461, relay_sha,
+        relay.name, "ipv4_relay_retry", labels, relay_sha,
     )
-    assert row["recovery_round"] == 4 and row["sealed_relay_retry_seconds"] == 180
+    assert row["recovery_round"] == start and row["sealed_relay_retry_seconds"] == 180
     assert prompt_pilot_status.dispatcher_pid(seed, row["segment"]) == 1234
     assert commands[-1][-1].endswith(f"/com.purellm.a7-ipv4-v13-{seed}-relay-retry-01")
 
     relay_auth = prompt_pilot_status.record_digest(prompt_pilot_status.read_json(relay / "authorization.json"))
-    monkeypatch.setattr(prompt_pilot_status, "RELAY_12203_WAVE01_CONTRACT", relay_sha)
-    monkeypatch.setattr(prompt_pilot_status, "RELAY_12203_WAVE01_AUTH", relay_auth)
-    deadline = prompt_pilot_status.RELAY_12203_NOT_BEFORE
+    monkeypatch.setattr(prompt_pilot_status, f"RELAY_{seed}_WAVE01_CONTRACT", relay_sha)
+    monkeypatch.setattr(prompt_pilot_status, f"RELAY_{seed}_WAVE01_AUTH", relay_auth)
+    deadline = getattr(prompt_pilot_status, f"RELAY_{seed}_NOT_BEFORE")
     monkeypatch.setattr(prompt_pilot_status.time, "time", lambda: deadline - 15)
     successor = cohort.with_name(f"{cohort.name}-{seed}-relay-retry-02")
-    successor_proof = {**relay_record["predecessor"], "dispatcher_module": "dispatch_v13_12203_relay_retry",
+    successor_proof = {**relay_record["predecessor"], "dispatcher_module": f"dispatch_v13_{seed}_relay_retry",
                        "previous_run_directory": str(relay), "previous_contract_sha256": relay_sha,
                        "previous_authorization_sha256": relay_auth, "relay_not_before_unix": deadline,
-                       "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 1},
-                       "inherited_boundary_budget": {"physical_authorized": 2, "physical_already_used": 1,
-                                                     "physical_remaining": 1}}
+                       "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}}
+    if seed == 157:
+        successor_proof.update(
+            prior_boundary_budget={"physical_authorized": 2, "physical_already_used": 2, "physical_remaining": 0},
+            newly_authorized_boundary_physical_attempts=1,
+            previous_request_id=prompt_pilot_status.RELAY_157_BOUNDARY_REQUEST,
+            execution_budget={"first_logical_requests": 33, "maximum_logical_requests": 97,
+                              "maximum_physical_attempts": 193},
+        )
+    else:
+        successor_proof["inherited_boundary_budget"] = {
+            "physical_authorized": 2, "physical_already_used": 1, "physical_remaining": 1
+        }
     successor_record = {**relay_record, "run_directory": str(successor), "predecessor": successor_proof,
-                        "profile": {**relay_record["profile"], "replay_eligible_from_round": 5}}
+                        "profile": {**relay_record["profile"], "replay_eligible_from_round": start + 1}}
     publish(successor, successor_record)
     assert remote_seed(tmp_path, seed)["run"] == relay.name
     publish(successor, {**successor_record, "predecessor": {**successor_proof,
@@ -372,15 +382,23 @@ def test_resilient_run_tracks_exact_signed_ancestor_and_launchd(tmp_path, monkey
     publish(successor, {**successor_record, "predecessor": {**successor_proof,
             "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 2}}}, **flags)
     assert remote_seed(tmp_path, seed)["run"] == relay.name
+    if seed == 157:
+        publish(successor, {**successor_record, "predecessor": {**successor_proof,
+                "newly_authorized_boundary_physical_attempts": True}}, **flags)
+        assert remote_seed(tmp_path, seed)["run"] == relay.name
+        publish(successor, {**successor_record, "predecessor": {**successor_proof,
+                "prior_boundary_budget": {"physical_authorized": 2, "physical_already_used": 1,
+                                          "physical_remaining": 1}}}, **flags)
+        assert remote_seed(tmp_path, seed)["run"] == relay.name
     successor_sha = publish(successor, successor_record, **flags)
     row = remote_seed(tmp_path, seed)
     assert (row["run"], row["segment"], row["labels"], row["contract_sha256"]) == (
-        successor.name, "ipv4_relay_retry_02", 461, successor_sha,
+        successor.name, "ipv4_relay_retry_02", labels, successor_sha,
     )
     assert row["relay_not_before_unix"] == deadline and row["sealed_relay_retry_seconds"] == 180
-    assert row["api"]["relay_retry_wait_seconds"] == 15
+    assert row["api"] == {"status": "relay_boundary_cooldown", "relay_retry_wait_seconds": 15}
     assert prompt_pilot_status.dispatcher_pid(seed, row["segment"]) == 1234
-    assert commands[-1][-1].endswith("/com.purellm.a7-ipv4-v13-12203-relay-retry-02")
+    assert commands[-1][-1].endswith(f"/com.purellm.a7-ipv4-v13-{seed}-relay-retry-02")
 
 
 @pytest.mark.parametrize("seed", prompt_pilot_status.SEEDS)
