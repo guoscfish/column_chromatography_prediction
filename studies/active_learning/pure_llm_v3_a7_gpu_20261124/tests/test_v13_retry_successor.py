@@ -26,7 +26,7 @@ def test_only_explicitly_reviewed_new_wave_can_reserve_its_one_current_slot():
                                                  receipt.job_sha256, receipt.result_sha256, receipt.terminal_file_sha256,
                                                  receipt.progress_file_sha256))
     with pytest.raises(ValueError, match="no individually reviewed"):
-        gpu.read_scope(Parser(), SimpleNamespace(seed=12203, wave=8))
+        gpu.read_scope(Parser(), SimpleNamespace(seed=12203, wave=9))
 
 
 @pytest.mark.parametrize("seed,wave,rev_counts,physical_budget", [
@@ -225,6 +225,18 @@ def test_887_wave04_preserves_cached_origin_and_only_extends_the_posted_archive(
                                             last.result_sha256, last.terminal_file_sha256, last.progress_file_sha256))
 
 
+def test_6101_wave04_pins_unfinished_text_telemetry_without_resetting_the_fitted_boundary():
+    scope = gpu.SCOPES[(6101, 4)]
+    assert scope.payload_sha256 == gpu.SCOPES[(6101, 3)].payload_sha256
+    assert scope.original_start_round is None and scope.round == 2
+    assert [len(review.attempts) for review in scope.archive] == [2, 1, 1]
+    assert scope.budget == {"first_logical_requests": 34, "maximum_logical_requests": 100, "maximum_physical_attempts": 200}
+    last = scope.archive[-1]
+    assert last.failure == "timeout" and last.progress["error_type"] == "hard_wall_deadline"
+    assert last.progress["event_type"] == "response.output_text.delta"
+    assert last.progress["sse_event_count"] == 3016
+
+
 def test_2357_previous_partial_text_telemetry_is_bound_to_the_stopped_physical_attempt():
     scope = gpu.SCOPES[(2357, 2)]
     assert scope.round == scope.original_start_round == 4
@@ -238,15 +250,19 @@ def test_2357_previous_partial_text_telemetry_is_bound_to_the_stopped_physical_a
                                             last.progress_file_sha256))
 
 
-def test_2357_wave03_second_attempt_requires_existing_delivered_failure_guard(monkeypatch):
-    previous = gpu.SCOPES[(2357, 2)]
-    scope = gpu.SCOPES[(2357, 3)]
+@pytest.mark.parametrize("seed,wave,expected_not_before", [
+    (2357, 3, 1795688254.0102787), (2357, 4, 1795690643.3580766), (6101, 4, 1795690796.5505776),
+    (12203, 8, 1795690919.9466105),
+])
+def test_conditional_second_attempt_requires_existing_delivered_failure_guard(monkeypatch, seed, wave, expected_not_before):
+    previous = gpu.SCOPES[(seed, wave - 1)]
+    scope = gpu.SCOPES[(seed, wave)]
     assert scope.archive[:-1] == previous.archive
-    assert scope.execution_budget(1) == previous.budget
-    assert scope.budget == {"first_logical_requests": 32, "maximum_logical_requests": 94, "maximum_physical_attempts": 188}
+    assert scope.execution_budget(previous.boundary_physical_attempts) == previous.budget
+    assert scope.budget == scope.execution_budget(2)
     assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 2}
-    assert scope.replay_start_round == scope.round == 4
-    assert scope.not_before_unix == 1795688254.0102787
+    assert scope.replay_start_round == scope.round == previous.round
+    assert scope.not_before_unix == expected_not_before
     dispatcher = mac.SuccessorDispatcher.__new__(mac.SuccessorDispatcher)
     dispatcher.reviewed_scope = scope
     dispatcher.scope = {"previous_attempts": [{"attempt_id": scope.attempt_id}]}
@@ -268,6 +284,22 @@ def test_2357_wave03_second_attempt_requires_existing_delivered_failure_guard(mo
         dispatcher._check_boundary(request, {**second, "attempt": 2})
 
 
+def test_2357_wave04_keeps_both_delivered_failures_and_the_exact_timeout_evidence():
+    scope = gpu.SCOPES[(2357, 4)]
+    assert scope.payload_sha256 == gpu.SCOPES[(2357, 3)].payload_sha256
+    assert scope.original_start_round == scope.round == 4
+    assert scope.original_boundary_physical_attempts == 2
+    assert [len(review.attempts) for review in scope.archive] == [2, 1, 2]
+    first, last = scope.archive[-1].attempts
+    assert first.request_id == last.request_id and first.identity == last.identity
+    assert first.progress["conflicting_event_type"] == "response.failed"
+    assert last.failure == "timeout"
+    assert last.progress["error_type"] == "sse_inactivity_timeout"
+    assert last.progress["sse_event_count"] == 14
+    assert len(last.replay_files) == 3
+    assert all(mac._sha(value) for value in last.replay_files.values())
+
+
 def test_12203_wave07_uses_the_fitted_next_boundary_with_a_conditional_retry():
     previous = gpu.SCOPES[(12203, 6)]
     scope = gpu.SCOPES[(12203, 7)]
@@ -281,3 +313,21 @@ def test_12203_wave07_uses_the_fitted_next_boundary_with_a_conditional_retry():
     assert set(dict(scope.fitted_prefix_files)) == {"round_05/source.json", "round_05/transition.json", "round_04/memory.json"}
     assert len(scope.archive[-1].attempts) == 2 and len(scope.archive[-1].replay_files) == 3
     assert all(mac._sha(value) for value in scope.archive[-1].replay_files.values())
+
+
+def test_12203_wave08_keeps_both_delivered_alias_failures_at_the_same_fitted_boundary():
+    previous = gpu.SCOPES[(12203, 7)]
+    scope = gpu.SCOPES[(12203, 8)]
+    assert scope.payload_sha256 == previous.payload_sha256
+    assert scope.original_start_round == scope.round == 5
+    assert scope.original_boundary_physical_attempts == previous.boundary_physical_attempts == 2
+    assert scope.budget == previous.budget == {"first_logical_requests": 31, "maximum_logical_requests": 91,
+                                             "maximum_physical_attempts": 182}
+    assert [len(review.attempts) for review in scope.archive] == [2, 2]
+    first, last = scope.archive[-1].attempts
+    assert first.request_id == last.request_id and first.identity == last.identity
+    assert all(item.failure == "response_id_mismatch" and item.progress["conflicting_event_type"] == "response.failed"
+               for item in (first, last))
+    assert [item.progress["sse_event_count"] for item in (first, last)] == [41, 23]
+    assert len(last.replay_files) == 3
+    assert all(mac._sha(value) for value in last.replay_files.values())
