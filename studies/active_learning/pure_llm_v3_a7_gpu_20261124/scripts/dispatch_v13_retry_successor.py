@@ -1,4 +1,4 @@
-"""Dispatch one separately authorized physical response request after verified failed waves."""
+"""Dispatch the separately authorized finite physical attempts after verified failed waves."""
 
 import argparse
 from dataclasses import replace
@@ -31,9 +31,10 @@ def _scope(info, run, lane):
         "previous_run_directory": str(path.with_name(prior.identity.name)), "previous_request_id": prior.request_id,
         "payload_sha256": lane.payload_sha256, "previous_terminal_file_sha256": prior.terminal_file_sha256,
         "previous_transport_progress_file_sha256": prior.progress_file_sha256, "previous_transport_observation": prior.progress,
-        "recovery_budget": gpu.RECOVERY_BUDGET, "execution_budget": lane.budget,
+        "recovery_budget": lane.recovery_budget, "execution_budget": lane.budget,
         "bridge_wait_seconds": resilient.TIMEOUTS.bridge_wait_seconds, "relay_not_before_unix": lane.not_before_unix,
-        "relay_cooldown_clock": lane.cooldown_field, "newly_authorized_boundary_physical_attempts": 1,
+        "relay_cooldown_clock": lane.cooldown_field,
+        "newly_authorized_boundary_physical_attempts": lane.boundary_physical_attempts,
     }
     if lane.fitted_prefix_files:
         expected["reviewed_fitted_prefix_files"] = dict(lane.fitted_prefix_files)
@@ -46,7 +47,7 @@ def _scope(info, run, lane):
         "requires_initial_qualification": False, "wire_representation": FORMAL_WIRE_REPRESENTATION,
         "sse_inactivity_seconds": 900, "ipv4_preflight_retry": True, "ipv4_readiness_windows": 3,
         "normalize_observed_reference_aliases": True, "audited_future_transport_replay": True,
-        "replay_eligible_from_round": lane.round + 1, "sealed_relay_retry_seconds": gpu.retry.COOLDOWN_SECONDS,
+        "replay_eligible_from_round": lane.replay_start_round, "sealed_relay_retry_seconds": gpu.retry.COOLDOWN_SECONDS,
     }
     boundaries = profile.get("resume_boundaries", {})
     if (path.name != lane.run_name or record["run_directory"] != run or record["api_execution"] != SSH_API
@@ -113,9 +114,9 @@ def _archive(spools, proof, lane):
 class SuccessorDispatcher(RelayRetryDispatcher):
     def _check_boundary(self, request, started):
         lane = self.reviewed_scope
-        if (started["attempt"] != 0 or time() < lane.not_before_unix
+        if (not 0 <= started["attempt"] < lane.boundary_physical_attempts or time() < lane.not_before_unix
                 or started["attempt_id"] in {old.attempt_id for review in lane.archive for old in review.attempts}):
-            raise PermissionError("the reviewed round allows one distinct physical attempt after its last cooldown")
+            raise PermissionError("the reviewed round exceeds its signed physical attempts or cooldown")
         return super()._check_boundary(request, started)
 
 

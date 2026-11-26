@@ -1,4 +1,4 @@
-"""Continue a reviewed failed boundary with exactly one new physical request."""
+"""Continue a reviewed failed boundary within its signed physical request budget."""
 
 import argparse
 from dataclasses import asdict, dataclass, replace
@@ -74,6 +74,8 @@ class Scope:
     fitted_prefix_files: tuple[tuple[str, str], ...] = ()
     required_sources: tuple[tuple[str, str], ...] = ()
     cached_origin: CachedOrigin | None = None
+    boundary_physical_attempts: int = 1
+    original_boundary_physical_attempts: int = 2
 
     @property
     def run_name(self):
@@ -89,9 +91,20 @@ class Scope:
 
     @property
     def budget(self):
+        return self.execution_budget(self.boundary_physical_attempts)
+
+    def execution_budget(self, boundary_physical_attempts):
         record = retry.execution_budget(36, self.round)
-        record["maximum_physical_attempts"] -= 1
+        record["maximum_physical_attempts"] -= 2 - boundary_physical_attempts
         return record
+
+    @property
+    def recovery_budget(self):
+        return {"maximum_logical_requests": 1, "maximum_physical_attempts": self.boundary_physical_attempts}
+
+    @property
+    def replay_start_round(self):
+        return self.round + (self.boundary_physical_attempts == 1)
 
 
 _157_PRIOR = tuple(Review(wave157.OLD, wave157.REQUEST, item.attempt_id, item.job_sha256, item.result_sha256,
@@ -216,6 +229,24 @@ SCOPES[(2357, 2)] = Scope(2357, 4, 2, "302fe66d28c6c9aa4cfd604a56d623cc0f6d7a8d4
     ("round_04/boundary_memory.json", "e70a0d42f6aa9b94fc73046408bf4e2ce9d3082d896f5993909b29f3ca0d5620"),
 ), required_sources=QUEUE_SOURCES)
 
+SCOPES[(2357, 3)] = replace(SCOPES[(2357, 2)], wave=3, cooldown_field="not_before_unix", cooldown_unix=1795688074.0102787,
+                              original_start_round=None, fitted_prefix_files=(), boundary_physical_attempts=2, archive=(
+    *SCOPES[(2357, 2)].archive,
+    Review(retry.bounded.RunIdentity("-2357-relay-retry-02",
+        "035481e8d0864a48445d4a604497bd9d934d21b1b6f6492c228222e3f606b5a5",
+        "d2e03688bf51035fdb24f73e0d1c7dfe39a3306935a528a9bf2000fc42d01fd7"),
+        "58764c4b906283071162ec91fca7e918ef30268454eb2ec804fcbec7b224330e", "8061ec9fd687497ebac1ef472bc086d3",
+        "8a657b0c0ecfc0ae8b2f8656849bc8492b0b225695d84f8935fe27c9084749f4",
+        "130c86c96e74c6476716d522bebc048364ea4f396cb404885c3d799ba204630f",
+        "4c9f3ba23256ec6798f73e3ef54daa4eaa70bc99accb63d428cb329fe9bc0450",
+        "b9d4d97dc0a314a9406930830f389f9dde3960ff3ac26329fc058c4d88fb2dcc", "response_id_mismatch",
+        {"http_status": 200, "phase": "transport_failure", "error_type": "response_id_mismatch",
+         "sse_event_count": 41, "provider_request_id": "2efb8fb0-cffc-49db-bcb2-18794136153c",
+         "response_id": "resp_05dfcfb75072f710016b0805ba45a087d0ae49da3cdad433f8",
+         "conflicting_response_id": "resp_2efb8fb0cffc49dbbcb218794136153c", "conflicting_event_type": "response.failed",
+         "response_id_matches_transport_alias": True}),
+))
+
 SCOPES[(157, 4)] = replace(SCOPES[(157, 3)], wave=4, cooldown_unix=1795685449.213155, archive=(
     *SCOPES[(157, 3)].archive,
     Review(retry.bounded.RunIdentity("-157-relay-retry-03",
@@ -315,6 +346,40 @@ SCOPES[(12203, 6)] = replace(SCOPES[(12203, 5)], wave=6, cooldown_unix=179568703
          "response_id": "resp_03e8605b24debb20016b080227447887d2ac1a1e5f5313b441"}),
 ))
 
+_12203_R5_OLD = retry.bounded.RunIdentity("-12203-relay-retry-06",
+    "25877c1f9d94e21b6edef515716ec3131961bc584cd6e7a7d3cd293fe6e57b55",
+    "505603229a4568db10a5d830ae602005910e37a89baee011ee5474b5b8aed760")
+_12203_R5_REQUEST = "980bebc61700c1aa38cea2122393f8edce7690379d71e8cedc35844317644bb2"
+_12203_R5_ATTEMPTS = tuple(Review(_12203_R5_OLD, _12203_R5_REQUEST, item.attempt_id, item.job_sha256, item.result_sha256,
+                                 item.terminal_file_sha256, item.trace_sha256, "response_id_mismatch", item.observation)
+                           for item in (
+    wave157.PriorAttempt("e3f44e8d707943c3addae8000ea5c342",
+        "c400e12117d7d83cbf39dd2ce20e77f3a6d26206e4706eabf28d85e55e06b1b0",
+        "35b9107cccc252238008048eafe50b4e0de3ba0b46dad62dab281ee5f1f99bca",
+        "665e80f3da6b65115b03853bb3228b59df135478d7dc7b51a1a43ce5d7d18384",
+        "3ea88cb3443dffebc3104376b03d7b6f15c8464fc2cf997ef1878821d0030842",
+        "27b81e7c-120f-4d55-be10-a23183a1ee81", "resp_021bc56c61ab87f4016b080685e44087d2847891aa246d8686"),
+    wave157.PriorAttempt("94b1558e7c0047e9b37b96e26b42e203",
+        "cab8059942f00cca4b9dec94e9a92e44400bdfc512f3e61b9d2f6a7272df3880",
+        "45b7bc50571e263baf4e2cef1312c404be6699e9986855068d82ee1681cd9ed9",
+        "d79bb2cf536690154f461551eb03b2781063f2b7e10dec91f6368d2dfb8ea19e",
+        "0d98d86ef6d1088ddd53e57b2b4cb94ea5459e46271550f566acc8eb07bec856",
+        "c9fc2a09-7679-4b58-a20d-0ee33729728a", "resp_0c871587f2f473db016b080824636487d0a93ee1bdab4872ac"),
+))
+SCOPES[(12203, 7)] = Scope(
+    12203, 5, 7, "00d53155b752dc54eed4e6aad7bfbdb01d19b21c7f0866cebd85391f8d456373", (
+        replace(_12203_R5_ATTEMPTS[-1], earlier=_12203_R5_ATTEMPTS[:-1], replay_files={
+            "attempt_00.replay_authorization.json": "6673d2374dbc481ff2d1c1ea52f734a2d4fc93d36f5b377a88b3c1afcdb7cd43",
+            "attempt_00.replay.terminal.json": "a423f8707d1db0eb4b637dc9e799401908b4c026aa163814033680d4d0a95d42",
+            "attempt_01.replay_link.json": "3c0326655d089be53a55e26ca0f5ebb01bbea864b3bc5461f93adcf47d3891ea",
+        }),
+    ), "failed_unix", 1795688681.139692, original_start_round=4, fitted_prefix_files=(
+        ("round_05/source.json", "9b290ab2a6c5a7da8334eb77ca003a10ac1b52ed10a76c0baf3b02b2b9f64eac"),
+        ("round_05/transition.json", "54470e8d33fab447b9e3704826af595f044199b0c8d2880f64a2cdc1b4cc2c2b"),
+        ("round_04/memory.json", "0150070586759a4a2200f593df0af5207b6c63a84b92c3081996e4ddca04ce11"),
+    ), required_sources=QUEUE_SOURCES, boundary_physical_attempts=2, original_boundary_physical_attempts=1,
+)
+
 SCOPES[(887, 1)] = Scope(
     887, 8, 1, "ac09bcae3019cc81899e246e4769bc20ec1b764ac08e52cfc6b4c35dc8324c85", (
         Review(retry.bounded.RunIdentity("-887-cached-r7-01",
@@ -361,6 +426,23 @@ SCOPES[(887, 3)] = replace(SCOPES[(887, 2)], wave=3, cooldown_unix=1795687017.58
          "provider_error_code": "upstream_stream_read_error", "sse_event_count": 26,
          "provider_request_id": "1d9ab1ff-4896-4cf8-9c86-512896829522",
          "response_id": "resp_048c6e89491c1847016b0801da3a9087d0b9f92cea1ca055a9"}),
+))
+
+SCOPES[(887, 4)] = replace(SCOPES[(887, 3)], wave=4, cooldown_unix=1795687864.4677405, archive=(
+    *SCOPES[(887, 3)].archive,
+    Review(retry.bounded.RunIdentity("-887-relay-retry-03",
+        "9535b64e738bfcfb1479437c59e32f80207b16b3e7aaf2eeecbba4ac7c7bc26f",
+        "75879126368c97351371c13b9b952fef24e9836079097a9e6de4d5512b91dc39"),
+        "89b698f474ca01c573d836049270aaba70cd41145b02ea0e3459f104f530cc50", "35c5eb82fb794d78a637d5c75e4be90e",
+        "2faf1fd49ad5967e912896851df88254a30c14466506ad9db6c24d3b41c7ca43",
+        "933c0890ab7376093cd62abdfb0637682a1088be8be3398a0e4fba3fea7dd0b4",
+        "152fb89f5861ffe113431e3449036265517697845d2df6c3e3ef53f353cfeed5",
+        "73070cee42f232570bbe4a30a2cf83630b050e35917ba4a207f7f432517b0eb7", "response_id_mismatch",
+        {"http_status": 200, "phase": "transport_failure", "error_type": "response_id_mismatch",
+         "sse_event_count": 41, "provider_request_id": "0898714b-833f-46f6-a9d3-1cd9cfd0cd2c",
+         "response_id": "resp_0d4ca1588c4db38d016b0804ed1f2887d2af7e53be8e31df23",
+         "conflicting_response_id": "resp_0898714b833f46f6a9d31cd9cfd0cd2c", "conflicting_event_type": "response.failed",
+         "response_id_matches_transport_alias": True}),
 ))
 
 
@@ -461,10 +543,14 @@ def construct(root, failed_release, failed_run, run, scope):
                            {"first_logical_requests": remaining, "maximum_logical_requests": 3 * remaining,
                             "maximum_physical_attempts": 6 * remaining})
     elif scope.original_start_round is None:
-        expected_budget = (scope.round, RECOVERY_BUDGET, scope.budget)
+        expected_budget = (scope.round, RECOVERY_BUDGET, scope.execution_budget(1))
     else:
-        expected_budget = (scope.original_start_round, retry.RECOVERY_BUDGET,
-                           retry.execution_budget(36, scope.original_start_round))
+        original_attempts = scope.original_boundary_physical_attempts
+        original_execution = retry.execution_budget(parent.rounds, scope.original_start_round)
+        original_execution["maximum_physical_attempts"] -= 2 - original_attempts
+        expected_budget = (scope.original_start_round,
+                           {"maximum_logical_requests": 1, "maximum_physical_attempts": original_attempts},
+                           original_execution)
     if (last["terminal"].get(scope.cooldown_field) != scope.cooldown_unix
             or (parent_start, old["recovery_budget"], old["execution_budget"]) != expected_budget
             or any(file_digest(last["directory"] / name) != sha for name, sha in scope.fitted_prefix_files)):
@@ -498,9 +584,9 @@ def construct(root, failed_release, failed_run, run, scope):
         "previous_attempts": last["receipts"], "previous_terminal_file_sha256": scope.archive[-1].terminal_file_sha256,
         "previous_transport_progress_file_sha256": scope.archive[-1].progress_file_sha256,
         "previous_transport_observation": scope.archive[-1].progress, "previous_prefix_sha256": digest(prefix),
-        "previous_prefix_files": prefix, "recovery_budget": RECOVERY_BUDGET, "execution_budget": scope.budget,
+        "previous_prefix_files": prefix, "recovery_budget": scope.recovery_budget, "execution_budget": scope.budget,
         "relay_not_before_unix": scope.not_before_unix, "relay_cooldown_clock": scope.cooldown_field,
-        "newly_authorized_boundary_physical_attempts": 1, "reviewed_retry_chain": history,
+        "newly_authorized_boundary_physical_attempts": scope.boundary_physical_attempts, "reviewed_retry_chain": history,
         "public_resource_receipt_sha256": resources["public_resource_receipt_sha256"],
         "bridge_wait_seconds": resources["bridge_wait_seconds"],
     }
@@ -516,7 +602,8 @@ def construct(root, failed_release, failed_run, run, scope):
         proof["authoritative_message_reconstruction"] = host
     descriptor = {"round": index, "state_sha256": digest(asdict(state)),
                   "memory_sha256": digest(memory), "user_message_sha256": digest(user)}
-    profile = {**parent.profile, "replay_eligible_from_round": index + 1, "resume_boundaries": {str(scope.seed): descriptor},
+    profile = {**parent.profile, "replay_eligible_from_round": scope.replay_start_round,
+               "resume_boundaries": {str(scope.seed): descriptor},
                "sealed_relay_retry_seconds": retry.COOLDOWN_SECONDS}
     sources = _source_manifest(root, parent, scope)
     contract = replace(parent, profile=profile, source_sha256=sources, run_directory=str(run), predecessor=proof)
@@ -551,7 +638,7 @@ def main():
         print(dumps({"contract_sha256": contract.digest, **contract.record()}))
         return
     if args.authorization is None:
-        parser.error("run and resume require the exact new authorization for one physical attempt")
+        parser.error("run and resume require the exact new authorization for the finite physical attempts")
     approval = verify_authorization(contract, read(args.authorization))
     if time() < scope.not_before_unix:
         raise PermissionError("the original 180-second relay cooldown is still in force")

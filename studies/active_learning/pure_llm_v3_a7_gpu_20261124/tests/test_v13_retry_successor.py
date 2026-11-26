@@ -26,7 +26,7 @@ def test_only_explicitly_reviewed_new_wave_can_reserve_its_one_current_slot():
                                                  receipt.job_sha256, receipt.result_sha256, receipt.terminal_file_sha256,
                                                  receipt.progress_file_sha256))
     with pytest.raises(ValueError, match="no individually reviewed"):
-        gpu.read_scope(Parser(), SimpleNamespace(seed=12203, wave=7))
+        gpu.read_scope(Parser(), SimpleNamespace(seed=12203, wave=8))
 
 
 @pytest.mark.parametrize("seed,wave,rev_counts,physical_budget", [
@@ -34,7 +34,8 @@ def test_only_explicitly_reviewed_new_wave_can_reserve_its_one_current_slot():
     (12203, 6, [1, 1, 1, 1, 1], 187),
     (157, 3, [2, 1], 193), (157, 4, [2, 1, 1], 193), (157, 5, [2, 1, 1, 1], 193),
     (157, 6, [2, 1, 1, 1, 1], 193),
-    (6101, 2, [2], 199), (6101, 3, [2, 1], 199), (2357, 2, [2], 187), (887, 1, [1], 163), (887, 3, [1, 1], 163),
+    (6101, 2, [2], 199), (6101, 3, [2, 1], 199), (2357, 2, [2], 187),
+    (887, 1, [1], 163), (887, 3, [1, 1], 163), (887, 4, [1, 1, 1], 163),
 ])
 def test_each_prior_identity_and_new_second_slot_are_rejected(monkeypatch, seed, wave, rev_counts, physical_budget):
     scope = gpu.SCOPES[(seed, wave)]
@@ -47,12 +48,12 @@ def test_each_prior_identity_and_new_second_slot_are_rejected(monkeypatch, seed,
     dispatcher.reviewed_scope = scope
     new = {"attempt": 0, "attempt_id": "b" * 32}
     monkeypatch.setattr(mac, "time", lambda: scope.not_before_unix - 0.01)
-    with pytest.raises(PermissionError, match="last cooldown"):
+    with pytest.raises(PermissionError, match="cooldown"):
         dispatcher._check_boundary({}, new)
     monkeypatch.setattr(mac, "time", lambda: scope.not_before_unix)
     retired = [{**new, "attempt_id": item.attempt_id} for wave in scope.archive for item in wave.attempts]
     for denied in [{**new, "attempt": 1}, *retired]:
-        with pytest.raises(PermissionError, match="one distinct physical attempt"):
+        with pytest.raises(PermissionError, match="signed physical attempts"):
             dispatcher._check_boundary({}, denied)
     dispatcher._check_boundary({}, new)
     assert approved == [new]
@@ -210,6 +211,20 @@ def test_reviewed_upstream_read_errors_keep_the_exact_prior_body_and_budget():
     assert new.original_start_round is None and new.fitted_prefix_files == ()
 
 
+def test_887_wave04_preserves_cached_origin_and_only_extends_the_posted_archive():
+    old = gpu.SCOPES[(887, 3)]
+    scope = gpu.SCOPES[(887, 4)]
+    assert scope.archive[:-1] == old.archive
+    assert scope.cached_origin.review == old.cached_origin.review
+    assert scope.cached_origin.review["provider_post"] is False
+    assert scope.required_sources == gpu.QUEUE_SOURCES
+    assert (scope.round, scope.payload_sha256, scope.budget) == (old.round, old.payload_sha256, old.budget)
+    assert scope.not_before_unix == 1795688044.4677405
+    last = scope.archive[-1]
+    assert all(mac._sha(value) for value in (last.identity.contract, last.identity.approval, last.job_sha256,
+                                            last.result_sha256, last.terminal_file_sha256, last.progress_file_sha256))
+
+
 def test_2357_previous_partial_text_telemetry_is_bound_to_the_stopped_physical_attempt():
     scope = gpu.SCOPES[(2357, 2)]
     assert scope.round == scope.original_start_round == 4
@@ -221,3 +236,48 @@ def test_2357_previous_partial_text_telemetry_is_bound_to_the_stopped_physical_a
     assert last.progress["error_type"] == "hard_wall_deadline"
     assert all(mac._sha(value) for value in (last.job_sha256, last.result_sha256, last.terminal_file_sha256,
                                             last.progress_file_sha256))
+
+
+def test_2357_wave03_second_attempt_requires_existing_delivered_failure_guard(monkeypatch):
+    previous = gpu.SCOPES[(2357, 2)]
+    scope = gpu.SCOPES[(2357, 3)]
+    assert scope.archive[:-1] == previous.archive
+    assert scope.execution_budget(1) == previous.budget
+    assert scope.budget == {"first_logical_requests": 32, "maximum_logical_requests": 94, "maximum_physical_attempts": 188}
+    assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 2}
+    assert scope.replay_start_round == scope.round == 4
+    assert scope.not_before_unix == 1795688254.0102787
+    dispatcher = mac.SuccessorDispatcher.__new__(mac.SuccessorDispatcher)
+    dispatcher.reviewed_scope = scope
+    dispatcher.scope = {"previous_attempts": [{"attempt_id": scope.attempt_id}]}
+    dispatcher.original = {"binding": {}, "logical_index": 0, "payload": {"same": True}, "request_id": "previous"}
+    request = {**dispatcher.original, "request_id": "current"}
+    second = {"attempt": 1, "attempt_id": "new-physical"}
+    observed = []
+    monkeypatch.setattr(mac.RelayRetryDispatcher, "_check_boundary_retry",
+                        lambda self, call, started: observed.append((call, started)))
+    monkeypatch.setattr(mac, "time", lambda: scope.not_before_unix - 0.01)
+    with pytest.raises(PermissionError, match="cooldown"):
+        dispatcher._check_boundary(request, second)
+    monkeypatch.setattr(mac, "time", lambda: scope.not_before_unix)
+    dispatcher._check_boundary(request, {"attempt": 0, "attempt_id": "first-physical"})
+    assert not observed
+    dispatcher._check_boundary(request, second)
+    assert observed == [(request, second)]
+    with pytest.raises(PermissionError, match="signed physical attempts"):
+        dispatcher._check_boundary(request, {**second, "attempt": 2})
+
+
+def test_12203_wave07_uses_the_fitted_next_boundary_with_a_conditional_retry():
+    previous = gpu.SCOPES[(12203, 6)]
+    scope = gpu.SCOPES[(12203, 7)]
+    assert scope.original_start_round == previous.round == 4
+    assert scope.original_boundary_physical_attempts == previous.boundary_physical_attempts == 1
+    assert scope.round == 5 and scope.payload_sha256 != previous.payload_sha256
+    assert scope.replay_start_round == 5
+    assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 2}
+    assert scope.budget == {"first_logical_requests": 31, "maximum_logical_requests": 91, "maximum_physical_attempts": 182}
+    assert scope.not_before_unix == 1795688861.139692
+    assert set(dict(scope.fitted_prefix_files)) == {"round_05/source.json", "round_05/transition.json", "round_04/memory.json"}
+    assert len(scope.archive[-1].attempts) == 2 and len(scope.archive[-1].replay_files) == 3
+    assert all(mac._sha(value) for value in scope.archive[-1].replay_files.values())
