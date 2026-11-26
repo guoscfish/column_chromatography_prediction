@@ -1,0 +1,34 @@
+--- a/studies/active_learning/pure_llm_v3_a7_gpu_20261124/a7_gpu/seed_runner.py
++++ b/studies/active_learning/pure_llm_v3_a7_gpu_20261124/a7_gpu/seed_runner.py
+@@ -495,0 +496,20 @@
++
++
++def _imported_boundary_reply_limit(contract, run, seed, start, *, audited, replay_start, relay_delay):
++    predecessor = contract.predecessor or {}
++    dispatcher = predecessor.get("dispatcher_module")
++    full_round = contract.profile.get("full_imported_boundary_round")
++    if full_round is None and dispatcher != "dispatch_v13_887_r33_continuation":
++        return 1
++    if (type(full_round) is not int or full_round != 33
++            or dispatcher != "dispatch_v13_887_r33_continuation"
++            or run.name != "a7-gpt62-astra-xhigh-ipv4-v13-887-r33-continuation-01"
++            or (seed, start, contract.seed_ids, contract.rounds, contract.target_labels) != (887, 33, (887,), 36, 1485)
++            or not audited or replay_start != 33 or relay_delay != SEALED_RELAY_RETRY_SECONDS
++            or (contract.transport.logical_replies, contract.transport.transport_attempts) != (3, 2)
++            or predecessor.get("cached_import") is not None
++            or "fixed_reference_repair" in contract.profile
++            or predecessor.get("execution_budget") != {"first_logical_requests": 3,
++                 "maximum_logical_requests": 9, "maximum_physical_attempts": 18}):
++        raise PermissionError("the imported R33 normal-round budget differs from its exact signed scope")
++    return contract.transport.logical_replies
+@@ -551,0 +572,3 @@
++    boundary_replies = _imported_boundary_reply_limit(
++        contract, run, seed, start, audited=audit_replay, replay_start=replay_start, relay_delay=relay_delay,
++    )
+@@ -562 +585,2 @@
+-        if (recovery_budget != {"maximum_logical_requests": 1, "maximum_physical_attempts": boundary_attempts}
++        if (recovery_budget != {"maximum_logical_requests": boundary_replies,
++                                "maximum_physical_attempts": boundary_attempts}
+@@ -651 +675 @@
+-                        selection_options["logical_reply_limit"] = 1
++                        selection_options["logical_reply_limit"] = boundary_replies

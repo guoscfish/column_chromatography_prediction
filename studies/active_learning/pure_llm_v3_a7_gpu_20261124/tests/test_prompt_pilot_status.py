@@ -2787,9 +2787,9 @@ def check_repeated_boundary(runs, monkeypatch, publish, seed, wave, previous, pr
                         (2357, 13), (2357, 14), (2357, 15), (2357, 16), (2357, 17), (2357, 18),
                         (6101, 11), (6101, 12), (6101, 13), (6101, 14), (6101, 15), (6101, 16), (6101, 17), (6101, 18),
                         (12203, 16), (12203, 17), (12203, 18), (12203, 19), (12203, 20), (12203, 21),
-                        (12203, 22), (12203, 23), (12203, 24), (12203, 25), (12203, 26), (12203, 27), (12203, 28), (12203, 29), (12203, 30),
+                        (12203, 22), (12203, 23), (12203, 24), (12203, 25), (12203, 26), (12203, 27), (12203, 28), (12203, 29), (12203, 30), (12203, 31),
                         (157, 19), (2357, 19), (6101, 19), (157, 20), (2357, 20), (6101, 20),
-                        (2357, 21), (6101, 21), (157, 21), (2357, 22), (6101, 22), (157, 22), (157, 23), (2357, 23), (6101, 23)):
+                        (2357, 21), (6101, 21), (157, 21), (2357, 22), (6101, 22), (157, 22), (157, 23), (2357, 23), (6101, 23), (157, 24), (2357, 24), (6101, 24)):
         check_repeated_boundary(runs, monkeypatch, publish, seed, wave + 1, run, sha, auth, record)
 
 
@@ -2998,7 +2998,8 @@ def check_6101_r5_handoff(runs, monkeypatch, publish, parent, cached, cached_sha
                                        (12203, 24), (12203, 25), (12203, 26), (157, 20),
                                        (2357, 20), (6101, 20), (12203, 27), (157, 21), (2357, 21), (6101, 21), (12203, 28),
                                        (2357, 22), (6101, 22), (157, 22), (12203, 29), (2357, 23), (6101, 23), (157, 23), (12203, 30),
-                                       (157, 24), (2357, 24), (6101, 24), (12203, 31)])
+                                       (157, 24), (2357, 24), (6101, 24), (12203, 31),
+                                       (157, 25), (2357, 25), (6101, 25), (12203, 32)])
 def test_new_exact_reviewed_relay_pins_the_original_retired_receipt(seed, wave):
     from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.run_v13_retry_successor import SCOPES
 
@@ -3252,3 +3253,67 @@ def test_887_r32_monitor_requires_exact_l1357_and_one_retired_attempt(tmp_path, 
         if unexpected.startswith("round_33/"):
             path.parent.rmdir()
     assert status.reviewed_relay_contract(tmp_path, 887, 11, previous, old) == result
+
+
+def test_887_r32_targeted_monitor_requires_a_verified_l1389_fit(tmp_path, monkeypatch):
+    status = prompt_pilot_status
+    previous = tmp_path / f"{status.SERIAL_IPV4}-887-relay-retry-11"
+    run = tmp_path / status.REPAIR_887_R32_RUN
+    descriptor = {"887": status.RELAY_887_WAVE11_DESCRIPTOR}
+
+    def publish(directory, signed):
+        contract = status.record_digest(signed)
+        approval = {"contract_sha256": contract, **dict.fromkeys(status.FORMAL_APPROVAL_FLAGS, True)}
+        write_json(directory / "formal_contract.json", signed)
+        write_json(directory / "authorization.json", approval)
+        return contract, status.record_digest(approval)
+
+    old, old_auth = publish(previous, {"run_directory": str(previous), "profile": {"resume_boundaries": descriptor}})
+    monkeypatch.setattr(status, "RELAY_887_WAVE11_CONTRACT", old)
+    monkeypatch.setattr(status, "RELAY_887_WAVE11_AUTH", old_auth)
+    write_json(previous / "seed_887/round_32/turn_00/attempt_00.started.json", {"attempt": 0})
+    original = {}
+    for name in status.REPAIR_887_R32_ORIGINAL:
+        write_json(previous / name, {"file": name})
+        original[name] = status.checksum(previous / name)
+    monkeypatch.setattr(status, "REPAIR_887_R32_ORIGINAL", original)
+
+    metadata = {"original_selection_reposted": False}
+    metadata_sha = status.record_digest(metadata)
+    file = run / "fixed_reference_repair.json"
+    write_json(file, metadata)
+    monkeypatch.setattr(status, "REPAIR_887_R32_METADATA_SHA", metadata_sha)
+    monkeypatch.setattr(status, "REPAIR_887_R32_METADATA_FILE", status.checksum(file))
+    budget = {"first_logical_requests": 1, "maximum_logical_requests": 1, "maximum_physical_attempts": 1}
+    profile = {"confirmation_seeds": [887], "target_labels": 1389, "resume_boundaries": descriptor,
+               "ipv4_readiness_windows": 3, "fixed_reference_repair": metadata,
+               "transport": {"logical_replies": 1, "transport_attempts": 1}}
+    proof = {"dispatcher_module": "dispatch_v13_887_r32_targeted_repair", "seed": 887, "round": 32,
+             "previous_run_directory": str(previous), "previous_contract_sha256": old,
+             "previous_authorization_sha256": old_auth, "prior_response_reposted": False, "logical_index": 0,
+             "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 1},
+             "execution_budget": budget, "fixed_reference_repair_sha256": metadata_sha}
+    signed = {"run_directory": str(run), "budget": budget, "profile": profile, "predecessor": proof,
+              "source_sha256": status.REPAIR_887_R32_SOURCES}
+    sha, auth = publish(run, signed)
+    monkeypatch.setattr(status, "REPAIR_887_R32_CONTRACT", sha)
+    monkeypatch.setattr(status, "REPAIR_887_R32_AUTH", auth)
+    expected = run, sha, 32, 3
+    assert status.r32_targeted_repair(tmp_path, previous, old) == expected
+
+    directory = run / "seed_887"
+    for name in status.REPAIR_887_R32_FITTED:
+        write_json(directory / name, {"file": name})
+    active = directory / "round_33"
+    transition = active / "transition.json"
+    write_json(transition, {
+        "fit_path": "fit_000", "checkpoint_sha256": status.REPAIR_887_R32_CHECKPOINT,
+        "source_sha256": status.checksum(active / "source.json"),
+        "validation_metrics_sha256": status.checksum(active / "fit_000/validation_metrics.json"),
+    })
+    assert status.r32_targeted_repair(tmp_path, previous, old) is None
+    fit = {name: status.checksum(directory / name) for name in status.REPAIR_887_R32_FITTED}
+    monkeypatch.setattr(status, "REPAIR_887_R32_FITTED", fit)
+    assert status.r32_targeted_repair(tmp_path, previous, old) == expected
+    write_json(directory / "round_32/batch_freeze.json", {"changed": True})
+    assert status.r32_targeted_repair(tmp_path, previous, old) is None
