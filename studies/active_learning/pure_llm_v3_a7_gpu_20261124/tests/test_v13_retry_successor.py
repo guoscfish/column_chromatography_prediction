@@ -33,8 +33,8 @@ def test_only_explicitly_reviewed_new_wave_can_reserve_its_one_current_slot():
     (12203, 3, [1, 1], 187), (12203, 4, [1, 1, 1], 187), (12203, 5, [1, 1, 1, 1], 187),
     (12203, 6, [1, 1, 1, 1, 1], 187),
     (157, 3, [2, 1], 193), (157, 4, [2, 1, 1], 193), (157, 5, [2, 1, 1, 1], 193),
-    (157, 6, [2, 1, 1, 1, 1], 193),
-    (6101, 2, [2], 199), (6101, 3, [2, 1], 199), (2357, 2, [2], 187),
+    (157, 6, [2, 1, 1, 1, 1], 193), (157, 7, [1], 187),
+    (6101, 2, [2], 199), (6101, 3, [2, 1], 199), (6101, 5, [2, 1, 1, 1], 199), (2357, 2, [2], 187),
     (887, 1, [1], 163), (887, 3, [1, 1], 163), (887, 4, [1, 1, 1], 163),
 ])
 def test_each_prior_identity_and_new_second_slot_are_rejected(monkeypatch, seed, wave, rev_counts, physical_budget):
@@ -237,6 +237,21 @@ def test_6101_wave04_pins_unfinished_text_telemetry_without_resetting_the_fitted
     assert last.progress["sse_event_count"] == 3016
 
 
+def test_6101_wave05_carries_only_the_remaining_slot_after_the_verified_frame_error():
+    previous = gpu.SCOPES[(6101, 4)]
+    scope = gpu.SCOPES[(6101, 5)]
+    assert scope.payload_sha256 == previous.payload_sha256
+    assert scope.original_start_round == scope.round == previous.round == 2
+    assert scope.original_boundary_physical_attempts == previous.boundary_physical_attempts == 2
+    assert scope.archive[:-1] == previous.archive
+    last = scope.archive[-1]
+    assert scope.boundary_physical_attempts + len(last.attempts) == previous.boundary_physical_attempts
+    assert last.failure == "sse_frame_error" and last.progress["error_type"] == "ReadError"
+    assert last.progress["event_type"] == "response.output_text.delta" and last.progress["sse_event_count"] == 252
+    assert scope.not_before_unix == 1795692531.0271559
+    assert scope.replay_start_round == 3
+
+
 def test_2357_previous_partial_text_telemetry_is_bound_to_the_stopped_physical_attempt():
     scope = gpu.SCOPES[(2357, 2)]
     assert scope.round == scope.original_start_round == 4
@@ -331,3 +346,18 @@ def test_12203_wave08_keeps_both_delivered_alias_failures_at_the_same_fitted_bou
     assert [item.progress["sse_event_count"] for item in (first, last)] == [41, 23]
     assert len(last.replay_files) == 3
     assert all(mac._sha(value) for value in last.replay_files.values())
+
+
+def test_157_wave07_carries_one_remaining_api_slot_after_the_zero_post_cached_fit():
+    scope = gpu.SCOPES[(157, 7)]
+    assert (scope.original_start_round, scope.round, scope.replay_start_round) == (3, 4, 5)
+    assert scope.cached_origin.review["provider_post"] is False
+    assert scope.cached_origin.ancestor.name.endswith("-157-relay-retry-06")
+    assert scope.archive[0].identity.name.endswith("-157-cached-r3-01")
+    fitted_prefix = dict(scope.fitted_prefix_files)
+    assert "round_03/turn_00/attempt_00.terminal.json" in fitted_prefix
+    assert "round_03/memory.json" in fitted_prefix and "round_04/transition.json" in fitted_prefix
+    assert scope.boundary_physical_attempts + len(scope.archive[0].attempts) == 2
+    assert scope.not_before_unix == 1795692680.964523
+    assert scope.budget == {"first_logical_requests": 32, "maximum_logical_requests": 94, "maximum_physical_attempts": 187}
+    assert scope.archive[0].failure == "timeout" and scope.archive[0].progress["sse_event_count"] == 1264

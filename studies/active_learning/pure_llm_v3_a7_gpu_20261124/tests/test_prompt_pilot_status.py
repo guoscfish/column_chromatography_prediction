@@ -532,6 +532,9 @@ def check_reviewed_wave(runs, monkeypatch, publish, flags, commands, parent, par
         publish(run, record, **flags)
         assert remote_seed(runs, seed)["run"] == parent.name
         record["profile"] = {**parent_record["profile"], "replay_eligible_from_round": start}
+    if (seed, wave) == (6101, 5):
+        proof["recovery_budget"] = {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}
+        record["profile"] = {**parent_record["profile"], "replay_eligible_from_round": start + 1}
     observation = getattr(prompt_pilot_status, f"RELAY_{seed}_WAVE{wave:02d}_OBSERVATION", None)
     if observation is not None:
         proof["previous_transport_observation"] = observation
@@ -558,6 +561,10 @@ def check_reviewed_wave(runs, monkeypatch, publish, flags, commands, parent, par
         publish(run, {**record, "predecessor": {**proof, **bad}}, **flags)
         assert remote_seed(runs, seed)["run"] == parent.name
     current_sha = publish(run, record, **flags)
+    if (seed, wave) == (6101, 5):
+        monkeypatch.setattr(prompt_pilot_status, "RELAY_6101_WAVE05_CONTRACT", current_sha)
+        actual_auth = prompt_pilot_status.record_digest(prompt_pilot_status.read_json(run / "authorization.json"))
+        monkeypatch.setattr(prompt_pilot_status, "RELAY_6101_WAVE05_AUTH", actual_auth)
     row = remote_seed(runs, seed)
     assert (row["run"], row["segment"], row["labels"], row["contract_sha256"]) == (
         run.name, f"ipv4_relay_retry_{wave:02d}", labels, current_sha,
@@ -580,6 +587,20 @@ def check_reviewed_wave(runs, monkeypatch, publish, flags, commands, parent, par
         publish(run, {**record, "budget": parent_record["budget"]}, **flags)
         assert remote_seed(runs, seed)["run"] == parent.name
         publish(run, record, **flags)
+    elif (seed, wave) == (6101, 5):
+        assert row["boundary_api"] == {
+            "maximum_logical_requests": 1, "maximum_physical_attempts": 1, "replay_delay_seconds": 180,
+            "physical_attempts_reserved": 0, "physical_attempts_posted_confirmed": 0, "physical_attempts_remaining": 1,
+        }
+        assert row["reviewed_previous_api"] == {
+            "http_status": 200, "error_type": "ReadError", "sse_event_count": 252,
+            "event_type": "response.output_text.delta", "last_sse_seconds": 1201.01432175003,
+            "complete_event_seen": False,
+        }
+        second = turn / "attempt_01.started.json"
+        write_json(second, {"attempt": 1})
+        assert remote_seed(runs, seed)["run"] == parent.name
+        second.unlink()
     elif multiple:
         assert row["boundary_api"]["maximum_physical_attempts"] == 2
         assert row["boundary_api"]["physical_attempts_remaining"] == 2
@@ -854,7 +875,10 @@ def check_6101_reviewed_wave02(runs, monkeypatch, publish, flags, commands, rela
     stage03, sha03, record03, chain03 = check_reviewed_wave(
         runs, monkeypatch, publish, flags, commands, successor, successor_sha, record, chain, 6101, 2, 397, 3,
     )
-    check_reviewed_wave(runs, monkeypatch, publish, flags, commands, stage03, sha03, record03, chain03, 6101, 2, 397, 4)
+    stage04, sha04, record04, chain04 = check_reviewed_wave(
+        runs, monkeypatch, publish, flags, commands, stage03, sha03, record03, chain03, 6101, 2, 397, 4,
+    )
+    check_reviewed_wave(runs, monkeypatch, publish, flags, commands, stage04, sha04, record04, chain04, 6101, 2, 397, 5)
 
 
 def check_2357_reviewed_wave02(runs, monkeypatch, publish, flags, commands, relay, relay_sha, relay_auth, relay_record):
@@ -997,7 +1021,7 @@ def test_887_cached_r8_status_uses_the_registered_gpu_scope():
 @pytest.mark.parametrize(("seed", "wave", "archive_count"),
                          [(12203, 3, 2), (157, 3, 3), (157, 4, 4), (12203, 4, 3), (157, 5, 5), (12203, 5, 4),
                           (6101, 3, 3), (6101, 4, 4), (157, 6, 6), (887, 3, 2), (12203, 6, 5),
-                          (887, 4, 3), (2357, 3, 3), (2357, 4, 5), (12203, 8, 4)])
+                          (887, 4, 3), (2357, 3, 3), (2357, 4, 5), (12203, 8, 4), (6101, 5, 5)])
 def test_reviewed_wave_status_uses_the_registered_gpu_scope(seed, wave, archive_count):
     from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts import run_v13_retry_successor
 
@@ -1114,7 +1138,7 @@ def test_cached_r3_requires_the_original_response_and_linked_zero_post_fit(tmp_p
     run = tmp_path / f"{status.SERIAL_IPV4}-157-cached-r3-01"
     profile = {"confirmation_seeds": [157], "target_labels": 1485, "resume_boundaries": {"157": {"round": 3}},
                "audited_future_transport_replay": True, "sealed_relay_retry_seconds": 180,
-               "replay_eligible_from_round": 4, "ipv4_readiness_windows": 3}
+               "replay_eligible_from_round": 4, "ipv4_readiness_windows": 3, "sse_inactivity_seconds": 900}
     flags = dict.fromkeys(status.FORMAL_APPROVAL_FLAGS, True)
     old = {"run_directory": str(previous), "profile": profile}
     old_contract = status.record_digest(old)
@@ -1171,6 +1195,42 @@ def test_cached_r3_requires_the_original_response_and_linked_zero_post_fit(tmp_p
     monkeypatch.setattr(status, "CACHED_R3_157_FIT_AUDIT", status.checksum(audit))
     monkeypatch.setattr(status, "CACHED_R3_157_METRICS", status.checksum(metrics))
     assert status.cached_r3_157_contract(tmp_path, 157, previous, old_contract) == (run, contract, 3, 3)
+    next_run = tmp_path / f"{status.SERIAL_IPV4}-157-relay-retry-07"
+    attempt = status.RELAY_157_WAVE07_PRIOR_ATTEMPT
+    archived = {**attempt, "status": "stopped"}
+    terminal_file = fitted / "turn_00/attempt_00.terminal.json"
+    write_json(terminal_file, archived)
+    exact = {**status.RELAY_157_WAVE07_PROOF, "previous_terminal_file_sha256": status.checksum(terminal_file)}
+    review = {**status.RELAY_157_WAVE07_CACHED_REVIEW, "proof_sha256": status.record_digest(cached),
+              "receipt_file_sha256": status.CACHED_R3_157_IMPORT_FILE}
+    monkeypatch.setattr(status, "RELAY_157_WAVE07_PROOF", exact)
+    monkeypatch.setattr(status, "RELAY_157_WAVE07_CACHED_REVIEW", review)
+    receipts = [{**attempt, "terminal_sha256": status.record_digest(archived)}]
+    chain = [{"contract_sha256": contract, "authorization_sha256": status.CACHED_R3_157_AUTH, "run_directory": str(run),
+              "request_id": exact["previous_request_id"], "terminal_file_sha256": exact["previous_terminal_file_sha256"],
+              "progress_file_sha256": exact["previous_transport_progress_file_sha256"], "previous_attempts": receipts}]
+    next_record = {"run_directory": str(next_run), "budget": exact["execution_budget"], "source_sha256": status.RELAY_RETRY_QUEUE_SOURCES,
+                   "profile": {**profile, "resume_boundaries": {"157": {"round": 4}}, "replay_eligible_from_round": 5},
+                   "predecessor": {**exact, "dispatcher_module": "dispatch_v13_retry_successor", "previous_run_directory": str(run),
+                                   "seed": 157, "round": 4, "previous_contract_sha256": contract,
+                                   "previous_authorization_sha256": status.CACHED_R3_157_AUTH,
+                                   "reviewed_fitted_prefix_files": status.CACHED_R3_157_FITTED_FILES, "reviewed_cached_import": review,
+                                   "previous_transport_observation": status.RELAY_157_WAVE07_OBSERVATION,
+                                   "public_resource_receipt_sha256": status.RELAY_157_WAVE07_RESOURCE_SHA,
+                                   "reviewed_retry_chain": chain, "previous_attempts": receipts,
+                                   "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}}}
+    next_sha = status.record_digest(next_record)
+    next_auth = {"contract_sha256": next_sha, **flags}
+    write_json(next_run / "formal_contract.json", next_record)
+    write_json(next_run / "authorization.json", next_auth)
+    monkeypatch.setattr(status, "RELAY_157_WAVE07_CONTRACT", next_sha)
+    assert status.relay_retry_07_157_contract(tmp_path, run, contract) is None
+    monkeypatch.setattr(status, "RELAY_157_WAVE07_AUTH", status.record_digest(next_auth))
+    assert status.relay_retry_07_157_contract(tmp_path, run, contract) == (next_run, next_sha, 4, 3, exact["relay_not_before_unix"])
+    second_slot = terminal_file.with_name("attempt_01.started.json")
+    write_json(second_slot, {"attempt": 1})
+    assert status.relay_retry_07_157_contract(tmp_path, run, contract) is None
+    second_slot.unlink()
     later = directory / "round_05"
     write_json(later / "source.json", {"checkpoint": "c" * 64})
     write_json(later / "fit_000/validation_metrics.json", {"combined_normalized_rmse": .4})
@@ -1181,6 +1241,32 @@ def test_cached_r3_requires_the_original_response_and_linked_zero_post_fit(tmp_p
     assert status.cached_r3_157_contract(tmp_path, 157, previous, old_contract) == (run, contract, 3, 3)
     write_json(run / f"bridge/outbox/{local_attempt}.json", {"unexpected": "provider transport"})
     assert status.cached_r3_157_contract(tmp_path, 157, previous, old_contract) is None
+
+
+def test_157_wave07_requires_the_exact_post_cache_producer_scope():
+    from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.run_v13_retry_successor import SCOPES
+
+    status = prompt_pilot_status
+    scope = SCOPES[(157, 7)]
+    review, = scope.archive
+    assert len(review.attempts) == 1
+    assert (scope.original_start_round, scope.round, scope.replay_start_round) == (3, 4, 5)
+    assert (review.identity.contract, review.identity.approval) == (status.CACHED_R3_157_CONTRACT, status.CACHED_R3_157_AUTH)
+    assert status.RELAY_157_WAVE07_CACHED_REVIEW == scope.cached_origin.review
+    assert status.RELAY_157_WAVE07_RESOURCE_SHA == scope.cached_origin.resource_sha256
+    assert status.RELAY_157_WAVE07_OBSERVATION == review.progress
+    assert status.CACHED_R3_157_FITTED_FILES == dict(scope.fitted_prefix_files)
+    assert status.RELAY_RETRY_QUEUE_SOURCES == dict(scope.required_sources)
+    assert status.RELAY_157_WAVE07_PROOF == {
+        "logical_index": 0, "payload_sha256": scope.payload_sha256, "previous_request_id": review.request_id,
+        "previous_terminal_file_sha256": review.terminal_file_sha256, "previous_transport_progress_file_sha256": review.progress_file_sha256,
+        "relay_cooldown_clock": scope.cooldown_field, "relay_not_before_unix": scope.not_before_unix,
+        "newly_authorized_boundary_physical_attempts": scope.boundary_physical_attempts, "execution_budget": scope.budget,
+    }
+    assert status.RELAY_157_WAVE07_PRIOR_ATTEMPT == {
+        "attempt": 0, "attempt_id": review.attempt_id, "job_sha256": review.job_sha256, "result_sha256": review.result_sha256,
+        "error": review.failure, "provider_dispatched": True, "ambiguous": True,
+    }
 
 
 def test_12203_wave07_requires_the_fitted_predecessor_and_two_closed_attempts(tmp_path, monkeypatch):

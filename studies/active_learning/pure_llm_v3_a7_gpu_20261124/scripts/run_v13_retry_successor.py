@@ -212,6 +212,24 @@ SCOPES[(6101, 4)] = replace(SCOPES[(6101, 3)], wave=4, cooldown_unix=1795690616.
          "response_id": "resp_07eba1f236437c1c016b08027af25487d0981f8a128889e114"}),
 ))
 
+SCOPES[(6101, 5)] = replace(SCOPES[(6101, 4)], wave=5, cooldown_field="failed_unix", cooldown_unix=1795692351.0271559,
+                              original_start_round=2, original_boundary_physical_attempts=2,
+                              boundary_physical_attempts=1, archive=(
+    *SCOPES[(6101, 4)].archive,
+    Review(retry.bounded.RunIdentity("-6101-relay-retry-04",
+        "d91884196aced55e77bb9e9cd2c7d790653060553c5cf573760b092fcc05d303",
+        "54215e67efd44263b9b4956d03dc26b28a7914cf6f318e75ff851febf8c42e53"),
+        "45a83e9d69c4b3c4e5abbfb48d2007fc032ab9cc9d1cc711a7c276aa4f62d1a5", "1b132db24b2c493dacaa226f3b8a9d03",
+        "63673125a094b1307479e6f334b8d4cae3b82d86ac189ee324d6bde74b56c172",
+        "103d35e0e06c00d82f603b71f71deabd462a563d5f74b25e349b69bf4016afae",
+        "b1e38d716655fe6e3d6716bf91d48c7f127845f12f9f047693e92236309cf61b",
+        "060a67cb60da1119d693d2b800c914d6a46acd9b7ecb5a5b8be26670d43d7d25", "sse_frame_error",
+        {"http_status": 200, "phase": "transport_failure", "error_type": "ReadError",
+         "event_type": "response.output_text.delta", "sse_event_count": 252, "last_sse_seconds": 1201.01432175003,
+         "provider_request_id": "bfe68056-9b30-465c-9a09-a1632d2350c4", "model": "gpt-6.2-astra",
+         "response_id": "resp_0fdef8f9826fb9c4016b08126348a087d299ea05eb53d3e6d5"}),
+))
+
 _2357_OLD = retry.bounded.RunIdentity("-2357-relay-retry-01",
     "3c20dad3f4c772011e82d8684e7bfe4204a988e32f59b26b90390507ad6bb1d8",
     "5a507f2471b94d81b3eaae590d6c027bc2e8d3369a424550af0def0aea8c25f8")
@@ -347,6 +365,37 @@ SCOPES[(157, 6)] = replace(SCOPES[(157, 5)], wave=6, cooldown_unix=1795686851.08
          "conflicting_response_id": "resp_1310ea7a524448d2a158fd30d4ec4db2", "conflicting_event_type": "response.failed",
          "response_id_matches_transport_alias": True}),
 ))
+
+SCOPES[(157, 7)] = Scope(
+    157, 4, 7, "57e28171cede075156b2a3331b8322cb994805651134644ab0cadb56e59639c7", (
+        Review(retry.bounded.RunIdentity("-157-cached-r3-01",
+            "f142af55eb54dc184e3cd7d19f16717712605df25044a16c19918a62884ab776",
+            "17e8e477bba8760b46d6977d279573e234b807a9fdd7c4a637be5dda12dea37a"),
+            "46ebd031c878dadd645b2161415a45cdf838dafc086c7f45834eb25ac03589de", "ed2d0f8f95ef40c9ae73c25f397d5468",
+            "26ed0ad0b1c1f12e9818cb0289dec1ec4c7810903a2e8fad76585c9c7fcbe193",
+            "14552112cb46b531dd6f5990213ad7a9620b1ea14bc3e0c6346737dcd40d9cf0",
+            "9dbd308f49082eac9bf6e240402eb9886496590fb3c809d27545c72a0bcdb9a3",
+            "4bea8bef10d47c4583368202fe8ca34e1c0dffa7d34902d7ba368667a9323f92", "timeout",
+            {"http_status": 200, "phase": "transport_failure", "error_type": "sse_inactivity_timeout",
+             "event_type": "response.output_text.delta", "sse_event_count": 1264, "last_sse_seconds": 1748.327394583961,
+             "provider_request_id": None, "model": "gpt-6.2-astra",
+             "response_id": "resp_035fa91e2ecafa2a016b080d900bac87d1ba82be06c4badff7"}),
+    ), "failed_unix", 1795692500.964523, original_start_round=3, fitted_prefix_files=(
+        ("round_03/turn_00/attempt_00.terminal.json", "b9e5023a6795b1e1a8f6a39a0211250454875fc3d957fc5200169b0b37f82be5"),
+        ("round_03/batch_freeze.json", "c08566979fb97938c67a50a9e66840a7bdf827e65608679ca5578ebeca60dbd4"),
+        ("round_03/selection.json", "ad05e526557e8ab84d9ee0854b6b4e88301c47ef187a2c1ac76a514cec1a3071"),
+        ("round_03/memory.json", "b540d8fc9d10020b5e34b2dc8eec8a68fb0d8b46f12bdb76f1f1394e9e733bb7"),
+        ("round_04/source.json", "bfb9e71acf549811b50c221546a987851c06f42550df5f64838461f0defd0324"),
+        ("round_04/transition.json", "9b6d125b72b9eab66943687213d9d86b934c4c50884e006931a04043b2aff37a"),
+    ), required_sources=QUEUE_SOURCES, cached_origin=CachedOrigin(
+        retry.bounded.RunIdentity("-157-relay-retry-06",
+            "a135a2a3d10e80f12864be66eb5bb65046ced589f8767969b3f9cddf3f6c006e",
+            "dc505def300d7dd7024819d6cb4494e0d042bc6c1fd8ea5971aea90b602e58a5"),
+        "84a173798d13de2596449dd53d21052972be058f11b41ac6bdc5b2edbf2fcb36",
+        "ed23e6b33ff06a331031599d8b885d8d233a396d092bc6d68c401d99152d44e0",
+        "f06b8cc813aa4124c4be9fe4375ff1eba7594b4e3a7f612e26417c33c535d16c",
+    ),
+)
 
 SCOPES[(12203, 4)] = replace(SCOPES[(12203, 3)], wave=4, cooldown_unix=1795685708.5045788, archive=(
     *SCOPES[(12203, 3)].archive,
