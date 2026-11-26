@@ -27,6 +27,7 @@ SERIAL_IPV4 = "a7-gpt62-astra-xhigh-ipv4-v13"
 IPV4_EXTENSION = f"{SERIAL_IPV4}-2357-extension-01"
 IPV4_CONTINUATION = f"{SERIAL_IPV4}-2357-continuation-01"
 IPV4_R2_EXTENSION = f"{SERIAL_IPV4}-2357-r2-extension-01"
+IPV4_R2_CONTINUATION = f"{SERIAL_IPV4}-2357-r2-continuation-01"
 IPV4_EXTENSION_DISPATCHERS = {
     157: "dispatch_v13_lane_extension",
     887: "dispatch_v13_lane_extension",
@@ -216,7 +217,20 @@ def remote_seed(runs, seed):
         and r2_parent.get("dispatcher_module") == "dispatch_v13_2357_r2_sse_extension"
         and r2_record.get("profile", {}).get("confirmation_seeds") == [seed] else None
     )
-    if r2_contract:
+    r2_continuation = runs / IPV4_R2_CONTINUATION
+    r2_follow_record = read_json(r2_continuation / "formal_contract.json") if r2_contract else {}
+    r2_follow_prior = r2_follow_record.get("predecessor") or {}
+    r2_follow_contract = (
+        fallback_contract(r2_continuation) if r2_contract
+        and r2_follow_prior.get("parent_contract_sha256") == follow_on_contract
+        and r2_follow_prior.get("extension_contract_sha256") == r2_contract
+        and r2_follow_prior.get("dispatcher_module") == "dispatch_v13_2357_r2_continuation"
+        and r2_follow_record.get("profile", {}).get("confirmation_seeds") == [seed] else None
+    )
+    if r2_follow_contract:
+        run, contract, segment = r2_continuation, r2_follow_contract, "ipv4_r2_continuation"
+        ancestors = (r2_extension, follow_on, extension, cohort, direct_full, continuation, fallback)
+    elif r2_contract:
         run, contract, segment = r2_extension, r2_contract, "ipv4_r2_extension"
         ancestors = (follow_on, extension, cohort, direct_full, continuation, fallback)
     elif follow_on_contract:
@@ -294,7 +308,7 @@ def remote_seed(runs, seed):
         phase = "transport_extension_complete"
     elif segment == "ipv4_r2_extension" and latest == 3 and (run / "extension_completion.json").is_file():
         phase = "transport_extension_complete"
-    elif latest == PILOT_ROUNDS and segment not in ("v6", "v11", "background", "ipv4", "ipv4_continuation"):
+    elif latest == PILOT_ROUNDS and segment not in ("v6", "v11", "background", "ipv4", "ipv4_continuation", "ipv4_r2_continuation"):
         phase = "awaiting_v6_handoff"
     elif paused:
         phase = "paused"
@@ -316,7 +330,7 @@ def remote_seed(runs, seed):
         phase = "worker_stopped"
     return {"seed": seed, "run": run.name, "contract_sha256": contract, "segment": segment,
             "continuation": segment in ("ipv4", "ipv4_extension", "ipv4_continuation", "ipv4_r2_extension",
-                                        "background", "v11", "v6", "v5", "direct", "repair"),
+                                        "ipv4_r2_continuation", "background", "v11", "v6", "v5", "direct", "repair"),
             "target_rounds": TARGET_ROUNDS, "target_labels": TARGET_LABELS,
             "completed_rounds": latest, "labels": 333 + latest * 32 if latest is not None else None,
             "phase": phase, "worker_pid": worker_pid, "worker_active": worker_live,
@@ -419,7 +433,8 @@ def dispatcher_pid(seed, segment):
     cohort_services = {"background": "a7-background-v12", "ipv4": "a7-ipv4-v13",
                        "ipv4_extension": f"a7-ipv4-v13-{seed}-extension-01",
                        "ipv4_continuation": f"a7-ipv4-v13-{seed}-continuation-01",
-                       "ipv4_r2_extension": "a7-ipv4-v13-2357-r2-extension-01"}
+                       "ipv4_r2_extension": "a7-ipv4-v13-2357-r2-extension-01",
+                       "ipv4_r2_continuation": "a7-ipv4-v13-2357-r2-continuation-01"}
     if segment in cohort_services:
         service = cohort_services[segment]
         label = f"gui/{os.getuid()}/com.purellm.{service}"
@@ -475,7 +490,8 @@ def mac_report(private, seeds):
             if read_json(spool / "run_binding.json").get("contract_sha256") == contract:
                 row["provider"] = local_progress(
                     spool, row["seed"], row["api"],
-                    track_queue=row["segment"] in ("ipv4", "ipv4_extension", "ipv4_continuation", "ipv4_r2_extension"),
+                    track_queue=row["segment"] in ("ipv4", "ipv4_extension", "ipv4_continuation",
+                                                   "ipv4_r2_extension", "ipv4_r2_continuation"),
                 )
         if row.get("continuation"):
             row["dispatcher_pid"] = dispatcher_pid(row["seed"], row["segment"])
