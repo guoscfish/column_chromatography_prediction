@@ -59,6 +59,7 @@ TIMEOUTS = RequestTimeouts(read_idle_seconds=900, total_seconds=1800)
 BRIDGE_WAIT_SECONDS = PARENT_WALL_SECONDS + TIMEOUTS.total_seconds + TIMEOUTS.bridge_margin_seconds
 BUDGET = {"first_logical_requests": 1, "maximum_logical_requests": 1, "maximum_physical_attempts": 1}
 BOUND_HASHES = ("checkpoint_sha256", "base_messages_sha256", "packet_sha256", "wire_packet_sha256")
+AUTHORITATIVE_MESSAGE_HASH = "authoritative_base_messages_sha256"
 
 
 def _approved_scope(info, run, lane):
@@ -148,9 +149,18 @@ def _parent(spool, lane, scope):
     return request, transport, model
 
 
-def _validate(dispatcher, job, lane, original, prompt_sha):
+def _validate(dispatcher, job, lane, original, prompt_sha, reconstruction=None):
     request, _, started = dispatcher.validate(job)
     source, state = original["binding"], request["binding"]
+    if reconstruction is not None:
+        if ((lane.seed, lane.round_index) != (887, 6) or type(reconstruction) is not dict
+                or set(reconstruction) != {"archived_sha256", "rebuilt_sha256"}
+                or any(not isinstance(value, str) or not SHA256.fullmatch(value) for value in reconstruction.values())
+                or reconstruction["archived_sha256"] == reconstruction["rebuilt_sha256"]
+                or source.get(AUTHORITATIVE_MESSAGE_HASH) != reconstruction["archived_sha256"]
+                or state.get(AUTHORITATIVE_MESSAGE_HASH) != reconstruction["rebuilt_sha256"]):
+            raise PermissionError("the archived and rebuilt host-only message digests are outside the signed seed 887 scope")
+        source = {**source, AUTHORITATIVE_MESSAGE_HASH: reconstruction["rebuilt_sha256"]}
     science = {key: value for key, value in state.items() if key != "a7_formal"}
     if ((state["seed"], state["round"], request["logical_index"], started["attempt"]) != (lane.seed, lane.round_index, 0, 0)
             or state["prompt_sha256"] != prompt_sha or request["request_id"] == original["request_id"]
@@ -188,7 +198,7 @@ def run(args):
     dispatcher = Dispatcher(spool, info=info, contract_sha256=args.contract_sha256, transport=transport, mock=False, pool=pool)
 
     def validate(job):
-        return _validate(dispatcher, job, lane, original, prompt_sha)
+        return _validate(dispatcher, job, lane, original, prompt_sha, scope.get("authoritative_message_reconstruction"))
 
     def before_call(identity, job):
         if dispatcher.check_remote(courier.info())["paused"]:

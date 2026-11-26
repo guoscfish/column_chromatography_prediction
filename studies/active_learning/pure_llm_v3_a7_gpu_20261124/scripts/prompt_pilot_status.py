@@ -26,6 +26,17 @@ BACKGROUND = "a7-gpt62-astra-xhigh-background-v12"
 SERIAL_IPV4 = "a7-gpt62-astra-xhigh-ipv4-v13"
 IPV4_EXTENSION = f"{SERIAL_IPV4}-2357-extension-01"
 IPV4_CONTINUATION = f"{SERIAL_IPV4}-2357-continuation-01"
+IPV4_EXTENSION_DISPATCHERS = {
+    887: "dispatch_v13_lane_extension",
+    2357: "dispatch_prepared_ipv4_recovery_2357",
+    6101: "dispatch_v13_lane_extension",
+}
+IPV4_CONTINUATION_DISPATCHERS = {
+    887: "dispatch_v13_lane_continuation",
+    2357: "dispatch_prepared_ipv4_continue_2357",
+    6101: "dispatch_v13_lane_continuation",
+}
+IPV4_EXTENSION_END_ROUNDS = {887: 7, 2357: 2, 6101: 2}
 PILOT_ROUNDS = 10
 TARGET_ROUNDS = 36
 TARGET_LABELS = 1485
@@ -174,23 +185,24 @@ def remote_seed(runs, seed):
     repair = runs / f"{REPAIR}-{seed}"
     direct_full_contract, full_contract, repair_contract, direct_contract, continuation_contract = (
         dispatch_contract(run, seed) for run in (direct_full, full, repair, direct, continuation))
-    extension = runs / IPV4_EXTENSION
-    extension_record = read_json(extension / "formal_contract.json") if seed == 2357 else {}
+    extension = runs / f"{SERIAL_IPV4}-{seed}-extension-01"
+    extension_dispatcher = IPV4_EXTENSION_DISPATCHERS.get(seed)
+    extension_record = read_json(extension / "formal_contract.json") if extension_dispatcher else {}
     extension_parent = extension_record.get("predecessor") or {}
     extension_contract = (
         fallback_contract(extension) if cohort_contract and mode == "ipv4"
         and extension_parent.get("parent_contract_sha256") == cohort_contract
-        and extension_parent.get("dispatcher_module") == "dispatch_prepared_ipv4_recovery_2357"
+        and extension_parent.get("dispatcher_module") == extension_dispatcher
         and extension_record.get("profile", {}).get("confirmation_seeds") == [seed] else None
     )
-    follow_on = runs / IPV4_CONTINUATION
+    follow_on = runs / f"{SERIAL_IPV4}-{seed}-continuation-01"
     follow_on_record = read_json(follow_on / "formal_contract.json") if extension_contract else {}
     follow_on_parent = follow_on_record.get("predecessor") or {}
     follow_on_contract = (
         fallback_contract(follow_on) if extension_contract
         and follow_on_parent.get("extension_contract_sha256") == extension_contract
         and follow_on_parent.get("parent_contract_sha256") == cohort_contract
-        and follow_on_parent.get("dispatcher_module") == "dispatch_prepared_ipv4_continue_2357"
+        and follow_on_parent.get("dispatcher_module") == IPV4_CONTINUATION_DISPATCHERS.get(seed)
         and follow_on_record.get("profile", {}).get("confirmation_seeds") == [seed] else None
     )
     if follow_on_contract:
@@ -262,7 +274,9 @@ def remote_seed(runs, seed):
     phase = safe_code(worker.get("status")) or "waiting_to_start"
     if latest == TARGET_ROUNDS:
         phase = "complete"
-    elif segment == "ipv4_extension" and latest == 2 and (run / "extension_completion.json").is_file():
+    elif segment == "ipv4_extension" and latest == IPV4_EXTENSION_END_ROUNDS[seed] and (
+        run / "extension_completion.json"
+    ).is_file():
         phase = "transport_extension_complete"
     elif latest == PILOT_ROUNDS and segment not in ("v6", "v11", "background", "ipv4", "ipv4_continuation"):
         phase = "awaiting_v6_handoff"
@@ -386,8 +400,8 @@ def local_progress(spool, seed, active, *, track_queue=False):
 
 def dispatcher_pid(seed, segment):
     cohort_services = {"background": "a7-background-v12", "ipv4": "a7-ipv4-v13",
-                       "ipv4_extension": "a7-ipv4-v13-2357-extension-01",
-                       "ipv4_continuation": "a7-ipv4-v13-2357-continuation-01"}
+                       "ipv4_extension": f"a7-ipv4-v13-{seed}-extension-01",
+                       "ipv4_continuation": f"a7-ipv4-v13-{seed}-continuation-01"}
     if segment in cohort_services:
         service = cohort_services[segment]
         label = f"gui/{os.getuid()}/com.purellm.{service}"
@@ -475,10 +489,14 @@ def show(view):
             if provider:
                 terminal = ("—" if provider.get("phase") == "queued_for_dispatch"
                             else "已收到" if provider.get("complete_event_seen") else "未收到")
+                elapsed = seconds(provider.get("provider_elapsed_seconds"))
+                last_event = seconds(provider.get("last_sse_seconds"))
+                since_event = elapsed - last_event if elapsed is not None and last_event is not None else None
                 print(f"  派发前等待 {duration_text(provider.get('dispatch_wait_seconds'))}  "
-                      f"API 已用时（含预检） {duration_text(provider.get('provider_elapsed_seconds'))}  "
+                      f"API 已用时（含预检） {duration_text(elapsed)}  "
                       f"首段正文 {duration_text(provider.get('first_output_seconds'))}  "
                       f"最近两条 SSE 间隔 {duration_text(provider.get('last_sse_interval_seconds'))}  "
+                      f"距上条 SSE {duration_text(since_event)}  "
                       f"完成终态 {terminal} {duration_text(provider.get('complete_event_seconds'))}")
             if api.get("selection"):
                 print(f"  A7 校验 {api['selection']}  {api['selection_errors'] or '—'}")

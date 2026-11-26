@@ -28,6 +28,7 @@ TIMEOUTS = RequestTimeouts(read_idle_seconds=900, total_seconds=1800)
 # The shared pool might first be occupied by requests with the original V13 hard wall.
 BRIDGE_WAIT_SECONDS = 3600 + TIMEOUTS.total_seconds + TIMEOUTS.bridge_margin_seconds
 LOGICAL = 0
+AUTHORITATIVE_MESSAGE_HASH = "authoritative_base_messages_sha256"
 
 
 @dataclass(frozen=True)
@@ -144,6 +145,33 @@ def _request(root, contract, approval, lane, state, memory, original):
     return make_request(stage.binding, LOGICAL, stage.messages, contract.transport)
 
 
+def _reconstruction(lane, original, rebuilt, transport):
+    if original == rebuilt:
+        return {}
+    # The logged 887 request preserves the compact wire bytes and both packet
+    # digests. Only the host-side pre-wire JSON message serialization differs.
+    archived_sha = original["binding"].get(AUTHORITATIVE_MESSAGE_HASH)
+    rebuilt_sha = rebuilt["binding"].get(AUTHORITATIVE_MESSAGE_HASH)
+    binding = {**original["binding"], AUTHORITATIVE_MESSAGE_HASH: rebuilt_sha}
+    expected = make_request(binding, LOGICAL, original["payload"]["input"], transport)
+    if (lane.seed != 887 or lane.round != 6 or not archived_sha or not rebuilt_sha
+            or archived_sha == rebuilt_sha or expected != rebuilt):
+        raise PermissionError("the original V13 request differs beyond the pinned host serialization")
+    return {"authoritative_message_reconstruction": {"archived_sha256": archived_sha, "rebuilt_sha256": rebuilt_sha}}
+
+
+def _same_science(request, original, reconstruction):
+    if reconstruction is None:
+        return previous._same_science(request, original)
+    rebuilt = reconstruction["rebuilt_sha256"]
+    if (original["binding"].get(AUTHORITATIVE_MESSAGE_HASH) != reconstruction["archived_sha256"]
+            or request["binding"].get(AUTHORITATIVE_MESSAGE_HASH) != rebuilt):
+        return False
+    # Compare the full API payload and all other scientific bindings exactly.
+    equivalent = {**original, "binding": {**original["binding"], AUTHORITATIVE_MESSAGE_HASH: rebuilt}}
+    return previous._same_science(request, equivalent)
+
+
 def construct(root, original_release, parent, run, lane):
     if run.name != lane.run_name or run.parent != parent.parent or root == original_release:
         raise PermissionError("use this seed's registered sibling run and separate immutable release")
@@ -161,9 +189,10 @@ def construct(root, original_release, parent, run, lane):
     original = read(turn / "request.json")
     binding = original["binding"]
     if (state.round != lane.round or original["payload_sha256"] != lane.payload_sha256
-            or binding["packet_sha256"] != digest(read(active / AUTHORITATIVE_PACKET_FILE))
-            or _request(root, old, approval, lane, state, memory, original) != original):
+            or binding["packet_sha256"] != digest(read(active / AUTHORITATIVE_PACKET_FILE))):
         raise PermissionError("the V13 scientific request differs from its sealed state or exact input")
+    rebuilt = _request(root, old, approval, lane, state, memory, original)
+    reconstruction = _reconstruction(lane, original, rebuilt, old.transport)
     prior = _retired_attempts(parent, turn, lane, original, old, approval)
     identity = _qualification_model({"model_identity": read(parent / "provider_model_lock.json")}, old.transport)
     if identity != old.predecessor["provider_qualification"]["model_identity"]:
@@ -187,7 +216,7 @@ def construct(root, original_release, parent, run, lane):
         "payload_sha256": original["payload_sha256"], "model_identity": identity,
         **{key: binding[key] for key in previous.MESSAGE_HASHES},
         "prior_execution_and_billing": "unresolved", "execution_budget": previous.ONE_SHOT_BUDGET,
-        "bridge_wait_seconds": BRIDGE_WAIT_SECONDS,
+        "bridge_wait_seconds": BRIDGE_WAIT_SECONDS, **reconstruction,
         "parent_transition_sha256": file_digest(active / "transition.json"),
         "parent_fit_audit_sha256": state.provenance["fit_audit_sha256"],
         "public_resource_receipt_sha256": backend.cache_receipt_sha256,
@@ -218,7 +247,7 @@ def execute(root, parent, run, lane, contract, approval, boundary, backend, orig
     _uncommitted(parent, lane, require_paused=True)
     state, memory, _ = boundary
     request = _request(root, contract, approval, lane, state, memory, original)
-    if not previous._same_science(request, original):
+    if not _same_science(request, original, contract.predecessor.get("authoritative_message_reconstruction")):
         raise PermissionError("the authorized extension does not reproduce the entire original payload")
     with scheduler._lock(run / "coordinator.lock", busy="this seed extension is already running"):
         if scheduler._pause_requested(run) and not resume:
