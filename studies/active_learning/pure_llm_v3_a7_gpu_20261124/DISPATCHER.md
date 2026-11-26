@@ -259,3 +259,9 @@ For new attempts with the signed SSE inactivity policy, the Mac starts a 900-sec
 Unified status shows both the time since the latest decoded SSE and the time since the last event that renewed the inactivity timer. For an inconsistent response identity, the private progress receipt records both sanitized IDs and the request remains ineligible for selection.
 
 The separate 157 one-attempt extension verifies the original L429 checkpoint, exact payload, and two previous physical slots. Its contract binds the 900-second SSE inactivity policy, a 3600-second total safety deadline and a 7800-second bridge wait. If A7 accepts the response and CUDA training seals L461, 32 originally planned rounds remain.
+
+The 2357 R2 extension is limited to the L397 request whose first physical attempt timed out after POST and whose authorized retry stopped in the unauthenticated preflight. The original continuation seed remains paused. A separate approval binds those sealed receipts, the exact model input, and one new physical slot under the same SSE inactivity policy. Its completion receipt links the accepted response and L429 CUDA state to the original remaining 33 rounds.
+
+### Token4Research response retrieval check
+
+On November 26, a separately approved synthetic Astra/xhigh request sent both `store:true` and `background:true`. The completed response reported both as false. A fresh client using the original credential returned HTTP 404 for the same response ID shortly afterwards. This route and request configuration did not provide a retrievable result. The private qualification ledger holds the request and sanitized receipts. Formal runs retain their existing storage configuration and archive the complete terminal response on the Mac before SSH delivery.

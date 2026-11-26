@@ -26,6 +26,7 @@ BACKGROUND = "a7-gpt62-astra-xhigh-background-v12"
 SERIAL_IPV4 = "a7-gpt62-astra-xhigh-ipv4-v13"
 IPV4_EXTENSION = f"{SERIAL_IPV4}-2357-extension-01"
 IPV4_CONTINUATION = f"{SERIAL_IPV4}-2357-continuation-01"
+IPV4_R2_EXTENSION = f"{SERIAL_IPV4}-2357-r2-extension-01"
 IPV4_EXTENSION_DISPATCHERS = {
     157: "dispatch_v13_lane_extension",
     887: "dispatch_v13_lane_extension",
@@ -206,7 +207,19 @@ def remote_seed(runs, seed):
         and follow_on_parent.get("dispatcher_module") == IPV4_CONTINUATION_DISPATCHERS.get(seed)
         and follow_on_record.get("profile", {}).get("confirmation_seeds") == [seed] else None
     )
-    if follow_on_contract:
+    r2_extension = runs / IPV4_R2_EXTENSION
+    r2_record = read_json(r2_extension / "formal_contract.json") if seed == 2357 and follow_on_contract else {}
+    r2_parent = r2_record.get("predecessor") or {}
+    r2_contract = (
+        fallback_contract(r2_extension) if follow_on_contract
+        and r2_parent.get("parent_contract_sha256") == follow_on_contract
+        and r2_parent.get("dispatcher_module") == "dispatch_v13_2357_r2_sse_extension"
+        and r2_record.get("profile", {}).get("confirmation_seeds") == [seed] else None
+    )
+    if r2_contract:
+        run, contract, segment = r2_extension, r2_contract, "ipv4_r2_extension"
+        ancestors = (follow_on, extension, cohort, direct_full, continuation, fallback)
+    elif follow_on_contract:
         run, contract, segment = follow_on, follow_on_contract, "ipv4_continuation"
         ancestors = (extension, cohort, direct_full, continuation, fallback)
     elif extension_contract:
@@ -279,6 +292,8 @@ def remote_seed(runs, seed):
         run / "extension_completion.json"
     ).is_file():
         phase = "transport_extension_complete"
+    elif segment == "ipv4_r2_extension" and latest == 3 and (run / "extension_completion.json").is_file():
+        phase = "transport_extension_complete"
     elif latest == PILOT_ROUNDS and segment not in ("v6", "v11", "background", "ipv4", "ipv4_continuation"):
         phase = "awaiting_v6_handoff"
     elif paused:
@@ -300,7 +315,7 @@ def remote_seed(runs, seed):
     elif not worker_live and phase == "initializing":
         phase = "worker_stopped"
     return {"seed": seed, "run": run.name, "contract_sha256": contract, "segment": segment,
-            "continuation": segment in ("ipv4", "ipv4_extension", "ipv4_continuation",
+            "continuation": segment in ("ipv4", "ipv4_extension", "ipv4_continuation", "ipv4_r2_extension",
                                         "background", "v11", "v6", "v5", "direct", "repair"),
             "target_rounds": TARGET_ROUNDS, "target_labels": TARGET_LABELS,
             "completed_rounds": latest, "labels": 333 + latest * 32 if latest is not None else None,
@@ -403,7 +418,8 @@ def local_progress(spool, seed, active, *, track_queue=False):
 def dispatcher_pid(seed, segment):
     cohort_services = {"background": "a7-background-v12", "ipv4": "a7-ipv4-v13",
                        "ipv4_extension": f"a7-ipv4-v13-{seed}-extension-01",
-                       "ipv4_continuation": f"a7-ipv4-v13-{seed}-continuation-01"}
+                       "ipv4_continuation": f"a7-ipv4-v13-{seed}-continuation-01",
+                       "ipv4_r2_extension": "a7-ipv4-v13-2357-r2-extension-01"}
     if segment in cohort_services:
         service = cohort_services[segment]
         label = f"gui/{os.getuid()}/com.purellm.{service}"
@@ -459,7 +475,7 @@ def mac_report(private, seeds):
             if read_json(spool / "run_binding.json").get("contract_sha256") == contract:
                 row["provider"] = local_progress(
                     spool, row["seed"], row["api"],
-                    track_queue=row["segment"] in ("ipv4", "ipv4_extension", "ipv4_continuation"),
+                    track_queue=row["segment"] in ("ipv4", "ipv4_extension", "ipv4_continuation", "ipv4_r2_extension"),
                 )
         if row.get("continuation"):
             row["dispatcher_pid"] = dispatcher_pid(row["seed"], row["segment"])

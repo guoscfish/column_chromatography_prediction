@@ -160,3 +160,14 @@ def test_2357_extension_preserves_parent_labels_and_other_seeds(tmp_path):
     write_json(continuation / "formal_contract.json", follow_on)
     write_json(continuation / "authorization.json", {"contract_sha256": follow_on_sha})
     assert remote_seed(tmp_path, 2357)["run"] == continuation.name
+
+    r2_extension = tmp_path / prompt_pilot_status.IPV4_R2_EXTENSION
+    r2 = {
+        "run_directory": str(r2_extension), "profile": {"confirmation_seeds": [2357]},
+        "predecessor": {"parent_contract_sha256": follow_on_sha,
+                        "dispatcher_module": "dispatch_v13_2357_r2_sse_extension"},
+    }
+    r2_sha = hashlib.sha256(json.dumps(r2, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+    write_json(r2_extension / "formal_contract.json", r2)
+    write_json(r2_extension / "authorization.json", {"contract_sha256": r2_sha})
+    assert remote_seed(tmp_path, 2357)["run"] == r2_extension.name
