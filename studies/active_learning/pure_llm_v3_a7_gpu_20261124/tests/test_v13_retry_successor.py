@@ -26,13 +26,15 @@ def test_only_explicitly_reviewed_new_wave_can_reserve_its_one_current_slot():
                                                  receipt.job_sha256, receipt.result_sha256, receipt.terminal_file_sha256,
                                                  receipt.progress_file_sha256))
     with pytest.raises(ValueError, match="no individually reviewed"):
-        gpu.read_scope(Parser(), SimpleNamespace(seed=12203, wave=6))
+        gpu.read_scope(Parser(), SimpleNamespace(seed=12203, wave=7))
 
 
 @pytest.mark.parametrize("seed,wave,rev_counts,physical_budget", [
     (12203, 3, [1, 1], 187), (12203, 4, [1, 1, 1], 187), (12203, 5, [1, 1, 1, 1], 187),
+    (12203, 6, [1, 1, 1, 1, 1], 187),
     (157, 3, [2, 1], 193), (157, 4, [2, 1, 1], 193), (157, 5, [2, 1, 1, 1], 193),
-    (6101, 2, [2], 199), (6101, 3, [2, 1], 199), (887, 1, [1], 163),
+    (157, 6, [2, 1, 1, 1, 1], 193),
+    (6101, 2, [2], 199), (6101, 3, [2, 1], 199), (2357, 2, [2], 187), (887, 1, [1], 163), (887, 3, [1, 1], 163),
 ])
 def test_each_prior_identity_and_new_second_slot_are_rejected(monkeypatch, seed, wave, rev_counts, physical_budget):
     scope = gpu.SCOPES[(seed, wave)]
@@ -135,6 +137,19 @@ def test_wave05_157_preserves_the_prior_chain_and_requires_reviewed_dispatcher()
                                               latest.result_sha256, latest.terminal_file_sha256, latest.progress_file_sha256))
 
 
+def test_wave06_157_adds_one_exact_review_without_editing_the_previous_scope():
+    previous = gpu.SCOPES[(157, 5)]
+    current = gpu.SCOPES[(157, 6)]
+    assert current.archive[:-1] == previous.archive
+    assert current.required_sources == previous.required_sources
+    assert (current.round, current.payload_sha256, current.budget) == (previous.round, previous.payload_sha256,
+                                                                     previous.budget)
+    assert current.not_before_unix == 1795687031.0807147
+    latest = current.archive[-1]
+    assert all(mac._sha(value) for value in (latest.identity.contract, latest.identity.approval, latest.job_sha256,
+                                              latest.result_sha256, latest.terminal_file_sha256, latest.progress_file_sha256))
+
+
 def test_887_zero_post_cached_round_must_match_the_signed_public_resource_ancestor(tmp_path, monkeypatch):
     scope = gpu.SCOPES[(887, 1)]
     assert (scope.original_start_round, scope.round) == (7, 8)
@@ -176,3 +191,33 @@ def test_887_replacement_signs_relay_helpers_missing_from_cached_parent(tmp_path
         assert sources[path.as_posix()] == file_digest(tmp_path / path)
         assert path.as_posix() not in parent.source_sha256
     assert set(sources) == {path.as_posix() for path in gpu.SIGNED_RETRY_SOURCES}
+
+
+def test_reviewed_upstream_read_errors_keep_the_exact_prior_body_and_budget():
+    for seed, wave, not_before in ((887, 3, 1795687197.5816553), (12203, 6, 1795687215.0316763)):
+        scope = gpu.SCOPES[(seed, wave)]
+        prior = gpu.SCOPES[(seed, wave - 1)]
+        assert scope.archive[:-1] == prior.archive
+        assert (scope.round, scope.payload_sha256, scope.budget) == (prior.round, prior.payload_sha256, prior.budget)
+        assert scope.required_sources == gpu.QUEUE_SOURCES
+        assert scope.not_before_unix == not_before
+        assert scope.archive[-1].failure == "error"
+        assert scope.archive[-1].progress["provider_error_code"] == "upstream_stream_read_error"
+    old = gpu.SCOPES[(887, 2)]
+    new = gpu.SCOPES[(887, 3)]
+    assert new.cached_origin == old.cached_origin
+    assert new.cached_origin.review["provider_post"] is False
+    assert new.original_start_round is None and new.fitted_prefix_files == ()
+
+
+def test_2357_previous_partial_text_telemetry_is_bound_to_the_stopped_physical_attempt():
+    scope = gpu.SCOPES[(2357, 2)]
+    assert scope.round == scope.original_start_round == 4
+    assert scope.not_before_unix == 1795687459.5865693
+    assert scope.required_sources == gpu.QUEUE_SOURCES
+    last = scope.archive[-1]
+    assert len(last.attempts) == 2 and len(last.replay_files) == 3
+    assert last.failure == "timeout" and last.progress["event_type"] == "response.output_text.delta"
+    assert last.progress["error_type"] == "hard_wall_deadline"
+    assert all(mac._sha(value) for value in (last.job_sha256, last.result_sha256, last.terminal_file_sha256,
+                                            last.progress_file_sha256))

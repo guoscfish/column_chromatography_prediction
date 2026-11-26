@@ -182,6 +182,40 @@ SCOPES[(6101, 3)] = replace(SCOPES[(6101, 2)], wave=3, cooldown_field="not_befor
          "response_id_matches_transport_alias": True}),
 ))
 
+_2357_OLD = retry.bounded.RunIdentity("-2357-relay-retry-01",
+    "3c20dad3f4c772011e82d8684e7bfe4204a988e32f59b26b90390507ad6bb1d8",
+    "5a507f2471b94d81b3eaae590d6c027bc2e8d3369a424550af0def0aea8c25f8")
+_2357_REQUEST = "0c88dc80f734af1eee98a8d01d5992725e8a2ce68787a1a572150e714beb71b9"
+_2357_FIRST = Review(_2357_OLD, _2357_REQUEST, "bde86b9f77d44228bc6d1d2ee34287e4",
+    "e39f6aaa75b557ad92a973bdd9a2b85be915d1de98c3b07d8b0e0e574e9ba78f",
+    "940cf534df4872eee6cbb51367170d9f882e0c59e0f3e4bfb7da1c0764aa2ab7",
+    "4c50f3cf04f5dab96cd254ebe18e6d17e2c98d45f9dd35a38ff90eeeceafedc5",
+    "619ed8ba393e46bd6e815dc6d4799bb89195b69569b1d3a0b9514a5b66b05679", "response_id_mismatch",
+    {"http_status": 200, "phase": "transport_failure", "error_type": "response_id_mismatch",
+     "sse_event_count": 41, "provider_request_id": "8b970794-584a-46d5-95fe-b0f8cb601c9e",
+     "response_id": "resp_084ae7d43e6d33e1016b07f373b83087d1955ad6ecedc533c7",
+     "conflicting_response_id": "resp_8b970794584a46d595feb0f8cb601c9e", "conflicting_event_type": "response.failed",
+     "response_id_matches_transport_alias": True})
+SCOPES[(2357, 2)] = Scope(2357, 4, 2, "302fe66d28c6c9aa4cfd604a56d623cc0f6d7a8d4bd53f4ee67e194732bf39ea", (
+    Review(_2357_OLD, _2357_REQUEST, "29e6b83977b14450904542b81b5efbd2",
+        "8cea52ac8526860bf3a297c691238295482304125889bfef518cf1f89c243ead",
+        "14b2e29fe47a84bd1c194d11f0adcb39f35f8283eb89a73d93a822117dd1fd76",
+        "984f751b7e162ab3b73efec0d5637884c8af8df1b75a6122c7e7068f8ff9a198",
+        "2f7e4ac250c929d338b61c3ad8f25a3ee678900468649a1f041f5ed8c08368b6", "timeout",
+        {"http_status": 200, "phase": "transport_failure", "error_type": "hard_wall_deadline",
+         "sse_event_count": 5325, "event_type": "response.output_text.delta", "last_sse_seconds": 2957.5922856668476,
+         "provider_request_id": "48fda888-11da-47f5-9c99-222688c89689",
+         "response_id": "resp_096ae4c1a60efb8b016b07f5cf8e7887d1b0e15f434504077f"},
+        earlier=(_2357_FIRST,), replay_files={
+            "attempt_00.replay_authorization.json": "3e6e8f5986a2dc8ea161d69ee967490341fbdcfb05bc8d8949c056d9a74ced77",
+            "attempt_00.replay.terminal.json": "4d6e133baff411b80f58ff3a7ea15724f6ef8c40cc4a6616907e81a2ba08de70",
+            "attempt_01.replay_link.json": "1d865c07dd2f269ad17f8b5991a3e0be6a1c14b3f5645fa8da1722b994a587cb",
+        }),
+), "failed_unix", 1795687279.5865693, original_start_round=4, fitted_prefix_files=(
+    ("round_04/source.json", "2506c383d9e1a2de8e27635a36a4198121cc6772ad917685ecbdcbd31b605cc9"),
+    ("round_04/boundary_memory.json", "e70a0d42f6aa9b94fc73046408bf4e2ce9d3082d896f5993909b29f3ca0d5620"),
+), required_sources=QUEUE_SOURCES)
+
 SCOPES[(157, 4)] = replace(SCOPES[(157, 3)], wave=4, cooldown_unix=1795685449.213155, archive=(
     *SCOPES[(157, 3)].archive,
     Review(retry.bounded.RunIdentity("-157-relay-retry-03",
@@ -216,6 +250,23 @@ SCOPES[(157, 5)] = replace(SCOPES[(157, 4)], wave=5, cooldown_unix=1795686187.24
          "response_id_matches_transport_alias": True}),
 ), required_sources=QUEUE_SOURCES)
 
+SCOPES[(157, 6)] = replace(SCOPES[(157, 5)], wave=6, cooldown_unix=1795686851.0807147, archive=(
+    *SCOPES[(157, 5)].archive,
+    Review(retry.bounded.RunIdentity("-157-relay-retry-05",
+        "360ce022071f58f7b45c80e6554a69bb4433e58cea803bd1f03efafe5e28de50",
+        "c78dc92578f193670200e5abda1d4f76357b29e419e174916fe16e28df63a584"),
+        "1fb54c4cd562bbd605c70778c6e56c6b36e4d30547af99bf82f41e21dfb38137", "f9946e76e81e432997a39dcfdcc6867a",
+        "84713abfe1eca6c3035570210640f432224455e5510c36ddcf9a0c7e7327c3c0",
+        "62caa4e7ba18d9a67b8aa259bb0a5100769df181c88da75e5434b7a11e4cc6c7",
+        "c0e6b8d8d1aae5048b22aa62eb64ac0833981b2c49086ab33f07b312bffcf506",
+        "950630f627fbbbd4a995506248fa32ea9ea1ff34f903fd3764c6a55da4ffc31f", "response_id_mismatch",
+        {"http_status": 200, "phase": "transport_failure", "error_type": "response_id_mismatch",
+         "sse_event_count": 41, "provider_request_id": "1310ea7a-5244-48d2-a158-fd30d4ec4db2",
+         "response_id": "resp_02f8dae9ee92f0d3016b0800fb4f2487d2b2ec67c61d50888a",
+         "conflicting_response_id": "resp_1310ea7a524448d2a158fd30d4ec4db2", "conflicting_event_type": "response.failed",
+         "response_id_matches_transport_alias": True}),
+))
+
 SCOPES[(12203, 4)] = replace(SCOPES[(12203, 3)], wave=4, cooldown_unix=1795685708.5045788, archive=(
     *SCOPES[(12203, 3)].archive,
     Review(retry.bounded.RunIdentity("-12203-relay-retry-03",
@@ -246,6 +297,22 @@ SCOPES[(12203, 5)] = replace(SCOPES[(12203, 4)], wave=5, cooldown_unix=179568645
          "response_id": "resp_00271412b94c2133016b07ff67b75487d2ba227b0979fa30a1",
          "conflicting_response_id": "resp_2df9333ec77546a78dfc89aa54cf3749", "conflicting_event_type": "response.failed",
          "response_id_matches_transport_alias": True}),
+))
+
+SCOPES[(12203, 6)] = replace(SCOPES[(12203, 5)], wave=6, cooldown_unix=1795687035.0316763, archive=(
+    *SCOPES[(12203, 5)].archive,
+    Review(retry.bounded.RunIdentity("-12203-relay-retry-05",
+        "e2b5af09a15ec1c32dcc7ddd3d0f418ac12309178154c304379a0f69dd614a77",
+        "435c4957488c881e7132ef1541403328a5b6cf0d0ee383a7e9ff11de5ca400b0"),
+        "29f5cd07c5babf292526190b1d4ffc831e81b4973996e377aec62108241bcdcc", "e729a3ed4b8646eeb4f138afa5cdfd92",
+        "44ea8435296a6b7135a027d4ef7ac5f6b13be2b3cc308a8e6b84caf1c1e667f9",
+        "85ab759d4150348aea0821c1b55cc0a4bd77dab56aed4316d5b40ef5b7f92160",
+        "d8f625b0cf3f3fc44a8174c81d2e21be6aaa984c5d2fa69fd0ceef1ef585610a",
+        "c68e7df78ed3a63c4cf2ec4982b00ff1a5eb6649d920e391728f9485a7772824", "error",
+        {"http_status": 200, "phase": "transport_failure", "event_type": "error", "error_type": "error",
+         "provider_error_code": "upstream_stream_read_error", "sse_event_count": 10,
+         "provider_request_id": "e8a4abba-c6fc-43b4-863a-340949691acb",
+         "response_id": "resp_03e8605b24debb20016b080227447887d2ac1a1e5f5313b441"}),
 ))
 
 SCOPES[(887, 1)] = Scope(
@@ -279,6 +346,22 @@ SCOPES[(887, 1)] = Scope(
     ),
 )
 SCOPES[(887, 2)] = replace(SCOPES[(887, 1)], wave=2)
+SCOPES[(887, 3)] = replace(SCOPES[(887, 2)], wave=3, cooldown_unix=1795687017.5816553,
+                           original_start_round=None, fitted_prefix_files=(), archive=(
+    *SCOPES[(887, 2)].archive,
+    Review(retry.bounded.RunIdentity("-887-relay-retry-02",
+        "a0e19b519b4cd3c96038563fb470f93ab5b5ff9d943aee4215292a256ba50f3e",
+        "80c19a60bda6db98a5ec2f7b98051408b027b1dec7889b11f89a7288c3537252"),
+        "33dd5e0f75cc3e5b932126505a2a2aae1bfd76fbb9f77394b1d1cb94815a4520", "844b413de8424d998374e86a31535b48",
+        "b12ee1189f1d36bd35f1eccbfd6a80caf8962908864f0ba7438feb092798372e",
+        "6b3284b78b60617b0f45befb1913d21f33ff20859122f2d75749f9a13be80719",
+        "4d8908c38af866b174465006e0d65bcacd47a6d1ba85af658f0c76c9c038634d",
+        "c3a801b2c92eca99e825e30f523e0025d7065fc775e8a73853a066b803ca9b92", "error",
+        {"http_status": 200, "phase": "transport_failure", "event_type": "error", "error_type": "error",
+         "provider_error_code": "upstream_stream_read_error", "sse_event_count": 26,
+         "provider_request_id": "1d9ab1ff-4896-4cf8-9c86-512896829522",
+         "response_id": "resp_048c6e89491c1847016b0801da3a9087d0b9f92cea1ca055a9"}),
+))
 
 
 def _evidence(run, active, contract, approval, scope, review):
@@ -371,7 +454,8 @@ def construct(root, failed_release, failed_run, run, scope):
     parent, approval = last["contract"], last["approval"]
     old = parent.predecessor
     parent_start = parent.profile["resume_boundaries"][str(scope.seed)]["round"]
-    if scope.cached_origin is not None:
+    cached_parent = scope.cached_origin is not None and scope.original_start_round is not None
+    if cached_parent:
         remaining = parent.rounds - scope.round
         expected_budget = (scope.original_start_round, {"maximum_logical_requests": 1, "maximum_physical_attempts": 0},
                            {"first_logical_requests": remaining, "maximum_logical_requests": 3 * remaining,
@@ -385,7 +469,9 @@ def construct(root, failed_release, failed_run, run, scope):
             or (parent_start, old["recovery_budget"], old["execution_budget"]) != expected_budget
             or any(file_digest(last["directory"] / name) != sha for name, sha in scope.fitted_prefix_files)):
         raise PermissionError("the retired physical budget or original cooldown clock differs from its record")
-    resources = old if scope.cached_origin is None else _cached_resources(failed_run, last["directory"], old, scope)
+    if scope.cached_origin is not None and not cached_parent and old.get("reviewed_cached_import") != scope.cached_origin.review:
+        raise PermissionError("the previous successor does not preserve the verified cached import evidence")
+    resources = _cached_resources(failed_run, last["directory"], old, scope) if cached_parent else old
     cache = Path(old["cache_directory"]).resolve(strict=True)
     if file_digest(cache / "resource_receipt.json") != resources["public_resource_receipt_sha256"]:
         raise PermissionError("the original public training cache changed")
@@ -421,7 +507,7 @@ def construct(root, failed_release, failed_run, run, scope):
     proof.update({key: binding[key] for key in ("checkpoint_sha256", "packet_sha256", "wire_packet_sha256", "base_messages_sha256")})
     if scope.fitted_prefix_files:
         proof["reviewed_fitted_prefix_files"] = dict(scope.fitted_prefix_files)
-    if scope.cached_origin is not None:
+    if cached_parent:
         proof.pop("cached_import")
         proof["reviewed_cached_import"] = scope.cached_origin.review
     for stale in ("authoritative_message_reconstruction", "inherited_boundary_budget"):
