@@ -139,7 +139,8 @@ def _sealed_relay_authorizer(run, request):
     return authorize
 
 
-def test_sealed_relay_retry_resumes_the_original_180_second_delay(audited_live_bridge):
+@pytest.mark.parametrize("typed_stream_timeout", [False, True])
+def test_sealed_relay_retry_resumes_the_original_180_second_delay(audited_live_bridge, typed_stream_timeout):
     run, config, request, bridge, _ = audited_live_bridge
     directory = run / "seed_157" / "round_01"
     log = directory / "turn_01"
@@ -151,7 +152,11 @@ def test_sealed_relay_retry_resumes_the_original_180_second_delay(audited_live_b
         job = make_job(managed_request, managed_config, started)
         if started["attempt"] == 0:
             clock[0] += 10
-            result = make_result(job, failure=_sealed_alias_failure(), provider_dispatched=True,
+            failure = (_sealed_alias_failure(error="relay_stream_timeout", status="error")
+                       if typed_stream_timeout else _sealed_alias_failure())
+            if typed_stream_timeout:
+                failure.reply_identity["response_id"] = "resp_original"
+            result = make_result(job, failure=failure, provider_dispatched=True,
                                  credential_id="mock-slot-1")
         else:
             result = _payload(config, job)
@@ -190,6 +195,53 @@ def test_sealed_relay_retry_resumes_the_original_180_second_delay(audited_live_b
     assert terminal_record(log, 0) == original
     assert run_request(directory, request, config, _forbidden, sleep=_forbidden, **options) == completed
     assert len(calls) == 2 and not (log / "attempt_02.started.json").exists()
+
+
+@pytest.mark.parametrize("initial_round_is_already_complete", [False, True])
+def test_signed_single_inherited_slot_enables_retry_only_from_the_following_round(
+    setup_bridge, tmp_path, monkeypatch, initial_round_is_already_complete,
+):
+    config, _, _, _ = setup_bridge
+    initial_round = 3
+    profile = {"resume_boundaries": {"157": {}}, "audited_future_transport_replay": True,
+               "sealed_relay_retry_seconds": 180, "replay_eligible_from_round": initial_round + 1}
+    parameters = {"seed_ids": (157,), "initial_labels": 333, "rounds": 36, "profile": profile,
+                  "requires_initial_qualification": False, "anchor_root": None, "transport": config,
+                  "predecessor": {"recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}},
+                  "digest": "a" * 64, "device": "cuda", "batch_size": 32}
+    run = tmp_path / "signed-inherited-run"
+    seed = seed_runner.seed_directory(run, 157)
+    round_after = seed_runner.round_directory(seed, initial_round + 1)
+    if initial_round_is_already_complete:
+        once(round_after / "transition.json", {})
+    monkeypatch.setattr(seed_runner, "verify_authorization", lambda _contract, approval: approval)
+    monkeypatch.setattr(seed_runner, "_approved_assets", lambda *_: None)
+    monkeypatch.setattr(seed_runner, "_import_boundary", lambda *_: (None, None))
+    monkeypatch.setattr(seed_runner, "_successor", lambda *_: (None, None))
+    monkeypatch.setattr(seed_runner, "_state_roles", lambda *_: [])
+    monkeypatch.setattr(seed_runner, "_stage", lambda *_: SimpleNamespace(binding={}, messages=[]))
+
+    def select(_stage, _directory, _config, _call, *, retry_options, **options):
+        if initial_round_is_already_complete:
+            assert retry_options["sealed_relay_retry_seconds"] == 180
+            assert callable(retry_options["replay_authorization_factory"])
+            assert "attempt_limit" not in retry_options and "logical_reply_limit" not in options
+        else:
+            assert retry_options["attempt_limit"] == 1 and options["logical_reply_limit"] == 1
+            assert "sealed_relay_retry_seconds" not in retry_options and "replay_authorization_factory" not in retry_options
+        raise RuntimeError("selection options verified offline")
+
+    monkeypatch.setattr(seed_runner, "select_stage", select)
+    backend = SimpleNamespace(seed=157, l0_ids=range(333), is_mock=False)
+    with pytest.raises(RuntimeError, match="selection options verified offline"):
+        seed_runner.run_seed(root=tmp_path, run_directory=run, contract=SimpleNamespace(**parameters), authorization={},
+                             seed=157, backend=backend, call=_forbidden, resume_boundary=(None, None, initial_round),
+                             transport_options={"managed_attempt": _forbidden})
+    parameters["predecessor"]["recovery_budget"]["maximum_physical_attempts"] = 2
+    with pytest.raises(PermissionError, match="finite logical and physical budget"):
+        seed_runner.run_seed(root=tmp_path, run_directory=run, contract=SimpleNamespace(**parameters), authorization={},
+                             seed=157, backend=backend, call=_forbidden, resume_boundary=(None, None, initial_round),
+                             transport_options={"managed_attempt": _forbidden})
 
 
 @pytest.mark.parametrize(("failure", "stop"), [

@@ -196,6 +196,52 @@ def test_only_a_failed_http_transport_alias_without_final_carries_retry_evidence
         assert identity is None
 
 
+@pytest.mark.parametrize(("before", "header", "fields", "proof"), [
+    ("created", "00000001-0002-4000-8000-000000000003", {}, True),
+    ("created", "00000001-0002-4000-8000-000000000003",
+     {"request_id": "00000001-0002-4000-8000-000000000003", "response_id": "resp_stream"}, True),
+    ("none", "00000001-0002-4000-8000-000000000003", {}, False),
+    ("created", "unverified-trace", {}, False),
+    ("created", "00000001-0002-4000-8000-000000000003", {"request_id": "another-request"}, False),
+    ("created", "00000001-0002-4000-8000-000000000003", {"response_id": "resp_other"}, False),
+    ("created", "00000001-0002-4000-8000-000000000003", {"code": "rate_limit_exceeded"}, False),
+    ("created", "00000001-0002-4000-8000-000000000003", {"status": 429}, False),
+    ("created", "00000001-0002-4000-8000-000000000003", {"param": "model"}, False),
+    ("text", "00000001-0002-4000-8000-000000000003", {}, False),
+    ("done", "00000001-0002-4000-8000-000000000003", {}, False),
+])
+def test_typed_stream_timeout_is_scoped_to_the_known_http_trace_without_text(mock_provider, before, header, fields,
+                                                                            proof):
+    def body():
+        if before != "none":
+            yield _event("response.created")
+        if before == "text":
+            yield _frame("response.output_text.delta", item_id="msg_fixture", delta="started text")
+        if before == "done":
+            yield _frame("response.output_text.done", item_id="msg_fixture", text="finished text")
+        yield _frame("error", **{"code": "stream_timeout", "message": "private upstream message",
+                                 "sequence_number": 4, **fields})
+
+    check = mock_provider(body, request_id=header)
+    assert check.result.code == ("relay_stream_timeout" if proof else "error")
+    assert check.result.ambiguous and not check.result.retryable
+    assert not check.raw and not check.receipt
+    assert "private upstream message" not in json.dumps(check.progress)
+    identity = getattr(check.result, "reply_identity", None)
+    assert identity == ({"response_id": "resp_stream", "provider_request_id": header, "provider_status": "error",
+                         "served_model": "mock-model", "usage": {}} if proof else None)
+
+
+def test_nested_sdk_stream_timeout_is_not_the_typed_relay_replay_signal(mock_provider):
+    def body():
+        yield _event("response.created")
+        yield _frame("error", error={"code": "stream_timeout", "message": "untyped timeout"})
+
+    check = mock_provider(body, request_id="00000001-0002-4000-8000-000000000003")
+    assert check.result.code == "provider_stream_error" and check.result.ambiguous
+    assert getattr(check.result, "reply_identity", None) is None and not check.raw and not check.receipt
+
+
 def test_sse_error_retains_only_structured_failure_fields(mock_provider):
     def body():
         yield _event("response.created")

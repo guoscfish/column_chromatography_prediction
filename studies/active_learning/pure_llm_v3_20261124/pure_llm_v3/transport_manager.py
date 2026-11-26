@@ -27,7 +27,9 @@ RESPONSES_BACKGROUND = "responses_background"
 
 UNKNOWN_REPLAY_DECISION = "authorized_replay_unknown"
 SEALED_RELAY_RETRY_SECONDS = 180
+RELAY_STREAM_TIMEOUT = "relay_stream_timeout"
 REQUEST_UUID = re.compile(r"[a-fA-F0-9]{8}(?:-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}")
+RESPONSE_ID = re.compile(r"resp_[A-Za-z0-9][A-Za-z0-9._-]{0,122}")
 REPLAY_AUTH_FIELDS = {"decision", "authorized_by", "authorization_reference", "accept_duplicate_billing_risk",
                       "contract_sha256", "request_id", "attempt_id", "bridge_result_sha256",
                       "original_terminal_sha256", "next_attempt"}
@@ -188,8 +190,13 @@ def response_id_matches_transport_alias(request_id, response_id):
 
 def is_sealed_relay_failure(record):
     """Check the failed response identity carried by an independently verified result."""
-    return (record.get("error") == "response_id_mismatch" and record.get("provider_status") == "failed"
-            and response_id_matches_transport_alias(record.get("provider_request_id"), record.get("response_id")))
+    request_id, response_id = record.get("provider_request_id"), record.get("response_id")
+    error, status = record.get("error"), record.get("provider_status")
+    if error == RELAY_STREAM_TIMEOUT:
+        return bool(status == "error" and isinstance(request_id, str) and REQUEST_UUID.fullmatch(request_id)
+                    and isinstance(response_id, str) and RESPONSE_ID.fullmatch(response_id))
+    return (error == "response_id_mismatch" and status == "failed"
+            and response_id_matches_transport_alias(request_id, response_id))
 
 
 def _unknown_replay_record(request, started, previous, authorization):

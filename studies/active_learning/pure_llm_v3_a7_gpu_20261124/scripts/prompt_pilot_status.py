@@ -43,9 +43,13 @@ IPV4_CONTINUATION_DISPATCHERS = {
 }
 IPV4_EXTENSION_END_ROUNDS = {157: 4, 887: 7, 2357: 2, 6101: 2}
 BOUNDED_SSE_END_ROUNDS = {157: 4, 887: 7, 2357: 3, 6101: 2}
-RESILIENT_SEGMENTS = ("ipv4_resilient_sse", "ipv4_resilient_failure", "ipv4_relay_retry", "ipv4_cached_r7")
+RESILIENT_SEGMENTS = ("ipv4_resilient_sse", "ipv4_resilient_failure", "ipv4_relay_retry",
+                      "ipv4_relay_retry_02", "ipv4_cached_r7")
 FORMAL_APPROVAL_FLAGS = ("authorize_paid_api", "authorize_label_reveal", "authorize_cuda_training")
 RELAY_RETRY_SECONDS = 180
+RELAY_12203_WAVE01_CONTRACT = "1f1f225de4f396e639ba97bd56b2ab145307e66626b316b115ba7c82beaf11f5"
+RELAY_12203_WAVE01_AUTH = "77b8f85d33eed696a3ec19147804a00a963b37bea56b3fcdb2eb5d6dfbf0f16d"
+RELAY_12203_NOT_BEFORE = 1795683358.4218476
 CACHED_R7_PLAN_SHA = "d8acfb0d43235068f932f18b7f09c08554e811060f04878fe1a5a9afe8386d47"
 PILOT_ROUNDS = 10
 TARGET_ROUNDS = 36
@@ -279,7 +283,8 @@ def resilient_failure_contract(runs, seed, previous, previous_contract, recovery
     return None
 
 
-def _signed_failure_successor(run, seed, previous, previous_contract, dispatcher, physical_attempts):
+def _signed_recovery_successor(run, seed, previous, previous_contract, dispatcher, physical_attempts, *,
+                               previous_suffix="resilient-failure-01"):
     record = read_json(run / "formal_contract.json")
     proof = record.get("predecessor") or {}
     profile = record.get("profile", {})
@@ -289,7 +294,7 @@ def _signed_failure_successor(run, seed, previous, previous_contract, dispatcher
     boundary = profile.get("resume_boundaries", {}).get(str(seed), {})
     start = boundary.get("round")
     budget = proof.get("recovery_budget")
-    if (previous.name != f"{SERIAL_IPV4}-{seed}-resilient-failure-01"
+    if (previous.name != f"{SERIAL_IPV4}-{seed}-{previous_suffix}"
             or prior_approval.get("contract_sha256") != previous_contract
             or proof.get("dispatcher_module") != dispatcher
             or proof.get("previous_run_directory") != str(previous)
@@ -314,7 +319,7 @@ def _signed_failure_successor(run, seed, previous, previous_contract, dispatcher
 
 def relay_retry_contract(runs, seed, previous, previous_contract):
     run = runs / f"{SERIAL_IPV4}-{seed}-relay-retry-01"
-    if candidate := _signed_failure_successor(run, seed, previous, previous_contract, "dispatch_v13_relay_retry", 2):
+    if candidate := _signed_recovery_successor(run, seed, previous, previous_contract, "dispatch_v13_relay_retry", 2):
         contract, start, profile, _ = candidate
         if (type(profile.get("sealed_relay_retry_seconds")) is int
                 and profile["sealed_relay_retry_seconds"] == RELAY_RETRY_SECONDS
@@ -325,11 +330,34 @@ def relay_retry_contract(runs, seed, previous, previous_contract):
     return None
 
 
+def relay_retry_02_contract(runs, seed, previous, previous_contract):
+    if seed != 12203 or previous_contract != RELAY_12203_WAVE01_CONTRACT:
+        return None
+    run = runs / f"{SERIAL_IPV4}-12203-relay-retry-02"
+    candidate = _signed_recovery_successor(run, seed, previous, previous_contract,
+                                           "dispatch_v13_12203_relay_retry", 1, previous_suffix="relay-retry-01")
+    if candidate is None:
+        return None
+    contract, start, profile, proof = candidate
+    not_before = seconds(proof.get("relay_not_before_unix"))
+    if (start == 4 and proof.get("previous_authorization_sha256") == RELAY_12203_WAVE01_AUTH
+            and proof.get("inherited_boundary_budget") == {
+                "physical_authorized": 2, "physical_already_used": 1, "physical_remaining": 1
+            }
+            and not_before == RELAY_12203_NOT_BEFORE and profile.get("audited_future_transport_replay") is True
+            and profile.get("replay_eligible_from_round") == start + 1
+            and type(profile.get("sealed_relay_retry_seconds")) is int
+            and profile["sealed_relay_retry_seconds"] == RELAY_RETRY_SECONDS
+            and profile.get("ipv4_readiness_windows") == 3):
+        return run, contract, start, profile["ipv4_readiness_windows"], not_before
+    return None
+
+
 def cached_r7_contract(runs, seed, previous, previous_contract):
     if seed != 887:
         return None
     run = runs / f"{SERIAL_IPV4}-887-cached-r7-01"
-    if candidate := _signed_failure_successor(run, seed, previous, previous_contract, "dispatch_v13_887_cached_r7", 0):
+    if candidate := _signed_recovery_successor(run, seed, previous, previous_contract, "dispatch_v13_887_cached_r7", 0):
         contract, start, profile, proof = candidate
         cached = proof.get("cached_import") or {}
         generation = read_json(run / "coordinator_generation.json")
@@ -473,7 +501,7 @@ def remote_seed(runs, seed):
         ancestors = (run, *ancestors)
         run, contract, segment = bounded, bounded_contract, "ipv4_bounded_sse"
     recovery_round, readiness_windows = None, 0
-    relay_retry = None
+    relay_retry = inherited_not_before = None
     if mode == "ipv4" and (resilient := resilient_contract(
         runs, seed, run, contract, cohort_contract, follow_on_contract,
     )):
@@ -493,6 +521,10 @@ def remote_seed(runs, seed):
                 run, contract, recovery_round, readiness_windows = relay
                 segment = "ipv4_relay_retry"
                 relay_retry = RELAY_RETRY_SECONDS
+                if wave02 := relay_retry_02_contract(runs, seed, run, contract):
+                    ancestors = (run, *ancestors)
+                    run, contract, recovery_round, readiness_windows, inherited_not_before = wave02
+                    segment = "ipv4_relay_retry_02"
     if seed in UNSTARTED_ANCHORS and not cohort_contract and not any(
         (path / f"seed_{seed}").exists() for path in (run, *ancestors)
     ):
@@ -533,6 +565,9 @@ def remote_seed(runs, seed):
         if api.get("status") == "waiting_for_mac":
             api["status"] = "validating_cached_response"
         api["cached_import"] = True
+    if inherited_not_before is not None and latest == recovery_round and not api and inherited_not_before > time.time():
+        api = {"status": "inherited_relay_cooldown",
+               "relay_retry_wait_seconds": max(0, math.ceil(inherited_not_before - time.time()))}
     if latest == TARGET_ROUNDS:
         phase = "complete"
     elif segment in ("ipv4_extension", "ipv4_json_extension", "ipv4_ws_extension") and latest == IPV4_EXTENSION_END_ROUNDS[seed] and (
@@ -574,6 +609,7 @@ def remote_seed(runs, seed):
             **({"recovery_round": recovery_round, "readiness_windows": readiness_windows}
                if segment in RESILIENT_SEGMENTS else {}),
             **({"sealed_relay_retry_seconds": relay_retry} if relay_retry is not None else {}),
+            **({"relay_not_before_unix": inherited_not_before} if inherited_not_before is not None else {}),
             "target_rounds": TARGET_ROUNDS, "target_labels": TARGET_LABELS,
             "completed_rounds": latest, "labels": 333 + latest * 32 if latest is not None else None,
             "phase": phase, "worker_pid": worker_pid, "worker_active": worker_live,
@@ -732,6 +768,7 @@ def dispatcher_pid(seed, segment):
                        "ipv4_resilient_sse": f"a7-ipv4-v13-{seed}-resilient-sse-01",
                        "ipv4_resilient_failure": f"a7-ipv4-v13-{seed}-resilient-failure-01",
                        "ipv4_relay_retry": f"a7-ipv4-v13-{seed}-relay-retry-01",
+                       "ipv4_relay_retry_02": "a7-ipv4-v13-12203-relay-retry-02",
                        "ipv4_cached_r7": "a7-ipv4-v13-887-cached-r7-01"}
     if segment in cohort_services:
         service = cohort_services[segment]

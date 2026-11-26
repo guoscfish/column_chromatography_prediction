@@ -542,10 +542,11 @@ def run_seed(*, root, run_directory, contract, authorization, seed, backend, cal
     if relay_delay is not None and (not audit_replay or type(relay_delay) is not int
             or relay_delay != SEALED_RELAY_RETRY_SECONDS or contract.transport.transport_attempts != 2):
         raise PermissionError("sealed relay retry requires a signed managed two-attempt recovery")
-    expected_replay_start = start if relay_delay is not None else start + 1
+    replay_starts = (start, start + 1) if relay_delay is not None else (start + 1,)
     if audit_replay and (mock or managed_attempt is None or type(replay_start) is not int
-                         or replay_start != expected_replay_start):
+                         or replay_start not in replay_starts):
         raise PermissionError("audited relay replay differs from the formal managed resume boundary")
+    boundary_attempts = 2 if relay_delay is not None and replay_start == start else 1
     predecessor = contract.predecessor or {}
     cached_import = predecessor.get("cached_import")
     cached_dispatcher = predecessor.get("dispatcher_module") == "dispatch_v13_887_cached_r7"
@@ -558,8 +559,7 @@ def run_seed(*, root, run_directory, contract, authorization, seed, backend, cal
             raise PermissionError("the cached recovery authorizes one local decision and zero provider submissions")
     elif audit_replay:
         recovery_budget = predecessor.get("recovery_budget")
-        if (recovery_budget != {"maximum_logical_requests": 1,
-                                "maximum_physical_attempts": 2 if relay_delay is not None else 1}
+        if (recovery_budget != {"maximum_logical_requests": 1, "maximum_physical_attempts": boundary_attempts}
                 or any(type(value) is not int for value in recovery_budget.values())):
             raise PermissionError("the formal recovery boundary differs from its finite logical and physical budget")
     scope = _scope(contract, authorization, seed, mock)
@@ -647,7 +647,7 @@ def run_seed(*, root, run_directory, contract, authorization, seed, backend, cal
                         break
                     selection_options = {"normalize_observed_reference_aliases": True} if alias_normalization else {}
                     if audit_replay and index == start:
-                        retry_options["attempt_limit"] = 2 if relay_delay is not None else 1
+                        retry_options["attempt_limit"] = boundary_attempts
                         selection_options["logical_reply_limit"] = 1
                     select_stage(stage, round_dir, contract.transport, authorized_call, mock=mock,
                                  retry_options=retry_options, response_projection=response_projection,

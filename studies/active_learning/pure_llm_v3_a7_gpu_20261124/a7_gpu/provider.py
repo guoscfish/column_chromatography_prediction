@@ -14,9 +14,9 @@ from urllib.parse import urlparse
 
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, once
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
-    RESPONSES_JSON_IPV4, RESPONSES_STREAM, RESPONSES_STREAM_IPV4, RESPONSES_WEBSOCKET_IPV4, ProviderReply,
-    ResponseMessagePhaseError, TransportFailure, check_request, collect_completed, response_id_matches_transport_alias,
-    response_output_text, retry_http,
+    RELAY_STREAM_TIMEOUT, RESPONSES_JSON_IPV4, RESPONSES_STREAM, RESPONSES_STREAM_IPV4, RESPONSES_WEBSOCKET_IPV4,
+    ProviderReply, ResponseMessagePhaseError, TransportFailure, check_request, collect_completed, is_sealed_relay_failure,
+    response_id_matches_transport_alias, response_output_text, retry_http,
 )
 
 from .credentials import api_key, key_text
@@ -194,6 +194,12 @@ def _answer_message(item):
     return getattr(item, "type", None) == "message" and getattr(item, "phase", None) != "commentary"
 
 
+def _message_has_text(item):
+    content = getattr(item, "content", None)
+    return (getattr(item, "type", None) == "message" and isinstance(content, list)
+            and any(getattr(part, "type", None) == "output_text" and getattr(part, "text", None) for part in content))
+
+
 class _StreamEvidence:
     def __init__(self, response, deadline, report, *, activity=None, report_headers=True):
         self.headers = response.headers
@@ -203,7 +209,9 @@ class _StreamEvidence:
         self.activity = activity
         self.sse_activity_at = None
         self.response_id = None
+        self.response_model = None
         self.final_output_seen = False
+        self.output_text_seen = False
         self.reported_events = set()
         self.event_count = 0
         self.last_event = None
@@ -232,6 +240,9 @@ class _StreamEvidence:
         response = getattr(event, "response", None) if kind in LIFECYCLE_EVENTS else None
         item = getattr(event, "item", None)
         response_output = getattr(response, "output", None)
+        if (kind == "response.output_text.delta" and getattr(event, "delta", None) or _message_has_text(item)
+                or isinstance(response_output, list) and any(_message_has_text(output) for output in response_output)):
+            self.output_text_seen = True
         if (kind == "response.output_text.done" or kind == "response.output_item.done" and _answer_message(item)
                 or isinstance(response_output, list) and any(
                     _answer_message(output) and getattr(output, "status", None) == "completed"
@@ -266,7 +277,11 @@ class _StreamEvidence:
                                                   "served_model": _progress_token(getattr(response, "model", None)),
                                                   "provider_status": "failed", "usage": {}}
                 raise failure
-            self.response_id = response_id
+            if kind != "error":
+                self.response_id = response_id
+                model = _progress_token(getattr(response, "model", None))
+                if self.response_model is None:
+                    self.response_model = model
         if self.activity is not None and self.activity.observe(event):
             self.sse_activity_at = received
         if self.report is not None:
@@ -282,12 +297,35 @@ class _StreamEvidence:
         if self.deadline is not None and received > self.deadline:
             raise _EventDeadline()
         if kind in {"response.incomplete", "response.failed", "error"}:
+            if kind == "error" and (timeout := self._relay_stream_timeout(event)) is not None:
+                raise timeout
             raise TransportFailure(kind, ambiguous=True)
         if kind == "response.completed":
             if not isinstance(response_id, str) or not response_id or getattr(response, "status", None) != "completed":
                 raise TransportFailure("incomplete_response", ambiguous=True)
             return True
         return False
+
+    def _relay_stream_timeout(self, event):
+        """Recognize only a typed terminal timeout on the already identified HTTP stream."""
+        if (self.http_status != 200 or getattr(event, "code", None) != "stream_timeout"
+                or getattr(event, "param", None) not in (None, "") or getattr(event, "response", None) is not None
+                or any(getattr(event, field, None) in (429, "429") for field in ("status", "status_code"))
+                or self.final_output_seen or self.output_text_seen):
+            return None
+        request_id = self.headers.get("x-request-id")
+        if (getattr(event, "request_id", None) not in (None, request_id)
+                or getattr(event, "provider_request_id", None) not in (None, request_id)
+                or getattr(event, "response_id", None) not in (None, self.response_id)):
+            return None
+        identity = {"response_id": self.response_id, "provider_request_id": request_id, "provider_status": "error",
+                    "served_model": self.response_model, "usage": {}}
+        if not is_sealed_relay_failure({**identity, "error": RELAY_STREAM_TIMEOUT}):
+            return None
+        failure = TransportFailure(RELAY_STREAM_TIMEOUT, ambiguous=True,
+                                   retry_after=retry_http(429, self.headers).retry_after or None)
+        failure.reply_identity = identity
+        return failure
 
     def flush(self):
         if self.last_event is not None and self.last_event[0] != self.last_report:
