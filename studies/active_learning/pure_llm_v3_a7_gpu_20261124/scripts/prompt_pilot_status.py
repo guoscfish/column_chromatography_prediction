@@ -27,6 +27,7 @@ SERIAL_IPV4 = "a7-gpt62-astra-xhigh-ipv4-v13"
 IPV4_EXTENSION = f"{SERIAL_IPV4}-2357-extension-01"
 IPV4_CONTINUATION = f"{SERIAL_IPV4}-2357-continuation-01"
 IPV4_EXTENSION_DISPATCHERS = {
+    157: "dispatch_v13_lane_extension",
     887: "dispatch_v13_lane_extension",
     2357: "dispatch_prepared_ipv4_recovery_2357",
     6101: "dispatch_v13_lane_extension",
@@ -36,7 +37,7 @@ IPV4_CONTINUATION_DISPATCHERS = {
     2357: "dispatch_prepared_ipv4_continue_2357",
     6101: "dispatch_v13_lane_continuation",
 }
-IPV4_EXTENSION_END_ROUNDS = {887: 7, 2357: 2, 6101: 2}
+IPV4_EXTENSION_END_ROUNDS = {157: 4, 887: 7, 2357: 2, 6101: 2}
 PILOT_ROUNDS = 10
 TARGET_ROUNDS = 36
 TARGET_LABELS = 1485

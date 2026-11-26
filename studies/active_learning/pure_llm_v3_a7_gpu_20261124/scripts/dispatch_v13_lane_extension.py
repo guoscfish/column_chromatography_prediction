@@ -34,7 +34,7 @@ class Lane:
     round_index: int
     prior_attempts: tuple[str, str]
     posted_error: str
-    posted_transport_error: str
+    posted_transport_errors: tuple[str, ...]
 
     @property
     def name(self):
@@ -45,10 +45,12 @@ PARENT_RUN = "a7-gpt62-astra-xhigh-ipv4-v13"
 PARENT_CONTRACT = "b17eee7b4d584d5522ca990b47aefdf9d628685557683c83c5bc24f20a998a85"
 PARENT_AUTHORIZATION = "d43ca2ba5a3ac93173466bdb638735805d0092b321dd42e7d8aac862af922410"
 LANES = {
+    157: Lane(157, 3, ("97f995a7b5a444f59f766427d4c093c2", "61947559955a4e46b80288243cf79b7f"),
+              "timeout", ("hard_wall_deadline", "ReadTimeout")),
     6101: Lane(6101, 1, ("f7c8c634b4a047e7a00cc1e70d630583", "02baf5606f2f4c5395ca9167c9c560b5"),
-               "timeout", "hard_wall_deadline"),
+               "timeout", ("hard_wall_deadline",)),
     887: Lane(887, 6, ("8092f217a6234c6aa72cd86df60fb862", "0716cc9aca894e31b95c5f81b8a1d427"),
-              "response_id_mismatch", "response_id_mismatch"),
+              "response_id_mismatch", ("response_id_mismatch",)),
 }
 MODULE = "dispatch_v13_lane_extension"
 SOURCES = tuple(STUDY / "scripts" / f"{name}.py" for name in (
@@ -57,14 +59,23 @@ SOURCES = tuple(STUDY / "scripts" / f"{name}.py" for name in (
 PARENT_WALL_SECONDS = 3600
 TIMEOUTS = RequestTimeouts(read_idle_seconds=900, total_seconds=1800)
 BRIDGE_WAIT_SECONDS = PARENT_WALL_SECONDS + TIMEOUTS.total_seconds + TIMEOUTS.bridge_margin_seconds
+SSE_INACTIVITY_SECONDS = 900
+PROGRESS_TIMEOUTS = RequestTimeouts(read_idle_seconds=1800, total_seconds=3600)
 BUDGET = {"first_logical_requests": 1, "maximum_logical_requests": 1, "maximum_physical_attempts": 1}
 BOUND_HASHES = ("checkpoint_sha256", "base_messages_sha256", "packet_sha256", "wire_packet_sha256")
 AUTHORITATIVE_MESSAGE_HASH = "authoritative_base_messages_sha256"
 
 
+def _lane_timing(lane):
+    if lane.seed == 157:
+        return PROGRESS_TIMEOUTS, SSE_INACTIVITY_SECONDS, PROGRESS_TIMEOUTS.bridge_wait_seconds
+    return TIMEOUTS, None, BRIDGE_WAIT_SECONDS
+
+
 def _approved_scope(info, run, lane):
     record = info["contract"]
     profile, predecessor = record["profile"], record["predecessor"]
+    timeouts, inactivity, bridge_wait = _lane_timing(lane)
     run_path = Path(run)
     expected = {"provider_capability": "gated_ipv4", "arm": "A7", "memory": "M2", "device": "cuda",
                 "initial_labels": 333, "target_labels": 333 + (lane.round_index + 1) * 32,
@@ -76,7 +87,7 @@ def _approved_scope(info, run, lane):
             or record["gpu_slots"] != [0] or record["budget"] != BUDGET
             or predecessor.get("dispatcher_module") != MODULE
             or type(predecessor.get("bridge_wait_seconds")) is not int
-            or predecessor["bridge_wait_seconds"] != BRIDGE_WAIT_SECONDS
+            or predecessor["bridge_wait_seconds"] != bridge_wait
             or predecessor.get("parent_run_directory") != str(run_path.with_name(PARENT_RUN))
             or (predecessor.get("parent_contract_sha256"), predecessor.get("parent_authorization_sha256"))
             != (PARENT_CONTRACT, PARENT_AUTHORIZATION)
@@ -85,8 +96,8 @@ def _approved_scope(info, run, lane):
             or "fixed_reference_repair" in profile
             or any(type(profile.get(key)) is not type(value) or profile[key] != value for key, value in expected.items())
             or set(boundaries) != {str(lane.seed)} or boundaries[str(lane.seed)].get("round") != lane.round_index
-            or request_timeouts(profile) != TIMEOUTS):
-        raise PermissionError("the authorized run does not match the exact one-attempt lane and shorter timeouts")
+            or request_timeouts(profile) != timeouts or profile.get("sse_inactivity_seconds") != inactivity):
+        raise PermissionError("the authorized run does not match the exact one-attempt lane and timeouts")
     verify_local_source(info, root=ROOT)
     for path in SOURCES:
         if record["source_sha256"].get(path.as_posix()) != file_digest(ROOT / path):
@@ -107,7 +118,7 @@ def _archived_attempt(spool, lane, scope, index, evidence):
     progress = read_bridge_json(saved / "provider_progress.json")
     posted = index == 1
     error = lane.posted_error if posted else "connect_error"
-    transport_error = lane.posted_transport_error if posted else "direct_ipv4_preflight_failed"
+    transport_errors = lane.posted_transport_errors if posted else ("direct_ipv4_preflight_failed",)
     terminal_sha = evidence.get("terminal_sha256") if isinstance(evidence, dict) else None
     expected = {"attempt": index, "attempt_id": identity, "job_sha256": job["job_sha256"],
                 "result_sha256": result["result_sha256"], "terminal_sha256": terminal_sha,
@@ -122,8 +133,9 @@ def _archived_attempt(spool, lane, scope, index, evidence):
             or any(state[key] != scope.get(key) for key in BOUND_HASHES)
             or result["provider_dispatched"] is not posted or result["raw_response"] is not None
             or failure.get("code") != error or failure.get("ambiguous") is not posted
-            or (progress.get("attempt_id"), progress.get("job_sha256"), progress.get("error_type"), progress.get("http_status"))
-            != (identity, job["job_sha256"], transport_error, 200 if posted else None)
+            or (progress.get("attempt_id"), progress.get("job_sha256"), progress.get("http_status"))
+            != (identity, job["job_sha256"], 200 if posted else None)
+            or progress.get("error_type") not in transport_errors
             or ack != {"attempt_id": identity, "result_sha256": result["result_sha256"]}
             or (saved / "raw_provider_response.json").exists() or (saved / "provider_capture_receipt.json").exists()):
         raise PermissionError("the first preflight failure and second unresolved posted attempt must match their original receipts")
@@ -186,7 +198,8 @@ def run(args):
     pilot, _, pilot_transport = _pool(spools / PILOT_CONTRACT_SHA256)
     registered = replace(pilot_transport, timeout_seconds=PARENT_WALL_SECONDS, wire_mode=RESPONSES_STREAM_IPV4)
     transport = TransportConfig(**info["contract"]["profile"]["transport"])
-    expected = replace(parent_transport, timeout_seconds=TIMEOUTS.total_seconds, logical_replies=1, transport_attempts=1)
+    timeouts, _, _ = _lane_timing(lane)
+    expected = replace(parent_transport, timeout_seconds=timeouts.total_seconds, logical_replies=1, transport_attempts=1)
     if (parent_transport != registered or transport != expected
             or (transport.provider, transport.base_url, transport.requested_model, transport.served_model,
                 transport.reasoning_effort, transport.max_output_tokens, transport.sdk_version)
@@ -246,9 +259,11 @@ def main():
     parser.add_argument("--remote-python", default=GPU_PYTHON)
     parser.add_argument("--contract-sha256", required=True)
     parser.add_argument("--authorization-sha256", required=True)
-    parser.add_argument("--wait-seconds", type=float, default=BRIDGE_WAIT_SECONDS)
+    parser.add_argument("--wait-seconds", type=float)
     parser.add_argument("--poll", type=float, default=2)
     args = parser.parse_args()
+    if args.wait_seconds is None:
+        args.wait_seconds = _lane_timing(LANES[args.seed])[2]
     if (not all(SHA256.fullmatch(value) for value in (args.contract_sha256, args.authorization_sha256))
             or not math.isfinite(args.wait_seconds) or not 0 < args.poll <= min(60, args.wait_seconds)):
         parser.error("provide exact authorization hashes and finite positive waits")

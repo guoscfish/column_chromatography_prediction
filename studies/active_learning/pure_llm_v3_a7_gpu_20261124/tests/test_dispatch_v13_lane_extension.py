@@ -22,7 +22,11 @@ from studies.active_learning.pure_llm_v3_a7_gpu_20261124.tests.test_dispatch_pre
 
 @pytest.fixture(params=(6101, 887))
 def lane_case(staged, request, monkeypatch):
-    lane = extension.LANES[request.param]
+    return _lane_case(staged, request.param, monkeypatch)
+
+
+def _lane_case(staged, seed, monkeypatch):
+    lane = extension.LANES[seed]
     parent = staged.parent.with_name("d" * 64)
     parent.mkdir(mode=0o700)
     monkeypatch.setattr(extension, "PARENT_CONTRACT", parent.name)
@@ -44,7 +48,7 @@ def lane_case(staged, request, monkeypatch):
         job = staged.make(grant, original_transport, identity, ordinal=index, wire=messages, state=state)
         posted = index == 1
         error = lane.posted_error if posted else "connect_error"
-        phase = lane.posted_transport_error if posted else "direct_ipv4_preflight_failed"
+        phase = lane.posted_transport_errors[0] if posted else "direct_ipv4_preflight_failed"
         stopped = TransportFailure(error, ambiguous=posted, retryable=not posted)
         result = make_result(job, failure=stopped, provider_dispatched=posted, credential_id="key_01")
         once(parent / "jobs" / f"{identity}.json", job)
@@ -160,8 +164,13 @@ def test_scope_requires_full_mixed_queue_wait(lane_case):
     info = bridge_endpoint.exchange(lane_case.run, "info")
     assert extension._approved_scope(info, str(lane_case.run), lane_case.lane)["bridge_wait_seconds"] == 6000
     info["contract"]["predecessor"]["bridge_wait_seconds"] = 4200
-    with pytest.raises(PermissionError, match="shorter timeouts"):
+    with pytest.raises(PermissionError, match="lane and timeouts"):
         extension._approved_scope(info, str(lane_case.run), lane_case.lane)
+
+
+def test_157_lane_uses_progress_timeout_and_mixed_queue_wait():
+    timeouts, inactivity, bridge_wait = extension._lane_timing(extension.LANES[157])
+    assert (timeouts.read_idle_seconds, timeouts.total_seconds, inactivity, bridge_wait) == (1800, 3600, 900, 7800)
 
 
 def test_default_wait_covers_an_original_v13_request_and_the_new_request(monkeypatch, capsys):
@@ -207,3 +216,24 @@ def test_only_887_can_use_exact_signed_host_reconstruction(lane_case, staged):
     changed = [messages[0], {"role": "user", "content": dumps(packet)}]
     with pytest.raises(PermissionError):
         validate(job_for({**state, "wire_packet_sha256": digest(packet), "base_messages_sha256": digest(changed)}, changed), pair)
+
+
+def test_157_must_have_a_sealed_timeout_and_no_saved_response(staged, monkeypatch):
+    case = _lane_case(staged, 157, monkeypatch)
+    lane = case.lane
+    identity = lane.prior_attempts[1]
+    result = case.parent / "results" / f"{identity}.json"
+    parked = result.with_suffix(".not-yet-sealed")
+    result.rename(parked)
+    with pytest.raises(FileNotFoundError):
+        extension._parent(case.parent, lane, case.scope)
+    parked.rename(result)
+    saved = case.parent / "attempts" / identity
+    progress_file = saved / "provider_progress.json"
+    progress = json.loads(progress_file.read_bytes())
+    progress_file.write_text(dumps({**progress, "error_type": "ReadTimeout"}))
+    original, _, _ = extension._parent(case.parent, lane, case.scope)
+    assert original == case.original
+    once(saved / "raw_provider_response.json", {"status": "completed"})
+    with pytest.raises(PermissionError, match="unresolved posted attempt"):
+        extension._parent(case.parent, lane, case.scope)

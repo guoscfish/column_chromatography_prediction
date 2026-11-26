@@ -27,6 +27,11 @@ DISPATCHER = "dispatch_v13_lane_extension"
 TIMEOUTS = RequestTimeouts(read_idle_seconds=900, total_seconds=1800)
 # The shared pool might first be occupied by requests with the original V13 hard wall.
 BRIDGE_WAIT_SECONDS = 3600 + TIMEOUTS.total_seconds + TIMEOUTS.bridge_margin_seconds
+PROGRESS_TIMEOUTS = RequestTimeouts(read_idle_seconds=1800, total_seconds=3600)
+SSE_INACTIVITY_SECONDS = 900
+SSE_TRANSPORT_OVERLAYS = frozenset(
+    (STUDY / "a7_gpu" / name).as_posix() for name in ("provider.py", "dispatcher.py")
+)
 LOGICAL = 0
 AUTHORITATIVE_MESSAGE_HASH = "authoritative_base_messages_sha256"
 
@@ -38,6 +43,7 @@ class Lane:
     posted_error: str
     attempt_ids: tuple[str, str]
     payload_sha256: str
+    sealed_rounds_from_preparation: int = 1
 
     @property
     def run_name(self):
@@ -45,6 +51,9 @@ class Lane:
 
 
 LANES = {
+    157: Lane(157, 3, "timeout", (
+        "97f995a7b5a444f59f766427d4c093c2", "61947559955a4e46b80288243cf79b7f",
+    ), "594ff66ced4fe668cdde6bcbdcc07e9f8cf49933a45accc89ef81a4c97e42107", sealed_rounds_from_preparation=2),
     6101: Lane(6101, 1, "timeout", (
         "f7c8c634b4a047e7a00cc1e70d630583", "02baf5606f2f4c5395ca9167c9c560b5",
     ), "55c213c38e8c6b5fe3832f05060930bc436ec530d437da3551dc74f6d1324eeb"),
@@ -82,7 +91,7 @@ def _boundary(root, parent, lane, contract, approval):
     if (digest(draft) != contract.predecessor["prepared_draft_sha256"] or row["descriptor"] != descriptor
             or row["cache_directory"] != old_lane["cache_directory"] or row["boundary_directory"] != old_lane["boundary_directory"]
             or state.checkpoint != old_lane["checkpoint_sha256"] or start != old_lane["start_round"]
-            or lane.round != start + 1):
+            or lane.round != start + lane.sealed_rounds_from_preparation):
         raise PermissionError("the prepared seed boundary no longer matches the original V13 contract")
     expected_resource = (state.provenance["resource_receipt_sha256"] if start == 0
                          else row["evidence"]["public_resource_receipt_sha256"])
@@ -90,12 +99,15 @@ def _boundary(root, parent, lane, contract, approval):
     if file_digest(cache / "resource_receipt.json") != expected_resource:
         raise PermissionError("the training cache differs from the signed prepared resource receipt")
     scope = seed_runner._scope(contract, approval, lane.seed, False)
-    before = seed_runner.round_directory(seed_dir, start)
+    prepared = seed_runner.round_directory(seed_dir, start)
     if (read(seed_dir / "boundary.json") != {"formal_run": scope, **descriptor}
-            or read(before / "source.json") != asdict(state) or read(before / "boundary_memory.json") != memory):
+            or read(prepared / "source.json") != asdict(state) or read(prepared / "boundary_memory.json") != memory):
         raise PermissionError("the original seed start does not match its prepared state and memory")
     backend = TrainingBackend(root, cache, lane.seed)
-    state, memory = seed_runner._successor(before, state, active, scope, contract.transport, contract, backend)
+    for index in range(start, lane.round):
+        before = seed_runner.round_directory(seed_dir, index)
+        after = seed_runner.round_directory(seed_dir, index + 1)
+        state, memory = seed_runner._successor(before, state, after, scope, contract.transport, contract, backend)
     return active, backend, state, memory
 
 
@@ -172,14 +184,29 @@ def _same_science(request, original, reconstruction):
     return previous._same_science(request, equivalent)
 
 
+def _lane_timing(lane):
+    if lane.seed == 157:
+        return PROGRESS_TIMEOUTS, {"sse_inactivity_seconds": SSE_INACTIVITY_SECONDS}, PROGRESS_TIMEOUTS.bridge_wait_seconds
+    return TIMEOUTS, {}, BRIDGE_WAIT_SECONDS
+
+
+def _source_hashes(root, original_release, original, lane):
+    """Allow only the 157 provider and dispatcher to differ from the signed V13 source."""
+    if any(file_digest(original_release / name) != expected for name, expected in original.items()):
+        raise PermissionError("a source in the original V13 release changed")
+    overlay = SSE_TRANSPORT_OVERLAYS if lane.seed == 157 else frozenset()
+    sources = {name: file_digest(root / name) for name in original}
+    changed = {name for name, actual in sources.items() if actual != original[name]}
+    if changed != overlay:
+        raise PermissionError("the new release must contain precisely the approved transport source changes")
+    return sources
+
+
 def construct(root, original_release, parent, run, lane):
     if run.name != lane.run_name or run.parent != parent.parent or root == original_release:
         raise PermissionError("use this seed's registered sibling run and separate immutable release")
     old, approval = previous._original_contract(parent)
-    sources = dict(old.source_sha256)
-    if any(file_digest(release / name) != expected for release in (root, original_release)
-           for name, expected in sources.items()):
-        raise PermissionError("a source referenced by the original V13 contract changed")
+    sources = _source_hashes(root, original_release, old.source_sha256, lane)
     for module in ("run_v13_lane_extension", DISPATCHER, "run_v13_seed2357_extension", "dispatch_prompt_direct"):
         name = (STUDY / "scripts" / f"{module}.py").as_posix()
         sources[name] = file_digest(root / name)
@@ -200,12 +227,13 @@ def construct(root, original_release, parent, run, lane):
 
     descriptor = {"round": lane.round, "state_sha256": digest(asdict(state)), "memory_sha256": digest(memory),
                   "user_message_sha256": digest(original["payload"]["input"][1])}
-    transport = replace(old.transport, logical_replies=1, transport_attempts=1, timeout_seconds=TIMEOUTS.total_seconds)
+    timing, progress_profile, bridge_wait = _lane_timing(lane)
+    transport = replace(old.transport, logical_replies=1, transport_attempts=1, timeout_seconds=timing.total_seconds)
     profile = {
         **old.profile, "confirmation_seeds": [lane.seed], "qualification_seed": lane.seed,
         "requires_initial_qualification": False, "api_parallelism": 1,
         "target_labels": old.initial_labels + old.batch_size * (lane.round + 1),
-        "transport": asdict(transport), "request_timeouts": asdict(TIMEOUTS),
+        "transport": asdict(transport), "request_timeouts": asdict(timing), **progress_profile,
         "resume_boundaries": {str(lane.seed): descriptor},
     }
     predecessor = {
@@ -216,7 +244,7 @@ def construct(root, original_release, parent, run, lane):
         "payload_sha256": original["payload_sha256"], "model_identity": identity,
         **{key: binding[key] for key in previous.MESSAGE_HASHES},
         "prior_execution_and_billing": "unresolved", "execution_budget": previous.ONE_SHOT_BUDGET,
-        "bridge_wait_seconds": BRIDGE_WAIT_SECONDS, **reconstruction,
+        "bridge_wait_seconds": bridge_wait, **reconstruction,
         "parent_transition_sha256": file_digest(active / "transition.json"),
         "parent_fit_audit_sha256": state.provenance["fit_audit_sha256"],
         "public_resource_receipt_sha256": backend.cache_receipt_sha256,
