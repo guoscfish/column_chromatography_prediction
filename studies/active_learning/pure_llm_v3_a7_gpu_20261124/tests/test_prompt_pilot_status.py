@@ -149,3 +149,14 @@ def test_2357_extension_preserves_parent_labels_and_other_seeds(tmp_path):
     status = remote_seed(tmp_path, 2357)
     assert (status["run"], status["labels"], status["target_labels"]) == (extension.name, 365, 1485)
     assert remote_seed(tmp_path, 887)["run"] == cohort.name
+
+    continuation = tmp_path / prompt_pilot_status.IPV4_CONTINUATION
+    follow_on = {
+        "run_directory": str(continuation), "profile": {"confirmation_seeds": [2357]},
+        "predecessor": {"parent_contract_sha256": parent_sha, "extension_contract_sha256": child_sha,
+                        "dispatcher_module": "dispatch_prepared_ipv4_continue_2357"},
+    }
+    follow_on_sha = hashlib.sha256(json.dumps(follow_on, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+    write_json(continuation / "formal_contract.json", follow_on)
+    write_json(continuation / "authorization.json", {"contract_sha256": follow_on_sha})
+    assert remote_seed(tmp_path, 2357)["run"] == continuation.name
