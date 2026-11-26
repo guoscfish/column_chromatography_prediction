@@ -24,6 +24,7 @@ REPAIR = "a7-gpt62-astra-xhigh-ssh-v10-targeted-repair"
 DIRECT_FULL = "a7-gpt62-astra-xhigh-ssh-v11-direct-full"
 BACKGROUND = "a7-gpt62-astra-xhigh-background-v12"
 SERIAL_IPV4 = "a7-gpt62-astra-xhigh-ipv4-v13"
+IPV4_EXTENSION = f"{SERIAL_IPV4}-2357-extension-01"
 PILOT_ROUNDS = 10
 TARGET_ROUNDS = 36
 TARGET_LABELS = 1485
@@ -172,7 +173,19 @@ def remote_seed(runs, seed):
     repair = runs / f"{REPAIR}-{seed}"
     direct_full_contract, full_contract, repair_contract, direct_contract, continuation_contract = (
         dispatch_contract(run, seed) for run in (direct_full, full, repair, direct, continuation))
-    if cohort_contract:
+    extension = runs / IPV4_EXTENSION
+    extension_record = read_json(extension / "formal_contract.json") if seed == 2357 else {}
+    extension_parent = extension_record.get("predecessor") or {}
+    extension_contract = (
+        fallback_contract(extension) if cohort_contract and mode == "ipv4"
+        and extension_parent.get("parent_contract_sha256") == cohort_contract
+        and extension_parent.get("dispatcher_module") == "dispatch_prepared_ipv4_recovery_2357"
+        and extension_record.get("profile", {}).get("confirmation_seeds") == [seed] else None
+    )
+    if extension_contract:
+        run, contract, segment = extension, extension_contract, "ipv4_extension"
+        ancestors = (cohort, direct_full, continuation, fallback)
+    elif cohort_contract:
         run, contract, segment = cohort, cohort_contract, mode
         ancestors = tuple(path for path, approved in (
             (direct_full, direct_full_contract), (repair, repair_contract), (direct, direct_contract),
@@ -228,13 +241,15 @@ def remote_seed(runs, seed):
     coordinator = pid(read_json(run / "coordinator_generation.json").get("pid"))
     coordinator_live = live(coordinator, run=run)
     worker_pid = pid(worker.get("pid"))
-    worker_live = coordinator_live and live(worker_pid, coordinator=coordinator)
+    worker_live = coordinator_live and (worker_pid == coordinator or live(worker_pid, coordinator=coordinator))
     paused = (run / "pause.request").is_file() or (directory / "pause.request").is_file()
     gpu = read_json(run / "gpu" / f"seed_{seed}.json")
     api = pending_attempt(run, directory, latest)
     phase = safe_code(worker.get("status")) or "waiting_to_start"
     if latest == TARGET_ROUNDS:
         phase = "complete"
+    elif segment == "ipv4_extension" and latest == 2 and (run / "extension_completion.json").is_file():
+        phase = "transport_extension_complete"
     elif latest == PILOT_ROUNDS and segment not in ("v6", "v11", "background", "ipv4"):
         phase = "awaiting_v6_handoff"
     elif paused:
@@ -256,7 +271,8 @@ def remote_seed(runs, seed):
     elif not worker_live and phase == "initializing":
         phase = "worker_stopped"
     return {"seed": seed, "run": run.name, "contract_sha256": contract, "segment": segment,
-            "continuation": segment in ("ipv4", "background", "v11", "v6", "v5", "direct", "repair"), "target_rounds": TARGET_ROUNDS, "target_labels": TARGET_LABELS,
+            "continuation": segment in ("ipv4", "ipv4_extension", "background", "v11", "v6", "v5", "direct", "repair"),
+            "target_rounds": TARGET_ROUNDS, "target_labels": TARGET_LABELS,
             "completed_rounds": latest, "labels": 333 + latest * 32 if latest is not None else None,
             "phase": phase, "worker_pid": worker_pid, "worker_active": worker_live,
             "worker_error": safe_code(worker.get("error_type")), "coordinator_pid": coordinator,
@@ -354,8 +370,10 @@ def local_progress(spool, seed, active, *, track_queue=False):
 
 
 def dispatcher_pid(seed, segment):
-    if segment in ("background", "ipv4"):
-        service = "a7-background-v12" if segment == "background" else "a7-ipv4-v13"
+    cohort_services = {"background": "a7-background-v12", "ipv4": "a7-ipv4-v13",
+                       "ipv4_extension": "a7-ipv4-v13-2357-extension-01"}
+    if segment in cohort_services:
+        service = cohort_services[segment]
         label = f"gui/{os.getuid()}/com.purellm.{service}"
     else:
         suffix = {"v11": "v11-direct-full", "v6": "v6-full", "v5": "v5-continuation", "direct": ("v9-direct" if seed == 887 else "v8-direct"),
@@ -407,7 +425,9 @@ def mac_report(private, seeds):
         if isinstance(contract, str) and SHA.fullmatch(contract):
             spool = private / "spool" / contract
             if read_json(spool / "run_binding.json").get("contract_sha256") == contract:
-                row["provider"] = local_progress(spool, row["seed"], row["api"], track_queue=row["segment"] == "ipv4")
+                row["provider"] = local_progress(
+                    spool, row["seed"], row["api"], track_queue=row["segment"] in ("ipv4", "ipv4_extension"),
+                )
         if row.get("continuation"):
             row["dispatcher_pid"] = dispatcher_pid(row["seed"], row["segment"])
     return {"keys": keys, "queue": queue, "limits": limits}

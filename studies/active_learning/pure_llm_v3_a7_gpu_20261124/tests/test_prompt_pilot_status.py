@@ -123,3 +123,29 @@ def test_unstarted_seeds_show_only_verified_original_anchor(tmp_path, monkeypatc
     state = remote_seed(runs, 6101)
     assert state["phase"] == "l333_anchor_unverified"
     assert state["labels"] is None and state["checkpoint_sha256"] is None
+
+
+def test_2357_extension_preserves_parent_labels_and_other_seeds(tmp_path):
+    cohort = tmp_path / prompt_pilot_status.SERIAL_IPV4
+    parent = {
+        "run_directory": str(cohort),
+        "profile": {"confirmation_seeds": list(prompt_pilot_status.SEEDS), "provider_capability": "gated_ipv4"},
+        "predecessor": {"dispatcher_module": "dispatch_prepared_ipv4",
+                        "lanes": {"2357": {"start_round": 1, "checkpoint_sha256": "9" * 64}}},
+    }
+    parent_sha = hashlib.sha256(json.dumps(parent, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+    write_json(cohort / "formal_contract.json", parent)
+    write_json(cohort / "authorization.json", {"contract_sha256": parent_sha})
+    extension = tmp_path / prompt_pilot_status.IPV4_EXTENSION
+    child = {
+        "run_directory": str(extension), "profile": {"confirmation_seeds": [2357]},
+        "predecessor": {"parent_contract_sha256": parent_sha,
+                        "dispatcher_module": "dispatch_prepared_ipv4_recovery_2357"},
+    }
+    child_sha = hashlib.sha256(json.dumps(child, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+    write_json(extension / "formal_contract.json", child)
+    write_json(extension / "authorization.json", {"contract_sha256": child_sha})
+
+    status = remote_seed(tmp_path, 2357)
+    assert (status["run"], status["labels"], status["target_labels"]) == (extension.name, 365, 1485)
+    assert remote_seed(tmp_path, 887)["run"] == cohort.name
