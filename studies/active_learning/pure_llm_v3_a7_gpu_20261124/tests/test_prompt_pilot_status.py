@@ -258,7 +258,7 @@ def test_tracks_transport_extension_only_from_its_exact_previous_run(tmp_path, s
     assert remote_seed(tmp_path, seed)["run"] == bounded.name
 
 
-@pytest.mark.parametrize(("seed", "start", "labels"), [(12203, 4, 461), (157, 3, 429)])
+@pytest.mark.parametrize(("seed", "start", "labels"), [(12203, 4, 461), (157, 3, 429), (6101, 1, 365)])
 def test_resilient_run_tracks_exact_signed_ancestor_and_launchd(tmp_path, monkeypatch, seed, start, labels):
     cohort = tmp_path / prompt_pilot_status.SERIAL_IPV4
     resilient = cohort.with_name(f"{cohort.name}-{seed}-resilient-sse-01")
@@ -351,6 +351,10 @@ def test_resilient_run_tracks_exact_signed_ancestor_and_launchd(tmp_path, monkey
     assert commands[-1][-1].endswith(f"/com.purellm.a7-ipv4-v13-{seed}-relay-retry-01")
 
     relay_auth = prompt_pilot_status.record_digest(prompt_pilot_status.read_json(relay / "authorization.json"))
+    if seed == 6101:
+        check_6101_reviewed_wave02(tmp_path, monkeypatch, publish, flags, commands, relay, relay_sha, relay_auth,
+                                  relay_record)
+        return
     monkeypatch.setattr(prompt_pilot_status, f"RELAY_{seed}_WAVE01_CONTRACT", relay_sha)
     monkeypatch.setattr(prompt_pilot_status, f"RELAY_{seed}_WAVE01_AUTH", relay_auth)
     deadline = getattr(prompt_pilot_status, f"RELAY_{seed}_NOT_BEFORE")
@@ -453,6 +457,97 @@ def test_resilient_run_tracks_exact_signed_ancestor_and_launchd(tmp_path, monkey
     assert row["api"] == {"status": "relay_boundary_cooldown", "relay_retry_wait_seconds": 20}
     assert prompt_pilot_status.dispatcher_pid(seed, row["segment"]) == 1234
     assert commands[-1][-1].endswith(f"/com.purellm.a7-ipv4-v13-{seed}-relay-retry-03")
+
+
+def check_6101_reviewed_wave02(runs, monkeypatch, publish, flags, commands, relay, relay_sha, relay_auth, relay_record):
+    directory = relay / "seed_6101"
+    current = directory / "round_02"
+    source, transition = current / "source.json", current / "transition.json"
+    metrics, memory = current / "fit_000/validation_metrics.json", directory / "round_01/memory.json"
+    write_json(source, {"round": 2})
+    write_json(metrics, {"combined_normalized_rmse": 0.25})
+    write_json(memory, {"hypotheses": []})
+    write_json(transition, {"fit_path": "fit_000", "checkpoint_sha256": "c" * 64,
+                            "source_sha256": prompt_pilot_status.checksum(source),
+                            "validation_metrics_sha256": prompt_pilot_status.checksum(metrics)})
+    fitted = {path.relative_to(directory).as_posix(): prompt_pilot_status.checksum(path)
+              for path in (source, transition, memory)}
+    receipts, files = [], []
+    for attempt in prompt_pilot_status.RELAY_6101_WAVE01_ATTEMPTS:
+        terminal = {**attempt, "status": "stopped"}
+        file = current / "turn_00" / f"attempt_{attempt['attempt']:02d}.terminal.json"
+        write_json(file, terminal)
+        receipts.append({**attempt, "terminal_sha256": prompt_pilot_status.record_digest(terminal)})
+        files.append(file)
+    terminal_shas = tuple(prompt_pilot_status.checksum(file) for file in files)
+    exact = {**prompt_pilot_status.RELAY_6101_WAVE02_PROOF, "previous_terminal_file_sha256": terminal_shas[-1]}
+    monkeypatch.setattr(prompt_pilot_status, "RELAY_6101_WAVE01_CONTRACT", relay_sha)
+    monkeypatch.setattr(prompt_pilot_status, "RELAY_6101_WAVE01_AUTH", relay_auth)
+    monkeypatch.setattr(prompt_pilot_status, "RELAY_6101_FITTED_PREFIX", fitted)
+    monkeypatch.setattr(prompt_pilot_status, "RELAY_6101_WAVE01_TERMINALS", terminal_shas)
+    monkeypatch.setattr(prompt_pilot_status, "RELAY_6101_WAVE02_PROOF", exact)
+    monkeypatch.setattr(prompt_pilot_status.time, "time", lambda: exact["relay_not_before_unix"] - 20)
+    successor = relay.with_name(f"{prompt_pilot_status.SERIAL_IPV4}-6101-relay-retry-02")
+    chain = [{"contract_sha256": relay_sha, "authorization_sha256": relay_auth, "run_directory": str(relay),
+              "request_id": exact["previous_request_id"], "terminal_file_sha256": terminal_shas[-1],
+              "progress_file_sha256": exact["previous_transport_progress_file_sha256"], "previous_attempts": receipts}]
+    proof = {**exact, "dispatcher_module": "dispatch_v13_retry_successor", "seed": 6101, "round": 2,
+             "previous_run_directory": str(relay), "previous_contract_sha256": relay_sha,
+             "previous_authorization_sha256": relay_auth, "previous_attempts": receipts,
+             "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 1},
+             "reviewed_fitted_prefix_files": fitted, "reviewed_retry_chain": chain}
+    record = {**relay_record, "run_directory": str(successor), "predecessor": proof,
+              "profile": {**relay_record["profile"], "resume_boundaries": {"6101": {"round": 2}},
+                          "replay_eligible_from_round": 3}}
+    publish(successor, record)
+    assert remote_seed(runs, 6101)["run"] == relay.name
+    for bad in ({"previous_attempts": receipts[1:]}, {"previous_attempts": list(reversed(receipts))},
+                {"reviewed_fitted_prefix_files": {**fitted, "round_02/source.json": "a" * 64}},
+                {"reviewed_retry_chain": [{**chain[0], "previous_attempts": receipts[:1]}]}):
+        publish(successor, {**record, "predecessor": {**proof, **bad}}, **flags)
+        assert remote_seed(runs, 6101)["run"] == relay.name
+    publish(successor, {**record, "profile": {**record["profile"], "replay_eligible_from_round": 2}}, **flags)
+    assert remote_seed(runs, 6101)["run"] == relay.name
+    successor_sha = publish(successor, record, **flags)
+    row = remote_seed(runs, 6101)
+    assert (row["run"], row["segment"], row["labels"], row["contract_sha256"]) == (
+        successor.name, "ipv4_relay_retry_02", 397, successor_sha,
+    )
+    assert row["recovery_round"] == 2 and row["sealed_relay_retry_seconds"] == 180
+    assert row["api"] == {"status": "relay_boundary_cooldown", "relay_retry_wait_seconds": 20}
+    assert prompt_pilot_status.dispatcher_pid(6101, row["segment"]) == 1234
+    assert commands[-1][-1].endswith("/com.purellm.a7-ipv4-v13-6101-relay-retry-02")
+    first_bytes = files[0].read_bytes()
+    write_json(files[0], {"status": "unknown"})
+    assert remote_seed(runs, 6101)["run"] == relay.name
+    files[0].write_bytes(first_bytes)
+    write_json(memory, {"hypotheses": ["changed after the reviewed fit"]})
+    assert remote_seed(runs, 6101)["run"] == relay.name
+
+
+def test_6101_wave02_status_uses_the_registered_gpu_scope():
+    from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts import run_v13_retry_successor
+
+    scope = run_v13_retry_successor.SCOPES[(6101, 2)]
+    previous, = scope.archive
+    assert scope.original_start_round == 1 and scope.round == 2
+    assert (prompt_pilot_status.RELAY_6101_WAVE01_CONTRACT, prompt_pilot_status.RELAY_6101_WAVE01_AUTH) == (
+        previous.identity.contract, previous.identity.approval,
+    )
+    assert prompt_pilot_status.RELAY_6101_FITTED_PREFIX == dict(scope.fitted_prefix_files)
+    assert prompt_pilot_status.RELAY_6101_WAVE01_TERMINALS == tuple(item.terminal_file_sha256 for item in previous.attempts)
+    assert prompt_pilot_status.RELAY_6101_WAVE01_ATTEMPTS == tuple(
+        {"attempt": index, "attempt_id": item.attempt_id, "job_sha256": item.job_sha256, "result_sha256": item.result_sha256,
+         "error": item.failure, "provider_dispatched": True, "ambiguous": True}
+        for index, item in enumerate(previous.attempts)
+    )
+    assert prompt_pilot_status.RELAY_6101_WAVE02_PROOF == {
+        "logical_index": 0, "payload_sha256": scope.payload_sha256, "previous_request_id": previous.request_id,
+        "previous_terminal_file_sha256": previous.terminal_file_sha256,
+        "previous_transport_progress_file_sha256": previous.progress_file_sha256,
+        "relay_cooldown_clock": scope.cooldown_field, "relay_not_before_unix": scope.not_before_unix,
+        "newly_authorized_boundary_physical_attempts": 1, "execution_budget": scope.budget,
+    }
 
 
 @pytest.mark.parametrize(("seed", "archive_count"), [(12203, 2), (157, 3)])

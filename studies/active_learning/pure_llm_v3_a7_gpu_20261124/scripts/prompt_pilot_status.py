@@ -91,6 +91,38 @@ RELAY_12203_WAVE02_ATTEMPT = {
     "result_sha256": "898014f9ac17cf60b55317aae8e4dadb56243c9ea689e1883b2c1c8044327803",
     "error": "connection_interrupted", "provider_dispatched": True, "ambiguous": True,
 }
+RELAY_6101_WAVE01_CONTRACT = "978ef32b62d20f330b3fd9f4fa40afc9831c098d01a1a2ee013655ae9f18ab4d"
+RELAY_6101_WAVE01_AUTH = "f8dc94f7d0c9c68b9023230675fcb1b476864ada0efc136123f991c88f1736f6"
+RELAY_6101_FITTED_PREFIX = {
+    "round_02/source.json": "c33ecb89a166f5f2d112f2bb434fab6529d4bf108fe0d4f84b28d3b7e39648b0",
+    "round_02/transition.json": "90e14a3d1ab7fd8719c68b5ec86c3d3d580cf5c733a880bc6581f371995cf54c",
+    "round_01/memory.json": "989f5e746a5398725bd4bcb37ee199fab8b1f13516e0e58c6d47b66365b07cec",
+}
+RELAY_6101_WAVE01_ATTEMPTS = (
+    {"attempt": 0, "attempt_id": "70aeee7f486449bba0e3344bece900cc",
+     "job_sha256": "0f7db8326ea1e093e10a9629c42fec235ef0f30a92583041b0d90722d7d93711",
+     "result_sha256": "7ad3f71eba6ad06fc442e87d5cbc65e98f99038af24635e983f021c1c07f89c9",
+     "error": "response_id_mismatch", "provider_dispatched": True, "ambiguous": True},
+    {"attempt": 1, "attempt_id": "2547ab46579b4341bc04f26550be98fc",
+     "job_sha256": "c1da929e150505f240cf13a6b590f605a6b6dc438bd23893fed4640ee7f7c70d",
+     "result_sha256": "755fedb86b30db88d74fb6c9eb45faeb4dd4c017f8b3ccf5d6c4e2bff5bfccfd",
+     "error": "response_id_mismatch", "provider_dispatched": True, "ambiguous": True},
+)
+RELAY_6101_WAVE01_TERMINALS = (
+    "64a972a3d630c138d0b891eead861eb1ff71ee9c3d3bcab2289022dab6b2ad1d",
+    "42e00584598175ae64e7af0a569f7402a7071d7b9c73a5ab373264a91b82512f",
+)
+RELAY_6101_WAVE02_PROOF = {
+    "logical_index": 0,
+    "payload_sha256": "f3f3dac061e9baca67095771305e0ea47827c20d35e7d1018c89059172533b1a",
+    "previous_request_id": "2f30189c779807c27f260f361864c4a88e777f0677b6d1cdaa81247023803303",
+    "previous_terminal_file_sha256": RELAY_6101_WAVE01_TERMINALS[-1],
+    "previous_transport_progress_file_sha256": "7b5b71d36c42c24bf39ea4ecce27d11e7b3c8d1dbe2ee57f963c1d97fd82c1bd",
+    "relay_cooldown_clock": "failed_unix",
+    "relay_not_before_unix": 1795684592.3081465 + RELAY_RETRY_SECONDS,
+    "newly_authorized_boundary_physical_attempts": 1,
+    "execution_budget": {"first_logical_requests": 34, "maximum_logical_requests": 100, "maximum_physical_attempts": 199},
+}
 CACHED_R7_PLAN_SHA = "d8acfb0d43235068f932f18b7f09c08554e811060f04878fe1a5a9afe8386d47"
 PILOT_ROUNDS = 10
 TARGET_ROUNDS = 36
@@ -372,6 +404,8 @@ def relay_retry_contract(runs, seed, previous, previous_contract):
 
 
 def relay_retry_02_contract(runs, seed, previous, previous_contract):
+    if seed == 6101:
+        return relay_retry_02_6101_contract(runs, previous, previous_contract)
     if seed == 157:
         signed_contract, signed_approval = RELAY_157_WAVE01_CONTRACT, RELAY_157_WAVE01_AUTH
         deadline, boundary_round = RELAY_157_NOT_BEFORE, 3
@@ -408,6 +442,50 @@ def relay_retry_02_contract(runs, seed, previous, previous_contract):
             and profile.get("ipv4_readiness_windows") == 3):
         return run, contract, start, profile["ipv4_readiness_windows"], not_before
     return None
+
+
+def relay_retry_02_6101_contract(runs, previous, previous_contract):
+    seed = 6101
+    if previous_contract != RELAY_6101_WAVE01_CONTRACT:
+        return None
+    run = runs / f"{SERIAL_IPV4}-{seed}-relay-retry-02"
+    candidate = _signed_recovery_successor(run, seed, previous, previous_contract, "dispatch_v13_retry_successor", 1,
+                                           previous_suffix="relay-retry-01")
+    if candidate is None or fallback_contract(previous) != previous_contract:
+        return None
+    contract, start, profile, proof = candidate
+    old_profile = read_json(previous / "formal_contract.json").get("profile", {})
+    boundaries = profile.get("resume_boundaries", {})
+    exact = {**RELAY_6101_WAVE02_PROOF, "previous_authorization_sha256": RELAY_6101_WAVE01_AUTH,
+             "reviewed_fitted_prefix_files": RELAY_6101_FITTED_PREFIX}
+    if (start != 2 or old_profile.get("resume_boundaries", {}).get(str(seed), {}).get("round") != 1
+            or set(boundaries) != {str(seed)} or profile != {**old_profile, "resume_boundaries": boundaries,
+                                                              "replay_eligible_from_round": 3}
+            or profile.get("audited_future_transport_replay") is not True
+            or type(profile.get("sealed_relay_retry_seconds")) is not int
+            or profile["sealed_relay_retry_seconds"] != RELAY_RETRY_SECONDS or profile.get("ipv4_readiness_windows") != 3
+            or record_digest({key: proof.get(key) for key in exact}) != record_digest(exact)):
+        return None
+    directory = previous / f"seed_{seed}"
+    if any(checksum(directory / name) != sha for name, sha in RELAY_6101_FITTED_PREFIX.items()):
+        return None
+    receipts = proof.get("previous_attempts")
+    if type(receipts) is not list or len(receipts) != len(RELAY_6101_WAVE01_ATTEMPTS):
+        return None
+    turn = directory / "round_02/turn_00"
+    for receipt, expected, sha in zip(receipts, RELAY_6101_WAVE01_ATTEMPTS, RELAY_6101_WAVE01_TERMINALS, strict=True):
+        terminal = turn / f"attempt_{expected['attempt']:02d}.terminal.json"
+        if (type(receipt) is not dict or checksum(terminal) != sha
+                or receipt.get("terminal_sha256") != record_digest(read_json(terminal))
+                or record_digest({key: receipt.get(key) for key in expected}) != record_digest(expected)):
+            return None
+    chain = [{"contract_sha256": previous_contract, "authorization_sha256": RELAY_6101_WAVE01_AUTH,
+              "run_directory": str(previous), "request_id": proof["previous_request_id"],
+              "terminal_file_sha256": proof["previous_terminal_file_sha256"],
+              "progress_file_sha256": proof["previous_transport_progress_file_sha256"], "previous_attempts": receipts}]
+    if proof.get("reviewed_retry_chain") != chain:
+        return None
+    return run, contract, start, profile["ipv4_readiness_windows"], proof["relay_not_before_unix"]
 
 
 def relay_retry_03_contract(runs, seed, previous, previous_contract):

@@ -27,9 +27,11 @@ def test_only_explicitly_reviewed_new_wave_can_reserve_its_one_current_slot():
         gpu.read_scope(Parser(), SimpleNamespace(seed=12203, wave=4))
 
 
-@pytest.mark.parametrize("seed,rev_counts,physical_budget", [(12203, [1, 1], 187), (157, [2, 1], 193)])
-def test_each_prior_identity_and_new_second_slot_are_rejected(monkeypatch, seed, rev_counts, physical_budget):
-    scope = gpu.SCOPES[(seed, 3)]
+@pytest.mark.parametrize("seed,wave,rev_counts,physical_budget", [
+    (12203, 3, [1, 1], 187), (157, 3, [2, 1], 193), (6101, 2, [2], 199),
+])
+def test_each_prior_identity_and_new_second_slot_are_rejected(monkeypatch, seed, wave, rev_counts, physical_budget):
+    scope = gpu.SCOPES[(seed, wave)]
     assert [len(wave.attempts) for wave in scope.archive] == rev_counts
     assert scope.budget["maximum_physical_attempts"] == physical_budget
     approved = []
@@ -48,3 +50,14 @@ def test_each_prior_identity_and_new_second_slot_are_rejected(monkeypatch, seed,
             dispatcher._check_boundary({}, denied)
     dispatcher._check_boundary({}, new)
     assert approved == [new]
+
+
+def test_6101_scope_pins_the_next_fitted_round_and_prior_replay_transcript():
+    scope = gpu.SCOPES[(6101, 2)]
+    assert (scope.original_start_round, scope.round) == (1, 2)
+    assert set(dict(scope.fitted_prefix_files)) == {"round_02/source.json", "round_02/transition.json", "round_01/memory.json"}
+    assert set(scope.archive[-1].replay_files) == {"attempt_00.replay_authorization.json",
+                                                 "attempt_00.replay.terminal.json", "attempt_01.replay_link.json"}
+    for item in scope.archive[-1].attempts:
+        assert all(mac._sha(value) for value in (item.job_sha256, item.result_sha256,
+                                                 item.terminal_file_sha256, item.progress_file_sha256))

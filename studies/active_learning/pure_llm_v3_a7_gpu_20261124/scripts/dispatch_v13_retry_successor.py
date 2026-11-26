@@ -35,6 +35,8 @@ def _scope(info, run, lane):
         "bridge_wait_seconds": resilient.TIMEOUTS.bridge_wait_seconds, "relay_not_before_unix": lane.not_before_unix,
         "relay_cooldown_clock": lane.cooldown_field, "newly_authorized_boundary_physical_attempts": 1,
     }
+    if lane.fitted_prefix_files:
+        expected["reviewed_fitted_prefix_files"] = dict(lane.fitted_prefix_files)
     settings = {
         "provider_capability": "gated_ipv4", "arm": "A7", "memory": "M2", "device": "cuda",
         "initial_labels": 333, "target_labels": 1485, "batch_size": 32, "api_parallelism": 1,

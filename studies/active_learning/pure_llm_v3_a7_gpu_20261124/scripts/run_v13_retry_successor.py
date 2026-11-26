@@ -7,7 +7,9 @@ from pathlib import Path
 from time import time
 
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, dumps, file_digest, read
-from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import make_request
+from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
+    _link_replay_attempt, make_request, terminal_record,
+)
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu import seed_runner
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.formal_contract import ROOT, STUDY, verify_authorization
 from . import run_v13_12203_relay_retry as wave02
@@ -31,6 +33,7 @@ class Review:
     failure: str
     progress: dict
     earlier: tuple["Review", ...] = ()
+    replay_files: dict | None = None
 
     @property
     def attempts(self):
@@ -46,6 +49,8 @@ class Scope:
     archive: tuple[Review, ...]
     cooldown_field: str
     cooldown_unix: float
+    original_start_round: int | None = None
+    fitted_prefix_files: tuple[tuple[str, str], ...] = ()
 
     @property
     def run_name(self):
@@ -70,7 +75,40 @@ _157_PRIOR = tuple(Review(wave157.OLD, wave157.REQUEST, item.attempt_id, item.jo
                           item.terminal_file_sha256, item.trace_sha256, "response_id_mismatch", item.observation)
                    for item in wave157.PRIOR)
 
+_6101_OLD = retry.bounded.RunIdentity("-6101-relay-retry-01",
+    "978ef32b62d20f330b3fd9f4fa40afc9831c098d01a1a2ee013655ae9f18ab4d",
+    "f8dc94f7d0c9c68b9023230675fcb1b476864ada0efc136123f991c88f1736f6")
+_6101_REQUEST = "2f30189c779807c27f260f361864c4a88e777f0677b6d1cdaa81247023803303"
+_6101_ATTEMPTS = tuple(Review(_6101_OLD, _6101_REQUEST, item.attempt_id, item.job_sha256, item.result_sha256,
+                             item.terminal_file_sha256, item.trace_sha256, "response_id_mismatch", item.observation)
+                       for item in (
+    wave157.PriorAttempt("70aeee7f486449bba0e3344bece900cc",
+        "0f7db8326ea1e093e10a9629c42fec235ef0f30a92583041b0d90722d7d93711",
+        "7ad3f71eba6ad06fc442e87d5cbc65e98f99038af24635e983f021c1c07f89c9",
+        "64a972a3d630c138d0b891eead861eb1ff71ee9c3d3bcab2289022dab6b2ad1d",
+        "4c4aa9211f2c0b562023225ea6d91b66ae2e822b17207603635954e0a89f8972",
+        "cd73475e-e4df-4d26-8421-4d4a3241caad", "resp_0fecee31ec692ca4016b07f695302c87d2ae8bc170e6fb334e"),
+    wave157.PriorAttempt("2547ab46579b4341bc04f26550be98fc",
+        "c1da929e150505f240cf13a6b590f605a6b6dc438bd23893fed4640ee7f7c70d",
+        "755fedb86b30db88d74fb6c9eb45faeb4dd4c017f8b3ccf5d6c4e2bff5bfccfd",
+        "42e00584598175ae64e7af0a569f7402a7071d7b9c73a5ab373264a91b82512f",
+        "7b5b71d36c42c24bf39ea4ecce27d11e7b3c8d1dbe2ee57f963c1d97fd82c1bd",
+        "fea68c61-2267-41ae-9992-9229df01bd45", "resp_0cd67c1e155d7c81016b07f82d785887d2b2fb1cde21b55276"),
+))
+
 SCOPES = {
+    (6101, 2): Scope(
+        6101, 2, 2, "f3f3dac061e9baca67095771305e0ea47827c20d35e7d1018c89059172533b1a", (
+            replace(_6101_ATTEMPTS[-1], earlier=_6101_ATTEMPTS[:-1], replay_files={
+                "attempt_00.replay_authorization.json": "ed3b198cd669492bfc478c373ce14b7a23e711bbe11b4cc61d60bcfd24699514",
+                "attempt_00.replay.terminal.json": "5b6c603bab148aa3cc0ae301ceab2ce4adf6b5c60ee56c10f7135b32b9194a89",
+                "attempt_01.replay_link.json": "34275ff1746b61630db679d5f829a1d8a68303195cbb471868e5fce842ff3af0",
+            }),
+        ), "failed_unix", 1795684592.3081465, original_start_round=1, fitted_prefix_files=(
+            ("round_02/source.json", "c33ecb89a166f5f2d112f2bb434fab6529d4bf108fe0d4f84b28d3b7e39648b0"),
+            ("round_02/transition.json", "90e14a3d1ab7fd8719c68b5ec86c3d3d580cf5c733a880bc6581f371995cf54c"),
+            ("round_01/memory.json", "989f5e746a5398725bd4bcb37ee199fab8b1f13516e0e58c6d47b66365b07cec"),
+        )),
     (157, 3): Scope(
         157, 3, 3, wave157.PAYLOAD, (
             replace(_157_PRIOR[-1], earlier=_157_PRIOR[:-1]),
@@ -108,17 +146,27 @@ def _evidence(run, active, contract, approval, scope, review):
     if review.identity == wave157.OLD:
         request, receipts = wave157._failure(run, active, contract, approval)
         return request, receipts, read(active / "turn_00/attempt_01.terminal.json")
-    turn = retry.bounded._turn(active, 1)
+    turn = retry.bounded._turn(active, len(review.attempts))
     request = retry.bounded._request(active, turn, contract, approval, scope)
-    receipt = retry.bounded._failure(run, turn, contract, approval, request, 0)
-    terminal_path = turn / "attempt_00.terminal.json"
-    if ((request["request_id"], request["payload_sha256"]) != (review.request_id, scope.payload_sha256)
-            or file_digest(terminal_path) != review.terminal_file_sha256
-            or tuple(receipt[k] for k in ("attempt_id", "job_sha256", "result_sha256", "error",
-                                          "provider_dispatched", "ambiguous"))
-            != (review.attempt_id, review.job_sha256, review.result_sha256, review.failure, True, True)):
-        raise PermissionError("a reviewed prior request or stopped ambiguous receipt changed")
-    return request, [receipt], read(terminal_path)
+    if (request["request_id"], request["payload_sha256"]) != (review.request_id, scope.payload_sha256):
+        raise PermissionError("the reviewed logical request changed")
+    receipts = []
+    for index, attempt in enumerate(review.attempts):
+        receipt = retry.bounded._failure(run, turn, contract, approval, request, index)
+        terminal_path = turn / f"attempt_{index:02d}.terminal.json"
+        if (file_digest(terminal_path) != attempt.terminal_file_sha256
+                or tuple(receipt[k] for k in ("attempt_id", "job_sha256", "result_sha256", "error",
+                                              "provider_dispatched", "ambiguous"))
+                != (attempt.attempt_id, attempt.job_sha256, attempt.result_sha256, attempt.failure, True, True)):
+            raise PermissionError("a reviewed stopped ambiguous receipt changed")
+        receipts.append(receipt)
+    if review.replay_files:
+        if any(file_digest(turn / path) != sha for path, sha in review.replay_files.items()):
+            raise PermissionError("the original delayed replay linkage changed")
+        permit = digest(read(turn / "attempt_00.replay_authorization.json"))
+        replay = terminal_record(turn, 0, replay_authorization_sha256=permit)
+        _link_replay_attempt(turn, read(turn / "attempt_01.started.json"), replay, allow_create=False)
+    return request, receipts, read(terminal_path)
 
 
 def _archives(failed_run, failed_release, scope):
@@ -153,8 +201,15 @@ def construct(root, failed_release, failed_run, run, scope):
     last = records[0]
     parent, approval = last["contract"], last["approval"]
     old = parent.predecessor
+    parent_start = parent.profile["resume_boundaries"][str(scope.seed)]["round"]
+    if scope.original_start_round is None:
+        expected_budget = (scope.round, RECOVERY_BUDGET, scope.budget)
+    else:
+        expected_budget = (scope.original_start_round, retry.RECOVERY_BUDGET,
+                           retry.execution_budget(36, scope.original_start_round))
     if (last["terminal"].get(scope.cooldown_field) != scope.cooldown_unix
-            or old["recovery_budget"] != RECOVERY_BUDGET or old["execution_budget"] != scope.budget):
+            or (parent_start, old["recovery_budget"], old["execution_budget"]) != expected_budget
+            or any(file_digest(last["directory"] / name) != sha for name, sha in scope.fitted_prefix_files)):
         raise PermissionError("the retired physical budget or original cooldown clock differs from its record")
     cache = Path(old["cache_directory"]).resolve(strict=True)
     if file_digest(cache / "resource_receipt.json") != old["public_resource_receipt_sha256"]:
@@ -162,6 +217,7 @@ def construct(root, failed_release, failed_run, run, scope):
     boundary, prefix = retry._boundary(failed_release, last["directory"], last["active"], parent, approval, scope, cache)
     request = last["request"]
     state, memory, index = boundary
+    binding = request["binding"]
     stage = seed_runner._stage(failed_release, state, memory, seed_runner._scope(parent, approval, scope.seed, False), parent)
     user = request["payload"]["input"][1]
     stage = seed_runner.pin_boundary_user_message(stage, user, digest(user))
@@ -174,7 +230,8 @@ def construct(root, failed_release, failed_run, run, scope):
                 "progress_file_sha256": item.progress_file_sha256, "previous_attempts": record["receipts"]}
                for item, record in zip(scope.archive, reversed(records), strict=True)]
     proof = {
-        **old, "dispatcher_module": DISPATCHER, "previous_run_directory": str(failed_run),
+        **old, "dispatcher_module": DISPATCHER, "seed": scope.seed, "round": index, "logical_index": 0,
+        "payload_sha256": request["payload_sha256"], "previous_run_directory": str(failed_run),
         "previous_release_directory": str(failed_release), "previous_contract_sha256": parent.digest,
         "previous_authorization_sha256": digest(approval), "previous_request_id": request["request_id"],
         "previous_attempts": last["receipts"], "previous_terminal_file_sha256": scope.archive[-1].terminal_file_sha256,
@@ -184,11 +241,16 @@ def construct(root, failed_release, failed_run, run, scope):
         "relay_not_before_unix": scope.not_before_unix, "relay_cooldown_clock": scope.cooldown_field,
         "newly_authorized_boundary_physical_attempts": 1, "reviewed_retry_chain": history,
     }
+    proof.update({key: binding[key] for key in ("checkpoint_sha256", "packet_sha256", "wire_packet_sha256", "base_messages_sha256")})
+    if scope.fitted_prefix_files:
+        proof["reviewed_fitted_prefix_files"] = dict(scope.fitted_prefix_files)
     for stale in ("authoritative_message_reconstruction", "inherited_boundary_budget"):
         proof.pop(stale, None)
     if host:
         proof["authoritative_message_reconstruction"] = host
-    profile = {**parent.profile, "replay_eligible_from_round": index + 1}
+    descriptor = {"round": index, "state_sha256": digest(asdict(state)),
+                  "memory_sha256": digest(memory), "user_message_sha256": digest(user)}
+    profile = {**parent.profile, "replay_eligible_from_round": index + 1, "resume_boundaries": {str(scope.seed): descriptor}}
     sources = {name: file_digest(root / name) for name in parent.source_sha256}
     if {name for name, actual in sources.items() if actual != parent.source_sha256[name]} - retry.OVERLAYS:
         raise PermissionError("the successor changed source outside the audited transport paths")
