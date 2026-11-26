@@ -15,7 +15,7 @@ from urllib.parse import urlparse
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, once
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
     RESPONSES_JSON_IPV4, RESPONSES_STREAM, RESPONSES_STREAM_IPV4, RESPONSES_WEBSOCKET_IPV4, ProviderReply,
-    TransportFailure, check_request, collect_completed, retry_http,
+    ResponseMessagePhaseError, TransportFailure, check_request, collect_completed, response_output_text, retry_http,
 )
 
 from .credentials import api_key, key_text
@@ -270,14 +270,13 @@ class _StreamEvidence:
         model_version = extras.get("model_version")
         declared = {"model_version": self.headers.get("x-model-version") if model_version is None else model_version,
                     "reported_reasoning_effort": getattr(reasoning, "effort", None)}
-        reply = collect_completed((event,))
-        reply = replace(reply, provider_request_id=reply.provider_request_id or self.headers.get("x-request-id"))
+        provider_request_id = getattr(terminal, "_request_id", None) or self.headers.get("x-request-id")
         if capture_response is not None:
-            raw = terminal.model_dump(mode="json", exclude_unset=True)
+            raw = terminal.model_dump(mode="json", exclude_unset=True, warnings=False)
             if capture_receipt is not None:
-                capture_receipt({"raw_response_sha256": digest(raw),
-                                 "provider_request_id": reply.provider_request_id, **declared})
+                capture_receipt({"raw_response_sha256": digest(raw), "provider_request_id": provider_request_id, **declared})
             capture_response(raw)
+        reply = replace(collect_completed((event,)), provider_request_id=provider_request_id)
         if self.report is not None:
             self.report("transport_completed", usage=reply.usage)
         return reply, declared
@@ -413,11 +412,7 @@ def recover_completed_response(raw, config, *, model_lock, metadata=None):
 
 
 def _reply_from_raw(raw, provider_request_id):
-    output = raw.get("output")
-    if not isinstance(output, list):
-        raise ValueError("invalid raw provider output")
-    answer = "".join(block["text"] for item in output if item["type"] == "message"
-                     for block in item["content"] if block["type"] == "output_text")
+    answer = response_output_text(raw.get("output"))
     measured = raw.get("usage") or {}
     if not isinstance(measured, dict):
         raise ValueError("invalid raw provider token usage")
@@ -456,7 +451,11 @@ def _bounded_completed_reply(raw, provider_request_id, protocol):
 
 
 def _capture_completed_object(raw, headers, provider_request_id, key, capture_response, capture_receipt, report, protocol):
-    reply = _bounded_completed_reply(raw, provider_request_id, protocol)
+    phase_failure = None
+    try:
+        reply = _bounded_completed_reply(raw, provider_request_id, protocol)
+    except ResponseMessagePhaseError as error:
+        phase_failure = error
     reasoning = raw.get("reasoning")
     if reasoning is not None and type(reasoning) is not dict:
         raise TransportFailure(f"invalid_{protocol}_response", ambiguous=True)
@@ -470,6 +469,8 @@ def _capture_completed_object(raw, headers, provider_request_id, key, capture_re
         if capture_receipt is not None:
             capture_receipt({"raw_response_sha256": digest(raw), "provider_request_id": provider_request_id, **declared})
         capture_response(raw)
+    if phase_failure is not None:
+        raise phase_failure
     if report is not None:
         report("transport_completed", usage=reply.usage, response_id=reply.response_id, model=reply.served_model)
     return reply, declared

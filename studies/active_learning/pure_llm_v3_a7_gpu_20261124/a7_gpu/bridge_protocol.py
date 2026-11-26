@@ -10,7 +10,8 @@ import time
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, once
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.response_schema import SCHEMA_VERSION, parse_response
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
-    ProviderReply, TransportConfig, TransportFailure, TransportStop, check_request,
+    ProviderReply, ResponseMessagePhaseError, TransportConfig, TransportFailure, TransportStop, check_request,
+    response_output_text,
 )
 
 from .compact_payload import FORMAT_SUFFIX, WIDTHS, validate_wire_representation
@@ -207,7 +208,6 @@ def _check_completed_raw(raw, reply, identity):
         raise ValueError("raw provider response identity differs from the extracted answer")
     if type(raw.get("output")) is not list:
         raise ValueError("raw provider response is missing its output list")
-    text_parts = []
     for item in raw["output"]:
         if not isinstance(item, dict):
             raise ValueError("invalid raw provider output item")
@@ -218,11 +218,13 @@ def _check_completed_raw(raw, reply, identity):
         for part in item["content"]:
             if not isinstance(part, dict):
                 raise ValueError("invalid raw provider output content")
-            if part.get("type") == "output_text":
-                if not isinstance(part.get("text"), str):
-                    raise ValueError("invalid raw provider text")
-                text_parts.append(part["text"])
-    if "".join(text_parts) != reply["text"]:
+            if part.get("type") == "output_text" and not isinstance(part.get("text"), str):
+                raise ValueError("invalid raw provider text")
+    try:
+        extracted = response_output_text(raw["output"])
+    except ResponseMessagePhaseError as error:
+        raise ValueError("invalid raw provider answer phases") from error
+    if extracted != reply["text"]:
         raise ValueError("extracted provider text differs from raw provider output")
     usage = raw.get("usage")
     if usage is not None and (

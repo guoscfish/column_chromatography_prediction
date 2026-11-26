@@ -17,7 +17,7 @@ from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.bridge_protocol 
     BridgeCourier, BridgePending, make_job, make_result, read_bridge_json, validate_result, verify_job, verify_result,
 )
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.provider import verify_reported_model
-from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu import seed_runner
+from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu import dispatcher, seed_runner
 
 
 CONTRACT = "a" * 64
@@ -220,6 +220,57 @@ def test_receipt_correlates_attempt_and_provider_and_rejects_secret_headers(setu
     failure = TransportFailure("served_model_mismatch", retryable=True)
     with pytest.raises(ValueError, match="classified provider failure"):
         make_result(job, failure=failure, credential_id="mock-slot-1", provider_dispatched=True)
+
+
+def test_bridge_binds_only_final_answer_to_unchanged_raw_phased_response(setup_bridge):
+    config, request, started, _ = setup_bridge
+    job = make_job(request, config, started)
+    preview, text = '{"preview":true}', '{"choices":["candidate-fixture"]}'
+    reply = ProviderReply(text, "resp-phased", config.served_model, {})
+    raw = {"id": reply.response_id, "model": reply.served_model, "status": reply.status, "output": [
+        {"type": "message", "role": "assistant", "status": "completed", "phase": phase,
+         "content": [{"type": "output_text", "text": value}]}
+        for phase, value in (("commentary", preview), ("final_answer", text))
+    ]}
+    identity = verify_reported_model(config, reply, {"model_version": None, "reported_reasoning_effort": None})
+    result = make_result(job, reply=reply, model_identity=identity, raw_response=raw,
+                         credential_id="mock-slot-1", provider_dispatched=True)
+    assert verify_result(result, job).text == text
+    assert result["raw_response"] == raw and result["raw_response_sha256"] == digest(raw)
+    with pytest.raises(ValueError, match="extracted provider text differs"):
+        make_result(job, reply=replace(reply, text=preview + text), model_identity=identity, raw_response=raw,
+                    credential_id="mock-slot-1", provider_dispatched=True)
+    ambiguous = {**raw, "output": [{**raw["output"][0], "phase": "final_answer"}, raw["output"][1]]}
+    with pytest.raises(ValueError, match="invalid raw provider answer phases"):
+        make_result(job, reply=reply, model_identity=identity, raw_response=ambiguous,
+                    credential_id="mock-slot-1", provider_dispatched=True)
+
+
+def test_restart_seals_captured_invalid_phase_without_resubmission(setup_bridge, tmp_path):
+    config, request, started, _ = setup_bridge
+    job = make_job(request, config, started)
+    attempt_id = job["attempt_id"]
+    location = tmp_path / "attempts" / attempt_id
+    location.mkdir(parents=True, mode=0o700)
+    binding = {"attempt_id": attempt_id, "job_sha256": job["job_sha256"]}
+    raw = {"id": "resp-no-final", "model": config.served_model, "status": "completed", "output": [{
+        "type": "message", "role": "assistant", "phase": "commentary", "status": "completed",
+        "content": [{"type": "output_text", "text": "unusable preview"}],
+    }]}
+    once(location / "started.json", {**binding, "credential_id": "mock-slot-1"})
+    once(location / "raw_provider_response.json", raw)
+    once(location / "provider_capture_receipt.json", {**binding, "metadata": {
+        "raw_response_sha256": digest(raw), "provider_request_id": "req-phased",
+        "model_version": None, "reported_reasoning_effort": None,
+    }})
+    restarted = SimpleNamespace(path=tmp_path, _job=lambda _: (job, request, config))
+    assert dispatcher.Dispatcher.recover_captured(restarted) == 1
+    assert dispatcher.Dispatcher.recover_captured(restarted) == 0
+    result = read(tmp_path / "results" / f"{attempt_id}.json")
+    assert result["raw_response"] == raw and result["provider_dispatched"] is True
+    with pytest.raises(TransportFailure, match="invalid_response_message_phase") as stopped:
+        verify_result(result, job)
+    assert not stopped.value.retryable and not stopped.value.ambiguous
 
 
 def test_pending_gpu_attempt_reuses_job_and_completed_mac_receipt(setup_bridge, tmp_path):

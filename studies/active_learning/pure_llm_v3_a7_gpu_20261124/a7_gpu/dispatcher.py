@@ -18,7 +18,7 @@ from uuid import uuid4
 
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, dumps, file_digest, once, read
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
-    RESPONSES_STREAM_IPV4, ProviderReply, TransportFailure, TransportStop,
+    RESPONSES_STREAM_IPV4, ProviderReply, ResponseMessagePhaseError, TransportFailure, TransportStop,
 )
 
 from .bridge_protocol import _check_raw, make_result, private_directory, read_bridge_json, validate_result, verify_job
@@ -450,10 +450,15 @@ class Dispatcher:
                     raise ValueError("captured provider response belongs to another attempt")
                 raw = read_bridge_json(path)
                 _check_raw(raw)
-                reply, identity = recover_completed_response(raw, config,
-                    model_lock=self.path / "provider_model_lock.json", metadata=receipt["metadata"])
-                result = make_result(job, reply=reply, credential_id=started["credential_id"],
-                                     model_identity=identity, provider_dispatched=True, raw_response=raw)
+                try:
+                    reply, identity = recover_completed_response(raw, config,
+                        model_lock=self.path / "provider_model_lock.json", metadata=receipt["metadata"])
+                except ResponseMessagePhaseError as failure:
+                    result = make_result(job, failure=failure, credential_id=started["credential_id"],
+                                         provider_dispatched=True, raw_response=raw)
+                else:
+                    result = make_result(job, reply=reply, credential_id=started["credential_id"],
+                                         model_identity=identity, provider_dispatched=True, raw_response=raw)
                 once(result_path, result)
                 total += 1
         return total

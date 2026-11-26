@@ -11,10 +11,12 @@ import pytest
 
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
-    RESPONSES_JSON_IPV4, RESPONSES_STREAM_IPV4, TransportConfig, TransportFailure, make_request, responses_call,
+    RESPONSES_JSON_IPV4, RESPONSES_STREAM_IPV4, ResponseMessagePhaseError, TransportConfig, TransportFailure,
+    make_request, responses_call,
 )
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu import dispatcher, provider
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.formal_contract import RequestTimeouts
+from studies.active_learning.pure_llm_v3_a7_gpu_20261124.tests.test_provider_websocket import run_ws  # noqa: F401
 
 
 def _frame(kind, **fields):
@@ -445,6 +447,83 @@ def _json_body(payload):
         yield content[:40]
         yield content[40:]
     return body
+
+
+def _message(text, phase=None, *, status="completed", role="assistant"):
+    item = {"type": "message", "role": role, "status": status, "id": f"msg_{phase or 'legacy'}",
+            "content": [{"type": "output_text", "text": text, "annotations": []}]}
+    if phase is not None:
+        item["phase"] = phase
+    return item
+
+
+def _sse_completed_output(output):
+    return _frame("response.completed", response=_json_payload(id="resp_stream", model="mock-model",
+                                                               output=output, reasoning={"effort": "max"}))
+
+
+@pytest.mark.parametrize("wire", ["sse", "json", "websocket"])
+def test_only_explicit_completed_final_enters_reply_and_recovery(request, tmp_path, wire):
+    preview, final = '{"preview":true}', '{"choices":["candidate-fixture"]}'
+    output = [_message(preview, "commentary"), _message(final, "final_answer")]
+
+    if wire == "websocket":
+        payload = _json_payload(output=output)
+
+        async def frames():
+            yield {"type": "response.completed", "response": payload}
+
+        check = request.getfixturevalue("run_ws")(frames)
+        reply, receipts = check.reply, check.receipts
+    else:
+        async def sse():
+            yield _sse_completed_output(output)
+
+        fixture = request.getfixturevalue("async_mock_provider")
+        if wire == "json":
+            check = fixture(_json_body(_json_payload(output=output)), json_response=True)
+        else:
+            check = fixture(sse, ipv4=True)
+        reply, receipts = check.result, check.receipt
+    assert reply.text == final
+    assert check.raw[0]["output"] == output
+    assert receipts[0]["raw_response_sha256"] == digest(check.raw[0])
+    recovered, _ = provider.recover_completed_response(check.raw[0], check.config,
+        model_lock=tmp_path / "recovered.json", metadata=receipts[0])
+    assert recovered == reply
+
+
+def test_multiple_untagged_messages_keep_legacy_concatenation(mock_provider):
+    def body():
+        yield _sse_completed_output([_message("legacy one"), _message(" and two")])
+
+    check = mock_provider(body)
+    assert check.result.text == "legacy one and two"
+
+
+@pytest.mark.parametrize("output", [
+    [_message("commentary only", "commentary")],
+    [_message("first", "final_answer"), _message("second", "final_answer")],
+    [_message("untagged"), _message("tagged", "final_answer")],
+    [_message("unknown", "unexpected"), _message("tagged", "final_answer")],
+    [_message("unfinished", "final_answer", status="in_progress")],
+    [_message("wrong role", "final_answer", role="user")],
+    [_message("  ", "final_answer")],
+])
+def test_ambiguous_terminal_phases_keep_raw_but_never_return_an_answer(async_mock_provider, tmp_path, output):
+    async def sse():
+        yield _sse_completed_output(output)
+
+    for check in (async_mock_provider(sse, ipv4=True),
+                  async_mock_provider(_json_body(_json_payload(output=output)), json_response=True)):
+        assert isinstance(check.result, ResponseMessagePhaseError)
+        assert not check.result.retryable and not check.result.ambiguous
+        assert check.requests == ["GET", "POST"]
+        assert check.raw[0]["output"] == output
+        assert check.receipt[0]["raw_response_sha256"] == digest(check.raw[0])
+        with pytest.raises(ResponseMessagePhaseError):
+            provider.recover_completed_response(check.raw[0], check.config,
+                model_lock=tmp_path / "unused.json", metadata=check.receipt[0])
 
 
 def test_ipv4_json_captures_original_response_and_recovers_without_post(async_mock_provider, tmp_path):

@@ -208,12 +208,17 @@ def observed_alias_case():
     return stage, plan
 
 
+@pytest.mark.parametrize("candidate_alias", [False, True])
 def test_exact_observed_alias_normalization_freezes_and_replays_original_choice_order(observed_alias_case, tmp_path,
-                                                                                     config):
+                                                                                     config, candidate_alias):
     stage, plan = observed_alias_case
     stage = replace(stage, binding={**stage.binding, "normalize_observed_reference_aliases": True})
     raw = deepcopy(plan)
     raw["choices"][0]["references"][0]["observed_id"] = "O-0033"
+    removed_paths = ["/choices/0/references/0/observed_id"]
+    if candidate_alias:
+        raw["choices"][0]["references"][0]["candidate_id"] = raw["choices"][0]["candidate_id"]
+        removed_paths.append("/choices/0/references/0/candidate_id")
     assert not _validation(stage, raw).valid
     calls = []
 
@@ -235,7 +240,7 @@ def test_exact_observed_alias_normalization_freezes_and_replays_original_choice_
         "provider_response_id": "alias-reply",
         "raw_reply_sha256": digest(dumps(raw)),
         "original_plan_sha256": digest(raw),
-        "removed_paths": ["/choices/0/references/0/observed_id"],
+        "removed_paths": removed_paths,
         "normalized_plan_sha256": digest(plan),
         "normalized_plan": plan,
     }
@@ -251,7 +256,8 @@ def test_exact_observed_alias_normalization_freezes_and_replays_original_choice_
         select_stage(stage, tmp_path, config, call, **options)
 
 
-@pytest.mark.parametrize("failure", ["conflict", "missing_canonical", "wrong_role", "invalid_selection"])
+@pytest.mark.parametrize("failure", ["conflict", "candidate_conflict", "candidate_only", "missing_canonical",
+                                     "wrong_role", "invalid_selection"])
 def test_observed_alias_normalization_never_accepts_unproven_changes(observed_alias_case, tmp_path, config, failure):
     stage, selection = observed_alias_case
     stage = replace(stage, binding={**stage.binding, "normalize_observed_reference_aliases": True})
@@ -259,6 +265,11 @@ def test_observed_alias_normalization_never_accepts_unproven_changes(observed_al
     first["observed_id"] = first["reference_id"]
     if failure == "conflict":
         first["observed_id"] = next(identity for identity in stage.context.observed if identity != first["reference_id"])
+    elif failure == "candidate_conflict":
+        first["candidate_id"] = selection["choices"][1]["candidate_id"]
+    elif failure == "candidate_only":
+        del first["observed_id"]
+        first["candidate_id"] = selection["choices"][0]["candidate_id"]
     elif failure == "missing_canonical":
         del first["reference_id"]
     elif failure == "wrong_role":

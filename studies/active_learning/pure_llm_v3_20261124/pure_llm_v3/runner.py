@@ -242,7 +242,7 @@ def _next_messages(stage, repair=None):
 
 
 def _observed_alias_projection(plan):
-    """Propose removing exact legacy aliases from complete-plan reference entries."""
+    """Remove only aliases that repeat the identities already bound by an observed reference."""
     choices = plan.get("choices") if type(plan) is dict else None
     if type(choices) is not list:
         return None
@@ -254,20 +254,26 @@ def _observed_alias_projection(plan):
         for reference_index, reference in enumerate(references):
             if type(reference) is not dict:
                 return None
-            if "observed_id" not in reference:
+            if not {"observed_id", "candidate_id"} & reference.keys():
                 continue
             identity = reference.get("reference_id")
+            observed_id = reference.get("observed_id")
             if (reference.get("reference_kind") != "observed" or type(identity) is not str
-                    or type(reference["observed_id"]) is not str or reference["observed_id"] != identity):
+                    or type(observed_id) is not str or observed_id != identity):
                 return None
-            aliases.append((choice_index, reference_index))
+            aliases.append((choice_index, reference_index, "observed_id"))
+            if "candidate_id" in reference:
+                candidate_id = reference["candidate_id"]
+                if type(candidate_id) is not str or candidate_id != choice.get("candidate_id"):
+                    return None
+                aliases.append((choice_index, reference_index, "candidate_id"))
     if not aliases:
         return None
     normalized = copy.deepcopy(plan)
     paths = []
-    for choice_index, reference_index in aliases:
-        del normalized["choices"][choice_index]["references"][reference_index]["observed_id"]
-        paths.append(f"/choices/{choice_index}/references/{reference_index}/observed_id")
+    for choice_index, reference_index, field in aliases:
+        del normalized["choices"][choice_index]["references"][reference_index][field]
+        paths.append(f"/choices/{choice_index}/references/{reference_index}/{field}")
     return normalized, paths
 
 

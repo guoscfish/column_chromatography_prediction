@@ -40,6 +40,11 @@ class TransportFailure(Exception):
         self.ambiguous = ambiguous
 
 
+class ResponseMessagePhaseError(TransportFailure):
+    def __init__(self):
+        super().__init__("invalid_response_message_phase")
+
+
 @dataclass(frozen=True)
 class TransportConfig:
     provider: str
@@ -441,6 +446,41 @@ def reconcile(directory, request, attempt, *, authorization, config, reply=None)
             once(recovered, {**reconciled, "supersedes_sha256": digest(previous)})
 
 
+def _response_field(item, field):
+    return item.get(field) if isinstance(item, dict) else getattr(item, field, None)
+
+
+def response_output_text(output):
+    """Read the final answer from either SDK output items or their archived JSON objects."""
+    if not isinstance(output, list):
+        raise ValueError("invalid provider output list")
+    messages = [item for item in output if _response_field(item, "type") == "message"]
+    phases = [_response_field(item, "phase") for item in messages]
+    phase_aware = any(phase is not None for phase in phases)
+    if phase_aware:
+        finals = [item for item, phase in zip(messages, phases, strict=True) if phase == "final_answer"]
+        if (len(finals) != 1 or any(phase not in ("commentary", "final_answer") for phase in phases)
+                or any(_response_field(item, "role") != "assistant" for item in messages)
+                or _response_field(finals[0], "status") != "completed"):
+            raise ResponseMessagePhaseError()
+        messages = finals
+    text = []
+    for item in messages:
+        content = _response_field(item, "content")
+        if not isinstance(content, list):
+            raise ValueError("invalid provider message content")
+        for part in content:
+            if _response_field(part, "type") == "output_text":
+                value = _response_field(part, "text")
+                if not isinstance(value, str):
+                    raise ValueError("invalid provider text")
+                text.append(value)
+    answer = "".join(text)
+    if phase_aware and not answer.strip():
+        raise ResponseMessagePhaseError()
+    return answer
+
+
 def collect_completed(events, *, deadline=None):
     """Consume the terminal Responses event, never decide from text deltas."""
     final = None
@@ -461,7 +501,7 @@ def collect_completed(events, *, deadline=None):
     for name, key in (("input_tokens_details", "cached_tokens"), ("output_tokens_details", "reasoning_tokens")):
         if (value := getattr(getattr(details, name, None), key, None)) is not None:
             usage[key] = value
-    return ProviderReply(final.output_text, final.id, final.model, usage, final.status,
+    return ProviderReply(response_output_text(final.output), final.id, final.model, usage, final.status,
                          getattr(final, "_request_id", None))
 
 
