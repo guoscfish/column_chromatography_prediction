@@ -1235,7 +1235,8 @@ def test_887_r12_relay_status_matches_reviewed_ordinary_prefix():
                           (6101, 3, 3), (6101, 4, 4), (157, 6, 6), (887, 3, 2), (12203, 6, 5),
                           (887, 4, 3), (2357, 3, 3), (2357, 4, 5), (12203, 8, 4), (6101, 5, 5),
                           (6101, 6, 6), (12203, 9, 6), (2357, 5, 6), (12203, 10, 7), (157, 8, 2),
-                          (12203, 11, 8), (2357, 6, 7), (12203, 12, 10), (2357, 7, 8), (12203, 13, 12), (887, 6, 2)])
+                          (12203, 11, 8), (2357, 6, 7), (12203, 12, 10), (2357, 7, 8), (12203, 13, 12), (887, 6, 2),
+                          (12203, 14, 13)])
 def test_reviewed_wave_status_uses_the_registered_gpu_scope(seed, wave, archive_count):
     from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts import run_v13_retry_successor
 
@@ -1243,7 +1244,7 @@ def test_reviewed_wave_status_uses_the_registered_gpu_scope(seed, wave, archive_
     previous = scope.archive[-1]
     assert sum(len(review.attempts) for review in scope.archive) == archive_count
     physical = 2 if (seed, wave) in ((2357, 3), (2357, 4), (2357, 6), (6101, 4), (6101, 6), (887, 6),
-                                    (12203, 8), (12203, 9), (12203, 11), (12203, 12), (157, 8)) else 1
+                                    (12203, 8), (12203, 9), (12203, 11), (12203, 12), (12203, 14), (157, 8)) else 1
     assert scope.boundary_physical_attempts == physical
     assert scope.replay_start_round == scope.round + (physical == 1)
     assert (getattr(prompt_pilot_status, f"RELAY_{seed}_WAVE{wave - 1:02d}_CONTRACT"),
@@ -1257,7 +1258,7 @@ def test_reviewed_wave_status_uses_the_registered_gpu_scope(seed, wave, archive_
         "relay_cooldown_clock": scope.cooldown_field, "relay_not_before_unix": scope.not_before_unix,
         "newly_authorized_boundary_physical_attempts": physical, "execution_budget": scope.budget,
     }
-    if seed in (6101, 887, 2357) or (seed, wave) == (157, 8) or (seed == 12203 and 8 <= wave <= 13):
+    if seed in (6101, 887, 2357) or (seed, wave) == (157, 8) or (seed == 12203 and 8 <= wave <= 14):
         expected_proof["logical_index"] = 0
     assert getattr(prompt_pilot_status, f"RELAY_{seed}_WAVE{wave:02d}_PROOF") == expected_proof
     expected_attempts = tuple({"attempt": slot, "attempt_id": item.attempt_id, "job_sha256": item.job_sha256,
@@ -1273,7 +1274,7 @@ def test_reviewed_wave_status_uses_the_registered_gpu_scope(seed, wave, archive_
     observation = getattr(prompt_pilot_status, f"RELAY_{seed}_WAVE{wave:02d}_OBSERVATION", None)
     if observation is not None:
         assert observation == previous.progress
-        if (seed, wave) in ((2357, 7), (12203, 12), (12203, 13), (887, 6)):
+        if (seed, wave) in ((2357, 7), (12203, 12), (12203, 13), (12203, 14), (887, 6)):
             required = prompt_pilot_status.RELAY_12203_WAVE12_SOURCES
         elif (seed, wave) in ((2357, 5), (2357, 6), (12203, 10), (12203, 11), (157, 8)):
             required = prompt_pilot_status.RELAY_2357_WAVE05_SOURCES
@@ -1306,6 +1307,14 @@ def test_reviewed_wave_status_uses_the_registered_gpu_scope(seed, wave, archive_
         extra = set(prompt_pilot_status.RELAY_12203_WAVE13_SOURCES) - set(dict(scope.required_sources))
         assert {path.rsplit("/", 1)[-1] for path in extra} == {"dispatch_v13_retry_successor.py", "run_v13_retry_successor.py"}
         assert all(prompt_pilot_status.SHA.fullmatch(prompt_pilot_status.RELAY_12203_WAVE13_SOURCES[path]) for path in extra)
+    if (seed, wave) == (12203, 14):
+        assert prompt_pilot_status.SHA.fullmatch(prompt_pilot_status.RELAY_12203_WAVE14_CONTRACT)
+        assert prompt_pilot_status.SHA.fullmatch(prompt_pilot_status.RELAY_12203_WAVE14_AUTH)
+        assert scope.archive[-2].pre_post_connect_failure
+        assert not previous.pre_post_connect_failure and previous.progress["provider_error_code"] == "upstream_error"
+        extra = set(prompt_pilot_status.RELAY_12203_WAVE14_SOURCES) - set(dict(scope.required_sources))
+        assert {path.rsplit("/", 1)[-1] for path in extra} == {"dispatch_v13_retry_successor.py", "run_v13_retry_successor.py"}
+        assert all(prompt_pilot_status.SHA.fullmatch(prompt_pilot_status.RELAY_12203_WAVE14_SOURCES[path]) for path in extra)
     if (seed, wave) == (2357, 6):
         assert prompt_pilot_status.SHA.fullmatch(prompt_pilot_status.RELAY_2357_WAVE06_CONTRACT)
         assert prompt_pilot_status.SHA.fullmatch(prompt_pilot_status.RELAY_2357_WAVE06_AUTH)
@@ -2184,7 +2193,68 @@ def check_12203_wave13(runs, monkeypatch, capsys, flags, previous, previous_sha,
     printed = capsys.readouterr().out
     assert "upstream_error  SSE 23" in printed
     assert "TLS 握手时超时，未观察到模型 POST、HTTP 响应或 SSE" in printed
+    check_12203_wave14(runs, monkeypatch, capsys, flags, run, sha, record)
     write_json(turn / "attempt_01.reconciliation.json", {"unexpected": True})
+    assert remote_seed(runs, 12203)["run"] == previous.name
+
+
+def check_12203_wave14(runs, monkeypatch, capsys, flags, previous, previous_sha, previous_record):
+    status = prompt_pilot_status
+    turn = previous / "seed_12203/round_05/turn_00"
+    attempt = status.RELAY_12203_WAVE13_ATTEMPT
+    terminal = {**attempt, "status": "stopped"}
+    filename = turn / "attempt_00.terminal.json"
+    write_json(turn / "attempt_00.started.json", {"attempt": 0, "attempt_id": attempt["attempt_id"]})
+    write_json(filename, terminal)
+    exact = {**status.RELAY_12203_WAVE14_PROOF, "previous_terminal_file_sha256": status.checksum(filename)}
+    monkeypatch.setattr(status, "RELAY_12203_WAVE14_PROOF", exact)
+    receipt = {**attempt, "terminal_sha256": status.record_digest(terminal)}
+    last = status._relay_review(previous, previous_sha, status.RELAY_12203_WAVE13_AUTH, exact, [receipt])
+    old_proof = previous_record["predecessor"]
+    run = runs / f"{status.SERIAL_IPV4}-12203-relay-retry-14"
+    proof = {**old_proof, **exact, "previous_run_directory": str(previous), "previous_contract_sha256": previous_sha,
+             "previous_authorization_sha256": status.RELAY_12203_WAVE13_AUTH,
+             "previous_attempts": [receipt], "previous_transport_observation": status.RELAY_12203_WAVE14_OBSERVATION,
+             "reviewed_retry_chain": [*old_proof["reviewed_retry_chain"], last],
+             "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 2}}
+    record = {**previous_record, "run_directory": str(run), "predecessor": proof, "budget": exact["execution_budget"],
+              "source_sha256": status.RELAY_12203_WAVE14_SOURCES,
+              "profile": {**previous_record["profile"], "replay_eligible_from_round": 5}}
+
+    def publish(candidate):
+        sha = status.record_digest(candidate)
+        authorization = {"contract_sha256": sha, **flags}
+        write_json(run / "formal_contract.json", candidate)
+        write_json(run / "authorization.json", authorization)
+        monkeypatch.setattr(status, "RELAY_12203_WAVE14_CONTRACT", sha)
+        monkeypatch.setattr(status, "RELAY_12203_WAVE14_AUTH", status.record_digest(authorization))
+        return sha
+
+    publish({**record, "source_sha256": status.RELAY_12203_WAVE13_SOURCES})
+    assert remote_seed(runs, 12203)["run"] == previous.name
+    sha = publish(record)
+    monkeypatch.setattr(status.time, "time", lambda: exact["relay_not_before_unix"] - 30)
+    row = remote_seed(runs, 12203)
+    assert (row["run"], row["segment"], row["labels"], row["contract_sha256"]) == (run.name, "ipv4_relay_retry_14", 493, sha)
+    assert row["api"] == {"status": "relay_boundary_cooldown", "relay_retry_wait_seconds": 30}
+    assert row["reviewed_previous_api"] == {
+        "http_status": 200, "error_type": "response_id_mismatch", "sse_event_count": 25, "event_type": "response.failed",
+        "complete_event_seen": False, "response_id_matches_transport_alias": True, "provider_error_code": "upstream_error",
+        "earlier_pre_post_failure": {"error_type": "connect_timeout_before_post", "network_phase": "tls",
+                                     "model_post_observed": False, "wave": 12},
+    }
+    assert row["boundary_api"]["maximum_physical_attempts"] == 2
+    assert row["boundary_api"]["replay_requires_verified_response_id"] is True
+    assert row["boundary_api"]["future_replay_from_round"] == 6
+    commands = []
+    monkeypatch.setattr(status, "command_lines", lambda command: commands.append(command) or [])
+    status.dispatcher_pid(12203, row["segment"])
+    assert commands[0][-1].endswith("/com.purellm.a7-ipv4-v13-12203-relay-retry-14")
+    status.show({"seeds": [row], "mac": {"keys": [], "limits": {}, "queue": []}})
+    printed = capsys.readouterr().out
+    assert "upstream_error  SSE 25" in printed
+    assert "更早的 W12 的另一次尝试在 TLS 握手时超时" in printed
+    write_json(turn / "attempt_01.started.json", {"unexpected": True})
     assert remote_seed(runs, 12203)["run"] == previous.name
 
 

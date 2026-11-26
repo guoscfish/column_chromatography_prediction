@@ -792,6 +792,26 @@ SCOPES[(12203, 13)] = replace(SCOPES[(12203, 12)], wave=13, cooldown_unix=179570
 ))
 
 
+SCOPES[(12203, 14)] = replace(SCOPES[(12203, 13)], wave=14, cooldown_field="not_before_unix",
+                               cooldown_unix=1795702290.7997937, original_boundary_physical_attempts=1,
+                               boundary_physical_attempts=2, archive=(
+    *SCOPES[(12203, 13)].archive,
+    Review(retry.bounded.RunIdentity("-12203-relay-retry-13",
+        "bb8bb02bf7478865f6bd510c6667687b89c8044152a1af834288f4fba3125801",
+        "68fc075c81f6c9408b99a9669a650136542f399b77573095f91d475373236055"),
+        "094821a5d94e07fd86e2a799bc29905037d405f924048b116eea204a5c398962", "51559c40c09344f1a05f16bae486785f",
+        "c52a75b11fe8b8315c73d6322434c70c32b5302ac627dbc7046188e2745bb6dd",
+        "ccfef94b6a6b867c063d7e4907221ce70db3cc064e432da7dc73e46e0e859bab",
+        "f5254ed9b334038058004aa91a1861b99b91d59ee25d2790890bbd3ac6b5a0be",
+        "fe1c0ffa23209796269b9f47e1e5a5d281a59229b81132f999da226f5bef7f77", "response_id_mismatch",
+        {"http_status": 200, "phase": "transport_failure", "error_type": "response_id_mismatch", "sse_event_count": 25,
+         "provider_request_id": "637102d2-1bbe-40b4-952b-88f7fd4b3dd8", "model": "gpt-6.2-astra",
+         "response_id": "resp_088293b7705ca974016b083d3a738887d0b2d4e01c94eb52cf",
+         "conflicting_response_id": "resp_637102d21bbe40b4952b88f7fd4b3dd8", "conflicting_event_type": "response.failed",
+         "response_id_matches_transport_alias": True, "provider_error_code": "upstream_error"}),
+))
+
+
 SCOPES[(887, 1)] = Scope(
     887, 8, 1, "ac09bcae3019cc81899e246e4769bc20ec1b764ac08e52cfc6b4c35dc8324c85", (
         Review(retry.bounded.RunIdentity("-887-cached-r7-01",

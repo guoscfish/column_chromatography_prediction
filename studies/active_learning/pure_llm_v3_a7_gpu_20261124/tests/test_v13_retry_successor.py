@@ -33,7 +33,7 @@ def test_only_explicitly_reviewed_new_wave_can_reserve_its_one_current_slot():
                                                  receipt.job_sha256, receipt.result_sha256, receipt.terminal_file_sha256,
                                                  receipt.progress_file_sha256))
     with pytest.raises(ValueError, match="no individually reviewed"):
-        gpu.read_scope(Parser(), SimpleNamespace(seed=12203, wave=14))
+        gpu.read_scope(Parser(), SimpleNamespace(seed=12203, wave=15))
 
 
 @pytest.mark.parametrize("seed,wave,rev_counts,physical_budget", [
@@ -319,7 +319,7 @@ def test_2357_previous_partial_text_telemetry_is_bound_to_the_stopped_physical_a
     (6101, 6, 1795693173.4806566),
     (12203, 8, 1795690919.9466105), (12203, 9, 1795693155.7197583), (12203, 11, 1795697031.8253946),
     (887, 6, 1795701974.7327738),
-    (12203, 12, 1795699275.9433548), (157, 8, 1795696780.5165217),
+    (12203, 12, 1795699275.9433548), (12203, 14, 1795702470.7997937), (157, 8, 1795696780.5165217),
 ])
 def test_conditional_second_attempt_requires_existing_delivered_failure_guard(monkeypatch, seed, wave, expected_not_before):
     previous = gpu.SCOPES[(seed, wave - 1)]
@@ -492,6 +492,25 @@ def test_12203_wave13_binds_one_new_slot_to_the_exact_w12_pre_post_failure():
     assert replace(last, attempt_id="a" * 32).pre_post_connect_failure is False
     assert replace(last, progress_file_sha256="a" * 64).pre_post_connect_failure is False
     assert all(not attempt.pre_post_connect_failure for wave in previous.archive for attempt in wave.attempts)
+
+
+def test_12203_wave14_keeps_the_exact_scientific_input_after_w13_upstream_error():
+    previous = gpu.SCOPES[(12203, 13)]
+    scope = gpu.SCOPES[(12203, 14)]
+    assert scope.archive[:-1] == previous.archive
+    assert scope.payload_sha256 == previous.payload_sha256
+    assert scope.original_start_round == scope.round == scope.replay_start_round == previous.round == 5
+    assert scope.original_boundary_physical_attempts == previous.boundary_physical_attempts == 1
+    assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 2}
+    assert scope.budget == {"first_logical_requests": 31, "maximum_logical_requests": 91, "maximum_physical_attempts": 182}
+    assert scope.cooldown_field == "not_before_unix" and scope.not_before_unix == 1795702470.7997937
+    assert scope.required_sources == previous.required_sources
+    old = scope.archive[-1]
+    assert old.failure == "response_id_mismatch" and old.replay_files is None
+    assert old.terminal_file_sha256 == "f5254ed9b334038058004aa91a1861b99b91d59ee25d2790890bbd3ac6b5a0be"
+    assert old.progress["provider_error_code"] == "upstream_error" and old.progress["sse_event_count"] == 25
+    assert old.progress["conflicting_event_type"] == "response.failed" and old.progress["response_id_matches_transport_alias"]
+    assert not old.pre_post_connect_failure and scope.archive[-2].attempts[-1].pre_post_connect_failure
 
 
 def test_pre_post_trace_rejects_an_actual_http_send_or_response():
