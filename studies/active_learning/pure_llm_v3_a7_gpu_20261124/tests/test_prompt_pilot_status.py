@@ -1027,6 +1027,12 @@ def check_887_r12_wave07(runs, monkeypatch, publish, flags, commands, previous, 
     assert remote_seed(runs, 887)["run"] == previous.name
     (turn / "attempt_01.started.json").unlink()
 
+    def publish_next(destination, candidate):
+        digest = publish(destination, candidate, **flags)
+        return digest, status.record_digest(status.read_json(destination / "authorization.json"))
+
+    check_repeated_boundary(runs, monkeypatch, publish_next, 887, 8, run, sha, auth, record)
+
 
 def check_6101_reviewed_wave02(runs, monkeypatch, publish, flags, commands, relay, relay_sha, relay_auth, relay_record):
     directory = relay / "seed_6101"
@@ -2546,7 +2552,7 @@ def test_readiness_counts_before_post_and_reports_sealed_no_post(tmp_path, monke
     assert "readiness_retry_seconds" not in row
 
 
-@pytest.mark.parametrize("seed,wave", [(157, 9), (2357, 8)])
+@pytest.mark.parametrize("seed,wave", [(157, 9), (2357, 8), (6101, 9)])
 def test_reviewed_relay_after_new_cuda_fit_requires_exact_fit_and_archive(tmp_path, monkeypatch, seed, wave):
     from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.run_v13_retry_successor import SCOPES
 
@@ -2555,15 +2561,16 @@ def test_reviewed_relay_after_new_cuda_fit_requires_exact_fit_and_archive(tmp_pa
     review, = scope.archive
     start = scope.round
     prefix = f"RELAY_{seed}_WAVE{wave:02d}"
-    previous_prefix = f"RELAY_{seed}_WAVE{wave - 1:02d}"
+    previous_prefix = "CONTINUATION_6101_R5" if seed == 6101 else f"RELAY_{seed}_WAVE{wave - 1:02d}"
     proof = getattr(status, f"{prefix}_PROOF")
     fitted = getattr(status, f"{prefix}_FITTED_FILES")
     checkpoint = getattr(status, f"{prefix}_CHECKPOINT")
     observation = getattr(status, f"{prefix}_OBSERVATION")
-    attempts = (status.RELAY_157_WAVE08_ATTEMPT,) if seed == 157 else status.RELAY_2357_WAVE07_ATTEMPTS
-    sources = status.RELAY_12203_WAVE12_SOURCES
+    attempts = {157: (status.RELAY_157_WAVE08_ATTEMPT,), 2357: status.RELAY_2357_WAVE07_ATTEMPTS,
+                6101: (status.RELAY_6101_WAVE09_PRIOR_ATTEMPT,)}[seed]
+    sources = status.RELAY_6101_WAVE09_SOURCES if seed == 6101 else status.RELAY_12203_WAVE12_SOURCES
     assert fitted == dict(scope.fitted_prefix_files)
-    assert sources == dict(scope.required_sources)
+    assert {name: sources[name] for name, _ in scope.required_sources} == dict(scope.required_sources)
     assert observation == review.progress
     assert (getattr(status, f"{previous_prefix}_CONTRACT"), getattr(status, f"{previous_prefix}_AUTH")) == (
         review.identity.contract, review.identity.approval,
@@ -2572,7 +2579,8 @@ def test_reviewed_relay_after_new_cuda_fit_requires_exact_fit_and_archive(tmp_pa
                      "previous_terminal_file_sha256": review.terminal_file_sha256,
                      "previous_transport_progress_file_sha256": review.progress_file_sha256,
                      "relay_cooldown_clock": scope.cooldown_field, "relay_not_before_unix": scope.not_before_unix,
-                     "newly_authorized_boundary_physical_attempts": 2, "execution_budget": scope.budget}
+                     "newly_authorized_boundary_physical_attempts": scope.boundary_physical_attempts,
+                     "execution_budget": scope.budget}
     for index, (item, archived) in enumerate(zip(attempts, review.attempts, strict=True)):
         assert item == {"attempt": index, "attempt_id": archived.attempt_id, "job_sha256": archived.job_sha256,
                         "result_sha256": archived.result_sha256, "error": archived.failure,
@@ -2619,12 +2627,15 @@ def test_reviewed_relay_after_new_cuda_fit_requires_exact_fit_and_archive(tmp_pa
         write_json(path / "authorization.json", authorization)
         return digest, status.record_digest(authorization)
 
-    old_profile = {"confirmation_seeds": [seed], "target_labels": 1485, "resume_boundaries": {str(seed): {"round": 4}},
+    old_profile = {"confirmation_seeds": [seed], "target_labels": 1485,
+                   "resume_boundaries": {str(seed): {"round": scope.original_start_round}},
                    "audited_future_transport_replay": True, "sealed_relay_retry_seconds": 180,
                    "replay_eligible_from_round": 4 if seed == 157 else 5, "ipv4_readiness_windows": 3,
                    "sse_inactivity_seconds": 900, "request_timeouts": {"total_seconds": 3600}}
-    old_budget = getattr(status, f"{previous_prefix}_PROOF")["execution_budget"]
-    old_proof = {"recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 2 if seed == 157 else 1}}
+    old_budget = (status.CONTINUATION_6101_R5_BUDGET if seed == 6101
+                  else getattr(status, f"{previous_prefix}_PROOF")["execution_budget"])
+    old_proof = {"recovery_budget": {"maximum_logical_requests": 1,
+                                    "maximum_physical_attempts": scope.original_boundary_physical_attempts}}
     cached = {}
     if seed == 157:
         cached = {"reviewed_cached_import": status.RELAY_157_WAVE07_CACHED_REVIEW,
@@ -2640,7 +2651,8 @@ def test_reviewed_relay_after_new_cuda_fit_requires_exact_fit_and_archive(tmp_pa
                  "previous_transport_observation": observation, "previous_attempts": receipts,
                  "reviewed_retry_chain": [status._relay_review(previous, old_sha, old_auth, proof, receipts)]}
     descriptor = {"round": start, "state_sha256": "1" * 64, "memory_sha256": "2" * 64, "user_message_sha256": "3" * 64}
-    new_profile = {**old_profile, "resume_boundaries": {str(seed): descriptor}, "replay_eligible_from_round": start}
+    new_profile = {**old_profile, "resume_boundaries": {str(seed): descriptor},
+                   "replay_eligible_from_round": scope.replay_start_round}
     signed = {"run_directory": str(run), "profile": new_profile, "budget": scope.budget,
               "source_sha256": sources, "predecessor": new_proof}
     digest, auth = publish(run, signed)
@@ -2649,13 +2661,22 @@ def test_reviewed_relay_after_new_cuda_fit_requires_exact_fit_and_archive(tmp_pa
     monkeypatch.setattr(status, f"{prefix}_AUTH", auth)
     expected = run, digest, start, 3, scope.not_before_unix
     assert status.reviewed_relay_contract(tmp_path, seed, wave, previous, old_sha) == expected
-    mutation = turn / "attempt_01.replay_link.json" if seed == 2357 else directory / "round_06/batch_freeze.json"
+    mutation = {2357: turn / "attempt_01.replay_link.json", 157: directory / "round_06/batch_freeze.json",
+                6101: stage / "transition.json"}[seed]
     original = mutation.read_bytes()
     write_json(mutation, {"modified": True})
     assert status.reviewed_relay_contract(tmp_path, seed, wave, previous, old_sha) is None
     mutation.write_bytes(original)
     assert status.reviewed_relay_contract(tmp_path, seed, wave, previous, old_sha) == expected
-    check_repeated_boundary(tmp_path, monkeypatch, publish, seed, wave + 1, run, digest, auth, signed)
+    if seed == 6101:
+        unexpected = directory / "round_05/boundary_user_message.json"
+        write_json(unexpected, {"added": True})
+        assert status.reviewed_relay_contract(tmp_path, seed, wave, previous, old_sha) is None
+        unexpected.unlink()
+        write_json(turn / "attempt_01.started.json", {"unexpected": True})
+        assert status.reviewed_relay_contract(tmp_path, seed, wave, previous, old_sha) is None
+    else:
+        check_repeated_boundary(tmp_path, monkeypatch, publish, seed, wave + 1, run, digest, auth, signed)
 
 
 def check_repeated_boundary(runs, monkeypatch, publish, seed, wave, previous, previous_sha, previous_auth, previous_record):
@@ -2690,14 +2711,15 @@ def check_repeated_boundary(runs, monkeypatch, publish, seed, wave, previous, pr
     old_proof = previous_record["predecessor"]
     new_review = status._relay_review(previous, previous_sha, previous_auth, exact, receipts)
     run = runs / f"{status.SERIAL_IPV4}-{seed}-relay-retry-{wave:02d}"
+    physical = exact["newly_authorized_boundary_physical_attempts"]
     proof = {**old_proof, **exact, "previous_run_directory": str(previous), "previous_contract_sha256": previous_sha,
              "previous_authorization_sha256": previous_auth, "previous_attempts": receipts,
              "previous_transport_observation": getattr(status, f"{prefix}_OBSERVATION"),
              "reviewed_retry_chain": [*old_proof["reviewed_retry_chain"], new_review],
-             "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 2}}
+             "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": physical}}
     record = {**previous_record, "run_directory": str(run), "predecessor": proof, "budget": exact["execution_budget"],
               "source_sha256": getattr(status, f"{prefix}_SOURCES", previous_record["source_sha256"]),
-              "profile": {**previous_record["profile"], "replay_eligible_from_round": round_index}}
+              "profile": {**previous_record["profile"], "replay_eligible_from_round": round_index + (physical == 1)}}
     broken = {**record, "predecessor": {**proof, "reviewed_retry_chain": [new_review]}}
     broken_sha, broken_auth = publish(run, broken)
     monkeypatch.setattr(status, f"{prefix}_CONTRACT", broken_sha)
@@ -2713,6 +2735,8 @@ def check_repeated_boundary(runs, monkeypatch, publish, seed, wave, previous, pr
     assert status.reviewed_relay_contract(runs, seed, wave, previous, previous_sha) is None
     checked_file.write_bytes(original)
     assert status.reviewed_relay_contract(runs, seed, wave, previous, previous_sha) == expected
+    if (seed, wave) in ((157, 10), (2357, 9), (12203, 16)):
+        check_repeated_boundary(runs, monkeypatch, publish, seed, wave + 1, run, sha, auth, record)
 
 
 def test_2357_wave09_monitor_pins_the_same_l493_request_and_four_archived_attempts():
@@ -2909,3 +2933,31 @@ def check_6101_r5_handoff(runs, monkeypatch, publish, parent, cached, cached_sha
     write_json(stage / "batch_freeze.json", {"changed": True})
     assert status.r5_after_6101_cached_r4(runs, cached, cached_sha, imported) is None
     (stage / "batch_freeze.json").write_bytes(original)
+
+
+@pytest.mark.parametrize("seed,wave", [(887, 8), (157, 11), (2357, 10), (12203, 17)])
+def test_new_exact_reviewed_relay_pins_the_original_retired_receipt(seed, wave):
+    from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.run_v13_retry_successor import SCOPES
+
+    status = prompt_pilot_status
+    scope = SCOPES[(seed, wave)]
+    review = scope.archive[-1]
+    prefix = f"RELAY_{seed}_WAVE{wave:02d}"
+    old = f"RELAY_{seed}_WAVE{wave - 1:02d}"
+    assert (getattr(status, f"{old}_CONTRACT"), getattr(status, f"{old}_AUTH")) == (review.identity.contract, review.identity.approval)
+    assert status.SHA.fullmatch(getattr(status, f"{prefix}_CONTRACT"))
+    assert status.SHA.fullmatch(getattr(status, f"{prefix}_AUTH"))
+    assert getattr(status, f"{prefix}_OBSERVATION") == review.progress
+    assert getattr(status, f"{prefix}_PROOF") == {
+        "logical_index": 0, "payload_sha256": scope.payload_sha256, "previous_request_id": review.request_id,
+        "previous_terminal_file_sha256": review.terminal_file_sha256,
+        "previous_transport_progress_file_sha256": review.progress_file_sha256,
+        "relay_cooldown_clock": scope.cooldown_field, "relay_not_before_unix": scope.not_before_unix,
+        "newly_authorized_boundary_physical_attempts": scope.boundary_physical_attempts, "execution_budget": scope.budget,
+    }
+    assert getattr(status, f"{old}_ATTEMPT") == {
+        "attempt": 0, "attempt_id": review.attempt_id, "job_sha256": review.job_sha256, "result_sha256": review.result_sha256,
+        "error": review.failure, "provider_dispatched": True, "ambiguous": True,
+    }
+    sources = getattr(status, f"{prefix}_SOURCES")
+    assert {name: sources[name] for name, _ in scope.required_sources} == dict(scope.required_sources)

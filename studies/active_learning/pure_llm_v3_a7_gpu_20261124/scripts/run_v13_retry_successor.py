@@ -318,6 +318,45 @@ SCOPES[(6101, 8)] = replace(
 )
 
 
+_6101_R5_CONTINUATION = retry.bounded.RunIdentity("-6101-r5-continuation-01",
+    "e061a3321283a52928bc97de3f3f704abdc91aad435a79ca8f374f36af4c92f0",
+    "7ed54929fa4513e5b4b9060705b5d4cd582094c6f225b4e1cdd8e1056b60a8e0")
+_6101_R6_CHECKPOINT = "5f2b2b644f40d3e2dbc91ca5da7bab9003eadbeb37623ee9bd0c2d777d1f1a9a"
+SCOPES[(6101, 9)] = Scope(
+    6101, 6, 9, "a59f16ba3c689a594bcbc566b972da3f22a6d00adb1483dad0290bc75dc4cb9f", (
+        Review(_6101_R5_CONTINUATION,
+            "e4920fc471d314f94e30ddd5cae8296b2cc00c61b644fd0befad4f796e8923e2", "69cc4c61d3c841528eac07c9648f93ea",
+            "91183e20f85e4502336ee692afdb57a1dc44b7084cf85304aab63a35b60ddef9",
+            "3cf63864aed8906b58a961d818f7de0fa0026085759ef5abcfd751873e320a1b",
+            "714cd62cda2b9507ebfa0a200f0d60304cce0aa9d48f3d5120f448746c20c7dd",
+            "8ab403e2d74c70a9d8d2f806f71b4c0a9643c7e7bc68b765be7aa50dcd84b0aa", "connection_interrupted",
+            {"phase": "transport_failure", "error_type": "ReadError", "elapsed_seconds": 22.604738916968927,
+             "network_phases": {
+                 "direct_ipv4_preflight": {"duration_seconds": 1.0998312919400632, "observed_seconds": 1.1062773340381682, "state": "complete"},
+                 "direct_ipv4_preflight_1": {"duration_seconds": 1.0998312919400632, "observed_seconds": 1.1040142921265215, "state": "complete"},
+                 "direct_ipv4_preflight_1_dns_tcp": {"duration_seconds": 0.3846792501863092, "observed_seconds": 0.3892637090757489, "state": "complete"},
+                 "direct_ipv4_preflight_1_tls": {"duration_seconds": 0.3268952078651637, "observed_seconds": 0.7169538750313222, "state": "complete"},
+                 "receive_headers": {"duration_seconds": 16.4222404579632, "observed_seconds": 22.599786292063072, "state": "failed"},
+                 "send_body": {"duration_seconds": 2.0461973340716213, "observed_seconds": 6.1744883339852095, "state": "complete"},
+                 "send_headers": {"duration_seconds": 0.00022587482817471027, "observed_seconds": 4.127967624925077, "state": "complete"},
+             }}),
+    ), "not_before_unix", 1795710270.8833244, original_start_round=5, fitted_prefix_files=(
+        ("boundary.json", "d9315cd18eff5ae0ec26414f398d210929caabfb02c4fc3a3cff5b9346e6cdff"),
+        ("round_05/source.json", "ff67b9cd13896991283e9491fd5856b0fe88ae31cff4067d40da46b4503bfb94"),
+        ("round_05/boundary_memory.json", "3bfe5d7f06bd1c4162b6ef14e307a186b9d2c3775d600622bb42fd731911fbce"),
+        ("round_05/selection.json", "4d40f61edac613254719cfb3a8e2a06d5123d8c90bd6837fab8fea39e0ed2316"),
+        ("round_05/batch_freeze.json", "6dbade356cac58ef256082277d41241afe8d1433b9cfc07e2f1dfc95c0bd9c7e"),
+        ("round_05/memory.json", "7b6180f12da4b0d87e428f8e7b7a42ddd656a34115c69f6a4b4646fc52062997"),
+        ("round_05/turn_00/attempt_00.terminal.json", "bacecbda3c91638c2c07fb52c0dcc490fedfcab27bfab9d2c9b13f62ef0cf273"),
+        ("round_06/source.json", "896eb6ebbb89b83c6cfd6d34e4af8d322d5ee593e7dfc0c73a9277f93283219e"),
+        ("round_06/transition.json", "97315c1d7c2f92b940d3ec9e30841b4496eec6dcd5f04a84b9ab832b72602e18"),
+        ("round_06/fit_000/fit_audit.json", "4d03eece5896e116fc35aee450309264bb87a96925f37bdd71772da538752df6"),
+        ("round_06/fit_000/validation_metrics.json", "55e2385893ab29c2f0d5b8d0d49b37cff5aa0c5861230a6f53deee377cec6cd5"),
+        ("round_06/authoritative_packet.json", "49d34f1bda4e39ea826fb37be1c094a8072c2be63b40f17b9128e44ad4a5183c"),
+    ), required_sources=SCOPES[(6101, 8)].required_sources,
+)
+
+
 _2357_OLD = retry.bounded.RunIdentity("-2357-relay-retry-01",
     "3c20dad3f4c772011e82d8684e7bfe4204a988e32f59b26b90390507ad6bb1d8",
     "5a507f2471b94d81b3eaae590d6c027bc2e8d3369a424550af0def0aea8c25f8")
@@ -1067,6 +1106,24 @@ SCOPES[(12203, 16)] = replace(SCOPES[(12203, 15)], wave=16, cooldown_field="not_
 ))
 
 
+SCOPES[(12203, 17)] = replace(SCOPES[(12203, 16)], wave=17, cooldown_field="failed_unix",
+                               cooldown_unix=1795709731.0657685, original_boundary_physical_attempts=2,
+                               boundary_physical_attempts=1, archive=(
+    *SCOPES[(12203, 16)].archive,
+    Review(retry.bounded.RunIdentity("-12203-relay-retry-16",
+        "a6bfa7d6fa6c82cdf000aa859699ea37fe80c970fc762b0ea22dba545d4a5aa7",
+        "f49406db892e95b4e85f2d6fd5061238fd42b6fdf72501ffc167e47861bbc02b"),
+        "6c6b7c124f80b82a41809003d7fd7b3b2dc6b8fb3bc3e738b1daaa3e24d1624c", "2b0e526441584843bac2a9a185a5f4fe",
+        "c42744c3574b7c569850e860b0341ab331fd64cb2c222937f7f0d75197a10539",
+        "763787be79a67319d1da98ba84644d7d12f9bc5e33478fea5f97cd30dc424678",
+        "d408a77082c3af6bdca7dd6d253a2a263d280e9b8257f12d15f7d024e6192ad0",
+        "e7b7ea9a15ec61d758bc1c7690b9504050d809dffc60e345e076b9d12584e116", "connection_interrupted",
+        {"http_status": None, "phase": "transport_failure", "error_type": "ReadError",
+         "event_type": "ipv4_preflight_http_401", "provider_request_id": None, "model": None,
+         "response_id": None, "sse_event_count": None}),
+))
+
+
 SCOPES[(887, 1)] = Scope(
     887, 8, 1, "ac09bcae3019cc81899e246e4769bc20ec1b764ac08e52cfc6b4c35dc8324c85", (
         Review(retry.bounded.RunIdentity("-887-cached-r7-01",
@@ -1309,12 +1366,19 @@ def _source_manifest(root, parent, scope):
 
 
 def _reviewed_boundary(root, directory, active, parent, approval, scope, cache):
-    if (scope.seed, scope.round, scope.original_start_round, parent.digest) != (887, 12, 9, _887_R9_CONTINUATION.contract):
+    source_only_import = {
+        (887, 12, 9, _887_R9_CONTINUATION.contract):
+            ("dispatch_v13_887_r9_continuation", _887_R12_CHECKPOINT, 717),
+        (6101, 6, 5, _6101_R5_CONTINUATION.contract):
+            ("dispatch_v13_6101_r5_continuation", _6101_R6_CHECKPOINT, 525),
+    }.get((scope.seed, scope.round, scope.original_start_round, parent.digest))
+    if source_only_import is None:
         return retry._boundary(root, directory, active, parent, approval, scope, cache)
+    dispatcher, checkpoint, labels = source_only_import
     descriptor = parent.profile["resume_boundaries"][str(scope.seed)]
 
-    # This signed ordinary continuation imported R9 before pinning resume user messages became mandatory.
-    # Verify that exact state and memory and every original training transition; the current R12 body is still pinned below.
+    # These exact signed continuations imported state and memory before staging a model request.
+    # Verify their original fit transitions and then pin the current archived body in construct.
     from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.backend import TrainingBackend
 
     prior_scope = seed_runner._scope(parent, approval, scope.seed, False)
@@ -1322,11 +1386,11 @@ def _reviewed_boundary(root, directory, active, parent, approval, scope, cache):
     initial = seed_runner.round_directory(directory, start)
     state = seed_runner.FrozenState(**read(initial / "source.json"))
     memory = read(initial / "boundary_memory.json")
-    if (parent.predecessor.get("dispatcher_module") != "dispatch_v13_887_r9_continuation"
+    if (parent.predecessor.get("dispatcher_module") != dispatcher
             or descriptor != {"round": start, "state_sha256": digest(asdict(state)), "memory_sha256": digest(memory)}
             or read(directory / "boundary.json") != {"formal_run": prior_scope, **descriptor}
             or (initial / "boundary_user_message.json").exists()):
-        raise PermissionError("the exact R9 continuation boundary structure changed")
+        raise PermissionError(f"the exact R{start} continuation boundary structure changed")
     proof = {"initial_boundary": file_digest(directory / "boundary.json")}
     backend = TrainingBackend(root, cache, scope.seed)
     for index in range(start, scope.round):
@@ -1335,8 +1399,8 @@ def _reviewed_boundary(root, directory, active, parent, approval, scope, cache):
         state, memory = seed_runner._successor(prior, state, following, prior_scope, parent.transport, parent, backend)
         proof[f"transition_{index + 1:02d}"] = file_digest(following / "transition.json")
     if ((state.seed, state.round, state.checkpoint, len(state.provenance["expected_observed"]))
-            != (887, 12, _887_R12_CHECKPOINT, 717) or asdict(state) != read(active / "source.json")):
-        raise PermissionError("the reviewed R12 checkpoint differs from its verified L717 fit")
+            != (scope.seed, scope.round, checkpoint, labels) or asdict(state) != read(active / "source.json")):
+        raise PermissionError(f"the reviewed R{scope.round} checkpoint differs from its verified L{labels} fit")
     proof.update(latest_source=file_digest(active / "source.json"), latest_memory=digest(memory))
     return (state, memory, scope.round), proof
 
