@@ -53,6 +53,10 @@ class Review:
     def attempts(self):
         return (*self.earlier, self)
 
+    @property
+    def pre_post_connect_failure(self):
+        return self == _12203_WAVE12_PRE_POST_CONNECT
+
 
 @dataclass(frozen=True)
 class CachedOrigin:
@@ -255,6 +259,44 @@ SCOPES[(6101, 6)] = replace(SCOPES[(6101, 5)], wave=6, cooldown_field="not_befor
          "response_id": "resp_0361f6be4607ecc5016b0818828c8c87d29fd7a92b30d25ab7"}),
 ))
 
+SCOPES[(6101, 7)] = Scope(
+    6101, 3, 7, "ee08e66f7541e5081b341ae3b104b5839294dadbd37afe8a09c24200dae49ad6", (
+        Review(retry.bounded.RunIdentity("-6101-cached-r2-01",
+            "802ae4d2191ecfb834bfe7bed995f54d9ffe40c36a2ec5cb48236fdc4c97ebad",
+            "40098571aeb8b13c3eaa0f0ffb1870ba87f318bbfcdc11218480b5d97dd96c59"),
+            "d800a262bd72eed1dba8cfa0d8d5d2f82b2841da7f28320be4ab24ab1707b61d", "290284ba893c42f79a67a9b5bf88159b",
+            "10768096f58639ab0558274872135f1b412983a80531c74ca3ad7d88529cf1f1",
+            "0ab6189a6f4dd5e1c2dc3986701aaeb20d681aa51a9b867a4a62bd387742acda",
+            "bccac7285af180969617c3eca42b03480695f0d25f2e2aafcc7db88047f671bd",
+            "bdb1e5376d1223808aa8df262ee6308df6f779a0f4fbae8bfdfb326812cf5e78", "timeout",
+            {"http_status": 200, "phase": "transport_failure", "error_type": "sse_inactivity_timeout",
+             "event_type": "response.output_text.delta", "sse_event_count": 1092, "last_sse_seconds": 1930.1032520001754,
+             "provider_request_id": "135efa95-4f78-4992-930c-2d2aefe18baf", "model": "gpt-6.2-astra",
+             "response_id": "resp_058c376bd0a872b0016b082ba0164887d2a9347a98d0dca4c4"}),
+    ), "failed_unix", 1795700386.0270398, original_start_round=2, fitted_prefix_files=(
+        ("round_02/turn_00/attempt_00.terminal.json", "cc3ef06bb9e2798bacdfadd15bfd3e5c4a8f95d196463ce5bf08be55c52c82fa"),
+        ("round_02/batch_freeze.json", "ed3d2e410799a947e28302669e15ef2c11f269af6a20d990fa1a3ffc056fa31e"),
+        ("round_02/selection.json", "08a9e6d66e59c3b2497984c4ffab2090d91e72d5cffd6e91beea02298c3490f3"),
+        ("round_02/memory.json", "8d6cd100558f57f85be74755824ef9073b805bfe77a0cfe30ee985fcb5938b92"),
+        ("round_03/source.json", "cea613518df5533dde899b691f5f3db7a1bb2c761dcf18ab30c8f116675b10f9"),
+        ("round_03/transition.json", "8e5f9d4cc67593e008734a4ba72194970560a5d7d495ee4c507299391f2d9996"),
+        ("round_03/fit_000/fit_audit.json", "30b84b35840f7e79999c6a6ff0895ba8fcac504e3c6f059e52b4ce033b0051e6"),
+        ("round_03/fit_000/validation_metrics.json", "5cc16664c462cbd711d3c61990c19cdf117458f0c55c49bafa35ad0483580586"),
+        ("round_03/authoritative_packet.json", "1180c495a1a3b44e21a7bcd65b018a39df312d60fe58cdc2653ae7b7e2666f0b"),
+    ), required_sources=tuple(
+        (source, "aacbc199e896091d4395fc036cb60bc604d91ec326a79fcff26e157d9a73705f" if source == PROVIDER_SOURCE else sha)
+        for source, sha in SAME_RESPONSE_RETRY_SOURCES
+    ), cached_origin=CachedOrigin(
+        retry.bounded.RunIdentity("-6101-relay-retry-06",
+            "3380abf0b3fbde69a4d4c7a9d8e64dc815cc64c258736088baa3041fff209023",
+            "ae353451f7f46dd0b36a4515e8e469defe36348f50e9be8752999d7999a228c1"),
+        "257e1b849cd8466d7eb599784c30ce5fc72f6afc974930b0c88ad3e675a61c57",
+        "55c1aaa458c9e105ce9d9b94ff7434ccfb347b69ea1b96a335175ecec713b244",
+        "ad483af2538715ea4f70f6e7bbbdbc01b590058a0b4923ec0595d0719cb3785e",
+    ),
+)
+
+
 _2357_OLD = retry.bounded.RunIdentity("-2357-relay-retry-01",
     "3c20dad3f4c772011e82d8684e7bfe4204a988e32f59b26b90390507ad6bb1d8",
     "5a507f2471b94d81b3eaae590d6c027bc2e8d3369a424550af0def0aea8c25f8")
@@ -373,6 +415,27 @@ SCOPES[(2357, 6)] = replace(SCOPES[(2357, 5)], wave=6, cooldown_field="not_befor
          "event_type": "response.output_text.delta", "sse_event_count": 831, "last_sse_seconds": 1604.6706121659372,
          "provider_request_id": "b1a6449c-09ec-4b05-a253-aad6e5207e9f", "model": "gpt-6.2-astra",
          "response_id": "resp_0dbb7f15ca0e4a12016b08237b136887d293cf127a7e3cd4bb"}),
+))
+
+SCOPES[(2357, 7)] = replace(SCOPES[(2357, 6)], wave=7, cooldown_field="failed_unix", cooldown_unix=1795700982.1268728,
+                              original_start_round=4, original_boundary_physical_attempts=2, boundary_physical_attempts=1,
+                              required_sources=tuple(
+    (source, "aacbc199e896091d4395fc036cb60bc604d91ec326a79fcff26e157d9a73705f" if source == PROVIDER_SOURCE else sha)
+    for source, sha in SAME_RESPONSE_RETRY_SOURCES
+), archive=(
+    *SCOPES[(2357, 6)].archive,
+    Review(retry.bounded.RunIdentity("-2357-relay-retry-06",
+        "be3a0f8b24263bfec2b336a21d584ca70e65a578604f7c9d6e3b4085c7431d5c",
+        "c3e3390acc7c3e6bf0b12105d79b6c87c4429b789fa72d1de4ac5e2920841eb4"),
+        "02be42da96eb22bbe91aa1c6b9288c13303f964330728e6b1ed0d843d898f140", "46684da6118f47f5b6144ac8d60c11ad",
+        "1ac263c754aaa0f5a44200f2815e4d1e8a17b1806e05f5600ab1ec5dae74d94a",
+        "2ae5aea87b849a8d3ddd0cbc908855a348a574ac1bc2d6f9aef6e892a6e800b4",
+        "691773641afc17c78915325644fc2918b45571d02a63e742566e9604415930dc",
+        "5b44830f2e69aa1585764e233a89f6b4d786e8ef4a634915bf12c1f3e719c2b6", "timeout",
+        {"http_status": 200, "phase": "transport_failure", "error_type": "sse_inactivity_timeout",
+         "event_type": "response.output_text.delta", "sse_event_count": 440, "last_sse_seconds": 991.6895799168851,
+         "provider_request_id": None, "model": "gpt-6.2-astra",
+         "response_id": "resp_0d6c9b78cc72e853016b0831a918dc87d18fca9c2e4227ca18"}),
 ))
 
 SCOPES[(157, 4)] = replace(SCOPES[(157, 3)], wave=4, cooldown_unix=1795685449.213155, archive=(
@@ -698,6 +761,37 @@ SCOPES[(12203, 12)] = replace(SCOPES[(12203, 11)], wave=12, cooldown_field="fail
         }),
 ))
 
+_12203_WAVE12 = retry.bounded.RunIdentity("-12203-relay-retry-12",
+    "0fea4698db29545c7f8981c83c2fbb0891131832a40913d542cde8db38d24c61",
+    "e5a55b77d5e384811cd71c158fc058eda2d139523a45ac0480f281e37d964768")
+_12203_WAVE12_REQUEST = "0f9446bd6febf0fcda32cfcddb70af5ecd7e097a4cbaed4071c0fba504482860"
+_12203_WAVE12_FIRST = Review(_12203_WAVE12, _12203_WAVE12_REQUEST, "7b8dd2a160914ff293622380dd1d8cae",
+    "402f872ecbfdb2cc509973c39da844f5518d278fbe25971fa14f767f0c298e6c",
+    "9ccf002474dc31a8fdb3176655b390b6ca57823943b8062132ac9145d30516a4",
+    "9da7c12c45a23332ed86f2d208f352192e53108f95de8f32bfe4102e56829cf2",
+    "19f356dd06a9e6bd1f3b32883709ad7eb0f16ec40d43aeb2d8fa895dbf807264", "response_id_mismatch",
+    {"http_status": 200, "phase": "transport_failure", "error_type": "response_id_mismatch", "sse_event_count": 23,
+     "provider_request_id": "470d4f0a-1b3a-4ed0-8460-d71f12a292a8", "model": "gpt-6.2-astra",
+     "response_id": "resp_065c53b252d45ce2016b0837cab6b887d0b6ff67a016f45b7c",
+     "conflicting_response_id": "resp_470d4f0a1b3a4ed08460d71f12a292a8", "conflicting_event_type": "response.failed",
+     "response_id_matches_transport_alias": True, "provider_error_code": "upstream_error"})
+_12203_WAVE12_PRE_POST_CONNECT = Review(_12203_WAVE12, _12203_WAVE12_REQUEST, "ecb84ce8e8214cca9bb3005c6ff672e0",
+    "b941ade623118f585b2e828a8b513f290055b25ec4b8ad34564e1625d6acc4f0",
+    "9ca6e60ea32cb8b58d67305f78dd213dbdeb7e1bb4b7a4e4fb5c093183211537",
+    "19a85316433270504a4c3c5916971129fe37adca81709c67d1274ee432b7307a",
+    "299590b71b3684af2877a6bae97f32473e835d432a054dc455dbb34cbc15c0c9", "connect_error",
+    {"phase": "transport_failure", "error_type": "connect_timeout_before_post", "event_type": "ipv4_preflight_http_401"},
+    earlier=(_12203_WAVE12_FIRST,), replay_files={
+        "attempt_00.replay_authorization.json": "fe3f21744a668027bcce37fff1337384e31257d028242f19d5154751a6bfe278",
+        "attempt_00.replay.terminal.json": "54a9cf6654cba8bc2e38b49948ff022b061731daad02367c25959ad4b2a8886a",
+        "attempt_01.replay_link.json": "dd8842bef86d5602e5e2d0d8eac25e844b07f05ad12bdcd8ee83feaea6ca7775",
+    })
+SCOPES[(12203, 13)] = replace(SCOPES[(12203, 12)], wave=13, cooldown_unix=1795701276.67948,
+                               boundary_physical_attempts=1, archive=(
+    *SCOPES[(12203, 12)].archive, _12203_WAVE12_PRE_POST_CONNECT,
+))
+
+
 SCOPES[(887, 1)] = Scope(
     887, 8, 1, "ac09bcae3019cc81899e246e4769bc20ec1b764ac08e52cfc6b4c35dc8324c85", (
         Review(retry.bounded.RunIdentity("-887-cached-r7-01",
@@ -796,6 +890,28 @@ SCOPES[(887, 5)] = Scope(
 )
 
 
+SCOPES[(887, 6)] = replace(SCOPES[(887, 5)], wave=6, cooldown_field="not_before_unix", cooldown_unix=1795701794.7327738,
+                             original_start_round=None, original_boundary_physical_attempts=1, fitted_prefix_files=(),
+                             boundary_physical_attempts=2, required_sources=tuple(
+    (source, "aacbc199e896091d4395fc036cb60bc604d91ec326a79fcff26e157d9a73705f" if source == PROVIDER_SOURCE else sha)
+    for source, sha in SAME_RESPONSE_RETRY_SOURCES
+), archive=(
+    *SCOPES[(887, 5)].archive,
+    Review(retry.bounded.RunIdentity("-887-relay-retry-05",
+        "56dadfb27df633863b7a8e31ce103446fba7ea2a3b0f13188ffea5a3f7af5daf",
+        "d40358da6676fd0ce3d75ae507d6c3abe8443124ac8772479766ed2feb20b604"),
+        "8eaac87cccc02053f168a8d32860d34ab8af33291832dd148e1a9bac0c9c8d4d", "f0fcbe7e61894a389e1f6f2715b0081c",
+        "0c497d13b0c326e29b2e94dd6387308e2f4d7752ff979d8424d3b193a71e407b",
+        "53db427b46fc66113949696a70c99b7377e1d49857df219c02d7b0ede4cad5ec",
+        "f7cec4bdff72d7fc9fd789aa4ed117d066cb0accd86ec3386151fa85b1fd1cc7",
+        "323deb41f369ff271b089ae7f894e7a9dac58f085bce7874326ad7ce5f447e43", "timeout",
+        {"http_status": 200, "phase": "transport_failure", "error_type": "hard_wall_deadline",
+         "event_type": "response.output_text.delta", "sse_event_count": 3063, "last_sse_seconds": 3017.041881625075,
+         "provider_request_id": None, "model": "gpt-6.2-astra",
+         "response_id": "resp_0f3cc35efc34af43016b082e2f53ac87d29e05725c60e2bff5"}),
+))
+
+
 def _evidence(run, active, contract, approval, scope, review):
     if review.identity == wave157.OLD:
         request, receipts = wave157._failure(run, active, contract, approval)
@@ -811,8 +927,9 @@ def _evidence(run, active, contract, approval, scope, review):
         if (file_digest(terminal_path) != attempt.terminal_file_sha256
                 or tuple(receipt[k] for k in ("attempt_id", "job_sha256", "result_sha256", "error",
                                               "provider_dispatched", "ambiguous"))
-                != (attempt.attempt_id, attempt.job_sha256, attempt.result_sha256, attempt.failure, True, True)):
-            raise PermissionError("a reviewed stopped ambiguous receipt changed")
+                != (attempt.attempt_id, attempt.job_sha256, attempt.result_sha256, attempt.failure,
+                    True, not attempt.pre_post_connect_failure)):
+            raise PermissionError("a reviewed stopped transport receipt changed")
         receipts.append(receipt)
     if review.replay_files:
         if any(file_digest(turn / path) != sha for path, sha in review.replay_files.items()):

@@ -71,6 +71,14 @@ def _scope(info, run, lane):
     return proof
 
 
+def _pre_post_trace(progress):
+    phases = progress.get("network_phases", {})
+    return (phases.get("dns_tcp", {}).get("state") == "complete" and phases.get("tls", {}).get("state") == "failed"
+            and not {"send_headers", "send_body", "receive_headers", "receive_body"}.intersection(phases)
+            and not {"http_status", "provider_request_id", "response_id", "sse_event_count"}.intersection(progress)
+            and not {"http_headers", "sse_event"}.intersection(progress.get("first_phase_seconds", {})))
+
+
 def _archive(spools, proof, lane):
     chain = proof["reviewed_retry_chain"]
     if type(chain) is not list or len(chain) != len(lane.archive) or chain[-1]["previous_attempts"] != proof["previous_attempts"]:
@@ -102,10 +110,12 @@ def _archive(spools, proof, lane):
             progress = read_bridge_json(trace)
             if (tuple(receipt[k] for k in ("attempt_id", "job_sha256", "result_sha256", "error",
                                           "provider_dispatched", "ambiguous"))
-                    != (prior.attempt_id, prior.job_sha256, prior.result_sha256, prior.failure, True, True)
+                    != (prior.attempt_id, prior.job_sha256, prior.result_sha256, prior.failure,
+                        True, not prior.pre_post_connect_failure)
                     or file_digest(trace) != prior.progress_file_sha256
                     or any(progress.get(k) != v for k, v in prior.progress.items())
-                    or any(k in progress for k in ("first_text_seconds", "complete_terminal_captured"))):
+                    or any(k in progress for k in ("first_text_seconds", "complete_terminal_captured"))
+                    or (prior.pre_post_connect_failure and not _pre_post_trace(progress))):
                 raise PermissionError("a reviewed relay failure differs from the archived no-answer trace")
         previous = original
     return original, transport

@@ -33,16 +33,16 @@ def test_only_explicitly_reviewed_new_wave_can_reserve_its_one_current_slot():
                                                  receipt.job_sha256, receipt.result_sha256, receipt.terminal_file_sha256,
                                                  receipt.progress_file_sha256))
     with pytest.raises(ValueError, match="no individually reviewed"):
-        gpu.read_scope(Parser(), SimpleNamespace(seed=12203, wave=13))
+        gpu.read_scope(Parser(), SimpleNamespace(seed=12203, wave=14))
 
 
 @pytest.mark.parametrize("seed,wave,rev_counts,physical_budget", [
     (12203, 3, [1, 1], 187), (12203, 4, [1, 1, 1], 187), (12203, 5, [1, 1, 1, 1], 187),
-    (12203, 6, [1, 1, 1, 1, 1], 187), (12203, 10, [2, 2, 2, 1], 181),
+    (12203, 6, [1, 1, 1, 1, 1], 187), (12203, 10, [2, 2, 2, 1], 181), (12203, 13, [2, 2, 2, 1, 1, 2, 2], 181),
     (157, 3, [2, 1], 193), (157, 4, [2, 1, 1], 193), (157, 5, [2, 1, 1, 1], 193),
     (157, 6, [2, 1, 1, 1, 1], 193), (157, 7, [1], 187),
     (6101, 2, [2], 199), (6101, 3, [2, 1], 199), (6101, 5, [2, 1, 1, 1], 199), (2357, 2, [2], 187),
-    (2357, 5, [2, 1, 2, 1], 187),
+    (2357, 5, [2, 1, 2, 1], 187), (2357, 7, [2, 1, 2, 1, 1, 1], 187),
     (887, 1, [1], 163), (887, 3, [1, 1], 163), (887, 4, [1, 1, 1], 163), (887, 5, [1], 139),
 ])
 def test_each_prior_identity_and_new_second_slot_are_rejected(monkeypatch, seed, wave, rev_counts, physical_budget):
@@ -278,6 +278,28 @@ def test_6101_wave06_uses_the_exact_failed_response_at_the_same_fitted_boundary(
     assert last.progress["sse_event_count"] == 41 and "first_text_seconds" not in last.progress
 
 
+def test_6101_wave07_allows_one_round_three_attempt_after_the_exact_no_post_fit():
+    scope = gpu.SCOPES[(6101, 7)]
+    assert (scope.original_start_round, scope.round, scope.replay_start_round) == (2, 3, 4)
+    assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}
+    assert scope.budget == {"first_logical_requests": 33, "maximum_logical_requests": 97, "maximum_physical_attempts": 193}
+    assert scope.not_before_unix == 1795700566.0270398 and scope.cooldown_field == "failed_unix"
+    assert scope.cached_origin.ancestor.name.endswith("-6101-relay-retry-06")
+    assert scope.cached_origin.ancestor.contract == "3380abf0b3fbde69a4d4c7a9d8e64dc815cc64c258736088baa3041fff209023"
+    assert scope.cached_origin.review["provider_post"] is False
+    assert scope.cached_origin.receipt_file_sha256 == "55c1aaa458c9e105ce9d9b94ff7434ccfb347b69ea1b96a335175ecec713b244"
+    assert dict(scope.fitted_prefix_files)["round_03/transition.json"] == (
+        "8e5f9d4cc67593e008734a4ba72194970560a5d7d495ee4c507299391f2d9996"
+    )
+    assert scope.required_sources == gpu.SCOPES[(12203, 12)].required_sources
+    assert all(file_digest(gpu.ROOT / name) == sha for name, sha in scope.required_sources)
+    old, = scope.archive
+    assert old.identity.name.endswith("-6101-cached-r2-01")
+    assert old.attempt_id == "290284ba893c42f79a67a9b5bf88159b" and old.failure == "timeout"
+    assert old.progress["error_type"] == "sse_inactivity_timeout" and old.progress["sse_event_count"] == 1092
+    assert old.progress["event_type"] == "response.output_text.delta" and old.replay_files is None
+
+
 def test_2357_previous_partial_text_telemetry_is_bound_to_the_stopped_physical_attempt():
     scope = gpu.SCOPES[(2357, 2)]
     assert scope.round == scope.original_start_round == 4
@@ -296,6 +318,7 @@ def test_2357_previous_partial_text_telemetry_is_bound_to_the_stopped_physical_a
     (2357, 6, 1795698146.9968047),
     (6101, 6, 1795693173.4806566),
     (12203, 8, 1795690919.9466105), (12203, 9, 1795693155.7197583), (12203, 11, 1795697031.8253946),
+    (887, 6, 1795701974.7327738),
     (12203, 12, 1795699275.9433548), (157, 8, 1795696780.5165217),
 ])
 def test_conditional_second_attempt_requires_existing_delivered_failure_guard(monkeypatch, seed, wave, expected_not_before):
@@ -452,6 +475,37 @@ def test_12203_wave12_keeps_both_exact_alias_failures_and_all_replay_links():
     assert all(file_digest(gpu.ROOT / name) == sha for name, sha in scope.required_sources)
 
 
+def test_12203_wave13_binds_one_new_slot_to_the_exact_w12_pre_post_failure():
+    previous = gpu.SCOPES[(12203, 12)]
+    scope = gpu.SCOPES[(12203, 13)]
+    assert scope.archive[:-1] == previous.archive
+    assert scope.payload_sha256 == previous.payload_sha256 and scope.round == previous.round == 5
+    assert scope.original_start_round == 5 and scope.original_boundary_physical_attempts == 2
+    assert scope.replay_start_round == 6 and scope.not_before_unix == 1795701456.67948
+    assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}
+    assert scope.required_sources == previous.required_sources
+    first, last = scope.archive[-1].attempts
+    assert first.progress["provider_error_code"] == "upstream_error"
+    assert last.failure == "connect_error" and last.progress["error_type"] == "connect_timeout_before_post"
+    assert last.terminal_file_sha256 == "19a85316433270504a4c3c5916971129fe37adca81709c67d1274ee432b7307a"
+    assert last.pre_post_connect_failure is True and first.pre_post_connect_failure is False
+    assert replace(last, attempt_id="a" * 32).pre_post_connect_failure is False
+    assert replace(last, progress_file_sha256="a" * 64).pre_post_connect_failure is False
+    assert all(not attempt.pre_post_connect_failure for wave in previous.archive for attempt in wave.attempts)
+
+
+def test_pre_post_trace_rejects_an_actual_http_send_or_response():
+    trace = {
+        "network_phases": {"dns_tcp": {"state": "complete"}, "tls": {"state": "failed"}},
+        "first_phase_seconds": {"http_phase": 0.4, "request_dispatched": 25.0, "transport_failure": 55.0},
+    }
+    assert mac._pre_post_trace(trace)
+    assert not mac._pre_post_trace({**trace, "http_status": 200})
+    assert not mac._pre_post_trace({**trace, "first_phase_seconds": {"http_headers": 28.0}})
+    assert not mac._pre_post_trace({**trace, "network_phases": {**trace["network_phases"], "send_body": {}}})
+    assert not mac._pre_post_trace({**trace, "network_phases": {**trace["network_phases"], "tls": {"state": "complete"}}})
+
+
 def test_12203_wave07_uses_the_fitted_next_boundary_with_a_conditional_retry():
     previous = gpu.SCOPES[(12203, 6)]
     scope = gpu.SCOPES[(12203, 7)]
@@ -579,3 +633,39 @@ def test_exact_887_source_only_origin_replays_three_fit_verifications_and_reject
     once(initial / "boundary_user_message.json", {"content": "unbound"})
     with pytest.raises(PermissionError, match="R9 continuation boundary"):
         gpu._reviewed_boundary(tmp_path, directory, active, parent, {}, scope, tmp_path)
+
+
+def test_2357_wave07_keeps_the_unused_physical_from_the_exact_idle_timeout():
+    previous = gpu.SCOPES[(2357, 6)]
+    scope = gpu.SCOPES[(2357, 7)]
+    assert scope.payload_sha256 == previous.payload_sha256
+    assert scope.original_start_round == scope.round == previous.round == 4
+    assert scope.original_boundary_physical_attempts == previous.boundary_physical_attempts == 2
+    assert scope.archive[:-1] == previous.archive
+    last = scope.archive[-1]
+    assert scope.boundary_physical_attempts + len(last.attempts) == previous.boundary_physical_attempts
+    assert last.failure == "timeout" and last.progress["error_type"] == "sse_inactivity_timeout"
+    assert last.progress["event_type"] == "response.output_text.delta" and last.progress["sse_event_count"] == 440
+    assert scope.cooldown_field == "failed_unix" and scope.not_before_unix == 1795701162.1268728
+    assert scope.replay_start_round == 5
+    assert dict(scope.required_sources)[gpu.PROVIDER_SOURCE] == "aacbc199e896091d4395fc036cb60bc604d91ec326a79fcff26e157d9a73705f"
+    assert {k:v for k,v in scope.required_sources if k != gpu.PROVIDER_SOURCE} == {
+        k:v for k,v in previous.required_sources if k != gpu.PROVIDER_SOURCE}
+
+
+def test_887_r12_wave06_keeps_the_verified_r9_ancestry_and_delayed_second_slot():
+    previous = gpu.SCOPES[(887, 5)]
+    scope = gpu.SCOPES[(887, 6)]
+    assert scope.payload_sha256 == previous.payload_sha256
+    assert scope.round == previous.round == 12 and scope.original_start_round is None
+    assert previous.original_start_round == 9 and dict(previous.fitted_prefix_files)["round_12/transition.json"]
+    assert scope.original_boundary_physical_attempts == previous.boundary_physical_attempts == 1
+    assert scope.archive[:-1] == previous.archive and [len(item.attempts) for item in scope.archive] == [1, 1]
+    assert scope.budget == {"first_logical_requests": 24, "maximum_logical_requests": 70, "maximum_physical_attempts": 140}
+    last = scope.archive[-1]
+    assert last.failure == "timeout" and last.progress["error_type"] == "hard_wall_deadline"
+    assert last.progress["event_type"] == "response.output_text.delta" and last.progress["sse_event_count"] == 3063
+    assert scope.cooldown_field == "not_before_unix" and scope.replay_start_round == 12
+    assert dict(scope.required_sources)[gpu.PROVIDER_SOURCE] == "aacbc199e896091d4395fc036cb60bc604d91ec326a79fcff26e157d9a73705f"
+    assert {k:v for k,v in scope.required_sources if k != gpu.PROVIDER_SOURCE} == {
+        k:v for k,v in previous.required_sources if k != gpu.PROVIDER_SOURCE}
