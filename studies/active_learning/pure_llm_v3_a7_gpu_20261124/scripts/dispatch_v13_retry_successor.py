@@ -11,7 +11,7 @@ from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager 
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.bridge_protocol import read_bridge_json
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.compact_payload import FORMAL_WIRE_REPRESENTATION
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.dispatcher import run_dispatcher, verify_local_source
-from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.formal_contract import ROOT, SSH_API, STUDY, request_timeouts
+from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.formal_contract import ROOT, SSH_API, request_timeouts
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.provider import sdk_status
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.ssh_courier import GPU_PYTHON, SSHCourier, verify_info
 from . import dispatch_v13_resilient_sse as resilient
@@ -37,6 +37,8 @@ def _scope(info, run, lane):
     }
     if lane.fitted_prefix_files:
         expected["reviewed_fitted_prefix_files"] = dict(lane.fitted_prefix_files)
+    if lane.cached_origin is not None:
+        expected["reviewed_cached_import"] = lane.cached_origin.review
     settings = {
         "provider_capability": "gated_ipv4", "arm": "A7", "memory": "M2", "device": "cuda",
         "initial_labels": 333, "target_labels": 1485, "batch_size": 32, "api_parallelism": 1,
@@ -48,6 +50,7 @@ def _scope(info, run, lane):
     }
     boundaries = profile.get("resume_boundaries", {})
     if (path.name != lane.run_name or record["run_directory"] != run or record["api_execution"] != SSH_API
+            or "cached_import" in proof
             or record["gpu_slots"] != [0] or record["budget"] != lane.budget or "fixed_reference_repair" in profile
             or request_timeouts(profile) != resilient.TIMEOUTS
             or any(type(proof.get(k)) is not type(v) or proof[k] != v for k, v in expected.items())
@@ -58,12 +61,10 @@ def _scope(info, run, lane):
             or not all(_sha(proof.get(k)) for k in ("checkpoint_sha256", "packet_sha256", "wire_packet_sha256",
                                                   "base_messages_sha256", "previous_prefix_sha256"))):
         raise PermissionError("the successor does not match its reviewed archive, finite new slot and cooldown")
+    if any(record["source_sha256"].get(name) != sha for name, sha in lane.required_sources):
+        raise PermissionError("the successor is missing the exact reviewed transport source")
     verify_local_source(info, root=ROOT)
-    sources = (*resilient.SOURCES, STUDY / "scripts" / "dispatch_v13_relay_retry.py",
-               STUDY / "scripts" / "run_v13_relay_retry.py", STUDY / "scripts" / "run_v13_retry_successor.py",
-               STUDY / "scripts" / "run_v13_12203_relay_retry.py", STUDY / "scripts" / "run_v13_157_relay_retry.py",
-               STUDY / "scripts" / f"{gpu.DISPATCHER}.py")
-    for source in sources:
+    for source in (*resilient.SOURCES, *gpu.SIGNED_RETRY_SOURCES):
         if record["source_sha256"].get(source.as_posix()) != file_digest(ROOT / source):
             raise PermissionError(f"the approved retry source differs: {source.name}")
     return proof
