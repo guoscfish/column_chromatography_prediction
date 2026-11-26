@@ -2552,7 +2552,7 @@ def test_readiness_counts_before_post_and_reports_sealed_no_post(tmp_path, monke
     assert "readiness_retry_seconds" not in row
 
 
-@pytest.mark.parametrize("seed,wave", [(157, 9), (2357, 8), (6101, 9)])
+@pytest.mark.parametrize("seed,wave", [(157, 9), (2357, 8), (6101, 9), (6101, 10)])
 def test_reviewed_relay_after_new_cuda_fit_requires_exact_fit_and_archive(tmp_path, monkeypatch, seed, wave):
     from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.run_v13_retry_successor import SCOPES
 
@@ -2561,14 +2561,15 @@ def test_reviewed_relay_after_new_cuda_fit_requires_exact_fit_and_archive(tmp_pa
     review, = scope.archive
     start = scope.round
     prefix = f"RELAY_{seed}_WAVE{wave:02d}"
-    previous_prefix = "CONTINUATION_6101_R5" if seed == 6101 else f"RELAY_{seed}_WAVE{wave - 1:02d}"
+    source_only = (seed, wave) == (6101, 9)
+    previous_prefix = "CONTINUATION_6101_R5" if source_only else f"RELAY_{seed}_WAVE{wave - 1:02d}"
     proof = getattr(status, f"{prefix}_PROOF")
     fitted = getattr(status, f"{prefix}_FITTED_FILES")
     checkpoint = getattr(status, f"{prefix}_CHECKPOINT")
     observation = getattr(status, f"{prefix}_OBSERVATION")
-    attempts = {157: (status.RELAY_157_WAVE08_ATTEMPT,), 2357: status.RELAY_2357_WAVE07_ATTEMPTS,
-                6101: (status.RELAY_6101_WAVE09_PRIOR_ATTEMPT,)}[seed]
-    sources = status.RELAY_6101_WAVE09_SOURCES if seed == 6101 else status.RELAY_12203_WAVE12_SOURCES
+    attempts = {(157, 9): (status.RELAY_157_WAVE08_ATTEMPT,), (2357, 8): status.RELAY_2357_WAVE07_ATTEMPTS,
+                (6101, 9): (status.RELAY_6101_WAVE09_PRIOR_ATTEMPT,), (6101, 10): status.RELAY_6101_WAVE09_ATTEMPTS}[seed, wave]
+    sources = getattr(status, f"{prefix}_SOURCES", status.RELAY_12203_WAVE12_SOURCES)
     assert fitted == dict(scope.fitted_prefix_files)
     assert {name: sources[name] for name, _ in scope.required_sources} == dict(scope.required_sources)
     assert observation == review.progress
@@ -2611,13 +2612,13 @@ def test_reviewed_relay_after_new_cuda_fit_requires_exact_fit_and_archive(tmp_pa
         terminals.append(status.checksum(file))
     proof = {**proof, "previous_terminal_file_sha256": terminals[-1]}
     monkeypatch.setattr(status, f"{prefix}_PROOF", proof)
-    if seed == 2357:
-        assert dict(review.replay_files) == status.RELAY_2357_WAVE07_REPLAY_FILES
-        assert tuple(a.terminal_file_sha256 for a in review.attempts) == status.RELAY_2357_WAVE07_TERMINALS
+    if len(attempts) == 2:
+        assert dict(review.replay_files) == getattr(status, f"{previous_prefix}_REPLAY_FILES")
+        assert tuple(a.terminal_file_sha256 for a in review.attempts) == getattr(status, f"{previous_prefix}_TERMINALS")
         for name in review.replay_files:
             write_json(turn / name, {"fixture": name})
-        monkeypatch.setattr(status, "RELAY_2357_WAVE07_TERMINALS", terminals)
-        monkeypatch.setattr(status, "RELAY_2357_WAVE07_REPLAY_FILES",
+        monkeypatch.setattr(status, f"{previous_prefix}_TERMINALS", terminals)
+        monkeypatch.setattr(status, f"{previous_prefix}_REPLAY_FILES",
                             {name: status.checksum(turn / name) for name in review.replay_files})
 
     def publish(path, record):
@@ -2630,9 +2631,10 @@ def test_reviewed_relay_after_new_cuda_fit_requires_exact_fit_and_archive(tmp_pa
     old_profile = {"confirmation_seeds": [seed], "target_labels": 1485,
                    "resume_boundaries": {str(seed): {"round": scope.original_start_round}},
                    "audited_future_transport_replay": True, "sealed_relay_retry_seconds": 180,
-                   "replay_eligible_from_round": 4 if seed == 157 else 5, "ipv4_readiness_windows": 3,
+                   "replay_eligible_from_round": {(157, 9): 4, (2357, 8): 5, (6101, 9): 5, (6101, 10): 7}[seed, wave],
+                   "ipv4_readiness_windows": 3,
                    "sse_inactivity_seconds": 900, "request_timeouts": {"total_seconds": 3600}}
-    old_budget = (status.CONTINUATION_6101_R5_BUDGET if seed == 6101
+    old_budget = (status.CONTINUATION_6101_R5_BUDGET if source_only
                   else getattr(status, f"{previous_prefix}_PROOF")["execution_budget"])
     old_proof = {"recovery_budget": {"maximum_logical_requests": 1,
                                     "maximum_physical_attempts": scope.original_boundary_physical_attempts}}
@@ -2668,12 +2670,16 @@ def test_reviewed_relay_after_new_cuda_fit_requires_exact_fit_and_archive(tmp_pa
     assert status.reviewed_relay_contract(tmp_path, seed, wave, previous, old_sha) is None
     mutation.write_bytes(original)
     assert status.reviewed_relay_contract(tmp_path, seed, wave, previous, old_sha) == expected
-    if seed == 6101:
+    if source_only:
         unexpected = directory / "round_05/boundary_user_message.json"
         write_json(unexpected, {"added": True})
         assert status.reviewed_relay_contract(tmp_path, seed, wave, previous, old_sha) is None
         unexpected.unlink()
         write_json(turn / "attempt_01.started.json", {"unexpected": True})
+        assert status.reviewed_relay_contract(tmp_path, seed, wave, previous, old_sha) is None
+    elif (seed, wave) == (6101, 10):
+        assert status.RELAY_6101_WAVE10_ARCHIVED_SSE_COUNTS == tuple(item.progress["sse_event_count"] for item in review.attempts)
+        write_json(turn / "attempt_02.started.json", {"unexpected": True})
         assert status.reviewed_relay_contract(tmp_path, seed, wave, previous, old_sha) is None
     else:
         check_repeated_boundary(tmp_path, monkeypatch, publish, seed, wave + 1, run, digest, auth, signed)
@@ -2735,7 +2741,7 @@ def check_repeated_boundary(runs, monkeypatch, publish, seed, wave, previous, pr
     assert status.reviewed_relay_contract(runs, seed, wave, previous, previous_sha) is None
     checked_file.write_bytes(original)
     assert status.reviewed_relay_contract(runs, seed, wave, previous, previous_sha) == expected
-    if (seed, wave) in ((157, 10), (2357, 9), (2357, 10), (12203, 16), (12203, 17)):
+    if (seed, wave) in ((157, 10), (157, 11), (887, 8), (2357, 9), (2357, 10), (2357, 11), (12203, 16), (12203, 17)):
         check_repeated_boundary(runs, monkeypatch, publish, seed, wave + 1, run, sha, auth, record)
 
 
@@ -2935,7 +2941,8 @@ def check_6101_r5_handoff(runs, monkeypatch, publish, parent, cached, cached_sha
     (stage / "batch_freeze.json").write_bytes(original)
 
 
-@pytest.mark.parametrize("seed,wave", [(887, 8), (157, 11), (2357, 10), (2357, 11), (12203, 17), (12203, 18)])
+@pytest.mark.parametrize("seed,wave", [(887, 8), (887, 9), (157, 11), (157, 12), (2357, 10), (2357, 11), (2357, 12),
+                                       (12203, 17), (12203, 18)])
 def test_new_exact_reviewed_relay_pins_the_original_retired_receipt(seed, wave):
     from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.run_v13_retry_successor import SCOPES
 
@@ -2955,9 +2962,15 @@ def test_new_exact_reviewed_relay_pins_the_original_retired_receipt(seed, wave):
         "relay_cooldown_clock": scope.cooldown_field, "relay_not_before_unix": scope.not_before_unix,
         "newly_authorized_boundary_physical_attempts": scope.boundary_physical_attempts, "execution_budget": scope.budget,
     }
-    assert getattr(status, f"{old}_ATTEMPT") == {
-        "attempt": 0, "attempt_id": review.attempt_id, "job_sha256": review.job_sha256, "result_sha256": review.result_sha256,
-        "error": review.failure, "provider_dispatched": True, "ambiguous": True,
-    }
+    attempts = tuple({"attempt": index, "attempt_id": item.attempt_id, "job_sha256": item.job_sha256,
+                      "result_sha256": item.result_sha256, "error": item.failure,
+                      "provider_dispatched": True, "ambiguous": True} for index, item in enumerate(review.attempts))
+    if len(attempts) == 1:
+        assert getattr(status, f"{old}_ATTEMPT") == attempts[0]
+    else:
+        assert getattr(status, f"{old}_ATTEMPTS") == attempts
+        assert getattr(status, f"{old}_TERMINALS") == tuple(item.terminal_file_sha256 for item in review.attempts)
+        assert getattr(status, f"{old}_REPLAY_FILES") == review.replay_files
+        assert status.RELAY_2357_WAVE12_ARCHIVED_SSE_COUNTS == tuple(item.progress["sse_event_count"] for item in review.attempts)
     sources = getattr(status, f"{prefix}_SOURCES")
     assert {name: sources[name] for name, _ in scope.required_sources} == dict(scope.required_sources)
