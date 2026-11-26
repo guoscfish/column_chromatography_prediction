@@ -1,5 +1,7 @@
 """Offline tests for Mac attempt custody and recovery."""
 
+from concurrent.futures import Future
+from contextlib import nullcontext
 from dataclasses import asdict, replace
 from types import SimpleNamespace
 import time
@@ -81,6 +83,89 @@ def readiness_run(tmp_path, formal, monkeypatch):
 def _probe_failure(lease):
     lease.outcome("connect_error")
     raise provider._IPv4PreflightFailure(retry_probe=True)
+
+
+def _watch_inventory(run):
+    return {key: value for key, value in run.mac.info.items() if key != "contract"} | {"attempt_ids": [run.identity]}
+
+
+def test_watch_preserves_queue_on_ssh_fault_but_fences_on_authenticated_pause(readiness_run, monkeypatch):
+    run = readiness_run
+    steps = iter(("ready", "info_outage", "list_outage", "paused_upload_outage", "info_outage", "ready"))
+    observed, submitted = [], []
+    phase = None
+
+    class EndWatch(Exception):
+        pass
+
+    def info():
+        nonlocal phase
+        phase = next(steps)
+        if phase == "info_outage":
+            raise ssh_courier.CourierUnavailable("test SSH info outage")
+        return {**run.mac.info, "paused": phase == "paused_upload_outage"}
+
+    def inventory():
+        if phase == "list_outage":
+            raise ssh_courier.CourierUnavailable("test SSH inventory outage")
+        return _watch_inventory(run)
+
+    def deliver(*_):
+        if phase == "paused_upload_outage":
+            raise ssh_courier.CourierUnavailable("test SSH delivery outage")
+
+    def submit(function, identity, **options):
+        assert function == run.mac.dispatch and identity == run.identity
+        submitted.append(options)
+        return Future()
+
+    def check_waiting(_poll):
+        assert len(submitted) == 1
+        observed.append((phase, submitted[0]["pause"]()))
+        if phase == "paused_upload_outage":
+            with pytest.raises(dispatcher.RemotePaused):
+                submitted[0]["before_call"](run.identity, run.job)
+        if len(observed) == 6:
+            raise EndWatch
+
+    courier = SimpleNamespace(info=info, list=inventory,
+                              retry_exchange=lambda *_a, **_kw: pytest.fail("paused waiter cannot claim"))
+    monkeypatch.setattr(dispatcher, "deliver", deliver)
+    monkeypatch.setattr(dispatcher, "ThreadPoolExecutor", lambda **_: nullcontext(SimpleNamespace(submit=submit)))
+    monkeypatch.setattr(dispatcher.time, "sleep", check_waiting, raising=False)
+
+    with pytest.raises(EndWatch):
+        dispatcher.run_dispatcher(run.mac, courier, watch=True, workers=1)
+    assert observed == [
+        ("ready", False), ("info_outage", False), ("list_outage", False),
+        ("paused_upload_outage", True), ("info_outage", True), ("ready", False),
+    ]
+
+
+def test_readiness_requires_a_second_fresh_claim_before_provider_post(readiness_run, monkeypatch):
+    run = readiness_run
+    claims = []
+
+    def claim(action, *, attempt_id, dispatcher_id):
+        assert action == "claim" and (attempt_id, dispatcher_id) == (run.identity, run.mac.dispatcher_id)
+        claims.append(attempt_id)
+        if len(claims) == 2:
+            raise ssh_courier.CourierUnavailable("test SSH outage immediately before provider POST")
+        return run.job
+
+    def call(_request, _config, *, before_provider_dispatch, **_):
+        assert len(claims) == 1
+        before_provider_dispatch()
+        pytest.fail("a POST requires both independently authenticated claims")
+
+    courier = SimpleNamespace(info=lambda: run.mac.info, list=lambda: _watch_inventory(run), retry_exchange=claim)
+    monkeypatch.setattr(dispatcher, "call_responses", call)
+    status = dispatcher.run_dispatcher(run.mac, courier, watch=False, workers=1)
+    assert claims == [run.identity, run.identity]
+    assert status["round"]["deferred"] == 1
+    assert not (run.attempt / "started.json").exists()
+    assert run.mac.pending() == [run.identity]
+    assert run.mac.pool.status(readonly=True)["keys"][0]["requests"] == 0
 
 
 def test_readiness_waits_without_start_then_same_attempt_completes_after_restart(readiness_run, monkeypatch):

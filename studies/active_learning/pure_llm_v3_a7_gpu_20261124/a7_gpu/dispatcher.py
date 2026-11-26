@@ -516,10 +516,11 @@ def run_dispatcher(dispatcher, courier, *, watch, stage_only=False, poll=2, work
 
     if type(workers) is not int or not 1 <= workers <= 3 or not 0.05 <= poll <= 60:
         raise ValueError("dispatcher concurrency or poll delay is outside the supported range")
-    blocked = Event()
-    blocked.set()
+    remote_paused = Event()
 
     def permission(attempt_id, job):
+        if remote_paused.is_set():
+            raise RemotePaused("remote bridge is paused")
         if dispatcher.readiness_windows:
             # The claim endpoint revalidates authorization and pause state for the exact job.
             # Keep a transient SSH interruption inside this preflight window.
@@ -531,6 +532,8 @@ def run_dispatcher(dispatcher, courier, *, watch, stage_only=False, poll=2, work
         dispatcher.validate(fresh)
         if fresh != job:
             raise ValueError("the authenticated claim returned a different provider job")
+        if remote_paused.is_set():
+            raise RemotePaused("remote bridge is paused")
 
     with _exclusive(dispatcher.path / "dispatcher.lock"):
         if stage_only:
@@ -552,22 +555,26 @@ def run_dispatcher(dispatcher, courier, *, watch, stage_only=False, poll=2, work
                         totals["deferred"] += 1
                 try:
                     info = dispatcher.check_remote(courier.info())
+                    # Observe a verified pause even if a subsequent upload or inventory fails.
+                    if info["paused"]:
+                        remote_paused.set()
                     totals["recovered_from_capture"] += dispatcher.recover_captured(exclude=running)
                     deliver(dispatcher, courier)
                     paused, outstanding = pull(dispatcher, courier, info)
                     if paused:
-                        blocked.set()
+                        remote_paused.set()
                     else:
-                        blocked.clear()
+                        remote_paused.clear()
                         for identity in dispatcher.pending():
                             if len(running) >= workers:
                                 break
                             if identity in outstanding and identity not in running:
                                 running[identity] = executor.submit(
-                                    dispatcher.dispatch, identity, before_call=permission, pause=blocked.is_set,
+                                    dispatcher.dispatch, identity, before_call=permission, pause=remote_paused.is_set,
                                 )
                 except CourierUnavailable:
-                    blocked.set()
+                    # Keep queued leases in order on unknown SSH state. New work still needs a
+                    # verified inventory, and every provider dispatch still needs a fresh claim.
                     if not watch:
                         raise
                     totals["ssh_exchanges_deferred"] += 1
