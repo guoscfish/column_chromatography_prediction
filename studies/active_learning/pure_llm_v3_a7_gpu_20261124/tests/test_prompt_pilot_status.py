@@ -2787,9 +2787,9 @@ def check_repeated_boundary(runs, monkeypatch, publish, seed, wave, previous, pr
                         (2357, 13), (2357, 14), (2357, 15), (2357, 16), (2357, 17), (2357, 18),
                         (6101, 11), (6101, 12), (6101, 13), (6101, 14), (6101, 15), (6101, 16), (6101, 17), (6101, 18),
                         (12203, 16), (12203, 17), (12203, 18), (12203, 19), (12203, 20), (12203, 21),
-                        (12203, 22), (12203, 23), (12203, 24), (12203, 25), (12203, 26), (12203, 27), (12203, 28), (12203, 29),
+                        (12203, 22), (12203, 23), (12203, 24), (12203, 25), (12203, 26), (12203, 27), (12203, 28), (12203, 29), (12203, 30),
                         (157, 19), (2357, 19), (6101, 19), (157, 20), (2357, 20), (6101, 20),
-                        (2357, 21), (6101, 21), (157, 21), (2357, 22), (6101, 22), (157, 22)):
+                        (2357, 21), (6101, 21), (157, 21), (2357, 22), (6101, 22), (157, 22), (157, 23), (2357, 23), (6101, 23)):
         check_repeated_boundary(runs, monkeypatch, publish, seed, wave + 1, run, sha, auth, record)
 
 
@@ -2997,7 +2997,8 @@ def check_6101_r5_handoff(runs, monkeypatch, publish, parent, cached, cached_sha
                                        (157, 17), (157, 18), (157, 19), (2357, 19), (6101, 18), (6101, 19),
                                        (12203, 24), (12203, 25), (12203, 26), (157, 20),
                                        (2357, 20), (6101, 20), (12203, 27), (157, 21), (2357, 21), (6101, 21), (12203, 28),
-                                       (2357, 22), (6101, 22), (157, 22), (12203, 29), (2357, 23), (6101, 23), (157, 23), (12203, 30)])
+                                       (2357, 22), (6101, 22), (157, 22), (12203, 29), (2357, 23), (6101, 23), (157, 23), (12203, 30),
+                                       (157, 24), (2357, 24), (6101, 24), (12203, 31)])
 def test_new_exact_reviewed_relay_pins_the_original_retired_receipt(seed, wave):
     from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.run_v13_retry_successor import SCOPES
 
@@ -3178,3 +3179,76 @@ def test_887_r20_monitor_requires_exact_cached_handoff_and_new_parser(tmp_path, 
     wrong_handoff = {**signed, "predecessor": {**proof, "r19_handoff": {**h, "provider_post": True}}}
     publish(wrong_handoff)
     assert status.r20_after_887_cached_correction(tmp_path, previous, h["contract_sha256"]) is None
+
+
+def test_887_r32_monitor_requires_exact_l1357_and_one_retired_attempt(tmp_path, monkeypatch):
+    status = prompt_pilot_status
+    previous = tmp_path / status.CONTINUATION_887_R20_RUN
+    run = tmp_path / f"{status.SERIAL_IPV4}-887-relay-retry-11"
+    seed = previous / "seed_887"
+    current = seed / "round_32"
+    turn = current / "turn_00"
+    old_budget = status.CONTINUATION_887_R20_BUDGET
+    budget = status.RELAY_887_WAVE11_PROOF["execution_budget"]
+    descriptor = status.RELAY_887_WAVE11_DESCRIPTOR
+
+    def publish(path, record):
+        contract = status.record_digest(record)
+        approval = {"contract_sha256": contract, **dict.fromkeys(status.FORMAL_APPROVAL_FLAGS, True)}
+        write_json(path / "formal_contract.json", record)
+        write_json(path / "authorization.json", approval)
+        return contract, status.record_digest(approval)
+
+    profile = {"resume_boundaries": {"887": {"round": 20}},
+               "replay_eligible_from_round": 20, "audited_future_transport_replay": True,
+               "sealed_relay_retry_seconds": 180, "ipv4_readiness_windows": 3, "sse_inactivity_seconds": 900,
+               "confirmation_seeds": [887], "target_labels": 1485, "request_timeouts": {"total_seconds": 3600}}
+    old, old_auth = publish(previous, {"run_directory": str(previous), "profile": profile, "budget": old_budget,
+                                      "predecessor": {"recovery_budget": {"maximum_logical_requests": 1,
+                                                                         "maximum_physical_attempts": 2}}})
+    monkeypatch.setattr(status, "CONTINUATION_887_R20_CONTRACT", old)
+    monkeypatch.setattr(status, "CONTINUATION_887_R20_AUTH", old_auth)
+    for name in status.RELAY_887_WAVE11_FITTED_FILES:
+        write_json(seed / name, {"file": name})
+    metrics = current / "fit_000/validation_metrics.json"
+    write_json(current / "transition.json", {
+        "fit_path": "fit_000", "checkpoint_sha256": status.RELAY_887_WAVE11_CHECKPOINT,
+        "source_sha256": status.checksum(current / "source.json"), "validation_metrics_sha256": status.checksum(metrics),
+    })
+    files = {name: status.checksum(seed / name) for name in status.RELAY_887_WAVE11_FITTED_FILES}
+    monkeypatch.setattr(status, "RELAY_887_WAVE11_FITTED_FILES", files)
+    prior = status.RELAY_887_WAVE11_PREVIOUS_ATTEMPT
+    terminal = {**prior, "status": "stopped"}
+    write_json(turn / "attempt_00.started.json", {"attempt": 0, "attempt_id": prior["attempt_id"]})
+    write_json(turn / "attempt_00.terminal.json", terminal)
+    exact = {**status.RELAY_887_WAVE11_PROOF,
+             "previous_terminal_file_sha256": status.checksum(turn / "attempt_00.terminal.json")}
+    monkeypatch.setattr(status, "RELAY_887_WAVE11_PROOF", exact)
+    attempts = [{**prior, "terminal_sha256": status.record_digest(terminal)}]
+    proof = {**exact, "dispatcher_module": "dispatch_v13_retry_successor", "seed": 887, "round": 32,
+             "previous_run_directory": str(previous), "previous_contract_sha256": old,
+             "previous_authorization_sha256": old_auth, "recovery_budget": {"maximum_logical_requests": 1,
+                                                                            "maximum_physical_attempts": 1},
+             "previous_attempts": attempts, "checkpoint_sha256": status.RELAY_887_WAVE11_CHECKPOINT,
+             "previous_transport_observation": status.RELAY_887_WAVE11_OBSERVATION,
+             "reviewed_fitted_prefix_files": files,
+             "reviewed_retry_chain": [status._relay_review(previous, old, old_auth, exact, attempts)]}
+    signed = {"run_directory": str(run), "budget": budget, "source_sha256": status.RELAY_887_WAVE11_SOURCES,
+              "predecessor": proof, "profile": {**profile, "replay_eligible_from_round": 33,
+                                                "resume_boundaries": {"887": descriptor}}}
+    contract, auth = publish(run, signed)
+    monkeypatch.setattr(status, "RELAY_887_WAVE11_CONTRACT", contract)
+    monkeypatch.setattr(status, "RELAY_887_WAVE11_AUTH", auth)
+    assert status.reviewed_relay_contract(tmp_path, 887, 11, previous, old) is None
+    (seed / "pause.request").touch()
+    result = run, contract, 32, 3, exact["relay_not_before_unix"]
+    assert status.reviewed_relay_contract(tmp_path, 887, 11, previous, old) == result
+
+    for unexpected in ("round_33/source.json", "round_32/batch_freeze.json", "round_32/turn_00/attempt_01.started.json"):
+        path = seed / unexpected
+        write_json(path, {})
+        assert status.reviewed_relay_contract(tmp_path, 887, 11, previous, old) is None
+        path.unlink()
+        if unexpected.startswith("round_33/"):
+            path.parent.rmdir()
+    assert status.reviewed_relay_contract(tmp_path, 887, 11, previous, old) == result
