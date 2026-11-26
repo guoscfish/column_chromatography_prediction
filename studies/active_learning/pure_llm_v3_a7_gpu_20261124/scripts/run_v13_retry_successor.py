@@ -26,6 +26,12 @@ SIGNED_RETRY_SOURCES = tuple(STUDY / "scripts" / f"{module}.py" for module in (
 QUEUE_SOURCES = (
     ((STUDY / "a7_gpu/dispatcher.py").as_posix(), "cde7ba080ba728b7600764d733cfab8a87bbe8e537840929bc1f47cd6c2cb3fc"),
 )
+SAME_RESPONSE_RETRY_SOURCES = (
+    *QUEUE_SOURCES,
+    ((STUDY / "a7_gpu/provider.py").as_posix(), "9b77e82920a303b9429957372d0943a1c729fecca3c80c00d86e0411a1c74bd0"),
+    ((STUDY.parent / "pure_llm_v3_20261124/pure_llm_v3/transport_manager.py").as_posix(),
+     "25bb9cd757b1d14153bf1f758427d195a4a2299a9a9f840dd7619c783e76c739"),
+)
 
 
 @dataclass(frozen=True)
@@ -334,11 +340,7 @@ SCOPES[(2357, 4)] = replace(SCOPES[(2357, 3)], wave=4, cooldown_field="failed_un
 ))
 
 SCOPES[(2357, 5)] = replace(SCOPES[(2357, 4)], wave=5, cooldown_unix=1795694625.301756,
-                              boundary_physical_attempts=1, required_sources=(*QUEUE_SOURCES,
-    ((STUDY / "a7_gpu/provider.py").as_posix(), "9b77e82920a303b9429957372d0943a1c729fecca3c80c00d86e0411a1c74bd0"),
-    ((STUDY.parent / "pure_llm_v3_20261124/pure_llm_v3/transport_manager.py").as_posix(),
-     "25bb9cd757b1d14153bf1f758427d195a4a2299a9a9f840dd7619c783e76c739"),
-), archive=(
+                              boundary_physical_attempts=1, required_sources=SAME_RESPONSE_RETRY_SOURCES, archive=(
     *SCOPES[(2357, 4)].archive,
     Review(retry.bounded.RunIdentity("-2357-relay-retry-04",
         "fc19d508b0374d79fb7a015f50b68c606afaf4811c3c87fbaeaa216699759f47",
@@ -583,6 +585,23 @@ SCOPES[(12203, 9)] = replace(SCOPES[(12203, 8)], wave=9, cooldown_unix=179569297
             "attempt_00.replay.terminal.json": "c7c1876782e113a092c7431cce9b9269309d3c40eac074fcad8ab61ba2dd513f",
             "attempt_01.replay_link.json": "05a826f44aff6fbf994f43dcb50ce60aafe83d9af7b3f07a136f948e26f20ac3",
         }),
+))
+
+SCOPES[(12203, 10)] = replace(SCOPES[(12203, 9)], wave=10, cooldown_unix=1795695678.1715395,
+                               boundary_physical_attempts=1, required_sources=SAME_RESPONSE_RETRY_SOURCES, archive=(
+    *SCOPES[(12203, 9)].archive,
+    Review(retry.bounded.RunIdentity("-12203-relay-retry-09",
+        "25793611aa80ddf279067ac651908154ecc65ad49a485b4e69c2df6e16322928",
+        "4d19e1f3fff41d5af1f09181b8f63f5b876b92f2d5c76f16dc08ab8899d91fb8"),
+        "a0bbbe0bcb9362c5ef9262f279efb9a3515d7d0407e1ae6666403f84a634bc22", "47604b0004ba4cd98dd083e22aae017f",
+        "8ccd651794938a33dc51fdcbfc077158f675e89d145e0d3724b69a8a2d8597e3",
+        "6cb112f81e78254912da39ab4539ae51fc9443308614e93b0424dadc203311cb",
+        "3a1d44dfccb67d510169ab721c4eca7e13dedc2fe4e6afdf28cf72c4e171ec3b",
+        "33bb92f90edd5c1fd19f9ef1c1ed6bbce1e43297716e536b2f1cb469981bdd41", "timeout",
+        {"http_status": 200, "phase": "transport_failure", "error_type": "sse_inactivity_timeout",
+         "event_type": "response.output_item.done", "sse_event_count": 28, "last_sse_seconds": 980.5284760829527,
+         "provider_request_id": "f870028a-25eb-4703-8571-6b0b1dec1870", "model": "gpt-6.2-astra",
+         "response_id": "resp_0dc94406a9c8a9b1016b081d14b61887d285421dd0467c6173"}),
 ))
 
 SCOPES[(887, 1)] = Scope(

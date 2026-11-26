@@ -46,7 +46,7 @@ BOUNDED_SSE_END_ROUNDS = {157: 4, 887: 7, 2357: 3, 6101: 2}
 RESILIENT_SEGMENTS = ("ipv4_resilient_sse", "ipv4_resilient_failure", "ipv4_relay_retry",
                       "ipv4_relay_retry_02", "ipv4_relay_retry_03", "ipv4_relay_retry_04", "ipv4_relay_retry_05",
                       "ipv4_relay_retry_06", "ipv4_relay_retry_07", "ipv4_relay_retry_08", "ipv4_relay_retry_09",
-                      "ipv4_cached_r7", "ipv4_cached_r3",
+                      "ipv4_relay_retry_10", "ipv4_cached_r7", "ipv4_cached_r3",
                       "ipv4_r8_targeted_repair", "ipv4_r8_cached_correction", "ipv4_887_r9_continuation")
 FORMAL_APPROVAL_FLAGS = ("authorize_paid_api", "authorize_label_reveal", "authorize_cuda_training")
 RELAY_RETRY_SECONDS = 180
@@ -686,6 +686,29 @@ RELAY_12203_WAVE09_OBSERVATION = {
     "conflicting_response_id": "resp_9bd44948f4f440f5a811098b71481d85", "conflicting_event_type": "response.failed",
     "response_id_matches_transport_alias": True,
 }
+RELAY_12203_WAVE10_CONTRACT = "168df83d138c13c153bc05e91f8ca0e73208affaf08dc3292135c269c30ec8b5"
+RELAY_12203_WAVE10_AUTH = "a004554f8d14f8b75b9c40cd084b6f1dba28cf677c246abd882c191869d0934d"
+RELAY_12203_WAVE09_ATTEMPT = {
+    "attempt": 0, "attempt_id": "47604b0004ba4cd98dd083e22aae017f",
+    "job_sha256": "8ccd651794938a33dc51fdcbfc077158f675e89d145e0d3724b69a8a2d8597e3",
+    "result_sha256": "6cb112f81e78254912da39ab4539ae51fc9443308614e93b0424dadc203311cb",
+    "error": "timeout", "provider_dispatched": True, "ambiguous": True,
+}
+RELAY_12203_WAVE10_PROOF = {
+    **RELAY_12203_WAVE09_PROOF,
+    "previous_request_id": "a0bbbe0bcb9362c5ef9262f279efb9a3515d7d0407e1ae6666403f84a634bc22",
+    "previous_terminal_file_sha256": "3a1d44dfccb67d510169ab721c4eca7e13dedc2fe4e6afdf28cf72c4e171ec3b",
+    "previous_transport_progress_file_sha256": "33bb92f90edd5c1fd19f9ef1c1ed6bbce1e43297716e536b2f1cb469981bdd41",
+    "relay_not_before_unix": 1795695678.1715395 + RELAY_RETRY_SECONDS,
+    "newly_authorized_boundary_physical_attempts": 1,
+    "execution_budget": {"first_logical_requests": 31, "maximum_logical_requests": 91, "maximum_physical_attempts": 181},
+}
+RELAY_12203_WAVE10_OBSERVATION = {
+    "http_status": 200, "phase": "transport_failure", "error_type": "sse_inactivity_timeout",
+    "event_type": "response.output_item.done", "sse_event_count": 28, "last_sse_seconds": 980.5284760829527,
+    "provider_request_id": "f870028a-25eb-4703-8571-6b0b1dec1870", "model": "gpt-6.2-astra",
+    "response_id": "resp_0dc94406a9c8a9b1016b081d14b61887d285421dd0467c6173",
+}
 CACHED_R3_157_OLD_CONTRACT = "a135a2a3d10e80f12864be66eb5bb65046ced589f8767969b3f9cddf3f6c006e"
 CACHED_R3_157_OLD_AUTH = "dc505def300d7dd7024819d6cb4494e0d042bc6c1fd8ea5971aea90b602e58a5"
 CACHED_R3_157_CONTRACT = "f142af55eb54dc184e3cd7d19f16717712605df25044a16c19918a62884ab776"
@@ -1212,10 +1235,11 @@ def _reviewed_relay_prefix(runs, seed, wave, old):
     if wave >= 4 or seed in (6101, 887, 2357):
         prefix = old.get("reviewed_retry_chain")
         first_wave = 1
-        if seed == 12203 and wave in (8, 9):
+        if seed == 12203 and wave in (8, 9, 10):
             first_wave = 6
             expected = ((RELAY_12203_WAVE06_CONTRACT, RELAY_12203_WAVE06_AUTH, 2),
-                        (RELAY_12203_WAVE07_CONTRACT, RELAY_12203_WAVE07_AUTH, 2))
+                        (RELAY_12203_WAVE07_CONTRACT, RELAY_12203_WAVE07_AUTH, 2),
+                        (RELAY_12203_WAVE08_CONTRACT, RELAY_12203_WAVE08_AUTH, 2))
         elif seed == 157:
             expected = ((RELAY_157_WAVE01_CONTRACT, RELAY_157_WAVE01_AUTH, 2),
                         (RELAY_157_WAVE02_CONTRACT, RELAY_157_WAVE02_AUTH, 1),
@@ -1333,6 +1357,9 @@ def reviewed_relay_contract(runs, seed, wave, previous, previous_contract):
     elif (seed, wave) == (12203, 9):
         pinned_contract, pinned_auth = RELAY_12203_WAVE08_CONTRACT, RELAY_12203_WAVE08_AUTH
         boundary, prior_attempt, wave_proof = 5, None, RELAY_12203_WAVE09_PROOF
+    elif (seed, wave) == (12203, 10):
+        pinned_contract, pinned_auth = RELAY_12203_WAVE09_CONTRACT, RELAY_12203_WAVE09_AUTH
+        boundary, prior_attempt, wave_proof = 5, RELAY_12203_WAVE09_ATTEMPT, RELAY_12203_WAVE10_PROOF
     else:
         return None
     if previous_contract != pinned_contract:
@@ -1346,7 +1373,8 @@ def reviewed_relay_contract(runs, seed, wave, previous, previous_contract):
     contract, start, profile, proof = candidate
     registered = {(2357, 5): (RELAY_2357_WAVE05_CONTRACT, RELAY_2357_WAVE05_AUTH),
                   (6101, 6): (RELAY_6101_WAVE06_CONTRACT, RELAY_6101_WAVE06_AUTH),
-                  (12203, 9): (RELAY_12203_WAVE09_CONTRACT, RELAY_12203_WAVE09_AUTH)}.get((seed, wave))
+                  (12203, 9): (RELAY_12203_WAVE09_CONTRACT, RELAY_12203_WAVE09_AUTH),
+                  (12203, 10): (RELAY_12203_WAVE10_CONTRACT, RELAY_12203_WAVE10_AUTH)}.get((seed, wave))
     if registered is not None and (contract, record_digest(read_json(run / "authorization.json"))) != registered:
         return None
     signed = read_json(run / "formal_contract.json")
@@ -1357,7 +1385,7 @@ def reviewed_relay_contract(runs, seed, wave, previous, previous_contract):
     if physical_attempts == 2:
         replay_round = start
         previous_profile = {**previous_profile, "replay_eligible_from_round": replay_round}
-    elif (seed, wave) in ((6101, 5), (2357, 5)):
+    elif (seed, wave) in ((6101, 5), (2357, 5), (12203, 10)):
         if (previous_profile.get("replay_eligible_from_round") != start
                 or (previous / f"seed_{seed}/round_{start:02d}/turn_00/attempt_01.started.json").exists()):
             return None
@@ -1384,6 +1412,7 @@ def reviewed_relay_contract(runs, seed, wave, previous, previous_contract):
         (6101, 6): (1, RELAY_6101_WAVE05_PROOF["execution_budget"]),
         (12203, 8): (2, RELAY_12203_WAVE07_PROOF["execution_budget"]),
         (12203, 9): (2, RELAY_12203_WAVE08_PROOF["execution_budget"]),
+        (12203, 10): (2, RELAY_12203_WAVE09_PROOF["execution_budget"]),
     }.get((seed, wave))
     if checked_budgets is not None:
         old_physical, old_execution = checked_budgets
@@ -1394,7 +1423,7 @@ def reviewed_relay_contract(runs, seed, wave, previous, previous_contract):
     observation = {(6101, 3): RELAY_6101_WAVE03_OBSERVATION, (6101, 4): RELAY_6101_WAVE04_OBSERVATION,
                    (6101, 5): RELAY_6101_WAVE05_OBSERVATION, (6101, 6): RELAY_6101_WAVE06_OBSERVATION,
                    (12203, 4): RELAY_12203_WAVE04_OBSERVATION, (12203, 8): RELAY_12203_WAVE08_OBSERVATION,
-                   (12203, 9): RELAY_12203_WAVE09_OBSERVATION,
+                   (12203, 9): RELAY_12203_WAVE09_OBSERVATION, (12203, 10): RELAY_12203_WAVE10_OBSERVATION,
                    (157, 5): RELAY_157_WAVE05_OBSERVATION, (12203, 5): RELAY_12203_WAVE05_OBSERVATION,
                    (157, 6): RELAY_157_WAVE06_OBSERVATION, (12203, 6): RELAY_12203_WAVE06_OBSERVATION,
                    (887, 3): RELAY_887_WAVE03_OBSERVATION, (887, 4): RELAY_887_WAVE04_OBSERVATION,
@@ -1402,13 +1431,18 @@ def reviewed_relay_contract(runs, seed, wave, previous, previous_contract):
                    (2357, 5): RELAY_2357_WAVE05_OBSERVATION}.get((seed, wave))
     if observation is not None:
         sources = signed.get("source_sha256") or {}
-        required_sources = RELAY_2357_WAVE05_SOURCES if (seed, wave) == (2357, 5) else RELAY_RETRY_QUEUE_SOURCES
+        same_response_guard = (seed, wave) in ((2357, 5), (12203, 10))
+        required_sources = RELAY_2357_WAVE05_SOURCES if same_response_guard else RELAY_RETRY_QUEUE_SOURCES
         if (proof.get("previous_transport_observation") != observation
                 or any(sources.get(name) != sha for name, sha in required_sources.items())
-                or (seed, wave) == (2357, 5) and profile.get("request_timeouts", {}).get("total_seconds") != 3600):
+                or same_response_guard and profile.get("request_timeouts", {}).get("total_seconds") != 3600):
             return None
     directory = previous / f"seed_{seed}"
     turn = directory / f"round_{start:02d}/turn_00"
+    if (seed, wave) == (12203, 10) and {path.name for path in turn.glob("attempt_*.json")} != {
+        "attempt_00.started.json", "attempt_00.terminal.json",
+    }:
+        return None
     multiple_previous = {
         (2357, 4): (RELAY_2357_WAVE03_ATTEMPTS, RELAY_2357_WAVE03_TERMINALS, RELAY_2357_WAVE03_REPLAY_FILES),
         (12203, 8): (RELAY_12203_WAVE07_ATTEMPTS, RELAY_12203_WAVE07_TERMINALS, RELAY_12203_WAVE07_REPLAY_FILES),
@@ -2006,6 +2040,11 @@ def remote_seed(runs, seed):
             "http_status", "error_type", "sse_event_count",
         )}
         reviewed_previous_api.update(complete_event_seen=False, event_type=RELAY_12203_WAVE09_OBSERVATION["conflicting_event_type"])
+    if (seed, segment) == (12203, "ipv4_relay_retry_10") and latest == recovery_round:
+        reviewed_previous_api = {name: RELAY_12203_WAVE10_OBSERVATION[name] for name in (
+            "http_status", "error_type", "event_type", "sse_event_count", "last_sse_seconds",
+        )}
+        reviewed_previous_api.update(complete_event_seen=False, sse_inactivity_seconds=900)
     boundary_api = {}
     if seed == 2357 and segment == "ipv4_relay_retry_03" and latest == recovery_round:
         boundary_api = {"maximum_logical_requests": 1,
@@ -2021,6 +2060,7 @@ def remote_seed(runs, seed):
         (12203, "ipv4_relay_retry_07"): RELAY_12203_WAVE07_PROOF,
         (12203, "ipv4_relay_retry_08"): RELAY_12203_WAVE08_PROOF,
         (12203, "ipv4_relay_retry_09"): RELAY_12203_WAVE09_PROOF,
+        (12203, "ipv4_relay_retry_10"): RELAY_12203_WAVE10_PROOF,
     }.get((seed, segment))
     if counted_boundary is not None and latest == recovery_round:
         maximum = counted_boundary["newly_authorized_boundary_physical_attempts"]
@@ -2029,6 +2069,8 @@ def remote_seed(runs, seed):
                         **boundary_attempt_counts(run, directory, latest, maximum)}
         if (seed, segment) == (2357, "ipv4_relay_retry_05"):
             boundary_api["future_replay_from_round"] = 5
+        if (seed, segment) == (12203, "ipv4_relay_retry_10"):
+            boundary_api.update(future_replay_from_round=6, future_replay_requires_verified_response_id=True)
     if segment == "ipv4_887_r9_continuation" and latest == recovery_round:
         boundary_api = {"maximum_logical_requests": 1, "maximum_physical_attempts": 2,
                         "replay_delay_seconds": RELAY_RETRY_SECONDS,
@@ -2257,6 +2299,7 @@ def dispatcher_pid(seed, segment):
                        "ipv4_relay_retry_07": f"a7-ipv4-v13-{seed}-relay-retry-07",
                        "ipv4_relay_retry_08": f"a7-ipv4-v13-{seed}-relay-retry-08",
                        "ipv4_relay_retry_09": f"a7-ipv4-v13-{seed}-relay-retry-09",
+                       "ipv4_relay_retry_10": f"a7-ipv4-v13-{seed}-relay-retry-10",
                        "ipv4_cached_r7": "a7-ipv4-v13-887-cached-r7-01",
                        "ipv4_cached_r3": "a7-ipv4-v13-157-cached-r3-01"}
     if segment in cohort_services:

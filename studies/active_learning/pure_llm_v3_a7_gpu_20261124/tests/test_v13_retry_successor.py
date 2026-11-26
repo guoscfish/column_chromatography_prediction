@@ -26,12 +26,12 @@ def test_only_explicitly_reviewed_new_wave_can_reserve_its_one_current_slot():
                                                  receipt.job_sha256, receipt.result_sha256, receipt.terminal_file_sha256,
                                                  receipt.progress_file_sha256))
     with pytest.raises(ValueError, match="no individually reviewed"):
-        gpu.read_scope(Parser(), SimpleNamespace(seed=12203, wave=10))
+        gpu.read_scope(Parser(), SimpleNamespace(seed=12203, wave=11))
 
 
 @pytest.mark.parametrize("seed,wave,rev_counts,physical_budget", [
     (12203, 3, [1, 1], 187), (12203, 4, [1, 1, 1], 187), (12203, 5, [1, 1, 1, 1], 187),
-    (12203, 6, [1, 1, 1, 1, 1], 187),
+    (12203, 6, [1, 1, 1, 1, 1], 187), (12203, 10, [2, 2, 2, 1], 181),
     (157, 3, [2, 1], 193), (157, 4, [2, 1, 1], 193), (157, 5, [2, 1, 1, 1], 193),
     (157, 6, [2, 1, 1, 1, 1], 193), (157, 7, [1], 187),
     (6101, 2, [2], 199), (6101, 3, [2, 1], 199), (6101, 5, [2, 1, 1, 1], 199), (2357, 2, [2], 187),
@@ -350,6 +350,27 @@ def test_2357_wave05_keeps_only_the_unused_slot_and_pins_the_signed_transport_up
     assert scope.replay_start_round == 5
     assert len(scope.required_sources) == len(gpu.QUEUE_SOURCES) + 2
     assert all(name in gpu.retry.OVERLAYS for name, _ in scope.required_sources)
+
+
+def test_12203_wave10_keeps_one_unused_equivalent_after_inactivity():
+    previous = gpu.SCOPES[(12203, 9)]
+    scope = gpu.SCOPES[(12203, 10)]
+    assert scope.payload_sha256 == previous.payload_sha256
+    assert scope.original_start_round == scope.round == previous.round == 5
+    assert scope.original_boundary_physical_attempts == previous.boundary_physical_attempts == 2
+    assert scope.archive[:-1] == previous.archive
+    last = scope.archive[-1]
+    assert scope.boundary_physical_attempts + len(last.attempts) == previous.boundary_physical_attempts
+    assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}
+    assert scope.budget == {"first_logical_requests": 31, "maximum_logical_requests": 91, "maximum_physical_attempts": 181}
+    assert scope.cooldown_field == "failed_unix" and scope.not_before_unix == 1795695858.1715395
+    assert scope.replay_start_round == 6
+    assert last.failure == "timeout" and last.replay_files is None
+    assert last.progress["error_type"] == "sse_inactivity_timeout"
+    assert last.progress["event_type"] == "response.output_item.done" and last.progress["sse_event_count"] == 28
+    assert scope.required_sources == gpu.SCOPES[(2357, 5)].required_sources
+    assert len(scope.required_sources) == len(gpu.QUEUE_SOURCES) + 2
+    assert all(file_digest(gpu.ROOT / name) == sha for name, sha in scope.required_sources)
 
 
 def test_12203_wave07_uses_the_fitted_next_boundary_with_a_conditional_retry():
