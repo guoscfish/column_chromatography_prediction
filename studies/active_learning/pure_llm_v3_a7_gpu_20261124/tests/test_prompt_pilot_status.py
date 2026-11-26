@@ -2787,9 +2787,9 @@ def check_repeated_boundary(runs, monkeypatch, publish, seed, wave, previous, pr
                         (2357, 13), (2357, 14), (2357, 15), (2357, 16), (2357, 17), (2357, 18),
                         (6101, 11), (6101, 12), (6101, 13), (6101, 14), (6101, 15), (6101, 16), (6101, 17), (6101, 18),
                         (12203, 16), (12203, 17), (12203, 18), (12203, 19), (12203, 20), (12203, 21),
-                        (12203, 22), (12203, 23), (12203, 24), (12203, 25), (12203, 26), (12203, 27), (12203, 28), (12203, 29), (12203, 30), (12203, 31),
+                        (12203, 22), (12203, 23), (12203, 24), (12203, 25), (12203, 26), (12203, 27), (12203, 28), (12203, 29), (12203, 30), (12203, 31), (12203, 32),
                         (157, 19), (2357, 19), (6101, 19), (157, 20), (2357, 20), (6101, 20),
-                        (2357, 21), (6101, 21), (157, 21), (2357, 22), (6101, 22), (157, 22), (157, 23), (2357, 23), (6101, 23), (157, 24), (2357, 24), (6101, 24)):
+                        (2357, 21), (6101, 21), (157, 21), (2357, 22), (6101, 22), (157, 22), (157, 23), (2357, 23), (6101, 23), (157, 24), (2357, 24), (6101, 24), (2357, 25), (6101, 25), (157, 25)):
         check_repeated_boundary(runs, monkeypatch, publish, seed, wave + 1, run, sha, auth, record)
 
 
@@ -2999,7 +2999,7 @@ def check_6101_r5_handoff(runs, monkeypatch, publish, parent, cached, cached_sha
                                        (2357, 20), (6101, 20), (12203, 27), (157, 21), (2357, 21), (6101, 21), (12203, 28),
                                        (2357, 22), (6101, 22), (157, 22), (12203, 29), (2357, 23), (6101, 23), (157, 23), (12203, 30),
                                        (157, 24), (2357, 24), (6101, 24), (12203, 31),
-                                       (157, 25), (2357, 25), (6101, 25), (12203, 32)])
+                                       (157, 25), (2357, 25), (6101, 25), (12203, 32), (2357, 26), (6101, 26), (157, 26), (12203, 33)])
 def test_new_exact_reviewed_relay_pins_the_original_retired_receipt(seed, wave):
     from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.run_v13_retry_successor import SCOPES
 
@@ -3317,3 +3317,63 @@ def test_887_r32_targeted_monitor_requires_a_verified_l1389_fit(tmp_path, monkey
     assert status.r32_targeted_repair(tmp_path, previous, old) == expected
     write_json(directory / "round_32/batch_freeze.json", {"changed": True})
     assert status.r32_targeted_repair(tmp_path, previous, old) is None
+
+
+def test_887_r33_monitor_pins_normal_budgets_and_exact_l1389_handoff(tmp_path, monkeypatch):
+    status = prompt_pilot_status
+    targeted = tmp_path / status.REPAIR_887_R32_RUN
+    run = tmp_path / status.CONTINUATION_887_R33_RUN
+    directory = targeted / "seed_887/round_33"
+    metrics = directory / "fit_000/validation_metrics.json"
+    source = directory / "source.json"
+    transfer = directory / "transition.json"
+    write_json(source, {"round": 33})
+    write_json(metrics, {"combined_normalized_rmse": 0.4})
+    write_json(transfer, {"fit_path": "fit_000", "checkpoint_sha256": status.REPAIR_887_R32_CHECKPOINT,
+                          "source_sha256": status.checksum(source), "validation_metrics_sha256": status.checksum(metrics)})
+
+    def publish(location, signed):
+        contract = status.record_digest(signed)
+        approval = {"contract_sha256": contract, **dict.fromkeys(status.FORMAL_APPROVAL_FLAGS, True)}
+        write_json(location / "formal_contract.json", signed)
+        write_json(location / "authorization.json", approval)
+        return contract, status.record_digest(approval)
+
+    old, approval = publish(targeted, {"run_directory": str(targeted)})
+    monkeypatch.setattr(status, "REPAIR_887_R32_CONTRACT", old)
+    monkeypatch.setattr(status, "REPAIR_887_R32_AUTH", approval)
+    handoff = {"fit_files": {str(transfer.relative_to(targeted)): status.checksum(transfer)}}
+    request = {"payload_sha256": "a" * 64}
+    monkeypatch.setattr(status, "CONTINUATION_887_R33_HANDOFF", status.record_digest(handoff))
+    monkeypatch.setattr(status, "CONTINUATION_887_R33_REQUEST", status.record_digest(request))
+    signed = {
+        "run_directory": str(run), "budget": status.CONTINUATION_887_R33_BUDGET,
+        "source_sha256": status.CONTINUATION_887_R33_SOURCES,
+        "profile": {"resume_boundaries": {"887": status.CONTINUATION_887_R33_DESCRIPTOR},
+                    "confirmation_seeds": [887], "target_labels": 1485, "full_imported_boundary_round": 33,
+                    "replay_eligible_from_round": 33, "sealed_relay_retry_seconds": 180,
+                    "audited_future_transport_replay": True, "ipv4_readiness_windows": 3,
+                    "transport": {"logical_replies": 3, "transport_attempts": 2}},
+        "predecessor": {"dispatcher_module": "dispatch_v13_887_r33_continuation", "seed": 887, "round": 33,
+                        "previous_run_directory": str(targeted), "previous_contract_sha256": old,
+                        "previous_authorization_sha256": approval,
+                        "normal_contract_sha256": status.RELAY_887_WAVE11_CONTRACT,
+                        "normal_authorization_sha256": status.RELAY_887_WAVE11_AUTH,
+                        "checkpoint_sha256": status.REPAIR_887_R32_CHECKPOINT,
+                        "r32_handoff": handoff, "r33_request": request,
+                        "recovery_budget": status.CONTINUATION_887_R33_SCOPE,
+                        "execution_budget": status.CONTINUATION_887_R33_BUDGET},
+    }
+    sha, auth = publish(run, signed)
+    monkeypatch.setattr(status, "CONTINUATION_887_R33_CONTRACT", sha)
+    monkeypatch.setattr(status, "CONTINUATION_887_R33_AUTH", auth)
+    assert status.r33_after_887_targeted_repair(tmp_path, targeted, old) == (run, sha, 33, 3)
+    original = transfer.read_bytes()
+    write_json(transfer, {"changed": True})
+    assert status.r33_after_887_targeted_repair(tmp_path, targeted, old) is None
+    transfer.write_bytes(original)
+    signed["predecessor"]["r33_request"] = {"payload_sha256": "b" * 64}
+    wrong_sha, wrong_auth = publish(run, signed)
+    monkeypatch.setattr(status, "CONTINUATION_887_R33_CONTRACT", wrong_sha)
+    monkeypatch.setattr(status, "CONTINUATION_887_R33_AUTH", wrong_auth)
+    assert status.r33_after_887_targeted_repair(tmp_path, targeted, old) is None
