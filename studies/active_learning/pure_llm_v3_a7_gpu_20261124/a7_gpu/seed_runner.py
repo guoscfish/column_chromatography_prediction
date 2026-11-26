@@ -549,10 +549,13 @@ def run_seed(*, root, run_directory, contract, authorization, seed, backend, cal
     boundary_attempts = 2 if relay_delay is not None and replay_start == start else 1
     predecessor = contract.predecessor or {}
     cached_import = predecessor.get("cached_import")
-    cached_dispatcher = predecessor.get("dispatcher_module") == "dispatch_v13_887_cached_r7"
-    if cached_dispatcher or cached_import is not None:
+    cached_scope = {
+        "dispatch_v13_887_cached_r7": (887, 7, None),
+        "dispatch_v13_157_cached_r3": (157, 3, SEALED_RELAY_RETRY_SECONDS),
+    }.get(predecessor.get("dispatcher_module"))
+    if cached_scope is not None or cached_import is not None:
         recovery_budget = predecessor.get("recovery_budget")
-        if (not cached_dispatcher or not audit_replay or relay_delay is not None or (seed, start) != (887, 7)
+        if (cached_scope != (seed, start, relay_delay) or not audit_replay or replay_start != start + 1
                 or type(cached_import) is not dict or cached_import.get("provider_post") is not False
                 or recovery_budget != {"maximum_logical_requests": 1, "maximum_physical_attempts": 0}
                 or any(type(value) is not int for value in recovery_budget.values())):
