@@ -299,3 +299,5 @@ python3 -B -m studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.prompt
 ```
 
 The per-seed Mac service uses `com.purellm.a7-ipv4-v13-<seed>-resilient-sse-01`, with its private spool named by the approved contract SHA.
+
+The unified status command follows an approved `a7-gpt62-astra-xhigh-ipv4-v13-<seed>-resilient-failure-01` run after verifying its immediate resilient predecessor and inherited experiment profile. The matching Mac service is `com.purellm.a7-ipv4-v13-<seed>-resilient-failure-01`. The view reports the HTTP status and any separate SSE error status, plus response ID alias evidence when available. For a stopped worker it also identifies any newer reservation that never reached the bridge and shows the last archived attempt.

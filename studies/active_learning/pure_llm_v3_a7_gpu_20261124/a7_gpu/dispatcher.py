@@ -32,7 +32,8 @@ PROGRESS_FILENAME = "provider_progress.json"
 PROGRESS_PHASES = {"request_dispatched", "http_phase", "http_headers", "sse_event", "transport_completed",
                    "transport_failure"}
 PROGRESS_TOKENS = ("provider_request_id", "response_id", "conflicting_response_id", "model", "event_type", "error_type",
-                   "provider_error_code", "provider_error_param", "provider_incomplete_reason")
+                   "conflicting_event_type", "provider_error_code", "provider_error_type", "provider_error_param",
+                   "provider_incomplete_reason")
 PROGRESS_TOKEN = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}")
 USAGE_FIELDS = ("input_tokens", "cached_tokens", "output_tokens", "reasoning_tokens", "total_tokens")
 
@@ -101,6 +102,11 @@ def _transport_progress(attempt, job):
         status = event.get("http_status")
         if type(status) is int and 100 <= status <= 599:
             snapshot["http_status"] = status
+        provider_error_status = event.get("provider_error_status")
+        if type(provider_error_status) is int and 400 <= provider_error_status <= 599:
+            snapshot["provider_error_status"] = provider_error_status
+        if type(event.get("response_id_matches_transport_alias")) is bool:
+            snapshot["response_id_matches_transport_alias"] = event["response_id_matches_transport_alias"]
         for field in PROGRESS_TOKENS:
             token = event.get(field)
             if isinstance(token, str) and PROGRESS_TOKEN.fullmatch(token) and not token.lower().startswith("sk-"):
@@ -301,7 +307,7 @@ class Dispatcher:
             "reported_reasoning_effort": None,
         }
 
-    def dispatch(self, attempt_id, *, before_call, pause=None):
+    def dispatch(self, attempt_id, *, before_call, pause=None, before_no_post=None):
         """Consume at most one approved physical attempt. Unknown completion is never retried."""
         job, request, config = self._job(attempt_id)
         attempt = self.path / "attempts" / attempt_id
@@ -324,7 +330,7 @@ class Dispatcher:
                         or latest.get("window") != len(readiness) or not _valid_elapsed(latest.get("retry_unix"))):
                     raise PermissionError("IPv4 readiness receipt does not bind the archived attempt")
                 if len(readiness) >= self.readiness_windows:
-                    before_call(attempt_id, job)
+                    (before_no_post or before_call)(attempt_id, job)
                     failure = TransportFailure("connect_error", retryable=True)
                     once(result_path, make_result(job, failure=failure, provider_dispatched=False))
                     return "sealed"
@@ -509,9 +515,14 @@ def run_dispatcher(dispatcher, courier, *, watch, stage_only=False, poll=2, work
     blocked.set()
 
     def permission(attempt_id, job):
-        if dispatcher.check_remote(courier.info())["paused"]:
-            raise RemotePaused("remote bridge is paused")
-        fresh = courier.claim(attempt_id, dispatcher.dispatcher_id)
+        if dispatcher.readiness_windows:
+            # The claim endpoint revalidates authorization and pause state for the exact job.
+            # Keep a transient SSH interruption inside this preflight window.
+            fresh = courier.retry_exchange("claim", attempt_id=attempt_id, dispatcher_id=dispatcher.dispatcher_id)
+        else:
+            if dispatcher.check_remote(courier.info())["paused"]:
+                raise RemotePaused("remote bridge is paused")
+            fresh = courier.claim(attempt_id, dispatcher.dispatcher_id)
         dispatcher.validate(fresh)
         if fresh != job:
             raise ValueError("the authenticated claim returned a different provider job")

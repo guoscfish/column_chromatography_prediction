@@ -297,9 +297,12 @@ def verify_observed_alias_normalization(turn, answer, plan, freeze):
 
 
 def select_stage(stage, directory, config, call, *, mock, retry_options=None, response_projection=None,
-                 normalize_observed_reference_aliases=False):
+                 normalize_observed_reference_aliases=False, logical_reply_limit=None):
     """Persist each phase and resume deterministically from complete response receipts."""
     retry_options = retry_options or {}
+    limit = config.logical_replies if logical_reply_limit is None else logical_reply_limit
+    if type(limit) is not int or not 1 <= limit <= config.logical_replies:
+        raise ValueError("logical reply limit must lie inside the registered selection budget")
     reference_repair = stage.binding.get("fixed_reference_repair")
     if (response_projection is None) != (reference_repair is None):
         raise PermissionError("the response projection must match an explicitly bound repair")
@@ -340,7 +343,7 @@ def select_stage(stage, directory, config, call, *, mock, retry_options=None, re
 
         proposal = repair = None
         seen_response_ids = set()
-        for index in range(config.logical_replies):
+        for index in range(limit):
             request = make_request(stage.binding, index, _next_messages(stage, repair), config)
             check_request(request, stage.binding, config)
             answer = run_request(directory, request, config, call, **retry_options)

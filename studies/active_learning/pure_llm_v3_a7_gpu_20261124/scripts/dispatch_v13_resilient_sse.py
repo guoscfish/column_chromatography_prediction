@@ -154,12 +154,13 @@ class ResilientDispatcher(Dispatcher):
             before_call(identity, job)
             _check_seed_lease(self.pool, self.scope["seed"])
 
-        return super().dispatch(attempt_id, before_call=check, pause=pause)
+        return super().dispatch(attempt_id, before_call=check, pause=pause, before_no_post=before_call)
 
 
 def run(args):
     courier = SSHCourier(args.ssh_host, args.remote_root, args.remote_run_dir, args.remote_python)
-    info = verify_info(courier.info(), expected_contract=args.contract_sha256, expected_auth=args.authorization_sha256)
+    info = verify_info(courier.retry_exchange("info"), expected_contract=args.contract_sha256,
+                       expected_auth=args.authorization_sha256)
     proof = _scope(info, args.remote_run_dir, args.seed)
     if args.contract_sha256 in {PILOT_CONTRACT_SHA256, proof["parent_contract_sha256"], proof["previous_contract_sha256"]}:
         raise PermissionError("the resumed lane needs its own scoped Mac spool")

@@ -108,6 +108,40 @@ def test_completed_transport_can_still_fail_scientific_validation(tmp_path):
     assert active["selection_errors"] == {"unexpected_field": 2, "multifactor_mismatch": 1}
 
 
+def test_failed_worker_reports_sealed_failure_instead_of_unsubmitted_reservation(tmp_path):
+    directory = tmp_path / "seed_157"
+    turn = directory / "round_03/turn_00"
+    old, local_only = "6" * 32, "7" * 32
+    write_json(turn / "attempt_00.started.json", {"attempt_id": old, "attempt": 0, "transport": "mac_bridge"})
+    write_json(turn / "attempt_00.terminal.json", {"status": "stopped", "error": "connect_error", "ambiguous": False})
+    write_json(tmp_path / "bridge/results" / f"{old}.json", {})
+    write_json(turn / "attempt_01.started.json", {"attempt_id": local_only, "attempt": 1, "transport": "mac_bridge"})
+
+    assert pending_attempt(tmp_path, directory, 3)["attempt_id"] == local_only
+    active = pending_attempt(tmp_path, directory, 3, failed=True)
+    assert (active["attempt_id"], active["status"], active["failure"], active["unsubmitted_reservations_skipped"]) == (
+        old, "stopped", "connect_error", 1,
+    )
+    write_json(tmp_path / "bridge/outbox" / f"{local_only}.json", {})
+    active = pending_attempt(tmp_path, directory, 3, failed=True)
+    assert active["attempt_id"] == local_only and active["status"] == "waiting_for_mac"
+
+
+def test_local_progress_exposes_only_sanitized_stream_error_fields(tmp_path):
+    identity = "3" * 32
+    active = {"attempt_id": identity, "round": 4, "turn": 0}
+    put_progress(tmp_path, identity, 4, event_type="response.in_progress", error_type="APIError",
+                 http_status=200, provider_error_status=503, provider_error_code="server_error",
+                 provider_error_type="server_error", provider_error_param="sk-not-for-status",
+                 conflicting_event_type="response.completed", conflicting_response_id="resp_fixture_alias",
+                 response_id_matches_transport_alias=True, provider_error_message="private upstream body")
+    provider = local_progress(tmp_path, 887, active)
+    assert provider["http_status"] == 200 and provider["provider_error_status"] == 503
+    assert provider["error_type"] == "APIError" and provider["provider_error_code"] == "server_error"
+    assert provider["conflicting_event_type"] == "response.completed"
+    assert provider["response_id_matches_transport_alias"] is True
+    assert "provider_error_param" not in provider and "provider_error_message" not in provider
+
 
 def test_unstarted_seeds_show_only_verified_original_anchor(tmp_path, monkeypatch):
     runs = tmp_path / "purellm_a7/runs"
@@ -273,6 +307,60 @@ def test_resilient_run_tracks_exact_signed_ancestor_and_launchd(tmp_path, monkey
     monkeypatch.setattr(prompt_pilot_status, "command_lines", launchctl)
     assert prompt_pilot_status.dispatcher_pid(seed, row["segment"]) == 1234
     assert commands[0][-1].endswith(f"/com.purellm.a7-ipv4-v13-{seed}-resilient-sse-01")
+
+    recovery = cohort.with_name(f"{cohort.name}-{seed}-resilient-failure-01")
+    persisted_approval = prompt_pilot_status.read_json(resilient / "authorization.json")
+    predecessor = {**record["predecessor"],
+                   "dispatcher_module": "dispatch_v13_resilient_failure_recovery",
+                   "previous_run_directory": str(resilient), "previous_contract_sha256": exact,
+                   "previous_authorization_sha256": prompt_pilot_status.record_digest(persisted_approval)}
+    new_record = {**record, "run_directory": str(recovery), "predecessor": predecessor}
+    publish(recovery, {**new_record, "predecessor": {**predecessor, "previous_contract_sha256": parent_sha}}, **flags)
+    assert remote_seed(tmp_path, seed)["run"] == resilient.name
+    publish(recovery, {**new_record, "predecessor": {**predecessor, "previous_authorization_sha256": "a" * 64}}, **flags)
+    assert remote_seed(tmp_path, seed)["run"] == resilient.name
+    publish(recovery, new_record)
+    assert remote_seed(tmp_path, seed)["run"] == resilient.name
+    recovery_sha = publish(recovery, new_record, **flags)
+    row = remote_seed(tmp_path, seed)
+    assert (row["run"], row["segment"], row["labels"], row["contract_sha256"]) == (
+        recovery.name, "ipv4_resilient_failure", 461, recovery_sha,
+    )
+    assert row["continuation"] and row["recovery_round"] == 4 and row["readiness_windows"] == 3
+    assert prompt_pilot_status.dispatcher_pid(seed, row["segment"]) == 1234
+    assert commands[-1][-1].endswith(f"/com.purellm.a7-ipv4-v13-{seed}-resilient-failure-01")
+
+
+@pytest.mark.parametrize("seed", prompt_pilot_status.SEEDS)
+def test_each_resilient_failure_lane_requires_unchanged_seed_scope(tmp_path, seed):
+    from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.prompt_pilot_status import (
+        FORMAL_APPROVAL_FLAGS, SERIAL_IPV4, record_digest, resilient_failure_contract,
+    )
+
+    previous = tmp_path / f"{SERIAL_IPV4}-{seed}-resilient-sse-01"
+    recovery = tmp_path / f"{SERIAL_IPV4}-{seed}-resilient-failure-01"
+    profile = {"confirmation_seeds": [seed], "target_labels": 1485, "resume_boundaries": {str(seed): {"round": 3}}}
+    previous_record = {"run_directory": str(previous), "profile": profile}
+    previous_sha = record_digest(previous_record)
+    flags = dict.fromkeys(FORMAL_APPROVAL_FLAGS, True)
+    previous_approval = {"contract_sha256": previous_sha, **flags}
+    write_json(previous / "formal_contract.json", previous_record)
+    write_json(previous / "authorization.json", previous_approval)
+    record = {"run_directory": str(recovery), "profile": profile, "predecessor": {
+        "dispatcher_module": "dispatch_v13_resilient_failure_recovery",
+        "previous_run_directory": str(previous), "previous_contract_sha256": previous_sha,
+        "previous_authorization_sha256": record_digest(previous_approval), "seed": seed, "round": 3,
+        "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 1},
+    }}
+    sha = record_digest(record)
+    write_json(recovery / "formal_contract.json", record)
+    write_json(recovery / "authorization.json", {"contract_sha256": sha, **flags})
+    assert resilient_failure_contract(tmp_path, seed, previous, previous_sha, 3) == (recovery, sha)
+
+    record["profile"] = {**profile, "target_labels": 653}
+    write_json(recovery / "formal_contract.json", record)
+    write_json(recovery / "authorization.json", {"contract_sha256": record_digest(record), **flags})
+    assert resilient_failure_contract(tmp_path, seed, previous, previous_sha, 3) is None
 
 
 def test_readiness_counts_before_post_and_reports_sealed_no_post(tmp_path, monkeypatch):

@@ -6,6 +6,7 @@ from pathlib import PurePosixPath
 import re
 import shlex
 import subprocess
+from time import monotonic, sleep
 
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, dumps
 
@@ -18,6 +19,10 @@ SHA256 = re.compile(r"[0-9a-f]{64}\Z")
 HOST = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.@-]{0,254}\Z")
 INFO_FIELDS = {"schema", "contract_sha256", "authorization_sha256", "contract", "mock", "paused"}
 LIST_FIELDS = {"schema", "attempt_ids", "contract_sha256", "authorization_sha256", "mock", "paused"}
+RETRYABLE_EXCHANGES = frozenset({"info", "list", "get", "claim"})
+RETRY_DELAYS = (0, .25, .75)
+RETRY_TOTAL_SECONDS = 20
+RETRY_EXCHANGE_SECONDS = 8
 
 
 class CourierUnavailable(RuntimeError):
@@ -78,7 +83,7 @@ class SSHCourier:
         if not 1 <= self.timeout <= 120:
             raise ValueError("SSH courier timeout is outside the supported range")
 
-    def _exchange(self, action, *, attempt_id=None, dispatcher_id=None, result=None):
+    def _exchange(self, action, *, attempt_id=None, dispatcher_id=None, result=None, timeout=None):
         if action not in {"info", "list", "get", "claim", "put"}:
             raise ValueError("invalid bridge action")
         if (action in {"get", "claim", "put"}) != (attempt_id is not None) or (
@@ -101,7 +106,8 @@ class SSHCourier:
                "-o", "StrictHostKeyChecking=yes", "--", self.host, remote_command]
         try:
             response = subprocess.run(ssh, input=(dumps(result) + "\n") if result is not None else "",
-                                      capture_output=True, text=True, check=True, timeout=self.timeout)
+                                      capture_output=True, text=True, check=True,
+                                      timeout=self.timeout if timeout is None else timeout)
         except subprocess.CalledProcessError as error:
             if error.returncode == 255:
                 raise CourierUnavailable(f"SSH bridge {action} did not complete") from None
@@ -116,6 +122,29 @@ class SSHCourier:
         if type(value) is not dict:
             raise CourierUnavailable(f"SSH bridge {action} returned an invalid record")
         return value
+
+    def retry_exchange(self, action, *, attempt_id=None, dispatcher_id=None):
+        """Repeat the same read or idempotent claim within one finite SSH budget."""
+        if action not in RETRYABLE_EXCHANGES:
+            raise ValueError("bounded SSH retry requires a read or an exact claim")
+        deadline = monotonic() + min(self.timeout, RETRY_TOTAL_SECONDS)
+        for delay in RETRY_DELAYS:
+            if deadline - monotonic() <= delay:
+                break
+            if delay:
+                sleep(delay)
+            remaining = deadline - monotonic()
+            if remaining <= 0:
+                break
+            try:
+                value = self._exchange(action, attempt_id=attempt_id, dispatcher_id=dispatcher_id,
+                                       timeout=min(remaining, RETRY_EXCHANGE_SECONDS))
+            except CourierUnavailable:
+                continue
+            if monotonic() <= deadline:
+                return value
+            break
+        raise CourierUnavailable(f"SSH bridge {action} did not complete within its retry budget")
 
     def info(self):
         return self._exchange("info")

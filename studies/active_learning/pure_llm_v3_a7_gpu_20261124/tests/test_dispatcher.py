@@ -164,7 +164,14 @@ def test_readiness_window_budget_survives_a_restart(readiness_run, monkeypatch, 
             run.reopen().dispatch(run.identity, before_call=lambda *_: None)
         assert not (run.attempt / "started.json").exists()
     resumed = run.reopen()
-    assert resumed.dispatch(run.identity, before_call=lambda *_: None) == "sealed"
+    def validate_without_key(identity, job):
+        assert (identity, job) == (run.identity, run.job)
+        assert dispatcher.LEASE.get() is None
+
+    validate_with_key = (lambda *_: pytest.fail("archiving exhausted probes does not acquire a Key")
+                         ) if crash_during_last_probe else lambda *_: None
+    assert resumed.dispatch(run.identity, before_call=validate_with_key,
+                            before_no_post=validate_without_key) == "sealed"
     assert len(probes) == 3 and len(list(run.attempt.glob("readiness_*.json"))) == 3
     assert not (run.attempt / "started.json").exists()
     result = resumed.result(run.identity)

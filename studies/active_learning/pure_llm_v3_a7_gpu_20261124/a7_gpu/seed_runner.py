@@ -518,8 +518,8 @@ def run_seed(*, root, run_directory, contract, authorization, seed, backend, cal
         raise ValueError("initial GPU anchor differs from the formal authorization")
     api_slot, fit_slot = api_slot or nullcontext, fit_slot or nullcontext
     options = dict(transport_options or {})
-    if "replay_authorization_factory" in options:
-        raise PermissionError("formal future replay must use the internally verified archive")
+    if {"replay_authorization_factory", "attempt_limit"} & options.keys():
+        raise PermissionError("formal retries must use the internally verified archive and bound recovery budget")
     attempt_slot = options.get("attempt_slot")
     managed_attempt = options.get("managed_attempt")
     alias_normalization = contract.profile.get("normalize_observed_reference_aliases") is True
@@ -527,6 +527,10 @@ def run_seed(*, root, run_directory, contract, authorization, seed, backend, cal
     replay_start = contract.profile.get("replay_eligible_from_round")
     if audit_replay and (mock or managed_attempt is None or type(replay_start) is not int or replay_start != start + 1):
         raise PermissionError("audited future replay is limited to future rounds of a formal managed resume")
+    if audit_replay and (contract.predecessor or {}).get("recovery_budget") != {
+        "maximum_logical_requests": 1, "maximum_physical_attempts": 1
+    }:
+        raise PermissionError("the formal recovery boundary must authorize exactly one logical and physical reservation")
     scope = _scope(contract, authorization, seed, mock)
     gate_seed = contract.qualification_seed if contract.requires_initial_qualification else None
     if gate_seed is not None and seed != gate_seed and qualification_status(run, contract, authorization, mock=mock) is None:
@@ -608,6 +612,9 @@ def run_seed(*, root, run_directory, contract, authorization, seed, backend, cal
                     if _paused(run, directory):
                         break
                     selection_options = {"normalize_observed_reference_aliases": True} if alias_normalization else {}
+                    if audit_replay and index == start:
+                        retry_options["attempt_limit"] = 1
+                        selection_options["logical_reply_limit"] = 1
                     select_stage(stage, round_dir, contract.transport, authorized_call, mock=mock,
                                  retry_options=retry_options, response_projection=response_projection,
                                  **selection_options)

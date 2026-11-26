@@ -311,6 +311,30 @@ def test_independent_retry_and_logical_reply_budgets(tmp_path, stages, config):
     assert len(list(tmp_path.glob("*/decision.json"))) == 2
 
 
+def test_recovery_limits_stop_before_reserving_an_extra_slot(tmp_path, stages, config):
+    stage = stages[0]
+    config = replace(config, logical_replies=2, transport_attempts=2)
+
+    def failed(_request, cfg):
+        assert cfg == config
+        raise TransportFailure("connect_error", retryable=True)
+
+    physical = tmp_path / "physical"
+    with pytest.raises(TransportStop, match="connect_error"):
+        select_stage(stage, physical, config, failed, mock=True, retry_options={"attempt_limit": 1})
+    assert not (physical / "turn_00/attempt_01.started.json").exists()
+    assert read(physical / "turn_00/attempt_00.terminal.json")["status"] == "stopped"
+
+    def malformed(_request, cfg):
+        assert cfg == config
+        return ProviderReply("invalid JSON", "malformed-first-reply", cfg.served_model, {})
+
+    logical = tmp_path / "logical"
+    with pytest.raises(TransportStop, match="logical response budget"):
+        select_stage(stage, logical, config, malformed, mock=True, logical_reply_limit=1)
+    assert not (logical / "turn_01").exists()
+
+
 def test_nested_round_lock_rejects_concurrent_worker(tmp_path):
     with round_lock(tmp_path):
         with pytest.raises(TransportStop, match="another worker"):

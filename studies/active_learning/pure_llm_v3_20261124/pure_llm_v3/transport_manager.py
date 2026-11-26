@@ -255,13 +255,17 @@ def terminal_record(log, index, *, replay_authorization_sha256=None):
 
 
 def run_request(directory, request, config, call, *, sleep=time.sleep, jitter=random.random, now=time.time,
-                attempt_slot=None, managed_attempt=None, replay_authorizations=None, replay_authorization_factory=None):
+                attempt_slot=None, managed_attempt=None, replay_authorizations=None, replay_authorization_factory=None,
+                attempt_limit=None):
     """Run direct attempts or recover an immutable managed attempt without resending it here."""
     check_request(request, request["binding"], config)
+    limit = config.transport_attempts if attempt_limit is None else attempt_limit
+    if type(limit) is not int or not 1 <= limit <= config.transport_attempts:
+        raise ValueError("physical attempt limit must lie inside the registered transport budget")
     if attempt_slot is not None and managed_attempt is not None:
         raise ValueError("a managed attempt cannot use a direct provider slot")
     if replay_authorization_factory is not None and (
-        not callable(replay_authorization_factory) or managed_attempt is None or config.transport_attempts != 2
+        not callable(replay_authorization_factory) or managed_attempt is None or limit != 2
     ):
         raise PermissionError("automatic audited replay requires the two-slot managed bridge")
     log = directory / f"turn_{request['logical_index']:02d}"
@@ -271,10 +275,10 @@ def run_request(directory, request, config, call, *, sleep=time.sleep, jitter=ra
     replay_sha256 = (replay_authorizations or {}).get(request_id)
     replay = None
     if replay_sha256 is not None:
-        if managed_attempt is None or config.transport_attempts != 2:
+        if managed_attempt is None or limit != 2:
             raise PermissionError("audited replay needs the original two-attempt managed bridge")
         replay = terminal_record(log, 0, replay_authorization_sha256=replay_sha256)
-    for index in range(config.transport_attempts):
+    for index in range(limit):
         started_path = log / f"attempt_{index:02d}.started.json"
         terminal_path = log / f"attempt_{index:02d}.terminal.json"
         started = None
@@ -325,7 +329,7 @@ def run_request(directory, request, config, call, *, sleep=time.sleep, jitter=ra
                         rates += 1
                     can_retry = (
                         error.retryable and not error.ambiguous and delay <= config.max_delay_seconds
-                        and rates < config.rate_limit_threshold and index + 1 < config.transport_attempts
+                        and rates < config.rate_limit_threshold and index + 1 < limit
                     )
                     saved = {**started, **evidence, "status": "retryable" if can_retry else "stopped",
                              "error": error.code, "ambiguous": error.ambiguous,

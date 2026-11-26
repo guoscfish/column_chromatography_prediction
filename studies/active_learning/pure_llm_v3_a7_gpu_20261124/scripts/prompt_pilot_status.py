@@ -43,6 +43,8 @@ IPV4_CONTINUATION_DISPATCHERS = {
 }
 IPV4_EXTENSION_END_ROUNDS = {157: 4, 887: 7, 2357: 2, 6101: 2}
 BOUNDED_SSE_END_ROUNDS = {157: 4, 887: 7, 2357: 3, 6101: 2}
+RESILIENT_SEGMENTS = ("ipv4_resilient_sse", "ipv4_resilient_failure")
+FORMAL_APPROVAL_FLAGS = ("authorize_paid_api", "authorize_label_reveal", "authorize_cuda_training")
 PILOT_ROUNDS = 10
 TARGET_ROUNDS = 36
 TARGET_LABELS = 1485
@@ -61,6 +63,8 @@ FIT = re.compile(r"fit_[0-9]{3}\Z")
 ROUND = re.compile(r"round_([0-9]{2})\Z")
 CODE = re.compile(r"[a-zA-Z_][a-zA-Z0-9_.]{0,79}\Z")
 PROVIDER_ID = re.compile(r"[a-zA-Z0-9][a-zA-Z0-9_.-]{0,127}\Z")
+PROVIDER_DIAGNOSTICS = ("error_type", "conflicting_event_type", "provider_error_code", "provider_error_type",
+                        "provider_error_param", "provider_incomplete_reason")
 PHASES = {"request_dispatched", "http_phase", "http_headers", "sse_event",
           "transport_completed", "transport_failure"}
 TOKEN_FIELDS = ("input_tokens", "cached_tokens", "output_tokens", "reasoning_tokens", "total_tokens")
@@ -84,6 +88,12 @@ def checksum(path):
 
 def safe_code(value):
     return value if isinstance(value, str) and CODE.fullmatch(value) else None
+
+
+def provider_token(value):
+    if isinstance(value, str) and PROVIDER_ID.fullmatch(value) and not value.lower().startswith("sk-"):
+        return value
+    return None
 
 
 def pid(value):
@@ -125,17 +135,26 @@ def latest_round(directory):
     return None, {}
 
 
-def pending_attempt(run, directory, index):
+def pending_attempt(run, directory, index, *, failed=False):
     if index is None:
         return {}
+    skipped = 0
     for path in sorted((directory / f"round_{index:02}").glob("turn_[0-9][0-9]/attempt_*.started.json"), reverse=True):
         started = read_json(path)
         identity = started.get("attempt_id", "")
         if not isinstance(identity, str) or not IDENTITY.fullmatch(identity):
             continue
         stem = path.name.removesuffix(".started.json")
-        record = read_json(path.with_name(f"{stem}.recovery.terminal.json")) or read_json(path.with_name(f"{stem}.terminal.json"))
+        recovery = path.with_name(f"{stem}.recovery.terminal.json")
+        terminal = path.with_name(f"{stem}.terminal.json")
+        record = read_json(recovery) or read_json(terminal)
         returned = (run / "bridge/results" / f"{identity}.json").is_file()
+        if (failed and started.get("transport") == "mac_bridge" and not returned
+                and not recovery.exists() and not terminal.exists() and not any(
+                    (run / "bridge" / folder / f"{identity}.json").exists() for folder in ("outbox", "claims")
+                )):
+            skipped += 1
+            continue
         status = safe_code(record.get("status")) or ("returned_from_mac" if returned else "waiting_for_mac")
         decision = read_json(path.parent / "decision.json")
         diagnosis = decision.get("diagnosis") or {}
@@ -145,16 +164,21 @@ def pending_attempt(run, directory, index):
                 "round": index, "turn": int(path.parent.name[-2:]), "attempt": started.get("attempt"),
                 "reserved_unix": seconds(started.get("started_unix")),
                 "attempt_id": identity, "returned_from_mac": returned,
+                **({"unsubmitted_reservations_skipped": skipped} if skipped else {}),
                 "selection": safe_code(decision.get("state")), "selection_errors": dict(errors)}
-    return {}
+    return {"status": "failed_before_bridge", "unsubmitted_reservations_skipped": skipped} if skipped else {}
+
+
+def record_digest(record):
+    return hashlib.sha256(json.dumps(record, sort_keys=True, separators=(",", ":"), ensure_ascii=True,
+                                     allow_nan=False).encode()).hexdigest()
 
 
 def fallback_contract(run):
     record = read_json(run / "formal_contract.json")
     if record.get("run_directory") != str(run):
         return None
-    actual = hashlib.sha256(json.dumps(record, sort_keys=True, separators=(",", ":"), ensure_ascii=True,
-                                       allow_nan=False).encode()).hexdigest()
+    actual = record_digest(record)
     approval = read_json(run / "authorization.json")
     return actual if approval.get("contract_sha256") == actual else None
 
@@ -188,11 +212,35 @@ def resilient_contract(runs, seed, previous, previous_contract, cohort_contract,
             or proof.get("recovery_budget") != {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}
             or profile.get("confirmation_seeds") != [seed] or profile.get("target_labels") != TARGET_LABELS
             or profile.get("ipv4_readiness_windows") != 3
-            or any(approval.get(name) is not True for name in
-                   ("authorize_paid_api", "authorize_label_reveal", "authorize_cuda_training"))):
+            or any(approval.get(name) is not True for name in FORMAL_APPROVAL_FLAGS)):
         return None
     if contract := fallback_contract(run):
         return run, contract, start, profile["ipv4_readiness_windows"]
+    return None
+
+
+def resilient_failure_contract(runs, seed, previous, previous_contract, recovery_round):
+    run = runs / f"{SERIAL_IPV4}-{seed}-resilient-failure-01"
+    record = read_json(run / "formal_contract.json")
+    proof = record.get("predecessor") or {}
+    profile = record.get("profile", {})
+    previous_record = read_json(previous / "formal_contract.json")
+    previous_approval = read_json(previous / "authorization.json")
+    approval = read_json(run / "authorization.json")
+    if (previous.name != f"{SERIAL_IPV4}-{seed}-resilient-sse-01"
+            or previous_approval.get("contract_sha256") != previous_contract
+            or proof.get("dispatcher_module") != "dispatch_v13_resilient_failure_recovery"
+            or proof.get("previous_run_directory") != str(previous)
+            or proof.get("previous_contract_sha256") != previous_contract
+            or proof.get("previous_authorization_sha256") != record_digest(previous_approval)
+            or proof.get("seed") != seed or proof.get("round") != recovery_round
+            or proof.get("recovery_budget") != {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}
+            or profile != previous_record.get("profile")
+            or profile.get("confirmation_seeds") != [seed] or profile.get("target_labels") != TARGET_LABELS
+            or any(approval.get(name) is not True for name in FORMAL_APPROVAL_FLAGS)):
+        return None
+    if contract := fallback_contract(run):
+        return run, contract
     return None
 
 
@@ -331,6 +379,10 @@ def remote_seed(runs, seed):
         ancestors = (run, *ancestors)
         run, contract, recovery_round, readiness_windows = resilient
         segment = "ipv4_resilient_sse"
+        if recovered := resilient_failure_contract(runs, seed, run, contract, recovery_round):
+            ancestors = (run, *ancestors)
+            run, contract = recovered
+            segment = "ipv4_resilient_failure"
     if seed in UNSTARTED_ANCHORS and not cohort_contract and not any(
         (path / f"seed_{seed}").exists() for path in (run, *ancestors)
     ):
@@ -363,8 +415,9 @@ def remote_seed(runs, seed):
     worker_live = coordinator_live and (worker_pid == coordinator or live(worker_pid, coordinator=coordinator))
     paused = (run / "pause.request").is_file() or (directory / "pause.request").is_file()
     gpu = read_json(run / "gpu" / f"seed_{seed}.json")
-    api = pending_attempt(run, directory, latest)
     phase = safe_code(worker.get("status")) or "waiting_to_start"
+    api = pending_attempt(run, directory, latest,
+                          failed=segment in RESILIENT_SEGMENTS and phase == "failed" and not worker_live)
     if latest == TARGET_ROUNDS:
         phase = "complete"
     elif segment in ("ipv4_extension", "ipv4_json_extension", "ipv4_ws_extension") and latest == IPV4_EXTENSION_END_ROUNDS[seed] and (
@@ -376,7 +429,7 @@ def remote_seed(runs, seed):
     elif segment == "ipv4_r2_extension" and latest == 3 and (run / "extension_completion.json").is_file():
         phase = "transport_extension_complete"
     elif latest == PILOT_ROUNDS and segment not in ("v6", "v11", "background", "ipv4", "ipv4_continuation",
-                                                          "ipv4_r2_continuation", "ipv4_resilient_sse"):
+                                                     "ipv4_r2_continuation", *RESILIENT_SEGMENTS):
         phase = "awaiting_v6_handoff"
     elif paused:
         phase = "paused"
@@ -399,9 +452,10 @@ def remote_seed(runs, seed):
     return {"seed": seed, "run": run.name, "contract_sha256": contract, "segment": segment,
             "continuation": segment in ("ipv4", "ipv4_extension", "ipv4_continuation", "ipv4_r2_extension",
                                         "ipv4_r2_continuation", "ipv4_json_extension", "ipv4_ws_extension",
-                                        "ipv4_bounded_sse", "ipv4_resilient_sse", "background", "v11", "v6", "v5", "direct", "repair"),
+                                        "ipv4_bounded_sse", *RESILIENT_SEGMENTS, "background", "v11", "v6", "v5",
+                                        "direct", "repair"),
             **({"recovery_round": recovery_round, "readiness_windows": readiness_windows}
-               if segment == "ipv4_resilient_sse" else {}),
+               if segment in RESILIENT_SEGMENTS else {}),
             "target_rounds": TARGET_ROUNDS, "target_labels": TARGET_LABELS,
             "completed_rounds": latest, "labels": 333 + latest * 32 if latest is not None else None,
             "phase": phase, "worker_pid": worker_pid, "worker_active": worker_live,
@@ -514,8 +568,15 @@ def local_progress(spool, seed, active, *, track_queue=False, readiness_windows=
     first_text = first_text_event.get("elapsed_seconds") if isinstance(first_text_event, dict) else None
     terminal_event = events.get("response.completed")
     terminal_time = terminal_event.get("elapsed_seconds") if isinstance(terminal_event, dict) else None
-    ids = {field: value for field in ("response_id", "conflicting_response_id", "provider_request_id")
-           if isinstance(value := status.get(field), str) and PROVIDER_ID.fullmatch(value)}
+    tokens = {field: value for field in ("response_id", "conflicting_response_id", "provider_request_id",
+                                         *PROVIDER_DIAGNOSTICS) if (value := provider_token(status.get(field))) is not None}
+    diagnostics = {}
+    provider_status = status.get("provider_error_status")
+    if type(provider_status) is int and 400 <= provider_status <= 599:
+        diagnostics["provider_error_status"] = provider_status
+    alias = status.get("response_id_matches_transport_alias")
+    if type(alias) is bool:
+        diagnostics["response_id_matches_transport_alias"] = alias
     fields = ("round", "logical_index", "http_status", "elapsed_seconds", "sse_event_count")
     progress = {field: status[field] for field in fields if type(status.get(field)) in (int, float)}
     elapsed = seconds(status.get("elapsed_seconds"))
@@ -528,7 +589,7 @@ def local_progress(spool, seed, active, *, track_queue=False, readiness_windows=
     return {**timing, **readiness, **progress, **dispatch, "phase": status["phase"], "sealed": sealed, "delivered": delivered,
             "progress_age_seconds": max(0, round(now - updated)),
             "event_type": safe_code(status.get("event_type")), "usage": usage(status.get("usage")),
-            **ids,
+            **tokens, **diagnostics,
             "provider_elapsed_seconds": elapsed,
             "first_output_seconds": seconds(first_text),
             "last_sse_seconds": seconds(status.get("last_sse_seconds")),
@@ -550,7 +611,8 @@ def dispatcher_pid(seed, segment):
                        "ipv4_json_extension": "a7-ipv4-v13-887-json-extension-01",
                        "ipv4_ws_extension": "a7-ipv4-v13-6101-ws-extension-01",
                        "ipv4_bounded_sse": f"a7-ipv4-v13-{seed}-bounded-sse-01",
-                       "ipv4_resilient_sse": f"a7-ipv4-v13-{seed}-resilient-sse-01"}
+                       "ipv4_resilient_sse": f"a7-ipv4-v13-{seed}-resilient-sse-01",
+                       "ipv4_resilient_failure": f"a7-ipv4-v13-{seed}-resilient-failure-01"}
     if segment in cohort_services:
         service = cohort_services[segment]
         label = f"gui/{os.getuid()}/com.purellm.{service}"
@@ -609,7 +671,7 @@ def mac_report(private, seeds):
                     track_queue=row["segment"] in ("ipv4", "ipv4_extension", "ipv4_continuation",
                                                    "ipv4_r2_extension", "ipv4_r2_continuation",
                                                    "ipv4_json_extension", "ipv4_ws_extension", "ipv4_bounded_sse",
-                                                   "ipv4_resilient_sse"),
+                                                   *RESILIENT_SEGMENTS),
                     readiness_windows=row.get("readiness_windows", 0),
                 )
         if row.get("continuation"):
@@ -641,6 +703,16 @@ def show(view):
                   f"Mac {provider.get('phase', '—')} ({sealed})  HTTP {provider.get('http_status', '—')}  "
                   f"SSE {provider.get('sse_event_count', '—')}  "
                   f"状态更新 {provider.get('progress_age_seconds', '—')} s 前  tokens {provider.get('usage') or '—'}")
+            if skipped := api.get("unsubmitted_reservations_skipped"):
+                print(f"  已略过 {skipped} 个未提交到 bridge 的本地预留")
+            error_details = [f"{label} {provider[field]}" for field, label in (
+                ("error_type", "传输异常"), ("provider_error_code", "SSE 错误码"),
+                ("provider_error_status", "SSE 错误状态"), ("conflicting_event_type", "ID 变化事件"),
+            ) if field in provider]
+            if provider.get("response_id_matches_transport_alias") is True:
+                error_details.append("变化 ID 与传输别名一致")
+            if error_details:
+                print("  " + "  ".join(error_details))
             if provider.get("readiness_windows_used"):
                 retry = provider.get("readiness_retry_seconds")
                 retry_text = f"  下个窗口最早 {retry} s 后" if retry is not None else ""

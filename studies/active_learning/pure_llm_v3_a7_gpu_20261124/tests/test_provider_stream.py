@@ -13,7 +13,7 @@ from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import dig
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
     RESPONSES_JSON_IPV4, RESPONSES_STREAM_IPV4, TransportConfig, TransportFailure, make_request, responses_call,
 )
-from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu import provider
+from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu import dispatcher, provider
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.formal_contract import RequestTimeouts
 
 
@@ -144,6 +144,24 @@ def test_completion_must_agree_with_previously_reported_response_id(mock_provide
                     if row["phase"] == "sse_event" and row.get("error_type") == "response_id_mismatch")
     assert mismatch["response_id"] == "resp_stream"
     assert mismatch.get("conflicting_response_id") == reported_id
+    assert mismatch["conflicting_event_type"] == "response.completed"
+    assert mismatch["response_id_matches_transport_alias"] is False
+
+
+def test_response_id_matching_transport_alias_still_requires_reconciliation(mock_provider):
+    request_id = "00000001-0002-4000-8000-000000000003"
+    alias = "resp_00000001000240008000000000000003"
+
+    def body():
+        yield _event("response.created")
+        yield _event("response.completed", alias, status="completed")
+
+    check = mock_provider(body, request_id=request_id)
+    assert check.result.code == "response_id_mismatch" and check.result.ambiguous
+    assert not check.raw and not check.receipt
+    mismatch = next(row for row in check.progress if row.get("conflicting_response_id") == alias)
+    assert mismatch["conflicting_event_type"] == "response.completed"
+    assert mismatch["response_id_matches_transport_alias"] is True
 
 
 def test_sse_error_retains_only_structured_failure_fields(mock_provider):
@@ -351,6 +369,62 @@ def async_mock_provider(tmp_path, monkeypatch):
                                request=signed_request, request_order=request_order)
 
     return call
+
+
+def test_http_200_nested_sse_error_preserves_only_allowlisted_diagnostics(async_mock_provider, tmp_path):
+    async def body():
+        yield _event("response.created")
+        yield _frame("error", error={"code": "server_error", "type": "test-key-canary", "status": 502,
+                                      "param": "reasoning.effort", "message": "unpublished response text",
+                                      "headers": {"authorization": "test-key-canary"}})
+
+    check = async_mock_provider(body, ipv4=True)
+    assert check.requests == ["GET", "POST"] and check.dispatches == [True]
+    assert (check.result.code, check.result.retryable, check.result.ambiguous) == ("provider_stream_error", False, True)
+    assert not check.raw and not check.receipt
+    assert check.progress[-1]["error_type"] == "APIError"
+    attempt = tmp_path / "local-attempt"
+    attempt.mkdir()
+    save = dispatcher._transport_progress(attempt, {"job_sha256": "a" * 64, "request": check.request})
+    for update in check.progress:
+        save(update)
+    snapshot = json.loads((attempt / dispatcher.PROGRESS_FILENAME).read_text())
+    assert {key: value for key, value in snapshot.items() if key.startswith("provider_error_")} == {
+        "provider_error_code": "server_error", "provider_error_type": "unrecognized",
+        "provider_error_param": "reasoning.effort", "provider_error_status": 502,
+    }
+    assert snapshot["http_status"] == 200 and snapshot["response_id"] == "resp_stream"
+    saved = json.dumps([snapshot, check.progress])
+    assert "test-key-canary" not in saved and "unpublished response text" not in saved and "authorization" not in saved
+
+
+@pytest.mark.parametrize("status", [429, 429.0, None])
+def test_only_explicit_nested_429_applies_shared_hold_without_replay(async_mock_provider, status):
+    async def body():
+        yield _event("response.created")
+        yield _frame("error", error={"code": "rate_limit_exceeded", "type": "rate_limit_error", "status": status,
+                                      "retry_after": 19, "rate_limit_scope": "credential"})
+
+    check = async_mock_provider(body, ipv4=True)
+    assert check.requests == ["GET", "POST"] and check.dispatches == [True]
+    assert check.result.ambiguous and not check.result.retryable and not check.raw and not check.receipt
+    code, details = check.outcome_details[0]
+    assert code == check.result.code == ("http_429" if type(status) is int else "provider_stream_error")
+    assert details["scope"] == "shared" and details["retry_after"] == (19 if type(status) is int else None)
+
+
+def test_generic_sdk_error_does_not_claim_a_provider_error_frame(async_mock_provider):
+    import openai
+
+    async def body():
+        yield _event("response.created")
+        raise openai.OpenAIError("test-key-canary")
+
+    check = async_mock_provider(body, ipv4=True)
+    assert check.requests == ["GET", "POST"] and check.result.code == "sdk_error" and check.result.ambiguous
+    assert check.progress[-1]["error_type"] == "OpenAIError"
+    assert not any(key.startswith("provider_error_") for key in check.progress[-1])
+    assert "test-key-canary" not in json.dumps(check.progress)
 
 
 def _json_payload(**changes):

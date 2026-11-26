@@ -22,6 +22,23 @@ from .credentials import api_key, key_text
 from .key_pool import LEASE
 
 TOKEN = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}")
+REQUEST_UUID = re.compile(r"[a-fA-F0-9]{8}(?:-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}")
+STREAM_RATE_LIMIT_ERRORS = {"rate_limit_exceeded", "rate_limit_error", "too_many_requests"}
+STREAM_ERROR_FIELDS = {
+    "code": STREAM_RATE_LIMIT_ERRORS | {
+        "server_error", "internal_error", "internal_server_error", "upstream_error", "upstream_timeout",
+        "service_unavailable", "model_overloaded", "model_not_found", "unsupported_model", "invalid_request_error",
+        "invalid_api_key", "insufficient_quota", "insufficient_balance", "billing_hard_limit_reached",
+        "context_length_exceeded", "context_window_exceeded", "input_too_long", "unsupported_value",
+        "invalid_value", "content_filter", "content_policy_violation", "permission_denied",
+    },
+    "type": STREAM_RATE_LIMIT_ERRORS | {
+        "server_error", "internal_server_error", "upstream_error", "api_error", "invalid_request_error",
+        "authentication_error", "permission_error", "insufficient_quota", "content_policy_violation",
+    },
+    "param": {"model", "reasoning", "reasoning.effort", "reasoning_effort", "input", "stream", "store",
+              "max_output_tokens", "previous_response_id"},
+}
 LIFECYCLE_EVENTS = {
     "response.created", "response.queued", "response.in_progress", "response.completed",
     "response.incomplete", "response.failed", "error",
@@ -95,6 +112,28 @@ def _progress_token(value):
     if isinstance(value, str) and TOKEN.fullmatch(value):
         return value
     return None
+
+
+def _stream_error_audit(error):
+    body = error.body if isinstance(error.body, dict) else {}
+    fields = {}
+    for field, allowed in STREAM_ERROR_FIELDS.items():
+        value = body.get(field)
+        if value is not None:
+            fields[f"provider_error_{field}"] = value if isinstance(value, str) and value in allowed else "unrecognized"
+    status = body.get("status")
+    if type(status) is int and 400 <= status <= 599:
+        fields["provider_error_status"] = status
+    # The model POST already ran. Even an explicit throttling frame must not schedule a replay.
+    throttled = type(status) is int and status == 429 and any(
+        fields.get(f"provider_error_{field}") in STREAM_RATE_LIMIT_ERRORS for field in ("code", "type")
+    )
+    if throttled:
+        retry_after = body.get("retry_after")
+        headers = {"retry-after": str(retry_after)} if type(retry_after) in (int, float) else {}
+        cooldown = retry_http(429, headers).retry_after
+        return TransportFailure("http_429", ambiguous=True, retry_after=cooldown), fields
+    return TransportFailure("provider_stream_error", ambiguous=True), fields
 
 
 def _headers_progress(response, report):
@@ -190,7 +229,12 @@ class _StreamEvidence:
                     identities = {field: token for field, value in (
                         ("response_id", self.response_id), ("conflicting_response_id", response_id),
                     ) if (token := _progress_token(value)) is not None}
-                    self.report("sse_event", observed_at=received, error_type="response_id_mismatch", **identities)
+                    transport_id = self.headers.get("x-request-id")
+                    matches_alias = bool(isinstance(transport_id, str) and REQUEST_UUID.fullmatch(transport_id)
+                                         and response_id == f"resp_{transport_id.replace('-', '').lower()}")
+                    self.report("sse_event", observed_at=received, error_type="response_id_mismatch",
+                                conflicting_event_type=kind, response_id_matches_transport_alias=matches_alias,
+                                **identities)
                 raise TransportFailure("response_id_mismatch", ambiguous=True)
             self.response_id = response_id
         if self.activity is not None and self.activity.observe(event):
@@ -509,6 +553,7 @@ def call_responses(request, config, *, model_lock, capture_response=None, captur
                 pass
 
     error_type = None
+    error_audit = {}
     try:
         # A client gets one immutable key, no mutation of the process-wide environment.
         if lease.path is None:
@@ -552,13 +597,17 @@ def call_responses(request, config, *, model_lock, capture_response=None, captur
         failure = TransportFailure(code, ambiguous=True)
         error_type = type(error).__name__
     except openai.OpenAIError as error:
-        failure = TransportFailure("sdk_error", ambiguous=True)
+        # In the pinned SDK the bare APIError is raised on a nested error frame inside HTTP 200 SSE.
+        if type(error) is openai.APIError:
+            failure, error_audit = _stream_error_audit(error)
+        else:
+            failure = TransportFailure("sdk_error", ambiguous=True)
         error_type = type(error).__name__
     except _ReturnedResponseError as error:
         reply, failure = error.reply, error.failure
     except TransportFailure as error:
         failure = error
-    report("transport_failure", error_type=error_type or failure.code)
+    report("transport_failure", error_type=error_type or failure.code, **error_audit)
     lease.outcome(failure.code, scope=scope, retry_after=failure.retry_after,
                   usage=reply.usage if reply else None, response_complete=reply is not None)
     if reply is not None:
@@ -946,6 +995,8 @@ async def _hard_wall_call(key, request, config, lease, capture_response, capture
                             before_provider_dispatch()
                         except Exception as error:
                             raise _ProviderDispatchGuardError() from error
+                        if time.monotonic() >= deadline:
+                            raise _IPv4PreflightFailure()
                     lease.dispatched()
                     submission_reserved = True
                     if report is not None:
