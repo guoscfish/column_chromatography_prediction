@@ -1,0 +1,27 @@
+diff --git a/studies/active_learning/pure_llm_v3_20261124/pure_llm_v3/transport_manager.py b/studies/active_learning/pure_llm_v3_20261124/pure_llm_v3/transport_manager.py
+index e0fdb2ac95b44315e5a6ba672aa3884738f6b671..6d98b17337eade28285a8e4134b15729c2aaaa85 100644
+--- a/studies/active_learning/pure_llm_v3_20261124/pure_llm_v3/transport_manager.py
++++ b/studies/active_learning/pure_llm_v3_20261124/pure_llm_v3/transport_manager.py
+@@ -510,0 +511,12 @@ def _response_field(item, field):
++def _blank_output_message(item):
++    content = _response_field(item, "content")
++    if _response_field(item, "status") != "completed" or not isinstance(content, list) or not content:
++        return False
++    for part in content:
++        text = _response_field(part, "text")
++        if (_response_field(part, "type") != "output_text" or not isinstance(text, str)
++                or text.strip(" \t\r\n") or _response_field(part, "annotations")):
++            return False
++    return True
++
++
+@@ -520 +532 @@ def response_output_text(output):
+-        if (len(finals) != 1 or any(phase not in ("commentary", "final_answer") for phase in phases)
++        if (len(finals) != 1 or _response_field(finals[0], "status") != "completed"
+@@ -522 +534,2 @@ def response_output_text(output):
+-                or _response_field(finals[0], "status") != "completed"):
++                or any(phase not in ("commentary", "final_answer") and not (phase is None and _blank_output_message(item))
++                       for item, phase in zip(messages, phases, strict=True))):
+@@ -535,0 +549,2 @@ def response_output_text(output):
++            elif phase_aware:
++                raise ResponseMessagePhaseError()

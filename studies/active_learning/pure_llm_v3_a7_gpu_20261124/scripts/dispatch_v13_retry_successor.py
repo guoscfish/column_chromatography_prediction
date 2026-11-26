@@ -40,6 +40,7 @@ def _scope(info, run, lane):
         expected["reviewed_fitted_prefix_files"] = dict(lane.fitted_prefix_files)
     if lane.cached_origin is not None:
         expected["reviewed_cached_import"] = lane.cached_origin.review
+    header_deadline = lane.header_deadline_profile
     settings = {
         "provider_capability": "gated_ipv4", "arm": "A7", "memory": "M2", "device": "cuda",
         "initial_labels": 333, "target_labels": 1485, "batch_size": 32, "api_parallelism": 1,
@@ -48,11 +49,13 @@ def _scope(info, run, lane):
         "sse_inactivity_seconds": 900, "ipv4_preflight_retry": True, "ipv4_readiness_windows": 3,
         "normalize_observed_reference_aliases": True, "audited_future_transport_replay": True,
         "replay_eligible_from_round": lane.replay_start_round, "sealed_relay_retry_seconds": gpu.retry.COOLDOWN_SECONDS,
+        **header_deadline,
     }
     boundaries = profile.get("resume_boundaries", {})
     if (path.name != lane.run_name or record["run_directory"] != run or record["api_execution"] != SSH_API
             or "cached_import" in proof
             or record["gpu_slots"] != [0] or record["budget"] != lane.budget or "fixed_reference_repair" in profile
+            or (gpu.HEADER_DEADLINE_FIELD in profile) != bool(header_deadline)
             or request_timeouts(profile) != resilient.TIMEOUTS
             or any(type(proof.get(k)) is not type(v) or proof[k] != v for k, v in expected.items())
             or any(type(profile.get(k)) is not type(v) or profile[k] != v for k, v in settings.items())

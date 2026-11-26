@@ -2732,6 +2732,8 @@ def check_repeated_boundary(runs, monkeypatch, publish, seed, wave, previous, pr
     record = {**previous_record, "run_directory": str(run), "predecessor": proof, "budget": exact["execution_budget"],
               "source_sha256": getattr(status, f"{prefix}_SOURCES", previous_record["source_sha256"]),
               "profile": {**previous_record["profile"], "replay_eligible_from_round": round_index + (physical == 1)}}
+    if (seed, wave) == (2357, 19):
+        record["profile"]["response_headers_seconds"] = 300
     broken = {**record, "predecessor": {**proof, "reviewed_retry_chain": [new_review]}}
     broken_sha, broken_auth = publish(run, broken)
     monkeypatch.setattr(status, f"{prefix}_CONTRACT", broken_sha)
@@ -2748,9 +2750,11 @@ def check_repeated_boundary(runs, monkeypatch, publish, seed, wave, previous, pr
     checked_file.write_bytes(original)
     assert status.reviewed_relay_contract(runs, seed, wave, previous, previous_sha) == expected
     if (seed, wave) in ((157, 10), (157, 11), (157, 12), (887, 8), (2357, 9), (2357, 10), (2357, 11), (2357, 12),
-                        (157, 13), (157, 14), (157, 15), (2357, 13), (2357, 14), (2357, 15), (2357, 16),
-                        (6101, 11), (6101, 12), (6101, 13), (6101, 14), (6101, 15),
-                        (12203, 16), (12203, 17), (12203, 18), (12203, 19), (12203, 20), (12203, 21), (12203, 22)):
+                        (157, 13), (157, 14), (157, 15), (157, 16), (157, 17), (157, 18),
+                        (2357, 13), (2357, 14), (2357, 15), (2357, 16), (2357, 17), (2357, 18),
+                        (6101, 11), (6101, 12), (6101, 13), (6101, 14), (6101, 15), (6101, 16), (6101, 17), (6101, 18),
+                        (12203, 16), (12203, 17), (12203, 18), (12203, 19), (12203, 20), (12203, 21),
+                        (12203, 22), (12203, 23), (12203, 24), (12203, 25)):
         check_repeated_boundary(runs, monkeypatch, publish, seed, wave + 1, run, sha, auth, record)
 
 
@@ -2954,7 +2958,9 @@ def check_6101_r5_handoff(runs, monkeypatch, publish, parent, cached, cached_sha
                                        (2357, 13), (2357, 14), (2357, 15), (6101, 11), (6101, 12), (6101, 13),
                                        (6101, 14), (157, 13), (157, 14), (12203, 17), (12203, 18), (12203, 19),
                                        (12203, 20), (12203, 21), (12203, 22), (12203, 23), (157, 15), (157, 16),
-                                       (2357, 16), (2357, 17), (6101, 15), (6101, 16)])
+                                       (2357, 16), (2357, 17), (2357, 18), (6101, 15), (6101, 16), (6101, 17),
+                                       (157, 17), (157, 18), (157, 19), (2357, 19), (6101, 18), (6101, 19),
+                                       (12203, 24), (12203, 25), (12203, 26)])
 def test_new_exact_reviewed_relay_pins_the_original_retired_receipt(seed, wave):
     from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.run_v13_retry_successor import SCOPES
 
@@ -2984,7 +2990,7 @@ def test_new_exact_reviewed_relay_pins_the_original_retired_receipt(seed, wave):
         assert getattr(status, f"{old}_TERMINALS") == tuple(item.terminal_file_sha256 for item in review.attempts)
         assert getattr(status, f"{old}_REPLAY_FILES") == review.replay_files
         assert getattr(status, f"{prefix}_ARCHIVED_SSE_COUNTS") == tuple(
-            item.progress["sse_event_count"] for item in review.attempts
+            item.progress.get("sse_event_count", 0) for item in review.attempts
         )
     sources = getattr(status, f"{prefix}_SOURCES")
     assert {name: sources[name] for name, _ in scope.required_sources} == dict(scope.required_sources)
@@ -3089,3 +3095,49 @@ def test_887_r13_cached_repair_requires_real_l781_and_zero_bridge_posts(tmp_path
     outbox.unlink()
     (run / "seed_887/round_14/fit_000/best.pt").unlink()
     assert status.r13_cached_correction(tmp_path, paid, paid_sha) is None
+
+
+def test_887_r20_monitor_requires_exact_cached_handoff_and_new_parser(tmp_path, monkeypatch):
+    status = prompt_pilot_status
+    previous = tmp_path / status.CACHED_887_R19_RUN
+    run = tmp_path / status.CONTINUATION_887_R20_RUN
+    h = dict(status.CACHED_887_R19_HANDOFF)
+    custody = {"provider_post": False}
+    h["cached_selection_sha256"] = status.record_digest(custody)
+    monkeypatch.setattr(status, "CACHED_887_R19_HANDOFF", h)
+    parser_path = "studies/active_learning/pure_llm_v3_20261124/pure_llm_v3/transport_manager.py"
+    helper = "studies/active_learning/pure_llm_v3_a7_gpu_20261124/scripts/run_v13_887_r19_cached.py"
+    sources = {**status.CONTINUATION_887_R20_SOURCES, parser_path: status.CONTINUATION_887_R20_PARSER,
+               helper: status.CONTINUATION_887_R20_CACHED_HELPER}
+    proof = {"dispatcher_module": "dispatch_v13_887_r20_continuation", "seed": 887, "round": 20,
+             "parent_run_directory": str(tmp_path / status.CONTINUATION_887_R14_RUN),
+             "parent_contract_sha256": status.CONTINUATION_887_R14_CONTRACT,
+             "parent_authorization_sha256": status.CONTINUATION_887_R14_AUTH, "extension_run_directory": str(previous),
+             "checkpoint_sha256": h["checkpoint_sha256"], "r19_handoff": h, "cached_selection": custody,
+             "cached_response_import_file_sha256": status.CACHED_887_R19_FILES["cached_response_import.json"],
+             "r20_request": status.CONTINUATION_887_R20_REQUEST, "execution_budget": status.CONTINUATION_887_R20_BUDGET,
+             "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 2}}
+    boundary = {"round": 20, "state_sha256": h["state_sha256"], "memory_sha256": h["scientific_memory_sha256"]}
+    profile = {"resume_boundaries": {"887": boundary}, "target_labels": 1485, "confirmation_seeds": [887],
+               "replay_eligible_from_round": 20, "audited_future_transport_replay": True,
+               "sealed_relay_retry_seconds": 180, "ipv4_readiness_windows": 3}
+    signed = {"run_directory": str(run), "budget": status.CONTINUATION_887_R20_BUDGET,
+              "profile": profile, "source_sha256": sources, "predecessor": proof}
+
+    def publish(record):
+        sha = status.record_digest(record)
+        approval = {"contract_sha256": sha, **dict.fromkeys(status.FORMAL_APPROVAL_FLAGS, True)}
+        write_json(run / "formal_contract.json", record)
+        write_json(run / "authorization.json", approval)
+        monkeypatch.setattr(status, "CONTINUATION_887_R20_CONTRACT", sha)
+        monkeypatch.setattr(status, "CONTINUATION_887_R20_AUTH", status.record_digest(approval))
+        return sha
+
+    sha = publish(signed)
+    assert status.r20_after_887_cached_correction(tmp_path, previous, h["contract_sha256"]) == (run, sha, 20, 3)
+    wrong_parser = {**signed, "source_sha256": {**sources, parser_path: "f" * 64}}
+    publish(wrong_parser)
+    assert status.r20_after_887_cached_correction(tmp_path, previous, h["contract_sha256"]) is None
+    wrong_handoff = {**signed, "predecessor": {**proof, "r19_handoff": {**h, "provider_post": True}}}
+    publish(wrong_handoff)
+    assert status.r20_after_887_cached_correction(tmp_path, previous, h["contract_sha256"]) is None

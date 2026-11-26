@@ -1,0 +1,136 @@
+diff --git a/studies/active_learning/pure_llm_v3_a7_gpu_20261124/a7_gpu/dispatcher.py b/studies/active_learning/pure_llm_v3_a7_gpu_20261124/a7_gpu/dispatcher.py
+index 4b97eaf4b6e8110399d3cc3d041b64701b3ceb3f..d0fafc211f978d684b3fd11abcd39f00beb6fb54 100644
+--- a/studies/active_learning/pure_llm_v3_a7_gpu_20261124/a7_gpu/dispatcher.py
++++ b/studies/active_learning/pure_llm_v3_a7_gpu_20261124/a7_gpu/dispatcher.py
+@@ -28 +28,4 @@ from .key_pool import LEASE, KeyPool, load_pool
+-from .provider import NETWORK_PHASES, PROGRESS_MILESTONES, call_responses, recover_completed_response, sdk_status
++from .provider import (
++    NETWORK_PHASES, PROGRESS_MILESTONES, call_responses, recover_completed_response, sdk_status,
++    validate_response_headers_seconds,
++)
+@@ -212,0 +216,5 @@ class Dispatcher:
++        self.response_headers_seconds = None
++        if "response_headers_seconds" in profile:
++            self.response_headers_seconds = validate_response_headers_seconds(
++                profile["response_headers_seconds"], timeouts=self.timeouts, wire_mode=transport.wire_mode
++            )
+@@ -388,0 +397,2 @@ class Dispatcher:
++                            response_headers = ({"response_headers_seconds": self.response_headers_seconds}
++                                                if self.response_headers_seconds is not None else {})
+@@ -393 +403 @@ class Dispatcher:
+-                                                   **inactivity, **readiness_options)
++                                                   **inactivity, **response_headers, **readiness_options)
+@@ -629 +639,2 @@ def main():
+-    if request_timeouts(profile) != request_timeouts(remote_profile):
++    if (request_timeouts(profile) != request_timeouts(remote_profile)
++            or profile.get("response_headers_seconds") != remote_profile.get("response_headers_seconds")):
+diff --git a/studies/active_learning/pure_llm_v3_a7_gpu_20261124/a7_gpu/provider.py b/studies/active_learning/pure_llm_v3_a7_gpu_20261124/a7_gpu/provider.py
+index 5aec3ccace753a0cdb8add0736c81a51f2644464..7c7d2274c015890746f1ca1803508ba5d78bd2bc 100644
+--- a/studies/active_learning/pure_llm_v3_a7_gpu_20261124/a7_gpu/provider.py
++++ b/studies/active_learning/pure_llm_v3_a7_gpu_20261124/a7_gpu/provider.py
+@@ -179,0 +180,5 @@ class _SSEInactivityDeadline(TransportFailure):
++class _ResponseHeadersDeadline(TransportFailure):
++    def __init__(self):
++        super().__init__("response_headers_timeout", ambiguous=True)
++
++
+@@ -623,0 +629,7 @@ async def _collect_json(response, deadline, key, capture_response, capture_recei
++def validate_response_headers_seconds(seconds, *, timeouts, wire_mode):
++    if (timeouts is None or wire_mode != RESPONSES_STREAM_IPV4 or type(seconds) not in (int, float)
++            or not 0 < seconds < timeouts.total_seconds):
++        raise ValueError("response headers deadline requires a positive duration below the direct SSE total deadline")
++    return seconds
++
++
+@@ -625 +637 @@ def call_responses(request, config, *, model_lock, capture_response=None, captur
+-                   timeouts=None, sse_inactivity_seconds=None, ipv4_preflight_retry=False,
++                   timeouts=None, sse_inactivity_seconds=None, response_headers_seconds=None, ipv4_preflight_retry=False,
+@@ -664,0 +677,2 @@ def call_responses(request, config, *, model_lock, capture_response=None, captur
++    if response_headers_seconds is not None:
++        validate_response_headers_seconds(response_headers_seconds, timeouts=timeouts, wire_mode=config.wire_mode)
+@@ -695 +709 @@ def call_responses(request, config, *, model_lock, capture_response=None, captur
+-                                      ipv4_preflight_retry, before_provider_dispatch)
++                                      response_headers_seconds, ipv4_preflight_retry, before_provider_dispatch)
+@@ -699 +713 @@ def call_responses(request, config, *, model_lock, capture_response=None, captur
+-                                  ipv4_preflight_retry, before_provider_dispatch)
++                                  response_headers_seconds, ipv4_preflight_retry, before_provider_dispatch)
+@@ -711,0 +726,2 @@ def call_responses(request, config, *, model_lock, capture_response=None, captur
++    except _ResponseHeadersDeadline as error:
++        failure, error_type = error, error.code
+@@ -769 +785,43 @@ class _TransmissionEvidence:
+-def _trace_request(report, transmission):
++class _ResponseHeaderWatch:
++    """A single deadline for final response headers after the complete POST upload."""
++
++    def __init__(self, seconds):
++        self.seconds = seconds
++        self.alarm = asyncio.timeout(None)
++        self.upload_complete = False
++
++    def uploaded(self, now):
++        if not self.upload_complete:
++            self.upload_complete = True
++            self.alarm.reschedule(now + self.seconds)
++
++    def received(self, now):
++        deadline = self.alarm.when()
++        if deadline is None:
++            return
++        if now >= deadline:
++            raise _ResponseHeadersDeadline()
++        self.alarm.reschedule(None)
++
++    async def on_response(self, response):
++        # A custom HTTP transport may expose final headers without their trace.
++        if response.request.method == "POST":
++            self.received(asyncio.get_running_loop().time())
++
++    async def open_stream(self, client, payload, headers):
++        import openai
++
++        try:
++            async with self.alarm:
++                return await client.responses.create(**payload, extra_headers=headers)
++        except TimeoutError as error:
++            if not self.alarm.expired():
++                raise
++            raise _ResponseHeadersDeadline() from error
++        except openai.APIConnectionError as error:
++            if isinstance(error.__cause__, _ResponseHeadersDeadline):
++                raise error.__cause__ from None
++            raise
++
++
++def _trace_request(report, transmission, response_headers=None):
+@@ -810,0 +869,8 @@ def _trace_request(report, transmission):
++                if response_headers is not None and source == "http11" and state == "complete":
++                    loop_now = asyncio.get_running_loop().time()
++                    if stage == "send_request_body":
++                        response_headers.uploaded(loop_now)
++                        details["event_type"] = "awaiting_response_headers"
++                    elif stage == "receive_response_headers":
++                        response_headers.received(loop_now)
++                        details["event_type"] = "response_headers_received"
+@@ -1090 +1156,2 @@ async def _hard_wall_call(key, request, config, lease, capture_response, capture
+-                          sse_inactivity_seconds, ipv4_preflight_retry, before_provider_dispatch):
++                          sse_inactivity_seconds, response_headers_seconds, ipv4_preflight_retry,
++                          before_provider_dispatch):
+@@ -1100 +1167,4 @@ async def _hard_wall_call(key, request, config, lease, capture_response, capture
+-    event_hooks = {"request": [_trace_request(report, transmission)]}
++    response_headers = None if response_headers_seconds is None else _ResponseHeaderWatch(response_headers_seconds)
++    event_hooks = {"request": [_trace_request(report, transmission, response_headers)]}
++    if response_headers is not None:
++        event_hooks["response"] = [response_headers.on_response]
+@@ -1148 +1218,4 @@ async def _hard_wall_call(key, request, config, lease, capture_response, capture
+-                        stream = await client.responses.create(**request["payload"], extra_headers=headers)
++                        if response_headers is None:
++                            stream = await client.responses.create(**request["payload"], extra_headers=headers)
++                        else:
++                            stream = await response_headers.open_stream(client, request["payload"], headers)
+@@ -1193 +1266 @@ def _call_with_key(key, request, config, model_lock, lease, capture_response, ca
+-                   sse_inactivity_seconds, ipv4_preflight_retry, before_provider_dispatch):
++                   sse_inactivity_seconds, response_headers_seconds, ipv4_preflight_retry, before_provider_dispatch):
+@@ -1207 +1280,2 @@ def _call_with_key(key, request, config, model_lock, lease, capture_response, ca
+-                                             sse_inactivity_seconds, ipv4_preflight_retry, before_provider_dispatch)
++                                             sse_inactivity_seconds, response_headers_seconds, ipv4_preflight_retry,
++                                             before_provider_dispatch)
