@@ -230,6 +230,24 @@ SCOPES[(6101, 5)] = replace(SCOPES[(6101, 4)], wave=5, cooldown_field="failed_un
          "response_id": "resp_0fdef8f9826fb9c4016b08126348a087d299ea05eb53d3e6d5"}),
 ))
 
+SCOPES[(6101, 6)] = replace(SCOPES[(6101, 5)], wave=6, cooldown_field="not_before_unix", cooldown_unix=1795692993.4806566,
+                              original_start_round=None, original_boundary_physical_attempts=1, boundary_physical_attempts=2,
+                              archive=(
+    *SCOPES[(6101, 5)].archive,
+    Review(retry.bounded.RunIdentity("-6101-relay-retry-05",
+        "e391fb682d43acd1e452fc3a09e7be5596274cee26e23ee1d1f4f91e0ae69a0d",
+        "2f4aae25cfaf9bfcbdf98063cc2f701138274cf46c756ff2825ab8798e705219"),
+        "9a69c8b4d228bf5a14134f0b4a2eede7b23f7de1e9a33f49109c2d47d185d1fa", "afcc54a04b93475ba7edcab4471d784e",
+        "cb1b1a191293150babaedfdf77ab9e7bc6c5fb141cc87ada6828679d57659eff",
+        "d9c055dbb26c36730e2072b738665821937a732d02a78292a33fe2c7b97acf37",
+        "6ccadea081c37e6fc2695d61c517222d9c42b90874172e3b2005ee56eff211b4",
+        "83f034ab7b6150e487311e0b5a213b5d16a55e5e11d42b4dd8312744f5e4aa73", "response.failed",
+        {"http_status": 200, "phase": "transport_failure", "error_type": "response.failed", "event_type": "response.failed",
+         "provider_error_code": "server_error", "sse_event_count": 41, "last_sse_seconds": 318.5360944159329,
+         "provider_request_id": "42fe0655-daa5-4c5c-863c-7ff3c5a4f33e", "model": "gpt-6.2-astra",
+         "response_id": "resp_0361f6be4607ecc5016b0818828c8c87d29fd7a92b30d25ab7"}),
+))
+
 _2357_OLD = retry.bounded.RunIdentity("-2357-relay-retry-01",
     "3c20dad3f4c772011e82d8684e7bfe4204a988e32f59b26b90390507ad6bb1d8",
     "5a507f2471b94d81b3eaae590d6c027bc2e8d3369a424550af0def0aea8c25f8")
@@ -510,6 +528,39 @@ SCOPES[(12203, 8)] = replace(SCOPES[(12203, 7)], wave=8, cooldown_unix=179569073
             "attempt_00.replay_authorization.json": "752e4554bd8a33e0bb475158b5f206e579d83090375afea485b6666cac9f6929",
             "attempt_00.replay.terminal.json": "b6d06b60daa1be86c15e605eb6c96a245db67b29ab021433a885741af5f815d4",
             "attempt_01.replay_link.json": "ee26381d4987507172431e0f8f3309fcbe9c4bdf717cf2877fb30eb873cfa028",
+        }),
+))
+
+_12203_WAVE08 = retry.bounded.RunIdentity("-12203-relay-retry-08",
+    "5f65ea60af0ce2440d123a21f350e60d53de9d40e53b85557a3ec8a43aa7456a",
+    "76fd9ea06a3de5a1b3e26c6fa0755e4ad0065b0a26841d8798f97074367397c1")
+_12203_WAVE08_REQUEST = "bc13a59e4d51133e819d127814ff58e6b9d2657f5c69a1320f21aaf1d9c6a316"
+_12203_WAVE08_FIRST = Review(_12203_WAVE08, _12203_WAVE08_REQUEST, "22736e2c597d42bba2f5730825e76a65",
+    "09c94cf6eae1273dfde2076230f3ec75608874c2d1c45ac80c28b152459a2ed7",
+    "487ce8f74f48e74f41964dd4656c4562ae192a8486b9fd6a8025d78f302fa7f3",
+    "fdca433ee02d59c560b3374f10da8e85512550ec2bf6f71db914e61aebd3ceac",
+    "1a720d2f5218ef8658d2fe469193bf265abb83a346a5b0e8a9b64c5bd538b3c3", "response_id_mismatch",
+    {"http_status": 200, "phase": "transport_failure", "error_type": "response_id_mismatch", "sse_event_count": 24,
+     "provider_request_id": "beb6d4fe-5392-4e55-a5f9-51bbc251a142", "model": "gpt-6.2-astra",
+     "response_id": "resp_08e5131532e68c3f016b08173f0dbc87d2ab78d3678686e13a",
+     "conflicting_response_id": "resp_beb6d4fe53924e55a5f951bbc251a142", "conflicting_event_type": "response.failed",
+     "response_id_matches_transport_alias": True})
+SCOPES[(12203, 9)] = replace(SCOPES[(12203, 8)], wave=9, cooldown_unix=1795692975.7197583, archive=(
+    *SCOPES[(12203, 8)].archive,
+    Review(_12203_WAVE08, _12203_WAVE08_REQUEST, "f6543a336b2c4f04a3c75d585b9a7083",
+        "cab5a0446f3d36a6bfc8e237183b22330b71d5995c3c7e6dcd09083acc84a0a1",
+        "24abca31698e415c935f3030214e243c3cad42c998efd4c8dd4883b3bdb605b1",
+        "a0673027c885037ec65346ea56523e7268e919f7be69392171c0c346b6a8d65d",
+        "fb1de8ba5997deb7378cf75f47ea62533deee34fa51be135b5820dbe128fbef6", "response_id_mismatch",
+        {"http_status": 200, "phase": "transport_failure", "error_type": "response_id_mismatch", "sse_event_count": 41,
+         "provider_request_id": "9bd44948-f4f4-40f5-a811-098b71481d85", "model": "gpt-6.2-astra",
+         "response_id": "resp_0736a44e75a90c12016b0818e6209087d28545d7eaea36f9c5",
+         "conflicting_response_id": "resp_9bd44948f4f440f5a811098b71481d85", "conflicting_event_type": "response.failed",
+         "response_id_matches_transport_alias": True},
+        earlier=(_12203_WAVE08_FIRST,), replay_files={
+            "attempt_00.replay_authorization.json": "968d3d51677033bf8f14283fe42d4195f9aca0f162e5f78ab852c33456788660",
+            "attempt_00.replay.terminal.json": "c7c1876782e113a092c7431cce9b9269309d3c40eac074fcad8ab61ba2dd513f",
+            "attempt_01.replay_link.json": "05a826f44aff6fbf994f43dcb50ce60aafe83d9af7b3f07a136f948e26f20ac3",
         }),
 ))
 
