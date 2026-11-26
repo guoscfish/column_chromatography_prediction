@@ -2748,7 +2748,8 @@ def check_repeated_boundary(runs, monkeypatch, publish, seed, wave, previous, pr
     checked_file.write_bytes(original)
     assert status.reviewed_relay_contract(runs, seed, wave, previous, previous_sha) == expected
     if (seed, wave) in ((157, 10), (157, 11), (157, 12), (887, 8), (2357, 9), (2357, 10), (2357, 11), (2357, 12),
-                        (2357, 13), (6101, 11), (6101, 12), (12203, 16), (12203, 17), (12203, 18), (12203, 19)):
+                        (157, 13), (2357, 13), (2357, 14), (6101, 11), (6101, 12), (6101, 13),
+                        (12203, 16), (12203, 17), (12203, 18), (12203, 19), (12203, 20)):
         check_repeated_boundary(runs, monkeypatch, publish, seed, wave + 1, run, sha, auth, record)
 
 
@@ -2949,8 +2950,9 @@ def check_6101_r5_handoff(runs, monkeypatch, publish, parent, cached, cached_sha
 
 
 @pytest.mark.parametrize("seed,wave", [(887, 8), (887, 9), (157, 11), (157, 12), (2357, 10), (2357, 11), (2357, 12),
-                                       (2357, 13), (2357, 14), (6101, 11), (6101, 12), (6101, 13), (157, 13),
-                                       (12203, 17), (12203, 18), (12203, 19), (12203, 20)])
+                                       (2357, 13), (2357, 14), (2357, 15), (6101, 11), (6101, 12), (6101, 13),
+                                       (6101, 14), (157, 13), (157, 14), (12203, 17), (12203, 18), (12203, 19),
+                                       (12203, 20), (12203, 21)])
 def test_new_exact_reviewed_relay_pins_the_original_retired_receipt(seed, wave):
     from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.run_v13_retry_successor import SCOPES
 
@@ -2984,3 +2986,58 @@ def test_new_exact_reviewed_relay_pins_the_original_retired_receipt(seed, wave):
         )
     sources = getattr(status, f"{prefix}_SOURCES")
     assert {name: sources[name] for name, _ in scope.required_sources} == dict(scope.required_sources)
+
+
+def test_887_r13_targeted_repair_requires_exact_retired_rejection_and_one_slot(tmp_path, monkeypatch):
+    status = prompt_pilot_status
+    previous = tmp_path / f"{status.SERIAL_IPV4}-887-relay-retry-10"
+    run = tmp_path / status.REPAIR_887_R13_RUN
+    stage = previous / "seed_887/round_13"
+    write_json(stage / "turn_00/attempt_00.started.json", {"attempt": 0})
+    files = {}
+    for rel in status.REPAIR_887_R13_ORIGINAL_RESPONSE_CUSTODY:
+        path = previous / rel
+        write_json(path, {"fixture": rel})
+        files[rel] = status.checksum(path)
+    monkeypatch.setattr(status, "REPAIR_887_R13_ORIGINAL_RESPONSE_CUSTODY", files)
+
+    def publish(directory, signed):
+        sha = status.record_digest(signed)
+        approval = {"contract_sha256": sha, **dict.fromkeys(status.FORMAL_APPROVAL_FLAGS, True)}
+        write_json(directory / "formal_contract.json", signed)
+        write_json(directory / "authorization.json", approval)
+        return sha, status.record_digest(approval)
+
+    boundary = {"887": {"round": 13}}
+    old, old_auth = publish(previous, {"run_directory": str(previous), "profile": {"resume_boundaries": boundary}})
+    monkeypatch.setattr(status, "RELAY_887_WAVE10_CONTRACT", old)
+    monkeypatch.setattr(status, "RELAY_887_WAVE10_AUTH", old_auth)
+    metadata = {"repair_index": 11}
+    metadata_sha = status.record_digest(metadata)
+    monkeypatch.setattr(status, "REPAIR_887_R13_METADATA_SHA", metadata_sha)
+    write_json(run / "fixed_reference_repair.json", metadata)
+    budget = {"first_logical_requests": 1, "maximum_logical_requests": 1, "maximum_physical_attempts": 1}
+    signed = {"run_directory": str(run), "source_sha256": status.REPAIR_887_R13_SOURCES, "budget": budget,
+              "profile": {"confirmation_seeds": [887], "target_labels": 781, "resume_boundaries": boundary,
+                          "ipv4_readiness_windows": 3, "fixed_reference_repair": metadata,
+                          "transport": {"logical_replies": 1, "transport_attempts": 1}},
+              "predecessor": {"dispatcher_module": "dispatch_v13_887_r13_targeted_repair", "seed": 887, "round": 13,
+                              "previous_run_directory": str(previous), "previous_contract_sha256": old,
+                              "previous_authorization_sha256": old_auth, "prior_response_reposted": False,
+                              "logical_index": 0, "fixed_reference_repair_sha256": metadata_sha,
+                              "execution_budget": budget, "recovery_budget": {"maximum_logical_requests": 1,
+                                                                            "maximum_physical_attempts": 1}}}
+    sha, auth = publish(run, signed)
+    monkeypatch.setattr(status, "REPAIR_887_R13_CONTRACT", sha)
+    monkeypatch.setattr(status, "REPAIR_887_R13_AUTH", auth)
+    assert status.r13_targeted_repair(tmp_path, previous, old) == (run, sha, 13, 3)
+    decision = stage / "turn_00/decision.json"
+    original = decision.read_bytes()
+    write_json(decision, {"modified": True})
+    assert status.r13_targeted_repair(tmp_path, previous, old) is None
+    decision.write_bytes(original)
+    changed = {**signed, "profile": {**signed["profile"], "transport": {"logical_replies": 1, "transport_attempts": 2}}}
+    sha, auth = publish(run, changed)
+    monkeypatch.setattr(status, "REPAIR_887_R13_CONTRACT", sha)
+    monkeypatch.setattr(status, "REPAIR_887_R13_AUTH", auth)
+    assert status.r13_targeted_repair(tmp_path, previous, old) is None
