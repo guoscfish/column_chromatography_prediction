@@ -527,8 +527,18 @@ def run_seed(*, root, run_directory, contract, authorization, seed, backend, cal
     replay_start = contract.profile.get("replay_eligible_from_round")
     if audit_replay and (mock or managed_attempt is None or type(replay_start) is not int or replay_start != start + 1):
         raise PermissionError("audited future replay is limited to future rounds of a formal managed resume")
-    if audit_replay and (contract.predecessor or {}).get("recovery_budget") != {
-        "maximum_logical_requests": 1, "maximum_physical_attempts": 1
+    predecessor = contract.predecessor or {}
+    cached_import = predecessor.get("cached_import")
+    cached_dispatcher = predecessor.get("dispatcher_module") == "dispatch_v13_887_cached_r7"
+    if cached_dispatcher or cached_import is not None:
+        recovery_budget = predecessor.get("recovery_budget")
+        if (not cached_dispatcher or not audit_replay or (seed, start) != (887, 7)
+                or type(cached_import) is not dict or cached_import.get("provider_post") is not False
+                or recovery_budget != {"maximum_logical_requests": 1, "maximum_physical_attempts": 0}
+                or any(type(value) is not int for value in recovery_budget.values())):
+            raise PermissionError("the cached recovery authorizes one local decision and zero provider submissions")
+    elif audit_replay and predecessor.get("recovery_budget") != {
+            "maximum_logical_requests": 1, "maximum_physical_attempts": 1
     }:
         raise PermissionError("the formal recovery boundary must authorize exactly one logical and physical reservation")
     scope = _scope(contract, authorization, seed, mock)
