@@ -35,6 +35,7 @@ def test_only_explicitly_reviewed_new_wave_can_reserve_its_one_current_slot():
     (157, 3, [2, 1], 193), (157, 4, [2, 1, 1], 193), (157, 5, [2, 1, 1, 1], 193),
     (157, 6, [2, 1, 1, 1, 1], 193), (157, 7, [1], 187),
     (6101, 2, [2], 199), (6101, 3, [2, 1], 199), (6101, 5, [2, 1, 1, 1], 199), (2357, 2, [2], 187),
+    (2357, 5, [2, 1, 2, 1], 187),
     (887, 1, [1], 163), (887, 3, [1, 1], 163), (887, 4, [1, 1, 1], 163),
 ])
 def test_each_prior_identity_and_new_second_slot_are_rejected(monkeypatch, seed, wave, rev_counts, physical_budget):
@@ -332,6 +333,23 @@ def test_2357_wave04_keeps_both_delivered_failures_and_the_exact_timeout_evidenc
     assert last.progress["sse_event_count"] == 14
     assert len(last.replay_files) == 3
     assert all(mac._sha(value) for value in last.replay_files.values())
+
+
+def test_2357_wave05_keeps_only_the_unused_slot_and_pins_the_signed_transport_update():
+    previous = gpu.SCOPES[(2357, 4)]
+    scope = gpu.SCOPES[(2357, 5)]
+    assert scope.payload_sha256 == previous.payload_sha256
+    assert scope.original_start_round == scope.round == previous.round == 4
+    assert scope.original_boundary_physical_attempts == previous.boundary_physical_attempts == 2
+    assert scope.archive[:-1] == previous.archive
+    last = scope.archive[-1]
+    assert scope.boundary_physical_attempts + len(last.attempts) == previous.boundary_physical_attempts
+    assert last.failure == "timeout" and last.progress["error_type"] == "hard_wall_deadline"
+    assert last.progress["event_type"] == "response.output_text.delta" and last.progress["sse_event_count"] == 3170
+    assert scope.not_before_unix == 1795694805.301756
+    assert scope.replay_start_round == 5
+    assert len(scope.required_sources) == len(gpu.QUEUE_SOURCES) + 2
+    assert all(name in gpu.retry.OVERLAYS for name, _ in scope.required_sources)
 
 
 def test_12203_wave07_uses_the_fitted_next_boundary_with_a_conditional_retry():

@@ -301,6 +301,8 @@ def test_resilient_run_tracks_exact_signed_ancestor_and_launchd(tmp_path, monkey
     }
     if seed in (6101, 2357):
         record["profile"]["sse_inactivity_seconds"] = 900
+    if seed == 2357:
+        record["profile"]["request_timeouts"] = {"total_seconds": 3600}
     flags = {"authorize_paid_api": True, "authorize_label_reveal": True, "authorize_cuda_training": True}
     publish(resilient, record, **flags)
     assert remote_seed(tmp_path, seed)["run"] == prior.name
@@ -532,13 +534,14 @@ def check_reviewed_wave(runs, monkeypatch, publish, flags, commands, parent, par
         publish(run, record, **flags)
         assert remote_seed(runs, seed)["run"] == parent.name
         record["profile"] = {**parent_record["profile"], "replay_eligible_from_round": start}
-    if (seed, wave) == (6101, 5):
+    if wave == 5 and seed in (6101, 2357):
         proof["recovery_budget"] = {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}
         record["profile"] = {**parent_record["profile"], "replay_eligible_from_round": start + 1}
     observation = getattr(prompt_pilot_status, f"RELAY_{seed}_WAVE{wave:02d}_OBSERVATION", None)
     if observation is not None:
         proof["previous_transport_observation"] = observation
-        record["source_sha256"] = prompt_pilot_status.RELAY_RETRY_QUEUE_SOURCES
+        record["source_sha256"] = (prompt_pilot_status.RELAY_2357_WAVE05_SOURCES if (seed, wave) == (2357, 5)
+                                   else prompt_pilot_status.RELAY_RETRY_QUEUE_SOURCES)
         publish(run, {**record, "source_sha256": {}}, **flags)
         assert remote_seed(runs, seed)["run"] == parent.name
         publish(run, {**record, "predecessor": {**proof, "previous_transport_observation": {}}}, **flags)
@@ -561,10 +564,10 @@ def check_reviewed_wave(runs, monkeypatch, publish, flags, commands, parent, par
         publish(run, {**record, "predecessor": {**proof, **bad}}, **flags)
         assert remote_seed(runs, seed)["run"] == parent.name
     current_sha = publish(run, record, **flags)
-    if seed == 6101 and wave in (5, 6):
-        monkeypatch.setattr(prompt_pilot_status, f"RELAY_6101_WAVE{wave:02d}_CONTRACT", current_sha)
+    if (seed, wave) in ((6101, 5), (6101, 6), (2357, 5)):
+        monkeypatch.setattr(prompt_pilot_status, f"RELAY_{seed}_WAVE{wave:02d}_CONTRACT", current_sha)
         actual_auth = prompt_pilot_status.record_digest(prompt_pilot_status.read_json(run / "authorization.json"))
-        monkeypatch.setattr(prompt_pilot_status, f"RELAY_6101_WAVE{wave:02d}_AUTH", actual_auth)
+        monkeypatch.setattr(prompt_pilot_status, f"RELAY_{seed}_WAVE{wave:02d}_AUTH", actual_auth)
     row = remote_seed(runs, seed)
     assert (row["run"], row["segment"], row["labels"], row["contract_sha256"]) == (
         run.name, f"ipv4_relay_retry_{wave:02d}", labels, current_sha,
@@ -608,6 +611,18 @@ def check_reviewed_wave(runs, monkeypatch, publish, flags, commands, parent, par
             "sse_event_count": 41, "event_type": "response.failed", "last_sse_seconds": 318.5360944159329,
             "complete_event_seen": False,
         }
+    elif (seed, wave) == (2357, 5):
+        assert row["boundary_api"]["physical_attempts_remaining"] == 1
+        assert row["boundary_api"]["future_replay_from_round"] == 5
+        assert row["reviewed_previous_api"] == {
+            "http_status": 200, "error_type": "hard_wall_deadline", "sse_event_count": 3170,
+            "event_type": "response.output_text.delta", "last_sse_seconds": 3181.4656675001606,
+            "complete_event_seen": False, "hard_deadline_seconds": 3600,
+        }
+        second = turn / "attempt_01.started.json"
+        write_json(second, {"attempt": 1})
+        assert remote_seed(runs, seed)["run"] == parent.name
+        second.unlink()
     elif multiple:
         assert row["boundary_api"]["maximum_physical_attempts"] == 2
         assert row["boundary_api"]["physical_attempts_remaining"] == 2
@@ -955,8 +970,10 @@ def check_2357_reviewed_wave02(runs, monkeypatch, publish, flags, commands, rela
     stage03, stage03_sha, record03, chain03 = check_reviewed_wave(
         runs, monkeypatch, publish, flags, commands, successor, successor_sha, record, chain, 2357, 4, 461, 3,
     )
-    check_reviewed_wave(runs, monkeypatch, publish, flags, commands, stage03, stage03_sha, record03, chain03, 2357, 4,
-                        461, 4)
+    stage04, sha04, record04, chain04 = check_reviewed_wave(
+        runs, monkeypatch, publish, flags, commands, stage03, stage03_sha, record03, chain03, 2357, 4, 461, 4,
+    )
+    check_reviewed_wave(runs, monkeypatch, publish, flags, commands, stage04, sha04, record04, chain04, 2357, 4, 461, 5)
     write_json(turn / "attempt_01.replay_link.json", {"detached": True})
     assert "reviewed_previous_api" not in remote_seed(runs, 2357)
     assert remote_seed(runs, 2357)["run"] == relay.name
@@ -1032,14 +1049,14 @@ def test_887_cached_r8_status_uses_the_registered_gpu_scope():
                          [(12203, 3, 2), (157, 3, 3), (157, 4, 4), (12203, 4, 3), (157, 5, 5), (12203, 5, 4),
                           (6101, 3, 3), (6101, 4, 4), (157, 6, 6), (887, 3, 2), (12203, 6, 5),
                           (887, 4, 3), (2357, 3, 3), (2357, 4, 5), (12203, 8, 4), (6101, 5, 5),
-                          (6101, 6, 6), (12203, 9, 6)])
+                          (6101, 6, 6), (12203, 9, 6), (2357, 5, 6)])
 def test_reviewed_wave_status_uses_the_registered_gpu_scope(seed, wave, archive_count):
     from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts import run_v13_retry_successor
 
     scope = run_v13_retry_successor.SCOPES[(seed, wave)]
     previous = scope.archive[-1]
     assert sum(len(review.attempts) for review in scope.archive) == archive_count
-    physical = 2 if seed == 2357 or (seed, wave) in ((6101, 4), (6101, 6), (12203, 8), (12203, 9)) else 1
+    physical = 2 if (seed, wave) in ((2357, 3), (2357, 4), (6101, 4), (6101, 6), (12203, 8), (12203, 9)) else 1
     assert scope.boundary_physical_attempts == physical
     assert scope.replay_start_round == scope.round + (physical == 1)
     assert (getattr(prompt_pilot_status, f"RELAY_{seed}_WAVE{wave - 1:02d}_CONTRACT"),
@@ -1069,7 +1086,9 @@ def test_reviewed_wave_status_uses_the_registered_gpu_scope(seed, wave, archive_
     observation = getattr(prompt_pilot_status, f"RELAY_{seed}_WAVE{wave:02d}_OBSERVATION", None)
     if observation is not None:
         assert observation == previous.progress
-        assert prompt_pilot_status.RELAY_RETRY_QUEUE_SOURCES == dict(scope.required_sources)
+        required = (prompt_pilot_status.RELAY_2357_WAVE05_SOURCES if (seed, wave) == (2357, 5)
+                    else prompt_pilot_status.RELAY_RETRY_QUEUE_SOURCES)
+        assert required == dict(scope.required_sources)
     if seed == 887:
         assert scope.cached_origin.review == prompt_pilot_status.RELAY_887_CACHED_REVIEW
 

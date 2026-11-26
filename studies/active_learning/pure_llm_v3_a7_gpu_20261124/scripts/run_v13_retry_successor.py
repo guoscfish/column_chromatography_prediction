@@ -333,6 +333,27 @@ SCOPES[(2357, 4)] = replace(SCOPES[(2357, 3)], wave=4, cooldown_field="failed_un
         }),
 ))
 
+SCOPES[(2357, 5)] = replace(SCOPES[(2357, 4)], wave=5, cooldown_unix=1795694625.301756,
+                              boundary_physical_attempts=1, required_sources=(*QUEUE_SOURCES,
+    ((STUDY / "a7_gpu/provider.py").as_posix(), "9b77e82920a303b9429957372d0943a1c729fecca3c80c00d86e0411a1c74bd0"),
+    ((STUDY.parent / "pure_llm_v3_20261124/pure_llm_v3/transport_manager.py").as_posix(),
+     "25bb9cd757b1d14153bf1f758427d195a4a2299a9a9f840dd7619c783e76c739"),
+), archive=(
+    *SCOPES[(2357, 4)].archive,
+    Review(retry.bounded.RunIdentity("-2357-relay-retry-04",
+        "fc19d508b0374d79fb7a015f50b68c606afaf4811c3c87fbaeaa216699759f47",
+        "dc83d4755b0859fd1a7db4989f23541a6cd552f1418ea5745aa27ad2dff361fd"),
+        "3aea456efc01f2a7a0d4b82e1c0b7b3a8bf1270079dfa7065811c33ae1b18d8f", "fff7561203064189b1f10fdd96e26e61",
+        "685292e3160694d3cd861dab060c2247668d36aff62279e5a0f6df2c12853e87",
+        "9e09937ddd425f157988ffeee0389317c50e388c583a49aea7f106c65fdd7b6c",
+        "5f48a0457c89a6bfa32b0353993d3228d920faeef7d27e4089e792ad09ea5ec0",
+        "17f568c466f3bfdd75e23f4082ab57c599007bce939db3231d5ad0c7b63387a0", "timeout",
+        {"http_status": 200, "phase": "transport_failure", "error_type": "hard_wall_deadline",
+         "event_type": "response.output_text.delta", "sse_event_count": 3170, "last_sse_seconds": 3181.4656675001606,
+         "provider_request_id": "df645dc3-e434-4b35-a26b-14b507b18be4", "model": "gpt-6.2-astra",
+         "response_id": "resp_05749099683d24b3016b0812a205dc87d090ff8bd9db36de56"}),
+))
+
 SCOPES[(157, 4)] = replace(SCOPES[(157, 3)], wave=4, cooldown_unix=1795685449.213155, archive=(
     *SCOPES[(157, 3)].archive,
     Review(retry.bounded.RunIdentity("-157-relay-retry-03",
