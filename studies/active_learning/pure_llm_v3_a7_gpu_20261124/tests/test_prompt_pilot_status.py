@@ -214,6 +214,11 @@ def test_tracks_transport_extension_only_from_its_exact_previous_run(tmp_path, s
     publish(whole_response, [seed], prior)
     assert remote_seed(tmp_path, seed)["run"] == streaming.name
 
-    publish(whole_response, [seed], {**prior, "previous_contract_sha256": streaming_sha})
+    last_sha = publish(whole_response, [seed], {**prior, "previous_contract_sha256": streaming_sha})
     current = remote_seed(tmp_path, seed)
     assert (current["run"], current["labels"], current["phase"]) == (whole_response.name, 333 + 32 * index, "waiting_to_start")
+    bounded = cohort.with_name(f"{cohort.name}-{seed}-bounded-sse-01")
+    bounded_prior = {"previous_contract_sha256": last_sha, "previous_run_directory": str(whole_response),
+                     "dispatcher_module": "dispatch_v13_bounded_sse_recovery"}
+    publish(bounded, [seed], bounded_prior)
+    assert remote_seed(tmp_path, seed)["run"] == bounded.name

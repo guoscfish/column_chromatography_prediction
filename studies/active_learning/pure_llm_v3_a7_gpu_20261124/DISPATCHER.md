@@ -279,3 +279,9 @@ The approved 887 whole-response attempt received HTTP 524 after 138.3 seconds. I
 The 6101 R1 WebSocket extension pins the original L365 input and both earlier streaming failures. It uses one authenticated IPv4 Responses WebSocket per physical attempt with `websockets==15.0.1`. The request archive retains the exact original input and explicit HTTP stream flag. The provider frame uses the WebSocket protocol's implicit streaming with one `response.create` event and fresh connection.
 
 Effective response progress has a 900-second inactivity threshold and a 3,600-second hard deadline. WebSocket control frames do not renew the application timer. A complete response must pass identity, status, usage, and original A7 validation before it can authorize a frozen batch. The provider's authenticated upgrade and ping/pong succeeded in a credential-scoped connectivity check without creating a model response.
+
+### Bounded SSE restart of exhausted lanes
+
+The shared recovery entry prepares individual contracts for 157 R3, 887 R6, 2357 R2, and 6101 R1. It verifies the original SSE jobs, latest failed recovery, authorized CUDA boundary, and unchanged scientific prompt and memory. The new contracts permit one original-input direct SSE attempt per seed and share the original three-Key scheduler plus GPU lease.
+
+Each attempt preserves the 900-second meaningful-event inactivity threshold and the 3,600-second hard deadline. A legal completed response can freeze and train exactly one batch. Future rounds are available only after the new verified checkpoint is carried into a continuation contract.
