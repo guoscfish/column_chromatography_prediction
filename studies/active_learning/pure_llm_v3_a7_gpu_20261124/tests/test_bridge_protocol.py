@@ -139,8 +139,12 @@ def _sealed_relay_authorizer(run, request):
     return authorize
 
 
-@pytest.mark.parametrize("typed_stream_timeout", [False, True])
-def test_sealed_relay_retry_resumes_the_original_180_second_delay(audited_live_bridge, typed_stream_timeout):
+@pytest.mark.parametrize(("error", "status", "response_id"), [
+    ("response_id_mismatch", "failed", "resp_00000001000240008000000000000003"),
+    ("relay_stream_timeout", "error", "resp_original"),
+    ("relay_server_error", "failed", "resp_original"),
+])
+def test_sealed_relay_retry_resumes_the_original_180_second_delay(audited_live_bridge, error, status, response_id):
     run, config, request, bridge, _ = audited_live_bridge
     directory = run / "seed_157" / "round_01"
     log = directory / "turn_01"
@@ -152,10 +156,8 @@ def test_sealed_relay_retry_resumes_the_original_180_second_delay(audited_live_b
         job = make_job(managed_request, managed_config, started)
         if started["attempt"] == 0:
             clock[0] += 10
-            failure = (_sealed_alias_failure(error="relay_stream_timeout", status="error")
-                       if typed_stream_timeout else _sealed_alias_failure())
-            if typed_stream_timeout:
-                failure.reply_identity["response_id"] = "resp_original"
+            failure = _sealed_alias_failure(error=error, status=status)
+            failure.reply_identity["response_id"] = response_id
             result = make_result(job, failure=failure, provider_dispatched=True,
                                  credential_id="mock-slot-1")
         else:
@@ -247,6 +249,7 @@ def test_signed_single_inherited_slot_enables_retry_only_from_the_following_roun
 @pytest.mark.parametrize(("failure", "stop"), [
     (_sealed_alias_failure(status="completed"), TransportStop),
     (_sealed_alias_failure(error="timeout"), TransportStop),
+    (_sealed_alias_failure(error="relay_server_error"), TransportStop),
     (_sealed_alias_failure(served_model="other-model"), PermissionError),
     (TransportFailure("http_429", retryable=True, retry_after=30), TransportStop),
 ])

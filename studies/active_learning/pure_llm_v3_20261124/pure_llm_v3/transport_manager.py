@@ -27,6 +27,7 @@ RESPONSES_BACKGROUND = "responses_background"
 
 UNKNOWN_REPLAY_DECISION = "authorized_replay_unknown"
 SEALED_RELAY_RETRY_SECONDS = 180
+RELAY_SERVER_ERROR = "relay_server_error"
 RELAY_STREAM_TIMEOUT = "relay_stream_timeout"
 REQUEST_UUID = re.compile(r"[a-fA-F0-9]{8}(?:-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}")
 RESPONSE_ID = re.compile(r"resp_[A-Za-z0-9][A-Za-z0-9._-]{0,122}")
@@ -192,9 +193,16 @@ def is_sealed_relay_failure(record):
     """Check the failed response identity carried by an independently verified result."""
     request_id, response_id = record.get("provider_request_id"), record.get("response_id")
     error, status = record.get("error"), record.get("provider_status")
-    if error == RELAY_STREAM_TIMEOUT:
-        return bool(status == "error" and isinstance(request_id, str) and REQUEST_UUID.fullmatch(request_id)
-                    and isinstance(response_id, str) and RESPONSE_ID.fullmatch(response_id))
+    if error in (RELAY_STREAM_TIMEOUT, RELAY_SERVER_ERROR):
+        identified = (isinstance(request_id, str) and REQUEST_UUID.fullmatch(request_id)
+                      and isinstance(response_id, str) and RESPONSE_ID.fullmatch(response_id))
+        if not identified:
+            return False
+        if error == RELAY_STREAM_TIMEOUT:
+            return status == "error"
+        return (status == "failed" and not response_id_matches_transport_alias(request_id, response_id)
+                and isinstance(record.get("served_model"), str) and bool(record["served_model"])
+                and record.get("usage") == {})
     return (error == "response_id_mismatch" and status == "failed"
             and response_id_matches_transport_alias(request_id, response_id))
 

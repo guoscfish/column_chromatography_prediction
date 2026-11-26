@@ -14,7 +14,8 @@ from urllib.parse import urlparse
 
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, once
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
-    RELAY_STREAM_TIMEOUT, RESPONSES_JSON_IPV4, RESPONSES_STREAM, RESPONSES_STREAM_IPV4, RESPONSES_WEBSOCKET_IPV4,
+    RELAY_SERVER_ERROR, RELAY_STREAM_TIMEOUT, RESPONSES_JSON_IPV4, RESPONSES_STREAM, RESPONSES_STREAM_IPV4,
+    RESPONSES_WEBSOCKET_IPV4,
     ProviderReply, ResponseMessagePhaseError, TransportFailure, check_request, collect_completed, is_sealed_relay_failure,
     response_id_matches_transport_alias, response_output_text, retry_http,
 )
@@ -212,6 +213,7 @@ class _StreamEvidence:
         self.response_model = None
         self.final_output_seen = False
         self.output_text_seen = False
+        self.additional_output_or_usage_seen = False
         self.reported_events = set()
         self.event_count = 0
         self.last_event = None
@@ -240,6 +242,11 @@ class _StreamEvidence:
         response = getattr(event, "response", None) if kind in LIFECYCLE_EVENTS else None
         item = getattr(event, "item", None)
         response_output = getattr(response, "output", None)
+        last_identity = (self.response_id, self.response_model)
+        part = getattr(event, "part", None)
+        if (kind in {"response.refusal.delta", "response.refusal.done"} or getattr(part, "text", None)
+                or getattr(part, "refusal", None) or getattr(response, "usage", None) is not None):
+            self.additional_output_or_usage_seen = True
         if (kind == "response.output_text.delta" and getattr(event, "delta", None) or _message_has_text(item)
                 or isinstance(response_output, list) and any(_message_has_text(output) for output in response_output)):
             self.output_text_seen = True
@@ -297,6 +304,8 @@ class _StreamEvidence:
         if self.deadline is not None and received > self.deadline:
             raise _EventDeadline()
         if kind in {"response.incomplete", "response.failed", "error"}:
+            if kind == "response.failed" and (failure := self._same_response_failure(event, last_identity)) is not None:
+                raise failure
             if kind == "error" and (timeout := self._relay_stream_timeout(event)) is not None:
                 raise timeout
             raise TransportFailure(kind, ambiguous=True)
@@ -305,6 +314,43 @@ class _StreamEvidence:
                 raise TransportFailure("incomplete_response", ambiguous=True)
             return True
         return False
+
+    def _same_response_failure(self, event, last_identity):
+        """Classify a typed failure of the previously observed HTTP response."""
+        response = getattr(event, "response", None)
+        error = getattr(response, "error", None)
+        request_id = self.headers.get("x-request-id")
+        response_id = getattr(response, "id", None)
+        model = _progress_token(getattr(response, "model", None))
+        identity = {"response_id": response_id, "provider_request_id": request_id,
+                    "provider_status": getattr(response, "status", None), "served_model": model, "usage": {}}
+        if (self.http_status != 200 or getattr(response, "object", None) != "response"
+                or last_identity != (response_id, model)
+                or not is_sealed_relay_failure({**identity, "error": RELAY_SERVER_ERROR})
+                or any(getattr(source, field, None) not in (None, expected)
+                       for source in (event, response, error)
+                       for field, expected in (("request_id", request_id), ("provider_request_id", request_id),
+                                               ("response_id", response_id)))):
+            return None
+        code = getattr(error, "code", None)
+        statuses = (getattr(source, field, None) for source in (event, error) for field in ("status", "status_code"))
+        declared_statuses = tuple(status for status in statuses if status is not None)
+        if isinstance(code, str) and code in STREAM_RATE_LIMIT_ERRORS and all(
+                status in (429, "429") for status in declared_statuses):
+            retry_after = getattr(error, "retry_after", None)
+            body_headers = {"retry-after": str(retry_after)} if type(retry_after) in (int, float) else {}
+            cooldown = max(retry_http(429, self.headers).retry_after, retry_http(429, body_headers).retry_after)
+            return TransportFailure("http_429", ambiguous=True, retry_after=cooldown)
+        if (code != "server_error" or any(status not in (500, "500") for status in declared_statuses)
+                or getattr(error, "type", None) not in (None, "server_error", "api_error")
+                or getattr(error, "param", None) not in (None, "")
+                or getattr(response, "output", None) != [] or getattr(response, "incomplete_details", None) is not None
+                or self.final_output_seen or self.output_text_seen or self.additional_output_or_usage_seen):
+            return None
+        failure = TransportFailure(RELAY_SERVER_ERROR, ambiguous=True,
+                                   retry_after=retry_http(429, self.headers).retry_after or None)
+        failure.reply_identity = identity
+        return failure
 
     def _relay_stream_timeout(self, event):
         """Recognize only a typed terminal timeout on the already identified HTTP stream."""

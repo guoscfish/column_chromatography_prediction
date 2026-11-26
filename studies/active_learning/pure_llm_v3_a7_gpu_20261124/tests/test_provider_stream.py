@@ -11,7 +11,8 @@ import pytest
 
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
-    RESPONSES_JSON_IPV4, RESPONSES_STREAM_IPV4, ResponseMessagePhaseError, TransportConfig, TransportFailure,
+    RELAY_SERVER_ERROR, RESPONSES_JSON_IPV4, RESPONSES_STREAM_IPV4, ResponseMessagePhaseError, TransportConfig,
+    TransportFailure,
     make_request, responses_call,
 )
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu import dispatcher, provider
@@ -48,7 +49,7 @@ def mock_provider(tmp_path, monkeypatch):
 
     monkeypatch.setattr(provider, "api_key", fake_key)
 
-    def call(source, *, close=None, request_id="req_stream"):
+    def call(source, *, close=None, request_id="req_stream", retry_after=None):
         class MockStream(httpx.SyncByteStream):
             def __iter__(self):
                 yield from source()
@@ -58,18 +59,23 @@ def mock_provider(tmp_path, monkeypatch):
                     close()
 
         def handler(_request):
-            return httpx.Response(200, stream=MockStream(), headers={
-                "content-type": "text/event-stream", "x-request-id": request_id, "authorization": original_key,
-            })
+            headers = {"content-type": "text/event-stream", "x-request-id": request_id, "authorization": original_key}
+            if retry_after is not None:
+                headers["retry-after"] = str(retry_after)
+            return httpx.Response(200, stream=MockStream(), headers=headers)
 
         def openai_client(**kwargs):
             assert kwargs["max_retries"] == 0
             return original_client(**kwargs, http_client=httpx.Client(transport=httpx.MockTransport(handler)))
 
         monkeypatch.setattr(openai, "OpenAI", openai_client)
-        progress, receipt, raw, outcomes = [], [], [], []
-        token = provider.LEASE.set(SimpleNamespace(path=None, dispatched=lambda: None,
-                                                   outcome=lambda code, **details: outcomes.append(code)))
+        progress, receipt, raw, outcomes, outcome_details = [], [], [], [], []
+
+        def outcome(code, **details):
+            outcomes.append(code)
+            outcome_details.append(details)
+
+        token = provider.LEASE.set(SimpleNamespace(path=None, dispatched=lambda: None, outcome=outcome))
         try:
             try:
                 result = provider.call_responses(request, config, model_lock=tmp_path / "model-lock.json",
@@ -80,7 +86,7 @@ def mock_provider(tmp_path, monkeypatch):
         finally:
             provider.LEASE.reset(token)
         return SimpleNamespace(result=result, progress=progress, receipt=receipt, raw=raw, outcomes=outcomes,
-                               secret=original_key)
+                               outcome_details=outcome_details, secret=original_key)
 
     return call
 
@@ -194,6 +200,75 @@ def test_only_a_failed_http_transport_alias_without_final_carries_retry_evidence
                             "provider_status": "failed", "usage": {}}
     else:
         assert identity is None
+
+
+def _same_response_terminal(code="server_error", *, error_fields=None, response_fields=None, event_fields=None):
+    error = {"code": code, "message": "private detail", **(error_fields or {})} if code is not None else None
+    return _frame("response.failed", response={"id": "resp_stream", "object": "response", "status": "failed",
+                                               "model": "mock-model", "output": [], "error": error,
+                                               **(response_fields or {})}, **(event_fields or {}))
+
+
+def test_same_response_server_error_keeps_failed_identity_without_a_response(mock_provider):
+    request_id = "00000001-0002-4000-8000-000000000003"
+
+    def body():
+        yield _event("response.created")
+        yield _frame("response.reasoning_summary_text.delta", item_id="rs_fixture", delta="reasoning activity")
+        yield _same_response_terminal()
+
+    check = mock_provider(body, request_id=request_id, retry_after=37)
+    assert check.result.code == RELAY_SERVER_ERROR and check.result.ambiguous and not check.result.retryable
+    assert check.result.reply_identity == {"response_id": "resp_stream", "provider_request_id": request_id,
+                                           "served_model": "mock-model", "provider_status": "failed", "usage": {}}
+    assert check.result.retry_after == 37
+    assert not check.raw and not check.receipt
+    assert "private detail" not in json.dumps(check.progress)
+
+
+@pytest.mark.parametrize(("prefix", "terminal", "expected"), [
+    ((), _same_response_terminal(), "response.failed"),
+    ((_event("response.created"),), _frame("response.failed"), "response.failed"),
+    ((_event("response.created"),), _same_response_terminal(None), "response.failed"),
+    ((_event("response.created"),), _same_response_terminal("internal_error"), "response.failed"),
+    ((_event("response.created"),), _same_response_terminal(error_fields={"status": 429}), "response.failed"),
+    ((_event("response.created"),), _same_response_terminal(error_fields={"type": "rate_limit_error"}), "response.failed"),
+    ((_event("response.created"),), _same_response_terminal(error_fields={"param": "model"}), "response.failed"),
+    ((_event("response.created"),), _same_response_terminal(error_fields={"request_id": "foreign"}), "response.failed"),
+    ((_event("response.created"),), _same_response_terminal(response_fields={"id": "resp_foreign"}), "response_id_mismatch"),
+    ((_event("response.created"),), _same_response_terminal(response_fields={"model": "other-model"}), "response.failed"),
+    ((_event("response.created"),), _same_response_terminal(response_fields={"status": "completed"}), "response.failed"),
+    ((_event("response.created"),), _same_response_terminal(response_fields={"output": None}), "response.failed"),
+    ((_event("response.created"),), _same_response_terminal(response_fields={"usage": {"input_tokens": 3}}), "response.failed"),
+    ((_event("response.created"),), _same_response_terminal(response_fields={"output": [{"type": "reasoning"}]}),
+     "response.failed"),
+    ((_event("response.created"), _frame("response.output_text.delta", delta="started text")),
+     _same_response_terminal(), "response.failed"),
+    ((_event("response.created"), _frame("response.output_text.done", text="finished text")),
+     _same_response_terminal(), "response.failed"),
+    ((_event("response.created"), _frame("response.refusal.delta", delta="refusal")),
+     _same_response_terminal(), "response.failed"),
+    ((_event("response.created"), _frame("response.content_part.added", part={"type": "output_text", "text": "part"})),
+     _same_response_terminal(), "response.failed"),
+])
+def test_same_response_failure_without_exact_no_output_evidence_stays_stopped(mock_provider, prefix, terminal, expected):
+    check = mock_provider(lambda: iter((*prefix, terminal)), request_id="00000001-0002-4000-8000-000000000003")
+    assert check.result.code == expected and check.result.ambiguous and not check.result.retryable
+    assert getattr(check.result, "reply_identity", None) is None
+    assert not check.raw and not check.receipt
+
+
+def test_same_response_rate_limit_cools_the_shared_pool_without_replay_evidence(mock_provider):
+    def body():
+        yield _event("response.created")
+        yield _same_response_terminal("rate_limit_exceeded", error_fields={"status": 429, "retry_after": 61})
+
+    check = mock_provider(body, request_id="00000001-0002-4000-8000-000000000003", retry_after=47)
+    assert check.result.code == "http_429" and check.result.ambiguous and not check.result.retryable
+    assert check.result.retry_after == 61
+    assert getattr(check.result, "reply_identity", None) is None
+    assert check.outcome_details == [{"scope": "shared", "retry_after": 61, "usage": None, "response_complete": False}]
+    assert not check.raw and not check.receipt
 
 
 @pytest.mark.parametrize(("before", "header", "fields", "proof"), [
