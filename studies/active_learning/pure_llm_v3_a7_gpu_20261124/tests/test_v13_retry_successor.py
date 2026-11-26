@@ -33,17 +33,18 @@ def test_only_explicitly_reviewed_new_wave_can_reserve_its_one_current_slot():
                                                  receipt.job_sha256, receipt.result_sha256, receipt.terminal_file_sha256,
                                                  receipt.progress_file_sha256))
     with pytest.raises(ValueError, match="no individually reviewed"):
-        gpu.read_scope(Parser(), SimpleNamespace(seed=12203, wave=15))
+        gpu.read_scope(Parser(), SimpleNamespace(seed=12203, wave=16))
 
 
 @pytest.mark.parametrize("seed,wave,rev_counts,physical_budget", [
     (12203, 3, [1, 1], 187), (12203, 4, [1, 1, 1], 187), (12203, 5, [1, 1, 1, 1], 187),
     (12203, 6, [1, 1, 1, 1, 1], 187), (12203, 10, [2, 2, 2, 1], 181), (12203, 13, [2, 2, 2, 1, 1, 2, 2], 181),
+    (12203, 15, [2, 2, 2, 1, 1, 2, 2, 1, 1], 181),
     (157, 3, [2, 1], 193), (157, 4, [2, 1, 1], 193), (157, 5, [2, 1, 1, 1], 193),
     (157, 6, [2, 1, 1, 1, 1], 193), (157, 7, [1], 187),
     (6101, 2, [2], 199), (6101, 3, [2, 1], 199), (6101, 5, [2, 1, 1, 1], 199), (2357, 2, [2], 187),
     (2357, 5, [2, 1, 2, 1], 187), (2357, 7, [2, 1, 2, 1, 1, 1], 187),
-    (887, 1, [1], 163), (887, 3, [1, 1], 163), (887, 4, [1, 1, 1], 163), (887, 5, [1], 139),
+    (887, 1, [1], 163), (887, 3, [1, 1], 163), (887, 4, [1, 1, 1], 163), (887, 5, [1], 139), (887, 7, [1, 1, 1], 139),
 ])
 def test_each_prior_identity_and_new_second_slot_are_rejected(monkeypatch, seed, wave, rev_counts, physical_budget):
     scope = gpu.SCOPES[(seed, wave)]
@@ -528,6 +529,25 @@ def test_12203_wave14_keeps_the_exact_scientific_input_after_w13_upstream_error(
     assert not old.pre_post_connect_failure and scope.archive[-2].attempts[-1].pre_post_connect_failure
 
 
+def test_12203_wave15_carries_only_the_unused_slot_after_the_sealed_idle_timeout():
+    previous = gpu.SCOPES[(12203, 14)]
+    scope = gpu.SCOPES[(12203, 15)]
+    assert scope.archive[:-1] == previous.archive and scope.payload_sha256 == previous.payload_sha256
+    assert scope.original_start_round == scope.round == previous.round == 5
+    assert scope.original_boundary_physical_attempts == previous.boundary_physical_attempts == 2
+    assert scope.boundary_physical_attempts + len(scope.archive[-1].attempts) == previous.boundary_physical_attempts
+    assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}
+    assert scope.budget == {"first_logical_requests": 31, "maximum_logical_requests": 91, "maximum_physical_attempts": 181}
+    assert scope.required_sources == previous.required_sources
+    assert scope.cooldown_field == "failed_unix" and scope.not_before_unix == 1795706115.3553925
+    assert scope.replay_start_round == 6
+    old = scope.archive[-1]
+    assert old.replay_files is None and old.failure == "timeout"
+    assert old.terminal_file_sha256 == "70fc3592a2dd242f1fa7d5a105ccd4ff965a181c2badc379a27bf5863d4e2f6e"
+    assert old.progress["error_type"] == "sse_inactivity_timeout" and old.progress["sse_event_count"] == 15
+    assert old.progress["event_type"] == "response.output_item.added"
+
+
 def test_pre_post_trace_rejects_an_actual_http_send_or_response():
     trace = {
         "network_phases": {"dns_tcp": {"state": "complete"}, "tls": {"state": "failed"}},
@@ -686,6 +706,47 @@ def test_exact_887_source_only_origin_replays_three_fit_verifications_and_reject
         gpu._reviewed_boundary(tmp_path, directory, active, parent, {}, scope, tmp_path)
 
 
+def test_2357_wave09_preserves_l493_and_both_closed_wave08_attempts(monkeypatch):
+    previous = gpu.SCOPES[(2357, 8)]
+    scope = gpu.SCOPES[(2357, 9)]
+    assert scope.archive[:-1] == previous.archive
+    assert (scope.original_start_round, scope.round, scope.replay_start_round) == (5, 5, 5)
+    assert scope.original_boundary_physical_attempts == previous.boundary_physical_attempts == 2
+    assert scope.payload_sha256 == previous.payload_sha256 and scope.fitted_prefix_files == ()
+    assert scope.required_sources == previous.required_sources and scope.recovery_budget == previous.recovery_budget
+    assert scope.budget == previous.budget == {"first_logical_requests": 31, "maximum_logical_requests": 91,
+                                              "maximum_physical_attempts": 182}
+    assert (scope.cooldown_field, scope.not_before_unix) == ("failed_unix", 1795706668.8023124)
+    first, second = scope.archive[-1].attempts
+    assert first.identity == second.identity and first.request_id == second.request_id
+    assert (first.attempt_id, second.attempt_id) == ("dd59937e8b7a49a085984f24ee0effb7", "f4b70a1204d74013a247a4d8653ec3e9")
+    assert all(item.failure == "response_id_mismatch" and item.progress["provider_error_code"] == "upstream_error"
+               and item.progress["sse_event_count"] == 25 and item.progress["response_id_matches_transport_alias"]
+               for item in (first, second))
+    assert scope.archive[-1].replay_files["attempt_01.replay_link.json"] == (
+        "33b610278022a90ddea6d0ab36f042fed266d1a31611c70fee05bef7d4e6b1e1"
+    )
+
+    dispatcher = mac.SuccessorDispatcher.__new__(mac.SuccessorDispatcher)
+    dispatcher.reviewed_scope = scope
+    admitted = []
+    monkeypatch.setattr(mac.RelayRetryDispatcher, "_check_boundary",
+                        lambda _, request, reservation: admitted.append((request, reservation)))
+    request = {"payload_sha256": scope.payload_sha256}
+    new = {"attempt": 0, "attempt_id": "c" * 32}
+    monkeypatch.setattr(mac, "time", lambda: scope.not_before_unix - .01)
+    with pytest.raises(PermissionError, match="cooldown"):
+        dispatcher._check_boundary(request, new)
+    monkeypatch.setattr(mac, "time", lambda: scope.not_before_unix)
+    for old in (first, second, *previous.archive[-1].attempts):
+        with pytest.raises(PermissionError, match="signed physical attempts"):
+            dispatcher._check_boundary(request, {**new, "attempt_id": old.attempt_id})
+    with pytest.raises(PermissionError, match="signed physical attempts"):
+        dispatcher._check_boundary(request, {**new, "attempt": 2})
+    dispatcher._check_boundary(request, new)
+    assert admitted == [(request, new)]
+
+
 def test_2357_wave08_pins_the_new_l493_decision_and_both_closed_r5_slots(monkeypatch):
     previous = gpu.SCOPES[(2357, 7)]
     scope = gpu.SCOPES[(2357, 8)]
@@ -743,6 +804,25 @@ def test_2357_wave07_keeps_the_unused_physical_from_the_exact_idle_timeout():
     assert dict(scope.required_sources)[gpu.PROVIDER_SOURCE] == "aacbc199e896091d4395fc036cb60bc604d91ec326a79fcff26e157d9a73705f"
     assert {k:v for k,v in scope.required_sources if k != gpu.PROVIDER_SOURCE} == {
         k:v for k,v in previous.required_sources if k != gpu.PROVIDER_SOURCE}
+
+
+def test_887_r12_wave07_carries_only_the_unused_slot_after_the_hard_deadline():
+    previous = gpu.SCOPES[(887, 6)]
+    scope = gpu.SCOPES[(887, 7)]
+    assert scope.archive[:-1] == previous.archive and scope.payload_sha256 == previous.payload_sha256
+    assert scope.original_start_round == scope.round == previous.round == 12
+    assert scope.original_boundary_physical_attempts == previous.boundary_physical_attempts == 2
+    assert scope.boundary_physical_attempts + len(scope.archive[-1].attempts) == previous.boundary_physical_attempts
+    assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}
+    assert scope.budget == {"first_logical_requests": 24, "maximum_logical_requests": 70, "maximum_physical_attempts": 139}
+    assert scope.required_sources == previous.required_sources
+    assert scope.cooldown_field == "failed_unix" and scope.not_before_unix == 1795706494.0892487
+    assert scope.replay_start_round == 13
+    last = scope.archive[-1]
+    assert last.replay_files is None and last.failure == "timeout"
+    assert last.terminal_file_sha256 == "b411f9727ce4d310961bb7acfbdabe0a5681aaa25a52b2cb71bfddbf5ad768c4"
+    assert last.progress["error_type"] == "hard_wall_deadline" and last.progress["sse_event_count"] == 4060
+    assert last.progress["event_type"] == "response.output_item.done"
 
 
 def test_887_r12_wave06_keeps_the_verified_r9_ancestry_and_delayed_second_slot():

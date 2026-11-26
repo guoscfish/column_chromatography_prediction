@@ -978,6 +978,54 @@ def check_887_r12_wave06(runs, monkeypatch, publish, flags, commands, previous, 
     write_json(turn / "attempt_01.started.json", {"unexpected": True})
     assert remote_seed(runs, 887)["run"] == previous.name
     (turn / "attempt_01.started.json").unlink()
+    check_887_r12_wave07(runs, monkeypatch, publish, flags, commands, run, sha, record)
+
+
+def check_887_r12_wave07(runs, monkeypatch, publish, flags, commands, previous, previous_sha, previous_record):
+    status = prompt_pilot_status
+    turn = previous / "seed_887/round_12/turn_00"
+    attempt = status.RELAY_887_WAVE06_ATTEMPT
+    terminal = {**attempt, "status": "stopped"}
+    terminal_path = turn / "attempt_00.terminal.json"
+    write_json(terminal_path, terminal)
+    write_json(turn / "attempt_00.started.json", {"attempt": 0, "attempt_id": attempt["attempt_id"]})
+    exact = {**status.RELAY_887_WAVE07_PROOF, "previous_terminal_file_sha256": status.checksum(terminal_path)}
+    monkeypatch.setattr(status, "RELAY_887_WAVE07_PROOF", exact)
+    receipt = {**attempt, "terminal_sha256": status.record_digest(terminal)}
+    last = status._relay_review(previous, previous_sha, status.RELAY_887_WAVE06_AUTH, exact, [receipt])
+    original = previous_record["predecessor"]
+    run = runs / f"{status.SERIAL_IPV4}-887-relay-retry-07"
+    proof = {**original, **exact, "previous_run_directory": str(previous), "previous_contract_sha256": previous_sha,
+             "previous_authorization_sha256": status.RELAY_887_WAVE06_AUTH,
+             "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 1},
+             "previous_transport_observation": status.RELAY_887_WAVE07_OBSERVATION, "previous_attempts": [receipt],
+             "reviewed_retry_chain": [*original["reviewed_retry_chain"], last]}
+    record = {**previous_record, "run_directory": str(run), "budget": exact["execution_budget"], "predecessor": proof,
+              "profile": {**previous_record["profile"], "replay_eligible_from_round": 13}}
+    sha = publish(run, record, **flags)
+    monkeypatch.setattr(status, "RELAY_887_WAVE07_CONTRACT", sha)
+    assert remote_seed(runs, 887)["run"] == previous.name
+    auth = status.record_digest(status.read_json(run / "authorization.json"))
+    monkeypatch.setattr(status, "RELAY_887_WAVE07_AUTH", auth)
+    monkeypatch.setattr(status.time, "time", lambda: exact["relay_not_before_unix"] - 30)
+    row = remote_seed(runs, 887)
+    assert (row["run"], row["segment"], row["labels"], row["contract_sha256"]) == (run.name, "ipv4_relay_retry_07", 717, sha)
+    assert row["checkpoint_sha256"] == status.RELAY_887_R12_CHECKPOINT
+    assert row["archived_correction_provider_post"] is False
+    assert row["api"] == {"status": "relay_boundary_cooldown", "relay_retry_wait_seconds": 30}
+    assert row["reviewed_previous_api"] == {
+        "http_status": 200, "error_type": "hard_wall_deadline", "sse_event_count": 4060,
+        "event_type": "response.output_item.done", "last_sse_seconds": 2876.7962896670215,
+        "complete_event_seen": False, "hard_deadline_seconds": 3600, "output_text_done_seconds": 2861.863800625084,
+    }
+    assert row["boundary_api"]["maximum_physical_attempts"] == 1
+    assert row["boundary_api"]["future_replay_from_round"] == 13
+    assert row["boundary_api"]["future_replay_requires_verified_response_id"] is True
+    assert status.dispatcher_pid(887, row["segment"]) == 1234
+    assert commands[-1][-1].endswith("/com.purellm.a7-ipv4-v13-887-relay-retry-07")
+    write_json(turn / "attempt_01.started.json", {"unexpected": True})
+    assert remote_seed(runs, 887)["run"] == previous.name
+    (turn / "attempt_01.started.json").unlink()
 
 
 def check_6101_reviewed_wave02(runs, monkeypatch, publish, flags, commands, relay, relay_sha, relay_auth, relay_record):
@@ -1236,7 +1284,7 @@ def test_887_r12_relay_status_matches_reviewed_ordinary_prefix():
                           (887, 4, 3), (2357, 3, 3), (2357, 4, 5), (12203, 8, 4), (6101, 5, 5),
                           (6101, 6, 6), (12203, 9, 6), (2357, 5, 6), (12203, 10, 7), (157, 8, 2),
                           (12203, 11, 8), (2357, 6, 7), (12203, 12, 10), (2357, 7, 8), (12203, 13, 12), (887, 6, 2),
-                          (12203, 14, 13)])
+                          (12203, 14, 13), (12203, 15, 14), (887, 7, 3)])
 def test_reviewed_wave_status_uses_the_registered_gpu_scope(seed, wave, archive_count):
     from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts import run_v13_retry_successor
 
@@ -1258,7 +1306,7 @@ def test_reviewed_wave_status_uses_the_registered_gpu_scope(seed, wave, archive_
         "relay_cooldown_clock": scope.cooldown_field, "relay_not_before_unix": scope.not_before_unix,
         "newly_authorized_boundary_physical_attempts": physical, "execution_budget": scope.budget,
     }
-    if seed in (6101, 887, 2357) or (seed, wave) == (157, 8) or (seed == 12203 and 8 <= wave <= 14):
+    if seed in (6101, 887, 2357) or (seed, wave) == (157, 8) or (seed == 12203 and 8 <= wave <= 15):
         expected_proof["logical_index"] = 0
     assert getattr(prompt_pilot_status, f"RELAY_{seed}_WAVE{wave:02d}_PROOF") == expected_proof
     expected_attempts = tuple({"attempt": slot, "attempt_id": item.attempt_id, "job_sha256": item.job_sha256,
@@ -1274,19 +1322,23 @@ def test_reviewed_wave_status_uses_the_registered_gpu_scope(seed, wave, archive_
     observation = getattr(prompt_pilot_status, f"RELAY_{seed}_WAVE{wave:02d}_OBSERVATION", None)
     if observation is not None:
         assert observation == previous.progress
-        if (seed, wave) in ((2357, 7), (12203, 12), (12203, 13), (12203, 14), (887, 6)):
+        if (seed, wave) in ((2357, 7), (12203, 12), (12203, 13), (12203, 14), (12203, 15), (887, 6), (887, 7)):
             required = prompt_pilot_status.RELAY_12203_WAVE12_SOURCES
         elif (seed, wave) in ((2357, 5), (2357, 6), (12203, 10), (12203, 11), (157, 8)):
             required = prompt_pilot_status.RELAY_2357_WAVE05_SOURCES
         else:
             required = prompt_pilot_status.RELAY_RETRY_QUEUE_SOURCES
         assert required == dict(scope.required_sources)
-    if seed == 887 and wave != 6:
+    if seed == 887 and wave not in (6, 7):
         assert scope.cached_origin.review == prompt_pilot_status.RELAY_887_CACHED_REVIEW
     if (seed, wave) == (887, 6):
         assert prompt_pilot_status.SHA.fullmatch(prompt_pilot_status.RELAY_887_WAVE06_CONTRACT)
         assert prompt_pilot_status.SHA.fullmatch(prompt_pilot_status.RELAY_887_WAVE06_AUTH)
         assert scope.archive[0] == run_v13_retry_successor.SCOPES[(887, 5)].archive[0]
+    if (seed, wave) == (887, 7):
+        assert prompt_pilot_status.SHA.fullmatch(prompt_pilot_status.RELAY_887_WAVE07_CONTRACT)
+        assert prompt_pilot_status.SHA.fullmatch(prompt_pilot_status.RELAY_887_WAVE07_AUTH)
+        assert scope.archive[:-1] == run_v13_retry_successor.SCOPES[(887, 6)].archive
     if (seed, wave) == (157, 8):
         assert scope.cached_origin.review == prompt_pilot_status.RELAY_157_WAVE07_CACHED_REVIEW
         assert scope.archive[0] == run_v13_retry_successor.SCOPES[(157, 7)].archive[0]
@@ -1315,6 +1367,13 @@ def test_reviewed_wave_status_uses_the_registered_gpu_scope(seed, wave, archive_
         extra = set(prompt_pilot_status.RELAY_12203_WAVE14_SOURCES) - set(dict(scope.required_sources))
         assert {path.rsplit("/", 1)[-1] for path in extra} == {"dispatch_v13_retry_successor.py", "run_v13_retry_successor.py"}
         assert all(prompt_pilot_status.SHA.fullmatch(prompt_pilot_status.RELAY_12203_WAVE14_SOURCES[path]) for path in extra)
+    if (seed, wave) == (12203, 15):
+        assert prompt_pilot_status.SHA.fullmatch(prompt_pilot_status.RELAY_12203_WAVE15_CONTRACT)
+        assert prompt_pilot_status.SHA.fullmatch(prompt_pilot_status.RELAY_12203_WAVE15_AUTH)
+        assert scope.archive[:-1] == run_v13_retry_successor.SCOPES[(12203, 14)].archive
+        assert scope.original_boundary_physical_attempts == 2 and scope.boundary_physical_attempts == 1
+        extra = set(prompt_pilot_status.RELAY_12203_WAVE15_SOURCES) - set(dict(scope.required_sources))
+        assert {path.rsplit("/", 1)[-1] for path in extra} == {"dispatch_v13_retry_successor.py", "run_v13_retry_successor.py"}
     if (seed, wave) == (2357, 6):
         assert prompt_pilot_status.SHA.fullmatch(prompt_pilot_status.RELAY_2357_WAVE06_CONTRACT)
         assert prompt_pilot_status.SHA.fullmatch(prompt_pilot_status.RELAY_2357_WAVE06_AUTH)
@@ -2299,6 +2358,7 @@ def check_12203_wave14(runs, monkeypatch, capsys, flags, previous, previous_sha,
     run = runs / f"{status.SERIAL_IPV4}-12203-relay-retry-14"
     proof = {**old_proof, **exact, "previous_run_directory": str(previous), "previous_contract_sha256": previous_sha,
              "previous_authorization_sha256": status.RELAY_12203_WAVE13_AUTH,
+             "checkpoint_sha256": status.RELAY_12203_WAVE15_CHECKPOINT,
              "previous_attempts": [receipt], "previous_transport_observation": status.RELAY_12203_WAVE14_OBSERVATION,
              "reviewed_retry_chain": [*old_proof["reviewed_retry_chain"], last],
              "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 2}}
@@ -2339,8 +2399,67 @@ def check_12203_wave14(runs, monkeypatch, capsys, flags, previous, previous_sha,
     printed = capsys.readouterr().out
     assert "upstream_error  SSE 25" in printed
     assert "更早的 W12 的另一次尝试在 TLS 握手时超时" in printed
+    check_12203_wave15(runs, monkeypatch, flags, run, sha, record)
     write_json(turn / "attempt_01.started.json", {"unexpected": True})
     assert remote_seed(runs, 12203)["run"] == previous.name
+
+
+def check_12203_wave15(runs, monkeypatch, flags, previous, previous_sha, previous_record):
+    status = prompt_pilot_status
+    turn = previous / "seed_12203/round_05/turn_00"
+    attempt = status.RELAY_12203_WAVE14_ATTEMPT
+    terminal = {**attempt, "status": "stopped"}
+    filename = turn / "attempt_00.terminal.json"
+    write_json(turn / "attempt_00.started.json", {"attempt": 0, "attempt_id": attempt["attempt_id"]})
+    write_json(filename, terminal)
+    exact = {**status.RELAY_12203_WAVE15_PROOF, "previous_terminal_file_sha256": status.checksum(filename)}
+    monkeypatch.setattr(status, "RELAY_12203_WAVE15_PROOF", exact)
+    receipt = {**attempt, "terminal_sha256": status.record_digest(terminal)}
+    last = status._relay_review(previous, previous_sha, status.RELAY_12203_WAVE14_AUTH, exact, [receipt])
+    old_proof = previous_record["predecessor"]
+    run = runs / f"{status.SERIAL_IPV4}-12203-relay-retry-15"
+    proof = {**old_proof, **exact, "previous_run_directory": str(previous), "previous_contract_sha256": previous_sha,
+             "previous_authorization_sha256": status.RELAY_12203_WAVE14_AUTH,
+             "previous_attempts": [receipt], "previous_transport_observation": status.RELAY_12203_WAVE15_OBSERVATION,
+             "reviewed_retry_chain": [*old_proof["reviewed_retry_chain"], last],
+             "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}}
+    record = {**previous_record, "run_directory": str(run), "predecessor": proof, "budget": exact["execution_budget"],
+              "source_sha256": status.RELAY_12203_WAVE15_SOURCES,
+              "profile": {**previous_record["profile"], "replay_eligible_from_round": 6}}
+
+    def publish(candidate):
+        sha = status.record_digest(candidate)
+        authorization = {"contract_sha256": sha, **flags}
+        write_json(run / "formal_contract.json", candidate)
+        write_json(run / "authorization.json", authorization)
+        monkeypatch.setattr(status, "RELAY_12203_WAVE15_CONTRACT", sha)
+        monkeypatch.setattr(status, "RELAY_12203_WAVE15_AUTH", status.record_digest(authorization))
+        return sha
+
+    publish({**record, "predecessor": {**proof, "reviewed_retry_chain": proof["reviewed_retry_chain"][:-1]}})
+    assert remote_seed(runs, 12203)["run"] == previous.name
+    sha = publish(record)
+    with monkeypatch.context() as clock:
+        clock.setattr(status.time, "time", lambda: exact["relay_not_before_unix"] - 30)
+        row = remote_seed(runs, 12203)
+    assert (row["run"], row["segment"], row["labels"], row["contract_sha256"]) == (run.name, "ipv4_relay_retry_15", 493, sha)
+    assert row["api"] == {"status": "relay_boundary_cooldown", "relay_retry_wait_seconds": 30}
+    assert row["reviewed_previous_api"] == {
+        "http_status": 200, "error_type": "sse_inactivity_timeout", "sse_event_count": 15,
+        "event_type": "response.output_item.added", "last_sse_seconds": 153.12645345786586,
+        "complete_event_seen": False, "sse_inactivity_seconds": 900,
+    }
+    assert row["boundary_api"]["maximum_physical_attempts"] == 1
+    assert row["boundary_api"]["future_replay_from_round"] == 6
+    assert row["boundary_api"]["future_replay_requires_verified_response_id"] is True
+    commands = []
+    monkeypatch.setattr(status, "command_lines", lambda command: commands.append(command) or [])
+    status.dispatcher_pid(12203, row["segment"])
+    assert commands[0][-1].endswith("/com.purellm.a7-ipv4-v13-12203-relay-retry-15")
+    unexpected = turn / "attempt_01.started.json"
+    write_json(unexpected, {"unexpected": True})
+    assert remote_seed(runs, 12203)["run"] == previous.name
+    unexpected.unlink()
 
 
 def test_12203_wave07_reviewed_trace_matches_the_producer():
@@ -2528,3 +2647,78 @@ def test_reviewed_relay_after_new_cuda_fit_requires_exact_fit_and_archive(tmp_pa
     assert status.reviewed_relay_contract(tmp_path, seed, wave, previous, old_sha) is None
     mutation.write_bytes(original)
     assert status.reviewed_relay_contract(tmp_path, seed, wave, previous, old_sha) == expected
+    if seed == 2357:
+        check_2357_wave09(tmp_path, monkeypatch, publish, run, digest, auth, signed)
+
+
+def check_2357_wave09(runs, monkeypatch, publish, previous, previous_sha, previous_auth, previous_record):
+    status = prompt_pilot_status
+    turn = previous / "seed_2357/round_05/turn_00"
+    receipts, terminals = [], []
+    for attempt in status.RELAY_2357_WAVE08_ATTEMPTS:
+        index = attempt["attempt"]
+        terminal = {**attempt, "status": "stopped"}
+        filename = turn / f"attempt_{index:02d}.terminal.json"
+        write_json(turn / f"attempt_{index:02d}.started.json", {"attempt": index, "attempt_id": attempt["attempt_id"]})
+        write_json(filename, terminal)
+        terminals.append(status.checksum(filename))
+        receipts.append({**attempt, "terminal_sha256": status.record_digest(terminal)})
+    for name in status.RELAY_2357_WAVE08_REPLAY_FILES:
+        write_json(turn / name, {"fixture": name})
+    monkeypatch.setattr(status, "RELAY_2357_WAVE08_TERMINALS", terminals)
+    monkeypatch.setattr(status, "RELAY_2357_WAVE08_REPLAY_FILES",
+                        {name: status.checksum(turn / name) for name in status.RELAY_2357_WAVE08_REPLAY_FILES})
+    exact = {**status.RELAY_2357_WAVE09_PROOF, "previous_terminal_file_sha256": terminals[-1]}
+    monkeypatch.setattr(status, "RELAY_2357_WAVE09_PROOF", exact)
+    old_proof = previous_record["predecessor"]
+    old_chain = old_proof["reviewed_retry_chain"]
+    new_review = status._relay_review(previous, previous_sha, previous_auth, exact, receipts)
+    run = runs / f"{status.SERIAL_IPV4}-2357-relay-retry-09"
+    proof = {**old_proof, **exact, "previous_run_directory": str(previous), "previous_contract_sha256": previous_sha,
+             "previous_authorization_sha256": previous_auth, "previous_attempts": receipts,
+             "previous_transport_observation": status.RELAY_2357_WAVE09_OBSERVATION,
+             "reviewed_retry_chain": [*old_chain, new_review]}
+    record = {**previous_record, "run_directory": str(run), "predecessor": proof}
+    broken = {**record, "predecessor": {**proof, "reviewed_retry_chain": [new_review]}}
+    broken_sha, broken_auth = publish(run, broken)
+    monkeypatch.setattr(status, "RELAY_2357_WAVE09_CONTRACT", broken_sha)
+    monkeypatch.setattr(status, "RELAY_2357_WAVE09_AUTH", broken_auth)
+    assert status.reviewed_relay_contract(runs, 2357, 9, previous, previous_sha) is None
+    sha, auth = publish(run, record)
+    monkeypatch.setattr(status, "RELAY_2357_WAVE09_CONTRACT", sha)
+    monkeypatch.setattr(status, "RELAY_2357_WAVE09_AUTH", auth)
+    expected = run, sha, 5, 3, exact["relay_not_before_unix"]
+    assert status.reviewed_relay_contract(runs, 2357, 9, previous, previous_sha) == expected
+    link = turn / "attempt_01.replay_link.json"
+    original = link.read_bytes()
+    write_json(link, {"modified": True})
+    assert status.reviewed_relay_contract(runs, 2357, 9, previous, previous_sha) is None
+    link.write_bytes(original)
+    assert status.reviewed_relay_contract(runs, 2357, 9, previous, previous_sha) == expected
+
+
+def test_2357_wave09_monitor_pins_the_same_l493_request_and_four_archived_attempts():
+    from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.run_v13_retry_successor import SCOPES
+
+    status = prompt_pilot_status
+    scope = SCOPES[(2357, 9)]
+    previous = SCOPES[(2357, 8)]
+    review = scope.archive[-1]
+    assert scope.archive[:-1] == previous.archive
+    assert tuple(len(item.attempts) for item in scope.archive) == (2, 2)
+    assert (scope.original_start_round, scope.round, scope.replay_start_round) == (5, 5, 5)
+    assert (review.identity.contract, review.identity.approval) == (status.RELAY_2357_WAVE08_CONTRACT, status.RELAY_2357_WAVE08_AUTH)
+    assert status.SHA.fullmatch(status.RELAY_2357_WAVE09_CONTRACT)
+    assert status.SHA.fullmatch(status.RELAY_2357_WAVE09_AUTH)
+    assert status.RELAY_2357_WAVE09_OBSERVATION == review.progress
+    assert status.RELAY_2357_WAVE08_TERMINALS == tuple(attempt.terminal_file_sha256 for attempt in review.attempts)
+    assert status.RELAY_2357_WAVE08_REPLAY_FILES == review.replay_files
+    assert status.RELAY_2357_WAVE08_FITTED_FILES == dict(previous.fitted_prefix_files)
+    assert status.RELAY_12203_WAVE12_SOURCES == dict(scope.required_sources)
+    assert status.RELAY_2357_WAVE09_PROOF == {
+        "logical_index": 0, "payload_sha256": scope.payload_sha256, "previous_request_id": review.request_id,
+        "previous_terminal_file_sha256": review.terminal_file_sha256,
+        "previous_transport_progress_file_sha256": review.progress_file_sha256,
+        "relay_cooldown_clock": scope.cooldown_field, "relay_not_before_unix": scope.not_before_unix,
+        "newly_authorized_boundary_physical_attempts": scope.boundary_physical_attempts, "execution_budget": scope.budget,
+    }
