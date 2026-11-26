@@ -16,7 +16,7 @@ from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager 
 )
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu import scheduler, seed_runner
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.bridge_protocol import (
-    BridgePending, read_bridge_json, validate_result, verify_job,
+    ATTEMPT_ID, BridgePending, read_bridge_json, validate_result, verify_job,
 )
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.compact_payload import AUTHORITATIVE_PACKET_FILE
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.formal_contract import OFFLINE, ROOT, STUDY, verify_authorization
@@ -51,6 +51,8 @@ PLAN_SHA = "d8acfb0d43235068f932f18b7f09c08554e811060f04878fe1a5a9afe8386d47"
 PATHS_SHA = "6b3ea2afcec9cef75413d41293c9826ca1d16fc01e81966fbc9d93864f160c44"
 ORDER_SHA = "e1206991a537ae92e6ec65b2b3f7306cf94ed2e69cb5dc9310867fb0b44f9861"
 OLD_TERMINAL_SHA = "68448c0d8edf22fb40aad51d8582630ff381849badd8216544a8e6373f4fbe39"
+PAUSE_MARKER_SHA = "e2a003428ab33bd15ace0ed8a498579f59639a85950f7676eca6e256842eb41b"
+PAUSED_WAIT_REASON = "formal run paused while waiting for the existing Mac attempt"
 BOUNDARY_FILES = {
     "round_07/source.json": "3af9bc2c889c48f8ed994faef836448996c1125f7ccafa111f4e76ed52c75ba2",
     "round_07/transition.json": "412e9b9215968c966b7349ba1c07c6ec4de87f2ef07f446adefba6671fc2b60a",
@@ -88,29 +90,54 @@ def _final_plan(raw):
     return text, normalized, paths
 
 
-def _old_receipt(run, active, index, contract, approval):
+def _correction_failure(result, job):
+    validate_result(result, job)
+    outcome = result["outcome"]
+    failure = outcome.get("failure", {})
+    if (outcome["status"] != "failed" or result["raw_response"] is not None
+            or (failure.get("reply_identity") or {}).get("provider_status") == "completed"):
+        raise PermissionError("leave a successfully returned correction with the original runner")
+    return failure
+
+
+def _paused_correction_receipt(started, job, result, claim):
+    failure = _correction_failure(result, job)
+    if (result["provider_dispatched"] is not True or set(claim) != {"attempt_id", "dispatcher_id", "job_sha256"}
+            or (claim["attempt_id"], claim["job_sha256"]) != (job["attempt_id"], job["job_sha256"])
+            or not isinstance(claim["dispatcher_id"], str) or not ATTEMPT_ID.fullmatch(claim["dispatcher_id"])):
+        raise PermissionError("the paused correction has no exact dispatched bridge claim")
+    return {"started_sha256": digest(started), "claim": claim, "failure_sha256": digest(failure)}
+
+
+def _old_receipt(run, active, index, transport, wire_representation, *, paused_waiter=False):
     turn = active / f"turn_{index:02d}"
     attempt, request_id, job_sha = ATTEMPTS[index]
-    expected = {turn / name for name in ("attempt_00.started.json", "attempt_00.terminal.json")}
-    if set(turn.glob("attempt_*.json")) != expected:
-        raise PermissionError("both archived turns must have exactly one sealed physical reservation")
+    without_terminal = index == 1 and paused_waiter
+    expected = {turn / "attempt_00.started.json"}
+    if not without_terminal:
+        expected.add(turn / "attempt_00.terminal.json")
+    if set(turn.glob("attempt_*")) != expected:
+        raise PermissionError("both archived turns must have exactly the approved physical reservation")
     request, started = read(turn / "request.json"), read(turn / "attempt_00.started.json")
-    terminal = terminal_record(turn, 0)
+    terminal = None if without_terminal else terminal_record(turn, 0)
     name = f"{attempt}.json"
     job = read_bridge_json(run / "bridge/outbox" / name)
     result = read_bridge_json(run / "bridge/results" / name)
-    if (verify_job(job, authorization_sha256=digest(approval), contract_sha256=contract.digest,
-                   wire_representation=contract.profile["wire_representation"]) != (request, contract.transport, started)
+    if (verify_job(job, authorization_sha256=OLD.approval, contract_sha256=OLD.contract,
+                   wire_representation=wire_representation) != (request, transport, started)
             or (job["attempt_id"], request["request_id"], job["job_sha256"], request["logical_index"])
             != (attempt, request_id, job_sha, index)
             or read(turn / "formal_request_authorization.json") != seed_runner._selection_grant(
                 request["binding"]["a7_formal"], request_id)
-            or any(terminal.get(key) != value for key, value in started.items())
-            or terminal.get("bridge_job_sha256") != job_sha
-            or terminal.get("bridge_result_sha256") != result["result_sha256"]
-            or terminal.get("provider_dispatched") is not result["provider_dispatched"]
-            or result["result_sha256"] != digest({k: v for k, v in result.items() if k != "result_sha256"})):
+            or (request["binding"]["seed"], request["binding"]["round"], started["attempt"]) != (SEED, ROUND, 0)
+            or result["result_sha256"] != digest({k: v for k, v in result.items() if k != "result_sha256"})
+            or terminal is not None and (any(terminal.get(key) != value for key, value in started.items())
+                or terminal.get("bridge_job_sha256") != job_sha
+                or terminal.get("bridge_result_sha256") != result["result_sha256"]
+                or terminal.get("provider_dispatched") is not result["provider_dispatched"])):
         raise PermissionError("sealed archived request, result or terminal identity differs")
+    evidence = {"attempt_id": attempt, "request_id": request_id, "job_sha256": job_sha,
+                "result_sha256": result["result_sha256"], "terminal_sha256": digest(terminal) if terminal else None}
     if index == 0:
         # This one archived row used the original envelope text, which included commentary.
         original = result["outcome"]["reply"]
@@ -129,25 +156,32 @@ def _old_receipt(run, active, index, contract, approval):
             pass
         else:
             raise PermissionError("the original parser failure no longer reproduces")
+    elif without_terminal:
+        claim = read_bridge_json(run / "bridge/claims" / name)
+        evidence.update(_paused_correction_receipt(started, job, result, claim))
     else:
-        validate_result(result, job)
-        if (result["outcome"]["status"] != "failed" or terminal["status"] != "stopped"
-                or terminal.get("error") != result["outcome"]["failure"]["code"] or result["raw_response"] is not None
-                or terminal.get("ambiguous") is not result["outcome"]["failure"]["ambiguous"]):
+        failure = _correction_failure(result, job)
+        if (terminal["status"] != "stopped" or terminal.get("error") != failure["code"]
+                or terminal.get("ambiguous") is not failure["ambiguous"]):
             raise PermissionError("leave a successfully returned correction with the original runner")
-    return request, result, {"attempt_id": attempt, "request_id": request_id, "job_sha256": job_sha,
-                             "result_sha256": result["result_sha256"], "terminal_sha256": digest(terminal)}
+    return request, result, evidence
 
 
 def _verify_old_retired(old, directory):
     worker = read(old / f"workers/seed_{SEED}.json")
     active, following = (seed_runner.round_directory(directory, index) for index in (ROUND, ROUND + 1))
-    if (worker.get("seed") != SEED or worker.get("status") != "failed"
+    if (worker.get("seed") != SEED or worker.get("status") not in {"failed", "paused"}
             or {path.name for path in active.glob("turn_*")} != {"turn_00", "turn_01"}
             or any((active / name).exists() for name in ("batch_freeze.json", "selection.json", "memory.json"))
             or (following.is_dir() and any(following.iterdir()))):
-        raise PermissionError("wait for the failed old worker, both sealed outcomes and no selected or fitted batch")
-    return active
+        raise PermissionError("wait for the old worker to stop with no selected or fitted batch")
+    if worker["status"] == "failed":
+        return active, None
+    pause_marker = old / "pause.request"
+    if (worker.get("error_type") != "BridgePending" or worker.get("reason") != PAUSED_WAIT_REASON
+            or not pause_marker.is_file() or pause_marker.is_symlink() or file_digest(pause_marker) != PAUSE_MARKER_SHA):
+        raise PermissionError("the old worker was not fenced while waiting for the exact correction")
+    return active, {"pause_marker_sha256": PAUSE_MARKER_SHA, "worker_status_sha256": digest(worker)}
 
 
 def construct(root, old_release, old, run):
@@ -157,11 +191,12 @@ def construct(root, old_release, old, run):
         raise PermissionError("the cached continuation requires its own sibling run and source release")
     previous, approval = bounded._archived(old, old_release, OLD)
     directory = seed_runner.seed_directory(old, SEED)
-    active = _verify_old_retired(old, directory)
+    active, paused_waiter = _verify_old_retired(old, directory)
     if any(file_digest(directory / name) != sha for name, sha in BOUNDARY_FILES.items()):
         raise PermissionError("the archived L557 fitted boundary files changed")
-    request, result, first = _old_receipt(old, active, 0, previous, approval)
-    _, _, second = _old_receipt(old, active, 1, previous, approval)
+    args = (previous.transport, previous.profile["wire_representation"])
+    request, result, first = _old_receipt(old, active, 0, *args)
+    _, _, second = _old_receipt(old, active, 1, *args, paused_waiter=paused_waiter is not None)
     binding = request["binding"]
     if ((request["payload_sha256"], binding["checkpoint_sha256"], binding["packet_sha256"], binding["wire_packet_sha256"])
             != (PAYLOAD_SHA, CHECKPOINT_SHA, PACKET_SHA, WIRE_SHA)
@@ -208,7 +243,8 @@ def construct(root, old_release, old, run):
         "cached_import": {"prior": [first, second], "raw_response_sha256": RAW_SHA, "final_text_sha256": digest(text),
                           "normalized_plan_sha256": digest(plan), "removed_paths": paths,
                           "ordered_candidate_ids_sha256": ORDER_SHA, "archive_boundary_sha256": BOUNDARY_FILES,
-                          "archived_terminal_file_sha256": OLD_TERMINAL_SHA, "provider_post": False},
+                          "archived_terminal_file_sha256": OLD_TERMINAL_SHA, "provider_post": False,
+                          **({"paused_waiter": paused_waiter} if paused_waiter else {})},
     }
     profile = {**previous.profile, "resume_boundaries": {str(SEED): descriptor},
                "replay_eligible_from_round": ROUND + 1}
@@ -239,7 +275,15 @@ def execute(root, run, old, contract, approval, boundary, cache, archived, old_r
     reply = replace(ProviderReply(**old_reply), text=dumps(plan), transport_evidence=evidence)
     with scheduler._lock(old / "coordinator.lock", busy="the original 887 coordinator must exit before import"):
         scheduler._assert_no_old_workers(old, (SEED,))
-        _verify_old_retired(old, seed_runner.seed_directory(old, SEED))
+        active, paused_waiter = _verify_old_retired(old, seed_runner.seed_directory(old, SEED))
+        scope_record = contract.predecessor["cached_import"]
+        if paused_waiter != scope_record.get("paused_waiter"):
+            raise PermissionError("the old worker state differs from the approved import receipt")
+        args = (contract.transport, contract.profile["wire_representation"])
+        _, _, first = _old_receipt(old, active, 0, *args)
+        _, _, second = _old_receipt(old, active, 1, *args, paused_waiter=paused_waiter is not None)
+        if [first, second] != scope_record["prior"]:
+            raise PermissionError("the old bridge receipts differ from the approved import")
         with scheduler._lock(run / "coordinator.lock", busy="cached 887 continuation is already active"):
             if scheduler._pause_requested(run, SEED) and not resume:
                 raise PermissionError("cached continuation is paused")

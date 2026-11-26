@@ -44,16 +44,53 @@ IPV4_CONTINUATION_DISPATCHERS = {
 IPV4_EXTENSION_END_ROUNDS = {157: 4, 887: 7, 2357: 2, 6101: 2}
 BOUNDED_SSE_END_ROUNDS = {157: 4, 887: 7, 2357: 3, 6101: 2}
 RESILIENT_SEGMENTS = ("ipv4_resilient_sse", "ipv4_resilient_failure", "ipv4_relay_retry",
-                      "ipv4_relay_retry_02", "ipv4_cached_r7")
+                      "ipv4_relay_retry_02", "ipv4_relay_retry_03", "ipv4_cached_r7")
 FORMAL_APPROVAL_FLAGS = ("authorize_paid_api", "authorize_label_reveal", "authorize_cuda_training")
 RELAY_RETRY_SECONDS = 180
 RELAY_157_WAVE01_CONTRACT = "51022ae153326c4d3259ebb183632564184671955e3ca86646debdfc9615862d"
 RELAY_157_WAVE01_AUTH = "0ffd0471f4a5ed444f5e67a3c0bbf0e956c7c2fcaaec49a7d64840fff6a27a45"
 RELAY_157_NOT_BEFORE = 1795683853.804615
 RELAY_157_BOUNDARY_REQUEST = "a39894954355f629d0fb102a9bf04086d6c4235a3d54a4e90350042bbea429a8"
+RELAY_157_WAVE02_CONTRACT = "a277fb5b7a0806c2f8f69443ad4b05821659783b8fa65d0b9ba6f7c814f052cd"
+RELAY_157_WAVE02_AUTH = "498d339f217f9b4e1d3d4b16cd1e4602048e3ad15715bca927fe1d6c41b797aa"
+RELAY_157_WAVE03_PROOF = {
+    "payload_sha256": "594ff66ced4fe668cdde6bcbdcc07e9f8cf49933a45accc89ef81a4c97e42107",
+    "previous_request_id": "d8fed3a9c76a3a4bc6fa27bac6a705b202b8d90d9565606ed65b1783046feb52",
+    "previous_terminal_file_sha256": "0dcc718d9aa7ca2c4b6df268e04e6644c96103d9acd17c90f058ba0631b472cf",
+    "previous_transport_progress_file_sha256": "b0b8b6ad3a6366329afb407ed8f6025d26983e594389dd032946ce8976d8dd7c",
+    "relay_cooldown_clock": "not_before_unix",
+    "relay_not_before_unix": 1795684354.7931683 + RELAY_RETRY_SECONDS,
+    "newly_authorized_boundary_physical_attempts": 1,
+    "execution_budget": {"first_logical_requests": 33, "maximum_logical_requests": 97, "maximum_physical_attempts": 193},
+}
+RELAY_157_WAVE02_ATTEMPT = {
+    "attempt": 0, "attempt_id": "ddd2a7ca64a74a75a20d198d72501cb1",
+    "job_sha256": "dabdd32ea8889eb86fd6ff2228ab66b8b6a3dc149a7087fbc839c2205bcdadd8",
+    "result_sha256": "5f0b04be5af4d1476810de3335c077034074e0e101d93f443ee9a2af3a6f2283",
+    "error": "sse_frame_error", "provider_dispatched": True, "ambiguous": True,
+}
 RELAY_12203_WAVE01_CONTRACT = "1f1f225de4f396e639ba97bd56b2ab145307e66626b316b115ba7c82beaf11f5"
 RELAY_12203_WAVE01_AUTH = "77b8f85d33eed696a3ec19147804a00a963b37bea56b3fcdb2eb5d6dfbf0f16d"
 RELAY_12203_NOT_BEFORE = 1795683358.4218476
+RELAY_12203_WAVE02_CONTRACT = "f373999a7c88aae8134bf2db212f6c52c8c7d75aedc1779cf5d4daede4b7a86c"
+RELAY_12203_WAVE02_AUTH = "fe8cbc69384fb5561d63a91a72173882462d70ddaa87796990e8da24caae7680"
+RELAY_12203_WAVE03_NOT_BEFORE = 1795683909.169368 + RELAY_RETRY_SECONDS
+RELAY_12203_WAVE03_PROOF = {
+    "payload_sha256": "0bd98eeac5b9b9049b7e00d7e8e439d0d1c07e7bd419370440d0259dfc91e1f5",
+    "previous_request_id": "3bd1d62bce670c46ad2b10584769a0bfdce2fa9d0d9256000a3b7bbdf1441b79",
+    "previous_terminal_file_sha256": "d62cef08ea21bbb26fa238eb1994093c15dc79aeacac9948f5b8f3bbb7130099",
+    "previous_transport_progress_file_sha256": "cbda54406f564c8869a77f1ad09de5ada161f9b03d02cabb621bc367009bcfbd",
+    "relay_cooldown_clock": "not_before_unix",
+    "relay_not_before_unix": RELAY_12203_WAVE03_NOT_BEFORE,
+    "newly_authorized_boundary_physical_attempts": 1,
+    "execution_budget": {"first_logical_requests": 32, "maximum_logical_requests": 94, "maximum_physical_attempts": 187},
+}
+RELAY_12203_WAVE02_ATTEMPT = {
+    "attempt": 0, "attempt_id": "ff520a3b471840e68a1f9ed34bee41f1",
+    "job_sha256": "0fafc1c0274a578b04eb5a21ac9a78981d72fefecfa313455d2b814a4f3516ad",
+    "result_sha256": "898014f9ac17cf60b55317aae8e4dadb56243c9ea689e1883b2c1c8044327803",
+    "error": "connection_interrupted", "provider_dispatched": True, "ambiguous": True,
+}
 CACHED_R7_PLAN_SHA = "d8acfb0d43235068f932f18b7f09c08554e811060f04878fe1a5a9afe8386d47"
 PILOT_ROUNDS = 10
 TARGET_ROUNDS = 36
@@ -373,6 +410,72 @@ def relay_retry_02_contract(runs, seed, previous, previous_contract):
     return None
 
 
+def relay_retry_03_contract(runs, seed, previous, previous_contract):
+    if seed == 157:
+        wave01_contract, wave01_auth = RELAY_157_WAVE01_CONTRACT, RELAY_157_WAVE01_AUTH
+        wave02_contract, wave02_auth = RELAY_157_WAVE02_CONTRACT, RELAY_157_WAVE02_AUTH
+        wave03_proof, wave02_attempt = RELAY_157_WAVE03_PROOF, RELAY_157_WAVE02_ATTEMPT
+        expected_round, wave01_count = 3, 2
+    elif seed == 12203:
+        wave01_contract, wave01_auth = RELAY_12203_WAVE01_CONTRACT, RELAY_12203_WAVE01_AUTH
+        wave02_contract, wave02_auth = RELAY_12203_WAVE02_CONTRACT, RELAY_12203_WAVE02_AUTH
+        wave03_proof, wave02_attempt = RELAY_12203_WAVE03_PROOF, RELAY_12203_WAVE02_ATTEMPT
+        expected_round, wave01_count = 4, 1
+    else:
+        return None
+    if previous_contract != wave02_contract:
+        return None
+    run = runs / f"{SERIAL_IPV4}-{seed}-relay-retry-03"
+    candidate = _signed_recovery_successor(run, seed, previous, previous_contract, "dispatch_v13_retry_successor", 1,
+                                           previous_suffix="relay-retry-02")
+    if candidate is None or fallback_contract(previous) != previous_contract:
+        return None
+    contract, start, profile, proof = candidate
+    previous_record = read_json(previous / "formal_contract.json")
+    exact = {**wave03_proof, "previous_authorization_sha256": wave02_auth}
+    if (start != expected_round or profile != previous_record.get("profile")
+            or profile.get("replay_eligible_from_round") != start + 1
+            or profile.get("audited_future_transport_replay") is not True
+            or type(profile.get("sealed_relay_retry_seconds")) is not int
+            or profile["sealed_relay_retry_seconds"] != RELAY_RETRY_SECONDS or profile.get("ipv4_readiness_windows") != 3
+            or record_digest({key: proof.get(key) for key in exact}) != record_digest(exact)):
+        return None
+    previous_attempts = proof.get("previous_attempts")
+    if type(previous_attempts) is not list or len(previous_attempts) != 1 or type(previous_attempts[0]) is not dict:
+        return None
+    attempt = previous_attempts[0]
+    if (not isinstance(attempt.get("terminal_sha256"), str) or not SHA.fullmatch(attempt["terminal_sha256"])
+            or record_digest({key: attempt.get(key) for key in wave02_attempt}) != record_digest(wave02_attempt)):
+        return None
+    old = previous_record.get("predecessor") or {}
+    old_attempts = old.get("previous_attempts")
+    terminals = old.get("previous_terminal_file_sha256")
+    traces = old.get("previous_transport_progress_file_sha256")
+    if wave01_count == 1:
+        terminals, traces = [terminals], [traces]
+    if (type(old_attempts) is not list or len(old_attempts) != wave01_count
+            or any(type(item) is not dict or type(item.get("attempt")) is not int or item["attempt"] != index
+                   for index, item in enumerate(old_attempts))
+            or any(type(hashes) is not list or len(hashes) != wave01_count
+                   or any(not isinstance(value, str) or not SHA.fullmatch(value) for value in hashes)
+                   for hashes in (terminals, traces))):
+        return None
+    chain = [
+        {"contract_sha256": wave01_contract, "authorization_sha256": wave01_auth,
+         "run_directory": str(runs / f"{SERIAL_IPV4}-{seed}-relay-retry-01"),
+         "request_id": old.get("previous_request_id"), "terminal_file_sha256": terminals[-1],
+         "progress_file_sha256": traces[-1], "previous_attempts": old_attempts},
+        {"contract_sha256": previous_contract, "authorization_sha256": wave02_auth,
+         "run_directory": str(previous), "request_id": proof["previous_request_id"],
+         "terminal_file_sha256": proof["previous_terminal_file_sha256"],
+         "progress_file_sha256": proof["previous_transport_progress_file_sha256"], "previous_attempts": previous_attempts},
+    ]
+    if (not isinstance(chain[0]["request_id"], str) or not SHA.fullmatch(chain[0]["request_id"])
+            or proof.get("reviewed_retry_chain") != chain):
+        return None
+    return run, contract, start, profile["ipv4_readiness_windows"], proof["relay_not_before_unix"]
+
+
 def cached_r7_contract(runs, seed, previous, previous_contract):
     if seed != 887:
         return None
@@ -545,6 +648,10 @@ def remote_seed(runs, seed):
                     ancestors = (run, *ancestors)
                     run, contract, recovery_round, readiness_windows, relay_boundary_not_before = wave02
                     segment = "ipv4_relay_retry_02"
+                    if wave03 := relay_retry_03_contract(runs, seed, run, contract):
+                        ancestors = (run, *ancestors)
+                        run, contract, recovery_round, readiness_windows, relay_boundary_not_before = wave03
+                        segment = "ipv4_relay_retry_03"
     if seed in UNSTARTED_ANCHORS and not cohort_contract and not any(
         (path / f"seed_{seed}").exists() for path in (run, *ancestors)
     ):
@@ -790,6 +897,7 @@ def dispatcher_pid(seed, segment):
                        "ipv4_resilient_failure": f"a7-ipv4-v13-{seed}-resilient-failure-01",
                        "ipv4_relay_retry": f"a7-ipv4-v13-{seed}-relay-retry-01",
                        "ipv4_relay_retry_02": f"a7-ipv4-v13-{seed}-relay-retry-02",
+                       "ipv4_relay_retry_03": f"a7-ipv4-v13-{seed}-relay-retry-03",
                        "ipv4_cached_r7": "a7-ipv4-v13-887-cached-r7-01"}
     if segment in cohort_services:
         service = cohort_services[segment]

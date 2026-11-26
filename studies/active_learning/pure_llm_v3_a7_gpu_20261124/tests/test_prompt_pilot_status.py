@@ -365,13 +365,19 @@ def test_resilient_run_tracks_exact_signed_ancestor_and_launchd(tmp_path, monkey
             prior_boundary_budget={"physical_authorized": 2, "physical_already_used": 2, "physical_remaining": 0},
             newly_authorized_boundary_physical_attempts=1,
             previous_request_id=prompt_pilot_status.RELAY_157_BOUNDARY_REQUEST,
+            previous_terminal_file_sha256=["1" * 64, "2" * 64],
+            previous_transport_progress_file_sha256=["3" * 64, "5" * 64],
+            previous_attempts=[{"attempt": 0, "attempt_id": "4" * 32}, {"attempt": 1, "attempt_id": "5" * 32}],
             execution_budget={"first_logical_requests": 33, "maximum_logical_requests": 97,
                               "maximum_physical_attempts": 193},
         )
     else:
-        successor_proof["inherited_boundary_budget"] = {
-            "physical_authorized": 2, "physical_already_used": 1, "physical_remaining": 1
-        }
+        successor_proof.update(
+            inherited_boundary_budget={"physical_authorized": 2, "physical_already_used": 1, "physical_remaining": 1},
+            previous_request_id="1" * 64, previous_terminal_file_sha256="2" * 64,
+            previous_transport_progress_file_sha256="3" * 64,
+            previous_attempts=[{"attempt": 0, "attempt_id": "4" * 32}],
+        )
     successor_record = {**relay_record, "run_directory": str(successor), "predecessor": successor_proof,
                         "profile": {**relay_record["profile"], "replay_eligible_from_round": start + 1}}
     publish(successor, successor_record)
@@ -399,6 +405,79 @@ def test_resilient_run_tracks_exact_signed_ancestor_and_launchd(tmp_path, monkey
     assert row["api"] == {"status": "relay_boundary_cooldown", "relay_retry_wait_seconds": 15}
     assert prompt_pilot_status.dispatcher_pid(seed, row["segment"]) == 1234
     assert commands[-1][-1].endswith(f"/com.purellm.a7-ipv4-v13-{seed}-relay-retry-02")
+
+    successor_auth = prompt_pilot_status.record_digest(prompt_pilot_status.read_json(successor / "authorization.json"))
+    monkeypatch.setattr(prompt_pilot_status, f"RELAY_{seed}_WAVE02_CONTRACT", successor_sha)
+    monkeypatch.setattr(prompt_pilot_status, f"RELAY_{seed}_WAVE02_AUTH", successor_auth)
+    stage03 = cohort.with_name(f"{cohort.name}-{seed}-relay-retry-03")
+    exact = getattr(prompt_pilot_status, f"RELAY_{seed}_WAVE03_PROOF")
+    terminal = {**getattr(prompt_pilot_status, f"RELAY_{seed}_WAVE02_ATTEMPT"), "terminal_sha256": "6" * 64}
+    terminal_file = successor_proof["previous_terminal_file_sha256"]
+    progress_file = successor_proof["previous_transport_progress_file_sha256"]
+    if seed == 157:
+        terminal_file, progress_file = terminal_file[-1], progress_file[-1]
+    chain = [
+        {"contract_sha256": relay_sha, "authorization_sha256": relay_auth, "run_directory": str(relay),
+         "request_id": successor_proof["previous_request_id"],
+         "terminal_file_sha256": terminal_file, "progress_file_sha256": progress_file,
+         "previous_attempts": successor_proof["previous_attempts"]},
+        {"contract_sha256": successor_sha, "authorization_sha256": successor_auth, "run_directory": str(successor),
+         "request_id": exact["previous_request_id"], "terminal_file_sha256": exact["previous_terminal_file_sha256"],
+         "progress_file_sha256": exact["previous_transport_progress_file_sha256"], "previous_attempts": [terminal]},
+    ]
+    proof03 = {**successor_proof, **exact, "dispatcher_module": "dispatch_v13_retry_successor",
+               "previous_run_directory": str(successor), "previous_contract_sha256": successor_sha,
+               "previous_authorization_sha256": successor_auth, "reviewed_retry_chain": chain,
+               "previous_attempts": [terminal]}
+    record03 = {**successor_record, "run_directory": str(stage03), "predecessor": proof03}
+    monkeypatch.setattr(prompt_pilot_status.time, "time", lambda: exact["relay_not_before_unix"] - 20)
+    publish(stage03, record03)
+    assert remote_seed(tmp_path, seed)["run"] == successor.name
+    for changes in (
+        {"previous_authorization_sha256": "a" * 64},
+        {"payload_sha256": "a" * 64},
+        {"reviewed_retry_chain": list(reversed(chain))},
+        {"reviewed_retry_chain": [{**chain[0], "progress_file_sha256": "a" * 64}, chain[1]]},
+        {"reviewed_retry_chain": [{**chain[0], "previous_attempts": chain[0]["previous_attempts"][1:]}, chain[1]]},
+        {"newly_authorized_boundary_physical_attempts": True},
+        {"previous_attempts": [{**terminal, "result_sha256": "a" * 64}]},
+    ):
+        publish(stage03, {**record03, "predecessor": {**proof03, **changes}}, **flags)
+        assert remote_seed(tmp_path, seed)["run"] == successor.name
+    stage03_sha = publish(stage03, record03, **flags)
+    row = remote_seed(tmp_path, seed)
+    assert (row["run"], row["segment"], row["labels"], row["contract_sha256"]) == (
+        stage03.name, "ipv4_relay_retry_03", labels, stage03_sha,
+    )
+    assert row["relay_not_before_unix"] == exact["relay_not_before_unix"] and row["sealed_relay_retry_seconds"] == 180
+    assert row["api"] == {"status": "relay_boundary_cooldown", "relay_retry_wait_seconds": 20}
+    assert prompt_pilot_status.dispatcher_pid(seed, row["segment"]) == 1234
+    assert commands[-1][-1].endswith(f"/com.purellm.a7-ipv4-v13-{seed}-relay-retry-03")
+
+
+@pytest.mark.parametrize(("seed", "archive_count"), [(12203, 2), (157, 3)])
+def test_wave03_status_uses_the_registered_gpu_scope(seed, archive_count):
+    from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts import run_v13_retry_successor
+
+    scope = run_v13_retry_successor.SCOPES[(seed, 3)]
+    previous = scope.archive[-1]
+    assert sum(len(review.attempts) for review in scope.archive) == archive_count
+    assert (getattr(prompt_pilot_status, f"RELAY_{seed}_WAVE02_CONTRACT"),
+            getattr(prompt_pilot_status, f"RELAY_{seed}_WAVE02_AUTH")) == (
+        previous.identity.contract, previous.identity.approval,
+    )
+    assert getattr(prompt_pilot_status, f"RELAY_{seed}_WAVE03_PROOF") == {
+        "payload_sha256": scope.payload_sha256, "previous_request_id": previous.request_id,
+        "previous_terminal_file_sha256": previous.terminal_file_sha256,
+        "previous_transport_progress_file_sha256": previous.progress_file_sha256,
+        "relay_cooldown_clock": scope.cooldown_field, "relay_not_before_unix": scope.not_before_unix,
+        "newly_authorized_boundary_physical_attempts": 1, "execution_budget": scope.budget,
+    }
+    assert getattr(prompt_pilot_status, f"RELAY_{seed}_WAVE02_ATTEMPT") == {
+        "attempt": 0, "attempt_id": previous.attempt_id, "job_sha256": previous.job_sha256,
+        "result_sha256": previous.result_sha256, "error": previous.failure, "provider_dispatched": True,
+        "ambiguous": True,
+    }
 
 
 @pytest.mark.parametrize("seed", prompt_pilot_status.SEEDS)

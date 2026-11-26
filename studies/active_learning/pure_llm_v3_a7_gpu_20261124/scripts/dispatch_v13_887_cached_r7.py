@@ -17,8 +17,9 @@ from .dispatch_prompt_pilot import SharedKeyPool
 from .dispatch_prompt_successor import PILOT_CONTRACT_SHA256, _approved_prompt_sha, _pool
 from .dispatch_v13_bounded_sse_recovery import _spool
 from .run_v13_887_cached_r7 import (
-    ATTEMPTS, BUDGET, DISPATCHER, FINAL_SHA, IMPORT_BUDGET, OLD, ORDER_SHA, PATHS_SHA, PLAN_SHA,
-    RAW_SHA, RESULT_SHA, ROUND, RUN_NAME, SEED,
+    ATTEMPTS, BUDGET, DISPATCHER, FINAL_SHA, IMPORT_BUDGET, OLD, OLD_TERMINAL_SHA, ORDER_SHA, PATHS_SHA,
+    PAUSE_MARKER_SHA, PLAN_SHA, RAW_SHA, RESULT_SHA, ROUND, RUN_NAME, SEED, _correction_failure,
+    _paused_correction_receipt,
 )
 
 
@@ -37,10 +38,19 @@ def _scope(info, run):
             != ([SEED], 1485, ROUND + 1)
             or profile["resume_boundaries"][str(SEED)]["round"] != ROUND
             or scope["provider_post"] is not False or len(prior) != len(ATTEMPTS)
+            or scope["archived_terminal_file_sha256"] != OLD_TERMINAL_SHA
             or (scope["raw_response_sha256"], scope["final_text_sha256"], scope["normalized_plan_sha256"],
                 digest(scope["removed_paths"]), scope["ordered_candidate_ids_sha256"])
             != (RAW_SHA, FINAL_SHA, PLAN_SHA, PATHS_SHA, ORDER_SHA)):
         raise PermissionError("this Mac scope allows only future rounds of the verified cached import")
+    if "paused_waiter" in scope:
+        evidence = scope["paused_waiter"]
+        if (type(evidence) is not dict or set(evidence) != {"pause_marker_sha256", "worker_status_sha256"}
+                or evidence["pause_marker_sha256"] != PAUSE_MARKER_SHA
+                or not isinstance(evidence["worker_status_sha256"], str)
+                or not SHA256.fullmatch(evidence["worker_status_sha256"])
+                or prior[1].get("terminal_sha256") is not None):
+            raise PermissionError("the paused-waiter evidence is outside the approved cached import")
     verify_local_source(info, root=ROOT)
     for module in (DISPATCHER, "run_v13_887_cached_r7"):
         path = STUDY / "scripts" / f"{module}.py"
@@ -72,8 +82,15 @@ def _archive(spools, proof):
         if index == 0 and (result["result_sha256"] != RESULT_SHA or result["raw_response_sha256"] != RAW_SHA
                            or digest(result["raw_response"]) != RAW_SHA or result["model_identity"] != model):
             raise PermissionError("the cached raw completion differs from the original")
-        if index == 1 and result["outcome"]["status"] != "failed":
-            raise PermissionError("leave the returned correction with the previous runner")
+        if index == 1:
+            if "paused_waiter" in proof["cached_import"]:
+                local_identity = read_bridge_json(spool / "dispatcher_identity.json")
+                claim = {"attempt_id": identity, "job_sha256": job_sha, "dispatcher_id": local_identity["dispatcher_id"]}
+                evidence = _paused_correction_receipt(started, job, result, claim)
+                if any(item.get(key) != value for key, value in evidence.items()):
+                    raise PermissionError("the delivered Mac correction differs from the paused GPU receipt")
+            else:
+                _correction_failure(result, job)
         transport = current
     return transport
 
