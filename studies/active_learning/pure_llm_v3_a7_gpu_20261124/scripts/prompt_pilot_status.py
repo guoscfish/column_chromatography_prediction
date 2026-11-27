@@ -12235,6 +12235,135 @@ def discovered_relay_successor(runs, previous, previous_contract, seed, wave, pi
     return run, pin[0], start, profile["ipv4_readiness_windows"], proof["relay_not_before_unix"], proof
 
 
+# These bridges are enabled only by independently verified, exact new contract and approval pairs.
+EXACT_RETIRED_REVIEWED_BRIDGES = {
+    (f"{SERIAL_IPV4}-887-relay-retry-25", 887): {
+        "anchor_wave": 25, "wave": 35, "round": 34, "retired_anchor_wave": 29,
+        "anchor_contract": "9103f1b1e300bb580dbcc0c7f362b1d120a290c24d31a612ff98c441bf26e753",
+        "current": ("e433223c758777fe740249823f175d5af3bdcc889f826a2f4b0b6df0c8b534fa",
+                    "5f2547fb2936d4310257d685889b8c6b8a33d3fd7621ca54e4b2102ba98593e6"),
+        "package": "c1d6655ab17a18dd227a2bc6fa2cbfb54d6c3ce12297666b680290e2526f7b05",
+        "checkpoint": "c81f34b104de3873a9fd54dfad4323b118dcab6e208281d3c3e95db68c5fe710",
+        "payload": "eb9170128722472e627a9ae16fa23692c1fc19c3ed6156513bde1c98e0c45a91",
+    },
+    (f"{SERIAL_IPV4}-2357-relay-retry-40", 2357): {
+        "anchor_wave": 40, "wave": 50, "round": 5, "retired_anchor_wave": 46,
+        "anchor_contract": "36e5ac24cf5299b417f1c2ff4d57487106a9b00cf62da5f4e33b6f205950f630",
+        "current": ("7137fe50343fbd387fd1b8c8a13309f3501c0e9427e688ce228a1270a6e76f85",
+                    "e3e4d77f16e965ce14f49bfcc5b8363a2d4f8d8f442f282a9e2028cdaf6a52b6"),
+        "package": "75c6a3b73619bd1c608fb1a297cbebcbd708d2c9fe49d83b3b6751898d02f2e0",
+        "checkpoint": "b31f06a0aa8efeccc08d6a6b709ab7f7360acfac56b9041cccae34c1363be501",
+        "payload": "9bbfd69fb3e88c99e81a9ae6d12df1df4488c8a4466bd2c86e925ec8f041db28",
+    },
+}
+
+
+def _fixed_reviewed_bridge(runs, previous, previous_contract, seed):
+    key = (previous.name, seed)
+    fixed = EXACT_RETIRED_REVIEWED_BRIDGES.get(key)
+    if fixed is None or previous_contract != fixed["anchor_contract"]:
+        return None
+    first_wave, wave, start = (fixed[key] for key in ("anchor_wave", "wave", "round"))
+    child = runs / f"{SERIAL_IPV4}-{seed}-relay-retry-{wave:02d}"
+    verified = _signed_retry_record(child, *fixed["current"])
+    if verified is None:
+        return None
+    record, _ = verified
+    profile, proof = record["profile"], record["predecessor"]
+    history = proof["reviewed_retry_chain"]
+    retired_field = "retired_reviewed_recovery_records"
+    retired = proof[retired_field]
+    recovery = {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}
+    budget = {"first_logical_requests": TARGET_ROUNDS - start, "maximum_logical_requests": (TARGET_ROUNDS - start - 1) * 3 + 1,
+              "maximum_physical_attempts": (TARGET_ROUNDS - start - 1) * 6 + 1}
+    wrappers = {
+        f"studies/active_learning/pure_llm_v3_a7_gpu_20261124/scripts/{module}.py"
+        for module in ("run_v13_retry_successor", "dispatch_v13_retry_successor")
+    }
+    release = runs.parent / "releases" / f"ipv4-v13-{seed}-relay-retry-{wave:02d}-{fixed['package']}"
+    observation = proof["previous_transport_observation"]
+    if (REVIEWED_RECOVERY_FIELD in proof or type(history) is not list or len(history) < wave - first_wave
+            or type(retired) is not list or len(retired) != wave - fixed["retired_anchor_wave"]
+            or (profile.get("confirmation_seeds"), profile.get("target_labels")) != ([seed], TARGET_LABELS)
+            or profile["resume_boundaries"][str(seed)]["round"] != start
+            or profile.get("ipv4_readiness_windows") != 3 or profile.get("replay_eligible_from_round") != start + 1
+            or profile.get("sealed_relay_retry_seconds") != RELAY_RETRY_SECONDS
+            or profile.get("audited_future_transport_replay") is not True
+            or (proof.get("dispatcher_module"), proof.get("seed"), proof.get("round"), proof.get("logical_index"))
+            != ("dispatch_v13_retry_successor", seed, start, 0)
+            or (proof["checkpoint_sha256"], proof["payload_sha256"]) != (fixed["checkpoint"], fixed["payload"])
+            or proof.get("recovery_budget") != recovery or proof.get("execution_budget") != budget or record.get("budget") != budget
+            or (observation.get("http_status"), observation.get("error_type")) != (200, "sse_inactivity_timeout")
+            or type(observation.get("sse_event_count")) is not int or observation["sse_event_count"] < 1
+            or not _plain_filesystem_path(release)
+            or any(not _plain_filesystem_path(release / path) or checksum(release / path) != record["source_sha256"].get(path)
+                   for path in wrappers)):
+        return None
+    scoped_history = history[-(wave - first_wave):]
+    candidates = [runs / f"{SERIAL_IPV4}-{seed}-relay-retry-{index:02d}" for index in range(first_wave, wave)]
+    if candidates[0] != previous:
+        return None
+    newer = record
+    preserved = ("checkpoint_sha256", "packet_sha256", "wire_packet_sha256", "base_messages_sha256", "payload_sha256",
+                 "model_identity", "cache_directory", "public_resource_receipt_sha256", "bridge_wait_seconds")
+    unchanged = ("api_execution", "gpu_slots", "asset_sha256", "anchor_root", "lease_root", "initial_policy")
+    for index, member, signed in reversed(list(zip(range(first_wave, wave), candidates, scoped_history))):
+        if signed.get("run_directory") != str(member) or (index == first_wave and signed["contract_sha256"] != previous_contract):
+            return None
+        archived = _signed_retry_record(member, signed["contract_sha256"], signed["authorization_sha256"])
+        if archived is None:
+            return None
+        old, old_approval = archived
+        old_proof, new_proof = old["predecessor"], newer["predecessor"]
+        new_sources, old_sources = newer["source_sha256"], old["source_sha256"]
+        if (old["profile"] != profile or any(newer.get(k) != old.get(k) for k in unchanged)
+                or any(old_proof.get(k) != proof[k] for k in preserved)
+                or {k: v for k, v in new_sources.items() if k not in wrappers}
+                != {k: v for k, v in old_sources.items() if k not in wrappers}
+                or old_proof.get("recovery_budget") != recovery or old["budget"] != budget
+                or (new_proof["previous_run_directory"], new_proof["previous_contract_sha256"],
+                    new_proof["previous_authorization_sha256"]) != (str(member), signed["contract_sha256"], old_approval)
+                or (old_proof.get("dispatcher_module"), old_proof.get("seed"), old_proof.get("round"))
+                != ("dispatch_v13_retry_successor", seed, start)
+                or new_proof["reviewed_retry_chain"] != [*old_proof["reviewed_retry_chain"], signed]):
+            return None
+        phase = member / f"seed_{seed}/round_{start:02d}"
+        receipts = new_proof["previous_attempts"]
+        if len(receipts) != 1 or signed != _relay_review(member, signed["contract_sha256"], old_approval, new_proof, receipts):
+            return None
+        receipt = receipts[0]
+        code = receipt.get("error")
+        if code not in ("connect_error", "response_id_mismatch", "timeout") or (index == wave - 1 and code != "timeout"):
+            return None
+        evidence = {"terminal_files": ((new_proof["previous_terminal_file_sha256"], code),),
+                    "request_file_sha256": checksum(phase / "turn_00/request.json"),
+                    "preflight_attempts": (0,) if receipt.get("provider_dispatched") is False else ()}
+        if not _pinned_relay_evidence(member, seed, start, new_proof, evidence):
+            return None
+        if index >= fixed["retired_anchor_wave"]:
+            archived_record = retired[index - fixed["retired_anchor_wave"]]
+            marker = archived_record.get(REVIEWED_RECOVERY_FIELD)
+            if (archived_record["contract_sha256"] != signed["contract_sha256"]
+                    or marker != old_proof.get(REVIEWED_RECOVERY_FIELD)
+                    or checksum(phase.parent / "pause.request") != archived_record["pause_file_sha256"]
+                    or not _plain_filesystem_path(phase / "source.json")
+                    or checksum(phase / "source.json") != archived_record["source_file_sha256"]):
+                return None
+            if index == fixed["retired_anchor_wave"]:
+                marker_file = member / REVIEWED_RECOVERY_FILE
+                if marker is not None or marker_file.exists() or marker_file.is_symlink():
+                    return None
+            elif not isinstance(marker, str) or not SHA.fullmatch(marker) or not _verified_live_review(
+                member, seed, index, start, old_proof, index, marker,
+            ):
+                return None
+        elif REVIEWED_RECOVERY_FIELD in old_proof:
+            return None
+        newer = old
+    successor = (child, fixed["current"][0], start, profile["ipv4_readiness_windows"], proof["relay_not_before_unix"], proof)
+    return successor, tuple(reversed(candidates))
+
+
 def remote_seed(runs, seed, relay_pins=None):
     cohort_contract = None
     for name, mode, dispatcher, capability in (
@@ -12542,17 +12671,23 @@ def remote_seed(runs, seed, relay_pins=None):
         suffix = re.fullmatch(r"ipv4_relay_retry_([0-9]{2})", segment)
         wave = int(suffix[1]) + 1 if suffix else 29
         pin = (relay_pins or {}).get((seed, wave)) if suffix else None
+        lineage = (run,)
         try:
-            exact_successor = _exact_reviewed_successor(runs, run, contract, seed)
-            successor = exact_successor or (discovered_relay_successor(runs, run, contract, seed, wave, pin) if pin else None)
+            bridge = _fixed_reviewed_bridge(runs, run, contract, seed)
+            if bridge is not None:
+                exact_successor, lineage = bridge
+                successor = exact_successor
+            else:
+                exact_successor = _exact_reviewed_successor(runs, run, contract, seed)
+                successor = exact_successor or (discovered_relay_successor(runs, run, contract, seed, wave, pin) if pin else None)
         except (AttributeError, KeyError, OSError, TypeError, ValueError):
             successor = None
         if successor is None:
             break
-        ancestors = (run, *ancestors)
+        ancestors = (*lineage, *ancestors)
         run, contract, recovery_round, readiness_windows, relay_boundary_not_before, dynamic_relay = successor
         pinned_relay = exact_successor is not None
-        segment = f"ipv4_relay_retry_{wave:02d}"
+        segment = f"ipv4_relay_retry_{int(run.name.rsplit('-', 1)[1]):02d}"
         relay_retry = RELAY_RETRY_SECONDS
     if seed in UNSTARTED_ANCHORS and not cohort_contract and not any(
         (path / f"seed_{seed}").exists() for path in (run, *ancestors)

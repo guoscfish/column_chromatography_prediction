@@ -3927,6 +3927,92 @@ def test_live_dispatch_keeps_scientific_status_and_checks_gpfs_manifest(tmp_path
     assert not status.live_dispatch_report(runs, [next_pin])
 
 
+def test_fixed_reviewed_bridge_requires_signed_contiguous_retired_receipts(tmp_path, monkeypatch):
+    status = prompt_pilot_status
+    seed, start, first_wave, wave = 2357, 5, 48, 50
+    runs = tmp_path.resolve() / "runs"
+    previous, reviewed, child = [runs / f"{status.SERIAL_IPV4}-{seed}-relay-retry-{index:02d}"
+                                 for index in range(first_wave, wave + 1)]
+    package, checkpoint, payload = "a" * 64, "b" * 64, "c" * 64
+    release = runs.parent / "releases" / f"ipv4-v13-{seed}-relay-retry-{wave:02d}-{package}"
+    sources = {}
+    for name in ("run_v13_retry_successor", "dispatch_v13_retry_successor"):
+        filename = f"studies/active_learning/pure_llm_v3_a7_gpu_20261124/scripts/{name}.py"
+        target = release / filename
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text("signed launcher\n")
+        sources[filename] = status.checksum(target)
+    physical_limit = {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}
+    budget = {"first_logical_requests": 31, "maximum_logical_requests": 91, "maximum_physical_attempts": 181}
+    profile = {"confirmation_seeds": [seed], "target_labels": 1485, "resume_boundaries": {str(seed): {"round": start}},
+               "ipv4_readiness_windows": 3, "replay_eligible_from_round": 6, "sealed_relay_retry_seconds": 180,
+               "audited_future_transport_replay": True}
+    common = {"dispatcher_module": "dispatch_v13_retry_successor", "seed": seed, "round": start, "logical_index": 0,
+              "recovery_budget": physical_limit, "execution_budget": budget, "checkpoint_sha256": checkpoint,
+              "payload_sha256": payload, "reviewed_retry_chain": [],
+              **dict.fromkeys(("packet_sha256", "wire_packet_sha256", "base_messages_sha256", "model_identity",
+                               "cache_directory", "public_resource_receipt_sha256", "bridge_wait_seconds"), "bound")}
+
+    def publish(run, proof):
+        record = {"run_directory": str(run), "profile": profile, "predecessor": proof, "budget": budget,
+                  "source_sha256": sources}
+        contract = status.record_digest(record)
+        approval = {"contract_sha256": contract, **dict.fromkeys(status.FORMAL_APPROVAL_FLAGS, True)}
+        write_json(run / "formal_contract.json", record)
+        write_json(run / "authorization.json", approval)
+        return contract, status.record_digest(approval)
+
+    def successor_of(last, proof, signed, code):
+        contract, auth = signed
+        receipts = [{"error": code, "provider_dispatched": True}]
+        result = {**common, "previous_contract_sha256": contract, "previous_authorization_sha256": auth,
+                  "previous_run_directory": str(last), "previous_request_id": "d" * 64,
+                  "previous_terminal_file_sha256": "e" * 64, "previous_transport_progress_file_sha256": "f" * 64,
+                  "previous_attempts": receipts, "relay_not_before_unix": 830.0}
+        result["reviewed_retry_chain"] = [*proof["reviewed_retry_chain"], status._relay_review(last, contract, auth, result, receipts)]
+        return result
+
+    anchor = publish(previous, common)
+    reviewed_proof = successor_of(previous, common, anchor, "response_id_mismatch")
+    reviewed_record = {"schema": status.REVIEWED_RECOVERY_SCHEMA, "seed": seed, "round": start, "anchor_wave": first_wave,
+                       "payload_sha256": payload, "checkpoint_sha256": checkpoint,
+                       "steps": [{"parent_contract_sha256": anchor[0], "parent_authorization_sha256": anchor[1],
+                                  "request_id": reviewed_proof["previous_request_id"]}]}
+    marker = status.record_digest(reviewed_record)
+    reviewed_proof[status.REVIEWED_RECOVERY_FIELD] = marker
+    review_pin = publish(reviewed, reviewed_proof)
+    write_json(reviewed / status.REVIEWED_RECOVERY_FILE, reviewed_record)
+    retired = []
+    for member, pair, digest in ((previous, anchor, None), (reviewed, review_pin, marker)):
+        directory = member / f"seed_{seed}"
+        pause = directory / "pause.request"
+        stage = directory / f"round_{start:02d}"
+        source = stage / "source.json"
+        write_json(pause, {"paused": True})
+        write_json(source, {"checkpoint_sha256": checkpoint})
+        retired.append({"contract_sha256": pair[0], status.REVIEWED_RECOVERY_FIELD: digest,
+                        "pause_file_sha256": status.checksum(pause), "source_file_sha256": status.checksum(source)})
+    proof = successor_of(reviewed, reviewed_proof, review_pin, "timeout")
+    proof.update(retired_reviewed_recovery_records=retired, previous_transport_observation={
+        "http_status": 200, "error_type": "sse_inactivity_timeout", "sse_event_count": 21,
+    })
+    current = publish(child, proof)
+    pin = {"anchor_contract": anchor[0], "anchor_wave": first_wave, "wave": wave, "round": start,
+           "retired_anchor_wave": first_wave, "current": current, "checkpoint": checkpoint,
+           "payload": payload, "package": package}
+    monkeypatch.setitem(status.EXACT_RETIRED_REVIEWED_BRIDGES, (previous.name, seed), pin)
+    monkeypatch.setattr(status, "_pinned_relay_evidence", lambda member, *args: member in (previous, reviewed))
+    successor, lineage = status._fixed_reviewed_bridge(runs, previous, anchor[0], seed)
+    assert successor[:5] == (child, current[0], start, 3, 830.0) and lineage == (reviewed, previous)
+    assert status._fixed_reviewed_bridge(runs, previous, current[0], seed) is None
+    path = reviewed / status.REVIEWED_RECOVERY_FILE
+    write_json(path, {**reviewed_record, "round": 6})
+    assert status._fixed_reviewed_bridge(runs, previous, anchor[0], seed) is None
+    write_json(path, reviewed_record)
+    write_json(reviewed / f"seed_{seed}/pause.request", {"paused": False})
+    assert status._fixed_reviewed_bridge(runs, previous, anchor[0], seed) is None
+
+
 def test_relay_discovery_keeps_exact_parent_contract_science_and_fence(tmp_path, monkeypatch):
     status = prompt_pilot_status
     runs = tmp_path.resolve()
