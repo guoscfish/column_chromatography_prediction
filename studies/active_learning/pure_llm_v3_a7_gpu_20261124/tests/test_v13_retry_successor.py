@@ -6772,3 +6772,41 @@ def test_2357_wave46_retains_the_owned_failed_terminal():
     assert progress["conflicting_response_id"] == "resp_" + progress["provider_request_id"].replace("-", "")
     assert progress["provider_error_code"] == "upstream_error"
     assert review.terminal_file_sha256 == "3650c5ffe5ef6fca49c799333a9e08ee46e1e0a565cfdab3dd29f62e48834764"
+
+
+
+def test_887_wave36_retains_the_owned_failed_terminal():
+    prior, scope = gpu.SCOPES[(887, 35)], gpu.SCOPES[(887, 36)]
+    review = scope.archive[-1]
+    assert scope.archive[:-1] == prior.archive
+    assert scope.round == prior.round == 34
+    assert scope.payload_sha256 == prior.payload_sha256
+    assert scope.required_sources == prior.required_sources
+    assert scope.recovery_budget == prior.recovery_budget
+    assert scope.budget == prior.budget
+    assert scope.not_before_unix == 1795761311.833442
+    assert review.receipt_provider_flags == (True, True)
+    progress = review.progress
+    assert progress["conflicting_event_type"] == "response.failed"
+    assert progress["conflicting_response_id"] == "resp_" + progress["provider_request_id"].replace("-", "")
+    assert progress["provider_error_code"] == "upstream_error"
+    assert review.terminal_file_sha256 == "850c876ca6ca93a911a3afa599f191d51d3b0030463f5cb4fccbcf75309d679c"
+
+
+
+def test_2357_wave51_retains_the_owned_failed_terminal():
+    prior, scope = gpu.SCOPES[(2357, 50)], gpu.SCOPES[(2357, 51)]
+    review = scope.archive[-1]
+    assert scope.archive[:-1] == prior.archive
+    assert scope.round == prior.round == 5
+    assert scope.payload_sha256 == prior.payload_sha256
+    assert scope.required_sources == prior.required_sources
+    assert scope.recovery_budget == prior.recovery_budget
+    assert scope.budget == prior.budget
+    assert scope.not_before_unix == 1795761401.5073123
+    assert review.receipt_provider_flags == (True, True)
+    progress = review.progress
+    assert progress["conflicting_event_type"] == "response.failed"
+    assert progress["conflicting_response_id"] == "resp_" + progress["provider_request_id"].replace("-", "")
+    assert progress["provider_error_code"] == "upstream_error"
+    assert review.terminal_file_sha256 == "daf2873e72c8cffa0c6dbb4f6e065611718a0f45f26bd90e697765dbc26d4c9f"
