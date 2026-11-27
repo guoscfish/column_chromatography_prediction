@@ -64,8 +64,15 @@ class Review:
 
     @property
     def unposted_readiness_files(self):
-        if self == _887_W23_P1:
-            return _887_W23_P1_READINESS
+        exact_reviews = (
+            (_887_W23_P1, _887_W23_P1_READINESS),
+            (_2357_W39_P0, _2357_W39_P0_READINESS),
+            (_12203_W45_P0, _12203_W45_P0_READINESS),
+            (_157_W38_P1, _157_W38_P1_READINESS),
+        )
+        for review, receipts in exact_reviews:
+            if self == review:
+                return receipts
         return ()
 
     @property
@@ -3850,6 +3857,50 @@ SCOPES[(2357, 39)] = replace(
 )
 
 
+_2357_W39_P0 = Review(
+    retry.bounded.RunIdentity(
+        "-2357-relay-retry-39",
+        "d392ba3638bb8b730d404cf72a16bdddc0f7e7f8b57ac7626328ef01ed7eca59",
+        "fe3a7f102bf81a3434a08c23114668cd1a64daa14211cebffd47c16ec6af20e0",
+    ),
+    "e4dd6d0a6e894821144b3c1a6ef5497e8354c3ad9c5fa5a61e14d46d4909ceb4", "5ae13100fbe54c3090687ab8ff530741",
+    "e201249a4bae3a6b2d89925de03182f3d778fae52881c027d05eb4fbc417e826",
+    "84b9388b4d88e6b2e808cfc1fa1c8620ec40816fb2cb0a9b675c54236acacf00",
+    "0bf8391aa8d8566ba85a8718faca017e453b3ef9791d18f6656ed7e67bd83265",
+    "7573fb4b8ee62c630c59779e77b9d7398c4b184082f9332d91f08de78540d0ae", "connect_error",
+    {"phase": "transport_failure",
+     "error_type": "direct_ipv4_preflight_failed",
+     "event_type": "ipv4_preflight_no_headers",
+     "elapsed_seconds": 41.022944249911234,
+     "first_phase_seconds": {"http_phase": 20.007577042095363, "transport_failure": 41.022944249911234},
+     "network_phases": {"direct_ipv4_preflight": {"duration_seconds": 20.00616112491116,
+                                                  "observed_seconds": 41.02128270803951,
+                                                  "state": "failed"},
+                        "direct_ipv4_preflight_1": {"duration_seconds": 20.006554125109687,
+                                                    "observed_seconds": 20.01117575005628,
+                                                    "state": "failed"},
+                        "direct_ipv4_preflight_1_dns_tcp": {"duration_seconds": 20.00262445793487,
+                                                            "observed_seconds": 20.007577042095363,
+                                                            "state": "failed"},
+                        "direct_ipv4_preflight_2": {"duration_seconds": 20.00616112491116,
+                                                    "observed_seconds": 41.02021966711618,
+                                                    "state": "failed"},
+                        "direct_ipv4_preflight_2_dns_tcp": {"duration_seconds": 20.001663208007812,
+                                                            "observed_seconds": 41.01714741694741,
+                                                            "state": "failed"}}},
+)
+_2357_W39_P0_READINESS = (
+    ("readiness_01.json", "25c05e2f6c465f821a45b84eb3eb1fb0672220038094939184d4c0bf50e03f80"),
+    ("readiness_02.json", "5d0dd1a04be7668194b36154b78029f19ef2dad79766b3f8d1d5cac9dbd7f181"),
+    ("readiness_03.json", "6cb365f4b01d39f4bbab6e1c6c063dede92ed021b1225657d8f11bb6d9e4a650"),
+)
+SCOPES[(2357, 40)] = replace(
+    SCOPES[(2357, 39)], wave=40, cooldown_field="not_before_unix", cooldown_unix=1795750644.562045,
+    boundary_physical_attempts=1, original_start_round=5, original_boundary_physical_attempts=1,
+    archive=(*SCOPES[(2357, 39)].archive, _2357_W39_P0),
+)
+
+
 SCOPES[(157, 4)] = replace(SCOPES[(157, 3)], wave=4, cooldown_unix=1795685449.213155, archive=(
     *SCOPES[(157, 3)].archive,
     Review(retry.bounded.RunIdentity("-157-relay-retry-03",
@@ -5858,6 +5909,90 @@ SCOPES[(157, 38)] = replace(SCOPES[(157, 37)], wave=38, cooldown_field="not_befo
             "attempt_01.replay_link.json": "1b32ffdb676f00e6a22eb91dd673f84e2d339aed905d35c0baa059d217996cbc",
         }),
 ))
+
+
+_157_W38 = retry.bounded.RunIdentity(
+    "-157-relay-retry-38",
+    "a5b2201f07f64971ce08a322fe3f74f86b3b583c49606c944513e1b1249b860a",
+    "b9e2d0ec7ec700c805ef45a2bd69d84ac3d2888adbd6e7c1f7671f7f5f00f08d",
+)
+_157_W38_P0 = Review(
+    _157_W38, "06817511fb6b3ed6245f7f2212e61cdf384e479581ad20b6b29425691fe71165", "a3e314f25b3b4234a957a15ab5cadee1",
+    "9d1012c8ec98d8156d8968a993f1b09b60a74b12764abb5e9c1c5d8e3b42d0fb",
+    "5af6717093e991101dae4264b214625913cf642fabe8c25fabda8c71310cdf54",
+    "09429bd6fcc44118fa344d1ef48d1c77bff1e2ff1b8a081d0f5b65ff40890b75",
+    "854eb5058d1bc3d4eecfead71568c8b7dc8ee475d10ae3b98c42006c33806a3c", "response_id_mismatch",
+    {"http_status": 200,
+     "phase": "transport_failure",
+     "error_type": "response_id_mismatch",
+     "event_type": "response.output_item.added",
+     "sse_event_count": 27,
+     "model": "gpt-6.2-astra",
+     "provider_request_id": "70149c54-69f1-4117-b238-3730544ff5c9",
+     "response_id": "resp_074751ebbf92ca8c016b08f9195e2487d2b7ea03c5c3477c56",
+     "conflicting_response_id": "resp_70149c5469f14117b2383730544ff5c9",
+     "conflicting_event_type": "response.failed",
+     "response_id_matches_transport_alias": True,
+     "provider_error_code": "upstream_error",
+     "last_sse_seconds": 644.0757617910858,
+     "last_sse_activity_seconds": 644.0757617910858,
+     "elapsed_seconds": 644.275202708086,
+     "sse_milestones": {"response.created": {"elapsed_seconds": 237.2035076660104,
+                                             "interval_seconds": None},
+                        "response.in_progress": {"elapsed_seconds": 237.2049775409978,
+                                                 "interval_seconds": 0.0014698749873787165},
+                        "response.output_item.added": {"elapsed_seconds": 237.20583708304912,
+                                                       "interval_seconds": 0.0008595420513302088},
+                        "response.output_item.done": {"elapsed_seconds": 237.20638562506065,
+                                                      "interval_seconds": 0.0005485420115292072}}},
+)
+_157_W38_P1 = Review(
+    _157_W38, _157_W38_P0.request_id, "60cccaa4d8124e3eae98d959212cebfd",
+    "0ab39f1c4e4c40cf88b929f23e283114ded12112b120bec824ae08561903b01b",
+    "641f451d2fc422384bceb8b1194803db5a2cce3c086b86bc0e0f998b3e2ceb23",
+    "0de21da74dbea2e27e212a01796e39fd3332f44855c769b45120e492aee1e386",
+    "e5c17e40f916832d1f58c14e4956b6b5b07eacf6d17f8e63facd2e69c83d4ad4", "connect_error",
+    {"phase": "transport_failure",
+     "error_type": "direct_ipv4_preflight_failed",
+     "event_type": "ipv4_preflight_no_headers",
+     "elapsed_seconds": 41.02039208309725,
+     "first_phase_seconds": {"http_phase": 20.006137208081782, "transport_failure": 41.02039208309725},
+     "network_phases": {"direct_ipv4_preflight": {"duration_seconds": 20.006715042050928,
+                                                  "observed_seconds": 41.01757770800032,
+                                                  "state": "failed"},
+                        "direct_ipv4_preflight_1": {"duration_seconds": 20.003706417046487,
+                                                    "observed_seconds": 20.00773929199204,
+                                                    "state": "failed"},
+                        "direct_ipv4_preflight_1_dns_tcp": {"duration_seconds": 20.001873000059277,
+                                                            "observed_seconds": 20.006137208081782,
+                                                            "state": "failed"},
+                        "direct_ipv4_preflight_2": {"duration_seconds": 20.006715042050928,
+                                                    "observed_seconds": 41.01617133314721,
+                                                    "state": "failed"},
+                        "direct_ipv4_preflight_2_dns_tcp": {"duration_seconds": 20.002208084100857,
+                                                            "observed_seconds": 41.01230291696265,
+                                                            "state": "failed"}}},
+    earlier=(_157_W38_P0,),
+    replay_files={
+        "attempt_00.replay_authorization.json": "8cf5fef564ce5ef49b3fb68ed3d348b18950fac1e4058aa54b76749a8dfa1b3e",
+        "attempt_00.replay.terminal.json": "9611bd57f964e04a44ab50440137d3cf5bc1cd7bc172f8f8be2435535975b556",
+        "attempt_01.replay_link.json": "8a01fc808db62613c0d5a375ff05e25657bdc2fdf84e496567fb93f5eb8eeeb3",
+    },
+)
+_157_W38_P1_READINESS = (
+    ("readiness_01.json", "384932b34d9a621a4d15d57f5d31b684d0b9c127f2564ed15335e047edf6597b"),
+    ("readiness_02.json", "3d21087e3b9a5f6ee4d347cf0c848d21c5499fd568626c66158477d43c2b9878"),
+    ("readiness_03.json", "b29e4fe3a58e683f6e495cfa6a09575ae73552661453e968b2f3cb305f9ea5b9"),
+)
+SCOPES[(157, 39)] = replace(
+    SCOPES[(157, 38)], wave=39, cooldown_field="not_before_unix", cooldown_unix=1795751071.8996296,
+    boundary_physical_attempts=1, original_start_round=7, original_boundary_physical_attempts=2,
+    archive=(*SCOPES[(157, 38)].archive, _157_W38_P1),
+    fitted_prefix_files=(
+        ("pause.request", "fe7d847f1a688de23e34a3a96e1e998f014b4a0dab106021893453d68f5407f9"),
+        ("round_07/source.json", "ac42a77b7b18963db4be8ca807aa68bc04636643cdb8b0f9d0226a3f515a1aee"),
+    ),
+)
 
 
 SCOPES[(12203, 4)] = replace(SCOPES[(12203, 3)], wave=4, cooldown_unix=1795685708.5045788, archive=(
@@ -8016,6 +8151,50 @@ SCOPES[(12203, 45)] = replace(
 )
 
 
+_12203_W45_P0 = Review(
+    retry.bounded.RunIdentity(
+        "-12203-relay-retry-45",
+        "c355de93c8efa1c112989d2298bcb6da6bc51f00cef2f99ed341f008c8e434ce",
+        "c4508b18e464e7e71ac5787cf44f0c714515550a56606b00185974b775f07f11",
+    ),
+    "f4355dff44606c3f9ec4e87308fe13825831dcc63ba621244ba2d3221190a6a8", "bd0a5bb70c3e47179a4f722bcab17108",
+    "fc6d25774eceafb50fcd78e6ef481ecc76f6631b22d49b33b1fc4ec9b87cc83b",
+    "ccb8fff9f33dca6e86391fda13a19b9a7ae8aa38196f6a9f70a9ee341b2d62a1",
+    "2e541c0b595b7016bbc9f59d4b7dbcc8b8496d198f41af59d5f427a684378e5e",
+    "59ff582a0acd5d9051a5d79036053d5a8cadffe01e32c6dba0a3a9d68a998d39", "connect_error",
+    {"phase": "transport_failure",
+     "error_type": "direct_ipv4_preflight_failed",
+     "event_type": "ipv4_preflight_no_headers",
+     "elapsed_seconds": 41.0252684999723,
+     "first_phase_seconds": {"http_phase": 20.007387874880806, "transport_failure": 41.0252684999723},
+     "network_phases": {"direct_ipv4_preflight": {"duration_seconds": 20.0078177920077,
+                                                  "observed_seconds": 41.02338841580786,
+                                                  "state": "failed"},
+                        "direct_ipv4_preflight_1": {"duration_seconds": 20.00599612505175,
+                                                    "observed_seconds": 20.010733832838014,
+                                                    "state": "failed"},
+                        "direct_ipv4_preflight_1_dns_tcp": {"duration_seconds": 20.002328667091206,
+                                                            "observed_seconds": 20.007387874880806,
+                                                            "state": "failed"},
+                        "direct_ipv4_preflight_2": {"duration_seconds": 20.0078177920077,
+                                                    "observed_seconds": 41.02207416598685,
+                                                    "state": "failed"},
+                        "direct_ipv4_preflight_2_dns_tcp": {"duration_seconds": 20.003380875103176,
+                                                            "observed_seconds": 41.019364499952644,
+                                                            "state": "failed"}}},
+)
+_12203_W45_P0_READINESS = (
+    ("readiness_01.json", "ed3c4f888dc999717d674f92918fe7234f3e56617e97974869da0b44facf0fb2"),
+    ("readiness_02.json", "19a4bdcff6191251ce833c2aad94e40325035f76bb5285ae3f6edb425996e8a4"),
+    ("readiness_03.json", "e2d33b98e5fa98f252638445a3e6f5f03bce8fbfda820761c1874584b3a6e4be"),
+)
+SCOPES[(12203, 46)] = replace(
+    SCOPES[(12203, 45)], wave=46, cooldown_field="not_before_unix", cooldown_unix=1795750699.3874757,
+    boundary_physical_attempts=1, original_start_round=5, original_boundary_physical_attempts=1,
+    archive=(*SCOPES[(12203, 45)].archive, _12203_W45_P0),
+)
+
+
 SCOPES[(887, 1)] = Scope(
     887, 8, 1, "ac09bcae3019cc81899e246e4769bc20ec1b764ac08e52cfc6b4c35dc8324c85", (
         Review(retry.bounded.RunIdentity("-887-cached-r7-01",
@@ -9390,6 +9569,52 @@ SCOPES[(887, 24)] = replace(
 )
 
 
+_887_W24 = retry.bounded.RunIdentity(
+    "-887-relay-retry-24",
+    "d0e63b8802e887240dc20fc3b323a10879775ddff0d0dd2810f97c74a695dee6",
+    "359314b43e2d040edc6b986fe6636376dd67be27ceefd0558345814c7d377032",
+)
+SCOPES[(887, 25)] = replace(
+    SCOPES[(887, 24)], wave=25, cooldown_field="not_before_unix", cooldown_unix=1795750835.668551,
+    boundary_physical_attempts=1, original_start_round=34, original_boundary_physical_attempts=1,
+    archive=(
+        *SCOPES[(887, 24)].archive,
+        Review(
+            _887_W24,
+            "058a0599dd90ef79ff867d2ccb3f69556003ac1dfdbf3198b9c2174f4228ddaf",
+            "67e7827dbd6d4022ab3bed50b1542a8f",
+            "56a030305dcba43388084c2afc621341cb7682cc0b13056766e3b1cfd1299461",
+            "1fdb83c0485ad5a9f54110f8c18b11702452f67d672d12b6482bc178fdb1377a",
+            "35bf6a5edd3ba576b78276219a8c07ff0ae983c586050586debb47c4bec5d0b5",
+            "9780f35a59e889040a9a886730a09fa4f3f1b414d893bbcb70b0512cd473a16b",
+            "timeout",
+            {"phase": "transport_failure", "error_type": "WriteTimeout", "event_type": "ipv4_preflight_http_401",
+             "elapsed_seconds": 124.5895910419058,
+             "first_phase_seconds": {"http_phase": 0.2244339999742806, "request_dispatched": 4.411967207910493,
+                                     "transport_failure": 124.5895910419058},
+             "network_phases": {
+                 "direct_ipv4_preflight": {"duration_seconds": 0.7800777079537511, "observed_seconds": 0.7872907500714064, "state": "complete"},
+                 "direct_ipv4_preflight_1": {"duration_seconds": 0.7800777079537511, "observed_seconds": 0.7852889578789473, "state": "complete"},
+                 "direct_ipv4_preflight_1_dns_tcp": {"duration_seconds": 0.2189582500141114, "observed_seconds": 0.2244339999742806, "state": "complete"},
+                 "direct_ipv4_preflight_1_tls": {"duration_seconds": 0.24820862500928342, "observed_seconds": 0.47523516695946455, "state": "complete"},
+                 "send_body": {"duration_seconds": 120.00301937502809, "observed_seconds": 124.58339508296922, "state": "failed"},
+                 "send_headers": {"duration_seconds": 0.00024312501773238182, "observed_seconds": 4.579926792066544, "state": "complete"},
+             }},
+        ),
+    ),
+    fitted_prefix_files=(
+        ("boundary.json", "a0c4a1ce284b2200cd9ebb92854fa6df43fe04842b688d5b952febe9e1fb480d"),
+        ("pause.request", "5ddee93475c1c1dc307891320349b0a4c979a9a5eab8dce97503728d879dcfbc"),
+        ("round_34/source.json", "6d2a8e1612104f6fc0299994f73cb69555fc0114bae88fcee84ebe3b06bf68ea"),
+        ("round_34/boundary_memory.json", "c8777ec320923c89d0a4a4481f2541ef2a879a43964b646f76e894c9a5632d05"),
+        ("round_34/boundary_user_message.json", "8ca8a6410f484ac4b0884a7dfd476741394a286d9f2e51612787c021e66219b2"),
+        ("round_34/authoritative_packet.json", "111a5842df2244af49b73ecc68bfd40e8394a490fc4d7cad4c6c8213f0d85b7f"),
+        ("round_34/turn_00/request.json", "06c1dd0286f30baba513f75c0564dd3c6a6ceace4f6e293da86009d30224f28d"),
+        ("round_34/turn_00/attempt_00.started.json", "49693ebe730888912bb1ff70b975ebc75b7976b124185029092503190322450e"),
+    ),
+)
+
+
 _6101_R11_CONTINUATION = retry.bounded.RunIdentity(
     "-6101-r11-continuation-01",
     "bb0c4e008336863b71ec7f41be179c7e2b815c8bc6e23dfa317cb65eb046c553",
@@ -9505,6 +9730,52 @@ SCOPES[(6101, 30)] = replace(
         ("round_13/authoritative_packet.json", "86017b38b11c3d1d6e2f82f3710879698bade6b418cfdc799b5a2052756ec67b"),
         ("round_13/turn_00/request.json", "afcd2bcd2b7a75144a6ca5aa774c61e01392962b4a3c2df498c4d332e8932f8d"),
         ("round_13/turn_00/attempt_00.started.json", "3c06da043a0984d0d21e73bf4e152d817a97c7a33713af396ab468016b31cc71"),
+    ),
+)
+
+
+_6101_R13_W30 = retry.bounded.RunIdentity(
+    "-6101-relay-retry-30",
+    "067651704472b34a5a6969c305af40c3ac1552eca7cc7e508d92dcf7f7dba995",
+    "5ebad40d0482df17a6423383ec05d6dbe880b9c4621c8ee88e1440fe1871071f",
+)
+SCOPES[(6101, 31)] = replace(
+    SCOPES[(6101, 30)], wave=31, cooldown_field="not_before_unix", cooldown_unix=1795750655.6582642,
+    original_start_round=13, original_boundary_physical_attempts=2, boundary_physical_attempts=1,
+    archive=(
+        *SCOPES[(6101, 30)].archive,
+        Review(
+            _6101_R13_W30,
+            "a9d77fe3c4451e46e72d4fd2421cb0b3e29a4d3d74f6c216260f4eb175055b7e",
+            "6f2c3e78d11c4baeb6c2a9b4c559c297",
+            "789bfa852870d7cd30395b2825632e72056d49c32f80fa031ec841b51c28f2f2",
+            "28c3f586d69a3cf2b94ec441fa098fa78ad176dabda48867a6bf640112b577a8",
+            "e611a5a294ffeabbd6f746b7b04f4192e7360def8fb8ac17c5dab630e85a01b8",
+            "86891dd4c5af66463730bf71f3cc9f6b14d926c57bea03b89ce814a11006fc7a",
+            "timeout",
+            {"http_status": 200, "phase": "transport_failure", "error_type": "sse_inactivity_timeout",
+             "event_type": "response.output_item.added", "sse_event_count": 5,
+             "first_sse_seconds": 19.389209375018254, "last_sse_seconds": 28.65675445809029,
+             "last_sse_activity_seconds": 28.65675445809029, "elapsed_seconds": 928.6700286250561,
+             "model": "gpt-6.2-astra", "provider_request_id": "9d8d7d02-30ba-4022-8b82-b62b58d2aa48",
+             "response_id": "resp_0714248530716e33016b08f75a058087d1b73752d3fb27667b",
+             "sse_milestones": {
+                 "response.created": {"elapsed_seconds": 19.389209375018254, "interval_seconds": None},
+                 "response.in_progress": {"elapsed_seconds": 19.389971875119954, "interval_seconds": 0.0007625001017004251},
+                 "response.output_item.added": {"elapsed_seconds": 19.390906041953713, "interval_seconds": 0.0009341668337583542},
+                 "response.output_item.done": {"elapsed_seconds": 28.61795795802027, "interval_seconds": 9.227051916066557},
+             }},
+        ),
+    ),
+    fitted_prefix_files=(
+        ("boundary.json", "626d167020da26ba7242d42f8d97c683c19ef684c565e7d4dd0462b4c4b1863d"),
+        ("pause.request", "cffa5fcb416aa602b8973668042bf17c691e8315a4f03b8a1c32b55ad58466fd"),
+        ("round_13/source.json", "2d0386962fdda36d28d4aa4b2411fa7df2e0c4daf3e31d5efdbd85c3138640c5"),
+        ("round_13/boundary_memory.json", "087352268fbff59ff7f79cb66b1a5cbb079a7950fb35721f1b6d576ac624277e"),
+        ("round_13/boundary_user_message.json", "414abd1bac3a170d9117355273481920556725473921dff4d787732dae48f84d"),
+        ("round_13/authoritative_packet.json", "86017b38b11c3d1d6e2f82f3710879698bade6b418cfdc799b5a2052756ec67b"),
+        ("round_13/turn_00/request.json", "1fbeedf1a6995f7b72ce5e02e865ac65c7dc0fb41fdf8d11b27b7f678a3280b8"),
+        ("round_13/turn_00/attempt_00.started.json", "e2eaa4c1b03860d66869029d222f280eb071001dd3d86318fb795e3f94c1ee1e"),
     ),
 )
 
