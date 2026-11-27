@@ -3713,6 +3713,93 @@ def test_relay_discovery_reads_only_private_canonical_launcher_arguments(tmp_pat
     assert status._relay_pin(f"887:16:{'a'*64}:aaa;touch") is None
 
 
+def test_live_dispatch_requires_matching_loaded_arguments_and_expected_pins(tmp_path, monkeypatch):
+    status = prompt_pilot_status
+    private = tmp_path.resolve() / "purellm"
+    directory = private / "launchd"
+    directory.mkdir(parents=True, mode=0o700)
+    label = "com.purellm.a7-ipv4-v13-6101-relay-retry-32"
+    path = directory / f"{label}.plist"
+    contract, authorization, package = "a" * 64, "b" * 64, "c" * 64
+    run = status.RUNS / f"{status.SERIAL_IPV4}-6101-relay-retry-32"
+    release = status.RUNS.parent / "releases" / f"ipv4-v13-6101-relay-retry-32-{package}"
+    args = ["/usr/bin/caffeinate", "-i", "/trusted/python", "-B", "-u", "-m",
+            "studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.dispatch_v13_retry_successor",
+            "--execute-paid", "--seed", "6101", "--wave", "32", "--remote-root", str(release),
+            "--remote-run-dir", str(run), "--contract-sha256", contract, "--authorization-sha256", authorization]
+    path.write_bytes(status.plistlib.dumps({"Label": label, "ProgramArguments": args}))
+    path.chmod(0o600)
+    loaded = [f"path = {path}", "state = running", "pid = 420", "arguments = {", *args, "}"]
+    monkeypatch.setattr(status, "command_lines", lambda command: [f"420\t0\t{label}"] if command[-1] == "list" else loaded)
+    running = status._running_relays()
+    assert running == {label: 420}
+    expected = f"6101:32:{contract}:{authorization}:{package}"
+    assert status.discover_relay_pins(private, "eit-hpc", running=running, expected=(contract, authorization)) == [expected]
+    assert status._live_dispatch_pin(expected) == (6101, 32, contract, authorization, package)
+    assert status._live_dispatch_pin(expected + ";touch") is None
+    assert status.discover_relay_pins(private, "eit-hpc", running=running, expected=(authorization, contract)) == []
+    assert status.discover_relay_pins(private, "eit-hpc", running={}) == []
+    loaded[3] = "arguments = unknown"
+    assert status.discover_relay_pins(private, "eit-hpc", running=running) == []
+    loaded[3] = "arguments = {"
+    loaded[-2] = "d" * 64
+    assert status.discover_relay_pins(private, "eit-hpc", running=running) == []
+    assert status.discover_relay_pins(private, "eit-hpc") == [f"6101:32:{contract}:{authorization}"]
+
+
+def test_live_dispatch_keeps_scientific_status_and_checks_gpfs_manifest(tmp_path, monkeypatch):
+    status = prompt_pilot_status
+    runs = tmp_path.resolve() / "runs"
+    run = runs / f"{status.SERIAL_IPV4}-6101-relay-retry-32"
+    package = "c" * 64
+    release = runs.parent / "releases" / f"ipv4-v13-6101-relay-retry-32-{package}"
+    manifests = {}
+    for module in ("dispatch_v13_retry_successor", "run_v13_retry_successor"):
+        name = f"studies/active_learning/pure_llm_v3_a7_gpu_20261124/scripts/{module}.py"
+        source = release / name
+        source.parent.mkdir(parents=True, exist_ok=True)
+        source.write_text("source\n")
+        manifests[name] = status.checksum(source)
+    record = {"run_directory": str(run), "source_sha256": manifests, "api_execution": "mac_ssh_dispatch_v1",
+              "profile": {"confirmation_seeds": [6101], "resume_boundaries": {"6101": {"round": 13}}},
+              "predecessor": {"dispatcher_module": "dispatch_v13_retry_successor", "seed": 6101, "round": 13}}
+    contract = status.record_digest(record)
+    approval = {"contract_sha256": contract, **dict.fromkeys(status.FORMAL_APPROVAL_FLAGS, True)}
+    authorization = status.record_digest(approval)
+    write_json(run / "formal_contract.json", record)
+    write_json(run / "authorization.json", approval)
+    write_json(run / "workers/seed_6101.json", {"status": "initializing"})
+    write_json(run / "coordinator_generation.json", {"pid": 4321})
+    monkeypatch.setattr(status, "live", lambda process, **options: process == 4321 and options.get("run") == run)
+    monkeypatch.setattr(status, "command_lines", lambda *_args: [])
+    expected_seeds = [{"seed": seed, "labels": 333} for seed in status.SEEDS]
+    monkeypatch.setattr(status, "remote_seed", lambda _runs, seed: next(row for row in expected_seeds if row["seed"] == seed))
+
+    request_id, attempt_id = "d" * 64, "e" * 32
+    started = {"attempt_id": attempt_id, "request_id": request_id, "attempt": 0, "started_unix": 500.0}
+    ledger = run / "seed_6101/round_13/turn_00/attempt_00.started.json"
+    write_json(ledger, started)
+    payload = {"input": "bound"}
+    request = {"request_id": request_id, "logical_index": 0, "payload": payload, "payload_sha256": status.record_digest(payload),
+               "binding": {"seed": 6101, "round": 13, "a7_formal": {"contract_sha256": contract,
+                           "authorization_sha256": authorization, "seed": 6101, "mock": False}}}
+    job = {"attempt_id": attempt_id, "request_id": request_id, "request": request, "started": started}
+    job["job_sha256"] = status.record_digest(job)
+    write_json(run / "bridge/outbox" / f"{attempt_id}.json", job)
+    pin = (6101, 32, contract, authorization, package)
+    view = status.remote_report(runs, live_dispatch_pins=[pin])
+    assert view["seeds"] == expected_seeds and "live_dispatch" not in status.remote_report(runs)
+    live, = view["live_dispatch"]
+    assert live["coordinator_pid"] == 4321 and "labels" not in live and "checkpoint_sha256" not in live
+    assert live["api"]["attempt_id"] == attempt_id and live["api"]["status"] == "waiting_for_mac"
+    assert not status.live_dispatch_report(runs, [(6101, 32, contract, "0" * 64, package)])
+    result = run / "bridge/results" / f"{attempt_id}.json"
+    write_json(result, {"attempt_id": attempt_id})
+    assert status.live_dispatch_report(runs, [pin])[0]["api"] == {}
+    source.write_text("changed\n")
+    assert not status.live_dispatch_report(runs, [pin])
+
+
 def test_relay_discovery_keeps_exact_parent_contract_science_and_fence(tmp_path, monkeypatch):
     status = prompt_pilot_status
     runs = tmp_path.resolve()

@@ -11555,8 +11555,8 @@ def _relay_pin(value):
     return None
 
 
-def discover_relay_pins(private, ssh_host):
-    """Read launch arguments as data. Ship only seed, wave and two expected digests."""
+def discover_relay_pins(private, ssh_host, *, running=None, expected=None):
+    """Read launch arguments as data. Optionally require the exact running launchd service."""
     directory = private / "launchd"
     if not _plain_filesystem_path(directory):
         return []
@@ -11575,8 +11575,11 @@ def discover_relay_pins(private, ssh_host):
         if directory_status.st_uid != os.getuid() or directory_status.st_mode & 0o022:
             return []
         for name in paths:
-            suffix = name.removeprefix("com.purellm.").removesuffix(".plist")
+            label = name.removesuffix(".plist")
+            suffix = label.removeprefix("com.purellm.")
             seed, wave = launcher.fullmatch(name).groups()
+            if running is not None and label not in running:
+                continue
             try:
                 fd = os.open(name, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=descriptor)
                 with os.fdopen(fd, "rb") as stream:
@@ -11601,11 +11604,50 @@ def discover_relay_pins(private, ssh_host):
                                         + r"[0-9a-f]{64}", flags["--remote-root"])):
                 continue
             pin = f'{seed}:{int(wave)}:{flags["--contract-sha256"]}:{flags["--authorization-sha256"]}'
-            if _relay_pin(pin):
-                pins.append(pin)
+            parsed = _relay_pin(pin)
+            if parsed is None:
+                continue
+            if running is not None:
+                if expected is not None and parsed[2:] != expected:
+                    continue
+                if not _loaded_relay_matches(label, directory / name, args, running[label]):
+                    continue
+                pin += ":" + flags["--remote-root"].rsplit("-", 1)[1]
+            pins.append(pin)
     finally:
         os.close(descriptor)
     return pins
+
+
+def _running_relays():
+    rows = command_lines(["/bin/launchctl", "list"]) or ()
+    running = {}
+    for row in rows:
+        fields = row.split()
+        if (len(fields) == 3 and fields[0].isascii() and fields[0].isdecimal()
+                and re.fullmatch(r"com\.purellm\.a7-ipv4-v13-(157|887|2357|6101|12203)-relay-retry-[0-9]{2}", fields[2])):
+            if process := pid(int(fields[0])):
+                running[fields[2]] = process
+    return running
+
+
+def _loaded_relay_matches(label, path, args, process):
+    lines = command_lines(["/bin/launchctl", "print", f"gui/{os.getuid()}/{label}"])
+    lines = [line.strip() for line in lines or ()]
+    try:
+        first = lines.index("arguments = {")
+        last = lines.index("}", first + 1)
+    except ValueError:
+        return False
+    return (f"path = {path}" in lines and "state = running" in lines
+            and f"pid = {process}" in lines and lines[first + 1:last] == args)
+
+
+def _live_dispatch_pin(value):
+    relay, _, package_sha = value.rpartition(":")
+    if (parsed := _relay_pin(relay)) and SHA.fullmatch(package_sha):
+        return (*parsed, package_sha)
+    return None
 
 
 def _signed_retry_record(run, contract, authorization=None):
@@ -13253,8 +13295,93 @@ def command_lines(command):
         return None
 
 
-def remote_report(runs=RUNS, relay_pins=None):
-    return {"seeds": [remote_seed(runs, seed, relay_pins) if relay_pins else remote_seed(runs, seed) for seed in SEEDS], "gpus": command_lines([
+def _live_dispatch_api(run, seed, start, contract, authorization):
+    directory = run / f"seed_{seed}"
+    if not _plain_filesystem_path(directory):
+        return {}
+    for index in range(TARGET_ROUNDS - 1, start - 1, -1):
+        path = directory / f"round_{index:02d}"
+        if not path.is_dir():
+            continue
+        api = pending_attempt(run, directory, index)
+        if not api:
+            continue
+        attempt = api.get("attempt_id", "")
+        physical = api.get("attempt")
+        if type(physical) is not int or physical not in (0, 1):
+            return {}
+        job_path = run / "bridge/outbox" / f"{attempt}.json"
+        if not _plain_filesystem_path(job_path):
+            return {}
+        job = read_json(job_path)
+        request = job.get("request") or {}
+        binding = request.get("binding") or {}
+        formal = binding.get("a7_formal") or {}
+        started = job.get("started") or {}
+        ledger_path = path / f"turn_{api['turn']:02d}" / f"attempt_{physical:02d}.started.json"
+        if (not _plain_filesystem_path(ledger_path) or read_json(ledger_path) != started
+                or (job.get("attempt_id"), started.get("attempt_id"), started.get("attempt")) != (attempt, attempt, physical)
+                or (request.get("request_id"), started.get("request_id")) != (job.get("request_id"), job.get("request_id"))
+                or record_digest(request.get("payload")) != request.get("payload_sha256")
+                or record_digest({key: value for key, value in job.items() if key != "job_sha256"}) != job.get("job_sha256")
+                or (binding.get("seed"), binding.get("round"), request.get("logical_index")) != (seed, index, api["turn"])
+                or formal != {"contract_sha256": contract, "authorization_sha256": authorization, "seed": seed, "mock": False}):
+            return {}
+        if api["returned_from_mac"]:
+            result_path = run / "bridge/results" / f"{attempt}.json"
+            if not _plain_filesystem_path(result_path):
+                return {}
+            result = read_json(result_path)
+            if ((result.get("attempt_id"), result.get("request_id"), result.get("job_sha256"))
+                    != (attempt, job["request_id"], job["job_sha256"])
+                    or record_digest({key: value for key, value in result.items() if key != "result_sha256"})
+                    != result.get("result_sha256")):
+                return {}
+        return {key: api[key] for key in ("status", "failure", "ambiguous", "round", "turn", "attempt", "attempt_id",
+                                         "reserved_unix", "returned_from_mac")}
+    return {}
+
+
+def live_dispatch_report(runs, pins):
+    rows = []
+    for seed, wave, contract, authorization, package in pins:
+        run = runs / f"{SERIAL_IPV4}-{seed}-relay-retry-{wave:02d}"
+        release = runs.parent / "releases" / f"ipv4-v13-{seed}-relay-retry-{wave:02d}-{package}"
+        verified = _signed_retry_record(run, contract, authorization)
+        if verified is None:
+            continue
+        record, _ = verified
+        profile, proof = record.get("profile") or {}, record.get("predecessor") or {}
+        boundaries = profile.get("resume_boundaries") or {}
+        start = (boundaries.get(str(seed)) or {}).get("round")
+        dispatcher = "dispatch_v13_retry_successor"
+        scripts = "studies/active_learning/pure_llm_v3_a7_gpu_20261124/scripts"
+        sources = [f"{scripts}/{module}.py" for module in (dispatcher, "run_v13_retry_successor")]
+        if (record.get("api_execution") != "mac_ssh_dispatch_v1" or profile.get("confirmation_seeds") != [seed]
+                or set(boundaries) != {str(seed)} or type(start) is not int or not 0 <= start < TARGET_ROUNDS
+                or (proof.get("dispatcher_module"), proof.get("seed"), proof.get("round")) != (dispatcher, seed, start)
+                or not _plain_filesystem_path(release)
+                or any(not _plain_filesystem_path(release / path)
+                       or checksum(release / path) != (record.get("source_sha256") or {}).get(path) for path in sources)):
+            continue
+        generation = run / "coordinator_generation.json"
+        worker_path = run / "workers" / f"seed_{seed}.json"
+        coordinator = pid(read_json(generation).get("pid")) if _plain_filesystem_path(generation) else None
+        worker = read_json(worker_path) if _plain_filesystem_path(worker_path) else {}
+        directory = run / f"seed_{seed}"
+        paused = (run / "pause.request").is_file() or (directory / "pause.request").is_file()
+        active = live(coordinator, run=run)
+        rows.append({"seed": seed, "wave": wave, "run": run.name, "contract_sha256": contract,
+                     "authorization_sha256": authorization, "coordinator_pid": coordinator if active else None,
+                     "phase": "paused" if paused else safe_code(worker.get("status")) or "awaiting_worker",
+                     "api": _live_dispatch_api(run, seed, start, contract, authorization),
+                     "readiness_windows": profile.get("ipv4_readiness_windows", 0)})
+    return rows
+
+
+def remote_report(runs=RUNS, relay_pins=None, live_dispatch_pins=None):
+    return {**({"live_dispatch": live_dispatch_report(runs, live_dispatch_pins)} if live_dispatch_pins is not None else {}),
+            "seeds": [remote_seed(runs, seed, relay_pins) if relay_pins else remote_seed(runs, seed) for seed in SEEDS], "gpus": command_lines([
         "nvidia-smi", "--query-gpu=index,name,memory.used,memory.total,utilization.gpu", "--format=csv,noheader,nounits",
     ]), "gpu_processes": command_lines([
         "nvidia-smi", "--query-compute-apps=gpu_uuid,pid,used_gpu_memory", "--format=csv,noheader,nounits",
@@ -13523,6 +13650,23 @@ def mac_report(private, seeds):
     return {"keys": keys, "queue": queue, "limits": limits}
 
 
+def enrich_live_dispatch(private, rows, running):
+    for row in rows:
+        seed, wave = row["seed"], row["wave"]
+        label = f"com.purellm.a7-ipv4-v13-{seed}-relay-retry-{wave:02d}"
+        row["dispatcher_pid"] = running.get(label)
+        contract = row["contract_sha256"]
+        if not SHA.fullmatch(contract):
+            continue
+        spool = private / "spool" / contract
+        binding = spool / "run_binding.json"
+        if (_plain_filesystem_path(binding) and read_json(binding) == {"contract_sha256": contract,
+                "authorization_sha256": row["authorization_sha256"], "mock": False}):
+            row["provider"] = local_progress(
+                spool, seed, row["api"], track_queue=True, readiness_windows=row["readiness_windows"],
+            )
+
+
 def duration_text(value):
     return f"{value:.1f} s" if seconds(value) is not None else "—"
 
@@ -13682,6 +13826,16 @@ def show(view):
         print(f"  共享冷却 {cooldown} 秒，已停用 {bool(limits.get('shared_disabled'))}")
     for row in mac["queue"]:
         print(f"  seed {row['seed']}  round {row['round']}  turn {row['logical_index']}  {row['state']}  {row['key_id'] or '—'}")
+    if "live_dispatch" in view:
+        print("实时派发（Mac 与 GPFS 签名一致）")
+        for row in view["live_dispatch"]:
+            api, provider = row["api"], row.get("provider") or {}
+            stage = f"R{api['round']} 逻辑 {api['turn']} 尝试 {api['attempt']}" if api else "等待请求记录"
+            print(f"  seed {row['seed']} W{row['wave']:02d}  {stage}  Mac PID {row['dispatcher_pid'] or '—'}  "
+                  f"GPU PID {row['coordinator_pid'] or '—'}  {provider.get('phase') or api.get('status') or row['phase']}  "
+                  f"HTTP {provider.get('http_status') or '—'}  SSE {provider.get('sse_event_count', '—')}")
+        if not view["live_dispatch"]:
+            print("  未发现通过两端核验的运行中派发器。")
 
 
 def main():
@@ -13691,7 +13845,16 @@ def main():
     parser.add_argument("--watch", type=float, metavar="SECONDS", help="repeat the read-only snapshot")
     parser.add_argument("--remote", action="store_true", help=argparse.SUPPRESS)
     parser.add_argument("--relay-pin", action="append", default=[], help=argparse.SUPPRESS)
+    parser.add_argument("--live-dispatch", action="store_true", help="show verified live Mac/GPFS dispatch separately")
+    parser.add_argument("--expect-contract", metavar="SHA256", help="filter live dispatch by an exact contract")
+    parser.add_argument("--expect-authorization", metavar="SHA256", help="filter live dispatch by an exact authorization")
+    parser.add_argument("--live-dispatch-pin", action="append", default=[], help=argparse.SUPPRESS)
     args = parser.parse_args()
+    expected = (args.expect_contract, args.expect_authorization)
+    if any(value is not None for value in expected) and (
+        not args.live_dispatch or not all(value is not None and SHA.fullmatch(value) for value in expected)
+    ):
+        parser.error("--expect-contract and --expect-authorization require --live-dispatch and two lowercase SHA256 values")
     if args.remote:
         pins = {}
         for value in args.relay_pin:
@@ -13701,7 +13864,15 @@ def main():
                     pins[(seed, wave)] = ("", "")
                 else:
                     pins[(seed, wave)] = (contract, approval)
-        print(json.dumps(remote_report(relay_pins=pins)))
+        live_pins = None
+        if args.live_dispatch:
+            grouped = {}
+            for value in args.live_dispatch_pin:
+                if parsed := _live_dispatch_pin(value):
+                    key = parsed[:2]
+                    grouped[key] = parsed if key not in grouped else None
+            live_pins = [pin for pin in grouped.values() if pin is not None]
+        print(json.dumps(remote_report(relay_pins=pins, live_dispatch_pins=live_pins)))
         return 0
     source = Path(__file__).read_text()
     command = ["ssh", "-T", "-o", "BatchMode=yes", "-o", "StrictHostKeyChecking=yes", "-o", "ConnectTimeout=8",
@@ -13709,15 +13880,24 @@ def main():
     if args.watch is not None and not 3 <= args.watch <= 300:
         parser.error("watch interval must be between 3 and 300 seconds")
     while True:
+        private = Path.home() / ".config/purellm"
+        running = _running_relays() if args.live_dispatch else {}
         try:
-            pins = discover_relay_pins(Path.home() / ".config/purellm", args.ssh_host)
-            remote_command = " ".join([command[-1], *(f"--relay-pin {pin}" for pin in pins)])
+            pins = discover_relay_pins(private, args.ssh_host)
+            remote_args = [f"--relay-pin {pin}" for pin in pins]
+            if args.live_dispatch:
+                live_pins = discover_relay_pins(private, args.ssh_host, running=running,
+                                                expected=expected if expected[0] is not None else None)
+                remote_args.extend(["--live-dispatch", *(f"--live-dispatch-pin {pin}" for pin in live_pins)])
+            remote_command = " ".join([command[-1], *remote_args])
             result = subprocess.run([*command[:-1], remote_command], input=source, capture_output=True, text=True, timeout=30, check=True)
             view = json.loads(result.stdout)
         except (OSError, ValueError, subprocess.SubprocessError):
             view = {"remote_unavailable": True}
         view["checked_at"] = datetime.now().astimezone().isoformat(timespec="seconds")
-        view["mac"] = mac_report(Path.home() / ".config/purellm", view.get("seeds", ()))
+        view["mac"] = mac_report(private, view.get("seeds", ()))
+        if args.live_dispatch and not view.get("remote_unavailable"):
+            enrich_live_dispatch(private, view.get("live_dispatch", ()), running)
         if args.json:
             print(json.dumps(view, ensure_ascii=False, indent=None if args.watch else 2), flush=True)
         else:
