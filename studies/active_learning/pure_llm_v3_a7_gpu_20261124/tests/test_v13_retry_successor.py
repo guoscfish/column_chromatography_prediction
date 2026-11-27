@@ -134,6 +134,7 @@ def test_reviewed_data_only_scope_requires_external_sha_and_cannot_shadow(owned_
     scope = gpu._record_scope(record, sha, anchor.seed, anchor.wave + 1)
     assert scope.reviewed_record_sha256 == sha and scope.previous_reviewed_record_sha256 is None
     assert scope.archive[:-1] == anchor.archive and scope.archive[-1].receipt_provider_flags == (True, True)
+    assert scope.retired_reviewed_records == anchor.retired_reviewed_records
     assert scope.boundary_physical_attempts == 1 and scope.required_sources == anchor.required_sources
     assert scope.not_before_unix == record["steps"][-1]["cooldown_unix"] + 180
     assert scope.replay_start_round == anchor.round + 1
@@ -262,7 +263,7 @@ def test_reviewed_archive_rehashes_both_generations_and_denies_an_old_tamper(
     older, newer = scope.archive[-2:]
     assert newer.progress["event_type"] == "response.output_item.done"
     assert older.progress["event_type"] == "response.output_item.added"
-    scope = replace(scope, archive=(older, newer))
+    scope = replace(scope, archive=(older, newer), retired_reviewed_records=())
     first_run, second_run = (tmp_path / name for name in names)
     model = {"served_model": "gpt-6.2-astra"}
     receipts = {first_run: [{"frozen": "prior"}], second_run: [{"frozen": "latest"}]}
