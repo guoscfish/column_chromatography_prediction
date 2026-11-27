@@ -61,14 +61,14 @@ STAGE_FIELDS = (
 R12_REQUEST = {'checkpoint_sha256': '484852bdaef0412c43736a70622d99c11b8123c8b75046f8ed6465d9bcda55bc',
  'packet_sha256': '6b9acd4c0d2f0ac2db310c56754a4a3c816fb0d9c1c9922dd733573b9733bc95',
  'wire_packet_sha256': '9fce2bd9479187785090423563b211b1c39c1bb5eeace3fb4c1ff4ee105c51c8',
- 'base_messages_sha256': 'e9f494ddd93b45066f3e4b4673347ef23561ced9a2abdac0339d3f52aa03e956',
- 'authoritative_base_messages_sha256': '5756456d96237fd221d929cda5112e9067bcc30290ec26a53335d7b97bba7c3d',
+ 'base_messages_sha256': 'c58403259e6eda9142534c47df89990d736ad330fd153fa367f8adcfeed63619',
+ 'authoritative_base_messages_sha256': '8a14b1d03d3b2b54769e8723899921c0fc37f60002ae11574ff88396b4ef35ce',
  'prompt_sha256': '0872b8ddd262b319d9a1463ca0696fa28a5afbd51da8cd3ff477729db6b08d40',
  'mapping_sha256': '57d7e0fdad33dda05f1235e17276e0c62d7ce0ab316bd8c0220ba39b63816d42',
  'split_sha256': '360d81a9e239d7bbf6e2f89f5ce7db7e119f0783f5e134df122ac08a6fc1f1e7',
  'state_sha256': 'caed7c6ce8a7481825b371655f62d3aa23799742876f5f16dfce6942e8451c51',
- 'payload_sha256': '1465731406b9cd73f7cfe3ad6c9af31ab6230556b24667c7211b550954041086'}
-HANDOFF_SHA256 = '2ead72b6a2097bc5667c4715181aed3fb1841aa7e49769fb4334a27eff008fdf'
+ 'payload_sha256': 'b23751cee03efd959a18308b5bf48f95cd257f98ae3e88801fc6624a99bdc4a1'}
+HANDOFF_SHA256 = '816b12f108ea5f299bf403eeb1209b836d849326321a7532feb5aebf915acb2c'
 CORRECTION_STATES = {"rejected", "malformed_complete_response", "patch_rejected", "model_requested_replan"}
 
 
@@ -382,6 +382,8 @@ def main():
     parser.add_argument("--handoff-pins", type=Path)
     parser.add_argument("--authorization", type=Path)
     args = parser.parse_args()
+    if os.environ.get("PYTHONHASHSEED") != "0":
+        parser.error("set PYTHONHASHSEED=0 to reproduce the signed R12 message bytes")
     os.umask(0o077)
     os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
     os.environ["CUDA_VISIBLE_DEVICES"] = "0"
