@@ -13671,6 +13671,16 @@ def duration_text(value):
     return f"{value:.1f} s" if seconds(value) is not None else "—"
 
 
+def owned_upstream_failure(provider):
+    return (
+        provider.get("http_status") == 200
+        and provider.get("error_type") == "response_id_mismatch"
+        and provider.get("conflicting_event_type") == "response.failed"
+        and provider.get("response_id_matches_transport_alias") is True
+        and provider.get("provider_error_code") == "upstream_error"
+    )
+
+
 def show(view):
     print(f"A7 status  {view.get('checked_at', '—')}")
     for row in view.get("seeds", ()):
@@ -13776,12 +13786,15 @@ def show(view):
                 print("  本轮读取已归档回答，无新 API 提交")
             if (relay_wait := api.get("relay_retry_wait_seconds")) is not None:
                 print(f"  已授权的同请求重试最早 {relay_wait} s 后可派发")
-            error_details = [f"{label} {provider[field]}" for field, label in (
-                ("error_type", "传输异常"), ("provider_error_code", "SSE 错误码"),
-                ("provider_error_status", "SSE 错误状态"), ("conflicting_event_type", "ID 变化事件"),
-            ) if field in provider]
-            if provider.get("response_id_matches_transport_alias") is True:
-                error_details.append("变化 ID 与传输别名一致")
+            if owned_upstream_failure(provider):
+                error_details = ["服务商返回 upstream_error", "失败事件与本次请求匹配"]
+            else:
+                error_details = [f"{label} {provider[field]}" for field, label in (
+                    ("error_type", "传输异常"), ("provider_error_code", "SSE 错误码"),
+                    ("provider_error_status", "SSE 错误状态"), ("conflicting_event_type", "ID 变化事件"),
+                ) if field in provider]
+                if provider.get("response_id_matches_transport_alias") is True:
+                    error_details.append("变化 ID 与传输别名一致")
             if error_details:
                 print("  " + "  ".join(error_details))
             if provider.get("readiness_windows_used"):
@@ -13831,8 +13844,10 @@ def show(view):
         for row in view["live_dispatch"]:
             api, provider = row["api"], row.get("provider") or {}
             stage = f"R{api['round']} 逻辑 {api['turn']} 尝试 {api['attempt']}" if api else "等待请求记录"
+            phase = ("服务商返回 upstream_error" if owned_upstream_failure(provider)
+                     else provider.get("phase") or api.get("status") or row["phase"])
             print(f"  seed {row['seed']} W{row['wave']:02d}  {stage}  Mac PID {row['dispatcher_pid'] or '—'}  "
-                  f"GPU PID {row['coordinator_pid'] or '—'}  {provider.get('phase') or api.get('status') or row['phase']}  "
+                  f"GPU PID {row['coordinator_pid'] or '—'}  {phase}  "
                   f"HTTP {provider.get('http_status') or '—'}  SSE {provider.get('sse_event_count', '—')}")
         if not view["live_dispatch"]:
             print("  未发现通过两端核验的运行中派发器。")

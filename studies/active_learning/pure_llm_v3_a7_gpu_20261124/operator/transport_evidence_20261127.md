@@ -67,3 +67,19 @@ Window **2026-11-26 11:49:49 through 2026-11-27 11:49:49 CST (UTC+08:00)**. The 
 The 412 admitted tickets had no observed FIFO inversions or same-Key lease overlaps. Key occupancy was **64.91%, 64.54%, and 72.56%** for Key 01, 02, and 03. Occupancy includes anonymous connection checks and local result sealing. Wait timing begins at admission to the shared queue and excludes coordinator recovery and periods before enqueue. The traces in this interval had no observed HTTP 429 or typed rate-limit error.
 
 The larger number of complete receipts for 887 coincided with comparable or fewer submissions than the other seeds and a longer mean Key wait than 157. The relay supplied many more explicit failure terminals to 157, 2357 and 12203. These observations cannot identify the relay's internal routing or distinguish any undisclosed upstream throttling.
+
+## Physical concurrency at dispatch
+
+This second read-only sample ended at **2026-11-27 12:44:25 CST (UTC+08:00)**. It matched 378 local dispatch marks from the preceding 24 hours to sealed Mac responses and delivery acknowledgments for direct IPv4 Responses SSE. The count includes the newly dispatched attempt and the other dispatch-marked attempts whose leases were still active. A local dispatch mark can precede completion of the upload.
+
+| Simultaneous dispatch-marked attempts | Attempts | HTTP 200 with owned explicit upstream error | Captured complete transport replies |
+|---:|---:|---:|---:|
+| 1 | 41 | 28 | 4 |
+| 2 | 106 | 70 | 19 |
+| 3 | 231 | 133 | 35 |
+
+Within the five latest matched groups with the same seed, round, logical index, and payload, explicit upstream failures occurred in 15 of 16 single-attempt cases and 92 of 103 cases with two or three attempts. All 119 cases had no captured complete reply. Across the last three hours, 1 of 50 dispatch-marked attempts captured a complete reply.
+
+Explicit failures occurred at every observed concurrency level, including matched requests sent alone. Submission time, provider load, Key and lane settings vary across this observational sample. It supplies no causal estimate of how changing the cap would affect response completion.
+
+A sensitivity check required either a completed request body write or observed HTTP response headers. Among 232 exact upstream failures in that snapshot with a first SSE timestamp, the median first-event-to-failure time was **180.056 s**, and 216 fell between 170 and 200 s. The archived traces had no final assistant-text milestone. This timing is consistent with a relay or upstream cutoff. The client had configured a 900 s SSE inactivity limit and a 3,600 s total limit.

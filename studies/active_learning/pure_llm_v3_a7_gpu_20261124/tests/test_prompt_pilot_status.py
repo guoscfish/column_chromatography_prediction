@@ -3713,6 +3713,20 @@ def test_relay_discovery_reads_only_private_canonical_launcher_arguments(tmp_pat
     assert status._relay_pin(f"887:16:{'a'*64}:aaa;touch") is None
 
 
+def test_owned_upstream_failure_requires_exact_failure_event_and_transport_alias():
+    provider = {
+        "http_status": 200,
+        "error_type": "response_id_mismatch",
+        "conflicting_event_type": "response.failed",
+        "response_id_matches_transport_alias": True,
+        "provider_error_code": "upstream_error",
+    }
+    assert prompt_pilot_status.owned_upstream_failure(provider)
+    assert not prompt_pilot_status.owned_upstream_failure({**provider, "response_id_matches_transport_alias": False})
+    assert not prompt_pilot_status.owned_upstream_failure({**provider, "conflicting_event_type": "response.completed"})
+    assert not prompt_pilot_status.owned_upstream_failure({**provider, "error_type": "sse_inactivity_timeout"})
+
+
 def test_live_dispatch_requires_matching_loaded_arguments_and_expected_pins(tmp_path, monkeypatch):
     status = prompt_pilot_status
     private = tmp_path.resolve() / "purellm"
