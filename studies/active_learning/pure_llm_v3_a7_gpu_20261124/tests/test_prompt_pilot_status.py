@@ -2213,6 +2213,13 @@ def check_12203_wave11(runs, monkeypatch, capsys, flags, fitted_run, fitted_sha,
     printed = capsys.readouterr().out
     assert "SSE 25  事件 response.failed  未收到完整模型答复" in printed
     assert "传输别名一致" in printed
+    sparse_observation = dict(row["reviewed_previous_api"])
+    del sparse_observation["sse_event_count"]
+    sparse_row = {**row, "reviewed_previous_api": sparse_observation}
+    status.show({"seeds": [sparse_row, row], "mac": {"keys": [], "limits": {}, "queue": []}})
+    printed = capsys.readouterr().out
+    assert "SSE —  事件 response.failed  未收到完整模型答复" in printed
+    assert "SSE 25  事件 response.failed  未收到完整模型答复" in printed
     check_12203_wave12(runs, monkeypatch, capsys, flags, run, sha, record)
     write_json(turn / "attempt_01.started.json", {"unexpected": True})
     assert remote_seed(runs, seed)["run"] == previous.name

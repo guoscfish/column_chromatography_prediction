@@ -14012,7 +14012,10 @@ def show(view):
                     prior.get("request_upload_confirmed"), "签名回执摘要未列出请求体发送阶段")
                 print(f"  {label} {errors}  {upload}  未收到 HTTP 响应头或 SSE")
             else:
-                print(f"  {label} HTTP {prior['http_status']}  {errors}  SSE {prior['sse_event_count']}  {end}  未收到完整模型答复")
+                http_status = prior.get("http_status") or "—"
+                sse_count = prior.get("sse_event_count")
+                sse_display = "—" if sse_count is None else sse_count
+                print(f"  {label} HTTP {http_status}  {errors}  SSE {sse_display}  {end}  未收到完整模型答复")
             if first_headers := prior.get("first_http_headers_seconds"):
                 print(f"  上次模型请求在 {duration_text(first_headers)} 收到响应头，之后没有 SSE；"
                       f"总耗时 {duration_text(prior['elapsed_seconds'])}。")
