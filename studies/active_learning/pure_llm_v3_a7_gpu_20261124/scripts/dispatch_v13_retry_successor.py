@@ -39,6 +39,9 @@ def _scope(info, run, lane):
     if lane.reviewed_record_sha256 is not None:
         expected.update({gpu.REVIEWED_RECORD_FIELD: lane.reviewed_record_sha256,
                          "checkpoint_sha256": lane.reviewed_checkpoint_sha256})
+    retired_history = gpu._retired_reviewed_history(lane)
+    if retired_history:
+        expected[gpu.RETIRED_REVIEWED_RECORDS_FIELD] = retired_history
     if lane.fitted_prefix_files:
         expected["reviewed_fitted_prefix_files"] = dict(lane.fitted_prefix_files)
     if lane.cached_origin is not None:
@@ -58,6 +61,7 @@ def _scope(info, run, lane):
     if (path.name != lane.run_name or record["run_directory"] != run or record["api_execution"] != SSH_API
             or "cached_import" in proof
             or (gpu.REVIEWED_RECORD_FIELD in proof) != bool(lane.reviewed_record_sha256)
+            or (gpu.RETIRED_REVIEWED_RECORDS_FIELD in proof) != bool(retired_history)
             or record["gpu_slots"] != [0] or record["budget"] != lane.budget or "fixed_reference_repair" in profile
             or (gpu.HEADER_DEADLINE_FIELD in profile) != bool(header_deadline)
             or request_timeouts(profile) != resilient.TIMEOUTS

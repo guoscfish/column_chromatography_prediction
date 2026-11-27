@@ -325,6 +325,45 @@ def test_reviewed_start_lock_and_mac_boundary_gate_allow_one_after_cooldown(tmp_
     assert checked == [attempt]
 
 
+def test_2357_wave50_keeps_reviewed_prefixes_and_exact_static_timeout_gate():
+    anchor, scope = gpu.SCOPES[2357, 46], gpu.SCOPES[2357, 50]
+    assert scope.archive[:-4] == anchor.archive
+    assert scope.archive[-4:] == (gpu._2357_W46_P0, gpu._2357_W47_P0, gpu._2357_W48_P0, gpu._2357_W49_P0)
+    assert scope.payload_sha256 == anchor.payload_sha256 and scope.required_sources == anchor.required_sources
+    assert scope.header_deadline_profile == {"response_headers_seconds": 300}
+    assert (scope.round, scope.original_start_round, scope.replay_start_round) == (5, 5, 6)
+    assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}
+    assert scope.budget == {"first_logical_requests": 31, "maximum_logical_requests": 91, "maximum_physical_attempts": 181}
+    assert scope.not_before_unix == 1795760317.908765
+    assert scope.reviewed_record_sha256 is None
+    history = gpu._retired_reviewed_history(scope)
+    assert len(history) == 4 and history[0][gpu.REVIEWED_RECORD_FIELD] is None
+    assert history[-1][gpu.REVIEWED_RECORD_FIELD] == "1f4e01698dfd3afb1bebe48d6b1887b9cb015fdce1713c43c3bf45b67db20399"
+    assert history[-1]["pause_file_sha256"] == "d54a6b4c8ee6df1c17727ed4b4affcfffd64d27f781c995971b4a5bbe1eb99b7"
+    latest = scope.archive[-1]
+    assert latest.terminal_file_sha256 == "9ae7d824b55168d38d03d328aab5d9ae4415944be99aaa0c06a659e5053bd3c9"
+    assert latest.progress_file_sha256 == "cafe559573f50327b70d8af48a678808082b40296f1f93f58f3c526f467d2315"
+    assert latest.progress["sse_event_count"] == 35
+    assert latest.progress["elapsed_seconds"] - latest.progress["last_sse_activity_seconds"] == pytest.approx(900, abs=.1)
+    assert all(r.failure == "response_id_mismatch" and r.progress["response_id_matches_transport_alias"]
+               for r in scope.archive[-4:-1])
+    approved = {gpu.REVIEWED_RECORD_FIELD: history[-1][gpu.REVIEWED_RECORD_FIELD],
+                 "recovery_budget": scope.recovery_budget}
+    failure = {"code": "timeout", "ambiguous": True, "retryable": False, "reply_identity": None}
+    result = {"provider_dispatched": True, "raw_response": None,
+              "outcome": {"status": "failed", "failure": failure}}
+    gpu._require_static_timeout_fallback(scope, approved, result)
+    with pytest.raises(PermissionError, match="exact retired reviewed idle timeout"):
+        gpu._require_static_timeout_fallback(replace(scope, retired_reviewed_records=()), approved, result)
+    with pytest.raises(PermissionError, match="exact retired reviewed idle timeout"):
+        gpu._require_static_timeout_fallback(scope, {**approved, gpu.REVIEWED_RECORD_FIELD: "f" * 64}, result)
+    with pytest.raises(PermissionError, match="exact retired reviewed idle timeout"):
+        gpu._require_static_timeout_fallback(scope, approved, {**result, "raw_response": {}})
+    with pytest.raises(PermissionError, match="exact retired reviewed idle timeout"):
+        no_idle = replace(latest, progress={**latest.progress, "error_type": "hard_wall_deadline"})
+        gpu._require_static_timeout_fallback(replace(scope, archive=(*scope.archive[:-1], no_idle)), approved, result)
+
+
 def test_a_post_upload_header_timeout_never_authorizes_the_second_slot():
     identifier = "99bc486f-f525-4a96-8bbc-d77424cde734"
     observed = {"provider_request_id": identifier, "response_id": "resp_" + identifier.replace("-", ""),
@@ -6543,6 +6582,49 @@ def test_2357_wave44_retains_the_owned_failed_terminal():
     assert progress["provider_error_code"] == "upstream_error"
     assert review.terminal_file_sha256 == "fa08b953a7b03e709a278f97e5447e225bdda10e107a411d76aee4179c9822d6"
 
+
+
+def test_887_wave35_static_fallback_preserves_signed_reviewed_history(monkeypatch):
+    scope = gpu.SCOPES[(887, 35)]
+    anchor = gpu.SCOPES[(887, 29)]
+    assert scope.archive[:-6] == anchor.archive
+    assert scope.payload_sha256 == anchor.payload_sha256
+    assert scope.required_sources == anchor.required_sources
+    assert scope.reviewed_record_sha256 is None
+    assert (scope.original_start_round, scope.round, scope.replay_start_round) == (34, 34, 35)
+    assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}
+    assert scope.budget == {"first_logical_requests": 2, "maximum_logical_requests": 4, "maximum_physical_attempts": 7}
+    assert scope.not_before_unix == 1795760314.949839
+    pinned = scope.retired_reviewed_records
+    assert tuple(row[0] for row in pinned) == tuple(item.identity.contract for item in scope.archive[-6:])
+    assert pinned[0][1] is None and len({item[1] for item in pinned}) == 6
+    assert pinned[-1][1] == "650a081b0ec3ca7ee98bf9b948caa4c73be133781881eaa589e24398378fa98c"
+    assert pinned[-1][2] == dict(scope.fitted_prefix_files)["pause.request"]
+    assert pinned[-1][3] == dict(scope.fitted_prefix_files)["round_34/source.json"]
+    assert all(item.failure == "response_id_mismatch" for item in scope.archive[-6:-1])
+    review, = scope.archive[-1].attempts
+    assert review.failure == "timeout" and review.receipt_provider_flags == (True, True)
+    assert review.terminal_file_sha256 == "092c0d9d263649813892039948f6dfe53435ca0643c6e1aea5507b4288cef542"
+    assert (review.progress["http_status"], review.progress["sse_event_count"]) == (200, 6)
+    assert review.progress["error_type"] == "sse_inactivity_timeout"
+    assert "conflicting_event_type" not in review.progress
+    assert "response.completed" not in review.progress["sse_milestones"]
+
+    dispatcher = mac.SuccessorDispatcher.__new__(mac.SuccessorDispatcher)
+    dispatcher.reviewed_scope = scope
+    dispatcher.scope = {"previous_attempts": [{"attempt_id": review.attempt_id}]}
+    dispatcher.original = {"binding": {}, "payload": {}, "request_id": review.request_id}
+    request = {**dispatcher.original, "request_id": "fresh", "logical_index": 0}
+    started = {"attempt": 0, "attempt_id": "new-first"}
+    monkeypatch.setattr(mac, "time", lambda: scope.not_before_unix - 0.01)
+    with pytest.raises(PermissionError, match="cooldown"):
+        dispatcher._check_boundary(request, started)
+    monkeypatch.setattr(mac, "time", lambda: scope.not_before_unix)
+    dispatcher._check_boundary(request, started)
+    with pytest.raises(PermissionError, match="signed physical attempts"):
+        dispatcher._check_boundary(request, {**started, "attempt": 1})
+    with pytest.raises(PermissionError, match="signed physical attempts"):
+        dispatcher._check_boundary(request, {**started, "attempt_id": scope.archive[-2].attempt_id})
 
 
 def test_887_wave29_retains_the_owned_failed_terminal():

@@ -120,6 +120,7 @@ class Scope:
     previous_reviewed_record_sha256: str | None = None
     reviewed_checkpoint_sha256: str | None = None
     reviewed_archive_pins: tuple[tuple[tuple[str, str], ...], ...] = ()
+    retired_reviewed_records: tuple[tuple[str, str | None, str, str], ...] = ()
 
     @property
     def header_deadline_profile(self):
@@ -4303,6 +4304,193 @@ SCOPES[(2357, 46)] = replace(
         ("round_05/turn_00/request.json", "b8a0591ba224e0cfd17cdbc42725d8701c3bb4b717aa28c171e5186d37137e2b"),
         ("round_05/turn_00/attempt_00.started.json", "500b6ed51c0eb4058c93c47433cd9e773983469276ca583d17057e673049512f"),
         ("pause.request", "b1b49b22a8c9885301af07eb1a81bb6b3b0aaff81463e24a06188ed3966a8cc4"),
+    ),
+)
+
+
+_2357_W46_P0 = Review(
+    retry.bounded.RunIdentity(
+        "-2357-relay-retry-46",
+        "7b849154be4bfde5899cabafc5e5ceb10d469420589b2de44e739b39be3b83b2",
+        "c869d554f875ec5d731280d2659371c9fdbe80a00f2e0bfe62e72ea40f6e767f",
+    ),
+    "209f96828f49c162e6cc571329d96ef3e95f68a315b5edd7987cfad4e67727af", "725df52846f240e19170750deefdffe1",
+    "e092a21bda9471f0cd9b8e26d05b7908253ef722ee98ecec72f079b5878a89d6",
+    "083eb374cdb9a6cf42360cb051b98ecabfc64e2814323fa5020fa29fe1f79166",
+    "0633bbc2e24a5c412a5c1a401c38c454a7f995daa493993796244966d2cee487",
+    "e77d57a65ac3935b9b2a1f31589087463934712544c6b0558f3d348d1b223a80", "response_id_mismatch",
+    {'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'event_type': 'response.output_item.added',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'provider_error_code': 'upstream_error',
+     'sse_event_count': 27,
+     'first_sse_seconds': 33.92243549996056,
+     'last_sse_seconds': 213.44586283294484,
+     'last_sse_activity_seconds': 213.44586283294484,
+     'elapsed_seconds': 213.82382608298212,
+     'model': 'gpt-6.2-astra',
+     'provider_request_id': 'a869c20b-d66a-4ad1-b250-0d1d11cc0a3f',
+     'response_id': 'resp_0a530e2a8c463928016b09106f9f9887d185487b0f95298086',
+     'conflicting_response_id': 'resp_a869c20bd66a4ad1b2500d1d11cc0a3f',
+     'sse_milestones': {'response.created': {'elapsed_seconds': 33.92243549996056,
+                                             'interval_seconds': None},
+                        'response.in_progress': {'elapsed_seconds': 33.9233666670043,
+                                                 'interval_seconds': 0.0009311670437455177},
+                        'response.output_item.added': {'elapsed_seconds': 33.92396187502891,
+                                                       'interval_seconds': 0.0005952080246061087},
+                        'response.output_item.done': {'elapsed_seconds': 50.4651300420519,
+                                                      'interval_seconds': 16.541168167022988}}},
+)
+
+_2357_W47_P0 = Review(
+    retry.bounded.RunIdentity(
+        "-2357-relay-retry-47",
+        "4371cb0dc2194d49df283e31bcefca166120903deca84a3850e527a54c2eb273",
+        "7b3960630e297969ad3f98179c44297674e015eb009b460a345c5d03d63eb702",
+    ),
+    "d61330487f3de396c8a703cf3cd4559f34579d5d0b0425b959dcbf395a4f1c2b", "19996673f2064042b50fc365302daee1",
+    "264db97498806692daf693043d871fe4de57cc8847117e419610ea76440dfe22",
+    "bcf8ee5715359bbf6558792bfdddd28ae399d30dbc43ca49cbda5fdc17e3a626",
+    "c79f749f456b80492021a94982be9cc1438debe5e087230b0a25b224edb5e2c1",
+    "b55acc3e5231581e1d7afb707799072df0fb196268258fb2d822a23b0c5e1166", "response_id_mismatch",
+    {'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'event_type': 'response.output_item.added',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'provider_error_code': 'upstream_error',
+     'sse_event_count': 41,
+     'first_sse_seconds': 20.319090832956135,
+     'last_sse_seconds': 197.80124316597357,
+     'last_sse_activity_seconds': 197.80124316597357,
+     'elapsed_seconds': 200.3987362908665,
+     'model': 'gpt-6.2-astra',
+     'provider_request_id': '7ed6cd1f-23c9-49ed-884e-881b580ad32a',
+     'response_id': 'resp_0d6ad6de6d6d3aea016b09135d456887d2b767ce6912176323',
+     'conflicting_response_id': 'resp_7ed6cd1f23c949ed884e881b580ad32a',
+     'sse_milestones': {'response.created': {'elapsed_seconds': 20.319090832956135,
+                                             'interval_seconds': None},
+                        'response.in_progress': {'elapsed_seconds': 20.320228499826044,
+                                                 'interval_seconds': 0.0011376668699085712},
+                        'response.output_item.added': {'elapsed_seconds': 20.321148415794596,
+                                                       'interval_seconds': 0.0009199159685522318},
+                        'response.output_item.done': {'elapsed_seconds': 29.62654566578567,
+                                                      'interval_seconds': 9.305397249991074}}},
+)
+
+_2357_W48_P0 = Review(
+    retry.bounded.RunIdentity(
+        "-2357-relay-retry-48",
+        "047d5b2a84fe8b1488611f91735d5232ceb64a8e1d7612d1e953a34eaf27e04e",
+        "65bb74f18fab31c4cbc08e5c2a12df9b0ea90d830c4205159869f0c59738b9e3",
+    ),
+    "092f94de24c8db5f09d17035e0eab5339e383b6817cd2ffc6f9f28474c9f0e37", "ae858849b4134e76a5b963a95522b1c3",
+    "8dc0ac6627e0f0d8c0acc21720eae0462b7d27738d2db49f4d6f415b94ddffbe",
+    "2ab877608cf22ecbb7da294bd172565e76a2f74fabfe1402e85e06b362cec25c",
+    "6982f9be0580e54fc72e68f1c2a4ecaa8f0f23d1eafe87e3b3e73128d2bc6973",
+    "ebf5728a5c786b9fa0500cadb9258cf31ae0ac37c85f34e547188a8ddf33846a", "response_id_mismatch",
+    {'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'event_type': 'response.output_item.added',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'provider_error_code': 'upstream_error',
+     'sse_event_count': 41,
+     'first_sse_seconds': 18.57632904103957,
+     'last_sse_seconds': 195.79011054104194,
+     'last_sse_activity_seconds': 195.79011054104194,
+     'elapsed_seconds': 198.94641762506217,
+     'model': 'gpt-6.2-astra',
+     'provider_request_id': 'e0a1afc3-4692-4b30-bd6f-f13e289178bd',
+     'response_id': 'resp_03f11cdd47476512016b09156cc7c887d291ecbc869499b704',
+     'conflicting_response_id': 'resp_e0a1afc346924b30bd6ff13e289178bd',
+     'sse_milestones': {'response.created': {'elapsed_seconds': 18.57632904103957,
+                                             'interval_seconds': None},
+                        'response.in_progress': {'elapsed_seconds': 18.577091583050787,
+                                                 'interval_seconds': 0.0007625420112162828},
+                        'response.output_item.added': {'elapsed_seconds': 18.577870708191767,
+                                                       'interval_seconds': 0.0007791251409798861},
+                        'response.output_item.done': {'elapsed_seconds': 27.812412000028417,
+                                                      'interval_seconds': 9.23454129183665}}},
+)
+
+_2357_W49_P0 = Review(
+    retry.bounded.RunIdentity(
+        "-2357-relay-retry-49",
+        "43ef5d405a9297319876930ddd6bf964fa230d38039b50a513e355c035b1546e",
+        "0335e0db96e41116ea22b56277589ebbe5099e64b3cff0dd00c5f589e085e341",
+    ),
+    "e26aa12daef067299bc3f3a6235ce6d4c7b39ebc3e12738b947a1cf82c8686ae", "c186b1582fe94e469505629139dbc350",
+    "ba829466f059a1ad6f088d46faeeefe7c250f93036db27bd54e2a6ac10c85fce",
+    "4b982598e856f8d5c3092a5face4388e0573b5c2fe8237655ae0d41ebbd1f7b2",
+    "9ae7d824b55168d38d03d328aab5d9ae4415944be99aaa0c06a659e5053bd3c9",
+    "cafe559573f50327b70d8af48a678808082b40296f1f93f58f3c526f467d2315", "timeout",
+    {'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'sse_inactivity_timeout',
+     'event_type': 'response.output_item.added',
+     'sse_event_count': 35,
+     'first_sse_seconds': 20.53964758408256,
+     'last_sse_seconds': 170.0314949590247,
+     'last_sse_activity_seconds': 170.0314949590247,
+     'elapsed_seconds': 1070.0449511669576,
+     'model': 'gpt-6.2-astra',
+     'provider_request_id': '04f3b36a-6168-4bd2-84a0-432490b09a43',
+     'response_id': 'resp_05cbc05db52463aa016b0917b1486087d2aba4dc334d7fc04d',
+     'sse_milestones': {'response.created': {'elapsed_seconds': 20.53964758408256,
+                                             'interval_seconds': None},
+                        'response.in_progress': {'elapsed_seconds': 20.540510667022318,
+                                                 'interval_seconds': 0.0008630829397588968},
+                        'response.output_item.added': {'elapsed_seconds': 20.541189041920006,
+                                                       'interval_seconds': 0.0006783748976886272},
+                        'response.output_item.done': {'elapsed_seconds': 29.713224374921992,
+                                                      'interval_seconds': 9.172035333001986}}},
+)
+
+SCOPES[(2357, 50)] = replace(
+    SCOPES[(2357, 46)], wave=50, cooldown_field="not_before_unix", cooldown_unix=1795760137.908765,
+    original_start_round=5, original_boundary_physical_attempts=1, boundary_physical_attempts=1,
+    archive=(*SCOPES[(2357, 46)].archive, _2357_W46_P0, _2357_W47_P0, _2357_W48_P0, _2357_W49_P0),
+    fitted_prefix_files=(
+        ("boundary.json", "6b50d15ae3ccc7374b87d16f9fbdf48a7a52e91612ea3cb132f44dd96aafe433"),
+        ("pause.request", "d54a6b4c8ee6df1c17727ed4b4affcfffd64d27f781c995971b4a5bbe1eb99b7"),
+        ("round_05/source.json", "a60e0c92322ffb2a7f40fc9e5a20894aa6905e5048eaf88520088e08c5b25d00"),
+        ("round_05/boundary_memory.json", "ca68e2011ba224b51a5d718fbdda208aa64896fa606bcd484623e44aec9823d8"),
+        ("round_05/boundary_user_message.json", "8ef30ed53f1c43cd02004b76a35ae3f3c28ccec98049bd808555983e24e2b88f"),
+        ("round_05/authoritative_packet.json", "7b6ba694100cf4b61f17e5a69a50565e8ad8b290d8d45f068478af2b5dcfe101"),
+        ("round_05/turn_00/request.json", "8cd9408a1c007d06ae6006882bbceea2ab76f142f4029b06cd529dc5962d0158"),
+        ("round_05/turn_00/attempt_00.started.json", "a7719afd17f1606a91f02888b3236c952959618512e7847d223cae8327857f2d"),
+    ),
+    retired_reviewed_records=(
+        (
+            '7b849154be4bfde5899cabafc5e5ceb10d469420589b2de44e739b39be3b83b2',
+            None,
+            '0529cac7b295eb9ad9cf22241e98b07981541981d300509767538cc17276b9ae',
+            'a60e0c92322ffb2a7f40fc9e5a20894aa6905e5048eaf88520088e08c5b25d00',
+        ),
+        (
+            '4371cb0dc2194d49df283e31bcefca166120903deca84a3850e527a54c2eb273',
+            '2d20d2d0431c56bc58cb46d7c7d9e9e214ca082688689658b497ab064d1eddf8',
+            'fe80d7a88232efdabab09993f8054531cf1857159992496dd4712d1772cdde56',
+            'a60e0c92322ffb2a7f40fc9e5a20894aa6905e5048eaf88520088e08c5b25d00',
+        ),
+        (
+            '047d5b2a84fe8b1488611f91735d5232ceb64a8e1d7612d1e953a34eaf27e04e',
+            '2e3e7a8d6433f261531be4003ce25af20301c4e886e0e1e4f37cbe388ae19539',
+            'eae806d7fd28ec212a09bd351efb7e8d7a9fb2876b430fc0ed2022ee8e9cf6fc',
+            'a60e0c92322ffb2a7f40fc9e5a20894aa6905e5048eaf88520088e08c5b25d00',
+        ),
+        (
+            '43ef5d405a9297319876930ddd6bf964fa230d38039b50a513e355c035b1546e',
+            '1f4e01698dfd3afb1bebe48d6b1887b9cb015fdce1713c43c3bf45b67db20399',
+            'd54a6b4c8ee6df1c17727ed4b4affcfffd64d27f781c995971b4a5bbe1eb99b7',
+            'a60e0c92322ffb2a7f40fc9e5a20894aa6905e5048eaf88520088e08c5b25d00',
+        ),
     ),
 )
 
@@ -11326,6 +11514,220 @@ SCOPES[(887, 29)] = replace(
 )
 
 
+SCOPES[(887, 35)] = replace(
+    SCOPES[(887, 29)], wave=35, cooldown_field="not_before_unix", cooldown_unix=1795760134.949839,
+    boundary_physical_attempts=1, original_start_round=34, original_boundary_physical_attempts=1,
+    archive=(
+        *SCOPES[(887, 29)].archive,
+        Review(
+            retry.bounded.RunIdentity(
+                "-887-relay-retry-29",
+                "312936f54c03518c15a328996ad9fbf1d597f2f8dadc4ec6888c2714a67cd345",
+                "8c443a5664f23750eedb231ea9e5591b4ee619a2cb6a272dab29fb313fd03d69",
+            ),
+            "feac2db5040e10ad90a8e2e20df841130f32ab45b32ce871160495b13942c10b",
+            "2a716b11cc4442cfbce061c268105a32",
+            "78b8c3f9f1cfab369478d00b436ae505548c70d00994d1fe32c036596a86cba5",
+            "d747f20855a7fbd94b580373e01f58c1817a69340bab1dc89d49d0b04ff15b91",
+            "48bd7375fd2d1b17bbd730104d4b234f90b558feeb3f542b4dd23fe9973d8c4f",
+            "21485f5ce75bad9c59bc3f924650aa0aaded63e7e10b567dfc47cf1b885338fd", "response_id_mismatch",
+            {'http_status': 200,
+             'phase': 'transport_failure',
+             'error_type': 'response_id_mismatch',
+             'event_type': 'response.output_item.added',
+             'sse_event_count': 41,
+             'model': 'gpt-6.2-astra',
+             'provider_request_id': 'aee1998d-50ab-43be-802f-9ff88867a10d',
+             'response_id': 'resp_065b881527f170fa016b090b41a08487d1a65c0fc38bca930a',
+             'conflicting_response_id': 'resp_aee1998d50ab43be802f9ff88867a10d',
+             'conflicting_event_type': 'response.failed',
+             'response_id_matches_transport_alias': True,
+             'provider_error_code': 'upstream_error'},
+        ),
+        Review(
+            retry.bounded.RunIdentity(
+                "-887-relay-retry-30",
+                "11a4fd001b34799f1ae6ab43966a167c9d846587f46bf7e3272cec12eec79b57",
+                "b1a7b4b621debb3f84f7a442fcc2ea6c4402b03763089be6b9f98eb3a9272aef",
+            ),
+            "06c7de824d288581cf191043c69289c5873f29830a47c7177ebf88e258443a9a",
+            "d083bb930aa3493a860586e0f65e9ad8",
+            "faa5ea71cbab8ae0941cce318d61d01730e733fc63e61de7fdc4cb9f4808b0e0",
+            "381a9e59d69143648f4c7b4f6176135b3a7148e824c31f0e88d0c37d399e67ae",
+            "d48b3afb537e38f4a788a6762ea230d0dd27bebc3c544a62641baecba1715451",
+            "f94d24be18bc0e0c0f00ea446cb15b9fd319718c8859e0982eea7a11c4882950", "response_id_mismatch",
+            {'http_status': 200,
+             'phase': 'transport_failure',
+             'error_type': 'response_id_mismatch',
+             'event_type': 'response.output_item.added',
+             'sse_event_count': 26,
+             'model': 'gpt-6.2-astra',
+             'provider_request_id': '0de97e75-d2b1-4ed9-a063-422cf2b1b87e',
+             'response_id': 'resp_04fbd81c82cdaa65016b090f59af6487d284a699592ae44989',
+             'conflicting_response_id': 'resp_0de97e75d2b14ed9a063422cf2b1b87e',
+             'conflicting_event_type': 'response.failed',
+             'response_id_matches_transport_alias': True,
+             'provider_error_code': 'upstream_error'},
+        ),
+        Review(
+            retry.bounded.RunIdentity(
+                "-887-relay-retry-31",
+                "2f09e5e40d22aa2e563167d2a78a77f46a08ac3ee79d2cfb6019f55ce1a3ac1d",
+                "e2a3fb62e16c8ecc7e19b83c6102fdead6b9d013ee1121025ffced62705779b9",
+            ),
+            "ec4b49677b22474ee92af731ba83c8a46fc65aefd782e8ee158fe9e860274002",
+            "beb41c2f06024900aeb7223581e7494a",
+            "8c8388c574a69102c642164f5f70717871fb3ae0c50037809093752b33097492",
+            "b4932b5e1f8afcb3c262c8a9f7810f54d6645bc755217d5b07464346ec859641",
+            "d7c2775d620e2b7533f6a8fb9d434878519033efac664541d058b979d9257811",
+            "417f866d091eb7b00abc9503fa9f044f55504e6908ddeb5c8847d304cdfed84f", "response_id_mismatch",
+            {'http_status': 200,
+             'phase': 'transport_failure',
+             'error_type': 'response_id_mismatch',
+             'event_type': 'response.output_item.added',
+             'sse_event_count': 23,
+             'model': 'gpt-6.2-astra',
+             'provider_request_id': '8b115be7-5b28-437d-bbf4-a17f760d74b2',
+             'response_id': 'resp_036d4fe2e0de5ac7016b09117159b887d1b0e58f209cfafbaa',
+             'conflicting_response_id': 'resp_8b115be75b28437dbbf4a17f760d74b2',
+             'conflicting_event_type': 'response.failed',
+             'response_id_matches_transport_alias': True,
+             'provider_error_code': 'upstream_error'},
+        ),
+        Review(
+            retry.bounded.RunIdentity(
+                "-887-relay-retry-32",
+                "deb910baae57fc354acb6e177799be197a280df5c45925041d1da7620dc2dfd0",
+                "ecb128d906d11b695134a848ed97701eab1bd44cfa07bedc7e2b379c2cd04c6e",
+            ),
+            "d235d43eb4e1658feab692adf55995553ae759e5d19307a92b6a9b7a079130a2",
+            "5eb98fc2aced47488a73f9a083a05906",
+            "9e5e3a5f01e6ac2087f1b329df4747d813bf828d2ca0047d6df342b10e779cf6",
+            "76f3cd26e5d1b6b90e844329df1f5c10382a6cd0f252b9ef48c814add20d79dc",
+            "ab860aba75c454ad05c70813d211a891599bd84ebb2a029dd28ff2838a14d98e",
+            "289cabc25b6531b0a00becd3648177b53d53f52de9dcaf34e6db8b365dfc76e9", "response_id_mismatch",
+            {'http_status': 200,
+             'phase': 'transport_failure',
+             'error_type': 'response_id_mismatch',
+             'event_type': 'response.output_item.added',
+             'sse_event_count': 41,
+             'model': 'gpt-6.2-astra',
+             'provider_request_id': '0af24f41-f3b0-4e34-b282-19c1d559ef56',
+             'response_id': 'resp_01ee2873e30d763f016b0913d13f0c87d28448c883787965f0',
+             'conflicting_response_id': 'resp_0af24f41f3b04e34b28219c1d559ef56',
+             'conflicting_event_type': 'response.failed',
+             'response_id_matches_transport_alias': True,
+             'provider_error_code': 'upstream_error'},
+        ),
+        Review(
+            retry.bounded.RunIdentity(
+                "-887-relay-retry-33",
+                "0cf30edf594ebdd9e681e65807393d6b682daf643b09efab7ec2f59cc1e71195",
+                "bc9b4319484ae24caab7056e371384042f495263d43d24c184b8d4d925dcb744",
+            ),
+            "315d3d2b8638df32589271f340e89e81970fa9c408aead76c6feb187434489ac",
+            "762e31cbf6e543df8adef2ddebea367e",
+            "16e5a7b44ac9449114435e9299c7caed7ad31807ace60d29b09bf6d5b5aa9e49",
+            "33deab4917b8a637c0da007495321d8320a5f802c0f330099c864d7246fe2af8",
+            "33ac52a725b203eb7836d25a242569c53b74b6e2045e4e005aefa7784a29a4e0",
+            "949255826e59b07d1252e737e8dc67c040abd8c7ddeb19f92077cda44649fa00", "response_id_mismatch",
+            {'http_status': 200,
+             'phase': 'transport_failure',
+             'error_type': 'response_id_mismatch',
+             'event_type': 'response.output_item.added',
+             'sse_event_count': 26,
+             'model': 'gpt-6.2-astra',
+             'provider_request_id': '6b787db1-3226-45bf-ac39-405fb2b7fa1e',
+             'response_id': 'resp_0e2242415cbe5195016b0915e5e14c87d09af72b9f42c7ab93',
+             'conflicting_response_id': 'resp_6b787db1322645bfac39405fb2b7fa1e',
+             'conflicting_event_type': 'response.failed',
+             'response_id_matches_transport_alias': True,
+             'provider_error_code': 'upstream_error'},
+        ),
+        Review(
+            retry.bounded.RunIdentity(
+                "-887-relay-retry-34",
+                "293664dd668ccfad6cdda318bfdc284b815d7a0b92c11e358b35f3321b867266",
+                "cc031ab12ce4d63f5d347f6a5225abf6ec77879984f850f122e9c0a98f6a8fdd",
+            ),
+            "0497d7b1bfeb744e7e67aa97b99557688997464efdf849d3fef636c32765052a",
+            "e3f99fd7a9ad4d83a35a6aa6fd71a71b",
+            "d5971b8f19ece41035e44e2900ec4dbb158496cc89840d39052d3d2b11320908",
+            "11baadca26c0db48bb2879378b5414573e8ecff8dfeeac9a43a5e7c6e5c47080",
+            "092c0d9d263649813892039948f6dfe53435ca0643c6e1aea5507b4288cef542",
+            "3cb3d7112ddcb559184446601924c6249f177dbd60f7513982d7946da2389166", "timeout",
+            {'http_status': 200,
+             'phase': 'transport_failure',
+             'error_type': 'sse_inactivity_timeout',
+             'event_type': 'response.output_item.added',
+             'sse_event_count': 6,
+             'model': 'gpt-6.2-astra',
+             'provider_request_id': '0db7aede-f08a-42bd-b1a2-d996095d64c7',
+             'response_id': 'resp_0508291f116f4efd016b091817cd8887d08d346813fbbd572b',
+             'last_sse_seconds': 84.09111058386043,
+             'last_sse_activity_seconds': 84.09111058386043,
+             'elapsed_seconds': 984.1041512498632,
+             'sse_milestones': {'response.created': {'elapsed_seconds': 66.8416278748773,
+                                                     'interval_seconds': 0.0011655408889055252},
+                                'response.in_progress': {'elapsed_seconds': 66.84204666689038,
+                                                         'interval_seconds': 0.000418792013078928},
+                                'response.output_item.added': {'elapsed_seconds': 66.84252070891671,
+                                                               'interval_seconds': 0.0004740420263260603},
+                                'response.output_item.done': {'elapsed_seconds': 83.95775962504558,
+                                                              'interval_seconds': 17.115238916128874}}},
+        ),
+    ),
+    fitted_prefix_files=(
+        ("boundary.json", "db5ecbc9dde77a6b1db1762082fa223b018b9c1d9c0303932a9debee57c12b04"),
+        ("round_34/source.json", "6d2a8e1612104f6fc0299994f73cb69555fc0114bae88fcee84ebe3b06bf68ea"),
+        ("round_34/boundary_memory.json", "c8777ec320923c89d0a4a4481f2541ef2a879a43964b646f76e894c9a5632d05"),
+        ("round_34/boundary_user_message.json", "8ca8a6410f484ac4b0884a7dfd476741394a286d9f2e51612787c021e66219b2"),
+        ("round_34/authoritative_packet.json", "111a5842df2244af49b73ecc68bfd40e8394a490fc4d7cad4c6c8213f0d85b7f"),
+        ("round_34/turn_00/request.json", "b01874ec4b1d8869860dc6a299f02ea3902f974a25bad615f8a02d567740ddc1"),
+        ("round_34/turn_00/attempt_00.started.json", "1753eab8b994488a7bdb51d9161f167719dd32bda4010873268674822b27a93f"),
+        ("pause.request", "ab13c06e4ed90f72725019554480930ff29e479c19261eda5fe181f99c48237c"),
+    ),
+    retired_reviewed_records=(
+        (
+            "312936f54c03518c15a328996ad9fbf1d597f2f8dadc4ec6888c2714a67cd345",
+            None,
+            "3c8b34a78ae5bcfae7053ad85b6dfda548f13e0b146d35f44c86cc139eff7fbc",
+            "6d2a8e1612104f6fc0299994f73cb69555fc0114bae88fcee84ebe3b06bf68ea",
+        ),
+        (
+            "11a4fd001b34799f1ae6ab43966a167c9d846587f46bf7e3272cec12eec79b57",
+            "04a1df90359f68cc841076dc58b1a1fc37dc0cb2637f1649db77511c2e556434",
+            "a42e8cd117d8efb634b47ac513cd3c51dac3c32724f085e3fcadc6bcf5f657d8",
+            "6d2a8e1612104f6fc0299994f73cb69555fc0114bae88fcee84ebe3b06bf68ea",
+        ),
+        (
+            "2f09e5e40d22aa2e563167d2a78a77f46a08ac3ee79d2cfb6019f55ce1a3ac1d",
+            "d879ab8e168c936c3e9f75f8f5ae061ca47c22c8405837305a9af194b1a2b4a5",
+            "052143bc4591b51f0c68105db9d0d8acec397170b783e42cfe6f6aae4c021577",
+            "6d2a8e1612104f6fc0299994f73cb69555fc0114bae88fcee84ebe3b06bf68ea",
+        ),
+        (
+            "deb910baae57fc354acb6e177799be197a280df5c45925041d1da7620dc2dfd0",
+            "012844bf484361392cdaa3ad5cea96505c19ffceba17d2ba118e04b191c8beb9",
+            "a9a0c86325c44d668a3c80b31291776eecf364589b4d8551488ba09e7d110c09",
+            "6d2a8e1612104f6fc0299994f73cb69555fc0114bae88fcee84ebe3b06bf68ea",
+        ),
+        (
+            "0cf30edf594ebdd9e681e65807393d6b682daf643b09efab7ec2f59cc1e71195",
+            "794a0ef5455d726aefa4dac3ac3640ddc8c5117b09c4c9d65bb8acbea974756f",
+            "4a7971a26538a804e0bfd0faeebe204e042e118cd3e013420c7ce33fde949500",
+            "6d2a8e1612104f6fc0299994f73cb69555fc0114bae88fcee84ebe3b06bf68ea",
+        ),
+        (
+            "293664dd668ccfad6cdda318bfdc284b815d7a0b92c11e358b35f3321b867266",
+            "650a081b0ec3ca7ee98bf9b948caa4c73be133781881eaa589e24398378fa98c",
+            "ab13c06e4ed90f72725019554480930ff29e479c19261eda5fe181f99c48237c",
+            "6d2a8e1612104f6fc0299994f73cb69555fc0114bae88fcee84ebe3b06bf68ea",
+        ),
+    ),
+)
+
+
 _6101_W35_P0 = Review(
     retry.bounded.RunIdentity(
         "-6101-relay-retry-35",
@@ -11569,6 +11971,7 @@ def _evidence(run, active, contract, approval, scope, review):
 
 def _archives(failed_run, failed_release, scope):
     run, release = failed_run, failed_release
+    retired = {entry["contract_sha256"]: entry for entry in _retired_reviewed_history(scope)}
     records = []
     for index, review in enumerate(reversed(scope.archive), 1):
         if review.identity == _6101_R11_CONTINUATION and release.name != _6101_R11_RELEASE:
@@ -11581,6 +11984,9 @@ def _archives(failed_run, failed_release, scope):
             pins = scope.reviewed_archive_pins[-index]
             if any(file_digest(directory / name) != sha for name, sha in pins):
                 raise PermissionError("an exact reviewed predecessor pause or source receipt changed")
+        retired_pin = retired.get(review.identity.contract)
+        if retired_pin is not None:
+            _verify_retired_reviewed_record(run, directory, contract, scope.round, retired_pin)
         if read(run / "provider_model_lock.json") != contract.predecessor["model_identity"]:
             raise PermissionError("the archived confirmed model identity changed")
         if records:
@@ -11682,6 +12088,7 @@ def _reviewed_boundary(root, directory, active, parent, approval, scope, cache):
 
 
 REVIEWED_RECORD_FIELD = "reviewed_recovery_record_sha256"
+RETIRED_REVIEWED_RECORDS_FIELD = "retired_reviewed_recovery_records"
 REVIEWED_RECORD_FILE = "reviewed_recovery_record.json"
 REVIEWED_RECORD_SCHEMA = "a7_reviewed_owned_recovery_v1"
 MAX_REVIEWED_STEPS = 16
@@ -11694,6 +12101,55 @@ STEP_DIGESTS = (
 
 def _matches(pattern, value):
     return isinstance(value, str) and pattern.fullmatch(value) is not None
+
+
+def _retired_reviewed_history(scope):
+    """Keep the exact static anchor and reviewed predecessors in signed chronological order."""
+    rows = scope.retired_reviewed_records
+    if not rows:
+        return []
+    contracts = [row[0] for row in rows]
+    archive = [review.identity.contract for review in scope.archive]
+    if (len(rows) < 2 or rows[0][1] is not None or len(set(contracts)) != len(rows)
+            or not any(archive[i:i + len(contracts)] == contracts for i in range(len(archive)))
+            or any(not all(_matches(SHA256, value) for value in (contract, pause, source))
+                   or index > 0 and not _matches(SHA256, record)
+                   for index, (contract, record, pause, source) in enumerate(rows))):
+        raise PermissionError("the retired reviewed history is not an exact contiguous archive")
+    return [{"contract_sha256": contract, REVIEWED_RECORD_FIELD: record,
+             "pause_file_sha256": pause, "source_file_sha256": source}
+            for contract, record, pause, source in rows]
+
+
+def _verify_retired_reviewed_record(run, directory, contract, round_index, entry):
+    expected = entry[REVIEWED_RECORD_FIELD]
+    record = run / REVIEWED_RECORD_FILE
+    if (contract.predecessor.get(REVIEWED_RECORD_FIELD) != expected
+            or file_digest(directory / "pause.request") != entry["pause_file_sha256"]
+            or file_digest(directory / f"round_{round_index:02d}/source.json") != entry["source_file_sha256"]
+            or (record.exists() if expected is None else digest(read_bridge_json(record)) != expected)):
+        raise PermissionError("an exact retired reviewed record, pause or source receipt changed")
+
+
+def _require_static_timeout_fallback(scope, old, result):
+    """Close the current reviewed marker only for an explicitly pinned idle-timeout successor."""
+    latest = scope.archive[-1]
+    history = _retired_reviewed_history(scope)
+    progress = latest.progress
+    failure = result["outcome"].get("failure") or {}
+    if (not history or history[-1]["contract_sha256"] != latest.identity.contract
+            or history[-1][REVIEWED_RECORD_FIELD] != old.get(REVIEWED_RECORD_FIELD)
+            or old.get("recovery_budget") != {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}
+            or scope.boundary_physical_attempts != 1 or scope.original_boundary_physical_attempts != 1
+            or len(latest.attempts) != 1 or latest.failure != "timeout" or latest.receipt_provider_flags != (True, True)
+            or progress.get("phase") != "transport_failure" or progress.get("http_status") != 200
+            or progress.get("error_type") != "sse_inactivity_timeout"
+            or type(progress.get("sse_event_count")) is not int or progress["sse_event_count"] < 1
+            or failure.get("ambiguous") is not True or failure.get("reply_identity") is not None
+            or failure.get("code") != "timeout" or failure.get("retryable") is not False
+            or result["provider_dispatched"] is not True or result["raw_response"] is not None
+            or result["outcome"]["status"] != "failed"):
+        raise PermissionError("static recovery requires an exact retired reviewed idle timeout with one sealed POST")
 
 
 def _record_scope(record, expected_sha, seed, wave):
@@ -11806,9 +12262,15 @@ def construct(root, failed_release, failed_run, run, scope):
             or parent.profile[HEADER_DEADLINE_FIELD] != header_deadline.get(HEADER_DEADLINE_FIELD)):
         raise PermissionError("the successor must explicitly preserve its parent's response headers deadline")
     old = parent.predecessor
+    retired_history = _retired_reviewed_history(scope)
+    if RETIRED_REVIEWED_RECORDS_FIELD in old and old[RETIRED_REVIEWED_RECORDS_FIELD] != retired_history:
+        raise PermissionError("the successor must preserve retired reviewed history")
     if scope.reviewed_record_sha256 is not None:
         result = read_bridge_json(failed_run / "bridge/results" / f"{scope.attempt_id}.json")
         _check_reviewed_parent(scope, old, last["request"], result)
+    elif REVIEWED_RECORD_FIELD in old:
+        result = read_bridge_json(failed_run / "bridge/results" / f"{scope.attempt_id}.json")
+        _require_static_timeout_fallback(scope, old, result)
     parent_start = parent.profile["resume_boundaries"][str(scope.seed)]["round"]
     cached_parent = scope.cached_origin is not None and scope.original_start_round is not None
     reviewed_normal_budget = _reviewed_normal_parent_budget(parent, scope)
@@ -11870,6 +12332,10 @@ def construct(root, failed_release, failed_run, run, scope):
     proof.update({key: binding[key] for key in ("checkpoint_sha256", "packet_sha256", "wire_packet_sha256", "base_messages_sha256")})
     if scope.reviewed_record_sha256 is not None:
         proof[REVIEWED_RECORD_FIELD] = scope.reviewed_record_sha256
+    else:
+        proof.pop(REVIEWED_RECORD_FIELD, None)
+    if retired_history:
+        proof[RETIRED_REVIEWED_RECORDS_FIELD] = retired_history
     if scope.fitted_prefix_files:
         proof["reviewed_fitted_prefix_files"] = dict(scope.fitted_prefix_files)
     if cached_parent:
