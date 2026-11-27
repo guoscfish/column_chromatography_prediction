@@ -6894,6 +6894,72 @@ def test_887_wave36_retains_the_owned_failed_terminal():
 
 
 
+def test_2357_wave57_preserves_the_exact_upstream_failure_and_one_new_slot(monkeypatch):
+    previous, scope = gpu.SCOPES[(2357, 56)], gpu.SCOPES[(2357, 57)]
+    assert scope.archive[:-1] == previous.archive
+    assert scope.payload_sha256 == previous.payload_sha256
+    assert scope.required_sources == previous.required_sources
+    assert scope.header_deadline_profile == previous.header_deadline_profile
+    assert scope.original_start_round == scope.round == 11 and scope.replay_start_round == 12
+    assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}
+    assert scope.budget == previous.budget
+    assert scope.not_before_unix == 1795771395.9719577
+    review = scope.archive[-1]
+    assert review.terminal_file_sha256 == "95717f9b6d99db41553f68a05ebe739bde43a411b78a93e6912966179b3c0977"
+    assert review.progress["provider_error_code"] == "upstream_http2_stream_error"
+    assert review.progress["sse_event_count"] == 6221
+    assert "response.output_text.delta" in review.progress["sse_milestones"]
+    assert "response.completed" not in review.progress["sse_milestones"]
+    assert not is_sealed_relay_failure({"error": review.failure, "provider_status": None})
+    assert gpu.fitted_reviewed_predecessor(scope) == gpu.fitted_reviewed_predecessor(previous)
+    assert gpu.fitted_reviewed_predecessor(replace(scope, wave=58)) is None
+
+    dispatcher = mac.SuccessorDispatcher.__new__(mac.SuccessorDispatcher)
+    dispatcher.reviewed_scope = scope
+    dispatcher.scope = {"previous_attempts": [{"attempt_id": review.attempt_id}]}
+    dispatcher.original = {"binding": {}, "payload": {}, "request_id": review.request_id}
+    request = {**dispatcher.original, "request_id": "new-request", "logical_index": 0}
+    start = {"attempt": 0, "attempt_id": "new-first"}
+    monkeypatch.setattr(mac, "time", lambda: scope.not_before_unix - 0.01)
+    with pytest.raises(PermissionError, match="cooldown"):
+        dispatcher._check_boundary(request, start)
+    monkeypatch.setattr(mac, "time", lambda: scope.not_before_unix)
+    dispatcher._check_boundary(request, start)
+    with pytest.raises(PermissionError, match="signed physical attempts"):
+        dispatcher._check_boundary(request, {**start, "attempt": 1})
+
+
+def test_2357_wave57_revalidates_w55_and_w54_fitted_lineage(monkeypatch, tmp_path):
+    previous, scope = gpu.SCOPES[(2357, 56)], gpu.SCOPES[(2357, 57)]
+    expected = gpu.fitted_reviewed_predecessor(scope)
+    prefix = {"latest_source": "audited-W55-L685"}
+    pins = dict(previous.fitted_prefix_files)
+    monkeypatch.setattr(gpu, "_W56_W55_PREFIX_SHA256", digest(prefix))
+    request = {"binding": {"checkpoint_sha256": gpu._W54_L685_CHECKPOINT},
+               "payload_sha256": scope.payload_sha256, "logical_index": 0}
+    predecessor = {gpu.FITTED_REVIEWED_PREDECESSOR_FIELD: expected, "previous_prefix_sha256": digest(prefix),
+                   "previous_prefix_files": prefix, "reviewed_fitted_prefix_files": pins.copy()}
+    last = {"contract": SimpleNamespace(predecessor=predecessor), "request": request, "run": tmp_path}
+    prior = {"directory": tmp_path}
+    origin = {"run": "W54-fit"}
+    failure = {"code": "error", "ambiguous": True, "retryable": False, "reply_identity": None}
+    result = {"provider_dispatched": True, "raw_response": None, "outcome": {"status": "failed", "failure": failure}}
+    monkeypatch.setattr(gpu, "file_digest", lambda path: pins[path.relative_to(tmp_path).as_posix()])
+    monkeypatch.setattr(gpu, "read_bridge_json", lambda _path: result)
+    checks = []
+    monkeypatch.setattr(gpu, "_verify_w56_fitted_predecessor", lambda *args: checks.append(args))
+    records = [last, prior, origin]
+    gpu._verify_w57_fitted_predecessor(records, expected)
+    assert checks == [([prior, origin], expected)]
+    result["raw_response"] = {"status": "completed"}
+    with pytest.raises(PermissionError, match="upstream HTTP/2 failure"):
+        gpu._verify_w57_fitted_predecessor(records, expected)
+    result["raw_response"] = None
+    pins["round_11/source.json"] = "wrong-checkpoint"
+    with pytest.raises(PermissionError, match="fitted lineage"):
+        gpu._verify_w57_fitted_predecessor(records, expected)
+
+
 def test_2357_wave56_preserves_w54_fit_w55_receipt_and_one_slot(monkeypatch):
     previous, scope = gpu.SCOPES[(2357, 55)], gpu.SCOPES[(2357, 56)]
     assert scope.archive[:-1] == previous.archive

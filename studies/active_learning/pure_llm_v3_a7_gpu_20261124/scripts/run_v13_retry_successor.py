@@ -12168,8 +12168,65 @@ SCOPES[(2357, 56)] = replace(
 )
 
 
+_W56_W55_PREFIX_SHA256 = "1e32cb72753c17b0c90a0eb1cd86a773ebb472a878a421882bd59713c80da306"
+_2357_W56_R11 = Review(
+    retry.bounded.RunIdentity(
+        "-2357-relay-retry-56",
+        "2e7c95b066d69545d4b332611c39262ef0b97c724adaa64b0b664d63999c9ca2",
+        "302c05bae3445b545ef9ea470f940e6714eafb0cbd3801b795919b3ecbe332ae",
+    ),
+    "14e217fa5cc0dc2c0fcec69e38305b60f6d3ba0914173717a25820b3ff7bb974",
+    "e5408e8351c840f7a4663b1a6f2e2046",
+    "de6d18032f85e4a528a26e93478f40b7a03a5aeff0ef359c33dd252331fa5c4d",
+    "52d6213b9a8db0b27e39e601ab5176f53a86bd7fe0a09ba4133fe35c0a4b5e47",
+    "95717f9b6d99db41553f68a05ebe739bde43a411b78a93e6912966179b3c0977",
+    "522112689de15a40564875ff233039d29f4e7c26a96838467f3b751dd0f0dbd2",
+    "error",
+    {'model': 'gpt-6.2-astra',
+     'phase': 'transport_failure',
+     'http_status': 200,
+     'error_type': 'error',
+     'event_type': 'error',
+     'provider_error_code': 'upstream_http2_stream_error',
+     'sse_event_count': 6221,
+     'elapsed_seconds': 916.5316116248723,
+     'first_sse_seconds': 45.711665333015844,
+     'last_sse_seconds': 916.5265384998638,
+     'last_sse_activity_seconds': 916.4007954169065,
+     'response_id': 'resp_0f5e08e1bff5e429016b0947c07b7087d2a0f7a3f89d6326bf',
+     'provider_request_id': '6b0e62ee-735e-43c0-897d-4eb3f3318228',
+     'sse_milestones': {'error': {'elapsed_seconds': 916.5265384998638,
+                                  'interval_seconds': 0.12574308295734227},
+                        'response.created': {'elapsed_seconds': 45.711665333015844,
+                                             'interval_seconds': None},
+                        'response.in_progress': {'elapsed_seconds': 45.9153512918856,
+                                                 'interval_seconds': 0.20368595886975527},
+                        'response.output_item.added': {'elapsed_seconds': 46.1962008329574,
+                                                       'interval_seconds': 0.2808495410718024},
+                        'response.output_item.done': {'elapsed_seconds': 62.756581749999896,
+                                                      'interval_seconds': 16.560380917042494},
+                        'response.output_text.delta': {'elapsed_seconds': 774.240571375005,
+                                                       'interval_seconds': 0.0002968751359730959}}},
+)
+SCOPES[(2357, 57)] = replace(
+    SCOPES[(2357, 56)], wave=57,
+    cooldown_unix=1795771215.9719577,
+    archive=(*SCOPES[(2357, 56)].archive, _2357_W56_R11),
+    fitted_prefix_files=(
+        ("pause.request", "3f214281fdf8438e752ca7d1226f3b462566a2cb973008028e3423e1cf8f5600"),
+        ("boundary.json", "9fab8d7b7d70626234db74c423a947d184dcf01f5b0a7a111ef75d4072cc9184"),
+        ("round_11/source.json", "89e83649f38ef6645e8fdcdfc87d57dcfcaef89c104ceae250f9581ea71c42ab"),
+        ("round_11/boundary_memory.json", "0925bd733aeda54ff6d551d327a215c713c7d801448a1d273e8848709b100125"),
+        ("round_11/boundary_user_message.json", "0fabad82858816d994585630013453ed19d61e7ee79895c94c57d09eceb8ac24"),
+        ("round_11/authoritative_packet.json", "d33d49a9a9cee6ea902efb2a30747e0cc76dcb1ef0b3e268835ad2e734e2f733"),
+        ("round_11/turn_00/request.json", "9bf227c53c52a97e9ff40a6e9a6271b69b866512900f0bc139f9e9af78ea59a0"),
+        ("round_11/turn_00/attempt_00.started.json", "47b820ece58bcf819aacec1b91d829c8b9dba997daef3f080f6d0b6d935cd7a0"),
+    ),
+)
+
+
 def fitted_reviewed_predecessor(scope):
-    if scope in (SCOPES[(2357, 55)], SCOPES[(2357, 56)]):
+    if scope in (SCOPES[(2357, 55)], SCOPES[(2357, 56)], SCOPES[(2357, 57)]):
         return dict(_W54_FITTED_REVIEWED_ORIGIN)
     return None
 
@@ -14130,6 +14187,27 @@ def _verify_w56_fitted_predecessor(records, expected):
                                     origin["request"], prior_result, expected)
 
 
+def _verify_w57_fitted_predecessor(records, expected):
+    last, previous, _ = records
+    w56, request = last["contract"].predecessor, last["request"]
+    prior_scope = SCOPES[(2357, 56)]
+    result = read_bridge_json(last["run"] / "bridge/results" / f"{_2357_W56_R11.attempt_id}.json")
+    failure = result["outcome"].get("failure") or {}
+    if (w56.get(FITTED_REVIEWED_PREDECESSOR_FIELD) != expected
+            or w56.get("previous_prefix_sha256") != _W56_W55_PREFIX_SHA256
+            or digest(w56.get("previous_prefix_files")) != _W56_W55_PREFIX_SHA256
+            or w56.get("reviewed_fitted_prefix_files") != dict(prior_scope.fitted_prefix_files)
+            or any(file_digest(previous["directory"] / name) != sha for name, sha in prior_scope.fitted_prefix_files)
+            or (request["binding"]["checkpoint_sha256"], request["payload_sha256"], request["logical_index"])
+            != (_W54_L685_CHECKPOINT, prior_scope.payload_sha256, 0)
+            or result["outcome"]["status"] != "failed" or result["provider_dispatched"] is not True
+            or result["raw_response"] is not None
+            or (failure.get("code"), failure.get("ambiguous"), failure.get("retryable"), failure.get("reply_identity"))
+            != ("error", True, False, None)):
+        raise PermissionError("the exact W56 fitted lineage or upstream HTTP/2 failure changed")
+    _verify_w56_fitted_predecessor(records[1:], expected)
+
+
 def _require_exact_exhausted_fallback(scope, old, result, record, *, target, anchor, review, record_sha, checkpoint):
     """Allow one static slot for a pinned lane at the reviewed recovery limit."""
     latest = scope.archive[-1]
@@ -14309,7 +14387,9 @@ def construct(root, failed_release, failed_run, run, scope):
     old = parent.predecessor
     retired_history = _retired_reviewed_history(scope)
     fitted_predecessor = fitted_reviewed_predecessor(scope)
-    if scope == SCOPES[(2357, 56)]:
+    if scope == SCOPES[(2357, 57)]:
+        _verify_w57_fitted_predecessor(records, fitted_predecessor)
+    elif scope == SCOPES[(2357, 56)]:
         _verify_w56_fitted_predecessor(records, fitted_predecessor)
     elif fitted_predecessor is not None:
         result = read_bridge_json(failed_run / "bridge/results" / f"{scope.attempt_id}.json")
