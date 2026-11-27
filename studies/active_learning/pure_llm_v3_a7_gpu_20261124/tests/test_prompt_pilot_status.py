@@ -3003,7 +3003,8 @@ def check_6101_r5_handoff(runs, monkeypatch, publish, parent, cached, cached_sha
                                        (157, 25), (2357, 25), (6101, 25), (12203, 32), (2357, 26), (6101, 26), (157, 26), (12203, 33),
                                        (157, 27), (2357, 27), (6101, 27), (12203, 34),
                                        (157, 28), (887, 13), (2357, 28), (6101, 28), (12203, 35),
-                                       (157, 29), (157, 30), (887, 14), (887, 15), (2357, 29), (2357, 30), (12203, 36), (12203, 37), (2357, 31), (157, 31)])
+                                       (157, 29), (157, 30), (887, 14), (887, 15), (2357, 29), (2357, 30), (12203, 36), (12203, 37), (2357, 31), (157, 31),
+                                       (157, 32), (157, 33), (157, 34), (157, 35)])
 def test_new_exact_reviewed_relay_pins_the_original_retired_receipt(seed, wave):
     from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.run_v13_retry_successor import SCOPES
 
@@ -3045,6 +3046,24 @@ def test_new_exact_reviewed_relay_pins_the_original_retired_receipt(seed, wave):
         assert status.RELAY_887_WAVE13_FITTED_FILES == dict(scope.fitted_prefix_files)
     elif seed == 887 and wave in (14, 15):
         assert getattr(status, f"{prefix}_FITTED_FILES") == dict(scope.fitted_prefix_files)
+
+
+def test_157_wave35_pins_one_ambiguous_http_header_timeout():
+    from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.run_v13_retry_successor import SCOPES
+
+    scope = SCOPES[157, 35]
+    assert scope.round == 7
+    assert scope.original_boundary_physical_attempts == 2
+    assert scope.boundary_physical_attempts == 1
+    assert scope.replay_start_round == 8
+    assert scope.budget["maximum_physical_attempts"] == 169
+    assert scope.not_before_unix == 1795744861.3835022
+    assert prompt_pilot_status.RELAY_157_WAVE34_ATTEMPT["error"] == "timeout"
+    observation = prompt_pilot_status.RELAY_157_WAVE35_OBSERVATION
+    assert observation["http_status"] == 200
+    assert observation["error_type"] == "sse_inactivity_timeout"
+    assert observation["first_phase_seconds"]["http_headers"] == 35.38578833406791
+    assert not {"response_id", "provider_error_code", "conflicting_event_type", "sse_event_count"} & observation.keys()
 
 
 def test_887_r13_targeted_repair_requires_exact_retired_rejection_and_one_slot(tmp_path, monkeypatch):

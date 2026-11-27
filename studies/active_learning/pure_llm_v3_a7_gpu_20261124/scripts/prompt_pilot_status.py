@@ -6145,6 +6145,30 @@ RELAY_157_WAVE31_SOURCES = {
     "studies/active_learning/pure_llm_v3_a7_gpu_20261124/scripts/run_v13_retry_successor.py":
         "2f2131625931ebee929dbfd5887a06ba5d82dd9027ab531f5c7df02326f65895",
 }
+
+RELAY_157_WAVE32_SOURCES = {
+    **RELAY_157_WAVE31_SOURCES,
+    "studies/active_learning/pure_llm_v3_a7_gpu_20261124/scripts/run_v13_retry_successor.py":
+        "d38df8ed0daeed2e224a53b2eb907fafea94503a38e9633fe87ffff49b87ee24",
+}
+
+RELAY_157_WAVE33_SOURCES = {
+    **RELAY_157_WAVE32_SOURCES,
+    "studies/active_learning/pure_llm_v3_a7_gpu_20261124/scripts/run_v13_retry_successor.py":
+        "b91b929ed3a0f4d41f40ddb71ae873e3690d0246febefe0b0196c28647174e1c",
+}
+
+RELAY_157_WAVE34_SOURCES = {
+    **RELAY_157_WAVE33_SOURCES,
+    "studies/active_learning/pure_llm_v3_a7_gpu_20261124/scripts/run_v13_retry_successor.py":
+        "efe76f4758315bc578b7b7f400670425341f8220ba83800a8c42df3fef4e7139",
+}
+
+RELAY_157_WAVE35_SOURCES = {
+    **RELAY_157_WAVE34_SOURCES,
+    "studies/active_learning/pure_llm_v3_a7_gpu_20261124/scripts/run_v13_retry_successor.py":
+        "1e1040b507f219d674c26462e7d00583fe91b1dceffb85d8ce3a5b15d21fcf7e",
+}
 RELAY_157_WAVE12_PROOF = {
     **RELAY_157_WAVE11_PROOF,
     "previous_request_id": "fe395a7de89bfbf4eb8d3518e1a11e50ac02d0373c15a81f8e543245229e64a5",
@@ -7435,6 +7459,267 @@ RELAY_157_WAVE31_OBSERVATION = {
  "response.output_item.done": {"elapsed_seconds": 32.87080904119648,
                                "interval_seconds": 5.4659112500958145}},
 }
+
+RELAY_157_WAVE32_CONTRACT = "7730763665efea3649e4012f50617fdd702fbeccc430cb4569aa25385a7bd89e"
+RELAY_157_WAVE32_AUTH = "d1afbf568131bb54b05bc9fd307368ee11c64a41cf49a91e855d27ae6367f7d3"
+RELAY_157_WAVE32_PROOF = {
+    **RELAY_157_WAVE31_PROOF,
+    "previous_request_id": "9f5271a90acc58f4fabe704d531aef5c69b8a76bdcaf3df63ac590cae9e851e8",
+    "previous_terminal_file_sha256": "fab6ec07bd38aee0ebc011ba07936d0fb43dfd2c1202006812707b059479d01b",
+    "previous_transport_progress_file_sha256": "678f5d69d104ffcbd7fb9025ec3abfaa9ff15f69cae1eee39fe09a6b7110b753",
+    "relay_cooldown_clock": "not_before_unix",
+    "relay_not_before_unix": 1795741480.156861,
+    "newly_authorized_boundary_physical_attempts": 2,
+    "execution_budget": {"first_logical_requests": 29, "maximum_logical_requests": 85, "maximum_physical_attempts": 170},
+}
+RELAY_157_WAVE31_ATTEMPTS = (
+    {
+        "attempt": 0,
+        "attempt_id": "4714a2a236364476b8a8429a97458f8d",
+        "job_sha256": "67e171f5b2515b3084e8f248c2f8dce2a0956c6ac0599ad4ce242ef09cc79664",
+        "result_sha256": "978963332d9c70fa115b8f89bd4e5ac0f407e32b8f4f6571c54c7b18549c736f",
+        "error": "response_id_mismatch",
+        "provider_dispatched": True,
+        "ambiguous": True,
+    },
+    {
+        "attempt": 1,
+        "attempt_id": "678f556c180c4ea4bd15605fa9ed3405",
+        "job_sha256": "451602e33735ce2b1056a3a17bcba6bf60890f6745ba28643fe8b0444c7eb936",
+        "result_sha256": "20858ae5c0fc0fd7374fc83f913510696212968780c1be17887bf3c43dc27c32",
+        "error": "response_id_mismatch",
+        "provider_dispatched": True,
+        "ambiguous": True,
+    },
+)
+RELAY_157_WAVE31_TERMINALS = (
+    "e8373519e8299e337f3b12fee7c57f18ac7fa29e7297c3a1c7f96f1b60517b51",
+    "fab6ec07bd38aee0ebc011ba07936d0fb43dfd2c1202006812707b059479d01b",
+)
+RELAY_157_WAVE31_REPLAY_FILES = {
+    "attempt_00.replay.terminal.json": "17bb21bee1d25c294f56ffe17d8ea2e74add9de1bcdaf1684f72236e5caa5772",
+    "attempt_00.replay_authorization.json": "f9d3bf4a58a1a70d98fd86d9f25d13716b99f404976593e870269f6a035f62ba",
+    "attempt_01.replay_link.json": "678ef3c9fe983096e4d61be24ca0891a14e8223810f6a206e09212add6d6e727",
+}
+RELAY_157_WAVE32_OBSERVATION = {
+    "http_status": 200,
+    "phase": "transport_failure",
+    "error_type": "response_id_mismatch",
+    "event_type": "response.output_item.added",
+    "sse_event_count": 41,
+    "model": "gpt-6.2-astra",
+    "provider_request_id": "040388ce-c853-48fa-b586-cfbab16542ab",
+    "response_id": "resp_03fe9f12145267b5016b08d5a3d2fc87d1b2f5df0fd67d7fea",
+    "conflicting_response_id": "resp_040388cec85348fab586cfbab16542ab",
+    "conflicting_event_type": "response.failed",
+    "response_id_matches_transport_alias": True,
+    "provider_error_code": "upstream_error",
+    "last_sse_seconds": 199.29214679216966,
+    "last_sse_activity_seconds": 199.29214679216966,
+    "elapsed_seconds": 199.80463899997994,
+    "sse_milestones": {"response.created": {"elapsed_seconds": 20.345241584116593,
+                      "interval_seconds": None},
+ "response.in_progress": {"elapsed_seconds": 20.348686499986798,
+                          "interval_seconds": 0.003444915870204568},
+ "response.output_item.added": {"elapsed_seconds": 21.092695125145838,
+                                "interval_seconds": 0.7440086251590401},
+ "response.output_item.done": {"elapsed_seconds": 36.94541637506336,
+                               "interval_seconds": 15.852721249917522}},
+}
+
+RELAY_157_WAVE33_CONTRACT = "751ec5dbc5a12220fcc54d38dc1c5a36d89f7dcbbfa3929ce90102299cc40171"
+RELAY_157_WAVE33_AUTH = "8386203a325f5d612e9198acc8ce09e3714051390ae5ff50c513974cdb3e8649"
+RELAY_157_WAVE33_PROOF = {
+    **RELAY_157_WAVE32_PROOF,
+    "previous_request_id": "4cbd384185298a790cba9c18876cea12e5b5f6bb0e97c2049f634dd09ccf7aef",
+    "previous_terminal_file_sha256": "09d18108221029c523b897d4a6468ff0146c7aa0e8aff04b4ea3381b7fb0b4ee",
+    "previous_transport_progress_file_sha256": "e6a412669f2044f42102d547cf59e0c2434520b76f8a7fca8a87b5c2ce032cfa",
+    "relay_cooldown_clock": "not_before_unix",
+    "relay_not_before_unix": 1795742579.7300103,
+    "newly_authorized_boundary_physical_attempts": 2,
+    "execution_budget": {"first_logical_requests": 29, "maximum_logical_requests": 85, "maximum_physical_attempts": 170},
+}
+RELAY_157_WAVE32_ATTEMPTS = (
+    {
+        "attempt": 0,
+        "attempt_id": "be0356649b834158ada557ada8ed0942",
+        "job_sha256": "f641d4852eaa8b24c4518255fc108f818124717d3dba0bffdbb46d38ee337b1b",
+        "result_sha256": "964220f7e669a1a8e2a0070401378d30c380c52ebf4a1655779162049817a0f0",
+        "error": "response_id_mismatch",
+        "provider_dispatched": True,
+        "ambiguous": True,
+    },
+    {
+        "attempt": 1,
+        "attempt_id": "0cac35126289455a8c915a9fe8b801f5",
+        "job_sha256": "2996f6aae6a3bfe31211a0d9881d01b34b55c39fce588aade961de401df5bff8",
+        "result_sha256": "7ae38a18c7fef3472e95ceb24f5cd1446eff7fa6cc257b4a2f040c4bf6ddb1c4",
+        "error": "response_id_mismatch",
+        "provider_dispatched": True,
+        "ambiguous": True,
+    },
+)
+RELAY_157_WAVE32_TERMINALS = (
+    "2e5ea06e4a450002038ac7ec9322353c8b387fc809bf932f388fb39d6a419cef",
+    "09d18108221029c523b897d4a6468ff0146c7aa0e8aff04b4ea3381b7fb0b4ee",
+)
+RELAY_157_WAVE32_REPLAY_FILES = {
+    "attempt_00.replay.terminal.json": "e6fc6f9734bd374f1d68b836270f3b46c973a5a89c1d78062c27a32895e03195",
+    "attempt_00.replay_authorization.json": "05306d5b8672d79af66897a05f199819e879658ca5d3f07bf8499e78e5f62789",
+    "attempt_01.replay_link.json": "8e6e79413720b1ee1822cf1e083ba14c8f7ca276b81b3af7abfb18d3d2bd4088",
+}
+RELAY_157_WAVE33_OBSERVATION = {
+    "http_status": 200,
+    "phase": "transport_failure",
+    "error_type": "response_id_mismatch",
+    "event_type": "response.output_item.added",
+    "sse_event_count": 41,
+    "model": "gpt-6.2-astra",
+    "provider_request_id": "2b1b1052-423c-498d-8b22-42ee7c521420",
+    "response_id": "resp_077eba5b62987017016b08d9f2272087d1904fc724b76e4723",
+    "conflicting_response_id": "resp_2b1b1052423c498d8b2242ee7c521420",
+    "conflicting_event_type": "response.failed",
+    "response_id_matches_transport_alias": True,
+    "provider_error_code": "upstream_error",
+    "last_sse_seconds": 198.01491920789704,
+    "last_sse_activity_seconds": 198.01491920789704,
+    "elapsed_seconds": 201.26071091694757,
+    "sse_milestones": {"response.created": {"elapsed_seconds": 21.337215417064726,
+                      "interval_seconds": None},
+ "response.in_progress": {"elapsed_seconds": 21.339919625082985,
+                          "interval_seconds": 0.002704208018258214},
+ "response.output_item.added": {"elapsed_seconds": 21.34188829199411,
+                                "interval_seconds": 0.001968666911125183},
+ "response.output_item.done": {"elapsed_seconds": 30.44460070808418,
+                               "interval_seconds": 9.102712416090071}},
+}
+
+RELAY_157_WAVE34_CONTRACT = "fa7c7a534f29941193054ea399926784abef0fe1f03c97e2b03542639bd467db"
+RELAY_157_WAVE34_AUTH = "86c5694f6ffba7f0fb9f8ff4740b6606a1beaeef26645d8884dc1eb33b4b44d0"
+RELAY_157_WAVE34_PROOF = {
+    **RELAY_157_WAVE33_PROOF,
+    "previous_request_id": "bebb7f5869b802ec53071a681a27c7c7b52c5a9d34f448e339080aaa93acc8cf",
+    "previous_terminal_file_sha256": "c7e55a186779929d87048bf53c824ebf3cb983faee26e534b254974ae6ac0532",
+    "previous_transport_progress_file_sha256": "0001341eeed828ed7ca65521ed125325ecbd15573d295a1d7460c44d2759d581",
+    "relay_cooldown_clock": "not_before_unix",
+    "relay_not_before_unix": 1795743613.2174969,
+    "newly_authorized_boundary_physical_attempts": 2,
+    "execution_budget": {"first_logical_requests": 29, "maximum_logical_requests": 85, "maximum_physical_attempts": 170},
+}
+RELAY_157_WAVE33_ATTEMPTS = (
+    {
+        "attempt": 0,
+        "attempt_id": "475190b05c444365a86dbb5c392049ab",
+        "job_sha256": "f1d50698ce12bd999d5dc8dd3a656a00022be46ffc2ca63c5352e3c2290ededc",
+        "result_sha256": "ee92bc303e16be6b6012815a61c65d805966c94663d57aad3825ddd186f74c2c",
+        "error": "response_id_mismatch",
+        "provider_dispatched": True,
+        "ambiguous": True,
+    },
+    {
+        "attempt": 1,
+        "attempt_id": "f7bf4a956cb14328ad35d68de916dfdb",
+        "job_sha256": "49ae97d3dc67d5855216665475f00d7d0cf01a80c5362a9f4555c47154ea2ecd",
+        "result_sha256": "e8269eac17fbdd45328fb96e0db64ea3472a81d23b02b1bcb8f6a6e2c02d68d0",
+        "error": "response_id_mismatch",
+        "provider_dispatched": True,
+        "ambiguous": True,
+    },
+)
+RELAY_157_WAVE33_TERMINALS = (
+    "1d40cf77cf2ee269dd08ae8514c427d8de0a08457763b31923d3447b20f81c78",
+    "c7e55a186779929d87048bf53c824ebf3cb983faee26e534b254974ae6ac0532",
+)
+RELAY_157_WAVE33_REPLAY_FILES = {
+    "attempt_00.replay.terminal.json": "874208bec7bad45e9e5a35d8e8093a548ecdf9b339f12de28e1b5d0763e4ca34",
+    "attempt_00.replay_authorization.json": "4dfdf5a1b59186a164949610a3b5aee16b7fed8d8a0f0841f25eb4935094d32c",
+    "attempt_01.replay_link.json": "1f159ef12bcf04626a7e523385799c91905cd9717b089098ba73cd84d88f1271",
+}
+RELAY_157_WAVE34_OBSERVATION = {
+    "http_status": 200,
+    "phase": "transport_failure",
+    "error_type": "response_id_mismatch",
+    "event_type": "response.output_item.added",
+    "sse_event_count": 23,
+    "model": "gpt-6.2-astra",
+    "provider_request_id": "7e81f2ac-22bd-4522-ac7e-9786c708f137",
+    "response_id": "resp_0c9965e4cc2039c9016b08dde75f4087d08996ba9d14802771",
+    "conflicting_response_id": "resp_7e81f2ac22bd4522ac7e9786c708f137",
+    "conflicting_event_type": "response.failed",
+    "response_id_matches_transport_alias": True,
+    "provider_error_code": "upstream_error",
+    "last_sse_seconds": 211.65237962501124,
+    "last_sse_activity_seconds": 211.65237962501124,
+    "elapsed_seconds": 220.10959837492555,
+    "sse_milestones": {"response.created": {"elapsed_seconds": 40.17108333390206, "interval_seconds": None},
+ "response.in_progress": {"elapsed_seconds": 40.17695612506941,
+                          "interval_seconds": 0.005872791167348623},
+ "response.output_item.added": {"elapsed_seconds": 40.829752458957955,
+                                "interval_seconds": 0.6527963338885456},
+ "response.output_item.done": {"elapsed_seconds": 57.129706375068054,
+                               "interval_seconds": 16.2999539161101}},
+}
+
+RELAY_157_WAVE35_CONTRACT = "fd7028bb24038fae4340bcdffb7d3c6aaedca8b3f71059f4d1084029bf3adcf4"
+RELAY_157_WAVE35_AUTH = "bb76cce1f9bfd534be44df0df4734a188e636117ff0d5e6ee4b03b955d24034e"
+RELAY_157_WAVE35_PROOF = {
+    **RELAY_157_WAVE34_PROOF,
+    "previous_request_id": "32b1ffe4886e87055eaf8585fb0c8325076aa56ce4dfb16f7e460986a908cb28",
+    "previous_terminal_file_sha256": "6cf49c7056d20ce8e4f5817958205743ee30bf9062fbe4c02079888e9895e0b3",
+    "previous_transport_progress_file_sha256": "dea3fc793a0a94a3622935d2a2a705988bb0a05982f9fb01a93e8e796d800f95",
+    "relay_cooldown_clock": "not_before_unix",
+    "relay_not_before_unix": 1795744861.3835022,
+    "newly_authorized_boundary_physical_attempts": 1,
+    "execution_budget": {"first_logical_requests": 29, "maximum_logical_requests": 85, "maximum_physical_attempts": 169},
+}
+RELAY_157_WAVE34_ATTEMPT = {
+    "attempt": 0,
+    "attempt_id": "c6002fc9e8fe4cd59c18dd6b1e40e5d9",
+    "job_sha256": "4cc970d6f1877635b35a5277ded26cd05651091bb013da3c8c904e231fd1565c",
+    "result_sha256": "a2388ee013846c527318cf664d23d1575c6af2cf04ee57a72c9155db83e40aef",
+    "error": "timeout",
+    "provider_dispatched": True,
+    "ambiguous": True,
+}
+RELAY_157_WAVE35_OBSERVATION = {
+    "http_status": 200,
+    "phase": "transport_failure",
+    "error_type": "sse_inactivity_timeout",
+    "event_type": "ipv4_preflight_http_401",
+    "provider_request_id": "90659c54-babd-466e-ab8b-162b870285bf",
+    "elapsed_seconds": 935.3973765000701,
+    "first_phase_seconds": {"http_headers": 35.38578833406791,
+ "http_phase": 0.39183562505058944,
+ "request_dispatched": 4.855124374851584,
+ "transport_failure": 935.3973765000701},
+    "network_phases": {"direct_ipv4_http11": {"duration_seconds": 35.367219875101,
+                        "observed_seconds": 35.38448095903732,
+                        "state": "complete"},
+ "direct_ipv4_preflight": {"duration_seconds": 1.0225394580047578,
+                           "observed_seconds": 1.0424863339867443,
+                           "state": "complete"},
+ "direct_ipv4_preflight_1": {"duration_seconds": 1.0225394580047578,
+                             "observed_seconds": 1.039927874924615,
+                             "state": "complete"},
+ "direct_ipv4_preflight_1_dns_tcp": {"duration_seconds": 0.37282374990172684,
+                                     "observed_seconds": 0.39183562505058944,
+                                     "state": "complete"},
+ "direct_ipv4_preflight_1_tls": {"duration_seconds": 0.27344229095615447,
+                                 "observed_seconds": 0.6670539588667452,
+                                 "state": "complete"},
+ "receive_headers": {"duration_seconds": 28.335333958035335,
+                     "observed_seconds": 35.37933512497693,
+                     "state": "complete"},
+ "send_body": {"duration_seconds": 2.056657165987417,
+               "observed_seconds": 7.040953499963507,
+               "state": "complete"},
+ "send_headers": {"duration_seconds": 0.0003044579643756151,
+                  "observed_seconds": 4.9837964999023825,
+                  "state": "complete"}},
+}
+RELAY_157_WAVE34_ARCHIVED_SSE_COUNTS = (41, 23)
+RELAY_157_WAVE33_ARCHIVED_SSE_COUNTS = (25, 41)
+RELAY_157_WAVE32_ARCHIVED_SSE_COUNTS = (41, 41)
 RELAY_157_WAVE31_ARCHIVED_SSE_COUNTS = (41, 33)
 RELAY_157_WAVE30_ARCHIVED_SSE_COUNTS = (41, 41)
 RELAY_157_WAVE29_ARCHIVED_SSE_COUNTS = (41, 41)
@@ -8758,7 +9043,7 @@ def _reviewed_relay_prefix(runs, seed, wave, old):
                         (RELAY_6101_WAVE24_CONTRACT, RELAY_6101_WAVE24_AUTH, 2),
                         (RELAY_6101_WAVE25_CONTRACT, RELAY_6101_WAVE25_AUTH, 2),
                         (RELAY_6101_WAVE26_CONTRACT, RELAY_6101_WAVE26_AUTH, 2))
-        elif seed == 157 and wave in (10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31):
+        elif seed == 157 and wave in (10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35):
             first_wave = 8
             expected = ((RELAY_157_WAVE08_CONTRACT, RELAY_157_WAVE08_AUTH, 1),
                         (RELAY_157_WAVE09_CONTRACT, RELAY_157_WAVE09_AUTH, 2),
@@ -8781,7 +9066,11 @@ def _reviewed_relay_prefix(runs, seed, wave, old):
                         (RELAY_157_WAVE26_CONTRACT, RELAY_157_WAVE26_AUTH, 2),
                         (RELAY_157_WAVE27_CONTRACT, RELAY_157_WAVE27_AUTH, 2),
                         (RELAY_157_WAVE28_CONTRACT, RELAY_157_WAVE28_AUTH, 2),
-                        (RELAY_157_WAVE29_CONTRACT, RELAY_157_WAVE29_AUTH, 2))
+                        (RELAY_157_WAVE29_CONTRACT, RELAY_157_WAVE29_AUTH, 2),
+                        (RELAY_157_WAVE30_CONTRACT, RELAY_157_WAVE30_AUTH, 2),
+                        (RELAY_157_WAVE31_CONTRACT, RELAY_157_WAVE31_AUTH, 2),
+                        (RELAY_157_WAVE32_CONTRACT, RELAY_157_WAVE32_AUTH, 2),
+                        (RELAY_157_WAVE33_CONTRACT, RELAY_157_WAVE33_AUTH, 2))
         elif seed == 12203 and 8 <= wave <= 37:
             first_wave = 6
             expected = ((RELAY_12203_WAVE06_CONTRACT, RELAY_12203_WAVE06_AUTH, 2),
@@ -9174,6 +9463,18 @@ def reviewed_relay_contract(runs, seed, wave, previous, previous_contract):
     elif (seed, wave) == (157, 31):
         pinned_contract, pinned_auth = RELAY_157_WAVE30_CONTRACT, RELAY_157_WAVE30_AUTH
         boundary, prior_attempt, wave_proof = 7, None, RELAY_157_WAVE31_PROOF
+    elif (seed, wave) == (157, 32):
+        pinned_contract, pinned_auth = RELAY_157_WAVE31_CONTRACT, RELAY_157_WAVE31_AUTH
+        boundary, prior_attempt, wave_proof = 7, None, RELAY_157_WAVE32_PROOF
+    elif (seed, wave) == (157, 33):
+        pinned_contract, pinned_auth = RELAY_157_WAVE32_CONTRACT, RELAY_157_WAVE32_AUTH
+        boundary, prior_attempt, wave_proof = 7, None, RELAY_157_WAVE33_PROOF
+    elif (seed, wave) == (157, 34):
+        pinned_contract, pinned_auth = RELAY_157_WAVE33_CONTRACT, RELAY_157_WAVE33_AUTH
+        boundary, prior_attempt, wave_proof = 7, None, RELAY_157_WAVE34_PROOF
+    elif (seed, wave) == (157, 35):
+        pinned_contract, pinned_auth = RELAY_157_WAVE34_CONTRACT, RELAY_157_WAVE34_AUTH
+        boundary, prior_attempt, wave_proof = 7, RELAY_157_WAVE34_ATTEMPT, RELAY_157_WAVE35_PROOF
     elif (seed, wave) == (12203, 6):
         pinned_contract, pinned_auth = RELAY_12203_WAVE05_CONTRACT, RELAY_12203_WAVE05_AUTH
         boundary, prior_attempt, wave_proof = 4, RELAY_12203_WAVE05_ATTEMPT, RELAY_12203_WAVE06_PROOF
@@ -9365,6 +9666,10 @@ def reviewed_relay_contract(runs, seed, wave, previous, previous_contract):
                   (157, 29): (RELAY_157_WAVE29_CONTRACT, RELAY_157_WAVE29_AUTH),
                   (157, 30): (RELAY_157_WAVE30_CONTRACT, RELAY_157_WAVE30_AUTH),
                   (157, 31): (RELAY_157_WAVE31_CONTRACT, RELAY_157_WAVE31_AUTH),
+                  (157, 32): (RELAY_157_WAVE32_CONTRACT, RELAY_157_WAVE32_AUTH),
+                  (157, 33): (RELAY_157_WAVE33_CONTRACT, RELAY_157_WAVE33_AUTH),
+                  (157, 34): (RELAY_157_WAVE34_CONTRACT, RELAY_157_WAVE34_AUTH),
+                  (157, 35): (RELAY_157_WAVE35_CONTRACT, RELAY_157_WAVE35_AUTH),
                   (12203, 9): (RELAY_12203_WAVE09_CONTRACT, RELAY_12203_WAVE09_AUTH),
                   (12203, 10): (RELAY_12203_WAVE10_CONTRACT, RELAY_12203_WAVE10_AUTH),
                   (12203, 11): (RELAY_12203_WAVE11_CONTRACT, RELAY_12203_WAVE11_AUTH),
@@ -9462,7 +9767,7 @@ def reviewed_relay_contract(runs, seed, wave, previous, previous_contract):
         if previous_profile.get("replay_eligible_from_round") != start:
             return None
         previous_profile = {**previous_profile, "replay_eligible_from_round": replay_round}
-    elif (seed, wave) in ((6101, 5), (6101, 18), (2357, 5), (2357, 7), (2357, 10), (887, 7), (887, 9), (157, 11),
+    elif (seed, wave) in ((6101, 5), (6101, 18), (2357, 5), (2357, 7), (2357, 10), (887, 7), (887, 9), (157, 11), (157, 35),
                           (887, 10), (6101, 12),
                           (12203, 10), (12203, 15), (12203, 17)):
         if (previous_profile.get("replay_eligible_from_round") != start
@@ -9487,7 +9792,7 @@ def reviewed_relay_contract(runs, seed, wave, previous, previous_contract):
         if "cached_import" in proof:
             return None
         exact["reviewed_cached_import"] = RELAY_887_CACHED_REVIEW
-    if seed == 157 and 8 <= wave <= 31:
+    if seed == 157 and 8 <= wave <= 35:
         if "cached_import" in proof or previous_proof.get("reviewed_cached_import") != RELAY_157_WAVE07_CACHED_REVIEW:
             return None
         exact.update(reviewed_cached_import=RELAY_157_WAVE07_CACHED_REVIEW,
@@ -9519,6 +9824,10 @@ def reviewed_relay_contract(runs, seed, wave, previous, previous_contract):
         (157, 29): (RELAY_157_WAVE09_CHECKPOINT, RELAY_157_WAVE09_FITTED_FILES),
         (157, 30): (RELAY_157_WAVE09_CHECKPOINT, RELAY_157_WAVE09_FITTED_FILES),
         (157, 31): (RELAY_157_WAVE09_CHECKPOINT, RELAY_157_WAVE09_FITTED_FILES),
+        (157, 32): (RELAY_157_WAVE09_CHECKPOINT, RELAY_157_WAVE09_FITTED_FILES),
+        (157, 33): (RELAY_157_WAVE09_CHECKPOINT, RELAY_157_WAVE09_FITTED_FILES),
+        (157, 34): (RELAY_157_WAVE09_CHECKPOINT, RELAY_157_WAVE09_FITTED_FILES),
+        (157, 35): (RELAY_157_WAVE09_CHECKPOINT, RELAY_157_WAVE09_FITTED_FILES),
         (2357, 9): (RELAY_2357_WAVE08_CHECKPOINT, RELAY_2357_WAVE08_FITTED_FILES),
         (2357, 10): (RELAY_2357_WAVE08_CHECKPOINT, RELAY_2357_WAVE08_FITTED_FILES),
         (2357, 11): (RELAY_2357_WAVE08_CHECKPOINT, RELAY_2357_WAVE08_FITTED_FILES),
@@ -9676,6 +9985,10 @@ def reviewed_relay_contract(runs, seed, wave, previous, previous_contract):
         (157, 29): (2, RELAY_157_WAVE28_PROOF["execution_budget"]),
         (157, 30): (2, RELAY_157_WAVE29_PROOF["execution_budget"]),
         (157, 31): (2, RELAY_157_WAVE30_PROOF["execution_budget"]),
+        (157, 32): (2, RELAY_157_WAVE31_PROOF["execution_budget"]),
+        (157, 33): (2, RELAY_157_WAVE32_PROOF["execution_budget"]),
+        (157, 34): (2, RELAY_157_WAVE33_PROOF["execution_budget"]),
+        (157, 35): (2, RELAY_157_WAVE34_PROOF["execution_budget"]),
         (12203, 8): (2, RELAY_12203_WAVE07_PROOF["execution_budget"]),
         (12203, 9): (2, RELAY_12203_WAVE08_PROOF["execution_budget"]),
         (12203, 10): (2, RELAY_12203_WAVE09_PROOF["execution_budget"]),
@@ -9786,6 +10099,10 @@ def reviewed_relay_contract(runs, seed, wave, previous, previous_contract):
                    (157, 29): RELAY_157_WAVE29_OBSERVATION,
                    (157, 30): RELAY_157_WAVE30_OBSERVATION,
                    (157, 31): RELAY_157_WAVE31_OBSERVATION,
+                   (157, 32): RELAY_157_WAVE32_OBSERVATION,
+                   (157, 33): RELAY_157_WAVE33_OBSERVATION,
+                   (157, 34): RELAY_157_WAVE34_OBSERVATION,
+                   (157, 35): RELAY_157_WAVE35_OBSERVATION,
                    (887, 3): RELAY_887_WAVE03_OBSERVATION, (887, 4): RELAY_887_WAVE04_OBSERVATION,
                    (887, 6): RELAY_887_WAVE06_OBSERVATION, (887, 7): RELAY_887_WAVE07_OBSERVATION,
                    (887, 8): RELAY_887_WAVE08_OBSERVATION, (887, 9): RELAY_887_WAVE09_OBSERVATION,
@@ -9848,7 +10165,11 @@ def reviewed_relay_contract(runs, seed, wave, previous, previous_contract):
                             (157, 28): RELAY_157_WAVE28_SOURCES,
                             (157, 29): RELAY_157_WAVE29_SOURCES,
                             (157, 30): RELAY_157_WAVE30_SOURCES,
-                            (157, 31): RELAY_157_WAVE31_SOURCES, (12203, 17): RELAY_12203_WAVE17_SOURCES,
+                            (157, 31): RELAY_157_WAVE31_SOURCES,
+                            (157, 32): RELAY_157_WAVE32_SOURCES,
+                            (157, 33): RELAY_157_WAVE33_SOURCES,
+                            (157, 34): RELAY_157_WAVE34_SOURCES,
+                            (157, 35): RELAY_157_WAVE35_SOURCES, (12203, 17): RELAY_12203_WAVE17_SOURCES,
                             (6101, 9): RELAY_6101_WAVE09_SOURCES, (6101, 10): RELAY_6101_WAVE10_SOURCES,
                             (6101, 11): RELAY_6101_WAVE11_SOURCES,
                             (6101, 12): RELAY_6101_WAVE12_SOURCES,
@@ -9935,13 +10256,21 @@ def reviewed_relay_contract(runs, seed, wave, previous, previous_contract):
             return None
     turn = directory / f"round_{start:02d}/turn_00"
     single_archive = (seed, wave) in ((2357, 6), (2357, 7), (12203, 10), (12203, 11), (12203, 14), (12203, 15),
-                                      (12203, 16), (12203, 17), (12203, 18), (157, 8), (157, 9), (157, 11), (157, 12),
+                                      (12203, 16), (12203, 17), (12203, 18), (157, 8), (157, 9), (157, 11), (157, 12), (157, 35),
                                       (887, 6), (887, 7), (887, 8), (887, 9), (887, 10), (887, 11),
                                       (6101, 8), (6101, 9), (6101, 12), (6101, 13), (6101, 18), (6101, 19),
                                       (2357, 10), (2357, 11))
     if single_archive and {path.name for path in turn.glob("attempt_*.json")} != {
         "attempt_00.started.json", "attempt_00.terminal.json",
     }:
+        return None
+    if (seed, wave) == (157, 35) and (
+        proof.get("previous_prefix_sha256") != "46e5eff9b3013e0466417b59a5e16e9579702d2701d070756613ee8fe9a960ee"
+        or not (directory / "pause.request").is_file()
+        or (directory / "round_08").exists()
+        or any((turn.parent / name).exists() for name in ("batch_freeze.json", "selection.json", "memory.json"))
+        or set(turn.parent.glob("turn_*/attempt_*.started.json")) != {turn / "attempt_00.started.json"}
+    ):
         return None
     if (seed, wave) in ((6101, 9), (6101, 12), (6101, 13), (887, 10), (887, 11)) and (
         set(turn.parent.glob("turn_*/attempt_*.started.json")) != {turn / "attempt_00.started.json"}
@@ -9951,7 +10280,7 @@ def reviewed_relay_contract(runs, seed, wave, previous, previous_contract):
     if (seed, wave) in ((887, 12), (887, 13), (887, 14), (887, 15), (12203, 13), (12203, 19), (12203, 20), (12203, 21), (12203, 22), (12203, 23),
                         (12203, 24), (12203, 25), (12203, 26), (12203, 27), (12203, 28), (12203, 29), (12203, 30), (12203, 31), (12203, 32), (12203, 33), (12203, 34), (12203, 35), (12203, 36), (12203, 37),
                         (2357, 8), (2357, 9), (2357, 12), (2357, 13), (2357, 14), (2357, 15), (2357, 16), (2357, 17), (2357, 18), (2357, 19), (2357, 20), (2357, 21), (2357, 22), (2357, 23), (2357, 24), (2357, 25), (2357, 26), (2357, 27), (2357, 28), (2357, 29), (2357, 30), (2357, 31),
-                        (157, 10), (157, 13), (157, 14), (157, 15), (157, 16), (157, 17), (157, 18), (157, 19), (157, 20), (157, 21), (157, 22), (157, 23), (157, 24), (157, 25), (157, 26), (157, 27), (157, 28), (157, 29), (157, 30), (157, 31),
+                        (157, 10), (157, 13), (157, 14), (157, 15), (157, 16), (157, 17), (157, 18), (157, 19), (157, 20), (157, 21), (157, 22), (157, 23), (157, 24), (157, 25), (157, 26), (157, 27), (157, 28), (157, 29), (157, 30), (157, 31), (157, 32), (157, 33), (157, 34),
                         (6101, 10), (6101, 11), (6101, 14), (6101, 15), (6101, 16), (6101, 17), (6101, 20), (6101, 21), (6101, 22), (6101, 23), (6101, 24), (6101, 25), (6101, 26), (6101, 27), (6101, 28)) and (
         set(turn.parent.glob("turn_*/attempt_*.started.json")) != {turn / f"attempt_{index:02d}.started.json" for index in (0, 1)}
         or any(turn.glob("*.reconciliation.json")) or any(turn.glob("*.recovery.terminal.json"))
@@ -9960,6 +10289,9 @@ def reviewed_relay_contract(runs, seed, wave, previous, previous_contract):
     ):
         return None
     multiple_previous = {
+        (157, 34): (RELAY_157_WAVE33_ATTEMPTS, RELAY_157_WAVE33_TERMINALS, RELAY_157_WAVE33_REPLAY_FILES),
+        (157, 33): (RELAY_157_WAVE32_ATTEMPTS, RELAY_157_WAVE32_TERMINALS, RELAY_157_WAVE32_REPLAY_FILES),
+        (157, 32): (RELAY_157_WAVE31_ATTEMPTS, RELAY_157_WAVE31_TERMINALS, RELAY_157_WAVE31_REPLAY_FILES),
         (157, 31): (RELAY_157_WAVE30_ATTEMPTS, RELAY_157_WAVE30_TERMINALS, RELAY_157_WAVE30_REPLAY_FILES),
         (2357, 31): (RELAY_2357_WAVE30_ATTEMPTS, RELAY_2357_WAVE30_TERMINALS, RELAY_2357_WAVE30_REPLAY_FILES),
         (12203, 37): (RELAY_12203_WAVE36_ATTEMPTS, RELAY_12203_WAVE36_TERMINALS, RELAY_12203_WAVE36_REPLAY_FILES),
@@ -11787,6 +12119,9 @@ def remote_seed(runs, seed, relay_pins=None):
                      (157, "ipv4_relay_retry_29"): RELAY_157_WAVE29_OBSERVATION,
                      (157, "ipv4_relay_retry_30"): RELAY_157_WAVE30_OBSERVATION,
                      (157, "ipv4_relay_retry_31"): RELAY_157_WAVE31_OBSERVATION,
+                     (157, "ipv4_relay_retry_32"): RELAY_157_WAVE32_OBSERVATION,
+                     (157, "ipv4_relay_retry_33"): RELAY_157_WAVE33_OBSERVATION,
+                     (157, "ipv4_relay_retry_34"): RELAY_157_WAVE34_OBSERVATION,
                      (2357, "ipv4_relay_retry_21"): RELAY_2357_WAVE21_OBSERVATION,
                      (2357, "ipv4_relay_retry_22"): RELAY_2357_WAVE22_OBSERVATION,
                      (2357, "ipv4_relay_retry_23"): RELAY_2357_WAVE23_OBSERVATION,
@@ -11880,6 +12215,9 @@ def remote_seed(runs, seed, relay_pins=None):
             (157, "ipv4_relay_retry_29"): RELAY_157_WAVE29_ARCHIVED_SSE_COUNTS,
             (157, "ipv4_relay_retry_30"): RELAY_157_WAVE30_ARCHIVED_SSE_COUNTS,
             (157, "ipv4_relay_retry_31"): RELAY_157_WAVE31_ARCHIVED_SSE_COUNTS,
+            (157, "ipv4_relay_retry_32"): RELAY_157_WAVE32_ARCHIVED_SSE_COUNTS,
+            (157, "ipv4_relay_retry_33"): RELAY_157_WAVE33_ARCHIVED_SSE_COUNTS,
+            (157, "ipv4_relay_retry_34"): RELAY_157_WAVE34_ARCHIVED_SSE_COUNTS,
             (12203, "ipv4_relay_retry_27"): RELAY_12203_WAVE27_ARCHIVED_SSE_COUNTS,
             (6101, "ipv4_relay_retry_20"): RELAY_6101_WAVE20_ARCHIVED_SSE_COUNTS,
             (2357, "ipv4_relay_retry_20"): RELAY_2357_WAVE20_ARCHIVED_SSE_COUNTS,
@@ -11907,6 +12245,14 @@ def remote_seed(runs, seed, relay_pins=None):
         }.get((seed, segment))
         if archived_failure_sse_counts is not None:
             reviewed_previous_api["archived_failure_sse_counts"] = archived_failure_sse_counts
+    if (seed, segment) == (157, "ipv4_relay_retry_35") and latest == recovery_round:
+        observation = RELAY_157_WAVE35_OBSERVATION
+        reviewed_previous_api = {
+            "http_status": observation["http_status"], "error_type": observation["error_type"],
+            "sse_event_count": 0, "complete_event_seen": False, "sse_inactivity_seconds": 900,
+            "first_http_headers_seconds": observation["first_phase_seconds"]["http_headers"],
+            "elapsed_seconds": observation["elapsed_seconds"],
+        }
     if (seed, segment) == (887, "ipv4_relay_retry_11") and latest == recovery_round:
         observation = RELAY_887_WAVE11_OBSERVATION
         reviewed_previous_api = {name: observation[name] for name in (
@@ -12157,6 +12503,10 @@ def remote_seed(runs, seed, relay_pins=None):
         (157, "ipv4_relay_retry_29"): RELAY_157_WAVE29_PROOF,
         (157, "ipv4_relay_retry_30"): RELAY_157_WAVE30_PROOF,
         (157, "ipv4_relay_retry_31"): RELAY_157_WAVE31_PROOF,
+        (157, "ipv4_relay_retry_32"): RELAY_157_WAVE32_PROOF,
+        (157, "ipv4_relay_retry_33"): RELAY_157_WAVE33_PROOF,
+        (157, "ipv4_relay_retry_34"): RELAY_157_WAVE34_PROOF,
+        (157, "ipv4_relay_retry_35"): RELAY_157_WAVE35_PROOF,
         (12203, "ipv4_relay_retry_07"): RELAY_12203_WAVE07_PROOF,
         (12203, "ipv4_relay_retry_08"): RELAY_12203_WAVE08_PROOF,
         (12203, "ipv4_relay_retry_09"): RELAY_12203_WAVE09_PROOF,
@@ -12213,7 +12563,7 @@ def remote_seed(runs, seed, relay_pins=None):
         if seed == 887 and segment in ("ipv4_relay_retry_06", "ipv4_relay_retry_08"):
             boundary_api.update(future_replay_from_round=13, future_replay_requires_verified_response_id=True,
                                 replay_requires_verified_response_id=True)
-        if (seed, segment) in ((157, "ipv4_relay_retry_11"), (2357, "ipv4_relay_retry_10"),
+        if (seed, segment) in ((157, "ipv4_relay_retry_11"), (157, "ipv4_relay_retry_35"), (2357, "ipv4_relay_retry_10"),
                                (6101, "ipv4_relay_retry_09"), (6101, "ipv4_relay_retry_12"), (6101, "ipv4_relay_retry_18"),
                                (887, "ipv4_relay_retry_10"), (887, "ipv4_relay_retry_11")):
             boundary_api.update(future_replay_from_round=recovery_round + 1, future_replay_requires_verified_response_id=True)
@@ -12269,6 +12619,9 @@ def remote_seed(runs, seed, relay_pins=None):
                                (157, "ipv4_relay_retry_29"),
                                (157, "ipv4_relay_retry_30"),
                                (157, "ipv4_relay_retry_31"),
+                               (157, "ipv4_relay_retry_32"),
+                               (157, "ipv4_relay_retry_33"),
+                               (157, "ipv4_relay_retry_34"),
                                (6101, "ipv4_relay_retry_23"),
                                (6101, "ipv4_relay_retry_24"),
                                (6101, "ipv4_relay_retry_25"),
@@ -12309,7 +12662,8 @@ def remote_seed(runs, seed, relay_pins=None):
                                    "ipv4_relay_retry_16", "ipv4_relay_retry_17", "ipv4_relay_retry_18", "ipv4_relay_retry_19",
                                    "ipv4_relay_retry_20", "ipv4_relay_retry_21", "ipv4_relay_retry_22",
                                    "ipv4_relay_retry_23", "ipv4_relay_retry_24", "ipv4_relay_retry_25",
-                                   "ipv4_relay_retry_26", "ipv4_relay_retry_27", "ipv4_relay_retry_28", "ipv4_relay_retry_29", "ipv4_relay_retry_30", "ipv4_relay_retry_31"):
+                                   "ipv4_relay_retry_26", "ipv4_relay_retry_27", "ipv4_relay_retry_28", "ipv4_relay_retry_29", "ipv4_relay_retry_30", "ipv4_relay_retry_31",
+                                   "ipv4_relay_retry_32", "ipv4_relay_retry_33", "ipv4_relay_retry_34", "ipv4_relay_retry_35"):
         cache_import = {"round": 3, "fitted_labels": 461, "choice_count": 32, "removed_reference_fields": 79,
                         "provider_dispatched": False}
     if latest == TARGET_ROUNDS:
@@ -12372,7 +12726,8 @@ def remote_seed(runs, seed, relay_pins=None):
             **({"response_headers_seconds": 300}
                if seed == 2357 and (dynamic_relay is not None or segment in ("ipv4_relay_retry_19", "ipv4_relay_retry_20", "ipv4_relay_retry_21",
                                                "ipv4_relay_retry_22", "ipv4_relay_retry_23", "ipv4_relay_retry_24",
-                                               "ipv4_relay_retry_25", "ipv4_relay_retry_26", "ipv4_relay_retry_27", "ipv4_relay_retry_28", "ipv4_relay_retry_29", "ipv4_relay_retry_30", "ipv4_relay_retry_31"))
+                                               "ipv4_relay_retry_25", "ipv4_relay_retry_26", "ipv4_relay_retry_27", "ipv4_relay_retry_28", "ipv4_relay_retry_29", "ipv4_relay_retry_30", "ipv4_relay_retry_31",
+                                   "ipv4_relay_retry_32", "ipv4_relay_retry_33", "ipv4_relay_retry_34", "ipv4_relay_retry_35"))
                else {}),
             **({"boundary_api": boundary_api} if boundary_api else {}),
             **({"cached_import": cache_import} if cache_import else {}),
@@ -12719,6 +13074,9 @@ def show(view):
                 print(f"  {label} {errors}  {upload}  未收到 HTTP 响应头或 SSE")
             else:
                 print(f"  {label} HTTP {prior['http_status']}  {errors}  SSE {prior['sse_event_count']}  {end}  未收到完整模型答复")
+            if first_headers := prior.get("first_http_headers_seconds"):
+                print(f"  上次模型请求在 {duration_text(first_headers)} 收到响应头，之后没有 SSE；"
+                      f"总耗时 {duration_text(prior['elapsed_seconds'])}。")
             if headers_wait := prior.get("receive_headers_seconds"):
                 print(f"  上次尝试等待响应头 {duration_text(headers_wait)} 后超时。")
             if prior.get("output_text_done_seconds") is not None:
@@ -12727,7 +13085,10 @@ def show(view):
                 print("  失败终态的响应 ID 与该 HTTP 请求的传输别名一致。")
             if counts := prior.get("archived_failure_sse_counts"):
                 events = "、".join(str(count) for count in counts)
-                print(f"  上个运行段两次提交均以 {prior['provider_error_code']} 结束，分别收到 {events} 个 SSE 事件。")
+                if provider_error := prior.get("provider_error_code"):
+                    print(f"  上个运行段两次提交均以 {provider_error} 结束，分别收到 {events} 个 SSE 事件。")
+                else:
+                    print(f"  上个运行段两次提交均未收到完整答复，分别收到 {events} 个 SSE 事件。")
             elif failure_count := prior.get("archived_failure_count"):
                 print(f"  上个运行段的 {failure_count} 次提交均收到同类失败事件，原回执未保存具体错误码。")
             if earlier_code := prior.get("earlier_response_error_code"):
