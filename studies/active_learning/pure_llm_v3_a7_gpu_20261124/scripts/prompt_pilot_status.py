@@ -6169,6 +6169,12 @@ RELAY_157_WAVE35_SOURCES = {
     "studies/active_learning/pure_llm_v3_a7_gpu_20261124/scripts/run_v13_retry_successor.py":
         "1e1040b507f219d674c26462e7d00583fe91b1dceffb85d8ce3a5b15d21fcf7e",
 }
+
+RELAY_157_WAVE36_SOURCES = {
+    **RELAY_157_WAVE35_SOURCES,
+    "studies/active_learning/pure_llm_v3_a7_gpu_20261124/scripts/run_v13_retry_successor.py":
+        "58d295e9c324454beee2740256b4164a60ee86888effd7f1b7127b528a465927",
+}
 RELAY_157_WAVE12_PROOF = {
     **RELAY_157_WAVE11_PROOF,
     "previous_request_id": "fe395a7de89bfbf4eb8d3518e1a11e50ac02d0373c15a81f8e543245229e64a5",
@@ -7717,6 +7723,53 @@ RELAY_157_WAVE35_OBSERVATION = {
                   "observed_seconds": 4.9837964999023825,
                   "state": "complete"}},
 }
+
+RELAY_157_WAVE36_CONTRACT = "14e09df6620a442e9e52e4bf2bbf81ad1c6378065e91dfa88db41afebeee668b"
+RELAY_157_WAVE36_AUTH = "d0e249726e254de777f0d358abc93ac9b110bc372f5be20681a270f875460bab"
+RELAY_157_WAVE36_PROOF = {
+    **RELAY_157_WAVE35_PROOF,
+    "previous_request_id": "5d46a939b99b6b54736e514b67ba11e4d2dd20c61e3966d54f8cd157e0595033",
+    "previous_terminal_file_sha256": "7583ed6e4657e8359c75ea7a31b2e0537f0d9b6054437e752d6114559f85831b",
+    "previous_transport_progress_file_sha256": "21be464ae01c807253f4187fc7c5cd11659100d893a49f2a259205e10d2e7ad5",
+    "relay_cooldown_clock": "not_before_unix",
+    "relay_not_before_unix": 1795745450.5783978,
+    "newly_authorized_boundary_physical_attempts": 2,
+    "execution_budget": {"first_logical_requests": 29, "maximum_logical_requests": 85, "maximum_physical_attempts": 170},
+}
+RELAY_157_WAVE35_ATTEMPT = {
+    "attempt": 0,
+    "attempt_id": "3a350405cc22467387d960fa89e8f376",
+    "job_sha256": "dfd93befa731ce34c8eaac15dab6be153ba352176dd9c0fb778fb17fbee8dd20",
+    "result_sha256": "1e75cccce01bef27fadc74a1216deafd389495d9782d6af1bf50795f8bcbe06f",
+    "error": "response_id_mismatch",
+    "provider_dispatched": True,
+    "ambiguous": True,
+}
+RELAY_157_WAVE36_OBSERVATION = {
+    "http_status": 200,
+    "phase": "transport_failure",
+    "error_type": "response_id_mismatch",
+    "event_type": "response.output_item.added",
+    "sse_event_count": 25,
+    "model": "gpt-6.2-astra",
+    "provider_request_id": "8a1e8190-c87b-4ae6-8d4b-a085c6ca13e3",
+    "response_id": "resp_0b56df14d97fe814016b08e5198a1887d08348067edf1a6576",
+    "conflicting_response_id": "resp_8a1e8190c87b4ae68d4ba085c6ca13e3",
+    "conflicting_event_type": "response.failed",
+    "response_id_matches_transport_alias": True,
+    "provider_error_code": "upstream_error",
+    "last_sse_seconds": 233.14109083404765,
+    "last_sse_activity_seconds": 233.14109083404765,
+    "elapsed_seconds": 235.05711687495932,
+    "sse_milestones": {"response.created": {"elapsed_seconds": 54.779030499979854,
+                      "interval_seconds": None},
+ "response.in_progress": {"elapsed_seconds": 54.78049104195088,
+                          "interval_seconds": 0.001460541971027851},
+ "response.output_item.added": {"elapsed_seconds": 54.781339209061116,
+                                "interval_seconds": 0.000848167110234499},
+ "response.output_item.done": {"elapsed_seconds": 71.45109187508933,
+                               "interval_seconds": 16.669752666028216}},
+}
 RELAY_157_WAVE34_ARCHIVED_SSE_COUNTS = (41, 23)
 RELAY_157_WAVE33_ARCHIVED_SSE_COUNTS = (25, 41)
 RELAY_157_WAVE32_ARCHIVED_SSE_COUNTS = (41, 41)
@@ -9043,7 +9096,7 @@ def _reviewed_relay_prefix(runs, seed, wave, old):
                         (RELAY_6101_WAVE24_CONTRACT, RELAY_6101_WAVE24_AUTH, 2),
                         (RELAY_6101_WAVE25_CONTRACT, RELAY_6101_WAVE25_AUTH, 2),
                         (RELAY_6101_WAVE26_CONTRACT, RELAY_6101_WAVE26_AUTH, 2))
-        elif seed == 157 and wave in (10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35):
+        elif seed == 157 and wave in (10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36):
             first_wave = 8
             expected = ((RELAY_157_WAVE08_CONTRACT, RELAY_157_WAVE08_AUTH, 1),
                         (RELAY_157_WAVE09_CONTRACT, RELAY_157_WAVE09_AUTH, 2),
@@ -9070,7 +9123,8 @@ def _reviewed_relay_prefix(runs, seed, wave, old):
                         (RELAY_157_WAVE30_CONTRACT, RELAY_157_WAVE30_AUTH, 2),
                         (RELAY_157_WAVE31_CONTRACT, RELAY_157_WAVE31_AUTH, 2),
                         (RELAY_157_WAVE32_CONTRACT, RELAY_157_WAVE32_AUTH, 2),
-                        (RELAY_157_WAVE33_CONTRACT, RELAY_157_WAVE33_AUTH, 2))
+                        (RELAY_157_WAVE33_CONTRACT, RELAY_157_WAVE33_AUTH, 2),
+                        (RELAY_157_WAVE34_CONTRACT, RELAY_157_WAVE34_AUTH, 1))
         elif seed == 12203 and 8 <= wave <= 37:
             first_wave = 6
             expected = ((RELAY_12203_WAVE06_CONTRACT, RELAY_12203_WAVE06_AUTH, 2),
@@ -9475,6 +9529,9 @@ def reviewed_relay_contract(runs, seed, wave, previous, previous_contract):
     elif (seed, wave) == (157, 35):
         pinned_contract, pinned_auth = RELAY_157_WAVE34_CONTRACT, RELAY_157_WAVE34_AUTH
         boundary, prior_attempt, wave_proof = 7, RELAY_157_WAVE34_ATTEMPT, RELAY_157_WAVE35_PROOF
+    elif (seed, wave) == (157, 36):
+        pinned_contract, pinned_auth = RELAY_157_WAVE35_CONTRACT, RELAY_157_WAVE35_AUTH
+        boundary, prior_attempt, wave_proof = 7, RELAY_157_WAVE35_ATTEMPT, RELAY_157_WAVE36_PROOF
     elif (seed, wave) == (12203, 6):
         pinned_contract, pinned_auth = RELAY_12203_WAVE05_CONTRACT, RELAY_12203_WAVE05_AUTH
         boundary, prior_attempt, wave_proof = 4, RELAY_12203_WAVE05_ATTEMPT, RELAY_12203_WAVE06_PROOF
@@ -9670,6 +9727,7 @@ def reviewed_relay_contract(runs, seed, wave, previous, previous_contract):
                   (157, 33): (RELAY_157_WAVE33_CONTRACT, RELAY_157_WAVE33_AUTH),
                   (157, 34): (RELAY_157_WAVE34_CONTRACT, RELAY_157_WAVE34_AUTH),
                   (157, 35): (RELAY_157_WAVE35_CONTRACT, RELAY_157_WAVE35_AUTH),
+                  (157, 36): (RELAY_157_WAVE36_CONTRACT, RELAY_157_WAVE36_AUTH),
                   (12203, 9): (RELAY_12203_WAVE09_CONTRACT, RELAY_12203_WAVE09_AUTH),
                   (12203, 10): (RELAY_12203_WAVE10_CONTRACT, RELAY_12203_WAVE10_AUTH),
                   (12203, 11): (RELAY_12203_WAVE11_CONTRACT, RELAY_12203_WAVE11_AUTH),
@@ -9792,7 +9850,7 @@ def reviewed_relay_contract(runs, seed, wave, previous, previous_contract):
         if "cached_import" in proof:
             return None
         exact["reviewed_cached_import"] = RELAY_887_CACHED_REVIEW
-    if seed == 157 and 8 <= wave <= 35:
+    if seed == 157 and 8 <= wave <= 36:
         if "cached_import" in proof or previous_proof.get("reviewed_cached_import") != RELAY_157_WAVE07_CACHED_REVIEW:
             return None
         exact.update(reviewed_cached_import=RELAY_157_WAVE07_CACHED_REVIEW,
@@ -9828,6 +9886,7 @@ def reviewed_relay_contract(runs, seed, wave, previous, previous_contract):
         (157, 33): (RELAY_157_WAVE09_CHECKPOINT, RELAY_157_WAVE09_FITTED_FILES),
         (157, 34): (RELAY_157_WAVE09_CHECKPOINT, RELAY_157_WAVE09_FITTED_FILES),
         (157, 35): (RELAY_157_WAVE09_CHECKPOINT, RELAY_157_WAVE09_FITTED_FILES),
+        (157, 36): (RELAY_157_WAVE09_CHECKPOINT, RELAY_157_WAVE09_FITTED_FILES),
         (2357, 9): (RELAY_2357_WAVE08_CHECKPOINT, RELAY_2357_WAVE08_FITTED_FILES),
         (2357, 10): (RELAY_2357_WAVE08_CHECKPOINT, RELAY_2357_WAVE08_FITTED_FILES),
         (2357, 11): (RELAY_2357_WAVE08_CHECKPOINT, RELAY_2357_WAVE08_FITTED_FILES),
@@ -9989,6 +10048,7 @@ def reviewed_relay_contract(runs, seed, wave, previous, previous_contract):
         (157, 33): (2, RELAY_157_WAVE32_PROOF["execution_budget"]),
         (157, 34): (2, RELAY_157_WAVE33_PROOF["execution_budget"]),
         (157, 35): (2, RELAY_157_WAVE34_PROOF["execution_budget"]),
+        (157, 36): (1, RELAY_157_WAVE35_PROOF["execution_budget"]),
         (12203, 8): (2, RELAY_12203_WAVE07_PROOF["execution_budget"]),
         (12203, 9): (2, RELAY_12203_WAVE08_PROOF["execution_budget"]),
         (12203, 10): (2, RELAY_12203_WAVE09_PROOF["execution_budget"]),
@@ -10103,6 +10163,7 @@ def reviewed_relay_contract(runs, seed, wave, previous, previous_contract):
                    (157, 33): RELAY_157_WAVE33_OBSERVATION,
                    (157, 34): RELAY_157_WAVE34_OBSERVATION,
                    (157, 35): RELAY_157_WAVE35_OBSERVATION,
+                   (157, 36): RELAY_157_WAVE36_OBSERVATION,
                    (887, 3): RELAY_887_WAVE03_OBSERVATION, (887, 4): RELAY_887_WAVE04_OBSERVATION,
                    (887, 6): RELAY_887_WAVE06_OBSERVATION, (887, 7): RELAY_887_WAVE07_OBSERVATION,
                    (887, 8): RELAY_887_WAVE08_OBSERVATION, (887, 9): RELAY_887_WAVE09_OBSERVATION,
@@ -10169,7 +10230,8 @@ def reviewed_relay_contract(runs, seed, wave, previous, previous_contract):
                             (157, 32): RELAY_157_WAVE32_SOURCES,
                             (157, 33): RELAY_157_WAVE33_SOURCES,
                             (157, 34): RELAY_157_WAVE34_SOURCES,
-                            (157, 35): RELAY_157_WAVE35_SOURCES, (12203, 17): RELAY_12203_WAVE17_SOURCES,
+                            (157, 35): RELAY_157_WAVE35_SOURCES,
+                            (157, 36): RELAY_157_WAVE36_SOURCES, (12203, 17): RELAY_12203_WAVE17_SOURCES,
                             (6101, 9): RELAY_6101_WAVE09_SOURCES, (6101, 10): RELAY_6101_WAVE10_SOURCES,
                             (6101, 11): RELAY_6101_WAVE11_SOURCES,
                             (6101, 12): RELAY_6101_WAVE12_SOURCES,
@@ -10256,7 +10318,7 @@ def reviewed_relay_contract(runs, seed, wave, previous, previous_contract):
             return None
     turn = directory / f"round_{start:02d}/turn_00"
     single_archive = (seed, wave) in ((2357, 6), (2357, 7), (12203, 10), (12203, 11), (12203, 14), (12203, 15),
-                                      (12203, 16), (12203, 17), (12203, 18), (157, 8), (157, 9), (157, 11), (157, 12), (157, 35),
+                                      (12203, 16), (12203, 17), (12203, 18), (157, 8), (157, 9), (157, 11), (157, 12), (157, 35), (157, 36),
                                       (887, 6), (887, 7), (887, 8), (887, 9), (887, 10), (887, 11),
                                       (6101, 8), (6101, 9), (6101, 12), (6101, 13), (6101, 18), (6101, 19),
                                       (2357, 10), (2357, 11))
@@ -10264,8 +10326,12 @@ def reviewed_relay_contract(runs, seed, wave, previous, previous_contract):
         "attempt_00.started.json", "attempt_00.terminal.json",
     }:
         return None
-    if (seed, wave) == (157, 35) and (
-        proof.get("previous_prefix_sha256") != "46e5eff9b3013e0466417b59a5e16e9579702d2701d070756613ee8fe9a960ee"
+    single_157_prefix = {
+        35: "46e5eff9b3013e0466417b59a5e16e9579702d2701d070756613ee8fe9a960ee",
+        36: "8fea888b416845c300b8b0d31151c162573ab7ba83df90833faf80f19b20a0ee",
+    }.get(wave) if seed == 157 else None
+    if single_157_prefix and (
+        proof.get("previous_prefix_sha256") != single_157_prefix
         or not (directory / "pause.request").is_file()
         or (directory / "round_08").exists()
         or any((turn.parent / name).exists() for name in ("batch_freeze.json", "selection.json", "memory.json"))
@@ -11556,6 +11622,225 @@ def _signed_retry_record(run, contract, authorization=None):
     return record, approval_sha
 
 
+# Reviewed successors that require a different failure, clock, or fitted-boundary proof.
+EXACT_REVIEWED_RELAYS = {
+    ("887-relay-retry-21", 887): {
+        "wave": 22, "round": 34,
+        "parent": ("2cb82dd9e90de7599f5aee8d9a94239096b77c7f7a4c8231fd879dae04288ed8",
+                   "f0c7c7a22c80c9bfc126549af03b5769143123b242ef0a86a4aeba7d399982c7"),
+        "current": ("f91e53218974cdd5094d9a84ba3ac177f168672acf365307140ea77c5d4fcb2a",
+                    "5e63152630ea6711302a0922e82f0e2813fa5b2c7068932150ab6b3ab454ea6b"),
+        "producer": "573a962f2e70d9e69e3d586df081178a5488a98448c9d90411bb90b8abfb374d",
+        "prefix_sha256": "47b9cc20ed94d88614a67333e990b5801123424a33c84b2aff4dc572aed90437",
+        "observation_sha256": "4f190065f3890381a14dd7d230a2eb013a97131511be78ebd835c5e472441a11",
+        "request_file_sha256": "4b806a46625517419cef2916f3301aa85b3bd309baee8048a910fb33466f433d",
+        "checkpoint_sha256": "c81f34b104de3873a9fd54dfad4323b118dcab6e208281d3c3e95db68c5fe710",
+        "terminal_files": (
+            ("dc2fbdca0797165312c759bb9a05cdac780648c0fec738cb863c10b16ffb5bb1",
+             "response_id_mismatch"),
+            ("77925f04bded91c702341525fa7e2890d989d1340524d72ea64f20394776bbba",
+             "timeout"),
+        ),
+    },
+    ("887-relay-retry-22", 887): {
+        "wave": 23, "round": 34, "physical_limits": (1, 2),
+        "parent": ("f91e53218974cdd5094d9a84ba3ac177f168672acf365307140ea77c5d4fcb2a",
+                   "5e63152630ea6711302a0922e82f0e2813fa5b2c7068932150ab6b3ab454ea6b"),
+        "current": ("6503ab6e2b2b328d69afd1b7898480aee6b77fa0636b79bcf8fab817feb47946",
+                    "f4ecf061d89fa07db8f0a53ee7e8abc83f27fe2d6ed7a44f1fd24130ba9644bc"),
+        "producer": "b6bf14137956c5b6bf0170b79bc302699d8e3046cc7f19f1ef6a55c32577f908",
+        "prefix_sha256": "9112b9a26448cc57f4833eba2e893aa26a3f71fce587086c4f68581dc28808f0",
+        "observation_sha256": "3cc013dcfc7c72f4e5fffae246b171cc25b9469bdc8462329c4e3c2c0647e3dc",
+        "request_file_sha256": "1ac029a766fb732630d79cfc114e0a4739ab2c9121a6610d1c3fbfb447d31f77",
+        "checkpoint_sha256": "c81f34b104de3873a9fd54dfad4323b118dcab6e208281d3c3e95db68c5fe710",
+        "terminal_files": (
+            ("92284a23412c374a7303a84de98f94a85acf90ec96f5a6f0dfe6ef38abfdb3f6",
+             "response_id_mismatch"),
+        ),
+    },
+    ("2357-relay-retry-37", 2357): {
+        "wave": 38, "round": 5,
+        "parent": ("33049175fa4a022a18f9cc7699356f25ca3b9e2ec9cdd863c84d6910c2216f6b",
+                   "784bff547f64966b2edec6bef0042f0adcc2ca2f70237fc1e7cd5a123daefa9b"),
+        "current": ("71c6ff73844cbbb9070d50bd56ad7278d5825d15f76a1072844ffb1594c309b4",
+                    "5610758b41b4f90620cd8f56b78efbbe5e098b12d9ff5b5b94250028d2b47647"),
+        "producer": "bca2889a59a65022c7ab55b08656e40fb5d0610b99f6ef943ee58d4a838e209a",
+        "prefix_sha256": "714e2b172363c2dc3a523b74f7cf075de3f0c063828cad497739da4d2156f67f",
+        "observation_sha256": "0a88f1d5a80f11a8adee32e97882c50adaf307aa9d7d0a06685b2fc1fc8420b0",
+        "request_file_sha256": "c28da426bb861eab0f1c6faf8aa285af60d453a75fd586ae237fd82dc1173d38",
+        "checkpoint_sha256": "b31f06a0aa8efeccc08d6a6b709ab7f7360acfac56b9041cccae34c1363be501",
+        "terminal_files": (
+            ("ef831488691798f95d3d26db17d28b44c6434a914d9520ad397f8f4e73d8b1de",
+             "response_headers_timeout"),
+        ),
+    },
+    ("6101-r11-continuation-01", 6101): {
+        "wave": 29, "round": 13,
+        "parent": ("bb0c4e008336863b71ec7f41be179c7e2b815c8bc6e23dfa317cb65eb046c553",
+                   "26acba8853492479b855727a687f8e80316494ee6173882b0328597fb3c957ed"),
+        "current": ("fd83f4d3ea4cf7f88adc0cc2775232cb620a001193324d2c7834c3d68263115c",
+                    "18bc5676948a4c34b9e5bb183c3d1effc9cbe9c4c52c6bc4e6819c3f502184e4"),
+        "producer": "ffa9e7aa68b3bf249743779ca3ee184de73f699d11bf6e5a5449f198716c939f",
+        "prefix_sha256": "9b9c19a850d1beb94eb0411b736253bb88bebba1b06f20cf2092493290c36abe",
+        "observation_sha256": "6bad11f10cd09d88e9acbc79aeffb55f182c5a61602a123708125cf119cc679a",
+        "request_file_sha256": "2b3b7e229d0a0279cc5879816ec0466d981729a99c8c2b4fa3a9127a85f7e1ab",
+        "checkpoint_sha256": "4c01fecd82b1c3b42125c490ca144de4454219c0dffc03265ace49f80504a69d",
+        "terminal_files": (
+            ("70472a5eb1e5d8e3488721688733034947fcad3c677a226713369ef053fdf85a",
+             "timeout"),
+        ),
+    },
+    ("6101-relay-retry-29", 6101): {
+        "wave": 30, "round": 13, "physical_limits": (1, 2),
+        "parent": ("fd83f4d3ea4cf7f88adc0cc2775232cb620a001193324d2c7834c3d68263115c",
+                   "18bc5676948a4c34b9e5bb183c3d1effc9cbe9c4c52c6bc4e6819c3f502184e4"),
+        "current": ("067651704472b34a5a6969c305af40c3ac1552eca7cc7e508d92dcf7f7dba995",
+                    "5ebad40d0482df17a6423383ec05d6dbe880b9c4621c8ee88e1440fe1871071f"),
+        "producer": "1b3bd26ea6d88885a6bd6332c2863630939bed6ac31cd9d3036bc6892b3aa995",
+        "prefix_sha256": "02271194e9431845ea6036b876acfd74208a7cf26ec6b7cb932805d4699d8735",
+        "observation_sha256": "1b2832ccb4e90642ca932cbce58067e138d7e22e011f1d99ecabebdf2cc85307",
+        "request_file_sha256": "afcd2bcd2b7a75144a6ca5aa774c61e01392962b4a3c2df498c4d332e8932f8d",
+        "checkpoint_sha256": "4c01fecd82b1c3b42125c490ca144de4454219c0dffc03265ace49f80504a69d",
+        "terminal_files": (
+            ("8c8286ae15b38c32dba49c45d54624e0e731a1c3959ee516ce8ecb7430dbf1c0",
+             "response_id_mismatch"),
+        ),
+    },
+}
+
+
+def _pinned_relay_evidence(previous, seed, start, proof, exact):
+    directory = previous / f"seed_{seed}"
+    active = directory / f"round_{start:02d}"
+    turn = active / "turn_00"
+    pause = directory / "pause.request"
+    worker = previous / "workers" / f"seed_{seed}.json"
+    generation = previous / "coordinator_generation.json"
+    receipts = proof.get("previous_attempts", [])
+    terminal_files = exact["terminal_files"]
+    if (not all(_plain_filesystem_path(path) and path.is_file() for path in (pause, worker, generation))
+            or read_json(worker).get("status") != "failed"
+            or live(pid(read_json(worker).get("pid"))) or live(pid(read_json(generation).get("pid")))
+            or (directory / f"round_{start + 1:02d}").exists()
+            or any((active / name).exists() for name in ("selection.json", "batch_freeze.json", "memory.json"))
+            or len(receipts) != len(terminal_files)
+            or set(active.glob("turn_*/attempt_*.started.json")) != {
+                turn / f"attempt_{index:02d}.started.json" for index in range(len(receipts))
+            }):
+        return False
+    request_path = turn / "request.json"
+    if not _plain_filesystem_path(request_path) or checksum(request_path) != exact["request_file_sha256"]:
+        return False
+    request = read_json(request_path)
+    binding = request.get("binding", {})
+    request_id = proof.get("previous_request_id")
+    if (request.get("request_id") != request_id or request.get("logical_index") != 0
+            or any(binding.get(key) != proof.get(key) for key in ("checkpoint_sha256", "packet_sha256", "wire_packet_sha256",
+                                                                 "base_messages_sha256"))
+            or request.get("payload_sha256") != proof.get("payload_sha256")
+            or record_digest(request.get("payload")) != proof.get("payload_sha256")):
+        return False
+    for index, (receipt, (file_sha, code)) in enumerate(zip(receipts, terminal_files, strict=True)):
+        attempt = receipt.get("attempt_id")
+        if not isinstance(attempt, str) or not IDENTITY.fullmatch(attempt):
+            return False
+        terminal_path = turn / f"attempt_{index:02d}.terminal.json"
+        started_path = turn / f"attempt_{index:02d}.started.json"
+        job_path = previous / "bridge/outbox" / f"{attempt}.json"
+        result_path = previous / "bridge/results" / f"{attempt}.json"
+        if not all(_plain_filesystem_path(path) for path in (started_path, terminal_path, job_path, result_path)):
+            return False
+        started, terminal, job, result = map(read_json, (started_path, terminal_path, job_path, result_path))
+        failure = (result.get("outcome") or {}).get("failure") or {}
+        identity = failure.get("reply_identity")
+        if code == "response_id_mismatch":
+            expected_id = terminal.get("response_id")
+            if (not isinstance(identity, dict) or identity.get("provider_status") != "failed"
+                    or not isinstance(expected_id, str) or identity.get("response_id") != expected_id):
+                return False
+        elif identity is not None or terminal.get("response_id") is not None:
+            return False
+        if ((receipt.get("attempt"), receipt.get("error"), receipt.get("provider_dispatched"), receipt.get("ambiguous"))
+                != (index, code, True, True)
+                or (started.get("attempt_id"), started.get("attempt")) != (attempt, index)
+                or checksum(terminal_path) != file_sha or record_digest(terminal) != receipt.get("terminal_sha256")
+                or (terminal.get("attempt_id"), terminal.get("request_id"), terminal.get("status"), terminal.get("error"),
+                    terminal.get("provider_dispatched"), terminal.get("ambiguous")) != (attempt, request_id, "stopped", code, True, True)
+                or (job.get("attempt_id"), job.get("request_id"), job.get("request"), job.get("job_sha256"))
+                    != (attempt, request_id, request, receipt.get("job_sha256"))
+                or record_digest({key: value for key, value in job.items() if key != "job_sha256"}) != receipt.get("job_sha256")
+                or (result.get("attempt_id"), result.get("request_id"), result.get("job_sha256"), result.get("result_sha256"))
+                    != (attempt, request_id, receipt.get("job_sha256"), receipt.get("result_sha256"))
+                or result.get("provider_dispatched") is not True or result.get("raw_response") is not None
+                or (failure.get("code"), failure.get("ambiguous")) != (code, True)
+                or record_digest({key: value for key, value in result.items() if key != "result_sha256"}) != receipt.get("result_sha256")):
+            return False
+    not_before = seconds(terminal.get("not_before_unix"))
+    return (proof.get("previous_terminal_file_sha256") == terminal_files[-1][0]
+            and not_before is not None and proof.get("relay_cooldown_clock") == "not_before_unix"
+            and proof.get("relay_not_before_unix") == not_before + RELAY_RETRY_SECONDS)
+
+
+def _exact_reviewed_successor(runs, previous, previous_contract, seed):
+    exact = EXACT_REVIEWED_RELAYS.get((previous.name.removeprefix(f"{SERIAL_IPV4}-"), seed))
+    if exact is None or previous_contract != exact["parent"][0]:
+        return None
+    wave = exact["wave"]
+    run = runs / f"{SERIAL_IPV4}-{seed}-relay-retry-{wave:02d}"
+    old = _signed_retry_record(previous, *exact["parent"])
+    current = _signed_retry_record(run, *exact["current"])
+    if old is None or current is None:
+        return None
+    (old_record, old_auth), (record, _) = old, current
+    profile, proof = record["profile"], record["predecessor"]
+    old_profile, old_proof = old_record["profile"], old_record["predecessor"]
+    start = exact["round"]
+    old_physical, physical = exact.get("physical_limits", (2, 1))
+    budget = {"first_logical_requests": TARGET_ROUNDS - start, "maximum_logical_requests": (TARGET_ROUNDS - start - 1) * 3 + 1,
+              "maximum_physical_attempts": (TARGET_ROUNDS - start - 1) * 6 + physical}
+    expected_profile = {**old_profile, "replay_eligible_from_round": start + (physical == 1)}
+    old_history = old_proof.get("reviewed_retry_chain", [])
+    directory = previous / f"seed_{seed}"
+    fits = proof.get("reviewed_fitted_prefix_files", {})
+    normal_6101_boundary = (seed, wave) == (6101, 29)
+    if normal_6101_boundary:
+        if expected_profile.pop("full_imported_boundary_round", None) != 11:
+            return None
+        expected_profile["resume_boundaries"] = profile["resume_boundaries"]
+        if latest_round(directory)[1].get("checkpoint_sha256") != exact["checkpoint_sha256"]:
+            return None
+    elif any(old_proof.get(key) != proof.get(key) for key in ("payload_sha256", "checkpoint_sha256")):
+        return None
+    # 2357's signed fit list belongs to the verified earlier L493 origin.
+    # Its immediate old scientific request is bound independently below.
+    if seed != 2357 and any(not _plain_filesystem_path(directory / name) or checksum(directory / name) != sha
+                            for name, sha in fits.items()):
+        return None
+    archives = proof.get("previous_attempts", [])
+    producer = "studies/active_learning/pure_llm_v3_a7_gpu_20261124/scripts/run_v13_retry_successor.py"
+    if (profile != expected_profile or profile["resume_boundaries"].get(str(seed), {}).get("round") != start
+            or profile.get("audited_future_transport_replay") is not True
+            or profile.get("sealed_relay_retry_seconds") != RELAY_RETRY_SECONDS
+            or profile.get("ipv4_readiness_windows") != 3 or profile.get("target_labels") != TARGET_LABELS
+            or record["source_sha256"] != {**old_record["source_sha256"], producer: exact["producer"]}
+            or (proof.get("previous_contract_sha256"), proof.get("previous_authorization_sha256"),
+                proof.get("previous_run_directory")) != (previous_contract, old_auth, str(previous))
+            or (proof.get("seed"), proof.get("round"), proof.get("logical_index")) != (seed, start, 0)
+            or proof.get("checkpoint_sha256") != exact["checkpoint_sha256"]
+            or proof.get("previous_prefix_sha256") != exact["prefix_sha256"]
+            or record_digest(proof.get("previous_transport_observation")) != exact["observation_sha256"]
+            or proof.get("newly_authorized_boundary_physical_attempts") != physical
+            or proof.get("recovery_budget") != {"maximum_logical_requests": 1, "maximum_physical_attempts": physical}
+            or old_proof.get("recovery_budget") != {
+                "maximum_logical_requests": 3 if normal_6101_boundary else 1, "maximum_physical_attempts": old_physical,
+            }
+            or record.get("budget") != budget or proof.get("execution_budget") != budget
+            or not _pinned_relay_evidence(previous, seed, start, proof, exact)
+            or proof.get("reviewed_retry_chain") != [*old_history, _relay_review(previous, previous_contract, old_auth, proof, archives)]):
+        return None
+    return run, exact["current"][0], start, profile["ipv4_readiness_windows"], proof["relay_not_before_unix"], proof
+
+
 def _owned_relay_retry_evidence(previous, seed, start, proof, previous_contract, previous_auth):
     directory = previous / f"seed_{seed}"
     active = directory / f"round_{start:02d}"
@@ -11985,20 +12270,23 @@ def remote_seed(runs, seed, relay_pins=None):
                             segment = f"ipv4_relay_retry_{wave:02d}"
                             wave += 1
     dynamic_relay = None
-    if relay_pins and (suffix := re.fullmatch(r"ipv4_relay_retry_([0-9]{2})", segment)):
-        wave = int(suffix[1]) + 1
-        while pin := relay_pins.get((seed, wave)):
-            try:
-                successor = discovered_relay_successor(runs, run, contract, seed, wave, pin)
-            except (AttributeError, KeyError, OSError, TypeError, ValueError):
-                successor = None
-            if successor is None:
-                break
-            ancestors = (run, *ancestors)
-            run, contract, recovery_round, readiness_windows, relay_boundary_not_before, dynamic_relay = successor
-            segment = f"ipv4_relay_retry_{wave:02d}"
-            relay_retry = RELAY_RETRY_SECONDS
-            wave += 1
+    pinned_relay = False
+    while contract:
+        suffix = re.fullmatch(r"ipv4_relay_retry_([0-9]{2})", segment)
+        wave = int(suffix[1]) + 1 if suffix else 29
+        pin = (relay_pins or {}).get((seed, wave)) if suffix else None
+        try:
+            exact_successor = _exact_reviewed_successor(runs, run, contract, seed)
+            successor = exact_successor or (discovered_relay_successor(runs, run, contract, seed, wave, pin) if pin else None)
+        except (AttributeError, KeyError, OSError, TypeError, ValueError):
+            successor = None
+        if successor is None:
+            break
+        ancestors = (run, *ancestors)
+        run, contract, recovery_round, readiness_windows, relay_boundary_not_before, dynamic_relay = successor
+        pinned_relay = exact_successor is not None
+        segment = f"ipv4_relay_retry_{wave:02d}"
+        relay_retry = RELAY_RETRY_SECONDS
     if seed in UNSTARTED_ANCHORS and not cohort_contract and not any(
         (path / f"seed_{seed}").exists() for path in (run, *ancestors)
     ):
@@ -12122,6 +12410,7 @@ def remote_seed(runs, seed, relay_pins=None):
                      (157, "ipv4_relay_retry_32"): RELAY_157_WAVE32_OBSERVATION,
                      (157, "ipv4_relay_retry_33"): RELAY_157_WAVE33_OBSERVATION,
                      (157, "ipv4_relay_retry_34"): RELAY_157_WAVE34_OBSERVATION,
+                     (157, "ipv4_relay_retry_36"): RELAY_157_WAVE36_OBSERVATION,
                      (2357, "ipv4_relay_retry_21"): RELAY_2357_WAVE21_OBSERVATION,
                      (2357, "ipv4_relay_retry_22"): RELAY_2357_WAVE22_OBSERVATION,
                      (2357, "ipv4_relay_retry_23"): RELAY_2357_WAVE23_OBSERVATION,
@@ -12162,7 +12451,8 @@ def remote_seed(runs, seed, relay_pins=None):
             "http_status", "error_type", "sse_event_count", "provider_error_code", "response_id_matches_transport_alias",
         ) if name in observation}
         reviewed_previous_api.update(complete_event_seen=False, event_type=observation.get("conflicting_event_type") or observation.get("event_type"))
-        if (seed, segment) not in ((6101, "ipv4_relay_retry_13"), (6101, "ipv4_relay_retry_19")):
+        if (seed, segment) not in ((6101, "ipv4_relay_retry_13"), (6101, "ipv4_relay_retry_19"),
+                                    (157, "ipv4_relay_retry_36")):
             reviewed_previous_api["archived_failure_count"] = 2
         archived_failure_sse_counts = {
             (2357, "ipv4_relay_retry_12"): RELAY_2357_WAVE12_ARCHIVED_SSE_COUNTS,
@@ -12507,6 +12797,7 @@ def remote_seed(runs, seed, relay_pins=None):
         (157, "ipv4_relay_retry_33"): RELAY_157_WAVE33_PROOF,
         (157, "ipv4_relay_retry_34"): RELAY_157_WAVE34_PROOF,
         (157, "ipv4_relay_retry_35"): RELAY_157_WAVE35_PROOF,
+        (157, "ipv4_relay_retry_36"): RELAY_157_WAVE36_PROOF,
         (12203, "ipv4_relay_retry_07"): RELAY_12203_WAVE07_PROOF,
         (12203, "ipv4_relay_retry_08"): RELAY_12203_WAVE08_PROOF,
         (12203, "ipv4_relay_retry_09"): RELAY_12203_WAVE09_PROOF,
@@ -12545,7 +12836,21 @@ def remote_seed(runs, seed, relay_pins=None):
         reviewed_previous_api = {key: observation[key] for key in (
             "http_status", "error_type", "sse_event_count", "event_type", "last_sse_seconds",
         ) if key in observation}
-        reviewed_previous_api.update(complete_event_seen=False, archived_failure_count=len(dynamic_relay["previous_attempts"]))
+        reviewed_previous_api["complete_event_seen"] = False
+        if pinned_relay:
+            if observation["error_type"] == "response_headers_timeout":
+                phases = observation["network_phases"]
+                reviewed_previous_api.update(http_status=None, sse_event_count=0, no_http_headers=True,
+                                             request_upload_confirmed=phases["send_body"]["state"] == "complete",
+                                             receive_headers_seconds=phases["receive_headers"]["duration_seconds"])
+            elif observation["error_type"] == "sse_inactivity_timeout":
+                reviewed_previous_api["sse_inactivity_seconds"] = 900
+            elif observation["error_type"] == "response_id_mismatch":
+                reviewed_previous_api.update(event_type=observation["conflicting_event_type"],
+                                             provider_error_code=observation["provider_error_code"],
+                                             response_id_matches_transport_alias=observation["response_id_matches_transport_alias"])
+        else:
+            reviewed_previous_api["archived_failure_count"] = len(dynamic_relay["previous_attempts"])
     if counted_boundary is not None and latest == recovery_round:
         maximum = counted_boundary["newly_authorized_boundary_physical_attempts"]
         boundary_api = {"maximum_logical_requests": 1, "maximum_physical_attempts": maximum,
@@ -12622,6 +12927,7 @@ def remote_seed(runs, seed, relay_pins=None):
                                (157, "ipv4_relay_retry_32"),
                                (157, "ipv4_relay_retry_33"),
                                (157, "ipv4_relay_retry_34"),
+                               (157, "ipv4_relay_retry_36"),
                                (6101, "ipv4_relay_retry_23"),
                                (6101, "ipv4_relay_retry_24"),
                                (6101, "ipv4_relay_retry_25"),
@@ -12663,7 +12969,7 @@ def remote_seed(runs, seed, relay_pins=None):
                                    "ipv4_relay_retry_20", "ipv4_relay_retry_21", "ipv4_relay_retry_22",
                                    "ipv4_relay_retry_23", "ipv4_relay_retry_24", "ipv4_relay_retry_25",
                                    "ipv4_relay_retry_26", "ipv4_relay_retry_27", "ipv4_relay_retry_28", "ipv4_relay_retry_29", "ipv4_relay_retry_30", "ipv4_relay_retry_31",
-                                   "ipv4_relay_retry_32", "ipv4_relay_retry_33", "ipv4_relay_retry_34", "ipv4_relay_retry_35"):
+                                   "ipv4_relay_retry_32", "ipv4_relay_retry_33", "ipv4_relay_retry_34", "ipv4_relay_retry_35", "ipv4_relay_retry_36"):
         cache_import = {"round": 3, "fitted_labels": 461, "choice_count": 32, "removed_reference_fields": 79,
                         "provider_dispatched": False}
     if latest == TARGET_ROUNDS:
@@ -12727,7 +13033,7 @@ def remote_seed(runs, seed, relay_pins=None):
                if seed == 2357 and (dynamic_relay is not None or segment in ("ipv4_relay_retry_19", "ipv4_relay_retry_20", "ipv4_relay_retry_21",
                                                "ipv4_relay_retry_22", "ipv4_relay_retry_23", "ipv4_relay_retry_24",
                                                "ipv4_relay_retry_25", "ipv4_relay_retry_26", "ipv4_relay_retry_27", "ipv4_relay_retry_28", "ipv4_relay_retry_29", "ipv4_relay_retry_30", "ipv4_relay_retry_31",
-                                   "ipv4_relay_retry_32", "ipv4_relay_retry_33", "ipv4_relay_retry_34", "ipv4_relay_retry_35"))
+                                   "ipv4_relay_retry_32", "ipv4_relay_retry_33", "ipv4_relay_retry_34", "ipv4_relay_retry_35", "ipv4_relay_retry_36"))
                else {}),
             **({"boundary_api": boundary_api} if boundary_api else {}),
             **({"cached_import": cache_import} if cache_import else {}),
@@ -12747,7 +13053,9 @@ def remote_seed(runs, seed, relay_pins=None):
                if segment == "ipv4_6101_r11_continuation" else {}),
             **({"normal_api_limits": {"logical_per_round": 3, "physical_per_logical": 2,
                                        "physical_total": 18}} if segment == "ipv4_887_r33_continuation" else {}),
-            **({"remaining_api_limits": {"round": 35, "logical": 3, "physical_per_logical": 2, "physical_total": 8}}
+            **({"remaining_api_limits": {"round": 35, "logical": 3, "physical_per_logical": 2,
+                                          "physical_total": dynamic_relay["execution_budget"]["maximum_physical_attempts"]
+                                          if dynamic_relay is not None else 8}}
                if seed == 887 and (dynamic_relay is not None or segment in (
                    "ipv4_relay_retry_12", "ipv4_relay_retry_13", "ipv4_relay_retry_14", "ipv4_relay_retry_15"))
                else {}),

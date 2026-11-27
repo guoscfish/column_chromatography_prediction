@@ -3004,7 +3004,7 @@ def check_6101_r5_handoff(runs, monkeypatch, publish, parent, cached, cached_sha
                                        (157, 27), (2357, 27), (6101, 27), (12203, 34),
                                        (157, 28), (887, 13), (2357, 28), (6101, 28), (12203, 35),
                                        (157, 29), (157, 30), (887, 14), (887, 15), (2357, 29), (2357, 30), (12203, 36), (12203, 37), (2357, 31), (157, 31),
-                                       (157, 32), (157, 33), (157, 34), (157, 35)])
+                                       (157, 32), (157, 33), (157, 34), (157, 35), (157, 36)])
 def test_new_exact_reviewed_relay_pins_the_original_retired_receipt(seed, wave):
     from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.run_v13_retry_successor import SCOPES
 
@@ -3046,6 +3046,46 @@ def test_new_exact_reviewed_relay_pins_the_original_retired_receipt(seed, wave):
         assert status.RELAY_887_WAVE13_FITTED_FILES == dict(scope.fitted_prefix_files)
     elif seed == 887 and wave in (14, 15):
         assert getattr(status, f"{prefix}_FITTED_FILES") == dict(scope.fitted_prefix_files)
+
+
+@pytest.mark.parametrize("parent,seed,round_index", [
+    ("887-relay-retry-21", 887, 34), ("887-relay-retry-22", 887, 34),
+    ("2357-relay-retry-37", 2357, 5), ("6101-r11-continuation-01", 6101, 13), ("6101-relay-retry-29", 6101, 13),
+])
+def test_exact_residual_discovery_binds_producer_and_latest_receipt(monkeypatch, tmp_path, parent, seed, round_index):
+    from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.run_v13_retry_successor import SCOPES
+
+    status = prompt_pilot_status
+    pin = status.EXACT_REVIEWED_RELAYS[parent, seed]
+    scope = SCOPES[seed, pin["wave"]]
+    review = scope.archive[-1]
+    assert pin["round"] == scope.round == round_index
+    assert pin.get("physical_limits", (2, 1)) == (scope.original_boundary_physical_attempts,
+                                                  scope.boundary_physical_attempts)
+    assert pin["parent"] == (review.identity.contract, review.identity.approval)
+    assert status.SHA.fullmatch(pin["current"][0]) and status.SHA.fullmatch(pin["current"][1])
+    assert pin["terminal_files"] == tuple((attempt.terminal_file_sha256, attempt.failure) for attempt in review.attempts)
+    assert pin["observation_sha256"] == status.record_digest(review.progress)
+    previous = tmp_path / f"{status.SERIAL_IPV4}-{parent}"
+    assert status._exact_reviewed_successor(tmp_path, previous, "0" * 64, seed) is None
+    monkeypatch.setattr(status, "_signed_retry_record", lambda *args: None)
+    assert status._exact_reviewed_successor(tmp_path, previous, pin["parent"][0], seed) is None
+
+
+def test_157_wave36_accepts_actual_single_attempt_in_wave34_lineage(tmp_path):
+    from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.run_v13_retry_successor import SCOPES
+
+    old_chain = [{
+        "run_directory": str(tmp_path / review.identity.name),
+        "contract_sha256": review.identity.contract,
+        "authorization_sha256": review.identity.approval,
+        "previous_attempts": [{"attempt_id": attempt.attempt_id} for attempt in review.attempts],
+    } for review in SCOPES[157, 36].archive[:-1]]
+    old = {"reviewed_retry_chain": old_chain}
+    assert prompt_pilot_status._reviewed_relay_prefix(tmp_path, 157, 36, old) == old_chain
+    assert len(old_chain[-1]["previous_attempts"]) == 1
+    old_chain[-1]["previous_attempts"].append({"attempt_id": "unexpected"})
+    assert prompt_pilot_status._reviewed_relay_prefix(tmp_path, 157, 36, old) is None
 
 
 def test_157_wave35_pins_one_ambiguous_http_header_timeout():
