@@ -42,6 +42,10 @@ def _scope(info, run, lane):
     retired_history = gpu._retired_reviewed_history(lane)
     if retired_history:
         expected[gpu.RETIRED_REVIEWED_RECORDS_FIELD] = retired_history
+    fitted_predecessor = gpu.fitted_reviewed_predecessor(lane)
+    if fitted_predecessor is not None:
+        expected[gpu.FITTED_REVIEWED_PREDECESSOR_FIELD] = fitted_predecessor
+        expected["checkpoint_sha256"] = gpu._W54_L685_CHECKPOINT
     if lane.fitted_prefix_files:
         expected["reviewed_fitted_prefix_files"] = dict(lane.fitted_prefix_files)
     if lane.cached_origin is not None:
@@ -62,6 +66,7 @@ def _scope(info, run, lane):
             or "cached_import" in proof
             or (gpu.REVIEWED_RECORD_FIELD in proof) != bool(lane.reviewed_record_sha256)
             or (gpu.RETIRED_REVIEWED_RECORDS_FIELD in proof) != bool(retired_history)
+            or (gpu.FITTED_REVIEWED_PREDECESSOR_FIELD in proof) != (fitted_predecessor is not None)
             or record["gpu_slots"] != [0] or record["budget"] != lane.budget or "fixed_reference_repair" in profile
             or (gpu.HEADER_DEADLINE_FIELD in profile) != bool(header_deadline)
             or request_timeouts(profile) != resilient.TIMEOUTS

@@ -12044,6 +12044,85 @@ SCOPES[(2357, 51)] = replace(
 )
 
 
+FITTED_REVIEWED_PREDECESSOR_FIELD = "reviewed_fitted_predecessor"
+_W54_FITTED_REVIEWED_ORIGIN = {
+    "parent_contract_sha256": "d2b148cf97a3a030084500124c9ab9b8fa772a51ca5a4ec7c3db2e7c10b654e0",
+    "parent_authorization_sha256": "c6bb8b9ddfef3f87c052479dcf5a4edfb6b8af92b95f65f359213c850a3edc01",
+    "reviewed_record_sha256": "9204f6304c24623d973aa0bc81360291394830ef78d6938b9e104a4b59684f56",
+    "reviewed_record_file_sha256": "18a1e2a5de30c1048b7a94202d271deeb11d262ee78daeaa98a573187810a3e8",
+    "retry_chain_sha256": "da75ec9160264483e4ca124e583e95b73fd739c0b1f3256f9012a6f38313d85b",
+    "retired_record_chain_sha256": "3b64199dbc6784ec3a4b70b205c585b3525876cd83311e97102c9b7ee58b1c57",
+    "imported_boundary_sha256": "b75472d0719f14549bfc725e69df1c04bb43358a686f359586eb96c29cd8f98c",
+}
+_W54_L685_CHECKPOINT = "4ebe85a88fac11bdb21e9b75a9b0617db4fda6233d2027549b588942661f7344"
+_2357_W54_R11 = Review(
+    retry.bounded.RunIdentity(
+        "-2357-relay-retry-54",
+        "d2b148cf97a3a030084500124c9ab9b8fa772a51ca5a4ec7c3db2e7c10b654e0",
+        "c6bb8b9ddfef3f87c052479dcf5a4edfb6b8af92b95f65f359213c850a3edc01",
+    ),
+    "b58b27f155d896a1abad7d2a6e5ad589f3170cdc90077e1d8489c83deab7e039",
+    "c7ca8abd10cd489d8e0ea2afd264373d",
+    "d48691aa5d2947537134fb437885f1051086d206834db741b9094beb64740def",
+    "520c75df38a57b6598674645646b3dc2f8ca8922c179c49868541e1860a4f3bb",
+    "908de4866d0363bc0a31f6ba84d9f8d7869475a8cca124f5ec8ea010187192e8",
+    "ffc34540164e9df3fdbd6e863cbc28f32f241fd7da69bacc289dcf2aa7ea0a00",
+    "error",
+    {"phase": "transport_failure",
+     "http_status": 200,
+     "error_type": "error",
+     "event_type": "error",
+     "provider_error_code": "upstream_http2_stream_error",
+     "sse_event_count": 6233,
+     "last_sse_seconds": 937.0491663750727,
+     "response_id": "resp_0b3ebfa83ec18c60016b09390f665087d2837fa78f69ba2b7b",
+     "provider_request_id": "340cfb55-88e6-4c8c-999b-ef1e9357749d",
+     "sse_milestones": {"error": {"elapsed_seconds": 937.0491663750727,
+                                  "interval_seconds": 0.34329600003547966},
+                        "response.created": {"elapsed_seconds": 66.33399787498638,
+                                             "interval_seconds": None},
+                        "response.in_progress": {"elapsed_seconds": 66.53535233391449,
+                                                 "interval_seconds": 0.20135445892810822},
+                        "response.output_item.added": {"elapsed_seconds": 66.53890741686337,
+                                                       "interval_seconds": 0.0035550829488784075},
+                        "response.output_item.done": {"elapsed_seconds": 83.5195500839036,
+                                                      "interval_seconds": 16.98064266704023},
+                        "response.output_text.delta": {"elapsed_seconds": 799.3082817089744,
+                                                       "interval_seconds": 0.00046883407048881054}}},
+)
+SCOPES[(2357, 55)] = Scope(
+    2357, 11, 55, "bebb62d54a05af78db26d5f190841f6d5a68239dc9b89a7ada26c19aafa9282e",
+    (_2357_W54_R11,), "not_before_unix", 1795768106.2715216,
+    original_start_round=5, original_boundary_physical_attempts=1,
+    required_sources=SCOPES[(2357, 51)].required_sources, response_headers_seconds=300,
+    fitted_prefix_files=(
+        ("pause.request", "c9735efffc7e1eee19f39796bd88b396680acdf3e12c788455d717353fb24902"),
+        ("boundary.json", "542d4732e7892e20dc32bc2b1dcef978110e43fa26cc5138fe4626cbe565589f"),
+        ("round_05/source.json", "a60e0c92322ffb2a7f40fc9e5a20894aa6905e5048eaf88520088e08c5b25d00"),
+        ("round_05/boundary_memory.json", "ca68e2011ba224b51a5d718fbdda208aa64896fa606bcd484623e44aec9823d8"),
+        ("round_05/boundary_user_message.json", "8ef30ed53f1c43cd02004b76a35ae3f3c28ccec98049bd808555983e24e2b88f"),
+        ("round_06/transition.json", "24bf850587df937099e7e67c3c0d350fe8f069dd46414173c239b437865d492e"),
+        ("round_07/transition.json", "22e22c4f55ff8f3b1f7f557b31a5d7e369b2811f315230e54fdc921c4e6ef2aa"),
+        ("round_08/transition.json", "15924fef8072b2c85f7eda30e49a03b1d1bbc5ef08cc579a2dfd0a52b97f6cb3"),
+        ("round_09/transition.json", "2d8f3d1a9041b601b6a3b02708e2e7b93370c0d6310c85c98f4c8aee4cd4171d"),
+        ("round_10/transition.json", "36e907eee2297385f92bc0aa243108755d5535438d882a8b89a895b67e135e40"),
+        ("round_11/transition.json", "ef73df506c6218d4479210001fe4584285b99ecee6193a012e16119706ae75c4"),
+        ("round_10/memory.json", "0925bd733aeda54ff6d551d327a215c713c7d801448a1d273e8848709b100125"),
+        ("round_11/source.json", "89e83649f38ef6645e8fdcdfc87d57dcfcaef89c104ceae250f9581ea71c42ab"),
+        ("round_11/authoritative_packet.json", "d33d49a9a9cee6ea902efb2a30747e0cc76dcb1ef0b3e268835ad2e734e2f733"),
+        ("round_11/turn_00/request.json", "61051f4302c133864901808ba5ba13daf141c432ffc0e2e5f2c818b4f876c90b"),
+        ("round_11/fit_000/best.pt", "4ebe85a88fac11bdb21e9b75a9b0617db4fda6233d2027549b588942661f7344"),
+        ("round_11/turn_00/attempt_00.started.json", "ff0bf07548961c722f52fd6824570c142384547b5944aa2b08d37671776f04b0"),
+    ),
+)
+
+
+def fitted_reviewed_predecessor(scope):
+    if scope == SCOPES[(2357, 55)]:
+        return dict(_W54_FITTED_REVIEWED_ORIGIN)
+    return None
+
+
 def _reviewed_normal_parent_budget(parent, scope):
     if (scope.seed, scope.round, scope.wave, scope.original_start_round, parent.digest) != (
         6101, 13, 29, 11, _6101_R11_CONTINUATION.contract,
@@ -12167,7 +12246,9 @@ def _source_manifest(root, parent, scope):
     sources = {name: file_digest(root / name) for name in parent.source_sha256}
     launchers = {(STUDY / "scripts" / f"{module}.py").as_posix() for module in ("run_v13_retry_successor", DISPATCHER)}
     changed = {name for name, actual in sources.items() if actual != parent.source_sha256[name]}
-    if scope.reviewed_record_sha256 is not None:
+    if fitted_reviewed_predecessor(scope) is not None:
+        allowed = launchers
+    elif scope.reviewed_record_sha256 is not None:
         allowed = set() if scope.previous_reviewed_record_sha256 is not None else launchers
     else:
         allowed = retry.OVERLAYS | launchers
@@ -12267,6 +12348,31 @@ def _verify_retired_reviewed_record(run, directory, contract, round_index, entry
             or file_digest(directory / f"round_{round_index:02d}/source.json") != entry["source_file_sha256"]
             or (record.exists() if expected is None else digest(read_bridge_json(record)) != expected)):
         raise PermissionError("an exact retired reviewed record, pause or source receipt changed")
+
+
+def _verify_w54_fitted_predecessor(run, parent, approval, scope, request, result, expected):
+    record_path = run / REVIEWED_RECORD_FILE
+    old = parent.predecessor
+    old_boundary = parent.profile["resume_boundaries"]["2357"]
+    inherited = {
+        "parent_contract_sha256": parent.digest,
+        "parent_authorization_sha256": digest(approval),
+        "reviewed_record_sha256": old.get(REVIEWED_RECORD_FIELD),
+        "reviewed_record_file_sha256": file_digest(record_path),
+        "retry_chain_sha256": digest(old["reviewed_retry_chain"]),
+        "retired_record_chain_sha256": digest(old[RETIRED_REVIEWED_RECORDS_FIELD]),
+        "imported_boundary_sha256": digest(old_boundary),
+    }
+    failure = result["outcome"].get("failure") or {}
+    binding = request["binding"]
+    if (inherited != expected or digest(read_bridge_json(record_path)) != expected["reviewed_record_sha256"]
+            or (old_boundary["round"], binding["round"], binding["seed"], request["logical_index"]) != (5, 11, 2357, 0)
+            or (binding["checkpoint_sha256"], request["payload_sha256"]) != (_W54_L685_CHECKPOINT, scope.payload_sha256)
+            or result["outcome"]["status"] != "failed" or result["provider_dispatched"] is not True
+            or result["raw_response"] is not None
+            or (failure.get("code"), failure.get("ambiguous"), failure.get("retryable"), failure.get("reply_identity"))
+            != ("error", True, False, None)):
+        raise PermissionError("the exact W54 fitted lineage or the stopped R11 stream differs from its reviewed evidence")
 
 
 def _require_static_timeout_fallback(scope, old, result):
@@ -12401,12 +12507,16 @@ def construct(root, failed_release, failed_run, run, scope):
         raise PermissionError("the successor must explicitly preserve its parent's response headers deadline")
     old = parent.predecessor
     retired_history = _retired_reviewed_history(scope)
-    if RETIRED_REVIEWED_RECORDS_FIELD in old and old[RETIRED_REVIEWED_RECORDS_FIELD] != retired_history:
+    fitted_predecessor = fitted_reviewed_predecessor(scope)
+    if fitted_predecessor is not None:
+        result = read_bridge_json(failed_run / "bridge/results" / f"{scope.attempt_id}.json")
+        _verify_w54_fitted_predecessor(failed_run, parent, approval, scope, last["request"], result, fitted_predecessor)
+    elif RETIRED_REVIEWED_RECORDS_FIELD in old and old[RETIRED_REVIEWED_RECORDS_FIELD] != retired_history:
         raise PermissionError("the successor must preserve retired reviewed history")
     if scope.reviewed_record_sha256 is not None:
         result = read_bridge_json(failed_run / "bridge/results" / f"{scope.attempt_id}.json")
         _check_reviewed_parent(scope, old, last["request"], result)
-    elif REVIEWED_RECORD_FIELD in old:
+    elif REVIEWED_RECORD_FIELD in old and fitted_predecessor is None:
         result = read_bridge_json(failed_run / "bridge/results" / f"{scope.attempt_id}.json")
         _require_static_timeout_fallback(scope, old, result)
     parent_start = parent.profile["resume_boundaries"][str(scope.seed)]["round"]
@@ -12441,6 +12551,10 @@ def construct(root, failed_release, failed_run, run, scope):
     boundary, prefix = _reviewed_boundary(failed_release, last["directory"], last["active"], parent, approval, scope, cache)
     request = last["request"]
     state, memory, index = boundary
+    if fitted_predecessor is not None and (
+        state.checkpoint != _W54_L685_CHECKPOINT or len(state.provenance["expected_observed"]) != 685
+    ):
+        raise PermissionError("the exact W54 R11 CUDA fit did not verify at L685")
     binding = request["binding"]
     stage = seed_runner._stage(failed_release, state, memory, seed_runner._scope(parent, approval, scope.seed, False), parent)
     user = request["payload"]["input"][1]
@@ -12472,7 +12586,10 @@ def construct(root, failed_release, failed_run, run, scope):
         proof[REVIEWED_RECORD_FIELD] = scope.reviewed_record_sha256
     else:
         proof.pop(REVIEWED_RECORD_FIELD, None)
-    if retired_history:
+    if fitted_predecessor is not None:
+        proof[FITTED_REVIEWED_PREDECESSOR_FIELD] = fitted_predecessor
+        proof.pop(RETIRED_REVIEWED_RECORDS_FIELD)
+    elif retired_history:
         proof[RETIRED_REVIEWED_RECORDS_FIELD] = retired_history
     if scope.fitted_prefix_files:
         proof["reviewed_fitted_prefix_files"] = dict(scope.fitted_prefix_files)

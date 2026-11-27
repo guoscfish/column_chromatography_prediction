@@ -6794,6 +6794,78 @@ def test_887_wave36_retains_the_owned_failed_terminal():
 
 
 
+def test_2357_wave55_preserves_w54_fit_history_and_rejects_the_wrong_round(tmp_path):
+    lane = gpu.SCOPES[(2357, 55)]
+    review, = lane.archive
+    assert lane.original_start_round == 5 and lane.round == 11
+    assert lane.response_headers_seconds == 300 and lane.original_boundary_physical_attempts == 1
+    assert lane.replay_start_round == 12 and lane.not_before_unix == 1795768286.2715216
+    assert lane.budget == {"first_logical_requests": 25, "maximum_logical_requests": 73, "maximum_physical_attempts": 145}
+    assert review.progress["provider_error_code"] == "upstream_http2_stream_error"
+    assert not is_sealed_relay_failure({"error": review.failure, "provider_status": None})
+    pins = dict(lane.fitted_prefix_files)
+    assert all(f"round_{index:02d}/transition.json" in pins for index in range(6, 12))
+    assert pins["round_11/fit_000/best.pt"] == gpu._W54_L685_CHECKPOINT
+    assert gpu.fitted_reviewed_predecessor(replace(lane, round=10)) is None
+
+    recovered = {"seed": 2357, "round": 5}
+    artifact = tmp_path / gpu.REVIEWED_RECORD_FILE
+    once(artifact, recovered)
+    fitted_start = {"round": 5, "state_sha256": "a" * 64}
+    former = {gpu.REVIEWED_RECORD_FIELD: digest(recovered), "reviewed_retry_chain": [{"round": 5}],
+              gpu.RETIRED_REVIEWED_RECORDS_FIELD: [{"record": "retired"}]}
+    parent = SimpleNamespace(digest=review.identity.contract, predecessor=former,
+                             profile={"resume_boundaries": {"2357": fitted_start}})
+    approval = {"formal": "original"}
+    expected = {**gpu.fitted_reviewed_predecessor(lane), "parent_authorization_sha256": digest(approval),
+                "reviewed_record_sha256": digest(recovered), "reviewed_record_file_sha256": file_digest(artifact),
+                "retry_chain_sha256": digest(former["reviewed_retry_chain"]),
+                "retired_record_chain_sha256": digest(former[gpu.RETIRED_REVIEWED_RECORDS_FIELD]),
+                "imported_boundary_sha256": digest(fitted_start)}
+    request = {"binding": {"seed": 2357, "round": 11, "checkpoint_sha256": gpu._W54_L685_CHECKPOINT},
+               "logical_index": 0, "payload_sha256": lane.payload_sha256}
+    result = {"provider_dispatched": True, "raw_response": None, "outcome": {"status": "failed", "failure": {
+        "code": "error", "ambiguous": True, "retryable": False, "reply_identity": None,
+    }}}
+    gpu._verify_w54_fitted_predecessor(tmp_path, parent, approval, lane, request, result, expected)
+    with pytest.raises(PermissionError, match="fitted lineage"):
+        gpu._verify_w54_fitted_predecessor(tmp_path, parent, approval, lane,
+                                           {**request, "binding": {**request["binding"], "round": 10}}, result, expected)
+    with pytest.raises(PermissionError, match="fitted lineage"):
+        gpu._verify_w54_fitted_predecessor(tmp_path, parent, approval, lane, {**request, "payload_sha256": "b" * 64},
+                                           result, expected)
+    former["reviewed_retry_chain"][0]["round"] = 4
+    with pytest.raises(PermissionError, match="fitted lineage"):
+        gpu._verify_w54_fitted_predecessor(tmp_path, parent, approval, lane, request, result, expected)
+
+
+def test_2357_wave55_rejects_unapproved_runtime_changes_and_a_second_boundary_attempt(monkeypatch):
+    lane = gpu.SCOPES[(2357, 55)]
+    contract, approval = lane.archive[-1].identity.contract, lane.archive[-1].identity.approval
+    assert gpu.fitted_reviewed_predecessor(lane)["parent_contract_sha256"] == contract
+    assert gpu.fitted_reviewed_predecessor(lane)["parent_authorization_sha256"] == approval
+    assert lane.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}
+
+    parent = SimpleNamespace(source_sha256={gpu.PROVIDER_SOURCE: "a" * 64})
+    monkeypatch.setattr(gpu, "file_digest", lambda *_: "f" * 64)
+    with pytest.raises(PermissionError, match="changed source outside"):
+        gpu._source_manifest(gpu.ROOT, parent, lane)
+
+    dispatcher = mac.SuccessorDispatcher.__new__(mac.SuccessorDispatcher)
+    dispatcher.reviewed_scope = lane
+    dispatcher.scope = {"previous_attempts": [{"attempt_id": lane.attempt_id}]}
+    dispatcher.original = {"binding": {}, "payload": {}, "request_id": lane.archive[-1].request_id}
+    request = {**dispatcher.original, "request_id": "fresh", "logical_index": 0}
+    started = {"attempt": 0, "attempt_id": "new-first"}
+    monkeypatch.setattr(mac, "time", lambda: lane.not_before_unix - 0.01)
+    with pytest.raises(PermissionError, match="cooldown"):
+        dispatcher._check_boundary(request, started)
+    monkeypatch.setattr(mac, "time", lambda: lane.not_before_unix)
+    dispatcher._check_boundary(request, started)
+    with pytest.raises(PermissionError, match="signed physical attempts"):
+        dispatcher._check_boundary(request, {**started, "attempt": 1})
+
+
 def test_2357_wave51_retains_the_owned_failed_terminal():
     prior, scope = gpu.SCOPES[(2357, 50)], gpu.SCOPES[(2357, 51)]
     review = scope.archive[-1]
