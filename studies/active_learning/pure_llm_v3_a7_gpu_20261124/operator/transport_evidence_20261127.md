@@ -51,3 +51,19 @@ The R26 correction was a separate logical call and reported 358,605 cached input
 The clustering follows the provider's response lifecycle timestamp. The same requests reached normal HTTP headers and returned explicit terminal failures, well before the local 900 s SSE inactivity and 3,600 s total deadlines. The four successful initial R23–R26 requests were larger by both proxy tokens and canonical bytes, and each completed more than 180 s after `response.created`.
 
 A relay-side or upstream pre-text deadline is a plausible explanation for the repeated approximately 180 s event timing. The exact timeout policy, any context-size ceiling, the responsible component, and the upstream route remain unknown. These counts describe the four repeated payloads in the focused failure group.
+
+## Shared Key allocation and response outcomes
+
+Window **2026-11-26 11:49:49 through 2026-11-27 11:49:49 CST (UTC+08:00)**. The read-only audit joined admitted SQLite lease tickets to Mac traces and result records for the five formal seeds. Dispatch counts follow the persisted flag. A write that stopped partway does not establish upstream processing or billing. Complete receipts include repair calls and responses that subsequently failed scientific validation. Imported fits do not count as new API responses.
+
+| Seed | Admitted leases | Marked dispatched | Complete transport receipts | Explicit failed terminals | Mean admitted queue wait |
+|---|---:|---:|---:|---:|---:|
+| 157 | 80 | 70 | 4 | 55 | 43.3 s |
+| 887 | 81 | 72 | 32 | 26 | 69.1 s |
+| 2357 | 87 | 74 | 3 | 59 | 78.5 s |
+| 6101 | 73 | 67 | 14 | 39 | 52.0 s |
+| 12203 | 91 | 83 | 4 | 65 | 111.8 s |
+
+The 412 admitted tickets had no observed FIFO inversions or same-Key lease overlaps. Key occupancy was **64.91%, 64.54%, and 72.56%** for Key 01, 02, and 03. Occupancy includes anonymous connection checks and local result sealing. Wait timing begins at admission to the shared queue and excludes coordinator recovery and periods before enqueue. The traces in this interval had no observed HTTP 429 or typed rate-limit error.
+
+The larger number of complete receipts for 887 coincided with comparable or fewer submissions than the other seeds and a longer mean Key wait than 157. The relay supplied many more explicit failure terminals to 157, 2357 and 12203. These observations cannot identify the relay's internal routing or distinguish any undisclosed upstream throttling.

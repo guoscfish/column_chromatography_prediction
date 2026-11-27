@@ -11592,7 +11592,7 @@ def discover_relay_pins(private, ssh_host):
                     or plist.get("Label") != "com.purellm." + suffix or args[:2] != ["/usr/bin/caffeinate", "-i"]
                     or args[3:8] != ["-B", "-u", "-m", module, "--execute-paid"] or len(args) % 2):
                 continue
-            flags = dict(zip(args[8::2], args[9::2], strict=True))
+            flags = dict(zip(args[8::2], args[9::2]))
             if (set(flags) not in (required, required | {"--ssh-host"})
                     or len(flags) * 2 != len(args) - 8 or flags.get("--ssh-host", "eit-hpc") != ssh_host
                     or flags["--seed"] != seed or flags["--wave"] != str(int(wave))
@@ -11706,6 +11706,160 @@ EXACT_REVIEWED_RELAYS = {
              "response_id_mismatch"),
         ),
     },
+    ("157-relay-retry-38", 157): {
+        "wave": 39, "round": 7, "physical_limits": (2, 1),
+        "parent": ("a5b2201f07f64971ce08a322fe3f74f86b3b583c49606c944513e1b1249b860a",
+                   "b9e2d0ec7ec700c805ef45a2bd69d84ac3d2888adbd6e7c1f7671f7f5f00f08d"),
+        "current": ("39d86057ec4f5482b65f0d49ec7501f5f31ed6a71955eda52f07a548314ccab9",
+                    "a8dd9b84762b9b5aa79d813cc2cd828a37d1d8a0caadc20982bd8bb397c6b28e"),
+        "producer": "865e185edd9aab599e4fb9315fed0a07cf39945bda14027e1b75e5ed8d2012b4",
+        "prefix_sha256": "3c4b30a534a2880f222e529908939ba403e788cd6cf30c91bdafb480a415832f",
+        "observation_sha256": "896d4cafd5cd8c05167292bf6ec57f42408dc31081a16f97735b0b4e02a7a8af",
+        "request_file_sha256": "1f5297ca2e266f059787073aeae9c6569fa4b8ba01ab215de54a0b19d3bb20dd",
+        "checkpoint_sha256": "8ddf737cf20560684e4be5bc62f9886006d49369840558c3bd368b6020f96c12",
+        "dispatcher": "61f2bd202fb43bfb9afee5e2e2fa8b8dfdfa71cf19960069c414783b25570627",
+        "preflight_attempts": (1,),
+        "replay_files": {
+            "attempt_00.replay.terminal.json": "9611bd57f964e04a44ab50440137d3cf5bc1cd7bc172f8f8be2435535975b556",
+            "attempt_00.replay_authorization.json": "8cf5fef564ce5ef49b3fb68ed3d348b18950fac1e4058aa54b76749a8dfa1b3e",
+            "attempt_01.replay_link.json": "8a01fc808db62613c0d5a375ff05e25657bdc2fdf84e496567fb93f5eb8eeeb3",
+        },
+        "terminal_files": (
+            ("09429bd6fcc44118fa344d1ef48d1c77bff1e2ff1b8a081d0f5b65ff40890b75",
+             "response_id_mismatch"),
+            ("0de21da74dbea2e27e212a01796e39fd3332f44855c769b45120e492aee1e386",
+             "connect_error"),
+        ),
+    },
+    ("887-relay-retry-23", 887): {
+        "wave": 24, "round": 34, "physical_limits": (2, 1),
+        "parent": ("6503ab6e2b2b328d69afd1b7898480aee6b77fa0636b79bcf8fab817feb47946",
+                   "f4ecf061d89fa07db8f0a53ee7e8abc83f27fe2d6ed7a44f1fd24130ba9644bc"),
+        "current": ("d0e63b8802e887240dc20fc3b323a10879775ddff0d0dd2810f97c74a695dee6",
+                    "359314b43e2d040edc6b986fe6636376dd67be27ceefd0558345814c7d377032"),
+        "producer": "7be119acef3020219f661702754fa5274dbe7c71fd685dc45dde5448250023d4",
+        "prefix_sha256": "5e19ed1d92e27935ed6b2852318d16bfd049131ee53fa45007af58291e8ded91",
+        "observation_sha256": "ac866194612382250143be2ce1abda50ba1e77f3e975435cbe00682d5483b2b5",
+        "request_file_sha256": "67d2bb33a211f301b3a632096af3001025f2ce23d0c42bb0c5d367ad545976f7",
+        "checkpoint_sha256": "c81f34b104de3873a9fd54dfad4323b118dcab6e208281d3c3e95db68c5fe710",
+        "dispatcher": "61f2bd202fb43bfb9afee5e2e2fa8b8dfdfa71cf19960069c414783b25570627",
+        "preflight_attempts": (1,),
+        "replay_files": {
+            "attempt_00.replay.terminal.json": "f050b12b00d0a890ffab66ecb28202247a26571f330fe4ebba66d23cd45e8b5e",
+            "attempt_00.replay_authorization.json": "e556e95caded713a392bd7fc78e467638301a66a7dd837b152d9b3ac3cc8e309",
+            "attempt_01.replay_link.json": "3da677ddeee795ffe0ebfb7511eee6149e2e94fc0a599682605597c70a09f8f5",
+        },
+        "terminal_files": (
+            ("881515a93e50096b9ec5b3c01911229c51e5b9e3371cb3fb2a730f841fce8ecb",
+             "response_id_mismatch"),
+            ("7eee9f78e5039af59f906de44daeba6eba1aa913a6ba0b6165a5e7d90dcf9cc3",
+             "connect_error"),
+        ),
+    },
+    ("887-relay-retry-24", 887): {
+        "wave": 25, "round": 34, "physical_limits": (1, 1),
+        "parent": ("d0e63b8802e887240dc20fc3b323a10879775ddff0d0dd2810f97c74a695dee6",
+                   "359314b43e2d040edc6b986fe6636376dd67be27ceefd0558345814c7d377032"),
+        "current": ("9103f1b1e300bb580dbcc0c7f362b1d120a290c24d31a612ff98c441bf26e753",
+                    "a27abef3f4c636fd540a7dbfab2f881672580279210bfe297535b7c0669b04c3"),
+        "producer": "41b29cd2af05672f0663765760981e6d4772e90bea62f0efabc750262b4ec649",
+        "prefix_sha256": "720adc84698924f9d6dcb2107061749e5de167d401428744c60b96573cafd8e9",
+        "observation_sha256": "999b8fb461f22281c65e5953425bdfb31188ac6ea62ceae79dfbfeacac93ae46",
+        "request_file_sha256": "06c1dd0286f30baba513f75c0564dd3c6a6ceace4f6e293da86009d30224f28d",
+        "checkpoint_sha256": "c81f34b104de3873a9fd54dfad4323b118dcab6e208281d3c3e95db68c5fe710",
+        "terminal_files": (
+            ("35bf6a5edd3ba576b78276219a8c07ff0ae983c586050586debb47c4bec5d0b5",
+             "timeout"),
+        ),
+    },
+    ("2357-relay-retry-38", 2357): {
+        "wave": 39, "round": 5, "physical_limits": (1, 1),
+        "parent": ("71c6ff73844cbbb9070d50bd56ad7278d5825d15f76a1072844ffb1594c309b4",
+                   "5610758b41b4f90620cd8f56b78efbbe5e098b12d9ff5b5b94250028d2b47647"),
+        "current": ("d392ba3638bb8b730d404cf72a16bdddc0f7e7f8b57ac7626328ef01ed7eca59",
+                    "fe3a7f102bf81a3434a08c23114668cd1a64daa14211cebffd47c16ec6af20e0"),
+        "producer": "4252612351023e6b66d5fae85527c74b8e1eda725699e2904b2d1294ef218e70",
+        "prefix_sha256": "83261b7e90d51340a7abac38c3d25261df3f23ce0be44f37d93abe5fc554569f",
+        "observation_sha256": "d6be0b4f8a7c34862eda6c83bc1a03cf8b67564fbd46bbe9e9e0cf9e3fd59bea",
+        "request_file_sha256": "c5670b41d1c670097e7635e49b130ad705ec41cb80fd276e142f3ce1a6aae53c",
+        "checkpoint_sha256": "b31f06a0aa8efeccc08d6a6b709ab7f7360acfac56b9041cccae34c1363be501",
+        "inherited_fit": True,
+        "terminal_files": (
+            ("52535424e39717f2e6ef4918dce68b018f99651d2ddc14b0f951f4185da364ae",
+             "timeout"),
+        ),
+    },
+    ("2357-relay-retry-39", 2357): {
+        "wave": 40, "round": 5, "physical_limits": (1, 1),
+        "parent": ("d392ba3638bb8b730d404cf72a16bdddc0f7e7f8b57ac7626328ef01ed7eca59",
+                   "fe3a7f102bf81a3434a08c23114668cd1a64daa14211cebffd47c16ec6af20e0"),
+        "current": ("36e5ac24cf5299b417f1c2ff4d57487106a9b00cf62da5f4e33b6f205950f630",
+                    "91dbdd84bb9ea5c8786fe9e537751d6ee22a4b68abad1770ac713e562678091b"),
+        "producer": "85c5c6cb87d847538d4e6b541356c6571f006c2f87c1227ea2ca56965a224c7b",
+        "prefix_sha256": "232a70c9879e0953613f31943e397d57a85a870d074cc51294c6d0a637afa354",
+        "observation_sha256": "a8a981f6876940d4ca4685debd2370ce52fa4d50eb278ce02c4a296b8ee1a132",
+        "request_file_sha256": "1b7fc33e4f3d87aa631a4925269c427f7e8e6c9afa190ffc1f6eb2927fe6ecf6",
+        "checkpoint_sha256": "b31f06a0aa8efeccc08d6a6b709ab7f7360acfac56b9041cccae34c1363be501",
+        "dispatcher": "61f2bd202fb43bfb9afee5e2e2fa8b8dfdfa71cf19960069c414783b25570627",
+        "inherited_fit": True,
+        "preflight_attempts": (0,),
+        "terminal_files": (
+            ("0bf8391aa8d8566ba85a8718faca017e453b3ef9791d18f6656ed7e67bd83265",
+             "connect_error"),
+        ),
+    },
+    ("6101-relay-retry-30", 6101): {
+        "wave": 31, "round": 13, "physical_limits": (2, 1),
+        "parent": ("067651704472b34a5a6969c305af40c3ac1552eca7cc7e508d92dcf7f7dba995",
+                   "5ebad40d0482df17a6423383ec05d6dbe880b9c4621c8ee88e1440fe1871071f"),
+        "current": ("136918c665018547d63e9c4cde2b6201218d996f44ded71b0ac73607203fc1d1",
+                    "41d648c44b072392279a130cf2bce7c9dfe56a687c46d56dbb0067b80237ef8d"),
+        "producer": "ae3ff967b56ce4cb9f234b0cfd5ec5ef7e79947ef5ebae19306182171d05e710",
+        "prefix_sha256": "a44dcd8851928b6f3f0b45b07bdd7db949332e6883f652e4f1c48d858d39cc34",
+        "observation_sha256": "c77880b8d237aada950420efb819ad25fb98bc16063b3872b9a609582654d3ec",
+        "request_file_sha256": "1fbeedf1a6995f7b72ce5e02e865ac65c7dc0fb41fdf8d11b27b7f678a3280b8",
+        "checkpoint_sha256": "4c01fecd82b1c3b42125c490ca144de4454219c0dffc03265ace49f80504a69d",
+        "terminal_files": (
+            ("e611a5a294ffeabbd6f746b7b04f4192e7360def8fb8ac17c5dab630e85a01b8",
+             "timeout"),
+        ),
+    },
+    ("12203-relay-retry-44", 12203): {
+        "wave": 45, "round": 5, "physical_limits": (2, 1),
+        "parent": ("623f8d1c4be1d0594e7e0203abd7d267dd81e4f35244acdf5ebb3276432f0a9a",
+                   "ae02a6a377c08a4f9b846ee0cd773dabdcc07ea300502aed3e470f865b858985"),
+        "current": ("c355de93c8efa1c112989d2298bcb6da6bc51f00cef2f99ed341f008c8e434ce",
+                    "c4508b18e464e7e71ac5787cf44f0c714515550a56606b00185974b775f07f11"),
+        "producer": "7e5f07489d720cfed169bd06ed033b8063fe9e85aa71c7e1409bd08f05307f2b",
+        "prefix_sha256": "7fcb1079de2b36e1159763cb7f04641056b415554b31733a254cb486256ea062",
+        "observation_sha256": "d1035dd28140374e0c3e358994c46eca0424b841dc87ba16560c90eb2f8aba81",
+        "request_file_sha256": "a33d3e6b3132173258a0250cbb6d14195fc51159a843026aab4e68a2b3d2bd63",
+        "checkpoint_sha256": "34cf4e966602c4eed13ea70922aa80313ad415dd5b3cefe7fd2e7650f05a4c07",
+        "inherited_fit": True,
+        "terminal_files": (
+            ("b6dc9b660099d9e603c2bcd512f7e5e63ecf73d240d0a318bc1b144abdb85db3",
+             "timeout"),
+        ),
+    },
+    ("12203-relay-retry-45", 12203): {
+        "wave": 46, "round": 5, "physical_limits": (1, 1),
+        "parent": ("c355de93c8efa1c112989d2298bcb6da6bc51f00cef2f99ed341f008c8e434ce",
+                   "c4508b18e464e7e71ac5787cf44f0c714515550a56606b00185974b775f07f11"),
+        "current": ("8a5df5cdb6085a8b8c1aedf6e9575b33bee89ba40e463041eb829697e346cb7d",
+                    "98e7d594ff71071bcc6d2b0013780a08a79dc3d3d90e10128124fa337245ddf4"),
+        "producer": "036834e30762ba643dc78ba8dd01315edfbc3ca3a52650de10d257447d978fb9",
+        "prefix_sha256": "d8efb54d196304baaf35b596d350c9e325a2587e9d1d15b393821fefafb13ca7",
+        "observation_sha256": "251ab3eb56b7d481f6c5c84ebdd6368f8acd5411dee4f288e46125d71dd7312e",
+        "request_file_sha256": "a5f0c778917d45a6fc6779f95abbb45df95c70730aeb620f37986f5f587453cb",
+        "checkpoint_sha256": "34cf4e966602c4eed13ea70922aa80313ad415dd5b3cefe7fd2e7650f05a4c07",
+        "dispatcher": "61f2bd202fb43bfb9afee5e2e2fa8b8dfdfa71cf19960069c414783b25570627",
+        "inherited_fit": True,
+        "preflight_attempts": (0,),
+        "terminal_files": (
+            ("2e541c0b595b7016bbc9f59d4b7dbcc8b8496d198f41af59d5f427a684378e5e",
+             "connect_error"),
+        ),
+    },
 }
 
 
@@ -11728,6 +11882,10 @@ def _pinned_relay_evidence(previous, seed, start, proof, exact):
                 turn / f"attempt_{index:02d}.started.json" for index in range(len(receipts))
             }):
         return False
+    for name, sha in exact.get("replay_files", {}).items():
+        path = turn / name
+        if not _plain_filesystem_path(path) or checksum(path) != sha:
+            return False
     request_path = turn / "request.json"
     if not _plain_filesystem_path(request_path) or checksum(request_path) != exact["request_file_sha256"]:
         return False
@@ -11753,6 +11911,10 @@ def _pinned_relay_evidence(previous, seed, start, proof, exact):
         started, terminal, job, result = map(read_json, (started_path, terminal_path, job_path, result_path))
         failure = (result.get("outcome") or {}).get("failure") or {}
         identity = failure.get("reply_identity")
+        preflight = index in exact.get("preflight_attempts", ())
+        dispatched = not preflight
+        if preflight and (code != "connect_error" or failure.get("retryable") is not True):
+            return False
         if code == "response_id_mismatch":
             expected_id = terminal.get("response_id")
             if (not isinstance(identity, dict) or identity.get("provider_status") != "failed"
@@ -11761,18 +11923,18 @@ def _pinned_relay_evidence(previous, seed, start, proof, exact):
         elif identity is not None or terminal.get("response_id") is not None:
             return False
         if ((receipt.get("attempt"), receipt.get("error"), receipt.get("provider_dispatched"), receipt.get("ambiguous"))
-                != (index, code, True, True)
+                != (index, code, dispatched, dispatched)
                 or (started.get("attempt_id"), started.get("attempt")) != (attempt, index)
                 or checksum(terminal_path) != file_sha or record_digest(terminal) != receipt.get("terminal_sha256")
                 or (terminal.get("attempt_id"), terminal.get("request_id"), terminal.get("status"), terminal.get("error"),
-                    terminal.get("provider_dispatched"), terminal.get("ambiguous")) != (attempt, request_id, "stopped", code, True, True)
+                    terminal.get("provider_dispatched"), terminal.get("ambiguous")) != (attempt, request_id, "stopped", code, dispatched, dispatched)
                 or (job.get("attempt_id"), job.get("request_id"), job.get("request"), job.get("job_sha256"))
                     != (attempt, request_id, request, receipt.get("job_sha256"))
                 or record_digest({key: value for key, value in job.items() if key != "job_sha256"}) != receipt.get("job_sha256")
                 or (result.get("attempt_id"), result.get("request_id"), result.get("job_sha256"), result.get("result_sha256"))
                     != (attempt, request_id, receipt.get("job_sha256"), receipt.get("result_sha256"))
-                or result.get("provider_dispatched") is not True or result.get("raw_response") is not None
-                or (failure.get("code"), failure.get("ambiguous")) != (code, True)
+                or result.get("provider_dispatched") is not dispatched or result.get("raw_response") is not None
+                or (failure.get("code"), failure.get("ambiguous")) != (code, dispatched)
                 or record_digest({key: value for key, value in result.items() if key != "result_sha256"}) != receipt.get("result_sha256")):
             return False
     not_before = seconds(terminal.get("not_before_unix"))
@@ -11811,18 +11973,24 @@ def _exact_reviewed_successor(runs, previous, previous_contract, seed):
             return None
     elif any(old_proof.get(key) != proof.get(key) for key in ("payload_sha256", "checkpoint_sha256")):
         return None
-    # 2357's signed fit list belongs to the verified earlier L493 origin.
-    # Its immediate old scientific request is bound independently below.
-    if seed != 2357 and any(not _plain_filesystem_path(directory / name) or checksum(directory / name) != sha
-                            for name, sha in fits.items()):
+    if exact.get("inherited_fit", seed == 2357):
+        # Some runs retain the earlier fit archive alongside a fresh imported source and request.
+        if fits != old_proof.get("reviewed_fitted_prefix_files"):
+            return None
+        name = f"round_{start:02d}/source.json"
+        fits = {name: fits[name]} if name in fits else {}
+    if any(not _plain_filesystem_path(directory / name) or checksum(directory / name) != sha for name, sha in fits.items()):
         return None
     archives = proof.get("previous_attempts", [])
-    producer = "studies/active_learning/pure_llm_v3_a7_gpu_20261124/scripts/run_v13_retry_successor.py"
+    scripts = "studies/active_learning/pure_llm_v3_a7_gpu_20261124/scripts"
+    expected_sources = {**old_record["source_sha256"], f"{scripts}/run_v13_retry_successor.py": exact["producer"]}
+    if "dispatcher" in exact:
+        expected_sources[f"{scripts}/dispatch_v13_retry_successor.py"] = exact["dispatcher"]
     if (profile != expected_profile or profile["resume_boundaries"].get(str(seed), {}).get("round") != start
             or profile.get("audited_future_transport_replay") is not True
             or profile.get("sealed_relay_retry_seconds") != RELAY_RETRY_SECONDS
             or profile.get("ipv4_readiness_windows") != 3 or profile.get("target_labels") != TARGET_LABELS
-            or record["source_sha256"] != {**old_record["source_sha256"], producer: exact["producer"]}
+            or record["source_sha256"] != expected_sources
             or (proof.get("previous_contract_sha256"), proof.get("previous_authorization_sha256"),
                 proof.get("previous_run_directory")) != (previous_contract, old_auth, str(previous))
             or (proof.get("seed"), proof.get("round"), proof.get("logical_index")) != (seed, start, 0)
@@ -12838,7 +13006,16 @@ def remote_seed(runs, seed, relay_pins=None):
         ) if key in observation}
         reviewed_previous_api["complete_event_seen"] = False
         if pinned_relay:
-            if observation["error_type"] == "response_headers_timeout":
+            receipts = dynamic_relay["previous_attempts"]
+            if receipts[-1]["provider_dispatched"] is False:
+                reviewed_previous_api.update(http_status=None, sse_event_count=0, preflight_only=True)
+                if len(receipts) > 1 and receipts[-2]["error"] == "response_id_mismatch":
+                    reviewed_previous_api["earlier_response_error_code"] = "upstream_error"
+            elif observation["error_type"] == "WriteTimeout":
+                upload = observation.get("network_phases", {}).get("send_body", {}).get("state")
+                reviewed_previous_api.update(http_status=None, sse_event_count=0, no_http_headers=True,
+                                             request_upload_confirmed={"complete": True, "failed": False}.get(upload))
+            elif observation["error_type"] == "response_headers_timeout":
                 phases = observation["network_phases"]
                 reviewed_previous_api.update(http_status=None, sse_event_count=0, no_http_headers=True,
                                              request_upload_confirmed=phases["send_body"]["state"] == "complete",
@@ -13376,7 +13553,9 @@ def show(view):
             end = (f"{last} {duration_text(prior['last_sse_seconds'])}" if prior.get("last_sse_seconds") is not None
                    else f"事件 {prior.get('event_type', '—')}")
             label = "上个运行段已提交的请求" if prior.get("pre_post_failure") else "上次尝试"
-            if prior.get("no_http_headers"):
+            if prior.get("preflight_only"):
+                print("  上次尝试止于匿名连通性预检，未提交模型请求，也未收到模型响应头或 SSE。")
+            elif prior.get("no_http_headers"):
                 upload = {True: "请求体已发出", False: "请求体发送阶段失败"}.get(
                     prior.get("request_upload_confirmed"), "签名回执摘要未列出请求体发送阶段")
                 print(f"  {label} {errors}  {upload}  未收到 HTTP 响应头或 SSE")

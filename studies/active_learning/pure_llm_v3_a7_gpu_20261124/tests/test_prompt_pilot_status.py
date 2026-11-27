@@ -3051,6 +3051,14 @@ def test_new_exact_reviewed_relay_pins_the_original_retired_receipt(seed, wave):
 @pytest.mark.parametrize("parent,seed,round_index", [
     ("887-relay-retry-21", 887, 34), ("887-relay-retry-22", 887, 34),
     ("2357-relay-retry-37", 2357, 5), ("6101-r11-continuation-01", 6101, 13), ("6101-relay-retry-29", 6101, 13),
+    ("157-relay-retry-38", 157, 7),
+    ("887-relay-retry-23", 887, 34),
+    ("887-relay-retry-24", 887, 34),
+    ("2357-relay-retry-38", 2357, 5),
+    ("2357-relay-retry-39", 2357, 5),
+    ("6101-relay-retry-30", 6101, 13),
+    ("12203-relay-retry-44", 12203, 5),
+    ("12203-relay-retry-45", 12203, 5),
 ])
 def test_exact_residual_discovery_binds_producer_and_latest_receipt(monkeypatch, tmp_path, parent, seed, round_index):
     from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.run_v13_retry_successor import SCOPES
@@ -3066,10 +3074,62 @@ def test_exact_residual_discovery_binds_producer_and_latest_receipt(monkeypatch,
     assert status.SHA.fullmatch(pin["current"][0]) and status.SHA.fullmatch(pin["current"][1])
     assert pin["terminal_files"] == tuple((attempt.terminal_file_sha256, attempt.failure) for attempt in review.attempts)
     assert pin["observation_sha256"] == status.record_digest(review.progress)
+    assert pin.get("preflight_attempts", ()) == tuple(
+        index for index, attempt in enumerate(review.attempts) if attempt.receipt_provider_flags == (False, False)
+    )
+    if "replay_files" in pin:
+        assert pin["replay_files"] == review.replay_files
     previous = tmp_path / f"{status.SERIAL_IPV4}-{parent}"
     assert status._exact_reviewed_successor(tmp_path, previous, "0" * 64, seed) is None
     monkeypatch.setattr(status, "_signed_retry_record", lambda *args: None)
     assert status._exact_reviewed_successor(tmp_path, previous, pin["parent"][0], seed) is None
+
+
+def test_pinned_preflight_rejects_tampered_terminal_or_authenticated_submission(tmp_path, monkeypatch):
+    status = prompt_pilot_status
+    previous = tmp_path.resolve() / "parent"
+    directory = previous / "seed_12203"
+    turn = directory / "round_05/turn_00"
+    (turn).mkdir(parents=True)
+    (directory / "pause.request").touch()
+    write_json(previous / "workers/seed_12203.json", {"status": "failed", "pid": 4321})
+    write_json(previous / "coordinator_generation.json", {"pid": 4321})
+    monkeypatch.setattr(status, "live", lambda _pid: False)
+
+    attempt, request_id = "a" * 32, "b" * 64
+    payload = {"input": "exact"}
+    binding = {key: "3" * 64 for key in ("checkpoint_sha256", "packet_sha256", "wire_packet_sha256", "base_messages_sha256")}
+    request = {"request_id": request_id, "logical_index": 0, "payload": payload, "payload_sha256": status.record_digest(payload),
+               "binding": binding}
+    write_json(turn / "request.json", request)
+    write_json(turn / "attempt_00.started.json", {"attempt": 0, "attempt_id": attempt})
+    job = {"attempt_id": attempt, "request_id": request_id, "request": request}
+    job["job_sha256"] = status.record_digest(job)
+    write_json(previous / "bridge/outbox" / f"{attempt}.json", job)
+    result = {"attempt_id": attempt, "request_id": request_id, "job_sha256": job["job_sha256"], "provider_dispatched": False,
+              "raw_response": None, "outcome": {"status": "failed", "failure": {"code": "connect_error", "ambiguous": False,
+                                                                              "retryable": True, "reply_identity": None}}}
+    result["result_sha256"] = status.record_digest(result)
+    result_path = previous / "bridge/results" / f"{attempt}.json"
+    write_json(result_path, result)
+    terminal = {"attempt": 0, "attempt_id": attempt, "request_id": request_id, "status": "stopped", "error": "connect_error",
+                "provider_dispatched": False, "ambiguous": False, "not_before_unix": 100.0}
+    terminal_path = turn / "attempt_00.terminal.json"
+    write_json(terminal_path, terminal)
+    proof = {**binding, "previous_request_id": request_id, "payload_sha256": request["payload_sha256"],
+             "relay_cooldown_clock": "not_before_unix", "relay_not_before_unix": 280.0,
+             "previous_terminal_file_sha256": status.checksum(terminal_path), "previous_attempts": [
+                 {"attempt": 0, "attempt_id": attempt, "error": "connect_error", "provider_dispatched": False, "ambiguous": False,
+                  "job_sha256": job["job_sha256"], "result_sha256": result["result_sha256"],
+                  "terminal_sha256": status.record_digest(terminal)}]}
+    exact = {"terminal_files": ((status.checksum(terminal_path), "connect_error"),), "preflight_attempts": (0,),
+             "request_file_sha256": status.checksum(turn / "request.json")}
+    assert status._pinned_relay_evidence(previous, 12203, 5, proof, exact)
+    write_json(terminal_path, {**terminal, "provider_dispatched": True})
+    assert not status._pinned_relay_evidence(previous, 12203, 5, proof, exact)
+    write_json(terminal_path, terminal)
+    write_json(result_path, {**result, "provider_dispatched": True})
+    assert not status._pinned_relay_evidence(previous, 12203, 5, proof, exact)
 
 
 def test_157_wave36_accepts_actual_single_attempt_in_wave34_lineage(tmp_path):

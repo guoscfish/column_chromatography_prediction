@@ -954,6 +954,42 @@ def test_12203_preserves_both_latest_owned_failures_and_p1_guard(monkeypatch, wa
         dispatcher._check_boundary(request, {**second_physical, "attempt": 2})
 
 
+def test_12203_wave47_pins_fenced_wave46_and_authorizes_only_one_new_slot(monkeypatch):
+    previous = gpu.SCOPES[(12203, 46)]
+    scope = gpu.SCOPES[(12203, 47)]
+    assert scope.archive[:-1] == previous.archive
+    assert (scope.original_start_round, scope.round, scope.replay_start_round) == (5, 5, 6)
+    assert scope.original_boundary_physical_attempts == previous.boundary_physical_attempts == 1
+    assert scope.payload_sha256 == previous.payload_sha256 and scope.required_sources == previous.required_sources
+    assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}
+    assert scope.budget == {"first_logical_requests": 31, "maximum_logical_requests": 91, "maximum_physical_attempts": 181}
+    assert (scope.cooldown_field, scope.not_before_unix) == ("not_before_unix", 1795751873.4475775)
+    fitted = dict(scope.fitted_prefix_files)
+    assert fitted["pause.request"] == "93e11d1075a9262d5d4db9a2896b4a51580621b6bbef118026f9c9ebe305a656"
+    assert fitted["round_05/turn_00/request.json"] == "45b5f98bcad8dec075a1a72cf9e5f996ad9483189642ffc841301115ece5f3dc"
+    review, = scope.archive[-1].attempts
+    assert review.terminal_file_sha256 == "eea008dd5e061d7a4601920b0f3edef1a0eb9f720f89497b8a31f88d43c2acb8"
+    assert review.failure == "response_id_mismatch" and review.receipt_provider_flags == (True, True)
+    assert review.progress["http_status"] == 200 and review.progress["sse_event_count"] == 41
+    assert review.progress["provider_error_code"] == "upstream_error"
+    assert review.progress["conflicting_event_type"] == "response.failed"
+    assert review.progress["response_id_matches_transport_alias"] is True
+
+    dispatcher = mac.SuccessorDispatcher.__new__(mac.SuccessorDispatcher)
+    dispatcher.reviewed_scope = scope
+    dispatcher.scope = {"previous_attempts": [{"attempt_id": review.attempt_id}]}
+    dispatcher.original = {"binding": {}, "payload": {}, "request_id": review.request_id}
+    request = {**dispatcher.original, "request_id": "fresh", "logical_index": 0}
+    started = {"attempt": 0, "attempt_id": "new-first"}
+    monkeypatch.setattr(mac, "time", lambda: scope.not_before_unix - 0.01)
+    with pytest.raises(PermissionError, match="cooldown"):
+        dispatcher._check_boundary(request, started)
+    monkeypatch.setattr(mac, "time", lambda: scope.not_before_unix)
+    dispatcher._check_boundary(request, started)
+    with pytest.raises(PermissionError, match="signed physical attempts"):
+        dispatcher._check_boundary(request, {**started, "attempt": 1})
+
+
 def test_12203_wave46_replaces_only_the_unposted_slot_after_three_anonymous_checks(monkeypatch):
     previous = gpu.SCOPES[(12203, 45)]
     scope = gpu.SCOPES[(12203, 46)]
@@ -5745,3 +5781,86 @@ def test_887_wave25_preserves_unresolved_upload_and_prior_proven_no_post():
     assert not {"receive_headers", "receive_body"}.intersection(phases)
     assert dict(scope.fitted_prefix_files)["round_34/turn_00/request.json"].startswith("06c1dd02")
     assert dict(scope.fitted_prefix_files)["pause.request"].startswith("5ddee934")
+
+
+def test_6101_r13_retry_32_replaces_one_definitely_unposted_readiness_slot():
+    previous, scope = gpu.SCOPES[6101, 31], gpu.SCOPES[6101, 32]
+    assert scope.archive[:-1] == previous.archive and scope.payload_sha256 == previous.payload_sha256
+    assert (scope.round, scope.original_start_round, scope.replay_start_round) == (13, 13, 14)
+    assert scope.original_boundary_physical_attempts == previous.boundary_physical_attempts == 1
+    assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}
+    assert scope.budget == {"first_logical_requests": 23, "maximum_logical_requests": 67, "maximum_physical_attempts": 133}
+    assert scope.cooldown_field == "not_before_unix" and scope.not_before_unix == 1795751615.3338208
+    failed = scope.archive[-1]
+    assert failed == gpu._6101_R13_W31_P0 and failed.receipt_provider_flags == (False, False)
+    assert len(failed.unposted_readiness_files) == 3 and failed.replay_files is None
+    assert failed.failure == "connect_error" and failed.progress["event_type"] == "ipv4_preflight_no_headers"
+    assert replace(failed, progress_file_sha256="f"*64).receipt_provider_flags == (True, True)
+    assert scope.archive[-2].receipt_provider_flags == (True, True)
+    assert gpu._887_W23_P1.receipt_provider_flags == (False, False)
+    assert scope.required_sources == previous.required_sources
+    assert dict(scope.fitted_prefix_files)["pause.request"].startswith("6d11178a")
+
+
+
+def test_2357_wave41_retains_the_verified_no_post_slot(tmp_path):
+    prior, scope = gpu.SCOPES[(2357, 40)], gpu.SCOPES[(2357, 41)]
+    review = scope.archive[-1]
+    assert scope.archive[:-1] == prior.archive
+    assert scope.payload_sha256 == prior.payload_sha256
+    assert scope.required_sources == prior.required_sources
+    assert scope.header_deadline_profile == prior.header_deadline_profile
+    assert scope.recovery_budget == prior.recovery_budget
+    assert scope.budget == prior.budget
+    assert scope.not_before_unix == 1795751622.286606
+    assert review.receipt_provider_flags == (False, False)
+    for window, retry_unix in enumerate([1795751297.630015,1795751354.0037591,1795751407.509011], 1):
+        once(tmp_path / f"readiness_{window:02d}.json", {
+            "attempt_id": review.attempt_id, "job_sha256": review.job_sha256,
+            "retry_unix": retry_unix, "window": window,
+        })
+    assert mac._unposted_readiness(tmp_path, review.progress, review.unposted_readiness_files)
+    once(tmp_path / "started.json", {})
+    assert not mac._unposted_readiness(tmp_path, review.progress, review.unposted_readiness_files)
+
+
+def test_887_wave26_keeps_owned_failure_and_preserves_one_new_slot():
+    previous, scope = gpu.SCOPES[887, 25], gpu.SCOPES[887, 26]
+    assert scope.payload_sha256 == previous.payload_sha256 and scope.archive[:-1] == previous.archive
+    assert scope.round == scope.original_start_round == 34 and scope.replay_start_round == 35
+    assert scope.original_boundary_physical_attempts == previous.boundary_physical_attempts == 1
+    assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}
+    assert scope.budget == {"first_logical_requests": 2, "maximum_logical_requests": 4, "maximum_physical_attempts": 7}
+    assert scope.cooldown_field == "not_before_unix" and scope.not_before_unix == 1795751908.9702716
+    assert scope.required_sources == previous.required_sources
+    assert scope.archive[-3] == gpu._887_W23_P1 and scope.archive[-3].receipt_provider_flags == (False, False)
+    latest = scope.archive[-1]
+    assert latest.identity == gpu._887_W25 and latest.receipt_provider_flags == (True, True)
+    assert latest.replay_files is None and len(latest.attempts) == 1
+    assert latest.failure == "response_id_mismatch" and latest.progress["provider_error_code"] == "upstream_error"
+    assert latest.progress["http_status"] == 200 and latest.progress["sse_event_count"] == 25
+    assert latest.progress["response_id_matches_transport_alias"] is True
+    assert not any(key.startswith("response.output_text") for key in latest.progress["sse_milestones"])
+    assert dict(scope.fitted_prefix_files)["round_34/turn_00/request.json"].startswith("ccb994d6")
+    assert dict(scope.fitted_prefix_files)["pause.request"].startswith("7ee711f6")
+
+
+def test_157_wave40_preserves_w39_owned_failure_and_allows_only_one_new_slot():
+    earlier, scope = gpu.SCOPES[157, 39], gpu.SCOPES[157, 40]
+    assert scope.payload_sha256 == earlier.payload_sha256 and scope.archive[:-1] == earlier.archive
+    assert scope.round == scope.original_start_round == 7 and scope.replay_start_round == 8
+    assert scope.original_boundary_physical_attempts == earlier.boundary_physical_attempts == 1
+    assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}
+    assert scope.budget == {"first_logical_requests": 29, "maximum_logical_requests": 85, "maximum_physical_attempts": 169}
+    assert scope.cooldown_field == "not_before_unix" and scope.not_before_unix == 1795751920.7254832
+    assert scope.required_sources == earlier.required_sources
+    assert scope.archive[-2] == gpu._157_W38_P1 and scope.archive[-2].receipt_provider_flags == (False, False)
+    latest = scope.archive[-1]
+    assert latest.identity == gpu._157_W39 and latest.receipt_provider_flags == (True, True)
+    assert latest.replay_files is None and len(latest.attempts) == 1
+    assert latest.failure == "response_id_mismatch" and latest.progress["provider_error_code"] == "upstream_error"
+    assert latest.progress["http_status"] == 200 and latest.progress["sse_event_count"] == 41
+    assert latest.progress["response_id_matches_transport_alias"] is True
+    assert not any(key.startswith("response.output_text") for key in latest.progress["sse_milestones"])
+    assert dict(scope.fitted_prefix_files)["round_07/turn_00/request.json"].startswith("b50b37ef")
+    assert dict(scope.fitted_prefix_files)["pause.request"].startswith("75ca23bf")
