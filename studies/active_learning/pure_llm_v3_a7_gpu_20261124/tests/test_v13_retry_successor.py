@@ -819,11 +819,26 @@ def test_12203_preserves_both_owned_failures_and_p1_guard(
         dispatcher._check_boundary(request, {**second_physical, "attempt": 2})
 
 
-def test_12203_wave35_preserves_both_owned_w34_failures_and_p1_guard(monkeypatch):
-    previous = gpu.SCOPES[(12203, 34)]
-    scope = gpu.SCOPES[(12203, 35)]
+@pytest.mark.parametrize("wave,total_archived,eligible_unix,attempt_ids,terminal_shas", [
+    (35, 51, 1795735786.489421,
+     ["881d112f46624bc49634c618350bdd0a", "a081770beebe417eabbe3079894a7991"],
+     ["18abe2c55fb55d79e975f84fbf230f4b7040e2a6f0e188af8fee18e8cd4d33d1",
+      "260d73d6121c87078a82dcc17424bc3b3548f9693b8f4f8f186b32474c61e4ab"]),
+    (36, 53, 1795736915.1458318,
+     ["c6395fd2ee1c4a099302f29cc33336bb", "ca104adc27b5428e87a33cce8ea78461"],
+     ["43da785d03d8c5db5b83530c37616bd5e4b871b6d99e140e026348e738f09710",
+      "05684bb58387335cbdb8ea438999ee8e441af3715812353134854524aad93c9c"]),
+    (37, 55, 1795738859.9096358,
+     ["8dd2bf5e7b534fe98d0e503bbe3a6aa9", "34d242e3acfd409694cb8b2ea726207b"],
+     ["38d916218e10819c6c3d04103670866ababf2cf9c13c9830decdd27e152b6521",
+      "1e03f1f66ef520b70c110e3bebde63c3bbbb569420f2e1a7089f720427e1092a"]),
+])
+def test_12203_preserves_both_latest_owned_failures_and_p1_guard(monkeypatch, wave, total_archived, eligible_unix,
+                                                               attempt_ids, terminal_shas):
+    previous = gpu.SCOPES[(12203, wave - 1)]
+    scope = gpu.SCOPES[(12203, wave)]
     assert scope.archive[:-1] == previous.archive
-    assert sum(len(item.attempts) for item in scope.archive) == 51
+    assert sum(len(item.attempts) for item in scope.archive) == total_archived
     assert scope.original_start_round == scope.round == scope.replay_start_round == 5
     assert scope.original_boundary_physical_attempts == previous.boundary_physical_attempts == 2
     assert scope.payload_sha256 == previous.payload_sha256 and scope.required_sources == previous.required_sources
@@ -831,14 +846,11 @@ def test_12203_wave35_preserves_both_owned_w34_failures_and_p1_guard(monkeypatch
     assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 2}
     assert scope.budget == previous.budget == {"first_logical_requests": 31, "maximum_logical_requests": 91,
                                               "maximum_physical_attempts": 182}
-    assert (scope.cooldown_field, scope.not_before_unix) == ("not_before_unix", 1795735786.489421)
+    assert (scope.cooldown_field, scope.not_before_unix) == ("not_before_unix", eligible_unix)
     first, second = scope.archive[-1].attempts
     assert first.request_id == second.request_id
-    assert [item.attempt_id for item in (first, second)] == ["881d112f46624bc49634c618350bdd0a", "a081770beebe417eabbe3079894a7991"]
-    assert [item.terminal_file_sha256 for item in (first, second)] == [
-        "18abe2c55fb55d79e975f84fbf230f4b7040e2a6f0e188af8fee18e8cd4d33d1",
-        "260d73d6121c87078a82dcc17424bc3b3548f9693b8f4f8f186b32474c61e4ab",
-    ]
+    assert [item.attempt_id for item in (first, second)] == attempt_ids
+    assert [item.terminal_file_sha256 for item in (first, second)] == terminal_shas
     assert [item.progress["sse_event_count"] for item in (first, second)] == [41, 41]
     for item in (first, second):
         assert item.progress["http_status"] == 200
@@ -1800,6 +1812,66 @@ def test_157_preserves_both_owned_failures_and_p1_guard(monkeypatch, wave, eligi
         dispatcher._check_boundary(request, {**second_physical, "attempt": 2})
 
 
+@pytest.mark.parametrize("wave,total_archived,eligible_unix,attempt_ids,terminal_shas", [
+    (29, 39, 1795736565.0167,
+     ["3c03b8c5136c457a8b56706c46e48481", "c202018f7191414880907775b4ec2479"],
+     ["ce671501df2d3688b771f89f9e7a3e4af096ffa70e7518ab04af094515c0e8b2",
+      "c29d5feb98d2a687b810c7095f170703cbd311836d4c65b97c192b8a49548727"]),
+    (30, 41, 1795738643.1450398,
+     ["777d3b522a6447c0b6565c5f62c9762b", "53a1f934df2a401695fb4ea12e24f6cb"],
+     ["ab143c4679e721dd1b9d923eb657070f4a1f16bac76058ceff54094cc455ee73",
+      "642eba1fdd04da762dc73c29c8ae087471b344f1e9aa93768b94df9309426dee"]),
+])
+def test_157_latest_scopes_preserve_owned_failures_and_p1_guard(monkeypatch, wave, total_archived, eligible_unix,
+                                                               attempt_ids, terminal_shas):
+    previous = gpu.SCOPES[(157, wave - 1)]
+    scope = gpu.SCOPES[(157, wave)]
+    assert scope.archive[:-1] == previous.archive
+    assert sum(len(item.attempts) for item in scope.archive) == total_archived
+    assert scope.original_start_round == scope.round == scope.replay_start_round == 7
+    assert scope.original_boundary_physical_attempts == previous.boundary_physical_attempts == 2
+    assert scope.payload_sha256 == previous.payload_sha256 and scope.required_sources == previous.required_sources
+    assert scope.header_deadline_profile == {}
+    assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 2}
+    assert scope.budget == previous.budget == {"first_logical_requests": 29, "maximum_logical_requests": 85,
+                                              "maximum_physical_attempts": 170}
+    assert (scope.cooldown_field, scope.not_before_unix) == ("not_before_unix", eligible_unix)
+    first, second = scope.archive[-1].attempts
+    assert first.request_id == second.request_id
+    assert [item.attempt_id for item in (first, second)] == attempt_ids
+    assert [item.terminal_file_sha256 for item in (first, second)] == terminal_shas
+    assert [item.progress["sse_event_count"] for item in (first, second)] == [41, 41]
+    for item in (first, second):
+        assert item.progress["http_status"] == 200
+        assert item.progress["provider_error_code"] == "upstream_error"
+        assert item.progress["response_id_matches_transport_alias"] is True
+        assert item.progress["conflicting_event_type"] == "response.failed"
+        assert set(item.progress["sse_milestones"]) == {
+            "response.created", "response.in_progress", "response.output_item.added", "response.output_item.done",
+        }
+
+    dispatcher = mac.SuccessorDispatcher.__new__(mac.SuccessorDispatcher)
+    dispatcher.reviewed_scope = scope
+    dispatcher.scope = {"previous_attempts": [{"attempt_id": item.attempt_id} for item in (first, second)]}
+    dispatcher.original = {"binding": {}, "payload": {}, "request_id": second.request_id}
+    request = {**dispatcher.original, "request_id": "fresh", "logical_index": 0}
+    first_physical = {"attempt": 0, "attempt_id": "new-first"}
+    second_physical = {"attempt": 1, "attempt_id": "new-second"}
+    admitted_replays = []
+    monkeypatch.setattr(dispatcher, "_check_boundary_retry",
+                        lambda req, started: admitted_replays.append((req, started)))
+    monkeypatch.setattr(mac, "time", lambda: scope.not_before_unix - 0.01)
+    with pytest.raises(PermissionError, match="cooldown"):
+        dispatcher._check_boundary(request, first_physical)
+    monkeypatch.setattr(mac, "time", lambda: scope.not_before_unix)
+    dispatcher._check_boundary(request, first_physical)
+    assert admitted_replays == []
+    dispatcher._check_boundary(request, second_physical)
+    assert admitted_replays == [(request, second_physical)]
+    with pytest.raises(PermissionError, match="signed physical attempts"):
+        dispatcher._check_boundary(request, {**second_physical, "attempt": 2})
+
+
 def test_157_wave28_preserves_both_owned_w27_failures_and_p1_guard(monkeypatch):
     previous = gpu.SCOPES[(157, 27)]
     scope = gpu.SCOPES[(157, 28)]
@@ -2553,6 +2625,57 @@ def test_887_r32_retains_the_one_leftover_slot_and_pins_partial_failed_stream_cu
             "round_32/fit_000/fit_audit.json", "round_32/turn_00/request.json"} <= dict(scope.fitted_prefix_files).keys()
     parser = (gpu.STUDY.parent / "pure_llm_v3_20261124/pure_llm_v3/transport_manager.py").as_posix()
     assert dict(scope.required_sources)[parser] == "2cdc0990f81012f040a73f8d5b7226fe1d35b934f477dc1654ee071126193a3c"
+
+
+def test_887_wave15_keeps_l1421_and_signed_guard_after_both_owned_failures(monkeypatch):
+    previous = gpu.SCOPES[(887, 14)]
+    scope = gpu.SCOPES[(887, 15)]
+    assert scope.archive[:-1] == previous.archive
+    assert sum(len(item.attempts) for item in scope.archive) == 8
+    assert scope.original_start_round == scope.round == scope.replay_start_round == 34
+    assert scope.original_boundary_physical_attempts == previous.boundary_physical_attempts == 2
+    assert scope.payload_sha256 == previous.payload_sha256 == "eb9170128722472e627a9ae16fa23692c1fc19c3ed6156513bde1c98e0c45a91"
+    assert scope.required_sources == previous.required_sources
+    sources = {name.rsplit("/", 1)[-1]: value for name, value in scope.required_sources}
+    assert sources["seed_runner.py"] == "417f41255d53d7794abcdc98c0a9258141d01c076df845bfa877013c84de1792"
+    assert sources["transport_manager.py"] == "2cdc0990f81012f040a73f8d5b7226fe1d35b934f477dc1654ee071126193a3c"
+    assert dict(scope.fitted_prefix_files)["round_34/turn_00/request.json"] == (
+        "2d1f61fcf068314ecb7124edf95dba659480cb552b700dc73577ee0f6667f7bd"
+    )
+    assert scope.header_deadline_profile == {}
+    assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 2}
+    assert scope.budget == {"first_logical_requests": 2, "maximum_logical_requests": 4, "maximum_physical_attempts": 8}
+    assert (scope.cooldown_field, scope.not_before_unix) == ("not_before_unix", 1795738639.839541)
+    first, second = scope.archive[-1].attempts
+    assert [item.terminal_file_sha256 for item in (first, second)] == [
+        "35cb0713357f835dc4cc0f1cb0cda33cdae0b29b29f4e141619d4b2f953482c5",
+        "df4e812be59f9b2ae132bfba4e5cb33c8344bd603e30c2b8890c9e4f614b51d7",
+    ]
+    for item in (first, second):
+        assert item.progress["http_status"] == 200 and item.progress["sse_event_count"] == 41
+        assert item.progress["provider_error_code"] == "upstream_error"
+        assert item.progress["response_id_matches_transport_alias"] is True
+        assert item.progress["conflicting_event_type"] == "response.failed"
+
+    dispatcher = mac.SuccessorDispatcher.__new__(mac.SuccessorDispatcher)
+    dispatcher.reviewed_scope = scope
+    dispatcher.scope = {"previous_attempts": [{"attempt_id": item.attempt_id} for item in (first, second)]}
+    dispatcher.original = {"binding": {}, "payload": {}, "request_id": second.request_id}
+    request = {**dispatcher.original, "request_id": "fresh", "logical_index": 0}
+    first_physical = {"attempt": 0, "attempt_id": "new-first"}
+    second_physical = {"attempt": 1, "attempt_id": "new-second"}
+    guard_calls = []
+    monkeypatch.setattr(dispatcher, "_check_boundary_retry", lambda req, attempt: guard_calls.append((req, attempt)))
+    monkeypatch.setattr(mac, "time", lambda: scope.not_before_unix - 0.01)
+    with pytest.raises(PermissionError, match="cooldown"):
+        dispatcher._check_boundary(request, first_physical)
+    monkeypatch.setattr(mac, "time", lambda: scope.not_before_unix)
+    dispatcher._check_boundary(request, first_physical)
+    assert guard_calls == []
+    dispatcher._check_boundary(request, second_physical)
+    assert guard_calls == [(request, second_physical)]
+    with pytest.raises(PermissionError, match="signed physical attempts"):
+        dispatcher._check_boundary(request, {**second_physical, "attempt": 2})
 
 
 def test_887_r12_carries_the_one_unused_slot_and_the_exact_fitted_prefix():
@@ -3530,11 +3653,22 @@ def test_2357_preserves_header_deadline_and_exact_owned_failure_pair(
         dispatcher._check_boundary(request, {**second_physical, "attempt": 2})
 
 
-def test_2357_wave29_preserves_header_deadline_and_exact_owned_w28_failures(monkeypatch):
-    previous = gpu.SCOPES[(2357, 28)]
-    scope = gpu.SCOPES[(2357, 29)]
+@pytest.mark.parametrize("wave,total_archived,eligible_unix,attempt_ids,terminal_shas", [
+    (29, 42, 1795736317.8906271,
+     ["54682c14ff5a48dd904957b6b36272be", "a23d5a96ea9942d983bdb76b11234c9e"],
+     ["5e1dbae6dd15933e0ec02f7d7ea37bc305281e62b0213f1243ed3e92c81edafe",
+      "c8d52e745c6b9ec40ba06f47392e9b545aeca9f61fd41f6199e52f7e51c462cf"]),
+    (30, 44, 1795737316.2258618,
+     ["9269d180774d4e9490a49687a1745253", "01f17f4d387a4b55b8df14c7cc20faf2"],
+     ["ef303e5b6a43d2e6fcf4eb751b82dcfeb3a2d4d23b98747e75d631e84d55889f",
+      "76a2c187a3c2a854ea6ece2cc37dec4af206344f2b3a9d4d06b218e318f6986f"]),
+])
+def test_2357_latest_scopes_preserve_header_deadline_and_owned_failures(monkeypatch, wave, total_archived, eligible_unix,
+                                                                     attempt_ids, terminal_shas):
+    previous = gpu.SCOPES[(2357, wave - 1)]
+    scope = gpu.SCOPES[(2357, wave)]
     assert scope.archive[:-1] == previous.archive
-    assert sum(len(item.attempts) for item in scope.archive) == 42
+    assert sum(len(item.attempts) for item in scope.archive) == total_archived
     assert scope.original_start_round == scope.round == scope.replay_start_round == 5
     assert scope.original_boundary_physical_attempts == previous.boundary_physical_attempts == 2
     assert scope.payload_sha256 == previous.payload_sha256 and scope.required_sources == previous.required_sources
@@ -3542,14 +3676,11 @@ def test_2357_wave29_preserves_header_deadline_and_exact_owned_w28_failures(monk
     assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 2}
     assert scope.budget == previous.budget == {"first_logical_requests": 31, "maximum_logical_requests": 91,
                                               "maximum_physical_attempts": 182}
-    assert (scope.cooldown_field, scope.not_before_unix) == ("not_before_unix", 1795736317.8906271)
+    assert (scope.cooldown_field, scope.not_before_unix) == ("not_before_unix", eligible_unix)
     first, second = scope.archive[-1].attempts
     assert first.request_id == second.request_id
-    assert [item.attempt_id for item in (first, second)] == ["54682c14ff5a48dd904957b6b36272be", "a23d5a96ea9942d983bdb76b11234c9e"]
-    assert [item.terminal_file_sha256 for item in (first, second)] == [
-        "5e1dbae6dd15933e0ec02f7d7ea37bc305281e62b0213f1243ed3e92c81edafe",
-        "c8d52e745c6b9ec40ba06f47392e9b545aeca9f61fd41f6199e52f7e51c462cf",
-    ]
+    assert [item.attempt_id for item in (first, second)] == attempt_ids
+    assert [item.terminal_file_sha256 for item in (first, second)] == terminal_shas
     assert [item.progress["sse_event_count"] for item in (first, second)] == [41, 41]
     for item in (first, second):
         assert item.progress["http_status"] == 200
