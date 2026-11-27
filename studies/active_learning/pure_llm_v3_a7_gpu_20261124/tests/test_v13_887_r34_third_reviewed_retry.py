@@ -118,3 +118,31 @@ def test_real_w13_two_slot_parent_uses_same_imported_round_and_full_original_bud
     records[0]["contract"]=replace(parent,predecessor=wrong)
     with pytest.raises(PermissionError,match="retired physical budget"):
         gpu.construct(new_release,old_release,old_run,run,lane)
+
+def test_w17_keeps_the_original_r34_payload_and_six_authenticated_failed_scopes():
+    previous = gpu.SCOPES[887, 16]
+    current = gpu.SCOPES[887, 17]
+    latest = current.archive[-1]
+    assert current.archive[:-1] == previous.archive
+    assert sum(len(review.attempts) for review in current.archive) == 12
+    assert current.payload_sha256 == previous.payload_sha256
+    common = ("round_34/source.json", "round_34/boundary_memory.json",
+              "round_34/boundary_user_message.json", "round_34/authoritative_packet.json")
+    prior_files, current_files = dict(previous.fitted_prefix_files), dict(current.fitted_prefix_files)
+    assert all(prior_files[name] == current_files[name] for name in common)
+    assert current_files["boundary.json"] == "8e63b57d68e3d34743accd36c74e239632bb8a873492975043ce5c2e2169da44"
+    assert current_files["round_34/turn_00/request.json"] == "2db15b66c6890ae0d7776665265b56427bc908703a32b7baa9b4fd7546d81936"
+    assert current.recovery_budget == previous.recovery_budget
+    assert current.budget == previous.budget
+    assert current.not_before_unix == 1795740736.874102
+    assert [attempt.attempt_id for attempt in latest.attempts] == [
+        "697b22a230a54c5698a1a80139ae01f0",
+        "1e1b11df64084833b167671f6f3b2894",
+    ]
+    assert all(attempt.progress["provider_error_code"] == "upstream_error"
+               and attempt.progress["sse_event_count"] == 41 for attempt in latest.attempts)
+    assert latest.replay_files == {
+        "attempt_00.replay_authorization.json": "a65f6cde4c4b8cad9eb3c32dea881c28876fde575827cf1176e6703d3972d9e6",
+        "attempt_00.replay.terminal.json": "44b1c197e0626b55cd58367dfc49a4fc16c8b3dc33fb2483c618ac49933f3c81",
+        "attempt_01.replay_link.json": "c1027bfdf0f757573b1b45ee07e9805843ca86e3e1cd9f8c0868c5a6ea67e546",
+    }

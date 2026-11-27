@@ -2787,10 +2787,10 @@ def check_repeated_boundary(runs, monkeypatch, publish, seed, wave, previous, pr
                         (2357, 13), (2357, 14), (2357, 15), (2357, 16), (2357, 17), (2357, 18),
                         (6101, 11), (6101, 12), (6101, 13), (6101, 14), (6101, 15), (6101, 16), (6101, 17), (6101, 18),
                         (12203, 16), (12203, 17), (12203, 18), (12203, 19), (12203, 20), (12203, 21),
-                        (12203, 22), (12203, 23), (12203, 24), (12203, 25), (12203, 26), (12203, 27), (12203, 28), (12203, 29), (12203, 30), (12203, 31), (12203, 32), (12203, 33), (12203, 34),
+                        (12203, 22), (12203, 23), (12203, 24), (12203, 25), (12203, 26), (12203, 27), (12203, 28), (12203, 29), (12203, 30), (12203, 31), (12203, 32), (12203, 33), (12203, 34), (12203, 35), (12203, 36),
                         (157, 19), (2357, 19), (6101, 19), (157, 20), (2357, 20), (6101, 20),
                         (2357, 21), (6101, 21), (157, 21), (2357, 22), (6101, 22), (157, 22), (157, 23), (2357, 23), (6101, 23), (157, 24), (2357, 24), (6101, 24), (2357, 25), (6101, 25), (157, 25),
-                        (157, 26), (2357, 26), (6101, 26), (157, 27), (2357, 27), (6101, 27)):
+                        (157, 26), (2357, 26), (6101, 26), (157, 27), (2357, 27), (6101, 27), (157, 28), (157, 29), (157, 30), (2357, 28), (2357, 29), (2357, 30)):
         check_repeated_boundary(runs, monkeypatch, publish, seed, wave + 1, run, sha, auth, record)
 
 
@@ -3002,7 +3002,8 @@ def check_6101_r5_handoff(runs, monkeypatch, publish, parent, cached, cached_sha
                                        (157, 24), (2357, 24), (6101, 24), (12203, 31),
                                        (157, 25), (2357, 25), (6101, 25), (12203, 32), (2357, 26), (6101, 26), (157, 26), (12203, 33),
                                        (157, 27), (2357, 27), (6101, 27), (12203, 34),
-                                       (157, 28), (887, 13), (2357, 28), (6101, 28), (12203, 35)])
+                                       (157, 28), (887, 13), (2357, 28), (6101, 28), (12203, 35),
+                                       (157, 29), (157, 30), (887, 14), (887, 15), (2357, 29), (2357, 30), (12203, 36), (12203, 37), (2357, 31), (157, 31)])
 def test_new_exact_reviewed_relay_pins_the_original_retired_receipt(seed, wave):
     from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.run_v13_retry_successor import SCOPES
 
@@ -3042,6 +3043,8 @@ def test_new_exact_reviewed_relay_pins_the_original_retired_receipt(seed, wave):
         assert status.RELAY_887_WAVE12_TERMINALS == tuple(item.terminal_file_sha256 for item in previous.attempts)
         assert status.RELAY_887_WAVE12_REPLAY_FILES == previous.replay_files
         assert status.RELAY_887_WAVE13_FITTED_FILES == dict(scope.fitted_prefix_files)
+    elif seed == 887 and wave in (14, 15):
+        assert getattr(status, f"{prefix}_FITTED_FILES") == dict(scope.fitted_prefix_files)
 
 
 def test_887_r13_targeted_repair_requires_exact_retired_rejection_and_one_slot(tmp_path, monkeypatch):
@@ -3463,3 +3466,330 @@ def test_887_r34_monitor_pins_the_normal_parent_and_both_terminal_receipts(tmp_p
     )
     write_json(turn / "attempt_01.replay_link.json", {"changed": True})
     assert status.reviewed_relay_contract(tmp_path, 887, 12, previous, old) is None
+
+
+def test_6101_live_repair_and_normal_monitor_require_original_and_fitted_receipts(tmp_path, monkeypatch):
+    status = prompt_pilot_status
+    normal = tmp_path / f"{status.SERIAL_IPV4}-6101-relay-retry-28"
+    targeted = tmp_path / status.REPAIR_6101_R8_RUN
+    resumed = tmp_path / status.CONTINUATION_6101_R9_RUN
+    normal_boundary = {"6101": {"round": 8}}
+    repair_budget = {"first_logical_requests": 1, "maximum_logical_requests": 1, "maximum_physical_attempts": 1}
+
+    def publish(directory, record):
+        record = {**record, "run_directory": str(directory)}
+        sha = status.record_digest(record)
+        authorization = {"contract_sha256": sha, **dict.fromkeys(status.FORMAL_APPROVAL_FLAGS, True)}
+        write_json(directory / "formal_contract.json", record)
+        write_json(directory / "authorization.json", authorization)
+        return sha, status.record_digest(authorization)
+
+    old, old_auth = publish(normal, {"profile": {"resume_boundaries": normal_boundary}})
+    monkeypatch.setattr(status, "RELAY_6101_WAVE28_CONTRACT", old)
+    monkeypatch.setattr(status, "RELAY_6101_WAVE28_AUTH", old_auth)
+    for index in (0, 1):
+        write_json(normal / f"seed_6101/round_08/turn_00/attempt_{index:02d}.started.json", {"attempt": index})
+    decision = "seed_6101/round_08/turn_00/decision.json"
+    write_json(normal / decision, {"accepted": False})
+    monkeypatch.setattr(status, "REPAIR_6101_R8_PARENT_FILES", {decision: status.checksum(normal / decision)})
+    metadata = {"fixture_scope": "two fixed references"}
+    metadata_path = targeted / "fixed_reference_repair.json"
+    write_json(metadata_path, metadata)
+    monkeypatch.setattr(status, "REPAIR_6101_R8_METADATA", status.record_digest(metadata))
+    monkeypatch.setattr(status, "REPAIR_6101_R8_METADATA_FILE", status.checksum(metadata_path))
+    repair, repair_auth = publish(targeted, {
+        "source_sha256": status.REPAIR_6101_R8_SOURCES, "budget": repair_budget,
+        "profile": {"confirmation_seeds": [6101], "target_labels": 621, "resume_boundaries": normal_boundary,
+                    "ipv4_readiness_windows": 3, "fixed_reference_repair": metadata,
+                    "transport": {"logical_replies": 1, "transport_attempts": 1}},
+        "predecessor": {"dispatcher_module": "dispatch_v13_6101_r8_targeted_repair", "seed": 6101, "round": 8,
+                        "previous_run_directory": str(normal), "previous_contract_sha256": old,
+                        "previous_authorization_sha256": old_auth, "prior_response_reposted": False,
+                        "logical_index": 0, "fixed_reference_repair_sha256": status.REPAIR_6101_R8_METADATA,
+                        "execution_budget": repair_budget,
+                        "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}},
+    })
+    monkeypatch.setattr(status, "REPAIR_6101_R8_CONTRACT", repair)
+    monkeypatch.setattr(status, "REPAIR_6101_R8_AUTH", repair_auth)
+    assert status.r8_6101_targeted_repair(tmp_path, normal, old) == (targeted, repair, 8, 3)
+    write_json(normal / decision, {"accepted": True})
+    assert status.r8_6101_targeted_repair(tmp_path, normal, old) is None
+    write_json(normal / decision, {"accepted": False})
+
+    freeze = targeted / "seed_6101/round_08/batch_freeze.json"
+    write_json(freeze, {"candidate_count": 32})
+    monkeypatch.setattr(status, "REPAIR_6101_R8_FREEZE", status.checksum(freeze))
+    fit = targeted / "seed_6101/round_09"
+    source, metrics = fit / "source.json", fit / "fit_000/validation_metrics.json"
+    write_json(source, {"round": 9})
+    write_json(metrics, {"combined_normalized_rmse": 0.5})
+    attempt_id = "a" * 32
+    job = targeted / "bridge/outbox" / f"{attempt_id}.json"
+    result = targeted / "bridge/results" / f"{attempt_id}.json"
+    write_json(job, {"attempt_id": attempt_id})
+    write_json(result, {"attempt_id": attempt_id, "complete": True})
+    request = {"payload_sha256": "b" * 64}
+    handoff = {"fit_files": {str(source.relative_to(targeted)): status.checksum(source)},
+               "bridge": {"attempt_id": attempt_id, "provider_post": True,
+                          "job_file_sha256": status.checksum(job), "result_file_sha256": status.checksum(result)}}
+    monkeypatch.setattr(status, "CONTINUATION_6101_R9_HANDOFF", status.record_digest(handoff))
+    monkeypatch.setattr(status, "CONTINUATION_6101_R9_REQUEST", status.record_digest(request))
+    continued, continued_auth = publish(resumed, {
+        "source_sha256": status.CONTINUATION_6101_R9_SOURCES, "budget": status.CONTINUATION_6101_R9_BUDGET,
+        "profile": {"transport": {"logical_replies": 3, "transport_attempts": 2}, "target_labels": 1485,
+                    "resume_boundaries": {"6101": status.CONTINUATION_6101_R9_DESCRIPTOR},
+                    "confirmation_seeds": [6101], "full_imported_boundary_round": 9, "replay_eligible_from_round": 9,
+                    "sealed_relay_retry_seconds": 180, "audited_future_transport_replay": True, "ipv4_readiness_windows": 3},
+        "predecessor": {"dispatcher_module": "dispatch_v13_6101_r9_continuation", "seed": 6101, "round": 9,
+                        "previous_run_directory": str(targeted), "previous_contract_sha256": repair,
+                        "previous_authorization_sha256": repair_auth, "normal_contract_sha256": old,
+                        "normal_authorization_sha256": old_auth, "normal_run_directory": str(normal),
+                        "checkpoint_sha256": status.REPAIR_6101_R8_CHECKPOINT, "r8_handoff": handoff,
+                        "r9_request": request, "execution_budget": status.CONTINUATION_6101_R9_BUDGET,
+                        "recovery_budget": status.CONTINUATION_6101_R9_SCOPE},
+    })
+    monkeypatch.setattr(status, "CONTINUATION_6101_R9_CONTRACT", continued)
+    monkeypatch.setattr(status, "CONTINUATION_6101_R9_AUTH", continued_auth)
+    assert status.r9_after_6101_r8_repair(tmp_path, targeted, repair) is None
+    write_json(fit / "transition.json", {"fit_path": "fit_000", "checkpoint_sha256": status.REPAIR_6101_R8_CHECKPOINT,
+                                         "source_sha256": status.checksum(source),
+                                         "validation_metrics_sha256": status.checksum(metrics)})
+    assert status.r9_after_6101_r8_repair(tmp_path, targeted, repair) == (resumed, continued, 9, 3)
+    write_json(result, {"attempt_id": attempt_id, "complete": False})
+    assert status.r9_after_6101_r8_repair(tmp_path, targeted, repair) is None
+
+
+def test_relay_discovery_reads_only_private_canonical_launcher_arguments(tmp_path):
+    import plistlib
+
+    status = prompt_pilot_status
+    private = tmp_path.resolve()
+    directory = private / "launchd"
+    directory.mkdir(mode=0o700)
+    label = "com.purellm.a7-ipv4-v13-887-relay-retry-16"
+    suffix = f"{status.SERIAL_IPV4}-887-relay-retry-16"
+    args = ["/usr/bin/caffeinate", "-i", "/private/runtime/bin/python", "-B", "-u", "-m",
+            "studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.dispatch_v13_retry_successor", "--execute-paid",
+            "--seed", "887", "--wave", "16",
+            "--remote-root", str(status.RUNS.parent / "releases" / ("ipv4-v13-887-relay-retry-16-" + "e" * 64)),
+            "--remote-run-dir", str(status.RUNS / suffix), "--contract-sha256", "a" * 64, "--authorization-sha256", "b" * 64]
+    path = directory / (label + ".plist")
+    path.write_bytes(plistlib.dumps({"Label": label, "ProgramArguments": args, "EnvironmentVariables": {"ignored": "secret"}}))
+    path.chmod(0o600)
+    assert status.discover_relay_pins(private, "eit-hpc") == [f"887:16:{'a'*64}:{'b'*64}"]
+    assert status.discover_relay_pins(private, "another-host") == []
+    path.chmod(0o622)
+    assert status.discover_relay_pins(private, "eit-hpc") == []
+    path.chmod(0o600)
+    original = path.read_bytes()
+    injected = list(args)
+    injected[args.index("--remote-run-dir") + 1] = str(status.RUNS / ".." / suffix)
+    path.write_bytes(plistlib.dumps({"Label": label, "ProgramArguments": injected}))
+    assert status.discover_relay_pins(private, "eit-hpc") == []
+    path.unlink()
+    target = private / "shadow.plist"
+    target.write_bytes(original)
+    path.symlink_to(target)
+    assert status.discover_relay_pins(private, "eit-hpc") == []
+    assert status._relay_pin(f"887:16:{'a'*64}:aaa;touch") is None
+
+
+def test_relay_discovery_keeps_exact_parent_contract_science_and_fence(tmp_path, monkeypatch):
+    status = prompt_pilot_status
+    runs = tmp_path.resolve()
+    previous = runs / f"{status.SERIAL_IPV4}-887-relay-retry-15"
+    current = runs / f"{status.SERIAL_IPV4}-887-relay-retry-16"
+
+    # The receipt check has its own fixture below. Keep this fixture focused on the authority chain.
+    archived = []
+    def verified(path, seed, round_index, proof, contract, auth):
+        archived.append((path, seed, round_index, contract, auth))
+        return True
+    monkeypatch.setattr(status, "_owned_relay_retry_evidence", verified)
+
+    def publish(run, record):
+        signed = {**record, "run_directory": str(run)}
+        sha = status.record_digest(signed)
+        approval = {"contract_sha256": sha, **dict.fromkeys(status.FORMAL_APPROVAL_FLAGS, True)}
+        write_json(run / "formal_contract.json", signed)
+        write_json(run / "authorization.json", approval)
+        return sha, status.record_digest(approval)
+
+    profile = {"confirmation_seeds": [887], "target_labels": 1485, "ipv4_readiness_windows": 3,
+               "audited_future_transport_replay": True, "sealed_relay_retry_seconds": 180, "replay_eligible_from_round": 34}
+    immutable = dict.fromkeys(("checkpoint_sha256", "packet_sha256", "wire_packet_sha256", "base_messages_sha256",
+                               "payload_sha256", "model_identity", "cache_directory", "public_resource_receipt_sha256",
+                               "bridge_wait_seconds"), "bound")
+    previous_proof = {**immutable, "round": 34, "dispatcher_module": "dispatch_v13_retry_successor",
+                      "reviewed_retry_chain": [{"scope": "older signed history"}]}
+    producer = "studies/active_learning/pure_llm_v3_a7_gpu_20261124/scripts/run_v13_retry_successor.py"
+    inherited = dict.fromkeys(("api_execution", "gpu_slots", "asset_sha256", "anchor_root", "lease_root", "initial_policy"), "same")
+    old, old_auth = publish(previous, {**inherited, "source_sha256": {producer: "a" * 64, "provider.py": "pinned"},
+                                       "profile": profile, "predecessor": previous_proof})
+    budget = {"first_logical_requests": 2, "maximum_logical_requests": 4, "maximum_physical_attempts": 8}
+    proof = {**immutable, "round": 34, "seed": 887, "logical_index": 0, "dispatcher_module": "dispatch_v13_retry_successor",
+             "previous_run_directory": str(previous), "previous_contract_sha256": old, "previous_authorization_sha256": old_auth,
+             "newly_authorized_boundary_physical_attempts": 2, "relay_not_before_unix": 1720000000.5, "execution_budget": budget,
+             "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 2},
+             "previous_request_id": "request", "previous_terminal_file_sha256": "terminal",
+             "previous_transport_progress_file_sha256": "progress", "previous_attempts": []}
+    proof["reviewed_retry_chain"] = [*previous_proof["reviewed_retry_chain"],
+                                     status._relay_review(previous, old, old_auth, proof, proof["previous_attempts"])]
+    record = {**inherited, "profile": profile, "predecessor": proof, "budget": budget,
+              "source_sha256": {producer: "b" * 64, "provider.py": "pinned"}}
+    pin = publish(current, record)
+    result = status.discovered_relay_successor(runs, previous, old, 887, 16, pin)
+    assert result == (current, pin[0], 34, 3, proof["relay_not_before_unix"], proof)
+    assert archived == [(previous, 887, 34, old, old_auth)]
+    assert status.discovered_relay_successor(runs, previous, old, 887, 17, pin) is None
+    assert status.discovered_relay_successor(runs, previous, old, 887, 16, (pin[0], "0" * 64)) is None
+    changed = {**record, "profile": {**profile, "reasoning_effort": "low"}}
+    assert status.discovered_relay_successor(runs, previous, old, 887, 16, publish(current, changed)) is None
+    changed = {**record, "source_sha256": {**record["source_sha256"], "provider.py": "unapproved"}}
+    assert status.discovered_relay_successor(runs, previous, old, 887, 16, publish(current, changed)) is None
+    pin = publish(current, record)
+    approval = current / "authorization.json"
+    shadow = runs / "shadow_approval.json"
+    approval.rename(shadow)
+    approval.symlink_to(shadow)
+    assert status.discovered_relay_successor(runs, previous, old, 887, 16, pin) is None
+
+
+def test_relay_discovery_needs_retired_owned_provider_failure_and_unmodified_receipts(tmp_path):
+    status = prompt_pilot_status
+    previous = tmp_path.resolve()
+    directory = previous / "seed_887"
+    turn = directory / "round_34/turn_00"
+    attempt = "a" * 32
+    contract, auth, request_id = "b" * 64, "c" * 64, "d" * 64
+    provider_request = "5758fe74-3467-48ca-bb60-eb3cf5751bfd"
+    alias = "resp_" + provider_request.replace("-", "")
+    payload = {"input": [{"role": "user", "content": "fixture"}]}
+    request = {"request_id": request_id, "payload": payload, "payload_sha256": status.record_digest(payload),
+               "logical_index": 0, "binding": {"a7_formal": {"contract_sha256": contract,
+                                                            "authorization_sha256": auth, "seed": 887, "mock": False}}}
+    write_json(turn / "request.json", request)
+    write_json(turn / "attempt_00.started.json", {"attempt": 0, "attempt_id": attempt})
+    write_json(previous / "coordinator_generation.json", {})
+    write_json(previous / "workers/seed_887.json", {"status": "failed"})
+    terminal_path = turn / "attempt_00.terminal.json"
+    error = "response_id_mismatch"
+    terminal = {"attempt_id": attempt, "request_id": request_id, "status": "stopped", "error": error,
+                "provider_dispatched": True, "ambiguous": True, "failed_unix": 490.0, "not_before_unix": 500.0}
+    write_json(terminal_path, terminal)
+    job = {"attempt_id": attempt, "request_id": request_id, "request": request}
+    job["job_sha256"] = status.record_digest(job)
+    write_json(previous / "bridge/outbox" / f"{attempt}.json", job)
+    identity = {"provider_request_id": provider_request, "response_id": alias, "provider_status": "failed", "usage": {}}
+    result = {"attempt_id": attempt, "request_id": request_id, "job_sha256": job["job_sha256"],
+              "provider_dispatched": True, "raw_response": None,
+              "outcome": {"failure": {"code": error, "ambiguous": True, "reply_identity": identity}}}
+    result["result_sha256"] = status.record_digest(result)
+    result_path = previous / "bridge/results" / f"{attempt}.json"
+    write_json(result_path, result)
+    receipt = {"attempt": 0, "attempt_id": attempt, "terminal_sha256": status.record_digest(terminal),
+               "job_sha256": job["job_sha256"], "result_sha256": result["result_sha256"], "error": error,
+               "provider_dispatched": True, "ambiguous": True}
+    observation = {"http_status": 200, "event_type": "response.output_item.done", "error_type": error,
+                   "conflicting_event_type": "response.failed", "conflicting_response_id": alias,
+                   "response_id_matches_transport_alias": True, "provider_request_id": provider_request,
+                   "provider_error_code": "upstream_error"}
+    proof = {"previous_attempts": [receipt], "previous_request_id": request_id, "payload_sha256": request["payload_sha256"],
+             "previous_transport_observation": observation, "previous_terminal_file_sha256": status.checksum(terminal_path),
+             "relay_cooldown_clock": "not_before_unix", "relay_not_before_unix": 680.0}
+    assert not status._owned_relay_retry_evidence(previous, 887, 34, proof, contract, auth)
+    (directory / "pause.request").touch()
+    assert status._owned_relay_retry_evidence(previous, 887, 34, proof, contract, auth)
+    assert not status._owned_relay_retry_evidence(previous, 887, 34, {**proof, "relay_not_before_unix": 679.0}, contract, auth)
+    write_json(result_path, {**result, "raw_response": {"declared_complete": True}})
+    assert not status._owned_relay_retry_evidence(previous, 887, 34, proof, contract, auth)
+
+
+def test_6101_r10_cached_status_requires_l685_freeze_and_zero_new_posts(tmp_path, monkeypatch):
+    status = prompt_pilot_status
+    previous = tmp_path / status.CONTINUATION_6101_R9_RUN
+    cached = tmp_path / status.CACHED_R10_6101_RUN
+    selection = [f"C-{index:04d}" for index in range(32)]
+    custody = {"provider_post": False, "response_id": "resp_exact",
+               "ordered_candidate_ids_sha256": status.record_digest(selection),
+               "original_failure": {"code": "invalid_response_message_phase"}}
+    receipt = status.record_digest(custody)
+    stage = cached / "seed_6101/round_10"
+    fit = cached / "seed_6101/round_11"
+    write_json(cached / "cached_response_import.json", custody)
+    write_json(stage / "turn_00/attempt_00.terminal.json", {
+        "status": "completed", "provider_dispatched": False, "cached_selection_sha256": receipt,
+        "request_id": "exact_request", "imported_from_response_id": "resp_exact",
+    })
+    freeze = stage / "batch_freeze.json"
+    frozen_ids = [f"physical_{index}" for index in range(32)]
+    write_json(freeze, {"batch_ids": frozen_ids, "request_id": "exact_request"})
+    write_json(stage / "selection.json", {"choices": [{"candidate_id": identity} for identity in selection]})
+    write_json(cached / "workers/seed_6101.json", {"status": "complete", "completed_rounds": 11, "active_labels": 685})
+    write_json(fit / "source.json", {"round": 11})
+    write_json(fit / "fit_000/validation_metrics.json", {"combined_normalized_rmse": 0.47})
+
+    proof = {"dispatcher_module": "run_v13_6101_r10_cached", "seed": 6101, "round": 10,
+             "previous_run_directory": str(previous), "previous_contract_sha256": status.CONTINUATION_6101_R9_CONTRACT,
+             "previous_authorization_sha256": status.CONTINUATION_6101_R9_AUTH, "checkpoint_sha256": status.CACHED_R10_6101_START,
+             "execution_budget": status.CACHED_R10_6101_BUDGET, "cached_selection": custody,
+             "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 0}}
+    signed = {"budget": status.CACHED_R10_6101_BUDGET, "predecessor": proof,
+              "profile": {"confirmation_seeds": [6101], "target_labels": 685, "resume_boundaries": {"6101": {"round": 10}}}}
+    actual_latest = status.latest_round
+    monkeypatch.setattr(status, "_signed_retry_record", lambda run, *ident: (signed, ident[-1]))
+    monkeypatch.setattr(status, "latest_round",
+                        lambda directory: (10, {"checkpoint_sha256": status.CACHED_R10_6101_START})
+                        if directory == previous / "seed_6101" else actual_latest(directory))
+    monkeypatch.setattr(status, "CACHED_R10_6101_RECEIPT", receipt)
+    monkeypatch.setattr(status, "CACHED_R10_6101_FILES", {str(freeze.relative_to(cached)): status.checksum(freeze)})
+    status_row = lambda: status.r10_cached_after_6101_r9(tmp_path, previous, status.CONTINUATION_6101_R9_CONTRACT)
+    assert status_row() is None
+    write_json(fit / "transition.json", {"fit_path": "fit_000", "checkpoint_sha256": status.CACHED_R10_6101_FIT,
+                                         "source_sha256": status.checksum(fit / "source.json"),
+                                         "validation_metrics_sha256": status.checksum(fit / "fit_000/validation_metrics.json")})
+    assert status_row() == (cached, status.CACHED_R10_6101_CONTRACT, 10, {
+        "round": 10, "fitted_labels": 685, "choice_count": 32, "removed_reference_fields": 0,
+        "provider_dispatched": False, "archived_failed_correction": "invalid_response_message_phase",
+    })
+    unexpected = cached / "bridge/outbox/provider-post.json"
+    write_json(unexpected, {"unexpected": True})
+    assert status_row() is None
+    unexpected.unlink()
+    write_json(stage / "selection.json", {"choices": [{"candidate_id": identity} for identity in reversed(selection)]})
+    assert status_row() is None
+
+
+def test_6101_r11_monitor_requires_the_signed_cached_handoff_and_normal_budget(tmp_path, monkeypatch):
+    status = prompt_pilot_status
+    prior = tmp_path / status.CACHED_R10_6101_RUN
+    normal = tmp_path / status.CONTINUATION_6101_R11_RUN
+    handoff = {"provider_post": False, "checkpoint_sha256": status.CACHED_R10_6101_FIT}
+    request = {"payload_sha256": "a" * 64}
+    custody = {"provider_post": False}
+    for key, value in (("CONTINUATION_6101_R11_HANDOFF", handoff), ("CONTINUATION_6101_R11_REQUEST", request),
+                       ("CACHED_R10_6101_RECEIPT", custody)):
+        monkeypatch.setattr(status, key, status.record_digest(value))
+    profile = {"resume_boundaries": {"6101": status.CONTINUATION_6101_R11_DESCRIPTOR},
+               "confirmation_seeds": [6101], "target_labels": 1485, "full_imported_boundary_round": 11,
+               "replay_eligible_from_round": 11, "sealed_relay_retry_seconds": 180, "audited_future_transport_replay": True,
+               "ipv4_readiness_windows": 3, "transport": {"logical_replies": 3, "transport_attempts": 2}}
+    proof = {"dispatcher_module": "dispatch_v13_6101_r11_continuation", "seed": 6101, "round": 11,
+             "previous_run_directory": str(prior), "previous_contract_sha256": status.CACHED_R10_6101_CONTRACT,
+             "previous_authorization_sha256": status.CACHED_R10_6101_AUTH,
+             "normal_run_directory": str(tmp_path / status.CONTINUATION_6101_R9_RUN),
+             "normal_contract_sha256": status.CONTINUATION_6101_R9_CONTRACT, "normal_authorization_sha256": status.CONTINUATION_6101_R9_AUTH,
+             "checkpoint_sha256": status.CACHED_R10_6101_FIT, "execution_budget": status.CONTINUATION_6101_R11_BUDGET,
+             "recovery_budget": status.CONTINUATION_6101_R9_SCOPE, "r10_handoff": handoff,
+             "r11_request": request, "cached_selection": custody,
+             "cached_response_import_file_sha256": status.CACHED_R10_6101_FILES["cached_response_import.json"]}
+    record = {"profile": profile, "predecessor": proof, "budget": status.CONTINUATION_6101_R11_BUDGET,
+              "source_sha256": status.CONTINUATION_6101_R11_SOURCES}
+    monkeypatch.setattr(status, "_signed_retry_record", lambda run, *ident: (record, ident[-1]))
+    status_row = lambda: status.r11_6101_after_cached_r10(tmp_path, prior, status.CACHED_R10_6101_CONTRACT)
+    assert status_row() == (normal, status.CONTINUATION_6101_R11_CONTRACT, 11, 3)
+    profile["transport"] = {"logical_replies": 3, "transport_attempts": 1}
+    assert status_row() is None
+    profile["transport"] = {"logical_replies": 3, "transport_attempts": 2}
+    proof["r10_handoff"] = {**handoff, "provider_post": True}
+    assert status_row() is None
