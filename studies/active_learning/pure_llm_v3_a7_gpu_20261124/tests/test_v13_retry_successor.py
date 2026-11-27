@@ -397,6 +397,39 @@ def test_6101_wave55_keeps_full_exhausted_reviewed_chain_and_one_static_post(mon
         gpu._require_6101_w54_exhausted_fallback(scope, old, {**result, "raw_response": {}}, record)
 
 
+def test_12203_wave69_keeps_full_exhausted_reviewed_chain_and_one_static_post(monkeypatch):
+    anchor, scope = gpu.SCOPES[12203, 52], gpu.SCOPES[12203, 69]
+    assert scope.archive[:-17] == anchor.archive
+    assert scope.reviewed_record_sha256 is None
+    assert gpu.MAX_REVIEWED_STEPS == 16 and len(scope.retired_reviewed_records) == 17
+    assert scope.retired_reviewed_records[0][1] is None
+    assert tuple(review.identity.contract for review in scope.archive[-17:]) == tuple(row[0] for row in scope.retired_reviewed_records)
+    assert scope.retired_reviewed_records[-1][1] == "0ed292d442adc3dd58c2d9121c850487ea91e6fb20eed2da3b54baf874409296"
+    assert scope.payload_sha256 == anchor.payload_sha256 and scope.required_sources == anchor.required_sources
+    assert (scope.round, scope.original_start_round, scope.replay_start_round) == (5, 5, 6)
+    assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}
+    assert scope.budget == {"first_logical_requests": 31, "maximum_logical_requests": 91, "maximum_physical_attempts": 181}
+    assert scope.not_before_unix == 1795770486.6719716
+    record = {"seed": 12203, "round": 5, "anchor_wave": 52, "steps": [{}] * 16,
+              "checkpoint_sha256": gpu._12203_W68_ROLLOVER_CHECKPOINT, "payload_sha256": scope.payload_sha256}
+    monkeypatch.setattr(gpu, "digest", lambda value: gpu._12203_W68_ROLLOVER_RECORD if value == record else "0"*64)
+    old = {gpu.REVIEWED_RECORD_FIELD: gpu._12203_W68_ROLLOVER_RECORD, "recovery_budget": scope.recovery_budget}
+    identity = {"provider_status": "failed", "served_model": "gpt-6.2-astra", "usage": {},
+                "provider_request_id": scope.archive[-1].progress["provider_request_id"],
+                "response_id": scope.archive[-1].progress["conflicting_response_id"]}
+    failure = {"code": "response_id_mismatch", "ambiguous": True, "retryable": False, "reply_identity": identity}
+    result = {"provider_dispatched": True, "raw_response": None, "outcome": {"status": "failed", "failure": failure}}
+    gpu._require_12203_w68_exhausted_fallback(scope, old, result, record)
+    with pytest.raises(PermissionError, match="exact exhausted"):
+        gpu._require_12203_w68_exhausted_fallback(scope, old, result, {**record, "steps": record["steps"][:-1]})
+    with pytest.raises(PermissionError, match="exact exhausted"):
+        gpu._require_12203_w68_exhausted_fallback(replace(scope, wave=70), old, result, record)
+    with pytest.raises(PermissionError, match="exact exhausted"):
+        gpu._require_12203_w68_exhausted_fallback(replace(scope, boundary_physical_attempts=2), old, result, record)
+    with pytest.raises(PermissionError, match="owned upstream failure"):
+        gpu._require_12203_w68_exhausted_fallback(scope, old, {**result, "raw_response": {}}, record)
+
+
 def test_a_post_upload_header_timeout_never_authorizes_the_second_slot():
     identifier = "99bc486f-f525-4a96-8bbc-d77424cde734"
     observed = {"provider_request_id": identifier, "response_id": "resp_" + identifier.replace("-", ""),

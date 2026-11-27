@@ -12297,7 +12297,7 @@ def _source_manifest(root, parent, scope):
     sources = {name: file_digest(root / name) for name in parent.source_sha256}
     launchers = {(STUDY / "scripts" / f"{module}.py").as_posix() for module in ("run_v13_retry_successor", DISPATCHER)}
     changed = {name for name, actual in sources.items() if actual != parent.source_sha256[name]}
-    if fitted_reviewed_predecessor(scope) is not None:
+    if fitted_reviewed_predecessor(scope) is not None or scope == SCOPES[(12203, 69)]:
         allowed = launchers
     elif scope.reviewed_record_sha256 is not None:
         allowed = set() if scope.previous_reviewed_record_sha256 is not None else launchers
@@ -12920,6 +12920,568 @@ SCOPES[(6101, 55)] = replace(
 )
 
 
+_12203_W52_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-12203-relay-retry-52",
+        "1d585ce8c258fa084bfcfec8c6cee756d1be921b4496f66831d5fec5cb8a7818",
+        "9d7dedd8e356ec5498301a153a91be952f38c9ab7b2be31ec77a19e8616df610",
+    ),
+    "14ff182df565f701eb5b4dc8e6c858a83a0f30337da010c7645f48ee6c7f6e00", "76883c0dd2ba4ce791493572aa1ed776",
+    "d476f47c0826d63da1b639f699ed94fd9e8b0cc47c89b15bddab053974537cf0",
+    "8e7dee1b9a1807f46f2ef001e8b2c6cb17c32e9a35948c870f7061db9f7c7a0a",
+    "969c39c352773f992f14795ca38c71c603479691a09fceeeabb40c1e94b192aa",
+    "16d555441fb31f63bbf18bfb79459f28e34a985fd3e93fc14adce79d6a068342", "response_id_mismatch",
+    {'provider_request_id': '0881440a-1f03-4f72-9589-df2ecfec2201',
+     'response_id': 'resp_03855f1a72606b51016b0912fc34f087d2b3607c9706672dbb',
+     'conflicting_response_id': 'resp_0881440a1f034f729589df2ecfec2201',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_12203_W53_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-12203-relay-retry-53",
+        "af2ae2170f41187ce5e87057889ad4f3a63e879b33330fa5cb9974a0524c2f8b",
+        "bc2e7618fe9eeedb732fd27349183cc814fffb873f9c88c74edc4676bf269f23",
+    ),
+    "ad5c400d8c5cada475695338eb441d9c8aa865543c6776f6970f58a7faf427d0", "3428af2b243545cebf2ad1e9b24ac6d1",
+    "e4d9f1dc262c8d103c53f0ba07139fbe30ce17c3bec32814ee101a591001b21d",
+    "ba0cce4dd1ee633086d13fdc5eea9fc21352370b3b1f8aafa6bf8b275c39925a",
+    "d158ddbfd6f1df5d32c3ff7857033d4872fa546f028f6b773d5b4d1a9728ad0c",
+    "db36b28a46e6f3756f878b291a74a4cc4c2b86574b8550dfb2527561663aa777", "response_id_mismatch",
+    {'provider_request_id': '143eb33c-b6a4-43f4-81f1-5e04e55d3333',
+     'response_id': 'resp_0df8ea01ef3cd156016b09153e891087d2a03986de635b301c',
+     'conflicting_response_id': 'resp_143eb33cb6a443f481f15e04e55d3333',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_12203_W54_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-12203-relay-retry-54",
+        "d795494e1380f03150a86136b396dd8887697b1274ba3cc38a1fa4096a3e5bb6",
+        "c9a53ce66e3ac13956b54c81de8819f473f377f51c315799fa73e782af024c34",
+    ),
+    "d2b264ea561e42dffd01a12ac559af71bbbfda170169f0191680f676d04a4a74", "c2d6503300dd46e5a0d3ec7800f71c54",
+    "0c74726447d17bc4060200e8135de67c889d330def530c62627136468cd8b2c8",
+    "d68d7f1c5bfcf0ad8414d2b00b966d4f75734d9960c4dd6ead64ed618e4857f9",
+    "00dad0d494c4d484be195f2482cfa19b8617bd229b2865cc1d2599b2cc0eb9a7",
+    "5dbd75b54fa7ee6ed5a0cb91ade1c2ebefc3fae505a0b7aabf7d5e673cdcf3b1", "response_id_mismatch",
+    {'provider_request_id': 'f9fcc416-7731-4549-9c0c-10ebc4a06d40',
+     'response_id': 'resp_0dcc92edbb3e6bff016b09176bf98087d286ea276f8cff3f3d',
+     'conflicting_response_id': 'resp_f9fcc416773145499c0c10ebc4a06d40',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_12203_W55_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-12203-relay-retry-55",
+        "6f3ebca9c7fdfd5f703324ba1955b96df63f6e82de6f9f2747a15e63b58bfe9a",
+        "d29d89cfb5fef819de6018295fabc8be9f4d6204a7f2045b02e5efe33d8a84d5",
+    ),
+    "5a62dc3385c003a53cb7ad3e1732f953cf9a30bdabc70a92dc9d21e79191624e", "dde80154fd1d498cbe17a54319022958",
+    "f4da6cc367452ccdf20d7fc9e04f24b5f4bd33d85e8a82296b740709dfb71a21",
+    "2ff04301991c00d9185d97986dd1f6fcea4f603b1daaf878f20ac05832bbf52c",
+    "199b9cc3cc321aae5b39d9e938d6d4c3efcd6b0ab0c08d5fcedb22cea7cdd753",
+    "19c6571e5bad4012ffa9147a8e85199d6dde4e59ddb3dcd07ecca54e61346647", "response_id_mismatch",
+    {'provider_request_id': '45090dcb-d4b7-40de-9842-ac68cea9642a',
+     'response_id': 'resp_0f47eebedd9ec923016b0921e05fbc87d280e44b44c36a85c9',
+     'conflicting_response_id': 'resp_45090dcbd4b740de9842ac68cea9642a',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_12203_W56_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-12203-relay-retry-56",
+        "740440cba243c0b30a090d96f4ad73b99684882e558b125f35a54de66fbf9be3",
+        "19662da9588fc5d4ee62bbd462725fea31dfa7cbf8a4b412bdfe72d6a503a164",
+    ),
+    "3845ece0553883047dd138f0bad458aaec4a5ee2626e98b6e22b334f02aae68c", "b1c6eac623d748c2a243a0f02fea61ac",
+    "c633c5a256229ba6b6a0be842a0041591b9f1b9676a63f0da6eeb59b1b0976b8",
+    "746ac4165554f088eb881d82bdec824aff6e2ab5418da7ebd41e04d3b62794bb",
+    "d1df9447ea73612e4b3d26c3bb74ac478409a4d3ff11d6f7229ce146e8d90618",
+    "17e6e3c64539a73336c5d0e6036d62fc5f7684b60cce713dee35b858b1cbf3a1", "response_id_mismatch",
+    {'provider_request_id': '1e2edde6-cc52-4503-9a75-4391ac7c9996',
+     'response_id': 'resp_0fec5b53a4912423016b09252256a087d08a53b88a730758b6',
+     'conflicting_response_id': 'resp_1e2edde6cc5245039a754391ac7c9996',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_12203_W57_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-12203-relay-retry-57",
+        "808c7916d2211dd5dc82d25777e8e2d2241e8ce0cc63f059a859e171aff14035",
+        "de00ce0b523e75f55b6bbe681ac8beb48e5435c8bf2952d04c46fe9215291112",
+    ),
+    "eba04519bf444e8aed29be678cf22ccdea83fdb14ff6c6e20a675e1ec69a3450", "1833fed257d34a2c93094780140969aa",
+    "7d5a7d320e9832ca3a3b12959f1a6a24e497b634c6a216b5a8ec0813ecc7570f",
+    "ce596ea7fc6933e4618ddb77a051875d942e2537d116e51b9e22163cff16e030",
+    "2cb85e59ff36bfc07522a15517fe41a8a21a1f35d07d46cd86d1900d50ff2bfe",
+    "fe70b68b5f72967790e20c4b446359aabecebd39bcb1e9a45d9ee87f4d90775e", "response_id_mismatch",
+    {'provider_request_id': 'd4700309-7927-4410-8d7b-debef2423add',
+     'response_id': 'resp_03172b2743ed83d1016b09273c695087d0bada4df2343b10a3',
+     'conflicting_response_id': 'resp_d4700309792744108d7bdebef2423add',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_12203_W58_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-12203-relay-retry-58",
+        "78614b67df07eed273d5e35d8cdcbddb9556799d877dddd1e13d5c2f50537448",
+        "641974cd65a58fe6e117b192b06217090a457924f6d3f4d4131e1a29e28181ac",
+    ),
+    "0a152005a1ec177a54fff209c6cbfcfb586ebc2a0bac117dd1f6976076bfbfa1", "0b467c1f477a4f7da4dfb44e2127cf3a",
+    "c4850aaa684ca84a0168a4578e0c354715828d44d5b1d586860427440053fa0e",
+    "b9ac63f44b1ee5e3bfb4a21f78a9a24b92ca5430324db2d90186badd7d49c708",
+    "f15cc74350601618fc571c61ad5b5a9d7da54f97ab3faa07fe106920d50c6105",
+    "9c1cae22d89e3a3f08ff4c9c72019a3b096b7b2070a0d516c013ca6ac8c8ae0f", "response_id_mismatch",
+    {'provider_request_id': 'bf75ba5e-154c-4fdd-a168-576cf449fe2b',
+     'response_id': 'resp_08b2d52128902442016b09298c346487d2a7a2da83a835c981',
+     'conflicting_response_id': 'resp_bf75ba5e154c4fdda168576cf449fe2b',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_12203_W59_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-12203-relay-retry-59",
+        "0f0d981817c7cc05f29fe873aec51d07d8ebfbcfa116044100a5e475a9de22af",
+        "da583ff029f5516bd37b774761688b6c96b5ef39f419f3c6b59e15cbe7dab0b9",
+    ),
+    "3b5a32c7788640d46e919b9658a8c12ee4cc6a091bf074d8aa029d4e8adebb60", "8e54cb3b92b7476981a4f03ceb4d6504",
+    "1f04ed9b13ed74aac9eba0e4a193aaff42ad71c927ce1b77fa30aaa9bc771482",
+    "b0b310918f76290acfdfc2d884b2c16c9ef7b4f4189c0ef768fae9901dd06c6e",
+    "c8159fc2f222c1665bca85ef2e31d4f0d0cab5d6ba0abde92263853128c9479e",
+    "57a2f16f7a29ce3acba3340fcd98358949e1aece37b88fc9ca70cb1404c40632", "response_id_mismatch",
+    {'provider_request_id': '26ccb611-47b0-496a-9ed3-a7ede0692d74',
+     'response_id': 'resp_02d4d0ea398fc8e6016b092bab76d487d0b1eca368d6e97d9c',
+     'conflicting_response_id': 'resp_26ccb61147b0496a9ed3a7ede0692d74',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_12203_W60_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-12203-relay-retry-60",
+        "98cef43d849831dac72e09991ce11f24315b80c5ef9e0a527d7fa58c45b8bb5b",
+        "402b271764e41708ebf3b0f52f444b05a2e577dfaee28aa65c8000cdcc49cfac",
+    ),
+    "8a51714e24262306790e8ed5dce004e154c8a2e1ddfc2789e7a996dab16d593c", "8029054c802246618e742cca1c68f1c0",
+    "a2b1bbbd56773d22b64b4efcbfcdb16173231d7ad0b16bab94b4d0b1fc76908e",
+    "175ecc301075e9f3351cac2ed635f348b085c2024d9d3f049f7a8a2e43f39d96",
+    "145f0a0faa5bd40e6ba582b43e56f68d7f778f1fad9f10e4a7f133809c28cf60",
+    "7b1c2832167bab388d489269130aa37b07a24e190017f691573dd7c22edb42ee", "response_id_mismatch",
+    {'provider_request_id': 'ae07b238-5fcb-4ea6-b457-60a297a95cbc',
+     'response_id': 'resp_08ce4b805238abbc016b092ef20e0c87d293b5078b484a5480',
+     'conflicting_response_id': 'resp_ae07b2385fcb4ea6b45760a297a95cbc',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_12203_W61_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-12203-relay-retry-61",
+        "8643d8fe8954d148a220f8a626c3f86145f98fce9bb522871eb09e16f6424a0b",
+        "0828e701edd0c68ad9db6846a3b977cfd52e1f46c5b17af8288e10d536554f6b",
+    ),
+    "746bfd1f545c3bb88041aa0a8046d432775e66e23aaf873c8d42898aa09d0a1e", "b84b0d276f624bc482aba4579a503a64",
+    "67bb1010a5a708e164155d356355b458ed9c79391fe674705c5f581c74c926a8",
+    "dba633cc377bdc1ff83b250375c3231c172b2a122ff6e518344dbf10da4405af",
+    "dcbf1d372f52b4358afb61a2ad32a933c6fd7de882f3a76706468bac03e376df",
+    "d9177e2f6d264d6d3c23d21e1d7e4cee922cd7b38666208da2fdec7ce9a6bbce", "response_id_mismatch",
+    {'provider_request_id': 'df573861-7f57-437f-a92a-dccf56854231',
+     'response_id': 'resp_0a43c021eceda970016b093156ce9887d18c1fac53ad0fee94',
+     'conflicting_response_id': 'resp_df5738617f57437fa92adccf56854231',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_12203_W62_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-12203-relay-retry-62",
+        "392aa2b07fdc4f7dd97b9725062880ffb5235eb19fac9cc348035facb487e864",
+        "1a7eabaadf1afef126a9f23d91afec71d9027e19463d6dbc88d81e842660afbd",
+    ),
+    "2c7e8715a7944bbfcd90ca0181b8c57c1841d0a9fc9594281c9962bda0b3ba10", "bf980630a4a4404e9721626bf9937ffc",
+    "7e3ec15ab72bbdd8ef459e579219139c445b99b4087b823f971af66d0f551ae4",
+    "0226987b15e808c56a58acdabd024ac372d88976c29c82fd722c564f73643dbf",
+    "73f4072c18c4656690090848d38ca640c10b42ac3298b2ba071add620b96e125",
+    "11c94c9a74b8c748a4fed223f18db1d8a928d02734a3d6c85ff823bc5bdb426d", "response_id_mismatch",
+    {'provider_request_id': 'c9375081-21b2-4e7a-98ee-1a9ab4e22d3d',
+     'response_id': 'resp_0826a425314fc1a4016b09339ce83087d1b7388581288fd7d3',
+     'conflicting_response_id': 'resp_c937508121b24e7a98ee1a9ab4e22d3d',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_12203_W63_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-12203-relay-retry-63",
+        "c33a71e574322c7456af60a898636bee7b56b826b4502a047d853ccbb482d238",
+        "2f83cdb94009a44d40f166535d847b57d9901624b3117b68473e172eb21bcaf2",
+    ),
+    "72b5912c182eb72b48b74419f03bce12034eaa83ad12b30ea60c17061c42728c", "fcb5f033d3d34e479ec4df50249ee7f2",
+    "25b37c95833b22576782641813006e9f42810c71926b6810eaa74d1958078f83",
+    "caad9ffd66cb99a4c65fbf5cc503af7d3dac0065bbeb6b5e1a16651b5be0f325",
+    "2765c333bf00ff7327f25af78dc6d2d155ff745005e87956296f00ff4b0af52a",
+    "ea4093f775cdd66a7ec15637a144e32ad2e453a9b7cb4c1f7c322afc5dc8a2b9", "response_id_mismatch",
+    {'provider_request_id': 'cbfd1bd0-2a09-4557-8f0f-7fd21a4cf8ed',
+     'response_id': 'resp_0a2cc5fbcb4ceb23016b0935edb4b887d19bd06f2cea2d3e64',
+     'conflicting_response_id': 'resp_cbfd1bd02a0945578f0f7fd21a4cf8ed',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_12203_W64_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-12203-relay-retry-64",
+        "a9a040b09db595e83e81f6ccf72b0ba238829bbbdc3680b5f85763404d9e1762",
+        "3265a4c349156d04150b951891f4aa0fa27e800a637f1ef066c766c11263ec38",
+    ),
+    "6bae87e49d3d581efd04bd128067c50705dd3a2e2f15be87c97eac0568155dce", "ef400c9b177c4e61828ebe57c7bb93eb",
+    "f7e0c4e8ec95c2db0bfeb48669b3d9cfe8d79192811b9c746c5af3f62d1bc57b",
+    "077b6bc40eabb46f20d931dd0b0fb1e65497ff36e1b952356f9d4d0c53bd176b",
+    "b1e01b1ba4f0d0a0d7a7d9c3b7b2f111c20dd8c8b7b3605941d9c5b8ede55e22",
+    "50d9fd86bb3fb06fcc06c7c40f479abe969742c9b78043fa5a8a1f40ab31e843", "response_id_mismatch",
+    {'provider_request_id': 'e4b9c522-72a3-4b4b-8969-0fa69a510f7a',
+     'response_id': 'resp_06c235f738eb57fa016b09384df19487d095ff64f2a71a0b9d',
+     'conflicting_response_id': 'resp_e4b9c52272a34b4b89690fa69a510f7a',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_12203_W65_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-12203-relay-retry-65",
+        "7307219791bb0f03a48e98b16304bc7771e566e02e29dd14d5747f9191a966e7",
+        "e72fcd8667f26be73a3d650a6a8648fdb443959c7b2db6aedd85c9cbef2dd5c5",
+    ),
+    "a5506253aad9cfb8aec141d4fad4ba460d2ded8b7d2d0fadd5c4314b2912c17c", "12aa99329b974ad195159d76d087c77c",
+    "af4e25690bcbb47817cee100c2fd5790ff08f2d9025651b8202beda254d3a03b",
+    "5df38fba4f9d9a372efd15ebc5002de82ff30f4eaa3f7203498643b3793304c8",
+    "8df967862bf1364ad65e31000ad5da6538c954d2ad5ccd3fd0f324d4cc50fa24",
+    "a1af7e89114ae756429e016f676a2b6e0f3a96d89205e9624eb3bb75803acc10", "response_id_mismatch",
+    {'provider_request_id': 'fd6274f8-f725-4ec2-8f1d-c1ad7e76f11f',
+     'response_id': 'resp_05df7371c23a3ee1016b093fe3f08c87d1b09a0cbcffff44d6',
+     'conflicting_response_id': 'resp_fd6274f8f7254ec28f1dc1ad7e76f11f',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_12203_W66_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-12203-relay-retry-66",
+        "7a08571b4c11501fb05e4a78adf885a52ccb3d31d00eb4e8e8b2aca9963f590c",
+        "e7fbf5e03019b3d8b39ef78e6e3933120b23e3cf26770d61bd0c0ae23f8b61cd",
+    ),
+    "b17b040a31e2e62ba6e909949125b94af8da21b8bc926c17f21d856185f4deaf", "455db84829154f9285f78203bccfe915",
+    "2e6d80e00347ac54202d364c82bd58ef6e403d72f2b975600c0c54e94acad825",
+    "90b8e081f704e1eac8f04734dcbb183f8523a00bf97e73fe9943fb6cc7072342",
+    "565da6a054d62648bc3d2882e6da8b0cf078fc1940912b6f14f0a1acb970e181",
+    "76b5d47a241bfe386225444cd74b1e5e561ceb550b286e55419ff54d44cdb5cd", "response_id_mismatch",
+    {'provider_request_id': 'ab2733b7-910f-4c1a-82b0-4a8d82324f55',
+     'response_id': 'resp_0fa0727d07272475016b0942005a2c87d1b01dfa72ee35bf0a',
+     'conflicting_response_id': 'resp_ab2733b7910f4c1a82b04a8d82324f55',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_12203_W67_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-12203-relay-retry-67",
+        "1ee59ca97d52e669f55a9b698bae5956004d0ac1719a63fbffcd779104a5afcc",
+        "03501f48a9a9122c1be42c5c976c7291afd983851b6f1407eeb4c07361341484",
+    ),
+    "a5f56beb3341ee19fac53f03922a1576cc97bd075f414329a5940f5a51bfa8bd", "5759c86979024233a68677ce92260ca5",
+    "ed677b2bd700550c0292d854a073531e63f2b8631570dae52c7143c0c4c67268",
+    "f8b5787631bfc59e49cf2b0ebbc22b45026c3d54ee8a83b25801ef2796cbcf65",
+    "5b6f41933cf37366ff104ec165f101a18b98d65b0c357c157c563bfdead2afa1",
+    "49941c1f4b4895ad999397ae3c5763c6890f8717d353a8a71e0f020e4b67e2b5", "response_id_mismatch",
+    {'provider_request_id': '590225d2-1139-41f6-84c8-9061958af71f',
+     'response_id': 'resp_058c72fd515526da016b094468934487d092a404951d4be8bf',
+     'conflicting_response_id': 'resp_590225d2113941f684c89061958af71f',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_12203_W68_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-12203-relay-retry-68",
+        "7e5cb382d9383a521723fc81ef356e4dd11b5ff9dd4f3b436642c96978b5904d",
+        "efa8cb8dfd7ce5a7ca96c2ee663f995eda0428bc954244f9cf4057bdc716a079",
+    ),
+    "0b8a7a0eef0514e5ae4dfe0f6c49c9dfdd3d86acac89978787434018df29ea8b", "149bdc9eb9ac4a2e896cb38c2a7a64cc",
+    "117a626304ab62f382588985e397c0bb76ceb52f7a77612d68a62da4b66c06f1",
+    "94f93b103c136995cebf16c9445fe3bef314219da8c704aa858384272fdf7041",
+    "ba21d8013b2cb3f85377e7781c8b90d7c53bb753779a07f60061ad5c62b4b4f1",
+    "9d8e0a7824d6a86d0b52febe0a6888babf04848d18d9509894f070095848afe0", "response_id_mismatch",
+    {'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'event_type': 'response.output_item.added',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'provider_error_code': 'upstream_error',
+     'sse_event_count': 41,
+     'first_sse_seconds': 20.023688707966357,
+     'last_sse_seconds': 197.94709179201163,
+     'last_sse_activity_seconds': 197.94709179201163,
+     'elapsed_seconds': 200.01427108305506,
+     'model': 'gpt-6.2-astra',
+     'provider_request_id': '2fb4f547-1680-474f-a78d-186305b74069',
+     'response_id': 'resp_0fc78850a85d3015016b0946fd373087d1acd1c4cf93daffde',
+     'conflicting_response_id': 'resp_2fb4f5471680474fa78d186305b74069',
+     'sse_milestones': {'response.created': {'elapsed_seconds': 20.023688707966357,
+                                             'interval_seconds': None},
+                        'response.in_progress': {'elapsed_seconds': 20.024645375087857,
+                                                 'interval_seconds': 0.0009566671214997768},
+                        'response.output_item.added': {'elapsed_seconds': 20.025337292114273,
+                                                       'interval_seconds': 0.0006919170264154673},
+                        'response.output_item.done': {'elapsed_seconds': 29.431662583025172,
+                                                      'interval_seconds': 9.4063252909109}}},
+)
+
+_12203_W68_ROLLOVER_RECORD = "0ed292d442adc3dd58c2d9121c850487ea91e6fb20eed2da3b54baf874409296"
+_12203_W68_ROLLOVER_CHECKPOINT = "34cf4e966602c4eed13ea70922aa80313ad415dd5b3cefe7fd2e7650f05a4c07"
+SCOPES[(12203, 69)] = replace(
+    SCOPES[(12203, 52)], wave=69, cooldown_field="not_before_unix", cooldown_unix=1795770306.6719716,
+    original_start_round=5, original_boundary_physical_attempts=1, boundary_physical_attempts=1,
+    archive=(
+        *SCOPES[(12203, 52)].archive,
+        _12203_W52_ROLLOVER,
+        _12203_W53_ROLLOVER,
+        _12203_W54_ROLLOVER,
+        _12203_W55_ROLLOVER,
+        _12203_W56_ROLLOVER,
+        _12203_W57_ROLLOVER,
+        _12203_W58_ROLLOVER,
+        _12203_W59_ROLLOVER,
+        _12203_W60_ROLLOVER,
+        _12203_W61_ROLLOVER,
+        _12203_W62_ROLLOVER,
+        _12203_W63_ROLLOVER,
+        _12203_W64_ROLLOVER,
+        _12203_W65_ROLLOVER,
+        _12203_W66_ROLLOVER,
+        _12203_W67_ROLLOVER,
+        _12203_W68_ROLLOVER,
+    ),
+    fitted_prefix_files=(
+        ("pause.request", "bc9029c6fab4f299b6f2f9d23dfb466604070f9211a9c5a3e388737542b636d7"),
+        ("boundary.json", "3a454139cfd87907e548f174edcb778b965453f65eeb89f3cd607bcb37b6d511"),
+        ("round_05/source.json", "9b290ab2a6c5a7da8334eb77ca003a10ac1b52ed10a76c0baf3b02b2b9f64eac"),
+        ("round_05/boundary_memory.json", "0150070586759a4a2200f593df0af5207b6c63a84b92c3081996e4ddca04ce11"),
+        ("round_05/boundary_user_message.json", "1ac1c4c0feb0cac699179f63007bd71c8baf1fb38aee2ce3d5beb29e8387320e"),
+        ("round_05/authoritative_packet.json", "0b3208712b8f4606a7b63b65444003926bf456a999a5520acce238001b538108"),
+        ("round_05/turn_00/request.json", "660322ae6e0e798239be3301d0f616ae9983930692066660d0b6f450e8b992b3"),
+    ),
+    retired_reviewed_records=(
+        (
+            '1d585ce8c258fa084bfcfec8c6cee756d1be921b4496f66831d5fec5cb8a7818',
+            None,
+            '38ad9beb14102457b510cae067d99f62dc6f401b0d48183b8a05718eae02e813',
+            '9b290ab2a6c5a7da8334eb77ca003a10ac1b52ed10a76c0baf3b02b2b9f64eac',
+        ),
+        (
+            'af2ae2170f41187ce5e87057889ad4f3a63e879b33330fa5cb9974a0524c2f8b',
+            'f5adefb0f17a407cba2d1eb8619996e701314cb6809e96f8af39187aaaf85b80',
+            '1c032359da4fc126bcd0f14a41b6cafce8f9c25234ac600e2e43b1c48b5dee45',
+            '9b290ab2a6c5a7da8334eb77ca003a10ac1b52ed10a76c0baf3b02b2b9f64eac',
+        ),
+        (
+            'd795494e1380f03150a86136b396dd8887697b1274ba3cc38a1fa4096a3e5bb6',
+            '53884c5182979f30a459f07c30e9012c14f018608e0150d9e6914b8c4163da2d',
+            '885e556fc79206ccb9bb51b8ed449dd834a9bae66129c7f82dde7066843a8699',
+            '9b290ab2a6c5a7da8334eb77ca003a10ac1b52ed10a76c0baf3b02b2b9f64eac',
+        ),
+        (
+            '6f3ebca9c7fdfd5f703324ba1955b96df63f6e82de6f9f2747a15e63b58bfe9a',
+            'c961c427d443438f1eb64fd137d19ecd7f12349c804ed5d1d90b6ca6a7a8099e',
+            '32570ee9c04287f2c30ab1c5320e4b9beee34cf304b7158b752063ac08fd9632',
+            '9b290ab2a6c5a7da8334eb77ca003a10ac1b52ed10a76c0baf3b02b2b9f64eac',
+        ),
+        (
+            '740440cba243c0b30a090d96f4ad73b99684882e558b125f35a54de66fbf9be3',
+            'acf360682f9c3fd29a344a14051b84cc23a5aa7eef464224c384309ccf4d551f',
+            'b31a6d840fb3d131deba4c484623996e242ef91036c56f9b9db737840cf23860',
+            '9b290ab2a6c5a7da8334eb77ca003a10ac1b52ed10a76c0baf3b02b2b9f64eac',
+        ),
+        (
+            '808c7916d2211dd5dc82d25777e8e2d2241e8ce0cc63f059a859e171aff14035',
+            'f26c17439ecba2e5420bbd67bccb895e0f61dfe68a130fd042b564d51a1742ff',
+            '3776c76de9c4c6af57a4b61a0bcd6a0d055ddd21248114e81f9c0713dd7a60d7',
+            '9b290ab2a6c5a7da8334eb77ca003a10ac1b52ed10a76c0baf3b02b2b9f64eac',
+        ),
+        (
+            '78614b67df07eed273d5e35d8cdcbddb9556799d877dddd1e13d5c2f50537448',
+            'bd367e92c80af48a342cc33e0419a982395bbda5d7086f13e67f2bcc1872c57d',
+            'c8d6f535ef832dc9a4c5fd54d2636e8bd093fe1d1cc80712d6f519f64ceba088',
+            '9b290ab2a6c5a7da8334eb77ca003a10ac1b52ed10a76c0baf3b02b2b9f64eac',
+        ),
+        (
+            '0f0d981817c7cc05f29fe873aec51d07d8ebfbcfa116044100a5e475a9de22af',
+            '9f2f941f13bc13139a551d043d7bdc2385820251ac96d3573c1dd4d48076b4c2',
+            '38629a5f2297df570b11affa25151aec134f9de8f694e29c4908d9369f76f18f',
+            '9b290ab2a6c5a7da8334eb77ca003a10ac1b52ed10a76c0baf3b02b2b9f64eac',
+        ),
+        (
+            '98cef43d849831dac72e09991ce11f24315b80c5ef9e0a527d7fa58c45b8bb5b',
+            '75b2fa0acae5cc8c510d1b4af5e32b8ccd409652a8332d5175d359fa3aa10fc0',
+            '1e1bf7e0bdbd5ca0b69d7b29b161232caf73bf595c7e86c03dc7f01767c2efe5',
+            '9b290ab2a6c5a7da8334eb77ca003a10ac1b52ed10a76c0baf3b02b2b9f64eac',
+        ),
+        (
+            '8643d8fe8954d148a220f8a626c3f86145f98fce9bb522871eb09e16f6424a0b',
+            '7793953e574a6e45506e8db31232e0ac3fa790474feeb3d9a3e699c21e0c6ddb',
+            '45b7ceeb5e95f033b9cd2305d9226d8bca00f1b6591303da7de04ee532495324',
+            '9b290ab2a6c5a7da8334eb77ca003a10ac1b52ed10a76c0baf3b02b2b9f64eac',
+        ),
+        (
+            '392aa2b07fdc4f7dd97b9725062880ffb5235eb19fac9cc348035facb487e864',
+            'bc7e1ac6f270eb48f397d7dc997e91887e8c3fbafe3a4716c962d9ac358bb708',
+            'f219769be7c38545e73ec34d9d588699cb7ef44045fef8d332e1084b8c09708f',
+            '9b290ab2a6c5a7da8334eb77ca003a10ac1b52ed10a76c0baf3b02b2b9f64eac',
+        ),
+        (
+            'c33a71e574322c7456af60a898636bee7b56b826b4502a047d853ccbb482d238',
+            '5291d69761d0e023c6da5681f535df5dc35658fce3145b1d41d05988dde10096',
+            'a93bff4d4f4e4a3e63e4009fead9d5a83716fb230c1b8548da134955a8ca85f3',
+            '9b290ab2a6c5a7da8334eb77ca003a10ac1b52ed10a76c0baf3b02b2b9f64eac',
+        ),
+        (
+            'a9a040b09db595e83e81f6ccf72b0ba238829bbbdc3680b5f85763404d9e1762',
+            '735fd49f5fa6bf5b0026e1dbf5e73ea919727989e12a023b984b88fd88d31a3b',
+            '26a4f14d5af43bc185faca9fceb841f1c4e0c201cb24f6c42ebec8ce77c40e40',
+            '9b290ab2a6c5a7da8334eb77ca003a10ac1b52ed10a76c0baf3b02b2b9f64eac',
+        ),
+        (
+            '7307219791bb0f03a48e98b16304bc7771e566e02e29dd14d5747f9191a966e7',
+            'f7a6aa10bc5e22938fa09363cc1fb75c9a2345e7bc317dd9cc37bb5000eb02ea',
+            '6a48f2fe945f2aeac1ada9035a67a47b0f60840ac0a1ad3bfaf62918d0aef1d7',
+            '9b290ab2a6c5a7da8334eb77ca003a10ac1b52ed10a76c0baf3b02b2b9f64eac',
+        ),
+        (
+            '7a08571b4c11501fb05e4a78adf885a52ccb3d31d00eb4e8e8b2aca9963f590c',
+            '8a2ae0797671d7e59a75d3d4d6da9940b95874dd24c04d550fd51fde51f218cb',
+            '705362bc3f0451eca935b666a66c409d86e6dc058571887e3f00f558e4a2882f',
+            '9b290ab2a6c5a7da8334eb77ca003a10ac1b52ed10a76c0baf3b02b2b9f64eac',
+        ),
+        (
+            '1ee59ca97d52e669f55a9b698bae5956004d0ac1719a63fbffcd779104a5afcc',
+            '3354e62c6ec91e0f0aa7eb368e41add2a8769fdeaced015af600e9c95fbd1f00',
+            'd24b37c2028593b9a10a044c3684b91175a4d251ffcb23a158426300256e6de8',
+            '9b290ab2a6c5a7da8334eb77ca003a10ac1b52ed10a76c0baf3b02b2b9f64eac',
+        ),
+        (
+            '7e5cb382d9383a521723fc81ef356e4dd11b5ff9dd4f3b436642c96978b5904d',
+            '0ed292d442adc3dd58c2d9121c850487ea91e6fb20eed2da3b54baf874409296',
+            'bc9029c6fab4f299b6f2f9d23dfb466604070f9211a9c5a3e388737542b636d7',
+            '9b290ab2a6c5a7da8334eb77ca003a10ac1b52ed10a76c0baf3b02b2b9f64eac',
+        ),
+    ),
+)
+
+
 REVIEWED_RECORD_FIELD = "reviewed_recovery_record_sha256"
 RETIRED_REVIEWED_RECORDS_FIELD = "retired_reviewed_recovery_records"
 REVIEWED_RECORD_FILE = "reviewed_recovery_record.json"
@@ -13006,29 +13568,43 @@ def _verify_w56_fitted_predecessor(records, expected):
                                     origin["request"], prior_result, expected)
 
 
-def _require_6101_w54_exhausted_fallback(scope, old, result, record):
-    """Allow one separately authorized static W55 after the exact 16-step chain is exhausted."""
+def _require_exact_exhausted_fallback(scope, old, result, record, *, target, anchor, review, record_sha, checkpoint):
+    """Allow one static slot for a pinned lane at the reviewed recovery limit."""
     latest = scope.archive[-1]
     history = _retired_reviewed_history(scope)
     progress = latest.progress
-    if ((scope.seed, scope.round, scope.wave, scope.original_start_round) != (6101, 13, 55, 13)
-            or latest != _6101_W54_ROLLOVER or len(history) != MAX_REVIEWED_STEPS + 1
+    if ((scope.seed, scope.round, scope.wave, scope.original_start_round) != target
+            or latest != review or len(history) != MAX_REVIEWED_STEPS + 1
             or history[-1]["contract_sha256"] != latest.identity.contract
-            or history[-1][REVIEWED_RECORD_FIELD] != _6101_W54_ROLLOVER_RECORD
-            or old.get(REVIEWED_RECORD_FIELD) != _6101_W54_ROLLOVER_RECORD
+            or history[-1][REVIEWED_RECORD_FIELD] != record_sha
+            or old.get(REVIEWED_RECORD_FIELD) != record_sha
             or scope.boundary_physical_attempts != 1 or scope.original_boundary_physical_attempts != 1
             or old.get("recovery_budget") != {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}
             or len(latest.attempts) != 1 or latest.receipt_provider_flags != (True, True)
             or progress.get("http_status") != 200 or progress.get("provider_error_code") != "upstream_error"
             or progress.get("conflicting_event_type") != "response.failed"
             or progress.get("response_id_matches_transport_alias") is not True
-            or type(record) is not dict or digest(record) != _6101_W54_ROLLOVER_RECORD
-            or (record.get("seed"), record.get("round"), record.get("anchor_wave")) != (6101, 13, 38)
+            or type(record) is not dict or digest(record) != record_sha
+            or (record.get("seed"), record.get("round"), record.get("anchor_wave")) != (target[0], target[1], anchor)
             or len(record["steps"]) != MAX_REVIEWED_STEPS
-            or record["checkpoint_sha256"] != _6101_W54_ROLLOVER_CHECKPOINT
+            or record["checkpoint_sha256"] != checkpoint
             or record["payload_sha256"] != scope.payload_sha256):
-        raise PermissionError("static W55 requires the exact exhausted 6101 W54 reviewed chain")
+        raise PermissionError("static continuation requires its exact exhausted reviewed chain")
     _check_reviewed_owned_result(scope, result)
+
+
+def _require_6101_w54_exhausted_fallback(scope, old, result, record):
+    _require_exact_exhausted_fallback(
+        scope, old, result, record, target=(6101, 13, 55, 13), anchor=38, review=_6101_W54_ROLLOVER,
+        record_sha=_6101_W54_ROLLOVER_RECORD, checkpoint=_6101_W54_ROLLOVER_CHECKPOINT,
+    )
+
+
+def _require_12203_w68_exhausted_fallback(scope, old, result, record):
+    _require_exact_exhausted_fallback(
+        scope, old, result, record, target=(12203, 5, 69, 5), anchor=52, review=_12203_W68_ROLLOVER,
+        record_sha=_12203_W68_ROLLOVER_RECORD, checkpoint=_12203_W68_ROLLOVER_CHECKPOINT,
+    )
 
 
 def _require_static_timeout_fallback(scope, old, result):
@@ -13179,6 +13755,9 @@ def construct(root, failed_release, failed_run, run, scope):
         if (scope.seed, scope.wave) == (6101, 55):
             record = read_bridge_json(failed_run / REVIEWED_RECORD_FILE)
             _require_6101_w54_exhausted_fallback(scope, old, result, record)
+        elif (scope.seed, scope.wave) == (12203, 69):
+            record = read_bridge_json(failed_run / REVIEWED_RECORD_FILE)
+            _require_12203_w68_exhausted_fallback(scope, old, result, record)
         else:
             _require_static_timeout_fallback(scope, old, result)
     parent_start = parent.profile["resume_boundaries"][str(scope.seed)]["round"]
