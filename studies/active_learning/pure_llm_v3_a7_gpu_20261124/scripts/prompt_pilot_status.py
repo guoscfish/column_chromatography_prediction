@@ -12255,7 +12255,49 @@ EXACT_RETIRED_REVIEWED_BRIDGES = {
         "checkpoint": "b31f06a0aa8efeccc08d6a6b709ab7f7360acfac56b9041cccae34c1363be501",
         "payload": "9bbfd69fb3e88c99e81a9ae6d12df1df4488c8a4466bd2c86e925ec8f041db28",
     },
+    (f"{SERIAL_IPV4}-2357-relay-retry-50", 2357): {
+        "anchor_wave": 50, "wave": 54, "round": 5,
+        "anchor_contract": "7137fe50343fbd387fd1b8c8a13309f3501c0e9427e688ce228a1270a6e76f85",
+        "current": ("d2b148cf97a3a030084500124c9ab9b8fa772a51ca5a4ec7c3db2e7c10b654e0",
+                    "c6bb8b9ddfef3f87c052479dcf5a4edfb6b8af92b95f65f359213c850a3edc01"),
+        "package": "66eb3b2777266f8a67d1262e3b5d5d35cda3f26ec706f525a2d642ad942cea76",
+        "release_wave": 52, "legacy_alias_wave": 50,
+        "active_record": "9204f6304c24623d973aa0bc81360291394830ef78d6938b9e104a4b59684f56",
+        "checkpoint": "b31f06a0aa8efeccc08d6a6b709ab7f7360acfac56b9041cccae34c1363be501",
+        "payload": "9bbfd69fb3e88c99e81a9ae6d12df1df4488c8a4466bd2c86e925ec8f041db28",
+        "fitted_files": {
+            "round_05/batch_freeze.json": "a691c10aa66e52ac173f7a97100c4e517a06e659b7f4ff83b4222eee68d6e911",
+            "round_05/selection.json": "9ddae82db847152bee5985863c69dbb1bd4cc86ee1e8b0133ea141f88e6daecd",
+            "round_05/turn_00/decision.json": "718864eaa21eb589f971976b2500542aea2624e6283ad7e4d7eccfea5e44b8b4",
+            "round_06/source.json": "d4ae9e2c346d20622f78fbc60b724657fd259a4e01614805f02fb93438adf00b",
+            "round_06/transition.json": "24bf850587df937099e7e67c3c0d350fe8f069dd46414173c239b437865d492e",
+            "round_06/fit_000/best.pt": "21b5339314d0262747a7d99812221afcded090c842d761953759750fc12990bb",
+            "round_06/fit_000/fit_audit.json": "162fdecdb1ab252d376221eb5ca3e8caf75991e1524db39d2376078f165559f7",
+            "round_06/fit_000/validation_metrics.json": "6fa4adcf4e33c900cd178f5d160dabf39f9991d451f4207ec5646a6ce163f16d",
+        },
+    },
 }
+
+
+def _fixed_owned_response(member, proof, receipt, *, legacy_alias=False):
+    observation = proof["previous_transport_observation"]
+    provider_request = observation.get("provider_request_id")
+    if (not isinstance(provider_request, str)
+            or not re.fullmatch(r"(?i)[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}", provider_request)
+            or not isinstance(receipt.get("attempt_id"), str) or not IDENTITY.fullmatch(receipt["attempt_id"])
+            or (observation.get("http_status"), observation.get("provider_error_code"), observation.get("conflicting_event_type"))
+            != (200, "upstream_error", "response.failed")
+            or observation.get("response_id_matches_transport_alias", legacy_alias) is not True):
+        return False
+    alias = "resp_" + provider_request.replace("-", "").lower()
+    if observation.get("conflicting_response_id") != alias or observation.get("response_id") == alias:
+        return False
+    result_path = member / "bridge/results" / f"{receipt['attempt_id']}.json"
+    if not _plain_filesystem_path(result_path):
+        return False
+    failure = read_json(result_path).get("outcome", {}).get("failure") or {}
+    return failure.get("reply_identity") == {"provider_request_id": provider_request, "provider_status": "failed",
+                                            "response_id": alias, "served_model": "gpt-6.2-astra", "usage": {}}
 
 
 def _fixed_reviewed_bridge(runs, previous, previous_contract, seed):
@@ -12280,10 +12322,11 @@ def _fixed_reviewed_bridge(runs, previous, previous_contract, seed):
         f"studies/active_learning/pure_llm_v3_a7_gpu_20261124/scripts/{module}.py"
         for module in ("run_v13_retry_successor", "dispatch_v13_retry_successor")
     }
-    release = runs.parent / "releases" / f"ipv4-v13-{seed}-relay-retry-{wave:02d}-{fixed['package']}"
+    release_wave = fixed.get("release_wave", wave)
+    release = runs.parent / "releases" / f"ipv4-v13-{seed}-relay-retry-{release_wave:02d}-{fixed['package']}"
+    active_record = fixed.get("active_record")
     observation = proof["previous_transport_observation"]
-    if (REVIEWED_RECOVERY_FIELD in proof or type(history) is not list or len(history) < wave - first_wave
-            or type(retired) is not list or len(retired) != wave - fixed["retired_anchor_wave"]
+    if (type(history) is not list or len(history) < wave - first_wave or type(retired) is not list
             or (profile.get("confirmation_seeds"), profile.get("target_labels")) != ([seed], TARGET_LABELS)
             or profile["resume_boundaries"][str(seed)]["round"] != start
             or profile.get("ipv4_readiness_windows") != 3 or profile.get("replay_eligible_from_round") != start + 1
@@ -12293,12 +12336,22 @@ def _fixed_reviewed_bridge(runs, previous, previous_contract, seed):
             != ("dispatch_v13_retry_successor", seed, start, 0)
             or (proof["checkpoint_sha256"], proof["payload_sha256"]) != (fixed["checkpoint"], fixed["payload"])
             or proof.get("recovery_budget") != recovery or proof.get("execution_budget") != budget or record.get("budget") != budget
-            or (observation.get("http_status"), observation.get("error_type")) != (200, "sse_inactivity_timeout")
-            or type(observation.get("sse_event_count")) is not int or observation["sse_event_count"] < 1
             or not _plain_filesystem_path(release)
             or any(not _plain_filesystem_path(release / path) or checksum(release / path) != record["source_sha256"].get(path)
                    for path in wrappers)):
         return None
+    if active_record is None:
+        if (REVIEWED_RECOVERY_FIELD in proof or len(retired) != wave - fixed["retired_anchor_wave"]
+                or (observation.get("http_status"), observation.get("error_type")) != (200, "sse_inactivity_timeout")
+                or type(observation.get("sse_event_count")) is not int or observation["sse_event_count"] < 1):
+            return None
+    else:
+        if not _verified_live_review(child, seed, wave, start, proof, release_wave, active_record):
+            return None
+        directory = child / f"seed_{seed}"
+        if any(not _plain_filesystem_path(directory / name) or checksum(directory / name) != pin
+               for name, pin in fixed["fitted_files"].items()):
+            return None
     scoped_history = history[-(wave - first_wave):]
     candidates = [runs / f"{SERIAL_IPV4}-{seed}-relay-retry-{index:02d}" for index in range(first_wave, wave)]
     if candidates[0] != previous:
@@ -12333,14 +12386,30 @@ def _fixed_reviewed_bridge(runs, previous, previous_contract, seed):
             return None
         receipt = receipts[0]
         code = receipt.get("error")
-        if code not in ("connect_error", "response_id_mismatch", "timeout") or (index == wave - 1 and code != "timeout"):
+        if active_record is None:
+            if code not in ("connect_error", "response_id_mismatch", "timeout") or (index == wave - 1 and code != "timeout"):
+                return None
+        elif code != "response_id_mismatch" or not _fixed_owned_response(
+            member, new_proof, receipt, legacy_alias=fixed.get("legacy_alias_wave") == index,
+        ):
             return None
         evidence = {"terminal_files": ((new_proof["previous_terminal_file_sha256"], code),),
                     "request_file_sha256": checksum(phase / "turn_00/request.json"),
                     "preflight_attempts": (0,) if receipt.get("provider_dispatched") is False else ()}
         if not _pinned_relay_evidence(member, seed, start, new_proof, evidence):
             return None
-        if index >= fixed["retired_anchor_wave"]:
+        if active_record is not None:
+            marker = old_proof.get(REVIEWED_RECOVERY_FIELD)
+            if old_proof.get(retired_field) != retired:
+                return None
+            if index < release_wave:
+                if marker is not None or (member / REVIEWED_RECOVERY_FILE).exists():
+                    return None
+            elif not isinstance(marker, str) or not SHA.fullmatch(marker) or not _verified_live_review(
+                member, seed, index, start, old_proof, release_wave, marker,
+            ):
+                return None
+        elif index >= fixed["retired_anchor_wave"]:
             archived_record = retired[index - fixed["retired_anchor_wave"]]
             marker = archived_record.get(REVIEWED_RECOVERY_FIELD)
             if (archived_record["contract_sha256"] != signed["contract_sha256"]

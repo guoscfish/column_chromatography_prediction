@@ -3927,6 +3927,34 @@ def test_live_dispatch_keeps_scientific_status_and_checks_gpfs_manifest(tmp_path
     assert not status.live_dispatch_report(runs, [next_pin])
 
 
+def test_fixed_active_review_requires_response_owned_by_the_exact_request(tmp_path):
+    status = prompt_pilot_status
+    attempt = "a" * 32
+    provider = "12345678-bbbb-cccc-dddd-000011112222"
+    alias = "resp_12345678bbbbccccdddd000011112222"
+    progress = {"http_status": 200, "provider_error_code": "upstream_error",
+                "conflicting_event_type": "response.failed", "response_id_matches_transport_alias": True,
+                "provider_request_id": provider, "conflicting_response_id": alias, "response_id": "resp_original"}
+    identity = {"provider_request_id": provider, "provider_status": "failed", "response_id": alias,
+                "served_model": "gpt-6.2-astra", "usage": {}}
+    result = tmp_path / "bridge/results" / f"{attempt}.json"
+    write_json(result, {"outcome": {"failure": {"reply_identity": identity}}})
+    proof = {"previous_transport_observation": progress}
+    assert status._fixed_owned_response(tmp_path, proof, {"attempt_id": attempt})
+    progress["provider_request_id"] = "12345678-bbbb-cccc-dddd-000011112223"
+    assert not status._fixed_owned_response(tmp_path, proof, {"attempt_id": attempt})
+    progress["provider_request_id"] = provider
+    progress.pop("response_id_matches_transport_alias")
+    assert not status._fixed_owned_response(tmp_path, proof, {"attempt_id": attempt})
+    assert status._fixed_owned_response(tmp_path, proof, {"attempt_id": attempt}, legacy_alias=True)
+    progress["response_id_matches_transport_alias"] = False
+    assert not status._fixed_owned_response(tmp_path, proof, {"attempt_id": attempt}, legacy_alias=True)
+    progress["response_id_matches_transport_alias"] = True
+    write_json(result, {"outcome": {"failure": {"reply_identity": {**identity, "usage": {"output_tokens": 1}}}}})
+    assert not status._fixed_owned_response(tmp_path, proof, {"attempt_id": attempt})
+    assert not status._fixed_owned_response(tmp_path, proof, {"attempt_id": "../foreign"})
+
+
 def test_fixed_reviewed_bridge_requires_signed_contiguous_retired_receipts(tmp_path, monkeypatch):
     status = prompt_pilot_status
     seed, start, first_wave, wave = 2357, 5, 48, 50
