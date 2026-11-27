@@ -36,6 +36,9 @@ def _scope(info, run, lane):
         "relay_cooldown_clock": lane.cooldown_field,
         "newly_authorized_boundary_physical_attempts": lane.boundary_physical_attempts,
     }
+    if lane.reviewed_record_sha256 is not None:
+        expected.update({gpu.REVIEWED_RECORD_FIELD: lane.reviewed_record_sha256,
+                         "checkpoint_sha256": lane.reviewed_checkpoint_sha256})
     if lane.fitted_prefix_files:
         expected["reviewed_fitted_prefix_files"] = dict(lane.fitted_prefix_files)
     if lane.cached_origin is not None:
@@ -54,6 +57,7 @@ def _scope(info, run, lane):
     boundaries = profile.get("resume_boundaries", {})
     if (path.name != lane.run_name or record["run_directory"] != run or record["api_execution"] != SSH_API
             or "cached_import" in proof
+            or (gpu.REVIEWED_RECORD_FIELD in proof) != bool(lane.reviewed_record_sha256)
             or record["gpu_slots"] != [0] or record["budget"] != lane.budget or "fixed_reference_repair" in profile
             or (gpu.HEADER_DEADLINE_FIELD in profile) != bool(header_deadline)
             or request_timeouts(profile) != resilient.TIMEOUTS
@@ -135,6 +139,14 @@ def _archive(spools, proof, lane):
                         and not _unposted_readiness(trace.parent, progress, prior.unposted_readiness_files))):
                 raise PermissionError("a reviewed relay failure differs from the archived no-answer trace")
         previous = original
+    if lane.reviewed_record_sha256 is not None:
+        latest = lane.archive[-1]
+        milestones = progress.get("sse_milestones")
+        if (type(milestones) is not dict or any(
+                event.startswith("response.output_text") or event == "response.completed" for event in milestones)):
+            raise PermissionError("the reviewed owned failure contains output or a complete event")
+        result = read_bridge_json(spool / "results" / f"{latest.attempt_id}.json")
+        gpu._check_reviewed_owned_result(lane, result)
     return original, transport
 
 
@@ -193,6 +205,7 @@ def main():
     parser.add_argument("--remote-python", default=GPU_PYTHON)
     parser.add_argument("--contract-sha256", required=True)
     parser.add_argument("--authorization-sha256", required=True)
+    gpu.add_reviewed_record_arguments(parser)
     args = parser.parse_args()
     if not all(_sha(value) for value in (args.contract_sha256, args.authorization_sha256)):
         parser.error("exact contract and approval hashes required")

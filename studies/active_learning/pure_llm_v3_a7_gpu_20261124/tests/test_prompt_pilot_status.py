@@ -3761,6 +3761,53 @@ def test_live_dispatch_requires_matching_loaded_arguments_and_expected_pins(tmp_
     assert status.discover_relay_pins(private, "eit-hpc") == [f"6101:32:{contract}:{authorization}"]
 
 
+def test_live_dispatch_accepts_reviewed_launch_only_with_local_exact_private_pair(tmp_path, monkeypatch):
+    status = prompt_pilot_status
+    private = tmp_path.resolve() / "purellm"
+    records = private / "reviewed_recovery"
+    records.mkdir(parents=True, mode=0o700)
+    (private / "launchd").mkdir(mode=0o700)
+    label = "com.purellm.a7-ipv4-v13-6101-relay-retry-32"
+    plist = private / "launchd" / f"{label}.plist"
+    contract, authorization, package = "a" * 64, "b" * 64, "c" * 64
+    run = status.RUNS / f"{status.SERIAL_IPV4}-6101-relay-retry-32"
+    release = status.RUNS.parent / "releases" / f"ipv4-v13-6101-relay-retry-32-{package}"
+    review = {"schema": status.REVIEWED_RECOVERY_SCHEMA, "seed": 6101}
+    digest = status.record_digest(review)
+    path = records / f"6101-32-{digest}.json"
+    write_json(path, review)
+    path.chmod(0o600)
+    args = ["/usr/bin/caffeinate", "-i", "/trusted/python", "-B", "-u", "-m",
+            "studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts.dispatch_v13_retry_successor",
+            "--execute-paid", "--seed", "6101", "--wave", "32", "--remote-root", str(release),
+            "--remote-run-dir", str(run), "--contract-sha256", contract, "--authorization-sha256", authorization]
+
+    def discovered(flags, *, live=True):
+        arguments = [*args, *flags]
+        plist.write_bytes(status.plistlib.dumps({"Label": label, "ProgramArguments": arguments}))
+        plist.chmod(0o600)
+        loaded = [f"path = {plist}", "state = running", "pid = 420", "arguments = {", *arguments, "}"]
+        monkeypatch.setattr(status, "command_lines", lambda *_: loaded)
+        return status.discover_relay_pins(private, "eit-hpc", running={label: 420} if live else None)
+
+    flags = ["--reviewed-record", str(path), "--reviewed-record-sha256", digest]
+    pin = f"6101:32:{contract}:{authorization}:{package}:32:{digest}"
+    assert discovered(flags) == [pin]
+    assert status._live_dispatch_pin(pin) == (6101, 32, contract, authorization, package, 32, digest)
+    assert status._live_dispatch_pin(pin + ":oops") is None
+    assert discovered(flags, live=False) == []
+    assert discovered(flags[:2]) == [] and discovered(flags[2:]) == []
+    assert discovered(["--reviewed-record", "../borrowed.json", *flags[2:]]) == []
+    path.chmod(0o644)
+    assert discovered(flags) == []
+    path.chmod(0o600)
+    write_json(path, {**review, "seed": 887})
+    assert discovered(flags) == []
+    path.rename(path.with_suffix(".outside"))
+    path.symlink_to(path.with_suffix(".outside"))
+    assert discovered(flags) == []
+
+
 def test_live_dispatch_keeps_scientific_status_and_checks_gpfs_manifest(tmp_path, monkeypatch):
     status = prompt_pilot_status
     runs = tmp_path.resolve() / "runs"
@@ -3810,8 +3857,74 @@ def test_live_dispatch_keeps_scientific_status_and_checks_gpfs_manifest(tmp_path
     result = run / "bridge/results" / f"{attempt_id}.json"
     write_json(result, {"attempt_id": attempt_id})
     assert status.live_dispatch_report(runs, [pin])[0]["api"] == {}
+    parent_run = run.with_name(f"{status.SERIAL_IPV4}-6101-relay-retry-31")
+    parent = {"run_directory": str(parent_run), "predecessor": {}}
+    parent_contract = status.record_digest(parent)
+    parent_approval = {"contract_sha256": parent_contract, **dict.fromkeys(status.FORMAL_APPROVAL_FLAGS, True)}
+    parent_auth = status.record_digest(parent_approval)
+    write_json(parent_run / "formal_contract.json", parent)
+    write_json(parent_run / "authorization.json", parent_approval)
+    payload_sha, checkpoint_sha = "f" * 64, "a" * 64
+    archive = {"schema": status.REVIEWED_RECOVERY_SCHEMA, "seed": 6101, "round": 13, "anchor_wave": 31,
+               "payload_sha256": payload_sha, "checkpoint_sha256": checkpoint_sha,
+               "steps": [{"parent_contract_sha256": parent_contract, "parent_authorization_sha256": parent_auth,
+                          "request_id": request_id}]}
+    review_sha = status.record_digest(archive)
+    record["predecessor"].update({
+        status.REVIEWED_RECOVERY_FIELD: review_sha,
+        "previous_run_directory": str(parent_run), "previous_contract_sha256": parent_contract,
+        "previous_authorization_sha256": parent_auth, "previous_request_id": request_id,
+        "payload_sha256": payload_sha, "checkpoint_sha256": checkpoint_sha,
+        "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 1},
+    })
+    contract = status.record_digest(record)
+    approval["contract_sha256"] = contract
+    authorization = status.record_digest(approval)
+    write_json(run / "formal_contract.json", record)
+    write_json(run / "authorization.json", approval)
+    reviewed = run / status.REVIEWED_RECOVERY_FILE
+    write_json(reviewed, archive)
+    reviewed_pin = (6101, 32, contract, authorization, package, 32, review_sha)
+    view = status.remote_report(runs, live_dispatch_pins=[reviewed_pin])
+    assert view["seeds"] == expected_seeds
+    live, = view["live_dispatch"]
+    assert live[status.REVIEWED_RECOVERY_FIELD] == review_sha and "checkpoint_sha256" not in live
+    assert not status.live_dispatch_report(runs, [reviewed_pin[:5]])
+    assert not status.live_dispatch_report(runs, [(*reviewed_pin[:-1], "0" * 64)])
+    write_json(reviewed, {**archive, "round": 14})
+    assert not status.live_dispatch_report(runs, [reviewed_pin])
+    write_json(reviewed, archive)
+    reviewed.rename(reviewed.with_suffix(".outside"))
+    reviewed.symlink_to(reviewed.with_suffix(".outside"))
+    assert not status.live_dispatch_report(runs, [reviewed_pin])
+    reviewed.unlink()
+    write_json(reviewed, archive)
+    write_json(parent_run / "authorization.json", {**parent_approval, "authorize_paid_api": False})
+    assert not status.live_dispatch_report(runs, [reviewed_pin])
+    write_json(parent_run / "authorization.json", parent_approval)
+
+    next_run = run.with_name(f"{status.SERIAL_IPV4}-6101-relay-retry-33")
+    next_request = "b" * 64
+    next_archive = {**archive, "steps": [*archive["steps"], {
+        "parent_contract_sha256": contract, "parent_authorization_sha256": authorization, "request_id": next_request,
+    }]}
+    next_sha = status.record_digest(next_archive)
+    next_record = {**record, "run_directory": str(next_run), "predecessor": {
+        **record["predecessor"], status.REVIEWED_RECOVERY_FIELD: next_sha,
+        "previous_run_directory": str(run), "previous_contract_sha256": contract,
+        "previous_authorization_sha256": authorization, "previous_request_id": next_request,
+    }}
+    next_contract = status.record_digest(next_record)
+    next_approval = {**approval, "contract_sha256": next_contract}
+    write_json(next_run / "formal_contract.json", next_record)
+    write_json(next_run / "authorization.json", next_approval)
+    write_json(next_run / status.REVIEWED_RECOVERY_FILE, next_archive)
+    next_pin = (6101, 33, next_contract, status.record_digest(next_approval), package, 32, next_sha)
+    assert status.live_dispatch_report(runs, [next_pin])[0][status.REVIEWED_RECOVERY_FIELD] == next_sha
+    assert not status.live_dispatch_report(runs, [(*next_pin[:5], 31, next_sha)])
     source.write_text("changed\n")
-    assert not status.live_dispatch_report(runs, [pin])
+    assert not status.live_dispatch_report(runs, [reviewed_pin])
+    assert not status.live_dispatch_report(runs, [next_pin])
 
 
 def test_relay_discovery_keeps_exact_parent_contract_science_and_fence(tmp_path, monkeypatch):

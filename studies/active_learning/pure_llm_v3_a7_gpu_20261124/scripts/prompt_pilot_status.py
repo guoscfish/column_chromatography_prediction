@@ -11555,6 +11555,46 @@ def _relay_pin(value):
     return None
 
 
+REVIEWED_RECOVERY_FIELD = "reviewed_recovery_record_sha256"
+REVIEWED_RECOVERY_FILE = "reviewed_recovery_record.json"
+REVIEWED_RECOVERY_SCHEMA = "a7_reviewed_owned_recovery_v1"
+REVIEWED_RECOVERY_FLAGS = {"--reviewed-record", "--reviewed-record-sha256"}
+
+
+def _read_reviewed_recovery(path, expected_sha, *, owner_private=False):
+    if not _plain_filesystem_path(path.parent):
+        return None
+    try:
+        if owner_private:
+            directory = path.parent.stat()
+            if directory.st_uid != os.getuid() or directory.st_mode & 0o077:
+                return None
+        fd = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+        with os.fdopen(fd, "rb") as stream:
+            status = os.fstat(stream.fileno())
+            limit = 65536
+            if (not stat.S_ISREG(status.st_mode) or not 0 < status.st_size <= limit
+                    or owner_private and (status.st_uid != os.getuid() or status.st_mode & 0o077)):
+                return None
+            record = json.loads(stream.read(limit + 1))
+        if type(record) is dict and record_digest(record) == expected_sha:
+            return record
+    except (OSError, ValueError, RecursionError):
+        return None
+    return None
+
+
+def _local_reviewed_recovery(private, seed, wave, flags):
+    digest = flags["--reviewed-record-sha256"]
+    path = private / "reviewed_recovery" / f"{seed}-{wave}-{digest}.json"
+    if not SHA.fullmatch(digest) or flags["--reviewed-record"] != str(path):
+        return None
+    record = _read_reviewed_recovery(path, digest, owner_private=True)
+    if record and record.get("schema") == REVIEWED_RECOVERY_SCHEMA and record.get("seed") == int(seed):
+        return digest
+    return None
+
+
 def discover_relay_pins(private, ssh_host, *, running=None, expected=None):
     """Read launch arguments as data. Optionally require the exact running launchd service."""
     directory = private / "launchd"
@@ -11596,12 +11636,16 @@ def discover_relay_pins(private, ssh_host, *, running=None, expected=None):
                     or args[3:8] != ["-B", "-u", "-m", module, "--execute-paid"] or len(args) % 2):
                 continue
             flags = dict(zip(args[8::2], args[9::2]))
-            if (set(flags) not in (required, required | {"--ssh-host"})
+            reviewed = flags.keys() & REVIEWED_RECOVERY_FLAGS
+            release = re.fullmatch(str(RUNS.parent / "releases" / f"ipv4-v13-{seed}-relay-retry-")
+                                   + r"([0-9]{2})-([0-9a-f]{64})", flags.get("--remote-root", ""))
+            if (reviewed and (running is None or reviewed != REVIEWED_RECOVERY_FLAGS)
+                    or flags.keys() - reviewed not in (required, required | {"--ssh-host"})
                     or len(flags) * 2 != len(args) - 8 or flags.get("--ssh-host", "eit-hpc") != ssh_host
                     or flags["--seed"] != seed or flags["--wave"] != str(int(wave))
                     or flags["--remote-run-dir"] != str(RUNS / f"{SERIAL_IPV4}-{seed}-relay-retry-{wave}")
-                    or not re.fullmatch(str(RUNS.parent / "releases" / f"ipv4-v13-{seed}-relay-retry-{wave}-")
-                                        + r"[0-9a-f]{64}", flags["--remote-root"])):
+                    or release is None or (release[1] != wave and not reviewed)
+                    or not 1 <= int(release[1]) <= int(wave)):
                 continue
             pin = f'{seed}:{int(wave)}:{flags["--contract-sha256"]}:{flags["--authorization-sha256"]}'
             parsed = _relay_pin(pin)
@@ -11612,7 +11656,12 @@ def discover_relay_pins(private, ssh_host, *, running=None, expected=None):
                     continue
                 if not _loaded_relay_matches(label, directory / name, args, running[label]):
                     continue
-                pin += ":" + flags["--remote-root"].rsplit("-", 1)[1]
+                pin += ":" + release[2]
+                if reviewed:
+                    record_sha = _local_reviewed_recovery(private, seed, wave, flags)
+                    if record_sha is None:
+                        continue
+                    pin += f":{int(release[1])}:{record_sha}"
             pins.append(pin)
     finally:
         os.close(descriptor)
@@ -11644,9 +11693,17 @@ def _loaded_relay_matches(label, path, args, process):
 
 
 def _live_dispatch_pin(value):
-    relay, _, package_sha = value.rpartition(":")
-    if (parsed := _relay_pin(relay)) and SHA.fullmatch(package_sha):
-        return (*parsed, package_sha)
+    fields = value.split(":")
+    if (len(fields) not in (5, 7) or not SHA.fullmatch(fields[4])
+            or not (relay := _relay_pin(":".join(fields[:4])))):
+        return None
+    package = fields[4]
+    if len(fields) == 5:
+        return (*relay, package)
+    release_wave, review_sha = fields[5:]
+    if (re.fullmatch(r"[1-9][0-9]?", release_wave) and int(release_wave) <= relay[1]
+            and SHA.fullmatch(review_sha)):
+        return (*relay, package, int(release_wave), review_sha)
     return None
 
 
@@ -13342,11 +13399,46 @@ def _live_dispatch_api(run, seed, start, contract, authorization):
     return {}
 
 
+def _verified_live_review(run, seed, wave, start, proof, release_wave, expected_sha):
+    if expected_sha is None:
+        return REVIEWED_RECOVERY_FIELD not in proof
+    if (proof.get(REVIEWED_RECOVERY_FIELD) != expected_sha
+            or proof.get("recovery_budget") != {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}):
+        return False
+    archive = _read_reviewed_recovery(run / REVIEWED_RECOVERY_FILE, expected_sha)
+    if not archive:
+        return False
+    steps, anchor = archive.get("steps"), archive.get("anchor_wave")
+    payload, checkpoint = archive.get("payload_sha256"), archive.get("checkpoint_sha256")
+    if (archive.get("schema") != REVIEWED_RECOVERY_SCHEMA or archive.get("seed") != seed
+            or archive.get("round") != start or type(anchor) is not int or not 1 <= anchor < release_wave <= wave
+            or type(steps) is not list or not 1 <= len(steps) <= 16 or anchor + len(steps) != wave
+            or not all(isinstance(value, str) and SHA.fullmatch(value) for value in (payload, checkpoint))
+            or (payload, checkpoint) != (proof.get("payload_sha256"), proof.get("checkpoint_sha256"))):
+        return False
+    step = steps[-1]
+    keys = ("parent_contract_sha256", "parent_authorization_sha256", "request_id")
+    if type(step) is not dict or any(not isinstance(step.get(key), str) or not SHA.fullmatch(step[key]) for key in keys):
+        return False
+    previous = run.with_name(f"{SERIAL_IPV4}-{seed}-relay-retry-{wave - 1:02d}")
+    if ((str(previous), *(step[key] for key in keys))
+            != tuple(proof.get(key) for key in ("previous_run_directory", "previous_contract_sha256",
+                                                "previous_authorization_sha256", "previous_request_id"))):
+        return False
+    parent = _signed_retry_record(previous, step["parent_contract_sha256"], step["parent_authorization_sha256"])
+    if parent is None:
+        return False
+    predecessor_sha = record_digest({**archive, "steps": steps[:-1]}) if len(steps) > 1 else None
+    parent_proof = parent[0].get("predecessor")
+    return type(parent_proof) is dict and parent_proof.get(REVIEWED_RECOVERY_FIELD) == predecessor_sha
+
+
 def live_dispatch_report(runs, pins):
     rows = []
-    for seed, wave, contract, authorization, package in pins:
+    for seed, wave, contract, authorization, package, *reviewed in pins:
+        release_wave, reviewed_sha = reviewed if reviewed else (wave, None)
         run = runs / f"{SERIAL_IPV4}-{seed}-relay-retry-{wave:02d}"
-        release = runs.parent / "releases" / f"ipv4-v13-{seed}-relay-retry-{wave:02d}-{package}"
+        release = runs.parent / "releases" / f"ipv4-v13-{seed}-relay-retry-{release_wave:02d}-{package}"
         verified = _signed_retry_record(run, contract, authorization)
         if verified is None:
             continue
@@ -13360,6 +13452,7 @@ def live_dispatch_report(runs, pins):
         if (record.get("api_execution") != "mac_ssh_dispatch_v1" or profile.get("confirmation_seeds") != [seed]
                 or set(boundaries) != {str(seed)} or type(start) is not int or not 0 <= start < TARGET_ROUNDS
                 or (proof.get("dispatcher_module"), proof.get("seed"), proof.get("round")) != (dispatcher, seed, start)
+                or not _verified_live_review(run, seed, wave, start, proof, release_wave, reviewed_sha)
                 or not _plain_filesystem_path(release)
                 or any(not _plain_filesystem_path(release / path)
                        or checksum(release / path) != (record.get("source_sha256") or {}).get(path) for path in sources)):
@@ -13372,6 +13465,7 @@ def live_dispatch_report(runs, pins):
         paused = (run / "pause.request").is_file() or (directory / "pause.request").is_file()
         active = live(coordinator, run=run)
         rows.append({"seed": seed, "wave": wave, "run": run.name, "contract_sha256": contract,
+                     **({REVIEWED_RECOVERY_FIELD: reviewed_sha} if reviewed_sha is not None else {}),
                      "authorization_sha256": authorization, "coordinator_pid": coordinator if active else None,
                      "phase": "paused" if paused else safe_code(worker.get("status")) or "awaiting_worker",
                      "api": _live_dispatch_api(run, seed, start, contract, authorization),

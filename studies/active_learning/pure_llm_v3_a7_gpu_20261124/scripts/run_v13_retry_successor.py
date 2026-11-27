@@ -2,15 +2,17 @@
 
 import argparse
 from dataclasses import asdict, dataclass, replace
+import math
 import os
 from pathlib import Path
 from time import time
 
-from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, dumps, file_digest, read
+from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, dumps, file_digest, once, read
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import (
-    _link_replay_attempt, make_request, terminal_record,
+    RESPONSE_ID, _link_replay_attempt, make_request, response_id_matches_transport_alias, terminal_record,
 )
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu import seed_runner
+from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.bridge_protocol import ATTEMPT_ID, SHA256, read_bridge_json
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.formal_contract import ROOT, STUDY, verify_authorization
 from . import run_v13_12203_relay_retry as wave02
 from . import run_v13_157_relay_retry as wave157
@@ -114,6 +116,10 @@ class Scope:
     boundary_physical_attempts: int = 1
     original_boundary_physical_attempts: int = 2
     response_headers_seconds: int | None = None
+    reviewed_record_sha256: str | None = None
+    previous_reviewed_record_sha256: str | None = None
+    reviewed_checkpoint_sha256: str | None = None
+    reviewed_archive_pins: tuple[tuple[tuple[str, str], ...], ...] = ()
 
     @property
     def header_deadline_profile(self):
@@ -11178,6 +11184,10 @@ def _archives(failed_run, failed_release, scope):
         require_pause = bool(records) or review.identity in (_887_R20_CONTINUATION, _6101_R11_CONTINUATION)
         directory, active = retry._retired(run, scope, require_pause=require_pause)
         request, receipts, terminal = _evidence(run, active, contract, approval, scope, review)
+        if index <= len(scope.reviewed_archive_pins):
+            pins = scope.reviewed_archive_pins[-index]
+            if any(file_digest(directory / name) != sha for name, sha in pins):
+                raise PermissionError("an exact reviewed predecessor pause or source receipt changed")
         if read(run / "provider_model_lock.json") != contract.predecessor["model_identity"]:
             raise PermissionError("the archived confirmed model identity changed")
         if records:
@@ -11219,7 +11229,12 @@ def _cached_resources(failed_run, directory, old, scope):
 def _source_manifest(root, parent, scope):
     sources = {name: file_digest(root / name) for name in parent.source_sha256}
     launchers = {(STUDY / "scripts" / f"{module}.py").as_posix() for module in ("run_v13_retry_successor", DISPATCHER)}
-    if {name for name, actual in sources.items() if actual != parent.source_sha256[name]} - retry.OVERLAYS - launchers:
+    changed = {name for name, actual in sources.items() if actual != parent.source_sha256[name]}
+    if scope.reviewed_record_sha256 is not None:
+        allowed = set() if scope.previous_reviewed_record_sha256 is not None else launchers
+    else:
+        allowed = retry.OVERLAYS | launchers
+    if changed - allowed:
         raise PermissionError("the successor changed source outside the audited transport paths")
     if any(sources.get(name) != expected for name, expected in scope.required_sources):
         raise PermissionError("the successor is missing the exact reviewed transport source")
@@ -11273,8 +11288,121 @@ def _reviewed_boundary(root, directory, active, parent, approval, scope, cache):
     return (state, memory, scope.round), proof
 
 
+REVIEWED_RECORD_FIELD = "reviewed_recovery_record_sha256"
+REVIEWED_RECORD_FILE = "reviewed_recovery_record.json"
+REVIEWED_RECORD_SCHEMA = "a7_reviewed_owned_recovery_v1"
+MAX_REVIEWED_STEPS = 16
+REVIEWED_OWNED_EVENT_TYPES = ("response.output_item.added", "response.output_item.done")
+STEP_DIGESTS = (
+    "parent_contract_sha256", "parent_authorization_sha256", "request_id", "job_sha256",
+    "result_sha256", "terminal_file_sha256", "progress_file_sha256", "pause_file_sha256", "source_file_sha256",
+)
+
+
+def _matches(pattern, value):
+    return isinstance(value, str) and pattern.fullmatch(value) is not None
+
+
+def _record_scope(record, expected_sha, seed, wave):
+    """Decode a finite append to a frozen anchor. Only an owned upstream terminal is eligible."""
+    fields = {"schema", "seed", "round", "anchor_wave", "checkpoint_sha256", "payload_sha256", "steps"}
+    if (not _matches(SHA256, expected_sha) or type(record) is not dict or set(record) != fields
+            or digest(record) != expected_sha or record["schema"] != REVIEWED_RECORD_SCHEMA
+            or any(type(record[k]) is not int for k in ("seed", "round", "anchor_wave"))
+            or record["seed"] != seed or not _matches(SHA256, record["checkpoint_sha256"])
+            or not _matches(SHA256, record["payload_sha256"])):
+        raise PermissionError("the reviewed recovery record or externally approved SHA differs")
+    steps, anchor_wave = record["steps"], record["anchor_wave"]
+    if type(steps) is not list or not 1 <= len(steps) <= MAX_REVIEWED_STEPS or wave != anchor_wave + len(steps):
+        raise PermissionError("the reviewed recovery record exceeds its finite successor chain")
+    anchor = SCOPES.get((seed, anchor_wave))
+    if (anchor is None or any(lane_seed == seed and lane_wave > anchor_wave for lane_seed, lane_wave in SCOPES)
+            or anchor.original_start_round != anchor.round or anchor.boundary_physical_attempts != 1
+            or anchor.cached_origin is not None or (anchor.round, anchor.payload_sha256)
+            != (record["round"], record["payload_sha256"])):
+        raise PermissionError("the reviewed recovery anchor or scientific payload differs")
+    history = list(anchor.archive)
+    archive_pins = []
+    prior_attempts = {prior.attempt_id for review in history for prior in review.attempts}
+    prior_contracts = {review.identity.contract for review in history}
+    for index, step in enumerate(steps):
+        parent_wave = anchor_wave + index
+        required = {*STEP_DIGESTS, "attempt_id", "cooldown_unix", "provider_request_id", "response_id",
+                    "conflicting_response_id", "event_type"}
+        if (type(step) is not dict or set(step) != required
+                or any(not _matches(SHA256, step[k]) for k in STEP_DIGESTS)
+                or not _matches(ATTEMPT_ID, step["attempt_id"]) or step["attempt_id"] in prior_attempts
+                or step["parent_contract_sha256"] in prior_contracts
+                or type(step["cooldown_unix"]) not in (int, float) or not math.isfinite(step["cooldown_unix"])
+                or step["cooldown_unix"] < anchor.cooldown_unix
+                or (index > 0 and step["cooldown_unix"] < steps[index - 1]["cooldown_unix"])
+                or not _matches(RESPONSE_ID, step["response_id"]) or step["response_id"] == step["conflicting_response_id"]
+                or not response_id_matches_transport_alias(step["provider_request_id"], step["conflicting_response_id"])
+                or step["event_type"] not in REVIEWED_OWNED_EVENT_TYPES
+                or (seed, parent_wave + 1) in SCOPES):
+            raise PermissionError("the reviewed step is repeated, shadows a registered run or lacks owned relay evidence")
+        identity = retry.bounded.RunIdentity(f"-{seed}-relay-retry-{parent_wave:02d}",
+                                            step["parent_contract_sha256"], step["parent_authorization_sha256"])
+        progress = {k: step[k] for k in ("provider_request_id", "response_id", "conflicting_response_id", "event_type")}
+        progress.update(http_status=200, phase="transport_failure", error_type="response_id_mismatch",
+                        provider_error_code="upstream_error", conflicting_event_type="response.failed",
+                        response_id_matches_transport_alias=True, model="gpt-6.2-astra")
+        history.append(Review(identity, step["request_id"], step["attempt_id"], step["job_sha256"],
+                              step["result_sha256"], step["terminal_file_sha256"], step["progress_file_sha256"],
+                              "response_id_mismatch", progress))
+        prior_attempts.add(step["attempt_id"])
+        prior_contracts.add(identity.contract)
+        archive_pins.append((("pause.request", step["pause_file_sha256"]),
+                             (f"round_{anchor.round:02d}/source.json", step["source_file_sha256"])))
+    return replace(anchor, wave=wave, archive=tuple(history), cooldown_field="not_before_unix",
+                   cooldown_unix=steps[-1]["cooldown_unix"], fitted_prefix_files=archive_pins[-1],
+                   original_boundary_physical_attempts=1, reviewed_record_sha256=expected_sha,
+                   previous_reviewed_record_sha256=digest({**record, "steps": steps[:-1]}) if len(steps) > 1 else None,
+                   reviewed_checkpoint_sha256=record["checkpoint_sha256"], reviewed_archive_pins=tuple(archive_pins))
+
+
+def _check_reviewed_owned_result(scope, result):
+    progress = scope.archive[-1].progress
+    failure = result["outcome"].get("failure") or {}
+    expected = {"provider_status": "failed", "provider_request_id": progress["provider_request_id"],
+                "response_id": progress["conflicting_response_id"], "served_model": progress["model"], "usage": {}}
+    if (result["provider_dispatched"] is not True or result["raw_response"] is not None
+            or result["outcome"]["status"] != "failed" or failure.get("code") != "response_id_mismatch"
+            or failure.get("ambiguous") is not True or failure.get("retryable") is not False
+            or failure.get("reply_identity") != expected):
+        raise PermissionError("the reviewed step lacks the original owned upstream failure identity")
+
+
+def _check_reviewed_parent(scope, parent, request, result):
+    if (parent.get("dispatcher_module") != DISPATCHER
+            or parent.get(REVIEWED_RECORD_FIELD) != scope.previous_reviewed_record_sha256
+            or request.get("payload_sha256") != scope.payload_sha256
+            or request["binding"].get("checkpoint_sha256") != scope.reviewed_checkpoint_sha256):
+        raise PermissionError("the reviewed record does not extend the exact parent, payload and checkpoint")
+    _check_reviewed_owned_result(scope, result)
+
+
+def _activate_reviewed_record(run, record, authorization, expected_sha, *, resume):
+    if not _matches(SHA256, expected_sha) or digest(authorization) != expected_sha:
+        raise PermissionError("the reviewed recovery requires its externally approved runtime authorization SHA")
+    receipt = run / REVIEWED_RECORD_FILE
+    if resume:
+        if not receipt.is_file() or read_bridge_json(receipt) != record:
+            raise PermissionError("resume must use the original immutable reviewed recovery record")
+    else:
+        if receipt.exists() or (run / "formal_contract.json").exists() or (run / "authorization.json").exists():
+            raise PermissionError("the reviewed recovery was already activated; use resume")
+        once(receipt, record)
+
+
+def add_reviewed_record_arguments(parser):
+    parser.add_argument("--reviewed-record", type=Path)
+    parser.add_argument("--reviewed-record-sha256")
+
+
 def construct(root, failed_release, failed_run, run, scope):
-    if run.name != scope.run_name or run.parent != failed_run.parent or root == failed_release:
+    if (run.name != scope.run_name or run.parent != failed_run.parent
+            or root == failed_release and scope.previous_reviewed_record_sha256 is None):
         raise PermissionError("use the registered successor and an independent immutable source release")
     records = _archives(failed_run, failed_release, scope)
     last = records[0]
@@ -11285,6 +11413,9 @@ def construct(root, failed_release, failed_run, run, scope):
             or parent.profile[HEADER_DEADLINE_FIELD] != header_deadline.get(HEADER_DEADLINE_FIELD)):
         raise PermissionError("the successor must explicitly preserve its parent's response headers deadline")
     old = parent.predecessor
+    if scope.reviewed_record_sha256 is not None:
+        result = read_bridge_json(failed_run / "bridge/results" / f"{scope.attempt_id}.json")
+        _check_reviewed_parent(scope, old, last["request"], result)
     parent_start = parent.profile["resume_boundaries"][str(scope.seed)]["round"]
     cached_parent = scope.cached_origin is not None and scope.original_start_round is not None
     reviewed_normal_budget = _reviewed_normal_parent_budget(parent, scope)
@@ -11344,6 +11475,8 @@ def construct(root, failed_release, failed_run, run, scope):
         "bridge_wait_seconds": resources["bridge_wait_seconds"],
     }
     proof.update({key: binding[key] for key in ("checkpoint_sha256", "packet_sha256", "wire_packet_sha256", "base_messages_sha256")})
+    if scope.reviewed_record_sha256 is not None:
+        proof[REVIEWED_RECORD_FIELD] = scope.reviewed_record_sha256
     if scope.fitted_prefix_files:
         proof["reviewed_fitted_prefix_files"] = dict(scope.fitted_prefix_files)
     if cached_parent:
@@ -11367,6 +11500,13 @@ def construct(root, failed_release, failed_run, run, scope):
 
 
 def read_scope(parser, args):
+    record_path = getattr(args, "reviewed_record", None)
+    record_sha = getattr(args, "reviewed_record_sha256", None)
+    if record_path is not None or record_sha is not None:
+        if record_path is None or record_sha is None:
+            parser.error("a reviewed record requires both its path and an externally approved SHA")
+        args.reviewed_record_data = read_bridge_json(record_path)
+        return _record_scope(args.reviewed_record_data, record_sha, args.seed, args.wave)
     scope = SCOPES.get((args.seed, args.wave))
     if scope is None:
         parser.error("this seed and wave have no individually reviewed prior attempt and finite scope")
@@ -11382,6 +11522,8 @@ def main():
     parser.add_argument("--failed-run", type=Path, required=True)
     parser.add_argument("--run-dir", type=Path, required=True)
     parser.add_argument("--authorization", type=Path)
+    parser.add_argument("--authorization-sha256")
+    add_reviewed_record_arguments(parser)
     args = parser.parse_args()
     scope = read_scope(parser, args)
     os.umask(0o077)
@@ -11398,8 +11540,18 @@ def main():
     approval = verify_authorization(contract, read(args.authorization))
     if time() < scope.not_before_unix:
         raise PermissionError("the original 180-second relay cooldown is still in force")
-    result = retry.execute(ROOT, failed_run, run, scope, contract, approval, boundary, cache, original,
-                           resume=args.action == "resume")
+    resume = args.action == "resume"
+    if scope.reviewed_record_sha256 is not None:
+        retry._retired(failed_run, scope, require_pause=True)
+        with retry.scheduler._lock(run / "reviewed_recovery_activation.lock",
+                                   busy="this reviewed recovery is already active"):
+            _activate_reviewed_record(run, args.reviewed_record_data, approval, args.authorization_sha256,
+                                      resume=resume)
+            result = retry.execute(ROOT, failed_run, run, scope, contract, approval, boundary, cache, original,
+                                   resume=resume)
+    else:
+        result = retry.execute(ROOT, failed_run, run, scope, contract, approval, boundary, cache, original,
+                               resume=resume)
     print(dumps(asdict(result)))
 
 

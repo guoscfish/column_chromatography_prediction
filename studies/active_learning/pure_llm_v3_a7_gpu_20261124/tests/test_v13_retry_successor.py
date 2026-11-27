@@ -4,7 +4,7 @@ from types import SimpleNamespace
 import pytest
 
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, dumps, file_digest, once
-from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import is_sealed_relay_failure
+from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import TransportStop, is_sealed_relay_failure
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.scripts import (
     dispatch_v13_retry_successor as mac,
     run_v13_retry_successor as gpu,
@@ -96,6 +96,233 @@ def test_2357_dispatcher_rejects_a_changed_or_unreviewed_header_deadline(monkeyp
     info["contract"]["profile"][gpu.HEADER_DEADLINE_FIELD] = 300
     with pytest.raises(PermissionError, match="reviewed archive"):
         mac._scope(info, run, old)
+
+    data_scope = replace(review, reviewed_record_sha256="b" * 64, reviewed_checkpoint_sha256=hex_digest)
+    run, info = signed_info(data_scope)
+    proof = info["contract"]["predecessor"]
+    proof[gpu.REVIEWED_RECORD_FIELD] = data_scope.reviewed_record_sha256
+    assert mac._scope(info, run, data_scope) == proof
+    with pytest.raises(PermissionError, match="reviewed archive"):
+        mac._scope(info, run, review)
+    for field in (gpu.REVIEWED_RECORD_FIELD, "checkpoint_sha256", "previous_authorization_sha256"):
+        original = proof[field]
+        proof[field] = "f" * 64
+        with pytest.raises(PermissionError, match="reviewed archive"):
+            mac._scope(info, run, data_scope)
+        proof[field] = original
+
+
+@pytest.fixture
+def owned_recovery_record():
+    seed = 157
+    wave = max(wave for lane_seed, wave in gpu.SCOPES if lane_seed == seed)
+    anchor = gpu.SCOPES[seed, wave]
+    assert anchor.original_start_round == anchor.round and anchor.boundary_physical_attempts == 1
+    trace = "0f0e0d0c-0004-0040-0002-000000000001"
+    step = {key: format(index + 300, "064x") for index, key in enumerate(gpu.STEP_DIGESTS)}
+    step.update(attempt_id="0" * 31 + "1", cooldown_unix=anchor.cooldown_unix + 301,
+                provider_request_id=trace, response_id="resp_separate",
+                conflicting_response_id="resp_" + trace.replace("-", ""), event_type="response.output_item.added")
+    record = {"schema": gpu.REVIEWED_RECORD_SCHEMA, "seed": seed, "round": anchor.round, "anchor_wave": anchor.wave,
+              "checkpoint_sha256": "f" * 64, "payload_sha256": anchor.payload_sha256, "steps": [step]}
+    return anchor, record
+
+
+def test_reviewed_data_only_scope_requires_external_sha_and_cannot_shadow(owned_recovery_record):
+    anchor, record = owned_recovery_record
+    sha = digest(record)
+    scope = gpu._record_scope(record, sha, anchor.seed, anchor.wave + 1)
+    assert scope.reviewed_record_sha256 == sha and scope.previous_reviewed_record_sha256 is None
+    assert scope.archive[:-1] == anchor.archive and scope.archive[-1].receipt_provider_flags == (True, True)
+    assert scope.boundary_physical_attempts == 1 and scope.required_sources == anchor.required_sources
+    assert scope.not_before_unix == record["steps"][-1]["cooldown_unix"] + 180
+    assert scope.replay_start_round == anchor.round + 1
+    assert scope.archive[-1].progress["event_type"] == record["steps"][0]["event_type"]
+    with pytest.raises(PermissionError, match="externally approved SHA"):
+        gpu._record_scope({**record, "checkpoint_sha256": "e" * 64}, sha, anchor.seed, anchor.wave + 1)
+    with pytest.raises(PermissionError, match="scientific payload"):
+        changed = {**record, "payload_sha256": "e" * 64}
+        gpu._record_scope(changed, digest(changed), anchor.seed, anchor.wave + 1)
+    with pytest.raises(PermissionError, match="anchor"):
+        changed = {**record, "anchor_wave": anchor.wave - 1}
+        gpu._record_scope(changed, digest(changed), anchor.seed, anchor.wave)
+
+
+def test_reviewed_record_next_parent_and_science_must_match(owned_recovery_record):
+    anchor, initial = owned_recovery_record
+    first = initial["steps"][0]
+    second = {**first, "attempt_id": "0" * 31 + "2", "parent_contract_sha256": "9" * 64,
+              "cooldown_unix": first["cooldown_unix"] + 301}
+    record = {**initial, "steps": [first, second]}
+    scope = gpu._record_scope(record, digest(record), anchor.seed, anchor.wave + 2)
+    assert scope.previous_reviewed_record_sha256 == digest(initial)
+    parent = {"dispatcher_module": gpu.DISPATCHER, gpu.REVIEWED_RECORD_FIELD: digest(initial)}
+    request = {"payload_sha256": initial["payload_sha256"],
+               "binding": {"checkpoint_sha256": initial["checkpoint_sha256"]}}
+    identity = {"provider_status": "failed", "provider_request_id": second["provider_request_id"],
+                "response_id": second["conflicting_response_id"], "served_model": "gpt-6.2-astra", "usage": {}}
+    failure = {"reply_identity": identity, "code": "response_id_mismatch", "ambiguous": True, "retryable": False}
+    result = {"provider_dispatched": True, "raw_response": None, "outcome": {"status": "failed", "failure": failure}}
+    gpu._check_reviewed_parent(scope, parent, request, result)
+    for wrong_parent, wrong_request in (
+        ({**parent, gpu.REVIEWED_RECORD_FIELD: "f" * 64}, request),
+        ({**parent, "dispatcher_module": "other"}, request),
+        (parent, {**request, "payload_sha256": "a" * 64}),
+        (parent, {**request, "binding": {"checkpoint_sha256": "b" * 64}}),
+    ):
+        with pytest.raises(PermissionError, match="exact parent, payload and checkpoint"):
+            gpu._check_reviewed_parent(scope, wrong_parent, wrong_request, result)
+    for wrong_identity in ({**identity, "provider_status": "completed"},
+                           {**identity, "response_id": "resp_foreign"},
+                           {**identity, "usage": {"input_tokens": 999}}):
+        wrong = {**result, "outcome": {"status": "failed", "failure": {**failure, "reply_identity": wrong_identity}}}
+        with pytest.raises(PermissionError, match="original owned upstream failure"):
+            gpu._check_reviewed_parent(scope, parent, request, wrong)
+
+
+def test_reviewed_record_denies_repeated_attempt_and_exhaustion(owned_recovery_record):
+    anchor, initial = owned_recovery_record
+    step = initial["steps"][0]
+    repeated = {**initial, "steps": [step, step]}
+    with pytest.raises(PermissionError, match="repeated"):
+        gpu._record_scope(repeated, digest(repeated), anchor.seed, anchor.wave + 2)
+    exhausted = {**initial, "steps": [step] * (gpu.MAX_REVIEWED_STEPS + 1)}
+    with pytest.raises(PermissionError, match="finite successor chain"):
+        gpu._record_scope(exhausted, digest(exhausted), anchor.seed, anchor.wave + len(exhausted["steps"]))
+    for tampered in ({"conflicting_response_id": "resp_unowned"}, {"event_type": "response.output_text.done"},
+                     {"event_type": "response.failed"}, {"event_type": "invented"}):
+        foreign = {**initial, "steps": [{**step, **tampered}]}
+        with pytest.raises(PermissionError, match="owned relay evidence"):
+            gpu._record_scope(foreign, digest(foreign), anchor.seed, anchor.wave + 1)
+
+
+def test_reviewed_activation_requires_exact_authority_and_original_immutable_record(tmp_path, owned_recovery_record):
+    _, record = owned_recovery_record
+    run = tmp_path / "fresh"
+    approval = {"exact-approved-runtime": True}
+    with pytest.raises(PermissionError, match="runtime authorization SHA"):
+        gpu._activate_reviewed_record(run, record, approval, "f" * 64, resume=False)
+    assert not run.exists()
+    with pytest.raises(PermissionError, match="original immutable"):
+        gpu._activate_reviewed_record(run, record, approval, digest(approval), resume=True)
+    gpu._activate_reviewed_record(run, record, approval, digest(approval), resume=False)
+    assert (run / gpu.REVIEWED_RECORD_FILE).is_file()
+    with pytest.raises(PermissionError, match="already activated"):
+        gpu._activate_reviewed_record(run, record, approval, digest(approval), resume=False)
+    with pytest.raises(PermissionError, match="original immutable"):
+        gpu._activate_reviewed_record(run, {**record, "round": 8}, approval, digest(approval), resume=True)
+    gpu._activate_reviewed_record(run, record, approval, digest(approval), resume=True)
+
+
+
+def test_reviewed_source_cannot_open_unrelated_overlay_or_change_frozen_launchers(
+        tmp_path, monkeypatch, owned_recovery_record):
+    anchor, record = owned_recovery_record
+    scope = gpu._record_scope(record, digest(record), anchor.seed, anchor.wave + 1)
+    provider = gpu.STUDY / "a7_gpu/provider.py"
+    launcher = gpu.STUDY / "scripts/run_v13_retry_successor.py"
+    monkeypatch.setattr(gpu, "SIGNED_RETRY_SOURCES", (launcher,))
+    current = {provider: "new provider", launcher: "reviewed launcher"}
+    for name, content in current.items():
+        path = tmp_path / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(content)
+    exact = {name.as_posix(): file_digest(tmp_path / name) for name in current}
+    parent = SimpleNamespace(source_sha256={**exact, launcher.as_posix(): "b" * 64})
+    scope = replace(scope, required_sources=())
+    assert gpu._source_manifest(tmp_path, parent, scope) == exact
+    with pytest.raises(PermissionError, match="outside the audited"):
+        gpu._source_manifest(tmp_path, parent, replace(scope, previous_reviewed_record_sha256="c" * 64))
+    parent.source_sha256[provider.as_posix()] = "a" * 64
+    with pytest.raises(PermissionError, match="outside the audited"):
+        gpu._source_manifest(tmp_path, parent, scope)
+
+
+def test_reviewed_archive_rehashes_both_generations_and_denies_an_old_tamper(
+        tmp_path, monkeypatch, owned_recovery_record):
+    anchor, initial = owned_recovery_record
+    original = initial["steps"][0]
+    approval = {"approved": "first"}
+    first = {**original, "parent_authorization_sha256": digest(approval)}
+    second = {**first, "attempt_id": "0" * 31 + "2", "parent_contract_sha256": "a" * 64,
+              "cooldown_unix": first["cooldown_unix"] + 301, "event_type": "response.output_item.done"}
+    names = [retry_name(anchor.seed, wave) for wave in (anchor.wave, anchor.wave + 1)]
+    release = tmp_path / "immutable"
+    for index, (name, step) in enumerate(zip(names, (first, second), strict=True)):
+        run = tmp_path / name
+        directory = run / f"seed_{anchor.seed}"
+        source = directory / f"round_{anchor.round:02d}" / "source.json"
+        pause = directory / "pause.request"
+        once(source, {"state": "same science"})
+        once(pause, {"coordinator": index})
+        once(run / "provider_model_lock.json", {"served_model": "gpt-6.2-astra"})
+        step.update(source_file_sha256=file_digest(source), pause_file_sha256=file_digest(pause))
+    record = {**initial, "steps": [first, second]}
+    scope = gpu._record_scope(record, digest(record), anchor.seed, anchor.wave + 2)
+    older, newer = scope.archive[-2:]
+    assert newer.progress["event_type"] == "response.output_item.done"
+    assert older.progress["event_type"] == "response.output_item.added"
+    scope = replace(scope, archive=(older, newer))
+    first_run, second_run = (tmp_path / name for name in names)
+    model = {"served_model": "gpt-6.2-astra"}
+    receipts = {first_run: [{"frozen": "prior"}], second_run: [{"frozen": "latest"}]}
+    contracts = {
+        first_run: SimpleNamespace(digest=older.identity.contract, predecessor={"model_identity": model}),
+        second_run: SimpleNamespace(digest=newer.identity.contract, predecessor={
+            "model_identity": model, "previous_contract_sha256": older.identity.contract,
+            "previous_authorization_sha256": digest(approval), "previous_attempts": receipts[first_run],
+            "previous_run_directory": str(first_run), "previous_release_directory": str(release),
+        }),
+    }
+
+    def archived(run, frozen, identity):
+        assert frozen == release and contracts[run].digest == identity.contract
+        return contracts[run], approval
+
+    def retired(run, scope, *, require_pause):
+        directory = run / f"seed_{scope.seed}"
+        return directory, directory / f"round_{scope.round:02d}"
+
+    monkeypatch.setattr(gpu.retry.bounded, "_archived", archived)
+    monkeypatch.setattr(gpu.retry, "_retired", retired)
+    monkeypatch.setattr(gpu, "_evidence", lambda run, *_: ({"exact": "request"}, receipts[run], {}))
+    monkeypatch.setattr(gpu.retry, "_compare_science", lambda current, previous, _: current == previous)
+    assert len(gpu._archives(second_run, release, scope)) == 2
+    old_pause = first_run / f"seed_{anchor.seed}" / "pause.request"
+    old_pause.write_text("different signed predecessor")
+    with pytest.raises(PermissionError, match="exact reviewed predecessor pause or source"):
+        gpu._archives(second_run, release, scope)
+
+
+def retry_name(seed, wave):
+    return f"{gpu.retry.bounded.PREFIX}-{seed}-relay-retry-{wave:02d}"
+
+
+def test_reviewed_start_lock_and_mac_boundary_gate_allow_one_after_cooldown(tmp_path, monkeypatch, owned_recovery_record):
+    anchor, record = owned_recovery_record
+    scope = gpu._record_scope(record, digest(record), anchor.seed, anchor.wave + 1)
+    guard = tmp_path / "reviewed_recovery_activation.lock"
+    approval = {"approved": True}
+    with gpu.retry.scheduler._lock(guard, busy="duplicate reviewed startup"):
+        gpu._activate_reviewed_record(tmp_path, record, approval, digest(approval), resume=False)
+        with pytest.raises(TransportStop, match="duplicate reviewed startup"):
+            with gpu.retry.scheduler._lock(guard, busy="duplicate reviewed startup"):
+                pytest.fail("a competing startup cannot enter the activation window")
+    dispatcher = mac.SuccessorDispatcher.__new__(mac.SuccessorDispatcher)
+    dispatcher.reviewed_scope = scope
+    checked = []
+    monkeypatch.setattr(mac.RelayRetryDispatcher, "_check_boundary", lambda self, request, started: checked.append(started))
+    attempt = {"attempt": 0, "attempt_id": "fresh"}
+    monkeypatch.setattr(mac, "time", lambda: scope.not_before_unix - 0.001)
+    with pytest.raises(PermissionError, match="cooldown"):
+        dispatcher._check_boundary({}, attempt)
+    monkeypatch.setattr(mac, "time", lambda: scope.not_before_unix)
+    dispatcher._check_boundary({}, attempt)
+    with pytest.raises(PermissionError, match="signed physical attempts"):
+        dispatcher._check_boundary({}, {**attempt, "attempt": 1})
+    with pytest.raises(PermissionError, match="signed physical attempts"):
+        dispatcher._check_boundary({}, {**attempt, "attempt_id": scope.attempt_id})
+    assert checked == [attempt]
 
 
 def test_a_post_upload_header_timeout_never_authorizes_the_second_slot():
