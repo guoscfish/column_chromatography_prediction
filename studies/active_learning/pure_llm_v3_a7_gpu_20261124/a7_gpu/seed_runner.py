@@ -501,6 +501,7 @@ def _imported_boundary_reply_limit(contract, run, seed, start, *, audited, repla
     normal_boundaries = {
         "dispatch_v13_887_r33_continuation": (887, 33),
         "dispatch_v13_6101_r9_continuation": (6101, 9),
+        "dispatch_v13_6101_r11_continuation": (6101, 11),
     }
     boundary = normal_boundaries.get(dispatcher) if isinstance(dispatcher, str) else None
     full_round = contract.profile.get("full_imported_boundary_round")

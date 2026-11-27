@@ -1,0 +1,27 @@
+diff --git a/studies/active_learning/pure_llm_v3_a7_gpu_20261124/a7_gpu/seed_runner.py b/studies/active_learning/pure_llm_v3_a7_gpu_20261124/a7_gpu/seed_runner.py
+index 1f983a4..3a371a2 100644
+--- a/studies/active_learning/pure_llm_v3_a7_gpu_20261124/a7_gpu/seed_runner.py
++++ b/studies/active_learning/pure_llm_v3_a7_gpu_20261124/a7_gpu/seed_runner.py
+@@ -502 +502,3 @@ def _imported_boundary_reply_limit(contract, run, seed, start, *, audited, repla
+-    if full_round is None and dispatcher != "dispatch_v13_6101_r9_continuation":
++    allowed = {"dispatch_v13_6101_r9_continuation": 9, "dispatch_v13_6101_r11_continuation": 11}
++    expected_round = allowed.get(dispatcher) if isinstance(dispatcher, str) else None
++    if full_round is None and expected_round is None:
+@@ -504,5 +506,5 @@ def _imported_boundary_reply_limit(contract, run, seed, start, *, audited, repla
+-    if (type(full_round) is not int or full_round != 9
+-            or dispatcher != "dispatch_v13_6101_r9_continuation"
+-            or run.name != "a7-gpt62-astra-xhigh-ipv4-v13-6101-r9-continuation-01"
+-            or (seed, start, contract.seed_ids, contract.rounds, contract.target_labels) != (6101, 9, (6101,), 36, 1485)
+-            or not audited or replay_start != 9 or relay_delay != SEALED_RELAY_RETRY_SECONDS
++    if (expected_round is None or type(full_round) is not int or full_round != expected_round
++            or run.name != f"a7-gpt62-astra-xhigh-ipv4-v13-6101-r{expected_round}-continuation-01"
++            or (seed, start, contract.seed_ids, contract.rounds, contract.target_labels)
++            != (6101, expected_round, (6101,), 36, 1485)
++            or not audited or replay_start != expected_round or relay_delay != SEALED_RELAY_RETRY_SECONDS
+@@ -512,3 +514,3 @@ def _imported_boundary_reply_limit(contract, run, seed, start, *, audited, repla
+-            or predecessor.get("execution_budget") != {"first_logical_requests": 27,
+-                 "maximum_logical_requests": 81, "maximum_physical_attempts": 162}):
+-        raise PermissionError("the imported R9 normal-round budget differs from its exact signed scope")
++            or predecessor.get("execution_budget") != {"first_logical_requests": 36 - expected_round,
++                 "maximum_logical_requests": 3 * (36 - expected_round), "maximum_physical_attempts": 6 * (36 - expected_round)}):
++        raise PermissionError(f"the imported R{expected_round} normal-round budget differs from its exact signed scope")
