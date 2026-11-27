@@ -8107,6 +8107,33 @@ RELAY_887_WAVE11_SOURCES = {"studies/active_learning/pure_llm_v3_a7_gpu_20261124
  "studies/active_learning/pure_llm_v3_a7_gpu_20261124/scripts/run_v13_retry_successor.py": "1216375461d021bfa5acf023689cb4d4b8a39df25b91e534975a645852aa0e3a",
  "studies/active_learning/pure_llm_v3_a7_gpu_20261124/scripts/dispatch_v13_retry_successor.py": "6111c04c5c1eb6688e5cf6d0b086d4c1d8179a7bfcd7a9e9d04e8f572fce38de"}
 
+REPAIR_2357_R11_SEGMENT = "ipv4_2357_r11_targeted_repair"
+REPAIR_2357_R11_RUN = f"{SERIAL_IPV4}-2357-r11-targeted-repair-01"
+REPAIR_2357_R11_PRIOR = f"{SERIAL_IPV4}-2357-relay-retry-57"
+REPAIR_2357_R11_IDENTITY = ("2e2c2919fc76305aa08f973c7a2a253089f19afbb44519d30afadd30427790dc",
+                            "2b20a6e2e1e097519fe93a260c1e18f0650f3383f754111b269c5002e8495d88")
+REPAIR_2357_R11_PRIOR_IDENTITY = ("105def65b9818ce48027ea57fee5afe8797985f0342a1d51012bcf06f19afca6",
+                                  "f97d559649f6a4da095a1a4eb6f14cffaa5a5659e57c56f91781eb73fea2a08f")
+REPAIR_2357_R11_CHECKPOINT = "484852bdaef0412c43736a70622d99c11b8123c8b75046f8ed6465d9bcda55bc"
+REPAIR_2357_R11_METADATA = ("2120256120aeae054cec25f5c8ddc50afff653b138cc3dd9f9a29b5c6c9cf331",
+                            "2a53fda170d739cfbde3404b7cd58d45b0b323e36c2b5352b28fb81d5c3ede50")
+REPAIR_2357_R11_ORIGINAL = {'seed_2357/pause.request': '7d663284735091b737e673082f3ddffaad3067cb7aae44512cbac55df20416b5',
+ 'seed_2357/round_11/turn_00/attempt_00.terminal.json': '5864da7def00ccf41a6dca462d1de710b9b41e11341a33d13e13e3fad0b2efc4',
+ 'seed_2357/round_11/turn_00/decision.json': '697a8242b714c52fb0cb2012b5c872c43644e94b44f7a7830720e60cdcc289a6',
+ 'bridge/results/e66838b3d4734ccca71c1877017a8723.json': 'b94e2d70dded2a02e5cc48cdd93a053aff97dd7a7bb334b6c2935da425c97509'}
+REPAIR_2357_R11_FITTED = {'round_11/batch_freeze.json': 'a8389ac86daf6808ea9f30b60fd9f331098a3c13fa1a4556c9a678533088c62c',
+ 'round_11/selection.json': 'c6c5456edafc195f9cbfb9ffdcf07b013f5fbdf29bef0513ca4ed6ee470b3202',
+ 'round_11/turn_00/decision.json': '718864eaa21eb589f971976b2500542aea2624e6283ad7e4d7eccfea5e44b8b4',
+ 'round_11/turn_00/response_projection.json': 'f123bed46e6de63f79d38e3a4e74e30e3db6228dafc263fbcaf6cdffebe86edf',
+ 'round_11/turn_00/attempt_00.terminal.json': '7ff1aa9e40f7b5a30622e733d9b302415ad45f3fe05a831f53e60480d2bc251d',
+ 'round_11/memory.json': '8c3792d0530fd5811f1f04034bc8d8bd063dbb1eefbc8c269a13d26bcb585cf5',
+ 'round_12/source.json': 'f0b5a69bfd374c19ba966a29009216e4b63b8deebb473b0a7d87b3975cab8ffb',
+ 'round_12/transition.json': 'ca087b22587f7020b4216f6f9c98db475334575604e9b32ec447e26a4d21c548',
+ 'round_12/fit_000/fit_audit.json': 'e73ae77356ec65d00b7474143a1e41ff374936e3b95994261d229161c77f1300',
+ 'round_12/fit_000/validation_metrics.json': '407236f1355d2415c673de59287a428f1d18247ad9c69239c834a929955ba39b',
+ 'round_12/fit_000/best.pt': '484852bdaef0412c43736a70622d99c11b8123c8b75046f8ed6465d9bcda55bc'}
+
+
 REPAIR_887_R32_RUN = f"{SERIAL_IPV4}-887-r32-targeted-repair-01"
 REPAIR_887_R32_CONTRACT = "653ec5d2732e72bfc317c084c98671890030ffda0c361cd52570fd1ef22bde50"
 REPAIR_887_R32_AUTH = "7a429145f5aaf60783e82fad5ca18975d3b53fd180066cd25946b8ebfe95956a"
@@ -11213,6 +11240,37 @@ def r33_after_887_targeted_repair(runs, previous, previous_contract):
     return run, CONTINUATION_887_R33_CONTRACT, 33, profile["ipv4_readiness_windows"]
 
 
+def r11_2357_targeted_fit(runs):
+    """Show L717 only with the exact signed correction and its completed fit artifacts."""
+    run, previous = (runs / name for name in (REPAIR_2357_R11_RUN, REPAIR_2357_R11_PRIOR))
+    prior, prior_auth = REPAIR_2357_R11_PRIOR_IDENTITY
+    contract, approval = REPAIR_2357_R11_IDENTITY
+    dispatch = "dispatch_v13_2357_r11_targeted_repair"
+    if (fallback_contract(previous) != prior
+            or record_digest(read_json(previous / "authorization.json")) != prior_auth):
+        return None
+    verified = _signed_recovery_successor(run, 2357, previous, prior, dispatch, 1, previous_suffix="relay-retry-57",
+                                          target_labels=717)
+    if (verified is None or verified[:2] != (contract, 11)
+            or record_digest(read_json(run / "authorization.json")) != approval):
+        return None
+    _, start, profile, proof = verified
+    metadata = profile.get("fixed_reference_repair")
+    evidence = run / "fixed_reference_repair.json"
+    if (proof.get("prior_response_reposted") is not False
+            or proof.get("fixed_reference_repair_sha256") != REPAIR_2357_R11_METADATA[0]
+            or read_json(evidence) != metadata
+            or (record_digest(metadata), checksum(evidence)) != REPAIR_2357_R11_METADATA
+            or any(checksum(previous / name) != sha for name, sha in REPAIR_2357_R11_ORIGINAL.items())):
+        return None
+    directory = run / "seed_2357"
+    fit_round, metrics = latest_round(directory)
+    if (fit_round != 12 or metrics.get("checkpoint_sha256") != REPAIR_2357_R11_CHECKPOINT
+            or any(checksum(directory / name) != sha for name, sha in REPAIR_2357_R11_FITTED.items())):
+        return None
+    return run, contract, start, profile["ipv4_readiness_windows"]
+
+
 def r32_targeted_repair(runs, previous, previous_contract):
     if previous_contract != RELAY_887_WAVE11_CONTRACT:
         return None
@@ -12789,6 +12847,13 @@ def remote_seed(runs, seed, relay_pins=None):
         pinned_relay = exact_successor is not None
         segment = f"ipv4_relay_retry_{int(run.name.rsplit('-', 1)[1]):02d}"
         relay_retry = RELAY_RETRY_SECONDS
+    if seed == 2357 and (latest_round(run / "seed_2357")[0] or 0) < 12:
+        if fitted_repair := r11_2357_targeted_fit(runs):
+            ancestors = (run, *ancestors)
+            run, contract, recovery_round, readiness_windows = fitted_repair
+            segment = REPAIR_2357_R11_SEGMENT
+            relay_retry = relay_boundary_not_before = dynamic_relay = None
+            pinned_relay = False
     if seed in UNSTARTED_ANCHORS and not cohort_contract and not any(
         (path / f"seed_{seed}").exists() for path in (run, *ancestors)
     ):
@@ -13492,7 +13557,7 @@ def remote_seed(runs, seed, relay_pins=None):
     elif ((segment == "ipv4_r8_cached_correction" and latest == 9) or (local_887_fit and latest == 14)
           or (local_887_r19_fit and latest == 20)):
         phase = "cached_correction_round_complete"
-    elif segment in ("ipv4_r8_targeted_repair", "ipv4_887_r13_targeted_repair",
+    elif segment in ("ipv4_r8_targeted_repair", "ipv4_887_r13_targeted_repair", REPAIR_2357_R11_SEGMENT,
                      "ipv4_887_r32_targeted_repair", "ipv4_6101_r8_targeted_repair") and latest == recovery_round + 1:
         phase = "targeted_repair_round_complete"
     elif segment in ("ipv4_extension", "ipv4_json_extension", "ipv4_ws_extension") and latest == IPV4_EXTENSION_END_ROUNDS[seed] and (
@@ -13553,6 +13618,9 @@ def remote_seed(runs, seed, relay_pins=None):
                 "ipv4_relay_retry_07", "ipv4_relay_retry_08", "ipv4_relay_retry_09", "ipv4_relay_retry_10",
                 "ipv4_887_r13_cached_correction", "ipv4_887_r14_continuation",
                 "ipv4_887_r19_cached", "ipv4_887_r20_continuation") else {}),
+            **({"segment_target_labels": 717, "response_headers_seconds": 300,
+                "targeted_repair": {"round": 11, "fitted_labels": 717, "choice_count": 32, "repaired_hypothesis_citations": 1}}
+               if segment == REPAIR_2357_R11_SEGMENT else {}),
             **({"segment_target_labels": 1389} if segment == "ipv4_887_r32_targeted_repair" else {}),
             **({"segment_target_labels": 621} if segment == "ipv4_6101_r8_targeted_repair" else {}),
             **({"targeted_repair": {"round": 8, "fitted_labels": 621, "choice_count": 32, "repaired_references": 2},
@@ -13867,6 +13935,7 @@ def dispatcher_pid(seed, segment):
                        "ipv4_r8_targeted_repair": "a7-ipv4-v13-887-r8-targeted-repair-01",
                        "ipv4_887_r13_targeted_repair": "a7-ipv4-v13-887-r13-targeted-repair-01",
                        "ipv4_887_r32_targeted_repair": "a7-ipv4-v13-887-r32-targeted-repair-01",
+                       REPAIR_2357_R11_SEGMENT: "a7-ipv4-v13-2357-r11-targeted-repair-01",
                        "ipv4_6101_r8_targeted_repair": "a7-ipv4-v13-6101-r8-targeted-repair-01",
                        "ipv4_6101_r9_continuation": "a7-ipv4-v13-6101-r9-continuation-01",
                        "ipv4_6101_r11_continuation": "a7-ipv4-v13-6101-r11-continuation-01",
@@ -14047,7 +14116,9 @@ def show(view):
             print(f"  R{limits['round']} 恢复每轮最多 {limits['logical']} 个逻辑请求，每个最多 "
                   f"{limits['physical_per_logical']} 次提交，本段总上限 {limits['physical_total']} 次。")
         if repair := row.get("targeted_repair"):
-            print(f"  R{repair['round']} 定向修复 {repair['repaired_references']} 条引用，"
+            kind = (f"{repair['repaired_hypothesis_citations']} 条假设引用" if "repaired_hypothesis_citations" in repair
+                    else f"{repair['repaired_references']} 条引用")
+            print(f"  R{repair['round']} 定向修复 {kind}，"
                   f"保留 {repair['choice_count']} 个原选点并已训练至 L{repair['fitted_labels']}。")
         if segment_target := row.get("segment_target_labels"):
             print(f"  本段定向纠错及训练目标 L{segment_target}。")

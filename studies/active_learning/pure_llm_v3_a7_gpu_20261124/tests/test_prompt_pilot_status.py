@@ -4287,3 +4287,63 @@ def test_6101_r11_monitor_requires_the_signed_cached_handoff_and_normal_budget(t
     profile["transport"] = {"logical_replies": 3, "transport_attempts": 2}
     proof["r10_handoff"] = {**handoff, "provider_post": True}
     assert status_row() is None
+
+
+def test_2357_r11_targeted_status_requires_exact_fit_and_original_receipts(tmp_path, monkeypatch):
+    status = prompt_pilot_status
+    previous = tmp_path / status.REPAIR_2357_R11_PRIOR
+    run = tmp_path / status.REPAIR_2357_R11_RUN
+    directory = run / "seed_2357"
+    descriptor = {"2357": {"round": 11}}
+
+    def publish(path, record):
+        contract = status.record_digest(record)
+        approval = {"contract_sha256": contract, **dict.fromkeys(status.FORMAL_APPROVAL_FLAGS, True)}
+        write_json(path / "formal_contract.json", record)
+        write_json(path / "authorization.json", approval)
+        return contract, status.record_digest(approval)
+
+    prior = publish(previous, {"run_directory": str(previous), "profile": {"resume_boundaries": descriptor}})
+    monkeypatch.setattr(status, "REPAIR_2357_R11_PRIOR_IDENTITY", prior)
+    for name in status.REPAIR_2357_R11_ORIGINAL:
+        write_json(previous / name, {"file": name})
+    old_hashes = {name: status.checksum(previous / name) for name in status.REPAIR_2357_R11_ORIGINAL}
+    monkeypatch.setattr(status, "REPAIR_2357_R11_ORIGINAL", old_hashes)
+    metadata = {"repair_index": 31, "field": "hypothesis_id", "required_hypothesis_id": None}
+    path = run / "fixed_reference_repair.json"
+    write_json(path, metadata)
+    metadata_sha = status.record_digest(metadata)
+    monkeypatch.setattr(status, "REPAIR_2357_R11_METADATA", (metadata_sha, status.checksum(path)))
+    signed = {"run_directory": str(run),
+              "profile": {"confirmation_seeds": [2357], "target_labels": 717, "resume_boundaries": descriptor,
+                          "ipv4_readiness_windows": 3, "fixed_reference_repair": metadata},
+              "predecessor": {"dispatcher_module": "dispatch_v13_2357_r11_targeted_repair", "seed": 2357, "round": 11,
+                              "previous_run_directory": str(previous), "previous_contract_sha256": prior[0],
+                              "previous_authorization_sha256": prior[1], "prior_response_reposted": False,
+                              "fixed_reference_repair_sha256": metadata_sha,
+                              "recovery_budget": {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}}}
+    current = publish(run, signed)
+    monkeypatch.setattr(status, "REPAIR_2357_R11_IDENTITY", current)
+    write_json(directory / "round_11/turn_00/attempt_00.terminal.json", {"status": "completed"})
+    assert status.r11_2357_targeted_fit(tmp_path) is None
+
+    for name in status.REPAIR_2357_R11_FITTED:
+        write_json(directory / name, {"file": name})
+    fit = directory / "round_12"
+    write_json(fit / "transition.json", {
+        "fit_path": "fit_000", "checkpoint_sha256": status.REPAIR_2357_R11_CHECKPOINT,
+        "source_sha256": status.checksum(fit / "source.json"),
+        "validation_metrics_sha256": status.checksum(fit / "fit_000/validation_metrics.json"),
+    })
+    hashes = {name: status.checksum(directory / name) for name in status.REPAIR_2357_R11_FITTED}
+    monkeypatch.setattr(status, "REPAIR_2357_R11_FITTED", hashes)
+    assert status.r11_2357_targeted_fit(tmp_path) == (run, current[0], 11, 3)
+    row = status.remote_seed(tmp_path, 2357)
+    assert (row["segment"], row["labels"], row["completed_rounds"], row["phase"]) == (
+        status.REPAIR_2357_R11_SEGMENT, 717, 12, "targeted_repair_round_complete")
+    assert row["target_labels"] == 1485 and row["segment_target_labels"] == 717
+    write_json(fit / "fit_000/best.pt", {"tampered": True})
+    assert status.r11_2357_targeted_fit(tmp_path) is None
+    write_json(fit / "fit_000/best.pt", {"file": "round_12/fit_000/best.pt"})
+    write_json(previous / "seed_2357/pause.request", {"changed": True})
+    assert status.r11_2357_targeted_fit(tmp_path) is None
