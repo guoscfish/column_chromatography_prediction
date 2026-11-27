@@ -3954,6 +3954,26 @@ def test_live_dispatch_keeps_scientific_status_and_checks_gpfs_manifest(tmp_path
     assert not status.live_dispatch_report(runs, [next_pin])
 
 
+def test_completed_887_review_pins_accepted_rounds_and_hides_exited_worker(capsys):
+    status = prompt_pilot_status
+    anchor = f"{status.SERIAL_IPV4}-887-relay-retry-35"
+    fixed = status.EXACT_RETIRED_REVIEWED_BRIDGES[(anchor, 887)]
+    assert (fixed["anchor_wave"], fixed["wave"], fixed["round"], fixed["release_wave"]) == (35, 51, 34, 37)
+    assert fixed["current"][0] == "aad48aec5e924f6e72a71e374c80d3d876399594da386321c13d9fb89d87fea7"
+    pins = fixed["fitted_files"]
+    assert pins["round_35/transition.json"] == "4ab7f9239b53a2d591fb24300bbefb6e843aebd40fd66442dd0910c0b133f857"
+    assert pins["round_36/transition.json"] == "e888928ede838ffa856a8cca33037b351179747ddef60cc99fd6cc8844041ccf"
+    assert pins["round_36/fit_000/best.pt"] == "28417d8e27e7dca4587eb251004a75271d5bd8df9aaa05ef92a17b9f0b55f3a6"
+    assert "round_34/batch_freeze.json" in pins and "round_35/batch_freeze.json" in pins
+    row = {"seed": 887, "labels": 1485, "target_labels": 1485, "completed_rounds": 36, "target_rounds": 36,
+           "phase": "complete", "worker_pid": 157397, "worker_active": False, "coordinator_pid": 157397,
+           "coordinator_active": False, "run": f"{status.SERIAL_IPV4}-887-relay-retry-51", "api": {}}
+    status.show({"seeds": [row], "gpus": [], "mac": {"keys": [], "limits": {}, "queue": []}})
+    output = capsys.readouterr().out
+    assert "seed 887  L1485/L1485  rounds 36/36  complete  worker —  coordinator —" in output
+    assert "157397" not in output
+
+
 def test_fixed_active_review_requires_response_owned_by_the_exact_request(tmp_path):
     status = prompt_pilot_status
     attempt = "a" * 32

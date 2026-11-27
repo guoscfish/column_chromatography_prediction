@@ -12246,6 +12246,37 @@ EXACT_RETIRED_REVIEWED_BRIDGES = {
         "checkpoint": "c81f34b104de3873a9fd54dfad4323b118dcab6e208281d3c3e95db68c5fe710",
         "payload": "eb9170128722472e627a9ae16fa23692c1fc19c3ed6156513bde1c98e0c45a91",
     },
+    (f"{SERIAL_IPV4}-887-relay-retry-35", 887): {
+        "anchor_wave": 35, "wave": 51, "round": 34,
+        "anchor_contract": "e433223c758777fe740249823f175d5af3bdcc889f826a2f4b0b6df0c8b534fa",
+        "current": ("aad48aec5e924f6e72a71e374c80d3d876399594da386321c13d9fb89d87fea7",
+                    "d0e95578a5e0b3165abacfcf3b0e567c1dcb4b3946f550e97c5bdfcf39ecee34"),
+        "package": "66eb3b2777266f8a67d1262e3b5d5d35cda3f26ec706f525a2d642ad942cea76",
+        "release_wave": 37, "legacy_alias_wave": 35,
+        "active_record": "9979b4da316d15402756e18d1f6ce80eaaf2e2a4ffcf552fd79930c2c182151e",
+        "checkpoint": "c81f34b104de3873a9fd54dfad4323b118dcab6e208281d3c3e95db68c5fe710",
+        "payload": "eb9170128722472e627a9ae16fa23692c1fc19c3ed6156513bde1c98e0c45a91",
+        "fitted_files": {
+            "round_34/batch_freeze.json": "f47ad9eaf3dec5149d1553964e916a71b173692c608a4534f810e9a6698d0603",
+            "round_34/selection.json": "2709e708e3d51df63f463a50d24018dc46e5dccaf431eb7b72a2a0b64203dd7f",
+            "round_34/turn_00/decision.json": "718864eaa21eb589f971976b2500542aea2624e6283ad7e4d7eccfea5e44b8b4",
+            "round_34/turn_00/attempt_00.terminal.json": "9879dfcf10599bdd6e13374235f743deb278aceacc770f8f6862b8d262246502",
+            "round_35/source.json": "cbc8b60f175f19d99708aebe69bef4a8129f8caafae15686f24545071899ca8d",
+            "round_35/transition.json": "4ab7f9239b53a2d591fb24300bbefb6e843aebd40fd66442dd0910c0b133f857",
+            "round_35/fit_000/best.pt": "1a086e810122cc31616841fce4eaac7e9bc1ebdac6e3313fbdcd5404a89e7009",
+            "round_35/fit_000/validation_metrics.json": "151752c76906549c530039918e14196f1d382d9004c75fe0a80a0df2f9c55066",
+            "round_35/fit_000/fit_audit.json": "8b8d7d4621ca073ea5813805607aa54cc9eb230bc23d4bf946836b86f108d77b",
+            "round_35/batch_freeze.json": "6a6a4907368d82db492c361bec3894cf4b58fe9fd68a1045f1ca27bd69c68feb",
+            "round_35/selection.json": "f0b98edade74f14ccbf69897e59320b89a0c629f6f3c74fdfe0c287ffb32f819",
+            "round_35/turn_00/decision.json": "2a009fcd4dbbaae27ee03ffca21909900ba0cbe117f670dd5553f3673e44941f",
+            "round_35/turn_00/attempt_00.terminal.json": "448e130f5c6f27d85428637dfaf6f05cdfb74ea6d334a85c6968ee9e4669af3a",
+            "round_36/source.json": "260dfd3491f9ff9c242faa0418bf2bb056a743a33d7578f6d14cbf5d44bd27f9",
+            "round_36/transition.json": "e888928ede838ffa856a8cca33037b351179747ddef60cc99fd6cc8844041ccf",
+            "round_36/fit_000/best.pt": "28417d8e27e7dca4587eb251004a75271d5bd8df9aaa05ef92a17b9f0b55f3a6",
+            "round_36/fit_000/validation_metrics.json": "13a3d70d5f9e344649321dc26196ad57b6177a077bfb8d4e4e1c0d5da0f06a4d",
+            "round_36/fit_000/fit_audit.json": "f94e95660e00e64d610384ae6e9dec1b8b40c6f277f354bd821e48b862490a5e",
+        },
+    },
     (f"{SERIAL_IPV4}-2357-relay-retry-40", 2357): {
         "anchor_wave": 40, "wave": 50, "round": 5, "retired_anchor_wave": 46,
         "anchor_contract": "36e5ac24cf5299b417f1c2ff4d57487106a9b00cf62da5f4e33b6f205950f630",
@@ -14004,9 +14035,11 @@ def show(view):
         api = row["api"]
         provider = row.get("provider") or {}
         rounds = row["completed_rounds"] if row["completed_rounds"] is not None else "—"
+        worker = row["worker_pid"] if row.get("worker_active", True) else None
+        coordinator = row["coordinator_pid"] if row.get("coordinator_active", True) else None
         print(f"seed {row['seed']}  L{row['labels'] or '—'}/L{row['target_labels']}  "
-              f"rounds {rounds}/{row['target_rounds']}  {row['phase']}  worker {row['worker_pid'] or '—'}  "
-              f"coordinator {row['coordinator_pid'] or '—'}  Mac {row.get('dispatcher_pid') or '—'}  {row['run'] or '—'}")
+              f"rounds {rounds}/{row['target_rounds']}  {row['phase']}  worker {worker or '—'}  "
+              f"coordinator {coordinator or '—'}  Mac {row.get('dispatcher_pid') or '—'}  {row['run'] or '—'}")
         if limits := row.get("normal_api_limits"):
             print(f"  常规选点每轮最多 {limits['logical_per_round']} 个逻辑请求，每个最多 "
                   f"{limits['physical_per_logical']} 次提交，本段总上限 {limits['physical_total']} 次。")
