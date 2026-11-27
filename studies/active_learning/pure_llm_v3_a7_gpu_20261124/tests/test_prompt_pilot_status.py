@@ -3815,6 +3815,26 @@ def test_live_dispatch_accepts_reviewed_launch_only_with_local_exact_private_pai
     assert discovered(flags) == []
 
 
+def test_monitor_distinguishes_failed_remote_snapshot_and_gpu_query(capsys):
+    status = prompt_pilot_status
+    cases = (
+        (status.subprocess.CalledProcessError(255, "ssh", stderr="private command details"), "ssh_failed"),
+        (status.subprocess.CalledProcessError(1, "ssh"), "remote_status_failed"),
+        (status.subprocess.TimeoutExpired("ssh", 30), "snapshot_timeout"),
+        (OSError("local SSH could not start"), "ssh_start_failed"),
+        (ValueError("bad JSON"), "invalid_snapshot"),
+    )
+    mac = {"keys": [], "limits": {}, "queue": []}
+    for error, code in cases:
+        assert status._remote_status_error(error) == code
+        status.show({"remote_unavailable": True, "remote_error": code, "mac": mac})
+        output = capsys.readouterr().out
+        assert status.REMOTE_STATUS_ERRORS[code] in output
+        assert "GPU 查询暂不可用" not in output and "private command details" not in output
+    status.show({"gpus": None, "mac": mac})
+    assert "GPU 查询暂不可用" in capsys.readouterr().out
+
+
 def test_live_dispatch_keeps_scientific_status_and_checks_gpfs_manifest(tmp_path, monkeypatch):
     status = prompt_pilot_status
     runs = tmp_path.resolve() / "runs"

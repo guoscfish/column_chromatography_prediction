@@ -13979,6 +13979,25 @@ def owned_upstream_failure(provider):
     )
 
 
+REMOTE_STATUS_ERRORS = {
+    "ssh_failed": "SSH 状态连接失败，未取得远端 GPU 数据",
+    "snapshot_timeout": "远端状态收集超时，未取得 GPU 数据",
+    "remote_status_failed": "远端状态程序退出，未取得 GPU 数据",
+    "ssh_start_failed": "无法启动 SSH 状态查询",
+    "invalid_snapshot": "状态快照格式错误，未取得 GPU 数据",
+}
+
+
+def _remote_status_error(error):
+    if isinstance(error, subprocess.TimeoutExpired):
+        return "snapshot_timeout"
+    if isinstance(error, subprocess.CalledProcessError):
+        return "ssh_failed" if error.returncode == 255 else "remote_status_failed"
+    if isinstance(error, OSError):
+        return "ssh_start_failed"
+    return "invalid_snapshot"
+
+
 def show(view):
     print(f"A7 status  {view.get('checked_at', '—')}")
     for row in view.get("seeds", ()):
@@ -14129,7 +14148,9 @@ def show(view):
         print(f"GPU {gpu} (MiB used, MiB total, utilization %)")
     for process in view.get("gpu_processes") or ():
         print(f"  GPU 计算进程 {process}")
-    if view.get("gpus") is None:
+    if view.get("remote_unavailable"):
+        print(REMOTE_STATUS_ERRORS.get(view.get("remote_error"), "远端状态暂不可用"))
+    elif view.get("gpus") is None:
         print("GPU 查询暂不可用")
     mac = view["mac"]
     print("共享 Key 池", ", ".join(f"{row['id']} {row['state']} ({row['complete']}/{row['requests']})"
@@ -14208,8 +14229,8 @@ def main():
             remote_command = " ".join([command[-1], *remote_args])
             result = subprocess.run([*command[:-1], remote_command], input=source, capture_output=True, text=True, timeout=30, check=True)
             view = json.loads(result.stdout)
-        except (OSError, ValueError, subprocess.SubprocessError):
-            view = {"remote_unavailable": True}
+        except (OSError, ValueError, subprocess.SubprocessError) as error:
+            view = {"remote_unavailable": True, "remote_error": _remote_status_error(error)}
         view["checked_at"] = datetime.now().astimezone().isoformat(timespec="seconds")
         view["mac"] = mac_report(private, view.get("seeds", ()))
         if args.live_dispatch and not view.get("remote_unavailable"):
