@@ -13482,6 +13482,568 @@ SCOPES[(12203, 69)] = replace(
 )
 
 
+_157_W45_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-157-relay-retry-45",
+        "91e2cf4b6a5f769393eb2cba67273a1c1b5a42b8f6fab72757868bc1d2c3ec90",
+        "2a07a27fcc15bcb177d7e66312f7b7e11203b9b055492de39a029293690095e6",
+    ),
+    "2ddd54b73f495c35b61227a5ad3589afc400000f3ca97b49b076c6d00ec2cc71", "6b68b915234242db988455b601058289",
+    "1e89e58817d1febfdfaaf715819294b44abc6327f54e1fb3dce75b3b1fe3cee4",
+    "0c7073eaa222054e6d42e95b92ee52c15eda1cbd00361aaa6560d844a3aec817",
+    "5f005ec1a4676d246c50973a9e05550dd2af3bfac98712b5d667bd9ad7162500",
+    "5009da81fbb56142b5df1106450264443e347e749fc3f87084ea351476e94dbe", "response_id_mismatch",
+    {'provider_request_id': '2b97ad2a-a30c-4133-b12f-6b5574941ba5',
+     'response_id': 'resp_00fce37f0db1f288016b09142ca46087d2ae1704c62faae9db',
+     'conflicting_response_id': 'resp_2b97ad2aa30c4133b12f6b5574941ba5',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_157_W46_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-157-relay-retry-46",
+        "1a04c67fccf3e973f45511cd63e0e43227fe2503208413cae71c42099a176d83",
+        "1dee18d5e378050947adc75d9bc8d31ca685c2ea300438cded44964db73c9820",
+    ),
+    "211eb1c741b241ec367c0ed8587e70414ca9f1505c2fd55d54fdc079cd6a5e22", "cbb1f94c2d874452b23c8494b8de7285",
+    "ccf277cbf644b03deb3aedf8740ba62243d02574fda2994d2ff5e10cc526f911",
+    "c88606a0d44b141838eef343d3151c6010c0a8889cc6564a6221290ca98d65e8",
+    "717033a8ab7be9ea08e61f18f315c3429800680038d013e807ff535859c68854",
+    "49e81d12cf52fc62452cd5266cdd08308d9b26af35a163cc193a1d73bdc85b93", "response_id_mismatch",
+    {'provider_request_id': '54136236-9a9d-4c87-8cc6-e83ae90dcf1a',
+     'response_id': 'resp_0c3a503282eb3533016b091650f7bc87d2af6acc2dbc12f453',
+     'conflicting_response_id': 'resp_541362369a9d4c878cc6e83ae90dcf1a',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_157_W47_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-157-relay-retry-47",
+        "d9c3cfb2f454d0b2b44b9c4a49422e75bc087f80287467f1580d0c7169c1793a",
+        "d5f890b660640245171e6bd4376ea5e63f73421222ca75798d3d36a71936b8e5",
+    ),
+    "ed06c0939709a1c458b7f9fa901f6daacb1a0c2ce7cf517cd115d8865a9d0669", "ce5f8b9f212a4318b8beb6e349cc3ff2",
+    "4ffcd6005ce459c8b0b34aab7ac3031b69e8ec5ea4c74b2145396253758fbc93",
+    "6ff4675b92c22dcaf7b4c750af71cda4d849760b2e4f81b32444e485d690d3f8",
+    "b347c15c8d5f67f183c441d77293fcfef20caf9b53caa79013ba7ae316f991a8",
+    "6ed46c223c2b9c8665afc9a70a5b0484d57793d31746770bb46c7efb04472805", "response_id_mismatch",
+    {'provider_request_id': 'f55f3afb-3414-4dab-a4d0-82c2937256e1',
+     'response_id': 'resp_093ac537b2dc1d87016b09202d831087d08a8105ca48f5e176',
+     'conflicting_response_id': 'resp_f55f3afb34144daba4d082c2937256e1',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_157_W48_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-157-relay-retry-48",
+        "4dad57ebebb084708ffa0f7b05c64205af19d912d8f823f801d4a1f0b81360ef",
+        "cc8362837682d80357cbca8461d7d1f471edfdb5763bf65bbf26ab03e73140bb",
+    ),
+    "a944b5f4341ef87d15820344e17880fa0c1d2922eabc3d3a80eb0ee63f53e4df", "af5dc3095a524b5dac80b5a5042d0171",
+    "ec9a00028dc8a7d43cdf0337e93de42b58bdfd5ad301edd20b512cf8015a9514",
+    "f471add347b09a4356a0e30564e9b32902f363ac74d60e47cec5489e51e9752b",
+    "e824bf3f65b4de625e7a7f65606b69bc5aa02f814102172689a564d673302021",
+    "03dfe2c49428e92804791557fdbd9de837ebbe5c9709e585f363256e88bddd55", "response_id_mismatch",
+    {'provider_request_id': 'de28f7f8-3a1a-412e-92a2-08fcbfcfade9',
+     'response_id': 'resp_0fcb4779cffa37c8016b0922cf469487d08817398e7814e5a5',
+     'conflicting_response_id': 'resp_de28f7f83a1a412e92a208fcbfcfade9',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_157_W49_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-157-relay-retry-49",
+        "10120fdcd71821ab83d80bbf125b6ab8a2044706ee16a009408306510ce14101",
+        "f21a6a764c7a22fc2c7ac615ccba585adc15243b9fbba700eb6313284645c378",
+    ),
+    "9c3c9f235a0eef305acdab1b186aa9c8c1f28853258d4ef7d07ae1a1ad82a62c", "5175357a08b841b5b490f6101b248d06",
+    "f7a8c58ef10973c62a30893f127d1082fa9c803aad561c93c60c727c4e763902",
+    "9ad75233908f940f6c0cac884f9c809882daa1949d0a3644696e1404958858ca",
+    "6a66a6649ad0c7f90d21fb191a6e94596ff3c27e00626aa8bea1038cccf83083",
+    "5b42affb4ae58bed0021100ea537138c5bc165a550250aa96d90bd2dfbe33746", "response_id_mismatch",
+    {'provider_request_id': '95473d23-994b-4876-9693-a5089e24bee5',
+     'response_id': 'resp_0dc103cdf9041eb4016b0925ecd31487d2b3c93722396532e8',
+     'conflicting_response_id': 'resp_95473d23994b48769693a5089e24bee5',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_157_W50_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-157-relay-retry-50",
+        "8be33db3e01b507ae5b4d685fb0a37844c5693706e56d2ed521b5344922cb514",
+        "76a45beaa9edb12b9fe31cc20f414618d715b4dc40c32d0acaf7718369c857ab",
+    ),
+    "3942d0319fd22f44642e76a0423fb63602b42c112a462094969ca9f769176901", "951da0fd53104b3586a96073d0391c14",
+    "ca004b162946572befad472ee0cc4d25a508c3a31ea14de8512febcfb126781b",
+    "b29cbed563c95c16b8d782e7c6c155999b155cc78f3f9d8c3cde42f0bb973210",
+    "a35db4ab4bbab18fcc3a2f79d68fe48c1509f13e5e468c4ea4ecf6dce3480577",
+    "fc84bb09652c1b94df27a1e0ad62026eae70f6250735e920b91fa9fe206fd3d3", "response_id_mismatch",
+    {'provider_request_id': '6eac4090-106d-4187-8732-0d2fbcea7030',
+     'response_id': 'resp_036062c439e785e1016b09281b19c887d0b8646b1b27135afa',
+     'conflicting_response_id': 'resp_6eac4090106d418787320d2fbcea7030',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_157_W51_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-157-relay-retry-51",
+        "da1a2ae55d425719fe920198e2bf4f533bdee758f13c23f7816acfae82e0d7e4",
+        "62588183365106b4e282f0c06a0752864d77d8523b1e0d4480b09f1605bd2c32",
+    ),
+    "c94f8b556690fbd612498c908725370698a4288147854dc957f82d1c4aa98a4d", "4a7ad04d2cb5407084c3b45e2bbd15f2",
+    "36720391390a98f6b0edbe6ba60e8c9bb59c51195772a138e108bc99043f6e04",
+    "b21bd546a77ae0981e3ae4daac59acc6af19a7cc01467b6944e1daf982d32221",
+    "8982607fd97426c889f2ecbd807b8f46e074ec9e59acaf55b2a2274999b1221f",
+    "cfa3705a3b5f9031ce1f662090f192034b0fb38291456c13b4fd831b5ea5b908", "response_id_mismatch",
+    {'provider_request_id': '6d3f4d63-7473-465f-99c5-21ed201d49bc',
+     'response_id': 'resp_01540e8c4419b3cc016b092a814e5887d2b59cfb97d3763e17',
+     'conflicting_response_id': 'resp_6d3f4d637473465f99c521ed201d49bc',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_157_W52_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-157-relay-retry-52",
+        "c4dc140e84a23cac69fc4588738b237c5a6c23bcc9df904d35282a8b1f7ba57f",
+        "a364711e92f9fca160e846023feb7c3707dd822a6a2a5ee2ef0e5d1d04ca5eb6",
+    ),
+    "5a6c677c4580a2980fa324769bc2575b4bfbeb5b088fdf5b0780c422ed05318d", "987e69adbdc045ee899076939692a564",
+    "3a98eb9492b718f96b66b0446ed4bff009a87fb2826e9d2f00718bbdf4643704",
+    "06f2046a3c7abff47e5b72ab1b411063a80434e4f6059359434ad4bd63eafcb9",
+    "de5494b3db45100f9a82484f72e9f30b83a28ff7ae13beacb1755e14df14a0fb",
+    "460c91a702fa921e271a3f1d317b98e05ac5ef8dff9157fd17173626bee50ce8", "response_id_mismatch",
+    {'provider_request_id': 'a13398ce-a5bd-430a-8243-3c4a063c69c6',
+     'response_id': 'resp_07c9272bfe1aca17016b092e25973487d28a2046a62aee847f',
+     'conflicting_response_id': 'resp_a13398cea5bd430a82433c4a063c69c6',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_157_W53_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-157-relay-retry-53",
+        "92225ed96ed0d5f7974b9c906fe29b86c46155d9b97fd574592620c231d64598",
+        "4b294f5c792203317430b3ab1ca1fb6df0e833281274475b68685dbae978af40",
+    ),
+    "ac6dc1280a7aabf752c44ac3520be4541bdf988e4fcb0736ab48887ff3f1e69f", "b8524a2587704a8da4a4a8992a925624",
+    "b3201a1d8a6599ca68407d810d3ea24966382c43c5b8738faeaa4056b3fd4c18",
+    "60cb75f067f4e6dca8ed8202804530a31afac0a4125187154879106e159d1932",
+    "23198ae8bb53141b91ed7e5252596fe3469c7723c74bdaae1757c2feb540ec82",
+    "e539e95eb096070d894503465a937b8a75b3f3dc52114bbc2128ccee2a86477f", "response_id_mismatch",
+    {'provider_request_id': '6ba5122b-eb91-40a0-ade8-21a9c63e87a4',
+     'response_id': 'resp_0c7bada5db40cfea016b0930767d5087d28caf776272382304',
+     'conflicting_response_id': 'resp_6ba5122beb9140a0ade821a9c63e87a4',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_157_W54_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-157-relay-retry-54",
+        "57c58e960a64118f02bcd10d4eed9e0332a8320d17d83d87694a967ac9bec731",
+        "c28204446bbb6b0000b7714ffeb721cf8356b58cf778815aae7b8efb6a14c92d",
+    ),
+    "f510962ababed379dd4a883ca75cb3d27bc890c318558ee0e57920f82319388a", "2fa231d00f5e41b5b8e94166575299a5",
+    "b20b6a703e1a6a6dee090516282b11e50de8769af272ebb54af0776b59f0a280",
+    "7cf4eec3b3eb0608cf9a340938f4f7eb6a3f77d3802efce857e1d1fe392cb92f",
+    "0f34f62331bcbb0844ddc38b3c21cf61b5caa017ded53889e3dedeb27c446951",
+    "dcf3978b93d5d2132c8d382e6092f18af143a0f3557bb96b047e3c541f940c3b", "response_id_mismatch",
+    {'provider_request_id': 'a9603aa1-65c5-4c34-8299-20765fef3850',
+     'response_id': 'resp_0b1f5c2f50bef187016b0932c6294487d0894a371121f3392e',
+     'conflicting_response_id': 'resp_a9603aa165c54c34829920765fef3850',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_157_W55_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-157-relay-retry-55",
+        "084a55d5b7291cc5c679737966e1bd25955d692b6c02e61d7871393d166b34b2",
+        "11cd1ee7dae9d93aeb974c927eb0acd4e309d653a6578b535ce0216e373496ff",
+    ),
+    "f16947402eae4d3e3a38e81998632fee65692e580fa8182eed9b660d464975c0", "34e58d96c1024e3ca077077a42d9105b",
+    "1cc3a5034257812eb52ee45801d6d9d36e57774bd8f463e80751f30ae32d4a7d",
+    "b00c6a920956dd320fc301398dc0699a9347f139d3c9b8d80a9195ded269e5e2",
+    "c22ea72a860d711cb78eee8368f6e5fdd38a233caaf7abce605f482a5e18f1a6",
+    "bbf84a78f7cae20c22e65a3aa893bd8241495541eb67edc16bc2cf1b354c798e", "response_id_mismatch",
+    {'provider_request_id': '55333cee-5c5d-46c4-8e90-c2ac061624e3',
+     'response_id': 'resp_018c444461d99e7e016b09351dd6a087d185ae9980518e465a',
+     'conflicting_response_id': 'resp_55333cee5c5d46c48e90c2ac061624e3',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_157_W56_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-157-relay-retry-56",
+        "fbb393c8ee9d8fc3f35086f988d0fc2811ddc0e5d2c37948cd195dcd4daea656",
+        "2b445c42f0d88ab1783fe75a8174de4070ef56c62a2bc108d1011bf90c57257f",
+    ),
+    "129ddbe16ca67434427827d8825becb97df1567ac74aaf1480f54b01b482b1cf", "ab147b5ff5874eaa8855c8605726a815",
+    "8ef7b2daf2e0a24aa1a55006f12631849455ca3eb0abd7d3b6cc2fc48e23612f",
+    "7d9a09275c4f9f0c1211ea1f3ebd9812b4695879340f3044f343c82936692a50",
+    "6b9543a7d8f1de19421f3cef2c7d2c95e5c83cd076d1e6cbdf61ca58e981a2dc",
+    "c6ac7d6c069bb58d453304e253e532e334807172038e61c38edecd9c162b9dc6", "response_id_mismatch",
+    {'provider_request_id': 'a9fdafcf-e72e-4f56-aad3-1a379ee2db6c',
+     'response_id': 'resp_09d24de89422e59a016b09373c46a887d0a26e098a66579021',
+     'conflicting_response_id': 'resp_a9fdafcfe72e4f56aad31a379ee2db6c',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_157_W57_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-157-relay-retry-57",
+        "0d69e0381f344114f45d8140a78ab6bf9e9f1261bbc6035fac8bef1ea1ffd116",
+        "ee33ae84aace8b97b1f77a4c77de504db267e29e1a28be074db62e35925808d5",
+    ),
+    "b865b8590058f285dab6b424dfdb6d054f743e5c8aa3e63328aba503f6974561", "1192d59920624620b1f6f700adc9353a",
+    "77d7a4b6cd32d4f07367d2422075cb513b8a5fe762402a858085016be6226536",
+    "6d675af35f4d2d271d965bde57c12086e68e49e65510bf0649695b8c729877ba",
+    "e8c02d6afe37f952262728cab82b8b9a307183055946b95c51653ddd1891382c",
+    "5107adb7594d29dfe11c3a4136f14af808fdeba640dbb82867b6b40b7f22c542", "response_id_mismatch",
+    {'provider_request_id': '66d196af-eb80-4cb8-9fc1-ff74e1d33e56',
+     'response_id': 'resp_07870c01eb3eb86d016b09397a612887d09a55ee4fea016900',
+     'conflicting_response_id': 'resp_66d196afeb804cb89fc1ff74e1d33e56',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_157_W58_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-157-relay-retry-58",
+        "6779c56681f84fbe30a1b9a5b9344227f1dbbafebc1fe3fba7ce47253079e244",
+        "c5ba60c3499ac229dd7bdba0eb015763478763124e8adfaf3c894e8b20dc470c",
+    ),
+    "037f826269ca1bc1f3f94f3fca07db2eee285054a4e304d089c25bed72527eef", "25a9e2b34b554e3b8f742ab3603e4718",
+    "1ac2fb1744678fb140e9d6d41723f9d5f81b6b4034be7b26b1feda152f47bf06",
+    "d5cbe89d8b4968b47af4a8cb85cc72294cefb3b76549863b0edb67cc7350f054",
+    "861580ce8388062c3defb86e3ec09250204a5c1d3fe2b5f6d9eb35700f171303",
+    "a55cca13445f8f861ef6837d3346cce238813e3290bbe49aa69082d91f3eb275", "response_id_mismatch",
+    {'provider_request_id': '7ff470f1-ba01-491b-af2f-b214afddb467',
+     'response_id': 'resp_01c18db97f7fb56b016b094126214c87d188e5aaf57afe6284',
+     'conflicting_response_id': 'resp_7ff470f1ba01491baf2fb214afddb467',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_157_W59_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-157-relay-retry-59",
+        "1eb812866be345593277390e92b40852c1871d40fa43e5ef45367aad34957145",
+        "17b3c36d3f0ba8fd7e1cb8bb66e637f10e5e5a638c8c84b23669d980c1e59e04",
+    ),
+    "02e658d310892f52402d0244288060b57e763a36f2fd1ed6b3aab931f43351eb", "1dd55b2bc48d458faf71e040c589f4ca",
+    "42721c2c457880ece5cefde7d047647044b7ebe7492c0bdfc74629b29ef9e50b",
+    "40ab0275239745610389a71df8cf17b2ccca403ddd6c12a080ac974bda87f67e",
+    "33096527153ad7e90cf30624310e595b77dc0b2cdf1e56a5adee7d656db08f65",
+    "6b7184a444eea948708f5ffd5ebafd2d505d5196673a2c46d0d5f0c79c9a30e8", "response_id_mismatch",
+    {'provider_request_id': '87dd340d-b757-456d-980b-99b1e1d7e719',
+     'response_id': 'resp_0bd1a6cef56da1b8016b0943562bb487d19c421d6066641e72',
+     'conflicting_response_id': 'resp_87dd340db757456d980b99b1e1d7e719',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_157_W60_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-157-relay-retry-60",
+        "1c3f77dc6fa5891fbb14716586dcf99837202b34563d8629a80394b0f226e702",
+        "32764db70f6ee0a350b665f84fac86c4a4ccd5c45144125b82e07d8c3537eda5",
+    ),
+    "2250794877790679bf287f2db5562c8369ec9912ec15456be3785c49030c12d8", "a02ea2cc6f8446298d78e2d0b61dc7db",
+    "45f635e0fa98e185f14d8236a4730521f564d483525b385735d89bcc119cb603",
+    "7343c8d4e4fb55286e1be34a1d7b2940def7fe3521efe1696113fd2b69245c31",
+    "941f2caac62b8f51ef85f01c0a718d94568436f396196aae229ee4c07230a87d",
+    "5ea02155cb394f202ac0828543ada2170c2a63bf817948227f65ee6d6e192c72", "response_id_mismatch",
+    {'provider_request_id': '95aa89bb-b52b-4857-9712-ed1c6a171318',
+     'response_id': 'resp_0d9708cdd4dd6d6d016b0945658f2887d08110f917f13ee011',
+     'conflicting_response_id': 'resp_95aa89bbb52b48579712ed1c6a171318',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_157_W61_ROLLOVER = Review(
+    retry.bounded.RunIdentity(
+        "-157-relay-retry-61",
+        "caa7a60afa0040b2d706548d470ac537b141ecf8312b2f76df36229b3ba1c042",
+        "0ff1739bbb9471748e0e0094ecd258f33519e02896cbfd032414e4d140c9bab0",
+    ),
+    "68e9bc0f2f6756424bec00736f6eddb2935b4b72b108b3e76eb2e8fe8d2357e7", "0f700f55d8a240de858e6defc6e9b9dd",
+    "03a4dafcc066c42ea10dfe9a4271b25e9b3332a5f147689d06cce364a1150d9d",
+    "05ec1afb303d2d30454f291e13c563b2e88e32ce7905005715caebab76800e50",
+    "fe2ccf77f26b51074aa08e71b62efaf957d41d09814256af116b62cf86486cf6",
+    "b2448e9ea1264f5dda00c24a71e93f2c5e251f124fa0fd6cce03df298cc17002", "response_id_mismatch",
+    {'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'event_type': 'response.output_item.added',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'provider_error_code': 'upstream_error',
+     'sse_event_count': 41,
+     'first_sse_seconds': 20.901004208019003,
+     'last_sse_seconds': 197.85001895809546,
+     'last_sse_activity_seconds': 197.85001895809546,
+     'elapsed_seconds': 200.7334814579226,
+     'model': 'gpt-6.2-astra',
+     'provider_request_id': 'db353fdb-8dd9-490f-903a-4ebaa3a1efb5',
+     'response_id': 'resp_02debb67151a2c6e016b0947c6ec8487d0ae77aa48e4abbe4e',
+     'conflicting_response_id': 'resp_db353fdb8dd9490f903a4ebaa3a1efb5',
+     'sse_milestones': {'response.created': {'elapsed_seconds': 20.901004208019003,
+                                             'interval_seconds': None},
+                        'response.in_progress': {'elapsed_seconds': 20.902035292005166,
+                                                 'interval_seconds': 0.0010310839861631393},
+                        'response.output_item.added': {'elapsed_seconds': 20.902735207928345,
+                                                       'interval_seconds': 0.000699915923178196},
+                        'response.output_item.done': {'elapsed_seconds': 29.851271708030254,
+                                                      'interval_seconds': 8.948536500101909}}},
+)
+
+_157_W61_ROLLOVER_RECORD = "809547128bb5a452309f8917319e4cbab9d79d66230cca2e27cb3308ea5fddb6"
+_157_W61_ROLLOVER_CHECKPOINT = "8ddf737cf20560684e4be5bc62f9886006d49369840558c3bd368b6020f96c12"
+SCOPES[(157, 62)] = replace(
+    SCOPES[(157, 45)], wave=62, cooldown_field="not_before_unix", cooldown_unix=1795770511.433725,
+    original_start_round=7, original_boundary_physical_attempts=1, boundary_physical_attempts=1,
+    archive=(
+        *SCOPES[(157, 45)].archive,
+        _157_W45_ROLLOVER,
+        _157_W46_ROLLOVER,
+        _157_W47_ROLLOVER,
+        _157_W48_ROLLOVER,
+        _157_W49_ROLLOVER,
+        _157_W50_ROLLOVER,
+        _157_W51_ROLLOVER,
+        _157_W52_ROLLOVER,
+        _157_W53_ROLLOVER,
+        _157_W54_ROLLOVER,
+        _157_W55_ROLLOVER,
+        _157_W56_ROLLOVER,
+        _157_W57_ROLLOVER,
+        _157_W58_ROLLOVER,
+        _157_W59_ROLLOVER,
+        _157_W60_ROLLOVER,
+        _157_W61_ROLLOVER,
+    ),
+    fitted_prefix_files=(
+        ("pause.request", "88aa38b6193437146a37874d05e1fae250b31a60d54e76d606c76c6e717a9eac"),
+        ("boundary.json", "f107b8402ea11f9597dab7ea2e6c6891cc6980051f279551b4e2e5cd3820a535"),
+        ("round_07/source.json", "ac42a77b7b18963db4be8ca807aa68bc04636643cdb8b0f9d0226a3f515a1aee"),
+        ("round_07/boundary_memory.json", "2ddffdf429aabee1493cec68248e696aaf52578433bf61308ab2841317cdc897"),
+        ("round_07/boundary_user_message.json", "9d06198b47989e3db2b6891a4ee63d50467d76de308b6add47e241baf63cb598"),
+        ("round_07/authoritative_packet.json", "767f945a9801c53434e2dea7eb7756d5499cc6b0af3d5f77c2a633c800957793"),
+        ("round_07/turn_00/request.json", "46af45e6d789ebc7d4bdaa9410acb15e1acfdbb192c7f830999715676504c6a8"),
+    ),
+    retired_reviewed_records=(
+        (
+            '91e2cf4b6a5f769393eb2cba67273a1c1b5a42b8f6fab72757868bc1d2c3ec90',
+            None,
+            '5d693404a824c1c227108f7838e20cfc43d946e261d37f411f194ee306e8a9a5',
+            'ac42a77b7b18963db4be8ca807aa68bc04636643cdb8b0f9d0226a3f515a1aee',
+        ),
+        (
+            '1a04c67fccf3e973f45511cd63e0e43227fe2503208413cae71c42099a176d83',
+            '898cdd9cbfc9c8443cb4198f86763a5e59ce308932a1b28ac31c8ca04ee0fea3',
+            '0ea3375452f21a11fb2d237edc8b6f1717ef70d5299360f7ce523761eb409811',
+            'ac42a77b7b18963db4be8ca807aa68bc04636643cdb8b0f9d0226a3f515a1aee',
+        ),
+        (
+            'd9c3cfb2f454d0b2b44b9c4a49422e75bc087f80287467f1580d0c7169c1793a',
+            '5e0867b237607196941a1bbbd76f2bdf2e78da9185a310a794264227b3129c98',
+            '3878ad449ee588ea022bcac3748b96ea98d698d6c2f0c89dea8e492baa2fdf58',
+            'ac42a77b7b18963db4be8ca807aa68bc04636643cdb8b0f9d0226a3f515a1aee',
+        ),
+        (
+            '4dad57ebebb084708ffa0f7b05c64205af19d912d8f823f801d4a1f0b81360ef',
+            'f08b5f953aaeae8d78b913867eee35ce75e0423e2305403d5e2739d6fb2f76f6',
+            '2154732c3a495387d541123376548373db076ffb01de70eae0e9939feda4b061',
+            'ac42a77b7b18963db4be8ca807aa68bc04636643cdb8b0f9d0226a3f515a1aee',
+        ),
+        (
+            '10120fdcd71821ab83d80bbf125b6ab8a2044706ee16a009408306510ce14101',
+            'cb579b2c013ff2705677a0aca9beb393cf870d1a2bc98d0a313f39cb5f308b7e',
+            '1f27a197b991b75894ecf988df4bc052abed05569f3a398bf625e82c81dfa819',
+            'ac42a77b7b18963db4be8ca807aa68bc04636643cdb8b0f9d0226a3f515a1aee',
+        ),
+        (
+            '8be33db3e01b507ae5b4d685fb0a37844c5693706e56d2ed521b5344922cb514',
+            'd35bacb25d0ec8299f115785cef4c2c135d2cced0ff9a8ae53104f68a6f374a9',
+            '8e686414ca320ef4c3b030de680a65c9571db62b84f1984f79c7841866120323',
+            'ac42a77b7b18963db4be8ca807aa68bc04636643cdb8b0f9d0226a3f515a1aee',
+        ),
+        (
+            'da1a2ae55d425719fe920198e2bf4f533bdee758f13c23f7816acfae82e0d7e4',
+            '4446dcb33f86689043d082e7f55f2bdcd47b1faf0dbbe4998aec54f7b0ab4d7c',
+            '7b394ff580229c1cc5b7d182921d7ffc34f5b2c2ad2419b7d160bd7065e1b596',
+            'ac42a77b7b18963db4be8ca807aa68bc04636643cdb8b0f9d0226a3f515a1aee',
+        ),
+        (
+            'c4dc140e84a23cac69fc4588738b237c5a6c23bcc9df904d35282a8b1f7ba57f',
+            'bc21b247df42cbca90c3020f0346c2fc2428eff33153d5f310ccc22c047e8e4c',
+            'bf6b10477759782186b26f9b2400b7aeab6676351e71ee5537d19b5070a7a352',
+            'ac42a77b7b18963db4be8ca807aa68bc04636643cdb8b0f9d0226a3f515a1aee',
+        ),
+        (
+            '92225ed96ed0d5f7974b9c906fe29b86c46155d9b97fd574592620c231d64598',
+            '3af95088598c3d80ed429eb9ab5fa292670acca1100364d55eef41f86836144a',
+            '6c60591137d4c7685c59618d11d6d30f42de75c55a275fce6fd6b5dee21a928b',
+            'ac42a77b7b18963db4be8ca807aa68bc04636643cdb8b0f9d0226a3f515a1aee',
+        ),
+        (
+            '57c58e960a64118f02bcd10d4eed9e0332a8320d17d83d87694a967ac9bec731',
+            '0c574f734f8bd878e630630253f6ac78c216c719e3ed4071f734c12c04a3a1c8',
+            'a8cafdd1c8ca546893551bd40dbc133a00b1725de321c51503e2973d94b6b843',
+            'ac42a77b7b18963db4be8ca807aa68bc04636643cdb8b0f9d0226a3f515a1aee',
+        ),
+        (
+            '084a55d5b7291cc5c679737966e1bd25955d692b6c02e61d7871393d166b34b2',
+            '1c5dce0518dd1d8e80cd273558647722956bbe5a06fd5386b2f32303f6ec7070',
+            'b228ae0980f1d705643ea191c3fd8f98821d82eae92b44f5b0ec6d061e983d28',
+            'ac42a77b7b18963db4be8ca807aa68bc04636643cdb8b0f9d0226a3f515a1aee',
+        ),
+        (
+            'fbb393c8ee9d8fc3f35086f988d0fc2811ddc0e5d2c37948cd195dcd4daea656',
+            '1da85ed9bdbf7dbb143b38c555ac30634fc147a00c931087ee6339427e9cfb76',
+            '523f3cc712f86047de70ccaad308c3a7c601abef112e1e9ae9361672cc5f4db3',
+            'ac42a77b7b18963db4be8ca807aa68bc04636643cdb8b0f9d0226a3f515a1aee',
+        ),
+        (
+            '0d69e0381f344114f45d8140a78ab6bf9e9f1261bbc6035fac8bef1ea1ffd116',
+            '87e5eb20c30415353055199b465ba7fa61bfe3186ebeab77a3971e1b8fe5d112',
+            '1d45a892230f1f03a19947e4fde3a61ed2f22ba8f95eda36638f61a245090550',
+            'ac42a77b7b18963db4be8ca807aa68bc04636643cdb8b0f9d0226a3f515a1aee',
+        ),
+        (
+            '6779c56681f84fbe30a1b9a5b9344227f1dbbafebc1fe3fba7ce47253079e244',
+            '1d319f2c6128f64df5a5bbb9802b571262386a6e5a3c5a115b61e4584e109df2',
+            '93e78567dccd4ef1a20e764fb45f3cee5bc29cd51a27bda8c1bfa56a984486d8',
+            'ac42a77b7b18963db4be8ca807aa68bc04636643cdb8b0f9d0226a3f515a1aee',
+        ),
+        (
+            '1eb812866be345593277390e92b40852c1871d40fa43e5ef45367aad34957145',
+            '50213d29274c9f81ec71c0b47f5c631bba18d1fdae5bcbc38ed092de4b56fa4f',
+            '1b8c49891702435256f9630eb32fbc0dfa02c89b6743a541014def56e1abd510',
+            'ac42a77b7b18963db4be8ca807aa68bc04636643cdb8b0f9d0226a3f515a1aee',
+        ),
+        (
+            '1c3f77dc6fa5891fbb14716586dcf99837202b34563d8629a80394b0f226e702',
+            '09de1ccec05c27194efe0cde621486c0b020187ec7f99f00e782d9d0f404aea8',
+            '60d20ac7cdcc2c377224e6f715ecfced143bd0910785854155a0a7a929f1b57b',
+            'ac42a77b7b18963db4be8ca807aa68bc04636643cdb8b0f9d0226a3f515a1aee',
+        ),
+        (
+            'caa7a60afa0040b2d706548d470ac537b141ecf8312b2f76df36229b3ba1c042',
+            '809547128bb5a452309f8917319e4cbab9d79d66230cca2e27cb3308ea5fddb6',
+            '88aa38b6193437146a37874d05e1fae250b31a60d54e76d606c76c6e717a9eac',
+            'ac42a77b7b18963db4be8ca807aa68bc04636643cdb8b0f9d0226a3f515a1aee',
+        ),
+    ),
+)
+
+
 REVIEWED_RECORD_FIELD = "reviewed_recovery_record_sha256"
 RETIRED_REVIEWED_RECORDS_FIELD = "retired_reviewed_recovery_records"
 REVIEWED_RECORD_FILE = "reviewed_recovery_record.json"
@@ -13604,6 +14166,13 @@ def _require_12203_w68_exhausted_fallback(scope, old, result, record):
     _require_exact_exhausted_fallback(
         scope, old, result, record, target=(12203, 5, 69, 5), anchor=52, review=_12203_W68_ROLLOVER,
         record_sha=_12203_W68_ROLLOVER_RECORD, checkpoint=_12203_W68_ROLLOVER_CHECKPOINT,
+    )
+
+
+def _require_157_w61_exhausted_fallback(scope, old, result, record):
+    _require_exact_exhausted_fallback(
+        scope, old, result, record, target=(157, 7, 62, 7), anchor=45, review=_157_W61_ROLLOVER,
+        record_sha=_157_W61_ROLLOVER_RECORD, checkpoint=_157_W61_ROLLOVER_CHECKPOINT,
     )
 
 
@@ -13758,6 +14327,9 @@ def construct(root, failed_release, failed_run, run, scope):
         elif (scope.seed, scope.wave) == (12203, 69):
             record = read_bridge_json(failed_run / REVIEWED_RECORD_FILE)
             _require_12203_w68_exhausted_fallback(scope, old, result, record)
+        elif (scope.seed, scope.wave) == (157, 62):
+            record = read_bridge_json(failed_run / REVIEWED_RECORD_FILE)
+            _require_157_w61_exhausted_fallback(scope, old, result, record)
         else:
             _require_static_timeout_fallback(scope, old, result)
     parent_start = parent.profile["resume_boundaries"][str(scope.seed)]["round"]
