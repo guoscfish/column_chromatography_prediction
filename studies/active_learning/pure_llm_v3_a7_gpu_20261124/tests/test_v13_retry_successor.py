@@ -413,6 +413,44 @@ def test_157_wave66_only_accepts_the_completed_and_quarantined_medium_receipt(mo
             gpu._verify_w65_mismatch_contents(changed, seal, started, lane)
 
 
+def test_157_wave67_extends_only_its_exact_w66_owned_failure():
+    previous, scope = gpu.SCOPES[(157, 66)], gpu.SCOPES[(157, 67)]
+    check = gpu.operator_reasoning_recheck(scope)
+    review = scope.archive[-1]
+    assert scope.archive[:-1] == previous.archive
+    assert scope.budget == previous.budget == {"first_logical_requests": 1, **scope.recovery_budget}
+    assert (scope.round, scope.replay_start_round, scope.boundary_physical_attempts) == (7, 8, 1)
+    assert check["previous_attempt_id"] == review.attempt_id
+    assert check["raw_response_sha256"] is None and check["reported_effort"] == "xhigh"
+    assert check["expires_unix"] == 1795783500
+    assert gpu.retired_secondary_reviewed_history(scope) == gpu.retired_secondary_reviewed_history(previous)
+    assert gpu.operator_reasoning_recheck(replace(scope, wave=68)) is None
+
+    old = {"operator_reasoning_recheck": gpu.operator_reasoning_recheck(previous),
+           "execution_budget": previous.budget, "recovery_budget": previous.recovery_budget,
+           gpu.RETIRED_REVIEWED_RECORDS_FIELD: gpu._retired_reviewed_history(previous),
+           gpu.RETIRED_SECONDARY_RECORDS_FIELD: gpu.retired_secondary_reviewed_history(previous)}
+    parent = SimpleNamespace(digest=review.identity.contract, predecessor=old, target_labels=589)
+    identity = {"provider_request_id": review.progress["provider_request_id"], "provider_status": "failed",
+                "response_id": review.progress["conflicting_response_id"], "served_model": "gpt-6.2-astra", "usage": {}}
+    failure = {"code": review.failure, "ambiguous": True, "retryable": False, "reply_identity": identity}
+    result = {"provider_dispatched": True, "outcome": {"status": "failed", "failure": failure},
+              "raw_response": None, "raw_response_sha256": None}
+    gpu._require_157_w66_owned_fallback(scope, parent, result)
+    for changed in ({**result, "raw_response_sha256": "a" * 64},
+                    {**result, "raw_response": {"status": "completed"}},
+                    {**result, "outcome": {"status": "failed", "failure": {
+                        **failure, "reply_identity": {**identity, "response_id": "resp_foreign"},
+                    }}}):
+        with pytest.raises(PermissionError):
+            gpu._require_157_w66_owned_fallback(scope, parent, changed)
+    for changed in ({**old, gpu.RETIRED_SECONDARY_RECORDS_FIELD: []}, {**old, "operator_reasoning_recheck": check}):
+        with pytest.raises(PermissionError, match="two signed history"):
+            gpu._require_157_w66_owned_fallback(
+                scope, SimpleNamespace(digest=parent.digest, predecessor=changed, target_labels=589), result,
+            )
+
+
 def test_6101_wave60_preserves_both_signed_history_segments_and_exactly_one_slot(monkeypatch):
     anchor, scope = gpu.SCOPES[(6101, 55)], gpu.SCOPES[(6101, 60)]
     assert scope.archive[:-5] == anchor.archive

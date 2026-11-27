@@ -21,10 +21,10 @@ from .dispatch_v13_relay_retry import RelayRetryDispatcher
 
 
 def _operator_recheck(lane):
-    if (lane.seed, lane.wave) == (157, 66):
+    if lane.seed == 157 and lane.wave in (66, 67):
         recheck = gpu.operator_reasoning_recheck(lane)
         if recheck is None:
-            raise PermissionError("157 W66 requires its exact operator recheck scope")
+            raise PermissionError(f"157 W{lane.wave} requires its exact operator recheck scope")
         return recheck
     return None
 
@@ -101,6 +101,8 @@ def _scope(info, run, lane):
     sources = (*resilient.SOURCES, *gpu.SIGNED_RETRY_SOURCES)
     if recheck is not None:
         sources += (STUDY / "scripts" / "dispatch_v13_157_w66_pool.py",)
+        if lane.wave == 67:
+            sources += (STUDY / "scripts" / "dispatch_v13_157_w67_pool.py",)
         if (proof["model_identity"].get("reported_reasoning_effort") != recheck["reported_effort"]
                 or lane.budget != {"first_logical_requests": 1, "maximum_logical_requests": 1,
                                    "maximum_physical_attempts": 1}):
@@ -258,6 +260,34 @@ def _archive_operator_recheck(spools, proof, lane, recheck):
     return request, transport
 
 
+def _archive_w67_operator_recheck(spools, proof, lane, recheck):
+    """Keep the W65 medium quarantine and W66 no-answer terminal as separate receipts."""
+    w66 = gpu.SCOPES[(157, 66)]
+    chain = proof["reviewed_retry_chain"]
+    if (lane.archive[:-1] != w66.archive or type(chain) is not list or len(chain) != len(lane.archive)
+            or recheck["raw_response_sha256"] is not None):
+        raise PermissionError("the W67 recheck must extend both original sealed predecessors")
+    latest = lane.archive[-1]
+    if ((recheck["previous_attempt_id"], recheck["provider_request_id"])
+            != (latest.attempt_id, latest.progress["provider_request_id"])):
+        raise PermissionError("the W67 recheck binds the exact failed W66 provider request")
+    earlier_proof = {
+        **proof, "reviewed_retry_chain": chain[:-1], "previous_attempts": chain[-2]["previous_attempts"],
+        "previous_run_directory": chain[-2]["run_directory"],
+    }
+    earlier, earlier_transport = _archive_operator_recheck(spools, earlier_proof, w66, _operator_recheck(w66))
+    current, transport = _archive(spools, {
+        **proof, "reviewed_retry_chain": chain[-1:],
+    }, replace(lane, archive=lane.archive[-1:]))
+    identity = latest.identity
+    archived = _spool(spools, identity.contract, identity.approval)
+    result = read_bridge_json(archived / "results" / f"{latest.attempt_id}.json")
+    gpu._check_reviewed_owned_result(lane, result)
+    if transport != earlier_transport or not gpu.retry._compare_science(current, earlier):
+        raise PermissionError("the W66 request differs from the original exact R7 scientific input")
+    return current, transport
+
+
 class SuccessorDispatcher(RelayRetryDispatcher):
     def _check_boundary(self, request, started):
         lane = self.reviewed_scope
@@ -287,9 +317,14 @@ def run(args, lane):
     recheck = _operator_recheck(lane)
     if recheck is None:
         original, old_transport = _archive(spools, proof, lane)
+    elif lane.wave == 67:
+        original, old_transport = _archive_w67_operator_recheck(spools, proof, lane, recheck)
     else:
         original, old_transport = _archive_operator_recheck(spools, proof, lane, recheck)
     pilot, _, pilot_transport = resilient._pool(spools / resilient.PILOT_CONTRACT_SHA256)
+    if recheck is not None and lane.wave == 67:
+        from .dispatch_v13_157_w67_pool import W67SinglePermitPool, verify_w66_receipt
+        verify_w66_receipt(pilot)
     registered = replace(pilot_transport, timeout_seconds=resilient.TIMEOUTS.total_seconds, wire_mode=RESPONSES_STREAM_IPV4)
     transport = TransportConfig(**info["contract"]["profile"]["transport"])
     if (transport != registered or old_transport != registered
@@ -309,9 +344,13 @@ def run(args, lane):
         pool = resilient.SharedKeyPool(pilot.directory, pilot.config)
         dispatcher_type = SuccessorDispatcher
     else:
-        from .dispatch_v13_157_w66_pool import W66SinglePermitPool
-        pool = W66SinglePermitPool(pilot.directory, pilot.config, contract_sha256=args.contract_sha256,
-                                  payload_sha256=lane.payload_sha256, expires_unix=recheck["expires_unix"])
+        if lane.wave == 67:
+            pool_type = W67SinglePermitPool
+        else:
+            from .dispatch_v13_157_w66_pool import W66SinglePermitPool
+            pool_type = W66SinglePermitPool
+        pool = pool_type(pilot.directory, pilot.config, contract_sha256=args.contract_sha256,
+                         payload_sha256=lane.payload_sha256, expires_unix=recheck["expires_unix"])
         dispatcher_type = OperatorRecheckDispatcher
     dispatcher = dispatcher_type(spool, info=info, contract_sha256=args.contract_sha256, transport=transport,
                                  mock=False, pool=pool)

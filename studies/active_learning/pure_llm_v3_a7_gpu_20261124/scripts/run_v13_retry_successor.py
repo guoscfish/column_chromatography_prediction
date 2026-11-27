@@ -12327,6 +12327,8 @@ def _w65_mismatch_receipt(run, turn, contract, approval, request, scope):
 
 def _verify_w65_mismatch_contents(result, terminal, started, scope):
     proof = operator_reasoning_recheck(scope)
+    if proof is not None and scope.wave == 67:
+        proof = operator_reasoning_recheck(SCOPES[(157, 66)])
     previous = _157_W65_REJECTED_EFFORT
     raw = result.get("raw_response")
     failure = result["outcome"].get("failure") or {}
@@ -12426,7 +12428,9 @@ def _source_manifest(root, parent, scope):
         raise PermissionError("the successor changed source outside the audited transport paths")
     if any(sources.get(name) != expected for name, expected in scope.required_sources):
         raise PermissionError("the successor is missing the exact reviewed transport source")
-    signed = (*SIGNED_RETRY_SOURCES, _OPERATOR_RECHECK_SOURCE) if recheck else SIGNED_RETRY_SOURCES
+    signed = SIGNED_RETRY_SOURCES
+    if recheck is not None:
+        signed += (_OPERATOR_RECHECK_SOURCES[(scope.seed, scope.wave)],)
     sources.update({path.as_posix(): file_digest(root / path) for path in signed})
     return sources
 
@@ -14443,7 +14447,44 @@ SCOPES[(157, 66)] = replace(
         ("round_07/turn_00/attempt_00.started.json", "8f2dc63597913a9672614b04fa0a10f00a21fef8bcbd72e2fc3e22f574aeef5b"),
     ),
 )
-_OPERATOR_RECHECK_SOURCE = STUDY / "scripts/dispatch_v13_157_w66_pool.py"
+_157_W66_OWNED_FAILURE = Review(
+    retry.bounded.RunIdentity(
+        "-157-relay-retry-66",
+        "21efdac44631d67e886559c873cde4706a292c647f9d3ae808ac08a6075174f0",
+        "396447a97e8d51310fce04e24788a5f6cfc9908bc25ec1a721e498876b92e08e",
+    ),
+    "f8eb40a3e8681b7fa88f9e5e9610d1505a6da0880b2209daa97c4391d992c674",
+    "cfcaef6f8b184736a1629a72b342428f",
+    "4963a4cb81e87a30fcb165141b197b2bc23a16bc1dc8678e73787d0425201ef6",
+    "6eff18cb02a62a7e85f19b50fe5340d33e2508237130d8cab780ea3d061fe3c6",
+    "e0eca821f2816129cf614e0a36dd3c0f92cfd74268b590850362b4c7f6f0aa78",
+    "3e5f776c6d22f70b746d22fd809fc9155456f479a07801a519da09857f7a89b1",
+    "response_id_mismatch",
+    {"http_status": 200, "phase": "transport_failure", "event_type": "response.output_item.added",
+     "error_type": "response_id_mismatch", "model": "gpt-6.2-astra", "provider_error_code": "upstream_error",
+     "provider_request_id": "6946b587-f1b3-4f8e-a603-4e0b8cf424f4", "sse_event_count": 41,
+     "response_id": "resp_0ed55eb86d8f1d77016b095c4c06f487d0b101ff2de9e517ea",
+     "conflicting_response_id": "resp_6946b587f1b34f8ea6034e0b8cf424f4", "conflicting_event_type": "response.failed",
+     "response_id_matches_transport_alias": True},
+)
+SCOPES[(157, 67)] = replace(
+    SCOPES[(157, 66)], wave=67, cooldown_unix=1795775768.9238257,
+    archive=(*SCOPES[(157, 66)].archive, _157_W66_OWNED_FAILURE),
+    fitted_prefix_files=(
+        ("pause.request", "7ce6e0e6a95a1cfe2926bb9657facb238dc51e82b71a2489d9c9dff56a824bdc"),
+        ("boundary.json", "d283c75fb1b1304b459495ede40a25698a16d18ab681cca2829b90f56917587d"),
+        ("round_07/turn_00/request.json", "a9c245bb0c43d106d364bbdcfb2c1f2780a79cd3798b993c0d76dd50a40202e9"),
+        ("round_07/turn_00/attempt_00.started.json", "7ee79e91b626ae3072ffcd3aac8a748bf8264df8f1d5df8cd854507c78ece6b0"),
+        *((path, sha) for path, sha in SCOPES[(157, 66)].fitted_prefix_files if path in {
+            "round_07/source.json", "round_07/boundary_memory.json", "round_07/boundary_user_message.json",
+            "round_07/authoritative_packet.json",
+        }),
+    ),
+)
+_OPERATOR_RECHECK_SOURCES = {
+    (157, 66): STUDY / "scripts/dispatch_v13_157_w66_pool.py",
+    (157, 67): STUDY / "scripts/dispatch_v13_157_w67_pool.py",
+}
 
 
 def operator_reasoning_recheck(scope):
@@ -14456,6 +14497,15 @@ def operator_reasoning_recheck(scope):
             "reported_effort": "xhigh",
             "maximum_physical_attempts": 1,
             "expires_unix": 1795782600,
+        }
+    if scope == SCOPES[(157, 67)]:
+        return {
+            "previous_attempt_id": _157_W66_OWNED_FAILURE.attempt_id,
+            "raw_response_sha256": None,
+            "provider_request_id": _157_W66_OWNED_FAILURE.progress["provider_request_id"],
+            "reported_effort": "xhigh",
+            "maximum_physical_attempts": 1,
+            "expires_unix": 1795783500,
         }
     return None
 
@@ -14657,6 +14707,20 @@ def _require_157_w65_mismatch_fallback(scope, old, record, record_file_sha):
         raise PermissionError("the W65 reasoning rejection or its two signed history segments differ")
 
 
+def _require_157_w66_owned_fallback(scope, parent, result):
+    previous = SCOPES[(157, 66)]
+    old = parent.predecessor
+    if (scope != SCOPES[(157, 67)] or parent.digest != _157_W66_OWNED_FAILURE.identity.contract
+            or parent.target_labels != 589 or old.get("operator_reasoning_recheck") != operator_reasoning_recheck(previous)
+            or old.get("execution_budget") != previous.budget or old.get("recovery_budget") != previous.recovery_budget
+            or old.get(RETIRED_REVIEWED_RECORDS_FIELD) != _retired_reviewed_history(previous)
+            or old.get(RETIRED_SECONDARY_RECORDS_FIELD) != retired_secondary_reviewed_history(previous)
+            or REVIEWED_RECORD_FIELD in old
+            or result.get("raw_response_sha256") is not None):
+        raise PermissionError("the exact W66 operator permit or its two signed history segments differ")
+    _check_reviewed_owned_result(scope, result)
+
+
 def _require_static_timeout_fallback(scope, old, result):
     """Close the current reviewed marker only for an explicitly pinned idle-timeout successor."""
     latest = scope.archive[-1]
@@ -14800,6 +14864,9 @@ def construct(root, failed_release, failed_run, run, scope):
         _verify_w54_fitted_predecessor(failed_run, parent, approval, scope, last["request"], result, fitted_predecessor)
     elif RETIRED_REVIEWED_RECORDS_FIELD in old and old[RETIRED_REVIEWED_RECORDS_FIELD] != retired_history:
         raise PermissionError("the successor must preserve retired reviewed history")
+    if scope == SCOPES[(157, 67)]:
+        result = read_bridge_json(failed_run / "bridge/results" / f"{scope.attempt_id}.json")
+        _require_157_w66_owned_fallback(scope, parent, result)
     if scope.reviewed_record_sha256 is not None:
         result = read_bridge_json(failed_run / "bridge/results" / f"{scope.attempt_id}.json")
         _check_reviewed_parent(scope, old, last["request"], result)
