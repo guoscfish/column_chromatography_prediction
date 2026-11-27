@@ -840,6 +840,10 @@ def test_12203_preserves_both_owned_failures_and_p1_guard(
      ["c958c81f4b72442ca53ae1db01844d35", "fc2fbfeeafed46efa2950bf56d4ee748"],
      ["3f93f45109b384447886578dfd0fba1d54c263214b2d90959023c08de5deaaae",
       "61892e628880daad55719ffac6e5d932dd130c56b397d2f25efb3c73378dda63"]),
+    (40, 61, 1795742501.963246,
+     ["b4e28ce0bf7c4a0aaed2f58ebe209365", "910bb184c09847319f26780c0f13448c"],
+     ["c076291c8bca9206692dc99e00e94136564e76532525b80a81d0d1e4056f3f22",
+      "610ae07b66d4928c0967245b84932fc493fb9c69f55bb2025155d49320fe48fb"]),
 ])
 def test_12203_preserves_both_latest_owned_failures_and_p1_guard(monkeypatch, wave, total_archived, eligible_unix,
                                                                attempt_ids, terminal_shas):
@@ -857,6 +861,12 @@ def test_12203_preserves_both_latest_owned_failures_and_p1_guard(monkeypatch, wa
             "attempt_00.replay.terminal.json": "0a98bcdc30d4d4cb3853fa9204d55588e3878a18d293919ec4aa01f7ecccc60f",
             "attempt_01.replay_link.json": "8649f8f23140751caab5ef3c8c022403c24e4ec56b81da6fef70d5e4e108901d",
         }
+    if wave == 40:
+        assert scope.archive[-1].replay_files == {
+            "attempt_00.replay_authorization.json": "bd5c8fccda285ee6b3bd455009a154ab4016d1c99c26c4449e602388905cdb1e",
+            "attempt_00.replay.terminal.json": "7d4500cd81660e0b0aae23c8231fa100d0dcd58d6fc37ee26037ab42ccb2c10c",
+            "attempt_01.replay_link.json": "e69531bc254d32c84ff7759183ca693ca3ff7e13dc39a4dcb51d203a4d49ddd8",
+        }
     assert scope.archive[:-1] == previous.archive
     assert sum(len(item.attempts) for item in scope.archive) == total_archived
     assert scope.original_start_round == scope.round == scope.replay_start_round == 5
@@ -871,7 +881,8 @@ def test_12203_preserves_both_latest_owned_failures_and_p1_guard(monkeypatch, wa
     assert first.request_id == second.request_id
     assert [item.attempt_id for item in (first, second)] == attempt_ids
     assert [item.terminal_file_sha256 for item in (first, second)] == terminal_shas
-    assert [item.progress["sse_event_count"] for item in (first, second)] == ([41, 25] if wave == 39 else [41, 41])
+    expected_events = {39: [41, 25], 40: [25, 41]}.get(wave, [41, 41])
+    assert [item.progress["sse_event_count"] for item in (first, second)] == expected_events
     for item in (first, second):
         assert item.progress["http_status"] == 200
         assert item.progress["provider_error_code"] == "upstream_error"
@@ -1832,26 +1843,30 @@ def test_157_preserves_both_owned_failures_and_p1_guard(monkeypatch, wave, eligi
         dispatcher._check_boundary(request, {**second_physical, "attempt": 2})
 
 
-@pytest.mark.parametrize("wave,total_archived,eligible_unix,attempt_ids,terminal_shas,second_failure", [
+@pytest.mark.parametrize("wave,total_archived,eligible_unix,attempt_ids,terminal_shas,second_failure,expected_sse", [
     (29, 39, 1795736565.0167,
      ["3c03b8c5136c457a8b56706c46e48481", "c202018f7191414880907775b4ec2479"],
      ["ce671501df2d3688b771f89f9e7a3e4af096ffa70e7518ab04af094515c0e8b2",
-      "c29d5feb98d2a687b810c7095f170703cbd311836d4c65b97c192b8a49548727"], "response_id_mismatch"),
+      "c29d5feb98d2a687b810c7095f170703cbd311836d4c65b97c192b8a49548727"], "response_id_mismatch", [41, 41]),
     (30, 41, 1795738643.1450398,
      ["777d3b522a6447c0b6565c5f62c9762b", "53a1f934df2a401695fb4ea12e24f6cb"],
      ["ab143c4679e721dd1b9d923eb657070f4a1f16bac76058ceff54094cc455ee73",
-      "642eba1fdd04da762dc73c29c8ae087471b344f1e9aa93768b94df9309426dee"], "response_id_mismatch"),
+      "642eba1fdd04da762dc73c29c8ae087471b344f1e9aa93768b94df9309426dee"], "response_id_mismatch", [41, 41]),
     (31, 43, 1795740329.9381309,
      ["1f856802fce4415a8bf718fbe73645dd", "0bb8a2c34e2c41d0a7d64c1b4474e37a"],
      ["ea260a269df18fdcb524587bef5c2b704c771f0f2f246e6745f0bd88a3061966",
-      "c2ea039e916c8b3a1f8475896a3d0d9286808ab400a9f0e307e982df7443f1f7"], "sse_frame_error"),
+      "c2ea039e916c8b3a1f8475896a3d0d9286808ab400a9f0e307e982df7443f1f7"], "sse_frame_error", [41, 33]),
     (32, 45, 1795741480.156861,
      ["4714a2a236364476b8a8429a97458f8d", "678f556c180c4ea4bd15605fa9ed3405"],
      ["e8373519e8299e337f3b12fee7c57f18ac7fa29e7297c3a1c7f96f1b60517b51",
-      "fab6ec07bd38aee0ebc011ba07936d0fb43dfd2c1202006812707b059479d01b"], "response_id_mismatch"),
+      "fab6ec07bd38aee0ebc011ba07936d0fb43dfd2c1202006812707b059479d01b"], "response_id_mismatch", [41, 41]),
+    (33, 47, 1795742579.7300103,
+     ["be0356649b834158ada557ada8ed0942", "0cac35126289455a8c915a9fe8b801f5"],
+     ["2e5ea06e4a450002038ac7ec9322353c8b387fc809bf932f388fb39d6a419cef",
+      "09d18108221029c523b897d4a6468ff0146c7aa0e8aff04b4ea3381b7fb0b4ee"], "response_id_mismatch", [25, 41]),
 ])
 def test_157_latest_scopes_preserve_reviewed_failures_and_p1_guard(monkeypatch, wave, total_archived, eligible_unix,
-                                                               attempt_ids, terminal_shas, second_failure):
+                                                               attempt_ids, terminal_shas, second_failure, expected_sse):
     previous = gpu.SCOPES[(157, wave - 1)]
     scope = gpu.SCOPES[(157, wave)]
     assert scope.archive[:-1] == previous.archive
@@ -1869,9 +1884,7 @@ def test_157_latest_scopes_preserve_reviewed_failures_and_p1_guard(monkeypatch, 
     assert [item.attempt_id for item in (first, second)] == attempt_ids
     assert [item.terminal_file_sha256 for item in (first, second)] == terminal_shas
     assert (first.failure, second.failure) == ("response_id_mismatch", second_failure)
-    assert [item.progress["sse_event_count"] for item in (first, second)] == [
-        41, 33 if second_failure == "sse_frame_error" else 41,
-    ]
+    assert [item.progress["sse_event_count"] for item in (first, second)] == expected_sse
     for item in (first, second):
         assert item.progress["http_status"] == 200
         if item.failure == "sse_frame_error":
@@ -2671,6 +2684,9 @@ def test_887_r32_retains_the_one_leftover_slot_and_pins_partial_failed_stream_cu
     (16, 10, 1795739695.7711978, "b542064daf2261ba4b888ceeadbbc5fbf50f85c5da7f5be6dec725c75df4e7c9",
      ["1515b83fb718b479394c8acc2b8abef3942037f77bad7a7668b3442fb8ef4d9f",
       "9048ceda9accf27113f950918eb7a14c08a487ea9774ecc90bdebacfff5c57b6"], [39, 41]),
+    (18, 14, 1795742290.9625022, "2fdc8b5ffa40ee7ca0bf63334a96a2f88a40ae28afed03bcced888bbd773432a",
+     ["33484fe93a23ee15dc5cfaf8a6dcb48ea539d80d49aaa97ec9ff985d2190b1ca",
+      "8e00a867a1934bf0cd91ca79c1dc72166021bb76cf096715584c36d6c84f32c9"], [41, 23]),
 ])
 def test_887_latest_r34_scopes_keep_l1421_and_signed_guard_after_owned_failures(
         monkeypatch, wave, total_archived, eligible_unix, request_sha, terminal_shas, expected_sse):
@@ -2686,6 +2702,10 @@ def test_887_latest_r34_scopes_keep_l1421_and_signed_guard_after_owned_failures(
     assert sources["seed_runner.py"] == "417f41255d53d7794abcdc98c0a9258141d01c076df845bfa877013c84de1792"
     assert sources["transport_manager.py"] == "2cdc0990f81012f040a73f8d5b7226fe1d35b934f477dc1654ee071126193a3c"
     assert dict(scope.fitted_prefix_files)["round_34/turn_00/request.json"] == request_sha
+    if wave == 18:
+        assert dict(scope.fitted_prefix_files)["boundary.json"] == (
+            "2b06c2cb393819ae9a6d09b8ae92825b2f3da5e4b202b9d75a294bbfed64f313"
+        )
     assert scope.header_deadline_profile == {}
     assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 2}
     assert scope.budget == {"first_logical_requests": 2, "maximum_logical_requests": 4, "maximum_physical_attempts": 8}
@@ -3890,6 +3910,63 @@ def test_2357_wave33_preserves_header_deadline_and_exact_owned_w32_failures(monk
         "bcef9196238e92645204433f43b0a5993e2612106b48ea491fa03df620964fb3",
     ]
     assert [item.progress["sse_event_count"] for item in (first, second)] == [41, 41]
+    for item in (first, second):
+        assert item.progress["http_status"] == 200
+        assert item.progress["provider_error_code"] == "upstream_error"
+        assert item.progress["response_id_matches_transport_alias"] is True
+        assert item.progress["conflicting_event_type"] == "response.failed"
+        assert set(item.progress["sse_milestones"]) == {
+            "response.created", "response.in_progress", "response.output_item.added", "response.output_item.done",
+        }
+
+    dispatcher = mac.SuccessorDispatcher.__new__(mac.SuccessorDispatcher)
+    dispatcher.reviewed_scope = scope
+    dispatcher.scope = {"previous_attempts": [{"attempt_id": item.attempt_id} for item in (first, second)]}
+    dispatcher.original = {"binding": {}, "payload": {}, "request_id": second.request_id}
+    request = {**dispatcher.original, "request_id": "fresh", "logical_index": 0}
+    first_physical = {"attempt": 0, "attempt_id": "new-first"}
+    second_physical = {"attempt": 1, "attempt_id": "new-second"}
+    admitted_replays = []
+    monkeypatch.setattr(dispatcher, "_check_boundary_retry",
+                        lambda req, started: admitted_replays.append((req, started)))
+    monkeypatch.setattr(mac, "time", lambda: scope.not_before_unix - 0.01)
+    with pytest.raises(PermissionError, match="cooldown"):
+        dispatcher._check_boundary(request, first_physical)
+    monkeypatch.setattr(mac, "time", lambda: scope.not_before_unix)
+    dispatcher._check_boundary(request, first_physical)
+    assert admitted_replays == []
+    dispatcher._check_boundary(request, second_physical)
+    assert admitted_replays == [(request, second_physical)]
+    with pytest.raises(PermissionError, match="signed physical attempts"):
+        dispatcher._check_boundary(request, {**second_physical, "attempt": 2})
+
+
+def test_2357_wave34_preserves_header_deadline_and_exact_owned_w33_failures(monkeypatch):
+    previous = gpu.SCOPES[(2357, 33)]
+    scope = gpu.SCOPES[(2357, 34)]
+    assert scope.archive[:-1] == previous.archive
+    assert sum(len(item.attempts) for item in scope.archive) == 52
+    assert scope.original_start_round == scope.round == scope.replay_start_round == 5
+    assert scope.original_boundary_physical_attempts == previous.boundary_physical_attempts == 2
+    assert scope.payload_sha256 == previous.payload_sha256 and scope.required_sources == previous.required_sources
+    assert scope.header_deadline_profile == previous.header_deadline_profile == {"response_headers_seconds": 300}
+    assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 2}
+    assert scope.budget == previous.budget == {"first_logical_requests": 31, "maximum_logical_requests": 91,
+                                              "maximum_physical_attempts": 182}
+    assert (scope.cooldown_field, scope.not_before_unix) == ("not_before_unix", 1795742775.9691432)
+    assert scope.archive[-1].replay_files == {
+        "attempt_00.replay_authorization.json": "af319a563529c944712160533c93154d2060949d56845d5a5cb879ac8b8dba99",
+        "attempt_00.replay.terminal.json": "b5ef20af999c8e0bdba9e773d9970500a775c55d6ce7a22ae7b5f85d1519856b",
+        "attempt_01.replay_link.json": "3ca1ae319152585fe92388b601e8b6df9f33b0676e8d507dcf7bfc699440f8eb",
+    }
+    first, second = scope.archive[-1].attempts
+    assert first.request_id == second.request_id
+    assert [item.attempt_id for item in (first, second)] == ["07bc264d90bb4032a4c2381b7574bf63", "e4eee70e367d4552a9f03e5deb2ddfdb"]
+    assert [item.terminal_file_sha256 for item in (first, second)] == [
+        "6875ef0825e6c141ebdb93711c522b1aee3ffad0e7b290085fe1b1de83b56699",
+        "25527520318af897e4ff1b033aff690e4c8aaabfcd9cd5f481105f93b10439e2",
+    ]
+    assert [item.progress["sse_event_count"] for item in (first, second)] == [25, 41]
     for item in (first, second):
         assert item.progress["http_status"] == 200
         assert item.progress["provider_error_code"] == "upstream_error"
