@@ -12117,8 +12117,59 @@ SCOPES[(2357, 55)] = Scope(
 )
 
 
+_W55_W54_PREFIX_SHA256 = "dbeb68e01b08d4994fc051728186df4c9cf7a33088a662398ef0b6bbea871c11"
+_2357_W55_R11 = Review(
+    retry.bounded.RunIdentity(
+        "-2357-relay-retry-55",
+        "7401d38facda377c2959c71c649be70c82644bae4880d44594f7d61948f090a0",
+        "f2e445e1bb127d643564ec2fc38af3fdab692a0aa9ccaa8a7fd343e68303f147",
+    ),
+    "9e13abbc603090d45a14d883295731dab6e215f3cbf886b2c7a9e4761457e2fb",
+    "732b796ad538498ca5bba31e39a2d05e",
+    "f1872636cd0c9752994a724e8dbea7dcaad079bc58da45907f7f848a4cb450cf",
+    "228331aab0d9f525ddeae321bcc93b8925a9e686cb0933318d2c8100252c8e03",
+    "5a07e06b6c11ec66fcc3e59b9a7f3d61350ba86acee4b0caebc7b916eb1a7e31",
+    "4df13431ff86cd589e23c3e63dee02d938f6d524d8fb9b4d0671b6a3a0523ae4",
+    "response.failed",
+    {"elapsed_seconds": 258.3185298338067,
+     "error_type": "response.failed",
+     "event_type": "response.failed",
+     "http_status": 200,
+     "phase": "transport_failure",
+     "provider_error_code": "server_error",
+     "provider_request_id": "3d302069-ca92-4310-a910-4493f2a6e70b",
+     "response_id": "resp_0926b01d18999c66016b09410ec9a887d2b2d56d3d5ff8f7f8",
+     "sse_event_count": 31,
+     "sse_milestones": {"response.created": {"elapsed_seconds": 42.26519066700712,
+                                             "interval_seconds": None},
+                        "response.failed": {"elapsed_seconds": 258.31699337484315,
+                                            "interval_seconds": 0.028242207830771804},
+                        "response.in_progress": {"elapsed_seconds": 42.26671374985017,
+                                                 "interval_seconds": 0.0015230828430503607},
+                        "response.output_item.added": {"elapsed_seconds": 42.27376558398828,
+                                                       "interval_seconds": 0.00705183413811028},
+                        "response.output_item.done": {"elapsed_seconds": 60.39101124997251,
+                                                      "interval_seconds": 18.11724566598423}}},
+)
+SCOPES[(2357, 56)] = replace(
+    SCOPES[(2357, 55)], wave=56, original_start_round=11,
+    cooldown_unix=1795768846.926097,
+    archive=(*SCOPES[(2357, 55)].archive, _2357_W55_R11),
+    fitted_prefix_files=(
+        ("pause.request", "3fda18a18550813e17785ba80dc0636b2518d03a8e7f4b2a102a5ec83259610b"),
+        ("boundary.json", "2a9df68da88b8d7a27fa174c50ad349c0838ce42e3922e72783ee69e7a9cfcc1"),
+        ("round_11/source.json", "89e83649f38ef6645e8fdcdfc87d57dcfcaef89c104ceae250f9581ea71c42ab"),
+        ("round_11/boundary_memory.json", "0925bd733aeda54ff6d551d327a215c713c7d801448a1d273e8848709b100125"),
+        ("round_11/boundary_user_message.json", "0fabad82858816d994585630013453ed19d61e7ee79895c94c57d09eceb8ac24"),
+        ("round_11/authoritative_packet.json", "d33d49a9a9cee6ea902efb2a30747e0cc76dcb1ef0b3e268835ad2e734e2f733"),
+        ("round_11/turn_00/request.json", "ba00b0080f280d0cabe4053867f4ce5e03184311f8b68a8be78588fcca26cd53"),
+        ("round_11/turn_00/attempt_00.started.json", "287f347caca62d1541a9c2680d5f020576d66cd25cf17d2591ed6f8554090502"),
+    ),
+)
+
+
 def fitted_reviewed_predecessor(scope):
-    if scope == SCOPES[(2357, 55)]:
+    if scope in (SCOPES[(2357, 55)], SCOPES[(2357, 56)]):
         return dict(_W54_FITTED_REVIEWED_ORIGIN)
     return None
 
@@ -12375,6 +12426,23 @@ def _verify_w54_fitted_predecessor(run, parent, approval, scope, request, result
         raise PermissionError("the exact W54 fitted lineage or the stopped R11 stream differs from its reviewed evidence")
 
 
+def _verify_w56_fitted_predecessor(records, expected):
+    previous, origin = records
+    w55, old_request = previous["contract"].predecessor, previous["request"]
+    prior_scope = SCOPES[(2357, 55)]
+    if (w55.get(FITTED_REVIEWED_PREDECESSOR_FIELD) != expected
+            or w55.get("previous_prefix_sha256") != _W55_W54_PREFIX_SHA256
+            or digest(w55.get("previous_prefix_files")) != _W55_W54_PREFIX_SHA256
+            or w55.get("reviewed_fitted_prefix_files") != dict(prior_scope.fitted_prefix_files)
+            or any(file_digest(origin["directory"] / name) != sha for name, sha in prior_scope.fitted_prefix_files)
+            or (old_request["binding"]["checkpoint_sha256"], old_request["payload_sha256"])
+            != (_W54_L685_CHECKPOINT, prior_scope.payload_sha256)):
+        raise PermissionError("the exact W55 continuation does not retain the fitted W54 prefix")
+    prior_result = read_bridge_json(origin["run"] / "bridge/results" / f"{prior_scope.attempt_id}.json")
+    _verify_w54_fitted_predecessor(origin["run"], origin["contract"], origin["approval"], prior_scope,
+                                    origin["request"], prior_result, expected)
+
+
 def _require_static_timeout_fallback(scope, old, result):
     """Close the current reviewed marker only for an explicitly pinned idle-timeout successor."""
     latest = scope.archive[-1]
@@ -12508,7 +12576,9 @@ def construct(root, failed_release, failed_run, run, scope):
     old = parent.predecessor
     retired_history = _retired_reviewed_history(scope)
     fitted_predecessor = fitted_reviewed_predecessor(scope)
-    if fitted_predecessor is not None:
+    if scope == SCOPES[(2357, 56)]:
+        _verify_w56_fitted_predecessor(records, fitted_predecessor)
+    elif fitted_predecessor is not None:
         result = read_bridge_json(failed_run / "bridge/results" / f"{scope.attempt_id}.json")
         _verify_w54_fitted_predecessor(failed_run, parent, approval, scope, last["request"], result, fitted_predecessor)
     elif RETIRED_REVIEWED_RECORDS_FIELD in old and old[RETIRED_REVIEWED_RECORDS_FIELD] != retired_history:
@@ -12588,7 +12658,7 @@ def construct(root, failed_release, failed_run, run, scope):
         proof.pop(REVIEWED_RECORD_FIELD, None)
     if fitted_predecessor is not None:
         proof[FITTED_REVIEWED_PREDECESSOR_FIELD] = fitted_predecessor
-        proof.pop(RETIRED_REVIEWED_RECORDS_FIELD)
+        proof.pop(RETIRED_REVIEWED_RECORDS_FIELD, None)
     elif retired_history:
         proof[RETIRED_REVIEWED_RECORDS_FIELD] = retired_history
     if scope.fitted_prefix_files:

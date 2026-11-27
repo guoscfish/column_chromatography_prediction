@@ -6794,6 +6794,60 @@ def test_887_wave36_retains_the_owned_failed_terminal():
 
 
 
+def test_2357_wave56_preserves_w54_fit_w55_receipt_and_one_slot(monkeypatch):
+    previous, scope = gpu.SCOPES[(2357, 55)], gpu.SCOPES[(2357, 56)]
+    assert scope.archive[:-1] == previous.archive
+    assert scope.round == scope.original_start_round == 11 and scope.replay_start_round == 12
+    assert scope.boundary_physical_attempts == scope.original_boundary_physical_attempts == 1
+    assert scope.payload_sha256 == previous.payload_sha256 and scope.header_deadline_profile == previous.header_deadline_profile
+    assert scope.budget == {"first_logical_requests": 25, "maximum_logical_requests": 73, "maximum_physical_attempts": 145}
+    assert scope.not_before_unix == 1795769026.926097
+    response = scope.archive[-1]
+    assert response.terminal_file_sha256 == "5a07e06b6c11ec66fcc3e59b9a7f3d61350ba86acee4b0caebc7b916eb1a7e31"
+    assert response.failure == "response.failed" and response.progress["provider_error_code"] == "server_error"
+    assert response.progress["http_status"] == 200 and response.progress["sse_event_count"] == 31
+    assert response.progress["response_id"] != "resp_" + response.progress["provider_request_id"].replace("-", "")
+    expected = gpu.fitted_reviewed_predecessor(scope)
+    assert expected == gpu.fitted_reviewed_predecessor(previous)
+    assert gpu.fitted_reviewed_predecessor(replace(scope, round=12)) is None
+
+    dispatcher = mac.SuccessorDispatcher.__new__(mac.SuccessorDispatcher)
+    dispatcher.reviewed_scope = scope
+    dispatcher.scope = {"previous_attempts": [{"attempt_id": response.attempt_id}]}
+    dispatcher.original = {"binding": {}, "payload": {}, "request_id": response.request_id}
+    request = {**dispatcher.original, "request_id": "fresh", "logical_index": 0}
+    start = {"attempt": 0, "attempt_id": "new-first"}
+    monkeypatch.setattr(mac, "time", lambda: scope.not_before_unix - 0.01)
+    with pytest.raises(PermissionError, match="cooldown"):
+        dispatcher._check_boundary(request, start)
+    monkeypatch.setattr(mac, "time", lambda: scope.not_before_unix)
+    dispatcher._check_boundary(request, start)
+    with pytest.raises(PermissionError, match="signed physical attempts"):
+        dispatcher._check_boundary(request, {**start, "attempt": 1})
+
+
+def test_2357_wave56_revalidates_exact_w54_fitted_prefix(monkeypatch, tmp_path):
+    previous, scope = gpu.SCOPES[(2357, 55)], gpu.SCOPES[(2357, 56)]
+    expected = gpu.fitted_reviewed_predecessor(scope)
+    origin_pins = dict(previous.fitted_prefix_files)
+    prefix = {"transition_06": origin_pins["round_06/transition.json"]}
+    monkeypatch.setattr(gpu, "_W55_W54_PREFIX_SHA256", digest(prefix))
+    request = {"binding": {"checkpoint_sha256": gpu._W54_L685_CHECKPOINT}, "payload_sha256": scope.payload_sha256}
+    predecessor = {gpu.FITTED_REVIEWED_PREDECESSOR_FIELD: expected, "previous_prefix_sha256": digest(prefix),
+                   "previous_prefix_files": prefix, "reviewed_fitted_prefix_files": origin_pins.copy()}
+    last = {"contract": SimpleNamespace(predecessor=predecessor), "request": request}
+    origin = {"directory": tmp_path, "run": tmp_path, "contract": "W54", "approval": "approval", "request": "R11"}
+    monkeypatch.setattr(gpu, "file_digest", lambda path: origin_pins[path.relative_to(tmp_path).as_posix()])
+    monkeypatch.setattr(gpu, "read_bridge_json", lambda _path: "sealed original W54 result")
+    checks = []
+    monkeypatch.setattr(gpu, "_verify_w54_fitted_predecessor", lambda *args: checks.append(args))
+    gpu._verify_w56_fitted_predecessor([last, origin], expected)
+    assert checks == [(tmp_path, "W54", "approval", previous, "R11", "sealed original W54 result", expected)]
+    origin_pins["round_10/transition.json"] = "changed"
+    with pytest.raises(PermissionError, match="fitted W54 prefix"):
+        gpu._verify_w56_fitted_predecessor([last, origin], expected)
+
+
 def test_2357_wave55_preserves_w54_fit_history_and_rejects_the_wrong_round(tmp_path):
     lane = gpu.SCOPES[(2357, 55)]
     review, = lane.archive
