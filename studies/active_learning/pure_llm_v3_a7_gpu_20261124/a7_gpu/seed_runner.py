@@ -500,6 +500,7 @@ def _imported_boundary_reply_limit(contract, run, seed, start, *, audited, repla
     dispatcher = predecessor.get("dispatcher_module")
     normal_boundaries = {
         "dispatch_v13_887_r33_continuation": (887, 33),
+        "dispatch_v13_2357_r12_continuation": (2357, 12),
         "dispatch_v13_6101_r9_continuation": (6101, 9),
         "dispatch_v13_6101_r11_continuation": (6101, 11),
     }
