@@ -365,6 +365,62 @@ def test_2357_wave50_keeps_reviewed_prefixes_and_exact_static_timeout_gate():
         gpu._require_static_timeout_fallback(replace(scope, archive=(*scope.archive[:-1], no_idle)), approved, result)
 
 
+def test_6101_wave60_preserves_both_signed_history_segments_and_exactly_one_slot(monkeypatch):
+    anchor, scope = gpu.SCOPES[(6101, 55)], gpu.SCOPES[(6101, 60)]
+    assert scope.archive[:-5] == anchor.archive
+    primary, secondary = gpu._retired_reviewed_history(scope), gpu.retired_secondary_reviewed_history(scope)
+    assert primary == gpu._retired_reviewed_history(anchor) and len(primary) == 17
+    assert len(secondary) == 5 and secondary[0][gpu.REVIEWED_RECORD_FIELD] is None
+    assert {x["contract_sha256"] for x in primary}.isdisjoint(x["contract_sha256"] for x in secondary)
+    assert [x["contract_sha256"] for x in secondary] == [x.identity.contract for x in scope.archive[-5:]]
+    assert secondary[-1][gpu.REVIEWED_RECORD_FIELD] == gpu._6101_W59_RECORD
+    assert gpu.retired_secondary_reviewed_history(anchor) == []
+    assert scope.payload_sha256 == anchor.payload_sha256 and scope.required_sources == anchor.required_sources
+    assert scope.budget == {"first_logical_requests": 23, "maximum_logical_requests": 67, "maximum_physical_attempts": 133}
+    assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}
+    assert scope.not_before_unix == 1795773238.756961 and scope.replay_start_round == 14
+    observed = scope.archive[-1].progress
+    assert observed["provider_error_code"] == "unrecognized" and observed["provider_error_type"] == "upstream_error"
+    assert not is_sealed_relay_failure({"error": scope.archive[-1].failure, "provider_status": None})
+
+    record = {"seed": 6101, "round": 13, "anchor_wave": 55, "steps": [{}] * 4,
+              "checkpoint_sha256": "4c01fecd82b1c3b42125c490ca144de4454219c0dffc03265ace49f80504a69d",
+              "payload_sha256": scope.payload_sha256}
+    true_digest = gpu.digest
+    monkeypatch.setattr(gpu, "digest", lambda value: gpu._6101_W59_RECORD if value == record else true_digest(value))
+    old = {gpu.REVIEWED_RECORD_FIELD: gpu._6101_W59_RECORD, gpu.RETIRED_REVIEWED_RECORDS_FIELD: primary,
+           "recovery_budget": scope.recovery_budget}
+    result = {"provider_dispatched": True, "raw_response": None, "raw_response_sha256": None,
+              "outcome": {"status": "failed", "failure": {"code": "provider_stream_error", "ambiguous": True,
+                                                          "reply_identity": None, "retryable": False}}}
+    gpu._require_6101_w59_stream_fallback(scope, old, result, record, gpu._6101_W59_RECORD_FILE)
+    with pytest.raises(PermissionError, match="two signed history segments"):
+        gpu._require_6101_w59_stream_fallback(scope, {**old, gpu.RETIRED_REVIEWED_RECORDS_FIELD: primary[:-1]},
+                                              result, record, gpu._6101_W59_RECORD_FILE)
+    with pytest.raises(PermissionError, match="two signed history segments"):
+        gpu._require_6101_w59_stream_fallback(scope, old, result, {**record, "steps": []}, gpu._6101_W59_RECORD_FILE)
+    with pytest.raises(PermissionError, match="two signed history segments"):
+        gpu._require_6101_w59_stream_fallback(scope, old, {**result, "raw_response": {}},
+                                              record, gpu._6101_W59_RECORD_FILE)
+    with pytest.raises(PermissionError, match="two signed history segments"):
+        gpu._require_6101_w59_stream_fallback(replace(scope, boundary_physical_attempts=2), old, result,
+                                              record, gpu._6101_W59_RECORD_FILE)
+
+    dispatcher = mac.SuccessorDispatcher.__new__(mac.SuccessorDispatcher)
+    dispatcher.reviewed_scope = scope
+    dispatcher.scope = {"previous_attempts": [{"attempt_id": scope.attempt_id}]}
+    dispatcher.original = {"binding": {}, "payload": {}, "request_id": scope.archive[-1].request_id}
+    request = {**dispatcher.original, "request_id": "fresh", "logical_index": 0}
+    start = {"attempt": 0, "attempt_id": "fresh-physical-id"}
+    monkeypatch.setattr(mac, "time", lambda: scope.not_before_unix - .01)
+    with pytest.raises(PermissionError, match="cooldown"):
+        dispatcher._check_boundary(request, start)
+    monkeypatch.setattr(mac, "time", lambda: scope.not_before_unix)
+    dispatcher._check_boundary(request, start)
+    with pytest.raises(PermissionError, match="signed physical attempts"):
+        dispatcher._check_boundary(request, {**start, "attempt": 1})
+
+
 def test_6101_wave55_keeps_full_exhausted_reviewed_chain_and_one_static_post(monkeypatch):
     anchor, scope = gpu.SCOPES[6101, 38], gpu.SCOPES[6101, 55]
     assert scope.archive[:-17] == anchor.archive

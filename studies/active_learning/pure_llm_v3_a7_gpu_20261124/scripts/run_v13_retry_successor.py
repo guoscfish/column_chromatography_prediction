@@ -12296,7 +12296,8 @@ def _evidence(run, active, contract, approval, scope, review):
 
 def _archives(failed_run, failed_release, scope):
     run, release = failed_run, failed_release
-    retired = {entry["contract_sha256"]: entry for entry in _retired_reviewed_history(scope)}
+    histories = (*_retired_reviewed_history(scope), *retired_secondary_reviewed_history(scope))
+    retired = {entry["contract_sha256"]: entry for entry in histories}
     records = []
     for index, review in enumerate(reversed(scope.archive), 1):
         if review.identity == _6101_R11_CONTINUATION and release.name != _6101_R11_RELEASE:
@@ -12354,7 +12355,7 @@ def _source_manifest(root, parent, scope):
     sources = {name: file_digest(root / name) for name in parent.source_sha256}
     launchers = {(STUDY / "scripts" / f"{module}.py").as_posix() for module in ("run_v13_retry_successor", DISPATCHER)}
     changed = {name for name, actual in sources.items() if actual != parent.source_sha256[name]}
-    if fitted_reviewed_predecessor(scope) is not None or scope == SCOPES[(12203, 69)]:
+    if fitted_reviewed_predecessor(scope) is not None or scope in (SCOPES[(12203, 69)], SCOPES[(6101, 60)]):
         allowed = launchers
     elif scope.reviewed_record_sha256 is not None:
         allowed = set() if scope.previous_reviewed_record_sha256 is not None else launchers
@@ -14101,8 +14102,197 @@ SCOPES[(157, 62)] = replace(
 )
 
 
+_6101_W55_SECOND_REVIEW = Review(
+    retry.bounded.RunIdentity(
+        "-6101-relay-retry-55",
+        "583303cb230aea1986d64d7bbe1f6db11768153faa24bcf8491a630cc3571437",
+        "e767424391f76ad892aa093c622ec3e59865fd2b5b7283edee059c0be4e91436",
+    ),
+    "770ccb7a9ad5ae5156ac5c5f990ffa2d307625aad2d994cb27b651efae1d19f7", "8ea6dd3683fc466789f29fb24f8679c7",
+    "762f1f834efa14a9e469acb4425c6df078dfec186dc95e7af83d32aeb101bd97",
+    "4346ba8792abc8d5dc6a42f378eef344d688ccd5d46b2eb97dae3085dd3d0561",
+    "88fb0d3d46d0f09179bd3a60901863d8dcd854902037a617c148759995a031b3",
+    "8cadfc1d7769a7f83a346e327d45d86176c309dea87bf719a7b8e1dbb1dfdd61", "response_id_mismatch",
+    {'provider_request_id': '8ed9a373-3c39-4c78-a1a9-a0b7fb171e0b',
+     'response_id': 'resp_013c026f8d1805f3016b09491cd84087d0a3181e27356c1271',
+     'conflicting_response_id': 'resp_8ed9a3733c394c78a1a9a0b7fb171e0b',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_6101_W56_SECOND_REVIEW = Review(
+    retry.bounded.RunIdentity(
+        "-6101-relay-retry-56",
+        "72800224e7bb745d7d27074ade49c3a638cafe89032e09ef2b9ce98f620e31ad",
+        "2853aec193d3a5d61b9f8ccb9a102ae07ad8c3423fa6fab7d7e7ed62bf54e0f6",
+    ),
+    "5dc27738789cb2f2626429e1b19aef1880d53890694895ae6b816b62075cdbd5", "be7b0a16113a4f03aa5bb1d7567a1236",
+    "9b5bf75621771a440c1ce2d8accf09aa9edbc6902ef6ba12e16b7dd36c1546b1",
+    "bf64137d3d8f81909b2037596ccdf53f97e90f42ba04b42b862a96a8a29126c2",
+    "3392130570607f456cc82a7360278f62624ec1701d6eaa5a8550d6a90ed39d36",
+    "98a204150b8c3bde3927a680beded5536b129e9476e03e6fb47493c47be1ab49", "response_id_mismatch",
+    {'provider_request_id': '4eb67267-1bcb-46d5-9f7d-3bd424a4dfea',
+     'response_id': 'resp_08ec50f599b416c1016b094b9c413c87d1bc48fad73c491d4b',
+     'conflicting_response_id': 'resp_4eb672671bcb46d59f7d3bd424a4dfea',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_6101_W57_SECOND_REVIEW = Review(
+    retry.bounded.RunIdentity(
+        "-6101-relay-retry-57",
+        "87f6e4ae89726a9bfeb60e85e456ca4ee52ba0cb5ec8018a257f02058561d2e1",
+        "2fe655b6aa250937869273ba72ae2e4b99f5962e670aadd4a51a1df3b8832e2c",
+    ),
+    "3cde1d66ccb425307f613d51bd14b1f2b46e7fdc6e5ca1eff2649b7c4ad9bf0f", "41fd2ae84c054cda99e9c597dc1f827d",
+    "7a174114000097cc865a371e68543a7d4c34df6c6fc8e9baf22995ad3aee6f20",
+    "66c36c411fb924f68f4b5e86efe81f2441ab202501ca0ff3039ce3829c771f69",
+    "9586dd5d4b1e5cda5f6308684e0f4a09ac43cdd25c22b3ee7ff91758ee8f56d0",
+    "cfcf7fbb4b796e9f4ea37d50002392c0a539ca0ae61c5090ecb8a4f013e20274", "response_id_mismatch",
+    {'provider_request_id': '88e8ffad-8bc0-4458-91b1-5eca6e90f439',
+     'response_id': 'resp_0ecfde3c82608355016b094da7173087d1b24f61470ee1fecb',
+     'conflicting_response_id': 'resp_88e8ffad8bc0445891b15eca6e90f439',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_6101_W58_SECOND_REVIEW = Review(
+    retry.bounded.RunIdentity(
+        "-6101-relay-retry-58",
+        "8f3cbab800a8f152d1bbf9f658fac8c0799d77a3f3f2ac0273317d6b4e70df44",
+        "429e1577759e3214c9761a4861bb66ae67e1dde2ba63bfdd4a2b2dd9e165936e",
+    ),
+    "9bd1bad496ce6aad5b260bc11687f1150f7ea98ab9ff167b3d2549899214ffc1", "553c80b00f42459fbe88050390ad6850",
+    "0cb4b974a95b59719532eda395ecba7ade4bdd9668ebe9254aafa65cdc56a89d",
+    "83974e979602a091a4c9b9fcf7c6fb98b85e546b3283b31a57e271e211ebf451",
+    "62712acee9531b5fa050cda89b7eee82dae8d6e88af0f4001d2301cdc963d1ae",
+    "8397a9eb152b533b9ea58982ce0ed117594bd407183f0d6b2a74170b61ef427e", "response_id_mismatch",
+    {'provider_request_id': '46cf5cdd-b75f-446b-95d5-92d4210ece1e',
+     'response_id': 'resp_0dba8ed86402b40b016b094fe3e28087d1b85b0d175256a7f4',
+     'conflicting_response_id': 'resp_46cf5cddb75f446b95d592d4210ece1e',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'phase': 'transport_failure',
+     'error_type': 'response_id_mismatch',
+     'provider_error_code': 'upstream_error',
+     'conflicting_event_type': 'response.failed',
+     'response_id_matches_transport_alias': True,
+     'model': 'gpt-6.2-astra'},
+)
+
+_6101_W59_SECOND_REVIEW = Review(
+    retry.bounded.RunIdentity(
+        "-6101-relay-retry-59",
+        "fad8a5787bc9600237a89ccdc89faf37d74934cfda7016afdfd01c8d08927dd1",
+        "2e8d6500ff7fc222e38e652993c8be93d12e85e4105ee1b39d88d929c56c63e7",
+    ),
+    "895d29e9573673fcab60cb0970aed15ccd1181df98ca25d74d18084cefdd7b2b", "fd3b4c3fcc73452db4d260b6f843916d",
+    "ef17bb83f537524e04e48b9298ad0a4b95f2257acebd28da4abf763f52ecfc5e",
+    "53b723a6d4fd7b8c04a5268dda91208c9bbc2f3f1d7a0a309d97d57175fd3a9d",
+    "429e644451b6dab41a6b607d57f822c8097de4498db144fb4dcddb80f6593e80",
+    "2d28e40c4a1021205a83c7e27e6f6d72416d6bbf2ee501c3015f6cd738e752f5", "provider_stream_error",
+    {'phase': 'transport_failure',
+     'error_type': 'APIError',
+     'event_type': 'response.output_item.added',
+     'http_status': 200,
+     'provider_error_code': 'unrecognized',
+     'provider_error_type': 'upstream_error',
+     'provider_request_id': '042282be-1806-4233-afdd-a0eed7a5a085',
+     'response_id': 'resp_0955c048dcf681a1016b0951e661a887d195e25547fd18e87d',
+     'model': 'gpt-6.2-astra',
+     'sse_event_count': 31,
+     'first_sse_seconds': 18.162866458063945,
+     'last_sse_seconds': 149.02740554185584,
+     'elapsed_seconds': 156.19690208300017,
+     'sse_milestones': {'response.created': {'elapsed_seconds': 18.162866458063945,
+                                             'interval_seconds': None},
+                        'response.in_progress': {'elapsed_seconds': 18.163696249946952,
+                                                 'interval_seconds': 0.0008297918830066919},
+                        'response.output_item.added': {'elapsed_seconds': 18.863858707947657,
+                                                       'interval_seconds': 0.7001624580007046},
+                        'response.output_item.done': {'elapsed_seconds': 27.67074374994263,
+                                                      'interval_seconds': 8.806885041994974}}},
+)
+
+_6101_W59_RECORD = "7a95f2d7c6c96cd75e083c54679abce491eb97b02fe32566319748c8e7a2ce0b"
+_6101_W59_RECORD_FILE = "6e35c4ea78d69922d80d2c6b725977f6e35d60c9f78f32c9eb200038b087b8a6"
+_6101_W59_PRIOR_RETIRED = "e4d1e46a2dbe8680b913b8c54f96587d45185a438ecfda8562855a22499b4f8b"
+_6101_W59_SECOND_ROWS = (
+    (
+        '583303cb230aea1986d64d7bbe1f6db11768153faa24bcf8491a630cc3571437',
+        None,
+        '59cf76f18b980a96dcd8ca4618e27a0429a1226adeee3918c7f71545d3dfd8a2',
+        '2d0386962fdda36d28d4aa4b2411fa7df2e0c4daf3e31d5efdbd85c3138640c5',
+    ),
+    (
+        '72800224e7bb745d7d27074ade49c3a638cafe89032e09ef2b9ce98f620e31ad',
+        '9608824697634478aac9b7f276589f8bf367c5af8685f3123c9f1b1a5b05f54b',
+        '2693ef0ff678962699dc5c186785559dd29b682acc7ca37abf3547d147349f56',
+        '2d0386962fdda36d28d4aa4b2411fa7df2e0c4daf3e31d5efdbd85c3138640c5',
+    ),
+    (
+        '87f6e4ae89726a9bfeb60e85e456ca4ee52ba0cb5ec8018a257f02058561d2e1',
+        '0e8c1846629096140d03d80f20a3aa5f4b55abf318f03a90f2a4c6f9a4c31c0b',
+        '4322244f9b94567c81b3d1549a3bcca6779daf9e5c5c85ef2fcb86c539f3cddc',
+        '2d0386962fdda36d28d4aa4b2411fa7df2e0c4daf3e31d5efdbd85c3138640c5',
+    ),
+    (
+        '8f3cbab800a8f152d1bbf9f658fac8c0799d77a3f3f2ac0273317d6b4e70df44',
+        'd8a55ddc5e997da904cf8b6f3f0ff935bffe9655ed6a93d05c4b7f310f79743d',
+        '002d5f060f6eb8b5d25fb5d62b9fd78cd9ea98a0b8744f6e4fe44a060cd6c15a',
+        '2d0386962fdda36d28d4aa4b2411fa7df2e0c4daf3e31d5efdbd85c3138640c5',
+    ),
+    (
+        'fad8a5787bc9600237a89ccdc89faf37d74934cfda7016afdfd01c8d08927dd1',
+        '7a95f2d7c6c96cd75e083c54679abce491eb97b02fe32566319748c8e7a2ce0b',
+        '836755fc1a5ea3ecfb6237fe289a7dad7ceb2816bb9837bc38f6b754f797a8fa',
+        '2d0386962fdda36d28d4aa4b2411fa7df2e0c4daf3e31d5efdbd85c3138640c5',
+    ),
+)
+SCOPES[(6101, 60)] = replace(
+    SCOPES[(6101, 55)], wave=60, cooldown_field="not_before_unix", cooldown_unix=1795773058.756961,
+    archive=(
+        *SCOPES[(6101, 55)].archive,
+        _6101_W55_SECOND_REVIEW,
+        _6101_W56_SECOND_REVIEW,
+        _6101_W57_SECOND_REVIEW,
+        _6101_W58_SECOND_REVIEW,
+        _6101_W59_SECOND_REVIEW,
+    ),
+    fitted_prefix_files=(
+        ("pause.request", "836755fc1a5ea3ecfb6237fe289a7dad7ceb2816bb9837bc38f6b754f797a8fa"),
+        ("boundary.json", "cd97a4de99f79b24bcd796fe567dfd994215e87286de0459cb4720fa4ea115fd"),
+        ("round_13/source.json", "2d0386962fdda36d28d4aa4b2411fa7df2e0c4daf3e31d5efdbd85c3138640c5"),
+        ("round_13/boundary_memory.json", "087352268fbff59ff7f79cb66b1a5cbb079a7950fb35721f1b6d576ac624277e"),
+        ("round_13/boundary_user_message.json", "414abd1bac3a170d9117355273481920556725473921dff4d787732dae48f84d"),
+        ("round_13/authoritative_packet.json", "86017b38b11c3d1d6e2f82f3710879698bade6b418cfdc799b5a2052756ec67b"),
+        ("round_13/turn_00/request.json", "a1e3a669927ecc0b299827ada7de1018c0f914e6782199ea48bd2cc0383d5fdd"),
+        ("round_13/turn_00/attempt_00.started.json", "3d5774816202498268399541e96794405b8285837388744c41f51d4efcf3c966"),
+    ),
+)
+
+
 REVIEWED_RECORD_FIELD = "reviewed_recovery_record_sha256"
 RETIRED_REVIEWED_RECORDS_FIELD = "retired_reviewed_recovery_records"
+RETIRED_SECONDARY_RECORDS_FIELD = "retired_secondary_reviewed_recovery_records"
 REVIEWED_RECORD_FILE = "reviewed_recovery_record.json"
 REVIEWED_RECORD_SCHEMA = "a7_reviewed_owned_recovery_v1"
 MAX_REVIEWED_STEPS = 16
@@ -14133,6 +14323,12 @@ def _retired_reviewed_history(scope):
     return [{"contract_sha256": contract, REVIEWED_RECORD_FIELD: record,
              "pause_file_sha256": pause, "source_file_sha256": source}
             for contract, record, pause, source in rows]
+
+
+def retired_secondary_reviewed_history(scope):
+    if scope == SCOPES[(6101, 60)]:
+        return _retired_reviewed_history(replace(scope, retired_reviewed_records=_6101_W59_SECOND_ROWS))
+    return []
 
 
 def _verify_retired_reviewed_record(run, directory, contract, round_index, entry):
@@ -14252,6 +14448,26 @@ def _require_157_w61_exhausted_fallback(scope, old, result, record):
         scope, old, result, record, target=(157, 7, 62, 7), anchor=45, review=_157_W61_ROLLOVER,
         record_sha=_157_W61_ROLLOVER_RECORD, checkpoint=_157_W61_ROLLOVER_CHECKPOINT,
     )
+
+
+def _require_6101_w59_stream_fallback(scope, old, result, record, record_file_sha):
+    """Allow a separately approved slot only for the exact unclassified, posted W59 stream."""
+    failure = result["outcome"].get("failure") or {}
+    if (scope != SCOPES[(6101, 60)]
+            or old.get(REVIEWED_RECORD_FIELD) != _6101_W59_RECORD
+            or digest(old.get(RETIRED_REVIEWED_RECORDS_FIELD)) != _6101_W59_PRIOR_RETIRED
+            or old.get("recovery_budget") != {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}
+            or record_file_sha != _6101_W59_RECORD_FILE or digest(record) != _6101_W59_RECORD
+            or (record.get("seed"), record.get("round"), record.get("anchor_wave")) != (6101, 13, 55)
+            or len(record.get("steps", ())) != 4
+            or (record.get("payload_sha256"), record.get("checkpoint_sha256")) != (
+                scope.payload_sha256, "4c01fecd82b1c3b42125c490ca144de4454219c0dffc03265ace49f80504a69d",
+            )
+            or result["outcome"]["status"] != "failed" or result["provider_dispatched"] is not True
+            or result["raw_response"] is not None or result["raw_response_sha256"] is not None
+            or (failure.get("code"), failure.get("ambiguous"), failure.get("retryable"), failure.get("reply_identity"))
+            != ("provider_stream_error", True, False, None)):
+        raise PermissionError("the exact W59 posted stream and its two signed history segments differ")
 
 
 def _require_static_timeout_fallback(scope, old, result):
@@ -14410,6 +14626,9 @@ def construct(root, failed_release, failed_run, run, scope):
         elif (scope.seed, scope.wave) == (157, 62):
             record = read_bridge_json(failed_run / REVIEWED_RECORD_FILE)
             _require_157_w61_exhausted_fallback(scope, old, result, record)
+        elif scope == SCOPES[(6101, 60)]:
+            record_path = failed_run / REVIEWED_RECORD_FILE
+            _require_6101_w59_stream_fallback(scope, old, result, read_bridge_json(record_path), file_digest(record_path))
         else:
             _require_static_timeout_fallback(scope, old, result)
     parent_start = parent.profile["resume_boundaries"][str(scope.seed)]["round"]
@@ -14484,6 +14703,8 @@ def construct(root, failed_release, failed_run, run, scope):
         proof.pop(RETIRED_REVIEWED_RECORDS_FIELD, None)
     elif retired_history:
         proof[RETIRED_REVIEWED_RECORDS_FIELD] = retired_history
+    if secondary_history := retired_secondary_reviewed_history(scope):
+        proof[RETIRED_SECONDARY_RECORDS_FIELD] = secondary_history
     if scope.fitted_prefix_files:
         proof["reviewed_fitted_prefix_files"] = dict(scope.fitted_prefix_files)
     if cached_parent:
