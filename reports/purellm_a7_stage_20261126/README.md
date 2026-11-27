@@ -1,6 +1,6 @@
 # PureLLM-A7/M2 与 Hybrid 五 seed 阶段对比
 
-验证数据快照的核验时间为北京时间 2026 年 11 月 27 日 06:54:31。PureLLM 已完成 59 轮 CUDA 训练，记录了 1,888 条冻结选点及其理由。Hybrid 为正式 CUDA Uncertainty + Diversity Hybrid32，五条轨迹均已到 L1485。
+验证数据快照的核验时间为北京时间 2026 年 11 月 27 日 08:19:30。PureLLM 已完成 60 轮 CUDA 训练，记录了 1,920 条冻结选点及其理由。Hybrid 为正式 CUDA Uncertainty + Diversity Hybrid32，五条轨迹均已到 L1485。
 
 两种方法在每个 seed 上共用同一份 L333 CUDA checkpoint、验证划分和 QGeoGNN 训练协议，每轮新增 32 个实验。图中数值来自各预算选定 checkpoint 的验证记录。左侧放大截至 L1421 的阶段性曲线，右侧展示完整预算范围。实线止于各 seed 最后一次已完成的 PureLLM 训练。颜色和标记配对同一个 seed。 [L333 配对核验](paired_l333_anchor_receipts.json) · [Hybrid 正式归档](../eit_cuda_three_methods_20261124/README.md)
 
@@ -13,12 +13,12 @@
 | 157 | 7 | L557 | 0.4944 | 0.4759 | +0.0185 |
 | 887 | 34 | L1421 | 0.2858 | 0.3073 | -0.0215 |
 | 2357 | 5 | L493 | 0.4282 | 0.4412 | -0.0130 |
-| 6101 | 8 | L589 | 0.5108 | 0.4954 | +0.0154 |
+| 6101 | 9 | L621 | 0.5145 | 0.4865 | +0.0280 |
 | 12203 | 5 | L493 | 0.4620 | 0.5130 | -0.0510 |
 
 差值为 PureLLM 减 Hybrid，NRMSE 越低越好。五个 seed 当前均覆盖到 L493，该预算处的平均验证 NRMSE 为 PureLLM **0.4893**、Hybrid **0.4942**。 在五条轨迹共有的 L333 至 L493 区间，按 B32 网格做梯形积分并除以 160 个标签的跨度，平均归一化 NRMSE AULC 为 PureLLM **0.5991**、Hybrid **0.6084**，5 个 seed 中有 4 个的 PureLLM AULC 更低。
 
-所有 59 轮各有 32 个不同候选。每轮覆盖 25 至 32 个分子，平均 31.07 个。取五条轨迹各自的前 5 轮，共 25 批，平均每轮覆盖 30.88 个分子。
+所有 60 轮各有 32 个不同候选。每轮覆盖 25 至 32 个分子，平均 31.08 个。取五条轨迹各自的前 5 轮，共 25 批，平均每轮覆盖 30.88 个分子。
 
 6101 到 L493 的这一轮来自已归档的完整模型回答。系统核验并移除重复引用别名，保留原有 32 个选点的顺序和理由，随后完成 CUDA 训练。这一步沿用归档回答的使用量记录，无新增 API 请求。
 
@@ -40,9 +40,11 @@
 
 887 的 R32 最初提交触发服务商 response.failed，归档保留失败回执，计费状态仍待对账。后续完整原答有一处对照分类错误。一次付费局部纠错仅修正第 23 个选点 C-1591 的理由和对照关系，把与 O-1261 的比较标为 loading_solvent 单因素对照。原来的 32 个候选和顺序全部保留。逐轮记录分别保留两次完整响应的实际用量和先前失败回执。R32 完成 L1389，验证 NRMSE 为 **0.2797**。R33 首答通过 A7 校验并完成 L1421，验证 NRMSE 为 **0.2858**。
 
+6101 的 R8 第一条物理请求在生成正文前收到服务商错误，计费状态待对账。第二条物理请求返回完整首答。A7 校验发现两个选点的引用把不同分子标成了同分子对照。一次付费局部纠错仅把 C-1496 与 O-0124、C-0884 与 O-3082 的关系改为跨分子类比，并更新这两条理由。32 个候选及原顺序、其余引用和假设全部保留。首答用量为 532,830 个输入 token 和 15,752 个输出 token，其中缓存输入为 532,685 个，推理为 9,572 个。局部纠错报告 227,466 个输入 token 和 442 个输出 token，其中 199 个为推理 token。纠错后通过 32/32 的 A7 校验。批次冻结后揭示 32 个标签，随后完成 L621 CUDA 训练。验证 NRMSE 为 **0.5145**。
+
 ## 数据和选点
 
-- [PureLLM 验证指标](purellm_validation_curves.csv) 包含 5 个初始检查点和 59 个后续训练点。`round=0` 对应共享 L333，`acquisition_round=0` 对应首次选点和 L365 训练。 CSV 保留每个指标文件和 checkpoint 的摘要。 [PureLLM 逐文件清单](purellm_export_manifest.json)
+- [PureLLM 验证指标](purellm_validation_curves.csv) 包含 5 个初始检查点和 60 个后续训练点。`round=0` 对应共享 L333，`acquisition_round=0` 对应首次选点和 L365 训练。 CSV 保留每个指标文件和 checkpoint 的摘要。 [PureLLM 逐文件清单](purellm_export_manifest.json)
 - [Hybrid 验证指标](hybrid_validation_curves.csv) 共 185 个检查点。 [来源和校验记录](hybrid_validation_receipts.json)
 - 每个 seed 的 JSONL 每行对应一个已冻结并完成训练的轮次，保留模型给出的理由、引用和选点顺序。 [157](selections/seed_157_accepted_rounds.jsonl) · [887](selections/seed_887_accepted_rounds.jsonl) · [2357](selections/seed_2357_accepted_rounds.jsonl) · [6101](selections/seed_6101_accepted_rounds.jsonl) · [12203](selections/seed_12203_accepted_rounds.jsonl)
 
@@ -51,5 +53,5 @@
 使用 Python 和 Matplotlib 3.10.8，在本目录运行以下命令。
 
 ```bash
-python plot_stage.py --snapshot '27 Nov 2026, 06:54:31 UTC+8'
+python plot_stage.py --snapshot '27 Nov 2026, 08:19:30 UTC+8'
 ```
