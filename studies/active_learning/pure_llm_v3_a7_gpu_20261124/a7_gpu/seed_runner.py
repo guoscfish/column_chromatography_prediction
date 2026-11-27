@@ -498,20 +498,30 @@ def _import_boundary(directory, scope, boundary, expected, backend, batch_size, 
 def _imported_boundary_reply_limit(contract, run, seed, start, *, audited, replay_start, relay_delay):
     predecessor = contract.predecessor or {}
     dispatcher = predecessor.get("dispatcher_module")
+    normal_boundaries = {
+        "dispatch_v13_887_r33_continuation": (887, 33),
+        "dispatch_v13_6101_r9_continuation": (6101, 9),
+    }
+    boundary = normal_boundaries.get(dispatcher) if isinstance(dispatcher, str) else None
     full_round = contract.profile.get("full_imported_boundary_round")
-    if full_round is None and dispatcher != "dispatch_v13_887_r33_continuation":
-        return 1
-    if (type(full_round) is not int or full_round != 33
-            or dispatcher != "dispatch_v13_887_r33_continuation"
-            or run.name != "a7-gpt62-astra-xhigh-ipv4-v13-887-r33-continuation-01"
-            or (seed, start, contract.seed_ids, contract.rounds, contract.target_labels) != (887, 33, (887,), 36, 1485)
-            or not audited or replay_start != 33 or relay_delay != SEALED_RELAY_RETRY_SECONDS
+    if boundary is None:
+        if full_round is None:
+            return 1
+        raise PermissionError("the imported normal-round budget has no reviewed dispatch scope")
+    expected_seed, expected_round = boundary
+    remaining = 36 - expected_round
+    expected_budget = {"first_logical_requests": remaining, "maximum_logical_requests": 3 * remaining,
+                       "maximum_physical_attempts": 6 * remaining}
+    if (type(full_round) is not int or full_round != expected_round
+            or run.name != f"a7-gpt62-astra-xhigh-ipv4-v13-{expected_seed}-r{expected_round}-continuation-01"
+            or (seed, start, contract.seed_ids, contract.rounds, contract.target_labels)
+            != (expected_seed, expected_round, (expected_seed,), 36, 1485)
+            or not audited or replay_start != expected_round or relay_delay != SEALED_RELAY_RETRY_SECONDS
             or (contract.transport.logical_replies, contract.transport.transport_attempts) != (3, 2)
             or predecessor.get("cached_import") is not None
             or "fixed_reference_repair" in contract.profile
-            or predecessor.get("execution_budget") != {"first_logical_requests": 3,
-                 "maximum_logical_requests": 9, "maximum_physical_attempts": 18}):
-        raise PermissionError("the imported R33 normal-round budget differs from its exact signed scope")
+            or predecessor.get("execution_budget") != expected_budget):
+        raise PermissionError(f"the imported R{expected_round} normal-round budget differs from its exact signed scope")
     return contract.transport.logical_replies
 
 
