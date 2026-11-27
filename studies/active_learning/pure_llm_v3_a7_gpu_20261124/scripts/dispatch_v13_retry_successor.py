@@ -82,6 +82,18 @@ def _pre_post_trace(progress):
             and not {"http_headers", "sse_event"}.intersection(progress.get("first_phase_seconds", {})))
 
 
+def _unposted_readiness(attempt, progress, expected):
+    phases = progress.get("network_phases", {})
+    return (set(attempt.glob("readiness_*.json")) == {attempt / name for name, _ in expected}
+            and all(file_digest(attempt / name) == sha for name, sha in expected)
+            and not any((attempt / name).exists() for name in (
+                "started.json", "raw_provider_response.json", "provider_capture_receipt.json",
+            ))
+            and not {"send_headers", "send_body", "receive_headers", "receive_body", "direct_ipv4_http11"}.intersection(phases)
+            and not {"http_status", "provider_request_id", "response_id", "sse_event_count"}.intersection(progress)
+            and not {"request_dispatched", "http_headers", "sse_event"}.intersection(progress.get("first_phase_seconds", {})))
+
+
 def _archive(spools, proof, lane):
     chain = proof["reviewed_retry_chain"]
     if type(chain) is not list or len(chain) != len(lane.archive) or chain[-1]["previous_attempts"] != proof["previous_attempts"]:
@@ -114,11 +126,13 @@ def _archive(spools, proof, lane):
             if (tuple(receipt[k] for k in ("attempt_id", "job_sha256", "result_sha256", "error",
                                           "provider_dispatched", "ambiguous"))
                     != (prior.attempt_id, prior.job_sha256, prior.result_sha256, prior.failure,
-                        True, not prior.pre_post_connect_failure)
+                        *prior.receipt_provider_flags)
                     or file_digest(trace) != prior.progress_file_sha256
                     or any(progress.get(k) != v for k, v in prior.progress.items())
                     or any(k in progress for k in ("first_text_seconds", "complete_terminal_captured"))
-                    or (prior.pre_post_connect_failure and not _pre_post_trace(progress))):
+                    or (prior.pre_post_connect_failure and not _pre_post_trace(progress))
+                    or (prior.unposted_readiness_files
+                        and not _unposted_readiness(trace.parent, progress, prior.unposted_readiness_files))):
                 raise PermissionError("a reviewed relay failure differs from the archived no-answer trace")
         previous = original
     return original, transport
