@@ -8,16 +8,25 @@ from time import time
 
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.records import digest, dumps, file_digest, once
 from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager import RESPONSES_STREAM_IPV4, TransportConfig
-from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.bridge_protocol import read_bridge_json
+from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.bridge_protocol import read_bridge_json, validate_result, verify_job
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.compact_payload import FORMAL_WIRE_REPRESENTATION
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.dispatcher import run_dispatcher, verify_local_source
-from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.formal_contract import ROOT, SSH_API, request_timeouts
+from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.formal_contract import ROOT, SSH_API, STUDY, request_timeouts
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.provider import sdk_status
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.ssh_courier import GPU_PYTHON, SSHCourier, verify_info
 from . import dispatch_v13_resilient_sse as resilient
 from . import run_v13_retry_successor as gpu
 from .dispatch_v13_bounded_sse_recovery import _sha, _spool
 from .dispatch_v13_relay_retry import RelayRetryDispatcher
+
+
+def _operator_recheck(lane):
+    if (lane.seed, lane.wave) == (157, 66):
+        recheck = gpu.operator_reasoning_recheck(lane)
+        if recheck is None:
+            raise PermissionError("157 W66 requires its exact operator recheck scope")
+        return recheck
+    return None
 
 
 def _scope(info, run, lane):
@@ -53,10 +62,13 @@ def _scope(info, run, lane):
         expected["reviewed_fitted_prefix_files"] = dict(lane.fitted_prefix_files)
     if lane.cached_origin is not None:
         expected["reviewed_cached_import"] = lane.cached_origin.review
+    recheck = _operator_recheck(lane)
+    if recheck is not None:
+        expected["operator_reasoning_recheck"] = recheck
     header_deadline = lane.header_deadline_profile
     settings = {
         "provider_capability": "gated_ipv4", "arm": "A7", "memory": "M2", "device": "cuda",
-        "initial_labels": 333, "target_labels": 1485, "batch_size": 32, "api_parallelism": 1,
+        "initial_labels": 333, "target_labels": 589 if recheck else 1485, "batch_size": 32, "api_parallelism": 1,
         "store": False, "confirmation_seeds": [lane.seed], "qualification_seed": lane.seed,
         "requires_initial_qualification": False, "wire_representation": FORMAL_WIRE_REPRESENTATION,
         "sse_inactivity_seconds": 900, "ipv4_preflight_retry": True, "ipv4_readiness_windows": 3,
@@ -71,6 +83,7 @@ def _scope(info, run, lane):
             or (gpu.RETIRED_REVIEWED_RECORDS_FIELD in proof) != bool(retired_history)
             or (gpu.RETIRED_SECONDARY_RECORDS_FIELD in proof) != bool(secondary_history)
             or (gpu.FITTED_REVIEWED_PREDECESSOR_FIELD in proof) != (fitted_predecessor is not None)
+            or ("operator_reasoning_recheck" in proof) != (recheck is not None)
             or record["gpu_slots"] != [0] or record["budget"] != lane.budget or "fixed_reference_repair" in profile
             or (gpu.HEADER_DEADLINE_FIELD in profile) != bool(header_deadline)
             or request_timeouts(profile) != resilient.TIMEOUTS
@@ -85,7 +98,14 @@ def _scope(info, run, lane):
     if any(record["source_sha256"].get(name) != sha for name, sha in lane.required_sources):
         raise PermissionError("the successor is missing the exact reviewed transport source")
     verify_local_source(info, root=ROOT)
-    for source in (*resilient.SOURCES, *gpu.SIGNED_RETRY_SOURCES):
+    sources = (*resilient.SOURCES, *gpu.SIGNED_RETRY_SOURCES)
+    if recheck is not None:
+        sources += (STUDY / "scripts" / "dispatch_v13_157_w66_pool.py",)
+        if (proof["model_identity"].get("reported_reasoning_effort") != recheck["reported_effort"]
+                or lane.budget != {"first_logical_requests": 1, "maximum_logical_requests": 1,
+                                   "maximum_physical_attempts": 1}):
+            raise PermissionError("the recheck requires one posted request and an explicit xhigh identity lock")
+    for source in sources:
         if record["source_sha256"].get(source.as_posix()) != file_digest(ROOT / source):
             raise PermissionError(f"the approved retry source differs: {source.name}")
     return proof
@@ -163,6 +183,81 @@ def _archive(spools, proof, lane):
     return original, transport
 
 
+def _archive_operator_recheck(spools, proof, lane, recheck):
+    """Keep the completed medium response quarantined while verifying the one authorized resend."""
+    chain = proof["reviewed_retry_chain"]
+    if type(chain) is not list or len(chain) != len(lane.archive) or len(chain) < 2:
+        raise PermissionError("the recheck requires the entire sealed predecessor chain")
+    earlier, earlier_transport = _archive(spools, {
+        **proof, "reviewed_retry_chain": chain[:-1], "previous_attempts": chain[-2]["previous_attempts"],
+    }, replace(lane, archive=lane.archive[:-1]))
+    prior = lane.archive[-1]
+    identity = prior.identity
+    item = chain[-1]
+    attempt_id = recheck["previous_attempt_id"]
+    name = f"{attempt_id}.json"
+    spool = _spool(spools, identity.contract, identity.approval)
+    attempt = spool / "attempts" / attempt_id
+    job = read_bridge_json(spool / "jobs" / name)
+    request, transport, started = verify_job(job, contract_sha256=identity.contract,
+                                             authorization_sha256=identity.approval,
+                                             wire_representation=FORMAL_WIRE_REPRESENTATION)
+    result = validate_result(read_bridge_json(spool / "results" / name), job)
+    ack = read_bridge_json(spool / "delivered" / name)
+    failure = result["outcome"].get("failure") or {}
+    reply = failure.get("reply_identity") or {}
+    raw = result["raw_response"] or {}
+    progress_file = attempt / "provider_progress.json"
+    capture_file = attempt / "provider_capture_receipt.json"
+    progress = read_bridge_json(progress_file)
+    capture = read_bridge_json(capture_file)
+    slot = spool / "slots" / "157-7-0-0.json"
+    expected_reply = {
+        "attempt": 0, "attempt_id": attempt_id, "job_sha256": prior.job_sha256, "result_sha256": prior.result_sha256,
+        "terminal_sha256": "182bad728f33a51d0f343e8468ca26dc3e494abdd33519fc9b13d8af95e7b54e",
+        "error": "served_reasoning_effort_mismatch",
+        "provider_dispatched": True, "ambiguous": False,
+    }
+    expected_item = {
+        "contract_sha256": identity.contract, "authorization_sha256": identity.approval,
+        "run_directory": proof["previous_run_directory"], "request_id": prior.request_id,
+        "terminal_file_sha256": prior.terminal_file_sha256, "progress_file_sha256": prior.progress_file_sha256,
+        "previous_attempts": [expected_reply],
+    }
+    if (item != expected_item or proof["previous_attempts"] != [expected_reply]
+            or Path(item["run_directory"]).name != identity.name
+            or prior.attempt_id != attempt_id or started["attempt_id"] != attempt_id
+            or (request["binding"]["seed"], request["binding"]["round"], request["logical_index"], started["attempt"])
+            != (157, 7, 0, 0)
+            or request["request_id"] != prior.request_id or request["payload_sha256"] != lane.payload_sha256
+            or transport != earlier_transport or not gpu.retry._compare_science(request, earlier)
+            or request["payload"].get("reasoning") != {"effort": recheck["reported_effort"]}
+            or job["job_sha256"] != prior.job_sha256 or result["result_sha256"] != prior.result_sha256
+            or result["outcome"]["status"] != "failed" or result["provider_dispatched"] is not True
+            or (failure.get("code"), failure.get("ambiguous"), failure.get("retryable"))
+            != ("served_reasoning_effort_mismatch", False, False)
+            or reply.get("provider_request_id") != recheck["provider_request_id"]
+            or reply.get("provider_status") != "completed" or reply.get("response_id") != raw.get("id")
+            or raw.get("status") != "completed" or raw.get("model") != transport.served_model
+            or (raw.get("reasoning") or {}).get("effort") != "medium"
+            or result["raw_response_sha256"] != recheck["raw_response_sha256"]
+            or read_bridge_json(attempt / "raw_provider_response.json") != raw
+            or file_digest(capture_file) != "0e734aa90a0c5f718d53de356b7d41585ab7daf983b0b57db72fa0fa0e8d0941"
+            or capture != {"attempt_id": attempt_id, "job_sha256": prior.job_sha256, "metadata": {
+                "raw_response_sha256": recheck["raw_response_sha256"], "provider_request_id": recheck["provider_request_id"],
+                "model_version": None, "reported_reasoning_effort": "medium",
+            }}
+            or file_digest(progress_file) != prior.progress_file_sha256
+            or any(progress.get(key) != value for key, value in prior.progress.items())
+            or progress.get("complete_terminal_captured") is not True
+            or ack != {"attempt_id": attempt_id, "result_sha256": prior.result_sha256}
+            or set(slot.parent.glob("157-7-*-*.json")) != {slot}
+            or read_bridge_json(slot) != {"attempt_id": attempt_id, "job_sha256": prior.job_sha256}
+            or read_bridge_json(spool / "provider_model_lock.json") != proof["model_identity"]):
+        raise PermissionError("the exact delivered medium response or its quarantined science differs")
+    return request, transport
+
+
 class SuccessorDispatcher(RelayRetryDispatcher):
     def _check_boundary(self, request, started):
         lane = self.reviewed_scope
@@ -170,6 +265,15 @@ class SuccessorDispatcher(RelayRetryDispatcher):
                 or started["attempt_id"] in {old.attempt_id for review in lane.archive for old in review.attempts}):
             raise PermissionError("the reviewed round exceeds its signed physical attempts or cooldown")
         return super()._check_boundary(request, started)
+
+
+class OperatorRecheckDispatcher(SuccessorDispatcher):
+    def validate(self, job):
+        request, config, started = super().validate(job)
+        if (request["binding"]["round"], request["logical_index"], started["attempt"]) != (7, 0, 0):
+            raise PermissionError("the operator permits a single 157 round-seven request")
+        self.pool.bind_request(request)
+        return request, config, started
 
 
 def run(args, lane):
@@ -180,7 +284,11 @@ def run(args, lane):
     if args.contract_sha256 in {resilient.PILOT_CONTRACT_SHA256, *(old.identity.contract for old in lane.archive)}:
         raise PermissionError("the new slot needs its own signed, isolated Mac spool")
     spools = Path.home() / ".config/purellm/spool"
-    original, old_transport = _archive(spools, proof, lane)
+    recheck = _operator_recheck(lane)
+    if recheck is None:
+        original, old_transport = _archive(spools, proof, lane)
+    else:
+        original, old_transport = _archive_operator_recheck(spools, proof, lane, recheck)
     pilot, _, pilot_transport = resilient._pool(spools / resilient.PILOT_CONTRACT_SHA256)
     registered = replace(pilot_transport, timeout_seconds=resilient.TIMEOUTS.total_seconds, wire_mode=RESPONSES_STREAM_IPV4)
     transport = TransportConfig(**info["contract"]["profile"]["transport"])
@@ -197,8 +305,16 @@ def run(args, lane):
     if time() < lane.not_before_unix:
         raise PermissionError("the original 180-second relay cooldown is still in force")
     spool = spools / args.contract_sha256
-    dispatcher = SuccessorDispatcher(spool, info=info, contract_sha256=args.contract_sha256, transport=transport,
-                                           mock=False, pool=resilient.SharedKeyPool(pilot.directory, pilot.config))
+    if recheck is None:
+        pool = resilient.SharedKeyPool(pilot.directory, pilot.config)
+        dispatcher_type = SuccessorDispatcher
+    else:
+        from .dispatch_v13_157_w66_pool import W66SinglePermitPool
+        pool = W66SinglePermitPool(pilot.directory, pilot.config, contract_sha256=args.contract_sha256,
+                                  payload_sha256=lane.payload_sha256, expires_unix=recheck["expires_unix"])
+        dispatcher_type = OperatorRecheckDispatcher
+    dispatcher = dispatcher_type(spool, info=info, contract_sha256=args.contract_sha256, transport=transport,
+                                 mock=False, pool=pool)
     dispatcher.scope, dispatcher.original, dispatcher.reviewed_scope = proof, original, lane
     dispatcher.prompt_sha = resilient._approved_prompt_sha(info)
     once(spool / "provider_model_lock.json", proof["model_identity"])

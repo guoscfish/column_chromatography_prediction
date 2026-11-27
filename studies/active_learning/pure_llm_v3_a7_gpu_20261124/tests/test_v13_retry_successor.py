@@ -365,6 +365,54 @@ def test_2357_wave50_keeps_reviewed_prefixes_and_exact_static_timeout_gate():
         gpu._require_static_timeout_fallback(replace(scope, archive=(*scope.archive[:-1], no_idle)), approved, result)
 
 
+def test_157_wave66_preserves_both_histories_and_only_one_r7_resend():
+    original, scope = gpu.SCOPES[(157, 62)], gpu.SCOPES[(157, 66)]
+    check = gpu.operator_reasoning_recheck(scope)
+    assert (scope.seed, scope.round, scope.replay_start_round) == (157, 7, 8)
+    assert scope.recovery_budget == {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}
+    assert scope.budget == {"first_logical_requests": 1, **scope.recovery_budget}
+    assert check["reported_effort"] == "xhigh"
+    assert check["expires_unix"] == 1795782600
+    assert scope.archive[:-4] == original.archive
+    assert scope.archive[-1].receipt_provider_flags == (True, False)
+    assert gpu.operator_reasoning_recheck(replace(scope, boundary_physical_attempts=2)) is None
+    assert gpu._retired_reviewed_history(scope) == gpu._retired_reviewed_history(original)
+    assert [
+        row["contract_sha256"] for row in gpu.retired_secondary_reviewed_history(scope)
+    ] == [review.identity.contract for review in scope.archive[-4:]]
+
+
+def test_157_wave66_only_accepts_the_completed_and_quarantined_medium_receipt(monkeypatch):
+    scope = gpu.SCOPES[(157, 66)]
+    previous = scope.archive[-1]
+    report = gpu.operator_reasoning_recheck(scope)
+    raw = {"id": previous.progress["response_id"], "status": "completed", "model": "gpt-6.2-astra",
+           "reasoning": {"effort": "medium"}}
+    report["raw_response_sha256"] = digest(raw)
+    monkeypatch.setattr(gpu, "operator_reasoning_recheck", lambda lane: report if lane == scope else None)
+    identity = {"provider_request_id": report["provider_request_id"], "provider_status": "completed",
+                "response_id": raw["id"], "served_model": raw["model"]}
+    failure = {"code": previous.failure, "ambiguous": False, "retryable": False, "retry_after": None,
+               "reply_identity": identity}
+    started = {"request_id": previous.request_id, "attempt": 0, "attempt_id": previous.attempt_id}
+    terminal = {**started, **identity, "status": "stopped", "circuit_open": False, "error": previous.failure,
+                "provider_dispatched": True, "ambiguous": False, "bridge_job_sha256": previous.job_sha256,
+                "bridge_result_sha256": previous.result_sha256}
+    result = {"raw_response": raw, "raw_response_sha256": digest(raw), "provider_dispatched": True,
+              "job_sha256": previous.job_sha256, "result_sha256": previous.result_sha256,
+              "outcome": {"status": "failed", "failure": failure}}
+    gpu._verify_w65_mismatch_contents(result, terminal, started, scope)
+    for changed, seal, lane in (
+        ({**result, "raw_response": None}, terminal, scope),
+        ({**result, "raw_response": {**raw, "reasoning": {"effort": "xhigh"}}}, terminal, scope),
+        (result, {**terminal, "answer_sha256": "a" * 64}, scope),
+        (result, {**terminal, "provider_request_id": "wrong"}, scope),
+        (result, terminal, replace(scope, wave=67)),
+    ):
+        with pytest.raises(PermissionError, match="completed medium"):
+            gpu._verify_w65_mismatch_contents(changed, seal, started, lane)
+
+
 def test_6101_wave60_preserves_both_signed_history_segments_and_exactly_one_slot(monkeypatch):
     anchor, scope = gpu.SCOPES[(6101, 55)], gpu.SCOPES[(6101, 60)]
     assert scope.archive[:-5] == anchor.archive

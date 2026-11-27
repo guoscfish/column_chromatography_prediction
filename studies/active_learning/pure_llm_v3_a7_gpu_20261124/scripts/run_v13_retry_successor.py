@@ -12,7 +12,9 @@ from studies.active_learning.pure_llm_v3_20261124.pure_llm_v3.transport_manager 
     RESPONSE_ID, _link_replay_attempt, make_request, response_id_matches_transport_alias, terminal_record,
 )
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu import seed_runner
-from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.bridge_protocol import ATTEMPT_ID, SHA256, read_bridge_json
+from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.bridge_protocol import (
+    ATTEMPT_ID, SHA256, read_bridge_json, validate_result, verify_job,
+)
 from studies.active_learning.pure_llm_v3_a7_gpu_20261124.a7_gpu.formal_contract import ROOT, STUDY, verify_authorization
 from . import run_v13_12203_relay_retry as wave02
 from . import run_v13_157_relay_retry as wave157
@@ -83,7 +85,7 @@ class Review:
     def receipt_provider_flags(self):
         if self.unposted_readiness_files:
             return False, False
-        return True, not self.pre_post_connect_failure
+        return True, not (self.pre_post_connect_failure or self == _157_W65_REJECTED_EFFORT)
 
 
 @dataclass(frozen=True)
@@ -147,6 +149,8 @@ class Scope:
 
     @property
     def budget(self):
+        if operator_reasoning_recheck(self) is not None:
+            return retry.execution_budget(8, self.round) | {"maximum_physical_attempts": 1}
         return self.execution_budget(self.boundary_physical_attempts)
 
     def execution_budget(self, boundary_physical_attempts):
@@ -12276,7 +12280,10 @@ def _evidence(run, active, contract, approval, scope, review):
         raise PermissionError("the reviewed logical request changed")
     receipts = []
     for index, attempt in enumerate(review.attempts):
-        receipt = retry.bounded._failure(run, turn, contract, approval, request, index)
+        if attempt == _157_W65_REJECTED_EFFORT and operator_reasoning_recheck(scope) is not None:
+            receipt = _w65_mismatch_receipt(run, turn, contract, approval, request, scope)
+        else:
+            receipt = retry.bounded._failure(run, turn, contract, approval, request, index)
         terminal_path = turn / f"attempt_{index:02d}.terminal.json"
         if (file_digest(terminal_path) != attempt.terminal_file_sha256
                 or tuple(receipt[k] for k in ("attempt_id", "job_sha256", "result_sha256", "error",
@@ -12292,6 +12299,59 @@ def _evidence(run, active, contract, approval, scope, review):
         replay = terminal_record(turn, 0, replay_authorization_sha256=permit)
         _link_replay_attempt(turn, read(turn / "attempt_01.started.json"), replay, allow_create=False)
     return request, receipts, read(terminal_path)
+
+
+def _w65_mismatch_receipt(run, turn, contract, approval, request, scope):
+    proof = operator_reasoning_recheck(scope)
+    previous = _157_W65_REJECTED_EFFORT
+    if proof is None or contract.digest != previous.identity.contract or digest(approval) != previous.identity.approval:
+        raise PermissionError("the completed mismatch is not the exactly approved W65 result")
+    started = read(turn / "attempt_00.started.json")
+    terminal = terminal_record(turn, 0)
+    job_path = run / "bridge" / "outbox" / f"{previous.attempt_id}.json"
+    result_path = run / "bridge" / "results" / f"{previous.attempt_id}.json"
+    job = read_bridge_json(job_path)
+    result = read_bridge_json(result_path)
+    binding = verify_job(job, contract_sha256=contract.digest, authorization_sha256=digest(approval),
+                         wire_representation=contract.profile["wire_representation"])
+    validate_result(result, job)
+    _verify_w65_mismatch_contents(result, terminal, started, scope)
+    if (binding != (request, contract.transport, started)
+            or file_digest(job_path) != "fe4a4c290d74768db63b6ae0a2b87c9390422b44b9dd9a82c909e29c3ef3e600"
+            or file_digest(result_path) != "9b95c90d7f466a0f50e72512304294fec28d8694867d05c629ff39b99ff9f91d"):
+        raise PermissionError("the original W65 request or immutable bridge files changed")
+    return {"attempt": 0, "attempt_id": previous.attempt_id, "job_sha256": job["job_sha256"],
+            "result_sha256": result["result_sha256"], "terminal_sha256": digest(terminal),
+            "error": previous.failure, "provider_dispatched": True, "ambiguous": False}
+
+
+def _verify_w65_mismatch_contents(result, terminal, started, scope):
+    proof = operator_reasoning_recheck(scope)
+    previous = _157_W65_REJECTED_EFFORT
+    raw = result.get("raw_response")
+    failure = result["outcome"].get("failure") or {}
+    identity = failure.get("reply_identity") or {}
+    model, response_id = (previous.progress[k] for k in ("model", "response_id"))
+    if (proof is None or type(raw) is not dict
+            or digest(raw) != proof["raw_response_sha256"] or result["raw_response_sha256"] != proof["raw_response_sha256"]
+            or result["provider_dispatched"] is not True or result["outcome"]["status"] != "failed"
+            or raw.get("status") != "completed" or raw.get("id") != response_id or raw.get("model") != model
+            or type(raw.get("reasoning")) is not dict or raw["reasoning"].get("effort") != "medium"
+            or (failure.get("code"), failure.get("ambiguous"), failure.get("retryable"), failure.get("retry_after"))
+            != (previous.failure, False, False, None)
+            or (identity.get("provider_request_id"), identity.get("provider_status"), identity.get("response_id"),
+                identity.get("served_model")) != (proof["provider_request_id"], "completed", response_id, model)
+            or started["attempt_id"] != previous.attempt_id or started["attempt"] != 0
+            or any(terminal.get(key) != value for key, value in started.items())
+            or terminal.get("status") != "stopped" or terminal.get("circuit_open") is not False
+            or "answer_sha256" in terminal or "reconciliation_sha256" in terminal
+            or terminal.get("error") != previous.failure or terminal.get("provider_dispatched") is not True
+            or terminal.get("ambiguous") is not False or terminal.get("response_id") != response_id
+            or terminal.get("provider_status") != "completed"
+            or terminal.get("provider_request_id") != proof["provider_request_id"]
+            or terminal.get("bridge_job_sha256") != result["job_sha256"]
+            or terminal.get("bridge_result_sha256") != result["result_sha256"]):
+        raise PermissionError("the original W65 completed medium response or rejection evidence differs")
 
 
 def _archives(failed_run, failed_release, scope):
@@ -12355,7 +12415,8 @@ def _source_manifest(root, parent, scope):
     sources = {name: file_digest(root / name) for name in parent.source_sha256}
     launchers = {(STUDY / "scripts" / f"{module}.py").as_posix() for module in ("run_v13_retry_successor", DISPATCHER)}
     changed = {name for name, actual in sources.items() if actual != parent.source_sha256[name]}
-    if fitted_reviewed_predecessor(scope) is not None or scope in (SCOPES[(12203, 69)], SCOPES[(6101, 60)]):
+    recheck = operator_reasoning_recheck(scope)
+    if recheck or fitted_reviewed_predecessor(scope) is not None or scope in (SCOPES[(12203, 69)], SCOPES[(6101, 60)]):
         allowed = launchers
     elif scope.reviewed_record_sha256 is not None:
         allowed = set() if scope.previous_reviewed_record_sha256 is not None else launchers
@@ -12365,7 +12426,8 @@ def _source_manifest(root, parent, scope):
         raise PermissionError("the successor changed source outside the audited transport paths")
     if any(sources.get(name) != expected for name, expected in scope.required_sources):
         raise PermissionError("the successor is missing the exact reviewed transport source")
-    sources.update({path.as_posix(): file_digest(root / path) for path in SIGNED_RETRY_SOURCES})
+    signed = (*SIGNED_RETRY_SOURCES, _OPERATOR_RECHECK_SOURCE) if recheck else SIGNED_RETRY_SOURCES
+    sources.update({path.as_posix(): file_digest(root / path) for path in signed})
     return sources
 
 
@@ -14290,6 +14352,114 @@ SCOPES[(6101, 60)] = replace(
 )
 
 
+_157_W65_RECORD = "66d5847eccaf3de677ed95603d6c5f48f7ba53d89bdd5c64db37efc4eeee5435"
+_157_W65_RECORD_FILE = "4432f34466e4ff3bc4742b724c8da08cc0cc2a8b6ad463b7d8761dfaa9303e97"
+_157_W65_PRIOR_RETIRED = "71e9dc8fee1d26921c7a64068299dbf3bd72b782b9c0ddd256581812952683bf"
+_157_W65_PRECEDING = (
+    (
+        "8994fb050caa6d4bbc63817db743a85fff343ad81fb2f98095915edd316633fb", "ee2a7b1a40e9e8c671e48b0d083966d9ae2d27bb53870dd2a4849491adb350d8",
+        "dba795a569abd5095e330fd980f723816312aac3da651622acd6d4f3a2a1384c", "4043f01440ae4dfa92bd285a89cf47cd",
+        "7d4db641db30468dcb5e8ffad68cd39819bce686162c69b319f83b3a020b9832", "5b37e79ce65659758d3bb034633f2e515fb3aa597f5c0fb4d052cb0edacad4f0",
+        "96165a3e2d90680ac33acf8d2cb7d0bf3dee15b1bf7662bb5b20c1c825e54c70", "150bb8368525c8c4a68e6fd94aec6fb93029d8694092ee4a5dc9dcde453fea44",
+        "d4092315-1214-4491-99d4-f366bafd90a0", "resp_069d26c92f970d9a016b094c0dcb2887d182170d1ca8c0d66b",
+        "resp_d40923151214449199d4f366bafd90a0", "c125b2eb88fa8a7fae6f673cbbdc9df9cc62add192f4fad6c03f324e4f43e6b0",
+    ),
+    (
+        "e9e9ce361055b67c54833c76592a9ccdd733c0862910502dc5f9a6bbddbcf30a", "794e500634c1c638d3aa4db5897544c7cbedd71983c6e0387384f21c1b2dd0f8",
+        "99f14c80841b618cea1ab069fa12e0540f455f50295a549c4905948623f2a892", "0a66773e203f43d9a9868092e2075af6",
+        "91d2c7c72a7ae937bbda4917c7a55781f002c14fe6ff4e51a8880f00a8287ad5", "8d4dc214b3622c9ea2d7b1b29e1901ff18782053cb8f569ab753b054a3feb30b",
+        "291016b4082ce1d81bcfe5920fc56655d613b4436c4d12d22ec764ec5cf91039", "d9f9c20266345fb8d3107d3cb02430bb71239fecc714e0e15440930bdeb1a7d5",
+        "ad18df41-b452-4958-a779-a595aac52f1b", "resp_047648ebb95887a4016b094e72b22887d1955b4fb30890e46b",
+        "resp_ad18df41b4524958a779a595aac52f1b", "4d6819045024b1ddf715492539fa0885db01857c9628099d8e3ada464558f7ad",
+    ),
+    (
+        "09aaae53b479e55d7b7e6309d37707955747969fbfcc77cc7cceac8c4740e173", "44498a6bd01167c16b0bb9bf36495c7d0e19342e6eb2eae907d46f854b159045",
+        "4118cb9df40e747b8877d56c174eeb0f75a5b857e01fe2e7e7aef6cfa1d7779e", "771a3769546447f19ae09bbf39d900dc",
+        "928bb2100e69f6d546eb5fe9b80ea54651ebbc058725f79aaa746ef197a4b516", "6e13e4cb4f88e1500bc07e1f3cca9e981a6888424b92c91f8d9610fd3eac3eb8",
+        "33aefd67b908a36a2fed68f34e3f52aa7946bee9f3438666f40d48fb56a5a144", "72cec27b44c1575e5e5822dd6316f823cca52b60a5dc51c04928af381c8d9308",
+        "44d0a5e8-631c-4d8b-901d-3874352ede51", "resp_07e9bff6e2a18a6e016b0950d9873887d0bc9dc2bd5774bbeb",
+        "resp_44d0a5e8631c4d8b901d3874352ede51", "3017cafefad014e0136aa9517a40b5085e0ac04d2289c0e56cc2772dec19f42a",
+    ),
+)
+_157_W65_OWNED_HISTORY = tuple(
+    Review(
+        retry.bounded.RunIdentity(f"-157-relay-retry-{wave}", contract, approval),
+        request, attempt, job, result, terminal, progress, "response_id_mismatch",
+        {"provider_request_id": provider_request, "response_id": response,
+         "conflicting_response_id": alias, "event_type": "response.output_item.added",
+         "http_status": 200, "phase": "transport_failure", "error_type": "response_id_mismatch",
+         "provider_error_code": "upstream_error", "conflicting_event_type": "response.failed",
+         "response_id_matches_transport_alias": True, "model": "gpt-6.2-astra"},
+    )
+    for wave, (contract, approval, request, attempt, job, result, terminal, progress,
+               provider_request, response, alias, _) in enumerate(_157_W65_PRECEDING, 62)
+)
+_157_W65_REJECTED_EFFORT = Review(
+    retry.bounded.RunIdentity(
+        "-157-relay-retry-65",
+        "6efcf16dc65d16a510a09f1c38d51adc3f554538e77496b9fd10f63cdcffed74",
+        "bede1b2975e4e2d2523c2ba451ba25ffdeabf2ad4b6623ce7bb3360dcd6f67aa",
+    ),
+    "df4d40c514c47a1878758d0bb02be9290928f38bbad5588767cc859f260bf257",
+    "57f23d21614e40bea3b5549c722d2fa0",
+    "3a1575f3ccd87db1028ba2c1aed7acd01a005327879e53d9172af09126c59c23",
+    "71bbbfa590aabf46ccb50883067ef11870f8f6c8bb2f18fec50bc8d0083f8cf6",
+    "545f668dcdf41accd594715333a5a409d91b0c0c7d1b353860bcddf43cdabcf0",
+    "5cdefef3eba512f013bed8c1750c9f55ad44d6403174738e109580d5644d015d",
+    "served_reasoning_effort_mismatch",
+    {"http_status": 200, "phase": "transport_failure", "event_type": "response.completed",
+     "error_type": "served_reasoning_effort_mismatch", "model": "gpt-6.2-astra",
+     "provider_request_id": "d64de856-db94-497d-88da-6eab17e336ad", "sse_event_count": 373,
+     "response_id": "resp_0fef02b5831aad84016b095386234c87d08405863ace1855be",
+     "complete_terminal_captured": True},
+)
+_157_W65_SECOND_ROWS = (
+    *(
+        (step[0], record_sha, step[-1], "ac42a77b7b18963db4be8ca807aa68bc04636643cdb8b0f9d0226a3f515a1aee")
+        for step, record_sha in zip(_157_W65_PRECEDING, (
+            None,
+            "26e4274793194e96a471edf386c033151f8f46e4b759fb7eecbb45e1693f715e",
+            "bf9ff9e242d535c90aaa00f09d33da13ba459ddcded752bc0f99471bbcd91b98",
+        ), strict=True)
+    ),
+    (
+        _157_W65_REJECTED_EFFORT.identity.contract,
+        _157_W65_RECORD,
+        "cccbbeffe25c6dc2c4512455ee20801b9ef76a5bf9b17d79131a4a85d94a10c1",
+        "ac42a77b7b18963db4be8ca807aa68bc04636643cdb8b0f9d0226a3f515a1aee",
+    ),
+)
+SCOPES[(157, 66)] = replace(
+    SCOPES[(157, 62)], wave=66, cooldown_unix=1795773442.7759416,
+    archive=(*SCOPES[(157, 62)].archive, *_157_W65_OWNED_HISTORY, _157_W65_REJECTED_EFFORT),
+    fitted_prefix_files=(
+        ("pause.request", _157_W65_SECOND_ROWS[-1][2]),
+        ("boundary.json", "2039d9d533d6bef9008107ba51e9d77f431902250343e5ec6c8c4478bb62bb57"),
+        ("round_07/source.json", _157_W65_SECOND_ROWS[-1][3]),
+        ("round_07/boundary_memory.json", "2ddffdf429aabee1493cec68248e696aaf52578433bf61308ab2841317cdc897"),
+        ("round_07/boundary_user_message.json", "9d06198b47989e3db2b6891a4ee63d50467d76de308b6add47e241baf63cb598"),
+        ("round_07/authoritative_packet.json", "767f945a9801c53434e2dea7eb7756d5499cc6b0af3d5f77c2a633c800957793"),
+        ("round_07/turn_00/request.json", "df0575da36c37def78c20a3385b7e2b11eb87d41ab7502b2c6e5753b3b152493"),
+        ("round_07/turn_00/attempt_00.started.json", "8f2dc63597913a9672614b04fa0a10f00a21fef8bcbd72e2fc3e22f574aeef5b"),
+    ),
+)
+_OPERATOR_RECHECK_SOURCE = STUDY / "scripts/dispatch_v13_157_w66_pool.py"
+
+
+def operator_reasoning_recheck(scope):
+    if scope == SCOPES[(157, 66)]:
+        previous = _157_W65_REJECTED_EFFORT
+        return {
+            "previous_attempt_id": previous.attempt_id,
+            "raw_response_sha256": "7d41d14e5be54cbddddb9dd087a8450ae89d16cf31852df94f5c906f0294c5a5",
+            "provider_request_id": previous.progress["provider_request_id"],
+            "reported_effort": "xhigh",
+            "maximum_physical_attempts": 1,
+            "expires_unix": 1795782600,
+        }
+    return None
+
+
 REVIEWED_RECORD_FIELD = "reviewed_recovery_record_sha256"
 RETIRED_REVIEWED_RECORDS_FIELD = "retired_reviewed_recovery_records"
 RETIRED_SECONDARY_RECORDS_FIELD = "retired_secondary_reviewed_recovery_records"
@@ -14328,6 +14498,8 @@ def _retired_reviewed_history(scope):
 def retired_secondary_reviewed_history(scope):
     if scope == SCOPES[(6101, 60)]:
         return _retired_reviewed_history(replace(scope, retired_reviewed_records=_6101_W59_SECOND_ROWS))
+    if operator_reasoning_recheck(scope) is not None:
+        return _retired_reviewed_history(replace(scope, retired_reviewed_records=_157_W65_SECOND_ROWS))
     return []
 
 
@@ -14470,6 +14642,21 @@ def _require_6101_w59_stream_fallback(scope, old, result, record, record_file_sh
         raise PermissionError("the exact W59 posted stream and its two signed history segments differ")
 
 
+def _require_157_w65_mismatch_fallback(scope, old, record, record_file_sha):
+    proof = operator_reasoning_recheck(scope)
+    if (proof is None or old.get(REVIEWED_RECORD_FIELD) != _157_W65_RECORD
+            or digest(old.get(RETIRED_REVIEWED_RECORDS_FIELD)) != _157_W65_PRIOR_RETIRED
+            or old.get("recovery_budget") != {"maximum_logical_requests": 1, "maximum_physical_attempts": 1}
+            or record_file_sha != _157_W65_RECORD_FILE or digest(record) != _157_W65_RECORD
+            or (record.get("seed"), record.get("round"), record.get("anchor_wave")) != (157, 7, 62)
+            or len(record.get("steps", ())) != 3
+            or (record.get("payload_sha256"), record.get("checkpoint_sha256"),
+                old.get("model_identity", {}).get("reported_reasoning_effort")) != (
+                scope.payload_sha256, _157_W61_ROLLOVER_CHECKPOINT, proof["reported_effort"],
+            )):
+        raise PermissionError("the W65 reasoning rejection or its two signed history segments differ")
+
+
 def _require_static_timeout_fallback(scope, old, result):
     """Close the current reviewed marker only for an explicitly pinned idle-timeout successor."""
     latest = scope.archive[-1]
@@ -14603,6 +14790,7 @@ def construct(root, failed_release, failed_run, run, scope):
     old = parent.predecessor
     retired_history = _retired_reviewed_history(scope)
     fitted_predecessor = fitted_reviewed_predecessor(scope)
+    recheck = operator_reasoning_recheck(scope)
     if scope == SCOPES[(2357, 57)]:
         _verify_w57_fitted_predecessor(records, fitted_predecessor)
     elif scope == SCOPES[(2357, 56)]:
@@ -14626,6 +14814,9 @@ def construct(root, failed_release, failed_run, run, scope):
         elif (scope.seed, scope.wave) == (157, 62):
             record = read_bridge_json(failed_run / REVIEWED_RECORD_FILE)
             _require_157_w61_exhausted_fallback(scope, old, result, record)
+        elif recheck is not None:
+            record_path = failed_run / REVIEWED_RECORD_FILE
+            _require_157_w65_mismatch_fallback(scope, old, read_bridge_json(record_path), file_digest(record_path))
         elif scope == SCOPES[(6101, 60)]:
             record_path = failed_run / REVIEWED_RECORD_FILE
             _require_6101_w59_stream_fallback(scope, old, result, read_bridge_json(record_path), file_digest(record_path))
@@ -14722,6 +14913,13 @@ def construct(root, failed_release, failed_run, run, scope):
     if reviewed_normal_budget is not None:
         proof["reviewed_normal_parent_budget"] = reviewed_normal_budget
         profile.pop("full_imported_boundary_round")
+    if recheck is not None:
+        if (index, len(state.provenance["expected_observed"]), binding["checkpoint_sha256"]) != (
+            7, 557, _157_W61_ROLLOVER_CHECKPOINT,
+        ):
+            raise PermissionError("the exact L557 checkpoint or one reviewed A7 round changed")
+        profile["target_labels"] = 589
+        proof["operator_reasoning_recheck"] = recheck
     sources = _source_manifest(root, parent, scope)
     contract = replace(parent, profile=profile, source_sha256=sources, run_directory=str(run), predecessor=proof)
     return contract, boundary, cache, request
@@ -14769,6 +14967,9 @@ def main():
     if time() < scope.not_before_unix:
         raise PermissionError("the original 180-second relay cooldown is still in force")
     resume = args.action == "resume"
+    recheck = operator_reasoning_recheck(scope)
+    if recheck is not None and not resume and time() >= recheck["expires_unix"]:
+        raise PermissionError("the operator authorized resend has expired")
     if scope.reviewed_record_sha256 is not None:
         retry._retired(failed_run, scope, require_pause=True)
         with retry.scheduler._lock(run / "reviewed_recovery_activation.lock",
